@@ -10,7 +10,7 @@ function HashiConfGlobalSlot({ description }: HashiConfGlobalSlotProps) {
 			ariaLabel="HashiConf Global"
 			href="https://hashiconf.com/global/"
 			className={s.root}
-			openInNewTab
+			opensInNewTab
 		>
 			<Image
 				src="/img/homepage/hashiconf-global-logo.svg"

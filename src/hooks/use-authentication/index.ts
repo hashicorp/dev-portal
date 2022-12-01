@@ -83,7 +83,6 @@ const useAuthentication = (
 		if (canAnalyzeUser() && segmentUserId !== session.id) {
 			analytics?.identify(session.id, {
 				email: user.email,
-				name: user.name,
 				devPortalSignUp: true,
 			})
 		}

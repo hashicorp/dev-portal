@@ -63,7 +63,7 @@ function BrandedCallout({
 						icon={<IconArrowRight16 />}
 						iconPosition="trailing"
 						color="secondary"
-						openInNewTab={isExternal}
+						opensInNewTab={isExternal}
 					/>
 				</p>
 			</div>

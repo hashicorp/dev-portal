@@ -42,7 +42,7 @@ function GiveFeedbackButton({
 					href={FEEDBACK_FORM_URL}
 					icon={<IconExternalLink16 />}
 					iconPosition="trailing"
-					openInNewTab
+					opensInNewTab
 					text={LINK_TEXT}
 					data-heap-track="give-feedback-button"
 				/>

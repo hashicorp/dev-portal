@@ -12,15 +12,14 @@ function IconCardLinkGridList({
 		<CardsGridList gridGap={gridGap} fixedColumns={fixedColumns}>
 			{cards.map((iconCard: IconCard, key: number) => {
 				return (
-					// eslint-disable-next-line react/no-array-index-key
-					<li key={key}>
-						<IconCardLink
-							icon={iconCard.icon}
-							productSlug={iconCard.productSlug || productSlug}
-							text={iconCard.text}
-							url={iconCard.url}
-						/>
-					</li>
+					<IconCardLink
+						// eslint-disable-next-line react/no-array-index-key
+						key={key}
+						icon={iconCard.icon}
+						productSlug={iconCard.productSlug || productSlug}
+						text={iconCard.text}
+						url={iconCard.url}
+					/>
 				)
 			})}
 		</CardsGridList>

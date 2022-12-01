@@ -50,7 +50,7 @@ const CommandBarDialogFooter = ({
 					href={FEEDBACK_FORM_URL}
 					icon={<IconExternalLink16 />}
 					iconPosition="trailing"
-					openInNewTab
+					opensInNewTab
 					size="small"
 					text="Give Feedback"
 				/>
