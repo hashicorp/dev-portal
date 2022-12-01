@@ -16,7 +16,7 @@ interface TutorialsTabContentsProps {
 
 type TutorialHitObject = Hit<{
 	description: string
-	name: string 
+	name: string
 	headings: string[]
 }> &
 	Pick<
