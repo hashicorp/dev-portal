@@ -14,13 +14,13 @@ const StandaloneLink = ({
 	icon,
 	iconPosition,
 	onClick,
-	openInNewTab = false,
+	opensInNewTab = false,
 	size = 'medium',
 	text,
 	textClassName,
 }: StandaloneLinkProps): ReactElement => {
 	const classes = classNames(s.root, s[`color-${color}`], s[size], className)
-	const rel = openInNewTab ? 'noreferrer noopener' : undefined
+	const rel = opensInNewTab ? 'noreferrer noopener' : undefined
 
 	return (
 		<Link
@@ -31,7 +31,7 @@ const StandaloneLink = ({
 			href={href}
 			onClick={onClick}
 			rel={rel}
-			opensInNewTab={openInNewTab}
+			opensInNewTab={opensInNewTab}
 		>
 			{iconPosition === 'leading' && icon}
 			<span className={classNames(s.text, textClassName)}>{text}</span>

@@ -9,12 +9,12 @@ export interface PrimaryNavLinkProps {
 	navItem: {
 		label: string
 		url: string
-		openInNewTab?: boolean
+		opensInNewTab?: boolean
 	}
 }
 
 const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
-	const { label, url, openInNewTab } = navItem
+	const { label, url, opensInNewTab } = navItem
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const isCurrentPage = url === currentPath || url === `${currentPath}/`
 
@@ -25,12 +25,12 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 			className={s.root}
 			data-heap-track="navigation-header-primary-nav-link"
 			href={url}
-			opensInNewTab={openInNewTab}
+			opensInNewTab={opensInNewTab}
 		>
 			<Text asElement="span" className={s.linkText} size={200} weight="medium">
 				{label}
 			</Text>
-			{openInNewTab ? <IconExternalLink16 /> : null}
+			{opensInNewTab ? <IconExternalLink16 /> : null}
 		</Link>
 	)
 }

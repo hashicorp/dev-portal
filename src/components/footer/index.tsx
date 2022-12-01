@@ -12,7 +12,7 @@ const FOOTER_ITEMS: FooterItem[] = [
 		type: 'link',
 		href: FEEDBACK_FORM_URL,
 		text: 'Give Feedback',
-		openInNewTab: true,
+		opensInNewTab: true,
 	},
 	{
 		type: 'link',
@@ -94,8 +94,8 @@ function Footer({
 							<a
 								className={s.linkAction}
 								href={item.href}
-								target={item.openInNewTab ? '_blank' : undefined}
-								rel={item.openInNewTab ? 'noreferrer' : undefined}
+								target={item.opensInNewTab ? '_blank' : undefined}
+								rel={item.opensInNewTab ? 'noreferrer' : undefined}
 							>
 								{textElement}
 							</a>
