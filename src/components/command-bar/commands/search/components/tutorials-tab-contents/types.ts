@@ -16,8 +16,7 @@ interface TutorialsTabContentsProps {
 
 type TutorialHitObject = Hit<{
 	description: string
-	page_title: string
-	name: string // TODO: remove this once page_title is fully seeded
+	name: string 
 	headings: string[]
 }> &
 	Pick<
