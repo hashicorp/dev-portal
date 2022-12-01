@@ -11,7 +11,7 @@ export interface FooterProps {
 interface FooterLinkItem {
 	text: string
 	href: string
-	openInNewTab?: boolean
+	opensInNewTab?: boolean
 }
 
 /**

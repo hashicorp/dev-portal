@@ -1,5 +1,5 @@
 import { CSSProperties, ReactElement } from 'react'
-import NextImage from 'next/future/image'
+import NextImage from 'next/image'
 import { ImageProps } from './types'
 import classNames from 'classnames'
 import s from './image.module.css'
