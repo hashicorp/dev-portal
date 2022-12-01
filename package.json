@@ -111,7 +111,7 @@
 		"@hashicorp/react-code-block": "^6.2.2",
 		"@hashicorp/react-command-line-terminal": "^2.0.4",
 		"@hashicorp/react-consent-manager": "^8.2.1",
-		"@hashicorp/react-docs-page": "^17.7.0",
+		"@hashicorp/react-docs-page": "^17.7.1",
 		"@hashicorp/react-docs-sidenav": "^9.0.2",
 		"@hashicorp/react-enterprise-alert": "^6.0.1",
 		"@hashicorp/react-error-view": "^0.0.3",
