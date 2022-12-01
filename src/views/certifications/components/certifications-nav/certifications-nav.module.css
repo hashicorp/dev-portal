@@ -1,0 +1,25 @@
+.root {
+	border: 1px solid magenta;
+}
+
+.nav {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2rem;
+	justify-content: center;
+}
+
+.label {
+	color: magenta;
+}
+
+.listRoot {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	justify-content: center;
+	list-style: none;
+	margin: 0;
+	padding: 1rem;
+}
