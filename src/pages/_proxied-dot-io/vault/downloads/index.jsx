@@ -49,10 +49,7 @@ function DownloadsPage({ product, releases, latestVersion }) {
 					<MerchandisingSlot />
 					<p className={s.releaseNote}>
 						Release notes are available in our{' '}
-						<Link href={`/docs/release-notes`}>
-							<a>documentation</a>
-						</Link>
-						.
+						<Link href={`/docs/release-notes`}>documentation</Link>.
 					</p>
 				</>
 			}
