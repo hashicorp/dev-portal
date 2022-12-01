@@ -304,14 +304,8 @@ function splitRedirectsByType(redirects) {
 			) ||
 			(redirect.has && redirect.has.some((has) => has.type !== 'host'))
 		) {
-			if (redirect.source === '/nomad/tools/autoscaling/concepts/checks') {
-				console.log('glob', redirect)
-			}
 			globRedirects.push(redirect)
 		} else {
-			if (redirect.source === '/nomad/tools/autoscaling/concepts/checks') {
-				console.log('simple', redirect)
-			}
 			simpleRedirects.push(redirect)
 		}
 	})
