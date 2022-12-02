@@ -13,6 +13,7 @@ interface HeaderProps {
 	author: string
 	versions: string[]
 	description?: string
+	hideVersions?: boolean
 }
 
 export default function Header({
@@ -21,12 +22,14 @@ export default function Header({
 	tier,
 	author,
 	versions,
+	hideVersions,
 	description,
 }: HeaderProps) {
 	// note - the backend will not return pre-releases,
 	// and will sort by semver DESC.
 	const latestVersion: string = versions[0]
 	const otherVersions: Array<string> = versions.slice(1)
+	const showVersions = !hideVersions && versions.length > 1
 	return (
 		<div className={classNames(s.header, className)}>
 			<div className={s.left}>
@@ -43,7 +46,7 @@ export default function Header({
 				<p>{description}</p>
 			</div>
 			<div className={s.right}>
-				{versions.length > 1 && (
+				{showVersions ? (
 					<DropdownDisclosure
 						className={s.versionDropdown}
 						color="secondary"
@@ -60,7 +63,7 @@ export default function Header({
 							)
 						})}
 					</DropdownDisclosure>
-				)}
+				) : null}
 			</div>
 		</div>
 	)

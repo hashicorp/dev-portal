@@ -58,6 +58,7 @@ export default function ProductIntegrationLanding({
 								tier={integration.tier}
 								author={integration.organization.slug}
 								versions={integration.versions}
+								hideVersions={integration.hide_versions}
 								description={integration.description}
 							/>
 
