@@ -5,7 +5,9 @@ import {
 	useEffect,
 	useMemo,
 	useReducer,
+	useRef,
 } from 'react'
+import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import commands from './commands'
 import { CommandBarActivator, CommandBarDialog } from './components'
 import {
@@ -24,6 +26,7 @@ const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
 	currentCommand: commands.search,
 	currentInputValue: '',
 	currentTags: [],
+	inputRef: null,
 	isOpen: false,
 }
 
@@ -79,9 +82,14 @@ const commandBarReducer = (
 }
 
 const CommandBarContext = createContext<CommandBarContextValue>(undefined)
+CommandBarContext.displayName = 'CommandBarContext'
 
 const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
-	const [state, dispatch] = useReducer(commandBarReducer, DEFAULT_CONTEXT_STATE)
+	const inputRef = useRef<HTMLInputElement>()
+	const [state, dispatch] = useReducer(commandBarReducer, {
+		...DEFAULT_CONTEXT_STATE,
+		inputRef,
+	})
 
 	/**
 	 * Set up the callbacks for modifying state
@@ -121,6 +129,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		const handleKeyDown = (e: KeyboardEvent) => {
 			const { ctrlKey, metaKey, key } = e
 			if (key === 'k' && (ctrlKey || metaKey)) {
+				e.preventDefault()
 				toggleIsOpen()
 			}
 		}
@@ -131,6 +140,11 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 			document.removeEventListener('keydown', handleKeyDown)
 		}
 	}, [toggleIsOpen])
+
+	/**
+	 * If it is open, handle closing the dialog on `routeChangeStart`.
+	 */
+	useOnRouteChangeStart({ handler: toggleIsOpen, shouldListen: state.isOpen })
 
 	/**
 	 * Memoize the Context value

@@ -1,6 +1,7 @@
 import fetch from 'node-fetch'
 import moize, { Options } from 'moize'
 import { generateTutorialMap } from 'pages/api/tutorials-map'
+import { withTiming } from 'lib/with-timing'
 
 export async function getTutorialMap() {
 	let result = {}
@@ -21,7 +22,10 @@ export async function getTutorialMap() {
 			const tutorialMapRes = await cachedGenerateTutorialMap()
 			result = tutorialMapRes
 		} else {
-			const tutorialMapRes = await fetch(apiRoute)
+			const tutorialMapRes = await withTiming(
+				`[getTutorialMap] (${apiRoute})`,
+				() => fetch(apiRoute)
+			)
 			if (tutorialMapRes.ok) {
 				result = await tutorialMapRes.json()
 			}

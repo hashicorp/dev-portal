@@ -2,6 +2,13 @@ import { NavNode } from '@hashicorp/react-docs-sidenav/types'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import { MenuItem } from 'components/sidebar'
 import path from 'path'
+import {
+	getIsExternalLearnLink,
+	getIsRewriteableDocsLink,
+	getTutorialMap,
+	rewriteExternalDocsLink,
+	rewriteExternalLearnLink,
+} from 'lib/remark-plugins/rewrite-tutorial-links/utils'
 
 // TODO: export NavBranch and NavLeaf
 // TODO: types from react-docs-sidenav.
@@ -47,13 +54,15 @@ function isNavDirectLink(value: NavNode): value is NavDirectLink {
 	return value.hasOwnProperty('href')
 }
 
+let TUTORIAL_MAP
+
 /**
  * Prepares all sidebar nav items for client-side rendering. Keeps track of the
  * index of each node using `startingIndex` and the `traversedNodes` property
  * returned from `prepareNavNodeForClient`. Also returns its own
  * `traversedNodes` since it is recursively called in `prepareNavDataForClient`.
  */
-function prepareNavDataForClient({
+async function prepareNavDataForClient({
 	basePaths,
 	nodes,
 	startingIndex = 0,
@@ -61,12 +70,15 @@ function prepareNavDataForClient({
 	basePaths: string[]
 	nodes: NavNode[]
 	startingIndex?: number
-}): { preparedItems: MenuItem[]; traversedNodes: number } {
+}): Promise<{ preparedItems: MenuItem[]; traversedNodes: number }> {
 	const preparedNodes = []
 
+	TUTORIAL_MAP = TUTORIAL_MAP ?? (await getTutorialMap())
+
 	let count = 0
-	nodes.forEach((node) => {
-		const result = prepareNavNodeForClient({
+	for (let i = 0; i < nodes.length; i++) {
+		const node = nodes[i]
+		const result = await prepareNavNodeForClient({
 			basePaths,
 			node,
 			nodeIndex: startingIndex + count,
@@ -76,7 +88,7 @@ function prepareNavDataForClient({
 			preparedNodes.push(preparedItem)
 			count += traversedNodes
 		}
-	})
+	}
 
 	return { preparedItems: preparedNodes, traversedNodes: count }
 }
@@ -98,7 +110,7 @@ function prepareNavDataForClient({
  *    `fullPath` properties.
  *  - Otherwise, nothing is added to an item but a unique `id`.
  */
-function prepareNavNodeForClient({
+async function prepareNavNodeForClient({
 	basePaths,
 	node,
 	nodeIndex,
@@ -106,7 +118,7 @@ function prepareNavNodeForClient({
 	node: NavNode
 	basePaths: string[]
 	nodeIndex: number
-}): { preparedItem: MenuItem; traversedNodes: number } {
+}): Promise<{ preparedItem: MenuItem; traversedNodes: number }> {
 	/**
 	 * TODO: we need aligned types that will work here. NavNode (external import)
 	 * does not allow the `hidden` property.
@@ -122,7 +134,7 @@ function prepareNavNodeForClient({
 
 	if (isNavBranch(node)) {
 		// For nodes with routes, add fullPaths to all routes, and `id`
-		const { preparedItems, traversedNodes } = prepareNavDataForClient({
+		const { preparedItems, traversedNodes } = await prepareNavDataForClient({
 			basePaths,
 			nodes: node.routes,
 			startingIndex: nodeIndex + 1,
@@ -180,6 +192,35 @@ function prepareNavNodeForClient({
 			// Otherwise, this is a genuinely external NavDirectLink,
 			// so we only need to add an `id` to it.
 			const preparedItem = { ...node, id }
+
+			/**
+			 * Rewrite external Learn and Docs links if needed. Default to the
+			 * original `href`.
+			 *
+			 * 	- learn.hashicorp.com
+			 * 	- vaultproject.io
+			 * 	- waypointproject.io
+			 */
+			try {
+				let newHref
+				const urlObject = new URL(node.href)
+				if (getIsExternalLearnLink(node.href)) {
+					newHref = rewriteExternalLearnLink(urlObject, TUTORIAL_MAP)
+				} else if (getIsRewriteableDocsLink(node.href)) {
+					newHref = rewriteExternalDocsLink(urlObject)
+				}
+
+				if (newHref) {
+					preparedItem.href = newHref
+				}
+			} catch (error) {
+				console.error(
+					`[prepareNavNodeForClient] error in checking for external Learn/Docs link rewrite: ${JSON.stringify(
+						{ error, node }
+					)}`
+				)
+			}
+
 			return { preparedItem, traversedNodes: 1 }
 		}
 	} else {

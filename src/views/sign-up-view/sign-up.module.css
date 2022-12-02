@@ -24,7 +24,7 @@
 	}
 
 	@media (--dev-dot-desktop) {
-		width: 45vw;
+		width: 50vw;
 	}
 }
 
@@ -63,18 +63,11 @@
 }
 
 .signInContainer {
-	color: var(--token-color-foreground-primary);
-	margin-top: 16px;
-	display: flex;
 	align-items: center;
-}
-
-.signInText {
-	/*
-	TODO this aligns text with Button text, but this approach will not withstand
-	dyanmic font sizes
-	*/
-	margin-top: 2px;
+	color: var(--token-color-foreground-primary);
+	display: flex;
+	gap: 8px;
+	margin-top: 16px;
 }
 
 .aside {
@@ -89,7 +82,7 @@
 
 	@media (--dev-dot-desktop) {
 		height: 100vh;
-		width: 55vw;
+		width: 50vw;
 	}
 }
 

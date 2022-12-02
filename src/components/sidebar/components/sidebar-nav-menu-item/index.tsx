@@ -5,13 +5,13 @@ import {
 	useRef,
 	useState,
 } from 'react'
-import Link from 'next/link'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { ProductSlug } from 'types/products'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Badge from 'components/badge'
+import Link from 'components/link'
 import { MenuItem } from 'components/sidebar'
 import ProductIcon from 'components/product-icon'
 import {
@@ -102,7 +102,6 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		: undefined
 	const className = s.sidebarNavMenuItem
 	const rel = isExternal ? 'noreferrer noopener' : undefined
-	const target = isExternal ? '_blank' : undefined
 
 	const anchorContent = (
 		<>
@@ -128,16 +127,16 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	if (href) {
 		// link is not "disabled"
 		return (
-			<Link href={href}>
-				<a
-					aria-current={ariaCurrent}
-					aria-label={ariaLabel}
-					className={className}
-					rel={rel}
-					target={target}
-				>
-					{anchorContent}
-				</a>
+			<Link
+				aria-current={ariaCurrent}
+				aria-label={ariaLabel}
+				className={className}
+				data-heap-track="sidebar-nav-link-item"
+				href={href}
+				opensInNewTab={isExternal}
+				rel={rel}
+			>
+				{anchorContent}
 			</Link>
 		)
 	} else {
@@ -228,6 +227,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 				id={buttonId}
 				onClick={() => setIsOpen((prevState: boolean) => !prevState)}
 				ref={buttonRef}
+				data-heap-track="sidebar-nav-submenu-button"
 			>
 				<Text
 					asElement="span"
@@ -247,9 +247,10 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 			</button>
 			{isOpen && (
 				<ul id={listId} onKeyDown={handleKeyDown}>
-					{item.routes.map((route: MenuItem) => (
-						<SidebarNavMenuItem key={route.id} item={route} />
-					))}
+					{item.routes.map((route: MenuItem, i) => {
+						const key = `${route.id || route.fullPath || route.title}-${i}`
+						return <SidebarNavMenuItem key={key} item={route} />
+					})}
 				</ul>
 			)}
 		</>

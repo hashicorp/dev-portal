@@ -19,6 +19,7 @@ import {
 	MdxP,
 	MdxInlineCode,
 	MdxBlockquote,
+	MdxTryHcpCallout,
 } from 'components/dev-dot-content/mdx-components'
 import Image from 'components/image'
 import { ImageProps } from 'components/image/types'
@@ -76,6 +77,7 @@ function _defaultComponents() {
 		h6: MdxH6,
 		p: MdxP,
 		table: MdxTable,
+		TryHcpCallout: MdxTryHcpCallout,
 	}
 }
 

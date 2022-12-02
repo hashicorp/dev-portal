@@ -4,16 +4,8 @@
 		"max_static_paths": 9999
 	},
 	"dev_dot": {
-		"beta_product_slugs": [
-			"boundary",
-			"consul",
-			"nomad",
-      "packer",
-			"terraform",
-			"vagrant",
-			"vault",
-			"waypoint"
-		],
+		"max_static_paths": 50,
+		"beta_product_slugs": [],
 		"datadog_config": {
 			"applicationId": "4486817b-44b8-4e6c-b6a4-cef83e48cf46",
 			"clientToken": "pub750ceadc5a9c79a6d3da59b534eb5108",

@@ -23,6 +23,22 @@ the correct elements, roles, states, and properties are being set in the markup.
 			border-bottom: none;
 		}
 	}
+
+	&.variant--compact {
+		border: none;
+		padding: 0;
+		position: relative;
+
+		&::after {
+			border-bottom: 1px solid var(--token-color-border-primary);
+			bottom: 0;
+			content: '';
+			height: 1px;
+			left: 0;
+			position: absolute;
+			right: 0;
+		}
+	}
 }
 
 /* While hasOverflow is being checked, temporarily hide the controls */
@@ -41,7 +57,6 @@ ref: https://twitter.com/heydonworks/status/408263890284191745
 ref: https://twitter.com/MarcoInEnglish/status/363284092806119424
 */
 .tabPanel[role='tabpanel'] {
-	/* Note: g-focus-ring-from-box-shadow added in JSX */
 	border-radius: 6px;
 
 	&[aria-hidden='true'] {

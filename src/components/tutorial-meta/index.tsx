@@ -28,8 +28,8 @@ export default function TutorialMeta({
 	 * We only need to show the Create Account CTA if auth is enabled and there is
 	 * not already a user authenticated.
 	 */
-	const { isAuthenticated, isAuthEnabled, isLoading } = useAuthentication()
-	const showCreateAccountCta = isAuthEnabled && !isLoading && !isAuthenticated
+	const { isAuthenticated, isLoading } = useAuthentication()
+	const showCreateAccountCta = !isLoading && !isAuthenticated
 
 	return (
 		<header className={s.header}>
@@ -56,28 +56,19 @@ export default function TutorialMeta({
 						isInteractive,
 					}}
 				/>
-				{/**
-				 * TODO: remove this conditional once auth is released to prod,
-				 * since the bookmark button will always render. If we don't
-				 * conditionally render this and there is no interactive lab button,
-				 * a margin stacking occurs that disrupts the layout
-				 */}
-				{isInteractive || isAuthEnabled ? (
-					<span className={s.buttonGroup}>
-						<InteractiveLabButton />
-						{/*// NOTE! - hiding this component from prod until auth is enabled */}
-						{isAuthEnabled ? (
-							<TutorialMetaBookmarkButton
-								tutorial={{ id: tutorialId, name: heading.text }}
-							/>
-						) : null}
-					</span>
-				) : null}
+				<span className={s.buttonGroup}>
+					<InteractiveLabButton />
+					<TutorialMetaBookmarkButton
+						tutorial={{ id: tutorialId, name: heading.text }}
+					/>
+				</span>
 				{showCreateAccountCta ? (
-					<Text className={s.createAccountCta}>
+					<Text className={s.createAccountCta} size={200}>
 						Reference this often?{' '}
-						<InlineLink href="/sign-up">Create an account</InlineLink> to
-						bookmark tutorials.
+						<InlineLink href="/sign-up" textSize={200}>
+							Create an account
+						</InlineLink>{' '}
+						to bookmark tutorials.
 					</Text>
 				) : null}
 			</div>

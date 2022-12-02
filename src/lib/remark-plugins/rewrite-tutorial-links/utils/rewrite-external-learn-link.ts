@@ -1,4 +1,3 @@
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import { isSectionOption } from 'lib/learn-client/types'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import {
@@ -36,25 +35,22 @@ const rewriteExternalLearnLink = (
 		product = normalizeSlugForDevDot(pathnameParts[2])
 	}
 
-	const isBetaProduct = getIsBetaProduct(product)
-	if (isSectionOption(product) || isBetaProduct) {
-		// Regexes for each path type
-		const collectionPathRegex = new RegExp('^/collections')
-		const tutorialPathRegex = new RegExp('^/tutorials')
-		const productHubPathRegex = new RegExp(`^/${product}|cloud/?$`)
+	// Regexes for each path type
+	const collectionPathRegex = new RegExp('^/collections')
+	const tutorialPathRegex = new RegExp('^/tutorials')
+	const productHubPathRegex = new RegExp(`^/${product}|cloud/?$`)
 
-		// Derived path type booleans
-		const isCollectionPath = collectionPathRegex.test(pathname)
-		const isProductHubPath = productHubPathRegex.test(pathname)
-		const isTutorialPath = tutorialPathRegex.test(pathname)
+	// Derived path type booleans
+	const isCollectionPath = collectionPathRegex.test(pathname)
+	const isProductHubPath = productHubPathRegex.test(pathname)
+	const isTutorialPath = tutorialPathRegex.test(pathname)
 
-		if (isCollectionPath) {
-			newUrl = rewriteExternalCollectionLink(urlObject)
-		} else if (isTutorialPath) {
-			newUrl = rewriteExternalTutorialLink(urlObject, tutorialMap)
-		} else if (isProductHubPath) {
-			newUrl = `/${product}/tutorials`
-		}
+	if (isCollectionPath) {
+		newUrl = rewriteExternalCollectionLink(urlObject)
+	} else if (isTutorialPath) {
+		newUrl = rewriteExternalTutorialLink(urlObject, tutorialMap)
+	} else if (isProductHubPath) {
+		newUrl = `/${product}/tutorials`
 	}
 
 	return newUrl

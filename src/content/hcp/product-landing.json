@@ -5,11 +5,13 @@
 	},
 	"overview": {
 		"heading": "What is HCP?",
-		"body": "HashiCorp Cloud Platform (HCP) is a fully-managed platform offering HashiCorp products-as-a-service. HCP removes the management overhead associated with deploying and maintaining HashiCorp products so that you can focus on reaping the products' benefits.",
-
+		"body": "HashiCorp Cloud Platform (HCP) is a fully-managed platform offering HashiCorp products-as-a-service. HCP removes the management overhead associated with deploying and maintaining HashiCorp products so that your teams can focus on developing and deploying applications.",
+		"cta": {
+			"text": "What is HCP?",
+			"url": "/hcp/docs/hcp"
+		},
 		"image": "https://www.datocms-assets.com/2885/1662053773-dev-dot-product-landing-what-is-hcp-diagram.png"
 	},
-	"overviewParagraph": "HCP enables you to easily launch and operate Consul, Vault, and other HashiCorp services on a HashiCorp Virtual Networks (HVN). An HVN connects to resources on your cloud infrastructure. Shared platform functionality, such as log in, access control, and billing provide centralized account and organization management. You can manage HCP assets from the web portal interface or using the Terraform provider.",
 	"get_started": {
 		"heading": "Getting Started",
 		"body": "Complete the following tutorials for step-by-step guidance on getting started:",
@@ -22,7 +24,7 @@
 			{
 				"icon": "consul-color",
 				"text": "HCP Consul",
-				"url": "/consul/tutorials/cloud-get-started"
+				"url": "/consul/tutorials/get-started-hcp"
 			},
 			{
 				"icon": "packer-color",
@@ -33,6 +35,11 @@
 				"icon": "boundary-color",
 				"text": "HCP Boundary",
 				"url": "/boundary/tutorials/hcp-getting-started"
+			},
+			{
+				"icon": "waypoint-color",
+				"text": "HCP Waypoint",
+				"url": "/waypoint/tutorials/runners/hcp-runners-on-your-infra"
 			}
 		],
 		"fixedColumns": 2

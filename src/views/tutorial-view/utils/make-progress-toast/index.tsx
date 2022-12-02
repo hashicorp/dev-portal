@@ -35,6 +35,6 @@ function generateProgressToast(
 export default function makeProgressToast(remainingTutorialsCount: number) {
 	toast({
 		...generateProgressToast(remainingTutorialsCount),
-		autoDismiss: 15000,
+		autoDismiss: 5000,
 	})
 }

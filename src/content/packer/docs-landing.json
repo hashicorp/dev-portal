@@ -49,7 +49,7 @@
 				{
 					"description": "Centrally track image metadata and enforce up-to-date image versions.",
 					"title": "HCP Packer",
-					"url": "https://cloud.hashicorp.com/docs/packer"
+					"url": "/hcp/docs/packer"
 				},
 				{
 					"description": "Create custom builders, provisioners, post-processors, and data sources.",

@@ -20,12 +20,12 @@
 			}
 		]
 	},
-	"alertBannerActive": true,
+	"alertBannerActive": false,
 	"alertBanner": {
-		"tag": "Just announced",
+		"tag": "October 5-6",
 		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
-		"text": "HashiConf Global full schedule: keynotes, sessions, labs & more.",
-		"linkText": "Register Now",
+		"text": "HashiConf Global is live. Join us virtually for keynotes, sessions, and more.",
+		"linkText": "Join now",
 		"expirationDate": ""
 	},
 	"subnavItems": [
@@ -37,7 +37,7 @@
 		"divider",
 		{
 			"text": "Tutorials",
-			"url": "https://learn.hashicorp.com/boundary",
+			"url": "https://developer.hashicorp.com/boundary/tutorials",
 			"type": "inbound"
 		},
 		{
@@ -69,9 +69,5 @@
 			"name": "API",
 			"path": "api-docs"
 		}
-	],
-	"devDotCutoverMessage": {
-		"showCutoverDate": false,
-		"cutoverDate": "Oct 18, 2022"
-	}
+	]
 }

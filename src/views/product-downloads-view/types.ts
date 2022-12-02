@@ -9,6 +9,7 @@ import { MenuItem } from 'components/sidebar'
 import { SidecarMarketingCardProps } from './components/sidecar-marketing-card'
 import { TutorialCardPropsWithId } from 'components/tutorial-card'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
+import { TryHcpCalloutCompactProps } from 'components/try-hcp-callout/types'
 
 /**
  * Raw page content, as structured in .json files
@@ -27,6 +28,7 @@ export interface PackageManager {
 	label: string
 	commands: string[]
 	os: string
+	installCodeHtml?: string
 }
 
 export interface RawProductDownloadsViewContent {
@@ -36,6 +38,7 @@ export interface RawProductDownloadsViewContent {
 	packageManagerOverrides?: PackageManager[]
 	sidebarMenuItems?: MenuItem[]
 	sidecarMarketingCard: SidecarMarketingCardProps
+	sidecarHcpCallout?: Omit<TryHcpCalloutCompactProps, 'productSlug'>
 }
 
 export type FeaturedCollectionCard = CollectionCardPropsWithId
@@ -47,16 +50,16 @@ export interface ProductDownloadsViewProps {
 	latestVersion: string
 	merchandisingSlot?: ReactElement
 	pageContent: {
-		doesNotHavePackageManagers?: boolean
 		featuredCollectionCards?: FeaturedCollectionCard[]
 		featuredTutorialCards?: FeaturedTutorialCard[]
-		packageManagerOverrides?: PackageManager[]
 		sidecarMarketingCard: SidecarMarketingCardProps
+		sidecarHcpCallout?: TryHcpCalloutCompactProps
 		sidebarMenuItems?: MenuItem[]
 		installName?: string
 	}
 	releases: ReleasesAPIResponse
 	sortedAndFilteredVersions: ReleaseVersion[]
+	packageManagers: PackageManager[]
 }
 
 /**
@@ -67,6 +70,7 @@ export interface ProductDownloadsViewContentProps {
 	merchandisingSlot?: ProductDownloadsViewProps['merchandisingSlot']
 	pageContent: ProductDownloadsViewProps['pageContent']
 	releases: ProductDownloadsViewProps['releases']
+	packageManagers: ProductDownloadsViewProps['packageManagers']
 	versionSwitcherOptions: VersionContextSwitcherProps['options']
 }
 

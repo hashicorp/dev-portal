@@ -22,6 +22,12 @@ interface DisclosureActivatorProps {
 	 * internally rendered `<button>`.
 	 */
 	className?: NativeButtonProps['className']
+
+	/**
+	 * Optional data-heap-track attribute to add to the
+	 * internally rendered `<button>`.
+	 */
+	'data-heap-track'?: string
 }
 
 export type { DisclosureActivatorForwardedRef, DisclosureActivatorProps }

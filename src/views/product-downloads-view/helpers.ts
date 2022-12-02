@@ -64,7 +64,7 @@ export const generateDefaultPackageManagers = (
 		{
 			label: 'Amazon Linux',
 			commands: [
-				`sudo yum install -y yum-utils`,
+				`sudo yum install -y yum-utils shadow-utils`,
 				`sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo`,
 				`sudo yum -y install ${productSlug}`,
 			],
@@ -87,6 +87,14 @@ export function generateEnterprisePackageManagers(
 	const productSlug = product.slug
 
 	return [
+		{
+			label: 'Homebrew',
+			commands: [
+				`brew tap hashicorp/tap`,
+				`brew install hashicorp/tap/${productSlug}-enterprise`,
+			],
+			os: 'darwin',
+		},
 		{
 			label: 'Ubuntu/Debian',
 			commands: [
@@ -123,32 +131,15 @@ export function generateEnterprisePackageManagers(
 			],
 			os: 'linux',
 		},
+		{
+			label: 'Homebrew',
+			commands: [
+				`brew tap hashicorp/tap`,
+				`brew install hashicorp/tap/${productSlug}-enterprise`,
+			],
+			os: 'linux',
+		},
 	]
-}
-
-export const generatePackageManagers = ({
-	defaultPackageManagers,
-	packageManagerOverrides,
-}: {
-	defaultPackageManagers: PackageManager[]
-	packageManagerOverrides: PackageManager[]
-}): PackageManager[] => {
-	let packageManagers: PackageManager[]
-
-	if (packageManagerOverrides) {
-		packageManagers = defaultPackageManagers.map((defaultPackageManager) => {
-			const override = packageManagerOverrides.find(
-				({ os, label }) =>
-					os === defaultPackageManager.os &&
-					label === defaultPackageManager.label
-			)
-			return override || defaultPackageManager
-		})
-	} else {
-		packageManagers = defaultPackageManagers
-	}
-
-	return packageManagers
 }
 
 export const getPageSubtitle = ({

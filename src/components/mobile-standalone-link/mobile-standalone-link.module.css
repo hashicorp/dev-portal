@@ -1,24 +1,24 @@
 .notMobileIcon {
-  display: none;
+	display: none;
 
-  @media (--dev-dot-tablet-up) {
-    display: block;
-  }
+	@media (--dev-dot-tablet-up) {
+		display: block;
+	}
 }
 
 .mobileIcon {
-  align-items: center;
-  display: flex;
+	align-items: center;
+	display: flex;
 
-  @media (--dev-dot-tablet-up) {
-    display: none;
-  }
+	@media (--dev-dot-tablet-up) {
+		display: none;
+	}
 }
 
 .text {
-  display: none;
+	display: none;
 
-  @media (--dev-dot-tablet-up) {
-    display: block;
-  }
+	@media (--dev-dot-tablet-up) {
+		display: block;
+	}
 }

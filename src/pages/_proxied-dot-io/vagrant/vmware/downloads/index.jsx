@@ -22,12 +22,12 @@ function DownloadsPage({ product, releases, latestVersion }) {
 				},
 				{
 					label: 'View all Vagrant tutorials',
-					href: 'https://learn.hashicorp.com/vagrant',
+					href: 'https://developer.hashicorp.com/vagrant/tutorials',
 				},
 			]}
 			logo={<p className={s.notALogo}>Vagrant vmware Utility</p>}
 			tutorialLink={{
-				href: 'https://learn.hashicorp.com/vagrant',
+				href: 'https://developer.hashicorp.com/vagrant/tutorials',
 				label: 'View Tutorials at HashiCorp Learn',
 			}}
 			showPackageManagers={false}

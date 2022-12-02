@@ -5,7 +5,6 @@ import ProductViewContent from 'views/product-tutorials-view/components/product-
 import HeroHeadingVisual from 'views/product-landing/components/hero-heading-visual'
 import { SidebarProps } from 'components/sidebar'
 import OverviewCta from 'views/product-landing/components/overview-cta'
-import OptInOut from 'components/opt-in-out'
 import { WellArchitectedFrameworkLandingProps } from './types'
 import s from './well-architected-framework-landing.module.css'
 import { generateWafCollectionSidebar } from './utils/generate-collection-sidebar'
@@ -14,7 +13,8 @@ export default function WellArchitectedFrameworkLandingView(
 	props: WellArchitectedFrameworkLandingProps
 ) {
 	const { data, layoutProps, metadata } = props
-	const { hero, overview, blocks } = data.pageData
+	const { blocks } = data.pageData
+	const { hero, overview } = data.wafContent
 
 	return (
 		<SidebarSidecarLayout
@@ -24,19 +24,17 @@ export default function WellArchitectedFrameworkLandingView(
 				generateTopLevelSidebarNavData(metadata.name) as SidebarProps,
 				generateWafCollectionSidebar(metadata, layoutProps.sidebarSections),
 			]}
-			optInOutSlot={<OptInOut platform="learn" />}
 		>
 			<div className={s.hero}>
 				<HeroHeadingVisual {...hero} />
 			</div>
 			<div className={s.overview}>
-				<OverviewCta {...overview} headingSlug={slugify(overview.heading)} />
+				<OverviewCta
+					{...overview}
+					headingSlug={slugify(overview.heading, { lower: true })}
+				/>
 			</div>
-			<ProductViewContent
-				blocks={blocks}
-				inlineCollections={data.inlineCollections}
-				inlineTutorials={data.inlineTutorials}
-			/>
+			<ProductViewContent blocks={blocks} />
 		</SidebarSidecarLayout>
 	)
 }

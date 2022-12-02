@@ -120,7 +120,7 @@ function UseCasePage({ data }) {
 					cta={{
 						url: tutorialsLink
 							? tutorialsLink
-							: 'https://learn.hashicorp.com/consul',
+							: 'https://developer.hashicorp.com/consul/tutorials',
 						text: 'Explore all',
 					}}
 					cardsPerRow={3}

@@ -5,6 +5,7 @@ import fetchContentApiFileString from './fetch-content-api-file-string'
 async function shimRemoteIncludes(
 	mdxString,
 	productSlug,
+	version,
 	partialsDir = 'website/content/partials'
 ) {
 	return await replaceAsync(
@@ -14,7 +15,7 @@ async function shimRemoteIncludes(
 			const includeFileString = await fetchContentApiFileString({
 				product: productSlug,
 				filePath: `${partialsDir}/${matchedPath}`,
-				version: 'refs/heads/stable-website',
+				version,
 			})
 			return `${includeFileString}\n`
 		}

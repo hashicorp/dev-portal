@@ -64,7 +64,7 @@ function CollectionProgress({ collection }: { collection: Collection }) {
 	 * current collection slug, and list of tutorials in this collection.
 	 */
 	const { completedTutorialCount, tutorialCount, isInProgress } = useMemo(
-		() => parseCollectionProgress(progressData, tutorials, { id, slug }),
+		() => parseCollectionProgress(progressData, tutorials.length, { id, slug }),
 		[progressData, tutorials, id, slug]
 	)
 
@@ -97,7 +97,9 @@ function TutorialListItem({
 		tutorialId,
 		collectionId,
 	})
-	const trailingIcon = <TutorialProgressIcon status={tutorialProgressStatus} />
+	const trailingIcon = (
+		<TutorialProgressIcon status={tutorialProgressStatus} isActive={isActive} />
+	)
 
 	return (
 		<SidebarNavMenuItem item={{ isActive, title: text, href, trailingIcon }} />

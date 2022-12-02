@@ -19,17 +19,17 @@
 			{
 				"icon": "kubernetes-color",
 				"text": "Consul with Kubernetes",
-				"url": "/consul/tutorials/gs-consul-service-mesh/get-started"
+				"url": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy"
 			},
 			{
 				"icon": "server",
 				"text": "Consul with Virtual Machines",
-				"url": "/consul/tutorials/getting-started/get-started"
+				"url": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
 			},
 			{
 				"icon": "hcp",
 				"text": "HCP Consul Quick Start",
-				"url": "/consul/tutorials/cloud-get-started/get-started"
+				"url": "/consul/tutorials/get-started-hcp/hcp-gs-deploy"
 			}
 		]
 	},

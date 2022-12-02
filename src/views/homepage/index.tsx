@@ -3,7 +3,6 @@ import { ReactElement, useMemo } from 'react'
 
 // Global imports
 import { productSlugs } from 'lib/products'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import BaseNewLayout from 'layouts/base-new'
 import Text from 'components/text'
 
@@ -14,11 +13,12 @@ import ProductNav from './components/product-nav'
 import LearnSection from './components/learn-section'
 import MerchandisingSlots from './components/merchandising-slots'
 import { HeroWithVideo } from './components/hero'
-import {
-	HashiConfGlobalSlot,
-	VaultSlot,
-} from './components/merchandising-slots/slots'
+import { HcpSlot, VaultSlot } from './components/merchandising-slots/slots'
 import s from './homepage.module.css'
+
+const VIDEO_URL = 'https://hashicorp.wistia.com/medias/m17a0rrzj1'
+const VIDEO_THUMBNAIL_URL =
+	'https://embed-ssl.wistia.com/deliveries/86999d82bb41a2c3674f0ebb6f4b55ad442d556c.jpg?image_crop_resized=960x560'
 
 const HomePageContent = ({
 	hero,
@@ -33,7 +33,6 @@ const HomePageContent = ({
 				.filter((slug) => slug !== 'sentinel')
 				.map((slug) => ({
 					slug,
-					isBeta: getIsBetaProduct(slug),
 				})),
 		[]
 	)
@@ -41,11 +40,10 @@ const HomePageContent = ({
 	return (
 		<div className={s.homepageContent}>
 			<HeroWithVideo
-				badgeText={hero.badgeText}
 				heading={hero.heading}
 				description={<Text>{hero.description}</Text>}
-				videoUrl="https://hashicorp.wistia.com/medias/031h9iogzx"
-				videoImageUrl="https://embed-ssl.wistia.com/deliveries/b65febe71ccfb5ded8d3958b1cf1ec61.jpg?image_crop_resized=960x540"
+				videoUrl={VIDEO_URL}
+				videoImageUrl={VIDEO_THUMBNAIL_URL}
 			/>
 			<ProductNav notice={navNotice} products={products} />
 			<MerchandisingSlots>
@@ -55,8 +53,11 @@ const HomePageContent = ({
 					description={merchandising.vault.description}
 					ctaText={merchandising.vault.ctaText}
 				/>
-				<HashiConfGlobalSlot
-					description={merchandising.hashiconfGlobal.description}
+				<HcpSlot
+					url={merchandising.hcp.url}
+					cardTitle={merchandising.hcp.cardTitle}
+					description={merchandising.hcp.description}
+					ctaText={merchandising.hcp.ctaText}
 				/>
 			</MerchandisingSlots>
 			<LearnSection

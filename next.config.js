@@ -5,11 +5,26 @@ const withSwingset = require('swingset')
 const { redirectsConfig } = require('./build-libs/redirects')
 const rewritesConfig = require('./build-libs/rewrites')
 const HashiConfigPlugin = require('./config/plugin')
+const { loadHashiConfigForEnvironment } = require('./config')
 
-// temporary: set all paths as noindex, until we're serving from this project
-// Update the excluded domains to ensure we are indexing content as the io sites get migrated
+// Set api key for Happy Kit feature flags
+const happyKitKey = process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
+	? process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
+	: 'flags_pub_development_343442393171755603'
+
+const config = loadHashiConfigForEnvironment()
+
+/**
+ * @type {import('next/dist/lib/load-custom-routes').Header}
+ *
+ * Temporary. Adds a `noindex` directive to all pages for products that are still in beta, and sentinel.
+ *
+ * e.g. If terraform and consul are the only products in the beta array, only developer.hashicorp.com/(consul|terraform)/* will get noindex
+ */
 const temporary_hideDocsPaths = {
-	source: '/:path*',
+	source: `/(${[...config['dev_dot.beta_product_slugs'], 'sentinel'].join(
+		'|'
+	)})/:path*`,
 	headers: [
 		{
 			key: 'X-Robots-Tag',
@@ -19,8 +34,29 @@ const temporary_hideDocsPaths = {
 	has: [
 		{
 			type: 'host',
-			value:
-				'(^(?!.*(boundaryproject|consul|nomadproject|packer|vagrantup|vaultproject|waypointproject|docs\\.hashicorp)).*$)',
+			value: 'developer.hashicorp.com',
+		},
+	],
+}
+
+/**
+ * @type {import('next/dist/lib/load-custom-routes').Header}
+ *
+ * Adds a `noindex` directive to all pages on `tip.waypointproject.io`.
+ * We don't want content on that domain to be indexed.
+ */
+const hideWaypointTipContent = {
+	source: '/:path*',
+	headers: [
+		{
+			key: 'X-Robots-Tag',
+			value: 'noindex,nofollow',
+		},
+	],
+	has: [
+		{
+			type: 'host',
+			value: 'tip.waypointproject.io',
 		},
 	],
 }
@@ -50,7 +86,7 @@ module.exports = withSwingset({
 			return config
 		},
 		async headers() {
-			return [temporary_hideDocsPaths]
+			return [temporary_hideDocsPaths, hideWaypointTipContent]
 		},
 		async redirects() {
 			const { simpleRedirects, globRedirects } = await redirectsConfig()
@@ -75,6 +111,7 @@ module.exports = withSwingset({
 			return rewrites
 		},
 		env: {
+			ASSET_API_ENDPOINT: process.env.ASSET_API_ENDPOINT,
 			AXE_ENABLED: process.env.AXE_ENABLED || false,
 			BUGSNAG_CLIENT_KEY: '06718db5e1d75829801baa0b4ca2fb7b',
 			BUGSNAG_SERVER_KEY: 'b32b4487b5dc72b32f51c8fe33641a43',
@@ -83,8 +120,10 @@ module.exports = withSwingset({
 			ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
 			HASHI_ENV: process.env.HASHI_ENV || 'development',
 			IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
+			MKTG_CONTENT_API: process.env.MKTG_CONTENT_API,
 			// TODO: determine if DevDot needs this or not
 			SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
+			HAPPY_KIT_KEY: happyKitKey,
 		},
 		svgo: {
 			plugins: [
@@ -105,9 +144,22 @@ module.exports = withSwingset({
 			contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 		},
 		experimental: {
-			images: {
-				layoutRaw: true,
-			},
+			largePageDataBytes: 512 * 1000, // 512KB
+			// TODO: not using transpilePackages here until https://github.com/vercel/next.js/pull/43546 lands
+			// transpilePackages: [
+			// 	'@hashicorp/flight-icons',
+			// 	/**
+			// 	 * TODO: once Sentinel has been migrated into the dev-portal repository,
+			// 	 * we should consider localizing the sentinel-embedded component. Should
+			// 	 * first confirm with Cam Stitt that this component is not being used
+			// 	 * elsewhere.
+			// 	 */
+			// 	'@hashicorp/sentinel-embedded',
+			// 	'swingset',
+			// 	'unist-util-visit',
+			// 	'unist-util-visit-parents',
+			// 	'unist-util-is',
+			// ],
 		},
 	})
 )

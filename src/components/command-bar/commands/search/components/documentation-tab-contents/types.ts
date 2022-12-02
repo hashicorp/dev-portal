@@ -1,8 +1,27 @@
-import { SuggestedPagesProps } from '../../types'
+import { Hit } from '@algolia/client-search'
+import { CommandBarTag } from 'components/command-bar/types'
+import { ProductSlug } from 'types/products'
+import { SuggestedPagesProps } from '../suggested-pages/types'
 
 interface DocumentationTabContentsProps {
-	searchResults: $TSFixMe[]
+	currentProductTag?: CommandBarTag
 	suggestedPages: SuggestedPagesProps['pages']
 }
 
-export type { DocumentationTabContentsProps }
+type DocumentationHitObject = Hit<{
+	page_title: string
+	description: string
+	headings?: string[]
+}> & {
+	product: ProductSlug
+}
+
+interface DocumentationHitProps {
+	hit: DocumentationHitObject
+}
+
+export type {
+	DocumentationHitObject,
+	DocumentationHitProps,
+	DocumentationTabContentsProps,
+}

@@ -9,6 +9,7 @@ import { Pagination } from '../pagination'
 import { searchStateToRouteState } from 'views/tutorial-library/utils/router-state'
 import { Tutorial } from 'lib/learn-client/types'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
+import { TutorialHitObject } from 'components/command-bar/commands/search/components'
 
 interface TutorialLibraryResultsProps {
 	defaultTutorials: Omit<Tutorial, 'content'>[]
@@ -21,7 +22,7 @@ export function TutorialLibraryResults({
 	defaultTutorials,
 }: TutorialLibraryResultsProps) {
 	const { results, uiState } = useInstantSearch()
-	const { hits } = useHits()
+	const { hits } = useHits<TutorialHitObject>()
 
 	const hasFiltersApplied =
 		Object.keys(searchStateToRouteState(uiState)).length > 0
@@ -43,22 +44,24 @@ export function TutorialLibraryResults({
 
 	let itemsToRender = null
 	if (hasFiltersApplied) {
-		itemsToRender = hits.map((hit) => (
+		itemsToRender = hits.map((hit: TutorialHitObject) => (
 			<TutorialCardWithAuthElements
 				key={hit.objectID}
 				{...getTutorialCardPropsFromHit(hit)}
 			/>
 		))
 	} else {
-		itemsToRender = defaultTutorials.map((tutorial) => (
-			<TutorialCardWithAuthElements
-				key={tutorial.id}
-				{...formatTutorialCard({
-					...tutorial,
-					defaultContext: tutorial.collectionCtx.default,
-				})}
-			/>
-		))
+		itemsToRender = defaultTutorials.map(
+			(tutorial: Omit<Tutorial, 'content'>) => (
+				<TutorialCardWithAuthElements
+					key={tutorial.id}
+					{...formatTutorialCard({
+						...tutorial,
+						defaultContext: tutorial.collectionCtx.default,
+					})}
+				/>
+			)
+		)
 	}
 
 	const resultsLowerBound = results.hitsPerPage * results.page + 1

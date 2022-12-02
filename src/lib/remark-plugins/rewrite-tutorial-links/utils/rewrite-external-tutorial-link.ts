@@ -12,9 +12,7 @@
  * /tutorials/${product}/{tutorial-name}#{anchor} --> /{product}/tutorials/{collection-name}/{tutorial-name}#{anchor}
  */
 
-import { LearnProductSlug } from 'types/products'
-import getIsBetaProduct from 'lib/get-is-beta-product'
-import { SectionOption } from 'lib/learn-client/types'
+import { SectionOption, ProductOption } from 'lib/learn-client/types'
 import {
 	normalizeSlugForDevDot,
 	normalizeSlugForTutorials,
@@ -59,13 +57,10 @@ export function rewriteExternalTutorialLink(
 		const normalizedAlternateSlug = normalizeSlugForDevDot(alternateProductSlug)
 		if (SectionOption[normalizedAlternateSlug]) {
 			path = `/${normalizedAlternateSlug}/${collectionSlug}/${filename}`
-		} else if (getIsBetaProduct(normalizedAlternateSlug as LearnProductSlug)) {
+		} else {
 			path = `/${normalizedAlternateSlug}/tutorials/${collectionSlug}/${filename}`
 		}
-	} else if (
-		SectionOption[normalizedProductSlug] ||
-		getIsBetaProduct(normalizedProductSlug)
-	) {
+	} else {
 		// example: the map has keys with `cloud` instead of `hcp`
 		const tutorialSlug = [
 			normalizeSlugForTutorials(normalizedProductSlug),

@@ -25,7 +25,7 @@ export default function PackerSubnav({ menuItems }) {
 				},
 				{
 					text: 'Install Packer',
-					url: '/downloads',
+					url: 'https://developer.hashicorp.com/packer/downloads',
 				},
 				{
 					text: 'Try HCP Packer',

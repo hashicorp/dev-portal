@@ -32,6 +32,13 @@ export const EDITIONS = [
 ]
 
 /**
+ * Valid edition slugs for filtering tutorials by.
+ */
+export const VALID_EDITION_SLUGS_FOR_FILTERING = EDITIONS.map(
+	(edition) => edition.value
+)
+
+/**
  * Valid product slugs for filtering tutorials by. Currently, excludes hcp and sentinel and
  * only has our core products.
  */

@@ -18,6 +18,7 @@ interface CurrentVersion {
 const CurrentVersionContext = createContext<CurrentVersion | undefined>(
 	undefined
 )
+CurrentVersionContext.displayName = 'CurrentVersionContext'
 
 /**
  * Stores the currently selected version in the `ProductDownloadsView`, derives

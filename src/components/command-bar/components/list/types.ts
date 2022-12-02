@@ -1,8 +1,19 @@
 import { ReactNode } from 'react'
 
-interface CommandBarListProps {
+interface BaseProps {
 	children: ReactNode
-	label: string
 }
+
+type WithLabelProps =
+	| {
+			ariaLabelledBy?: never
+			label: string
+	  }
+	| {
+			ariaLabelledBy: string
+			label?: never
+	  }
+
+type CommandBarListProps = BaseProps & WithLabelProps
 
 export type { CommandBarListProps }

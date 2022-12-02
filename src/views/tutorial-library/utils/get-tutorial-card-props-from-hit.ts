@@ -1,3 +1,4 @@
+import { TutorialHitObject } from 'components/command-bar/commands/search/components'
 import { TutorialCardPropsWithId } from 'components/tutorial-card'
 import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
 import { getTutorialSlug } from 'views/collection-view/helpers'
@@ -8,7 +9,9 @@ import { getTutorialSlug } from 'views/collection-view/helpers'
  * @TODO can we de-dupe with formatTutorialCard from 'components/tutorial-card/helpers'? The search result has `.products`, where
  * as the helper expects `.productsUsed`
  */
-export function getTutorialCardPropsFromHit(hit): TutorialCardPropsWithId {
+export function getTutorialCardPropsFromHit(
+	hit: TutorialHitObject
+): TutorialCardPropsWithId {
 	return {
 		id: hit.id,
 		collectionId: hit.defaultContext.id,

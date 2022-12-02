@@ -2,7 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import { resolvePluginDocs } from '@hashicorp/platform-packer-plugins'
 import fetchGithubFile from 'lib/fetch-github-file'
-import { isContentDeployPreview } from 'lib/env-checks'
+import { isDeployPreview } from 'lib/env-checks'
 
 /**
  * Resolves nav-data from file with
@@ -11,14 +11,15 @@ import { isContentDeployPreview } from 'lib/env-checks'
  * @param {string} navDataFile path to the nav-data.json file, relative to the `website` directory of the Packer GitHub repo. Example: "data/docs-nav-data.json".
  * @param {object} options optional configuration object
  * @param {string} options.remotePluginsFile path to a remote-plugins.json file, relative to the website directory of the Packer repo. Example: "data/docs-remote-plugins.json".
+ * @param {string} options.mainBranch the main branch of the `hashicorp/packer` repo. This will be the default branch from which remote plugins and nav data will be fetched. Note that we will first see if Packer has a `getBetaLatestVersionRef` assigned (such as `dev-portal`) if so, that ref will be used instead.
  * @param {string} [options.currentPath] the path of the page that's invoking this function
  * @returns {Promise<array>} the resolved navData. This includes NavBranch nodes pulled from remote plugin repositories, as well as filePath properties on all local NavLeaf nodes, and remoteFile properties on all NavLeafRemote nodes.
  */
 async function resolveNavDataWithRemotePlugins(navDataFile, options = {}) {
-	const { remotePluginsFile, currentPath } = options
+	const { remotePluginsFile, currentPath, mainBranch } = options
 
 	let navDataContent
-	if (isContentDeployPreview('packer')) {
+	if (isDeployPreview('packer')) {
 		// When running in the context of hashicorp/packer, attempt to load the local file
 		navDataContent = fs.readFileSync(
 			path.join(process.cwd(), '..', navDataFile)
@@ -28,7 +29,7 @@ async function resolveNavDataWithRemotePlugins(navDataFile, options = {}) {
 			owner: 'hashicorp',
 			repo: 'packer',
 			path: path.join('website', navDataFile),
-			ref: 'stable-website',
+			ref: mainBranch,
 		})
 	}
 
@@ -43,11 +44,12 @@ async function resolveNavDataWithRemotePlugins(navDataFile, options = {}) {
 export async function appendRemotePluginsNavData(
 	remotePluginsFile,
 	navData,
-	currentPath
+	currentPath,
+	mainBranch = 'main'
 ) {
 	// Read in and parse the plugin configuration JSON
 	let remotePluginsContent
-	if (isContentDeployPreview('packer')) {
+	if (isDeployPreview('packer')) {
 		// When running in the context of hashicorp/packer, attempt to load the local file
 		remotePluginsContent = fs.readFileSync(
 			path.join(process.cwd(), '..', remotePluginsFile)
@@ -57,7 +59,7 @@ export async function appendRemotePluginsNavData(
 			owner: 'hashicorp',
 			repo: 'packer',
 			path: path.join('website', remotePluginsFile),
-			ref: 'stable-website',
+			ref: mainBranch,
 		})
 	}
 

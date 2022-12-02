@@ -1,0 +1,67 @@
+.root {
+	--padding: 32px;
+	--min-height: 450px;
+
+	background: none;
+	isolation: isolate;
+	align-items: flex-start;
+	border-radius: 6px;
+	color: var(--black);
+	display: flex;
+	flex-direction: column;
+	min-height: var(--min-height);
+	overflow: hidden;
+	padding: var(--padding);
+
+	@media (--dev-dot-tablet-up) {
+		--padding: 48px 44px;
+		--min-height: 500px;
+	}
+}
+
+.backgroundBase {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: -1;
+}
+
+.logo {
+	display: flex;
+	width: 100%;
+
+	& > svg {
+		display: block;
+		height: 40px;
+		width: auto;
+		max-width: 100%;
+	}
+}
+
+.description {
+	/* note: --description-max-width set in JS */
+	composes: hds-typography-display-500 from global;
+	composes: hds-font-weight-bold from global;
+	max-width: var(--description-max-width);
+	margin-top: 24px;
+}
+
+.cta {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-top: auto;
+	padding-top: 24px;
+	margin-bottom: 0;
+	font-weight: var(--token-typography-font-weight-medium);
+
+	& svg {
+		transition: transform 0.2s;
+
+		@nest .root:hover & {
+			transform: translate(2px);
+		}
+	}
+}

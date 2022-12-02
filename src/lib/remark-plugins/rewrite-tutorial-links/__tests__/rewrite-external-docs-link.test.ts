@@ -1,5 +1,4 @@
 import { ProductSlug } from 'types/products'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToHostNames } from 'lib/products'
 import { rewriteExternalDocsLink } from '../utils'
 
@@ -44,13 +43,7 @@ describe('rewriteExternalDocsLink', () => {
 			Object.keys(productSlugsToHostNames).map((productSlug: ProductSlug) => {
 				const hostname = `https://${productSlugsToHostNames[productSlug]}`
 				const productLandingPath = `/${productSlug}`
-
-				let expectedOutput
-				if (getIsBetaProduct(productSlug)) {
-					expectedOutput = productLandingPath
-				} else {
-					expectedOutput = undefined
-				}
+				const expectedOutput = productLandingPath
 
 				return [hostname, expectedOutput]
 			})

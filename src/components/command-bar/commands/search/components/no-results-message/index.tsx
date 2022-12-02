@@ -1,7 +1,12 @@
+import Text from 'components/text'
 import s from './no-results-message.module.css'
 
 const NoResultsMessage = () => {
-	return <p className={s.root}>No results match your search.</p>
+	return (
+		<Text asElement="p" className={s.root} size={300} weight="medium">
+			No results match your search.
+		</Text>
+	)
 }
 
 export default NoResultsMessage

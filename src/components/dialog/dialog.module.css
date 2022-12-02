@@ -25,7 +25,8 @@
 		padding: 0;
 		padding-top: 20vh;
 		width: 100%;
-		position: absolute;
+		position: fixed;
+		bottom: 0;
 	}
 }
 
@@ -50,6 +51,6 @@
 		box-shadow: none;
 
 		/* Ensures that content in the dialog is not hidden by the floating control bar on mobile browsers */
-		padding-bottom: 88px;
+		padding-bottom: env(safe-area-inset-bottom);
 	}
 }

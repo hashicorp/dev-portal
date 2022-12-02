@@ -1,13 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { ProductSlug } from 'types/products'
 import * as utils from '../utils'
 import { rewriteTutorialsLink } from '../'
 
 jest.mock('../utils')
-
-jest.mock('lib/get-is-beta-product', () => (productSlug: ProductSlug) => {
-	return ['vault', 'waypoint'].includes(productSlug)
-})
 
 describe('rewriteTutorialsLink', () => {
 	jest.spyOn(console, 'error').mockImplementation(jest.fn())

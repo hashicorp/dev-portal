@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react'
+import clamp from 'lib/clamp'
 import s from './progress-bar.module.css'
 
 /**
@@ -17,13 +18,15 @@ function ProgressBar({
 	percentDone: number
 	rounded?: boolean
 }) {
+	const safePercentDone = clamp(percentDone, 0, 100)
+
 	return (
 		<span
 			className={s.root}
 			style={
 				{
 					'--border-radius': rounded ? '2px' : '0px',
-					'--percent-done': `${percentDone}%`,
+					'--portion-done': safePercentDone / 100,
 				} as CSSProperties
 			}
 		>

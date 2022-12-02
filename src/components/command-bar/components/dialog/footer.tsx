@@ -1,43 +1,45 @@
-import { IconArrowDown16 } from '@hashicorp/flight-icons/svg-react/arrow-down-16'
-import { IconArrowUp16 } from '@hashicorp/flight-icons/svg-react/arrow-up-16'
+import { IconCornerDownLeft16 } from '@hashicorp/flight-icons/svg-react/corner-down-left-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import Badge from 'components/badge'
 import Text from 'components/text'
-import { FORM_URL } from 'components/navigation-header/components/give-feedback-button'
 import StandaloneLink from 'components/standalone-link'
+import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
+import { CommandBarDialogFooterProps } from './types'
 import s from './command-bar-dialog.module.css'
 
-const CommandBarDialogFooter = () => {
+const CommandBarDialogFooter = ({
+	instructionsElementId,
+}: CommandBarDialogFooterProps) => {
 	return (
 		<div className={s.footer}>
-			<div className={s.footerLeft}>
-				<Badge color="neutral" text="Tab" type="outlined" size="small" />
-				<Text asElement="span" size={100} weight="regular">
-					or
-				</Text>
-				<div className={s.footerLeftArrowKeys}>
-					<Badge
-						ariaLabel="Up arrow key"
-						color="neutral"
-						icon={<IconArrowUp16 />}
-						type="outlined"
-						size="small"
-					/>
-					<Badge
-						ariaLabel="Down arrow key"
-						color="neutral"
-						icon={<IconArrowDown16 />}
-						type="outlined"
-						size="small"
-					/>
-				</div>
+			<div className={s.footerLeft} id={instructionsElementId}>
+				<Badge
+					ariaLabel="Tab key"
+					color="neutral"
+					size="small"
+					text="Tab"
+					type="filled"
+				/>
 				<Text asElement="span" size={100} weight="regular">
 					to navigate,
 				</Text>
+				<Badge
+					ariaLabel="Enter key"
+					color="neutral"
+					icon={<IconCornerDownLeft16 />}
+					size="small"
+					type="filled"
+				/>
 				<Text asElement="span" size={100} weight="regular">
 					to select,
 				</Text>
-				<Badge color="neutral" text="Esc" type="outlined" size="small" />
+				<Badge
+					ariaLabel="Escape key"
+					color="neutral"
+					size="small"
+					text="Esc"
+					type="filled"
+				/>
 				<Text asElement="span" size={100} weight="regular">
 					to exit
 				</Text>
@@ -45,12 +47,12 @@ const CommandBarDialogFooter = () => {
 			<div>
 				<StandaloneLink
 					color="secondary"
-					href={FORM_URL}
+					href={FEEDBACK_FORM_URL}
 					icon={<IconExternalLink16 />}
 					iconPosition="trailing"
+					opensInNewTab
 					size="small"
 					text="Give Feedback"
-					openInNewTab
 				/>
 			</div>
 		</div>

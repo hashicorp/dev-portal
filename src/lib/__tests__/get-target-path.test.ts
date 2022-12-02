@@ -45,4 +45,29 @@ describe('getTargetPath', () => {
 			expect(target).toEqual('/vault/docs/v1.10.x')
 		})
 	})
+
+	it.each([
+		[
+			{
+				basePath: 'terraform/enterprise',
+				asPath: '/terraform/enterprise/v202208-3/releases/2022/v202208-2',
+				version: 'v202208-2',
+			},
+			'/terraform/enterprise/v202208-2/releases/2022/v202208-2',
+		],
+		[
+			{
+				basePath: 'terraform/enterprise',
+				asPath: '/terraform/enterprise/releases/2022/v202208-2',
+				version: 'v202208-2',
+			},
+			'/terraform/enterprise/v202208-2/releases/2022/v202208-2',
+		],
+	])(
+		'should handle additional TFE versions in release notes URLs',
+		(arg, expected) => {
+			const target = getTargetPath(arg)
+			expect(target).toEqual(expected)
+		}
+	)
 })

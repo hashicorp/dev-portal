@@ -25,7 +25,7 @@ const basePath = 'plugins'
 const navDataFile = `data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
 const additionalComponents = { Badge, BadgesHeader, PluginBadge, Checklist }
-const mainBranch = 'master'
+const mainBranch = 'stable-website'
 
 function DocsView(props: InferGetStaticPropsType<typeof getStaticProps>) {
 	return (
@@ -36,7 +36,6 @@ function DocsView(props: InferGetStaticPropsType<typeof getStaticProps>) {
 			staticProps={props}
 			showVersionSelect={false}
 			algoliaConfig={productData.algoliaConfig}
-			devDotCutoverMessage={productData.devDotCutoverMessage}
 		/>
 	)
 }
@@ -45,6 +44,7 @@ export async function getStaticPaths() {
 	let paths = await generateStaticPaths({
 		navDataFile,
 		remotePluginsFile,
+		mainBranch,
 	})
 	paths = paths
 		// remove index-ish pages from static paths

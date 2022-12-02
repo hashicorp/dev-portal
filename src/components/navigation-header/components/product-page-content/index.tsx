@@ -1,5 +1,4 @@
 // Third-party imports
-import Link from 'next/link'
 import classNames from 'classnames'
 
 // HashiCorp Imports
@@ -16,11 +15,11 @@ import VaultLogo from '@hashicorp/mktg-logos/product/vault/primary-padding/color
 import WaypointLogo from '@hashicorp/mktg-logos/product/waypoint/primary-padding/colorwhite.svg?include'
 
 // Global imports
-import { DocsNavItem, ProductSlug } from 'types/products'
-import getIsBetaProduct from 'lib/get-is-beta-product'
+import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import useCurrentPath from 'hooks/use-current-path'
-import { useCurrentProduct, useIsBetaProduct } from 'contexts'
+import { useCurrentProduct } from 'contexts'
+import Link from 'components/link'
 import { NavigationHeaderItemGroup } from 'components/navigation-header/types'
 
 // Local imports
@@ -58,7 +57,6 @@ const PRODUCT_SLUGS_TO_LOGOS: Record<
 const ProductPageHeaderContent = () => {
 	const currentProduct = useCurrentProduct()
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-	const isBetaProduct = useIsBetaProduct(currentProduct.slug)
 	const productLogo = PRODUCT_SLUGS_TO_LOGOS[currentProduct.slug]
 	const isProductHomePage = currentPath === `/${currentProduct.slug}`
 	const companyLogo = (
@@ -66,8 +64,7 @@ const ProductPageHeaderContent = () => {
 	)
 
 	// Build menu items
-	const betaProductItems = []
-	const comingSoonProductItems = []
+	const productItems = []
 	Object.keys(productSlugsToNames).forEach((productSlug: ProductSlug) => {
 		// Exclude Sentinel for now
 		if (productSlug === 'sentinel') {
@@ -80,43 +77,25 @@ const ProductPageHeaderContent = () => {
 		const path = `/${productSlug}`
 
 		// Push the menu item to the correct array
-		if (getIsBetaProduct(productSlug)) {
-			betaProductItems.push({
-				icon,
-				label,
-				path,
-			})
-		} else {
-			comingSoonProductItems.push({
-				ariaLabel: `Coming soon: ${label}`,
-				icon,
-				label,
-			})
-		}
+		productItems.push({
+			icon,
+			label,
+			path,
+		})
 	})
 	const homeMenuItem = {
 		// TODO as string was not accepted
 		icon: 'home' as $TSFixMe,
 		label: 'HashiCorp Developer',
 		path: '/',
-		badge: {
-			text: 'Beta',
-			color: 'highlight' as const,
-		},
 	}
 
 	// Construct item groups for the dropdown, avoid adding empty groups
 	const allMainMenuItems: NavigationHeaderItemGroup[] = [
 		{ items: [homeMenuItem] },
 	]
-	if (betaProductItems.length) {
-		allMainMenuItems.push({ label: 'Products', items: betaProductItems })
-	}
-	if (comingSoonProductItems.length) {
-		allMainMenuItems.push({
-			label: 'Coming Soon',
-			items: comingSoonProductItems,
-		})
+	if (productItems.length) {
+		allMainMenuItems.push({ label: 'Products', items: productItems })
 	}
 
 	return (
@@ -131,46 +110,44 @@ const ProductPageHeaderContent = () => {
 						leadingIcon={companyLogo}
 					/>
 				</div>
-				<Link href={`/${currentProduct.slug}`}>
-					<a
-						aria-current={isProductHomePage ? 'page' : undefined}
-						aria-label={`${currentProduct.name} home`}
-						className={s.productLogoLink}
-					>
-						<InlineSvg
-							className={classNames(
-								sharedNavStyles.productLogo,
-								currentProduct.slug === 'hcp' && s.hcpLogo
-							)}
-							src={productLogo}
-						/>
-					</a>
+				<Link
+					aria-current={isProductHomePage ? 'page' : undefined}
+					aria-label={`${currentProduct.name} home`}
+					className={s.productLogoLink}
+					data-heap-track="navigation-header-product-logo-link"
+					href={`/${currentProduct.slug}`}
+				>
+					<InlineSvg
+						className={classNames(
+							sharedNavStyles.productLogo,
+							currentProduct.slug === 'hcp' && s.hcpLogo
+						)}
+						src={productLogo}
+					/>
 				</Link>
 			</div>
-			{isBetaProduct && (
-				<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
-					<nav className={sharedNavStyles.nav}>
-						<ul className={sharedNavStyles.navList}>
-							{getNavItems(currentProduct).map((navItem) => {
-								const ariaLabel = `${currentProduct.name} ${navItem.label}`
+			<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
+				<nav className={sharedNavStyles.nav}>
+					<ul className={sharedNavStyles.navList}>
+						{getNavItems(currentProduct).map((navItem) => {
+							const ariaLabel = `${currentProduct.name} ${navItem.label}`
 
-								let ItemContent
-								if (navItem.hasOwnProperty('items')) {
-									ItemContent = PrimaryNavSubmenu
-								} else {
-									ItemContent = PrimaryNavLink
-								}
+							let ItemContent
+							if (navItem.hasOwnProperty('items')) {
+								ItemContent = PrimaryNavSubmenu
+							} else {
+								ItemContent = PrimaryNavLink
+							}
 
-								return (
-									<li key={navItem.label}>
-										<ItemContent ariaLabel={ariaLabel} navItem={navItem} />
-									</li>
-								)
-							})}
-						</ul>
-					</nav>
-				</div>
-			)}
+							return (
+								<li key={navItem.label}>
+									<ItemContent ariaLabel={ariaLabel} navItem={navItem} />
+								</li>
+							)
+						})}
+					</ul>
+				</nav>
+			</div>
 		</div>
 	)
 }

@@ -7,7 +7,7 @@
 		"links": [
 			{
 				"title": "CLI Quick Start",
-				"url": "https://learn.hashicorp.com/collections/nomad/get-started"
+				"url": "https://developer.hashicorp.com/nomad/tutorials/get-started"
 			}
 		],
 		"image": {
@@ -34,7 +34,7 @@
 				},
 				{
 					"title": "Deploy Nomad Jobs",
-					"url": "https://learn.hashicorp.com/tutorials/nomad/jobs?in=nomad/manage-jobs"
+					"url": "https://developer.hashicorp.com/nomad/tutorials/manage-jobs/jobs"
 				}
 			]
 		},
@@ -44,11 +44,11 @@
 			"links": [
 				{
 					"title": "Introduction to Nomad Pack",
-					"url": "https://learn.hashicorp.com/tutorials/nomad/nomad-pack-intro?in=nomad/nomad-pack"
+					"url": "https://developer.hashicorp.com/nomad/tutorials/nomad-pack/nomad-pack-intro"
 				},
 				{
 					"title": "Write a custom Nomad Pack",
-					"url": "https://learn.hashicorp.com/tutorials/nomad/nomad-pack-writing-packs?in=nomad/nomad-pack"
+					"url": "https://developer.hashicorp.com/nomad/tutorials/nomad-pack/nomad-pack-writing-packs"
 				},
 				{
 					"title": "Community Repository",
@@ -66,15 +66,15 @@
 				},
 				{
 					"title": "Enable Horizontal Cluster Autoscaling",
-					"url": "https://learn.hashicorp.com/tutorials/nomad/horizontal-cluster-scaling?in=nomad/autoscaler"
+					"url": "https://developer.hashicorp.com/nomad/tutorials/autoscaler/horizontal-cluster-scaling"
 				},
 				{
 					"title": "Create On-demand Batch Jobs",
-					"url": "https://learn.hashicorp.com/tutorials/nomad/horizontal-cluster-scaling-on-demand-batch?in=nomad/autoscaler"
+					"url": "https://developer.hashicorp.com/nomad/tutorials/autoscaler/horizontal-cluster-scaling-on-demand-batch"
 				},
 				{
 					"title": "Manage Job Placement and Affinities",
-					"url": "https://learn.hashicorp.com/tutorials/nomad/affinity?in=nomad/advanced-scheduling"
+					"url": "https://developer.hashicorp.com/nomad/tutorials/advanced-scheduling/affinity"
 				}
 			]
 		},
@@ -88,15 +88,15 @@
 				},
 				{
 					"title": "Enable Multi-Region Federation",
-					"url": "https://learn.hashicorp.com/tutorials/nomad/federation?in=nomad/manage-clusters"
+					"url": "https://developer.hashicorp.com/nomad/tutorials/manage-clusters/federation"
 				},
 				{
 					"title": "Connect Nodes into a Cluster",
-					"url": "https://learn.hashicorp.com/tutorials/nomad/clustering?in=nomad/manage-clusters"
+					"url": "https://developer.hashicorp.com/nomad/tutorials/manage-clusters/clustering"
 				},
 				{
 					"title": "Enable Autopilot",
-					"url": "https://learn.hashicorp.com/tutorials/nomad/autopilot"
+					"url": "https://developer.hashicorp.com/nomad/tutorials/manage-clusters/autopilot"
 				}
 			]
 		}

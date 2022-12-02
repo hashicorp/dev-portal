@@ -41,10 +41,10 @@
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "Just announced",
-		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
-		"text": "HashiConf Global full schedule: keynotes, sessions, labs & more.",
-		"linkText": "Register Now",
+		"tag": "November 2 | 9AM PDT",
+		"url": "https://www.hashicorp.com/events/webinars/vault-1-12-overview",
+		"text": "Vault 1.12 is here. Join us for a technical deep dive along with live Q&A.",
+		"linkText": "Register now",
 		"expirationDate": ""
 	},
 	"subnavItems": [
@@ -76,7 +76,7 @@
 		"divider",
 		{
 			"text": "Tutorials",
-			"url": "https://learn.hashicorp.com/vault"
+			"url": "https://developer.hashicorp.com/vault/tutorials"
 		},
 		{
 			"text": "Docs",
@@ -165,9 +165,5 @@
 			"name": "API",
 			"path": "api-docs"
 		}
-	],
-	"devDotCutoverMessage": {
-		"showCutoverDate": false,
-		"cutoverDate": "Oct 5, 2022"
-	}
+	]
 }

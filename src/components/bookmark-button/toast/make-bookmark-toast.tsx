@@ -47,6 +47,6 @@ export default function makeBookmarkToast(
 ) {
 	toast({
 		...generateToastMessage(action, tutorialName),
-		autoDismiss: 15000,
+		autoDismiss: 5000,
 	})
 }

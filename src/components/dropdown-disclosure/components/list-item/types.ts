@@ -82,6 +82,7 @@ interface DropdownDisclosureLinkItemProps {
 	 * to be passed to the internal anchor element.
 	 */
 	rel?: NativeAnchorProps['rel']
+	target?: NativeAnchorProps['target']
 }
 
 export type {

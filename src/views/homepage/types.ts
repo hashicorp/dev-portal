@@ -1,6 +1,6 @@
 import { HeroProps } from './components/hero/types'
 import { LearnSectionProps } from './components/learn-section/types'
-import { HashiConfGlobalSlotProps } from './components/merchandising-slots/slots/hashiconf-global-slot/types'
+import { HcpSlotProps } from './components/merchandising-slots/slots/hcp-slot/types'
 import { VaultSlotProps } from './components/merchandising-slots/slots/vault-slot/types'
 import { PreFooterProps } from './components/pre-footer/types'
 import { HomePageAuthoredContent } from './content-schema'
@@ -11,7 +11,7 @@ interface HomePageContentProps {
 	learnSection: LearnSectionProps
 	merchandising: {
 		vault: VaultSlotProps
-		hashiconfGlobal: HashiConfGlobalSlotProps
+		hcp: HcpSlotProps
 	}
 	preFooter: PreFooterProps
 }

@@ -3,9 +3,7 @@ import { BadgeProps } from './types'
 import s from './badge.module.css'
 
 const Badge = ({
-	ariaDescribedBy,
 	ariaLabel,
-	ariaLabelledBy,
 	className,
 	color = 'neutral',
 	icon,
@@ -16,7 +14,7 @@ const Badge = ({
 	const classes = classNames(s.root, s[size], s[`${type}-${color}`], className)
 	const hasIcon = !!icon
 	const hasText = !!text
-	const hasLabel = !!ariaDescribedBy || !!ariaLabel || !!ariaLabelledBy
+	const hasLabel = !!ariaLabel
 	const isIconOnly = hasIcon && !hasText
 	const isStatusBadge =
 		color == 'success' || color == 'warning' || color == 'error'
@@ -35,26 +33,18 @@ const Badge = ({
 
 	if (isIconOnly && !hasLabel) {
 		throw new Error(
-			'Icon-only `Badge`s require an accessible label. Either provide the `text` prop or one of: `ariaLabel`, `ariaLabelledBy`, `ariaDescribedBy`.'
-		)
-	}
-
-	if (ariaLabel && ariaLabelledBy) {
-		throw new Error(
-			'`Badge` does not accept both `ariaLabel` and `ariaLabelledBy`. Only provide one or the other.'
+			'Icon-only `Badge`s require an accessible label. Either provide the `text` or `ariaLabel` prop.'
 		)
 	}
 
 	return (
-		<span
-			aria-describedby={ariaDescribedBy}
-			aria-label={ariaLabel}
-			aria-labelledby={ariaLabelledBy}
-			className={classes}
-		>
-			{icon}
-			{text && <span>{text}</span>}
-		</span>
+		<>
+			<span className="g-screen-reader-only">{ariaLabel ?? text}</span>
+			<span aria-hidden className={classes}>
+				{icon}
+				{text && <span>{text}</span>}
+			</span>
+		</>
 	)
 }
 

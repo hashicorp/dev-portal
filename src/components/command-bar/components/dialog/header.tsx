@@ -1,18 +1,28 @@
-import { IconCommand16 } from '@hashicorp/flight-icons/svg-react/command-16'
+import { ChangeEvent } from 'react'
+import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
+import { useCurrentProduct } from 'contexts'
 import Badge from 'components/badge'
 import { useCommandBar, CommandBarTag } from 'components/command-bar'
+import { CmdCtrlIcon, KIcon } from 'components/command-bar/components'
 import Tag from 'components/tag'
-import { ChangeEvent } from 'react'
 import s from './command-bar-dialog.module.css'
 
 const CommandBarDialogHeader = () => {
+	const currentProduct = useCurrentProduct()
+	const commandBarState = useCommandBar()
 	const {
 		currentCommand,
 		currentInputValue,
 		currentTags,
+		inputRef,
 		removeTag,
 		setCurrentInputValue,
-	} = useCommandBar()
+	} = commandBarState
+
+	const inputPlaceholder = currentCommand.inputProps.placeholder({
+		commandBarState,
+		currentProduct,
+	})
 
 	return (
 		<div className={s.header}>
@@ -28,27 +38,44 @@ const CommandBarDialogHeader = () => {
 					))}
 				</div>
 			) : null}
-			<input
-				className={s.input}
-				onChange={(e: ChangeEvent<HTMLInputElement>) =>
-					setCurrentInputValue(e.target.value)
-				}
-				placeholder={currentCommand.inputProps.placeholder}
-				value={currentInputValue}
-			/>
+			<div className={s.inputWrapper}>
+				<input
+					aria-label={inputPlaceholder}
+					className={s.input}
+					onChange={(e: ChangeEvent<HTMLInputElement>) =>
+						setCurrentInputValue(e.target.value)
+					}
+					placeholder={inputPlaceholder}
+					ref={inputRef}
+					value={currentInputValue}
+				/>
+				{currentInputValue ? (
+					<div className={s.clearButtonWrapper}>
+						<button
+							className={s.clearButton}
+							onClick={() => {
+								setCurrentInputValue('')
+								inputRef.current.focus()
+							}}
+						>
+							<IconX24 />
+						</button>
+					</div>
+				) : null}
+			</div>
 			<div className={s.badges}>
 				<Badge
 					ariaLabel="Command key"
 					color="neutral"
-					icon={<IconCommand16 />}
+					icon={<CmdCtrlIcon />}
 					size="small"
 					type="outlined"
 				/>
 				<Badge
 					ariaLabel="K key"
 					color="neutral"
+					icon={<KIcon />}
 					size="small"
-					text="K"
 					type="outlined"
 				/>
 			</div>

@@ -1,7 +1,22 @@
 import { NavigationHeaderIcon } from 'components/navigation-header/types'
-import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
+import {
+	getDocsNavHasItems,
+	getDocsNavItems,
+} from 'lib/docs/get-docs-nav-items'
 import { NavItem } from './types'
 import { ProductData } from 'types/products'
+import { PrimaryNavLinkProps } from '../../primary-nav-link'
+import { PrimaryNavSubmenuProps } from '../../primary-nav-submenu'
+
+const TRY_CLOUD_ITEM_PRODUCT_SLUGS = [
+	'boundary',
+	'consul',
+	'hcp',
+	'packer',
+	'terraform',
+	'vault',
+	'waypoint',
+]
 
 /**
  * Given current product data,
@@ -14,12 +29,16 @@ import { ProductData } from 'types/products'
  */
 export function getNavItems(currentProduct: ProductData): NavItem[] {
 	/**
-	 * Define a common set of base nav items
+	 * Check if docs contains more than one item and
+	 * To determine whether to render dropdown or link in nav
 	 */
-	const items: NavItem[] = [
-		{ label: 'Home', url: `/${currentProduct.slug}` },
-		{
-			label: 'Documentation',
+	let docsNavObj:
+		| Pick<PrimaryNavSubmenuProps['navItem'], 'iconColorTheme' | 'items'>
+		| Pick<PrimaryNavLinkProps['navItem'], 'url'>
+	const docsNavHasItems = getDocsNavHasItems(currentProduct)
+
+	if (docsNavHasItems) {
+		docsNavObj = {
 			iconColorTheme: currentProduct.slug,
 			items: getDocsNavItems(currentProduct).map((navItem) => {
 				return {
@@ -28,6 +47,21 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 					path: navItem.fullPath,
 				}
 			}),
+		}
+	} else {
+		docsNavObj = {
+			url: `/${currentProduct.slug}/docs`,
+		}
+	}
+
+	/**
+	 * Define a common set of base nav items
+	 */
+	const items: NavItem[] = [
+		{ label: 'Home', url: `/${currentProduct.slug}` },
+		{
+			label: 'Documentation',
+			...docsNavObj,
 		},
 		{
 			label: 'Tutorials',
@@ -40,16 +74,32 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 			url: `/${currentProduct.slug}/downloads`,
 		})
 	}
+
 	/**
 	 * For Terraform, add a "Registry" item
 	 */
-	if (currentProduct.slug == 'terraform') {
+	if (currentProduct.slug === 'terraform') {
 		items.push({
 			label: 'Registry',
 			url: 'https://registry.terraform.io/',
-			openInNewTab: true,
+			opensInNewTab: true,
 		})
 	}
+
+	/**
+	 * For cloud products, add a "Try Cloud" item
+	 */
+	if (TRY_CLOUD_ITEM_PRODUCT_SLUGS.includes(currentProduct.slug)) {
+		items.push({
+			label: 'Try Cloud',
+			url:
+				currentProduct.slug === 'terraform'
+					? 'https://app.terraform.io/public/signup/account'
+					: 'https://portal.cloud.hashicorp.com/sign-up',
+			opensInNewTab: true,
+		})
+	}
+
 	/**
 	 * Return the items
 	 */

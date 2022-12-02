@@ -22,10 +22,10 @@
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "Just announced",
-		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
-		"text": "HashiConf Global full schedule: keynotes, sessions, labs & more.",
-		"linkText": "Register Now",
+		"tag": "Announcements",
+		"url": "https://www.hashicorp.com/blog/consul-service-mesh-support-for-aws-lambda-now-generally-available",
+		"text": "Consul Service Mesh Support for AWS Lambda Now Generally Available",
+		"linkText": "Read more",
 		"expirationDate": ""
 	},
 	"version": "1.11.3",
@@ -48,9 +48,5 @@
 			"name": "CLI",
 			"path": "commands"
 		}
-	],
-	"devDotCutoverMessage": {
-		"showCutoverDate": false,
-		"cutoverDate": "Oct 13, 2022"
-	}
+	]
 }

@@ -14,16 +14,8 @@ const MOCK_TUTORIALS_MAP = {
 	'waypoint/aws-ecs': '/waypoint/tutorials/deploy-aws/aws-ecs',
 	'vault/getting-started-install':
 		'/vault/tutorials/getting-started/getting-started-install',
+	'cloud/amazon-peering-hcp': '/hcp/tutorials/networking/amazon-peering-hcp',
 }
-
-/**
- * As we onboard more products into internal beta, we lose the ability
- * to test "beta" functionality using real config. So, we mock
- * get-is-beta-product in order to provide a consistent testing config.
- */
-jest.mock('lib/get-is-beta-product', () => (productSlug) => {
-	return ['consul', 'vault', 'waypoint'].includes(productSlug)
-})
 
 describe('detectAndReformatLearnUrl', () => {
 	beforeEach(async () => {
@@ -92,11 +84,11 @@ describe('detectAndReformatLearnUrl', () => {
 			// Note: underlying rewriteTutorialsLink() handles beta products
 			{
 				input: '/packer',
-				expected: 'https://learn.hashicorp.com/packer',
+				expected: '/packer/tutorials',
 			},
 			{
 				input: '/cloud',
-				expected: 'https://learn.hashicorp.com/cloud',
+				expected: '/hcp/tutorials',
 			},
 		]
 		for (let n = 0; n < hubPageUrls.length; n++) {
@@ -120,10 +112,9 @@ describe('detectAndReformatLearnUrl', () => {
 				input: '/collections/waypoint/deploy-aws',
 				expected: '/waypoint/tutorials/deploy-aws',
 			},
-			// Note: underlying rewriteTutorialsLink() handles beta products
 			{
 				input: '/collections/packer/kubernetes',
-				expected: 'https://learn.hashicorp.com/collections/packer/kubernetes',
+				expected: '/packer/tutorials/kubernetes',
 			},
 		]
 		for (let n = 0; n < collectionUrls.length; n++) {
@@ -191,18 +182,15 @@ describe('detectAndReformatLearnUrl', () => {
 			},
 			{
 				input: '/tutorials/cloud/amazon-peering-hcp',
-				expected:
-					'https://learn.hashicorp.com/tutorials/cloud/amazon-peering-hcp',
+				expected: '/hcp/tutorials/networking/amazon-peering-hcp',
 			},
 			{
 				input: '/tutorials/vault/vault-ops?in=cloud/networking',
-				expected:
-					'https://learn.hashicorp.com/tutorials/vault/vault-ops?in=cloud/networking',
+				expected: '/hcp/tutorials/networking/vault-ops',
 			},
 			{
 				input: '/tutorials/vault/vault-ops?in=packer/networking',
-				expected:
-					'https://learn.hashicorp.com/tutorials/vault/vault-ops?in=packer/networking',
+				expected: '/packer/tutorials/networking/vault-ops',
 			},
 		]
 		for (let n = 0; n < tutorialUrls.length; n++) {

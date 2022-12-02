@@ -1,26 +1,15 @@
-import { Session } from 'next-auth'
-
-/**
- * Object representing an authentication session.
- */
-type SessionData = Omit<Session, 'user'> & {
-	accessToken?: string
-	id?: string
-}
-
-/**
- * Object representing an authenticated user.
- */
-type UserData = Session['user'] & {
-	nickname?: string | null
-}
+export type SessionStatus = 'authenticated' | 'unauthenticated' | 'loading'
 
 /**
  * Enumeration of supported auth provider IDs.
  */
-enum ValidAuthProviderId {
+export enum ValidAuthProviderId {
 	CloudIdp = 'cloud-idp',
 }
 
-export type { SessionData, UserData }
-export { ValidAuthProviderId }
+export enum AuthErrors {
+	// NOTE: temporary prefix of [next-auth] for existing log monitor
+	// TODO: abstract logging so everything is grouped
+	RefreshAccessTokenError = '[next-auth] RefreshAccessTokenError',
+	RefreshAccessTokenExpiredError = '[next-auth] RefreshAccessTokenError: token_inactive',
+}

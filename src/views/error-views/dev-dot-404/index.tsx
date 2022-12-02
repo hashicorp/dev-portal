@@ -12,14 +12,11 @@ import {
 
 import s from './dev-dot-404.module.css'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 
 /**
  * Build an array of link cards for each beta product
  */
 const PRODUCT_LINK_CARDS = productSlugs
-	// We only want to show beta product links on the 404 view
-	.filter(getIsBetaProduct)
 	// Even once Sentinel is in beta, we won't show it, since it has no icon
 	.filter((productSlug: ProductSlug) => productSlug !== 'sentinel')
 	// Map remaining products

@@ -80,7 +80,8 @@ for further details.
 	width: 100%;
 
 	@media (--dev-dot-hide-mobile-menu) {
-		max-width: calc(100vw - var(--dev-dot-sidebar-width));
+		/* 100vw - 100% is the scrollbar width */
+		max-width: calc(100vw - (100vw - 100%) - var(--dev-dot-sidebar-width));
 	}
 }
 
@@ -100,6 +101,7 @@ for further details.
 .mainAreaWrapper {
 	display: flex;
 	justify-content: center;
+	min-height: calc(100vh - var(--navigation-header-height));
 	padding-left: var(--main-area-padding-left);
 	padding-right: var(--main-area-padding-right);
 	padding-top: var(--main-area-padding-top);
@@ -111,10 +113,6 @@ for further details.
 	justify-content: space-between;
 	align-items: baseline;
 	margin-bottom: 32px;
-}
-
-.optInOutSlot {
-	flex-shrink: 0;
 }
 
 .sidecarWrapper {

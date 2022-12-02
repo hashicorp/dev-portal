@@ -9,7 +9,7 @@ const settingsCommand: CommandBarCommand = {
 	name: SupportedCommand.settings,
 	icon: <IconSettings24 />,
 	inputProps: {
-		placeholder: 'Settings...',
+		placeholder: () => 'Settings...',
 	},
 	DialogBody: SettingsCommandBarDialogBody,
 }

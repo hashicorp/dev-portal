@@ -8,7 +8,7 @@ import CardsGridList, {
 	TutorialCardsGridList,
 } from 'components/cards-grid-list'
 import Heading from 'components/heading'
-import CollectionCard from 'components/collection-card'
+import { CollectionCardWithAuthElements } from 'components/collection-card'
 
 interface FeaturedTutorialsSectionProps {
 	cards: FeaturedTutorialCard[] | FeaturedCollectionCard[]
@@ -43,9 +43,10 @@ const FeaturedLearnCardsSection = ({
 					{(cards as FeaturedCollectionCard[]).map(
 						(collectionCardProps: FeaturedCollectionCard) => {
 							return (
-								<li key={collectionCardProps.id}>
-									<CollectionCard {...collectionCardProps} />
-								</li>
+								<CollectionCardWithAuthElements
+									key={collectionCardProps.id}
+									{...collectionCardProps}
+								/>
 							)
 						}
 					)}

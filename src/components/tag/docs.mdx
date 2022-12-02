@@ -9,9 +9,37 @@ Relevant links:
 - [HDS Tag documentation](https://design-system-components-hashicorp.vercel.app/components/tag)
 - [HDS Tag Figma file](https://www.figma.com/file/noyY6dUMDYjmySpHcMjhkN/HDS-Product---Components?node-id=10098%3A23169)
 
+## Playground
+
 <LiveComponent>{`
-<Tag
-	text="Boundary"
-	onRemove={() => console.log('Clicked remove button for Boundary')}
-/>
+<div
+	style={{
+		alignItems: 'center',
+		border: '1px solid black',
+		display: 'flex',
+		gap: 4,
+		maxWidth: 300,
+		padding: 16,
+		flexWrap: 'wrap',
+	}}
+>
+	{[
+		'Boundary',
+		'Consul',
+		'HCP',
+		'Nomad',
+		'Packer',
+		'Terraform',
+		'Vagrant',
+		'Vault',
+		'Waypoint',
+	].map((product) => {
+		return (
+			<Tag
+				text={product}
+				onRemove={() => console.log('Clicked remove button for Boundary')}
+			/>
+		)
+	})}
+</div>
 `}</LiveComponent>

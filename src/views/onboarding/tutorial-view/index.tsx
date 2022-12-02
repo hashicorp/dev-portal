@@ -2,7 +2,6 @@ import { Fragment } from 'react'
 import HashiHead from '@hashicorp/react-head'
 import InstruqtProvider from 'contexts/instruqt-lab'
 import { MDXRemote } from 'next-mdx-remote'
-import TabProvider from 'components/tabs/provider'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
 import getVideoUrl from 'views/tutorial-view/utils/get-video-url'
@@ -65,11 +64,9 @@ export default function OnboardingTutorialView({
 							})}
 						/>
 					)}
-					<TabProvider>
-						<DevDotContent>
-							<MDXRemote {...content} components={MDX_COMPONENTS} />
-						</DevDotContent>
-					</TabProvider>
+					<DevDotContent>
+						<MDXRemote {...content} components={MDX_COMPONENTS} />
+					</DevDotContent>
 					<NextPrevious {...nextPreviousData} />
 				</SidebarSidecarLayout>
 			</InteractiveLabWrapper>

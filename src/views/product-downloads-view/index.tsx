@@ -7,6 +7,7 @@ import HashiHead from '@hashicorp/react-head'
 // Global imports
 import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { TryHcpCalloutCompact } from 'components/try-hcp-callout/components/try-hcp-callout-compact'
 import {
 	generateInstallViewNavItems,
 	generateProductLandingSidebarNavData,
@@ -19,9 +20,6 @@ import {
 	ProductDownloadsViewProps,
 } from './types'
 import {
-	generateDefaultPackageManagers,
-	generateEnterprisePackageManagers,
-	generatePackageManagers,
 	initializeBreadcrumbLinks,
 	initializeVersionSwitcherOptions,
 } from './helpers'
@@ -33,6 +31,7 @@ import {
 	PageHeader,
 	SidecarMarketingCard,
 } from './components'
+import s from './product-downloads-view.module.css'
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
@@ -45,13 +44,13 @@ const ProductDownloadsViewContent = ({
 	pageContent,
 	releases,
 	versionSwitcherOptions,
+	packageManagers,
 }: ProductDownloadsViewContentProps) => {
 	const {
-		doesNotHavePackageManagers,
 		featuredCollectionCards,
 		featuredTutorialCards,
-		packageManagerOverrides,
 		sidecarMarketingCard,
+		sidecarHcpCallout,
 		sidebarMenuItems,
 		installName,
 	} = pageContent
@@ -75,23 +74,6 @@ const ProductDownloadsViewContent = ({
 			isEnterpriseMode
 		),
 	]
-	const packageManagers = useMemo(() => {
-		if (doesNotHavePackageManagers) {
-			return []
-		}
-
-		return generatePackageManagers({
-			defaultPackageManagers: isEnterpriseMode
-				? generateEnterprisePackageManagers(currentProduct)
-				: generateDefaultPackageManagers(currentProduct),
-			packageManagerOverrides: packageManagerOverrides,
-		})
-	}, [
-		currentProduct,
-		doesNotHavePackageManagers,
-		isEnterpriseMode,
-		packageManagerOverrides,
-	])
 
 	return (
 		<SidebarSidecarLayout
@@ -104,7 +86,22 @@ const ProductDownloadsViewContent = ({
 			 */
 			sidebarNavDataLevels={sidebarNavDataLevels as any}
 			breadcrumbLinks={breadcrumbLinks}
-			sidecarSlot={<SidecarMarketingCard {...sidecarMarketingCard} />}
+			sidecarSlot={
+				<>
+					<SidecarMarketingCard {...sidecarMarketingCard} />
+					{sidecarHcpCallout ? (
+						<div className={s.sidecarTryHcpCallout}>
+							<TryHcpCalloutCompact
+								productSlug={sidecarHcpCallout.productSlug}
+								heading={sidecarHcpCallout.heading}
+								description={sidecarHcpCallout.description}
+								ctaText={sidecarHcpCallout.ctaText}
+								ctaUrl={sidecarHcpCallout.ctaUrl}
+							/>
+						</div>
+					) : null}
+				</>
+			}
 		>
 			{/**
 			 * Legal has requested that we make the enterprise downloads page public
@@ -152,6 +149,7 @@ const ProductDownloadsView = ({
 	pageContent,
 	releases,
 	sortedAndFilteredVersions,
+	packageManagers,
 }: ProductDownloadsViewProps): ReactElement => {
 	const versionSwitcherOptions = useMemo(
 		() =>
@@ -164,7 +162,7 @@ const ProductDownloadsView = ({
 
 	return (
 		<CurrentVersionProvider
-			initialValue={versionSwitcherOptions[0].value}
+			initialValue={latestVersion}
 			latestVersion={latestVersion}
 		>
 			<ProductDownloadsViewContent
@@ -173,6 +171,7 @@ const ProductDownloadsView = ({
 				pageContent={pageContent}
 				releases={releases}
 				versionSwitcherOptions={versionSwitcherOptions}
+				packageManagers={packageManagers}
 			/>
 		</CurrentVersionProvider>
 	)

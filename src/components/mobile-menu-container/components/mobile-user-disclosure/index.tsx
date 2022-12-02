@@ -1,10 +1,11 @@
-import Link from 'next/link'
 import { IconChevronDown24 } from '@hashicorp/flight-icons/svg-react/chevron-down-24'
 import { getUserMeta } from 'lib/auth/user'
+import isAbsoluteUrl from 'lib/is-absolute-url'
 import Disclosure, {
 	DisclosureActivator,
 	DisclosureContent,
 } from 'components/disclosure'
+import Link from 'components/link'
 import Text from 'components/text'
 import { UserDropdownDisclosureItem } from 'components/user-dropdown-disclosure'
 import { MobileUserDisclosureProps } from './types'
@@ -20,6 +21,8 @@ const renderItem = (
 	if (!href && !onClick) {
 		return null
 	}
+	const isExternal = isAbsoluteUrl(href)
+	const rel = isExternal ? 'noreferrer noopener' : undefined
 
 	const labelElement = (
 		<Text asElement="span" size={200} weight="medium">
@@ -30,11 +33,9 @@ const renderItem = (
 	let content
 	if (href) {
 		content = (
-			<Link href={href}>
-				<a className={s.link}>
-					{icon}
-					{labelElement}
-				</a>
+			<Link href={href} className={s.link} opensInNewTab={isExternal} rel={rel}>
+				{icon}
+				{labelElement}
 			</Link>
 		)
 	} else if (onClick) {
@@ -55,14 +56,14 @@ const MobileUserDisclosure = ({
 	user,
 	initialOpen,
 }: MobileUserDisclosureProps) => {
-	const { icon, description } = getUserMeta(user)
+	const { icon, label, description } = getUserMeta(user)
 
 	return (
 		<Disclosure containerClassName={s.root} initialOpen={initialOpen}>
 			<DisclosureActivator className={s.activator}>
 				<span className={s.iconAndTextWrapper}>
 					<span className={s.icon}>{icon}</span>
-					<Text asElement="span" className={s.text} size={200} weight="regular">
+					<Text asElement="span" className={s.text} size={300} weight="medium">
 						{description}
 					</Text>
 				</span>
@@ -71,6 +72,9 @@ const MobileUserDisclosure = ({
 				</span>
 			</DisclosureActivator>
 			<DisclosureContent className={s.content}>
+				<Text asElement="span" className={s.label} size={100} weight="semibold">
+					{label}
+				</Text>
 				<ul className={s.list}>{items.map(renderItem)}</ul>
 			</DisclosureContent>
 		</Disclosure>

@@ -4,9 +4,8 @@ import { useRouter } from 'next/router'
 import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
 import { makeWelcomeToast } from 'lib/make-welcome-notification'
 import { MobileMenuProvider } from 'contexts'
-
+import TabProvider from 'components/tabs/provider'
 import { CoreDevDotLayoutProps } from './types'
-
 import s from './core-dev-dot-layout.module.css'
 
 const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
@@ -24,11 +23,13 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 
 	return (
 		<MobileMenuProvider>
-			<Head>
-				<DatadogHeadTag />
-			</Head>
-			<div className={s.root}>{children}</div>
-			{isSwingset ? null : <DatadogScriptTag />}
+			<TabProvider>
+				<Head>
+					<DatadogHeadTag />
+				</Head>
+				<div className={s.root}>{children}</div>
+				{isSwingset ? null : <DatadogScriptTag />}
+			</TabProvider>
 		</MobileMenuProvider>
 	)
 }

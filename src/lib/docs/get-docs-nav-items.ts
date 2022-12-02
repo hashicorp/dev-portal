@@ -6,6 +6,22 @@ import {
 } from 'types/products'
 
 /**
+ * Check if docs has more than one sub-item
+ * to determine whether or not to show dropdown in nav
+ */
+
+export function getDocsNavHasItems(
+	currentProduct: Pick<ProductData, 'rootDocsPaths' | 'docsNavItems'>
+): boolean {
+	const { docsNavItems, rootDocsPaths } = currentProduct
+	if (!docsNavItems && rootDocsPaths.length === 1) {
+		return false
+	}
+
+	return true
+}
+
+/**
  * Given ProductData for a specific product,
  * Return items to render in a "Documentation" navigation section.
  */

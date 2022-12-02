@@ -1,0 +1,12 @@
+.root {
+	display: flex;
+
+	& svg {
+		height: 10px;
+		width: 40px;
+
+		& path {
+			fill: currentColor;
+		}
+	}
+}

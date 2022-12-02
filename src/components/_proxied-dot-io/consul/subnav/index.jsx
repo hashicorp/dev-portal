@@ -18,7 +18,10 @@ export default function ConsulSubnav({ menuItems }) {
 					url: 'https://www.github.com/hashicorp/consul',
 				},
 
-				{ text: 'Download', url: '/downloads' },
+				{
+					text: 'Download',
+					url: 'https://developer.hashicorp.com/consul/downloads',
+				},
 				{
 					text: 'Try HCP Consul',
 					url: 'https://portal.cloud.hashicorp.com/sign-up',

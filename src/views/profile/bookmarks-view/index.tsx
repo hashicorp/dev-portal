@@ -113,7 +113,12 @@ const ProfileBookmarksViewContent = () => {
 					heading="You have no saved bookmarks."
 					subheading="You can select the bookmark icon on any tutorial card to save it for future reference."
 					callToAction={
-						<ButtonLink href="/tutorials/library" text="Tutorial library" />
+						<ButtonLink
+							href="/tutorials/library"
+							text="Tutorial library"
+							color="secondary"
+							size="small"
+						/>
 					}
 				/>
 			)}

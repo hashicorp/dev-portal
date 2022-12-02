@@ -7,8 +7,10 @@ import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 // Global imports
 import { getVersionFromPath } from 'lib/get-version-from-path'
 import { removeVersionFromPath } from 'lib/remove-version-from-path'
+import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import useCurrentPath from 'hooks/use-current-path'
+import { useScroll } from 'framer-motion'
 import { useMobileMenu } from 'contexts'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
@@ -27,6 +29,8 @@ import {
 	SidebarNavDataProvider,
 	useSidebarNavData,
 } from './contexts/sidebar-nav-data'
+import { ScrollProgressBar } from './components/scroll-progress-bar'
+import { filterTableOfContentsHeadings } from './utils/filter-table-of-contents-headings'
 import s from './sidebar-sidecar-layout.module.css'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
@@ -46,7 +50,7 @@ const SidebarSidecarLayoutContent = ({
 	githubFileUrl,
 	headings,
 	AlternateSidebar,
-	optInOutSlot,
+	showScrollProgress,
 	sidecarSlot,
 	sidebarNavDataLevels,
 	versions,
@@ -59,6 +63,17 @@ const SidebarSidecarLayoutContent = ({
 	const currentlyViewedVersion = getVersionFromPath(currentPath)
 	const sidebarProps = sidebarNavDataLevels[currentLevel]
 	const sidebarIsVisible = !isMobileMenuRendered || mobileMenuIsOpen
+	const contentRef = useRef(null)
+
+	const stickyNavHeaderHeight = getFullNavHeaderHeight()
+	const { scrollYProgress } = useScroll({
+		target: contentRef,
+		/**
+		 * Note: sticky elements are not registered during scroll, so we need
+		 * to account for the stick nav height with an offset to ensure accuracy.
+		 */
+		offset: [`${stickyNavHeaderHeight * -1}px start`, `end end`],
+	})
 
 	// Handles closing the sidebar if focus moves outside of it and it is open.
 	useOnFocusOutside(
@@ -80,9 +95,7 @@ const SidebarSidecarLayoutContent = ({
 		}
 
 		return (
-			<TableOfContents
-				headings={headings.filter((heading) => heading.level <= 2)}
-			/>
+			<TableOfContents headings={filterTableOfContentsHeadings(headings)} />
 		)
 	}
 
@@ -94,7 +107,7 @@ const SidebarSidecarLayoutContent = ({
 					{sidebarContent}
 				</div>
 			</MobileMenuContainer>
-			<div className={s.contentWrapper}>
+			<div className={s.contentWrapper} ref={contentRef}>
 				{currentlyViewedVersion && (
 					<PageAlert
 						className={s.versionAlert}
@@ -121,9 +134,6 @@ const SidebarSidecarLayoutContent = ({
 					<main id="main" className={s.main}>
 						<span className={s.breadcrumbOptOutGroup}>
 							{breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
-							<span className={s.optInOutSlot}>
-								{optInOutSlot && optInOutSlot}
-							</span>
 						</span>
 						{children}
 						{githubFileUrl && (
@@ -138,6 +148,9 @@ const SidebarSidecarLayoutContent = ({
 						<SidecarContent />
 					</div>
 				</div>
+				{showScrollProgress ? (
+					<ScrollProgressBar progress={scrollYProgress} />
+				) : null}
 			</div>
 		</div>
 	)

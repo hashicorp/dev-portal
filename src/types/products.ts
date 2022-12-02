@@ -35,6 +35,16 @@ type LearnProductName = Exclude<
 	'HashiCorp Cloud Platform' | 'Sentinel'
 >
 
+type HcpProductName = Exclude<
+	ProductName,
+	'HashiCorp Cloud Platform' | 'Nomad' | 'Sentinel' | 'Terraform' | 'Vagrant'
+>
+
+type HcpProductSlug = Exclude<
+	ProductSlug,
+	'hcp' | 'nomad' | 'sentinel' | 'terraform' | 'vagrant'
+>
+
 /**
  * Learn does not support all of the products in `ProductSlug`, so this is the
  * interface almost the same as `ProductData`, just with a limited set of
@@ -144,10 +154,6 @@ interface ProductData extends Product {
 	 * the matching rootDocsPath.
 	 */
 	docsNavItems?: (DocsNavItem | string)[]
-	devDotCutoverMessage?: {
-		cutoverDate: string
-		showCutoverDate: boolean
-	}
 }
 
 interface ProductWithCurrentRootDocsPath extends ProductData {
@@ -160,6 +166,8 @@ export type {
 	LearnProductData,
 	LearnProductName,
 	LearnProductSlug,
+	HcpProductName,
+	HcpProductSlug,
 	Product,
 	ProductData,
 	ProductGroup,

@@ -13,12 +13,10 @@ import Joi from 'joi'
  * Hero
  */
 interface HeroContent {
-	badgeText?: string
 	heading: string
 	description: string
 }
 const heroSchema = Joi.object({
-	badgeText: Joi.string(),
 	heading: Joi.string().required(),
 	description: Joi.string().required(),
 })
@@ -33,8 +31,11 @@ interface MerchandisingContent {
 		description: string
 		ctaText: string
 	}
-	hashiconfGlobal: {
+	hcp: {
+		cardTitle: string
+		url: string
 		description: string
+		ctaText: string
 	}
 }
 const merchandisingSchema = Joi.object({
@@ -44,9 +45,12 @@ const merchandisingSchema = Joi.object({
 		description: Joi.string().required(),
 		ctaText: Joi.string().required(),
 	}).required(),
-	hashiconfGlobal: Joi.object({
+	hcp: Joi.object({
+		cardTitle: Joi.string().required(),
+		url: Joi.string().required(),
 		description: Joi.string().required(),
-	}),
+		ctaText: Joi.string().required(),
+	}).required(),
 })
 
 /**

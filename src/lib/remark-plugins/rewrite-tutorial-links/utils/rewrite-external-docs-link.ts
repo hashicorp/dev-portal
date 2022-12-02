@@ -1,6 +1,5 @@
 import path from 'path'
 import { ProductSlug } from 'types/products'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import { productSlugsToHostNames } from 'lib/products'
 import { getIsRewriteableDocsLink } from './get-is-rewriteable-docs-link'
 
@@ -47,14 +46,6 @@ export function rewriteExternalDocsLink(urlObject: URL) {
 			return hostname.replace('www.', '') === productHostName
 		}
 	) as ProductSlug
-
-	/**
-	 * Return nothing the product is not a beta product.
-	 */
-	const isBetaProduct = getIsBetaProduct(productSlug)
-	if (!isBetaProduct) {
-		return
-	}
 
 	/**
 	 * If there is no `basePath`, then rewrite link to the product's landing page.

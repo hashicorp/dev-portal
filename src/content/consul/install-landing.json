@@ -1,8 +1,8 @@
 {
 	"featuredCollectionsSlugs": [
-		"consul/cloud-get-started",
-		"consul/gs-consul-service-mesh",
-		"consul/getting-started"
+		"consul/get-started-hcp",
+		"consul/get-started-kubernetes",
+		"consul/get-started-vms"
 	],
 	"featuredTutorialsSlugs": [
 		"consul/kubernetes-api-gateway",
@@ -22,15 +22,15 @@
 		},
 		{
 			"title": "Consul with Kubernetes",
-			"fullPath": "/consul/tutorials/gs-consul-service-mesh/get-started"
+			"fullPath": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy"
 		},
 		{
 			"title": "Consul with Virtual Machines",
-			"fullPath": "/consul/tutorials/getting-started/get-started"
+			"fullPath": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
 		},
 		{
 			"title": "HCP Consul",
-			"fullPath": "/consul/tutorials/cloud-get-started/get-started"
+			"fullPath": "/consul/tutorials/get-started-hcp/hcp-gs-deploy"
 		},
 		{
 			"divider": true
@@ -57,5 +57,11 @@
 				"text": "Commands (CLI)"
 			}
 		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "HCP Consul",
+		"description": "Discover and securely connect your applications",
+		"ctaText": "Try HCP Consul",
+		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
 	}
 }

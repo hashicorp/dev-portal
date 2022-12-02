@@ -105,9 +105,10 @@ const Sidebar = ({
 		)
 		sidebarContent = (
 			<SidebarNavList>
-				{filteredMenuItems.map((item: FilteredNavItem) => (
-					<SidebarNavMenuItem item={item} key={item.id} />
-				))}
+				{filteredMenuItems.map((item: FilteredNavItem, i) => {
+					const key = `${item.id}-${i}`
+					return <SidebarNavMenuItem item={item} key={key} />
+				})}
 			</SidebarNavList>
 		)
 	}

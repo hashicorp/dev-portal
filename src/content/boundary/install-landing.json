@@ -1,7 +1,7 @@
 {
 	"featuredTutorialsSlugs": [
 		"boundary/oidc-auth",
-		"boundary/vault-cred-brokering-quickstart",
+		"boundary/oss-vault-cred-brokering-quickstart",
 		"boundary/hcp-manage-workers",
 		"boundary/hcp-ssh-cred-injection",
 		"boundary/oidc-idp-groups",
@@ -16,7 +16,7 @@
 		},
 		{
 			"title": "What is Boundary?",
-			"fullPath": "/boundary/docs/what-is-boundary"
+			"fullPath": "/boundary/docs/overview/what-is-boundary"
 		},
 		{
 			"title": "Quick Start",
@@ -28,11 +28,11 @@
 		"subtitle": "Boundary is an intelligent proxy that creates granular, identity-based access controls for dynamic infrastructure.",
 		"featuredDocsLinks": [
 			{
-				"href": "/boundary/docs/what-is-boundary",
+				"href": "/boundary/docs/overview/what-is-boundary",
 				"text": "What is Boundary?"
 			},
 			{
-				"href": "/boundary/docs/use-cases",
+				"href": "/boundary/docs/overview/use-cases",
 				"text": "Use Cases"
 			},
 			{
@@ -44,5 +44,11 @@
 				"text": "Clients"
 			}
 		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "HCP Boundary",
+		"description": "Securely connect to clouds and remote hosts",
+		"ctaText": "Try HCP Boundary",
+		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
 	}
 }

@@ -51,7 +51,7 @@ const config: PlaywrightTestConfig = {
 				port: 3000,
 				env: {
 					// Run in preview mode to support changing the product based on the
-					// io_preview cookie
+					// hc_dd_proxied_site cookie
 					HASHI_ENV: 'preview',
 				},
 		  }

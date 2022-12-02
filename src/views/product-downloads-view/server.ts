@@ -12,8 +12,12 @@ import {
 import {
 	generateFeaturedCollectionsCards,
 	generateFeaturedTutorialsCards,
+	generateDefaultPackageManagers,
+	generateEnterprisePackageManagers,
 	sortAndFilterReleaseVersions,
 } from './helpers'
+import { generatePackageManagers } from './server-helpers'
+import { hasHcpCalloutContent } from 'components/try-hcp-callout/content'
 
 interface GenerateStaticPropsOptions {
 	isEnterpriseMode?: boolean
@@ -38,13 +42,19 @@ const generateGetStaticProps = (
 		 * Note: could consider other content sources. For now, JSON.
 		 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
 		 */
-		const jsonFilePath = path.join(
+		let jsonFilePath = path.join(
 			process.cwd(),
-			options.jsonFilePath || `src/content/${product.slug}/install-landing.json`
+			`src/content/${product.slug}/install-landing.json`
 		)
+
+		if (options.jsonFilePath) {
+			jsonFilePath = path.join(process.cwd(), options.jsonFilePath)
+		}
+
 		const CONTENT: RawProductDownloadsViewContent = JSON.parse(
 			fs.readFileSync(jsonFilePath, 'utf8')
 		)
+
 		const {
 			doesNotHavePackageManagers,
 			featuredCollectionsSlugs,
@@ -52,6 +62,7 @@ const generateGetStaticProps = (
 			packageManagerOverrides,
 			sidebarMenuItems,
 			sidecarMarketingCard,
+			sidecarHcpCallout: rawSidecarHcpCallout,
 		} = CONTENT
 
 		/**
@@ -86,6 +97,35 @@ const generateGetStaticProps = (
 		}
 
 		/**
+		 * Build package manager data
+		 */
+		const packageManagers = doesNotHavePackageManagers
+			? []
+			: await generatePackageManagers({
+					defaultPackageManagers: isEnterpriseMode
+						? generateEnterprisePackageManagers(product)
+						: generateDefaultPackageManagers(product),
+					packageManagerOverrides: packageManagerOverrides,
+			  })
+
+		/**
+		 * Build the sidecar HCP callout card
+		 */
+		let sidecarHcpCallout
+		const isHcpProduct = hasHcpCalloutContent(product.slug)
+		const hasContent = typeof rawSidecarHcpCallout !== 'undefined'
+		if (hasContent && isHcpProduct) {
+			sidecarHcpCallout = {
+				...rawSidecarHcpCallout,
+				productSlug: product.slug,
+			}
+		} else if (hasContent) {
+			console.warn(
+				`In "product-downloads-view", for product slug "${product.slug}", "sidecarHcpCallout" content was provided, but the Try HCP callout component cannot be rendered as "${product.slug}" is not recognized as a product with an HCP offering. Please ensure "sidecarHcpCallout" content only exists for products with HCP offerings, or report this as a bug.`
+			)
+		}
+
+		/**
 		 * Combine release data and page content
 		 */
 		const props = stripUndefinedProperties({
@@ -95,17 +135,17 @@ const generateGetStaticProps = (
 				title: 'Install',
 			},
 			pageContent: {
-				doesNotHavePackageManagers,
 				featuredCollectionCards,
 				featuredTutorialCards,
 				installName: options.installName,
-				packageManagerOverrides,
 				sidebarMenuItems,
 				sidecarMarketingCard,
+				sidecarHcpCallout,
 			},
 			product,
 			releases,
 			sortedAndFilteredVersions,
+			packageManagers,
 		})
 
 		return {

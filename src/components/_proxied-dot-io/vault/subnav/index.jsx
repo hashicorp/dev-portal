@@ -22,7 +22,7 @@ export default function ProductSubnav({ menuItems }) {
 				},
 				{
 					text: 'Download',
-					url: '/downloads',
+					url: 'https://developer.hashicorp.com/vault/downloads',
 				},
 				{
 					text: 'Try HCP Vault',

@@ -15,8 +15,8 @@ interface BaseProps {
 	sidebarNavDataLevels: SidebarProps[]
 	/** @TODO determine the minimum set of props that all Sidebars should have */
 	AlternateSidebar?: (props: any) => ReactElement
-	optInOutSlot?: ReactElement
 	versions?: VersionSelectItem[]
+	showScrollProgress?: boolean
 }
 
 /**

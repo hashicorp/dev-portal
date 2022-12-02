@@ -43,7 +43,7 @@ export async function getStaticProps({
 	)
 
 	return {
-		props: stripUndefinedProperties({
+		props: stripUndefinedProperties<$TSFixMe>({
 			collection: currentCollection,
 			layoutProps: { breadcrumbLinks, sidebarSections },
 			metadata: {
