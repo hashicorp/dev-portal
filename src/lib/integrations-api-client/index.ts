@@ -40,6 +40,7 @@ export interface Integration {
 	description?: string
 	repo_url: string
 	subdirectory?: string
+	hide_versions: boolean
 	organization?: Organization
 }
 
