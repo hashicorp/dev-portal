@@ -1,7 +1,7 @@
 import { productSlugsToNames } from 'lib/products'
+import { ProductOption } from 'lib/learn-client/types'
 import { CommandBarLinkListItem } from 'components/command-bar/components'
 import { TutorialHitObject, TutorialHitProps } from './types'
-import { ProductOption } from 'lib/learn-client/types'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 

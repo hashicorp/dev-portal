@@ -1,10 +1,10 @@
 import { Hit } from '@algolia/client-search'
-import { CommandBarTag } from 'components/command-bar/types'
 import {
 	CollectionLevelOption,
 	ProductOption,
 	TutorialLite,
 } from 'lib/learn-client/types'
+import { CommandBarTag } from 'components/command-bar/types'
 
 interface TutorialsTabContentsProps {
 	currentProductTag?: CommandBarTag
