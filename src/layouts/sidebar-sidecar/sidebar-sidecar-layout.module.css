@@ -87,10 +87,7 @@ for further details.
 
 .main {
 	width: 100%;
-
-	@media (--dev-dot-sidecar-up) {
-		max-width: var(--main-element-max-width);
-	}
+	max-width: var(--main-element-max-width);
 }
 
 .editOnGithubLink {
