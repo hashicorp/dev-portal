@@ -88,6 +88,7 @@ for further details.
 .main {
 	width: 100%;
 	max-width: var(--main-element-max-width);
+	min-width: 0;
 }
 
 .editOnGithubLink {
