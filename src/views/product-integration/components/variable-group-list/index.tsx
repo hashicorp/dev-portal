@@ -45,9 +45,11 @@ export function VariableGroupList({
 						{variable.description && (
 							<p className={s.description}>{variable.description}</p>
 						)}
-						<p className={s.required}>
-							{variable.required ? 'Required' : 'Optional'}
-						</p>
+						{typeof variable.required != 'undefined' && (
+							<p className={s.required}>
+								{variable.required ? 'Required' : 'Optional'}
+							</p>
+						)}
 						{variable.variables?.length > 0 && (
 							<VariableGroupList
 								unflatten={false}
