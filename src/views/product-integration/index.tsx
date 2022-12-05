@@ -67,14 +67,13 @@ export default function ProductIntegrationLanding({
 								<Tab heading="README">
 									<ReactMarkdown>{latestRelease.readme}</ReactMarkdown>
 								</Tab>
-								<Tab heading="Documentation">
-									<p>TODO: A Tree of documentation would go here</p>
-								</Tab>
 								{latestRelease.components.map((irc: ReleaseComponent) => {
-									return (
+									return irc.readme || irc.variable_groups.length ? (
 										<Tab key="foo" heading={irc.component.name}>
 											<ComponentTabContent component={irc} />
 										</Tab>
+									) : (
+										<></>
 									)
 								})}
 							</Tabs>

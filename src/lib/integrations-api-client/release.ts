@@ -15,7 +15,7 @@ interface VariableGroupConfig extends BaseModel {
 	display_order: number
 }
 
-interface Variable extends BaseModel {
+export interface Variable extends BaseModel {
 	variable_group_id: string
 	key: string
 	description: string | null
@@ -24,7 +24,7 @@ interface Variable extends BaseModel {
 	default_value: string | null
 }
 
-interface VariableGroup extends BaseModel {
+export interface VariableGroup extends BaseModel {
 	variable_group_config: VariableGroupConfig
 	integration_release_component_id: string
 	variables: Array<Variable>
