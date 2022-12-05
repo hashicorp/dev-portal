@@ -1,4 +1,4 @@
-import Image, { ImageProps } from 'next/image'
+import Image, { ImageProps } from 'next/legacy/image'
 import CallToAction from '@hashicorp/react-call-to-action'
 import s from './style.module.css'
 

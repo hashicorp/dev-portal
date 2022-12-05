@@ -1,10 +1,7 @@
-import { LinkProps as NextLinkProps } from 'next/link'
+import type { ComponentProps } from 'react'
+import NextLink from 'next/link'
 
-type NativeAnchorProps = JSX.IntrinsicElements['a']
-type InheritedNativeAnchorProps = Omit<NativeAnchorProps, 'href'>
-
-interface LinkProps extends InheritedNativeAnchorProps {
-	href: NextLinkProps['href']
+interface LinkProps extends ComponentProps<typeof NextLink> {
 	opensInNewTab?: boolean
 }
 

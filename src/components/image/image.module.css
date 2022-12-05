@@ -1,38 +1,38 @@
 .root {
-  background-color: white;
-  box-shadow: var(--token-surface-base-box-shadow);
-  border-radius: 6px;
-  display: flex;
-  flex-wrap: wrap;
-  overflow: hidden;
-  text-align: center;
-  justify-content: center;
-  margin: 24px auto;
+	background-color: white;
+	box-shadow: var(--token-surface-base-box-shadow);
+	border-radius: 6px;
+	display: flex;
+	flex-wrap: wrap;
+	overflow: hidden;
+	text-align: center;
+	justify-content: center;
+	margin: 24px auto;
 
-  &.noMargin {
-    margin: 0;
-  }
+	&.noMargin {
+		margin: 0;
+	}
 
-  &.noBorder {
-    box-shadow: none;
-    border-radius: 0;
-  }
+	&.noBorder {
+		box-shadow: none;
+		border-radius: 0;
+	}
 
-  &.inline {
-    display: inline-flex;
-  }
+	&.inline {
+		display: inline-flex;
+	}
 
-  /*
+	/*
   This is nested inside .root, instead of delcared as its own class, to ensure that the selector
   is specfic enough to take precedence over the styles declared in @hashicorp/react-content.
 
   TODO: we should be able to switch this back to a standalone class after all products are migrated to
   dev-portal.
   */
-  & img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: 0;
-  }
+	& img {
+		display: block;
+		max-width: 100%;
+		height: auto;
+		margin: 0;
+	}
 }

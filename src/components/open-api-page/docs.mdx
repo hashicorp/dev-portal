@@ -5,18 +5,18 @@ componentName: 'OpenApiPage'
 The `<OpenApiPage />` component, and related server utilities, are used to render documentation pages for a provided [Swagger OpenAPI 2.0 specification](https://swagger.io/specification/v2/).
 
 <LiveComponent
-  components={{
-    boundaryFixture: {
-      info: componentProps.info.fixtureValues.boundary,
-      navData: componentProps.navData.fixtureValues.boundary,
-      operationCategory:
-        componentProps.operationCategory.fixtureValues.boundary,
-      isSingleService: componentProps.isSingleService.fixtureValues.boundary,
-      currentPath: componentProps.currentPath.fixtureValues.boundary,
-    },
-  }}
+	components={{
+		boundaryFixture: {
+			info: componentProps.info.fixtureValues.boundary,
+			navData: componentProps.navData.fixtureValues.boundary,
+			operationCategory:
+				componentProps.operationCategory.fixtureValues.boundary,
+			isSingleService: componentProps.isSingleService.fixtureValues.boundary,
+			currentPath: componentProps.currentPath.fixtureValues.boundary,
+		},
+	}}
 >
-  {`<OpenApiPage
+	{`<OpenApiPage
   siteName="Boundary by HashiCorp"
   productSlug="boundary"
   info={boundaryFixture.info}
@@ -29,17 +29,17 @@ The `<OpenApiPage />` component, and related server utilities, are used to rende
 </LiveComponent>
 
 <LiveComponent
-  components={{
-    packerFixture: {
-      info: componentProps.info.fixtureValues.packer,
-      navData: componentProps.navData.fixtureValues.packer,
-      operationCategory: componentProps.operationCategory.fixtureValues.packer,
-      isSingleService: componentProps.isSingleService.fixtureValues.packer,
-      currentPath: componentProps.currentPath.fixtureValues.packer,
-    },
-  }}
+	components={{
+		packerFixture: {
+			info: componentProps.info.fixtureValues.packer,
+			navData: componentProps.navData.fixtureValues.packer,
+			operationCategory: componentProps.operationCategory.fixtureValues.packer,
+			isSingleService: componentProps.isSingleService.fixtureValues.packer,
+			currentPath: componentProps.currentPath.fixtureValues.packer,
+		},
+	}}
 >
-  {`<OpenApiPage
+	{`<OpenApiPage
   siteName="HCP Packer by HashiCorp"
   productSlug="packer"
   info={packerFixture.info}

@@ -17,7 +17,7 @@ const ButtonLink = ({
 	href,
 	icon,
 	iconPosition = 'leading',
-	openInNewTab = false,
+	opensInNewTab = false,
 	size = 'medium',
 	text,
 	className,
@@ -49,8 +49,8 @@ const ButtonLink = ({
 			data-heap-track={`button-link ${dataHeapTrack ?? ''}`}
 			href={href}
 			onClick={onClick}
-			opensInNewTab={openInNewTab}
-			rel={openInNewTab ? 'noreferrer noopener' : undefined}
+			opensInNewTab={opensInNewTab}
+			rel={opensInNewTab ? 'noreferrer noopener' : undefined}
 		>
 			{hasLeadingIcon && icon}
 			{hasText ? text : null}

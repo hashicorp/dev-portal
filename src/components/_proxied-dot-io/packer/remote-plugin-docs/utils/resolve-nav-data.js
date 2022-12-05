@@ -2,7 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import { resolvePluginDocs } from '@hashicorp/platform-packer-plugins'
 import fetchGithubFile from 'lib/fetch-github-file'
-import { isContentDeployPreview } from 'lib/env-checks'
+import { isDeployPreview } from 'lib/env-checks'
 
 /**
  * Resolves nav-data from file with
@@ -19,7 +19,7 @@ async function resolveNavDataWithRemotePlugins(navDataFile, options = {}) {
 	const { remotePluginsFile, currentPath, mainBranch } = options
 
 	let navDataContent
-	if (isContentDeployPreview('packer')) {
+	if (isDeployPreview('packer')) {
 		// When running in the context of hashicorp/packer, attempt to load the local file
 		navDataContent = fs.readFileSync(
 			path.join(process.cwd(), '..', navDataFile)
@@ -49,7 +49,7 @@ export async function appendRemotePluginsNavData(
 ) {
 	// Read in and parse the plugin configuration JSON
 	let remotePluginsContent
-	if (isContentDeployPreview('packer')) {
+	if (isDeployPreview('packer')) {
 		// When running in the context of hashicorp/packer, attempt to load the local file
 		remotePluginsContent = fs.readFileSync(
 			path.join(process.cwd(), '..', remotePluginsFile)

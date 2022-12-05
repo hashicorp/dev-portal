@@ -222,6 +222,31 @@ describe('groupSimpleRedirects', () => {
 			},
 		})
 	})
+
+	test('does not drop redirects when host condition is developer.hashicorp.com', () => {
+		const groupedSimpleRedirects = groupSimpleRedirects([
+			{
+				source: '/source',
+				destination: '/destination',
+				permanent: false,
+				has: [
+					{
+						type: 'host',
+						value: 'developer.hashicorp.com',
+					},
+				],
+			},
+		])
+
+		expect(groupedSimpleRedirects).toEqual({
+			'*': {
+				'/source': {
+					destination: '/destination',
+					permanent: false,
+				},
+			},
+		})
+	})
 })
 
 describe('addHostCondition', () => {

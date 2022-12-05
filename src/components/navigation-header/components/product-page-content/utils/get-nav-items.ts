@@ -82,7 +82,7 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 		items.push({
 			label: 'Registry',
 			url: 'https://registry.terraform.io/',
-			openInNewTab: true,
+			opensInNewTab: true,
 		})
 	}
 
@@ -96,7 +96,7 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 				currentProduct.slug === 'terraform'
 					? 'https://app.terraform.io/public/signup/account'
 					: 'https://portal.cloud.hashicorp.com/sign-up',
-			openInNewTab: true,
+			opensInNewTab: true,
 		})
 	}
 
