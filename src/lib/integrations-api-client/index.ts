@@ -34,7 +34,8 @@ export interface Integration {
 	tier: Tier
 	product: Product
 	name?: string
-	releases: Release[]
+	versions: string[]
+	components: Component[]
 	flags: $TSFixMe[]
 	description?: string
 	repo_url: string
