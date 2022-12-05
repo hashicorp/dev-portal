@@ -90,7 +90,6 @@ for further details.
 
 	@media (--dev-dot-sidecar-up) {
 		max-width: var(--main-element-max-width);
-		min-width: 0;
 	}
 }
 
