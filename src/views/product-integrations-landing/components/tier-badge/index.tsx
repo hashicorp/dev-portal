@@ -2,8 +2,8 @@ import s from './style.module.css'
 import classNames from 'classnames'
 import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
 import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
-import { Tier } from 'lib/integrations-api-client'
 import { ProductSlug } from 'types/products'
+import { Tier } from 'lib/integrations-api-client/integration'
 
 interface TierBadgeStyles extends React.CSSProperties {
 	'--badge-color': string
