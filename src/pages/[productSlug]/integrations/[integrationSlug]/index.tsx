@@ -23,7 +23,7 @@ const _getServerSideProps = async ({ params }) => {
 	const latestReleaseResponse = await fetchIntegrationRelease(
 		params.productSlug,
 		params.integrationSlug,
-		integrationResponse.result.releases[0]?.version
+		integrationResponse.result.versions[0]
 	)
 	return {
 		props: {
