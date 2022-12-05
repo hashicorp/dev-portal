@@ -1,5 +1,6 @@
-import s from './style.module.css'
 import classNames from 'classnames'
+import ReactMarkdown from 'react-markdown'
+import s from './style.module.css'
 
 export interface Variable {
 	key: string
@@ -42,8 +43,12 @@ export function VariableGroupList({
 							<strong>{variable.key}</strong>
 						</code>
 						<code className={s.type}>{variable.type}</code>
-						{variable.description && (
-							<p className={s.description}>{variable.description}</p>
+						{typeof variable.description !== 'undefined' && (
+							<div>
+								<ReactMarkdown>{`${
+									variable.description !== null ? variable.description : ''
+								}`}</ReactMarkdown>
+							</div>
 						)}
 						{variable.required != null && (
 							<p className={s.required}>
