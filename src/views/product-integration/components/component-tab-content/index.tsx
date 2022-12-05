@@ -1,11 +1,11 @@
 import Tabs, { Tab } from 'components/tabs'
-import { Component } from 'lib/integrations-api-client'
+import { ReleaseComponent } from 'lib/integrations-api-client/release'
 import SearchableVariableGroupList from '../searchable-variable-group-list'
 import { Variable } from '../variable-group-list'
 import s from './style.module.css'
 
 interface ComponentTabContentProps {
-	component: Component
+	component: ReleaseComponent
 }
 
 export default function ComponentTabContent({
@@ -13,7 +13,7 @@ export default function ComponentTabContent({
 }: ComponentTabContentProps) {
 	return (
 		<div className={s.componentTabContent}>
-			<h3>{component.slug}</h3>
+			<h3>{component.component.slug}</h3>
 			<p>
 				Ultrices in iaculis nunc sed. Pulvinar sapien et ligula ullamcorper
 				malesuada proin libero nunc consequat.
