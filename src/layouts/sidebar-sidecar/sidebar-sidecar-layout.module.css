@@ -47,7 +47,7 @@ for further details.
   But, it sidesteps issues in mixing overflow: hidden with position: sticky.
   Details: https://css-tricks.com/dealing-with-overflow-and-position-sticky/
   */
-	--main-element-max-width: 896px;
+	--main-element-max-width: 680px;
 	--sidecar-width: 220px;
 }
 
