@@ -1,7 +1,11 @@
 import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
 import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
 import Button from '@hashicorp/react-button'
-import { Component, Integration, Tier } from 'lib/integrations-api-client'
+import {
+	Integration,
+	IntegrationComponent,
+	Tier,
+} from 'lib/integrations-api-client/integration'
 import React, { useState } from 'react'
 import SearchableIntegrationsList from '../searchable-integrations-list'
 import s from './style.module.css'
@@ -101,7 +105,7 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 				if (checked) {
 					const checkedComponent = sortedComponents[index]
 					// Check each integration component
-					integration.components.forEach((component: Component) => {
+					integration.components.forEach((component: IntegrationComponent) => {
 						if (component.slug === checkedComponent.slug) {
 							componentMatch = true
 						}

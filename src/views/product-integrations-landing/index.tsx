@@ -2,8 +2,8 @@ import s from './style.module.css'
 import BaseLayout from 'layouts/base-new'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import FacetedIntegrationList from './components/faceted-integrations-list'
-import { Integration } from 'lib/integrations-api-client'
 import { ProductData } from 'types/products'
+import { Integration } from 'lib/integrations-api-client/integration'
 
 interface ViewProps {
 	product: ProductData

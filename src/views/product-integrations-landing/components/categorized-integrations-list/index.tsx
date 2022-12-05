@@ -1,4 +1,4 @@
-import { Tier } from 'lib/integrations-api-client'
+import { Tier } from 'lib/integrations-api-client/integration'
 import IntegrationsList from '../integrations-list'
 import s from './style.module.css'
 
