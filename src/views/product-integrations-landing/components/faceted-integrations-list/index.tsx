@@ -1,12 +1,7 @@
 import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
 import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
 import Button from '@hashicorp/react-button'
-import {
-	Integration,
-	IntegrationReleaseComponent,
-	Release,
-	Tier,
-} from 'lib/integrations-api-client'
+import { Component, Integration, Tier } from 'lib/integrations-api-client'
 import React, { useState } from 'react'
 import SearchableIntegrationsList from '../searchable-integrations-list'
 import s from './style.module.css'
@@ -25,7 +20,7 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 	let filteredIntegrations = integrations
 	filteredIntegrations = filteredIntegrations.filter(
 		(integration: Integration) => {
-			return integration.releases.length > 0
+			return integration.versions.length > 0
 		}
 	)
 
@@ -50,13 +45,11 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 
 	// Pull out the list of all of the components used by our integrations
 	// and sort them alphabetically so they are deterministically ordered.
-	const allComponents = filteredIntegrations // --> map each integration...
-		.map((i: Integration) => i.releases[0]) // --> to its latest release...
-		.flatMap((ir: Release) => ir.components) // --> flatten out all release_components, and map each...
-		.map((irc: IntegrationReleaseComponent) => irc.component) // --> to its component
+	const allComponents = filteredIntegrations.flatMap(
+		(i: Integration) => i.components
+	)
 
 	const mergedComponents = [].concat(allComponents)
-
 	const componentIDs = mergedComponents.map((c) => c.id)
 	const dedupedComponents = mergedComponents.filter(
 		({ id }, index) => !componentIDs.includes(id, index + 1)
@@ -108,16 +101,11 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 				if (checked) {
 					const checkedComponent = sortedComponents[index]
 					// Check each integration component
-					const latestRelease = integration.releases[0]
-					if (latestRelease) {
-						for (const component of latestRelease.components.map(
-							(e) => e.component
-						)) {
-							if (component.slug === checkedComponent.slug) {
-								componentMatch = true
-							}
+					integration.components.forEach((component: Component) => {
+						if (component.slug === checkedComponent.slug) {
+							componentMatch = true
 						}
-					}
+					})
 				}
 			})
 			return tierMatch && componentMatch

@@ -57,7 +57,7 @@ export default function ProductIntegrationLanding({
 								name={integration.name}
 								tier={integration.tier}
 								author={integration.organization.slug}
-								versions={integration.releases.map((r) => r.version)}
+								versions={integration.versions}
 								description={integration.description}
 							/>
 
