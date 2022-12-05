@@ -1,4 +1,5 @@
 import { withTiming } from 'lib/with-timing'
+const fetch = getFetch()
 
 function getFetch() {
 	// Note: purposely doing a conditional require here so that
@@ -11,7 +12,11 @@ function getFetch() {
 	return window.fetch
 }
 
-const fetch = getFetch()
+export interface BaseModel {
+	id: string
+	created_at: Date
+	updated_at: Date
+}
 
 export enum Method {
 	GET = 'GET',
@@ -61,4 +66,52 @@ export async function request<ResponseObject>(
 			return res.json()
 		})
 	)
+}
+
+export interface PaginationQuery {
+	limit: number
+	after?: string
+}
+
+type fetchFunction<T> = (
+	query: PaginationQuery
+) => Promise<ApiResponse<Array<T>>>
+
+export async function fetchAllModels<Record extends BaseModel>(
+	fetchFunc: fetchFunction<Record>,
+	fetchedRecords?: Record[],
+	after?: string
+): Promise<Array<Record>> {
+	// Set the query batch size
+	const BATCH_SIZE = 100
+
+	// Set the base array if it's the first call
+	if (typeof fetchedRecords === 'undefined') {
+		fetchedRecords = []
+	}
+
+	// Fetch them from the API, recursively
+	const fetchResult = await fetchFunc({ limit: BATCH_SIZE, after })
+	if (
+		fetchResult.meta.status_code < 200 ||
+		fetchResult.meta.status_code >= 300
+	) {
+		// Just throwing an error here, if something goes wrong
+		// there's not anything we can do to handle.
+		throw new Error(`Failed to fetch Records: ${JSON.stringify(fetchResult)}`)
+	}
+
+	if (fetchResult.result.length < BATCH_SIZE) {
+		// If there's less than BATCH_SIZE flags fetched (less than
+		// the limit), that means that we've fetched everything.
+		return fetchedRecords.concat(fetchResult.result)
+	} else {
+		return fetchAllModels(
+			fetchFunc,
+			// Concat the result with the previous
+			fetchedRecords.concat(fetchResult.result),
+			// The last ID
+			fetchResult.result[fetchResult.result.length - 1].id
+		)
+	}
 }

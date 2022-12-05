@@ -2,7 +2,7 @@ import { cachedGetProductData } from 'lib/get-product-data'
 import {
 	fetchAllProductIntegrations,
 	Integration,
-} from 'lib/integrations-api-client'
+} from 'lib/integrations-api-client/integration'
 import { ProductSlug } from 'types/products'
 import ProductIntegrationsLanding from 'views/product-integrations-landing'
 

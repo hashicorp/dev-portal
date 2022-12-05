@@ -1,8 +1,6 @@
 import { cachedGetProductData } from 'lib/get-product-data'
-import {
-	fetchIntegration,
-	fetchIntegrationRelease,
-} from 'lib/integrations-api-client'
+import { fetchIntegration } from 'lib/integrations-api-client/integration'
+import { fetchIntegrationRelease } from 'lib/integrations-api-client/release'
 import { withTiming } from 'lib/with-timing'
 import ProductIntegration from 'views/product-integration'
 
