@@ -121,7 +121,7 @@ for further details.
 		display: block;
 		flex-shrink: 0;
 		height: fit-content;
-		margin-left: 48px;
+		margin-left: 64px;
 		position: sticky;
 		top: calc(var(--sticky-bars-height) + var(--main-area-padding-top));
 		width: var(--sidecar-width);
