@@ -69,7 +69,7 @@ export default function ProductIntegrationLanding({
 								</Tab>
 								{latestRelease.components.map((irc: ReleaseComponent) => {
 									return irc.readme || irc.variable_groups.length ? (
-										<Tab key="foo" heading={irc.component.name}>
+										<Tab key={irc.component.id} heading={irc.component.name}>
 											<ComponentTabContent component={irc} />
 										</Tab>
 									) : (
