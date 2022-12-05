@@ -5,8 +5,8 @@ export interface Variable {
 	key: string
 	type: string
 	description?: string
-	required?: boolean // Default False
-	variables?: Array<Variable> // User doesn't need
+	required: boolean | null
+	variables?: Array<Variable> // User doesn't need to specify this
 	highlight?: boolean // Default false
 }
 
@@ -45,7 +45,7 @@ export function VariableGroupList({
 						{variable.description && (
 							<p className={s.description}>{variable.description}</p>
 						)}
-						{typeof variable.required != 'undefined' && (
+						{variable.required != null && (
 							<p className={s.required}>
 								{variable.required ? 'Required' : 'Optional'}
 							</p>
@@ -107,6 +107,7 @@ function unflattenVariables(variables: Array<Variable>): Array<Variable> {
 							if (!pointer) {
 								pointer = {
 									type: 'object',
+									required: null,
 									key: segments.slice(0, j + 1).join('.'),
 									variables: [],
 								}
