@@ -1,8 +1,13 @@
 import Tabs, { Tab } from 'components/tabs'
-import { ReleaseComponent } from 'lib/integrations-api-client/release'
+import {
+	ReleaseComponent,
+	VariableGroup,
+	Variable as ApiVariable,
+} from 'lib/integrations-api-client/release'
 import SearchableVariableGroupList from '../searchable-variable-group-list'
 import { Variable } from '../variable-group-list'
 import s from './style.module.css'
+import ReactMarkdown from 'react-markdown'
 
 interface ComponentTabContentProps {
 	component: ReleaseComponent
@@ -13,34 +18,35 @@ export default function ComponentTabContent({
 }: ComponentTabContentProps) {
 	return (
 		<div className={s.componentTabContent}>
-			<h3>{component.component.slug}</h3>
-			<p>
-				Ultrices in iaculis nunc sed. Pulvinar sapien et ligula ullamcorper
-				malesuada proin libero nunc consequat.
-			</p>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Pulvinar neque
-				laoreet suspendisse interdum. Turpis massa sed elementum tempus egestas.
-				Elementum tempus egestas sed sed. Arcu bibendum at varius vel pharetra
-				vel turpis nunc. Vel facilisis volutpat est velit egestas dui id. Vitae
-				sapien pellentesque habitant morbi tristique senectus et netus. Dolor
-				sit amet consectetur adipiscing elit pellentesque habitant.
-			</p>
-			<Tabs allowNestedStyles>
-				<Tab heading="Parameters">
-					<SearchableVariableGroupList
-						groupName="Parameters"
-						variables={PARAMS_FIXTURE}
-					/>
-				</Tab>
-				<Tab heading="Outputs">
-					<SearchableVariableGroupList
-						groupName="Outputs"
-						variables={OUTPUTS_FIXTURE}
-					/>
-				</Tab>
-			</Tabs>
+			{component.readme && <ReactMarkdown>{component.readme}</ReactMarkdown>}
+			{component.variable_groups.length && (
+				<Tabs allowNestedStyles>
+					{component.variable_groups.map((variableGroup: VariableGroup) => {
+						return (
+							<Tab
+								key={variableGroup.id}
+								heading={variableGroup.variable_group_config.name}
+							>
+								<SearchableVariableGroupList
+									groupName={variableGroup.variable_group_config.name}
+									variables={variableGroup.variables.map(
+										(variable: ApiVariable): Variable => {
+											return {
+												key: variable.key,
+												type: variable.type,
+												description: variable.description,
+												required: variable.required
+													? variable.required
+													: undefined,
+											}
+										}
+									)}
+								/>
+							</Tab>
+						)
+					})}
+				</Tabs>
+			)}
 		</div>
 	)
 }
