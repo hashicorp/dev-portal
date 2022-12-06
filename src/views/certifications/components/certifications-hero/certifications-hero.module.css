@@ -1,6 +1,5 @@
 .root {
-	background: lightgray;
+	background: rgba(255, 0, 255, 0.15);
 	border: 1px solid magenta;
-	padding-bottom: 5rem;
-	margin-bottom: -3rem;
+	padding-bottom: 10rem;
 }
