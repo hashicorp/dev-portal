@@ -1,4 +1,47 @@
 {
 	"title": "Infrastructure Automation",
-	"stub": "Infrastructure Automation page content"
+	"summary": {
+		"heading": "Infrastructure Automation Certifications",
+		"description": "Brief intro. Short but enough to help practitioners take that next step. Suggestion is a max of 5 lines of content. Verify your basic automation skills. If you have passed the existing exams wait until the new version comes out to re-certify."
+	},
+	"hero": {
+		"heading": "Infrastructure Automation Overview",
+		"description": "Brief intro. Short but enough to help practitioners take that next step. Suggestion is a max of 5 lines of content. Verify your basic infrastructure automation skills. If you have passed the Terraform Associate wait until the new version comes out to re-certify."
+	},
+	"certifications": [
+		{
+			"title": "Terraform Associate 002",
+			"links": {
+				"prepare": "/terraform/tutorials/certification",
+				"register": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049382552"
+			},
+			"faqItems": [
+				{
+					"title": "Prerequisites",
+					"content": "- Basic terminal skills\n- Basic understanding of on premises and cloud architecture"
+				},
+				{
+					"title": "Exam experience",
+					"content": "Certification exams are taken online with a live proctor. This means that all locations and time zones are accommodated. Online proctoring provides the same benefits of a physical test center while being more accessible to exam-takers. The live proctor verifies the exam-taker’s identity, walks them through rules and procedures, and watches them take the exam. Be sure to follow the instructions on your exam appointment confirmation email about how to prepare your computer and physical environment to take the exam."
+				},
+				{
+					"title": "New disclosure",
+					"content": "Certification exams are taken online with a live proctor. This means that all locations and time zones are accommodated. Online proctoring provides the same benefits of a physical test center while being more accessible to exam-takers. The live proctor verifies the exam-taker’s identity, walks them through rules and procedures, and watches them take the exam. Be sure to follow the instructions on your exam appointment confirmation email about how to prepare your computer and physical environment to take the exam."
+				},
+				{
+					"title": "New disclosure (elevation high on hover)",
+					"content": "Certification exams are taken online with a live proctor. This means that all locations and time zones are accommodated. Online proctoring provides the same benefits of a physical test center while being more accessible to exam-takers. The live proctor verifies the exam-taker’s identity, walks them through rules and procedures, and watches them take the exam. Be sure to follow the instructions on your exam appointment confirmation email about how to prepare your computer and physical environment to take the exam."
+				}
+			]
+		},
+		{
+			"title": "Terraform Associate 003",
+			"faqItems": [
+				{
+					"title": "Prerequisites",
+					"content": "- Basic terminal skills\n- Basic understanding of on premises and cloud architecture"
+				}
+			]
+		}
+	]
 }

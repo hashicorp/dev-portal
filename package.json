@@ -199,7 +199,8 @@
 		"unified": "^9.2.0",
 		"unist-util-is": "^5.1.1",
 		"unist-util-visit": "^4.1.0",
-		"validator": "^13.7.0"
+		"validator": "^13.7.0",
+		"zod": "^3.19.1"
 	},
 	"overrides": {
 		"react": "^18.2.0",

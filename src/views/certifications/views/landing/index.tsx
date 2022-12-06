@@ -1,18 +1,21 @@
 import BaseNewLayout from 'layouts/base-new'
-import { CertificationLandingProps } from './types'
+import { CertificationLandingProps, CertificationProgramSummary } from './types'
 import {
 	CertificationsContentArea,
 	CertificationsHero,
 	CertificationsNav,
-} from '../components'
+} from '../../components'
 import {
 	CertificationProgramSection,
 	OverviewAndFaq,
 	SignupFormArea,
 } from './components'
+import s from './landing.module.css'
+
 function CertificationsLandingView({
 	navProps,
 	pageContent,
+	programSummaries,
 }: CertificationLandingProps) {
 	return (
 		<>
@@ -21,65 +24,24 @@ function CertificationsLandingView({
 				heading="HashiCorp Cloud Engineer Certifications"
 				description="Each certification program tests both conceptual knowledge and real-world experience using HashiCorp multi-cloud tools. Upon passing the exam, you can easily communicate your proficiency and employers can quickly verify your results."
 			/>
-			<div style={{ isolation: 'isolate' }}>
-				<div
-					style={{
-						display: 'flex',
-						flexDirection: 'column',
-						gap: '24px',
-						alignItems: 'stretch',
-						zIndex: 1,
-					}}
-				>
-					<CertificationProgramSection
-						heading="Infrastructure Automation headline"
-						description="Brief intro- short but enough to help practicioners take that next step. Suggestion is a max of 5 lines of content. Verify your basic infrastructure automation skills. If you have passed the Terraform Assocate wait until the new version comes out to recertify."
-						overviewCta={{
-							text: 'Overview',
-							url: '/certifications/infrastructure-automation',
-						}}
-						certifications={[
-							{
-								title: 'Terraform Associate 002',
-								url: '/terraform/tutorials/certification',
-							},
-							{
-								title: 'Terraform Associate 003',
-							},
-						]}
-					/>
-					<CertificationProgramSection
-						heading="Security Automation headline"
-						description="Brief intro- short but enough to help practicioners take that next step. Suggestion is a max of 5 lines of content. Verify your basic security automation skills. Prerequisites include; basic terminal skills, understanding of on premise or cloud architecture."
-						overviewCta={{
-							text: 'Overview',
-							url: '/certifications/security-automation',
-						}}
-						certifications={[
-							{
-								title: 'Vault Associate 002',
-								url: '/vault/tutorials/associate-cert/associate-study',
-							},
-							{
-								title: 'Vault Operations Professional',
-								url: '/vault/tutorials/ops-pro-cert',
-							},
-						]}
-					/>
-					<CertificationProgramSection
-						heading="Networking Automation headline"
-						description="Brief intro- short but enough to help practicioners take that next step. Suggestion is a max of 5 lines of content. Verify your basic networking automation skills. Prerequisites include; containerization knowledge,  load balancing, and distributed systems."
-						overviewCta={{
-							text: 'Overview',
-							url: '/certifications/networking-automation',
-						}}
-						certifications={[
-							{
-								title: 'Consul Associate 002',
-								url: '/consul/tutorials/certification',
-							},
-						]}
-					/>
+			<div className={s.programsAndFaq}>
+				<div className={s.programsSection}>
+					{programSummaries.map(
+						(programSummary: CertificationProgramSummary) => {
+							return (
+								<CertificationProgramSection
+									key={programSummary.slug}
+									heading={programSummary.title}
+									description={programSummary.description}
+									overviewCta={{
+										text: 'Overview',
+										url: `/certifications/${programSummary.slug}`,
+									}}
+									certifications={programSummary.certifications}
+								/>
+							)
+						}
+					)}
 				</div>
 				<OverviewAndFaq
 					heading="Program overview & FAQ"

@@ -1,4 +1,31 @@
 {
 	"title": "Security Automation",
-	"stub": "Security Automation page content"
+	"summary": {
+		"heading": "Security Automation Certifications",
+		"description": "Brief intro. Short but enough to help practitioners take that next step. Suggestion is a max of 5 lines of content. Verify your basic automation skills. If you have passed the existing exams wait until the new version comes out to re-certify."
+	},
+	"hero": {
+		"heading": "Security Automation Overview",
+		"description": "Brief intro. Short but enough to help practitioners take that next step. Suggestion is a max of 5 lines of content. Verify your basic automation skills. If you have passed the existing exams wait until the new version comes out to re-certify."
+	},
+	"certifications": [
+		{
+			"title": "Vault Associate 002",
+			"faqItems": [
+				{
+					"title": "Prerequisites",
+					"content": "- Basic terminal skills\n- Basic understanding of on premises and cloud architecture"
+				}
+			]
+		},
+		{
+			"title": "Vault Operations Professional",
+			"faqItems": [
+				{
+					"title": "Prerequisites",
+					"content": "- Basic terminal skills\n- Basic understanding of on premises and cloud architecture"
+				}
+			]
+		}
+	]
 }

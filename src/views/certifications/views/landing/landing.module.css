@@ -1,0 +1,19 @@
+.programsAndFaq {
+	background: rgba(255, 0, 255, 0.15);
+
+	/* Isolate z-index changes within this section */
+	isolation: isolate;
+}
+
+.programsSection {
+	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+	gap: 72px;
+
+	/* Overlap onto the hero above */
+	margin-top: -72px;
+
+	/* We want this section to be above the FAQ section below */
+	z-index: 1;
+}

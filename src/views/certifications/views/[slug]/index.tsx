@@ -5,7 +5,7 @@ import {
 	CertificationsContentArea,
 	CertificationsNav,
 	CertificationsHero,
-} from '../components'
+} from '../../components'
 // Local view components
 import { CertificationProgramDetails } from './components'
 import { CertificationPageProps } from './types'

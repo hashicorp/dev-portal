@@ -1,11 +1,11 @@
 import { GetStaticPropsContext } from 'next'
-import { formatCertificationsNavProps } from '../components/certifications-nav/helpers'
+import { formatCertificationsNavProps } from '../../components/certifications-nav/helpers'
 import { CertificationPageProps } from './types'
-import { CertificationProgramItem } from '../types'
+import { CertificationProgramItem } from '../../types'
 import {
 	getAllCertificationProgramSlugs,
 	getAllCertificationPrograms,
-} from '../server'
+} from '../../helpers'
 
 export async function getStaticProps({
 	params: { slug },
