@@ -8,25 +8,42 @@ export default function CategorizedVariableGroupList({
 }: VariableGroupListProps) {
 	let hasRequired = false
 	let hasOptional = false
+	let onlyHasNull = true
+
 	variables.forEach((v) => {
+		if (v.required !== null) {
+			onlyHasNull = false
+		}
 		if (v.required) {
 			hasRequired = true
 		} else {
 			hasOptional = true
 		}
 	})
+
 	return (
 		<>
-			{hasRequired && hasOptional ? (
+			{!onlyHasNull ? (
 				<>
-					<h3>Required</h3>
-					<VariableGroupList variables={variables.filter((v) => v.required)} />
-					<h3>Optional</h3>
-					<VariableGroupList variables={variables.filter((v) => !v.required)} />
+					{hasRequired && (
+						<>
+							<h3>Required</h3>
+							<VariableGroupList
+								variables={variables.filter((v) => v.required)}
+							/>
+						</>
+					)}
+					{hasOptional && (
+						<>
+							<h3>Optional</h3>
+							<VariableGroupList
+								variables={variables.filter((v) => !v.required)}
+							/>
+						</>
+					)}
 				</>
 			) : (
 				<>
-					{hasRequired && <h3>Required</h3>}
 					<VariableGroupList variables={variables} />
 				</>
 			)}
