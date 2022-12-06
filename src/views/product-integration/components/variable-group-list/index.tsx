@@ -111,7 +111,7 @@ function unflattenVariables(variables: Array<Variable>): Array<Variable> {
 							// we need to create the parent object for appropriate nesting
 							if (!pointer) {
 								pointer = {
-									type: 'object',
+									type: 'category',
 									required: null,
 									key: segments.slice(0, j + 1).join('.'),
 									variables: [],
