@@ -1,0 +1,41 @@
+.submittedMsg {
+	display: flex;
+
+	/* TODO: add in fade-in animation */
+	transition: opacity 0.35s;
+
+	&.dark {
+		& .submittedMsgText {
+			color: var(--gray-5);
+		}
+		& .submittedMsgTextLink {
+			color: var(--brand-link-on-dark);
+		}
+	}
+}
+
+.iconWrapper {
+	display: flex;
+	column-gap: var(--wpl-spacing-02);
+	color: black;
+
+	&.success {
+		color: var(--success);
+	}
+
+	&.error {
+		color: var(--warning);
+	}
+}
+
+.icon {
+	flex: 0 0 auto;
+	width: var(--wpl-spacing-05);
+	height: var(--wpl-spacing-05);
+}
+
+.submittedMsgText {
+	composes: g-type-body from global;
+	margin: 0;
+	color: var(--gray-2);
+}
