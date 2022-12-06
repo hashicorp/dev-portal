@@ -1,8 +1,11 @@
 import BaseNewLayout from 'layouts/base-new'
 import { CertificationLandingProps } from './types'
 import { CertificationsContentArea, CertificationsHero } from '../components'
-import { CertificationProgramSection, OverviewAndFaq } from './components'
-
+import {
+	CertificationProgramSection,
+	OverviewAndFaq,
+	SignupFormArea,
+} from './components'
 function CertificationsLandingView({ pageContent }: CertificationLandingProps) {
 	return (
 		<>
@@ -91,6 +94,7 @@ function CertificationsLandingView({ pageContent }: CertificationLandingProps) {
 					]}
 				/>
 			</div>
+			<SignupFormArea />
 			<CertificationsContentArea>
 				<h2>{`[stub]`} Page Content</h2>
 				<pre
