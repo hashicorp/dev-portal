@@ -1,19 +1,20 @@
-import rivetQuery from '@hashicorp/platform-cms'
 import { GetStaticPropsContext } from 'next'
 import { formatCertificationsNavProps } from '../components/certifications-nav/helpers'
-import pageQuery from './page-query.graphql'
-import staticPathsQuery from './static-paths-query.graphql'
 import { CertificationPageProps } from './types'
+import { CertificationProgramItem } from '../types'
+import {
+	getAllCertificationProgramSlugs,
+	getAllCertificationPrograms,
+} from '../server'
 
 export async function getStaticProps({
 	params: { slug },
 }: GetStaticPropsContext): Promise<{ props: CertificationPageProps }> {
-	const { allProductCertificationPages: allPages } = await rivetQuery({
-		query: pageQuery,
-	})
-
-	const navProps = formatCertificationsNavProps(allPages)
-	const pageContent = allPages.find((page) => page.slug === slug)
+	const allPrograms = getAllCertificationPrograms()
+	const { pageContent } = allPrograms.find(
+		(p: CertificationProgramItem) => p.slug === slug
+	)
+	const navProps = formatCertificationsNavProps(allPrograms)
 
 	return {
 		props: { navProps, pageContent },
@@ -21,11 +22,7 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-	const data = await rivetQuery({ query: staticPathsQuery })
-	return {
-		paths: data.allProductCertificationPages.map((page) => ({
-			params: { slug: page.slug },
-		})),
-		fallback: false,
-	}
+	const slugs = getAllCertificationProgramSlugs()
+	const paths = slugs.map((slug: string) => ({ params: { slug } }))
+	return { paths, fallback: false }
 }

@@ -1,14 +1,22 @@
 import BaseNewLayout from 'layouts/base-new'
 import { CertificationLandingProps } from './types'
-import { CertificationsContentArea, CertificationsHero } from '../components'
+import {
+	CertificationsContentArea,
+	CertificationsHero,
+	CertificationsNav,
+} from '../components'
 import {
 	CertificationProgramSection,
 	OverviewAndFaq,
 	SignupFormArea,
 } from './components'
-function CertificationsLandingView({ pageContent }: CertificationLandingProps) {
+function CertificationsLandingView({
+	navProps,
+	pageContent,
+}: CertificationLandingProps) {
 	return (
 		<>
+			<CertificationsNav {...navProps} />
 			<CertificationsHero
 				heading="HashiCorp Cloud Engineer Certifications"
 				description="Each certification program tests both conceptual knowledge and real-world experience using HashiCorp multi-cloud tools. Upon passing the exam, you can easily communicate your proficiency and employers can quickly verify your results."
@@ -28,7 +36,7 @@ function CertificationsLandingView({ pageContent }: CertificationLandingProps) {
 						description="Brief intro- short but enough to help practicioners take that next step. Suggestion is a max of 5 lines of content. Verify your basic infrastructure automation skills. If you have passed the Terraform Assocate wait until the new version comes out to recertify."
 						overviewCta={{
 							text: 'Overview',
-							url: '/terraform-associate',
+							url: '/certifications/infrastructure-automation',
 						}}
 						certifications={[
 							{
@@ -45,7 +53,7 @@ function CertificationsLandingView({ pageContent }: CertificationLandingProps) {
 						description="Brief intro- short but enough to help practicioners take that next step. Suggestion is a max of 5 lines of content. Verify your basic security automation skills. Prerequisites include; basic terminal skills, understanding of on premise or cloud architecture."
 						overviewCta={{
 							text: 'Overview',
-							url: '/vault-associate',
+							url: '/certifications/security-automation',
 						}}
 						certifications={[
 							{
@@ -63,7 +71,7 @@ function CertificationsLandingView({ pageContent }: CertificationLandingProps) {
 						description="Brief intro- short but enough to help practicioners take that next step. Suggestion is a max of 5 lines of content. Verify your basic networking automation skills. Prerequisites include; containerization knowledge,  load balancing, and distributed systems."
 						overviewCta={{
 							text: 'Overview',
-							url: '/consul-associate',
+							url: '/certifications/networking-automation',
 						}}
 						certifications={[
 							{

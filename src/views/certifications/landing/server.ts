@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+import { formatCertificationsNavProps } from '../components/certifications-nav/helpers'
+import { readLocalFile, getAllCertificationPrograms } from '../server'
 import { GetStaticPropsResult } from 'next'
 import { CertificationLandingProps } from './types'
 
@@ -12,17 +12,10 @@ export async function getStaticProps(): Promise<
 	const pageContent = JSON.parse(
 		readLocalFile('src/content/certifications/landing.json')
 	)
+	const allPrograms = getAllCertificationPrograms()
+	const navProps = formatCertificationsNavProps(allPrograms)
 
 	return {
-		props: { pageContent },
+		props: { navProps, pageContent },
 	}
-}
-
-/**
- * Read a local file from getStaticProps context,
- * using `process.cwd()` to resolve the provided filePath.
- */
-function readLocalFile(filePath: string) {
-	const fullPath = path.join(process.cwd(), filePath)
-	return fs.readFileSync(fullPath, 'utf8')
 }

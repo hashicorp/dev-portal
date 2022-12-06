@@ -1,4 +1,4 @@
-import { CertificationsContentArea } from '../'
+import { CertificationsContentArea } from '..'
 import s from './certifications-hero.module.css'
 
 export function CertificationsHero({

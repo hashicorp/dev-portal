@@ -1,14 +1,17 @@
 import { CertificationsNavProps } from './types'
+import { CertificationProgramItem } from 'views/certifications/types'
 
 /**
- * Again, might be nice to use Zod validation to generate types here, or something
+ * Format certification programs for a dev nav
  */
 export function formatCertificationsNavProps(
-	allProductCertificationPages: $TSFixMe
+	allCertificationPrograms: CertificationProgramItem[]
 ): CertificationsNavProps {
 	const indexLink = { text: 'All Certifications', url: '/certifications' }
-	const pageLinks = allProductCertificationPages.map(({ slug, title }) => {
-		return { text: title, url: `/certifications/${slug}` }
-	})
+	const pageLinks = allCertificationPrograms.map(
+		({ slug, pageContent }: CertificationProgramItem) => {
+			return { text: pageContent.title, url: `/certifications/${slug}` }
+		}
+	)
 	return { items: [indexLink, ...pageLinks] }
 }
