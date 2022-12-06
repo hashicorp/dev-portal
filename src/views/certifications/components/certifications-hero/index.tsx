@@ -1,3 +1,4 @@
+import { CertificationsContentArea } from '../'
 import s from './certifications-hero.module.css'
 
 export function CertificationsHero({
@@ -9,8 +10,11 @@ export function CertificationsHero({
 }) {
 	return (
 		<div className={s.root}>
-			<h1>{heading}</h1>
-			<p>{description}</p>
+			<CertificationsContentArea>
+				<h1>{heading}</h1>
+				<p>{description}</p>
+			</CertificationsContentArea>
+			<div className={s.background}></div>
 		</div>
 	)
 }
