@@ -16,7 +16,7 @@ export interface VariableGroup {
 	variables: Array<Variable>
 }
 
-interface VariableGroupListProps {
+export interface VariableGroupListProps {
 	variables: Array<Variable>
 	unflatten?: boolean // Users should never set this to false, needed for recursive nesting
 }
