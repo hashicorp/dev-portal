@@ -1,4 +1,4 @@
-import { CertificationsContentArea } from '../../../components'
+import { CertificationsContentArea } from '../../../../components'
 import { NewsletterSignupForm } from '..'
 import { marketoFormData } from '../newsletter-signup-form/marketo-form-data'
 import s from './signup-form-area.module.css'

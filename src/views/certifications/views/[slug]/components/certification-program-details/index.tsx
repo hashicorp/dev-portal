@@ -18,6 +18,11 @@ export function CertificationProgramDetails({ title }: { title: string }) {
 						<AccordionGroup
 							items={[
 								{
+									title: 'Prerequisites',
+									content:
+										'- Basic terminal skills\n- Basic understanding of on premises and cloud architecture',
+								},
+								{
 									title: 'Exam experience',
 									content:
 										'Certification exams are taken online with a live proctor. This means that all locations and time zones are accommodated. Online proctoring provides the same benefits of a physical test center while being more accessible to exam-takers. The live proctor verifies the exam-taker’s identity, walks them through rules and procedures, and watches them take the exam. Be sure to follow the instructions on your exam appointment confirmation email about how to prepare your computer and physical environment to take the exam.',

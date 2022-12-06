@@ -1,8 +1,6 @@
-/**
- * TODO: should use zod schema to define this type, I think?
- */
-export type CertificationProgram = Record<string, $TSFixMe>
+import type { CertificationProgram } from './schemas/certification-program'
 
+export type { CertificationProgram }
 export interface CertificationProgramItem {
 	slug: string
 	pageContent: CertificationProgram

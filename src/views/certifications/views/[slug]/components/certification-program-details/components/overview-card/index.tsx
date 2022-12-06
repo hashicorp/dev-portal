@@ -1,5 +1,5 @@
 import ButtonLink from 'components/button-link'
-import { ButtonGroup, SplitCardSection } from '../../../'
+import { ButtonGroup, SplitCardSection } from '../../..'
 import s from './overview-card.module.css'
 
 export function OverviewCard({ title }: { title: string }) {

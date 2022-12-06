@@ -1,4 +1,4 @@
-import { CertificationsNavProps } from '../components/certifications-nav/types'
+import { CertificationsNavProps } from '../../components/certifications-nav/types'
 
 export interface CertificationPageProps {
 	navProps: CertificationsNavProps
