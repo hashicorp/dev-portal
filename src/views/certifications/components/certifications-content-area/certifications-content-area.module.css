@@ -1,7 +1,7 @@
 .root {
-	border: 1px solid magenta;
+	margin: auto;
 	max-width: 1240px;
 	padding-left: 24px;
 	padding-right: 24px;
-	margin: auto;
+	width: 100%;
 }
