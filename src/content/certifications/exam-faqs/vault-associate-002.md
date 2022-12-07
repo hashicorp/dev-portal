@@ -1,6 +1,6 @@
 ## Overview
 
-This file holds some markdown content, that gets its newlines removed and then gets pasted into the adjacent `infrastructure-automation.json` file.
+This file holds some markdown content, that gets its newlines removed and then gets pasted into the adjacent `programs/<program-slug>.json` content files.
 
 This is a stopgap while we figure out better content authoring interfaces for this content.
 

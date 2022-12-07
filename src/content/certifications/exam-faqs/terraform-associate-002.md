@@ -1,8 +1,11 @@
 ## Overview
 
-This file holds some markdown content, that gets its newlines removed and then gets pasted into the adjacent `infrastructure-automation.json` file.
+This file holds some markdown content, that gets its newlines removed and then gets pasted into the adjacent `programs/<program-slug>.json` content files.
 
 This is a stopgap while we figure out better content authoring interfaces for this content.
+
+> **Thought**: we could parse this markdown file with remark, extracting content under each `<h2 />` heading, in order to drive the FAQ.
+> This would be an alternative to driving the FAQ content via JSON. Might be neat to explore.
 
 ## Exam Details
 
