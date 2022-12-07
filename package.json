@@ -193,7 +193,6 @@
 		"rivet-graphql": "^0.3.1",
 		"search-insights": "^1.8.0",
 		"semver": "^7.3.5",
-		"semver-sort": "^1.0.0",
 		"shortid": "^2.2.16",
 		"slugify": "^1.6.4",
 		"swingset": "^0.11.0",
