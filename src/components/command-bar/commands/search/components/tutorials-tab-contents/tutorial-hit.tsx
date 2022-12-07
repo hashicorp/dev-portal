@@ -23,7 +23,7 @@ const TutorialHit = ({ hit }: TutorialHitProps) => {
 		return null
 	}
 
-	const { name, description } = _highlightResult
+	const { name, page_title, description } = _highlightResult
 
 	/**
 	 * If the `_highlightResult` has neither a name or description, there is
@@ -51,7 +51,7 @@ const TutorialHit = ({ hit }: TutorialHitProps) => {
 
 	return (
 		<CommandBarLinkListItem
-			title={name?.value}
+			title={page_title?.value || name?.value}
 			description={description?.value}
 			url={resultUrl}
 			badges={badges}
