@@ -1,8 +1,8 @@
 import path from 'path'
-import fetchVersionsForProducts from './helpers/fetch-versions-for-products'
+import fetchNavDataForProducts from './helpers/fetch-nav-data-for-products'
 
 const main = () => {
-	fetchVersionsForProducts({
+	fetchNavDataForProducts({
 		generatedFilesFolderPath: path.join(__dirname, '.generated'),
 	})
 }
