@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 export const CertificationItemSchema = z.object({
 	title: z.string(),
+	description: z.string(),
 	links: z
 		.object({
 			prepare: z.string().optional(),

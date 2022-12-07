@@ -4,3 +4,20 @@
 	padding-bottom: 10rem;
 	padding-top: 8rem;
 }
+
+.text {
+	display: flex;
+	flex-direction: column;
+	max-width: 540px;
+	gap: 32px;
+}
+
+.heading {
+	border: 1px solid magenta;
+	margin: 0;
+}
+
+.description {
+	border: 1px solid magenta;
+	margin: 0;
+}

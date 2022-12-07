@@ -16,16 +16,16 @@ function CertificationPage({ navProps, pageContent }: CertificationPageProps) {
 		<>
 			<CertificationsNav {...navProps} />
 			<CertificationsHero
-				heading={pageContent.title}
-				description={
-					'Brief intro. Short but enough to help practitioners take that next step. Suggestion is a max of 5 lines of content. Verify your basic infrastructure automation skills. If you have passed the Terraform Associate wait until the new version comes out to re-certify.'
-				}
+				heading={pageContent.hero.heading}
+				description={pageContent.hero.description}
 			/>
 			{pageContent.certifications.map((certification) => {
 				return (
 					<CertificationProgramDetails
 						key={certification.title}
 						title={certification.title}
+						description={certification.description}
+						links={certification.links}
 						faqItems={certification.faqItems.map((item) => {
 							return {
 								title: item.title,
