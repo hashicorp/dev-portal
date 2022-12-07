@@ -31,6 +31,7 @@ import {
 } from './contexts/sidebar-nav-data'
 import { ScrollProgressBar } from './components/scroll-progress-bar'
 import { filterTableOfContentsHeadings } from './utils/filter-table-of-contents-headings'
+import { CssCustomPropsEditor } from './components/css-custom-props-editor'
 import s from './sidebar-sidecar-layout.module.css'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
@@ -108,49 +109,51 @@ const SidebarSidecarLayoutContent = ({
 				</div>
 			</MobileMenuContainer>
 			<div className={s.contentWrapper} ref={contentRef}>
-				{currentlyViewedVersion && (
-					<PageAlert
-						className={s.versionAlert}
-						description={
-							<>
-								You are viewing documentation for version{' '}
-								{currentlyViewedVersion}.{' '}
-								<InlineLink
-									className={s.versionAlertLink}
-									href={removeVersionFromPath(currentPath)}
-									textSize={200}
-									textWeight="medium"
-								>
-									View latest version
-								</InlineLink>
-								.
-							</>
-						}
-						icon={<IconInfo16 />}
-						type="highlight"
-					/>
-				)}
-				<div className={s.mainAreaWrapper}>
-					<main id="main" className={s.main}>
-						<span className={s.breadcrumbOptOutGroup}>
-							{breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
-						</span>
-						{children}
-						{githubFileUrl && (
-							<EditOnGithubLink
-								className={s.editOnGithubLink}
-								url={githubFileUrl}
-								label="Edit this page on GitHub"
-							/>
-						)}
-					</main>
-					<div className={s.sidecarWrapper}>
-						<SidecarContent />
+				<CssCustomPropsEditor>
+					{currentlyViewedVersion && (
+						<PageAlert
+							className={s.versionAlert}
+							description={
+								<>
+									You are viewing documentation for version{' '}
+									{currentlyViewedVersion}.{' '}
+									<InlineLink
+										className={s.versionAlertLink}
+										href={removeVersionFromPath(currentPath)}
+										textSize={200}
+										textWeight="medium"
+									>
+										View latest version
+									</InlineLink>
+									.
+								</>
+							}
+							icon={<IconInfo16 />}
+							type="highlight"
+						/>
+					)}
+					<div className={s.mainAreaWrapper}>
+						<main id="main" className={s.main}>
+							<span className={s.breadcrumbOptOutGroup}>
+								{breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+							</span>
+							{children}
+							{githubFileUrl && (
+								<EditOnGithubLink
+									className={s.editOnGithubLink}
+									url={githubFileUrl}
+									label="Edit this page on GitHub"
+								/>
+							)}
+						</main>
+						<div className={s.sidecarWrapper}>
+							<SidecarContent />
+						</div>
 					</div>
-				</div>
-				{showScrollProgress ? (
-					<ScrollProgressBar progress={scrollYProgress} />
-				) : null}
+					{showScrollProgress ? (
+						<ScrollProgressBar progress={scrollYProgress} />
+					) : null}
+				</CssCustomPropsEditor>
 			</div>
 		</div>
 	)

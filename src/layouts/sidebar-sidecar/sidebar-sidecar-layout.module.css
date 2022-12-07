@@ -74,6 +74,7 @@ for further details.
 }
 
 .contentWrapper {
+	position: relative;
 	width: 100%;
 
 	@media (--dev-dot-hide-mobile-menu) {
