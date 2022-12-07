@@ -54,6 +54,7 @@
 		"@hashicorp/platform-postcss-config": "^0.1.0",
 		"@hashicorp/platform-tools": "^0.6.0",
 		"@hashicorp/platform-types": "^0.3.0",
+		"@octokit/rest": "^19.0.5",
 		"@playwright/test": "^1.28.0",
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/react": "^13.3.0",
