@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
 
 interface BaseNewLayoutProps {
 	/**
@@ -13,4 +14,13 @@ interface BaseNewLayoutProps {
 	showFooterTopBorder?: boolean
 }
 
-export type { BaseNewLayoutProps }
+interface AlertBannerProps {
+	product: HashiCorpProduct
+	tag: string
+	url: string
+	text: string
+	linkText: string
+	expirationDate?: string
+}
+
+export type { BaseNewLayoutProps, AlertBannerProps }

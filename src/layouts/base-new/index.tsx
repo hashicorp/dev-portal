@@ -2,7 +2,6 @@
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import AlertBanner from '@hashicorp/react-alert-banner'
-import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
 
 // HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
@@ -19,25 +18,15 @@ import MobileMenuContainer, {
 } from 'components/mobile-menu-container'
 import NavigationHeader from 'components/navigation-header'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
+import alertBannerData from 'data/alert-banner.json'
 
 // Local imports
-import { BaseNewLayoutProps } from './types'
+import { BaseNewLayoutProps, AlertBannerProps } from './types'
 import s from './base-new-layout.module.css'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	preset: 'oss',
 })
-
-// TODO find better place for this
-const shouldShowAlertBanner = true
-const alertBannerData = {
-	product: 'hashicorp' as HashiCorpProduct,
-	tag: 'Research',
-	url: 'https://t.maze.co/130555132',
-	text: 'Help improve navigation and content organization by answering a short survey',
-	linkText: 'Start Survey',
-	expirationDate: '2023-01-31T12:00:00-07:00',
-}
 
 /**
  * The mobile menu that shows on non-product pages, or pages that do not use the
@@ -82,8 +71,11 @@ const BaseNewLayout = ({
 
 	return (
 		<CommandBarProvider>
-			{shouldShowAlertBanner && (
-				<AlertBanner {...alertBannerData} hideOnMobile />
+			{alertBannerData.enabled && (
+				<AlertBanner
+					{...(alertBannerData.data as AlertBannerProps)}
+					hideOnMobile
+				/>
 			)}
 			<CoreDevDotLayout>
 				<div className={s.root} data-layout="base-new">
