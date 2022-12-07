@@ -111,18 +111,23 @@ const fetchNavDataForProducts = async ({ generatedFilesFolderPath }) => {
 
 	const navDataByLoaderSlug = {}
 	allLoaderSlugs.forEach((loaderSlug) => {
-		navDataByLoaderSlug[loaderSlug] = new Set()
+		navDataByLoaderSlug[loaderSlug] = {}
 	})
 
 	for (let i = 0; i < navDataRequestsArgs.length; i++) {
 		const requestArgs = navDataRequestsArgs[i]
 		const loaderSlug = requestArgs[0]
+		const basePath = requestArgs[1]
+
+		if (!navDataByLoaderSlug[loaderSlug][basePath]) {
+			navDataByLoaderSlug[loaderSlug][basePath] = new Set()
+		}
 
 		await sleep(200)
 
 		fetchNavData(...requestArgs)
 			.then(({ navData }) => {
-				pickUrlsFromNavData(navData, navDataByLoaderSlug[loaderSlug])
+				pickUrlsFromNavData(navData, navDataByLoaderSlug[loaderSlug][basePath])
 			})
 			.catch((e) => {
 				console.log(`Error fetching for ${requestArgs}: ${e}`)
@@ -130,9 +135,15 @@ const fetchNavDataForProducts = async ({ generatedFilesFolderPath }) => {
 	}
 
 	allLoaderSlugs.forEach((loaderSlug) => {
+		const output = {}
+
+		const urlsByBasePath = navDataByLoaderSlug[loaderSlug]
+		Object.keys(urlsByBasePath).forEach((basePath) => {
+			output[basePath] = Array.from(navDataByLoaderSlug[loaderSlug][basePath])
+		})
+
 		const outputFilePath = path.join(outputFolder, `${loaderSlug}.json`)
-		const urls = Array.from(navDataByLoaderSlug[loaderSlug])
-		fs.writeFileSync(outputFilePath, JSON.stringify(urls, null, 2))
+		fs.writeFileSync(outputFilePath, JSON.stringify(output, null, 2))
 	})
 }
 
