@@ -1,6 +1,8 @@
 ## Overview
 
-This file holds some markdown content, that gets its newlines removed and then gets pasted into the adjacent `infrastructure-automation.json` file. This is a stopgap while we figure out better content authoring interfaces for this content.
+This file holds some markdown content, that gets its newlines removed and then gets pasted into the adjacent `infrastructure-automation.json` file.
+
+This is a stopgap while we figure out better content authoring interfaces for this content.
 
 ## Exam Details
 

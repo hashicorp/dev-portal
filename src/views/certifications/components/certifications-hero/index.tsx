@@ -11,10 +11,11 @@ export function CertificationsHero({
 	return (
 		<div className={s.root}>
 			<CertificationsContentArea>
-				<h1>{heading}</h1>
-				<p>{description}</p>
+				<div className={s.text}>
+					<h1 className={s.heading}>{heading}</h1>
+					<p className={s.description}>{description}</p>
+				</div>
 			</CertificationsContentArea>
-			<div className={s.background}></div>
 		</div>
 	)
 }

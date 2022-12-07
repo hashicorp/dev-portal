@@ -9,6 +9,7 @@ import {
 	MdxOrderedList,
 	MdxUnorderedList,
 	MdxListItem,
+	MdxBlockquote,
 } from 'components/dev-dot-content/mdx-components'
 import { OverviewCard } from './components'
 import {
@@ -24,6 +25,18 @@ function MdxImage({
 }: Pick<ImageProps, 'alt' | 'src' | 'title'>) {
 	return <Image alt={alt} src={src} title={title} noBorder={true} />
 }
+
+const MDX_COMPONENTS = {
+	a: MdxA,
+	blockquote: MdxBlockquote,
+	p: MdxP,
+	table: MdxTable,
+	img: MdxImage,
+	inlineCode: MdxInlineCode,
+	ul: MdxUnorderedList,
+	ol: MdxOrderedList,
+	li: MdxListItem,
+}
 interface FaqItem {
 	title: string
 	mdxSource: $TSFixMe
@@ -31,17 +44,28 @@ interface FaqItem {
 
 export function CertificationProgramDetails({
 	title,
+	description,
 	faqItems,
+	links,
 }: {
 	title: string
+	description: string
 	faqItems: FaqItem[]
+	links?: {
+		prepare?: string
+		register?: string
+	}
 }) {
 	return (
 		<>
 			<div className={s.root}>
 				<CertificationsContentArea>
 					<div className={s.overviewCard}>
-						<OverviewCard title={title} />
+						<OverviewCard
+							title={title}
+							description={description}
+							links={links}
+						/>
 					</div>
 					<h2 className={s.overviewHeading}>Overview</h2>
 					<div className={s.overviewFaq}>
@@ -52,16 +76,7 @@ export function CertificationProgramDetails({
 									content: (
 										<MDXRemote
 											{...item.mdxSource}
-											components={{
-												a: MdxA,
-												p: MdxP,
-												table: MdxTable,
-												img: MdxImage,
-												inlineCode: MdxInlineCode,
-												ul: MdxUnorderedList,
-												ol: MdxOrderedList,
-												li: MdxListItem,
-											}}
+											components={MDX_COMPONENTS}
 										/>
 									),
 								}
