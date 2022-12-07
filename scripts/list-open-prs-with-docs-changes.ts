@@ -77,7 +77,7 @@ const main = async () => {
 	)
 
 	// For each PR...
-	for (let i = 0; i < pulls.length - 1; i++) {
+	for (let i = 0; i < pulls.length; i++) {
 		const pull = pulls[i]
 		const pullNumber = pull.number
 		const pullUrl = pull.html_url
