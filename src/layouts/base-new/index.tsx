@@ -34,7 +34,7 @@ const alertBannerData = {
 	product: 'hashicorp' as HashiCorpProduct,
 	tag: 'Research',
 	url: 'https://t.maze.co/130555132',
-	text: 'Help improve navigation and content organization by answering a short survey',
+	text: 'Help improve navigation and content organization by answering a short survey.',
 	linkText: 'Start Survey',
 	expirationDate: '2023-01-31T12:00:00-07:00',
 }
