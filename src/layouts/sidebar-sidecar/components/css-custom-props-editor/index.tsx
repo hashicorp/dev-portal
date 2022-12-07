@@ -11,6 +11,8 @@ const DEFAULT_VALUES: CustomProps = {
 export function CssCustomPropsEditor({ children }: { children: ReactNode }) {
 	const [values, setValues] = useState<CustomProps>(DEFAULT_VALUES)
 
+	// TODO: add JSON input / output
+
 	function setValue(key, value) {
 		setValues({ ...values, [key]: value })
 	}
