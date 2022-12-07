@@ -15,11 +15,11 @@ interface BaseNewLayoutProps {
 }
 
 interface AlertBannerProps {
-	product: HashiCorpProduct
 	tag: string
 	url: string
 	text: string
 	linkText: string
+	product?: HashiCorpProduct
 	expirationDate?: string
 }
 
