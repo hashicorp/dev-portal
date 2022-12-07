@@ -1,5 +1,5 @@
 .listRoot {
-	margin: 24px 0;
+	margin: var(--dev-custom-list-outer-margin, 24px) 0;
 	padding-left: 24px;
 }
 
@@ -13,7 +13,7 @@
 	}
 
 	&:not(:last-child) {
-		margin-bottom: 16px;
+		margin-bottom: var(--dev-custom-list-item-margin, 16px);
 	}
 
 	& ul,

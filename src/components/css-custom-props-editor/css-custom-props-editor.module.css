@@ -2,11 +2,11 @@
 	background: rgba(255, 230, 255, 0.85);
 	border: 1px solid magenta;
 	bottom: 0;
+	overflow: auto;
 	padding: 1rem;
-	position: absolute;
-	color: var(--test-text-color);
+	position: fixed;
 	right: 0;
 	top: 0;
-	width: var(--test-width-px);
-	z-index: 1;
+	width: 400px;
+	z-index: 999;
 }

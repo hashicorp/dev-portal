@@ -1,4 +1,5 @@
 .p {
 	color: var(--token-color-foreground-primary);
-	margin: 16px 0;
+	line-height: var(--dev-custom-p-line-height);
+	margin: var(--dev-custom-p-margin, 16px) 0;
 }
