@@ -66,7 +66,7 @@ function CertificationsLandingView({
 			</div>
 			<SignupFormArea />
 			<CertificationsContentArea>
-				<h2>{`[stub]`} Page Content</h2>
+				<h2>{`[dev]`} Content Debug</h2>
 				<pre
 					className="hds-typography-code-100"
 					style={{

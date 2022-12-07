@@ -6,14 +6,18 @@ import {
 	getAllCertificationProgramSlugs,
 	getAllCertificationPrograms,
 } from '../../helpers'
+import { preparePageContent } from './utils/prepare-page-content'
 
 export async function getStaticProps({
 	params: { slug },
 }: GetStaticPropsContext): Promise<{ props: CertificationPageProps }> {
 	const allPrograms = getAllCertificationPrograms()
-	const { pageContent } = allPrograms.find(
+	const { pageContent: rawPageContent } = allPrograms.find(
 		(p: CertificationProgramItem) => p.slug === slug
 	)
+
+	const pageContent = await preparePageContent(rawPageContent)
+
 	const navProps = formatCertificationsNavProps(allPrograms)
 
 	return {

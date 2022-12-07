@@ -4,13 +4,18 @@ import { CertificationProgramSchema } from '../schemas/certification-program'
 import { readLocalFile, readLocalFilepaths } from '.'
 
 const CONTENT_DIR = 'src/content/certifications/programs'
+const CONTENT_TYPE = '.json'
 
 export function getAllCertificationProgramSlugs(): string[] {
 	const filePaths = readLocalFilepaths(CONTENT_DIR)
-	const slugs = filePaths.map((filePath: string) => {
-		const slug = path.basename(filePath, path.extname(filePath))
-		return slug
-	})
+	const slugs = filePaths
+		.filter((filePath: string) => {
+			return path.extname(filePath) === CONTENT_TYPE
+		})
+		.map((filePath: string) => {
+			const slug = path.basename(filePath, CONTENT_TYPE)
+			return slug
+		})
 	return slugs
 }
 

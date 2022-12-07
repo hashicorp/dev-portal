@@ -1,4 +1,5 @@
 // Global
+import { ReactNode } from 'react'
 import BaseNewLayout from 'layouts/base-new'
 // Shared view components
 import {
@@ -20,10 +21,22 @@ function CertificationPage({ navProps, pageContent }: CertificationPageProps) {
 					'Brief intro. Short but enough to help practitioners take that next step. Suggestion is a max of 5 lines of content. Verify your basic infrastructure automation skills. If you have passed the Terraform Associate wait until the new version comes out to re-certify.'
 				}
 			/>
-			<CertificationProgramDetails title="Terraform Associate 002" />
-			<CertificationProgramDetails title="Terraform Associate 003" />
-			<CertificationsContentArea>
-				<h2>{`[stub]`} Page Content</h2>
+			{pageContent.certifications.map((certification) => {
+				return (
+					<CertificationProgramDetails
+						key={certification.title}
+						title={certification.title}
+						faqItems={certification.faqItems.map((item) => {
+							return {
+								title: item.title,
+								mdxSource: item.mdxSource,
+							}
+						})}
+					/>
+				)
+			})}
+			{/* <CertificationsContentArea>
+				<h2>{`[dev]`} Content Debug</h2>
 				<pre
 					className="hds-typography-code-100"
 					style={{
@@ -34,7 +47,7 @@ function CertificationPage({ navProps, pageContent }: CertificationPageProps) {
 				>
 					<code>{JSON.stringify({ pageContent }, null, 2)}</code>
 				</pre>
-			</CertificationsContentArea>
+			</CertificationsContentArea> */}
 		</>
 	)
 }
