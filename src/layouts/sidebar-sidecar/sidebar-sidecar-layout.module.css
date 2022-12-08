@@ -16,14 +16,11 @@ for further details.
   to make it reusable and express this intent. */
 	--main-area-padding-top: 32px;
 
-	/* When the sidecar is hidden, then --main-area-padding-right must adjust.
+	/* --main-area-padding-right is consistent, regardless if sidecar is shown.
   Note that the "left" value, --main-area-padding-left, is declared in 
   core-dev-dot-layout.module.css, as the left value  must be shared with the
   navigation-header component, in order to match alignment in design specs. */
 	--main-area-padding-right: 24px;
-	@media (--dev-dot-sidecar-up) {
-		--main-area-padding-right: 48px;
-	}
 
 	/*
   We want our footer to have a top border which spans
@@ -48,7 +45,7 @@ for further details.
   Details: https://css-tricks.com/dealing-with-overflow-and-position-sticky/
   */
 	--main-element-max-width: 680px;
-	--sidecar-width: 220px;
+	--sidecar-width: 288px;
 }
 
 /**
@@ -119,10 +116,14 @@ for further details.
 		display: block;
 		flex-shrink: 0;
 		height: fit-content;
-		margin-left: 64px;
+		margin-left: 48px;
 		position: sticky;
 		top: calc(var(--sticky-bars-height) + var(--main-area-padding-top));
 		width: var(--sidecar-width);
+	}
+
+	@media (min-width: 1440px) {
+		margin-left: 64px;
 	}
 }
 
