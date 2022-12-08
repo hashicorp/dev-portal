@@ -10,6 +10,8 @@ interface PathParams {
 	productSlug: ProductSlug
 	integrationSlug: string[]
 }
+
+// /[productSlug]/integrations/[integrationSlug...and_maybe_version]
 const _getServerSideProps = async ({ params }: { params: PathParams }) => {
 	let version = null
 	const { productSlug, integrationSlug: slugAndMaybeVersion } = params
@@ -18,11 +20,11 @@ const _getServerSideProps = async ({ params }: { params: PathParams }) => {
 	if (slugAndMaybeVersion.length === 2) {
 		version = slugAndMaybeVersion[1]
 	}
+
+	// basic guard against bad paths
 	if (slugAndMaybeVersion.length > 2) {
-		console.log('Too many path segments for [integrationSlug]')
-		return {
-			notFound: true,
-		}
+		console.error('Too many path segments for [integrationSlug]')
+		return { notFound: true }
 	}
 
 	const integrationResponse = await fetchIntegration(
@@ -30,11 +32,10 @@ const _getServerSideProps = async ({ params }: { params: PathParams }) => {
 		integrationSlug
 	)
 
-	// 404
+	// Integration could not be found
 	if (integrationResponse.meta.status_code != 200) {
-		return {
-			notFound: true,
-		}
+		console.warn('Could not fetch integration', integrationResponse)
+		return { notFound: true }
 	}
 	const integration = integrationResponse.result
 
@@ -45,12 +46,17 @@ const _getServerSideProps = async ({ params }: { params: PathParams }) => {
 		integrationSlug,
 		version ?? integrationResponse.result.versions[0]
 	)
+
+	// Integration release could not be found
 	if (activeReleaseResponse.meta.status_code != 200) {
-		console.warn('Could not fetch active release', activeReleaseResponse)
-		return {
-			notFound: true,
-		}
+		console.warn(
+			'Could not fetch release for version',
+			version,
+			activeReleaseResponse
+		)
+		return { notFound: true }
 	}
+
 	const activeRelease = activeReleaseResponse.result
 
 	const product = cachedGetProductData(params.productSlug)
