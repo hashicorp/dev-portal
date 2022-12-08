@@ -62,7 +62,7 @@ export const DEFAULT_VALUES: CustomProps = {
 		unit: '',
 		min: 0,
 		max: 3,
-		value: 1.5,
+		value: 1.6875,
 		step: 0.05,
 	},
 	...MARGIN_VALUES,
