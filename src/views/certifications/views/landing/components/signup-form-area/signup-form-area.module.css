@@ -1,4 +1,15 @@
 .root {
 	padding: 3rem 0;
 	border: 1px solid magenta;
+	color: white;
+}
+
+.contentWrap {
+	background: black;
+	padding: 36px 48px;
+	border-radius: 6px;
+}
+
+.form {
+	max-width: 510px;
 }

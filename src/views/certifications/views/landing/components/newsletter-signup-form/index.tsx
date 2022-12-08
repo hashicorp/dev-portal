@@ -19,7 +19,7 @@ export interface MarketoFormData {
 
 function NewsletterSignupForm({
 	placement,
-	buttonText = 'Subscribe to Newsletter',
+	buttonText = 'Submit',
 	appearance = 'light',
 	marketoFormData,
 }: NewsletterSignupFormProps) {
