@@ -1,14 +1,21 @@
 import { cachedGetProductData } from 'lib/get-product-data'
-import { fetchIntegration } from 'lib/integrations-api-client/integration'
-import { fetchIntegrationRelease } from 'lib/integrations-api-client/release'
+import { IntegrationsAPI } from 'lib/integrations-api-client'
 import { withTiming } from 'lib/with-timing'
 import ProductIntegration from 'views/product-integration'
 
+export const integrationsApiClient = new IntegrationsAPI({
+	BASE: process.env.NEXT_PUBLIC_INTEGRATIONS_API_BASE_URL,
+})
+
 const _getServerSideProps = async ({ params }) => {
-	const integrationResponse = await fetchIntegration(
-		params.productSlug,
-		params.integrationSlug
-	)
+	const integrationResponse = await integrationsApiClient.integrations
+		.fetchIntegration(params.productSlug, params.integrationSlug)
+		.catch(
+			(err) =>
+				err.body as ReturnType<
+					IntegrationsAPI['integrations']['fetchIntegration']
+				>
+		)
 
 	// 404
 	if (integrationResponse.meta.status_code != 200) {
@@ -18,11 +25,19 @@ const _getServerSideProps = async ({ params }) => {
 	}
 
 	// Just fetching the most recent release for now
-	const latestReleaseResponse = await fetchIntegrationRelease(
-		params.productSlug,
-		params.integrationSlug,
-		integrationResponse.result.versions[0]
-	)
+	const latestReleaseResponse = await integrationsApiClient.integrationReleases
+		.fetchRelease(
+			params.productSlug,
+			params.integrationSlug,
+			integrationResponse.result.versions[0]
+		)
+		.catch(
+			(err) =>
+				err.body as ReturnType<
+					IntegrationsAPI['integrationReleases']['fetchRelease']
+				>
+		)
+
 	return {
 		props: {
 			integration: integrationResponse.result,

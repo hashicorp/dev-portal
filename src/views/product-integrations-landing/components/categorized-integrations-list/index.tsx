@@ -1,11 +1,17 @@
-import { Tier } from 'lib/integrations-api-client/integration'
+import { Integration } from 'lib/integrations-api-client'
 import IntegrationsList from '../integrations-list'
 import s from './style.module.css'
 
 export default function CategorizedIntegrationsList({ integrations }) {
-	const official = integrations.filter((i) => i.tier === Tier.OFFICIAL)
-	const partner = integrations.filter((i) => i.tier === Tier.PARTNER)
-	const community = integrations.filter((i) => i.tier === Tier.COMMUNITY)
+	const official = integrations.filter(
+		(i) => i.tier === Integration.tier.OFFICIAL
+	)
+	const partner = integrations.filter(
+		(i) => i.tier === Integration.tier.PARTNER
+	)
+	const community = integrations.filter(
+		(i) => i.tier === Integration.tier.COMMUNITY
+	)
 
 	return (
 		<div className={s.categorizedIntegrationList}>

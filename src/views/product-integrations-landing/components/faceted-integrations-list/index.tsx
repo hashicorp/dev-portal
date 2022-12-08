@@ -1,17 +1,13 @@
 import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
 import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
 import Button from '@hashicorp/react-button'
-import {
-	Integration,
-	IntegrationComponent,
-	Tier,
-} from 'lib/integrations-api-client/integration'
+import { Integration, EnrichedIntegration } from 'lib/integrations-api-client'
 import React, { useState } from 'react'
 import SearchableIntegrationsList from '../searchable-integrations-list'
 import s from './style.module.css'
 
 interface Props {
-	integrations: Integration[]
+	integrations: EnrichedIntegration[]
 }
 
 export default function FacetedIntegrationList({ integrations }: Props) {
@@ -23,7 +19,7 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 	// Filter out integrations that don't have releases yet
 	let filteredIntegrations = integrations
 	filteredIntegrations = filteredIntegrations.filter(
-		(integration: Integration) => {
+		(integration: EnrichedIntegration) => {
 			return integration.versions.length > 0
 		}
 	)
@@ -33,24 +29,24 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 	// are no community integrations passed, we simply won't display
 	// that checkbox.
 	const tierOptions = Array.from(
-		new Set(filteredIntegrations.map((i: Integration) => i.tier))
+		new Set(filteredIntegrations.map((i: EnrichedIntegration) => i.tier))
 	)
 
 	// Calculate the number of integrations that match each tier
 	const matchingOfficial = filteredIntegrations.filter(
-		(i) => i.tier === Tier.OFFICIAL
+		(i) => i.tier === Integration.tier.OFFICIAL
 	).length
 	const matchingVerified = filteredIntegrations.filter(
-		(i) => i.tier === Tier.PARTNER
+		(i) => i.tier === Integration.tier.PARTNER
 	).length
 	const matchingCommunity = filteredIntegrations.filter(
-		(i) => i.tier === Tier.COMMUNITY
+		(i) => i.tier === Integration.tier.COMMUNITY
 	).length
 
 	// Pull out the list of all of the components used by our integrations
 	// and sort them alphabetically so they are deterministically ordered.
 	const allComponents = filteredIntegrations.flatMap(
-		(i: Integration) => i.components
+		(i: EnrichedIntegration) => i.components
 	)
 
 	const mergedComponents = [].concat(allComponents)
@@ -88,13 +84,13 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 		filteredIntegrations = filteredIntegrations.filter((integration) => {
 			// Default tierMatch to true if nothing is checked, false otherwise
 			let tierMatch = !officialChecked && !partnerChecked && !communityChecked
-			if (officialChecked && integration.tier === Tier.OFFICIAL) {
+			if (officialChecked && integration.tier === Integration.tier.OFFICIAL) {
 				tierMatch = true
 			}
-			if (partnerChecked && integration.tier === Tier.PARTNER) {
+			if (partnerChecked && integration.tier === Integration.tier.PARTNER) {
 				tierMatch = true
 			}
-			if (communityChecked && integration.tier === Tier.COMMUNITY) {
+			if (communityChecked && integration.tier === Integration.tier.COMMUNITY) {
 				tierMatch = true
 			}
 
@@ -105,7 +101,7 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 				if (checked) {
 					const checkedComponent = sortedComponents[index]
 					// Check each integration component
-					integration.components.forEach((component: IntegrationComponent) => {
+					integration.components.forEach((component) => {
 						if (component.slug === checkedComponent.slug) {
 							componentMatch = true
 						}
@@ -120,7 +116,7 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 		<div className={s.facetedIntegrationList}>
 			<div className={s.facetsSidebar}>
 				<h5 className={s.facetCategoryTitle}>Tier</h5>
-				{tierOptions.includes(Tier.OFFICIAL) && (
+				{tierOptions.includes(Integration.tier.OFFICIAL) && (
 					<FacetCheckbox
 						label="Official"
 						icon={<IconAward16 className={s.awardIcon} />}
@@ -129,7 +125,7 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 						onChange={(e) => setOfficialChecked(!officialChecked)}
 					/>
 				)}
-				{tierOptions.includes(Tier.PARTNER) && (
+				{tierOptions.includes(Integration.tier.PARTNER) && (
 					<FacetCheckbox
 						label="Partner"
 						icon={<IconHandshake16 className={s.checkIcon} />}
@@ -138,7 +134,7 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 						onChange={(e) => setPartnerChecked(!partnerChecked)}
 					/>
 				)}
-				{tierOptions.includes(Tier.COMMUNITY) && (
+				{tierOptions.includes(Integration.tier.COMMUNITY) && (
 					<FacetCheckbox
 						label="Community"
 						matching={matchingCommunity}

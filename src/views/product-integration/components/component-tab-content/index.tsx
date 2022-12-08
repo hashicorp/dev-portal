@@ -1,9 +1,9 @@
 import Tabs, { Tab } from 'components/tabs'
 import {
-	ReleaseComponent,
+	EnrichedIntegrationReleaseComponent as ReleaseComponent,
 	Variable as ApiVariable,
-	VariableGroup,
-} from 'lib/integrations-api-client/release'
+	EnrichedVariableGroup as VariableGroup,
+} from 'lib/integrations-api-client'
 import ReactMarkdown from 'react-markdown'
 import SearchableVariableGroupList from '../searchable-variable-group-list'
 import { Variable } from '../variable-group-list'

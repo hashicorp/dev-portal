@@ -2,14 +2,14 @@ import classNames from 'classnames'
 import DropdownDisclosure, {
 	DropdownDisclosureButtonItem,
 } from 'components/dropdown-disclosure'
-import { Tier } from 'lib/integrations-api-client/integration'
+import { Integration } from 'lib/integrations-api-client'
 import TierBadge from 'views/product-integrations-landing/components/tier-badge'
 import s from './style.module.css'
 
 interface HeaderProps {
 	className?: string
 	name: string
-	tier: Tier
+	tier: Integration.tier
 	author: string
 	versions: string[]
 	description?: string

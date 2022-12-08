@@ -3,11 +3,11 @@ import BaseLayout from 'layouts/base-new'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import FacetedIntegrationList from './components/faceted-integrations-list'
 import { ProductData } from 'types/products'
-import { Integration } from 'lib/integrations-api-client/integration'
+import { EnrichedIntegration } from 'lib/integrations-api-client'
 
 interface ViewProps {
 	product: ProductData
-	integrations: Array<Integration>
+	integrations: Array<EnrichedIntegration>
 }
 
 export default function ProductIntegrationsLanding({

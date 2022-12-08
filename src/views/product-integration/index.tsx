@@ -1,8 +1,10 @@
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import Tabs, { Tab } from 'components/tabs'
 import BaseLayout from 'layouts/base-new'
-import { Integration } from 'lib/integrations-api-client/integration'
-import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
+import {
+	EnrichedIntegration,
+	EnrichedIntegrationRelease,
+} from 'lib/integrations-api-client'
 import ReactMarkdown from 'react-markdown'
 import { ProductData } from 'types/products'
 import ComponentTabContent from './components/component-tab-content'
@@ -10,9 +12,9 @@ import Header from './components/header'
 import s from './style.module.css'
 
 interface ViewProps {
-	integration: Integration
+	integration: EnrichedIntegration
 	product: ProductData
-	latestRelease: Release
+	latestRelease: EnrichedIntegrationRelease
 }
 
 export default function ProductIntegrationLanding({
@@ -67,7 +69,7 @@ export default function ProductIntegrationLanding({
 								<Tab heading="README">
 									<ReactMarkdown>{latestRelease.readme}</ReactMarkdown>
 								</Tab>
-								{latestRelease.components.map((irc: ReleaseComponent) => {
+								{latestRelease.components.map((irc) => {
 									return irc.readme || irc.variable_groups.length ? (
 										<Tab key={irc.component.id} heading={irc.component.name}>
 											<ComponentTabContent component={irc} />
