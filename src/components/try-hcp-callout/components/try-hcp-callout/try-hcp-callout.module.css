@@ -97,6 +97,10 @@
 		--background-src: url('./img/try-hcp-callout-ui-mock-terraform.svg');
 	}
 
+	&.vagrant {
+		--background-src: url('./img/try-hcp-callout-ui-mock-vault.svg'); /* TODO update with vagrant image **/
+	}
+
 	&.vault {
 		--background-src: url('./img/try-hcp-callout-ui-mock-vault.svg');
 	}
