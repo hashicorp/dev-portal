@@ -1,8 +1,10 @@
 import classNames from 'classnames'
 import DropdownDisclosure, {
-	DropdownDisclosureButtonItem,
+	DropdownDisclosureLinkItem,
 } from 'components/dropdown-disclosure'
 import { Tier } from 'lib/integrations-api-client/integration'
+import { Release } from 'lib/integrations-api-client/release'
+import { useRouter } from 'next/router'
 import TierBadge from 'views/product-integrations-landing/components/tier-badge'
 import s from './style.module.css'
 
@@ -11,6 +13,7 @@ interface HeaderProps {
 	name: string
 	tier: Tier
 	author: string
+	activeRelease: Release
 	versions: string[]
 	description?: string
 	hideVersions?: boolean
@@ -24,12 +27,26 @@ export default function Header({
 	versions,
 	hideVersions,
 	description,
+	activeRelease,
 }: HeaderProps) {
+	// /waypoint/integrations/docker[/0.10.2]
+	const { asPath } = useRouter()
+
+	// derive some values from the path
+	const productSlug = asPath.split('/')[1]
+	const integrationSlugAndVersion = asPath.split('/').slice(3).join('/')
+	const [integrationSlug, _] = integrationSlugAndVersion.split('/')
+
 	// note - the backend will not return pre-releases,
 	// and will sort by semver DESC.
 	const latestVersion: string = versions[0]
-	const otherVersions: Array<string> = versions.slice(1)
+	const otherVersions = versions.filter((v) => v !== activeRelease.version)
 	const showVersions = !hideVersions && versions.length > 1
+
+	const dropdownLabel =
+		activeRelease.version === latestVersion
+			? `v${activeRelease.version} (latest)`
+			: `v${activeRelease.version}`
 	return (
 		<div className={classNames(s.header, className)}>
 			<div className={s.left}>
@@ -50,16 +67,17 @@ export default function Header({
 					<DropdownDisclosure
 						className={s.versionDropdown}
 						color="secondary"
-						text={`v${latestVersion} (latest)`}
+						text={dropdownLabel}
 					>
 						{otherVersions.map((version: string) => {
+							const href =
+								latestVersion === version
+									? `/${productSlug}/integrations/${integrationSlug}`
+									: `/${productSlug}/integrations/${integrationSlug}/${version}`
 							return (
-								<DropdownDisclosureButtonItem
-									key={version}
-									onClick={() => console.log(`Clicked ${version}`)}
-								>
+								<DropdownDisclosureLinkItem key={version} href={href}>
 									v{version}
-								</DropdownDisclosureButtonItem>
+								</DropdownDisclosureLinkItem>
 							)
 						})}
 					</DropdownDisclosure>
