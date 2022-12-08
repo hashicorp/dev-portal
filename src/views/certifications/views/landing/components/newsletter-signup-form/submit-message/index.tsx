@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import s from './style.module.css'
+import s from './submit-message.module.css'
 
 interface SubmitMessageProps {
 	submitStatus: 'success' | 'error'

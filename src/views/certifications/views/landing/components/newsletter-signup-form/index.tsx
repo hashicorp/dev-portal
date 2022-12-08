@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import MarketoForm from '@hashicorp/react-marketo-form'
 import SubmitMessage from './submit-message'
 import type { MarketoForm as MarketoFormProps } from '@hashicorp/react-marketo-form/types'
-import s from './style.module.css'
+import s from './marketo-form-data.module.css'
 import { safeAnalyticsTrack } from 'lib/analytics'
 
 export interface NewsletterSignupFormProps {
