@@ -10,7 +10,7 @@
 
 	display: grid;
 	width: 100%;
-	row-gap: var(--wpl-spacing-02);
+	row-gap: 24px;
 
 	& [data-field-id='Email'],
 	& [data-field-id='Consent_Privacy_Policy__c'] {
@@ -21,6 +21,10 @@
 		display: none;
 	}
 
+	& [data-field-id='Email'] input::placeholder {
+		color: transparent;
+	}
+
 	& button {
 		justify-self: stretch;
 		align-self: start;
@@ -28,7 +32,7 @@
 
 	@media (min-width: 768px) {
 		grid-template-columns: 1fr max-content;
-		column-gap: var(--wpl-spacing-03);
+		column-gap: 10px;
 		transition: opacity 0.35s;
 
 		& [data-field-id='Email'] {
@@ -46,42 +50,37 @@
 			grid-column: 1 / -1;
 		}
 	}
+}
 
-	/* 
-    This applies styles to the form when rendered on a dark background (e.g. the form in the global footer).
-    This should be removed / replaced when dark mode is enabled for <MarketoForm />
-  */
+.dark {
+	& [data-field-id='Email'] input {
+		border-color: var(--gray-2);
+		background: var(--gray-1);
+		color: var(--gray-5);
+	}
 
-	&.footer {
-		& [data-field-id='Email'] input {
-			border-color: var(--gray-2);
-			background: var(--gray-1);
+	& [data-field-id='Consent_Privacy_Policy__c'] {
+		& input {
+			background: var(--gray-2);
+			border-color: var(--gray-1);
+			color: var(--gray-5);
+			transition: border 0.2s;
+
+			&:hover {
+				border-color: var(--brand);
+			}
+		}
+
+		& span {
 			color: var(--gray-5);
 		}
+	}
 
-		& [data-field-id='Consent_Privacy_Policy__c'] {
-			& input {
-				background: var(--gray-2);
-				border-color: var(--gray-1);
-				color: var(--gray-5);
-				transition: border 0.2s;
+	& button[disabled] {
+		background-color: hsla(0, 0%, 100%, 0.16);
 
-				&:hover {
-					border-color: var(--brand);
-				}
-			}
-
-			& span {
-				color: var(--gray-5);
-			}
-		}
-
-		& button[disabled] {
-			background-color: hsla(0, 0%, 100%, 0.16);
-
-			& span {
-				color: hsla(0, 0%, 100%, 0.24);
-			}
+		& span {
+			color: hsla(0, 0%, 100%, 0.24);
 		}
 	}
 }

@@ -4,10 +4,10 @@ import MarketoForm from '@hashicorp/react-marketo-form'
 import SubmitMessage from './submit-message'
 import type { MarketoForm as MarketoFormProps } from '@hashicorp/react-marketo-form/types'
 import s from './style.module.css'
+import { safeAnalyticsTrack } from 'lib/analytics'
 
 export interface NewsletterSignupFormProps {
 	marketoFormData: MarketoFormData
-	placement?: 'footer'
 	buttonText?: string
 	appearance?: 'light' | 'dark'
 }
@@ -18,7 +18,6 @@ export interface MarketoFormData {
 }
 
 function NewsletterSignupForm({
-	placement,
 	buttonText = 'Submit',
 	appearance = 'light',
 	marketoFormData,
@@ -29,9 +28,9 @@ function NewsletterSignupForm({
 
 	const onSubmitSuccess = () => {
 		setSubmissionStatus('success')
-		if (window && window.analytics && placement) {
-			window.analytics.track('Newsletter Signup', { placement })
-		}
+		safeAnalyticsTrack('Newsletter Signup', {
+			placement: 'Dev dot certifications',
+		})
 	}
 
 	const onSubmitError = () => {
@@ -50,7 +49,7 @@ function NewsletterSignupForm({
 					formId={marketoFormData.id}
 					marketoForm={marketoFormData.form}
 					submitTitle={buttonText}
-					className={classNames([s.form, s[placement]])}
+					className={classNames(s.form, s.dark)}
 					onSubmitSuccess={onSubmitSuccess}
 					onSubmitError={onSubmitError}
 				/>
