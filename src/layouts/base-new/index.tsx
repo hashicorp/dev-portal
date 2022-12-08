@@ -1,6 +1,7 @@
 // Third-party imports
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
+import AlertBanner from '@hashicorp/react-alert-banner'
 
 // HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
@@ -17,9 +18,10 @@ import MobileMenuContainer, {
 } from 'components/mobile-menu-container'
 import NavigationHeader from 'components/navigation-header'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
+import alertBannerData from 'data/alert-banner.json'
 
 // Local imports
-import { BaseNewLayoutProps } from './types'
+import { BaseNewLayoutProps, AlertBannerProps } from './types'
 import s from './base-new-layout.module.css'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
@@ -69,6 +71,12 @@ const BaseNewLayout = ({
 
 	return (
 		<CommandBarProvider>
+			{alertBannerData.enabled && (
+				<AlertBanner
+					{...(alertBannerData.data as AlertBannerProps)}
+					hideOnMobile
+				/>
+			)}
 			<CoreDevDotLayout>
 				<div className={s.root} data-layout="base-new">
 					<div className={s.header}>
