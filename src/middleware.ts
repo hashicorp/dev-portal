@@ -8,7 +8,7 @@ import optInRedirectChecks from '.generated/opt-in-redirect-checks'
 
 function determineProductSlug(req: NextRequest): string {
 	// .io preview on dev portal
-	const proxiedSiteCookie = req.cookies.get('hc_dd_proxied_site')
+	const proxiedSiteCookie = req.cookies.get('hc_dd_proxied_site')?.value
 	const proxiedProduct = HOSTNAME_MAP[proxiedSiteCookie]
 
 	if (proxiedProduct) {

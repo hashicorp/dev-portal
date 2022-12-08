@@ -25,9 +25,10 @@ export function FeaturedInCollections({
 				<CardsGridList fixedColumns={collections.length == 1 ? 2 : null}>
 					{collections.map((cardPropsWithId: CollectionCardPropsWithId) => {
 						return (
-							<li key={cardPropsWithId.id} className={s.listItem}>
-								<CollectionCardWithAuthElements {...cardPropsWithId} />
-							</li>
+							<CollectionCardWithAuthElements
+								key={cardPropsWithId.id}
+								{...cardPropsWithId}
+							/>
 						)
 					})}
 				</CardsGridList>

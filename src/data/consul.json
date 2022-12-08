@@ -23,8 +23,8 @@
 	"alertBannerActive": true,
 	"alertBanner": {
 		"tag": "Announcements",
-		"url": "https://www.hashicorp.com/blog/consul-1-14-beta-announcing-simplified-service-mesh-deployments",
-		"text": "Consul 1.14 beta, AWS Lambda support, new HCP Consul global visibility controls & more",
+		"url": "https://www.hashicorp.com/blog/consul-service-mesh-support-for-aws-lambda-now-generally-available",
+		"text": "Consul Service Mesh Support for AWS Lambda Now Generally Available",
 		"linkText": "Read more",
 		"expirationDate": ""
 	},

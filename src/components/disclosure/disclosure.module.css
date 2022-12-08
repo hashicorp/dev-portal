@@ -6,14 +6,14 @@
 ***
 */
 .root {
-  position: relative;
+	position: relative;
 }
 
 .root,
 .activator,
 .contentContainer {
-  line-height: normal;
-  width: 100%;
+	line-height: normal;
+	width: 100%;
 }
 
 /*
@@ -31,5 +31,5 @@
 ***
 */
 .activator[aria-expanded='false'] + .contentContainer {
-  display: none;
+	display: none;
 }

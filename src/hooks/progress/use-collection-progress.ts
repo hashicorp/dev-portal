@@ -32,10 +32,10 @@ function useCollectionProgress({
 	 * - an accessToken is present
 	 * - a batch query, if one exists, has been attempted
 	 */
-	const { session } = useAuthentication()
+	const { isAuthenticated, session } = useAuthentication()
 	const accessToken = session?.accessToken
 	const hasWaitedForBatchQuery = useHasWaitedForQuery([PROGRESS_BATCH_QUERY_ID])
-	const enabled = !!accessToken && hasWaitedForBatchQuery
+	const enabled = !!accessToken && isAuthenticated && hasWaitedForBatchQuery
 
 	// Fetch progress records by `collectionId`
 	const { data, ...restQueryResult } = useQuery<QueryDataType>(

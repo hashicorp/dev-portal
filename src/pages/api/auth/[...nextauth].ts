@@ -1,7 +1,8 @@
 import createFetch from '@vercel/fetch'
-import NextAuth from 'next-auth'
+import NextAuth, { Account, Session, Profile } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 import { URL } from 'url'
-import { AuthErrors, TokenSet } from 'types/auth'
+import { AuthErrors } from 'types/auth'
 import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
 import refreshTokenSet from 'lib/auth/refresh-token-set'
 import isJwtExpired from 'lib/auth/is-jwt-expired'
@@ -21,7 +22,7 @@ export default NextAuth({
 		 * ourselves in this signOut event.
 		 * https://github.com/nextauthjs/next-auth/discussions/3938
 		 */
-		async signOut({ token }) {
+		async signOut({ token }: { token: JWT }) {
 			if (isDev) {
 				console.log('Inside of NextAuth.events.signOut')
 			}
@@ -37,7 +38,7 @@ export default NextAuth({
 
 				// Construct the full URL to end the session
 				const endSessionUrl = new URL(endSessionEndpoint)
-				const idToken = (token as TokenSet).id_token
+				const idToken = token.id_token
 				endSessionUrl.searchParams.set('id_token_hint', idToken)
 
 				// Fetch to hit the end session endpoint
@@ -57,7 +58,15 @@ export default NextAuth({
 		 *
 		 * ref: https://next-auth.js.org/configuration/callbacks#jwt-callback
 		 */
-		async jwt({ token, account, profile }) {
+		async jwt({
+			token,
+			account,
+			profile,
+		}: {
+			token: JWT
+			account?: Account
+			profile?: Profile
+		}) {
 			const isInitial = !!account && !!profile
 			isDev &&
 				console.log('jwt callback (%s)', isInitial ? 'initial' : 'subsequent')
@@ -71,7 +80,7 @@ export default NextAuth({
 				token.id_token = account.id_token
 
 				// Picture is passed to session.user.image
-				token.picture = profile.picture as string
+				token.picture = profile.picture
 				token.nickname = profile.nickname
 
 				return token
@@ -79,7 +88,7 @@ export default NextAuth({
 
 			// subsequent calls when session is accessed
 			const [isAccessTokenExpired, secondsUntilExpiry] = isJwtExpired(
-				token.access_token as string
+				token.access_token
 			)
 
 			if (isAccessTokenExpired) {
@@ -87,7 +96,7 @@ export default NextAuth({
 				try {
 					isDev && console.log('access token has expired; refreshing...')
 					const { access_token, refresh_token } = await refreshTokenSet(
-						token.refresh_token as string
+						token.refresh_token
 					)
 					isDev && console.log('successfully refreshed token set')
 
@@ -119,7 +128,13 @@ export default NextAuth({
 		 *
 		 * ref: https://next-auth.js.org/configuration/callbacks#session-callback
 		 */
-		async session({ session, token }) {
+		async session({
+			session,
+			token,
+		}: {
+			token: JWT
+			session: Session
+		}): Promise<Session> {
 			return {
 				...session,
 				accessToken: token.access_token,

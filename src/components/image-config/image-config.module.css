@@ -1,9 +1,9 @@
 .figure {
-  margin: 24px 0;
+	margin: 24px 0;
 }
 
 .caption {
-  composes: hds-typography-body-200 from global;
-  color: var(--token-color-foreground-primary);
-  margin-top: 16px;
+	composes: hds-typography-body-200 from global;
+	color: var(--token-color-foreground-primary);
+	margin-top: 16px;
 }

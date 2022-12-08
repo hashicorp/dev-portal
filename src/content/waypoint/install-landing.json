@@ -44,5 +44,11 @@
 				"text": "Deploy"
 			}
 		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "HCP Waypoint",
+		"description": "Simplify your application deployments across platforms",
+		"ctaText": "Try HCP Waypoint",
+		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
 	}
 }

@@ -1,24 +1,24 @@
 .root {
-  position: relative;
+	position: relative;
 }
 
 .button {
-  background: none;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  display: block;
-  margin: 0;
-  padding: 0;
-  width: fit-content;
+	background: none;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	display: block;
+	margin: 0;
+	padding: 0;
+	width: fit-content;
 }
 
 .label {
-  composes: g-type-label from global;
-  color: #9c64aa;
-  padding-bottom: 0.75rem;
+	composes: g-type-label from global;
+	color: #9c64aa;
+	padding-bottom: 0.75rem;
 }
 
 .note {
-  color: #5b2668;
+	color: #5b2668;
 }

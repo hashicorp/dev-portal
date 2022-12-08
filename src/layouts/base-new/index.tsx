@@ -1,6 +1,7 @@
 // Third-party imports
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
+import AlertBanner from '@hashicorp/react-alert-banner'
 
 // HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
@@ -10,7 +11,6 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
-import AuthenticationErrorDialog from 'components/authentication-error-dialog'
 import { CommandBarProvider } from 'components/command-bar'
 import Footer from 'components/footer'
 import MobileMenuContainer, {
@@ -18,9 +18,10 @@ import MobileMenuContainer, {
 } from 'components/mobile-menu-container'
 import NavigationHeader from 'components/navigation-header'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
+import alertBannerData from 'data/alert-banner.json'
 
 // Local imports
-import { BaseNewLayoutProps } from './types'
+import { BaseNewLayoutProps, AlertBannerProps } from './types'
 import s from './base-new-layout.module.css'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
@@ -70,6 +71,12 @@ const BaseNewLayout = ({
 
 	return (
 		<CommandBarProvider>
+			{alertBannerData.enabled && (
+				<AlertBanner
+					{...(alertBannerData.data as AlertBannerProps)}
+					hideOnMobile
+				/>
+			)}
 			<CoreDevDotLayout>
 				<div className={s.root} data-layout="base-new">
 					<div className={s.header}>
@@ -89,7 +96,6 @@ const BaseNewLayout = ({
 				</div>
 			</CoreDevDotLayout>
 			<ConsentManager />
-			<AuthenticationErrorDialog />
 		</CommandBarProvider>
 	)
 }

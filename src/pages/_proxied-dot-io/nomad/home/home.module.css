@@ -1,5 +1,5 @@
 .container {
-  composes: g-grid-container from global;
+	composes: g-grid-container from global;
 }
 
 /*
@@ -7,9 +7,9 @@
  */
 
 .useCases {
-  margin: 60px auto;
+	margin: 60px auto;
 
-  @media (--medium-up) {
-    margin: 120px auto;
-  }
+	@media (--medium-up) {
+		margin: 120px auto;
+	}
 }

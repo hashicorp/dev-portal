@@ -21,7 +21,7 @@ const useIsBookmarked = ({
 	tutorialId,
 }: UseIsBookmarkedOptions): UseIsBookmarkedResult => {
 	// Get the current user's access token
-	const { session } = useAuthentication()
+	const { isAuthenticated, session } = useAuthentication()
 	const accessToken = session?.accessToken
 
 	// Fetch a single bookmark by tutorial id
@@ -29,7 +29,7 @@ const useIsBookmarked = ({
 		['isBookmarked', tutorialId],
 		() =>
 			getBookmark({ accessToken, tutorialId }).then((bookmark) => !!bookmark),
-		{ enabled: !!accessToken }
+		{ enabled: isAuthenticated && !!accessToken }
 	)
 
 	return {

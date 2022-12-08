@@ -1,21 +1,19 @@
 import { ReactElement } from 'react'
+import { LinkProps } from 'components/link'
 
-type AnchorElementProps = JSX.IntrinsicElements['a']
+type InheritedLinkProps = Pick<
+	LinkProps,
+	'className' | 'download' | 'href' | 'onClick' | 'opensInNewTab'
+>
 
-export interface StandaloneLinkProps {
+export interface StandaloneLinkProps extends InheritedLinkProps {
 	/**
 	 * A non-visible label presented by screen readers. Passed directly to the
 	 * internal link element as the `aria-label` prop.
 	 *
 	 * ref: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label
 	 */
-	ariaLabel?: AnchorElementProps['aria-label']
-
-	/**
-	 * A string of one or more class names. Applied last to the rendered `<a>`
-	 * element.
-	 */
-	className?: AnchorElementProps['className']
+	ariaLabel?: LinkProps['aria-label']
 
 	/**
 	 * Determines the set of colors to use for various states of the component.
@@ -26,19 +24,6 @@ export interface StandaloneLinkProps {
 	 * A data-heap-track string to add to the <a /> element.
 	 */
 	'data-heap-track'?: string
-
-	/**
-	 * Same as the <a> element's download prop. Passed directly to the internal
-	 * link element.
-	 *
-	 * ref: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-download
-	 */
-	download?: AnchorElementProps['download']
-
-	/**
-	 * The destination of the link.
-	 */
-	href: AnchorElementProps['href']
 
 	/**
 	 * An icon from `@hashicorp/flight-icons` to render.
@@ -66,17 +51,6 @@ export interface StandaloneLinkProps {
 	 * Where the icon should be rendered within the link.
 	 */
 	iconPosition: 'leading' | 'trailing'
-
-	/**
-	 * A callback function to invoke when the `<a>` element  clicked.
-	 */
-	onClick?: AnchorElementProps['onClick']
-
-	/**
-	 * Whether or not the link should open in a new tab. Affects the `target` and
-	 * `rel` props passed to the internally rendered `<a>` element.
-	 */
-	openInNewTab?: boolean
 
 	/**
 	 * The size of the rendered link, which mainly affects the font-size and
