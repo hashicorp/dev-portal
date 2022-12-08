@@ -2,12 +2,20 @@
 	padding: 3rem 0;
 	border: 1px solid magenta;
 	color: white;
+	display: flex;
 }
 
 .contentWrap {
-	background: black;
 	padding: 36px 48px;
 	border-radius: 6px;
+	background-color: black;
+
+	@media (min-width: 768px) {
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		background-image: url('./img/newsletter-background.png');
+	}
 }
 
 .form {
