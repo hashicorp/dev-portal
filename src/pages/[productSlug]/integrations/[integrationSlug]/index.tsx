@@ -8,13 +8,10 @@ export const integrationsApiClient = new IntegrationsAPI({
 })
 
 const _getServerSideProps = async ({ params }) => {
-	const integrationResponse = await integrationsApiClient.integrations
-		.fetchIntegration(params.productSlug, params.integrationSlug)
-		.catch(
-			(err) =>
-				err.body as ReturnType<
-					IntegrationsAPI['integrations']['fetchIntegration']
-				>
+	const integrationResponse =
+		await integrationsApiClient.integrations.fetchIntegration(
+			params.productSlug,
+			params.integrationSlug
 		)
 
 	// 404
@@ -25,17 +22,11 @@ const _getServerSideProps = async ({ params }) => {
 	}
 
 	// Just fetching the most recent release for now
-	const latestReleaseResponse = await integrationsApiClient.integrationReleases
-		.fetchRelease(
+	const latestReleaseResponse =
+		await integrationsApiClient.integrationReleases.fetchRelease(
 			params.productSlug,
 			params.integrationSlug,
 			integrationResponse.result.versions[0]
-		)
-		.catch(
-			(err) =>
-				err.body as ReturnType<
-					IntegrationsAPI['integrationReleases']['fetchRelease']
-				>
 		)
 
 	return {
