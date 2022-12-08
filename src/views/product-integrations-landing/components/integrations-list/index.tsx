@@ -5,7 +5,7 @@ import TierBadge from '../tier-badge'
 
 export default function IntegrationsList({ integrations }) {
 	return (
-		<CardsGridList>
+		<CardsGridList fixedColumns={2}>
 			{integrations.map((integration) => {
 				const url = integration.external_only
 					? integration.external_url.replace(
