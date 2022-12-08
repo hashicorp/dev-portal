@@ -28,6 +28,8 @@
 	& button {
 		justify-self: stretch;
 		align-self: start;
+		background-color: var(--token-color-foreground-action);
+		border-radius: var(--token-form-control-border-radius);
 	}
 
 	@media (min-width: 768px) {
@@ -54,25 +56,39 @@
 
 .dark {
 	& [data-field-id='Email'] input {
-		border-color: var(--gray-2);
-		background: var(--gray-1);
-		color: var(--gray-5);
+		border-radius: var(--token-form-control-border-radius);
+		border-color: var(--token-form-control-base-border-color-default);
+		background: var(--token-form-control-base-surface-color-default);
+		color: var(--token-color-surface-primary);
+
+		&:hover {
+			border-color: var(--token-form-control-base-border-color-hover);
+		}
 	}
 
 	& [data-field-id='Consent_Privacy_Policy__c'] {
 		& input {
-			background: var(--gray-2);
-			border-color: var(--gray-1);
-			color: var(--gray-5);
+			border-color: var(--token-form-control-base-border-color-default);
+			border-radius: var(--token-form-control-border-radius);
+			background: var(--token-form-control-base-surface-color-default);
+			color: var(--token-color-surface-primary);
 			transition: border 0.2s;
 
 			&:hover {
-				border-color: var(--brand);
+				border-color: var(--token-form-control-base-border-color-hover);
 			}
 		}
 
-		& span {
-			color: var(--gray-5);
+		& input[type='checkbox']:checked {
+			background-color: var(--token-color-foreground-action);
+		}
+
+		& span,
+		& a {
+			color: var(--token-color-surface-primary);
+			font-size: var(--token-typography-body-200-font-size);
+			line-height: var(--token-typography-body-200-line-height);
+			font-weight: var(--font-weight-semi-bold);
 		}
 	}
 
