@@ -1,5 +1,5 @@
 .root {
-  display: flex;
-  flex-direction: column;
-  gap: 48px;
+	display: flex;
+	flex-direction: column;
+	gap: 48px;
 }

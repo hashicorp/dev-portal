@@ -36,7 +36,29 @@ This composition includes logo and text elements only. Intended for use in width
 
 ### `<TryHcpCalloutPrebuilt />`
 
-This component wraps `<TryHcpCallout />`. It handles content for a set of supported `productSlug` value, which allows this component to provide a single-prop `productSlug` props API. Intended for use in authorable contexts.
+This component wraps `<TryHcpCallout />`. It handles content for a set of supported `productSlug` value, which allows this component to provide a single-prop `productSlug` props API.
+
+`<TryHcpCalloutPrebuilt />` is intended for use in authorable contexts. In MDX, we expose the component as `<TryHcpCallout />`, and it accepts a single `product` prop, for consistency with other MDX components.
+
+```mdx
+## Hello there!
+
+Here's an MDX example of a `TryHcpCallout`.
+
+<TryHcpCallout product="vault" />
+
+### All product examples
+
+<TryHcpCallout product="hcp" />
+<TryHcpCallout product="terraform" />
+<TryHcpCallout product="packer" />
+<TryHcpCallout product="consul" />
+<TryHcpCallout product="vault" />
+<TryHcpCallout product="boundary" />
+<TryHcpCallout product="nomad" />
+<TryHcpCallout product="waypoint" />
+<TryHcpCallout product="vagrant" />
+```
 
 <LiveComponent>{`<>
   <TryHcpCalloutPrebuilt productSlug="boundary"/><br/>

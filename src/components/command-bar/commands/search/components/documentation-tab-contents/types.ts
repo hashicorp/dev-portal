@@ -1,5 +1,6 @@
 import { Hit } from '@algolia/client-search'
 import { CommandBarTag } from 'components/command-bar/types'
+import { ProductSlug } from 'types/products'
 import { SuggestedPagesProps } from '../suggested-pages/types'
 
 interface DocumentationTabContentsProps {
@@ -12,7 +13,7 @@ type DocumentationHitObject = Hit<{
 	description: string
 	headings?: string[]
 }> & {
-	product: string
+	product: ProductSlug
 }
 
 interface DocumentationHitProps {

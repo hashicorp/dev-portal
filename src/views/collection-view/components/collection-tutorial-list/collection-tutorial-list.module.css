@@ -1,6 +1,6 @@
 .root {
-  background: var(--token-color-surface-faint);
-  box-shadow: var(--token-surface-base-box-shadow);
-  border-radius: 6px;
-  padding: 16px;
+	background: var(--token-color-surface-faint);
+	box-shadow: var(--token-surface-base-box-shadow);
+	border-radius: 6px;
+	padding: 16px;
 }

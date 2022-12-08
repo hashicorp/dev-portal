@@ -2,69 +2,69 @@
 as we can't use CSS custom properties as nicely as
 usual since .dialogArrow is rendered into a Portal. */
 .theme-light {
-  --background-color: var(--theme-background, var(--white));
-  --box-shadow: 0 10px 50px rgba(0, 0, 0, 0.25);
-  --close-icon-color: var(--gray-3);
-  --overlay-color: transparent;
+	--background-color: var(--theme-background, var(--white));
+	--box-shadow: 0 10px 50px rgba(0, 0, 0, 0.25);
+	--close-icon-color: var(--gray-3);
+	--overlay-color: transparent;
 }
 
 .theme-dark {
-  --background-color: var(--theme-background, var(--gray-1));
-  --box-shadow: 0 10px 50px rgba(255, 255, 255, 0);
-  --close-icon-color: var(--gray-4);
-  --overlay-color: transparent;
+	--background-color: var(--theme-background, var(--gray-1));
+	--box-shadow: 0 10px 50px rgba(255, 255, 255, 0);
+	--close-icon-color: var(--gray-4);
+	--overlay-color: transparent;
 }
 
 .popover {
-  /* top & left positioning is done in JS,
+	/* top & left positioning is done in JS,
     via @reach/popovers built-in `position` prop */
-  position: fixed;
-  z-index: 1;
+	position: fixed;
+	z-index: 1;
 
-  /* --collision-buffer is set in JS, as it is
+	/* --collision-buffer is set in JS, as it is
   used for dynamic positioning calculations */
-  --max-collision-width: calc(100vw - calc(var(--collision-buffer) * 2));
+	--max-collision-width: calc(100vw - calc(var(--collision-buffer) * 2));
 
-  border-radius: 2px;
-  background: var(--background-color);
-  max-width: min(26rem, var(--max-collision-width));
-  text-align: left;
+	border-radius: 2px;
+	background: var(--background-color);
+	max-width: min(26rem, var(--max-collision-width));
+	text-align: left;
 
-  /* More right padding accounts for "close" button */
-  padding: 20px 40px 20px 20px;
-  outline: transparent;
-  box-shadow: var(--box-shadow);
+	/* More right padding accounts for "close" button */
+	padding: 20px 40px 20px 20px;
+	outline: transparent;
+	box-shadow: var(--box-shadow);
 }
 
 .dialogArrow {
-  position: fixed;
-  z-index: 2;
+	position: fixed;
+	z-index: 2;
 
-  /* --top, --left, and --arrow-size
+	/* --top, --left, and --arrow-size
    are set in JS, to allow for dynamic,
    collision-free positioning. */
-  top: var(--top);
-  left: var(--left);
-  width: 0;
-  height: 0;
-  border-left: var(--arrow-size) solid transparent;
-  border-right: var(--arrow-size) solid transparent;
-  border-bottom: var(--arrow-size) solid var(--background-color);
+	top: var(--top);
+	left: var(--left);
+	width: 0;
+	height: 0;
+	border-left: var(--arrow-size) solid transparent;
+	border-right: var(--arrow-size) solid transparent;
+	border-bottom: var(--arrow-size) solid var(--background-color);
 }
 
 .dialogClose {
-  color: var(--close-icon-color);
-  padding: 0;
-  background: none;
-  border: none;
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 2rem;
-  line-height: 1rem;
-  cursor: pointer;
+	color: var(--close-icon-color);
+	padding: 0;
+	background: none;
+	border: none;
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	font-size: 2rem;
+	line-height: 1rem;
+	cursor: pointer;
 
-  & svg {
-    display: block;
-  }
+	& svg {
+		display: block;
+	}
 }

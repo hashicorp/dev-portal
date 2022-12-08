@@ -1,49 +1,49 @@
 .closeButton {
-  composes: g-focus-ring-from-box-shadow from global;
+	composes: g-focus-ring-from-box-shadow from global;
 
-  --background-color: transparent;
-  --border-color: transparent;
-  --color: var(--token-color-foreground-faint);
-  --size: 24px;
+	--background-color: transparent;
+	--border-color: transparent;
+	--color: var(--token-color-foreground-faint);
+	--size: 24px;
 
-  appearance: none;
-  background: none;
-  border-radius: 5px;
-  border: none;
-  color: var(--color);
-  cursor: pointer;
-  display: grid;
-  height: var(--size);
-  isolation: isolate;
-  margin: 0;
-  padding: 0;
-  place-items: center;
-  position: relative;
-  width: var(--size);
+	appearance: none;
+	background: none;
+	border-radius: 5px;
+	border: none;
+	color: var(--color);
+	cursor: pointer;
+	display: grid;
+	height: var(--size);
+	isolation: isolate;
+	margin: 0;
+	padding: 0;
+	place-items: center;
+	position: relative;
+	width: var(--size);
 
-  &::before {
-    background-color: var(--background-color);
-    border-radius: 5px;
-    border: 1px solid var(--border-color);
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: -1;
-  }
+	&::before {
+		background-color: var(--background-color);
+		border-radius: 5px;
+		border: 1px solid var(--border-color);
+		content: '';
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: -1;
+	}
 
-  &:hover {
-    /* Note: use of alpha-100 differs from HDS toast implementation
+	&:hover {
+		/* Note: use of alpha-100 differs from HDS toast implementation
        (https://github.com/hashicorp/design-system/blob/f1d2475d86acb769833504cfb13b3531b387ae7e/packages/components/app/styles/components/alert.scss#L149).
        Have done this to avoid using a non-token value. May need to adjust. */
-    --background-color: var(--token-color-palette-alpha-100);
-  }
+		--background-color: var(--token-color-palette-alpha-100);
+	}
 
-  &:active {
-    --background-color: var(--token-color-palette-alpha-100);
-    --border-color: var(--token-color-border-strong);
-    --color: var(--token-color-foreground-faint);
-  }
+	&:active {
+		--background-color: var(--token-color-palette-alpha-100);
+		--border-color: var(--token-color-border-strong);
+		--color: var(--token-color-foreground-faint);
+	}
 }

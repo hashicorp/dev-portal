@@ -76,19 +76,6 @@ function isProxiedProduct(productSlug, hostname) {
 	return isLocalMatch || isDeployedMatch
 }
 
-// TODO: still experimenting with deploy preview approach
-// isContentDeployPreview is a first attempt at building deploy
-// previews in content repo contexts by cloning and building
-// the dev-portal repository
-/**
- *
- * @param {string} productSlug
- * @returns {boolean}
- */
-function isContentDeployPreview(productSlug) {
-	return isDeployPreview() && isProxiedProduct(productSlug)
-}
-
 function isDeployPreview(productSlug) {
 	const isProductSlugMatching =
 		!productSlug || productSlug === process.env.PREVIEW_FROM_REPO
@@ -105,13 +92,12 @@ function isVersionedDocsEnabled(productSlug) {
 	const enableVersionedDocs =
 		process.env.ENABLE_VERSIONED_DOCS &&
 		process.env.ENABLE_VERSIONED_DOCS !== 'false'
-	return enableVersionedDocs && !isContentDeployPreview(productSlug)
+	return enableVersionedDocs && !isDeployPreview(productSlug)
 }
 
 module.exports = {
 	getProxiedProductSlug,
 	isPreview,
-	isContentDeployPreview,
 	isDeployPreview,
 	isVersionedDocsEnabled,
 }

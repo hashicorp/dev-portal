@@ -1,14 +1,14 @@
 .root {
-  & > h4 {
-    margin-top: 0;
-  }
+	& > h4 {
+		margin-top: 0;
+	}
 
-  & > p {
-    margin-bottom: 32px;
-  }
+	& > p {
+		margin-bottom: 32px;
+	}
 
-  & a {
-    color: inherit;
-    text-decoration: underline;
-  }
+	& a {
+		color: inherit;
+		text-decoration: underline;
+	}
 }
