@@ -35,10 +35,6 @@ const handleRelativeUrl = ({
 	const productSlug = product.slug
 	const basePaths = product.basePaths
 
-	if (url.startsWith('#')) {
-		return
-	}
-
 	if (url.startsWith('/')) {
 		const [, basePath] = url.split('/')
 		if (basePaths.includes(basePath)) {
@@ -49,17 +45,42 @@ const handleRelativeUrl = ({
 		return
 	}
 
-	const pathParths = url.split('/')
-	const currentFilePathParts = currentFilePath.split('/')
-	const countDotsParts = pathParths.filter((part) => part === '..').length
-	const joined = [
-		...currentFilePathParts.slice(
-			0,
-			!url.startsWith('.') ? -2 : -(countDotsParts + 1)
-		),
-		...pathParths.filter((part) => part !== '..'),
-	].join('/')
-	linksToRewrite[url] = `/${path.join(product.slug, joined)}`
+	if (url.startsWith('./')) {
+		const joinedUrl = path.join(
+			currentFilePath.split('/').slice(0, -1).join('/'),
+			url.slice(2)
+		)
+		linksToRewrite[url] = `/${productSlug}${joinedUrl}`
+		return
+	}
+
+	if (url.startsWith('../')) {
+		let dotsCount = 0
+		const withoutDots = url.split('/').filter((part) => {
+			const isDots = part === '..'
+			if (isDots) {
+				dotsCount += 1
+			}
+
+			return !isDots
+		})
+
+		const joinedUrl = path.join(
+			withoutDots.join('/'),
+			currentFilePath
+				.split('/')
+				.slice(0, -(dotsCount + 1))
+				.join('/')
+		)
+		linksToRewrite[url] = `/${productSlug}/${joinedUrl}`
+		return
+	}
+
+	const joinedUrl = path.join(
+		currentFilePath.split('/').slice(0, -2).join('/'),
+		url
+	)
+	linksToRewrite[url] = `/${productSlug}${joinedUrl}`
 }
 
 const handleNonRelativeLearnUrl = ({
@@ -68,9 +89,19 @@ const handleNonRelativeLearnUrl = ({
 	unrewriteableLinks,
 	url,
 }) => {
-	const replacementPath = learnToDevDotPaths[url]
+	const urlObject = new URL(url)
+
+	// Only include the `in` param for the `learnToDevDotPaths` search string
+	let urlToCheck = `${urlObject.origin}${urlObject.pathname}`
+	if (urlObject.searchParams.has('in')) {
+		urlToCheck += `?in=${urlObject.searchParams.get('in')}`
+		// Remove the param since it's not used in dev-portal
+		urlObject.searchParams.delete('in')
+	}
+
+	const replacementPath = learnToDevDotPaths[urlToCheck]
 	if (replacementPath) {
-		linksToRewrite[url] = replacementPath
+		linksToRewrite[url] = urlObject.toString()
 	} else {
 		unrewriteableLinks.push(url)
 	}
@@ -142,6 +173,13 @@ const rewriteLinksPlugin: Plugin = ({
 }) => {
 	return async function transformer(tree, file: CustomVFile) {
 		return visit(tree, ['link', 'definition'], (node: Link | Definition) => {
+			/**
+			 * Return early for URLs we aren't concerned about.
+			 */
+			if (!node.url || node.url.startsWith('#')) {
+				return
+			}
+
 			/**
 			 * Initialize the file.data properties we'll write to.
 			 */
