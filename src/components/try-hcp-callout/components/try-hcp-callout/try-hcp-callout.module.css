@@ -98,7 +98,7 @@
 	}
 
 	&.vagrant {
-		--background-src: url('./img/try-hcp-callout-ui-mock-vault.svg'); /* TODO update with vagrant image **/
+		--background-src: url('./img/try-hcp-callout-ui-mock-vagrant.svg');
 	}
 
 	&.vault {
