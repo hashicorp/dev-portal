@@ -38,6 +38,9 @@
 
 .h1 {
 	color: var(--token-color-foreground-strong);
+
+	/* Custom font size outside HDS, --token-typography-display-600-font-size */
+	font-size: 36px;
 	margin-bottom: 12px;
 }
 
