@@ -64,32 +64,28 @@ const _getServerSideProps = async ({ params }: { params: PathParams }) => {
 		{
 			title: 'Developer',
 			url: '/',
-			isCurrentPage: false,
 		},
 		{
 			title: product.name,
 			url: `/${product.slug}`,
-			isCurrentPage: false,
 		},
 		{
 			title: 'Integrations',
 			url: `/${product.slug}/integrations`,
-			isCurrentPage: false,
 		},
 		{
 			title: integration.name,
 			url: `/${product.slug}/integrations/${integration.slug}`,
-			isCurrentPage: true,
 		},
 	]
 	if (version !== null) {
-		breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = false
 		breadcrumbLinks.push({
 			title: version,
 			url: `/${product.slug}/integrations/${integration.slug}/${version}`,
-			isCurrentPage: true,
 		})
 	}
+	// mark last breadcrumb as current page
+	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
 
 	return {
 		props: {
