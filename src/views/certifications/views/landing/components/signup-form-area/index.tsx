@@ -1,7 +1,7 @@
 import { CertificationsContentArea } from '../../../../components'
 import { NewsletterSignupForm } from '..'
-import { marketoFormData } from '../newsletter-signup-form/marketo-form-data'
-import SignupHeader from '../signup-header'
+import { marketoFormData } from './components/newsletter-signup-form/marketo-form-data'
+import SignupHeader from './components/signup-header'
 import s from './signup-form-area.module.css'
 
 export function SignupFormArea() {
