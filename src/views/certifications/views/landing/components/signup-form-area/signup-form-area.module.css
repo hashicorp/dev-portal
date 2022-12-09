@@ -1,20 +1,20 @@
-.root {
-	padding: 3rem 0;
-	border: 1px solid magenta;
+.contentWrap {
 	color: white;
 	display: flex;
-}
-
-.contentWrap {
-	padding: 36px 48px;
+	justify-content: center;
+	padding: 196px 24px 32px 24px;
 	border-radius: 6px;
 	background-color: black;
+	background-image: url('./img/newsletter-background.png');
+	background-repeat: no-repeat;
+	background-size: auto 300px;
+	background-position: top -116px right -100px;
 
 	@media (min-width: 768px) {
-		background-repeat: no-repeat;
+		justify-content: flex-start;
 		background-size: cover;
 		background-position: center;
-		background-image: url('./img/newsletter-background.png');
+		padding: 36px 48px;
 	}
 }
 

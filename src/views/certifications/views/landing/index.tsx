@@ -47,7 +47,7 @@ function CertificationsLandingView({
 					)
 				})}
 			</div>
-			<div className={s.faqSection}>
+			<div className={s.faqSignupSection}>
 				<CertificationsContentArea>
 					<h2 className={s.faqHeading}>Program overview & FAQ</h2>
 					<Accordion
@@ -71,23 +71,10 @@ function CertificationsLandingView({
 						]}
 					/>
 				</CertificationsContentArea>
+				<div className={s.signupForm}>
+					<SignupFormArea />
+				</div>
 			</div>
-			<div style={{ background: 'rgba(255, 0, 255, 0.15)' }}>
-				<SignupFormArea />
-			</div>
-			{/* <CertificationsContentArea>
-				<h2>{`[dev]`} Content Debug</h2>
-				<pre
-					className="hds-typography-code-100"
-					style={{
-						whiteSpace: 'pre-wrap',
-						background: '#EEEEEE',
-						padding: '2rem',
-					}}
-				>
-					<code>{JSON.stringify({ pageContent }, null, 2)}</code>
-				</pre>
-			</CertificationsContentArea> */}
 		</>
 	)
 }

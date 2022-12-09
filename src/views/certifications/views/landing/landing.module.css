@@ -37,7 +37,7 @@
 	z-index: 1;
 }
 
-.faqSection {
+.faqSignupSection {
 	--section-overlap: 72px;
 	--section-top-padding: 120px;
 
@@ -52,4 +52,9 @@
 	font-weight: var(--token-typography-font-weight-bold);
 	color: var(--token-color-foreground-strong);
 	margin: 0 0 32px 0;
+}
+
+.signupForm {
+	margin-top: 72px;
+	padding-bottom: 108px;
 }
