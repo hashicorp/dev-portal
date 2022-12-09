@@ -1,10 +1,3 @@
-.programsAndFaq {
-	background: rgba(255, 0, 255, 0.15);
-
-	/* Isolate z-index changes within this section */
-	isolation: isolate;
-}
-
 .programsSection {
 	align-items: stretch;
 	display: flex;
@@ -16,4 +9,21 @@
 
 	/* We want this section to be above the FAQ section below */
 	z-index: 1;
+}
+
+.faqSection {
+	--section-overlap: 72px;
+	--section-top-padding: 120px;
+
+	background: var(--token-color-surface-strong);
+	margin-top: calc(-1 * var(--section-overlap));
+	padding-top: calc(var(--section-top-padding) + var(--section-overlap));
+	padding-bottom: 0;
+}
+
+.faqHeading {
+	composes: hds-typography-display-400 from global;
+	font-weight: var(--token-typography-font-weight-bold);
+	color: var(--token-color-foreground-strong);
+	margin: 0 0 32px 0;
 }

@@ -1,0 +1,18 @@
+.root {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 48px;
+	row-gap: 24px;
+}
+
+.startContent {
+	/* border: 1px solid magenta; */
+	flex: 12em 1 1;
+	min-width: 0;
+}
+
+.endContent {
+	/* border: 1px solid magenta; */
+	flex: 18em 2 1;
+	min-width: 0;
+}

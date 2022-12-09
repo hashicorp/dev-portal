@@ -1,12 +1,7 @@
 // Global
-import { ReactNode } from 'react'
 import BaseNewLayout from 'layouts/base-new'
 // Shared view components
-import {
-	CertificationsContentArea,
-	CertificationsNav,
-	CertificationsHero,
-} from '../../components'
+import { CertificationsNav, CertificationsHero } from '../../components'
 // Local view components
 import { CertificationProgramDetails } from './components'
 import { CertificationPageProps } from './types'
