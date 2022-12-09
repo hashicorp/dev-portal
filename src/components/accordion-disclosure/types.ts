@@ -33,20 +33,16 @@ export interface AccordionDisclosureProps {
 	title: ReactNode
 
 	/**
-	 * Whether this disclosure is the first in a group of similar items.
-	 * If `true`, specific styles for the first item in a group will be applied.
-	 * If `false`, then styles will be applied assuming there is a previous item.
-	 * If this prop & `isLastItem` are `undefined`, no group styles are used.
+	 * Optional prop to signal that this AccordionDisclosure is being
+	 * placed in a group next to adjacent AccordionDisclosure components.
+	 * We use this to control styling.
 	 */
-	isFirstItem?: boolean
-
-	/**
-	 * Whether this disclosure is the last in a group of similar items.
-	 * If `true`, specific styles for the last item in a group will be applied.
-	 * If `false`, then styles will be applied assuming there is a next item.
-	 * If this prop & `isFirstItem` are `undefined`, no group styles are used.
-	 */
-	isLastItem?: boolean
+	groupData?: {
+		/* The number of items in the group */
+		numItems: number
+		/* The index of this specific AccordionDisclosure in the group */
+		currentIndex: number
+	}
 
 	/**
 	 * Optional heading level to contain the `button` element within the

@@ -11,18 +11,18 @@ function Accordion({
 	items,
 	activatorHeadingLevel,
 }: AccordionProps) {
+	const itemsCount = items.length
 	return (
 		<div className={classNames(s.root, className)}>
-			{items.map((item: AccordionContentItem, idx: number) => {
-				const { title, content } = item
-				const isFirstItem = idx === 0
-				const isLastItem = idx === items.length - 1
+			{items.map(({ title, content }: AccordionContentItem, idx: number) => {
 				return (
 					<AccordionDisclosure
 						key={title}
 						title={title}
-						isFirstItem={isFirstItem}
-						isLastItem={isLastItem}
+						groupData={{
+							numItems: itemsCount,
+							currentIndex: idx,
+						}}
 						activatorHeadingLevel={activatorHeadingLevel}
 					>
 						{content}

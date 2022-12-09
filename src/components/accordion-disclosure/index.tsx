@@ -18,8 +18,7 @@ const AccordionDisclosure = ({
 	description,
 	initialOpen,
 	title,
-	isFirstItem,
-	isLastItem,
+	groupData,
 	activatorHeadingLevel,
 }: AccordionDisclosureProps) => {
 	/**
@@ -35,10 +34,11 @@ const AccordionDisclosure = ({
 	const isNested = useAccordionDisclosureContext()
 
 	/**
-	 * If both isFirstItem or isLastItem are defined, we'll style as grouped.
+	 * Set up variables related to group styling.
 	 */
-	const isGroupedItem =
-		typeof isFirstItem !== 'undefined' && typeof isLastItem !== 'undefined'
+	const isGroupedItem = typeof groupData !== 'undefined'
+	const isFirstItem = groupData.currentIndex === 0
+	const isLastItem = groupData.currentIndex === groupData.numItems - 1
 
 	/**
 	 * Container classNames include styles for open & hovered states,
