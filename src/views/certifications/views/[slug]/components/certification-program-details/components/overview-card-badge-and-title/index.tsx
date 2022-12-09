@@ -24,8 +24,10 @@ function OverviewCardBadgeAndTitle({
 				<span className={s.versionIcon}>
 					<IconInfo16 />
 				</span>
-				<span className={s.versionLabel}>Product version tested:</span>
-				<span className={s.versionValue}>{versionTested}</span>
+				<span className={s.versionText}>
+					<span className={s.versionLabel}>Product version tested:</span>
+					<span className={s.versionValue}>{versionTested}</span>
+				</span>
 			</div>
 		</div>
 	)

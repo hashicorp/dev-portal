@@ -11,12 +11,19 @@ import { ExamCard, ExamCardComingSoon } from '../'
 // Styles
 import s from './certification-program-section.module.css'
 
+/**
+ * TODO: some of these types should probably be shared.
+ * (eg supported product slugs from badge, maybe?)
+ */
 interface CertificationItem {
 	title: string
 	productSlug: 'consul' | 'terraform' | 'vault'
 	url?: string
 }
 
+/**
+ * TODO: split to separate types file
+ */
 interface CertificationProgramSectionProps {
 	slug: string
 	heading: string

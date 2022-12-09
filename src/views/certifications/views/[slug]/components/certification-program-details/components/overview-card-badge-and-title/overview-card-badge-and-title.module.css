@@ -18,18 +18,26 @@
 	composes: hds-typography-body-100 from global;
 	color: var(--token-color-foreground-faint);
 	display: flex;
-	flex-wrap: wrap;
-	gap: 6px;
-	align-items: center;
+	gap: 8px;
+	align-items: top;
 	margin: 24px 0 0 0;
 }
 
 .versionIcon {
 	flex-shrink: 0;
+	padding-top: 1px;
 
 	& > svg {
 		display: block;
 	}
+}
+
+.versionText {
+	align-items: center;
+	display: flex;
+	flex-shrink: 1;
+	flex-wrap: wrap;
+	gap: 4px;
 }
 
 .versionLabel {

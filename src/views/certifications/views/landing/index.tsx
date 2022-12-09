@@ -20,6 +20,7 @@ function CertificationsLandingView({
 	return (
 		<>
 			<CertificationsNav {...navProps} />
+			{/* TODO: split out hero to separate component folder, maybe? */}
 			<CertificationsHero
 				heading={pageContent.hero.heading}
 				description={pageContent.hero.description}
@@ -33,17 +34,18 @@ function CertificationsLandingView({
 			/>
 			<div className={s.programsSection}>
 				{programSummaries.map((programSummary: CertificationProgramSummary) => {
+					const { slug, title, description, certifications } = programSummary
 					return (
 						<CertificationProgramSection
-							key={programSummary.slug}
-							slug={programSummary.slug}
-							heading={programSummary.title}
-							description={programSummary.description}
+							key={slug}
+							slug={slug}
+							heading={title}
+							description={description}
 							overviewCta={{
 								text: 'Overview',
-								url: `/certifications/${programSummary.slug}`,
+								url: `/certifications/${slug}`,
 							}}
-							certifications={programSummary.certifications}
+							certifications={certifications}
 						/>
 					)
 				})}
