@@ -1,11 +1,31 @@
-.inner {
-	border: 1px solid magenta;
-	background: white;
+.splitSection {
+	padding: 8px 8px 0 8px;
+
+	@media (--dev-dot-tablet-up) {
+		padding: 24px 24px 0 24px;
+	}
+}
+
+.heading {
+	composes: hds-typography-display-500 from global;
+	font-weight: var(--token-typography-font-weight-bold);
+	color: var(--token-color-foreground-strong);
+	hyphens: auto;
+}
+
+.description {
+	composes: hds-typography-body-300 from global;
+	font-weight: var(--token-typography-font-weight-medium);
+	color: var(--token-color-foreground-primary);
+}
+
+.buttonGroup {
+	margin-top: 16px;
 }
 
 .examCards {
 	display: flex;
 	flex-direction: column;
 	gap: 40px;
-	padding: 24px;
+	margin-top: 40px;
 }

@@ -1,0 +1,34 @@
+.root {
+	--shadow-offset: 48px;
+	--shadow-background: var(--token-color-foreground-faint);
+
+	background: var(--token-color-surface-primary);
+	border-radius: 6px;
+	box-shadow: var(--token-surface-base-box-shadow);
+	padding: 24px;
+	position: relative;
+
+	&::after {
+		content: '\200B'; /* zero width space */
+		position: absolute;
+		bottom: var(--shadow-offset);
+		left: var(--shadow-offset);
+		right: var(--shadow-offset);
+		height: 72px;
+		background: var(--shadow-background);
+		filter: blur(50px);
+		z-index: -1;
+	}
+
+	&.theme-infrastructure-automation {
+		--shadow-background: linear-gradient(90deg, #8cdeff 0%, #8763d9 100%);
+	}
+
+	&.theme-security-automation {
+		--shadow-background: linear-gradient(90deg, #ffe58c 0%, #f26b63 100%);
+	}
+
+	&.theme-networking-automation {
+		--shadow-background: linear-gradient(90deg, #ffb2b8 0%, #c74fb8 100%);
+	}
+}

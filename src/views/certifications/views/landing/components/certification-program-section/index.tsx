@@ -1,5 +1,11 @@
 import ButtonLink from 'components/button-link'
-import { CertificationsContentArea } from 'views/certifications/components'
+import {
+	ButtonGroup,
+	CertificationsContentArea,
+	GradientCard,
+	SplitCardSection,
+} from 'views/certifications/components'
+import type { GradientCardTheme } from 'views/certifications/components'
 // Local
 import { ExamCard, ExamCardComingSoon } from '../'
 // Styles
@@ -12,6 +18,7 @@ interface CertificationItem {
 }
 
 interface CertificationProgramSectionProps {
+	slug: string
 	heading: string
 	description: string
 	overviewCta: {
@@ -22,6 +29,7 @@ interface CertificationProgramSectionProps {
 }
 
 export function CertificationProgramSection({
+	slug,
 	heading,
 	description,
 	overviewCta,
@@ -30,36 +38,19 @@ export function CertificationProgramSection({
 	return (
 		<>
 			<CertificationsContentArea>
-				<div className={s.inner}>
-					<div
-						style={{
-							display: 'flex',
-							flexWrap: 'wrap',
-							gap: '48px',
-							border: '1px solid magenta',
-							padding: '1rem',
-						}}
-					>
-						<h3
-							style={{
-								flex: '10em 1 1',
-								margin: 0,
-							}}
-						>
-							{heading}
-						</h3>
-						<div
-							style={{
-								flex: '18em 2 1',
-							}}
-						>
-							<div>{description}</div>
-							<br />
-							<div style={{ width: 'min-content' }}>
-								<ButtonLink text={overviewCta.text} href={overviewCta.url} />
-							</div>
-						</div>
-					</div>
+				<GradientCard theme={slug as GradientCardTheme}>
+					<SplitCardSection
+						className={s.splitSection}
+						startContent={<h3 className={s.heading}>{heading}</h3>}
+						endContent={
+							<>
+								<div className={s.description}>{description}</div>
+								<ButtonGroup className={s.buttonGroup}>
+									<ButtonLink text={overviewCta.text} href={overviewCta.url} />
+								</ButtonGroup>
+							</>
+						}
+					/>
 					<div className={s.examCards}>
 						{certifications.map(
 							({ title, url, productSlug }: CertificationItem) => {
@@ -71,7 +62,7 @@ export function CertificationProgramSection({
 							}
 						)}
 					</div>
-				</div>
+				</GradientCard>
 			</CertificationsContentArea>
 		</>
 	)
