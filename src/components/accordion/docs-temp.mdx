@@ -1,0 +1,150 @@
+---
+componentName: 'Accordion'
+---
+
+The `<Accordion />` component renders an array as items as a group of disclosures.
+
+## Playground
+
+<LiveComponent>{`
+<Accordion
+	items={['Item One', 'Another Item Two', 'Third Item'].map((text) => {
+		return {
+			heading: text,
+			content: (
+				<div
+					style={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						minHeight: '400px',
+						background: 'salmon'
+					}}
+				>
+					Here's some content for {text}
+				</div>
+			),
+		}
+	})}
+/>
+`}</LiveComponent>
+
+## Examples
+
+### Single Item
+
+<Accordion
+	items={['foo'].map((text) => {
+		return {
+			heading: `${text[0].toUpperCase()}${text.slice(1)} accordion item`,
+			content: (
+				<div
+					style={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						minHeight: '400px',
+						background: 'lightgray',
+					}}
+				>
+					Hello {text} disclosure content.
+				</div>
+			),
+		}
+	})}
+/>
+
+### Two Items
+
+<Accordion
+	items={['foo', 'bar'].map((text) => {
+		return {
+			heading: `${text[0].toUpperCase()}${text.slice(1)} accordion item`,
+			content: (
+				<div
+					style={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						minHeight: '400px',
+						background: 'lightgray',
+					}}
+				>
+					Hello {text} disclosure content.
+				</div>
+			),
+		}
+	})}
+/>
+
+### Many Items
+
+<Accordion
+	items={['foo', 'bar', 'fizz', 'buzz'].map((text) => {
+		return {
+			heading: `${text[0].toUpperCase()}${text.slice(1)} accordion item`,
+			content: (
+				<div
+					style={{
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						minHeight: '400px',
+						background: 'lightgray',
+					}}
+				>
+					Hello {text} disclosure content.
+				</div>
+			),
+		}
+	})}
+/>
+
+### Nested Items
+
+<Accordion
+	items={['there', 'are', 'nested', 'items', 'within'].map(
+		(text: string) => {
+			function getPlaceholderItems(textArray) {
+				return textArray.map((text) => {
+					return {
+						title: `${text[0].toUpperCase()}${text.slice(
+							1
+						)} accordion item`,
+						content: (
+							<div
+								style={{
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'center',
+									minHeight: '400px',
+									background: 'lightgray',
+								}}
+							>
+								Hello {text} disclosure content.
+							</div>
+						),
+					}
+				})
+			}
+			return {
+				title: `${text[0].toUpperCase()}${text.slice(1)}`,
+				content: (
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'column',
+							gap: '24px',
+						}}
+					>
+						<Accordion items={getPlaceholderItems(['hey'])} />
+						<Accordion
+							items={getPlaceholderItems(['these', 'here', 'are'])}
+						/>
+						<Accordion items={getPlaceholderItems(['nested', 'items'])} />
+					</div>
+				),
+			}
+		}
+	)}
+/>
