@@ -48,6 +48,11 @@ export interface TabsProps {
 	 * "normal".
 	 */
 	variant?: 'normal' | 'compact'
+
+	/**
+	 * Optional callback for when the active tab changes.
+	 */
+	onChange?: (newActiveIndex: number) => void
 }
 
 // interface BaseProps {
