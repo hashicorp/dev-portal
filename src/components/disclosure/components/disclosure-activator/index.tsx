@@ -38,7 +38,7 @@ const DisclosureActivator = forwardRef(
 		 * wrap the button in a corresponding heading element.
 		 */
 		const Wrapper =
-			typeof headingLevel !== undefined
+			typeof headingLevel !== 'undefined'
 				? getHeadingWrapper(headingLevel)
 				: Fragment
 
