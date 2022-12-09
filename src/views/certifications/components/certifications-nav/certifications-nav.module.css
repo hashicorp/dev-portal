@@ -1,5 +1,5 @@
 .root {
-	border: 1px solid magenta;
+	background: rgba(255, 0, 255, 0.15);
 }
 
 .nav {

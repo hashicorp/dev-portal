@@ -6,8 +6,10 @@ import {
 	CertificationsNav,
 } from '../../components'
 import { CertificationProgramSection, SignupFormArea } from './components'
-import s from './landing.module.css'
 import Accordion from 'components/accordion'
+import Image from 'next/image'
+import svgHeroImage from './assets/certification-hero-image-outlined.svg'
+import s from './landing.module.css'
 
 function CertificationsLandingView({
 	navProps,
@@ -20,6 +22,13 @@ function CertificationsLandingView({
 			<CertificationsHero
 				heading="HashiCorp Cloud Engineer Certifications"
 				description="Each certification program tests both conceptual knowledge and real-world experience using HashiCorp multi-cloud tools. Upon passing the exam, you can easily communicate your proficiency and employers can quickly verify your results."
+				foreground="light"
+				backgroundSlot={<div className={s.heroBackground} />}
+				imageSlot={
+					<div className={s.heroImage}>
+						<Image alt="" src={svgHeroImage} width={447} height={515} />
+					</div>
+				}
 			/>
 			<div className={s.programsSection}>
 				{programSummaries.map((programSummary: CertificationProgramSummary) => {
