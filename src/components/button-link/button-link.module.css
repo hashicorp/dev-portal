@@ -24,7 +24,6 @@
 	line-height: var(--line-height);
 	padding: var(--padding-top-bottom) var(--padding-left-right);
 	position: relative;
-	text-decoration: underline;
 
 	&::before {
 		border-radius: 8px;
@@ -42,10 +41,15 @@
 	&:focus,
 	&:focus-visible {
 		outline: transparent;
+		text-decoration: underline;
 	}
 
 	&:not(:disabled) {
 		cursor: pointer;
+	}
+
+	&:hover:not(:disabled) {
+		text-decoration: underline;
 	}
 
 	&:disabled {
