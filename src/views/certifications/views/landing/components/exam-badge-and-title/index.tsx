@@ -1,14 +1,5 @@
-import Image from 'next/image'
-import svgConsulBadge from './assets/consul-badge-mini.svg'
-import svgTerraformBadge from './assets/terraform-badge-mini.svg'
-import svgVaultBadge from './assets/vault-badge-mini.svg'
+import { ExamBadge, ExamBadgeSlug } from 'views/certifications/components'
 import s from './exam-badge-and-title.module.css'
-
-const BADGE_MAP = {
-	consul: svgConsulBadge,
-	terraform: svgTerraformBadge,
-	vault: svgVaultBadge,
-}
 
 function ExamBadgeAndTitle({
 	title,
@@ -17,17 +8,11 @@ function ExamBadgeAndTitle({
 }: {
 	title: string
 	eyebrow: string
-	productSlug: 'consul' | 'terraform' | 'vault'
+	productSlug: ExamBadgeSlug
 }) {
 	return (
 		<div className={s.root}>
-			<Image
-				alt=""
-				className={s.badge}
-				src={BADGE_MAP[productSlug]}
-				width={48}
-				height={56}
-			/>
+			<ExamBadge productSlug={productSlug} />
 			<div className={s.text}>
 				<div className={s.eyebrow}>{eyebrow}</div>
 				<div className={s.title}>{title}</div>

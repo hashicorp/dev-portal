@@ -6,13 +6,11 @@
 }
 
 .startContent {
-	/* border: 1px solid magenta; */
-	flex: 12em 1 1;
+	flex: 16em 1 1;
 	min-width: 0;
 }
 
 .endContent {
-	/* border: 1px solid magenta; */
-	flex: 18em 2 1;
+	flex: 24em 4 1;
 	min-width: 0;
 }

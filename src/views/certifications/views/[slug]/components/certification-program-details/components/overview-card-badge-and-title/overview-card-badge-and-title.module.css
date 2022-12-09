@@ -1,0 +1,41 @@
+.eyebrow {
+	composes: hds-typography-display-300 from global;
+	color: var(--token-color-foreground-faint);
+	display: block;
+	font-weight: var(--token-typography-font-weight-semibold);
+	margin: 24px 0 0 0;
+}
+
+.title {
+	composes: hds-typography-display-500 from global;
+	color: var(--token-color-foreground-strong);
+	font-weight: var(--token-typography-font-weight-bold);
+	max-width: 10em;
+	margin: 4px 0 0 0;
+}
+
+.version {
+	composes: hds-typography-body-100 from global;
+	color: var(--token-color-foreground-faint);
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	align-items: center;
+	margin: 24px 0 0 0;
+}
+
+.versionIcon {
+	flex-shrink: 0;
+
+	& > svg {
+		display: block;
+	}
+}
+
+.versionLabel {
+	font-weight: var(--token-typography-font-weight-semibold);
+}
+
+.versionValue {
+	font-weight: var(--token-typography-font-weight-regular);
+}

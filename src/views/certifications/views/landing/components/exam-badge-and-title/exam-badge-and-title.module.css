@@ -5,11 +5,6 @@
 	flex-wrap: wrap;
 }
 
-.badge {
-	display: block;
-	flex-shrink: 0;
-}
-
 .text {
 	display: flex;
 	flex-direction: column;

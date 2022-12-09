@@ -7,6 +7,7 @@ import {
 	getAllCertificationPrograms,
 } from '../../helpers'
 import { preparePageContent } from './utils/prepare-page-content'
+import { GradientCardTheme } from 'views/certifications/components'
 
 export async function getStaticProps({
 	params: { slug },
@@ -23,7 +24,7 @@ export async function getStaticProps({
 	const slugString = Array.isArray(slug) ? slug.join('/') : slug
 
 	return {
-		props: { navProps, pageContent, slug: slugString },
+		props: { navProps, pageContent, slug: slugString as GradientCardTheme },
 	}
 }
 
