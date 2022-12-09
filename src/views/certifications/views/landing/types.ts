@@ -1,3 +1,4 @@
+import { FaqItem } from 'views/certifications/types'
 import { CertificationsNavProps } from '../../components/certifications-nav/types'
 
 export interface CertificationProgramSummary {
@@ -21,4 +22,9 @@ export interface CertificationLandingProps {
 	 * Should update this
 	 */
 	programSummaries: CertificationProgramSummary[]
+
+	/**
+	 * FAQ items to render on the page.
+	 */
+	faqItems: FaqItem[]
 }

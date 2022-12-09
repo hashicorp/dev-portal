@@ -1,48 +1,12 @@
-import { MDXRemote } from 'next-mdx-remote'
-import Accordion from 'components/accordion'
-import Image from 'components/image'
-import { ImageProps } from 'components/image/types'
-import {
-	MdxA,
-	MdxP,
-	MdxTable,
-	MdxInlineCode,
-	MdxOrderedList,
-	MdxUnorderedList,
-	MdxListItem,
-	MdxBlockquote,
-} from 'components/dev-dot-content/mdx-components'
 import { OverviewCard } from './components'
 import {
+	AccordionWithMdxContent,
 	CertificationsContentArea,
 	ExamBadgeSlug,
 	GradientCardTheme,
 } from 'views/certifications/components'
+import { FaqItem } from 'views/certifications/types'
 import s from './certification-program-details.module.css'
-
-function MdxImage({
-	alt,
-	src,
-	title,
-}: Pick<ImageProps, 'alt' | 'src' | 'title'>) {
-	return <Image alt={alt} src={src} title={title} noBorder={true} />
-}
-
-const MDX_COMPONENTS = {
-	a: MdxA,
-	blockquote: MdxBlockquote,
-	p: MdxP,
-	table: MdxTable,
-	img: MdxImage,
-	inlineCode: MdxInlineCode,
-	ul: MdxUnorderedList,
-	ol: MdxOrderedList,
-	li: MdxListItem,
-}
-interface FaqItem {
-	title: string
-	mdxSource: $TSFixMe
-}
 
 export function CertificationProgramDetails({
 	title,
@@ -79,16 +43,9 @@ export function CertificationProgramDetails({
 						/>
 					</div>
 					<h2 className={s.accordionHeading}>Overview</h2>
-					<Accordion
+					<AccordionWithMdxContent
+						items={faqItems}
 						activatorHeadingLevel="h3"
-						items={faqItems.map((item: FaqItem) => {
-							return {
-								title: item.title,
-								content: (
-									<MDXRemote {...item.mdxSource} components={MDX_COMPONENTS} />
-								),
-							}
-						})}
 					/>
 				</CertificationsContentArea>
 			</div>

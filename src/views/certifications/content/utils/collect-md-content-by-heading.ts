@@ -1,4 +1,3 @@
-// npm i mdast-util-to-string@2 remark@12 unist-util-visit-children@1
 import remark from 'remark'
 import { Parent } from 'unist-util-visit'
 import visitChildren from 'unist-util-visit-children'
@@ -23,13 +22,12 @@ export type ContentSection = {
 }
 
 /**
- * TODO: update description
+ * A remark plugin that collects content nodes in the document,
+ * splitting them by headings
  *
- * A remark plugin that finds <li /> nodes that start with inline code,
- * and extracts the inline code's text content.
- *
- * Text content for each inline code item is pushed to the provided
- * `collector` variable, which is required for the plugin to function.
+ * Populates a provided collector variable with an array of sections.
+ * Each section consists of a title string, derived from the heading,
+ * as well as an array of top-level content nodes found under the heading.
  */
 const contentSectionCollector: Plugin<
 	[{ collector: ContentSectionNodes[]; targetLevel: HeadingLevel }]
@@ -73,17 +71,12 @@ const contentSectionCollector: Plugin<
 	}
 
 /**
- * Given some MDX content,
- * find all <li> nodes that start with inline code, and
- * Return an array of text values for all those bits of inline code lists.
- *
- * For context, in many MDX documents, we list parameters or options as
- * lists, with each items starting with <code>. The text content of those <code>
- * elements often represents relatively important parameters or options.
- * Being able to extract the text means we can do things like search index it.
+ * Given some MDX content, split content on headings of the provided level, and
+ * Return an array of content sections.
  */
 export async function collectMdContentByHeading(
-	mdxContent: string
+	mdxContent: string,
+	headingLevel: HeadingLevel
 ): Promise<ContentSection[]> {
 	const contentSectionNodes: ContentSectionNodes[] = []
 
@@ -94,7 +87,7 @@ export async function collectMdContentByHeading(
 	await remark()
 		.use(contentSectionCollector, {
 			collector: contentSectionNodes,
-			targetLevel: 2,
+			targetLevel: headingLevel,
 		})
 		.process(mdxContent)
 

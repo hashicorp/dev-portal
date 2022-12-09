@@ -1,7 +1,10 @@
-// import { serialize } from 'next-mdx-remote/serialize'
+import path from 'path'
 import { CertificationProgram } from 'views/certifications/types'
 import { CertificationItem } from 'views/certifications/content/schemas/certification-program'
-import { getExamFaqs } from 'views/certifications/content/utils/get-exam-faqs'
+import { getFaqsFromMdx } from 'views/certifications/content/utils/get-faqs-from-mdx'
+import { readLocalFile } from 'views/certifications/content/utils'
+
+const EXAM_CONTENT_DIR = 'src/content/certifications/exam-faqs'
 
 export async function preparePageContent(
 	rawPageContent: CertificationProgram
@@ -15,6 +18,8 @@ export async function preparePageContent(
 async function prepareCertification(
 	certification: CertificationItem
 ): Promise<CertificationItem> {
-	const parsedFaqItems = await getExamFaqs(certification.examFaqSlug)
+	const faqFile = `${certification.examFaqSlug}.mdx`
+	const faqMdxString = readLocalFile(path.join(EXAM_CONTENT_DIR, faqFile))
+	const parsedFaqItems = await getFaqsFromMdx(faqMdxString)
 	return { ...certification, faqItems: parsedFaqItems }
 }
