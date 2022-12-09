@@ -30,36 +30,60 @@ import {
 
 let TUTORIAL_MAP
 
+const DEFAULT_CONTENT_TYPE = 'tutorials'
+
 interface RewriteTutorialLinksPluginOptions {
+	contentType?: 'docs' | 'tutorials'
 	tutorialMap?: Record<string, string>
 }
 
 export const rewriteTutorialLinksPlugin: Plugin = (
 	options: RewriteTutorialLinksPluginOptions = {}
 ) => {
-	const { tutorialMap } = options
+	const { contentType = DEFAULT_CONTENT_TYPE, tutorialMap } = options
 	return async function transformer(tree) {
+		// Load the tutorial map if it's not provided
 		TUTORIAL_MAP = tutorialMap ?? (await getTutorialMap())
 
-		visit(tree, 'link', handleRewriteTutorialsLink)
-		visit(tree, 'definition', handleRewriteTutorialsLink)
+		// Visit link and defintion node types
+		visit(tree, ['link', 'definition'], (node: Link | Definition) => {
+			handleRewriteTutorialsLink(node, contentType)
+		})
 	}
 }
 
-function handleRewriteTutorialsLink(node: Link | Definition) {
-	node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP)
+function handleRewriteTutorialsLink(
+	node: Link | Definition,
+	contentType: RewriteTutorialLinksPluginOptions['contentType'] = DEFAULT_CONTENT_TYPE
+) {
+	node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP, contentType)
+}
+
+const isRelativeUrl = (url) => {
+	try {
+		new URL(url)
+		return false
+	} catch (e) {
+		return true
+	}
 }
 
 export function rewriteTutorialsLink(
 	url: string,
-	tutorialMap: Record<string, string>
+	tutorialMap: Record<string, string>,
+	contentType: RewriteTutorialLinksPluginOptions['contentType'] = DEFAULT_CONTENT_TYPE
 ): string {
 	let newUrl
 
 	try {
 		const urlObject = new URL(url, 'https://learn.hashicorp.com')
 
-		const isExternalLearnLink = getIsExternalLearnLink(url)
+		let isExternalLearnLink
+		if (contentType === 'docs') {
+			isExternalLearnLink = !isRelativeUrl(url)
+		} else {
+			isExternalLearnLink = getIsExternalLearnLink(url)
+		}
 		const isRewriteableDocsLink = getIsRewriteableDocsLink(url)
 
 		/**
