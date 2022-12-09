@@ -81,7 +81,6 @@ function unflattenVariables(variables: Array<Variable>): Array<Variable> {
 			const keyDepth = key.split('.').length
 			if (keyDepth > maxDepth) {
 				maxDepth = keyDepth
-				// console.log(key)
 			}
 		})
 
