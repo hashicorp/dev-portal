@@ -30,12 +30,12 @@ export default function Header({
 	activeRelease,
 }: HeaderProps) {
 	// /waypoint/integrations/docker[/0.10.2]
-	const { asPath } = useRouter()
+	const { query } = useRouter()
 
-	// derive some values from the path
-	const productSlug = asPath.split('/')[1]
-	const integrationSlugAndVersion = asPath.split('/').slice(3).join('/')
-	const [integrationSlug, _] = integrationSlugAndVersion.split('/')
+	// Grab Next.js path params — This tightly couples Header to
+	// pages with [productSlug] & [...integrationSlug] params
+	const productSlug = query.productSlug as string
+	const [integrationSlug] = query.integrationSlug as string[]
 
 	// note - the backend will not return pre-releases,
 	// and will sort by semver DESC.
