@@ -88,11 +88,12 @@ const handleNonRelativeLearnUrl = ({
 	linksToRewrite,
 	unrewriteableLinks,
 	url,
+	urlObject,
 }) => {
-	const urlObject = new URL(url)
+	const { origin, pathname = '', hash = '' } = urlObject
 
 	// Only include the `in` param for the `learnToDevDotPaths` search string
-	let urlToCheck = `${urlObject.origin}${urlObject.pathname}`
+	let urlToCheck = `${origin}${pathname}`
 	if (urlObject.searchParams.has('in')) {
 		urlToCheck += `?in=${urlObject.searchParams.get('in')}`
 		// Remove the param since it's not used in dev-portal
@@ -101,24 +102,26 @@ const handleNonRelativeLearnUrl = ({
 
 	const replacementPath = learnToDevDotPaths[urlToCheck]
 	if (replacementPath) {
-		linksToRewrite[url] = urlObject.toString()
+		linksToRewrite[url] = `${replacementPath}${urlObject.search ?? ''}${hash}`
 	} else {
 		unrewriteableLinks.push(url)
 	}
 }
 
-const handleNonRelativeDeveloperUrl = ({ linksToRewrite, pathname, url }) => {
-	linksToRewrite[url] = pathname
+const handleNonRelativeDeveloperUrl = ({ linksToRewrite, url, urlObject }) => {
+	const { pathname = '', search = '', hash = '' } = urlObject
+	linksToRewrite[url] = `${pathname}${search}${hash}`
 }
 
 const handleNonRelativeDotIoUrl = ({
-	pathname,
-	origin,
 	dotIoToDevDotPaths,
 	linksToRewrite,
 	unrewriteableLinks,
 	url,
+	urlObject,
 }) => {
+	const { origin, pathname = '', search = '', hash = '' } = urlObject
+
 	const [, basePath, ...restParts] = pathname.split('/')
 	const adjustedBasePath = basePath === 'api' ? 'api-docs' : basePath
 	const originAndBasePath = `${origin}/${adjustedBasePath}`
@@ -126,7 +129,8 @@ const handleNonRelativeDotIoUrl = ({
 	const replacementPath = dotIoToDevDotPaths[originAndBasePath]
 	if (replacementPath) {
 		const restOfPath = restParts.join('/')
-		linksToRewrite[url] = path.join(replacementPath, restOfPath)
+		const newPath = path.join(replacementPath, restOfPath)
+		linksToRewrite[url] = `${newPath}${search}${hash}`
 	} else {
 		unrewriteableLinks.push(url)
 	}
@@ -139,7 +143,8 @@ const handleNonRelativePath = ({
 	unrewriteableLinks,
 	url,
 }) => {
-	const { hostname, origin, pathname } = new URL(url)
+	const urlObject = new URL(url)
+	const { hostname } = urlObject
 	const hostnameWithoutWww = hostname.replace(/^www\./, '')
 
 	if (hostname === 'learn.hashicorp.com') {
@@ -148,17 +153,17 @@ const handleNonRelativePath = ({
 			linksToRewrite,
 			unrewriteableLinks,
 			url,
+			urlObject,
 		})
 	} else if (hostname === 'developer.hashicorp.com') {
-		handleNonRelativeDeveloperUrl({ linksToRewrite, pathname, url })
+		handleNonRelativeDeveloperUrl({ linksToRewrite, url, urlObject })
 	} else if (DOT_IO_HOSTNAMES.includes(hostnameWithoutWww)) {
 		handleNonRelativeDotIoUrl({
-			pathname,
-			origin,
 			dotIoToDevDotPaths,
 			linksToRewrite,
 			unrewriteableLinks,
 			url,
+			urlObject,
 		})
 	} else {
 		unrewriteableLinks.push(url)
