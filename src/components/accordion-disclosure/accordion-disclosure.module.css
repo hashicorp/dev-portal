@@ -1,7 +1,33 @@
 .root {
-	background-color: white;
+	background-color: var(--token-color-surface-primary);
 	border-radius: 6px;
+	box-shadow: var(--token-surface-mid-box-shadow);
 	width: 100%;
+
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: box-shadow 0.2s;
+	}
+
+	&.isGroupedItem {
+		&:not(.isFirstItem) {
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+		}
+		&:not(.isLastItem) {
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+	}
+
+	&.isHovered {
+		box-shadow: var(--token-surface-high-box-shadow);
+	}
+
+	/* When nested, box-shadow should always be "surface base" */
+	&.nested {
+		box-shadow: var(--token-surface-base-box-shadow);
+	}
 }
 
 .root-expanded {
@@ -9,10 +35,8 @@
 }
 
 .button {
-	composes: hds-surface-mid from global;
 	align-items: center;
-	background-color: transparent;
-	border-radius: 6px;
+	background: none;
 	border: none;
 	cursor: pointer;
 	display: flex;
@@ -33,18 +57,8 @@
 
 	/* aka AccordionDisclosure is open */
 	&[aria-expanded='true'] {
-		box-shadow: none;
-
 		& svg {
 			transform: rotate(90deg);
-		}
-	}
-
-	/* aka AccordionDisclosure is closed */
-	&[aria-expanded='false'] {
-		&:hover {
-			box-shadow: var(--token-surface-high-box-shadow);
-			cursor: pointer;
 		}
 	}
 
@@ -68,11 +82,6 @@
 		top: 0;
 		z-index: -1;
 	}
-
-	/* Only enable animation if query is supported and value is no-preference */
-	@media (prefers-reduced-motion: no-preference) {
-		transition: box-shadow 0.2s;
-	}
 }
 
 .labelContainer {
@@ -94,16 +103,4 @@
 .content {
 	padding: 16px;
 	padding-top: 0;
-}
-
-.nested {
-	box-shadow: var(--token-surface-base-box-shadow);
-
-	& .root-expanded {
-		box-shadow: var(--token-surface-base-box-shadow);
-	}
-
-	& .button {
-		box-shadow: none;
-	}
 }

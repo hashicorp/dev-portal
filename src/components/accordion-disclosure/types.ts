@@ -28,4 +28,20 @@ export interface AccordionDisclosureProps {
 	 * descriptive.
 	 */
 	title: ReactNode
+
+	/**
+	 * Whether this disclosure is the first in a group of similar items.
+	 * If `true`, specific styles for the first item in a group will be applied.
+	 * If `false`, then styles will be applied assuming there is a previous item.
+	 * If `undefined`, no disclosure group styles will be applied.
+	 */
+	isFirstItem?: boolean
+
+	/**
+	 * Whether this disclosure is the last in a group of similar items.
+	 * If `true`, specific styles for the last item in a group will be applied.
+	 * If `false`, then styles will be applied assuming there is a next item.
+	 * If `undefined`, no disclosure group styles will be applied.
+	 */
+	isLastItem?: boolean
 }
