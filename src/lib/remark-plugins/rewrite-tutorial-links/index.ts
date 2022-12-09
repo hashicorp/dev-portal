@@ -59,7 +59,7 @@ function handleRewriteTutorialsLink(
 	node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP, contentType)
 }
 
-const isRelativeUrl = (url) => {
+const getIsRelativeUrl = (url) => {
 	try {
 		new URL(url)
 		return false
@@ -78,9 +78,9 @@ export function rewriteTutorialsLink(
 	try {
 		const urlObject = new URL(url, 'https://learn.hashicorp.com')
 
-		let isExternalLearnLink
-		if (contentType === 'docs') {
-			isExternalLearnLink = !isRelativeUrl(url)
+		let isExternalLearnLink: boolean
+		if (contentType === 'docs' && getIsRelativeUrl(url)) {
+			isExternalLearnLink = false
 		} else {
 			isExternalLearnLink = getIsExternalLearnLink(url)
 		}
