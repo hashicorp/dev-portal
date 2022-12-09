@@ -1,6 +1,9 @@
 .heroBackground {
 	background: url('./assets/certifications-hero-gradient.svg'),
 		var(--token-color-foreground-strong);
+	background-size: cover;
+	background-position: top center;
+	background-repeat: no-repeat;
 	bottom: 0;
 	left: 0;
 	position: absolute;

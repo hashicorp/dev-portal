@@ -1,0 +1,26 @@
+.heroBackground {
+	background: var(--background-image);
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	bottom: -10%;
+	filter: blur(10px);
+	left: -10%;
+	overflow: hidden;
+	position: absolute;
+	right: -10%;
+	top: -10%;
+	z-index: -1;
+
+	&.theme-infrastructure-automation {
+		--background-image: url('./assets/infrastructure-automation.jpg');
+	}
+
+	&.theme-security-automation {
+		--background-image: url('./assets/security-automation.jpg');
+	}
+
+	&.theme-networking-automation {
+		--background-image: url('./assets/networking-automation.jpg');
+	}
+}
