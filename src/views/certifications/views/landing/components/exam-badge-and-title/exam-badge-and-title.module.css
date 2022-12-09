@@ -1,0 +1,30 @@
+.root {
+	display: flex;
+	align-items: center;
+	gap: 24px;
+}
+
+.badge {
+	display: block;
+	flex-shrink: 0;
+}
+
+.text {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.eyebrow {
+	composes: hds-typography-body-100 from global;
+	color: var(--token-color-foreground-faint);
+	display: block;
+	font-weight: var(--token-typography-font-weight-semibold);
+}
+
+.title {
+	composes: hds-typography-display-300 from global;
+	color: var(--token-color-foreground-strong);
+	display: block;
+	font-weight: var(--token-typography-font-weight-bold);
+}

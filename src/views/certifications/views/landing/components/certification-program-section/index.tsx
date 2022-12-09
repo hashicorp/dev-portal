@@ -1,9 +1,13 @@
 import ButtonLink from 'components/button-link'
 import { CertificationsContentArea } from 'views/certifications/components'
+// Local
+import { ExamCard, ExamCardComingSoon } from '../'
+// Styles
 import s from './certification-program-section.module.css'
 
 interface CertificationItem {
 	title: string
+	productSlug: 'consul' | 'terraform' | 'vault'
 	url?: string
 }
 
@@ -56,31 +60,17 @@ export function CertificationProgramSection({
 							</div>
 						</div>
 					</div>
-					{certifications.map(({ title, url }: CertificationItem) => {
-						return (
-							<div key={title} style={{ border: '1px solid magenta' }}>
-								<div
-									style={{
-										display: 'flex',
-										justifyContent: 'space-between',
-										alignItems: 'center',
-										padding: '1rem',
-									}}
-								>
-									<p>{title}</p>
-									{typeof url === 'string' ? (
-										<ButtonLink
-											text="Prepare for the exam"
-											href={url}
-											color="secondary"
-										/>
-									) : (
-										<p style={{ color: 'rebeccapurple' }}>Coming soon</p>
-									)}
-								</div>
-							</div>
-						)
-					})}
+					<div className={s.examCards}>
+						{certifications.map(
+							({ title, url, productSlug }: CertificationItem) => {
+								return url ? (
+									<ExamCard title={title} url={url} productSlug={productSlug} />
+								) : (
+									<ExamCardComingSoon title={title} productSlug={productSlug} />
+								)
+							}
+						)}
+					</div>
 				</div>
 			</CertificationsContentArea>
 		</>
