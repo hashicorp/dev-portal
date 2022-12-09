@@ -25,7 +25,7 @@ export interface Organization extends BaseModel {
 }
 
 export interface Product extends BaseModel {
-	slug: string
+	slug: ProductSlug
 	name: string
 }
 
