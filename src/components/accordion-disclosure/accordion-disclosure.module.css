@@ -9,6 +9,10 @@
 		transition: box-shadow 0.2s;
 	}
 
+	/* Ungrouped items should isolate the z-index for their focus ring.
+	Grouped items need to avoid isolation the focus ring z-index,
+	so that it can correctly overlap onto subsequent items, rather
+	than being cut off */
 	&:not(.isGroupedItem) {
 		--isolation: isolate;
 		--focus-ring-z-index: -1;
