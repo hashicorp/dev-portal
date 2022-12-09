@@ -2,3 +2,10 @@
 	border: 1px solid magenta;
 	background: white;
 }
+
+.examCards {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+	padding: 24px;
+}

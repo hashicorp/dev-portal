@@ -1,0 +1,19 @@
+/* Sets padding for both card types, which differs from default card padding */
+.cardBase {
+	padding: 24px;
+}
+
+.examCard {
+	composes: cardBase;
+}
+
+.contents {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.comingSoonCard {
+	composes: cardBase;
+	background: var(--token-color-surface-faint);
+}
