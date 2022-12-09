@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 export const CertificationItemSchema = z.object({
 	title: z.string(),
+	productSlug: z.enum(['consul', 'terraform', 'vault']),
 	description: z.string(),
 	links: z
 		.object({

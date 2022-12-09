@@ -1,8 +1,7 @@
 import { formatCertificationsNavProps } from '../../components/certifications-nav/helpers'
 import { readLocalFile, getAllCertificationPrograms } from '../../helpers'
 import { GetStaticPropsResult } from 'next'
-import { CertificationLandingProps } from './types'
-import { CertificationProgramItem } from 'views/certifications/types'
+import { CertificationLandingProps, CertificationProgramSummary } from './types'
 import { LandingPageSchema } from 'views/certifications/schemas/landing-page'
 
 /**
@@ -19,8 +18,8 @@ export async function getStaticProps(): Promise<
 	const allPrograms = getAllCertificationPrograms()
 	const navProps = formatCertificationsNavProps(allPrograms)
 
-	const programSummaries = pageContent.programSummaryOrder.map(
-		(targetSlug: string) => {
+	const programSummaries: CertificationProgramSummary[] =
+		pageContent.programSummaryOrder.map((targetSlug: string) => {
 			const program = allPrograms.find((p) => p.slug === targetSlug)
 			return {
 				slug: program.slug,
@@ -30,13 +29,13 @@ export async function getStaticProps(): Promise<
 					(certification) => {
 						return {
 							title: certification.title,
+							productSlug: certification.productSlug,
 							url: certification.links?.prepare ?? null,
 						}
 					}
 				),
 			}
-		}
-	)
+		})
 
 	return {
 		props: { navProps, pageContent, programSummaries },
