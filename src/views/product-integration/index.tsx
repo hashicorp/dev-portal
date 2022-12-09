@@ -1,4 +1,5 @@
-import BreadcrumbBar from 'components/breadcrumb-bar'
+import HashiHead from '@hashicorp/react-head'
+import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
 import Tabs, { Tab } from 'components/tabs'
 import BaseLayout from 'layouts/base-new'
 import { Integration } from 'lib/integrations-api-client/integration'
@@ -11,46 +12,38 @@ import s from './style.module.css'
 
 interface ViewProps {
 	integration: Integration
+	versions: {
+		value: string
+		label: string
+		href: string
+	}[]
 	product: ProductData
-	latestRelease: Release
+	activeRelease: Release
+	breadcrumbLinks: BreadcrumbLink[]
 }
 
 export default function ProductIntegrationLanding({
 	integration,
-	product,
-	latestRelease,
+	versions,
+	activeRelease,
+	breadcrumbLinks,
 }: ViewProps) {
+	// use `notLatest` to conditionally render a noindex meta tag
+	const notLatest = activeRelease.version !== integration.versions[0]
+
 	return (
 		<BaseLayout showFooterTopBorder>
+			{notLatest && (
+				<HashiHead>
+					<meta name="robots" content="noindex, nofollow" />
+				</HashiHead>
+			)}
 			<div className={s.integrationPage}>
 				<div className={s.sidebar}></div>
 				<div className={s.mainArea}>
 					<div className={s.contentWrapper}>
 						<div className={s.breadcrumbWrapper}>
-							<BreadcrumbBar
-								links={[
-									{
-										title: 'Developer',
-										url: '/',
-										isCurrentPage: false,
-									},
-									{
-										title: product.name,
-										url: `/${product.slug}`,
-										isCurrentPage: false,
-									},
-									{
-										title: 'Integrations',
-										url: `/${product.slug}/integrations`,
-										isCurrentPage: false,
-									},
-									{
-										title: integration.name,
-										url: `/${product.slug}/integrations/${integration.slug}`,
-										isCurrentPage: true,
-									},
-								]}
-							/>
+							<BreadcrumbBar links={breadcrumbLinks} />
 						</div>
 						<div className={s.content}>
 							<Header
@@ -58,16 +51,17 @@ export default function ProductIntegrationLanding({
 								name={integration.name}
 								tier={integration.tier}
 								author={integration.organization.slug}
-								versions={integration.versions}
+								activeRelease={activeRelease}
+								versions={versions}
 								hideVersions={integration.hide_versions}
 								description={integration.description}
 							/>
 
 							<Tabs allowNestedStyles>
 								<Tab heading="README">
-									<ReactMarkdown>{latestRelease.readme}</ReactMarkdown>
+									<ReactMarkdown>{activeRelease.readme}</ReactMarkdown>
 								</Tab>
-								{latestRelease.components.map((irc: ReleaseComponent) => {
+								{activeRelease.components.map((irc: ReleaseComponent) => {
 									return irc.readme || irc.variable_groups.length ? (
 										<Tab key={irc.component.id} heading={irc.component.name}>
 											<ComponentTabContent component={irc} />
