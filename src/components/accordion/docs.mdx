@@ -10,7 +10,7 @@ The `<Accordion />` component renders an array as items as a group of disclosure
 <Accordion
 	items={['Item One', 'Another Item Two', 'Third Item'].map((text) => {
 		return {
-			heading: text,
+			title: text,
 			content: (
 				<div
 					style={{
@@ -59,7 +59,7 @@ The `<Accordion />` component renders an array as items as a group of disclosure
 <Accordion
 	items={['foo', 'bar'].map((text) => {
 		return {
-			heading: `${text[0].toUpperCase()}${text.slice(1)} accordion item`,
+			title: `${text[0].toUpperCase()}${text.slice(1)} accordion item`,
 			content: (
 				<div
 					style={{
@@ -82,7 +82,7 @@ The `<Accordion />` component renders an array as items as a group of disclosure
 <Accordion
 	items={['foo', 'bar', 'fizz', 'buzz'].map((text) => {
 		return {
-			heading: `${text[0].toUpperCase()}${text.slice(1)} accordion item`,
+			title: `${text[0].toUpperCase()}${text.slice(1)} accordion item`,
 			content: (
 				<div
 					style={{

@@ -32,8 +32,8 @@ const AccordionDisclosure = ({
 
 	/**
 	 * Container classNames include styles for open & hovered states,
-	 * as well as styling based on nested and on grouping with adjacent
-	 * AccordionDisclosure items.
+	 * as well as styling based on nesting, and based on grouping with
+	 * adjacent AccordionDisclosure items.
 	 */
 	const generateContainerClassName = (isOpen: boolean) => {
 		return classNames(s.root, {
