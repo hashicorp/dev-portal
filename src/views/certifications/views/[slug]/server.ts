@@ -20,8 +20,10 @@ export async function getStaticProps({
 
 	const navProps = formatCertificationsNavProps(allPrograms)
 
+	const slugString = Array.isArray(slug) ? slug.join('/') : slug
+
 	return {
-		props: { navProps, pageContent },
+		props: { navProps, pageContent, slug: slugString },
 	}
 }
 

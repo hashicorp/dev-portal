@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 // Global
 import BaseNewLayout from 'layouts/base-new'
 // Shared view components
@@ -5,14 +6,24 @@ import { CertificationsNav, CertificationsHero } from '../../components'
 // Local view components
 import { CertificationProgramDetails } from './components'
 import { CertificationPageProps } from './types'
+// Styles
+import s from './program-view.module.css'
 
-function CertificationPage({ navProps, pageContent }: CertificationPageProps) {
+function CertificationPage({
+	navProps,
+	pageContent,
+	slug,
+}: CertificationPageProps) {
 	return (
 		<>
 			<CertificationsNav {...navProps} />
 			<CertificationsHero
 				heading={pageContent.hero.heading}
 				description={pageContent.hero.description}
+				foreground={slug === 'security-automation' ? 'dark' : 'light'}
+				backgroundSlot={
+					<div className={classNames(s.heroBackground, s[`theme-${slug}`])} />
+				}
 			/>
 			{pageContent.certifications.map((certification) => {
 				return (

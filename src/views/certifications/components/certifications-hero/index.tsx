@@ -1,3 +1,4 @@
+import mitigateWidows from '@hashicorp/platform-util/text/mitigate-widows'
 import { ReactNode } from 'react'
 import classNames from 'classnames'
 import { CertificationsContentArea } from 'views/certifications/components'
@@ -18,7 +19,9 @@ export function CertificationsHero({
 }) {
 	return (
 		<div className={s.root}>
-			{backgroundSlot ? backgroundSlot : null}
+			{backgroundSlot ? (
+				<div className={s.backgroundSlot}>{backgroundSlot}</div>
+			) : null}
 			<CertificationsContentArea>
 				<div className={s.textAndImage}>
 					<div className={s.textSlot}>
@@ -32,9 +35,10 @@ export function CertificationsHero({
 								s.description,
 								s[`foreground-${foreground}`]
 							)}
-						>
-							{description}
-						</p>
+							dangerouslySetInnerHTML={{
+								__html: mitigateWidows(description, 18),
+							}}
+						/>
 					</div>
 					{imageSlot ? <div className={s.imageSlot}>{imageSlot}</div> : null}
 				</div>
