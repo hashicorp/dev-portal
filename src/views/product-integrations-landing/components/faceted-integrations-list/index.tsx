@@ -85,35 +85,40 @@ export default function FacetedIntegrationList({ integrations }: Props) {
 		communityChecked ||
 		componentCheckedArray.includes(true)
 	if (atLeastOneFacetSelected) {
-		filteredIntegrations = filteredIntegrations.filter((integration) => {
-			// Default tierMatch to true if nothing is checked, false otherwise
-			let tierMatch = !officialChecked && !partnerChecked && !communityChecked
-			if (officialChecked && integration.tier === Tier.OFFICIAL) {
-				tierMatch = true
-			}
-			if (partnerChecked && integration.tier === Tier.PARTNER) {
-				tierMatch = true
-			}
-			if (communityChecked && integration.tier === Tier.COMMUNITY) {
-				tierMatch = true
-			}
-
-			// Loop over each component to see if they match any checked components
-			// If there are no components selected, default this to true
-			let componentMatch = !componentCheckedArray.includes(true)
-			componentCheckedArray.forEach((checked, index) => {
-				if (checked) {
-					const checkedComponent = sortedComponents[index]
-					// Check each integration component
-					integration.components.forEach((component: IntegrationComponent) => {
-						if (component.slug === checkedComponent.slug) {
-							componentMatch = true
-						}
-					})
+		filteredIntegrations = filteredIntegrations.filter(
+			(integration: Integration) => {
+				// Default tierMatch to true if nothing is checked, false otherwise
+				let tierMatch: boolean =
+					!officialChecked && !partnerChecked && !communityChecked
+				if (officialChecked && integration.tier === Tier.OFFICIAL) {
+					tierMatch = true
 				}
-			})
-			return tierMatch && componentMatch
-		})
+				if (partnerChecked && integration.tier === Tier.PARTNER) {
+					tierMatch = true
+				}
+				if (communityChecked && integration.tier === Tier.COMMUNITY) {
+					tierMatch = true
+				}
+
+				// Loop over each component to see if they match any checked components
+				// If there are no components selected, default this to true
+				let componentMatch = !componentCheckedArray.includes(true)
+				componentCheckedArray.forEach((checked, index) => {
+					if (checked) {
+						const checkedComponent = sortedComponents[index]
+						// Check each integration component
+						integration.components.forEach(
+							(component: IntegrationComponent) => {
+								if (component.slug === checkedComponent.slug) {
+									componentMatch = true
+								}
+							}
+						)
+					}
+				})
+				return tierMatch && componentMatch
+			}
+		)
 	}
 
 	return (
