@@ -9,8 +9,16 @@
 		transition: box-shadow 0.2s;
 	}
 
+	&:not(.isGroupedItem) {
+		--isolation: isolate;
+		--focus-ring-z-index: -1;
+	}
+
 	/* Grouped "middle" items should have their border-radius removed */
 	&.isGroupedItem {
+		--isolation: auto;
+		--focus-ring-z-index: 1;
+
 		&:not(.isFirstItem) {
 			border-top-left-radius: 0;
 			border-top-right-radius: 0;
@@ -41,7 +49,7 @@
 	border: none;
 	cursor: pointer;
 	display: flex;
-	isolation: isolate;
+	isolation: var(--isolation);
 	padding: 16px;
 	position: relative;
 	text-align: left;
@@ -81,7 +89,7 @@
 		position: absolute;
 		right: 0;
 		top: 0;
-		z-index: -1;
+		z-index: var(--focus-ring-z-index);
 	}
 }
 

@@ -1,12 +1,14 @@
+import classNames from 'classnames'
 import AccordionDisclosure from 'components/accordion-disclosure'
 import type { AccordionProps, AccordionContentItem } from './types'
+import s from './accordion.module.css'
 
 /**
  * Renders a group of AccordionDisclosure items.
  */
 function Accordion({ className, items }: AccordionProps) {
 	return (
-		<div className={className}>
+		<div className={classNames(s.root, className)}>
 			{items.map((item: AccordionContentItem, idx: number) => {
 				const { title, content } = item
 				const isFirstItem = idx === 0
