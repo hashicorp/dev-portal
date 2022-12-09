@@ -17,11 +17,14 @@ describe('multiple remark plugins', () => {
 		const linkToProcess = '[Waypoint](/waypoint)'
 
 		const result = await remark()
-			.use(rewriteTutorialLinksPlugin, { tutorialMap: {} })
+			.use(rewriteTutorialLinksPlugin, {
+				contentType: 'docs',
+				tutorialMap: {},
+			})
 			.use(remarkPluginAdjustLinkUrls, { urlAdjustFn: productUrlAdjuster })
 			.process(linkToProcess)
 
 		// The link should be unchanged
-		expect(String(result)).toBe(linkToProcess)
+		expect(result.contents).toMatch(linkToProcess)
 	})
 })
