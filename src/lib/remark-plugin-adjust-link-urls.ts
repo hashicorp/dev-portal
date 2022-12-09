@@ -3,7 +3,7 @@ import { visit } from 'unist-util-visit'
 import { Link } from 'mdast'
 import { Plugin, Transformer } from 'unified'
 
-const isInternalPath = (url: string) => {
+const getIsInternalPath = (url: string) => {
 	try {
 		new URL(url)
 		return false
@@ -13,7 +13,7 @@ const isInternalPath = (url: string) => {
 }
 
 const remarkPluginAdjustLinkUrls: Plugin = ({
-	currentPath,
+	currentPath = '',
 	urlAdjustFn,
 }: {
 	currentPath: string
@@ -25,17 +25,16 @@ const remarkPluginAdjustLinkUrls: Plugin = ({
 
 			/**
 			 * This is to handle links like "variables/input", which are effectively
-			 * the same thing as "./input" in the context of it's current page.
+			 * the same thing as "./input" in the context of its current page.
 			 */
-			if (
-				isInternalPath(node.url) &&
-				!node.url.startsWith('.') &&
-				!node.url.startsWith('/')
-			) {
+			const isInternalPath = getIsInternalPath(node.url)
+			const needsPreAdjustment = isInternalPath && /^[./?#]/.test(node.url)
+			if (needsPreAdjustment) {
 				urlToAdjust = path.join(
 					currentPath,
 					node.url.split('/').slice(1).join('/')
 				)
+				console.log({ before: node.url, after: urlToAdjust })
 			}
 
 			node.url = urlAdjustFn(urlToAdjust)
