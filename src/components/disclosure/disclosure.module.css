@@ -19,17 +19,18 @@
 /*
 ***
 * Notes:
-*   - Setting only the default state of the .content container prevents us from
-*     accidentally setting the open state of the container to something
-*     incorrect that can potentially break the semantics of the element
-*   - Using the aria-expanded attribute selector ensures we're correctly setting
-*     the value in the component's JS
-*   - Using the next-sibling combinator (`+`) ensures that the .content
-*     container is the sibling element immediately after the button
+*   - Setting only the default (closed) state of the .content container prevents
+*     us from accidentally setting the open state of the container to something
+*     incorrect that can potentially break the semantics of the element.
+*   - Using the next-sibling combinator (`+`) could help ensure the .content
+*     container is the sibling element immediately after the button. It could
+*     also allow us to use the aria-expanded attribute as a CSS selector.
+*     However, when wrapping the button element in a heading element to meet
+*     the Accordion pattern, the sibling selector no longer works.
 *
 * ref: https://adrianroselli.com/2020/05/disclosure-widgets.html#CSS
 ***
 */
-.activator[aria-expanded='false'] + .contentContainer {
+.closedContentContainer {
 	display: none;
 }
