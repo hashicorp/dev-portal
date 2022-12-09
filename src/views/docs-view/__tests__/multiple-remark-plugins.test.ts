@@ -13,18 +13,33 @@ describe('multiple remark plugins', () => {
 		productUrlAdjuster = getProductUrlAdjuster(waypointProduct)
 	})
 
-	test('rewriteTutorialLinksPlugin, then remarkPluginAdjustLinkUrls', async () => {
-		const linkToProcess = '[Waypoint](/waypoint)'
+	describe('rewriteTutorialLinksPlugin, then remarkPluginAdjustLinkUrls', () => {
+		test.each([
+			['[Waypoint](https://waypointproject.io/)', '[Waypoint](/waypoint)'],
+			['[Waypoint](/waypoint)', '[Waypoint](/waypoint)'],
+			[
+				'[Waypoint Tutorials](https://learn.hashicorp.com/waypoint)',
+				'[Waypoint Tutorials](/waypoint/tutorials)',
+			],
+			[
+				'[Waypoint Tutorials](/waypoint/tutorials)',
+				'[Waypoint Tutorials](/waypoint/tutorials)',
+			],
+			[
+				'[Some other link](https://kubernetes.io/docs/home/)',
+				'[Some other link](https://kubernetes.io/docs/home/)',
+			],
+		])('%s -> %s', async (linkToProcess, expectedValue) => {
+			const result = await remark()
+				.use(rewriteTutorialLinksPlugin, {
+					contentType: 'docs',
+					tutorialMap: {},
+				})
+				.use(remarkPluginAdjustLinkUrls, { urlAdjustFn: productUrlAdjuster })
+				.process(linkToProcess)
 
-		const result = await remark()
-			.use(rewriteTutorialLinksPlugin, {
-				contentType: 'docs',
-				tutorialMap: {},
-			})
-			.use(remarkPluginAdjustLinkUrls, { urlAdjustFn: productUrlAdjuster })
-			.process(linkToProcess)
-
-		// The link should be unchanged
-		expect(result.contents).toMatch(linkToProcess)
+			// The link should be unchanged
+			expect(result.contents).toMatch(expectedValue)
+		})
 	})
 })
