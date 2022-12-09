@@ -4,7 +4,6 @@ import DropdownDisclosure, {
 } from 'components/dropdown-disclosure'
 import { Tier } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
-import { useRouter } from 'next/router'
 import TierBadge from 'views/product-integrations-landing/components/tier-badge'
 import s from './style.module.css'
 
@@ -14,7 +13,11 @@ interface HeaderProps {
 	tier: Tier
 	author: string
 	activeRelease: Release
-	versions: string[]
+	versions: {
+		value: string
+		label: string
+		href: string
+	}[]
 	description?: string
 	hideVersions?: boolean
 }
@@ -29,24 +32,15 @@ export default function Header({
 	description,
 	activeRelease,
 }: HeaderProps) {
-	// /waypoint/integrations/docker[/0.10.2]
-	const { query } = useRouter()
-
-	// Grab Next.js path params — This tightly couples Header to
-	// pages with [productSlug] & [...integrationSlug] params
-	const productSlug = query.productSlug as string
-	const [integrationSlug] = query.integrationSlug as string[]
-
-	// note - the backend will not return pre-releases,
-	// and will sort by semver DESC.
-	const latestVersion: string = versions[0]
-	const otherVersions = versions.filter((v) => v !== activeRelease.version)
 	const showVersions = !hideVersions && versions.length > 1
+	const dropdownLabel = versions.find(
+		(v) => v.value === activeRelease.version
+	).label
 
-	const dropdownLabel =
-		activeRelease.version === latestVersion
-			? `v${activeRelease.version} (latest)`
-			: `v${activeRelease.version}`
+	const otherVersions = versions.filter(
+		(e) => e.value !== activeRelease.version
+	)
+
 	return (
 		<div className={classNames(s.header, className)}>
 			<div className={s.left}>
@@ -69,14 +63,13 @@ export default function Header({
 						color="secondary"
 						text={dropdownLabel}
 					>
-						{otherVersions.map((version: string) => {
-							const href =
-								latestVersion === version
-									? `/${productSlug}/integrations/${integrationSlug}`
-									: `/${productSlug}/integrations/${integrationSlug}/${version}`
+						{otherVersions.map((version) => {
 							return (
-								<DropdownDisclosureLinkItem key={version} href={href}>
-									v{version}
+								<DropdownDisclosureLinkItem
+									key={version.value}
+									href={version.href}
+								>
+									v{version.value}
 								</DropdownDisclosureLinkItem>
 							)
 						})}

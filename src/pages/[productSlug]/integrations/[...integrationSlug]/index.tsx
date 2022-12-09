@@ -87,12 +87,30 @@ const _getServerSideProps = async ({ params }: { params: PathParams }) => {
 	// mark last breadcrumb as current page
 	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
 
+	// Generate versions list for Version selector dropdown.
+	// We do this server side to keep the client decoupled from path structure
+	const versions = integration.versions.map((version, i) => {
+		if (i === 0) {
+			return {
+				value: version,
+				label: `v${version} (latest)`,
+				href: `/${product.slug}/integrations/${integration.slug}`,
+			}
+		}
+		return {
+			value: version,
+			label: `v${version}`,
+			href: `/${product.slug}/integrations/${integration.slug}/${version}`,
+		}
+	})
+
 	return {
 		props: {
 			integration,
 			activeRelease: activeRelease,
 			product: product,
 			breadcrumbLinks: breadcrumbLinks,
+			versions: versions,
 		},
 	}
 }

@@ -12,6 +12,11 @@ import s from './style.module.css'
 
 interface ViewProps {
 	integration: Integration
+	versions: {
+		value: string
+		label: string
+		href: string
+	}[]
 	product: ProductData
 	activeRelease: Release
 	breadcrumbLinks: BreadcrumbLink[]
@@ -19,6 +24,7 @@ interface ViewProps {
 
 export default function ProductIntegrationLanding({
 	integration,
+	versions,
 	activeRelease,
 	breadcrumbLinks,
 }: ViewProps) {
@@ -46,7 +52,7 @@ export default function ProductIntegrationLanding({
 								tier={integration.tier}
 								author={integration.organization.slug}
 								activeRelease={activeRelease}
-								versions={integration.versions}
+								versions={versions}
 								hideVersions={integration.hide_versions}
 								description={integration.description}
 							/>
