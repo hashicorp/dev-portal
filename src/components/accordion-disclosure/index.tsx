@@ -37,8 +37,8 @@ const AccordionDisclosure = ({
 	 * Set up variables related to group styling.
 	 */
 	const isGroupedItem = typeof groupData !== 'undefined'
-	const isFirstItem = groupData.currentIndex === 0
-	const isLastItem = groupData.currentIndex === groupData.numItems - 1
+	const isFirstItem = groupData?.currentIndex === 0
+	const isLastItem = groupData?.currentIndex === groupData?.numItems - 1
 
 	/**
 	 * Container classNames include styles for open & hovered states,
