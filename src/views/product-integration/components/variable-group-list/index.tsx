@@ -72,7 +72,6 @@ function unflattenVariables(variables: Array<Variable>): Array<Variable> {
 	// Pull all of the root nodes out
 	const rootNodes: Array<Variable> = []
 
-	console.log(variables)
 
 	let maxDepth = 0
 	variables
@@ -81,7 +80,6 @@ function unflattenVariables(variables: Array<Variable>): Array<Variable> {
 			const keyDepth = key.split('.').length
 			if (keyDepth > maxDepth) {
 				maxDepth = keyDepth
-				console.log(key)
 			}
 		})
 
