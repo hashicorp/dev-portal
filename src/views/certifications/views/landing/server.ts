@@ -27,11 +27,12 @@ export async function getStaticProps(): Promise<
 	const faqItems = await getFaqsFromMdx(faqMdxString)
 
 	/**
-	 * TODO: document more of this
+	 * TODO: document more of this.
+	 * Maybe this should be a helper from CertificationProgramSection?
+	 * Or a helper within this view folder, that uses prop types as return val?
+	 * Seems like we're transforming from raw content to props for that component.
 	 */
 	const allPrograms = getAllCertificationPrograms()
-	const navProps = formatCertificationsNavProps(allPrograms)
-
 	const programSummaries: CertificationProgramSummary[] =
 		pageContent.programSummaryOrder.map((targetSlug: string) => {
 			const program = allPrograms.find((p) => p.slug === targetSlug)
@@ -50,6 +51,12 @@ export async function getStaticProps(): Promise<
 				),
 			}
 		})
+
+	/**
+	 * Build temporary nav props for a dev nav header.
+	 * TODO: remove this later, not actually part of the design spec.
+	 */
+	const navProps = formatCertificationsNavProps(allPrograms)
 
 	return {
 		props: { navProps, pageContent, programSummaries, faqItems },
