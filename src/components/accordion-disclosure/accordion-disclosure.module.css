@@ -9,6 +9,7 @@
 		transition: box-shadow 0.2s;
 	}
 
+	/* Grouped "middle" items should have their border-radius removed */
 	&.isGroupedItem {
 		&:not(.isFirstItem) {
 			border-top-left-radius: 0;
@@ -20,18 +21,18 @@
 		}
 	}
 
+	&.isOpen {
+		box-shadow: var(--token-surface-mid-box-shadow);
+	}
+
 	&.isHovered {
 		box-shadow: var(--token-surface-high-box-shadow);
 	}
 
 	/* When nested, box-shadow should always be "surface base" */
-	&.nested {
+	&.isNested {
 		box-shadow: var(--token-surface-base-box-shadow);
 	}
-}
-
-.root-expanded {
-	composes: hds-surface-mid from global;
 }
 
 .button {

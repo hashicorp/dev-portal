@@ -33,7 +33,7 @@ export interface AccordionDisclosureProps {
 	 * Whether this disclosure is the first in a group of similar items.
 	 * If `true`, specific styles for the first item in a group will be applied.
 	 * If `false`, then styles will be applied assuming there is a previous item.
-	 * If `undefined`, no disclosure group styles will be applied.
+	 * If this prop & `isLastItem` are `undefined`, no group styles are used.
 	 */
 	isFirstItem?: boolean
 
@@ -41,7 +41,7 @@ export interface AccordionDisclosureProps {
 	 * Whether this disclosure is the last in a group of similar items.
 	 * If `true`, specific styles for the last item in a group will be applied.
 	 * If `false`, then styles will be applied assuming there is a next item.
-	 * If `undefined`, no disclosure group styles will be applied.
+	 * If this prop & `isFirstItem` are `undefined`, no group styles are used.
 	 */
 	isLastItem?: boolean
 }

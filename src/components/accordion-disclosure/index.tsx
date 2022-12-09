@@ -22,15 +22,24 @@ const AccordionDisclosure = ({
 	isLastItem,
 }: AccordionDisclosureProps) => {
 	const [hoverRef, isHovered] = useHover<HTMLButtonElement>()
-
 	const isNested = useAccordionDisclosureContext()
+
+	/**
+	 * If both isFirstItem or isLastItem are defined, we'll style as grouped.
+	 */
 	const isGroupedItem =
 		typeof isFirstItem !== 'undefined' && typeof isLastItem !== 'undefined'
+
+	/**
+	 * Container classNames include styles for open & hovered states,
+	 * as well as styling based on nested and on grouping with adjacent
+	 * AccordionDisclosure items.
+	 */
 	const generateContainerClassName = (isOpen: boolean) => {
 		return classNames(s.root, {
-			[s['root-expanded']]: isOpen,
-			[s.nested]: isNested,
+			[s.isOpen]: isOpen,
 			[s.isHovered]: isHovered,
+			[s.isNested]: isNested,
 			[s.isFirstItem]: isFirstItem,
 			[s.isLastItem]: isLastItem,
 			[s.isGroupedItem]: isGroupedItem,
