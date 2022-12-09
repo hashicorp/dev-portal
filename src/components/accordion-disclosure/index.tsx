@@ -22,6 +22,15 @@ const AccordionDisclosure = ({
 	isLastItem,
 	activatorHeadingLevel,
 }: AccordionDisclosureProps) => {
+	/**
+	 * Note: useHover is used here to allow us to change the styling
+	 * of the outer `root` container component when the `<button />`
+	 * within, which is the functional interactive element, is hovered.
+	 *
+	 * Since we're changing styles on an ancestor node of the `<button />`
+	 * whose `:hover` state we want to track, this is not as feasible
+	 * with pure CSS.
+	 */
 	const [hoverRef, isHovered] = useHover<HTMLButtonElement>()
 	const isNested = useAccordionDisclosureContext()
 
