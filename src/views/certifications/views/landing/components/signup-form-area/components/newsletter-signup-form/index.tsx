@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import classNames from 'classnames'
 import MarketoForm from '@hashicorp/react-marketo-form'
-import SubmitMessage from './submit-message'
 import type { MarketoForm as MarketoFormProps } from '@hashicorp/react-marketo-form/types'
-import s from './style.module.css'
+
+import { safeAnalyticsTrack } from 'lib/analytics'
+import Text from 'components/text'
+import SubmitMessage from './submit-message'
+import s from './marketo-form-data.module.css'
 
 export interface NewsletterSignupFormProps {
 	marketoFormData: MarketoFormData
-	placement?: 'footer'
 	buttonText?: string
 	appearance?: 'light' | 'dark'
 }
@@ -18,8 +20,7 @@ export interface MarketoFormData {
 }
 
 function NewsletterSignupForm({
-	placement,
-	buttonText = 'Subscribe to Newsletter',
+	buttonText = 'Submit',
 	appearance = 'light',
 	marketoFormData,
 }: NewsletterSignupFormProps) {
@@ -29,9 +30,9 @@ function NewsletterSignupForm({
 
 	const onSubmitSuccess = () => {
 		setSubmissionStatus('success')
-		if (window && window.analytics && placement) {
-			window.analytics.track('Newsletter Signup', { placement })
-		}
+		safeAnalyticsTrack('Newsletter Signup', {
+			placement: 'Dev dot certifications',
+		})
 	}
 
 	const onSubmitError = () => {
@@ -46,14 +47,19 @@ function NewsletterSignupForm({
 					appearance={appearance}
 				/>
 			) : (
-				<MarketoForm
-					formId={marketoFormData.id}
-					marketoForm={marketoFormData.form}
-					submitTitle={buttonText}
-					className={classNames([s.form, s[placement]])}
-					onSubmitSuccess={onSubmitSuccess}
-					onSubmitError={onSubmitError}
-				/>
+				<>
+					<Text weight="semibold" size={200}>
+						Business email address
+					</Text>
+					<MarketoForm
+						formId={marketoFormData.id}
+						marketoForm={marketoFormData.form}
+						submitTitle={buttonText}
+						className={classNames(s.form, s.dark)}
+						onSubmitSuccess={onSubmitSuccess}
+						onSubmitError={onSubmitError}
+					/>
+				</>
 			)}
 		</div>
 	)
