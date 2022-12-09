@@ -1,8 +1,9 @@
 import classNames from 'classnames'
 import DropdownDisclosure, {
-	DropdownDisclosureButtonItem,
+	DropdownDisclosureLinkItem,
 } from 'components/dropdown-disclosure'
 import { Tier } from 'lib/integrations-api-client/integration'
+import { Release } from 'lib/integrations-api-client/release'
 import TierBadge from 'views/product-integrations-landing/components/tier-badge'
 import s from './style.module.css'
 
@@ -11,7 +12,12 @@ interface HeaderProps {
 	name: string
 	tier: Tier
 	author: string
-	versions: string[]
+	activeRelease: Release
+	versions: {
+		value: string
+		label: string
+		href: string
+	}[]
 	description?: string
 	hideVersions?: boolean
 }
@@ -24,12 +30,17 @@ export default function Header({
 	versions,
 	hideVersions,
 	description,
+	activeRelease,
 }: HeaderProps) {
-	// note - the backend will not return pre-releases,
-	// and will sort by semver DESC.
-	const latestVersion: string = versions[0]
-	const otherVersions: Array<string> = versions.slice(1)
 	const showVersions = !hideVersions && versions.length > 1
+	const dropdownLabel = versions.find(
+		(v) => v.value === activeRelease.version
+	).label
+
+	const otherVersions = versions.filter(
+		(e) => e.value !== activeRelease.version
+	)
+
 	return (
 		<div className={classNames(s.header, className)}>
 			<div className={s.left}>
@@ -50,16 +61,16 @@ export default function Header({
 					<DropdownDisclosure
 						className={s.versionDropdown}
 						color="secondary"
-						text={`v${latestVersion} (latest)`}
+						text={dropdownLabel}
 					>
-						{otherVersions.map((version: string) => {
+						{otherVersions.map((version) => {
 							return (
-								<DropdownDisclosureButtonItem
-									key={version}
-									onClick={() => console.log(`Clicked ${version}`)}
+								<DropdownDisclosureLinkItem
+									key={version.value}
+									href={version.href}
 								>
-									v{version}
-								</DropdownDisclosureButtonItem>
+									v{version.value}
+								</DropdownDisclosureLinkItem>
 							)
 						})}
 					</DropdownDisclosure>
