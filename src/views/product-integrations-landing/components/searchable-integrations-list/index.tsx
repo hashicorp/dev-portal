@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import classNames from 'classnames'
 import s from './style.module.css'
-import CategorizedIntegrationsList from '../categorized-integrations-list'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
+import IntegrationsList from '../integrations-list'
 
 export default function SearchableIntegrationsList({
 	integrations,
@@ -31,7 +31,7 @@ export default function SearchableIntegrationsList({
 				{filteredIntegrations.length}{' '}
 				{filteredIntegrations.length === 1 ? 'Result' : 'Results'}
 			</p>
-			<CategorizedIntegrationsList integrations={filteredIntegrations} />
+			<IntegrationsList integrations={filteredIntegrations} />
 		</div>
 	)
 }
