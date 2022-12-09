@@ -1,3 +1,6 @@
+/**
+ * TODO: maybe flatten components nested here to [slug]/components?
+ */
 import { OverviewCard } from './components'
 import {
 	AccordionWithMdxContent,
