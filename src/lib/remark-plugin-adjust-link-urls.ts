@@ -28,13 +28,27 @@ const remarkPluginAdjustLinkUrls: Plugin = ({
 			 * the same thing as "./input" in the context of its current page.
 			 */
 			const isInternalPath = getIsInternalPath(node.url)
-			const needsPreAdjustment = isInternalPath && /^[./?#]/.test(node.url)
+			const needsPreAdjustment = isInternalPath && !/^[./?#]/.test(node.url)
 			if (needsPreAdjustment) {
-				urlToAdjust = path.join(
-					currentPath,
-					node.url.split('/').slice(1).join('/')
-				)
-				console.log({ before: node.url, after: urlToAdjust })
+				const currentPathParts = currentPath.split('/')
+				const urlToChangeParts = node.url.split('/')
+
+				const newPathPrefixParts = []
+				currentPathParts.find((currentPathPart) => {
+					if (!currentPathPart) {
+						return false
+					}
+
+					const matchesUrlToChangeFirstPart =
+						currentPathPart === urlToChangeParts[0]
+					if (!matchesUrlToChangeFirstPart) {
+						newPathPrefixParts.push(currentPathPart)
+					}
+
+					return matchesUrlToChangeFirstPart
+				})
+
+				urlToAdjust = `/${newPathPrefixParts.join('/')}/${node.url}`
 			}
 
 			node.url = urlAdjustFn(urlToAdjust)
