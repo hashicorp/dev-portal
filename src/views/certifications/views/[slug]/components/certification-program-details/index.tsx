@@ -80,6 +80,7 @@ export function CertificationProgramDetails({
 					</div>
 					<h2 className={s.accordionHeading}>Overview</h2>
 					<Accordion
+						activatorHeadingLevel="h3"
 						items={faqItems.map((item: FaqItem) => {
 							return {
 								title: item.title,
