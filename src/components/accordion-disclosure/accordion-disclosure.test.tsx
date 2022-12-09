@@ -55,8 +55,8 @@ describe('AccordionDisclosure', () => {
 		// best effort to query for plain divs rendered by Disclosure
 		const buttons = queryAllByRole('button')
 
-		expect(buttons[0].parentElement).not.toHaveClass('nested')
-		expect(buttons[1].parentElement).toHaveClass('nested')
-		expect(buttons[2].parentElement).toHaveClass('nested')
+		expect(buttons[0].parentElement).not.toHaveClass('isNested')
+		expect(buttons[1].parentElement).toHaveClass('isNested')
+		expect(buttons[2].parentElement).toHaveClass('isNested')
 	})
 })
