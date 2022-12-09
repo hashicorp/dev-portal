@@ -2,7 +2,11 @@ import classNames from 'classnames'
 // Global
 import BaseNewLayout from 'layouts/base-new'
 // Shared view components
-import { CertificationsNav, CertificationsHero } from '../../components'
+import {
+	CertificationsNav,
+	CertificationsHero,
+	GradientCardTheme,
+} from '../../components'
 // Local view components
 import { CertificationProgramDetails } from './components'
 import { CertificationPageProps } from './types'
@@ -28,8 +32,8 @@ function CertificationPage({
 			{pageContent.certifications.map((certification) => {
 				return (
 					<CertificationProgramDetails
-						key={certification.title}
-						slug={slug}
+						key={slug}
+						slug={slug as GradientCardTheme}
 						title={certification.title}
 						description={certification.description}
 						links={certification.links}
@@ -44,19 +48,6 @@ function CertificationPage({
 					/>
 				)
 			})}
-			{/* <CertificationsContentArea>
-				<h2>{`[dev]`} Content Debug</h2>
-				<pre
-					className="hds-typography-code-100"
-					style={{
-						whiteSpace: 'pre-wrap',
-						background: '#EEEEEE',
-						padding: '2rem',
-					}}
-				>
-					<code>{JSON.stringify({ pageContent }, null, 2)}</code>
-				</pre>
-			</CertificationsContentArea> */}
 		</>
 	)
 }

@@ -18,6 +18,7 @@
 				"prepare": "https://learn.hashicorp.com/tutorials/consul/associate-study",
 				"register": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049382552"
 			},
+			"examFaqSlug": "consul-associate-002",
 			"faqItems": [
 				{
 					"title": "Prerequisites",

@@ -18,6 +18,7 @@
 				"prepare": "/vault/tutorials/associate-cert/associate-study",
 				"register": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049382552"
 			},
+			"examFaqSlug": "vault-associate-002",
 			"faqItems": [
 				{
 					"title": "Prerequisites",
@@ -50,6 +51,7 @@
 				"prepare": "/vault/tutorials/ops-pro-cert",
 				"register": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049382552"
 			},
+			"examFaqSlug": "vault-operations-professional",
 			"faqItems": [
 				{
 					"title": "Prerequisites",

@@ -5,19 +5,25 @@ export const CertificationItemSchema = z.object({
 	productSlug: z.enum(['consul', 'terraform', 'vault']),
 	versionTested: z.string(),
 	description: z.string(),
+	examFaqSlug: z.string(),
 	links: z
 		.object({
 			prepare: z.string().optional(),
 			register: z.string().optional(),
 		})
 		.optional(),
-	faqItems: z.array(
-		z.object({
-			title: z.string(),
-			content: z.string(),
-			mdxSource: z.any().optional(),
-		})
-	),
+	/**
+	 * FAQ items are parsed from .mdx files. These aren't authored directly
+	 * in the .json that we parse, so they're marked as optional.
+	 */
+	faqItems: z
+		.array(
+			z.object({
+				title: z.string(),
+				mdxSource: z.any().optional(),
+			})
+		)
+		.optional(),
 })
 
 export const CertificationProgramSchema = z.object({

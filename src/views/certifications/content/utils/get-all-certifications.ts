@@ -1,5 +1,5 @@
 import path from 'path'
-import { CertificationProgramItem } from '../types'
+import { CertificationProgramItem } from '../../types'
 import { CertificationProgramSchema } from '../schemas/certification-program'
 import { readLocalFile, readLocalFilepaths } from '.'
 
@@ -19,16 +19,17 @@ export function getAllCertificationProgramSlugs(): string[] {
 	return slugs
 }
 
+export function getCertificationProgram(
+	slug: string
+): CertificationProgramItem {
+	const fullPath = `${CONTENT_DIR}/${slug}.json`
+	const pageContent = CertificationProgramSchema.parse(
+		JSON.parse(readLocalFile(fullPath))
+	)
+	return { slug, pageContent }
+}
+
 export function getAllCertificationPrograms(): CertificationProgramItem[] {
 	const programSlugs = getAllCertificationProgramSlugs()
-	const allCertificationPrograms: CertificationProgramItem[] = programSlugs.map(
-		(slug: string) => {
-			const fullPath = `${CONTENT_DIR}/${slug}.json`
-			const pageContent = CertificationProgramSchema.parse(
-				JSON.parse(readLocalFile(fullPath))
-			)
-			return { slug, pageContent }
-		}
-	)
-	return allCertificationPrograms
+	return programSlugs.map(getCertificationProgram)
 }

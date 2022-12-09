@@ -1,30 +1,31 @@
 import { GetStaticPropsContext } from 'next'
 import { formatCertificationsNavProps } from '../../components/certifications-nav/helpers'
 import { CertificationPageProps } from './types'
-import { CertificationProgramItem } from '../../types'
 import {
 	getAllCertificationProgramSlugs,
 	getAllCertificationPrograms,
-} from '../../helpers'
+	getCertificationProgram,
+} from 'views/certifications/content/utils'
 import { preparePageContent } from './utils/prepare-page-content'
-import { GradientCardTheme } from 'views/certifications/components'
 
 export async function getStaticProps({
-	params: { slug },
+	params: { slug: rawSlug },
 }: GetStaticPropsContext): Promise<{ props: CertificationPageProps }> {
-	const allPrograms = getAllCertificationPrograms()
-	const { pageContent: rawPageContent } = allPrograms.find(
-		(p: CertificationProgramItem) => p.slug === slug
-	)
-
+	/**
+	 * Filter all programs to find the program we're rendering
+	 */
+	const slug = Array.isArray(rawSlug) ? rawSlug.join('/') : rawSlug
+	const { pageContent: rawPageContent } = getCertificationProgram(slug)
 	const pageContent = await preparePageContent(rawPageContent)
 
-	const navProps = formatCertificationsNavProps(allPrograms)
-
-	const slugString = Array.isArray(slug) ? slug.join('/') : slug
+	/**
+	 * Build temporary nav props for a dev nav header.
+	 * TODO: remove this later, not actually part of the design spec.
+	 */
+	const navProps = formatCertificationsNavProps(getAllCertificationPrograms())
 
 	return {
-		props: { navProps, pageContent, slug: slugString as GradientCardTheme },
+		props: { navProps, pageContent, slug },
 	}
 }
 

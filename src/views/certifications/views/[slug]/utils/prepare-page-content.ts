@@ -1,6 +1,7 @@
-import { serialize } from 'next-mdx-remote/serialize'
+// import { serialize } from 'next-mdx-remote/serialize'
 import { CertificationProgram } from 'views/certifications/types'
-import { CertificationItem } from 'views/certifications/schemas/certification-program'
+import { CertificationItem } from 'views/certifications/content/schemas/certification-program'
+import { getExamFaqs } from 'views/certifications/content/utils/get-exam-faqs'
 
 export async function preparePageContent(
 	rawPageContent: CertificationProgram
@@ -14,13 +15,6 @@ export async function preparePageContent(
 async function prepareCertification(
 	certification: CertificationItem
 ): Promise<CertificationItem> {
-	const preparedFaqItems = await Promise.all(
-		certification.faqItems.map(async (faqItem) => {
-			return {
-				title: faqItem.title,
-				mdxSource: await serialize(faqItem.content),
-			}
-		})
-	)
-	return { ...certification, faqItems: preparedFaqItems }
+	const parsedFaqItems = await getExamFaqs(certification.examFaqSlug)
+	return { ...certification, faqItems: parsedFaqItems }
 }

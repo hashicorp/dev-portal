@@ -1,8 +1,8 @@
 import { formatCertificationsNavProps } from '../../components/certifications-nav/helpers'
-import { readLocalFile, getAllCertificationPrograms } from '../../helpers'
+import { readLocalFile, getAllCertificationPrograms } from '../../content/utils'
 import { GetStaticPropsResult } from 'next'
 import { CertificationLandingProps, CertificationProgramSummary } from './types'
-import { LandingPageSchema } from 'views/certifications/schemas/landing-page'
+import { LandingPageSchema } from 'views/certifications/content/schemas/landing-page'
 
 /**
  * Read in local content from the filesystem.
