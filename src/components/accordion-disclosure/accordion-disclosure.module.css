@@ -37,6 +37,7 @@
 		box-shadow: var(--token-surface-mid-box-shadow);
 	}
 
+	/* Hover state of the enclosed `<button />`, via useHover */
 	&.isHovered {
 		box-shadow: var(--token-surface-high-box-shadow);
 	}
