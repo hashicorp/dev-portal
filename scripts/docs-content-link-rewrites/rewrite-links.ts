@@ -68,8 +68,12 @@ const main = async () => {
 	const mdxFilePaths = []
 	gatherMdxFilePaths(contentDirectoryPath, mdxFilePaths)
 
+	let allUnrewriteableLinks = []
+	const allLinksToRewrite = {}
+
 	for (let i = 0; i < mdxFilePaths.length; i++) {
 		const filePath = mdxFilePaths[i]
+		const relativeFilePath = filePath.replace(contentDirectoryPath, '')
 		const fileContent = fs.readFileSync(filePath, 'utf-8')
 
 		const {
@@ -78,7 +82,7 @@ const main = async () => {
 			.use(rewriteLinksPlugin, {
 				dotIoToDevDotPaths,
 				learnToDevDotPaths,
-				currentFilePath: filePath.replace(contentDirectoryPath, ''),
+				currentFilePath: relativeFilePath,
 				product: cachedGetProductData(normalizedProductSlug),
 			})
 			.process(fileContent)
@@ -87,6 +91,7 @@ const main = async () => {
 		const hasUnrewriteableLinks = unrewriteableLinks.length > 0
 
 		if (hasLinksToRewrite) {
+			allLinksToRewrite[relativeFilePath] = linksToRewrite
 			const updatedContent = rewriteFileContentString(
 				fileContent,
 				linksToRewrite
@@ -106,8 +111,56 @@ const main = async () => {
 		}
 
 		if (hasUnrewriteableLinks) {
-			// TODO analyze the unrewriteable links
+			allUnrewriteableLinks = [...allUnrewriteableLinks, ...unrewriteableLinks]
 		}
+	}
+
+	if (Object.keys(allLinksToRewrite).length > 0) {
+		const generatedFilesDirectory = path.join(__dirname, '.generated')
+		if (!fs.existsSync(generatedFilesDirectory)) {
+			fs.mkdirSync(generatedFilesDirectory)
+		}
+
+		const rewrittenLinksDirectory = path.join(
+			generatedFilesDirectory,
+			'links-to-rewrite'
+		)
+		if (!fs.existsSync(rewrittenLinksDirectory)) {
+			fs.mkdirSync(rewrittenLinksDirectory)
+		}
+
+		const rewrittenLinksFile = path.join(
+			rewrittenLinksDirectory,
+			`${product}.json`
+		)
+		fs.writeFileSync(
+			rewrittenLinksFile,
+			JSON.stringify(allLinksToRewrite, null, 2)
+		)
+	}
+
+	if (allUnrewriteableLinks.length > 0) {
+		const generatedFilesDirectory = path.join(__dirname, '.generated')
+		if (!fs.existsSync(generatedFilesDirectory)) {
+			fs.mkdirSync(generatedFilesDirectory)
+		}
+
+		const unrewriteableLinksDirectory = path.join(
+			generatedFilesDirectory,
+			'unrewriteable-links'
+		)
+		if (!fs.existsSync(unrewriteableLinksDirectory)) {
+			fs.mkdirSync(unrewriteableLinksDirectory)
+		}
+
+		const unrewriteableLinksFile = path.join(
+			unrewriteableLinksDirectory,
+			`${product}.json`
+		)
+		fs.writeFileSync(
+			unrewriteableLinksFile,
+			JSON.stringify(allUnrewriteableLinks.sort(), null, 2)
+		)
 	}
 }
 
