@@ -18,7 +18,6 @@ async function prepareCertification(
 		certification.faqItems.map(async (faqItem) => {
 			return {
 				title: faqItem.title,
-				// content: faqItem.content,
 				mdxSource: await serialize(faqItem.content),
 			}
 		})

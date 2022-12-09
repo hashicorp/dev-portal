@@ -1,18 +1,18 @@
 .root {
-	border: 1px solid magenta;
-	background: rgba(255, 0, 255, 0.15);
-	padding-bottom: 10rem;
+	--previous-section-offset: 72px;
+	--padding-bottom: 72px;
+
+	background: var(--token-color-surface-interactive-disabled);
+	padding-bottom: calc(var(--padding-bottom) + var(--previous-section-offset));
 }
 
 .overviewCard {
-	margin-top: -72px;
+	margin-top: calc(-1 * var(--previous-section-offset));
 }
 
-.overviewHeading {
-	border: 1px solid magenta;
-	margin-top: 72px;
-}
-
-.overviewFaq {
-	margin-top: 32px;
+.accordionHeading {
+	composes: hds-typography-display-400 from global;
+	font-weight: var(--token-typography-font-weight-bold);
+	color: var(--token-color-foreground-strong);
+	margin: 40px 0 32px 0;
 }

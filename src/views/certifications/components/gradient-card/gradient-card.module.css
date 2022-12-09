@@ -1,4 +1,8 @@
 .root {
+	isolation: isolate;
+}
+
+.inner {
 	--shadow-offset: 48px;
 	--shadow-background: var(--token-color-foreground-faint);
 

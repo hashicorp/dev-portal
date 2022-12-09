@@ -1,14 +1,30 @@
 import ButtonLink from 'components/button-link'
-import { ButtonGroup, SplitCardSection } from 'views/certifications/components'
+import Badge from 'components/badge'
+import StandaloneLink from 'components/standalone-link'
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import {
+	ButtonGroup,
+	SplitCardSection,
+	GradientCard,
+	ExamBadgeSlug,
+	GradientCardTheme,
+} from 'views/certifications/components'
 import s from './overview-card.module.css'
+import { OverviewCardBadgeAndTitle } from '../overview-card-badge-and-title'
 
 export function OverviewCard({
 	title,
 	description,
 	links,
+	productSlug,
+	versionTested,
+	slug,
 }: {
 	title: string
 	description: string
+	productSlug: ExamBadgeSlug
+	versionTested: string
+	slug: GradientCardTheme
 	links?: {
 		prepare?: string
 		register?: string
@@ -17,13 +33,19 @@ export function OverviewCard({
 	const hasLinks = links?.prepare || links?.register
 
 	return (
-		<div className={s.root}>
+		<GradientCard theme={slug}>
 			<SplitCardSection
-				startContent={<h2 className={s.heading}>{title}</h2>}
+				className={s.splitCardSection}
+				startContent={
+					<OverviewCardBadgeAndTitle
+						title={title}
+						productSlug={productSlug}
+						versionTested={versionTested}
+					/>
+				}
 				endContent={
-					<div className={s.endContent}>
+					<>
 						<p className={s.description}>{description}</p>
-
 						<div className={s.buttonGroup}>
 							{hasLinks ? (
 								<ButtonGroup>
@@ -34,30 +56,22 @@ export function OverviewCard({
 										/>
 									) : null}
 									{links.register ? (
-										<ButtonLink
+										<StandaloneLink
 											text="Register for the exam"
 											href={links.register}
 											color="secondary"
+											icon={<IconArrowRight16 />}
+											iconPosition="trailing"
 										/>
 									) : null}
 								</ButtonGroup>
 							) : (
-								<span
-									style={{
-										display: 'inline-block',
-										color: 'purple',
-										padding: '0.5rem 1rem',
-										border: '1px solid purple',
-										borderRadius: '4px',
-									}}
-								>
-									Coming soon
-								</span>
+								<Badge text="Coming Soon" color="highlight" type="outlined" />
 							)}
 						</div>
-					</div>
+					</>
 				}
 			/>
-		</div>
+		</GradientCard>
 	)
 }

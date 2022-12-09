@@ -29,9 +29,12 @@ function CertificationPage({
 				return (
 					<CertificationProgramDetails
 						key={certification.title}
+						slug={slug}
 						title={certification.title}
 						description={certification.description}
 						links={certification.links}
+						productSlug={certification.productSlug}
+						versionTested={certification.versionTested}
 						faqItems={certification.faqItems.map((item) => {
 							return {
 								title: item.title,

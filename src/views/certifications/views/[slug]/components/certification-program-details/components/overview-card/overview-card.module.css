@@ -1,7 +1,5 @@
-.root {
-	border: 1px solid magenta;
-	padding: 16px;
-	background: white;
+.splitCardSection {
+	padding: 24px 0;
 }
 
 .heading {
@@ -9,11 +7,10 @@
 	margin: 0;
 }
 
-.endContent {
-	border: 1px solid magenta;
-}
-
 .description {
+	composes: hds-typography-body-300 from global;
+	font-weight: var(--token-typography-font-weight-medium);
+	color: var(--token-color-foreground-primary);
 	margin: 0;
 }
 

@@ -13,7 +13,11 @@ import {
 	MdxBlockquote,
 } from 'components/dev-dot-content/mdx-components'
 import { OverviewCard } from './components'
-import { CertificationsContentArea } from 'views/certifications/components'
+import {
+	CertificationsContentArea,
+	ExamBadgeSlug,
+	GradientCardTheme,
+} from 'views/certifications/components'
 import s from './certification-program-details.module.css'
 
 function MdxImage({
@@ -45,10 +49,16 @@ export function CertificationProgramDetails({
 	description,
 	faqItems,
 	links,
+	productSlug,
+	versionTested,
+	slug,
 }: {
 	title: string
 	description: string
 	faqItems: FaqItem[]
+	productSlug: ExamBadgeSlug
+	versionTested: string
+	slug: GradientCardTheme
 	links?: {
 		prepare?: string
 		register?: string
@@ -63,24 +73,22 @@ export function CertificationProgramDetails({
 							title={title}
 							description={description}
 							links={links}
+							productSlug={productSlug}
+							versionTested={versionTested}
+							slug={slug}
 						/>
 					</div>
-					<h2 className={s.overviewHeading}>Overview</h2>
-					<div className={s.overviewFaq}>
-						<Accordion
-							items={faqItems.map((item: FaqItem) => {
-								return {
-									title: item.title,
-									content: (
-										<MDXRemote
-											{...item.mdxSource}
-											components={MDX_COMPONENTS}
-										/>
-									),
-								}
-							})}
-						/>
-					</div>
+					<h2 className={s.accordionHeading}>Overview</h2>
+					<Accordion
+						items={faqItems.map((item: FaqItem) => {
+							return {
+								title: item.title,
+								content: (
+									<MDXRemote {...item.mdxSource} components={MDX_COMPONENTS} />
+								),
+							}
+						})}
+					/>
 				</CertificationsContentArea>
 			</div>
 		</>
