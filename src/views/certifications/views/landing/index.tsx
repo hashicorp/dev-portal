@@ -71,8 +71,10 @@ function CertificationsLandingView({
 					/>
 				</CertificationsContentArea>
 			</div>
-			<SignupFormArea />
-			<CertificationsContentArea>
+			<div style={{ background: 'rgba(255, 0, 255, 0.15)' }}>
+				<SignupFormArea />
+			</div>
+			{/* <CertificationsContentArea>
 				<h2>{`[dev]`} Content Debug</h2>
 				<pre
 					className="hds-typography-code-100"
@@ -84,7 +86,7 @@ function CertificationsLandingView({
 				>
 					<code>{JSON.stringify({ pageContent }, null, 2)}</code>
 				</pre>
-			</CertificationsContentArea>
+			</CertificationsContentArea> */}
 		</>
 	)
 }
