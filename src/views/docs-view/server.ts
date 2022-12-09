@@ -1,4 +1,5 @@
 // Third-party imports
+import path from 'path'
 import { Pluggable } from 'unified'
 import rehypePrism from '@mapbox/rehype-prism'
 
@@ -148,6 +149,11 @@ export function getStaticGenerationFunctions<
 		},
 		getStaticProps: async (ctx) => {
 			const pathParts = (ctx.params.page || []) as string[]
+			const currentPath = path.join(
+				product.slug,
+				basePathForLoader,
+				pathParts.join('/')
+			)
 			const headings = [] // populated by anchorLinks plugin below
 
 			const loader = getLoader({
@@ -168,7 +174,10 @@ export function getStaticGenerationFunctions<
 					 */
 					[
 						remarkPluginAdjustLinkUrls,
-						{ urlAdjustFn: getProductUrlAdjuster(product) },
+						{
+							currentPath,
+							urlAdjustFn: getProductUrlAdjuster(product),
+						},
 					],
 				],
 				rehypePlugins: [
