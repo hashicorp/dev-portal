@@ -149,8 +149,7 @@ export function getStaticGenerationFunctions<
 		},
 		getStaticProps: async (ctx) => {
 			const pathParts = (ctx.params.page || []) as string[]
-			const currentPath = `/${path.join(
-				product.slug,
+			const currentPathUnderProduct = `/${path.join(
 				basePathForLoader,
 				pathParts.join('/')
 			)}`
@@ -175,7 +174,7 @@ export function getStaticGenerationFunctions<
 					[
 						remarkPluginAdjustLinkUrls,
 						{
-							currentPath,
+							currentPath: currentPathUnderProduct,
 							urlAdjustFn: getProductUrlAdjuster(product),
 						},
 					],
