@@ -149,11 +149,11 @@ export function getStaticGenerationFunctions<
 		},
 		getStaticProps: async (ctx) => {
 			const pathParts = (ctx.params.page || []) as string[]
-			const currentPath = path.join(
+			const currentPath = `/${path.join(
 				product.slug,
 				basePathForLoader,
 				pathParts.join('/')
-			)
+			)}`
 			const headings = [] // populated by anchorLinks plugin below
 
 			const loader = getLoader({
