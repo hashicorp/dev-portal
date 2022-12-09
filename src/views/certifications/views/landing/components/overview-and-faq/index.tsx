@@ -1,7 +1,5 @@
-import {
-	CertificationsContentArea,
-	AccordionGroup,
-} from 'views/certifications/components'
+import Accordion from 'components/accordion'
+import { CertificationsContentArea } from 'views/certifications/components'
 import s from './overview-and-faq.module.css'
 
 interface Faq {
@@ -20,7 +18,7 @@ export function OverviewAndFaq({ heading, faqs }: OverviewAndFaqProps) {
 			<div className={s.root}>
 				<CertificationsContentArea>
 					<h2>{heading}</h2>
-					<AccordionGroup items={faqs} />
+					<Accordion items={faqs} />
 				</CertificationsContentArea>
 			</div>
 		</>

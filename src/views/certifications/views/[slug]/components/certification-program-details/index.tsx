@@ -1,4 +1,5 @@
 import { MDXRemote } from 'next-mdx-remote'
+import Accordion from 'components/accordion'
 import Image from 'components/image'
 import { ImageProps } from 'components/image/types'
 import {
@@ -12,10 +13,7 @@ import {
 	MdxBlockquote,
 } from 'components/dev-dot-content/mdx-components'
 import { OverviewCard } from './components'
-import {
-	AccordionGroup,
-	CertificationsContentArea,
-} from 'views/certifications/components'
+import { CertificationsContentArea } from 'views/certifications/components'
 import s from './certification-program-details.module.css'
 
 function MdxImage({
@@ -69,7 +67,7 @@ export function CertificationProgramDetails({
 					</div>
 					<h2 className={s.overviewHeading}>Overview</h2>
 					<div className={s.overviewFaq}>
-						<AccordionGroup
+						<Accordion
 							items={faqItems.map((item: FaqItem) => {
 								return {
 									title: item.title,
