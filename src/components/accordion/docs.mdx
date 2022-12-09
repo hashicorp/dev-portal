@@ -2,12 +2,15 @@
 componentName: 'Accordion'
 ---
 
-The `<Accordion />` component renders an array as items as a group of disclosures.
+The `<Accordion />` component renders an array as items as a group of disclosures. It accepts an array of `{ title, content }` items to render.
+
+The `<Accordion />` component also accepts an optional `activatorHeadingLevel` prop. This prop is intended to allow the consumer to establish appropriate semantics for the `Accordion` in the context of the page. See the ARIA Authoring Practices Guideline page on [the Accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) for reference.
 
 ## Playground
 
 <LiveComponent>{`
 <Accordion
+  activatorHeadingLevel="h3"
 	items={['Item One', 'Another Item Two', 'Third Item'].map((text) => {
 		return {
 			title: text,
@@ -34,6 +37,7 @@ The `<Accordion />` component renders an array as items as a group of disclosure
 ### Single Item
 
 <Accordion
+	activatorHeadingLevel="h4"
 	items={['foo'].map((text) => {
 		return {
 			title: `${text[0].toUpperCase()}${text.slice(1)} accordion item`,
@@ -80,6 +84,7 @@ The `<Accordion />` component renders an array as items as a group of disclosure
 ### Many Items
 
 <Accordion
+	activatorHeadingLevel="h4"
 	items={['foo', 'bar', 'fizz', 'buzz'].map((text) => {
 		return {
 			title: `${text[0].toUpperCase()}${text.slice(1)} accordion item`,
@@ -103,6 +108,7 @@ The `<Accordion />` component renders an array as items as a group of disclosure
 ### Nested Items
 
 <Accordion
+	activatorHeadingLevel="h4"
 	items={['there', 'are', 'nested', 'items', 'within'].map((text) => {
 		function getPlaceholderItems(textArray) {
 			return textArray.map((text) => {
@@ -134,9 +140,18 @@ The `<Accordion />` component renders an array as items as a group of disclosure
 						gap: '24px',
 					}}
 				>
-					<Accordion items={getPlaceholderItems(['hey'])} />
-					<Accordion items={getPlaceholderItems(['these', 'here', 'are'])} />
-					<Accordion items={getPlaceholderItems(['nested', 'items'])} />
+					<Accordion
+						activatorHeadingLevel="h5"
+						items={getPlaceholderItems(['hey'])}
+					/>
+					<Accordion
+						activatorHeadingLevel="h5"
+						items={getPlaceholderItems(['these', 'here', 'are'])}
+					/>
+					<Accordion
+						activatorHeadingLevel="h5"
+						items={getPlaceholderItems(['nested', 'items'])}
+					/>
 				</div>
 			),
 		}

@@ -20,6 +20,7 @@ const AccordionDisclosure = ({
 	title,
 	isFirstItem,
 	isLastItem,
+	activatorHeadingLevel,
 }: AccordionDisclosureProps) => {
 	const [hoverRef, isHovered] = useHover<HTMLButtonElement>()
 	const isNested = useAccordionDisclosureContext()
@@ -55,6 +56,7 @@ const AccordionDisclosure = ({
 				<DisclosureActivator
 					className={s.button}
 					data-heap-track="accordion-disclosure-activator"
+					headingLevel={activatorHeadingLevel}
 					ref={hoverRef}
 				>
 					<span className={s.labelContainer}>

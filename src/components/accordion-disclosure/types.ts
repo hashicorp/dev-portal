@@ -1,5 +1,8 @@
 import { ReactNode } from 'react'
-import { DisclosureProps } from 'components/disclosure'
+import {
+	DisclosureActivatorProps,
+	DisclosureProps,
+} from 'components/disclosure'
 
 export interface AccordionDisclosureProps {
 	/**
@@ -44,4 +47,10 @@ export interface AccordionDisclosureProps {
 	 * If this prop & `isFirstItem` are `undefined`, no group styles are used.
 	 */
 	isLastItem?: boolean
+
+	/**
+	 * Optional heading level to contain the `button` element within the
+	 * DisclosureActivator. See DisclosureActivatorProps for details.
+	 */
+	activatorHeadingLevel?: DisclosureActivatorProps['headingLevel']
 }
