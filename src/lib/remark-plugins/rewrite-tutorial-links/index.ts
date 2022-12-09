@@ -30,9 +30,16 @@ import {
 
 let TUTORIAL_MAP
 
-export const rewriteTutorialLinksPlugin: Plugin = () => {
+interface RewriteTutorialLinksPluginOptions {
+	tutorialMap?: Record<string, string>
+}
+
+export const rewriteTutorialLinksPlugin: Plugin = (
+	options: RewriteTutorialLinksPluginOptions = {}
+) => {
+	const { tutorialMap } = options
 	return async function transformer(tree) {
-		TUTORIAL_MAP = await getTutorialMap()
+		TUTORIAL_MAP = tutorialMap ?? (await getTutorialMap())
 
 		visit(tree, 'link', handleRewriteTutorialsLink)
 		visit(tree, 'definition', handleRewriteTutorialsLink)
