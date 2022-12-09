@@ -51,6 +51,7 @@ function CertificationsLandingView({
 				<CertificationsContentArea>
 					<h2 className={s.faqHeading}>Program overview & FAQ</h2>
 					<Accordion
+						activatorHeadingLevel="h3"
 						items={[
 							{
 								title: 'Exam experience',

@@ -55,9 +55,18 @@ export function CertificationProgramSection({
 						{certifications.map(
 							({ title, url, productSlug }: CertificationItem) => {
 								return url ? (
-									<ExamCard title={title} url={url} productSlug={productSlug} />
+									<ExamCard
+										key={title}
+										title={title}
+										url={url}
+										productSlug={productSlug}
+									/>
 								) : (
-									<ExamCardComingSoon title={title} productSlug={productSlug} />
+									<ExamCardComingSoon
+										key={title}
+										title={title}
+										productSlug={productSlug}
+									/>
 								)
 							}
 						)}
