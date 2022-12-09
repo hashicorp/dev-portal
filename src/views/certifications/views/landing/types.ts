@@ -6,6 +6,7 @@ export interface CertificationProgramSummary {
 	description: string
 	certifications: {
 		title: string
+		productSlug: 'consul' | 'terraform' | 'vault'
 		url?: string
 	}[]
 }
