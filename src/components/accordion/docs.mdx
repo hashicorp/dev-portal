@@ -103,48 +103,42 @@ The `<Accordion />` component renders an array as items as a group of disclosure
 ### Nested Items
 
 <Accordion
-	items={['there', 'are', 'nested', 'items', 'within'].map(
-		(text: string) => {
-			function getPlaceholderItems(textArray) {
-				return textArray.map((text) => {
-					return {
-						title: `${text[0].toUpperCase()}${text.slice(
-							1
-						)} accordion item`,
-						content: (
-							<div
-								style={{
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'center',
-									minHeight: '400px',
-									background: 'lightgray',
-								}}
-							>
-								Hello {text} disclosure content.
-							</div>
-						),
-					}
-				})
-			}
-			return {
-				title: `${text[0].toUpperCase()}${text.slice(1)}`,
-				content: (
-					<div
-						style={{
-							display: 'flex',
-							flexDirection: 'column',
-							gap: '24px',
-						}}
-					>
-						<Accordion items={getPlaceholderItems(['hey'])} />
-						<Accordion
-							items={getPlaceholderItems(['these', 'here', 'are'])}
-						/>
-						<Accordion items={getPlaceholderItems(['nested', 'items'])} />
-					</div>
-				),
-			}
+	items={['there', 'are', 'nested', 'items', 'within'].map((text) => {
+		function getPlaceholderItems(textArray) {
+			return textArray.map((text) => {
+				return {
+					title: `${text[0].toUpperCase()}${text.slice(1)} accordion item`,
+					content: (
+						<div
+							style={{
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+								minHeight: '400px',
+								background: 'lightgray',
+							}}
+						>
+							Hello {text} disclosure content.
+						</div>
+					),
+				}
+			})
 		}
-	)}
+		return {
+			title: `${text[0].toUpperCase()}${text.slice(1)}`,
+			content: (
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						gap: '24px',
+					}}
+				>
+					<Accordion items={getPlaceholderItems(['hey'])} />
+					<Accordion items={getPlaceholderItems(['these', 'here', 'are'])} />
+					<Accordion items={getPlaceholderItems(['nested', 'items'])} />
+				</div>
+			),
+		}
+	})}
 />
