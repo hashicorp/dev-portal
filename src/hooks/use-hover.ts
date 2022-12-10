@@ -1,26 +1,39 @@
-import { useRef, useState, useEffect, MutableRefObject } from 'react'
+import { useRef, useState, useCallback, RefCallback } from 'react'
 
-function useHover<T = HTMLElement>(): [MutableRefObject<T>, boolean] {
+/**
+ * useHover hook with callback ref.
+ * From https://gist.github.com/gragland/a32d08580b7e0604ff02cb069826ca2f
+ */
+function useHover<T = HTMLElement>(): [RefCallback<T>, boolean] {
 	const [value, setValue] = useState(false)
 
-	const ref = useRef<T>(null)
-	const handleMouseOver = () => setValue(true)
-	const handleMouseOut = () => setValue(false)
+	// Wrap in useCallback so we can use in dependencies below
+	const handleMouseOver = useCallback(() => setValue(true), [])
+	const handleMouseOut = useCallback(() => setValue(false), [])
 
-	useEffect(() => {
-		const node = ref.current
-		if (node && node instanceof HTMLElement) {
-			node.addEventListener('mouseover', handleMouseOver)
-			node.addEventListener('mouseout', handleMouseOut)
+	// Keep track of the last node passed to callbackRef
+	// so we can remove its event listeners.
+	const ref = useRef<T>()
 
-			return () => {
-				node.removeEventListener('mouseover', handleMouseOver)
-				node.removeEventListener('mouseout', handleMouseOut)
+	// Use a callback ref instead of useEffect so that event listeners
+	// get changed in the case that the returned ref gets added to
+	// a different element later.
+	const callbackRef = useCallback(
+		(node) => {
+			if (ref.current && ref.current instanceof HTMLElement) {
+				ref.current.removeEventListener('mouseover', handleMouseOver)
+				ref.current.removeEventListener('mouseout', handleMouseOut)
 			}
-		}
-	})
 
-	return [ref, value]
+			ref.current = node
+
+			if (ref.current && ref.current instanceof HTMLElement) {
+				ref.current.addEventListener('mouseover', handleMouseOver)
+				ref.current.addEventListener('mouseout', handleMouseOut)
+			}
+		},
+		[handleMouseOver, handleMouseOut]
+	)
+	return [callbackRef, value]
 }
-
 export default useHover
