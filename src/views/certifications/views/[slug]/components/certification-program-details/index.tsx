@@ -32,26 +32,19 @@ export function CertificationProgramDetails({
 	}
 }) {
 	return (
-		<>
-			<div className={s.root}>
-				<CertificationsContentArea>
-					<div className={s.overviewCard}>
-						<OverviewCard
-							title={title}
-							description={description}
-							links={links}
-							productSlug={productSlug}
-							versionTested={versionTested}
-							slug={slug}
-						/>
-					</div>
-					<h2 className={s.accordionHeading}>Overview</h2>
-					<AccordionWithMdxContent
-						items={faqItems}
-						activatorHeadingLevel="h3"
-					/>
-				</CertificationsContentArea>
+		<CertificationsContentArea>
+			<div className={s.overviewCard}>
+				<OverviewCard
+					title={title}
+					description={description}
+					links={links}
+					productSlug={productSlug}
+					versionTested={versionTested}
+					slug={slug}
+				/>
 			</div>
-		</>
+			<h2 className={s.accordionHeading}>Overview</h2>
+			<AccordionWithMdxContent items={faqItems} activatorHeadingLevel="h3" />
+		</CertificationsContentArea>
 	)
 }

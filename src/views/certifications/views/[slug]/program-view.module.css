@@ -24,3 +24,26 @@
 		--background-image: url('./assets/networking-automation.jpg');
 	}
 }
+
+.mainSection {
+	background: var(--token-color-surface-interactive-disabled);
+}
+
+.certificationsSection {
+	display: flex;
+	flex-direction: column;
+	gap: 72px;
+	margin-top: -72px;
+}
+
+.certificationAccordionHeading {
+	composes: hds-typography-display-400 from global;
+	font-weight: var(--token-typography-font-weight-bold);
+	color: var(--token-color-foreground-strong);
+	margin: 40px 0 32px 0;
+}
+
+.signupForm {
+	margin-top: 72px;
+	padding-bottom: 108px;
+}

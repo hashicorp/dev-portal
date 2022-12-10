@@ -1,5 +1,5 @@
 export * from './exam-badge-and-title'
 export * from './certification-program-section'
 export * from './exam-card'
-export * from './signup-form-area/components/newsletter-signup-form'
-export * from './signup-form-area'
+export * from '../../../components/signup-form-area/components/newsletter-signup-form'
+export * from '../../../components/signup-form-area'

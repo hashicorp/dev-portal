@@ -3,15 +3,20 @@ import classNames from 'classnames'
 import BaseNewLayout from 'layouts/base-new'
 // Shared view components
 import {
+	AccordionWithMdxContent,
+	CertificationsContentArea,
 	CertificationsNav,
 	CertificationsHero,
 	GradientCardTheme,
-} from '../../components'
+	SignupFormArea,
+} from 'views/certifications/components'
 // Local view components
-import { CertificationProgramDetails } from './components'
+// import { CertificationProgramDetails } from './components'
+import { OverviewCard } from './components/certification-program-details/components'
 import { CertificationPageProps } from './types'
 // Styles
 import s from './program-view.module.css'
+import { Fragment } from 'react'
 
 function CertificationPage({
 	navProps,
@@ -29,25 +34,39 @@ function CertificationPage({
 					<div className={classNames(s.heroBackground, s[`theme-${slug}`])} />
 				}
 			/>
-			{pageContent.certifications.map((certification) => {
-				return (
-					<CertificationProgramDetails
-						key={slug}
-						slug={slug as GradientCardTheme}
-						title={certification.title}
-						description={certification.description}
-						links={certification.links}
-						productSlug={certification.productSlug}
-						versionTested={certification.versionTested}
-						faqItems={certification.faqItems.map((item) => {
-							return {
-								title: item.title,
-								mdxSource: item.mdxSource,
-							}
+			<div className={s.mainSection}>
+				<CertificationsContentArea key={slug}>
+					<div className={s.certificationsSection}>
+						{pageContent.certifications.map((certification) => {
+							return (
+								<div key={slug}>
+									<OverviewCard
+										title={certification.title}
+										description={certification.description}
+										links={certification.links}
+										productSlug={certification.productSlug}
+										versionTested={certification.versionTested}
+										slug={slug as GradientCardTheme}
+									/>
+									<h2 className={s.certificationAccordionHeading}>Overview</h2>
+									<AccordionWithMdxContent
+										items={certification.faqItems.map((item) => {
+											return {
+												title: item.title,
+												mdxSource: item.mdxSource,
+											}
+										})}
+										activatorHeadingLevel="h3"
+									/>
+								</div>
+							)
 						})}
-					/>
-				)
-			})}
+					</div>
+				</CertificationsContentArea>
+				<div className={s.signupForm}>
+					<SignupFormArea />
+				</div>
+			</div>
 		</>
 	)
 }

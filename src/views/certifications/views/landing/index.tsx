@@ -5,8 +5,9 @@ import {
 	CertificationsContentArea,
 	CertificationsHero,
 	CertificationsNav,
-} from '../../components'
-import { CertificationProgramSection, SignupFormArea } from './components'
+	SignupFormArea,
+} from 'views/certifications/components'
+import { CertificationProgramSection } from './components'
 import Image from 'next/image'
 import svgHeroImage from './assets/certification-hero-image-outlined.svg'
 import s from './landing.module.css'
