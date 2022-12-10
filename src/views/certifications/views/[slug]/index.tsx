@@ -62,10 +62,10 @@ function CertificationPage({
 							)
 						})}
 					</div>
+					<div className={s.signupForm}>
+						<SignupFormArea />
+					</div>
 				</CertificationsContentArea>
-				<div className={s.signupForm}>
-					<SignupFormArea />
-				</div>
 			</div>
 		</>
 	)

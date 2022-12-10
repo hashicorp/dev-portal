@@ -58,10 +58,10 @@ function CertificationsLandingView({
 						items={faqItems}
 						activatorHeadingLevel="h3"
 					/>
+					<div className={s.signupForm}>
+						<SignupFormArea />
+					</div>
 				</CertificationsContentArea>
-				<div className={s.signupForm}>
-					<SignupFormArea />
-				</div>
 			</div>
 		</>
 	)
