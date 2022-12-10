@@ -1,8 +1,6 @@
 import { ReactNode } from 'react'
-import {
-	DisclosureActivatorProps,
-	DisclosureProps,
-} from 'components/disclosure'
+import { DisclosureProps } from 'components/disclosure'
+import { DisclosureHeadingWrapperProps } from 'components/disclosure/components/disclosure-heading-wrapper/types'
 
 export interface AccordionDisclosureProps {
 	/**
@@ -46,7 +44,7 @@ export interface AccordionDisclosureProps {
 
 	/**
 	 * Optional heading level to contain the `button` element within the
-	 * DisclosureActivator. See DisclosureActivatorProps for details.
+	 * DisclosureActivator. See DisclosureHeadingWrapper for details.
 	 */
-	activatorHeadingLevel?: DisclosureActivatorProps['headingLevel']
+	activatorHeadingLevel?: DisclosureHeadingWrapperProps['level']
 }

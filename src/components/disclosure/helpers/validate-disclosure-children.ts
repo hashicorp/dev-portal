@@ -3,6 +3,7 @@ import {
 	DisclosureActivator,
 	DisclosureContent,
 	DisclosureProps,
+	DisclosureHeadingWrapper,
 } from 'components/disclosure'
 import {
 	NavigationDisclosureActivator,
@@ -19,6 +20,7 @@ const childIsAValidActivatorComponent = (child: ReactElement): boolean => {
 	return (
 		child.type === DisclosureActivator ||
 		child.type === NavigationDisclosureActivator ||
+		child.type === DisclosureHeadingWrapper ||
 		child.type === DropdownDisclosureActivator
 	)
 }

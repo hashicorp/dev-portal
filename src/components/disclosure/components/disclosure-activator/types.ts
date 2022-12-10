@@ -1,5 +1,5 @@
 import { ForwardedRef } from 'react'
-import { HeadingLevel } from './components/heading-wrapper/types'
+import { HeadingLevel } from '../disclosure-heading-wrapper/types'
 
 type DisclosureActivatorForwardedRef = ForwardedRef<HTMLButtonElement>
 
@@ -29,15 +29,6 @@ interface DisclosureActivatorProps {
 	 * internally rendered `<button>`.
 	 */
 	'data-heap-track'?: string
-
-	/**
-	 * Optional heading level to contain the `button` element for the
-	 * DisclosureActivator. This is intended for use in establishing
-	 * semantic meaning for the disclosure section, particularly when
-	 * used in an Accordion design pattern. Ref:
-	 * https://www.w3.org/WAI/ARIA/apg/example-index/accordion/accordion.html
-	 */
-	headingLevel?: HeadingLevel
 }
 
 export type { DisclosureActivatorForwardedRef, DisclosureActivatorProps }

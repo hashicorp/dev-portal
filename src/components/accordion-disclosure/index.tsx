@@ -3,6 +3,7 @@ import { IconChevronRight24 } from '@hashicorp/flight-icons/svg-react/chevron-ri
 import Disclosure, {
 	DisclosureActivator,
 	DisclosureContent,
+	DisclosureHeadingWrapper,
 } from 'components/disclosure'
 import Text from 'components/text'
 import { AccordionDisclosureProps } from './types'
@@ -62,24 +63,25 @@ const AccordionDisclosure = ({
 				containerClassName={generateContainerClassName}
 				initialOpen={initialOpen}
 			>
-				<DisclosureActivator
-					className={s.button}
-					data-heap-track="accordion-disclosure-activator"
-					headingLevel={activatorHeadingLevel}
-					ref={hoverRef}
-				>
-					<span className={s.labelContainer}>
-						<Text asElement="span" className={s.title} weight="semibold">
-							{title}
-						</Text>
-						{description && (
-							<Text asElement="span" className={s.description} size={200}>
-								{description}
+				<DisclosureHeadingWrapper level={activatorHeadingLevel}>
+					<DisclosureActivator
+						className={s.button}
+						data-heap-track="accordion-disclosure-activator"
+						ref={hoverRef}
+					>
+						<span className={s.labelContainer}>
+							<Text asElement="span" className={s.title} weight="semibold">
+								{title}
 							</Text>
-						)}
-					</span>
-					<IconChevronRight24 />
-				</DisclosureActivator>
+							{description && (
+								<Text asElement="span" className={s.description} size={200}>
+									{description}
+								</Text>
+							)}
+						</span>
+						<IconChevronRight24 />
+					</DisclosureActivator>
+				</DisclosureHeadingWrapper>
 				<DisclosureContent className={s.content}>{children}</DisclosureContent>
 			</Disclosure>
 		</AccordionDisclosureContext.Provider>
