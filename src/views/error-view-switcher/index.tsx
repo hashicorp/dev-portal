@@ -32,9 +32,7 @@ function ErrorView({
 	 * in the dev-portal project. However, we may not be ready to do that,
 	 * as the package may be used elsewhere?
 	 */
-	const router = useRouter()
-	console.log({ router }, 'in error view', statusCode)
-	const { asPath } = router
+	const { asPath } = useRouter()
 	const [isMounted, setIsMounted] = useState(false)
 
 	/**
@@ -63,7 +61,7 @@ function ErrorView({
 	const pathBeforeVersion = asPath.substring(0, asPath.indexOf(versionInPath))
 	const is404 = statusCode == 404
 	const isVersioned404 = versionInPath && is404
-	console.log(isVersioned404)
+	console.log({ isVersioned404 })
 
 	/**
 	 * Determine the error page type

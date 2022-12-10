@@ -12,9 +12,7 @@ import { HOSTNAME_MAP } from 'constants/hostname-map'
 function resolve(obj) {
 	return obj && obj.__esModule ? obj.default : obj
 }
-function Error(props) {
-	const { statusCode, proxiedProductSlug, layoutProps } = props
-	console.log(props, 'in ERROR')
+function Error({ statusCode, proxiedProductSlug, layoutProps }) {
 	// Unlike other pages, we can't use redirects and rewrites
 	// to display proxied .io domain 404 pages on specific hosts.
 	// Instead, we must use getServerSideProps to determine which

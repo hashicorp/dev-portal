@@ -112,7 +112,6 @@ const DropdownDisclosureLinkItem = ({
 }: DropdownDisclosureLinkItemProps) => {
 	return (
 		<DropdownDisclosureListItem>
-			{/* Temporary workaround: there has been an issue observed where 404 links throw uncaught error pages*/}
 			<Link
 				className={s.link}
 				href={href}
