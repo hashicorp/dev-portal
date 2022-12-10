@@ -112,12 +112,13 @@ const DropdownDisclosureLinkItem = ({
 }: DropdownDisclosureLinkItemProps) => {
 	return (
 		<DropdownDisclosureListItem>
+			{/* Temporary workaround: there has been an issue observed where 404 links throw uncaught error pages*/}
 			<Link
 				className={s.link}
 				href={href}
 				rel={rel}
 				target={target}
-				prefetch={false} // Temporary workaround: there has been an issue observed where 404 links throw uncaught error pages
+				prefetch={false}
 			>
 				{icon}
 				<Text asElement="span" size={200} weight="medium">

@@ -12,7 +12,9 @@ import { HOSTNAME_MAP } from 'constants/hostname-map'
 function resolve(obj) {
 	return obj && obj.__esModule ? obj.default : obj
 }
-function Error({ statusCode, proxiedProductSlug, layoutProps }) {
+function Error(props) {
+	const { statusCode, proxiedProductSlug, layoutProps } = props
+	console.log(props, 'in ERROR')
 	// Unlike other pages, we can't use redirects and rewrites
 	// to display proxied .io domain 404 pages on specific hosts.
 	// Instead, we must use getServerSideProps to determine which
@@ -68,6 +70,8 @@ function Error({ statusCode, proxiedProductSlug, layoutProps }) {
 export async function getServerSideProps(ctx) {
 	const { req, res, err } = ctx
 
+	console.log(req, res, err, 'IN GET SERVERSIDE PROPS')
+
 	console.error('[pages/_error]', err)
 
 	// Determine which layout to use, may be dev-portal's base layout,
@@ -84,6 +88,7 @@ export async function getServerSideProps(ctx) {
 
 	// Determine which statusCode to show
 	const statusCode = res ? res.statusCode : err ? err.statusCode : 404
+	console.log({ statusCode })
 
 	if (statusCode === 404) {
 		// cache 404 for one day
