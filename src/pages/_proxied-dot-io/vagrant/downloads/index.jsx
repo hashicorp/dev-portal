@@ -49,11 +49,6 @@ function DownloadsPage({ product, releases, latestVersion }) {
 					commands: [`brew install hashicorp/tap/hashicorp-vagrant`],
 					os: 'darwin',
 				},
-				{
-					label: 'Homebrew',
-					commands: [`brew install hashicorp/tap/hashicorp-vagrant`],
-					os: 'linux',
-				},
 			]}
 		/>
 	)

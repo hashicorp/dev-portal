@@ -5,11 +5,6 @@
 			"label": "Homebrew",
 			"commands": ["brew install vagrant"],
 			"os": "darwin"
-		},
-		{
-			"label": "Homebrew",
-			"commands": ["brew install vagrant"],
-			"os": "linux"
 		}
 	],
 	"sidecarMarketingCard": {
