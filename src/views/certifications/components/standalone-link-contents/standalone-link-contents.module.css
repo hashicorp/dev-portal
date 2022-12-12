@@ -5,15 +5,23 @@
 	font-weight: var(--token-typography-font-weight-medium);
 	gap: 6px;
 	line-height: var(--line-height);
-	margin: 0;
+	margin-bottom: 0;
+	margin-top: 24px;
 
 	& svg {
 		flex-shrink: 0;
 		transition: transform 0.2s;
-	}
 
-	&.isHovered {
-		& svg {
+		/*
+		Note: this [classs] selectoris a bit brittle, and relies on `CardLink`!
+		For a more robust component, which might be a nice abstracted little atom
+		for use in other "callout" cards, we could use an `isHovered` prop instead.
+		We've got a component "ExpandableArrow" in use on other properties
+		that might be a useful reference:
+		https://react-components.vercel.app/components/expandablearrow
+		*/
+		@nest :global([class*='card-link']):hover & {
+			/* Only enable animation if query is supported and value is no-preference */
 			@media (prefers-reduced-motion: no-preference) {
 				transform: translate(2px);
 			}

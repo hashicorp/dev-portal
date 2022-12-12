@@ -1,8 +1,7 @@
 import { ReactNode } from 'react'
-import { StandaloneLinkContents } from 'views/certifications/components/standalone-link-contents'
+import { StandaloneLinkContents } from 'views/certifications/components'
 import { ExamBadgeAndTitle } from '../'
 import CardLink from 'components/card-link'
-import useHover from 'hooks/use-hover'
 import s from './exam-card.module.css'
 import Card from 'components/card'
 import Badge from 'components/badge'
@@ -27,20 +26,15 @@ function ExamCardComingSoon({ title, productSlug }) {
 }
 
 function ExamCard({ title, url, productSlug }) {
-	const [hoverRef, isHovered] = useHover<HTMLAnchorElement>()
-
 	return (
-		<CardLink className={s.examCard} href={url} ariaLabel="test" ref={hoverRef}>
+		<CardLink className={s.examCard} href={url} ariaLabel="test">
 			<ExamCardContents>
 				<ExamBadgeAndTitle
 					title={title}
 					eyebrow="HashiCorp Certified:"
 					productSlug={productSlug}
 				/>
-				<StandaloneLinkContents
-					text="Prepare for the exam"
-					isHovered={isHovered}
-				/>
+				<StandaloneLinkContents text="Prepare for the exam" />
 			</ExamCardContents>
 		</CardLink>
 	)
