@@ -12,18 +12,6 @@ export const CertificationExamSchema = z.object({
 			register: z.string().optional(),
 		})
 		.optional(),
-	/**
-	 * FAQ items are parsed from .mdx files. These aren't authored directly
-	 * in the .json that we parse, so they're marked as optional.
-	 */
-	faqItems: z
-		.array(
-			z.object({
-				title: z.string(),
-				mdxSource: z.any().optional(),
-			})
-		)
-		.optional(),
 })
 
 export const CertificationProgramSchema = z.object({
@@ -40,15 +28,15 @@ export const CertificationProgramSchema = z.object({
 })
 
 /**
- * Content for an individual certification program.
+ * Raw content for an individual certification program.
  *
  * Certification programs are oriented around solution areas, such as
  * "Infrastructure Automation". Each certification program can contain
  * multiple specific exams.
  */
-export type CertificationProgram = z.infer<typeof CertificationProgramSchema>
+export type RawCertificationProgram = z.infer<typeof CertificationProgramSchema>
 
 /**
- * And individual certification item
+ * Raw content for an individual certification item.
  */
-export type CertificationExam = z.infer<typeof CertificationExamSchema>
+export type RawCertificationExam = z.infer<typeof CertificationExamSchema>

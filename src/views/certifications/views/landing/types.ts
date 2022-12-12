@@ -1,3 +1,4 @@
+import { RawLandingPageContent } from 'views/certifications/content/schemas/landing-page'
 import { FaqItem } from 'views/certifications/types'
 
 export interface CertificationProgramSummary {
@@ -11,18 +12,25 @@ export interface CertificationProgramSummary {
 	}[]
 }
 
+export type LandingPageContent = Omit<
+	RawLandingPageContent,
+	'programSummaryOrder'
+>
+
 export interface CertificationLandingProps {
 	/**
-	 * Should update this with local content.
+	 * Content for the hero on the landing page.
 	 */
-	pageContent: $TSFixMe
+	pageContent: LandingPageContent
+
 	/**
-	 * Should update this
+	 * Summaries of each individual certification program.
+	 * Each program contains multiple exams.
 	 */
 	programSummaries: CertificationProgramSummary[]
 
 	/**
-	 * FAQ items to render on the page.
+	 * FAQ items to render on the landing page.
 	 */
 	faqItems: FaqItem[]
 }

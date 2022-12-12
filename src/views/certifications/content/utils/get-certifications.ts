@@ -1,5 +1,5 @@
 import path from 'path'
-import { CertificationProgramItem } from '../../types'
+import { RawCertificationProgramItem } from '../../types'
 import { CertificationProgramSchema } from '../schemas/certification-program'
 import { readLocalFile, readLocalFilepaths } from '.'
 
@@ -30,7 +30,7 @@ export function getAllCertificationProgramSlugs(): string[] {
  */
 export function getCertificationProgram(
 	slug: string
-): CertificationProgramItem {
+): RawCertificationProgramItem {
 	const fullPath = `${CONTENT_DIR}/${slug}.json`
 	const pageContent = CertificationProgramSchema.parse(
 		JSON.parse(readLocalFile(fullPath))
@@ -44,7 +44,7 @@ export function getCertificationProgram(
  * Useful for rendering detailed overview sections
  * on the `/certifications` landing page.
  */
-export function getAllCertificationPrograms(): CertificationProgramItem[] {
+export function getAllCertificationPrograms(): RawCertificationProgramItem[] {
 	const programSlugs = getAllCertificationProgramSlugs()
 	return programSlugs.map(getCertificationProgram)
 }

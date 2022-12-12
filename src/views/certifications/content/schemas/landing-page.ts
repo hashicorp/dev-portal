@@ -8,4 +8,4 @@ export const LandingPageSchema = z.object({
 	programSummaryOrder: z.array(z.string()),
 })
 
-export type LandingPageContent = z.infer<typeof LandingPageSchema>
+export type RawLandingPageContent = z.infer<typeof LandingPageSchema>

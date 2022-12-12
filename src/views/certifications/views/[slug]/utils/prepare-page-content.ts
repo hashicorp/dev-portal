@@ -1,13 +1,19 @@
 import path from 'path'
-import { CertificationProgram } from 'views/certifications/types'
-import { CertificationExam } from 'views/certifications/content/schemas/certification-program'
+import {
+	CertificationExam,
+	CertificationProgram,
+} from 'views/certifications/types'
+import {
+	RawCertificationExam,
+	RawCertificationProgram,
+} from 'views/certifications/content/schemas/certification-program'
 import { getFaqsFromMdx } from 'views/certifications/content/utils/get-faqs-from-mdx'
 import { readLocalFile } from 'views/certifications/content/utils'
 
 const EXAM_CONTENT_DIR = 'src/content/certifications/exam-faqs'
 
 export async function preparePageContent(
-	rawPageContent: CertificationProgram
+	rawPageContent: RawCertificationProgram
 ): Promise<CertificationProgram> {
 	const preparedExamsContent = await Promise.all(
 		rawPageContent.exams.map(prepareExamContent)
@@ -16,7 +22,7 @@ export async function preparePageContent(
 }
 
 async function prepareExamContent(
-	exam: CertificationExam
+	exam: RawCertificationExam
 ): Promise<CertificationExam> {
 	const faqFile = `${exam.faqSlug}.mdx`
 	const faqMdxString = readLocalFile(path.join(EXAM_CONTENT_DIR, faqFile))
