@@ -1,7 +1,11 @@
+import { IconArchive16 } from '@hashicorp/flight-icons/svg-react/archive-16'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
-import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
+import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
+import { IconRocket16 } from '@hashicorp/flight-icons/svg-react/rocket-16'
+import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
+
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
 import {
@@ -79,7 +83,7 @@ function integrationTags(integration: Integration): Array<Tag> {
 		case Tier.OFFICIAL:
 			tierTag = {
 				name: 'Official',
-				icon: <IconAward16 />,
+				icon: <IconHashicorp16 />,
 				// TODO: Description
 			}
 			break
@@ -102,9 +106,25 @@ function integrationTags(integration: Integration): Array<Tag> {
 
 	return [
 		...integration.flags.map((flag: Flag) => {
+			let icon: React.ReactNode = undefined
+			switch (flag.slug) {
+				case 'builtin':
+					icon = <IconWrench16 />
+					break
+
+				case 'hcp-ready':
+					icon = <IconRocket16 />
+					break
+
+				case 'archived':
+					icon = <IconArchive16 />
+					break
+			}
+
 			return {
 				name: flag.name,
 				description: flag.description,
+				icon: icon,
 			}
 		}),
 		tierTag,

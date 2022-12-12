@@ -1,11 +1,16 @@
 .integrationCard {
+	/* TODO: mobile breakpoint is 800px, that needs to be tweaked */
 	& .cardContent {
 		display: flex;
 		justify-content: space-between;
+
+		@media (max-width: 800px) {
+			flex-direction: column;
+		}
 	}
 
 	& .left {
-		max-width: 500px;
+		max-width: 527px;
 
 		& .nameVersionWrapper {
 			display: flex;
@@ -21,11 +26,21 @@
 		justify-content: space-between;
 		align-items: flex-end;
 
+		@media (max-width: 800px) {
+			margin-top: 14px;
+			align-items: flex-start;
+		}
+
 		& .viewDetails {
+			flex-shrink: 0;
 			font-size: 14px;
 			display: flex;
 			align-items: center;
 			justify-content: flex-end;
+
+			@media (max-width: 800px) {
+				margin-top: 32px;
+			}
 
 			& > svg {
 				margin-left: 8px;
