@@ -5,7 +5,6 @@ import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
 import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
 import { IconRocket16 } from '@hashicorp/flight-icons/svg-react/rocket-16'
 import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
-
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
 import {
@@ -84,7 +83,7 @@ function integrationTags(integration: Integration): Array<Tag> {
 			tierTag = {
 				name: 'Official',
 				icon: <IconHashicorp16 />,
-				// TODO: Description
+				description: 'TODO: Description of official integrations',
 			}
 			break
 
@@ -92,14 +91,14 @@ function integrationTags(integration: Integration): Array<Tag> {
 			tierTag = {
 				name: 'Partner',
 				icon: <IconHandshake16 />,
-				// TODO: Description
+				description: 'TODO: Description of partner integrations',
 			}
 			break
 
 		case Tier.COMMUNITY:
 			tierTag = {
 				name: 'Community',
-				// TODO: Description
+				description: 'TODO: Description of community integrations',
 			}
 			break
 	}
