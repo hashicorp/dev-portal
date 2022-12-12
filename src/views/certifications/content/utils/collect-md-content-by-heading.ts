@@ -2,23 +2,37 @@ import remark from 'remark'
 import { Parent } from 'unist-util-visit'
 import visitChildren from 'unist-util-visit-children'
 import toString from 'mdast-util-to-string'
-import { is } from 'unist-util-is'
+import { is, Node } from 'unist-util-is'
 // types
 import type { Content, Heading, Root } from 'mdast'
 import type { Plugin } from 'unified'
 
-export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6
-
+/**
+ * Content sections immediately after collection.
+ * contentNodes are arrays of nodes from the original `mdast` tree.
+ */
 export type ContentSectionNodes = {
 	level: number
 	title: string
 	contentNodes: Content[]
 }
 
+/**
+ * Content sections formatted before returning to the consumer.
+ * Content has been stringified from `mdast` nodes back into an MDX string.
+ */
 export type ContentSection = {
 	level: number
 	title: string
 	content: string
+}
+
+/**
+ * Options for the content section collector remark plugin.
+ */
+type ContentSectionCollectorPluginOptions = {
+	collector: ContentSectionNodes[]
+	targetLevel: Heading['depth']
 }
 
 /**
@@ -29,11 +43,9 @@ export type ContentSection = {
  * Each section consists of a title string, derived from the heading,
  * as well as an array of top-level content nodes found under the heading.
  */
-const contentSectionCollector: Plugin<
-	[{ collector: ContentSectionNodes[]; targetLevel: HeadingLevel }]
-> =
+const contentSectionCollector: Plugin<[ContentSectionCollectorPluginOptions]> =
 	({ collector, targetLevel } = { collector: [], targetLevel: 2 }) =>
-	(tree) => {
+	(tree: Node) => {
 		// Ensure that the provided tree has `children`. If not, error.
 		if (!isParent(tree)) {
 			throw new Error(
@@ -41,7 +53,7 @@ const contentSectionCollector: Plugin<
 			)
 		}
 		let currentSection: null | ContentSectionNodes = null
-		visitChildren(function (node) {
+		visitChildren(function (node: Content) {
 			if (isHeading(node) && node.depth === targetLevel) {
 				// Push any existing sections to the collector
 				if (currentSection !== null) {
@@ -76,7 +88,7 @@ const contentSectionCollector: Plugin<
  */
 export async function collectMdContentByHeading(
 	mdxContent: string,
-	headingLevel: HeadingLevel
+	headingLevel: Heading['depth']
 ): Promise<ContentSection[]> {
 	const contentSectionNodes: ContentSectionNodes[] = []
 
