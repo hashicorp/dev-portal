@@ -4,11 +4,11 @@
 import { OverviewCard } from './components'
 import {
 	AccordionWithMdxContent,
+	AccordionMdxItem,
 	CertificationsMaxWidth,
 	ExamBadgeSlug,
 	GradientCardTheme,
 } from 'views/certifications/components'
-import { FaqItem } from 'views/certifications/types'
 import s from './certification-program-details.module.css'
 
 export function CertificationProgramDetails({
@@ -22,7 +22,7 @@ export function CertificationProgramDetails({
 }: {
 	title: string
 	description: string
-	faqItems: FaqItem[]
+	faqItems: AccordionMdxItem[]
 	productSlug: ExamBadgeSlug
 	versionTested: string
 	slug: GradientCardTheme

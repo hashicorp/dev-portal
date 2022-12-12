@@ -1,5 +1,5 @@
+import { AccordionMdxItem } from 'views/certifications/components'
 import { RawLandingPageContent } from 'views/certifications/content/schemas/landing-page'
-import { FaqItem } from 'views/certifications/types'
 
 export interface CertificationProgramSummary {
 	slug: string
@@ -32,5 +32,5 @@ export interface CertificationLandingProps {
 	/**
 	 * FAQ items to render on the landing page.
 	 */
-	faqItems: FaqItem[]
+	faqItems: AccordionMdxItem[]
 }

@@ -12,8 +12,7 @@ import {
 	MdxListItem,
 	MdxBlockquote,
 } from 'components/dev-dot-content/mdx-components'
-import { FaqItem } from 'views/certifications/types'
-import { AccordionProps } from 'components/accordion/types'
+import { AccordionWithMdxContentProps, AccordionMdxItem } from './types'
 
 function MdxImage({
 	alt,
@@ -35,17 +34,16 @@ const MDX_COMPONENTS = {
 	li: MdxListItem,
 }
 
+export type { AccordionMdxItem }
+
 export function AccordionWithMdxContent({
 	items,
 	activatorHeadingLevel,
-}: {
-	items: FaqItem[]
-	activatorHeadingLevel: AccordionProps['activatorHeadingLevel']
-}) {
+}: AccordionWithMdxContentProps) {
 	return (
 		<Accordion
 			activatorHeadingLevel={activatorHeadingLevel}
-			items={items.map((item: FaqItem) => {
+			items={items.map((item: AccordionMdxItem) => {
 				return {
 					title: item.title,
 					content: (
