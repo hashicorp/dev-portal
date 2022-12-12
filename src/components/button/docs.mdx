@@ -32,16 +32,19 @@ The `Button` component should be used when [an HTML `<button>` element](https://
 
 ## Playground
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <Button
   onClick={() => console.log('clicked button')}
   text="Click me!"
 />
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ## Color
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <>
   <Button color="primary" text="Primary" />
   <br />
@@ -51,11 +54,13 @@ The `Button` component should be used when [an HTML `<button>` element](https://
   <br />
   <Button color="critical" text="Critical" />
 </>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ## Disabled
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <>
   <Button color="primary" disabled text="Primary" />
   <br />
@@ -65,11 +70,13 @@ The `Button` component should be used when [an HTML `<button>` element](https://
   <br />
   <Button color="critical" disabled text="Critical" />
 </>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ## Icon and text
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <>
   <Button
     icon={<SwingsetTestIcon name="plus" />}
@@ -113,7 +120,8 @@ The `Button` component should be used when [an HTML `<button>` element](https://
     text="Large"
   />
 </>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ## Icon only
 
@@ -128,7 +136,8 @@ If the `icon` prop is provided and no prop `text` is provided, the component wil
   - "Add to cart"
   - "Undo changes"
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <>
   <p>With <code>ariaLabel</code>, a screen reader should say "Copy, button" in this example.</p>
   <Button
@@ -154,11 +163,13 @@ If the `icon` prop is provided and no prop `text` is provided, the component wil
   />
   <br />
 </>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ## Full width
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <>
   <Button
     isFullWidth
@@ -178,11 +189,13 @@ If the `icon` prop is provided and no prop `text` is provided, the component wil
     text="Large"
   />
 </>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ## Size
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <>
   <Button
     size="small"
@@ -199,4 +212,5 @@ If the `icon` prop is provided and no prop `text` is provided, the component wil
     text="Large"
   />
 </>
-`}</LiveComponent>
+`}
+</LiveComponent>

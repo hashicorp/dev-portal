@@ -40,10 +40,13 @@ For now, we show a placeholder version of this component:
 
 For a preview of the functionality of the search input, refer to the existing [`@hashicorp/react-search`](https://react-components.vercel.app/components/search) component, previewed below!
 
-<LiveComponent>{`<SearchProvider>
+<LiveComponent>
+{`
+<SearchProvider>
   <Search
     renderHitContent={({ hit, Highlight }) => <div><p>{hit.description}</p></div>}
     resolveHitLink={(hit) => ({ href: { pathname: '/' + hit.objectID, query: { id: hit.__queryID} } })}
     placeholder="Search documentation"
   />
-</SearchProvider>`}</LiveComponent>
+</SearchProvider>`}
+</LiveComponent>
