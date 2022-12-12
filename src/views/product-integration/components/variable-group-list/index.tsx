@@ -72,7 +72,6 @@ function unflattenVariables(variables: Array<Variable>): Array<Variable> {
 	// Pull all of the root nodes out
 	const rootNodes: Array<Variable> = []
 
-
 	let maxDepth = 0
 	variables
 		.map((v: Variable) => v.key)
@@ -100,6 +99,17 @@ function unflattenVariables(variables: Array<Variable>): Array<Variable> {
 						const segment = segments[j]
 						if (j == 0) {
 							pointer = rootNodes.find((e: Variable) => e.key === segment)
+							// A nested variable was defined without specifying the parent root variable
+							// we need to create the parent object for appropriate nesting
+							if (!pointer) {
+								pointer = {
+									type: 'category',
+									required: null,
+									key: segments.slice(0, j + 1).join('.'),
+									variables: [],
+								}
+								rootNodes.push(pointer)
+							}
 						} else {
 							const oldPointer = pointer
 							pointer = pointer.variables.find((e: Variable) =>
