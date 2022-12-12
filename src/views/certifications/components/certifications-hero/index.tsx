@@ -1,7 +1,7 @@
 import mitigateWidows from '@hashicorp/platform-util/text/mitigate-widows'
 import { ReactNode } from 'react'
 import classNames from 'classnames'
-import { CertificationsContentArea } from 'views/certifications/components'
+import { CertificationsMaxWidth } from 'views/certifications/components'
 import s from './certifications-hero.module.css'
 
 export function CertificationsHero({
@@ -22,7 +22,7 @@ export function CertificationsHero({
 			{backgroundSlot ? (
 				<div className={s.backgroundSlot}>{backgroundSlot}</div>
 			) : null}
-			<CertificationsContentArea>
+			<CertificationsMaxWidth>
 				<div className={s.textAndImage}>
 					<div className={s.textSlot}>
 						<h1
@@ -42,7 +42,7 @@ export function CertificationsHero({
 					</div>
 					{imageSlot ? <div className={s.imageSlot}>{imageSlot}</div> : null}
 				</div>
-			</CertificationsContentArea>
+			</CertificationsMaxWidth>
 		</div>
 	)
 }

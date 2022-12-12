@@ -4,7 +4,7 @@ import BaseNewLayout from 'layouts/base-new'
 // Shared view components
 import {
 	AccordionWithMdxContent,
-	CertificationsContentArea,
+	CertificationsMaxWidth,
 	CertificationsNav,
 	CertificationsHero,
 	GradientCardTheme,
@@ -35,7 +35,7 @@ function CertificationPage({
 				}
 			/>
 			<div className={s.mainSection}>
-				<CertificationsContentArea key={slug}>
+				<CertificationsMaxWidth key={slug}>
 					<div className={s.certificationsSection}>
 						{pageContent.certifications.map((certification) => {
 							return (
@@ -65,7 +65,7 @@ function CertificationPage({
 					<div className={s.signupForm}>
 						<SignupFormArea />
 					</div>
-				</CertificationsContentArea>
+				</CertificationsMaxWidth>
 			</div>
 		</>
 	)

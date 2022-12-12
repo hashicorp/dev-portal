@@ -1,7 +1,7 @@
 import ButtonLink from 'components/button-link'
 import {
 	ButtonGroup,
-	CertificationsContentArea,
+	CertificationsMaxWidth,
 	GradientCard,
 	SplitCardSection,
 } from 'views/certifications/components'
@@ -44,7 +44,7 @@ export function CertificationProgramSection({
 }: CertificationProgramSectionProps) {
 	return (
 		<>
-			<CertificationsContentArea>
+			<CertificationsMaxWidth>
 				<GradientCard theme={slug as GradientCardTheme}>
 					<SplitCardSection
 						className={s.splitSection}
@@ -79,7 +79,7 @@ export function CertificationProgramSection({
 						)}
 					</div>
 				</GradientCard>
-			</CertificationsContentArea>
+			</CertificationsMaxWidth>
 		</>
 	)
 }

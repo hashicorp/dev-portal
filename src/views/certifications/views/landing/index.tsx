@@ -2,7 +2,7 @@ import BaseNewLayout from 'layouts/base-new'
 import { CertificationLandingProps, CertificationProgramSummary } from './types'
 import {
 	AccordionWithMdxContent,
-	CertificationsContentArea,
+	CertificationsMaxWidth,
 	CertificationsHero,
 	CertificationsNav,
 	SignupFormArea,
@@ -52,7 +52,7 @@ function CertificationsLandingView({
 				})}
 			</div>
 			<div className={s.faqSignupSection}>
-				<CertificationsContentArea>
+				<CertificationsMaxWidth>
 					<h2 className={s.faqHeading}>Program overview & FAQ</h2>
 					<AccordionWithMdxContent
 						items={faqItems}
@@ -61,7 +61,7 @@ function CertificationsLandingView({
 					<div className={s.signupForm}>
 						<SignupFormArea />
 					</div>
-				</CertificationsContentArea>
+				</CertificationsMaxWidth>
 			</div>
 		</>
 	)

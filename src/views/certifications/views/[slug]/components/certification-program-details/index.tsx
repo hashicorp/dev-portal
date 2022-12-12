@@ -4,7 +4,7 @@
 import { OverviewCard } from './components'
 import {
 	AccordionWithMdxContent,
-	CertificationsContentArea,
+	CertificationsMaxWidth,
 	ExamBadgeSlug,
 	GradientCardTheme,
 } from 'views/certifications/components'
@@ -32,7 +32,7 @@ export function CertificationProgramDetails({
 	}
 }) {
 	return (
-		<CertificationsContentArea>
+		<CertificationsMaxWidth>
 			<div className={s.overviewCard}>
 				<OverviewCard
 					title={title}
@@ -45,6 +45,6 @@ export function CertificationProgramDetails({
 			</div>
 			<h2 className={s.accordionHeading}>Overview</h2>
 			<AccordionWithMdxContent items={faqItems} activatorHeadingLevel="h3" />
-		</CertificationsContentArea>
+		</CertificationsMaxWidth>
 	)
 }
