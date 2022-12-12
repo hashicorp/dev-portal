@@ -29,14 +29,14 @@
 	background: var(--token-color-surface-interactive-disabled);
 }
 
-.certificationsSection {
+.examsSection {
 	display: flex;
 	flex-direction: column;
 	gap: 72px;
 	margin-top: -72px;
 }
 
-.certificationAccordionHeading {
+.examAccordionHeading {
 	composes: hds-typography-display-400 from global;
 	font-weight: var(--token-typography-font-weight-bold);
 	color: var(--token-color-foreground-strong);

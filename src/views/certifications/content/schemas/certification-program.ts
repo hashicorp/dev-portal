@@ -1,11 +1,11 @@
 import { z } from 'zod'
 
-export const CertificationItemSchema = z.object({
+export const CertificationExamSchema = z.object({
 	title: z.string(),
 	productSlug: z.enum(['consul', 'terraform', 'vault']),
 	versionTested: z.string(),
 	description: z.string(),
-	examFaqSlug: z.string(),
+	faqSlug: z.string(),
 	links: z
 		.object({
 			prepare: z.string().optional(),
@@ -36,8 +36,19 @@ export const CertificationProgramSchema = z.object({
 		heading: z.string(),
 		description: z.string(),
 	}),
-	certifications: z.array(CertificationItemSchema),
+	exams: z.array(CertificationExamSchema),
 })
 
+/**
+ * Content for an individual certification program.
+ *
+ * Certification programs are oriented around solution areas, such as
+ * "Infrastructure Automation". Each certification program can contain
+ * multiple specific exams.
+ */
 export type CertificationProgram = z.infer<typeof CertificationProgramSchema>
-export type CertificationItem = z.infer<typeof CertificationItemSchema>
+
+/**
+ * And individual certification item
+ */
+export type CertificationExam = z.infer<typeof CertificationExamSchema>

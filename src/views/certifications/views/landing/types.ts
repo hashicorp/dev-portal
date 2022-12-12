@@ -4,7 +4,7 @@ export interface CertificationProgramSummary {
 	slug: string
 	title: string
 	description: string
-	certifications: {
+	exams: {
 		title: string
 		productSlug: 'consul' | 'terraform' | 'vault'
 		url?: string

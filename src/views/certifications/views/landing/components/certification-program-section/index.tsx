@@ -15,7 +15,7 @@ import s from './certification-program-section.module.css'
  * TODO: some of these types should probably be shared.
  * (eg supported product slugs from badge, maybe?)
  */
-interface CertificationItem {
+interface CertificationExam {
 	title: string
 	productSlug: 'consul' | 'terraform' | 'vault'
 	url?: string
@@ -32,7 +32,7 @@ interface CertificationProgramSectionProps {
 		text: string
 		url: string
 	}
-	certifications: CertificationItem[]
+	exams: CertificationExam[]
 }
 
 export function CertificationProgramSection({
@@ -40,7 +40,7 @@ export function CertificationProgramSection({
 	heading,
 	description,
 	overviewCta,
-	certifications,
+	exams,
 }: CertificationProgramSectionProps) {
 	return (
 		<>
@@ -59,24 +59,22 @@ export function CertificationProgramSection({
 						}
 					/>
 					<div className={s.examCards}>
-						{certifications.map(
-							({ title, url, productSlug }: CertificationItem) => {
-								return url ? (
-									<ExamCard
-										key={title}
-										title={title}
-										url={url}
-										productSlug={productSlug}
-									/>
-								) : (
-									<ExamCardComingSoon
-										key={title}
-										title={title}
-										productSlug={productSlug}
-									/>
-								)
-							}
-						)}
+						{exams.map(({ title, url, productSlug }: CertificationExam) => {
+							return url ? (
+								<ExamCard
+									key={title}
+									title={title}
+									url={url}
+									productSlug={productSlug}
+								/>
+							) : (
+								<ExamCardComingSoon
+									key={title}
+									title={title}
+									productSlug={productSlug}
+								/>
+							)
+						})}
 					</div>
 				</GradientCard>
 			</CertificationsMaxWidth>

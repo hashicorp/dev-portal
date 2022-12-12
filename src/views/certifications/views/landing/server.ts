@@ -39,15 +39,13 @@ export async function getStaticProps(): Promise<
 				slug: program.slug,
 				title: program.pageContent.summary.heading,
 				description: program.pageContent.summary.description,
-				certifications: program.pageContent.certifications.map(
-					(certification) => {
-						return {
-							title: certification.title,
-							productSlug: certification.productSlug,
-							url: certification.links?.prepare ?? null,
-						}
+				exams: program.pageContent.exams.map((exam) => {
+					return {
+						title: exam.title,
+						productSlug: exam.productSlug,
+						url: exam.links?.prepare ?? null,
 					}
-				),
+				}),
 			}
 		})
 

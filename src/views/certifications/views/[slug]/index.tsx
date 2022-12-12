@@ -10,7 +10,6 @@ import {
 	SignupFormArea,
 } from 'views/certifications/components'
 // Local view components
-// import { CertificationProgramDetails } from './components'
 import { OverviewCard } from './components/certification-program-details/components'
 import { CertificationPageProps } from './types'
 // Styles
@@ -29,24 +28,24 @@ function CertificationPage({ pageContent, slug }: CertificationPageProps) {
 			/>
 			<div className={s.mainSection}>
 				<CertificationsMaxWidth key={slug}>
-					<div className={s.certificationsSection}>
-						{pageContent.certifications.map((certification) => {
+					<div className={s.examsSection}>
+						{pageContent.exams.map((exam) => {
 							return (
 								<div key={slug}>
 									<OverviewCard
-										title={certification.title}
-										description={certification.description}
-										links={certification.links}
-										productSlug={certification.productSlug}
-										versionTested={certification.versionTested}
+										title={exam.title}
+										description={exam.description}
+										links={exam.links}
+										productSlug={exam.productSlug}
+										versionTested={exam.versionTested}
 										slug={slug as GradientCardTheme}
 									/>
-									<h2 className={s.certificationAccordionHeading}>Overview</h2>
+									<h2 className={s.examAccordionHeading}>Overview</h2>
 									<AccordionWithMdxContent
-										items={certification.faqItems.map((item) => {
+										items={exam.faqItems.map((faqItem) => {
 											return {
-												title: item.title,
-												mdxSource: item.mdxSource,
+												title: faqItem.title,
+												mdxSource: faqItem.mdxSource,
 											}
 										})}
 										activatorHeadingLevel="h3"

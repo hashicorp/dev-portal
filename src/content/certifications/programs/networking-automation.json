@@ -8,7 +8,7 @@
 		"heading": "Networking Automation Overview",
 		"description": "Cloud engineers can use the Consul Associate certification exam from HashiCorp to verify their basic networking automation skills."
 	},
-	"certifications": [
+	"exams": [
 		{
 			"title": "Consul Associate 002",
 			"productSlug": "consul",
@@ -18,7 +18,7 @@
 				"prepare": "https://learn.hashicorp.com/tutorials/consul/associate-study",
 				"register": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049382552"
 			},
-			"examFaqSlug": "consul-associate-002",
+			"faqSlug": "consul-associate-002",
 			"faqItems": [
 				{
 					"title": "Prerequisites",

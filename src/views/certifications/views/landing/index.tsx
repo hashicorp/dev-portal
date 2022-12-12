@@ -32,7 +32,7 @@ function CertificationsLandingView({
 			/>
 			<div className={s.programsSection}>
 				{programSummaries.map((programSummary: CertificationProgramSummary) => {
-					const { slug, title, description, certifications } = programSummary
+					const { slug, title, description, exams } = programSummary
 					return (
 						<CertificationProgramSection
 							key={slug}
@@ -43,7 +43,7 @@ function CertificationsLandingView({
 								text: 'Overview',
 								url: `/certifications/${slug}`,
 							}}
-							certifications={certifications}
+							exams={exams}
 						/>
 					)
 				})}
