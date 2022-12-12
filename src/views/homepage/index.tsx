@@ -1,5 +1,5 @@
 // Third-party imports
-import { ReactElement, useMemo } from 'react'
+import { ReactElement, useMemo, useState } from 'react'
 
 // Global imports
 import { productSlugs } from 'lib/products'
@@ -77,8 +77,17 @@ const HomePageContent = ({
 }
 
 function HomePageView({ content }: HomePageProps): ReactElement {
+	const [fakeError, setFakeError] = useState<string | null>(null)
+
+	if (fakeError) {
+		throw new Error(fakeError)
+	}
+
 	return (
 		<div className={s.homepage}>
+			<button onClick={() => setFakeError('This is a client side error!')}>
+				Throw error
+			</button>
 			<HomePageContent {...content} />
 		</div>
 	)
