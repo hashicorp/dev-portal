@@ -160,7 +160,12 @@ export function getStaticGenerationFunctions<
 					 * expected to have been run for remote content.
 					 */
 					[anchorLinks, { headings }],
-					rewriteTutorialLinksPlugin,
+					/**
+					 * The `contentType` configuration is necessary so that the
+					 * `rewriteTutorialLinksPlugin` does not rewrite links like
+					 * `/waypoint` to `/waypoint/tutorials`.
+					 */
+					[rewriteTutorialLinksPlugin, { contentType: 'docs' }],
 					/**
 					 * Rewrite docs content links, which are authored without prefix.
 					 * For example, in Waypoint docs authors write "/docs/some-thing",
