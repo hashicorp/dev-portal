@@ -1,7 +1,15 @@
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
-import { Integration } from 'lib/integrations-api-client/integration'
-import TierBadge from '../tier-badge'
+import {
+	Flag,
+	Integration,
+	Tier,
+} from 'lib/integrations-api-client/integration'
+import TagList, { Tag } from '../tag-list'
 import s from './style.module.css'
 
 interface IntegrationsListProps {
@@ -31,25 +39,74 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 		? integration.external_url.replace(/^https:\/\/developer.hashicorp.com/, '')
 		: `/${integration.product.slug}/integrations/${integration.slug}`
 
+	const isExternalLink = !url.startsWith('/')
+
 	return (
-		<CardLink ariaLabel="TODO" className={s.integrationCard} href={url}>
-			<div className={s.header}>
-				<div className={s.headingWrapper}>
-					<h3 className={s.heading}>{integration.name}</h3>
-					{!integration.hide_versions && (
-						<span className={s.version}>v{integration.versions[0]}</span>
-					)}
+		<CardLink
+			ariaLabel="TODO"
+			className={s.integrationCard}
+			href={url}
+			opensInNewTab={isExternalLink}
+		>
+			<div className={s.cardContent}>
+				<div className={s.left}>
+					<div className={s.nameVersionWrapper}>
+						<h3 className={s.heading}>{integration.name}</h3>
+						{!integration.hide_versions && (
+							<span className={s.version}>v{integration.versions[0]}</span>
+						)}
+					</div>
+					<span
+						className={s.organization}
+					>{`@${integration.organization.slug}`}</span>
+					<p className={s.body}>{integration.description}</p>
 				</div>
-				<TierBadge
-					tier={integration.tier}
-					productSlug={integration.product.slug}
-					size="small"
-				/>
+				<div className={s.right}>
+					<TagList tags={integrationTags(integration)} />
+					<span className={s.viewDetails}>
+						View Details
+						{isExternalLink ? <IconExternalLink16 /> : <IconArrowRight16 />}
+					</span>
+				</div>
 			</div>
-			<span
-				className={s.organization}
-			>{`@${integration.organization.slug}`}</span>
-			<p className={s.body}>{integration.description}</p>
 		</CardLink>
 	)
+}
+
+function integrationTags(integration: Integration): Array<Tag> {
+	let tierTag: Tag
+	switch (integration.tier) {
+		case Tier.OFFICIAL:
+			tierTag = {
+				name: 'Official',
+				icon: <IconAward16 />,
+				// TODO: Description
+			}
+			break
+
+		case Tier.PARTNER:
+			tierTag = {
+				name: 'Partner',
+				icon: <IconHandshake16 />,
+				// TODO: Description
+			}
+			break
+
+		case Tier.COMMUNITY:
+			tierTag = {
+				name: 'Community',
+				// TODO: Description
+			}
+			break
+	}
+
+	return [
+		...integration.flags.map((flag: Flag) => {
+			return {
+				name: flag.name,
+				description: flag.description,
+			}
+		}),
+		tierTag,
+	]
 }

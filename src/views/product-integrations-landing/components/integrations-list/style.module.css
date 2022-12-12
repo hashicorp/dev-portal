@@ -1,14 +1,35 @@
 .integrationCard {
-	& .header {
+	& .cardContent {
 		display: flex;
-		align-items: center;
 		justify-content: space-between;
+	}
 
-		& .headingWrapper {
+	& .left {
+		max-width: 500px;
+
+		& .nameVersionWrapper {
 			display: flex;
 			align-items: center;
 			justify-content: flex-start;
 			flex-grow: 1;
+		}
+	}
+
+	& .right {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: flex-end;
+
+		& .viewDetails {
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+
+			& > svg {
+				margin-left: 8px;
+			}
 		}
 	}
 }
