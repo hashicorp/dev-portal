@@ -5,8 +5,7 @@
 	font-weight: var(--token-typography-font-weight-medium);
 	gap: 6px;
 	line-height: var(--line-height);
-	margin-bottom: 0;
-	margin-top: 24px;
+	margin: 0;
 
 	& svg {
 		flex-shrink: 0;
