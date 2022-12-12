@@ -22,10 +22,10 @@
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "Webinar",
-		"url": "https://www.hashicorp.com/events/webinars/modernizing-application-deployments-with-hashicorp-consul-on-azure-north-america",
-		"text": "Modernize and Secure Your Network with HCP Consul on Azure and AKS on December 7 at 11:00 am PT",
-		"linkText": "Register now",
+		"tag": "Announcements",
+		"url": "https://www.hashicorp.com/blog/consul-service-mesh-support-for-aws-lambda-now-generally-available",
+		"text": "Consul Service Mesh Support for AWS Lambda Now Generally Available",
+		"linkText": "Read more",
 		"expirationDate": ""
 	},
 	"version": "1.11.3",

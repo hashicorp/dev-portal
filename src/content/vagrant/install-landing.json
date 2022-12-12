@@ -36,5 +36,11 @@
 				"text": "Providers"
 			}
 		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "Vagrant Cloud",
+		"description": "Virtual boxes for Linux, Laravel and any development environment",
+		"ctaText": "Try Vagrant Cloud",
+		"ctaUrl": "https://app.vagrantup.com/boxes/search"
 	}
 }
