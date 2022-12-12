@@ -6,6 +6,12 @@ import { readLocalFile, readLocalFilepaths } from '.'
 const CONTENT_DIR = 'src/content/certifications/programs'
 const CONTENT_TYPE = '.json'
 
+/**
+ * Get an array of certification program slugs.
+ *
+ * For context, we render these as pages at `/certifications/<slug>`.
+ * We also want to show an overview of programs at `/certifications`.
+ */
 export function getAllCertificationProgramSlugs(): string[] {
 	const filePaths = readLocalFilepaths(CONTENT_DIR)
 	const slugs = filePaths
@@ -19,6 +25,9 @@ export function getAllCertificationProgramSlugs(): string[] {
 	return slugs
 }
 
+/**
+ * Get data for a specific certification program.
+ */
 export function getCertificationProgram(
 	slug: string
 ): CertificationProgramItem {
@@ -29,6 +38,12 @@ export function getCertificationProgram(
 	return { slug, pageContent }
 }
 
+/**
+ * Get data for all certification programs at once.
+ *
+ * Useful for rendering detailed overview sections
+ * on the `/certifications` landing page.
+ */
 export function getAllCertificationPrograms(): CertificationProgramItem[] {
 	const programSlugs = getAllCertificationProgramSlugs()
 	return programSlugs.map(getCertificationProgram)
