@@ -23,13 +23,13 @@ const TutorialHit = ({ hit }: TutorialHitProps) => {
 		return null
 	}
 
-	const { name, page_title, description } = _highlightResult
+	const { page_title, description } = _highlightResult
 
 	/**
 	 * If the `_highlightResult` has neither a name or description, there is
 	 * nothing to render for the result.
 	 */
-	if (!name && !description) {
+	if (!page_title && !description) {
 		if (IS_DEV) {
 			console.warn(
 				'[TutorialHit] Found a `hit` with no `name` or `description` in `_highlightResult`:\n',
@@ -51,7 +51,7 @@ const TutorialHit = ({ hit }: TutorialHitProps) => {
 
 	return (
 		<CommandBarLinkListItem
-			title={page_title?.value || name?.value}
+			title={page_title?.value}
 			description={description?.value}
 			url={resultUrl}
 			badges={badges}
