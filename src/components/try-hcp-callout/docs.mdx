@@ -10,7 +10,8 @@ The `<TryHcpCallout />` components render HCP themed callout cards. There are mu
 
 This composition includes a mock UI visual on large viewports. Intended for use in main content areas, such as on product landing pages.
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <TryHcpCallout
   productSlug="terraform"
 	heading="Terraform Cloud"
@@ -18,13 +19,15 @@ This composition includes a mock UI visual on large viewports. Intended for use 
 	ctaText="Try Cloud for free"
 	ctaUrl="https://app.terraform.io/public/signup/account"
 />
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ### `<TryHcpCalloutCompact />`
 
 This composition includes logo and text elements only. Intended for use in width-constrained areas, such as the sidecar area of our sidebar-sidecar layout.
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <TryHcpCalloutCompact
   productSlug="terraform"
 	heading="Terraform Cloud"
@@ -32,7 +35,8 @@ This composition includes logo and text elements only. Intended for use in width
 	ctaText="Try Cloud for free"
 	ctaUrl="https://app.terraform.io/public/signup/account"
 />
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ### `<TryHcpCalloutPrebuilt />`
 
@@ -60,7 +64,9 @@ Here's an MDX example of a `TryHcpCallout`.
 <TryHcpCallout product="vagrant" />
 ```
 
-<LiveComponent>{`<>
+<LiveComponent>
+{`
+<>
   <TryHcpCalloutPrebuilt productSlug="boundary"/><br/>
   <TryHcpCalloutPrebuilt productSlug="consul"/><br/>
   <TryHcpCalloutPrebuilt productSlug="hcp"/><br/>
@@ -69,4 +75,5 @@ Here's an MDX example of a `TryHcpCallout`.
   <TryHcpCalloutPrebuilt productSlug="vault"/><br/>
   <TryHcpCalloutPrebuilt productSlug="waypoint"/><br/>
   <TryHcpCalloutPrebuilt productSlug="vagrant"/>
-</>`}</LiveComponent>
+</>`}
+</LiveComponent>
