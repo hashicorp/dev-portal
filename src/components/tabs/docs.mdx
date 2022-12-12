@@ -24,7 +24,8 @@ peerComponents:
 
 ## Playground
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <Tabs>
   <Tab heading="Windows">
     <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows">Read more on Wikipedia</InlineLink>.</p>
@@ -36,13 +37,15 @@ peerComponents:
     <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux">Read more on Wikipedia</InlineLink>.</p>
   </Tab>
 </Tabs>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ## Examples
 
 ### With `icon`s for each `Tab`
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <Tabs>
   <Tab heading="Documentation" icon={<SwingsetTestIcon name="docs" />}>
     <p>Documentation tab content</p>
@@ -51,11 +54,13 @@ peerComponents:
     <p>Tutorials tab content</p>
   </Tab>
 </Tabs>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ### With `variant="compact"` and `icon`s for each `Tab`
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <Tabs variant="compact">
   <Tab heading="Documentation" icon={<SwingsetTestIcon name="docs" />}>
     <p>Documentation tab content</p>
@@ -64,11 +69,13 @@ peerComponents:
     <p>Tutorials tab content</p>
   </Tab>
 </Tabs>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ### With `ariaLabel` set for a non-visible label (test using a screen reader)
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <Tabs ariaLabel="Definitions of Common Operating Systems">
   <Tab heading="Windows">
     <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows">Read more on Wikipedia</InlineLink>.</p>
@@ -80,11 +87,13 @@ peerComponents:
     <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux">Read more on Wikipedia</InlineLink>.</p>
   </Tab>
 </Tabs>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ### With `ariaLabelledBy` set for a visible label (also test using a screen reader)
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <>
   <p
     className="hds-typography-display-400 hds-font-weight-bold"
@@ -105,11 +114,13 @@ peerComponents:
     </Tab>
   </Tabs>
 </>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ### With `initialActiveIndex` set to something other than the default first tab
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <Tabs initialActiveIndex={1}>
   <Tab heading="Windows">
     <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows">Read more on Wikipedia</InlineLink>.</p>
@@ -121,11 +132,13 @@ peerComponents:
     <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux">Read more on Wikipedia</InlineLink>.</p>
   </Tab>
 </Tabs>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ### With `showAnchorLine` set to false
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <Tabs showAnchorLine={false}>
   <Tab heading="Windows">
     <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows">Read more on Wikipedia</InlineLink>.</p>
@@ -137,13 +150,15 @@ peerComponents:
     <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux">Read more on Wikipedia</InlineLink>.</p>
   </Tab>
 </Tabs>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ### With `Tabs` that oveflow their container
 
 There are times when a row of `Tab`s is too wide to fit inside of its containing element. In these cases, a single `select` element is rendered rather than many `Tab` buttons. For each `Tab`, the `select` will have an `option` for it.
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <Tabs>
   {Array.from(new Array(10)).map((_, index) => {
     return (
@@ -153,13 +168,15 @@ There are times when a row of `Tab`s is too wide to fit inside of its containing
     )
   })}
 </Tabs>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ### With `Tabs` nested within a `Tab`
 
 It is possible for `Tabs` to be nested within a `Tab`. The `allowNestedStyles` prop should be used on the parent `Tabs` in this case. This prop ensures that nested `Tabs` will be styled in a way that more clearly displays the nested hierarchy.
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <Tabs allowNestedStyles>
   <Tab heading="Tab 1">
     <Tabs>
@@ -195,7 +212,8 @@ It is possible for `Tabs` to be nested within a `Tab`. The `allowNestedStyles` p
     </Tabs>
   </Tab>
 </Tabs>
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ### With group syncing from `TabProvider`
 
@@ -205,7 +223,8 @@ _Note_: the `TabProvider` must wrap the page where this component is used for 'g
 
 _Note_: ideally, tab groups should appear in the same order. However, in practice, it is possible for authors to change the order, or vary the number of tabs. Our implementation needs to account for the fact that a tab with a particular `group` value could appear at any place in the array of tab children.
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <TabProvider>
   <Tabs>
     <Tab heading="First Tab" group="first">
@@ -231,4 +250,5 @@ _Note_: ideally, tab groups should appear in the same order. However, in practic
     </Tab>
   </Tabs>
 </TabProvider>
-`}</LiveComponent>
+`}
+</LiveComponent>
