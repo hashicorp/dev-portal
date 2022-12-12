@@ -5,7 +5,6 @@ import BaseNewLayout from 'layouts/base-new'
 import {
 	AccordionWithMdxContent,
 	CertificationsMaxWidth,
-	CertificationsNav,
 	CertificationsHero,
 	GradientCardTheme,
 	SignupFormArea,
@@ -16,16 +15,10 @@ import { OverviewCard } from './components/certification-program-details/compone
 import { CertificationPageProps } from './types'
 // Styles
 import s from './program-view.module.css'
-import { Fragment } from 'react'
 
-function CertificationPage({
-	navProps,
-	pageContent,
-	slug,
-}: CertificationPageProps) {
+function CertificationPage({ pageContent, slug }: CertificationPageProps) {
 	return (
 		<>
-			<CertificationsNav {...navProps} />
 			<CertificationsHero
 				heading={pageContent.hero.heading}
 				description={pageContent.hero.description}

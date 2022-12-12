@@ -1,9 +1,7 @@
 import { GetStaticPropsContext } from 'next'
-import { formatCertificationsNavProps } from '../../components/certifications-nav/helpers'
 import { CertificationPageProps } from './types'
 import {
 	getAllCertificationProgramSlugs,
-	getAllCertificationPrograms,
 	getCertificationProgram,
 } from 'views/certifications/content/utils'
 import { preparePageContent } from './utils/prepare-page-content'
@@ -18,14 +16,8 @@ export async function getStaticProps({
 	const { pageContent: rawPageContent } = getCertificationProgram(slug)
 	const pageContent = await preparePageContent(rawPageContent)
 
-	/**
-	 * Build temporary nav props for a dev nav header.
-	 * TODO: remove this later, not actually part of the design spec.
-	 */
-	const navProps = formatCertificationsNavProps(getAllCertificationPrograms())
-
 	return {
-		props: { navProps, pageContent, slug },
+		props: { pageContent, slug },
 	}
 }
 

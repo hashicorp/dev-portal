@@ -4,7 +4,6 @@ import {
 	AccordionWithMdxContent,
 	CertificationsMaxWidth,
 	CertificationsHero,
-	CertificationsNav,
 	SignupFormArea,
 } from 'views/certifications/components'
 import { CertificationProgramSection } from './components'
@@ -13,14 +12,12 @@ import svgHeroImage from './assets/certification-hero-image-outlined.svg'
 import s from './landing.module.css'
 
 function CertificationsLandingView({
-	navProps,
 	pageContent,
 	programSummaries,
 	faqItems,
 }: CertificationLandingProps) {
 	return (
 		<>
-			<CertificationsNav {...navProps} />
 			{/* TODO: split out hero to separate component folder, maybe? */}
 			<CertificationsHero
 				heading={pageContent.hero.heading}

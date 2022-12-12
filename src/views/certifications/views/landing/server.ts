@@ -1,5 +1,4 @@
 import path from 'path'
-import { formatCertificationsNavProps } from '../../components/certifications-nav/helpers'
 import { readLocalFile, getAllCertificationPrograms } from '../../content/utils'
 import { GetStaticPropsResult } from 'next'
 import { CertificationLandingProps, CertificationProgramSummary } from './types'
@@ -52,13 +51,7 @@ export async function getStaticProps(): Promise<
 			}
 		})
 
-	/**
-	 * Build temporary nav props for a dev nav header.
-	 * TODO: remove this later, not actually part of the design spec.
-	 */
-	const navProps = formatCertificationsNavProps(allPrograms)
-
 	return {
-		props: { navProps, pageContent, programSummaries, faqItems },
+		props: { pageContent, programSummaries, faqItems },
 	}
 }

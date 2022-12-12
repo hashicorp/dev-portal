@@ -1,5 +1,4 @@
 import { FaqItem } from 'views/certifications/types'
-import { CertificationsNavProps } from '../../components/certifications-nav/types'
 
 export interface CertificationProgramSummary {
 	slug: string
@@ -13,7 +12,6 @@ export interface CertificationProgramSummary {
 }
 
 export interface CertificationLandingProps {
-	navProps: CertificationsNavProps
 	/**
 	 * Should update this with local content.
 	 */

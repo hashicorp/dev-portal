@@ -1,6 +1,5 @@
 export * from './accordion-with-mdx-content'
 export * from './button-group'
-export * from './certifications-nav'
 export * from './certifications-hero'
 export * from './certifications-max-width'
 export * from './exam-badge'
