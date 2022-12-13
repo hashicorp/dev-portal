@@ -64,6 +64,13 @@ export default function PaginatedIntegrationsList({
 
 const COLLAPSED = '...'
 
+/**
+ * Returns an array of pages that will represent the state
+ * of what the paginator will display.
+ *
+ * Example Output:
+ * [1, '...', 6, 7, 8, 9]
+ */
 function paginatedArray(
 	numberOfPages: number,
 	currentPage: number
