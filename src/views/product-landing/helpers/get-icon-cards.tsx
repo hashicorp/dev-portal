@@ -1,7 +1,8 @@
+import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
-import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
-import { IconGrid16 } from '@hashicorp/flight-icons/svg-react/grid-16'
+import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
+import { enabledProducts } from 'pages/[productSlug]/integrations'
 import { ProductSlug } from 'types/products'
 
 export function getIconCards(productSlug: ProductSlug) {
@@ -25,15 +26,14 @@ export function getIconCards(productSlug: ProductSlug) {
 		})
 	}
 
-	// TODO, we would want to conditionally add this in
-	// if integrations is enabled for the product.
-	iconCards.push(
-		{
-			icon: <IconGrid16 />,
+	// Add Integrations card if it's enabled for this product
+	if (enabledProducts.includes(productSlug)) {
+		iconCards.push({
+			icon: <IconApi16 />,
 			text: 'Integrations',
 			url: `/${productSlug}/integrations`,
-		}
-	)
+		})
+	}
 
 	return iconCards
 }
