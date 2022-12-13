@@ -1,7 +1,8 @@
 import path from 'path'
 import { RawCertificationProgramItem } from '../../types'
 import { CertificationProgramSchema } from '../schemas/certification-program'
-import { readLocalFile, readLocalFilepaths } from '.'
+import { readLocalFile } from 'lib/read-local-file'
+import { readLocalFilepaths } from 'lib/read-local-filepaths'
 
 const CONTENT_DIR = 'src/content/certifications/programs'
 const CONTENT_TYPE = '.json'

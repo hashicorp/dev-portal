@@ -1,5 +1,5 @@
 import path from 'path'
-import { readLocalFile } from '../../content/utils'
+import { readLocalFile } from 'lib/read-local-file'
 import { GetStaticPropsResult } from 'next'
 import { CertificationLandingProps } from './types'
 import { LandingPageSchema } from 'views/certifications/content/schemas/landing-page'
