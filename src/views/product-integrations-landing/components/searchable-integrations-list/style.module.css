@@ -9,6 +9,25 @@
 	}
 }
 
+.header {
+	background: var(--black);
+	border-radius: 5px;
+	padding: 38px;
+	background-repeat: no-repeat;
+	background-image: var(--background-image);
+	background-position-x: calc(50% + 200px);
+	background-size: auto 100%;
+
+	& > h1 {
+		color: var(--white);
+		margin-top: 0;
+	}
+
+	& > .searchBar {
+		max-width: 500px;
+	}
+}
+
 .searchBar {
 	background-color: var(--white);
 	border-radius: 2px;

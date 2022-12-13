@@ -10,6 +10,14 @@ interface SearchableIntegrationsListProps {
 	className: string
 }
 
+interface CustomHeaderStyles extends React.CSSProperties {
+	'--background-image': string
+}
+
+const headerStyleVars: CustomHeaderStyles = {
+	'--background-image': `url('${require('./img/header-background.svg?url')}')`,
+}
+
 export default function SearchableIntegrationsList({
 	integrations,
 	className,
@@ -31,10 +39,14 @@ export default function SearchableIntegrationsList({
 
 	return (
 		<div className={classNames(s.searchableIntegrationsList, className)}>
-			<SearchBar
-				searchQuery={searchQuery}
-				onChange={(e) => setSearchQuery(e.target.value)}
-			/>
+			<div className={s.header} style={headerStyleVars}>
+				<h1>Integrations</h1>
+				<SearchBar
+					searchQuery={searchQuery}
+					onChange={(e) => setSearchQuery(e.target.value)}
+				/>
+			</div>
+
 			<p className={s.results}>
 				{filteredIntegrations.length}{' '}
 				{filteredIntegrations.length === 1 ? 'Result' : 'Results'}
