@@ -51,10 +51,7 @@ function CertificationsLandingView({
 			<div className={s.faqSignupSection}>
 				<CertificationsMaxWidth>
 					<h2 className={s.faqHeading}>Program overview & FAQ</h2>
-					<AccordionWithMdxContent
-						items={faqItems}
-						activatorHeadingLevel="h3"
-					/>
+					<AccordionWithMdxContent items={faqItems} />
 					<div className={s.signupForm}>
 						<SignupFormArea />
 					</div>

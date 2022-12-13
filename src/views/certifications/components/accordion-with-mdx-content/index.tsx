@@ -38,11 +38,9 @@ export type { AccordionMdxItem }
 
 export function AccordionWithMdxContent({
 	items,
-	activatorHeadingLevel,
 }: AccordionWithMdxContentProps) {
 	return (
 		<Accordion
-			activatorHeadingLevel={activatorHeadingLevel}
 			items={items.map((item: AccordionMdxItem) => {
 				return {
 					title: item.title,

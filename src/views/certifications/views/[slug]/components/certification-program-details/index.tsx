@@ -44,7 +44,7 @@ export function CertificationProgramDetails({
 				/>
 			</div>
 			<h2 className={s.accordionHeading}>Overview</h2>
-			<AccordionWithMdxContent items={faqItems} activatorHeadingLevel="h3" />
+			<AccordionWithMdxContent items={faqItems} />
 		</CertificationsMaxWidth>
 	)
 }

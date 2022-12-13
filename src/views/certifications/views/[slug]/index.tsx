@@ -48,7 +48,6 @@ function CertificationPage({ pageContent, slug }: CertificationPageProps) {
 												mdxSource: faqItem.mdxSource,
 											}
 										})}
-										activatorHeadingLevel="h3"
 									/>
 								</div>
 							)
