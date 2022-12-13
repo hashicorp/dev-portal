@@ -10,7 +10,7 @@ import {
 	SignupFormArea,
 } from 'views/certifications/components'
 // Local view components
-import { OverviewCard } from './components/certification-program-details/components'
+import { OverviewCard } from './components'
 import { CertificationPageProps } from './types'
 // Styles
 import s from './program-view.module.css'

@@ -9,16 +9,14 @@ import { preparePageContent } from './utils/prepare-page-content'
 export async function getStaticProps({
 	params: { slug: rawSlug },
 }: GetStaticPropsContext): Promise<{ props: CertificationPageProps }> {
-	/**
-	 * Filter all programs to find the program we're rendering
-	 */
+	// Filter with `slug` for the target program
 	const slug = Array.isArray(rawSlug) ? rawSlug.join('/') : rawSlug
+	// Fetch the authored page content
 	const { pageContent: rawPageContent } = getCertificationProgram(slug)
+	// Prepare the page content for rendering, such as prepping MDX source
 	const pageContent = await preparePageContent(rawPageContent)
-
-	return {
-		props: { pageContent, slug },
-	}
+	// Return static props
+	return { props: { pageContent, slug } }
 }
 
 export async function getStaticPaths() {

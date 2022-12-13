@@ -9,8 +9,8 @@ import {
 	ExamBadgeSlug,
 	GradientCardTheme,
 } from 'views/certifications/components'
-import s from './overview-card.module.css'
 import { OverviewCardBadgeAndTitle } from '../overview-card-badge-and-title'
+import s from './overview-card.module.css'
 
 export function OverviewCard({
 	title,
