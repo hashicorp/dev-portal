@@ -12,6 +12,12 @@ import { getFaqsFromMdx } from 'views/certifications/content/utils'
 
 const EXAM_CONTENT_DIR = 'src/content/certifications/exam-faqs'
 
+/**
+ * Process raw authored page content.
+ *
+ * Currently focused on transforming FAQ MDX slugs for each exam
+ * into FAQ items, each with processed `mdxSource`.
+ */
 export async function preparePageContent(
 	rawPageContent: RawCertificationProgram
 ): Promise<CertificationProgram> {
@@ -21,6 +27,10 @@ export async function preparePageContent(
 	return { ...rawPageContent, exams: preparedExamsContent }
 }
 
+/**
+ * Transforms an exam item with an `faqSlug` into an exam item
+ * with full `faqItems` data, ready to render in the view.
+ */
 async function prepareExamContent(
 	exam: RawCertificationExam
 ): Promise<CertificationExam> {
