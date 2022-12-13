@@ -1,8 +1,16 @@
-function CertificationsLandingView() {
+import { CertificationLandingProps } from './types'
+
+function CertificationsLandingView({ pageContent }: CertificationLandingProps) {
 	return (
-		<div style={{ border: '1px solid magenta' }}>
-			Certification Landing placeholder
-		</div>
+		<pre style={{ border: '1px solid magenta' }}>
+			<code>
+				{JSON.stringify(
+					{ note: 'Landing page placeholder', pageContent },
+					null,
+					2
+				)}
+			</code>
+		</pre>
 	)
 }
 

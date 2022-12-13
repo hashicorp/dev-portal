@@ -1,8 +1,19 @@
-function CertificationProgramView({ slug }: { slug: string }) {
+import { CertificationProgramViewProps } from './types'
+
+function CertificationProgramView({
+	pageContent,
+	slug,
+}: CertificationProgramViewProps) {
 	return (
-		<div style={{ border: '1px solid magenta' }}>
-			{`"${slug}"`} Certification Page placeholder
-		</div>
+		<pre style={{ border: '1px solid magenta' }}>
+			<code>
+				{JSON.stringify(
+					{ note: 'Program page placeholder', slug, pageContent },
+					null,
+					2
+				)}
+			</code>
+		</pre>
 	)
 }
 
