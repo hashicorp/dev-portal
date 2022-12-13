@@ -1,81 +1,92 @@
+import { IconPlus16 } from '@hashicorp/flight-icons/svg-react/plus-16'
 import classNames from 'classnames'
+import Button from 'components/button'
+import Card from 'components/card'
 import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 } from 'components/dropdown-disclosure'
-import { Tier } from 'lib/integrations-api-client/integration'
+import { Flag, Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
-import TierBadge from 'views/product-integrations-landing/components/tier-badge'
+import TagList, {
+	GetIntegrationTags,
+	Size,
+} from 'views/product-integrations-landing/components/tag-list'
 import s from './style.module.css'
 
 interface HeaderProps {
-	className?: string
-	name: string
-	tier: Tier
-	author: string
+	integration: Integration
 	activeRelease: Release
 	versions: {
 		value: string
 		label: string
 		href: string
 	}[]
-	description?: string
-	hideVersions?: boolean
+	onInstallClicked: () => void
+	className?: string
 }
 
-export default function Header({
-	className,
-	name,
-	tier,
-	author,
-	versions,
-	hideVersions,
-	description,
+export default function HeaderTwo({
+	integration,
 	activeRelease,
+	versions,
+	onInstallClicked,
+	className,
 }: HeaderProps) {
-	const showVersions = !hideVersions && versions.length > 1
+	const showVersions = !integration.hide_versions && versions.length > 1
 	const dropdownLabel = versions.find(
 		(v) => v.value === activeRelease.version
 	).label
-
 	const otherVersions = versions.filter(
 		(e) => e.value !== activeRelease.version
 	)
-
+	const shouldShowInstallButton = !integration.flags
+		.map((f: Flag) => f.slug)
+		.includes('builtin')
 	return (
-		<div className={classNames(s.header, className)}>
-			<div className={s.left}>
-				<div className={s.nameTier}>
-					<h1>{name}</h1>
-					<TierBadge
-						className={s.tierBadge}
-						tier={tier}
-						productSlug="waypoint"
-						size="large"
-					/>
+		<Card className={classNames(s.header, className)}>
+			<div className={s.upperCard}>
+				<div className={s.left}>
+					<h1>{integration.name}</h1>
+					<span>@{integration.organization.slug}</span>
 				</div>
-				<h3 className={s.author}>@{author}</h3>
-				<p>{description}</p>
+				<div className={s.right}>
+					{showVersions ? (
+						<DropdownDisclosure
+							className={s.versionDropdown}
+							color="secondary"
+							text={dropdownLabel}
+						>
+							{otherVersions.map((version) => {
+								return (
+									<DropdownDisclosureLinkItem
+										key={version.value}
+										href={version.href}
+									>
+										v{version.value}
+									</DropdownDisclosureLinkItem>
+								)
+							})}
+						</DropdownDisclosure>
+					) : null}
+				</div>
 			</div>
-			<div className={s.right}>
-				{showVersions ? (
-					<DropdownDisclosure
-						className={s.versionDropdown}
-						color="secondary"
-						text={dropdownLabel}
-					>
-						{otherVersions.map((version) => {
-							return (
-								<DropdownDisclosureLinkItem
-									key={version.value}
-									href={version.href}
-								>
-									v{version.value}
-								</DropdownDisclosureLinkItem>
-							)
-						})}
-					</DropdownDisclosure>
-				) : null}
+
+			<div className={s.lowerCard}>
+				<TagList
+					size={Size.MEDIUM}
+					tags={GetIntegrationTags(integration, true)}
+				/>
+				{!shouldShowInstallButton && (
+					<Button
+						text="Install"
+						icon={<IconPlus16 />}
+						onClick={(e) => {
+							e.preventDefault()
+							onInstallClicked()
+						}}
+					/>
+				)}
 			</div>
-		</div>
+		</Card>
 	)
 }
