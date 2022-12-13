@@ -2,11 +2,12 @@ import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import classNames from 'classnames'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { useState } from 'react'
+import { useMobileDrawerContext } from 'views/product-integrations-landing/contexts/mobile-drawer-context'
+import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
 import s from './style.module.css'
 
 interface SearchableIntegrationsListProps {
-	integrations: Array<Integration>
 	className: string
 }
 
@@ -19,9 +20,11 @@ const headerStyleVars: CustomHeaderStyles = {
 }
 
 export default function SearchableIntegrationsList({
-	integrations,
 	className,
 }: SearchableIntegrationsListProps) {
+	const { setDialogOpen } = useMobileDrawerContext()
+	const { filteredIntegrations: integrations } = useIntegrationsSearchContext()
+
 	const [searchQuery, setSearchQuery] = useState('')
 	const filteredIntegrations = integrations.filter(
 		(integration: Integration) => {
@@ -45,6 +48,15 @@ export default function SearchableIntegrationsList({
 					searchQuery={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
 				/>
+
+				<div className="g-show-with-mobile-menu">
+					<button
+						// TODO - style this
+						onClick={() => setDialogOpen(true)}
+					>
+						Filters
+					</button>
+				</div>
 			</div>
 
 			<p className={s.results}>
