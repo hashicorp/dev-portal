@@ -1,5 +1,5 @@
-import { RawCertificationProgram } from 'views/certifications/content/schemas/certification-program'
 import { ProgramSlug } from 'views/certifications/types'
+import { CertificationProgram } from 'views/certifications/types'
 
 export interface CertificationProgramViewProps {
 	/**
@@ -10,5 +10,5 @@ export interface CertificationProgramViewProps {
 	/**
 	 * Content to render for this certification program.
 	 */
-	pageContent: RawCertificationProgram
+	pageContent: CertificationProgram
 }
