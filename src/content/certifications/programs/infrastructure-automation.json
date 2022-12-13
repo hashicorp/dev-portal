@@ -3,5 +3,25 @@
 	"hero": {
 		"heading": "Infrastructure Automation Overview",
 		"description": "Cloud engineers will be able to use either version of the Terraform Associate certification to verify their basic infrastructure automation skills."
-	}
+	},
+	"exams": [
+		{
+			"title": "Terraform Associate 002",
+			"productSlug": "terraform",
+			"versionTested": "Terraform 1.0 or higher",
+			"description": "The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with open source HashiCorp Terraform. Candidates will be best prepared for this exam if they have professional experience using Terraform in production, but performing the exam objectives in a personal demo environment may also be sufficient. This person understands which enterprise features exist and what can and cannot be done using the open source offering.",
+			"links": {
+				"prepare": "/terraform/tutorials/certification",
+				"register": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049382552"
+			},
+			"faqSlug": "terraform-associate-002"
+		},
+		{
+			"title": "Terraform Associate 003",
+			"productSlug": "terraform",
+			"versionTested": "Terraform 1.0 or higher",
+			"description": "The Terraform Associate 003 is an upcoming certification for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with HashiCorp Terraform. This person understands the difference in functionality between Terraform Cloud, Terraform Enterprise, and open source Terraform.\n\nThe draft Terraform Associate 003 exam’s objectives are listed below, and dedicated study materials are coming soon. The objective differences between the (existing 002 exam and the upcoming 003 exam) versions are a reorganization and rewording of objectives to comfortably cover recent and future Terraform product growth.",
+			"faqSlug": "terraform-associate-003"
+		}
+	]
 }
