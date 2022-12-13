@@ -1,6 +1,5 @@
-import path from 'path'
 import { visit } from 'unist-util-visit'
-import { Link } from 'mdast'
+import { Definition, Link } from 'mdast'
 import { Plugin, Transformer } from 'unified'
 
 const getIsInternalPath = (url: string) => {
@@ -12,6 +11,41 @@ const getIsInternalPath = (url: string) => {
 	}
 }
 
+/**
+ * Pre-adjusts urls that start with a path part of the given `currentPath`. See
+ * examples in: `src/lib/__tests__/remark-plugin-adjust-link-urls.test.ts`.
+ *
+ * NOTE: urls that start with: `.`, `/`, `?`, or `#` are not pre-adjusted. These
+ * do not need to be pre-adjusted because they are assumed to be handled by the
+ * `urlAdjustFn` given to `remarkPluginAdjustLinkUrls`.
+ */
+export const preAdjustUrl = ({ currentPath, url }): string => {
+	const isInternalPath = getIsInternalPath(url)
+	const needsPreAdjustment = isInternalPath && !/^[./?#]/.test(url)
+	if (!needsPreAdjustment) {
+		return url
+	}
+
+	const currentPathParts = currentPath.split('/')
+	const urlToChangeParts = url.split('/')
+
+	const newPathPrefixParts = []
+	currentPathParts.find((currentPathPart) => {
+		if (!currentPathPart) {
+			return false
+		}
+
+		const matchesUrlToChangeFirstPart = currentPathPart === urlToChangeParts[0]
+		if (!matchesUrlToChangeFirstPart) {
+			newPathPrefixParts.push(currentPathPart)
+		}
+
+		return matchesUrlToChangeFirstPart
+	})
+
+	return `/${newPathPrefixParts.join('/')}/${url}`
+}
+
 const remarkPluginAdjustLinkUrls: Plugin = ({
 	currentPath = '',
 	urlAdjustFn,
@@ -19,38 +53,10 @@ const remarkPluginAdjustLinkUrls: Plugin = ({
 	currentPath: string
 	urlAdjustFn: (url: string) => string
 }): Transformer => {
+	console.log(currentPath)
 	return function transformer(tree) {
-		visit(tree, ['link', 'definition'], (node: Link) => {
-			let urlToAdjust = node.url
-
-			/**
-			 * This is to handle links like "variables/input", which are effectively
-			 * the same thing as "./input" in the context of its current page.
-			 */
-			const isInternalPath = getIsInternalPath(node.url)
-			const needsPreAdjustment = isInternalPath && !/^[./?#]/.test(node.url)
-			if (needsPreAdjustment) {
-				const currentPathParts = currentPath.split('/')
-				const urlToChangeParts = node.url.split('/')
-
-				const newPathPrefixParts = []
-				currentPathParts.find((currentPathPart) => {
-					if (!currentPathPart) {
-						return false
-					}
-
-					const matchesUrlToChangeFirstPart =
-						currentPathPart === urlToChangeParts[0]
-					if (!matchesUrlToChangeFirstPart) {
-						newPathPrefixParts.push(currentPathPart)
-					}
-
-					return matchesUrlToChangeFirstPart
-				})
-
-				urlToAdjust = `/${newPathPrefixParts.join('/')}/${node.url}`
-			}
-
+		visit(tree, ['link', 'definition'], (node: Link | Definition) => {
+			const urlToAdjust = preAdjustUrl({ currentPath, url: node.url })
 			node.url = urlAdjustFn(urlToAdjust)
 		})
 	}
