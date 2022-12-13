@@ -11,6 +11,7 @@ describe('remarkPluginAdjustLinkUrls', () => {
 				'?paramKey=paramValue',
 				'#page-anchor',
 			]
+
 			test.each(urlsToTest)('"%s" is not pre-adjusted', (url: string) => {
 				expect(preAdjustUrl({ currentPath: mockCurrentPath, url })).toEqual(url)
 			})
@@ -22,6 +23,7 @@ describe('remarkPluginAdjustLinkUrls', () => {
 				['variables/input', '/docs/waypoint-hcl/variables/input'],
 				['waypoint-hcl/app', '/docs/waypoint-hcl/app'],
 			]
+
 			test.each(urlsToTest)(
 				'"%s" is pre-adjusted to "%s"',
 				(input: string, expectedOutput: string) => {
@@ -30,6 +32,15 @@ describe('remarkPluginAdjustLinkUrls', () => {
 					).toEqual(expectedOutput)
 				}
 			)
+		})
+
+		describe('does not pre-adjust urls that do not start with a path part of the given currentPath', () => {
+			const mockCurrentPath = '/docs/waypoint-hcl/variables'
+			const urlsToTest = ['some/other/path', '']
+
+			test.each(urlsToTest)('"%s" is not pre-adjusted', (url: string) => {
+				expect(preAdjustUrl({ currentPath: mockCurrentPath, url })).toEqual(url)
+			})
 		})
 	})
 })
