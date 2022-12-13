@@ -112,7 +112,31 @@ const DropdownDisclosureLinkItem = ({
 }: DropdownDisclosureLinkItemProps) => {
 	return (
 		<DropdownDisclosureListItem>
-			{/* Temporary workaround: there has been an issue observed where 404 links throw uncaught error pages*/}
+			<Link className={s.link} href={href} rel={rel} target={target}>
+				{icon}
+				<Text asElement="span" size={200} weight="medium">
+					{children}
+				</Text>
+			</Link>
+		</DropdownDisclosureListItem>
+	)
+}
+
+/*
+ * This component provides a temporary workaround using an anchor tag
+ * instead of 'link' component. There has been an issue observed where
+ * 404 links throw uncaught error pages with the version switcher drpodown
+ */
+
+const DropdownDisclosureAnchorItem = ({
+	children,
+	href,
+	icon,
+	rel,
+	target,
+}: DropdownDisclosureLinkItemProps) => {
+	return (
+		<DropdownDisclosureListItem>
 			<a className={s.link} href={href} rel={rel} target={target}>
 				{icon}
 				<Text asElement="span" size={200} weight="medium">
@@ -131,6 +155,7 @@ export type {
 	DropdownDisclosureListItemProps,
 }
 export {
+	DropdownDisclosureAnchorItem,
 	DropdownDisclosureButtonItem,
 	DropdownDisclosureDescriptionItem,
 	DropdownDisclosureLabelItem,
