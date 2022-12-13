@@ -76,7 +76,7 @@ export default function HeaderTwo({
 					size={Size.MEDIUM}
 					tags={GetIntegrationTags(integration, true)}
 				/>
-				{!shouldShowInstallButton && (
+				{shouldShowInstallButton && (
 					<Button
 						text="Install"
 						icon={<IconPlus16 />}
