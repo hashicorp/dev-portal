@@ -1,5 +1,12 @@
 {
 	"featuredTutorialsSlugs": [],
+	"packageManagerOverrides": [
+		{
+			"label": "Homebrew",
+			"commands": ["brew install hashicorp/tap/hashicorp-vagrant"],
+			"os": "darwin"
+		}
+	],
 	"sidecarMarketingCard": {
 		"title": "About Vagrant",
 		"subtitle": "Vagrant is the command line utility for managing the lifecycle of virtual machines.",
