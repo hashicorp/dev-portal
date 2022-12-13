@@ -15,7 +15,10 @@ export default function PaginatedIntegrationsList({
 	integrations,
 	itemsPerPage = 8,
 }: PaginatedIntegrationsListProps) {
-	// Sort integrations alphabetically
+	// Sort integrations alphabetically. Right now this is our
+	// preferred way of sorting. In the event we want to add different
+	// sorting options in the future to this list, we'll need to support
+	// them at this component.
 	const sortedIntegrations = integrations.sort(
 		(a: Integration, b: Integration): number => {
 			if (a.name < b.name) {
