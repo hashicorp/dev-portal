@@ -1,14 +1,50 @@
 .integrationCard {
-	& .header {
+	/* TODO: mobile breakpoint is 800px, that needs to be tweaked */
+	& .cardContent {
 		display: flex;
-		align-items: center;
 		justify-content: space-between;
 
-		& .headingWrapper {
+		@media (max-width: 800px) {
+			flex-direction: column;
+		}
+	}
+
+	& .left {
+		max-width: 527px;
+
+		& .nameVersionWrapper {
 			display: flex;
 			align-items: center;
 			justify-content: flex-start;
 			flex-grow: 1;
+		}
+	}
+
+	& .right {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: flex-end;
+
+		@media (max-width: 800px) {
+			margin-top: 14px;
+			align-items: flex-start;
+		}
+
+		& .viewDetails {
+			flex-shrink: 0;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+
+			@media (max-width: 800px) {
+				margin-top: 32px;
+			}
+
+			& > svg {
+				margin-left: 8px;
+			}
 		}
 	}
 }
