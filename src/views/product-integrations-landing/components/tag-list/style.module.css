@@ -1,0 +1,29 @@
+.tagList {
+	list-style: none;
+	padding: 0;
+	display: flex;
+
+	& > li {
+		z-index: 1;
+
+		& .tagContent {
+			display: flex;
+			align-items: center;
+			background: var(--token-color-surface-strong);
+			border-radius: var(--token-form-control-border-radius);
+			padding: 4px 8px;
+			font-weight: var(--font-weight-medium);
+			font-size: 13px;
+			color: var(--token-color-foreground-primary);
+
+			& .icon {
+				display: flex;
+				margin-right: 4px;
+			}
+		}
+
+		&:not(:last-of-type) {
+			margin-right: 8px;
+		}
+	}
+}
