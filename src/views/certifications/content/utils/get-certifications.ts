@@ -1,5 +1,5 @@
 import path from 'path'
-import { RawCertificationProgramItem } from '../../types'
+import { ProgramSlug, RawCertificationProgramItem } from '../../types'
 import { CertificationProgramSchema } from '../schemas/certification-program'
 import { readLocalFile } from 'lib/read-local-file'
 import { readLocalFilepaths } from 'lib/read-local-filepaths'
@@ -30,7 +30,7 @@ export function getAllCertificationProgramSlugs(): string[] {
  * Get data for a specific certification program.
  */
 export function getCertificationProgram(
-	slug: string
+	slug: ProgramSlug
 ): RawCertificationProgramItem {
 	const fullPath = `${CONTENT_DIR}/${slug}.json`
 	const pageContent = CertificationProgramSchema.parse(

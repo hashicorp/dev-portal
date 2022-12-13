@@ -3,13 +3,16 @@ import {
 	getAllCertificationProgramSlugs,
 	getCertificationProgram,
 } from 'views/certifications/content/utils'
+import { ProgramSlug } from 'views/certifications/types'
 import { CertificationProgramViewProps } from './types'
 
 export async function getStaticProps({
 	params: { slug: rawSlug },
 }: GetStaticPropsContext): Promise<{ props: CertificationProgramViewProps }> {
 	// Get the `slug` as a string
-	const slug = Array.isArray(rawSlug) ? rawSlug.join('/') : rawSlug
+	const slug = (
+		Array.isArray(rawSlug) ? rawSlug.join('/') : rawSlug
+	) as ProgramSlug
 	// Fetch the authored page content
 	const { pageContent } = getCertificationProgram(slug)
 	// Return static props
