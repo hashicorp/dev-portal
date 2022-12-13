@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import { DisclosureProps } from 'components/disclosure'
-import { DisclosureHeadingWrapperProps } from 'components/disclosure/components/disclosure-heading-wrapper/types'
 
 export interface AccordionDisclosureProps {
 	/**
@@ -41,10 +40,4 @@ export interface AccordionDisclosureProps {
 		/* The index of this specific AccordionDisclosure in the group */
 		currentIndex: number
 	}
-
-	/**
-	 * Optional heading level to contain the `button` element within the
-	 * DisclosureActivator. See DisclosureHeadingWrapper for details.
-	 */
-	activatorHeadingLevel?: DisclosureHeadingWrapperProps['level']
 }

@@ -1,5 +1,4 @@
 import { ForwardedRef } from 'react'
-import { HeadingLevel } from '../disclosure-heading-wrapper/types'
 
 type DisclosureActivatorForwardedRef = ForwardedRef<HTMLButtonElement>
 

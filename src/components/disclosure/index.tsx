@@ -17,7 +17,6 @@ import {
 	DisclosureActivatorProps,
 	DisclosureContent,
 	DisclosureContentProps,
-	DisclosureHeadingWrapper,
 } from './components'
 import { validateDisclosureChildren } from './helpers'
 import s from './disclosure.module.css'
@@ -163,10 +162,5 @@ export type {
 	DisclosureContentProps,
 	DisclosureProps,
 }
-export {
-	DisclosureActivator,
-	DisclosureContent,
-	DisclosureHeadingWrapper,
-	useDisclosureState,
-}
+export { DisclosureActivator, DisclosureContent, useDisclosureState }
 export default Disclosure

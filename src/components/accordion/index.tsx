@@ -6,11 +6,7 @@ import s from './accordion.module.css'
 /**
  * Renders a group of AccordionDisclosure items.
  */
-function Accordion({
-	className,
-	items,
-	activatorHeadingLevel,
-}: AccordionProps) {
+function Accordion({ className, items }: AccordionProps) {
 	const itemsCount = items.length
 	return (
 		<div className={classNames(s.root, className)}>
@@ -23,7 +19,6 @@ function Accordion({
 							numItems: itemsCount,
 							currentIndex: idx,
 						}}
-						activatorHeadingLevel={activatorHeadingLevel}
 					>
 						{content}
 					</AccordionDisclosure>
