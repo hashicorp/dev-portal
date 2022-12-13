@@ -2,19 +2,6 @@
 
 declare module '@hashicorp/platform-configs/jest/config.js'
 
-declare module 'swingset/page' {
-	const createPage: (opts: $TSFixMe) => $TSFixMe
-
-	export default createPage
-}
-
-declare module 'swingset/server' {
-	const createStaticPaths: $TSFixMe
-	const createStaticProps: $TSFixMe
-
-	export { createStaticPaths, createStaticProps }
-}
-
 declare module '@hashicorp/react-search'
 
 /**
