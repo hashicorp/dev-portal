@@ -1,7 +1,12 @@
 import HashiHead from '@hashicorp/react-head'
-import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
+import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import {
+	generateProductLandingSidebarNavData,
+	generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
 import Tabs, { Tab } from 'components/tabs'
-import BaseLayout from 'layouts/base-new'
+import { useCurrentProduct } from 'contexts'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
 import { useRouter } from 'next/router'
@@ -69,54 +74,70 @@ export default function ProductIntegrationLanding({
 		})
 	}
 
+	// Generate Sidebar Information
+	const currentProduct = useCurrentProduct()
+	const sidebarNavDataLevels = [
+		generateTopLevelSidebarNavData(currentProduct.name),
+		generateProductLandingSidebarNavData(currentProduct),
+		{
+			backToLinkProps: {
+				text: `${currentProduct.name} Integrations Home`,
+				href: `/${currentProduct.slug}/integrations`,
+			},
+			levelButtonProps: {
+				levelUpButtonText: `${currentProduct.name} Home`,
+				levelDownButtonText: 'Previous',
+			},
+			menuItems: [],
+			showFilterInput: false,
+			title: integration.name,
+		},
+	]
+
 	return (
-		<BaseLayout showFooterTopBorder>
-			{notLatest && (
-				<HashiHead>
-					<meta name="robots" content="noindex, nofollow" />
-				</HashiHead>
-			)}
-			<div className={s.integrationPage}>
-				<div className={s.sidebar}></div>
-				<div className={s.mainArea}>
-					<div className={s.contentWrapper}>
-						<div className={s.breadcrumbWrapper}>
-							<BreadcrumbBar links={breadcrumbLinks} />
-						</div>
-						<div className={s.content}>
-							<Header
-								className={s.header}
-								integration={integration}
-								activeRelease={activeRelease}
-								versions={versions}
-								onInstallClicked={() => {
-									// TODO: we'll need to flip the tab over to the install tab here
-									console.log('TODO: Install Clicked')
-								}}
-							/>
-							<Tabs
-								allowNestedStyles
-								// translate slug to index
-								initialActiveIndex={map.slugToIndex[tab]}
-								onChange={handleTabChange}
-							>
-								<Tab heading="README">
-									<ReactMarkdown>{activeRelease.readme}</ReactMarkdown>
+		<SidebarSidecarLayout
+			sidebarNavDataLevels={sidebarNavDataLevels}
+			breadcrumbLinks={breadcrumbLinks}
+			sidecarSlot={<></>}
+		>
+			<>
+				{notLatest && (
+					<HashiHead>
+						<meta name="robots" content="noindex, nofollow" />
+					</HashiHead>
+				)}
+				<div className={s.content}>
+					<Header
+						className={s.header}
+						integration={integration}
+						activeRelease={activeRelease}
+						versions={versions}
+						onInstallClicked={() => {
+							// TODO: we'll need to flip the tab over to the install tab here
+							console.log('TODO: Install Clicked')
+						}}
+					/>
+					<Tabs
+						allowNestedStyles
+						// translate slug to index
+						initialActiveIndex={map.slugToIndex[tab]}
+						onChange={handleTabChange}
+					>
+						<Tab heading="README">
+							<ReactMarkdown>{activeRelease.readme}</ReactMarkdown>
+						</Tab>
+						{activeRelease.components.map((irc: ReleaseComponent) => {
+							return irc.readme || irc.variable_groups.length ? (
+								<Tab key={irc.component.id} heading={irc.component.name}>
+									<ComponentTabContent component={irc} />
 								</Tab>
-								{activeRelease.components.map((irc: ReleaseComponent) => {
-									return irc.readme || irc.variable_groups.length ? (
-										<Tab key={irc.component.id} heading={irc.component.name}>
-											<ComponentTabContent component={irc} />
-										</Tab>
-									) : (
-										<></>
-									)
-								})}
-							</Tabs>
-						</div>
-					</div>
+							) : (
+								<></>
+							)
+						})}
+					</Tabs>
 				</div>
-			</div>
-		</BaseLayout>
+			</>
+		</SidebarSidecarLayout>
 	)
 }
