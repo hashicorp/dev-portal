@@ -17,7 +17,7 @@ export function getTutorialCardPropsFromHit(
 		collectionId: hit.defaultContext.id,
 		url: getTutorialSlug(hit.slug, hit.defaultContext.slug),
 		duration: getReadableTime(hit.readTime),
-		heading: hit.page_title || hit.name, // todo, only use page_title once released
+		heading: hit.page_title,
 		description: hit.description,
 		productsUsed: hit.products,
 		hasVideo: hit.hasVideo,
