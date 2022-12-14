@@ -24,6 +24,7 @@ const TutorialHit = ({ hit }: TutorialHitProps) => {
 	}
 
 	const { page_title, description } = _highlightResult
+	console.log({ _highlightResult })
 
 	/**
 	 * If the `_highlightResult` has neither a name or description, there is
