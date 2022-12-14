@@ -168,7 +168,7 @@ export default function ProductIntegrationsLanding({
 							// @TODO — does this need values?
 						]
 					}
-					sidecarSlot={<div>TODO: Sidecar slot</div>}
+					sidecarSlot={<></>}
 					AlternateSidebar={IntegrationsSearchSidebar}
 				>
 					<div className={s.mainArea}>
