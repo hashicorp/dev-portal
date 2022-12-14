@@ -1,7 +1,9 @@
 // Global
 import BaseNewLayout from 'layouts/base-new'
+// Shared components
+import { CertificationsMaxWidth } from 'views/certifications/components'
 // Local view
-import { CertificationProgramSection, LandingHero } from './components'
+import { CertificationProgramSummaryCard, LandingHero } from './components'
 import { CertificationLandingProps, CertificationProgramSummary } from './types'
 import s from './landing.module.css'
 
@@ -20,13 +22,14 @@ function CertificationsLandingView({
 				{programSummaries.map((programSummary: CertificationProgramSummary) => {
 					const { slug, heading, description, exams } = programSummary
 					return (
-						<CertificationProgramSection
-							key={slug}
-							slug={slug}
-							heading={heading}
-							description={description}
-							exams={exams}
-						/>
+						<CertificationsMaxWidth key={slug}>
+							<CertificationProgramSummaryCard
+								slug={slug}
+								heading={heading}
+								description={description}
+								exams={exams}
+							/>
+						</CertificationsMaxWidth>
 					)
 				})}
 			</div>
