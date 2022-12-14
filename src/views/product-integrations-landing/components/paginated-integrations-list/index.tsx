@@ -148,59 +148,68 @@ function Paginator({
 }: PaginatorProps) {
 	paginatedArray(numberOfPages, currentPage)
 	return (
-		<div className={s.paginator}>
-			{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-			<a
-				className={classNames({ [s.disabled]: currentPage === 1 })}
-				onClick={(e) => {
-					e.preventDefault()
-					if (currentPage !== 1) {
-						onPageClicked(currentPage - 1)
-					}
-				}}
-			>
-				<IconArrowLeft16 />
-			</a>
+		<nav
+			className={s.paginator}
+			// role="navigation"
+			aria-label="Pagination Navigation"
+		>
+			<ul>
+				<li>
+					<button
+						onClick={() => {
+							if (currentPage !== 1) {
+								onPageClicked(currentPage - 1)
+							}
+						}}
+						aria-label="Previous page"
+						disabled={currentPage === 1}
+						type="button"
+					>
+						<IconArrowLeft16 />
+					</button>
+				</li>
 
-			{paginatedArray(numberOfPages, currentPage).map((pageNum, i) => {
-				if (pageNum === COLLAPSED) {
-					return (
-						// eslint-disable-next-line react/no-array-index-key
-						<a key={i} className={s.disabled}>
-							...
-						</a>
-					)
-				} else {
-					return (
-						// eslint-disable-next-line react/jsx-key, jsx-a11y/anchor-is-valid
-						<a
-							// eslint-disable-next-line react/no-array-index-key
-							key={i}
-							className={classNames({
-								[s.activePage]: currentPage === pageNum,
-							})}
-							onClick={(e) => {
-								e.preventDefault()
-								onPageClicked(pageNum as number)
-							}}
-						>
-							{pageNum}
-						</a>
-					)
-				}
-			})}
-			{/*eslint-disable-next-line jsx-a11y/anchor-is-valid*/}
-			<a
-				className={classNames({ [s.disabled]: currentPage === numberOfPages })}
-				onClick={(e) => {
-					e.preventDefault()
-					if (currentPage < numberOfPages) {
-						onPageClicked(currentPage + 1)
+				{paginatedArray(numberOfPages, currentPage).map((pageNum, i) => {
+					if (pageNum === COLLAPSED) {
+						return (
+							<li key={i} role="presentation">
+								<button disabled type="button">
+									...
+								</button>
+							</li>
+						)
+					} else {
+						return (
+							<li key={i}>
+								<button
+									onClick={() => {
+										onPageClicked(pageNum as number)
+									}}
+									aria-current={currentPage === pageNum ? 'page' : undefined}
+									aria-label={`Page ${pageNum} of ${numberOfPages}`}
+									type="button"
+								>
+									{pageNum}
+								</button>
+							</li>
+						)
 					}
-				}}
-			>
-				<IconArrowRight16 />
-			</a>
-		</div>
+				})}
+				<li>
+					<button
+						onClick={() => {
+							if (currentPage < numberOfPages) {
+								onPageClicked(currentPage + 1)
+							}
+						}}
+						aria-label="Next page"
+						disabled={currentPage === numberOfPages}
+						type="button"
+					>
+						<IconArrowRight16 />
+					</button>
+				</li>
+			</ul>
+		</nav>
 	)
 }
