@@ -1,0 +1,110 @@
+# Content Rule: `ensure-valid-nav-data`
+
+## Description
+
+This rule ensures that each node in a documentation's navigation data is properly formatted. Nodes can be one of five types.
+
+### Branch
+
+Represents nested navigation data.
+
+- `title` - The title displayed in the UI.
+- `routes` - An array of additional nodes of any type. Cannot be empty.
+
+```json
+{
+  "title": "Branch",
+  "routes": [
+    {
+      "title": "Overview",
+      "path": "directory"
+    },
+    {
+      "title": "Leaf",
+      "path": "directory/some-path"
+    }
+  ]
+}
+```
+
+### Leaf
+
+Represents a page within the current subpath containing content.
+
+- `title` - The title displayed in the UI.
+- `path` - A path relative to the current subpath.
+
+```json
+{
+  "title": "Leaf",
+  "path": "directory/some-path"
+}
+```
+
+### Direct Link
+
+Represents a link to content outside of the current subpath, either on the same domain, or an external domain.
+
+- `title` - The title displayed in the UI.
+- `href` - A fully qualified path, relative to the developer.hashicorp.com domain, or an external URL.
+
+```json
+{
+  "title": "External",
+  "href": "https://wwww.hashicorp.com"
+}
+```
+
+### Divder
+
+Represents a divider to be rendered. Used to organize content within the navigation.
+
+- `divider` - Must be `true`.
+
+```json
+{
+  "divider": true
+}
+```
+
+### Heading
+
+Represents a Heading to be rendered. Used to organize content within the navigation.
+
+- `heading` - The rendered heading.
+
+```json
+{
+  "heading": "Navigation Heading"
+}
+```
+
+## How to Fix
+
+### Found empty array of navNodes at depth `{depth}`. There must be more than one route.
+
+Make sure no branch nodes have an empty `routes` array.
+
+### Missing nav-data title on `{NodeType}`. Please add a non-empty title to the node with the path "`{path}`".
+
+Make sure the node at the specified path contains a `title` attribute.
+
+### Empty href value on direct link. href values must be non-empty strings. Node: `{node}`.
+
+Make sure that an direct link nodes have a non-empty `href` value.
+
+### Unrecognized nav-data node. Please ensure all nav-data nodes are either NavLeaf, NavBranch, NavDirectLink, NavHeading, or NavDivider types: `{node}`.
+
+Make sure the node conforms to one of the above formats.
+
+### Duplicate routes found for "`{path}`". Please resolve duplicates.
+
+Make sure there are not two sibling nodes linking to the same path.
+
+### Invalid path depth. At depth `{depth}`, found path "`{path}`". Please move this path to the correct depth of `{depth}`.
+
+Make sure that all leaf nodes in a branch are of the same depth.
+
+### Found mismatched paths at depth 1, with paths: `{paths}`. Implies mismatched parent directories: `{parents}`.
+
+Make sure all leaf nodes in the parent branch are part of the same subpath.
