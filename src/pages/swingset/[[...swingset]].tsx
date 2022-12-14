@@ -1,5 +1,6 @@
 import createPage from 'swingset/page'
 import { createStaticProps, createStaticPaths } from 'swingset/server'
+import remarkGfm from 'remark-gfm'
 import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
 import { SidebarNavDataProvider } from 'layouts/sidebar-sidecar/contexts/sidebar-nav-data'
 
@@ -33,8 +34,11 @@ const SwingsetLayout = ({ children }) => {
 	)
 }
 
+// @ts-expect-error - .layout is a custom concept for our application
 SwingsetPage.layout = SwingsetLayout
 
 export const getStaticPaths = createStaticPaths()
-export const getStaticProps = createStaticProps()
+export const getStaticProps = createStaticProps({
+	mdxOptions: { remarkPlugins: [remarkGfm] },
+})
 export default SwingsetPage
