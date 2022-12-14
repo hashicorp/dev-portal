@@ -1,5 +1,6 @@
 import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
-import { ProductData, RootDocsPath } from 'types/products'
+import { ENABLED_INTEGRATION_PRODUCTS } from 'lib/enabled-integration-products'
+import { ProductData } from 'types/products'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
@@ -44,6 +45,12 @@ export const generateProductLandingSidebarMenuItems = (
 		menuItems.push({
 			title: 'Install',
 			fullPath: `/${product.slug}/downloads`,
+		})
+	}
+	if (ENABLED_INTEGRATION_PRODUCTS.includes(product.slug)) {
+		menuItems.push({
+			title: 'Integrations',
+			fullPath: `/${product.slug}/integrations`,
 		})
 	}
 
