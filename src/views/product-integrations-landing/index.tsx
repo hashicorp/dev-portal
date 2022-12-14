@@ -51,7 +51,6 @@ const SearchFacets = () => {
 	return (
 		<>
 			<div>
-				<p>Search for integrations</p>
 				<div>
 					<h5>Tier</h5>
 					{tierOptions.includes(Tier.OFFICIAL) && (
