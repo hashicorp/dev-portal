@@ -1,0 +1,25 @@
+.heroBackground {
+	background: url('./assets/certifications-hero-gradient.svg'),
+		var(--token-color-foreground-strong);
+	background-size: cover;
+	background-position: top center;
+	background-repeat: no-repeat;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: -1;
+}
+
+.heroImage {
+	display: flex;
+	height: 200px;
+	overflow: visible;
+
+	& > img {
+		position: relative;
+		top: -40px;
+		margin-left: auto;
+	}
+}
