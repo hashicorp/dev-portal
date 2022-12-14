@@ -34,6 +34,10 @@ export const CertificationProgramSchema = z.object({
 		heading: z.string(),
 		description: z.string(),
 	}),
+	summary: z.object({
+		heading: z.string(),
+		description: z.string(),
+	}),
 	exams: z.array(CertificationExamSchema),
 })
 

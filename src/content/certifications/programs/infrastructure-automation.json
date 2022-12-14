@@ -1,5 +1,9 @@
 {
 	"title": "Infrastructure Automation",
+	"summary": {
+		"heading": "Infrastructure Automation Certifications",
+		"description": "Brief intro. Short but enough to help practitioners take that next step. Suggestion is a max of 5 lines of content. Verify your basic automation skills. If you have passed the existing exams wait until the new version comes out to re-certify."
+	},
 	"hero": {
 		"heading": "Infrastructure Automation Overview",
 		"description": "Cloud engineers will be able to use either version of the Terraform Associate certification to verify their basic infrastructure automation skills."

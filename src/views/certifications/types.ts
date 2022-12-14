@@ -3,6 +3,12 @@ import type {
 	RawCertificationExam,
 	RawCertificationProgram,
 } from './content/schemas/certification-program'
+import { ProgramSlug } from './content/schemas/landing-page'
+
+/**
+ * Re-export ProgramSlug from this file, for convenience.
+ */
+export type { ProgramSlug }
 
 /**
  * An FAQ item consists of a title representing the questions,
@@ -12,15 +18,6 @@ export interface FaqItem {
 	title: string
 	mdxSource: MDXRemoteSerializeResult
 }
-
-/**
- * Program slugs are mainly used for stylistic tweaks. This type, and related
- * components,  will need to expanded if additional programs are added.
- */
-export type ProgramSlug =
-	| 'infrastructure-automation'
-	| 'security-automation'
-	| 'networking-automation'
 
 /**
  * Certification exam content, after being prepared for the client.
@@ -42,6 +39,6 @@ export interface CertificationProgram
  * Raw page content for individual certification program pages.
  */
 export interface RawCertificationProgramItem {
-	slug: string
+	slug: ProgramSlug
 	pageContent: RawCertificationProgram
 }
