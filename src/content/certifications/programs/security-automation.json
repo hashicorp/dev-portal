@@ -3,5 +3,29 @@
 	"hero": {
 		"heading": "Security Automation Overview",
 		"description": "Cloud engineers can use the Security Automation certification exams from HashiCorp to verify their basic security automation skills."
-	}
+	},
+	"exams": [
+		{
+			"title": "Vault Associate 002",
+			"productSlug": "vault",
+			"versionTested": "Vault 1.6.0 and higher",
+			"description": "The Vault Associate certification is for Cloud Engineers specializing in security, development, or operations who know the basic concepts, skills, and use cases associated with open source HashiCorp Vault. Candidates will be best prepared for this exam if they have professional experience using Vault in production, but performing the exam objectives in a personal demo environment may also be sufficient. This person understands what enterprise features exist and what can and cannot be done using the open source offering.",
+			"links": {
+				"prepare": "/vault/tutorials/associate-cert/associate-study",
+				"register": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049382552"
+			},
+			"faqSlug": "vault-associate-002"
+		},
+		{
+			"title": "Vault Operations Professional",
+			"productSlug": "vault",
+			"versionTested": "Vault 1.8.0 and higher",
+			"description": "The Vault Operations Professional exam is for Cloud Engineers focused on deploying, configuring, managing, and monitoring HashiCorp Vault. Well-qualified candidates hold the `Vault Associate Certification` (or equivalent knowledge), have experience operating Vault in production, and can evaluate Vault Enterprise functionality and use cases. Certification holders have proven they have the skills, knowledge, and competency to perform the Vault operational tasks listed in the objectives.",
+			"links": {
+				"prepare": "/vault/tutorials/ops-pro-cert",
+				"register": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049382552"
+			},
+			"faqSlug": "vault-operations-professional"
+		}
+	]
 }

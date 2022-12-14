@@ -172,6 +172,7 @@
 		"jsonwebtoken": "^8.5.1",
 		"klaw-sync": "^6.0.0",
 		"mdast": "^3.0.0",
+		"mdast-util-to-string": "^2.0.0",
 		"moize": "^6.1.0",
 		"next": "^13.0.5",
 		"next-auth": "^4.17.0",
@@ -199,6 +200,7 @@
 		"unified": "^9.2.0",
 		"unist-util-is": "^5.1.1",
 		"unist-util-visit": "^4.1.0",
+		"unist-util-visit-children": "^1.1.4",
 		"validator": "^13.7.0",
 		"zod": "^3.20.2"
 	},

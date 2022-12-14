@@ -4,6 +4,8 @@ import {
 	getCertificationProgram,
 } from 'views/certifications/content/utils'
 import { ProgramSlug } from 'views/certifications/types'
+// Local
+import { preparePageContent } from './utils/prepare-page-content'
 import { CertificationProgramViewProps } from './types'
 
 export async function getStaticProps({
@@ -12,7 +14,9 @@ export async function getStaticProps({
 	props: CertificationProgramViewProps
 }> {
 	// Fetch the authored page content
-	const { pageContent } = getCertificationProgram(slug)
+	const { pageContent: rawPageContent } = getCertificationProgram(slug)
+	// Prepare the page content for rendering, such as prepping MDX source
+	const pageContent = await preparePageContent(rawPageContent)
 	// Return static props
 	return { props: { pageContent, slug } }
 }
