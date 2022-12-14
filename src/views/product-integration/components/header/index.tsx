@@ -9,7 +9,6 @@ import { Flag, Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
 import TagList, {
 	GetIntegrationTags,
-	Size,
 } from 'views/product-integrations-landing/components/tag-list'
 import s from './style.module.css'
 
@@ -72,10 +71,7 @@ export default function HeaderTwo({
 			</div>
 
 			<div className={s.lowerCard}>
-				<TagList
-					size={Size.MEDIUM}
-					tags={GetIntegrationTags(integration, true)}
-				/>
+				<TagList size="medium" tags={GetIntegrationTags(integration, true)} />
 				{shouldShowInstallButton && (
 					<Button
 						text="Install"

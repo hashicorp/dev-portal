@@ -12,10 +12,7 @@ import {
 } from 'lib/integrations-api-client/integration'
 import s from './style.module.css'
 
-export enum Size {
-	SMALL = 'small',
-	MEDIUM = 'medium',
-}
+export type Size = 'small' | 'medium'
 
 export interface Tag {
 	name: string
@@ -28,11 +25,11 @@ interface TagListProps {
 	size?: Size
 }
 
-export default function TagList({ tags, size = Size.SMALL }: TagListProps) {
+export default function TagList({ tags, size = 'small' }: TagListProps) {
 	return (
 		<ul
 			className={classNames(s.tagList, {
-				[s.medium]: size === Size.MEDIUM,
+				[s.medium]: size === 'medium',
 			})}
 		>
 			{tags.map((tag: Tag) => {
