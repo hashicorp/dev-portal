@@ -30,10 +30,6 @@
 	}
 }
 
-.breadcrumbWrapper {
-	margin-bottom: 32px;
-}
-
 .exitIcon {
 	color: var(--token-color-foreground-primary);
 	appearance: none;

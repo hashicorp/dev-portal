@@ -1,6 +1,5 @@
 import s from './style.module.css'
 import Dialog from 'components/dialog'
-import BreadcrumbBar from 'components/breadcrumb-bar'
 import { FacetCheckbox } from './components/faceted-integrations-list'
 import SearchableIntegrationsList from './components/searchable-integrations-list'
 import {
@@ -25,6 +24,10 @@ import {
 	MobileDrawerContextProvider,
 	useMobileDrawerContext,
 } from './contexts/mobile-drawer-context'
+import {
+	generateTopLevelSidebarNavData,
+	generateProductLandingSidebarNavData,
+} from 'components/sidebar/helpers'
 
 /**
  * A component that taps into the bulk of our search functionality.
@@ -158,41 +161,53 @@ export default function ProductIntegrationsLanding({
 	product,
 	integrations,
 }: ViewProps) {
+	// TODO: maybe generate this serverside
+	const sidebarNavDataLevels = [
+		generateTopLevelSidebarNavData(product.name),
+		generateProductLandingSidebarNavData(product),
+		{
+			backToLinkProps: {
+				text: `${product.name} Home`,
+				href: `/${product.slug}`,
+			},
+			levelButtonProps: {
+				levelUpButtonText: `${product.name} Home`,
+				levelDownButtonText: 'Previous',
+			},
+			menuItems: [],
+			showFilterInput: false,
+			title: `${product.name} Integrations`,
+		},
+	]
+	// TODO: maybe generate this serverside
+	const breadcrumbLinks = [
+		{
+			title: 'Developer',
+			url: '/',
+			isCurrentPage: false,
+		},
+		{
+			title: product.name,
+			url: `/${product.slug}`,
+			isCurrentPage: false,
+		},
+		{
+			title: 'Integrations',
+			url: `/${product.slug}/integrations`,
+			isCurrentPage: true,
+		},
+	]
 	return (
 		<IntegrationsSearchProvider integrations={integrations}>
 			<MobileDrawerContextProvider>
 				<SidebarSidecarLayout
-					sidebarNavDataLevels={
-						[
-							// @TODO — does this need values?
-						]
-					}
+					sidebarNavDataLevels={sidebarNavDataLevels}
+					breadcrumbLinks={breadcrumbLinks}
 					sidecarSlot={<></>}
 					AlternateSidebar={IntegrationsSearchSidebar}
 				>
 					<div className={s.mainArea}>
 						<div className={s.contentWrapper}>
-							<div className={s.breadcrumbWrapper}>
-								<BreadcrumbBar
-									links={[
-										{
-											title: 'Developer',
-											url: '/',
-											isCurrentPage: false,
-										},
-										{
-											title: product.name,
-											url: `/${product.slug}`,
-											isCurrentPage: false,
-										},
-										{
-											title: 'Integrations',
-											url: `/${product.slug}/integrations`,
-											isCurrentPage: true,
-										},
-									]}
-								/>
-							</div>
 							<SearchableIntegrationsList className={s.searchList} />
 						</div>
 					</div>
