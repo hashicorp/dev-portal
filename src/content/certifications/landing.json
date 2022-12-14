@@ -2,5 +2,10 @@
 	"hero": {
 		"heading": "HashiCorp Cloud Engineer Certifications",
 		"description": "Each certification program tests both conceptual knowledge and real-world experience using HashiCorp multi-cloud tools. Upon passing the exam, you can easily communicate your proficiency and employers can quickly verify your results."
-	}
+	},
+	"programSummarySlugs": [
+		"infrastructure-automation",
+		"security-automation",
+		"networking-automation"
+	]
 }

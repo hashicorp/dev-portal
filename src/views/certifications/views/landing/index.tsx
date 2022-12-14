@@ -6,6 +6,7 @@ import { CertificationLandingProps } from './types'
 
 function CertificationsLandingView({
 	pageContent,
+	programSummaries,
 	faqItems,
 }: CertificationLandingProps) {
 	const { hero } = pageContent
@@ -15,7 +16,12 @@ function CertificationsLandingView({
 			<pre style={{ border: '1px solid magenta' }}>
 				<code>
 					{JSON.stringify(
-						{ note: 'Landing page placeholder', pageContent, faqItems },
+						{
+							note: 'Landing page placeholder',
+							pageContent,
+							programSummaries,
+							faqItems,
+						},
 						null,
 						2
 					)}

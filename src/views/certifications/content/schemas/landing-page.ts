@@ -11,6 +11,10 @@ export const LandingPageSchema = z.object({
 		heading: z.string(),
 		description: z.string(),
 	}),
+	/**
+	 * Note: these must be valid ProgramSlug values.
+	 */
+	programSummarySlugs: z.array(z.string()),
 })
 
 /**

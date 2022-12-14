@@ -38,3 +38,14 @@ export function getCertificationProgram(
 	)
 	return { slug, pageContent }
 }
+
+/**
+ * Get data for all certification programs at once.
+ *
+ * Useful for rendering detailed overview sections
+ * on the `/certifications` landing page.
+ */
+export function getAllCertificationPrograms(): RawCertificationProgramItem[] {
+	const programSlugs = getAllCertificationProgramSlugs()
+	return programSlugs.map(getCertificationProgram)
+}

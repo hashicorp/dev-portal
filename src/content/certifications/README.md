@@ -13,6 +13,10 @@ This folder contains the authorable content for Certifications pages.
 
 The content for the landing page hero is managed in [content/certifications/landing.json](/src/content/certifications/landing.json).
 
+### Program Summaries
+
+The `programSummarySlugs` array allows authors to control which programs are summarized on the landing page, and in what order those summaries appear. The content for program summaries on the landing page is driven by [content for each Program Page](#program-pages).
+
 ### FAQs
 
 The content for the landing page's FAQ content is managed in [content/certifications/landing-faq.mdx](/src/content/certifications/landing-faq.mdx). FAQs are derived from this MDX file by extracting title text and content from each `## Heading Two` section.
