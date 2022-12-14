@@ -148,7 +148,7 @@ const IntegrationsSearchSidebar = (props: SidebarProps) => {
 			</div>
 			{/* Mobile sidebar - render sidebar */}
 			<div className="g-show-with-mobile-menu">
-				{/* <Sidebar {...props} /> */}
+				<Sidebar {...props} />
 			</div>
 		</>
 	)
