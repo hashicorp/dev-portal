@@ -28,10 +28,13 @@ test.describe('docs-content-link-rewrites', () => {
 
 	// Generate a test for each path in the imported JSON file
 	const basePaths = Object.keys(allPagePathsByBasePath)
-	basePaths.forEach((basePath) => {
+	basePaths.forEach((basePath: string) => {
 		test.describe(basePath, () => {
 			const pagePaths = allPagePathsByBasePath[basePath]
-			pagePaths.forEach((pagePathToTest) => {
+			console.log(`Testing paths under ${basePath}`)
+			console.log(JSON.stringify(pagePaths, null, 2))
+
+			pagePaths.forEach((pagePathToTest: string) => {
 				test(pagePathToTest, async ({ page }) => {
 					// Get all anchor hrefs for the main branch's page
 					const mainBranchPageUrl = path.join(
