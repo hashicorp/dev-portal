@@ -1,3 +1,19 @@
+.root {
+	/* Note: overlap is declared here, so that both the overlapping sections
+	   can access the same values consistently. */
+	--programs-hero-overlap: 72px;
+	--programs-faq-overlap: 80px;
+
+	/* Adjust section overlap based on viewport size */
+	@media (--dev-dot-desktop) {
+		--programs-faq-overlap: 128px;
+	}
+}
+
+/**
+ * Programs section
+ */
+
 .programsSection {
 	align-items: stretch;
 	display: flex;
@@ -5,14 +21,33 @@
 	gap: 56px;
 
 	/* Overlap onto the hero above, and the section below */
-	margin: -72px 0 -80px 0;
+	margin-top: calc(-1 * var(--programs-hero-overlap));
+	margin-bottom: calc(-1 * var(--programs-faq-overlap));
 
 	/* We want this section to be above the FAQ section below */
 	z-index: 1;
 
-	/* Adjust spacing based on viewport */
+	/* Adjust vertical rhythm  based on viewport */
 	@media (--dev-dot-desktop) {
 		gap: 72px;
-		margin: -72px 0 -128px 0;
 	}
+}
+
+/**
+ * FAQ section
+ */
+
+.faqSection {
+	--section-top-padding: 128px;
+
+	background: var(--token-color-surface-strong);
+	padding-top: calc(var(--section-top-padding) + var(--programs-faq-overlap));
+	padding-bottom: 168px;
+}
+
+.faqHeading {
+	composes: hds-typography-display-400 from global;
+	font-weight: var(--token-typography-font-weight-bold);
+	color: var(--token-color-foreground-strong);
+	margin: 0 0 32px 0;
 }
