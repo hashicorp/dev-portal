@@ -15,18 +15,6 @@
 		flex-grow: 1;
 		display: flex;
 		flex-direction: column;
-
-		& .contentWrapper {
-			max-width: calc(896px + 48px + 220px);
-			width: 100%;
-			display: flex;
-			flex-direction: column;
-			align-self: center;
-
-			& .searchList {
-				flex-grow: 1;
-			}
-		}
 	}
 }
 

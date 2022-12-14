@@ -207,9 +207,7 @@ export default function ProductIntegrationsLanding({
 					AlternateSidebar={IntegrationsSearchSidebar}
 				>
 					<div className={s.mainArea}>
-						<div className={s.contentWrapper}>
-							<SearchableIntegrationsList className={s.searchList} />
-						</div>
+						<SearchableIntegrationsList className={s.searchList} />
 					</div>
 				</SidebarSidecarLayout>
 			</MobileDrawerContextProvider>
