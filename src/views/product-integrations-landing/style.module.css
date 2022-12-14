@@ -2,23 +2,6 @@
 	display: flex;
 	flex-grow: 1;
 
-	/* A very crude reimplementation of the sidebar just to get the idea across */
-	& .sidebar {
-		width: 320px;
-		min-width: 320px;
-		min-height: 100%;
-		box-shadow: 0 2px 3px rgba(101, 106, 118, 0.1),
-			0 12px 28px rgba(101, 106, 118, 0.25);
-		padding-bottom: 48px;
-		padding-left: 24px;
-		padding-right: 24px;
-		padding-top: 24px;
-
-		@media (max-width: 1150px) {
-			display: none;
-		}
-	}
-
 	& .mainArea {
 		padding-left: 48px;
 		padding-right: 48px;
@@ -32,17 +15,20 @@
 		flex-grow: 1;
 		display: flex;
 		flex-direction: column;
-
-		& .contentWrapper {
-			max-width: calc(896px + 48px + 220px);
-			width: 100%;
-			display: flex;
-			flex-direction: column;
-			align-self: center;
-		}
 	}
 }
 
-.breadcrumbWrapper {
-	margin-bottom: 32px;
+.exitIcon {
+	color: var(--token-color-foreground-primary);
+	appearance: none;
+	background: unset;
+	border: unset;
+	padding: 0;
+	height: min-content;
+	display: block;
+	margin-left: auto;
+
+	&:hover {
+		cursor: pointer;
+	}
 }

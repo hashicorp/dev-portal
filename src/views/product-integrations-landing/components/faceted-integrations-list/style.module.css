@@ -1,32 +1,6 @@
 .facetedIntegrationList {
 	display: flex;
 	flex-direction: row;
-
-	& .facetsSidebar {
-		min-width: 220px;
-		margin-right: 32px;
-
-		& .facetCategoryTitle {
-			color: var(--gray-3);
-			font-size: 12px;
-			margin-top: 28px;
-			text-transform: uppercase;
-			font-weight: 600;
-			margin-bottom: 8px;
-
-			&:first-of-type {
-				margin-top: 0;
-			}
-		}
-
-		& .resetFilters {
-			margin-top: 20px;
-		}
-	}
-
-	& .searchList {
-		flex-grow: 1;
-	}
 }
 
 .facetCheckbox {
