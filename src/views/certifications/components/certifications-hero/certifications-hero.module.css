@@ -1,0 +1,72 @@
+.root {
+	padding-bottom: 220px;
+	padding-top: 144px;
+	position: relative;
+}
+
+.backgroundSlot {
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: -1;
+}
+
+.textAndImage {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 64px;
+}
+
+.textSlot {
+	display: flex;
+	flex-direction: column;
+	flex: 25em 2 1;
+	gap: 32px;
+	max-width: 600px;
+	min-width: 0;
+}
+
+.imageSlot {
+	position: relative;
+	flex: 25em 1 1;
+	margin-left: auto;
+	min-width: 0;
+}
+
+.heading {
+	composes: hds-typography-display-500 from global;
+	color: var(--color);
+	font-size: 40px;
+	font-weight: var(--token-typography-font-weight-bold);
+	margin: 0;
+
+	@media (--dev-dot-tablet-up) {
+		font-size: 54px;
+	}
+
+	&.foreground-dark {
+		--color: var(--token-color-foreground-strong);
+	}
+
+	&.foreground-light {
+		--color: var(--token-color-foreground-high-contrast);
+	}
+}
+
+.description {
+	composes: hds-typography-display-300 from global;
+	color: var(--color);
+	font-weight: var(--token-typography-font-weight-medium);
+	margin: 0;
+
+	&.foreground-dark {
+		--color: var(--token-color-foreground-strong);
+	}
+
+	&.foreground-light {
+		--color: var(--token-color-foreground-high-contrast);
+	}
+}
