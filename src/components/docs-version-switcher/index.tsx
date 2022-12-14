@@ -7,7 +7,7 @@ import { useCurrentProduct } from 'contexts'
 import useCurrentPath from 'hooks/use-current-path'
 import DropdownDisclosure, {
 	DropdownDisclosureLabelItem,
-	DropdownDisclosureLinkItem,
+	DropdownDisclosureAnchorItem,
 } from 'components/dropdown-disclosure'
 import { DocsVersionSwitcherOption, DocsVersionSwitcherProps } from './types'
 import s from './docs-version-switcher.module.css'
@@ -90,13 +90,13 @@ const DocsVersionSwitcher = ({
 							rel = 'nofollow'
 						}
 						return (
-							<DropdownDisclosureLinkItem
+							<DropdownDisclosureAnchorItem
 								key={option.version}
 								href={href}
 								rel={rel}
 							>
 								{option.label}
-							</DropdownDisclosureLinkItem>
+							</DropdownDisclosureAnchorItem>
 						)
 					})}
 			</DropdownDisclosure>
