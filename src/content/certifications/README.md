@@ -19,9 +19,9 @@ Program pages at `/certifications/<slug>` are rendered based on the `<slug>.json
 
 Each `<slug>.json` file in that directory controls the content for an individual program page. For example, [content/certifications/programs/security-automation.json](/src/content/certifications/programs/security-automation.json) controls the content for [/certifications/security-automation](https://developer.hashicorp.com/certifications/security-automation).
 
-### Copy on Program Pages
+### Copy for Programs and Exams
 
-Most copy on program pages is managed directly in each `<slug>.json` file. Details on the content schema can be found in [src/views/certifications/content/schemas/certification-program.ts](/src/views/certifications/content/schemas/certification-program.ts).
+Most copy on program pages, including copy related to individual exams, is managed directly in each `<slug>.json` file. Details on the content schema can be found in [src/views/certifications/content/schemas/certification-program.ts](/src/views/certifications/content/schemas/certification-program.ts).
 
 ### Exam FAQs on Program Pages
 
