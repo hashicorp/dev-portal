@@ -11,7 +11,7 @@ import s from './certifications-hero.module.css'
  * of a consistent layout across pages, while meeting the different styles
  * of hero across Certifications views.
  */
-export function CertificationsHero({
+function CertificationsHero({
 	heading,
 	description,
 	backgroundSlot,
@@ -47,3 +47,6 @@ export function CertificationsHero({
 		</div>
 	)
 }
+
+export type { CertificationsHeroProps }
+export { CertificationsHero }

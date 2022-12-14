@@ -1,7 +1,12 @@
 import classNames from 'classnames'
 // Shared under certifications
-import { CertificationsHero } from 'views/certifications/components'
+import {
+	CertificationsHero,
+	CertificationsHeroProps,
+} from 'views/certifications/components'
 import { ProgramSlug } from 'views/certifications/types'
+// Local
+import { ProgramHeroProps } from './types'
 // Styles
 import s from './program-hero.module.css'
 
@@ -13,26 +18,21 @@ import s from './program-hero.module.css'
  * If a slug is not explicitly supported, the CertificationsHero will default
  * to dark foreground text, and a plain white background.
  */
-enum ProgramHeroForeground {
-	'security-automation' = 'dark',
-	'infrastructure-automation' = 'light',
-	'networking-automation' = 'light',
+const programHeroForeground: Record<
+	ProgramSlug,
+	CertificationsHeroProps['foreground']
+> = {
+	'security-automation': 'dark',
+	'infrastructure-automation': 'light',
+	'networking-automation': 'light',
 }
 
-function ProgramHero({
-	heading,
-	description,
-	slug,
-}: {
-	heading: string
-	description: string
-	slug: ProgramSlug
-}) {
+function ProgramHero({ heading, description, slug }: ProgramHeroProps) {
 	return (
 		<CertificationsHero
 			heading={heading}
 			description={description}
-			foreground={ProgramHeroForeground[slug]}
+			foreground={programHeroForeground[slug]}
 			backgroundSlot={
 				<div className={classNames(s.heroBackground, s[`theme-${slug}`])} />
 			}
