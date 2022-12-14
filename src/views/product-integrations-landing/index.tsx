@@ -26,10 +26,10 @@ import {
 } from './contexts/mobile-drawer-context'
 import {
 	generateTopLevelSidebarNavData,
-	// generateProductLandingSidebarNavData,
+	generateProductLandingSidebarNavData,
 } from 'components/sidebar/helpers'
 import { useCurrentProduct } from 'contexts'
-import Sidebar from 'components/sidebar'
+import Sidebar, { type SidebarProps } from 'components/sidebar'
 import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 import SidebarNavList from 'components/sidebar/components/sidebar-nav-list'
@@ -130,13 +130,8 @@ const SearchFacets = () => {
 }
 
 // Custom sidebar
-const IntegrationsSearchSidebar = () => {
+const IntegrationsSearchSidebar = (props: SidebarProps) => {
 	const product = useCurrentProduct()
-	const navItems = [
-		// TODO we might want this later.
-		// ...generateProductLandingSidebarNavData(product).menuItems,
-		...generateTopLevelSidebarNavData(product.name).menuItems,
-	]
 	return (
 		<>
 			{/* Desktop sidebar — render search facets */}
@@ -153,19 +148,7 @@ const IntegrationsSearchSidebar = () => {
 			</div>
 			{/* Mobile sidebar - render sidebar */}
 			<div className="g-show-with-mobile-menu">
-				<Sidebar
-					title={`${product.name} Integrations`}
-					showFilterInput={false}
-					backToLinkProps={{
-						text: `${product.name} Home`,
-						href: `/${product.slug}`,
-					}}
-					levelButtonProps={{
-						levelUpButtonText: `${product.name} Home`,
-						levelDownButtonText: 'Previous',
-					}}
-					menuItems={navItems}
-				/>
+				<Sidebar {...props} />
 			</div>
 		</>
 	)
@@ -215,19 +198,28 @@ export default function ProductIntegrationsLanding({
 			isCurrentPage: true,
 		},
 	]
+	const sidebarNavDataLevels = [
+		generateTopLevelSidebarNavData(product.name),
+		generateProductLandingSidebarNavData(product),
+		{
+			backToLinkProps: {
+				text: `${product.name} Home`,
+				href: `/${product.slug}`,
+			},
+			levelButtonProps: {
+				levelUpButtonText: `${product.name} Home`,
+				levelDownButtonText: 'Previous',
+			},
+			menuItems: [],
+			showFilterInput: false,
+			title: `${product.name} Integrations`,
+		},
+	]
 	return (
 		<IntegrationsSearchProvider integrations={integrations}>
 			<MobileDrawerContextProvider>
 				<SidebarSidecarLayout
-					sidebarNavDataLevels={
-						[
-							// This is intentionally empty because we're using a custom sidebar
-							// - see IntegrationsSearchSidebar
-							// - levels will only be used by the mobile sidebar. Desktop sidebar
-							//   will render search facets instead
-							//
-						]
-					}
+					sidebarNavDataLevels={sidebarNavDataLevels}
 					breadcrumbLinks={breadcrumbLinks}
 					sidecarSlot={<></>}
 					AlternateSidebar={IntegrationsSearchSidebar}
