@@ -46,13 +46,8 @@ function DownloadsPage({ product, releases, latestVersion }) {
 			packageManagerOverrides={[
 				{
 					label: 'Homebrew',
-					commands: [`brew install vagrant`],
+					commands: [`brew install hashicorp/tap/hashicorp-vagrant`],
 					os: 'darwin',
-				},
-				{
-					label: 'Homebrew',
-					commands: [`brew install vagrant`],
-					os: 'linux',
 				},
 			]}
 		/>
