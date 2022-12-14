@@ -8,6 +8,7 @@ import rewriteLinksPlugin from './rewrite-links-plugin'
 import { getLearnToDevDotUrlMap } from './helpers/get-learn-to-dev-dot-url-map'
 import { getDocsToDevDotUrlMap } from './helpers/get-dot-io-to-dev-dot-url-map'
 import { rewriteFileContentString } from './helpers/rewrite-file-content-string'
+import { normalizeRemoteLoaderSlug } from './helpers/normalize-remote-loader-slug'
 
 const getArguments = () => {
 	const { product, contentDirectory } = yargs
@@ -31,19 +32,6 @@ const getArguments = () => {
 	return { product, contentDirectory }
 }
 
-const normalizeLoaderSlug = (loaderSlug) => {
-	return productSlugs.find((productSlug) => {
-		if (loaderSlug === productSlug) {
-			return true
-		}
-
-		const productData = cachedGetProductData(productSlug)
-		return !!productData.rootDocsPaths.find((rootDocsPath) => {
-			return loaderSlug === rootDocsPath.productSlugForLoader
-		})
-	})
-}
-
 const gatherMdxFilePaths = (directory, paths) => {
 	fs.readdirSync(directory).forEach((item) => {
 		const itemPath = path.join(directory, item)
@@ -59,7 +47,7 @@ const gatherMdxFilePaths = (directory, paths) => {
 const main = async () => {
 	const { product, contentDirectory } = getArguments()
 
-	const normalizedProductSlug = normalizeLoaderSlug(product)
+	const normalizedProductSlug = normalizeRemoteLoaderSlug(product)
 	const contentDirectoryPath = path.join(process.cwd(), contentDirectory)
 
 	const dotIoToDevDotPaths = await getDocsToDevDotUrlMap()
