@@ -29,7 +29,7 @@ export async function getStaticProps(): Promise<
 	const allPrograms = getAllCertificationPrograms()
 	const programSummaries = formatProgramSummaries(
 		allPrograms,
-		pageContent.programSummarySlugs
+		pageContent.programSummaryOrder
 	)
 
 	/**

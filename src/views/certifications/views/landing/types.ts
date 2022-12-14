@@ -21,7 +21,7 @@ export interface CertificationProgramSummary {
  */
 export type LandingPageContent = Omit<
 	RawLandingPageContent,
-	'programSummarySlugs'
+	'programSummaryOrder'
 >
 
 export interface CertificationLandingProps {

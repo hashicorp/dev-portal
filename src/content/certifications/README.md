@@ -15,7 +15,7 @@ The content for the landing page hero is managed in [content/certifications/land
 
 ### Program Summaries
 
-The `programSummarySlugs` array allows authors to control which programs are summarized on the landing page, and in what order those summaries appear. The content for program summaries on the landing page is driven by [content for each Program Page](#program-pages).
+The `programSummaryOrder` array allows authors to control which programs are summarized on the landing page, and in what order those summaries appear. The content for program summaries on the landing page is driven by [content for each Program Page](#program-pages).
 
 ### FAQs
 
