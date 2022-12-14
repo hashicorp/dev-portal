@@ -1,0 +1,18 @@
+.programsSection {
+	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+	gap: 56px;
+
+	/* Overlap onto the hero above, and the section below */
+	margin: -72px 0 -80px 0;
+
+	/* We want this section to be above the FAQ section below */
+	z-index: 1;
+
+	/* Adjust spacing based on viewport */
+	@media (--dev-dot-desktop) {
+		gap: 72px;
+		margin: -72px 0 -128px 0;
+	}
+}

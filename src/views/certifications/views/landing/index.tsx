@@ -1,8 +1,9 @@
 // Global
 import BaseNewLayout from 'layouts/base-new'
 // Local view
-import { LandingHero } from './components'
-import { CertificationLandingProps } from './types'
+import { CertificationProgramSection, LandingHero } from './components'
+import { CertificationLandingProps, CertificationProgramSummary } from './types'
+import s from './landing.module.css'
 
 function CertificationsLandingView({
 	pageContent,
@@ -12,14 +13,28 @@ function CertificationsLandingView({
 	const { hero } = pageContent
 	return (
 		<>
+			{/* Hero */}
 			<LandingHero heading={hero.heading} description={hero.description} />
-			<pre style={{ border: '1px solid magenta' }}>
+			{/* Program Summaries */}
+			<div className={s.programsSection}>
+				{programSummaries.map((programSummary: CertificationProgramSummary) => {
+					const { slug, heading, description, exams } = programSummary
+					return (
+						<CertificationProgramSection
+							key={slug}
+							slug={slug}
+							heading={heading}
+							description={description}
+							exams={exams}
+						/>
+					)
+				})}
+			</div>
+			{/* Content Debug */}
+			<pre style={{ border: '1px solid magenta', margin: '0' }}>
 				<code>
 					{JSON.stringify(
 						{
-							note: 'Landing page placeholder',
-							pageContent,
-							programSummaries,
 							faqItems,
 						},
 						null,
