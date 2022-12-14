@@ -1,12 +1,14 @@
+import path from 'path'
 import { test, expect } from '@playwright/test'
-import waypointData from '../../../scripts/docs-content-link-rewrites/.generated/rewritten-links/waypoint.json'
+import { getAllPagePaths } from 'lib/get-all-page-paths'
 
 /**
  * TODO abstract to accept inputs
  */
-
-const STAGING_URL = 'https://waypoint-git-main-hashicorp.vercel.app/'
-const PREVIEW_URL =
+const PRODUCT_SLUG = 'waypoint'
+const MAIN_BRANCH_PREVIEW_URL =
+	'https://waypoint-git-main-hashicorp.vercel.app/'
+const PR_BRANCH_PREVIEW_URL =
 	'https://waypoint-git-docs-ambmigrate-link-formats-hashicorp.vercel.app/'
 
 // Run all the tests generated in this file in parallel
@@ -15,44 +17,60 @@ test.describe.configure({ mode: 'parallel' })
 /**
  * TODO this will not generate any tests in a PR
  */
-Object.keys(waypointData ?? {}).forEach((fileName) => {
-	const relativePath = fileName.replace(/\.mdx$/, '').replace(/\/index$/, '')
-	const pathToTest = `waypoint${relativePath}`
-
-	test(fileName, async ({ page }) => {
-		/**
-		 * GET STAGING LINKS
-		 */
-		await page.goto(`${STAGING_URL}${pathToTest}`)
-		const stagingContentLinks = page.locator(
-			'[class^="docs-view_mdxContent"] a'
-		)
-		const stagingHrefs = await stagingContentLinks.evaluateAll(
-			(anchors: HTMLAnchorElement[]) =>
-				anchors.map((anchor: HTMLAnchorElement) => {
-					const { pathname = '', search = '', hash = '' } = new URL(anchor.href)
-					return `${pathname}${search}${hash}`
-				})
-		)
-
-		/**
-		 * GET PREVIEW URL LINKS
-		 */
-		await page.goto(`${PREVIEW_URL}${pathToTest}`)
-		const previewContentLinks = page.locator(
-			'[class^="docs-view_mdxContent"] a'
-		)
-		const previewHrefs = await previewContentLinks.evaluateAll(
-			(anchors: HTMLAnchorElement[]) =>
-				anchors.map((anchor: HTMLAnchorElement) => {
-					const { pathname = '', search = '', hash = '' } = new URL(anchor.href)
-					return `${pathname}${search}${hash}`
-				})
-		)
-
-		/**
-		 * ASSERT STUFF
-		 */
-		expect(JSON.stringify(previewHrefs)).toEqual(JSON.stringify(stagingHrefs))
+getAllPagePaths({
+	basePath: 'docs',
+	branchName: 'main',
+	repoName: 'waypoint',
+}).then((paths) => {
+	test('TODO', () => {
+		console.log(paths)
+		expect(true).toBe(true)
 	})
+	// paths.forEach((pagePathToTest) => {
+	// 	test(pagePathToTest, async ({ page }) => {
+	// 		// Get all anchor hrefs for the main branch's page
+	// 		const mainBranchPageUrl = path.join(
+	// 			MAIN_BRANCH_PREVIEW_URL,
+	// 			pagePathToTest
+	// 		)
+	// 		await page.goto(mainBranchPageUrl)
+	// 		const mainBranchContentLinks = page.locator(
+	// 			'[class^="docs-view_mdxContent"] a'
+	// 		)
+	// 		const mainBranchHrefs = await mainBranchContentLinks.evaluateAll(
+	// 			(anchors: HTMLAnchorElement[]) =>
+	// 				anchors.map((anchor: HTMLAnchorElement) => {
+	// 					const {
+	// 						pathname = '',
+	// 						search = '',
+	// 						hash = '',
+	// 					} = new URL(anchor.href)
+	// 					return `${pathname}${search}${hash}`
+	// 				})
+	// 		)
+
+	// 		// Get all anchor hrefs for the pr branch's page
+	// 		const prBranchPageUrl = path.join(PR_BRANCH_PREVIEW_URL, pagePathToTest)
+	// 		await page.goto(prBranchPageUrl)
+	// 		const prBranchContentLinks = page.locator(
+	// 			'[class^="docs-view_mdxContent"] a'
+	// 		)
+	// 		const prBranchHrefs = await prBranchContentLinks.evaluateAll(
+	// 			(anchors: HTMLAnchorElement[]) =>
+	// 				anchors.map((anchor: HTMLAnchorElement) => {
+	// 					const {
+	// 						pathname = '',
+	// 						search = '',
+	// 						hash = '',
+	// 					} = new URL(anchor.href)
+	// 					return `${pathname}${search}${hash}`
+	// 				})
+	// 		)
+
+	// 		// Assert that the hrefs are the same for both branch's preview pages
+	// 		expect(JSON.stringify(prBranchHrefs)).toEqual(
+	// 			JSON.stringify(mainBranchHrefs)
+	// 		)
+	// 	})
+	// })
 })
