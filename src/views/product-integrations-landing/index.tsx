@@ -26,8 +26,13 @@ import {
 } from './contexts/mobile-drawer-context'
 import {
 	generateTopLevelSidebarNavData,
-	generateProductLandingSidebarNavData,
+	// generateProductLandingSidebarNavData,
 } from 'components/sidebar/helpers'
+import { useCurrentProduct } from 'contexts'
+import Sidebar from 'components/sidebar'
+import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
+import { SidebarNavMenuItem } from 'components/sidebar/components'
+import SidebarNavList from 'components/sidebar/components/sidebar-nav-list'
 
 /**
  * A component that taps into the bulk of our search functionality.
@@ -126,34 +131,66 @@ const SearchFacets = () => {
 
 // Custom sidebar
 const IntegrationsSearchSidebar = () => {
-	const { dialogOpen, setDialogOpen } = useMobileDrawerContext()
+	const product = useCurrentProduct()
+	const navItems = [
+		// TODO we might want this later.
+		// ...generateProductLandingSidebarNavData(product).menuItems,
+		...generateTopLevelSidebarNavData(product.name).menuItems,
+	]
 	return (
 		<>
-			{/* Desktop sidebar */}
+			{/* Desktop sidebar — render search facets */}
 			<div className="g-hide-with-mobile-menu">
+				<SidebarNavList>
+					<SidebarBackToLink
+						text={`${product.name} Home`}
+						href={`/${product.slug}`}
+					/>
+					<SidebarNavMenuItem item={{ divider: true }} />
+				</SidebarNavList>
+
 				<SearchFacets />
 			</div>
-			{/* Mobile drawer */}
+			{/* Mobile sidebar - render sidebar */}
 			<div className="g-show-with-mobile-menu">
-				<Dialog
-					isOpen={dialogOpen}
-					label="Integrations filters"
-					// eslint-disable-next-line @typescript-eslint/no-empty-function
-					onDismiss={() => {}}
-					variant="bottom"
-				>
-					<button
-						className={s.exitIcon}
-						onClick={() => setDialogOpen(false)}
-						aria-label="Cancel"
-						type="button"
-					>
-						<IconX16 />
-					</button>
-					<SearchFacets />
-				</Dialog>
+				<Sidebar
+					title={`${product.name} Integrations`}
+					showFilterInput={false}
+					backToLinkProps={{
+						text: `${product.name} Home`,
+						href: `/${product.slug}`,
+					}}
+					levelButtonProps={{
+						levelUpButtonText: `${product.name} Home`,
+						levelDownButtonText: 'Previous',
+					}}
+					menuItems={navItems}
+				/>
 			</div>
 		</>
+	)
+}
+
+const IntegrationsSearchDrawer = () => {
+	const { dialogOpen, setDialogOpen } = useMobileDrawerContext()
+	return (
+		<Dialog
+			isOpen={dialogOpen}
+			label="Integrations filters"
+			// eslint-disable-next-line @typescript-eslint/no-empty-function
+			onDismiss={() => {}}
+			variant="bottom"
+		>
+			<button
+				className={s.exitIcon}
+				onClick={() => setDialogOpen(false)}
+				aria-label="Cancel"
+				type="button"
+			>
+				<IconX16 />
+			</button>
+			<SearchFacets />
+		</Dialog>
 	)
 }
 
@@ -161,25 +198,6 @@ export default function ProductIntegrationsLanding({
 	product,
 	integrations,
 }: ViewProps) {
-	// TODO: maybe generate this serverside
-	const sidebarNavDataLevels = [
-		generateTopLevelSidebarNavData(product.name),
-		generateProductLandingSidebarNavData(product),
-		{
-			backToLinkProps: {
-				text: `${product.name} Home`,
-				href: `/${product.slug}`,
-			},
-			levelButtonProps: {
-				levelUpButtonText: `${product.name} Home`,
-				levelDownButtonText: 'Previous',
-			},
-			menuItems: [],
-			showFilterInput: false,
-			title: `${product.name} Integrations`,
-		},
-	]
-	// TODO: maybe generate this serverside
 	const breadcrumbLinks = [
 		{
 			title: 'Developer',
@@ -201,7 +219,15 @@ export default function ProductIntegrationsLanding({
 		<IntegrationsSearchProvider integrations={integrations}>
 			<MobileDrawerContextProvider>
 				<SidebarSidecarLayout
-					sidebarNavDataLevels={sidebarNavDataLevels}
+					sidebarNavDataLevels={
+						[
+							// This is intentionally empty because we're using a custom sidebar
+							// - see IntegrationsSearchSidebar
+							// - levels will only be used by the mobile sidebar. Desktop sidebar
+							//   will render search facets instead
+							//
+						]
+					}
 					breadcrumbLinks={breadcrumbLinks}
 					sidecarSlot={<></>}
 					AlternateSidebar={IntegrationsSearchSidebar}
@@ -210,6 +236,7 @@ export default function ProductIntegrationsLanding({
 						<SearchableIntegrationsList className={s.searchList} />
 					</div>
 				</SidebarSidecarLayout>
+				<IntegrationsSearchDrawer />
 			</MobileDrawerContextProvider>
 		</IntegrationsSearchProvider>
 	)
