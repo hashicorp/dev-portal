@@ -34,7 +34,14 @@ test.describe('docs-content-link-rewrites', () => {
 			console.log(`Testing paths under ${basePath}`)
 			console.log(JSON.stringify(pagePaths, null, 2))
 
-			pagePaths.forEach((pagePathToTest: string) => {
+			pagePaths.forEach((pagePathToTest: string, index: number) => {
+				/**
+				 * @TODO remove after the workflow that calls this is tested
+				 */
+				if (index !== 0) {
+					return
+				}
+
 				test(pagePathToTest, async ({ page }) => {
 					// Get all anchor hrefs for the main branch's page
 					const mainBranchPageUrl = path.join(
