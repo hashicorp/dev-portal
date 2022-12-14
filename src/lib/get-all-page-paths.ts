@@ -1,13 +1,51 @@
-import { getPathsFromNavData } from '@hashicorp/react-docs-page/server'
 import path from 'path'
 import { ProductData, RootDocsPath } from 'types/products'
 import fetchGithubFile from 'lib/fetch-github-file'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { productSlugs } from 'lib/products'
 
-const REPO = 'waypoint'
-const BASE_PATH = 'docs'
-const BRANCH_TO_RUN_FOR = 'docs/amb.migrate-link-formats'
+/**
+ * @NOTE copied from:
+ * node_modules/@hashicorp/react-docs-page/server/get-paths-from-nav-data.ts
+ */
+function getPathArraysFromNodes(navNodes: $TSFixMe): string[][] {
+	const slugs: string[][] = navNodes.reduce((acc, navNode) => {
+		// Individual items have a path, these should be added
+		if ('path' in navNode) {
+			return acc.concat([navNode.path.split('/')])
+		}
+		// Category items have child routes, these should all be added
+		if ('routes' in navNode) {
+			return acc.concat(getPathArraysFromNodes(navNode.routes))
+		}
+		// All other node types (dividers, external links) can be ignored
+		return acc
+	}, [] as string[][])
+	return slugs
+}
+
+/**
+ * @NOTE copied from:
+ * node_modules/@hashicorp/react-docs-page/server/get-paths-from-nav-data.ts
+ */
+function getPathsFromNavData(
+	navDataResolved: $TSFixMe,
+	paramId: string = 'page'
+): {
+	params: Record<string, string[]>
+}[] {
+	//  Transform navigation data into path arrays
+	const pagePathArrays = getPathArraysFromNodes(navDataResolved)
+	// Ensure we include an empty array for the "/" index page path
+	// (may be included in nav-data, eg for Terraform, or may not, eg for all other sites)
+	const hasIndexPage = pagePathArrays.filter((p) => p.length == 0).length > 0
+	if (!hasIndexPage) {
+		pagePathArrays.unshift([])
+	}
+	// Return the array of all page paths
+	const paths = pagePathArrays.map((p) => ({ params: { [paramId]: p } }))
+	return paths
+}
 
 const normalizeLoaderSlug = (loaderSlug) => {
 	return productSlugs.find((productSlug) => {
@@ -61,13 +99,15 @@ const getNavDataFileNameForBasePath = (
 const fetchNavData = async ({
 	branchName,
 	filePath,
+	repoName,
 }: {
 	branchName?: string
 	filePath: string
+	repoName: string
 }) => {
 	const fileContents = await fetchGithubFile({
 		owner: 'hashicorp',
-		repo: REPO,
+		repo: repoName,
 		path: filePath,
 		ref: branchName,
 	})
@@ -81,7 +121,11 @@ export const getAllPagePaths = async ({ basePath, branchName, repoName }) => {
 
 	const navDataFileName = getNavDataFileNameForBasePath(basePath, productData)
 	const navDataFilePath = path.join(navDataPrefix, navDataFileName)
-	const navData = await fetchNavData({ branchName, filePath: navDataFilePath })
+	const navData = await fetchNavData({
+		branchName,
+		filePath: navDataFilePath,
+		repoName,
+	})
 
 	const pagePathObjects = getPathsFromNavData(navData)
 	const allPagePaths = pagePathObjects.map((pagePathObject) => {
