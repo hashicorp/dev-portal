@@ -4,7 +4,10 @@ import BaseNewLayout from 'layouts/base-new'
 import { LandingHero } from './components'
 import { CertificationLandingProps } from './types'
 
-function CertificationsLandingView({ pageContent }: CertificationLandingProps) {
+function CertificationsLandingView({
+	pageContent,
+	faqItems,
+}: CertificationLandingProps) {
 	const { hero } = pageContent
 	return (
 		<>
@@ -12,7 +15,7 @@ function CertificationsLandingView({ pageContent }: CertificationLandingProps) {
 			<pre style={{ border: '1px solid magenta' }}>
 				<code>
 					{JSON.stringify(
-						{ note: 'Landing page placeholder', pageContent },
+						{ note: 'Landing page placeholder', pageContent, faqItems },
 						null,
 						2
 					)}

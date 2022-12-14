@@ -13,6 +13,10 @@ This folder contains the authorable content for Certifications pages.
 
 The content for the landing page hero is managed in [content/certifications/landing.json](/src/content/certifications/landing.json).
 
+### FAQs
+
+The content for the landing page's FAQ content is managed in [content/certifications/landing-faq.mdx](/src/content/certifications/landing-faq.mdx). FAQs are derived from this MDX file by extracting title text and content from each `## Heading Two` section.
+
 ## Program Pages
 
 Program pages at `/certifications/<slug>` are rendered based on the `<slug>.json` files present in the [content/certifications/programs](/src/content/certifications/programs) directory.
