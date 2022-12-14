@@ -148,7 +148,7 @@ const IntegrationsSearchSidebar = (props: SidebarProps) => {
 			</div>
 			{/* Mobile sidebar - render sidebar */}
 			<div className="g-show-with-mobile-menu">
-				<Sidebar {...props} />
+				{/* <Sidebar {...props} /> */}
 			</div>
 		</>
 	)
@@ -210,7 +210,8 @@ export default function ProductIntegrationsLanding({
 				levelUpButtonText: `${product.name} Home`,
 				levelDownButtonText: 'Previous',
 			},
-			menuItems: [],
+			// Ensure menuItems is so that the AlternateSidebar is rendered
+			menuItems: undefined,
 			showFilterInput: false,
 			title: `${product.name} Integrations`,
 		},
