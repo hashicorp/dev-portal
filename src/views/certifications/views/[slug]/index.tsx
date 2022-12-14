@@ -38,14 +38,7 @@ function CertificationProgramView({
 										slug={slug}
 									/>
 									<h2 className={s.examAccordionHeading}>Overview</h2>
-									<AccordionWithMdxContent
-										items={exam.faqItems.map((faqItem) => {
-											return {
-												title: faqItem.title,
-												mdxSource: faqItem.mdxSource,
-											}
-										})}
-									/>
+									<AccordionWithMdxContent items={exam.faqItems} />
 								</div>
 							)
 						})}
