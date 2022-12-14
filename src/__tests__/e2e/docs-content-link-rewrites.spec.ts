@@ -77,7 +77,7 @@ test.describe('docs-content-link-rewrites', () => {
 							})
 					)
 
-					// Assert that the hrefs are the same for both branch's preview pages
+					// Assert that the hrefs are the same for both branches' preview pages
 					expect(JSON.stringify(prBranchHrefs)).toEqual(
 						JSON.stringify(mainBranchHrefs)
 					)
