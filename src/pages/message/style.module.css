@@ -1,0 +1,9 @@
+.root {
+	padding-top: 32px;
+	max-width: 680px;
+	align-self: center;
+}
+
+.content {
+	padding-top: 32px;
+}

@@ -1,0 +1,26 @@
+# Content rule: `ensure-valid-frontmatter`
+
+## Description
+
+This rule ensures that required frontmatter properties are present in the checked document. Frontmatter is YAML metadata embedded at the top of a document. It is generally used to populate metadata for a page. For example, our documentation content uses the `page_title` and `description` frontmatter values to populate a page's meta tags. Frontmatter looks like this:
+
+```
+---
+page_title: My Page
+description: My page description.
+---
+```
+
+## How to fix
+
+Add the necessary frontmatter keys listed in the message. If the error message looks like this:
+
+```
+Expected frontmatter to contain: description
+```
+
+Ensure that your frontmatter contains a `description` key.
+
+## Resources
+
+- [YAML](https://yaml.org/)
