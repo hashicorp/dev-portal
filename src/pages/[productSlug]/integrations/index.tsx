@@ -1,17 +1,14 @@
+import { ENABLED_INTEGRATION_PRODUCTS } from 'lib/enabled-integration-products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import {
 	fetchAllProductIntegrations,
 	Integration,
 } from 'lib/integrations-api-client/integration'
-import { ProductSlug } from 'types/products'
 import ProductIntegrationsLanding from 'views/product-integrations-landing'
-
-// The products that we are enabling for this Integrations POC
-export const enabledProducts: Array<ProductSlug> = ['waypoint', 'vault']
 
 export async function getServerSideProps({ params }) {
 	// 404 if we're not on an enabled page
-	if (!enabledProducts.includes(params.productSlug)) {
+	if (!ENABLED_INTEGRATION_PRODUCTS.includes(params.productSlug)) {
 		return {
 			notFound: true,
 		}
