@@ -28,6 +28,7 @@ export const LandingPageSchema = z.object({
 		heading: z.string(),
 		description: z.string(),
 	}),
+	faqHeading: z.string(),
 	/**
 	 * Note: these must be valid ProgramSlug values.
 	 */
