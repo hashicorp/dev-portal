@@ -63,8 +63,8 @@ describe('AccordionDisclosure', () => {
 	it('handles "isOpen" state with correct aria attributes', () => {
 		const { queryByRole } = render(
 			<AccordionDisclosure
-				title={'GrandParent Title'}
-				description={'GrandParentParent Description'}
+				title={'Item 1'}
+				description={'what a lovely accordion item'}
 			>
 				I am an accordion item
 			</AccordionDisclosure>
