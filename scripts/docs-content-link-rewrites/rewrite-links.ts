@@ -77,6 +77,9 @@ const main = async () => {
 		const fileContent = fs.readFileSync(filePath, 'utf-8')
 
 		const {
+			// TODO put in a real TS fix
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
 			data: { linksToRewrite = {}, unrewriteableLinks = [] },
 		} = await remark()
 			.use(rewriteLinksPlugin, {
