@@ -1,4 +1,7 @@
-import { RawCertificationProgramItem } from 'views/certifications/types'
+import {
+	ProgramSlug,
+	RawCertificationProgramItem,
+} from 'views/certifications/types'
 import { CertificationProgramSummary } from '../types'
 
 /**
@@ -22,13 +25,13 @@ export function formatProgramSummaries(
 			// Format the full program data into a summary object
 			return {
 				slug: program.slug,
-				title: program.pageContent.summary.heading,
+				heading: program.pageContent.summary.heading,
 				description: program.pageContent.summary.description,
 				exams: program.pageContent.exams.map((exam) => {
 					return {
 						title: exam.title,
 						productSlug: exam.productSlug,
-						url: exam.links?.prepare ?? null,
+						prepareUrl: exam.links?.prepare ?? null,
 					}
 				}),
 			}

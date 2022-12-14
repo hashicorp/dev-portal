@@ -1,17 +1,21 @@
+import {
+	RawCertificationExam,
+	RawCertificationProgram,
+} from 'views/certifications/content/schemas/certification-program'
 import { RawLandingPageContent } from 'views/certifications/content/schemas/landing-page'
-import { FaqItem } from 'views/certifications/types'
+import { FaqItem, ProgramSlug } from 'views/certifications/types'
 
 /**
  * Summaries of each certification program are displayed on the landing page.
  */
 export interface CertificationProgramSummary {
-	slug: string
-	title: string
-	description: string
+	slug: ProgramSlug
+	heading: RawCertificationProgram['summary']['heading']
+	description: RawCertificationProgram['summary']['description']
 	exams: {
-		title: string
-		productSlug: 'consul' | 'terraform' | 'vault'
-		url?: string
+		title: RawCertificationExam['title']
+		productSlug: RawCertificationExam['productSlug']
+		prepareUrl?: RawCertificationExam['links']['prepare']
 	}[]
 }
 
