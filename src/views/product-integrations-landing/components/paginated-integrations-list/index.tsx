@@ -148,11 +148,7 @@ function Paginator({
 }: PaginatorProps) {
 	paginatedArray(numberOfPages, currentPage)
 	return (
-		<nav
-			className={s.paginator}
-			// role="navigation"
-			aria-label="Pagination Navigation"
-		>
+		<nav className={s.paginator} aria-label="Pagination Navigation">
 			<ul>
 				<li>
 					<button
