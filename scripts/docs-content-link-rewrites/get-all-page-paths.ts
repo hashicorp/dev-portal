@@ -2,7 +2,7 @@ import path from 'path'
 import { ProductData, RootDocsPath } from 'types/products'
 import fetchGithubFile from 'lib/fetch-github-file'
 import { cachedGetProductData } from 'lib/get-product-data'
-import { productSlugs } from 'lib/products'
+import { normalizeRemoteLoaderSlug } from './helpers/normalize-remote-loader-slug'
 
 /**
  * @NOTE copied from:
@@ -47,19 +47,6 @@ function getPathsFromNavData(
 	return paths
 }
 
-const normalizeLoaderSlug = (loaderSlug) => {
-	return productSlugs.find((productSlug) => {
-		if (loaderSlug === productSlug) {
-			return true
-		}
-
-		const productData = cachedGetProductData(productSlug)
-		return !!productData.rootDocsPaths.find((rootDocsPath) => {
-			return loaderSlug === rootDocsPath.productSlugForLoader
-		})
-	})
-}
-
 /**
  * Given a hashicorp repository name, return an object with two properties:
  *  - mdxPrefix: the filename prefix for MDX files
@@ -97,11 +84,9 @@ const getNavDataFileNameForBasePath = (
 }
 
 const fetchNavData = async ({
-	branchName,
 	filePath,
 	repoName,
 }: {
-	branchName?: string
 	filePath: string
 	repoName: string
 }) => {
@@ -109,20 +94,18 @@ const fetchNavData = async ({
 		owner: 'hashicorp',
 		repo: repoName,
 		path: filePath,
-		ref: branchName,
 	})
 	return JSON.parse(fileContents)
 }
 
-export const getAllPagePaths = async ({ basePath, branchName, repoName }) => {
-	const productSlug = normalizeLoaderSlug(repoName)
+export const getAllPagePaths = async ({ basePath, repoName }) => {
+	const productSlug = normalizeRemoteLoaderSlug(repoName)
 	const productData = cachedGetProductData(productSlug)
 	const { navDataPrefix } = getRelevantFileNamePrefixes(repoName)
 
 	const navDataFileName = getNavDataFileNameForBasePath(basePath, productData)
 	const navDataFilePath = path.join(navDataPrefix, navDataFileName)
 	const navData = await fetchNavData({
-		branchName,
 		filePath: navDataFilePath,
 		repoName,
 	})

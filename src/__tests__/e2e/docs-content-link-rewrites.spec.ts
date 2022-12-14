@@ -24,54 +24,63 @@ test.describe('docs-content-link-rewrites', () => {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	const allPagePaths = require(ALL_PAGE_PATHS_OUTPUT_FILE_PATH)
+	const allPagePathsByBasePath = require(ALL_PAGE_PATHS_OUTPUT_FILE_PATH)
 
 	// Generate a test for each path in the imported JSON file
-	allPagePaths.forEach((pagePathToTest) => {
-		test(pagePathToTest, async ({ page }) => {
-			// Get all anchor hrefs for the main branch's page
-			const mainBranchPageUrl = path.join(
-				MAIN_BRANCH_PREVIEW_URL,
-				pagePathToTest
-			)
-			await page.goto(mainBranchPageUrl)
-			const mainBranchContentLinks = page.locator(
-				'[class^="docs-view_mdxContent"] a'
-			)
-			const mainBranchHrefs = await mainBranchContentLinks.evaluateAll(
-				(anchors: HTMLAnchorElement[]) =>
-					anchors.map((anchor: HTMLAnchorElement) => {
-						const {
-							pathname = '',
-							search = '',
-							hash = '',
-						} = new URL(anchor.href)
-						return `${pathname}${search}${hash}`
-					})
-			)
+	const basePaths = Object.keys(allPagePathsByBasePath)
+	basePaths.forEach((basePath) => {
+		test.describe(basePath, () => {
+			const pagePaths = allPagePathsByBasePath[basePath]
+			pagePaths.forEach((pagePathToTest) => {
+				test(pagePathToTest, async ({ page }) => {
+					// Get all anchor hrefs for the main branch's page
+					const mainBranchPageUrl = path.join(
+						MAIN_BRANCH_PREVIEW_URL,
+						pagePathToTest
+					)
+					await page.goto(mainBranchPageUrl)
+					const mainBranchContentLinks = page.locator(
+						'[class^="docs-view_mdxContent"] a'
+					)
+					const mainBranchHrefs = await mainBranchContentLinks.evaluateAll(
+						(anchors: HTMLAnchorElement[]) =>
+							anchors.map((anchor: HTMLAnchorElement) => {
+								const {
+									pathname = '',
+									search = '',
+									hash = '',
+								} = new URL(anchor.href)
+								return `${pathname}${search}${hash}`
+							})
+					)
 
-			// Get all anchor hrefs for the pr branch's page
-			const prBranchPageUrl = path.join(PR_BRANCH_PREVIEW_URL, pagePathToTest)
-			await page.goto(prBranchPageUrl)
-			const prBranchContentLinks = page.locator(
-				'[class^="docs-view_mdxContent"] a'
-			)
-			const prBranchHrefs = await prBranchContentLinks.evaluateAll(
-				(anchors: HTMLAnchorElement[]) =>
-					anchors.map((anchor: HTMLAnchorElement) => {
-						const {
-							pathname = '',
-							search = '',
-							hash = '',
-						} = new URL(anchor.href)
-						return `${pathname}${search}${hash}`
-					})
-			)
+					// Get all anchor hrefs for the pr branch's page
+					const prBranchPageUrl = path.join(
+						PR_BRANCH_PREVIEW_URL,
+						pagePathToTest
+					)
+					await page.goto(prBranchPageUrl)
+					const prBranchContentLinks = page.locator(
+						'[class^="docs-view_mdxContent"] a'
+					)
+					const prBranchHrefs = await prBranchContentLinks.evaluateAll(
+						(anchors: HTMLAnchorElement[]) =>
+							anchors.map((anchor: HTMLAnchorElement) => {
+								const {
+									pathname = '',
+									search = '',
+									hash = '',
+								} = new URL(anchor.href)
+								return `${pathname}${search}${hash}`
+							})
+					)
 
-			// Assert that the hrefs are the same for both branch's preview pages
-			expect(JSON.stringify(prBranchHrefs)).toEqual(
-				JSON.stringify(mainBranchHrefs)
-			)
+					// Assert that the hrefs are the same for both branch's preview pages
+					expect(JSON.stringify(prBranchHrefs)).toEqual(
+						JSON.stringify(mainBranchHrefs)
+					)
+				})
+			})
 		})
 	})
 })
