@@ -1,11 +1,11 @@
-import { useMemo } from 'react'
-import { useRouter } from 'next/router'
 import HashiHead from '@hashicorp/react-head'
 import BreadcrumbBar, { BreadcrumbLink } from 'components/breadcrumb-bar'
 import Tabs, { Tab } from 'components/tabs'
 import BaseLayout from 'layouts/base-new'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
+import { useRouter } from 'next/router'
+import { useMemo } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { ProductData } from 'types/products'
 import ComponentTabContent from './components/component-tab-content'
@@ -86,15 +86,14 @@ export default function ProductIntegrationLanding({
 						<div className={s.content}>
 							<Header
 								className={s.header}
-								name={integration.name}
-								tier={integration.tier}
-								author={integration.organization.slug}
+								integration={integration}
 								activeRelease={activeRelease}
 								versions={versions}
-								hideVersions={integration.hide_versions}
-								description={integration.description}
+								onInstallClicked={() => {
+									// TODO: we'll need to flip the tab over to the install tab here
+									console.log('TODO: Install Clicked')
+								}}
 							/>
-
 							<Tabs
 								allowNestedStyles
 								// translate slug to index
