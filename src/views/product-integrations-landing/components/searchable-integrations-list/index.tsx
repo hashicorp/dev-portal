@@ -6,6 +6,8 @@ import { useMobileDrawerContext } from 'views/product-integrations-landing/conte
 import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
 import s from './style.module.css'
+import Button from 'components/button'
+import { IconSliders16 } from '@hashicorp/flight-icons/svg-react/sliders-16'
 
 interface SearchableIntegrationsListProps {
 	className: string
@@ -48,15 +50,13 @@ export default function SearchableIntegrationsList({
 					searchQuery={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
 				/>
-
-				<div className="g-show-with-mobile-menu">
-					<button
-						// TODO - style this
-						onClick={() => setDialogOpen(true)}
-					>
-						Filters
-					</button>
-				</div>
+				<Button
+					text="Filters"
+					icon={<IconSliders16 />}
+					color="secondary"
+					className={classNames('g-show-with-mobile-menu', s.filterButton)}
+					onClick={() => setDialogOpen(true)}
+				/>
 			</div>
 
 			<p className={s.results}>
