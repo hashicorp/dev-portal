@@ -2,6 +2,7 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import type {
 	RawCertificationExam,
 	RawCertificationProgram,
+	CertificationProductSlug,
 } from './content/schemas/certification-program'
 import { ProgramSlug } from './content/schemas/landing-page'
 
@@ -9,6 +10,11 @@ import { ProgramSlug } from './content/schemas/landing-page'
  * Re-export ProgramSlug from this file, for convenience.
  */
 export type { ProgramSlug }
+
+/**
+ * Re-export CertificationProductSlug from this file, for convenience.
+ */
+export type { CertificationProductSlug }
 
 /**
  * An FAQ item consists of a title representing the questions,
