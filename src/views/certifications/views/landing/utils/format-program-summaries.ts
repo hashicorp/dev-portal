@@ -7,7 +7,7 @@ import { CertificationProgramSummary } from '../types'
  */
 export function formatProgramSummaries(
 	programs: RawCertificationProgramItem[],
-	slugsInOrder: string[]
+	slugsInOrder: ProgramSlug[]
 ): CertificationProgramSummary[] {
 	// Transform the provided `slugsInOrder` array into summary objects
 	const programSummaries: CertificationProgramSummary[] = slugsInOrder.map(
