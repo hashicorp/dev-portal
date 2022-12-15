@@ -33,8 +33,5 @@ jobs:
           ALL_PR_FILES: ${{ steps.get-list-of-pr-files.outputs.result }}
         with:
           script: |
-            const allPrFiles = JSON.parse(process.env.ALL_PR_FILES)
-            const changedMdxFiles = allPrFiles.filter((file) => {
-              return file.status !== 'removed' && file.filename.endsWith('.mdx')
-            })
-            console.log('changedMdxFiles', changedMdxFiles)
+            console.log('typeof ALL_PR_FILES', typeof process.env.ALL_PR_FILES)
+            console.log('typeof parsed ALL_PR_FILES', typeof JSON.parse(process.env.ALL_PR_FILES))
