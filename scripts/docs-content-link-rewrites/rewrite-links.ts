@@ -1,9 +1,9 @@
 import fs from 'fs'
 import path from 'path'
+import { normalizeRemoteLoaderSlug } from '../../src/lib/docs-content-link-rewrites/normalize-remote-loader-slug'
 import { getAllLinksToRewrite } from './helpers/get-all-links-to-rewrite'
 import { getDocsToDevDotUrlMap } from './helpers/get-dot-io-to-dev-dot-url-map'
 import { getLearnToDevDotUrlMap } from './helpers/get-learn-to-dev-dot-url-map'
-import { normalizeRemoteLoaderSlug } from './helpers/normalize-remote-loader-slug'
 import { rewriteFileContentString } from './helpers/rewrite-file-content-string'
 
 const main = async () => {
