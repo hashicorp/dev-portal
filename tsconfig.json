@@ -5,9 +5,5 @@
 		"strict": false
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-	"exclude": [
-		"node_modules",
-		"scripts/migrate-io/templates",
-		"scripts/docs-content-link-rewrites/rewrite-links-plugin.ts"
-	]
+	"exclude": ["node_modules", "scripts/migrate-io/templates"]
 }

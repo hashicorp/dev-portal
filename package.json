@@ -211,5 +211,8 @@
 		"budgetPercentIncreaseRed": 20,
 		"showDetails": true,
 		"minimumChangeThreshold": 300
-	}
+	},
+	"workspaces": [
+		"./scripts/docs-content-link-rewrites"
+	]
 }
