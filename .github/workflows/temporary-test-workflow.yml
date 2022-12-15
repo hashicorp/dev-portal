@@ -9,6 +9,10 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      OWNER: 'hashicorp'
+      REPO: 'waypoint'
+      COMMIT_SHA: '058071ca8ffd22f206c68336c9ba345d1885a63d'
     steps:
       - name: Get PR number
         id: get-pr-number
@@ -17,9 +21,9 @@ jobs:
           script: |
             // TODO don't hardcode owner, repo, commit_sha
             const { data } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-              owner: 'hashicorp',
-              repo: 'waypoint',
-              commit_sha: '058071ca8ffd22f206c68336c9ba345d1885a63d'
+              owner: process.env.OWNER,
+              repo: process.env.REPO,
+              commit_sha: process.env.COMMIT_SHA
             })
             return data[0].number
 
@@ -31,8 +35,8 @@ jobs:
         with:
           script: |
             const { data } = await github.rest.pulls.listFiles({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner: process.env.OWNER,
+              repo: process.env.REPO,
               per_page: 100,
               pull_number: process.env.PR_NUMBER,
             })
