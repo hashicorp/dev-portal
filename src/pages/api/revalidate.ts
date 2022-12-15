@@ -23,7 +23,16 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		return
 	}
 
-	const productData = cachedGetProductData(product)
+	// Handle TF's sub-projects
+	let resolvedProduct = product
+	if (
+		resolvedProduct.startsWith('terraform-') ||
+		resolvedProduct === 'ptfe-releases'
+	) {
+		resolvedProduct = 'terraform'
+	}
+
+	const productData = cachedGetProductData(resolvedProduct)
 
 	const navDataPrefixes = productData.rootDocsPaths.map(
 		({ navDataPrefix, path, productSlugForLoader }) => {
@@ -35,7 +44,16 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	const navDataFiles = (
 		await Promise.all(
 			navDataPrefixes.map(
-				async ({ navDataPrefix, path, productSlugForLoader = product }) => {
+				async ({ navDataPrefix, path, productSlugForLoader }) => {
+					// Only re-validate a TF sub-project's paths
+					// We set resolvedProduct to `terraform`, but product will be one of the sub-project slugs
+					if (product !== resolvedProduct && productSlugForLoader !== product) {
+						return false
+					}
+
+					// Default productSlugForLoader to `product` if undefined
+					productSlugForLoader ||= product
+
 					const prefix = navDataPrefix ?? path
 
 					const response = await fetch(
