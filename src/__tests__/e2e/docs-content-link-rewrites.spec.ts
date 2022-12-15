@@ -1,8 +1,9 @@
 import path from 'path'
 import { test, expect, Page, Locator } from '@playwright/test'
-import { MAIN_ELEMENT_ID } from 'constants/element-ids'
+import { SIDEBAR_NAV_ELEMENT_ID, MAIN_ELEMENT_ID } from 'constants/element-ids'
 import { ALL_PAGE_PATHS_OUTPUT_FILE_PATH } from '../../../scripts/docs-content-link-rewrites/constants'
 
+const SIDEBAR_NAV_ANCHOR_SELECTOR = `${SIDEBAR_NAV_ELEMENT_ID} a`
 const CONTENT_AREA_ANCHOR_SELECTOR = `${MAIN_ELEMENT_ID} a`
 
 // Run all the tests generated in this file in parallel
@@ -32,17 +33,21 @@ const getHrefsForPreviewUrl = async ({
 	pageInstance: Page
 	pathToTest: string
 	previewBaseUrl: string
-}): Promise<{ contentHrefs: string[] }> => {
+}): Promise<{ contentHrefs: string[]; sidebarNavHrefs: string[] }> => {
 	// Go to the full page url
 	const fullPageUrl = path.join(previewBaseUrl, pathToTest)
 	await pageInstance.goto(fullPageUrl)
 
-	// Gather up the pathname, search, and hash of each href
+	// Gather up the pathname, search, and hash of each content area href
 	const contentLinks = pageInstance.locator(CONTENT_AREA_ANCHOR_SELECTOR)
 	const contentHrefs = await gatherHrefsFromLocator(contentLinks)
 
+	// Gather up the pathname, search, and hash of each content area href
+	const sidebarNavLinks = pageInstance.locator(SIDEBAR_NAV_ANCHOR_SELECTOR)
+	const sidebarNavHrefs = await gatherHrefsFromLocator(sidebarNavLinks)
+
 	// Return the gathered hrefs
-	return { contentHrefs }
+	return { contentHrefs, sidebarNavHrefs }
 }
 
 test.describe('docs-content-link-rewrites', () => {
@@ -76,16 +81,14 @@ test.describe('docs-content-link-rewrites', () => {
 					console.log('Checking links on', path.join('/', pathToTest))
 
 					// Get all anchor hrefs for the main branch's page
-					const { contentHrefs: mainBranchHrefs } = await getHrefsForPreviewUrl(
-						{
-							pageInstance: page,
-							pathToTest,
-							previewBaseUrl: MAIN_BRANCH_PREVIEW_URL,
-						}
-					)
+					const mainBranchHrefs = await getHrefsForPreviewUrl({
+						pageInstance: page,
+						pathToTest,
+						previewBaseUrl: MAIN_BRANCH_PREVIEW_URL,
+					})
 
 					// Get all anchor hrefs for the pr branch's page
-					const { contentHrefs: prBranchHrefs } = await getHrefsForPreviewUrl({
+					const prBranchHrefs = await getHrefsForPreviewUrl({
 						pageInstance: page,
 						pathToTest,
 						previewBaseUrl: PR_BRANCH_PREVIEW_URL,
