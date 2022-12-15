@@ -3,6 +3,7 @@
 #   - https://docs.github.com/en/rest/pulls/pulls#get-a-pull-request
 #   - https://octokit.github.io/rest.js/v19#pulls-list-files
 #   - https://docs.github.com/en/rest/pulls/pulls#list-pull-requests-files
+#   - https://docs.github.com/en/actions/learn-github-actions/expressions#fromjson
 
 on: push
 
@@ -65,7 +66,7 @@ jobs:
       - name: Check out branch with content changes
         uses: actions/checkout@v3
         with:
-          repository: ${{ env.OWNER }}/${{ env.repo }}
+          repository: '${{ env.OWNER }}/${{ env.repo }}'
           ref: docs/amb.migrate-link-formats
 
       - name: Check files for legacy link formats
