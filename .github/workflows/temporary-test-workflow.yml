@@ -49,15 +49,32 @@ jobs:
               }
 
               if (file.filename.endsWith('.mdx')) {
-                changedMdxFiles.push(file.contents_url)
+                changedMdxFiles.push(file.filename)
                 return
               }
 
               if (file.filename.endsWith('-nav-data.json')) {
-                changedNavDataJsonFiles.puhs(file.contents_url)
+                changedNavDataJsonFiles.puhs(file.filename)
               }
             })
 
             const result = { changedMdxFiles, changedNavDataJsonFiles }
             console.log('get-lists-of-pr-files result:', result)
             return result
+
+      - name: Check out branch with content changes
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.OWNER }}/${{ env.repo }}
+          ref: docs/amb.migrate-link-formats
+
+      - name: Check files for legacy link formats
+        id: check-files-for-legacy-link-formats
+        uses: actions/github-script@v6
+        env:
+          CHANGED_MDX_FILES: ${{ fromJSON(steps.get-pr-number.outputs.result).changedMdxFiles }}
+          CHANGED_NAV_DATA_JSON_FILES: ${{ fromJSON(steps.get-pr-number.outputs.result).changedNavDataJsonFiles }}
+        with:
+          script: |
+            console.log('CHANGED_MDX_FILES', process.env.CHANGED_MDX_FILES)
+            console.log('CHANGED_MDX_FILES', process.env.CHANGED_NAV_DATA_JSON_FILES)
