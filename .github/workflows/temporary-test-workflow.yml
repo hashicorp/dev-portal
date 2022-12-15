@@ -35,7 +35,9 @@ jobs:
               per_page: 100,
               pull_number: process.env.PR_NUMBER,
             })
-            return data
+            const result = data
+            console.log('get-list-of-pr-files result:', result)
+            return result
 
       - name: Get list of changed MDX files
         id: get-list-of-changed-mdx-files
@@ -48,7 +50,9 @@ jobs:
             const changedMdxFiles = allPrFiles.filter((file) => {
               return file.status !== 'removed' && file.filename.endsWith('.mdx')
             })
-            return changedMdxFiles
+            const result = changedMdxFiles
+            console.log('get-list-of-changed-mdx-files result:', result)
+            return result
 
       - name: Get list of changed -nav-data.json files
         id: get-list-of-changed-nav-data-json-files
@@ -61,4 +65,7 @@ jobs:
             const changedNavDataJsonFiles = allPrFiles.filter((file) => {
               return file.status !== 'removed' && file.filename.endsWith('-nav-data.json')
             })
+            const result = changedNavDataJsonFiles
+            console.log('get-list-of-changed-nav-data-json-files result:', result)
+            return result
             return changedNavDataJsonFiles
