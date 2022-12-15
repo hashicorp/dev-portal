@@ -1,41 +1,39 @@
 .submittedMsg {
 	display: flex;
 
-	/* TODO: add in fade-in animation */
-	transition: opacity 0.35s;
-
 	&.dark {
 		& .submittedMsgText {
-			color: var(--gray-5);
+			color: var(--token-color-foreground-high-contrast);
 		}
 		& .submittedMsgTextLink {
-			color: var(--brand-link-on-dark);
+			color: var(--token-color-foreground-high-contrast);
+			text-decoration: underline;
 		}
 	}
 }
 
 .iconWrapper {
 	display: flex;
-	column-gap: var(--wpl-spacing-02);
-	color: black;
+	column-gap: 8px;
+	color: var(--token-color-foreground-high-contrast);
+	width: 100%;
 
 	&.success {
-		color: var(--success);
+		color: var(--token-color-foreground-success);
 	}
 
 	&.error {
-		color: var(--warning);
+		color: var(--token-color-foreground-warning);
 	}
 }
 
 .icon {
 	flex: 0 0 auto;
-	width: var(--wpl-spacing-05);
-	height: var(--wpl-spacing-05);
+	width: 24px;
+	height: 24px;
 }
 
 .submittedMsgText {
-	composes: g-type-body from global;
+	composes: hds-typography-body-300 from global;
 	margin: 0;
-	color: var(--gray-2);
 }

@@ -11,6 +11,7 @@ export const marketoFormData: { id: number; form: MarketoFormProps } = {
 				rowNumber: 0,
 				columnNumber: 0,
 				required: true,
+				label: 'Business Email Address',
 				formPrefill: true,
 				visibilityRules: { ruleType: 'alwaysShow' },
 				hintText: 'Business Email Address',

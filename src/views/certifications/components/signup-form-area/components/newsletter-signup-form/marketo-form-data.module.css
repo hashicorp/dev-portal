@@ -1,108 +1,65 @@
-.formWrapper {
-	width: 100%;
-}
-
-.form {
-	/* 
-    The following styles allow us to place the form button alongside the email field in the first
-    row. 
-  */
-
+.formStyleOverrides {
 	display: grid;
 	width: 100%;
-	row-gap: 24px;
 	margin-top: 8px;
+	gap: 24px;
 
-	& [data-field-id='Email'],
-	& [data-field-id='Consent_Privacy_Policy__c'] {
+	/* Modify email label text styles to match dev dot */
+	& [data-field-id='Email'] label {
+		font-size: var(--token-typography-body-200-font-size);
+		color: var(--token-color-foreground-high-contrast);
+		margin-bottom: 8px;
+	}
+
+	/* Remove margin from around the email input */
+	& [data-field-id='Email'] > [class*='style_input-root'] {
 		margin: 0;
 	}
 
-	& [data-field-id='Email'] label {
-		display: none;
+	/* Modify checkbox label text styles to match dev dot */
+	& [data-field-id='Consent_Privacy_Policy__c'] label {
+		font-size: var(--token-typography-body-200-font-size);
+		color: var(--token-color-foreground-high-contrast);
+
+		& a {
+			color: var(--token-color-foreground-high-contrast);
+		}
 	}
 
-	& [data-field-id='Email'] input::placeholder {
-		color: transparent;
+	/* Remove margin from around the checkbox input */
+	& [data-field-id='Consent_Privacy_Policy__c'] > [class*='style_root'] {
+		margin: 0;
 	}
 
+	/* Make button look more like Dev Dot */
 	& button {
-		height: 50px;
-		justify-self: stretch;
-		align-self: start;
 		background-color: var(--token-color-foreground-action);
 		border-radius: var(--token-form-control-border-radius);
 	}
 
+	/* Adjust layout using CSS grid */
 	@media (min-width: 768px) {
 		grid-template-columns: 1fr max-content;
 		column-gap: 10px;
-		transition: opacity 0.35s;
 
+		/* Email field */
 		& [data-field-id='Email'] {
 			grid-column: 1 / 2;
 			word-break: break-all;
 		}
 
-		& button {
-			grid-row: 1 / 2;
-			grid-column: 2 / 3;
-		}
-
+		/* Privacy checkbox */
 		& [data-field-id='Consent_Privacy_Policy__c'] {
 			grid-row: 2 / 3;
 			grid-column: 1 / -1;
 		}
-	}
-}
 
-.dark {
-	& [data-field-id='Email'] input {
-		border-radius: var(--token-form-control-border-radius);
-		border-color: var(--token-form-control-base-border-color-default);
-		background: var(--token-form-control-base-surface-color-default);
-		color: var(--token-color-surface-primary);
-
-		&:hover {
-			border-color: var(--token-form-control-base-border-color-hover);
-		}
-	}
-
-	& [data-field-id='Consent_Privacy_Policy__c'] {
-		& input {
-			border-color: var(--token-form-control-base-border-color-default);
-			border-radius: var(--token-form-control-border-radius);
-			background: var(--token-form-control-base-surface-color-default);
-			color: var(--token-color-surface-primary);
-			transition: border 0.2s;
-
-			&:hover {
-				border-color: var(--token-form-control-base-border-color-hover);
-			}
-		}
-
-		& input[type='checkbox']:checked {
-			background-color: var(--token-color-foreground-action);
-		}
-
-		& label {
-			margin-left: -2px; /** hack to get distance correct without being able to directly target checkbox 'span' **/
-		}
-
-		& span,
-		& a {
-			color: var(--token-color-surface-primary);
-			font-size: var(--token-typography-body-200-font-size);
-			line-height: var(--token-typography-body-200-line-height);
-			font-weight: var(--font-weight-semi-bold);
-		}
-	}
-
-	& button[disabled] {
-		background-color: hsla(0, 0%, 100%, 0.16);
-
-		& span {
-			color: hsla(0, 0%, 100%, 0.24);
+		/* Submit button */
+		& button {
+			align-self: end;
+			height: 50px;
+			grid-row: 1 / 2;
+			grid-column: 2 / 3;
 		}
 	}
 }
