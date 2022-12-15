@@ -4,13 +4,10 @@ import BaseNewLayout from 'layouts/base-new'
 import {
 	AccordionWithMdxContent,
 	CertificationsMaxWidth,
+	SignupFormArea,
 } from 'views/certifications/components'
 // Local view
-import {
-	CertificationProgramSummaryCard,
-	LandingHero,
-	SignupFormArea,
-} from './components'
+import { CertificationProgramSummaryCard, LandingHero } from './components'
 import { CertificationLandingProps, CertificationProgramSummary } from './types'
 import s from './landing.module.css'
 
