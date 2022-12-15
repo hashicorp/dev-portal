@@ -28,49 +28,36 @@ jobs:
             return data[0].number
 
       - name: Get list of PR files
-        id: get-list-of-pr-files
+        id: get-lists-of-pr-files
         uses: actions/github-script@v6
         env:
           PR_NUMBER: ${{ steps.get-pr-number.outputs.result }}
         with:
           script: |
-            const { data } = await github.rest.pulls.listFiles({
+            const changedMdxFiles = []
+            const changedNavDataJsonFiles = []
+
+            const { data: allPrFiles } = await github.rest.pulls.listFiles({
               owner: process.env.OWNER,
               repo: process.env.REPO,
               per_page: 100,
               pull_number: process.env.PR_NUMBER,
             })
-            const result = data
-            console.log('get-list-of-pr-files result:', result)
-            return result
+            allPrFiles.forEach(file => {
+              if (file.status === 'removed') {
+                return
+              }
 
-      - name: Get list of changed MDX files
-        id: get-list-of-changed-mdx-files
-        uses: actions/github-script@v6
-        env:
-          ALL_PR_FILES: ${{ steps.get-list-of-pr-files.outputs.result }}
-        with:
-          script: |
-            const allPrFiles = JSON.parse(process.env.ALL_PR_FILES)
-            const changedMdxFiles = allPrFiles.filter((file) => {
-              return file.status !== 'removed' && file.filename.endsWith('.mdx')
-            })
-            const result = changedMdxFiles
-            console.log('get-list-of-changed-mdx-files result:', result)
-            return result
+              if (file.endsWith('.mdx')) {
+                changedMdxFiles.push(file.contents_url)
+                return
+              }
 
-      - name: Get list of changed -nav-data.json files
-        id: get-list-of-changed-nav-data-json-files
-        uses: actions/github-script@v6
-        env:
-          ALL_PR_FILES: ${{ steps.get-list-of-pr-files.outputs.result }}
-        with:
-          script: |
-            const allPrFiles = JSON.parse(process.env.ALL_PR_FILES)
-            const changedNavDataJsonFiles = allPrFiles.filter((file) => {
-              return file.status !== 'removed' && file.filename.endsWith('-nav-data.json')
+              if (file.endsWith('-nav-data.json')) {
+                changedNavDataJsonFiles.puhs(file.contents_url)
+              }
             })
-            const result = changedNavDataJsonFiles
-            console.log('get-list-of-changed-nav-data-json-files result:', result)
+
+            const result = { changedMdxFiles, changedNavDataJsonFiles }
+            console.log('get-lists-of-pr-files result:', result)
             return result
-            return changedNavDataJsonFiles
