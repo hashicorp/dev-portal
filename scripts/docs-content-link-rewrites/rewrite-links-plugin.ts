@@ -1,9 +1,9 @@
 import path from 'path'
 import { VFile } from 'vfile'
-import { productSlugsToHostNames } from 'lib/products'
 import { Definition, Link } from 'mdast'
 import { Plugin } from 'unified'
 import visit from 'unist-util-visit'
+import { productSlugsToHostNames } from 'lib/products'
 
 const DOT_IO_HOSTNAMES = Object.values(productSlugsToHostNames)
 
@@ -16,13 +16,74 @@ interface CustomVFile extends VFile {
 	data: VFileData
 }
 
-const getIsRelativePath = (url: string) => {
+const getIsRelativeUrl = (url: string) => {
 	try {
 		new URL(url)
 		return false
 	} catch (e) {
 		return true
 	}
+}
+
+const getRewrittenNonRelativeDotIoUrl = ({ dotIoToDevDotPaths, urlObject }) => {
+	const { origin, pathname = '', search = '', hash = '' } = urlObject
+	const [, basePath, ...restParts] = pathname.split('/')
+	const adjustedBasePath = basePath === 'api' ? 'api-docs' : basePath
+	const originAndBasePath = `${origin}/${adjustedBasePath}`
+
+	const replacementPath = dotIoToDevDotPaths[originAndBasePath]
+	if (replacementPath) {
+		const restOfPath = restParts.join('/')
+		const newPath = path.join(replacementPath, restOfPath)
+		return `${newPath}${search}${hash}`
+	}
+}
+
+const getRewrittenNonRelativeDeveloperUrl = ({ urlObject }) => {
+	const { pathname = '', search = '', hash = '' } = urlObject
+	return `${pathname}${search}${hash}`
+}
+
+const getRewrittenNonRelativeLearnUrl = ({ learnToDevDotPaths, urlObject }) => {
+	const { origin, pathname = '', hash = '' } = urlObject
+
+	// Only include the `in` param for the `learnToDevDotPaths` search string
+	let urlToCheck = `${origin}${pathname}`
+	if (urlObject.searchParams.has('in')) {
+		urlToCheck += `?in=${urlObject.searchParams.get('in')}`
+		// Remove the param since it's not used in dev-portal
+		urlObject.searchParams.delete('in')
+	}
+
+	const replacementPath = learnToDevDotPaths[urlToCheck]
+	return `${replacementPath}${urlObject.search ?? ''}${hash}`
+}
+
+const getRewrittenNonRelativeUrl = ({
+	dotIoToDevDotPaths,
+	learnToDevDotPaths,
+	urlObject,
+}) => {
+	let rewrittenUrl
+
+	const { hostname } = urlObject
+	const hostnameWithoutWww = hostname.replace(/^www\./, '')
+
+	if (hostname === 'learn.hashicorp.com') {
+		rewrittenUrl = getRewrittenNonRelativeLearnUrl({
+			learnToDevDotPaths,
+			urlObject,
+		})
+	} else if (hostname === 'developer.hashicorp.com') {
+		rewrittenUrl = getRewrittenNonRelativeDeveloperUrl({ urlObject })
+	} else if (DOT_IO_HOSTNAMES.includes(hostnameWithoutWww)) {
+		rewrittenUrl = getRewrittenNonRelativeDotIoUrl({
+			dotIoToDevDotPaths,
+			urlObject,
+		})
+	}
+
+	return rewrittenUrl
 }
 
 const handleRelativeUrl = ({
@@ -83,60 +144,7 @@ const handleRelativeUrl = ({
 	linksToRewrite[url] = `/${productSlug}${joinedUrl}`
 }
 
-const handleNonRelativeLearnUrl = ({
-	learnToDevDotPaths,
-	linksToRewrite,
-	unrewriteableLinks,
-	url,
-	urlObject,
-}) => {
-	const { origin, pathname = '', hash = '' } = urlObject
-
-	// Only include the `in` param for the `learnToDevDotPaths` search string
-	let urlToCheck = `${origin}${pathname}`
-	if (urlObject.searchParams.has('in')) {
-		urlToCheck += `?in=${urlObject.searchParams.get('in')}`
-		// Remove the param since it's not used in dev-portal
-		urlObject.searchParams.delete('in')
-	}
-
-	const replacementPath = learnToDevDotPaths[urlToCheck]
-	if (replacementPath) {
-		linksToRewrite[url] = `${replacementPath}${urlObject.search ?? ''}${hash}`
-	} else {
-		unrewriteableLinks.push(url)
-	}
-}
-
-const handleNonRelativeDeveloperUrl = ({ linksToRewrite, url, urlObject }) => {
-	const { pathname = '', search = '', hash = '' } = urlObject
-	linksToRewrite[url] = `${pathname}${search}${hash}`
-}
-
-const handleNonRelativeDotIoUrl = ({
-	dotIoToDevDotPaths,
-	linksToRewrite,
-	unrewriteableLinks,
-	url,
-	urlObject,
-}) => {
-	const { origin, pathname = '', search = '', hash = '' } = urlObject
-
-	const [, basePath, ...restParts] = pathname.split('/')
-	const adjustedBasePath = basePath === 'api' ? 'api-docs' : basePath
-	const originAndBasePath = `${origin}/${adjustedBasePath}`
-
-	const replacementPath = dotIoToDevDotPaths[originAndBasePath]
-	if (replacementPath) {
-		const restOfPath = restParts.join('/')
-		const newPath = path.join(replacementPath, restOfPath)
-		linksToRewrite[url] = `${newPath}${search}${hash}`
-	} else {
-		unrewriteableLinks.push(url)
-	}
-}
-
-const handleNonRelativePath = ({
+const handleNonRelativeUrl = ({
 	dotIoToDevDotPaths,
 	learnToDevDotPaths,
 	linksToRewrite,
@@ -144,29 +152,48 @@ const handleNonRelativePath = ({
 	url,
 }) => {
 	const urlObject = new URL(url)
-	const { hostname } = urlObject
-	const hostnameWithoutWww = hostname.replace(/^www\./, '')
 
-	if (hostname === 'learn.hashicorp.com') {
-		handleNonRelativeLearnUrl({
-			learnToDevDotPaths,
-			linksToRewrite,
-			unrewriteableLinks,
-			url,
-			urlObject,
-		})
-	} else if (hostname === 'developer.hashicorp.com') {
-		handleNonRelativeDeveloperUrl({ linksToRewrite, url, urlObject })
-	} else if (DOT_IO_HOSTNAMES.includes(hostnameWithoutWww)) {
-		handleNonRelativeDotIoUrl({
-			dotIoToDevDotPaths,
-			linksToRewrite,
-			unrewriteableLinks,
-			url,
-			urlObject,
-		})
+	const rewrittenUrl = getRewrittenNonRelativeUrl({
+		dotIoToDevDotPaths,
+		learnToDevDotPaths,
+		urlObject,
+	})
+	if (rewrittenUrl) {
+		linksToRewrite[url] = rewrittenUrl
 	} else {
 		unrewriteableLinks.push(url)
+	}
+}
+
+/**
+ * Check if the path is relative or not, and handle it based on that.
+ */
+const handleUrl = ({
+	currentFilePath,
+	dotIoToDevDotPaths,
+	learnToDevDotPaths,
+	linksToRewrite,
+	product,
+	unrewriteableLinks,
+	url,
+}) => {
+	const isRelativePath = getIsRelativeUrl(url)
+	if (isRelativePath) {
+		handleRelativeUrl({
+			currentFilePath,
+			linksToRewrite: linksToRewrite,
+			product,
+			unrewriteableLinks: unrewriteableLinks,
+			url: url,
+		})
+	} else {
+		handleNonRelativeUrl({
+			dotIoToDevDotPaths,
+			learnToDevDotPaths,
+			linksToRewrite: linksToRewrite,
+			unrewriteableLinks: unrewriteableLinks,
+			url: url,
+		})
 	}
 }
 
@@ -196,30 +223,19 @@ const rewriteLinksPlugin: Plugin = ({
 				data.unrewriteableLinks = []
 			}
 
-			/**
-			 * Check if the path is relative or not, and handle it based on that.
-			 */
-			const isRelativePath = getIsRelativePath(node.url)
-			if (isRelativePath) {
-				handleRelativeUrl({
-					currentFilePath,
-					linksToRewrite: data.linksToRewrite,
-					product,
-					unrewriteableLinks: data.unrewriteableLinks,
-					url: node.url,
-				})
-			} else {
-				handleNonRelativePath({
-					dotIoToDevDotPaths,
-					learnToDevDotPaths,
-					linksToRewrite: data.linksToRewrite,
-					unrewriteableLinks: data.unrewriteableLinks,
-					url: node.url,
-				})
-			}
+			handleUrl({
+				currentFilePath,
+				dotIoToDevDotPaths,
+				learnToDevDotPaths,
+				linksToRewrite: data.linksToRewrite,
+				product,
+				unrewriteableLinks: data.unrewriteableLinks,
+				url: node.url,
+			})
 		})
 	}
 }
 
 export type { CustomVFile }
+export { DOT_IO_HOSTNAMES, getRewrittenNonRelativeUrl }
 export default rewriteLinksPlugin
