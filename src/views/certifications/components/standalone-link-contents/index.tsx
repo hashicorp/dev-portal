@@ -12,7 +12,8 @@ interface StandaloneLinkContentsProps {
  * designed for use in CardLink.
  *
  * Note that there is not hover effect for this component.
- * We may want to use this component in other contexts, such as TryHcpCallout.
+ * We may want to use this component in other contexts, such as TryHcpCallout,
+ * in `src/components/try-hcp-callout/standalone-link-contents` in this repo.
  * For now, this component is intentionally limited to Certifications work.
  */
 function StandaloneLinkContents({
