@@ -57,4 +57,4 @@ function NewsletterSignupForm({
 	)
 }
 
-export { NewsletterSignupForm }
+export { NewsletterSignupForm, SubmitMessage }
