@@ -13,6 +13,7 @@ jobs:
     env:
       OWNER: 'hashicorp'
       REPO: 'waypoint'
+      FULL_REPO_NAME: 'hashicorp/waypoint'
       COMMIT_SHA: '058071ca8ffd22f206c68336c9ba345d1885a63d'
     steps:
       - name: Get PR number
@@ -66,7 +67,7 @@ jobs:
       - name: Check out branch with content changes
         uses: actions/checkout@v3
         with:
-          repository: '${{ env.OWNER }}/${{ env.repo }}'
+          repository: ${{ env.FULL_REPO_NAME }}
           ref: docs/amb.migrate-link-formats
 
       - name: Check files for legacy link formats
