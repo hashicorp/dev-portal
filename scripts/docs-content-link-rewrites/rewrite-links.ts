@@ -1,93 +1,84 @@
 import fs from 'fs'
 import path from 'path'
-import yargs from 'yargs'
-import remark from 'remark'
-import { productSlugs } from 'lib/products'
-import { cachedGetProductData } from 'lib/get-product-data'
-import rewriteLinksPlugin from './rewrite-links-plugin'
-import { getLearnToDevDotUrlMap } from './helpers/get-learn-to-dev-dot-url-map'
+import { getAllLinksToRewrite } from './helpers/get-all-links-to-rewrite'
 import { getDocsToDevDotUrlMap } from './helpers/get-dot-io-to-dev-dot-url-map'
-import { rewriteFileContentString } from './helpers/rewrite-file-content-string'
+import { getLearnToDevDotUrlMap } from './helpers/get-learn-to-dev-dot-url-map'
 import { normalizeRemoteLoaderSlug } from './helpers/normalize-remote-loader-slug'
-
-const getArguments = () => {
-	const { product, contentDirectory } = yargs
-		.option('product', {
-			description: 'the slug of a product',
-			choices: [
-				...productSlugs,
-				'terraform-cdk',
-				'terraform-docs-agents',
-				'ptfe-releases',
-				'cloud.hashicorp.com',
-			].sort(),
-		})
-		.option('contentDirectory', {
-			description: 'the path of the folder with all docs content MDX files',
-			type: 'string',
-		})
-		.demandOption(['product', 'contentDirectory'])
-		.help().argv
-
-	return { product, contentDirectory }
-}
-
-const gatherMdxFilePaths = (directory, paths) => {
-	fs.readdirSync(directory).forEach((item) => {
-		const itemPath = path.join(directory, item)
-		const stats = fs.statSync(itemPath)
-		if (stats.isDirectory()) {
-			gatherMdxFilePaths(itemPath, paths)
-		} else if (itemPath.endsWith('.mdx')) {
-			paths.push(itemPath)
-		}
-	})
-}
+import { rewriteFileContentString } from './helpers/rewrite-file-content-string'
 
 const main = async () => {
-	const { product, contentDirectory } = getArguments()
+	// Make sure the required environment variables are set
+	const missingRequiredEnvVariables = [
+		'FILE_PATH_PREFIX',
+		'RELEVANT_CHANGED_FILES',
+		'REPO',
+	].filter((key: string) => !process.env[key])
+	if (missingRequiredEnvVariables.length > 0) {
+		throw new Error(
+			`Missing required environment variables: ${missingRequiredEnvVariables}`
+		)
+	}
 
-	const normalizedProductSlug = normalizeRemoteLoaderSlug(product)
-	const contentDirectoryPath = path.join(process.cwd(), contentDirectory)
+	// Destructure environment variables we want to use
+	const {
+		CI,
+		ERROR_IF_LINKS_TO_REWRITE,
+		FILE_PATH_PREFIX,
+		RELEVANT_CHANGED_FILES,
+		REPO,
+	} = process.env
 
+	// See if there are any relevant changed files to check for rewriteable links
+	const { changedMdxFiles = [], changedNavDataJsonFiles = [] } = JSON.parse(
+		RELEVANT_CHANGED_FILES
+	)
+	if (changedMdxFiles.length === 0) {
+		console.log('No `changedMdxFiles` to check for rewriteable links.')
+	}
+	if (changedNavDataJsonFiles.length === 0) {
+		console.log('No `changedNavDataJsonFiles` to check for rewriteable links.')
+	}
+	if (changedMdxFiles.length === 0 && changedNavDataJsonFiles.length === 0) {
+		return
+	}
+
+	// If there files to check, start pulling .io and learn data needed
 	const dotIoToDevDotPaths = await getDocsToDevDotUrlMap()
 	const learnToDevDotPaths = await getLearnToDevDotUrlMap()
+	const normalizedProductSlug = normalizeRemoteLoaderSlug(REPO)
 
-	const mdxFilePaths = []
-	gatherMdxFilePaths(contentDirectoryPath, mdxFilePaths)
+	// Invoke the helper that checks MDX and JSON files for rewriteable links
+	const { allLinksToRewrite, allUnrewriteableLinks } =
+		await getAllLinksToRewrite({
+			filePaths: changedMdxFiles.map((filePath: string) =>
+				path.join(FILE_PATH_PREFIX, filePath)
+			),
+			dotIoToDevDotPaths,
+			learnToDevDotPaths,
+			normalizedProductSlug,
+		})
 
-	let allUnrewriteableLinks = []
-	const allLinksToRewrite = {}
+	// If there are links to rewrite...
+	const filesWithLinksToRewrite = Object.keys(allLinksToRewrite)
+	if (filesWithLinksToRewrite.length > 0) {
+		const message = `Found links to rewrite in ${filesWithLinksToRewrite.length} files: ${allLinksToRewrite}`
 
-	for (let i = 0; i < mdxFilePaths.length; i++) {
-		const filePath = mdxFilePaths[i]
-		const relativeFilePath = filePath.replace(contentDirectoryPath, '')
-		const fileContent = fs.readFileSync(filePath, 'utf-8')
+		// Throw an error if configured to, such as in a legacy link format checker
+		if (ERROR_IF_LINKS_TO_REWRITE === 'true') {
+			throw new Error(message)
+		}
 
-		const {
-			// TODO put in a real TS fix
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			data: { linksToRewrite = {}, unrewriteableLinks = [] },
-		} = await remark()
-			.use(rewriteLinksPlugin, {
-				dotIoToDevDotPaths,
-				learnToDevDotPaths,
-				currentFilePath: relativeFilePath,
-				product: cachedGetProductData(normalizedProductSlug),
-			})
-			.process(fileContent)
-
-		const hasLinksToRewrite = Object.keys(linksToRewrite).length > 0
-		const hasUnrewriteableLinks = unrewriteableLinks.length > 0
-
-		if (hasLinksToRewrite) {
-			allLinksToRewrite[relativeFilePath] = linksToRewrite
+		// Otherwise, update the files determined to have rewriteable links
+		filesWithLinksToRewrite.forEach((filePath: string) => {
+			// Attempt to rewrite the file content string
+			const linksToRewrite = filesWithLinksToRewrite[filePath]
+			const fileContent = fs.readFileSync(filePath, 'utf-8')
 			const updatedContent = rewriteFileContentString(
 				fileContent,
 				linksToRewrite
 			)
 
+			// If the updated string is unchanged from the original, throw an error
 			if (updatedContent === fileContent) {
 				throw new Error(
 					`None of the 'linksToRewrite' were rewritten for ${filePath}. There may be an issue with 'rewriteFileContentString'. The identified 'linksToRewrite' were:\n${JSON.stringify(
@@ -96,16 +87,19 @@ const main = async () => {
 						2
 					)}`
 				)
-			} else {
-				fs.writeFileSync(filePath, updatedContent)
 			}
-		}
 
-		if (hasUnrewriteableLinks) {
-			allUnrewriteableLinks = [...allUnrewriteableLinks, ...unrewriteableLinks]
-		}
+			// Otherwise, update the file with the rewritten links
+			fs.writeFileSync(filePath, updatedContent)
+		})
 	}
 
+	// In CI environments, we do not need to output any files, so return.
+	if (CI) {
+		return
+	}
+
+	// Write out the `allLinksToRewrite` file (intended for debugging)
 	if (Object.keys(allLinksToRewrite).length > 0) {
 		const generatedFilesDirectory = path.join(__dirname, '.generated')
 		if (!fs.existsSync(generatedFilesDirectory)) {
@@ -122,7 +116,7 @@ const main = async () => {
 
 		const rewrittenLinksFile = path.join(
 			rewrittenLinksDirectory,
-			`${product}.json`
+			`${REPO}.json`
 		)
 		fs.writeFileSync(
 			rewrittenLinksFile,
@@ -130,6 +124,7 @@ const main = async () => {
 		)
 	}
 
+	// Write out the `allUnrewriteableLinks` file (intended for debugging)
 	if (allUnrewriteableLinks.length > 0) {
 		const generatedFilesDirectory = path.join(__dirname, '.generated')
 		if (!fs.existsSync(generatedFilesDirectory)) {
@@ -146,7 +141,7 @@ const main = async () => {
 
 		const unrewriteableLinksFile = path.join(
 			unrewriteableLinksDirectory,
-			`${product}.json`
+			`${REPO}.json`
 		)
 		fs.writeFileSync(
 			unrewriteableLinksFile,
