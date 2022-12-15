@@ -24,7 +24,7 @@ jobs:
               per_page: 100,
               pull_number: ${{ github.event.number }},
             })
-            return data
+            return JSON.stringify(data)
 
       - name: Get list of changed MDX files
         id: get-list-of-changed-mdx-files
@@ -33,7 +33,8 @@ jobs:
           ALL_PR_FILES: ${{ steps.get-list-of-pr-files.outputs.result }}
         with:
           script: |
-            const changedMdxFiles = process.env.ALL_PR_FILES.filter((file) => {
+            const allPrFiles = JSON.parse(process.env.ALL_PR_FILES)
+            const changedMdxFiles = allPrFiles.filter((file) => {
               return file.status !== 'removed' && file.filename.endsWith('.mdx')
             })
             console.log('changedMdxFiles', changedMdxFiles)
