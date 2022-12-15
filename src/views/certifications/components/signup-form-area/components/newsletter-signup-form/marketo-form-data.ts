@@ -11,10 +11,10 @@ export const marketoFormData: { id: number; form: MarketoFormProps } = {
 				rowNumber: 0,
 				columnNumber: 0,
 				required: true,
-				label: 'Business Email Address',
+				label: 'Business email address',
 				formPrefill: true,
 				visibilityRules: { ruleType: 'alwaysShow' },
-				hintText: 'Business Email Address',
+				hintText: 'Business email address',
 			},
 			{
 				id: 'Consent_Privacy_Policy__c',
