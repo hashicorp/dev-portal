@@ -24,7 +24,7 @@ jobs:
               per_page: 100,
               pull_number: ${{ github.event.number }},
             })
-            return JSON.stringify(data)
+            return data
 
       - name: Get list of changed MDX files
         id: get-list-of-changed-mdx-files
