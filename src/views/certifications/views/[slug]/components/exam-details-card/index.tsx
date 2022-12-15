@@ -13,10 +13,14 @@ import {
 	ProgramSlug,
 } from 'views/certifications/types'
 // Local
-import { OverviewCardBadgeAndTitle } from '../overview-card-badge-and-title'
-import s from './overview-card.module.css'
+import { ExamDetailsBadgeAndTitle } from '../'
+import s from './exam-details-card.module.css'
 
-export function OverviewCard({
+/**
+ * Renders a card that displays details for a certifications exam
+ * within a particular certifications program
+ */
+export function ExamDetailsCard({
 	title,
 	description,
 	links,
@@ -41,7 +45,7 @@ export function OverviewCard({
 			<SplitCardSection
 				className={s.splitCardSection}
 				startContent={
-					<OverviewCardBadgeAndTitle
+					<ExamDetailsBadgeAndTitle
 						title={title}
 						productSlug={productSlug}
 						versionTested={versionTested}
@@ -50,7 +54,7 @@ export function OverviewCard({
 				endContent={
 					<>
 						<p className={s.description}>{description}</p>
-						<div className={s.buttonGroup}>
+						<div className={s.ctaGroup}>
 							{hasLinks ? (
 								<CtaGroup>
 									{links.prepare ? (

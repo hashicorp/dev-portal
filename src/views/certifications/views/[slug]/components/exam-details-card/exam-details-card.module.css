@@ -2,11 +2,6 @@
 	padding: 24px 0;
 }
 
-.heading {
-	border: 1px solid magenta;
-	margin: 0;
-}
-
 .description {
 	composes: hds-typography-body-300 from global;
 	font-weight: var(--token-typography-font-weight-medium);
@@ -14,6 +9,6 @@
 	margin: 0;
 }
 
-.buttonGroup {
+.ctaGroup {
 	margin-top: 16px;
 }

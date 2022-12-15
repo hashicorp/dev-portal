@@ -6,7 +6,7 @@ import {
 	CertificationsMaxWidth,
 } from 'views/certifications/components'
 // Local
-import { OverviewCard, ProgramHero } from './components'
+import { ExamDetailsCard, ProgramHero } from './components'
 import { CertificationProgramViewProps } from './types'
 import s from './program-view.module.css'
 
@@ -29,7 +29,7 @@ function CertificationProgramView({
 						{exams.map((exam) => {
 							return (
 								<div key={slug}>
-									<OverviewCard
+									<ExamDetailsCard
 										title={exam.title}
 										description={exam.description}
 										links={exam.links}

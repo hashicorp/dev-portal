@@ -1,3 +1,3 @@
-export * from './overview-card'
-export * from './overview-card-badge-and-title'
+export * from './exam-details-card'
+export * from './exam-details-badge-and-title'
 export * from './program-hero'

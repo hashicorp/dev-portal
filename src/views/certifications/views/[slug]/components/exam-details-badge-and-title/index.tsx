@@ -2,9 +2,13 @@ import mitigateWidows from '@hashicorp/platform-util/text/mitigate-widows'
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 import { CertificationProductSlug } from 'views/certifications/types'
 import { ExamBadge } from 'views/certifications/components'
-import s from './overview-card-badge-and-title.module.css'
+import s from './exam-details-badge-and-title.module.css'
 
-function OverviewCardBadgeAndTitle({
+/**
+ * Renders title text paired with a certifications badge and a string
+ * representing the details of a specific exam.
+ */
+function ExamDetailsBadgeAndTitle({
 	title,
 	productSlug,
 	versionTested,
@@ -34,4 +38,4 @@ function OverviewCardBadgeAndTitle({
 	)
 }
 
-export { OverviewCardBadgeAndTitle }
+export { ExamDetailsBadgeAndTitle }
