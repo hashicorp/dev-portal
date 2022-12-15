@@ -74,9 +74,10 @@ jobs:
         id: check-files-for-legacy-link-formats
         uses: actions/github-script@v6
         env:
-          CHANGED_MDX_FILES: ${{ fromJSON(steps.get-pr-number.outputs.result).changedMdxFiles }}
-          CHANGED_NAV_DATA_JSON_FILES: ${{ fromJSON(steps.get-pr-number.outputs.result).changedNavDataJsonFiles }}
+          CHANGED_MDX_FILES: ${{ fromJSON(steps.get-lists-of-pr-files.outputs.result).changedMdxFiles }}
+          CHANGED_NAV_DATA_JSON_FILES: ${{ fromJSON(steps.get-lists-of-pr-files.outputs.result).changedNavDataJsonFiles }}
         with:
           script: |
-            console.log('CHANGED_MDX_FILES', process.env.CHANGED_MDX_FILES)
-            console.log('CHANGED_MDX_FILES', process.env.CHANGED_NAV_DATA_JSON_FILES)
+            const { CHANGED_MDX_FILES, CHANGED_NAV_DATA_JSON_FILES } = process.env
+            console.log('CHANGED_MDX_FILES', CHANGED_MDX_FILES)
+            console.log('CHANGED_NAV_DATA_JSON_FILES', CHANGED_NAV_DATA_JSON_FILES)
