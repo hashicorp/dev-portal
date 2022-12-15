@@ -30,6 +30,16 @@ const recursivelyUpdateNavItem = ({
 				item[itemPropertyName] = rewrittenUrl
 			}
 		} catch (e) {
+			/**
+			 * Assume the url is already rewritten
+			 *
+			 * @TODO (ashleemboyer) Update after holiday break.
+			 * This will not 100% work for everything, but does work for Waypoint.
+			 */
+			if (url.startsWith('/')) {
+				return
+			}
+
 			item[itemPropertyName] = path.join(currentPath, url)
 		}
 	}
