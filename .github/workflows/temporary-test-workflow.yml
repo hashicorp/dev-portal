@@ -1,3 +1,7 @@
+# Resources
+#   - https://docs.github.com/developers/webhooks-and-events/webhooks/webhook-events-and-payloads?actionType=labeled#pull_request
+#   - https://octokit.github.io/rest.js/v19#pulls-list-files
+
 on:
   pull_request:
     types: [labeled]
@@ -13,8 +17,8 @@ jobs:
         with:
           script: |
             const { data } = await github.rest.pulls.listFiles({
-              owner,
-              repo,
+              owner: ${{ github.event.organization }},
+              repo : ${{ github.event.repository }},
               pull_number: ${{ github.event.number }},
             })
             console.log(data)
