@@ -99,7 +99,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: 'content-repo'
-          repository: '${{ env.owner }}/${{ env.repo }}'
+          repository: 'hashicorp/waypoint'
           ref: 'docs/amb.migrate-link-formats'
 
       - name: Run rewrite-docs-content-links script
