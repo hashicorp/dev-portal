@@ -1,10 +1,10 @@
 import fs from 'fs'
 import remark from 'remark'
+import { ProductSlug } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import rewriteLinksPlugin from '../rewrite-links-plugin'
-import { ProductSlug } from 'types/products'
 
-const getAllLinksToRewrite = async ({
+const getMdxLinksToRewrite = async ({
 	filePaths,
 	dotIoToDevDotPaths,
 	learnToDevDotPaths,
@@ -15,16 +15,21 @@ const getAllLinksToRewrite = async ({
 	learnToDevDotPaths: Record<string, string>
 	normalizedProductSlug: ProductSlug
 }): Promise<{
-	allLinksToRewrite: Record<string, Record<string, string>>
-	allUnrewriteableLinks: string[]
+	mdxLinksToRewrite: Record<string, Record<string, string>>
+	mdxUnrewriteableLinks: string[]
 }> => {
-	const allLinksToRewrite = {}
-	let allUnrewriteableLinks = []
+	const mdxLinksToRewrite = {}
+	let mdxUnrewriteableLinks = []
+
+	const productData = cachedGetProductData(normalizedProductSlug)
 
 	for (let i = 0; i < filePaths.length; i++) {
 		const filePath = filePaths[i]
-		const fileContent = fs.readFileSync(filePath, 'utf-8')
+		if (!filePath.endsWith('.mdx')) {
+			return
+		}
 
+		const fileContent = fs.readFileSync(filePath, 'utf-8')
 		const {
 			// TODO put in a real TS fix
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -35,25 +40,25 @@ const getAllLinksToRewrite = async ({
 				dotIoToDevDotPaths,
 				learnToDevDotPaths,
 				currentFilePath: filePath,
-				product: cachedGetProductData(normalizedProductSlug),
+				product: productData,
 			})
 			.process(fileContent)
 
 		const hasLinksToRewrite = Object.keys(linksToRewrite).length > 0
 		if (hasLinksToRewrite) {
-			allLinksToRewrite[filePath] = linksToRewrite
+			mdxLinksToRewrite[filePath] = linksToRewrite
 		}
 
 		const hasUnrewriteableLinks = unrewriteableLinks.length > 0
 		if (hasUnrewriteableLinks) {
-			allUnrewriteableLinks = [...allUnrewriteableLinks, ...unrewriteableLinks]
+			mdxUnrewriteableLinks = [...mdxUnrewriteableLinks, ...unrewriteableLinks]
 		}
 	}
 
 	return {
-		allLinksToRewrite,
-		allUnrewriteableLinks,
+		mdxLinksToRewrite,
+		mdxUnrewriteableLinks,
 	}
 }
 
-export { getAllLinksToRewrite }
+export { getMdxLinksToRewrite }
