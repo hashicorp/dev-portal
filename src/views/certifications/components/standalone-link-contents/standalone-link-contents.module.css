@@ -15,11 +15,11 @@
 .small {
 	composes: hds-typography-body-100 from global;
 
-	--line-height: 1.231;
+	--line-height: 1rem;
 }
 
 .medium {
 	composes: hds-typography-body-200 from global;
 
-	--line-height: 1.143;
+	--line-height: 1rem;
 }
