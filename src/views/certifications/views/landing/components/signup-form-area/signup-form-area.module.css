@@ -8,7 +8,7 @@
 	background-image: url('./img/newsletter-background.png');
 	background-repeat: no-repeat;
 	background-size: auto 300px;
-	background-position: top -116px right -100px;
+	background-position: top -116px right -184px;
 
 	@media (min-width: 768px) {
 		justify-content: flex-start;
