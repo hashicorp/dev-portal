@@ -1,11 +1,5 @@
 .root {
-	padding: 3rem 0;
-	border: 1px solid magenta;
 	color: white;
-	display: flex;
-}
-
-.contentWrap {
 	padding: 36px 48px;
 	border-radius: 6px;
 	background-color: black;
