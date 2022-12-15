@@ -13,6 +13,7 @@ import {
 	MdxBlockquote,
 } from 'components/dev-dot-content/mdx-components'
 import { AccordionWithMdxContentProps, AccordionMdxItem } from './types'
+import s from './accordion-with-mdx-content.module.css'
 
 function MdxImage({
 	alt,
@@ -25,7 +26,8 @@ function MdxImage({
 const MDX_COMPONENTS = {
 	a: MdxA,
 	blockquote: MdxBlockquote,
-	p: MdxP,
+	/* Note: we intentionally don't accept className from MDX content here */
+	p: (props) => <MdxP {...props} className={s.lighterTextColor} />,
 	table: MdxTable,
 	img: MdxImage,
 	inlineCode: MdxInlineCode,

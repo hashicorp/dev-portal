@@ -1,8 +1,10 @@
+import classNames from 'classnames'
 import Text from 'components/text'
 import s from './mdx-p.module.css'
 
 function MdxP(props) {
-	return <Text {...props} className={s.p} />
+	const { className, ...restProps } = props
+	return <Text {...restProps} className={classNames(s.p, className)} />
 }
 
 export { MdxP }
