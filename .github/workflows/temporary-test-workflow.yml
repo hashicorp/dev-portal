@@ -8,4 +8,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: echo "Hello, world!"
+      - name: List PR files
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data } = await github.rest.pulls.listFiles({
+              owner,
+              repo,
+              pull_number: ${{ github.event.number }},
+            })
+            console.log(data)
