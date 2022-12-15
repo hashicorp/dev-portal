@@ -1,5 +1,6 @@
 # Resources
 #   - https://docs.github.com/developers/webhooks-and-events/webhooks/webhook-events-and-payloads?actionType=labeled#pull_request
+#   - https://docs.github.com/en/rest/pulls/pulls#list-pull-requests-files
 #   - https://octokit.github.io/rest.js/v19#pulls-list-files
 
 on:
@@ -16,9 +17,13 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const { data } = await github.rest.pulls.listFiles({
+            const { data: prFiles } = await github.rest.pulls.listFiles({
               owner: context.repo.owner,
               repo: context.repo.repo,
+              per_page: 100,
               pull_number: ${{ github.event.number }},
             })
-            console.log(data)
+            const changedMdxFiles = prFiles.filter(file => {
+              return file.status !== 'removed' && file.filename.endsWith('.mdx')
+            })
+            console.log('changedMdxFiles', changedMdxFiles)
