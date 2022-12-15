@@ -1,37 +1,20 @@
 import fs from 'fs'
-import path from 'path'
 import { normalizeRemoteLoaderSlug } from '../../src/lib/docs-content-link-rewrites/normalize-remote-loader-slug'
-import { getAllLinksToRewrite } from './helpers/get-all-links-to-rewrite'
 import { getDocsToDevDotUrlMap } from './helpers/get-dot-io-to-dev-dot-url-map'
 import { getLearnToDevDotUrlMap } from './helpers/get-learn-to-dev-dot-url-map'
+import { getMdxLinksToRewrite } from './helpers/get-mdx-links-to-rewrite'
+import { getRewriteLinksScriptArguments } from './helpers/get-rewrite-links-script-arguments'
+import { getRewrittenNavDataJsonForFilePaths } from './helpers/get-rewritten-nav-data-json-for-file-paths'
 import { rewriteFileContentString } from './helpers/rewrite-file-content-string'
 
 const main = async () => {
-	// Make sure the required environment variables are set
-	const missingRequiredEnvVariables = [
-		'FILE_PATH_PREFIX',
-		'RELEVANT_CHANGED_FILES',
-		'REPO',
-	].filter((key: string) => !process.env[key])
-	if (missingRequiredEnvVariables.length > 0) {
-		throw new Error(
-			`Missing required environment variables: ${missingRequiredEnvVariables}`
-		)
-	}
+	const { changedMdxFiles, changedNavDataJsonFiles, repo } =
+		await getRewriteLinksScriptArguments()
 
 	// Destructure environment variables we want to use
-	const {
-		CI,
-		ERROR_IF_LINKS_TO_REWRITE,
-		FILE_PATH_PREFIX,
-		RELEVANT_CHANGED_FILES,
-		REPO,
-	} = process.env
+	const { CI, ERROR_IF_LINKS_TO_REWRITE } = process.env
 
 	// See if there are any relevant changed files to check for rewriteable links
-	const { changedMdxFiles = [], changedNavDataJsonFiles = [] } = JSON.parse(
-		RELEVANT_CHANGED_FILES
-	)
 	if (changedMdxFiles.length === 0) {
 		console.log('No `changedMdxFiles` to check for rewriteable links.')
 	}
@@ -48,117 +31,98 @@ const main = async () => {
 	console.log('Loading learnToDevDotPaths...')
 	const learnToDevDotPaths = await getLearnToDevDotUrlMap()
 
-	// Invoke the helper that checks MDX and JSON files for rewriteable links
-	const normalizedProductSlug = normalizeRemoteLoaderSlug(REPO)
+	// Invoke the helpers that checks MDX and JSON files for rewriteable links
+	const normalizedProductSlug = normalizeRemoteLoaderSlug(repo)
 	console.log(
 		`Processing ${changedMdxFiles.length} .mdx files and ${changedNavDataJsonFiles.length} -nav-data.json files`
 	)
-	const { allLinksToRewrite, allUnrewriteableLinks } =
-		await getAllLinksToRewrite({
-			filePaths: changedMdxFiles.map((filePath: string) =>
-				path.join(FILE_PATH_PREFIX, filePath)
-			),
-			dotIoToDevDotPaths,
-			learnToDevDotPaths,
-			normalizedProductSlug,
-		})
 
-	// If there are links to rewrite...
-	const filesWithLinksToRewrite = Object.keys(allLinksToRewrite)
-	if (filesWithLinksToRewrite.length > 0) {
-		const message = `Found links to rewrite in ${
-			filesWithLinksToRewrite.length
-		} files:\n${JSON.stringify(allLinksToRewrite, null, 2)}`
+	/**
+	 * HANDLE NAV DATA LINKS
+	 */
+	const allRewrittenNavData = await getRewrittenNavDataJsonForFilePaths({
+		filePaths: changedNavDataJsonFiles,
+		dotIoToDevDotPaths,
+		learnToDevDotPaths,
+		normalizedProductSlug,
+	})
+	const navDataFilesToUpdate = []
+	changedNavDataJsonFiles.forEach((navDataFilePath) => {
+		const originalData = JSON.parse(fs.readFileSync(navDataFilePath, 'utf-8'))
+		const updatedData = allRewrittenNavData[navDataFilePath]
 
+		const originalDataString = JSON.stringify(originalData, null, 2)
+		const updatedDataString = JSON.stringify(updatedData, null, 2)
+		if (updatedDataString !== originalDataString) {
+			navDataFilesToUpdate.push(navDataFilePath)
+
+			if (!CI) {
+				console.log(`Updating links in ${navDataFilePath}...`)
+				fs.writeFileSync(navDataFilePath, updatedDataString)
+			}
+		}
+	})
+	if (navDataFilesToUpdate.length > 0) {
 		// Throw an error if configured to, such as in a legacy link format checker
+		const message = `Found nav data JSON links to rewrite in ${
+			navDataFilesToUpdate.length
+		} files:\n${JSON.stringify(navDataFilesToUpdate, null, 2)}`
+		if (ERROR_IF_LINKS_TO_REWRITE === 'true') {
+			throw new Error(message)
+		} else {
+			console.log(message)
+		}
+	}
+
+	/**
+	 * HANDLE UPDATING MDX LINKS
+	 */
+	const { mdxLinksToRewrite } = await getMdxLinksToRewrite({
+		filePaths: changedMdxFiles,
+		dotIoToDevDotPaths,
+		learnToDevDotPaths,
+		normalizedProductSlug,
+	})
+
+	const mdxFilesWithLinksToRewrite = Object.keys(mdxLinksToRewrite)
+	if (mdxFilesWithLinksToRewrite.length > 0) {
+		// Throw an error if configured to, such as in a legacy link format checker
+		const message = `Found MDX links to rewrite in ${
+			mdxFilesWithLinksToRewrite.length
+		} files:\n${JSON.stringify(mdxLinksToRewrite, null, 2)}`
 		if (ERROR_IF_LINKS_TO_REWRITE === 'true') {
 			throw new Error(message)
 		} else {
 			console.log(message)
 		}
 
-		// Otherwise, update the files determined to have rewriteable links
-		filesWithLinksToRewrite.forEach((filePath: string) => {
-			// Attempt to rewrite the file content string
-			const linksToRewrite = allLinksToRewrite[filePath]
-			const fileContent = fs.readFileSync(filePath, 'utf-8')
-			const updatedContent = rewriteFileContentString(
-				fileContent,
-				linksToRewrite
-			)
-
-			// If the updated string is unchanged from the original, throw an error
-			if (updatedContent === fileContent) {
-				throw new Error(
-					`None of the 'linksToRewrite' were rewritten for ${filePath}. There may be an issue with 'rewriteFileContentString'. The identified 'linksToRewrite' were:\n${JSON.stringify(
-						linksToRewrite,
-						null,
-						2
-					)}`
+		// If not in CI, update the files determined to have rewriteable links
+		if (!CI) {
+			mdxFilesWithLinksToRewrite.forEach((filePath: string) => {
+				// Attempt to rewrite the file content string
+				const linksToRewrite = mdxLinksToRewrite[filePath]
+				const fileContent = fs.readFileSync(filePath, 'utf-8')
+				const updatedContent = rewriteFileContentString(
+					fileContent,
+					linksToRewrite
 				)
-			}
 
-			// Otherwise, update the file with the rewritten links
-			console.log(`Updating links in ${filePath}...`)
-			fs.writeFileSync(filePath, updatedContent)
-		})
-	}
+				// If the updated string is unchanged from the original, throw an error
+				if (updatedContent === fileContent) {
+					throw new Error(
+						`None of the 'linksToRewrite' were rewritten for ${filePath}. There may be an issue with 'rewriteFileContentString'. The identified 'linksToRewrite' were:\n${JSON.stringify(
+							linksToRewrite,
+							null,
+							2
+						)}`
+					)
+				}
 
-	// In CI environments, we do not need to output any files, so return.
-	if (CI) {
-		return
-	}
-
-	// Write out the `allLinksToRewrite` file (intended for debugging)
-	if (Object.keys(allLinksToRewrite).length > 0) {
-		const generatedFilesDirectory = path.join(__dirname, '.generated')
-		if (!fs.existsSync(generatedFilesDirectory)) {
-			fs.mkdirSync(generatedFilesDirectory)
+				// Otherwise, update the file with the rewritten links
+				console.log(`Updating links in ${filePath}...`)
+				fs.writeFileSync(filePath, updatedContent)
+			})
 		}
-
-		const rewrittenLinksDirectory = path.join(
-			generatedFilesDirectory,
-			'links-to-rewrite'
-		)
-		if (!fs.existsSync(rewrittenLinksDirectory)) {
-			fs.mkdirSync(rewrittenLinksDirectory)
-		}
-
-		const rewrittenLinksFile = path.join(
-			rewrittenLinksDirectory,
-			`${REPO}.json`
-		)
-		console.log(`Generating ${rewrittenLinksFile}...`)
-		fs.writeFileSync(
-			rewrittenLinksFile,
-			JSON.stringify(allLinksToRewrite, null, 2)
-		)
-	}
-
-	// Write out the `allUnrewriteableLinks` file (intended for debugging)
-	if (allUnrewriteableLinks.length > 0) {
-		const generatedFilesDirectory = path.join(__dirname, '.generated')
-		if (!fs.existsSync(generatedFilesDirectory)) {
-			fs.mkdirSync(generatedFilesDirectory)
-		}
-
-		const unrewriteableLinksDirectory = path.join(
-			generatedFilesDirectory,
-			'unrewriteable-links'
-		)
-		if (!fs.existsSync(unrewriteableLinksDirectory)) {
-			fs.mkdirSync(unrewriteableLinksDirectory)
-		}
-
-		const unrewriteableLinksFile = path.join(
-			unrewriteableLinksDirectory,
-			`${REPO}.json`
-		)
-		console.log(`Generating ${unrewriteableLinksFile}...`)
-		fs.writeFileSync(
-			unrewriteableLinksFile,
-			JSON.stringify(allUnrewriteableLinks.sort(), null, 2)
-		)
 	}
 }
 
