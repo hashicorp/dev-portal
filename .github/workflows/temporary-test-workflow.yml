@@ -48,12 +48,12 @@ jobs:
                 return
               }
 
-              if (file.endsWith('.mdx')) {
+              if (file.filename.endsWith('.mdx')) {
                 changedMdxFiles.push(file.contents_url)
                 return
               }
 
-              if (file.endsWith('-nav-data.json')) {
+              if (file.filename.endsWith('-nav-data.json')) {
                 changedNavDataJsonFiles.puhs(file.contents_url)
               }
             })
