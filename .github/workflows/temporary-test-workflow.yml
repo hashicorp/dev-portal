@@ -15,10 +15,11 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            // TODO don't hardcode owner, repo, commit_sha
             const { data } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              commit_sha: context.sha
+              owner: 'hashicorp',
+              repo: 'waypoint',
+              commit_sha: '058071ca8ffd22f206c68336c9ba345d1885a63d'
             })
             return data[0].number
 
