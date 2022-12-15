@@ -17,8 +17,8 @@ jobs:
         with:
           script: |
             const { data } = await github.rest.pulls.listFiles({
-              owner: ${{ github.event.organization }},
-              repo : ${{ github.event.repository }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
               pull_number: ${{ github.event.number }},
             })
             console.log(data)
