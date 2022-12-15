@@ -1,7 +1,10 @@
 // Global
 import BaseNewLayout from 'layouts/base-new'
 // Shared components
-import { CertificationsMaxWidth } from 'views/certifications/components'
+import {
+	AccordionWithMdxContent,
+	CertificationsMaxWidth,
+} from 'views/certifications/components'
 // Local view
 import { CertificationProgramSummaryCard, LandingHero } from './components'
 import { CertificationLandingProps, CertificationProgramSummary } from './types'
@@ -14,7 +17,7 @@ function CertificationsLandingView({
 }: CertificationLandingProps) {
 	const { hero } = pageContent
 	return (
-		<>
+		<div className={s.root}>
 			{/* Hero */}
 			<LandingHero heading={hero.heading} description={hero.description} />
 			{/* Program Summaries */}
@@ -33,19 +36,13 @@ function CertificationsLandingView({
 					)
 				})}
 			</div>
-			{/* Content Debug */}
-			<pre style={{ border: '1px solid magenta', margin: '0' }}>
-				<code>
-					{JSON.stringify(
-						{
-							faqItems,
-						},
-						null,
-						2
-					)}
-				</code>
-			</pre>
-		</>
+			<div className={s.faqSection}>
+				<CertificationsMaxWidth>
+					<h2 className={s.faqHeading}>{pageContent.faqHeading}</h2>
+					<AccordionWithMdxContent items={faqItems} />
+				</CertificationsMaxWidth>
+			</div>
+		</div>
 	)
 }
 

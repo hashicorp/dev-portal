@@ -19,6 +19,8 @@ The `programSummaryOrder` array allows authors to control which programs are sum
 
 ### FAQs
 
+The heading for the FAQ section on the landing page is managed by the `faqHeading` property in [content/certifications/landing.json](/src/content/certifications/landing.json).
+
 The content for the landing page's FAQ content is managed in [content/certifications/landing-faq.mdx](/src/content/certifications/landing-faq.mdx). FAQs are derived from this MDX file by extracting title text and content from each `## Heading Two` section.
 
 ## Program Pages
