@@ -1,10 +1,11 @@
 import { CertificationProductSlug } from 'views/certifications/types'
 
-export interface ExamCardComingSoonProps {
+interface ExamCardBaseProps {
 	title: string
 	productSlug: CertificationProductSlug
 }
 
-export interface ExamCardProps extends ExamCardComingSoonProps {
+export type ExamCardComingSoonProps = ExamCardBaseProps
+export interface ExamCardProps extends ExamCardBaseProps {
 	url: string
 }
