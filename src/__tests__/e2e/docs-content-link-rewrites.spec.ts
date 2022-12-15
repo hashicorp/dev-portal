@@ -1,14 +1,24 @@
 import path from 'path'
-import { test, expect, Page } from '@playwright/test'
-import { SIDEBAR_NAV_ELEMENT_ID, MAIN_ELEMENT_ID } from 'constants/element-ids'
+import { test, expect, Page, Locator } from '@playwright/test'
+import { MAIN_ELEMENT_ID } from 'constants/element-ids'
 import { ALL_PAGE_PATHS_OUTPUT_FILE_PATH } from '../../../scripts/docs-content-link-rewrites/constants'
+
+const CONTENT_AREA_ANCHOR_SELECTOR = `${MAIN_ELEMENT_ID} a`
 
 // Run all the tests generated in this file in parallel
 test.describe.configure({ mode: 'parallel' })
 
-// TODO set an id from a constant, reference the constant here
-const SIDEBAR_NAV_ANCHOR_SELECTOR = `${SIDEBAR_NAV_ELEMENT_ID} a`
-const CONTENT_AREA_ANCHOR_SELECTOR = `${MAIN_ELEMENT_ID} a`
+/**
+ * Given a Playwright Locator for anchors, returns an array of hrefs.
+ */
+const gatherHrefsFromLocator = async (anchorLocator: Locator) => {
+	return anchorLocator.evaluateAll((anchors: HTMLAnchorElement[]) => {
+		return anchors.map((anchor: HTMLAnchorElement) => {
+			const { pathname = '', search = '', hash = '' } = new URL(anchor.href)
+			return `${pathname}${search}${hash}`
+		})
+	})
+}
 
 /**
  * Given the Playwright Page instance, the path of a page to test, and preview's
@@ -29,17 +39,10 @@ const getHrefsForPreviewUrl = async ({
 
 	// Gather up the pathname, search, and hash of each href
 	const contentLinks = pageInstance.locator(CONTENT_AREA_ANCHOR_SELECTOR)
-	const hrefs = await contentLinks.evaluateAll(
-		(anchors: HTMLAnchorElement[]) => {
-			return anchors.map((anchor: HTMLAnchorElement) => {
-				const { pathname = '', search = '', hash = '' } = new URL(anchor.href)
-				return `${pathname}${search}${hash}`
-			})
-		}
-	)
+	const contentHrefs = await gatherHrefsFromLocator(contentLinks)
 
 	// Return the gathered hrefs
-	return hrefs
+	return contentHrefs
 }
 
 test.describe('docs-content-link-rewrites', () => {
