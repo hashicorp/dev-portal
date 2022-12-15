@@ -1,12 +1,14 @@
 import path from 'path'
 import { test, expect, Page } from '@playwright/test'
+import { SIDEBAR_NAV_ELEMENT_ID, MAIN_ELEMENT_ID } from 'constants/element-ids'
 import { ALL_PAGE_PATHS_OUTPUT_FILE_PATH } from '../../../scripts/docs-content-link-rewrites/constants'
 
 // Run all the tests generated in this file in parallel
 test.describe.configure({ mode: 'parallel' })
 
 // TODO set an id from a constant, reference the constant here
-const CONTENT_AREA_ANCHOR_SELECTOR = '[class^="docs-view_mdxContent"] a'
+const SIDEBAR_NAV_ANCHOR_SELECTOR = `${SIDEBAR_NAV_ELEMENT_ID} a`
+const CONTENT_AREA_ANCHOR_SELECTOR = `${MAIN_ELEMENT_ID} a`
 
 /**
  * Given the Playwright Page instance, the path of a page to test, and preview's
