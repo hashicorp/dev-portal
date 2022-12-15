@@ -1,6 +1,22 @@
 import { z } from 'zod'
 
 /**
+ * We support a limited set of product slugs for Certification exam purposes.
+ *
+ * Product slugs are mainly used to render themed certification badges.
+ * This schema, and components that use the CertificationProductSlug type,
+ * will need to be expanded when additional certification programs are added.
+ */
+const CertificationProductSlugSchema = z.enum(['consul', 'terraform', 'vault'])
+
+/**
+ * Export the CertificationProductSlug enum as a type.
+ */
+export type CertificationProductSlug = z.infer<
+	typeof CertificationProductSlugSchema
+>
+
+/**
  * Content schema for an exam.
  *
  * Each certification program can reference multiple exams.
@@ -9,7 +25,7 @@ import { z } from 'zod'
  */
 export const CertificationExamSchema = z.object({
 	title: z.string(),
-	productSlug: z.enum(['consul', 'terraform', 'vault']),
+	productSlug: CertificationProductSlugSchema,
 	versionTested: z.string(),
 	description: z.string(),
 	faqSlug: z.string(),
