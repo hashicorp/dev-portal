@@ -66,7 +66,9 @@ const main = async () => {
 	// If there are links to rewrite...
 	const filesWithLinksToRewrite = Object.keys(allLinksToRewrite)
 	if (filesWithLinksToRewrite.length > 0) {
-		const message = `Found links to rewrite in ${filesWithLinksToRewrite.length} files: ${allLinksToRewrite}`
+		const message = `Found links to rewrite in ${
+			filesWithLinksToRewrite.length
+		} files:\n${JSON.stringify(allLinksToRewrite, null, 2)}`
 
 		// Throw an error if configured to, such as in a legacy link format checker
 		if (ERROR_IF_LINKS_TO_REWRITE === 'true') {
