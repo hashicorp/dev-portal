@@ -13,17 +13,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: List PR files
+      - name: Get list of PR files
+        id: get-list-of-pr-files
         uses: actions/github-script@v6
         with:
           script: |
-            const { data: prFiles } = await github.rest.pulls.listFiles({
+            const { data } = await github.rest.pulls.listFiles({
               owner: context.repo.owner,
               repo: context.repo.repo,
               per_page: 100,
               pull_number: ${{ github.event.number }},
             })
-            const changedMdxFiles = prFiles.filter(file => {
+            return data
+
+      - name: Get list of changed MDX files
+        id: get-list-of-changed-mdx-files
+        uses: actions/github-script@v6
+        env:
+          ALL_PR_FILES: ${{ steps.get-list-of-pr-files.outputs.result }}
+        with:
+          script: |
+            const changedMdxFiles = process.env.ALL_PR_FILES.filter((file) => {
               return file.status !== 'removed' && file.filename.endsWith('.mdx')
             })
             console.log('changedMdxFiles', changedMdxFiles)
