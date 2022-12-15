@@ -1,7 +1,8 @@
 # Resources
-#   - https://docs.github.com/developers/webhooks-and-events/webhooks/webhook-events-and-payloads?actionType=labeled#pull_request
-#   - https://docs.github.com/en/rest/pulls/pulls#list-pull-requests-files
+#   - https://docs.github.com/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#push
+#   - https://docs.github.com/en/rest/pulls/pulls#get-a-pull-request
 #   - https://octokit.github.io/rest.js/v19#pulls-list-files
+#   - https://docs.github.com/en/rest/pulls/pulls#list-pull-requests-files
 
 on: push
 
@@ -9,16 +10,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Get PR number
+        id: get-pr-number
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha
+            })
+            return data[0].number
+
       - name: Get list of PR files
         id: get-list-of-pr-files
         uses: actions/github-script@v6
+        env:
+          PR_NUMBER: ${{ steps.get-pr-number.outputs.result }}
         with:
           script: |
             const { data } = await github.rest.pulls.listFiles({
               owner: context.repo.owner,
               repo: context.repo.repo,
               per_page: 100,
-              pull_number: ${{ github.event.number }},
+              pull_number: PR_NUMBER,
             })
             return data
 
