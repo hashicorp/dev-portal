@@ -3,15 +3,11 @@
 #   - https://docs.github.com/en/rest/pulls/pulls#list-pull-requests-files
 #   - https://octokit.github.io/rest.js/v19#pulls-list-files
 
-on:
-  pull_request:
-    types: [labeled]
+on: push
 
 jobs:
   build:
-    if: ${{ github.event.label.name == 'amb-super-temporary-label' }}
     runs-on: ubuntu-latest
-
     steps:
       - name: Get list of PR files
         id: get-list-of-pr-files
@@ -33,5 +29,8 @@ jobs:
           ALL_PR_FILES: ${{ steps.get-list-of-pr-files.outputs.result }}
         with:
           script: |
-            console.log('typeof ALL_PR_FILES', typeof process.env.ALL_PR_FILES)
-            console.log('typeof parsed ALL_PR_FILES', typeof JSON.parse(process.env.ALL_PR_FILES))
+            const allPrFiles = JSON.parse(process.env.ALL_PR_FILES)
+            const changedMdxFiles = allPrFiles.filter((file) => {
+              return file.status !== 'removed' && file.filename.endsWith('.mdx')
+            })
+            console.log('changedMdxFiles', changedMdxFiles)
