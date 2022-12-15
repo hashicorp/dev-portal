@@ -21,13 +21,16 @@ interface MessagePageProps {
 const MESSAGES_FOLDER = path.join(process.cwd(), 'src', 'content', 'messages')
 const COMPONENTS = defaultMdxComponents({})
 
-async function loadMessage(messageId: string): Promise<string | undefined> {
+async function loadMessage(
+	messageId: string
+): Promise<MDXRemoteSerializeResult | undefined> {
 	const messagePath = path.join(MESSAGES_FOLDER, `${messageId}.mdx`)
 
 	try {
 		const content = String(await fs.promises.readFile(messagePath))
+		const mdxSource = await serialize(content)
 
-		return content
+		return mdxSource
 	} catch (err) {
 		console.error('[messages] error loading message: ', messageId, err)
 	}
@@ -50,13 +53,11 @@ export async function getStaticPaths() {
 export async function getStaticProps(ctx: GetStaticPropsContext) {
 	const { messageId } = ctx.params
 
-	const rawMessage = await loadMessage(messageId as string)
+	const mdxSource = await loadMessage(messageId as string)
 
-	if (!rawMessage) {
+	if (!mdxSource) {
 		return { notFound: true }
 	}
-
-	const mdxSource = await serialize(rawMessage)
 
 	return {
 		props: { mdxSource, metadata: { title: messageId } },
