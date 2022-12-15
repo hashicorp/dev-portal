@@ -59,7 +59,7 @@ jobs:
 
             // Fetch all the PR files
             const allPrFiles = []
-            fetchAllPrFiles({ allPrFiles })
+            await fetchAllPrFiles({ allPrFiles })
 
             // Sort the PR files for what we're interested in
             allPrFiles.forEach(file => {
@@ -71,7 +71,7 @@ jobs:
                 return
               }
               if (file.filename.endsWith('-nav-data.json')) {
-                changedNavDataJsonFiles.puhs(file.filename)
+                changedNavDataJsonFiles.push(file.filename)
               }
             })
 
