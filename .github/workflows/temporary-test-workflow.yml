@@ -74,8 +74,10 @@ jobs:
         id: check-files-for-legacy-link-formats
         uses: actions/github-script@v6
         env:
-          STUFF: ${{ steps.get-lists-of-pr-files.outputs.result }}
+          RELEVANT_CHANGED_FILES: ${{ steps.get-lists-of-pr-files.outputs.result }}
         with:
           script: |
-            const { STUFF } = process.env
-            console.log('typeof STUFF', typeof STUFF)
+            const { RELEVANT_CHANGED_FILES } = process.env
+            const { changedMdxFiles, changedNavDataJsonFiles } = JSON.parse(RELEVANT_CHANGED_FILES)
+            console.log('changedMdxFiles', changedMdxFiles)
+            console.log('changedNavDataJsonFiles', changedNavDataJsonFiles)
