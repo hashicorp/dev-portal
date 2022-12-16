@@ -8,6 +8,7 @@ import BaseLayout from 'layouts/base-new'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import DevDotContent from 'components/dev-dot-content'
 import s from './style.module.css'
+import Head from 'next/head'
 
 interface MessagePageProps {
 	/**
@@ -39,6 +40,9 @@ async function loadMessage(
 function MessagePage({ mdxSource }: MessagePageProps) {
 	return (
 		<div className={s.root}>
+			<Head>
+				<meta name="robots" content="noindex" key="robots" />
+			</Head>
 			<DevDotContent className={s.content}>
 				<MDXRemote {...mdxSource} components={COMPONENTS} />
 			</DevDotContent>
