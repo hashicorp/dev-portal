@@ -33,7 +33,6 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            // TODO don't hardcode owner, repo, commit_sha via process.env
             const { data } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
               owner: process.env.OWNER,
               repo: process.env.REPO,
