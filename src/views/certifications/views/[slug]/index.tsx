@@ -28,10 +28,12 @@ function CertificationProgramView({
 				<CertificationsMaxWidth key={slug}>
 					<div className={s.examsSection}>
 						{exams.map((exam) => {
+							const { title, examCode } = exam
+							const fullTitle = title + (examCode ? ` (${examCode})` : '')
 							return (
-								<div key={slug}>
+								<div key={fullTitle}>
 									<ExamDetailsCard
-										title={exam.title}
+										title={fullTitle}
 										description={exam.description}
 										links={exam.links}
 										productSlug={exam.productSlug}
