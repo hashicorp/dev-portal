@@ -1,13 +1,4 @@
-# Resources
-#   - https://docs.github.com/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#push
-#   - https://docs.github.com/en/rest/pulls/pulls#get-a-pull-request
-#   - https://octokit.github.io/rest.js/v19#pulls-list-files
-#   - https://docs.github.com/en/rest/pulls/pulls#list-pull-requests-files
-#   - https://docs.github.com/en/actions/learn-github-actions/expressions#fromjson
-#   - https://github.com/nektos/act
-#   - https://github.com/actions/checkout#checkout-multiple-repos-side-by-side
-
-name: temp-check-legacy-links-format
+name: docs-content-check-legacy-links-format
 
 on:
   workflow_call:
