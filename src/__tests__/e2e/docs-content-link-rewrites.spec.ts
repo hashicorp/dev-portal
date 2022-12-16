@@ -52,52 +52,69 @@ const getHrefsForPreviewUrl = async ({
 
 test.describe('docs-content-link-rewrites', () => {
 	// Pull inputs from the environment
-	const { MAIN_BRANCH_PREVIEW_URL, PR_BRANCH_PREVIEW_URL } = process.env
+	const {
+		ENABLE_DOCS_CONTENT_LINK_REWRITES_E2E,
+		MAIN_BRANCH_PREVIEW_URL,
+		PR_BRANCH_PREVIEW_URL,
+	} = process.env
+
+	// Skip all of the tests if they're not specifically enabled
+	// https://playwright.dev/docs/test-annotations#conditionally-skip-a-group-of-tests
+	const shouldSkipAllTests = ENABLE_DOCS_CONTENT_LINK_REWRITES_E2E !== 'true'
+	test.skip(() => {
+		if (shouldSkipAllTests) {
+			console.log('skipping')
+		}
+		return shouldSkipAllTests
+	}, 'docs-content-link-rewrites tests are only executed when specifically enabled')
 
 	// Fail the suite if either required variable is not set
 	test('Required environment variables are set', () => {
-		expect(MAIN_BRANCH_PREVIEW_URL).toBeDefined()
-		expect(PR_BRANCH_PREVIEW_URL).toBeDefined()
+		expect(typeof MAIN_BRANCH_PREVIEW_URL).toBe('string')
+		expect(MAIN_BRANCH_PREVIEW_URL).not.toHaveLength(0)
+		expect(typeof PR_BRANCH_PREVIEW_URL).toBe('string')
+		expect(PR_BRANCH_PREVIEW_URL).not.toHaveLength(0)
 	})
 
-	// Throw an error to skip the tests that require the environment variables
-	const canRunTests = MAIN_BRANCH_PREVIEW_URL && PR_BRANCH_PREVIEW_URL
-	if (!canRunTests) {
-		throw new Error(
+	test.describe('Main assertions', () => {
+		// Skip the rest of the tests if the required variables aren't set
+		const shouldSkipNextTests =
+			!MAIN_BRANCH_PREVIEW_URL || !PR_BRANCH_PREVIEW_URL
+		test.skip(
+			() => shouldSkipNextTests,
 			'The `MAIN_BRANCH_PREVIEW_URL` and `PR_BRANCH_PREVIEW_URL` environment variables are required'
 		)
-	}
 
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	const allPagePathsByBasePath = require(ALL_PAGE_PATHS_OUTPUT_FILE_PATH)
+		// Generate a test for each path in the imported JSON file
+		// eslint-disable-next-line @typescript-eslint/no-var-requires
+		const allPagePathsByBasePath = require(ALL_PAGE_PATHS_OUTPUT_FILE_PATH)
+		const basePaths = Object.keys(allPagePathsByBasePath)
+		basePaths.forEach((basePath: string) => {
+			test.describe(basePath, () => {
+				const pagePaths = allPagePathsByBasePath[basePath]
+				pagePaths.forEach((pathToTest: string) => {
+					test(pathToTest, async ({ page }: { page: Page }) => {
+						console.log('Checking links on', path.join('/', pathToTest))
 
-	// Generate a test for each path in the imported JSON file
-	const basePaths = Object.keys(allPagePathsByBasePath)
-	basePaths.forEach((basePath: string) => {
-		test.describe(basePath, () => {
-			const pagePaths = allPagePathsByBasePath[basePath]
-			pagePaths.forEach((pathToTest: string) => {
-				test(pathToTest, async ({ page }: { page: Page }) => {
-					console.log('Checking links on', path.join('/', pathToTest))
+						// Get all anchor hrefs for the main branch's page
+						const mainBranchHrefs = await getHrefsForPreviewUrl({
+							pageInstance: page,
+							pathToTest,
+							previewBaseUrl: MAIN_BRANCH_PREVIEW_URL,
+						})
 
-					// Get all anchor hrefs for the main branch's page
-					const mainBranchHrefs = await getHrefsForPreviewUrl({
-						pageInstance: page,
-						pathToTest,
-						previewBaseUrl: MAIN_BRANCH_PREVIEW_URL,
+						// Get all anchor hrefs for the pr branch's page
+						const prBranchHrefs = await getHrefsForPreviewUrl({
+							pageInstance: page,
+							pathToTest,
+							previewBaseUrl: PR_BRANCH_PREVIEW_URL,
+						})
+
+						// Assert that the hrefs are the same for both branches' preview pages
+						expect(JSON.stringify(prBranchHrefs)).toEqual(
+							JSON.stringify(mainBranchHrefs)
+						)
 					})
-
-					// Get all anchor hrefs for the pr branch's page
-					const prBranchHrefs = await getHrefsForPreviewUrl({
-						pageInstance: page,
-						pathToTest,
-						previewBaseUrl: PR_BRANCH_PREVIEW_URL,
-					})
-
-					// Assert that the hrefs are the same for both branches' preview pages
-					expect(JSON.stringify(prBranchHrefs)).toEqual(
-						JSON.stringify(mainBranchHrefs)
-					)
 				})
 			})
 		})
