@@ -54,10 +54,6 @@ jobs:
           repository: hashicorp/dev-portal
           ref: amb.link-rewrites-e2e-tests
 
-      - name: Change into cloned dev-portal directory
-        if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
-        run: cd dev-portal
-
       - name: Install dev-portal deps
         if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
         run: npm ci
