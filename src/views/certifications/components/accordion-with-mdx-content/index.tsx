@@ -26,8 +26,7 @@ function MdxImage({
 const MDX_COMPONENTS = {
 	a: MdxA,
 	blockquote: MdxBlockquote,
-	/* Note: we intentionally don't accept className from MDX content here */
-	p: (props) => <MdxP {...props} className={s.lighterTextColor} />,
+	p: MdxP,
 	table: MdxTable,
 	img: MdxImage,
 	inlineCode: MdxInlineCode,
