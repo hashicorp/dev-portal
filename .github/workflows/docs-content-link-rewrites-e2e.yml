@@ -26,46 +26,46 @@ on:
 
 jobs:
   docs-content-link-rewrites-e2e:
-  runs-on: ubuntu-latest
-  env:
-    OWNER: ${{ inputs.repo-owner }}
-    REPO: ${{ inputs.repo-name }}
-    COMMIT_SHA: ${{ inputs.commit-sha }}
-    MAIN_BRANCH_PREVIEW_URL: ${{ inputs.main-branch-preview-url }}
-    PR_BRANCH_PREVIEW_URL: ${{ inputs.pr-branch-preview-url }}
-    ENABLE_DOCS_CONTENT_LINK_REWRITES_E2E: 'true'
-  steps:
-    - name: Determine if the workflow should run
-      id: should-run-for-branch
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const { data } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-            owner: process.env.OWNER,
-            repo: process.env.REPO,
-            commit_sha: process.env.COMMIT_SHA
-          })
-          return data && data[0].head.ref === "docs/amb.migrate-link-formats"
+    runs-on: ubuntu-latest
+    env:
+      OWNER: ${{ inputs.repo-owner }}
+      REPO: ${{ inputs.repo-name }}
+      COMMIT_SHA: ${{ inputs.commit-sha }}
+      MAIN_BRANCH_PREVIEW_URL: ${{ inputs.main-branch-preview-url }}
+      PR_BRANCH_PREVIEW_URL: ${{ inputs.pr-branch-preview-url }}
+      ENABLE_DOCS_CONTENT_LINK_REWRITES_E2E: 'true'
+    steps:
+      - name: Determine if the workflow should run
+        id: should-run-for-branch
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: process.env.OWNER,
+              repo: process.env.REPO,
+              commit_sha: process.env.COMMIT_SHA
+            })
+            return data && data[0].head.ref === "docs/amb.migrate-link-formats"
 
-    # @TODO remove `ref` setting before merging
-    - name: Check out dev-portal repo
-      uses: actions/checkout@v3
-      if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
-      with:
-        ref: amb.link-rewrites-e2e-tests
+      # @TODO remove `ref` setting before merging
+      - name: Check out dev-portal repo
+        uses: actions/checkout@v3
+        if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
+        with:
+          ref: amb.link-rewrites-e2e-tests
 
-    - name: Install dev-portal deps
-      if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
-      run: npm ci
+      - name: Install dev-portal deps
+        if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
+        run: npm ci
 
-    - name: Install Playwright
-      if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
-      run: npx playwright install --with-deps
+      - name: Install Playwright
+        if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
+        run: npx playwright install --with-deps
 
-    - name: Load data for e2e tests
-      if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
-      run: npm run test:e2e:linkRewrites:loadData
+      - name: Load data for e2e tests
+        if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
+        run: npm run test:e2e:linkRewrites:loadData
 
-    - name: Run e2e tests
-      if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
-      run: npm run test:e2e:linkRewrites
+      - name: Run e2e tests
+        if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
+        run: npm run test:e2e:linkRewrites
