@@ -46,13 +46,11 @@ jobs:
             })
             return data && data[0].head.ref === "docs/amb.migrate-link-formats"
 
-      # @TODO remove `ref` setting before merging
       - name: Check out dev-portal repo
         uses: actions/checkout@v3
         if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
         with:
           repository: hashicorp/dev-portal
-          ref: amb.link-rewrites-e2e-tests
 
       - name: Install dev-portal deps
         if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
