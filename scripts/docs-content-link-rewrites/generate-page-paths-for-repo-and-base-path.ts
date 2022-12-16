@@ -9,20 +9,20 @@ import { normalizeRemoteLoaderSlug } from './helpers/normalize-remote-loader-slu
 import { RootDocsPath } from 'types/products'
 
 const main = async () => {
-	// Require the REPO_NAME environment variable
-	const { REPO_NAME } = process.env
-	if (!REPO_NAME) {
-		throw new Error('The REPO_NAME environment variable is required')
+	// Require the REPO environment variable
+	const { REPO } = process.env
+	if (!REPO) {
+		throw new Error('The REPO environment variable is required')
 	}
 
 	// Find the root docs paths that need nav-data fetched
-	const productData = cachedGetProductData(normalizeRemoteLoaderSlug(REPO_NAME))
+	const productData = cachedGetProductData(normalizeRemoteLoaderSlug(REPO))
 	const relevantRootDocsPaths = productData.rootDocsPaths.filter(
 		(rootDocsPath: RootDocsPath) => {
-			if (REPO_NAME === productData.slug) {
+			if (REPO === productData.slug) {
 				return !rootDocsPath.hasOwnProperty('productSlugForLoader')
 			} else {
-				return rootDocsPath.productSlugForLoader === REPO_NAME
+				return rootDocsPath.productSlugForLoader === REPO
 			}
 		}
 	)
@@ -32,7 +32,7 @@ const main = async () => {
 		relevantRootDocsPaths.map((rootDocsPath: RootDocsPath) => {
 			return getAllPagePathsForBasePathAndRepo({
 				basePath: rootDocsPath.path,
-				repo: REPO_NAME,
+				repo: REPO,
 			})
 		})
 	)
