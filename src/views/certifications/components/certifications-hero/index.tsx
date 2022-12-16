@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import classNames from 'classnames'
 import mitigateWidows from '@hashicorp/platform-util/text/mitigate-widows'
 import { CertificationsMaxWidth } from 'views/certifications/components'
@@ -5,48 +6,64 @@ import { CertificationsHeroProps } from './types'
 import s from './certifications-hero.module.css'
 
 /**
- * Re-usable Hero component for Certifications views.
+ * Render a certifications hero with a consistent layout.
  *
- * Optional `background` and `image` slots are intended to allow the re-use
- * of a consistent layout across pages, while meeting the different styles
- * of hero across Certifications views.
+ * `startSlot` is a render slot that will be rendered on the left side of the
+ * hero. On smaller viewports, `startSlot` is rendered at the top of the hero.
+ *
+ * `endSlot` is an optional render slot that will be rendered on the right side
+ * of the hero. On smaller viewports, `endSlot` is rendered below `startSlot`.
+ *
+ * `backgroundClassName` is required. Without it, the hero will render a
+ * plain white background. An empty string can be passed if a plain
+ * white background is desired.
  */
 function CertificationsHero({
-	heading,
-	description,
-	backgroundSlot,
-	imageSlot,
-	foreground = 'dark',
-}: CertificationsHeroProps) {
+	backgroundClassName,
+	startSlot,
+	endSlot,
+}: {
+	backgroundClassName: string
+	startSlot: ReactNode
+	endSlot?: ReactNode
+}) {
 	return (
 		<div className={s.root}>
-			{backgroundSlot ? (
-				<div className={s.backgroundSlot}>{backgroundSlot}</div>
-			) : null}
+			<div className={classNames(s.backgroundBase, backgroundClassName)} />
 			<CertificationsMaxWidth>
-				<div className={s.textAndImage}>
-					<div className={s.textSlot}>
-						<h1
-							className={classNames(s.heading, s[`foreground-${foreground}`])}
-						>
-							{heading}
-						</h1>
-						<p
-							className={classNames(
-								s.description,
-								s[`foreground-${foreground}`]
-							)}
-							dangerouslySetInnerHTML={{
-								__html: mitigateWidows(description, 18),
-							}}
-						/>
-					</div>
-					{imageSlot ? <div className={s.imageSlot}>{imageSlot}</div> : null}
+				<div className={s.rootLayout}>
+					<div className={s.startSlot}>{startSlot}</div>
+					{endSlot ? <div className={s.endSlot}>{endSlot}</div> : null}
 				</div>
 			</CertificationsMaxWidth>
 		</div>
 	)
 }
 
+/**
+ * Render a heading and descriptive text within a CertificationsHero.
+ */
+function CertificationsHeroText({
+	heading,
+	description,
+	foreground,
+}: {
+	heading: string
+	description: string
+	foreground: 'light' | 'dark'
+}) {
+	return (
+		<div className={classNames(s.textRoot, s[`foreground-${foreground}`])}>
+			<h1 className={s.textHeading}>{heading}</h1>
+			<p
+				className={s.textDescription}
+				dangerouslySetInnerHTML={{
+					__html: mitigateWidows(description, 18),
+				}}
+			/>
+		</div>
+	)
+}
+
 export type { CertificationsHeroProps }
-export { CertificationsHero }
+export { CertificationsHero, CertificationsHeroText }

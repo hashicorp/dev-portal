@@ -2,6 +2,7 @@ import classNames from 'classnames'
 // Shared under certifications
 import {
 	CertificationsHero,
+	CertificationsHeroText,
 	CertificationsHeroProps,
 } from 'views/certifications/components'
 import { ProgramSlug } from 'views/certifications/types'
@@ -9,6 +10,8 @@ import { ProgramSlug } from 'views/certifications/types'
 import { ProgramHeroProps } from './types'
 // Styles
 import s from './program-hero.module.css'
+import StandaloneLink from 'components/standalone-link'
+import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16'
 
 /**
  * Note: foreground and background are both set based on the program `slug`.
@@ -27,14 +30,33 @@ const programHeroForeground: Record<
 	'networking-automation': 'light',
 }
 
+/**
+ * Render a styled hero for an individual program page.
+ */
 function ProgramHero({ heading, description, slug }: ProgramHeroProps) {
+	const foreground = programHeroForeground[slug]
 	return (
 		<CertificationsHero
-			heading={heading}
-			description={description}
-			foreground={programHeroForeground[slug]}
-			backgroundSlot={
-				<div className={classNames(s.heroBackground, s[`theme-${slug}`])} />
+			backgroundClassName={classNames(s.heroBackground, s[`theme-${slug}`])}
+			startSlot={
+				<>
+					<StandaloneLink
+						className={classNames(
+							s.allCertificationsLink,
+							s[`foreground-${foreground}`]
+						)}
+						href="/certifications"
+						text="All Certifications"
+						icon={<IconArrowLeft16 />}
+						iconPosition={'leading'}
+						color="secondary"
+					/>
+					<CertificationsHeroText
+						heading={heading}
+						description={description}
+						foreground={foreground}
+					/>
+				</>
 			}
 		/>
 	)
