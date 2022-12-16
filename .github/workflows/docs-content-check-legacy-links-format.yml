@@ -21,7 +21,7 @@ on:
         type: string
 
 jobs:
-  docs-check-legacy-links-format:
+  docs-content-check-legacy-links-format:
     runs-on: ubuntu-latest
     env:
       OWNER: ${{ inputs.repo-owner }}
