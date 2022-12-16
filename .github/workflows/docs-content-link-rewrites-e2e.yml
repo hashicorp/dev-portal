@@ -33,7 +33,6 @@ jobs:
       COMMIT_SHA: ${{ inputs.commit-sha }}
       MAIN_BRANCH_PREVIEW_URL: ${{ inputs.main-branch-preview-url }}
       PR_BRANCH_PREVIEW_URL: ${{ inputs.pr-branch-preview-url }}
-      ENABLE_DOCS_CONTENT_LINK_REWRITES_E2E: 'true'
     steps:
       - name: Determine if the workflow should run
         id: should-run-for-branch

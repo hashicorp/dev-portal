@@ -52,21 +52,7 @@ const getHrefsForPreviewUrl = async ({
 
 test.describe('docs-content-link-rewrites', () => {
 	// Pull inputs from the environment
-	const {
-		ENABLE_DOCS_CONTENT_LINK_REWRITES_E2E,
-		MAIN_BRANCH_PREVIEW_URL,
-		PR_BRANCH_PREVIEW_URL,
-	} = process.env
-
-	// Skip all of the tests if they're not specifically enabled
-	// https://playwright.dev/docs/test-annotations#conditionally-skip-a-group-of-tests
-	const shouldSkipAllTests = ENABLE_DOCS_CONTENT_LINK_REWRITES_E2E !== 'true'
-	test.skip(() => {
-		if (shouldSkipAllTests) {
-			console.log('skipping')
-		}
-		return shouldSkipAllTests
-	}, 'docs-content-link-rewrites tests are only executed when specifically enabled')
+	const { MAIN_BRANCH_PREVIEW_URL, PR_BRANCH_PREVIEW_URL } = process.env
 
 	// Fail the suite if either required variable is not set
 	test('Required environment variables are set', () => {
