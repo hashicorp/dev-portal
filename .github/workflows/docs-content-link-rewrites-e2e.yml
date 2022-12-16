@@ -52,7 +52,6 @@ jobs:
         if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
         with:
           repository: hashicorp/dev-portal
-          path: dev-portal
           ref: amb.link-rewrites-e2e-tests
 
       - name: Change into cloned dev-portal directory
