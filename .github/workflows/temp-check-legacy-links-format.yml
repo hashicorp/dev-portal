@@ -114,12 +114,6 @@ jobs:
       - name: Install dev-portal dependencies
         run: npm ci
 
-      - name: Install docs-content-link-rewrites dependencies
-        run: |
-          cd ./scripts/docs-content-link-rewrites
-          npm ci
-          cd ../../
-
       - name: Check out branch with content changes
         uses: actions/checkout@v3
         with:
