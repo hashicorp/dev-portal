@@ -94,10 +94,12 @@ jobs:
                 changedMdxFiles.push(filenameWithoutDirectory)
                 return
               }
-              if (file.filename.endsWith('-nav-data.json')) {
-                const filenameWithoutDirectory = file.filename.replace(process.env.NAV_DATA_DIRECTORY, '')
-                changedNavDataJsonFiles.push(filenameWithoutDirectory)
-              }
+              // @TODO uncomment when new nav-data formats can be considered
+              // valid by validateNode() in react-components/docs-sidenav
+              //if (file.filename.endsWith('-nav-data.json')) {
+              //  const filenameWithoutDirectory = file.filename.replace(process.env.NAV_DATA_DIRECTORY, '')
+              //  changedNavDataJsonFiles.push(filenameWithoutDirectory)
+              //}
             })
 
             // Log and return the result
