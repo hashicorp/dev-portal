@@ -8,7 +8,7 @@ import { getRewrittenNavDataJsonForFilePaths } from './helpers/get-rewritten-nav
 import { rewriteFileContentString } from './helpers/rewrite-file-content-string'
 
 const main = async () => {
-	const { changedMdxFiles, changedNavDataJsonFiles, repo } =
+	const { changedMdxFiles, changedNavDataJsonFiles, mdxFilesPrefix, repo } =
 		await getRewriteLinksScriptArguments()
 
 	// Destructure environment variables we want to use
@@ -78,8 +78,9 @@ const main = async () => {
 	 * HANDLE UPDATING MDX LINKS
 	 */
 	const { mdxLinksToRewrite } = await getMdxLinksToRewrite({
-		filePaths: changedMdxFiles,
 		dotIoToDevDotPaths,
+		filePathPrefix: mdxFilesPrefix,
+		filePaths: changedMdxFiles,
 		learnToDevDotPaths,
 		normalizedProductSlug,
 	})

@@ -5,13 +5,15 @@ import { cachedGetProductData } from 'lib/get-product-data'
 import rewriteLinksPlugin from '../rewrite-links-plugin'
 
 const getMdxLinksToRewrite = async ({
-	filePaths,
 	dotIoToDevDotPaths,
+	filePathPrefix,
+	filePaths,
 	learnToDevDotPaths,
 	normalizedProductSlug,
 }: {
-	filePaths: string[]
 	dotIoToDevDotPaths: Record<string, string>
+	filePathPrefix: string
+	filePaths: string[]
 	learnToDevDotPaths: Record<string, string>
 	normalizedProductSlug: ProductSlug
 }): Promise<{
@@ -29,6 +31,7 @@ const getMdxLinksToRewrite = async ({
 			return
 		}
 
+		const filePathWithoutPrefix = filePath.replace(filePathPrefix, '')
 		const fileContent = fs.readFileSync(filePath, 'utf-8')
 		const {
 			// TODO put in a real TS fix
@@ -39,7 +42,7 @@ const getMdxLinksToRewrite = async ({
 			.use(rewriteLinksPlugin, {
 				dotIoToDevDotPaths,
 				learnToDevDotPaths,
-				currentFilePath: filePath,
+				currentFilePath: filePathWithoutPrefix,
 				product: productData,
 			})
 			.process(fileContent)

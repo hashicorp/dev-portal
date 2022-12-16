@@ -38,7 +38,8 @@ const gatherAllFilesWithSuffixFromDirectory = ({
 const getScriptArgumentsForCi = () => {
 	// Make sure the required environment variables are set
 	const missingRequiredEnvVariables = [
-		'FILE_PATH_PREFIX',
+		'MDX_FILE_PATH_PREFIX',
+		'NAV_DATA_FILE_PATH_PREFIX',
 		'RELEVANT_CHANGED_FILES',
 		'REPO',
 	].filter((key: string) => !process.env[key])
@@ -49,19 +50,26 @@ const getScriptArgumentsForCi = () => {
 	}
 
 	// Pull needed environment variables
-	const { FILE_PATH_PREFIX, REPO, RELEVANT_CHANGED_FILES } = process.env
-	const relevantChangedFiles = JSON.parse(RELEVANT_CHANGED_FILES)
+	const {
+		MDX_FILE_PATH_PREFIX,
+		NAV_DATA_FILE_PATH_PREFIX,
+		REPO,
+		RELEVANT_CHANGED_FILES,
+	} = process.env
+	const { changedMdxFiles = [], changedNavDataJsonFiles = [] } = JSON.parse(
+		RELEVANT_CHANGED_FILES
+	)
 
 	// Return the shaped-up arguments
 	return {
-		changedMdxFiles: addPrefixToFilePaths({
-			prefix: FILE_PATH_PREFIX,
-			filePaths: relevantChangedFiles.changedMdxFiles ?? [],
-		}),
-		changedNavDataJsonFiles: addPrefixToFilePaths({
-			prefix: FILE_PATH_PREFIX,
-			filePaths: relevantChangedFiles.changedNavDataJsonFiles ?? [],
-		}),
+		changedMdxFiles: changedMdxFiles.map((filePath) =>
+			path.join(process.cwd(), MDX_FILE_PATH_PREFIX, filePath)
+		),
+		changedNavDataJsonFiles: changedNavDataJsonFiles.map((filePath) =>
+			path.join(process.cwd(), NAV_DATA_FILE_PATH_PREFIX, filePath)
+		),
+		mdxFilesPrefix: MDX_FILE_PATH_PREFIX,
+		navDataFilesPrefix: NAV_DATA_FILE_PATH_PREFIX,
 		repo: REPO,
 	}
 }
@@ -83,8 +91,14 @@ const getScriptArgumentsForCommandLine = () => {
 		.demandOption(['repo', 'contentDirectory', 'navDataDirectory'])
 		.help().argv
 
-	const contentDirectory = cliArgs.contentDirectory as string
-	const navDataDirectory = cliArgs.navDataDirectory as string
+	const contentDirectory = path.join(
+		process.cwd(),
+		cliArgs.contentDirectory as string
+	)
+	const navDataDirectory = path.join(
+		process.cwd(),
+		cliArgs.navDataDirectory as string
+	)
 	const repo = cliArgs.repo as string
 
 	gatherAllFilesWithSuffixFromDirectory({
@@ -98,7 +112,13 @@ const getScriptArgumentsForCommandLine = () => {
 		allFiles: changedNavDataJsonFiles,
 	})
 
-	return { changedMdxFiles, changedNavDataJsonFiles, repo }
+	return {
+		changedMdxFiles,
+		changedNavDataJsonFiles,
+		mdxFilesPrefix: contentDirectory,
+		navDataFilesPrefix: navDataDirectory,
+		repo,
+	}
 }
 
 /**
@@ -108,6 +128,8 @@ const getScriptArgumentsForCommandLine = () => {
 const getRewriteLinksScriptArguments = async (): Promise<{
 	changedMdxFiles: string[]
 	changedNavDataJsonFiles: string[]
+	mdxFilesPrefix: string
+	navDataFilesPrefix: string
 	repo: string
 }> => {
 	return process.env.CI
