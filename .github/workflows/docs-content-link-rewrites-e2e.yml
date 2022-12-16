@@ -52,7 +52,13 @@ jobs:
         uses: actions/checkout@v3
         if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
         with:
+          repository: hashicorp/dev-portal
+          path: dev-portal
           ref: amb.link-rewrites-e2e-tests
+
+      - name: Change into cloned dev-portal directory
+        if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
+        run: cd dev-portal
 
       - name: Install dev-portal deps
         if: ${{ steps.should-run-for-branch.outputs.result == 'true' }}
