@@ -13,7 +13,6 @@ import {
 	MdxBlockquote,
 } from 'components/dev-dot-content/mdx-components'
 import { AccordionWithMdxContentProps, AccordionMdxItem } from './types'
-import s from './accordion-with-mdx-content.module.css'
 
 function MdxImage({
 	alt,
