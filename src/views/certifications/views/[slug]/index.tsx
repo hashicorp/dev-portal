@@ -4,6 +4,7 @@ import BaseNewLayout from 'layouts/base-new'
 import {
 	AccordionWithMdxContent,
 	CertificationsMaxWidth,
+	SignupFormArea,
 } from 'views/certifications/components'
 // Local
 import { ExamDetailsCard, ProgramHero } from './components'
@@ -42,6 +43,9 @@ function CertificationProgramView({
 								</div>
 							)
 						})}
+					</div>
+					<div className={s.signupForm}>
+						<SignupFormArea />
 					</div>
 				</CertificationsMaxWidth>
 			</div>

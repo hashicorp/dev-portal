@@ -4,6 +4,7 @@ import BaseNewLayout from 'layouts/base-new'
 import {
 	AccordionWithMdxContent,
 	CertificationsMaxWidth,
+	SignupFormArea,
 } from 'views/certifications/components'
 // Local view
 import { CertificationProgramSummaryCard, LandingHero } from './components'
@@ -36,10 +37,13 @@ function CertificationsLandingView({
 					)
 				})}
 			</div>
-			<div className={s.faqSection}>
+			<div className={s.faqSignupSection}>
 				<CertificationsMaxWidth>
 					<h2 className={s.faqHeading}>{pageContent.faqHeading}</h2>
 					<AccordionWithMdxContent items={faqItems} />
+					<div className={s.signupForm}>
+						<SignupFormArea />
+					</div>
 				</CertificationsMaxWidth>
 			</div>
 		</div>
