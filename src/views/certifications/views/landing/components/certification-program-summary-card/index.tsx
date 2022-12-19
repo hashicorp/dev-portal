@@ -31,23 +31,27 @@ export function CertificationProgramSummaryCard({
 				}
 			/>
 			<div className={s.examCards}>
-				{exams.map(({ title, prepareUrl, examCode, productSlug }) => {
-					const fullTitle = title + (examCode ? ` (${examCode})` : '')
-					return prepareUrl ? (
-						<ExamCard
-							key={fullTitle}
-							title={fullTitle}
-							url={prepareUrl}
-							productSlug={productSlug}
-						/>
-					) : (
-						<ExamCardComingSoon
-							key={fullTitle}
-							title={fullTitle}
-							productSlug={productSlug}
-						/>
-					)
-				})}
+				{exams.map(
+					({ title, prepareUrl, registerUrl, examCode, productSlug }) => {
+						const fullTitle = title + (examCode ? ` (${examCode})` : '')
+						const showComingSoon = typeof registerUrl !== 'string'
+						return prepareUrl ? (
+							<ExamCard
+								key={fullTitle}
+								title={fullTitle}
+								url={prepareUrl}
+								productSlug={productSlug}
+								showComingSoon={showComingSoon}
+							/>
+						) : (
+							<ExamCardComingSoon
+								key={fullTitle}
+								title={fullTitle}
+								productSlug={productSlug}
+							/>
+						)
+					}
+				)}
 			</div>
 		</GradientCard>
 	)

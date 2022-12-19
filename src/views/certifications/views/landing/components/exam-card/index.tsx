@@ -1,5 +1,8 @@
 import { ReactNode } from 'react'
-import { StandaloneLinkContents } from 'views/certifications/components'
+import {
+	CtaGroup,
+	StandaloneLinkContents,
+} from 'views/certifications/components'
 import { ExamBadgeAndTitle } from '../'
 import CardLink from 'components/card-link'
 import s from './exam-card.module.css'
@@ -15,7 +18,14 @@ function ExamCardContents({ children }: { children: ReactNode }) {
 }
 
 /**
- * "Coming Soon" exam cards are not linked.
+ * Badge that says "Coming Soon", may be rendered in linked & unlinked cards.
+ */
+function ComingSoonBadge() {
+	return <Badge text="Coming Soon" color="highlight" type="outlined" />
+}
+
+/**
+ * Unlinked exam cards are used where a "prepareUrl" is not available yet.
  */
 function ExamCardComingSoon({ title, productSlug }: ExamCardComingSoonProps) {
 	return (
@@ -26,13 +36,19 @@ function ExamCardComingSoon({ title, productSlug }: ExamCardComingSoonProps) {
 					eyebrow="HashiCorp Certified:"
 					productSlug={productSlug}
 				/>
-				<Badge text="Coming Soon" color="highlight" type="outlined" />
+				<ComingSoonBadge />
 			</ExamCardContents>
 		</Card>
 	)
 }
 
-function ExamCard({ title, productSlug, url }: ExamCardProps) {
+/**
+ * Linked exam cards are used where a "prepareUrl" is available for the exam.
+ *
+ * If a "registerUrl" for the exam is not yet available, we show
+ * a "Coming Soon" badge within this card as well.
+ */
+function ExamCard({ title, productSlug, url, showComingSoon }: ExamCardProps) {
 	return (
 		<CardLink className={s.examCard} href={url} ariaLabel="test">
 			<ExamCardContents>
@@ -41,7 +57,10 @@ function ExamCard({ title, productSlug, url }: ExamCardProps) {
 					eyebrow="HashiCorp Certified:"
 					productSlug={productSlug}
 				/>
-				<StandaloneLinkContents text="Prepare for the exam" />
+				<CtaGroup>
+					{showComingSoon ? <ComingSoonBadge /> : null}
+					<StandaloneLinkContents text="Prepare for the exam" />
+				</CtaGroup>
 			</ExamCardContents>
 		</CardLink>
 	)

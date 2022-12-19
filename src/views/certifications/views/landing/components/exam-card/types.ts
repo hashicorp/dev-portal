@@ -8,4 +8,5 @@ interface ExamCardBaseProps {
 export type ExamCardComingSoonProps = ExamCardBaseProps
 export interface ExamCardProps extends ExamCardBaseProps {
 	url: string
+	showComingSoon?: boolean
 }
