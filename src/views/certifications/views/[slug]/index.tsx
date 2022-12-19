@@ -40,7 +40,9 @@ function CertificationProgramView({
 										versionTested={exam.versionTested}
 										slug={slug}
 									/>
-									<h2 className={s.examAccordionHeading}>Overview</h2>
+									<h2 className={s.examAccordionHeading}>
+										{`${title}${examCode ? ` ${examCode}` : ''} Details`}
+									</h2>
 									<AccordionWithMdxContent items={exam.faqItems} />
 								</div>
 							)
