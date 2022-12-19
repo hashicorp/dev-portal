@@ -1,3 +1,5 @@
+import { isInUS } from '@hashicorp/platform-util/geo'
+
 import { canTrackAnalytics } from 'lib/analytics'
 
 export const abTestTrack = ({
@@ -9,7 +11,7 @@ export const abTestTrack = ({
 	test_name: string
 	variant: string
 }) => {
-	if (canTrackAnalytics()) {
+	if (canTrackAnalytics() && isInUS()) {
 		window.analytics.track(`AB Test ${type}`, {
 			test_name,
 			variant,

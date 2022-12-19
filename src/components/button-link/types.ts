@@ -1,31 +1,22 @@
 import { ButtonProps } from 'components/button'
+import { LinkProps } from 'components/link'
 
 /**
- * All props the native <a> HTML element accepts
+ * The inherited props from Button and Link.
  */
-type AnchorElementProps = JSX.IntrinsicElements['a']
-
-/**
- * The inherited props from Button.
- */
-type PickedButtonProps = Pick<
+type InheritedButtonProps = Pick<
 	ButtonProps,
-	| 'aria-label'
-	| 'color'
-	| 'icon'
-	| 'iconPosition'
-	| 'size'
-	| 'text'
-	| 'className'
+	'color' | 'icon' | 'iconPosition' | 'size' | 'text'
+>
+type InheritedLinkProps = Pick<
+	LinkProps,
+	'aria-label' | 'className' | 'href' | 'onClick' | 'opensInNewTab'
 >
 
 /**
  * The additional custom props for ButtonLink.
  */
-interface ButtonLinkProps extends PickedButtonProps {
-	href: string
-	openInNewTab?: boolean
-	onClick?: AnchorElementProps['onClick']
+interface ButtonLinkProps extends InheritedButtonProps, InheritedLinkProps {
 	'data-heap-track'?: string
 }
 

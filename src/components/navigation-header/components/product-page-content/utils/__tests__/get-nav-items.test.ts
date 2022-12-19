@@ -60,6 +60,11 @@ describe('getNavItems', () => {
 		    "label": "Install",
 		    "url": "/waypoint/downloads",
 		  },
+		  Object {
+		    "label": "Try Cloud",
+		    "opensInNewTab": true,
+		    "url": "https://portal.cloud.hashicorp.com/sign-up",
+		  },
 		]
 	`)
 	})
@@ -253,8 +258,13 @@ describe('getNavItems', () => {
 		  },
 		  Object {
 		    "label": "Registry",
-		    "openInNewTab": true,
+		    "opensInNewTab": true,
 		    "url": "https://registry.terraform.io/",
+		  },
+		  Object {
+		    "label": "Try Cloud",
+		    "opensInNewTab": true,
+		    "url": "https://app.terraform.io/public/signup/account",
 		  },
 		]
 	`)
@@ -274,20 +284,25 @@ describe('getNavItems', () => {
 			],
 		} as ProductData
 		expect(getNavItems(testHCPData)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "label": "Home",
-          "url": "/hcp",
-        },
-        Object {
-          "label": "Documentation",
-          "url": "/hcp/docs",
-        },
-        Object {
-          "label": "Tutorials",
-          "url": "/hcp/tutorials",
-        },
-      ]
-    `)
+		      Array [
+		        Object {
+		          "label": "Home",
+		          "url": "/hcp",
+		        },
+		        Object {
+		          "label": "Documentation",
+		          "url": "/hcp/docs",
+		        },
+		        Object {
+		          "label": "Tutorials",
+		          "url": "/hcp/tutorials",
+		        },
+		        Object {
+		          "label": "Try Cloud",
+		          "opensInNewTab": true,
+		          "url": "https://portal.cloud.hashicorp.com/sign-up",
+		        },
+		      ]
+	    `)
 	})
 })

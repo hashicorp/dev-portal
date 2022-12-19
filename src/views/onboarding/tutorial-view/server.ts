@@ -95,7 +95,7 @@ export async function getOnboardingTutorialProps(
 	}
 
 	return {
-		props: stripUndefinedProperties({
+		props: stripUndefinedProperties<$TSFixMe>({
 			tutorial: {
 				...fullTutorialData,
 				content: serializedContent,

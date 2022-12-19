@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
-import Link from 'next/link'
 import classNames from 'classnames'
 import Card from 'components/card'
+import Link from 'components/link'
 import { developmentToast, ToastColor } from 'components/toast'
 import { CardLinkProps } from './types'
 import s from './card-link.module.css'
@@ -11,11 +11,11 @@ const CardLink = ({
 	children,
 	className,
 	href,
-	openInNewTab,
+	opensInNewTab,
 	'data-heap-track': dataHeapTrack,
 }: CardLinkProps): ReactElement => {
 	const classes = classNames(s.root, className)
-	const target = openInNewTab ? '_blank' : undefined
+	const target = opensInNewTab ? '_blank' : undefined
 
 	if (!ariaLabel) {
 		developmentToast({
@@ -34,15 +34,13 @@ const CardLink = ({
 			 *
 			 * https://adrianroselli.com/2020/02/block-links-cards-clickable-regions-etc.html
 			 */}
-			<Link href={href}>
-				{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-				<a
-					aria-label={ariaLabel}
-					className={s.anchor}
-					target={target}
-					data-heap-track={dataHeapTrack}
-				/>
-			</Link>
+			<Link
+				aria-label={ariaLabel}
+				className={s.anchor}
+				data-heap-track={`card-link ${dataHeapTrack ?? ''}`}
+				href={href}
+				target={target}
+			/>
 			{children}
 		</Card>
 	)

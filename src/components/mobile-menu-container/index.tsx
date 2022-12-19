@@ -11,9 +11,7 @@ import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 // Global imports
 import { getUserMenuItems } from 'lib/auth/user'
 import { useMobileMenu } from 'contexts'
-import useAuthentication, {
-	DEFAULT_PROVIDER_ID,
-} from 'hooks/use-authentication'
+import useAuthentication from 'hooks/use-authentication'
 import Button from 'components/button'
 import ButtonLink from 'components/button-link'
 
@@ -42,22 +40,11 @@ const MOBILE_MENU_MOTION = {
  */
 const MobileAuthenticationControls = () => {
 	const { asPath } = useRouter()
-	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
+	const { isAuthenticated, isLoading, signIn, signOut, user } =
 		useAuthentication()
+	const showUnauthenticatedUI = !isLoading && !isAuthenticated
 
-	/**
-	 * Upon signin
-	 * - if on the homepage, redirect to `/profile/bookmarks`
-	 * - else rely on default behavior & redirect back to the current page
-	 */
-	const handleSignIn = () => {
-		const isHomePage = asPath === '/'
-		signIn(DEFAULT_PROVIDER_ID, {
-			callbackUrl: isHomePage ? '/profile/bookmarks' : asPath,
-		})
-	}
-
-	if (!showAuthenticatedUI && !showUnauthenticatedUI) {
+	if (!isAuthenticated && !showUnauthenticatedUI) {
 		return null
 	}
 
@@ -68,7 +55,7 @@ const MobileAuthenticationControls = () => {
 				<Button
 					icon={<IconSignIn16 />}
 					iconPosition="trailing"
-					onClick={handleSignIn}
+					onClick={() => signIn()}
 					size="medium"
 					text="Sign In"
 				/>
@@ -82,7 +69,7 @@ const MobileAuthenticationControls = () => {
 				/>
 			</>
 		)
-	} else if (showAuthenticatedUI) {
+	} else if (isAuthenticated) {
 		content = (
 			<MobileUserDisclosure
 				items={getUserMenuItems({ signOut })}

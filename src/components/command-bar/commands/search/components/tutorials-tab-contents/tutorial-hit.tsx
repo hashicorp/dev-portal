@@ -1,6 +1,6 @@
 import { productSlugsToNames } from 'lib/products'
+import { ProductOption } from 'lib/learn-client/types'
 import { CommandBarLinkListItem } from 'components/command-bar/components'
-import { ProductSlug } from 'types/products'
 import { TutorialHitObject, TutorialHitProps } from './types'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
@@ -23,13 +23,13 @@ const TutorialHit = ({ hit }: TutorialHitProps) => {
 		return null
 	}
 
-	const { name, description } = _highlightResult
+	const { page_title, description } = _highlightResult
 
 	/**
 	 * If the `_highlightResult` has neither a name or description, there is
 	 * nothing to render for the result.
 	 */
-	if (!name && !description) {
+	if (!page_title && !description) {
 		if (IS_DEV) {
 			console.warn(
 				'[TutorialHit] Found a `hit` with no `name` or `description` in `_highlightResult`:\n',
@@ -41,7 +41,7 @@ const TutorialHit = ({ hit }: TutorialHitProps) => {
 	}
 
 	const badges = products?.map(
-		(productSlug: ProductSlug) => productSlugsToNames[productSlug]
+		(productSlug: ProductOption) => productSlugsToNames[productSlug]
 	)
 	const [productSlug, collectionSlug] = defaultContext.slug.split('/')
 	const [, tutorialSlug] = slug.split('/')
@@ -51,7 +51,7 @@ const TutorialHit = ({ hit }: TutorialHitProps) => {
 
 	return (
 		<CommandBarLinkListItem
-			title={name?.value}
+			title={page_title?.value}
 			description={description?.value}
 			url={resultUrl}
 			badges={badges}

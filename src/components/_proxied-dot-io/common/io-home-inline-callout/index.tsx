@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import classNames from 'classnames'
 import type { Products } from '@hashicorp/platform-product-meta'
 import useProductMeta from '@hashicorp/platform-product-meta'
@@ -30,24 +30,22 @@ export default function IoHomeInlineCallout({
 }: IoHomeInlineCalloutProps) {
 	const { themeClass } = useProductMeta(brand)
 	return (
-		<Link href={link}>
-			<a className={classNames(s.inlineCallout, themeClass)}>
-				<div className={s.media}>
-					<Image
-						src={thumbnail.src}
-						width={thumbnail.width}
-						height={thumbnail.height}
-						alt={thumbnail.alt}
-					/>
-				</div>
-				<div className={s.content}>
-					<h2 className={s.heading}>{heading}</h2>
-					<p className={s.description}>{description}</p>
-					<span className={s.cta}>
-						{cta} <IconArrowRight16 />
-					</span>
-				</div>
-			</a>
+		<Link href={link} className={classNames(s.inlineCallout, themeClass)}>
+			<div className={s.media}>
+				<Image
+					src={thumbnail.src}
+					width={thumbnail.width}
+					height={thumbnail.height}
+					alt={thumbnail.alt}
+				/>
+			</div>
+			<div className={s.content}>
+				<h2 className={s.heading}>{heading}</h2>
+				<p className={s.description}>{description}</p>
+				<span className={s.cta}>
+					{cta} <IconArrowRight16 />
+				</span>
+			</div>
 		</Link>
 	)
 }

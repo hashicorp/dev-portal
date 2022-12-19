@@ -1,15 +1,15 @@
 .root {
-  /* Composition */
-  composes: g-focus-ring-from-box-shadow from global;
+	/* Composition */
+	composes: g-focus-ring-from-box-shadow from global;
 
-  /* CSS Properties */
-  border-radius: 5px;
-  display: block;
-  padding: 8px;
-  text-decoration: none;
-  width: 100%;
+	/* CSS Properties */
+	border-radius: 5px;
+	display: block;
+	padding: 8px;
+	text-decoration: none;
+	width: 100%;
 
-  &:hover {
-    text-decoration: underline;
-  }
+	&:hover {
+		text-decoration: underline;
+	}
 }

@@ -1,4 +1,5 @@
 // Third-party imports
+import path from 'path'
 import { Pluggable } from 'unified'
 import rehypePrism from '@mapbox/rehype-prism'
 
@@ -30,6 +31,7 @@ import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
+import { withTiming } from 'lib/with-timing'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -147,6 +149,10 @@ export function getStaticGenerationFunctions<
 		},
 		getStaticProps: async (ctx) => {
 			const pathParts = (ctx.params.page || []) as string[]
+			const currentPathUnderProduct = `/${path.join(
+				basePathForLoader,
+				pathParts.join('/')
+			)}`
 			const headings = [] // populated by anchorLinks plugin below
 
 			const loader = getLoader({
@@ -159,7 +165,12 @@ export function getStaticGenerationFunctions<
 					 * expected to have been run for remote content.
 					 */
 					[anchorLinks, { headings }],
-					rewriteTutorialLinksPlugin,
+					/**
+					 * The `contentType` configuration is necessary so that the
+					 * `rewriteTutorialLinksPlugin` does not rewrite links like
+					 * `/waypoint` to `/waypoint/tutorials`.
+					 */
+					[rewriteTutorialLinksPlugin, { contentType: 'docs' }],
 					/**
 					 * Rewrite docs content links, which are authored without prefix.
 					 * For example, in Waypoint docs authors write "/docs/some-thing",
@@ -167,7 +178,10 @@ export function getStaticGenerationFunctions<
 					 */
 					[
 						remarkPluginAdjustLinkUrls,
-						{ urlAdjustFn: getProductUrlAdjuster(product) },
+						{
+							currentPath: currentPathUnderProduct,
+							urlAdjustFn: getProductUrlAdjuster(product),
+						},
 					],
 				],
 				rehypePlugins: [
@@ -184,8 +198,13 @@ export function getStaticGenerationFunctions<
 			 */
 			let loadStaticPropsResult
 			try {
-				loadStaticPropsResult = await loader.loadStaticProps(ctx)
+				loadStaticPropsResult = await withTiming(
+					'[docs-view/server::loadStaticProps]',
+					() => loader.loadStaticProps(ctx)
+				)
 			} catch (error) {
+				console.error('[docs-view/server] error loading static props', error)
+
 				// Catch 404 errors, return a 404 status page
 				if (error.status === 404) {
 					return { notFound: true }
@@ -226,11 +245,14 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Add fullPaths and auto-generated ids to navData
 			 */
-			const { preparedItems: navDataWithFullPaths } =
-				await prepareNavDataForClient({
-					basePaths: [product.slug, basePath],
-					nodes: navData,
-				})
+			const { preparedItems: navDataWithFullPaths } = await withTiming(
+				'[docs-view/server::prepareNavDataForClient]',
+				() =>
+					prepareNavDataForClient({
+						basePaths: [product.slug, basePath],
+						nodes: navData,
+					})
+			)
 
 			/**
 			 * Figure out of a specific docs version is being viewed

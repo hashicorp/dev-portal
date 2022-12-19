@@ -21,14 +21,6 @@ module.exports = [
 		permanent: true,
 	},
 
-	// This redirect supports a URL built into the Nomad UI, and should always be
-	// directed someplace valid to support the text "Read about Outage Recovery."
-	{
-		source: '/guides/outage.html',
-		destination: 'https://learn.hashicorp.com/tutorials/nomad/outage-recovery',
-		permanent: true,
-	},
-
 	// Nomad Learn Redirects
 	{
 		source: '/intro/getting-started',
@@ -1250,6 +1242,13 @@ module.exports = [
 	{
 		source: '/guides/:splat*',
 		destination: 'https://learn.hashicorp.com/nomad',
+		permanent: true,
+	},
+	// This redirect supports a URL built into the Nomad UI, and should always be
+	// directed someplace valid to support the text "Read about Outage Recovery."
+	{
+		source: '/guides/outage.html',
+		destination: 'https://learn.hashicorp.com/tutorials/nomad/outage-recovery',
 		permanent: true,
 	},
 

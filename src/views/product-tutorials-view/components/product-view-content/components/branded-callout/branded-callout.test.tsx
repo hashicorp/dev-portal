@@ -16,8 +16,8 @@ describe('BrandedCallout', () => {
 	it.each([
 		// prettier-ignore
 		['https://www.hashicorp.com/blog/hashicorp-boundary-0-7', '_blank', 'noreferrer noopener'],
-		['http://localhost', '_self', null],
-		['/some/local/path', '_self', null],
+		['http://localhost', null, null],
+		['/some/local/path', null, null],
 	])('should handle external & internal links', (url, target, rel) => {
 		const { getByRole } = render(
 			<BrandedCallout
@@ -33,7 +33,11 @@ describe('BrandedCallout', () => {
 
 		// This is a bit of an integration test with `StandaloneLink`
 		const cta = getByRole('link')
-		expect(cta).toHaveAttribute('target', target)
+		if (target) {
+			expect(cta).toHaveAttribute('target', target)
+		} else {
+			expect(cta).not.toHaveAttribute('target')
+		}
 
 		// conditional assertion
 		if (rel) {

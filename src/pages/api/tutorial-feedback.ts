@@ -140,7 +140,7 @@ const submitFeedback = async (
 
 		res.status(204).end()
 	} catch (error) {
-		console.error('Error occurred.')
+		console.error('Error occurred. ', error)
 
 		let errorMessage = 'An unexpected error occurred.'
 

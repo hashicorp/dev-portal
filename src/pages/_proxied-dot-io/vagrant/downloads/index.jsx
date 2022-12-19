@@ -41,20 +41,13 @@ function DownloadsPage({ product, releases, latestVersion }) {
 				label: 'View Tutorials',
 			}}
 			merchandisingSlot={
-				<Link href="/vmware/downloads">
-					<a>&raquo; Download VMware Utility</a>
-				</Link>
+				<Link href="/vmware/downloads">&raquo; Download VMware Utility</Link>
 			}
 			packageManagerOverrides={[
 				{
 					label: 'Homebrew',
-					commands: [`brew install vagrant`],
+					commands: [`brew install hashicorp/tap/hashicorp-vagrant`],
 					os: 'darwin',
-				},
-				{
-					label: 'Homebrew',
-					commands: [`brew install vagrant`],
-					os: 'linux',
 				},
 			]}
 		/>

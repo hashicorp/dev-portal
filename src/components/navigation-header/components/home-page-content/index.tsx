@@ -1,7 +1,7 @@
-import Link from 'next/link'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
+import Link from 'components/link'
 import { NavigationHeaderDropdownMenu } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './home-page-content.module.css'
@@ -37,16 +37,15 @@ const HomePageHeaderContent = () => {
 	return (
 		<div className={sharedNavStyles.leftSide}>
 			<div className={sharedNavStyles.contentBeforeNav}>
-				<Link href="/">
-					<a
-						aria-label="HashiCorp Developer Home"
-						data-heap-track="navigation-header-home-logo-link"
-					>
-						<InlineSvg
-							className={s.siteLogo}
-							src={require('../../img/logo-white.svg?include')}
-						/>
-					</a>
+				<Link
+					href="/"
+					aria-label="HashiCorp Developer Home"
+					data-heap-track="navigation-header-home-logo-link"
+				>
+					<InlineSvg
+						className={s.siteLogo}
+						src={require('../../img/logo-white.svg?include')}
+					/>
 				</Link>
 			</div>
 			<div className={sharedNavStyles.leftSideDesktopOnlyContent}>

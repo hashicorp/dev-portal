@@ -8,6 +8,23 @@ import { ProductData } from 'types/products'
 import { PrimaryNavLinkProps } from '../../primary-nav-link'
 import { PrimaryNavSubmenuProps } from '../../primary-nav-submenu'
 
+const TRY_CLOUD_ITEM_PRODUCT_SLUGS = [
+	'boundary',
+	'consul',
+	'hcp',
+	'packer',
+	'terraform',
+	'vagrant',
+	'vault',
+	'waypoint',
+]
+
+enum TRY_CLOUD_PRODUCT_LINKS {
+	default = 'https://portal.cloud.hashicorp.com/sign-up',
+	terraform = 'https://app.terraform.io/public/signup/account',
+	vagrant = 'https://app.vagrantup.com/boxes/search',
+}
+
 /**
  * Given current product data,
  * Return an array of NavItems to render in the top navigation bar.
@@ -79,16 +96,31 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 			url: `/${currentProduct.slug}/downloads`,
 		})
 	}
+
 	/**
 	 * For Terraform, add a "Registry" item
 	 */
-	if (currentProduct.slug == 'terraform') {
+	if (currentProduct.slug === 'terraform') {
 		items.push({
 			label: 'Registry',
 			url: 'https://registry.terraform.io/',
-			openInNewTab: true,
+			opensInNewTab: true,
 		})
 	}
+
+	/**
+	 * For cloud products, add a "Try Cloud" item
+	 */
+	if (TRY_CLOUD_ITEM_PRODUCT_SLUGS.includes(currentProduct.slug)) {
+		items.push({
+			label: 'Try Cloud',
+			url:
+				TRY_CLOUD_PRODUCT_LINKS[currentProduct.slug] ??
+				TRY_CLOUD_PRODUCT_LINKS['default'],
+			opensInNewTab: true,
+		})
+	}
+
 	/**
 	 * Return the items
 	 */
