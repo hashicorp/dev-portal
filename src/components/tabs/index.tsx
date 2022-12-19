@@ -14,6 +14,7 @@ const Tabs = ({
 	initialActiveIndex = 0,
 	showAnchorLine = true,
 	variant = 'normal',
+	onChange,
 }: TabsProps): ReactElement => {
 	/**
 	 * TODO: this is a temporary measure until we are able to start requiring
@@ -82,7 +83,10 @@ const Tabs = ({
 						ariaLabel={ariaLabel}
 						ariaLabelledBy={ariaLabelledBy}
 						isNested={allowNestedStyles && isNested}
-						setActiveTabIndex={setSyncedActiveTabIndex}
+						setActiveTabIndex={(index) => {
+							setSyncedActiveTabIndex(index)
+							onChange?.(index)
+						}}
 						tabItems={tabItems}
 						variant={variant}
 					/>

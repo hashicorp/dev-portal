@@ -59,4 +59,11 @@ export const tryHcpCalloutContent: Record<
 		ctaText: 'Try cloud for free',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 	},
+	vagrant: {
+		heading: 'Vagrant Cloud',
+		description:
+			'Virtual boxes for Linux, Laravel and any development environment',
+		ctaText: 'Try Vagrant Cloud',
+		ctaUrl: 'https://app.vagrantup.com/boxes/search',
+	},
 }

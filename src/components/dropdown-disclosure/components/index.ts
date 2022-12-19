@@ -1,5 +1,6 @@
 import DropdownDisclosureActivator from './activator'
 import {
+	DropdownDisclosureAnchorItem,
 	DropdownDisclosureButtonItem,
 	DropdownDisclosureDescriptionItem,
 	DropdownDisclosureLabelItem,
@@ -9,6 +10,7 @@ import {
 
 export {
 	DropdownDisclosureActivator,
+	DropdownDisclosureAnchorItem,
 	DropdownDisclosureButtonItem,
 	DropdownDisclosureDescriptionItem,
 	DropdownDisclosureLabelItem,

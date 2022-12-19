@@ -12,6 +12,7 @@
 		"prettier:check": "prettier --check .",
 		"prettier:write": "prettier --write .",
 		"postbuild": "hc-tools ./scripts/capture-build-metrics.ts dev-portal && next-sitemap",
+		"rewrite-docs-content-links": "hc-tools ./scripts/docs-content-link-rewrites/rewrite-links.ts",
 		"sitemap": "next-sitemap",
 		"start:boundary": "cross-env DEV_IO=boundary npm run start",
 		"start:consul": "cross-env DEV_IO=consul npm run start",
@@ -26,7 +27,9 @@
 		"start": "hc-tools ./scripts/generate-opt-in-redirect-checks.ts && next",
 		"start:remote-watch": "hc-tools ./scripts/generate-opt-in-redirect-checks.ts && next-remote-watch ../content ../data",
 		"serve": "next build && next start",
-		"test:e2e": "playwright test",
+		"test:e2e": "playwright test --project default",
+		"test:e2e:linkRewrites:loadData": "hc-tools ./scripts/docs-content-link-rewrites/generate-page-paths-for-repo-and-base-path.ts",
+		"test:e2e:linkRewrites": "npx playwright test --project docs-content-link-rewrites",
 		"test:watch": "jest --watch",
 		"test": "jest",
 		"test:ci": "jest --runInBand",
@@ -92,7 +95,7 @@
 		"@algolia/autocomplete-core": "^1.6.2",
 		"@algolia/autocomplete-plugin-algolia-insights": "^1.6.2",
 		"@algolia/autocomplete-preset-algolia": "^1.6.2",
-		"@happykit/flags": "^3.0.0",
+		"@happykit/flags": "^3.1.1",
 		"@hashicorp/design-system-tokens": "^1.2.0",
 		"@hashicorp/flight-icons": "^2.12.0",
 		"@hashicorp/localstorage-polyfill": "^1.0.14",
@@ -189,12 +192,13 @@
 		"react-instantsearch-hooks-web": "^6.33.0",
 		"react-intersection-observer": "^8.33.1",
 		"react-player": "^2.9.0",
+		"remark-gfm": "^3.0.1",
 		"rivet-graphql": "^0.3.1",
 		"search-insights": "^1.8.0",
 		"semver": "^7.3.5",
 		"shortid": "^2.2.16",
 		"slugify": "^1.6.4",
-		"swingset": "^0.11.0",
+		"swingset": "^0.15.0",
 		"unified": "^9.2.0",
 		"unist-util-is": "^5.1.1",
 		"unist-util-visit": "^4.1.0",
@@ -209,5 +213,8 @@
 		"budgetPercentIncreaseRed": 20,
 		"showDetails": true,
 		"minimumChangeThreshold": 300
-	}
+	},
+	"workspaces": [
+		"./scripts/docs-content-link-rewrites"
+	]
 }

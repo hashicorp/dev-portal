@@ -30,29 +30,60 @@ import {
 
 let TUTORIAL_MAP
 
-export const rewriteTutorialLinksPlugin: Plugin = () => {
-	return async function transformer(tree) {
-		TUTORIAL_MAP = await getTutorialMap()
+const DEFAULT_CONTENT_TYPE = 'tutorials'
 
-		visit(tree, 'link', handleRewriteTutorialsLink)
-		visit(tree, 'definition', handleRewriteTutorialsLink)
+interface RewriteTutorialLinksPluginOptions {
+	contentType?: 'docs' | 'tutorials'
+	tutorialMap?: Record<string, string>
+}
+
+export const rewriteTutorialLinksPlugin: Plugin = (
+	options: RewriteTutorialLinksPluginOptions = {}
+) => {
+	const { contentType = DEFAULT_CONTENT_TYPE, tutorialMap } = options
+	return async function transformer(tree) {
+		// Load the tutorial map if it's not provided
+		TUTORIAL_MAP = tutorialMap ?? (await getTutorialMap())
+
+		// Visit link and defintion node types
+		visit(tree, ['link', 'definition'], (node: Link | Definition) => {
+			handleRewriteTutorialsLink(node, contentType)
+		})
 	}
 }
 
-function handleRewriteTutorialsLink(node: Link | Definition) {
-	node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP)
+function handleRewriteTutorialsLink(
+	node: Link | Definition,
+	contentType: RewriteTutorialLinksPluginOptions['contentType'] = DEFAULT_CONTENT_TYPE
+) {
+	node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP, contentType)
+}
+
+const getIsRelativeUrl = (url) => {
+	try {
+		new URL(url)
+		return false
+	} catch (e) {
+		return true
+	}
 }
 
 export function rewriteTutorialsLink(
 	url: string,
-	tutorialMap: Record<string, string>
+	tutorialMap: Record<string, string>,
+	contentType: RewriteTutorialLinksPluginOptions['contentType'] = DEFAULT_CONTENT_TYPE
 ): string {
 	let newUrl
 
 	try {
 		const urlObject = new URL(url, 'https://learn.hashicorp.com')
 
-		const isExternalLearnLink = getIsExternalLearnLink(url)
+		let isExternalLearnLink: boolean
+		if (contentType === 'docs' && getIsRelativeUrl(url)) {
+			isExternalLearnLink = false
+		} else {
+			isExternalLearnLink = getIsExternalLearnLink(url)
+		}
 		const isRewriteableDocsLink = getIsRewriteableDocsLink(url)
 
 		/**
