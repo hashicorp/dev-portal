@@ -10,6 +10,9 @@
 
 	& .left {
 		max-width: 527px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 
 		& .nameVersionWrapper {
 			display: flex;
@@ -24,10 +27,12 @@
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: flex-end;
+		min-width: 200px;
 
 		@media (max-width: 800px) {
 			margin-top: 14px;
 			align-items: flex-start;
+			min-width: unset;
 		}
 
 		& .tagList {
