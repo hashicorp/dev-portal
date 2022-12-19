@@ -54,9 +54,6 @@
 	/* Default gradient "border" is just white, no actual border */
 	--gradient-border-background: var(--token-color-surface-primary);
 
-	/* TODO: this background attribute is valid, I think the digital-plugin
-	   might need to handle commas or something? */
-	/* stylelint-disable-next-line digital-plugin/no-undeclared-hds-color-tokens */
 	background: var(--base-background) var(--gradient-border-background);
 	border-radius: var(--border-radius);
 	bottom: 0;
