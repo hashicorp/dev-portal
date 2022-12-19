@@ -4,21 +4,30 @@ import {
 	Variable as ApiVariable,
 	VariableGroup,
 } from 'lib/integrations-api-client/release'
-import ReactMarkdown from 'react-markdown'
+import { MDXRemote, type MDXRemoteSerializeResult } from 'next-mdx-remote'
+import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import SearchableVariableGroupList from '../searchable-variable-group-list'
 import { Variable } from '../variable-group-list'
 import s from './style.module.css'
 
 interface ComponentTabContentProps {
-	component: ReleaseComponent
+	component: ReleaseComponent & { readmeMdxSource: MDXRemoteSerializeResult }
 }
 
 export default function ComponentTabContent({
 	component,
 }: ComponentTabContentProps) {
+	const readmeContent = (
+		<MDXRemote
+			{...component.readmeMdxSource}
+			components={defaultMdxComponents({})}
+		/>
+	)
 	return (
 		<div className={s.componentTabContent}>
-			{component.readme && <ReactMarkdown>{component.readme}</ReactMarkdown>}
+			{component.readmeMdxSource ? (
+				<div className={s.mdx_wrapper}>{readmeContent}</div>
+			) : null}
 			{component.variable_groups.length ? (
 				<Tabs allowNestedStyles>
 					{component.variable_groups.map((variableGroup: VariableGroup) => {
