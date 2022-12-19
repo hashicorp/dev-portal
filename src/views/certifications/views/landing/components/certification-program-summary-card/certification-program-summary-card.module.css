@@ -16,6 +16,7 @@
 	composes: hds-typography-body-300 from global;
 	font-weight: var(--token-typography-font-weight-medium);
 	color: var(--token-color-foreground-primary);
+	padding-top: 3px;
 }
 
 .buttonGroup {
