@@ -2,6 +2,9 @@
  * Base spacing 
  */
 .root {
+	/* background and image elements may "bleed", prevent this from turning
+	   into viewport overflow */
+	overflow: hidden;
 	padding-bottom: 220px;
 	padding-top: 144px;
 
