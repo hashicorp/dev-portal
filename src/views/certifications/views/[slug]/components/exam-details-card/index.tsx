@@ -38,8 +38,6 @@ export function ExamDetailsCard({
 		register?: string
 	}
 }) {
-	const hasLinks = links?.prepare || links?.register
-
 	return (
 		<GradientCard theme={slug}>
 			<SplitCardSection
@@ -55,7 +53,7 @@ export function ExamDetailsCard({
 					<>
 						<p className={s.description}>{description}</p>
 						<div className={s.ctaGroup}>
-							{hasLinks ? (
+							{links?.prepare ? (
 								<CtaGroup>
 									{links.prepare ? (
 										<ButtonLink

@@ -18,7 +18,10 @@ function GradientCard({
 }) {
 	return (
 		<div className={s.root}>
-			<div className={classNames(s.inner, s[`theme-${theme}`])}>{children}</div>
+			<div
+				className={classNames(s.gradientBorderBackground, s[`theme-${theme}`])}
+			/>
+			<div className={s.inner}>{children}</div>
 		</div>
 	)
 }
