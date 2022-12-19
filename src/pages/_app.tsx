@@ -1,25 +1,41 @@
-import React, { useEffect } from 'react'
+// Third-party imports
+import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { Toaster } from 'components/toast'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
 import { LazyMotion } from 'framer-motion'
 import { SessionProvider } from 'next-auth/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+// HashiCorp imports
+import {
+	initializeUTMParamsCapture,
+	addCloudLinkHandler,
+} from '@hashicorp/platform-analytics'
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
+
+// Global imports
+import type { CustomAppProps, CustomAppContext } from 'types/_app'
 import {
-	AllProductDataProvider,
+	CurrentContentTypeProvider,
 	CurrentProductProvider,
 	DeviceSizeProvider,
 } from 'contexts'
-import EmptyLayout from 'layouts/empty'
+import fetchLayoutProps, {
+	ComponentMaybeWithQuery,
+} from 'lib/_proxied-dot-io/fetch-layout-props'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
-import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
-import './style.css'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
+import EmptyLayout from 'layouts/empty'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
+import { Toaster } from 'components/toast'
+
+// Local imports
+import './style.css'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
@@ -36,16 +52,41 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 	axe(React, ReactDOM, 1000)
 }
 
+initializeUTMParamsCapture()
+addCloudLinkHandler((destinationUrl: string) => {
+	window.analytics.track('Outbound link', {
+		destination_url: destinationUrl,
+	})
+})
+
 export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
 	layoutProps,
 	host,
-}) {
+}: CustomAppProps & Awaited<ReturnType<typeof App['getInitialProps']>>) {
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
+	/**
+	 * Initalize QueryClient with `useState` to ensure that data is not shared
+	 * between different users and requests, and that only one is created per
+	 * component lifecycle.
+	 */
+	const [queryClient] = useState(
+		() =>
+			new QueryClient({
+				defaultOptions: {
+					queries: {
+						// TODO: refine this value or set by HASHI_ENV
+						staleTime: Infinity,
+					},
+				},
+			})
+	)
+
 	const Layout = Component.layout ?? EmptyLayout
+	const currentContentType = Component.contentType ?? 'global'
 	const currentProduct = pageProps.product || null
 
 	/**
@@ -54,16 +95,19 @@ export default function App({
 	 */
 	const allLayoutProps = {
 		...pageProps.layoutProps,
+		// @ts-expect-error - layoutProps is inferred from `fetchLayoutProps`,
+		// which current resolves to `unknown | null`.
+		// Spread types may only be created from object types.
 		...layoutProps,
 	}
 
 	return (
-		<>
+		<QueryClientProvider client={queryClient}>
 			<SSRProvider>
-				<ErrorBoundary FallbackComponent={DevDotClient}>
-					<SessionProvider session={session}>
-						<DeviceSizeProvider>
-							<AllProductDataProvider>
+				<CurrentContentTypeProvider currentContentType={currentContentType}>
+					<ErrorBoundary FallbackComponent={DevDotClient}>
+						<SessionProvider session={session}>
+							<DeviceSizeProvider>
 								<CurrentProductProvider currentProduct={currentProduct}>
 									<CodeTabsProvider>
 										<HeadMetadata {...pageProps.metadata} host={host} />
@@ -80,19 +124,23 @@ export default function App({
 											</Layout>
 											<Toaster />
 											{showProductSwitcher ? <PreviewProductSwitcher /> : null}
+											<ReactQueryDevtools />
 										</LazyMotion>
 									</CodeTabsProvider>
 								</CurrentProductProvider>
-							</AllProductDataProvider>
-						</DeviceSizeProvider>
-					</SessionProvider>
-				</ErrorBoundary>
+							</DeviceSizeProvider>
+						</SessionProvider>
+					</ErrorBoundary>
+				</CurrentContentTypeProvider>
 			</SSRProvider>
-		</>
+		</QueryClientProvider>
 	)
 }
 
-App.getInitialProps = async ({ Component, ctx }) => {
+App.getInitialProps = async ({
+	Component,
+	ctx,
+}: CustomAppContext<{ Component: ComponentMaybeWithQuery }>) => {
 	// Determine the product being served through our rewrites so we can fetch the correct layout data
 	let proxiedProduct
 	if (ctx.pathname.includes('_proxied-dot-io/vault')) {
@@ -103,6 +151,10 @@ App.getInitialProps = async ({ Component, ctx }) => {
 		proxiedProduct = 'nomad'
 	} else if (ctx.pathname.includes('_proxied-dot-io/boundary')) {
 		proxiedProduct = 'boundary'
+	} else if (ctx.pathname.includes('_proxied-dot-io/packer')) {
+		proxiedProduct = 'packer'
+	} else if (ctx.pathname.includes('_proxied-dot-io/vagrant')) {
+		proxiedProduct = 'vagrant'
 	}
 	const layoutProps = await fetchLayoutProps(Component.layout, proxiedProduct)
 
@@ -115,6 +167,8 @@ App.getInitialProps = async ({ Component, ctx }) => {
 	let host
 	if (ctx.req) {
 		host = ctx.req.headers.host
+	} else {
+		host = window.location.host
 	}
 
 	return {

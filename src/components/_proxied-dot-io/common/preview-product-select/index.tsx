@@ -18,6 +18,7 @@ import { Product, ProductSlug } from 'types/products'
 import { products as allProducts } from 'lib/products'
 import ProductIcon from 'components/product-icon'
 import s from './style.module.css'
+import { HOSTNAME_MAP, SLUG_TO_HOSTNAME_MAP } from 'constants/hostname-map'
 
 const IO_SITES_ON_DEV_PORTAL = [
 	'waypoint',
@@ -65,7 +66,8 @@ const PreviewProductSwitcher: React.FC = () => {
 		typeof window === 'undefined'
 			? null
 			: products.find(
-					(product: Product) => product.slug === Cookies.get('io_preview')
+					(product: Product) =>
+						product.slug === HOSTNAME_MAP[Cookies.get('hc_dd_proxied_site')]
 			  )
 
 	useEffect(() => {
@@ -176,7 +178,7 @@ const PreviewProductSwitcher: React.FC = () => {
 
 		const setPreviewProduct = (slug: ProductSlug) => {
 			if (slug !== currentProduct?.slug) {
-				Cookies.set('io_preview', slug)
+				Cookies.set('hc_dd_proxied_site', SLUG_TO_HOSTNAME_MAP[slug])
 				// navigate back to the homepage
 				window.location.href = '/'
 			}

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import ReactPlayer from 'react-player/lazy'
 import classNames from 'classnames'
 import { VideoEmbedProps, VideoEmbedInnerProps } from './types'
@@ -18,6 +18,57 @@ import s from './video-embed.module.css'
  */
 const PROGRESS_INTERVAL = 1000
 const MAX_PLAYBACK_SPEED = 2.0
+const ICON_SIZE = '64px'
+
+/**
+ * Placeholder abstracted from: https://github.com/cookpete/react-player/blob/master/src/Preview.js
+ *
+ * For use during SSR to avoid hydration errors.
+ */
+function VideoEmbedPlaceholder({ imageUrl }) {
+	const flexCenter = {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	}
+	const styles = {
+		preview: {
+			position: 'absolute' as const,
+			top: '0',
+			width: '100%',
+			height: '100%',
+			backgroundImage: `url(${imageUrl})`,
+			backgroundSize: 'cover',
+			backgroundPosition: 'center',
+			cursor: 'pointer',
+			...flexCenter,
+		},
+		shadow: {
+			background: 'radial-gradient(rgb(0, 0, 0, 0.3), rgba(0, 0, 0, 0) 60%)',
+			borderRadius: ICON_SIZE,
+			width: ICON_SIZE,
+			height: ICON_SIZE,
+			position: undefined,
+			...flexCenter,
+		},
+		playIcon: {
+			borderStyle: 'solid',
+			borderWidth: '16px 0 16px 26px',
+			borderColor: 'transparent transparent transparent white',
+			marginLeft: '7px',
+		},
+	}
+	const defaultPlayIcon = (
+		<div style={styles.shadow} className="react-player__shadow">
+			<div style={styles.playIcon} className="react-player__play-icon" />
+		</div>
+	)
+	return (
+		<div style={styles.preview} className="react-player__preview">
+			{defaultPlayIcon}
+		</div>
+	)
+}
 
 function VideoEmbed({
 	className,
@@ -56,6 +107,15 @@ function VideoEmbed({
 		}
 	}, [videoPercentMilestone, percentPlayedCallback])
 
+	const [isMounted, setIsMounted] = useState(false)
+
+	useEffect(() => {
+		if (isMounted) {
+			return
+		}
+		setIsMounted(true)
+	}, [isMounted])
+
 	//  propagating aliased `start` prop down to the actual player config
 	const config = start
 		? {
@@ -72,23 +132,27 @@ function VideoEmbed({
 
 	return (
 		<div className={classNames(s.playerWrapper, className)}>
-			<ReactPlayer
-				{...reactPlayerProps}
-				config={config}
-				url={url}
-				onDuration={setDuration}
-				progressInterval={PROGRESS_INTERVAL}
-				onProgress={({ playedSeconds }: { playedSeconds: number }) => {
-					setPosition(playedSeconds)
-				}}
-				onEnded={setEnded}
-				onPlay={setPlaying}
-				onPause={setStopped}
-				className={s.reactPlayer}
-				width="100%"
-				height="100%"
-				controls
-			/>
+			{isMounted ? (
+				<ReactPlayer
+					{...reactPlayerProps}
+					config={config}
+					url={url}
+					onDuration={setDuration}
+					progressInterval={PROGRESS_INTERVAL}
+					onProgress={({ playedSeconds }: { playedSeconds: number }) => {
+						setPosition(playedSeconds)
+					}}
+					onEnded={setEnded}
+					onPlay={setPlaying}
+					onPause={setStopped}
+					className={s.reactPlayer}
+					width="100%"
+					height="100%"
+					controls
+				/>
+			) : (
+				<VideoEmbedPlaceholder imageUrl={reactPlayerProps.light} />
+			)}
 		</div>
 	)
 }

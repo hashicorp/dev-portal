@@ -1,18 +1,18 @@
-import Link from 'next/link'
 import classNames from 'classnames'
+import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
 import {
 	getCollectionSlug,
 	getTutorialSlug,
 } from 'views/collection-view/helpers'
-import {
-	Collection as ClientCollection,
-	TutorialLite as ClientTutorialLite,
-} from 'lib/learn-client/types'
+import { getSitemapHeading } from 'views/product-tutorials-view/helpers/heading-helpers'
 import Heading from 'components/heading'
 import IconTile from 'components/icon-tile'
-import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
-import { getSitemapHeading } from 'views/product-tutorials-view/helpers/heading-helpers'
-import { ProductTutorialsSitemapProps } from './types'
+import {
+	ProductTutorialsSitemapProps,
+	SitemapCollection,
+	SitemapItem,
+} from './types'
+import Link from 'components/link'
 import s from './sitemap.module.css'
 
 export function ProductTutorialsSitemap({
@@ -35,18 +35,19 @@ export function ProductTutorialsSitemap({
 				</Heading>
 			</div>
 			<ul className={s.collectionListRoot}>
-				{collections.map((collection: ClientCollection) => (
+				{collections.map((collection: SitemapCollection) => (
 					<li key={collection.id} className={s.collectionListItem}>
 						<div className={s.collectionLinkSizer}>
-							<Link href={getCollectionSlug(collection.slug)}>
-								<a className={s.collectionLink}>
-									<span className={s.collectionLinkIcon}>
-										<IconTile size="small" brandColor={product}>
-											<IconCollections24 />
-										</IconTile>
-									</span>
-									<span>{collection.name}</span>
-								</a>
+							<Link
+								className={s.collectionLink}
+								href={getCollectionSlug(collection.slug)}
+							>
+								<span className={s.collectionLinkIcon}>
+									<IconTile size="small" brandColor={product}>
+										<IconCollections24 />
+									</IconTile>
+								</span>
+								<span>{collection.name}</span>
 							</Link>
 						</div>
 						<ul
@@ -54,10 +55,13 @@ export function ProductTutorialsSitemap({
 								[s.hasMultipleItems]: collection.tutorials.length > 1,
 							})}
 						>
-							{collection.tutorials.map((t: ClientTutorialLite) => (
+							{collection.tutorials.map((t: SitemapItem) => (
 								<li key={t.id} className={s.tutorialListItem}>
-									<Link href={getTutorialSlug(t.slug, collection.slug)}>
-										<a className={s.tutorialLink}>{t.name}</a>
+									<Link
+										className={s.tutorialLink}
+										href={getTutorialSlug(t.slug, collection.slug)}
+									>
+										{t.name}
 									</Link>
 								</li>
 							))}

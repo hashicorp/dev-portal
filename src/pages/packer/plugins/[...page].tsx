@@ -11,6 +11,7 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
+import { isDeployPreview } from 'lib/env-checks'
 
 const basePath = 'plugins'
 const baseName = 'Plugins'
@@ -24,17 +25,26 @@ const baseName = 'Plugins'
  */
 const remotePluginsFile = 'data/plugins-manifest.json'
 const navDataFile = `data/${basePath}-nav-data.json`
+const contentBranch = 'stable-website'
+const editBranch = 'main'
 
 export async function getStaticPaths() {
-	let paths = await generateStaticPaths({
-		navDataFile,
-		remotePluginsFile,
-	})
-	paths = paths
-		// remove index-ish pages from static paths
-		.filter((p) => p.params.page.filter(Boolean).length > 0)
-		// limit number of paths to max_static_paths
-		.slice(0, __config.dev_dot.max_static_paths ?? 0)
+	let paths = []
+
+	// Only generate static paths if we are not in a content deploy preview, or if we are in packer's content deploy preview
+	if (!isDeployPreview() || isDeployPreview('packer')) {
+		paths = await generateStaticPaths({
+			navDataFile,
+			remotePluginsFile,
+			mainBranch: contentBranch,
+		})
+		paths = paths
+			// remove index-ish pages from static paths
+			.filter((p) => p.params.page.filter(Boolean).length > 0)
+			// limit number of paths to max_static_paths
+			.slice(0, __config.dev_dot.max_static_paths ?? 0)
+	}
+
 	return {
 		paths,
 		fallback: 'blocking',
@@ -55,7 +65,8 @@ export async function getStaticProps({ params, ...ctx }) {
 	 */
 	const props = await generateStaticProps({
 		localContentDir: `../content/${basePath}`,
-		mainBranch: 'master',
+		mainBranch: contentBranch,
+		editBranch,
 		navDataFile,
 		params,
 		product: { name: productData.name, slug: productData.slug },
@@ -74,7 +85,7 @@ export async function getStaticProps({ params, ...ctx }) {
 	/**
 	 * Prepare nav data for client, eg adding `fullPath`
 	 */
-	const { preparedItems: navData } = prepareNavDataForClient({
+	const { preparedItems: navData } = await prepareNavDataForClient({
 		basePaths: [productData.slug, basePath],
 		nodes: props.navData,
 	})
@@ -95,7 +106,7 @@ export async function getStaticProps({ params, ...ctx }) {
 			},
 			menuItems: navData,
 			title: baseName,
-			overviewItemHref: `/${productData.slug}/${basePath}`,
+			visuallyHideTitle: true,
 		},
 	]
 

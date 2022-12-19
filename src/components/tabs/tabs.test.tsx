@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
+import TabProvider from './provider'
 import Tabs, { Tab } from '.'
 
 describe('<Tabs />', () => {
@@ -15,14 +16,16 @@ describe('<Tabs />', () => {
 
 		beforeEach(() => {
 			const results = render(
-				<Tabs>
-					{testData.map(({ heading, content }, index) => (
-						// eslint-disable-next-line react/no-array-index-key
-						<Tab heading={heading} key={index}>
-							{content}
-						</Tab>
-					))}
-				</Tabs>
+				<TabProvider>
+					<Tabs>
+						{testData.map(({ heading, content }, index) => (
+							// eslint-disable-next-line react/no-array-index-key
+							<Tab heading={heading} key={index}>
+								{content}
+							</Tab>
+						))}
+					</Tabs>
+				</TabProvider>
 			)
 			container = results.container
 		})
@@ -91,7 +94,6 @@ describe('<Tabs />', () => {
 					if (index === 0) {
 						expect(tabPanel).toBeInTheDocument()
 						expect(tabPanel).toHaveAccessibleName()
-						expect(tabPanel.getAttribute('tabindex')).toBe('0')
 						expect(tabPanel.textContent).toBe(content)
 					} else {
 						expect(tabPanel).not.toBeInTheDocument()
@@ -101,7 +103,7 @@ describe('<Tabs />', () => {
 		})
 
 		describe('with interaction', () => {
-			test('mouse click changes the active tab', () => {
+			test('mouse click changes the active tab', async () => {
 				/**
 				 * Queries for the second tab button by text and asserts checks that it is
 				 * not already selected, which it should not be since the first tab is
@@ -112,7 +114,7 @@ describe('<Tabs />', () => {
 					selected: false,
 				})
 
-				userEvent.click(secondTabButton)
+				await userEvent.click(secondTabButton)
 
 				/**
 				 * Checks that the first tab panel is no longer active and visible in the
@@ -150,27 +152,6 @@ describe('<Tabs />', () => {
 						name: testData[0].heading,
 					})
 					expect(firstTabPanel).toBeInTheDocument()
-				})
-			})
-
-			/**
-			 * NOTE: `fireEvent.key(document.activeElement, { key: 'Tab' })` after
-			 * focusing the first tab button does not actually change focus from the
-			 * button the tab panel. `userEvent.tab()` does!
-			 */
-			test('Tab key on tab button `onKeyDown` moves focus to the tab panel', async () => {
-				const firstTabButton = screen.queryByRole('tab', {
-					name: testData[0].heading,
-				})
-				firstTabButton.focus()
-				userEvent.tab()
-
-				await waitFor(() => {
-					const firstTabPanel = screen.queryByRole('tabpanel', {
-						name: testData[0].heading,
-					})
-
-					expect(firstTabPanel).toHaveFocus()
 				})
 			})
 
@@ -256,14 +237,16 @@ describe('<Tabs />', () => {
 	test('the `initialActiveIndex` correctly activates a tab index on inital render', () => {
 		const testInitialActiveIndex = 1
 		render(
-			<Tabs initialActiveIndex={testInitialActiveIndex}>
-				{testData.map(({ heading, content }, index) => (
-					// eslint-disable-next-line react/no-array-index-key
-					<Tab heading={heading} key={index}>
-						{content}
-					</Tab>
-				))}
-			</Tabs>
+			<TabProvider>
+				<Tabs initialActiveIndex={testInitialActiveIndex}>
+					{testData.map(({ heading, content }, index) => (
+						// eslint-disable-next-line react/no-array-index-key
+						<Tab heading={heading} key={index}>
+							{content}
+						</Tab>
+					))}
+				</Tabs>
+			</TabProvider>
 		)
 
 		expect(
@@ -283,14 +266,16 @@ describe('<Tabs />', () => {
 	test('the `ariaLabel` prop correctly gives the component an accessible label', () => {
 		const testAriaLabel = 'A set of tabs'
 		render(
-			<Tabs ariaLabel={testAriaLabel}>
-				{testData.map(({ heading, content }, index) => (
-					// eslint-disable-next-line react/no-array-index-key
-					<Tab heading={heading} key={index}>
-						{content}
-					</Tab>
-				))}
-			</Tabs>
+			<TabProvider>
+				<Tabs ariaLabel={testAriaLabel}>
+					{testData.map(({ heading, content }, index) => (
+						// eslint-disable-next-line react/no-array-index-key
+						<Tab heading={heading} key={index}>
+							{content}
+						</Tab>
+					))}
+				</Tabs>
+			</TabProvider>
 		)
 
 		const rootContainer = screen.queryByLabelText(testAriaLabel)
@@ -302,7 +287,7 @@ describe('<Tabs />', () => {
 		const testAriaLabelledById = 'a-special-tabs-label'
 		const testAriaLabelledByText = 'A set of tabs'
 		render(
-			<>
+			<TabProvider>
 				<p id={testAriaLabelledById}>{testAriaLabelledByText}</p>
 				<Tabs ariaLabelledBy={testAriaLabelledById}>
 					{testData.map(({ heading, content }, index) => (
@@ -312,7 +297,7 @@ describe('<Tabs />', () => {
 						</Tab>
 					))}
 				</Tabs>
-			</>
+			</TabProvider>
 		)
 
 		const rootContainer = screen.queryByLabelText(testAriaLabelledByText)
@@ -322,17 +307,51 @@ describe('<Tabs />', () => {
 
 	test('the `showAnchorLine` test adds an extra classname to role="tablist"', () => {
 		render(
-			<Tabs>
-				{testData.map(({ heading, content }, index) => (
-					// eslint-disable-next-line react/no-array-index-key
-					<Tab heading={heading} key={index}>
-						{content}
-					</Tab>
-				))}
-			</Tabs>
+			<TabProvider>
+				<Tabs>
+					{testData.map(({ heading, content }, index) => (
+						// eslint-disable-next-line react/no-array-index-key
+						<Tab heading={heading} key={index}>
+							{content}
+						</Tab>
+					))}
+				</Tabs>
+			</TabProvider>
 		)
 
 		const targetElement = screen.queryByRole('tablist').parentElement
 		expect(targetElement).toHaveClass('showAnchorLine')
+	})
+
+	test('the `onChange` callback is called with the new tabIndex', async () => {
+		const onChange = jest.fn()
+
+		render(
+			<TabProvider>
+				<Tabs onChange={onChange}>
+					{testData.map(({ heading, content }) => (
+						<Tab heading={heading} key={content}>
+							{content}
+						</Tab>
+					))}
+				</Tabs>
+			</TabProvider>
+		)
+
+		const secondTabButton = screen.queryByRole('tab', {
+			name: testData[1].heading,
+			selected: false,
+		})
+
+		await userEvent.click(secondTabButton)
+		expect(onChange).toHaveBeenNthCalledWith(1, 1)
+
+		const firstTabButton = screen.queryByRole('tab', {
+			name: testData[0].heading,
+			selected: false,
+		})
+
+		await userEvent.click(firstTabButton)
+		expect(onChange).toHaveBeenNthCalledWith(2, 0)
 	})
 })

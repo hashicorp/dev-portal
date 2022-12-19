@@ -1,54 +1,31 @@
 // Third-party imports
-import {
-	Fragment,
-	KeyboardEvent,
-	ReactElement,
-	useEffect,
-	useRef,
-	useState,
-} from 'react'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { Fragment, KeyboardEvent, ReactElement, useRef, useState } from 'react'
 import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
 
 // HashiCorp imports
-import { IconPlug16 } from '@hashicorp/flight-icons/svg-react/plug-16'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
-import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
-import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
-import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
-import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
 
 // Global imports
+import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { ProductSlug } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
+import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import deriveKeyEventState from 'lib/derive-key-event-state'
 import Badge from 'components/badge'
+import Link from 'components/link'
 import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
 import {
 	NavigationHeaderItem,
 	NavigationHeaderDropdownMenuProps,
-	SupportedIcon,
 	NavigationHeaderItemGroup,
 } from 'components/navigation-header/types'
 
 // Local imports
 import s from './dropdown-menu.module.css'
-
-/**
- * The icons supported in this menu in addition to the Product logo icons.
- */
-const supportedIcons: { [key in SupportedIcon]: ReactElement } = {
-	plug: <IconPlug16 />,
-	docs: <IconDocs16 />,
-	home: <IconHome16 />,
-	terminalScreen: <IconTerminalScreen16 />,
-	api: <IconApi16 />,
-}
 
 /**
  * A dropdown navigation menu consisiting of an activator button and a dropdown
@@ -65,7 +42,6 @@ const NavigationHeaderDropdownMenu = ({
 	label,
 	leadingIcon,
 }: NavigationHeaderDropdownMenuProps) => {
-	const router = useRouter()
 	const uniqueId = useId()
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const menuRef = useRef<HTMLDivElement>()
@@ -89,23 +65,10 @@ const NavigationHeaderDropdownMenu = ({
 	}
 
 	// if the disclosure is open, handle closing it on `routeChangeStart`
-	useEffect(() => {
-		if (!isOpen) {
-			return
-		}
-
-		const handleRouteChangeStart = () => {
-			setIsOpen(false)
-		}
-
-		router.events.on('routeChangeStart', handleRouteChangeStart)
-
-		return () => {
-			router.events.off('routeChangeStart', handleRouteChangeStart)
-		}
-		// Only need to base this on `isOpen`
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isOpen])
+	useOnRouteChangeStart({
+		handler: () => setIsOpen(false),
+		shouldListen: isOpen,
+	})
 
 	// Check for an accesible label if there is a leading icon
 	const accessibleLabel = ariaLabel || label
@@ -226,6 +189,7 @@ const NavigationHeaderDropdownMenu = ({
 					onKeyDown={handleKeyDown}
 					onMouseEnter={handleMouseEnter}
 					ref={activatorButtonRef}
+					data-heap-track="navigation-header-dropdown-menu-activator"
 				>
 					<ActivatorButtonContent />
 					<IconChevronDown16 className={s.activatorTrailingIcon} />
@@ -259,10 +223,15 @@ const NavigationHeaderDropdownMenu = ({
 										{label}
 									</Text>
 								)}
-								<ul aria-labelledby={itemGroupLabelId} className={s.itemGroup}>
+								<ul
+									aria-labelledby={itemGroupLabelId}
+									className={classNames(s.itemGroup, {
+										[s.twoColumns]: items.length >= 10,
+									})}
+								>
 									{items.map(
 										(item: NavigationHeaderItem, itemIndex: number) => {
-											const icon = supportedIcons[item.icon] || (
+											const icon = SUPPORTED_ICONS[item.icon] || (
 												<ProductIcon productSlug={item.icon as ProductSlug} />
 											)
 											const itemId = generateItemId(groupId, itemIndex)
@@ -302,17 +271,15 @@ const NavigationHeaderDropdownMenu = ({
 											return (
 												<li className={s.itemContainer} key={itemId}>
 													{linkHref ? (
-														<Link href={linkHref}>
-															<a
-																aria-current={
-																	isCurrentPage ? 'page' : undefined
-																}
-																aria-label={item.ariaLabel}
-																className={s.itemLink}
-																onKeyDown={handleKeyDown}
-															>
-																{anchorContent}
-															</a>
+														<Link
+															aria-current={isCurrentPage ? 'page' : undefined}
+															aria-label={item.ariaLabel}
+															className={s.itemLink}
+															data-heap-track="navigation-header-dropdown-menu-link"
+															href={linkHref}
+															onKeyDown={handleKeyDown}
+														>
+															{anchorContent}
 														</Link>
 													) : (
 														<a

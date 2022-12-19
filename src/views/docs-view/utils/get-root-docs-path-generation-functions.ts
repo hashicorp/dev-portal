@@ -9,13 +9,22 @@ import { Pluggable } from 'unified'
 import remarkSentinel from 'lib/remark-sentinel'
 import { getLatestVagrantVmwareVersion } from './get-latest-vagrant-vmware-version'
 
+export interface DocsViewPropOptions {
+	hideVersionSelector?: boolean
+	/**
+	 * A human-readable project name that is rendered in the version selector and version alert
+	 */
+	projectName?: string
+}
+
 /**
  * Generates static functions for use in a
  * `pages/<productSlug>/<rootDocsPath>/[...page].tsx` DocsView page file.
  */
 export function getRootDocsPathGenerationFunctions(
 	productSlug: ProductSlug,
-	targetRootDocsPath: string
+	targetRootDocsPath: string,
+	options?: DocsViewPropOptions
 ): {
 	getStaticPaths: GetStaticPaths
 	getStaticProps: GetStaticProps
@@ -25,19 +34,19 @@ export function getRootDocsPathGenerationFunctions(
 		return rootDocsPath.path == targetRootDocsPath
 	})
 	const staticFunctionConfig = {
-		baseName: rootDocsPath.name,
+		baseName: rootDocsPath.shortName || rootDocsPath.name,
 		basePath: rootDocsPath.path,
 		navDataPrefix: rootDocsPath.navDataPrefix,
 		product: productData,
 		productSlugForLoader: rootDocsPath.productSlugForLoader,
 		basePathForLoader: rootDocsPath.basePathForLoader,
 		mainBranch: rootDocsPath.mainBranch,
-		showVersionSelect: getShowVersionSelect(productData, rootDocsPath),
 		additionalRemarkPlugins: getAdditionalRemarkPlugins(
 			productData,
 			rootDocsPath
 		),
 		getScope: generateGetScope(productData, rootDocsPath),
+		options,
 	}
 	return {
 		getStaticPaths: async (context) => {
@@ -99,16 +108,4 @@ function generateGetScope(
 	} else {
 		return undefined
 	}
-}
-
-/**
- * On certain product paths, we do not want to show the version select.
- */
-function getShowVersionSelect(
-	productData: ProductData,
-	rootDocsPath: RootDocsPath
-): boolean {
-	const isPackerPlugins =
-		productData.slug == 'packer' && rootDocsPath.path == 'plugins'
-	return !isPackerPlugins
 }

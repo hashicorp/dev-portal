@@ -7,25 +7,25 @@ for further details.
 */
 
 .root {
-  display: flex;
-  flex-grow: 1;
+	display: flex;
+	flex-grow: 1;
 
-  /* For a coherent visual effect, the top padding value
+	/* For a coherent visual effect, the top padding value
   must be used for sticky positioning in addition to
   padding the content area. So, we create a CSS var
   to make it reusable and express this intent. */
-  --main-area-padding-top: 32px;
+	--main-area-padding-top: 32px;
 
-  /* When the sidecar is hidden, then --main-area-padding-right must adjust.
+	/* When the sidecar is hidden, then --main-area-padding-right must adjust.
   Note that the "left" value, --main-area-padding-left, is declared in 
   core-dev-dot-layout.module.css, as the left value  must be shared with the
   navigation-header component, in order to match alignment in design specs. */
-  --main-area-padding-right: 24px;
-  @media (--dev-dot-sidecar-up) {
-    --main-area-padding-right: 48px;
-  }
+	--main-area-padding-right: 24px;
+	@media (--dev-dot-sidecar-up) {
+		--main-area-padding-right: 48px;
+	}
 
-  /*
+	/*
   We want our footer to have a top border which spans
   across both the main content and sidecar.
   We also want our footer content to be aligned with our main content,
@@ -47,8 +47,8 @@ for further details.
   But, it sidesteps issues in mixing overflow: hidden with position: sticky.
   Details: https://css-tricks.com/dealing-with-overflow-and-position-sticky/
   */
-  --main-element-max-width: 896px;
-  --sidecar-width: 220px;
+	--main-element-max-width: 896px;
+	--sidecar-width: 220px;
 }
 
 /**
@@ -56,78 +56,77 @@ for further details.
  */
 
 .mobileMenuContainer {
-  @media (--dev-dot-desktop) {
-    display: flex !important; /* always want this value on desktop here */
-    left: 0 !important; /* always want this value on desktop here */
-    position: sticky; /* fixed does not take up horiz. space the same */
-    width: var(--dev-dot-sidebar-width); /* custom width overwrite */
-  }
+	@media (--dev-dot-hide-mobile-menu) {
+		display: flex !important; /* always want this value on desktop here */
+		left: 0 !important; /* always want this value on desktop here */
+		position: sticky; /* fixed does not take up horiz. space the same */
+		width: var(--dev-dot-sidebar-width); /* custom width overwrite */
+	}
 }
 
 /* Note: container is components/mobile-menu-container */
 .sidebarContentWrapper {
-  flex-shrink: 1;
-  flex-grow: 1;
-  overflow-y: auto;
-  padding-bottom: 48px;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-top: 24px;
-  position: relative;
+	flex-shrink: 1;
+	flex-grow: 1;
+	overflow-y: auto;
+	padding-bottom: 48px;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 24px;
+	position: relative;
 }
 
 .contentWrapper {
-  width: 100%;
+	width: 100%;
 
-  @media (--dev-dot-desktop) {
-    max-width: calc(100vw - var(--dev-dot-sidebar-width));
-  }
+	@media (--dev-dot-hide-mobile-menu) {
+		/* 100vw - 100% is the scrollbar width */
+		max-width: calc(100vw - (100vw - 100%) - var(--dev-dot-sidebar-width));
+	}
 }
 
 .main {
-  width: 100%;
+	width: 100%;
 
-  @media (--dev-dot-sidecar-up) {
-    max-width: var(--main-element-max-width);
-    min-width: 0;
-  }
+	@media (--dev-dot-sidecar-up) {
+		max-width: var(--main-element-max-width);
+		min-width: 0;
+	}
 }
 
 .editOnGithubLink {
-  margin-top: 64px;
+	margin-top: 64px;
 }
 
 .mainAreaWrapper {
-  display: flex;
-  justify-content: center;
-  padding-left: var(--main-area-padding-left);
-  padding-right: var(--main-area-padding-right);
-  padding-top: var(--main-area-padding-top);
-  padding-bottom: 128px;
+	display: flex;
+	justify-content: center;
+	min-height: calc(100vh - var(--navigation-header-height));
+	padding-left: var(--main-area-padding-left);
+	padding-right: var(--main-area-padding-right);
+	padding-top: var(--main-area-padding-top);
+	padding-bottom: 128px;
 }
 
 .breadcrumbOptOutGroup {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-.optInOutSlot {
-  flex-shrink: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	margin-bottom: 32px;
 }
 
 .sidecarWrapper {
-  display: none;
+	display: none;
 
-  @media (--dev-dot-sidecar-up) {
-    display: block;
-    flex-shrink: 0;
-    height: fit-content;
-    margin-left: 48px;
-    position: sticky;
-    top: calc(var(--sticky-bars-height) + var(--main-area-padding-top));
-    width: var(--sidecar-width);
-  }
+	@media (--dev-dot-sidecar-up) {
+		display: block;
+		flex-shrink: 0;
+		height: fit-content;
+		margin-left: 48px;
+		position: sticky;
+		top: calc(var(--sticky-bars-height) + var(--main-area-padding-top));
+		width: var(--sidecar-width);
+	}
 }
 
 /*
@@ -137,10 +136,10 @@ for further details.
 */
 
 .versionAlert {
-  padding-left: var(--main-area-padding-left);
-  padding-right: var(--main-area-padding-right);
+	padding-left: var(--main-area-padding-left);
+	padding-right: var(--main-area-padding-right);
 }
 
 .versionAlertLink {
-  color: var(--token-color-foreground-primary) !important;
+	color: var(--token-color-foreground-primary) !important;
 }

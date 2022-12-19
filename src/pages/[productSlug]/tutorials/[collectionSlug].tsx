@@ -35,6 +35,7 @@ async function getStaticProps({
 	GetStaticPropsResult<CollectionPageProps>
 > {
 	const { collectionSlug, productSlug } = params
+
 	const productData = cachedGetProductData(productSlug) as LearnProductData
 
 	const props = await getCollectionPageProps(productData, collectionSlug)

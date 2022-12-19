@@ -22,15 +22,15 @@
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "Blog",
-		"url": "https://www.hashicorp.com/blog/hcp-consul-on-azure-to-go-ga-plus-more-consul-news",
-		"text": "HCP Consul on Azure goes GA, plus more Consul news from HashiConf EU",
+		"tag": "Announcements",
+		"url": "https://www.hashicorp.com/blog/consul-service-mesh-support-for-aws-lambda-now-generally-available",
+		"text": "Consul Service Mesh Support for AWS Lambda Now Generally Available",
 		"linkText": "Read more",
 		"expirationDate": ""
 	},
 	"version": "1.11.3",
 	"subnavItems": [],
-	"basePaths": ["docs", "api-docs", "commands"],
+	"basePaths": ["docs", "api-docs", "commands", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -48,33 +48,5 @@
 			"name": "CLI",
 			"path": "commands"
 		}
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/consul/docs/intro" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/consul/docs/install"
-			}
-		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"icon": "docs",
-				"label": "General Documentation",
-				"pathSuffix": "docs"
-			},
-			{
-				"icon": "api",
-				"label": "API",
-				"pathSuffix": "api-docs"
-			},
-			{
-				"icon": "terminalScreen",
-				"label": "CLI",
-				"pathSuffix": "commands"
-			}
-		]
-	}
+	]
 }

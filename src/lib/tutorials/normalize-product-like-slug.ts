@@ -15,10 +15,14 @@ import {
  * This is very specifically targeted at normalizing "cloud" to "hcp".
  * In Tutorials contexts, we use "cloud"; in Dev Dot we use "hcp".
  */
-export function normalizeSlugForDevDot(productSlug: string): ProductSlug {
+export function normalizeSlugForDevDot(
+	productSlug: string
+): ProductSlug | SectionOption {
 	if (productSlug == 'cloud') {
 		return 'hcp'
 	} else if (isProductSlug(productSlug)) {
+		return productSlug
+	} else if (isSectionOption(productSlug)) {
 		return productSlug
 	} else {
 		console.warn(

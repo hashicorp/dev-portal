@@ -76,6 +76,12 @@ const getStaticProps: GetStaticProps = async () => {
 	const filteredVersions = filterVersions(rawVersions, VERSION_DOWNLOAD_CUTOFF)
 	generatedProps.props.releases.versions = filteredVersions
 
+	// @ts-expect-error - sortedAndFilteredVersions is present on generatedProps.props
+	//
+	// leverage the same TF-specific version filtering behavior on `.releases.versions`
+	generatedProps.props.sortedAndFilteredVersions =
+		Object.values(filteredVersions)
+
 	return generatedProps
 }
 

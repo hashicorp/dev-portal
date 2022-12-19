@@ -13,7 +13,7 @@ export interface AccordionDisclosureProps {
 	 * emphasis. Always shows regardless of the `AccordionDisclosure`'s
 	 * open/closed state.
 	 */
-	description?: string
+	description?: ReactNode
 
 	/**
 	 * Optional prop that that enables a `AccordionDisclosure` to be rendered open
@@ -27,5 +27,17 @@ export interface AccordionDisclosureProps {
 	 * the disclosed content; labels like "Section 1" or "Section 2" is not very
 	 * descriptive.
 	 */
-	title: string
+	title: ReactNode
+
+	/**
+	 * Optional prop to signal that this AccordionDisclosure is being
+	 * placed in a group next to adjacent AccordionDisclosure components.
+	 * We use this to control styling.
+	 */
+	groupData?: {
+		/* The number of items in the group */
+		numItems: number
+		/* The index of this specific AccordionDisclosure in the group */
+		currentIndex: number
+	}
 }

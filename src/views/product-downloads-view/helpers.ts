@@ -1,18 +1,24 @@
 import semverRSort from 'semver/functions/rsort'
+import semverPrerelease from 'semver/functions/prerelease'
+import semverValid from 'semver/functions/valid'
 import { ProductData } from 'types/products'
-import { ReleasesAPIResponse, ReleaseVersion } from 'lib/fetch-release-data'
+import { ReleaseVersion } from 'lib/fetch-release-data'
+import {
+	getInlineCollections,
+	getInlineTutorials,
+} from 'views/product-tutorials-view/helpers/get-inline-content'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import { formatCollectionCard } from 'components/collection-card/helpers'
+import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { PackageManager, SortedReleases } from './types'
+import { CollectionLite } from 'lib/learn-client/types'
 
 const PLATFORM_MAP = {
 	Mac: 'darwin',
 	Win: 'windows',
 	Linux: 'linux',
 }
-
-// exclude pre-releases and such
-const VALID_SEMVER_REGEX = /^\d+\.\d+\.\d+$/
 
 export const generateDefaultPackageManagers = (
 	product: Pick<ProductData, 'slug'>
@@ -58,7 +64,7 @@ export const generateDefaultPackageManagers = (
 		{
 			label: 'Amazon Linux',
 			commands: [
-				`sudo yum install -y yum-utils`,
+				`sudo yum install -y yum-utils shadow-utils`,
 				`sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo`,
 				`sudo yum -y install ${productSlug}`,
 			],
@@ -75,29 +81,65 @@ export const generateDefaultPackageManagers = (
 	]
 }
 
-export const generatePackageManagers = ({
-	defaultPackageManagers,
-	packageManagerOverrides,
-}: {
-	defaultPackageManagers: PackageManager[]
-	packageManagerOverrides: PackageManager[]
-}): PackageManager[] => {
-	let packageManagers: PackageManager[]
+export function generateEnterprisePackageManagers(
+	product: Pick<ProductData, 'slug'>
+): PackageManager[] {
+	const productSlug = product.slug
 
-	if (packageManagerOverrides) {
-		packageManagers = defaultPackageManagers.map((defaultPackageManager) => {
-			const override = packageManagerOverrides.find(
-				({ os, label }) =>
-					os === defaultPackageManager.os &&
-					label === defaultPackageManager.label
-			)
-			return override || defaultPackageManager
-		})
-	} else {
-		packageManagers = defaultPackageManagers
-	}
-
-	return packageManagers
+	return [
+		{
+			label: 'Homebrew',
+			commands: [
+				`brew tap hashicorp/tap`,
+				`brew install hashicorp/tap/${productSlug}-enterprise`,
+			],
+			os: 'darwin',
+		},
+		{
+			label: 'Ubuntu/Debian',
+			commands: [
+				`wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg`,
+				`echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list`,
+				`sudo apt update && sudo apt install ${productSlug}-enterprise`,
+			],
+			os: 'linux',
+		},
+		{
+			label: 'CentOS/RHEL',
+			commands: [
+				`sudo yum install -y yum-utils`,
+				`sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo`,
+				`sudo yum -y install ${productSlug}-enterprise`,
+			],
+			os: 'linux',
+		},
+		{
+			label: 'Fedora',
+			commands: [
+				`sudo dnf install -y dnf-plugins-core`,
+				`sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo`,
+				`sudo dnf -y install ${productSlug}-enterprise`,
+			],
+			os: 'linux',
+		},
+		{
+			label: 'Amazon Linux',
+			commands: [
+				`sudo yum install -y yum-utils`,
+				`sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo`,
+				`sudo yum -y install ${productSlug}-enterprise`,
+			],
+			os: 'linux',
+		},
+		{
+			label: 'Homebrew',
+			commands: [
+				`brew tap hashicorp/tap`,
+				`brew install hashicorp/tap/${productSlug}-enterprise`,
+			],
+			os: 'linux',
+		},
+	]
 }
 
 export const getPageSubtitle = ({
@@ -105,7 +147,7 @@ export const getPageSubtitle = ({
 	version,
 	isLatestVersion,
 }: {
-	productName: ProductData['name']
+	productName: string
 	version: string
 	isLatestVersion: boolean
 }): string => {
@@ -115,7 +157,8 @@ export const getPageSubtitle = ({
 
 export const initializeBreadcrumbLinks = (
 	currentProduct: Pick<ProductData, 'name' | 'slug'>,
-	selectedVersion: string
+	selectedVersion: string,
+	isEnterpriseMode: boolean
 ): BreadcrumbLink[] => {
 	return [
 		{
@@ -128,25 +171,25 @@ export const initializeBreadcrumbLinks = (
 		},
 		{
 			isCurrentPage: true,
-			title: `Install v${selectedVersion}`,
-			url: `/${currentProduct.slug}/downloads`,
+			title: isEnterpriseMode
+				? `Install ${currentProduct.name} Enterprise`
+				: `Install v${selectedVersion}`,
+			url: isEnterpriseMode
+				? `/${currentProduct.slug}/downloads/enterprise`
+				: `/${currentProduct.slug}/downloads`,
 		},
 	]
 }
 
 export const initializeVersionSwitcherOptions = ({
 	latestVersion,
-	releases,
+	releaseVersions,
 }: {
 	latestVersion: ReleaseVersion['version']
-	releases: ReleasesAPIResponse
+	releaseVersions: ReleaseVersion[]
 }): VersionContextSwitcherProps['options'] => {
-	return semverRSort(
-		Object.keys(releases.versions).filter((version) => {
-			const isValidRegex = !!version.match(VALID_SEMVER_REGEX)
-			return isValidRegex
-		})
-	).map((version) => {
+	return releaseVersions.map((releaseVersion: ReleaseVersion) => {
+		const version = releaseVersion.version
 		const isLatest = version === latestVersion
 		return {
 			label: `${version}${isLatest ? ' (latest)' : ''}`,
@@ -211,4 +254,142 @@ export function prettyOs(os: string): string {
 		default:
 			return os.charAt(0).toUpperCase() + os.slice(1)
 	}
+}
+
+export const sortAndFilterReleaseVersions = ({
+	releaseVersions,
+	isEnterpriseMode = false,
+}: {
+	releaseVersions: Record<string, ReleaseVersion>
+	isEnterpriseMode: boolean
+}): ReleaseVersion[] => {
+	const filteredVersionStrings = Object.keys(releaseVersions).filter(
+		(version: string) => {
+			// Filter out invalid semver
+			const isInvalidSemver = semverValid(version) == null
+			if (isInvalidSemver) {
+				return false
+			}
+
+			// Filter out prereleases
+			const isPrelease = semverPrerelease(version) !== null
+			if (isPrelease) {
+				return false
+			}
+
+			// Filter in enterprise versions if enterprise mode
+			const isEnterpriseVersion = !!version.match(/\+ent(?:.*?)*$/)
+			if (isEnterpriseMode) {
+				return isEnterpriseVersion
+			}
+
+			// Filter out enterprise versions if not enterprise mode
+			return !isEnterpriseVersion
+		}
+	)
+	const sortedVersionStrings = semverRSort(filteredVersionStrings)
+	const sortedAndFilteredVersions = sortedVersionStrings.map(
+		(version: string) => releaseVersions[version]
+	)
+
+	return sortedAndFilteredVersions
+}
+
+export const generateFeaturedCollectionsCards = async (
+	featuredCollectionsSlugs: string[]
+) => {
+	// Gather collections based on slugs used
+	const inlineCollections = await getInlineCollections(featuredCollectionsSlugs)
+
+	// Format the data into collection card props objects
+	return featuredCollectionsSlugs.map((slug: string) => {
+		const formattedCollectionCard = formatCollectionCard(
+			inlineCollections[slug]
+		)
+		return formattedCollectionCard
+	})
+}
+
+/**
+ * The `featuredTutorialsSlugs` array allows two formats of slugs:
+ *   - <product slug>/<collection slug>/<tutorial slug>
+ *   - <product slug>/<tutorial slug>
+ */
+export const generateFeaturedTutorialsCards = async (
+	featuredTutorialsSlugs: string[]
+) => {
+	const splitTutorialSlug = (slug: string) => {
+		const slugParts = slug.split('/')
+		if (slugParts.length === 3) {
+			// Slug format is: <product slug>/<collection slug>/<tutorial slug>
+			return {
+				productSlug: slugParts[0],
+				collectionSlug: slugParts[1],
+				tutorialSlug: slugParts[2],
+			}
+		} else if (slugParts.length === 2) {
+			// Slug format is: <product slug>/<tutorial slug>
+			return { productSlug: slugParts[0], tutorialSlug: slugParts[1] }
+		} else {
+			console.error(
+				'Found string `featuredTutorialsSlugs` width incorrect number of slash-separated parts:',
+				slug
+			)
+		}
+	}
+
+	/**
+	 * Gather tutorials and collections based on slugs used
+	 */
+	const tutorialSlugs = featuredTutorialsSlugs.map((slug: string) => {
+		const { productSlug, tutorialSlug } = splitTutorialSlug(slug)
+		return `${productSlug}/${tutorialSlug}`
+	})
+	const inlineTutorials = await getInlineTutorials(tutorialSlugs)
+
+	return featuredTutorialsSlugs.map((slug: string) => {
+		const { productSlug, collectionSlug, tutorialSlug } =
+			splitTutorialSlug(slug)
+		const tutorialData = inlineTutorials[`${productSlug}/${tutorialSlug}`]
+
+		/**
+		 * We have full `Tutorial` data, but we need `TutorialLite` specifically,
+		 * with a `defaultContext` property, to satisfy `formatTutorialCard`.
+		 *
+		 * Note: We could potentially change `TutorialLite` to maintain the
+		 * `collectionCtx` property from `Tutorial`? This would remove the
+		 * need to adapt data in this way, which we do in a few places
+		 * for `formatTutorialCard`. Asana task:
+		 * https://app.asana.com/0/1202097197789424/1202964504180140/f
+		 */
+		const defaultContext = tutorialData.collectionCtx.default
+		const tutorialLiteCompat = { ...tutorialData, defaultContext }
+
+		/**
+		 * We have a collection context to use other than the default.
+		 */
+		let collectionContext = tutorialData.collectionCtx.default
+		if (tutorialData.collectionCtx.default.slug != collectionSlug) {
+			/**
+			 * Note: if this ends up null, we'll end up falling back to
+			 * `tutorialData.collectionCtx.default` in `formatTutorialCard`.
+			 */
+			collectionContext = tutorialData.collectionCtx.featuredIn?.find(
+				(ctx: CollectionLite) => ctx.slug == collectionSlug
+			)
+		}
+
+		/**
+		 * Format for TutorialCard, using the specified collection context.
+		 */
+		const formattedTutorialCard = formatTutorialCard(
+			tutorialLiteCompat,
+			collectionContext
+		)
+
+		return {
+			type: 'tutorial',
+			...formattedTutorialCard,
+		}
+	})
 }

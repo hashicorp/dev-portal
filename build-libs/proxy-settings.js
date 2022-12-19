@@ -33,7 +33,7 @@ const proxySettings = {
 		host: proxyConfig.nomad.host,
 		routesToProxy: [
 			...gatherRoutesToProxy('/_proxied-dot-io/nomad'),
-			...buildAssetRoutesToProxy(proxyConfig.nomad.assets, '/nomad'),
+			...buildAssetRoutesToProxy(proxyConfig.nomad.assets, '/nomad-public'),
 			...getDevPortalRoutesToProxy('nomad'),
 		],
 	},
@@ -63,7 +63,7 @@ const proxySettings = {
 		host: proxyConfig.vagrant.host,
 		routesToProxy: [
 			...gatherRoutesToProxy('/_proxied-dot-io/vagrant'),
-			...buildAssetRoutesToProxy(proxyConfig.vagrant.assets, '/vagrant'),
+			...buildAssetRoutesToProxy(proxyConfig.vagrant.assets, '/vagrant-public'),
 			...getDevPortalRoutesToProxy('vagrant'),
 		],
 	},

@@ -35,6 +35,16 @@ type LearnProductName = Exclude<
 	'HashiCorp Cloud Platform' | 'Sentinel'
 >
 
+type HcpProductName = Exclude<
+	ProductName,
+	'HashiCorp Cloud Platform' | 'Nomad' | 'Sentinel' | 'Terraform' | 'Vagrant'
+>
+
+type HcpProductSlug = Exclude<
+	ProductSlug,
+	'hcp' | 'nomad' | 'sentinel' | 'terraform' | 'vagrant'
+>
+
 /**
  * Learn does not support all of the products in `ProductSlug`, so this is the
  * interface almost the same as `ProductData`, just with a limited set of
@@ -115,29 +125,20 @@ interface RootDocsPath {
 	 * content API should pull from. Defaults to `main`.
 	 */
 	mainBranch?: string
+
+	/**
+	 * An optional description for this category of documentation.
+	 * Shown as the subtitle of the docs landing hero element.
+	 * If omitted, falls back to the page's authored frontMatter.description,
+	 * or falls back to an empty string.
+	 */
+	description?: string
 }
 
-/**
- * A navigation item that is rendered within a disclosure in the main navigation
- * header.
- */
-interface NavigationHeaderItem {
-	/**
-	 * The name of an icon to render on the left-hand side of the text for the
-	 * navigation item.
-	 */
-	icon: NavHeaderItem['icon']
-
-	/**
-	 * The suffix of the full path of the navigation header item. This suffix is
-	 * automatically concatenated with the currently viewed product slug.
-	 */
-	pathSuffix: string
-
-	/**
-	 * The visible text to render for the navigation item.
-	 */
-	label: NavHeaderItem['label']
+export type DocsNavItem = {
+	icon: string
+	label: string
+	fullPath: string
 }
 
 interface ProductData extends Product {
@@ -145,13 +146,14 @@ interface ProductData extends Product {
 		indexName: string
 	}
 	basePaths: string[]
-	navigationHeaderItems: {
-		[key: string]: NavigationHeaderItem[]
-	}
-	rootDocsPaths?: RootDocsPath[]
-	sidebar: {
-		landingPageNavData: MenuItem[]
-	}
+	rootDocsPaths: RootDocsPath[]
+	/**
+	 * When configuring docsNavItems, authors have the option to specify
+	 * the full data structure, or use a string that matches a rootDocsPath.path
+	 * as a shorthand, in which case a DocsNavItem will be parsed from
+	 * the matching rootDocsPath.
+	 */
+	docsNavItems?: (DocsNavItem | string)[]
 }
 
 interface ProductWithCurrentRootDocsPath extends ProductData {
@@ -164,6 +166,8 @@ export type {
 	LearnProductData,
 	LearnProductName,
 	LearnProductSlug,
+	HcpProductName,
+	HcpProductSlug,
 	Product,
 	ProductData,
 	ProductGroup,

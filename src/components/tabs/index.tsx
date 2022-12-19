@@ -1,18 +1,20 @@
-import { ReactElement, useRef, useState } from 'react'
+import { ReactElement, useState } from 'react'
 import classNames from 'classnames'
-import { Tab, TabButtonControls, TabDropdownControls } from './components'
-import { useHasOverflow, useTabItems, useSyncedTabGroups } from './hooks'
 import { TabItem, TabsProps } from './types'
+import { useHasOverflow, useSyncedTabGroups, useTabItems } from './hooks'
+import { Tab, TabButtonControls, TabDropdownControls } from './components'
 import TabNestingProvider, { useIsNested } from './helpers/tab-nesting-context'
 import s from './tabs.module.css'
 
 const Tabs = ({
+	allowNestedStyles = false,
 	ariaLabel,
 	ariaLabelledBy,
 	children,
 	initialActiveIndex = 0,
 	showAnchorLine = true,
-	allowNestedStyles = false,
+	variant = 'normal',
+	onChange,
 }: TabsProps): ReactElement => {
 	/**
 	 * TODO: this is a temporary measure until we are able to start requiring
@@ -47,8 +49,7 @@ const Tabs = ({
 	const tabItems = useTabItems({ children, activeTabIndex, initialActiveIndex })
 
 	/**
-	 * useSyncedTabGroups hooks into TabProvider,
-	 * and keeps activeTabIndex & activeTabGroup in sync.
+	 * Handle syncing active tab index and active tab group.
 	 *
 	 * Note: only works where tabs have groups, eg <Tab group="some-string" />.
 	 */
@@ -68,21 +69,26 @@ const Tabs = ({
 
 	return (
 		<TabNestingProvider>
-			<div ref={overflowTargetRef}>
+			<div>
 				<div
-					className={classNames(s.tabControls, {
+					className={classNames(s.tabControls, s[`variant--${variant}`], {
 						[s.isCheckingOverflow]: hasOverflow === null,
 						[s.showAnchorLine]: showAnchorLine,
 						[s.allowNestedStyles]: allowNestedStyles,
 					})}
+					ref={overflowTargetRef}
 				>
 					<TabControls
+						activeTabIndex={activeTabIndex}
 						ariaLabel={ariaLabel}
 						ariaLabelledBy={ariaLabelledBy}
-						tabItems={tabItems}
-						activeTabIndex={activeTabIndex}
-						setActiveTabIndex={setSyncedActiveTabIndex}
 						isNested={allowNestedStyles && isNested}
+						setActiveTabIndex={(index) => {
+							setSyncedActiveTabIndex(index)
+							onChange?.(index)
+						}}
+						tabItems={tabItems}
+						variant={variant}
 					/>
 				</div>
 				{tabItems.map((tabItem: TabItem) => {
@@ -91,18 +97,13 @@ const Tabs = ({
 						<div
 							aria-hidden={!isActive}
 							aria-labelledby={tabId}
-							className={classNames(
-								s.tabPanel,
-								'g-focus-ring-from-box-shadow',
-								{
-									[s.isNested]: isNested,
-									[s.allowNestedStyles]: allowNestedStyles,
-								}
-							)}
+							className={classNames(s.tabPanel, {
+								[s.isNested]: isNested,
+								[s.allowNestedStyles]: allowNestedStyles,
+							})}
 							id={panelId}
 							key={panelId}
 							role="tabpanel"
-							tabIndex={0}
 						>
 							{content}
 						</div>

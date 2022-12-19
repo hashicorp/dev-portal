@@ -8,6 +8,10 @@
 			"title": "HashiCorp Developer",
 			"description": "Explore {product} product documentation, tutorials, and examples."
 		},
+		"algolia": {
+			"docsIndexName": "product_DEVDOT",
+			"tutorialsIndexName": "prod_LEARN"
+		},
 		"analytics": {
 			"included_domains": "developer.hashi-mktg.com developer.hashicorp.com"
 		},
@@ -18,17 +22,8 @@
 		"canonical_base_url": "https://developer.hashicorp.com",
 		"max_static_paths": 10,
 		"revalidate": 360,
-		"beta_product_slugs": [
-			"boundary",
-			"consul",
-			"hcp",
-			"nomad",
-			"packer",
-			"terraform",
-			"vagrant",
-			"vault",
-			"waypoint"
-		],
+		"beta_product_slugs": [],
+		"non_product_mobile_menu_routes": ["/", "/_error"],
 		"datadog_config": {
 			"scriptUrl": "https://www.datadoghq-browser-agent.com/datadog-rum-v4.js",
 			"applicationId": "40a2019f-88ad-4076-ab52-ffd074064eed",
@@ -40,9 +35,9 @@
 		"max_static_paths": 10
 	},
 	"flags": {
-		"enable_auth": false,
 		"enable_datadog": true,
 		"enable_io_beta_cta": true,
-		"enable_product_docs_search": true
+		"enable_product_docs_search": true,
+		"enable_global_search": true
 	}
 }

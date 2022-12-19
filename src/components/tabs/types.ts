@@ -1,4 +1,6 @@
 import { ReactNode } from 'react'
+import { TabProps } from './components/tab'
+
 /**
  * TODO: We more than likely want to require an accessible label on Tabs in the
  * future, but we do not currently require it on our existing Tabs from
@@ -40,6 +42,17 @@ export interface TabsProps {
 	 * Whether or not a full-width border should be shown below the tab buttons
 	 */
 	showAnchorLine?: boolean
+
+	/**
+	 * Optional prop for customizing the overall style of the tabs. Defaults to
+	 * "normal".
+	 */
+	variant?: 'normal' | 'compact'
+
+	/**
+	 * Optional callback for when the active tab changes.
+	 */
+	onChange?: (newActiveIndex: number) => void
 }
 
 // interface BaseProps {
@@ -63,9 +76,10 @@ export interface TabsProps {
  * RawTabItem is used for items parsed directly from <Tab /> children
  */
 export interface RawTabItem {
-	label: string
 	content: ReactNode
 	group?: string
+	icon?: TabProps['icon']
+	label: string
 }
 
 /**
@@ -86,17 +100,20 @@ export interface TabItem extends RawTabItemWithIds {
 	isActive: boolean
 }
 
+type InheritedTabsProps = Pick<
+	TabsProps,
+	'ariaLabel' | 'ariaLabelledBy' | 'variant'
+>
+
 /**
  * TabControlsProps is used for both TabButtonControls & TabDropdownControls.
  * Those components are meant to be interchangeable, so they share
  * the same interface.
  */
-export interface TabControlsProps {
+export interface TabControlsProps extends InheritedTabsProps {
 	tabItems: TabItem[]
 	activeTabIndex: number
 	setActiveTabIndex: (newActiveIndex: number) => void
-	ariaLabel?: TabsProps['ariaLabel']
-	ariaLabelledBy?: TabsProps['ariaLabelledBy']
 
 	/**
 	 * If true, nested tab styling will be applied to the component.

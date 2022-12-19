@@ -4,12 +4,12 @@ import {
 	AutocompleteState,
 	createAutocomplete,
 } from '@algolia/autocomplete-core'
-import { useRouter } from 'next/router'
 import { Hit } from '@algolia/client-search'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { IconSlashSquare16 } from '@hashicorp/flight-icons/svg-react/slash-square-16'
 import useFocusOnKeyClick from 'hooks/use-focus-on-key-click'
+import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import Panel from './components/panel'
 import { useAlgoliaNavigatorNext } from './lib/use-algolia-navigator-next'
 import { AlgoliaSearchPops } from './types'
@@ -32,7 +32,6 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
 	const formRef = React.useRef<HTMLFormElement>(null)
 	const panelRef = React.useRef<HTMLDivElement>(null)
 
-	const router = useRouter()
 	const navigator = useAlgoliaNavigatorNext<THit>()
 
 	/**
@@ -80,17 +79,11 @@ export default function AlgoliaSearch<THit extends Hit<unknown>>({
 	/**
 	 * Clear the query input on route change
 	 */
-	React.useEffect(() => {
-		const handleRouteChangeStart = () => {
+	useOnRouteChangeStart({
+		handler: () => {
 			autocomplete.setQuery('')
-		}
-
-		router.events.on('routeChangeStart', handleRouteChangeStart)
-
-		return () => {
-			router.events.off('routeChangeStart', handleRouteChangeStart)
-		}
-	}, [autocomplete.setQuery])
+		},
+	})
 
 	/**
 	 * Initialize event listeners for touch events

@@ -1,5 +1,6 @@
 .heading {
 	composes: g-offset-scroll-margin-top from global;
+	width: fit-content;
 
 	/*
   Special spacing rule for subsequent list elements.
@@ -26,6 +27,12 @@
 	& code {
 		font-size: 0.8em;
 		font-weight: 500;
+	}
+
+	&:hover {
+		& :global(.__permalink-h) {
+			opacity: 1;
+		}
 	}
 }
 

@@ -1,4 +1,5 @@
-import { ProductData } from 'types/products'
+import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
+import { ProductData, RootDocsPath } from 'types/products'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
@@ -16,36 +17,34 @@ const IS_DEV = process.env.NODE_ENV !== 'production'
 export const generateProductLandingSidebarMenuItems = (
 	product: ProductData
 ) => {
-	let menuItems
-
-	if (product.rootDocsPaths) {
-		const rootDocsNavItems = product.rootDocsPaths.map((rootDocsPath) => {
-			const { name, path } = rootDocsPath
-			return { title: name, fullPath: `/${product.slug}/${path}` }
+	const routes = getDocsNavItems(product).map(({ label, fullPath }) => ({
+		title: label,
+		fullPath,
+	}))
+	const defaultDocsMenuItem = {
+		title: 'Documentation',
+		fullPath: `/${product.slug}/docs`,
+	}
+	const documentationSubmenu =
+		routes.length > 1
+			? {
+					title: 'Documentation',
+					isOpen: true,
+					routes,
+			  }
+			: defaultDocsMenuItem
+	const menuItems = [
+		documentationSubmenu,
+		{
+			title: 'Tutorials',
+			fullPath: `/${product.slug}/tutorials`,
+		},
+	]
+	if (product.slug !== 'hcp') {
+		menuItems.push({
+			title: 'Install',
+			fullPath: `/${product.slug}/downloads`,
 		})
-		const documentationSubmenu = {
-			title: 'Documentation',
-			isOpen: true,
-			routes: [...rootDocsNavItems],
-		}
-		menuItems = [
-			documentationSubmenu,
-			{
-				title: 'Tutorials',
-				fullPath: `/${product.slug}/tutorials`,
-			},
-			{
-				title: 'Install',
-				fullPath: `/${product.slug}/downloads`,
-			},
-		]
-	} else {
-		if (IS_DEV) {
-			console.warn(
-				`Warning (generateProductLandingSidebarMenuItems): ${product.name} does not have a "rootDocsPaths" property. Please replace the "landingPageNavData" property with "rootDocsPaths" in "src/data/${product.slug}.json".`
-			)
-		}
-		menuItems = [...product.sidebar.landingPageNavData]
 	}
 
 	return menuItems

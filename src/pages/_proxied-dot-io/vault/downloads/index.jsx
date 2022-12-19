@@ -3,13 +3,10 @@ import Link from 'next/link'
 import Button from '@hashicorp/react-button'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import { generateStaticProps } from 'lib/fetch-release-data'
-import productData from 'data/vault'
 import s from './style.module.css'
 
 function DownloadsPage({ product, releases, latestVersion }) {
-	const changelogUrl = productData.changelogUrl.length
-		? productData.changelogUrl
-		: `https://github.com/hashicorp/vault/blob/v${productData.version}/CHANGELOG.md`
+	const changelogUrl = `https://github.com/hashicorp/vault/blob/main/CHANGELOG.md`
 
 	return (
 		<ProductDownloadsPage
@@ -21,19 +18,19 @@ function DownloadsPage({ product, releases, latestVersion }) {
 			getStartedLinks={[
 				{
 					label: 'Getting Started with the CLI',
-					href: 'http://learn.hashicorp.com/collections/vault/getting-started',
+					href: 'https://developer.hashicorp.com/vault/tutorials/getting-started',
 				},
 				{
 					label: 'Getting Started with Vault UI',
-					href: 'http://learn.hashicorp.com/collections/vault/getting-started-ui',
+					href: 'https://developer.hashicorp.com/vault/tutorials/getting-started-ui',
 				},
 				{
 					label: 'Vault on HCP',
-					href: 'http://learn.hashicorp.com/collections/vault/getting-started-ui',
+					href: 'https://developer.hashicorp.com/vault/tutorials/cloud',
 				},
 				{
 					label: 'View all Vault tutorials',
-					href: 'https://learn.hashicorp.com/vault',
+					href: 'https://developer.hashicorp.com/vault/tutorials',
 				},
 			]}
 			logo={
@@ -44,18 +41,15 @@ function DownloadsPage({ product, releases, latestVersion }) {
 				/>
 			}
 			tutorialLink={{
-				href: 'https://learn.hashicorp.com/vault',
-				label: 'View Tutorials at HashiCorp Learn',
+				href: 'https://developer.hashicorp.com/vault/tutorials',
+				label: 'View Tutorials',
 			}}
 			merchandisingSlot={
 				<>
 					<MerchandisingSlot />
 					<p className={s.releaseNote}>
 						Release notes are available in our{' '}
-						<Link href={`/docs/release-notes`}>
-							<a>documentation</a>
-						</Link>
-						.
+						<Link href={`/docs/release-notes`}>documentation</Link>.
 					</p>
 				</>
 			}
@@ -76,7 +70,7 @@ function MerchandisingSlot() {
 				<Button
 					title="Sign up for HCP Vault"
 					linkType="inbound"
-					url="https://portal.cloud.hashicorp.com/sign-up?utm_source=vault_io&utm_content=download_cta"
+					url="https://portal.cloud.hashicorp.com/sign-up"
 					theme={{
 						variant: 'tertiary',
 						brand: 'vault',

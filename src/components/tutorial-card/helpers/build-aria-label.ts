@@ -12,21 +12,25 @@ const PRODUCT_LABEL_MAP: Record<ProductOption, string> = {
 	waypoint: 'Waypoint',
 }
 
-export function buildAriaLabel({
-	heading,
-	duration,
-	productsUsed,
-	hasVideo,
-	hasInteractiveLab,
-}: Pick<
-	TutorialCardProps,
-	'heading' | 'duration' | 'productsUsed' | 'hasVideo' | 'hasInteractiveLab'
->): string {
-	let ariaLabel = ''
+export function getSpeakableDuration(duration: TutorialCardProps['duration']) {
 	const speakableDuration = duration
 		.replace('hr', ' hour')
 		.replace('min', ' minute')
-	ariaLabel += `${heading}. ${speakableDuration} tutorial.`
+	return `${speakableDuration} tutorial.`
+}
+
+export function buildAriaLabel({
+	heading,
+	productsUsed,
+	hasVideo,
+	hasInteractiveLab,
+	eyebrowSlotAriaLabel,
+}: Pick<
+	TutorialCardProps,
+	'heading' | 'duration' | 'productsUsed' | 'hasVideo' | 'hasInteractiveLab'
+> & { eyebrowSlotAriaLabel?: string }): string {
+	let ariaLabel = ''
+	ariaLabel += `${heading}.`
 	if (productsUsed.length > 0) {
 		ariaLabel += ` Uses the following products: ${productsUsed
 			.map((p: ProductOption) => PRODUCT_LABEL_MAP[p])
@@ -37,6 +41,9 @@ export function buildAriaLabel({
 	}
 	if (hasVideo) {
 		ariaLabel += ` Tutorial has video.`
+	}
+	if (eyebrowSlotAriaLabel) {
+		ariaLabel += ` ${eyebrowSlotAriaLabel}`
 	}
 	return ariaLabel
 }

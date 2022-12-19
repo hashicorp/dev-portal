@@ -1,20 +1,15 @@
 {
-	"featuredLearnContent": [],
+	"featuredTutorialsSlugs": [],
 	"packageManagerOverrides": [
 		{
 			"label": "Homebrew",
-			"commands": ["brew install vagrant"],
+			"commands": ["brew install hashicorp/tap/hashicorp-vagrant"],
 			"os": "darwin"
-		},
-		{
-			"label": "Homebrew",
-			"commands": ["brew install vagrant"],
-			"os": "linux"
 		}
 	],
 	"sidecarMarketingCard": {
 		"title": "About Vagrant",
-		"subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+		"subtitle": "Vagrant is the command line utility for managing the lifecycle of virtual machines.",
 		"featuredDocsLinks": [
 			{
 				"href": "/vagrant/docs/installation",
@@ -41,5 +36,11 @@
 				"text": "Providers"
 			}
 		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "Vagrant Cloud",
+		"description": "Virtual boxes for Linux, Laravel and any development environment",
+		"ctaText": "Try Vagrant Cloud",
+		"ctaUrl": "https://app.vagrantup.com/boxes/search"
 	}
 }

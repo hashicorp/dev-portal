@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import classNames from 'classnames'
+import Link from 'components/link'
 import { ButtonLinkProps } from './types'
 import s from './button-link.module.css'
 
@@ -12,13 +12,16 @@ import s from './button-link.module.css'
  **/
 const ButtonLink = ({
 	'aria-label': ariaLabel,
+	'data-heap-track': dataHeapTrack,
 	color = 'primary',
 	href,
 	icon,
 	iconPosition = 'leading',
-	openInNewTab = false,
+	opensInNewTab = false,
 	size = 'medium',
 	text,
+	className,
+	onClick,
 }: ButtonLinkProps) => {
 	const hasIcon = !!icon
 	const hasText = !!text
@@ -40,17 +43,18 @@ const ButtonLink = ({
 	}
 
 	return (
-		<Link href={href}>
-			<a
-				aria-label={ariaLabel}
-				className={classNames(s.root, s[size], s[color])}
-				rel={openInNewTab ? 'noreferrer noopener' : undefined}
-				target={openInNewTab ? '_blank' : '_self'}
-			>
-				{hasLeadingIcon && icon}
-				{hasText ? text : null}
-				{hasTrailingIcon && icon}
-			</a>
+		<Link
+			aria-label={ariaLabel}
+			className={classNames(s.root, s[size], s[color], className)}
+			data-heap-track={`button-link ${dataHeapTrack ?? ''}`}
+			href={href}
+			onClick={onClick}
+			opensInNewTab={opensInNewTab}
+			rel={opensInNewTab ? 'noreferrer noopener' : undefined}
+		>
+			{hasLeadingIcon && icon}
+			{hasText ? text : null}
+			{hasTrailingIcon && icon}
 		</Link>
 	)
 }

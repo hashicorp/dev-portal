@@ -2,6 +2,7 @@ import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import * as React from 'react'
 import Head from 'next/head'
 import { proxiedRivetClient } from 'lib/cms'
+import { abTestTrack } from 'lib/ab-test-track'
 import homepageQuery from './home/query.graphql'
 import { renderMetaTags } from '@hashicorp/react-head'
 import IoHomeHero from 'components/_proxied-dot-io/common/io-home-hero'
@@ -36,7 +37,7 @@ function Homepage({ data }): React.ReactElement {
 		inPracticeCtaImage,
 		useCasesHeading,
 		useCasesDescription,
-		useCasesCards,
+		useCases,
 		tutorialsHeading,
 		tutorialCards,
 		caseStudiesHeading,
@@ -52,6 +53,14 @@ function Homepage({ data }): React.ReactElement {
 	} = data
 	const _introCallout = introCallout[0]
 	const _introVideo = introVideo[0]
+
+	React.useEffect(() => {
+		abTestTrack({
+			type: 'Served',
+			test_name: 'CRO home hero CTA links 2022-10',
+			variant: 'false',
+		})
+	}, [])
 
 	return (
 		<>
@@ -118,27 +127,28 @@ function Homepage({ data }): React.ReactElement {
 				}
 			/>
 
-			<section className={s.useCases}>
-				<div className={s.container}>
-					<IoCardContainer
-						heading={useCasesHeading}
-						description={useCasesDescription}
-						cardsPerRow={4}
-						cards={useCasesCards.map((card) => {
-							return {
-								eyebrow: card.eyebrow,
-								link: {
-									url: card.link,
-									type: 'inbound',
-								},
-								heading: card.heading,
-								description: card.description,
-								products: card.products,
-							}
-						})}
-					/>
-				</div>
-			</section>
+			{useCases.length > 0 ? (
+				<section className={s.useCases}>
+					<div className={s.container}>
+						<IoCardContainer
+							heading={useCasesHeading}
+							description={useCasesDescription}
+							cardsPerRow={4}
+							cards={useCases.map((usecase) => {
+								return {
+									link: {
+										url: `/use-cases/${usecase.slug}`,
+										type: 'inbound',
+									},
+									heading: usecase.shortHeading || usecase.heroHeading,
+									description:
+										usecase.shortDescription || usecase.heroDescription,
+								}
+							})}
+						/>
+					</div>
+				</section>
+			) : null}
 
 			<section className={s.tutorials}>
 				<div className={s.container}>
@@ -163,7 +173,7 @@ function Homepage({ data }): React.ReactElement {
 
 			<IoHomeInPractice
 				brand="consul"
-				pattern="/consul/img/practice-pattern.svg"
+				pattern="/consul-public/img/practice-pattern.svg"
 				heading={inPracticeHeading}
 				description={inPracticeDescription}
 				cards={inPracticeCards.map((card) => {

@@ -1,50 +1,50 @@
 .root {
-  position: relative;
-  width: 100%;
+	position: relative;
+	width: 100%;
 }
 
 .productIcon,
 .trailingIcon {
-  align-items: center;
-  bottom: 0;
-  display: flex;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
+	align-items: center;
+	bottom: 0;
+	display: flex;
+	pointer-events: none;
+	position: absolute;
+	top: 0;
 }
 
 .productIcon {
-  left: 12px;
+	left: 12px;
 }
 
 .trailingIcon {
-  color: var(--token-color-palette-neutral-600);
-  right: 12px;
+	color: var(--token-color-palette-neutral-600);
+	right: 12px;
 }
 
 .select {
-  /* composition */
-  composes: g-focus-ring-from-box-shadow from global;
-  composes: hds-surface-low from global;
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+	composes: hds-surface-low from global;
 
-  /* properties */
-  appearance: none;
-  background-color: white;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  padding-bottom: 8px;
-  padding-left: 34px;
-  padding-right: 40px;
-  padding-top: 8px;
-  width: 100%;
+	/* properties */
+	appearance: none;
+	background-color: white;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+	padding-bottom: 8px;
+	padding-left: 34px;
+	padding-right: 40px;
+	padding-top: 8px;
+	width: 100%;
 }
 
 .option {
-  /* composition */
-  composes: hds-typography-body-200 from global;
+	/* composition */
+	composes: hds-typography-body-200 from global;
 
-  /* properties */
-  color: var(--token-color-foreground-strong);
-  font-weight: var(--token-typography-font-weight-regular);
+	/* properties */
+	color: var(--token-color-foreground-strong);
+	font-weight: var(--token-typography-font-weight-regular);
 }

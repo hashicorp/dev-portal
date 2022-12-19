@@ -1,9 +1,5 @@
 import { CSSProperties, ReactElement } from 'react'
-import Link from 'next/link'
 import classNames from 'classnames'
-import type { ProductSlug } from 'types/products'
-import { productSlugsToNames } from 'lib/products'
-import getIsBetaProduct from 'lib/get-is-beta-product'
 import { IconHashicorp24 } from '@hashicorp/flight-icons/svg-react/hashicorp-24'
 import { IconHashicorpColor24 } from '@hashicorp/flight-icons/svg-react/hashicorp-color-24'
 import { IconTerraform24 } from '@hashicorp/flight-icons/svg-react/terraform-24'
@@ -22,6 +18,9 @@ import { IconWaypoint24 } from '@hashicorp/flight-icons/svg-react/waypoint-24'
 import { IconWaypointColor24 } from '@hashicorp/flight-icons/svg-react/waypoint-color-24'
 import { IconVagrant24 } from '@hashicorp/flight-icons/svg-react/vagrant-24'
 import { IconVagrantColor24 } from '@hashicorp/flight-icons/svg-react/vagrant-color-24'
+import type { ProductSlug } from 'types/products'
+import { productSlugsToNames } from 'lib/products'
+import Link from 'components/link'
 import Text from 'components/text'
 import s from './product-nav.module.css'
 
@@ -75,27 +74,19 @@ const productIcons: {
 
 interface ProductNavProps {
 	notice?: string
-	products: Array<ProductSlug>
+	products: { slug: ProductSlug }[]
 }
 
 export default function ProductNav({ notice, products }: ProductNavProps) {
 	return (
 		<div className={s.productNav}>
-			{notice ? (
-				<div className={s.notice}>
-					<Text size={200} className={s.noticeText}>
-						{notice}
-					</Text>
-				</div>
-			) : null}
 			<nav className={s.nav}>
 				<ul className={s.list}>
-					{products.map((product, index) => {
-						const isBetaProduct = getIsBetaProduct(product)
+					{products.map(({ slug }, index) => {
 						const productName =
-							product === 'hcp' ? 'HCP' : productSlugsToNames[product]
+							slug === 'hcp' ? 'HCP' : productSlugsToNames[slug]
 						const productBorderColor =
-							product === 'hcp' ? 'var(--black)' : `var(--${product})`
+							slug === 'hcp' ? 'var(--black)' : `var(--${slug})`
 						const productClassName = classNames(s.product, {
 							[s.isFirstChild]: index == 0,
 							[s.isLastChild]: index == products.length - 1,
@@ -103,40 +94,28 @@ export default function ProductNav({ notice, products }: ProductNavProps) {
 						return (
 							<li
 								className={s.listItem}
-								key={product}
+								key={slug}
 								style={
 									{
 										'--border-color': productBorderColor,
 									} as CSSProperties
 								}
 							>
-								{isBetaProduct ? (
-									<Link href={`/${product}/`}>
-										<a className={productClassName}>
-											{productIcons[product].color}
-											<Text
-												weight="semibold"
-												size={200}
-												className={s.productName}
-												asElement="span"
-											>
-												{productName}
-											</Text>
-										</a>
-									</Link>
-								) : (
-									<span className={productClassName}>
-										{productIcons[product].neutral}
-										<Text
-											weight="semibold"
-											size={200}
-											className={s.productName}
-											asElement="span"
-										>
-											{productName}
-										</Text>
-									</span>
-								)}
+								<Link
+									className={productClassName}
+									data-heap-track="homepage-product-nav-link"
+									href={`/${slug}/`}
+								>
+									{productIcons[slug].color}
+									<Text
+										weight="semibold"
+										size={200}
+										className={s.productName}
+										asElement="span"
+									>
+										{productName}
+									</Text>
+								</Link>
 							</li>
 						)
 					})}

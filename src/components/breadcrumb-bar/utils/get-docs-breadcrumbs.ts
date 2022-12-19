@@ -1,5 +1,7 @@
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
-import { NavData } from '@hashicorp/react-docs-sidenav'
+import type { MenuItem } from 'components/sidebar'
+import { getParentRootDocsPath } from 'lib/docs/get-parent-root-docs-path'
+import { ProductData } from 'types/products'
 import { BreadcrumbLink } from '..'
 import getFallbackTitle from './get-fallback-title'
 
@@ -15,8 +17,7 @@ interface GetPathBreadcrumbsOpts {
 	/**
 	 * An array of nav nodes, as defined by our sidenav component.
 	 */
-
-	navData: NavData
+	navData: MenuItem[]
 
 	/**
 	 * An array of parameters representing the path from the basePath to the
@@ -183,8 +184,7 @@ function findPathMatchedNodes(navNode, pathString, depth) {
 
 interface GetDocsBreadcrumbsOpts extends GetPathBreadcrumbsOpts {
 	baseName: string
-	productName: string
-	productPath: string
+	product: Pick<ProductData, 'slug' | 'name' | 'rootDocsPaths'>
 	versions?: VersionSelectItem[]
 	indexOfVersionPathPart?: number
 }
@@ -195,51 +195,83 @@ function getDocsBreadcrumbs({
 	indexOfVersionPathPart,
 	navData,
 	pathParts,
-	productName,
-	productPath,
 	version,
+	product,
 }: GetDocsBreadcrumbsOpts): BreadcrumbLink[] {
 	/**
-	 * Generate the arguments sent to `getDocsBreadcrumbs` based on whether or
-	 * not there is a version in the current path.
+	 * Set up breadcrumbs for the main home page and product home page.
 	 */
-	let generatedBaseName
-	let filteredPathParts
-	if (indexOfVersionPathPart >= 0) {
-		generatedBaseName = `${baseName} ${version}`
-		filteredPathParts = pathParts.filter(
-			(_, index) => index !== indexOfVersionPathPart
-		)
-	} else {
-		generatedBaseName = baseName
-		filteredPathParts = pathParts
+	const breadcrumbs: BreadcrumbLink[] = [
+		{ title: 'Developer', url: '/' },
+		{ title: product.name, url: `/${product.slug}` },
+	]
+
+	/**
+	 * If we're in a "nested" rootDocsPath, add a breadcrumb for the parent.
+	 *
+	 *  For context, most rootDocsPaths represent a single breadcrumb item.
+	 * Others have multiple path parts, and therefore may represent
+	 * multiple breadcrumb items.
+	 *
+	 * For example, Terraform's rootDocsPath `plugin` is a single item.
+	 * But Terraform's rootDocsPath `plugin/sdkv2` represents two items:
+	 * - The `plugin` rootDocsPath
+	 * - The nested `plugin/sdkv2` rootDocsPath.
+	 */
+	const parentRootDocsPath = getParentRootDocsPath(
+		basePath,
+		product.rootDocsPaths
+	)
+	if (parentRootDocsPath !== null) {
+		const url = `/${product.slug}/${parentRootDocsPath.path}`
+		breadcrumbs.push({ title: parentRootDocsPath.name, url })
 	}
 
 	/**
 	 * Generate the root docs path item's url
 	 */
+	// Determine the breadcrumb title, which should include the version if present
+	let rootDocsPathTitle
+	let filteredPathParts
+	if (indexOfVersionPathPart >= 0) {
+		rootDocsPathTitle = `${baseName} ${version}`
+		filteredPathParts = pathParts.filter(
+			(_, index) => index !== indexOfVersionPathPart
+		)
+	} else {
+		rootDocsPathTitle = baseName
+		filteredPathParts = pathParts
+	}
+	// Determine the breadcrumb URL, which should include the version if present
 	let rootDocsPathUrl
 	if (version) {
-		rootDocsPathUrl = `/${productPath}/${basePath}/${version}`
+		rootDocsPathUrl = `/${product.slug}/${basePath}/${version}`
 	} else {
-		rootDocsPathUrl = `/${productPath}/${basePath}`
+		rootDocsPathUrl = `/${product.slug}/${basePath}`
 	}
+	breadcrumbs.push({
+		title: rootDocsPathTitle,
+		url: rootDocsPathUrl,
+		isCurrentPage: pathParts.length == 0,
+	})
 
-	return [
-		{ title: 'Developer', url: '/' },
-		{ title: productName, url: `/${productPath}` },
-		{
-			title: generatedBaseName,
-			url: rootDocsPathUrl,
-			isCurrentPage: pathParts.length == 0,
-		},
-		...getPathBreadcrumbs({
-			basePath: `${productPath}/${basePath}`,
-			navData,
-			pathParts: filteredPathParts,
-			version,
-		}),
-	]
+	/**
+	 * Add breadcrumbs for all path parts past the rootDocsPath.
+	 * The titles for these, which are intended to match the title
+	 * of the corresponding docs pages, will be derived sidebar nav items.
+	 */
+	const pathBreadcrumbs = getPathBreadcrumbs({
+		basePath: `${product.slug}/${basePath}`,
+		navData,
+		pathParts: filteredPathParts,
+		version,
+	})
+	breadcrumbs.push(...pathBreadcrumbs)
+
+	/**
+	 * Return all breadcrumbs
+	 */
+	return breadcrumbs
 }
 
 export { getPathBreadcrumbs }

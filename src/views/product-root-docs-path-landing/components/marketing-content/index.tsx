@@ -1,15 +1,21 @@
+// Third-party imports
 import classNames from 'classnames'
+import slugify from 'slugify'
+
+// Global imports
+import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { useCurrentProduct } from 'contexts'
-import Heading, { HeadingProps } from 'components/heading'
-import Text from 'components/text'
+import CalloutCard from 'components/callout-card'
+import { CardDescription, CardTitle } from 'components/card/components'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
-import GetStartedCard from 'components/get-started-card'
+import Heading, { HeadingProps } from 'components/heading'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
-import TruncateMaxLines from 'components/truncate-max-lines'
-import { SUPPORTED_ICONS } from '../supported-icons'
+import Text from 'components/text'
+
+// Local imports
 import s from './marketing-content.module.css'
-import slugify from 'slugify'
+import { ParagraphBlock } from '../paragraph-block'
 
 const GETTING_STARTED_CARD_HEADING = 'Getting Started'
 const GETTING_STARTED_CARD_HEADING_SLUG = slugify(GETTING_STARTED_CARD_HEADING)
@@ -97,29 +103,15 @@ const CardGrid = ({ cards, description, title, headingId, headingLevel }) => {
 			)}
 			<CardsGridList>
 				{cards.map(({ description, title, url }) => (
-					<li key={url}>
-						<CardLink ariaLabel={title} className={s.cardGridCard} href={url}>
-							<Text
-								className={s.cardGridCardTitle}
-								size={200}
-								weight="semibold"
-							>
-								{title}
-							</Text>
-							<Text
-								className={s.cardGridCardDescription}
-								size={100}
-								weight="regular"
-							>
-								<TruncateMaxLines
-									maxLines={3}
-									lineHeight="var(--token-typography-body-100-line-height)"
-								>
-									{description}
-								</TruncateMaxLines>
-							</Text>
-						</CardLink>
-					</li>
+					<CardLink
+						key={url}
+						ariaLabel={title}
+						className={s.cardGridCard}
+						href={url}
+					>
+						<CardTitle text={title} />
+						<CardDescription text={description} />
+					</CardLink>
 				))}
 			</CardsGridList>
 		</div>
@@ -131,13 +123,18 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 
 	return (
 		<div className={s.root}>
-			{blocks.map((block) => {
+			{blocks.map((block, index) => {
+				if (block.type === 'paragraph') {
+					return <ParagraphBlock {...block} key={index} />
+				}
+
 				if (block.type === 'section-heading') {
 					return (
 						<SectionHeading
 							id={block.headingId}
 							level={block.headingLevel}
 							text={block.title}
+							key={index}
 						/>
 					)
 				}
@@ -147,6 +144,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 						<IconCardGrid
 							cards={block.cards}
 							productSlug={currentProduct.slug}
+							key={index}
 						/>
 					)
 				}
@@ -159,17 +157,19 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 							headingLevel={block.headingLevel}
 							headingId={block.headingId}
 							title={block.title}
+							key={index}
 						/>
 					)
 				}
 
 				if (block.type === 'getting-started-card') {
 					return (
-						<GetStartedCard
+						<CalloutCard
 							heading={GETTING_STARTED_CARD_HEADING}
 							headingSlug={GETTING_STARTED_CARD_HEADING_SLUG}
 							body={block.description}
 							ctas={[block.callToAction]}
+							key={index}
 						/>
 					)
 				}

@@ -1,0 +1,66 @@
+---
+componentName: RadioField
+peerComponents:
+	- ProductIcon
+---
+
+A wrapper around the native radio input styled to match the [HashiCorp Design System spec](https://design-system-components-hashicorp.vercel.app/components/form/radio).
+
+## Only label
+
+<RadioField label="This is the label text" />
+
+## Label + checked
+
+<RadioField label="This is the label text" checked />
+
+## Label + error
+
+<RadioField errors={['This is the error']} label="This is the label text" />
+
+## Label + helper text
+
+<RadioField helperText="This is the helper text" label="This is the label" />
+
+## Label + helper text + error
+
+<RadioField
+	errors={['This is the error']}
+	helperText="This is the helper text"
+	label="This is the label"
+/>
+
+## Label + helper text + error
+
+<RadioField
+	errors={['First error message', 'Second error message']}
+	helperText="This is the helper text"
+	label="This is the label"
+/>
+
+## Labels that are `ReactNode`s
+
+<div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+	{[
+		{ name: 'Terraform', slug: 'terraform' },
+		{ name: 'Packer', slug: 'packer' },
+		{ name: 'Vault', slug: 'vault' },
+		{ name: 'Boundary', slug: 'boundary' },
+		{ name: 'Consul', slug: 'consul' },
+		{ name: 'Nomad', slug: 'nomad' },
+		{ name: 'Waypoint', slug: 'waypoint' },
+		{ name: 'Vagrant', slug: 'vagrant' },
+	].map(({ name, slug }, index) => {
+		return (
+			<RadioField
+				labelFontWeight="regular"
+				label={
+					<>
+						<ProductIcon productSlug={slug} />
+						<span style={{ marginLeft: 4 }}>{name}</span>
+					</>
+				}
+			/>
+		)
+	})}
+</div>

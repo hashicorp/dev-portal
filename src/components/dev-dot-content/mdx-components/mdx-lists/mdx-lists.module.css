@@ -1,23 +1,23 @@
 .listRoot {
-  margin: 24px 0;
-  padding-left: 24px;
+	margin: 24px 0;
+	padding-left: 24px;
 }
 
 .listItem {
-  color: var(--token-color-foreground-primary);
+	color: var(--token-color-foreground-primary);
 
-  /* Fixes a visual bug in firefox where the p tag after our injected anchor is on a new line */
-  & a:global(.__target-lic) {
-    position: absolute;
-    scroll-margin-top: var(--height);
-  }
+	/* Fixes a visual bug in firefox where the p tag after our injected anchor is on a new line */
+	& a:global(.__target-lic) {
+		position: absolute;
+		scroll-margin-top: var(--total-scroll-offset);
+	}
 
-  &:not(:last-child) {
-    margin-bottom: 16px;
-  }
+	&:not(:last-child) {
+		margin-bottom: 16px;
+	}
 
-  & ul,
-  & ol {
-    margin: 16px 0;
-  }
+	& ul,
+	& ol {
+		margin: 16px 0;
+	}
 }

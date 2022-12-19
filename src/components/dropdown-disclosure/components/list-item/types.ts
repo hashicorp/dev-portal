@@ -76,6 +76,13 @@ interface DropdownDisclosureLinkItemProps {
 	 * An optional icon to render to the left of the text content.
 	 */
 	icon?: ReactElement
+
+	/**
+	 * Optional [rel](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel) attribute
+	 * to be passed to the internal anchor element.
+	 */
+	rel?: NativeAnchorProps['rel']
+	target?: NativeAnchorProps['target']
 }
 
 export type {

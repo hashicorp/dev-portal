@@ -1,0 +1,29 @@
+.backgroundBase {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: -1;
+}
+
+.hcpBackground {
+	composes: backgroundBase;
+	background-image: url('/img/homepage/hcp-slot-background.svg');
+	background-size: auto auto;
+	background-repeat: no-repeat;
+	background-position: left bottom;
+}
+
+.hcpGraphic {
+	composes: backgroundBase;
+	display: none;
+	background-image: url('/img/homepage/hcp-slot-graphic.svg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center bottom;
+
+	@media (--dev-dot-desktop) {
+		display: block;
+	}
+}

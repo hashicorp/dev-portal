@@ -3,6 +3,7 @@ import DocsView from 'views/docs-view'
 import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-root-docs-path-generation-functions'
 import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
+import { isDeployPreview } from 'lib/env-checks'
 
 /**
  * Path relative to the `website` directory of the Packer GitHub repo.
@@ -13,14 +14,21 @@ import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-d
  * preview is actively supported).
  */
 const remotePluginsFile = 'data/plugins-manifest.json'
+const contentBranch = 'stable-website'
 
 /**
  * Since this /plugins landing page does use content from our API,
  * we can use the same getStaticProps function as all other Dev Dot docs routes,
  * with some modifications for the sidebar data.
+ *
+ * Note: this means we end up sourcing the .mdx for this page from
+ * the latest content according to our content API. This is not
+ * guaranteed to match the `contentBranch` we use for remote plugins data.
  */
 const { getStaticProps: baseGetStaticProps } =
-	getRootDocsPathGenerationFunctions('packer', 'plugins')
+	getRootDocsPathGenerationFunctions('packer', 'plugins', {
+		hideVersionSelector: true,
+	})
 
 /**
  * We tack on some extra plugin data to the result of the base getStaticProps,
@@ -36,14 +44,20 @@ async function getStaticProps(ctx) {
 		// Partial nav data is provided from base getStaticProps, in menuItems
 		const partialNavData =
 			staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems
-		// Fetch and merge in remote plugins nav data with the partialNavData
-		const rawNavData = await appendRemotePluginsNavData(
-			remotePluginsFile,
-			partialNavData,
-			''
-		)
+
+		let rawNavData = partialNavData
+		if (!isDeployPreview() || isDeployPreview('packer')) {
+			// Fetch and merge in remote plugins nav data with the partialNavData
+			rawNavData = await appendRemotePluginsNavData(
+				remotePluginsFile,
+				partialNavData,
+				'',
+				contentBranch
+			)
+		}
+
 		// Prepare nav data for client (such as adding `fullPath`)
-		const { preparedItems: navData } = prepareNavDataForClient({
+		const { preparedItems: navData } = await prepareNavDataForClient({
 			basePaths: ['packer', 'plugins'],
 			nodes: rawNavData,
 		})

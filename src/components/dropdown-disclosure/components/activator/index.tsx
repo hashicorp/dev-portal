@@ -33,7 +33,11 @@ const DropdownDisclosureActivator = ({
 			<Button
 				{...buttonProps}
 				color={color}
-				icon={hideChevron ? null : <IconChevronDown16 />}
+				icon={
+					hideChevron ? null : (
+						<IconChevronDown16 className={s.chevronWrapper} />
+					)
+				}
 				iconPosition={hideChevron ? undefined : 'trailing'}
 				text={children}
 			/>

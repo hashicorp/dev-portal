@@ -34,13 +34,21 @@ const config: PlaywrightTestConfig = {
 		trace: 'on-first-retry',
 	},
 
-	/* Configure projects for major browsers */
+	/* Configure projects for major browsers (https://playwright.dev/docs/test-advanced#projects) */
 	projects: [
 		{
 			name: 'chromium',
 			use: {
 				...devices['Desktop Chrome'],
 			},
+		},
+		{
+			name: 'default',
+			testIgnore: 'src/__tests__/e2e/docs-content-link-rewrites.spec.ts',
+		},
+		{
+			name: 'docs-content-link-rewrites',
+			testMatch: 'src/__tests__/e2e/docs-content-link-rewrites.spec.ts',
 		},
 	],
 
@@ -51,7 +59,7 @@ const config: PlaywrightTestConfig = {
 				port: 3000,
 				env: {
 					// Run in preview mode to support changing the product based on the
-					// io_preview cookie
+					// hc_dd_proxied_site cookie
 					HASHI_ENV: 'preview',
 				},
 		  }

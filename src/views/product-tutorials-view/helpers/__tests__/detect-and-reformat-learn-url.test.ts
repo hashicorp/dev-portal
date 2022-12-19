@@ -9,22 +9,13 @@ import detectAndReformatLearnUrl from '../detect-and-reformat-learn-url'
  * [key: database tutorial slug]: value — dev dot absolute path
  */
 const MOCK_TUTORIALS_MAP = {
+	'consul/gossip-encryption-secure':
+		'/consul/tutorials/gossip-encryption-secure',
 	'waypoint/aws-ecs': '/waypoint/tutorials/deploy-aws/aws-ecs',
 	'vault/getting-started-install':
 		'/vault/tutorials/getting-started/getting-started-install',
+	'cloud/amazon-peering-hcp': '/hcp/tutorials/networking/amazon-peering-hcp',
 }
-
-/**
- * As we onboard more products into internal beta, we lose the ability
- * to test "beta" functionality using real config. So, we mock
- * get-is-beta-product in order to provide a consistent testing config.
- */
-jest.mock('../../../../lib/get-is-beta-product', () => (productSlug) => {
-	// TODO: remove 'cloud' here, also need to account for 'hcp' URLs
-	// Task: https://app.asana.com/0/0/1202779234480934/f
-	const nonBetaProductsForTesting = ['boundary', 'packer', 'vagrant', 'cloud']
-	return nonBetaProductsForTesting.indexOf(productSlug) === -1
-})
 
 describe('detectAndReformatLearnUrl', () => {
 	beforeEach(async () => {
@@ -35,12 +26,26 @@ describe('detectAndReformatLearnUrl', () => {
 			.reply(200, MOCK_TUTORIALS_MAP)
 	})
 
-	it('returns absolute URLs back unmodified', async () => {
+	it('returns .io URLs with unsupported base paths unmodified', async () => {
+		const nonDocsIoUrls: string[] = [
+			'https://cloud.hashicorp.com/pricing',
+			'https://cloud.hashicorp.com/products/terraform',
+			'https://www.vagrantup.com/community',
+			'https://www.vaultproject.io/community',
+			'https://www.waypointproject.io/community',
+		]
+		for (let n = 0; n < nonDocsIoUrls.length; n++) {
+			const url = nonDocsIoUrls[n]
+			const result = await detectAndReformatLearnUrl(url)
+			expect(result).toBe(url)
+		}
+	})
+
+	it('returns non Learn or Docs URLs back unmodified', async () => {
 		const absoluteUrls: string[] = [
-			'https://learn.hashicorp.com/vault',
 			'https://www.hashicorp.com',
-			'https://www.waypointproject.io',
-			'https://www.waypointproject.io/docs',
+			'https://portal.cloud.hashicorp.com',
+			'https://developer.hashicorp.com/',
 		]
 		for (let n = 0; n < absoluteUrls.length; n++) {
 			const url = absoluteUrls[n]
@@ -79,11 +84,11 @@ describe('detectAndReformatLearnUrl', () => {
 			// Note: underlying rewriteTutorialsLink() handles beta products
 			{
 				input: '/packer',
-				expected: 'https://learn.hashicorp.com/packer',
+				expected: '/packer/tutorials',
 			},
 			{
 				input: '/cloud',
-				expected: 'https://learn.hashicorp.com/cloud',
+				expected: '/hcp/tutorials',
 			},
 		]
 		for (let n = 0; n < hubPageUrls.length; n++) {
@@ -107,10 +112,9 @@ describe('detectAndReformatLearnUrl', () => {
 				input: '/collections/waypoint/deploy-aws',
 				expected: '/waypoint/tutorials/deploy-aws',
 			},
-			// Note: underlying rewriteTutorialsLink() handles beta products
 			{
 				input: '/collections/packer/kubernetes',
-				expected: 'https://learn.hashicorp.com/collections/packer/kubernetes',
+				expected: '/packer/tutorials/kubernetes',
 			},
 		]
 		for (let n = 0; n < collectionUrls.length; n++) {
@@ -141,12 +145,52 @@ describe('detectAndReformatLearnUrl', () => {
 				expected: '/vault/tutorials/getting-started-ui/getting-started-install',
 			},
 			{
+				input:
+					'/tutorials/vault/getting-started-install?in=vault/getting-started-ui&utm_source=docs',
+				expected:
+					'/vault/tutorials/getting-started-ui/getting-started-install?utm_source=docs',
+			},
+			{
+				input:
+					'/tutorials/vault/getting-started-install?utm_source=docs&in=vault/getting-started-ui',
+				expected:
+					'/vault/tutorials/getting-started-ui/getting-started-install?utm_source=docs',
+			},
+			{
+				input:
+					'/tutorials/vault/getting-started-install?in=vault/getting-started-ui#test-anchor-hash',
+				expected:
+					'/vault/tutorials/getting-started-ui/getting-started-install#test-anchor-hash',
+			},
+			{
 				input: '/tutorials/waypoint/aws-ecs?in=waypoint/deploy-aws',
 				expected: '/waypoint/tutorials/deploy-aws/aws-ecs',
 			},
 			{
 				input: '/tutorials/waypoint/aws-ecs',
 				expected: '/waypoint/tutorials/deploy-aws/aws-ecs',
+			},
+			{
+				input:
+					'/tutorials/consul/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
+				expected:
+					'/consul/tutorials/gossip-encryption-secure?utm_source=consul.io&utm_medium=docs',
+			},
+			{
+				input: '/tutorials/cloud/vault-ops?in=vault/cloud',
+				expected: '/vault/tutorials/cloud/vault-ops',
+			},
+			{
+				input: '/tutorials/cloud/amazon-peering-hcp',
+				expected: '/hcp/tutorials/networking/amazon-peering-hcp',
+			},
+			{
+				input: '/tutorials/vault/vault-ops?in=cloud/networking',
+				expected: '/hcp/tutorials/networking/vault-ops',
+			},
+			{
+				input: '/tutorials/vault/vault-ops?in=packer/networking',
+				expected: '/packer/tutorials/networking/vault-ops',
 			},
 		]
 		for (let n = 0; n < tutorialUrls.length; n++) {

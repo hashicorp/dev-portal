@@ -1,0 +1,22 @@
+.root {
+	column-gap: 8px;
+	display: grid;
+	grid-auto-flow: row;
+	grid-template-areas: 'input label' '. helperText' '. errors';
+	grid-template-columns: auto 1fr;
+	grid-template-rows: auto auto auto;
+	justify-items: start;
+	align-items: center;
+}
+
+.label {
+	grid-area: label;
+}
+
+.helperText {
+	grid-area: helperText;
+}
+
+.errors {
+	grid-area: errors;
+}

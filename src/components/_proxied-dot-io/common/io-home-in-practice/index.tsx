@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Button from '@hashicorp/react-button'
 import { Products } from '@hashicorp/platform-product-meta'
 import { IoCardProps } from 'components/_proxied-dot-io/common/io-card'
@@ -12,7 +12,7 @@ interface IoHomeInPracticeProps {
 	heading: string
 	description: string
 	cards: Array<IoCardProps>
-	cta: {
+	cta?: {
 		heading: string
 		description: string
 		link: string
@@ -51,7 +51,7 @@ export default function IoHomeInPractice({
 					cards={cards}
 				/>
 
-				{cta.heading ? (
+				{cta ? (
 					<div className={s.inPracticeCta}>
 						<div className={s.inPracticeCtaContent}>
 							<h3 className={s.inPracticeCtaHeading}>{cta.heading}</h3>

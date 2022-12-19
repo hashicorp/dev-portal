@@ -3,7 +3,8 @@ import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-ro
 
 const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
 	'terraform',
-	'enterprise'
+	'enterprise',
+	{ projectName: 'Terraform Enterprise' }
 )
 
 export { getStaticProps, getStaticPaths }

@@ -1,28 +1,29 @@
 .root {
-  align-items: center;
-  border-color: transparent;
-  border-radius: 4px;
-  border-style: solid;
-  border-width: 1px;
-  display: inline-flex;
-  font-size: var(--font-size);
-  font-weight: 500;
-  justify-content: center;
-  line-height: var(--line-height);
-  min-height: var(--min-height);
-  padding: var(--padding-top-bottom) var(--padding-left-right);
-  width: fit-content;
+	align-items: center;
+	border-color: transparent;
+	border-radius: 4px;
+	border-style: solid;
+	border-width: 1px;
+	display: inline-flex;
+	font-family: var(--token-typography-font-stack-text);
+	font-size: var(--font-size);
+	font-weight: 500;
+	justify-content: center;
+	line-height: var(--line-height);
+	min-height: var(--min-height);
+	padding: var(--padding-top-bottom) var(--padding-left-right);
+	width: fit-content;
 
-  /* HDS Badge has 12px icons when size="small" */
-  & svg {
-    height: var(--icon-size);
-    line-height: var(--line-height);
-    width: var(--icon-size);
+	/* HDS Badge has 12px icons when size="small" */
+	& svg {
+		height: var(--icon-size);
+		line-height: var(--line-height);
+		width: var(--icon-size);
 
-    &:not(:only-child) {
-      margin-right: var(--icon-margin);
-    }
-  }
+		&:not(:only-child) {
+			margin-right: var(--icon-margin);
+		}
+	}
 }
 
 /*
@@ -32,33 +33,33 @@
 */
 
 .small {
-  --font-size: 0.8125rem;
-  --icon-margin: 4px;
-  --icon-size: 12px;
-  --line-height: 1.23077;
-  --min-height: 1.25rem;
-  --padding-left-right: 5px;
-  --padding-top-bottom: 1px;
+	--font-size: 0.8125rem;
+	--icon-margin: 4px;
+	--icon-size: 12px;
+	--line-height: 1.23077;
+	--min-height: 1.25rem;
+	--padding-left-right: 5px;
+	--padding-top-bottom: 1px;
 }
 
 .medium {
-  --font-size: 0.8125rem;
-  --icon-margin: 4px;
-  --icon-size: 16px;
-  --line-height: 1.23077;
-  --min-height: 1.5rem;
-  --padding-left-right: 7px;
-  --padding-top-bottom: 3px;
+	--font-size: 0.8125rem;
+	--icon-margin: 4px;
+	--icon-size: 16px;
+	--line-height: 1.23077;
+	--min-height: 1.5rem;
+	--padding-left-right: 7px;
+	--padding-top-bottom: 3px;
 }
 
 .large {
-  --font-size: 1rem;
-  --icon-margin: 6px;
-  --icon-size: 16px;
-  --line-height: 1.5;
-  --min-height: 2rem;
-  --padding-left-right: 7px;
-  --padding-top-bottom: 3px;
+	--font-size: 1rem;
+	--icon-margin: 6px;
+	--icon-size: 16px;
+	--line-height: 1.5;
+	--min-height: 2rem;
+	--padding-left-right: 7px;
+	--padding-top-bottom: 3px;
 }
 
 /*
@@ -68,97 +69,97 @@
 */
 
 .filled-neutral {
-  background-color: var(--token-color-surface-strong);
-  color: var(--token-color-foreground-primary);
+	background-color: var(--token-color-surface-strong);
+	color: var(--token-color-foreground-primary);
 }
 
 .inverted-neutral {
-  background-color: var(--token-color-foreground-faint);
-  color: var(--token-color-foreground-high-contrast);
+	background-color: var(--token-color-foreground-faint);
+	color: var(--token-color-foreground-high-contrast);
 }
 
 .outlined-neutral {
-  background-color: transparent;
-  border-color: var(--token-color-foreground-faint);
-  color: var(--token-color-foreground-primary);
+	background-color: transparent;
+	border-color: var(--token-color-foreground-faint);
+	color: var(--token-color-foreground-primary);
 }
 
 .filled-neutral-dark-mode {
-  background-color: var(--token-color-foreground-faint);
-  color: var(--token-color-foreground-high-contrast);
+	background-color: var(--token-color-foreground-faint);
+	color: var(--token-color-foreground-high-contrast);
 }
 
 .inverted-neutral-dark-mode {
-  background-color: var(--token-color-surface-faint);
-  color: var(--token-color-foreground-primary);
+	background-color: var(--token-color-surface-faint);
+	color: var(--token-color-foreground-primary);
 }
 
 .outlined-neutral-dark-mode {
-  background-color: transparent;
-  border-color: var(--token-color-palette-neutral-100);
-  color: var(--token-color-foreground-high-contrast);
+	background-color: transparent;
+	border-color: var(--token-color-palette-neutral-100);
+	color: var(--token-color-foreground-high-contrast);
 }
 
 .filled-highlight {
-  background-color: var(--token-color-surface-highlight);
-  color: var(--token-color-foreground-highlight-on-surface);
+	background-color: var(--token-color-surface-highlight);
+	color: var(--token-color-foreground-highlight-on-surface);
 }
 
 .inverted-highlight {
-  background-color: var(--token-color-foreground-highlight);
-  color: var(--token-color-foreground-high-contrast);
+	background-color: var(--token-color-foreground-highlight);
+	color: var(--token-color-foreground-high-contrast);
 }
 
 .outlined-highlight {
-  background-color: transparent;
-  border-color: currentColor;
-  color: var(--token-color-foreground-highlight);
+	background-color: transparent;
+	border-color: currentColor;
+	color: var(--token-color-foreground-highlight);
 }
 
 .filled-success {
-  background-color: var(--token-color-surface-success);
-  color: var(--token-color-foreground-success-on-surface);
+	background-color: var(--token-color-surface-success);
+	color: var(--token-color-foreground-success-on-surface);
 }
 
 .inverted-success {
-  background-color: var(--token-color-foreground-success);
-  color: var(--token-color-foreground-high-contrast);
+	background-color: var(--token-color-foreground-success);
+	color: var(--token-color-foreground-high-contrast);
 }
 
 .outlined-success {
-  background-color: transparent;
-  border-color: currentColor;
-  color: var(--token-color-foreground-success);
+	background-color: transparent;
+	border-color: currentColor;
+	color: var(--token-color-foreground-success);
 }
 
 .filled-warning {
-  background-color: var(--token-color-surface-warning);
-  color: var(--token-color-foreground-warning-on-surface);
+	background-color: var(--token-color-surface-warning);
+	color: var(--token-color-foreground-warning-on-surface);
 }
 
 .inverted-warning {
-  background-color: var(--token-color-foreground-warning);
-  color: var(--token-color-foreground-high-contrast);
+	background-color: var(--token-color-foreground-warning);
+	color: var(--token-color-foreground-high-contrast);
 }
 
 .outlined-warning {
-  background-color: transparent;
-  border-color: currentColor;
-  color: var(--token-color-foreground-warning);
+	background-color: transparent;
+	border-color: currentColor;
+	color: var(--token-color-foreground-warning);
 }
 
 .filled-critical {
-  background-color: var(--token-color-surface-critical);
-  color: var(--token-color-foreground-critical-on-surface);
+	background-color: var(--token-color-surface-critical);
+	color: var(--token-color-foreground-critical-on-surface);
 }
 
 .inverted-critical {
-  background-color: var(--token-color-foreground-critical);
-  color: var(--token-color-foreground-high-contrast);
+	background-color: var(--token-color-foreground-critical);
+	color: var(--token-color-foreground-high-contrast);
 }
 
 .outlined-critical {
-  background-color: transparent;
-  border-color: currentColor;
-  color: var(--token-color-foreground-critical);
+	background-color: transparent;
+	border-color: currentColor;
+	color: var(--token-color-foreground-critical);
 }

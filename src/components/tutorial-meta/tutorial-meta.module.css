@@ -30,3 +30,13 @@
 	color: var(--token-color-foreground-primary);
 	margin-top: 32px;
 }
+
+.buttonGroup {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+
+	@media (--medium-up) {
+		flex-direction: row;
+	}
+}

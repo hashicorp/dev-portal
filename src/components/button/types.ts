@@ -1,5 +1,3 @@
-import { ReactElement } from 'react'
-
 /**
  * All props the native <button> HTML element accepts
  */
@@ -52,7 +50,7 @@ interface ButtonProps extends PickedNativeButtonProps {
 	 * }
 	 * ```
 	 */
-	icon?: ReactElement
+	icon?: JSX.IntrinsicElements['svg']
 
 	/**
 	 * Where the icon should be rendered within the button. 'leading' will render
@@ -78,6 +76,11 @@ interface ButtonProps extends PickedNativeButtonProps {
 	 * buttons.
 	 */
 	text?: string
+
+	/**
+	 * A data-heap-track string to add to the <button /> element.
+	 */
+	'data-heap-track'?: string
 }
 
 export type { ButtonProps }

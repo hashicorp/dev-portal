@@ -60,13 +60,13 @@ const dotIoRewrites = productsToProxy.reduce((acc, slug) => {
 			]
 		}
 
-		// To enable previewing of .io sites, we accept an io_preview cookie which must have a value matching a product slug
+		// To enable previewing of .io sites, we accept an hc_dd_proxied_site cookie which must have a value matching a product slug
 		if (isPreview()) {
 			rewrite.has = [
 				{
 					type: 'cookie',
-					key: 'io_preview',
-					value: slug,
+					key: 'hc_dd_proxied_site',
+					value: proxySettings[slug].host,
 				},
 			]
 		}

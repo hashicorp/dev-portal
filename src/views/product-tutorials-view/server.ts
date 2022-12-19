@@ -1,4 +1,4 @@
-import { LearnProductData } from 'types/products'
+import { LearnProductData, LearnProductName } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import {
 	getAllCollections,
@@ -7,24 +7,24 @@ import {
 import { getProduct } from 'lib/learn-client/api/product'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { sortAlphabetically } from 'lib/sort-alphabetically'
-import { formatSidebarCategorySections } from 'views/collection-view/helpers'
-import getProductPageContent from './helpers/get-product-page-content'
+import {
+	formatSidebarCategorySections,
+	buildCategorizedHcpSidebar,
+} from 'views/collection-view/helpers'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
-import {
-	InlineCollections,
-	InlineTutorials,
-} from './helpers/get-inline-content'
 import { filterCollections } from './helpers'
-import processPageData from './helpers/process-page-data'
-import { buildLayoutHeadings } from './helpers/heading-helpers'
-import { ProductViewBlock } from './components/product-view-content'
-import { ProductTutorialsSitemapProps } from './components/sitemap/types'
+import { SitemapCollection } from './components/sitemap/types'
 import { formatSitemapCollection } from './components/sitemap/helpers'
 import { ThemeOption } from 'lib/learn-client/types'
 import { cachedGetProductData } from 'lib/get-product-data'
+import getProcessedPageData from './helpers/page-data'
+import { ProductPageData } from './helpers/page-data/types'
 
 export interface ProductTutorialsViewProps {
+	metadata: {
+		title: string
+	}
 	data: ProductPageData
 	layoutProps: ProductTutorialsLayout
 	product: LearnProductData
@@ -36,45 +36,38 @@ interface ProductTutorialsLayout {
 	sidebarSections: CollectionCategorySidebarSection[]
 }
 
-export interface ProductPageData {
-	pageData: {
-		blocks: ProductViewBlock[]
-		showProductSitemap?: boolean
-	}
-	allCollections: ProductTutorialsSitemapProps['collections']
-	inlineCollections: InlineCollections
-	inlineTutorials: InlineTutorials
-}
-
 /**
  * Note: this is a stub to get the /hcp/tutorials rendering.
  * TODO: figure out what to do with the /hcp/tutorials view (design dependent).
  * Taking this temporary approach for now while awaiting final designs.
  */
-export async function getCloudTutorialsViewProps() {
+export async function getCloudTutorialsViewProps(): Promise<{
+	props: ProductTutorialsViewProps
+}> {
 	const productData = cachedGetProductData('hcp')
+
+	/**
+	 * Fetch and process the authored page content
+	 */
+	const { pageData, headings } = await getProcessedPageData(ThemeOption.cloud)
 
 	/**
 	 * Build the sidebar
 	 */
 	const hcpCollections = await getCollectionsBySection('cloud')
-	const sidebarSections = formatSidebarCategorySections(hcpCollections)
+	const sidebarSections = buildCategorizedHcpSidebar(hcpCollections)
 
 	/**
-	 * Get the raw page data
+	 * Build sitemap collections, if we're using them.
 	 */
-	const {
-		pageData: rawPageData,
-		inlineCollections,
-		inlineTutorials,
-	} = await getProductPageContent(ThemeOption.cloud)
+	let sitemapCollections: SitemapCollection[]
+	if (pageData.showProductSitemap) {
+		sitemapCollections = hcpCollections.map(formatSitemapCollection)
+	}
 
 	/**
-	 * Process page data, reformatting as needed.
-	 * Includes parsing headings, for use with the page's sidecar
+	 * Return static props
 	 */
-	const { pageData, headings } = await processPageData(rawPageData)
-
 	return {
 		props: stripUndefinedProperties({
 			metadata: {
@@ -82,9 +75,7 @@ export async function getCloudTutorialsViewProps() {
 			},
 			data: {
 				pageData,
-				inlineCollections,
-				inlineTutorials,
-				allCollections: hcpCollections,
+				sitemapCollections,
 			},
 			layoutProps: {
 				headings,
@@ -93,7 +84,10 @@ export async function getCloudTutorialsViewProps() {
 				}),
 				sidebarSections,
 			},
-			product: productData,
+			// Note: should likely remove type casting here,
+			// it's currently needed because "hcp" is not a valid LearnProductName.
+			// Kind of a $TSFixMe.
+			product: productData as LearnProductData,
 		}),
 	}
 }
@@ -110,14 +104,12 @@ export async function getProductTutorialsViewProps(
 	productData: LearnProductData
 ): Promise<{ props: ProductTutorialsViewProps }> {
 	const productSlug = productData.slug
+
 	/**
-	 * Get the raw page data
+	 * Fetch and process the authored page content
 	 */
-	const {
-		pageData: rawPageData,
-		inlineCollections,
-		inlineTutorials,
-	} = await getProductPageContent(productSlug)
+	const { pageData, headings } = await getProcessedPageData(productSlug)
+
 	/**
 	 * Get the product data, and all collections,
 	 * both of which are needed for layoutProps
@@ -130,26 +122,27 @@ export async function getProductTutorialsViewProps(
 		allProductCollections,
 		productSlug
 	)
-	/**
-	 * Process page data, reformatting as needed.
-	 * Includes parsing headings, for use with the page's sidecar
-	 */
-	const { pageData } = await processPageData(rawPageData)
+
 	/**
 	 * Build & return layout props to pass to SidebarSidecarLayout
 	 */
 	const layoutProps: ProductTutorialsLayout = {
-		headings: buildLayoutHeadings(pageData),
+		headings,
 		breadcrumbLinks: getTutorialsBreadcrumb({
 			product: { name: product.name, filename: product.slug },
 		}),
 		sidebarSections: formatSidebarCategorySections(filteredCollections),
 	}
 
-	const sitemapCollections: ProductTutorialsSitemapProps['collections'] =
-		filteredCollections
+	/**
+	 * Build sitemap collections, if we're using them.
+	 */
+	let sitemapCollections: SitemapCollection[]
+	if (pageData.showProductSitemap) {
+		sitemapCollections = filteredCollections
 			.sort(sortAlphabetically('name'))
 			.map(formatSitemapCollection)
+	}
 
 	/**
 	 * Destructuring the Learn data for now so it can be treated as the source of
@@ -160,6 +153,10 @@ export async function getProductTutorialsViewProps(
 	 * here.
 	 */
 	const { description, docsUrl, id, name, slug } = product
+
+	/**
+	 * Return static props
+	 */
 	return {
 		props: stripUndefinedProperties({
 			metadata: {
@@ -167,9 +164,7 @@ export async function getProductTutorialsViewProps(
 			},
 			data: {
 				pageData,
-				allCollections: sitemapCollections,
-				inlineCollections,
-				inlineTutorials,
+				sitemapCollections,
 			},
 			layoutProps,
 			product: {
@@ -177,7 +172,7 @@ export async function getProductTutorialsViewProps(
 				description,
 				docsUrl,
 				id,
-				name,
+				name: name as LearnProductName,
 				slug,
 			},
 		}),

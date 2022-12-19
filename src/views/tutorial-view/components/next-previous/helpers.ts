@@ -54,16 +54,14 @@ export function getNextPrevious({
 		}
 	}
 
-	/**
-	 * @TODO - interim state for 'final' link
-	 * This link shows on the last tutorial in the last collection in sidebar order
-	 * In learn, it links to a filtered advanced search page state
-	 * e.g. https://learn.hashicorp.com/search?product=waypoint&page=1
-	 *
-	 * Since don't have an advanced search page for beta,
-	 * were linking folks back to the baseproduct tutorials page.
-	 */
-	const finalLink = `/${currentCollection.theme}/tutorials`
+	let finalLink = getTutorialLibraryLink(currentCollection.theme)
+	const currentCollectionSection = currentCollection.slug.split('/')[0]
+
+	if (currentCollectionSection === 'well-architected-framework') {
+		finalLink = '/well-architected-framework'
+	} else if (currentCollectionSection === 'onboarding') {
+		finalLink = '/tutorials/library'
+	}
 
 	const tutorial = {
 		previous: previousTutorial,
@@ -85,4 +83,21 @@ export function getNextPrevious({
 		collection,
 		finalLink,
 	}
+}
+
+function getTutorialLibraryLink(theme: ClientCollection['theme']) {
+	const path = `/tutorials/library`
+	const searchParams = new URLSearchParams()
+
+	if (theme === 'hashicorp') {
+		return path
+	}
+
+	if (theme === 'cloud') {
+		searchParams.set('edition', 'hcp')
+	} else {
+		searchParams.set('product', theme)
+	}
+
+	return `${path}?${searchParams.toString()}`
 }

@@ -23,6 +23,7 @@ interface InstruqtProviderProps {
 }
 
 const InstruqtContext = createContext<Partial<InstruqtContextProps>>({})
+InstruqtContext.displayName = 'InstruqtContext'
 
 export const useInstruqtEmbed = (): Partial<InstruqtContextProps> =>
 	useContext(InstruqtContext)

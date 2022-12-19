@@ -5,6 +5,7 @@ import classNames from 'classnames'
 // HashiCorp imports
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconExternalLink24 } from '@hashicorp/flight-icons/svg-react/external-link-24'
+import { IconInfo24 } from '@hashicorp/flight-icons/svg-react/info-24'
 import CodeBlock from '@hashicorp/react-code-block'
 import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 
@@ -24,12 +25,9 @@ import VersionContextSwitcher from 'components/version-context-switcher'
 
 // Local imports
 import { DownloadsSectionProps } from './types'
-import {
-	generateCodePropFromCommands,
-	groupDownloadsByOS,
-	groupPackageManagersByOS,
-} from './helpers'
+import { groupDownloadsByOS, groupPackageManagersByOS } from './helpers'
 import s from './downloads-section.module.css'
+import { PackageManager } from 'views/product-downloads-view/types'
 
 const SHARED_HEADING_LEVEL_3_PROPS = {
 	className: s.subHeading,
@@ -38,7 +36,13 @@ const SHARED_HEADING_LEVEL_3_PROPS = {
 	weight: 'semibold' as HeadingProps['weight'],
 }
 
-const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
+const PackageManagerSection = ({
+	packageManagers,
+	prettyOSName,
+}: {
+	packageManagers: PackageManager[]
+	prettyOSName: string
+}) => {
 	const hasOnePackageManager = packageManagers?.length === 1
 	const hasManyPackageManagers = packageManagers?.length > 1
 	const hasPackageManagers = hasOnePackageManager || hasManyPackageManagers
@@ -57,19 +61,18 @@ const PackageManagerSection = ({ packageManagers, prettyOSName }) => {
 			</Heading>
 			{hasOnePackageManager && (
 				<CodeBlock
-					code={generateCodePropFromCommands(packageManagers[0].commands)}
+					code={packageManagers[0].installCodeHtml}
 					language="shell-session"
 					options={{ showClipboard: true }}
 				/>
 			)}
 			{hasManyPackageManagers && (
 				<CodeTabs tabs={packageManagers.map(({ label }) => label)}>
-					{packageManagers.map(({ label, commands }) => {
+					{packageManagers.map(({ label, installCodeHtml }) => {
 						return (
 							<CodeBlock
 								key={label}
-								className={s.codeTabsCodeBlock}
-								code={generateCodePropFromCommands(commands)}
+								code={installCodeHtml}
 								language="shell-session"
 								options={{ showClipboard: true }}
 							/>
@@ -158,7 +161,7 @@ const ChangelogSection = ({ selectedRelease }) => {
 					size16Icon={<IconExternalLink16 />}
 					size24Icon={<IconExternalLink24 />}
 					iconPosition="trailing"
-					openInNewTab
+					opensInNewTab
 					text="GitHub"
 				/>
 			</Card>
@@ -207,7 +210,44 @@ const NotesSection = ({ selectedRelease }) => {
 	)
 }
 
+/**
+ * @TODO replace with InlineAlert
+ * ref: https://design-system-components-hashicorp.vercel.app/components/alert
+ */
+const EnterpriseLegalNotice = () => {
+	return (
+		<div className={s.enterpriseLegalNotice}>
+			<IconInfo24 className={s.enterpriseLegalNoticeIcon} />
+			<div>
+				<Text
+					asElement="p"
+					className={s.enterpriseLegalNoticeTitle}
+					size={200}
+					weight="semibold"
+				>
+					Terms of use
+				</Text>
+				<Text
+					asElement="p"
+					className={s.enterpriseLegalNoticeText}
+					size={200}
+					weight="regular"
+				>
+					The following shall apply unless your organization has a separately
+					signed Enterprise License Agreement or Evaluation Agreement governing
+					your use of the package: Enterprise packages in this repository are
+					subject to the license terms located in the package. Please read the
+					license terms prior to using the package. Your installation and use of
+					the package constitutes your acceptance of these terms. If you do not
+					accept the terms, do not use the package.
+				</Text>
+			</div>
+		</div>
+	)
+}
+
 const DownloadsSection = ({
+	isEnterpriseMode = false,
 	packageManagers,
 	selectedRelease,
 	versionSwitcherOptions,
@@ -270,6 +310,7 @@ const DownloadsSection = ({
 									/>
 									<ChangelogSection selectedRelease={selectedRelease} />
 									<NotesSection selectedRelease={selectedRelease} />
+									{isEnterpriseMode ? <EnterpriseLegalNotice /> : null}
 								</div>
 							</Tab>
 						)

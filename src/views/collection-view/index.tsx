@@ -1,5 +1,4 @@
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
-import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	generateProductLandingSidebarNavData,
@@ -8,8 +7,6 @@ import {
 import TutorialsSidebar, {
 	CollectionViewSidebarContent,
 } from 'components/tutorials-sidebar'
-import OptInOut from 'components/opt-in-out'
-import { getTutorialSlug } from './helpers'
 import { CollectionPageProps } from './server'
 import CollectionMeta from './components/collection-meta'
 import CollectionTutorialList from './components/collection-tutorial-list'
@@ -20,8 +17,7 @@ function CollectionView({
 	layoutProps,
 	product,
 }: CollectionPageProps): React.ReactElement {
-	useOptInAnalyticsTracking('learn')
-	const { name, slug, description, tutorials, ordered } = collection
+	const { name, description, tutorials, ordered } = collection
 
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(product.name),
@@ -55,25 +51,25 @@ function CollectionView({
 			 * a follow-up PR since this is functional for the time being.
 			 */
 			sidebarNavDataLevels={sidebarNavDataLevels as any}
-			optInOutSlot={<OptInOut platform="learn" />}
 			sidecarSlot={null}
 		>
 			<CollectionMeta
+				collection={collection}
 				// Note: id is passed here because it is required by <Heading />,
 				// it's not used for #anchor linking since there is no sidecar.
 				heading={{ text: name, id: collection.id }}
 				description={description}
-				cta={{ href: getTutorialSlug(tutorials[0].slug, slug) }}
-				numTutorials={tutorials.length}
 			/>
 			<CollectionTutorialList
 				isOrdered={ordered}
 				tutorials={tutorials.map((t: ClientTutorialLite) =>
-					formatTutorialCard(t, slug)
+					formatTutorialCard(t, collection)
 				)}
 			/>
 		</SidebarSidecarLayout>
 	)
 }
+
+CollectionView.contentType = 'tutorials'
 
 export default CollectionView

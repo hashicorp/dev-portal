@@ -3,7 +3,8 @@ import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-ro
 
 const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
 	'terraform',
-	'cdktf'
+	'cdktf',
+	{ projectName: 'CDK For Terraform' }
 )
 
 export { getStaticProps, getStaticPaths }

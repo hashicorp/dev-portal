@@ -14,19 +14,19 @@ function DownloadsPage({ product, releases, latestVersion }) {
 			getStartedLinks={[
 				{
 					label: 'Getting Started',
-					href: 'https://learn.hashicorp.com/collections/nomad/get-started',
+					href: 'https://developer.hashicorp.com/nomad/tutorials/get-started',
 				},
 				{
 					label: 'Deploy and Manage Nomad Jobs',
-					href: 'https://learn.hashicorp.com/collections/nomad/manage-jobs',
+					href: 'https://developer.hashicorp.com/nomad/tutorials/manage-jobs',
 				},
 				{
 					label: 'Explore the Nomad Web UI',
-					href: 'https://learn.hashicorp.com/collections/nomad/web-ui',
+					href: 'https://developer.hashicorp.com/nomad/tutorials/web-ui',
 				},
 				{
 					label: 'View all Nomad tutorials',
-					href: 'https://learn.hashicorp.com/nomad',
+					href: 'https://developer.hashicorp.com/nomad/tutorials',
 				},
 			]}
 			logo={
@@ -37,8 +37,8 @@ function DownloadsPage({ product, releases, latestVersion }) {
 				/>
 			}
 			tutorialLink={{
-				href: 'https://learn.hashicorp.com/nomad',
-				label: 'View Tutorials at HashiCorp Learn',
+				href: 'https://developer.hashicorp.com/nomad/tutorials',
+				label: 'View Tutorials',
 			}}
 			merchandisingSlot={
 				<p className={s.legalNotice}>
@@ -53,6 +53,24 @@ function DownloadsPage({ product, releases, latestVersion }) {
 					</em>
 				</p>
 			}
+			packageManagerOverrides={[
+				{
+					label: 'Homebrew',
+					commands: [
+						`brew tap hashicorp/tap`,
+						`brew install hashicorp/tap/${product}-enterprise`,
+					],
+					os: 'darwin',
+				},
+				{
+					label: 'Homebrew',
+					commands: [
+						`brew tap hashicorp/tap`,
+						`brew install hashicorp/tap/${product}-enterprise`,
+					],
+					os: 'linux',
+				},
+			]}
 		/>
 	)
 }

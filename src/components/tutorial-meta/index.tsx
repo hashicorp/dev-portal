@@ -6,6 +6,7 @@ import Text from 'components/text'
 import { Badges, getIsBeta } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
+import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -13,17 +14,22 @@ interface TutorialMetaProps {
 		isInteractive: boolean
 		hasVideo: boolean
 	}
+	tutorialId: TutorialData['id']
 }
 
-export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
+export default function TutorialMeta({
+	heading,
+	meta,
+	tutorialId,
+}: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 
 	/**
 	 * We only need to show the Create Account CTA if auth is enabled and there is
 	 * not already a user authenticated.
 	 */
-	const { isAuthenticated, isAuthEnabled, isLoading } = useAuthentication()
-	const showCreateAccountCta = isAuthEnabled && !isLoading && !isAuthenticated
+	const { isAuthenticated, isLoading } = useAuthentication()
+	const showCreateAccountCta = !isLoading && !isAuthenticated
 
 	return (
 		<header className={s.header}>
@@ -50,12 +56,19 @@ export default function TutorialMeta({ heading, meta }: TutorialMetaProps) {
 						isInteractive,
 					}}
 				/>
-				<InteractiveLabButton />
+				<span className={s.buttonGroup}>
+					<InteractiveLabButton />
+					<TutorialMetaBookmarkButton
+						tutorial={{ id: tutorialId, name: heading.text }}
+					/>
+				</span>
 				{showCreateAccountCta ? (
-					<Text className={s.createAccountCta}>
+					<Text className={s.createAccountCta} size={200}>
 						Reference this often?{' '}
-						<InlineLink href="/sign-up">Create an account</InlineLink> to
-						bookmark tutorials.
+						<InlineLink href="/sign-up" textSize={200}>
+							Create an account
+						</InlineLink>{' '}
+						to bookmark tutorials.
 					</Text>
 				) : null}
 			</div>

@@ -97,7 +97,7 @@ function Image({
 					title={title}
 					width={dimensions.width}
 					height={dimensions.height}
-					layout="raw"
+					style={style}
 				/>
 			) : (
 				<img src={src} alt={alt} title={title} style={style} />

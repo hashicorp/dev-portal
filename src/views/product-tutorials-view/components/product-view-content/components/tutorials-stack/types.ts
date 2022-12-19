@@ -1,4 +1,4 @@
-import { Tutorial as ClientTutorial } from 'lib/learn-client/types'
+import { TutorialCardPropsWithId } from 'components/tutorial-card'
 
 export interface TutorialsStackProps {
 	/** Heading to show above the tutorial cards. */
@@ -10,5 +10,5 @@ export interface TutorialsStackProps {
 	headingSlug?: string
 	/** Subheading to show above the tutorial cards. */
 	subheading?: string
-	featuredTutorials: ClientTutorial[]
+	tutorialCards: TutorialCardPropsWithId[]
 }

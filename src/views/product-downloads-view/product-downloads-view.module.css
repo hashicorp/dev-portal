@@ -1,0 +1,14 @@
+.heading2 {
+	/* composition */
+	composes: hds-typography-display-300 from global;
+	composes: hds-font-weight-bold from global;
+
+	/* properties */
+	color: var(--token-color-foreground-strong);
+	margin-bottom: 12px;
+	margin-top: 48px;
+}
+
+.sidecarTryHcpCallout {
+	margin-top: 24px;
+}

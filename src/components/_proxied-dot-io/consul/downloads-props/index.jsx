@@ -8,28 +8,28 @@ export default function DownloadsProps(preMerchandisingSlot) {
 		getStartedLinks: [
 			{
 				label: 'CLI Quickstart',
-				href: 'https://learn.hashicorp.com/collections/consul/getting-started',
+				href: 'https://developer.hashicorp.com/consul/tutorials/get-started-vms',
 			},
 			{
 				label: 'HCP Consul',
-				href: 'https://learn.hashicorp.com/collections/consul/cloud-get-started',
+				href: 'https://developer.hashicorp.com/consul/tutorials/get-started-hcp',
 			},
 			{
 				label: 'HCS on Azure',
-				href: 'https://learn.hashicorp.com/collections/consul/hcs-azure',
+				href: 'https://developer.hashicorp.com/consul/tutorials/hcs-azure',
 			},
 			{
 				label: 'Kubernetes Quickstart',
-				href: 'https://learn.hashicorp.com/collections/consul/gs-consul-service-mesh',
+				href: 'https://developer.hashicorp.com/consul/tutorials/get-started-kubernetes',
 			},
 			{
 				label: 'View all Consul tutorials',
-				href: 'https://learn.hashicorp.com/consul',
+				href: 'https://developer.hashicorp.com/consul/tutorials',
 			},
 		],
 		tutorialLink: {
-			href: 'https://learn.hashicorp.com/consul',
-			label: 'View Tutorials at HashiCorp Learn',
+			href: 'https://developer.hashicorp.com/consul/tutorials',
+			label: 'View Tutorials',
 		},
 		logo: (
 			<img
@@ -50,7 +50,7 @@ export default function DownloadsProps(preMerchandisingSlot) {
 						<Button
 							title="Try HCP Consul"
 							linkType="inbound"
-							url="https://portal.cloud.hashicorp.com/sign-up?utm_source=consul_io&utm_content=download_cta"
+							url="https://portal.cloud.hashicorp.com/sign-up"
 							theme={{
 								variant: 'tertiary',
 								brand: 'consul',

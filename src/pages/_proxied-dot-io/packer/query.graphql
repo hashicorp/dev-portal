@@ -1,0 +1,124 @@
+query homepageQuery {
+	packerHomepage {
+		seo: _seoMetaTags {
+			attributes
+			content
+			tag
+		}
+		heroHeading
+		heroDescription
+		heroCtas {
+			title
+			link
+		}
+		heroCards {
+			heading
+			description
+			cta {
+				title
+				link
+			}
+			subText: subtext
+		}
+		introHeading
+		introDescription
+		introOfferingsImage {
+			url
+			width
+			height
+			alt
+		}
+		introOfferings {
+			heading
+			description
+		}
+		introOfferingsCta {
+			title
+			link
+		}
+		introCallout {
+			link
+			heading
+			description
+			cta
+			thumbnail {
+				url
+				width
+				height
+				alt
+			}
+		}
+		introVideo {
+			youtubeId
+			heading
+			description
+			thumbnail {
+				url
+			}
+			personName
+			personDescription
+			personAvatar {
+				url
+			}
+		}
+		introVideo {
+			youtubeId
+			heading
+			description
+			thumbnail {
+				url
+			}
+			personName
+			personDescription
+			personAvatar {
+				url
+			}
+		}
+		inPracticeHeading
+		inPracticeDescription
+		inPracticeCards {
+			eyebrow
+			heading
+			description
+			link
+			products {
+				name
+			}
+		}
+		useCasesHeading
+		useCasesDescription
+		useCases {
+			heroHeading
+			heroDescription
+			slug
+		}
+		caseStudiesHeading
+		caseStudiesDescription
+		caseStudiesFeatured {
+			thumbnail {
+				url
+				alt
+			}
+			heading
+			link
+		}
+		caseStudiesLinks {
+			heading
+			link
+		}
+		callToActionHeading
+		callToActionDescription
+		callToActionCtas {
+			text: title
+			url: link
+		}
+		preFooterHeading
+		preFooterDescription
+		preFooterCtas {
+			link
+			heading
+			description
+			cta
+		}
+	}
+}

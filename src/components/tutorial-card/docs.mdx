@@ -6,8 +6,10 @@ Displays a linked card to a tutorial.
 
 ## Examples
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <TutorialCard
+    url="/"
     duration='10min'
     heading='Vault as Consul Connect Service Mesh Certification Authority'
     description={
@@ -17,9 +19,11 @@ Displays a linked card to a tutorial.
     hasInteractiveLab={true}
     hasVideo={true}
 />
-`}</LiveComponent>
+`}
+</LiveComponent>
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <TutorialCard
     url='/vault/tutorials/openldap'
     duration='13min'
@@ -31,13 +35,15 @@ Displays a linked card to a tutorial.
     hasInteractiveLab={true}
     hasVideo={false}
 />
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 ## Note on truncation
 
 `TutorialCard` uses CSS-based truncation to limit the number of `description` lines to `3`.
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <div style={{ maxWidth: '400px' }}>
   <TutorialCard
     url='/vault/tutorials/openldap'
@@ -51,4 +57,27 @@ Displays a linked card to a tutorial.
     hasVideo={false}
   />
 </div>
-`}</LiveComponent>
+`}
+</LiveComponent>
+
+## Custom Eyebrow
+
+The `eyebrowSlot` option allows for rendering a custom component in the eyebrow card section. If nothing is passed,
+the tutorial duration will render as a default.
+
+<LiveComponent>
+{`
+<TutorialCard
+    url="/"
+    duration='10min'
+    eyebrowSlot="This is an eyebrow"
+    heading='Vault as Consul Connect Service Mesh Certification Authority'
+    description={
+        'Use Vault to automatically generate Consul Connect service mesh certificates.'
+    }
+    productsUsed={['vault', 'consul', 'terraform', 'nomad', 'boundary']}
+    hasInteractiveLab={true}
+    hasVideo={true}
+/>
+`}
+</LiveComponent>

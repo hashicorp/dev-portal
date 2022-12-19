@@ -2,15 +2,20 @@ import fs from 'fs'
 import path from 'path'
 import grayMatter from 'gray-matter'
 import { Pluggable } from 'unified'
+import { ProductData } from 'types/products'
 import {
 	getNodeFromPath,
 	getPathsFromNavData,
 } from '@hashicorp/react-docs-page/server'
 import renderPageMdx from '@hashicorp/react-docs-page/render-page-mdx'
+import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
+import { getProductUrlAdjuster } from 'views/docs-view/utils/product-url-adjusters'
 import resolveNavDataWithRemotePlugins, {
 	appendRemotePluginsNavData,
 } from './utils/resolve-nav-data'
 import fetchLatestReleaseTag from './utils/fetch-latest-release-tag'
+// packer product data
+import packerProductData from 'data/packer.json'
 // remark plugins
 import {
 	// includeMarkdown,
@@ -24,10 +29,17 @@ import rehypePrism from '@mapbox/rehype-prism'
 // alternative to the includeMarkdown plugin,
 // which we need to shim cause of how we're fetching remote content here
 import shimRemoteIncludes from 'lib/shim-remote-includes'
+import { fixupPackerPluginUrls } from './fixup-plugin-urls'
+import { fixupRedirectedPackerPlugins } from './fixup-redirected-plugin-urls'
 
-async function generateStaticPaths({ navDataFile, remotePluginsFile }) {
+async function generateStaticPaths({
+	navDataFile,
+	remotePluginsFile,
+	mainBranch = 'main',
+}) {
 	const navData = await resolveNavDataWithRemotePlugins(navDataFile, {
 		remotePluginsFile,
+		mainBranch,
 	})
 	const paths = getPathsFromNavData(navData)
 	return paths
@@ -41,6 +53,7 @@ async function generateStaticPaths({ navDataFile, remotePluginsFile }) {
 async function generateStaticProps({
 	localContentDir,
 	mainBranch = 'main',
+	editBranch = mainBranch,
 	navDataFile,
 	params,
 	product,
@@ -48,6 +61,7 @@ async function generateStaticProps({
 }: {
 	localContentDir: string
 	mainBranch?: string
+	editBranch?: string
 	navDataFile: string
 	params: { page?: string[] }
 	product: { name: string; slug: string }
@@ -61,6 +75,7 @@ async function generateStaticProps({
 	const navData = await resolveNavDataWithRemotePlugins(navDataFile, {
 		remotePluginsFile,
 		currentPath,
+		mainBranch,
 	})
 	// Attempt to match a navNode for this path.
 	// Note that we may not be able to find a match, in which case we 404.
@@ -82,10 +97,17 @@ async function generateStaticProps({
 		: fs.readFileSync(path.join(process.cwd(), filePath), 'utf8')
 	// Construct the githubFileUrl, used for "Edit this page" link
 	// Note: we expect remote files, such as those used to render plugin docs,
-	// to have a sourceUrl defined, that points to the file we built from
+	// to have a sourceUrl defined, that points to the file we built from.
+	/**
+	 * Updated note: now that we have all external plugins on a separate route,
+	 * as well as a separate `index.tsx` page file for the only non-remote
+	 * MDX file (the /plugins landing page), the second part of this conditional
+	 * is not expected to be relevant. The `editBranch` logic has been added
+	 * for completeness, it may not actually see real use.
+	 */
 	const githubFileUrl = remoteFile
 		? remoteFile.sourceUrl
-		: `https://github.com/hashicorp/${product.slug}/blob/${mainBranch}/website/${filePath}`
+		: `https://github.com/hashicorp/${product.slug}/blob/${editBranch}/website/${filePath}`
 	// If this is a plugin, and if
 	// the version has been specified as "latest",
 	// determine the tag this corresponds to, so that
@@ -128,7 +150,11 @@ async function generateStaticProps({
 			mdxContent = badgesHeaderMdx + '\n\n' + mdxContent
 		}
 
-		mdxContent = await shimRemoteIncludes(mdxContent, 'packer')
+		mdxContent = await shimRemoteIncludes(
+			mdxContent,
+			'packer',
+			`refs/heads/${mainBranch}`
+		)
 
 		return mdxContent
 	}
@@ -145,6 +171,11 @@ async function generateStaticProps({
 	}
 	const content = await mdxContentHook(rawContent)
 
+	// Set up URL adjuster function
+	const dotIoToDevDotUrlAdjuster = getProductUrlAdjuster(
+		packerProductData as ProductData
+	)
+
 	// Render MDX source, with options
 	const headings = [] // populated by anchorLinks plugin below
 	const mdxOptions: { remarkPlugins: Pluggable[]; rehypePlugins: Pluggable[] } =
@@ -153,6 +184,24 @@ async function generateStaticProps({
 				typography,
 				[anchorLinks, { headings }],
 				paragraphCustomAlerts,
+				/**
+				 * Rewrite docs content links, which are authored without prefix.
+				 * For Packer plugins, we need to account for both plugin URL
+				 * structure changes (which happened before the move to Dev Dot,
+				 * but have not yet been updated in source), as well as for
+				 * the usual dot-io-to-dev-dot transformations we run for
+				 * all other products.
+				 */
+				[
+					remarkPluginAdjustLinkUrls,
+					{
+						urlAdjustFn: (url) => {
+							const withSpecificFixes = fixupRedirectedPackerPlugins(url)
+							const withAllFixes = fixupPackerPluginUrls(withSpecificFixes)
+							return dotIoToDevDotUrlAdjuster(withAllFixes)
+						},
+					},
+				],
 			],
 			rehypePlugins: [
 				[rehypePrism, { ignoreMissing: true }],

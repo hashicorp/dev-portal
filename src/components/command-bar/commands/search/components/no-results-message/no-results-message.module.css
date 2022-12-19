@@ -1,0 +1,7 @@
+.root {
+	color: var(--token-color-foreground-primary);
+	margin-bottom: 16px;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 16px;
+}

@@ -7,6 +7,7 @@ import {
 	SidebarNavMenuItem,
 } from 'components/sidebar/components'
 import Sidebar from 'components/sidebar'
+import TutorialViewSidebarContent from './components/tutorial-view-sidebar-content'
 import {
 	ListItemProps,
 	SectionListProps,
@@ -49,7 +50,19 @@ function CollectionViewSidebarContent({
 					<Fragment key={title}>
 						<HorizontalRule />
 						{title ? <SectionTitle text={title} /> : null}
-						<SectionList items={items} />
+						<SectionList>
+							{items.map(({ text, href, isActive, badge }: ListItemProps) => {
+								return (
+									<ListItem
+										key={`${text}${href}`}
+										text={text}
+										href={href}
+										isActive={isActive}
+										badge={badge}
+									/>
+								)
+							})}
+						</SectionList>
 					</Fragment>
 				)
 			})}
@@ -57,29 +70,12 @@ function CollectionViewSidebarContent({
 	)
 }
 
-function TutorialViewSidebarContent({ items }: SectionListProps) {
-	return <SectionList items={items} />
+function SectionList({ children }: SectionListProps) {
+	return <ul className={s.listRoot}>{children}</ul>
 }
 
-function SectionList({ items }: SectionListProps) {
-	return (
-		<ul className={s.listRoot}>
-			{items.map(({ text, href, isActive }: ListItemProps) => {
-				return (
-					<ListItem
-						key={`${text}${href}`}
-						text={text}
-						href={href}
-						isActive={isActive}
-					/>
-				)
-			})}
-		</ul>
-	)
-}
-
-function ListItem({ href, isActive, text }: ListItemProps) {
-	return <SidebarNavMenuItem item={{ isActive, title: text, href }} />
+function ListItem({ href, isActive, text, badge }: ListItemProps) {
+	return <SidebarNavMenuItem item={{ isActive, title: text, href, badge }} />
 }
 
 function SectionTitle({ text }: SectionTitleProps) {

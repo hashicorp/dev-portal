@@ -2,6 +2,7 @@ import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import StandaloneLink from 'components/standalone-link'
+
 import { OverviewCtaProps } from './types'
 import s from './overview-cta.module.css'
 

@@ -1,3 +1,5 @@
+import { withTiming } from 'lib/with-timing'
+
 function getFetch() {
 	// Note: purposely doing a conditional require here so that `@vercel/fetch` is not included in the client bundle
 	if (typeof window === 'undefined') {
@@ -10,7 +12,15 @@ function getFetch() {
 
 // some of our reqs occur in a node env where fetch
 // isn't defined e.g. algolia search script
-const fetch = getFetch()
+const fetch = (...params) => {
+	const url = params[0]
+	const method = params[1]?.method || 'GET'
+	return withTiming(
+		`[lib/learn-client] (${method} ${url})`,
+		() => getFetch()(...params),
+		false
+	)
+}
 
 export function get(path: string, token?: string) {
 	const options: RequestInit = {
@@ -37,7 +47,7 @@ export function put(path, token, bodyJson) {
 	})
 }
 
-export function post(path, token, bodyJson) {
+export function post(path, token, bodyJson = {}) {
 	return fetch(`${process.env.NEXT_PUBLIC_LEARN_API_BASE_URL}${path}`, {
 		method: 'POST',
 		headers: {

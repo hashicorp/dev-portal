@@ -3,7 +3,8 @@ import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-ro
 
 const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
 	'terraform',
-	'plugin/sdkv2'
+	'plugin/sdkv2',
+	{ projectName: 'Plugin SDK' }
 )
 
 export { getStaticProps, getStaticPaths }

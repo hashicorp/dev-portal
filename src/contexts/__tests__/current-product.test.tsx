@@ -1,6 +1,6 @@
-import { ReactNode } from 'react'
+import { ReactNode, Component } from 'react'
 import { render, screen } from '@testing-library/react'
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react'
 import { Product } from 'types/products'
 import {
 	CurrentProductProvider,
@@ -9,7 +9,7 @@ import {
 
 /**
  * Handles rendering both `CurrentProductProvider` and `useCurrentProduct` using
- * the `renderHook` utility from `@testing-library/react-hooks`. Returns the
+ * the `renderHook` utility from `@testing-library/react`. Returns the
  * result of `renderHook`.
  */
 const setup = (currentProduct: Product) => {
@@ -17,14 +17,11 @@ const setup = (currentProduct: Product) => {
 		<CurrentProductProvider
 			currentProduct={{
 				...currentProduct,
-				basePaths: [],
-				navigationHeaderItems: {},
-				sidebar: {
-					landingPageNavData: [],
-				},
 				algoliaConfig: {
 					indexName: '',
 				},
+				basePaths: [],
+				rootDocsPaths: [],
 			}}
 		>
 			{children}
@@ -51,11 +48,32 @@ describe('CurrentProductContext', () => {
 	})
 
 	test('useCurrentProduct throws an error if not used within CurrentProductProvider', () => {
-		const { result } = renderHook(() => useCurrentProduct())
+		const spy = jest.spyOn(console, 'error').mockImplementation(() => void 0)
 
-		expect(result.error.message).toBe(
+		let error
+		renderHook(() => useCurrentProduct(), {
+			wrapper: class Wrapper extends Component {
+				state = { error: false }
+
+				static getDerivedStateFromError() {
+					return { error: true }
+				}
+				override componentDidCatch(err) {
+					error = err
+				}
+				override render() {
+					if (this.state.error) {
+						return null
+					}
+					return this.props.children
+				}
+			},
+		})
+		expect(error.message).toEqual(
 			'useCurrentProduct must be used within a CurrentProductProvider'
 		)
+
+		spy.mockRestore()
 	})
 
 	test('CurrentProductProvider renders its children without changes', () => {

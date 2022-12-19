@@ -1,0 +1,15 @@
+.subheading {
+	margin: 12px 0 24px 0;
+	color: var(--token-color-foreground-primary);
+
+	@media (--dev-dot-tablet-up) {
+		margin-bottom: 32px;
+	}
+}
+
+.cardListHeading {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}

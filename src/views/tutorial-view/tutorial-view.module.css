@@ -1,7 +1,7 @@
 .featuredInCollections {
-  margin-top: 32px;
+	margin-top: 32px;
 
-  @media (--dev-dot-tablet-up) {
-    margin-top: 48px;
-  }
+	@media (--dev-dot-tablet-up) {
+		margin-top: 48px;
+	}
 }

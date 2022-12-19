@@ -2,9 +2,10 @@
 import { ForwardedRef, forwardRef } from 'react'
 import classNames from 'classnames'
 import { m, useReducedMotion } from 'framer-motion'
+import { useRouter } from 'next/router'
 
 // HashiCorp imports
-import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
 import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 
 // Global imports
@@ -38,10 +39,12 @@ const MOBILE_MENU_MOTION = {
  * Intended to be used alongside `MobileMenuContainer`.
  */
 const MobileAuthenticationControls = () => {
-	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
+	const { asPath } = useRouter()
+	const { isAuthenticated, isLoading, signIn, signOut, user } =
 		useAuthentication()
+	const showUnauthenticatedUI = !isLoading && !isAuthenticated
 
-	if (!showAuthenticatedUI && !showUnauthenticatedUI) {
+	if (!isAuthenticated && !showUnauthenticatedUI) {
 		return null
 	}
 
@@ -49,30 +52,38 @@ const MobileAuthenticationControls = () => {
 	if (showUnauthenticatedUI) {
 		content = (
 			<>
+				<Button
+					icon={<IconSignIn16 />}
+					iconPosition="trailing"
+					onClick={() => signIn()}
+					size="medium"
+					text="Sign In"
+				/>
 				<ButtonLink
+					color="secondary"
 					href="/sign-up"
 					icon={<IconUserPlus16 />}
 					iconPosition="trailing"
-					size="small"
+					size="medium"
 					text="Sign Up"
-				/>
-				<Button
-					color="secondary"
-					icon={<IconArrowRight16 />}
-					iconPosition="trailing"
-					onClick={() => signIn()}
-					size="small"
-					text="Sign In"
 				/>
 			</>
 		)
-	} else if (showAuthenticatedUI) {
+	} else if (isAuthenticated) {
 		content = (
-			<MobileUserDisclosure items={getUserMenuItems({ signOut })} user={user} />
+			<MobileUserDisclosure
+				items={getUserMenuItems({ signOut })}
+				user={user}
+				initialOpen={asPath.startsWith('/profile')}
+			/>
 		)
 	}
 
-	return <div className={s.mobileAuthenticationControls}>{content}</div>
+	return (
+		<div className="g-show-with-mobile-menu">
+			<div className={s.mobileAuthenticationControls}>{content}</div>
+		</div>
+	)
 }
 
 // eslint-disable-next-line react/display-name

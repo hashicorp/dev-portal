@@ -25,11 +25,11 @@ export default function BoundarySubnav({ menuItems }) {
 				},
 				{
 					text: 'Download',
-					url: '/downloads',
+					url: 'https://developer.hashicorp.com/boundary/downloads',
 				},
 				{
 					text: 'Try HCP Boundary',
-					url: 'https://portal.cloud.hashicorp.com/sign-up?utm_source=cloud_landing&utm_content=offers_boundary',
+					url: 'https://portal.cloud.hashicorp.com/sign-up',
 					theme: {
 						brand: 'boundary',
 					},

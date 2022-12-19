@@ -1,4 +1,5 @@
 // Third-party imports
+import path from 'path'
 import { Pluggable } from 'unified'
 import rehypePrism from '@mapbox/rehype-prism'
 
@@ -11,7 +12,7 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 // Global imports
 import { ProductData, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
-import getIsBetaProduct from 'lib/get-is-beta-product'
+import { isDeployPreview } from 'lib/env-checks'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
@@ -23,50 +24,14 @@ import {
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
-
-/**
- * Given a productSlugForLoader (which generally corresponds to a repo name),
- * Return the ref to use for remote content when the product is marked "beta".
- *
- * Note: for products where we intend to use the latest ref according
- * to the marketing content API, we return undefined.
- *
- * TODO: this is not intended as a permanent solution.
- * At present, it seems likely we'll transition away from using "dev-portal"
- * branches, and instead focus on backwards-compatible content changes
- * until each product is generally available on developer.hashicorp.com.
- *
- * Once we've moved away from "dev-portal" branches, this function
- * will no longer be necessary, and we will no longer pass the
- * "latestVersionRef" to the remote content loader config.
- */
-function getBetaLatestVersionRef(slug: string): string | undefined {
-	const hasDevPortalBranch = slug == 'vault' || slug == 'waypoint'
-	return hasDevPortalBranch ? 'dev-portal' : undefined
-}
-
-/**
- * @TODO update the basePaths inside of `src/data/${productSLug}.json` files to
- * be arrays of objects that look like:
- *
- *   ```
- *   {
- *     path: string
- *     name: string
- *   }
- *   ```
- *
- * This will require a decent amount of refactoring code that uses
- * `ProductData['basePaths']`, so this is the temporary stopgap until we can do
- * the refactor. Or decide on another approach. :)
- */
-const BASE_PATHS_TO_NAMES = {
-	'api-docs': 'API Documentation',
-	commands: 'CLI',
-	docs: 'Documentation',
-	intro: 'Introduction',
-	plugins: 'Plugins',
-}
+import { SidebarProps } from 'components/sidebar'
+import { EnrichedNavItem, MenuItem } from 'components/sidebar/types'
+import { getBackToLink } from './utils/get-back-to-link'
+import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
+import { getCustomLayout } from './utils/get-custom-layout'
+import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
+import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
+import { withTiming } from 'lib/with-timing'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -94,7 +59,7 @@ export function getStaticGenerationFunctions<
 	getScope = async () => ({} as MdxScope),
 	mainBranch,
 	navDataPrefix,
-	showVersionSelect = true,
+	options = {},
 }: {
 	product: ProductData
 	basePath: string
@@ -105,14 +70,8 @@ export function getStaticGenerationFunctions<
 	getScope?: () => Promise<MdxScope>
 	mainBranch?: string
 	navDataPrefix?: string
-	showVersionSelect?: boolean
+	options?: DocsViewPropOptions
 }): ReturnType<typeof _getStaticGenerationFunctions> {
-	/**
-	 * Beta products, defined in our config files, will source content from a
-	 * long-lived branch named 'dev-portal'
-	 */
-	const isBetaProduct = getIsBetaProduct(product.slug)
-
 	/**
 	 * Get the current `rootDocsPaths` object.
 	 *
@@ -127,48 +86,91 @@ export function getStaticGenerationFunctions<
 		basePath: basePathForLoader,
 		enabledVersionedDocs: true,
 		navDataPrefix,
-		/**
-		 * Note: not all products in "beta" are expected to have a specific
-		 * "content_preview_branch", so even for products marked "beta",
-		 * "latestVersionRef" may end up being undefined.
-		 */
-		latestVersionRef: isBetaProduct
-			? getBetaLatestVersionRef(productSlugForLoader)
-			: undefined,
 	}
 
 	// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
 	const getLoader = (
 		extraOptions?: Partial<ConstructorParameters<typeof RemoteContentLoader>[0]>
-	) => new RemoteContentLoader({ ...loaderOptions, ...extraOptions })
+	) => {
+		if (isDeployPreview(productSlugForLoader)) {
+			return getDeployPreviewLoader({
+				basePath,
+				currentRootDocsPath,
+				loaderOptions: {
+					...loaderOptions,
+					...extraOptions,
+				},
+			})
+		} else {
+			return new RemoteContentLoader({ ...loaderOptions, ...extraOptions })
+		}
+	}
 
 	return {
 		getStaticPaths: async () => {
-			const paths = await getLoader().loadStaticPaths()
+			const pathsFromNavData = await getLoader().loadStaticPaths()
+
+			if (isDeployPreview() && !isDeployPreview(productSlugForLoader)) {
+				// do not statically render any other products if we are in a deploy preview for another product
+				return {
+					fallback: 'blocking',
+					paths: [],
+				}
+			}
+
+			// Render all paths for deploy previews in source repositories
+			if (isDeployPreview(productSlugForLoader)) {
+				return {
+					fallback: 'blocking',
+					paths: pathsFromNavData,
+				}
+			}
+
+			if (productSlugForLoader === 'terraform-cdk') {
+				// terraform-cdk has some exceptionally large pages that cannot be ISR'd due to lambda response size limits. As a result, we force the SSG of these pages.
+				// TODO: remove this block when we come up with an alternative workaround to CDKTF's large pages
+				return {
+					paths: pathsFromNavData,
+					fallback: 'blocking',
+				}
+			}
+
+			// Otherwise, rely on analytics data to prune the paths
+			const paths = await getStaticPathsFromAnalytics({
+				limit: __config.dev_dot.max_static_paths ?? 0,
+				pathPrefix: `/${product.slug}/${basePath}`,
+				validPaths: pathsFromNavData,
+			})
 
 			return {
 				fallback: 'blocking',
-				paths: paths.slice(0, __config.dev_dot.max_static_paths ?? 0),
+				paths,
 			}
 		},
 		getStaticProps: async (ctx) => {
 			const pathParts = (ctx.params.page || []) as string[]
+			const currentPathUnderProduct = `/${path.join(
+				basePathForLoader,
+				pathParts.join('/')
+			)}`
 			const headings = [] // populated by anchorLinks plugin below
 
 			const loader = getLoader({
 				mainBranch,
 				remarkPlugins: [
+					...additionalRemarkPlugins,
 					/**
 					 * Note on remark plugins for local vs remote loading:
 					 * includeMarkdown and paragraphCustomAlerts are already
 					 * expected to have been run for remote content.
-					 * However, we'll need to account for these plugins once
-					 * we enable local content preview for new dev-dot docs views.
 					 */
-					// includeMarkdown,
-					// paragraphCustomAlerts,
 					[anchorLinks, { headings }],
-					rewriteTutorialLinksPlugin,
+					/**
+					 * The `contentType` configuration is necessary so that the
+					 * `rewriteTutorialLinksPlugin` does not rewrite links like
+					 * `/waypoint` to `/waypoint/tutorials`.
+					 */
+					[rewriteTutorialLinksPlugin, { contentType: 'docs' }],
 					/**
 					 * Rewrite docs content links, which are authored without prefix.
 					 * For example, in Waypoint docs authors write "/docs/some-thing",
@@ -176,9 +178,11 @@ export function getStaticGenerationFunctions<
 					 */
 					[
 						remarkPluginAdjustLinkUrls,
-						{ urlAdjustFn: getProductUrlAdjuster(product) },
+						{
+							currentPath: currentPathUnderProduct,
+							urlAdjustFn: getProductUrlAdjuster(product),
+						},
 					],
-					...additionalRemarkPlugins,
 				],
 				rehypePlugins: [
 					[rehypePrism, { ignoreMissing: true }],
@@ -194,8 +198,13 @@ export function getStaticGenerationFunctions<
 			 */
 			let loadStaticPropsResult
 			try {
-				loadStaticPropsResult = await loader.loadStaticProps(ctx)
+				loadStaticPropsResult = await withTiming(
+					'[docs-view/server::loadStaticProps]',
+					() => loader.loadStaticProps(ctx)
+				)
 			} catch (error) {
+				console.error('[docs-view/server] error loading static props', error)
+
 				// Catch 404 errors, return a 404 status page
 				if (error.status === 404) {
 					return { notFound: true }
@@ -236,10 +245,14 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Add fullPaths and auto-generated ids to navData
 			 */
-			const { preparedItems: navDataWithFullPaths } = prepareNavDataForClient({
-				basePaths: [product.slug, basePath],
-				nodes: navData,
-			})
+			const { preparedItems: navDataWithFullPaths } = await withTiming(
+				'[docs-view/server::prepareNavDataForClient]',
+				() =>
+					prepareNavDataForClient({
+						basePaths: [product.slug, basePath],
+						nodes: navData,
+					})
+			)
 
 			/**
 			 * Figure out of a specific docs version is being viewed
@@ -260,37 +273,68 @@ export function getStaticGenerationFunctions<
 			}
 
 			/**
-			 * Constructs the levels of nav data used in the `Sidebar` on all
-			 * `DocsView` pages.
+			 * Constructs the base sidebar level for `DocsView`.
+			 */
+			const docsSidebarLevel: SidebarProps = {
+				backToLinkProps: getBackToLink(currentRootDocsPath, product),
+				levelButtonProps: {
+					levelUpButtonText: `${product.name} Home`,
+				},
+				menuItems: navDataWithFullPaths as EnrichedNavItem[],
+				title: currentRootDocsPath.shortName || currentRootDocsPath.name,
+			}
+			/**
+			 * In some cases, the first nav item is a heading.
+			 * In these case, we'll visually hide the sidebar title,
+			 * since it will redundant right next to the authored title.
+			 */
+			const firstItemIsHeading =
+				typeof navDataWithFullPaths[0]?.heading == 'string'
+			if (firstItemIsHeading) {
+				docsSidebarLevel.visuallyHideTitle = true
+			}
+
+			/**
+			 * Check the top level of the navData for "overview" items,
+			 * which are expected to be present for consistency.
+			 * If we do no have an overview item match, then we'll
+			 * automatically add an overview item.
+			 */
+			const overviewItemMatch = navDataWithFullPaths.find((item: MenuItem) => {
+				const isPathMatch =
+					item.path == '' ||
+					item.path == '/' ||
+					item.path == '/index' ||
+					item.path == 'index'
+				return isPathMatch
+			})
+			/**
+			 * Exception: If the first navData node is a `heading`,
+			 * we'll avoid adding an overview item even if there's
+			 * no overview item match.
+			 */
+			if (!overviewItemMatch && !firstItemIsHeading) {
+				docsSidebarLevel.overviewItemHref = versionPathPart
+					? `/${product.slug}/${basePath}/${versionPathPart}`
+					: `/${product.slug}/${basePath}`
+			}
+
+			/**
+			 * Assembles all levels of sidebar nav data for `DocsView`.
 			 */
 			const sidebarNavDataLevels = [
 				generateTopLevelSidebarNavData(product.name),
 				generateProductLandingSidebarNavData(product),
-				{
-					backToLinkProps: {
-						text: `${product.name} Home`,
-						href: `/${product.slug}`,
-					},
-					levelButtonProps: {
-						levelUpButtonText: `${product.name} Home`,
-					},
-					menuItems: navDataWithFullPaths,
-					// TODO: won't default after `BASE_PATHS_TO_NAMES` is replaced
-					title: BASE_PATHS_TO_NAMES[basePath] || product.name,
-					overviewItemHref: versionPathPart
-						? `/${product.slug}/${basePath}/${versionPathPart}`
-						: `/${product.slug}/${basePath}`,
-				},
+				docsSidebarLevel,
 			]
 
 			const breadcrumbLinks = getDocsBreadcrumbs({
 				baseName,
-				basePath: basePath,
+				basePath,
 				indexOfVersionPathPart,
 				navData: navDataWithFullPaths,
 				pathParts,
-				productName: product.name,
-				productPath: product.slug,
+				product,
 				version: versionPathPart,
 			})
 
@@ -299,20 +343,48 @@ export function getStaticGenerationFunctions<
 			 */
 			const layoutProps: Omit<SidebarSidecarLayoutProps, 'children'> = {
 				breadcrumbLinks,
-				githubFileUrl,
 				headings: nonEmptyHeadings,
 				// TODO: need to adjust type for sidebarNavDataLevels here
 				sidebarNavDataLevels: sidebarNavDataLevels as $TSFixMe,
 			}
-			if (showVersionSelect) {
-				layoutProps.versions = versions
+
+			/**
+			 * Determine whether to show the version selector
+			 *
+			 * In most docs categories, we want to show the version selector if there
+			 * are multiple versions, or if the single version is not `v0.0.x`.
+			 * (We use `v0.0.x` as a placeholder version for un-versioned documentation)
+			 */
+			const hasMeaningfulVersions =
+				versions.length > 0 &&
+				(versions.length > 1 || versions[0].version !== 'v0.0.x')
+
+			/**
+			 * We want to show "Edit on GitHub" links for public content repos only.
+			 * Currently, HCP and Sentinel docs are stored in private repositories.
+			 *
+			 * Note: If we need more granularity here, we could change this to be
+			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
+			 */
+			const isHcp = product.slug == 'hcp'
+			const isSentinel = product.slug == 'sentinel'
+			const isPublicContentRepo = !isHcp && !isSentinel
+			if (isPublicContentRepo) {
+				layoutProps.githubFileUrl = githubFileUrl
 			}
+
+			const { hideVersionSelector, projectName } = options
 
 			const finalProps = {
 				layoutProps,
 				metadata: {
 					title: frontMatter.page_title ?? null,
 					description: frontMatter.description ?? null,
+					layout: getCustomLayout({
+						currentRootDocsPath,
+						frontMatter,
+						pathParts,
+					}),
 				},
 				mdxSource,
 				product: {
@@ -320,7 +392,9 @@ export function getStaticGenerationFunctions<
 					// needed for DocsVersionSwitcher
 					currentRootDocsPath: currentRootDocsPath || null,
 				},
-				versions,
+				projectName: projectName || null,
+				versions:
+					!hideVersionSelector && hasMeaningfulVersions ? versions : null,
 			}
 
 			return {

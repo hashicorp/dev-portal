@@ -1,67 +1,81 @@
 .selectRoot {
-  position: relative;
-  width: 100%;
+	position: relative;
+	width: 100%;
 
-  /* In nested tabs, include an underline-ish style under the select */
-  &.isNested {
-    margin-bottom: 4px;
+	/* In nested tabs, include an underline-ish style under the select */
+	&.isNested {
+		margin-bottom: 4px;
 
-    /* Note: ::after + margin is used here to match design spec,
+		/* Note: ::after + margin is used here to match design spec,
        as border is spaced 4px from the bottom of the select...
        Using padding to achieve this throws off the alignment 
        of .selectTrailingIcon */
-    &::after {
-      background: var(--token-color-foreground-action);
-      bottom: -4px;
-      content: '';
-      height: 1px;
-      left: 0;
-      position: absolute;
-      right: 0;
-    }
-  }
+		&::after {
+			background: var(--token-color-foreground-action);
+			bottom: -4px;
+			content: '';
+			height: 1px;
+			left: 0;
+			position: absolute;
+			right: 0;
+		}
+	}
+}
+
+.icons {
+	align-items: center;
+	bottom: 0;
+	display: flex;
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+}
+
+.leadingIcon {
+	composes: icons;
+	color: var(--token-color-foreground-action);
+	left: 12px;
 }
 
 .selectTrailingIcon {
-  color: var(--token-color-palette-neutral-600);
-  align-items: center;
-  bottom: 0;
-  display: flex;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  right: 12px;
+	composes: icons;
+	color: var(--token-color-palette-neutral-600);
+	right: 12px;
 }
 
 .select {
-  /* composition */
-  composes: g-focus-ring-from-box-shadow from global;
-  composes: hds-typography-body-200 from global;
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+	composes: hds-typography-body-200 from global;
 
-  /* properties */
-  appearance: none;
-  background-color: var(--token-color-surface-action);
-  border-radius: 5px;
-  border: 1px solid var(--token-color-foreground-action);
-  color: var(--token-color-foreground-action);
-  cursor: pointer;
-  font-weight: var(--token-typography-font-weight-medium);
-  padding: 7px 40px 7px 12px;
-  width: 100%;
+	/* properties */
+	appearance: none;
+	background-color: var(--token-color-surface-action);
+	border-radius: 5px;
+	border: 1px solid var(--token-color-foreground-action);
+	color: var(--token-color-foreground-action);
+	cursor: pointer;
+	font-weight: var(--token-typography-font-weight-medium);
+	padding: 7px 40px 7px 12px;
+	width: 100%;
 
-  /* In nested tabs, no background, no border */
-  &.isNested {
-    border-color: transparent;
-    background-color: white;
-    padding-left: 8px;
-  }
+	/* In nested tabs, no background, no border */
+	&.isNested {
+		border-color: transparent;
+		background-color: white;
+		padding-left: 8px;
+	}
+
+	&.hasIcon {
+		padding-left: calc(12px + 16px + 6px);
+	}
 }
 
 .option {
-  /* composition */
-  composes: hds-typography-body-200 from global;
+	/* composition */
+	composes: hds-typography-body-200 from global;
 
-  /* properties */
-  color: var(--token-color-foreground-strong);
-  font-weight: var(--token-typography-font-weight-regular);
+	/* properties */
+	color: var(--token-color-foreground-strong);
+	font-weight: var(--token-typography-font-weight-regular);
 }

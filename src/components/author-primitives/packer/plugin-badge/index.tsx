@@ -1,5 +1,5 @@
 import React from 'react'
-import Badge, { BadgeTheme } from '../badge'
+import Badge, { BadgeTheme } from '../../shared/badge'
 import svgRibbonIcon from './ribbon-icon.svg?include'
 import svgCheckIcon from './check-icon.svg?include'
 

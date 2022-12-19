@@ -16,9 +16,6 @@ export default function WellArchitectedFrameworkCollectionView({
 }: WellArchitectedFrameworkCollectionViewProps) {
 	const { name, id, description, tutorials, ordered, slug } = collection
 	const { sidebarSections, breadcrumbLinks } = layoutProps
-	const startTutorialSlug = `/${slug}/${splitProductFromFilename(
-		tutorials[0].slug
-	)}`
 
 	return (
 		<SidebarSidecarLayout
@@ -33,15 +30,15 @@ export default function WellArchitectedFrameworkCollectionView({
 			]}
 		>
 			<CollectionMeta
+				collection={collection}
 				heading={{ text: name, id }}
 				description={description}
-				cta={{ href: startTutorialSlug }}
-				numTutorials={tutorials.length}
 			/>
 			<CollectionTutorialList
 				isOrdered={ordered}
 				tutorials={tutorials.map((t: ClientTutorialLite) => ({
 					id: t.id,
+					collectionId: id,
 					description: t.description,
 					duration: getReadableTime(t.readTime),
 					hasInteractiveLab: Boolean(t.handsOnLab),
@@ -54,3 +51,5 @@ export default function WellArchitectedFrameworkCollectionView({
 		</SidebarSidecarLayout>
 	)
 }
+
+WellArchitectedFrameworkCollectionView.contentType = 'tutorials'

@@ -1,0 +1,45 @@
+.mdxContent {
+	margin-top: 48px;
+
+	/* prevent overflow of youtube iframe's on small viewports */
+	& iframe {
+		max-inline-size: 100%;
+	}
+}
+
+.contentWithVersions {
+	position: relative;
+
+	& .versionSwitcherWrapper {
+		width: 100%;
+		margin-bottom: 16px;
+
+		@media (--dev-dot-tablet-up) {
+			margin-bottom: 0;
+			width: auto;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+	}
+
+	& .mdxContent {
+		@media (--dev-dot-mobile) {
+			margin-top: 0;
+		}
+	}
+
+	/* Add margin to all possible docs headings when versions are defined.
+  This eliminates possible overlap between heading and version switcher dropdown */
+	@media (--dev-dot-tablet-up) {
+		& h1:first-child,
+		& :global(.landing-hero) {
+			margin-right: 25%;
+		}
+
+		/* Add more space in between the first section after title and the version selector  */
+		& h1:first-child {
+			margin-bottom: 16px;
+		}
+	}
+}

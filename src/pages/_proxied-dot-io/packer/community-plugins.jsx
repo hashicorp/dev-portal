@@ -1,7 +1,7 @@
 import PackerIoLayout from 'layouts/_proxied-dot-io/packer'
 import productData from 'data/packer.json'
 import MarkdownPage from '@hashicorp/react-markdown-page'
-import { isContentDeployPreview } from 'lib/env-checks'
+import { isDeployPreview } from 'lib/env-checks'
 import fetchContentApiFileString from 'lib/fetch-content-api-file-string'
 import shimRemoteIncludes from 'lib/shim-remote-includes'
 // imports below are used server-side only
@@ -14,7 +14,7 @@ function MarkdownPageView(staticProps) {
 
 export async function getStaticProps(ctx) {
 	// If we're running alongside content, use local content
-	const hasLocalContent = isContentDeployPreview(productData.slug)
+	const hasLocalContent = isDeployPreview(productData.slug)
 	if (hasLocalContent) {
 		return generateStaticProps({
 			pagePath: '../content/community-plugins.mdx',
@@ -28,7 +28,8 @@ export async function getStaticProps(ctx) {
 	})
 	const withRemoteIncludes = await shimRemoteIncludes(
 		mdxFileString,
-		productData.slug
+		productData.slug,
+		'refs/heads/stable-website'
 	)
 	return await markdownPageStaticPropsFromString(withRemoteIncludes)()
 }

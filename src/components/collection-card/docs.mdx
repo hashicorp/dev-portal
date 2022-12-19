@@ -8,8 +8,10 @@ Displays a linked card to a collection.
 
 With text heading:
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <CollectionCard
+	url="/"
     tutorialCount={16}
     heading='Write Terraform Configuration'
     description={
@@ -17,7 +19,8 @@ With text heading:
     }
     productsUsed={['terraform']}
 />
-`}</LiveComponent>
+`}
+</LiveComponent>
 
 With logos as heading:
 
@@ -56,7 +59,8 @@ With logos as heading:
 
 `CollectionCard` uses CSS-based truncation to limit the number of `description` lines to `3`.
 
-<LiveComponent>{`
+<LiveComponent>
+{`
 <div style={{ maxWidth: '400px' }}>
   <CollectionCard
     url='/terraform/tutorials/oci-get-started'
@@ -68,4 +72,5 @@ With logos as heading:
     productsUsed={['terraform']}
 />
 </div>
-`}</LiveComponent>
+`}
+</LiveComponent>

@@ -6,7 +6,7 @@ import {
 } from 'views/product-downloads-view/types'
 import { sortPlatforms } from 'views/product-downloads-view/helpers'
 
-export const generateCodePropFromCommands = (
+export const generateCodeSnippetFromCommands = (
 	commands: PackageManager['commands']
 ): string => {
 	return commands.map((command: string) => `$ ${command}`).join('\n')

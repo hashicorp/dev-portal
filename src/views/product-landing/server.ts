@@ -2,6 +2,7 @@ import { GetStaticPropsResult } from 'next'
 import fs from 'fs'
 import path from 'path'
 import { ProductData } from 'types/products'
+import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { validateAgainstSchema } from 'lib/validate-against-schema'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
@@ -56,7 +57,7 @@ const generateGetStaticProps = (product: ProductData) => {
 		/**
 		 * Gather up our static props
 		 */
-		const props = {
+		const props = stripUndefinedProperties({
 			content,
 			product,
 			layoutProps: {
@@ -78,7 +79,7 @@ const generateGetStaticProps = (product: ProductData) => {
 					generateProductLandingSidebarNavData(product),
 				] as $TSFixMe,
 			},
-		}
+		})
 
 		return {
 			props,

@@ -1,11 +1,15 @@
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'
-import CardLink from 'components/card-link'
 import {
+	CardDescription,
 	CardEyebrow,
-	CardHeading,
-	CardBody,
-	CardBadges,
-} from 'components/tutorial-collection-cards'
+	CardEyebrowText,
+	CardFooter,
+	CardLogo,
+	CardTitle,
+} from 'components/card/components'
+import CardLink from 'components/card-link'
+import { CardBadges } from 'components/tutorial-collection-cards'
+import CollectionCardWithAuthElements from './components/with-auth-elements'
 import {
 	CollectionCardProps,
 	CollectionCardPropsWithId,
@@ -24,26 +28,41 @@ function CollectionCard({
 	heading,
 	description,
 	productsUsed,
+	eyebrowSlot,
 }: CollectionCardProps) {
 	const hasLogo = Boolean(logo)
+	const eyebrowText = `${tutorialCount} tutorial${
+		tutorialCount !== 1 ? 's' : ''
+	}`
 	return (
-		<CardLink ariaLabel={heading} href={url} className={s.root}>
-			<CardEyebrow
-				icon={<IconCollections16 />}
-				text={`${tutorialCount} tutorial${tutorialCount !== 1 ? 's' : ''}`}
-			/>
-			{hasLogo && (
-				<span className={s.logoContainer}>
-					<CompanyLogo name={logo} />
-				</span>
-			)}
-			<CardHeading level={3} text={heading} screenReaderOnly={hasLogo} />
-			<CardBody text={description} />
-			<CardBadges badges={productsUsed} />
+		<CardLink ariaLabel={heading} href={url}>
+			<div className={s.root}>
+				<div>
+					<CardEyebrow>
+						{eyebrowSlot || (
+							<>
+								<IconCollections16 />
+								<CardEyebrowText>{eyebrowText}</CardEyebrowText>
+							</>
+						)}
+					</CardEyebrow>
+					{hasLogo ? (
+						<CardLogo>
+							<CompanyLogo name={logo} />
+						</CardLogo>
+					) : (
+						<CardTitle text={heading} />
+					)}
+					<CardDescription text={description} />
+				</div>
+				<CardFooter>
+					<CardBadges badges={productsUsed} />
+				</CardFooter>
+			</div>
 		</CardLink>
 	)
 }
 
-export { CompanyLogoOption }
+export { CompanyLogoOption, CollectionCardWithAuthElements }
 export type { CollectionCardProps, CollectionCardPropsWithId }
 export default CollectionCard

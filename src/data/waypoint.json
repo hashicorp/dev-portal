@@ -21,10 +21,10 @@
 	},
 	"alertBannerActive": false,
 	"alertBanner": {
-		"tag": "New",
-		"url": "https://hashi.co/waypoint-beta",
-		"text": "Interested in participating in the HCP Waypoint Private Beta Program?",
-		"linkText": "Apply here",
+		"tag": "October 5-6",
+		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
+		"text": "HashiConf Global is live. Join us virtually for keynotes, sessions, and more.",
+		"linkText": "Join now",
 		"expirationDate": ""
 	},
 	"subnavItems": [
@@ -35,22 +35,22 @@
 		},
 		{
 			"text": "Tutorials",
-			"url": "https://learn.hashicorp.com/waypoint",
+			"url": "https://developer.hashicorp.com/waypoint/tutorials",
 			"type": "inbound"
 		},
 		{
 			"text": "Docs",
-			"url": "/docs",
+			"url": "https://developer.hashicorp.com/waypoint/docs",
 			"type": "inbound"
 		},
 		{
 			"text": "CLI",
-			"url": "/commands",
+			"url": "https://developer.hashicorp.com/waypoint/commands",
 			"type": "inbound"
 		},
 		{
 			"text": "Plugins",
-			"url": "/plugins",
+			"url": "https://developer.hashicorp.com/waypoint/plugins",
 			"type": "inbound"
 		},
 		{
@@ -78,33 +78,5 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/waypoint/docs/intro" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/waypoint/docs/getting-started"
-			}
-		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"label": "General Documentation",
-				"icon": "docs",
-				"pathSuffix": "docs"
-			},
-			{
-				"label": "CLI",
-				"icon": "terminalScreen",
-				"pathSuffix": "commands"
-			},
-			{
-				"label": "Plugins",
-				"icon": "plug",
-				"pathSuffix": "plugins"
-			}
-		]
-	}
+	]
 }

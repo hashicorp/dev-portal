@@ -1,15 +1,14 @@
 import InlineSvg from '@hashicorp/react-inline-svg'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
-import getIsBetaProduct from 'lib/get-is-beta-product'
+import Link from 'components/link'
 import { NavigationHeaderDropdownMenu } from '..'
 import sharedNavStyles from '../../navigation-header.module.css'
 import s from './home-page-content.module.css'
 import { NavigationHeaderItemGroup } from 'components/navigation-header/types'
 
 const HomePageHeaderContent = () => {
-	const betaProductItems = []
-	const comingSoonProductItems = []
+	const productItems = []
 	Object.keys(productSlugsToNames).forEach((productSlug: ProductSlug) => {
 		// Exclude Sentinel for now
 		if (productSlug === 'sentinel') {
@@ -22,39 +21,34 @@ const HomePageHeaderContent = () => {
 		const path = `/${productSlug}`
 
 		// Push the menu item to the correct array
-		if (getIsBetaProduct(productSlug)) {
-			betaProductItems.push({
-				icon,
-				label,
-				path,
-			})
-		} else {
-			comingSoonProductItems.push({
-				ariaLabel: `Coming soon: ${label}`,
-				icon,
-				label,
-			})
-		}
+		productItems.push({
+			icon,
+			label,
+			path,
+		})
 	})
 
 	// Construct item groups for the dropdown, avoid adding empty groups
 	const itemGroups: NavigationHeaderItemGroup[] = []
-	if (betaProductItems.length) {
-		itemGroups.push({ items: betaProductItems })
-	}
-	if (comingSoonProductItems.length) {
-		itemGroups.push({ label: 'Coming Soon', items: comingSoonProductItems })
+	if (productItems.length) {
+		itemGroups.push({ items: productItems })
 	}
 
 	return (
 		<div className={sharedNavStyles.leftSide}>
 			<div className={sharedNavStyles.contentBeforeNav}>
-				<InlineSvg
-					className={s.siteLogo}
-					src={require('../../img/logo-white.svg?include')}
-				/>
+				<Link
+					href="/"
+					aria-label="HashiCorp Developer Home"
+					data-heap-track="navigation-header-home-logo-link"
+				>
+					<InlineSvg
+						className={s.siteLogo}
+						src={require('../../img/logo-white.svg?include')}
+					/>
+				</Link>
 			</div>
-			<div className="g-hide-on-mobile g-hide-on-tablet">
+			<div className={sharedNavStyles.leftSideDesktopOnlyContent}>
 				<nav className={sharedNavStyles.nav}>
 					<ul className={sharedNavStyles.navList}>
 						<li>

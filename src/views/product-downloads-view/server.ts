@@ -2,18 +2,36 @@ import fs from 'fs'
 import path from 'path'
 import { ProductData } from 'types/products'
 import { generateStaticProps as generateReleaseStaticProps } from 'lib/fetch-release-data'
-import { getInlineContentMaps } from 'lib/tutorials/get-inline-content-maps'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import { formatCollectionCard } from 'components/collection-card/helpers'
-import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import {
-	FeaturedLearnContent,
 	ProductDownloadsViewStaticProps,
 	RawProductDownloadsViewContent,
-	FeaturedLearnCard,
+	FeaturedTutorialCard,
+	FeaturedCollectionCard,
 } from './types'
+import {
+	generateFeaturedCollectionsCards,
+	generateFeaturedTutorialsCards,
+	generateDefaultPackageManagers,
+	generateEnterprisePackageManagers,
+	sortAndFilterReleaseVersions,
+} from './helpers'
+import { generatePackageManagers } from './server-helpers'
+import { hasHcpCalloutContent } from 'components/try-hcp-callout/content'
 
-const generateGetStaticProps = (product: ProductData) => {
+interface GenerateStaticPropsOptions {
+	isEnterpriseMode?: boolean
+	releaseSlug?: string
+	jsonFilePath?: string
+	installName?: string
+}
+
+const generateGetStaticProps = (
+	product: ProductData,
+	options: GenerateStaticPropsOptions = {}
+) => {
+	const { isEnterpriseMode = false } = options
+
 	return async (): Promise<{
 		props: ProductDownloadsViewStaticProps
 		revalidate: number
@@ -24,68 +42,110 @@ const generateGetStaticProps = (product: ProductData) => {
 		 * Note: could consider other content sources. For now, JSON.
 		 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
 		 */
-		const jsonFilePath = path.join(
+		let jsonFilePath = path.join(
 			process.cwd(),
 			`src/content/${product.slug}/install-landing.json`
 		)
+
+		if (options.jsonFilePath) {
+			jsonFilePath = path.join(process.cwd(), options.jsonFilePath)
+		}
+
 		const CONTENT: RawProductDownloadsViewContent = JSON.parse(
 			fs.readFileSync(jsonFilePath, 'utf8')
 		)
+
 		const {
 			doesNotHavePackageManagers,
-			featuredLearnContent,
+			featuredCollectionsSlugs,
+			featuredTutorialsSlugs,
 			packageManagerOverrides,
-			sidecarMarketingCard,
 			sidebarMenuItems,
+			sidecarMarketingCard,
+			sidecarHcpCallout: rawSidecarHcpCallout,
 		} = CONTENT
 
 		/**
 		 * Fetch the release data static props
 		 */
 		const { props: releaseProps, revalidate } =
-			await generateReleaseStaticProps(product)
+			await generateReleaseStaticProps(options.releaseSlug || product)
 		const { releases, latestVersion } = releaseProps
+		const sortedAndFilteredVersions = sortAndFilterReleaseVersions({
+			releaseVersions: releases.versions,
+			isEnterpriseMode,
+		})
 
 		/**
-		 * Gather tutorials and collections based on slugs used
+		 * Transform featured collection entries into card data
 		 */
-		const inlineContent = await getInlineContentMaps(featuredLearnContent)
+		let featuredCollectionCards: FeaturedCollectionCard[]
+		if (featuredCollectionsSlugs && featuredCollectionsSlugs.length > 0) {
+			featuredCollectionCards = await generateFeaturedCollectionsCards(
+				featuredCollectionsSlugs
+			)
+		}
 
 		/**
-		 * Transform feature tutorial and collection entries into card data
+		 * Transform featured tutorial entries into card data
 		 */
-		const featuredLearnCards: FeaturedLearnCard[] = featuredLearnContent.map(
-			(entry: FeaturedLearnContent) => {
-				const { collectionSlug, tutorialSlug } = entry
-				if (typeof collectionSlug == 'string') {
-					const collectionData = inlineContent.inlineCollections[collectionSlug]
-					return { type: 'collection', ...formatCollectionCard(collectionData) }
-				} else if (typeof tutorialSlug == 'string') {
-					const tutorialData = inlineContent.inlineTutorials[tutorialSlug]
-					const defaultContext = tutorialData.collectionCtx.default
-					const tutorialLiteCompat = { ...tutorialData, defaultContext }
-					return { type: 'tutorial', ...formatTutorialCard(tutorialLiteCompat) }
-				}
+		let featuredTutorialCards: FeaturedTutorialCard[]
+		if (featuredTutorialsSlugs && featuredTutorialsSlugs.length > 0) {
+			featuredTutorialCards = await generateFeaturedTutorialsCards(
+				featuredTutorialsSlugs
+			)
+		}
+
+		/**
+		 * Build package manager data
+		 */
+		const packageManagers = doesNotHavePackageManagers
+			? []
+			: await generatePackageManagers({
+					defaultPackageManagers: isEnterpriseMode
+						? generateEnterprisePackageManagers(product)
+						: generateDefaultPackageManagers(product),
+					packageManagerOverrides: packageManagerOverrides,
+			  })
+
+		/**
+		 * Build the sidecar HCP callout card
+		 */
+		let sidecarHcpCallout
+		const isHcpProduct = hasHcpCalloutContent(product.slug)
+		const hasContent = typeof rawSidecarHcpCallout !== 'undefined'
+		if (hasContent && isHcpProduct) {
+			sidecarHcpCallout = {
+				...rawSidecarHcpCallout,
+				productSlug: product.slug,
 			}
-		)
+		} else if (hasContent) {
+			console.warn(
+				`In "product-downloads-view", for product slug "${product.slug}", "sidecarHcpCallout" content was provided, but the Try HCP callout component cannot be rendered as "${product.slug}" is not recognized as a product with an HCP offering. Please ensure "sidecarHcpCallout" content only exists for products with HCP offerings, or report this as a bug.`
+			)
+		}
 
 		/**
 		 * Combine release data and page content
 		 */
 		const props = stripUndefinedProperties({
+			isEnterpriseMode,
+			latestVersion: isEnterpriseMode ? `${latestVersion}+ent` : latestVersion,
 			metadata: {
 				title: 'Install',
 			},
-			releases,
-			product,
-			latestVersion,
 			pageContent: {
-				doesNotHavePackageManagers,
-				featuredLearnCards,
-				packageManagerOverrides,
-				sidecarMarketingCard,
+				featuredCollectionCards,
+				featuredTutorialCards,
+				installName: options.installName,
 				sidebarMenuItems,
+				sidecarMarketingCard,
+				sidecarHcpCallout,
 			},
+			product,
+			releases,
+			sortedAndFilteredVersions,
+			packageManagers,
 		})
 
 		return {

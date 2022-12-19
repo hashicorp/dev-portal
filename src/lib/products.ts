@@ -50,6 +50,11 @@ function isProductSlug(string: string): string is ProductSlug {
 const productSlugs = Object.keys(productSlugsToNames) as ProductSlug[]
 
 /**
+ * An array of product slugs which are "active" on the site. Currently all but sentinel.
+ */
+const activeProductSlugs = productSlugs.filter((slug) => slug !== 'sentinel')
+
+/**
  * Generates an array of Product objects from `productSlugs`.
  */
 const products: Product[] = productSlugs.map((slug: ProductSlug) => {
@@ -58,6 +63,7 @@ const products: Product[] = productSlugs.map((slug: ProductSlug) => {
 })
 
 export {
+	activeProductSlugs,
 	isProductSlug,
 	products,
 	productSlugs,

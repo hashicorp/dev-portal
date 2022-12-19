@@ -1,3 +1,4 @@
+import { CalloutCardProps } from 'components/callout-card/types'
 import Joi from 'joi'
 
 /**
@@ -15,6 +16,36 @@ import Joi from 'joi'
  * (full type & schema follows)
  *
  */
+
+/**
+ * Callout
+ */
+
+interface CalloutContentBlock extends CalloutCardProps {
+	type: 'callout'
+}
+
+const CalloutContentBlockSchema = Joi.object({
+	type: Joi.string().required().valid('callout'),
+	heading: Joi.string().required(),
+	body: Joi.string().required(),
+	iconCardLinks: Joi.array().items(
+		Joi.object({
+			icon: Joi.string().required(),
+			text: Joi.string().required(),
+			url: Joi.string().required(),
+		})
+	),
+	ctas: Joi.array()
+		.items(
+			Joi.object({
+				text: Joi.string().required(),
+				url: Joi.string().required(),
+			})
+		)
+		.min(1),
+	fixedColumns: Joi.number(),
+})
 
 /**
  * Heading
@@ -82,32 +113,6 @@ const LinkedCardsContentBlockSchema = Joi.object({
 })
 
 /**
- * Roll up of all block types
- */
-export type ProductLandingContentBlock =
-	| HeadingContentBlock
-	| TutorialCardsContentBlock
-	| CollectionCardsContentBlock
-	| LinkedCardsContentBlock
-const ProductLandingContentBlockSchema = Joi.object({
-	type: Joi.string()
-		.required()
-		.valid('heading', 'tutorial_cards', 'linked_cards'),
-})
-	.when(Joi.object({ type: 'heading' }).unknown(), {
-		then: HeadingContentBlockSchema,
-	})
-	.when(Joi.object({ type: 'tutorial_cards' }).unknown(), {
-		then: TutorialCardsContentBlockSchema,
-	})
-	.when(Joi.object({ type: 'collection_cards' }).unknown(), {
-		then: CollectionCardsContentBlockSchema,
-	})
-	.when(Joi.object({ type: 'linked_cards' }).unknown(), {
-		then: LinkedCardsContentBlockSchema,
-	})
-
-/**
  *
  * Full content type & schema
  * (uses content block types & schemas above)
@@ -122,12 +127,13 @@ export interface ProductLandingContent {
 	overview: {
 		heading: string
 		body: string
-		cta: {
+		cta?: {
 			text: string
 			url: string
 		}
 		image: string
 	}
+	overviewParagraph?: string
 	get_started: {
 		heading: string
 		body: string
@@ -139,23 +145,27 @@ export interface ProductLandingContent {
 	blocks: ProductLandingContentBlock[]
 }
 
-export const ProductLandingContentSchema = Joi.object({
-	hero: Joi.object({
-		heading: Joi.string().required(),
-		image: Joi.string().required(),
-	}).required(),
-	overview: Joi.object({
+const ProductLandingHeroSchema = Joi.object({
+	heading: Joi.string().required(),
+	image: Joi.string().required(),
+}).required()
+
+const ProductLandingOverviewSchema = Joi.object({
+	heading: Joi.string().required(),
+	body: Joi.string().required(),
+	cta: Joi.object({
+		text: Joi.string().required(),
+		url: Joi.string().required(),
+	}),
+	image: Joi.string().required(),
+})
+
+// Require either `ctas` or `iconCardLinks`
+const ProductLandingGetStartedSchema = Joi.alternatives().try(
+	Joi.object({
 		heading: Joi.string().required(),
 		body: Joi.string().required(),
-		cta: Joi.object({
-			text: Joi.string().required(),
-			url: Joi.string().required(),
-		}).required(),
-		image: Joi.string().required(),
-	}).required(),
-	get_started: Joi.object({
-		heading: Joi.string().required(),
-		body: Joi.string().required(),
+		fixedColumns: Joi.number(),
 		ctas: Joi.array()
 			.items(
 				Joi.object({
@@ -165,6 +175,57 @@ export const ProductLandingContentSchema = Joi.object({
 			)
 			.required()
 			.min(1),
-	}).required(),
+	}),
+	Joi.object({
+		heading: Joi.string().required(),
+		body: Joi.string().required(),
+		iconCardLinks: Joi.array()
+			.items(
+				Joi.object({
+					icon: Joi.string().required(),
+					text: Joi.string().required(),
+					url: Joi.string().required(),
+				})
+			)
+			.required(),
+		fixedColumns: Joi.number(),
+	})
+)
+
+/**
+ * Roll up of all block types
+ */
+export type ProductLandingContentBlock =
+	| HeadingContentBlock
+	| TutorialCardsContentBlock
+	| CollectionCardsContentBlock
+	| LinkedCardsContentBlock
+	| CalloutContentBlock
+const ProductLandingContentBlockSchema = Joi.object({
+	type: Joi.string()
+		.required()
+		.valid('heading', 'tutorial_cards', 'linked_cards'),
+})
+	.when(Joi.object({ type: 'callout' }).unknown(), {
+		then: CalloutContentBlockSchema,
+	})
+	.when(Joi.object({ type: 'heading' }).unknown(), {
+		then: HeadingContentBlockSchema,
+	})
+	.when(Joi.object({ type: 'tutorial_cards' }).unknown(), {
+		then: TutorialCardsContentBlockSchema,
+	})
+	.when(Joi.object({ type: 'collection_cards' }).unknown(), {
+		then: CollectionCardsContentBlockSchema,
+	})
+	.when(Joi.object({ type: 'linked_cards' }).unknown(), {
+		then: LinkedCardsContentBlockSchema,
+	})
+
+export const ProductLandingContentSchema = Joi.object({
+	hero: ProductLandingHeroSchema,
+	overview: ProductLandingOverviewSchema,
+	overviewParagraph: Joi.string(),
+	get_started: ProductLandingGetStartedSchema,
 	blocks: Joi.array().items(ProductLandingContentBlockSchema),
 })

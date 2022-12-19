@@ -11,6 +11,8 @@ import {
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import rehypePrism from '@mapbox/rehype-prism'
 import { getStaticGenerationFunctions as getStaticGenerationFunctionsBase } from '@hashicorp/react-docs-page/server'
+import getIsBetaProduct from 'lib/get-is-beta-product'
+import { ProductSlug } from 'types/products'
 
 const MKTG_CONTENT_API_OLD = 'https://mktg-content-api-hashicorp.vercel.app'
 
@@ -129,9 +131,16 @@ export const getStaticGenerationFunctions: typeof getStaticGenerationFunctionsBa
 			async getStaticPaths(ctx) {
 				const result = await getStaticPathsBase(ctx)
 
+				const isBetaProduct = getIsBetaProduct(opts.product as ProductSlug)
+
+				// As we roll products out to GA, we want to limit how many paths we are pre-rendering to limit build time impact for pages which shouldn't get hit (.io docs pages). They can still be ISR'd.
+				const pathsLimit = isBetaProduct
+					? __config.io_sites.max_static_paths
+					: 0
+
 				return {
 					...result,
-					paths: result.paths.slice(0, __config.io_sites.max_static_paths ?? 0),
+					paths: result.paths.slice(0, pathsLimit),
 				}
 			},
 			getStaticProps,

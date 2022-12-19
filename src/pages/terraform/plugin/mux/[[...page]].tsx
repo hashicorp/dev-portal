@@ -3,7 +3,8 @@ import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-ro
 
 const { getStaticPaths, getStaticProps } = getRootDocsPathGenerationFunctions(
 	'terraform',
-	'plugin/mux'
+	'plugin/mux',
+	{ projectName: 'Plugin Mux' }
 )
 
 export { getStaticProps, getStaticPaths }

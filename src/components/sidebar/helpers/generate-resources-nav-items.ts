@@ -1,4 +1,9 @@
 import { ProductSlug } from 'types/products'
+import {
+	EDITIONS,
+	VALID_EDITION_SLUGS_FOR_FILTERING,
+	VALID_PRODUCT_SLUGS_FOR_FILTERING,
+} from 'views/tutorial-library/constants'
 
 const DEFAULT_COMMUNITY_FORUM_LINK = 'https://discuss.hashicorp.com/'
 const DEFAULT_GITHUB_LINK = 'https://github.com/hashicorp'
@@ -50,6 +55,25 @@ const generateAdditionalResources = (productSlug?: ProductSlug) => {
 }
 
 /**
+ * Given a product slug,
+ * Return a link to the Tutorials Library with filters applied
+ * that correspond to that product.
+ */
+function getTutorialLibraryUrl(productSlug?: ProductSlug) {
+	const baseUrl = '/tutorials/library'
+	if (!productSlug) {
+		return baseUrl
+	}
+	if (VALID_PRODUCT_SLUGS_FOR_FILTERING.includes(productSlug)) {
+		return `${baseUrl}/?product=${productSlug}`
+	} else if (VALID_EDITION_SLUGS_FOR_FILTERING.includes(productSlug)) {
+		return `${baseUrl}/?edition=${productSlug}`
+	} else {
+		return baseUrl
+	}
+}
+
+/**
  * Generates the sidebar nav items for the Resources section of the sidebar.
  * Optionally accepts a Product slug for customization of links.
  */
@@ -58,6 +82,10 @@ const generateResourcesNavItems = (productSlug?: ProductSlug) => {
 
 	return [
 		{ heading: 'Resources' },
+		{
+			title: 'Tutorial Library',
+			href: getTutorialLibraryUrl(productSlug),
+		},
 		{
 			title: 'Community Forum',
 			href: productSlug

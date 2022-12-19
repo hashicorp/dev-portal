@@ -18,8 +18,6 @@ const SUPPORTED_BLOCK_TYPES = [
 
 function ProductViewContent({
 	blocks,
-	inlineCollections,
-	inlineTutorials,
 }: ProductViewContentProps): React.ReactElement {
 	return (
 		<div className={s.root}>
@@ -47,8 +45,6 @@ function ProductViewContent({
 							>
 								<ProductViewContent
 									blocks={block.blocks as ProductViewBlock[]}
-									inlineCollections={inlineCollections}
-									inlineTutorials={inlineTutorials}
 								/>
 							</FeaturedStack>
 						)
@@ -68,12 +64,7 @@ function ProductViewContent({
 							<LogoCardList
 								// eslint-disable-next-line react/no-array-index-key
 								key={idx}
-								items={block.items.map((item) => {
-									return {
-										logo: item.logo,
-										collection: inlineCollections[item.collectionSlug],
-									}
-								})}
+								collectionCards={block.collectionCards}
 							/>
 						)
 					case 'TutorialsStack':
@@ -84,9 +75,7 @@ function ProductViewContent({
 								heading={block.heading}
 								headingSlug={block.headingSlug}
 								subheading={block.subheading}
-								featuredTutorials={block.tutorialSlugs.map(
-									(slug) => inlineTutorials[slug]
-								)}
+								tutorialCards={block.tutorialCards}
 							/>
 						)
 					case 'CollectionsStack':
@@ -98,9 +87,7 @@ function ProductViewContent({
 								headingSlug={block.headingSlug}
 								subheading={block.subheading}
 								product={block.product}
-								featuredCollections={block.collectionSlugs.map(
-									(slug) => inlineCollections[slug]
-								)}
+								collectionCards={block.collectionCards}
 							/>
 						)
 					default:

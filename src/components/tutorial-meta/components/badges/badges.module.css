@@ -1,34 +1,30 @@
-ul.list {
-  --badge-spacing: 8px;
+.list {
+	--badge-spacing: 8px;
 
-  /** --spacing tokens live in tutorial-meta-module.css */
-  margin-bottom: calc(var(--spacing-lrg) - var(--badge-spacing));
-  padding-left: 0;
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
+	align-items: flex-start;
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--badge-spacing);
+	list-style: none;
+	margin: 0;
+	margin-bottom: calc(
+		var(--spacing-lrg) - var(--badge-spacing)
+	); /* --spacing tokens live in tutorial-meta-module.css */
 
-  @media (--dev-dot-tablet-up) {
-    margin-bottom: calc(var(--spacing-xl) - var(--badge-spacing));
-  }
+	padding: 0;
 
-  & li:not(:last-child) {
-    margin-bottom: var(--badge-spacing);
-  }
-}
+	& li {
+		align-self: center;
+		display: flex;
+	}
 
-.beta {
-  background-color: var(--token-color-surface-highlight);
-  color: var(--token-color-palette-purple-300) !important;
+	@media (--dev-dot-tablet-up) {
+		margin-bottom: calc(var(--spacing-xl) - var(--badge-spacing));
+	}
 }
 
 .readTime {
-  composes: hds-font-weight-medium from global;
-  composes: hds-typography-display-100 from global;
-  color: var(--token-color-palette-neutral-600);
-  margin: 0 var(--badge-spacing) var(--badge-spacing) 0;
-  padding: 4px 0;
-  height: 24px;
-  display: flex;
-  align-items: center;
+	composes: hds-font-weight-medium from global;
+	composes: hds-typography-display-100 from global;
+	color: var(--token-color-palette-neutral-600);
 }

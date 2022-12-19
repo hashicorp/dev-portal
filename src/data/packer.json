@@ -9,111 +9,43 @@
 		"includedDomains": "packer.io www.packer.io",
 		"segmentWriteKey": "AjXdfmTTk1I9q9dfyePuDFHBrz1tCO3l"
 	},
+	"datoToken": "88b4984480dad56295a8aadae6caad",
 	"metadata": {
 		"title": "Packer by HashiCorp",
 		"description": "Packer is a free and open source tool for creating golden images for multiple platforms from a single source configuration.",
-		"image": "https://www.packer.io/packer/img/og-image.png",
+		"image": "https://www.packer.io/packer-public/img/og-image.png",
 		"icon": [
 			{
-				"href": "/packer/favicon.ico"
+				"href": "/packer-public/_favicon.ico"
 			}
 		]
 	},
 	"alertBannerActive": false,
 	"alertBanner": {
-		"tag": "June 21-22",
-		"url": "https://hashiconf.com/europe?utm_source=Banner",
-		"text": "HashiConf Europe is live. Join us virtually for keynotes, sessions, and more.",
-		"linkText": "Join Now",
+		"tag": "October 5-6",
+		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
+		"text": "HashiConf Global is live. Join us virtually for keynotes, sessions, and more.",
+		"linkText": "Join now",
 		"expirationDate": ""
 	},
 	"version": "1.7.10",
-	"subnavItems": [
-		{
-			"text": "Overview",
-			"url": "/",
-			"type": "inbound"
-		},
-		{
-			"text": "Tutorials",
-			"url": "https://learn.hashicorp.com/packer",
-			"type": "outbound"
-		},
-		{
-			"text": "Docs",
-			"url": "/docs",
-			"type": "inbound"
-		},
-		{
-			"text": "Plugins",
-			"url": "/plugins",
-			"type": "inbound"
-		},
-		{
-			"text": "Community",
-			"url": "/community",
-			"type": "inbound"
-		}
-	],
-	"basePaths": ["docs", "guides", "intro", "plugins"],
+	"basePaths": ["docs", "guides", "intro", "plugins", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
 			"name": "General Documentation",
-			"mainBranch": "master",
 			"path": "docs",
 			"shortName": "Documentation"
 		},
 		{
-			"iconName": "docs",
-			"mainBranch": "master",
+			"iconName": "guide",
 			"name": "Guides",
 			"path": "guides"
 		},
 		{
-			"iconName": "docs",
-			"mainBranch": "master",
-			"name": "Intro",
-			"path": "intro"
-		},
-		{
-			"iconName": "docs",
-			"mainBranch": "master",
-			"name": "Plugins",
+			"iconName": "plug",
+			"name": "External Plugins",
 			"path": "plugins"
 		}
-	],
-	"sidebar": {
-		"landingPageNavData": [
-			{ "title": "Introduction", "fullPath": "/packer/intro" },
-			{
-				"title": "Getting Started",
-				"fullPath": "/packer/docs/install"
-			}
-		]
-	},
-	"navigationHeaderItems": {
-		"documentation": [
-			{
-				"icon": "docs",
-				"label": "General Documentation",
-				"pathSuffix": "docs"
-			},
-			{
-				"icon": "docs",
-				"label": "Guides",
-				"pathSuffix": "guides"
-			},
-			{
-				"icon": "docs",
-				"label": "Introduction",
-				"pathSuffix": "intro"
-			},
-			{
-				"icon": "docs",
-				"label": "Plugins",
-				"pathSuffix": "plugins"
-			}
-		]
-	}
+	]
 }

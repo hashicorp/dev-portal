@@ -1,0 +1,34 @@
+.root {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.icon {
+	width: var(--size);
+	height: var(--size);
+
+	&.small {
+		--size: 20px;
+	}
+
+	&.medium {
+		--size: 24px;
+	}
+}
+
+.heading {
+	color: var(--token-color-foreground-strong);
+	display: block;
+	font-weight: var(--token-typography-font-weight-bold);
+}
+
+/* Size classes for .heading */
+
+.small {
+	composes: hds-typography-display-200 from global;
+}
+
+.medium {
+	composes: hds-typography-display-300 from global;
+}
