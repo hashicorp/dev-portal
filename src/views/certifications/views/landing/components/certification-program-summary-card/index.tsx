@@ -6,7 +6,7 @@ import {
 } from 'views/certifications/components'
 import { CertificationProgramSummary } from 'views/certifications/views/landing/types'
 // Local
-import { ExamCard, ExamCardComingSoon } from '..'
+import { ExamCard, ExamCardUnlinked } from '..'
 // Styles
 import s from './certification-program-summary-card.module.css'
 
@@ -44,7 +44,7 @@ export function CertificationProgramSummaryCard({
 								showComingSoon={showComingSoon}
 							/>
 						) : (
-							<ExamCardComingSoon
+							<ExamCardUnlinked
 								key={fullTitle}
 								title={fullTitle}
 								productSlug={productSlug}

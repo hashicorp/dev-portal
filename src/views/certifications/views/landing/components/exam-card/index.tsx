@@ -8,7 +8,7 @@ import CardLink from 'components/card-link'
 import s from './exam-card.module.css'
 import Card from 'components/card'
 import Badge from 'components/badge'
-import { ExamCardComingSoonProps, ExamCardProps } from './types'
+import { ExamCardUnlinkedProps, ExamCardProps } from './types'
 
 /**
  * Flex layout wrapper for the contents of an exam card.
@@ -27,7 +27,7 @@ function ComingSoonBadge() {
 /**
  * Unlinked exam cards are used where a "prepareUrl" is not available yet.
  */
-function ExamCardComingSoon({ title, productSlug }: ExamCardComingSoonProps) {
+function ExamCardUnlinked({ title, productSlug }: ExamCardUnlinkedProps) {
 	return (
 		<Card className={s.comingSoonCard}>
 			<ExamCardContents>
@@ -66,4 +66,4 @@ function ExamCard({ title, productSlug, url, showComingSoon }: ExamCardProps) {
 	)
 }
 
-export { ExamCard, ExamCardComingSoon }
+export { ExamCard, ExamCardUnlinked }

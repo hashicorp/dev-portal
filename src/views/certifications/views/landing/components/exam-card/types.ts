@@ -5,7 +5,7 @@ interface ExamCardBaseProps {
 	productSlug: CertificationProductSlug
 }
 
-export type ExamCardComingSoonProps = ExamCardBaseProps
+export type ExamCardUnlinkedProps = ExamCardBaseProps
 export interface ExamCardProps extends ExamCardBaseProps {
 	url: string
 	showComingSoon?: boolean
