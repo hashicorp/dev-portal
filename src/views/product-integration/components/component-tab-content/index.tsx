@@ -25,7 +25,9 @@ export default function ComponentTabContent({
 	)
 	return (
 		<div className={s.componentTabContent}>
-			{component.readmeMdxSource ? readmeContent : null}
+			{component.readmeMdxSource ? (
+				<div className={s.mdx_wrapper}>{readmeContent}</div>
+			) : null}
 			{component.variable_groups.length ? (
 				<Tabs allowNestedStyles>
 					{component.variable_groups.map((variableGroup: VariableGroup) => {
