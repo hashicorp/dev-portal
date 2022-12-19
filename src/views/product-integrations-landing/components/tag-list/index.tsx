@@ -22,13 +22,18 @@ export interface Tag {
 
 interface TagListProps {
 	tags: Array<Tag>
+	className?: string
 	size?: Size
 }
 
-export default function TagList({ tags, size = 'small' }: TagListProps) {
+export default function TagList({
+	tags,
+	className,
+	size = 'small',
+}: TagListProps) {
 	return (
 		<ul
-			className={classNames(s.tagList, {
+			className={classNames(s.tagList, className, {
 				[s.medium]: size === 'medium',
 			})}
 		>

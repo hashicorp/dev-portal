@@ -1,5 +1,4 @@
 .integrationCard {
-	/* TODO: mobile breakpoint is 800px, that needs to be tweaked */
 	& .cardContent {
 		display: flex;
 		justify-content: space-between;
@@ -29,6 +28,16 @@
 		@media (max-width: 800px) {
 			margin-top: 14px;
 			align-items: flex-start;
+		}
+
+		& .tagList {
+			justify-content: flex-end;
+			margin-bottom: 14px;
+
+			@media (max-width: 800px) {
+				margin-bottom: 0;
+				justify-content: flex-start;
+			}
 		}
 
 		& .viewDetails {

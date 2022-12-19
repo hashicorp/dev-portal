@@ -56,7 +56,10 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 					<p className={s.body}>{integration.description}</p>
 				</div>
 				<div className={s.right}>
-					<TagList tags={GetIntegrationTags(integration, false)} />
+					<TagList
+						className={s.tagList}
+						tags={GetIntegrationTags(integration, false)}
+					/>
 					<span className={s.viewDetails}>
 						View Details
 						{isExternalLink ? <IconExternalLink16 /> : <IconArrowRight16 />}
