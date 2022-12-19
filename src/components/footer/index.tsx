@@ -16,6 +16,11 @@ const FOOTER_ITEMS: FooterItem[] = [
 	},
 	{
 		type: 'link',
+		href: '/certifications',
+		text: 'Certifications',
+	},
+	{
+		type: 'link',
 		href: 'https://status.hashicorp.com',
 		text: 'System Status',
 	},
