@@ -60,7 +60,7 @@
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
-			"name": "Docs",
+			"name": "Documentation",
 			"path": "docs",
 			"shortName": "Docs"
 		},

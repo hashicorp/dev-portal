@@ -32,25 +32,16 @@ describe('getNavItems', () => {
 		    "url": "/waypoint",
 		  },
 		  Object {
-		    "iconColorTheme": "waypoint",
-		    "items": Array [
-		      Object {
-		        "icon": "docs",
-		        "label": "General Documentation",
-		        "path": "/waypoint/docs",
-		      },
-		      Object {
-		        "icon": "terminal-screen",
-		        "label": "CLI",
-		        "path": "/waypoint/commands",
-		      },
-		      Object {
-		        "icon": "plug",
-		        "label": "Plugins",
-		        "path": "/waypoint/plugins",
-		      },
-		    ],
-		    "label": "Documentation",
+		    "label": "General Documentation",
+		    "url": "/waypoint/docs",
+		  },
+		  Object {
+		    "label": "CLI",
+		    "url": "/waypoint/commands",
+		  },
+		  Object {
+		    "label": "Plugins",
+		    "url": "/waypoint/plugins",
 		  },
 		  Object {
 		    "label": "Tutorials",
@@ -284,25 +275,25 @@ describe('getNavItems', () => {
 			],
 		} as ProductData
 		expect(getNavItems(testHCPData)).toMatchInlineSnapshot(`
-		      Array [
-		        Object {
-		          "label": "Home",
-		          "url": "/hcp",
-		        },
-		        Object {
-		          "label": "Documentation",
-		          "url": "/hcp/docs",
-		        },
-		        Object {
-		          "label": "Tutorials",
-		          "url": "/hcp/tutorials",
-		        },
-		        Object {
-		          "label": "Try Cloud",
-		          "opensInNewTab": true,
-		          "url": "https://portal.cloud.hashicorp.com/sign-up",
-		        },
-		      ]
-	    `)
+		Array [
+		  Object {
+		    "label": "Home",
+		    "url": "/hcp",
+		  },
+		  Object {
+		    "label": "General Documentation",
+		    "url": "/hcp/docs",
+		  },
+		  Object {
+		    "label": "Tutorials",
+		    "url": "/hcp/tutorials",
+		  },
+		  Object {
+		    "label": "Try Cloud",
+		    "opensInNewTab": true,
+		    "url": "https://portal.cloud.hashicorp.com/sign-up",
+		  },
+		]
+	`)
 	})
 })
