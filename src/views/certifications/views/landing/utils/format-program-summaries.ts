@@ -33,6 +33,7 @@ export function formatProgramSummaries(
 						examCode: exam.examCode ?? null,
 						productSlug: exam.productSlug,
 						prepareUrl: exam.links?.prepare ?? null,
+						registerUrl: exam.links?.register ?? null,
 					}
 				}),
 			}

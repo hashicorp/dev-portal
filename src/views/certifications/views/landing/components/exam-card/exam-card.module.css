@@ -12,7 +12,10 @@
 	flex-direction: column;
 	gap: 24px;
 
-	@media (--dev-dot-tablet-up) {
+	/* Note: --dev-dot-tablet-up almost works here... but for cards with both
+	   a "prepare" link and a "coming soon" badge, the layout breaks down
+		 slightly early. So we use a custom breakpoint here to prevent breakage. */
+	@media only screen and (min-width: 800px) {
 		justify-content: space-between;
 		align-items: center;
 		flex-direction: row;

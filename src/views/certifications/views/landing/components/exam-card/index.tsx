@@ -1,11 +1,14 @@
 import { ReactNode } from 'react'
-import { StandaloneLinkContents } from 'views/certifications/components'
+import {
+	CtaGroup,
+	StandaloneLinkContents,
+} from 'views/certifications/components'
 import { ExamBadgeAndTitle } from '../'
 import CardLink from 'components/card-link'
 import s from './exam-card.module.css'
 import Card from 'components/card'
 import Badge from 'components/badge'
-import { ExamCardComingSoonProps, ExamCardProps } from './types'
+import { ExamCardUnlinkedProps, ExamCardProps } from './types'
 
 /**
  * Flex layout wrapper for the contents of an exam card.
@@ -15,9 +18,16 @@ function ExamCardContents({ children }: { children: ReactNode }) {
 }
 
 /**
- * "Coming Soon" exam cards are not linked.
+ * Badge that says "Coming Soon", may be rendered in linked & unlinked cards.
  */
-function ExamCardComingSoon({ title, productSlug }: ExamCardComingSoonProps) {
+function ComingSoonBadge() {
+	return <Badge text="Coming Soon" color="highlight" type="outlined" />
+}
+
+/**
+ * Unlinked exam cards are used where a "prepareUrl" is not available yet.
+ */
+function ExamCardUnlinked({ title, productSlug }: ExamCardUnlinkedProps) {
 	return (
 		<Card className={s.comingSoonCard}>
 			<ExamCardContents>
@@ -26,13 +36,19 @@ function ExamCardComingSoon({ title, productSlug }: ExamCardComingSoonProps) {
 					eyebrow="HashiCorp Certified:"
 					productSlug={productSlug}
 				/>
-				<Badge text="Coming Soon" color="highlight" type="outlined" />
+				<ComingSoonBadge />
 			</ExamCardContents>
 		</Card>
 	)
 }
 
-function ExamCard({ title, productSlug, url }: ExamCardProps) {
+/**
+ * Linked exam cards are used where a "prepareUrl" is available for the exam.
+ *
+ * If a "registerUrl" for the exam is not yet available, we show
+ * a "Coming Soon" badge within this card as well.
+ */
+function ExamCard({ title, productSlug, url, showComingSoon }: ExamCardProps) {
 	return (
 		<CardLink className={s.examCard} href={url} ariaLabel="test">
 			<ExamCardContents>
@@ -41,10 +57,13 @@ function ExamCard({ title, productSlug, url }: ExamCardProps) {
 					eyebrow="HashiCorp Certified:"
 					productSlug={productSlug}
 				/>
-				<StandaloneLinkContents text="Prepare for the exam" />
+				<CtaGroup>
+					{showComingSoon ? <ComingSoonBadge /> : null}
+					<StandaloneLinkContents text="Prepare for the exam" />
+				</CtaGroup>
 			</ExamCardContents>
 		</CardLink>
 	)
 }
 
-export { ExamCard, ExamCardComingSoon }
+export { ExamCard, ExamCardUnlinked }
