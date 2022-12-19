@@ -72,7 +72,6 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	} else {
 		docsNavItems = getDocsNavItems(currentProduct).map((navItem) => {
 			return {
-				// icon: navItem.icon as NavigationHeaderIcon,
 				label: navItem.label,
 				url: navItem.fullPath,
 			}
