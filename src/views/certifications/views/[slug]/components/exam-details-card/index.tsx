@@ -69,11 +69,15 @@ export function ExamDetailsCard({
 											icon={<IconArrowRight16 />}
 											iconPosition="trailing"
 										/>
-									) : null}
+									) : (
+										<Badge
+											text="Coming Soon"
+											color="highlight"
+											type="outlined"
+										/>
+									)}
 								</CtaGroup>
-							) : (
-								<Badge text="Coming Soon" color="highlight" type="outlined" />
-							)}
+							) : null}
 						</div>
 					</>
 				}
