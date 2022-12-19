@@ -6,6 +6,23 @@ import { withTiming } from 'lib/with-timing'
 import { ProductSlug } from 'types/products'
 import ProductIntegration from 'views/product-integration'
 
+// Markdown -> MDX processing
+import { serialize } from 'next-mdx-remote/serialize'
+import { paragraphCustomAlerts, typography } from '@hashicorp/remark-plugins'
+import rehypePrism from '@mapbox/rehype-prism'
+import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
+
+// TODO: export types from `next-mdx-remote` v3
+const SERIALIZE_OPTIONS: Parameters<typeof serialize>[1] = {
+	mdxOptions: {
+		remarkPlugins: [paragraphCustomAlerts, typography],
+		rehypePlugins: [
+			[rehypePrism, { ignoreMissing: true }],
+			rehypeSurfaceCodeNewlines,
+		],
+	},
+}
+
 interface PathParams {
 	productSlug: ProductSlug
 	integrationSlug: string[]
@@ -104,6 +121,21 @@ const _getServerSideProps = async ({ params }: { params: PathParams }) => {
 		}
 	})
 
+	// inject readmeMdxSource into integration and component objects
+	activeRelease.components = await Promise.all(
+		activeRelease.components.map(async (component) => {
+			return {
+				...component,
+				readmeMdxSource: await serialize(component.readme, SERIALIZE_OPTIONS),
+			}
+		})
+	)
+
+	// @ts-expect-error - this is a custom property we're adding to the integration object
+	integration.readmeMdxSource = await serialize(
+		activeRelease.readme,
+		SERIALIZE_OPTIONS
+	)
 	return {
 		props: {
 			integration,
