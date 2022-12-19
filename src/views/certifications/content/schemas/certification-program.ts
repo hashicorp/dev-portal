@@ -25,6 +25,7 @@ export type CertificationProductSlug = z.infer<
  */
 export const CertificationExamSchema = z.object({
 	title: z.string(),
+	examCode: z.string().optional(),
 	productSlug: CertificationProductSlugSchema,
 	versionTested: z.string(),
 	description: z.string(),

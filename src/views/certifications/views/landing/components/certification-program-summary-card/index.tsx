@@ -31,18 +31,19 @@ export function CertificationProgramSummaryCard({
 				}
 			/>
 			<div className={s.examCards}>
-				{exams.map(({ title, prepareUrl, productSlug }) => {
+				{exams.map(({ title, prepareUrl, examCode, productSlug }) => {
+					const fullTitle = title + (examCode ? ` (${examCode})` : '')
 					return prepareUrl ? (
 						<ExamCard
-							key={title}
-							title={title}
+							key={fullTitle}
+							title={fullTitle}
 							url={prepareUrl}
 							productSlug={productSlug}
 						/>
 					) : (
 						<ExamCardComingSoon
-							key={title}
-							title={title}
+							key={fullTitle}
+							title={fullTitle}
 							productSlug={productSlug}
 						/>
 					)

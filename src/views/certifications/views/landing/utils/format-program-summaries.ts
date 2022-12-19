@@ -30,6 +30,7 @@ export function formatProgramSummaries(
 				exams: program.pageContent.exams.map((exam) => {
 					return {
 						title: exam.title,
+						examCode: exam.examCode ?? null,
 						productSlug: exam.productSlug,
 						prepareUrl: exam.links?.prepare ?? null,
 					}

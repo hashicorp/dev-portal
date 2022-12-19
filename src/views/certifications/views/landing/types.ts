@@ -14,6 +14,7 @@ export interface CertificationProgramSummary {
 	description: RawCertificationProgram['summary']['description']
 	exams: {
 		title: RawCertificationExam['title']
+		examCode: RawCertificationExam['examCode']
 		productSlug: RawCertificationExam['productSlug']
 		prepareUrl?: RawCertificationExam['links']['prepare']
 	}[]
