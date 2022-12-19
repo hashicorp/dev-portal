@@ -3,6 +3,7 @@ import { ReactElement, useMemo, useState } from 'react'
 import classNames from 'classnames'
 
 // Global imports
+import { SIDEBAR_LABEL_ID, SIDEBAR_NAV_ELEMENT_ID } from 'constants/element-ids'
 import useCurrentPath from 'hooks/use-current-path'
 import { useCurrentProduct } from 'contexts'
 import FilterInput from 'components/filter-input'
@@ -26,8 +27,6 @@ import SidebarNavList from './components/sidebar-nav-list'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
-
-const SIDEBAR_LABEL_ID = 'sidebar-label'
 
 const Sidebar = ({
 	backToLinkProps,
@@ -117,7 +116,11 @@ const Sidebar = ({
 		<div className={s.sidebar}>
 			{backToElement}
 			{sidebarFilterInput}
-			<nav aria-labelledby={SIDEBAR_LABEL_ID} className={s.nav}>
+			<nav
+				aria-labelledby={SIDEBAR_LABEL_ID}
+				className={s.nav}
+				id={SIDEBAR_NAV_ELEMENT_ID}
+			>
 				<div className={visuallyHideTitle ? 'g-screen-reader-only' : undefined}>
 					<SidebarTitleHeading text={title} id={SIDEBAR_LABEL_ID} />
 				</div>

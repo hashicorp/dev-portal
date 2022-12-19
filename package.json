@@ -12,6 +12,7 @@
 		"prettier:check": "prettier --check .",
 		"prettier:write": "prettier --write .",
 		"postbuild": "hc-tools ./scripts/capture-build-metrics.ts dev-portal && next-sitemap",
+		"rewrite-docs-content-links": "hc-tools ./scripts/docs-content-link-rewrites/rewrite-links.ts",
 		"sitemap": "next-sitemap",
 		"start:boundary": "cross-env DEV_IO=boundary npm run start",
 		"start:consul": "cross-env DEV_IO=consul npm run start",
@@ -26,7 +27,9 @@
 		"start": "hc-tools ./scripts/generate-opt-in-redirect-checks.ts && next",
 		"start:remote-watch": "hc-tools ./scripts/generate-opt-in-redirect-checks.ts && next-remote-watch ../content ../data",
 		"serve": "next build && next start",
-		"test:e2e": "playwright test",
+		"test:e2e": "playwright test --project default",
+		"test:e2e:linkRewrites:loadData": "hc-tools ./scripts/docs-content-link-rewrites/generate-page-paths-for-repo-and-base-path.ts",
+		"test:e2e:linkRewrites": "npx playwright test --project docs-content-link-rewrites",
 		"test:watch": "jest --watch",
 		"test": "jest",
 		"test:ci": "jest --runInBand",
@@ -214,5 +217,8 @@
 		"budgetPercentIncreaseRed": 20,
 		"showDetails": true,
 		"minimumChangeThreshold": 300
-	}
+	},
+	"workspaces": [
+		"./scripts/docs-content-link-rewrites"
+	]
 }
