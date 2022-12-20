@@ -9,10 +9,11 @@ import ProductIntegrationReadmeView from 'views/product-integration/readme-view'
 interface PathParams {
 	productSlug: ProductSlug
 	integrationSlug: string
+	integrationVersion: string
 }
 
 export async function getServerSideProps({
-	params: { productSlug, integrationSlug },
+	params: { productSlug, integrationSlug, integrationVersion },
 }: {
 	params: PathParams
 }) {
@@ -44,11 +45,26 @@ export async function getServerSideProps({
 		}
 	}
 
+	// If the integration version is the latest version, redirect
+	if (
+		integrationVersion === 'latest' ||
+		integrationVersion === integration.versions[0]
+	) {
+		return {
+			redirect: {
+				destination: `/${product.slug}/integrations/${integration.slug}`,
+				// Not permanent as a new release in the future will turn the
+				// latest release into an older release which should render!
+				permanent: false,
+			},
+		}
+	}
+
 	// Fetch the Latest Release
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		product.slug,
 		integrationSlug,
-		integrationResponse.result.versions[0] // Always the latest release
+		integrationVersion
 	)
 	if (activeReleaseResponse.meta.status_code != 200) {
 		console.warn('Could not fetch Release', activeReleaseResponse)
@@ -77,6 +93,10 @@ export async function getServerSideProps({
 				{
 					title: integration.name,
 					url: `/${product.slug}/integrations/${integration.slug}`,
+				},
+				{
+					title: activeRelease.version,
+					url: `/${product.slug}/integrations/${integration.slug}/${activeRelease.version}`,
 					isCurrentPage: true,
 				},
 			],

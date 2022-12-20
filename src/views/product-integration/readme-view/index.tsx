@@ -28,7 +28,11 @@ export default function ProductIntegrationReadmeView({
 			integration={integration}
 			activeRelease={activeRelease}
 			getVersionChangedURL={(version: string) => {
-				return `/${product.slug}/integrations/${integration.slug}/${version}`
+				if (version === integration.versions[0]) {
+					return `/${product.slug}/integrations/${integration.slug}`
+				} else {
+					return `/${product.slug}/integrations/${integration.slug}/${version}`
+				}
 			}}
 		>
 			<MDXRemote {...serializedREADME} components={defaultMdxComponents({})} />
