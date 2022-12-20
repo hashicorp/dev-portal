@@ -1,10 +1,14 @@
+import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { ENABLED_INTEGRATION_PRODUCTS } from 'lib/enabled-integration-products'
 import { cachedGetProductData } from 'lib/get-product-data'
-import { fetchIntegration } from 'lib/integrations-api-client/integration'
+import {
+	Integration,
+	fetchIntegration,
+} from 'lib/integrations-api-client/integration'
 import { fetchIntegrationRelease } from 'lib/integrations-api-client/release'
 import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
 import { withTiming } from 'lib/with-timing'
-import { ProductSlug } from 'types/products'
+import { ProductData, ProductSlug } from 'types/products'
 import ProductIntegrationReadmeView from 'views/product-integration/readme-view'
 
 interface PathParams {
@@ -62,30 +66,38 @@ async function _getServerSideProps({
 			product,
 			integration,
 			activeRelease,
-			breadcrumbLinks: [
-				{
-					title: 'Developer',
-					url: '/',
-				},
-				{
-					title: product.name,
-					url: `/${product.slug}`,
-				},
-				{
-					title: 'Integrations',
-					url: `/${product.slug}/integrations`,
-				},
-				{
-					title: integration.name,
-					url: `/${product.slug}/integrations/${integration.slug}`,
-					isCurrentPage: true,
-				},
-			],
+			breadcrumbLinks: integrationBreadcrumbLinks(product, integration, true),
 			serializedREADME: await serializeIntegrationMarkdown(
 				activeRelease.readme
 			),
 		},
 	}
+}
+
+export function integrationBreadcrumbLinks(
+	product: ProductData,
+	integration: Integration,
+	finalBreadcrumbSegments: boolean
+): Array<BreadcrumbLink> {
+	return [
+		{
+			title: 'Developer',
+			url: '/',
+		},
+		{
+			title: product.name,
+			url: `/${product.slug}`,
+		},
+		{
+			title: 'Integrations',
+			url: `/${product.slug}/integrations`,
+		},
+		{
+			title: integration.name,
+			url: `/${product.slug}/integrations/${integration.slug}`,
+			isCurrentPage: finalBreadcrumbSegments,
+		},
+	]
 }
 
 const label = '[productSlug]/integrations/[integrationSlug]'

@@ -8,7 +8,7 @@ import { ProductData } from 'types/products'
 
 interface ProductIntegrationReadmeViewProps {
 	product: ProductData
-	integration: Integration & { readmeMdxSource: MDXRemoteSerializeResult }
+	integration: Integration
 	activeRelease: Release
 	serializedREADME: MDXRemoteSerializeResult
 	breadcrumbLinks: BreadcrumbLink[]
