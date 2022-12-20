@@ -1,4 +1,5 @@
 import HashiHead from '@hashicorp/react-head'
+import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -12,6 +13,7 @@ interface ProductIntegrationLayoutProps {
 	currentProduct: ProductData
 	integration: Integration
 	activeRelease: Release
+	breadcrumbLinks: BreadcrumbLink[]
 	children: React.ReactNode
 }
 
@@ -24,6 +26,7 @@ export default function ProductIntegrationLayout({
 	currentProduct,
 	integration,
 	activeRelease,
+	breadcrumbLinks,
 	children,
 }: ProductIntegrationLayoutProps) {
 	// Determine if we're on the lastest version, as that will slightly adjust the URLs
@@ -82,7 +85,7 @@ export default function ProductIntegrationLayout({
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
 			sidebarNavDataLevels={sidebarNavDataLevels}
-			// TODO: breadcrumb generate
+			breadcrumbLinks={breadcrumbLinks}
 			sidecarSlot={<></>}
 		>
 			{!onLatestVersion && (
