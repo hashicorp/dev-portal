@@ -1,7 +1,6 @@
 import { ProductSlug } from 'types/products'
 import { certificationProgramSlugMap } from 'views/certifications/content/utils/program-slug-map'
 import {
-	EDITIONS,
 	VALID_EDITION_SLUGS_FOR_FILTERING,
 	VALID_PRODUCT_SLUGS_FOR_FILTERING,
 } from 'views/tutorial-library/constants'
