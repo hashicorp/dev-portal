@@ -62,7 +62,7 @@ export default function ProductIntegrationLayout({
 			title: integration.name,
 			menuItems: [
 				{
-					title: 'README',
+					title: 'Overview',
 					fullPath: onLatestVersion
 						? `/${currentProduct.slug}/integrations/${integration.slug}`
 						: `/${currentProduct.slug}/integrations/${integration.slug}/${activeRelease.version}`,
