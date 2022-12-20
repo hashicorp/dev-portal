@@ -1,3 +1,4 @@
+import HashiHead from '@hashicorp/react-head'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -75,7 +76,6 @@ export default function ProductIntegrationLayout({
 		},
 	]
 
-	// TODO: Calculate canonical URL here
 	// TODO: see if we can fix the navDataLevels type
 	return (
 		<SidebarSidecarLayout
@@ -85,6 +85,11 @@ export default function ProductIntegrationLayout({
 			// TODO: breadcrumb generate
 			sidecarSlot={<></>}
 		>
+			{!onLatestVersion && (
+				<HashiHead>
+					<meta name="robots" content="noindex, nofollow" />
+				</HashiHead>
+			)}
 			{children}
 		</SidebarSidecarLayout>
 	)
