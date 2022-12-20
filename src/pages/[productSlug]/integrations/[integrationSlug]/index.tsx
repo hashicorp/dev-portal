@@ -3,6 +3,7 @@ import { cachedGetProductData } from 'lib/get-product-data'
 import { fetchIntegration } from 'lib/integrations-api-client/integration'
 import { fetchIntegrationRelease } from 'lib/integrations-api-client/release'
 import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
+import { withTiming } from 'lib/with-timing'
 import { ProductSlug } from 'types/products'
 import ProductIntegrationReadmeView from 'views/product-integration/readme-view'
 
@@ -11,7 +12,7 @@ interface PathParams {
 	integrationSlug: string
 }
 
-export async function getServerSideProps({
+async function _getServerSideProps({
 	params: { productSlug, integrationSlug },
 }: {
 	params: PathParams
@@ -87,4 +88,8 @@ export async function getServerSideProps({
 	}
 }
 
+const label = '[productSlug]/integrations/[integrationSlug]'
+export const getServerSideProps = async (ctx) => {
+	return withTiming(label, () => _getServerSideProps(ctx))
+}
 export default ProductIntegrationReadmeView
