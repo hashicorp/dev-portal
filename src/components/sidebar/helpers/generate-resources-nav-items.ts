@@ -1,4 +1,5 @@
 import { ProductSlug } from 'types/products'
+import { certificationProgramSlugMap } from 'views/certifications/content/utils/program-slug-map'
 import {
 	EDITIONS,
 	VALID_EDITION_SLUGS_FOR_FILTERING,
@@ -74,6 +75,33 @@ function getTutorialLibraryUrl(productSlug?: ProductSlug) {
 }
 
 /**
+ * Given a product slug,
+ * Return an array of resource links.
+ *
+ * If we have a corresponding certification program page to link to,
+ * we return that single link item in an array.
+ *
+ * If the given product does not have a certifications page,
+ * we return an empty array.
+ */
+function getCertificationsLink(productSlug?: ProductSlug): {
+	title: string
+	href: string
+}[] {
+	// If this product does not have a certifications link, return an empty array
+	const programSlug = certificationProgramSlugMap[productSlug]
+	if (!programSlug) {
+		return []
+	}
+	// If this product does have a certifications link, return a single-item array
+	const link = {
+		title: 'Certifications',
+		href: `/certifications/${programSlug}`,
+	}
+	return [link]
+}
+
+/**
  * Generates the sidebar nav items for the Resources section of the sidebar.
  * Optionally accepts a Product slug for customization of links.
  */
@@ -86,6 +114,7 @@ const generateResourcesNavItems = (productSlug?: ProductSlug) => {
 			title: 'Tutorial Library',
 			href: getTutorialLibraryUrl(productSlug),
 		},
+		...getCertificationsLink(productSlug),
 		{
 			title: 'Community Forum',
 			href: productSlug

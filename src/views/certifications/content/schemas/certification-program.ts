@@ -7,7 +7,13 @@ import { z } from 'zod'
  * This schema, and components that use the CertificationProductSlug type,
  * will need to be expanded when additional certification programs are added.
  */
-const CertificationProductSlugSchema = z.enum(['consul', 'terraform', 'vault'])
+export const productsWithCertifications = [
+	'consul',
+	'terraform',
+	'vault',
+] as const
+
+const CertificationProductSlugSchema = z.enum(productsWithCertifications)
 
 /**
  * Export the CertificationProductSlug enum as a type.
