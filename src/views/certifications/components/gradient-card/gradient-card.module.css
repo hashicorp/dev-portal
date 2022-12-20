@@ -1,0 +1,125 @@
+.root {
+	/* we want to isolate the z-index mess-arounds for layering backgrounds */
+	isolation: isolate;
+
+	/* the gradient background absolute position references the root container */
+	position: relative;
+}
+
+.inner {
+	padding: 24px;
+	position: relative;
+
+	/* we want to make sure contents are layered over the background */
+	z-index: 1;
+}
+
+.gradientBorderBackground {
+	/*
+	   This element handles both the gradient border, and gradient shadow.
+
+	   For the gradient border, we layer the base background color with a
+		 transparent-ish gradient on top of the base color. This gradient
+		 background fills the card. It's not really a border - we mask it with an
+		 inset base colour `::after` element to achieve a border look.
+		 Approach from: https://css-tricks.com/gradient-borders-in-css/.
+		 
+		 For the gradient shadow, we use a `::before` element layered under
+		 the gradient "border" background stack.
+	*/
+
+	/**
+	 * Base properties
+	 */
+
+	/* border-radius is shared through multiple background "layers" */
+	--border-radius: 6px;
+
+	/* base-background is used behind the gradient "border", and as a mask */
+	--base-background: var(--token-color-surface-primary);
+
+	/**
+	 * Gradient shadow properties
+	 */
+	--shadow-inset: 48px;
+
+	/* Default added shadow is a neutral gray. */
+	--shadow-background: var(--token-color-foreground-faint);
+
+	/**
+	 * Gradient border properties
+	 */
+	--gradient-border-width: 1px;
+
+	/* Default gradient "border" is just white, no actual border */
+	--gradient-border-background: var(--token-color-surface-primary);
+
+	background: var(--base-background) var(--gradient-border-background);
+	border-radius: var(--border-radius);
+	bottom: 0;
+	box-shadow: var(--token-surface-base-box-shadow);
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+
+	/* Inset white background makes the gradient background look like a border,
+	   by masking most of the area. */
+	&::after {
+		content: '\200B';
+		position: absolute;
+		bottom: var(--gradient-border-width);
+		left: var(--gradient-border-width);
+		right: var(--gradient-border-width);
+		top: var(--gradient-border-width);
+		background: var(--base-background);
+		border-radius: calc(var(--border-radius) - var(--gradient-border-width));
+	}
+
+	/* Gradient drop shadow, that appears "below" the card using z-index */
+	&::before {
+		content: '\200B'; /* zero width space */
+		position: absolute;
+		bottom: var(--shadow-inset);
+		left: var(--shadow-inset);
+		right: var(--shadow-inset);
+		height: 72px;
+		background: var(--shadow-background);
+		filter: blur(50px);
+		z-index: -1;
+	}
+
+	/* Theme classes for specific shadow & "border" gradient coloration */
+	&.theme-infrastructure-automation {
+		--shadow-background: linear-gradient(90deg, #8cdeff 0%, #8763d9 100%);
+		--gradient-border-background: radial-gradient(
+			36.05% 120.87% at 3.06% 4.48%,
+			#8666d8 0%,
+			#6673b0 16.29%,
+			#7eb8ff 44.27%,
+			rgba(250, 250, 250, 0) 100%
+		);
+	}
+
+	&.theme-networking-automation {
+		--shadow-background: linear-gradient(90deg, #ffb2b8 0%, #c74fb8 100%);
+		--gradient-border-background: radial-gradient(
+			36.05% 120.87% at 3.06% 4.48%,
+			#e33d82 0%,
+			#eb98a1 16.29%,
+			#94337b 44.27%,
+			rgba(250, 250, 250, 0) 100%
+		);
+	}
+
+	&.theme-security-automation {
+		--shadow-background: linear-gradient(90deg, #ffe58c 0%, #f26b63 100%);
+		--gradient-border-background: radial-gradient(
+			36.05% 120.87% at 3.06% 4.48%,
+			#ffec6e 0%,
+			#ffd8b5 19.27%,
+			#ff9793 44.27%,
+			rgba(250, 250, 250, 0) 100%
+		);
+	}
+}

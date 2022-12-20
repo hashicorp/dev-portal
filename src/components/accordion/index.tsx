@@ -10,11 +10,13 @@ function Accordion({ className, items }: AccordionProps) {
 	const itemsCount = items.length
 	return (
 		<div className={classNames(s.root, className)}>
-			{items.map(({ title, content }: AccordionContentItem, idx: number) => {
+			{items.map((item: AccordionContentItem, idx: number) => {
+				const { title, content, initialOpen } = item
 				return (
 					<AccordionDisclosure
 						key={title}
 						title={title}
+						initialOpen={initialOpen}
 						groupData={{
 							numItems: itemsCount,
 							currentIndex: idx,

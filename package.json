@@ -127,6 +127,7 @@
 		"@hashicorp/react-inline-svg": "^6.0.3",
 		"@hashicorp/react-learn-callout": "^2.0.1",
 		"@hashicorp/react-markdown-page": "^1.5.0",
+		"@hashicorp/react-marketo-form": "^0.7.0",
 		"@hashicorp/react-min-100-layout": "^2.0.1",
 		"@hashicorp/react-next-steps": "^0.6.1",
 		"@hashicorp/react-open-api-page": "^2.1.0",
@@ -175,6 +176,7 @@
 		"jsonwebtoken": "^8.5.1",
 		"klaw-sync": "^6.0.0",
 		"mdast": "^3.0.0",
+		"mdast-util-to-string": "^2.0.0",
 		"moize": "^6.1.0",
 		"next": "^13.0.5",
 		"next-auth": "^4.17.0",
@@ -202,7 +204,9 @@
 		"unified": "^9.2.0",
 		"unist-util-is": "^5.1.1",
 		"unist-util-visit": "^4.1.0",
-		"validator": "^13.7.0"
+		"unist-util-visit-children": "^1.1.4",
+		"validator": "^13.7.0",
+		"zod": "^3.20.2"
 	},
 	"overrides": {
 		"react": "^18.2.0",
