@@ -6,10 +6,14 @@
 	   into viewport overflow */
 	overflow: hidden;
 	padding-bottom: 220px;
-	padding-top: 144px;
+	padding-top: 64px;
 
 	/* relative position allows background absolute position to cover the hero */
 	position: relative;
+
+	@media (--dev-dot-tablet-up) {
+		padding-top: 144px;
+	}
 }
 
 /**
