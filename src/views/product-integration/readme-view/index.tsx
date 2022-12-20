@@ -10,6 +10,7 @@ interface ProductIntegrationReadmeViewProps {
 	product: ProductData
 	integration: Integration & { readmeMdxSource: MDXRemoteSerializeResult }
 	activeRelease: Release
+	serializedREADME: MDXRemoteSerializeResult
 	breadcrumbLinks: BreadcrumbLink[]
 }
 
@@ -18,6 +19,7 @@ export default function ProductIntegrationReadmeView({
 	integration,
 	activeRelease,
 	breadcrumbLinks,
+	serializedREADME,
 }: ProductIntegrationReadmeViewProps) {
 	return (
 		<ProductIntegrationLayout
@@ -29,10 +31,7 @@ export default function ProductIntegrationReadmeView({
 				return `/${product.slug}/integrations/${integration.slug}/${version}`
 			}}
 		>
-			<MDXRemote
-				{...integration.readmeMdxSource}
-				components={defaultMdxComponents({})}
-			/>
+			<MDXRemote {...serializedREADME} components={defaultMdxComponents({})} />
 		</ProductIntegrationLayout>
 	)
 }
