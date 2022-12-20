@@ -10,10 +10,20 @@
 	display: flex;
 	height: 200px;
 	overflow: visible;
+	position: relative;
 
 	& > img {
-		position: relative;
+		position: absolute;
 		top: -40px;
-		margin-left: auto;
+		left: 50%;
+		transform: translateX(-50%);
+
+		@media only screen and (min-width: 481px) {
+			position: relative;
+			top: -40px;
+			left: auto;
+			margin-left: auto;
+			transform: none;
+		}
 	}
 }
