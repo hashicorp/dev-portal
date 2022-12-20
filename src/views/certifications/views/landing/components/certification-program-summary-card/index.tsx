@@ -32,7 +32,14 @@ export function CertificationProgramSummaryCard({
 			/>
 			<div className={s.examCards}>
 				{exams.map(
-					({ title, prepareUrl, registerUrl, examCode, productSlug }) => {
+					({
+						title,
+						prepareUrl,
+						registerUrl,
+						examCode,
+						examTier,
+						productSlug,
+					}) => {
 						const fullTitle = title + (examCode ? ` (${examCode})` : '')
 						const showComingSoon = typeof registerUrl !== 'string'
 						return prepareUrl ? (
@@ -40,6 +47,7 @@ export function CertificationProgramSummaryCard({
 								key={fullTitle}
 								title={fullTitle}
 								url={prepareUrl}
+								examTier={examTier}
 								productSlug={productSlug}
 								showComingSoon={showComingSoon}
 							/>
@@ -47,6 +55,7 @@ export function CertificationProgramSummaryCard({
 							<ExamCardUnlinked
 								key={fullTitle}
 								title={fullTitle}
+								examTier={examTier}
 								productSlug={productSlug}
 							/>
 						)

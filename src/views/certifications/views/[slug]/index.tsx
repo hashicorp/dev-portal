@@ -36,6 +36,7 @@ function CertificationProgramView({
 										title={fullTitle}
 										description={exam.description}
 										links={exam.links}
+										examTier={exam.examTier}
 										productSlug={exam.productSlug}
 										versionTested={exam.versionTested}
 										slug={slug}

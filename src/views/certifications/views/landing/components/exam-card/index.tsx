@@ -27,7 +27,11 @@ function ComingSoonBadge() {
 /**
  * Unlinked exam cards are used where a "prepareUrl" is not available yet.
  */
-function ExamCardUnlinked({ title, productSlug }: ExamCardUnlinkedProps) {
+function ExamCardUnlinked({
+	title,
+	productSlug,
+	examTier,
+}: ExamCardUnlinkedProps) {
 	return (
 		<Card className={s.comingSoonCard}>
 			<ExamCardContents>
@@ -35,6 +39,7 @@ function ExamCardUnlinked({ title, productSlug }: ExamCardUnlinkedProps) {
 					title={title}
 					eyebrow="HashiCorp Certified:"
 					productSlug={productSlug}
+					examTier={examTier}
 				/>
 				<ComingSoonBadge />
 			</ExamCardContents>
@@ -48,7 +53,13 @@ function ExamCardUnlinked({ title, productSlug }: ExamCardUnlinkedProps) {
  * If a "registerUrl" for the exam is not yet available, we show
  * a "Coming Soon" badge within this card as well.
  */
-function ExamCard({ title, productSlug, url, showComingSoon }: ExamCardProps) {
+function ExamCard({
+	title,
+	productSlug,
+	url,
+	showComingSoon,
+	examTier,
+}: ExamCardProps) {
 	return (
 		<CardLink className={s.examCard} href={url} ariaLabel="test">
 			<ExamCardContents>
@@ -56,6 +67,7 @@ function ExamCard({ title, productSlug, url, showComingSoon }: ExamCardProps) {
 					title={title}
 					eyebrow="HashiCorp Certified:"
 					productSlug={productSlug}
+					examTier={examTier}
 				/>
 				<CtaGroup>
 					{showComingSoon ? <ComingSoonBadge /> : null}

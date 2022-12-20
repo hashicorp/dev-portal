@@ -10,6 +10,7 @@ import {
 } from 'views/certifications/components'
 import {
 	CertificationProductSlug,
+	ExamTier,
 	ProgramSlug,
 } from 'views/certifications/types'
 // Local
@@ -23,6 +24,7 @@ import s from './exam-details-card.module.css'
 export function ExamDetailsCard({
 	title,
 	description,
+	examTier,
 	links,
 	productSlug,
 	versionTested,
@@ -30,6 +32,7 @@ export function ExamDetailsCard({
 }: {
 	title: string
 	description: string
+	examTier: ExamTier
 	productSlug: CertificationProductSlug
 	versionTested: string
 	slug: ProgramSlug
@@ -47,6 +50,7 @@ export function ExamDetailsCard({
 						title={title}
 						productSlug={productSlug}
 						versionTested={versionTested}
+						examTier={examTier}
 					/>
 				}
 				endContent={

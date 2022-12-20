@@ -17,6 +17,19 @@ export type CertificationProductSlug = z.infer<
 >
 
 /**
+ * Each exam can optionally define a tier.
+ * - associate (shows 1 start on badges)
+ * - pro (shows 2 stars on badges)
+ * Generally, the `associate` tier is used as the default.
+ */
+const ExamTierSchema = z.enum(['associate', 'pro'])
+
+/**
+ * Export the CertificationProductSlug enum as a type.
+ */
+export type ExamTier = z.infer<typeof ExamTierSchema>
+
+/**
  * Content schema for an exam.
  *
  * Each certification program can reference multiple exams.
@@ -26,6 +39,7 @@ export type CertificationProductSlug = z.infer<
 export const CertificationExamSchema = z.object({
 	title: z.string(),
 	examCode: z.string().optional(),
+	examTier: ExamTierSchema.optional(),
 	productSlug: CertificationProductSlugSchema,
 	versionTested: z.string(),
 	description: z.string(),
