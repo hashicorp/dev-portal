@@ -8,12 +8,17 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
 import { ProductData } from 'types/products'
+import Header from './components/header'
 
 interface ProductIntegrationLayoutProps {
 	currentProduct: ProductData
 	integration: Integration
 	activeRelease: Release
 	breadcrumbLinks: BreadcrumbLink[]
+	// When the version is changed on a page using this layout,
+	// this function should calculate the new URL that we
+	// should be redirected to.
+	getVersionChangedURL: (version: string) => string
 	children: React.ReactNode
 }
 
@@ -27,6 +32,7 @@ export default function ProductIntegrationLayout({
 	integration,
 	activeRelease,
 	breadcrumbLinks,
+	getVersionChangedURL,
 	children,
 }: ProductIntegrationLayoutProps) {
 	// Determine if we're on the lastest version, as that will slightly adjust the URLs
@@ -79,9 +85,9 @@ export default function ProductIntegrationLayout({
 		},
 	]
 
-	// TODO: see if we can fix the navDataLevels type
 	return (
 		<SidebarSidecarLayout
+			// TODO: see if we can fix the navDataLevels type
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-ignore
 			sidebarNavDataLevels={sidebarNavDataLevels}
@@ -93,6 +99,15 @@ export default function ProductIntegrationLayout({
 					<meta name="robots" content="noindex, nofollow" />
 				</HashiHead>
 			)}
+			<Header
+				integration={integration}
+				activeRelease={activeRelease}
+				getVersionChangedURL={getVersionChangedURL}
+				onInstallClicked={() => {
+					console.log('TODO, probably remove this')
+				}}
+			/>
+
 			{children}
 		</SidebarSidecarLayout>
 	)

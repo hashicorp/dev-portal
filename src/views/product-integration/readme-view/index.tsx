@@ -5,7 +5,6 @@ import { Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
-import Header from '../components/header'
 
 interface ProductIntegrationReadmeViewProps {
 	product: ProductData
@@ -26,17 +25,10 @@ export default function ProductIntegrationReadmeView({
 			currentProduct={product}
 			integration={integration}
 			activeRelease={activeRelease}
+			getVersionChangedURL={(version: string) => {
+				return `/${product.slug}/integrations/${integration.slug}/${version}`
+			}}
 		>
-			<Header
-				integration={integration}
-				activeRelease={activeRelease}
-				getVersionChangedURL={(version: string) => {
-					return `/${product.slug}/integrations/${integration.slug}/${version}`
-				}}
-				onInstallClicked={() => {
-					console.log('TODO')
-				}}
-			/>
 			<MDXRemote
 				{...integration.readmeMdxSource}
 				components={defaultMdxComponents({})}
