@@ -7,22 +7,24 @@ import ProductIntegrationNested from 'views/product-integration-nested'
 
 interface PathParams {
 	productSlug: ProductSlug
+	integrationSlug: string
 }
 
-export async function getServerSideProps({ params }: { params: PathParams }) {
+export async function getServerSideProps({
+	params: { productSlug, integrationSlug },
+}: {
+	params: PathParams
+}) {
 	// 404 if we're not on an enabled page
-	if (!ENABLED_INTEGRATION_PRODUCTS.includes(params.productSlug)) {
+	if (!ENABLED_INTEGRATION_PRODUCTS.includes(productSlug)) {
 		return {
 			notFound: true,
 		}
 	}
 
-	// TODO: don't hardcode this
-	const integrationSlug = 'docker'
-
 	// ===== Fetch Integration
 	const integrationResponse = await fetchIntegration(
-		params.productSlug,
+		productSlug,
 		integrationSlug
 	)
 	if (integrationResponse.meta.status_code != 200) {
@@ -33,9 +35,9 @@ export async function getServerSideProps({ params }: { params: PathParams }) {
 
 	// ==== Fetch Active Release
 	const activeReleaseResponse = await fetchIntegrationRelease(
-		params.productSlug,
+		productSlug,
 		integrationSlug,
-		integrationResponse.result.versions[0]
+		integrationResponse.result.versions[0] // TODO
 	)
 	if (activeReleaseResponse.meta.status_code != 200) {
 		console.warn(
@@ -51,7 +53,7 @@ export async function getServerSideProps({ params }: { params: PathParams }) {
 	return {
 		props: {
 			product: {
-				...cachedGetProductData(params.productSlug),
+				...cachedGetProductData(productSlug),
 			},
 			integration,
 			activeRelease,
