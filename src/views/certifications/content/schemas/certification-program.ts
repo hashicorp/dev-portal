@@ -31,7 +31,7 @@ export type CertificationProductSlug = z.infer<
 const ExamTierSchema = z.enum(['associate', 'pro'])
 
 /**
- * Export the CertificationProductSlug enum as a type.
+ * Export the ExamTier enum as a type.
  */
 export type ExamTier = z.infer<typeof ExamTierSchema>
 
