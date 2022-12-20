@@ -3,6 +3,7 @@ import type {
 	RawCertificationExam,
 	RawCertificationProgram,
 	CertificationProductSlug,
+	ExamTier,
 } from './content/schemas/certification-program'
 import { ProgramSlug } from './content/schemas/landing-page'
 
@@ -15,6 +16,11 @@ export type { ProgramSlug }
  * Re-export CertificationProductSlug from this file, for convenience.
  */
 export type { CertificationProductSlug }
+
+/**
+ * Re-export ExamTier from this file, for convenience
+ */
+export type { ExamTier }
 
 /**
  * An FAQ item consists of a title representing the questions,
