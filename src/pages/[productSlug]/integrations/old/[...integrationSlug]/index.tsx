@@ -4,13 +4,13 @@ import { fetchIntegration } from 'lib/integrations-api-client/integration'
 import { fetchIntegrationRelease } from 'lib/integrations-api-client/release'
 import { withTiming } from 'lib/with-timing'
 import { ProductSlug } from 'types/products'
-import ProductIntegration from 'views/product-integration'
+import ProductIntegration from 'views/product-integration-old'
 
 // Markdown -> MDX processing
-import { serialize } from 'next-mdx-remote/serialize'
+import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import { paragraphCustomAlerts, typography } from '@hashicorp/remark-plugins'
 import rehypePrism from '@mapbox/rehype-prism'
-import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
+import { serialize } from 'next-mdx-remote/serialize'
 
 // TODO: export types from `next-mdx-remote` v3
 const SERIALIZE_OPTIONS: Parameters<typeof serialize>[1] = {
