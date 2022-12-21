@@ -10,21 +10,11 @@
 }
 
 .header {
-	background: var(--black);
 	border-radius: 5px;
-	padding: 38px;
-	background-repeat: no-repeat;
-	background-image: var(--background-image);
-	background-position-x: calc(50% + 200px);
-	background-size: auto 100%;
+	margin-bottom: 24px;
 
 	& > h1 {
-		color: var(--white);
 		margin-top: 0;
-	}
-
-	& > .searchBar {
-		max-width: 500px;
 	}
 }
 
@@ -56,4 +46,45 @@
 
 .filterButton {
 	margin-top: 12px;
+}
+
+.selectStack {
+	display: flex;
+	flex-direction: row;
+	margin: 12px 0;
+
+	& >:not(:first-child) {
+		margin-left: 12px;
+	}
+}
+
+.clearFilters {
+	position: relative;
+  cursor: pointer;
+  user-select: none;
+	max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	color: #1060FF;
+	border-radius: 5px;
+	background: none;
+  border-color: transparent;
+	padding: 0 16px;
+
+	--lighten-color: hsla(0,0%,100%,.8);
+
+	background-image: linear-gradient(
+    to right,
+    var(--lighten-color),
+    var(--lighten-color)
+  );
+	transition: all 200ms ease;
+
+	&:hover {
+		background-color: #1060FF;
+	}
+	& svg {
+		margin-right: 8px;
+	}
 }
