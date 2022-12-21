@@ -1,11 +1,19 @@
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import Tabs, { Tab } from 'components/tabs'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
+import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import { Integration } from 'lib/integrations-api-client/integration'
-import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import {
+	Variable as ApiVariable,
+	Release,
+	ReleaseComponent,
+	VariableGroup,
+} from 'lib/integrations-api-client/release'
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
-// TODO, move this imported component
-import ComponentTabContent from 'views/product-integration-old/components/component-tab-content'
+import SearchableVariableGroupList from './components/searchable-variable-group-list'
+import { Variable } from './components/variable-group-list'
+import s from './style.module.css'
 
 interface ProductIntegrationComponentViewProps {
 	product: ProductData
@@ -26,6 +34,7 @@ export default function ProductIntegrationComponentView({
 }: ProductIntegrationComponentViewProps) {
 	return (
 		<ProductIntegrationLayout
+			className={s.integrationComponentView}
 			breadcrumbLinks={breadcrumbLinks}
 			currentProduct={product}
 			integration={integration}
@@ -36,12 +45,44 @@ export default function ProductIntegrationComponentView({
 				return `/${product.slug}/integrations/${integration.slug}/${versionString}/components/${component.component.slug}`
 			}}
 		>
-			<ComponentTabContent
-				component={{
-					...component,
-					readmeMdxSource: serializedREADME,
-				}}
-			/>
+			{serializedREADME ? (
+				<div className={s.mdxWrapper}>
+					<MDXRemote
+						{...serializedREADME}
+						components={defaultMdxComponents({})}
+					/>
+				</div>
+			) : (
+				<></>
+			)}
+			{component.variable_groups.length ? (
+				<Tabs allowNestedStyles>
+					{component.variable_groups.map((variableGroup: VariableGroup) => {
+						return (
+							<Tab
+								key={variableGroup.id}
+								heading={variableGroup.variable_group_config.name}
+							>
+								<SearchableVariableGroupList
+									groupName={variableGroup.variable_group_config.name}
+									variables={variableGroup.variables.map(
+										(variable: ApiVariable): Variable => {
+											return {
+												key: variable.key,
+												type: variable.type,
+												description: variable.description,
+												required: variable.required,
+											}
+										}
+									)}
+								/>
+							</Tab>
+						)
+					})}
+				</Tabs>
+			) : (
+				<></>
+			)}
 		</ProductIntegrationLayout>
 	)
 }

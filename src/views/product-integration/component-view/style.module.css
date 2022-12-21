@@ -1,0 +1,7 @@
+.integrationComponentView {
+	& .mdxWrapper {
+		& > :first-child {
+			margin-top: 0;
+		}
+	}
+}

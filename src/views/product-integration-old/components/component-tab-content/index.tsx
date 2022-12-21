@@ -6,8 +6,8 @@ import {
 } from 'lib/integrations-api-client/release'
 import { MDXRemote, type MDXRemoteSerializeResult } from 'next-mdx-remote'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
-import SearchableVariableGroupList from '../searchable-variable-group-list'
-import { Variable } from '../variable-group-list'
+import SearchableVariableGroupList from '../../../product-integration/component-view/components/searchable-variable-group-list'
+import { Variable } from '../../../product-integration/component-view/components/variable-group-list'
 import s from './style.module.css'
 
 interface ComponentTabContentProps {
