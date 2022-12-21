@@ -9,8 +9,10 @@ import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
 import { ProductData } from 'types/products'
 import Header from './components/header'
+import s from './style.module.css'
 
 interface ProductIntegrationLayoutProps {
+	className?: string
 	currentProduct: ProductData
 	integration: Integration
 	activeRelease: Release
@@ -28,6 +30,7 @@ interface ProductIntegrationLayoutProps {
  * page is rendering in the `/{product}/integrations/{integration}` context.
  */
 export default function ProductIntegrationLayout({
+	className,
 	currentProduct,
 	integration,
 	activeRelease,
@@ -100,6 +103,7 @@ export default function ProductIntegrationLayout({
 				</HashiHead>
 			)}
 			<Header
+				className={s.header}
 				integration={integration}
 				activeRelease={activeRelease}
 				getVersionChangedURL={getVersionChangedURL}
@@ -107,8 +111,7 @@ export default function ProductIntegrationLayout({
 					console.log('TODO, probably remove this')
 				}}
 			/>
-
-			{children}
+			<div className={className}>{children}</div>
 		</SidebarSidecarLayout>
 	)
 }

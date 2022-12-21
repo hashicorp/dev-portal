@@ -4,6 +4,8 @@ import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
+// TODO, move this imported component
+import ComponentTabContent from 'views/product-integration-old/components/component-tab-content'
 
 interface ProductIntegrationComponentViewProps {
 	product: ProductData
@@ -34,7 +36,12 @@ export default function ProductIntegrationComponentView({
 				return `/${product.slug}/integrations/${integration.slug}/${versionString}/components/${component.component.slug}`
 			}}
 		>
-			<h1>Component {component.component.name}</h1>
+			<ComponentTabContent
+				component={{
+					...component,
+					readmeMdxSource: serializedREADME,
+				}}
+			/>
 		</ProductIntegrationLayout>
 	)
 }

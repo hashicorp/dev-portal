@@ -5,6 +5,7 @@ import { Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
+import s from './style.module.css'
 
 interface ProductIntegrationReadmeViewProps {
 	product: ProductData
@@ -23,6 +24,7 @@ export default function ProductIntegrationReadmeView({
 }: ProductIntegrationReadmeViewProps) {
 	return (
 		<ProductIntegrationLayout
+			className={s.readmeView}
 			breadcrumbLinks={breadcrumbLinks}
 			currentProduct={product}
 			integration={integration}
