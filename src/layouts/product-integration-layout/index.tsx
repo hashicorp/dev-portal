@@ -7,6 +7,7 @@ import {
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
+import { generateProductIntegrationLibrarySidebarNavData } from 'pages/[productSlug]/integrations'
 import { ProductData } from 'types/products'
 import Header from './components/header'
 import s from './style.module.css'
@@ -53,14 +54,14 @@ export default function ProductIntegrationLayout({
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
 		generateProductLandingSidebarNavData(currentProduct),
-		// TODO: Generate the Integrations Landing Page Level
+		generateProductIntegrationLibrarySidebarNavData(currentProduct),
 		{
 			backToLinkProps: {
 				text: `${currentProduct.name} Integrations`,
 				href: `/${currentProduct.slug}/integrations`,
 			},
 			levelButtonProps: {
-				levelUpButtonText: `${currentProduct.name} Home`,
+				levelUpButtonText: `${currentProduct.name} Integrations`,
 				levelDownButtonText: 'Previous',
 			},
 			showFilterInput: false,

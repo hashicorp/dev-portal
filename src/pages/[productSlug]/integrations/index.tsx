@@ -1,14 +1,39 @@
+import {
+	generateProductLandingSidebarNavData,
+	generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
 import { ENABLED_INTEGRATION_PRODUCTS } from 'lib/enabled-integration-products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import {
-	fetchAllProductIntegrations,
 	Integration,
+	fetchAllProductIntegrations,
 } from 'lib/integrations-api-client/integration'
+import { ProductData } from 'types/products'
 import ProductIntegrationsLanding from 'views/product-integrations-landing'
-import {
-	generateTopLevelSidebarNavData,
-	generateProductLandingSidebarNavData,
-} from 'components/sidebar/helpers'
+
+export function generateProductIntegrationLibrarySidebarNavData(
+	product: ProductData
+) {
+	return {
+		backToLinkProps: {
+			text: `${product.name} Home`,
+			href: `/${product.slug}`,
+		},
+		levelButtonProps: {
+			levelUpButtonText: `${product.name} Home`,
+			levelDownButtonText: 'Previous',
+		},
+		menuItems: [
+			{
+				title: 'Library',
+				href: `/${product.slug}/integrations`,
+				isActive: true,
+			},
+		],
+		showFilterInput: false,
+		title: `${product.name} Integrations`,
+	}
+}
 
 export async function getServerSideProps({ params }) {
 	// 404 if we're not on an enabled page
@@ -26,25 +51,7 @@ export async function getServerSideProps({ params }) {
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(product.name),
 		generateProductLandingSidebarNavData(product),
-		{
-			backToLinkProps: {
-				text: `${product.name} Home`,
-				href: `/${product.slug}`,
-			},
-			levelButtonProps: {
-				levelUpButtonText: `${product.name} Home`,
-				levelDownButtonText: 'Previous',
-			},
-			menuItems: [
-				{
-					title: 'Library',
-					href: `/${product.slug}/integrations`,
-					isActive: true,
-				},
-			],
-			showFilterInput: false,
-			title: `${product.name} Integrations`,
-		},
+		generateProductIntegrationLibrarySidebarNavData(product),
 	]
 
 	const breadcrumbLinks = [
