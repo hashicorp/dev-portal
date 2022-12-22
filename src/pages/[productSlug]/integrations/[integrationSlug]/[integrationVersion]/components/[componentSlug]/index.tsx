@@ -124,7 +124,7 @@ async function _getServerSideProps({
 	}
 }
 
-export function integrationComponentBreadcrumbLinks(
+function integrationComponentBreadcrumbLinks(
 	product: ProductData,
 	integration: Integration,
 	activeRelease: Release,
