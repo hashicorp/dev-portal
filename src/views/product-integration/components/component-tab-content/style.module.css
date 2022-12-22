@@ -1,3 +1,10 @@
 .componentTabContent {
 	display: true;
 }
+
+/* ensure first element has no margin-top */
+.mdx_wrapper {
+	& > :first-child {
+		margin-top: 0;
+	}
+}
