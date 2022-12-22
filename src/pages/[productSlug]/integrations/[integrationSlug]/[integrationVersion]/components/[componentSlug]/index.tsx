@@ -95,8 +95,17 @@ async function _getServerSideProps({
 		}
 	}
 
+	// Compute the string for the inclusion of the version in the title
+	const titleVersion =
+		activeRelease.version === integration.versions[0]
+			? ''
+			: ` (${activeRelease.version})`
+
 	return {
 		props: {
+			metadata: {
+				title: `${integration.name} ${releaseComponent.component.name}${titleVersion} | Integrations`,
+			},
 			product,
 			integration,
 			activeRelease,

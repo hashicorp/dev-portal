@@ -73,6 +73,10 @@ export async function getServerSideProps({ params }) {
 	]
 	return {
 		props: {
+			metadata: {
+				title: `Integrations`,
+				// description: `TODO`,
+			},
 			integrations,
 			sidebarNavDataLevels,
 			breadcrumbLinks,

@@ -63,6 +63,10 @@ async function _getServerSideProps({
 
 	return {
 		props: {
+			metadata: {
+				title: `${integration.name} | Integrations`,
+				description: integration.description,
+			},
 			product,
 			integration,
 			activeRelease,
