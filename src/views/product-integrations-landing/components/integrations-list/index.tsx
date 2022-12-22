@@ -44,19 +44,24 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 		>
 			<div className={s.cardContent}>
 				<div className={s.left}>
-					<div className={s.nameVersionWrapper}>
-						<h3 className={s.heading}>{integration.name}</h3>
-						{!integration.hide_versions && (
-							<span className={s.version}>v{integration.versions[0]}</span>
-						)}
+					<div>
+						<div className={s.nameVersionWrapper}>
+							<h3 className={s.heading}>{integration.name}</h3>
+							{!integration.hide_versions && (
+								<span className={s.version}>v{integration.versions[0]}</span>
+							)}
+						</div>
+						<span
+							className={s.organization}
+						>{`@${integration.organization.slug}`}</span>
 					</div>
-					<span
-						className={s.organization}
-					>{`@${integration.organization.slug}`}</span>
 					<p className={s.body}>{integration.description}</p>
 				</div>
 				<div className={s.right}>
-					<TagList tags={GetIntegrationTags(integration, false)} />
+					<TagList
+						className={s.tagList}
+						tags={GetIntegrationTags(integration, false)}
+					/>
 					<span className={s.viewDetails}>
 						View Details
 						{isExternalLink ? <IconExternalLink16 /> : <IconArrowRight16 />}
