@@ -74,7 +74,7 @@ export async function getServerSideProps({ params }) {
 	return {
 		props: {
 			metadata: {
-				title: `Integrations`,
+				title: `Integrations | ${product.name}`,
 				// description: `TODO`,
 			},
 			integrations,
