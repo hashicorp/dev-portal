@@ -12,6 +12,7 @@ import Header from './components/header'
 import s from './style.module.css'
 
 interface ProductIntegrationLayoutProps {
+	title: string
 	className?: string
 	currentProduct: ProductData
 	integration: Integration
@@ -31,6 +32,7 @@ interface ProductIntegrationLayoutProps {
  */
 export default function ProductIntegrationLayout({
 	className,
+	title,
 	currentProduct,
 	integration,
 	activeRelease,
@@ -111,6 +113,7 @@ export default function ProductIntegrationLayout({
 					console.log('TODO, probably remove this')
 				}}
 			/>
+			<h1>{title}</h1>
 			<div className={className}>{children}</div>
 		</SidebarSidecarLayout>
 	)

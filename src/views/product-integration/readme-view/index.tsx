@@ -24,6 +24,7 @@ export default function ProductIntegrationReadmeView({
 }: ProductIntegrationReadmeViewProps) {
 	return (
 		<ProductIntegrationLayout
+			title="README"
 			className={s.readmeView}
 			breadcrumbLinks={breadcrumbLinks}
 			currentProduct={product}

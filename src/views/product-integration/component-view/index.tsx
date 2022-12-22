@@ -35,6 +35,7 @@ export default function ProductIntegrationComponentView({
 	return (
 		<ProductIntegrationLayout
 			className={s.integrationComponentView}
+			title={`${integration.name} ${component.component.name}`}
 			breadcrumbLinks={breadcrumbLinks}
 			currentProduct={product}
 			integration={integration}
