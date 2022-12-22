@@ -11,14 +11,15 @@ import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import ReactMarkdown from 'react-markdown'
+import { MDXRemote, type MDXRemoteSerializeResult } from 'next-mdx-remote'
+import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import { ProductData } from 'types/products'
 import ComponentTabContent from './components/component-tab-content'
 import Header from './components/header'
 import s from './style.module.css'
 
 interface ViewProps {
-	integration: Integration
+	integration: Integration & { readmeMdxSource: MDXRemoteSerializeResult }
 	versions: {
 		value: string
 		label: string
@@ -29,7 +30,7 @@ interface ViewProps {
 	breadcrumbLinks: BreadcrumbLink[]
 }
 
-export default function ProductIntegrationLanding({
+export default function ProductIntegration({
 	integration,
 	versions,
 	activeRelease,
@@ -95,6 +96,13 @@ export default function ProductIntegrationLanding({
 		},
 	]
 
+	const readmeContent = (
+		<MDXRemote
+			{...integration.readmeMdxSource}
+			components={defaultMdxComponents({})}
+		/>
+	)
+
 	return (
 		<SidebarSidecarLayout
 			sidebarNavDataLevels={sidebarNavDataLevels}
@@ -124,18 +132,22 @@ export default function ProductIntegrationLanding({
 						initialActiveIndex={map.slugToIndex[tab]}
 						onChange={handleTabChange}
 					>
-						<Tab heading="README">
-							<ReactMarkdown>{activeRelease.readme}</ReactMarkdown>
-						</Tab>
-						{activeRelease.components.map((irc: ReleaseComponent) => {
-							return irc.readme || irc.variable_groups.length ? (
-								<Tab key={irc.component.id} heading={irc.component.name}>
-									<ComponentTabContent component={irc} />
-								</Tab>
-							) : (
-								<></>
-							)
-						})}
+						<Tab heading="README">{readmeContent}</Tab>
+						{activeRelease.components.map(
+							(
+								irc: ReleaseComponent & {
+									readmeMdxSource: MDXRemoteSerializeResult
+								}
+							) => {
+								return irc.readme || irc.variable_groups.length ? (
+									<Tab key={irc.component.id} heading={irc.component.name}>
+										<ComponentTabContent component={irc} />
+									</Tab>
+								) : (
+									<></>
+								)
+							}
+						)}
 					</Tabs>
 				</div>
 			</>
