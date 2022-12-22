@@ -13,34 +13,42 @@ import TagList, {
 import s from './style.module.css'
 
 interface HeaderProps {
+	className?: string
 	integration: Integration
 	activeRelease: Release
-	versions: {
-		value: string
-		label: string
-		href: string
-	}[]
 	onInstallClicked: () => void
-	className?: string
+	getVersionChangedURL: (version: string) => string
 }
 
-export default function HeaderTwo({
+function versionString(version: string, allVersions: string[]): string {
+	if (version === allVersions[0]) {
+		return `v${version} (latest)`
+	} else {
+		return `v${version}`
+	}
+}
+
+export default function Header({
+	className,
 	integration,
 	activeRelease,
-	versions,
 	onInstallClicked,
-	className,
+	getVersionChangedURL,
 }: HeaderProps) {
-	const showVersions = !integration.hide_versions && versions.length > 1
-	const dropdownLabel = versions.find(
-		(v) => v.value === activeRelease.version
-	).label
-	const otherVersions = versions.filter(
-		(e) => e.value !== activeRelease.version
+	// Determine if we should show the version dropdown at all
+	const showVersions =
+		!integration.hide_versions && integration.versions.length > 1
+
+	// All of the other versions than the one we're currently displaying
+	const otherVersions = integration.versions.filter(
+		(e: string) => e !== activeRelease.version
 	)
+
+	// If this integration can be installed
 	const shouldShowInstallButton = !integration.flags
 		.map((f: Flag) => f.slug)
 		.includes('builtin')
+
 	return (
 		<Card className={classNames(s.header, className)}>
 			<div className={s.upperCard}>
@@ -53,15 +61,15 @@ export default function HeaderTwo({
 						<DropdownDisclosure
 							className={s.versionDropdown}
 							color="secondary"
-							text={dropdownLabel}
+							text={versionString(activeRelease.version, integration.versions)}
 						>
-							{otherVersions.map((version) => {
+							{otherVersions.map((version: string) => {
 								return (
 									<DropdownDisclosureLinkItem
-										key={version.value}
-										href={version.href}
+										key={version}
+										href={getVersionChangedURL(version)}
 									>
-										v{version.value}
+										{versionString(version, integration.versions)}
 									</DropdownDisclosureLinkItem>
 								)
 							})}
