@@ -1,4 +1,5 @@
 import { IconArchive16 } from '@hashicorp/flight-icons/svg-react/archive-16'
+import { IconEnterprise16 } from '@hashicorp/flight-icons/svg-react/enterprise-16'
 import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
 import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
 import { IconRocket16 } from '@hashicorp/flight-icons/svg-react/rocket-16'
@@ -96,6 +97,10 @@ export function GetIntegrationTags(
 
 				case 'archived':
 					icon = <IconArchive16 />
+					break
+
+				case 'enterprise':
+					icon = <IconEnterprise16 />
 					break
 			}
 
