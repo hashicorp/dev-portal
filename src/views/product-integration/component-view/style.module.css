@@ -4,4 +4,8 @@
 			margin-top: 0;
 		}
 	}
+
+	& .variableGroups {
+		margin-top: 56px;
+	}
 }
