@@ -7,7 +7,6 @@
 		border-radius: 6px;
 		padding: 16px;
 		padding-bottom: 0;
-		width: 100%;
 		box-shadow: var(--token-surface-base-box-shadow);
 		display: flex;
 
@@ -22,21 +21,31 @@
 		& .arrowIcon {
 			color: var(--token-color-foreground-disabled);
 			margin-right: 10px;
+			@media (max-width: 800px) {
+				/* We can't nest on mobile without gnarly overflow */
+				display: none;
+			}
 		}
 
 		& .indentedContent {
 			flex-grow: 1;
+			width: 100%;
+			overflow: scroll;
 		}
 
 		& .topRow {
 			display: flex;
-			justify-content: space-between;
 			align-items: center;
+			flex-wrap: wrap;
+			gap: 12px;
 
-			& .left {
+			& .badge {
+				flex-grow: 1;
 				display: flex;
-				flex-direction: row;
-				align-items: center;
+				justify-content: flex-end;
+				@media (max-width: 800px) {
+					justify-content: flex-start;
+				}
 			}
 
 			& .key {
@@ -51,7 +60,6 @@
 			& .required {
 				font-size: 13px;
 				color: var(--token-color-foreground-faint);
-				margin-left: 8px;
 
 				&.isRequired {
 					color: var(--token-color-palette-purple-300);

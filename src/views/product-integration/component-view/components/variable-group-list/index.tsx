@@ -52,20 +52,20 @@ export function VariableGroupList({
 						)}
 						<div className={s.indentedContent}>
 							<div className={s.topRow}>
-								<span className={s.left}>
-									<code className={s.key}>{variable.key}</code>
-									{variable.required != null && (
-										<span
-											className={classNames(s.required, {
-												[s.isRequired]: variable.required,
-											})}
-										>
-											{variable.required ? 'Required' : 'Optional'}
-										</span>
-									)}
-								</span>
+								<code className={s.key}>{variable.key}</code>
+								{variable.required != null && (
+									<span
+										className={classNames(s.required, {
+											[s.isRequired]: variable.required,
+										})}
+									>
+										{variable.required ? 'Required' : 'Optional'}
+									</span>
+								)}
 								{variable.type ? (
-									<Badge color="highlight" text={variable.type} />
+									<div className={s.badge}>
+										<Badge color="highlight" text={variable.type} />
+									</div>
 								) : (
 									<></>
 								)}
