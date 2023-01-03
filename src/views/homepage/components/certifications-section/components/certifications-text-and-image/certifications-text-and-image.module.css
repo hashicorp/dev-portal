@@ -1,39 +1,11 @@
 /* Hero-ish layout */
 
-.root {
-	/* background and image elements may "bleed", prevent this from turning
-	   into viewport overflow */
-	overflow: hidden;
+.paddingClass {
 	padding-bottom: 220px;
 	padding-top: 64px;
-
-	/* relative position allows background absolute position to cover the hero */
-	position: relative;
-
 	@media (--dev-dot-tablet-up) {
 		padding-top: 112px;
 	}
-}
-
-.textImageLayout {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 64px;
-	margin: 0 auto;
-	width: var(--homepage-container-width);
-}
-
-.startSlot {
-	flex: 25em 2 1;
-	max-width: 600px;
-	min-width: 0;
-}
-
-.endSlot {
-	position: relative;
-	flex: 25em 1 1;
-	margin-left: auto;
-	min-width: 0;
 }
 
 /* Heading, description, link */
@@ -75,13 +47,6 @@
 /* Background image */
 
 .heroBackground {
-	bottom: 0;
-	left: 0;
-	overflow: hidden;
-	position: absolute;
-	right: 0;
-	top: 0;
-	z-index: -1;
 	background: url('./assets/certifications-hero-gradient.svg'),
 		var(--token-color-foreground-strong);
 	background-size: cover;
