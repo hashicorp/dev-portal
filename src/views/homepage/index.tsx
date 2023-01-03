@@ -10,7 +10,6 @@ import Text from 'components/text'
 import { HomePageProps, HomePageContentProps } from './types'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
-// import LearnSection from './components/learn-section'
 import MerchandisingSlots from './components/merchandising-slots'
 import { HeroWithVideo } from './components/hero'
 import { HcpSlot, VaultSlot } from './components/merchandising-slots/slots'
@@ -67,13 +66,6 @@ const HomePageContent = ({
 				collectionCards={certificationsSection.collectionCards}
 				link={certificationsSection.link}
 			/>
-			{/* <LearnSection
-				imageSrc={learnSection.imageSrc}
-				heading={learnSection.heading}
-				description={learnSection.description}
-				collectionCards={learnSection.collectionCards}
-				link={learnSection.link}
-			/> */}
 			<PreFooter
 				heading={preFooter.heading}
 				description={preFooter.description}
