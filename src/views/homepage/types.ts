@@ -1,6 +1,5 @@
 import { CertificationsSectionProps } from './components/certifications-section/types'
 import { HeroProps } from './components/hero/types'
-// import { LearnSectionProps } from './components/learn-section/types'
 import { HcpSlotProps } from './components/merchandising-slots/slots/hcp-slot/types'
 import { VaultSlotProps } from './components/merchandising-slots/slots/vault-slot/types'
 import { PreFooterProps } from './components/pre-footer/types'
