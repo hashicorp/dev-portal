@@ -18,17 +18,12 @@
 			"ctaText": "Try cloud for free"
 		}
 	},
-	"learnSection": {
+	"certificationsSection": {
 		"heading": "Become HashiCorp Certified",
-		"description": [
-			"As a Cloud Engineer specializing in infrastructure, security, development, networking, or operations, you can take HashiCorp Certification exams to validate your knowledge of the basic concepts, skills, and use cases associated with HashiCorp tools.",
-			"Take the Associate level exam for Terraform, Vault, or Consul to demonstrate your proficiency by answering multiple-choice questions. Or step up to the Vault Operations Professional exam to demonstrate your proficiency with deploying, configuring, managing, and monitoring HashiCorp Vault in production on live cloud compute.",
-			"Upon passing any exam, you can easily share your badge and employers can quickly verify your results online."
-		],
-		"imageSrc": "https://www.datocms-assets.com/2885/1655305480-vault-certified-expert-badge.svg",
+		"description": "Each certification program tests both conceptual knowledge and real-world experience using HashiCorp multi-cloud tools. Upon passing the exam, you can easily communicate your proficiency and employers can quickly verify your results.",
 		"link": {
 			"url": "/certifications",
-			"text": "Start learning"
+			"text": "View all certifications"
 		},
 		"collectionSlugs": [
 			"terraform/certification",

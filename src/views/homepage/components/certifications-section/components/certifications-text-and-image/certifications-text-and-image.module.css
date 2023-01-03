@@ -1,0 +1,113 @@
+/* Hero-ish layout */
+
+.root {
+	/* background and image elements may "bleed", prevent this from turning
+	   into viewport overflow */
+	overflow: hidden;
+	padding-bottom: 220px;
+	padding-top: 64px;
+
+	/* relative position allows background absolute position to cover the hero */
+	position: relative;
+
+	@media (--dev-dot-tablet-up) {
+		padding-top: 112px;
+	}
+}
+
+.textImageLayout {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 64px;
+	margin: 0 auto;
+	width: var(--homepage-container-width);
+}
+
+.startSlot {
+	flex: 25em 2 1;
+	max-width: 600px;
+	min-width: 0;
+}
+
+.endSlot {
+	position: relative;
+	flex: 25em 1 1;
+	margin-left: auto;
+	min-width: 0;
+}
+
+/* Heading, description, link */
+
+.heading {
+	composes: hds-typography-display-500 from global;
+	font-weight: var(--token-typography-font-weight-bold);
+	color: var(--token-color-foreground-high-contrast);
+	margin: 0;
+}
+
+.description {
+	composes: hds-typography-display-200 from global;
+	color: var(--token-color-foreground-high-contrast);
+	display: flex;
+	flex-direction: column;
+	font-weight: var(--token-typography-font-weight-semibold);
+	gap: 16px;
+	margin-top: 16px;
+
+	& > p {
+		margin: 0;
+	}
+}
+
+.standaloneLink {
+	margin-top: 40px;
+	color: var(--token-color-foreground-high-contrast);
+
+	&:active {
+		color: var(--token-color-foreground-high-contrast);
+	}
+
+	@media only screen and (min-width: 640px) {
+		margin-bottom: -80px;
+	}
+}
+
+/* Background image */
+
+.heroBackground {
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: -1;
+	background: url('./assets/certifications-hero-gradient.svg'),
+		var(--token-color-foreground-strong);
+	background-size: cover;
+	background-position: top center;
+	background-repeat: no-repeat;
+}
+
+/* Foreground certification badge image */
+
+.heroImage {
+	display: flex;
+	height: 200px;
+	overflow: visible;
+	position: relative;
+
+	& > img {
+		position: absolute;
+		top: -40px;
+		left: 50%;
+		transform: translateX(-50%);
+
+		@media only screen and (min-width: 481px) {
+			position: relative;
+			left: auto;
+			margin-left: auto;
+			transform: none;
+		}
+	}
+}

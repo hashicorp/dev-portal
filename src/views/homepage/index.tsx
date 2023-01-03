@@ -10,12 +10,12 @@ import Text from 'components/text'
 import { HomePageProps, HomePageContentProps } from './types'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
-import LearnSection from './components/learn-section'
+// import LearnSection from './components/learn-section'
 import MerchandisingSlots from './components/merchandising-slots'
 import { HeroWithVideo } from './components/hero'
 import { HcpSlot, VaultSlot } from './components/merchandising-slots/slots'
-import s from './homepage.module.css'
 import { CertificationsSection } from './components/certifications-section'
+import s from './homepage.module.css'
 
 const VIDEO_URL = 'https://hashicorp.wistia.com/medias/m17a0rrzj1'
 const VIDEO_THUMBNAIL_URL =
@@ -24,7 +24,7 @@ const VIDEO_THUMBNAIL_URL =
 const HomePageContent = ({
 	hero,
 	merchandising,
-	learnSection,
+	certificationsSection,
 	preFooter,
 	navNotice,
 }: HomePageContentProps) => {
@@ -62,21 +62,18 @@ const HomePageContent = ({
 				/>
 			</MerchandisingSlots>
 			<CertificationsSection
-				heading="Become HashiCorp Certified"
-				description={[
-					'Each certification program tests both conceptual knowledge and real-world experience using HashiCorp multi-cloud tools. Upon passing the exam, you can easily communicate your proficiency and employers can quickly verify your results.',
-				]}
-				imageSrc={learnSection.imageSrc}
-				collectionCards={learnSection.collectionCards}
-				link={learnSection.link}
+				heading={certificationsSection.heading}
+				description={certificationsSection.description}
+				collectionCards={certificationsSection.collectionCards}
+				link={certificationsSection.link}
 			/>
-			<LearnSection
+			{/* <LearnSection
 				imageSrc={learnSection.imageSrc}
 				heading={learnSection.heading}
 				description={learnSection.description}
 				collectionCards={learnSection.collectionCards}
 				link={learnSection.link}
-			/>
+			/> */}
 			<PreFooter
 				heading={preFooter.heading}
 				description={preFooter.description}
