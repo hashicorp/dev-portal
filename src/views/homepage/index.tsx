@@ -15,6 +15,7 @@ import MerchandisingSlots from './components/merchandising-slots'
 import { HeroWithVideo } from './components/hero'
 import { HcpSlot, VaultSlot } from './components/merchandising-slots/slots'
 import s from './homepage.module.css'
+import { CertificationsSection } from './components/certifications-section'
 
 const VIDEO_URL = 'https://hashicorp.wistia.com/medias/m17a0rrzj1'
 const VIDEO_THUMBNAIL_URL =
@@ -60,6 +61,15 @@ const HomePageContent = ({
 					ctaText={merchandising.hcp.ctaText}
 				/>
 			</MerchandisingSlots>
+			<CertificationsSection
+				heading="Become HashiCorp Certified"
+				description={[
+					'Each certification program tests both conceptual knowledge and real-world experience using HashiCorp multi-cloud tools. Upon passing the exam, you can easily communicate your proficiency and employers can quickly verify your results.',
+				]}
+				imageSrc={learnSection.imageSrc}
+				collectionCards={learnSection.collectionCards}
+				link={learnSection.link}
+			/>
 			<LearnSection
 				imageSrc={learnSection.imageSrc}
 				heading={learnSection.heading}
