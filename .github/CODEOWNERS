@@ -1,9 +1,10 @@
-/.github @hashicorp/dev-portal
-
-# Digital Marketing
-
-/src/* @hashicorp/dev-portal
+# Content
 /src/content/* @hashicorp/education
+
+# Engineering
+
+/.github @hashicorp/dev-portal
+/src/* @hashicorp/dev-portal
 
 *.css @hashicorp/dev-portal
 *.js @hashicorp/dev-portal
