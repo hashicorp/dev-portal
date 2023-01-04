@@ -2,7 +2,7 @@
 
 .root {
 	--padding: 24px;
-	--logo-button-margin-bottom: 16px;
+	--logo-button-margin-bottom: 8px;
 
 	align-items: center;
 	color: var(--token-color-palette-neutral-600);
@@ -11,10 +11,16 @@
 	justify-content: space-between;
 	padding: var(--padding);
 	position: relative;
+
+	@media (--list-horizontally) {
+		display: grid;
+		grid-template-columns: 1fr auto auto;
+		grid-template-areas: 'logo list button';
+	}
 }
 
 .logo {
-	margin: 0 40px var(--logo-button-margin-bottom) 0;
+	margin: 0 24px var(--logo-button-margin-bottom) 0;
 	position: relative;
 
 	& svg {
@@ -27,7 +33,9 @@
 	}
 
 	@media (--list-horizontally) {
+		margin-right: 40px;
 		margin-bottom: 0;
+		grid-area: logo;
 	}
 }
 
@@ -36,6 +44,7 @@
 
 	@media (--list-horizontally) {
 		margin-bottom: 0;
+		grid-area: button;
 	}
 }
 
@@ -51,11 +60,14 @@
 	@media (--list-horizontally) {
 		margin-top: 0;
 		width: auto;
+		grid-area: list;
+		margin-right: var(--padding);
 	}
 }
 
 .linkListItem {
-	margin: 8px 0;
+	margin-top: 16px;
+	line-height: 0;
 
 	&:not(:last-child) {
 		margin-right: var(--padding);
@@ -64,7 +76,6 @@
 	@media (--list-horizontally) {
 		width: auto;
 		margin-top: 0;
-		margin-bottom: 0;
 	}
 }
 
