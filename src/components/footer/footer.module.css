@@ -1,4 +1,4 @@
-@custom-media --list-horizontally (min-width: 1400px);
+@custom-media --list-horizontally (min-width: 1280px);
 
 .root {
 	--padding: 24px;
@@ -48,7 +48,6 @@
 
 .linkListItem {
 	margin: 8px 0;
-	width: 100%;
 
 	&:not(:last-child) {
 		margin-right: var(--padding);
