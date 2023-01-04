@@ -27,7 +27,12 @@ function CertificationsSection({
 			<div className={s.collectionCards}>
 				<CardsGridList fixedColumns={2}>
 					{collectionCards.map((cardProps: CollectionCardPropsWithId) => {
-						return <CollectionCardWithAuthElements key={cardProps.id} {...cardProps} />
+						return (
+							<CollectionCardWithAuthElements
+								key={cardProps.id}
+								{...cardProps}
+							/>
+						)
 					})}
 				</CardsGridList>
 			</div>
