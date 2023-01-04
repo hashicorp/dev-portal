@@ -13,4 +13,10 @@ export interface HeadMetadataProps {
 	 * Optional host value, such as 'localhost:3000', used during development
 	 */
 	host?: string
+
+	/**
+	 * Optional custom image path to use as the og-image, relative to
+	 * the `/public/og-image` folder.
+	 */
+	localOgImage?: string
 }
