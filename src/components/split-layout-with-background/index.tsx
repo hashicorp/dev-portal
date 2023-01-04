@@ -1,5 +1,5 @@
-import { ReactNode } from 'react'
 import classNames from 'classnames'
+import { SplitLayoutWithBackgroundProps } from './types'
 import s from './split-layout-with-background.module.css'
 
 /**
@@ -15,25 +15,7 @@ export function SplitLayoutWithBackground({
 	backgroundClass,
 	startSlot,
 	endSlot,
-}: {
-	/**
-	 * Optional class to add to the root element. Intended for vertical padding.
-	 */
-	paddingClass?: string
-	/**
-	 * Optional background class. Intended for adding a background behind
-	 * the split layout.
-	 */
-	backgroundClass?: string
-	/**
-	 * Contents to render in the start slot of the split layout.
-	 */
-	startSlot: ReactNode
-	/**
-	 * Contents to render in the end slot of the split layout.
-	 */
-	endSlot: ReactNode
-}) {
+}: SplitLayoutWithBackgroundProps) {
 	return (
 		<div className={classNames(s.root, paddingClass)}>
 			<div className={classNames(s.backgroundBase, backgroundClass)} />
