@@ -18,7 +18,13 @@ export async function getStaticProps({
 	// Prepare the page content for rendering, such as prepping MDX source
 	const pageContent = await preparePageContent(rawPageContent)
 	// Return static props
-	return { props: { pageContent, slug } }
+	return {
+		props: {
+			pageContent,
+			slug,
+			metadata: { localOgImage: 'certifications.jpg' },
+		},
+	}
 }
 
 export async function getStaticPaths() {

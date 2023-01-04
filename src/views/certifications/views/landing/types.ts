@@ -1,3 +1,4 @@
+import { HeadMetadataProps } from 'components/head-metadata/types'
 import {
 	RawCertificationExam,
 	RawCertificationProgram,
@@ -47,4 +48,9 @@ export interface CertificationLandingProps {
 	 * FAQ items to render on the landing page.
 	 */
 	faqItems: FaqItem[]
+
+	/**
+	 * Optional metadata, passed to `components/head-metadata` via _app.tsx.
+	 */
+	metadata?: HeadMetadataProps
 }
