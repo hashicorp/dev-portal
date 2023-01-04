@@ -63,8 +63,17 @@ function Footer({
 			>
 				<InlineSvg className={s.logo} src={svgHashicorpLogo} />
 			</a>
+			<ButtonLink
+				text="Give Feedback"
+				href={FEEDBACK_FORM_URL}
+				color="secondary"
+				size="small"
+				icon={<IconPencilTool16 />}
+				opensInNewTab={true}
+				className={s.feedbackButton}
+			/>
 			<ul className={s.links}>
-				{FOOTER_ITEMS.map((item, index) => {
+				{FOOTER_ITEMS.map((item: FooterItem, index: number) => {
 					/**
 					 * Ignore the consent-manager footer item if the `openConsentManager`
 					 * prop has not been supplied to the component.
@@ -116,16 +125,6 @@ function Footer({
 						</li>
 					)
 				})}
-				<li className={s.linkListItem}>
-					<ButtonLink
-						text="Give Feedback"
-						href={FEEDBACK_FORM_URL}
-						color="secondary"
-						size="small"
-						icon={<IconPencilTool16 />}
-						opensInNewTab={true}
-					/>
-				</li>
 			</ul>
 		</footer>
 	)

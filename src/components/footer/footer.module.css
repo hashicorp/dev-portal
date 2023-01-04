@@ -2,6 +2,7 @@
 
 .root {
 	--padding: 24px;
+	--logo-button-margin-bottom: 16px;
 
 	align-items: center;
 	color: var(--token-color-palette-neutral-600);
@@ -13,7 +14,7 @@
 }
 
 .logo {
-	margin: 8px 40px 8px 0;
+	margin: 0 40px var(--logo-button-margin-bottom) 0;
 	position: relative;
 
 	& svg {
@@ -26,7 +27,14 @@
 	}
 
 	@media (--list-horizontally) {
-		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
+
+.feedbackButton {
+	margin-bottom: var(--logo-button-margin-bottom);
+
+	@media (--list-horizontally) {
 		margin-bottom: 0;
 	}
 }
