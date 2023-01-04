@@ -4,6 +4,11 @@ import s from './split-layout-with-background.module.css'
 
 /**
  * Render a split layout with a background.
+ *
+ * Note: the start slot and end slot dimensions may not meet all needs.
+ * They were implemented for /certifications initially.
+ * The start slot is intended to be used with text content, and
+ * the end slot is intended to be used with presentational image content.
  */
 export function SplitLayoutWithBackground({
 	paddingClass,

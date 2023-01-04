@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import svgHeroImage from './assets/certification-hero-image-outlined.svg'
-import StandaloneLink from 'components/standalone-link'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import StandaloneLink from 'components/standalone-link'
+import { SplitLayoutWithBackground } from 'components/split-layout-with-background'
+import svgHeroImage from './assets/certification-hero-image-outlined.svg'
 import { CertificationsTextAndImageProps } from './types'
-import { SplitLayoutWithBackground } from '../split-layout-with-background'
 import s from './certifications-text-and-image.module.css'
 
 /**
