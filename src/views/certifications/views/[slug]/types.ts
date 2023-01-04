@@ -1,3 +1,4 @@
+import { HeadMetadataProps } from 'components/head-metadata/types'
 import { ProgramSlug } from 'views/certifications/types'
 import { CertificationProgram } from 'views/certifications/types'
 
@@ -11,4 +12,9 @@ export interface CertificationProgramViewProps {
 	 * Content to render for this certification program.
 	 */
 	pageContent: CertificationProgram
+
+	/**
+	 * Optional metadata, passed to `components/head-metadata` via _app.tsx.
+	 */
+	metadata?: HeadMetadataProps
 }

@@ -42,6 +42,11 @@ export async function getStaticProps(): Promise<
 	 * Return static props
 	 */
 	return {
-		props: { pageContent, programSummaries, faqItems },
+		props: {
+			pageContent,
+			programSummaries,
+			faqItems,
+			metadata: { localOgImage: 'certifications.jpg' },
+		},
 	}
 }
