@@ -116,7 +116,7 @@ const getProductLandingPaths = () => {
 
 const getOtherLandingPaths = () => {
 	const result = {
-		LEARN_DOMAIN: '/',
+		[LEARN_DOMAIN]: '/',
 		[`${LEARN_DOMAIN}/`]: '/',
 	}
 
