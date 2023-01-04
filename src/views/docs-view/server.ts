@@ -328,11 +328,14 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Construct layoutProps for the DocsView.
 			 */
+			const isDocsLanding = pathParts.length === 0 || pathParts[0] === ''
 			const layoutProps: Omit<SidebarSidecarLayoutProps, 'children'> = {
 				breadcrumbLinks,
 				headings: nonEmptyHeadings,
 				// TODO: need to adjust type for sidebarNavDataLevels here
 				sidebarNavDataLevels: sidebarNavDataLevels as $TSFixMe,
+				/* Long-form content pages use a narrower main area width */
+				mainWidth: isDocsLanding ? 'wide' : 'narrow',
 			}
 
 			/**
