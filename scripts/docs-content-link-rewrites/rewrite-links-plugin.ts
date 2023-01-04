@@ -56,7 +56,9 @@ const getRewrittenNonRelativeLearnUrl = ({ learnToDevDotPaths, urlObject }) => {
 	}
 
 	const replacementPath = learnToDevDotPaths[urlToCheck]
-	return `${replacementPath}${urlObject.search ?? ''}${hash}`
+	if (replacementPath) {
+		return `${replacementPath}${urlObject.search ?? ''}${hash}`
+	}
 }
 
 const getRewrittenNonRelativeUrl = ({
