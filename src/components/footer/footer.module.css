@@ -1,12 +1,14 @@
 @custom-media --list-horizontally (min-width: 1400px);
 
 .root {
+	--padding: 24px;
+
 	align-items: center;
 	color: var(--token-color-palette-neutral-600);
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	padding: 32px 0;
+	padding: var(--padding);
 	position: relative;
 }
 
@@ -22,13 +24,18 @@
 		height: 28px;
 		width: auto;
 	}
+
+	@media (--list-horizontally) {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
 }
 
 .links {
 	display: flex;
 	flex-wrap: wrap;
 	list-style: none;
-	margin: 16px 0 0 0;
+	margin: 0;
 	padding: 0;
 	position: relative;
 	width: 100%;
@@ -44,11 +51,13 @@
 	width: 100%;
 
 	&:not(:last-child) {
-		margin-right: 32px;
+		margin-right: var(--padding);
 	}
 
 	@media (--list-horizontally) {
 		width: auto;
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 }
 

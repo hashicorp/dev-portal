@@ -68,8 +68,6 @@ Asana task: https://app.asana.com/0/1202114367927919/1202316169578550/f
 	background: var(--token-color-palette-neutral-0);
 	margin-top: auto;
 	overflow: hidden;
-	padding-left: 24px;
-	padding-right: 24px;
 	position: relative;
 
 	&.showFooterTopBorder {
