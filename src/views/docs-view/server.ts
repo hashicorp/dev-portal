@@ -328,7 +328,8 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Construct layoutProps for the DocsView.
 			 */
-			const isDocsLanding = pathParts.length === 0 || pathParts[0] === ''
+			const isRootPath = pathParts.length === 0 || pathParts[0] === ''
+			const isDocsLanding = isRootPath && basePath === 'docs'
 			const layoutProps: Omit<SidebarSidecarLayoutProps, 'children'> = {
 				breadcrumbLinks,
 				headings: nonEmptyHeadings,
