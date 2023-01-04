@@ -97,8 +97,10 @@ const handleRelativeUrl = ({
 	const basePaths = product.basePaths
 
 	if (url.startsWith('/')) {
-		const [, basePath] = url.split('/')
-		if (basePaths.includes(basePath)) {
+		const matchingBasePath = basePaths.find((basePath) => {
+			return url.startsWith(`/${basePath}`)
+		})
+		if (matchingBasePath) {
 			linksToRewrite[url] = `/${productSlug}${url}`
 		} else {
 			unrewriteableLinks.push(url)
