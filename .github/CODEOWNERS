@@ -1,0 +1,18 @@
+/.github @hashicorp/dev-portal
+
+# Digital Marketing
+
+/src/\* @hashicorp/dev-portal
+/src/content/\* @hashicorp/education
+
+\*.css @hashicorp/dev-portal
+\*.js @hashicorp/dev-portal
+\*.jsx @hashicorp/dev-portal
+\*.graphql @hashicorp/dev-portal
+\*.ts @hashicorp/dev-portal
+\*.tsx @hashicorp/dev-portal
+
+.\* @hashicorp/dev-portal
+Dockerfile @hashicorp/dev-portal
+Makefile @hashicorp/dev-portal
+next\* @hashicorp/dev-portal
