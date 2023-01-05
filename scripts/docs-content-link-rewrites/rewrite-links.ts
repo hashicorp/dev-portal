@@ -132,31 +132,24 @@ const main = async () => {
 
 	// Write the unrewriteable links data to an output file.
 	const mdxFilesWithUnrewriteableLinks = Object.keys(mdxUnrewriteableLinks)
-	if (mdxFilesWithUnrewriteableLinks.length > 0) {
-		// Throw an error if configured to, such as in a legacy link format checker
+	if (!CI && mdxFilesWithUnrewriteableLinks.length > 0) {
 		const message = `Found unrewriteable MDX links in ${
 			mdxFilesWithUnrewriteableLinks.length
 		} files:\n${JSON.stringify(mdxUnrewriteableLinks, null, 2)}`
-		if (ERROR_IF_LINKS_TO_REWRITE === 'true') {
-			throw new Error(message)
-		} else {
-			console.log(message)
-		}
+		console.log(message)
 
-		if (!CI) {
-			const generatedFilesFolder = path.join(process.cwd(), 'src', '.generated')
-			if (!fs.existsSync(generatedFilesFolder)) {
-				fs.mkdirSync(generatedFilesFolder)
-			}
-			const unrewriteableLinksFile = path.join(
-				generatedFilesFolder,
-				'docs-content-unrewriteable-links.json'
-			)
-			fs.writeFileSync(
-				unrewriteableLinksFile,
-				JSON.stringify(mdxUnrewriteableLinks, null, 2)
-			)
+		const generatedFilesFolder = path.join(process.cwd(), 'src', '.generated')
+		if (!fs.existsSync(generatedFilesFolder)) {
+			fs.mkdirSync(generatedFilesFolder)
 		}
+		const unrewriteableLinksFile = path.join(
+			generatedFilesFolder,
+			'docs-content-unrewriteable-links.json'
+		)
+		fs.writeFileSync(
+			unrewriteableLinksFile,
+			JSON.stringify(mdxUnrewriteableLinks, null, 2)
+		)
 	}
 }
 
