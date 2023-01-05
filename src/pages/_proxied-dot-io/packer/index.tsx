@@ -18,7 +18,6 @@ export default function PackerHomepage({ data }): React.ReactElement {
 		seo,
 		heroHeading,
 		heroDescription,
-		heroCtas,
 		heroCards,
 		introHeading,
 		introDescription,
@@ -56,7 +55,6 @@ export default function PackerHomepage({ data }): React.ReactElement {
 				brand="packer"
 				heading={heroHeading}
 				description={heroDescription}
-				// ctas={heroCtas}
 				cards={heroCards.map((card) => {
 					return {
 						...card,
