@@ -1,10 +1,21 @@
 # Content
-/src/content/* @hashicorp/education
+/src/content/**/* @hashicorp/education
+
+## Education Engineering Managers
+/src/content/consul/**/* @hashicorp/consul-education-approvers
+/src/content/nomad/**/* @topfunky
+/src/content/terraform/**/* @hashicorp/terraform-education-approvers
+/src/content/vault/**/* @hashicorp/vault-education-approvers
+/src/content/boundary/**/* @hashicorp/boundary-education-approvers
+
+## Certifications
+/src/content/certifications/**/* @lszpunar
+
 
 # Engineering
 
 /.github @hashicorp/dev-portal
-/src/* @hashicorp/dev-portal
+/src/**/* @hashicorp/dev-portal
 
 *.css @hashicorp/dev-portal
 *.js @hashicorp/dev-portal
