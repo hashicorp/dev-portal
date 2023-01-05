@@ -17,6 +17,7 @@ interface BaseProps {
 	AlternateSidebar?: (props: any) => ReactElement
 	versions?: VersionSelectItem[]
 	showScrollProgress?: boolean
+	mainWidth?: 'wide' | 'narrow'
 }
 
 /**
