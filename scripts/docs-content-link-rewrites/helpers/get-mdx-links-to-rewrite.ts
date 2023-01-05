@@ -18,10 +18,10 @@ const getMdxLinksToRewrite = async ({
 	normalizedProductSlug: ProductSlug
 }): Promise<{
 	mdxLinksToRewrite: Record<string, Record<string, string>>
-	mdxUnrewriteableLinks: string[]
+	mdxUnrewriteableLinks: Record<string, Record<string, string>>
 }> => {
 	const mdxLinksToRewrite = {}
-	let mdxUnrewriteableLinks = []
+	const mdxUnrewriteableLinks = {}
 
 	const productData = cachedGetProductData(normalizedProductSlug)
 
@@ -54,7 +54,7 @@ const getMdxLinksToRewrite = async ({
 
 		const hasUnrewriteableLinks = unrewriteableLinks.length > 0
 		if (hasUnrewriteableLinks) {
-			mdxUnrewriteableLinks = [...mdxUnrewriteableLinks, ...unrewriteableLinks]
+			mdxUnrewriteableLinks[filePath] = unrewriteableLinks
 		}
 	}
 
