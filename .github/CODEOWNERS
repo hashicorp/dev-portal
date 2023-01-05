@@ -3,7 +3,6 @@
 
 # Education Engineering Managers
 # TODO: Add ownership for other content dirs / products
-
 /src/content/consul/**/* @hashicorp/consul-education-approvers
 /src/content/nomad/**/* @topfunky
 /src/content/terraform/**/* @hashicorp/terraform-education-approvers
