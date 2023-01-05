@@ -1,0 +1,38 @@
+---
+componentName: Pagination
+---
+
+## Props
+
+### `Pagination`
+
+- TODO
+
+### `Pagination.Info`
+
+- TODO
+
+### `Pagination.Nav`
+
+- TODO
+
+### `Pagination.SizeSelector`
+
+- TODO
+
+## Playground
+
+<LiveComponent>
+	{`<div style={{marginTop: 30}}>
+	<Pagination
+		totalItems={103}
+		itemsPerPage={10}
+		currentPage={3}
+		onSelectPage={(idx) => console.log("Select page: %s", idx)}
+	>
+		<Pagination.Info showTotalItems={true}/>
+		<Pagination.Nav type="truncated" />
+		<Pagination.SizeSelector sizes={[10, 30, 50]}/>
+	</Pagination>
+</div>`}
+</LiveComponent>
