@@ -58,7 +58,7 @@ export default function Homepage({ data }): React.ReactElement {
 				brand="boundary"
 				heading={heroHeading}
 				description={heroDescription}
-				ctas={heroCtas}
+				// ctas={heroCtas}
 				cards={heroCards.map((card) => {
 					return {
 						...card,
