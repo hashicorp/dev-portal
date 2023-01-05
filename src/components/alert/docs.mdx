@@ -4,10 +4,22 @@ componentName: 'Alert'
 
 The `<Alert />` component is used in long-form MDX content to highlight various message types.
 
+## Props
+
+| Prop name  | Description                                                            | Required? | Default value      | Type                             |
+| ---------- | ---------------------------------------------------------------------- | --------- | ------------------ | -------------------------------- |
+| `children` | The alert body text to render.                                         | Yes       | undefined          | string                           |
+| `type`     | The 'type' which has associated styles and default data (icon, title). | No        | tip                | tip, highlight, warning, or note |
+| `title`    | An option to override the default title.                               | No        | The type's default | string                           |
+
 <Alert>I am a basic tip</Alert>
 
-<Alert type="highlight">I am trying to highligh content</Alert>
+<Alert type="highlight">I am trying to highlight content</Alert>
 
 <Alert type="note">I am trying to note something</Alert>
 
 <Alert type="warning">I am a warning</Alert>
+
+## Title override
+
+<Alert title="Hashiconf 2027">It's gonna be big</Alert>
