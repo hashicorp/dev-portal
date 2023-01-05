@@ -1,4 +1,5 @@
 import fs from 'fs'
+import path from 'path'
 import { normalizeRemoteLoaderSlug } from '../../src/lib/docs-content-link-rewrites/normalize-remote-loader-slug'
 import { getDocsToDevDotUrlMap } from './helpers/get-dot-io-to-dev-dot-url-map'
 import { getLearnToDevDotUrlMap } from './helpers/get-learn-to-dev-dot-url-map'
@@ -38,53 +39,56 @@ const main = async () => {
 	)
 
 	/**
-	 * HANDLE NAV DATA LINKS
+	 * @TODO HANDLE NAV DATA LINKS
+	 * https://app.asana.com/0/1202114367927919/1203641801270767/f
 	 */
-	const allRewrittenNavData = await getRewrittenNavDataJsonForFilePaths({
-		filePaths: changedNavDataJsonFiles,
-		dotIoToDevDotPaths,
-		learnToDevDotPaths,
-		normalizedProductSlug,
-	})
-	const navDataFilesToUpdate = []
-	changedNavDataJsonFiles.forEach((navDataFilePath) => {
-		const originalData = JSON.parse(fs.readFileSync(navDataFilePath, 'utf-8'))
-		const updatedData = allRewrittenNavData[navDataFilePath]
+	// const allRewrittenNavData = await getRewrittenNavDataJsonForFilePaths({
+	// 	filePaths: changedNavDataJsonFiles,
+	// 	dotIoToDevDotPaths,
+	// 	learnToDevDotPaths,
+	// 	normalizedProductSlug,
+	// })
+	// const navDataFilesToUpdate = []
+	// changedNavDataJsonFiles.forEach((navDataFilePath) => {
+	// 	const originalData = JSON.parse(fs.readFileSync(navDataFilePath, 'utf-8'))
+	// 	const updatedData = allRewrittenNavData[navDataFilePath]
 
-		const originalDataString = JSON.stringify(originalData, null, 2)
-		const updatedDataString = JSON.stringify(updatedData, null, 2)
-		if (updatedDataString !== originalDataString) {
-			navDataFilesToUpdate.push(navDataFilePath)
+	// 	const originalDataString = JSON.stringify(originalData, null, 2)
+	// 	const updatedDataString = JSON.stringify(updatedData, null, 2)
+	// 	if (updatedDataString !== originalDataString) {
+	// 		navDataFilesToUpdate.push(navDataFilePath)
 
-			if (!CI) {
-				console.log(`Updating links in ${navDataFilePath}...`)
-				fs.writeFileSync(navDataFilePath, updatedDataString)
-			}
-		}
-	})
-	if (navDataFilesToUpdate.length > 0) {
-		// Throw an error if configured to, such as in a legacy link format checker
-		const message = `Found nav data JSON links to rewrite in ${
-			navDataFilesToUpdate.length
-		} files:\n${JSON.stringify(navDataFilesToUpdate, null, 2)}`
-		if (ERROR_IF_LINKS_TO_REWRITE === 'true') {
-			throw new Error(message)
-		} else {
-			console.log(message)
-		}
-	}
+	// 		if (!CI) {
+	// 			console.log(`Updating links in ${navDataFilePath}...`)
+	// 			fs.writeFileSync(navDataFilePath, updatedDataString)
+	// 		}
+	// 	}
+	// })
+	// if (navDataFilesToUpdate.length > 0) {
+	// 	// Throw an error if configured to, such as in a legacy link format checker
+	// 	const message = `Found nav data JSON links to rewrite in ${
+	// 		navDataFilesToUpdate.length
+	// 	} files:\n${JSON.stringify(navDataFilesToUpdate, null, 2)}`
+	// 	if (ERROR_IF_LINKS_TO_REWRITE === 'true') {
+	// 		throw new Error(message)
+	// 	} else {
+	// 		console.log(message)
+	// 	}
+	// }
 
 	/**
 	 * HANDLE UPDATING MDX LINKS
 	 */
-	const { mdxLinksToRewrite } = await getMdxLinksToRewrite({
-		dotIoToDevDotPaths,
-		filePathPrefix: mdxFilesPrefix,
-		filePaths: changedMdxFiles,
-		learnToDevDotPaths,
-		normalizedProductSlug,
-	})
+	const { mdxLinksToRewrite, mdxUnrewriteableLinks } =
+		await getMdxLinksToRewrite({
+			dotIoToDevDotPaths,
+			filePathPrefix: mdxFilesPrefix,
+			filePaths: changedMdxFiles,
+			learnToDevDotPaths,
+			normalizedProductSlug,
+		})
 
+	// Handle files that contain links that need to be rewritten.
 	const mdxFilesWithLinksToRewrite = Object.keys(mdxLinksToRewrite)
 	if (mdxFilesWithLinksToRewrite.length > 0) {
 		// Throw an error if configured to, such as in a legacy link format checker
@@ -123,6 +127,35 @@ const main = async () => {
 				console.log(`Updating links in ${filePath}...`)
 				fs.writeFileSync(filePath, updatedContent)
 			})
+		}
+	}
+
+	// Write the unrewriteable links data to an output file.
+	const mdxFilesWithUnrewriteableLinks = Object.keys(mdxUnrewriteableLinks)
+	if (mdxFilesWithUnrewriteableLinks.length > 0) {
+		// Throw an error if configured to, such as in a legacy link format checker
+		const message = `Found unrewriteable MDX links in ${
+			mdxFilesWithUnrewriteableLinks.length
+		} files:\n${JSON.stringify(mdxUnrewriteableLinks, null, 2)}`
+		if (ERROR_IF_LINKS_TO_REWRITE === 'true') {
+			throw new Error(message)
+		} else {
+			console.log(message)
+		}
+
+		if (!CI) {
+			const generatedFilesFolder = path.join(process.cwd(), 'src', '.generated')
+			if (!fs.existsSync(generatedFilesFolder)) {
+				fs.mkdirSync(generatedFilesFolder)
+			}
+			const unrewriteableLinksFile = path.join(
+				generatedFilesFolder,
+				'docs-content-unrewriteable-links.json'
+			)
+			fs.writeFileSync(
+				unrewriteableLinksFile,
+				JSON.stringify(mdxUnrewriteableLinks, null, 2)
+			)
 		}
 	}
 }

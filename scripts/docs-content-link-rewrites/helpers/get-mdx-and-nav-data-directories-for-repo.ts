@@ -11,7 +11,7 @@ const getMdxAndNavDataDirectoriesForRepo = (repo: string) => {
 	// HCP and Terraform docs content repos use slightly different values
 	if (repo === 'cloud.hashicorp.com') {
 		mdxPrefix = 'content'
-		navDataPrefix = 'content'
+		navDataPrefix = 'data'
 	} else if (repo.startsWith('terraform') || repo.startsWith('ptfe-releases')) {
 		mdxPrefix = 'website/docs'
 	}
