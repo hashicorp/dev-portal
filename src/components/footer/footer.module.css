@@ -11,12 +11,6 @@
 	justify-content: space-between;
 	padding: var(--padding);
 	position: relative;
-
-	@media (--list-horizontally) {
-		display: grid;
-		grid-template-columns: 1fr auto auto;
-		grid-template-areas: 'logo list button';
-	}
 }
 
 .logo {
@@ -35,16 +29,34 @@
 	@media (--list-horizontally) {
 		margin-right: 40px;
 		margin-bottom: 0;
-		grid-area: logo;
 	}
 }
 
 .feedbackButton {
 	margin-bottom: var(--logo-button-margin-bottom);
 
+	/**
+	* We render two different buttons depending on the view so that the 
+	* focus order can remain aligned with the visual presentation of the 
+	* footer links
+	*/
+
+	&.mobile {
+		@media (--list-horizontally) {
+			display: none;
+		}
+	}
+
+	&.desktop {
+		display: none;
+
+		@media (--list-horizontally) {
+			display: flex;
+		}
+	}
+
 	@media (--list-horizontally) {
 		margin-bottom: 0;
-		grid-area: button;
 	}
 }
 
@@ -60,8 +72,7 @@
 	@media (--list-horizontally) {
 		margin-top: 0;
 		width: auto;
-		grid-area: list;
-		margin-right: var(--padding);
+		align-items: center;
 	}
 }
 

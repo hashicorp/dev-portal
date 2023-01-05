@@ -70,7 +70,7 @@ function Footer({
 				size="small"
 				icon={<IconPencilTool16 />}
 				opensInNewTab={true}
-				className={s.feedbackButton}
+				className={classNames(s.feedbackButton, s.mobile)}
 			/>
 			<ul className={s.links}>
 				{FOOTER_ITEMS.map((item: FooterItem, index: number) => {
@@ -125,6 +125,17 @@ function Footer({
 						</li>
 					)
 				})}
+				<li>
+					<ButtonLink
+						text="Give Feedback"
+						href={FEEDBACK_FORM_URL}
+						color="secondary"
+						size="small"
+						icon={<IconPencilTool16 />}
+						opensInNewTab={true}
+						className={classNames(s.feedbackButton, s.desktop)}
+					/>
+				</li>
 			</ul>
 		</footer>
 	)
