@@ -28,6 +28,7 @@ jobs:
   docs-content-link-rewrites-e2e:
     runs-on: ubuntu-latest
     env:
+      GITHUB_TOKEN: ${{ github.token }}
       OWNER: ${{ inputs.repo-owner }}
       REPO: ${{ inputs.repo-name }}
       COMMIT_SHA: ${{ inputs.commit-sha }}
