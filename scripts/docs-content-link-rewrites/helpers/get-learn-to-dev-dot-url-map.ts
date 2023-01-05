@@ -96,16 +96,16 @@ const getProductLandingPaths = () => {
 	const result = {}
 
 	Object.entries({
-		'/boundary': '/boundary/tutorials/',
-		'/cloud': '/cloud/tutorials/',
-		'/consul': '/consul/tutorials/',
-		'/nomad': '/nomad/tutorials/',
-		'/packer': '/packer/tutorials/',
-		'/terraform': '/terraform/tutorials/',
-		'/vagrant': '/vagrant/tutorials/',
-		'/vault': '/vault/tutorials/',
-		'/waypoint': '/waypoint/tutorials/',
-		'/well-architected-framework': '/well-architected-framework/',
+		'/boundary': '/boundary/tutorials',
+		'/cloud': '/hcp/tutorials',
+		'/consul': '/consul/tutorials',
+		'/nomad': '/nomad/tutorials',
+		'/packer': '/packer/tutorials',
+		'/terraform': '/terraform/tutorials',
+		'/vagrant': '/vagrant/tutorials',
+		'/vault': '/vault/tutorials',
+		'/waypoint': '/waypoint/tutorials',
+		'/well-architected-framework': '/well-architected-framework',
 	}).forEach(([oldPath, newPath]) => {
 		result[`${LEARN_DOMAIN}${oldPath}`] = newPath
 		result[`${LEARN_DOMAIN}${oldPath}/`] = newPath
