@@ -1,18 +1,21 @@
 # Content
 /src/content/**/* @hashicorp/education
 
-## Education Engineering Managers
+# Education Engineering Managers
+# TODO: Add ownership for other content dirs / products
+
 /src/content/consul/**/* @hashicorp/consul-education-approvers
 /src/content/nomad/**/* @topfunky
 /src/content/terraform/**/* @hashicorp/terraform-education-approvers
 /src/content/vault/**/* @hashicorp/vault-education-approvers
 /src/content/boundary/**/* @hashicorp/boundary-education-approvers
 
-## Certifications
+# Certifications
 /src/content/certifications/**/* @lszpunar
 
 
 # Engineering
+# TODO: Add @hashicorp/web-platform ownership where appropriate
 
 /.github @hashicorp/dev-portal
 /src/**/* @hashicorp/dev-portal
