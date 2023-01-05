@@ -101,6 +101,8 @@ export async function getTutorialPageProps(
 			},
 		}),
 		sidebarSections,
+		/* Long-form content pages use a narrower main area width */
+		mainWidth: 'narrow',
 	}
 	const lastTutorialIndex = collectionContext.current.tutorials.length - 1
 	const isLastTutorial =

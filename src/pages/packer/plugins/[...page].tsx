@@ -164,6 +164,8 @@ export async function getStaticProps({ params, ...ctx }) {
 				githubFileUrl: props.githubFileUrl,
 				headings: props.headings,
 				sidebarNavDataLevels,
+				// Long-form content pages use a narrower main area width
+				mainWidth: 'narrow',
 			},
 			metadata: {
 				title: props.frontMatter.page_title ?? null,
