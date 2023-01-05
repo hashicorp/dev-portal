@@ -1,3 +1,49 @@
 .default {
-	background: blue;
+	--background-color: var(--token-color-surface-faint);
+	--accent-color: var(--token-color-foreground-primary);
+	--border-color: var(--token-color-border-strong);
+	--padding: 16px;
+
+	background: var(--background-color);
+	border: 1px solid var(--border-color);
+	border-radius: 6px;
+	color: var(--token-color-foreground-primary);
+	padding: var(--padding);
+	composes: hds-typography-body-200 from global;
+	display: flex;
+}
+
+.icon {
+	color: var(--accent-color);
+	margin-right: 12px;
+	margin-top: 2px; /* visually centers icon with title */
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+}
+
+.title {
+	color: var(--accent-color);
+	margin: 0 0 4px 0;
+	font-weight: var(--token-typography-font-weight-semibold);
+}
+
+.highlight {
+	--background-color: var(--token-color-palette-purple-50);
+	--accent-color: var(--token-color-foreground-highlight-on-surface);
+	--border-color: var(--token-color-border-highlight);
+}
+
+.note {
+	--background-color: var(--token-color-palette-amber-50);
+	--accent-color: var(--token-color-foreground-warning-on-surface);
+	--border-color: var(--token-color-border-warning);
+}
+
+.warning {
+	--background-color: var(--token-color-palette-red-50);
+	--accent-color: var(--token-color-foreground-critical-on-surface);
+	--border-color: var(--token-color-border-critical);
 }

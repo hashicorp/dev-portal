@@ -2,6 +2,12 @@ import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 import { IconAlertTriangle16 } from '@hashicorp/flight-icons/svg-react/alert-triangle-16'
 import { IconAlertDiamond16 } from '@hashicorp/flight-icons/svg-react/alert-diamond-16'
 import s from './alert.module.css'
+import classNames from 'classnames'
+
+/** TODO add tests
+ * throws when expected
+ * handles various types
+ */
 
 interface AlertProps {
 	children: string
@@ -19,16 +25,24 @@ const AlertData = {
 export default function Alert({ children, type = 'tip', title }: AlertProps) {
 	const data = AlertData[type]
 
+	if (!children) {
+		throw new Error(
+			'[MdxAlert]: No `children` found, please pass a description body'
+		)
+	}
+
 	if (!data) {
-		console.error('[MdxAlert]: No valid alert type found')
-		return null
+		// TODO, maybe just log here??
+		throw new Error('[MdxAlert]: No valid alert type found')
 	}
 
 	return (
-		<div className={s.default}>
-			<data.icon />
-			<p>{title ?? data.title}</p>
-			{children}
+		<div className={classNames(s.default, s[type])}>
+			<data.icon className={s.icon} />
+			<span className={s.content}>
+				<p className={s.title}>{title ?? data.title}</p>
+				<span className={s.body}>{children}</span>
+			</span>
 		</div>
 	)
 }
