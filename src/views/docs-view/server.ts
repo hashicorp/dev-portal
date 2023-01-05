@@ -1,4 +1,5 @@
 // Third-party imports
+import path from 'path'
 import { Pluggable } from 'unified'
 import rehypePrism from '@mapbox/rehype-prism'
 
@@ -148,6 +149,10 @@ export function getStaticGenerationFunctions<
 		},
 		getStaticProps: async (ctx) => {
 			const pathParts = (ctx.params.page || []) as string[]
+			const currentPathUnderProduct = `/${path.join(
+				basePathForLoader,
+				pathParts.join('/')
+			)}`
 			const headings = [] // populated by anchorLinks plugin below
 
 			const loader = getLoader({
@@ -160,7 +165,12 @@ export function getStaticGenerationFunctions<
 					 * expected to have been run for remote content.
 					 */
 					[anchorLinks, { headings }],
-					rewriteTutorialLinksPlugin,
+					/**
+					 * The `contentType` configuration is necessary so that the
+					 * `rewriteTutorialLinksPlugin` does not rewrite links like
+					 * `/waypoint` to `/waypoint/tutorials`.
+					 */
+					[rewriteTutorialLinksPlugin, { contentType: 'docs' }],
 					/**
 					 * Rewrite docs content links, which are authored without prefix.
 					 * For example, in Waypoint docs authors write "/docs/some-thing",
@@ -168,7 +178,10 @@ export function getStaticGenerationFunctions<
 					 */
 					[
 						remarkPluginAdjustLinkUrls,
-						{ urlAdjustFn: getProductUrlAdjuster(product) },
+						{
+							currentPath: currentPathUnderProduct,
+							urlAdjustFn: getProductUrlAdjuster(product),
+						},
 					],
 				],
 				rehypePlugins: [

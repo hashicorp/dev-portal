@@ -25,10 +25,12 @@ function determineProductSlug(req: NextRequest): string {
 }
 
 function setHappyKitCookie(
-	cookie: Parameters<NextResponse['cookies']['set']>,
+	cookie: { args: Parameters<NextResponse['cookies']['set']> },
 	response: NextResponse
 ): NextResponse {
-	response.cookies.set(...cookie)
+	if (cookie) {
+		response.cookies.set(...cookie.args)
+	}
 	return response
 }
 
@@ -108,9 +110,9 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 				if (flags?.ioHomeHeroCtas) {
 					const url = req.nextUrl.clone()
 					url.pathname = '/_proxied-dot-io/vault/without-cta-links'
-					response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+					response = setHappyKitCookie(cookie, NextResponse.rewrite(url))
 				} else {
-					response = setHappyKitCookie(cookie.args, NextResponse.next())
+					response = setHappyKitCookie(cookie, NextResponse.next())
 				}
 			}
 
@@ -118,9 +120,9 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 				if (flags?.ioHomeHeroCtas) {
 					const url = req.nextUrl.clone()
 					url.pathname = '/_proxied-dot-io/packer/without-cta-links'
-					response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+					response = setHappyKitCookie(cookie, NextResponse.rewrite(url))
 				} else {
-					response = setHappyKitCookie(cookie.args, NextResponse.next())
+					response = setHappyKitCookie(cookie, NextResponse.next())
 				}
 			}
 
@@ -128,9 +130,9 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 				if (flags?.ioHomeHeroCtas) {
 					const url = req.nextUrl.clone()
 					url.pathname = '/_proxied-dot-io/consul/without-cta-links'
-					response = setHappyKitCookie(cookie.args, NextResponse.rewrite(url))
+					response = setHappyKitCookie(cookie, NextResponse.rewrite(url))
 				} else {
-					response = setHappyKitCookie(cookie.args, NextResponse.next())
+					response = setHappyKitCookie(cookie, NextResponse.next())
 				}
 			}
 		} catch {

@@ -28,4 +28,16 @@ export interface AccordionDisclosureProps {
 	 * descriptive.
 	 */
 	title: ReactNode
+
+	/**
+	 * Optional prop to signal that this AccordionDisclosure is being
+	 * placed in a group next to adjacent AccordionDisclosure components.
+	 * We use this to control styling.
+	 */
+	groupData?: {
+		/* The number of items in the group */
+		numItems: number
+		/* The index of this specific AccordionDisclosure in the group */
+		currentIndex: number
+	}
 }

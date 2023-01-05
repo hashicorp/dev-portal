@@ -10,10 +10,10 @@ import Text from 'components/text'
 import { HomePageProps, HomePageContentProps } from './types'
 import PreFooter from './components/pre-footer'
 import ProductNav from './components/product-nav'
-import LearnSection from './components/learn-section'
 import MerchandisingSlots from './components/merchandising-slots'
 import { HeroWithVideo } from './components/hero'
 import { HcpSlot, VaultSlot } from './components/merchandising-slots/slots'
+import { CertificationsSection } from './components/certifications-section'
 import s from './homepage.module.css'
 
 const VIDEO_URL = 'https://hashicorp.wistia.com/medias/m17a0rrzj1'
@@ -23,7 +23,7 @@ const VIDEO_THUMBNAIL_URL =
 const HomePageContent = ({
 	hero,
 	merchandising,
-	learnSection,
+	certificationsSection,
 	preFooter,
 	navNotice,
 }: HomePageContentProps) => {
@@ -60,12 +60,11 @@ const HomePageContent = ({
 					ctaText={merchandising.hcp.ctaText}
 				/>
 			</MerchandisingSlots>
-			<LearnSection
-				imageSrc={learnSection.imageSrc}
-				heading={learnSection.heading}
-				description={learnSection.description}
-				collectionCards={learnSection.collectionCards}
-				link={learnSection.link}
+			<CertificationsSection
+				heading={certificationsSection.heading}
+				description={certificationsSection.description}
+				collectionCards={certificationsSection.collectionCards}
+				link={certificationsSection.link}
 			/>
 			<PreFooter
 				heading={preFooter.heading}

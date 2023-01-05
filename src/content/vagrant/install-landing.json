@@ -3,13 +3,8 @@
 	"packageManagerOverrides": [
 		{
 			"label": "Homebrew",
-			"commands": ["brew install vagrant"],
+			"commands": ["brew install hashicorp/tap/hashicorp-vagrant"],
 			"os": "darwin"
-		},
-		{
-			"label": "Homebrew",
-			"commands": ["brew install vagrant"],
-			"os": "linux"
 		}
 	],
 	"sidecarMarketingCard": {
@@ -41,5 +36,11 @@
 				"text": "Providers"
 			}
 		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "Vagrant Cloud",
+		"description": "Virtual boxes for Linux, Laravel and any development environment",
+		"ctaText": "Try Vagrant Cloud",
+		"ctaUrl": "https://app.vagrantup.com/boxes/search"
 	}
 }
