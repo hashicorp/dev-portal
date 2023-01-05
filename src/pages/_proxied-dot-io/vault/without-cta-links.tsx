@@ -50,7 +50,7 @@ export default function Homepage({ data }): React.ReactElement {
 	React.useEffect(() => {
 		abTestTrack({
 			type: 'Served',
-			test_name: 'CRO Vault CTA links 2022-10',
+			test_name: 'CRO home hero CTA links 2022-10',
 			variant: 'true',
 		})
 	}, [])

@@ -1,0 +1,8 @@
+.mdxContentRoot {
+	/* Tighten spacing between the accordion title and the start of content.
+	   The accordion already has padding, so without this tightening,
+		 the spacing built into content elements makes things look too roomy. */
+	& > *:first-child {
+		margin-top: 4px;
+	}
+}
