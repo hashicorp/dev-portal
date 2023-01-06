@@ -1,4 +1,5 @@
 .hero {
+	--content-max-width: 800px;
 	--padding-y: 64px;
 
 	@media (--medium-up) {
@@ -20,7 +21,7 @@
 	min-height: 100%;
 	margin: 0 auto;
 	display: grid;
-	grid-template-columns: 1fr 800px 1fr;
+	grid-template-columns: 1fr var(--content-max-width) 1fr;
 	justify-content: space-between;
 	align-items: flex-end;
 }
@@ -39,5 +40,5 @@
 
 .inner {
 	margin: 0 auto;
-	max-width: 800px;
+	max-width: var(--content-max-width);
 }
