@@ -11,12 +11,13 @@
 	padding: var(--padding);
 	composes: hds-typography-body-200 from global;
 	display: flex;
+	gap: 12px;
 }
 
 .icon {
 	color: var(--accent-color);
-	margin-right: 12px;
 	margin-top: 2px; /* visually centers icon with title */
+	flex-shrink: 0;
 }
 
 .content {
@@ -28,6 +29,16 @@
 	color: var(--accent-color);
 	margin: 0 0 4px 0;
 	font-weight: var(--token-typography-font-weight-semibold);
+}
+
+.body {
+	& > :first-child {
+		margin-top: 0;
+	}
+
+	& > :last-child {
+		margin-bottom: 0;
+	}
 }
 
 .highlight {

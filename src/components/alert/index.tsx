@@ -1,3 +1,4 @@
+import { ReactChild } from 'react'
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 import { IconAlertTriangle16 } from '@hashicorp/flight-icons/svg-react/alert-triangle-16'
 import { IconAlertDiamond16 } from '@hashicorp/flight-icons/svg-react/alert-diamond-16'
@@ -5,7 +6,7 @@ import s from './alert.module.css'
 import classNames from 'classnames'
 
 export interface AlertProps {
-	children: string
+	children: ReactChild | ReactChild[]
 	type?: 'tip' | 'highlight' | 'note' | 'warning'
 	title?: string
 }
