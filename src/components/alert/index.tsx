@@ -1,17 +1,17 @@
 import classNames from 'classnames'
 
-import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
-import { IconAlertTriangle16 } from '@hashicorp/flight-icons/svg-react/alert-triangle-16'
-import { IconAlertDiamond16 } from '@hashicorp/flight-icons/svg-react/alert-diamond-16'
+import { IconInfo24 } from '@hashicorp/flight-icons/svg-react/info-24'
+import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'
+import { IconAlertDiamond24 } from '@hashicorp/flight-icons/svg-react/alert-diamond-24'
 
 import { AlertProps, AlertData } from './types'
 import s from './alert.module.css'
 
 const ALERT_DATA: AlertData = {
-	tip: { title: 'Tip', icon: <IconInfo16 /> },
-	highlight: { title: 'Tip', icon: <IconInfo16 /> },
-	note: { title: 'Note', icon: <IconAlertTriangle16 /> },
-	warning: { title: 'Warning', icon: <IconAlertDiamond16 /> },
+	tip: { title: 'Tip', icon: <IconInfo24 /> },
+	highlight: { title: 'Tip', icon: <IconInfo24 /> },
+	note: { title: 'Note', icon: <IconAlertTriangle24 /> },
+	warning: { title: 'Warning', icon: <IconAlertDiamond24 /> },
 }
 
 export default function Alert({ children, type = 'tip', title }: AlertProps) {
