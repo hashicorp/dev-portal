@@ -18,7 +18,7 @@ const PaginationContext = createContext({
 	currentPage: 1,
 	setCurrentPage: (() => void 1) as Dispatch<SetStateAction<number>>,
 	totalPages: 0,
-	onSelectPage: (() => void 1) as (page: number) => void,
+	onSelectPage: (() => void 1) as (page: number, pagesize: number) => void,
 })
 const usePagination = () => useContext(PaginationContext)
 
@@ -33,8 +33,10 @@ export interface PaginationProps {
 	 * Default: `1`
 	 */
 	currentPage?: number
-	onSelectPage?: (page: number) => void
+	/** A callback */
+	onSelectPage?: (page: number, pagesize: number) => void
 }
+
 const Pagination = ({
 	totalItems,
 	itemsPerPage: _itemsPerPage,
@@ -49,7 +51,7 @@ const Pagination = ({
 	}
 	if (typeof _itemsPerPage !== 'number') {
 		throw new Error(
-			'Pagination: itemsPerPage is required, but was not specified.  Please try adding a value such as `10`.'
+			'Pagination: itemsPerPage is required, but was not specified. Please try adding a value such as `10`.'
 		)
 	}
 
@@ -67,12 +69,7 @@ const Pagination = ({
 				onSelectPage,
 			}}
 		>
-			<div
-				// data-debug
-				className={s.pagination}
-			>
-				{children}
-			</div>
+			<div className={s.pagination}>{children}</div>
 		</PaginationContext.Provider>
 	)
 }
@@ -105,19 +102,12 @@ export interface NavProps {
 	 * Sets the type of Pagination.Nav.
 	 */
 	type?: 'compact' | 'numbered' | 'truncated'
-	/**
-	 * Used in displaying the page numbers for "numbered" type and for determining the next page to navigate to.
-	 *
-	 * `totalPages` is calculated by the Pagination wrapper component when used.
-	 * However, it is required if Pagination.Nav is used as a stand alone component.
-	 */
-	totalPages?: number
 }
 
-const Nav = ({ type = 'compact', ...props }: NavProps) => {
+const Nav = ({ type = 'compact' }: NavProps) => {
 	const pagination = usePagination()
 
-	const totalPages = props.totalPages ?? pagination.totalPages
+	const totalPages = pagination.totalPages
 	const currentPage = pagination.currentPage
 
 	const rawitems = Array.from({ length: totalPages }, (_, i) => i + 1)
@@ -168,53 +158,59 @@ const Nav = ({ type = 'compact', ...props }: NavProps) => {
 	)
 }
 
+// branch is a helper function to return a
+// generic value based on a "direction" string
+function branch<T = unknown>(
+	direction: 'prev' | 'next',
+	obj: { prev: T; next: T }
+) {
+	return obj[direction]
+}
+
 interface ButtonArrowProps {
 	type: NavProps['type']
 	direction: 'next' | 'prev'
-	active?: boolean
 }
 const ButtonArrow = ({ type, direction }: ButtonArrowProps) => {
 	const pagination = usePagination()
-	const handleClick = () => {
-		if (direction === 'next') {
+	const handleClick = branch(direction, {
+		next: () => {
 			// clamp upper bound
 			const nextIdx = Math.min(
 				pagination.currentPage + 1,
 				pagination.totalPages
 			)
 			pagination.setCurrentPage(nextIdx)
-			pagination.onSelectPage(nextIdx)
-		} else if (direction === 'prev') {
+			pagination.onSelectPage(nextIdx, pagination.itemsPerPage)
+		},
+		prev: () => {
 			// clamp lower bound (0)
 			const prevIdx = Math.max(pagination.currentPage - 1, 0)
 			pagination.setCurrentPage(prevIdx)
-			pagination.onSelectPage(prevIdx)
-		}
-	}
-	const icon =
-		// eslint-disable-next-line no-nested-ternary
-		direction === 'next' ? (
-			<IconChevronRight16 />
-		) : direction === 'prev' ? (
-			<IconChevronLeft16 />
-		) : null
+			pagination.onSelectPage(prevIdx, pagination.itemsPerPage)
+		},
+	})
 
-	const ariaLabel =
-		// eslint-disable-next-line no-nested-ternary
-		direction === 'next'
-			? 'Next page'
-			: direction === 'prev'
-			? 'Previous page'
-			: undefined
+	const icon = branch(direction, {
+		next: <IconChevronRight16 />,
+		prev: <IconChevronLeft16 />,
+	})
 
-	const label =
-		// eslint-disable-next-line no-nested-ternary
-		direction === 'next' ? 'Next' : direction === 'prev' ? 'Previous' : null
+	const ariaLabel = branch(direction, {
+		next: 'Next page',
+		prev: 'Previous page',
+	})
 
-	const isDisabled =
-		direction === 'next'
-			? pagination.currentPage === pagination.totalPages
-			: pagination.currentPage === 1
+	const label = branch(direction, {
+		next: 'Next',
+		prev: 'Previous',
+	})
+
+	const isDisabled = branch(direction, {
+		next: pagination.currentPage === pagination.totalPages,
+		prev: pagination.currentPage === 1,
+	})
+
 	return (
 		<button
 			className={classNames(s.arrow, s.control, {
@@ -249,7 +245,7 @@ const ButtonNumber = ({
 		pagination.setCurrentPage(page)
 		// don't trigger callback if the current page is already selected
 		if (pagination.currentPage !== page) {
-			pagination.onSelectPage(page)
+			pagination.onSelectPage(page, pagination.itemsPerPage)
 		}
 	}
 	return (
@@ -270,12 +266,6 @@ export interface SizeSelectorProps {
 	 * Set the page sizes users can select from. If no value is defined an error will be thrown.
 	 */
 	sizes: number[]
-	/**
-	 * Instead of selecting the initial option which is the default, you can select one of the other sizes options.
-	 *
-	 * Normally passed in as an argument on the Pagination wrapper component but can be added to Pagination.SizeSelector itself when used as a standalone component
-	 */
-	itemsPerPage?: number
 }
 const SizeSelector = ({ sizes }: SizeSelectorProps) => {
 	const pagination = usePagination()
@@ -283,11 +273,15 @@ const SizeSelector = ({ sizes }: SizeSelectorProps) => {
 	// changing page size should reset the current page to 1
 	const handleChange = (e) => {
 		pagination.setCurrentPage(1)
-		const value = Number(e.target.value)
-		pagination.setItemsPerPage(value)
+		const newPageSize = Number(e.target.value)
+		pagination.setItemsPerPage(newPageSize)
+
+		pagination.onSelectPage(1, newPageSize)
 	}
+
 	return (
 		<div className={s['size-selector']}>
+			{/* TODO add `select.id` and `label.htmlFor` */}
 			<label className={s.label}>Items per page</label>
 			<select className={s.select} onChange={handleChange}>
 				{sizes.map((e) => (

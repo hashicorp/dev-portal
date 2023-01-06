@@ -1,11 +1,108 @@
 import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
+// mock svgs to reduce snapshot noise
+jest.mock('@hashicorp/flight-icons/svg-react/chevron-left-16', () => ({
+	IconChevronLeft16: () => <svg>IconChevronLeft16</svg>,
+}))
+jest.mock('@hashicorp/flight-icons/svg-react/chevron-right-16', () => ({
+	IconChevronRight16: () => <svg>IconChevronRight16</svg>,
+}))
+
 import Pagination, { generateTruncatedList } from './index'
 
 describe('Pagination', () => {
+	it('should match the snapshot', () => {
+		const { container } = render(
+			<Pagination totalItems={103} itemsPerPage={10}>
+				<Pagination.Info />
+				<Pagination.Nav />
+				<Pagination.SizeSelector sizes={[10, 30, 50]} />
+			</Pagination>
+		)
+
+		expect(container).toMatchInlineSnapshot(`
+		<div>
+		  <div
+		    class="pagination"
+		  >
+		    <div
+		      class="info"
+		    >
+		      1
+		       – 
+		      10
+		       of 103
+		    </div>
+		    <nav
+		      aria-label="Pagination navigation"
+		      class="nav"
+		    >
+		      <button
+		        aria-label="Previous page"
+		        class="arrow control prev"
+		        disabled=""
+		      >
+		        <svg>
+		          IconChevronLeft16
+		        </svg>
+		        <span
+		          aria-hidden="true"
+		          class="label"
+		        >
+		          Previous
+		        </span>
+		      </button>
+		      <button
+		        aria-label="Next page"
+		        class="arrow control next"
+		      >
+		        <svg>
+		          IconChevronRight16
+		        </svg>
+		        <span
+		          aria-hidden="true"
+		          class="label"
+		        >
+		          Next
+		        </span>
+		      </button>
+		    </nav>
+		    <div
+		      class="size-selector"
+		    >
+		      <label
+		        class="label"
+		      >
+		        Items per page
+		      </label>
+		      <select
+		        class="select"
+		      >
+		        <option
+		          value="10"
+		        >
+		          10
+		        </option>
+		        <option
+		          value="30"
+		        >
+		          30
+		        </option>
+		        <option
+		          value="50"
+		        >
+		          50
+		        </option>
+		      </select>
+		    </div>
+		  </div>
+		</div>
+	`)
+	})
+
 	describe('compact nav', () => {
-		it('onSelectPage is called with the correct index', async () => {
+		it('onSelectPage is called with the correct index and page size', async () => {
 			const onSelectPage = jest.fn()
 			const { queryAllByRole } = render(
 				<Pagination
@@ -23,9 +120,14 @@ describe('Pagination', () => {
 
 			// Page 1 is active by default
 			await userEvent.click(nextButton) // Page 2 is now active
-			expect(onSelectPage).toHaveBeenNthCalledWith(1, 2)
+			expect(onSelectPage).toHaveBeenNthCalledWith(1, 2, 10)
 			await userEvent.click(nextButton) // Page 3 is now active
-			expect(onSelectPage).toHaveBeenNthCalledWith(2, 3)
+			expect(onSelectPage).toHaveBeenNthCalledWith(2, 3, 10)
+
+			const sizeSelector = queryAllByRole('combobox')[0]
+
+			await userEvent.selectOptions(sizeSelector, '30') // Selecting a new page size should reset the page index
+			expect(onSelectPage).toHaveBeenNthCalledWith(3, 1, 30)
 		})
 	})
 
