@@ -1,8 +1,6 @@
 .pagination {
 	--token-pagination-control-height: 36px;
 	--token-pagination-control-padding-horizontal: 11px;
-	--token-pagination-control-focus-inset: 4px;
-	--token-pagination-ellipsis-padding-horizontal: 12px;
 	--token-pagination-indicator-height: 2px;
 
 	composes: hds-typography-body-100 from global;
@@ -13,20 +11,6 @@
 	grid-template-columns: 1fr auto 1fr;
 	align-items: center;
 	margin: 0 auto;
-
-	/* debug */
-	&[data-debug] {
-		background: lightcoral;
-		& .info {
-			background: lightgreen;
-		}
-		& .nav {
-			background: lightblue;
-		}
-		& .size-selector {
-			background: lightsalmon;
-		}
-	}
 }
 
 /* <Info> */
