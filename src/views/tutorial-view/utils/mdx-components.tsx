@@ -8,6 +8,7 @@ import ImageConfig from 'components/image-config'
 import InteractiveLabCallout from 'components/interactive-lab-callout'
 import {
 	MdxA,
+	MdxAlert,
 	MdxOrderedList,
 	MdxUnorderedList,
 	MdxListItem,
@@ -44,6 +45,7 @@ const AccordionWrapper = ({ children, collapse, heading }) => {
 //  these components are automatically imported into scope within MDX content
 const MDX_COMPONENTS = {
 	Accordion: AccordionWrapper,
+	Alert: MdxAlert,
 	Tabs: MdxTabs,
 	Tab: MdxTab,
 	pre,
