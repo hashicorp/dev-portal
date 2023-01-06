@@ -1,11 +1,11 @@
 import * as React from 'react'
 import Head from 'next/head'
 import { proxiedRivetClient } from 'lib/cms'
-import { abTestTrack } from 'lib/ab-test-track'
 import homepageQuery from './home/query.graphql'
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import { renderMetaTags } from '@hashicorp/react-head'
 import IoHomeHero from 'components/_proxied-dot-io/common/io-home-hero'
+import IoHomeHeroAlt from 'components/_proxied-dot-io/common/io-home-hero-alt'
 import IoHomeIntro from 'components/_proxied-dot-io/common/io-home-intro'
 import IoHomeInPractice from 'components/_proxied-dot-io/common/io-home-in-practice'
 import IoCardContainer from 'components/_proxied-dot-io/common/io-card-container'
@@ -50,6 +50,12 @@ export default function Homepage({ data }): React.ReactElement {
 	return (
 		<>
 			<Head>{renderMetaTags(seo)}</Head>
+
+			<IoHomeHeroAlt
+				brand="vault"
+				heading={heroHeading}
+				description={heroDescription}
+			/>
 
 			<IoHomeHero
 				pattern="/vault-public/img/home-hero-pattern.svg"
