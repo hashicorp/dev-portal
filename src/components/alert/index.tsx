@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 export interface AlertProps {
 	children: string
-	type: 'tip' | 'highlight' | 'note' | 'warning'
+	type?: 'tip' | 'highlight' | 'note' | 'warning'
 	title?: string
 }
 
