@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { proxiedRivetClient } from 'lib/cms'
-import { abTestTrack } from 'lib/ab-test-track'
 import Head from 'next/head'
 import { renderMetaTags } from '@hashicorp/react-head'
 import PackerIoLayout from 'layouts/_proxied-dot-io/packer'
@@ -19,7 +18,6 @@ export default function PackerHomepage({ data }): React.ReactElement {
 		seo,
 		heroHeading,
 		heroDescription,
-		heroCtas,
 		heroCards,
 		introHeading,
 		introDescription,
@@ -48,14 +46,6 @@ export default function PackerHomepage({ data }): React.ReactElement {
 	const _introCallout = introCallout[0]
 	const _introVideo = introVideo[0]
 
-	React.useEffect(() => {
-		abTestTrack({
-			type: 'Served',
-			test_name: 'CRO home hero CTA links 2022-10',
-			variant: 'false',
-		})
-	}, [])
-
 	return (
 		<>
 			<Head>{renderMetaTags(seo)}</Head>
@@ -65,7 +55,6 @@ export default function PackerHomepage({ data }): React.ReactElement {
 				brand="packer"
 				heading={heroHeading}
 				description={heroDescription}
-				ctas={heroCtas}
 				cards={heroCards.map((card) => {
 					return {
 						...card,
