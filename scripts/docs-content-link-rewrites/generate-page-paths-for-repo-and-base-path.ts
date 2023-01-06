@@ -41,7 +41,8 @@ const main = async () => {
 	const allPathsByBasePath = {}
 	navDataResults.forEach((result: string[], index: number) => {
 		const basePath = relevantRootDocsPaths[index].path
-		allPathsByBasePath[basePath] = result
+		const uniqueArray = Array.from(new Set(result))
+		allPathsByBasePath[basePath] = uniqueArray
 	})
 
 	// Create the output folder if it doesn't exist
