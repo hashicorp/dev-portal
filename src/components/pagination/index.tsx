@@ -114,64 +114,20 @@ export interface NavProps {
 	totalPages?: number
 }
 
-function generatedTruncatedList(
-	array: number[],
-	currentPage
-): (number | 'ellipsis')[] {
-	// do not truncate if there are 5 or fewer pages
-	const bypass = array.length <= 5
-	if (bypass) {
-		return array
-	}
-
-	const isLeft = currentPage <= 3
-	const isRight = currentPage >= array.length - 2
-
-	// [1,2,3,4,...,99,100]
-	if (isLeft) {
-		return (
-			array
-				.slice(0, 4)
-				// @ts-expect-error - the output array is typed as (number | 'ellipsis')[]
-				.concat('ellipsis' as const)
-				.concat(array.slice(-2))
-		)
-	}
-	// [1,2,...,97,98,99,100]
-	if (isRight) {
-		return (
-			array
-				.slice(0, 2)
-				// @ts-expect-error - the output array is typed as (number | 'ellipsis')[]
-				.concat('ellipsis' as const)
-				.concat(array.slice(-4))
-		)
-	}
-	// [1,...3,4,5,...,100]
-	return [
-		1,
-		'ellipsis' as const,
-		currentPage - 1,
-		currentPage,
-		currentPage + 1,
-		'ellipsis' as const,
-	].concat(array.slice(-1))
-}
-
 const Nav = ({ type = 'compact', ...props }: NavProps) => {
 	const pagination = usePagination()
 
 	const totalPages = props.totalPages ?? pagination.totalPages
 	const currentPage = pagination.currentPage
 
-	const rawitems = Array.from({ length: totalPages }).map((_, i) => i + 1)
+	const rawitems = Array.from({ length: totalPages }, (_, i) => i + 1)
 
 	const items: (number | 'ellipsis')[] =
 		// eslint-disable-next-line no-nested-ternary
 		type === 'numbered'
 			? rawitems
 			: type === 'truncated'
-			? generatedTruncatedList(rawitems, currentPage)
+			? generateTruncatedList(rawitems, currentPage)
 			: []
 
 	return (
@@ -349,3 +305,49 @@ export default Object.assign(Pagination, {
 	Nav,
 	SizeSelector,
 })
+
+// accepts an array and returns a truncated array with interlaced "ellipsis"
+// items, based on the current page
+export function generateTruncatedList(
+	array: number[],
+	currentPage: number
+): (number | 'ellipsis')[] {
+	// do not truncate if there are 5 or fewer pages
+	const bypass = array.length <= 5
+	if (bypass) {
+		return array
+	}
+
+	const isLeft = currentPage <= 3
+	const isRight = currentPage >= array.length - 2
+
+	// [1,2,3,4,...,99,100]
+	if (isLeft) {
+		return (
+			array
+				.slice(0, 4)
+				// @ts-expect-error - the output array is typed as (number | 'ellipsis')[]
+				.concat('ellipsis' as const)
+				.concat(array.slice(-2))
+		)
+	}
+	// [1,2,...,97,98,99,100]
+	if (isRight) {
+		return (
+			array
+				.slice(0, 2)
+				// @ts-expect-error - the output array is typed as (number | 'ellipsis')[]
+				.concat('ellipsis' as const)
+				.concat(array.slice(-4))
+		)
+	}
+	// [1,...3,4,5,...,100]
+	return [
+		1,
+		'ellipsis' as const,
+		currentPage - 1,
+		currentPage,
+		currentPage + 1,
+		'ellipsis' as const,
+	].concat(array.slice(-1))
+}

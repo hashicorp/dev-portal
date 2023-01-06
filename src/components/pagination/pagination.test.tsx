@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import Pagination from './index'
+import Pagination, { generateTruncatedList } from './index'
 
 describe('Pagination', () => {
 	describe('compact nav', () => {
@@ -67,4 +67,23 @@ describe('Pagination', () => {
 			expect(pageNumbers).toHaveLength(Math.ceil(103 / 10))
 		})
 	})
+})
+
+describe('generateTruncatedList', () => {
+	let rawlist: number[]
+
+	beforeEach(() => {
+		rawlist = Array.from({ length: 103 }, (_, i) => i + 1)
+	})
+
+	it.each([
+		[1, [1, 2, 3, 4, 'ellipsis', 102, 103]],
+		[4, [1, 'ellipsis', 3, 4, 5, 'ellipsis', 103]],
+		[101, [1, 2, 'ellipsis', 100, 101, 102, 103]],
+	])(
+		'should return a list of numbers and ellipses, given a currentPage: "%s"',
+		(currentPage, output) => {
+			expect(generateTruncatedList(rawlist, currentPage)).toEqual(output)
+		}
+	)
 })
