@@ -19,7 +19,6 @@ export default function Homepage({ data }): React.ReactElement {
 		seo,
 		heroHeading,
 		heroDescription,
-		heroCtas,
 		heroCards,
 		introHeading,
 		introDescription,
@@ -48,14 +47,6 @@ export default function Homepage({ data }): React.ReactElement {
 	} = data
 	const _introVideo = introVideo[0]
 
-	React.useEffect(() => {
-		abTestTrack({
-			type: 'Served',
-			test_name: 'CRO home hero CTA links 2022-10',
-			variant: 'false',
-		})
-	}, [])
-
 	return (
 		<>
 			<Head>{renderMetaTags(seo)}</Head>
@@ -65,7 +56,6 @@ export default function Homepage({ data }): React.ReactElement {
 				brand="vault"
 				heading={heroHeading}
 				description={heroDescription}
-				ctas={heroCtas}
 				cards={heroCards.map((card) => {
 					return {
 						...card,

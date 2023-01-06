@@ -11,12 +11,15 @@ async function transformRawContent(
 	authoredContent: HomePageAuthoredContent
 ): Promise<HomePageContentProps> {
 	// Destructure data needed from given `authoredContent`
-	const { hero, navNotice, merchandising, learnSection, preFooter } =
+	const { hero, navNotice, merchandising, certificationsSection, preFooter } =
 		authoredContent
 
-	// For the learnSection, transform collectionSlugs to card data
-	const { collectionSlugs, ...restLearnSection } = learnSection
-	const { inlineCollections } = await getInlineContentMaps(learnSection)
+	// For the certificationsSection, transform collectionSlugs to card data
+	const { collectionSlugs, ...restCertificationsSection } =
+		certificationsSection
+	const { inlineCollections } = await getInlineContentMaps(
+		certificationsSection
+	)
 	const collectionCards = collectionSlugs.map((slug: string) => {
 		const collectionData = inlineCollections[slug]
 		return formatCollectionCard(collectionData)
@@ -27,9 +30,9 @@ async function transformRawContent(
 		hero,
 		navNotice: navNotice || null, // Note: may be undefined, need null instead
 		merchandising,
-		learnSection: {
+		certificationsSection: {
 			collectionCards,
-			...restLearnSection,
+			...restCertificationsSection,
 		},
 		preFooter,
 	}

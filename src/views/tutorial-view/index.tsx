@@ -254,6 +254,7 @@ function TutorialView({
 					showScrollProgress={true}
 					AlternateSidebar={TutorialsSidebar}
 					headings={layoutProps.headings}
+					mainWidth={layoutProps.mainWidth}
 				>
 					<LayoutContentWrapper
 						collectionCtx={collectionCtx}
