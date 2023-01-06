@@ -3,7 +3,7 @@ import s from './mdx-alert.module.css'
 
 export function MdxAlert(props: AlertProps) {
 	return (
-		<div className={s.alertWrapper}>
+		<div className={s.spacing}>
 			<Alert {...props} />
 		</div>
 	)
