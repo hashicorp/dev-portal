@@ -55,6 +55,16 @@ export default function Homepage({ data }): React.ReactElement {
 				brand="vault"
 				heading={heroHeading}
 				description={heroDescription}
+				ctas={[
+					{
+						title: 'Try HCP Vault',
+						href: 'https://portal.cloud.hashicorp.com/sign-up',
+					},
+					{
+						title: 'Install Vault',
+						href: '/downloads',
+					},
+				]}
 			/>
 
 			<IoHomeHero

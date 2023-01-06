@@ -1,23 +1,22 @@
 import * as React from 'react'
 import Image from 'next/image'
 import type { Products } from '@hashicorp/platform-product-meta'
+import type { IntroProps } from '@hashicorp/react-intro/types'
 import Intro from '@hashicorp/react-intro'
 import s from './style.module.css'
 
 interface IoHomeHeroAltProps {
 	brand: Products
-	heading: string
-	description: string
-	ctas?: Array<{
-		title: string
-		link: string
-	}>
+	heading: IntroProps['heading']
+	description: IntroProps['description']
+	ctas: IntroProps['actions']['ctas']
 }
 
 export default function IoHomeHeroAlt({
 	brand,
 	heading,
 	description,
+	ctas,
 }: IoHomeHeroAltProps) {
 	return (
 		<header className={s.hero}>
@@ -47,17 +46,14 @@ export default function IoHomeHeroAlt({
 						actions={{
 							layout: 'stacked',
 							theme: brand,
-							ctas: [
-								{
-									title: 'Try Vault Cloud',
-									href: '/',
-								},
-								{
-									title: 'Install Vault',
-									href: '/',
-									type: 'standalone-link',
-								},
-							],
+							ctas: ctas.map(
+								(cta: { title: string; href: string }, index: number) => {
+									return {
+										...cta,
+										type: index === 0 ? 'button' : 'standalone-link',
+									}
+								}
+							) as IntroProps['actions']['ctas'],
 						}}
 					/>
 				</div>
