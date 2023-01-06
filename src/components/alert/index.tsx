@@ -4,12 +4,7 @@ import { IconAlertDiamond16 } from '@hashicorp/flight-icons/svg-react/alert-diam
 import s from './alert.module.css'
 import classNames from 'classnames'
 
-/** TODO add tests
- * throws when expected
- * handles various types
- */
-
-interface AlertProps {
+export interface AlertProps {
 	children: string
 	type: 'tip' | 'highlight' | 'note' | 'warning'
 	title?: string
@@ -32,7 +27,6 @@ export default function Alert({ children, type = 'tip', title }: AlertProps) {
 	}
 
 	if (!data) {
-		// TODO, maybe just log here??
 		throw new Error('[MdxAlert]: No valid alert type found')
 	}
 
