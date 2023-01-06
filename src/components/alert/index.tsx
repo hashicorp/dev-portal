@@ -19,17 +19,21 @@ export default function Alert({ children, type = 'tip', title }: AlertProps) {
 
 	if (!children) {
 		throw new Error(
-			'[MdxAlert]: No `children` found, please pass a description body'
+			'[Alert]: No `children` found, please pass a description body'
 		)
 	}
 
 	if (!data) {
-		throw new Error('[MdxAlert]: No valid alert type found')
+		throw new Error(
+			'[Alert]: Invalid alert type passed. Please pass one of: tip | highlight | note | warning'
+		)
 	}
 
 	return (
 		<div className={classNames(s.default, s[type])}>
-			<span className={s.icon}> {data.icon}</span>
+			<span className={s.icon} data-testid="icon">
+				{data.icon}
+			</span>
 			<span className={s.content}>
 				<p className={s.title}>{title ?? data.title}</p>
 				<span className={s.body}>{children}</span>
