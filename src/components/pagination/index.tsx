@@ -165,8 +165,9 @@ const Nav = ({ type = 'compact', ...props }: NavProps) => {
 	const currentPage = pagination.currentPage
 
 	const rawitems = Array.from({ length: totalPages }).map((_, i) => i + 1)
-	// `null` signals an ellipsis
+
 	const items: (number | 'ellipsis')[] =
+		// eslint-disable-next-line no-nested-ternary
 		type === 'numbered'
 			? rawitems
 			: type === 'truncated'
