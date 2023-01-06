@@ -39,10 +39,6 @@
 .h1 {
 	color: var(--token-color-foreground-strong);
 
-	/* "Display 600" custom font metrics, outside HDS */
-	font-size: 36px;
-	line-height: 1.222222;
-
 	/* Note that spacing between the h1 and breadcrumb is handled at the
 	   SidecarSidecar layout level, with margin-bottom on the breadcrumb group. */
 	margin-bottom: 20px;

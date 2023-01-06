@@ -12,11 +12,7 @@ const HEADING_LEVELS_TO_PROPS: Record<
 	{ size: HeadingProps['size']; weight: HeadingProps['weight'] }
 > = {
 	1: {
-		/**
-		 * Note: font-size is bumped to a custom "Display 600", which does
-		 * not yet exist in HDS (has been designed for Dev Dot specifically).
-		 */
-		size: 500,
+		size: 600,
 		weight: 'bold',
 	},
 	2: {
