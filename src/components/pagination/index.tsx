@@ -281,15 +281,16 @@ const SizeSelector = ({ sizes }: SizeSelectorProps) => {
 
 	return (
 		<div className={s['size-selector']}>
-			{/* TODO add `select.id` and `label.htmlFor` */}
-			<label className={s.label}>Items per page</label>
-			<select className={s.select} onChange={handleChange}>
-				{sizes.map((e) => (
-					<option key={e} value={e}>
-						{e}
-					</option>
-				))}
-			</select>
+			<label className={s.label}>
+				Items per page
+				<select className={s.select} onChange={handleChange}>
+					{sizes.map((e) => (
+						<option key={e} value={e}>
+							{e}
+						</option>
+					))}
+				</select>
+			</label>
 		</div>
 	)
 }
