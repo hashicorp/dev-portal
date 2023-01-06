@@ -1,5 +1,9 @@
 .hero {
-	--padding-y: 80px;
+	--padding-y: 64px;
+
+	@media (--medium-up) {
+		--padding-y: 80px;
+	}
 
 	position: relative;
 	padding-top: var(--padding-y);
