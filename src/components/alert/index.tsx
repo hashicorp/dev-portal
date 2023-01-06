@@ -1,25 +1,21 @@
-import { ReactChild } from 'react'
+import classNames from 'classnames'
+
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 import { IconAlertTriangle16 } from '@hashicorp/flight-icons/svg-react/alert-triangle-16'
 import { IconAlertDiamond16 } from '@hashicorp/flight-icons/svg-react/alert-diamond-16'
+
+import { AlertProps, AlertData } from './types'
 import s from './alert.module.css'
-import classNames from 'classnames'
 
-export interface AlertProps {
-	children: ReactChild | ReactChild[]
-	type?: 'tip' | 'highlight' | 'note' | 'warning'
-	title?: string
-}
-
-const AlertData = {
-	tip: { title: 'Tip', icon: IconInfo16 },
-	highlight: { title: 'Tip', icon: IconInfo16 },
-	note: { title: 'Note', icon: IconAlertTriangle16 },
-	warning: { title: 'Warning', icon: IconAlertDiamond16 },
+const ALERT_DATA: AlertData = {
+	tip: { title: 'Tip', icon: <IconInfo16 /> },
+	highlight: { title: 'Tip', icon: <IconInfo16 /> },
+	note: { title: 'Note', icon: <IconAlertTriangle16 /> },
+	warning: { title: 'Warning', icon: <IconAlertDiamond16 /> },
 }
 
 export default function Alert({ children, type = 'tip', title }: AlertProps) {
-	const data = AlertData[type]
+	const data = ALERT_DATA[type]
 
 	if (!children) {
 		throw new Error(
@@ -33,7 +29,7 @@ export default function Alert({ children, type = 'tip', title }: AlertProps) {
 
 	return (
 		<div className={classNames(s.default, s[type])}>
-			<data.icon className={s.icon} />
+			<span className={s.icon}> {data.icon}</span>
 			<span className={s.content}>
 				<p className={s.title}>{title ?? data.title}</p>
 				<span className={s.body}>{children}</span>
@@ -41,3 +37,5 @@ export default function Alert({ children, type = 'tip', title }: AlertProps) {
 		</div>
 	)
 }
+
+export type { AlertProps }
