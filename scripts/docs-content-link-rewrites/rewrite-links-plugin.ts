@@ -98,6 +98,12 @@ const handleRelativeUrl = ({
 	const productSlug = product.slug
 	const basePaths = product.basePaths
 
+	// Very unique case for relative link in Vagrant
+	if (url === '/vmware/downloads' || url === '/vmware/downloads/') {
+		linksToRewrite[url] = '/vagrant/downloads/vmware'
+		return
+	}
+
 	if (url.startsWith('/')) {
 		const matchingBasePath = basePaths.find((basePath) => {
 			return url.startsWith(`/${basePath}`)
