@@ -2,23 +2,43 @@
 componentName: Pagination
 ---
 
-## Props
+## Overview
+
+The Pagination component allows users to navigate through a large dataset split into pages. These pages could be either links (different URLs) or content rendered within the same page/URL.
+
+It is not meant to be used as a navigation control for regular content or as a stepper, i.e. a guide, tutorial, setup or creation flow.
 
 ### `Pagination`
 
-- TODO
+This is a container component that provides grid layout for the subcomponents and pagination react context.
+
+Props:
+
+- `totalItems` (required): Total number of items
+- `itemsPerPage` (required): Number of items per page
+- `currentPage` (optional): Current page index. This is 1-based, and is only used for the initial render. If not provided, the component will use the first page by default.
+- `onSelectPage` (optional): Callback function to be called when a page is selected. It receives the page index and the page size as arguments.
 
 ### `Pagination.Info`
 
-- TODO
+Displays info like, _"90-100 of 103 items"_
 
 ### `Pagination.Nav`
 
-- TODO
+Displays navigation buttons.
+
+Props:
+
+- `type`: "compact" | "numbered" | "truncated"
+  - "compact": Displays only previous and next buttons
+  - "numbered": Displays numbered buttons for each page
+  - "truncated": Displays numbered buttons for each page, but truncates the list if there are too many pages
 
 ### `Pagination.SizeSelector`
 
-- TODO
+Displays a dropdown to select the page size.
+
+- `sizes`: Array of page size numbers
 
 ## Playground
 
@@ -28,7 +48,7 @@ componentName: Pagination
 		totalItems={103}
 		itemsPerPage={10}
 		currentPage={3}
-		onSelectPage={(idx) => console.log("Select page: %s", idx)}
+		onSelectPage={(idx, pagesize) => console.log("Select page: %s; Pagesize: %s", idx, pagesize)}
 	>
 		<Pagination.Info showTotalItems={true}/>
 		<Pagination.Nav type="truncated" />
