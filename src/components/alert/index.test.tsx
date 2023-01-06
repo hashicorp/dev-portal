@@ -27,7 +27,7 @@ const TEST_DATA = {
 }
 
 describe('Alert Component', () => {
-	it('renders default tip withour error', () => {
+	it('renders default tip without error', () => {
 		const data = TEST_DATA['tip']
 		const { queryByText, queryByTestId } = render(<Alert>{data.body}</Alert>)
 		// icon renders
@@ -38,7 +38,7 @@ describe('Alert Component', () => {
 		expect(queryByText(data.body)).toBeInTheDocument()
 	})
 
-	it('renders default highlight withour error', () => {
+	it('renders default highlight without error', () => {
 		const data = TEST_DATA['highlight']
 		const { queryByText, queryByTestId } = render(
 			<Alert type="highlight">{data.body}</Alert>
@@ -51,7 +51,7 @@ describe('Alert Component', () => {
 		expect(queryByText(data.body)).toBeInTheDocument()
 	})
 
-	it('renders default note withour error', () => {
+	it('renders default note without error', () => {
 		const data = TEST_DATA['note']
 		const { queryByText, queryByTestId } = render(
 			<Alert type="note">{data.body}</Alert>
@@ -64,7 +64,7 @@ describe('Alert Component', () => {
 		expect(queryByText(data.body)).toBeInTheDocument()
 	})
 
-	it('renders default warning withour error', () => {
+	it('renders default warning without error', () => {
 		const data = TEST_DATA['warning']
 		const { queryByText, queryByTestId } = render(
 			<Alert type="warning">{data.body}</Alert>
