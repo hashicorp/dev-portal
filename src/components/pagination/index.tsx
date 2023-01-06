@@ -213,10 +213,14 @@ const ButtonArrow = ({ type, direction }: ButtonArrowProps) => {
 
 	return (
 		<button
-			className={classNames(s.arrow, s.control, {
-				[s.prev]: direction === 'prev',
-				[s.next]: direction === 'next',
-			})}
+			className={classNames(
+				s.arrow,
+				s.control,
+				branch(direction, {
+					next: s.next,
+					prev: s.prev,
+				})
+			)}
 			aria-label={ariaLabel}
 			onClick={handleClick}
 			disabled={isDisabled}
@@ -231,7 +235,6 @@ const ButtonArrow = ({ type, direction }: ButtonArrowProps) => {
 	)
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ButtonNumberProps {
 	page: number
 }
@@ -337,12 +340,15 @@ export function generateTruncatedList(
 		)
 	}
 	// [1,...3,4,5,...,100]
-	return [
-		1,
-		'ellipsis' as const,
-		currentPage - 1,
-		currentPage,
-		currentPage + 1,
-		'ellipsis' as const,
-	].concat(array.slice(-1))
+	return array
+		.slice(0, 1)
+		.concat(
+			// @ts-expect-error - the output array is typed as (number | 'ellipsis')[]
+			'ellipsis' as const,
+			currentPage - 1,
+			currentPage,
+			currentPage + 1,
+			'ellipsis' as const
+		)
+		.concat(array.slice(-1))
 }
