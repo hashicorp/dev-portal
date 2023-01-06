@@ -27,6 +27,7 @@ export default function IoHomeHeroAlt({
 					width={418}
 					height={543}
 					alt=""
+					priority
 				/>
 				<Image
 					className={s.patternsEnd}
@@ -34,6 +35,7 @@ export default function IoHomeHeroAlt({
 					width={418}
 					height={543}
 					alt=""
+					priority
 				/>
 			</div>
 			<div className={s.container}>
