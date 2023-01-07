@@ -60,8 +60,9 @@ function Footer({
 			<a
 				href="https://www.hashicorp.com/"
 				aria-label="Go to HashiCorp home page"
+				className={s.logo}
 			>
-				<InlineSvg className={s.logo} src={svgHashicorpLogo} />
+				<InlineSvg src={svgHashicorpLogo} />
 			</a>
 			<ButtonLink
 				text="Give Feedback"
