@@ -44,19 +44,59 @@ Displays a dropdown to select the page size.
 
 - `sizes`: Array of page size numbers
 
-## Playground
+## Basic
 
 <LiveComponent>
-	{`<div style={{marginTop: 30}}>
-	<Pagination
-		totalItems={103}
-		itemsPerPage={10}
-		currentPage={3}
-		onSelectPage={(idx, pagesize) => console.log("Select page: %s; Pagesize: %s", idx, pagesize)}
-	>
-		<Pagination.Info showTotalItems={true}/>
-		<Pagination.Nav type="truncated" />
-		<Pagination.SizeSelector sizes={[10, 30, 50]}/>
-	</Pagination>
-</div>`}
+	{`<Pagination
+	totalItems={103}
+	itemsPerPage={10}
+	currentPage={3}
+	onSelectPage={(idx, pagesize) => console.log("Select page: %s; Pagesize: %s", idx, pagesize)}
+>
+	<Pagination.Info showTotalItems={true}/>
+	<Pagination.Nav type="truncated" />
+	<Pagination.SizeSelector sizes={[10, 30, 50]}/>
+</Pagination>
+`}
+</LiveComponent>
+
+## With Elements
+
+<LiveComponent>
+	{`() => {
+	const [items, setItems] = useState(() => Array.from({length: 57}, (_, i) => i + 1))
+	const [page, setPage] = useState(1)
+	const [pageSize, setPageSize] = useState(10)
+	return (
+		<div>
+			<ul style={{ display: 'flex',flexWrap: 'wrap', gap: '6px' }}>
+				{items.slice((page - 1) * pageSize, page * pageSize).map((item) => (
+					<li
+						key={item}
+						style={{
+							display: 'inline-flex',
+							flex: 'calc(33.33% - 4px)',
+							border: '1px dotted blue',
+							justifyContent: 'center',
+						}}
+					>
+						{item}
+					</li>
+				))}
+			</ul>
+			<Pagination
+				totalItems={items.length}
+				itemsPerPage={pageSize}
+				onSelectPage={(idx, pagesize) => {
+					setPage(idx)
+					setPageSize(pagesize)
+				}}
+			>
+				<Pagination.Info showTotalItems={true}/>
+				<Pagination.Nav type="truncated" />
+				<Pagination.SizeSelector sizes={[10, 30, 50]}/>
+			</Pagination>
+		</div>
+	)
+}`}
 </LiveComponent>
