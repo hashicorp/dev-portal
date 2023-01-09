@@ -145,17 +145,3 @@
 		background-position: center right 5px;
 	}
 }
-
-/* TODO: extract this to global scope */
-.sr-only {
-	position: absolute !important;
-	width: 1px !important;
-	height: 1px !important;
-	margin: -1px !important;
-	padding: 0 !important;
-	overflow: hidden !important;
-	white-space: nowrap !important;
-	border: 0 !important;
-	clip: rect(1px, 1px, 1px, 1px) !important;
-	clip-path: inset(50%) !important;
-}

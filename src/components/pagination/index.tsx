@@ -257,8 +257,7 @@ const ButtonNumber = ({
 			type="button"
 			onClick={handleClick}
 		>
-			{/* TODO: extract sr-only to global scope */}
-			<span className={s['sr-only']}>page&nbsp;</span>
+			<span className={'g-screen-reader-only'}>page&nbsp;</span>
 			{children}
 		</button>
 	)
