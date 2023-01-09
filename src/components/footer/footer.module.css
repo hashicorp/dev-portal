@@ -14,15 +14,10 @@
 }
 
 .logo {
+	composes: g-focus-ring-from-box-shadow from global;
+	border-radius: 6px;
 	margin: 0 24px var(--logo-button-margin-bottom) 0;
 	position: relative;
-	border-radius: 6px;
-
-	&:focus,
-	&:focus-visible {
-		box-shadow: var(--token-focus-ring-action-box-shadow);
-		outline: transparent;
-	}
 
 	& svg {
 		/*
@@ -98,17 +93,11 @@
 }
 
 .linkAction {
+	composes: g-focus-ring-from-box-shadow from global;
+	border-radius: 6px;
 	background: none;
 	border: none;
 	color: var(--token-color-foreground-faint);
-	border-radius: 6px;
-	padding: 1px 2px; /** for focus style space **/
-
-	&:focus,
-	&:focus-visible {
-		box-shadow: var(--token-focus-ring-action-box-shadow);
-		outline: transparent;
-	}
 
 	&:hover {
 		color: var(--token-color-foreground-strong);
