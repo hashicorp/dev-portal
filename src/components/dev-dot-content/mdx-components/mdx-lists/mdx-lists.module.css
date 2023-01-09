@@ -5,6 +5,7 @@
 
 .listItem {
 	color: var(--token-color-foreground-primary);
+	line-height: 1.6875;
 
 	/* Fixes a visual bug in firefox where the p tag after our injected anchor is on a new line */
 	& a:global(.__target-lic) {
