@@ -17,9 +17,6 @@ import s from './home/style.module.css'
 export default function Homepage({ data }): React.ReactElement {
 	const {
 		seo,
-		heroHeading,
-		heroDescription,
-		heroCards,
 		introHeading,
 		introDescription,
 		introFeatures,
@@ -61,15 +58,15 @@ export default function Homepage({ data }): React.ReactElement {
 
 			<IoHomeHeroAlt
 				brand="vault"
-				heading={heroHeading}
-				description={heroDescription}
+				heading="Manage and protect your data"
+				description="Deploy a managed Vault cluster on HashiCorp Cloud Platform (HCP) in minutes. Or, install and self-manage Vault locally or within your production environments."
 				ctas={[
 					{
-						title: 'Try HCP Vault',
+						title: 'Deploy Vault on HCP',
 						href: 'https://portal.cloud.hashicorp.com/sign-up',
 					},
 					{
-						title: 'Download',
+						title: 'Install Vault',
 						href: '/downloads',
 					},
 				]}

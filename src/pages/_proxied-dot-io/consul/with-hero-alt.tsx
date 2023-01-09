@@ -17,9 +17,6 @@ import s from './home/style.module.css'
 function Homepage({ data }): React.ReactElement {
 	const {
 		seo,
-		heroHeading,
-		heroDescription,
-		heroCards,
 		introHeading,
 		introDescription,
 		introOfferingsImage,
@@ -67,15 +64,15 @@ function Homepage({ data }): React.ReactElement {
 
 			<IoHomeHeroAlt
 				brand="consul"
-				heading={heroHeading}
-				description={heroDescription}
+				heading="Connect your applications"
+				description="Deploy a managed Consul cluster on HashiCorp Cloud Platform (HCP) in minutes. Or, install and self-manage Consul locally or within environments."
 				ctas={[
 					{
-						title: 'Try HCP Consul',
+						title: 'Deploy Consul on HCP',
 						href: 'https://portal.cloud.hashicorp.com/sign-up',
 					},
 					{
-						title: 'Download',
+						title: 'Install Consul',
 						href: '/downloads',
 					},
 				]}
