@@ -2,6 +2,7 @@ import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import * as React from 'react'
 import Head from 'next/head'
 import { proxiedRivetClient } from 'lib/cms'
+import { abTestTrack } from 'lib/ab-test-track'
 import homepageQuery from './home/query.graphql'
 import { renderMetaTags } from '@hashicorp/react-head'
 import IoHomeHeroAlt from 'components/_proxied-dot-io/common/io-home-hero-alt'
@@ -51,6 +52,14 @@ function Homepage({ data }): React.ReactElement {
 	} = data
 	const _introCallout = introCallout[0]
 	const _introVideo = introVideo[0]
+
+	React.useEffect(() => {
+		abTestTrack({
+			type: 'Served',
+			test_name: 'CRO home hero alt 2023-01',
+			variant: 'true',
+		})
+	}, [])
 
 	return (
 		<>
