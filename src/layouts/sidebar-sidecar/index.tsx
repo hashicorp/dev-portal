@@ -1,5 +1,6 @@
 // Third-party imports
 import { ReactElement, useRef } from 'react'
+import classNames from 'classnames'
 
 // HashiCorp imports
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
@@ -54,6 +55,7 @@ const SidebarSidecarLayoutContent = ({
 	showScrollProgress,
 	sidecarSlot,
 	sidebarNavDataLevels,
+	mainWidth = 'wide',
 	versions,
 }: SidebarSidecarLayoutProps) => {
 	const { isMobileMenuRendered, mobileMenuIsOpen, setMobileMenuIsOpen } =
@@ -101,7 +103,7 @@ const SidebarSidecarLayoutContent = ({
 	}
 
 	return (
-		<div className={s.root}>
+		<div className={classNames(s.root, s[`mainWidth-${mainWidth}`])}>
 			<MobileMenuContainer className={s.mobileMenuContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
 					<MobileAuthenticationControls />
