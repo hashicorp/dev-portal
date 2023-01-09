@@ -34,7 +34,7 @@
 	@media (--dev-dot-tablet-up) {
 		& h1:first-child,
 		& :global(.landing-hero) {
-			margin-right: 25%;
+			margin-right: 180px;
 		}
 
 		/* Add more space in between the first section after title and the version selector  */

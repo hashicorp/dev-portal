@@ -2,6 +2,8 @@ import React, { ReactElement } from 'react'
 import classNames from 'classnames'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
+import { IconPencilTool16 } from '@hashicorp/flight-icons/svg-react/pencil-tool-16'
+import ButtonLink from 'components/button-link'
 import Text from 'components/text'
 import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
 import { FooterItem, FooterProps } from './types'
@@ -10,9 +12,8 @@ import s from './footer.module.css'
 const FOOTER_ITEMS: FooterItem[] = [
 	{
 		type: 'link',
-		href: FEEDBACK_FORM_URL,
-		text: 'Give Feedback',
-		opensInNewTab: true,
+		href: '/certifications',
+		text: 'Certifications',
 	},
 	{
 		type: 'link',
@@ -59,11 +60,21 @@ function Footer({
 			<a
 				href="https://www.hashicorp.com/"
 				aria-label="Go to HashiCorp home page"
+				className={s.logo}
 			>
-				<InlineSvg className={s.logo} src={svgHashicorpLogo} />
+				<InlineSvg src={svgHashicorpLogo} />
 			</a>
+			<ButtonLink
+				text="Give Feedback"
+				href={FEEDBACK_FORM_URL}
+				color="secondary"
+				size="small"
+				icon={<IconPencilTool16 />}
+				opensInNewTab={true}
+				className={classNames(s.feedbackButton, s.mobile)}
+			/>
 			<ul className={s.links}>
-				{FOOTER_ITEMS.map((item, index) => {
+				{FOOTER_ITEMS.map((item: FooterItem, index: number) => {
 					/**
 					 * Ignore the consent-manager footer item if the `openConsentManager`
 					 * prop has not been supplied to the component.
@@ -115,6 +126,17 @@ function Footer({
 						</li>
 					)
 				})}
+				<li>
+					<ButtonLink
+						text="Give Feedback"
+						href={FEEDBACK_FORM_URL}
+						color="secondary"
+						size="small"
+						icon={<IconPencilTool16 />}
+						opensInNewTab={true}
+						className={classNames(s.feedbackButton, s.desktop)}
+					/>
+				</li>
 			</ul>
 		</footer>
 	)
