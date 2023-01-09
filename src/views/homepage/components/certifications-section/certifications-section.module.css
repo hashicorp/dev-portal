@@ -1,0 +1,5 @@
+.collectionCards {
+	/* Negative top margin for overlap onto text-and-image section above */
+	margin: -72px auto 0 auto;
+	width: var(--homepage-container-width);
+}

@@ -28,7 +28,7 @@ RUN npm install -g npm@latest
 
 WORKDIR /app
 COPY . ./website-preview
-COPY --from=deps /app/node_modules ./website-preview/node_modules
+COPY --chown=0:0 --from=deps /app/node_modules ./website-preview/node_modules
 
 EXPOSE 3000
 

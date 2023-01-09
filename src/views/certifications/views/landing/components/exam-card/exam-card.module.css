@@ -1,0 +1,28 @@
+/* Sets padding for both card types, which differs from default card padding */
+.cardBase {
+	padding: 24px;
+}
+
+.examCard {
+	composes: cardBase;
+}
+
+.contents {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+
+	/* Note: --dev-dot-tablet-up almost works here... but for cards with both
+	   a "prepare" link and a "coming soon" badge, the layout breaks down
+		 slightly early. So we use a custom breakpoint here to prevent breakage. */
+	@media only screen and (min-width: 800px) {
+		justify-content: space-between;
+		align-items: center;
+		flex-direction: row;
+	}
+}
+
+.comingSoonCard {
+	composes: cardBase;
+	background: var(--token-color-surface-faint);
+}

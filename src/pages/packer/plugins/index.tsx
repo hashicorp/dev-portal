@@ -64,6 +64,9 @@ async function getStaticProps(ctx) {
 
 		// Replace our original navData with our prepared navData
 		staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems = navData
+
+		// Long-form content pages use a narrower main area width
+		staticProps.props.layoutProps.mainWidth = 'narrow'
 	}
 
 	/**

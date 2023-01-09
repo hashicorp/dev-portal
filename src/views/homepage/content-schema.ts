@@ -56,20 +56,18 @@ const merchandisingSchema = Joi.object({
 /**
  * Learn section
  */
-interface LearnSectionContent {
+interface CertificationsSectionContent {
 	heading: string
-	description: string[]
-	imageSrc: string
+	description: string
 	link: {
 		url: string
 		text: string
 	}
 	collectionSlugs: string[]
 }
-const learnSectionSchema = Joi.object({
+const certificationsSectionSchema = Joi.object({
 	heading: Joi.string().required(),
-	description: Joi.array().items(Joi.string()).required().min(1),
-	imageSrc: Joi.string().required(),
+	description: Joi.string().required(),
 	link: Joi.object({
 		url: Joi.string().required(),
 		text: Joi.string().required(),
@@ -116,8 +114,8 @@ export interface HomePageAuthoredContent {
 	navNotice?: string
 	/** Pre-set Vault and HashiConf merchandising slots. */
 	merchandising: MerchandisingContent
-	/** Tutorial callouts. */
-	learnSection: LearnSectionContent
+	/** CertificationsSection. */
+	certificationsSection: CertificationsSectionContent
 	/** Copy settings for pre-footer content.  */
 	preFooter: PreFooterContent
 }
@@ -129,6 +127,6 @@ export const HomePageAuthoredContentSchema = Joi.object({
 	hero: heroSchema.required(),
 	navNotice: Joi.string(),
 	merchandising: merchandisingSchema.required(),
-	learnSection: learnSectionSchema.required(),
+	certificationsSection: certificationsSectionSchema.required(),
 	preFooter: preFooterSchema.required(),
 })
