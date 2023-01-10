@@ -64,6 +64,10 @@ function Homepage({ data }): React.ReactElement {
 
 			<IoHomeHeroAlt
 				brand="consul"
+				patterns={{
+					start: '/consul-public/img/hero-pattern-start.svg',
+					end: '/consul-public/img/hero-pattern-end.svg',
+				}}
 				heading="Connect your applications"
 				description="Deploy a managed Consul cluster on HashiCorp Cloud Platform (HCP) in minutes. Or, install and self-manage Consul locally or within environments."
 				ctas={[

@@ -7,6 +7,10 @@ import s from './style.module.css'
 
 interface IoHomeHeroAltProps {
 	brand: Products
+	patterns: {
+		start: string
+		end: string
+	}
 	heading: IntroProps['heading']
 	description: IntroProps['description']
 	ctas: IntroProps['actions']['ctas']
@@ -14,6 +18,7 @@ interface IoHomeHeroAltProps {
 
 export default function IoHomeHeroAlt({
 	brand,
+	patterns,
 	heading,
 	description,
 	ctas,
@@ -23,7 +28,7 @@ export default function IoHomeHeroAlt({
 			<div className={s.patterns}>
 				<Image
 					className={s.patternsStart}
-					src={require('./pattern-start.svg')}
+					src={patterns.start}
 					width={418}
 					height={543}
 					alt=""
@@ -31,7 +36,7 @@ export default function IoHomeHeroAlt({
 				/>
 				<Image
 					className={s.patternsEnd}
-					src={require('./pattern-end.svg')}
+					src={patterns.end}
 					width={418}
 					height={543}
 					alt=""
