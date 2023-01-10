@@ -48,7 +48,6 @@ import {
 } from './components'
 import s from './tutorial-view.module.css'
 import { useProgressToast } from './utils/use-progress-toast'
-import Alert from 'components/inline-alert'
 import { MdxInlineAlert } from 'components/dev-dot-content/mdx-components'
 
 /**
