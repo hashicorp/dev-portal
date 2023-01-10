@@ -11,6 +11,14 @@ import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-ri
 
 import s from './pagination.module.css'
 import { generateTruncatedList } from './helpers'
+import {
+	ButtonArrowProps,
+	ButtonNumberProps,
+	InfoProps,
+	NavProps,
+	PaginationProps,
+	SizeSelectorProps,
+} from './types'
 
 const PaginationContext = createContext({
 	totalItems: 0,
@@ -23,23 +31,6 @@ const PaginationContext = createContext({
 	onPageSizeChange: (() => void 1) as (pagesize: number) => void,
 })
 const usePagination = () => useContext(PaginationContext)
-
-export interface PaginationProps {
-	/** Pass the total number of items to be paginated. If no value is defined an error will be thrown. */
-	totalItems: number
-	/** Pass the maximum number of items to display on each page initially. If no value is defined an error will be thrown. */
-	pageSize: number
-	/**
-	 * Set a custom initial selected page.
-	 *
-	 * Default: `1`
-	 */
-	page?: number
-	/** A callback that fires when the page value changes */
-	onPageChange?: (page: number) => void
-	/** A callback that fires when the page size value changes */
-	onPageSizeChange?: (pagesize: number) => void
-}
 
 const Pagination = ({
 	totalItems,
@@ -80,14 +71,6 @@ const Pagination = ({
 	)
 }
 
-export interface InfoProps {
-	/**
-	 * Hide display of total items in the UI.
-	 *
-	 * Defaults to `true`
-	 */
-	showTotalItems?: boolean
-}
 const Info = ({ showTotalItems = true }: InfoProps) => {
 	const pagination = usePagination()
 	const start = pagination.page * pagination.pageSize - 9
@@ -101,13 +84,6 @@ const Info = ({ showTotalItems = true }: InfoProps) => {
 			{showTotalItems ? ` of ${pagination.totalItems}` : null}
 		</div>
 	)
-}
-
-export interface NavProps {
-	/**
-	 * Sets the type of Pagination.Nav.
-	 */
-	type?: 'compact' | 'numbered' | 'truncated'
 }
 
 const Nav = ({ type = 'compact' }: NavProps) => {
@@ -171,10 +147,6 @@ const Nav = ({ type = 'compact' }: NavProps) => {
 	)
 }
 
-interface ButtonArrowProps {
-	type: NavProps['type']
-	direction: 'next' | 'prev'
-}
 const ButtonArrow = ({ type, direction }: ButtonArrowProps) => {
 	const pagination = usePagination()
 	const handleClick = {
@@ -236,10 +208,6 @@ const ButtonArrow = ({ type, direction }: ButtonArrowProps) => {
 	)
 }
 
-interface ButtonNumberProps {
-	page: number
-}
-
 const ButtonNumber = ({
 	children,
 	page,
@@ -264,12 +232,6 @@ const ButtonNumber = ({
 	)
 }
 
-export interface SizeSelectorProps {
-	/**
-	 * Set the page sizes users can select from. If no value is defined an error will be thrown.
-	 */
-	sizes: number[]
-}
 const SizeSelector = ({ sizes }: SizeSelectorProps) => {
 	const pagination = usePagination()
 
