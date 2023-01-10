@@ -26,17 +26,18 @@
 	min-height: 100%;
 	margin: 0 auto;
 	display: grid;
-	grid-template-columns: 1fr var(--content-max-width) 1fr;
+	grid-template-columns: 418px var(--content-max-width) 418px;
 	justify-content: space-between;
-	align-items: flex-end;
 }
 
 .patternsStart {
+	position: relative;
 	grid-column: 1;
 }
 
 .patternsEnd {
-	grid-column: -1;
+	position: relative;
+	grid-column: 3;
 }
 
 .container {
