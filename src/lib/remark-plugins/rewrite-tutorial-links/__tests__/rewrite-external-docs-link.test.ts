@@ -6,14 +6,23 @@ const getTestURLObject = (url: string) => {
 	return new URL(url, __config.dev_dot.canonical_base_url)
 }
 
+const URL_SUFFIXES = ['', '?param=value', '#heading', '?param=value#heading']
+
 const testEachCase = (cases: [string, string][]) => {
-	test.each(cases)(
-		'rewriteExternalDocsLink(%p) returns %p',
-		(input: string, expectedOutput: string) => {
-			const testUrlObject = getTestURLObject(input)
-			expect(rewriteExternalDocsLink(testUrlObject)).toBe(expectedOutput)
-		}
-	)
+	const allCases = []
+	cases.forEach(([input, expected]) => {
+		URL_SUFFIXES.forEach((suffix) => {
+			allCases.push([
+				typeof input === 'string' ? `${input}${suffix}` : input,
+				typeof expected === 'string' ? `${expected}${suffix}` : expected,
+			])
+		})
+	})
+
+	test.each(allCases)('%p -> %p', (input: string, expectedOutput: string) => {
+		const testUrlObject = getTestURLObject(input)
+		expect(rewriteExternalDocsLink(testUrlObject)).toBe(expectedOutput)
+	})
 }
 
 describe('rewriteExternalDocsLink', () => {
@@ -100,86 +109,5 @@ describe('rewriteExternalDocsLink', () => {
 				],
 			])
 		})
-	})
-
-	describe('when `search` is present, and `hash` is NOT present', () => {
-		testEachCase([
-			[
-				'https://waypointproject.io/docs?paramA=valueA',
-				'/waypoint/docs?paramA=valueA',
-			],
-			[
-				'https://vaultproject.io/api?paramA=valueA',
-				'/vault/api-docs?paramA=valueA',
-			],
-			[
-				'https://waypointproject.io/docs/index.html?paramA=valueA',
-				'/waypoint/docs?paramA=valueA',
-			],
-			[
-				'https://vaultproject.io/api/index.html?paramA=valueA',
-				'/vault/api-docs?paramA=valueA',
-			],
-			[
-				'https://waypointproject.io/docs/page.html?paramA=valueA',
-				'/waypoint/docs/page?paramA=valueA',
-			],
-			[
-				'https://vaultproject.io/api/page.html?paramA=valueA',
-				'/vault/api-docs/page?paramA=valueA',
-			],
-		])
-	})
-
-	describe('when `search` is NOT present, and `hash` is present', () => {
-		testEachCase([
-			['https://vaultproject.io/docs#test-hash', '/vault/docs#test-hash'],
-			['https://vaultproject.io/api#test-hash', '/vault/api-docs#test-hash'],
-			[
-				'https://vaultproject.io/docs/index.html#test-hash',
-				'/vault/docs#test-hash',
-			],
-			[
-				'https://vaultproject.io/api/index.html#test-hash',
-				'/vault/api-docs#test-hash',
-			],
-			[
-				'https://vaultproject.io/docs/page.html#test-hash',
-				'/vault/docs/page#test-hash',
-			],
-			[
-				'https://vaultproject.io/api/page.html#test-hash',
-				'/vault/api-docs/page#test-hash',
-			],
-		])
-	})
-
-	describe('when both `search` and `hash` are present', () => {
-		testEachCase([
-			[
-				'https://vaultproject.io/docs?paramA=valueA#test-hash',
-				'/vault/docs?paramA=valueA#test-hash',
-			],
-			[
-				'https://vaultproject.io/api?paramA=valueA#test-hash',
-				'/vault/api-docs?paramA=valueA#test-hash',
-			],
-			[
-				'https://vaultproject.io/docs/index.html?paramA=valueA#test-hash',
-				'/vault/docs?paramA=valueA#test-hash',
-			],
-			[
-				'https://vaultproject.io/api/index.html?paramA=valueA#test-hash',
-				'/vault/api-docs?paramA=valueA#test-hash',
-			],
-			[
-				'https://vaultproject.io/docs/page.html?paramA=valueA#test-hash',
-				'/vault/docs/page?paramA=valueA#test-hash',
-			],
-			[
-				'https://vaultproject.io/api/page.html?paramA=valueA#test-hash',
-				'/vault/api-docs/page?paramA=valueA#test-hash',
-			],
-		])
 	})
 })
