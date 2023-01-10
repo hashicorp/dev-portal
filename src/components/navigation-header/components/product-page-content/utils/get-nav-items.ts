@@ -65,7 +65,6 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	 * Define a common set of base nav items
 	 */
 	const items: NavItem[] = [
-		{ label: 'Home', url: `/${currentProduct.slug}` },
 		{
 			label: 'Documentation',
 			...docsNavObj,
