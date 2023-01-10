@@ -18,13 +18,11 @@ export default function Homepage({ data }): React.ReactElement {
 		seo,
 		heroHeading,
 		heroDescription,
-		heroCtas,
 		heroCards,
 		introHeading,
 		introDescription,
 		introOfferingsImage,
 		introOfferings,
-		introFeatures,
 		introVideo,
 		inPracticeHeading,
 		inPracticeDescription,
@@ -58,7 +56,6 @@ export default function Homepage({ data }): React.ReactElement {
 				brand="boundary"
 				heading={heroHeading}
 				description={heroDescription}
-				ctas={heroCtas}
 				cards={heroCards.map((card) => {
 					return {
 						...card,
