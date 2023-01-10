@@ -48,5 +48,8 @@
 			"name": "CLI",
 			"path": "commands"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"enabled": false
+	}
 }

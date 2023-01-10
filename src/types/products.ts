@@ -154,6 +154,13 @@ interface ProductData extends Product {
 	 * the matching rootDocsPath.
 	 */
 	docsNavItems?: (DocsNavItem | string)[]
+	integrationsConfig: {
+		enabled: boolean
+		sidebarLinks?: {
+			title: string
+			href: string
+		}[]
+	}
 }
 
 interface ProductWithCurrentRootDocsPath extends ProductData {
