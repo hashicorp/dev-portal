@@ -27,7 +27,7 @@ const TEST_DATA = {
 	},
 }
 
-describe('Alert Component', () => {
+describe('`MdxInlineAlert` Component', () => {
 	it('renders default tip without error', () => {
 		const data = TEST_DATA['tip']
 		const { queryByText, queryByTestId } = render(
