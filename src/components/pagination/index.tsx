@@ -112,13 +112,17 @@ const Nav = ({ type = 'compact' }: NavProps) => {
 
 	const rawitems = Array.from({ length: totalPages }, (_, i) => i + 1)
 
-	const items: (number | 'ellipsis')[] =
-		// eslint-disable-next-line no-nested-ternary
-		type === 'numbered'
-			? rawitems
-			: type === 'truncated'
-			? generateTruncatedList(rawitems, currentPage)
-			: []
+	const items: (number | 'ellipsis')[] = ((t: NavProps['type']) => {
+		switch (t) {
+			case 'numbered':
+				return rawitems
+			case 'truncated':
+				return generateTruncatedList(rawitems, currentPage)
+			case 'compact':
+			default:
+				return []
+		}
+	})(type)
 
 	return (
 		<nav className={s.nav} aria-label="Pagination navigation">
