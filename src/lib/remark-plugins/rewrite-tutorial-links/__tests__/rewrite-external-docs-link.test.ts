@@ -59,55 +59,50 @@ describe('rewriteExternalDocsLink', () => {
 		)
 	})
 
-	describe('when neither `search` nor `hash` are present', () => {
-		describe('when the base path is not "api"', () => {
-			testEachCase([
-				['https://vaultproject.io/docs', '/vault/docs'],
-				['https://waypointproject.io/docs', '/waypoint/docs'],
-				['https://vaultproject.io/docs/some/path', '/vault/docs/some/path'],
-				[
-					'https://waypointproject.io/docs/some/path',
-					'/waypoint/docs/some/path',
-				],
-			])
-		})
+	describe('when the base path is not "api"', () => {
+		testEachCase([
+			['https://vaultproject.io/docs', '/vault/docs'],
+			['https://waypointproject.io/docs', '/waypoint/docs'],
+			['https://vaultproject.io/docs/some/path', '/vault/docs/some/path'],
+			['https://waypointproject.io/docs/some/path', '/waypoint/docs/some/path'],
+		])
+	})
 
-		describe('when the base path is "api"', () => {
-			testEachCase([
-				['https://vaultproject.io/api', '/vault/api-docs'],
-				['https://vaultproject.io/api/some/path', '/vault/api-docs/some/path'],
-			])
-		})
+	describe('when the base path is "api"', () => {
+		testEachCase([
+			['https://vaultproject.io/api', '/vault/api-docs'],
+			['https://vaultproject.io/api/some/path', '/vault/api-docs/some/path'],
+		])
+	})
 
-		describe('when the page is "index.html"', () => {
-			testEachCase([
-				['https://waypointproject.io/docs/index.html', '/waypoint/docs'],
-				[
-					'https://waypointproject.io/docs/some/path/index.html',
-					'/waypoint/docs/some/path',
-				],
-				['https://vaultproject.io/api/index.html', '/vault/api-docs'],
-				[
-					'https://vaultproject.io/api/some/path/index.html',
-					'/vault/api-docs/some/path',
-				],
-			])
-		})
+	describe('when the page is "index.html"', () => {
+		testEachCase([
+			['https://waypointproject.io/docs/index.html', '/waypoint/docs'],
+			[
+				'https://waypointproject.io/docs/some/path/index.html',
+				'/waypoint/docs/some/path',
+			],
+			['https://vaultproject.io/api/index.html', '/vault/api-docs'],
+			[
+				'https://vaultproject.io/api/some/path/index.html',
+				'/vault/api-docs/some/path',
+			],
+		])
+	})
 
-		describe('when the page ends with ".html"', () => {
-			testEachCase([
-				['https://www.terraform.io/downloads.html', '/terraform/downloads'],
-				['https://waypointproject.io/docs/page.html', '/waypoint/docs/page'],
-				[
-					'https://waypointproject.io/docs/some/path.html',
-					'/waypoint/docs/some/path',
-				],
-				['https://vaultproject.io/api/page.html', '/vault/api-docs/page'],
-				[
-					'https://vaultproject.io/api/some/path.html',
-					'/vault/api-docs/some/path',
-				],
-			])
-		})
+	describe('when the page ends with ".html"', () => {
+		testEachCase([
+			['https://www.terraform.io/downloads.html', '/terraform/downloads'],
+			['https://waypointproject.io/docs/page.html', '/waypoint/docs/page'],
+			[
+				'https://waypointproject.io/docs/some/path.html',
+				'/waypoint/docs/some/path',
+			],
+			['https://vaultproject.io/api/page.html', '/vault/api-docs/page'],
+			[
+				'https://vaultproject.io/api/some/path.html',
+				'/vault/api-docs/some/path',
+			],
+		])
 	})
 })
