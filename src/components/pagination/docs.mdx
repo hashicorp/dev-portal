@@ -15,9 +15,10 @@ This is a container component that provides grid layout for the subcomponents an
 **Props:**
 
 - `totalItems` (required): Total number of items
-- `itemsPerPage` (required): Number of items per page
-- `currentPage` (optional): Current page index. This is 1-based, and is only used for the initial render. If not provided, the component will use the first page by default.
-- `onSelectPage` (optional): Callback function to be called when a page is selected. It receives the page index and the page size as arguments.
+- `pageSize` (required): Number of items per page
+- `page` (optional): Current page index. This is 1-based, and is only used for the initial render. If not provided, the component will use the first page by default.
+- `onPageChange` (optional): Callback function to be called when a page is selected. It receives the page index as an argument.
+- `onPageSizeChange` (optional): Callback function to be called when a page size is selected. It receives the page size as an argument.
 
 ### `Pagination.Info`
 
@@ -49,9 +50,9 @@ Displays a dropdown to select the page size.
 <LiveComponent>
 	{`<Pagination
 	totalItems={103}
-	itemsPerPage={10}
-	currentPage={3}
-	onSelectPage={(idx, pagesize) => console.log("Select page: %s; Pagesize: %s", idx, pagesize)}
+	pageSize={10}
+	page={3}
+	onPageChange={(idx, pagesize) => console.log("Select page: %s; Pagesize: %s", idx, pagesize)}
 >
 	<Pagination.Info showTotalItems={true}/>
 	<Pagination.Nav type="truncated" />
@@ -86,11 +87,9 @@ Displays a dropdown to select the page size.
 			</ul>
 			<Pagination
 				totalItems={items.length}
-				itemsPerPage={pageSize}
-				onSelectPage={(idx, pagesize) => {
-					setPage(idx)
-					setPageSize(pagesize)
-				}}
+				pageSize={pageSize}
+				onPageChange={(idx) => setPage(idx)}
+				onPageSizeChange={(size) => setPageSize(pageSize)}
 			>
 				<Pagination.Info showTotalItems={true}/>
 				<Pagination.Nav type="truncated" />
