@@ -1,15 +1,8 @@
 import { ReactChild } from 'react'
 
 export interface InlineAlertProps {
-	children: ReactChild | ReactChild[]
-	type?: 'tip' | 'highlight' | 'note' | 'warning'
-	title?: string
+	color?: 'neutral' | 'highlight' | 'warning' | 'critical'
+	description: ReactChild | ReactChild[]
+	icon?: JSX.IntrinsicElements['svg']
+	title: string
 }
-
-export type InlineAlertData = Record<
-	InlineAlertProps['type'],
-	{
-		title: string
-		icon: JSX.IntrinsicElements['svg']
-	}
->

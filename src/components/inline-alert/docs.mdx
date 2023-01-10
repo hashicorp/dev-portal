@@ -2,99 +2,55 @@
 componentName: 'InlineAlert'
 ---
 
-The `InlineAlert` component is used in long-form MDX content to highlight various message types. Default titles and icons are provided for each 'type', however these can be overridden via the `title` prop.
+The `InlineAlert` component is used in long-form MDX content to highlight various message colors. See related documentation for the component for use in [MDX here](/swingset/components/mdxinlinealert).
 
 ## Props
 
-| Prop name  | Description                                                            | Required? | Default value      | Type                             |
-| ---------- | ---------------------------------------------------------------------- | --------- | ------------------ | -------------------------------- |
-| `children` | The alert body text to render.                                         | Yes       | undefined          | string                           |
-| `type`     | The 'type' which has associated styles and default data (icon, title). | No        | tip                | tip, highlight, warning, or note |
-| `title`    | An option to override the default title.                               | No        | The type's default | string                           |
+| Prop name     | Description                                                | Required? | Default value | Type                                     |
+| ------------- | ---------------------------------------------------------- | --------- | ------------- | ---------------------------------------- |
+| `title`       | A title to render for the alert.                           | Yes       | Undefined     | string                                   |
+| `description` | The alert body text to render.                             | Yes       | Undefined     | string                                   |
+| `color`       | The color theme with associated styles.                    | No        | Neutral       | neutral, highlight, warning, or critical |
+| `icon`        | An option to pass a 24x24 icon to render next to the title | No        | Info icon     | svg                                      |
 
 ## Playground
 
 <LiveComponent>
 	{`
-	<InlineAlert type="highlight" title="This is a custom title">
-		Caramels tart candy canes shortbread lemon drops.	
-	</InlineAlert>
+	<InlineAlert color="highlight" title="This is a custom title" description="Caramels tart candy canes shortbread lemon drops." />
 	`}
 </LiveComponent>
 
-## Alert types
+## Examples
 
-### Tip
+### Neutral
 
-<InlineAlert>
-	To provide general information to the user regarding the current context or
-	relevant actions.
-</InlineAlert>
+<InlineAlert
+	title="This is a title"
+	description="Caramels tart candy canes shortbread lemon drops. "
+/>
 
 ### Highlight
 
-<InlineAlert type="highlight">
-	To provide general or promotional information to the user prominently.
-</InlineAlert>
-
-### Note
-
-<InlineAlert type="note">
-	To help users avoid an issue. Provide guidance and actions if possible.
-</InlineAlert>
+<InlineAlert
+	color="highlight"
+	title="This is a title"
+	description="Caramels tart candy canes shortbread lemon drops. "
+/>
 
 ### Warning
 
-<InlineAlert type="warning">
-	To indicate critical issues that need immediate action or help users
-	understand something critical.
-</InlineAlert>
+<InlineAlert
+	color="warning"
+	title="This is a custom title"
+	description="Caramels tart candy canes shortbread lemon drops. "
+/>
 
-## Title override
-
-<InlineAlert title="Hashiconf 2027">
-	To provide general information to the user regarding the current context or
-	relevant actions.
-</InlineAlert>
-
-### Long title
+### Crtical with icon override
 
 <InlineAlert
-	title="Really long title: Cake donut cookie sugar plum
-	shortbread caramels"
-	type="note"
->
-	Lollipop apple pie croissant carrot cake topping. Pie toffee marzipan dessert
-	soufflé dessert chocolate gingerbread pie.
-</InlineAlert>
-
-## Examples
-
-### Long content
-
-<InlineAlert>
-	Cheesecake halvah sugar plum chocolate candy canes. Wafer donut cookie
-	caramels danish candy toffee danish. Lollipop apple pie croissant carrot cake
-	topping. Pie toffee marzipan dessert soufflé dessert chocolate gingerbread
-	pie. Cake pie sweet lemon drops tootsie roll candy brownie soufflé donut.
-	Liquorice tart danish chocolate cotton candy toffee donut. Caramels tart candy
-	canes shortbread lemon drops.
-</InlineAlert>
-
-### Multiple child elements
-
-<InlineAlert type="warning">
-	Liquorice cake marzipan danish brownie
-	shortbread dessert. Bonbon pie jelly beans jelly beans oat cake muffin. Jelly
-	beans dragée sugar plum lollipop lemon drops. Cake donut cookie sugar plum
-	shortbread caramels. Cupcake wafer biscuit caramels toffee topping toffee tart
-	chocolate bar. Lollipop gingerbread bear claw muffin croissant cake caramels
-	halvah.
-
-    Bonbon pie jelly beans jelly beans oat cake muffin. Jelly
-    beans dragée sugar plum lollipop lemon drops. Cake donut cookie sugar plum
-    shortbread caramels. Cupcake wafer biscuit caramels toffee topping toffee tart
-    chocolate bar. Lollipop gingerbread bear claw muffin croissant cake caramels
-    halvah.
-
-</InlineAlert>
+	color="critical"
+	title="This is a custom title"
+	description="Caramels tart candy canes shortbread lemon drops. "
+	icon={<SwingsetTestIcon name="alert-triangle" />}
+/>

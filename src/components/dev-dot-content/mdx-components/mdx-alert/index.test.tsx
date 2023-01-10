@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react'
-import Alert from '.'
+import { MdxInlineAlert } from '.'
 
 const TEST_DATA = {
 	customTitle: 'Custom title',
 	errors: {
 		invalidType:
-			'[Alert]: Invalid alert type passed. Please pass one of: tip | highlight | note | warning',
+			'[MdxInlineAlert]: Invalid MdxInlineAlert type passed. Please pass one of: tip | highlight | note | warning',
 		noChildren: '[Alert]: No `children` found, please pass a description body',
 	},
 	tip: {
@@ -29,7 +29,9 @@ const TEST_DATA = {
 describe('Alert Component', () => {
 	it('renders default tip without error', () => {
 		const data = TEST_DATA['tip']
-		const { queryByText, queryByTestId } = render(<Alert>{data.body}</Alert>)
+		const { queryByText, queryByTestId } = render(
+			<MdxInlineAlert>{data.body}</MdxInlineAlert>
+		)
 		// icon renders
 		expect(queryByTestId('icon')).toBeInTheDocument()
 		// default title renders
@@ -41,7 +43,7 @@ describe('Alert Component', () => {
 	it('renders default highlight without error', () => {
 		const data = TEST_DATA['highlight']
 		const { queryByText, queryByTestId } = render(
-			<Alert type="highlight">{data.body}</Alert>
+			<MdxInlineAlert type="highlight">{data.body}</MdxInlineAlert>
 		)
 		// icon renders
 		expect(queryByTestId('icon')).toBeInTheDocument()
@@ -54,7 +56,7 @@ describe('Alert Component', () => {
 	it('renders default note without error', () => {
 		const data = TEST_DATA['note']
 		const { queryByText, queryByTestId } = render(
-			<Alert type="note">{data.body}</Alert>
+			<MdxInlineAlert type="note">{data.body}</MdxInlineAlert>
 		)
 		// icon renders
 		expect(queryByTestId('icon')).toBeInTheDocument()
@@ -67,7 +69,7 @@ describe('Alert Component', () => {
 	it('renders default warning without error', () => {
 		const data = TEST_DATA['warning']
 		const { queryByText, queryByTestId } = render(
-			<Alert type="warning">{data.body}</Alert>
+			<MdxInlineAlert type="warning">{data.body}</MdxInlineAlert>
 		)
 		// icon renders
 		expect(queryByTestId('icon')).toBeInTheDocument()
@@ -79,7 +81,9 @@ describe('Alert Component', () => {
 
 	it('renders a custom title', () => {
 		const { queryByText } = render(
-			<Alert title={TEST_DATA.customTitle}>{TEST_DATA['tip'].body}</Alert>
+			<MdxInlineAlert title={TEST_DATA.customTitle}>
+				{TEST_DATA['tip'].body}
+			</MdxInlineAlert>
 		)
 		expect(queryByText(TEST_DATA.customTitle)).toBeInTheDocument()
 	})
@@ -87,14 +91,18 @@ describe('Alert Component', () => {
 	it('throws when children are not passed', () => {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
-		expect(() => render(<Alert />)).toThrowError(TEST_DATA.errors.noChildren)
+		expect(() => render(<MdxInlineAlert />)).toThrowError(
+			TEST_DATA.errors.noChildren
+		)
 	})
 
 	it('throws when type is invalid', () => {
 		expect(() =>
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			// @ts-ignore
-			render(<Alert type="doughnut">I am an alert</Alert>)
+			render(
+				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+				// @ts-ignore
+				<MdxInlineAlert type="doughnut">I am an MdxInlineAlert</MdxInlineAlert>
+			)
 		).toThrowError(TEST_DATA.errors.invalidType)
 	})
 })
