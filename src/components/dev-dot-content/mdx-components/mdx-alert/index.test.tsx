@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react'
+import { not } from 'joi'
 import { MdxInlineAlert } from '.'
 
 const TEST_DATA = {
@@ -105,5 +106,16 @@ describe('Alert Component', () => {
 				<MdxInlineAlert type="doughnut">I am an MdxInlineAlert</MdxInlineAlert>
 			)
 		).toThrowError(TEST_DATA.errors.invalidType)
+	})
+
+	it('renders multiple children', () => {
+		expect(() =>
+			render(
+				<MdxInlineAlert>
+					<p> Liquorice cake marzipan danish brownie</p>
+					<p>Lollipop gingerbread bear claw muffin croissant</p>
+				</MdxInlineAlert>
+			)
+		).not.toThrowError()
 	})
 })
