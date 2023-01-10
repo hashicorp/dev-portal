@@ -4,42 +4,47 @@ import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
 import { getProductUrlAdjuster } from '../utils/product-url-adjusters'
 
-describe('multiple remark plugins', () => {
-	let waypointProduct
-	let productUrlAdjuster
-
-	beforeAll(() => {
-		waypointProduct = cachedGetProductData('waypoint')
-		productUrlAdjuster = getProductUrlAdjuster(waypointProduct)
+const testEachCase = (productUrlAdjuster, testCases) => {
+	test.each(testCases)('$input -> $expected', async ({ input, expected }) => {
+		const result = await remark()
+			.use(rewriteTutorialLinksPlugin, {
+				contentType: 'docs',
+				tutorialMap: {},
+			})
+			.use(remarkPluginAdjustLinkUrls, {
+				urlAdjustFn: productUrlAdjuster,
+			})
+			.process(`[test](${input})`)
+		expect(result.contents).toMatch(`[test](${expected})`)
 	})
+}
 
+describe('multiple remark plugins', () => {
 	describe('rewriteTutorialLinksPlugin, then remarkPluginAdjustLinkUrls', () => {
-		test.each([
-			['[Waypoint](https://waypointproject.io/)', '[Waypoint](/waypoint)'],
-			['[Waypoint](/waypoint)', '[Waypoint](/waypoint)'],
-			[
-				'[Waypoint Tutorials](https://learn.hashicorp.com/waypoint)',
-				'[Waypoint Tutorials](/waypoint/tutorials)',
-			],
-			[
-				'[Waypoint Tutorials](/waypoint/tutorials)',
-				'[Waypoint Tutorials](/waypoint/tutorials)',
-			],
-			[
-				'[Some other link](https://kubernetes.io/docs/home/)',
-				'[Some other link](https://kubernetes.io/docs/home/)',
-			],
-		])('%s -> %s', async (linkToProcess, expectedValue) => {
-			const result = await remark()
-				.use(rewriteTutorialLinksPlugin, {
-					contentType: 'docs',
-					tutorialMap: {},
-				})
-				.use(remarkPluginAdjustLinkUrls, { urlAdjustFn: productUrlAdjuster })
-				.process(linkToProcess)
+		const waypointProduct = cachedGetProductData('waypoint')
+		const productUrlAdjuster = getProductUrlAdjuster(waypointProduct)
 
-			// The link should be unchanged
-			expect(result.contents).toMatch(expectedValue)
-		})
+		testEachCase(productUrlAdjuster, [
+			{
+				input: 'https://waypointproject.io/',
+				expected: '/waypoint',
+			},
+			{
+				input: '/waypoint',
+				expected: '/waypoint',
+			},
+			{
+				input: 'https://learn.hashicorp.com/waypoint',
+				expected: '/waypoint/tutorials',
+			},
+			{
+				input: '/waypoint/tutorials',
+				expected: '/waypoint/tutorials',
+			},
+			{
+				input: 'https://kubernetes.io/docs/home/',
+				expected: 'https://kubernetes.io/docs/home/',
+			},
+		])
 	})
 })
