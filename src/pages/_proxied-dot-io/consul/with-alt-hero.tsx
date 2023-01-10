@@ -72,7 +72,7 @@ function Homepage({ data }): React.ReactElement {
 						href: 'https://portal.cloud.hashicorp.com/sign-up',
 					},
 					{
-						title: 'Install Consul',
+						title: 'Download open source',
 						href: '/downloads',
 					},
 				]}

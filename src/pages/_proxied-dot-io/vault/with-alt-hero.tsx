@@ -58,15 +58,15 @@ export default function Homepage({ data }): React.ReactElement {
 
 			<IoHomeHeroAlt
 				brand="vault"
-				heading="Manage and protect your data"
-				description="Deploy a managed Vault cluster on HashiCorp Cloud Platform (HCP) in minutes. Or, install and self-manage Vault locally or within your production environments."
+				heading="Manage Secrets & Protect Sensitive Data with Vault"
+				description="Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API."
 				ctas={[
 					{
 						title: 'Deploy Vault on HCP',
 						href: 'https://portal.cloud.hashicorp.com/sign-up',
 					},
 					{
-						title: 'Install Vault',
+						title: 'Download open source',
 						href: '/downloads',
 					},
 				]}
