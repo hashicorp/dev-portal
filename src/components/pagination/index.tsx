@@ -275,11 +275,11 @@ const SizeSelector = ({ sizes }: SizeSelectorProps) => {
 
 	// changing page size should reset the current page to 1
 	const handleChange = (e) => {
-		pagination.setPage(1)
 		const newPageSize = Number(e.target.value)
-		pagination.setPageSize(newPageSize)
 		// don't trigger callbacks if pagesize didn't change
 		if (pagination.pageSize !== newPageSize) {
+			pagination.setPage(1)
+			pagination.setPageSize(newPageSize)
 			pagination.onPageSizeChange(newPageSize)
 			pagination.onPageChange(1)
 		}
@@ -291,7 +291,7 @@ const SizeSelector = ({ sizes }: SizeSelectorProps) => {
 				Items per page
 				<select className={s.select} onChange={handleChange}>
 					{sizes.map((e) => (
-						<option key={e} value={e}>
+						<option key={e} value={e} selected={pagination.pageSize === e}>
 							{e}
 						</option>
 					))}

@@ -65,9 +65,9 @@ Displays a dropdown to select the page size.
 
 <LiveComponent>
 	{`() => {
-	const [items, setItems] = useState(() => Array.from({length: 57}, (_, i) => i + 1))
+	const [items, setItems] = useState(() => Array.from({length: 83}, (_, i) => i + 1))
 	const [page, setPage] = useState(1)
-	const [pageSize, setPageSize] = useState(10)
+	const [pageSize, setPageSize] = useState(30)
 	return (
 		<div>
 			<ul style={{ display: 'flex',flexWrap: 'wrap', gap: '6px' }}>
@@ -89,7 +89,7 @@ Displays a dropdown to select the page size.
 				totalItems={items.length}
 				pageSize={pageSize}
 				onPageChange={(idx) => setPage(idx)}
-				onPageSizeChange={(size) => setPageSize(pageSize)}
+				onPageSizeChange={(size) => setPageSize(size)}
 			>
 				<Pagination.Info showTotalItems={true}/>
 				<Pagination.Nav type="truncated" />
