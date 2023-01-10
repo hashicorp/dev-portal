@@ -1,5 +1,4 @@
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
-import { ENABLED_INTEGRATION_PRODUCTS } from 'lib/enabled-integration-products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import {
 	Integration,
@@ -25,7 +24,7 @@ async function _getServerSideProps({
 	const product = cachedGetProductData(productSlug)
 
 	// 404 early if the product is not enabled for integrations
-	if (!ENABLED_INTEGRATION_PRODUCTS.includes(product.slug)) {
+	if (!product.integrationsConfig.enabled) {
 		return {
 			notFound: true,
 		}

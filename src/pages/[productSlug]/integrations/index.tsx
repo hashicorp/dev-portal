@@ -2,7 +2,6 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
-import { ENABLED_INTEGRATION_PRODUCTS } from 'lib/enabled-integration-products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import {
 	Integration,
@@ -29,20 +28,29 @@ export function generateProductIntegrationLibrarySidebarNavData(
 				href: `/${product.slug}/integrations`,
 				isActive: true,
 			},
-		],
+		].concat(
+			// Add Config SidebarLinks if they're provided
+			product.integrationsConfig.sidebarLinks
+				? product.integrationsConfig.sidebarLinks.map((s) => {
+						return { ...s, isActive: false }
+				  })
+				: []
+		),
 		showFilterInput: false,
 		title: `${product.name} Integrations`,
 	}
 }
 
 export async function getServerSideProps({ params }) {
+	// Pull out the Product Config
+	const product = cachedGetProductData(params.productSlug)
+
 	// 404 if we're not on an enabled page
-	if (!ENABLED_INTEGRATION_PRODUCTS.includes(params.productSlug)) {
+	if (!product.integrationsConfig.enabled) {
 		return {
 			notFound: true,
 		}
 	}
-	const product = cachedGetProductData(params.productSlug)
 
 	const integrations: Integration[] = await fetchAllProductIntegrations(
 		params.productSlug

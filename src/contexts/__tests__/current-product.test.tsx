@@ -22,6 +22,9 @@ const setup = (currentProduct: Product) => {
 				},
 				basePaths: [],
 				rootDocsPaths: [],
+				integrationsConfig: {
+					enabled: false,
+				},
 			}}
 		>
 			{children}

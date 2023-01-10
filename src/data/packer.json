@@ -47,5 +47,8 @@
 			"name": "External Plugins",
 			"path": "plugins"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"enabled": false
+	}
 }

@@ -69,5 +69,8 @@
 			"name": "API",
 			"path": "api-docs"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"enabled": false
+	}
 }

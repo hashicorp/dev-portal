@@ -14,5 +14,8 @@
 			"shortName": "Documentation",
 			"productSlugForLoader": "cloud.hashicorp.com"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"enabled": false
+	}
 }
