@@ -48,7 +48,6 @@ import {
 } from './components'
 import s from './tutorial-view.module.css'
 import { useProgressToast } from './utils/use-progress-toast'
-import { MdxInlineAlert } from 'components/dev-dot-content/mdx-components'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -283,26 +282,6 @@ function TutorialView({
 							/>
 						)}
 						<DevDotContent>
-							<MdxInlineAlert>I am an alert</MdxInlineAlert>
-							<MdxInlineAlert type="highlight">
-								This is a highlight right next to the alert lets see. did the
-								80s really happen or are we dreamning?
-							</MdxInlineAlert>
-							<MdxInlineAlert type="warning">
-								This is a highlight right next to the alert lets see. In this
-								tutorial, you will create a Terraform Cloud agent pool, launch
-								local Dockerized agents on your machine, and configure a
-								Terraform Cloud workspace to use the agents to manage an Nginx
-								container on your machine. You will also manage tokens for
-								multiple Terraform Cloud agents. By the end of the tutorial, you
-								will understand how to set up a similar configuration in your
-								own
-								<br />
-								could I do two things?
-							</MdxInlineAlert>
-							<MdxInlineAlert type="warning">
-								This is a highlight right
-							</MdxInlineAlert>
 							<MDXRemote {...content} components={MDX_COMPONENTS} />
 						</DevDotContent>
 						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
