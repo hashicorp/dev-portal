@@ -27,7 +27,6 @@ export function getIconCards(product: ProductData) {
 
 	// Add Integrations card if it's enabled for this product
 	if (product.integrationsConfig.enabled) {
-		console.log(product.integrationsConfig)
 		iconCards.push({
 			icon: <IconApi16 />,
 			text: 'Integrations',
