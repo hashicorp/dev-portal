@@ -12,8 +12,10 @@ import InstruqtProvider from 'contexts/instruqt-lab'
 import TabProvider from 'components/tabs/provider'
 import SwingsetColorToken from '__swingset-components/swingset-color-token'
 import SwingsetTestIcon from '__swingset-components/swingset-test-icon'
+import { useDeviceSize } from 'contexts/device-size'
 
 const components = {
+	useDeviceSize,
 	useState,
 	InstruqtProvider,
 	Search,

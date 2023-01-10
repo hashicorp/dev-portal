@@ -99,3 +99,30 @@ Displays a dropdown to select the page size.
 	)
 }`}
 </LiveComponent>
+
+## With Mobile Styling
+
+<LiveComponent>
+	{`() => {
+	const {
+		isDesktop,
+		isMobile,
+		isTablet,
+	} = useDeviceSize()
+
+    return (
+    	<Pagination
+    		totalItems={103}
+    		pageSize={10}
+    		page={3}
+    		onPageChange={(idx, pagesize) => console.log("Select page: %s; Pagesize: %s", idx, pagesize)}
+    	>
+    		{(isDesktop || isTablet) && <Pagination.Info showTotalItems={true}/>}
+    		<Pagination.Nav type={isMobile ? "compact" : "truncated"} />
+    		{isDesktop && <Pagination.SizeSelector sizes={[10, 30, 50]}/>}
+    	</Pagination>
+    )
+
+}`}
+
+</LiveComponent>
