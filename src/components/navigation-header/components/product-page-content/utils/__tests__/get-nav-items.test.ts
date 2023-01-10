@@ -8,9 +8,9 @@ describe('getNavItems', () => {
 			rootDocsPaths: [
 				{
 					iconName: 'docs',
-					name: 'General Documentation',
+					name: 'Documentation',
 					path: 'docs',
-					shortName: 'Documentation',
+					shortName: 'Docs',
 					includeMDXSource: true,
 				},
 				{
@@ -28,7 +28,7 @@ describe('getNavItems', () => {
 		expect(getNavItems(testWaypointData)).toMatchInlineSnapshot(`
 		Array [
 		  Object {
-		    "label": "General Documentation",
+		    "label": "Documentation",
 		    "url": "/waypoint/docs",
 		  },
 		  Object {
@@ -106,7 +106,7 @@ describe('getNavItems', () => {
 				},
 				{
 					iconName: 'docs',
-					name: 'General Documentation',
+					name: 'Documentation',
 					path: 'docs',
 					productSlugForLoader: 'terraform-docs-common',
 				},
@@ -180,7 +180,7 @@ describe('getNavItems', () => {
 		    "items": Array [
 		      Object {
 		        "icon": "docs",
-		        "label": "General Documentation",
+		        "label": "Documentation",
 		        "path": "/terraform/docs",
 		      },
 		      Object {
@@ -259,9 +259,9 @@ describe('getNavItems', () => {
 			rootDocsPaths: [
 				{
 					iconName: 'docs',
-					name: 'General Documentation',
+					name: 'Documentation',
 					path: 'docs',
-					shortName: 'Documentation',
+					shortName: 'Docs',
 					productSlugForLoader: 'cloud.hashicorp.com',
 				},
 			],
@@ -269,7 +269,7 @@ describe('getNavItems', () => {
 		expect(getNavItems(testHCPData)).toMatchInlineSnapshot(`
 		Array [
 		  Object {
-		    "label": "General Documentation",
+		    "label": "Documentation",
 		    "url": "/hcp/docs",
 		  },
 		  Object {
