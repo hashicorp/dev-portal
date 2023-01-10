@@ -5,8 +5,9 @@ const TEST_DATA = {
 	customTitle: 'Custom title',
 	errors: {
 		invalidType:
-			'[MdxInlineAlert]: Invalid MdxInlineAlert type passed. Please pass one of: tip | highlight | note | warning',
-		noChildren: '[Alert]: No `children` found, please pass a description body',
+			'[MdxInlineAlert]: Invalid alert type passed. Please pass one of: tip | highlight | note | warning',
+		noChildren:
+			'[MdxInlineAlert]: No `children` found, please pass a description body',
 	},
 	tip: {
 		title: 'Tip',

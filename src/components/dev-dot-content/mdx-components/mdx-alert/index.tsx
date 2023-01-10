@@ -25,13 +25,13 @@ export function MdxInlineAlert({
 
 	if (!children) {
 		throw new Error(
-			'[Alert]: No `children` found, please pass a description body'
+			'[MdxInlineAlert]: No `children` found, please pass a description body'
 		)
 	}
 
 	if (!data) {
 		throw new Error(
-			'[Alert]: Invalid alert type passed. Please pass one of: tip | highlight | note | warning'
+			'[MdxInlineAlert]: Invalid alert type passed. Please pass one of: tip | highlight | note | warning'
 		)
 	}
 	return (
