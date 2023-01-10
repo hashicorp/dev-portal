@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from 'react'
+import { useState, createContext, useContext, useMemo } from 'react'
 import {
 	type PropsWithChildren,
 	type Dispatch,
@@ -110,7 +110,10 @@ const Nav = ({ type = 'compact' }: NavProps) => {
 	const totalPages = pagination.totalPages
 	const currentPage = pagination.currentPage
 
-	const rawitems = Array.from({ length: totalPages }, (_, i) => i + 1)
+	const rawitems = useMemo(
+		() => Array.from({ length: totalPages }, (_, i) => i + 1),
+		[totalPages]
+	)
 
 	const items: (number | 'ellipsis')[] = ((t: NavProps['type']) => {
 		switch (t) {
