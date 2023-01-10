@@ -31,9 +31,16 @@ export function generateProductIntegrationLibrarySidebarNavData(
 		].concat(
 			// Add Config SidebarLinks if they're provided
 			product.integrationsConfig.sidebarLinks
-				? product.integrationsConfig.sidebarLinks.map((s) => {
-						return { ...s, isActive: false }
-				  })
+				? (
+						[
+							{ divider: true },
+							{ heading: 'Integration Resources' },
+						] as Array<any>
+				  ).concat(
+						product.integrationsConfig.sidebarLinks.map((s) => {
+							return { ...s, isActive: false }
+						})
+				  )
 				: []
 		),
 		showFilterInput: false,
