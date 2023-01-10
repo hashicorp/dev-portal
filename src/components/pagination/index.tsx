@@ -10,15 +10,17 @@ import { IconChevronLeft16 } from '@hashicorp/flight-icons/svg-react/chevron-lef
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 
 import s from './pagination.module.css'
+import { generateTruncatedList } from './helpers'
 
 const PaginationContext = createContext({
 	totalItems: 0,
-	itemsPerPage: 0,
-	setItemsPerPage: (() => void 1) as Dispatch<SetStateAction<number>>,
-	currentPage: 1,
-	setCurrentPage: (() => void 1) as Dispatch<SetStateAction<number>>,
+	pageSize: 0,
+	setPageSize: (() => void 1) as Dispatch<SetStateAction<number>>,
+	page: 1,
+	setPage: (() => void 1) as Dispatch<SetStateAction<number>>,
 	totalPages: 0,
-	onSelectPage: (() => void 1) as (page: number, pagesize: number) => void,
+	onPageChange: (() => void 1) as (page: number) => void,
+	onPageSizeChange: (() => void 1) as (pagesize: number) => void,
 })
 const usePagination = () => useContext(PaginationContext)
 
@@ -26,22 +28,25 @@ export interface PaginationProps {
 	/** Pass the total number of items to be paginated. If no value is defined an error will be thrown. */
 	totalItems: number
 	/** Pass the maximum number of items to display on each page initially. If no value is defined an error will be thrown. */
-	itemsPerPage: number
+	pageSize: number
 	/**
 	 * Set a custom initial selected page.
 	 *
 	 * Default: `1`
 	 */
-	currentPage?: number
-	/** A callback */
-	onSelectPage?: (page: number, pagesize: number) => void
+	page?: number
+	/** A callback that fires when the page value changes */
+	onPageChange?: (page: number) => void
+	/** A callback that fires when the page size value changes */
+	onPageSizeChange?: (pagesize: number) => void
 }
 
 const Pagination = ({
 	totalItems,
-	itemsPerPage: _itemsPerPage,
-	currentPage: _currentPage = 1,
-	onSelectPage = () => void 1,
+	pageSize: _pageSize,
+	page: _page = 1,
+	onPageChange = () => void 1,
+	onPageSizeChange = () => void 1,
 	children,
 }: PropsWithChildren<PaginationProps>) => {
 	if (typeof totalItems !== 'number') {
@@ -49,24 +54,25 @@ const Pagination = ({
 			'Pagination: totalItems is required, but was not specified. Please try adding a value such as `103`.'
 		)
 	}
-	if (typeof _itemsPerPage !== 'number') {
+	if (typeof _pageSize !== 'number') {
 		throw new Error(
-			'Pagination: itemsPerPage is required, but was not specified. Please try adding a value such as `10`.'
+			'Pagination: pageSize is required, but was not specified. Please try adding a value such as `10`.'
 		)
 	}
 
-	const [itemsPerPage, setItemsPerPage] = useState(() => _itemsPerPage)
-	const [currentPage, setCurrentPage] = useState(() => _currentPage)
+	const [page, setPage] = useState(() => _page)
+	const [pageSize, setPageSize] = useState(() => _pageSize)
 	return (
 		<PaginationContext.Provider
 			value={{
 				totalItems,
-				itemsPerPage,
-				setItemsPerPage,
-				currentPage,
-				setCurrentPage,
-				totalPages: Math.ceil(totalItems / itemsPerPage),
-				onSelectPage,
+				pageSize,
+				setPageSize,
+				page,
+				setPage,
+				totalPages: Math.ceil(totalItems / pageSize),
+				onPageChange,
+				onPageSizeChange,
 			}}
 		>
 			<div className={s.pagination}>{children}</div>
@@ -84,9 +90,9 @@ export interface InfoProps {
 }
 const Info = ({ showTotalItems = true }: InfoProps) => {
 	const pagination = usePagination()
-	const start = pagination.currentPage * pagination.itemsPerPage - 9
+	const start = pagination.page * pagination.pageSize - 9
 	const end = Math.min(
-		pagination.currentPage * pagination.itemsPerPage,
+		pagination.page * pagination.pageSize,
 		pagination.totalItems
 	)
 	return (
@@ -108,7 +114,7 @@ const Nav = ({ type = 'compact' }: NavProps) => {
 	const pagination = usePagination()
 
 	const totalPages = pagination.totalPages
-	const currentPage = pagination.currentPage
+	const currentPage = pagination.page
 
 	const rawitems = useMemo(
 		() => Array.from({ length: totalPages }, (_, i) => i + 1),
@@ -165,68 +171,56 @@ const Nav = ({ type = 'compact' }: NavProps) => {
 	)
 }
 
-// branch is a helper function to return a
-// generic value based on a "direction" string
-function branch<T = unknown>(
-	direction: 'prev' | 'next',
-	obj: { prev: T; next: T }
-) {
-	return obj[direction]
-}
-
 interface ButtonArrowProps {
 	type: NavProps['type']
 	direction: 'next' | 'prev'
 }
 const ButtonArrow = ({ type, direction }: ButtonArrowProps) => {
 	const pagination = usePagination()
-	const handleClick = branch(direction, {
+	const handleClick = {
 		next: () => {
 			// clamp upper bound
-			const nextIdx = Math.min(
-				pagination.currentPage + 1,
-				pagination.totalPages
-			)
-			pagination.setCurrentPage(nextIdx)
-			pagination.onSelectPage(nextIdx, pagination.itemsPerPage)
+			const nextIdx = Math.min(pagination.page + 1, pagination.totalPages)
+			pagination.setPage(nextIdx)
+			pagination.onPageChange(nextIdx)
 		},
 		prev: () => {
 			// clamp lower bound (0)
-			const prevIdx = Math.max(pagination.currentPage - 1, 0)
-			pagination.setCurrentPage(prevIdx)
-			pagination.onSelectPage(prevIdx, pagination.itemsPerPage)
+			const prevIdx = Math.max(pagination.page - 1, 0)
+			pagination.setPage(prevIdx)
+			pagination.onPageChange(prevIdx)
 		},
-	})
+	}[direction]
 
-	const icon = branch(direction, {
+	const icon = {
 		next: <IconChevronRight16 />,
 		prev: <IconChevronLeft16 />,
-	})
+	}[direction]
 
-	const ariaLabel = branch(direction, {
+	const ariaLabel = {
 		next: 'Next page',
 		prev: 'Previous page',
-	})
+	}[direction]
 
-	const label = branch(direction, {
+	const label = {
 		next: 'Next',
 		prev: 'Previous',
-	})
+	}[direction]
 
-	const isDisabled = branch(direction, {
-		next: pagination.currentPage === pagination.totalPages,
-		prev: pagination.currentPage === 1,
-	})
+	const isDisabled = {
+		next: pagination.page === pagination.totalPages,
+		prev: pagination.page === 1,
+	}[direction]
 
 	return (
 		<button
 			className={classNames(
 				s.arrow,
 				s.control,
-				branch(direction, {
+				{
 					next: s.next,
 					prev: s.prev,
-				})
+				}[direction]
 			)}
 			aria-label={ariaLabel}
 			onClick={handleClick}
@@ -252,10 +246,10 @@ const ButtonNumber = ({
 }: PropsWithChildren<ButtonNumberProps>) => {
 	const pagination = usePagination()
 	const handleClick = () => {
-		pagination.setCurrentPage(page)
+		pagination.setPage(page)
 		// don't trigger callback if the current page is already selected
-		if (pagination.currentPage !== page) {
-			pagination.onSelectPage(page, pagination.itemsPerPage)
+		if (pagination.page !== page) {
+			pagination.onPageChange(page)
 		}
 	}
 	return (
@@ -281,11 +275,14 @@ const SizeSelector = ({ sizes }: SizeSelectorProps) => {
 
 	// changing page size should reset the current page to 1
 	const handleChange = (e) => {
-		pagination.setCurrentPage(1)
+		pagination.setPage(1)
 		const newPageSize = Number(e.target.value)
-		pagination.setItemsPerPage(newPageSize)
-
-		pagination.onSelectPage(1, newPageSize)
+		pagination.setPageSize(newPageSize)
+		// don't trigger callbacks if pagesize didn't change
+		if (pagination.pageSize !== newPageSize) {
+			pagination.onPageSizeChange(newPageSize)
+			pagination.onPageChange(1)
+		}
 	}
 
 	return (
@@ -309,52 +306,3 @@ export default Object.assign(Pagination, {
 	Nav,
 	SizeSelector,
 })
-
-// accepts an array and returns a truncated array with interlaced "ellipsis"
-// items, based on the current page
-export function generateTruncatedList(
-	array: number[],
-	currentPage: number
-): (number | 'ellipsis')[] {
-	// do not truncate if there are 5 or fewer pages
-	const bypass = array.length <= 5
-	if (bypass) {
-		return array
-	}
-
-	const isLeft = currentPage <= 3
-	const isRight = currentPage >= array.length - 2
-
-	// [1,2,3,4,...,99,100]
-	if (isLeft) {
-		return (
-			array
-				.slice(0, 4)
-				// @ts-expect-error - the output array is typed as (number | 'ellipsis')[]
-				.concat('ellipsis' as const)
-				.concat(array.slice(-2))
-		)
-	}
-	// [1,2,...,97,98,99,100]
-	if (isRight) {
-		return (
-			array
-				.slice(0, 2)
-				// @ts-expect-error - the output array is typed as (number | 'ellipsis')[]
-				.concat('ellipsis' as const)
-				.concat(array.slice(-4))
-		)
-	}
-	// [1,...3,4,5,...,100]
-	return array
-		.slice(0, 1)
-		.concat(
-			// @ts-expect-error - the output array is typed as (number | 'ellipsis')[]
-			'ellipsis' as const,
-			currentPage - 1,
-			currentPage,
-			currentPage + 1,
-			'ellipsis' as const
-		)
-		.concat(array.slice(-1))
-}

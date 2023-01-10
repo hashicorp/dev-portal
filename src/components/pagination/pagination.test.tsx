@@ -9,12 +9,13 @@ jest.mock('@hashicorp/flight-icons/svg-react/chevron-right-16', () => ({
 	IconChevronRight16: () => <svg>IconChevronRight16</svg>,
 }))
 
-import Pagination, { generateTruncatedList } from './index'
+import Pagination from './index'
+import { generateTruncatedList } from './helpers'
 
 describe('Pagination', () => {
 	it('should match the snapshot', () => {
 		const { container } = render(
-			<Pagination totalItems={103} itemsPerPage={10}>
+			<Pagination totalItems={103} pageSize={10}>
 				<Pagination.Info />
 				<Pagination.Nav />
 				<Pagination.SizeSelector sizes={[10, 30, 50]} />
@@ -102,14 +103,10 @@ describe('Pagination', () => {
 	})
 
 	describe('compact nav', () => {
-		it('onSelectPage is called with the correct index and page size', async () => {
-			const onSelectPage = jest.fn()
+		it('onPageChange is called with the correct index', async () => {
+			const onPageChange = jest.fn()
 			const { queryAllByRole } = render(
-				<Pagination
-					totalItems={103}
-					itemsPerPage={10}
-					onSelectPage={onSelectPage}
-				>
+				<Pagination totalItems={103} pageSize={10} onPageChange={onPageChange}>
 					<Pagination.Info />
 					<Pagination.Nav />
 					<Pagination.SizeSelector sizes={[10, 30, 50]} />
@@ -120,21 +117,48 @@ describe('Pagination', () => {
 
 			// Page 1 is active by default
 			await userEvent.click(nextButton) // Page 2 is now active
-			expect(onSelectPage).toHaveBeenNthCalledWith(1, 2, 10)
+			expect(onPageChange).toHaveBeenNthCalledWith(1, 2)
 			await userEvent.click(nextButton) // Page 3 is now active
-			expect(onSelectPage).toHaveBeenNthCalledWith(2, 3, 10)
+			expect(onPageChange).toHaveBeenNthCalledWith(2, 3)
+		})
 
-			const sizeSelector = queryAllByRole('combobox')[0]
+		it('onPageSizeChange is called with the correct size, and resets the page to 1', async () => {
+			const onPageChange = jest.fn()
+			const onPageSizeChange = jest.fn()
+			const { queryAllByRole } = render(
+				<Pagination
+					totalItems={103}
+					pageSize={10}
+					onPageChange={onPageChange}
+					onPageSizeChange={onPageSizeChange}
+				>
+					<Pagination.Info />
+					<Pagination.Nav />
+					<Pagination.SizeSelector sizes={[10, 30, 50]} />
+				</Pagination>
+			)
 
-			await userEvent.selectOptions(sizeSelector, '30') // Selecting a new page size should reset the page index
-			expect(onSelectPage).toHaveBeenNthCalledWith(3, 1, 30)
+			const select = queryAllByRole('combobox')[0]
+
+			await userEvent.selectOptions(select, '30') // Page size is now 30
+			expect(onPageSizeChange).toHaveBeenNthCalledWith(1, 30)
+			expect(onPageChange).toHaveBeenNthCalledWith(1, 1)
+
+			// selecting the same page size value should not trigger the two callbacks
+			await userEvent.selectOptions(select, '30')
+			expect(onPageSizeChange).toHaveBeenCalledTimes(1)
+			expect(onPageChange).toHaveBeenCalledTimes(1)
+
+			await userEvent.selectOptions(select, '50')
+			expect(onPageSizeChange).toHaveBeenNthCalledWith(2, 50)
+			expect(onPageChange).toHaveBeenNthCalledWith(2, 1)
 		})
 	})
 
 	describe('truncated nav', () => {
 		it('should display ellipses', async () => {
 			const { queryAllByText, queryAllByRole } = render(
-				<Pagination totalItems={103} itemsPerPage={10}>
+				<Pagination totalItems={103} pageSize={10}>
 					<Pagination.Info />
 					<Pagination.Nav type="truncated" />
 					<Pagination.SizeSelector sizes={[10, 30, 50]} />
@@ -156,7 +180,7 @@ describe('Pagination', () => {
 	describe('numeric nav', () => {
 		it('should display the correct number of page numbers', () => {
 			const { queryAllByRole } = render(
-				<Pagination totalItems={103} itemsPerPage={10}>
+				<Pagination totalItems={103} pageSize={10}>
 					<Pagination.Info />
 					<Pagination.Nav type="numbered" />
 					<Pagination.SizeSelector sizes={[10, 30, 50]} />
