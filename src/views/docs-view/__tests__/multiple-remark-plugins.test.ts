@@ -4,19 +4,34 @@ import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
 import { getProductUrlAdjuster } from '../utils/product-url-adjusters'
 
+const URL_SUFFIXES = ['', '?param=value', '#heading', '?param=value#heading']
+
 const testEachCase = (productUrlAdjuster, testCases) => {
-	test.each(testCases)('$input -> $expected', async ({ input, expected }) => {
-		const result = await remark()
-			.use(rewriteTutorialLinksPlugin, {
-				contentType: 'docs',
-				tutorialMap: {},
+	const allTestCases = []
+	testCases.forEach(({ input, expected }) => {
+		URL_SUFFIXES.forEach((suffix) => {
+			allTestCases.push({
+				input: `${input}${suffix}`,
+				expected: `${expected}${suffix}`,
 			})
-			.use(remarkPluginAdjustLinkUrls, {
-				urlAdjustFn: productUrlAdjuster,
-			})
-			.process(`[test](${input})`)
-		expect(result.contents).toMatch(`[test](${expected})`)
+		})
 	})
+
+	test.each(allTestCases)(
+		'$input -> $expected',
+		async ({ input, expected }) => {
+			const result = await remark()
+				.use(rewriteTutorialLinksPlugin, {
+					contentType: 'docs',
+					tutorialMap: {},
+				})
+				.use(remarkPluginAdjustLinkUrls, {
+					urlAdjustFn: productUrlAdjuster,
+				})
+				.process(`[test](${input})`)
+			expect(result.contents).toMatch(`[test](${expected})`)
+		}
+	)
 }
 
 describe('multiple remark plugins', () => {
