@@ -1,8 +1,8 @@
 ---
-componentName: 'Alert'
+componentName: 'InlineAlert'
 ---
 
-The `Alert` component is used in long-form MDX content to highlight various message types. Default titles and icons are provided for each 'type', however these can be overridden via the `title` prop.
+The `InlineAlert` component is used in long-form MDX content to highlight various message types. Default titles and icons are provided for each 'type', however these can be overridden via the `title` prop.
 
 ## Props
 
@@ -16,9 +16,9 @@ The `Alert` component is used in long-form MDX content to highlight various mess
 
 <LiveComponent>
 	{`
-	<Alert type="highlight" title="This is a custom title">
+	<InlineAlert type="highlight" title="This is a custom title">
 		Caramels tart candy canes shortbread lemon drops.	
-	</Alert>
+	</InlineAlert>
 	`}
 </LiveComponent>
 
@@ -26,64 +26,64 @@ The `Alert` component is used in long-form MDX content to highlight various mess
 
 ### Tip
 
-<Alert>
+<InlineAlert>
 	To provide general information to the user regarding the current context or
 	relevant actions.
-</Alert>
+</InlineAlert>
 
 ### Highlight
 
-<Alert type="highlight">
+<InlineAlert type="highlight">
 	To provide general or promotional information to the user prominently.
-</Alert>
+</InlineAlert>
 
 ### Note
 
-<Alert type="note">
+<InlineAlert type="note">
 	To help users avoid an issue. Provide guidance and actions if possible.
-</Alert>
+</InlineAlert>
 
 ### Warning
 
-<Alert type="warning">
+<InlineAlert type="warning">
 	To indicate critical issues that need immediate action or help users
 	understand something critical.
-</Alert>
+</InlineAlert>
 
 ## Title override
 
-<Alert title="Hashiconf 2027">
+<InlineAlert title="Hashiconf 2027">
 	To provide general information to the user regarding the current context or
 	relevant actions.
-</Alert>
+</InlineAlert>
 
 ### Long title
 
-<Alert
+<InlineAlert
 	title="Really long title: Cake donut cookie sugar plum
 	shortbread caramels"
 	type="note"
 >
 	Lollipop apple pie croissant carrot cake topping. Pie toffee marzipan dessert
 	soufflé dessert chocolate gingerbread pie.
-</Alert>
+</InlineAlert>
 
 ## Examples
 
 ### Long content
 
-<Alert>
+<InlineAlert>
 	Cheesecake halvah sugar plum chocolate candy canes. Wafer donut cookie
 	caramels danish candy toffee danish. Lollipop apple pie croissant carrot cake
 	topping. Pie toffee marzipan dessert soufflé dessert chocolate gingerbread
 	pie. Cake pie sweet lemon drops tootsie roll candy brownie soufflé donut.
 	Liquorice tart danish chocolate cotton candy toffee donut. Caramels tart candy
 	canes shortbread lemon drops.
-</Alert>
+</InlineAlert>
 
 ### Multiple child elements
 
-<Alert type="warning">
+<InlineAlert type="warning">
 	Liquorice cake marzipan danish brownie
 	shortbread dessert. Bonbon pie jelly beans jelly beans oat cake muffin. Jelly
 	beans dragée sugar plum lollipop lemon drops. Cake donut cookie sugar plum
@@ -97,4 +97,4 @@ The `Alert` component is used in long-form MDX content to highlight various mess
     chocolate bar. Lollipop gingerbread bear claw muffin croissant cake caramels
     halvah.
 
-</Alert>
+</InlineAlert>

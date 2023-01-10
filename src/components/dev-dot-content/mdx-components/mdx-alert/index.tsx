@@ -1,7 +1,7 @@
-import Alert, { AlertProps } from 'components/alert'
-import s from './mdx-alert.module.css'
+import Alert, { InlineAlertProps } from 'components/inline-alert'
+import s from './mdx-inline-alert.module.css'
 
-export function MdxAlert(props: AlertProps) {
+export function MdxInlineAlert(props: InlineAlertProps) {
 	return (
 		<div className={s.spacing}>
 			<Alert {...props} />

@@ -48,8 +48,8 @@ import {
 } from './components'
 import s from './tutorial-view.module.css'
 import { useProgressToast } from './utils/use-progress-toast'
-import Alert from 'components/alert'
-import { MdxAlert } from 'components/dev-dot-content/mdx-components'
+import Alert from 'components/inline-alert'
+import { MdxInlineAlert } from 'components/dev-dot-content/mdx-components'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -284,12 +284,12 @@ function TutorialView({
 							/>
 						)}
 						<DevDotContent>
-							<MdxAlert>I am an alert</MdxAlert>
-							<MdxAlert type="highlight">
+							<MdxInlineAlert>I am an alert</MdxInlineAlert>
+							<MdxInlineAlert type="highlight">
 								This is a highlight right next to the alert lets see. did the
 								80s really happen or are we dreamning?
-							</MdxAlert>
-							<MdxAlert type="warning">
+							</MdxInlineAlert>
+							<MdxInlineAlert type="warning">
 								This is a highlight right next to the alert lets see. In this
 								tutorial, you will create a Terraform Cloud agent pool, launch
 								local Dockerized agents on your machine, and configure a
@@ -300,8 +300,10 @@ function TutorialView({
 								own
 								<br />
 								could I do two things?
-							</MdxAlert>
-							<MdxAlert type="warning">This is a highlight right</MdxAlert>
+							</MdxInlineAlert>
+							<MdxInlineAlert type="warning">
+								This is a highlight right
+							</MdxInlineAlert>
 							<MDXRemote {...content} components={MDX_COMPONENTS} />
 						</DevDotContent>
 						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />

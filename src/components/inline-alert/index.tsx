@@ -4,17 +4,21 @@ import { IconInfo24 } from '@hashicorp/flight-icons/svg-react/info-24'
 import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'
 import { IconAlertDiamond24 } from '@hashicorp/flight-icons/svg-react/alert-diamond-24'
 
-import { AlertProps, AlertData } from './types'
-import s from './alert.module.css'
+import { InlineAlertProps, InlineAlertData } from './types'
+import s from './inline-alert.module.css'
 
-const ALERT_DATA: AlertData = {
+const ALERT_DATA: InlineAlertData = {
 	tip: { title: 'Tip', icon: <IconInfo24 /> },
 	highlight: { title: 'Tip', icon: <IconInfo24 /> },
 	note: { title: 'Note', icon: <IconAlertTriangle24 /> },
 	warning: { title: 'Warning', icon: <IconAlertDiamond24 /> },
 }
 
-export default function Alert({ children, type = 'tip', title }: AlertProps) {
+export default function InlineAlert({
+	children,
+	type = 'tip',
+	title,
+}: InlineAlertProps) {
 	const data = ALERT_DATA[type]
 
 	if (!children) {
@@ -42,4 +46,4 @@ export default function Alert({ children, type = 'tip', title }: AlertProps) {
 	)
 }
 
-export type { AlertProps }
+export type { InlineAlertProps }
