@@ -28,10 +28,6 @@ describe('getNavItems', () => {
 		expect(getNavItems(testWaypointData)).toMatchInlineSnapshot(`
 		Array [
 		  Object {
-		    "label": "Home",
-		    "url": "/waypoint",
-		  },
-		  Object {
 		    "iconColorTheme": "waypoint",
 		    "items": Array [
 		      Object {
@@ -189,10 +185,6 @@ describe('getNavItems', () => {
 		expect(getNavItems(testTerraformData)).toMatchInlineSnapshot(`
 		Array [
 		  Object {
-		    "label": "Home",
-		    "url": "/terraform",
-		  },
-		  Object {
 		    "iconColorTheme": "terraform",
 		    "items": Array [
 		      Object {
@@ -285,10 +277,6 @@ describe('getNavItems', () => {
 		} as ProductData
 		expect(getNavItems(testHCPData)).toMatchInlineSnapshot(`
 		      Array [
-		        Object {
-		          "label": "Home",
-		          "url": "/hcp",
-		        },
 		        Object {
 		          "label": "Documentation",
 		          "url": "/hcp/docs",
