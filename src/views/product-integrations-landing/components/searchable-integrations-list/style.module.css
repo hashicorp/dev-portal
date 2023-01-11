@@ -1,12 +1,28 @@
-.searchableIntegrationsList {
-	& .results {
-		color: var(--gray-3);
-		font-size: 12px;
-		text-transform: uppercase;
-		font-weight: 600;
-		margin-top: 8px;
-		margin-bottom: 24px;
-	}
+.filterOptions {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin-bottom: 22px;
+}
+
+.results {
+	color: var(--token-color-foreground-faint);
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-medium from global;
+}
+
+.filterInfo {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.noFilters {
+	color: var(--token-color-foreground-faint);
+	composes: hds-typography-body-200 from global;
+	composes: hds-font-weight-semibold from global;
 }
 
 .header {
@@ -24,6 +40,7 @@
 	box-shadow: 0 0 0 1px var(--gray-5);
 	height: 45px;
 	position: relative;
+	margin-bottom: 20px;
 
 	& > svg {
 		position: absolute;
@@ -51,38 +68,52 @@
 .selectStack {
 	display: flex;
 	flex-direction: row;
-	margin: 12px 0;
 
-	& >:not(:first-child) {
+	& > :not(:first-child) {
 		margin-left: 12px;
+	}
+}
+
+.option {
+	display: flex;
+	align-items: center;
+
+	& > .check {
+		display: flex;
+		min-width: 16px;
+		margin-right: 9px;
+
+		& > svg {
+			color: var(--token-color-palette-blue-200);
+		}
 	}
 }
 
 .clearFilters {
 	position: relative;
-  cursor: pointer;
-  user-select: none;
+	cursor: pointer;
+	user-select: none;
 	max-width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-	color: #1060FF;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--token-color-palette-blue-200);
 	border-radius: 5px;
 	background: none;
-  border-color: transparent;
+	border-color: transparent;
 	padding: 0 16px;
 
-	--lighten-color: hsla(0,0%,100%,.8);
+	--lighten-color: hsla(0, 0%, 100%, 0.8);
 
 	background-image: linear-gradient(
-    to right,
-    var(--lighten-color),
-    var(--lighten-color)
-  );
+		to right,
+		var(--lighten-color),
+		var(--lighten-color)
+	);
 	transition: all 200ms ease;
 
 	&:hover {
-		background-color: #1060FF;
+		background-color: var(--token-color-palette-blue-200);
 	}
 	& svg {
 		margin-right: 8px;

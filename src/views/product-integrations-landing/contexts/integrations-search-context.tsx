@@ -2,6 +2,7 @@ import {
 	Integration,
 	Tier,
 	IntegrationComponent,
+	Flag,
 } from 'lib/integrations-api-client/integration'
 import { createContext, useState, useContext, useMemo } from 'react'
 
@@ -28,8 +29,12 @@ export const IntegrationsSearchContext = createContext({
 	matchingCommunity: 0,
 	sortedComponents: [] as $TSFixMe[],
 	componentCheckedArray: [] as boolean[],
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	setComponentCheckedArray: (() => {}) as React.Dispatch<
+	setComponentCheckedArray: (() => void 1) as React.Dispatch<
+		React.SetStateAction<boolean[]>
+	>,
+	flags: [] as Flag[],
+	flagsCheckedArray: [] as boolean[],
+	setFlagsCheckedArray: (() => void 1) as React.Dispatch<
 		React.SetStateAction<boolean[]>
 	>,
 	atLeastOneFacetSelected: false,
@@ -56,6 +61,23 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		})
 	}, [_integrations])
 	// --------------------------------
+
+	const flags: Flag[] = integrations
+		// accumulate all integration flags
+		.flatMap((e) => e.flags)
+		// remove duplicates
+		.filter((value, index, self) => {
+			const _value = JSON.stringify(value)
+			return (
+				index ===
+				self.findIndex((obj) => {
+					return JSON.stringify(obj) === _value
+				})
+			)
+		})
+	const [flagsCheckedArray, setFlagsCheckedArray] = useState(
+		Array.from({ length: flags.length }, () => false)
+	)
 
 	let filteredIntegrations = integrations
 
@@ -89,6 +111,7 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 	const dedupedComponents = mergedComponents.filter(
 		({ id }, index) => !componentIDs.includes(id, index + 1)
 	)
+
 	const sortedComponents = dedupedComponents
 		.sort((a, b) => {
 			const textA = a.name.toLowerCase()
@@ -114,7 +137,9 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		officialChecked ||
 		partnerChecked ||
 		communityChecked ||
-		componentCheckedArray.includes(true)
+		componentCheckedArray.includes(true) ||
+		flagsCheckedArray.includes(true)
+
 	if (atLeastOneFacetSelected) {
 		filteredIntegrations = integrations.filter((integration: Integration) => {
 			// Default tierMatch to true if nothing is checked, false otherwise
@@ -144,9 +169,26 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 					})
 				}
 			})
-			return tierMatch && componentMatch
+
+			// If no flags are selected, do not filter by flag
+			let flagMatch = !flagsCheckedArray.includes(true)
+			// For each checked flag, loop over each integration's list of flags
+			// and return true if at least 1 flag matches
+			flagsCheckedArray.forEach((checked, index) => {
+				if (checked) {
+					const checkedFlag = flags[index]
+					integration.flags.forEach((flag: Flag) => {
+						if (flag.slug === checkedFlag.slug) {
+							flagMatch = true
+						}
+					})
+				}
+			})
+
+			return tierMatch && componentMatch && flagMatch
 		})
 	}
+
 	return (
 		<IntegrationsSearchContext.Provider
 			value={{
@@ -165,6 +207,9 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 				componentCheckedArray,
 				setComponentCheckedArray,
 				atLeastOneFacetSelected,
+				flags,
+				flagsCheckedArray,
+				setFlagsCheckedArray,
 				filteredIntegrations,
 			}}
 		>
