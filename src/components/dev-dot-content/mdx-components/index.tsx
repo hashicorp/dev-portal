@@ -1,4 +1,5 @@
 export * from './mdx-blockquote'
+export * from './mdx-code-blocks'
 export * from './mdx-headings'
 export * from './mdx-lists'
 export * from './mdx-tabs'

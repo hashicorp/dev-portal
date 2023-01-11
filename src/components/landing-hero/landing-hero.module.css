@@ -19,6 +19,7 @@
 .pageTitle {
 	composes: g-offset-scroll-margin-top from global;
 	color: var(--token-color-foreground-strong);
+	margin-top: 0;
 	margin-bottom: 8px;
 	width: 100%;
 }

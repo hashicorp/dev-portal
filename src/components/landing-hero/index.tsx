@@ -30,7 +30,7 @@ const LandingHero = ({ pageHeading, pageSubtitle }: LandingHeroProps) => {
 					className={s.pageTitle}
 					id={pageHeading.id}
 					level={1}
-					size={500}
+					size={600}
 					weight="bold"
 				>
 					{pageHeading.title}

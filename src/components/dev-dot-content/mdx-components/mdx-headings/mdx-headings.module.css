@@ -13,7 +13,7 @@
 
 	/*
   Special spacing rule for subsequent paragraph elements.
-  TODO: can we rethink the design spec for spacing to avoid sibling selectors?
+	This ensures the margin-bottom from headings will always take precedence.
   */
 	& + p {
 		margin-top: 0;
@@ -38,18 +38,21 @@
 
 .h1 {
 	color: var(--token-color-foreground-strong);
-	margin-bottom: 12px;
+
+	/* Note that spacing between the h1 and breadcrumb is handled at the
+	   SidecarSidecar layout level, with margin-bottom on the breadcrumb group. */
+	margin-bottom: 20px;
 }
 
 .h2 {
 	color: var(--token-color-foreground-strong);
-	margin-bottom: 12px;
+	margin-bottom: 16px;
 	margin-top: 48px;
 }
 
 .h3 {
 	color: var(--token-color-foreground-strong);
-	margin-bottom: 8px;
+	margin-bottom: 12px;
 	margin-top: 32px;
 }
 
