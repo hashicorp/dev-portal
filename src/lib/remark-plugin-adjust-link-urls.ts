@@ -1,4 +1,3 @@
-import path from 'path'
 import { visit } from 'unist-util-visit'
 import { Definition, Link } from 'mdast'
 import { Plugin, Transformer } from 'unified'
@@ -10,6 +9,35 @@ const getIsInternalPath = (url: string) => {
 	} catch (e) {
 		return true
 	}
+}
+
+/**
+ * Handles folder-relative URLs that start with the "dot-dot" (..) syntax. This
+ * syntax is used to link to a parent, grandparent, etc. from the current path.
+ */
+const handleDotDotFolderRelativeUrl = ({
+	currentPathParts,
+	urlParts,
+}: {
+	currentPathParts: string[]
+	urlParts: string[]
+}) => {
+	// First, count how many dot-dot parts there are
+	let numDotDotParts = 0
+	urlParts.forEach((part: string) => {
+		if (part === '..') {
+			numDotDotParts += 1
+		}
+	})
+
+	// Slice off (from the end) the levels we don't want from the current path
+	const newCurrentPathParts = currentPathParts.slice(0, -(numDotDotParts + 1))
+
+	// Remove all the dot-dot parts from the url
+	const newUrlParts = urlParts.slice(numDotDotParts)
+
+	// Join all the parts together, and return the result
+	return [...newCurrentPathParts, ...newUrlParts].join('/')
 }
 
 /**
@@ -39,11 +67,7 @@ export const preAdjustUrl = ({ currentPath, url }): string => {
 
 	// Handle folder-relative URL that is linking upwards
 	if (url.startsWith('../')) {
-		const levelsUpCount = urlParts.filter((part) => part === '..').length
-		return path.join(
-			currentPathParts.slice(0, -(levelsUpCount + 1)).join('/'),
-			urlParts.slice(levelsUpCount).join('/')
-		)
+		return handleDotDotFolderRelativeUrl({ currentPathParts, urlParts })
 	}
 
 	// Handle folder-relative URL that is linking downwards
