@@ -12,7 +12,7 @@
 	}
 
 	& .icon {
-		color: var(--token-color-foreground-faint);
+		color: var(--token-color-foreground-action);
 	}
 
 	&:hover {
