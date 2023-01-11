@@ -82,7 +82,6 @@ describe('Pagination', () => {
 		          IconChevronLeft16
 		        </svg>
 		        <span
-		          aria-hidden="true"
 		          class="label"
 		        >
 		          Previous
@@ -96,7 +95,6 @@ describe('Pagination', () => {
 		          IconChevronRight16
 		        </svg>
 		        <span
-		          aria-hidden="true"
 		          class="label"
 		        >
 		          Next

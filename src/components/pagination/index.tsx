@@ -203,9 +203,7 @@ const ButtonArrow = ({ type, direction }: ButtonArrowProps) => {
 		>
 			{icon}
 			{type === 'compact' && (
-				<span className={classNames(s.label)} aria-hidden="true">
-					{label}
-				</span>
+				<span className={classNames(s.label)}>{label}</span>
 			)}
 		</button>
 	)
