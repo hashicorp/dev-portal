@@ -27,10 +27,6 @@ import {
 } from 'components/dev-dot-content/mdx-components'
 import VideoEmbed from 'components/video-embed'
 
-// const { CodeBlockConfig, CodeTabs, pre } = codeBlockPrimitives({
-// 	theme: 'dark',
-// })
-
 /**
  * @TODO
  *   - deprecate string option for collapse
