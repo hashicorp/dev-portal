@@ -66,7 +66,7 @@ export default function Homepage({ data }): React.ReactElement {
 				description="Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API."
 				ctas={[
 					{
-						title: 'Deploy Vault on HCP',
+						title: 'Try HCP Vault',
 						href: 'https://portal.cloud.hashicorp.com/sign-up',
 					},
 					{

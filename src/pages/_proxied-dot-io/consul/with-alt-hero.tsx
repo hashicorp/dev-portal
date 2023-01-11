@@ -68,11 +68,11 @@ function Homepage({ data }): React.ReactElement {
 					start: '/consul-public/img/hero-pattern-start.svg',
 					end: '/consul-public/img/hero-pattern-end.svg',
 				}}
-				heading="Connect your applications"
-				description="Deploy a managed Consul cluster on HashiCorp Cloud Platform (HCP) in minutes. Or, install and self-manage Consul locally or within environments."
+				heading="Identity-based networking with Consul"
+				description="Consul uses service identities and traditional networking practices to help organizations securely connect applications running in any environment."
 				ctas={[
 					{
-						title: 'Deploy Consul on HCP',
+						title: 'Try HCP Consul',
 						href: 'https://portal.cloud.hashicorp.com/sign-up',
 					},
 					{
