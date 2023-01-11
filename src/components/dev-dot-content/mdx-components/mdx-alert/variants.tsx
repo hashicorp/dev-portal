@@ -7,17 +7,17 @@ import { MdxInlineAlertProps } from './types'
  */
 
 export function MdxTip(props: Omit<MdxInlineAlertProps, 'type'>) {
-	return <MdxInlineAlert type="tip" {...props} />
+	return <MdxInlineAlert {...props} type="tip" />
 }
 
 export function MdxHighlight(props: Omit<MdxInlineAlertProps, 'type'>) {
-	return <MdxInlineAlert type="highlight" {...props} />
+	return <MdxInlineAlert {...props} type="highlight" />
 }
 
 export function MdxNote(props: Omit<MdxInlineAlertProps, 'type'>) {
-	return <MdxInlineAlert type="note" {...props} />
+	return <MdxInlineAlert {...props} type="note" />
 }
 
 export function MdxWarning(props: Omit<MdxInlineAlertProps, 'type'>) {
-	return <MdxInlineAlert type="warning" {...props} />
+	return <MdxInlineAlert {...props} type="warning" />
 }
