@@ -14,7 +14,7 @@ import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 /**
  * Should correspond to --dev-dot-hide-mobile-menu
  */
-const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 1200
+const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 1201
 
 interface MobileMenuContextState {
 	/**
@@ -42,7 +42,6 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 	const [isMobileMenuRendered, setIsMobileMenuRendered] =
 		useState<boolean>(false)
 	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState<boolean>()
-	console.log({ isMobileMenuRendered }, { mobileMenuIsOpen })
 
 	/**
 	 * NOTE: We cannot use `useDeviceSize` here because the nav header
@@ -58,8 +57,6 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 			(getCSSVariableFromDocument('--mobile-menu-breakpoint', {
 				asNumber: true,
 			}) as number) || DEFAULT_NAV_HEADER_DESKTOP_WIDTH
-
-		console.log({ desktopWidthBreakpoint })
 
 		// Create a media query list object with the obtained breakpoint
 		const mediaQueryListObject = window.matchMedia(
