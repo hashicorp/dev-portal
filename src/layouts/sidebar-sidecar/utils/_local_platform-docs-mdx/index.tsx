@@ -20,6 +20,10 @@ import {
 	MdxInlineCode,
 	MdxBlockquote,
 	MdxTryHcpCallout,
+	MdxTip,
+	MdxHighlight,
+	MdxNote,
+	MdxWarning,
 } from 'components/dev-dot-content/mdx-components'
 import Image from 'components/image'
 import { ImageProps } from 'components/image/types'
@@ -78,6 +82,10 @@ function _defaultComponents() {
 		p: MdxP,
 		table: MdxTable,
 		TryHcpCallout: MdxTryHcpCallout,
+		Tip: MdxTip,
+		Highlight: MdxHighlight,
+		Note: MdxNote,
+		Warning: MdxWarning,
 	}
 }
 

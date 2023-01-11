@@ -2,6 +2,7 @@ import InlineAlert from 'components/inline-alert'
 import { IconInfo24 } from '@hashicorp/flight-icons/svg-react/info-24'
 import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'
 import { IconAlertDiamond24 } from '@hashicorp/flight-icons/svg-react/alert-diamond-24'
+import { MdxHighlight, MdxTip, MdxNote, MdxWarning } from './variants'
 import { MdxInlineAlertData, MdxInlineAlertProps } from './types'
 import s from './mdx-inline-alert.module.css'
 
@@ -48,20 +49,4 @@ export function MdxInlineAlert({
 	)
 }
 
-/** TODO check within mdx context - can it handle children properly?  */
-
-export function MdxTip(props: Omit<MdxInlineAlertProps, 'type'>) {
-	return <MdxInlineAlert type="tip" {...props} />
-}
-
-export function MdxHighlight(props: Omit<MdxInlineAlertProps, 'type'>) {
-	return <MdxInlineAlert type="highlight" {...props} />
-}
-
-export function MdxNote(props: Omit<MdxInlineAlertProps, 'type'>) {
-	return <MdxInlineAlert type="note" {...props} />
-}
-
-export function MdxWarning(props: Omit<MdxInlineAlertProps, 'type'>) {
-	return <MdxInlineAlert type="warning" {...props} />
-}
+export { MdxHighlight, MdxTip, MdxNote, MdxWarning }

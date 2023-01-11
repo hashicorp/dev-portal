@@ -24,6 +24,10 @@ import {
 	MdxInlineCode,
 	MdxBlockquote,
 	MdxTryHcpCallout,
+	MdxTip,
+	MdxHighlight,
+	MdxNote,
+	MdxWarning,
 } from 'components/dev-dot-content/mdx-components'
 import VideoEmbed from 'components/video-embed'
 
@@ -68,6 +72,10 @@ const MDX_COMPONENTS = {
 	table: MdxTable,
 	blockquote: MdxBlockquote,
 	TryHcpCallout: MdxTryHcpCallout,
+	Tip: MdxTip,
+	Highlight: MdxHighlight,
+	Note: MdxNote,
+	Warning: MdxWarning,
 }
 
 export default MDX_COMPONENTS
