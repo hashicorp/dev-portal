@@ -1,0 +1,100 @@
+---
+componentName: 'MdxInlineAlert'
+---
+
+The `MdxInlineAlert` component is used in long-form MDX content to highlight various message types. Default titles and icons are provided for each 'type', however these can be overridden via the `title` prop.
+
+## Props
+
+| Prop name  | Description                                                            | Required? | Default value      | Type                             |
+| ---------- | ---------------------------------------------------------------------- | --------- | ------------------ | -------------------------------- |
+| `children` | The alert body text to render.                                         | Yes       | undefined          | string                           |
+| `type`     | The 'type' which has associated styles and default data (icon, title). | No        | tip                | tip, highlight, warning, or note |
+| `title`    | An option to override the default title.                               | No        | The type's default | string                           |
+
+## Playground
+
+<LiveComponent>
+	{`
+	<MdxInlineAlert type="highlight" title="This is a custom title">
+		Caramels tart candy canes shortbread lemon drops.	
+	</MdxInlineAlert>
+	`}
+</LiveComponent>
+
+## Alert types
+
+### Tip
+
+<MdxInlineAlert>
+	To provide general information to the user regarding the current context or
+	relevant actions.
+</MdxInlineAlert>
+
+### Highlight
+
+<MdxInlineAlert type="highlight">
+	To provide general or promotional information to the user prominently.
+</MdxInlineAlert>
+
+### Note
+
+<MdxInlineAlert type="note">
+	To help users avoid an issue. Provide guidance and actions if possible.
+</MdxInlineAlert>
+
+### Warning
+
+<MdxInlineAlert type="warning">
+	To indicate critical issues that need immediate action or help users
+	understand something critical.
+</MdxInlineAlert>
+
+## Title override
+
+<MdxInlineAlert title="Hashiconf 2027">
+	To provide general information to the user regarding the current context or
+	relevant actions.
+</MdxInlineAlert>
+
+### Long title
+
+<MdxInlineAlert
+	title="Really long title: Cake donut cookie sugar plum
+	shortbread caramels"
+	type="note"
+>
+	Lollipop apple pie croissant carrot cake topping. Pie toffee marzipan dessert
+	soufflé dessert chocolate gingerbread pie.
+</MdxInlineAlert>
+
+## Examples
+
+### Long content
+
+<MdxInlineAlert>
+	Cheesecake halvah sugar plum chocolate candy canes. Wafer donut cookie
+	caramels danish candy toffee danish. Lollipop apple pie croissant carrot cake
+	topping. Pie toffee marzipan dessert soufflé dessert chocolate gingerbread
+	pie. Cake pie sweet lemon drops tootsie roll candy brownie soufflé donut.
+	Liquorice tart danish chocolate cotton candy toffee donut. Caramels tart candy
+	canes shortbread lemon drops.
+</MdxInlineAlert>
+
+### Multiple child elements
+
+<MdxInlineAlert type="warning">
+	Liquorice cake marzipan danish brownie
+	shortbread dessert. Bonbon pie jelly beans jelly beans oat cake muffin. Jelly
+	beans dragée sugar plum lollipop lemon drops. Cake donut cookie sugar plum
+	shortbread caramels. Cupcake wafer biscuit caramels toffee topping toffee tart
+	chocolate bar. Lollipop gingerbread bear claw muffin croissant cake caramels
+	halvah.
+
+    Bonbon pie jelly beans jelly beans oat cake muffin. Jelly
+    beans dragée sugar plum lollipop lemon drops. Cake donut cookie sugar plum
+    shortbread caramels. Cupcake wafer biscuit caramels toffee topping toffee tart
+    chocolate bar. Lollipop gingerbread bear claw muffin croissant cake caramels
+    halvah.
+
+</MdxInlineAlert>
