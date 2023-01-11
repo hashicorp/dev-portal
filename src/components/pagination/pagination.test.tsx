@@ -13,6 +13,40 @@ import Pagination from './index'
 import { generateTruncatedList } from './helpers'
 
 describe('Pagination', () => {
+	// Silence console.error
+	beforeEach(() => {
+		jest.spyOn(console, 'error').mockImplementation(() => void 1)
+	})
+	afterEach(() => {
+		jest.clearAllMocks()
+	})
+
+	describe('props validation', () => {
+		it('disallows zero or negative pageSize', () => {
+			expect(() => {
+				render(<Pagination totalItems={103} pageSize={-10} />)
+			}).toThrowErrorMatchingInlineSnapshot(
+				`"Pagination: pageSize is required, but was not specified. Please try passing a non-zero, positive value such as \`10\`."`
+			)
+		})
+
+		it('disallows zero or negative totalItems', () => {
+			expect(() => {
+				render(<Pagination totalItems={0} pageSize={10} />)
+			}).toThrowErrorMatchingInlineSnapshot(
+				`"Pagination: totalItems is required, but was not specified. Please try passing a non-zero, positive value such as \`103\`."`
+			)
+		})
+
+		it('disallows zero or negative page', () => {
+			expect(() => {
+				render(<Pagination totalItems={100} pageSize={10} page={0} />)
+			}).toThrowErrorMatchingInlineSnapshot(
+				`"Pagination: page must be a non-zero, positive number. Please try passing a value such as \`1\`."`
+			)
+		})
+	})
+
 	it('should match the snapshot', () => {
 		const { container } = render(
 			<Pagination totalItems={103} pageSize={10}>

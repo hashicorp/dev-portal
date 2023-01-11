@@ -38,14 +38,19 @@ const Pagination = ({
 	onPageSizeChange = () => void 1,
 	children,
 }: PropsWithChildren<PaginationProps>) => {
-	if (typeof totalItems !== 'number') {
+	if (typeof totalItems !== 'number' || totalItems < 1) {
 		throw new Error(
-			'Pagination: totalItems is required, but was not specified. Please try adding a value such as `103`.'
+			'Pagination: totalItems is required, but was not specified. Please try passing a non-zero, positive value such as `103`.'
 		)
 	}
-	if (typeof _pageSize !== 'number') {
+	if (typeof _pageSize !== 'number' || _pageSize < 1) {
 		throw new Error(
-			'Pagination: pageSize is required, but was not specified. Please try adding a value such as `10`.'
+			'Pagination: pageSize is required, but was not specified. Please try passing a non-zero, positive value such as `10`.'
+		)
+	}
+	if (_page < 1) {
+		throw new Error(
+			'Pagination: page must be a non-zero, positive number. Please try passing a value such as `1`.'
 		)
 	}
 
