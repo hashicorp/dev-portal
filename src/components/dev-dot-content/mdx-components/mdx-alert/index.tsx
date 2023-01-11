@@ -44,6 +44,7 @@ export function MdxInlineAlert({
 				title={title ?? data.title}
 				description={children}
 				color={data.color}
+				className={s.typographyOverride}
 			/>
 		</div>
 	)
