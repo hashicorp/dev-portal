@@ -108,28 +108,26 @@ const Info = ({ showTotalItems = true }: InfoProps) => {
 	)
 }
 
+const generateNavItems = ({ currentPage, totalPages, type }) => {
+	const rawItems = Array.from({ length: totalPages }, (_, i) => i + 1)
+
+	if (type === 'numbered') {
+		return rawItems
+	}
+
+	if (type === 'truncated') {
+		return generateTruncatedList(rawItems, currentPage)
+	}
+
+	return []
+}
+
 const Nav = ({ type = 'compact' }: NavProps) => {
-	const pagination = usePagination()
-
-	const totalPages = pagination.totalPages
-	const currentPage = pagination.page
-
-	const rawitems = useMemo(
-		() => Array.from({ length: totalPages }, (_, i) => i + 1),
-		[totalPages]
+	const { page: currentPage, totalPages } = usePagination()
+	const items = useMemo(
+		() => generateNavItems({ currentPage, totalPages, type }),
+		[currentPage, totalPages, type]
 	)
-
-	const items: (number | 'ellipsis')[] = ((t: NavProps['type']) => {
-		switch (t) {
-			case 'numbered':
-				return rawitems
-			case 'truncated':
-				return generateTruncatedList(rawitems, currentPage)
-			case 'compact':
-			default:
-				return []
-		}
-	})(type)
 
 	return (
 		<nav className={s.nav} aria-label="Pagination navigation">
