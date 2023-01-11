@@ -16,6 +16,7 @@
 .pageHeaderTitle {
 	color: var(--token-color-foreground-strong);
 	margin-bottom: 12px;
+	margin-top: 0;
 }
 
 .pageHeaderSubtitle {
