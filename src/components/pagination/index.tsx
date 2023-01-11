@@ -241,9 +241,9 @@ const SizeSelector = ({ sizes }: SizeSelectorProps) => {
 					onChange={handleChange}
 					defaultValue={pagination.pageSize}
 				>
-					{sizes.map((e) => (
-						<option key={e} value={e}>
-							{e}
+					{sizes.map((size) => (
+						<option key={size} value={size}>
+							{size}
 						</option>
 					))}
 				</select>
