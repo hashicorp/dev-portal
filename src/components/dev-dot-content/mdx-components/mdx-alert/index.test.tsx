@@ -1,12 +1,11 @@
 import { render } from '@testing-library/react'
-import { not } from 'joi'
 import { MdxInlineAlert } from '.'
 
 const TEST_DATA = {
 	customTitle: 'Custom title',
 	errors: {
 		invalidType:
-			'[MdxInlineAlert]: Invalid alert type passed. Please pass one of: tip | highlight | note | warning',
+			"[MdxInlineAlert]: Invalid alert type passed, 'doughnut'. Please pass one of: tip | highlight | note | warning",
 		noChildren:
 			'[MdxInlineAlert]: No `children` found, please pass a description body',
 	},

@@ -31,7 +31,7 @@ export function MdxInlineAlert({
 
 	if (!data) {
 		throw new Error(
-			`[MdxInlineAlert] Invalid alert type passed: ${type}. Please pass one of: ${Object.keys(
+			`[MdxInlineAlert]: Invalid alert type passed, '${type}'. Please pass one of: ${Object.keys(
 				ALERT_DATA
 			).join(' | ')}`
 		)
