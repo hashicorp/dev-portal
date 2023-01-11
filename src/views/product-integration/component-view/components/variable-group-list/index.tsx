@@ -1,4 +1,6 @@
+import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-down-right-16'
 import classNames from 'classnames'
+import Badge from 'components/badge'
 import ReactMarkdown from 'react-markdown'
 import s from './style.module.css'
 
@@ -19,11 +21,13 @@ export interface VariableGroup {
 export interface VariableGroupListProps {
 	variables: Array<Variable>
 	unflatten?: boolean // Users should never set this to false, needed for recursive nesting
+	isNested?: boolean
 }
 
 export function VariableGroupList({
 	variables,
 	unflatten = true,
+	isNested = false,
 }: VariableGroupListProps) {
 	const vars: Array<Variable> = unflatten
 		? unflattenVariables(variables)
@@ -35,32 +39,60 @@ export function VariableGroupList({
 				return (
 					<li
 						key={variable.key}
-						className={classNames({
+						className={classNames(s.variableGroupListItem, {
 							[s.highlight]: variable.highlight,
 						})}
 					>
-						<code className={s.key}>
-							<strong>{variable.key}</strong>
-						</code>
-						<code className={s.type}>{variable.type}</code>
-						{typeof variable.description !== 'undefined' && (
-							<div>
+						{isNested ? (
+							<div className={s.arrowIcon}>
+								<IconCornerDownRight16 />
+							</div>
+						) : (
+							<></>
+						)}
+						<div className={s.indentedContent}>
+							<div className={s.topRow}>
+								<span className={s.left}>
+									<code className={s.key}>{variable.key}</code>
+									{variable.required != null && (
+										<span
+											className={classNames(s.required, {
+												[s.isRequired]: variable.required,
+											})}
+										>
+											{variable.required ? 'Required' : 'Optional'}
+										</span>
+									)}
+								</span>
+								{variable.type ? (
+									<Badge
+										type={
+											variable.variables && variable.variables.length > 0
+												? 'inverted'
+												: 'filled'
+										}
+										color="highlight"
+										text={variable.type}
+									/>
+								) : (
+									<></>
+								)}
+							</div>
+
+							<div className={s.description}>
 								<ReactMarkdown>{`${
 									variable.description !== null ? variable.description : ''
 								}`}</ReactMarkdown>
 							</div>
-						)}
-						{variable.required != null && (
-							<p className={s.required}>
-								{variable.required ? 'Required' : 'Optional'}
-							</p>
-						)}
-						{variable.variables?.length > 0 && (
-							<VariableGroupList
-								unflatten={false}
-								variables={variable.variables}
-							/>
-						)}
+
+							{variable.variables?.length > 0 && (
+								<VariableGroupList
+									unflatten={false}
+									variables={variable.variables}
+									isNested={true}
+								/>
+							)}
+						</div>
 					</li>
 				)
 			})}

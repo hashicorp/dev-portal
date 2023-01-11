@@ -1,7 +1,6 @@
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { useState } from 'react'
-import CategorizedVariableGroupList from '../categorized-variable-group-list'
-import { Variable } from '../variable-group-list'
+import { Variable, VariableGroupList } from '../variable-group-list'
 import s from './style.module.css'
 
 interface SearchableVariableGroupListProps {
@@ -76,7 +75,7 @@ export default function SearchableVariableGroupList({
 			<p className={s.results}>
 				{numMatches} {numMatches === 1 ? 'Result' : 'Results'}
 			</p>
-			<CategorizedVariableGroupList variables={filteredVariables} />
+			<VariableGroupList variables={filteredVariables} />
 		</div>
 	)
 }
