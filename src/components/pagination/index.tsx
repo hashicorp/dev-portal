@@ -38,9 +38,9 @@ const Pagination = ({
 	onPageSizeChange = () => void 1,
 	children,
 }: PropsWithChildren<PaginationProps>) => {
-	if (typeof totalItems !== 'number' || totalItems < 1) {
+	if (typeof totalItems !== 'number' || totalItems < 0) {
 		throw new Error(
-			'Pagination: totalItems is required, but was not specified. Please try passing a non-zero, positive value such as `103`.'
+			'Pagination: totalItems is required, but was not specified. Please try passing a positive value such as `103`.'
 		)
 	}
 	if (typeof _pageSize !== 'number' || _pageSize < 1) {
@@ -92,7 +92,10 @@ const Pagination = ({
 
 const Info = ({ showTotalItems = true }: InfoProps) => {
 	const pagination = usePagination()
-	const start = pagination.page * pagination.pageSize - pagination.pageSize + 1
+	const start = Math.min(
+		pagination.page * pagination.pageSize - pagination.pageSize + 1,
+		pagination.totalItems
+	)
 	const end = Math.min(
 		pagination.page * pagination.pageSize,
 		pagination.totalItems
@@ -177,7 +180,9 @@ const ButtonArrow = ({ type, direction }: ButtonArrowProps) => {
 			},
 			icon: <IconChevronRight16 />,
 			label: 'Next',
-			isDisabled: pagination.page === pagination.totalPages,
+			isDisabled:
+				pagination.page === pagination.totalPages ||
+				pagination.totalPages === 0,
 			className: s.next,
 		},
 		prev: {
@@ -188,7 +193,7 @@ const ButtonArrow = ({ type, direction }: ButtonArrowProps) => {
 			},
 			icon: <IconChevronLeft16 />,
 			label: 'Previous',
-			isDisabled: pagination.page === 1,
+			isDisabled: pagination.page === 1 || pagination.totalPages === 0,
 			className: s.prev,
 		},
 	}[direction]

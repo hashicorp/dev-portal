@@ -30,11 +30,11 @@ describe('Pagination', () => {
 			)
 		})
 
-		it('disallows zero or negative totalItems', () => {
+		it('disallows negative totalItems', () => {
 			expect(() => {
-				render(<Pagination totalItems={0} pageSize={10} />)
+				render(<Pagination totalItems={-1} pageSize={10} />)
 			}).toThrowErrorMatchingInlineSnapshot(
-				`"Pagination: totalItems is required, but was not specified. Please try passing a non-zero, positive value such as \`103\`."`
+				`"Pagination: totalItems is required, but was not specified. Please try passing a positive value such as \`103\`."`
 			)
 		})
 
