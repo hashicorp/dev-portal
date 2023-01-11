@@ -155,7 +155,7 @@ const Nav = ({ type = 'compact' }: NavProps) => {
 								// the previous `document.activeElement`
 								key={e}
 							>
-								<ButtonNumber page={e}>{e}</ButtonNumber>
+								<ButtonNumber page={e} />
 							</li>
 						)
 					})}
@@ -208,10 +208,7 @@ const ButtonArrow = ({ type, direction }: ButtonArrowProps) => {
 	)
 }
 
-const ButtonNumber = ({
-	children,
-	page,
-}: PropsWithChildren<ButtonNumberProps>) => {
+const ButtonNumber = ({ page }: ButtonNumberProps) => {
 	const pagination = usePagination()
 	const handleClick = () => {
 		pagination.setPage(page)
@@ -222,8 +219,7 @@ const ButtonNumber = ({
 			type="button"
 			onClick={handleClick}
 		>
-			<span className={'g-screen-reader-only'}>page&nbsp;</span>
-			{children}
+			{page}
 		</button>
 	)
 }
