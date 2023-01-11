@@ -19,7 +19,6 @@ import {
 	PaginationProps,
 	SizeSelectorProps,
 } from './types'
-import { T } from '@happykit/flags/dist/types-06e22b20'
 
 const PaginationContext = createContext({
 	totalItems: 0,
