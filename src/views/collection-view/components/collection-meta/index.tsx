@@ -36,7 +36,7 @@ export default function CollectionMeta({
 			</IconTile>
 			<Heading
 				level={1}
-				size={500}
+				size={600}
 				weight="bold"
 				id={heading.id}
 				className={s.heading}

@@ -21,7 +21,10 @@ export interface HeadingProps extends HeadingElementProps {
 	 * Optionally use a different heading-x style than the default for the
 	 * semantic HTML heading level. Note that only 0-4 are supported, as these are
 	 * the styles we have available from the design system.
+	 *
+	 * Note: Display 600 is a style created specifically for Dev Dot.
+	 * It does not yet exist in HDS. See `hds-typography-display-600.css`.
 	 */
-	size: 100 | 200 | 300 | 400 | 500
+	size: 100 | 200 | 300 | 400 | 500 | 600
 	weight: 'regular' | 'medium' | 'semibold' | 'bold'
 }
