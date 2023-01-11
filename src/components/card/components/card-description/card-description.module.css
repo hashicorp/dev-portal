@@ -4,7 +4,7 @@
 
 .text {
 	/* composition */
-	composes: hds-typography-body-100 from global;
+	composes: hds-typography-body-200 from global;
 	composes: hds-font-weight-regular from global;
 
 	/* properties */
