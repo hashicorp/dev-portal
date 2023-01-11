@@ -78,5 +78,8 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"enabled": true
+	}
 }
