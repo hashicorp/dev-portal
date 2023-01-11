@@ -33,7 +33,7 @@ export function rewriteExternalDocsLink(urlObject: URL) {
 	/**
 	 * Separate the different parts of the URL so they are analyzed in silos.
 	 */
-	const { hostname, pathname, search, hash } = urlObject
+	const { hostname, pathname, search = '', hash = '' } = urlObject
 	const pathnameParts = pathname.split('/')
 	const [, basePath, ...restParts] = pathnameParts
 
@@ -51,7 +51,7 @@ export function rewriteExternalDocsLink(urlObject: URL) {
 	 * If there is no `basePath`, then rewrite link to the product's landing page.
 	 */
 	if (basePath === '') {
-		return `/${productSlug}`
+		return `/${productSlug}${search}${hash}`
 	}
 
 	/**
