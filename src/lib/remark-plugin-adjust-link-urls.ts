@@ -1,3 +1,4 @@
+import path from 'path'
 import { visit } from 'unist-util-visit'
 import { Definition, Link } from 'mdast'
 import { Plugin, Transformer } from 'unified'
@@ -41,6 +42,28 @@ const handleDotDotFolderRelativeUrl = ({
 }
 
 /**
+ * Handles folder-relative URLs that start with the "dot-slash" (./) syntax.
+ * This syntax is used to link to a child, grandchild, etc. from the current
+ * path.
+ */
+const handleDotSlashFolderRelativeUrl = ({
+	currentPath,
+	url,
+}: {
+	currentPath: string
+	url: string
+}) => {
+	// Remove the leading dot-slash from the url
+	const urlWithOutDotSlash = url.slice('./'.length)
+
+	// Concatenate the current path and url (without the dot-slash)
+	const newUrl = path.join(currentPath, urlWithOutDotSlash)
+
+	// Return the new url
+	return newUrl
+}
+
+/**
  * Pre-adjusts urls that start with a path part of the given `currentPath`. See
  * examples in: `src/lib/__tests__/remark-plugin-adjust-link-urls.test.ts`.
  */
@@ -72,7 +95,7 @@ export const preAdjustUrl = ({ currentPath, url }): string => {
 
 	// Handle folder-relative URL that is linking downwards
 	if (url.startsWith('./')) {
-		return [...currentPathParts, ...urlParts.slice(1)].join('/')
+		return handleDotSlashFolderRelativeUrl({ currentPath, url })
 	}
 
 	// Search for first part of url within currentPath
