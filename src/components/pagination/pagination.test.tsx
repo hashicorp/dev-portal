@@ -74,7 +74,7 @@ describe('Pagination', () => {
 		      class="nav"
 		    >
 		      <button
-		        aria-label="Previous page"
+		        aria-label="Previous"
 		        class="arrow control prev"
 		        disabled=""
 		      >
@@ -89,7 +89,7 @@ describe('Pagination', () => {
 		        </span>
 		      </button>
 		      <button
-		        aria-label="Next page"
+		        aria-label="Next"
 		        class="arrow control next"
 		      >
 		        <svg>

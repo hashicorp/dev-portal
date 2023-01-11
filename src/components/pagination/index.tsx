@@ -19,6 +19,7 @@ import {
 	PaginationProps,
 	SizeSelectorProps,
 } from './types'
+import { T } from '@happykit/flags/dist/types-06e22b20'
 
 const PaginationContext = createContext({
 	totalItems: 0,
@@ -168,50 +169,35 @@ const Nav = ({ type = 'compact' }: NavProps) => {
 
 const ButtonArrow = ({ type, direction }: ButtonArrowProps) => {
 	const pagination = usePagination()
-	const handleClick = {
-		next: () => {
-			// clamp upper bound
-			const nextIdx = Math.min(pagination.page + 1, pagination.totalPages)
-			pagination.setPage(nextIdx)
+	const { handleClick, icon, isDisabled, label, className } = {
+		next: {
+			handleClick: () => {
+				// clamp upper bound
+				const nextIdx = Math.min(pagination.page + 1, pagination.totalPages)
+				pagination.setPage(nextIdx)
+			},
+			icon: <IconChevronRight16 />,
+			label: 'Next',
+			isDisabled: pagination.page === pagination.totalPages,
+			className: s.next,
 		},
-		prev: () => {
-			// clamp lower bound (0)
-			const prevIdx = Math.max(pagination.page - 1, 0)
-			pagination.setPage(prevIdx)
+		prev: {
+			handleClick: () => {
+				// clamp lower bound (0)
+				const prevIdx = Math.max(pagination.page - 1, 0)
+				pagination.setPage(prevIdx)
+			},
+			icon: <IconChevronLeft16 />,
+			label: 'Previous',
+			isDisabled: pagination.page === 1,
+			className: s.prev,
 		},
-	}[direction]
-
-	const icon = {
-		next: <IconChevronRight16 />,
-		prev: <IconChevronLeft16 />,
-	}[direction]
-
-	const ariaLabel = {
-		next: 'Next page',
-		prev: 'Previous page',
-	}[direction]
-
-	const label = {
-		next: 'Next',
-		prev: 'Previous',
-	}[direction]
-
-	const isDisabled = {
-		next: pagination.page === pagination.totalPages,
-		prev: pagination.page === 1,
 	}[direction]
 
 	return (
 		<button
-			className={classNames(
-				s.arrow,
-				s.control,
-				{
-					next: s.next,
-					prev: s.prev,
-				}[direction]
-			)}
-			aria-label={ariaLabel}
+			className={classNames(s.arrow, s.control, className)}
+			aria-label={label}
 			onClick={handleClick}
 			disabled={isDisabled}
 		>
