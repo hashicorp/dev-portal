@@ -35,7 +35,7 @@ export default function TutorialMeta({
 		<header className={s.header}>
 			<Heading
 				level={1}
-				size={500}
+				size={600}
 				weight="bold"
 				id={heading.slug}
 				className={s.heading}

@@ -12,27 +12,27 @@ const HEADING_LEVELS_TO_PROPS: Record<
 	{ size: HeadingProps['size']; weight: HeadingProps['weight'] }
 > = {
 	1: {
-		size: 500,
+		size: 600,
 		weight: 'bold',
 	},
 	2: {
-		size: 400,
+		size: 500,
 		weight: 'bold',
 	},
 	3: {
-		size: 300,
+		size: 400,
 		weight: 'bold',
 	},
 	4: {
-		size: 200,
+		size: 300,
 		weight: 'semibold',
 	},
 	5: {
-		size: 200,
+		size: 300,
 		weight: 'semibold',
 	},
 	6: {
-		size: 200,
+		size: 300,
 		weight: 'semibold',
 	},
 }
