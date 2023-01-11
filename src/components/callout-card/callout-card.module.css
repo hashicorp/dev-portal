@@ -10,7 +10,7 @@
 }
 
 .body {
-	composes: hds-typography-body-100 from global;
+	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-faint);
 	margin: 8px 0 0 0;
 }
