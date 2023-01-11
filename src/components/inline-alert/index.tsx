@@ -6,13 +6,13 @@ import s from './inline-alert.module.css'
 export default function InlineAlert({
 	color = 'neutral',
 	description,
-	icon,
+	icon = <IconInfo24 />,
 	title,
 }: InlineAlertProps) {
 	return (
 		<div className={classNames(s.default, s[color])}>
 			<span className={s.icon} data-testid="icon">
-				{icon ?? <IconInfo24 />}
+				{icon}
 			</span>
 			<span className={s.content}>
 				<p className={s.title}>{title}</p>
