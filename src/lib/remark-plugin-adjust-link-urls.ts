@@ -1,3 +1,4 @@
+import path from 'path'
 import { visit } from 'unist-util-visit'
 import { Definition, Link } from 'mdast'
 import { Plugin, Transformer } from 'unified'
@@ -35,6 +36,20 @@ export const preAdjustUrl = ({ currentPath, url }): string => {
 	// Since they're worth checking, split up url and currentPath
 	const urlParts = url.split('/')
 	const currentPathParts = currentPath.split('/')
+
+	// Handle folder-relative URL that is linking upwards
+	if (url.startsWith('../')) {
+		const levelsUpCount = urlParts.filter((part) => part === '..').length
+		return path.join(
+			currentPathParts.slice(0, -(levelsUpCount + 1)).join('/'),
+			urlParts.slice(levelsUpCount).join('/')
+		)
+	}
+
+	// Handle folder-relative URL that is linking downwards
+	if (url.startsWith('./')) {
+		return [...currentPathParts, ...urlParts.slice(1)].join('/')
+	}
 
 	// Search for first part of url within currentPath
 	const indexInCurrentPath = currentPathParts.indexOf(urlParts[0])
