@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import AccordionDisclosure from '.'
 
 jest.mock('next/router', () => ({
@@ -55,8 +55,34 @@ describe('AccordionDisclosure', () => {
 		// best effort to query for plain divs rendered by Disclosure
 		const buttons = queryAllByRole('button')
 
-		expect(buttons[0].parentElement).not.toHaveClass('nested')
-		expect(buttons[1].parentElement).toHaveClass('nested')
-		expect(buttons[2].parentElement).toHaveClass('nested')
+		expect(buttons[0].parentElement).not.toHaveClass('isNested')
+		expect(buttons[1].parentElement).toHaveClass('isNested')
+		expect(buttons[2].parentElement).toHaveClass('isNested')
+	})
+
+	it('handles "isOpen" state with correct aria attributes', () => {
+		const { queryByRole } = render(
+			<AccordionDisclosure
+				title={'Item 1'}
+				description={'what a lovely accordion item'}
+			>
+				I am an accordion item
+			</AccordionDisclosure>
+		)
+		const button = queryByRole('button')
+
+		expect(button.parentElement).not.toHaveClass('isOpen')
+		expect(button).toHaveAttribute('aria-expanded', 'false')
+
+		fireEvent(
+			button,
+			new MouseEvent('click', {
+				bubbles: true,
+				cancelable: true,
+			})
+		)
+
+		expect(button.parentElement).toHaveClass('isOpen')
+		expect(button).toHaveAttribute('aria-expanded', 'true')
 	})
 })

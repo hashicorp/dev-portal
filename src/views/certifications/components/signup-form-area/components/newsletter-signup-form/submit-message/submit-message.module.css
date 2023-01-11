@@ -1,0 +1,39 @@
+.submittedMsg {
+	display: flex;
+
+	&.dark {
+		& .submittedMsgText {
+			color: var(--token-color-foreground-high-contrast);
+		}
+		& .submittedMsgTextLink {
+			color: var(--token-color-foreground-high-contrast);
+			text-decoration: underline;
+		}
+	}
+}
+
+.iconWrapper {
+	display: flex;
+	column-gap: 8px;
+	color: var(--token-color-foreground-high-contrast);
+	width: 100%;
+
+	&.success {
+		color: var(--token-color-foreground-success);
+	}
+
+	&.error {
+		color: var(--token-color-foreground-warning);
+	}
+}
+
+.icon {
+	flex: 0 0 auto;
+	width: 24px;
+	height: 24px;
+}
+
+.submittedMsgText {
+	composes: hds-typography-body-300 from global;
+	margin: 0;
+}

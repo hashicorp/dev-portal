@@ -4,6 +4,7 @@ import Disclosure, { DisclosureContent } from 'components/disclosure'
 import { developmentToast, ToastColor } from 'components/toast'
 import {
 	DropdownDisclosureActivator,
+	DropdownDisclosureAnchorItem,
 	DropdownDisclosureButtonItem,
 	DropdownDisclosureDescriptionItem,
 	DropdownDisclosureLabelItem,
@@ -95,6 +96,7 @@ const DropdownDisclosure = ({
 
 export type { DropdownDisclosureProps }
 export {
+	DropdownDisclosureAnchorItem,
 	DropdownDisclosureButtonItem,
 	DropdownDisclosureDescriptionItem,
 	DropdownDisclosureLabelItem,

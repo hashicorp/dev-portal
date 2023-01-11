@@ -11,3 +11,4 @@ test-results/
 playwright-report/
 tsconfig.tsbuildinfo
 src/.generated/
+scripts/docs-content-link-rewrites/.generated

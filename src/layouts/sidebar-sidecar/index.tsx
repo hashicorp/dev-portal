@@ -1,10 +1,12 @@
 // Third-party imports
 import { ReactElement, useRef } from 'react'
+import classNames from 'classnames'
 
 // HashiCorp imports
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 
 // Global imports
+import { MAIN_ELEMENT_ID } from 'constants/element-ids'
 import { getVersionFromPath } from 'lib/get-version-from-path'
 import { removeVersionFromPath } from 'lib/remove-version-from-path'
 import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
@@ -53,6 +55,7 @@ const SidebarSidecarLayoutContent = ({
 	showScrollProgress,
 	sidecarSlot,
 	sidebarNavDataLevels,
+	mainWidth = 'wide',
 	versions,
 }: SidebarSidecarLayoutProps) => {
 	const { isMobileMenuRendered, mobileMenuIsOpen, setMobileMenuIsOpen } =
@@ -100,7 +103,7 @@ const SidebarSidecarLayoutContent = ({
 	}
 
 	return (
-		<div className={s.root}>
+		<div className={classNames(s.root, s[`mainWidth-${mainWidth}`])}>
 			<MobileMenuContainer className={s.mobileMenuContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
 					<MobileAuthenticationControls />
@@ -131,7 +134,7 @@ const SidebarSidecarLayoutContent = ({
 					/>
 				)}
 				<div className={s.mainAreaWrapper}>
-					<main id="main" className={s.main}>
+					<main id={MAIN_ELEMENT_ID} className={s.main}>
 						<span className={s.breadcrumbOptOutGroup}>
 							{breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
 						</span>

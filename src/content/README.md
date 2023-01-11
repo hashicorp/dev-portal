@@ -7,6 +7,7 @@ This folder contains the authorable, marketing-style content for various landing
 - [Product landing pages](#3-product-landing-pages)
 - [Product Docs landing pages](#4-product-docs-landing-pages)
 - [Product Install landing pages](#5-product-install-landing-pages)
+- [Certifications pages](#6-certifications-pages)
 
 ## 1. Additional Sidebar "Resources" section navigation items
 
@@ -628,3 +629,7 @@ This is an object for the marketing content located in a `Card` in the Sidecar o
   - `label`: The text to show for the link
 
 </details>
+
+## 6. Certifications Pages
+
+For details on editing the content on `/certifications` pages, see [the README in `src/content/certifications`](src/content/certifications/README.md).

@@ -322,4 +322,36 @@ describe('<Tabs />', () => {
 		const targetElement = screen.queryByRole('tablist').parentElement
 		expect(targetElement).toHaveClass('showAnchorLine')
 	})
+
+	test('the `onChange` callback is called with the new tabIndex', async () => {
+		const onChange = jest.fn()
+
+		render(
+			<TabProvider>
+				<Tabs onChange={onChange}>
+					{testData.map(({ heading, content }) => (
+						<Tab heading={heading} key={content}>
+							{content}
+						</Tab>
+					))}
+				</Tabs>
+			</TabProvider>
+		)
+
+		const secondTabButton = screen.queryByRole('tab', {
+			name: testData[1].heading,
+			selected: false,
+		})
+
+		await userEvent.click(secondTabButton)
+		expect(onChange).toHaveBeenNthCalledWith(1, 1)
+
+		const firstTabButton = screen.queryByRole('tab', {
+			name: testData[0].heading,
+			selected: false,
+		})
+
+		await userEvent.click(firstTabButton)
+		expect(onChange).toHaveBeenNthCalledWith(2, 0)
+	})
 })

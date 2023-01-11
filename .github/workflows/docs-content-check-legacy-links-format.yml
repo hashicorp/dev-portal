@@ -1,0 +1,121 @@
+name: docs-content-check-legacy-links-format
+
+on:
+  workflow_call:
+    inputs:
+      repo-owner:
+        default: 'hashicorp'
+        required: false
+        type: string
+      repo-name:
+        required: true
+        type: string
+      commit-sha:
+        required: true
+        type: string
+      mdx-directory:
+        required: true
+        type: string
+      nav-data-directory:
+        required: true
+        type: string
+
+jobs:
+  docs-content-check-legacy-links-format:
+    runs-on: ubuntu-latest
+    env:
+      OWNER: ${{ inputs.repo-owner }}
+      REPO: ${{ inputs.repo-name }}
+      COMMIT_SHA: ${{ inputs.commit-sha }}
+    steps:
+      - name: Get PR number
+        id: get-pr-number
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: process.env.OWNER,
+              repo: process.env.REPO,
+              commit_sha: process.env.COMMIT_SHA
+            })
+            return data[0].number
+
+      - name: Get list of PR files
+        id: get-lists-of-pr-files
+        uses: actions/github-script@v6
+        env:
+          PR_NUMBER: ${{ steps.get-pr-number.outputs.result }}
+          MDX_DIRECTORY: ${{ inputs.mdx-directory }}
+          NAV_DATA_DIRECTORY: ${{ inputs.nav-data-directory }}
+        with:
+          script: |
+            const changedMdxFiles = []
+            const changedNavDataJsonFiles = []
+
+            // A helper for recursively fetching all files for a PR
+            const fetchAllPrFiles = async ({ allPrFiles = [], page = 1 }) => {
+              const { data } = await github.rest.pulls.listFiles({
+                owner: process.env.OWNER,
+                repo: process.env.REPO,
+                per_page: 100,
+                pull_number: process.env.PR_NUMBER,
+                page,
+              })
+              data.forEach(file => {
+                allPrFiles.push(file)
+              })
+
+              if (data.length === 100) {
+                await fetchAllPrFiles({ allPrFiles, page: page + 1 })
+              }
+            }
+
+            // Fetch all the PR files
+            const allPrFiles = []
+            await fetchAllPrFiles({ allPrFiles })
+
+            // Sort the PR files for what we're interested in
+            allPrFiles.forEach(file => {
+              if (file.status === 'removed') {
+                return
+              }
+              if (file.filename.endsWith('.mdx')) {
+                const filenameWithoutDirectory = file.filename.replace(process.env.MDX_DIRECTORY, '')
+                changedMdxFiles.push(filenameWithoutDirectory)
+                return
+              }
+              // @TODO uncomment when new nav-data formats can be considered
+              // valid by validateNode() in react-components/docs-sidenav
+              //if (file.filename.endsWith('-nav-data.json')) {
+              //  const filenameWithoutDirectory = file.filename.replace(process.env.NAV_DATA_DIRECTORY, '')
+              //  changedNavDataJsonFiles.push(filenameWithoutDirectory)
+              //}
+            })
+
+            // Log and return the result
+            const result = { changedMdxFiles, changedNavDataJsonFiles }
+            console.log('get-lists-of-pr-files result:', result)
+            return result
+
+      - name: Checkout dev-portal
+        uses: actions/checkout@v3
+        with:
+          repository: 'hashicorp/dev-portal'
+
+      - name: Install dev-portal dependencies
+        run: npm ci
+
+      - name: Check out branch with content changes
+        uses: actions/checkout@v3
+        with:
+          path: 'content-repo'
+          repository: '${{ inputs.repo-owner }}/${{ inputs.repo-name }}'
+
+      - name: Run rewrite-docs-content-links script
+        id: run-rewrite-docs-content-links-script
+        env:
+          MDX_FILE_PATH_PREFIX: 'content-repo/${{ inputs.mdx-directory }}'
+          NAV_DATA_FILE_PATH_PREFIX: 'content-repo/${{ inputs.nav-data-directory }}'
+          RELEVANT_CHANGED_FILES: ${{ steps.get-lists-of-pr-files.outputs.result }}
+          ERROR_IF_LINKS_TO_REWRITE: 'true'
+        run: npm run rewrite-docs-content-links

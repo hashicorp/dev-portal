@@ -11,7 +11,10 @@ import { useRouter } from 'next/router'
 import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 
-const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 1201
+/**
+ * Should correspond to --dev-dot-hide-mobile-menu
+ */
+const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 1024
 
 interface MobileMenuContextState {
 	/**

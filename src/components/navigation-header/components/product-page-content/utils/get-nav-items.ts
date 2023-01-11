@@ -14,9 +14,16 @@ const TRY_CLOUD_ITEM_PRODUCT_SLUGS = [
 	'hcp',
 	'packer',
 	'terraform',
+	'vagrant',
 	'vault',
 	'waypoint',
 ]
+
+enum TRY_CLOUD_PRODUCT_LINKS {
+	default = 'https://portal.cloud.hashicorp.com/sign-up',
+	terraform = 'https://app.terraform.io/public/signup/account',
+	vagrant = 'https://app.vagrantup.com/boxes/search',
+}
 
 /**
  * Given current product data,
@@ -58,7 +65,6 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	 * Define a common set of base nav items
 	 */
 	const items: NavItem[] = [
-		{ label: 'Home', url: `/${currentProduct.slug}` },
 		{
 			label: 'Documentation',
 			...docsNavObj,
@@ -93,9 +99,8 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 		items.push({
 			label: 'Try Cloud',
 			url:
-				currentProduct.slug === 'terraform'
-					? 'https://app.terraform.io/public/signup/account'
-					: 'https://portal.cloud.hashicorp.com/sign-up',
+				TRY_CLOUD_PRODUCT_LINKS[currentProduct.slug] ??
+				TRY_CLOUD_PRODUCT_LINKS['default'],
 			opensInNewTab: true,
 		})
 	}
