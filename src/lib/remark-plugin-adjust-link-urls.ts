@@ -37,8 +37,11 @@ const handleDotDotFolderRelativeUrl = ({
 	// Remove all the dot-dot parts from the url
 	const newUrlParts = urlParts.slice(numDotDotParts)
 
-	// Join all the parts together, and return the result
-	return [...newCurrentPathParts, ...newUrlParts].join('/')
+	// Join all the parts together
+	const newUrl = [...newCurrentPathParts, ...newUrlParts].join('/')
+
+	// Return the new url
+	return newUrl
 }
 
 /**
