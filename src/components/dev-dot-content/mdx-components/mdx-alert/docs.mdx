@@ -70,8 +70,10 @@ The `MdxInlineAlert` component is used in long-form MDX content to highlight var
 
 ## Authoring in MDX
 
-Four prebuilt variants are available for use in both docs and tutorials long-form content: `Tip`, `Highlight`, `Note`, & `Warning`: see `./variants.tsx`.
-The only available prop to pass in authorable contexts with these specific variants is `title`.
+Four prebuilt variants are available for use in both docs and tutorials long-form content: `<Tip />`, `<Highlight />`, `<Note />`, & `<Warning />`.
+
+The only available prop to pass in authorable contexts with these specific variants is `title`. _**Note**_: When using markdown syntax within the body of an alert, there needs to be a space between the opening / closing
+tags and the content — similar to the Tabs or Accordion components.
 
 ### Guidelines
 
@@ -80,9 +82,6 @@ The only available prop to pass in authorable contexts with these specific varia
 - Alert messages should be short but clear and descriptive enough to explain what is happening. They should guide users on how to prevent or fix the issue.
 - We recommend keeping messages under 270 characters.
 - Text formatting capabilities via markdown syntax such as inline links, bold, italic, and lists are supported. Please use bold/italics sparingly to ensure consistency.
-
-_**Note**_: When using markdown syntax within the body of an alert, there needs to be a space between the opening / closing
-tags and the content — similar to the Tabs or Accordion components.
 
 ### Example content
 
