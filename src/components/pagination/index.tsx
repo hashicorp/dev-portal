@@ -49,8 +49,8 @@ const Pagination = ({
 		)
 	}
 
-	const [page, _setPage] = useState(() => _page)
-	const [pageSize, _setPageSize] = useState(() => _pageSize)
+	const [page, _setPage] = useState(_page)
+	const [pageSize, _setPageSize] = useState(_pageSize)
 
 	const setPage = (val: number) => {
 		if (val !== page) {
@@ -252,9 +252,13 @@ const SizeSelector = ({ sizes }: SizeSelectorProps) => {
 		<div className={s['size-selector']}>
 			<label className={s.label}>
 				Items per page
-				<select className={s.select} onChange={handleChange}>
+				<select
+					className={s.select}
+					onChange={handleChange}
+					defaultValue={pagination.pageSize}
+				>
 					{sizes.map((e) => (
-						<option key={e} value={e} selected={pagination.pageSize === e}>
+						<option key={e} value={e}>
 							{e}
 						</option>
 					))}

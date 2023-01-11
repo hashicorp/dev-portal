@@ -80,6 +80,7 @@ describe('Pagination', () => {
 		          class="select"
 		        >
 		          <option
+		            selected=""
 		            value="10"
 		          >
 		            10
