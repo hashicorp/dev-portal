@@ -65,7 +65,15 @@ export function VariableGroupList({
 									)}
 								</span>
 								{variable.type ? (
-									<Badge color="highlight" text={variable.type} />
+									<Badge
+										type={
+											variable.variables && variable.variables.length > 0
+												? 'inverted'
+												: 'filled'
+										}
+										color="highlight"
+										text={variable.type}
+									/>
 								) : (
 									<></>
 								)}
