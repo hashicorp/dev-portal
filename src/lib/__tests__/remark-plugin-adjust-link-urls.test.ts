@@ -1,4 +1,18 @@
+import {
+	expandUrlTestCasesWithParams,
+	TestCase,
+} from 'lib/testing/expand-url-test-cases-with-params'
 import { preAdjustUrl } from 'lib/remark-plugin-adjust-link-urls'
+
+const testEachCase = (testCases: TestCase[]) => {
+	const allCases = expandUrlTestCasesWithParams(testCases)
+	test.each(allCases)(
+		'$input -> $expected',
+		({ input, expected, currentPath }: TestCase) => {
+			expect(preAdjustUrl({ currentPath, url: input })).toBe(expected)
+		}
+	)
+}
 
 describe('remarkPluginAdjustLinkUrls', () => {
 	describe('preAdjustUrl', () => {
@@ -19,78 +33,66 @@ describe('remarkPluginAdjustLinkUrls', () => {
 		describe('pre-adjusts folder-relative urls starting with `../`', () => {
 			const testCases = [
 				{
-					input: {
-						currentPath: '/docs/plugins/go-plugins/guests',
-						url: '../guest-capabilities',
-					},
+					input: '../guest-capabilities',
 					expected: '/docs/plugins/guest-capabilities',
+					currentPath: '/docs/plugins/go-plugins/guests',
 				},
 				{
-					input: {
-						currentPath: '/docs/plugins/go-plugins/guests',
-						url: '../../multi-machine',
-					},
+					input: '../../multi-machine',
 					expected: '/docs/multi-machine',
+					currentPath: '/docs/plugins/go-plugins/guests',
 				},
 				{
-					input: {
-						currentPath: '/docs/plugins/go-plugins/guests',
-						url: '../../share/connect',
-					},
+					input: '../../share/connect',
 					expected: '/docs/share/connect',
+					currentPath: '/docs/plugins/go-plugins/guests',
 				},
 			]
-			test.each(testCases)('$input.url -> $expected', ({ input, expected }) => {
-				expect(preAdjustUrl(input)).toBe(expected)
-			})
+			testEachCase(testCases)
 		})
 
 		describe('pre-adjusts folder-relative urls starting with `./`', () => {
 			const testCases = [
 				{
-					input: {
-						currentPath: '/docs/disks',
-						url: './configuration',
-					},
+					input: './configuration',
 					expected: '/docs/disks/configuration',
+					currentPath: '/docs/disks',
 				},
 				{
-					input: {
-						currentPath: '/docs/disks',
-						url: './hyperv/common-issues',
-					},
+					input: './hyperv/common-issues',
 					expected: '/docs/disks/hyperv/common-issues',
+					currentPath: '/docs/disks',
 				},
 			]
-			test.each(testCases)('$input.url -> $expected', ({ input, expected }) => {
-				expect(preAdjustUrl(input)).toBe(expected)
-			})
+			testEachCase(testCases)
 		})
 
 		describe('pre-adjusts urls that start with a path part of the given currentPath', () => {
 			const mockCurrentPath = '/docs/waypoint-hcl/variables'
 			const urlsToTest = [
-				['variables/input', '/docs/waypoint-hcl/variables/input'],
-				['waypoint-hcl/app', '/docs/waypoint-hcl/app'],
+				{
+					input: 'variables/input',
+					expected: '/docs/waypoint-hcl/variables/input',
+					currentPath: mockCurrentPath,
+				},
+				{
+					input: 'waypoint-hcl/app',
+					expected: '/docs/waypoint-hcl/app',
+					currentPath: mockCurrentPath,
+				},
 			]
-
-			test.each(urlsToTest)(
-				'"%s" is pre-adjusted to "%s"',
-				(input: string, expectedOutput: string) => {
-					expect(
-						preAdjustUrl({ currentPath: mockCurrentPath, url: input })
-					).toEqual(expectedOutput)
-				}
-			)
+			testEachCase(urlsToTest)
 		})
 
 		describe('does not pre-adjust urls that do not start with a path part of the given currentPath', () => {
-			const mockCurrentPath = '/docs/waypoint-hcl/variables'
-			const urlsToTest = ['some/other/path', '']
-
-			test.each(urlsToTest)('"%s" is not pre-adjusted', (url: string) => {
-				expect(preAdjustUrl({ currentPath: mockCurrentPath, url })).toEqual(url)
-			})
+			const urlsToTest = [
+				{
+					input: 'some/other/path',
+					expected: 'some/other/path',
+					currentPath: '/docs/waypoint-hcl/variables',
+				},
+			]
+			testEachCase(urlsToTest)
 		})
 	})
 })
