@@ -27,8 +27,6 @@ const PaginationContext = createContext({
 	page: 1,
 	setPage: (() => void 1) as Dispatch<SetStateAction<number>>,
 	totalPages: 0,
-	onPageChange: (() => void 1) as (page: number) => void,
-	onPageSizeChange: (() => void 1) as (pagesize: number) => void,
 })
 const usePagination = () => useContext(PaginationContext)
 
@@ -51,8 +49,26 @@ const Pagination = ({
 		)
 	}
 
-	const [page, setPage] = useState(() => _page)
-	const [pageSize, setPageSize] = useState(() => _pageSize)
+	const [page, _setPage] = useState(() => _page)
+	const [pageSize, _setPageSize] = useState(() => _pageSize)
+
+	const setPage = (val: number) => {
+		if (val !== page) {
+			_setPage(val)
+			onPageChange(val)
+		}
+	}
+
+	const setPageSize = (val: number) => {
+		if (val !== pageSize) {
+			_setPageSize(val)
+			onPageSizeChange(val)
+
+			// by default, updating page size will reset the page to "1"
+			setPage(1)
+		}
+	}
+
 	return (
 		<PaginationContext.Provider
 			value={{
@@ -62,8 +78,6 @@ const Pagination = ({
 				page,
 				setPage,
 				totalPages: Math.ceil(totalItems / pageSize),
-				onPageChange,
-				onPageSizeChange,
 			}}
 		>
 			<div className={s.pagination}>{children}</div>
@@ -154,13 +168,11 @@ const ButtonArrow = ({ type, direction }: ButtonArrowProps) => {
 			// clamp upper bound
 			const nextIdx = Math.min(pagination.page + 1, pagination.totalPages)
 			pagination.setPage(nextIdx)
-			pagination.onPageChange(nextIdx)
 		},
 		prev: () => {
 			// clamp lower bound (0)
 			const prevIdx = Math.max(pagination.page - 1, 0)
 			pagination.setPage(prevIdx)
-			pagination.onPageChange(prevIdx)
 		},
 	}[direction]
 
@@ -215,10 +227,6 @@ const ButtonNumber = ({
 	const pagination = usePagination()
 	const handleClick = () => {
 		pagination.setPage(page)
-		// don't trigger callback if the current page is already selected
-		if (pagination.page !== page) {
-			pagination.onPageChange(page)
-		}
 	}
 	return (
 		<button
@@ -235,16 +243,9 @@ const ButtonNumber = ({
 const SizeSelector = ({ sizes }: SizeSelectorProps) => {
 	const pagination = usePagination()
 
-	// changing page size should reset the current page to 1
 	const handleChange = (e) => {
 		const newPageSize = Number(e.target.value)
-		// don't trigger callbacks if pagesize didn't change
-		if (pagination.pageSize !== newPageSize) {
-			pagination.setPage(1)
-			pagination.setPageSize(newPageSize)
-			pagination.onPageSizeChange(newPageSize)
-			pagination.onPageChange(1)
-		}
+		pagination.setPageSize(newPageSize)
 	}
 
 	return (

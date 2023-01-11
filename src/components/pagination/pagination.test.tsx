@@ -123,14 +123,23 @@ describe('Pagination', () => {
 		})
 
 		it('onPageSizeChange is called with the correct size, and resets the page to 1', async () => {
-			const onPageChange = jest.fn()
-			const onPageSizeChange = jest.fn()
+			// mimic a consumer's useState()
+
+			// eslint-disable-next-line prefer-const
+			let [page, setPage] = [3, jest.fn((newPage) => (page = newPage))]
+			// eslint-disable-next-line prefer-const
+			let [pageSize, setPageSize] = [
+				10,
+				jest.fn((newPageSize) => (pageSize = newPageSize)),
+			]
+
 			const { queryAllByRole } = render(
 				<Pagination
+					page={page}
+					pageSize={pageSize}
 					totalItems={103}
-					pageSize={10}
-					onPageChange={onPageChange}
-					onPageSizeChange={onPageSizeChange}
+					onPageChange={setPage}
+					onPageSizeChange={setPageSize}
 				>
 					<Pagination.Info />
 					<Pagination.Nav />
@@ -140,18 +149,18 @@ describe('Pagination', () => {
 
 			const select = queryAllByRole('combobox')[0]
 
-			await userEvent.selectOptions(select, '30') // Page size is now 30
-			expect(onPageSizeChange).toHaveBeenNthCalledWith(1, 30)
-			expect(onPageChange).toHaveBeenNthCalledWith(1, 1)
+			await userEvent.selectOptions(select, '30') // Page size: 10 -> 30
+			expect(setPageSize).toHaveBeenNthCalledWith(1, 30)
+			expect(setPage).toHaveBeenNthCalledWith(1, 1) // Page should be reset to 1
 
 			// selecting the same page size value should not trigger the two callbacks
-			await userEvent.selectOptions(select, '30')
-			expect(onPageSizeChange).toHaveBeenCalledTimes(1)
-			expect(onPageChange).toHaveBeenCalledTimes(1)
+			await userEvent.selectOptions(select, '30') // No change in page size
+			expect(setPageSize).toHaveBeenCalledTimes(1)
+			expect(setPage).toHaveBeenCalledTimes(1)
 
-			await userEvent.selectOptions(select, '50')
-			expect(onPageSizeChange).toHaveBeenNthCalledWith(2, 50)
-			expect(onPageChange).toHaveBeenNthCalledWith(2, 1)
+			await userEvent.selectOptions(select, '50') // Page size: 30 -> 50
+			expect(setPageSize).toHaveBeenNthCalledWith(2, 50)
+			expect(setPage).toHaveBeenCalledTimes(1) // Page did not change so the callback should not be invoked
 		})
 	})
 
