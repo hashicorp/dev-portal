@@ -31,7 +31,7 @@ describe('Pagination', () => {
 		      class="info"
 		    >
 		      1
-		       – 
+		       - 
 		      10
 		       of 103
 		    </div>
@@ -192,6 +192,24 @@ describe('Pagination', () => {
 
 			expect(pageNumbers).toHaveLength(Math.ceil(103 / 10))
 		})
+	})
+
+	describe('Pagination.Info', () => {
+		it.each([
+			[103, 30, 3, '61 - 90 of 103'],
+			[55, 10, 1, '1 - 10 of 55'],
+		])(
+			'should display the correct info',
+			(totalItems, pageSize, page, text) => {
+				const { queryByText } = render(
+					<Pagination totalItems={totalItems} pageSize={pageSize} page={page}>
+						<Pagination.Info />
+					</Pagination>
+				)
+
+				expect(queryByText(text)).toBeInTheDocument()
+			}
+		)
 	})
 })
 

@@ -73,14 +73,14 @@ const Pagination = ({
 
 const Info = ({ showTotalItems = true }: InfoProps) => {
 	const pagination = usePagination()
-	const start = pagination.page * pagination.pageSize - 9
+	const start = pagination.page * pagination.pageSize - pagination.pageSize + 1
 	const end = Math.min(
 		pagination.page * pagination.pageSize,
 		pagination.totalItems
 	)
 	return (
 		<div className={s.info}>
-			{start} – {end}
+			{start} - {end}
 			{showTotalItems ? ` of ${pagination.totalItems}` : null}
 		</div>
 	)
