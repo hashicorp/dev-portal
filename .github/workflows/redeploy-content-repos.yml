@@ -16,10 +16,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check if "RANDOM_SECRET_NAME_FOR_TESTING" secret exists
-        if: "${{ secrets.RANDOM_SECRET_NAME_FOR_TESTING == '' }}"
+        env:
+          RANDOM_SECRET_NAME_FOR_TESTING: ${{ secrets.RANDOM_SECRET_NAME_FOR_TESTING }}
+        if: ${{ env.RANDOM_SECRET_NAME_FOR_TESTING == '' }}
         run: echo "The `RANDOM_SECRET_NAME_FOR_TESTING` secret does not exist."
       - name: Echo something else if the secret exists
-        if: "${{ secrets.RANDOM_SECRET_NAME_FOR_TESTING != '' }}"
+        env:
+          RANDOM_SECRET_NAME_FOR_TESTING: ${{ secrets.RANDOM_SECRET_NAME_FOR_TESTING }}
+        if: ${{ env.RANDOM_SECRET_NAME_FOR_TESTING != '' }}
         run: echo "Cool, the secret exists"
 
       # TODO uncomment before merging (it works! :D)
