@@ -1,4 +1,3 @@
-import { isSectionOption } from 'lib/learn-client/types'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import {
 	getIsExternalLearnLink,
@@ -50,7 +49,8 @@ const rewriteExternalLearnLink = (
 	} else if (isTutorialPath) {
 		newUrl = rewriteExternalTutorialLink(urlObject, tutorialMap)
 	} else if (isProductHubPath) {
-		newUrl = `/${product}/tutorials`
+		const { search = '', hash = '' } = urlObject
+		newUrl = `/${product}/tutorials${search}${hash}`
 	}
 
 	return newUrl
