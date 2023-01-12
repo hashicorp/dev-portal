@@ -4,7 +4,8 @@ import { Definition, Link } from 'mdast'
 import { Plugin } from 'unified'
 import visit from 'unist-util-visit'
 import { productSlugsToHostNames } from 'lib/products'
-import { handleDotDotFolderRelativeUrl } from 'lib/remark-plugins/remark-plugin-adjust-link-urls/helpers'
+import { preAdjustUrl } from 'lib/remark-plugins/remark-plugin-adjust-link-urls/helpers'
+import { getProductUrlAdjuster } from 'views/docs-view/utils/product-url-adjusters'
 
 const DOT_IO_HOSTNAMES = Object.values(productSlugsToHostNames)
 
@@ -99,43 +100,23 @@ const handleRelativeUrl = ({
 	const productSlug = product.slug
 	const basePaths = product.basePaths
 
-	if (url.startsWith('/')) {
-		const matchingBasePath = basePaths.find((basePath) => {
-			return url.startsWith(`/${basePath}`)
-		})
-		if (matchingBasePath) {
-			linksToRewrite[url] = `/${productSlug}${url}`
-		} else {
-			unrewriteableLinks.push(url)
+	const currentFilePathAsRoute = currentFilePath.replace(/(\/index)?\.mdx/, '')
+	const associatedPageRoute = `/${productSlug}${currentFilePathAsRoute}`
+	const urlToAdjust = preAdjustUrl({ currentPath: associatedPageRoute, url })
+	const adjustedUrl = getProductUrlAdjuster(product)(urlToAdjust)
+
+	// If the URL has changed and it's a valid base path, track as rewriteable
+	const basePath = adjustedUrl.split('/')[2]
+	const isValidBasePath = basePaths.includes(basePath)
+	if (adjustedUrl !== url && isValidBasePath) {
+		if (isValidBasePath) {
+			linksToRewrite[url] = adjustedUrl
+			return
 		}
-		return
 	}
 
-	if (url.startsWith('./')) {
-		const joinedUrl = path.join(
-			currentFilePath.split('/').slice(0, -1).join('/'),
-			url.slice(2)
-		)
-		linksToRewrite[url] = `/${productSlug}${joinedUrl}`
-		return
-	}
-
-	if (url.startsWith('../')) {
-		const filePathAsRoute = currentFilePath.replace(/\.mdx$/, '')
-		const currentRoute = `/${productSlug}${filePathAsRoute}`
-		const adjustedUrl = handleDotDotFolderRelativeUrl({
-			currentPathParts: currentRoute.split('/'),
-			urlParts: url.split('/'),
-		})
-		linksToRewrite[url] = adjustedUrl
-		return
-	}
-
-	const joinedUrl = path.join(
-		currentFilePath.split('/').slice(0, -2).join('/'),
-		url
-	)
-	linksToRewrite[url] = `/${productSlug}${joinedUrl}`
+	// Otherwise, track as "unrewriteable"
+	unrewriteableLinks.push(url)
 }
 
 const handleNonRelativeUrl = ({
