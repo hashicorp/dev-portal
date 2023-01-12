@@ -1,5 +1,10 @@
 name: Redeploy Content Repo Previews
 
+# When the dev-portal/main branch is pushed to, redeploy the `main` branches of
+# the listed docs content repositories. The redeploys are triggered through a
+# Deploy Hook created for each repository's Vercel project. These can be found
+# in the Git settings within the Vercel project.
+
 on:
   push:
     branches:
