@@ -1,5 +1,16 @@
 import path from 'path'
 
+/**
+ * @TODO document
+ */
+const processDocsNode = ({ node, currentPath, urlAdjustFn }) => {
+	const urlToAdjust = preAdjustUrl({ currentPath, url: node.url })
+	node.url = urlAdjustFn(urlToAdjust)
+}
+
+/**
+ * @TODO document
+ */
 const getIsInternalPath = (url: string) => {
 	try {
 		new URL(url)
@@ -125,4 +136,5 @@ export {
 	handleDotDotFolderRelativeUrl,
 	handleDotSlashFolderRelativeUrl,
 	preAdjustUrl,
+	processDocsNode,
 }
