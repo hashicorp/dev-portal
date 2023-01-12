@@ -5,7 +5,7 @@ import { proxiedRivetClient } from 'lib/cms'
 import { abTestTrack } from 'lib/ab-test-track'
 import homepageQuery from './home/query.graphql'
 import { renderMetaTags } from '@hashicorp/react-head'
-import IoHomeHero from 'components/_proxied-dot-io/common/io-home-hero'
+import IoHomeHeroAlt from 'components/_proxied-dot-io/common/io-home-hero-alt'
 import IoHomeIntro from 'components/_proxied-dot-io/common/io-home-intro'
 import IoHomeInPractice from 'components/_proxied-dot-io/common/io-home-in-practice'
 import IoCardContainer from 'components/_proxied-dot-io/common/io-card-container'
@@ -17,9 +17,6 @@ import s from './home/style.module.css'
 function Homepage({ data }): React.ReactElement {
 	const {
 		seo,
-		heroHeading,
-		heroDescription,
-		heroCards,
 		introHeading,
 		introDescription,
 		introOfferingsImage,
@@ -57,7 +54,7 @@ function Homepage({ data }): React.ReactElement {
 		abTestTrack({
 			type: 'Served',
 			test_name: 'CRO home hero alt 2023-01',
-			variant: 'false',
+			variant: 'true',
 		})
 	}, [])
 
@@ -65,18 +62,24 @@ function Homepage({ data }): React.ReactElement {
 		<>
 			<Head>{renderMetaTags(seo)}</Head>
 
-			<IoHomeHero
-				pattern="/consul-public/img/home-hero-pattern.svg"
+			<IoHomeHeroAlt
 				brand="consul"
-				heading={heroHeading}
-				description={heroDescription}
-				// ctas={heroCtas}
-				cards={heroCards.map((card) => {
-					return {
-						...card,
-						cta: card.cta[0],
-					}
-				})}
+				patterns={{
+					start: '/consul-public/img/hero-pattern-start.svg',
+					end: '/consul-public/img/hero-pattern-end.svg',
+				}}
+				heading="Identity-based networking with Consul"
+				description="Consul uses service identities and traditional networking practices to help organizations securely connect applications running in any environment."
+				ctas={[
+					{
+						title: 'Try HCP Consul',
+						href: 'https://portal.cloud.hashicorp.com/sign-up',
+					},
+					{
+						title: 'Download open source',
+						href: '/downloads',
+					},
+				]}
 			/>
 
 			<IoHomeIntro

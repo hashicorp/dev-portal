@@ -94,6 +94,42 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		}
 	}
 
+	/**
+	 * We are running A/B tests on a subset of routes, so we are limiting the call to resolve flags from HappyKit to only those routes. This limits the impact of any additional latency to the routes which need the data.
+	 */
+	if (
+		geo?.country === 'US' &&
+		['vault', 'consul'].includes(product) &&
+		['/'].includes(req.nextUrl.pathname)
+	) {
+		try {
+			const edgeFlags = await getEdgeFlags({ request: req })
+			const { flags, cookie } = edgeFlags
+
+			if (product === 'vault' && req.nextUrl.pathname === '/') {
+				if (flags?.ioHomeHeroAlt) {
+					const url = req.nextUrl.clone()
+					url.pathname = '/_proxied-dot-io/vault/with-alt-hero'
+					response = setHappyKitCookie(cookie, NextResponse.rewrite(url))
+				} else {
+					response = setHappyKitCookie(cookie, NextResponse.next())
+				}
+			}
+
+			if (product === 'consul' && req.nextUrl.pathname === '/') {
+				if (flags?.ioHomeHeroAlt) {
+					const url = req.nextUrl.clone()
+					url.pathname = '/_proxied-dot-io/consul/with-alt-hero'
+					response = setHappyKitCookie(cookie, NextResponse.rewrite(url))
+				} else {
+					response = setHappyKitCookie(cookie, NextResponse.next())
+				}
+			}
+		} catch {
+			// Fallback to default URLs
+		}
+	}
+
 	if (!response) {
 		response = NextResponse.next()
 	}
