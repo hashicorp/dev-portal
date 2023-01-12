@@ -2,6 +2,7 @@ import InlineAlert from 'components/inline-alert'
 import { IconInfo24 } from '@hashicorp/flight-icons/svg-react/info-24'
 import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'
 import { IconAlertDiamond24 } from '@hashicorp/flight-icons/svg-react/alert-diamond-24'
+import { MdxHighlight, MdxTip, MdxNote, MdxWarning } from './variants'
 import { MdxInlineAlertData, MdxInlineAlertProps } from './types'
 import s from './mdx-inline-alert.module.css'
 
@@ -43,7 +44,10 @@ export function MdxInlineAlert({
 				title={title ?? data.title}
 				description={children}
 				color={data.color}
+				className={s.typographyOverride}
 			/>
 		</div>
 	)
 }
+
+export { MdxHighlight, MdxTip, MdxNote, MdxWarning }
