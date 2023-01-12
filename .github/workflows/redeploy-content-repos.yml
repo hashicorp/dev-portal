@@ -20,6 +20,8 @@ jobs:
   redeploy-content-repo-previews:
     runs-on: ubuntu-latest
     steps:
+      - name: Trigger "boundary" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_BOUNDARY }}
       - name: Trigger "cloud-docs-developer-preview" deploy
         run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_CLOUD_DOCS_DEVELOPER_PREVIEW }}
       - name: Trigger "vagrant" deploy
