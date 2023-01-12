@@ -1,0 +1,51 @@
+name: Redeploy Content Repo Previews
+
+# When the dev-portal/main branch is pushed to, redeploy the `main` branches of
+# the listed docs content repositories. The redeploys are triggered through a
+# Deploy Hook created for each repository's Vercel project. These can be found
+# in the Git settings within the Vercel project.
+#
+# For consistency and traceability, each new secret should be named using the
+# following convention:
+#
+#   VERCEL_DEPLOY_HOOK_<vercel-project-slug>
+#
+# And new Deploy Hooks should be named:
+#
+#   "Re-deploy when dev-portal/main updates"
+#
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  redeploy-content-repo-previews:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger "boundary" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_BOUNDARY }}
+
+      - name: Trigger "cloud-docs-developer-preview (HCP)" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_CLOUD_DOCS_DEVELOPER_PREVIEW }}
+
+      - name: Trigger "consul" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_CONSUL }}
+
+      - name: Trigger "nomad" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_NOMAD }}
+
+      - name: Trigger "packer" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_PACKER }}
+
+      # TODO add Terraform
+
+      - name: Trigger "vagrant" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_VAGRANT }}
+
+      - name: Trigger "vault" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_VAULT }}
+
+      - name: Trigger "waypoint" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_WAYPOINT }}
