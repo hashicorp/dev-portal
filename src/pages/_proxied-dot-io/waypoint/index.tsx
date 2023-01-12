@@ -27,7 +27,9 @@ export default function WaypointHomepage({ data }): React.ReactElement {
 		heroCards,
 		introHeading,
 		introDescription,
-		introFeatures,
+		introOfferingsImage,
+		introOfferings,
+		introOfferingsCta,
 		introVideo,
 		inPracticeHeading,
 		inPracticeDescription,
@@ -70,7 +72,16 @@ export default function WaypointHomepage({ data }): React.ReactElement {
 				brand="waypoint"
 				heading={introHeading}
 				description={introDescription}
-				features={introFeatures}
+				offerings={{
+					image: {
+						src: introOfferingsImage.url,
+						width: introOfferingsImage.width,
+						height: introOfferingsImage.height,
+						alt: introOfferingsImage.alt,
+					},
+					list: introOfferings,
+					cta: introOfferingsCta[0],
+				}}
 				video={{
 					youtubeId: _introVideo?.youtubeId,
 					thumbnail: _introVideo?.thumbnail?.url,
