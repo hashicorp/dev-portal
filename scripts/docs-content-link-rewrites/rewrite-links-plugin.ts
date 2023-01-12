@@ -4,6 +4,7 @@ import { Definition, Link } from 'mdast'
 import { Plugin } from 'unified'
 import visit from 'unist-util-visit'
 import { productSlugsToHostNames } from 'lib/products'
+import { handleDotDotFolderRelativeUrl } from 'lib/remark-plugins/remark-plugin-adjust-link-urls/helpers'
 
 const DOT_IO_HOSTNAMES = Object.values(productSlugsToHostNames)
 
@@ -120,24 +121,13 @@ const handleRelativeUrl = ({
 	}
 
 	if (url.startsWith('../')) {
-		let dotsCount = 0
-		const withoutDots = url.split('/').filter((part) => {
-			const isDots = part === '..'
-			if (isDots) {
-				dotsCount += 1
-			}
-
-			return !isDots
+		const filePathAsRoute = currentFilePath.replace(/\.mdx$/, '')
+		const currentRoute = `/${productSlug}${filePathAsRoute}`
+		const adjustedUrl = handleDotDotFolderRelativeUrl({
+			currentPathParts: currentRoute.split('/'),
+			urlParts: url.split('/'),
 		})
-
-		const joinedUrl = path.join(
-			withoutDots.join('/'),
-			currentFilePath
-				.split('/')
-				.slice(0, -(dotsCount + 1))
-				.join('/')
-		)
-		linksToRewrite[url] = `/${productSlug}/${joinedUrl}`
+		linksToRewrite[url] = adjustedUrl
 		return
 	}
 

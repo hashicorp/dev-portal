@@ -2,7 +2,7 @@ import {
 	expandUrlTestCasesWithParams,
 	TestCase,
 } from 'lib/testing/expand-url-test-cases-with-params'
-import { preAdjustUrl } from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
+import { preAdjustUrl } from 'lib/remark-plugins/remark-plugin-adjust-link-urls/helpers'
 
 const testEachCase = (testCases: TestCase[]) => {
 	const allCases = expandUrlTestCasesWithParams(testCases)
