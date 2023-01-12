@@ -38,6 +38,7 @@ export interface ButtonArrowProps {
 
 export interface ButtonNumberProps {
 	page: number
+	active?: boolean
 }
 
 export interface SizeSelectorProps {

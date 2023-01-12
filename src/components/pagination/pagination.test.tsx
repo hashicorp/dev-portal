@@ -135,6 +135,23 @@ describe('Pagination', () => {
 	`)
 	})
 
+	it('should render an active button', () => {
+		// page 3 is active
+		const { queryByRole } = render(
+			<Pagination totalItems={103} pageSize={10} page={3}>
+				<Pagination.Info />
+				<Pagination.Nav type="numbered" />
+				<Pagination.SizeSelector sizes={[10, 30, 50]} />
+			</Pagination>
+		)
+
+		// button for page 3 should have aria-current="page"
+		expect(queryByRole('button', { name: '3' })).toHaveAttribute(
+			'aria-current',
+			'page'
+		)
+	})
+
 	describe('compact nav', () => {
 		it('onPageChange is called with the correct index', async () => {
 			const onPageChange = jest.fn()

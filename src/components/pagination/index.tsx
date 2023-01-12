@@ -156,7 +156,7 @@ const Nav = ({ type = 'compact' }: NavProps) => {
 								// the previous `document.activeElement`
 								key={e}
 							>
-								<ButtonNumber page={e} />
+								<ButtonNumber page={e} active={isSelected} />
 							</li>
 						)
 					})}
@@ -211,7 +211,7 @@ const ButtonArrow = ({ type, direction }: ButtonArrowProps) => {
 	)
 }
 
-const ButtonNumber = ({ page }: ButtonNumberProps) => {
+const ButtonNumber = ({ page, active }: ButtonNumberProps) => {
 	const pagination = usePagination()
 	const handleClick = () => {
 		pagination.setPage(page)
@@ -221,6 +221,7 @@ const ButtonNumber = ({ page }: ButtonNumberProps) => {
 			className={classNames(s.control)}
 			type="button"
 			onClick={handleClick}
+			aria-current={active ? 'page' : undefined}
 		>
 			{page}
 		</button>
