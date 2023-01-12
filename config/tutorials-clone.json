@@ -1,0 +1,12 @@
+{
+	"extends": "base",
+	"io_sites": {
+		"max_static_paths": 0
+	},
+	"dev_dot": {
+		"max_static_paths": 0
+	},
+	"learn": {
+		"max_static_paths": 10000
+	}
+}
