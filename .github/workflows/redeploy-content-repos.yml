@@ -1,26 +1,17 @@
 name: Redeploy Content Repo Previews
 
 on:
-  # TODO remove before merging
-  pull_request:
-    types: [labeled]
-  # TODO uncomment before merging
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
 
 jobs:
   redeploy-content-repo-previews:
-    # TODO remove this `if` before merging
-    if: ${{ github.event.label.name == 'workflow-test-label' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Test `curl` when secret doesn't exists
-        run: curl -X POST  ${{ secrets.RANDOM_SECRET_NAME_FOR_TESTING }}
-
-      - name: Echo something else if the secret exists
-        run: echo "Does this subsequent step run if the previous fails?"
-
-      # TODO uncomment before merging (it works! :D)
-      # - name: Trigger "cloud-docs-developer-preview" deploy
-      #   run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_CLOUD_DOCS_DEVELOPER_PREVIEW }}
+      - name: Trigger "cloud-docs-developer-preview" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_CLOUD_DOCS_DEVELOPER_PREVIEW }}
+      - name: Trigger "vagrant" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_VAGRANT }}
+      - name: Trigger "waypoint" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_WAYPOINT }}
