@@ -1,108 +1,131 @@
 import { ProductSlug } from 'types/products'
+import {
+	expandUrlTestCasesWithParams,
+	TestCase,
+} from 'lib/testing/expand-url-test-cases-with-params'
 import { productSlugsToHostNames } from 'lib/products'
 import { rewriteExternalDocsLink } from '../utils'
 
-const getTestURLObject = (url: string) => {
-	return new URL(url, __config.dev_dot.canonical_base_url)
-}
-
-const URL_SUFFIXES = ['', '?param=value', '#heading', '?param=value#heading']
-
-const testEachCase = (cases: [string, string][]) => {
-	const allCases = []
-	cases.forEach(([input, expected]) => {
-		URL_SUFFIXES.forEach((suffix) => {
-			allCases.push([
-				typeof input === 'string' ? `${input}${suffix}` : input,
-				typeof expected === 'string' ? `${expected}${suffix}` : expected,
-			])
-		})
-	})
-
-	test.each(allCases)('%p -> %p', (input: string, expectedOutput: string) => {
-		const testUrlObject = getTestURLObject(input)
-		expect(rewriteExternalDocsLink(testUrlObject)).toBe(expectedOutput)
-	})
+const testEachCase = (cases: TestCase[]) => {
+	const allCases = expandUrlTestCasesWithParams(cases)
+	test.each(allCases)(
+		'$input -> $expected',
+		({ input, expected }: TestCase) => {
+			const testUrlObject = new URL(input, __config.dev_dot.canonical_base_url)
+			expect(rewriteExternalDocsLink(testUrlObject)).toBe(expected)
+		}
+	)
 }
 
 describe('rewriteExternalDocsLink', () => {
 	describe('when the URL is not to an external docs site', () => {
 		testEachCase([
-			['/vault/api', undefined],
-			['/waypoint/docs', undefined],
-			['/vault/tutorials', undefined],
-			['/waypoint/tutorials', undefined],
-			['https://developer.hashicorp.com/vault/api', undefined],
-			['https://developer.hashicorp.com/waypoint/docs', undefined],
-			['https://learn.hashicorp.com/vault', undefined],
-			['https://learn.hashicorp.com/waypoint', undefined],
+			{ input: '/vault/api', expected: undefined },
+			{ input: '/waypoint/docs', expected: undefined },
+			{ input: '/vault/tutorials', expected: undefined },
+			{ input: '/waypoint/tutorials', expected: undefined },
+			{
+				input: 'https://developer.hashicorp.com/vault/api',
+				expected: undefined,
+			},
+			{
+				input: 'https://developer.hashicorp.com/waypoint/docs',
+				expected: undefined,
+			},
+			{ input: 'https://learn.hashicorp.com/vault', expected: undefined },
+			{ input: 'https://learn.hashicorp.com/waypoint', expected: undefined },
 		])
 	})
 
 	describe('when the `basePath` is not rewriteable for the determined product', () => {
 		testEachCase([
-			['https://www.vaultproject.io/use-cases', undefined],
-			['https://www.vaultproject.io/community', undefined],
-			['https://www.vaultproject.io/some-random-base-path', undefined],
+			{ input: 'https://www.vaultproject.io/use-cases', expected: undefined },
+			{ input: 'https://www.vaultproject.io/community', expected: undefined },
+			{
+				input: 'https://www.vaultproject.io/some-random-base-path',
+				expected: undefined,
+			},
 		])
 	})
 
 	describe('docs site home pages are rewritten to product landing pages', () => {
 		testEachCase(
 			Object.keys(productSlugsToHostNames).map((productSlug: ProductSlug) => {
-				const hostname = `https://${productSlugsToHostNames[productSlug]}`
-				const productLandingPath = `/${productSlug}`
-				const expectedOutput = productLandingPath
-
-				return [hostname, expectedOutput]
+				const input = `https://${productSlugsToHostNames[productSlug]}`
+				const expected = `/${productSlug}`
+				return { input, expected }
 			})
 		)
 	})
 
 	describe('when the base path is not "api"', () => {
 		testEachCase([
-			['https://vaultproject.io/docs', '/vault/docs'],
-			['https://waypointproject.io/docs', '/waypoint/docs'],
-			['https://vaultproject.io/docs/some/path', '/vault/docs/some/path'],
-			['https://waypointproject.io/docs/some/path', '/waypoint/docs/some/path'],
+			{ input: 'https://vaultproject.io/docs', expected: '/vault/docs' },
+			{ input: 'https://waypointproject.io/docs', expected: '/waypoint/docs' },
+			{
+				input: 'https://vaultproject.io/docs/some/path',
+				expected: '/vault/docs/some/path',
+			},
+			{
+				input: 'https://waypointproject.io/docs/some/path',
+				expected: '/waypoint/docs/some/path',
+			},
 		])
 	})
 
 	describe('when the base path is "api"', () => {
 		testEachCase([
-			['https://vaultproject.io/api', '/vault/api-docs'],
-			['https://vaultproject.io/api/some/path', '/vault/api-docs/some/path'],
+			{ input: 'https://vaultproject.io/api', expected: '/vault/api-docs' },
+			{
+				input: 'https://vaultproject.io/api/some/path',
+				expected: '/vault/api-docs/some/path',
+			},
 		])
 	})
 
 	describe('when the page is "index.html"', () => {
 		testEachCase([
-			['https://waypointproject.io/docs/index.html', '/waypoint/docs'],
-			[
-				'https://waypointproject.io/docs/some/path/index.html',
-				'/waypoint/docs/some/path',
-			],
-			['https://vaultproject.io/api/index.html', '/vault/api-docs'],
-			[
-				'https://vaultproject.io/api/some/path/index.html',
-				'/vault/api-docs/some/path',
-			],
+			{
+				input: 'https://waypointproject.io/docs/index.html',
+				expected: '/waypoint/docs',
+			},
+			{
+				input: 'https://waypointproject.io/docs/some/path/index.html',
+				expected: '/waypoint/docs/some/path',
+			},
+			{
+				input: 'https://vaultproject.io/api/index.html',
+				expected: '/vault/api-docs',
+			},
+			{
+				input: 'https://vaultproject.io/api/some/path/index.html',
+				expected: '/vault/api-docs/some/path',
+			},
 		])
 	})
 
 	describe('when the page ends with ".html"', () => {
 		testEachCase([
-			['https://www.terraform.io/downloads.html', '/terraform/downloads'],
-			['https://waypointproject.io/docs/page.html', '/waypoint/docs/page'],
-			[
-				'https://waypointproject.io/docs/some/path.html',
-				'/waypoint/docs/some/path',
-			],
-			['https://vaultproject.io/api/page.html', '/vault/api-docs/page'],
-			[
-				'https://vaultproject.io/api/some/path.html',
-				'/vault/api-docs/some/path',
-			],
+			{
+				input: 'https://www.terraform.io/downloads.html',
+				expected: '/terraform/downloads',
+			},
+			{
+				input: 'https://waypointproject.io/docs/page.html',
+				expected: '/waypoint/docs/page',
+			},
+			{
+				input: 'https://waypointproject.io/docs/some/path.html',
+				expected: '/waypoint/docs/some/path',
+			},
+			{
+				input: 'https://vaultproject.io/api/page.html',
+				expected: '/vault/api-docs/page',
+			},
+			{
+				input: 'https://vaultproject.io/api/some/path.html',
+				expected: '/vault/api-docs/some/path',
+			},
 		])
 	})
 })
