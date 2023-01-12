@@ -57,7 +57,7 @@
 		bottom: 0;
 		left: 6px;
 		height: var(--token-pagination-indicator-height);
-		margin: 0 auto;
+		margin: -5px auto;
 		background-color: currentColor;
 		border-radius: 2px;
 		content: '';
@@ -65,13 +65,14 @@
 }
 
 .control {
+	composes: g-focus-ring-from-box-shadow from global;
+	border-radius: 5px;
 	color: inherit;
 	font-weight: var(--token-typography-font-weight-medium);
 	text-decoration: none;
 	background-color: transparent;
-	border: 1px solid transparent;
+	border: none;
 	position: relative;
-	isolation: isolate;
 
 	&:hover {
 		color: var(--token-color-foreground-action-hover);
