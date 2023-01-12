@@ -1,11 +1,11 @@
 import fs from 'fs'
 import path from 'path'
-import { normalizeRemoteLoaderSlug } from '../../src/lib/docs-content-link-rewrites/normalize-remote-loader-slug'
-import { getDocsToDevDotUrlMap } from './helpers/get-dot-io-to-dev-dot-url-map'
-import { getLearnToDevDotUrlMap } from './helpers/get-learn-to-dev-dot-url-map'
+import { normalizeRemoteLoaderSlug } from 'lib/docs-content-link-rewrites/normalize-remote-loader-slug'
+import { cachedGetProductData } from 'lib/get-product-data'
+import { getProductUrlAdjuster } from 'views/docs-view/utils/product-url-adjusters'
 import { getMdxLinksToRewrite } from './helpers/get-mdx-links-to-rewrite'
 import { getRewriteLinksScriptArguments } from './helpers/get-rewrite-links-script-arguments'
-import { getRewrittenNavDataJsonForFilePaths } from './helpers/get-rewritten-nav-data-json-for-file-paths'
+// import { getRewrittenNavDataJsonForFilePaths } from './helpers/get-rewritten-nav-data-json-for-file-paths'
 import { rewriteFileContentString } from './helpers/rewrite-file-content-string'
 
 const main = async () => {
@@ -26,14 +26,10 @@ const main = async () => {
 		return
 	}
 
-	// If there files to check, start pulling .io and learn data needed
-	console.log('Loading dotIoToDevDotPaths...')
-	const dotIoToDevDotPaths = getDocsToDevDotUrlMap()
-	console.log('Loading learnToDevDotPaths...')
-	const learnToDevDotPaths = await getLearnToDevDotUrlMap()
-
 	// Invoke the helpers that checks MDX and JSON files for rewriteable links
 	const normalizedProductSlug = normalizeRemoteLoaderSlug(repo)
+	const productData = cachedGetProductData(normalizedProductSlug)
+	const urlAdjustFn = getProductUrlAdjuster(productData)
 	console.log(
 		`Processing ${changedMdxFiles.length} .mdx files and ${changedNavDataJsonFiles.length} -nav-data.json files`
 	)
@@ -81,11 +77,9 @@ const main = async () => {
 	 */
 	const { mdxLinksToRewrite, mdxUnrewriteableLinks } =
 		await getMdxLinksToRewrite({
-			dotIoToDevDotPaths,
 			filePathPrefix: mdxFilesPrefix,
 			filePaths: changedMdxFiles,
-			learnToDevDotPaths,
-			normalizedProductSlug,
+			urlAdjustFn,
 		})
 
 	// Handle files that contain links that need to be rewritten.
