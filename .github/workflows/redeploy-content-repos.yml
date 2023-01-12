@@ -15,16 +15,11 @@ jobs:
     if: ${{ github.event.label.name == 'workflow-test-label' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Check if "RANDOM_SECRET_NAME_FOR_TESTING" secret exists
-        env:
-          RANDOM_SECRET_NAME_FOR_TESTING: ${{ secrets.RANDOM_SECRET_NAME_FOR_TESTING }}
-        if: ${{ env.RANDOM_SECRET_NAME_FOR_TESTING == '' }}
-        run: echo "The `RANDOM_SECRET_NAME_FOR_TESTING` secret does not exist."
+      - name: Test `curl` when secret doesn't exists
+        run: curl -X POST  ${{ secrets.RANDOM_SECRET_NAME_FOR_TESTING }}
+
       - name: Echo something else if the secret exists
-        env:
-          RANDOM_SECRET_NAME_FOR_TESTING: ${{ secrets.RANDOM_SECRET_NAME_FOR_TESTING }}
-        if: ${{ env.RANDOM_SECRET_NAME_FOR_TESTING != '' }}
-        run: echo "Cool, the secret exists"
+        run: echo "Does this subsequent step run if the previous fails?"
 
       # TODO uncomment before merging (it works! :D)
       # - name: Trigger "cloud-docs-developer-preview" deploy
