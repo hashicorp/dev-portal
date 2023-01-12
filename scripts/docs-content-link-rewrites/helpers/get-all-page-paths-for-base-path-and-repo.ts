@@ -36,7 +36,7 @@ const getAllPagePathsForBasePathAndRepo = async ({
 
 		return allPagePaths
 	} catch (e) {
-		console.error(e)
+		console.warn(e)
 		return []
 	}
 }
