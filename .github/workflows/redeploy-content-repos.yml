@@ -1,0 +1,19 @@
+name: Redeploy Content Repo Previews
+
+on:
+  # TODO remove before merging
+  pull_request:
+    types: [labeled]
+  # TODO uncomment before merging
+  # push:
+  #   branches:
+  #     - main
+
+jobs:
+  redeploy-content-repo-previews:
+    # TODO remove before merging
+    if: ${{ github.event.label.name == 'workflow-test-label' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger "cloud-docs-developer-preview" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_CLOUD_DOCS_DEVELOPER_PREVIEW }}
