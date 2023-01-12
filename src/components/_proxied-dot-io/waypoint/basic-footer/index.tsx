@@ -7,17 +7,13 @@ export default function Footer({ openConsentManager }) {
 			<div className={s.inner}>
 				<div className={s.content}>
 					<div className={s.left}>
-						<Link href="/docs">
-							<a>Docs</a>
-						</Link>
+						<Link href="/docs">Docs</Link>
 						<a href="https://learn.hashicorp.com/waypoint">Learn</a>
 						<a href="https://www.hashicorp.com/terms-of-service">
 							Terms of Service
 						</a>
 						<a href="https://hashicorp.com/privacy">Privacy</a>
-						<Link href="/security">
-							<a>Security</a>
-						</Link>
+						<Link href="/security">Security</Link>
 						<a href="/files/press-kit.zip">Press Kit</a>
 						<a onClick={openConsentManager}>Consent Manager</a>
 					</div>
