@@ -11,9 +11,17 @@ on:
 
 jobs:
   redeploy-content-repo-previews:
-    # TODO remove before merging
+    # TODO remove this `if` before merging
     if: ${{ github.event.label.name == 'workflow-test-label' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger "cloud-docs-developer-preview" deploy
-        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_CLOUD_DOCS_DEVELOPER_PREVIEW }}
+      - name: Check if "RANDOM_SECRET_NAME_FOR_TESTING" secret exists
+        if: ${{ secrets.RANDOM_SECRET_NAME_FOR_TESTING == '' }}
+        run: echo "The `RANDOM_SECRET_NAME_FOR_TESTING` secret does not exist."
+      - name: Echo something else if the secret exists
+        if: ${{ secrets.RANDOM_SECRET_NAME_FOR_TESTING != '' }}
+        run: echo "Cool, the secret exists"
+
+      # TODO uncomment before merging (it works! :D)
+      # - name: Trigger "cloud-docs-developer-preview" deploy
+      #   run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_CLOUD_DOCS_DEVELOPER_PREVIEW }}
