@@ -1,3 +1,4 @@
+import path from 'path'
 import { visit } from 'unist-util-visit'
 import { Definition, Link } from 'mdast'
 import { Plugin, Transformer } from 'unified'
@@ -9,6 +10,60 @@ const getIsInternalPath = (url: string) => {
 	} catch (e) {
 		return true
 	}
+}
+
+/**
+ * Handles folder-relative URLs that start with the "dot-dot" (..) syntax. This
+ * syntax is used to link to a parent, grandparent, etc. from the current path.
+ */
+const handleDotDotFolderRelativeUrl = ({
+	currentPathParts,
+	urlParts,
+}: {
+	currentPathParts: string[]
+	urlParts: string[]
+}) => {
+	// First, count how many dot-dot parts there are
+	let numDotDotParts = 0
+	urlParts.forEach((part: string) => {
+		if (part === '..') {
+			numDotDotParts += 1
+		}
+	})
+
+	// Slice off (from the end) the levels we don't want from the current path
+	const newCurrentPathParts = currentPathParts.slice(0, -(numDotDotParts + 1))
+
+	// Remove all the dot-dot parts from the url
+	const newUrlParts = urlParts.slice(numDotDotParts)
+
+	// Join all the parts together
+	const newUrl = [...newCurrentPathParts, ...newUrlParts].join('/')
+
+	// Return the new url
+	return newUrl
+}
+
+/**
+ * Handles folder-relative URLs that start with the "dot-slash" (./) syntax.
+ * This syntax is used to link to a child, grandchild, etc. from the current
+ * path.
+ */
+const handleDotSlashFolderRelativeUrl = ({
+	currentPath,
+	url,
+}: {
+	currentPath: string
+	url: string
+}) => {
+	// Remove the leading dot-slash from the url
+	const urlWithOutDotSlash = url.slice('./'.length)
+
+	// Concatenate the current path and url (without the dot-slash)
+	const newUrl = path.join(currentPath, urlWithOutDotSlash)
+
+	// Return the new url
+	return newUrl
 }
 
 /**
@@ -35,6 +90,16 @@ export const preAdjustUrl = ({ currentPath, url }): string => {
 	// Since they're worth checking, split up url and currentPath
 	const urlParts = url.split('/')
 	const currentPathParts = currentPath.split('/')
+
+	// Handle folder-relative URL that is linking upwards
+	if (url.startsWith('../')) {
+		return handleDotDotFolderRelativeUrl({ currentPathParts, urlParts })
+	}
+
+	// Handle folder-relative URL that is linking downwards
+	if (url.startsWith('./')) {
+		return handleDotSlashFolderRelativeUrl({ currentPath, url })
+	}
 
 	// Search for first part of url within currentPath
 	const indexInCurrentPath = currentPathParts.indexOf(urlParts[0])
