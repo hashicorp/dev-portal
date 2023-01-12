@@ -1,11 +1,33 @@
 import path from 'path'
+import { Definition, Link } from 'mdast'
 
 /**
  * @TODO document
  */
-const processDocsNode = ({ node, currentPath, urlAdjustFn }) => {
+const processDocsNode = ({
+	node,
+	currentPath,
+	urlAdjustFn,
+	statistics = {},
+}: {
+	node: Link | Definition
+	currentPath: string
+	urlAdjustFn: (url: string) => string
+	statistics?: {
+		linksToRewrite?: Record<string, string>
+		unrewriteableLinks?: string[]
+	}
+}) => {
 	const urlToAdjust = preAdjustUrl({ currentPath, url: node.url })
-	node.url = urlAdjustFn(urlToAdjust)
+	const newUrl = urlAdjustFn(urlToAdjust)
+
+	const { linksToRewrite = {}, unrewriteableLinks = [] } = statistics
+	if (newUrl !== node.url) {
+		linksToRewrite[node.url] = newUrl
+		node.url = newUrl
+	} else {
+		unrewriteableLinks.push(node.url)
+	}
 }
 
 /**
