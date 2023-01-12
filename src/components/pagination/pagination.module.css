@@ -2,6 +2,7 @@
 	--token-pagination-control-height: 36px;
 	--token-pagination-control-padding-horizontal: 11px;
 	--token-pagination-indicator-height: 2px;
+	--token-pagination-nav-control-focus-inset: 4px;
 
 	composes: hds-typography-body-100 from global;
 	font-weight: var(--token-typography-font-weight-medium);
@@ -30,6 +31,7 @@
 	font-weight: var(--token-typography-font-weight-medium);
 
 	& .control {
+		color: var(--token-color-foreground-primary);
 		&:disabled {
 			color: var(--token-color-foreground-disabled);
 			cursor: not-allowed;
@@ -57,7 +59,7 @@
 		bottom: 0;
 		left: 6px;
 		height: var(--token-pagination-indicator-height);
-		margin: -5px auto;
+		margin: 0 auto;
 		background-color: currentColor;
 		border-radius: 2px;
 		content: '';
@@ -65,7 +67,6 @@
 }
 
 .control {
-	composes: g-focus-ring-from-box-shadow from global;
 	border-radius: 5px;
 	color: inherit;
 	font-weight: var(--token-typography-font-weight-medium);
@@ -76,6 +77,24 @@
 
 	&:hover {
 		color: var(--token-color-foreground-action-hover);
+	}
+
+	/* focus ring */
+	&::before {
+		top: var(--token-pagination-nav-control-focus-inset);
+		right: var(--token-pagination-nav-control-focus-inset);
+		bottom: var(--token-pagination-nav-control-focus-inset);
+		left: var(--token-pagination-nav-control-focus-inset);
+		z-index: -1;
+		border-radius: 5px;
+		position: absolute;
+		content: '';
+	}
+	&:focus {
+		outline: transparent;
+	}
+	&:focus-visible::before {
+		box-shadow: var(--token-focus-ring-action-box-shadow);
 	}
 }
 
