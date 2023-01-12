@@ -4,6 +4,12 @@ name: Redeploy Content Repo Previews
 # the listed docs content repositories. The redeploys are triggered through a
 # Deploy Hook created for each repository's Vercel project. These can be found
 # in the Git settings within the Vercel project.
+#
+# For consistency and traceability, each new secret should be named using the
+# following convention:
+#
+#   VERCEL_DEPLOY_HOOK_<vercel-project-slug>
+#
 
 on:
   push:
