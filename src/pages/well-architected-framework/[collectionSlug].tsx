@@ -48,9 +48,11 @@ export async function getStaticProps({
 
 export async function getStaticPaths() {
 	const allCollections = await getCollectionsBySection(wafData.slug)
-	const paths = allCollections.map((c: ApiCollection) => ({
-		params: { collectionSlug: splitProductFromFilename(c.slug) },
-	}))
+	const paths = allCollections
+		.map((c: ApiCollection) => ({
+			params: { collectionSlug: splitProductFromFilename(c.slug) },
+		}))
+		.slice(0, __config.dev_dot.max_static_paths)
 
 	return { paths, fallback: false }
 }

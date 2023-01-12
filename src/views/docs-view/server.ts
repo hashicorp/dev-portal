@@ -130,7 +130,7 @@ export function getStaticGenerationFunctions<
 				// terraform-cdk has some exceptionally large pages that cannot be ISR'd due to lambda response size limits. As a result, we force the SSG of these pages.
 				// TODO: remove this block when we come up with an alternative workaround to CDKTF's large pages
 				return {
-					paths: pathsFromNavData,
+					paths: pathsFromNavData.slice(0, __config.dev_dot.max_static_paths),
 					fallback: 'blocking',
 				}
 			}

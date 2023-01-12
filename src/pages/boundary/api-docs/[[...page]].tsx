@@ -57,7 +57,10 @@ export async function getStaticPaths() {
 		paths = getPathsFromSchema(schema)
 	}
 
-	return { paths, fallback: false }
+	return {
+		paths: paths.slice(0, __config.dev_dot.max_static_paths),
+		fallback: false,
+	}
 }
 
 export async function getStaticProps({ params }) {
