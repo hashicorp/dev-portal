@@ -18,18 +18,6 @@ const processDocsNode = ({
 }
 
 /**
- * @TODO document
- */
-const getIsInternalPath = (url: string) => {
-	try {
-		new URL(url)
-		return false
-	} catch (e) {
-		return true
-	}
-}
-
-/**
  * Handles folder-relative URLs that start with the "dot-dot" (..) syntax. This
  * syntax is used to link to a parent, grandparent, etc. from the current path.
  */
@@ -93,10 +81,16 @@ const preAdjustUrl = ({ currentPath, url }): string => {
 		return url
 	}
 
-	// Do nothing if url is not an internal path
-	const isInternalPath = getIsInternalPath(url)
-	if (!isInternalPath) {
-		return url
+	// Handle developer.hashicorp.com links if needed
+	try {
+		const { hostname, pathname, search = '', hash = '' } = new URL(url)
+		if (hostname === 'developer.hashicorp.com') {
+			return `${pathname}${search}${hash}`
+		} else {
+			return url
+		}
+	} catch (e) {
+		// is an internal path, so continue to rest of function
 	}
 
 	// Do nothing if url is a top-level path
