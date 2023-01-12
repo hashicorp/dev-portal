@@ -10,6 +10,10 @@ name: Redeploy Content Repo Previews
 #
 #   VERCEL_DEPLOY_HOOK_<vercel-project-slug>
 #
+# And new Deploy Hooks should be named:
+#
+#   "Re-deploy when dev-portal/main updates"
+#
 
 on:
   push:
@@ -22,9 +26,26 @@ jobs:
     steps:
       - name: Trigger "boundary" deploy
         run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_BOUNDARY }}
-      - name: Trigger "cloud-docs-developer-preview" deploy
+
+      - name: Trigger "cloud-docs-developer-preview (HCP)" deploy
         run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_CLOUD_DOCS_DEVELOPER_PREVIEW }}
+
+      - name: Trigger "consul" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_CONSUL }}
+
+      - name: Trigger "nomad" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_NOMAD }}
+
+      - name: Trigger "packer" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_PACKER }}
+
+      # TODO add Terraform
+
       - name: Trigger "vagrant" deploy
         run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_VAGRANT }}
+
+      - name: Trigger "vault" deploy
+        run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_VAULT }}
+
       - name: Trigger "waypoint" deploy
         run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_WAYPOINT }}
