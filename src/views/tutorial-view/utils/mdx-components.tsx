@@ -1,6 +1,3 @@
-// HashiCorp imports
-import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
-
 // Global imports
 import AccordionDisclosure from 'components/accordion-disclosure'
 import Image from 'components/image'
@@ -24,12 +21,11 @@ import {
 	MdxInlineCode,
 	MdxBlockquote,
 	MdxTryHcpCallout,
+	MdxCodeTabs,
+	MdxPre,
+	MdxCodeBlockConfig,
 } from 'components/dev-dot-content/mdx-components'
 import VideoEmbed from 'components/video-embed'
-
-const { CodeBlockConfig, CodeTabs, pre } = codeBlockPrimitives({
-	theme: 'dark',
-})
 
 /**
  * @TODO
@@ -46,10 +42,10 @@ const MDX_COMPONENTS = {
 	Accordion: AccordionWrapper,
 	Tabs: MdxTabs,
 	Tab: MdxTab,
-	pre,
+	pre: MdxPre,
 	inlineCode: MdxInlineCode,
-	CodeBlockConfig,
-	CodeTabs,
+	CodeBlockConfig: MdxCodeBlockConfig,
+	CodeTabs: MdxCodeTabs,
 	ImageConfig,
 	InteractiveLabCallout,
 	img: Image,
