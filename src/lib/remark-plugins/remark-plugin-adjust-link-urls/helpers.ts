@@ -8,26 +8,13 @@ const processDocsNode = ({
 	node,
 	currentPath,
 	urlAdjustFn,
-	statistics = {},
 }: {
 	node: Link | Definition
 	currentPath: string
 	urlAdjustFn: (url: string) => string
-	statistics?: {
-		linksToRewrite?: Record<string, string>
-		unrewriteableLinks?: string[]
-	}
 }) => {
 	const urlToAdjust = preAdjustUrl({ currentPath, url: node.url })
-	const newUrl = urlAdjustFn(urlToAdjust)
-
-	const { linksToRewrite = {}, unrewriteableLinks = [] } = statistics
-	if (newUrl !== node.url) {
-		linksToRewrite[node.url] = newUrl
-		node.url = newUrl
-	} else {
-		unrewriteableLinks.push(node.url)
-	}
+	node.url = urlAdjustFn(urlToAdjust)
 }
 
 /**
