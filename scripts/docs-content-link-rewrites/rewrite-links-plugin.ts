@@ -28,12 +28,12 @@ const rewriteLinksPlugin: Plugin = ({
 
 			// Only adjust if the URL is not empty
 			if (node.url !== '') {
-				// Apply changes made by the tutorials link rewriter
-				node.url = rewriteTutorialsLink(originalUrl, TUTORIAL_MAP, 'docs')
-
-				// Apply changes on top of that with the docs link rewriter
+				// First, use the docs link rewriter
 				// (this helper modifies `node.url`, does not return new url)
 				processDocsNode({ node, currentPath, urlAdjustFn })
+
+				// Then apply changes on top of that with the tutorials link rewriter
+				node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP, 'docs')
 			}
 
 			// Record the URL in `statistics` based on whether or not it changed
