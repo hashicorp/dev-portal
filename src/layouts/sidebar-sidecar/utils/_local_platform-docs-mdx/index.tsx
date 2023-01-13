@@ -19,6 +19,10 @@ import {
 	MdxInlineCode,
 	MdxBlockquote,
 	MdxTryHcpCallout,
+	MdxTip,
+	MdxHighlight,
+	MdxNote,
+	MdxWarning,
 	MdxCodeBlockConfig,
 	MdxCodeTabs,
 	MdxPre,
@@ -77,6 +81,10 @@ function _defaultComponents() {
 		p: MdxP,
 		table: MdxTable,
 		TryHcpCallout: MdxTryHcpCallout,
+		Tip: MdxTip,
+		Highlight: MdxHighlight,
+		Note: MdxNote,
+		Warning: MdxWarning,
 	}
 }
 
