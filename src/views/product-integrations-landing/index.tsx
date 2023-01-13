@@ -12,19 +12,23 @@ interface ViewProps {
 	integrations: Array<Integration>
 	sidebarNavDataLevels: Array<SidebarProps>
 	breadcrumbLinks: Array<BreadcrumbLink>
+	productSlug: string
 }
 
 export default function ProductIntegrationsLanding({
 	integrations,
 	sidebarNavDataLevels,
 	breadcrumbLinks,
+	productSlug,
 }: ViewProps) {
 	return (
 		<IntegrationsSearchProvider integrations={integrations}>
 			<SidebarSidecarLayout
 				sidebarNavDataLevels={sidebarNavDataLevels}
 				breadcrumbLinks={breadcrumbLinks}
-				sidecarSlot={<TryHcpCalloutSidecarPlacement productSlug="waypoint" />}
+				sidecarSlot={
+					<TryHcpCalloutSidecarPlacement productSlug={productSlug} />
+				}
 			>
 				<div className={s.mainArea}>
 					<SearchableIntegrationsList className={s.searchList} />

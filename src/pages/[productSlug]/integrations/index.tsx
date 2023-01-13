@@ -92,6 +92,7 @@ export async function getServerSideProps({ params }) {
 				title: `Integrations | ${product.name}`,
 				// description: `TODO`,
 			},
+			productSlug: product.slug,
 			integrations,
 			sidebarNavDataLevels,
 			breadcrumbLinks,
