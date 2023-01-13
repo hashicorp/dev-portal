@@ -1,7 +1,7 @@
-import { visit } from 'unist-util-visit'
 import { Definition, Link } from 'mdast'
 import { Plugin, Transformer } from 'unified'
-import { processDocsNode } from './helpers'
+import { visit } from 'unist-util-visit'
+import { processDocsLinkNode } from './helpers'
 
 const remarkPluginAdjustLinkUrls: Plugin = ({
 	currentPath = '',
@@ -12,7 +12,7 @@ const remarkPluginAdjustLinkUrls: Plugin = ({
 }): Transformer => {
 	return function transformer(tree) {
 		visit(tree, ['link', 'definition'], (node: Link | Definition) => {
-			processDocsNode({ node, currentPath, urlAdjustFn })
+			node.url = processDocsLinkNode({ node, currentPath, urlAdjustFn })
 		})
 	}
 }

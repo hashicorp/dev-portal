@@ -1,7 +1,7 @@
 import { Definition, Link } from 'mdast'
 import { Plugin } from 'unified'
 import visit from 'unist-util-visit'
-import { processDocsNode } from 'lib/remark-plugins/remark-plugin-adjust-link-urls/helpers'
+import { processDocsLinkNode } from 'lib/remark-plugins/remark-plugin-adjust-link-urls/helpers'
 import { rewriteTutorialsLink } from 'lib/remark-plugins/rewrite-tutorial-links/utils/rewrite-tutorials-link'
 import { getTutorialMap } from 'lib/remark-plugins/rewrite-tutorial-links/utils'
 
@@ -29,11 +29,18 @@ const rewriteLinksPlugin: Plugin = ({
 			// Only adjust if the URL is not empty
 			if (node.url !== '') {
 				// First, use the docs link rewriter
-				// (this helper modifies `node.url`, does not return new url)
-				processDocsNode({ node, currentPath, urlAdjustFn })
+				const processedAdDocsLink = processDocsLinkNode({
+					node,
+					currentPath,
+					urlAdjustFn,
+				})
 
 				// Then apply changes on top of that with the tutorials link rewriter
-				node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP, 'docs')
+				node.url = rewriteTutorialsLink(
+					processedAdDocsLink,
+					TUTORIAL_MAP,
+					'docs'
+				)
 			}
 
 			// Record the URL in `statistics` based on whether or not it changed

@@ -2,9 +2,10 @@ import path from 'path'
 import { Definition, Link } from 'mdast'
 
 /**
- * @TODO document
+ * Handles processing a Link or Definition node in documentation content. Returns
+ * the adjusted node URL.
  */
-const processDocsNode = ({
+const processDocsLinkNode = ({
 	node,
 	currentPath,
 	urlAdjustFn,
@@ -14,7 +15,7 @@ const processDocsNode = ({
 	urlAdjustFn: (url: string) => string
 }) => {
 	const urlToAdjust = preAdjustUrl({ currentPath, url: node.url })
-	node.url = urlAdjustFn(urlToAdjust)
+	return urlAdjustFn(urlToAdjust)
 }
 
 /**
@@ -157,5 +158,5 @@ export {
 	handleDotDotFolderRelativeUrl,
 	handleDotSlashFolderRelativeUrl,
 	preAdjustUrl,
-	processDocsNode,
+	processDocsLinkNode,
 }
