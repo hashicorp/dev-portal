@@ -96,7 +96,6 @@ export default function SearchableIntegrationsList({
 	return (
 		<div className={classNames(s.searchableIntegrationsList, className)}>
 			<div className={s.header}>
-				<h1>Integrations</h1>
 				<FilterBar
 					filterQuery={filterQuery}
 					onChange={(e) => setFilterQuery(e.target.value)}
