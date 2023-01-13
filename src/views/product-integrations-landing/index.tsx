@@ -7,7 +7,7 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { type SidebarProps } from 'components/sidebar'
 import { type BreadcrumbLink } from 'components/breadcrumb-bar'
 
-interface ViewProps {
+export interface ViewProps {
 	integrations: Array<Integration>
 	sidebarNavDataLevels: Array<SidebarProps>
 	breadcrumbLinks: Array<BreadcrumbLink>
