@@ -11,7 +11,7 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 
 // Global imports
 import { ProductData, RootDocsPath } from 'types/products'
-import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
+import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { isDeployPreview } from 'lib/env-checks'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
