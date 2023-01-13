@@ -10,7 +10,6 @@ const getIsRewriteableDocsLink = (link: string): boolean => {
 	try {
 		const urlObject = new URL(link)
 		const { hostname, pathname } = urlObject
-		const basePath = pathname.split('/')[1]
 
 		/**
 		 * Try to parse the product slug from the URL origin.
@@ -31,9 +30,9 @@ const getIsRewriteableDocsLink = (link: string): boolean => {
 		}
 
 		/**
-		 * If there is no base path, then it's a docs site home page.
+		 * If there is no path, then it's a docs site home page.
 		 */
-		if (basePath === '') {
+		if (pathname === '/') {
 			return true
 		}
 
@@ -49,12 +48,13 @@ const getIsRewriteableDocsLink = (link: string): boolean => {
 		}
 
 		/**
-		 * Check if the base path is one of the product's accepted base paths.
+		 * Check if the link's path begins with one of the product's accepted base
+		 * paths.
 		 */
 		const isBasePathAccepted =
 			acceptedBasePaths.length === 0 ||
 			acceptedBasePaths.some((acceptedBasePath: string) => {
-				return basePath.startsWith(acceptedBasePath)
+				return pathname.startsWith(`/${acceptedBasePath}`)
 			})
 
 		/**

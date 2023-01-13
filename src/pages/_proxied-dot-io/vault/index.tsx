@@ -19,7 +19,6 @@ export default function Homepage({ data }): React.ReactElement {
 		seo,
 		heroHeading,
 		heroDescription,
-		heroCtas,
 		heroCards,
 		introHeading,
 		introDescription,
@@ -51,7 +50,7 @@ export default function Homepage({ data }): React.ReactElement {
 	React.useEffect(() => {
 		abTestTrack({
 			type: 'Served',
-			test_name: 'CRO home hero CTA links 2022-10',
+			test_name: 'CRO home hero alt 2023-01',
 			variant: 'false',
 		})
 	}, [])
@@ -65,7 +64,6 @@ export default function Homepage({ data }): React.ReactElement {
 				brand="vault"
 				heading={heroHeading}
 				description={heroDescription}
-				ctas={heroCtas}
 				cards={heroCards.map((card) => {
 					return {
 						...card,

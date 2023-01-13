@@ -14,5 +14,5 @@
 @custom-media --dev-dot-sidecar-up only screen and (min-width: 1280px);
 
 /* See --mobile-menu-breakpoint */
-@custom-media --dev-dot-show-mobile-menu (max-width: 1200px);
-@custom-media --dev-dot-hide-mobile-menu (min-width: 1201px);
+@custom-media --dev-dot-show-mobile-menu (max-width: 1023px);
+@custom-media --dev-dot-hide-mobile-menu (min-width: 1024px);

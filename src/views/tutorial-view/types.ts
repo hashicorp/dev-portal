@@ -14,7 +14,7 @@ import { CollectionCardPropsWithId } from 'components/collection-card'
 type TutorialSidebarSidecarProps = Required<
 	Pick<
 		SidebarSidecarLayoutProps,
-		'children' | 'headings' | 'breadcrumbLinks'
+		'children' | 'headings' | 'breadcrumbLinks' | 'mainWidth'
 	> & { sidebarSections: CollectionCategorySidebarSection[] }
 >
 

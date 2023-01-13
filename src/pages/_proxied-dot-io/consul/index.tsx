@@ -19,7 +19,6 @@ function Homepage({ data }): React.ReactElement {
 		seo,
 		heroHeading,
 		heroDescription,
-		heroCtas,
 		heroCards,
 		introHeading,
 		introDescription,
@@ -57,7 +56,7 @@ function Homepage({ data }): React.ReactElement {
 	React.useEffect(() => {
 		abTestTrack({
 			type: 'Served',
-			test_name: 'CRO home hero CTA links 2022-10',
+			test_name: 'CRO home hero alt 2023-01',
 			variant: 'false',
 		})
 	}, [])
@@ -71,7 +70,7 @@ function Homepage({ data }): React.ReactElement {
 				brand="consul"
 				heading={heroHeading}
 				description={heroDescription}
-				ctas={heroCtas}
+				// ctas={heroCtas}
 				cards={heroCards.map((card) => {
 					return {
 						...card,

@@ -1,0 +1,37 @@
+.allCertificationsLink {
+	margin-bottom: 24px;
+
+	&.foreground-light {
+		color: var(--token-color-foreground-high-contrast);
+
+		&:active {
+			color: var(--token-color-foreground-high-contrast);
+		}
+	}
+}
+
+.heroBackground {
+	background: var(--background-image);
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	bottom: -10%;
+	left: -10%;
+	overflow: hidden;
+	position: absolute;
+	right: -10%;
+	top: -10%;
+	z-index: -1;
+
+	&.theme-infrastructure-automation {
+		--background-image: url('./assets/infrastructure-hero.svg');
+	}
+
+	&.theme-security-automation {
+		--background-image: url('./assets/security-hero.svg');
+	}
+
+	&.theme-networking-automation {
+		--background-image: url('./assets/networking-hero.svg');
+	}
+}

@@ -1,0 +1,7 @@
+.root {
+	/**
+	 * z-index of individual items' focus state have to be adjusted to ensure
+	 * correct overlap between items. We want to isolate this overlap.
+	 */
+	isolation: isolate;
+}

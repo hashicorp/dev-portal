@@ -41,7 +41,7 @@ const PageHeader = ({
 				<Heading
 					className={s.pageHeaderTitle}
 					level={1}
-					size={500}
+					size={600}
 					id={`install-${product.slug}`}
 					weight="bold"
 				>
