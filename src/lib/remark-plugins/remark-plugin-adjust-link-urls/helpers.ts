@@ -112,6 +112,11 @@ const preAdjustUrl = ({ currentPath, url }): string => {
 		return handleDotSlashFolderRelativeUrl({ currentPath, url })
 	}
 
+	// Do the api -> api-docs translation first, if needed
+	if (urlParts[0] === 'api') {
+		urlParts[0] = 'api-docs'
+	}
+
 	// Search for first part of url within currentPath
 	const indexInCurrentPath = currentPathParts.indexOf(urlParts[0])
 
