@@ -5,8 +5,8 @@ import Badge from 'components/badge'
 import ProductIcon from 'components/product-icon'
 
 const editionDisplayOptions: { [K in EditionOption]: string } = {
-	[EditionOption.enterprise]: 'Enterprise',
 	[EditionOption.openSource]: 'Open Source',
+	[EditionOption.enterprise]: 'Enterprise',
 	[EditionOption.hcp]: 'HCP',
 	[EditionOption.tfcStandard]: 'Standard',
 	[EditionOption.tfcPlus]: 'Plus',
