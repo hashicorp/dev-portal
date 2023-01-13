@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import type { Products } from '@hashicorp/platform-product-meta'
 import type { IntroProps } from '@hashicorp/react-intro/types'
 import Intro from '@hashicorp/react-intro'
@@ -7,6 +7,10 @@ import s from './style.module.css'
 
 interface IoHomeHeroAltProps {
 	brand: Products
+	patterns: {
+		start: string
+		end: string
+	}
 	heading: IntroProps['heading']
 	description: IntroProps['description']
 	ctas: IntroProps['actions']['ctas']
@@ -14,6 +18,7 @@ interface IoHomeHeroAltProps {
 
 export default function IoHomeHeroAlt({
 	brand,
+	patterns,
 	heading,
 	description,
 	ctas,
@@ -21,22 +26,28 @@ export default function IoHomeHeroAlt({
 	return (
 		<header className={s.hero}>
 			<div className={s.patterns}>
-				<Image
-					className={s.patternsStart}
-					src={require('./pattern-start.svg')}
-					width={418}
-					height={543}
-					alt=""
-					priority
-				/>
-				<Image
-					className={s.patternsEnd}
-					src={require('./pattern-end.svg')}
-					width={418}
-					height={543}
-					alt=""
-					priority
-				/>
+				<div className={s.patternsStart}>
+					<Image
+						src={patterns.start}
+						width={418}
+						height={543}
+						layout="fill"
+						objectFit="cover"
+						alt=""
+						priority
+					/>
+				</div>
+				<div className={s.patternsEnd}>
+					<Image
+						src={patterns.end}
+						width={418}
+						height={543}
+						layout="fill"
+						objectFit="cover"
+						alt=""
+						priority
+					/>
+				</div>
 			</div>
 			<div className={s.container}>
 				<div className={s.inner}>
