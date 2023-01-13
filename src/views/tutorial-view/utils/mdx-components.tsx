@@ -21,6 +21,10 @@ import {
 	MdxInlineCode,
 	MdxBlockquote,
 	MdxTryHcpCallout,
+	MdxTip,
+	MdxHighlight,
+	MdxNote,
+	MdxWarning,
 	MdxCodeTabs,
 	MdxPre,
 	MdxCodeBlockConfig,
@@ -64,6 +68,10 @@ const MDX_COMPONENTS = {
 	table: MdxTable,
 	blockquote: MdxBlockquote,
 	TryHcpCallout: MdxTryHcpCallout,
+	Tip: MdxTip,
+	Highlight: MdxHighlight,
+	Note: MdxNote,
+	Warning: MdxWarning,
 }
 
 export default MDX_COMPONENTS

@@ -4,13 +4,14 @@ import { InlineAlertProps } from './types'
 import s from './inline-alert.module.css'
 
 export default function InlineAlert({
+	className,
 	color = 'neutral',
 	description,
 	icon = <IconInfo24 />,
 	title,
 }: InlineAlertProps) {
 	return (
-		<div className={classNames(s.default, s[color])}>
+		<div className={classNames(s.default, s[color], className)}>
 			<span className={s.icon} data-testid="icon">
 				{icon}
 			</span>
