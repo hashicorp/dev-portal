@@ -11,7 +11,7 @@ export function BrandedHeaderCard({
 		<BrandedCard productSlug={productSlug}>
 			<div className={s.cardPadding}>
 				<h1 className={s.heading}>{heading}</h1>
-				<p className={s.description}>{description}</p>
+				{description ? <p className={s.description}>{description}</p> : null}
 			</div>
 		</BrandedCard>
 	)

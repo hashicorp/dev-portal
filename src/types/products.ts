@@ -156,6 +156,12 @@ interface ProductData extends Product {
 	docsNavItems?: (DocsNavItem | string)[]
 	integrationsConfig: {
 		enabled: boolean
+		/**
+		 * Descriptive text that provides an overview of the product's integrations.
+		 * Example: "A curated collection of official, partner, and
+		 * community <Product> Integrations."
+		 */
+		description?: string
 		sidebarLinks?: {
 			title: string
 			href: string

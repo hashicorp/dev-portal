@@ -6,14 +6,14 @@ import { type Integration } from 'lib/integrations-api-client/integration'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { type SidebarProps } from 'components/sidebar'
 import { type BreadcrumbLink } from 'components/breadcrumb-bar'
-import { Product } from 'types/products'
+import { ProductData } from 'types/products'
 import { BrandedHeaderCard } from './components/branded-header-card'
 
 export interface ViewProps {
 	integrations: Array<Integration>
 	sidebarNavDataLevels: Array<SidebarProps>
 	breadcrumbLinks: Array<BreadcrumbLink>
-	product: Product
+	product: ProductData
 }
 
 export default function ProductIntegrationsLanding({
@@ -33,7 +33,7 @@ export default function ProductIntegrationsLanding({
 					<BrandedHeaderCard
 						productSlug={product.slug}
 						heading={`${product.name} Integrations`}
-						description={`A curated collection of official, partner, and community ${product.name} Integrations.`}
+						description={product.integrationsConfig.description}
 					/>
 					<SearchableIntegrationsList className={s.searchList} />
 				</div>
