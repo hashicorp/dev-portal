@@ -7,16 +7,18 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { type SidebarProps } from 'components/sidebar'
 import { type BreadcrumbLink } from 'components/breadcrumb-bar'
 
-interface ViewProps {
+export interface ViewProps {
 	integrations: Array<Integration>
 	sidebarNavDataLevels: Array<SidebarProps>
 	breadcrumbLinks: Array<BreadcrumbLink>
+	productSlug: string
 }
 
 export default function ProductIntegrationsLanding({
 	integrations,
 	sidebarNavDataLevels,
 	breadcrumbLinks,
+	productSlug,
 }: ViewProps) {
 	return (
 		<IntegrationsSearchProvider integrations={integrations}>
@@ -26,6 +28,7 @@ export default function ProductIntegrationsLanding({
 				sidecarSlot={<></>}
 			>
 				<div className={s.mainArea}>
+					<div style={{ border: '1px solid magenta' }}>{productSlug}</div>
 					<SearchableIntegrationsList className={s.searchList} />
 				</div>
 			</SidebarSidecarLayout>

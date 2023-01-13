@@ -1,3 +1,4 @@
+import { HeadMetadataProps } from 'components/head-metadata/types'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -7,8 +8,11 @@ import {
 	Integration,
 	fetchAllProductIntegrations,
 } from 'lib/integrations-api-client/integration'
+import { GetStaticPropsResult } from 'next'
 import { ProductData } from 'types/products'
-import ProductIntegrationsLanding from 'views/product-integrations-landing'
+import ProductIntegrationsLanding, {
+	ViewProps,
+} from 'views/product-integrations-landing'
 
 export function generateProductIntegrationLibrarySidebarNavData(
 	product: ProductData
@@ -48,7 +52,9 @@ export function generateProductIntegrationLibrarySidebarNavData(
 	}
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({
+	params,
+}): Promise<GetStaticPropsResult<ViewProps & { metadata: HeadMetadataProps }>> {
 	// Pull out the Product Config
 	const product = cachedGetProductData(params.productSlug)
 
@@ -92,6 +98,7 @@ export async function getServerSideProps({ params }) {
 				title: `Integrations | ${product.name}`,
 				// description: `TODO`,
 			},
+			productSlug: product.slug,
 			integrations,
 			sidebarNavDataLevels,
 			breadcrumbLinks,
