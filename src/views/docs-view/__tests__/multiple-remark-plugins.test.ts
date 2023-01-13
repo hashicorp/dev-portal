@@ -1,7 +1,7 @@
 import remark from 'remark'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
-import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
+import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { getProductUrlAdjuster } from '../utils/product-url-adjusters'
 
 const URL_SUFFIXES = ['', '?param=value', '#heading', '?param=value#heading']
