@@ -4,6 +4,7 @@ import { IntegrationsSearchProvider } from './contexts/integrations-search-conte
 import { type Integration } from 'lib/integrations-api-client/integration'
 
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/components'
 import { type SidebarProps } from 'components/sidebar'
 import { type BreadcrumbLink } from 'components/breadcrumb-bar'
 
@@ -23,7 +24,7 @@ export default function ProductIntegrationsLanding({
 			<SidebarSidecarLayout
 				sidebarNavDataLevels={sidebarNavDataLevels}
 				breadcrumbLinks={breadcrumbLinks}
-				sidecarSlot={<></>}
+				sidecarSlot={<TryHcpCalloutSidecarPlacement productSlug="waypoint" />}
 			>
 				<div className={s.mainArea}>
 					<SearchableIntegrationsList className={s.searchList} />
