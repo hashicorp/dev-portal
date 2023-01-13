@@ -30,32 +30,6 @@ describe('remarkPluginAdjustLinkUrls', () => {
 			})
 		})
 
-		describe('pre-adjusts developer.hashicorp.com links to internal paths', () => {
-			const testCases = [
-				{
-					input: 'https://developer.hashicorp.com',
-					expected: '/',
-					currentPath: 'mock-path',
-				},
-				{
-					input: 'https://developer.hashicorp.com/',
-					expected: '/',
-					currentPath: 'mock-path',
-				},
-				{
-					input: 'https://developer.hashicorp.com/vault',
-					expected: '/vault',
-					currentPath: 'mock-path',
-				},
-				{
-					input: 'https://developer.hashicorp.com/vault/docs',
-					expected: '/vault/docs',
-					currentPath: 'mock-path',
-				},
-			]
-			testEachCase(testCases)
-		})
-
 		describe('pre-adjusts folder-relative urls starting with `../`', () => {
 			const testCases = [
 				{
@@ -105,16 +79,6 @@ describe('remarkPluginAdjustLinkUrls', () => {
 					input: 'waypoint-hcl/app',
 					expected: '/docs/waypoint-hcl/app',
 					currentPath: mockCurrentPath,
-				},
-				{
-					input: 'api-docs/secret/kv/kv-v2',
-					expected: '/api-docs/secret/kv/kv-v2',
-					currentPath: '/api-docs',
-				},
-				{
-					input: 'api/secret/kv/kv-v2',
-					expected: '/api-docs/secret/kv/kv-v2',
-					currentPath: '/api-docs',
 				},
 			]
 			testEachCase(urlsToTest)

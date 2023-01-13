@@ -1,6 +1,15 @@
 import path from 'path'
 import { Definition, Link } from 'mdast'
 
+const getIsInternalPath = (url: string) => {
+	try {
+		new URL(url)
+		return false
+	} catch (e) {
+		return true
+	}
+}
+
 /**
  * Handles processing a Link or Definition node in documentation content. Returns
  * the adjusted node URL.
@@ -73,44 +82,6 @@ const handleDotSlashFolderRelativeUrl = ({
 }
 
 /**
- * Handles folder-relative URLs that do not start with any dots syntax or
- * punctuation.
- */
-const handleNoDotsFolderRelativeUrl = ({ currentPathParts, url, urlParts }) => {
-	// Make a copy of urlParts that we can modify
-	const urlPartsCopy = [...urlParts]
-
-	// Do the api -> api-docs base path translation first, if it's needed
-	if (urlPartsCopy[0] === 'api') {
-		urlPartsCopy[0] = 'api-docs'
-	}
-
-	// Search for first part of url within currentPath
-	const indexInCurrentPath = currentPathParts.indexOf(urlPartsCopy[0])
-
-	// Do nothing if currentPath does not have the first part of url
-	if (indexInCurrentPath === -1) {
-		return url
-	}
-
-	// Prefix the url with a slash if it starts with the first part of currentPath
-	if (indexInCurrentPath === 0) {
-		return `/${url}`
-	}
-
-	// Retain parts of currentPath, up to the first part of the url
-	const currentPathPartsToRetain = currentPathParts.slice(0, indexInCurrentPath)
-
-	// Concatentate the retained parts of currentPath, and all parts of url
-	const allJoinedParts = [...currentPathPartsToRetain, ...urlPartsCopy].join(
-		'/'
-	)
-
-	// Return the concatentated parts
-	return allJoinedParts
-}
-
-/**
  * Pre-adjusts urls that start with a path part of the given `currentPath`. See
  * examples in: `src/lib/__tests__/remark-plugin-adjust-link-urls.test.ts`.
  */
@@ -120,16 +91,10 @@ const preAdjustUrl = ({ currentPath, url }): string => {
 		return url
 	}
 
-	// Handle developer.hashicorp.com links if needed
-	try {
-		const { hostname, pathname, search = '', hash = '' } = new URL(url)
-		if (hostname === 'developer.hashicorp.com') {
-			return `${pathname}${search}${hash}`
-		} else {
-			return url
-		}
-	} catch (e) {
-		// is an internal path, so continue to rest of function
+	// Do nothing if url is not an internal path
+	const isInternalPath = getIsInternalPath(url)
+	if (!isInternalPath) {
+		return url
 	}
 
 	// Do nothing if url is a top-level path
@@ -151,7 +116,27 @@ const preAdjustUrl = ({ currentPath, url }): string => {
 		return handleDotSlashFolderRelativeUrl({ currentPath, url })
 	}
 
-	return handleNoDotsFolderRelativeUrl({ currentPathParts, url, urlParts })
+	// Search for first part of url within currentPath
+	const indexInCurrentPath = currentPathParts.indexOf(urlParts[0])
+
+	// Do nothing if currentPath does not have the first part of url
+	if (indexInCurrentPath === -1) {
+		return url
+	}
+
+	// Prefix the url with a slash if it starts with the first part of currentPath
+	if (indexInCurrentPath === 0) {
+		return `/${url}`
+	}
+
+	// Retain parts of currentPath, up to the first part of the url
+	const currentPathPartsToRetain = currentPathParts.slice(0, indexInCurrentPath)
+
+	// Concatentate the retained parts of currentPath, and all parts of url
+	const allJoinedParts = [...currentPathPartsToRetain, ...urlParts].join('/')
+
+	// Return the concatentated parts
+	return allJoinedParts
 }
 
 export {
