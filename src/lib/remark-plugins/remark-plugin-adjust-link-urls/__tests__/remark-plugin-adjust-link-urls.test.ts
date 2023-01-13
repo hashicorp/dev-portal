@@ -2,7 +2,7 @@ import {
 	expandUrlTestCasesWithParams,
 	TestCase,
 } from 'lib/testing/expand-url-test-cases-with-params'
-import { preAdjustUrl } from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
+import { preAdjustUrl } from 'lib/remark-plugins/remark-plugin-adjust-link-urls/helpers'
 
 const testEachCase = (testCases: TestCase[]) => {
 	const allCases = expandUrlTestCasesWithParams(testCases)
@@ -28,6 +28,32 @@ describe('remarkPluginAdjustLinkUrls', () => {
 			test.each(urlsToTest)('"%s" is not pre-adjusted', (url: string) => {
 				expect(preAdjustUrl({ currentPath: mockCurrentPath, url })).toEqual(url)
 			})
+		})
+
+		describe('pre-adjusts developer.hashicorp.com links to internal paths', () => {
+			const testCases = [
+				{
+					input: 'https://developer.hashicorp.com',
+					expected: '/',
+					currentPath: 'mock-path',
+				},
+				{
+					input: 'https://developer.hashicorp.com/',
+					expected: '/',
+					currentPath: 'mock-path',
+				},
+				{
+					input: 'https://developer.hashicorp.com/vault',
+					expected: '/vault',
+					currentPath: 'mock-path',
+				},
+				{
+					input: 'https://developer.hashicorp.com/vault/docs',
+					expected: '/vault/docs',
+					currentPath: 'mock-path',
+				},
+			]
+			testEachCase(testCases)
 		})
 
 		describe('pre-adjusts folder-relative urls starting with `../`', () => {
@@ -79,6 +105,16 @@ describe('remarkPluginAdjustLinkUrls', () => {
 					input: 'waypoint-hcl/app',
 					expected: '/docs/waypoint-hcl/app',
 					currentPath: mockCurrentPath,
+				},
+				{
+					input: 'api-docs/secret/kv/kv-v2',
+					expected: '/api-docs/secret/kv/kv-v2',
+					currentPath: '/api-docs',
+				},
+				{
+					input: 'api/secret/kv/kv-v2',
+					expected: '/api-docs/secret/kv/kv-v2',
+					currentPath: '/api-docs',
 				},
 			]
 			testEachCase(urlsToTest)
