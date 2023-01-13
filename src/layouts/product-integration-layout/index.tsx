@@ -99,7 +99,9 @@ export default function ProductIntegrationLayout({
 			// @ts-ignore
 			sidebarNavDataLevels={sidebarNavDataLevels}
 			breadcrumbLinks={breadcrumbLinks}
-			sidecarSlot={<TryHcpCalloutSidecarPlacement productSlug="waypoint" />}
+			sidecarSlot={
+				<TryHcpCalloutSidecarPlacement productSlug={currentProduct.slug} />
+			}
 		>
 			{!onLatestVersion && (
 				<HashiHead>
