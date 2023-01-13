@@ -6,9 +6,6 @@ import { ALL_PAGE_PATHS_OUTPUT_FILE_PATH } from '../../../scripts/docs-content-l
 const SIDEBAR_NAV_ANCHOR_SELECTOR = `${SIDEBAR_NAV_ELEMENT_ID} a`
 const CONTENT_AREA_ANCHOR_SELECTOR = `${MAIN_ELEMENT_ID} a`
 
-// Run all the tests generated in this file in parallel
-test.describe.configure({ mode: 'parallel' })
-
 /**
  * Given a Playwright Locator for anchors, returns an array of hrefs.
  */
@@ -51,6 +48,9 @@ const getHrefsForPreviewUrl = async ({
 }
 
 test.describe('docs-content-link-rewrites', () => {
+	// Run all the tests generated in this file with 0 retries
+	test.describe.configure({ retries: 0 })
+
 	// Pull inputs from the environment
 	const { MAIN_BRANCH_PREVIEW_URL, PR_BRANCH_PREVIEW_URL } = process.env
 
