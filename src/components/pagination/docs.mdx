@@ -1,0 +1,128 @@
+---
+componentName: Pagination
+---
+
+## Overview
+
+The Pagination component allows users to navigate through a large dataset split into pages. These pages could be either links (different URLs) or content rendered within the same page/URL.
+
+It is not meant to be used as a navigation control for regular content or as a stepper, i.e. a guide, tutorial, setup or creation flow.
+
+### `Pagination`
+
+This is a container component that provides grid layout for the subcomponents and pagination react context.
+
+**Props:**
+
+- `totalItems` (required): Total number of items
+- `pageSize` (required): Number of items per page
+- `page` (optional): Current page index. This is 1-based, and is only used for the initial render. If not provided, the component will use the first page by default.
+- `onPageChange` (optional): Callback function to be called when a page is selected. It receives the page index as an argument.
+- `onPageSizeChange` (optional): Callback function to be called when a page size is selected. It receives the page size as an argument.
+
+### `Pagination.Info`
+
+Displays info like, _"90-100 of 103 items"_
+
+**Props:**
+
+- `showTotalItems`: Whether to show the total number of items. Default: `false``
+
+### `Pagination.Nav`
+
+Displays navigation buttons.
+
+**Props:**
+
+- `type`: "compact" | "numbered" | "truncated"
+  - "compact": Displays only previous and next buttons
+  - "numbered": Displays numbered buttons for each page
+  - "truncated": Displays numbered buttons for each page, but truncates the list if there are too many pages
+
+### `Pagination.SizeSelector`
+
+Displays a dropdown to select the page size.
+
+- `sizes`: Array of page size numbers
+
+## Basic
+
+<LiveComponent>
+	{`<Pagination
+	totalItems={103}
+	pageSize={10}
+	page={3}
+	onPageChange={(idx, pagesize) => console.log("Select page: %s; Pagesize: %s", idx, pagesize)}
+>
+	<Pagination.Info showTotalItems={true}/>
+	<Pagination.Nav type="truncated" />
+	<Pagination.SizeSelector sizes={[10, 30, 50]}/>
+</Pagination>
+`}
+</LiveComponent>
+
+## With Elements
+
+<LiveComponent>
+	{`() => {
+	const [items, setItems] = useState(() => Array.from({length: 83}, (_, i) => i + 1))
+	const [page, setPage] = useState(1)
+	const [pageSize, setPageSize] = useState(30)
+	return (
+		<div>
+			<ul style={{ display: 'flex',flexWrap: 'wrap', gap: '6px', padding: 0, margin: 0 }}>
+				{items.slice((page - 1) * pageSize, page * pageSize).map((item) => (
+					<li
+						key={item}
+						style={{
+							display: 'inline-flex',
+							flex: 'calc(33.33% - 4px)',
+							border: '1px dotted blue',
+							justifyContent: 'center',
+						}}
+					>
+						{item}
+					</li>
+				))}
+			</ul>
+			<Pagination
+				totalItems={items.length}
+				pageSize={pageSize}
+				onPageChange={(idx) => setPage(idx)}
+				onPageSizeChange={(size) => setPageSize(size)}
+			>
+				<Pagination.Info showTotalItems={true}/>
+				<Pagination.Nav type="truncated" />
+				<Pagination.SizeSelector sizes={[10, 30, 50]}/>
+			</Pagination>
+		</div>
+	)
+}`}
+</LiveComponent>
+
+## With Mobile Styling
+
+<LiveComponent>
+	{`() => {
+	const {
+		isDesktop,
+		isMobile,
+		isTablet,
+	} = useDeviceSize()
+
+    return (
+    	<Pagination
+    		totalItems={103}
+    		pageSize={10}
+    		page={3}
+    		onPageChange={(idx, pagesize) => console.log("Select page: %s; Pagesize: %s", idx, pagesize)}
+    	>
+    		{(isDesktop || isTablet) && <Pagination.Info showTotalItems={true}/>}
+    		<Pagination.Nav type={isMobile ? "compact" : "truncated"} />
+    		{isDesktop && <Pagination.SizeSelector sizes={[10, 30, 50]}/>}
+    	</Pagination>
+    )
+
+}`}
+
+</LiveComponent>

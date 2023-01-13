@@ -1,0 +1,171 @@
+.pagination {
+	--token-pagination-control-height: 24px;
+	--token-pagination-control-padding-horizontal: 7px;
+	--token-pagination-indicator-height: 2px;
+	--token-pagination-nav-control-focus-inset: 4px;
+
+	composes: hds-typography-body-100 from global;
+	font-weight: var(--token-typography-font-weight-medium);
+	display: grid;
+	grid-template-areas: 'left center right';
+	grid-template-rows: auto;
+	grid-template-columns: 1fr auto 1fr;
+	align-items: center;
+	margin: 0 auto;
+	color: var(--token-color-foreground-primary);
+}
+
+/* <Info> */
+.info {
+	grid-area: left;
+	justify-self: flex-start;
+	white-space: nowrap;
+	composes: hds-typography-body-100 from global;
+	font-weight: var(--token-typography-font-weight-medium);
+}
+
+/* <Nav> */
+.nav {
+	display: flex;
+	grid-area: center;
+	composes: hds-typography-body-100 from global;
+	font-weight: var(--token-typography-font-weight-medium);
+}
+
+.page-list {
+	display: flex;
+	margin: 0;
+	padding: 0;
+}
+
+.page-item {
+	position: relative;
+	list-style-type: none;
+}
+
+.is-selected {
+	color: var(--token-color-foreground-action);
+	&:focus-within {
+		color: var(--token-color-foreground-action-active);
+	}
+
+	/* small underline */
+	&::before {
+		position: absolute;
+		right: 6px;
+		bottom: -4.5px;
+		left: 6px;
+		height: var(--token-pagination-indicator-height);
+		background-color: currentColor;
+		border-radius: 2px;
+		content: '';
+	}
+}
+
+.control {
+	composes: g-focus-ring-from-box-shadow from global;
+	color: inherit;
+	border-radius: 5px;
+	font-weight: var(--token-typography-font-weight-medium);
+	text-decoration: none;
+	background-color: transparent;
+	border: none;
+	position: relative;
+	outline: transparent;
+
+	&:hover {
+		color: var(--token-color-foreground-action-hover);
+	}
+
+	&:disabled {
+		color: var(--token-color-foreground-disabled);
+		cursor: not-allowed;
+	}
+
+	/* tab focus or click focus */
+	&:focus {
+		color: var(--token-color-foreground-action);
+		&::before {
+			box-shadow: var(--token-focus-ring-action-box-shadow);
+		}
+	}
+
+	/* is selected */
+	&.active {
+		color: var(--token-color-foreground-action);
+
+		&:focus {
+			color: var(--token-color-foreground-action-active);
+		}
+	}
+}
+
+.control,
+.ellipsis {
+	display: flex;
+	align-items: center;
+	height: var(--token-pagination-control-height);
+	padding: 0 var(--token-pagination-control-padding-horizontal);
+	margin: 0 3px;
+}
+
+.ellipsis {
+	display: flex;
+	align-items: center;
+	height: var(--token-pagination-control-height);
+	padding: 0 var(--token-pagination-control-padding-horizontal);
+	color: var(--token-color-foreground-faint);
+}
+
+.arrow {
+	&.prev {
+		flex-direction: row;
+		justify-content: flex-start;
+	}
+	&.next {
+		flex-direction: row-reverse;
+		justify-content: flex-end;
+	}
+}
+
+.label {
+	white-space: nowrap;
+	&.prev {
+		margin-left: 6px;
+	}
+	&.next {
+		margin-right: 6px;
+	}
+}
+
+/* <SizeSelector> */
+.size-selector {
+	display: flex;
+	grid-area: right;
+	align-items: center;
+	justify-self: flex-end;
+	composes: hds-typography-body-100 from global;
+	font-weight: var(--token-typography-font-weight-medium);
+
+	& .select {
+		max-width: 100%;
+		color: var(--token-form-control-base-foreground-value-color);
+		background-color: var(--token-form-control-base-surface-color-default);
+		background-image: var(--token-form-select-background-image-data-url);
+		background-repeat: no-repeat;
+		background-size: var(--token-form-select-background-image-size)
+			var(--token-form-select-background-image-size);
+		border: var(--token-form-control-border-width) solid
+			var(--token-form-control-base-border-color-default);
+		border-radius: var(--token-form-control-border-radius);
+		box-shadow: var(--token-elevation-low-box-shadow);
+		appearance: none;
+		height: 28px;
+		margin-left: 12px;
+		padding: 0 24px 0 8px;
+		font-size: var(--token-typography-body-100-font-size);
+		font-family: var(--token-typography-body-100-font-family);
+		line-height: var(--token-typography-body-100-line-height);
+		background-position: center right 5px;
+	}
+}
