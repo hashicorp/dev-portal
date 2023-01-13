@@ -106,6 +106,16 @@ describe('remarkPluginAdjustLinkUrls', () => {
 					expected: '/docs/waypoint-hcl/app',
 					currentPath: mockCurrentPath,
 				},
+				{
+					input: 'api-docs/secret/kv/kv-v2',
+					expected: '/api-docs/secret/kv/kv-v2',
+					currentPath: '/api-docs',
+				},
+				{
+					input: 'api/secret/kv/kv-v2',
+					expected: '/api-docs/secret/kv/kv-v2',
+					currentPath: '/api-docs',
+				},
 			]
 			testEachCase(urlsToTest)
 		})
