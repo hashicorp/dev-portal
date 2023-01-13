@@ -73,22 +73,25 @@ const getScriptArgumentsForCommandLine = () => {
 		.option('repo', {
 			description: 'the name of the repo under `hashicorp` to check',
 		})
-		.option('localCopy', {
+		.option('localCopyLocation', {
 			description: 'where your local copy of --repo is, relative to the CWD',
 		})
-		.demandOption(['repo', 'localCopy'])
+		.demandOption(['repo', 'localCopyLocation'])
 		.help().argv
 
 	const repo = cliArgs.repo as string
+	const localCopyLocation = cliArgs.localCopyLocation as string
 	const { mdxPrefix, navDataPrefix } = getMdxAndNavDataDirectoriesForRepo(repo)
 	const contentDirectory = path.join(
 		process.cwd(),
-		cliArgs.localCopy as string,
+		localCopyLocation,
+		repo,
 		mdxPrefix
 	)
 	const navDataDirectory = path.join(
 		process.cwd(),
-		cliArgs.localCopy as string,
+		localCopyLocation,
+		repo,
 		navDataPrefix
 	)
 
