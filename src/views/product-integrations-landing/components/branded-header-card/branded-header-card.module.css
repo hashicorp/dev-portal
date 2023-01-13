@@ -9,12 +9,8 @@
 	margin: 0;
 }
 
-.subheading {
+.description {
 	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-primary);
 	margin: 4px 0 0 0;
-}
-
-.cta {
-	margin: 12px 0 0 0;
 }
