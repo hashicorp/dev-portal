@@ -5,7 +5,7 @@ import { abTestTrack } from 'lib/ab-test-track'
 import homepageQuery from './home/query.graphql'
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import { renderMetaTags } from '@hashicorp/react-head'
-import IoHomeHero from 'components/_proxied-dot-io/common/io-home-hero'
+import IoHomeHeroAlt from 'components/_proxied-dot-io/common/io-home-hero-alt'
 import IoHomeIntro from 'components/_proxied-dot-io/common/io-home-intro'
 import IoHomeInPractice from 'components/_proxied-dot-io/common/io-home-in-practice'
 import IoCardContainer from 'components/_proxied-dot-io/common/io-card-container'
@@ -17,9 +17,6 @@ import s from './home/style.module.css'
 export default function Homepage({ data }): React.ReactElement {
 	const {
 		seo,
-		heroHeading,
-		heroDescription,
-		heroCards,
 		introHeading,
 		introDescription,
 		introFeatures,
@@ -51,7 +48,7 @@ export default function Homepage({ data }): React.ReactElement {
 		abTestTrack({
 			type: 'Served',
 			test_name: 'CRO home hero alt 2023-01',
-			variant: 'false',
+			variant: 'true',
 		})
 	}, [])
 
@@ -59,17 +56,24 @@ export default function Homepage({ data }): React.ReactElement {
 		<>
 			<Head>{renderMetaTags(seo)}</Head>
 
-			<IoHomeHero
-				pattern="/vault-public/img/home-hero-pattern.svg"
+			<IoHomeHeroAlt
 				brand="vault"
-				heading={heroHeading}
-				description={heroDescription}
-				cards={heroCards.map((card) => {
-					return {
-						...card,
-						cta: card.cta[0],
-					}
-				})}
+				patterns={{
+					start: '/vault-public/img/hero-pattern-start.svg',
+					end: '/vault-public/img/hero-pattern-end.svg',
+				}}
+				heading="Manage Secrets & Protect Sensitive Data with Vault"
+				description="Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API."
+				ctas={[
+					{
+						title: 'Try HCP Vault',
+						href: 'https://portal.cloud.hashicorp.com/sign-up',
+					},
+					{
+						title: 'Download open source',
+						href: '/downloads',
+					},
+				]}
 			/>
 
 			<IoHomeIntro
