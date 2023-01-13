@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import createPage from 'swingset/page'
 import { createStaticProps, createStaticPaths } from 'swingset/server'
 import remarkGfm from 'remark-gfm'
@@ -11,8 +12,11 @@ import InstruqtProvider from 'contexts/instruqt-lab'
 import TabProvider from 'components/tabs/provider'
 import SwingsetColorToken from '__swingset-components/swingset-color-token'
 import SwingsetTestIcon from '__swingset-components/swingset-test-icon'
+import { useDeviceSize } from 'contexts/device-size'
 
 const components = {
+	useDeviceSize,
+	useState,
 	InstruqtProvider,
 	Search,
 	SearchProvider,
