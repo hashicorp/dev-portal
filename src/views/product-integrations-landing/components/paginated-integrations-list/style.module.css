@@ -1,56 +1,5 @@
 .paginatedIntegrationsList {
 	& .paginatorWrapper {
 		margin-top: 32px;
-		display: flex;
-		justify-content: center;
-	}
-}
-
-.paginator {
-	display: flex;
-	background: var(--token-color-surface-faint);
-	border-radius: var(--token-form-control-border-radius);
-	border: 1px solid var(--token-color-border-strong);
-	box-shadow: var(--token-surface-low-box-shadow);
-
-	& > a {
-		padding: 5px 15px;
-		color: var(--token-color-foreground-primary);
-		font-weight: var(--token-typography-font-weight-medium);
-		cursor: pointer;
-
-		&.disabled {
-			cursor: not-allowed;
-		}
-
-		&.activePage {
-			background: var(--token-color-surface-interactive-active);
-		}
-
-		&:hover:not(.disabled) {
-			background: var(--token-color-surface-interactive-active);
-		}
-
-		&:not(:last-child) {
-			border-right: 1px solid var(--token-color-border-strong);
-		}
-
-		&:first-child {
-			border-radius: var(--token-form-control-border-radius) 0 0
-				var(--token-form-control-border-radius);
-		}
-
-		&:last-child {
-			border-radius: 0 var(--token-form-control-border-radius)
-				var(--token-form-control-border-radius) 0;
-		}
-
-		&:first-child,
-		&:last-child {
-			padding: 5px 12px;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-		}
 	}
 }
