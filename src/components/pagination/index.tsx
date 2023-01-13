@@ -218,7 +218,7 @@ const ButtonNumber = ({ page, active }: ButtonNumberProps) => {
 	}
 	return (
 		<button
-			className={classNames(s.control)}
+			className={classNames(s.control, { [s.active]: active })}
 			type="button"
 			onClick={handleClick}
 			aria-current={active ? 'page' : undefined}

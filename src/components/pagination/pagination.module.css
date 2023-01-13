@@ -12,6 +12,7 @@
 	grid-template-columns: 1fr auto 1fr;
 	align-items: center;
 	margin: 0 auto;
+	color: var(--token-color-foreground-primary);
 }
 
 /* <Info> */
@@ -29,14 +30,6 @@
 	grid-area: center;
 	composes: hds-typography-body-100 from global;
 	font-weight: var(--token-typography-font-weight-medium);
-
-	& .control {
-		color: var(--token-color-foreground-primary);
-		&:disabled {
-			color: var(--token-color-foreground-disabled);
-			cursor: not-allowed;
-		}
-	}
 }
 
 .page-list {
@@ -52,7 +45,11 @@
 
 .is-selected {
 	color: var(--token-color-foreground-action);
+	&:focus-within {
+		color: var(--token-color-foreground-action-active);
+	}
 
+	/* small underline */
 	&::before {
 		position: absolute;
 		right: 6px;
@@ -67,16 +64,22 @@
 }
 
 .control {
-	border-radius: 5px;
 	color: inherit;
+	border-radius: 5px;
 	font-weight: var(--token-typography-font-weight-medium);
 	text-decoration: none;
 	background-color: transparent;
 	border: none;
 	position: relative;
+	outline: transparent;
 
 	&:hover {
 		color: var(--token-color-foreground-action-hover);
+	}
+
+	&:disabled {
+		color: var(--token-color-foreground-disabled);
+		cursor: not-allowed;
 	}
 
 	/* focus ring */
@@ -90,11 +93,22 @@
 		position: absolute;
 		content: '';
 	}
+
+	/* tab focus or click focus */
 	&:focus {
-		outline: transparent;
+		color: var(--token-color-foreground-action);
+		&::before {
+			box-shadow: var(--token-focus-ring-action-box-shadow);
+		}
 	}
-	&:focus-visible::before {
-		box-shadow: var(--token-focus-ring-action-box-shadow);
+
+	/* is selected */
+	&.active {
+		color: var(--token-color-foreground-action);
+
+		&:focus {
+			color: var(--token-color-foreground-action-active);
+		}
 	}
 }
 
@@ -111,6 +125,7 @@
 	align-items: center;
 	height: var(--token-pagination-control-height);
 	padding: 0 var(--token-pagination-control-padding-horizontal);
+	color: var(--token-color-foreground-faint);
 }
 
 .arrow {
