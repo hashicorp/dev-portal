@@ -6,8 +6,8 @@ import ProductIcon from 'components/product-icon'
 
 const editionDisplayOptions: { [K in EditionOption]: string } = {
 	[EditionOption.enterprise]: 'Enterprise',
-	[EditionOption.hcp]: 'HCP',
 	[EditionOption.openSource]: 'Open Source',
+	[EditionOption.hcp]: 'HCP',
 	[EditionOption.tfcStandard]: 'Standard',
 	[EditionOption.tfcPlus]: 'Plus',
 	/**
