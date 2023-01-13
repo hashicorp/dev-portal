@@ -1,6 +1,6 @@
 .pagination {
-	--token-pagination-control-height: 36px;
-	--token-pagination-control-padding-horizontal: 11px;
+	--token-pagination-control-height: 24px;
+	--token-pagination-control-padding-horizontal: 7px;
 	--token-pagination-indicator-height: 2px;
 	--token-pagination-nav-control-focus-inset: 4px;
 
@@ -53,10 +53,9 @@
 	&::before {
 		position: absolute;
 		right: 6px;
-		bottom: 0;
+		bottom: -4.5px;
 		left: 6px;
 		height: var(--token-pagination-indicator-height);
-		margin: 0 auto;
 		background-color: currentColor;
 		border-radius: 2px;
 		content: '';
@@ -64,6 +63,7 @@
 }
 
 .control {
+	composes: g-focus-ring-from-box-shadow from global;
 	color: inherit;
 	border-radius: 5px;
 	font-weight: var(--token-typography-font-weight-medium);
@@ -80,18 +80,6 @@
 	&:disabled {
 		color: var(--token-color-foreground-disabled);
 		cursor: not-allowed;
-	}
-
-	/* focus ring */
-	&::before {
-		top: var(--token-pagination-nav-control-focus-inset);
-		right: var(--token-pagination-nav-control-focus-inset);
-		bottom: var(--token-pagination-nav-control-focus-inset);
-		left: var(--token-pagination-nav-control-focus-inset);
-		z-index: -1;
-		border-radius: 5px;
-		position: absolute;
-		content: '';
 	}
 
 	/* tab focus or click focus */
@@ -118,6 +106,7 @@
 	align-items: center;
 	height: var(--token-pagination-control-height);
 	padding: 0 var(--token-pagination-control-padding-horizontal);
+	margin: 0 3px;
 }
 
 .ellipsis {
