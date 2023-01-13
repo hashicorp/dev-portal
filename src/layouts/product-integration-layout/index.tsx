@@ -4,6 +4,7 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
+import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/components'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
@@ -98,7 +99,9 @@ export default function ProductIntegrationLayout({
 			// @ts-ignore
 			sidebarNavDataLevels={sidebarNavDataLevels}
 			breadcrumbLinks={breadcrumbLinks}
-			sidecarSlot={<></>}
+			sidecarSlot={
+				<TryHcpCalloutSidecarPlacement productSlug={currentProduct.slug} />
+			}
 		>
 			{!onLatestVersion && (
 				<HashiHead>
