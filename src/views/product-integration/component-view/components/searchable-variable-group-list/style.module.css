@@ -1,16 +1,21 @@
-/* TODO: implement styling for smaller viewports... flex-wrap? */
 .searchRow {
 	display: flex;
 	margin-top: 24px;
 	align-items: center;
-	gap: 16px;
+	justify-content: center;
+	column-gap: 16px;
+	flex-wrap: wrap;
 
+	/* We want the search input to grow to fill space. */
 	& > :first-child {
 		flex-grow: 1;
 	}
 
+	/* Padding around the checkbox works better on smaller viewports,
+	   creating a gap below the checkbox when it wraps, but not adding
+		 any height on large viewports, where the search input is taller. */
 	& > :last-child {
-		border: 1px solid magenta;
+		padding: 16px 0;
 	}
 }
 
