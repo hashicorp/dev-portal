@@ -52,11 +52,13 @@ export default function SearchableVariableGroupList({
 					onChange={(e) => setSearchQuery(e.target.value)}
 				/>
 				{isRequiredRelevant ? (
-					<CheckboxField
-						label="Required only"
-						checked={requiredOnly}
-						onChange={() => setRequiredOnly(!requiredOnly)}
-					/>
+					<div className={s.checkboxContainer}>
+						<CheckboxField
+							label="Required only"
+							checked={requiredOnly}
+							onChange={() => setRequiredOnly(!requiredOnly)}
+						/>
+					</div>
 				) : null}
 			</div>
 			<p className={s.results}>
