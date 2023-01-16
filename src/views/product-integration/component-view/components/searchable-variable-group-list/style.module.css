@@ -1,3 +1,19 @@
+/* TODO: implement styling for smaller viewports... flex-wrap? */
+.searchRow {
+	display: flex;
+	margin-top: 24px;
+	align-items: center;
+	gap: 16px;
+
+	& > :first-child {
+		flex-grow: 1;
+	}
+
+	& > :last-child {
+		border: 1px solid magenta;
+	}
+}
+
 /* TODO: this is duplicated from searchable-integrations-list */
 .searchBar {
 	background-color: var(--white);
@@ -5,7 +21,6 @@
 	box-shadow: 0 0 0 1px var(--gray-5);
 	height: 45px;
 	position: relative;
-	margin-top: 24px;
 
 	& > svg {
 		position: absolute;
