@@ -21,6 +21,18 @@ export default function SearchableVariableGroupList({
 	const [requiredOnly, setRequiredOnly] = useState(false)
 
 	/**
+	 * We only want to render the `requiredOnly` filtering input if the
+	 * required property is relevant for the variables we're rendering.
+	 *
+	 * We consider the required property to be relevant if any of the variables
+	 * have their required property set to `true` or `false`, rather than
+	 * the default `null` setting.
+	 */
+	const isRequiredRelevant = variables.find(
+		({ required }: Variable) => required === true || required === false
+	)
+
+	/**
 	 * Apply the requiredOnly & searchQuery filters.
 	 * The searchQuery filtering is applied last, as it contains some logic to
 	 * return the count of direct matches, which is not filteredVariables.length.
@@ -39,11 +51,13 @@ export default function SearchableVariableGroupList({
 					searchQuery={searchQuery}
 					onChange={(e) => setSearchQuery(e.target.value)}
 				/>
-				<CheckboxField
-					label="Required only"
-					checked={requiredOnly}
-					onChange={() => setRequiredOnly(!requiredOnly)}
-				/>
+				{isRequiredRelevant ? (
+					<CheckboxField
+						label="Required only"
+						checked={requiredOnly}
+						onChange={() => setRequiredOnly(!requiredOnly)}
+					/>
+				) : null}
 			</div>
 			<p className={s.results}>
 				{numMatches} {numMatches === 1 ? 'Result' : 'Results'}
