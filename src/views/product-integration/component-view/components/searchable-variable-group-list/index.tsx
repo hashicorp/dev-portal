@@ -15,56 +15,73 @@ export default function SearchableVariableGroupList({
 }: SearchableVariableGroupListProps) {
 	const [searchQuery, setSearchQuery] = useState('')
 	const [requiredOnly, setRequiredOnly] = useState(false)
-	let filteredVariables: Array<Variable> = []
 	let numMatches: number
 
-	if (searchQuery.length < 2) {
-		filteredVariables = variables
-		numMatches = filteredVariables.length
-	} else {
-		// Filter all the variables that have been directly matched via the Search Query
-		const directMatches = variables.filter((variable: Variable) => {
-			return (
-				variable.key.toLowerCase().includes(searchQuery.toLowerCase()) ||
-				variable.description?.toLowerCase().includes(searchQuery.toLowerCase())
-			)
+	/**
+	 * If we're only showing required variables, filter optional variables out
+	 * TODO: split this into a separate function, maybe?
+	 */
+	let withRequiredFilter: Array<Variable> = variables
+	if (requiredOnly === true) {
+		withRequiredFilter = withRequiredFilter.filter((variable: Variable) => {
+			return variable.required === true
 		})
-		numMatches = directMatches.length
+	}
+	numMatches = withRequiredFilter.length
 
-		// Determine all of the variables that need to be included in the results
-		// This includes all of the ones matched above, but also their parents
-		const allKeys = []
-		directMatches
-			.map((variable: Variable) => variable.key)
-			.forEach((matchedKey: string) => {
-				const segments = matchedKey.split('.')
-				segments.forEach((segment: string, i: number) => {
-					allKeys.push(
-						matchedKey
-							.split('.')
-							.slice(0, i + 1)
-							.join('.')
-					)
+	/**
+	 * If we have a search query, filter variables further based on the query
+	 * TODO: split this into a separate function, maybe?
+	 */
+	let withQueryFilter: Array<Variable> = withRequiredFilter
+	if (searchQuery.length >= 2) {
+		{
+			// Filter all the variables that have been directly matched via the Search Query
+			const directMatches = withRequiredFilter.filter((variable: Variable) => {
+				return (
+					variable.key.toLowerCase().includes(searchQuery.toLowerCase()) ||
+					variable.description
+						?.toLowerCase()
+						.includes(searchQuery.toLowerCase())
+				)
+			})
+			numMatches = directMatches.length
+
+			// Determine all of the variables that need to be included in the results
+			// This includes all of the ones matched above, but also their parents
+			const allKeys = []
+			directMatches
+				.map((variable: Variable) => variable.key)
+				.forEach((matchedKey: string) => {
+					const segments = matchedKey.split('.')
+					segments.forEach((segment: string, i: number) => {
+						allKeys.push(
+							matchedKey
+								.split('.')
+								.slice(0, i + 1)
+								.join('.')
+						)
+					})
 				})
-			})
-		const allKeysUnique = Array.from(new Set(allKeys))
-		filteredVariables = variables
-			.filter((variable: Variable) => allKeysUnique.includes(variable.key))
-			.map((variable: Variable) => {
-				// If a variable was a direct match, specify highlight as a prop
-				if (
-					directMatches
-						.map((variable: Variable) => variable.key)
-						.includes(variable.key)
-				) {
-					return {
-						...variable,
-						highlight: true,
+			const allKeysUnique = Array.from(new Set(allKeys))
+			withQueryFilter = withRequiredFilter
+				.filter((variable: Variable) => allKeysUnique.includes(variable.key))
+				.map((variable: Variable) => {
+					// If a variable was a direct match, specify highlight as a prop
+					if (
+						directMatches
+							.map((variable: Variable) => variable.key)
+							.includes(variable.key)
+					) {
+						return {
+							...variable,
+							highlight: true,
+						}
+					} else {
+						return variable
 					}
-				} else {
-					return variable
-				}
-			})
+				})
+		}
 	}
 
 	return (
@@ -84,7 +101,7 @@ export default function SearchableVariableGroupList({
 			<p className={s.results}>
 				{numMatches} {numMatches === 1 ? 'Result' : 'Results'}
 			</p>
-			<VariableGroupList variables={filteredVariables} />
+			<VariableGroupList variables={withQueryFilter} />
 		</div>
 	)
 }
