@@ -1,5 +1,5 @@
 import { Integration } from 'lib/integrations-api-client/integration'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import IntegrationsList from '../integrations-list'
 import s from './style.module.css'
 import Pagination from 'components/pagination'
@@ -11,6 +11,7 @@ interface PaginatedIntegrationsListProps {
 export default function PaginatedIntegrationsList({
 	integrations,
 }: PaginatedIntegrationsListProps) {
+	const isFirstRender = useRef(true)
 	const [itemsPerPage, setItemsPerPage] = useState(8)
 	// Sort integrations alphabetically. Right now this is our
 	// preferred way of sorting. In the event we want to add different
@@ -39,6 +40,18 @@ export default function PaginatedIntegrationsList({
 	useEffect(() => {
 		setCurrentPage(1)
 	}, [sortedIntegrations])
+
+	/**
+	 * If our pagination page changes, scroll up to the top of the wrapper
+	 * However, don't scroll to the wrapper if this is the first render.
+	 */
+	useEffect(() => {
+		if (isFirstRender.current) {
+			isFirstRender.current = false
+		} else {
+			window.scrollTo(0, 0)
+		}
+	}, [currentPage])
 
 	return (
 		<div className={s.paginatedIntegrationsList}>
