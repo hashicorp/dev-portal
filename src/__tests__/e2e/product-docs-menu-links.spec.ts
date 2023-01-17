@@ -8,7 +8,7 @@ test('product "Documentation" menu renders correct links', async ({
 	baseURL,
 	page,
 }) => {
-	await page.goto(`${baseURL}/vault`)
+	await page.goto(`${baseURL}/terraform`)
 
 	const navActivator = page.locator('header button', {
 		has: page.locator('text=Documentation'),
