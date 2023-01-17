@@ -12,6 +12,7 @@ interface PaginatedIntegrationsListProps {
 export default function PaginatedIntegrationsList({
 	integrations,
 }: PaginatedIntegrationsListProps) {
+	const isFirstRender = useRef(true)
 	const containerRef = useRef(null)
 	const [itemsPerPage, setItemsPerPage] = useState(8)
 	// Sort integrations alphabetically. Right now this is our
@@ -49,16 +50,17 @@ export default function PaginatedIntegrationsList({
 	 * be scrolled to the top of the page (due to scrollTo), and then
 	 * immediately scrolled to the bottom of the page (since )
 	 */
-	function setPageWithScrollReset(page: number) {
-		setCurrentPage(page)
-		// Scroll to the top of the page
-		window.scrollTo(0, 0)
-		// Try to find the first result link, and focus it
-		const targetElement = containerRef.current?.querySelector('a')
-		if (targetElement) {
-			targetElement.focus()
+	useEffect(() => {
+		if (isFirstRender.current) {
+			isFirstRender.current = false
+		} else {
+			// Try to find the first result link, and focus it
+			const targetElement = containerRef.current?.querySelector('a')
+			if (targetElement) {
+				targetElement.focus()
+			}
 		}
-	}
+	}, [currentPage])
 
 	const { isDesktop, isMobile, isTablet } = useDeviceSize()
 
@@ -73,7 +75,7 @@ export default function PaginatedIntegrationsList({
 						totalItems={integrations.length}
 						pageSize={itemsPerPage}
 						page={currentPage}
-						onPageChange={setPageWithScrollReset}
+						onPageChange={setCurrentPage}
 						onPageSizeChange={setItemsPerPage}
 					>
 						{(isDesktop || isTablet) && <Pagination.Info />}
