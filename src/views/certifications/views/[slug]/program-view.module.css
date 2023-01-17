@@ -15,10 +15,12 @@
 	font-weight: var(--token-typography-font-weight-bold);
 	color: var(--token-color-foreground-strong);
 	margin: 40px 0 32px 0;
+}
 
-	& > a {
-		color: inherit;
-	}
+.examAccordionAnchorLink {
+	composes: g-focus-ring-from-box-shadow from global;
+	border-radius: 6px;
+	color: inherit;
 }
 
 .signupForm {

@@ -55,7 +55,12 @@ function CertificationProgramView({
 										)}
 										id={accordionId}
 									>
-										<a href={`#${accordionId}`}>{accordionHeading}</a>
+										<a
+											className={s.examAccordionAnchorLink}
+											href={`#${accordionId}`}
+										>
+											{accordionHeading}
+										</a>
 									</h2>
 									<AccordionWithMdxContent items={exam.faqItems} />
 								</div>
