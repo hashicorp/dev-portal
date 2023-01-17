@@ -7,10 +7,19 @@
 	margin-bottom: 22px;
 }
 
+.tablet_up {
+	composes: g-hide-on-mobile from global;
+}
+.mobile_only {
+	composes: g-hide-on-tablet from global;
+	composes: g-hide-on-desktop from global;
+}
+
 .results {
 	color: var(--token-color-foreground-faint);
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-medium from global;
+	margin-bottom: 12px;
 }
 
 .filterInfo {
@@ -101,7 +110,7 @@
 	border-radius: 5px;
 	background: none;
 	border-color: transparent;
-	padding: 0 16px;
+	text-decoration: underline;
 
 	--lighten-color: hsla(0, 0%, 100%, 0.8);
 
@@ -117,5 +126,61 @@
 	}
 	& svg {
 		margin-right: 8px;
+	}
+}
+
+.exitIcon {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
+	background-color: transparent;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+	display: flex;
+	height: fit-content;
+	padding: 8px;
+	color: var(--token-color-foreground-faint);
+}
+
+.justifyEnd {
+	justify-content: flex-end;
+}
+
+.row {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 4px;
+
+	/* debug */
+
+	/* background-color: aliceblue;
+	border: 1px dotted blue; */
+}
+
+.row_fill {
+	display: flex;
+	flex: 1;
+}
+
+.mobileFilters {
+	margin-top: 20px;
+}
+
+.optionsContainer {
+	margin-bottom: 24px;
+
+	/* each children has a margin bottom of 12px */
+	& > *:not(:last-child) {
+		margin-bottom: 12px;
+	}
+
+	/* first child has margin bottom of 8px */
+	& > *:first-child {
+		margin-bottom: 8px;
 	}
 }
