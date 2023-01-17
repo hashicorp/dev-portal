@@ -1,5 +1,7 @@
 // Global
 import BaseNewLayout from 'layouts/base-new'
+import classNames from 'classnames'
+import slugify from 'slugify'
 // Share certifications
 import {
 	AccordionWithMdxContent,
@@ -30,6 +32,10 @@ function CertificationProgramView({
 						{exams.map((exam) => {
 							const { title, examCode } = exam
 							const fullTitle = title + (examCode ? ` (${examCode})` : '')
+							const accordionHeading = `${fullTitle} Details`
+							const accordionId = `${slugify(accordionHeading, {
+								lower: true,
+							})}`
 							return (
 								<div key={fullTitle}>
 									<ExamDetailsCard
@@ -41,8 +47,15 @@ function CertificationProgramView({
 										versionTested={exam.versionTested}
 										slug={slug}
 									/>
-									<h2 className={s.examAccordionHeading}>
-										{`${title}${examCode ? ` ${examCode}` : ''} Details`}
+
+									<h2
+										className={classNames(
+											s.examAccordionHeading,
+											'g-offset-scroll-margin-top'
+										)}
+										id={accordionId}
+									>
+										<a href={`#${accordionId}`}>{accordionHeading}</a>
 									</h2>
 									<AccordionWithMdxContent items={exam.faqItems} />
 								</div>
