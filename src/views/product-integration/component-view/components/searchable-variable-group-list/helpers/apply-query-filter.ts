@@ -8,10 +8,12 @@ export function applyQueryFilter(
 	searchQuery: string,
 	variables: Array<Variable>
 ): Array<Variable> {
-	return variables.filter((variable: Variable) => {
-		return (
-			variable.key.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			variable.description?.toLowerCase().includes(searchQuery.toLowerCase())
-		)
-	})
+	return variables
+		.filter((variable: Variable) => {
+			return (
+				variable.key.toLowerCase().includes(searchQuery.toLowerCase()) ||
+				variable.description?.toLowerCase().includes(searchQuery.toLowerCase())
+			)
+		})
+		.map((variable: Variable) => ({ ...variable, highlight: true }))
 }

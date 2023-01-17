@@ -47,19 +47,13 @@ export default function SearchableVariableGroupList({
 	if (applyRequired) {
 		matches = applyRequiredFilter(matches)
 	}
-	// Apply the query filter, if applicable
+	// Apply the query filter, if applicable. Query matches are highlighted.
 	const applyQuery = searchQuery.length > 2
 	if (applyQuery) {
 		matches = applyQueryFilter(searchQuery, matches)
 	}
-	// If we're applying filters, highlight direct matches
-	const hasFiltersApplied = applyRequired || applyQuery
-	// Include ancestors, not only direct matches. Also highlight direct matches.
-	const matchesWithAncestors = includeMatchAncestors(
-		matches,
-		variables,
-		hasFiltersApplied
-	)
+	// Include ancestors, not only direct matches.
+	const matchesWithAncestors = includeMatchAncestors(matches, variables)
 	// Count direct matches only
 	const numMatches = matches.length
 

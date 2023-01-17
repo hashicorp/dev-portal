@@ -9,15 +9,10 @@ import { Variable } from '../../variable-group-list'
  *
  * Ancestor variables are variables that match the partial key path parts
  * of any direct match.
- *
- * Note that when `hasFiltersApplied` is set to `true`, variables that are
- * direct matches (not unmatched ancestors) will be returned with a
- * `highlight: true` property.
  */
 export function includeMatchAncestors(
 	directMatches: Variable[],
-	allVariables: Variable[],
-	hasFiltersApplied: boolean
+	allVariables: Variable[]
 ): Variable[] {
 	/**
 	 * Note that some variables may be object properties, with parent variables.
@@ -46,26 +41,20 @@ export function includeMatchAncestors(
 	const allKeysUnique = Array.from(new Set(allKeys))
 
 	/**
-	 * Next we filter the original variables array, including any variable that
-	 * matches any key (this will include direct matches).
+	 * Next we find ancestor keys only, as we want to preserve the provided
+	 * directMatches array in our return value.
 	 *
-	 * If a variable was a direct match, add `highlight: true`.
-	 * Else, it's an ancestor variable, so we return but don't highlight.
+	 * We filter out allKeys to remove any directMatchKeys, giving us only
+	 * ancestor variable keys. Then we filter allVariables for ancestor variables.
 	 */
 	const directMatchKeys = directMatches.map((v: Variable) => v.key)
-	const matchesAndAncestors = allVariables
-		.filter((variable: Variable) => allKeysUnique.includes(variable.key))
-		.map((variable: Variable) => {
-			const isDirectMatch = directMatchKeys.includes(variable.key)
-			if (isDirectMatch && hasFiltersApplied) {
-				return { ...variable, highlight: true }
-			} else {
-				return variable
-			}
-		})
+	const ancestorKeys = allKeysUnique.filter(
+		(k: string) => !directMatchKeys.includes(k)
+	)
+	const ancestorVariables = allVariables.filter((variable: Variable) =>
+		ancestorKeys.includes(variable.key)
+	)
 
-	/**
-	 * Finally, we return our filtered variables,
-	 */
-	return matchesAndAncestors
+	// Finally, we return our combined directMatches and ancestorVariables
+	return [...directMatches, ...ancestorVariables]
 }
