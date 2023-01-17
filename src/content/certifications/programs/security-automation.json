@@ -1,11 +1,11 @@
 {
 	"title": "Security Automation",
 	"summary": {
-		"heading": "Security Automation Certifications",
+		"heading": "Security<br />Automation Certifications",
 		"description": "Earn the Vault Associate to validate your knowledge of the concepts, skills, and use cases associated with open source Vault. Ready to demonstrate your advanced Vault Enterprise skills in production? Successfully complete a lab-based exam and earn the Vault Operations Professional certification."
 	},
 	"hero": {
-		"heading": "Security Automation Certification",
+		"heading": "Security<br />Automation Certification",
 		"description": "HashiCorp’s Security Automation certification program has two levels: Work up to the advanced Vault Professional Certification by starting with the foundational Vault Associate certification. The Associate certification validates your knowledge of open source Vault. Then, continue your certification journey with the Professional hands-on, lab-based exam to validate your years of production experience with both Vault and Vault Enterprise."
 	},
 	"exams": [

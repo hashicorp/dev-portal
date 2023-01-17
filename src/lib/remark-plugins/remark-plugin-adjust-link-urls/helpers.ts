@@ -1,7 +1,5 @@
 import path from 'path'
-import { visit } from 'unist-util-visit'
 import { Definition, Link } from 'mdast'
-import { Plugin, Transformer } from 'unified'
 
 const getIsInternalPath = (url: string) => {
 	try {
@@ -10,6 +8,23 @@ const getIsInternalPath = (url: string) => {
 	} catch (e) {
 		return true
 	}
+}
+
+/**
+ * Handles processing a Link or Definition node in documentation content. Returns
+ * the adjusted node URL.
+ */
+const processDocsLinkNode = ({
+	node,
+	currentPath,
+	urlAdjustFn,
+}: {
+	node: Link | Definition
+	currentPath: string
+	urlAdjustFn: (url: string) => string
+}) => {
+	const urlToAdjust = preAdjustUrl({ currentPath, url: node.url })
+	return urlAdjustFn(urlToAdjust)
 }
 
 /**
@@ -70,7 +85,7 @@ const handleDotSlashFolderRelativeUrl = ({
  * Pre-adjusts urls that start with a path part of the given `currentPath`. See
  * examples in: `src/lib/__tests__/remark-plugin-adjust-link-urls.test.ts`.
  */
-export const preAdjustUrl = ({ currentPath, url }): string => {
+const preAdjustUrl = ({ currentPath, url }): string => {
 	// Do nothing if currentPath or url are falsy (empty, null, undefined, etc.)
 	if (!currentPath || !url) {
 		return url
@@ -114,29 +129,19 @@ export const preAdjustUrl = ({ currentPath, url }): string => {
 		return `/${url}`
 	}
 
-	// Retain parts of currentPath before the one that matches first part of url
+	// Retain parts of currentPath, up to the first part of the url
 	const currentPathPartsToRetain = currentPathParts.slice(0, indexInCurrentPath)
 
-	// Join the retained parts of currentPath and all parts of url
+	// Concatentate the retained parts of currentPath, and all parts of url
 	const allJoinedParts = [...currentPathPartsToRetain, ...urlParts].join('/')
 
-	// Return all of the joined parts
+	// Return the concatentated parts
 	return allJoinedParts
 }
 
-const remarkPluginAdjustLinkUrls: Plugin = ({
-	currentPath = '',
-	urlAdjustFn,
-}: {
-	currentPath: string
-	urlAdjustFn: (url: string) => string
-}): Transformer => {
-	return function transformer(tree) {
-		visit(tree, ['link', 'definition'], (node: Link | Definition) => {
-			const urlToAdjust = preAdjustUrl({ currentPath, url: node.url })
-			node.url = urlAdjustFn(urlToAdjust)
-		})
-	}
+export {
+	handleDotDotFolderRelativeUrl,
+	handleDotSlashFolderRelativeUrl,
+	preAdjustUrl,
+	processDocsLinkNode,
 }
-
-export default remarkPluginAdjustLinkUrls
