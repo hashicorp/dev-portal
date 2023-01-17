@@ -232,11 +232,10 @@ export default function SearchableIntegrationsList({
 
 					{atLeastOneFacetSelected ? (
 						<button
-							title="Clear filters"
 							className={classNames(s.clearFilters, s.tablet_up)}
 							onClick={handleClearFilters}
 						>
-							<span>Clear filters</span>
+							<span>Reset filters</span>
 						</button>
 					) : (
 						<span className={s.noFilters}>No filters selected</span>
