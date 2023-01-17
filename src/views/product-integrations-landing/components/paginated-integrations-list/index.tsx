@@ -1,5 +1,5 @@
 import { Integration } from 'lib/integrations-api-client/integration'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import IntegrationsList from '../integrations-list'
 import s from './style.module.css'
 import Pagination from 'components/pagination'
@@ -11,6 +11,7 @@ interface PaginatedIntegrationsListProps {
 export default function PaginatedIntegrationsList({
 	integrations,
 }: PaginatedIntegrationsListProps) {
+	const containerRef = useRef(null)
 	const [itemsPerPage, setItemsPerPage] = useState(8)
 	// Sort integrations alphabetically. Right now this is our
 	// preferred way of sorting. In the event we want to add different
@@ -40,13 +41,26 @@ export default function PaginatedIntegrationsList({
 		setCurrentPage(1)
 	}, [sortedIntegrations])
 
+	/**
+	 * If our pagination page changes, scroll up to the top of the wrapper.
+	 *
+	 * We also focus the search input, since otherwise, keyboard users would
+	 * be scrolled to the top of the page (due to scrollTo), and then
+	 * immediately scrolled to the bottom of the page (since )
+	 */
 	function setPageWithScrollReset(page: number) {
-		setCurrentPage(1)
+		setCurrentPage(page)
+		// Scroll to the top of the page
 		window.scrollTo(0, 0)
+		// Try to find the first result link, and focus it
+		const targetElement = containerRef.current?.querySelector('a')
+		if (targetElement) {
+			targetElement.focus({ focusVisible: true })
+		}
 	}
 
 	return (
-		<div className={s.paginatedIntegrationsList}>
+		<div className={s.paginatedIntegrationsList} ref={containerRef}>
 			<IntegrationsList integrations={currentPageIntegrations} />
 			{/* It's possible that all integrations display on a single page
       in that case, just don't even show the paginator. */}
