@@ -10,13 +10,14 @@ import { Variable } from '../../variable-group-list'
  * Ancestor variables are variables that match the partial key path parts
  * of any direct match.
  *
- * Note that variables will be returned with a `highlight: true`
- * property set on each direct match. This is intended to allow highlighting
- * of direct matches only in filtered results.
+ * Note that when `hasFiltersApplied` is set to `true`, variables that are
+ * direct matches (not unmatched ancestors) will be returned with a
+ * `highlight: true` property.
  */
 export function includeMatchAncestors(
 	directMatches: Variable[],
-	allVariables: Variable[]
+	allVariables: Variable[],
+	hasFiltersApplied: boolean
 ): Variable[] {
 	/**
 	 * Note that some variables may be object properties, with parent variables.
@@ -56,7 +57,11 @@ export function includeMatchAncestors(
 		.filter((variable: Variable) => allKeysUnique.includes(variable.key))
 		.map((variable: Variable) => {
 			const isDirectMatch = directMatchKeys.includes(variable.key)
-			return isDirectMatch ? { ...variable, highlight: true } : variable
+			if (isDirectMatch && hasFiltersApplied) {
+				return { ...variable, highlight: true }
+			} else {
+				return variable
+			}
 		})
 
 	/**

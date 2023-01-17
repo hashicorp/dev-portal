@@ -39,11 +39,29 @@ export default function SearchableVariableGroupList({
 	 *
 	 * Note: We do not include unmatched ancestor variables in the results count.
 	 * Instead, we display the results count as the number of direct matches only.
+	 * As well, we only highlight direct matches, and only if filters are applied.
 	 */
-	const matchesRequired = applyRequiredFilter(requiredOnly, variables)
-	const directMatches = applyQueryFilter(searchQuery, matchesRequired)
-	const numMatches = directMatches.length
-	const matchesWithAncestors = includeMatchAncestors(directMatches, variables)
+	let matches = variables
+	// Apply the required filter, if applicable
+	const applyRequired = requiredOnly === true
+	if (applyRequired) {
+		matches = applyRequiredFilter(matches)
+	}
+	// Apply the query filter, if applicable
+	const applyQuery = searchQuery.length > 2
+	if (applyQuery) {
+		matches = applyQueryFilter(searchQuery, matches)
+	}
+	// If we're applying filters, highlight direct matches
+	const hasFiltersApplied = applyRequired || applyQuery
+	// Include ancestors, not only direct matches. Also highlight direct matches.
+	const matchesWithAncestors = includeMatchAncestors(
+		matches,
+		variables,
+		hasFiltersApplied
+	)
+	// Count direct matches only
+	const numMatches = matches.length
 
 	return (
 		<div>
