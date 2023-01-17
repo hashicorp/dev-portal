@@ -65,17 +65,20 @@ const handleDotDotFolderRelativeUrl = ({
  * path.
  */
 const handleDotSlashFolderRelativeUrl = ({
-	currentPath,
+	currentPathParts,
 	url,
 }: {
-	currentPath: string
+	currentPathParts: string[]
 	url: string
 }) => {
 	// Remove the leading dot-slash from the url
 	const urlWithOutDotSlash = url.slice('./'.length)
 
+	// Remove the last part of the currentPath
+	const currentPathWithoutLastPart = currentPathParts.slice(0, -1).join('/')
+
 	// Concatenate the current path and url (without the dot-slash)
-	const newUrl = path.join(currentPath, urlWithOutDotSlash)
+	const newUrl = path.join(currentPathWithoutLastPart, urlWithOutDotSlash)
 
 	// Return the new url
 	return newUrl
@@ -113,7 +116,7 @@ const preAdjustUrl = ({ currentPath, url }): string => {
 
 	// Handle folder-relative URL that is linking downwards
 	if (url.startsWith('./')) {
-		return handleDotSlashFolderRelativeUrl({ currentPath, url })
+		return handleDotSlashFolderRelativeUrl({ currentPathParts, url })
 	}
 
 	// Search for first part of url within currentPath
