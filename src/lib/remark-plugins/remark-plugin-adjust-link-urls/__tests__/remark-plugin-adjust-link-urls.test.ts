@@ -79,15 +79,19 @@ describe('remarkPluginAdjustLinkUrls', () => {
 
 		describe('pre-adjusts folder-relative urls starting with `./`', () => {
 			const testCases = [
+				// Example of test case:
+				// https://github.com/hashicorp/waypoint/blob/63d5149a2aa63214f6f5fa41e825cb1a13783b9e/website/content/plugins/aws-ecs.mdx?plain=1#L17
 				{
-					input: './configuration',
-					expected: '/docs/disks/configuration',
-					currentPath: '/docs/disks',
+					input: './pack',
+					expected: '/plugins/pack',
+					currentPath: '/plugins/aws-ecs',
 				},
+				// Example of test case:
+				// https://github.com/hashicorp/terraform-plugin-sdk/blob/8058e8060ef488d9881645ad9cad0872cdff3094/website/docs/plugin/sdkv2/logging/index.mdx?plain=1#L25
 				{
-					input: './hyperv/common-issues',
-					expected: '/docs/disks/hyperv/common-issues',
-					currentPath: '/docs/disks',
+					input: './logging/http-transport',
+					expected: '/plugin/sdkv2/logging/http-transport',
+					currentPath: '/plugin/sdkv2/logging',
 				},
 			]
 			testEachCase(testCases)
