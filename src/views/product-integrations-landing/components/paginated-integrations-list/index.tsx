@@ -1,5 +1,6 @@
 import { Integration } from 'lib/integrations-api-client/integration'
-import { useEffect, useState } from 'react'
+import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
+import { useEffect, useRef, useState } from 'react'
 import IntegrationsList from '../integrations-list'
 import s from './style.module.css'
 import Pagination from 'components/pagination'
@@ -12,6 +13,8 @@ interface PaginatedIntegrationsListProps {
 export default function PaginatedIntegrationsList({
 	integrations,
 }: PaginatedIntegrationsListProps) {
+	const isFirstRender = useRef(true)
+	const containerRef = useRef(null)
 	const [itemsPerPage, setItemsPerPage] = useState(8)
 	// Sort integrations alphabetically. Right now this is our
 	// preferred way of sorting. In the event we want to add different
@@ -41,10 +44,41 @@ export default function PaginatedIntegrationsList({
 		setCurrentPage(1)
 	}, [sortedIntegrations])
 
+	/**
+	 * If our pagination page changes, scroll up to the top of the wrapper.
+	 *
+	 * We also focus the search input, since otherwise, keyboard users would
+	 * be scrolled to the top of the page (due to scrollTo), and then
+	 * immediately scrolled to the bottom of the page.
+	 *
+	 * TODO: consider hooking into <Pagination/>'s `onPageChange`.
+	 * This might be more clear than a separate effect (but for now, would
+	 * not result in the same focus behaviour on the first result link.)
+	 */
+	useEffect(() => {
+		if (isFirstRender.current) {
+			isFirstRender.current = false
+		} else {
+			// Try to find the first result link, and focus it
+			const targetElement = containerRef.current?.querySelector('a')
+			if (targetElement) {
+				targetElement.focus({ forceVisible: true })
+				/**
+				 * We need to scroll up a bit, as the focused item may be slightly
+				 * hidden behind the top navigation bar. Note this approach is slightly
+				 * brittle, as --navigationHeader. We also add an extra 64px,
+				 * which makes it more clear we've scrolled to the top of results.
+				 */
+				const navScrollCompensation = getFullNavHeaderHeight() + 64
+				window.scrollBy(0, navScrollCompensation * -1)
+			}
+		}
+	}, [currentPage])
+
 	const { isDesktop, isMobile, isTablet } = useDeviceSize()
 
 	return (
-		<div className={s.paginatedIntegrationsList}>
+		<div className={s.paginatedIntegrationsList} ref={containerRef}>
 			<IntegrationsList integrations={currentPageIntegrations} />
 			{/* It's possible that all integrations display on a single page
       in that case, just don't even show the paginator. */}
