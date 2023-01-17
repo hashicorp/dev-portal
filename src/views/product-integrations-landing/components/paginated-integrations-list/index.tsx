@@ -58,6 +58,8 @@ export default function PaginatedIntegrationsList({
 		if (isFirstRender.current) {
 			isFirstRender.current = false
 		} else {
+			// Scroll to the top of the page
+			window.scrollTo(0, 0)
 			// Try to find the first result link, and focus it
 			const targetElement = containerRef.current?.querySelector('a')
 			if (targetElement) {
