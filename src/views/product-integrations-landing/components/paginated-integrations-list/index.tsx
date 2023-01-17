@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import IntegrationsList from '../integrations-list'
 import s from './style.module.css'
 import Pagination from 'components/pagination'
+import { useDeviceSize } from 'contexts/device-size'
 
 interface PaginatedIntegrationsListProps {
 	integrations: Array<Integration>
@@ -59,6 +60,8 @@ export default function PaginatedIntegrationsList({
 		}
 	}
 
+	const { isDesktop, isMobile, isTablet } = useDeviceSize()
+
 	return (
 		<div className={s.paginatedIntegrationsList} ref={containerRef}>
 			<IntegrationsList integrations={currentPageIntegrations} />
@@ -68,14 +71,14 @@ export default function PaginatedIntegrationsList({
 				<div className={s.paginatorWrapper}>
 					<Pagination
 						totalItems={integrations.length}
-						pageSize={8}
-						page={1}
+						pageSize={itemsPerPage}
+						page={currentPage}
 						onPageChange={setPageWithScrollReset}
 						onPageSizeChange={setItemsPerPage}
 					>
-						<Pagination.Info />
-						<Pagination.Nav type="truncated" />
-						<Pagination.SizeSelector sizes={[4, 8, 16, 24]} />
+						{(isDesktop || isTablet) && <Pagination.Info />}
+						<Pagination.Nav type={isMobile ? 'compact' : 'truncated'} />
+						{isDesktop && <Pagination.SizeSelector sizes={[4, 8, 16, 24]} />}
 					</Pagination>
 				</div>
 			)}
