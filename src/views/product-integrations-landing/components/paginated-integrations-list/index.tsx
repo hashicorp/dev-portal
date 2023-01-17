@@ -55,7 +55,7 @@ export default function PaginatedIntegrationsList({
 		// Try to find the first result link, and focus it
 		const targetElement = containerRef.current?.querySelector('a')
 		if (targetElement) {
-			targetElement.focus({ focusVisible: true })
+			targetElement.focus()
 		}
 	}
 
