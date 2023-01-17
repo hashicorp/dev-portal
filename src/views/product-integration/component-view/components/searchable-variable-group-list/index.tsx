@@ -3,8 +3,9 @@ import { CheckboxField } from 'components/form/field-controls'
 import { useState } from 'react'
 import { Variable, VariableGroupList } from '../variable-group-list'
 import {
-	applyVariableQueryFilter,
-	applyVariableRequiredFilter,
+	applyQueryFilter,
+	applyRequiredFilter,
+	includeMatchAncestors,
 } from './helpers'
 import s from './style.module.css'
 
@@ -34,14 +35,15 @@ export default function SearchableVariableGroupList({
 
 	/**
 	 * Apply the requiredOnly & searchQuery filters.
-	 * The searchQuery filtering is applied last, as it contains some logic to
-	 * return the count of direct matches, which is not filteredVariables.length.
+	 * Then, include ancestor variables for all direct matches.
+	 *
+	 * Note: We do not include unmatched ancestor variables in the results count.
+	 * Instead, we display the results count as the number of direct matches only.
 	 */
-	const withRequiredOnly = applyVariableRequiredFilter(requiredOnly, variables)
-	const [filteredVariables, numMatches] = applyVariableQueryFilter(
-		searchQuery,
-		withRequiredOnly
-	)
+	const matchesRequired = applyRequiredFilter(requiredOnly, variables)
+	const directMatches = applyQueryFilter(searchQuery, matchesRequired)
+	const numMatches = directMatches.length
+	const matchesWithAncestors = includeMatchAncestors(directMatches, variables)
 
 	return (
 		<div>
@@ -64,7 +66,7 @@ export default function SearchableVariableGroupList({
 			<p className={s.results}>
 				{numMatches} {numMatches === 1 ? 'Result' : 'Results'}
 			</p>
-			<VariableGroupList variables={filteredVariables} />
+			<VariableGroupList variables={matchesWithAncestors} />
 		</div>
 	)
 }

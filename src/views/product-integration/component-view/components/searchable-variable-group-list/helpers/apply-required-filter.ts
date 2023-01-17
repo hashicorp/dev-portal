@@ -7,7 +7,7 @@ import { Variable } from '../../variable-group-list'
  * If `requiredOnly` is true, only required variables will be included.
  * Otherwise, variables will be returned without any filtering applied.
  */
-export function applyVariableRequiredFilter(
+export function applyRequiredFilter(
 	requiredOnly: boolean,
 	variables: Array<Variable>
 ): Array<Variable> {
