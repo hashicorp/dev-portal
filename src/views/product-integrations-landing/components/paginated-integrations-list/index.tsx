@@ -1,4 +1,5 @@
 import { Integration } from 'lib/integrations-api-client/integration'
+import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
 import { useEffect, useRef, useState } from 'react'
 import IntegrationsList from '../integrations-list'
 import s from './style.module.css'
@@ -58,12 +59,18 @@ export default function PaginatedIntegrationsList({
 		if (isFirstRender.current) {
 			isFirstRender.current = false
 		} else {
-			// Scroll to the top of the page
-			window.scrollTo(0, 0)
 			// Try to find the first result link, and focus it
 			const targetElement = containerRef.current?.querySelector('a')
 			if (targetElement) {
-				targetElement.focus()
+				targetElement.focus({ forceVisible: true })
+				/**
+				 * We need to scroll up a bit, as the focused item may be slightly
+				 * hidden behind the top navigation bar. Note this approach is slightly
+				 * brittle, as --navigationHeader. We also add an extra 64px,
+				 * which makes it more clear we've scrolled to the top of results.
+				 */
+				const navScrollCompensation = getFullNavHeaderHeight() + 64
+				window.scrollBy(0, navScrollCompensation * -1)
 			}
 		}
 	}, [currentPage])
