@@ -48,7 +48,11 @@ export default function PaginatedIntegrationsList({
 	 *
 	 * We also focus the search input, since otherwise, keyboard users would
 	 * be scrolled to the top of the page (due to scrollTo), and then
-	 * immediately scrolled to the bottom of the page (since )
+	 * immediately scrolled to the bottom of the page.
+	 *
+	 * TODO: consider hooking into <Pagination/>'s `onPageChange`.
+	 * This might be more clear than a separate effect (but for now, would
+	 * not result in the same focus behaviour on the first result link.)
 	 */
 	useEffect(() => {
 		if (isFirstRender.current) {
