@@ -30,6 +30,32 @@ describe('remarkPluginAdjustLinkUrls', () => {
 			})
 		})
 
+		describe('pre-adjusts developer.hashicorp.com links to internal paths', () => {
+			const testCases = [
+				{
+					input: 'https://developer.hashicorp.com',
+					expected: '/',
+					currentPath: 'mock-path',
+				},
+				{
+					input: 'https://developer.hashicorp.com/',
+					expected: '/',
+					currentPath: 'mock-path',
+				},
+				{
+					input: 'https://developer.hashicorp.com/vault',
+					expected: '/vault',
+					currentPath: 'mock-path',
+				},
+				{
+					input: 'https://developer.hashicorp.com/vault/docs',
+					expected: '/vault/docs',
+					currentPath: 'mock-path',
+				},
+			]
+			testEachCase(testCases)
+		})
+
 		describe('pre-adjusts folder-relative urls starting with `../`', () => {
 			const testCases = [
 				{
