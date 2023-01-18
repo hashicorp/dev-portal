@@ -46,7 +46,7 @@ const CardLink = ({
 				href={href}
 				target={target}
 			>
-				<span>&nbsp;</span>
+				<span aria-hidden={true}>&nbsp;</span>
 			</Link>
 			{children}
 		</Card>
