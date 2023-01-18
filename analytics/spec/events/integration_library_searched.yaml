@@ -1,0 +1,20 @@
+name: Integration Library Searched
+description: A search query has been input in a products Integration Library.
+rules:
+  '$schema': http://json-schema.org/draft-04/schema#
+  type: object
+  properties:
+    context:
+      $ref: ../meta/context.yaml
+    properties:
+      type: object
+      properties:
+        search_query:
+          description: The search query that was applied.
+          type: string
+        results_count:
+          description: The number of results that match the search query.
+          type: number
+      required:
+        - filter_category
+        - filter_value
