@@ -12,9 +12,9 @@ import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 
 /**
- * Should correspond to --dev-dot-hide-mobile-menu / --dev-dot-hide-mobile-menu
+ * Should correspond to --dev-dot-hide-mobile-menu
  */
-const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 1056
+const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 880
 
 interface MobileMenuContextState {
 	/**
