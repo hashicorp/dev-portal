@@ -1,6 +1,15 @@
 import path from 'path'
 import { Definition, Link } from 'mdast'
 
+const getIsInternalPath = (url: string) => {
+	try {
+		new URL(url)
+		return false
+	} catch (e) {
+		return true
+	}
+}
+
 /**
  * Handles processing a Link or Definition node in documentation content. Returns
  * the adjusted node URL.
@@ -19,7 +28,26 @@ const processDocsLinkNode = ({
 }
 
 /**
- * Handles folder-relative URLs that start with the "dot-dot" (..) syntax. This
+ * Handles processing full URLs that may or may not be external to dev dot. If
+ * the URL is under the developer.hashicorp.com hostname, then the URL is
+ * returned as an internal path to dev dot. Otherwise, URLs that are totally
+ * external to dev dot are returned as-is.
+ */
+const handleFullUrl = ({ url }) => {
+	// Construct a URL object
+	const { hostname, pathname = '', search = '', hash = '' } = new URL(url)
+
+	// If it's a developer.hashicorp.com url, return it as an internal path
+	if (hostname === 'developer.hashicorp.com') {
+		return `${pathname}${search}${hash}`
+	}
+
+	// Otherwise, there is nothing to pre-adjust for external URLs
+	return url
+}
+
+/**
+ * Handles folder-relative URLs that start with the "dot-dot" (../) syntax. This
  * syntax is used to link to a parent, grandparent, etc. from the current path.
  */
 const handleDotDotFolderRelativeUrl = ({
@@ -77,7 +105,7 @@ const handleDotSlashFolderRelativeUrl = ({
 
 /**
  * Handles folder-relative URLs that do not start with any dots syntax or
- * punctuation.
+ * punctuation (e.g., "docs/some/docs/path").
  */
 const handleNoDotsFolderRelativeUrl = ({ currentPathParts, url, urlParts }) => {
 	// Make a copy of urlParts that we can modify
@@ -123,16 +151,10 @@ const preAdjustUrl = ({ currentPath, url }): string => {
 		return url
 	}
 
-	// Handle developer.hashicorp.com links if needed
-	try {
-		const { hostname, pathname, search = '', hash = '' } = new URL(url)
-		if (hostname === 'developer.hashicorp.com') {
-			return `${pathname}${search}${hash}`
-		} else {
-			return url
-		}
-	} catch (e) {
-		// is an internal path, so continue to rest of function
+	// Handle full URL that may link externally or internally
+	const isFullUrl = getIsInternalPath(url) === false
+	if (isFullUrl) {
+		return handleFullUrl({ url })
 	}
 
 	// Do nothing if url is a top-level path
@@ -154,6 +176,7 @@ const preAdjustUrl = ({ currentPath, url }): string => {
 		return handleDotSlashFolderRelativeUrl({ currentPathParts, url })
 	}
 
+	// Otherwise, handle as a folder-relative URL that does not start with any dots
 	return handleNoDotsFolderRelativeUrl({ currentPathParts, url, urlParts })
 }
 
