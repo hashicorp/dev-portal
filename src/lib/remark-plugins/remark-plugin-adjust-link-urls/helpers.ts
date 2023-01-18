@@ -1,6 +1,15 @@
 import path from 'path'
 import { Definition, Link } from 'mdast'
 
+const getIsInternalPath = (url: string) => {
+	try {
+		new URL(url)
+		return false
+	} catch (e) {
+		return true
+	}
+}
+
 /**
  * Handles processing a Link or Definition node in documentation content. Returns
  * the adjusted node URL.
@@ -16,6 +25,25 @@ const processDocsLinkNode = ({
 }) => {
 	const urlToAdjust = preAdjustUrl({ currentPath, url: node.url })
 	return urlAdjustFn(urlToAdjust)
+}
+
+/**
+ * Handles processing full URLs that may or may not be external to dev dot. If
+ * the URL is under the developer.hashicorp.com hostname, then the URL is
+ * returned as an internal path to dev dot. Otherwise, URLs that are totally
+ * external to dev dot are returned as-is.
+ */
+const handleFullUrl = ({ url }) => {
+	// Construct a URL object
+	const { hostname, pathname = '', search = '', hash = '' } = new URL(url)
+
+	// If it's a developer.hashicorp.com url, return it as an internal path
+	if (hostname === 'developer.hashicorp.com') {
+		return `${pathname}${search}${hash}`
+	}
+
+	// Otherwise, there is nothing to pre-adjust for external URLs
+	return url
 }
 
 /**
@@ -123,16 +151,10 @@ const preAdjustUrl = ({ currentPath, url }): string => {
 		return url
 	}
 
-	// Handle developer.hashicorp.com links if needed
-	try {
-		const { hostname, pathname, search = '', hash = '' } = new URL(url)
-		if (hostname === 'developer.hashicorp.com') {
-			return `${pathname}${search}${hash}`
-		} else {
-			return url
-		}
-	} catch (e) {
-		// is an internal path, so continue to rest of function
+	// Handle full URL that may link externally or internally
+	const isFullUrl = getIsInternalPath(url) === false
+	if (isFullUrl) {
+		return handleFullUrl({ url })
 	}
 
 	// Do nothing if url is a top-level path
