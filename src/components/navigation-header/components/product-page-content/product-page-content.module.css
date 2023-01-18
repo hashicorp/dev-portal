@@ -18,13 +18,11 @@
 	padding: 0;
 }
 
-.companyLogo {
-	display: flex;
-
-	& svg {
-		height: 32px;
-		width: 32px;
-	}
+.hashiLogo {
+	color: var(--token-color-surface-primary);
+	display: block;
+	height: 32px;
+	width: 32px;
 }
 
 .companyLogoMenuButton {
@@ -37,10 +35,6 @@
 .companyLogoMenuButtonDropdown {
 	border-bottom-left-radius: 0;
 	left: calc(-1 * var(--header-padding-left-right));
-}
-
-.hcpLogo {
-	max-width: 160px;
 }
 
 .hashicorpIconDropdown {
@@ -59,6 +53,6 @@
 	margin-right: 8px;
 
 	@media (--dev-dot-hide-mobile-menu) {
-		margin-left: 12px;
+		margin-left: 24px;
 	}
 }

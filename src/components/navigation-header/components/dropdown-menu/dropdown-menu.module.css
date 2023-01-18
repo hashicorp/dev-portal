@@ -36,7 +36,7 @@
 }
 
 .activatorText {
-	color: var(--token-color-palette-neutral-400);
+	color: var(--token-color-surface-strong);
 	margin-right: 6px;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .activatorTrailingIcon {
-	color: var(--token-color-palette-neutral-400);
+	color: var(--token-color-surface-strong);
 
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {

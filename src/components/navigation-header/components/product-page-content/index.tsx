@@ -1,6 +1,5 @@
 // HashiCorp Imports
-import InlineSvg from '@hashicorp/react-inline-svg'
-import HashiCorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/logomark/white.svg?include'
+import { IconHashicorp24 } from '@hashicorp/flight-icons/svg-react/hashicorp-24'
 
 // Global imports
 import { ProductSlug } from 'types/products'
@@ -65,9 +64,7 @@ const ProductPageHeaderContent = () => {
 						buttonClassName={s.companyLogoMenuButton}
 						dropdownClassName={s.companyLogoMenuButtonDropdown}
 						itemGroups={allMainMenuItems}
-						leadingIcon={
-							<InlineSvg className={s.companyLogo} src={HashiCorpLogo} />
-						}
+						leadingIcon={<IconHashicorp24 className={s.hashiLogo} />}
 					/>
 				</div>
 				<div className={s.productIconTextLink}>
@@ -81,17 +78,15 @@ const ProductPageHeaderContent = () => {
 				<ul className={s.navList}>
 					{getNavItems(currentProduct).map((navItem) => {
 						const ariaLabel = `${currentProduct.name} ${navItem.label}`
-
-						let ItemContent
-						if (navItem.hasOwnProperty('items')) {
-							ItemContent = PrimaryNavSubmenu
-						} else {
-							ItemContent = PrimaryNavLink
-						}
+						const isSubmenu = 'items' in navItem
 
 						return (
 							<li key={navItem.label}>
-								<ItemContent ariaLabel={ariaLabel} navItem={navItem} />
+								{isSubmenu ? (
+									<PrimaryNavSubmenu ariaLabel={ariaLabel} navItem={navItem} />
+								) : (
+									<PrimaryNavLink ariaLabel={ariaLabel} navItem={navItem} />
+								)}
 							</li>
 						)
 					})}
