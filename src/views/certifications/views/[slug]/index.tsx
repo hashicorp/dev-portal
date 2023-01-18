@@ -1,6 +1,5 @@
 // Global
 import BaseNewLayout from 'layouts/base-new'
-import classNames from 'classnames'
 import slugify from 'slugify'
 // Share certifications
 import {
@@ -48,13 +47,7 @@ function CertificationProgramView({
 										slug={slug}
 									/>
 
-									<h2
-										className={classNames(
-											s.examAccordionHeading,
-											'g-offset-scroll-margin-top'
-										)}
-										id={accordionId}
-									>
+									<h2 className={s.examAccordionHeading} id={accordionId}>
 										<a
 											className={s.examAccordionAnchorLink}
 											href={`#${accordionId}`}
