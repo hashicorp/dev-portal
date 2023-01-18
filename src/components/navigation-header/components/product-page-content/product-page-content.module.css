@@ -1,3 +1,23 @@
+.root {
+	align-items: center;
+	display: flex;
+	justify-content: left;
+}
+
+.nav {
+	@media (--dev-dot-show-mobile-menu) {
+		display: none;
+	}
+}
+
+.navList {
+	align-items: center;
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
 .companyLogo {
 	display: flex;
 
@@ -19,15 +39,26 @@
 	left: calc(-1 * var(--header-padding-left-right));
 }
 
-.productLogoLink {
-	composes: g-focus-ring-from-box-shadow-dark from global;
-	border-radius: 5px;
+.hcpLogo {
+	max-width: 160px;
+}
+
+.hashicorpIconDropdown {
+	@media (--dev-dot-show-mobile-menu) {
+		display: none;
+	}
+}
+
+.leftSideContainer {
+	align-items: center;
+	display: flex;
+	justify-content: left;
+}
+
+.productIconTextLink {
+	margin-right: 8px;
 
 	@media (--dev-dot-hide-mobile-menu) {
 		margin-left: 12px;
 	}
-}
-
-.hcpLogo {
-	max-width: 160px;
 }
