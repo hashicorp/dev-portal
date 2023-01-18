@@ -19,7 +19,7 @@ const processDocsLinkNode = ({
 }
 
 /**
- * Handles folder-relative URLs that start with the "dot-dot" (..) syntax. This
+ * Handles folder-relative URLs that start with the "dot-dot" (../) syntax. This
  * syntax is used to link to a parent, grandparent, etc. from the current path.
  */
 const handleDotDotFolderRelativeUrl = ({
@@ -77,7 +77,7 @@ const handleDotSlashFolderRelativeUrl = ({
 
 /**
  * Handles folder-relative URLs that do not start with any dots syntax or
- * punctuation.
+ * punctuation (e.g., "docs/some/docs/path").
  */
 const handleNoDotsFolderRelativeUrl = ({ currentPathParts, url, urlParts }) => {
 	// Make a copy of urlParts that we can modify
@@ -154,6 +154,7 @@ const preAdjustUrl = ({ currentPath, url }): string => {
 		return handleDotSlashFolderRelativeUrl({ currentPathParts, url })
 	}
 
+	// Otherwise, handle as a folder-relative URL that does not start with any dots
 	return handleNoDotsFolderRelativeUrl({ currentPathParts, url, urlParts })
 }
 
