@@ -17,6 +17,7 @@
 	display: flex;
 	padding-top: 0;
 	padding-bottom: 0;
+	min-height: var(--navigation-header-height);
 	justify-content: space-between;
 	padding-left: var(--header-padding-left-right);
 	padding-right: var(--header-padding-left-right);
