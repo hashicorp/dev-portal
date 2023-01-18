@@ -40,7 +40,9 @@ const CardLink = ({
 				data-heap-track={`card-link ${dataHeapTrack ?? ''}`}
 				href={href}
 				target={target}
-			/>
+			>
+				&nbsp;
+			</Link>
 			{children}
 		</Card>
 	)
