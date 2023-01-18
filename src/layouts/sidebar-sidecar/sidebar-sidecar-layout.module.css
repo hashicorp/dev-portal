@@ -22,6 +22,14 @@ for further details.
   navigation-header component, in order to match alignment in design specs. */
 	--main-area-padding-right: 24px;
 
+	/* We want space between the main area and the sidecar... and we need
+	   to know this spacing metric when rendering the layout without the
+		 sidecar, so that we can align with layouts that do have the sidecar */
+	--sidecar-spacing: 48px;
+	@media (min-width: 1440px) {
+		--sidecar-spacing: 64px;
+	}
+
 	/*
   We want our footer to have a top border which spans
   across both the main content and sidecar.
@@ -48,6 +56,13 @@ for further details.
 	&.mainWidth-wide {
 		--main-element-max-width: 896px;
 		--sidecar-width: 220px;
+
+		/* If sidecar is not included, let the main content area eat up the space */
+		&:not(.includesSidecar) {
+			--main-element-max-width: calc(
+				896px + var(--sidecar-width) + var(--sidecar-spacing)
+			);
+		}
 	}
 
 	&.mainWidth-narrow {
@@ -124,14 +139,10 @@ for further details.
 		display: block;
 		flex-shrink: 0;
 		height: fit-content;
-		margin-left: 48px;
+		margin-left: var(--sidecar-spacing);
 		position: sticky;
 		top: calc(var(--sticky-bars-height) + var(--main-area-padding-top));
 		width: var(--sidecar-width);
-	}
-
-	@media (min-width: 1440px) {
-		margin-left: 64px;
 	}
 }
 

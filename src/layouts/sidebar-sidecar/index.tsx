@@ -107,9 +107,15 @@ const SidebarSidecarLayoutContent = ({
 	} else {
 		SidecarContent = null
 	}
+	// We'll include the sidecar only if `SidecarContent` is not null
+	const includesSidecar = SidecarContent !== null
 
 	return (
-		<div className={classNames(s.root, s[`mainWidth-${mainWidth}`])}>
+		<div
+			className={classNames(s.root, s[`mainWidth-${mainWidth}`], {
+				[s.includesSidecar]: includesSidecar,
+			})}
+		>
 			<MobileMenuContainer className={s.mobileMenuContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
 					<MobileAuthenticationControls />
@@ -153,7 +159,7 @@ const SidebarSidecarLayoutContent = ({
 							/>
 						)}
 					</main>
-					{SidecarContent !== null ? (
+					{includesSidecar ? (
 						<div className={s.sidecarWrapper}>
 							<SidecarContent />
 						</div>
