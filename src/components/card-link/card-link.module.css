@@ -19,6 +19,19 @@ style applied to anchor elements.
 }
 
 .anchor {
+	/** 
+	* Safari will only focus on links
+	* that have content. These styles, along with 
+	* the empty child `span` allow focus 
+	* to behave as expected while retaining the desired
+	* sibling 'empty link' structure
+	**/
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
 	/* makes the whole card clickable */
 	&::before {
 		background-color: transparent;
