@@ -33,6 +33,10 @@ style applied to anchor elements.
 		z-index: 0;
 	}
 
+	&:focus {
+		outline: transparent;
+	}
+
 	/* only styling the ::before element on focus */
 	&:focus::before {
 		outline: transparent;
