@@ -27,7 +27,6 @@ export default function ProductIntegrationsLanding({
 			<SidebarSidecarLayout
 				sidebarNavDataLevels={sidebarNavDataLevels}
 				breadcrumbLinks={breadcrumbLinks}
-				sidecarSlot={<></>}
 			>
 				<div className={s.mainArea}>
 					<BrandedHeaderCard

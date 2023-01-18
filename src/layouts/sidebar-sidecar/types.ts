@@ -22,9 +22,11 @@ interface BaseProps {
 
 /**
  * `PropsForSidecar` defines the properties that represent `Sidecar` behavior.
- * This approach allows us to require either (not both) `headings` and
+ *
+ * This approach allows us to require either (but not both) `headings` and
  * `sidecarSlot` since providing both of these props is not a case that this
- * component handles.
+ * component handles. We also handle if neither of these props are provided,
+ * in which case we render main content only, with no sidecar space.
  */
 type PropsForSidecar =
 	| {
@@ -33,7 +35,7 @@ type PropsForSidecar =
 	  }
 	| {
 			headings?: never
-			sidecarSlot: ReactElement | null
+			sidecarSlot?: ReactElement | null
 	  }
 
 /**

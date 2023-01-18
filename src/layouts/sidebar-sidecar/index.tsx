@@ -92,14 +92,20 @@ const SidebarSidecarLayoutContent = ({
 		sidebarContent = <Sidebar {...sidebarProps} />
 	}
 
-	const SidecarContent = (): ReactElement => {
-		if (typeof sidecarSlot !== 'undefined') {
-			return sidecarSlot
-		}
-
-		return (
+	/**
+	 * Optionally render sidecar content. If no sidecar content is provided,
+	 * the main content will not have sidecar space rendered alongside it.
+	 */
+	let SidecarContent: () => ReactElement | null
+	if (typeof sidecarSlot !== 'undefined') {
+		SidecarContent = () => sidecarSlot
+	} else if (typeof headings !== 'undefined') {
+		// eslint-disable-next-line react/display-name
+		SidecarContent = () => (
 			<TableOfContents headings={filterTableOfContentsHeadings(headings)} />
 		)
+	} else {
+		SidecarContent = null
 	}
 
 	return (
@@ -147,9 +153,11 @@ const SidebarSidecarLayoutContent = ({
 							/>
 						)}
 					</main>
-					<div className={s.sidecarWrapper}>
-						<SidecarContent />
-					</div>
+					{SidecarContent !== null ? (
+						<div className={s.sidecarWrapper}>
+							<SidecarContent />
+						</div>
+					) : null}
 				</div>
 				{showScrollProgress ? (
 					<ScrollProgressBar progress={scrollYProgress} />
