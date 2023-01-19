@@ -52,17 +52,6 @@ export default function SearchableIntegrationsList({
 	useEffect(() => {
 		// Note: we only want to track this event if the query input is meaningful
 		if (filterQuery.length > 0) {
-			alert(
-				JSON.stringify(
-					{
-						event: 'integration_library_searched',
-						search_query: filterQuery,
-						results_count: filteredIntegrations.length,
-					},
-					null,
-					2
-				)
-			)
 			integrationLibrarySearchedEvent({
 				search_query: filterQuery,
 				results_count: filteredIntegrations.length,
@@ -104,17 +93,6 @@ export default function SearchableIntegrationsList({
 		const tierToggleFunction = (p) => {
 			const isSelectedNext = !p
 			if (isSelectedNext) {
-				alert(
-					JSON.stringify(
-						{
-							event: 'integration_library_filter_selected',
-							filter_category: 'tier',
-							filter_value: e,
-						},
-						null,
-						2
-					)
-				)
 				integrationLibraryFilterSelectedEvent({
 					filter_category: 'tier',
 					filter_value: e,
@@ -138,17 +116,6 @@ export default function SearchableIntegrationsList({
 			const isFlagSelectedInNext = !next[i]
 			// When any flag input is checked, track an analytics filtered event
 			if (isFlagSelectedInNext) {
-				alert(
-					JSON.stringify(
-						{
-							event: 'integration_library_filter_selected',
-							filter_category: 'flag',
-							filter_value: flagName,
-						},
-						null,
-						2
-					)
-				)
 				integrationLibraryFilterSelectedEvent({
 					filter_category: 'flag',
 					filter_value: flagName,
@@ -166,17 +133,6 @@ export default function SearchableIntegrationsList({
 				const isComponentSelectedInNext = !next[i]
 				// When any component input is checked, track an analytics filtered event
 				if (isComponentSelectedInNext) {
-					alert(
-						JSON.stringify(
-							{
-								event: 'integration_library_filter_selected',
-								filter_category: 'component',
-								filter_value: componentName,
-							},
-							null,
-							2
-						)
-					)
 					integrationLibraryFilterSelectedEvent({
 						filter_category: 'component',
 						filter_value: componentName,
