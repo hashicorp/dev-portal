@@ -1,3 +1,9 @@
+/** 
+* The permalink icon focus / hover styles should reflect 
+* the same behavior as the mdx-heading-permalink component
+* /src/components/dev-dot-content/mdx-components/mdx-heading-permalink
+**/
+
 .heading {
 	composes: hds-typography-display-400 from global;
 	composes: g-offset-scroll-margin-top from global;
@@ -28,11 +34,6 @@
 		}
 	}
 }
-
-/** 
-* These styles should reflect the same behavior as 
-* the mdx-heading-permalink component
-**/
 
 .icon {
 	width: 24px;
