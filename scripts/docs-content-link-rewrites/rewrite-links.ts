@@ -88,7 +88,9 @@ const main = async () => {
 		// Throw an error if configured to, such as in a legacy link format checker
 		const message = `Found MDX links to rewrite in ${
 			mdxFilesWithLinksToRewrite.length
-		} files:\n${JSON.stringify(mdxLinksToRewrite, null, 2)}`
+		} files:\n${mdxFilesWithLinksToRewrite
+			.map((fileName: string) => `  ${fileName}`)
+			.join('\n')}`
 		if (ERROR_IF_LINKS_TO_REWRITE === 'true') {
 			throw new Error(message)
 		} else {
@@ -127,11 +129,6 @@ const main = async () => {
 	// Write the unrewriteable links data to an output file.
 	const mdxFilesWithUnrewriteableLinks = Object.keys(mdxUnrewriteableLinks)
 	if (!CI && mdxFilesWithUnrewriteableLinks.length > 0) {
-		const message = `Found unrewriteable MDX links in ${
-			mdxFilesWithUnrewriteableLinks.length
-		} files:\n${JSON.stringify(mdxUnrewriteableLinks, null, 2)}`
-		console.log(message)
-
 		const generatedFilesFolder = path.join(process.cwd(), 'src', '.generated')
 		if (!fs.existsSync(generatedFilesFolder)) {
 			fs.mkdirSync(generatedFilesFolder)
