@@ -37,7 +37,6 @@ export default function PaginatedIntegrationsList({
 		}
 	)
 	const itemsPerPage = coerceToDefaultValue(_itemsPerPage, 8)
-	console.log({ itemsPerPage, _itemsPerPage })
 
 	// Sort integrations alphabetically. Right now this is our
 	// preferred way of sorting. In the event we want to add different
