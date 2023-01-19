@@ -1,7 +1,7 @@
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import classNames from 'classnames'
 import { Integration, Tier } from 'lib/integrations-api-client/integration'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
 import s from './style.module.css'
@@ -17,6 +17,10 @@ import Dialog from 'components/dialog'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { CheckboxField } from 'components/form/field-controls'
 import Legend from 'components/form/components/legend'
+import {
+	integrationLibraryFilterSelectedEvent,
+	integrationLibrarySearchedEvent,
+} from './helpers/analytics'
 
 interface SearchableIntegrationsListProps {
 	className: string
@@ -41,6 +45,30 @@ export default function SearchableIntegrationsList({
 			)
 		}
 	)
+
+	/**
+	 * Track an "integration_library_searched" event when the filterQuery changes
+	 */
+	useEffect(() => {
+		// Note: we only want to track this event if the query input is meaningful
+		if (filterQuery.length > 0) {
+			alert(
+				JSON.stringify(
+					{
+						event: 'integration_library_searched',
+						search_query: filterQuery,
+						results_count: filteredIntegrations.length,
+					},
+					null,
+					2
+				)
+			)
+			integrationLibrarySearchedEvent({
+				search_query: filterQuery,
+				results_count: filteredIntegrations.length,
+			})
+		}
+	}, [filterQuery, filteredIntegrations])
 
 	const {
 		tierOptions,
@@ -72,20 +100,63 @@ export default function SearchableIntegrationsList({
 	}
 
 	const makeUncheckTierHandler = (e: Tier) => () => {
+		// Set up a tier toggle function that also tracks the tier selection
+		// through an analytics event
+		const tierIndex = tierOptions.findIndex((t) => t === e)
+		const tierToggleFunction = (p) => {
+			const isSelectedNext = !p
+			if (isSelectedNext) {
+				alert(
+					JSON.stringify(
+						{
+							event: 'integration_library_filter_selected',
+							filter_category: 'tier',
+							filter_value: tierIndex,
+						},
+						null,
+						2
+					)
+				)
+				integrationLibraryFilterSelectedEvent({
+					filter_category: 'tier',
+					filter_value: tierIndex,
+				})
+			}
+			return isSelectedNext
+		}
 		switch (e) {
 			case Tier.OFFICIAL:
-				return setOfficialChecked((p) => !p)
+				return setOfficialChecked(tierToggleFunction)
 			case Tier.PARTNER:
-				return setPartnerChecked((p) => !p)
+				return setPartnerChecked(tierToggleFunction)
 			case Tier.COMMUNITY:
-				return setCommunityChecked((p) => !p)
+				return setCommunityChecked(tierToggleFunction)
 		}
 	}
 
 	const makeUncheckFlagHandler = (i: number) => () => {
 		setFlagsCheckedArray((prev) => {
 			const next = [...prev]
-			next[i] = !next[i]
+			const isFlagSelectedInNext = !next[i]
+			// When any flag input is checked, track an analytics filtered event
+			if (isFlagSelectedInNext) {
+				alert(
+					JSON.stringify(
+						{
+							event: 'integration_library_filter_selected',
+							filter_category: 'flag',
+							filter_value: i,
+						},
+						null,
+						2
+					)
+				)
+				integrationLibraryFilterSelectedEvent({
+					filter_category: 'flag',
+					filter_value: i,
+				})
+			}
+			next[i] = isFlagSelectedInNext
 			return next
 		})
 	}
@@ -93,7 +164,26 @@ export default function SearchableIntegrationsList({
 	const makeUncheckComponentHandler = (i: number) => () => {
 		setComponentCheckedArray((prev) => {
 			const next = [...prev]
-			next[i] = !next[i]
+			const isComponentSelectedInNext = !next[i]
+			// When any component input is checked, track an analytics filtered event
+			if (isComponentSelectedInNext) {
+				alert(
+					JSON.stringify(
+						{
+							event: 'integration_library_filter_selected',
+							filter_category: 'component',
+							filter_value: i,
+						},
+						null,
+						2
+					)
+				)
+				integrationLibraryFilterSelectedEvent({
+					filter_category: 'component',
+					filter_value: i,
+				})
+			}
+			next[i] = isComponentSelectedInNext
 			return next
 		})
 	}
@@ -115,7 +205,7 @@ export default function SearchableIntegrationsList({
 					{/* tablet_up */}
 					<div className={classNames(s.selectStack, s.tablet_up)}>
 						<DropdownDisclosure color="secondary" text="Tier">
-							{tierOptions.map((e) => {
+							{tierOptions.map((e, index) => {
 								const checked =
 									(e === Tier.OFFICIAL && officialChecked) ||
 									(e === Tier.PARTNER && partnerChecked) ||
