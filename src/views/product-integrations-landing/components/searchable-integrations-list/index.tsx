@@ -1,7 +1,7 @@
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import classNames from 'classnames'
 import { Integration, Tier } from 'lib/integrations-api-client/integration'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useState } from 'react'
 import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
 import s from './style.module.css'
@@ -29,20 +29,6 @@ import {
 	withDefault,
 } from 'use-query-params'
 
-import { encodeDelimitedArray, decodeDelimitedArray } from 'use-query-params'
-
-/**
- * Uses a comma to delimit entries. e.g. ['a', 'b'] => qp?=a,b
- * https://github.com/pbeshai/use-query-params/blob/master/packages/use-query-params/README.md?plain=1#L374-L380
- */
-const CommaArrayParam = {
-	encode: (array: string[] | null | undefined) =>
-		encodeDelimitedArray(array, ','),
-
-	decode: (arrayStr: string | string[] | null | undefined) =>
-		decodeDelimitedArray(arrayStr, ','),
-}
-
 export default function SearchableIntegrationsList({
 	className,
 }: SearchableIntegrationsListProps) {
@@ -61,7 +47,11 @@ export default function SearchableIntegrationsList({
 	const [filterQuery, setFilterQuery] = useQueryParam(
 		'filter',
 		withDefault(StringParam, ''),
-		{ updateType: 'replaceIn', removeDefaultsFromUrl: true }
+		{
+			enableBatching: true,
+			updateType: 'replaceIn',
+			removeDefaultsFromUrl: true,
+		}
 	)
 
 	const filteredIntegrations = integrations.filter(
@@ -78,178 +68,68 @@ export default function SearchableIntegrationsList({
 		}
 	)
 
-	const [qsTiers, setQsTiers] = useQueryParam(
-		'tiers',
-		withDefault(CommaArrayParam, []),
-		{
-			enableBatching: true,
-			updateType: 'replaceIn',
-			removeDefaultsFromUrl: true,
-		}
-	)
-
-	const [qsComponents, setQsComponents] = useQueryParam(
-		'components',
-		withDefault(CommaArrayParam, []),
-		{
-			enableBatching: true,
-			updateType: 'replaceIn',
-			removeDefaultsFromUrl: true,
-		}
-	)
-
-	const [qsFlags, setQsFlags] = useQueryParam(
-		'flags',
-		withDefault(CommaArrayParam, []),
-		{
-			enableBatching: true,
-			updateType: 'replaceIn',
-			removeDefaultsFromUrl: true,
-		}
-	)
-
-	// integrations search context will sit downstream of URL state
-	// Update URL state when ---> update context
-	// - Don't update context directly
 	const {
 		tierOptions,
-		// officialChecked,
+		officialChecked,
 		setOfficialChecked,
-		// partnerChecked,
+		partnerChecked,
 		setPartnerChecked,
-		// communityChecked,
+		communityChecked,
 		setCommunityChecked,
 		sortedComponents,
-		// componentCheckedArray,
+		componentCheckedArray,
 		setComponentCheckedArray,
 		flags,
-		// flagsCheckedArray,
+		flagsCheckedArray,
 		setFlagsCheckedArray,
 		atLeastOneFacetSelected,
 	} = useIntegrationsSearchContext()
-
-	const officialChecked = qsTiers.includes(Tier.OFFICIAL)
-	const partnerChecked = qsTiers.includes(Tier.PARTNER)
-	const communityChecked = qsTiers.includes(Tier.COMMUNITY)
-
-	const componentCheckedArray = useMemo(() => {
-		return sortedComponents.map((component) => {
-			return qsComponents.includes(component.slug)
-		})
-	}, [sortedComponents, qsComponents])
-
-	const isMounted = useRef(false)
-	// update Context when URL state changes
-	useEffect(() => {
-		if (typeof window === 'undefined') {
-			return
-		}
-		isMounted.current = true
-		// update tiers
-		setOfficialChecked(officialChecked)
-		setPartnerChecked(partnerChecked)
-		setCommunityChecked(communityChecked)
-
-		// update components
-		setComponentCheckedArray(componentCheckedArray)
-
-		// update flags
-		setFlagsCheckedArray(flagsCheckedArray)
-	}, [])
-
-	const flagsCheckedArray = useMemo(() => {
-		return flags.map((flag) => {
-			return qsFlags.includes(flag.slug)
-		})
-	}, [flags, qsFlags])
 
 	// handleClearFilters resets the state of all filters
 	const handleClearFilters = (e) => {
 		resetPage()
 
-		// reset URL
-		setQsTiers([])
-		setQsComponents([])
-		setQsFlags([])
-
-		// reset context
 		setOfficialChecked(false)
 		setPartnerChecked(false)
 		setCommunityChecked(false)
+
 		setComponentCheckedArray(componentCheckedArray.map((v, i) => false))
 		setFlagsCheckedArray(flagsCheckedArray.map((v, i) => false))
 	}
 
-	const makeToggleTierHandler = (e: Tier) => () => {
+	const makeToggleTierHandler = (tier: Tier) => () => {
+		// reset page on filter change
 		resetPage()
 
-		if (e === Tier.OFFICIAL) {
-			if (qsTiers.includes(Tier.OFFICIAL)) {
-				setQsTiers(qsTiers.filter((tier) => tier !== Tier.OFFICIAL))
-				setOfficialChecked(false)
-			} else {
-				setQsTiers([...qsTiers, Tier.OFFICIAL])
-				setOfficialChecked(true)
-			}
-		}
-		if (e === Tier.PARTNER) {
-			if (qsTiers.includes(Tier.PARTNER)) {
-				setQsTiers(qsTiers.filter((tier) => tier !== Tier.PARTNER))
-				setPartnerChecked(false)
-			} else {
-				setQsTiers([...qsTiers, Tier.PARTNER])
-				setPartnerChecked(true)
-			}
-		}
-		if (e === Tier.COMMUNITY) {
-			if (qsTiers.includes(Tier.COMMUNITY)) {
-				setQsTiers(qsTiers.filter((tier) => tier !== Tier.COMMUNITY))
-				setCommunityChecked(false)
-			} else {
-				setQsTiers([...qsTiers, Tier.COMMUNITY])
-				setCommunityChecked(true)
-			}
+		switch (tier) {
+			case Tier.OFFICIAL:
+				setOfficialChecked(!officialChecked)
+				break
+			case Tier.PARTNER:
+				setPartnerChecked(!partnerChecked)
+				break
+			case Tier.COMMUNITY:
+				setCommunityChecked(!communityChecked)
+				break
 		}
 	}
 
 	const makeToggleFlagHandler = (i: number) => () => {
-		// reset page
+		// reset page on filter change
 		resetPage()
-		// update URL
-		if (qsFlags.includes(flags[i].slug)) {
-			setQsFlags(qsFlags.filter((flag) => flag !== flags[i].slug))
-		} else {
-			setQsFlags([...qsFlags, flags[i].slug])
-		}
-		// update context
-		setFlagsCheckedArray((prev) => {
-			const next = [...prev]
-			next[i] = !next[i]
-			return next
-		})
+
+		const newFlags = [...flagsCheckedArray]
+		newFlags[i] = !newFlags[i]
+		setFlagsCheckedArray(newFlags)
 	}
 
 	const makeToggleComponentHandler = (i: number) => () => {
-		// reset page
+		// reset page on filter change
 		resetPage()
-		const isInQs = qsComponents.includes(sortedComponents[i].slug)
-		// update URL
-		if (isInQs) {
-			setQsComponents(
-				qsComponents.filter(
-					(component) => component !== sortedComponents[i].slug
-				)
-			)
-		} else {
-			setQsComponents([...qsComponents, sortedComponents[i].slug])
-		}
 
-		// update context
-		setComponentCheckedArray((prev) => {
-			const next = [...prev]
-			next[i] = !isInQs
-			return next
-		})
+		const newComponents = [...componentCheckedArray]
+		newComponents[i] = !newComponents[i]
+		setComponentCheckedArray(newComponents)
 	}
 
 	const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false)
@@ -387,23 +267,18 @@ export default function SearchableIntegrationsList({
 						)
 					})}
 
-					{/* prevent flash */}
-					{isMounted.current ? (
-						<>
-							{atLeastOneFacetSelected ? (
-								<Button
-									text="Reset filters"
-									icon={<IconX16 />}
-									color="tertiary"
-									size="small"
-									className={s.tablet_up}
-									onClick={handleClearFilters}
-								/>
-							) : (
-								<div className={s.noFilters}>No filters selected</div>
-							)}
-						</>
-					) : null}
+					{atLeastOneFacetSelected ? (
+						<Button
+							text="Reset filters"
+							icon={<IconX16 />}
+							color="tertiary"
+							size="small"
+							className={s.tablet_up}
+							onClick={handleClearFilters}
+						/>
+					) : (
+						<div className={s.noFilters}>No filters selected</div>
+					)}
 				</div>
 			</div>
 
@@ -477,13 +352,13 @@ function MobileFilters() {
 	const makeToggleTierHandler = (tier: Tier) => () => {
 		switch (tier) {
 			case Tier.OFFICIAL:
-				setOfficialChecked((s) => !s)
+				setOfficialChecked(!officialChecked)
 				break
 			case Tier.PARTNER:
-				setPartnerChecked((s) => !s)
+				setPartnerChecked(!partnerChecked)
 				break
 			case Tier.COMMUNITY:
-				setCommunityChecked((s) => !s)
+				setCommunityChecked(!communityChecked)
 				break
 		}
 	}
