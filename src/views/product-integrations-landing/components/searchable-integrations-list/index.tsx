@@ -48,9 +48,23 @@ export default function SearchableIntegrationsList({
 
 	/**
 	 * Track an "integration_library_searched" event when the filterQuery changes
+	 *
+	 * Note: we only want to track this event if the query input is meaningful.
+	 * We consider query input lengths of more than 2 characters to be meaningful
+	 * (in fact, we don't filter results unless the query is > 2 chars long).
+	 *
+	 * Note as well that other dimensions of filtering will fire events here.
+	 * For example, consider the following interactions:
+	 * - Visitor enters filterQuery "aws". This yields 8 results.
+	 *   We track "searched event" with { "aws", 8 }.
+	 * - Visitor also filters for "Config Sourcer" components.
+	 * 	 This new combination of "aws" + component filter yields 1 result.
+	 * 	 We track a "filter selected event" via `setComponentCheckedArray`.
+	 * - Since filteredIntegrations.length changes, "searched event" fires again.
+	 *   We track "searched event" with { "aws", 1 } (even though the visitor
+	 *   has not changed the `filterQuery`).
 	 */
 	useEffect(() => {
-		// Note: we only want to track this event if the query input is meaningful
 		if (filterQuery.length > 2) {
 			integrationLibrarySearchedEvent({
 				search_query: filterQuery,
