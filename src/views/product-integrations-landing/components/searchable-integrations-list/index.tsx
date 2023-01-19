@@ -100,9 +100,7 @@ export default function SearchableIntegrationsList({
 	}
 
 	const makeUncheckTierHandler = (e: Tier) => () => {
-		// Set up a tier toggle function that also tracks the tier selection
-		// through an analytics event
-		const tierIndex = tierOptions.findIndex((t) => t === e)
+		// Set up a toggle checked function that also fires analytics
 		const tierToggleFunction = (p) => {
 			const isSelectedNext = !p
 			if (isSelectedNext) {
@@ -111,7 +109,7 @@ export default function SearchableIntegrationsList({
 						{
 							event: 'integration_library_filter_selected',
 							filter_category: 'tier',
-							filter_value: tierIndex,
+							filter_value: e,
 						},
 						null,
 						2
@@ -119,7 +117,7 @@ export default function SearchableIntegrationsList({
 				)
 				integrationLibraryFilterSelectedEvent({
 					filter_category: 'tier',
-					filter_value: tierIndex,
+					filter_value: e,
 				})
 			}
 			return isSelectedNext
@@ -134,7 +132,7 @@ export default function SearchableIntegrationsList({
 		}
 	}
 
-	const makeUncheckFlagHandler = (i: number) => () => {
+	const makeUncheckFlagHandler = (i: number, flagName: string) => () => {
 		setFlagsCheckedArray((prev) => {
 			const next = [...prev]
 			const isFlagSelectedInNext = !next[i]
@@ -145,7 +143,7 @@ export default function SearchableIntegrationsList({
 						{
 							event: 'integration_library_filter_selected',
 							filter_category: 'flag',
-							filter_value: i,
+							filter_value: flagName,
 						},
 						null,
 						2
@@ -153,7 +151,7 @@ export default function SearchableIntegrationsList({
 				)
 				integrationLibraryFilterSelectedEvent({
 					filter_category: 'flag',
-					filter_value: i,
+					filter_value: flagName,
 				})
 			}
 			next[i] = isFlagSelectedInNext
@@ -161,32 +159,33 @@ export default function SearchableIntegrationsList({
 		})
 	}
 
-	const makeUncheckComponentHandler = (i: number) => () => {
-		setComponentCheckedArray((prev) => {
-			const next = [...prev]
-			const isComponentSelectedInNext = !next[i]
-			// When any component input is checked, track an analytics filtered event
-			if (isComponentSelectedInNext) {
-				alert(
-					JSON.stringify(
-						{
-							event: 'integration_library_filter_selected',
-							filter_category: 'component',
-							filter_value: i,
-						},
-						null,
-						2
+	const makeUncheckComponentHandler =
+		(i: number, componentName: string) => () => {
+			setComponentCheckedArray((prev) => {
+				const next = [...prev]
+				const isComponentSelectedInNext = !next[i]
+				// When any component input is checked, track an analytics filtered event
+				if (isComponentSelectedInNext) {
+					alert(
+						JSON.stringify(
+							{
+								event: 'integration_library_filter_selected',
+								filter_category: 'component',
+								filter_value: componentName,
+							},
+							null,
+							2
+						)
 					)
-				)
-				integrationLibraryFilterSelectedEvent({
-					filter_category: 'component',
-					filter_value: i,
-				})
-			}
-			next[i] = isComponentSelectedInNext
-			return next
-		})
-	}
+					integrationLibraryFilterSelectedEvent({
+						filter_category: 'component',
+						filter_value: componentName,
+					})
+				}
+				next[i] = isComponentSelectedInNext
+				return next
+			})
+		}
 
 	const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false)
 
@@ -229,7 +228,7 @@ export default function SearchableIntegrationsList({
 							{sortedComponents.map((e, i) => (
 								<DropdownDisclosureButtonItem
 									key={e.id}
-									onClick={makeUncheckComponentHandler(i)}
+									onClick={makeUncheckComponentHandler(i, e.name)}
 								>
 									<div className={s.option}>
 										<span className={s.check}>
@@ -245,7 +244,7 @@ export default function SearchableIntegrationsList({
 							{flags.map((e, i) => {
 								return (
 									<DropdownDisclosureButtonItem
-										onClick={makeUncheckFlagHandler(i)}
+										onClick={makeUncheckFlagHandler(i, e.name)}
 										key={e.id}
 									>
 										<div className={s.option}>
@@ -301,7 +300,7 @@ export default function SearchableIntegrationsList({
 								<Tag
 									key={e.id}
 									text={capitalize(e.plural_name)}
-									onRemove={makeUncheckComponentHandler(i)}
+									onRemove={makeUncheckComponentHandler(i, e.name)}
 								/>
 							)
 						)
@@ -314,7 +313,7 @@ export default function SearchableIntegrationsList({
 								<Tag
 									key={e.id}
 									text={e.name}
-									onRemove={makeUncheckFlagHandler(i)}
+									onRemove={makeUncheckFlagHandler(i, e.name)}
 								/>
 							)
 						)
