@@ -10,20 +10,6 @@
 	margin-top: -72px;
 }
 
-.examAccordionHeading {
-	composes: hds-typography-display-400 from global;
-	composes: g-offset-scroll-margin-top from global;
-	font-weight: var(--token-typography-font-weight-bold);
-	color: var(--token-color-foreground-strong);
-	margin: 40px 0 32px 0;
-}
-
-.examAccordionAnchorLink {
-	composes: g-focus-ring-from-box-shadow from global;
-	border-radius: 6px;
-	color: inherit;
-}
-
 .signupForm {
 	margin-top: 72px;
 }
