@@ -156,9 +156,8 @@
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
-			"name": "General Documentation",
-			"path": "docs",
-			"shortName": "Documentation"
+			"name": "Documentation",
+			"path": "docs"
 		},
 		{
 			"iconName": "api",
