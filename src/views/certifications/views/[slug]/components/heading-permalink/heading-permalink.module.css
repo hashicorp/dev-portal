@@ -10,6 +10,7 @@
 	font-weight: var(--token-typography-font-weight-bold);
 	color: var(--token-color-foreground-strong);
 	margin: 40px 0 32px 0;
+	width: fit-content;
 
 	&:hover {
 		& .icon {
