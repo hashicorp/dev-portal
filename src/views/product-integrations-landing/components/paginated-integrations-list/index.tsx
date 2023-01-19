@@ -1,13 +1,25 @@
 import { Integration } from 'lib/integrations-api-client/integration'
 import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import IntegrationsList from '../integrations-list'
 import s from './style.module.css'
 import Pagination from 'components/pagination'
 import { useDeviceSize } from 'contexts/device-size'
+import { useQueryParam, NumberParam, withDefault } from 'use-query-params'
 
 interface PaginatedIntegrationsListProps {
 	integrations: Array<Integration>
+}
+
+/**
+ * A small util to guard against invalid values for our
+ * pagination query params, such as NaN or negative numbers.
+ */
+function coerceToDefaultValue(value: number, init: number): number {
+	if (isNaN(value) || value < 1) {
+		return init
+	}
+	return value
 }
 
 export default function PaginatedIntegrationsList({
@@ -15,7 +27,18 @@ export default function PaginatedIntegrationsList({
 }: PaginatedIntegrationsListProps) {
 	const isFirstRender = useRef(true)
 	const containerRef = useRef(null)
-	const [itemsPerPage, setItemsPerPage] = useState(8)
+	const [_itemsPerPage, setItemsPerPage] = useQueryParam(
+		'size',
+		withDefault(NumberParam, 8),
+		{
+			enableBatching: true,
+			updateType: 'replaceIn',
+			removeDefaultsFromUrl: true,
+		}
+	)
+	const itemsPerPage = coerceToDefaultValue(_itemsPerPage, 8)
+	console.log({ itemsPerPage, _itemsPerPage })
+
 	// Sort integrations alphabetically. Right now this is our
 	// preferred way of sorting. In the event we want to add different
 	// sorting options in the future to this list, we'll need to support
@@ -33,16 +56,21 @@ export default function PaginatedIntegrationsList({
 	)
 
 	// Keep track of the current page & Integrations to display
-	const [currentPage, setCurrentPage] = useState(1)
+	const [_currentPage, setCurrentPage] = useQueryParam(
+		'page',
+		withDefault(NumberParam, 1),
+		{
+			updateType: 'replaceIn',
+			removeDefaultsFromUrl: true,
+		}
+	)
+
+	const currentPage = coerceToDefaultValue(_currentPage, 1)
+
 	const currentPageIntegrations = sortedIntegrations.slice(
 		(currentPage - 1) * itemsPerPage,
 		currentPage * itemsPerPage
 	)
-
-	// If our integrations change, set the page back to 1
-	useEffect(() => {
-		setCurrentPage(1)
-	}, [sortedIntegrations])
 
 	/**
 	 * If our pagination page changes, scroll up to the top of the wrapper.
@@ -80,23 +108,19 @@ export default function PaginatedIntegrationsList({
 	return (
 		<div className={s.paginatedIntegrationsList} ref={containerRef}>
 			<IntegrationsList integrations={currentPageIntegrations} />
-			{/* It's possible that all integrations display on a single page
-      in that case, just don't even show the paginator. */}
-			{currentPageIntegrations.length < integrations.length && (
-				<div className={s.paginatorWrapper}>
-					<Pagination
-						totalItems={integrations.length}
-						pageSize={itemsPerPage}
-						page={currentPage}
-						onPageChange={setCurrentPage}
-						onPageSizeChange={setItemsPerPage}
-					>
-						{(isDesktop || isTablet) && <Pagination.Info />}
-						<Pagination.Nav type={isMobile ? 'compact' : 'truncated'} />
-						{isDesktop && <Pagination.SizeSelector sizes={[4, 8, 16, 24]} />}
-					</Pagination>
-				</div>
-			)}
+			<div className={s.paginatorWrapper}>
+				<Pagination
+					totalItems={integrations.length}
+					pageSize={itemsPerPage}
+					page={currentPage}
+					onPageChange={(page) => setCurrentPage(page)}
+					onPageSizeChange={(size) => setItemsPerPage(size)}
+				>
+					{(isDesktop || isTablet) && <Pagination.Info />}
+					<Pagination.Nav type={isMobile ? 'compact' : 'truncated'} />
+					{isDesktop && <Pagination.SizeSelector sizes={[4, 8, 16, 24]} />}
+				</Pagination>
+			</div>
 		</div>
 	)
 }

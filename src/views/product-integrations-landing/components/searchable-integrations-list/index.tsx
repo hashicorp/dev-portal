@@ -1,7 +1,7 @@
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import classNames from 'classnames'
 import { Integration, Tier } from 'lib/integrations-api-client/integration'
-import { useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
 import s from './style.module.css'
@@ -22,12 +22,48 @@ interface SearchableIntegrationsListProps {
 	className: string
 }
 
+import {
+	useQueryParam,
+	StringParam,
+	NumberParam,
+	withDefault,
+} from 'use-query-params'
+
+import { encodeDelimitedArray, decodeDelimitedArray } from 'use-query-params'
+
+/**
+ * Uses a comma to delimit entries. e.g. ['a', 'b'] => qp?=a,b
+ * https://github.com/pbeshai/use-query-params/blob/master/packages/use-query-params/README.md?plain=1#L374-L380
+ */
+const CommaArrayParam = {
+	encode: (array: string[] | null | undefined) =>
+		encodeDelimitedArray(array, ','),
+
+	decode: (arrayStr: string | string[] | null | undefined) =>
+		decodeDelimitedArray(arrayStr, ','),
+}
+
 export default function SearchableIntegrationsList({
 	className,
 }: SearchableIntegrationsListProps) {
 	const { filteredIntegrations: integrations } = useIntegrationsSearchContext()
 
-	const [filterQuery, setFilterQuery] = useState('')
+	const [, setCurrentPage] = useQueryParam(
+		'page',
+		withDefault(NumberParam, 1),
+		{
+			enableBatching: true,
+			updateType: 'replaceIn',
+			removeDefaultsFromUrl: true,
+		}
+	)
+	const resetPage = () => setCurrentPage(1)
+	const [filterQuery, setFilterQuery] = useQueryParam(
+		'filter',
+		withDefault(StringParam, ''),
+		{ updateType: 'replaceIn', removeDefaultsFromUrl: true }
+	)
+
 	const filteredIntegrations = integrations.filter(
 		(integration: Integration) => {
 			return (
@@ -42,28 +78,101 @@ export default function SearchableIntegrationsList({
 		}
 	)
 
+	const [qsTiers, setQsTiers] = useQueryParam(
+		'tiers',
+		withDefault(CommaArrayParam, []),
+		{
+			enableBatching: true,
+			updateType: 'replaceIn',
+			removeDefaultsFromUrl: true,
+		}
+	)
+
+	const [qsComponents, setQsComponents] = useQueryParam(
+		'components',
+		withDefault(CommaArrayParam, []),
+		{
+			enableBatching: true,
+			updateType: 'replaceIn',
+			removeDefaultsFromUrl: true,
+		}
+	)
+
+	const [qsFlags, setQsFlags] = useQueryParam(
+		'flags',
+		withDefault(CommaArrayParam, []),
+		{
+			enableBatching: true,
+			updateType: 'replaceIn',
+			removeDefaultsFromUrl: true,
+		}
+	)
+
+	// integrations search context will sit downstream of URL state
+	// Update URL state when ---> update context
+	// - Don't update context directly
 	const {
 		tierOptions,
-		matchingOfficial,
-		officialChecked,
+		// officialChecked,
 		setOfficialChecked,
-		matchingVerified,
-		partnerChecked,
+		// partnerChecked,
 		setPartnerChecked,
-		matchingCommunity,
-		communityChecked,
+		// communityChecked,
 		setCommunityChecked,
 		sortedComponents,
-		componentCheckedArray,
+		// componentCheckedArray,
 		setComponentCheckedArray,
 		flags,
-		flagsCheckedArray,
+		// flagsCheckedArray,
 		setFlagsCheckedArray,
 		atLeastOneFacetSelected,
 	} = useIntegrationsSearchContext()
 
+	const officialChecked = qsTiers.includes(Tier.OFFICIAL)
+	const partnerChecked = qsTiers.includes(Tier.PARTNER)
+	const communityChecked = qsTiers.includes(Tier.COMMUNITY)
+
+	const componentCheckedArray = useMemo(() => {
+		return sortedComponents.map((component) => {
+			return qsComponents.includes(component.slug)
+		})
+	}, [sortedComponents, qsComponents])
+
+	const isMounted = useRef(false)
+	// update Context when URL state changes
+	useEffect(() => {
+		if (typeof window === 'undefined') {
+			return
+		}
+		isMounted.current = true
+		// update tiers
+		setOfficialChecked(officialChecked)
+		setPartnerChecked(partnerChecked)
+		setCommunityChecked(communityChecked)
+
+		// update components
+		setComponentCheckedArray(componentCheckedArray)
+
+		// update flags
+		setFlagsCheckedArray(flagsCheckedArray)
+	}, [])
+
+	const flagsCheckedArray = useMemo(() => {
+		return flags.map((flag) => {
+			return qsFlags.includes(flag.slug)
+		})
+	}, [flags, qsFlags])
+
 	// handleClearFilters resets the state of all filters
 	const handleClearFilters = (e) => {
+		resetPage()
+
+		// reset URL
+		setQsTiers([])
+		setQsComponents([])
+		setQsFlags([])
+
+		// reset context
 		setOfficialChecked(false)
 		setPartnerChecked(false)
 		setCommunityChecked(false)
@@ -71,18 +180,48 @@ export default function SearchableIntegrationsList({
 		setFlagsCheckedArray(flagsCheckedArray.map((v, i) => false))
 	}
 
-	const makeUncheckTierHandler = (e: Tier) => () => {
-		switch (e) {
-			case Tier.OFFICIAL:
-				return setOfficialChecked((p) => !p)
-			case Tier.PARTNER:
-				return setPartnerChecked((p) => !p)
-			case Tier.COMMUNITY:
-				return setCommunityChecked((p) => !p)
+	const makeToggleTierHandler = (e: Tier) => () => {
+		resetPage()
+
+		if (e === Tier.OFFICIAL) {
+			if (qsTiers.includes(Tier.OFFICIAL)) {
+				setQsTiers(qsTiers.filter((tier) => tier !== Tier.OFFICIAL))
+				setOfficialChecked(false)
+			} else {
+				setQsTiers([...qsTiers, Tier.OFFICIAL])
+				setOfficialChecked(true)
+			}
+		}
+		if (e === Tier.PARTNER) {
+			if (qsTiers.includes(Tier.PARTNER)) {
+				setQsTiers(qsTiers.filter((tier) => tier !== Tier.PARTNER))
+				setPartnerChecked(false)
+			} else {
+				setQsTiers([...qsTiers, Tier.PARTNER])
+				setPartnerChecked(true)
+			}
+		}
+		if (e === Tier.COMMUNITY) {
+			if (qsTiers.includes(Tier.COMMUNITY)) {
+				setQsTiers(qsTiers.filter((tier) => tier !== Tier.COMMUNITY))
+				setCommunityChecked(false)
+			} else {
+				setQsTiers([...qsTiers, Tier.COMMUNITY])
+				setCommunityChecked(true)
+			}
 		}
 	}
 
-	const makeUncheckFlagHandler = (i: number) => () => {
+	const makeToggleFlagHandler = (i: number) => () => {
+		// reset page
+		resetPage()
+		// update URL
+		if (qsFlags.includes(flags[i].slug)) {
+			setQsFlags(qsFlags.filter((flag) => flag !== flags[i].slug))
+		} else {
+			setQsFlags([...qsFlags, flags[i].slug])
+		}
+		// update context
 		setFlagsCheckedArray((prev) => {
 			const next = [...prev]
 			next[i] = !next[i]
@@ -90,10 +229,25 @@ export default function SearchableIntegrationsList({
 		})
 	}
 
-	const makeUncheckComponentHandler = (i: number) => () => {
+	const makeToggleComponentHandler = (i: number) => () => {
+		// reset page
+		resetPage()
+		const isInQs = qsComponents.includes(sortedComponents[i].slug)
+		// update URL
+		if (isInQs) {
+			setQsComponents(
+				qsComponents.filter(
+					(component) => component !== sortedComponents[i].slug
+				)
+			)
+		} else {
+			setQsComponents([...qsComponents, sortedComponents[i].slug])
+		}
+
+		// update context
 		setComponentCheckedArray((prev) => {
 			const next = [...prev]
-			next[i] = !next[i]
+			next[i] = !isInQs
 			return next
 		})
 	}
@@ -108,13 +262,16 @@ export default function SearchableIntegrationsList({
 			<div className={s.header}>
 				<FilterBar
 					filterQuery={filterQuery}
-					onChange={(e) => setFilterQuery(e.target.value)}
+					onChange={(e) => {
+						setFilterQuery(e.target.value)
+						resetPage()
+					}}
 				/>
 
 				<div className={s.filterOptions}>
 					{/* tablet_up */}
 					<div className={classNames(s.selectStack, s.tablet_up)}>
-						<DropdownDisclosure color="secondary" text="Tier">
+						<DropdownDisclosure color="secondary" text="Tiers">
 							{tierOptions.map((e) => {
 								const checked =
 									(e === Tier.OFFICIAL && officialChecked) ||
@@ -123,7 +280,7 @@ export default function SearchableIntegrationsList({
 								return (
 									<DropdownDisclosureButtonItem
 										key={e}
-										onClick={makeUncheckTierHandler(e)}
+										onClick={makeToggleTierHandler(e)}
 									>
 										<div className={s.option}>
 											<span className={s.check}>
@@ -139,7 +296,7 @@ export default function SearchableIntegrationsList({
 							{sortedComponents.map((e, i) => (
 								<DropdownDisclosureButtonItem
 									key={e.id}
-									onClick={makeUncheckComponentHandler(i)}
+									onClick={makeToggleComponentHandler(i)}
 								>
 									<div className={s.option}>
 										<span className={s.check}>
@@ -155,7 +312,7 @@ export default function SearchableIntegrationsList({
 							{flags.map((e, i) => {
 								return (
 									<DropdownDisclosureButtonItem
-										onClick={makeUncheckFlagHandler(i)}
+										onClick={makeToggleFlagHandler(i)}
 										key={e.id}
 									>
 										<div className={s.option}>
@@ -198,7 +355,7 @@ export default function SearchableIntegrationsList({
 								<Tag
 									key={e}
 									text={capitalize(e)}
-									onRemove={makeUncheckTierHandler(e)}
+									onRemove={makeToggleTierHandler(e)}
 								/>
 							)
 						)
@@ -211,7 +368,7 @@ export default function SearchableIntegrationsList({
 								<Tag
 									key={e.id}
 									text={capitalize(e.plural_name)}
-									onRemove={makeUncheckComponentHandler(i)}
+									onRemove={makeToggleComponentHandler(i)}
 								/>
 							)
 						)
@@ -224,22 +381,29 @@ export default function SearchableIntegrationsList({
 								<Tag
 									key={e.id}
 									text={e.name}
-									onRemove={makeUncheckFlagHandler(i)}
+									onRemove={makeToggleFlagHandler(i)}
 								/>
 							)
 						)
 					})}
 
-					{atLeastOneFacetSelected ? (
-						<button
-							className={classNames(s.clearFilters, s.tablet_up)}
-							onClick={handleClearFilters}
-						>
-							<span>Reset filters</span>
-						</button>
-					) : (
-						<span className={s.noFilters}>No filters selected</span>
-					)}
+					{/* prevent flash */}
+					{isMounted.current ? (
+						<>
+							{atLeastOneFacetSelected ? (
+								<Button
+									text="Reset filters"
+									icon={<IconX16 />}
+									color="tertiary"
+									size="small"
+									className={s.tablet_up}
+									onClick={handleClearFilters}
+								/>
+							) : (
+								<div className={s.noFilters}>No filters selected</div>
+							)}
+						</>
+					) : null}
 				</div>
 			</div>
 

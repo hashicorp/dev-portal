@@ -7,6 +7,8 @@ import { LazyMotion } from 'framer-motion'
 import { SessionProvider } from 'next-auth/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { NextAdapter } from 'next-query-params'
+import { QueryParamProvider } from 'use-query-params'
 
 // HashiCorp imports
 import {
@@ -104,34 +106,38 @@ export default function App({
 	return (
 		<QueryClientProvider client={queryClient}>
 			<SSRProvider>
-				<CurrentContentTypeProvider currentContentType={currentContentType}>
-					<ErrorBoundary FallbackComponent={DevDotClient}>
-						<SessionProvider session={session}>
-							<DeviceSizeProvider>
-								<CurrentProductProvider currentProduct={currentProduct}>
-									<CodeTabsProvider>
-										<HeadMetadata {...pageProps.metadata} host={host} />
-										<LazyMotion
-											features={() =>
-												import('lib/framer-motion-features').then(
-													(mod) => mod.default
-												)
-											}
-											strict={process.env.NODE_ENV === 'development'}
-										>
-											<Layout {...allLayoutProps} data={allLayoutProps}>
-												<Component {...pageProps} />
-											</Layout>
-											<Toaster />
-											{showProductSwitcher ? <PreviewProductSwitcher /> : null}
-											<ReactQueryDevtools />
-										</LazyMotion>
-									</CodeTabsProvider>
-								</CurrentProductProvider>
-							</DeviceSizeProvider>
-						</SessionProvider>
-					</ErrorBoundary>
-				</CurrentContentTypeProvider>
+				<QueryParamProvider adapter={NextAdapter}>
+					<CurrentContentTypeProvider currentContentType={currentContentType}>
+						<ErrorBoundary FallbackComponent={DevDotClient}>
+							<SessionProvider session={session}>
+								<DeviceSizeProvider>
+									<CurrentProductProvider currentProduct={currentProduct}>
+										<CodeTabsProvider>
+											<HeadMetadata {...pageProps.metadata} host={host} />
+											<LazyMotion
+												features={() =>
+													import('lib/framer-motion-features').then(
+														(mod) => mod.default
+													)
+												}
+												strict={process.env.NODE_ENV === 'development'}
+											>
+												<Layout {...allLayoutProps} data={allLayoutProps}>
+													<Component {...pageProps} />
+												</Layout>
+												<Toaster />
+												{showProductSwitcher ? (
+													<PreviewProductSwitcher />
+												) : null}
+												<ReactQueryDevtools />
+											</LazyMotion>
+										</CodeTabsProvider>
+									</CurrentProductProvider>
+								</DeviceSizeProvider>
+							</SessionProvider>
+						</ErrorBoundary>
+					</CurrentContentTypeProvider>
+				</QueryParamProvider>
 			</SSRProvider>
 		</QueryClientProvider>
 	)
