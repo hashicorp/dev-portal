@@ -1,5 +1,6 @@
 import { ProductSlug } from 'types/products'
-import { productSlugs } from 'lib/products'
+import { cachedGetProductData } from 'lib/get-product-data'
+import { productSlugs, productSlugsToHostNames } from 'lib/products'
 import { rewriteDocsUrl } from '../product-url-adjusters'
 
 describe('rewriteDocsUrl', () => {
@@ -54,6 +55,34 @@ describe('rewriteDocsUrl', () => {
 
 		test.each(testData)('Testing subpath', (item) => {
 			expect(rewriteDocsUrl(item.input, hcpProductData)).toBe(item.expected)
+		})
+	})
+
+	describe('does not rewrite .io home page links', () => {
+		// Store an array of hostnames
+		const hostnames = Object.values(productSlugsToHostNames)
+
+		// For each product slug...
+		productSlugs.forEach((productSlug: ProductSlug) => {
+			// Fetch the product data object for `rewriteDocsUrl`
+			const productData = cachedGetProductData(productSlug)
+
+			// Test `rewriteDocsUrl` for each product data object
+			describe(`under ${productSlug} content`, () => {
+				// build up test cases array
+				const testCases = hostnames.map((dotIoHostName: string) => {
+					const url = `https://${dotIoHostName}`
+					const input = { productData, url }
+					const expected = url
+					return { input, expected }
+				})
+
+				// execute each test
+				test.each(testCases)('$input.url -> $expected', (testCase) => {
+					const { input, expected } = testCase
+					expect(rewriteDocsUrl(input.url, input.productData)).toBe(expected)
+				})
+			})
 		})
 	})
 })
