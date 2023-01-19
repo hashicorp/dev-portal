@@ -51,7 +51,7 @@ export default function SearchableIntegrationsList({
 	 */
 	useEffect(() => {
 		// Note: we only want to track this event if the query input is meaningful
-		if (filterQuery.length > 0) {
+		if (filterQuery.length > 2) {
 			integrationLibrarySearchedEvent({
 				search_query: filterQuery,
 				results_count: filteredIntegrations.length,
