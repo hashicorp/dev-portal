@@ -1,7 +1,7 @@
 import nock from 'nock'
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
-import { productSlugs } from 'lib/products'
+import { productSlugs, productSlugsToHostNames } from 'lib/products'
 
 // HELPERS ------------------------------------------------------
 
@@ -106,6 +106,32 @@ describe('rewriteTutorialLinks remark plugin', () => {
 			.process(TEST_MD_LINKS.nonLearnLink)
 
 		expect(String(contentsWithPlugin)).toEqual(String(contentsWithoutPlugin))
+	})
+
+	test('Links to `/` are not rewritten', async () => {
+		const input = '[home page](/)'
+		const contentsWithoutPlugin = await remark().process(input)
+
+		const contentsWithPlugin = await remark()
+			.use(rewriteTutorialLinksPlugin)
+			.process(input)
+
+		expect(String(contentsWithPlugin)).toEqual(String(contentsWithoutPlugin))
+	})
+
+	describe('Links to .io home pages are not rewritten', () => {
+		const testInputs: string[] = productSlugs.map((productSlug: string) => {
+			const dotIoHostname = productSlugsToHostNames[productSlug]
+			return `[${productSlug} .io home page](https://${dotIoHostname}/)`
+		})
+
+		test.each(testInputs)('%s', async (testInput: string) => {
+			const contentsWithoutPlugin = await remark().process(testInput)
+			const contentsWithPlugin = await remark()
+				.use(rewriteTutorialLinksPlugin)
+				.process(testInput)
+			expect(String(contentsWithPlugin)).toEqual(String(contentsWithoutPlugin))
+		})
 	})
 
 	test("Local anchor links aren't rewritten", async () => {

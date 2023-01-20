@@ -111,6 +111,12 @@ export function rewriteDocsUrl(
 		return inputUrl
 	}
 
+	// If it goes to the home page (`/`), return the inputUrl unmodified
+	const urlObject = new URL(inputUrl, 'https://developer.hashicorp.com')
+	if (urlObject.pathname === '/') {
+		return inputUrl
+	}
+
 	// Prefix docs URLs. "/docs/some-path" becomes "/waypoint/docs/some-path"
 	const isCurrentProductDocsUrl = currentProduct.basePaths.some(
 		(basePath: string) => inputUrl.startsWith(`/${basePath}`)
