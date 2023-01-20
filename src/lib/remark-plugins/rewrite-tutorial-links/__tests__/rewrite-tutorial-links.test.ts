@@ -108,6 +108,17 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		expect(String(contentsWithPlugin)).toEqual(String(contentsWithoutPlugin))
 	})
 
+	test('Links to `/` are not rewritten', async () => {
+		const input = '[home page](/)'
+		const contentsWithoutPlugin = await remark().process(input)
+
+		const contentsWithPlugin = await remark()
+			.use(rewriteTutorialLinksPlugin)
+			.process(input)
+
+		expect(String(contentsWithPlugin)).toEqual(String(contentsWithoutPlugin))
+	})
+
 	describe('Links to .io home pages are not rewritten', () => {
 		const testInputs: string[] = productSlugs.map((productSlug: string) => {
 			const dotIoHostname = productSlugsToHostNames[productSlug]

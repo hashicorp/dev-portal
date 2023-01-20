@@ -20,6 +20,7 @@ const testEachCase = (cases: TestCase[]) => {
 describe('rewriteExternalDocsLink', () => {
 	describe('when the URL is not to an external docs site', () => {
 		testEachCase([
+			{ input: '/', expected: undefined },
 			{ input: '/vault/api', expected: undefined },
 			{ input: '/waypoint/docs', expected: undefined },
 			{ input: '/vault/tutorials', expected: undefined },
