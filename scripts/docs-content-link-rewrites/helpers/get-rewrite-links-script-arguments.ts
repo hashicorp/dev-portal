@@ -74,7 +74,8 @@ const getScriptArgumentsForCommandLine = () => {
 			description: 'the name of the repo under `hashicorp` to check',
 		})
 		.option('localCopyLocation', {
-			description: 'where your local copy of --repo is, relative to the CWD',
+			description:
+				'where your local copy of --repo is, relative to the present working directory (pwd)',
 		})
 		.demandOption(['repo', 'localCopyLocation'])
 		.help().argv
