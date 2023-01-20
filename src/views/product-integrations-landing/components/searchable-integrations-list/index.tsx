@@ -127,7 +127,7 @@ export default function SearchableIntegrationsList({
 		resetPage()
 
 		// small wrapper to trigger analytics event if given a `true` value
-		const fierTierAnalytics = (value: boolean) => {
+		const fireTierAnalytics = (value: boolean) => {
 			if (value) {
 				integrationLibraryFilterSelectedEvent({
 					filter_category: 'tier',
@@ -139,19 +139,19 @@ export default function SearchableIntegrationsList({
 		switch (tier) {
 			case Tier.OFFICIAL: {
 				const next = !officialChecked
-				fierTierAnalytics(next)
+				fireTierAnalytics(next)
 				setOfficialChecked(next)
 				break
 			}
 			case Tier.PARTNER: {
 				const next = !partnerChecked
-				fierTierAnalytics(next)
+				fireTierAnalytics(next)
 				setPartnerChecked(next)
 				break
 			}
 			case Tier.COMMUNITY: {
 				const next = !communityChecked
-				fierTierAnalytics(next)
+				fireTierAnalytics(next)
 				setCommunityChecked(next)
 				break
 			}
