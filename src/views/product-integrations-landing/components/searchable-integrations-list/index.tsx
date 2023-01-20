@@ -1,7 +1,7 @@
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import classNames from 'classnames'
 import { Integration, Tier } from 'lib/integrations-api-client/integration'
-import { useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
 import s from './style.module.css'
@@ -21,6 +21,7 @@ import {
 	integrationLibraryFilterSelectedEvent,
 	integrationLibrarySearchedEvent,
 } from './helpers/analytics'
+import useTypingDebounce from 'lib/hooks/use-typing-debounce'
 
 interface SearchableIntegrationsListProps {
 	className: string
@@ -53,25 +54,18 @@ export default function SearchableIntegrationsList({
 	 * We consider query input lengths of more than 2 characters to be meaningful
 	 * (in fact, we don't filter results unless the query is > 2 chars long).
 	 *
-	 * Note as well that other dimensions of filtering will fire events here.
-	 * For example, consider the following interactions:
-	 * - Visitor enters filterQuery "aws". This yields 8 results.
-	 *   We track "searched event" with { "aws", 8 }.
-	 * - Visitor also filters for "Config Sourcer" components.
-	 * 	 This new combination of "aws" + component filter yields 1 result.
-	 * 	 We track a "filter selected event" via `setComponentCheckedArray`.
-	 * - Since filteredIntegrations.length changes, "searched event" fires again.
-	 *   We track "searched event" with { "aws", 1 } (even though the visitor
-	 *   has not changed the `filterQuery`).
+	 * Note as well that we useTypingDebounce here to reduce the number of events.
+	 * Without useTypingDebounce, an event would fire on every character typed.
 	 */
-	useEffect(() => {
+	const searchedEventCallback = useCallback(() => {
 		if (filterQuery.length > 2) {
 			integrationLibrarySearchedEvent({
 				search_query: filterQuery,
 				results_count: filteredIntegrations.length,
 			})
 		}
-	}, [filterQuery, filteredIntegrations])
+	}, [filterQuery, filteredIntegrations.length])
+	useTypingDebounce(searchedEventCallback)
 
 	const {
 		tierOptions,
