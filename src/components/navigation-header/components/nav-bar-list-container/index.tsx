@@ -18,7 +18,7 @@ export default function NavBarListContainer({
 }) {
 	return (
 		<nav className={s.nav}>
-			<ul className={s.url}>{children}</ul>
+			<ul className={s.ul}>{children}</ul>
 		</nav>
 	)
 }

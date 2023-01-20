@@ -1,17 +1,3 @@
-.nav {
-	@media (--dev-dot-show-mobile-menu) {
-		display: none;
-	}
-}
-
-.navList {
-	align-items: center;
-	display: flex;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
 .siteLogo {
 	display: flex;
 	align-items: center;

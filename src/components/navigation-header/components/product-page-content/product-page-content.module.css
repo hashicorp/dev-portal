@@ -28,12 +28,9 @@
 
 /*
  * Set up the product logo-ish icon lockup next to product nav items.
- *
- * Note that each product nav item has 8px horizontal padding, so to create
- * a 16px visual gap, we only need 8px of flex gap here.
  */
 .productLinkAndNav {
 	align-items: center;
 	display: flex;
-	gap: 8px;
+	gap: 24px;
 }

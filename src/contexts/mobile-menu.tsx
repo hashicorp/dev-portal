@@ -14,7 +14,7 @@ import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 /**
  * Should correspond to --dev-dot-hide-mobile-menu
  */
-const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 880
+const DEFAULT_NAV_HEADER_DESKTOP_WIDTH = 924
 
 interface MobileMenuContextState {
 	/**

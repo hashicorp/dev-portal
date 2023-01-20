@@ -1,4 +1,7 @@
 .nav {
+	/* Compensates for padding on individual nav list items */
+	margin-left: -12px;
+
 	@media (--dev-dot-show-mobile-menu) {
 		display: none;
 	}
