@@ -1,7 +1,7 @@
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import classNames from 'classnames'
 import { Integration, Tier } from 'lib/integrations-api-client/integration'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
 import s from './style.module.css'
@@ -17,6 +17,11 @@ import Dialog from 'components/dialog'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { CheckboxField } from 'components/form/field-controls'
 import Legend from 'components/form/components/legend'
+import {
+	integrationLibraryFilterSelectedEvent,
+	integrationLibrarySearchedEvent,
+} from './helpers/analytics'
+import useTypingDebounce from 'lib/hooks/use-typing-debounce'
 
 interface SearchableIntegrationsListProps {
 	className: string
@@ -68,6 +73,26 @@ export default function SearchableIntegrationsList({
 		}
 	)
 
+	/**
+	 * Track an "integration_library_searched" event when the filterQuery changes
+	 *
+	 * Note: we only want to track this event if the query input is meaningful.
+	 * We consider query input lengths of more than 2 characters to be meaningful
+	 * (in fact, we don't filter results unless the query is > 2 chars long).
+	 *
+	 * Note as well that we useTypingDebounce here to reduce the number of events.
+	 * Without useTypingDebounce, an event would fire on every character typed.
+	 */
+	const searchedEventCallback = useCallback(() => {
+		if (filterQuery.length > 2) {
+			integrationLibrarySearchedEvent({
+				search_query: filterQuery,
+				results_count: filteredIntegrations.length,
+			})
+		}
+	}, [filterQuery, filteredIntegrations.length])
+	useTypingDebounce(searchedEventCallback)
+
 	const {
 		tierOptions,
 		officialChecked,
@@ -101,36 +126,72 @@ export default function SearchableIntegrationsList({
 		// reset page on filter change
 		resetPage()
 
+		// small wrapper to trigger analytics event if given a `true` value
+		const fireTierAnalytics = (value: boolean) => {
+			if (value) {
+				integrationLibraryFilterSelectedEvent({
+					filter_category: 'tier',
+					filter_value: tier,
+				})
+			}
+		}
+
 		switch (tier) {
-			case Tier.OFFICIAL:
-				setOfficialChecked(!officialChecked)
+			case Tier.OFFICIAL: {
+				const next = !officialChecked
+				fireTierAnalytics(next)
+				setOfficialChecked(next)
 				break
-			case Tier.PARTNER:
-				setPartnerChecked(!partnerChecked)
+			}
+			case Tier.PARTNER: {
+				const next = !partnerChecked
+				fireTierAnalytics(next)
+				setPartnerChecked(next)
 				break
-			case Tier.COMMUNITY:
-				setCommunityChecked(!communityChecked)
+			}
+			case Tier.COMMUNITY: {
+				const next = !communityChecked
+				fireTierAnalytics(next)
+				setCommunityChecked(next)
 				break
+			}
 		}
 	}
 
-	const makeToggleFlagHandler = (i: number) => () => {
+	const makeToggleFlagHandler = (i: number, flagName: string) => () => {
 		// reset page on filter change
 		resetPage()
 
 		const newFlags = [...flagsCheckedArray]
-		newFlags[i] = !newFlags[i]
+		const isFlagSelectedInNext = !newFlags[i]
+		// When any flag input is checked, track an analytics filtered event
+		if (isFlagSelectedInNext) {
+			integrationLibraryFilterSelectedEvent({
+				filter_category: 'flag',
+				filter_value: flagName,
+			})
+		}
+
+		newFlags[i] = isFlagSelectedInNext
 		setFlagsCheckedArray(newFlags)
 	}
 
-	const makeToggleComponentHandler = (i: number) => () => {
-		// reset page on filter change
-		resetPage()
+	const makeToggleComponentHandler =
+		(i: number, componentName: string) => () => {
+			// reset page on filter change
+			resetPage()
 
-		const newComponents = [...componentCheckedArray]
-		newComponents[i] = !newComponents[i]
-		setComponentCheckedArray(newComponents)
-	}
+			const newComponents = [...componentCheckedArray]
+			const isComponentSelectedInNext = !newComponents[i]
+			if (isComponentSelectedInNext) {
+				integrationLibraryFilterSelectedEvent({
+					filter_category: 'component',
+					filter_value: componentName,
+				})
+			}
+			newComponents[i] = isComponentSelectedInNext
+			setComponentCheckedArray(newComponents)
+		}
 
 	const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false)
 
@@ -176,7 +237,7 @@ export default function SearchableIntegrationsList({
 							{sortedComponents.map((e, i) => (
 								<DropdownDisclosureButtonItem
 									key={e.id}
-									onClick={makeToggleComponentHandler(i)}
+									onClick={makeToggleComponentHandler(i, e.name)}
 								>
 									<div className={s.option}>
 										<span className={s.check}>
@@ -192,7 +253,7 @@ export default function SearchableIntegrationsList({
 							{flags.map((e, i) => {
 								return (
 									<DropdownDisclosureButtonItem
-										onClick={makeToggleFlagHandler(i)}
+										onClick={makeToggleFlagHandler(i, e.name)}
 										key={e.id}
 									>
 										<div className={s.option}>
@@ -248,7 +309,7 @@ export default function SearchableIntegrationsList({
 								<Tag
 									key={e.id}
 									text={capitalize(e.plural_name)}
-									onRemove={makeToggleComponentHandler(i)}
+									onRemove={makeToggleComponentHandler(i, e.name)}
 								/>
 							)
 						)
@@ -261,7 +322,7 @@ export default function SearchableIntegrationsList({
 								<Tag
 									key={e.id}
 									text={e.name}
-									onRemove={makeToggleFlagHandler(i)}
+									onRemove={makeToggleFlagHandler(i, e.name)}
 								/>
 							)
 						)
