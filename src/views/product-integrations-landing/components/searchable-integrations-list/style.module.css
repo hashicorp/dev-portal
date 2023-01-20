@@ -26,9 +26,12 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 12px;
+	min-height: 30px;
 }
 
 .noFilters {
+	display: flex;
+	align-items: center;
 	color: var(--token-color-foreground-faint);
 	composes: hds-typography-body-200 from global;
 	composes: hds-font-weight-semibold from global;
@@ -95,37 +98,6 @@
 		& > svg {
 			color: var(--token-color-palette-blue-200);
 		}
-	}
-}
-
-.clearFilters {
-	position: relative;
-	cursor: pointer;
-	user-select: none;
-	max-width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: var(--token-color-palette-blue-200);
-	border-radius: 5px;
-	background: none;
-	border-color: transparent;
-	text-decoration: underline;
-
-	--lighten-color: hsla(0, 0%, 100%, 0.8);
-
-	background-image: linear-gradient(
-		to right,
-		var(--lighten-color),
-		var(--lighten-color)
-	);
-	transition: all 200ms ease;
-
-	&:hover {
-		background-color: var(--token-color-palette-blue-200);
-	}
-	& svg {
-		margin-right: 8px;
 	}
 }
 

@@ -4,39 +4,41 @@ import {
 	IntegrationComponent,
 	Flag,
 } from 'lib/integrations-api-client/integration'
-import { createContext, useState, useContext, useMemo } from 'react'
+import { createContext, useContext, useMemo } from 'react'
+import { useQueryParam, QueryParamOptions, withDefault } from 'use-query-params'
+
+import { encodeDelimitedArray, decodeDelimitedArray } from 'use-query-params'
+
+/**
+ * Uses a comma to delimit entries. e.g. ['a', 'b'] => qp?=a,b
+ * https://github.com/pbeshai/use-query-params/blob/master/packages/use-query-params/README.md?plain=1#L374-L380
+ */
+const CommaArrayParam = {
+	encode: (array: string[] | null | undefined) =>
+		encodeDelimitedArray(array, ','),
+
+	decode: (arrayStr: string | string[] | null | undefined) =>
+		decodeDelimitedArray(arrayStr, ','),
+}
 
 export const IntegrationsSearchContext = createContext({
 	integrations: [] as Integration[],
 	officialChecked: false,
 	partnerChecked: false,
 	communityChecked: false,
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	setOfficialChecked: (() => {}) as React.Dispatch<
-		React.SetStateAction<boolean>
-	>,
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	setPartnerChecked: (() => {}) as React.Dispatch<
-		React.SetStateAction<boolean>
-	>,
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	setCommunityChecked: (() => {}) as React.Dispatch<
-		React.SetStateAction<boolean>
-	>,
+	setOfficialChecked: (bool: boolean) => void 1,
+	setPartnerChecked: (bool: boolean) => void 1,
+	setCommunityChecked: (bool: boolean) => void 1,
 	tierOptions: [] as Tier[],
 	matchingOfficial: 0,
 	matchingVerified: 0,
 	matchingCommunity: 0,
 	sortedComponents: [] as $TSFixMe[],
 	componentCheckedArray: [] as boolean[],
-	setComponentCheckedArray: (() => void 1) as React.Dispatch<
-		React.SetStateAction<boolean[]>
-	>,
+	setComponentCheckedArray: (val: boolean[]) => void 1,
 	flags: [] as Flag[],
 	flagsCheckedArray: [] as boolean[],
-	setFlagsCheckedArray: (() => void 1) as React.Dispatch<
-		React.SetStateAction<boolean[]>
-	>,
+	setFlagsCheckedArray: (val: boolean[]) => void 1,
 	atLeastOneFacetSelected: false,
 	filteredIntegrations: [] as Integration[],
 })
@@ -49,10 +51,54 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 	children,
 	integrations: _integrations,
 }) => {
-	// Tier Values
-	const [officialChecked, setOfficialChecked] = useState(false)
-	const [partnerChecked, setPartnerChecked] = useState(false)
-	const [communityChecked, setCommunityChecked] = useState(false)
+	const sharedOptions: QueryParamOptions = {
+		enableBatching: true,
+		updateType: 'replaceIn',
+		removeDefaultsFromUrl: true,
+	}
+	const [qsTiers, setQsTiers] = useQueryParam(
+		'tiers',
+		withDefault(CommaArrayParam, []),
+		sharedOptions
+	)
+
+	const [qsComponents, setQsComponents] = useQueryParam(
+		'components',
+		withDefault(CommaArrayParam, []),
+		sharedOptions
+	)
+
+	const [qsFlags, setQsFlags] = useQueryParam(
+		'flags',
+		withDefault(CommaArrayParam, []),
+		sharedOptions
+	)
+
+	const officialChecked = qsTiers.includes(Tier.OFFICIAL)
+	const partnerChecked = qsTiers.includes(Tier.PARTNER)
+	const communityChecked = qsTiers.includes(Tier.COMMUNITY)
+
+	const setOfficialChecked = (value: boolean) => {
+		if (value) {
+			setQsTiers((prev) => [...prev, Tier.OFFICIAL])
+		} else {
+			setQsTiers((prev) => prev.filter((tier) => tier !== Tier.OFFICIAL))
+		}
+	}
+	const setPartnerChecked = (value: boolean) => {
+		if (value) {
+			setQsTiers((prev) => [...prev, Tier.PARTNER])
+		} else {
+			setQsTiers((prev) => prev.filter((tier) => tier !== Tier.PARTNER))
+		}
+	}
+	const setCommunityChecked = (value: boolean) => {
+		if (value) {
+			setQsTiers((prev) => [...prev, Tier.COMMUNITY])
+		} else {
+			setQsTiers((prev) => prev.filter((tier) => tier !== Tier.COMMUNITY))
+		}
+	}
 
 	// Filter out integrations that don't have releases yet
 	const integrations = useMemo(() => {
@@ -60,7 +106,6 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 			return integration.versions.length > 0
 		})
 	}, [_integrations])
-	// --------------------------------
 
 	const flags: Flag[] = integrations
 		// accumulate all integration flags
@@ -75,9 +120,26 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 				})
 			)
 		})
-	const [flagsCheckedArray, setFlagsCheckedArray] = useState(
-		Array.from({ length: flags.length }, () => false)
-	)
+
+	const flagsCheckedArray = useMemo(() => {
+		return flags.map((flag) => {
+			return qsFlags.includes(flag.slug)
+		})
+	}, [flags, qsFlags])
+
+	const setFlagsCheckedArray = (val: boolean[]) => {
+		// map [true, false, false, true] => [Flag, Flag]
+		const newFlags = val
+			.map((checked, index) => {
+				if (checked) {
+					return flags[index].slug
+				}
+			})
+			.filter(Boolean)
+
+		// update URL & state
+		setQsFlags(newFlags)
+	}
 
 	let filteredIntegrations = integrations
 
@@ -128,9 +190,24 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 
 	// We have to manage our component checked state in a singular
 	// state object as there are an unknown number of components.
-	const [componentCheckedArray, setComponentCheckedArray] = useState<boolean[]>(
-		new Array(sortedComponents.length).fill(false)
-	)
+	const componentCheckedArray = useMemo(() => {
+		return sortedComponents.map((component) => {
+			return qsComponents.includes(component.slug)
+		})
+	}, [sortedComponents, qsComponents])
+	const setComponentCheckedArray = (val: boolean[]) => {
+		// map [true, false, false, true] => [Component, Component]
+		const newComponents = val
+			.map((checked, index) => {
+				if (checked) {
+					return sortedComponents[index].slug
+				}
+			})
+			.filter(Boolean)
+
+		// update URL & state
+		setQsComponents(newComponents)
+	}
 
 	// Now filter our integrations if facets are selected
 	const atLeastOneFacetSelected =

@@ -22,12 +22,38 @@ interface SearchableIntegrationsListProps {
 	className: string
 }
 
+import {
+	useQueryParam,
+	StringParam,
+	NumberParam,
+	withDefault,
+} from 'use-query-params'
+
 export default function SearchableIntegrationsList({
 	className,
 }: SearchableIntegrationsListProps) {
 	const { filteredIntegrations: integrations } = useIntegrationsSearchContext()
 
-	const [filterQuery, setFilterQuery] = useState('')
+	const [, setCurrentPage] = useQueryParam(
+		'page',
+		withDefault(NumberParam, 1),
+		{
+			enableBatching: true,
+			updateType: 'replaceIn',
+			removeDefaultsFromUrl: true,
+		}
+	)
+	const resetPage = () => setCurrentPage(1)
+	const [filterQuery, setFilterQuery] = useQueryParam(
+		'filter',
+		withDefault(StringParam, ''),
+		{
+			enableBatching: true,
+			updateType: 'replaceIn',
+			removeDefaultsFromUrl: true,
+		}
+	)
+
 	const filteredIntegrations = integrations.filter(
 		(integration: Integration) => {
 			return (
@@ -44,13 +70,10 @@ export default function SearchableIntegrationsList({
 
 	const {
 		tierOptions,
-		matchingOfficial,
 		officialChecked,
 		setOfficialChecked,
-		matchingVerified,
 		partnerChecked,
 		setPartnerChecked,
-		matchingCommunity,
 		communityChecked,
 		setCommunityChecked,
 		sortedComponents,
@@ -64,38 +87,49 @@ export default function SearchableIntegrationsList({
 
 	// handleClearFilters resets the state of all filters
 	const handleClearFilters = (e) => {
+		resetPage()
+
 		setOfficialChecked(false)
 		setPartnerChecked(false)
 		setCommunityChecked(false)
+
 		setComponentCheckedArray(componentCheckedArray.map((v, i) => false))
 		setFlagsCheckedArray(flagsCheckedArray.map((v, i) => false))
 	}
 
-	const makeUncheckTierHandler = (e: Tier) => () => {
-		switch (e) {
+	const makeToggleTierHandler = (tier: Tier) => () => {
+		// reset page on filter change
+		resetPage()
+
+		switch (tier) {
 			case Tier.OFFICIAL:
-				return setOfficialChecked((p) => !p)
+				setOfficialChecked(!officialChecked)
+				break
 			case Tier.PARTNER:
-				return setPartnerChecked((p) => !p)
+				setPartnerChecked(!partnerChecked)
+				break
 			case Tier.COMMUNITY:
-				return setCommunityChecked((p) => !p)
+				setCommunityChecked(!communityChecked)
+				break
 		}
 	}
 
-	const makeUncheckFlagHandler = (i: number) => () => {
-		setFlagsCheckedArray((prev) => {
-			const next = [...prev]
-			next[i] = !next[i]
-			return next
-		})
+	const makeToggleFlagHandler = (i: number) => () => {
+		// reset page on filter change
+		resetPage()
+
+		const newFlags = [...flagsCheckedArray]
+		newFlags[i] = !newFlags[i]
+		setFlagsCheckedArray(newFlags)
 	}
 
-	const makeUncheckComponentHandler = (i: number) => () => {
-		setComponentCheckedArray((prev) => {
-			const next = [...prev]
-			next[i] = !next[i]
-			return next
-		})
+	const makeToggleComponentHandler = (i: number) => () => {
+		// reset page on filter change
+		resetPage()
+
+		const newComponents = [...componentCheckedArray]
+		newComponents[i] = !newComponents[i]
+		setComponentCheckedArray(newComponents)
 	}
 
 	const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false)
@@ -108,13 +142,16 @@ export default function SearchableIntegrationsList({
 			<div className={s.header}>
 				<FilterBar
 					filterQuery={filterQuery}
-					onChange={(e) => setFilterQuery(e.target.value)}
+					onChange={(e) => {
+						setFilterQuery(e.target.value)
+						resetPage()
+					}}
 				/>
 
 				<div className={s.filterOptions}>
 					{/* tablet_up */}
 					<div className={classNames(s.selectStack, s.tablet_up)}>
-						<DropdownDisclosure color="secondary" text="Tier">
+						<DropdownDisclosure color="secondary" text="Tiers">
 							{tierOptions.map((e) => {
 								const checked =
 									(e === Tier.OFFICIAL && officialChecked) ||
@@ -123,7 +160,7 @@ export default function SearchableIntegrationsList({
 								return (
 									<DropdownDisclosureButtonItem
 										key={e}
-										onClick={makeUncheckTierHandler(e)}
+										onClick={makeToggleTierHandler(e)}
 									>
 										<div className={s.option}>
 											<span className={s.check}>
@@ -139,7 +176,7 @@ export default function SearchableIntegrationsList({
 							{sortedComponents.map((e, i) => (
 								<DropdownDisclosureButtonItem
 									key={e.id}
-									onClick={makeUncheckComponentHandler(i)}
+									onClick={makeToggleComponentHandler(i)}
 								>
 									<div className={s.option}>
 										<span className={s.check}>
@@ -155,7 +192,7 @@ export default function SearchableIntegrationsList({
 							{flags.map((e, i) => {
 								return (
 									<DropdownDisclosureButtonItem
-										onClick={makeUncheckFlagHandler(i)}
+										onClick={makeToggleFlagHandler(i)}
 										key={e.id}
 									>
 										<div className={s.option}>
@@ -198,7 +235,7 @@ export default function SearchableIntegrationsList({
 								<Tag
 									key={e}
 									text={capitalize(e)}
-									onRemove={makeUncheckTierHandler(e)}
+									onRemove={makeToggleTierHandler(e)}
 								/>
 							)
 						)
@@ -211,7 +248,7 @@ export default function SearchableIntegrationsList({
 								<Tag
 									key={e.id}
 									text={capitalize(e.plural_name)}
-									onRemove={makeUncheckComponentHandler(i)}
+									onRemove={makeToggleComponentHandler(i)}
 								/>
 							)
 						)
@@ -224,21 +261,23 @@ export default function SearchableIntegrationsList({
 								<Tag
 									key={e.id}
 									text={e.name}
-									onRemove={makeUncheckFlagHandler(i)}
+									onRemove={makeToggleFlagHandler(i)}
 								/>
 							)
 						)
 					})}
 
 					{atLeastOneFacetSelected ? (
-						<button
-							className={classNames(s.clearFilters, s.tablet_up)}
+						<Button
+							text="Reset filters"
+							icon={<IconX16 />}
+							color="tertiary"
+							size="small"
+							className={s.tablet_up}
 							onClick={handleClearFilters}
-						>
-							<span>Reset filters</span>
-						</button>
+						/>
 					) : (
-						<span className={s.noFilters}>No filters selected</span>
+						<div className={s.noFilters}>No filters selected</div>
 					)}
 				</div>
 			</div>
@@ -313,13 +352,13 @@ function MobileFilters() {
 	const makeToggleTierHandler = (tier: Tier) => () => {
 		switch (tier) {
 			case Tier.OFFICIAL:
-				setOfficialChecked((s) => !s)
+				setOfficialChecked(!officialChecked)
 				break
 			case Tier.PARTNER:
-				setPartnerChecked((s) => !s)
+				setPartnerChecked(!partnerChecked)
 				break
 			case Tier.COMMUNITY:
-				setCommunityChecked((s) => !s)
+				setCommunityChecked(!communityChecked)
 				break
 		}
 	}

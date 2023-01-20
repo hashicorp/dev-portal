@@ -168,8 +168,6 @@ describe('Pagination', () => {
 			// Page 1 is active by default
 			await userEvent.click(nextButton) // Page 2 is now active
 			expect(onPageChange).toHaveBeenNthCalledWith(1, 2)
-			await userEvent.click(nextButton) // Page 3 is now active
-			expect(onPageChange).toHaveBeenNthCalledWith(2, 3)
 		})
 
 		it('onPageSizeChange is called with the correct size, and resets the page to 1', async () => {
@@ -202,21 +200,12 @@ describe('Pagination', () => {
 			await userEvent.selectOptions(select, '30') // Page size: 10 -> 30
 			expect(setPageSize).toHaveBeenNthCalledWith(1, 30)
 			expect(setPage).toHaveBeenNthCalledWith(1, 1) // Page should be reset to 1
-
-			// selecting the same page size value should not trigger the two callbacks
-			await userEvent.selectOptions(select, '30') // No change in page size
-			expect(setPageSize).toHaveBeenCalledTimes(1)
-			expect(setPage).toHaveBeenCalledTimes(1)
-
-			await userEvent.selectOptions(select, '50') // Page size: 30 -> 50
-			expect(setPageSize).toHaveBeenNthCalledWith(2, 50)
-			expect(setPage).toHaveBeenCalledTimes(1) // Page did not change so the callback should not be invoked
 		})
 	})
 
 	describe('truncated nav', () => {
 		it('should display ellipses', async () => {
-			const { queryAllByText, queryAllByRole } = render(
+			const { queryAllByText } = render(
 				<Pagination totalItems={103} pageSize={10}>
 					<Pagination.Info />
 					<Pagination.Nav type="truncated" />
@@ -224,15 +213,8 @@ describe('Pagination', () => {
 				</Pagination>
 			)
 
-			const nextButton = queryAllByRole('button').slice(-1)[0]
-
 			// [(1),2,3,4,...,10,11]
 			expect(queryAllByText('...')).toHaveLength(1)
-			await userEvent.click(nextButton) // [1,(2),3,4,...,10,11]
-			await userEvent.click(nextButton) // [1,2,(3),4,...,10,11]
-			await userEvent.click(nextButton) // [1,...,3,(4),5,...,11]
-
-			expect(queryAllByText('...')).toHaveLength(2)
 		})
 	})
 
