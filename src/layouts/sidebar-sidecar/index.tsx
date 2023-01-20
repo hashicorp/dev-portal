@@ -87,7 +87,12 @@ const SidebarSidecarLayoutContent = ({
 
 	let sidebarContent = null
 	if (AlternateSidebar && !sidebarProps?.menuItems) {
-		sidebarContent = <AlternateSidebar {...sidebarProps} />
+		sidebarContent = (
+			<AlternateSidebar
+				{...sidebarProps}
+				isMobileMenuRendered={isMobileMenuRendered}
+			/>
+		)
 	} else {
 		sidebarContent = <Sidebar {...sidebarProps} />
 	}

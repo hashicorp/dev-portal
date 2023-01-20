@@ -68,17 +68,27 @@ export const generateProductLandingSidebarMenuItems = (
  * to be loaded into the `product` object passed.
  */
 export const generateProductLandingSidebarNavData = (product: ProductData) => {
+	// "Back to" links are shown outside of mobile menus only
+	const backToLinkProps = {
+		text: 'HashiCorp Developer',
+		href: '/',
+	}
+	// "Level" buttons are shown on mobile menus only
 	const levelButtonProps = {
 		levelUpButtonText: 'Main Menu',
 		levelDownButtonText: 'Previous',
 	}
-	const menuItems = generateProductLandingSidebarMenuItems(product)
+	// There are few links in product landing sidebars, so no need for filters
 	const showFilterInput = false
+	/**
+	 * Note: we visually hide the title outside of mobile menus.
+	 * To replace the title visually, we render a SidebarNavHighlightItem.
+	 */
 	const title = product.name
 
 	return {
+		backToLinkProps,
 		levelButtonProps,
-		menuItems,
 		showFilterInput,
 		title,
 	}

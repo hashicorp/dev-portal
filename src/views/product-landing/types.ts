@@ -13,4 +13,9 @@ export interface ProductLandingViewProps {
 		blocks: ProductLandingBlock[]
 		overviewParagraph?: string
 	}
+	/**
+	 * TODO: might be nice to document this here. It is passed to the view,
+	 * and we do need to return it from getStaticProps.
+	 */
+	layoutProps: $TSFixMe
 }
