@@ -1,5 +1,5 @@
 import { getTutorialMap } from 'lib/remark-plugins/rewrite-tutorial-links/utils'
-import { rewriteTutorialsLink } from 'lib/remark-plugins/rewrite-tutorial-links'
+import { rewriteTutorialsLink } from 'lib/remark-plugins/rewrite-tutorial-links/utils/rewrite-tutorials-link'
 
 let TUTORIAL_MAP
 

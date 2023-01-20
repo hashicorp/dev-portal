@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import * as utils from '../utils'
-import { rewriteTutorialsLink } from '../'
+import { rewriteTutorialsLink } from '../utils/rewrite-tutorials-link'
 
 jest.mock('../utils')
 
