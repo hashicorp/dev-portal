@@ -1,17 +1,31 @@
+.nav {
+	@media (--dev-dot-show-mobile-menu) {
+		display: none;
+	}
+}
+
+.navList {
+	align-items: center;
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
 .siteLogo {
 	display: flex;
 	align-items: center;
 
 	/* Note: min-height necessary to match height of .productLogo
      in navigation-header.module.css */
-	min-height: 40px;
+	min-height: 32px;
 
 	& svg {
 		height: 22px;
 		width: auto;
 
 		@media (--dev-dot-tablet-up) {
-			height: 32px;
+			height: 24px;
 		}
 	}
 }

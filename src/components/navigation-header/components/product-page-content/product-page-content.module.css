@@ -1,58 +1,39 @@
-.root {
-	align-items: center;
-	display: flex;
-	justify-content: left;
-}
-
-.nav {
+/*
+ * Style the "HashiCorp" icon products dropdown, aka product switcher.
+ */
+.productsDropdown {
 	@media (--dev-dot-show-mobile-menu) {
 		display: none;
 	}
 }
 
-.navList {
-	align-items: center;
-	display: flex;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-.hashiLogo {
+.productsDropdownIcon {
 	color: var(--token-color-surface-primary);
 	display: block;
 	height: 32px;
 	width: 32px;
 }
 
-.companyLogoMenuButton {
+.productsDropdownButton {
 	padding-bottom: 2px;
 	padding-left: 0;
 	padding-right: 0;
 	padding-top: 2px;
 }
 
-.companyLogoMenuButtonDropdown {
+.productsDropdownPane {
 	border-bottom-left-radius: 0;
 	left: calc(-1 * var(--header-padding-left-right));
 }
 
-.hashicorpIconDropdown {
-	@media (--dev-dot-show-mobile-menu) {
-		display: none;
-	}
-}
-
-.leftSideContainer {
+/*
+ * Set up the product logo-ish icon lockup next to product nav items.
+ *
+ * Note that each product nav item has 8px horizontal padding, so to create
+ * a 16px visual gap, we only need 8px of flex gap here.
+ */
+.productLinkAndNav {
 	align-items: center;
 	display: flex;
-	justify-content: left;
-}
-
-.productIconTextLink {
-	margin-right: 8px;
-
-	@media (--dev-dot-hide-mobile-menu) {
-		margin-left: 24px;
-	}
+	gap: 8px;
 }
