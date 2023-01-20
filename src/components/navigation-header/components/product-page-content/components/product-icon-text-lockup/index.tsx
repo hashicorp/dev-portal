@@ -8,8 +8,7 @@ export interface ProductIconTextLockupProps {
 }
 
 /**
- * Render a logo-lik
- * @returns
+ * Render a logo-like lockup of a product icon, plus the product name.
  */
 export function ProductIconTextLockup({
 	name,
