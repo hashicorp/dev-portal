@@ -11,7 +11,7 @@
 */
 .root {
 	--header-padding-left-right: 24px;
-	--header-dropdown-menu-padding-left-right: 12px;
+	--header-menu-item-padding-left-right: 12px;
 
 	background-color: var(--token-color-palette-neutral-700);
 	display: flex;
