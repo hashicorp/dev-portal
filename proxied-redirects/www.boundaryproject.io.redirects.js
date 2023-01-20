@@ -190,7 +190,7 @@ module.exports = [
 	},
 	{
 		source: '/help/admin-ui/targets/worker-filters',
-		destination: '/docs/concepts/filtering/worker-tags#target-worker-filtering',
+		destination: '/docs/concepts/filtering/worker-tags#worker-filtering',
 		permanent: false,
 	},
 	{
