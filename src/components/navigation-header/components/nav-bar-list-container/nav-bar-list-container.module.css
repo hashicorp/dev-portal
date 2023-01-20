@@ -1,6 +1,6 @@
 .nav {
 	/* Compensates for padding on individual nav list items */
-	margin-left: -12px;
+	margin-left: calc(var(--header-menu-item-padding-left-right) * -1);
 
 	@media (--dev-dot-show-mobile-menu) {
 		display: none;
