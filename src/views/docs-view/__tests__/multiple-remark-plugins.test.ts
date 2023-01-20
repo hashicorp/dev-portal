@@ -42,7 +42,7 @@ describe('multiple remark plugins', () => {
 		testEachCase(productUrlAdjuster, [
 			{
 				input: '/',
-				expected: 'https://waypointproject.io/',
+				expected: '/',
 			},
 			{
 				input: 'https://waypointproject.io/',

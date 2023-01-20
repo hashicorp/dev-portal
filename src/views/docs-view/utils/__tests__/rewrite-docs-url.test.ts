@@ -69,12 +69,14 @@ describe('rewriteDocsUrl', () => {
 
 			// Test `rewriteDocsUrl` for each product data object
 			describe(`under ${productSlug} content`, () => {
-				// build up test cases array
+				test('does not rewrite `/`', () => {
+					expect(rewriteDocsUrl('/', productData)).toBe('/')
+				})
+
+				// build up other test cases array
 				const testCases = hostnames.map((dotIoHostName: string) => {
 					const url = `https://${dotIoHostName}`
-					const input = { productData, url }
-					const expected = url
-					return { input, expected }
+					return { input: { productData, url }, expected: url }
 				})
 
 				// execute each test
