@@ -28,7 +28,26 @@ const processDocsLinkNode = ({
 }
 
 /**
- * Handles folder-relative URLs that start with the "dot-dot" (..) syntax. This
+ * Handles processing full URLs that may or may not be external to dev dot. If
+ * the URL is under the developer.hashicorp.com hostname, then the URL is
+ * returned as an internal path to dev dot. Otherwise, URLs that are totally
+ * external to dev dot are returned as-is.
+ */
+const handleFullUrl = ({ url }) => {
+	// Construct a URL object
+	const { hostname, pathname = '', search = '', hash = '' } = new URL(url)
+
+	// If it's a developer.hashicorp.com url, return it as an internal path
+	if (hostname === 'developer.hashicorp.com') {
+		return `${pathname}${search}${hash}`
+	}
+
+	// Otherwise, there is nothing to pre-adjust for external URLs
+	return url
+}
+
+/**
+ * Handles folder-relative URLs that start with the "dot-dot" (../) syntax. This
  * syntax is used to link to a parent, grandparent, etc. from the current path.
  */
 const handleDotDotFolderRelativeUrl = ({
@@ -85,6 +104,44 @@ const handleDotSlashFolderRelativeUrl = ({
 }
 
 /**
+ * Handles folder-relative URLs that do not start with any dots syntax or
+ * punctuation (e.g., "docs/some/docs/path").
+ */
+const handleNoDotsFolderRelativeUrl = ({ currentPathParts, url, urlParts }) => {
+	// Make a copy of urlParts that we can modify
+	const urlPartsCopy = [...urlParts]
+
+	// Do the api -> api-docs base path translation first, if it's needed
+	if (urlPartsCopy[0] === 'api') {
+		urlPartsCopy[0] = 'api-docs'
+	}
+
+	// Search for first part of url within currentPath
+	const indexInCurrentPath = currentPathParts.indexOf(urlPartsCopy[0])
+
+	// Do nothing if currentPath does not have the first part of url
+	if (indexInCurrentPath === -1) {
+		return url
+	}
+
+	// Prefix the url with a slash if it starts with the first part of currentPath
+	if (indexInCurrentPath === 0) {
+		return `/${url}`
+	}
+
+	// Retain parts of currentPath, up to the first part of the url
+	const currentPathPartsToRetain = currentPathParts.slice(0, indexInCurrentPath)
+
+	// Concatentate the retained parts of currentPath, and all parts of url
+	const allJoinedParts = [...currentPathPartsToRetain, ...urlPartsCopy].join(
+		'/'
+	)
+
+	// Return the concatentated parts
+	return allJoinedParts
+}
+
+/**
  * Pre-adjusts urls that start with a path part of the given `currentPath`. See
  * examples in: `src/lib/__tests__/remark-plugin-adjust-link-urls.test.ts`.
  */
@@ -94,10 +151,10 @@ const preAdjustUrl = ({ currentPath, url }): string => {
 		return url
 	}
 
-	// Do nothing if url is not an internal path
-	const isInternalPath = getIsInternalPath(url)
-	if (!isInternalPath) {
-		return url
+	// Handle full URL that may link externally or internally
+	const isFullUrl = getIsInternalPath(url) === false
+	if (isFullUrl) {
+		return handleFullUrl({ url })
 	}
 
 	// Do nothing if url is a top-level path
@@ -119,27 +176,8 @@ const preAdjustUrl = ({ currentPath, url }): string => {
 		return handleDotSlashFolderRelativeUrl({ currentPathParts, url })
 	}
 
-	// Search for first part of url within currentPath
-	const indexInCurrentPath = currentPathParts.indexOf(urlParts[0])
-
-	// Do nothing if currentPath does not have the first part of url
-	if (indexInCurrentPath === -1) {
-		return url
-	}
-
-	// Prefix the url with a slash if it starts with the first part of currentPath
-	if (indexInCurrentPath === 0) {
-		return `/${url}`
-	}
-
-	// Retain parts of currentPath, up to the first part of the url
-	const currentPathPartsToRetain = currentPathParts.slice(0, indexInCurrentPath)
-
-	// Concatentate the retained parts of currentPath, and all parts of url
-	const allJoinedParts = [...currentPathPartsToRetain, ...urlParts].join('/')
-
-	// Return the concatentated parts
-	return allJoinedParts
+	// Otherwise, handle as a folder-relative URL that does not start with any dots
+	return handleNoDotsFolderRelativeUrl({ currentPathParts, url, urlParts })
 }
 
 export {
