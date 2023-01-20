@@ -1,11 +1,10 @@
 import fs from 'fs'
 import path from 'path'
-import { normalizeRemoteLoaderSlug } from '../../src/lib/docs-content-link-rewrites/normalize-remote-loader-slug'
-import { getDocsToDevDotUrlMap } from './helpers/get-dot-io-to-dev-dot-url-map'
-import { getLearnToDevDotUrlMap } from './helpers/get-learn-to-dev-dot-url-map'
+import { normalizeRemoteLoaderSlug } from 'lib/docs-content-link-rewrites/normalize-remote-loader-slug'
+import { cachedGetProductData } from 'lib/get-product-data'
+import { getProductUrlAdjuster } from 'views/docs-view/utils/product-url-adjusters'
 import { getMdxLinksToRewrite } from './helpers/get-mdx-links-to-rewrite'
 import { getRewriteLinksScriptArguments } from './helpers/get-rewrite-links-script-arguments'
-import { getRewrittenNavDataJsonForFilePaths } from './helpers/get-rewritten-nav-data-json-for-file-paths'
 import { rewriteFileContentString } from './helpers/rewrite-file-content-string'
 
 const main = async () => {
@@ -26,14 +25,10 @@ const main = async () => {
 		return
 	}
 
-	// If there files to check, start pulling .io and learn data needed
-	console.log('Loading dotIoToDevDotPaths...')
-	const dotIoToDevDotPaths = getDocsToDevDotUrlMap()
-	console.log('Loading learnToDevDotPaths...')
-	const learnToDevDotPaths = await getLearnToDevDotUrlMap()
-
 	// Invoke the helpers that checks MDX and JSON files for rewriteable links
 	const normalizedProductSlug = normalizeRemoteLoaderSlug(repo)
+	const productData = cachedGetProductData(normalizedProductSlug)
+	const urlAdjustFn = getProductUrlAdjuster(productData)
 	console.log(
 		`Processing ${changedMdxFiles.length} .mdx files and ${changedNavDataJsonFiles.length} -nav-data.json files`
 	)
@@ -42,50 +37,15 @@ const main = async () => {
 	 * @TODO HANDLE NAV DATA LINKS
 	 * https://app.asana.com/0/1202114367927919/1203641801270767/f
 	 */
-	// const allRewrittenNavData = await getRewrittenNavDataJsonForFilePaths({
-	// 	filePaths: changedNavDataJsonFiles,
-	// 	dotIoToDevDotPaths,
-	// 	learnToDevDotPaths,
-	// 	normalizedProductSlug,
-	// })
-	// const navDataFilesToUpdate = []
-	// changedNavDataJsonFiles.forEach((navDataFilePath) => {
-	// 	const originalData = JSON.parse(fs.readFileSync(navDataFilePath, 'utf-8'))
-	// 	const updatedData = allRewrittenNavData[navDataFilePath]
-
-	// 	const originalDataString = JSON.stringify(originalData, null, 2)
-	// 	const updatedDataString = JSON.stringify(updatedData, null, 2)
-	// 	if (updatedDataString !== originalDataString) {
-	// 		navDataFilesToUpdate.push(navDataFilePath)
-
-	// 		if (!CI) {
-	// 			console.log(`Updating links in ${navDataFilePath}...`)
-	// 			fs.writeFileSync(navDataFilePath, updatedDataString)
-	// 		}
-	// 	}
-	// })
-	// if (navDataFilesToUpdate.length > 0) {
-	// 	// Throw an error if configured to, such as in a legacy link format checker
-	// 	const message = `Found nav data JSON links to rewrite in ${
-	// 		navDataFilesToUpdate.length
-	// 	} files:\n${JSON.stringify(navDataFilesToUpdate, null, 2)}`
-	// 	if (ERROR_IF_LINKS_TO_REWRITE === 'true') {
-	// 		throw new Error(message)
-	// 	} else {
-	// 		console.log(message)
-	// 	}
-	// }
 
 	/**
 	 * HANDLE UPDATING MDX LINKS
 	 */
 	const { mdxLinksToRewrite, mdxUnrewriteableLinks } =
 		await getMdxLinksToRewrite({
-			dotIoToDevDotPaths,
 			filePathPrefix: mdxFilesPrefix,
 			filePaths: changedMdxFiles,
-			learnToDevDotPaths,
-			normalizedProductSlug,
+			urlAdjustFn,
 		})
 
 	// Handle files that contain links that need to be rewritten.
@@ -94,7 +54,9 @@ const main = async () => {
 		// Throw an error if configured to, such as in a legacy link format checker
 		const message = `Found MDX links to rewrite in ${
 			mdxFilesWithLinksToRewrite.length
-		} files:\n${JSON.stringify(mdxLinksToRewrite, null, 2)}`
+		} files:\n${mdxFilesWithLinksToRewrite
+			.map((fileName: string) => `  ${fileName}`)
+			.join('\n')}`
 		if (ERROR_IF_LINKS_TO_REWRITE === 'true') {
 			throw new Error(message)
 		} else {
@@ -133,11 +95,6 @@ const main = async () => {
 	// Write the unrewriteable links data to an output file.
 	const mdxFilesWithUnrewriteableLinks = Object.keys(mdxUnrewriteableLinks)
 	if (!CI && mdxFilesWithUnrewriteableLinks.length > 0) {
-		const message = `Found unrewriteable MDX links in ${
-			mdxFilesWithUnrewriteableLinks.length
-		} files:\n${JSON.stringify(mdxUnrewriteableLinks, null, 2)}`
-		console.log(message)
-
 		const generatedFilesFolder = path.join(process.cwd(), 'src', '.generated')
 		if (!fs.existsSync(generatedFilesFolder)) {
 			fs.mkdirSync(generatedFilesFolder)
