@@ -13,9 +13,6 @@ on:
       commit-sha:
         required: true
         type: string
-      vercel-url:
-        required: true
-        type: string
       mdx-directory:
         required: true
         type: string
@@ -30,8 +27,18 @@ jobs:
       OWNER: ${{ inputs.repo-owner }}
       REPO: ${{ inputs.repo-name }}
       COMMIT_SHA: ${{ inputs.commit-sha }}
-      VERCEL_URL: '${{ inputs.vercel-url }}'
     steps:
+      - name: Get target_url hostname
+        id: get-target-url-hostname
+        uses: actions/github-script@v6
+        env:
+          DEPLOYMENT_STATUS_TARGET_URL: ${{ github.event.deployment_status.target_url }}
+        with:
+          script: |
+            const { DEPLOYMENT_STATUS_TARGET_URL } = process.env
+            const { hostname } = new URL(DEPLOYMENT_STATUS_TARGET_URL)
+            return hostname
+
       - name: Get PR number
         id: get-pr-number
         uses: actions/github-script@v6
@@ -118,6 +125,7 @@ jobs:
       - name: Run rewrite-docs-content-links script
         id: run-rewrite-docs-content-links-script
         env:
+          VERCEL_URL: ${{ steps.get-target-url-hostname.outputs.result }}
           MDX_FILE_PATH_PREFIX: 'content-repo/${{ inputs.mdx-directory }}'
           NAV_DATA_FILE_PATH_PREFIX: 'content-repo/${{ inputs.nav-data-directory }}'
           RELEVANT_CHANGED_FILES: ${{ steps.get-lists-of-pr-files.outputs.result }}
