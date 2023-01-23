@@ -27,7 +27,7 @@ jobs:
       OWNER: ${{ inputs.repo-owner }}
       REPO: ${{ inputs.repo-name }}
       COMMIT_SHA: ${{ inputs.commit-sha }}
-      VERCEL_URL: ${{ github.event.deployment_status.target_url }}
+      VERCEL_URL: '${{ github.event.deployment_status.target_url }}'
     steps:
       - name: Fail workflow if no "github.event.deployment_status.target_url"
         shell: bash
