@@ -28,17 +28,6 @@ jobs:
       REPO: ${{ inputs.repo-name }}
       COMMIT_SHA: ${{ inputs.commit-sha }}
     steps:
-      - name: Get target_url hostname
-        id: get-target-url-hostname
-        uses: actions/github-script@v6
-        env:
-          DEPLOYMENT_STATUS_TARGET_URL: ${{ github.event.deployment_status.target_url }}
-        with:
-          script: |
-            const { DEPLOYMENT_STATUS_TARGET_URL } = process.env
-            const { hostname } = new URL(DEPLOYMENT_STATUS_TARGET_URL)
-            return hostname
-
       - name: Get PR number
         id: get-pr-number
         uses: actions/github-script@v6
@@ -49,9 +38,15 @@ jobs:
               repo: process.env.REPO,
               commit_sha: process.env.COMMIT_SHA
             })
-            return data[0].number
+            const prNumber = data && data[0] && data[0].number
+            if (prNumber) {
+              return prNumber
+            } else {
+              return false
+            }
 
       - name: Get list of PR files
+        if: ${{ steps.get-pr-number.outputs.result != 'false' }}
         id: get-lists-of-pr-files
         uses: actions/github-script@v6
         env:
@@ -109,24 +104,28 @@ jobs:
             return result
 
       - name: Checkout dev-portal
+        if: ${{ steps.get-pr-number.outputs.result != 'false' }}
         uses: actions/checkout@v3
         with:
           repository: 'hashicorp/dev-portal'
 
       - name: Install dev-portal dependencies
+        if: ${{ steps.get-pr-number.outputs.result != 'false' }}
         run: npm ci
 
       - name: Check out branch with content changes
+        if: ${{ steps.get-pr-number.outputs.result != 'false' }}
         uses: actions/checkout@v3
         with:
           path: 'content-repo'
           repository: '${{ inputs.repo-owner }}/${{ inputs.repo-name }}'
 
       - name: Run rewrite-docs-content-links script
+        if: ${{ steps.get-pr-number.outputs.result != 'false' }}
         id: run-rewrite-docs-content-links-script
         env:
           MDX_FILE_PATH_PREFIX: 'content-repo/${{ inputs.mdx-directory }}'
           NAV_DATA_FILE_PATH_PREFIX: 'content-repo/${{ inputs.nav-data-directory }}'
           RELEVANT_CHANGED_FILES: ${{ steps.get-lists-of-pr-files.outputs.result }}
           ERROR_IF_LINKS_TO_REWRITE: 'true'
-        run: VERCEL_URL=${{ steps.get-target-url-hostname.outputs.result }} npm run rewrite-docs-content-links
+        run: VERCEL_URL="developer.hashicorp.com" npm run rewrite-docs-content-links
