@@ -132,7 +132,7 @@ interface MenuItem {
 	badge?: SidebarNavMenuItemBadgeProps
 }
 
-export interface SidebarBaseProps {
+interface SidebarBaseProps {
 	/**
 	 * Optional props to send to `SidebarBackToLink` which is displayed at the top
 	 * of the sidebar. If this prop is omitted, `SidebarBackToLink` will not be
