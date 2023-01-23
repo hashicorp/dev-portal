@@ -30,7 +30,7 @@ jobs:
       OWNER: ${{ inputs.repo-owner }}
       REPO: ${{ inputs.repo-name }}
       COMMIT_SHA: ${{ inputs.commit-sha }}
-      VERCEL_URL: ${{ inputs.vercel-url }}
+      VERCEL_URL: '${{ inputs.vercel-url }}'
     steps:
       - name: Get PR number
         id: get-pr-number
