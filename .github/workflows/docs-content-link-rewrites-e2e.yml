@@ -45,7 +45,7 @@ jobs:
               repo: process.env.REPO,
               commit_sha: process.env.COMMIT_SHA
             })
-            return data && data[0].head.ref === "docs/amb.migrate-link-formats"
+            return data && data[0]?.head?.ref === "docs/amb.migrate-link-formats"
 
       - name: Check out dev-portal repo
         uses: actions/checkout@v3
