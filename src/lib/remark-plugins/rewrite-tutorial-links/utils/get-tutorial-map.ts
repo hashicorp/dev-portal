@@ -1,7 +1,10 @@
+import path from 'path'
 import fetch from 'node-fetch'
 import moize, { Options } from 'moize'
 import { generateTutorialMap } from 'pages/api/tutorials-map'
 import { withTiming } from 'lib/with-timing'
+
+const API_PATH = 'api/tutorials-map'
 
 export async function getTutorialMap() {
 	let result = {}
@@ -16,7 +19,7 @@ export async function getTutorialMap() {
 	}
 
 	const isDuringBuild = process.env.VERCEL && process.env.CI
-	const apiRoute = new URL('api/tutorials-map', baseUrl)
+	const apiRoute = path.join(baseUrl, API_PATH)
 
 	/**
 	 * For statically generated pages, we can cache the tutorial
