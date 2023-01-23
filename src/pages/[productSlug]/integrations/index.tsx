@@ -4,12 +4,17 @@ import {
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 import { cachedGetProductData } from 'lib/get-product-data'
+import { activeProductSlugs } from 'lib/products'
 import {
 	Integration,
 	fetchAllProductIntegrations,
 } from 'lib/integrations-api-client/integration'
-import { GetStaticPropsResult } from 'next'
-import { ProductData } from 'types/products'
+import {
+	GetStaticPathsResult,
+	GetStaticPropsContext,
+	GetStaticPropsResult,
+} from 'next'
+import { ProductData, ProductSlug } from 'types/products'
 import ProductIntegrationsLanding, {
 	ViewProps,
 } from 'views/product-integrations-landing'
@@ -52,13 +57,42 @@ export function generateProductIntegrationLibrarySidebarNavData(
 	}
 }
 
-export async function getServerSideProps({
+type StaticParams = {
+	productSlug: ProductSlug
+}
+
+export async function getStaticPaths(): Promise<
+	GetStaticPathsResult<StaticParams>
+> {
+	// Filter for products with integrations enabled
+	const productSlugsWithIntegrations = activeProductSlugs.filter(
+		(productSlug: ProductSlug) => {
+			// Pull out the Product Config
+			const productData = cachedGetProductData(productSlug)
+			// We only want products where integrations are enabled
+			return productData.integrationsConfig.enabled
+		}
+	)
+	// Transform slugs into path params
+	const paths = productSlugsWithIntegrations.map(
+		(productSlug: ProductSlug) => ({
+			params: { productSlug },
+		})
+	)
+	return { paths, fallback: false }
+}
+
+export async function getStaticProps({
 	params,
-}): Promise<GetStaticPropsResult<ViewProps & { metadata: HeadMetadataProps }>> {
+}: GetStaticPropsContext<StaticParams>): Promise<
+	GetStaticPropsResult<ViewProps & { metadata: HeadMetadataProps }>
+> {
 	// Pull out the Product Config
 	const product = cachedGetProductData(params.productSlug)
 
 	// 404 if we're not on an enabled page
+	// Note: we don't expect to get here, as we should have filtered
+	// products without integrations enabled through getStaticPaths.
 	if (!product.integrationsConfig.enabled) {
 		return {
 			notFound: true,
