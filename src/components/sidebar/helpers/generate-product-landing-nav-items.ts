@@ -1,5 +1,6 @@
 import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
-import { ProductData } from 'types/products'
+import { ProductData, RootDocsPath } from 'types/products'
+import { EnrichedNavItem, MenuItem, SidebarProps } from '../types'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
@@ -16,7 +17,7 @@ const IS_DEV = process.env.NODE_ENV !== 'production'
  */
 export const generateProductLandingSidebarMenuItems = (
 	product: ProductData
-) => {
+): EnrichedNavItem[] => {
 	const routes = getDocsNavItems(product).map(({ label, fullPath }) => ({
 		title: label,
 		fullPath,
@@ -36,6 +37,11 @@ export const generateProductLandingSidebarMenuItems = (
 	}
 
 	const menuItems = [
+		{
+			title: 'Foo Bar',
+			href: `/${product.slug}/tutorials`,
+			theme: 'nomad',
+		},
 		...docsItems,
 		{
 			title: 'Tutorials',
@@ -67,7 +73,9 @@ export const generateProductLandingSidebarMenuItems = (
  * Depends on the data located in the associated `src/data/${product.slug}.json`
  * to be loaded into the `product` object passed.
  */
-export const generateProductLandingSidebarNavData = (product: ProductData) => {
+export const generateProductLandingSidebarNavData = (
+	product: ProductData
+): SidebarProps => {
 	const levelButtonProps = {
 		levelUpButtonText: 'Main Menu',
 		levelDownButtonText: 'Previous',
@@ -81,5 +89,6 @@ export const generateProductLandingSidebarNavData = (product: ProductData) => {
 		menuItems,
 		showFilterInput,
 		title,
+		visuallyHideTitle: true,
 	}
 }

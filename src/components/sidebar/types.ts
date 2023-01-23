@@ -1,4 +1,5 @@
 import { ReactElement, ReactNode } from 'react'
+import { ProductSlug } from 'types/products'
 import { SidebarBackToLinkProps } from './components/sidebar-back-to-link'
 import { SidebarMobileControlsProps } from './components/sidebar-mobile-controls'
 import { SidebarNavMenuItemBadgeProps } from './components/sidebar-nav-menu-item/types'
@@ -102,10 +103,20 @@ interface FilteredLinkNavItem extends EnrichedLinkNavItem {
 
 type FilteredNavItem = FilteredSubmenuNavItem | FilteredLinkNavItem
 
+export interface NavHighlightItem {
+	theme: ProductSlug
+	title: string
+	href: string
+}
+
 /**
  *
  * For reference: this is also defined in react-components/docs-sidenav:
  * https://github.com/hashicorp/react-components/blob/main/packages/docs-sidenav/types.ts
+ *
+ * TODO: it might be worth refactoring this to be a union of multiple types,
+ * one for each distinct type of menu item, rather than a single interface
+ * with optional properties to cover all possible menu item types.
  *
  */
 interface MenuItem {
@@ -130,6 +141,8 @@ interface MenuItem {
 	 */
 	trailingIcon?: ReactElement
 	badge?: SidebarNavMenuItemBadgeProps
+	/* Optional props to cover NavHighlightItem */
+	theme?: NavHighlightItem['theme']
 }
 
 interface SidebarBaseProps {

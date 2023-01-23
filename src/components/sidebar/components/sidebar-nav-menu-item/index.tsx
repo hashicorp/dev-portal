@@ -16,6 +16,7 @@ import { MenuItem } from 'components/sidebar'
 import ProductIcon from 'components/product-icon'
 import {
 	SidebarHorizontalRule,
+	SidebarNavHighlightItem,
 	SidebarSectionHeading,
 } from 'components/sidebar/components'
 import Text from 'components/text'
@@ -273,6 +274,14 @@ const SidebarNavMenuItem = ({ item }: SidebarNavMenuItemProps) => {
 		itemContent = <SidebarSectionHeading text={item.heading} />
 	} else if (item.routes) {
 		itemContent = <SidebarNavSubmenuItem item={item} />
+	} else if (item.theme) {
+		itemContent = (
+			<SidebarNavHighlightItem
+				theme={item.theme}
+				text={item.title}
+				href={item.href}
+			/>
+		)
 	} else {
 		itemContent = <SidebarNavLinkItem item={item} />
 	}

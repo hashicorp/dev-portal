@@ -1,3 +1,46 @@
 .root {
-	border: 1px solid magenta;
+	--border-width: 1px;
+
+	composes: g-focus-ring-from-box-shadow from global;
+	align-items: center;
+	background: var(--token-color-surface-primary);
+	border: var(--border-width) solid transparent;
+	border-radius: 5px;
+	color: var(--token-color-foreground-primary);
+	display: flex;
+	gap: 8px;
+	padding: calc(8px - var(--border-width));
+	width: 100%;
+	z-index: 0;
+
+	&:hover {
+		background: linear-gradient(
+			315deg,
+			var(--hover-gradient-start) 0%,
+			var(--hover-gradient-stop) 100%
+		);
+	}
+
+	&:active {
+		border-color: var(--active-border-color);
+	}
+
+	&:focus {
+		z-index: 1;
+	}
+}
+
+.text {
+	composes: hds-typography-body-200 from global;
+	font-weight: var(--token-typography-font-weight-medium);
+}
+
+/*
+ * Themeing
+ */
+
+.theme-nomad {
+	--hover-gradient-start: var(--token-color-nomad-gradient-faint-stop);
+	--hover-gradient-stop: var(--token-color-nomad-gradient-faint-start);
+	--active-border-color: var(--token-color-nomad-border);
 }
