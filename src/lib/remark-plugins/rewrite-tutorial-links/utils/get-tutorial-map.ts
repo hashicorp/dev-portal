@@ -5,10 +5,17 @@ import { withTiming } from 'lib/with-timing'
 
 export async function getTutorialMap() {
 	let result = {}
+
+	// Set `baseUrl`, allowing VERCEL_URL to be a full URL or just a hostname
+	const { VERCEL_URL } = process.env
+	let baseUrl = 'http://localhost:3000'
+	if (VERCEL_URL) {
+		baseUrl = VERCEL_URL.startsWith('http')
+			? VERCEL_URL
+			: `https://${VERCEL_URL}`
+	}
+
 	const isDuringBuild = process.env.VERCEL && process.env.CI
-	const baseUrl = process.env.VERCEL_URL
-		? `https://${process.env.VERCEL_URL}`
-		: 'http://localhost:3000'
 	const apiRoute = new URL('api/tutorials-map', baseUrl)
 
 	/**
