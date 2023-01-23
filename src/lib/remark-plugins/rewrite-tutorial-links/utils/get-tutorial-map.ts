@@ -9,6 +9,7 @@ export async function getTutorialMap() {
 	const baseUrl = process.env.VERCEL_URL
 		? `https://${process.env.VERCEL_URL}`
 		: 'http://localhost:3000'
+	console.log('[getTutorialMap] baseUrl:', baseUrl)
 	const apiRoute = new URL('api/tutorials-map', baseUrl)
 
 	/**
