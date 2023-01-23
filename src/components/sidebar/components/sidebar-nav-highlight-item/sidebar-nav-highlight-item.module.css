@@ -1,32 +1,44 @@
 .root {
-	--border-width: 1px;
+	--inset-border-shadow: inset 0 0 0 1px var(--inset-border-color);
+	--gradient-background: linear-gradient(
+		315deg,
+		var(--gradient-start) 0%,
+		var(--gradient-stop) 100%
+	);
 
 	composes: g-focus-ring-from-box-shadow from global;
 	align-items: center;
 	background: var(--token-color-surface-primary);
-	border: var(--border-width) solid transparent;
 	border-radius: 5px;
 	color: var(--token-color-foreground-primary);
 	display: flex;
 	gap: 8px;
-	padding: calc(8px - var(--border-width));
+	margin-bottom: 2px;
+	padding: 8px;
+	position: relative;
 	width: 100%;
 	z-index: 0;
 
 	&:hover {
-		background: linear-gradient(
-			315deg,
-			var(--hover-gradient-start) 0%,
-			var(--hover-gradient-stop) 100%
-		);
-	}
-
-	&:active {
-		border-color: var(--active-border-color);
+		background: var(--gradient-background);
 	}
 
 	&:focus {
 		z-index: 1;
+	}
+
+	&:active {
+		/* Using box-shadow for an inset border. Also plays nice with focus styles. */
+		box-shadow: var(--inset-border-shadow);
+	}
+
+	/* AKA active */
+	&[aria-current='page'] {
+		background: var(--gradient-background);
+
+		&:not(:focus) {
+			box-shadow: var(--inset-border-shadow);
+		}
 	}
 }
 
@@ -40,7 +52,7 @@
  */
 
 .theme-nomad {
-	--hover-gradient-start: var(--token-color-nomad-gradient-faint-stop);
-	--hover-gradient-stop: var(--token-color-nomad-gradient-faint-start);
-	--active-border-color: var(--token-color-nomad-border);
+	--gradient-start: var(--token-color-nomad-gradient-faint-stop);
+	--gradient-stop: var(--token-color-nomad-gradient-faint-start);
+	--inset-border-color: var(--token-color-nomad-border);
 }

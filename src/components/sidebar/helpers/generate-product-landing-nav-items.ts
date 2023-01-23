@@ -38,8 +38,8 @@ export const generateProductLandingSidebarMenuItems = (
 
 	const menuItems = [
 		{
-			title: 'Foo Bar',
-			href: `/${product.slug}/tutorials`,
+			title: product.name,
+			fullPath: `/${product.slug}`, // necessary for isActive highlighting
 			theme: 'nomad',
 		},
 		...docsItems,

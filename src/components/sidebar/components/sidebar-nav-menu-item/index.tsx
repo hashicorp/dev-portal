@@ -279,7 +279,8 @@ const SidebarNavMenuItem = ({ item }: SidebarNavMenuItemProps) => {
 			<SidebarNavHighlightItem
 				theme={item.theme}
 				text={item.title}
-				href={item.href}
+				href={item.fullPath}
+				isActive={item.isActive}
 			/>
 		)
 	} else {

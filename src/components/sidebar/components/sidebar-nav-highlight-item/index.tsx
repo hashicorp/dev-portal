@@ -14,14 +14,16 @@ export default function SidebarNavHighlightItem({
 	theme,
 	text,
 	href,
+	isActive,
 }: {
 	theme: ProductSlug
 	text: string
 	href: string
+	isActive?: boolean
 }) {
 	return (
 		<Link
-			// aria-current={ariaCurrent}
+			aria-current={isActive ? 'page' : undefined}
 			// aria-label={ariaLabel}
 			className={classNames(s.root, s[`theme-${theme}`])}
 			// data-heap-track="sidebar-nav-link-item"
