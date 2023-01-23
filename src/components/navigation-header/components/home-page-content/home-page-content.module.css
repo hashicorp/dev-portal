@@ -1,4 +1,9 @@
-.siteLogo {
+.siteLogoLink {
+	composes: g-focus-ring-from-box-shadow-dark from global;
+	border-radius: 5px;
+}
+
+.siteLogoInlineSvg {
 	display: flex;
 	align-items: center;
 
