@@ -28,6 +28,17 @@ jobs:
       REPO: ${{ inputs.repo-name }}
       COMMIT_SHA: ${{ inputs.commit-sha }}
     steps:
+      - name: Get target_url hostname
+        id: get-target-url-hostname
+        uses: actions/github-script@v6
+        env:
+          DEPLOYMENT_STATUS_TARGET_URL: ${{ github.event.deployment_status.target_url }}
+        with:
+          script: |
+            const { DEPLOYMENT_STATUS_TARGET_URL } = process.env
+            const { hostname } = new URL(DEPLOYMENT_STATUS_TARGET_URL)
+            return hostname
+
       - name: Get PR number
         id: get-pr-number
         uses: actions/github-script@v6
@@ -118,4 +129,4 @@ jobs:
           NAV_DATA_FILE_PATH_PREFIX: 'content-repo/${{ inputs.nav-data-directory }}'
           RELEVANT_CHANGED_FILES: ${{ steps.get-lists-of-pr-files.outputs.result }}
           ERROR_IF_LINKS_TO_REWRITE: 'true'
-        run: npm run rewrite-docs-content-links
+        run: VERCEL_URL=${{ steps.get-target-url-hostname.outputs.result }} npm run rewrite-docs-content-links
