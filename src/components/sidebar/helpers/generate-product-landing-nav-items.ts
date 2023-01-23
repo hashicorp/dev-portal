@@ -39,8 +39,8 @@ export const generateProductLandingSidebarMenuItems = (
 	const menuItems = [
 		{
 			title: product.name,
-			fullPath: `/${product.slug}`, // necessary for isActive highlighting
-			theme: 'nomad',
+			fullPath: `/${product.slug}`,
+			theme: 'nomad', // this will be a "highlighted" themed item
 		},
 		...docsItems,
 		{

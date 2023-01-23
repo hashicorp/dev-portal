@@ -275,24 +275,32 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Constructs the base sidebar level for `DocsView`.
 			 */
+			const docsSidebarTitle =
+				currentRootDocsPath.shortName || currentRootDocsPath.name
+			const docsBasePathFullPath = versionPathPart
+				? `/${product.slug}/${basePath}/${versionPathPart}`
+				: `/${product.slug}/${basePath}`
 			const docsSidebarLevel: SidebarProps = {
 				backToLinkProps: getBackToLink(currentRootDocsPath, product),
 				levelButtonProps: {
 					levelUpButtonText: `${product.name} Home`,
 				},
 				menuItems: navDataWithFullPaths as EnrichedNavItem[],
-				title: currentRootDocsPath.shortName || currentRootDocsPath.name,
+				title: docsSidebarTitle,
+				/* We always visually hide the title, as we've added in a
+				   "highlight" item that would make showing the title redundant. */
+				visuallyHideTitle: true,
 			}
 			/**
 			 * In some cases, the first nav item is a heading.
 			 * In these case, we'll visually hide the sidebar title,
 			 * since it will redundant right next to the authored title.
 			 */
-			const firstItemIsHeading =
-				typeof navDataWithFullPaths[0]?.heading == 'string'
-			if (firstItemIsHeading) {
-				docsSidebarLevel.visuallyHideTitle = true
-			}
+			// const firstItemIsHeading =
+			// 	typeof navDataWithFullPaths[0]?.heading == 'string'
+			// if (firstItemIsHeading) {
+			// 	docsSidebarLevel.visuallyHideTitle = true
+			// }
 
 			/**
 			 * Check the top level of the navData for "overview" items,
@@ -300,24 +308,43 @@ export function getStaticGenerationFunctions<
 			 * If we do no have an overview item match, then we'll
 			 * automatically add an overview item.
 			 */
-			const overviewItemMatch = navDataWithFullPaths.find((item: MenuItem) => {
+			function isOverviewItem(item: MenuItem) {
 				const isPathMatch =
 					item.path == '' ||
 					item.path == '/' ||
 					item.path == '/index' ||
 					item.path == 'index'
 				return isPathMatch
-			})
+			}
+			// const overviewItemMatch = navDataWithFullPaths.find(isOverviewItem)
 			/**
 			 * Exception: If the first navData node is a `heading`,
 			 * we'll avoid adding an overview item even if there's
 			 * no overview item match.
 			 */
-			if (!overviewItemMatch && !firstItemIsHeading) {
-				docsSidebarLevel.overviewItemHref = versionPathPart
-					? `/${product.slug}/${basePath}/${versionPathPart}`
-					: `/${product.slug}/${basePath}`
+			// if (!overviewItemMatch && !firstItemIsHeading) {
+			// 	docsSidebarLevel.overviewItemHref = versionPathPart
+			// 		? `/${product.slug}/${basePath}/${versionPathPart}`
+			// 		: `/${product.slug}/${basePath}`
+			// }
+
+			/**
+			 * We always include a brand-themed "highlight" item,
+			 * which serves as a menu item representing the top-level docs category.
+			 *
+			 * If the first item in docsSidebarLevel.menuItems is an "Overview" item,
+			 * then we remove it, as it would be redundant with the "highlight" item
+			 * we're adding.
+			 */
+			if (isOverviewItem(docsSidebarLevel.menuItems[0])) {
+				docsSidebarLevel.menuItems.shift()
 			}
+			docsSidebarLevel.menuItems.unshift({
+				title: docsSidebarTitle,
+				fullPath: docsBasePathFullPath,
+				theme: product.slug, // this makes this a "highlighted" themed item
+				// TODO: would be great to fix up Menu Item types at some point.
+			} as unknown as EnrichedNavItem)
 
 			/**
 			 * Assembles all levels of sidebar nav data for `DocsView`.

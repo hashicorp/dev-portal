@@ -106,7 +106,7 @@ type FilteredNavItem = FilteredSubmenuNavItem | FilteredLinkNavItem
 export interface NavHighlightItem {
 	theme: ProductSlug
 	title: string
-	href: string
+	fullPath: string
 }
 
 /**

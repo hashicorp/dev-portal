@@ -21,6 +21,7 @@
 
 	&:hover {
 		background: var(--gradient-background);
+		color: var(--token-color-foreground-strong);
 	}
 
 	&:focus {
@@ -36,7 +37,7 @@
 	&[aria-current='page'] {
 		background: var(--gradient-background);
 
-		&:not(:focus) {
+		&:not(:focus-visible) {
 			box-shadow: var(--inset-border-shadow);
 		}
 	}

@@ -24,12 +24,8 @@ export default function SidebarNavHighlightItem({
 	return (
 		<Link
 			aria-current={isActive ? 'page' : undefined}
-			// aria-label={ariaLabel}
 			className={classNames(s.root, s[`theme-${theme}`])}
-			// data-heap-track="sidebar-nav-link-item"
 			href={href}
-			// opensInNewTab={isExternal}
-			// rel={rel}
 		>
 			<ProductIcon productSlug={theme} />
 			<span className={s.text}>{text}</span>
