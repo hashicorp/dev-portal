@@ -28,17 +28,6 @@ jobs:
       REPO: ${{ inputs.repo-name }}
       COMMIT_SHA: ${{ inputs.commit-sha }}
     steps:
-      - name: Get target_url hostname
-        id: get-target-url-hostname
-        uses: actions/github-script@v6
-        env:
-          DEPLOYMENT_STATUS_TARGET_URL: ${{ github.event.deployment_status.target_url }}
-        with:
-          script: |
-            const { DEPLOYMENT_STATUS_TARGET_URL } = process.env
-            const { hostname } = new URL(DEPLOYMENT_STATUS_TARGET_URL)
-            return hostname
-
       - name: Get PR number
         id: get-pr-number
         uses: actions/github-script@v6
@@ -121,6 +110,17 @@ jobs:
         with:
           path: 'content-repo'
           repository: '${{ inputs.repo-owner }}/${{ inputs.repo-name }}'
+
+      - name: Get target_url hostname
+        id: get-target-url-hostname
+        uses: actions/github-script@v6
+        env:
+          DEPLOYMENT_STATUS_TARGET_URL: ${{ github.event.deployment_status.target_url }}
+        with:
+          script: |
+            const { DEPLOYMENT_STATUS_TARGET_URL } = process.env
+            const { hostname } = new URL(DEPLOYMENT_STATUS_TARGET_URL)
+            return hostname
 
       - name: Run rewrite-docs-content-links script
         id: run-rewrite-docs-content-links-script
