@@ -1,0 +1,9 @@
+.root {
+	composes: g-focus-ring-from-box-shadow-dark from global;
+	color: var(--token-color-surface-strong);
+	border-radius: 5px;
+
+	&:hover {
+		color: var(--token-color-surface-primary);
+	}
+}
