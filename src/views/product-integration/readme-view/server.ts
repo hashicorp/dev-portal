@@ -19,6 +19,7 @@ import {
 	ProductSlugWithIntegrations,
 } from './fetch-all-integrations-for-products'
 import { integrationBreadcrumbLinks } from './integration-breadcrumb-links'
+import { integrationVersionBreadcrumbLinks } from './integration-version-breadcrumb-links'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -27,11 +28,42 @@ import { integrationBreadcrumbLinks } from './integration-breadcrumb-links'
 type PathParams = {
 	productSlug: ProductSlug
 	integrationSlug: string
+	/**
+	 * Note: the version string is passed for versioned "readme" views,
+	 * but not for the latest "readme" views.
+	 * - Latest URLs: `/<product>/integration/<integrationSlug>`
+	 * - Versioned URLs: `/<product>/integration/<integrationSlug>`
+	 */
+	integrationVersion?: string
+}
+
+/**
+ * Build an array of { productSlug, integrationSlug, integrationVersion }
+ * path parameters for all integrations across all enabled products.
+ *
+ * Note: currently returning an empty array. Latest versions of "readme"
+ * views are rendered through the "canonical" latest URL:
+ * - `/<productSlug>/integrations/<integrationSlug>`
+ *
+ * It doesn't seem feasible to statically render all versions, so we
+ * statically render only the latest version at the URL above.
+ * This happens through the page file `[integrationSlug]/index.tsx`.
+ *
+ * All non-latest versioned content is rendered with `fallback: "blocking"`.
+ *
+ * TODO: determine what incremental regeneration strategy we might want.
+ */
+async function getStaticPathsWithVersion(): Promise<
+	GetStaticPathsResult<PathParams>
+> {
+	return { paths: [], fallback: 'blocking' }
 }
 
 /**
  * Build an array of { productSlug, integrationSlug }
  * path parameters for all integrations across all enabled products.
+ *
+ * TODO: determine what incremental regeneration strategy we might want.
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
@@ -62,17 +94,24 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 
 /**
  * Get static props for the "readme" view of a specific product integration.
+ *
+ * TODO: determine what incremental regeneration strategy we might want.
  */
 async function getStaticProps({
-	params,
+	params: { productSlug, integrationSlug, integrationVersion },
 }: GetStaticPropsContext<PathParams>): Promise<
 	GetStaticPropsResult<
 		ProductIntegrationReadmeViewProps & { metadata: HeadMetadataProps }
 	>
 > {
-	const { productSlug, integrationSlug } = params
 	// Pull out the Product Config
+	// If the product is not enabled for integrations, return a 404 page
 	const productData = cachedGetProductData(productSlug)
+	if (!productData.integrationsConfig.enabled) {
+		return {
+			notFound: true,
+		}
+	}
 	// Fetch the Integration
 	const integrationResponse = await fetchIntegration(
 		productSlug,
@@ -90,31 +129,42 @@ async function getStaticProps({
 		}
 	}
 	// Fetch the Latest Release
+	const isLatest = !integrationVersion || integrationVersion === 'latest'
+	const targetVersion = isLatest ? integration.versions[0] : integrationVersion
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		productData.slug,
 		integrationSlug,
-		integration.versions[0] // Always the latest release
+		targetVersion
 	)
 	if (activeReleaseResponse.meta.status_code != 200) {
 		console.warn('Could not fetch Release', activeReleaseResponse)
 		return { notFound: true }
 	}
 	const activeRelease = activeReleaseResponse.result
-
+	// Build some versioned-or-not things
+	// TODO: sort these out a little better
+	const metadataTitle = isLatest
+		? `${integration.name} | Integrations`
+		: `${integration.name} (v${activeRelease.version}) | Integrations`
+	const breadcrumbLinks = isLatest
+		? integrationBreadcrumbLinks(productData, integration, true)
+		: integrationVersionBreadcrumbLinks(
+				productData,
+				integration,
+				activeRelease,
+				true
+		  )
+	// Return static props
 	return {
 		props: {
 			metadata: {
-				title: `${integration.name} | Integrations`,
+				title: metadataTitle,
 				description: integration.description,
 			},
 			product: productData,
 			integration,
 			activeRelease,
-			breadcrumbLinks: integrationBreadcrumbLinks(
-				productData,
-				integration,
-				true
-			),
+			breadcrumbLinks,
 			serializedREADME: await serializeIntegrationMarkdown(
 				activeRelease.readme
 			),
@@ -122,4 +172,4 @@ async function getStaticProps({
 	}
 }
 
-export { getStaticPaths, getStaticProps }
+export { getStaticPaths, getStaticProps, getStaticPathsWithVersion }
