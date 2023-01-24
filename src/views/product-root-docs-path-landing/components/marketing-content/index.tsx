@@ -3,7 +3,6 @@ import slugify from 'slugify'
 
 // Global imports
 import { useCurrentProduct } from 'contexts'
-import CalloutCard from 'components/callout-card'
 import LandingPageBlocks from 'components/landing-page-blocks'
 
 // Local imports
@@ -58,11 +57,11 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 
 				if (block.type === 'getting-started-card') {
 					return (
-						<CalloutCard
-							heading={GETTING_STARTED_CARD_HEADING}
-							headingSlug={GETTING_STARTED_CARD_HEADING_SLUG}
+						<LandingPageBlocks.CalloutCardBlock
 							body={block.description}
 							ctas={[block.callToAction]}
+							heading={GETTING_STARTED_CARD_HEADING}
+							headingSlug={GETTING_STARTED_CARD_HEADING_SLUG}
 							key={index}
 						/>
 					)
