@@ -8,7 +8,7 @@ import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/compon
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
-import { generateProductIntegrationLibrarySidebarNavData } from 'pages/[productSlug]/integrations'
+import { generateProductIntegrationLibrarySidebarNavData } from 'views/product-integrations-landing/helpers'
 import { ProductData } from 'types/products'
 import Header from './components/header'
 import s from './style.module.css'
