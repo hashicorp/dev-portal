@@ -1,5 +1,4 @@
 // Third-party imports
-import classNames from 'classnames'
 import slugify from 'slugify'
 
 // Global imports
@@ -9,7 +8,6 @@ import CalloutCard from 'components/callout-card'
 import { CardDescription, CardTitle } from 'components/card/components'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
-import Heading, { HeadingProps } from 'components/heading'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import Text from 'components/text'
 import LandingPageBlocks from 'components/landing-page-blocks'
@@ -22,44 +20,10 @@ const GETTING_STARTED_CARD_HEADING_SLUG = slugify(GETTING_STARTED_CARD_HEADING)
 
 /**
  * @TODO move to a different folder/file & document
- * @TODO make Heading have default size instead of this abstraction?
- */
-const AutosizedHeading = ({
-	className,
-	id,
-	level,
-	text,
-}: {
-	className?: string
-	id: string
-	level: 2 | 3
-	text: string
-}) => {
-	const levelsToSize = {
-		2: 400,
-		3: 300,
-	}
-	const classes = classNames(s.heading, s[`h${level}`], className)
-
-	return (
-		<Heading
-			className={classes}
-			id={id}
-			level={level}
-			size={levelsToSize[level] as HeadingProps['size']}
-			weight="bold"
-		>
-			{text}
-		</Heading>
-	)
-}
-
-/**
- * @TODO move to a different folder/file & document
  */
 const SectionHeading = ({ level, id, text }) => {
 	return (
-		<AutosizedHeading
+		<LandingPageBlocks.AutosizedHeadingBlock
 			className={s.sectionHeading}
 			id={id}
 			level={level}
@@ -67,7 +31,6 @@ const SectionHeading = ({ level, id, text }) => {
 		/>
 	)
 }
-
 /**
  * @TODO move to a different folder/file & document
  */
@@ -94,7 +57,11 @@ const CardGrid = ({ cards, description, title, headingId, headingLevel }) => {
 	return (
 		<div className={s.cardGridWrapper}>
 			{hasTitle && (
-				<AutosizedHeading level={headingLevel} id={headingId} text={title} />
+				<LandingPageBlocks.AutosizedHeadingBlock
+					level={headingLevel}
+					id={headingId}
+					text={title}
+				/>
 			)}
 			{hasDescription && (
 				<Text className={s.cardGridDescription} size={300} weight="regular">

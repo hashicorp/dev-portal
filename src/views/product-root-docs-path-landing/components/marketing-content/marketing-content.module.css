@@ -8,19 +8,6 @@
 ***
 */
 
-.heading {
-	composes: g-offset-scroll-margin-top from global;
-	color: var(--token-color-foreground-strong);
-
-	&.h2 {
-		margin-bottom: 24px;
-	}
-
-	&.h3 {
-		margin-bottom: 4px;
-	}
-}
-
 .sectionHeading {
 	margin-top: 48px;
 
