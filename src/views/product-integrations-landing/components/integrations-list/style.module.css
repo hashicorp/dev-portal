@@ -30,7 +30,7 @@
 		min-width: 200px;
 
 		@media (max-width: 800px) {
-			margin-top: 14px;
+			margin-top: 16px;
 			align-items: flex-start;
 			min-width: unset;
 		}
@@ -53,7 +53,7 @@
 			justify-content: flex-end;
 
 			@media (max-width: 800px) {
-				margin-top: 32px;
+				margin-top: 20px;
 			}
 
 			& > svg {
