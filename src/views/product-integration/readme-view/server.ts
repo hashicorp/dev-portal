@@ -1,10 +1,8 @@
-import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { HeadMetadataProps } from 'components/head-metadata/types'
 import { cachedGetProductData } from 'lib/get-product-data'
 import {
 	Integration,
 	fetchIntegration,
-	fetchAllProductIntegrations,
 } from 'lib/integrations-api-client/integration'
 import { fetchIntegrationRelease } from 'lib/integrations-api-client/release'
 import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
@@ -13,9 +11,14 @@ import {
 	GetStaticPropsContext,
 	GetStaticPropsResult,
 } from 'next'
-import { ProductData, ProductSlug } from 'types/products'
+import { ProductSlug } from 'types/products'
 import { ProductIntegrationReadmeViewProps } from '.'
 import { getProductSlugsWithIntegrations } from './get-product-slugs-with-integrations'
+import {
+	fetchAllIntegrationsForProducts,
+	ProductSlugWithIntegrations,
+} from './fetch-all-integrations-for-products'
+import { integrationBreadcrumbLinks } from './integration-breadcrumb-links'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -27,30 +30,8 @@ type PathParams = {
 }
 
 /**
- * An array of productSlugs, each with their full array of
- * corresponding integrations.
- */
-type ProductSlugWithIntegrations = {
-	productSlug: ProductSlug
-	integrations: Integration[]
-}
-
-async function fetchAllIntegrationsForProducts(
-	productSlugs: ProductSlug[]
-): Promise<ProductSlugWithIntegrations[]> {
-	return await Promise.all(
-		productSlugs.map(async (productSlug: ProductSlug) => {
-			return {
-				productSlug,
-				integrations: await fetchAllProductIntegrations(productSlug),
-			}
-		})
-	)
-}
-
-/**
- * Build an array of { productSlug, integrationSlug } path parameters
- * for all integrations across all enabled products.
+ * Build an array of { productSlug, integrationSlug }
+ * path parameters for all integrations across all enabled products.
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
@@ -62,13 +43,19 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Build a flat array of path parameters for each integration
 	const paths = allIntegrations
 		.map(({ productSlug, integrations }: ProductSlugWithIntegrations) => {
-			return integrations.map((i: Integration) => ({
-				productSlug,
-				integrationSlug: i.slug,
-			}))
+			return (
+				integrations
+					// We don't render pages for external_only integrations
+					.filter((i: Integration) => !i.external_only)
+					.map((i: Integration) => ({
+						productSlug,
+						integrationSlug: i.slug,
+					}))
+			)
 		})
 		.flat()
 		.map((params: PathParams) => ({ params }))
+
 	// Return static paths
 	return { paths, fallback: false }
 }
@@ -96,19 +83,17 @@ async function getStaticProps({
 		return { notFound: true }
 	}
 	const integration = integrationResponse.result
-
 	// If the integration is external only, we shouldn't render this page
 	if (integration.external_only) {
 		return {
 			notFound: true,
 		}
 	}
-
 	// Fetch the Latest Release
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		productData.slug,
 		integrationSlug,
-		integrationResponse.result.versions[0] // Always the latest release
+		integration.versions[0] // Always the latest release
 	)
 	if (activeReleaseResponse.meta.status_code != 200) {
 		console.warn('Could not fetch Release', activeReleaseResponse)
@@ -135,32 +120,6 @@ async function getStaticProps({
 			),
 		},
 	}
-}
-
-export function integrationBreadcrumbLinks(
-	product: ProductData,
-	integration: Integration,
-	finalBreadcrumbSegments: boolean
-): Array<BreadcrumbLink> {
-	return [
-		{
-			title: 'Developer',
-			url: '/',
-		},
-		{
-			title: product.name,
-			url: `/${product.slug}`,
-		},
-		{
-			title: 'Integrations',
-			url: `/${product.slug}/integrations`,
-		},
-		{
-			title: integration.name,
-			url: `/${product.slug}/integrations/${integration.slug}`,
-			isCurrentPage: finalBreadcrumbSegments,
-		},
-	]
 }
 
 export { getStaticPaths, getStaticProps }
