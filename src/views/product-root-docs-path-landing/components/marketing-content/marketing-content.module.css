@@ -4,20 +4,6 @@
 
 /*
 ***
-* Classes for styling Heading elements
-***
-*/
-
-.sectionHeading {
-	margin-top: 48px;
-
-	&:first-child {
-		margin-top: 0;
-	}
-}
-
-/*
-***
 * Classes used in the "card-grid" block.
 ***
 */

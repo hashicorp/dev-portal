@@ -21,19 +21,6 @@ const GETTING_STARTED_CARD_HEADING_SLUG = slugify(GETTING_STARTED_CARD_HEADING)
 /**
  * @TODO move to a different folder/file & document
  */
-const SectionHeading = ({ level, id, text }) => {
-	return (
-		<LandingPageBlocks.AutosizedHeadingBlock
-			className={s.sectionHeading}
-			id={id}
-			level={level}
-			text={text}
-		/>
-	)
-}
-/**
- * @TODO move to a different folder/file & document
- */
 const IconCardGrid = ({ cards, productSlug }) => {
 	return (
 		<IconCardLinkGridList
@@ -97,7 +84,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 
 				if (block.type === 'section-heading') {
 					return (
-						<SectionHeading
+						<LandingPageBlocks.SectionHeadingBlock
 							id={block.headingId}
 							level={block.headingLevel}
 							text={block.title}
