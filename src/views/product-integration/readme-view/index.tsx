@@ -7,7 +7,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
 import s from './style.module.css'
 
-interface ProductIntegrationReadmeViewProps {
+export interface ProductIntegrationReadmeViewProps {
 	product: ProductData
 	integration: Integration
 	activeRelease: Release
