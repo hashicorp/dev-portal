@@ -1,5 +1,6 @@
 import {
 	AutosizedHeadingBlock,
+	CalloutCardBlock,
 	CardGridBlock,
 	IconCardGridBlock,
 	ParagraphBlock,
@@ -10,6 +11,7 @@ const LandingPageBlocks = () => null
 
 export default Object.assign(LandingPageBlocks, {
 	AutosizedHeadingBlock,
+	CalloutCardBlock,
 	CardGridBlock,
 	IconCardGridBlock,
 	ParagraphBlock,
