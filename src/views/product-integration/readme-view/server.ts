@@ -138,8 +138,7 @@ async function getStaticProps({
 		return { notFound: true }
 	}
 	const activeRelease = activeReleaseResponse.result
-	// Build some versioned-or-not things
-	// TODO: sort these out a little better
+	// Title and breadcrumb links vary if we're on the latest version or not
 	const metadataTitle = isLatest
 		? `${integration.name} | Integrations`
 		: `${integration.name} (v${activeRelease.version}) | Integrations`

@@ -17,10 +17,8 @@ export function integrationComponentBreadcrumbLinks(
 	releaseComponent: ReleaseComponent,
 	finalBreadcrumbSegments: boolean
 ): Array<BreadcrumbLink> {
-	const versionSlug =
-		activeRelease.version === integration.versions[0]
-			? 'latest'
-			: activeRelease.version
+	const isLatest = activeRelease.version === integration.versions[0]
+	const versionSlug = isLatest ? 'latest' : activeRelease.version
 
 	return [
 		...integrationVersionBreadcrumbLinks(
