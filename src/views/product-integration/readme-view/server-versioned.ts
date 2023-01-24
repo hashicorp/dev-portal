@@ -75,7 +75,6 @@ async function getStaticProps({
 > {
 	// Destructure the params we'll want
 	const { productSlug, integrationSlug, integrationVersion } = params
-	console.log({ productSlug, integrationSlug, integrationVersion })
 	// Build a latest version redirect, this is useful in several cases
 	// If the version is `"latest"`, we should redirect
 	if (integrationVersion === 'latest') {
