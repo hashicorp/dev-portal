@@ -1,5 +1,7 @@
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
+import Button from 'components/button'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
 import { Integration } from 'lib/integrations-api-client/integration'
@@ -13,7 +15,7 @@ interface IntegrationsListProps {
 export default function IntegrationsList({
 	integrations,
 }: IntegrationsListProps) {
-	return (
+	return integrations.length ? (
 		<CardsGridList fixedColumns={1}>
 			{integrations.map((integration: Integration) => {
 				return (
@@ -21,6 +23,8 @@ export default function IntegrationsList({
 				)
 			})}
 		</CardsGridList>
+	) : (
+		<NoResultsMessage />
 	)
 }
 
@@ -69,5 +73,24 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 				</div>
 			</div>
 		</CardLink>
+	)
+}
+
+function NoResultsMessage() {
+	return (
+		<div className={s.noResultsWrapper}>
+			<p className={s.noResultsTitle}>No Results</p>
+			<p className={s.noResultsDescription}>
+				Try adjusting your selected filters or using different keywords.
+			</p>
+			<div className={s.noResultsButtonWrapper}>
+				<Button
+					color="secondary"
+					text="Clear Filters"
+					size="small"
+					icon={<IconX16 />}
+				/>
+			</div>
+		</div>
 	)
 }
