@@ -1,22 +1,29 @@
+// Third-party imports
+import {
+	GetStaticPathsResult,
+	GetStaticPropsContext,
+	GetStaticPropsResult,
+} from 'next'
+
+// Global imports
 import { HeadMetadataProps } from 'components/head-metadata/types'
 import { cachedGetProductData } from 'lib/get-product-data'
+import { ProductSlug } from 'types/products'
+
+// Integrations-related imports
 import {
 	Integration,
 	fetchIntegration,
 } from 'lib/integrations-api-client/integration'
 import { fetchIntegrationRelease } from 'lib/integrations-api-client/release'
 import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
-import {
-	GetStaticPathsResult,
-	GetStaticPropsContext,
-	GetStaticPropsResult,
-} from 'next'
-import { ProductSlug } from 'types/products'
 import { ProductIntegrationReadmeViewProps } from '.'
-import { getProductSlugsWithIntegrations } from './get-product-slugs-with-integrations'
-import { fetchAllIntegrations } from './fetch-all-integrations'
-import { integrationBreadcrumbLinks } from './integration-breadcrumb-links'
-import { integrationVersionBreadcrumbLinks } from './integration-version-breadcrumb-links'
+import {
+	fetchAllIntegrations,
+	getProductSlugsWithIntegrations,
+	integrationBreadcrumbLinks,
+	integrationVersionBreadcrumbLinks,
+} from 'lib/integrations'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,

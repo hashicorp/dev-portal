@@ -4,6 +4,9 @@ import { Release } from 'lib/integrations-api-client/release'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { integrationBreadcrumbLinks } from './integration-breadcrumb-links'
 
+/**
+ * Build breadcrumb links for a versioned integration "readme" page.
+ */
 export function integrationVersionBreadcrumbLinks(
 	product: ProductData,
 	integration: Integration,

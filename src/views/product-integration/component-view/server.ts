@@ -1,29 +1,34 @@
-import { BreadcrumbLink } from 'components/breadcrumb-bar'
+// Third-party imports
+import {
+	GetStaticPathsResult,
+	GetStaticPropsContext,
+	GetStaticPropsResult,
+} from 'next'
+
+// Global imports
 import { HeadMetadataProps } from 'components/head-metadata/types'
 import { cachedGetProductData } from 'lib/get-product-data'
+import { ProductSlug } from 'types/products'
+
+// Integrations-related imports
 import {
 	Integration,
 	fetchIntegration,
 	IntegrationComponent,
 } from 'lib/integrations-api-client/integration'
 import {
-	Release,
 	ReleaseComponent,
 	fetchIntegrationRelease,
 } from 'lib/integrations-api-client/release'
 import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
-import {
-	GetStaticPathsResult,
-	GetStaticPropsContext,
-	GetStaticPropsResult,
-} from 'next'
-import { ProductData, ProductSlug } from 'types/products'
 import ProductIntegrationComponentView, {
 	ProductIntegrationComponentViewProps,
 } from 'views/product-integration/component-view'
-import { integrationVersionBreadcrumbLinks } from 'views/product-integration/readme-view/integration-version-breadcrumb-links'
-import { fetchAllIntegrations } from '../readme-view/fetch-all-integrations'
-import { getProductSlugsWithIntegrations } from '../readme-view/get-product-slugs-with-integrations'
+import {
+	fetchAllIntegrations,
+	getProductSlugsWithIntegrations,
+	integrationComponentBreadcrumbLinks,
+} from 'lib/integrations'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -169,36 +174,6 @@ async function getStaticProps({
 			),
 		},
 	}
-}
-
-function integrationComponentBreadcrumbLinks(
-	product: ProductData,
-	integration: Integration,
-	activeRelease: Release,
-	releaseComponent: ReleaseComponent,
-	finalBreadcrumbSegments: boolean
-): Array<BreadcrumbLink> {
-	const versionSlug =
-		activeRelease.version === integration.versions[0]
-			? 'latest'
-			: activeRelease.version
-
-	return [
-		...integrationVersionBreadcrumbLinks(
-			product,
-			integration,
-			activeRelease,
-			false
-		),
-		{
-			title: 'Components',
-		},
-		{
-			title: releaseComponent.component.name,
-			url: `/${product.slug}/integrations/${integration.slug}/${versionSlug}/components/${releaseComponent.component.slug}`,
-			isCurrentPage: finalBreadcrumbSegments,
-		},
-	]
 }
 
 export { getStaticPaths, getStaticProps }

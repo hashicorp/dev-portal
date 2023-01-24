@@ -1,3 +1,10 @@
+// Third party imports
+import {
+	GetStaticPathsResult,
+	GetStaticPropsContext,
+	GetStaticPropsResult,
+} from 'next'
+// Global imports
 import { HeadMetadataProps } from 'components/head-metadata/types'
 import {
 	generateProductLandingSidebarNavData,
@@ -5,20 +12,16 @@ import {
 } from 'components/sidebar/helpers'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { activeProductSlugs } from 'lib/products'
+import { ProductSlug } from 'types/products'
+// Integration-related imports
 import {
 	Integration,
 	fetchAllProductIntegrations,
 } from 'lib/integrations-api-client/integration'
-import {
-	GetStaticPathsResult,
-	GetStaticPropsContext,
-	GetStaticPropsResult,
-} from 'next'
-import { ProductSlug } from 'types/products'
+import { generateProductIntegrationLibrarySidebarNavData } from 'lib/integrations'
 import ProductIntegrationsLanding, {
 	ViewProps,
 } from 'views/product-integrations-landing'
-import { generateProductIntegrationLibrarySidebarNavData } from './helpers'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -103,5 +106,3 @@ export async function getStaticProps({
 		},
 	}
 }
-
-export default ProductIntegrationsLanding

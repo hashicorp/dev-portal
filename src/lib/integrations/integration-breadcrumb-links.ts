@@ -2,6 +2,9 @@ import { ProductData } from 'types/products'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 
+/**
+ * Build breadcrumb links for an integration "readme" page.
+ */
 export function integrationBreadcrumbLinks(
 	product: ProductData,
 	integration: Integration,
