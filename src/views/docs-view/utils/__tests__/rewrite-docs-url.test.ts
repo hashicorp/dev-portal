@@ -87,4 +87,20 @@ describe('rewriteDocsUrl', () => {
 			})
 		})
 	})
+
+	describe('does not rewrite image links', () => {
+		const testData = [
+			'/pricing.png',
+			'/img/sla.jpg',
+			'/img/products/vault/sre.png',
+			'hcp-dev.svg',
+		]
+		// eslint-disable-next-line @typescript-eslint/no-var-requires
+		const nomadProductData = require(`data/nomad.json`)
+
+		test.each(testData)('Testing subpath', (item) => {
+			const processedUrl = rewriteDocsUrl(item, nomadProductData)
+			expect(processedUrl).toBe(item)
+		})
+	})
 })
