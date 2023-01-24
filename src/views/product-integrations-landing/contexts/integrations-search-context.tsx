@@ -1,13 +1,13 @@
 import {
-	Integration,
-	Tier,
-	IntegrationComponent,
 	Flag,
+	Integration,
+	IntegrationComponent,
+	Tier,
 } from 'lib/integrations-api-client/integration'
 import { createContext, useContext, useMemo } from 'react'
-import { useQueryParam, QueryParamOptions, withDefault } from 'use-query-params'
+import { QueryParamOptions, useQueryParam, withDefault } from 'use-query-params'
 
-import { encodeDelimitedArray, decodeDelimitedArray } from 'use-query-params'
+import { decodeDelimitedArray, encodeDelimitedArray } from 'use-query-params'
 
 /**
  * Uses a comma to delimit entries. e.g. ['a', 'b'] => qp?=a,b
@@ -162,12 +162,8 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 	// are no community integrations passed, we simply won't display
 	// that checkbox.
 	const tierOptions = Array.from(
-		new Set(
-			integrations.map((i: Integration) => {
-				return i.tier
-			})
-		)
-	).sort((a, b) => {
+		new Set(integrations.map((i: Integration) => i.tier))
+	).sort((a: Tier, b: Tier) => {
 		if (tierSortVal(a) > tierSortVal(b)) {
 			return 1
 		} else if (tierSortVal(a) < tierSortVal(b)) {
