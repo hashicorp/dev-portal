@@ -54,8 +54,6 @@ type PathParams = {
  * This happens through the page file `[integrationSlug]/index.tsx`.
  *
  * All non-latest versioned content is rendered with `fallback: "blocking"`.
- *
- * TODO: determine what incremental regeneration strategy we might want.
  */
 async function getStaticPathsWithVersion(): Promise<
 	GetStaticPathsResult<PathParams>
@@ -66,8 +64,6 @@ async function getStaticPathsWithVersion(): Promise<
 /**
  * Build an array of { productSlug, integrationSlug }
  * path parameters for all integrations across all enabled products.
- *
- * TODO: determine what incremental regeneration strategy we might want.
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
@@ -91,8 +87,6 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 
 /**
  * Get static props for the "readme" view of a specific product integration.
- *
- * TODO: determine what incremental regeneration strategy we might want.
  */
 async function getStaticProps({
 	params: { productSlug, integrationSlug, integrationVersion },
@@ -152,6 +146,7 @@ async function getStaticProps({
 		  )
 	// Return static props
 	return {
+		revalidate: __config.dev_dot.revalidate,
 		props: {
 			metadata: {
 				title: metadataTitle,
