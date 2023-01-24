@@ -20,10 +20,10 @@ import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
 import { ProductIntegrationReadmeViewProps } from '.'
 import {
 	fetchAllIntegrations,
-	getProductSlugsWithIntegrations,
 	integrationBreadcrumbLinks,
 	integrationVersionBreadcrumbLinks,
 } from 'lib/integrations'
+import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,

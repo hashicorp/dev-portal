@@ -19,9 +19,7 @@ import {
 	fetchAllProductIntegrations,
 } from 'lib/integrations-api-client/integration'
 import { generateProductIntegrationLibrarySidebarNavData } from 'lib/integrations'
-import ProductIntegrationsLanding, {
-	ViewProps,
-} from 'views/product-integrations-landing'
+import { ViewProps } from 'views/product-integrations-landing'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,

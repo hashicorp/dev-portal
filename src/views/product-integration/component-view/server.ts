@@ -26,9 +26,9 @@ import ProductIntegrationComponentView, {
 } from 'views/product-integration/component-view'
 import {
 	fetchAllIntegrations,
-	getProductSlugsWithIntegrations,
 	integrationComponentBreadcrumbLinks,
 } from 'lib/integrations'
+import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
