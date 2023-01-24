@@ -61,7 +61,7 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 }
 
 /**
- * Get static props for the "readme" view of specific product integration.
+ * Get static props for the "readme" view of a specific product integration.
  */
 async function getStaticProps({
 	params,
