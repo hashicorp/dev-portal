@@ -22,6 +22,17 @@ import { HeadMetadataProps } from 'components/head-metadata/types'
 import { getLatestRedirect } from './get-latest-redirect'
 
 /**
+ * TODO: this could likely be merged with server.ts,
+ * such that rather than separate server-versioned.ts and server.ts
+ * for the same readme view getStaticProps, we have one getStaticProps
+ * function that can handle both.
+ *
+ * getStaticPaths may differ in the future. For now, we could export
+ * getStaticParams and getStaticParamsWithVersion, with the latter
+ * being a straightforward thing to return an empty array.
+ */
+
+/**
  * We expect the same static param types to be returned from getStaticPaths,
  * and provided to getStaticProps context.
  */
@@ -35,45 +46,25 @@ type PathParams = {
  * Build an array of { productSlug, integrationSlug, integrationVersion }
  * path parameters for all integrations across all enabled products.
  *
- * Note: currently returning all found versions as static paths.
- * Could instead return only `latest`, and enable fallbacks.
- * TODO: consider which versions should be statically rendered,
- * and determine confirm fallback strategy.
+ * Note: currently returning an empty array. Latest versions of "readme"
+ * views are rendered through the "canonical" latest URL:
+ * - `/<productSlug>/integrations/<integrationSlug>`
+ *
+ * It doesn't seem feasible to statically render all versions, so we
+ * statically render only the latest version at the URL above.
+ * This happens through the page file `[integrationSlug]/index.tsx`.
+ *
+ * All non-latest versioned content is rendered with `fallback: "blocking"`.
+ *
+ * TODO: determine what rehydration strategy we might want.
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
-	// Get products slug where integrations is enabled
-	const enabledProductSlugs = getProductSlugsWithIntegrations()
-	// Fetch integrations for all products
-	const allIntegrations = await fetchAllIntegrationsForProducts(
-		enabledProductSlugs
-	)
-	// Build a flat array of path parameters for each integration
-	const paths = allIntegrations
-		.map(({ productSlug, integrations }: ProductSlugWithIntegrations) => {
-			return (
-				integrations
-					// We don't render pages for external_only integrations
-					.filter((i: Integration) => !i.external_only)
-					.map((i: Integration) => {
-						// TODO: return separate items for each version?
-						// TODO: or maybe return no static paths for versioned pages?
-						// (I think we could use the same getStaticProps for both cases)
-						// const versions = i.versions.length > 0 ? i.versions : ["latest"]
-						return {
-							productSlug,
-							integrationSlug: i.slug,
-							integrationVersion: 'latest',
-						}
-					})
-			)
-		})
-		.flat()
-		.map((params: PathParams) => ({ params }))
-	return { paths, fallback: 'blocking' }
+	return { paths: [], fallback: 'blocking' }
 }
 
 /**
- * Get static props for a versioned "readme" view of specific product integration.
+ * Get static props for a versioned "readme" view of a
+ * specific product integration.
  */
 async function getStaticProps({
 	params,
