@@ -96,7 +96,7 @@ export async function getStaticProps({
 	return {
 		props: {
 			metadata: {
-				title: `Integrations | ${product.name}`,
+				title: `Integrations`,
 				// description: `TODO`,
 			},
 			product,
