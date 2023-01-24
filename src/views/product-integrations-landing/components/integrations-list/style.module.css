@@ -30,7 +30,7 @@
 		min-width: 200px;
 
 		@media (max-width: 800px) {
-			margin-top: 14px;
+			margin-top: 16px;
 			align-items: flex-start;
 			min-width: unset;
 		}
@@ -53,7 +53,7 @@
 			justify-content: flex-end;
 
 			@media (max-width: 800px) {
-				margin-top: 32px;
+				margin-top: 20px;
 			}
 
 			& > svg {
@@ -64,14 +64,14 @@
 }
 
 .version {
-	composes: hds-typography-body-100 from global;
-	color: var(--token-color-foreground-faint);
+	composes: hds-typography-body-200 from global;
+	color: var(--token-color-foreground-primary);
 	font-weight: var(--token-typography-font-weight-medium);
 	margin-left: 8px;
 }
 
 .heading {
-	composes: hds-typography-body-200 from global;
+	composes: hds-typography-body-300 from global;
 	color: var(--token-color-foreground-strong);
 	font-weight: var(--token-typography-font-weight-semibold);
 }
@@ -79,12 +79,11 @@
 .organization {
 	composes: hds-typography-body-100 from global;
 	color: var(--token-color-foreground-faint);
-	font-weight: var(--token-typography-font-weight-medium);
 	display: flex;
-	margin-bottom: 10px;
+	margin-bottom: 8px;
 }
 
 .body {
-	composes: hds-typography-body-100 from global;
+	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-faint);
 }
