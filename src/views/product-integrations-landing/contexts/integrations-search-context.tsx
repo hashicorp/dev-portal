@@ -145,7 +145,6 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 
 	// The logical sort ordering of the Tiers
 	const tierSortVal = (tier: string): number => {
-		console.log(tier)
 		switch (tier) {
 			case Tier.OFFICIAL:
 				return 1
