@@ -1,31 +1,3 @@
 .root {
 	margin-top: 32px;
 }
-
-/*
-***
-* Classes used in the "card-grid" block.
-***
-*/
-
-.cardGridWrapper {
-	margin-bottom: 48px;
-}
-
-.cardGridDescription {
-	color: var(--token-color-foreground-primary);
-	margin-bottom: 16px;
-}
-
-.cardGridCard {
-	height: 100%;
-}
-
-.cardGridCardTitle {
-	color: var(--token-color-foreground-strong);
-}
-
-.cardGridCardDescription {
-	color: var(--token-color-foreground-faint);
-	margin-top: 4px;
-}

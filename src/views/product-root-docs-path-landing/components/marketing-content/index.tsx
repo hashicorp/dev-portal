@@ -4,10 +4,6 @@ import slugify from 'slugify'
 // Global imports
 import { useCurrentProduct } from 'contexts'
 import CalloutCard from 'components/callout-card'
-import { CardDescription, CardTitle } from 'components/card/components'
-import CardLink from 'components/card-link'
-import CardsGridList from 'components/cards-grid-list'
-import Text from 'components/text'
 import LandingPageBlocks from 'components/landing-page-blocks'
 
 // Local imports
@@ -15,44 +11,6 @@ import s from './marketing-content.module.css'
 
 const GETTING_STARTED_CARD_HEADING = 'Getting Started'
 const GETTING_STARTED_CARD_HEADING_SLUG = slugify(GETTING_STARTED_CARD_HEADING)
-
-/**
- * @TODO move to a different folder/file & document
- */
-const CardGrid = ({ cards, description, title, headingId, headingLevel }) => {
-	const hasTitle = Boolean(title)
-	const hasDescription = Boolean(description)
-
-	return (
-		<div className={s.cardGridWrapper}>
-			{hasTitle && (
-				<LandingPageBlocks.AutosizedHeadingBlock
-					level={headingLevel}
-					id={headingId}
-					text={title}
-				/>
-			)}
-			{hasDescription && (
-				<Text className={s.cardGridDescription} size={300} weight="regular">
-					{description}
-				</Text>
-			)}
-			<CardsGridList>
-				{cards.map(({ description, title, url }) => (
-					<CardLink
-						key={url}
-						ariaLabel={title}
-						className={s.cardGridCard}
-						href={url}
-					>
-						<CardTitle text={title} />
-						<CardDescription text={description} />
-					</CardLink>
-				))}
-			</CardsGridList>
-		</div>
-	)
-}
 
 const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 	const currentProduct = useCurrentProduct()
@@ -87,7 +45,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 
 				if (block.type === 'card-grid') {
 					return (
-						<CardGrid
+						<LandingPageBlocks.CardGridBlock
 							cards={block.cards}
 							description={block.description}
 							headingLevel={block.headingLevel}
