@@ -12,10 +12,10 @@ import CardsGridList from 'components/cards-grid-list'
 import Heading, { HeadingProps } from 'components/heading'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import Text from 'components/text'
+import LandingPageBlocks from 'components/landing-page-blocks'
 
 // Local imports
 import s from './marketing-content.module.css'
-import { ParagraphBlock } from '../paragraph-block'
 
 const GETTING_STARTED_CARD_HEADING = 'Getting Started'
 const GETTING_STARTED_CARD_HEADING_SLUG = slugify(GETTING_STARTED_CARD_HEADING)
@@ -125,7 +125,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 		<div className={s.root}>
 			{blocks.map((block, index) => {
 				if (block.type === 'paragraph') {
-					return <ParagraphBlock {...block} key={index} />
+					return <LandingPageBlocks.ParagraphBlock {...block} key={index} />
 				}
 
 				if (block.type === 'section-heading') {
