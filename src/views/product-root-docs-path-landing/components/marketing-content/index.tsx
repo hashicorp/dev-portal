@@ -2,13 +2,11 @@
 import slugify from 'slugify'
 
 // Global imports
-import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { useCurrentProduct } from 'contexts'
 import CalloutCard from 'components/callout-card'
 import { CardDescription, CardTitle } from 'components/card/components'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
-import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import Text from 'components/text'
 import LandingPageBlocks from 'components/landing-page-blocks'
 
@@ -17,22 +15,6 @@ import s from './marketing-content.module.css'
 
 const GETTING_STARTED_CARD_HEADING = 'Getting Started'
 const GETTING_STARTED_CARD_HEADING_SLUG = slugify(GETTING_STARTED_CARD_HEADING)
-
-/**
- * @TODO move to a different folder/file & document
- */
-const IconCardGrid = ({ cards, productSlug }) => {
-	return (
-		<IconCardLinkGridList
-			cards={cards.map(({ iconName, text, url }) => ({
-				icon: SUPPORTED_ICONS[iconName],
-				text,
-				url,
-			}))}
-			productSlug={productSlug}
-		/>
-	)
-}
 
 /**
  * @TODO move to a different folder/file & document
@@ -95,7 +77,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 
 				if (block.type === 'icon-card-grid') {
 					return (
-						<IconCardGrid
+						<LandingPageBlocks.IconCardGridBlock
 							cards={block.cards}
 							productSlug={currentProduct.slug}
 							key={index}
