@@ -1,3 +1,4 @@
+import { MenuItem } from 'components/sidebar/types'
 import { ProductData } from 'types/products'
 
 /**
@@ -7,6 +8,23 @@ import { ProductData } from 'types/products'
 export function generateProductIntegrationLibrarySidebarNavData(
 	product: ProductData
 ) {
+	// Set up menuItems for the sidebar
+	const menuItems: MenuItem[] = [
+		{
+			title: 'Library',
+			href: `/${product.slug}/integrations`,
+			isActive: true,
+		},
+	]
+	// Add Config SidebarLinks if they're provided
+	if (product.integrationsConfig.sidebarLinks) {
+		menuItems.push({ divider: true })
+		menuItems.push({ heading: 'Integration Resources' })
+		product.integrationsConfig.sidebarLinks.forEach((s) => {
+			menuItems.push({ ...s, isActive: false })
+		})
+	}
+
 	return {
 		backToLinkProps: {
 			text: `${product.name} Home`,
@@ -16,27 +34,7 @@ export function generateProductIntegrationLibrarySidebarNavData(
 			levelUpButtonText: `${product.name} Home`,
 			levelDownButtonText: 'Previous',
 		},
-		menuItems: [
-			{
-				title: 'Library',
-				href: `/${product.slug}/integrations`,
-				isActive: true,
-			},
-		].concat(
-			// Add Config SidebarLinks if they're provided
-			product.integrationsConfig.sidebarLinks
-				? (
-						[
-							{ divider: true },
-							{ heading: 'Integration Resources' },
-						] as Array<$TSFixMe>
-				  ).concat(
-						product.integrationsConfig.sidebarLinks.map((s) => {
-							return { ...s, isActive: false }
-						})
-				  )
-				: []
-		),
+		menuItems,
 		showFilterInput: false,
 		title: `${product.name} Integrations`,
 	}
