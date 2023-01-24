@@ -13,7 +13,7 @@ import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
 import { withTiming } from 'lib/with-timing'
 import { ProductData, ProductSlug } from 'types/products'
 import ProductIntegrationComponentView from 'views/product-integration/component-view'
-import { integrationVersionBreadcrumbLinks } from '../..'
+import { integrationVersionBreadcrumbLinks } from 'views/product-integration/readme-view/integration-version-breadcrumb-links'
 
 interface PathParams {
 	productSlug: ProductSlug
