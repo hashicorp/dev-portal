@@ -42,7 +42,7 @@ export default function ProductIntegrationLayout({
 	getVersionChangedURL,
 	children,
 }: ProductIntegrationLayoutProps) {
-	// Determine if we're on the lastest version, as that will slightly adjust the URLs
+	// Determine if we're on the latest version, as that will slightly adjust the URLs
 	const onLatestVersion = integration.versions[0] === activeRelease.version
 
 	// Components that have READMEs or Variable Groups get a page
