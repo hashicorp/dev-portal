@@ -62,13 +62,36 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	}
 
 	/**
+	 * All products except Terraform currently have a small enough number
+	 * of distinct documentation "categories" (ie path like /docs, /api, etc)
+	 * that there is space to list all "categories" directly in the top nav bar.
+	 *
+	 * For Terraform, there are too many docs categories for this to work
+	 * with the space we have available in the top nav bar.
+	 * So, we construct a "Documentation" dropdown for the top nav bar.
+	 */
+	let docsNavItems: NavItem[]
+	if (currentProduct.slug === 'terraform') {
+		docsNavItems = [
+			{
+				label: 'Documentation',
+				...docsNavObj,
+			},
+		]
+	} else {
+		docsNavItems = getDocsNavItems(currentProduct).map((navItem) => {
+			return {
+				label: navItem.label,
+				url: navItem.fullPath,
+			}
+		})
+	}
+
+	/**
 	 * Define a common set of base nav items
 	 */
 	const items: NavItem[] = [
-		{
-			label: 'Documentation',
-			...docsNavObj,
-		},
+		...docsNavItems,
 		{
 			label: 'Tutorials',
 			url: `/${currentProduct.slug}/tutorials`,

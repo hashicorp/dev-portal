@@ -94,7 +94,9 @@ const NavigationHeader = () => {
 
 	return (
 		<header className={s.root}>
-			<LeftSideHeaderContent />
+			<div className={s.leftSide}>
+				<LeftSideHeaderContent />
+			</div>
 			<div className={s.rightSide}>
 				{GLOBAL_SEARCH_ENABLED ? (
 					<CommandBarActivator

@@ -22,10 +22,10 @@
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "Announcements",
-		"url": "https://www.hashicorp.com/blog/consul-service-mesh-support-for-aws-lambda-now-generally-available",
-		"text": "Consul Service Mesh Support for AWS Lambda Now Generally Available",
-		"linkText": "Read more",
+		"tag": "HashiTalks 2023",
+		"url": "https://hashi.co/hashitalks-2023",
+		"text": "Join us for the fifth annual HashiTalks, a 24-hour virtual knowledge sharing event on February 16",
+		"linkText": "Register now",
 		"expirationDate": ""
 	},
 	"version": "1.11.3",
@@ -34,9 +34,8 @@
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
-			"name": "General Documentation",
-			"path": "docs",
-			"shortName": "Documentation"
+			"name": "Documentation",
+			"path": "docs"
 		},
 		{
 			"iconName": "api",
