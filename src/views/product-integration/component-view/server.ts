@@ -12,7 +12,6 @@ import {
 	fetchIntegrationRelease,
 } from 'lib/integrations-api-client/release'
 import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
-import { withTiming } from 'lib/with-timing'
 import {
 	GetStaticPathsResult,
 	GetStaticPropsContext,
@@ -23,10 +22,7 @@ import ProductIntegrationComponentView, {
 	ProductIntegrationComponentViewProps,
 } from 'views/product-integration/component-view'
 import { integrationVersionBreadcrumbLinks } from 'views/product-integration/readme-view/integration-version-breadcrumb-links'
-import {
-	fetchAllIntegrationsForProducts,
-	ProductSlugWithIntegrations,
-} from '../readme-view/fetch-all-integrations-for-products'
+import { fetchAllIntegrations } from '../readme-view/fetch-all-integrations'
 import { getProductSlugsWithIntegrations } from '../readme-view/get-product-slugs-with-integrations'
 
 /**
@@ -51,27 +47,21 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
 	const enabledProductSlugs = getProductSlugsWithIntegrations()
 	// Fetch integrations for all products
-	const allIntegrations = await fetchAllIntegrationsForProducts(
-		enabledProductSlugs
-	)
+	const allIntegrations = await fetchAllIntegrations(enabledProductSlugs)
 	// Build a flat array of path parameters for each component view
 	// We statically render every component view for every integration,
 	// but only for the latest version of each integration.
 	const paths = allIntegrations
-		.map(({ productSlug, integrations }: ProductSlugWithIntegrations) => {
-			return integrations
-				.filter((i: Integration) => !i.external_only)
-				.map((i: Integration) => {
-					return i.components.map((component: IntegrationComponent) => {
-						return {
-							productSlug,
-							integrationSlug: i.slug,
-							integrationVersion: 'latest', // only statically render latest
-							componentSlug: component.slug,
-						}
-					})
-				})
-				.flat()
+		.filter((i: Integration) => !i.external_only)
+		.map((i: Integration) => {
+			return i.components.map((component: IntegrationComponent) => {
+				return {
+					productSlug: i.product.slug,
+					integrationSlug: i.slug,
+					integrationVersion: 'latest', // only statically render latest
+					componentSlug: component.slug,
+				}
+			})
 		})
 		.flat()
 		.map((params: PathParams) => ({ params }))

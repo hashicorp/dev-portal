@@ -14,10 +14,7 @@ import {
 import { ProductSlug } from 'types/products'
 import { ProductIntegrationReadmeViewProps } from '.'
 import { getProductSlugsWithIntegrations } from './get-product-slugs-with-integrations'
-import {
-	fetchAllIntegrationsForProducts,
-	ProductSlugWithIntegrations,
-} from './fetch-all-integrations-for-products'
+import { fetchAllIntegrations } from './fetch-all-integrations'
 import { integrationBreadcrumbLinks } from './integration-breadcrumb-links'
 import { integrationVersionBreadcrumbLinks } from './integration-version-breadcrumb-links'
 
@@ -69,22 +66,15 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
 	const enabledProductSlugs = getProductSlugsWithIntegrations()
 	// Fetch integrations for all products
-	const allIntegrations = await fetchAllIntegrationsForProducts(
-		enabledProductSlugs
-	)
+	const allIntegrations = await fetchAllIntegrations(enabledProductSlugs)
 	// Build a flat array of path parameters for each integration
 	const paths = allIntegrations
-		.map(({ productSlug, integrations }: ProductSlugWithIntegrations) => {
-			return (
-				integrations
-					// We don't render pages for external_only integrations
-					.filter((i: Integration) => !i.external_only)
-					.map((i: Integration) => ({
-						productSlug,
-						integrationSlug: i.slug,
-					}))
-			)
-		})
+		// We don't render pages for external_only integrations
+		.filter((i: Integration) => !i.external_only)
+		.map((i: Integration) => ({
+			productSlug: i.product.slug,
+			integrationSlug: i.slug,
+		}))
 		.flat()
 		.map((params: PathParams) => ({ params }))
 
