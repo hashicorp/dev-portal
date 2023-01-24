@@ -15,7 +15,7 @@ import SearchableVariableGroupList from './components/searchable-variable-group-
 import { Variable } from './components/variable-group-list'
 import s from './style.module.css'
 
-interface ProductIntegrationComponentViewProps {
+export interface ProductIntegrationComponentViewProps {
 	product: ProductData
 	integration: Integration
 	activeRelease: Release
