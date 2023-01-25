@@ -1,17 +1,8 @@
 import { MDXRemote } from 'next-mdx-remote'
 import Accordion from 'components/accordion'
+import DevDotContent from 'components/dev-dot-content'
 import Image from 'components/image'
 import { ImageProps } from 'components/image/types'
-import {
-	MdxA,
-	MdxP,
-	MdxTable,
-	MdxInlineCode,
-	MdxOrderedList,
-	MdxUnorderedList,
-	MdxListItem,
-	MdxBlockquote,
-} from 'components/dev-dot-content/mdx-components'
 import { AccordionWithMdxContentProps, AccordionMdxItem } from './types'
 import s from './accordion-with-mdx-content.module.css'
 
@@ -24,15 +15,7 @@ function MdxImage({
 }
 
 const MDX_COMPONENTS = {
-	a: MdxA,
-	blockquote: MdxBlockquote,
-	p: MdxP,
-	table: MdxTable,
 	img: MdxImage,
-	inlineCode: MdxInlineCode,
-	ul: MdxUnorderedList,
-	ol: MdxOrderedList,
-	li: MdxListItem,
 }
 
 export function AccordionWithMdxContent({
@@ -47,9 +30,9 @@ export function AccordionWithMdxContent({
 					title: item.title,
 					initialOpen,
 					content: (
-						<div className={s.mdxContentRoot}>
+						<DevDotContent className={s.mdxContentRoot}>
 							<MDXRemote {...item.mdxSource} components={MDX_COMPONENTS} />
-						</div>
+						</DevDotContent>
 					),
 				}
 			})}
