@@ -43,7 +43,7 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 
 	return (
 		<CardLink
-			ariaLabel={`${integration.name} by ${integration.organization.slug}, ${integration.description}`}
+			ariaLabel={integration.name}
 			className={s.integrationCard}
 			href={url}
 			opensInNewTab={isExternalLink}
