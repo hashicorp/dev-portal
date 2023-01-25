@@ -87,3 +87,33 @@
 	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-faint);
 }
+
+/* Border via https://kovart.github.io/dashed-border-generator */
+.noResultsWrapper {
+	padding: 24px;
+	background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%233333334D' stroke-width='2' stroke-dasharray='6%2c 12' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.noResultsTitle {
+	composes: hds-typography-body-300 from global;
+	font-weight: var(--token-typography-font-weight-semibold);
+	color: var(--token-color-foreground-strong);
+	margin-top: 0;
+	margin-bottom: 4px;
+}
+
+.noResultsDescription {
+	composes: hds-typography-body-300 from global;
+	font-weight: var(--token-typography-font-weight-regular);
+	color: var(--token-color-foreground-primary);
+	margin-top: 0;
+	margin-bottom: 16px;
+}
+
+.noResultsButtonWrapper {
+	display: flex;
+	justify-content: center;
+}
