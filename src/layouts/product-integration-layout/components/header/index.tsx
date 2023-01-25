@@ -5,6 +5,7 @@ import Card from 'components/card'
 import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 } from 'components/dropdown-disclosure'
+import IconTileLogo from 'components/icon-tile-logo'
 import { Flag, Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
 import TagList, {
@@ -49,14 +50,18 @@ export default function Header({
 		.map((f: Flag) => f.slug)
 		.includes('builtin')
 
+	console.log({ integration })
+
 	return (
-		<Card className={classNames(s.header, className)}>
-			<div className={s.upperCard}>
-				<div className={s.left}>
+		<Card>
+			<div>
+				<IconTileLogo productSlug="waypoint" />
+				<div>
 					<h1>{integration.name}</h1>
 					<span>@{integration.organization.slug}</span>
 				</div>
-				<div className={s.right}>
+				<div>{integration.description}</div>
+				<div>
 					{showVersions ? (
 						<DropdownDisclosure
 							className={s.versionDropdown}
@@ -78,7 +83,8 @@ export default function Header({
 				</div>
 			</div>
 
-			<div className={s.lowerCard}>
+			<div>
+				{/**swap tags for badges */}
 				<TagList size="medium" tags={GetIntegrationTags(integration, true)} />
 				{shouldShowInstallButton && (
 					<Button
