@@ -42,8 +42,11 @@ async function getStaticProps(ctx) {
 	 */
 	if ('props' in staticProps) {
 		// Partial nav data is provided from base getStaticProps, in menuItems
-		const partialNavData =
+		const baseMenuItems =
 			staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems
+		// Remove the authored title element and "Overview" link, these
+		// would be redundant with the styled overview item that we add.
+		const partialNavData = [baseMenuItems[0], ...baseMenuItems.slice(3)]
 
 		let rawNavData = partialNavData
 		if (!isDeployPreview() || isDeployPreview('packer')) {
@@ -63,7 +66,9 @@ async function getStaticProps(ctx) {
 		})
 
 		// Replace our original navData with our prepared navData
-		staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems = navData
+		staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems = [
+			...navData,
+		]
 
 		// Long-form content pages use a narrower main area width
 		staticProps.props.layoutProps.mainWidth = 'narrow'

@@ -104,7 +104,16 @@ export async function getStaticProps({ params, ...ctx }) {
 			levelButtonProps: {
 				levelUpButtonText: `${productData.name} Home`,
 			},
-			menuItems: navData,
+			menuItems: [
+				{
+					title: 'Plugins',
+					fullPath: `/${productData.slug}/plugins`,
+					theme: productData.slug,
+				},
+				// Remove the authored title element and "Overview" link, these
+				// would be redundant with the styled overview item that we add.
+				...navData.slice(2),
+			],
 			title: baseName,
 			visuallyHideTitle: true,
 		},
