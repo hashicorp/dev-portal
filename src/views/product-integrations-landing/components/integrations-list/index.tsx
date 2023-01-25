@@ -43,7 +43,7 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 
 	return (
 		<CardLink
-			ariaLabel="TODO"
+			ariaLabel={integration.name}
 			className={s.integrationCard}
 			href={url}
 			opensInNewTab={isExternalLink}
