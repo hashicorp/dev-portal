@@ -120,10 +120,12 @@ export async function getStaticProps({ params }) {
 			levelButtonProps: {
 				levelUpButtonText: `${productData.name} Home`,
 			},
+			visuallyHideTitle: true,
 			menuItems: [
 				{
-					title: 'Overview',
+					title: 'API',
 					fullPath: '/boundary/api-docs/',
+					theme: 'boundary',
 				},
 				{
 					divider: true,
