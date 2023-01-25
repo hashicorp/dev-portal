@@ -40,7 +40,7 @@ export const generateProductLandingSidebarMenuItems = (
 		{
 			title: product.name,
 			fullPath: `/${product.slug}`,
-			theme: 'nomad', // this will be a "highlighted" themed item
+			theme: product.slug, // this will be a "highlighted" themed item
 		},
 		...docsItems,
 		{

@@ -34,6 +34,21 @@ import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics
 import { withTiming } from 'lib/with-timing'
 
 /**
+ * Check the top level of the navData for "overview" items,
+ * which are expected to be present for consistency.
+ * If we do no have an overview item match, then we'll
+ * automatically add an overview item.
+ */
+function isOverviewItem(item: MenuItem) {
+	const isPathMatch =
+		item.path == '' ||
+		item.path == '/' ||
+		item.path == '/index' ||
+		item.path == 'index'
+	return isPathMatch
+}
+
+/**
  * Returns static generation functions which can be exported from a page to fetch docs data
  *
  * Example usage:
@@ -291,42 +306,6 @@ export function getStaticGenerationFunctions<
 				   "highlight" item that would make showing the title redundant. */
 				visuallyHideTitle: true,
 			}
-			/**
-			 * In some cases, the first nav item is a heading.
-			 * In these case, we'll visually hide the sidebar title,
-			 * since it will redundant right next to the authored title.
-			 */
-			// const firstItemIsHeading =
-			// 	typeof navDataWithFullPaths[0]?.heading == 'string'
-			// if (firstItemIsHeading) {
-			// 	docsSidebarLevel.visuallyHideTitle = true
-			// }
-
-			/**
-			 * Check the top level of the navData for "overview" items,
-			 * which are expected to be present for consistency.
-			 * If we do no have an overview item match, then we'll
-			 * automatically add an overview item.
-			 */
-			function isOverviewItem(item: MenuItem) {
-				const isPathMatch =
-					item.path == '' ||
-					item.path == '/' ||
-					item.path == '/index' ||
-					item.path == 'index'
-				return isPathMatch
-			}
-			// const overviewItemMatch = navDataWithFullPaths.find(isOverviewItem)
-			/**
-			 * Exception: If the first navData node is a `heading`,
-			 * we'll avoid adding an overview item even if there's
-			 * no overview item match.
-			 */
-			// if (!overviewItemMatch && !firstItemIsHeading) {
-			// 	docsSidebarLevel.overviewItemHref = versionPathPart
-			// 		? `/${product.slug}/${basePath}/${versionPathPart}`
-			// 		: `/${product.slug}/${basePath}`
-			// }
 
 			/**
 			 * We always include a brand-themed "highlight" item,
