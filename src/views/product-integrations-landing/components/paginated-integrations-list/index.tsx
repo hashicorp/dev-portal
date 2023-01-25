@@ -9,6 +9,7 @@ import { useQueryParam, NumberParam, withDefault } from 'use-query-params'
 
 interface PaginatedIntegrationsListProps {
 	integrations: Array<Integration>
+	onClearFiltersClicked: () => void
 }
 
 /**
@@ -24,6 +25,7 @@ function coerceToDefaultValue(value: number, init: number): number {
 
 export default function PaginatedIntegrationsList({
 	integrations,
+	onClearFiltersClicked,
 }: PaginatedIntegrationsListProps) {
 	const isFirstRender = useRef(true)
 	const containerRef = useRef(null)
@@ -106,7 +108,10 @@ export default function PaginatedIntegrationsList({
 
 	return (
 		<div className={s.paginatedIntegrationsList} ref={containerRef}>
-			<IntegrationsList integrations={currentPageIntegrations} />
+			<IntegrationsList
+				integrations={currentPageIntegrations}
+				onClearFiltersClicked={onClearFiltersClicked}
+			/>
 			<div className={s.paginatorWrapper}>
 				<Pagination
 					totalItems={integrations.length}
