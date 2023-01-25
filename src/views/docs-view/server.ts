@@ -34,17 +34,14 @@ import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics
 import { withTiming } from 'lib/with-timing'
 
 /**
- * Check the top level of the navData for "overview" items,
- * which are expected to be present for consistency.
- * If we do no have an overview item match, then we'll
- * automatically add an overview item.
+ * Determine whether a `menuItem` is an "overview" item.
  */
 function isOverviewItem(item: MenuItem) {
 	const isPathMatch =
-		item.path == '' ||
-		item.path == '/' ||
-		item.path == '/index' ||
-		item.path == 'index'
+		item.path === '' ||
+		item.path === '/' ||
+		item.path === '/index' ||
+		item.path === 'index'
 	return isPathMatch
 }
 
