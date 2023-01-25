@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic'
 import { MDXRemote } from 'next-mdx-remote'
+import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
 import DocsViewLayout from 'layouts/docs-view-layout'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
@@ -96,15 +97,15 @@ const DocsView = ({
 	const Layout = layouts[metadata?.layout?.name] ?? DefaultLayout
 
 	return (
-		<>
+		<div className={classNames(versions && s.contentWithVersions)}>
 			{shouldRenderSearch ? <ProductDocsSearch /> : null}
-			<DevDotContent className={versions ? s.contentWithVersions : null}>
-				{versions ? (
-					<div className={s.versionSwitcherWrapper}>
-						<DocsVersionSwitcher options={versions} projectName={projectName} />
-					</div>
-				) : null}
-				<NoIndexTagIfVersioned />
+			{versions ? (
+				<div className={s.versionSwitcherWrapper}>
+					<DocsVersionSwitcher options={versions} projectName={projectName} />
+				</div>
+			) : null}
+			<NoIndexTagIfVersioned />
+			<DevDotContent>
 				<MDXRemote
 					compiledSource={compiledSource}
 					components={{
@@ -115,7 +116,7 @@ const DocsView = ({
 					scope={scope}
 				/>
 			</DevDotContent>
-		</>
+		</div>
 	)
 }
 
