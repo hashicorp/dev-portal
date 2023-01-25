@@ -76,7 +76,7 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	 *
 	 * The following order will be applied:
 	 * 1. Install
-	 * 2. Intro (a docs content category) (Nomad only, as of 2023-01-18)
+	 * 2. Intro (a docs content category, used by Nomad & Vagrant)
 	 * 3. Tutorials
 	 * 4. Documentation content categories (except "/intro")
 	 * 	  - Desired order: Docs, API, CLI, Tools, Plugins, Cloud, ...rest
@@ -108,7 +108,8 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	 * Note: This is an optional docs category, /<product>/intro. It is placed
 	 * earlier in the nav, separate from other docs categories.
 	 *
-	 * Note: As of 2023-01-18, Nomad is the only product with an "intro" item.
+	 * Note: As of 2023-01-18, Nomad & Vagrant are the only products with an
+	 * "intro" docs category. All other products do not use this category.
 	 */
 	const introItemPath = `/${currentProduct.slug}/intro`
 	const isIntroItem = (n: NavItem) => 'url' in n && n.url === introItemPath
