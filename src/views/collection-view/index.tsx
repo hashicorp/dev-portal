@@ -11,6 +11,7 @@ import { CollectionPageProps } from './server'
 import CollectionMeta from './components/collection-meta'
 import CollectionTutorialList from './components/collection-tutorial-list'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
+import { generateCollectionSidebarNavData } from './helpers/generate-collection-sidebar-nav-data'
 
 function CollectionView({
 	collection,
@@ -22,24 +23,7 @@ function CollectionView({
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(product.name),
 		generateProductLandingSidebarNavData(product),
-		{
-			levelButtonProps: {
-				levelUpButtonText: `${product.name} Home`,
-				levelDownButtonText: 'Previous',
-			},
-			backToLinkProps: {
-				text: `${product.name} Home`,
-				href: `/${product.slug}`,
-			},
-			title: 'Tutorials',
-			visuallyHideTitle: true,
-			children: (
-				<CollectionViewSidebarContent
-					productSlug={product.slug}
-					sections={layoutProps.sidebarSections}
-				/>
-			),
-		},
+		generateCollectionSidebarNavData(product, layoutProps.sidebarSections),
 	]
 
 	return (
