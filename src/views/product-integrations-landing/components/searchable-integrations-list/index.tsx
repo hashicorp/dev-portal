@@ -114,6 +114,7 @@ export default function SearchableIntegrationsList({
 	const handleClearFilters = (e) => {
 		resetPage()
 
+		setFilterQuery('')
 		setOfficialChecked(false)
 		setPartnerChecked(false)
 		setCommunityChecked(false)
@@ -348,13 +349,7 @@ export default function SearchableIntegrationsList({
 			<PaginatedIntegrationsList
 				integrations={filteredIntegrations}
 				onClearFiltersClicked={() => {
-					setOfficialChecked(false)
-					setPartnerChecked(false)
-					setCommunityChecked(false)
-					setComponentCheckedArray(componentCheckedArray.map((v, i) => false))
-					setFlagsCheckedArray(flagsCheckedArray.map((v, i) => false))
-					setFilterQuery('')
-					resetPage()
+					handleClearFilters(null)
 				}}
 			/>
 
