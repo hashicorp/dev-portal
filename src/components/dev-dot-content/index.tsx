@@ -63,18 +63,32 @@ const DEFAULT_MDX_COMPONENTS = {
 	Warning: MdxWarning,
 }
 
+/**
+ * Handles providing custom MDX components to MDXRemote. To provide additional
+ * components, use the `mdxRemoteProps` .
+ *
+ * @TODO remove the `children` prop after replacing the 1 instance
+ * https://app.asana.com/0/1202097197789424/1203820006759167/f
+ */
 const DevDotContent = ({
 	className,
 	children,
 	mdxRemoteProps,
 }: DevDotContentProps): ReactElement => {
-	return (
-		<MDXProvider components={DEFAULT_MDX_COMPONENTS}>
-			<div className={classNames(s.root, className)}>
-				{children ? children : <MDXRemote {...mdxRemoteProps} />}
-			</div>
-		</MDXProvider>
-	)
+	const shouldRenderChildren = Boolean(children)
+
+	let content
+	if (shouldRenderChildren) {
+		content = children
+	} else {
+		content = (
+			<MDXProvider components={DEFAULT_MDX_COMPONENTS}>
+				<MDXRemote {...mdxRemoteProps} />
+			</MDXProvider>
+		)
+	}
+
+	return <div className={classNames(s.root, className)}>{content}</div>
 }
 
 export default DevDotContent
