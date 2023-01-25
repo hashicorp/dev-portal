@@ -52,8 +52,50 @@
  * Themeing
  */
 
+.theme-terraform {
+	--gradient-start: var(--token-color-terraform-gradient-faint-stop);
+	--gradient-stop: var(--token-color-terraform-gradient-faint-start);
+	--inset-border-color: var(--token-color-terraform-border);
+}
+
+.theme-packer {
+	--gradient-start: var(--token-color-packer-gradient-faint-stop);
+	--gradient-stop: var(--token-color-packer-gradient-faint-start);
+	--inset-border-color: var(--token-color-packer-border);
+}
+
+.theme-consul {
+	--gradient-start: var(--token-color-consul-gradient-faint-stop);
+	--gradient-stop: var(--token-color-consul-gradient-faint-start);
+	--inset-border-color: var(--token-color-consul-border);
+}
+
+.theme-vault {
+	--gradient-start: var(--token-color-vault-gradient-faint-stop);
+	--gradient-stop: var(--token-color-vault-gradient-faint-start);
+	--inset-border-color: var(--token-color-vault-border);
+}
+
+.theme-boundary {
+	--gradient-start: var(--token-color-boundary-gradient-faint-stop);
+	--gradient-stop: var(--token-color-boundary-gradient-faint-start);
+	--inset-border-color: var(--token-color-boundary-border);
+}
+
 .theme-nomad {
 	--gradient-start: var(--token-color-nomad-gradient-faint-stop);
 	--gradient-stop: var(--token-color-nomad-gradient-faint-start);
 	--inset-border-color: var(--token-color-nomad-border);
+}
+
+.theme-waypoint {
+	--gradient-start: var(--token-color-waypoint-gradient-faint-stop);
+	--gradient-stop: var(--token-color-waypoint-gradient-faint-start);
+	--inset-border-color: var(--token-color-waypoint-border);
+}
+
+.theme-vagrant {
+	--gradient-start: var(--token-color-vagrant-gradient-faint-stop);
+	--gradient-stop: var(--token-color-vagrant-gradient-faint-start);
+	--inset-border-color: var(--token-color-vagrant-border);
 }
