@@ -32,9 +32,12 @@ function CollectionView({
 				href: `/${product.slug}`,
 			},
 			title: 'Tutorials',
-			overviewItemHref: `/${product.slug}/tutorials`,
+			visuallyHideTitle: true,
 			children: (
-				<CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
+				<CollectionViewSidebarContent
+					productSlug={product.slug}
+					sections={layoutProps.sidebarSections}
+				/>
 			),
 		},
 	]

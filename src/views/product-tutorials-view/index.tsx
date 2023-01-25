@@ -33,10 +33,13 @@ function ProductTutorialsView({
 				text: `${product.name} Home`,
 				href: `/${product.slug}`,
 			},
-			overviewItemHref: `/${product.slug}/tutorials`,
 			title: 'Tutorials',
+			visuallyHideTitle: true,
 			children: (
-				<CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
+				<CollectionViewSidebarContent
+					productSlug={product.slug}
+					sections={layoutProps.sidebarSections}
+				/>
 			),
 		},
 	]

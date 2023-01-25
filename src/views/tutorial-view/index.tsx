@@ -156,6 +156,7 @@ function TutorialView({
 			overviewItemHref: `/${product.slug}/tutorials`,
 			children: (
 				<CollectionViewSidebarContent
+					productSlug={product.slug}
 					sections={collectionViewSidebarSections}
 				/>
 			),
