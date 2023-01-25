@@ -26,17 +26,24 @@ export const generateInstallViewNavItems = (
 		levelUpButtonText: `${product.name} Home`,
 		levelDownButtonText: 'Previous',
 	}
+
 	const menuItemsWithFallback = menuItems || []
 	const showFilterInput = false
 	const title = isEnterpriseMode
 		? `Install ${product.name} Enterprise`
 		: `Install ${product.name}`
+	const titleItem = {
+		title,
+		fullPath: '/nomad/downloads',
+		theme: 'nomad',
+	}
 
 	return {
 		backToLinkProps,
 		levelButtonProps,
-		menuItems: menuItemsWithFallback,
+		menuItems: [titleItem, ...menuItemsWithFallback],
 		showFilterInput,
 		title,
+		visuallyHideTitle: true,
 	}
 }
