@@ -1,36 +1,36 @@
+import { IconCheck16 } from '@hashicorp/flight-icons/svg-react/check-16'
+import { IconFilter16 } from '@hashicorp/flight-icons/svg-react/filter-16'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
+import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
+import capitalize from '@hashicorp/platform-util/text/capitalize'
 import classNames from 'classnames'
+import Button from 'components/button'
+import Dialog from 'components/dialog'
+import DropdownDisclosure, {
+	DropdownDisclosureButtonItem,
+} from 'components/dropdown-disclosure'
+import Legend from 'components/form/components/legend'
+import { CheckboxField } from 'components/form/field-controls'
+import Tag from 'components/tag'
+import useTypingDebounce from 'lib/hooks/use-typing-debounce'
 import { Integration, Tier } from 'lib/integrations-api-client/integration'
 import { useCallback, useState } from 'react'
 import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
-import s from './style.module.css'
-import capitalize from '@hashicorp/platform-util/text/capitalize'
-import { IconCheck16 } from '@hashicorp/flight-icons/svg-react/check-16'
-import { IconFilter16 } from '@hashicorp/flight-icons/svg-react/filter-16'
-import DropdownDisclosure, {
-	DropdownDisclosureButtonItem,
-} from 'components/dropdown-disclosure'
-import Button from 'components/button'
-import Tag from 'components/tag'
-import Dialog from 'components/dialog'
-import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
-import { CheckboxField } from 'components/form/field-controls'
-import Legend from 'components/form/components/legend'
 import {
 	integrationLibraryFilterSelectedEvent,
 	integrationLibrarySearchedEvent,
 } from './helpers/analytics'
-import useTypingDebounce from 'lib/hooks/use-typing-debounce'
+import s from './style.module.css'
 
 interface SearchableIntegrationsListProps {
 	className: string
 }
 
 import {
-	useQueryParam,
-	StringParam,
 	NumberParam,
+	StringParam,
+	useQueryParam,
 	withDefault,
 } from 'use-query-params'
 
@@ -345,7 +345,18 @@ export default function SearchableIntegrationsList({
 
 			<div className={classNames(s.results, s.mobile_only)}>{resultText}</div>
 
-			<PaginatedIntegrationsList integrations={filteredIntegrations} />
+			<PaginatedIntegrationsList
+				integrations={filteredIntegrations}
+				onClearFiltersClicked={() => {
+					setOfficialChecked(false)
+					setPartnerChecked(false)
+					setCommunityChecked(false)
+					setComponentCheckedArray([])
+					setFlagsCheckedArray([])
+					setFilterQuery('')
+					resetPage()
+				}}
+			/>
 
 			{/* 
 				Mobile Filter Dialog

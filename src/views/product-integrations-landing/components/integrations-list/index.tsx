@@ -10,10 +10,12 @@ import s from './style.module.css'
 
 interface IntegrationsListProps {
 	integrations: Array<Integration>
+	onClearFiltersClicked: () => void
 }
 
 export default function IntegrationsList({
 	integrations,
+	onClearFiltersClicked,
 }: IntegrationsListProps) {
 	return integrations.length ? (
 		<CardsGridList fixedColumns={1}>
@@ -24,7 +26,7 @@ export default function IntegrationsList({
 			})}
 		</CardsGridList>
 	) : (
-		<NoResultsMessage />
+		<NoResultsMessage onClearFiltersClicked={onClearFiltersClicked} />
 	)
 }
 
@@ -76,7 +78,11 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 	)
 }
 
-function NoResultsMessage() {
+interface NoResultsMessageProps {
+	onClearFiltersClicked: () => void
+}
+
+function NoResultsMessage({ onClearFiltersClicked }: NoResultsMessageProps) {
 	return (
 		<div className={s.noResultsWrapper}>
 			<p className={s.noResultsTitle}>No Results</p>
@@ -85,6 +91,10 @@ function NoResultsMessage() {
 			</p>
 			<div className={s.noResultsButtonWrapper}>
 				<Button
+					onClick={(e) => {
+						e.preventDefault()
+						onClearFiltersClicked()
+					}}
 					color="secondary"
 					text="Clear Filters"
 					size="small"
