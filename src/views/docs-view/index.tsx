@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-import { MDXRemote } from 'next-mdx-remote'
 import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
 import DocsViewLayout from 'layouts/docs-view-layout'

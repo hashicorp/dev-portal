@@ -1,4 +1,3 @@
-import { MDXRemote } from 'next-mdx-remote'
 import Accordion from 'components/accordion'
 import DevDotContent from 'components/dev-dot-content'
 import Image from 'components/image'

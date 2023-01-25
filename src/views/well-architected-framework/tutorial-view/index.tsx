@@ -1,6 +1,5 @@
 import HashiHead from '@hashicorp/react-head'
 import { Fragment } from 'react'
-import { MDXRemote } from 'next-mdx-remote'
 import InstruqtProvider from 'contexts/instruqt-lab'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
