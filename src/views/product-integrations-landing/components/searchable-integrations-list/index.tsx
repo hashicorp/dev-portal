@@ -351,8 +351,8 @@ export default function SearchableIntegrationsList({
 					setOfficialChecked(false)
 					setPartnerChecked(false)
 					setCommunityChecked(false)
-					setComponentCheckedArray([])
-					setFlagsCheckedArray([])
+					setComponentCheckedArray(componentCheckedArray.map((v, i) => false))
+					setFlagsCheckedArray(flagsCheckedArray.map((v, i) => false))
 					setFilterQuery('')
 					resetPage()
 				}}
