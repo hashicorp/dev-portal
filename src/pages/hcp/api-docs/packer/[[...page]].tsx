@@ -47,6 +47,10 @@ const ApiDocsPage: CustomPageComponent<ApiDocsPageProps> = ({
 			renderOperationIntro={function PathAside({ data }) {
 				return (
 					<>
+						{/*
+              @TODO replace DevDotContent & <div> with a base UI component
+              https://app.asana.com/0/1202097197789424/1203820006759167/f
+            */}
 						<DevDotContent>
 							<div className="alert alert-info">
 								<strong>Note:</strong> Operation paths have been truncated for
