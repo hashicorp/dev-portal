@@ -105,17 +105,17 @@ const DocsView = ({
 				</div>
 			) : null}
 			<NoIndexTagIfVersioned />
-			<DevDotContent>
-				<MDXRemote
-					compiledSource={compiledSource}
-					components={{
+			<DevDotContent
+				mdxRemoteProps={{
+					compiledSource,
+					lazy,
+					scope,
+					components: {
 						...components,
 						wrapper: (props) => <Layout {...props} {...metadata?.layout} />,
-					}}
-					lazy={lazy}
-					scope={scope}
-				/>
-			</DevDotContent>
+					},
+				}}
+			/>
 		</div>
 	)
 }

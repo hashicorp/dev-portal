@@ -64,9 +64,9 @@ export default function OnboardingTutorialView({
 							})}
 						/>
 					)}
-					<DevDotContent>
-						<MDXRemote {...content} components={MDX_COMPONENTS} />
-					</DevDotContent>
+					<DevDotContent
+						mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+					/>
 					<NextPrevious {...nextPreviousData} />
 				</SidebarSidecarLayout>
 			</InteractiveLabWrapper>

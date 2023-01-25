@@ -73,9 +73,9 @@ export default function WellArchitectedFrameworkTutorialView({
 							})}
 						/>
 					)}
-					<DevDotContent>
-						<MDXRemote {...content} components={MDX_COMPONENTS} />
-					</DevDotContent>
+					<DevDotContent
+						mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+					/>
 					<NextPrevious {...nextPreviousData} />
 					<FeaturedInCollections
 						className={s.featuredInCollections}

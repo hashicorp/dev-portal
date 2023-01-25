@@ -281,9 +281,9 @@ function TutorialView({
 								})}
 							/>
 						)}
-						<DevDotContent>
-							<MDXRemote {...content} components={MDX_COMPONENTS} />
-						</DevDotContent>
+						<DevDotContent
+							mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+						/>
 						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
 						<FeedbackPanel />
 						<NextPrevious {...nextPreviousData} />

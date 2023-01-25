@@ -30,9 +30,10 @@ export function AccordionWithMdxContent({
 					title: item.title,
 					initialOpen,
 					content: (
-						<DevDotContent className={s.mdxContentRoot}>
-							<MDXRemote {...item.mdxSource} components={MDX_COMPONENTS} />
-						</DevDotContent>
+						<DevDotContent
+							className={s.mdxContentRoot}
+							mdxRemoteProps={{ ...item.mdxSource, components: MDX_COMPONENTS }}
+						/>
 					),
 				}
 			})}
