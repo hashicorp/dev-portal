@@ -8,7 +8,7 @@ import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/compon
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
-import { generateProductIntegrationLibrarySidebarNavData } from 'pages/[productSlug]/integrations'
+import { generateProductIntegrationLibrarySidebarNavData } from 'lib/integrations'
 import { ProductData } from 'types/products'
 import Header from './components/header'
 import s from './style.module.css'
@@ -42,7 +42,7 @@ export default function ProductIntegrationLayout({
 	getVersionChangedURL,
 	children,
 }: ProductIntegrationLayoutProps) {
-	// Determine if we're on the lastest version, as that will slightly adjust the URLs
+	// Determine if we're on the latest version, as that will slightly adjust the URLs
 	const onLatestVersion = integration.versions[0] === activeRelease.version
 
 	// Components that have READMEs or Variable Groups get a page
