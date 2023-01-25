@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames'
-import { MDXProvider } from '@mdx-js/react'
 import { MDXRemote } from 'next-mdx-remote'
 import ImageConfig from 'components/image-config'
 import { DevDotContentProps } from './types'
@@ -82,9 +81,13 @@ const DevDotContent = ({
 		content = children
 	} else {
 		content = (
-			<MDXProvider components={DEFAULT_MDX_COMPONENTS}>
-				<MDXRemote {...mdxRemoteProps} />
-			</MDXProvider>
+			<MDXRemote
+				{...mdxRemoteProps}
+				components={{
+					...DEFAULT_MDX_COMPONENTS,
+					...mdxRemoteProps?.components,
+				}}
+			/>
 		)
 	}
 
