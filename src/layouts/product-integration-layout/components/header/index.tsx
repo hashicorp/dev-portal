@@ -1,6 +1,7 @@
 import { IconPlus16 } from '@hashicorp/flight-icons/svg-react/plus-16'
 import classNames from 'classnames'
 import Button from 'components/button'
+import Text from 'components/text'
 import Card from 'components/card'
 import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
@@ -15,11 +16,13 @@ import {
 	Tag,
 } from 'views/product-integrations-landing/components/tag-list'
 import s from './style.module.css'
+import { ProductSlug } from 'types/products'
 
 interface HeaderProps {
 	className?: string
 	integration: Integration
 	activeRelease: Release
+	productSlug: ProductSlug
 	onInstallClicked: () => void
 	getVersionChangedURL: (version: string) => string
 }
@@ -36,6 +39,7 @@ export default function Header({
 	className,
 	integration,
 	activeRelease,
+	productSlug,
 	onInstallClicked,
 	getVersionChangedURL,
 }: HeaderProps) {
@@ -60,36 +64,34 @@ export default function Header({
 	return (
 		<Card>
 			<div>
-				<IconTileLogo productSlug="waypoint" />
-				<div>
-					<h1>{integration.name}</h1>
-					<span>@{integration.organization.slug}</span>
-				</div>
-				<div>{integration.description}</div>
-				<div>
-					{showVersions ? (
-						<DropdownDisclosure
-							className={s.versionDropdown}
-							color="secondary"
-							text={versionString(activeRelease.version, integration.versions)}
-						>
-							{otherVersions.map((version: string) => {
-								return (
-									<DropdownDisclosureLinkItem
-										key={version}
-										href={getVersionChangedURL(version)}
-									>
-										{versionString(version, integration.versions)}
-									</DropdownDisclosureLinkItem>
-								)
-							})}
-						</DropdownDisclosure>
-					) : null}
-				</div>
+				{showVersions ? (
+					<DropdownDisclosure
+						className={s.versionDropdown}
+						color="secondary"
+						text={versionString(activeRelease.version, integration.versions)}
+					>
+						{otherVersions.map((version: string) => {
+							return (
+								<DropdownDisclosureLinkItem
+									key={version}
+									href={getVersionChangedURL(version)}
+								>
+									{versionString(version, integration.versions)}
+								</DropdownDisclosureLinkItem>
+							)
+						})}
+					</DropdownDisclosure>
+				) : null}
 			</div>
-
+			<IconTileLogo
+				productSlug={productSlug !== 'sentinel' ? productSlug : null}
+			/>
 			<div>
-				{/**swap tags for badges */}
+				<h1>{integration.name}</h1>
+				<span>@{integration.organization.slug}</span>
+			</div>
+			<Text>{integration.description}</Text>
+			<div>
 				{tags.map((tag: Tag) => (
 					<Tooltip key={tag.name} label={tag.description}>
 						<Badge
@@ -101,7 +103,6 @@ export default function Header({
 						/>
 					</Tooltip>
 				))}
-
 				{shouldShowInstallButton && (
 					<Button
 						text="Install"
