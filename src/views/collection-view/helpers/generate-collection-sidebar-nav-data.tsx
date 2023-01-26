@@ -21,6 +21,8 @@ export function generateCollectionSidebarNavData(
 			href: `/${product.slug}`,
 		},
 		title: 'Tutorials',
+		/* We always visually hide the title, as we've added in a
+			"highlight" item that would make showing the title redundant. */
 		visuallyHideTitle: true,
 		children: (
 			<CollectionViewSidebarContent

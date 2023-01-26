@@ -44,6 +44,8 @@ export const generateInstallViewNavItems = (
 		menuItems: [titleItem, ...menuItemsWithFallback],
 		showFilterInput,
 		title,
+		/* We always visually hide the title, as we've added in a
+			"highlight" item that would make showing the title redundant. */
 		visuallyHideTitle: true,
 	}
 }

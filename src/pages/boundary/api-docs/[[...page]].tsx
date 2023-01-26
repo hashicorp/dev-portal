@@ -120,6 +120,8 @@ export async function getStaticProps({ params }) {
 			levelButtonProps: {
 				levelUpButtonText: `${productData.name} Home`,
 			},
+			/* We always visually hide the title, as we've added in a
+			"highlight" item that would make showing the title redundant. */
 			visuallyHideTitle: true,
 			menuItems: [
 				{
