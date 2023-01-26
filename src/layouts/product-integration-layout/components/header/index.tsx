@@ -60,8 +60,6 @@ export default function Header({
 
 	const tags = GetIntegrationTags(integration, true)
 
-	console.log({ integration })
-
 	return (
 		<Card elevation="base" className={s.headerWrap}>
 			<IconTileLogo
