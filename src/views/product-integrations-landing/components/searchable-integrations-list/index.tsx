@@ -33,6 +33,7 @@ import {
 	useQueryParam,
 	withDefault,
 } from 'use-query-params'
+import FilterInput from 'components/filter-input'
 
 export default function SearchableIntegrationsList({
 	className,
@@ -202,10 +203,11 @@ export default function SearchableIntegrationsList({
 	return (
 		<div className={classNames(s.searchableIntegrationsList, className)}>
 			<div className={s.header}>
-				<FilterBar
-					filterQuery={filterQuery}
-					onChange={(e) => {
-						setFilterQuery(e.target.value)
+				<FilterInput
+					IconComponent={IconSearch16}
+					value={filterQuery}
+					onChange={(v: string) => {
+						setFilterQuery(v)
 						resetPage()
 					}}
 				/>
@@ -495,21 +497,5 @@ function MobileFilters() {
 				})}
 			</div>
 		</>
-	)
-}
-
-function FilterBar({ filterQuery, onChange }) {
-	return (
-		<div className={s.searchBar}>
-			<IconSearch16 />
-			{/* TODO: consider <FilterInput/> */}
-			<input
-				className={s.filterBarInput}
-				type="text"
-				placeholder="Filter integrations"
-				value={filterQuery}
-				onChange={onChange}
-			/>
-		</div>
 	)
 }
