@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import { useRouter } from 'next/router'
 
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import {
@@ -9,6 +10,7 @@ import {
 } from 'components/sidebar/components'
 import Sidebar from 'components/sidebar'
 import TutorialViewSidebarContent from './components/tutorial-view-sidebar-content'
+import { ProductSlug } from 'types/products'
 import {
 	ListItemProps,
 	SectionListProps,
@@ -16,8 +18,6 @@ import {
 	TutorialSidebarProps,
 } from './types'
 import s from './tutorials-sidebar.module.css'
-import { useRouter } from 'next/router'
-import { ProductSlug } from 'types/products'
 
 function TutorialsSidebar({
 	backToLinkProps,
