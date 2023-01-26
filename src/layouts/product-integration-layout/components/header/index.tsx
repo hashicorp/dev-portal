@@ -1,6 +1,7 @@
 import { IconPlus16 } from '@hashicorp/flight-icons/svg-react/plus-16'
 import classNames from 'classnames'
 import Button from 'components/button'
+import Heading from 'components/heading'
 import Text from 'components/text'
 import Card from 'components/card'
 import DropdownDisclosure, {
@@ -15,8 +16,8 @@ import {
 	GetIntegrationTags,
 	Tag,
 } from 'views/product-integrations-landing/components/tag-list'
-import s from './style.module.css'
 import { ProductSlug } from 'types/products'
+import s from './style.module.css'
 
 interface HeaderProps {
 	className?: string
@@ -88,10 +89,16 @@ export default function Header({
 				productSlug={productSlug !== 'sentinel' ? productSlug : null}
 			/>
 			<div>
-				<h1>{integration.name}</h1>
-				<span>@{integration.organization.slug}</span>
+				<Heading size={300} weight="bold" level={1} className={s.title}>
+					{integration.name}
+				</Heading>
+				<Text size={100} weight="medium" className={s.organization}>
+					@{integration.organization.slug}
+				</Text>
 			</div>
-			<Text>{integration.description}</Text>
+			<Text size={200} className={s.description}>
+				{integration.description}
+			</Text>
 			<div>
 				{tags.map((tag: Tag) => (
 					<Tooltip key={tag.name} label={tag.description}>

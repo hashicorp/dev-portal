@@ -1,3 +1,15 @@
 .header {
 	outline: 1px solid pink;
 }
+
+.title {
+	color: var(--token-color-foreground-strong);
+}
+
+.organization {
+	color: var(--token-color-foreground-faint);
+}
+
+.description {
+	color: var(--token-color-foreground-primary);
+}
