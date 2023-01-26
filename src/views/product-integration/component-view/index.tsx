@@ -2,6 +2,7 @@ import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import Tabs, { Tab } from 'components/tabs'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
+import { getIntegrationComponentUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import {
 	Variable as ApiVariable,
@@ -43,7 +44,7 @@ export default function ProductIntegrationComponentView({
 			getVersionChangedURL={(version: string) => {
 				const versionString =
 					version === integration.versions[0] ? 'latest' : version
-				return `/${product.slug}/integrations/${integration.slug}/${versionString}/components/${component.component.slug}`
+				return getIntegrationComponentUrl(integration, component, versionString)
 			}}
 		>
 			{serializedREADME ? (

@@ -26,6 +26,7 @@ import ProductIntegrationComponentView, {
 } from 'views/product-integration/component-view'
 import {
 	fetchAllIntegrations,
+	getIntegrationComponentUrl,
 	integrationComponentBreadcrumbLinks,
 } from 'lib/integrations'
 import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
@@ -139,7 +140,11 @@ async function getStaticProps({
 	if (integrationVersion === integration.versions[0]) {
 		return {
 			redirect: {
-				destination: `/${productData.slug}/integrations/${integration.slug}/latest/components/${releaseComponent.component.slug}`,
+				destination: getIntegrationComponentUrl(
+					integration,
+					releaseComponent,
+					'latest'
+				),
 				// Not permanent as a new release in the future will turn the
 				// latest release into an older release which should render!
 				permanent: false,
