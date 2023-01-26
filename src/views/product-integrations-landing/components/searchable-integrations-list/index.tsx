@@ -270,10 +270,13 @@ export default function SearchableIntegrationsList({
 							})}
 						</DropdownDisclosure>
 					</div>
-					<span className={classNames(s.results, s.tablet_up)}>
+					{/**
+					 * Technique ARIA22: Using role=status to present status messages
+					 * https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA22
+					 */}
+					<span className={classNames(s.results, s.tablet_up)} role="status">
 						{resultText}
 					</span>
-
 					{/* mobile_only */}
 					<div className={classNames(s.row, s.mobile_only)}>
 						<Button
