@@ -1,3 +1,14 @@
+.upper {
+	margin-bottom: 16px;
+}
+
+.lower {
+	@media (--dev-dot-tablet-up) {
+		display: flex;
+		justify-content: space-between;
+	}
+}
+
 .iconTile {
 	display: none;
 
@@ -6,14 +17,34 @@
 	}
 }
 
-.title {
-	color: var(--token-color-foreground-strong);
+.titleWrap {
+	margin: 12px 0 2px 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+
+	@media (--dev-dot-tablet-up) {
+		margin-top: 0;
+	}
 }
 
-.organization {
+.titleName {
+	color: var(--token-color-foreground-strong);
+	margin-right: 4px;
+}
+
+.titleOrganization {
 	color: var(--token-color-foreground-faint);
 }
 
 .description {
 	color: var(--token-color-foreground-primary);
+}
+
+.tag {
+	margin: 0 8px 16px 0;
+
+	@media (--dev-dot-tablet-up) {
+		margin-bottom: 0;
+	}
 }

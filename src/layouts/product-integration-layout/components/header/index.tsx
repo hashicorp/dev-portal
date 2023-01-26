@@ -63,10 +63,9 @@ export default function Header({
 
 	return (
 		<Card elevation="base">
-			<div>
+			<div className={s.upper}>
 				{showVersions ? (
 					<DropdownDisclosure
-						className={s.versionDropdown}
 						color="secondary"
 						text={versionString(activeRelease.version, integration.versions)}
 					>
@@ -82,28 +81,29 @@ export default function Header({
 						})}
 					</DropdownDisclosure>
 				) : null}
-			</div>
-			<IconTileLogo
-				className={s.iconTile}
-				size="large"
-				productSlug={productSlug !== 'sentinel' ? productSlug : null}
-			/>
-			<div>
-				<Heading size={300} weight="bold" level={1} className={s.title}>
-					{integration.name}
-				</Heading>
-				<Text size={100} weight="medium" className={s.organization}>
-					@{integration.organization.slug}
+
+				<IconTileLogo
+					className={s.iconTile}
+					size="large"
+					productSlug={productSlug !== 'sentinel' ? productSlug : null}
+				/>
+				<div className={s.titleWrap}>
+					<Heading size={300} weight="bold" level={1} className={s.titleName}>
+						{integration.name}
+					</Heading>
+					<Text size={100} weight="medium" className={s.titleOrganization}>
+						@{integration.organization.slug}
+					</Text>
+				</div>
+				<Text size={200} className={s.description}>
+					{integration.description}
 				</Text>
 			</div>
-			<Text size={200} className={s.description}>
-				{integration.description}
-			</Text>
-			<div>
+			<div className={s.lower}>
 				{tags.map((tag: Tag) => (
 					<Tooltip key={tag.name} label={tag.description}>
 						<Badge
-							className={s.tagContent}
+							className={s.tag}
 							icon={tag.icon as React.ReactElement}
 							text={tag.name}
 							type="outlined"
