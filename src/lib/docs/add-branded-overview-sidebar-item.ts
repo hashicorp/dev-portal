@@ -30,9 +30,7 @@ function isHeadingItem(item: MenuItem) {
  */
 export default function addBrandedOverviewSidebarItem(
 	items: MenuItem[],
-	title: string,
-	fullPath: string,
-	theme: ProductSlug
+	itemToAdd: { title: string; fullPath: string; theme: ProductSlug | 'generic' }
 ): MenuItem[] {
 	let processedMenuItems: MenuItem[]
 
@@ -53,11 +51,7 @@ export default function addBrandedOverviewSidebarItem(
 	/**
 	 * Add the branded overview item
 	 */
-	processedMenuItems.unshift({
-		title,
-		fullPath,
-		theme, // this makes this a "highlighted" themed item
-	})
+	processedMenuItems.unshift(itemToAdd)
 
 	// Return the processed items
 	return processedMenuItems

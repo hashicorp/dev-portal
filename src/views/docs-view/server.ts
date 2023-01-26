@@ -287,12 +287,11 @@ export function getStaticGenerationFunctions<
 			 * TODO: would be great to fix up related types here at some point.
 			 * task: https://app.asana.com/0/1202097197789424/1202405210286689/f
 			 */
-			const menuItems = addBrandedOverviewSidebarItem(
-				navDataWithFullPaths,
-				docsSidebarTitle,
-				docsBasePathFullPath,
-				product.slug
-			) as unknown as EnrichedNavItem[]
+			const menuItems = addBrandedOverviewSidebarItem(navDataWithFullPaths, {
+				title: docsSidebarTitle,
+				fullPath: docsBasePathFullPath,
+				theme: product.slug,
+			}) as $TSFixMe
 			const docsSidebarLevel: SidebarProps = {
 				backToLinkProps: getBackToLink(currentRootDocsPath, product),
 				levelButtonProps: {

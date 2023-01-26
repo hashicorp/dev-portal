@@ -106,12 +106,11 @@ export async function getStaticProps({ params, ...ctx }) {
 			levelButtonProps: {
 				levelUpButtonText: `${productData.name} Home`,
 			},
-			menuItems: addBrandedOverviewSidebarItem(
-				navData,
-				'Plugins',
-				`/${productData.slug}/plugins`,
-				productData.slug
-			),
+			menuItems: addBrandedOverviewSidebarItem(navData, {
+				title: 'Plugins',
+				fullPath: `/${productData.slug}/plugins`,
+				theme: productData.slug,
+			}),
 			title: baseName,
 			/* We always visually hide the title, as we've added in a
 			"highlight" item that would make showing the title redundant. */

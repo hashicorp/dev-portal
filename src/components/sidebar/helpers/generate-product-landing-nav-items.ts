@@ -86,12 +86,11 @@ export const generateProductLandingSidebarNavData = (
 		 * TODO: fix up MenuItem related types.
 		 * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
 		 */
-		menuItems: addBrandedOverviewSidebarItem(
-			menuItems,
+		menuItems: addBrandedOverviewSidebarItem(menuItems, {
 			title,
-			`/${product.slug}`,
-			product.slug
-		) as unknown as EnrichedNavItem[],
+			fullPath: `/${product.slug}`,
+			theme: product.slug,
+		}) as $TSFixMe,
 		showFilterInput,
 		title,
 		/* We always visually hide the title, as we've added in a
