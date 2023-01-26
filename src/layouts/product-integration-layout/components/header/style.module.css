@@ -1,8 +1,26 @@
+.headerWrap {
+	@media (--dev-dot-tablet-up) {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		grid-template-areas:
+			'icon content'
+			'icon badges';
+	}
+}
+
 .upper {
 	margin-bottom: 16px;
+	grid-area: content;
+
+	@media (--dev-dot-tablet-up) {
+		display: flex;
+		flex-direction: row-reverse;
+	}
 }
 
 .lower {
+	grid-area: badges;
+
 	@media (--dev-dot-tablet-up) {
 		display: flex;
 		justify-content: space-between;
@@ -11,11 +29,17 @@
 }
 
 .iconTile {
+	grid-area: icon;
 	display: none;
+	margin-right: 12px;
 
 	@media (--dev-dot-tablet-up) {
 		display: block;
 	}
+}
+
+.titleDescriptionWrap {
+	margin-right: 12px;
 }
 
 .titleWrap {
@@ -26,6 +50,9 @@
 
 	@media (--dev-dot-tablet-up) {
 		margin-top: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		flex-wrap: unset;
 	}
 }
 

@@ -62,7 +62,12 @@ export default function Header({
 	console.log({ integration })
 
 	return (
-		<Card elevation="base">
+		<Card elevation="base" className={s.headerWrap}>
+			<IconTileLogo
+				className={s.iconTile}
+				size="large"
+				productSlug={productSlug !== 'sentinel' ? productSlug : null}
+			/>
 			<div className={s.upper}>
 				{showVersions ? (
 					<DropdownDisclosure
@@ -81,23 +86,19 @@ export default function Header({
 						})}
 					</DropdownDisclosure>
 				) : null}
-
-				<IconTileLogo
-					className={s.iconTile}
-					size="large"
-					productSlug={productSlug !== 'sentinel' ? productSlug : null}
-				/>
-				<div className={s.titleWrap}>
-					<Heading size={300} weight="bold" level={1} className={s.titleName}>
-						{integration.name}
-					</Heading>
-					<Text size={100} weight="medium" className={s.titleOrganization}>
-						@{integration.organization.slug}
+				<div className={s.titleDescriptionWrap}>
+					<div className={s.titleWrap}>
+						<Heading size={300} weight="bold" level={1} className={s.titleName}>
+							{integration.name}
+						</Heading>
+						<Text size={100} weight="medium" className={s.titleOrganization}>
+							@{integration.organization.slug}
+						</Text>
+					</div>
+					<Text size={200} className={s.description}>
+						{integration.description}
 					</Text>
 				</div>
-				<Text size={200} className={s.description}>
-					{integration.description}
-				</Text>
 			</div>
 			<div className={s.lower}>
 				<ul className={s.tagList}>
