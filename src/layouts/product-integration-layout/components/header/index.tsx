@@ -43,7 +43,8 @@ export default function Header({
 	onInstallClicked,
 	getVersionChangedURL,
 }: HeaderProps) {
-	const { isDesktop } = useDeviceSize()
+	const { isMobile } = useDeviceSize()
+
 	// Determine if we should show the version dropdown at all
 	const showVersions =
 		!integration.hide_versions && integration.versions.length > 1
@@ -89,7 +90,7 @@ export default function Header({
 				<div className={s.titleDescriptionWrap}>
 					<div className={s.titleWrap}>
 						<TruncateMaxLines
-							maxLines={isDesktop ? 1 : 2}
+							maxLines={isMobile ? 2 : 1}
 							lineHeight="var(--token-typography-body-300-line-height)"
 						>
 							<Heading
@@ -101,7 +102,6 @@ export default function Header({
 								{integration.name}
 							</Heading>
 						</TruncateMaxLines>
-
 						<Text size={100} weight="medium" className={s.titleOrganization}>
 							@{integration.organization.slug}
 						</Text>
@@ -133,7 +133,7 @@ export default function Header({
 				</ul>
 				{shouldShowInstallButton && (
 					<Button
-						size={isDesktop ? 'small' : 'medium'}
+						size={isMobile ? 'medium' : 'small'}
 						className={s.installButton}
 						text="Install"
 						onClick={(e) => {
