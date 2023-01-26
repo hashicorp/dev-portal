@@ -117,7 +117,7 @@ export interface NavHighlightItem {
  * TODO: it might be worth refactoring this to be a union of multiple types,
  * one for each distinct type of menu item, rather than a single interface
  * with optional properties to cover all possible menu item types.
- *
+ * ref: https://app.asana.com/0/1202097197789424/1202405210286689/f
  */
 interface MenuItem {
 	divider?: boolean
