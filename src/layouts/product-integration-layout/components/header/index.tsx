@@ -8,6 +8,7 @@ import DropdownDisclosure, {
 import IconTileLogo from 'components/icon-tile-logo'
 import Badge from 'components/badge'
 import Tooltip from 'components/tooltip'
+import { useDeviceSize } from 'contexts'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
 import {
@@ -35,13 +36,13 @@ function versionString(version: string, allVersions: string[]): string {
 }
 
 export default function Header({
-	className,
 	integration,
 	activeRelease,
 	productSlug,
 	onInstallClicked,
 	getVersionChangedURL,
 }: HeaderProps) {
+	const { isDesktop } = useDeviceSize()
 	// Determine if we should show the version dropdown at all
 	const showVersions =
 		!integration.hide_versions && integration.versions.length > 1
@@ -118,7 +119,7 @@ export default function Header({
 				</ul>
 				{shouldShowInstallButton && (
 					<Button
-						size="small"
+						size={isDesktop ? 'small' : 'medium'}
 						className={s.installButton}
 						text="Install"
 						onClick={(e) => {
