@@ -23,7 +23,7 @@ const productSlug = 'hcp'
 const targetFile = {
 	owner: 'hashicorp',
 	repo: 'hcp-specs-internal',
-	path: 'specs/cloud-packer-service/preview/2022-04-11/hcp.swagger.json',
+	path: 'specs/cloud-packer-service/stable/2021-04-30/hcp.swagger.json',
 }
 
 type ApiDocsPageProps = InferGetStaticPropsType<typeof getStaticProps>
@@ -38,7 +38,7 @@ const ApiDocsPage: CustomPageComponent<ApiDocsPageProps> = ({
 			// as they are otherwise very difficult to read
 			massageOperationPathFn={(path) =>
 				path.replace(
-					'/packer/2022-04-11/organizations/{location.organization_id}/projects/{location.project_id}',
+					'/packer/2021-04-30/organizations/{location.organization_id}/projects/{location.project_id}',
 					''
 				)
 			}
@@ -47,6 +47,10 @@ const ApiDocsPage: CustomPageComponent<ApiDocsPageProps> = ({
 			renderOperationIntro={function PathAside({ data }) {
 				return (
 					<>
+						{/*
+              @TODO replace DevDotContent & <div> with a base UI component
+              https://app.asana.com/0/1202097197789424/1203820006759167/f
+            */}
 						<DevDotContent>
 							<div className="alert alert-info">
 								<strong>Note:</strong> Operation paths have been truncated for

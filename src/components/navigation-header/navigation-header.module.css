@@ -11,12 +11,13 @@
 */
 .root {
 	--header-padding-left-right: 24px;
-	--header-dropdown-menu-padding-left-right: 12px;
+	--header-menu-item-padding-left-right: 12px;
 
 	background-color: var(--token-color-palette-neutral-700);
 	display: flex;
 	padding-top: 0;
 	padding-bottom: 0;
+	min-height: var(--navigation-header-height);
 	justify-content: space-between;
 	padding-left: var(--header-padding-left-right);
 	padding-right: var(--header-padding-left-right);
@@ -33,66 +34,14 @@
 	align-items: center;
 	display: flex;
 	justify-content: left;
-}
-
-.leftSideDesktopOnlyContent {
-	@media (--dev-dot-show-mobile-menu) {
-		display: none;
-	}
-}
-
-/*
-***
-* Note: these are all classes that get passed to `InlineSvg`. They need
-* `display: flex` set or there will be a small gap below the SVG, making them
-* off-center vertically.
-***
-*/
-.productLogo {
-	display: flex;
-
-	& svg {
-		height: 40px;
-		width: auto;
-	}
+	gap: 24px;
 }
 
 .rightSide {
 	align-items: center;
 	display: flex;
 	justify-content: right;
-	gap: 16px;
-}
-
-/*
-***
-* Note: this fancy math is used for two reasons. First, to make sure the <nav>
-* items are always locatated in the same place in the header (when they're
-* visible). Second, which explains the precise values, to make sure the text of
-* the first <nav> item left-aligns with the text of the page content when there
-* is no extra space on the left or right side of it.
-***
-*/
-.contentBeforeNav {
-	align-items: center;
-	display: flex;
-	justify-content: left;
-
-	@media (--dev-dot-hide-mobile-menu) {
-		width: calc(
-			var(--dev-dot-sidebar-width) + var(--main-area-padding-left) -
-				var(--header-padding-left-right) -
-				var(--header-dropdown-menu-padding-left-right)
-		);
-	}
-}
-
-.navList {
-	align-items: center;
-	display: flex;
-	list-style: none;
-	margin: 0;
-	padding: 0;
+	gap: 12px;
 }
 
 .mobileMenuButton {

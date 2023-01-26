@@ -1,0 +1,7 @@
+.root {
+	margin-top: 48px;
+
+	&:first-child {
+		margin-top: 0;
+	}
+}

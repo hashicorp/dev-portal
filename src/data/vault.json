@@ -41,9 +41,9 @@
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "November 2 | 9AM PDT",
-		"url": "https://www.hashicorp.com/events/webinars/vault-1-12-overview",
-		"text": "Vault 1.12 is here. Join us for a technical deep dive along with live Q&A.",
+		"tag": "HashiTalks 2023",
+		"url": "https://hashi.co/hashitalks-2023",
+		"text": "Join us for the fifth annual HashiTalks, a 24-hour virtual knowledge sharing event on February 16",
 		"linkText": "Register now",
 		"expirationDate": ""
 	},

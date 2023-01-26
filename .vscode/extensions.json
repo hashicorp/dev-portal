@@ -3,6 +3,7 @@
 		"csstools.postcss",
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
-		"stylelint.vscode-stylelint"
+		"stylelint.vscode-stylelint",
+		"vunguyentuan.vscode-css-variables"
 	]
 }

@@ -87,5 +87,6 @@ function CalloutCard({
 	)
 }
 
+export type { CalloutCardProps }
 export { CalloutCard }
 export default CalloutCard
