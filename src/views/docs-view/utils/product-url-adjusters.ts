@@ -106,7 +106,8 @@ export function rewriteDocsUrl(
 	if (
 		isAbsoluteUrl(inputUrl) ||
 		inputUrl.startsWith('#') ||
-		inputUrl.startsWith('.')
+		inputUrl.startsWith('.') ||
+		/(.png|.jpg|.svg)$/.test(inputUrl) // ignore image links
 	) {
 		return inputUrl
 	}

@@ -64,6 +64,8 @@
 
 .control {
 	composes: g-focus-ring-from-box-shadow from global;
+	composes: hds-typography-body-100 from global;
+	appearance: none; /* "reset" some user stylesheet styles */
 	color: inherit;
 	border-radius: 5px;
 	font-weight: var(--token-typography-font-weight-medium);

@@ -1,6 +1,7 @@
 import { ProductData } from 'types/products'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import { getIntegrationUrl } from './get-integration-url'
 
 /**
  * Build breadcrumb links for an integration "readme" page.
@@ -25,7 +26,7 @@ export function integrationBreadcrumbLinks(
 		},
 		{
 			title: integration.name,
-			url: `/${product.slug}/integrations/${integration.slug}`,
+			url: getIntegrationUrl(integration),
 			isCurrentPage: finalBreadcrumbSegments,
 		},
 	]

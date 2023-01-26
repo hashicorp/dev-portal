@@ -1,4 +1,4 @@
-import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
+import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
 import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
@@ -28,7 +28,7 @@ export function getIconCards(product: ProductData) {
 	// Add Integrations card if it's enabled for this product
 	if (product.integrationsConfig.enabled) {
 		iconCards.push({
-			icon: <IconApi16 />,
+			icon: <IconPipeline16 />,
 			text: 'Integrations',
 			url: `/${product.slug}/integrations`,
 		})
