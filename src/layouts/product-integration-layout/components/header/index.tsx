@@ -8,6 +8,7 @@ import DropdownDisclosure, {
 import IconTileLogo from 'components/icon-tile-logo'
 import Badge from 'components/badge'
 import Tooltip from 'components/tooltip'
+import TruncateMaxLines from 'components/truncate-max-lines'
 import { useDeviceSize } from 'contexts'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
@@ -95,9 +96,14 @@ export default function Header({
 							@{integration.organization.slug}
 						</Text>
 					</div>
-					<Text size={200} className={s.description}>
-						{integration.description}
-					</Text>
+					<TruncateMaxLines
+						maxLines={2}
+						lineHeight="var(--token-typography-body-200-line-height)"
+					>
+						<Text size={200} className={s.description}>
+							{integration.description}
+						</Text>
+					</TruncateMaxLines>
 				</div>
 			</div>
 			<div className={s.lower}>
