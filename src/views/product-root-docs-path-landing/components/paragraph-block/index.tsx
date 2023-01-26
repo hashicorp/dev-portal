@@ -1,6 +1,10 @@
-import { MDXRemote } from 'next-mdx-remote'
-import { MdxA, MdxP } from 'components/dev-dot-content/mdx-components'
+import DevDotContent from 'components/dev-dot-content'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
-export function ParagraphBlock(props) {
-	return <MDXRemote {...props.mdxSource} components={{ a: MdxA, p: MdxP }} />
+interface ParagraphBlockProps {
+	mdxSource: MDXRemoteSerializeResult
+}
+
+export function ParagraphBlock({ mdxSource }: ParagraphBlockProps) {
+	return <DevDotContent mdxRemoteProps={{ ...mdxSource }} />
 }
