@@ -48,9 +48,10 @@
 	composes: g-focus-ring-from-box-shadow from global;
 	appearance: none;
 	background-color: transparent;
-	border: none;
+	border: var(--token-form-control-border-width) solid
+		var(--token-form-control-base-border-color-default);
 	border-radius: 5px;
-	box-shadow: var(--token-surface-inset-box-shadow);
+	box-shadow: var(--token-elevation-inset-box-shadow);
 	color: var(--token-color-palette-neutral-700);
 	font-size: 16px;
 	line-height: 18px;
@@ -68,5 +69,6 @@
 
 	&:hover {
 		cursor: text;
+		border-color: var(--token-form-control-base-border-color-hover);
 	}
 }
