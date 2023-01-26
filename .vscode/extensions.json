@@ -4,6 +4,10 @@
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
 		"stylelint.vscode-stylelint",
-		"vunguyentuan.vscode-css-variables"
+		// Enable go-to-definition for CSS Variables
+		"vunguyentuan.vscode-css-variables",
+		// Enable go-to-definiation for @imports in .css
+		// - supports node_modules ("~@hashicorp") and relative paths ("../components")
+		"pucelle.vscode-css-navigation"
 	]
 }
