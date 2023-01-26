@@ -46,6 +46,8 @@
 	border-radius: 5px;
 	box-shadow: var(--token-elevation-inset-box-shadow);
 	color: var(--token-color-palette-neutral-700);
+	font-size: 16px; /* Override body-200 for minimum input font-size */
+	line-height: 1.25; /* Works out to 20px, for consistency with design */
 	padding-bottom: calc(
 		var(--input-padding) - var(--token-form-control-border-width)
 	);
