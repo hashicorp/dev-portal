@@ -23,6 +23,7 @@ import {
 	formatIntegrationOrg,
 	integrationBreadcrumbLinks,
 	integrationVersionBreadcrumbLinks,
+	unformatIntegrationOrg,
 } from 'lib/integrations'
 import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
 
@@ -138,8 +139,8 @@ async function getStaticProps({
 	 * include the organizationSlug when we `fetchIntegration`. If we did that,
 	 * we would likely no longer need this check.
 	 */
-	const formattedOrgSlug = formatIntegrationOrg(integration.organization.slug)
-	if (formattedOrgSlug !== formattedOrgParam) {
+	const orgSlugFromParam = unformatIntegrationOrg(formattedOrgParam)
+	if (integration.organization.slug !== orgSlugFromParam) {
 		return {
 			notFound: true,
 		}

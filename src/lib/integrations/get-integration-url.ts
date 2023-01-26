@@ -41,9 +41,19 @@ export function getIntegrationComponentUrl(
 
 /**
  * Get a formatted integration organization slug.
+ *
  * This is really just prefixing with "@", but feels worth it to have a helper
  * function for reassurance (especially in case this changes in the future).
  */
 export function formatIntegrationOrg(rawOrganizationSlug: string) {
 	return `@${rawOrganizationSlug}`
+}
+
+/**
+ * Derive an integration org slug from a formatted integration org slug.
+ *
+ * This is the inverse of `formatIntegrationOrg`.
+ */
+export function unformatIntegrationOrg(formattedOrgSlug: string) {
+	return formattedOrgSlug.substring(1)
 }
