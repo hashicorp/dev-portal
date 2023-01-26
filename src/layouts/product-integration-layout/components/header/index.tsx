@@ -62,7 +62,7 @@ export default function Header({
 	console.log({ integration })
 
 	return (
-		<Card>
+		<Card elevation="base">
 			<div>
 				{showVersions ? (
 					<DropdownDisclosure
@@ -84,6 +84,7 @@ export default function Header({
 				) : null}
 			</div>
 			<IconTileLogo
+				size="large"
 				productSlug={productSlug !== 'sentinel' ? productSlug : null}
 			/>
 			<div>
