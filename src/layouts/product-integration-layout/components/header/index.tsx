@@ -1,5 +1,3 @@
-import { IconPlus16 } from '@hashicorp/flight-icons/svg-react/plus-16'
-import classNames from 'classnames'
 import Button from 'components/button'
 import Heading from 'components/heading'
 import Text from 'components/text'
@@ -10,7 +8,7 @@ import DropdownDisclosure, {
 import IconTileLogo from 'components/icon-tile-logo'
 import Badge from 'components/badge'
 import Tooltip from 'components/tooltip'
-import { Flag, Integration } from 'lib/integrations-api-client/integration'
+import { Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
 import {
 	GetIntegrationTags,
@@ -54,9 +52,10 @@ export default function Header({
 	)
 
 	// If this integration can be installed
-	const shouldShowInstallButton = !integration.flags
-		.map((f: Flag) => f.slug)
-		.includes('builtin')
+	// const shouldShowInstallButton = !integration.flags
+	// 	.map((f: Flag) => f.slug)
+	// 	.includes('builtin')
+	const shouldShowInstallButton = true
 
 	const tags = GetIntegrationTags(integration, true)
 
@@ -113,8 +112,9 @@ export default function Header({
 				))}
 				{shouldShowInstallButton && (
 					<Button
+						size="small"
+						className={s.installButton}
 						text="Install"
-						icon={<IconPlus16 />}
 						onClick={(e) => {
 							e.preventDefault()
 							onInstallClicked()
