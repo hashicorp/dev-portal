@@ -1,5 +1,9 @@
-.header {
-	outline: 1px solid pink;
+.iconTile {
+	display: none;
+
+	@media (--dev-dot-tablet-up) {
+		display: block;
+	}
 }
 
 .title {

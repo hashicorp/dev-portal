@@ -84,6 +84,7 @@ export default function Header({
 				) : null}
 			</div>
 			<IconTileLogo
+				className={s.iconTile}
 				size="large"
 				productSlug={productSlug !== 'sentinel' ? productSlug : null}
 			/>
