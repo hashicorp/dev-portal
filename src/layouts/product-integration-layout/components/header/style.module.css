@@ -70,7 +70,22 @@
 }
 
 .versionSelector {
-	flex-shrink: 0;
+	width: 100%;
+
+	/** 
+	* style overrides for one-off mobile behavior
+	* TODO - consider supporting this within `DropdownDisclosure`
+	**/
+	& button {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	@media (--dev-dot-tablet-up) {
+		flex-shrink: 0;
+		width: auto;
+	}
 }
 
 .tagList {
