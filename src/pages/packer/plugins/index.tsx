@@ -4,6 +4,7 @@ import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-ro
 import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import { isDeployPreview } from 'lib/env-checks'
+import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 
 /**
  * Path relative to the `website` directory of the Packer GitHub repo.
@@ -44,16 +45,13 @@ async function getStaticProps(ctx) {
 		// Partial nav data is provided from base getStaticProps, in menuItems
 		const baseMenuItems =
 			staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems
-		// Remove the authored title element and "Overview" link, these
-		// would be redundant with the styled overview item that we add.
-		const partialNavData = [baseMenuItems[0], ...baseMenuItems.slice(3)]
 
-		let rawNavData = partialNavData
+		let rawNavData = baseMenuItems
 		if (!isDeployPreview() || isDeployPreview('packer')) {
 			// Fetch and merge in remote plugins nav data with the partialNavData
 			rawNavData = await appendRemotePluginsNavData(
 				remotePluginsFile,
-				partialNavData,
+				baseMenuItems,
 				'',
 				contentBranch
 			)
@@ -66,9 +64,7 @@ async function getStaticProps(ctx) {
 		})
 
 		// Replace our original navData with our prepared navData
-		staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems = [
-			...navData,
-		]
+		staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems = navData
 
 		// Long-form content pages use a narrower main area width
 		staticProps.props.layoutProps.mainWidth = 'narrow'

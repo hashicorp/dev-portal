@@ -13,6 +13,7 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 import { ProductData, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { isDeployPreview } from 'lib/env-checks'
+import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
@@ -25,25 +26,13 @@ import {
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { SidebarProps } from 'components/sidebar'
-import { EnrichedNavItem, MenuItem } from 'components/sidebar/types'
+import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
 import { withTiming } from 'lib/with-timing'
-
-/**
- * Determine whether a `menuItem` is an "overview" item.
- */
-function isOverviewItem(item: MenuItem) {
-	const isPathMatch =
-		item.path === '' ||
-		item.path === '/' ||
-		item.path === '/index' ||
-		item.path === 'index'
-	return isPathMatch
-}
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -292,35 +281,29 @@ export function getStaticGenerationFunctions<
 			const docsBasePathFullPath = versionPathPart
 				? `/${product.slug}/${basePath}/${versionPathPart}`
 				: `/${product.slug}/${basePath}`
+			/**
+			 * Build menuItems from navData, with a branded "Overview" item
+			 *
+			 * TODO: would be great to fix up related types here at some point.
+			 * task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+			 */
+			const menuItems = addBrandedOverviewSidebarItem(
+				navDataWithFullPaths,
+				docsSidebarTitle,
+				docsBasePathFullPath,
+				product.slug
+			) as unknown as EnrichedNavItem[]
 			const docsSidebarLevel: SidebarProps = {
 				backToLinkProps: getBackToLink(currentRootDocsPath, product),
 				levelButtonProps: {
 					levelUpButtonText: `${product.name} Home`,
 				},
-				menuItems: navDataWithFullPaths as EnrichedNavItem[],
+				menuItems,
 				title: docsSidebarTitle,
 				/* We always visually hide the title, as we've added in a
 				   "highlight" item that would make showing the title redundant. */
 				visuallyHideTitle: true,
 			}
-
-			/**
-			 * We always include a brand-themed "highlight" item,
-			 * which serves as a menu item representing the top-level docs category.
-			 *
-			 * If the first item in docsSidebarLevel.menuItems is an "Overview" item,
-			 * then we remove it, as it would be redundant with the "highlight" item
-			 * we're adding.
-			 */
-			if (isOverviewItem(docsSidebarLevel.menuItems[0])) {
-				docsSidebarLevel.menuItems.shift()
-			}
-			docsSidebarLevel.menuItems.unshift({
-				title: docsSidebarTitle,
-				fullPath: docsBasePathFullPath,
-				theme: product.slug, // this makes this a "highlighted" themed item
-				// TODO: would be great to fix up Menu Item types at some point.
-			} as unknown as EnrichedNavItem)
 
 			/**
 			 * Assembles all levels of sidebar nav data for `DocsView`.

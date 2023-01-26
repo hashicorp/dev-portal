@@ -12,6 +12,8 @@ import {
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 import { isDeployPreview } from 'lib/env-checks'
+import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
+import { EnrichedNavItem } from 'components/sidebar/types'
 
 const basePath = 'plugins'
 const baseName = 'Plugins'
@@ -104,16 +106,12 @@ export async function getStaticProps({ params, ...ctx }) {
 			levelButtonProps: {
 				levelUpButtonText: `${productData.name} Home`,
 			},
-			menuItems: [
-				{
-					title: 'Plugins',
-					fullPath: `/${productData.slug}/plugins`,
-					theme: productData.slug,
-				},
-				// Remove the authored title element and "Overview" link, these
-				// would be redundant with the styled overview item that we add.
-				...navData.slice(2),
-			],
+			menuItems: addBrandedOverviewSidebarItem(
+				navData,
+				'Plugins',
+				`/${productData.slug}/plugins`,
+				productData.slug
+			),
 			title: baseName,
 			visuallyHideTitle: true,
 		},

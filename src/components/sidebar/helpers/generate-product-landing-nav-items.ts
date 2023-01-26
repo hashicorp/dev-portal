@@ -1,3 +1,4 @@
+import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
 import { ProductData, RootDocsPath } from 'types/products'
 import { EnrichedNavItem, MenuItem, SidebarProps } from '../types'
@@ -37,11 +38,6 @@ export const generateProductLandingSidebarMenuItems = (
 	}
 
 	const menuItems = [
-		{
-			title: product.name,
-			fullPath: `/${product.slug}`,
-			theme: product.slug, // this will be a "highlighted" themed item
-		},
 		...docsItems,
 		{
 			title: 'Tutorials',
@@ -86,9 +82,20 @@ export const generateProductLandingSidebarNavData = (
 
 	return {
 		levelButtonProps,
-		menuItems,
+		/**
+		 * TODO: fix up MenuItem related types.
+		 * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+		 */
+		menuItems: addBrandedOverviewSidebarItem(
+			menuItems,
+			title,
+			`/${product.slug}`,
+			product.slug
+		) as unknown as EnrichedNavItem[],
 		showFilterInput,
 		title,
+		/* We always visually hide the title, as we've added in a
+			"highlight" item that would make showing the title redundant. */
 		visuallyHideTitle: true,
 	}
 }
