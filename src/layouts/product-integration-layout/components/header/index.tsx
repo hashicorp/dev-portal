@@ -71,6 +71,7 @@ export default function Header({
 			<div className={s.upper}>
 				{showVersions ? (
 					<DropdownDisclosure
+						className={s.versionSelector}
 						color="secondary"
 						text={versionString(activeRelease.version, integration.versions)}
 					>

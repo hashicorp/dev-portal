@@ -69,6 +69,10 @@
 	color: var(--token-color-foreground-primary);
 }
 
+.versionSelector {
+	flex-shrink: 0;
+}
+
 .tagList {
 	list-style: none;
 	margin: 0;
