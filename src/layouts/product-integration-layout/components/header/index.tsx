@@ -100,17 +100,20 @@ export default function Header({
 				</Text>
 			</div>
 			<div className={s.lower}>
-				{tags.map((tag: Tag) => (
-					<Tooltip key={tag.name} label={tag.description}>
-						<Badge
-							className={s.tag}
-							icon={tag.icon as React.ReactElement}
-							text={tag.name}
-							type="outlined"
-							size="medium"
-						/>
-					</Tooltip>
-				))}
+				<ul className={s.tagList}>
+					{tags.map((tag: Tag) => (
+						<li key={tag.name} className={s.tag}>
+							<Tooltip label={tag.description}>
+								<Badge
+									icon={tag.icon as React.ReactElement}
+									text={tag.name}
+									type="outlined"
+									size="medium"
+								/>
+							</Tooltip>
+						</li>
+					))}
+				</ul>
 				{shouldShowInstallButton && (
 					<Button
 						size="small"
