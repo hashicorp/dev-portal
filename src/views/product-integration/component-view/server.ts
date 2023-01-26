@@ -39,6 +39,7 @@ type PathParams = {
 	productSlug: ProductSlug
 	integrationSlug: string
 	integrationVersion: string
+	organizationSlug: string
 	componentSlug: string
 }
 
@@ -65,6 +66,7 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 					productSlug: i.product.slug,
 					integrationSlug: i.slug,
 					integrationVersion: 'latest', // only statically render latest
+					organizationSlug: i.organization.slug,
 					componentSlug: component.slug,
 				}
 			})
@@ -78,7 +80,13 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
  * Get static props for the "component" view of a specific product integration.
  */
 async function getStaticProps({
-	params: { productSlug, integrationSlug, integrationVersion, componentSlug },
+	params: {
+		productSlug,
+		integrationSlug,
+		organizationSlug,
+		integrationVersion,
+		componentSlug,
+	},
 }: GetStaticPropsContext<PathParams>): Promise<
 	GetStaticPropsResult<
 		ProductIntegrationComponentViewProps & { metadata: HeadMetadataProps }
@@ -92,9 +100,14 @@ async function getStaticProps({
 			notFound: true,
 		}
 	}
-	// Fetch the Integration
+	/**
+	 * Fetch the Integration
+	 *
+	 * TODO: this should really include the organizationSlug for specificity.
+	 * But, that doesn't seem to be necessary yet.
+	 */
 	const integrationResponse = await fetchIntegration(
-		productData.slug,
+		productSlug,
 		integrationSlug
 	)
 	if (integrationResponse.meta.status_code != 200) {
@@ -103,6 +116,19 @@ async function getStaticProps({
 	}
 	const integration = integrationResponse.result
 
+	/**
+	 * If the integration organizationSlug doesn't match the requested URL,
+	 * return a 404.
+	 *
+	 * TODO: as mentioned above, we should likely instead
+	 * include the organizationSlug when we `fetchIntegration`. If we did that,
+	 * we would likely no longer need this check.
+	 */
+	if (organizationSlug !== integration.organization.slug) {
+		return {
+			notFound: true,
+		}
+	}
 	// If the integration is external only, we shouldn't render this page
 	if (integration.external_only) {
 		return {
