@@ -109,7 +109,7 @@ export default function Header({
 									icon={tag.icon as React.ReactElement}
 									text={tag.name}
 									type="outlined"
-									size="medium"
+									size="small"
 								/>
 							</Tooltip>
 						</li>
