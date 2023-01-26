@@ -4,7 +4,7 @@ import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import Button from 'components/button'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
-import { getIntegrationUrl } from 'lib/integrations'
+import { formatIntegrationOrg, getIntegrationUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import TagList, { GetIntegrationTags } from '../tag-list'
 import s from './style.module.css'
@@ -55,9 +55,9 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 								<span className={s.version}>v{integration.versions[0]}</span>
 							)}
 						</div>
-						<span
-							className={s.organization}
-						>{`@${integration.organization.slug}`}</span>
+						<span className={s.organization}>
+							{formatIntegrationOrg(integration.organization.slug)}
+						</span>
 					</div>
 					<p className={s.body}>{integration.description}</p>
 				</div>
