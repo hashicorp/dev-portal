@@ -504,6 +504,7 @@ function FilterBar({ filterQuery, onChange }) {
 			<IconSearch16 />
 			{/* TODO: consider <FilterInput/> */}
 			<input
+				className={s.filterBarInput}
 				type="text"
 				placeholder="Filter integrations"
 				value={filterQuery}
