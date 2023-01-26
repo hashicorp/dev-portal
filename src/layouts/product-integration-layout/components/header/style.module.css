@@ -50,8 +50,6 @@
 
 	@media (--dev-dot-tablet-up) {
 		margin-top: 0;
-		white-space: nowrap;
-		overflow: hidden;
 		flex-wrap: unset;
 	}
 }

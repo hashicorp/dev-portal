@@ -89,9 +89,20 @@ export default function Header({
 				) : null}
 				<div className={s.titleDescriptionWrap}>
 					<div className={s.titleWrap}>
-						<Heading size={300} weight="bold" level={1} className={s.titleName}>
-							{integration.name}
-						</Heading>
+						<TruncateMaxLines
+							maxLines={isDesktop ? 1 : 2}
+							lineHeight="var(--token-typography-body-300-line-height)"
+						>
+							<Heading
+								size={300}
+								weight="bold"
+								level={1}
+								className={s.titleName}
+							>
+								{integration.name}
+							</Heading>
+						</TruncateMaxLines>
+
 						<Text size={100} weight="medium" className={s.titleOrganization}>
 							@{integration.organization.slug}
 						</Text>
