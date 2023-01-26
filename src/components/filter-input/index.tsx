@@ -56,7 +56,7 @@ const FilterInput = ({
 					className={s.clearButton}
 					onClick={handleClear}
 				>
-					<IconX16 className={s.clearIcon} />
+					<IconX16 />
 				</button>
 			)}
 		</div>

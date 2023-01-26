@@ -1,11 +1,5 @@
 /* TODO: abstract shared input styles when there are more input components */
 
-.sharedFlexCentering {
-	align-items: center;
-	display: flex;
-	justify-content: center;
-}
-
 .sharedIconColorAndPositioning {
 	color: var(--token-color-palette-neutral-500);
 	position: absolute;
@@ -18,15 +12,17 @@
 	height: var(--input-height);
 	margin-bottom: 16px;
 	position: relative;
+	display: flex;
+	align-items: center;
 }
 
 .filterIcon {
-	composes: sharedFlexCentering sharedIconColorAndPositioning;
+	composes: sharedIconColorAndPositioning;
 	left: var(--input-padding);
 }
 
 .clearButton {
-	composes: sharedFlexCentering sharedIconColorAndPositioning;
+	composes: sharedIconColorAndPositioning;
 	background-color: transparent;
 	border: none;
 	display: flex;
@@ -40,12 +36,9 @@
 	}
 }
 
-.clearIcon {
-	composes: sharedFlexCentering;
-}
-
 .filterInput {
 	composes: g-focus-ring-from-box-shadow from global;
+	composes: hds-typography-body-200 from global;
 	appearance: none;
 	background-color: transparent;
 	border: var(--token-form-control-border-width) solid
@@ -53,12 +46,14 @@
 	border-radius: 5px;
 	box-shadow: var(--token-elevation-inset-box-shadow);
 	color: var(--token-color-palette-neutral-700);
-	font-size: 16px;
-	line-height: 18px;
-	padding-bottom: 9px;
+	padding-bottom: calc(
+		var(--input-padding) - var(--token-form-control-border-width)
+	);
 	padding-left: calc(var(--input-padding) * 2 + var(--input-icon-size));
 	padding-right: calc(var(--input-padding) * 2 + var(--input-icon-size));
-	padding-top: 9px;
+	padding-top: calc(
+		var(--input-padding) - var(--token-form-control-border-width)
+	);
 	position: relative;
 	width: 100%;
 
