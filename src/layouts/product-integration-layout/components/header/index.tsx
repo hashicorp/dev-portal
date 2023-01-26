@@ -5,7 +5,6 @@ import Card from 'components/card'
 import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 } from 'components/dropdown-disclosure'
-import { formatIntegrationOrg } from 'lib/integrations'
 import { Flag, Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
 import TagList, {
@@ -55,7 +54,7 @@ export default function Header({
 			<div className={s.upperCard}>
 				<div className={s.left}>
 					<h1>{integration.name}</h1>
-					<span>{formatIntegrationOrg(integration.organization.slug)}</span>
+					<span>@{integration.organization.slug}</span>
 				</div>
 				<div className={s.right}>
 					{showVersions ? (

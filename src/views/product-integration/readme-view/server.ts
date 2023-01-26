@@ -20,7 +20,6 @@ import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
 import { ProductIntegrationReadmeViewProps } from '.'
 import {
 	fetchAllIntegrations,
-	formatIntegrationOrg,
 	integrationBreadcrumbLinks,
 	integrationVersionBreadcrumbLinks,
 } from 'lib/integrations'
@@ -79,7 +78,7 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 		.map((i: Integration) => ({
 			productSlug: i.product.slug,
 			integrationSlug: i.slug,
-			organizationSlug: formatIntegrationOrg(i.organization.slug),
+			organizationSlug: i.organization.slug,
 		}))
 		.flat()
 		.map((params: PathParams) => ({ params }))

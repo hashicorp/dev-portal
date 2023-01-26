@@ -14,8 +14,7 @@ export function getIntegrationUrl(
 	if (external_only) {
 		return external_url.replace(/^https:\/\/developer.hashicorp.com/, '')
 	} else {
-		const formattedOrg = formatIntegrationOrg(organization.slug)
-		const baseUrl = `/${product.slug}/integrations/${formattedOrg}/${slug}`
+		const baseUrl = `/${product.slug}/integrations/${organization.slug}/${slug}`
 		return version ? `${baseUrl}/${version}` : baseUrl
 	}
 }
@@ -37,13 +36,4 @@ export function getIntegrationComponentUrl(
 ): string {
 	const integrationUrl = getIntegrationUrl(integration, version)
 	return `${integrationUrl}/components/${releaseComponent.component.slug}`
-}
-
-/**
- * Get a formatted integration organization slug.
- * This is really just prefixing with "@", but feels worth it to have a helper
- * function for reassurance (especially in case this changes in the future).
- */
-export function formatIntegrationOrg(rawOrganizationSlug: string) {
-	return `@${rawOrganizationSlug}`
 }
