@@ -1,7 +1,6 @@
 // Third-party imports
 import { Fragment, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
-import { MDXRemote } from 'next-mdx-remote'
 
 // Global imports
 import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
@@ -9,7 +8,7 @@ import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
 import { useMobileMenu } from 'contexts'
 import InstruqtProvider from 'contexts/instruqt-lab'
-import { ProductOption, TutorialLite } from 'lib/learn-client/types'
+import { TutorialLite } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	CollectionCategorySidebarSection,
@@ -281,9 +280,9 @@ function TutorialView({
 								})}
 							/>
 						)}
-						<DevDotContent>
-							<MDXRemote {...content} components={MDX_COMPONENTS} />
-						</DevDotContent>
+						<DevDotContent
+							mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+						/>
 						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
 						<FeedbackPanel />
 						<NextPrevious {...nextPreviousData} />

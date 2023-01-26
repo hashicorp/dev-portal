@@ -1,6 +1,22 @@
 import { ReactNode } from 'react'
+import { MDXRemote } from 'next-mdx-remote'
 
-export interface DevDotContentProps {
+type MDXRemoteProps = Parameters<typeof MDXRemote>[0]
+
+interface BaseProps {
 	className?: string
-	children: ReactNode
 }
+
+type WithChildrenOrMdxRemoteProps =
+	| {
+			children: ReactNode
+			mdxRemoteProps?: never
+	  }
+	| {
+			children?: never
+			mdxRemoteProps: MDXRemoteProps
+	  }
+
+type DevDotContentProps = BaseProps & WithChildrenOrMdxRemoteProps
+
+export type { DevDotContentProps }
