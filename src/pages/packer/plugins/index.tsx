@@ -4,7 +4,6 @@ import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-ro
 import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import { isDeployPreview } from 'lib/env-checks'
-import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 
 /**
  * Path relative to the `website` directory of the Packer GitHub repo.
@@ -43,15 +42,15 @@ async function getStaticProps(ctx) {
 	 */
 	if ('props' in staticProps) {
 		// Partial nav data is provided from base getStaticProps, in menuItems
-		const baseMenuItems =
+		const partialNavData =
 			staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems
 
-		let rawNavData = baseMenuItems
+		let rawNavData = partialNavData
 		if (!isDeployPreview() || isDeployPreview('packer')) {
 			// Fetch and merge in remote plugins nav data with the partialNavData
 			rawNavData = await appendRemotePluginsNavData(
 				remotePluginsFile,
-				baseMenuItems,
+				partialNavData,
 				'',
 				contentBranch
 			)
