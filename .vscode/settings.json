@@ -2,5 +2,12 @@
 	"eslint.codeActionsOnSave.rules": ["curly"],
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": true
-	}
+	},
+	"cssVariables.lookupFiles": [
+		"**/*.css",
+		"node_modules/@hashicorp/mktg-global-styles/style.css",
+		"node_modules/@hashicorp/design-system-tokens/dist/devdot/css/tokens.css",
+		"node_modules/@hashicorp/design-system-tokens/dist/devdot/css/helpers/elevation.css",
+		"node_modules/@hashicorp/design-system-tokens/dist/devdot/css/helpers/typography.css"
+	]
 }
