@@ -71,4 +71,9 @@
 		cursor: text;
 		border-color: var(--token-form-control-base-border-color-hover);
 	}
+
+	/* Styling for when a non-empty value is entered */
+	&[value]:not([value='']) {
+		border-color: var(--token-color-foreground-faint);
+	}
 }
