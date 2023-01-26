@@ -10,7 +10,7 @@ import Badge from 'components/badge'
 import Tooltip from 'components/tooltip'
 import TruncateMaxLines from 'components/truncate-max-lines'
 import { useDeviceSize } from 'contexts'
-import { Integration } from 'lib/integrations-api-client/integration'
+import { Integration, Flag } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
 import {
 	GetIntegrationTags,
@@ -54,10 +54,9 @@ export default function Header({
 	)
 
 	// If this integration can be installed
-	// const shouldShowInstallButton = !integration.flags
-	// 	.map((f: Flag) => f.slug)
-	// 	.includes('builtin')
-	const shouldShowInstallButton = true
+	const shouldShowInstallButton = !integration.flags
+		.map((f: Flag) => f.slug)
+		.includes('builtin')
 
 	const tags = GetIntegrationTags(integration, true)
 
