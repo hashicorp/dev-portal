@@ -1,4 +1,10 @@
 .root {
+	/* Generic default theme, eg. for HCP and Sentinel */
+	--gradient-start: var(--token-color-palette-neutral-100);
+	--gradient-stop: var(--token-color-palette-neutral-50);
+	--inset-border-color: var(--token-color-palette-neutral-200);
+
+	/* Set up themed property helpers */
 	--inset-border-shadow: inset 0 0 0 1px var(--inset-border-color);
 	--gradient-background: linear-gradient(
 		315deg,

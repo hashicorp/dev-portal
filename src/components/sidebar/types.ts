@@ -104,7 +104,7 @@ interface FilteredLinkNavItem extends EnrichedLinkNavItem {
 type FilteredNavItem = FilteredSubmenuNavItem | FilteredLinkNavItem
 
 export interface NavHighlightItem {
-	theme: ProductSlug
+	theme: ProductSlug | 'generic'
 	title: string
 	fullPath: string
 }

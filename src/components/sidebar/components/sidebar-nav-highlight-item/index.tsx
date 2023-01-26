@@ -1,7 +1,8 @@
 import Link from 'components/link'
 import classNames from 'classnames'
+import { isProductSlug } from 'lib/products'
 import ProductIcon from 'components/product-icon'
-import { ProductSlug } from 'types/products'
+import { NavHighlightItem } from 'components/sidebar/types'
 import s from './sidebar-nav-highlight-item.module.css'
 
 /**
@@ -16,7 +17,7 @@ export default function SidebarNavHighlightItem({
 	href,
 	isActive,
 }: {
-	theme: ProductSlug
+	theme: NavHighlightItem['theme']
 	text: string
 	href: string
 	isActive?: boolean
@@ -27,7 +28,7 @@ export default function SidebarNavHighlightItem({
 			className={classNames(s.root, s[`theme-${theme}`])}
 			href={href}
 		>
-			<ProductIcon productSlug={theme} />
+			{isProductSlug(theme) ? <ProductIcon productSlug={theme} /> : null}
 			<span className={s.text}>{text}</span>
 		</Link>
 	)
