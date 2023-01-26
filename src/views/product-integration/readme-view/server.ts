@@ -32,11 +32,12 @@ import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-sl
 type PathParams = {
 	productSlug: ProductSlug
 	integrationSlug: string
+	organizationSlug: string
 	/**
 	 * Note: the version string is passed for versioned "readme" views,
 	 * but not for the latest "readme" views.
-	 * - Latest URLs: `/<product>/integration/<integrationSlug>`
-	 * - Versioned URLs: `/<product>/integration/<integrationSlug>`
+	 * - Latest URLs: `/<product>/integrations/<orgSlug>/<integrationSlug>`
+	 * - Versioned URLs: `/<product>/integrations/<orgSlug>/<integrationSlug>`
 	 */
 	integrationVersion?: string
 }
@@ -77,6 +78,7 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 		.map((i: Integration) => ({
 			productSlug: i.product.slug,
 			integrationSlug: i.slug,
+			organizationSlug: i.organization.slug,
 		}))
 		.flat()
 		.map((params: PathParams) => ({ params }))
@@ -89,7 +91,12 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
  * Get static props for the "readme" view of a specific product integration.
  */
 async function getStaticProps({
-	params: { productSlug, integrationSlug, integrationVersion },
+	params: {
+		productSlug,
+		integrationSlug,
+		organizationSlug,
+		integrationVersion,
+	},
 }: GetStaticPropsContext<PathParams>): Promise<
 	GetStaticPropsResult<
 		ProductIntegrationReadmeViewProps & { metadata: HeadMetadataProps }
@@ -103,7 +110,12 @@ async function getStaticProps({
 			notFound: true,
 		}
 	}
-	// Fetch the Integration
+	/**
+	 * Fetch the Integration
+	 *
+	 * TODO: this should really include the organizationSlug for specificity.
+	 * But, that doesn't seem to be necessary yet.
+	 */
 	const integrationResponse = await fetchIntegration(
 		productSlug,
 		integrationSlug
@@ -113,6 +125,21 @@ async function getStaticProps({
 		return { notFound: true }
 	}
 	const integration = integrationResponse.result
+
+	/**
+	 * If the integration organizationSlug doesn't match the requested URL,
+	 * return a 404.
+	 *
+	 * TODO: as mentioned above, we should likely instead
+	 * include the organizationSlug when we `fetchIntegration`. If we did that,
+	 * we would likely no longer need this check.
+	 */
+	if (organizationSlug !== integration.organization.slug) {
+		return {
+			notFound: true,
+		}
+	}
+
 	// If the integration is external only, we shouldn't render this page
 	if (integration.external_only) {
 		return {
