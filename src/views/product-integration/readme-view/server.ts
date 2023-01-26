@@ -33,11 +33,7 @@ import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-sl
 type PathParams = {
 	productSlug: ProductSlug
 	integrationSlug: string
-	/**
-	 * Note: the organization slug is formatted with `formatIntegrationOrg`
-	 * before being used as as URL parameter.
-	 */
-	formattedOrgParam: string
+	organizationSlug: string
 	/**
 	 * Note: the version string is passed for versioned "readme" views,
 	 * but not for the latest "readme" views.
@@ -83,7 +79,7 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 		.map((i: Integration) => ({
 			productSlug: i.product.slug,
 			integrationSlug: i.slug,
-			formattedOrgParam: formatIntegrationOrg(i.organization.slug),
+			organizationSlug: formatIntegrationOrg(i.organization.slug),
 		}))
 		.flat()
 		.map((params: PathParams) => ({ params }))
@@ -99,7 +95,7 @@ async function getStaticProps({
 	params: {
 		productSlug,
 		integrationSlug,
-		formattedOrgParam,
+		organizationSlug,
 		integrationVersion,
 	},
 }: GetStaticPropsContext<PathParams>): Promise<
@@ -130,20 +126,6 @@ async function getStaticProps({
 		return { notFound: true }
 	}
 	const integration = integrationResponse.result
-	/**
-	 * If the integration organizationSlug doesn't match the requested URL,
-	 * return a 404.
-	 *
-	 * TODO: as mentioned in readme-view/server.ts, we should likely instead
-	 * include the organizationSlug when we `fetchIntegration`. If we did that,
-	 * we would likely no longer need this check.
-	 */
-	const formattedOrgSlug = formatIntegrationOrg(integration.organization.slug)
-	if (formattedOrgSlug !== formattedOrgParam) {
-		return {
-			notFound: true,
-		}
-	}
 	// If the integration is external only, we shouldn't render this page
 	if (integration.external_only) {
 		return {

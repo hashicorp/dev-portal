@@ -26,7 +26,6 @@ import ProductIntegrationComponentView, {
 } from 'views/product-integration/component-view'
 import {
 	fetchAllIntegrations,
-	formatIntegrationOrg,
 	getIntegrationComponentUrl,
 	integrationComponentBreadcrumbLinks,
 } from 'lib/integrations'
@@ -39,11 +38,6 @@ import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-sl
 type PathParams = {
 	productSlug: ProductSlug
 	integrationSlug: string
-	/**
-	 * Note: the organization slug is formatted with `formatIntegrationOrg`
-	 * before being used as as URL parameter.
-	 */
-	formattedOrgParam: string
 	integrationVersion: string
 	componentSlug: string
 }
@@ -71,7 +65,6 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 					productSlug: i.product.slug,
 					integrationSlug: i.slug,
 					integrationVersion: 'latest', // only statically render latest
-					formattedOrgParam: formatIntegrationOrg(i.organization.slug),
 					componentSlug: component.slug,
 				}
 			})
@@ -85,13 +78,7 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
  * Get static props for the "component" view of a specific product integration.
  */
 async function getStaticProps({
-	params: {
-		productSlug,
-		integrationSlug,
-		formattedOrgParam,
-		integrationVersion,
-		componentSlug,
-	},
+	params: { productSlug, integrationSlug, integrationVersion, componentSlug },
 }: GetStaticPropsContext<PathParams>): Promise<
 	GetStaticPropsResult<
 		ProductIntegrationComponentViewProps & { metadata: HeadMetadataProps }
@@ -115,21 +102,6 @@ async function getStaticProps({
 		return { notFound: true }
 	}
 	const integration = integrationResponse.result
-
-	/**
-	 * If the integration organizationSlug doesn't match the requested URL,
-	 * return a 404.
-	 *
-	 * TODO: as mentioned in readme-view/server.ts, we should likely instead
-	 * include the organizationSlug when we `fetchIntegration`. If we did that,
-	 * we would likely no longer need this check.
-	 */
-	const formattedOrgSlug = formatIntegrationOrg(integration.organization.slug)
-	if (formattedOrgSlug !== formattedOrgParam) {
-		return {
-			notFound: true,
-		}
-	}
 
 	// If the integration is external only, we shouldn't render this page
 	if (integration.external_only) {
