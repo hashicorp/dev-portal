@@ -73,6 +73,11 @@
 	}
 }
 
+.filterBarInput {
+	appearance: none; /* "reset" some user stylesheet styles */
+	font-size: 1rem; /* TODO replace with real value */
+}
+
 .filterButton {
 	margin-top: 12px;
 }
