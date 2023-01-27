@@ -75,7 +75,11 @@ export default function SearchableVariableGroupList({
 					</div>
 				) : null}
 			</div>
-			<p className={s.results}>
+			{/**
+			 * Technique ARIA22: Using role=status to present status messages
+			 * https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA22
+			 */}
+			<p className={s.results} role="status">
 				{numMatches} {numMatches === 1 ? 'Result' : 'Results'}
 			</p>
 			<VariableGroupList variables={matchesWithAncestors} />
