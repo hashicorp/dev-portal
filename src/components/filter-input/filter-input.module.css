@@ -1,11 +1,5 @@
 /* TODO: abstract shared input styles when there are more input components */
 
-.sharedFlexCentering {
-	align-items: center;
-	display: flex;
-	justify-content: center;
-}
-
 .sharedIconColorAndPositioning {
 	color: var(--token-color-palette-neutral-500);
 	position: absolute;
@@ -18,15 +12,17 @@
 	height: var(--input-height);
 	margin-bottom: 16px;
 	position: relative;
+	display: flex;
+	align-items: center;
 }
 
 .filterIcon {
-	composes: sharedFlexCentering sharedIconColorAndPositioning;
+	composes: sharedIconColorAndPositioning;
 	left: var(--input-padding);
 }
 
 .clearButton {
-	composes: sharedFlexCentering sharedIconColorAndPositioning;
+	composes: sharedIconColorAndPositioning;
 	background-color: transparent;
 	border: none;
 	display: flex;
@@ -40,24 +36,26 @@
 	}
 }
 
-.clearIcon {
-	composes: sharedFlexCentering;
-}
-
 .filterInput {
 	composes: g-focus-ring-from-box-shadow from global;
+	composes: hds-typography-body-200 from global;
 	appearance: none;
 	background-color: transparent;
-	border: none;
+	border: var(--token-form-control-border-width) solid
+		var(--token-form-control-base-border-color-default);
 	border-radius: 5px;
-	box-shadow: var(--token-surface-inset-box-shadow);
+	box-shadow: var(--token-elevation-inset-box-shadow);
 	color: var(--token-color-palette-neutral-700);
-	font-size: 16px;
-	line-height: 18px;
-	padding-bottom: 9px;
+	font-size: 16px; /* Override body-200 for minimum input font-size */
+	line-height: 1.25; /* Works out to 20px, for consistency with design */
+	padding-bottom: calc(
+		var(--input-padding) - var(--token-form-control-border-width)
+	);
 	padding-left: calc(var(--input-padding) * 2 + var(--input-icon-size));
 	padding-right: calc(var(--input-padding) * 2 + var(--input-icon-size));
-	padding-top: 9px;
+	padding-top: calc(
+		var(--input-padding) - var(--token-form-control-border-width)
+	);
 	position: relative;
 	width: 100%;
 
@@ -68,5 +66,11 @@
 
 	&:hover {
 		cursor: text;
+		border-color: var(--token-form-control-base-border-color-hover);
+	}
+
+	/* Styling for when a non-empty value is entered */
+	&[value]:not([value='']) {
+		border-color: var(--token-color-foreground-faint);
 	}
 }
