@@ -25,6 +25,19 @@ const getMdxLinksToRewrite = async ({
 
 		const filePathWithoutPrefix = filePath.replace(filePathPrefix, '')
 		const currentPath = filePathWithoutPrefix.replace(/(index)?\.mdx$/, '')
+
+		/**
+		 * Don't rewrite links in files that are at the root of the content
+		 * directory. These files are used for content rendered at the top-level of
+		 * various sites.
+		 *
+		 * Example: https://github.com/hashicorp/cloud.hashicorp.com/blob/f7e1db477f8c2b842c1e8a18047a54297e9b295d/content/roles-responsibilities.mdx?plain=1#L60
+		 */
+		const isAtContentRoot = !currentPath.slice(1).includes('/')
+		if (isAtContentRoot) {
+			return
+		}
+
 		const fileContent = fs.readFileSync(filePath, 'utf-8')
 		const data = {
 			linksToRewrite: {},
