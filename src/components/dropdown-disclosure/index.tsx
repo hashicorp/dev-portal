@@ -9,6 +9,7 @@ import {
 	DropdownDisclosureDescriptionItem,
 	DropdownDisclosureLabelItem,
 	DropdownDisclosureLinkItem,
+	DropdownDisclosureListItem,
 	DropdownDisclosureSeparatorItem,
 } from './components'
 import { DropdownDisclosureProps } from './types'
@@ -101,6 +102,7 @@ export {
 	DropdownDisclosureDescriptionItem,
 	DropdownDisclosureLabelItem,
 	DropdownDisclosureLinkItem,
+	DropdownDisclosureListItem,
 	DropdownDisclosureSeparatorItem,
 }
 export default DropdownDisclosure
