@@ -33,6 +33,7 @@ const DropdownDisclosure = ({
 	'aria-label': ariaLabel,
 	children,
 	className,
+	closeOnRouteChangeStart,
 	color = 'primary',
 	hideChevron = false,
 	icon,
@@ -74,6 +75,7 @@ const DropdownDisclosure = ({
 			closeOnEscapeKey
 			closeOnClickOutside
 			closeOnFocusOutside
+			closeOnRouteChangeStart={closeOnRouteChangeStart}
 			containerClassName={classNames(
 				s.root,
 				s[`list-position--${listPosition}`],
