@@ -1,21 +1,25 @@
-import { IconCheck16 } from '@hashicorp/flight-icons/svg-react/check-16'
+import { useCallback, useState } from 'react'
+import classNames from 'classnames'
+import {
+	NumberParam,
+	StringParam,
+	useQueryParam,
+	withDefault,
+} from 'use-query-params'
 import { IconFilter16 } from '@hashicorp/flight-icons/svg-react/filter-16'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import capitalize from '@hashicorp/platform-util/text/capitalize'
-import classNames from 'classnames'
+import useTypingDebounce from 'lib/hooks/use-typing-debounce'
+import { Integration, Tier } from 'lib/integrations-api-client/integration'
+import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import Button from 'components/button'
 import Dialog from 'components/dialog'
-import DropdownDisclosure, {
-	DropdownDisclosureButtonItem,
-} from 'components/dropdown-disclosure'
 import Legend from 'components/form/components/legend'
 import { CheckboxField } from 'components/form/field-controls'
 import Tag from 'components/tag'
-import useTypingDebounce from 'lib/hooks/use-typing-debounce'
-import { Integration, Tier } from 'lib/integrations-api-client/integration'
-import { useCallback, useState } from 'react'
-import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
+import FilterInput from 'components/filter-input'
+import MultiSelect from 'components/multi-select'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
 import {
 	integrationLibraryFilterSelectedEvent,
@@ -26,14 +30,6 @@ import s from './style.module.css'
 interface SearchableIntegrationsListProps {
 	className: string
 }
-
-import {
-	NumberParam,
-	StringParam,
-	useQueryParam,
-	withDefault,
-} from 'use-query-params'
-import FilterInput from 'components/filter-input'
 
 export default function SearchableIntegrationsList({
 	className,
@@ -215,60 +211,47 @@ export default function SearchableIntegrationsList({
 				<div className={s.filterOptions}>
 					{/* tablet_up */}
 					<div className={classNames(s.selectStack, s.tablet_up)}>
-						<DropdownDisclosure color="secondary" text="Tiers">
-							{tierOptions.map((e) => {
-								const checked =
-									(e === Tier.OFFICIAL && officialChecked) ||
-									(e === Tier.PARTNER && partnerChecked) ||
-									(e === Tier.COMMUNITY && communityChecked)
-								return (
-									<DropdownDisclosureButtonItem
-										key={e}
-										onClick={makeToggleTierHandler(e)}
-									>
-										<div className={s.option}>
-											<span className={s.check}>
-												{checked && <IconCheck16 />}
-											</span>
-											{capitalize(e)}
-										</div>
-									</DropdownDisclosureButtonItem>
-								)
+						<MultiSelect
+							text="Tiers"
+							options={tierOptions.map((tierOption) => {
+								const selected =
+									(tierOption === Tier.OFFICIAL && officialChecked) ||
+									(tierOption === Tier.PARTNER && partnerChecked) ||
+									(tierOption === Tier.COMMUNITY && communityChecked)
+								return {
+									id: tierOption,
+									label: capitalize(tierOption),
+									onChange: makeToggleTierHandler(tierOption),
+									selected,
+								}
 							})}
-						</DropdownDisclosure>
-						<DropdownDisclosure color="secondary" text="Components">
-							{sortedComponents.map((e, i) => (
-								<DropdownDisclosureButtonItem
-									key={e.id}
-									onClick={makeToggleComponentHandler(i, e.name)}
-								>
-									<div className={s.option}>
-										<span className={s.check}>
-											{componentCheckedArray[i] && <IconCheck16 />}
-										</span>
-										{capitalize(e.plural_name)}
-									</div>
-								</DropdownDisclosureButtonItem>
-							))}
-						</DropdownDisclosure>
-
-						<DropdownDisclosure color="secondary" text="Flags">
-							{flags.map((e, i) => {
-								return (
-									<DropdownDisclosureButtonItem
-										onClick={makeToggleFlagHandler(i, e.name)}
-										key={e.id}
-									>
-										<div className={s.option}>
-											<span className={s.check}>
-												{flagsCheckedArray[i] && <IconCheck16 />}
-											</span>
-											{e.name}
-										</div>
-									</DropdownDisclosureButtonItem>
-								)
+						/>
+						<MultiSelect
+							text="Components"
+							options={sortedComponents.map(
+								({ slug, plural_name, name }, i) => {
+									const selected = componentCheckedArray[i]
+									return {
+										id: slug,
+										label: capitalize(plural_name),
+										onChange: makeToggleComponentHandler(i, name),
+										selected,
+									}
+								}
+							)}
+						/>
+						<MultiSelect
+							text="Flags"
+							options={flags.map(({ id, name }, i) => {
+								const selected = flagsCheckedArray[i]
+								return {
+									id,
+									label: name,
+									onChange: makeToggleFlagHandler(i, name),
+									selected,
+								}
 							})}
-						</DropdownDisclosure>
+						/>
 					</div>
 					{/**
 					 * Technique ARIA22: Using role=status to present status messages
