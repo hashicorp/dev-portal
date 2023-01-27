@@ -20,6 +20,7 @@ import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
 import { ProductIntegrationReadmeViewProps } from '.'
 import {
 	fetchAllIntegrations,
+	getTargetVersion,
 	integrationBreadcrumbLinks,
 	integrationVersionBreadcrumbLinks,
 } from 'lib/integrations'
@@ -145,12 +146,11 @@ async function getStaticProps({
 			notFound: true,
 		}
 	}
-	// Fetch the Latest Release
-	const isLatest = !integrationVersion || integrationVersion === 'latest'
-	// The route versions are formatted as v0.x.x, so we remove the leading 'v' for the api call
-	const formattedVersion = integrationVersion?.replace(/^v/, '')
-	const targetVersion = isLatest ? integration.versions[0] : formattedVersion
-
+	const [targetVersion, isLatest] = getTargetVersion(
+		integrationVersion,
+		integration.versions[0]
+	)
+	// Fetch the Release
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		productData.slug,
 		integrationSlug,

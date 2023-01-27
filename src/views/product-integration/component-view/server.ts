@@ -27,6 +27,7 @@ import ProductIntegrationComponentView, {
 import {
 	fetchAllIntegrations,
 	getIntegrationComponentUrl,
+	getTargetVersion,
 	integrationComponentBreadcrumbLinks,
 } from 'lib/integrations'
 import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
@@ -136,10 +137,10 @@ async function getStaticProps({
 		}
 	}
 
-	// The route versions are formatted as v0.x.x, so we remove the leading 'v' for the api call
-	const formattedVersion = integrationVersion?.replace(/^v/, '')
-	const targetVersion =
-		integrationVersion === 'latest' ? integration.versions[0] : formattedVersion
+	const [targetVersion] = getTargetVersion(
+		integrationVersion,
+		integration.versions[0]
+	)
 	// Fetch the Release
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		productData.slug,
