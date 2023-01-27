@@ -4,8 +4,8 @@
  */
 
 export function getTargetVersion({
-	versionSlug,
 	latestVersion,
+	versionSlug,
 }: {
 	latestVersion: string
 	versionSlug?: string
