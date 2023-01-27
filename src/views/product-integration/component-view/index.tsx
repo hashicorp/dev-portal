@@ -1,5 +1,5 @@
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
-import Tabs, { Tab } from 'components/tabs'
+import { MdxH2 } from 'components/dev-dot-content/mdx-components'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import { getIntegrationComponentUrl } from 'lib/integrations'
@@ -59,34 +59,29 @@ export default function ProductIntegrationComponentView({
 			)}
 			{component.variable_groups.length ? (
 				<div className={s.variableGroups}>
-					<Tabs variant="compact">
-						{component.variable_groups.map((variableGroup: VariableGroup) => {
-							return (
-								<Tab
-									key={variableGroup.id}
-									heading={variableGroup.variable_group_config.name}
-								>
-									<SearchableVariableGroupList
-										groupName={variableGroup.variable_group_config.name}
-										variables={variableGroup.variables.map(
-											(variable: ApiVariable): Variable => {
-												return {
-													key: variable.key,
-													type: variable.type,
-													description: variable.description,
-													required: variable.required,
-												}
+					{component.variable_groups.map((variableGroup: VariableGroup) => {
+						return (
+							<div key={variableGroup.id}>
+								{/* Note: using MDX heading here to match adjacent content */}
+								<MdxH2>{variableGroup.variable_group_config.name}</MdxH2>
+								<SearchableVariableGroupList
+									groupName={variableGroup.variable_group_config.name}
+									variables={variableGroup.variables.map(
+										(variable: ApiVariable): Variable => {
+											return {
+												key: variable.key,
+												type: variable.type,
+												description: variable.description,
+												required: variable.required,
 											}
-										)}
-									/>
-								</Tab>
-							)
-						})}
-					</Tabs>
+										}
+									)}
+								/>
+							</div>
+						)
+					})}
 				</div>
-			) : (
-				<></>
-			)}
+			) : null}
 		</ProductIntegrationLayout>
 	)
 }
