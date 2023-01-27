@@ -61,6 +61,7 @@ const Disclosure = ({
 	closeOnClickOutside = false,
 	closeOnEscapeKey = false,
 	closeOnFocusOutside = false,
+	closeOnRouteChangeStart = true,
 	containerClassName,
 	initialOpen = false,
 }: DisclosureProps) => {
@@ -106,8 +107,11 @@ const Disclosure = ({
 		activatorButton.focus()
 	}, [closeDisclosure, contentContainerId])
 
-	// if the disclosure is open, handle closing it on `routeChangeStart`
-	useOnRouteChangeStart({ handler: closeDisclosure, shouldListen: isOpen })
+	// if enabled, close the disclosure on next/router's `routeChangeStart`
+	useOnRouteChangeStart({
+		handler: closeDisclosure,
+		shouldListen: closeOnRouteChangeStart && isOpen,
+	})
 
 	// if enabled, close the disclosure on click outside
 	useOnClickOutside(
