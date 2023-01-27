@@ -15,5 +15,5 @@ export function getVariableSlug(
 	groupName: string,
 	variableKey: string
 ): string {
-	return `${getVariableGroupSlug(groupName)}.${variableKey}`.replace(/\./g, '-')
+	return `${getVariableGroupSlug(groupName)}.${variableKey}`
 }
