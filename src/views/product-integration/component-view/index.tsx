@@ -1,4 +1,3 @@
-import slugify from 'slugify'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { MdxHeadingOutsideMdx } from './components/mdx-heading-outside-mdx'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
@@ -18,6 +17,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
 import SearchableVariableGroupList from './components/searchable-variable-group-list'
 import { Variable } from './components/variable-group-list'
+import { getVariableGroupSlug } from './helpers'
 import s from './style.module.css'
 
 export interface ProductIntegrationComponentViewProps {
@@ -44,9 +44,9 @@ export default function ProductIntegrationComponentView({
 	 */
 	const variableGroupHeadings: TableOfContentsHeading[] = variable_groups.map(
 		(variableGroup: VariableGroup) => {
-			const title = variableGroup.variable_group_config.name
-			const slug = slugify(title, { lower: true })
-			return { title: title, slug: slug, level: 2 }
+			const groupName = variableGroup.variable_group_config.name
+			const slug = getVariableGroupSlug(groupName)
+			return { title: groupName, slug, level: 2 }
 		}
 	)
 

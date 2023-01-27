@@ -80,7 +80,10 @@ export default function SearchableVariableGroupList({
 			<p className={s.results}>
 				{numMatches} {numMatches === 1 ? 'Result' : 'Results'}
 			</p>
-			<VariableGroupList variables={matchesWithAncestors} />
+			<VariableGroupList
+				groupName={groupName}
+				variables={matchesWithAncestors}
+			/>
 		</div>
 	)
 }
