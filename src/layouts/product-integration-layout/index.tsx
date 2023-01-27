@@ -13,7 +13,7 @@ import {
 	getIntegrationComponentUrl,
 	getIntegrationUrl,
 } from 'lib/integrations'
-import { ProductData } from 'types/products'
+import { ProductData, ProductSlug } from 'types/products'
 import Header from './components/header'
 import s from './style.module.css'
 
@@ -117,6 +117,7 @@ export default function ProductIntegrationLayout({
 				</HashiHead>
 			)}
 			<Header
+				productSlug={currentProduct.slug}
 				className={s.header}
 				integration={integration}
 				activeRelease={activeRelease}
