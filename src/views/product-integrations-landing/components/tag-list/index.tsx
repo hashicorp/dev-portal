@@ -27,6 +27,10 @@ interface TagListProps {
 	size?: Size
 }
 
+/**
+ * @TODO refactor this to render a list of `Badge` components
+ */
+
 export default function TagList({
 	tags,
 	className,
