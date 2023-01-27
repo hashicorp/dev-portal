@@ -82,7 +82,6 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 		}))
 		.flat()
 		.map((params: PathParams) => ({ params }))
-
 	// Return static paths
 	return { paths, fallback: false }
 }
@@ -148,7 +147,10 @@ async function getStaticProps({
 	}
 	// Fetch the Latest Release
 	const isLatest = !integrationVersion || integrationVersion === 'latest'
-	const targetVersion = isLatest ? integration.versions[0] : integrationVersion
+	// The route versions are formatted as v0.x.x, so we remove the leading 'v' for the api call
+	const formattedVersion = integrationVersion?.replace(/^v/, '')
+	const targetVersion = isLatest ? integration.versions[0] : formattedVersion
+
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		productData.slug,
 		integrationSlug,

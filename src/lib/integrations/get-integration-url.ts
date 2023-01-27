@@ -15,7 +15,8 @@ export function getIntegrationUrl(
 		return external_url.replace(/^https:\/\/developer.hashicorp.com/, '')
 	} else {
 		const baseUrl = `/${product.slug}/integrations/${organization.slug}/${slug}`
-		return version ? `${baseUrl}/${version}` : baseUrl
+		// prefix versioned paths with 'v'
+		return version ? `${baseUrl}/v${version}` : baseUrl
 	}
 }
 
