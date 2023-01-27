@@ -20,7 +20,7 @@ const getMdxLinksToRewrite = async ({
 	for (let i = 0; i < filePaths.length; i++) {
 		const filePath = filePaths[i]
 		if (!filePath.endsWith('.mdx')) {
-			return
+			continue
 		}
 
 		const filePathWithoutPrefix = filePath.replace(filePathPrefix, '')
@@ -36,7 +36,7 @@ const getMdxLinksToRewrite = async ({
 		 */
 		const isAtContentRoot = !currentPath.slice(1).includes('/')
 		if (isAtContentRoot) {
-			return
+			continue
 		}
 
 		const fileContent = fs.readFileSync(filePath, 'utf-8')
