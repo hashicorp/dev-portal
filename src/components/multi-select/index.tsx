@@ -7,7 +7,11 @@ import s from './multi-select.module.css'
 
 const MultiSelect = ({ text, options }: MultiSelectProps) => {
 	return (
-		<DropdownDisclosure color="secondary" text={text}>
+		<DropdownDisclosure
+			closeOnRouteChangeStart={false}
+			color="secondary"
+			text={text}
+		>
 			{options.map(({ id, label, onChange, selected }: MultiSelectOption) => {
 				return (
 					<DropdownDisclosureListItem key={id}>
