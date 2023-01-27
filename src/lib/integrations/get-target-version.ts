@@ -3,10 +3,13 @@
  * format between devdot routes and the API versions
  */
 
-export function getTargetVersion(
-	versionSlug: string,
+export function getTargetVersion({
+	versionSlug,
+	latestVersion,
+}: {
 	latestVersion: string
-): [string, boolean] {
+	versionSlug?: string
+}): [string, boolean] {
 	// The 'latest' routes won't have a /:integration/:version subpath
 	// or they can accessed by /:integration/latest
 	const isLatest = !versionSlug || versionSlug === 'latest'

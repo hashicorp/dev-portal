@@ -146,10 +146,11 @@ async function getStaticProps({
 			notFound: true,
 		}
 	}
-	const [targetVersion, isLatest] = getTargetVersion(
-		integrationVersion,
-		integration.versions[0]
-	)
+
+	const [targetVersion, isLatest] = getTargetVersion({
+		versionSlug: integrationVersion,
+		latestVersion: integration.versions[0],
+	})
 	// Fetch the Release
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		productData.slug,
