@@ -13,13 +13,6 @@
 	}
 }
 
-/* TODO: It might be ideal for anything in src/components to _not_ set
-   margin around the exported component. This way, in cases where the
-	 consumer's layout needs differ, a margin reset would not be necessary */
-.filterInputMarginReset {
-	margin-bottom: 0;
-}
-
 .results {
 	color: var(--gray-3);
 	font-size: 12px;

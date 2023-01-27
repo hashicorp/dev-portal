@@ -62,7 +62,6 @@ export default function SearchableVariableGroupList({
 		<div>
 			<div className={s.searchRow}>
 				<FilterInput
-					className={s.filterInputMarginReset}
 					placeholder={`Search ${groupName}`}
 					value={searchQuery}
 					onChange={(value: string) => setSearchQuery(value)}

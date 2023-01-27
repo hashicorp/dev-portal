@@ -10,7 +10,6 @@
 
 	& .input {
 		flex-grow: 1;
-		margin-bottom: 0;
 	}
 
 	@media (--dev-dot-tablet-down) {

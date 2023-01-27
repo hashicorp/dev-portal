@@ -46,6 +46,10 @@
 	}
 }
 
+.filterInput {
+	margin-bottom: 16px;
+}
+
 .selectStack {
 	display: flex;
 	flex-direction: row;
