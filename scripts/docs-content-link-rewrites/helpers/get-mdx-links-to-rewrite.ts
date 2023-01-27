@@ -31,7 +31,8 @@ const getMdxLinksToRewrite = async ({
 		 * directory. These files are used for content rendered at the top-level of
 		 * various sites.
 		 *
-		 * Example: https://github.com/hashicorp/cloud.hashicorp.com/blob/f7e1db477f8c2b842c1e8a18047a54297e9b295d/content/roles-responsibilities.mdx?plain=1#L60
+		 * Example of a file that should not have its links rewritten:
+		 * https://github.com/hashicorp/cloud.hashicorp.com/blob/f7e1db477f8c2b842c1e8a18047a54297e9b295d/content/roles-responsibilities.mdx
 		 */
 		const isAtContentRoot = !currentPath.slice(1).includes('/')
 		if (isAtContentRoot) {
