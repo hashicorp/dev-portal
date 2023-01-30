@@ -19,6 +19,7 @@ export function TryHcpCalloutCompact({
 	ctaText,
 	ctaUrl,
 }: TryHcpCalloutCompactProps) {
+	const trialCtaText = useABTestCta(ctaText)
 	return (
 		<CardLink className={s.root} ariaLabel={ctaText} href={ctaUrl}>
 			<div className={s.background} />
@@ -28,7 +29,7 @@ export function TryHcpCalloutCompact({
 				size="small"
 			/>
 			<Description description={description} />
-			<StandaloneLinkContents text={useABTestCta(ctaText)} size="small" />
+			<StandaloneLinkContents text={trialCtaText} size="small" />
 		</CardLink>
 	)
 }

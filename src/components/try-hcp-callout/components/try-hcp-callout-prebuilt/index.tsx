@@ -17,9 +17,10 @@ export function TryHcpCalloutPrebuilt({
 }) {
 	const { ctaText, ctaUrl, description, heading } =
 		tryHcpCalloutContent[productSlug]
+	const trialCtaText = useABTestCta(ctaText)
 	return (
 		<TryHcpCallout
-			ctaText={useABTestCta(ctaText)}
+			ctaText={trialCtaText}
 			ctaUrl={ctaUrl}
 			description={description}
 			heading={heading}
