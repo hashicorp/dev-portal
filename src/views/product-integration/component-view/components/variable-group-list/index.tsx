@@ -10,10 +10,16 @@ import s from './style.module.css'
 /**
  * We use a custom paragraph element to decrease the font size for paragraph
  * content when rendering variable MDX components.
+ *
+ * TODO: consider which defaultMdxComponents we really want.
+ * (as-is this means EnterpriseAlert and Img. Perhaps there are others we
+ * would want to include, eg InlineCode. For now though, intent here is to
+ * match `views/product-integration/readme-view/index.tsx`. Maybe that should
+ * be updated, eg to include `CodeBlock` and so on?
  */
 const mdxComponents = defaultMdxComponents({
 	additionalComponents: {
-		// Note: intentionally ignoring className, not meant to be authorable */
+		// Note: intentionally ignoring className, not meant for authoring */
 		p: (props) => <p {...props} className={s.descriptionParagraph} />,
 	},
 })
