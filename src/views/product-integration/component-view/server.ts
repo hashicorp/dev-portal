@@ -141,6 +141,12 @@ async function getStaticProps({
 		versionSlug: integrationVersion,
 		latestVersion: integration.versions[0],
 	})
+
+	// if the version slug is not prefix with 'v', return 404
+	if (targetVersion === null) {
+		return { notFound: true }
+	}
+
 	// Fetch the Release
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		productData.slug,
