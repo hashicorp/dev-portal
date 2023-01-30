@@ -113,19 +113,6 @@ async function getStaticProps({
 	}
 	const integration = integrationResponse.result
 
-	/**
-	 * If the integration organizationSlug doesn't match the requested URL,
-	 * return a 404.
-	 *
-	 * TODO: as mentioned above, we should likely instead
-	 * include the organizationSlug when we `fetchIntegration`. If we did that,
-	 * we would likely no longer need this check.
-	 */
-	if (organizationSlug !== integration.organization.slug) {
-		return {
-			notFound: true,
-		}
-	}
 	// If the integration is external only, we shouldn't render this page
 	if (integration.external_only) {
 		return {
