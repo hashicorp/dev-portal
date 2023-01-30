@@ -14,22 +14,11 @@ import {
 import { ProductIconTextLink } from './components'
 import { getNavItems, getProductsDropdownItems, NavItem } from './utils'
 import s from './product-page-content.module.css'
-import { useABTestCta } from 'components/try-hcp-callout/components/a-b-test'
 
 const ProductPageHeaderContent = () => {
 	const currentProduct = useCurrentProduct()
 	const allProductsItems = getProductsDropdownItems()
 	const productNavItems = getNavItems(currentProduct)
-
-	/**
-	 * Running AB test with the 'for free language'
-	 * Remove after test is finished
-	 */
-	const tryCloudItemIndex = productNavItems.findIndex(
-		(item) => item.label === 'Try Cloud'
-	)
-	const tryCloudLabel = productNavItems[tryCloudItemIndex].label
-	productNavItems[tryCloudItemIndex].label = useABTestCta(tryCloudLabel)
 
 	return (
 		<>
