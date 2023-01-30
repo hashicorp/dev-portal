@@ -18,6 +18,7 @@ import { ProductData } from 'types/products'
 import SearchableVariableGroupList from './components/searchable-variable-group-list'
 import { Variable } from './components/variable-group-list'
 import { getVariableGroupSlug } from './helpers'
+import { ProcessedVariablesMarkdown } from './helpers'
 import s from './style.module.css'
 
 export interface ProductIntegrationComponentViewProps {
@@ -27,6 +28,7 @@ export interface ProductIntegrationComponentViewProps {
 	component: ReleaseComponent
 	serializedREADME?: MDXRemoteSerializeResult
 	breadcrumbLinks: BreadcrumbLink[]
+	processedVariablesMarkdown: ProcessedVariablesMarkdown
 }
 
 export default function ProductIntegrationComponentView({
@@ -36,6 +38,7 @@ export default function ProductIntegrationComponentView({
 	component,
 	serializedREADME,
 	breadcrumbLinks,
+	processedVariablesMarkdown,
 }: ProductIntegrationComponentViewProps) {
 	const { variable_groups } = component
 	/**
@@ -92,10 +95,12 @@ export default function ProductIntegrationComponentView({
 									groupName={variableGroup.variable_group_config.name}
 									variables={variableGroup.variables.map(
 										(variable: ApiVariable): Variable => {
+											const uniqueKey = `${variable.variable_group_id}.${variable.key}`
 											return {
 												key: variable.key,
 												type: variable.type,
-												description: variable.description,
+												description:
+													processedVariablesMarkdown[uniqueKey].description,
 												required: variable.required,
 											}
 										}

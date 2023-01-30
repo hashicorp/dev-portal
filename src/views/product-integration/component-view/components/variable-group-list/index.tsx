@@ -94,11 +94,10 @@ export function VariableGroupList({
 								)}
 							</div>
 
-							<div className={s.description}>
-								<ReactMarkdown>{`${
-									variable.description !== null ? variable.description : ''
-								}`}</ReactMarkdown>
-							</div>
+							<div
+								className={s.description}
+								dangerouslySetInnerHTML={{ __html: variable.description ?? '' }}
+							/>
 
 							{variable.variables?.length > 0 && (
 								<VariableGroupList
