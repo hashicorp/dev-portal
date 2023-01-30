@@ -24,7 +24,6 @@ export function getVersionFromPath(path: string): string | undefined {
 		if ((i === 2 || i === 3 || i === 4) && VERSION_IN_PATH_REGEX.test(el)) {
 			return true
 		}
-
 		return false
 	})
 
