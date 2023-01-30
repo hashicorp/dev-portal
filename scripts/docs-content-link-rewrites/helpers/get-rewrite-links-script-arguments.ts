@@ -51,16 +51,20 @@ const getScriptArgumentsForCi = () => {
 		RELEVANT_CHANGED_FILES
 	)
 
+	// Concatenate cwd() with given file path prefixes
+	const mdxFilesPrefix = path.join(process.cwd(), MDX_FILE_PATH_PREFIX)
+	const navDataFilesPrefix = path.join(process.cwd(), NAV_DATA_FILE_PATH_PREFIX)
+
 	// Return the shaped-up arguments
 	return {
 		changedMdxFiles: changedMdxFiles.map((filePath) =>
-			path.join(process.cwd(), MDX_FILE_PATH_PREFIX, filePath)
+			path.join(mdxFilesPrefix, filePath)
 		),
 		changedNavDataJsonFiles: changedNavDataJsonFiles.map((filePath) =>
-			path.join(process.cwd(), NAV_DATA_FILE_PATH_PREFIX, filePath)
+			path.join(navDataFilesPrefix, filePath)
 		),
-		mdxFilesPrefix: MDX_FILE_PATH_PREFIX,
-		navDataFilesPrefix: NAV_DATA_FILE_PATH_PREFIX,
+		mdxFilesPrefix,
+		navDataFilesPrefix,
 		repo: REPO,
 	}
 }

@@ -52,6 +52,7 @@ export default function WellArchitectedFrameworkTutorialView({
 					headings={layoutProps.headings}
 					breadcrumbLinks={layoutProps.breadcrumbLinks}
 					sidebarNavDataLevels={layoutProps.navLevels}
+					mainWidth="narrow"
 				>
 					<TutorialMeta
 						heading={{ slug: slug, text: name }}
