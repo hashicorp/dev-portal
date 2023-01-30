@@ -1,6 +1,7 @@
 import { TryHcpCallout } from '..'
 import { ProductSlugWithContent } from '../../types'
 import { tryHcpCalloutContent } from '../../content'
+import { useABTestCta } from '../a-b-test'
 
 /**
  * A wrapper around TryHcpCallout.
@@ -18,7 +19,7 @@ export function TryHcpCalloutPrebuilt({
 		tryHcpCalloutContent[productSlug]
 	return (
 		<TryHcpCallout
-			ctaText={ctaText}
+			ctaText={useABTestCta(ctaText)}
 			ctaUrl={ctaUrl}
 			description={description}
 			heading={heading}

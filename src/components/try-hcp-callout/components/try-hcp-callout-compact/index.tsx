@@ -5,6 +5,7 @@ import {
 	StandaloneLinkContents,
 } from 'components/try-hcp-callout/components'
 import { TryHcpCalloutCompactProps } from 'components/try-hcp-callout/types'
+import { useABTestCta } from '../a-b-test'
 import s from './try-hcp-callout-compact.module.css'
 
 /**
@@ -27,7 +28,7 @@ export function TryHcpCalloutCompact({
 				size="small"
 			/>
 			<Description description={description} />
-			<StandaloneLinkContents text={ctaText} size="small" />
+			<StandaloneLinkContents text={useABTestCta(ctaText)} size="small" />
 		</CardLink>
 	)
 }
