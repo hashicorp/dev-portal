@@ -7,8 +7,13 @@ import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import s from './style.module.css'
 
+/**
+ * We use a custom paragraph element to decrease the font size for paragraph
+ * content when rendering variable MDX components.
+ */
 const mdxComponents = defaultMdxComponents({
 	additionalComponents: {
+		// Note: intentionally ignoring className, not meant to be authorable */
 		p: (props) => <p {...props} className={s.descriptionParagraph} />,
 	},
 })
