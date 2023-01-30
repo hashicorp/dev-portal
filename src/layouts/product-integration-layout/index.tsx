@@ -5,7 +5,9 @@ import {
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/components'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import SidebarSidecarLayout, {
+	SidebarSidecarLayoutProps,
+} from 'layouts/sidebar-sidecar'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
 import {
@@ -29,6 +31,7 @@ interface ProductIntegrationLayoutProps {
 	// should be redirected to.
 	getVersionChangedURL: (version: string) => string
 	children: React.ReactNode
+	sidecarSlot?: SidebarSidecarLayoutProps['sidecarSlot']
 }
 
 /**
@@ -45,6 +48,7 @@ export default function ProductIntegrationLayout({
 	breadcrumbLinks,
 	getVersionChangedURL,
 	children,
+	sidecarSlot,
 }: ProductIntegrationLayoutProps) {
 	// Determine if we're on the latest version, as that will slightly adjust the URLs
 	const onLatestVersion = integration.versions[0] === activeRelease.version
@@ -107,9 +111,7 @@ export default function ProductIntegrationLayout({
 			// @ts-ignore
 			sidebarNavDataLevels={sidebarNavDataLevels}
 			breadcrumbLinks={breadcrumbLinks}
-			sidecarSlot={
-				<TryHcpCalloutSidecarPlacement productSlug={currentProduct.slug} />
-			}
+			sidecarSlot={sidecarSlot}
 		>
 			{!onLatestVersion && (
 				<HashiHead>

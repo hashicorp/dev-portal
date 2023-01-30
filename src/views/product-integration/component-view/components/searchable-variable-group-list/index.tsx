@@ -1,4 +1,5 @@
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
+import FilterInput from 'components/filter-input'
 import { CheckboxField } from 'components/form/field-controls'
 import { useState } from 'react'
 import { Variable, VariableGroupList } from '../variable-group-list'
@@ -60,10 +61,11 @@ export default function SearchableVariableGroupList({
 	return (
 		<div>
 			<div className={s.searchRow}>
-				<SearchBar
-					groupName={groupName}
-					searchQuery={searchQuery}
-					onChange={(e) => setSearchQuery(e.target.value)}
+				<FilterInput
+					placeholder={`Search ${groupName}`}
+					value={searchQuery}
+					onChange={(value: string) => setSearchQuery(value)}
+					IconComponent={IconSearch16}
 				/>
 				{isRequiredRelevant ? (
 					<div className={s.checkboxContainer}>
@@ -79,20 +81,6 @@ export default function SearchableVariableGroupList({
 				{numMatches} {numMatches === 1 ? 'Result' : 'Results'}
 			</p>
 			<VariableGroupList variables={matchesWithAncestors} />
-		</div>
-	)
-}
-
-function SearchBar({ groupName, searchQuery, onChange }) {
-	return (
-		<div className={s.searchBar}>
-			<IconSearch16 />
-			<input
-				type="text"
-				placeholder={`Search ${groupName}`}
-				value={searchQuery}
-				onChange={onChange}
-			/>
 		</div>
 	)
 }
