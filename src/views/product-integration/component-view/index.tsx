@@ -1,3 +1,4 @@
+import slugify from 'slugify'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { MdxHeadingOutsideMdx } from './components/mdx-heading-outside-mdx'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
