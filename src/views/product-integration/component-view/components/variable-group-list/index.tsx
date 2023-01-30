@@ -2,13 +2,21 @@ import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-
 import classNames from 'classnames'
 import Badge from 'components/badge'
 import MdxHeadingPermalink from 'components/dev-dot-content/mdx-components/mdx-heading-permalink'
-import ReactMarkdown from 'react-markdown'
 import { getVariableSlug } from '../../helpers'
+import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import s from './style.module.css'
+
+const mdxComponents = defaultMdxComponents({
+	additionalComponents: {
+		p: (props) => <p {...props} className={s.descriptionParagraph} />,
+	},
+})
 
 export interface Variable {
 	key: string
 	type: string
+	descriptionMdx?: MDXRemoteSerializeResult
 	description?: string
 	required: boolean | null
 	variables?: Array<Variable> // User doesn't need to specify this
@@ -94,10 +102,14 @@ export function VariableGroupList({
 								)}
 							</div>
 
-							<div
-								className={s.description}
-								dangerouslySetInnerHTML={{ __html: variable.description ?? '' }}
-							/>
+							<div className={s.description}>
+								{variable.descriptionMdx ? (
+									<MDXRemote
+										{...variable.descriptionMdx}
+										components={mdxComponents}
+									/>
+								) : null}
+							</div>
 
 							{variable.variables?.length > 0 && (
 								<VariableGroupList

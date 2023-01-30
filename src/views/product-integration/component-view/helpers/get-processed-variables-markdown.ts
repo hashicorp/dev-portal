@@ -1,6 +1,12 @@
 import { ReleaseComponent } from 'lib/integrations-api-client/release'
+import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
-export type ProcessedVariablesMarkdown = Record<string, { description: string }>
+type ProcessedVariableMarkdown = { description?: MDXRemoteSerializeResult }
+export type ProcessedVariablesMarkdown = Record<
+	string,
+	ProcessedVariableMarkdown
+>
 /**
  * Given a release component,
  * which is expected to include `variable_groups`, each with `variables` which
@@ -18,8 +24,13 @@ export async function getProcessedVariablesMarkdown(
 		for (const variable of variableGroup.variables) {
 			const { key, description, variable_group_id } = variable
 			const uniqueKey = `${variable_group_id}.${key}`
-			const html = `<strong>Hello</strong>, I am HTML. OG: ${description}`
-			processedVariablesMarkdown[uniqueKey] = { description: html }
+			processedVariablesMarkdown[uniqueKey] = {}
+			if (description !== null) {
+				const dev_markdown = `**Test bold**, [a link](https://dev.hashicorp.com)`
+				const dev_description = `${dev_markdown}. Original: ${description}`
+				const mdxSource = await serializeIntegrationMarkdown(dev_description)
+				processedVariablesMarkdown[uniqueKey] = { description: mdxSource }
+			}
 		}
 	}
 	// Return the map of processed markdown

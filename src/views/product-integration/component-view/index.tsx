@@ -96,11 +96,17 @@ export default function ProductIntegrationComponentView({
 									variables={variableGroup.variables.map(
 										(variable: ApiVariable): Variable => {
 											const uniqueKey = `${variable.variable_group_id}.${variable.key}`
+											const processedMarkdown =
+												processedVariablesMarkdown[uniqueKey]
 											return {
 												key: variable.key,
 												type: variable.type,
-												description:
-													processedVariablesMarkdown[uniqueKey].description,
+												/**
+												 * Note: we pass description for search & filtering,
+												 * and descriptionMdx for rendering.
+												 */
+												description: variable.description,
+												descriptionMdx: processedMarkdown.description,
 												required: variable.required,
 											}
 										}
