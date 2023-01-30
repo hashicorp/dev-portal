@@ -101,14 +101,10 @@ async function getStaticProps({
 			notFound: true,
 		}
 	}
-	/**
-	 * Fetch the Integration
-	 *
-	 * TODO: this should really include the organizationSlug for specificity.
-	 * But, that doesn't seem to be necessary yet.
-	 */
+
 	const integrationResponse = await fetchIntegration(
 		productSlug,
+		organizationSlug,
 		integrationSlug
 	)
 	if (integrationResponse.meta.status_code != 200) {
@@ -150,6 +146,7 @@ async function getStaticProps({
 	// Fetch the Release
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		productData.slug,
+		organizationSlug,
 		integrationSlug,
 		targetVersion
 	)
