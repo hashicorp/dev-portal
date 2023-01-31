@@ -20,6 +20,7 @@ import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
 import { ProductIntegrationReadmeViewProps } from '.'
 import {
 	fetchAllIntegrations,
+	getTargetVersion,
 	integrationBreadcrumbLinks,
 	integrationVersionBreadcrumbLinks,
 } from 'lib/integrations'
@@ -82,7 +83,6 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 		}))
 		.flat()
 		.map((params: PathParams) => ({ params }))
-
 	// Return static paths
 	return { paths, fallback: false }
 }
@@ -146,9 +146,18 @@ async function getStaticProps({
 			notFound: true,
 		}
 	}
-	// Fetch the Latest Release
-	const isLatest = !integrationVersion || integrationVersion === 'latest'
-	const targetVersion = isLatest ? integration.versions[0] : integrationVersion
+
+	const [targetVersion, isLatest] = getTargetVersion({
+		versionSlug: integrationVersion,
+		latestVersion: integration.versions[0],
+	})
+
+	// if the version slug is not prefix with 'v', return 404
+	if (targetVersion === null) {
+		return { notFound: true }
+	}
+
+	// Fetch the Release
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		productData.slug,
 		integrationSlug,
