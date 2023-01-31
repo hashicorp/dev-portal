@@ -11,10 +11,12 @@
 .upper {
 	margin-bottom: 16px;
 	grid-area: content;
+	display: flex;
+	flex-direction: column-reverse;
 
 	@media (--dev-dot-tablet-up) {
 		display: flex;
-		flex-direction: row-reverse;
+		flex-direction: row;
 		justify-content: space-between;
 	}
 }
@@ -44,7 +46,7 @@
 }
 
 .titleWrap {
-	margin: 12px 0 2px 0;
+	margin-bottom: 2px;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -70,6 +72,7 @@
 
 .versionSelector {
 	width: 100%;
+	margin-bottom: 12px;
 
 	/** 
 	* style overrides for one-off mobile behavior
@@ -84,6 +87,7 @@
 	@media (--dev-dot-tablet-up) {
 		flex-shrink: 0;
 		width: auto;
+		margin-bottom: 0;
 	}
 }
 
