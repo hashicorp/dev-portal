@@ -1,7 +1,9 @@
 import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-down-right-16'
 import classNames from 'classnames'
 import Badge from 'components/badge'
+import MdxHeadingPermalink from 'components/dev-dot-content/mdx-components/mdx-heading-permalink'
 import ReactMarkdown from 'react-markdown'
+import { getVariableSlug } from '../../helpers'
 import s from './style.module.css'
 
 export interface Variable {
@@ -19,6 +21,7 @@ export interface VariableGroup {
 }
 
 export interface VariableGroupListProps {
+	groupName: string
 	variables: Array<Variable>
 	unflatten?: boolean // Users should never set this to false, needed for recursive nesting
 	isNested?: boolean
@@ -28,6 +31,7 @@ export function VariableGroupList({
 	variables,
 	unflatten = true,
 	isNested = false,
+	groupName,
 }: VariableGroupListProps) {
 	const vars: Array<Variable> = unflatten
 		? unflattenVariables(variables)
@@ -36,6 +40,10 @@ export function VariableGroupList({
 	return (
 		<ul className={s.variableGroupList}>
 			{vars.map((variable: Variable) => {
+				/**
+				 * Construct a permalink slug for this specific variable
+				 */
+				const permalinkId = getVariableSlug(groupName, variable.key)
 				return (
 					<li
 						key={variable.key}
@@ -53,7 +61,9 @@ export function VariableGroupList({
 						<div className={s.indentedContent}>
 							<div className={s.topRow}>
 								<span className={s.left}>
-									<code className={s.key}>{variable.key}</code>
+									<code id={permalinkId} className={s.key}>
+										{variable.key}
+									</code>
 									{variable.required != null && (
 										<span
 											className={classNames(s.required, {
@@ -63,6 +73,11 @@ export function VariableGroupList({
 											{variable.required ? 'Required' : 'Optional'}
 										</span>
 									)}
+									<MdxHeadingPermalink
+										className={s.permalink}
+										level={4}
+										href={`#${permalinkId}`}
+									/>
 								</span>
 								{variable.type ? (
 									<Badge
@@ -87,6 +102,7 @@ export function VariableGroupList({
 
 							{variable.variables?.length > 0 && (
 								<VariableGroupList
+									groupName={groupName}
 									unflatten={false}
 									variables={variable.variables}
 									isNested={true}
