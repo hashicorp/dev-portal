@@ -27,6 +27,7 @@ import ProductIntegrationComponentView, {
 import {
 	fetchAllIntegrations,
 	getIntegrationComponentUrl,
+	getTargetVersion,
 	integrationComponentBreadcrumbLinks,
 } from 'lib/integrations'
 import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
@@ -135,13 +136,22 @@ async function getStaticProps({
 			notFound: true,
 		}
 	}
+
+	const [targetVersion] = getTargetVersion({
+		versionSlug: integrationVersion,
+		latestVersion: integration.versions[0],
+	})
+
+	// if the version slug is not prefix with 'v', return 404
+	if (targetVersion === null) {
+		return { notFound: true }
+	}
+
 	// Fetch the Release
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		productData.slug,
 		integrationSlug,
-		integrationVersion === 'latest'
-			? integration.versions[0]
-			: integrationVersion
+		targetVersion
 	)
 	if (activeReleaseResponse.meta.status_code != 200) {
 		console.warn('Could not fetch Release', activeReleaseResponse)
