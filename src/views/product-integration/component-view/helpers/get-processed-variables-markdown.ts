@@ -27,7 +27,7 @@ export async function getProcessedVariablesMarkdown(
 			processedVariablesMarkdown[uniqueKey] = {}
 			if (description !== null) {
 				// TODO: remove dev_markdown test values here
-				const dev_markdown = `**Test bold**, [a link](https://dev.hashicorp.com)`
+				const dev_markdown = `**Test bold**, _emphasis_, also [a link](https://dev.hashicorp.com), and \`some inline code\`, heck maybe [\`linked code\`](https://dev.hashicorp.com)`
 				const dev_description = `${dev_markdown}. Original: ${description}`
 				const mdxSource = await serializeIntegrationMarkdown(dev_description)
 				processedVariablesMarkdown[uniqueKey] = { description: mdxSource }
