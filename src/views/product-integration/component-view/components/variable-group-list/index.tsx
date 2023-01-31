@@ -3,26 +3,19 @@ import classNames from 'classnames'
 import Badge from 'components/badge'
 import MdxHeadingPermalink from 'components/dev-dot-content/mdx-components/mdx-heading-permalink'
 import { getVariableSlug } from '../../helpers'
-import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import DevDotContent from 'components/dev-dot-content'
+import { MdxInlineCode, MdxP } from 'components/dev-dot-content/mdx-components'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import s from './style.module.css'
 
 /**
- * We use a custom paragraph element to decrease the font size for paragraph
- * content when rendering variable MDX components.
- *
- * TODO: consider which defaultMdxComponents we really want.
- * (as-is this means EnterpriseAlert and Img. Perhaps there are others we
- * would want to include, eg InlineCode. For now though, intent here is to
- * match `views/product-integration/readme-view/index.tsx`. Maybe that should
- * be updated, eg to include `CodeBlock` and so on?
+ * We use some custom elements to decrease the font size for paragraph
+ * content when rendering processed MDX variable descriptions.
  */
-const mdxComponents = defaultMdxComponents({
-	additionalComponents: {
-		// Note: intentionally ignoring className, not meant for authoring */
-		p: (props) => <p {...props} className={s.descriptionParagraph} />,
-	},
-})
+const smallDescriptionMdxComponents = {
+	inlineCode: (props) => <MdxInlineCode {...props} size="100" />,
+	p: (props) => <MdxP {...props} size="200" />,
+}
 
 export interface Variable {
 	key: string
@@ -115,9 +108,11 @@ export function VariableGroupList({
 
 							<div className={s.description}>
 								{variable.descriptionMdx ? (
-									<MDXRemote
-										{...variable.descriptionMdx}
-										components={mdxComponents}
+									<DevDotContent
+										mdxRemoteProps={{
+											...variable.descriptionMdx,
+											components: smallDescriptionMdxComponents,
+										}}
 									/>
 								) : null}
 							</div>

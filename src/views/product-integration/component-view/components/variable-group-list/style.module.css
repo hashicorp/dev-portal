@@ -97,9 +97,3 @@
 		opacity: 1;
 	}
 }
-
-/* Variable description paragraphs should be smaller.
-   TODO: maybe compose a style here instead? Check designs. */
-.descriptionParagraph {
-	font-size: 14px;
-}
