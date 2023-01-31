@@ -5,6 +5,7 @@ import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
 import { IconRocket16 } from '@hashicorp/flight-icons/svg-react/rocket-16'
 import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
 import classNames from 'classnames'
+import Badge, { BadgeProps } from 'components/badge'
 import Tooltip from 'components/tooltip'
 import {
 	Flag,
@@ -13,43 +14,32 @@ import {
 } from 'lib/integrations-api-client/integration'
 import s from './style.module.css'
 
-export type Size = 'small' | 'medium'
-
 export interface Tag {
 	name: string
-	icon?: React.ReactNode
+	icon?: React.ReactElement
 	description: string
 }
 
 interface TagListProps {
 	tags: Array<Tag>
 	className?: string
-	size?: Size
+	size?: BadgeProps['size']
+	type?: BadgeProps['type']
 }
-
-/**
- * @TODO refactor this to render a list of `Badge` components
- */
 
 export default function TagList({
 	tags,
 	className,
 	size = 'small',
+	type = 'filled',
 }: TagListProps) {
 	return (
-		<ul
-			className={classNames(s.tagList, className, {
-				[s.medium]: size === 'medium',
-			})}
-		>
+		<ul className={classNames(s.tagList, className)}>
 			{tags.map((tag: Tag) => {
 				return (
-					<li key={tag.name}>
+					<li key={tag.name} className={s.tag}>
 						<Tooltip label={tag.description}>
-							<div className={s.tagContent}>
-								{tag.icon && <span className={s.icon}>{tag.icon}</span>}
-								<span>{tag.name}</span>
-							</div>
+							<Badge icon={tag.icon} text={tag.name} type={type} size={size} />
 						</Tooltip>
 					</li>
 				)
@@ -94,7 +84,7 @@ export function GetIntegrationTags(
 	return [
 		...(tierFirst ? [tierTag] : []),
 		...integration.flags.map((flag: Flag) => {
-			let icon: React.ReactNode = undefined
+			let icon = undefined
 			switch (flag.slug) {
 				case 'builtin':
 					icon = <IconWrench16 />

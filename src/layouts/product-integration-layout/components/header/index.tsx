@@ -12,7 +12,7 @@ import TruncateMaxLines from 'components/truncate-max-lines'
 import { useDeviceSize } from 'contexts'
 import { Integration, Flag } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
-import {
+import TagList, {
 	GetIntegrationTags,
 	Tag,
 } from 'views/product-integrations-landing/components/tag-list'
@@ -117,20 +117,7 @@ export default function Header({
 				) : null}
 			</div>
 			<div className={s.lower}>
-				<ul className={s.tagList}>
-					{tags.map((tag: Tag) => (
-						<li key={tag.name} className={s.tag}>
-							<Tooltip label={tag.description}>
-								<Badge
-									icon={tag.icon as React.ReactElement}
-									text={tag.name}
-									type="outlined"
-									size="small"
-								/>
-							</Tooltip>
-						</li>
-					))}
-				</ul>
+				<TagList tags={tags} type="outlined" />
 				{shouldShowInstallButton && (
 					<Button
 						size={isMobile ? 'medium' : 'small'}
