@@ -69,24 +69,6 @@ export default function Header({
 				productSlug={productSlug !== 'sentinel' ? productSlug : null}
 			/>
 			<div className={s.upper}>
-				{showVersions ? (
-					<DropdownDisclosure
-						className={s.versionSelector}
-						color="secondary"
-						text={versionString(activeRelease.version, integration.versions)}
-					>
-						{otherVersions.map((version: string) => {
-							return (
-								<DropdownDisclosureLinkItem
-									key={version}
-									href={getVersionChangedURL(version)}
-								>
-									{versionString(version, integration.versions)}
-								</DropdownDisclosureLinkItem>
-							)
-						})}
-					</DropdownDisclosure>
-				) : null}
 				<div className={s.titleDescriptionWrap}>
 					<div className={s.titleWrap}>
 						<TruncateMaxLines
@@ -115,6 +97,24 @@ export default function Header({
 						</Text>
 					</TruncateMaxLines>
 				</div>
+				{showVersions ? (
+					<DropdownDisclosure
+						className={s.versionSelector}
+						color="secondary"
+						text={versionString(activeRelease.version, integration.versions)}
+					>
+						{otherVersions.map((version: string) => {
+							return (
+								<DropdownDisclosureLinkItem
+									key={version}
+									href={getVersionChangedURL(version)}
+								>
+									{versionString(version, integration.versions)}
+								</DropdownDisclosureLinkItem>
+							)
+						})}
+					</DropdownDisclosure>
+				) : null}
 			</div>
 			<div className={s.lower}>
 				<ul className={s.tagList}>

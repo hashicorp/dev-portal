@@ -1,4 +1,5 @@
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/components'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import { getIntegrationUrl } from 'lib/integrations'
@@ -37,6 +38,7 @@ export default function ProductIntegrationReadmeView({
 					? getIntegrationUrl(integration)
 					: getIntegrationUrl(integration, version)
 			}}
+			sidecarSlot={<TryHcpCalloutSidecarPlacement productSlug={product.slug} />}
 		>
 			<MDXRemote {...serializedREADME} components={defaultMdxComponents({})} />
 		</ProductIntegrationLayout>
