@@ -53,7 +53,7 @@ const main = async () => {
 	if (mdxFilesWithLinksToRewrite.length > 0) {
 		// Throw an error if configured to, such as in a legacy link format checker
 		let message = `\n 🔴 Found MDX links to rewrite in ${mdxFilesWithLinksToRewrite.length} files:`
-		mdxFilesWithLinksToRewrite.slice(0, 5).forEach((file, index) => {
+		mdxFilesWithLinksToRewrite.forEach((file, index) => {
 			message += `\n\n  File #${index + 1}: "${file}"`
 
 			const linksForFile = mdxLinksToRewrite[file]

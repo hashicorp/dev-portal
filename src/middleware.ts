@@ -68,7 +68,14 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		// Next.js doesn't support redirecting to a pathname, so we clone the
 		// request URL to adjust the pathname in an absolute URL
 		const url = req.nextUrl.clone()
-		url.pathname = destination
+
+		// Simple redirects _can_ contain a hash, which we need to detect and handle
+		const [pathname, hash] = destination.split('#')
+		url.pathname = pathname
+		if (hash) {
+			url.hash = hash
+		}
+
 		console.timeEnd(label)
 		return NextResponse.redirect(url, permanent ? 308 : 307)
 	}
