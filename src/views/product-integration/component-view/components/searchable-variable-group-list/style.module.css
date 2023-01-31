@@ -1,0 +1,50 @@
+.searchRow {
+	display: flex;
+	margin-top: 24px;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
+
+	/* We want the search input to grow to fill space.
+	   (Note: applying this here to keep the door open to abstracting the
+		 .searchBar component below, as noted in an existing TODO) */
+	& > :first-child {
+		flex-grow: 1;
+	}
+}
+
+/* TODO: this is duplicated from searchable-integrations-list */
+.searchBar {
+	background-color: var(--white);
+	border-radius: 2px;
+	box-shadow: 0 0 0 1px var(--gray-5);
+	height: 45px;
+	position: relative;
+
+	& > svg {
+		position: absolute;
+		top: calc(50% - 10px);
+		left: 16px;
+		height: 20px;
+		width: auto;
+		color: var(--gray-3);
+		pointer-events: none;
+	}
+
+	& > input {
+		background-color: transparent;
+		border-width: 0;
+		width: 100%;
+		height: 100%;
+		padding-left: calc(16px * 2 + 20px);
+	}
+}
+
+.results {
+	color: var(--gray-3);
+	font-size: 12px;
+	text-transform: uppercase;
+	font-weight: 600;
+	margin-top: 24px;
+	margin-bottom: 12px;
+}

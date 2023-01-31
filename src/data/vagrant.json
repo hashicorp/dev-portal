@@ -65,5 +65,8 @@
 			"name": "Vagrant Cloud",
 			"path": "vagrant-cloud"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"enabled": false
+	}
 }
