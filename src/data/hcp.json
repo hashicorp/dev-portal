@@ -13,5 +13,8 @@
 			"path": "docs",
 			"productSlugForLoader": "cloud.hashicorp.com"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"enabled": false
+	}
 }

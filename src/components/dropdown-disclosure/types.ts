@@ -1,3 +1,4 @@
+import { DisclosureProps } from 'components/disclosure'
 import { ReactElement, ReactNode } from 'react'
 import { DropdownDisclosureActivatorProps } from './components/activator'
 
@@ -10,11 +11,14 @@ type PickedDropdownDisclosureActivatorProps = Pick<
 	'color' | 'hideChevron'
 >
 
+type PickedDisclosureProps = Pick<DisclosureProps, 'closeOnRouteChangeStart'>
+
 /**
  * Additional custom props `DropdownDisclosure` accepts.
  */
 interface DropdownDisclosureProps
-	extends PickedDropdownDisclosureActivatorProps {
+	extends PickedDropdownDisclosureActivatorProps,
+		PickedDisclosureProps {
 	/**
 	 * Text that should be announced by a screen reader when the activator
 	 * `<button>` comes into focus. Should only be provided in two cases:

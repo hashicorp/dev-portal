@@ -1,0 +1,5 @@
+.paginatedIntegrationsList {
+	& .paginatorWrapper {
+		margin-top: 32px;
+	}
+}
