@@ -65,6 +65,7 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 					<TagList
 						className={s.tagList}
 						tags={GetIntegrationTags(integration, false)}
+						size="medium"
 					/>
 					<span className={s.viewDetails}>
 						View Details
