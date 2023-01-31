@@ -1,5 +1,6 @@
 import slugify from 'slugify'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import DevDotContent from 'components/dev-dot-content'
 import { MdxHeadingOutsideMdx } from './components/mdx-heading-outside-mdx'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
 import TableOfContents, {
@@ -20,7 +21,6 @@ import { Variable } from './components/variable-group-list'
 import { getVariableGroupSlug } from './helpers'
 import { ProcessedVariablesMarkdown } from './helpers'
 import s from './style.module.css'
-import DevDotContent from 'components/dev-dot-content'
 
 export interface ProductIntegrationComponentViewProps {
 	product: ProductData
