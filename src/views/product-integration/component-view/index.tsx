@@ -5,7 +5,6 @@ import ProductIntegrationLayout from 'layouts/product-integration-layout'
 import TableOfContents, {
 	TableOfContentsHeading,
 } from 'layouts/sidebar-sidecar/components/table-of-contents'
-import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import { getIntegrationComponentUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import {
@@ -14,13 +13,14 @@ import {
 	ReleaseComponent,
 	VariableGroup,
 } from 'lib/integrations-api-client/release'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
 import SearchableVariableGroupList from './components/searchable-variable-group-list'
 import { Variable } from './components/variable-group-list'
 import { getVariableGroupSlug } from './helpers'
 import { ProcessedVariablesMarkdown } from './helpers'
 import s from './style.module.css'
+import DevDotContent from 'components/dev-dot-content'
 
 export interface ProductIntegrationComponentViewProps {
 	product: ProductData
@@ -71,10 +71,7 @@ export default function ProductIntegrationComponentView({
 		>
 			{serializedREADME ? (
 				<div className={s.mdxWrapper}>
-					<MDXRemote
-						{...serializedREADME}
-						components={defaultMdxComponents({})}
-					/>
+					<DevDotContent mdxRemoteProps={serializedREADME} />
 				</div>
 			) : (
 				<></>
