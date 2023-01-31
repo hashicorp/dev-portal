@@ -5,23 +5,25 @@ import { abTestTrack } from 'lib/ab-test-track'
 
 const ctaSuffix = 'for free'
 
-export function useABTestCta(ctaText: string) {
-	const { flags } = useFlags()
+export function useABTestCta(ctaText: string): string {
+	const { flags, settled } = useFlags()
 	const flag = flags?.tryCloudFreeCta || false
 
-	let final = ctaText
+	let finalText = ctaText
 
 	if (isInUS() && flag && !ctaText.endsWith(ctaSuffix)) {
-		final = `${ctaText} ${ctaSuffix}`
+		finalText = `${ctaText} ${ctaSuffix}`
 	}
 
 	useEffect(() => {
-		abTestTrack({
-			type: 'Served',
-			test_name: 'HCP CTA Trial 2023-02',
-			variant: flag.toString(),
-		})
-	}, [flag])
+		if (settled) {
+			abTestTrack({
+				type: 'Served',
+				test_name: 'HCP CTA Trial 2023-02',
+				variant: flag.toString(),
+			})
+		}
+	}, [flag, settled])
 
-	return final
+	return finalText
 }
