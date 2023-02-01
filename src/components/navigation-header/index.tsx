@@ -14,6 +14,8 @@ import useAuthentication from 'hooks/use-authentication'
 import { useCurrentProduct, useMobileMenu } from 'contexts'
 import { CommandBarActivator } from 'components/command-bar'
 import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
+import { useDarkMode } from 'contexts/dark-mode'
+import Button from 'components/button'
 
 // Local imports
 import { NavigationHeaderItem } from './types'
@@ -92,6 +94,9 @@ const NavigationHeader = () => {
 		? HomePageHeaderContent
 		: ProductPageHeaderContent
 
+	const { isActive: darkModeIsActive, setIsActive: setDarkModeIsActive } =
+		useDarkMode()
+
 	return (
 		<header className={s.root}>
 			<div className={s.leftSide}>
@@ -104,6 +109,11 @@ const NavigationHeader = () => {
 						visualLabel="Search"
 					/>
 				) : null}
+				<Button
+					color="secondary"
+					text={darkModeIsActive ? 'Light' : 'Dark'}
+					onClick={() => setDarkModeIsActive(!darkModeIsActive)}
+				/>
 				<AuthenticationControls />
 				<MobileMenuButton />
 			</div>

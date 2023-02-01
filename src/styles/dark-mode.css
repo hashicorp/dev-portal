@@ -1,4 +1,4 @@
-html[data-dark-mode='true'] {
+#dark-mode-root[data-dark-mode='true'] {
 	/** TODO remove, just inserting this for testing **/
 
 	background-color: black;

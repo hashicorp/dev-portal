@@ -38,6 +38,7 @@ import { Toaster } from 'components/toast'
 
 // Local imports
 import './style.css'
+import { DarkModeProvider } from 'contexts/dark-mode'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
@@ -104,42 +105,44 @@ export default function App({
 	}
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<SSRProvider>
-				<QueryParamProvider adapter={NextAdapter}>
-					<CurrentContentTypeProvider currentContentType={currentContentType}>
-						<ErrorBoundary FallbackComponent={DevDotClient}>
-							<SessionProvider session={session}>
-								<DeviceSizeProvider>
-									<CurrentProductProvider currentProduct={currentProduct}>
-										<CodeTabsProvider>
-											<HeadMetadata {...pageProps.metadata} host={host} />
-											<LazyMotion
-												features={() =>
-													import('lib/framer-motion-features').then(
-														(mod) => mod.default
-													)
-												}
-												strict={process.env.NODE_ENV === 'development'}
-											>
-												<Layout {...allLayoutProps} data={allLayoutProps}>
-													<Component {...pageProps} />
-												</Layout>
-												<Toaster />
-												{showProductSwitcher ? (
-													<PreviewProductSwitcher />
-												) : null}
-												<ReactQueryDevtools />
-											</LazyMotion>
-										</CodeTabsProvider>
-									</CurrentProductProvider>
-								</DeviceSizeProvider>
-							</SessionProvider>
-						</ErrorBoundary>
-					</CurrentContentTypeProvider>
-				</QueryParamProvider>
-			</SSRProvider>
-		</QueryClientProvider>
+		<DarkModeProvider>
+			<QueryClientProvider client={queryClient}>
+				<SSRProvider>
+					<QueryParamProvider adapter={NextAdapter}>
+						<CurrentContentTypeProvider currentContentType={currentContentType}>
+							<ErrorBoundary FallbackComponent={DevDotClient}>
+								<SessionProvider session={session}>
+									<DeviceSizeProvider>
+										<CurrentProductProvider currentProduct={currentProduct}>
+											<CodeTabsProvider>
+												<HeadMetadata {...pageProps.metadata} host={host} />
+												<LazyMotion
+													features={() =>
+														import('lib/framer-motion-features').then(
+															(mod) => mod.default
+														)
+													}
+													strict={process.env.NODE_ENV === 'development'}
+												>
+													<Layout {...allLayoutProps} data={allLayoutProps}>
+														<Component {...pageProps} />
+													</Layout>
+													<Toaster />
+													{showProductSwitcher ? (
+														<PreviewProductSwitcher />
+													) : null}
+													<ReactQueryDevtools />
+												</LazyMotion>
+											</CodeTabsProvider>
+										</CurrentProductProvider>
+									</DeviceSizeProvider>
+								</SessionProvider>
+							</ErrorBoundary>
+						</CurrentContentTypeProvider>
+					</QueryParamProvider>
+				</SSRProvider>
+			</QueryClientProvider>
+		</DarkModeProvider>
 	)
 }
 
