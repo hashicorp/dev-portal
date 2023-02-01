@@ -3,6 +3,7 @@ import DocumentationHit, {
 	DocumentationHitObject,
 } from './documentation-tab-contents/documentation-hit'
 import DocumentationTabContents from './documentation-tab-contents'
+import IntegrationsTabContents from './integrations-tab-contents'
 import NoResultsMessage from './no-results-message'
 import RecentSearches, {
 	RecentSearch,
@@ -25,6 +26,7 @@ export {
 	CustomHitsContainer,
 	DocumentationHit,
 	DocumentationTabContents,
+	IntegrationsTabContents,
 	NoResultsMessage,
 	RecentSearches,
 	SuggestedPages,
