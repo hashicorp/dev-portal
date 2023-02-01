@@ -8,11 +8,13 @@ import { ProductData } from 'types/products'
 export function generateProductIntegrationLibrarySidebarNavData(
 	product: ProductData
 ) {
+	const title = `${product.name} Integrations`
 	// Set up menuItems for the sidebar
 	const menuItems: MenuItem[] = [
 		{
-			title: 'Library',
-			href: `/${product.slug}/integrations`,
+			title,
+			fullPath: `/${product.slug}/integrations`,
+			theme: product.slug,
 			isActive: true,
 		},
 	]
@@ -35,7 +37,10 @@ export function generateProductIntegrationLibrarySidebarNavData(
 			levelDownButtonText: 'Previous',
 		},
 		menuItems,
+		/* We always visually hide the title, as we've added in a
+			"highlight" item that would make showing the title redundant. */
+		visuallyHideTitle: true,
 		showFilterInput: false,
-		title: `${product.name} Integrations`,
+		title,
 	}
 }
