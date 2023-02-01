@@ -20,6 +20,7 @@ import {
 } from 'lib/integrations-api-client/integration'
 import { generateProductIntegrationLibrarySidebarNavData } from 'lib/integrations'
 import { ViewProps } from 'views/product-integrations-landing'
+import { getIsEnabledProductIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -34,12 +35,13 @@ export async function getStaticPaths(): Promise<
 	GetStaticPathsResult<StaticParams>
 > {
 	// Filter for products with integrations enabled
+	// TODO just based off config
 	const productSlugsWithIntegrations = activeProductSlugs.filter(
 		(productSlug: ProductSlug) => {
 			// Pull out the Product Config
 			const productData = cachedGetProductData(productSlug)
 			// We only want products where integrations are enabled
-			return productData.integrationsConfig.enabled
+			return getIsEnabledProductIntegrations(productData.slug)
 		}
 	)
 	// Transform slugs into path params

@@ -30,8 +30,11 @@ import {
 	getTargetVersion,
 	integrationComponentBreadcrumbLinks,
 } from 'lib/integrations'
-import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
 import { getProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
+import {
+	getIsEnabledProductIntegrations,
+	getProductSlugsWithIntegrations,
+} from 'lib/integrations/get-product-slugs-with-integrations'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -97,7 +100,7 @@ async function getStaticProps({
 	// Pull out the Product Config
 	const productData = cachedGetProductData(productSlug)
 	// 404 early if the product is not enabled for integrations
-	if (!productData.integrationsConfig.enabled) {
+	if (!getIsEnabledProductIntegrations(productSlug)) {
 		return {
 			notFound: true,
 		}
