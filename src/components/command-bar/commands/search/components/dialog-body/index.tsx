@@ -3,6 +3,7 @@ import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
+import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { ProductSlug } from 'types/products'
 import { useCurrentContentType, useCurrentProduct } from 'contexts'
 import { CommandBarTag, useCommandBar } from 'components/command-bar'
@@ -15,11 +16,12 @@ import {
 	getCurrentProductTag,
 } from '../../helpers'
 import {
+	DocumentationTabContents,
+	IntegrationsTabContents,
+	RecentSearches,
 	SuggestedPage,
 	SuggestedPages,
-	DocumentationTabContents,
 	TutorialsTabContents,
-	RecentSearches,
 } from '../'
 import s from './search-command-bar-dialog-body.module.css'
 
@@ -27,6 +29,9 @@ import s from './search-command-bar-dialog-body.module.css'
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
 const searchClient = algoliasearch(appId, apiKey)
+
+const PRODUCT_SLUGS_WITH_INTEGRATIONS =
+	__config.dev_dot.product_slugs_with_integrations
 
 const SearchCommandBarDialogBodyContent = ({
 	currentProductTag,
@@ -45,6 +50,7 @@ const SearchCommandBarDialogBodyContent = ({
 		return generateSuggestedPages(currentProductTag?.id as ProductSlug)
 	}, [currentProductTag])
 
+	const shouldRenderIntegrationsTab = PRODUCT_SLUGS_WITH_INTEGRATIONS.length > 0
 	return currentInputValue ? (
 		<div className={s.tabsWrapper}>
 			<Tabs
@@ -64,6 +70,11 @@ const SearchCommandBarDialogBodyContent = ({
 						tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
 					/>
 				</Tab>
+				{shouldRenderIntegrationsTab ? (
+					<Tab heading="Integrations" icon={<IconPipeline16 />}>
+						<IntegrationsTabContents currentProductTag={currentProductTag} />
+					</Tab>
+				) : null}
 			</Tabs>
 		</div>
 	) : (
