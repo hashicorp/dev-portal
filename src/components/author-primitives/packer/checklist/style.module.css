@@ -4,6 +4,9 @@
 		margin-left: 2rem;
 
 		& li {
+			/**
+			* TODO swap for token
+			**/
 			color: #525252;
 
 			&::before {

@@ -1,4 +1,8 @@
 .root {
+	/* 
+	TODO we need to handle this theming for dark mode 
+	*/
+
 	/* theming. Note that gold, gray, and purple
   have been set to hex values in order
   to match Terraform Registry tier labels. */
