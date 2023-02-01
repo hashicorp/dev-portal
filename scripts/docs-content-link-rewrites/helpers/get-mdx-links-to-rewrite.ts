@@ -1,15 +1,18 @@
 import fs from 'fs'
 import remark from 'remark'
+import matter from 'gray-matter'
 import rewriteLinksPlugin from '../rewrite-links-plugin'
 
 const getMdxLinksToRewrite = async ({
 	filePathPrefix,
 	filePaths,
 	urlAdjustFn,
+	repo,
 }: {
 	filePathPrefix: string
 	filePaths: string[]
 	urlAdjustFn: (url: string) => string
+	repo: string
 }): Promise<{
 	mdxLinksToRewrite: Record<string, Record<string, string>>
 	mdxUnrewriteableLinks: Record<string, Record<string, string>>
@@ -40,6 +43,15 @@ const getMdxLinksToRewrite = async ({
 		}
 
 		const fileContent = fs.readFileSync(filePath, 'utf-8')
+
+		// Ignore files that have a different `source` than the current repo
+		const { data: frontmatter } = matter(fileContent)
+		const isSourcedFromDifferentRepo =
+			typeof frontmatter?.source === 'string' && frontmatter.source !== repo
+		if (isSourcedFromDifferentRepo) {
+			continue
+		}
+
 		const data = {
 			linksToRewrite: {},
 			unrewriteableLinks: [],
