@@ -1,4 +1,11 @@
 html[data-dark-mode='true'] {
+	/** TODO remove, just inserting this for testing **/
+
+	background-color: black;
+	color: white;
+
+	/** ------------- **/
+
 	--token-color-palette-blue-500: #5fbcff;
 	--token-color-palette-blue-400: #3491ff;
 	--token-color-palette-blue-300: #107dff;
