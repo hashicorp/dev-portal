@@ -79,7 +79,7 @@
 		}
 	],
 	"integrationsConfig": {
-		"enabled": true,
+		"enabled": false,
 		"description": "A curated collection of official, partner, and community Waypoint Integrations."
 	}
 }
