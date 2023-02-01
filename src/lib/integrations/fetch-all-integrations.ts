@@ -2,6 +2,8 @@ import { ProductSlug } from 'types/products'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { fetchAllProductIntegrations } from 'lib/integrations-api-client/integration'
 
+type FetchAllIntegrationsResult = Integration[]
+
 /**
  * Fetch a flat array of all integrations across all provided product slugs.
  *
@@ -12,8 +14,10 @@ import { fetchAllProductIntegrations } from 'lib/integrations-api-client/integra
  */
 export async function fetchAllIntegrations(
 	productSlugs: ProductSlug[]
-): Promise<Integration[]> {
+): Promise<FetchAllIntegrationsResult> {
 	return (
 		await Promise.all(productSlugs.map(fetchAllProductIntegrations))
 	).flat()
 }
+
+export type { FetchAllIntegrationsResult }
