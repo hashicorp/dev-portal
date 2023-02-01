@@ -1,7 +1,7 @@
 .sidebarNavMenuItem {
 	composes: g-focus-ring-from-box-shadow from global;
 	align-items: center;
-	background-color: white;
+	background-color: var(----token-color-palette-neutral-0);
 	border-radius: 5px;
 	border: none;
 	color: var(--token-color-foreground-faint);

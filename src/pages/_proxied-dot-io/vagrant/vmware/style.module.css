@@ -8,7 +8,7 @@
 	composes: g-type-label from global;
 	display: inline-block;
 	background: black;
-	color: white;
+	color: var(----token-color-palette-neutral-0);
 	padding: 6px 8px;
 }
 

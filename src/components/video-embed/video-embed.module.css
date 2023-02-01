@@ -5,7 +5,7 @@
 }
 
 .reactPlayer {
-	background-color: white;
+	background-color: var(----token-color-palette-neutral-0);
 	border-radius: 6px;
 	box-shadow: var(--token-surface-base-box-shadow);
 	left: 0;
