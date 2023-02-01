@@ -5,10 +5,15 @@ import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { ProductSlug } from 'types/products'
-import { useCurrentContentType, useCurrentProduct } from 'contexts'
+import {
+	SearchableContentType,
+	useCurrentContentType,
+	useCurrentProduct,
+} from 'contexts'
 import { CommandBarTag, useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 import Tabs, { Tab } from 'components/tabs'
+import { TabProps } from 'components/tabs/components/tab'
 import useRecentSearches from '../../hooks/use-recent-searches'
 import {
 	generateSuggestedPages,
@@ -33,6 +38,15 @@ const searchClient = algoliasearch(appId, apiKey)
 const PRODUCT_SLUGS_WITH_INTEGRATIONS =
 	__config.dev_dot.product_slugs_with_integrations
 
+const SHOULD_RENDER_INTEGRATIONS_TAB =
+	PRODUCT_SLUGS_WITH_INTEGRATIONS.length > 0
+
+interface SearchableContentTypeTab {
+	heading: TabProps['heading']
+	icon: TabProps['icon']
+	content: TabProps['children']
+}
+
 const SearchCommandBarDialogBodyContent = ({
 	currentProductTag,
 	recentSearches,
@@ -50,34 +64,77 @@ const SearchCommandBarDialogBodyContent = ({
 		return generateSuggestedPages(currentProductTag?.id as ProductSlug)
 	}, [currentProductTag])
 
-	const shouldRenderIntegrationsTab = PRODUCT_SLUGS_WITH_INTEGRATIONS.length > 0
-	return currentInputValue ? (
-		<div className={s.tabsWrapper}>
-			<Tabs
-				showAnchorLine={false}
-				initialActiveIndex={contentType === 'tutorials' ? 1 : 0}
-				variant="compact"
-			>
-				<Tab heading="Documentation" icon={<IconDocs16 />}>
+	/**
+	 * Generate an object used to render all of the Tab elements to preselect the
+	 * Tab for the CurrentContentType.
+	 */
+	const tabsBySearchableContentType = useMemo<
+		Record<SearchableContentType, SearchableContentTypeTab>
+	>(() => {
+		return {
+			docs: {
+				heading: 'Documentation',
+				icon: <IconDocs16 />,
+				content: (
 					<DocumentationTabContents
 						currentProductTag={currentProductTag}
 						suggestedPages={suggestedPages}
 					/>
-				</Tab>
-				<Tab heading="Tutorials" icon={<IconLearn16 />}>
+				),
+			},
+			tutorials: {
+				heading: 'Tutorials',
+				icon: <IconLearn16 />,
+				content: (
 					<TutorialsTabContents
 						currentProductTag={currentProductTag}
 						tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
 					/>
-				</Tab>
-				{shouldRenderIntegrationsTab ? (
-					<Tab heading="Integrations" icon={<IconPipeline16 />}>
-						<IntegrationsTabContents currentProductTag={currentProductTag} />
-					</Tab>
-				) : null}
-			</Tabs>
-		</div>
-	) : (
+				),
+			},
+			integrations: {
+				heading: 'Integrations',
+				icon: <IconPipeline16 />,
+				content: (
+					<IntegrationsTabContents currentProductTag={currentProductTag} />
+				),
+			},
+		}
+	}, [currentProductTag, suggestedPages])
+	const searchableContentTypes = Object.keys(tabsBySearchableContentType)
+	const activeTabIndex =
+		contentType === 'global' ? 0 : searchableContentTypes.indexOf(contentType)
+
+	if (currentInputValue) {
+		return (
+			<div className={s.tabsWrapper}>
+				<Tabs
+					showAnchorLine={false}
+					initialActiveIndex={activeTabIndex}
+					variant="compact"
+				>
+					{searchableContentTypes.map((contentType: SearchableContentType) => {
+						if (
+							contentType === 'integrations' &&
+							!SHOULD_RENDER_INTEGRATIONS_TAB
+						) {
+							return null
+						}
+
+						const { heading, icon, content } =
+							tabsBySearchableContentType[contentType]
+						return (
+							<Tab heading={heading} icon={icon} key={contentType}>
+								{content}
+							</Tab>
+						)
+					})}
+				</Tabs>
+			</div>
+		)
+	}
+
+	return (
 		<div className={s.suggestedPagesWrapper}>
 			<RecentSearches recentSearches={recentSearches} />
 			<SuggestedPages pages={suggestedPages} />
