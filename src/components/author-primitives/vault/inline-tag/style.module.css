@@ -1,6 +1,6 @@
 .root {
 	background: #333;
-	color: var(----token-color-palette-neutral-0);
+	color: var(--token-color-palette-neutral-0);
 	padding: 5px 9px;
 	border-radius: 999px;
 	text-transform: uppercase;

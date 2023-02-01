@@ -28,7 +28,7 @@ the correct elements, roles, states, and properties are being set in the markup.
 Styles for each tab button.
 */
 .tabButton[role='tab'] {
-	background-color: var(----token-color-palette-neutral-0);
+	background-color: var(--token-color-palette-neutral-0);
 	border-radius: 5px;
 	border: 1px solid transparent;
 	color: var(--token-color-foreground-faint);

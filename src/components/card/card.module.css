@@ -2,7 +2,7 @@
 	/* used by components like CardLink */
 	--card-border-radius: 6px;
 
-	background-color: var(----token-color-palette-neutral-0);
+	background-color: var(--token-color-palette-neutral-0);
 	border-radius: var(--card-border-radius);
 	padding: 16px;
 	width: 100%;

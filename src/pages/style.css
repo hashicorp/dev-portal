@@ -114,7 +114,7 @@
 
 .g-section-block.theme-black-background-white-text {
 	background: var(--gray-1);
-	color: var(----token-color-palette-neutral-0);
+	color: var(--token-color-palette-neutral-0);
 }
 
 /*
