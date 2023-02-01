@@ -281,6 +281,25 @@ async function buildDevPortalRedirects() {
 			destination: '/hcp',
 			permanent: true,
 		},
+		/**
+		 * Redirect Waypoint Plugins to Waypoint Integrations
+		 *
+		 * Note: canonical list of plugin pages that require redirects can be
+		 * derived from the plugins nav-data.json file:
+		 *  https://github.com/hashicorp/waypoint/blob/main/website/data/plugins-nav-data.json
+		 */
+		{
+			source: '/waypoint/plugins',
+			destination: '/waypoint/integrations',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/plugins/:slug',
+			// TODO: should update `BrandonRomano` to `hashicorp` here,
+			// once that change is made in API content
+			destination: '/waypoint/integrations/BrandonRomano/:slug',
+			permanent: true,
+		},
 	]
 }
 
