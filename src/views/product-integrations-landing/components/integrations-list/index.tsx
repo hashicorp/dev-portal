@@ -6,6 +6,7 @@ import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
 import { Integration } from 'lib/integrations-api-client/integration'
 import TagList, { GetIntegrationTags } from '../tag-list'
+import { getHrefForIntegration } from './helpers/get-href-for-integration'
 import s from './style.module.css'
 
 interface IntegrationsListProps {
@@ -35,10 +36,7 @@ interface IntegrationCardProps {
 }
 
 function IntegrationCard({ integration }: IntegrationCardProps) {
-	const url = integration.external_only
-		? integration.external_url.replace(/^https:\/\/developer.hashicorp.com/, '')
-		: `/${integration.product.slug}/integrations/${integration.slug}`
-
+	const url = getHrefForIntegration(integration)
 	const isExternalLink = !url.startsWith('/')
 
 	return (
