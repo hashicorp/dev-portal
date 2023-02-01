@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useIntegrationsByProductSlugs } from 'hooks/integrations/use-integrations-by-product-slugs'
-import { Integration } from 'lib/integrations-api-client/integration'
+import { getFilteredIntegrations } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/get-filtered-integrations'
 import { useCommandBar } from 'components/command-bar'
 import CustomHitsContainer from '../custom-hits-container'
 import NoResultsMessage from '../no-results-message'
@@ -17,10 +17,9 @@ const IntegrationsTabContents = ({
 	})
 
 	const filteredIntegrations = useMemo(() => {
-		return integrations?.filter((integration: Integration) => {
-			return integration.name
-				.toLowerCase()
-				.includes(currentInputValue.toLowerCase())
+		return getFilteredIntegrations({
+			integrations,
+			filterQuery: currentInputValue,
 		})
 	}, [currentInputValue, integrations])
 
