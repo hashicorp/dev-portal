@@ -4,7 +4,7 @@
 	justify-content: center;
 	padding: 196px 24px 32px 24px;
 	border-radius: 6px;
-	background-color: black;
+	background-color: var(--token-color-palette-neutral-700);
 	background-image: url('./img/newsletter-background.svg');
 	background-repeat: no-repeat;
 	background-size: auto 300px;

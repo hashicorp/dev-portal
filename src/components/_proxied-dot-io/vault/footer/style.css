@@ -16,7 +16,7 @@
 		display: inline-block;
 
 		&:hover {
-			color: black;
+			color: var(--token-color-palette-neutral-700);
 		}
 	}
 

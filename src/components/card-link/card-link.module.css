@@ -3,7 +3,7 @@ NOTE: `color: black` is needed because the color is otherwise set by a global
 style applied to anchor elements.
 */
 .root {
-	color: black;
+	color: var(--token-color-palette-neutral-700);
 	height: 100%;
 	position: relative;
 
