@@ -10,7 +10,6 @@
 	--input-padding: 8px;
 
 	height: var(--input-height);
-	margin-bottom: 16px;
 	position: relative;
 	display: flex;
 	align-items: center;

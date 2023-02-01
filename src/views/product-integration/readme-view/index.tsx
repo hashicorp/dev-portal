@@ -1,6 +1,8 @@
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/components'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
+import { getIntegrationUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
@@ -31,12 +33,12 @@ export default function ProductIntegrationReadmeView({
 			integration={integration}
 			activeRelease={activeRelease}
 			getVersionChangedURL={(version: string) => {
-				if (version === integration.versions[0]) {
-					return `/${product.slug}/integrations/${integration.slug}`
-				} else {
-					return `/${product.slug}/integrations/${integration.slug}/${version}`
-				}
+				const isLatest = version === integration.versions[0]
+				return isLatest
+					? getIntegrationUrl(integration)
+					: getIntegrationUrl(integration, version)
 			}}
+			sidecarSlot={<TryHcpCalloutSidecarPlacement productSlug={product.slug} />}
 		>
 			<MDXRemote {...serializedREADME} components={defaultMdxComponents({})} />
 		</ProductIntegrationLayout>

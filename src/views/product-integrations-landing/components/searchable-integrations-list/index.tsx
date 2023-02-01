@@ -200,6 +200,7 @@ export default function SearchableIntegrationsList({
 		<div className={classNames(s.searchableIntegrationsList, className)}>
 			<div className={s.header}>
 				<FilterInput
+					className={s.filterInput}
 					IconComponent={IconSearch16}
 					value={filterQuery}
 					onChange={(v: string) => {
