@@ -47,6 +47,7 @@ import {
 } from './components'
 import s from './tutorial-view.module.css'
 import { useProgressToast } from './utils/use-progress-toast'
+import { generateCollectionSidebarNavData } from 'views/collection-view/helpers/generate-collection-sidebar-nav-data'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -147,19 +148,7 @@ function TutorialView({
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(product.name),
 		generateProductLandingSidebarNavData(product),
-		{
-			levelButtonProps: {
-				levelUpButtonText: `${product.name} Home`,
-				levelDownButtonText: 'Previous',
-			},
-			title: 'Tutorials',
-			overviewItemHref: `/${product.slug}/tutorials`,
-			children: (
-				<CollectionViewSidebarContent
-					sections={collectionViewSidebarSections}
-				/>
-			),
-		},
+		generateCollectionSidebarNavData(product, layoutProps.sidebarSections),
 		{
 			levelButtonProps: {
 				levelUpButtonText: collectionCtx.current.shortName,

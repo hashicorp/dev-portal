@@ -1,4 +1,5 @@
 import { EnrichedNavItem, SidebarProps } from 'components/sidebar/types'
+import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 
 export function generateWafCollectionSidebar(
 	wafData: { name: string; slug: string },
@@ -10,8 +11,14 @@ export function generateWafCollectionSidebar(
 			levelUpButtonText: `Main Menu`,
 			levelDownButtonText: 'Previous',
 		},
-		overviewItemHref: `/${wafData.slug}`,
-		menuItems: sidebarSections,
+		/* We always visually hide the title, as we've added in a
+			"highlight" item that would make showing the title redundant. */
+		visuallyHideTitle: true,
+		menuItems: addBrandedOverviewSidebarItem(sidebarSections, {
+			title: wafData.name,
+			fullPath: `/${wafData.slug}`,
+			theme: 'hcp',
+		}) as $TSFixMe,
 		showFilterInput: false,
 	}
 }
