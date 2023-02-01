@@ -9,7 +9,7 @@ export default class MyDocument extends Document {
 
 	render() {
 		return (
-			<Html lang="en">
+			<Html lang="en" data-dark-mode={true}>
 				<Head>
 					<HashiHead />
 				</Head>

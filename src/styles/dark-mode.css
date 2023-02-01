@@ -1,4 +1,4 @@
-:root {
+html[data-dark-mode='true'] {
 	--token-color-palette-blue-500: #1c345f;
 	--token-color-palette-blue-400: #0046d1;
 	--token-color-palette-blue-300: #0c56e9;
@@ -37,7 +37,7 @@
 	--token-color-palette-neutral-200: #dedfe3;
 	--token-color-palette-neutral-100: #f1f2f3;
 	--token-color-palette-neutral-50: #fafafa;
-	--token-color-palette-neutral-0: #fff;
+	--token-color-palette-neutral-0: #000;
 	--token-color-palette-alpha-300: #3b3d4566;
 	--token-color-palette-alpha-200: #656a7633;
 	--token-color-palette-alpha-100: #656a761a;
@@ -54,9 +54,9 @@
 	--token-color-focus-critical-internal: #c00005;
 	--token-color-focus-critical-external: #dd7578; /* this is a special color used only for the focus style, to pass color contrast for a11y purpose */
 	--token-color-foreground-strong: #0c0c0e;
-	--token-color-foreground-primary: #fff;
+	--token-color-foreground-primary: #000;
 	--token-color-foreground-faint: #656a76;
-	--token-color-foreground-high-contrast: #fff;
+	--token-color-foreground-high-contrast: #000;
 	--token-color-foreground-disabled: #8c909c;
 	--token-color-foreground-action: #1060ff;
 	--token-color-foreground-action-hover: #0c56e9;
@@ -75,12 +75,12 @@
 	--token-color-foreground-critical-high-contrast: #51130a;
 	--token-color-foreground-action-visited: #a737ff; /* This extra color is unique for the DevDot platform (the 'visited' state of a link is not differentiated in the products applications). */
 	--token-color-foreground-action-visited-hover: #7b00db; /* This extra color is unique for the DevDot platform (the 'visited+hover' state of a link is not differentiated in the products applications). */
-	--token-color-page-primary: #fff;
+	--token-color-page-primary: #000;
 	--token-color-page-faint: #fafafa;
-	--token-color-surface-primary: #fff;
+	--token-color-surface-primary: #000;
 	--token-color-surface-faint: #fafafa;
 	--token-color-surface-strong: #f1f2f3;
-	--token-color-surface-interactive: #fff;
+	--token-color-surface-interactive: #000;
 	--token-color-surface-interactive-hover: #f1f2f3;
 	--token-color-surface-interactive-active: #dedfe3;
 	--token-color-surface-interactive-disabled: #fafafa;
@@ -89,7 +89,7 @@
 	--token-color-surface-success: #f2fbf6;
 	--token-color-surface-warning: #fff9e8;
 	--token-color-surface-critical: #fff5f5;
-	--token-color-hashicorp-brand: #000;
+	--token-color-hashicorp-brand: #fff;
 	--token-color-boundary-brand: #f24c53;
 	--token-color-boundary-foreground: #cf2d32;
 	--token-color-boundary-surface: #ffecec;
@@ -106,7 +106,7 @@
 	--token-color-consul-gradient-primary-stop: #da306e;
 	--token-color-consul-gradient-faint-start: #fff9fb; /* this is the 'consul-50' value at 25% opacity on white */
 	--token-color-consul-gradient-faint-stop: #ffe9f1;
-	--token-color-hcp-brand: #000;
+	--token-color-hcp-brand: #fff;
 	--token-color-nomad-brand: #06d092;
 	--token-color-nomad-foreground: #008661;
 	--token-color-nomad-surface: #d3fdeb;
@@ -140,7 +140,7 @@
 	--token-color-vagrant-gradient-faint-start: #f4faff; /* this is the 'vagrant-50' value at 25% opacity on white */
 	--token-color-vagrant-gradient-faint-stop: #d6ebff;
 	--token-color-vault-brand: #ffd814;
-	--token-color-vault-brand-alt: #000; /* this is a special “alternative” color, used as an exception in some contexts where the normal “brand” color for Vault would not work */
+	--token-color-vault-brand-alt: #fff; /* this is a special “alternative” color, used as an exception in some contexts where the normal “brand” color for Vault would not work */
 	--token-color-vault-foreground: #9a6f00;
 	--token-color-vault-surface: #fff9cf;
 	--token-color-vault-border: #feec7b;
@@ -190,11 +190,11 @@
 	--token-form-error-color: #c00005;
 	--token-form-control-base-foreground-value-color: #0c0c0e;
 	--token-form-control-base-foreground-placeholder-color: #656a76;
-	--token-form-control-base-surface-color-default: #fff;
+	--token-form-control-base-surface-color-default: #000;
 	--token-form-control-base-surface-color-hover: #f1f2f3;
 	--token-form-control-base-border-color-default: #8c909c;
 	--token-form-control-base-border-color-hover: #656a76;
-	--token-form-control-checked-foreground-color: #fff;
+	--token-form-control-checked-foreground-color: #000;
 	--token-form-control-checked-surface-color-default: #1060ff;
 	--token-form-control-checked-surface-color-hover: #0c56e9;
 	--token-form-control-checked-border-color-default: #0c56e9;
