@@ -13,6 +13,7 @@ import RecentSearches, {
 	RecentSearchesProps,
 } from './recent-searches'
 import SuggestedPages, { SuggestedPage } from './suggested-pages'
+import TabContentsCta from './tab-contents-cta'
 import TutorialHit, {
 	TutorialHitObject,
 } from './tutorials-tab-contents/tutorial-hit'
@@ -35,6 +36,7 @@ export {
 	NoResultsMessage,
 	RecentSearches,
 	SuggestedPages,
+	TabContentsCta,
 	TutorialHit,
 	TutorialsTabContents,
 }
