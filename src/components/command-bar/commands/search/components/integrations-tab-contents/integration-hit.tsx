@@ -1,20 +1,16 @@
 import { CommandBarLinkListItem } from 'components/command-bar/components'
 import { productSlugsToNames } from 'lib/products'
+import { getHrefForIntegration } from 'views/product-integrations-landing/components/integrations-list/helpers/get-href-for-integration'
 import { IntegrationHitObject, IntegrationHitProps } from './types'
 
-/**
- * @TODO
- *
- * - render correct url
- * - render trailing icon for external URLs
- */
 const IntegrationHit = ({ hit }: IntegrationHitProps) => {
+	const url = getHrefForIntegration(hit)
 	return (
 		<CommandBarLinkListItem
 			description={hit.description}
 			badges={[productSlugsToNames[hit.product.slug]]}
 			title={hit.name}
-			url="/"
+			url={url}
 		/>
 	)
 }
