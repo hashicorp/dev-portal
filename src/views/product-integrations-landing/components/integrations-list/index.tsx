@@ -7,7 +7,6 @@ import CardsGridList from 'components/cards-grid-list'
 import { getIntegrationUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import TagList, { GetIntegrationTags } from '../tag-list'
-import { getHrefForIntegration } from './helpers/get-href-for-integration'
 import s from './style.module.css'
 
 interface IntegrationsListProps {

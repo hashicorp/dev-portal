@@ -1,10 +1,10 @@
 import { CommandBarLinkListItem } from 'components/command-bar/components'
+import { getIntegrationUrl } from 'lib/integrations'
 import { productSlugsToNames } from 'lib/products'
-import { getHrefForIntegration } from 'views/product-integrations-landing/components/integrations-list/helpers/get-href-for-integration'
 import { IntegrationHitObject, IntegrationHitProps } from './types'
 
 const IntegrationHit = ({ hit }: IntegrationHitProps) => {
-	const url = getHrefForIntegration(hit)
+	const url = getIntegrationUrl(hit)
 	return (
 		<CommandBarLinkListItem
 			description={hit.description}
