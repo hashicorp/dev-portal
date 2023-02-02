@@ -4,18 +4,25 @@ import { CustomHitsContainerProps } from './types'
 import {
 	DocumentationHit,
 	DocumentationHitObject,
+	IntegrationHit,
+	IntegrationHitObject,
 	TutorialHit,
 	TutorialHitObject,
 } from '../'
 import s from './custom-hits-container.module.css'
 
 const CustomHitsContainer = ({
+	integrationsHits = [],
 	noResultsSlot,
 	type,
 }: CustomHitsContainerProps) => {
 	const { hits } = useHits<DocumentationHitObject | TutorialHitObject>()
 
-	if (hits && hits.length <= 0) {
+	const shouldShowNoResultsSlot =
+		type === 'integrations'
+			? integrationsHits && integrationsHits.length <= 0
+			: hits && hits.length <= 0
+	if (shouldShowNoResultsSlot) {
 		return <>{noResultsSlot}</>
 	}
 
@@ -27,21 +34,30 @@ const CustomHitsContainer = ({
 			</div>
 			<div className={s.comandBarListWrapper}>
 				<CommandBarList ariaLabelledBy={labelElementId}>
-					{hits.map((hit: DocumentationHitObject | TutorialHitObject) => {
-						let hitObject
+					{type === 'integrations'
+						? integrationsHits.map((hit: IntegrationHitObject) => (
+								<IntegrationHit key={hit.id} hit={hit} />
+						  ))
+						: hits.map((hit: DocumentationHitObject | TutorialHitObject) => {
+								let hitObject
 
-						if (type === 'documentation') {
-							hitObject = hit as DocumentationHitObject
-							return (
-								<DocumentationHit key={hitObject.objectID} hit={hitObject} />
-							)
-						}
+								if (type === 'docs') {
+									hitObject = hit as DocumentationHitObject
+									return (
+										<DocumentationHit
+											key={hitObject.objectID}
+											hit={hitObject}
+										/>
+									)
+								}
 
-						if (type === 'tutorials') {
-							hitObject = hit as TutorialHitObject
-							return <TutorialHit key={hitObject.objectID} hit={hitObject} />
-						}
-					})}
+								if (type === 'tutorials') {
+									hitObject = hit as TutorialHitObject
+									return (
+										<TutorialHit key={hitObject.objectID} hit={hitObject} />
+									)
+								}
+						  })}
 				</CommandBarList>
 			</div>
 		</>
