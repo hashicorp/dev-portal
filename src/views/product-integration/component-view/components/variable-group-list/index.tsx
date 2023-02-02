@@ -2,13 +2,32 @@ import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-
 import classNames from 'classnames'
 import Badge from 'components/badge'
 import MdxHeadingPermalink from 'components/dev-dot-content/mdx-components/mdx-heading-permalink'
-import ReactMarkdown from 'react-markdown'
 import { getVariableSlug } from '../../helpers'
+import DevDotContent from 'components/dev-dot-content'
+import { MdxInlineCode, MdxP } from 'components/dev-dot-content/mdx-components'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import s from './style.module.css'
+
+/**
+ * We use some custom elements to decrease the font size for paragraph
+ * content when rendering processed MDX variable descriptions.
+ */
+const smallDescriptionMdxComponents = {
+	inlineCode: (props) => <MdxInlineCode {...props} size="100" />,
+	p: (props) => <MdxP {...props} size="200" />,
+}
 
 export interface Variable {
 	key: string
 	type: string
+	/**
+	 * Optional. Description MDX is used to render description content.
+	 */
+	descriptionMdx?: MDXRemoteSerializeResult
+	/**
+	 * Optional, but required if passing description MDX. The plain description
+	 * string is not rendered, but it is used for search and filter purposes.
+	 */
 	description?: string
 	required: boolean | null
 	variables?: Array<Variable> // User doesn't need to specify this
@@ -95,9 +114,14 @@ export function VariableGroupList({
 							</div>
 
 							<div className={s.description}>
-								<ReactMarkdown>{`${
-									variable.description !== null ? variable.description : ''
-								}`}</ReactMarkdown>
+								{variable.descriptionMdx ? (
+									<DevDotContent
+										mdxRemoteProps={{
+											...variable.descriptionMdx,
+											components: smallDescriptionMdxComponents,
+										}}
+									/>
+								) : null}
 							</div>
 
 							{variable.variables?.length > 0 && (
