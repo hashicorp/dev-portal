@@ -182,6 +182,7 @@
 		"next": "^13.0.5",
 		"next-auth": "^4.17.0",
 		"next-mdx-remote": "^3.0.8",
+		"next-query-params": "^4.1.0",
 		"next-sitemap": "^3.1.21",
 		"nuka-carousel": "^4.8.4",
 		"p-map": "^4.0.0",
@@ -206,6 +207,7 @@
 		"unist-util-is": "^5.1.1",
 		"unist-util-visit": "^4.1.0",
 		"unist-util-visit-children": "^1.1.4",
+		"use-query-params": "^2.1.2",
 		"validator": "^13.7.0",
 		"zod": "^3.20.2"
 	},

@@ -52,11 +52,17 @@ const main = async () => {
 	const mdxFilesWithLinksToRewrite = Object.keys(mdxLinksToRewrite)
 	if (mdxFilesWithLinksToRewrite.length > 0) {
 		// Throw an error if configured to, such as in a legacy link format checker
-		const message = `Found MDX links to rewrite in ${
-			mdxFilesWithLinksToRewrite.length
-		} files:\n${mdxFilesWithLinksToRewrite
-			.map((fileName: string) => `  ${fileName}`)
-			.join('\n')}`
+		let message = `\n 🔴 Found MDX links to rewrite in ${mdxFilesWithLinksToRewrite.length} files:`
+		mdxFilesWithLinksToRewrite.forEach((file, index) => {
+			message += `\n\n  File #${index + 1}: "${file}"`
+
+			const linksForFile = mdxLinksToRewrite[file]
+			Object.entries(linksForFile).forEach(([actual, expected]) => {
+				message += `\n    Expected "${actual}" to be "${expected}"`
+			})
+		})
+		message += '\n'
+
 		if (ERROR_IF_LINKS_TO_REWRITE === 'true') {
 			throw new Error(message)
 		} else {

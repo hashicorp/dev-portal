@@ -9,6 +9,7 @@ import {
 	DropdownDisclosureDescriptionItem,
 	DropdownDisclosureLabelItem,
 	DropdownDisclosureLinkItem,
+	DropdownDisclosureListItem,
 	DropdownDisclosureSeparatorItem,
 } from './components'
 import { DropdownDisclosureProps } from './types'
@@ -32,6 +33,7 @@ const DropdownDisclosure = ({
 	'aria-label': ariaLabel,
 	children,
 	className,
+	closeOnRouteChangeStart,
 	color = 'primary',
 	hideChevron = false,
 	icon,
@@ -73,6 +75,7 @@ const DropdownDisclosure = ({
 			closeOnEscapeKey
 			closeOnClickOutside
 			closeOnFocusOutside
+			closeOnRouteChangeStart={closeOnRouteChangeStart}
 			containerClassName={classNames(
 				s.root,
 				s[`list-position--${listPosition}`],
@@ -101,6 +104,7 @@ export {
 	DropdownDisclosureDescriptionItem,
 	DropdownDisclosureLabelItem,
 	DropdownDisclosureLinkItem,
+	DropdownDisclosureListItem,
 	DropdownDisclosureSeparatorItem,
 }
 export default DropdownDisclosure

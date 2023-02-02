@@ -77,5 +77,9 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"enabled": false,
+		"description": "A curated collection of official, partner, and community Waypoint Integrations."
+	}
 }

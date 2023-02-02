@@ -2,6 +2,7 @@ import { productSlugsToNames } from 'lib/products'
 import { ProductOption } from 'lib/learn-client/types'
 import { CommandBarLinkListItem } from 'components/command-bar/components'
 import { TutorialHitObject, TutorialHitProps } from './types'
+import { getTutorialSlug } from 'views/collection-view/helpers'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
@@ -43,11 +44,7 @@ const TutorialHit = ({ hit }: TutorialHitProps) => {
 	const badges = products?.map(
 		(productSlug: ProductOption) => productSlugsToNames[productSlug]
 	)
-	const [productSlug, collectionSlug] = defaultContext.slug.split('/')
-	const [, tutorialSlug] = slug.split('/')
-	const resultUrl = `/${
-		productSlug === 'cloud' ? 'hcp' : productSlug
-	}/tutorials/${collectionSlug}/${tutorialSlug}`
+	const resultUrl = getTutorialSlug(slug, defaultContext.slug)
 
 	return (
 		<CommandBarLinkListItem
