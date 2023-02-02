@@ -38,9 +38,6 @@ const searchClient = algoliasearch(appId, apiKey)
 const PRODUCT_SLUGS_WITH_INTEGRATIONS =
 	__config.dev_dot.product_slugs_with_integrations
 
-const SHOULD_RENDER_INTEGRATIONS_TAB =
-	PRODUCT_SLUGS_WITH_INTEGRATIONS.length > 0
-
 interface SearchableContentTypeTab {
 	heading: TabProps['heading']
 	icon: TabProps['icon']
@@ -105,39 +102,57 @@ const SearchCommandBarDialogBodyContent = ({
 	const activeTabIndex =
 		contentType === 'global' ? 0 : searchableContentTypes.indexOf(contentType)
 
-	if (currentInputValue) {
+	/**
+	 * Don't render search result Tabs at all if there is no text in the input.
+	 */
+	if (!currentInputValue) {
 		return (
-			<div className={s.tabsWrapper}>
-				<Tabs
-					showAnchorLine={false}
-					initialActiveIndex={activeTabIndex}
-					variant="compact"
-				>
-					{searchableContentTypes.map((contentType: SearchableContentType) => {
-						if (
-							contentType === 'integrations' &&
-							!SHOULD_RENDER_INTEGRATIONS_TAB
-						) {
-							return null
-						}
-
-						const { heading, icon, content } =
-							tabsBySearchableContentType[contentType]
-						return (
-							<Tab heading={heading} icon={icon} key={contentType}>
-								{content}
-							</Tab>
-						)
-					})}
-				</Tabs>
+			<div className={s.suggestedPagesWrapper}>
+				<RecentSearches recentSearches={recentSearches} />
+				<SuggestedPages pages={suggestedPages} />
 			</div>
 		)
 	}
 
+	/**
+	 * Determine whether the Integrations tab should be rendered.
+	 */
+	let shouldRenderIntegrationsTab
+	if (PRODUCT_SLUGS_WITH_INTEGRATIONS.length <= 0) {
+		// If no products have integrations, do not render it
+		shouldRenderIntegrationsTab = false
+	} else if (currentProductTag) {
+		// If there is a product tag, render it if the product has integrations
+		const productHasIntegrations = PRODUCT_SLUGS_WITH_INTEGRATIONS.includes(
+			currentProductTag.id
+		)
+		shouldRenderIntegrationsTab = productHasIntegrations
+	} else {
+		// Otherwise search is across all products, so render it
+		shouldRenderIntegrationsTab = true
+	}
+
 	return (
-		<div className={s.suggestedPagesWrapper}>
-			<RecentSearches recentSearches={recentSearches} />
-			<SuggestedPages pages={suggestedPages} />
+		<div className={s.tabsWrapper}>
+			<Tabs
+				showAnchorLine={false}
+				initialActiveIndex={activeTabIndex}
+				variant="compact"
+			>
+				{searchableContentTypes.map((contentType: SearchableContentType) => {
+					if (contentType === 'integrations' && !shouldRenderIntegrationsTab) {
+						return null
+					}
+
+					const { heading, icon, content } =
+						tabsBySearchableContentType[contentType]
+					return (
+						<Tab heading={heading} icon={icon} key={contentType}>
+							{content}
+						</Tab>
+					)
+				})}
+			</Tabs>
 		</div>
 	)
 }
