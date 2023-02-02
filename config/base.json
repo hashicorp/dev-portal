@@ -44,7 +44,6 @@
 		"enable_datadog": true,
 		"enable_io_beta_cta": true,
 		"enable_product_docs_search": true,
-		"enable_global_search": true,
-		"enabled_integrations_slugs": ["vault"]
+		"enable_global_search": true
 	}
 }

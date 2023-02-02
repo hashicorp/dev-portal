@@ -6,11 +6,11 @@ import { ProductSlug } from 'types/products'
  */
 
 export function getProductSlugsWithIntegrations(): ProductSlug[] {
-	return __config.flags.enabled_integrations_slugs
+	return __config.dev_dot.product_slugs_with_integrations
 }
 
 export function getIsEnabledProductIntegrations(productSlug: ProductSlug) {
-	return __config.flags.enabled_integrations_slugs.find(
+	return __config.dev_dot.product_slugs_with_integrations.find(
 		(slug: ProductSlug) => productSlug === slug
 	)
 }

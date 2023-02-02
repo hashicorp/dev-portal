@@ -13,7 +13,6 @@
 		"max_static_paths": 1
 	},
 	"flags": {
-		"enable_global_search": true,
-		"enabled_integrations_slugs": ["vault", "waypoint"]
+		"enable_global_search": true
 	}
 }
