@@ -31,6 +31,7 @@ import {
 	integrationComponentBreadcrumbLinks,
 } from 'lib/integrations'
 import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
+import { getProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -194,6 +195,10 @@ async function getStaticProps({
 			? ''
 			: ` (${activeRelease.version})`
 
+	const processedVariablesMarkdown = await getProcessedVariablesMarkdown(
+		releaseComponent
+	)
+
 	return {
 		props: {
 			metadata: {
@@ -203,6 +208,7 @@ async function getStaticProps({
 			integration,
 			activeRelease,
 			component: releaseComponent,
+			processedVariablesMarkdown,
 			serializedREADME: releaseComponent.readme
 				? await serializeIntegrationMarkdown(releaseComponent.readme)
 				: undefined,
