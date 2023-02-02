@@ -8,6 +8,10 @@ import { abTestTrack } from 'lib/ab-test-track'
  *
  * TODO: Remove once the test is over, along with the calls in
  * ./try-hcp-callout-compact & ./try-hcp-callout-prebuilt
+ *
+ * Note: when running AB tests in the future, we should only
+ * call `useFlags` at the app or layout level and passing that data
+ * down. At the time of running there are no other active tests.
  */
 
 const ctaSuffix = 'for free'
