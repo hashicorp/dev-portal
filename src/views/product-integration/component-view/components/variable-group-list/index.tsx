@@ -20,7 +20,14 @@ const smallDescriptionMdxComponents = {
 export interface Variable {
 	key: string
 	type: string
+	/**
+	 * Optional. Description MDX is used to render description content.
+	 */
 	descriptionMdx?: MDXRemoteSerializeResult
+	/**
+	 * Optional, but required if passing description MDX. The plain description
+	 * string is not rendered, but it is used for search and filter purposes.
+	 */
 	description?: string
 	required: boolean | null
 	variables?: Array<Variable> // User doesn't need to specify this
