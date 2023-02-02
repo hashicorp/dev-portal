@@ -48,11 +48,12 @@ export interface Release extends BaseModel {
 // Fetch a single Integration record
 export async function fetchIntegrationRelease(
 	productIdentifier: string,
+	organizationIdentifier: string,
 	integrationIdentifier: string,
 	releaseIdentifier: string
 ): Promise<ApiResponse<Release>> {
 	return request<Release>(
 		Method.GET,
-		`/products/${productIdentifier}/integrations/${integrationIdentifier}/releases/${releaseIdentifier}`
+		`/products/${productIdentifier}/organizations/${organizationIdentifier}/integrations/${integrationIdentifier}/releases/${releaseIdentifier}`
 	)
 }

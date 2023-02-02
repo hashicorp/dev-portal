@@ -4,6 +4,7 @@ import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import Button from 'components/button'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
+import { getIntegrationUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import TagList, { GetIntegrationTags } from '../tag-list'
 import s from './style.module.css'
@@ -35,10 +36,7 @@ interface IntegrationCardProps {
 }
 
 function IntegrationCard({ integration }: IntegrationCardProps) {
-	const url = integration.external_only
-		? integration.external_url.replace(/^https:\/\/developer.hashicorp.com/, '')
-		: `/${integration.product.slug}/integrations/${integration.slug}`
-
+	const url = getIntegrationUrl(integration)
 	const isExternalLink = !url.startsWith('/')
 
 	return (
@@ -67,6 +65,7 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 					<TagList
 						className={s.tagList}
 						tags={GetIntegrationTags(integration, false)}
+						size="medium"
 					/>
 					<span className={s.viewDetails}>
 						View Details

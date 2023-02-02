@@ -1,12 +1,33 @@
 import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-down-right-16'
 import classNames from 'classnames'
 import Badge from 'components/badge'
-import ReactMarkdown from 'react-markdown'
+import MdxHeadingPermalink from 'components/dev-dot-content/mdx-components/mdx-heading-permalink'
+import { getVariableSlug } from '../../helpers'
+import DevDotContent from 'components/dev-dot-content'
+import { MdxInlineCode, MdxP } from 'components/dev-dot-content/mdx-components'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import s from './style.module.css'
+
+/**
+ * We use some custom elements to decrease the font size for paragraph
+ * content when rendering processed MDX variable descriptions.
+ */
+const smallDescriptionMdxComponents = {
+	inlineCode: (props) => <MdxInlineCode {...props} size="100" />,
+	p: (props) => <MdxP {...props} size="200" />,
+}
 
 export interface Variable {
 	key: string
 	type: string
+	/**
+	 * Optional. Description MDX is used to render description content.
+	 */
+	descriptionMdx?: MDXRemoteSerializeResult
+	/**
+	 * Optional, but required if passing description MDX. The plain description
+	 * string is not rendered, but it is used for search and filter purposes.
+	 */
 	description?: string
 	required: boolean | null
 	variables?: Array<Variable> // User doesn't need to specify this
@@ -19,6 +40,7 @@ export interface VariableGroup {
 }
 
 export interface VariableGroupListProps {
+	groupName: string
 	variables: Array<Variable>
 	unflatten?: boolean // Users should never set this to false, needed for recursive nesting
 	isNested?: boolean
@@ -28,6 +50,7 @@ export function VariableGroupList({
 	variables,
 	unflatten = true,
 	isNested = false,
+	groupName,
 }: VariableGroupListProps) {
 	const vars: Array<Variable> = unflatten
 		? unflattenVariables(variables)
@@ -36,6 +59,10 @@ export function VariableGroupList({
 	return (
 		<ul className={s.variableGroupList}>
 			{vars.map((variable: Variable) => {
+				/**
+				 * Construct a permalink slug for this specific variable
+				 */
+				const permalinkId = getVariableSlug(groupName, variable.key)
 				return (
 					<li
 						key={variable.key}
@@ -53,7 +80,9 @@ export function VariableGroupList({
 						<div className={s.indentedContent}>
 							<div className={s.topRow}>
 								<span className={s.left}>
-									<code className={s.key}>{variable.key}</code>
+									<code id={permalinkId} className={s.key}>
+										{variable.key}
+									</code>
 									{variable.required != null && (
 										<span
 											className={classNames(s.required, {
@@ -63,6 +92,11 @@ export function VariableGroupList({
 											{variable.required ? 'Required' : 'Optional'}
 										</span>
 									)}
+									<MdxHeadingPermalink
+										className={s.permalink}
+										level={4}
+										href={`#${permalinkId}`}
+									/>
 								</span>
 								{variable.type ? (
 									<Badge
@@ -80,13 +114,19 @@ export function VariableGroupList({
 							</div>
 
 							<div className={s.description}>
-								<ReactMarkdown>{`${
-									variable.description !== null ? variable.description : ''
-								}`}</ReactMarkdown>
+								{variable.descriptionMdx ? (
+									<DevDotContent
+										mdxRemoteProps={{
+											...variable.descriptionMdx,
+											components: smallDescriptionMdxComponents,
+										}}
+									/>
+								) : null}
 							</div>
 
 							{variable.variables?.length > 0 && (
 								<VariableGroupList
+									groupName={groupName}
 									unflatten={false}
 									variables={variable.variables}
 									isNested={true}

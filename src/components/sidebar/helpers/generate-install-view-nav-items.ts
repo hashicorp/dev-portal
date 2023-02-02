@@ -26,17 +26,26 @@ export const generateInstallViewNavItems = (
 		levelUpButtonText: `${product.name} Home`,
 		levelDownButtonText: 'Previous',
 	}
+
 	const menuItemsWithFallback = menuItems || []
 	const showFilterInput = false
 	const title = isEnterpriseMode
 		? `Install ${product.name} Enterprise`
 		: `Install ${product.name}`
+	const titleItem = {
+		title,
+		fullPath: `/${product.slug}/downloads`,
+		theme: product.slug,
+	}
 
 	return {
 		backToLinkProps,
 		levelButtonProps,
-		menuItems: menuItemsWithFallback,
+		menuItems: [titleItem, ...menuItemsWithFallback],
 		showFilterInput,
 		title,
+		/* We always visually hide the title, as we've added in a
+			"highlight" item that would make showing the title redundant. */
+		visuallyHideTitle: true,
 	}
 }

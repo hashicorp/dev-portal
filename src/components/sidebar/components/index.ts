@@ -3,10 +3,12 @@ import SidebarNavMenuItem, {
 	SidebarNavLinkItem,
 	SidebarNavSubmenuItem,
 } from './sidebar-nav-menu-item'
+import SidebarNavHighlightItem from './sidebar-nav-highlight-item'
 import SidebarSkipToMainContent from './sidebar-skip-to-main-content'
 import { SidebarSectionHeading, SidebarTitleHeading } from './sidebar-headings'
 
 export {
+	SidebarNavHighlightItem,
 	SidebarHorizontalRule,
 	SidebarNavLinkItem,
 	SidebarNavMenuItem,
