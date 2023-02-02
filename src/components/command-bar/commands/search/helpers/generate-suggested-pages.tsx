@@ -8,6 +8,7 @@ import { productSlugsToNames } from 'lib/products'
 import ProductIcon from 'components/product-icon'
 import { SuggestedPage } from '../components'
 import { generateTutorialLibraryCta } from './generate-tutorial-library-cta'
+import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 
 const generateTutorialLibrarySuggestedPage = (productSlug?: ProductSlug) => {
 	const { href: url } = generateTutorialLibraryCta(
@@ -64,8 +65,7 @@ const generateBasicSuggestedPages = (productSlug: ProductSlug) => {
 		return pages.filter((page) => page.url !== '/hcp/downloads')
 	}
 
-	const hasIntegrationsEnabled =
-		__config.dev_dot.product_slugs_with_integrations.includes(productSlug)
+	const hasIntegrationsEnabled = getIsEnabledProductIntegrations(productSlug)
 	if (hasIntegrationsEnabled) {
 		pages.push({
 			icon: <IconPipeline16 />,

@@ -1,6 +1,6 @@
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
-import { getIsEnabledProductIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
+import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 import { ProductData, RootDocsPath } from 'types/products'
 import { EnrichedNavItem, MenuItem, SidebarProps } from '../types'
 

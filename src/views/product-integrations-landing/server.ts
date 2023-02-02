@@ -19,7 +19,6 @@ import {
 } from 'lib/integrations-api-client/integration'
 import { generateProductIntegrationLibrarySidebarNavData } from 'lib/integrations'
 import { ViewProps } from 'views/product-integrations-landing'
-import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -34,7 +33,7 @@ export async function getStaticPaths(): Promise<
 	GetStaticPathsResult<StaticParams>
 > {
 	// Filter for products with integrations enabled
-	const enabledProductSlugs = getProductSlugsWithIntegrations()
+	const enabledProductSlugs = __config.dev_dot.product_slugs_with_integrations
 	// Transform slugs into path params
 	const paths = enabledProductSlugs.map((productSlug: ProductSlug) => ({
 		params: { productSlug },

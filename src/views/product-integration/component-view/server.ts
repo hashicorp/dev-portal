@@ -31,10 +31,7 @@ import {
 	integrationComponentBreadcrumbLinks,
 } from 'lib/integrations'
 import { getProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
-import {
-	getIsEnabledProductIntegrations,
-	getProductSlugsWithIntegrations,
-} from 'lib/integrations/get-product-slugs-with-integrations'
+import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -57,7 +54,7 @@ type PathParams = {
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
-	const enabledProductSlugs = getProductSlugsWithIntegrations()
+	const enabledProductSlugs = __config.dev_dot.product_slugs_with_integrations
 	// Fetch integrations for all products
 	const allIntegrations = await fetchAllIntegrations(enabledProductSlugs)
 	// Build a flat array of path parameters for each component view
