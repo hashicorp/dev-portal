@@ -5,36 +5,9 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
+}
 
-	& > li {
-		z-index: 1;
-
-		& .tagContent {
-			display: flex;
-			align-items: center;
-			background: var(--token-color-surface-strong);
-			border-radius: var(--token-form-control-border-radius);
-			padding: 4px 8px;
-			font-weight: var(--font-weight-medium);
-			font-size: 13px;
-			color: var(--token-color-foreground-primary);
-
-			& .icon {
-				display: flex;
-				margin-right: 4px;
-			}
-		}
-	}
-
-	&.medium {
-		gap: 10px;
-		& > li {
-			& .tagContent {
-				font-size: 16px;
-			}
-			& .icon {
-				margin-right: 6px;
-			}
-		}
-	}
+.tag {
+	z-index: 1;
+	line-height: 0;
 }

@@ -78,10 +78,11 @@ export async function fetchAllProductIntegrations(
 // Fetch a single Integration record
 export async function fetchIntegration(
 	productIdentifier: string,
+	organizationIdentifier: string,
 	integrationIdentifier: string
 ): Promise<ApiResponse<Integration>> {
 	return request<Integration>(
 		Method.GET,
-		`/products/${productIdentifier}/integrations/${integrationIdentifier}`
+		`/products/${productIdentifier}/organizations/${organizationIdentifier}/integrations/${integrationIdentifier}`
 	)
 }

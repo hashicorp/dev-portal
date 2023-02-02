@@ -26,9 +26,12 @@ import ProductIntegrationComponentView, {
 } from 'views/product-integration/component-view'
 import {
 	fetchAllIntegrations,
+	getIntegrationComponentUrl,
+	getTargetVersion,
 	integrationComponentBreadcrumbLinks,
 } from 'lib/integrations'
 import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
+import { getProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -38,6 +41,7 @@ type PathParams = {
 	productSlug: ProductSlug
 	integrationSlug: string
 	integrationVersion: string
+	organizationSlug: string
 	componentSlug: string
 }
 
@@ -64,6 +68,7 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 					productSlug: i.product.slug,
 					integrationSlug: i.slug,
 					integrationVersion: 'latest', // only statically render latest
+					organizationSlug: i.organization.slug,
 					componentSlug: component.slug,
 				}
 			})
@@ -77,7 +82,13 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
  * Get static props for the "component" view of a specific product integration.
  */
 async function getStaticProps({
-	params: { productSlug, integrationSlug, integrationVersion, componentSlug },
+	params: {
+		productSlug,
+		integrationSlug,
+		organizationSlug,
+		integrationVersion,
+		componentSlug,
+	},
 }: GetStaticPropsContext<PathParams>): Promise<
 	GetStaticPropsResult<
 		ProductIntegrationComponentViewProps & { metadata: HeadMetadataProps }
@@ -91,9 +102,10 @@ async function getStaticProps({
 			notFound: true,
 		}
 	}
-	// Fetch the Integration
+
 	const integrationResponse = await fetchIntegration(
-		productData.slug,
+		productSlug,
+		organizationSlug,
 		integrationSlug
 	)
 	if (integrationResponse.meta.status_code != 200) {
@@ -108,13 +120,23 @@ async function getStaticProps({
 			notFound: true,
 		}
 	}
+
+	const [targetVersion] = getTargetVersion({
+		versionSlug: integrationVersion,
+		latestVersion: integration.versions[0],
+	})
+
+	// if the version slug is not prefix with 'v', return 404
+	if (targetVersion === null) {
+		return { notFound: true }
+	}
+
 	// Fetch the Release
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		productData.slug,
+		organizationSlug,
 		integrationSlug,
-		integrationVersion === 'latest'
-			? integration.versions[0]
-			: integrationVersion
+		targetVersion
 	)
 	if (activeReleaseResponse.meta.status_code != 200) {
 		console.warn('Could not fetch Release', activeReleaseResponse)
@@ -139,7 +161,11 @@ async function getStaticProps({
 	if (integrationVersion === integration.versions[0]) {
 		return {
 			redirect: {
-				destination: `/${productData.slug}/integrations/${integration.slug}/latest/components/${releaseComponent.component.slug}`,
+				destination: getIntegrationComponentUrl(
+					integration,
+					releaseComponent,
+					'latest'
+				),
 				// Not permanent as a new release in the future will turn the
 				// latest release into an older release which should render!
 				permanent: false,
@@ -153,6 +179,10 @@ async function getStaticProps({
 			? ''
 			: ` (${activeRelease.version})`
 
+	const processedVariablesMarkdown = await getProcessedVariablesMarkdown(
+		releaseComponent
+	)
+
 	return {
 		props: {
 			metadata: {
@@ -162,6 +192,7 @@ async function getStaticProps({
 			integration,
 			activeRelease,
 			component: releaseComponent,
+			processedVariablesMarkdown,
 			serializedREADME: releaseComponent.readme
 				? await serializeIntegrationMarkdown(releaseComponent.readme)
 				: undefined,
