@@ -31,7 +31,7 @@ import {
 	integrationComponentBreadcrumbLinks,
 } from 'lib/integrations'
 import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
-import { getProcessedVariablesMarkdown } from './helpers'
+import { getProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,

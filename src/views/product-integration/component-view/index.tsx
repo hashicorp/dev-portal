@@ -1,4 +1,3 @@
-import slugify from 'slugify'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import DevDotContent from 'components/dev-dot-content'
 import { MdxHeadingOutsideMdx } from './components/mdx-heading-outside-mdx'
@@ -19,7 +18,7 @@ import { ProductData } from 'types/products'
 import SearchableVariableGroupList from './components/searchable-variable-group-list'
 import { Variable } from './components/variable-group-list'
 import { getVariableGroupSlug } from './helpers'
-import { ProcessedVariablesMarkdown } from './helpers'
+import type { ProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
 import s from './style.module.css'
 
 export interface ProductIntegrationComponentViewProps {
