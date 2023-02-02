@@ -17,6 +17,7 @@ export function TryHcpCalloutPrebuilt({
 }) {
 	const { ctaText, ctaUrl, description, heading } =
 		tryHcpCalloutContent[productSlug]
+	// TODO: remove this when the HCP CTA Trial 2023-02 test is finished
 	const trialCtaText = useABTestCta(ctaText)
 	return (
 		<TryHcpCallout

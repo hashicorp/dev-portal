@@ -19,6 +19,7 @@ export function TryHcpCalloutCompact({
 	ctaText,
 	ctaUrl,
 }: TryHcpCalloutCompactProps) {
+	// TODO: remove this when the HCP CTA Trial 2023-02 test is finished
 	const trialCtaText = useABTestCta(ctaText)
 	return (
 		<CardLink className={s.root} ariaLabel={ctaText} href={ctaUrl}>

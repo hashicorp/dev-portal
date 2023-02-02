@@ -3,6 +3,13 @@ import { isInUS } from '@hashicorp/platform-util/geo'
 import { useFlags } from 'flags/client'
 import { abTestTrack } from 'lib/ab-test-track'
 
+/**
+ * This hook is for the HCP CTA Trial 2023-02 AB test
+ *
+ * TODO: Remove once the test is over, along with the calls in
+ * ./try-hcp-callout-compact & ./try-hcp-callout-prebuilt
+ */
+
 const ctaSuffix = 'for free'
 
 export function useABTestCta(ctaText: string): string {
