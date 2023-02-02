@@ -10,6 +10,7 @@ interface CommandBarListItemContentProps {
 	description?: string
 	icon?: ReactElement
 	title: string
+	trailingIcon?: ReactElement
 }
 
 interface CommandBarButtonListItemProps extends CommandBarListItemContentProps {
