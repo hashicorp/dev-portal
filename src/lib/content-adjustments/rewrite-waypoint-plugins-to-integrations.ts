@@ -12,16 +12,6 @@
  *
  * TODO: We can remove this at some point.
  * https://app.asana.com/0/1203792616809419/1203879536690933
- *
- * It'll likely make sense once we've cleaned up old links in content.
- * The vast majority of these links are in the `hashicorp/waypoint` repo.
- * To view all places we link `/waypoint/plugins`:
- * - Within `hashicorp/waypoint`, these URLs would be written as `/plugins`.
- *   Code Search: https://cs.github.com/?scopeName=All+repos&scope=&q=repo%3Ahashicorp%2Fwaypoint+path%3A*.mdx+%22%2Fplugins%22
- * - In other repos, these URLs would be written as either
- *   waypoint.io/plugins, or developer.hashicorp.com/waypoint/plugins.
- *   Code Search for waypointproject.io: https://cs.github.com/?scopeName=All+repos&scope=&q=repo%3Ahashicorp%2Fterraform+OR+repo%3Ahashicorp%2Fpacker+OR+repo%3Ahashicorp%2Fconsul+OR+repo%3Ahashicorp%2Fvault+OR+repo%3Ahashicorp%2Fboundary+OR+repo%3Ahashicorp%2Fnomad+OR+repo%3Ahashicorp%2Fvagrant+OR+repo%3Ahashicorp%2Ftutorials+path%3A*.mdx+content%3Awaypointproject.io
- *   Code Search for `/waypoint/plugins` links: https://cs.github.com/?scopeName=All+repos&scope=&q=repo%3Ahashicorp%2Fterraform+OR+repo%3Ahashicorp%2Fpacker+OR+repo%3Ahashicorp%2Fconsul+OR+repo%3Ahashicorp%2Fvault+OR+repo%3Ahashicorp%2Fboundary+OR+repo%3Ahashicorp%2Fnomad+OR+repo%3Ahashicorp%2Fvagrant+OR+repo%3Ahashicorp%2Ftutorials+path%3A*.mdx+content%3A%2Fwaypoint%2Fplugins
  */
 export function rewriteWaypointPluginsToIntegrations(inputUrl: string): string {
 	if (inputUrl === '/waypoint/plugins') {
