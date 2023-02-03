@@ -20,7 +20,12 @@ export function CertificationProgramSummaryCard({
 		<GradientCard theme={slug}>
 			<SplitCardSection
 				className={s.splitSection}
-				startContent={<h3 className={s.heading}>{heading}</h3>}
+				startContent={
+					<h3
+						className={s.heading}
+						dangerouslySetInnerHTML={{ __html: heading }}
+					/>
+				}
 				endContent={
 					<>
 						<div className={s.description}>{description}</div>

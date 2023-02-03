@@ -19,6 +19,7 @@
 		"plugin/log",
 		"plugin/mux",
 		"plugin/sdkv2",
+		"plugin/testing",
 		"registry",
 		"downloads"
 	],
@@ -69,10 +70,9 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "General Documentation",
+			"name": "About the Docs",
 			"path": "docs",
-			"productSlugForLoader": "terraform-docs-common",
-			"shortName": "Documentation"
+			"productSlugForLoader": "terraform-docs-common"
 		},
 		{
 			"iconName": "org",
@@ -128,6 +128,13 @@
 			"path": "plugin/sdkv2",
 			"productSlugForLoader": "terraform-plugin-sdk",
 			"navDataPrefix": "plugin-sdk"
+		},
+		{
+			"iconName": "plug",
+			"name": "Testing",
+			"path": "plugin/testing",
+			"productSlugForLoader": "terraform-plugin-testing",
+			"navDataPrefix": "plugin-testing"
 		},
 		{
 			"iconName": "plus-circle",

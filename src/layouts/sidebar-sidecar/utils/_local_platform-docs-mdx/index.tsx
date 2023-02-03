@@ -1,31 +1,8 @@
 import React from 'react'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
 import { useCurrentProduct } from 'contexts'
-import {
-	MdxA,
-	MdxOrderedList,
-	MdxUnorderedList,
-	MdxListItem,
-	MdxTab,
-	MdxTabs,
-	MdxTable,
-	MdxH1,
-	MdxH2,
-	MdxH3,
-	MdxH4,
-	MdxH5,
-	MdxH6,
-	MdxP,
-	MdxInlineCode,
-	MdxBlockquote,
-	MdxTryHcpCallout,
-	MdxCodeBlockConfig,
-	MdxCodeTabs,
-	MdxPre,
-} from 'components/dev-dot-content/mdx-components'
 import Image from 'components/image'
 import { ImageProps } from 'components/image/types'
-import ImageConfig from 'components/image-config'
 
 // This function returns a simple object containing the default components
 // The `additionalComponents` param is purely for convenience.
@@ -54,29 +31,8 @@ function makeImageElement({ noBorder }: { noBorder: ImageProps['noBorder'] }) {
 // deprecated, this can be moved inline.
 function _defaultComponents() {
 	return {
-		ImageConfig,
-		Tabs: MdxTabs,
-		Tab: MdxTab,
 		EnterpriseAlert,
-		CodeBlockConfig: MdxCodeBlockConfig,
-		CodeTabs: MdxCodeTabs,
-		pre: MdxPre,
-		inlineCode: MdxInlineCode,
-		a: MdxA,
-		blockquote: MdxBlockquote,
-		ol: MdxOrderedList,
-		ul: MdxUnorderedList,
-		li: MdxListItem,
 		img: makeImageElement({ noBorder: true }),
-		h1: MdxH1,
-		h2: MdxH2,
-		h3: MdxH3,
-		h4: MdxH4,
-		h5: MdxH5,
-		h6: MdxH6,
-		p: MdxP,
-		table: MdxTable,
-		TryHcpCallout: MdxTryHcpCallout,
 	}
 }
 

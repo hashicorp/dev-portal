@@ -8,9 +8,9 @@ describe('getNavItems', () => {
 			rootDocsPaths: [
 				{
 					iconName: 'docs',
-					name: 'General Documentation',
+					name: 'Documentation',
 					path: 'docs',
-					shortName: 'Documentation',
+					shortName: 'Docs',
 					includeMDXSource: true,
 				},
 				{
@@ -28,33 +28,24 @@ describe('getNavItems', () => {
 		expect(getNavItems(testWaypointData)).toMatchInlineSnapshot(`
 		Array [
 		  Object {
-		    "iconColorTheme": "waypoint",
-		    "items": Array [
-		      Object {
-		        "icon": "docs",
-		        "label": "General Documentation",
-		        "path": "/waypoint/docs",
-		      },
-		      Object {
-		        "icon": "terminal-screen",
-		        "label": "CLI",
-		        "path": "/waypoint/commands",
-		      },
-		      Object {
-		        "icon": "plug",
-		        "label": "Plugins",
-		        "path": "/waypoint/plugins",
-		      },
-		    ],
-		    "label": "Documentation",
+		    "label": "Install",
+		    "url": "/waypoint/downloads",
 		  },
 		  Object {
 		    "label": "Tutorials",
 		    "url": "/waypoint/tutorials",
 		  },
 		  Object {
-		    "label": "Install",
-		    "url": "/waypoint/downloads",
+		    "label": "Documentation",
+		    "url": "/waypoint/docs",
+		  },
+		  Object {
+		    "label": "CLI",
+		    "url": "/waypoint/commands",
+		  },
+		  Object {
+		    "label": "Plugins",
+		    "url": "/waypoint/plugins",
 		  },
 		  Object {
 		    "label": "Try Cloud",
@@ -115,7 +106,7 @@ describe('getNavItems', () => {
 				},
 				{
 					iconName: 'docs',
-					name: 'General Documentation',
+					name: 'Documentation',
 					path: 'docs',
 					productSlugForLoader: 'terraform-docs-common',
 				},
@@ -185,11 +176,19 @@ describe('getNavItems', () => {
 		expect(getNavItems(testTerraformData)).toMatchInlineSnapshot(`
 		Array [
 		  Object {
+		    "label": "Install",
+		    "url": "/terraform/downloads",
+		  },
+		  Object {
+		    "label": "Tutorials",
+		    "url": "/terraform/tutorials",
+		  },
+		  Object {
 		    "iconColorTheme": "terraform",
 		    "items": Array [
 		      Object {
 		        "icon": "docs",
-		        "label": "General Documentation",
+		        "label": "Documentation",
 		        "path": "/terraform/docs",
 		      },
 		      Object {
@@ -241,14 +240,6 @@ describe('getNavItems', () => {
 		    "label": "Documentation",
 		  },
 		  Object {
-		    "label": "Tutorials",
-		    "url": "/terraform/tutorials",
-		  },
-		  Object {
-		    "label": "Install",
-		    "url": "/terraform/downloads",
-		  },
-		  Object {
 		    "label": "Registry",
 		    "opensInNewTab": true,
 		    "url": "https://registry.terraform.io/",
@@ -268,29 +259,29 @@ describe('getNavItems', () => {
 			rootDocsPaths: [
 				{
 					iconName: 'docs',
-					name: 'General Documentation',
+					name: 'Documentation',
 					path: 'docs',
-					shortName: 'Documentation',
+					shortName: 'Docs',
 					productSlugForLoader: 'cloud.hashicorp.com',
 				},
 			],
 		} as ProductData
 		expect(getNavItems(testHCPData)).toMatchInlineSnapshot(`
-		      Array [
-		        Object {
-		          "label": "Documentation",
-		          "url": "/hcp/docs",
-		        },
-		        Object {
-		          "label": "Tutorials",
-		          "url": "/hcp/tutorials",
-		        },
-		        Object {
-		          "label": "Try Cloud",
-		          "opensInNewTab": true,
-		          "url": "https://portal.cloud.hashicorp.com/sign-up",
-		        },
-		      ]
-	    `)
+		Array [
+		  Object {
+		    "label": "Tutorials",
+		    "url": "/hcp/tutorials",
+		  },
+		  Object {
+		    "label": "Documentation",
+		    "url": "/hcp/docs",
+		  },
+		  Object {
+		    "label": "Try Cloud",
+		    "opensInNewTab": true,
+		    "url": "https://portal.cloud.hashicorp.com/sign-up",
+		  },
+		]
+	`)
 	})
 })
