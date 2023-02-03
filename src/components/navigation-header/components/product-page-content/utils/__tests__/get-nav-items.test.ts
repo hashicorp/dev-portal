@@ -18,6 +18,11 @@ describe('getNavItems', () => {
 					name: 'CLI',
 					path: 'commands',
 				},
+				{
+					iconName: 'plug',
+					name: 'Plugins',
+					path: 'plugins',
+				},
 			],
 		} as ProductData
 		expect(getNavItems(testWaypointData)).toMatchInlineSnapshot(`
@@ -37,6 +42,10 @@ describe('getNavItems', () => {
 		  Object {
 		    "label": "CLI",
 		    "url": "/waypoint/commands",
+		  },
+		  Object {
+		    "label": "Plugins",
+		    "url": "/waypoint/plugins",
 		  },
 		  Object {
 		    "label": "Try Cloud",
