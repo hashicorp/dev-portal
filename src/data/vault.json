@@ -164,5 +164,22 @@
 			"name": "API",
 			"path": "api-docs"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"description": "A curated collection of official, partner, and community Vault Integrations.",
+		"sidebarLinks": [
+			{
+				"title": "Plugin System Overview",
+				"href": "/vault/docs/plugins"
+			},
+			{
+				"title": "Plugin Development",
+				"href": "/vault/docs/plugins/plugin-development"
+			},
+			{
+				"title": "Custom Secrets Engine Tutorial",
+				"href": "/vault/tutorials/custom-secrets-engine"
+			}
+		]
+	}
 }

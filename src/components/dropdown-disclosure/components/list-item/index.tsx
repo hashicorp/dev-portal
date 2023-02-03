@@ -12,8 +12,7 @@ import {
 import s from './list-item.module.css'
 
 /**
- * Wraps its content in an <li> element and applies the necessary styles. Only
- * intended for internal use by the rest of the item subcomponents.
+ * Wraps its content in an <li> element and applies the necessary styles.
  */
 const DropdownDisclosureListItem = ({
 	children,
@@ -127,7 +126,6 @@ const DropdownDisclosureLinkItem = ({
  * instead of 'link' component. There has been an issue observed where
  * 404 links throw uncaught error pages with the version switcher drpodown
  */
-
 const DropdownDisclosureAnchorItem = ({
 	children,
 	href,
@@ -161,4 +159,5 @@ export {
 	DropdownDisclosureLabelItem,
 	DropdownDisclosureLinkItem,
 	DropdownDisclosureSeparatorItem,
+	DropdownDisclosureListItem,
 }

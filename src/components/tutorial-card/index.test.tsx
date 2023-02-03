@@ -12,12 +12,6 @@ const mockTutorialCardData = {
 	productsUsed: [],
 }
 
-jest.mock('flags/client', () => ({
-	flags: {
-		enableAuth: false,
-	},
-}))
-
 describe('Tutorial Card eyebrow slot', () => {
 	it('Shows base read time', () => {
 		const { queryByText } = render(<TutorialCard {...mockTutorialCardData} />)

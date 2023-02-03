@@ -12,6 +12,8 @@ import {
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 import { isDeployPreview } from 'lib/env-checks'
+import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
+import { EnrichedNavItem } from 'components/sidebar/types'
 
 const basePath = 'plugins'
 const baseName = 'Plugins'
@@ -104,8 +106,14 @@ export async function getStaticProps({ params, ...ctx }) {
 			levelButtonProps: {
 				levelUpButtonText: `${productData.name} Home`,
 			},
-			menuItems: navData,
+			menuItems: addBrandedOverviewSidebarItem(navData, {
+				title: 'Plugins',
+				fullPath: `/${productData.slug}/plugins`,
+				theme: productData.slug,
+			}),
 			title: baseName,
+			/* We always visually hide the title, as we've added in a
+			"highlight" item that would make showing the title redundant. */
 			visuallyHideTitle: true,
 		},
 	]
