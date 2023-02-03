@@ -30,7 +30,8 @@ import {
 	getTargetVersion,
 	integrationComponentBreadcrumbLinks,
 } from 'lib/integrations'
-import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
+import { getProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
+import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -53,7 +54,7 @@ type PathParams = {
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
-	const enabledProductSlugs = getProductSlugsWithIntegrations()
+	const enabledProductSlugs = __config.dev_dot.product_slugs_with_integrations
 	// Fetch integrations for all products
 	const allIntegrations = await fetchAllIntegrations(enabledProductSlugs)
 	// Build a flat array of path parameters for each component view
@@ -96,19 +97,15 @@ async function getStaticProps({
 	// Pull out the Product Config
 	const productData = cachedGetProductData(productSlug)
 	// 404 early if the product is not enabled for integrations
-	if (!productData.integrationsConfig.enabled) {
+	if (!getIsEnabledProductIntegrations(productSlug)) {
 		return {
 			notFound: true,
 		}
 	}
-	/**
-	 * Fetch the Integration
-	 *
-	 * TODO: this should really include the organizationSlug for specificity.
-	 * But, that doesn't seem to be necessary yet.
-	 */
+
 	const integrationResponse = await fetchIntegration(
 		productSlug,
+		organizationSlug,
 		integrationSlug
 	)
 	if (integrationResponse.meta.status_code != 200) {
@@ -117,19 +114,6 @@ async function getStaticProps({
 	}
 	const integration = integrationResponse.result
 
-	/**
-	 * If the integration organizationSlug doesn't match the requested URL,
-	 * return a 404.
-	 *
-	 * TODO: as mentioned above, we should likely instead
-	 * include the organizationSlug when we `fetchIntegration`. If we did that,
-	 * we would likely no longer need this check.
-	 */
-	if (organizationSlug !== integration.organization.slug) {
-		return {
-			notFound: true,
-		}
-	}
 	// If the integration is external only, we shouldn't render this page
 	if (integration.external_only) {
 		return {
@@ -150,6 +134,7 @@ async function getStaticProps({
 	// Fetch the Release
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		productData.slug,
+		organizationSlug,
 		integrationSlug,
 		targetVersion
 	)
@@ -194,6 +179,10 @@ async function getStaticProps({
 			? ''
 			: ` (${activeRelease.version})`
 
+	const processedVariablesMarkdown = await getProcessedVariablesMarkdown(
+		releaseComponent
+	)
+
 	return {
 		props: {
 			metadata: {
@@ -203,6 +192,7 @@ async function getStaticProps({
 			integration,
 			activeRelease,
 			component: releaseComponent,
+			processedVariablesMarkdown,
 			serializedREADME: releaseComponent.readme
 				? await serializeIntegrationMarkdown(releaseComponent.readme)
 				: undefined,

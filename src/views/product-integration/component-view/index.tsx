@@ -1,10 +1,10 @@
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import DevDotContent from 'components/dev-dot-content'
 import { MdxHeadingOutsideMdx } from './components/mdx-heading-outside-mdx'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
 import TableOfContents, {
 	TableOfContentsHeading,
 } from 'layouts/sidebar-sidecar/components/table-of-contents'
-import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import { getIntegrationComponentUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import {
@@ -13,11 +13,12 @@ import {
 	ReleaseComponent,
 	VariableGroup,
 } from 'lib/integrations-api-client/release'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
 import SearchableVariableGroupList from './components/searchable-variable-group-list'
 import { Variable } from './components/variable-group-list'
 import { getVariableGroupSlug } from './helpers'
+import type { ProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
 import s from './style.module.css'
 
 export interface ProductIntegrationComponentViewProps {
@@ -27,6 +28,7 @@ export interface ProductIntegrationComponentViewProps {
 	component: ReleaseComponent
 	serializedREADME?: MDXRemoteSerializeResult
 	breadcrumbLinks: BreadcrumbLink[]
+	processedVariablesMarkdown: ProcessedVariablesMarkdown
 }
 
 export default function ProductIntegrationComponentView({
@@ -36,6 +38,7 @@ export default function ProductIntegrationComponentView({
 	component,
 	serializedREADME,
 	breadcrumbLinks,
+	processedVariablesMarkdown,
 }: ProductIntegrationComponentViewProps) {
 	const { variable_groups } = component
 	/**
@@ -67,10 +70,7 @@ export default function ProductIntegrationComponentView({
 		>
 			{serializedREADME ? (
 				<div className={s.mdxWrapper}>
-					<MDXRemote
-						{...serializedREADME}
-						components={defaultMdxComponents({})}
-					/>
+					<DevDotContent mdxRemoteProps={serializedREADME} />
 				</div>
 			) : (
 				<></>
@@ -92,10 +92,18 @@ export default function ProductIntegrationComponentView({
 									groupName={variableGroup.variable_group_config.name}
 									variables={variableGroup.variables.map(
 										(variable: ApiVariable): Variable => {
+											const uniqueKey = `${variable.variable_group_id}.${variable.key}`
+											const processedMarkdown =
+												processedVariablesMarkdown[uniqueKey]
 											return {
 												key: variable.key,
 												type: variable.type,
+												/**
+												 * Note: we pass description for search & filtering,
+												 * and descriptionMdx for rendering.
+												 */
 												description: variable.description,
+												descriptionMdx: processedMarkdown.description,
 												required: variable.required,
 											}
 										}
@@ -109,3 +117,4 @@ export default function ProductIntegrationComponentView({
 		</ProductIntegrationLayout>
 	)
 }
+ProductIntegrationComponentView.contentType = 'integrations'
