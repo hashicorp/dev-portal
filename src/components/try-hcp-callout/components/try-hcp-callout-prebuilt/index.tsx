@@ -1,6 +1,7 @@
 import { TryHcpCallout } from '..'
 import { ProductSlugWithContent } from '../../types'
 import { tryHcpCalloutContent } from '../../content'
+import { useABTestCta } from '../a-b-test'
 
 /**
  * A wrapper around TryHcpCallout.
@@ -16,9 +17,11 @@ export function TryHcpCalloutPrebuilt({
 }) {
 	const { ctaText, ctaUrl, description, heading } =
 		tryHcpCalloutContent[productSlug]
+	// TODO: remove this when the HCP CTA Trial 2023-02 test is finished
+	const trialCtaText = useABTestCta(ctaText)
 	return (
 		<TryHcpCallout
-			ctaText={ctaText}
+			ctaText={trialCtaText}
 			ctaUrl={ctaUrl}
 			description={description}
 			heading={heading}

@@ -11,7 +11,6 @@ import {
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 import { cachedGetProductData } from 'lib/get-product-data'
-import { activeProductSlugs } from 'lib/products'
 import { ProductSlug } from 'types/products'
 // Integration-related imports
 import {
@@ -34,20 +33,11 @@ export async function getStaticPaths(): Promise<
 	GetStaticPathsResult<StaticParams>
 > {
 	// Filter for products with integrations enabled
-	const productSlugsWithIntegrations = activeProductSlugs.filter(
-		(productSlug: ProductSlug) => {
-			// Pull out the Product Config
-			const productData = cachedGetProductData(productSlug)
-			// We only want products where integrations are enabled
-			return productData.integrationsConfig.enabled
-		}
-	)
+	const enabledProductSlugs = __config.dev_dot.product_slugs_with_integrations
 	// Transform slugs into path params
-	const paths = productSlugsWithIntegrations.map(
-		(productSlug: ProductSlug) => ({
-			params: { productSlug },
-		})
-	)
+	const paths = enabledProductSlugs.map((productSlug: ProductSlug) => ({
+		params: { productSlug },
+	}))
 	return { paths, fallback: false }
 }
 
