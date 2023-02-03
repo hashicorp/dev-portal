@@ -20,6 +20,11 @@
 					"description": "A project contains one or more applications and each one in a project represents a single deployable object.",
 					"url": "/waypoint/docs/projects"
 				},
+			  	{
+					"title": "Runners",
+					"description": "Waypoint utilizes \"runners\" to execute jobs. Runners are programs running `waypoint runner agent`.",
+					"url": "/waypoint/docs/runner"
+				},
 				{
 					"title": "waypoint.hcl",
 					"description": "The waypoint.hcl file configures each Waypoint project and defines how Waypoint builds, deploys, and releases it.",
