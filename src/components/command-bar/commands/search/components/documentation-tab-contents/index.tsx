@@ -25,7 +25,7 @@ const DocumentationTabContents = ({
 						<SuggestedPages pages={suggestedPages} />
 					</>
 				}
-				type="documentation"
+				type="docs"
 			/>
 		</Index>
 	)

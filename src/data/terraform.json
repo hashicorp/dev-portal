@@ -142,8 +142,5 @@
 			"path": "registry",
 			"productSlugForLoader": "terraform-docs-common"
 		}
-	],
-	"integrationsConfig": {
-		"enabled": false
-	}
+	]
 }

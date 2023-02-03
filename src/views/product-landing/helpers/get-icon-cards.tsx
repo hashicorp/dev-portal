@@ -3,6 +3,7 @@ import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
 import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { ProductData } from 'types/products'
+import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 
 export function getIconCards(product: ProductData) {
 	const iconCards = [
@@ -26,7 +27,7 @@ export function getIconCards(product: ProductData) {
 	}
 
 	// Add Integrations card if it's enabled for this product
-	if (product.integrationsConfig.enabled) {
+	if (getIsEnabledProductIntegrations(product.slug)) {
 		iconCards.push({
 			icon: <IconPipeline16 />,
 			text: 'Integrations',

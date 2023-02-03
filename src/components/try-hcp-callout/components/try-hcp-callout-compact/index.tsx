@@ -5,6 +5,7 @@ import {
 	StandaloneLinkContents,
 } from 'components/try-hcp-callout/components'
 import { TryHcpCalloutCompactProps } from 'components/try-hcp-callout/types'
+import { useABTestCta } from '../a-b-test'
 import s from './try-hcp-callout-compact.module.css'
 
 /**
@@ -18,6 +19,8 @@ export function TryHcpCalloutCompact({
 	ctaText,
 	ctaUrl,
 }: TryHcpCalloutCompactProps) {
+	// TODO: remove this when the HCP CTA Trial 2023-02 test is finished
+	const trialCtaText = useABTestCta(ctaText)
 	return (
 		<CardLink className={s.root} ariaLabel={ctaText} href={ctaUrl}>
 			<div className={s.background} />
@@ -27,7 +30,7 @@ export function TryHcpCalloutCompact({
 				size="small"
 			/>
 			<Description description={description} />
-			<StandaloneLinkContents text={ctaText} size="small" />
+			<StandaloneLinkContents text={trialCtaText} size="small" />
 		</CardLink>
 	)
 }
