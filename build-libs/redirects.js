@@ -295,9 +295,7 @@ async function buildDevPortalRedirects() {
 		},
 		{
 			source: '/waypoint/plugins/:slug',
-			// TODO: should update `BrandonRomano` to `hashicorp` here,
-			// once that change is made in API content
-			destination: '/waypoint/integrations/BrandonRomano/:slug',
+			destination: '/waypoint/integrations/hashicorp/:slug',
 			permanent: true,
 		},
 	]
