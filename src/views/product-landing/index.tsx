@@ -17,7 +17,7 @@ function ProductLandingView({
 	product,
 }: ProductLandingViewProps): ReactElement {
 	const { hero, overview, overviewParagraph, get_started, blocks } = content
-	const iconCards = getIconCards(product.slug)
+	const iconCards = getIconCards(product)
 
 	if (overview.cta && overviewParagraph) {
 		developmentToast({

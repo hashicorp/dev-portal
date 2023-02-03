@@ -5,6 +5,7 @@ import {
 	DropdownDisclosureDescriptionItem,
 	DropdownDisclosureLabelItem,
 	DropdownDisclosureLinkItem,
+	DropdownDisclosureListItem,
 	DropdownDisclosureSeparatorItem,
 } from './list-item'
 
@@ -15,5 +16,6 @@ export {
 	DropdownDisclosureDescriptionItem,
 	DropdownDisclosureLabelItem,
 	DropdownDisclosureLinkItem,
+	DropdownDisclosureListItem,
 	DropdownDisclosureSeparatorItem,
 }

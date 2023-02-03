@@ -1,0 +1,119 @@
+.integrationCard {
+	& .cardContent {
+		display: flex;
+		justify-content: space-between;
+
+		@media (max-width: 800px) {
+			flex-direction: column;
+		}
+	}
+
+	& .left {
+		max-width: 527px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		& .nameVersionWrapper {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			flex-grow: 1;
+		}
+	}
+
+	& .right {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: flex-end;
+		min-width: 200px;
+
+		@media (max-width: 800px) {
+			margin-top: 16px;
+			align-items: flex-start;
+			min-width: unset;
+		}
+
+		& .tagList {
+			justify-content: flex-end;
+			margin-bottom: 14px;
+
+			@media (max-width: 800px) {
+				margin-bottom: 0;
+				justify-content: flex-start;
+			}
+		}
+
+		& .viewDetails {
+			flex-shrink: 0;
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+
+			@media (max-width: 800px) {
+				margin-top: 20px;
+			}
+
+			& > svg {
+				margin-left: 8px;
+			}
+		}
+	}
+}
+
+.version {
+	composes: hds-typography-body-200 from global;
+	color: var(--token-color-foreground-primary);
+	font-weight: var(--token-typography-font-weight-medium);
+	margin-left: 8px;
+}
+
+.heading {
+	composes: hds-typography-body-300 from global;
+	color: var(--token-color-foreground-strong);
+	font-weight: var(--token-typography-font-weight-semibold);
+}
+
+.organization {
+	composes: hds-typography-body-100 from global;
+	color: var(--token-color-foreground-faint);
+	display: flex;
+	margin-bottom: 8px;
+}
+
+.body {
+	composes: hds-typography-body-200 from global;
+	color: var(--token-color-foreground-faint);
+}
+
+/* Border via https://kovart.github.io/dashed-border-generator */
+.noResultsWrapper {
+	padding: 24px;
+	background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%233333334D' stroke-width='2' stroke-dasharray='6%2c 12' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.noResultsTitle {
+	composes: hds-typography-body-300 from global;
+	font-weight: var(--token-typography-font-weight-semibold);
+	color: var(--token-color-foreground-strong);
+	margin-top: 0;
+	margin-bottom: 4px;
+}
+
+.noResultsDescription {
+	composes: hds-typography-body-300 from global;
+	font-weight: var(--token-typography-font-weight-regular);
+	color: var(--token-color-foreground-primary);
+	margin-top: 0;
+	margin-bottom: 16px;
+}
+
+.noResultsButtonWrapper {
+	display: flex;
+	justify-content: center;
+}

@@ -1,16 +1,7 @@
 import yargs from 'yargs'
 import path from 'path'
 import fs from 'fs'
-
-const addPrefixToFilePaths = ({
-	prefix,
-	filePaths,
-}: {
-	prefix: string
-	filePaths: string[]
-}) => {
-	return filePaths.map((filePath: string) => path.join(prefix, filePath))
-}
+import { getMdxAndNavDataDirectoriesForRepo } from './get-mdx-and-nav-data-directories-for-repo'
 
 const gatherAllFilesWithSuffixFromDirectory = ({
 	directory,
@@ -60,16 +51,20 @@ const getScriptArgumentsForCi = () => {
 		RELEVANT_CHANGED_FILES
 	)
 
+	// Concatenate cwd() with given file path prefixes
+	const mdxFilesPrefix = path.join(process.cwd(), MDX_FILE_PATH_PREFIX)
+	const navDataFilesPrefix = path.join(process.cwd(), NAV_DATA_FILE_PATH_PREFIX)
+
 	// Return the shaped-up arguments
 	return {
 		changedMdxFiles: changedMdxFiles.map((filePath) =>
-			path.join(process.cwd(), MDX_FILE_PATH_PREFIX, filePath)
+			path.join(mdxFilesPrefix, filePath)
 		),
 		changedNavDataJsonFiles: changedNavDataJsonFiles.map((filePath) =>
-			path.join(process.cwd(), NAV_DATA_FILE_PATH_PREFIX, filePath)
+			path.join(navDataFilesPrefix, filePath)
 		),
-		mdxFilesPrefix: MDX_FILE_PATH_PREFIX,
-		navDataFilesPrefix: NAV_DATA_FILE_PATH_PREFIX,
+		mdxFilesPrefix,
+		navDataFilesPrefix,
 		repo: REPO,
 	}
 }
@@ -82,24 +77,28 @@ const getScriptArgumentsForCommandLine = () => {
 		.option('repo', {
 			description: 'the name of the repo under `hashicorp` to check',
 		})
-		.option('contentDirectory', {
-			description: 'the directory where MDX files can be found',
+		.option('localCopyLocation', {
+			description:
+				'where your local copy of --repo is, relative to the present working directory (pwd)',
 		})
-		.option('navDataDirectory', {
-			description: 'the directory where nav data JSON files can be found',
-		})
-		.demandOption(['repo', 'contentDirectory', 'navDataDirectory'])
+		.demandOption(['repo', 'localCopyLocation'])
 		.help().argv
 
+	const repo = cliArgs.repo as string
+	const localCopyLocation = cliArgs.localCopyLocation as string
+	const { mdxPrefix, navDataPrefix } = getMdxAndNavDataDirectoriesForRepo(repo)
 	const contentDirectory = path.join(
 		process.cwd(),
-		cliArgs.contentDirectory as string
+		localCopyLocation,
+		repo,
+		mdxPrefix
 	)
 	const navDataDirectory = path.join(
 		process.cwd(),
-		cliArgs.navDataDirectory as string
+		localCopyLocation,
+		repo,
+		navDataPrefix
 	)
-	const repo = cliArgs.repo as string
 
 	gatherAllFilesWithSuffixFromDirectory({
 		directory: contentDirectory,

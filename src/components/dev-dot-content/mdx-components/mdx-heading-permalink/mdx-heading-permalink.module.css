@@ -24,7 +24,7 @@
 		}
 	}
 
-	&:focus {
+	&:focus-visible {
 		opacity: 1;
 		background: var(--token-color-surface-faint);
 

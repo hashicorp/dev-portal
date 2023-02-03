@@ -1,6 +1,5 @@
 import HashiHead from '@hashicorp/react-head'
 import { Fragment } from 'react'
-import { MDXRemote } from 'next-mdx-remote'
 import InstruqtProvider from 'contexts/instruqt-lab'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
@@ -53,6 +52,7 @@ export default function WellArchitectedFrameworkTutorialView({
 					headings={layoutProps.headings}
 					breadcrumbLinks={layoutProps.breadcrumbLinks}
 					sidebarNavDataLevels={layoutProps.navLevels}
+					mainWidth="narrow"
 				>
 					<TutorialMeta
 						heading={{ slug: slug, text: name }}
@@ -73,9 +73,9 @@ export default function WellArchitectedFrameworkTutorialView({
 							})}
 						/>
 					)}
-					<DevDotContent>
-						<MDXRemote {...content} components={MDX_COMPONENTS} />
-					</DevDotContent>
+					<DevDotContent
+						mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+					/>
 					<NextPrevious {...nextPreviousData} />
 					<FeaturedInCollections
 						className={s.featuredInCollections}

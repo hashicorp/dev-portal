@@ -1,21 +1,16 @@
 import React, { useState } from 'react'
 import classNames from 'classnames'
 import MarketoForm from '@hashicorp/react-marketo-form'
-import type { MarketoForm as MarketoFormProps } from '@hashicorp/react-marketo-form/types'
+import type { MarketoFormAPIResponse } from '@hashicorp/react-marketo-form/types'
 import { safeAnalyticsTrack } from 'lib/analytics'
 import SubmitMessage from './submit-message'
 import s from './marketo-form-data.module.css'
 
 export interface NewsletterSignupFormProps {
-	marketoFormData: MarketoFormData
+	marketoFormData: MarketoFormAPIResponse
 	buttonText?: string
 	// Note: we've hacked around styles, so only 'dark' is supported
 	appearance?: 'dark'
-}
-
-export interface MarketoFormData {
-	id: number
-	form: MarketoFormProps
 }
 
 function NewsletterSignupForm({
@@ -45,8 +40,7 @@ function NewsletterSignupForm({
 				/>
 			) : (
 				<MarketoForm
-					formId={marketoFormData.id}
-					marketoForm={marketoFormData.form}
+					{...marketoFormData}
 					submitTitle={buttonText}
 					className={classNames(s.formStyleOverrides, s.dark)}
 					onSubmitSuccess={onSubmitSuccess}
