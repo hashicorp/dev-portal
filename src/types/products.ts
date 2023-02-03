@@ -154,8 +154,7 @@ interface ProductData extends Product {
 	 * the matching rootDocsPath.
 	 */
 	docsNavItems?: (DocsNavItem | string)[]
-	integrationsConfig: {
-		enabled: boolean
+	integrationsConfig?: {
 		/**
 		 * Descriptive text that provides an overview of the product's integrations.
 		 * Example: "A curated collection of official, partner, and
