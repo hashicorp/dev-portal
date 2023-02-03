@@ -12,7 +12,9 @@
 	/* General mobile and tablet breakpoints */
 	--mobile-width-breakpoint: 728px;
 	--tablet-width-breakpoint: 1000px;
-	--mobile-menu-breakpoint: 1200px;
+
+	/** Should correspond to --dev-dot-hide-mobile-menu */
+	--mobile-menu-breakpoint: 924px;
 
 	/* Font overwrites */
 	--font-body: var(--token-typography-font-stack-text);

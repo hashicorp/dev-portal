@@ -1,45 +1,69 @@
 import remark from 'remark'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
-import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
+import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { getProductUrlAdjuster } from '../utils/product-url-adjusters'
 
-describe('multiple remark plugins', () => {
-	let waypointProduct
-	let productUrlAdjuster
+const URL_SUFFIXES = ['', '?param=value', '#heading', '?param=value#heading']
 
-	beforeAll(() => {
-		waypointProduct = cachedGetProductData('waypoint')
-		productUrlAdjuster = getProductUrlAdjuster(waypointProduct)
+const testEachCase = (productUrlAdjuster, testCases) => {
+	const allTestCases = []
+	testCases.forEach(({ input, expected }) => {
+		URL_SUFFIXES.forEach((suffix) => {
+			allTestCases.push({
+				input: `${input}${suffix}`,
+				expected: `${expected}${suffix}`,
+			})
+		})
 	})
 
-	describe('rewriteTutorialLinksPlugin, then remarkPluginAdjustLinkUrls', () => {
-		test.each([
-			['[Waypoint](https://waypointproject.io/)', '[Waypoint](/waypoint)'],
-			['[Waypoint](/waypoint)', '[Waypoint](/waypoint)'],
-			[
-				'[Waypoint Tutorials](https://learn.hashicorp.com/waypoint)',
-				'[Waypoint Tutorials](/waypoint/tutorials)',
-			],
-			[
-				'[Waypoint Tutorials](/waypoint/tutorials)',
-				'[Waypoint Tutorials](/waypoint/tutorials)',
-			],
-			[
-				'[Some other link](https://kubernetes.io/docs/home/)',
-				'[Some other link](https://kubernetes.io/docs/home/)',
-			],
-		])('%s -> %s', async (linkToProcess, expectedValue) => {
+	test.each(allTestCases)(
+		'$input -> $expected',
+		async ({ input, expected }) => {
 			const result = await remark()
 				.use(rewriteTutorialLinksPlugin, {
 					contentType: 'docs',
 					tutorialMap: {},
 				})
-				.use(remarkPluginAdjustLinkUrls, { urlAdjustFn: productUrlAdjuster })
-				.process(linkToProcess)
+				.use(remarkPluginAdjustLinkUrls, {
+					urlAdjustFn: productUrlAdjuster,
+				})
+				.process(`[test](${input})`)
+			expect(result.contents).toMatch(`[test](${expected})`)
+		}
+	)
+}
 
-			// The link should be unchanged
-			expect(result.contents).toMatch(expectedValue)
-		})
+describe('multiple remark plugins', () => {
+	describe('rewriteTutorialLinksPlugin, then remarkPluginAdjustLinkUrls', () => {
+		const waypointProduct = cachedGetProductData('waypoint')
+		const productUrlAdjuster = getProductUrlAdjuster(waypointProduct)
+
+		testEachCase(productUrlAdjuster, [
+			{
+				input: '/',
+				expected: '/',
+			},
+			{
+				input: 'https://waypointproject.io/',
+				expected: 'https://waypointproject.io/',
+			},
+			{
+				input: '/waypoint',
+				expected: '/waypoint',
+			},
+			{
+				input: 'https://learn.hashicorp.com/waypoint',
+				expected: '/waypoint/tutorials',
+			},
+			{
+				input: '/waypoint/tutorials',
+				expected: '/waypoint/tutorials',
+			},
+			{
+				input: 'https://kubernetes.io/docs/home/',
+				expected: 'https://kubernetes.io/docs/home/',
+			},
+		])
 	})
 })

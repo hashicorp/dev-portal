@@ -106,8 +106,15 @@ export function rewriteDocsUrl(
 	if (
 		isAbsoluteUrl(inputUrl) ||
 		inputUrl.startsWith('#') ||
-		inputUrl.startsWith('.')
+		inputUrl.startsWith('.') ||
+		/(.png|.jpg|.svg)$/.test(inputUrl) // ignore image links
 	) {
+		return inputUrl
+	}
+
+	// If it goes to the home page (`/`), return the inputUrl unmodified
+	const urlObject = new URL(inputUrl, 'https://developer.hashicorp.com')
+	if (urlObject.pathname === '/') {
 		return inputUrl
 	}
 

@@ -61,7 +61,8 @@ function ExamCard({
 	examTier,
 }: ExamCardProps) {
 	return (
-		<CardLink className={s.examCard} href={url} ariaLabel="test">
+		// @TODO consider using "StandaloneLinkContents" text for aria-label?
+		<CardLink className={s.examCard} href={url} ariaLabel={title}>
 			<ExamCardContents>
 				<ExamBadgeAndTitle
 					title={title}

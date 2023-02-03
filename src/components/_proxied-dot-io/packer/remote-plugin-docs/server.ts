@@ -8,7 +8,7 @@ import {
 	getPathsFromNavData,
 } from '@hashicorp/react-docs-page/server'
 import renderPageMdx from '@hashicorp/react-docs-page/render-page-mdx'
-import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
+import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { getProductUrlAdjuster } from 'views/docs-view/utils/product-url-adjusters'
 import resolveNavDataWithRemotePlugins, {
 	appendRemotePluginsNavData,

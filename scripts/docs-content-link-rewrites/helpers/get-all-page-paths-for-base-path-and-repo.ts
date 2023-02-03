@@ -13,27 +13,32 @@ const getAllPagePathsForBasePathAndRepo = async ({
 	basePath: string
 	repo: string
 }) => {
-	const productSlug = normalizeRemoteLoaderSlug(repo)
-	const productData = cachedGetProductData(productSlug)
+	try {
+		const productSlug = normalizeRemoteLoaderSlug(repo)
+		const productData = cachedGetProductData(productSlug)
 
-	const { navDataPrefix } = getMdxAndNavDataDirectoriesForRepo(repo)
-	const navDataFileName = getNavDataFileNameForBasePath({
-		basePath,
-		productData,
-	})
-	const navDataFilePath = path.join(navDataPrefix, navDataFileName)
-	const navData = await fetchNavDataForBasePathAndRepo({
-		filePath: navDataFilePath,
-		repo,
-	})
+		const { navDataPrefix } = getMdxAndNavDataDirectoriesForRepo(repo)
+		const navDataFileName = getNavDataFileNameForBasePath({
+			basePath,
+			productData,
+		})
+		const navDataFilePath = path.join(navDataPrefix, navDataFileName)
+		const navData = await fetchNavDataForBasePathAndRepo({
+			filePath: navDataFilePath,
+			repo,
+		})
 
-	const pagePathObjects = getPathsFromNavData(navData)
-	const allPagePaths = pagePathObjects.map((pagePathObject: $TSFixMe) => {
-		const pagePath = pagePathObject.params.page.join('/')
-		return [productSlug, basePath, pagePath].join('/')
-	})
+		const pagePathObjects = getPathsFromNavData(navData)
+		const allPagePaths = pagePathObjects.map((pagePathObject: $TSFixMe) => {
+			const pagePath = pagePathObject.params.page.join('/')
+			return [productSlug, basePath, pagePath].join('/')
+		})
 
-	return allPagePaths
+		return allPagePaths
+	} catch (e) {
+		console.warn(e)
+		return []
+	}
 }
 
 export { getAllPagePathsForBasePathAndRepo }

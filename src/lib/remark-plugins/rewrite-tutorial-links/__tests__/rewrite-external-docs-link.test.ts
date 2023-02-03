@@ -1,17 +1,18 @@
 import { ProductSlug } from 'types/products'
+import {
+	expandUrlTestCasesWithParams,
+	TestCase,
+} from 'lib/testing/expand-url-test-cases-with-params'
 import { productSlugsToHostNames } from 'lib/products'
 import { rewriteExternalDocsLink } from '../utils'
 
-const getTestURLObject = (url: string) => {
-	return new URL(url, __config.dev_dot.canonical_base_url)
-}
-
-const testEachCase = (cases: [string, string][]) => {
-	test.each(cases)(
-		'rewriteExternalDocsLink(%p) returns %p',
-		(input: string, expectedOutput: string) => {
-			const testUrlObject = getTestURLObject(input)
-			expect(rewriteExternalDocsLink(testUrlObject)).toBe(expectedOutput)
+const testEachCase = (cases: TestCase[]) => {
+	const allCases = expandUrlTestCasesWithParams(cases)
+	test.each(allCases)(
+		'$input -> $expected',
+		({ input, expected }: TestCase) => {
+			const testUrlObject = new URL(input, __config.dev_dot.canonical_base_url)
+			expect(rewriteExternalDocsLink(testUrlObject)).toBe(expected)
 		}
 	)
 }
@@ -19,167 +20,113 @@ const testEachCase = (cases: [string, string][]) => {
 describe('rewriteExternalDocsLink', () => {
 	describe('when the URL is not to an external docs site', () => {
 		testEachCase([
-			['/vault/api', undefined],
-			['/waypoint/docs', undefined],
-			['/vault/tutorials', undefined],
-			['/waypoint/tutorials', undefined],
-			['https://developer.hashicorp.com/vault/api', undefined],
-			['https://developer.hashicorp.com/waypoint/docs', undefined],
-			['https://learn.hashicorp.com/vault', undefined],
-			['https://learn.hashicorp.com/waypoint', undefined],
+			{ input: '/', expected: undefined },
+			{ input: '/vault/api', expected: undefined },
+			{ input: '/waypoint/docs', expected: undefined },
+			{ input: '/vault/tutorials', expected: undefined },
+			{ input: '/waypoint/tutorials', expected: undefined },
+			{
+				input: 'https://developer.hashicorp.com/vault/api',
+				expected: undefined,
+			},
+			{
+				input: 'https://developer.hashicorp.com/waypoint/docs',
+				expected: undefined,
+			},
+			{ input: 'https://learn.hashicorp.com/vault', expected: undefined },
+			{ input: 'https://learn.hashicorp.com/waypoint', expected: undefined },
 		])
 	})
 
 	describe('when the `basePath` is not rewriteable for the determined product', () => {
 		testEachCase([
-			['https://www.vaultproject.io/use-cases', undefined],
-			['https://www.vaultproject.io/community', undefined],
-			['https://www.vaultproject.io/some-random-base-path', undefined],
+			{ input: 'https://www.vaultproject.io/use-cases', expected: undefined },
+			{ input: 'https://www.vaultproject.io/community', expected: undefined },
+			{
+				input: 'https://www.vaultproject.io/some-random-base-path',
+				expected: undefined,
+			},
 		])
 	})
 
-	describe('docs site home pages are rewritten to product landing pages', () => {
+	describe('docs site home pages are *not* rewritten', () => {
 		testEachCase(
 			Object.keys(productSlugsToHostNames).map((productSlug: ProductSlug) => {
-				const hostname = `https://${productSlugsToHostNames[productSlug]}`
-				const productLandingPath = `/${productSlug}`
-				const expectedOutput = productLandingPath
-
-				return [hostname, expectedOutput]
+				const input = `https://${productSlugsToHostNames[productSlug]}/`
+				const expected = input
+				return { input, expected }
 			})
 		)
 	})
 
-	describe('when neither `search` nor `hash` are present', () => {
-		describe('when the base path is not "api"', () => {
-			testEachCase([
-				['https://vaultproject.io/docs', '/vault/docs'],
-				['https://waypointproject.io/docs', '/waypoint/docs'],
-				['https://vaultproject.io/docs/some/path', '/vault/docs/some/path'],
-				[
-					'https://waypointproject.io/docs/some/path',
-					'/waypoint/docs/some/path',
-				],
-			])
-		})
-
-		describe('when the base path is "api"', () => {
-			testEachCase([
-				['https://vaultproject.io/api', '/vault/api-docs'],
-				['https://vaultproject.io/api/some/path', '/vault/api-docs/some/path'],
-			])
-		})
-
-		describe('when the page is "index.html"', () => {
-			testEachCase([
-				['https://waypointproject.io/docs/index.html', '/waypoint/docs'],
-				[
-					'https://waypointproject.io/docs/some/path/index.html',
-					'/waypoint/docs/some/path',
-				],
-				['https://vaultproject.io/api/index.html', '/vault/api-docs'],
-				[
-					'https://vaultproject.io/api/some/path/index.html',
-					'/vault/api-docs/some/path',
-				],
-			])
-		})
-
-		describe('when the page ends with ".html"', () => {
-			testEachCase([
-				['https://www.terraform.io/downloads.html', '/terraform/downloads'],
-				['https://waypointproject.io/docs/page.html', '/waypoint/docs/page'],
-				[
-					'https://waypointproject.io/docs/some/path.html',
-					'/waypoint/docs/some/path',
-				],
-				['https://vaultproject.io/api/page.html', '/vault/api-docs/page'],
-				[
-					'https://vaultproject.io/api/some/path.html',
-					'/vault/api-docs/some/path',
-				],
-			])
-		})
-	})
-
-	describe('when `search` is present, and `hash` is NOT present', () => {
+	describe('when the base path is not "api"', () => {
 		testEachCase([
-			[
-				'https://waypointproject.io/docs?paramA=valueA',
-				'/waypoint/docs?paramA=valueA',
-			],
-			[
-				'https://vaultproject.io/api?paramA=valueA',
-				'/vault/api-docs?paramA=valueA',
-			],
-			[
-				'https://waypointproject.io/docs/index.html?paramA=valueA',
-				'/waypoint/docs?paramA=valueA',
-			],
-			[
-				'https://vaultproject.io/api/index.html?paramA=valueA',
-				'/vault/api-docs?paramA=valueA',
-			],
-			[
-				'https://waypointproject.io/docs/page.html?paramA=valueA',
-				'/waypoint/docs/page?paramA=valueA',
-			],
-			[
-				'https://vaultproject.io/api/page.html?paramA=valueA',
-				'/vault/api-docs/page?paramA=valueA',
-			],
+			{ input: 'https://vaultproject.io/docs', expected: '/vault/docs' },
+			{ input: 'https://waypointproject.io/docs', expected: '/waypoint/docs' },
+			{
+				input: 'https://vaultproject.io/docs/some/path',
+				expected: '/vault/docs/some/path',
+			},
+			{
+				input: 'https://waypointproject.io/docs/some/path',
+				expected: '/waypoint/docs/some/path',
+			},
 		])
 	})
 
-	describe('when `search` is NOT present, and `hash` is present', () => {
+	describe('when the base path is "api"', () => {
 		testEachCase([
-			['https://vaultproject.io/docs#test-hash', '/vault/docs#test-hash'],
-			['https://vaultproject.io/api#test-hash', '/vault/api-docs#test-hash'],
-			[
-				'https://vaultproject.io/docs/index.html#test-hash',
-				'/vault/docs#test-hash',
-			],
-			[
-				'https://vaultproject.io/api/index.html#test-hash',
-				'/vault/api-docs#test-hash',
-			],
-			[
-				'https://vaultproject.io/docs/page.html#test-hash',
-				'/vault/docs/page#test-hash',
-			],
-			[
-				'https://vaultproject.io/api/page.html#test-hash',
-				'/vault/api-docs/page#test-hash',
-			],
+			{ input: 'https://vaultproject.io/api', expected: '/vault/api-docs' },
+			{
+				input: 'https://vaultproject.io/api/some/path',
+				expected: '/vault/api-docs/some/path',
+			},
 		])
 	})
 
-	describe('when both `search` and `hash` are present', () => {
+	describe('when the page is "index.html"', () => {
 		testEachCase([
-			[
-				'https://vaultproject.io/docs?paramA=valueA#test-hash',
-				'/vault/docs?paramA=valueA#test-hash',
-			],
-			[
-				'https://vaultproject.io/api?paramA=valueA#test-hash',
-				'/vault/api-docs?paramA=valueA#test-hash',
-			],
-			[
-				'https://vaultproject.io/docs/index.html?paramA=valueA#test-hash',
-				'/vault/docs?paramA=valueA#test-hash',
-			],
-			[
-				'https://vaultproject.io/api/index.html?paramA=valueA#test-hash',
-				'/vault/api-docs?paramA=valueA#test-hash',
-			],
-			[
-				'https://vaultproject.io/docs/page.html?paramA=valueA#test-hash',
-				'/vault/docs/page?paramA=valueA#test-hash',
-			],
-			[
-				'https://vaultproject.io/api/page.html?paramA=valueA#test-hash',
-				'/vault/api-docs/page?paramA=valueA#test-hash',
-			],
+			{
+				input: 'https://waypointproject.io/docs/index.html',
+				expected: '/waypoint/docs',
+			},
+			{
+				input: 'https://waypointproject.io/docs/some/path/index.html',
+				expected: '/waypoint/docs/some/path',
+			},
+			{
+				input: 'https://vaultproject.io/api/index.html',
+				expected: '/vault/api-docs',
+			},
+			{
+				input: 'https://vaultproject.io/api/some/path/index.html',
+				expected: '/vault/api-docs/some/path',
+			},
+		])
+	})
+
+	describe('when the page ends with ".html"', () => {
+		testEachCase([
+			{
+				input: 'https://www.terraform.io/downloads.html',
+				expected: '/terraform/downloads',
+			},
+			{
+				input: 'https://waypointproject.io/docs/page.html',
+				expected: '/waypoint/docs/page',
+			},
+			{
+				input: 'https://waypointproject.io/docs/some/path.html',
+				expected: '/waypoint/docs/some/path',
+			},
+			{
+				input: 'https://vaultproject.io/api/page.html',
+				expected: '/vault/api-docs/page',
+			},
+			{
+				input: 'https://vaultproject.io/api/some/path.html',
+				expected: '/vault/api-docs/some/path',
+			},
 		])
 	})
 })

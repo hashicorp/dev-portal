@@ -3,7 +3,6 @@ import type { Configuration } from '@happykit/flags/config'
 // You can replace this with your exact flag types
 export type AppFlags = {
 	[key: string]: boolean | number | string | null
-	enableAuth: boolean
 }
 
 export const config: Configuration<AppFlags> = {
@@ -12,7 +11,6 @@ export const config: Configuration<AppFlags> = {
 	// You can provide defaults flag values here
 	defaultFlags: {
 		testFlag: false,
-		ioHomeHeroCtas: false,
-		enableAuth: false,
+		ioHomeHeroAlt: true,
 	},
 }

@@ -63,9 +63,8 @@
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
-			"name": "General Documentation",
+			"name": "Documentation",
 			"path": "docs",
-			"shortName": "Documentation",
 			"includeMDXSource": true
 		},
 		{
@@ -78,5 +77,8 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"description": "A curated collection of official, partner, and community Waypoint Integrations."
+	}
 }

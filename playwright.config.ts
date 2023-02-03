@@ -49,6 +49,7 @@ const config: PlaywrightTestConfig = {
 		{
 			name: 'docs-content-link-rewrites',
 			testMatch: 'src/__tests__/e2e/docs-content-link-rewrites.spec.ts',
+			retries: 0,
 		},
 	],
 

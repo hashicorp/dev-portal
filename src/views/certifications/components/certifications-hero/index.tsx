@@ -54,7 +54,10 @@ function CertificationsHeroText({
 }) {
 	return (
 		<div className={classNames(s.textRoot, s[`foreground-${foreground}`])}>
-			<h1 className={s.textHeading}>{heading}</h1>
+			<h1
+				className={s.textHeading}
+				dangerouslySetInnerHTML={{ __html: heading }}
+			/>
 			<p
 				className={s.textDescription}
 				dangerouslySetInnerHTML={{

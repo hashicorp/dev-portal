@@ -37,6 +37,12 @@ interface DisclosureProps {
 	closeOnFocusOutside?: boolean
 
 	/**
+	 * Whether or not the `useOnRouteChangeStart` hook should be enabled. Is
+	 * enabled by default.
+	 */
+	closeOnRouteChangeStart?: boolean
+
+	/**
 	 * Optional className or callback function for generating a className.
 	 */
 	containerClassName?: NativeDivProps['className'] | GenerateContainerClassName
