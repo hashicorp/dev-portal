@@ -67,8 +67,5 @@
 			"name": "Intro",
 			"path": "intro"
 		}
-	],
-	"integrationsConfig": {
-		"enabled": false
-	}
+	]
 }

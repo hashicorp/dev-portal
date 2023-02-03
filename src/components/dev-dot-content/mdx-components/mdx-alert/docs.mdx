@@ -2,21 +2,21 @@
 componentName: 'MdxInlineAlert'
 ---
 
-The `MdxInlineAlert` component is used in long-form MDX content to highlight various message types. Default titles and icons are provided for each 'type'. The default title can be overridden via the `title` prop.
+The `MdxInlineAlert` component is used in long-form MDX content to highlight various message types. Default titles and icons are provided for each `type`. The default title can be overridden via the `title` prop. Please do not override the default title. 
 
 ## Props
 
 | Prop name  | Description                                                            | Required? | Default value      | Type                             |
 | ---------- | ---------------------------------------------------------------------- | --------- | ------------------ | -------------------------------- |
 | `children` | The alert body text to render.                                         | Yes       | undefined          | string                           |
-| `type`     | The 'type' which has associated styles and default data (icon, title). | No        | tip                | tip, highlight, warning, or note |
+| `type`     | The 'type' which has associated styles and default data (icon, title). | No        | tip                | tip, warning, or note |
 | `title`    | An option to override the default title.                               | No        | The type's default | string                           |
 
 ## Playground
 
 <LiveComponent>
 	{`
-	<MdxInlineAlert type="highlight" title="This is a custom title">
+	<MdxInlineAlert type="tip" title="This is a custom title">
 		Caramels tart candy canes shortbread lemon drops.	
 	</MdxInlineAlert>
 	`}
@@ -29,12 +29,6 @@ The `MdxInlineAlert` component is used in long-form MDX content to highlight var
 <MdxInlineAlert>
 	To provide general information to the user regarding the current context or
 	relevant actions.
-</MdxInlineAlert>
-
-### Highlight
-
-<MdxInlineAlert type="highlight">
-	To provide general or promotional information to the user prominently.
 </MdxInlineAlert>
 
 ### Note
@@ -70,19 +64,21 @@ The `MdxInlineAlert` component is used in long-form MDX content to highlight var
 
 ## Authoring in MDX
 
-Four prebuilt variants are available for use in both docs and tutorials long-form content: `<Tip />`, `<Highlight />`, `<Note />`, & `<Warning />`.
+Three prebuilt variants are available for use in both docs and tutorials long-form content: `<Tip />`, `<Note />`, & `<Warning />`.
 
-The only available prop to pass in authorable contexts with these specific variants is `title`. _**Note**_: When using markdown syntax within the body of an alert, there needs to be a space between the opening / closing
+The only available prop to pass in authorable contexts with these specific variants is `title`. _**Note**_: When using Markdown syntax within the body of an alert, there needs to be a space between the opening / closing
 tags and the content — similar to the Tabs or Accordion components.
 
 ### Guidelines
 
-- Keep the title short, as this will be the most prominent element when users scan the alert.
-- Do not end the title with a period, regardless if you use a custom headline via title=“my title”
+- Use the default title for each component rather than overriding the title.
+- If a custom title must be used, keep the title short, as this will be the most prominent element when users scan the alert.
+- Do not end the title with a period
 - Alert messages should be short but clear and descriptive enough to explain what is happening. They should guide users on how to prevent or fix the issue.
-- We recommend keeping messages under 270 characters.
-- Text formatting capabilities via markdown syntax such as inline links, bold, italic, and lists are supported. Please use bold/italics sparingly to ensure consistency.
-- Please don't use images within the alerts, render them below or above the alert instead.
+- Keep messages under 270 characters.
+- Text formatting capabilities via Markdown syntax such as inline links, bold, italic, and lists are supported. Please use bold/italics sparingly to ensure consistency.
+- Do not use other Markdown elements. All other Markdown elements are possible but discouraged (header, code snippets, etc.).
+- Please don't use images within the alerts. Render them below or above the alert instead.
 
 ### Example content
 
@@ -93,24 +89,23 @@ This is an example of using the `MdxInlineAlert` variants within MDX content.
 
 <Tip>When your alert is just a plain string, you can write it inline.</Tip>
 
-<Highlight title="My custom title">
-	Override the alert's default title via the `title` prop.
-</Highlight>
+<Note title="My custom title">
+
+Override the alert's default title via the `title` prop.
+
+</Note>
 
 <Note>
 
-**When you use markdown syntax** within the body of the alert,
-it needs to be separated by spaces.
-
-- It handles lists okay
-- Just no headings
+**When you use Markdown syntax** within the body of the alert,
+it must be separated by spaces.
 
 </Note>
 
 <Warning>
 
-This is another example with [a link](https://www.hashicorp.com/contact-sales/terraform). There need to be spaces after and before the
-opening / closing tags.
+This is another example with [a link](https://www.hashicorp.com/contact-sales/terraform). 
+There must be spaces after and before the opening and closing tags.
 
 </Warning>
 ```
@@ -129,12 +124,14 @@ opening / closing tags.
 ### Multiple child elements
 
 <MdxInlineAlert type="warning">
+
 	Liquorice cake marzipan danish brownie
 	shortbread dessert. Lollipop gingerbread bear claw muffin croissant cake caramels
 	halvah.
 
-    Bonbon pie jelly beans jelly beans oat cake muffin. Jelly
-    beans dragée sugar plum lollipop lemon drops. Cake donut cookie sugar plum
-    shortbread caramels.
+	Bonbon pie jelly beans jelly beans oat cake muffin. Jelly
+	beans dragée sugar plum lollipop lemon drops. Cake donut cookie sugar plum
+	shortbread caramels.
 
 </MdxInlineAlert>
+

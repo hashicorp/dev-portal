@@ -24,7 +24,7 @@ import {
 	integrationBreadcrumbLinks,
 	integrationVersionBreadcrumbLinks,
 } from 'lib/integrations'
-import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
+import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -69,7 +69,7 @@ async function getStaticPathsWithVersion(): Promise<
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
-	const enabledProductSlugs = getProductSlugsWithIntegrations()
+	const enabledProductSlugs = __config.dev_dot.product_slugs_with_integrations
 	// Fetch integrations for all products
 	const allIntegrations = await fetchAllIntegrations(enabledProductSlugs)
 	// Build a flat array of path parameters for each integration
@@ -105,7 +105,7 @@ async function getStaticProps({
 	// Pull out the Product Config
 	// If the product is not enabled for integrations, return a 404 page
 	const productData = cachedGetProductData(productSlug)
-	if (!productData.integrationsConfig.enabled) {
+	if (!getIsEnabledProductIntegrations(productSlug)) {
 		return {
 			notFound: true,
 		}

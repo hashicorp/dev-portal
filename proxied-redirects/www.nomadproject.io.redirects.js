@@ -195,6 +195,12 @@ module.exports = [
 			'https://www.nomadproject.io/docs/operations/monitoring-nomad#progress',
 		permanent: false,
 	},
+	{
+		source: '/s/envoy-bootstrap-error',
+		destination:
+			'https://developer.hashicorp.com/nomad/docs/integrations/consul-connect#troubleshooting',
+		permanent: false,
+	},
 
 	// Spark guide links are all repointed to deprecated nomad-spark repo
 	{

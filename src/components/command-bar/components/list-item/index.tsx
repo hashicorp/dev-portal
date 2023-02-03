@@ -1,3 +1,5 @@
+import classNames from 'classnames'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import Badge, { BadgeProps } from 'components/badge'
 import Link from 'components/link'
 import Text from 'components/text'
@@ -19,6 +21,7 @@ const CommandBarListItemContent = ({
 	description,
 	icon,
 	title,
+	trailingIcon,
 }: CommandBarListItemContentProps) => {
 	const hasIcon = !!icon
 	const hasBadges = badges && badges.length > 0
@@ -43,7 +46,12 @@ const CommandBarListItemContent = ({
 	return (
 		<>
 			{hasIcon ? <span className={s.icon}>{icon}</span> : null}
-			<div className={s.textWrapper}>
+			<div
+				className={classNames(
+					s.textWrapper,
+					!!trailingIcon && s.hasTrailingIcon
+				)}
+			>
 				<div className={s.titleAndBadgeWrapper}>
 					<Text
 						dangerouslySetInnerHTML={{ __html: title }}
@@ -76,6 +84,9 @@ const CommandBarListItemContent = ({
 					/>
 				) : null}
 			</div>
+			{trailingIcon ? (
+				<span className={s.trailingIcon}>{trailingIcon}</span>
+			) : null}
 		</>
 	)
 }
@@ -113,14 +124,16 @@ const CommandBarLinkListItem = ({
 	title,
 	url,
 }: CommandBarLinkListItemProps) => {
+	const isExternal = !url.startsWith('/')
 	return (
 		<CommandBarListItem>
-			<Link className={s.linkOrButton} href={url}>
+			<Link className={s.linkOrButton} href={url} opensInNewTab={isExternal}>
 				<CommandBarListItemContent
 					badges={badges}
 					description={description}
 					icon={icon}
 					title={title}
+					trailingIcon={isExternal ? <IconExternalLink16 /> : null}
 				/>
 			</Link>
 		</CommandBarListItem>
