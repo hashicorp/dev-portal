@@ -20,10 +20,11 @@ import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
 import { ProductIntegrationReadmeViewProps } from '.'
 import {
 	fetchAllIntegrations,
+	getTargetVersion,
 	integrationBreadcrumbLinks,
 	integrationVersionBreadcrumbLinks,
 } from 'lib/integrations'
-import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-slugs-with-integrations'
+import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -32,11 +33,12 @@ import { getProductSlugsWithIntegrations } from 'lib/integrations/get-product-sl
 type PathParams = {
 	productSlug: ProductSlug
 	integrationSlug: string
+	organizationSlug: string
 	/**
 	 * Note: the version string is passed for versioned "readme" views,
 	 * but not for the latest "readme" views.
-	 * - Latest URLs: `/<product>/integration/<integrationSlug>`
-	 * - Versioned URLs: `/<product>/integration/<integrationSlug>`
+	 * - Latest URLs: `/<product>/integrations/<orgSlug>/<integrationSlug>`
+	 * - Versioned URLs: `/<product>/integrations/<orgSlug>/<integrationSlug>`
 	 */
 	integrationVersion?: string
 }
@@ -67,7 +69,7 @@ async function getStaticPathsWithVersion(): Promise<
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
-	const enabledProductSlugs = getProductSlugsWithIntegrations()
+	const enabledProductSlugs = __config.dev_dot.product_slugs_with_integrations
 	// Fetch integrations for all products
 	const allIntegrations = await fetchAllIntegrations(enabledProductSlugs)
 	// Build a flat array of path parameters for each integration
@@ -77,10 +79,10 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 		.map((i: Integration) => ({
 			productSlug: i.product.slug,
 			integrationSlug: i.slug,
+			organizationSlug: i.organization.slug,
 		}))
 		.flat()
 		.map((params: PathParams) => ({ params }))
-
 	// Return static paths
 	return { paths, fallback: false }
 }
@@ -89,7 +91,12 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
  * Get static props for the "readme" view of a specific product integration.
  */
 async function getStaticProps({
-	params: { productSlug, integrationSlug, integrationVersion },
+	params: {
+		productSlug,
+		integrationSlug,
+		organizationSlug,
+		integrationVersion,
+	},
 }: GetStaticPropsContext<PathParams>): Promise<
 	GetStaticPropsResult<
 		ProductIntegrationReadmeViewProps & { metadata: HeadMetadataProps }
@@ -98,14 +105,15 @@ async function getStaticProps({
 	// Pull out the Product Config
 	// If the product is not enabled for integrations, return a 404 page
 	const productData = cachedGetProductData(productSlug)
-	if (!productData.integrationsConfig.enabled) {
+	if (!getIsEnabledProductIntegrations(productSlug)) {
 		return {
 			notFound: true,
 		}
 	}
-	// Fetch the Integration
+
 	const integrationResponse = await fetchIntegration(
 		productSlug,
+		organizationSlug,
 		integrationSlug
 	)
 	if (integrationResponse.meta.status_code != 200) {
@@ -113,17 +121,28 @@ async function getStaticProps({
 		return { notFound: true }
 	}
 	const integration = integrationResponse.result
+
 	// If the integration is external only, we shouldn't render this page
 	if (integration.external_only) {
 		return {
 			notFound: true,
 		}
 	}
-	// Fetch the Latest Release
-	const isLatest = !integrationVersion || integrationVersion === 'latest'
-	const targetVersion = isLatest ? integration.versions[0] : integrationVersion
+
+	const [targetVersion, isLatest] = getTargetVersion({
+		versionSlug: integrationVersion,
+		latestVersion: integration.versions[0],
+	})
+
+	// if the version slug is not prefix with 'v', return 404
+	if (targetVersion === null) {
+		return { notFound: true }
+	}
+
+	// Fetch the Release
 	const activeReleaseResponse = await fetchIntegrationRelease(
 		productData.slug,
+		organizationSlug,
 		integrationSlug,
 		targetVersion
 	)

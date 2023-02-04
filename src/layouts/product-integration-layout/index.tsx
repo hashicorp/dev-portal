@@ -5,11 +5,17 @@ import {
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/components'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import SidebarSidecarLayout, {
+	SidebarSidecarLayoutProps,
+} from 'layouts/sidebar-sidecar'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
-import { generateProductIntegrationLibrarySidebarNavData } from 'lib/integrations'
-import { ProductData } from 'types/products'
+import {
+	generateProductIntegrationLibrarySidebarNavData,
+	getIntegrationComponentUrl,
+	getIntegrationUrl,
+} from 'lib/integrations'
+import { ProductData, ProductSlug } from 'types/products'
 import Header from './components/header'
 import s from './style.module.css'
 
@@ -25,6 +31,7 @@ interface ProductIntegrationLayoutProps {
 	// should be redirected to.
 	getVersionChangedURL: (version: string) => string
 	children: React.ReactNode
+	sidecarSlot?: SidebarSidecarLayoutProps['sidecarSlot']
 }
 
 /**
@@ -41,6 +48,7 @@ export default function ProductIntegrationLayout({
 	breadcrumbLinks,
 	getVersionChangedURL,
 	children,
+	sidecarSlot,
 }: ProductIntegrationLayoutProps) {
 	// Determine if we're on the latest version, as that will slightly adjust the URLs
 	const onLatestVersion = integration.versions[0] === activeRelease.version
@@ -71,8 +79,8 @@ export default function ProductIntegrationLayout({
 				{
 					title: 'Overview',
 					fullPath: onLatestVersion
-						? `/${currentProduct.slug}/integrations/${integration.slug}`
-						: `/${currentProduct.slug}/integrations/${integration.slug}/${activeRelease.version}`,
+						? getIntegrationUrl(integration)
+						: getIntegrationUrl(integration, activeRelease.version),
 				},
 				componentsWithPages.length
 					? {
@@ -82,8 +90,12 @@ export default function ProductIntegrationLayout({
 								return {
 									title: rc.component.name,
 									fullPath: onLatestVersion
-										? `/${currentProduct.slug}/integrations/${integration.slug}/latest/components/${rc.component.slug}`
-										: `/${currentProduct.slug}/integrations/${integration.slug}/${activeRelease.version}/components/${rc.component.slug}`,
+										? getIntegrationComponentUrl(integration, rc)
+										: getIntegrationComponentUrl(
+												integration,
+												rc,
+												activeRelease.version
+										  ),
 								}
 							}),
 					  }
@@ -99,9 +111,7 @@ export default function ProductIntegrationLayout({
 			// @ts-ignore
 			sidebarNavDataLevels={sidebarNavDataLevels}
 			breadcrumbLinks={breadcrumbLinks}
-			sidecarSlot={
-				<TryHcpCalloutSidecarPlacement productSlug={currentProduct.slug} />
-			}
+			sidecarSlot={sidecarSlot}
 		>
 			{!onLatestVersion && (
 				<HashiHead>
@@ -109,6 +119,7 @@ export default function ProductIntegrationLayout({
 				</HashiHead>
 			)}
 			<Header
+				productSlug={currentProduct.slug}
 				className={s.header}
 				integration={integration}
 				activeRelease={activeRelease}

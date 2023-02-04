@@ -11,7 +11,7 @@ import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import capitalize from '@hashicorp/platform-util/text/capitalize'
 import useTypingDebounce from 'lib/hooks/use-typing-debounce'
-import { Integration, Tier } from 'lib/integrations-api-client/integration'
+import { Tier } from 'lib/integrations-api-client/integration'
 import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import Button from 'components/button'
 import Dialog from 'components/dialog'
@@ -25,6 +25,7 @@ import {
 	integrationLibraryFilterSelectedEvent,
 	integrationLibrarySearchedEvent,
 } from './helpers/analytics'
+import { getFilteredIntegrations } from './helpers/get-filtered-integrations'
 import s from './style.module.css'
 
 interface SearchableIntegrationsListProps {
@@ -56,19 +57,10 @@ export default function SearchableIntegrationsList({
 		}
 	)
 
-	const filteredIntegrations = integrations.filter(
-		(integration: Integration) => {
-			return (
-				integration.name.toLowerCase().includes(filterQuery.toLowerCase()) ||
-				integration.description
-					.toLowerCase()
-					.includes(filterQuery.toLowerCase()) ||
-				integration.organization.slug
-					.toLowerCase()
-					.includes(filterQuery.toLowerCase())
-			)
-		}
-	)
+	const filteredIntegrations = getFilteredIntegrations({
+		integrations,
+		filterQuery,
+	})
 
 	/**
 	 * Track an "integration_library_searched" event when the filterQuery changes
@@ -200,6 +192,7 @@ export default function SearchableIntegrationsList({
 		<div className={classNames(s.searchableIntegrationsList, className)}>
 			<div className={s.header}>
 				<FilterInput
+					className={s.filterInput}
 					IconComponent={IconSearch16}
 					value={filterQuery}
 					onChange={(v: string) => {
