@@ -1,11 +1,4 @@
-#dark-mode-root[data-dark-mode='true'] {
-	/** TODO remove, just inserting this for testing **/
-
-	background-color: black;
-	color: white;
-
-	/** ------------- **/
-
+[data-theme='dark'] {
 	--token-color-palette-blue-500: #5fbcff;
 	--token-color-palette-blue-400: #3491ff;
 	--token-color-palette-blue-300: #107dff;
@@ -65,37 +58,37 @@
 	--token-color-foreground-faint: #c2c5cb;
 	--token-color-foreground-high-contrast: #000;
 	--token-color-foreground-disabled: #8c909c;
-	--token-color-foreground-action: #1060ff;
-	--token-color-foreground-action-hover: #0c56e9;
-	--token-color-foreground-action-active: #0046d1;
-	--token-color-foreground-highlight: #a737ff;
-	--token-color-foreground-highlight-on-surface: #911ced;
-	--token-color-foreground-highlight-high-contrast: #42215b;
-	--token-color-foreground-success: #008a22;
-	--token-color-foreground-success-on-surface: #00781e;
-	--token-color-foreground-success-high-contrast: #054220;
-	--token-color-foreground-warning: #bb5a00;
-	--token-color-foreground-warning-on-surface: #9e4b00;
-	--token-color-foreground-warning-high-contrast: #542800;
-	--token-color-foreground-critical: #e52228;
-	--token-color-foreground-critical-on-surface: #c00005;
-	--token-color-foreground-critical-high-contrast: #51130a;
+	--token-color-foreground-action: #0073fb;
+	--token-color-foreground-action-hover: #107dff;
+	--token-color-foreground-action-active: #3491ff;
+	--token-color-foreground-highlight: #aa3fff;
+	--token-color-foreground-highlight-on-surface: #b14fff;
+	--token-color-foreground-highlight-high-contrast: #dda5ff;
+	--token-color-foreground-success: #009241;
+	--token-color-foreground-success-on-surface: #00ae4e;
+	--token-color-foreground-success-high-contrast: #1ce375;
+	--token-color-foreground-warning: #e88c03;
+	--token-color-foreground-warning-on-surface: #fda219;
+	--token-color-foreground-warning-high-contrast: #ffcc6a;
+	--token-color-foreground-critical: #ef3016;
+	--token-color-foreground-critical-on-surface: #f9381e;
+	--token-color-foreground-critical-high-contrast: #ff8c7c;
 	--token-color-foreground-action-visited: #a737ff; /* This extra color is unique for the DevDot platform (the 'visited' state of a link is not differentiated in the products applications). */
 	--token-color-foreground-action-visited-hover: #7b00db; /* This extra color is unique for the DevDot platform (the 'visited+hover' state of a link is not differentiated in the products applications). */
-	--token-color-page-primary: #000;
-	--token-color-page-faint: #121214;
-	--token-color-surface-primary: #000;
-	--token-color-surface-faint: #121214;
+	--token-color-page-primary: #030303;
+	--token-color-page-faint: #0c0c0e;
+	--token-color-surface-primary: #030303;
+	--token-color-surface-faint: #0c0c0e;
 	--token-color-surface-strong: #121214;
-	--token-color-surface-interactive: #000;
+	--token-color-surface-interactive: #030303;
 	--token-color-surface-interactive-hover: #121214;
 	--token-color-surface-interactive-active: #3b3d45;
-	--token-color-surface-interactive-disabled: #121214;
-	--token-color-surface-action: #f2f8ff;
-	--token-color-surface-highlight: #f9f2ff;
-	--token-color-surface-success: #f2fbf6;
-	--token-color-surface-warning: #fff9e8;
-	--token-color-surface-critical: #fff5f5;
+	--token-color-surface-interactive-disabled: #0c0c0e;
+	--token-color-surface-action: #142542;
+	--token-color-surface-highlight: #2f1543;
+	--token-color-surface-success: #042d16;
+	--token-color-surface-warning: #2e1b06;
+	--token-color-surface-critical: #3f0d07;
 	--token-color-hashicorp-brand: #fff;
 	--token-color-boundary-brand: #f24c53;
 	--token-color-boundary-foreground: #cf2d32;

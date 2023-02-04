@@ -29,7 +29,7 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 				<Head>
 					<DatadogHeadTag />
 				</Head>
-				<div className={s.root} data-dark-mode={isActive} id="dark-mode-root">
+				<div className={s.root} data-theme={isActive ? 'dark' : 'default'}>
 					{children}
 				</div>
 				{isSwingset ? null : <DatadogScriptTag />}
