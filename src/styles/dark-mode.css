@@ -1,4 +1,10 @@
 [data-theme='dark'] {
+	/** TESTING ONLY **/
+
+	background-color: var(--token-color-palette-neutral-0);
+
+	/** ----------------- */
+
 	--token-color-palette-blue-500: #5fbcff;
 	--token-color-palette-blue-400: #3491ff;
 	--token-color-palette-blue-300: #107dff;
