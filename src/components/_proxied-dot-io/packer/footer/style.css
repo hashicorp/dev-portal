@@ -10,7 +10,7 @@
 	}
 
 	& a {
-		color: var(--token-color-palette-neutral-700);
+		color: black;
 		opacity: 0.5;
 		transition: opacity 0.25s ease;
 		cursor: pointer;

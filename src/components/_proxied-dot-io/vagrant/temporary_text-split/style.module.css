@@ -20,7 +20,7 @@
 	composes: g-type-label from global;
 	display: inline-block;
 	background: black;
-	color: var(--token-color-palette-neutral-0);
+	color: white;
 	padding: 6px 8px;
 }
 
