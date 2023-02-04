@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { NextAdapter } from 'next-query-params'
 import { QueryParamProvider } from 'use-query-params'
+import { ThemeProvider } from 'next-themes'
 
 // HashiCorp imports
 import {
@@ -38,7 +39,6 @@ import { Toaster } from 'components/toast'
 
 // Local imports
 import './style.css'
-import { DarkModeProvider } from 'contexts/dark-mode'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
@@ -105,7 +105,7 @@ export default function App({
 	}
 
 	return (
-		<DarkModeProvider>
+		<ThemeProvider>
 			<QueryClientProvider client={queryClient}>
 				<SSRProvider>
 					<QueryParamProvider adapter={NextAdapter}>
@@ -142,7 +142,7 @@ export default function App({
 					</QueryParamProvider>
 				</SSRProvider>
 			</QueryClientProvider>
-		</DarkModeProvider>
+		</ThemeProvider>
 	)
 }
 
