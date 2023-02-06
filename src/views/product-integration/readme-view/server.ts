@@ -84,7 +84,7 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 		.flat()
 		.map((params: PathParams) => ({ params }))
 	// Return static paths
-	return { paths, fallback: false }
+	return { paths, fallback: 'blocking' }
 }
 
 /**
