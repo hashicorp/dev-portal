@@ -1,12 +1,8 @@
 import { NavigationHeaderIcon } from 'components/navigation-header/types'
-import {
-	getDocsNavHasItems,
-	getDocsNavItems,
-} from 'lib/docs/get-docs-nav-items'
-import { NavItem } from './types'
+import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
+import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 import { ProductData } from 'types/products'
-import { PrimaryNavLinkProps } from '../../primary-nav-link'
-import { PrimaryNavSubmenuProps } from '../../primary-nav-submenu'
+import { NavItem } from './types'
 
 const TRY_CLOUD_ITEM_PRODUCT_SLUGS = [
 	'boundary',
@@ -148,6 +144,11 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 			label: 'Registry',
 			url: 'https://registry.terraform.io/',
 			opensInNewTab: true,
+		})
+	} else if (getIsEnabledProductIntegrations(currentProduct.slug)) {
+		items.push({
+			label: 'Integrations',
+			url: `/${currentProduct.slug}/integrations`,
 		})
 	}
 
