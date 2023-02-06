@@ -4,7 +4,11 @@ import Badge from 'components/badge'
 import MdxHeadingPermalink from 'components/dev-dot-content/mdx-components/mdx-heading-permalink'
 import { getVariableSlug } from '../../helpers'
 import DevDotContent from 'components/dev-dot-content'
-import { MdxInlineCode, MdxP } from 'components/dev-dot-content/mdx-components'
+import {
+	MdxA,
+	MdxInlineCode,
+	MdxP,
+} from 'components/dev-dot-content/mdx-components'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import s from './style.module.css'
 
@@ -14,7 +18,8 @@ import s from './style.module.css'
  */
 const smallDescriptionMdxComponents = {
 	inlineCode: (props) => <MdxInlineCode {...props} size="100" />,
-	p: (props) => <MdxP {...props} size="200" />,
+	p: (props) => <MdxP {...props} size={200} />,
+	a: (props) => <MdxA {...props} textSize={200} />,
 }
 
 export interface Variable {
