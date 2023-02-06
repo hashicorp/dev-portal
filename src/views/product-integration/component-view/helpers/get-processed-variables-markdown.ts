@@ -26,10 +26,7 @@ export async function getProcessedVariablesMarkdown(
 			const uniqueKey = `${variable_group_id}.${key}`
 			processedVariablesMarkdown[uniqueKey] = {}
 			if (description !== null) {
-				const mdxSource = await serializeIntegrationMarkdown(
-					`Here's an [inline link](https://dev.hashicorp.com/waypoint). Also the original description: ` +
-						description
-				)
+				const mdxSource = await serializeIntegrationMarkdown(description)
 				processedVariablesMarkdown[uniqueKey] = { description: mdxSource }
 			}
 		}
