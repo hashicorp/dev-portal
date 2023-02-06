@@ -82,6 +82,7 @@ export async function getStaticProps({
 	]
 
 	return {
+		revalidate: __config.dev_dot.revalidate,
 		props: {
 			metadata: {
 				title: `Integrations`,
