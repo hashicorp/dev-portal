@@ -2,15 +2,20 @@ import fs from 'fs'
 import path from 'path'
 import grayMatter from 'gray-matter'
 import { Pluggable } from 'unified'
+import { ProductData } from 'types/products'
 import {
 	getNodeFromPath,
 	getPathsFromNavData,
 } from '@hashicorp/react-docs-page/server'
 import renderPageMdx from '@hashicorp/react-docs-page/render-page-mdx'
+import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
+import { getProductUrlAdjuster } from 'views/docs-view/utils/product-url-adjusters'
 import resolveNavDataWithRemotePlugins, {
 	appendRemotePluginsNavData,
 } from './utils/resolve-nav-data'
 import fetchLatestReleaseTag from './utils/fetch-latest-release-tag'
+// packer product data
+import packerProductData from 'data/packer.json'
 // remark plugins
 import {
 	// includeMarkdown,
@@ -24,6 +29,8 @@ import rehypePrism from '@mapbox/rehype-prism'
 // alternative to the includeMarkdown plugin,
 // which we need to shim cause of how we're fetching remote content here
 import shimRemoteIncludes from 'lib/shim-remote-includes'
+import { fixupPackerPluginUrls } from './fixup-plugin-urls'
+import { fixupRedirectedPackerPlugins } from './fixup-redirected-plugin-urls'
 
 async function generateStaticPaths({
 	navDataFile,
@@ -164,6 +171,11 @@ async function generateStaticProps({
 	}
 	const content = await mdxContentHook(rawContent)
 
+	// Set up URL adjuster function
+	const dotIoToDevDotUrlAdjuster = getProductUrlAdjuster(
+		packerProductData as ProductData
+	)
+
 	// Render MDX source, with options
 	const headings = [] // populated by anchorLinks plugin below
 	const mdxOptions: { remarkPlugins: Pluggable[]; rehypePlugins: Pluggable[] } =
@@ -172,6 +184,24 @@ async function generateStaticProps({
 				typography,
 				[anchorLinks, { headings }],
 				paragraphCustomAlerts,
+				/**
+				 * Rewrite docs content links, which are authored without prefix.
+				 * For Packer plugins, we need to account for both plugin URL
+				 * structure changes (which happened before the move to Dev Dot,
+				 * but have not yet been updated in source), as well as for
+				 * the usual dot-io-to-dev-dot transformations we run for
+				 * all other products.
+				 */
+				[
+					remarkPluginAdjustLinkUrls,
+					{
+						urlAdjustFn: (url) => {
+							const withSpecificFixes = fixupRedirectedPackerPlugins(url)
+							const withAllFixes = fixupPackerPluginUrls(withSpecificFixes)
+							return dotIoToDevDotUrlAdjuster(withAllFixes)
+						},
+					},
+				],
 			],
 			rehypePlugins: [
 				[rehypePrism, { ignoreMissing: true }],

@@ -21,14 +21,6 @@ module.exports = [
 		permanent: true,
 	},
 
-	// This redirect supports a URL built into the Nomad UI, and should always be
-	// directed someplace valid to support the text "Read about Outage Recovery."
-	{
-		source: '/guides/outage.html',
-		destination: 'https://learn.hashicorp.com/tutorials/nomad/outage-recovery',
-		permanent: true,
-	},
-
 	// Nomad Learn Redirects
 	{
 		source: '/intro/getting-started',
@@ -201,6 +193,12 @@ module.exports = [
 		source: '/s/port-plan-failure',
 		destination:
 			'https://www.nomadproject.io/docs/operations/monitoring-nomad#progress',
+		permanent: false,
+	},
+	{
+		source: '/s/envoy-bootstrap-error',
+		destination:
+			'https://developer.hashicorp.com/nomad/docs/integrations/consul-connect#troubleshooting',
 		permanent: false,
 	},
 
@@ -1250,6 +1248,13 @@ module.exports = [
 	{
 		source: '/guides/:splat*',
 		destination: 'https://learn.hashicorp.com/nomad',
+		permanent: true,
+	},
+	// This redirect supports a URL built into the Nomad UI, and should always be
+	// directed someplace valid to support the text "Read about Outage Recovery."
+	{
+		source: '/guides/outage.html',
+		destination: 'https://learn.hashicorp.com/tutorials/nomad/outage-recovery',
 		permanent: true,
 	},
 

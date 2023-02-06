@@ -10,9 +10,10 @@ function CollectionCards({ collectionCards }: CollectionCardsProps) {
 		<CardsGridList>
 			{collectionCards.map((cardPropsWithId: CollectionCardPropsWithId) => {
 				return (
-					<li key={cardPropsWithId.id}>
-						<CollectionCardWithAuthElements {...cardPropsWithId} />
-					</li>
+					<CollectionCardWithAuthElements
+						key={cardPropsWithId.id}
+						{...cardPropsWithId}
+					/>
 				)
 			})}
 		</CardsGridList>

@@ -1,6 +1,6 @@
 query UseCasesQuery {
-  useCaseNavItems: allBoundaryUseCases {
-    url: slug
-    text: heroHeading
-  }
+	useCaseNavItems: allBoundaryUseCases {
+		url: slug
+		text: heroHeading
+	}
 }

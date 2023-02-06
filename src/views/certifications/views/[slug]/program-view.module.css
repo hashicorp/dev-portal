@@ -1,0 +1,15 @@
+.mainSection {
+	background: var(--token-color-surface-interactive-disabled);
+	padding-bottom: 168px;
+}
+
+.examsSection {
+	display: flex;
+	flex-direction: column;
+	gap: 72px;
+	margin-top: -72px;
+}
+
+.signupForm {
+	margin-top: 72px;
+}

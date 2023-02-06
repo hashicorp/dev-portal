@@ -1,5 +1,4 @@
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
-import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	generateProductLandingSidebarNavData,
@@ -8,38 +7,23 @@ import {
 import TutorialsSidebar, {
 	CollectionViewSidebarContent,
 } from 'components/tutorials-sidebar'
-import OptInOut from 'components/opt-in-out'
 import { CollectionPageProps } from './server'
 import CollectionMeta from './components/collection-meta'
 import CollectionTutorialList from './components/collection-tutorial-list'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
+import { generateCollectionSidebarNavData } from './helpers/generate-collection-sidebar-nav-data'
 
 function CollectionView({
 	collection,
 	layoutProps,
 	product,
 }: CollectionPageProps): React.ReactElement {
-	useOptInAnalyticsTracking('learn')
 	const { name, description, tutorials, ordered } = collection
 
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(product.name),
 		generateProductLandingSidebarNavData(product),
-		{
-			levelButtonProps: {
-				levelUpButtonText: `${product.name} Home`,
-				levelDownButtonText: 'Previous',
-			},
-			backToLinkProps: {
-				text: `${product.name} Home`,
-				href: `/${product.slug}`,
-			},
-			title: 'Tutorials',
-			overviewItemHref: `/${product.slug}/tutorials`,
-			children: (
-				<CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
-			),
-		},
+		generateCollectionSidebarNavData(product, layoutProps.sidebarSections),
 	]
 
 	return (
@@ -54,7 +38,6 @@ function CollectionView({
 			 * a follow-up PR since this is functional for the time being.
 			 */
 			sidebarNavDataLevels={sidebarNavDataLevels as any}
-			optInOutSlot={<OptInOut platform="learn" />}
 			sidecarSlot={null}
 		>
 			<CollectionMeta

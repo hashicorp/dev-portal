@@ -37,7 +37,7 @@
 		"divider",
 		{
 			"text": "Tutorials",
-			"url": "https://learn.hashicorp.com/boundary",
+			"url": "https://developer.hashicorp.com/boundary/tutorials",
 			"type": "inbound"
 		},
 		{
@@ -60,18 +60,14 @@
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
-			"name": "General Documentation",
+			"name": "Documentation",
 			"path": "docs",
-			"shortName": "Documentation"
+			"shortName": "Docs"
 		},
 		{
 			"iconName": "api",
 			"name": "API",
 			"path": "api-docs"
 		}
-	],
-	"devDotCutoverMessage": {
-		"showCutoverDate": false,
-		"cutoverDate": "Oct 18, 2022"
-	}
+	]
 }

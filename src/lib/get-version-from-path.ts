@@ -14,13 +14,14 @@ export function getVersionFromPath(path: string): string | undefined {
 		.replace(/^\//i, '')
 		.split('/')
 
-	// version is only expected to be at index 2, or 3 in the case of TF-Plugins
+	// version is only expected to be at index 2, or 3 in the case of TF-Plugins,
+	// or 4 with Integrations versioned routes.
 	// - "product" will be at index 0, and "basePath" at index 1
 	const version = pathSegments.find((el, i) => {
 		if (i === 2 && TFE_VERSION_IN_PATH_REGEXP.test(el)) {
 			return true
 		}
-		if ((i === 2 || i === 3) && VERSION_IN_PATH_REGEX.test(el)) {
+		if ((i === 2 || i === 3 || i === 4) && VERSION_IN_PATH_REGEX.test(el)) {
 			return true
 		}
 		return false

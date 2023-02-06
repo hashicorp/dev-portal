@@ -1,16 +1,14 @@
 // Third-party imports
 import { Fragment, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
-import { MDXRemote } from 'next-mdx-remote'
 
 // Global imports
 import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
 import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
-import { useOptInAnalyticsTracking } from 'hooks/use-opt-in-analytics-tracking'
 import { useMobileMenu } from 'contexts'
 import InstruqtProvider from 'contexts/instruqt-lab'
-import { ProductOption, TutorialLite } from 'lib/learn-client/types'
+import { TutorialLite } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	CollectionCategorySidebarSection,
@@ -18,7 +16,6 @@ import {
 	getTutorialSlug,
 } from 'views/collection-view/helpers'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
-import OptInOut from 'components/opt-in-out'
 import DevDotContent from 'components/dev-dot-content'
 import {
 	generateProductLandingSidebarNavData,
@@ -30,7 +27,6 @@ import TutorialsSidebar, {
 } from 'components/tutorials-sidebar'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
-import { getLearnRedirectPath } from 'components/opt-in-out/helpers/get-learn-redirect-path'
 
 // Local imports
 import {
@@ -51,6 +47,7 @@ import {
 } from './components'
 import s from './tutorial-view.module.css'
 import { useProgressToast } from './utils/use-progress-toast'
+import { generateCollectionSidebarNavData } from 'views/collection-view/helpers/generate-collection-sidebar-nav-data'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -112,7 +109,6 @@ function TutorialView({
 	tutorial,
 }: TutorialViewProps): React.ReactElement {
 	// hooks
-	useOptInAnalyticsTracking('learn')
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
@@ -148,27 +144,11 @@ function TutorialView({
 
 	const canonicalCollectionSlug = tutorial.collectionCtx.default.slug
 	const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
-	const redirectPath = getLearnRedirectPath(
-		currentPath,
-		slug.split('/')[0] as ProductOption
-	)
 
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(product.name),
 		generateProductLandingSidebarNavData(product),
-		{
-			levelButtonProps: {
-				levelUpButtonText: `${product.name} Home`,
-				levelDownButtonText: 'Previous',
-			},
-			title: 'Tutorials',
-			overviewItemHref: `/${product.slug}/tutorials`,
-			children: (
-				<CollectionViewSidebarContent
-					sections={collectionViewSidebarSections}
-				/>
-			),
-		},
+		generateCollectionSidebarNavData(product, layoutProps.sidebarSections),
 		{
 			levelButtonProps: {
 				levelUpButtonText: collectionCtx.current.shortName,
@@ -240,6 +220,10 @@ function TutorialView({
 		<>
 			<Head>
 				<link rel="canonical" href={canonicalUrl.toString()} key="canonical" />
+				{/** Don't index non canonical tutorials */}
+				{canonicalUrl.pathname !== currentPath ? (
+					<meta name="robots" content="noindex, nofollow" />
+				) : null}
 			</Head>
 			<InteractiveLabWrapper
 				key={slug}
@@ -257,10 +241,8 @@ function TutorialView({
 					sidebarNavDataLevels={sidebarNavDataLevels as any}
 					showScrollProgress={true}
 					AlternateSidebar={TutorialsSidebar}
-					optInOutSlot={
-						<OptInOut platform="learn" redirectPath={redirectPath} />
-					}
 					headings={layoutProps.headings}
+					mainWidth={layoutProps.mainWidth}
 				>
 					<LayoutContentWrapper
 						collectionCtx={collectionCtx}
@@ -287,9 +269,9 @@ function TutorialView({
 								})}
 							/>
 						)}
-						<DevDotContent>
-							<MDXRemote {...content} components={MDX_COMPONENTS} />
-						</DevDotContent>
+						<DevDotContent
+							mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+						/>
 						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
 						<FeedbackPanel />
 						<NextPrevious {...nextPreviousData} />

@@ -1,4 +1,5 @@
 // Third-party imports
+import path from 'path'
 import { Pluggable } from 'unified'
 import rehypePrism from '@mapbox/rehype-prism'
 
@@ -10,8 +11,9 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 
 // Global imports
 import { ProductData, RootDocsPath } from 'types/products'
-import remarkPluginAdjustLinkUrls from 'lib/remark-plugin-adjust-link-urls'
+import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { isDeployPreview } from 'lib/env-checks'
+import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
@@ -24,12 +26,13 @@ import {
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { SidebarProps } from 'components/sidebar'
-import { EnrichedNavItem, MenuItem } from 'components/sidebar/types'
+import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
+import { withTiming } from 'lib/with-timing'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -124,6 +127,15 @@ export function getStaticGenerationFunctions<
 				}
 			}
 
+			if (productSlugForLoader === 'terraform-cdk') {
+				// terraform-cdk has some exceptionally large pages that cannot be ISR'd due to lambda response size limits. As a result, we force the SSG of these pages.
+				// TODO: remove this block when we come up with an alternative workaround to CDKTF's large pages
+				return {
+					paths: pathsFromNavData,
+					fallback: 'blocking',
+				}
+			}
+
 			// Otherwise, rely on analytics data to prune the paths
 			const paths = await getStaticPathsFromAnalytics({
 				limit: __config.dev_dot.max_static_paths ?? 0,
@@ -138,18 +150,28 @@ export function getStaticGenerationFunctions<
 		},
 		getStaticProps: async (ctx) => {
 			const pathParts = (ctx.params.page || []) as string[]
+			const currentPathUnderProduct = `/${path.join(
+				basePathForLoader,
+				pathParts.join('/')
+			)}`
 			const headings = [] // populated by anchorLinks plugin below
 
 			const loader = getLoader({
 				mainBranch,
 				remarkPlugins: [
+					...additionalRemarkPlugins,
 					/**
 					 * Note on remark plugins for local vs remote loading:
 					 * includeMarkdown and paragraphCustomAlerts are already
 					 * expected to have been run for remote content.
 					 */
 					[anchorLinks, { headings }],
-					rewriteTutorialLinksPlugin,
+					/**
+					 * The `contentType` configuration is necessary so that the
+					 * `rewriteTutorialLinksPlugin` does not rewrite links like
+					 * `/waypoint` to `/waypoint/tutorials`.
+					 */
+					[rewriteTutorialLinksPlugin, { contentType: 'docs' }],
 					/**
 					 * Rewrite docs content links, which are authored without prefix.
 					 * For example, in Waypoint docs authors write "/docs/some-thing",
@@ -157,9 +179,11 @@ export function getStaticGenerationFunctions<
 					 */
 					[
 						remarkPluginAdjustLinkUrls,
-						{ urlAdjustFn: getProductUrlAdjuster(product) },
+						{
+							currentPath: currentPathUnderProduct,
+							urlAdjustFn: getProductUrlAdjuster(product),
+						},
 					],
-					...additionalRemarkPlugins,
 				],
 				rehypePlugins: [
 					[rehypePrism, { ignoreMissing: true }],
@@ -175,8 +199,13 @@ export function getStaticGenerationFunctions<
 			 */
 			let loadStaticPropsResult
 			try {
-				loadStaticPropsResult = await loader.loadStaticProps(ctx)
+				loadStaticPropsResult = await withTiming(
+					'[docs-view/server::loadStaticProps]',
+					() => loader.loadStaticProps(ctx)
+				)
 			} catch (error) {
+				console.error('[docs-view/server] error loading static props', error)
+
 				// Catch 404 errors, return a 404 status page
 				if (error.status === 404) {
 					return { notFound: true }
@@ -217,11 +246,14 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Add fullPaths and auto-generated ids to navData
 			 */
-			const { preparedItems: navDataWithFullPaths } =
-				await prepareNavDataForClient({
-					basePaths: [product.slug, basePath],
-					nodes: navData,
-				})
+			const { preparedItems: navDataWithFullPaths } = await withTiming(
+				'[docs-view/server::prepareNavDataForClient]',
+				() =>
+					prepareNavDataForClient({
+						basePaths: [product.slug, basePath],
+						nodes: navData,
+					})
+			)
 
 			/**
 			 * Figure out of a specific docs version is being viewed
@@ -244,48 +276,32 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Constructs the base sidebar level for `DocsView`.
 			 */
+			const docsSidebarTitle =
+				currentRootDocsPath.shortName || currentRootDocsPath.name
+			const docsBasePathFullPath = versionPathPart
+				? `/${product.slug}/${basePath}/${versionPathPart}`
+				: `/${product.slug}/${basePath}`
+			/**
+			 * Build menuItems from navData, with a branded "Overview" item
+			 *
+			 * TODO: would be great to fix up related types here at some point.
+			 * task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+			 */
+			const menuItems = addBrandedOverviewSidebarItem(navDataWithFullPaths, {
+				title: docsSidebarTitle,
+				fullPath: docsBasePathFullPath,
+				theme: product.slug,
+			}) as $TSFixMe
 			const docsSidebarLevel: SidebarProps = {
 				backToLinkProps: getBackToLink(currentRootDocsPath, product),
 				levelButtonProps: {
 					levelUpButtonText: `${product.name} Home`,
 				},
-				menuItems: navDataWithFullPaths as EnrichedNavItem[],
-				title: currentRootDocsPath.shortName || currentRootDocsPath.name,
-			}
-			/**
-			 * In some cases, the first nav item is a heading.
-			 * In these case, we'll visually hide the sidebar title,
-			 * since it will redundant right next to the authored title.
-			 */
-			const firstItemIsHeading =
-				typeof navDataWithFullPaths[0]?.heading == 'string'
-			if (firstItemIsHeading) {
-				docsSidebarLevel.visuallyHideTitle = true
-			}
-
-			/**
-			 * Check the top level of the navData for "overview" items,
-			 * which are expected to be present for consistency.
-			 * If we do no have an overview item match, then we'll
-			 * automatically add an overview item.
-			 */
-			const overviewItemMatch = navDataWithFullPaths.find((item: MenuItem) => {
-				const isPathMatch =
-					item.path == '' ||
-					item.path == '/' ||
-					item.path == '/index' ||
-					item.path == 'index'
-				return isPathMatch
-			})
-			/**
-			 * Exception: If the first navData node is a `heading`,
-			 * we'll avoid adding an overview item even if there's
-			 * no overview item match.
-			 */
-			if (!overviewItemMatch && !firstItemIsHeading) {
-				docsSidebarLevel.overviewItemHref = versionPathPart
-					? `/${product.slug}/${basePath}/${versionPathPart}`
-					: `/${product.slug}/${basePath}`
+				menuItems,
+				title: docsSidebarTitle,
+				/* We always visually hide the title, as we've added in a
+				   "highlight" item that would make showing the title redundant. */
+				visuallyHideTitle: true,
 			}
 
 			/**
@@ -310,11 +326,15 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Construct layoutProps for the DocsView.
 			 */
+			const isRootPath = pathParts.length === 0 || pathParts[0] === ''
+			const isDocsLanding = isRootPath && basePath === 'docs'
 			const layoutProps: Omit<SidebarSidecarLayoutProps, 'children'> = {
 				breadcrumbLinks,
 				headings: nonEmptyHeadings,
 				// TODO: need to adjust type for sidebarNavDataLevels here
 				sidebarNavDataLevels: sidebarNavDataLevels as $TSFixMe,
+				/* Long-form content pages use a narrower main area width */
+				mainWidth: isDocsLanding ? 'wide' : 'narrow',
 			}
 
 			/**

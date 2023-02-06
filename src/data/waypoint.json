@@ -35,7 +35,7 @@
 		},
 		{
 			"text": "Tutorials",
-			"url": "https://learn.hashicorp.com/waypoint",
+			"url": "https://developer.hashicorp.com/waypoint/tutorials",
 			"type": "inbound"
 		},
 		{
@@ -63,9 +63,8 @@
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
-			"name": "General Documentation",
+			"name": "Documentation",
 			"path": "docs",
-			"shortName": "Documentation",
 			"includeMDXSource": true
 		},
 		{
@@ -79,8 +78,7 @@
 			"path": "plugins"
 		}
 	],
-	"devDotCutoverMessage": {
-		"showCutoverDate": false,
-		"cutoverDate": "Oct 5, 2022"
+	"integrationsConfig": {
+		"description": "A curated collection of official, partner, and community Waypoint Integrations."
 	}
 }

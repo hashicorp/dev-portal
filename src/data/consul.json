@@ -22,10 +22,10 @@
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "Announcements",
-		"url": "https://www.hashicorp.com/blog/consul-1-14-beta-announcing-simplified-service-mesh-deployments",
-		"text": "Consul 1.14 beta, AWS Lambda support, new HCP Consul global visibility controls & more",
-		"linkText": "Read more",
+		"tag": "HashiTalks 2023",
+		"url": "https://hashi.co/hashitalks-2023",
+		"text": "Join us for the fifth annual HashiTalks, a 24-hour virtual knowledge sharing event on February 16",
+		"linkText": "Register now",
 		"expirationDate": ""
 	},
 	"version": "1.11.3",
@@ -34,9 +34,8 @@
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
-			"name": "General Documentation",
-			"path": "docs",
-			"shortName": "Documentation"
+			"name": "Documentation",
+			"path": "docs"
 		},
 		{
 			"iconName": "api",
@@ -48,9 +47,5 @@
 			"name": "CLI",
 			"path": "commands"
 		}
-	],
-	"devDotCutoverMessage": {
-		"showCutoverDate": false,
-		"cutoverDate": "Oct 13, 2022"
-	}
+	]
 }

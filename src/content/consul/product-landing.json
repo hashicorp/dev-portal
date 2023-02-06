@@ -24,7 +24,7 @@
 			{
 				"icon": "server",
 				"text": "Consul with Virtual Machines",
-				"url": "/consul/tutorials/getting-started/get-started"
+				"url": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
 			},
 			{
 				"icon": "hcp",

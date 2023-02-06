@@ -1,4 +1,3 @@
-import { AUTH_ENABLED } from 'hooks/use-authentication'
 import { useTutorialProgress } from 'hooks/progress'
 import { progressStatusToAriaLabel } from 'lib/learn-client/api/progress'
 import { TutorialProgressStatus } from 'lib/learn-client/types'
@@ -54,12 +53,9 @@ export function TutorialCardWithAuthElements({
 					) : (
 						<CardEyebrowText>{restProps.duration}</CardEyebrowText>
 					)}
-					{/** Hide from prod until auth is enabled */}
-					{AUTH_ENABLED ? (
-						<BookmarkButtonComponent
-							tutorial={{ id: tutorialId, name: restProps.heading }}
-						/>
-					) : null}
+					<BookmarkButtonComponent
+						tutorial={{ id: tutorialId, name: restProps.heading }}
+					/>
 				</>
 			}
 		/>

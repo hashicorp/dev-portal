@@ -39,6 +39,28 @@ const temporary_hideDocsPaths = {
 	],
 }
 
+/**
+ * @type {import('next/dist/lib/load-custom-routes').Header}
+ *
+ * Adds a `noindex` directive to all pages on `tip.waypointproject.io`.
+ * We don't want content on that domain to be indexed.
+ */
+const hideWaypointTipContent = {
+	source: '/:path*',
+	headers: [
+		{
+			key: 'X-Robots-Tag',
+			value: 'noindex,nofollow',
+		},
+	],
+	has: [
+		{
+			type: 'host',
+			value: 'tip.waypointproject.io',
+		},
+	],
+}
+
 module.exports = withSwingset({
 	componentsRoot: 'src/components/**/*',
 	docsRoot: 'src/swingset-docs/*',
@@ -64,7 +86,7 @@ module.exports = withSwingset({
 			return config
 		},
 		async headers() {
-			return [temporary_hideDocsPaths]
+			return [temporary_hideDocsPaths, hideWaypointTipContent]
 		},
 		async redirects() {
 			const { simpleRedirects, globRedirects } = await redirectsConfig()
@@ -89,6 +111,7 @@ module.exports = withSwingset({
 			return rewrites
 		},
 		env: {
+			ASSET_API_ENDPOINT: process.env.ASSET_API_ENDPOINT,
 			AXE_ENABLED: process.env.AXE_ENABLED || false,
 			BUGSNAG_CLIENT_KEY: '06718db5e1d75829801baa0b4ca2fb7b',
 			BUGSNAG_SERVER_KEY: 'b32b4487b5dc72b32f51c8fe33641a43',
@@ -122,6 +145,21 @@ module.exports = withSwingset({
 		},
 		experimental: {
 			largePageDataBytes: 512 * 1000, // 512KB
+			// TODO: not using transpilePackages here until https://github.com/vercel/next.js/pull/43546 lands
+			// transpilePackages: [
+			// 	'@hashicorp/flight-icons',
+			// 	/**
+			// 	 * TODO: once Sentinel has been migrated into the dev-portal repository,
+			// 	 * we should consider localizing the sentinel-embedded component. Should
+			// 	 * first confirm with Cam Stitt that this component is not being used
+			// 	 * elsewhere.
+			// 	 */
+			// 	'@hashicorp/sentinel-embedded',
+			// 	'swingset',
+			// 	'unist-util-visit',
+			// 	'unist-util-visit-parents',
+			// 	'unist-util-is',
+			// ],
 		},
 	})
 )

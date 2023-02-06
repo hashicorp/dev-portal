@@ -60,8 +60,7 @@ export function getNextPrevious({
 	if (currentCollectionSection === 'well-architected-framework') {
 		finalLink = '/well-architected-framework'
 	} else if (currentCollectionSection === 'onboarding') {
-		/** @TODO - remove this once the tutorial library is released */
-		finalLink = 'https://learn.hashicorp.com/search'
+		finalLink = '/tutorials/library'
 	}
 
 	const tutorial = {

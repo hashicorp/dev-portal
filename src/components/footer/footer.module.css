@@ -1,65 +1,106 @@
-@custom-media --list-horizontally (min-width: 1400px);
+@custom-media --list-horizontally (min-width: 1280px);
 
 .root {
-  align-items: center;
-  color: var(--token-color-palette-neutral-600);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 32px 0;
-  position: relative;
+	--padding: 24px;
+	--logo-button-margin-bottom: 8px;
+
+	align-items: center;
+	color: var(--token-color-palette-neutral-600);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: var(--padding);
+	position: relative;
 }
 
 .logo {
-  margin: 8px 40px 8px 0;
-  position: relative;
+	composes: g-focus-ring-from-box-shadow from global;
+	border-radius: 6px;
+	margin: 0 24px var(--logo-button-margin-bottom) 0;
+	position: relative;
 
-  & svg {
-    /*
+	& svg {
+		/*
     default inline display results in misalignment with footer links
     */
-    display: block;
-    height: 28px;
-    width: auto;
-  }
+		display: block;
+		height: 28px;
+		width: auto;
+	}
+
+	@media (--list-horizontally) {
+		margin-right: 40px;
+		margin-bottom: 0;
+	}
+}
+
+.feedbackButton {
+	margin-bottom: var(--logo-button-margin-bottom);
+
+	/**
+	* We render two different buttons depending on the view so that the 
+	* focus order can remain aligned with the visual presentation of the 
+	* footer links
+	*/
+
+	&.mobile {
+		@media (--list-horizontally) {
+			display: none;
+		}
+	}
+
+	&.desktop {
+		display: none;
+
+		@media (--list-horizontally) {
+			display: flex;
+		}
+	}
+
+	@media (--list-horizontally) {
+		margin-bottom: 0;
+	}
 }
 
 .links {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 16px 0 0 0;
-  padding: 0;
-  position: relative;
-  width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	width: 100%;
 
-  @media (--list-horizontally) {
-    margin-top: 0;
-    width: auto;
-  }
+	@media (--list-horizontally) {
+		margin-top: 0;
+		width: auto;
+		align-items: center;
+	}
 }
 
 .linkListItem {
-  margin: 8px 0;
-  width: 100%;
+	margin-top: 16px;
+	line-height: 0;
 
-  &:not(:last-child) {
-    margin-right: 32px;
-  }
+	&:not(:last-child) {
+		margin-right: var(--padding);
+	}
 
-  @media (--list-horizontally) {
-    width: auto;
-  }
+	@media (--list-horizontally) {
+		width: auto;
+		margin-top: 0;
+	}
 }
 
 .linkAction {
-  background: none;
-  border: none;
-  color: var(--token-color-foreground-faint);
-  padding: 0;
+	composes: g-focus-ring-from-box-shadow from global;
+	border-radius: 6px;
+	background: none;
+	border: none;
+	color: var(--token-color-foreground-faint);
 
-  &:hover {
-    color: var(--token-color-foreground-strong);
-    text-decoration: underline;
-  }
+	&:hover {
+		color: var(--token-color-foreground-strong);
+		text-decoration: underline;
+	}
 }

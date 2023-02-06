@@ -8,9 +8,9 @@ describe('getNavItems', () => {
 			rootDocsPaths: [
 				{
 					iconName: 'docs',
-					name: 'General Documentation',
+					name: 'Documentation',
 					path: 'docs',
-					shortName: 'Documentation',
+					shortName: 'Docs',
 					includeMDXSource: true,
 				},
 				{
@@ -18,47 +18,34 @@ describe('getNavItems', () => {
 					name: 'CLI',
 					path: 'commands',
 				},
-				{
-					iconName: 'plug',
-					name: 'Plugins',
-					path: 'plugins',
-				},
 			],
 		} as ProductData
 		expect(getNavItems(testWaypointData)).toMatchInlineSnapshot(`
 		Array [
 		  Object {
-		    "label": "Home",
-		    "url": "/waypoint",
-		  },
-		  Object {
-		    "iconColorTheme": "waypoint",
-		    "items": Array [
-		      Object {
-		        "icon": "docs",
-		        "label": "General Documentation",
-		        "path": "/waypoint/docs",
-		      },
-		      Object {
-		        "icon": "terminal-screen",
-		        "label": "CLI",
-		        "path": "/waypoint/commands",
-		      },
-		      Object {
-		        "icon": "plug",
-		        "label": "Plugins",
-		        "path": "/waypoint/plugins",
-		      },
-		    ],
-		    "label": "Documentation",
+		    "label": "Install",
+		    "url": "/waypoint/downloads",
 		  },
 		  Object {
 		    "label": "Tutorials",
 		    "url": "/waypoint/tutorials",
 		  },
 		  Object {
-		    "label": "Install",
-		    "url": "/waypoint/downloads",
+		    "label": "Documentation",
+		    "url": "/waypoint/docs",
+		  },
+		  Object {
+		    "label": "CLI",
+		    "url": "/waypoint/commands",
+		  },
+		  Object {
+		    "label": "Integrations",
+		    "url": "/waypoint/integrations",
+		  },
+		  Object {
+		    "label": "Try Cloud",
+		    "opensInNewTab": true,
+		    "url": "https://portal.cloud.hashicorp.com/sign-up",
 		  },
 		]
 	`)
@@ -114,7 +101,7 @@ describe('getNavItems', () => {
 				},
 				{
 					iconName: 'docs',
-					name: 'General Documentation',
+					name: 'Documentation',
 					path: 'docs',
 					productSlugForLoader: 'terraform-docs-common',
 				},
@@ -184,15 +171,19 @@ describe('getNavItems', () => {
 		expect(getNavItems(testTerraformData)).toMatchInlineSnapshot(`
 		Array [
 		  Object {
-		    "label": "Home",
-		    "url": "/terraform",
+		    "label": "Install",
+		    "url": "/terraform/downloads",
+		  },
+		  Object {
+		    "label": "Tutorials",
+		    "url": "/terraform/tutorials",
 		  },
 		  Object {
 		    "iconColorTheme": "terraform",
 		    "items": Array [
 		      Object {
 		        "icon": "docs",
-		        "label": "General Documentation",
+		        "label": "Documentation",
 		        "path": "/terraform/docs",
 		      },
 		      Object {
@@ -244,17 +235,14 @@ describe('getNavItems', () => {
 		    "label": "Documentation",
 		  },
 		  Object {
-		    "label": "Tutorials",
-		    "url": "/terraform/tutorials",
-		  },
-		  Object {
-		    "label": "Install",
-		    "url": "/terraform/downloads",
-		  },
-		  Object {
 		    "label": "Registry",
-		    "openInNewTab": true,
+		    "opensInNewTab": true,
 		    "url": "https://registry.terraform.io/",
+		  },
+		  Object {
+		    "label": "Try Cloud",
+		    "opensInNewTab": true,
+		    "url": "https://app.terraform.io/public/signup/account",
 		  },
 		]
 	`)
@@ -266,28 +254,29 @@ describe('getNavItems', () => {
 			rootDocsPaths: [
 				{
 					iconName: 'docs',
-					name: 'General Documentation',
+					name: 'Documentation',
 					path: 'docs',
-					shortName: 'Documentation',
+					shortName: 'Docs',
 					productSlugForLoader: 'cloud.hashicorp.com',
 				},
 			],
 		} as ProductData
 		expect(getNavItems(testHCPData)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "label": "Home",
-          "url": "/hcp",
-        },
-        Object {
-          "label": "Documentation",
-          "url": "/hcp/docs",
-        },
-        Object {
-          "label": "Tutorials",
-          "url": "/hcp/tutorials",
-        },
-      ]
-    `)
+		Array [
+		  Object {
+		    "label": "Tutorials",
+		    "url": "/hcp/tutorials",
+		  },
+		  Object {
+		    "label": "Documentation",
+		    "url": "/hcp/docs",
+		  },
+		  Object {
+		    "label": "Try Cloud",
+		    "opensInNewTab": true,
+		    "url": "https://portal.cloud.hashicorp.com/sign-up",
+		  },
+		]
+	`)
 	})
 })

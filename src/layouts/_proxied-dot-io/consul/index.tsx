@@ -76,7 +76,7 @@ function ConsulIoLayout({ children, data }: Props): React.ReactElement {
 							'divider',
 							{
 								text: 'Tutorials',
-								url: 'https://learn.hashicorp.com/consul',
+								url: 'https://developer.hashicorp.com/consul/tutorials',
 								type: 'outbound',
 							},
 							{

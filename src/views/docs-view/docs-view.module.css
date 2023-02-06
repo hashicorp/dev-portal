@@ -1,5 +1,5 @@
 .mdxContent {
-	margin-top: 48px;
+	margin-top: 32px;
 
 	/* prevent overflow of youtube iframe's on small viewports */
 	& iframe {
@@ -34,12 +34,7 @@
 	@media (--dev-dot-tablet-up) {
 		& h1:first-child,
 		& :global(.landing-hero) {
-			margin-right: 25%;
-		}
-
-		/* Add more space in between the first section after title and the version selector  */
-		& h1:first-child {
-			margin-bottom: 16px;
+			margin-right: 180px;
 		}
 	}
 }

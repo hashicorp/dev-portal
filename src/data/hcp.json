@@ -5,18 +5,13 @@
 		"indexName": "product_HCP",
 		"searchOnlyApiKey": "1162c7d22059acafddb62badfdf68f35"
 	},
-	"basePaths": ["docs"],
+	"basePaths": ["docs", "api-docs/packer"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
-			"name": "General Documentation",
+			"name": "Documentation",
 			"path": "docs",
-			"shortName": "Documentation",
 			"productSlugForLoader": "cloud.hashicorp.com"
 		}
-	],
-	"devDotCutoverMessage": {
-		"showCutoverDate": false,
-		"cutoverDate": "Oct 18, 2022"
-	}
+	]
 }

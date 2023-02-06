@@ -33,14 +33,8 @@
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
-			"name": "General Documentation",
-			"path": "docs",
-			"shortName": "Documentation"
-		},
-		{
-			"iconName": "entry-point",
-			"name": "Introduction",
-			"path": "intro"
+			"name": "Documentation",
+			"path": "docs"
 		},
 		{
 			"iconName": "guide",
@@ -49,12 +43,8 @@
 		},
 		{
 			"iconName": "plug",
-			"name": "External Plugins",
+			"name": "Plugins",
 			"path": "plugins"
 		}
-	],
-	"devDotCutoverMessage": {
-		"showCutoverDate": false,
-		"cutoverDate": "Oct 18, 2022"
-	}
+	]
 }

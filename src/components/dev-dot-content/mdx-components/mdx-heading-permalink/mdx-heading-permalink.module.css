@@ -24,7 +24,7 @@
 		}
 	}
 
-	&:focus {
+	&:focus-visible {
 		opacity: 1;
 		background: var(--token-color-surface-faint);
 
@@ -38,6 +38,14 @@
 	display: flex;
 }
 
+.h1 {
+	margin-top: 13px;
+}
+
 .h2 {
-	margin-top: 5px;
+	margin-top: 9px;
+}
+
+.h3 {
+	margin-top: 7px;
 }

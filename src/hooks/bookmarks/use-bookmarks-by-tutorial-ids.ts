@@ -30,8 +30,9 @@ const useBookmarksByTutorialIds = ({
 	const queryClient = useQueryClient()
 
 	// Get the current user's access token
-	const { session } = useAuthentication()
+	const { isAuthenticated, session } = useAuthentication()
 	const accessToken = session?.accessToken
+	const isEnabled = enabled && isAuthenticated && !!accessToken
 
 	// Set up the `onSuccess` callback
 	const onSuccess = (data: QueryDataType) => {
@@ -49,7 +50,7 @@ const useBookmarksByTutorialIds = ({
 		['bookmarks', { tutorialIds }],
 		() => getBookmarksByTutorialIds({ accessToken, tutorialIds }),
 		{
-			enabled: enabled && !!accessToken,
+			enabled: isEnabled,
 			onSuccess,
 		}
 	)

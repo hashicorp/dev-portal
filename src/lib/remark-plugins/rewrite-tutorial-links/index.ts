@@ -20,81 +20,24 @@
 import { Link, Definition } from 'mdast'
 import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
-import {
-	getIsRewriteableDocsLink,
-	getTutorialMap,
-	rewriteExternalLearnLink,
-	rewriteExternalDocsLink,
-	getIsExternalLearnLink,
-} from './utils'
+import { RewriteTutorialLinksPluginOptions } from './types'
+import { DEFAULT_CONTENT_TYPE } from './constants'
+import { getTutorialMap } from './utils'
+import { rewriteTutorialsLink } from './utils/rewrite-tutorials-link'
 
 let TUTORIAL_MAP
 
-export const rewriteTutorialLinksPlugin: Plugin = () => {
+export const rewriteTutorialLinksPlugin: Plugin = (
+	options: RewriteTutorialLinksPluginOptions = {}
+) => {
+	const { contentType = DEFAULT_CONTENT_TYPE, tutorialMap } = options
 	return async function transformer(tree) {
-		TUTORIAL_MAP = await getTutorialMap()
+		// Load the tutorial map if it's not provided
+		TUTORIAL_MAP = tutorialMap ?? (await getTutorialMap())
 
-		visit(tree, 'link', handleRewriteTutorialsLink)
-		visit(tree, 'definition', handleRewriteTutorialsLink)
+		// Visit link and defintion node types
+		visit(tree, ['link', 'definition'], (node: Link | Definition) => {
+			node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP, contentType)
+		})
 	}
-}
-
-function handleRewriteTutorialsLink(node: Link | Definition) {
-	node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP)
-}
-
-export function rewriteTutorialsLink(
-	url: string,
-	tutorialMap: Record<string, string>
-): string {
-	let newUrl
-
-	try {
-		const urlObject = new URL(url, 'https://learn.hashicorp.com')
-
-		const isExternalLearnLink = getIsExternalLearnLink(url)
-		const isRewriteableDocsLink = getIsRewriteableDocsLink(url)
-
-		/**
-		 * Don't do anything if the link is ambiguous.
-		 */
-		if (isExternalLearnLink && isRewriteableDocsLink) {
-			throw new Error(
-				`[rewriteTutorialsLink] Found an ambiguous link: '${url}'`
-			)
-		}
-
-		/**
-		 * Return the url unmodified if it's not rewriteable.
-		 */
-		if (!isExternalLearnLink && !isRewriteableDocsLink) {
-			return url
-		}
-
-		/**
-		 * Handle the link based on the determined link type.
-		 */
-		if (isExternalLearnLink) {
-			newUrl = rewriteExternalLearnLink(urlObject, tutorialMap)
-		} else if (isRewriteableDocsLink) {
-			newUrl = rewriteExternalDocsLink(urlObject)
-		}
-
-		/**
-		 * If the link wasn't found in the map, default to original link. Could be
-		 * a typo, it's up to the author to correct -- this feedback should help.
-		 */
-		if (!newUrl) {
-			newUrl = isExternalLearnLink ? urlObject.toString() : url
-			throw new Error(
-				`[MDX rewriteTutorialsLink]: link could not be rewritten: ${url} \nIf the content at that link is MDX, please check all Learn and Docs .io links in the content to ensure they are correct.`
-			)
-		}
-	} catch (e) {
-		// we don't want an incorrect link to break the build
-		console.error(e)
-	}
-
-	// Return the modified URL, or default to the original one
-	return newUrl ?? url
 }

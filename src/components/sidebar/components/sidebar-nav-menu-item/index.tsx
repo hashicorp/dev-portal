@@ -5,17 +5,18 @@ import {
 	useRef,
 	useState,
 } from 'react'
-import Link from 'next/link'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { ProductSlug } from 'types/products'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Badge from 'components/badge'
+import Link from 'components/link'
 import { MenuItem } from 'components/sidebar'
 import ProductIcon from 'components/product-icon'
 import {
 	SidebarHorizontalRule,
+	SidebarNavHighlightItem,
 	SidebarSectionHeading,
 } from 'components/sidebar/components'
 import Text from 'components/text'
@@ -102,7 +103,6 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		: undefined
 	const className = s.sidebarNavMenuItem
 	const rel = isExternal ? 'noreferrer noopener' : undefined
-	const target = isExternal ? '_blank' : undefined
 
 	const anchorContent = (
 		<>
@@ -128,16 +128,16 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	if (href) {
 		// link is not "disabled"
 		return (
-			<Link href={href}>
-				<a
-					aria-current={ariaCurrent}
-					aria-label={ariaLabel}
-					className={className}
-					rel={rel}
-					target={target}
-				>
-					{anchorContent}
-				</a>
+			<Link
+				aria-current={ariaCurrent}
+				aria-label={ariaLabel}
+				className={className}
+				data-heap-track="sidebar-nav-link-item"
+				href={href}
+				opensInNewTab={isExternal}
+				rel={rel}
+			>
+				{anchorContent}
 			</Link>
 		)
 	} else {
@@ -228,6 +228,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 				id={buttonId}
 				onClick={() => setIsOpen((prevState: boolean) => !prevState)}
 				ref={buttonRef}
+				data-heap-track="sidebar-nav-submenu-button"
 			>
 				<Text
 					asElement="span"
@@ -273,6 +274,15 @@ const SidebarNavMenuItem = ({ item }: SidebarNavMenuItemProps) => {
 		itemContent = <SidebarSectionHeading text={item.heading} />
 	} else if (item.routes) {
 		itemContent = <SidebarNavSubmenuItem item={item} />
+	} else if (item.theme) {
+		itemContent = (
+			<SidebarNavHighlightItem
+				theme={item.theme}
+				text={item.title}
+				href={item.fullPath}
+				isActive={item.isActive}
+			/>
+		)
 	} else {
 		itemContent = <SidebarNavLinkItem item={item} />
 	}

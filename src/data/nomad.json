@@ -20,12 +20,12 @@
 			}
 		]
 	},
-	"alertBannerActive": false,
+	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "October 5-6",
-		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
-		"text": "HashiConf Global is live. Join us virtually for keynotes, sessions, and more.",
-		"linkText": "Join now",
+		"tag": "HashiTalks 2023",
+		"url": "https://hashi.co/hashitalks-2023",
+		"text": "Join us for the fifth annual HashiTalks, a 24-hour virtual knowledge sharing event on February 16",
+		"linkText": "Register now",
 		"expirationDate": ""
 	},
 	"version": "1.2.5",
@@ -43,7 +43,7 @@
 		"divider",
 		{
 			"text": "Tutorials",
-			"url": "https://learn.hashicorp.com/nomad",
+			"url": "https://developer.hashicorp.com/nomad/tutorials",
 			"type": "outbound"
 		},
 		{
@@ -76,13 +76,12 @@
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
-			"name": "General Documentation",
-			"path": "docs",
-			"shortName": "Documentation"
+			"name": "Documentation",
+			"path": "docs"
 		},
 		{
 			"iconName": "entry-point",
-			"name": "Introduction",
+			"name": "Intro",
 			"path": "intro"
 		},
 		{
@@ -100,9 +99,5 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	],
-	"devDotCutoverMessage": {
-		"showCutoverDate": false,
-		"cutoverDate": "Oct 13, 2022"
-	}
+	]
 }

@@ -59,7 +59,7 @@ function useProgressBatchQuery({
 	const queryClient = useQueryClient()
 
 	// Get the current user's access token
-	const { session } = useAuthentication()
+	const { isAuthenticated, session } = useAuthentication()
 	const accessToken = session?.accessToken
 
 	/**
@@ -112,7 +112,7 @@ function useProgressBatchQuery({
 	const { data, ...restQueryResult } = useQuery<QueryDataType>(
 		[PROGRESS_BATCH_QUERY_ID, { tutorialIds }],
 		() => getProgress({ accessToken, tutorialIds, collectionIds }),
-		{ enabled: !!accessToken, onSuccess }
+		{ enabled: isAuthenticated && !!accessToken, onSuccess }
 	)
 
 	/**

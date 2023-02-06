@@ -1,0 +1,7 @@
+.hcpLogo {
+	& svg {
+		display: block;
+		height: 28px;
+		width: auto;
+	}
+}

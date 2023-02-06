@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import Button from 'components/button'
 import Card from 'components/card'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
@@ -21,10 +21,7 @@ export default function InteractiveLabCallout() {
 				</p>
 				<div className={s.ctaButton}>
 					<Button
-						// TODO: <Button /> within dev-dot does not take "data-heap-track".
-						// Will handle in follow-up PR.
-						// https://app.asana.com/0/1201987349274776/1202096857327389/f
-						data-heap-track="InteractiveCalloutButton"
+						data-heap-track="interactive-lab-callout"
 						color="secondary"
 						text="Start interactive lab"
 						onClick={() => ctx.setActive(true)}

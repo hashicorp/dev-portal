@@ -1,10 +1,12 @@
 // Third-party imports
 import { ReactElement, useRef } from 'react'
+import classNames from 'classnames'
 
 // HashiCorp imports
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 
 // Global imports
+import { MAIN_ELEMENT_ID } from 'constants/element-ids'
 import { getVersionFromPath } from 'lib/get-version-from-path'
 import { removeVersionFromPath } from 'lib/remove-version-from-path'
 import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
@@ -30,6 +32,7 @@ import {
 	useSidebarNavData,
 } from './contexts/sidebar-nav-data'
 import { ScrollProgressBar } from './components/scroll-progress-bar'
+import { filterTableOfContentsHeadings } from './utils/filter-table-of-contents-headings'
 import s from './sidebar-sidecar-layout.module.css'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
@@ -49,10 +52,10 @@ const SidebarSidecarLayoutContent = ({
 	githubFileUrl,
 	headings,
 	AlternateSidebar,
-	optInOutSlot,
 	showScrollProgress,
 	sidecarSlot,
 	sidebarNavDataLevels,
+	mainWidth = 'wide',
 	versions,
 }: SidebarSidecarLayoutProps) => {
 	const { isMobileMenuRendered, mobileMenuIsOpen, setMobileMenuIsOpen } =
@@ -95,14 +98,12 @@ const SidebarSidecarLayoutContent = ({
 		}
 
 		return (
-			<TableOfContents
-				headings={headings.filter((heading) => heading.level <= 2)}
-			/>
+			<TableOfContents headings={filterTableOfContentsHeadings(headings)} />
 		)
 	}
 
 	return (
-		<div className={s.root}>
+		<div className={classNames(s.root, s[`mainWidth-${mainWidth}`])}>
 			<MobileMenuContainer className={s.mobileMenuContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
 					<MobileAuthenticationControls />
@@ -133,12 +134,9 @@ const SidebarSidecarLayoutContent = ({
 					/>
 				)}
 				<div className={s.mainAreaWrapper}>
-					<main id="main" className={s.main}>
+					<main id={MAIN_ELEMENT_ID} className={s.main}>
 						<span className={s.breadcrumbOptOutGroup}>
 							{breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
-							<span className={s.optInOutSlot}>
-								{optInOutSlot && optInOutSlot}
-							</span>
 						</span>
 						{children}
 						{githubFileUrl && (

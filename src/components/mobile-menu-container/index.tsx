@@ -14,7 +14,6 @@ import { useMobileMenu } from 'contexts'
 import useAuthentication from 'hooks/use-authentication'
 import Button from 'components/button'
 import ButtonLink from 'components/button-link'
-import { GiveFeedbackButton } from 'components/navigation-header/components'
 
 // Local imports
 import { MobileMenuContainerProps } from './types'
@@ -41,10 +40,11 @@ const MOBILE_MENU_MOTION = {
  */
 const MobileAuthenticationControls = () => {
 	const { asPath } = useRouter()
-	const { showAuthenticatedUI, showUnauthenticatedUI, signIn, signOut, user } =
+	const { isAuthenticated, isLoading, signIn, signOut, user } =
 		useAuthentication()
+	const showUnauthenticatedUI = !isLoading && !isAuthenticated
 
-	if (!showAuthenticatedUI && !showUnauthenticatedUI) {
+	if (!isAuthenticated && !showUnauthenticatedUI) {
 		return null
 	}
 
@@ -69,7 +69,7 @@ const MobileAuthenticationControls = () => {
 				/>
 			</>
 		)
-	} else if (showAuthenticatedUI) {
+	} else if (isAuthenticated) {
 		content = (
 			<MobileUserDisclosure
 				items={getUserMenuItems({ signOut })}
@@ -81,10 +81,6 @@ const MobileAuthenticationControls = () => {
 
 	return (
 		<div className="g-show-with-mobile-menu">
-			<GiveFeedbackButton
-				allowIconOnly={false}
-				className={s.giveFeedbackButton}
-			/>
 			<div className={s.mobileAuthenticationControls}>{content}</div>
 		</div>
 	)

@@ -1,6 +1,6 @@
 import CardsGridList from 'components/cards-grid-list'
 import IconCardLink from 'components/icon-card-link'
-import { IconCardLinkGridListProps, IconCard } from './types'
+import { IconCardLinkGridListProps, IconCardLinkGridListCard } from './types'
 
 function IconCardLinkGridList({
 	cards,
@@ -10,22 +10,21 @@ function IconCardLinkGridList({
 }: IconCardLinkGridListProps) {
 	return (
 		<CardsGridList gridGap={gridGap} fixedColumns={fixedColumns}>
-			{cards.map((iconCard: IconCard, key: number) => {
+			{cards.map((iconCard: IconCardLinkGridListCard, key: number) => {
 				return (
-					// eslint-disable-next-line react/no-array-index-key
-					<li key={key}>
-						<IconCardLink
-							icon={iconCard.icon}
-							productSlug={iconCard.productSlug || productSlug}
-							text={iconCard.text}
-							url={iconCard.url}
-						/>
-					</li>
+					<IconCardLink
+						// eslint-disable-next-line react/no-array-index-key
+						key={key}
+						icon={iconCard.icon}
+						productSlug={iconCard.productSlug || productSlug}
+						text={iconCard.text}
+						url={iconCard.url}
+					/>
 				)
 			})}
 		</CardsGridList>
 	)
 }
 
-export type { IconCardLinkGridListProps }
+export type { IconCardLinkGridListProps, IconCardLinkGridListCard }
 export default IconCardLinkGridList
