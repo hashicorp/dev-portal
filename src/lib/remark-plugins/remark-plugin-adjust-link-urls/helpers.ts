@@ -164,7 +164,8 @@ const preAdjustUrl = ({ currentPath, url }): string => {
 
 	// Since they're worth checking, split up url and currentPath
 	const urlParts = url.split('/')
-	const currentPathParts = currentPath.split('/')
+	const currentPathWithoutTrailingSlash = currentPath.replace(/\/$/, '')
+	const currentPathParts = currentPathWithoutTrailingSlash.split('/')
 
 	// Handle folder-relative URL that is linking upwards
 	if (url.startsWith('../')) {
