@@ -123,7 +123,7 @@
 		"@hashicorp/react-enterprise-alert": "^6.0.1",
 		"@hashicorp/react-error-view": "^0.2.0",
 		"@hashicorp/react-featured-slider": "^5.0.1",
-		"@hashicorp/react-hashi-stack-menu": "^2.1.2",
+		"@hashicorp/react-hashi-stack-menu": "^3.0.0",
 		"@hashicorp/react-head": "^3.3.2",
 		"@hashicorp/react-hero": "^8.0.3",
 		"@hashicorp/react-inline-svg": "^6.0.3",
