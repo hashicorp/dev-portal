@@ -47,7 +47,7 @@
 	},
 	"engines": {
 		"npm": ">=7.0.0",
-		"node": ">=14.x <=16.x"
+		"node": ">=16.x <=18.x"
 	},
 	"devDependencies": {
 		"@axe-core/react": "^4.3.1",
@@ -182,7 +182,7 @@
 		"mdast-util-to-string": "^2.0.0",
 		"moize": "^6.1.0",
 		"next": "^13.0.5",
-		"next-auth": "^4.17.0",
+		"next-auth": "^4.19.2",
 		"next-mdx-remote": "^3.0.8",
 		"next-query-params": "^4.1.0",
 		"next-sitemap": "^3.1.21",
