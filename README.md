@@ -1,7 +1,5 @@
 # HashiCorp Developer - developer.hashicorp.com
 
-> 🚧 This project is in beta phase.
-
 Welcome to HashiCorp Developer! This is the home for HashiCorp product reference documentation, along with all other kinds of content for our practitioners.
 
 ## Contributing to the project
