@@ -84,7 +84,7 @@ const Tabs = ({
 						ariaLabelledBy={ariaLabelledBy}
 						isNested={allowNestedStyles && isNested}
 						setActiveTabIndex={(index) => {
-							setSyncedActiveTabIndex(index)
+							setSyncedActiveTabIndex(index, isNested)
 							onChange?.(index)
 						}}
 						tabItems={tabItems}

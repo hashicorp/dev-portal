@@ -15,7 +15,7 @@ function useSyncedTabGroups({
 	activeTabIndex: number
 	setActiveTabIndex: (activeTabIndex: number) => void
 	tabItems: TabItem[]
-}): (activeTabIndex: number) => void {
+}): (activeTabIndex: number, isNested: boolean) => void {
 	/**
 	 * Pull active tab group data from TabProvider.
 	 */
@@ -49,9 +49,9 @@ function useSyncedTabGroups({
 	 * handle syncing the active index and the active tab group.
 	 */
 	const setSyncedActiveTabIndex = useCallback(
-		(newIndex: number) => {
+		(newIndex: number, isNested: boolean) => {
 			const tabItem = tabItems[newIndex]
-			tabContext?.setActiveTabGroup(tabItem.group)
+			tabContext?.setActiveTabGroup(tabItem.group, isNested)
 			setActiveTabIndex(newIndex)
 		},
 		[setActiveTabIndex, tabContext, tabItems]
