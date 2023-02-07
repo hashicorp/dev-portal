@@ -120,7 +120,7 @@
 		"@hashicorp/react-consent-manager": "^8.2.1",
 		"@hashicorp/react-docs-page": "^17.7.1",
 		"@hashicorp/react-docs-sidenav": "^9.1.0",
-		"@hashicorp/react-enterprise-alert": "^6.0.1",
+		"@hashicorp/react-enterprise-alert": "^7.0.0",
 		"@hashicorp/react-error-view": "^0.2.0",
 		"@hashicorp/react-featured-slider": "^5.0.1",
 		"@hashicorp/react-hashi-stack-menu": "^3.0.0",
