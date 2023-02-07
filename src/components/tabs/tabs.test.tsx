@@ -1,8 +1,16 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
 import TabProvider from './provider'
 import Tabs, { Tab } from '.'
+
+jest.mock('next/router', () => ({
+	useRouter() {
+		return {
+			replace: jest.fn(),
+		}
+	},
+}))
 
 describe('<Tabs />', () => {
 	const testData = [
