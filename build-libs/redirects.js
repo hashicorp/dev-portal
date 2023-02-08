@@ -92,8 +92,8 @@ function addHostCondition(redirects, productSlug, betaSlugs) {
 
 		// If the productSlug is NOT a beta product, it is GA, so handle the redirect appropriately (exclude sentinel)
 		if (!betaSlugs.includes(productSlug) && productSlug !== 'sentinel') {
-			// The redirect should always apply in lower environments
-			if (process.env.HASHI_ENV !== 'production') {
+			// The redirect should always apply in lower environments, and we don't want to override the host condition if one already exists
+			if (process.env.HASHI_ENV !== 'production' || Boolean(redirect.has)) {
 				return redirect
 			}
 
@@ -151,6 +151,35 @@ async function getLatestContentRefForProduct(product) {
 }
 
 /**
+ * For each redirect that has a `domain` attribute, resolve it to an associated `has` condition
+ *
+ * This enables product repositories to define redirects on their product domains
+ */
+function resolveRedirectDomains(redirects) {
+	// It's assumed that invalid redirects have been filtered out by this point
+	return redirects.map((redirect) => {
+		if (!redirect.domain) {
+			return redirect
+		}
+
+		let resolvedRedirect = {
+			...redirect,
+			has: [
+				{
+					type: 'host',
+					value: redirect.domain,
+				},
+			],
+		}
+
+		// remove the domain property, as it's not a valid attribute when we pass it to Next.js
+		delete resolvedRedirect.domain
+
+		return resolvedRedirect
+	})
+}
+
+/**
  * Fetches a redirects file for a given product from the given ref and evaluates the contents
  * as JS.
  */
@@ -203,8 +232,11 @@ async function getRedirectsForProduct(
 	// Filter invalid redirects, such as those without a `/{productSlug}` prefix.
 	const validRedirects = filterInvalidRedirects(parsedRedirects, product)
 
+	// If redirects have a `domain` property, resolve it to a host condition
+	const resolvedRedirects = resolveRedirectDomains(validRedirects)
+
 	return addHostCondition(
-		validRedirects,
+		resolvedRedirects,
 		product,
 		config['dev_dot.beta_product_slugs']
 	)
@@ -324,9 +356,9 @@ function splitRedirectsByType(redirects) {
  *
  * Invalid redirects will be filtered out and ignored.
  *
- * @param {Redirect[]} redirects
+ * @param {(Redirect & { domain?: string })[]} redirects
  * @param {string} repoSlug
- * @returns {Redirect[]}
+ * @returns {(Redirect & { domain?: string })[]}
  */
 function filterInvalidRedirects(redirects, repoSlug) {
 	/**
@@ -342,16 +374,29 @@ function filterInvalidRedirects(redirects, repoSlug) {
 	const invalidRedirects = []
 
 	/**
-	 * Filter out any redirects not prefixed with the `product` slug.
+	 * Filter out any redirects not prefixed with the `product` slug, or that aren't applied to a specific domain
 	 */
 	const validRedirects = redirects.filter((entry) => {
-		// Redirects must be prefixed with the product slug.
-		const isPrefixed = entry.source.startsWith(`/${productSlug}`)
-		// Keep track of non-prefixed redirects, we want to warn about these
-		if (!isPrefixed) {
+		// If there is no domain specified, this is a developer redirect
+		if (!entry.domain) {
+			// Redirects must be prefixed with the product slug.
+			const isPrefixed = entry.source.startsWith(`/${productSlug}`)
+			// Keep track of non-prefixed redirects, we want to warn about these
+			if (!isPrefixed) {
+				invalidRedirects.push(entry)
+			}
+			return isPrefixed
+		}
+
+		// If there is a domain specified, make sure the domain is for the product
+		const hasValidProductDomain =
+			!entry.domain || HOSTNAME_MAP[entry.domain] === productSlug
+
+		if (!hasValidProductDomain) {
 			invalidRedirects.push(entry)
 		}
-		return isPrefixed
+
+		return hasValidProductDomain
 	})
 
 	/**
@@ -362,8 +407,8 @@ function filterInvalidRedirects(redirects, repoSlug) {
 	 */
 	if (invalidRedirects.length > 0) {
 		let message = `Found invalid redirects. Invalid redirects are ignored.`
-		message += ` Please ensure all redirects start with "/${productSlug}".`
-		message += ` The following redirects must be updated to start with "/${productSlug}":`
+		message += ` Please ensure all redirects start with "/${productSlug}", or specify a valid product domain.`
+		message += ` The following redirects must be updated:`
 		message += `\n${JSON.stringify(invalidRedirects, null, 2)}`
 		console.warn(message)
 	}
@@ -468,4 +513,5 @@ module.exports = {
 	groupSimpleRedirects,
 	addHostCondition,
 	filterInvalidRedirects,
+	resolveRedirectDomains,
 }

@@ -3,6 +3,7 @@ import {
 	groupSimpleRedirects,
 	addHostCondition,
 	filterInvalidRedirects,
+	resolveRedirectDomains,
 } from '../redirects'
 
 function withHashiEnv(value, fn) {
@@ -340,6 +341,29 @@ describe('addHostCondition', () => {
 })
 
 describe('filterInvalidRedirects', () => {
+	it('filters out redirects that have an incorrect domain', () => {
+		//  Spy on and suppress console.warn for this test, we expect a warning
+		const consoleWarnMock = jest.spyOn(console, 'warn').mockImplementation()
+
+		const redirects = [
+			{
+				source: '/s/short-link',
+				destination: 'https://developer.hashicorp.com/product/long/link',
+				permanent: false,
+				domain: 'www.boundaryproject.io',
+			},
+		]
+
+		expect(filterInvalidRedirects(redirects, 'nomad')).toMatchInlineSnapshot(
+			`Array []`
+		)
+
+		// Expect console.warn to have been called
+		expect(console.warn).toHaveBeenCalledTimes(1)
+		// Restore console.warn for further tests
+		consoleWarnMock.mockRestore()
+	})
+
 	it('filters out redirects that are not prefixed with the product slug', () => {
 		//  Spy on and suppress console.warn for this test, we expect a warning
 		const consoleWarnMock = jest.spyOn(console, 'warn').mockImplementation()
@@ -409,6 +433,35 @@ describe('filterInvalidRedirects', () => {
 		// Assert expectations
 		const result = filterInvalidRedirects(redirects, 'cloud.hashicorp.com')
 		expect(result).toStrictEqual(redirects)
+	})
+})
+
+describe('resolveRedirectDomains', () => {
+	test('resolve redirect domain attributes', () => {
+		expect(
+			resolveRedirectDomains([
+				{
+					source: '/s/short-link',
+					destination: 'https://developer.hashicorp.com/product/long/link',
+					permanent: false,
+					domain: 'www.nomadproject.io',
+				},
+			])
+		).toMatchInlineSnapshot(`
+		Array [
+		  Object {
+		    "destination": "https://developer.hashicorp.com/product/long/link",
+		    "has": Array [
+		      Object {
+		        "type": "host",
+		        "value": "www.nomadproject.io",
+		      },
+		    ],
+		    "permanent": false,
+		    "source": "/s/short-link",
+		  },
+		]
+	`)
 	})
 })
 
