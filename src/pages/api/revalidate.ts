@@ -90,7 +90,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 					.replace(/\/$/, '')
 
 				console.log('[revalidate]', pathToRevalidate)
-				// revalidatePromises.push(response.revalidate(pathToRevalidate))
+				revalidatePromises.push(response.revalidate(pathToRevalidate))
 			}
 		})
 	}
