@@ -39,6 +39,18 @@ function DownloadsPage({ product, releases, latestVersion }) {
 				href: 'https://developer.hashicorp.com/nomad/tutorials',
 				label: 'View Tutorials',
 			}}
+			merchandisingSlot={
+				<>
+				<div className={s.releaseCandidate}>
+					<p>
+						A beta for Nomad v1.5.0 is available! The release can be{' '}
+						<a href="https://releases.hashicorp.com/nomad/1.5.0-beta.1/">
+							downloaded here.
+						</a>
+					</p>
+				</div>
+				</>
+			}
 		/>
 	)
 }
