@@ -5,6 +5,7 @@
 	display: flex;
 	width: fit-content;
 	min-height: 1.5rem;
+	height: 28px;
 }
 
 .removeButton {

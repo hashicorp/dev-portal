@@ -25,8 +25,13 @@
 .filterInfo {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 12px;
+	grid-column-gap: 8px;
+	grid-row-gap: 12px;
 	min-height: 30px;
+}
+
+.clearFiltersButton {
+	margin-left: -4px; /** to override the grid gap **/
 }
 
 .noFilters {
