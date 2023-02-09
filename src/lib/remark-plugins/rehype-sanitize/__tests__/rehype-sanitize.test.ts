@@ -66,6 +66,58 @@ describe('rehypeSanitize', () => {
 		expect('tagName' in secondNode && secondNode.tagName).toBe('p')
 	})
 
+	it('renders malformed JSX nodes as plain text', async () => {
+		// Set up an MDX string with JSX nodes
+		const mdxString = [
+			'## Hello again!',
+			'This is another paragraph node',
+			'<body/onload=alert(1)',
+			'<svg/onload=alert(1)',
+			'<iframe/onload=alert(1)',
+			`Here's another paragraph after the malformed JSX`,
+		].join('\n\n')
+		// Serialize with `next-mdx-remote`, extracting the AST after sanitization
+		const root = await getProcessedHast(mdxString)
+		/**
+		 * Assert that the AST we'll render does not have any JSX nodes
+		 */
+		const jsxNodes = root.children.filter((n: Node) => n.type === 'jsx')
+		expect(jsxNodes.length).toBe(0)
+		// Another backup assertion, if we filter out newlines, we should only
+		// see two nodes: the heading node and paragraph node.
+		const elementNodes = root.children.filter((n: RootContent) => {
+			if ('value' in n) {
+				return n.value !== '\n'
+			} else {
+				return true
+			}
+		})
+		expect(elementNodes.length).toBe(6)
+		const [firstNode, secondNode, thirdNode, fourthNode, fifthNode, sixthNode] =
+			elementNodes
+		expect('tagName' in firstNode && firstNode.tagName).toBe('h2')
+		expect('tagName' in secondNode && secondNode.tagName).toBe('p')
+		expect('tagName' in thirdNode && thirdNode.tagName).toBe('p')
+		expect(
+			'children' in thirdNode &&
+				'value' in thirdNode.children[0] &&
+				thirdNode.children[0].value
+		).toBe('<body/onload=alert(1)')
+		expect('tagName' in fourthNode && fourthNode.tagName).toBe('p')
+		expect(
+			'children' in fourthNode &&
+				'value' in fourthNode.children[0] &&
+				fourthNode.children[0].value
+		).toBe('<svg/onload=alert(1)')
+		expect('tagName' in fifthNode && fifthNode.tagName).toBe('p')
+		expect(
+			'children' in fifthNode &&
+				'value' in fifthNode.children[0] &&
+				fifthNode.children[0].value
+		).toBe('<iframe/onload=alert(1)')
+		expect('tagName' in sixthNode && sixthNode.tagName).toBe('p')
+	})
+
 	it('sanitizes malicious link URLs', async () => {
 		// Set up an MDX string with a malicious URL
 		const mdxString = [
