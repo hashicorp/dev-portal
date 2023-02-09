@@ -1,0 +1,2510 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rehypeSanitize handles DOM purify test cases as expected: rehype-sanitize-dom-purify-examples 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 4,
+              "line": 20,
+              "offset": 3397,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 20,
+              "offset": 3394,
+            },
+          },
+          "type": "text",
+          "value": "123",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 50,
+              "line": 20,
+              "offset": 3443,
+            },
+            "start": Object {
+              "column": 35,
+              "line": 20,
+              "offset": 3428,
+            },
+          },
+          "type": "text",
+          "value": "I am a dolphin!",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 54,
+          "line": 20,
+          "offset": 3447,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 20,
+          "offset": 3394,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 4,
+              "line": 22,
+              "offset": 3452,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 22,
+              "offset": 3449,
+            },
+          },
+          "type": "text",
+          "value": "123",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 54,
+              "line": 22,
+              "offset": 3502,
+            },
+            "start": Object {
+              "column": 35,
+              "line": 22,
+              "offset": 3483,
+            },
+          },
+          "type": "text",
+          "value": "I am a dolphin too!",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 58,
+          "line": 22,
+          "offset": 3506,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 22,
+          "offset": 3449,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 4,
+              "line": 24,
+              "offset": 3511,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 24,
+              "offset": 3508,
+            },
+          },
+          "type": "text",
+          "value": "123",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 40,
+              "line": 24,
+              "offset": 3547,
+            },
+            "start": Object {
+              "column": 35,
+              "line": 24,
+              "offset": 3542,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 84,
+              "line": 24,
+              "offset": 3591,
+            },
+            "start": Object {
+              "column": 79,
+              "line": 24,
+              "offset": 3586,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 131,
+              "line": 24,
+              "offset": 3638,
+            },
+            "start": Object {
+              "column": 126,
+              "line": 24,
+              "offset": 3633,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 178,
+              "line": 24,
+              "offset": 3685,
+            },
+            "start": Object {
+              "column": 173,
+              "line": 24,
+              "offset": 3680,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 225,
+              "line": 24,
+              "offset": 3732,
+            },
+            "start": Object {
+              "column": 220,
+              "line": 24,
+              "offset": 3727,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 272,
+              "line": 24,
+              "offset": 3779,
+            },
+            "start": Object {
+              "column": 267,
+              "line": 24,
+              "offset": 3774,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 319,
+              "line": 24,
+              "offset": 3826,
+            },
+            "start": Object {
+              "column": 314,
+              "line": 24,
+              "offset": 3821,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 366,
+              "line": 24,
+              "offset": 3873,
+            },
+            "start": Object {
+              "column": 361,
+              "line": 24,
+              "offset": 3868,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 413,
+              "line": 24,
+              "offset": 3920,
+            },
+            "start": Object {
+              "column": 408,
+              "line": 24,
+              "offset": 3915,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 460,
+              "line": 24,
+              "offset": 3967,
+            },
+            "start": Object {
+              "column": 455,
+              "line": 24,
+              "offset": 3962,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 507,
+              "line": 24,
+              "offset": 4014,
+            },
+            "start": Object {
+              "column": 502,
+              "line": 24,
+              "offset": 4009,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 554,
+              "line": 24,
+              "offset": 4061,
+            },
+            "start": Object {
+              "column": 549,
+              "line": 24,
+              "offset": 4056,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 601,
+              "line": 24,
+              "offset": 4108,
+            },
+            "start": Object {
+              "column": 596,
+              "line": 24,
+              "offset": 4103,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 648,
+              "line": 24,
+              "offset": 4155,
+            },
+            "start": Object {
+              "column": 643,
+              "line": 24,
+              "offset": 4150,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 695,
+              "line": 24,
+              "offset": 4202,
+            },
+            "start": Object {
+              "column": 690,
+              "line": 24,
+              "offset": 4197,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 742,
+              "line": 24,
+              "offset": 4249,
+            },
+            "start": Object {
+              "column": 737,
+              "line": 24,
+              "offset": 4244,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 789,
+              "line": 24,
+              "offset": 4296,
+            },
+            "start": Object {
+              "column": 784,
+              "line": 24,
+              "offset": 4291,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 836,
+              "line": 24,
+              "offset": 4343,
+            },
+            "start": Object {
+              "column": 831,
+              "line": 24,
+              "offset": 4338,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 883,
+              "line": 24,
+              "offset": 4390,
+            },
+            "start": Object {
+              "column": 878,
+              "line": 24,
+              "offset": 4385,
+            },
+          },
+          "type": "text",
+          "value": "CLICK",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 887,
+          "line": 24,
+          "offset": 4394,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 24,
+          "offset": 3508,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 7,
+              "line": 35,
+              "offset": 4584,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 35,
+              "offset": 4578,
+            },
+          },
+          "type": "text",
+          "value": "123456",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 7,
+          "line": 35,
+          "offset": 4584,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 35,
+          "offset": 4578,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 2,
+              "line": 77,
+              "offset": 5924,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 77,
+              "offset": 5923,
+            },
+          },
+          "type": "text",
+          "value": "",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 83,
+          "line": 77,
+          "offset": 6005,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 77,
+          "offset": 5923,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 2,
+              "line": 199,
+              "offset": 12324,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 199,
+              "offset": 12323,
+            },
+          },
+          "type": "text",
+          "value": "<",
+        },
+        Object {
+          "type": "text",
+          "value": "![><img src=\\"]",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 49,
+              "line": 199,
+              "offset": 12371,
+            },
+            "start": Object {
+              "column": 16,
+              "line": 199,
+              "offset": 12338,
+            },
+          },
+          "type": "text",
+          "value": "><img src=x onerror=alert(39)//\\">",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 49,
+          "line": 199,
+          "offset": 12371,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 199,
+          "offset": 12323,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Object {
+                "end": Object {
+                  "column": 13,
+                  "line": 374,
+                  "offset": 20790,
+                },
+                "start": Object {
+                  "column": 2,
+                  "line": 374,
+                  "offset": 20779,
+                },
+              },
+              "type": "text",
+              "value": "{color:gre/",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "position": Object {
+                    "end": Object {
+                      "column": 21,
+                      "line": 374,
+                      "offset": 20798,
+                    },
+                    "start": Object {
+                      "column": 15,
+                      "line": 374,
+                      "offset": 20792,
+                    },
+                  },
+                  "type": "text",
+                  "value": "/en !/",
+                },
+              ],
+              "position": Object {
+                "end": Object {
+                  "column": 23,
+                  "line": 374,
+                  "offset": 20800,
+                },
+                "start": Object {
+                  "column": 13,
+                  "line": 374,
+                  "offset": 20790,
+                },
+              },
+              "properties": Object {},
+              "tagName": "strong",
+              "type": "element",
+            },
+            Object {
+              "position": Object {
+                "end": Object {
+                  "column": 36,
+                  "line": 374,
+                  "offset": 20813,
+                },
+                "start": Object {
+                  "column": 23,
+                  "line": 374,
+                  "offset": 20800,
+                },
+              },
+              "type": "text",
+              "value": "/important} /",
+            },
+          ],
+          "position": Object {
+            "end": Object {
+              "column": 37,
+              "line": 374,
+              "offset": 20814,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 374,
+              "offset": 20778,
+            },
+          },
+          "properties": Object {},
+          "tagName": "em",
+          "type": "element",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 62,
+              "line": 374,
+              "offset": 20839,
+            },
+            "start": Object {
+              "column": 37,
+              "line": 374,
+              "offset": 20814,
+            },
+          },
+          "type": "text",
+          "value": " IE 6-9 Standards mode */",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 62,
+          "line": 374,
+          "offset": 20839,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 374,
+          "offset": 20778,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            Object {
+              "position": Object {
+                "end": Object {
+                  "column": 4,
+                  "line": 380,
+                  "offset": 20911,
+                },
+                "start": Object {
+                  "column": 2,
+                  "line": 379,
+                  "offset": 20883,
+                },
+              },
+              "type": "text",
+              "value": "{background:url(xx //**/
+ed/",
+            },
+          ],
+          "position": Object {
+            "end": Object {
+              "column": 5,
+              "line": 380,
+              "offset": 20912,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 379,
+              "offset": 20882,
+            },
+          },
+          "properties": Object {},
+          "tagName": "em",
+          "type": "element",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 9,
+              "line": 380,
+              "offset": 20916,
+            },
+            "start": Object {
+              "column": 5,
+              "line": 380,
+              "offset": 20912,
+            },
+          },
+          "type": "text",
+          "value": ")} /",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "position": Object {
+                "end": Object {
+                  "column": 33,
+                  "line": 380,
+                  "offset": 20940,
+                },
+                "start": Object {
+                  "column": 10,
+                  "line": 380,
+                  "offset": 20917,
+                },
+              },
+              "type": "text",
+              "value": " IE 6-7 Standards mode ",
+            },
+          ],
+          "position": Object {
+            "end": Object {
+              "column": 34,
+              "line": 380,
+              "offset": 20941,
+            },
+            "start": Object {
+              "column": 9,
+              "line": 380,
+              "offset": 20916,
+            },
+          },
+          "properties": Object {},
+          "tagName": "em",
+          "type": "element",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 35,
+              "line": 380,
+              "offset": 20942,
+            },
+            "start": Object {
+              "column": 34,
+              "line": 380,
+              "offset": 20941,
+            },
+          },
+          "type": "text",
+          "value": "/",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 35,
+          "line": 380,
+          "offset": 20942,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 379,
+          "offset": 20882,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 37,
+              "line": 416,
+              "offset": 22976,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 416,
+              "offset": 22940,
+            },
+          },
+          "type": "text",
+          "value": "#x{font-family:foo[bar;color:green;}",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 37,
+          "line": 416,
+          "offset": 22976,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 416,
+          "offset": 22940,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 17,
+              "line": 418,
+              "offset": 22994,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 418,
+              "offset": 22978,
+            },
+          },
+          "type": "text",
+          "value": "#y];color:red;{}",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 17,
+          "line": 418,
+          "offset": 22994,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 418,
+          "offset": 22978,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 9,
+              "line": 538,
+              "offset": 27913,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 538,
+              "offset": 27905,
+            },
+          },
+          "type": "text",
+          "value": "alert(2)",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 9,
+          "line": 538,
+          "offset": 27913,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 538,
+          "offset": 27905,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 4,
+              "line": 541,
+              "offset": 27928,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 541,
+              "offset": 27925,
+            },
+          },
+          "type": "text",
+          "value": "XXX",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 4,
+          "line": 541,
+          "offset": 27928,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 541,
+          "offset": 27925,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 13,
+              "line": 546,
+              "offset": 27976,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 545,
+              "offset": 27958,
+            },
+          },
+          "type": "text",
+          "value": "-->{}
+*{color:red}",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 23,
+              "line": 546,
+              "offset": 27986,
+            },
+            "start": Object {
+              "column": 21,
+              "line": 546,
+              "offset": 27984,
+            },
+          },
+          "type": "text",
+          "value": "//",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 30,
+              "line": 546,
+              "offset": 27993,
+            },
+            "start": Object {
+              "column": 24,
+              "line": 546,
+              "offset": 27987,
+            },
+          },
+          "type": "text",
+          "value": "[\\"'\`-->]",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 34,
+              "line": 546,
+              "offset": 27997,
+            },
+            "start": Object {
+              "column": 31,
+              "line": 546,
+              "offset": 27994,
+            },
+          },
+          "type": "text",
+          "value": "]>]",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 40,
+          "line": 546,
+          "offset": 28003,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 545,
+          "offset": 27958,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 2,
+              "line": 615,
+              "offset": 30446,
+            },
+            "start": Object {
+              "column": 1,
+              "line": 615,
+              "offset": 30445,
+            },
+          },
+          "type": "text",
+          "value": "a",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 32,
+              "line": 615,
+              "offset": 30476,
+            },
+            "start": Object {
+              "column": 28,
+              "line": 615,
+              "offset": 30472,
+            },
+          },
+          "type": "text",
+          "value": "<",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 42,
+              "line": 615,
+              "offset": 30486,
+            },
+            "start": Object {
+              "column": 32,
+              "line": 615,
+              "offset": 30476,
+            },
+          },
+          "type": "text",
+          "value": "/noscript>",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 46,
+              "line": 615,
+              "offset": 30490,
+            },
+            "start": Object {
+              "column": 42,
+              "line": 615,
+              "offset": 30486,
+            },
+          },
+          "type": "text",
+          "value": "<",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 52,
+              "line": 615,
+              "offset": 30496,
+            },
+            "start": Object {
+              "column": 46,
+              "line": 615,
+              "offset": 30490,
+            },
+          },
+          "type": "text",
+          "value": "/desc>",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 56,
+              "line": 615,
+              "offset": 30500,
+            },
+            "start": Object {
+              "column": 52,
+              "line": 615,
+              "offset": 30496,
+            },
+          },
+          "type": "text",
+          "value": "<",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 58,
+              "line": 615,
+              "offset": 30502,
+            },
+            "start": Object {
+              "column": 56,
+              "line": 615,
+              "offset": 30500,
+            },
+          },
+          "type": "text",
+          "value": "s>",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 61,
+              "line": 615,
+              "offset": 30505,
+            },
+            "start": Object {
+              "column": 58,
+              "line": 615,
+              "offset": 30502,
+            },
+          },
+          "type": "text",
+          "value": "<",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 64,
+              "line": 615,
+              "offset": 30508,
+            },
+            "start": Object {
+              "column": 61,
+              "line": 615,
+              "offset": 30505,
+            },
+          },
+          "type": "text",
+          "value": "/s>",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 68,
+              "line": 615,
+              "offset": 30512,
+            },
+            "start": Object {
+              "column": 64,
+              "line": 615,
+              "offset": 30508,
+            },
+          },
+          "type": "text",
+          "value": "<",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 74,
+              "line": 615,
+              "offset": 30518,
+            },
+            "start": Object {
+              "column": 68,
+              "line": 615,
+              "offset": 30512,
+            },
+          },
+          "type": "text",
+          "value": "style>",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 78,
+              "line": 615,
+              "offset": 30522,
+            },
+            "start": Object {
+              "column": 74,
+              "line": 615,
+              "offset": 30518,
+            },
+          },
+          "type": "text",
+          "value": "<",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 87,
+              "line": 615,
+              "offset": 30531,
+            },
+            "start": Object {
+              "column": 78,
+              "line": 615,
+              "offset": 30522,
+            },
+          },
+          "type": "text",
+          "value": "a title=\\"",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 91,
+              "line": 615,
+              "offset": 30535,
+            },
+            "start": Object {
+              "column": 87,
+              "line": 615,
+              "offset": 30531,
+            },
+          },
+          "type": "text",
+          "value": "<",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 98,
+              "line": 615,
+              "offset": 30542,
+            },
+            "start": Object {
+              "column": 91,
+              "line": 615,
+              "offset": 30535,
+            },
+          },
+          "type": "text",
+          "value": "/style>",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 102,
+              "line": 615,
+              "offset": 30546,
+            },
+            "start": Object {
+              "column": 98,
+              "line": 615,
+              "offset": 30542,
+            },
+          },
+          "type": "text",
+          "value": "<",
+        },
+        Object {
+          "position": Object {
+            "end": Object {
+              "column": 129,
+              "line": 615,
+              "offset": 30573,
+            },
+            "start": Object {
+              "column": 102,
+              "line": 615,
+              "offset": 30546,
+            },
+          },
+          "type": "text",
+          "value": "img src onerror=alert(1)>\\">",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 129,
+          "line": 615,
+          "offset": 30573,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 615,
+          "offset": 30445,
+        },
+      },
+      "properties": Object {},
+      "tagName": "p",
+      "type": "element",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+    Object {
+      "type": "text",
+      "value": "
+",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 1,
+      "line": 627,
+      "offset": 30822,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;

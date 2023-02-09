@@ -1,3 +1,5 @@
+import fs from 'fs'
+import path from 'path'
 import type { Root, RootContent, Node } from 'hast'
 import { serialize } from 'next-mdx-remote/serialize'
 import rehypeSanitize, { schema } from '../'
@@ -135,6 +137,21 @@ describe('rehypeSanitize', () => {
 			fail('Link node is expected to have properties.')
 		}
 		expect(linkNode.properties.href).toBe(undefined)
+	})
+
+	it('handles DOM purify test cases as expected', async () => {
+		// Set up an MDX string with examples from https://cure53.de/purify
+		const mdxString = fs.readFileSync(
+			path.join(
+				process.cwd(),
+				'src/lib/remark-plugins/rehype-sanitize/__tests__/dompurify-fixtures.txt'
+			),
+			'utf8'
+		)
+		// Serialize with `next-mdx-remote`, extracting the AST after sanitization
+		const root = await getProcessedHast(mdxString)
+		// Assert that the AST matches an inline snapshot
+		expect(root).toMatchSnapshot('rehype-sanitize-dom-purify-examples')
 	})
 })
 
