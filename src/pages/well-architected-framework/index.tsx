@@ -1,4 +1,3 @@
-import slugify from 'slugify'
 import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { PageSlugOption } from 'lib/learn-client/api/page'
@@ -8,12 +7,11 @@ import { WellArchitectedFrameworkLandingProps } from 'views/well-architected-fra
 import rawWafContent from 'content/well-architected-framework/index.json'
 import wafData from 'data/well-architected-framework.json'
 import getProcessedPageData from 'views/product-tutorials-view/helpers/page-data'
-import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 
 export async function getStaticProps(): Promise<{
 	props: WellArchitectedFrameworkLandingProps
 }> {
-	const { pageData, headings: pageHeadings } = await getProcessedPageData(
+	const { pageData } = await getProcessedPageData(
 		wafData.slug as PageSlugOption,
 		{ showOverviewHeading: false }
 	)
@@ -26,23 +24,10 @@ export async function getStaticProps(): Promise<{
 		...rawWafContent,
 		landingPage: {
 			...rawWafContent.landingPage,
-			overview: {
-				...rawWafContent.landingPage.overview,
-				headingSlug: slugify(rawWafContent.landingPage.overview.heading, {
-					lower: true,
-				}),
-			},
+			overview: rawWafContent.landingPage.overview,
 		},
 	}
 
-	const headings: TableOfContentsHeading[] = [
-		{
-			title: wafContent.landingPage.overview.heading,
-			level: 2,
-			slug: wafContent.landingPage.overview.headingSlug,
-		},
-		...pageHeadings,
-	]
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
 		{ title: wafData.name, url: `/${wafData.slug}`, isCurrentPage: true },
@@ -60,7 +45,7 @@ export async function getStaticProps(): Promise<{
 				wafContent: wafContent.landingPage,
 			},
 			layoutProps: {
-				headings,
+				headings: [],
 				breadcrumbLinks,
 				sidebarSections: buildCategorizedWafSidebar(
 					wafCollections,

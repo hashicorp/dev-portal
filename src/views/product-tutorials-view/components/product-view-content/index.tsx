@@ -13,12 +13,14 @@ function ProductViewContent({
 
 	return (
 		<div className={s.root}>
-			<BrandedCallout
-				heading={brandedCalloutBlock.heading}
-				subheading={brandedCalloutBlock.subheading}
-				product={brandedCalloutBlock.product}
-				cta={brandedCalloutBlock.cta}
-			/>
+			{brandedCalloutBlock ? (
+				<BrandedCallout
+					heading={brandedCalloutBlock.heading}
+					subheading={brandedCalloutBlock.subheading}
+					product={brandedCalloutBlock.product}
+					cta={brandedCalloutBlock.cta}
+				/>
+			) : null}
 			<LandingPageBlocks
 				blocks={blocks.map((block) => {
 					const { type } = block
