@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import type { Root, RootContent, Node } from 'hast'
+import hastUtilToHtml from 'hast-util-to-html'
 import { serialize } from 'next-mdx-remote/serialize'
 import rehypeSanitize, { schema } from '../'
 
@@ -150,8 +151,16 @@ describe('rehypeSanitize', () => {
 		)
 		// Serialize with `next-mdx-remote`, extracting the AST after sanitization
 		const root = await getProcessedHast(mdxString)
+		// Grab the root HAST and stringify it to HTML, as it's easier to see
+		// what's happening in this larger example. Note that we intentionally
+		// allow dangerous characters and HTML, as if those are present in our
+		// abstract syntax tree at this point, we want to detect them.
+		const html = hastUtilToHtml(root, {
+			allowDangerousCharacters: true,
+			allowDangerousHtml: true,
+		})
 		// Assert that the AST matches an inline snapshot
-		expect(root).toMatchSnapshot('rehype-sanitize-dom-purify-examples')
+		expect(html).toMatchSnapshot('rehype-sanitize-dom-purify-examples')
 	})
 })
 
