@@ -61,9 +61,9 @@
 					"url": "/vault/docs/secrets/transit"
 				},
 				{
-					"title": "Transform Secrets Engine",
+          "heading": "Transform Secrets Engine",
 					"description": "An Enterprise feature generates cryptographically secure tokens mapped to secure highly sensitive data.",
-					"url": "/vault/docs/secrets/databases"
+					"url": "/vault/docs/secrets/transform"
 				}
 			]
 		}
