@@ -1,6 +1,7 @@
 import { ProductSlug } from 'types/products'
 import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { IconCardLinkGridListCard } from 'components/icon-card-link-grid-list'
+import { SectionProps } from '../section'
 
 interface IconCardGridBlockCard {
 	iconName: keyof typeof SUPPORTED_ICONS
@@ -8,7 +9,8 @@ interface IconCardGridBlockCard {
 	url: IconCardLinkGridListCard['url']
 }
 
-interface IconCardGridBlockProps {
+interface IconCardGridBlockProps
+	extends Pick<SectionProps, 'heading' | 'subheading'> {
 	cards: IconCardGridBlockCard[]
 	productSlug: ProductSlug
 }

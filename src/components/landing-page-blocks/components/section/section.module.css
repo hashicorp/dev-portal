@@ -1,5 +1,8 @@
-.cardPadding {
-	padding: 24px;
+.textWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin-bottom: 20px;
 }
 
 .heading {
@@ -8,9 +11,4 @@
 
 .subheading {
 	color: var(--token-color-foreground-primary);
-	margin-top: 4px;
-}
-
-.cta {
-	margin-top: 12px;
 }

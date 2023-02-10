@@ -1,4 +1,3 @@
-import slugify from 'slugify'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import ProductViewContent from 'views/product-tutorials-view/components/product-view-content'
@@ -29,10 +28,7 @@ export default function WellArchitectedFrameworkLandingView(
 				<HeroHeadingVisual {...hero} />
 			</div>
 			<div className={s.overview}>
-				<OverviewCta
-					{...overview}
-					headingSlug={slugify(overview.heading, { lower: true })}
-				/>
+				<OverviewCta {...overview} />
 			</div>
 			<ProductViewContent blocks={blocks} />
 		</SidebarSidecarLayout>

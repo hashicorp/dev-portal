@@ -3,14 +3,14 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import CalloutCard from 'components/callout-card'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import { developmentToast, ToastColor } from 'components/toast'
+import { TryHcpCalloutPrebuilt } from 'components/try-hcp-callout'
+import { hasHcpCalloutContent } from 'components/try-hcp-callout/content'
+import LandingPageBlocks from 'components/landing-page-blocks'
 import { ProductLandingViewProps } from './types'
 import { getIconCards } from './helpers'
 import HeroHeadingVisual from './components/hero-heading-visual'
 import OverviewCta from './components/overview-cta'
-import ProductLandingBlocks from './components/product-landing-blocks'
 import s from './product-landing.module.css'
-import { TryHcpCalloutPrebuilt } from 'components/try-hcp-callout'
-import { hasHcpCalloutContent } from 'components/try-hcp-callout/content'
 
 function ProductLandingView({
 	content,
@@ -45,7 +45,6 @@ function ProductLandingView({
 			<div className={s.overviewCtaMargin}>
 				<OverviewCta
 					heading={overview.heading}
-					headingSlug={overview.headingSlug}
 					body={overview.body}
 					cta={overview.cta}
 					image={overview.image}
@@ -57,7 +56,6 @@ function ProductLandingView({
 			<div className={s.getStartedMargin}>
 				<CalloutCard
 					heading={get_started.heading}
-					headingSlug={get_started.headingSlug}
 					body={get_started.body}
 					ctas={get_started.ctas}
 					iconCardLinks={get_started.iconCardLinks}
@@ -69,7 +67,7 @@ function ProductLandingView({
 					<TryHcpCalloutPrebuilt productSlug={product.slug} />
 				</div>
 			) : null}
-			<ProductLandingBlocks blocks={blocks} />
+			<LandingPageBlocks blocks={blocks} />
 		</>
 	)
 }

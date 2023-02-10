@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import { ProductData } from 'types/products'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
-import { validateAgainstSchema } from 'lib/validate-against-schema'
+import { getInlineContentMaps } from 'lib/tutorials/get-inline-content-maps'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { SidebarProps } from 'components/sidebar'
@@ -11,8 +11,8 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
-import { ProductLandingContent, ProductLandingContentSchema } from './schema'
-import { transformRawContentToProp, extractHeadings } from './helpers'
+import { formatTutorialCard } from 'components/tutorial-card/helpers'
+import { formatCollectionCard } from 'components/collection-card/helpers'
 import { ProductLandingViewProps } from './types'
 
 const generateGetStaticProps = (product: ProductData) => {
@@ -28,10 +28,6 @@ const generateGetStaticProps = (product: ProductData) => {
 			}
 		>
 	> => {
-		/**
-		 * Note: could consider other content sources. For now, JSON.
-		 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
-		 */
 		const jsonFilePath = path.join(
 			process.cwd(),
 			`src/content/${product.slug}/product-landing.json`
@@ -39,29 +35,46 @@ const generateGetStaticProps = (product: ProductData) => {
 		const CONTENT = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
 
 		/**
-		 * Validate that CONTENT matches our schema. This includes a type guard,
-		 * which asserts that CONTENT is ProductLandingContent.
-		 */
-		validateAgainstSchema<ProductLandingContent>(
-			CONTENT,
-			ProductLandingContentSchema,
-			jsonFilePath
-		)
-
-		/**
 		 * Transform content to props.
 		 * This includes filling in inline tutorials and collection content.
 		 */
-		const content = await transformRawContentToProp(CONTENT, product)
+		const { hero, overview, overviewParagraph, get_started, blocks } = CONTENT
+		const INLINE_CONTENT = await getInlineContentMaps(blocks)
+		const transformedBlocks = blocks.map((block: $TSFixMe) => {
+			const { type, title, description } = block
+			if (type === 'tutorial-card-grid') {
+				const tutorials = block.tutorialSlugs.map((slug: string) => {
+					const tutorial = INLINE_CONTENT.inlineTutorials[slug]
+					const defaultContext = tutorial.collectionCtx.default
+					const tutorialLiteCompat = { ...tutorial, defaultContext }
+					return formatTutorialCard(tutorialLiteCompat)
+				})
+				return { type, title, description, tutorials }
+			}
+			if (type === 'collection-card-grid') {
+				const collections = block.collectionSlugs.map((slug: string) => {
+					const collection = INLINE_CONTENT.inlineCollections[slug]
+					return formatCollectionCard(collection)
+				})
+				return { type, title, description, collections }
+			}
+			return block
+		})
 
 		/**
 		 * Gather up our static props
 		 */
 		const props = stripUndefinedProperties({
-			content,
+			content: {
+				hero: { ...hero, productSlug: product.slug },
+				overview,
+				overviewParagraph,
+				get_started,
+				blocks: transformedBlocks,
+			},
 			product,
 			layoutProps: {
-				headings: extractHeadings(content),
+				headings: [],
 				breadcrumbLinks: [
 					{ title: 'Developer', url: '/' },
 					{ title: product.name, url: `/${product.slug}`, isCurrentPage: true },

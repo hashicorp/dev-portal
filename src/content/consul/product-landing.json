@@ -35,60 +35,38 @@
 	},
 	"blocks": [
 		{
-			"type": "heading",
+			"type": "card-grid",
 			"heading": "Featured Documentation",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Service Mesh",
-					"body": "Consul Service Mesh provides service-to-service connection authorization and encryption using mTLS.",
+					"title": "Service Mesh",
+					"description": "Consul Service Mesh provides service-to-service connection authorization and encryption using mTLS.",
 					"url": "/consul/docs/connect"
 				},
 				{
-					"heading": "Kubernetes",
-					"body": "Deploy Consul to Kubernetes using the Helm chart, sync services between Consul and Kubernetes, and more.",
+					"title": "Kubernetes",
+					"description": "Deploy Consul to Kubernetes using the Helm chart, sync services between Consul and Kubernetes, and more.",
 					"url": "/consul/docs/k8s"
 				},
 				{
-					"heading": "HCP Consul",
-					"body": "Deploy a managed HCP Consul cluster to quickly get started with Consul's full capabilities.",
+					"title": "HCP Consul",
+					"description": "Deploy a managed HCP Consul cluster to quickly get started with Consul's full capabilities.",
 					"url": "/hcp/docs/consul"
 				}
 			]
 		},
 		{
-			"type": "heading",
+			"type": "collection-card-grid",
 			"heading": "Popular Use Cases",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "collection_cards",
 			"collectionSlugs": [
 				"consul/service-mesh-security",
-				"consul/service-mesh-traffic-management"
+				"consul/service-mesh-traffic-management",
+				"consul/kubernetes"
 			]
 		},
 		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": [
-				"consul/kubernetes-api-gateway",
-				"consul/consul-terraform-sync-intro",
-				"consul/serverless-consul-with-lambda"
-			]
-		},
-		{
-			"type": "heading",
+			"type": "collection-card-grid",
 			"heading": "Get Certified",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "collection_cards",
 			"collectionSlugs": [
 				"consul/certification",
 				"consul/certification-associate-tutorials"

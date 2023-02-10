@@ -12,7 +12,7 @@ const ProductRootDocsPathLandingHero = ({
 	const currentProduct = useCurrentProduct()
 
 	return (
-		<header>
+		<header className={s.root}>
 			<LandingHero pageHeading={pageHeading} pageSubtitle={pageSubtitle} />
 			{currentProduct.slug !== 'terraform' ? (
 				<div className={s.iconCardGridLink}>

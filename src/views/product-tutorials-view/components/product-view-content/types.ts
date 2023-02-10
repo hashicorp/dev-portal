@@ -27,5 +27,5 @@ export type ProductViewBlock =
 	| ({ type: 'CollectionsStack' } & CollectionsStackProps)
 
 export interface ProductViewContentProps {
-	blocks: ProductViewBlock[]
+	blocks: $TSFixMe[]
 }

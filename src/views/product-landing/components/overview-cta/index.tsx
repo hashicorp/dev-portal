@@ -6,19 +6,11 @@ import StandaloneLink from 'components/standalone-link'
 import { OverviewCtaProps } from './types'
 import s from './overview-cta.module.css'
 
-function OverviewCta({
-	heading,
-	headingSlug,
-	body,
-	cta,
-	image,
-}: OverviewCtaProps) {
+function OverviewCta({ heading, body, cta, image }: OverviewCtaProps) {
 	return (
 		<div className={s.root}>
 			<div className={s.textPart}>
-				<h2 id={headingSlug} className={s.heading}>
-					{heading}
-				</h2>
+				<h2 className={s.heading}>{heading}</h2>
 				<p className={s.body}>{body}</p>
 				{cta ? (
 					<StandaloneLink

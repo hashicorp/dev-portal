@@ -3,7 +3,6 @@ import { IconCardLinkProps } from 'components/icon-card-link'
 
 export interface CalloutCardProps {
 	heading: string
-	headingSlug: string
 	body: string
 	ctas?: {
 		text: string

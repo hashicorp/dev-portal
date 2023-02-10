@@ -4,8 +4,8 @@
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",
-			"title": "Build Images",
-			"description": "Standardize and automate your workflow.",
+			"heading": "Build Images",
+			"subheading": "Standardize and automate your workflow.",
 			"cards": [
 				{
 					"description": "Define the images Packer should build and the plugins it should use during the build process.",
@@ -21,8 +21,8 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Use Plugins",
-			"description": "Use built-in and external plugins to perform tasks during each build.",
+			"heading": "Use Plugins",
+			"subheading": "Use built-in and external plugins to perform tasks during each build.",
 			"cards": [
 				{
 					"description": "Use builders, data sources, provisioners, and post-processors.",
@@ -43,8 +43,8 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Collaborate and Integrate",
-			"description": "Manage images for your organization and extend Packer functionality.",
+			"heading": "Collaborate and Integrate",
+			"subheading": "Manage images for your organization and extend Packer functionality.",
 			"cards": [
 				{
 					"description": "Centrally track image metadata and enforce up-to-date image versions.",

@@ -3,7 +3,7 @@
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",
-			"title": "Fundamentals",
+			"heading": "Fundamentals",
 			"cards": [
 				{
 					"title": "Quick Start",
@@ -20,7 +20,7 @@
 					"description": "A project contains one or more applications and each one in a project represents a single deployable object.",
 					"url": "/waypoint/docs/projects"
 				},
-			  	{
+				{
 					"title": "Runners",
 					"description": "Waypoint utilizes \"runners\" to execute jobs. Runners are programs running `waypoint runner agent`.",
 					"url": "/waypoint/docs/runner"
@@ -34,7 +34,7 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Application Configuration",
+			"heading": "Application Configuration",
 			"cards": [
 				{
 					"title": "Overview",
@@ -55,7 +55,7 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Debugging",
+			"heading": "Debugging",
 			"cards": [
 				{
 					"title": "Tips and Troubleshooting",
@@ -76,7 +76,7 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Highlighted Features",
+			"heading": "Highlighted Features",
 			"cards": [
 				{
 					"title": "Waypoint URL Service",

@@ -1,5 +1,4 @@
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import Heading from 'components/heading'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -10,7 +9,6 @@ import TutorialsSidebar, {
 import { ProductTutorialsSitemap } from './components'
 import { ProductTutorialsViewProps } from './server'
 import ProductViewContent from './components/product-view-content'
-import { getOverviewHeading } from './helpers/heading-helpers'
 import s from './product-tutorials-view.module.css'
 
 function ProductTutorialsView({
@@ -46,21 +44,6 @@ function ProductTutorialsView({
 		},
 	]
 
-	const PageHeading = () => {
-		const { title, level, slug } = getOverviewHeading()
-		return (
-			<Heading
-				id={slug}
-				level={level}
-				size={500}
-				weight="bold"
-				className={s.heading}
-			>
-				{title}
-			</Heading>
-		)
-	}
-
 	return (
 		<SidebarSidecarLayout
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
@@ -75,7 +58,6 @@ function ProductTutorialsView({
 			 */
 			sidebarNavDataLevels={sidebarNavDataLevels as any}
 		>
-			<PageHeading />
 			<ProductViewContent blocks={blocks} />
 			{showProductSitemap ? (
 				<div className={s.sitemap}>

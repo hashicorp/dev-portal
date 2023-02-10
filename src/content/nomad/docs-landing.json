@@ -2,21 +2,20 @@
 	"pageSubtitle": "Nomad is a highly available, distributed, data-center aware cluster and application scheduler designed to support the modern datacenter with support for long-running services, batch jobs, and much more.",
 	"marketingContentBlocks": [
 		{
-			"type": "getting-started-card",
-			"description": "Learn how to use Nomad to schedule and orchestrate workloads.",
-			"callToAction": {
-				"text": "CLI Quick Start",
-				"url": "/nomad/tutorials/get-started"
-			}
-		},
-		{
-			"type": "section-heading",
-			"title": "Use Cases"
+			"type": "callout",
+			"heading": "Getting Started",
+			"body": "Learn how to use Nomad to schedule and orchestrate workloads.",
+			"ctas": [
+				{
+					"text": "CLI Quick Start",
+					"url": "/nomad/tutorials/get-started"
+				}
+			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Fundamentals",
-			"description": "Become familiar with the core concepts of Nomad.",
+			"heading": "Fundamentals",
+			"subheading": "Become familiar with the core concepts of Nomad.",
 			"cards": [
 				{
 					"title": "Installing Nomad",
@@ -42,8 +41,8 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Nomad Pack",
-			"description": "Use Nomad Pack to deploy popular applications to Nomad.",
+			"heading": "Nomad Pack",
+			"subheading": "Use Nomad Pack to deploy popular applications to Nomad.",
 			"cards": [
 				{
 					"title": "Introduction to Nomad Pack",
@@ -64,8 +63,8 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Autoscaling",
-			"description": "Automatically maintain your cluster and workload instance count to respond to demand while minimizing over-provisioning cost.",
+			"heading": "Autoscaling",
+			"subheading": "Automatically maintain your cluster and workload instance count to respond to demand while minimizing over-provisioning cost.",
 			"cards": [
 				{
 					"title": "Introduction to Autoscaling",
@@ -91,8 +90,8 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Cluster Management",
-			"description": "Learn the features operators will need to build and maintain Nomad clusters.",
+			"heading": "Cluster Management",
+			"subheading": "Learn the features operators will need to build and maintain Nomad clusters.",
 			"cards": [
 				{
 					"title": "Upgrade a Cluster",
@@ -117,11 +116,8 @@
 			]
 		},
 		{
-			"type": "section-heading",
-			"title": "Developers"
-		},
-		{
 			"type": "icon-card-grid",
+			"heading": "Developers",
 			"cards": [
 				{
 					"iconName": "guide",

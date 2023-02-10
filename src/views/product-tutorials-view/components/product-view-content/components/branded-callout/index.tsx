@@ -1,7 +1,9 @@
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import BrandedCard from 'components/branded-card'
+import Heading from 'components/heading'
+import Text from 'components/text'
 import StandaloneLink from 'components/standalone-link'
 import { BrandedCalloutProps } from './types'
-import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import s from './branded-callout.module.css'
 
 function BrandedCallout({
@@ -19,8 +21,19 @@ function BrandedCallout({
 	return (
 		<BrandedCard productSlug={product}>
 			<div className={s.cardPadding}>
-				<h2 className={s.heading}>{heading}</h2>
-				{subheading ? <p className={s.subheading}>{subheading}</p> : null}
+				<Heading className={s.heading} level={1} size={500} weight="bold">
+					{heading}
+				</Heading>
+				{subheading ? (
+					<Text
+						asElement="p"
+						className={s.subheading}
+						size={300}
+						weight="regular"
+					>
+						{subheading}
+					</Text>
+				) : null}
 				<div className={s.cta}>
 					<StandaloneLink
 						text={cta.text}
@@ -29,6 +42,7 @@ function BrandedCallout({
 						iconPosition="trailing"
 						color="secondary"
 						opensInNewTab={isExternal}
+						size="small"
 					/>
 				</div>
 			</div>

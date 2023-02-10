@@ -2,13 +2,9 @@
 	"pageSubtitle": "Consul is a multi-networking tool that offers a fully-featured service mesh solution that solves the networking and security challenges of operating microservices and cloud infrastructure (multi-cloud and hybrid cloud). This documentation covers the main concepts of Consul, what problems it can solve, and contains a quick start for using Consul.",
 	"marketingContentBlocks": [
 		{
-			"type": "section-heading",
-			"title": "Use Cases"
-		},
-		{
 			"type": "card-grid",
-			"title": "Service Mesh",
-			"description": "Consul Service Mesh provides service-to-service connection authorization and encryption using mutual Transport Layer Security (TLS).",
+			"heading": "Service Mesh",
+			"subheading": "Consul Service Mesh provides service-to-service connection authorization and encryption using mutual Transport Layer Security (TLS).",
 			"cards": [
 				{
 					"title": "Register mesh services",
@@ -34,8 +30,8 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Kubernetes",
-			"description": "Consul has many integrations with Kubernetes. You can deploy Consul to Kubernetes using the Helm chart or Consul K8s CLI, sync services between Consul and Kubernetes, run Consul Service Mesh, and more.",
+			"heading": "Kubernetes",
+			"subheading": "Consul has many integrations with Kubernetes. You can deploy Consul to Kubernetes using the Helm chart or Consul K8s CLI, sync services between Consul and Kubernetes, run Consul Service Mesh, and more.",
 			"cards": [
 				{
 					"title": "Install Consul on Kubernetes",
@@ -61,8 +57,8 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Network Infrastructure Automation",
-			"description": "Consul-Terraform-Sync (CTS) enables dynamic updates to network infrastructure devices triggered by service changes.",
+			"heading": "Network Infrastructure Automation",
+			"subheading": "Consul-Terraform-Sync (CTS) enables dynamic updates to network infrastructure devices triggered by service changes.",
 			"cards": [
 				{
 					"title": "Install and Configure CTS",
@@ -83,8 +79,8 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Platforms",
-			"description": "Consul can be integrated with several other platforms and products. Learn more about Consul integrations and how to enable them.",
+			"heading": "Platforms",
+			"subheading": "Consul can be integrated with several other platforms and products. Learn more about Consul integrations and how to enable them.",
 			"cards": [
 				{
 					"title": "Nomad",
@@ -109,11 +105,8 @@
 			]
 		},
 		{
-			"type": "section-heading",
-			"title": "Developers"
-		},
-		{
 			"type": "icon-card-grid",
+			"heading": "Developers",
 			"cards": [
 				{
 					"iconName": "connection",

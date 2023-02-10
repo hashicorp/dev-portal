@@ -35,140 +35,105 @@
 			]
 		},
 		{
-			"type": "heading",
+			"type": "card-grid",
 			"heading": "Fundamentals",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Boxes",
-					"body": "The package format for Vagrant environments - create your own or use one from the public catalog.",
+					"title": "Boxes",
+					"description": "The package format for Vagrant environments - create your own or use one from the public catalog.",
 					"url": "/vagrant/docs/boxes"
 				},
 				{
-					"heading": "Install and Specify a Box",
-					"body": "Use a base image to quickly clone a virtual machine.",
+					"title": "Install and Specify a Box",
+					"description": "Use a base image to quickly clone a virtual machine.",
 					"url": "/vagrant/tutorials/getting-started/getting-started-boxes"
-				}
-			]
-		},
-		{
-			"type": "linked_cards",
-			"cards": [
+				},
 				{
-					"heading": "Vagrantfile",
-					"body": "Describe your virtual machine's configuration and how to provision it.",
+					"title": "Vagrantfile",
+					"description": "Describe your virtual machine's configuration and how to provision it.",
 					"url": "/vagrant/docs/vagrantfile"
 				},
 				{
-					"heading": "Create a Vagrantfile",
-					"body": "Begin your Vagrant project by creating a Vagrantfile.",
+					"title": "Create a Vagrantfile",
+					"description": "Begin your Vagrant project by creating a Vagrantfile.",
 					"url": "/vagrant/tutorials/getting-started/getting-started-project-setup"
-				}
-			]
-		},
-		{
-			"type": "linked_cards",
-			"cards": [
+				},
 				{
-					"heading": "vagrant up",
-					"body": "Create and configure your virtual machine with the single most important Vagrant CLI command.",
+					"title": "vagrant up",
+					"description": "Create and configure your virtual machine with the single most important Vagrant CLI command.",
 					"url": "/vagrant/docs/cli/up"
 				},
 				{
-					"heading": "Boot an Environment",
-					"body": "Start your virtual machine with vagrant up.",
+					"title": "Boot an Environment",
+					"description": "Start your virtual machine with vagrant up.",
 					"url": "/vagrant/tutorials/getting-started/getting-started-up"
 				}
 			]
 		},
 		{
-			"type": "heading",
+			"type": "card-grid",
 			"heading": "Important Concepts",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Synced Folders",
-					"body": "Sync files from your host machine to the guest machine.",
+					"title": "Synced Folders",
+					"description": "Sync files from your host machine to the guest machine.",
 					"url": "/vagrant/docs/synced-folders"
 				},
 				{
-					"heading": "Synchronize Your Files",
-					"body": "Vagrant automatically syncs files to and from the guest machine allowing you to edits files locally and run them in your virtual machine.",
+					"title": "Synchronize Your Files",
+					"description": "Vagrant automatically syncs files to and from the guest machine allowing you to edits files locally and run them in your virtual machine.",
 					"url": "/vagrant/tutorials/getting-started/getting-started-synced-folders"
-				}
-			]
-		},
-		{
-			"type": "linked_cards",
-			"cards": [
+				},
 				{
-					"heading": "Networking",
-					"body": "Access your virtual machines through the high-level networking set up by Vagrant.",
+					"title": "Networking",
+					"description": "Access your virtual machines through the high-level networking set up by Vagrant.",
 					"url": "/vagrant/docs/networking"
 				},
 				{
-					"heading": "Configure Your Network",
-					"body": "Forward network traffic from your local machine to your virtual guest machine running on Vagrant.",
+					"title": "Configure Your Network",
+					"description": "Forward network traffic from your local machine to your virtual guest machine running on Vagrant.",
 					"url": "/vagrant/tutorials/networking-provisioning-operations/getting-started-networking"
 				}
 			]
 		},
 		{
-			"type": "heading",
+			"type": "card-grid",
 			"heading": "Additional Reading",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Plugins",
-					"body": "Add additional functionality to Vagrant via plugins.",
+					"title": "Plugins",
+					"description": "Add additional functionality to Vagrant via plugins.",
 					"url": "/vagrant/docs/plugins"
 				},
 				{
-					"heading": "Providers",
-					"body": "Manage other types of machines via providers.",
+					"title": "Providers",
+					"description": "Manage other types of machines via providers.",
 					"url": "/vagrant/docs/providers"
 				},
 				{
-					"heading": "Triggers",
-					"body": "Execute commands on your system before or after Vagrant operations.",
+					"title": "Triggers",
+					"description": "Execute commands on your system before or after Vagrant operations.",
 					"url": "/vagrant/docs/triggers"
 				},
 				{
-					"heading": "Vagrant Share",
-					"body": "Share your Vagrant environment with anyone via a single command.",
+					"title": "Vagrant Share",
+					"description": "Share your Vagrant environment with anyone via a single command.",
 					"url": "/vagrant/docs/share"
 				}
 			]
 		},
 		{
-			"type": "heading",
+			"type": "card-grid",
 			"heading": "Use Cases with Vagrant",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "The Nomad Autoscaler",
-					"body": "Try out the autoscaling feature of HashiCorp Nomad in a Vagrant environment.",
+					"title": "The Nomad Autoscaler",
+					"description": "Try out the autoscaling feature of HashiCorp Nomad in a Vagrant environment.",
 					"url": "/nomad/tutorials/autoscaler/autoscaler-vagrant-demo"
 				},
 				{
-					"heading": "Data Encryption in Vault",
-					"body": "Try out data encryption in a Java application with HashiCorp Vault in a Vagrant environment.",
+					"title": "Data Encryption in Vault",
+					"description": "Try out data encryption in a Java application with HashiCorp Vault in a Vagrant environment.",
 					"url": "/vault/tutorials/app-integration/eaas-spring-demo"
 				}
 			]

@@ -2,20 +2,17 @@ import {
 	CardTitleProps,
 	CardDescriptionProps,
 } from 'components/card/components'
-import { AutosizedHeadingBlockProps } from '..'
+import { SectionProps } from '../section'
 
 interface CardGridBlockCard {
-	description: CardDescriptionProps['text']
 	title: CardTitleProps['text']
+	description: CardDescriptionProps['text']
 	url: string
 }
 
-interface CardGridBlockProps {
+interface CardGridBlockProps
+	extends Pick<SectionProps, 'heading' | 'subheading'> {
 	cards: CardGridBlockCard[]
-	description: string
-	title: AutosizedHeadingBlockProps['text']
-	headingId: AutosizedHeadingBlockProps['id']
-	headingLevel: AutosizedHeadingBlockProps['level']
 }
 
 export type { CardGridBlockCard, CardGridBlockProps }

@@ -30,7 +30,7 @@
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",
-			"title": "Fundamentals",
+			"heading": "Fundamentals",
 			"cards": [
 				{
 					"title": "What is HCP?",

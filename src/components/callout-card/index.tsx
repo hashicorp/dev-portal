@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import slugify from 'slugify'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { SUPPORTED_ICONS } from 'content/supported-icons'
 import ButtonLink from 'components/button-link'
@@ -11,7 +12,6 @@ import s from './callout-card.module.css'
 
 function CalloutCard({
 	heading,
-	headingSlug,
 	body,
 	ctas,
 	iconCardLinks,
@@ -38,7 +38,7 @@ function CalloutCard({
 
 	return (
 		<Card className={s.card} elevation="base">
-			<h2 id={headingSlug} className={s.heading}>
+			<h2 id={slugify(heading, { lower: true })} className={s.heading}>
 				{heading}
 			</h2>
 			<p className={s.body}>{body}</p>

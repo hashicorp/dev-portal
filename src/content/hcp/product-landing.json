@@ -14,7 +14,7 @@
 	},
 	"get_started": {
 		"heading": "Getting Started",
-		"body": "Complete the following tutorials for step-by-step guidance on getting started:",
+		"body": "Complete the following tutorials for step-by-step guidance on getting started.",
 		"iconCardLinks": [
 			{
 				"icon": "vault-color",
@@ -46,38 +46,24 @@
 	},
 	"blocks": [
 		{
-			"type": "heading",
-			"heading": "Featured Content",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "collection_cards",
-			"collectionSlugs": ["cloud/networking"]
-		},
-		{
-			"type": "linked_cards",
+			"type": "card-grid",
+			"heading": "HashiCorp Virtual Networks",
 			"cards": [
 				{
-					"heading": "Create and manage an AWS HVN",
-					"body": "Explore how to create and manage a HashiCorp Virtual Network (HVN) for AWS and connect it to your VPC.",
+					"title": "Create and manage an AWS HVN",
+					"description": "Explore how to create and manage a HashiCorp Virtual Network (HVN) for AWS and connect it to your VPC.",
 					"url": "/hcp/docs/hcp/network/hvn-aws/hvn-aws"
 				},
 				{
-					"heading": "Create and manage an Azure HVN",
-					"body": "Explore how to create and manage a HashiCorp Virtual Network (HVN) for Azure and connect it to your VNet.",
+					"title": "Create and manage an Azure HVN",
+					"description": "Explore how to create and manage a HashiCorp Virtual Network (HVN) for Azure and connect it to your VNet.",
 					"url": "/hcp/docs/hcp/network/hvn-azure/hvn-azure"
 				}
 			]
 		},
 		{
-			"type": "heading",
+			"type": "tutorial-card-grid",
 			"heading": "Popular Use Cases",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
 			"tutorialSlugs": [
 				"cloud/vault-oidc-okta",
 				"boundary/hcp-manage-scopes",

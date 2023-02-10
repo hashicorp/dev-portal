@@ -3,7 +3,7 @@
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",
-			"title": "Introduction",
+			"heading": "Introduction",
 			"cards": [
 				{
 					"description": "How Terraform solves infrastructure challenges.",
@@ -24,7 +24,7 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Manage Infrastructure",
+			"heading": "Manage Infrastructure",
 			"cards": [
 				{
 					"description": "Describe infrastructure on various providers with Terraform's configuration language.",
@@ -45,7 +45,7 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Collaborate",
+			"heading": "Collaborate",
 			"cards": [
 				{
 					"description": "Terraform Cloud helps teams use Terraform together, with version control, state sharing, governance, and more.",
@@ -61,7 +61,7 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Develop and Share",
+			"heading": "Develop and Share",
 			"cards": [
 				{
 					"description": "Create a provider to allow Terraform to interact with a service.",

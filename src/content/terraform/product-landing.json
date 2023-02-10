@@ -50,39 +50,29 @@
 	},
 	"blocks": [
 		{
-			"type": "heading",
+			"type": "card-grid",
 			"heading": "Featured Documentation",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Configuration Language",
-					"body": "Describe infrastructure in Terraform configuration language.",
+					"title": "Configuration Language",
+					"description": "Describe infrastructure in Terraform configuration language.",
 					"url": "/terraform/language"
 				},
 				{
-					"heading": "Terraform CLI",
-					"body": "Learn Terraform's CLI-based workflows.",
+					"title": "Terraform CLI",
+					"description": "Learn Terraform's CLI-based workflows.",
 					"url": "/terraform/cli"
 				},
 				{
-					"heading": "Terraform Cloud",
-					"body": "Collaborate with your team to provision infrastructure.",
+					"title": "Terraform Cloud",
+					"description": "Collaborate with your team to provision infrastructure.",
 					"url": "/terraform/cloud-docs"
 				}
 			]
 		},
 		{
-			"type": "heading",
+			"type": "tutorial-card-grid",
 			"heading": "Popular Use Cases",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
 			"tutorialSlugs": [
 				"terraform/multicloud-kubernetes",
 				"terraform/preview-environments-vercel",
@@ -91,13 +81,8 @@
 			]
 		},
 		{
-			"type": "heading",
+			"type": "collection-card-grid",
 			"heading": "Get Certified",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "collection_cards",
 			"collectionSlugs": [
 				"terraform/certification",
 				"terraform/certification-associate-tutorials"

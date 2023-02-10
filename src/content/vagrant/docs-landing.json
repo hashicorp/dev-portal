@@ -20,7 +20,7 @@
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",
-			"title": "Fundamentals",
+			"heading": "Fundamentals",
 			"cards": [
 				{
 					"description": "The package format for Vagrant environments - create your own or use one from the public catalog.",
@@ -56,8 +56,8 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Vagrant Cloud",
-			"description": "Vagrant Cloud serves a public, searchable index of Vagrant boxes.",
+			"heading": "Vagrant Cloud",
+			"subheading": "Vagrant Cloud serves a public, searchable index of Vagrant boxes.",
 			"cards": [
 				{
 					"description": "Use the public catalog to find boxes that contain the technologies you need for your Vagrant environment.",
@@ -77,11 +77,8 @@
 			]
 		},
 		{
-			"type": "section-heading",
-			"title": "Developers"
-		},
-		{
 			"type": "icon-card-grid",
+			"heading": "Developers",
 			"cards": [
 				{
 					"iconName": "terminal",

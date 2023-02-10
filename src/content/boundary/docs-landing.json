@@ -3,7 +3,7 @@
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",
-			"title": "Fundamentals",
+			"heading": "Fundamentals",
 			"cards": [
 				{
 					"title": "Deploy HCP Boundary",
@@ -29,8 +29,8 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Boundary Security Model",
-			"description": "Understand Boundary's security norms. Learn how permissions, identity, and target security are handled within the Boundary product.",
+			"heading": "Boundary Security Model",
+			"subheading": "Understand Boundary's security norms. Learn how permissions, identity, and target security are handled within the Boundary product.",
 			"cards": [
 				{
 					"description": "Boundary's permissions model is a composable, RBAC, allow-only model that attempts to marry flexibility with usability.",
@@ -51,8 +51,8 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Filtering",
-			"description": "A quick reference to the filtering syntax used in Boundary.",
+			"heading": "Filtering",
+			"subheading": "A quick reference to the filtering syntax used in Boundary.",
 			"cards": [
 				{
 					"description": "Configure filters for managed groups within the OIDC auth method.",

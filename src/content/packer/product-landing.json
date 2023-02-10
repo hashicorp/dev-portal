@@ -35,39 +35,29 @@
 	},
 	"blocks": [
 		{
-			"type": "heading",
+			"type": "card-grid",
 			"heading": "Featured Documentation",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Templates",
-					"body": "Describe how Packer should build machine images.",
+					"title": "Templates",
+					"description": "Describe how Packer should build machine images.",
 					"url": "/packer/docs/templates"
 				},
 				{
-					"heading": "Packer CLI",
-					"body": "Learn Packer's CLI-based workflows.",
+					"title": "Packer CLI",
+					"description": "Learn Packer's CLI-based workflows.",
 					"url": "/packer/docs/commands"
 				},
 				{
-					"heading": "HCP Packer",
-					"body": "Manage machine images across your organization.",
+					"title": "HCP Packer",
+					"description": "Manage machine images across your organization.",
 					"url": "/hcp/docs/packer"
 				}
 			]
 		},
 		{
-			"type": "heading",
+			"type": "tutorial-card-grid",
 			"heading": "Popular Use Cases",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
 			"tutorialSlugs": [
 				"packer/golden-image-with-hcp-packer",
 				"packer/hcp-schedule-image-iterations-revocation",
@@ -76,27 +66,22 @@
 			]
 		},
 		{
-			"type": "heading",
+			"type": "card-grid",
 			"heading": "Join the Community",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Forum",
-					"body": "Get answers from engineers and the Packer community.",
+					"title": "Forum",
+					"description": "Get answers from engineers and the Packer community.",
 					"url": "https://discuss.hashicorp.com/c/packer"
 				},
 				{
-					"heading": "User Group",
-					"body": "Find a local HashiCorp User Group (HUG).",
+					"title": "User Group",
+					"description": "Find a local HashiCorp User Group (HUG).",
 					"url": "https://www.meetup.com/pro/hugs/"
 				},
 				{
-					"heading": "Office Hours",
-					"body": "Ask experts questions live.",
+					"title": "Office Hours",
+					"description": "Ask experts questions live.",
 					"url": "https://www.hashicorp.com/community/office-hours"
 				}
 			]

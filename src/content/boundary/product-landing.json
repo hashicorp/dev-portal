@@ -30,44 +30,34 @@
 	},
 	"blocks": [
 		{
-			"type": "heading",
+			"type": "card-grid",
 			"heading": "How Boundary Works",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Identity-based Access",
-					"body": "Enable privileged sessions for users and applications based on user identity and role.",
+					"title": "Identity-based Access",
+					"description": "Enable privileged sessions for users and applications based on user identity and role.",
 					"url": "/boundary/tutorials/access-management/oidc-auth"
 				},
 				{
-					"heading": "Service Discovery",
-					"body": "Service discovery focuses on automating the process of onboarding new or changed infrastructure resources to Boundary as hosts.",
+					"title": "Service Discovery",
+					"description": "Service discovery focuses on automating the process of onboarding new or changed infrastructure resources to Boundary as hosts.",
 					"url": "/boundary/docs/concepts/service-discovery"
 				},
 				{
-					"heading": "Infrastructure as Code with Terraform",
-					"body": "Define policies and manage Boundary with Terraform provider that supports the full breadth of Boundary configurations.",
+					"title": "Infrastructure as Code with Terraform",
+					"description": "Define policies and manage Boundary with Terraform provider that supports the full breadth of Boundary configurations.",
 					"url": "https://registry.terraform.io/providers/hashicorp/boundary"
 				},
 				{
-					"heading": "Session Visibility and Audit Logs",
-					"body": "Visibility into session metrics, events, logs, and traces with the ability to export data to business intelligence and event monitoring tools",
+					"title": "Session Visibility and Audit Logs",
+					"description": "Visibility into session metrics, events, logs, and traces with the ability to export data to business intelligence and event monitoring tools.",
 					"url": "/boundary/tutorials/oss-configuration/event-logging"
 				}
 			]
 		},
 		{
-			"type": "heading",
+			"type": "tutorial-card-grid",
 			"heading": "Popular Tutorials",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
 			"tutorialSlugs": [
 				"boundary/oidc-auth",
 				"boundary/oss-vault-cred-brokering-quickstart",

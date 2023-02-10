@@ -24,13 +24,8 @@
 	},
 	"blocks": [
 		{
-			"type": "heading",
+			"type": "collection-card-grid",
 			"heading": "Featured Collections",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "collection_cards",
 			"collectionSlugs": [
 				"waypoint/get-started-docker",
 				"waypoint/get-started-kubernetes",
@@ -38,13 +33,8 @@
 			]
 		},
 		{
-			"type": "heading",
+			"type": "tutorial-card-grid",
 			"heading": "Featured Tutorials",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
 			"tutorialSlugs": [
 				"waypoint/aws-ecs",
 				"waypoint/azure-container-instance",
@@ -52,94 +42,79 @@
 			]
 		},
 		{
-			"type": "heading",
+			"type": "card-grid",
 			"heading": "How Waypoint Works",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Application Lifecycle",
-					"body": "Learn about the build, deploy, and release stages of the Waypoint lifecycle.",
+					"title": "Application Lifecycle",
+					"description": "Learn about the build, deploy, and release stages of the Waypoint lifecycle.",
 					"url": "/waypoint/docs/lifecycle"
 				},
 				{
-					"heading": "URL Service",
-					"body": "Get a publicly accessible URL for your application with the Waypoint URL Service.",
+					"title": "URL Service",
+					"description": "Get a publicly accessible URL for your application with the Waypoint URL Service.",
 					"url": "/waypoint/docs/url"
 				},
 				{
-					"heading": "Dynamic Application Configuration",
-					"body": "Dynamically load configuration values from Kubernetes ConfigMaps, Vault, and more.",
+					"title": "Dynamic Application Configuration",
+					"description": "Dynamically load configuration values from Kubernetes ConfigMaps, Vault, and more.",
 					"url": "/waypoint/docs/app-config/dynamic"
 				}
 			]
 		},
 		{
-			"type": "heading",
+			"type": "card-grid",
 			"heading": "Additional Features",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Runners",
-					"body": "Learn more about the different runners available include remote runners.",
+					"title": "Runners",
+					"description": "Learn more about the different runners available include remote runners.",
 					"url": "/waypoint/docs/runner"
 				},
 				{
-					"heading": "Triggers",
-					"body": "Trigger different Waypoint operations without the Waypoint CLI.",
+					"title": "Triggers",
+					"description": "Trigger different Waypoint operations without the Waypoint CLI.",
 					"url": "/waypoint/docs/triggers"
 				},
 				{
-					"heading": "CI Automation",
-					"body": "Integrate Waypoint with your Git repository and automatically run workflows on repository changes.",
+					"title": "CI Automation",
+					"description": "Integrate Waypoint with your Git repository and automatically run workflows on repository changes.",
 					"url": "/waypoint/docs/automating-execution"
 				}
 			]
 		},
 		{
-			"type": "heading",
+			"type": "card-grid",
 			"heading": "Available Plugins",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "AWS Lambda",
-					"body": "Deploy your application as an AWS Lambda function.",
+					"title": "AWS Lambda",
+					"description": "Deploy your application as an AWS Lambda function.",
 					"url": "/waypoint/plugins/aws-lambda"
 				},
 				{
-					"heading": "Exec",
-					"body": "Execute any command to perform a deploy.",
+					"title": "Exec",
+					"description": "Execute any command to perform a deploy.",
 					"url": "/waypoint/plugins/exec"
 				},
 				{
-					"heading": "Helm",
-					"body": "Deploy your Helm-ified application.",
+					"title": "Helm",
+					"description": "Deploy your Helm-ified application.",
 					"url": "/waypoint/plugins/helm"
 				},
 				{
-					"heading": "Pack",
-					"body": "Build your application using CloudNative Buildpacks.",
+					"title": "Pack",
+					"description": "Build your application using CloudNative Buildpacks.",
 					"url": "/waypoint/plugins/pack"
 				},
 				{
-					"heading": "Terraform Cloud",
-					"body": "Read Terraform state outputs from Terraform Cloud.",
+					"title": "Terraform Cloud",
+					"description": "Read Terraform state outputs from Terraform Cloud.",
 					"url": "/waypoint/plugins/terraform-cloud"
 				},
 				{
-					"heading": "Vault",
-					"body": "Read configuration values from Vault.",
+					"title": "Vault",
+					"description": "Read configuration values from Vault.",
 					"url": "/waypoint/plugins/vault"
 				}
 			]

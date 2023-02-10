@@ -28,13 +28,8 @@
 	},
 	"blocks": [
 		{
-			"type": "heading",
+			"type": "collection-card-grid",
 			"heading": "Use Cases",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "collection_cards",
 			"collectionSlugs": [
 				"vault/secrets-management",
 				"vault/db-credentials",
@@ -42,42 +37,32 @@
 			]
 		},
 		{
-			"type": "heading",
+			"type": "collection-card-grid",
 			"heading": "Get Certified",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "collection_cards",
 			"collectionSlugs": ["vault/associate-cert", "vault/ops-pro-cert"]
 		},
 		{
-			"type": "heading",
+			"type": "card-grid",
 			"heading": "Popular Vault Features",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Key/Value Secrets Engine",
-					"body": "Key-value store used to persist arbitrary secrets within the configured physical storage for Vault.",
+					"title": "Key/Value Secrets Engine",
+					"description": "Key-value store used to persist arbitrary secrets within the configured physical storage for Vault.",
 					"url": "/vault/docs/secrets/kv"
 				},
 				{
-					"heading": "Database Secrets Engine",
-					"body": "Dynamically generates database credentials based on pre-configured roles.",
+					"title": "Database Secrets Engine",
+					"description": "Dynamically generates database credentials based on pre-configured roles.",
 					"url": "/vault/docs/secrets/databases"
 				},
 				{
-					"heading": "Transit Secrets Engine",
-					"body": "Encrypt data in-transit to provide encryption as a service.",
+					"title": "Transit Secrets Engine",
+					"description": "Encrypt data in-transit to provide encryption as a service.",
 					"url": "/vault/docs/secrets/transit"
 				},
 				{
-					"heading": "Transform Secrets Engine",
-					"body": "An Enterprise feature generates cryptographically secure tokens mapped to secure highly sensitive data.",
+					"title": "Transform Secrets Engine",
+					"description": "An Enterprise feature generates cryptographically secure tokens mapped to secure highly sensitive data.",
 					"url": "/vault/docs/secrets/databases"
 				}
 			]
