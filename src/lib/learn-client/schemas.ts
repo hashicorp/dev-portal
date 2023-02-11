@@ -120,15 +120,5 @@ export const ProductPageSchema = Joi.object({
 			)
 			.required(),
 		showProductSitemap: Joi.boolean(),
-		docsCta: Joi.object({
-			heading: Joi.string().required(),
-			subheading: Joi.string().required(),
-			links: Joi.array().items(
-				Joi.object({
-					title: Joi.string(),
-					url: Joi.string(),
-				})
-			),
-		}),
 	}).required(),
 })
