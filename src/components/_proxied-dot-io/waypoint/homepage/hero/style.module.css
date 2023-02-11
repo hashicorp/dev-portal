@@ -76,6 +76,9 @@
 		rgba(89, 220, 228, 0.8) 0.25%,
 		rgba(99, 208, 255, 0.5) 95.01%
 	);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100% 95%;
 	z-index: -1;
 
 	@media (--medium-up) {
