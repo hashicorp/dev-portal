@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useId } from '@react-aria/utils'
 import { Errors, HelperText, Label } from 'components/form/components'
 import RadioControl from 'components/form/base-controls/radio-control'

@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Given a number, a minimum value, and a maximum value,
  * Return the minimum value if the number is less than the minimum,
  * or the maximum value if the number is greater than the maximum,

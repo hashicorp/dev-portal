@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Link from 'components/link'
 import useCurrentPath from 'hooks/use-current-path'
 import { ProductIconTextLockup } from '..'

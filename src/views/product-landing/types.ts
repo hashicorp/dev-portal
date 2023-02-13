@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { CalloutCardProps } from 'components/callout-card/types'
 import { HeroHeadingVisualProps } from './components/hero-heading-visual/types'
 import { OverviewCtaProps } from './components/overview-cta/types'

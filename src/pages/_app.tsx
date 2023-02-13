@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Third-party imports
 import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'

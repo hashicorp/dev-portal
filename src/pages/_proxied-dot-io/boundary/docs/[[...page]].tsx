@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Products } from '@hashicorp/platform-product-meta'
 import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'
 import DocsPage from 'components/_proxied-dot-io/common/docs-page'

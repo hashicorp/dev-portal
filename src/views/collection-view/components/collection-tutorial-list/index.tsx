@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { TutorialCardsGridList } from 'components/cards-grid-list'
 import { CollectionTutorialListProps } from './types'
 import s from './collection-tutorial-list.module.css'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Configure, Index } from 'react-instantsearch-hooks-web'
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 import { CustomHitsContainer, NoResultsMessage, TabContentsCta } from '../'

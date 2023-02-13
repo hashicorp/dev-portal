@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Definition, Link } from 'mdast'
 import { Plugin } from 'unified'
 import visit from 'unist-util-visit'

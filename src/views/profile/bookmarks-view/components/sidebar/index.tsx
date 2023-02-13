@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 import Sidebar from 'components/sidebar'

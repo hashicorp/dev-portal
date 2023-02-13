@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { CertificationsSectionProps } from './components/certifications-section/types'
 import { HeroProps } from './components/hero/types'
 import { HcpSlotProps } from './components/merchandising-slots/slots/hcp-slot/types'

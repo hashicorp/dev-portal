@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { getCollectionSlug } from 'views/collection-view/helpers'
 import {
 	Collection as ClientCollection,

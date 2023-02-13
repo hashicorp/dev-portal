@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 interface GetCSSVariableFromDocumentOptions {
 	/**
 	 * Whether or not to attempt to coerce the value to an integer

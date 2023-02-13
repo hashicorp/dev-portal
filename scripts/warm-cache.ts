@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { URL, URLSearchParams } from 'url'
 import createFetch from '@vercel/fetch'
 import pMap from 'p-map'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Hero from '@hashicorp/react-hero'
 import Button from '@hashicorp/react-button'
 import styles from './HomepageHero.module.css'

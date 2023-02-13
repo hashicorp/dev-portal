@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import Card from 'components/card'
 import Text from 'components/text'

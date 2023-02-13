@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { createContext, useContext } from 'react'
 
 export const AccordionDisclosureContext = createContext<boolean>(false)

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useHits } from 'react-instantsearch-hooks-web'
 import { CommandBarList } from 'components/command-bar/components'
 import { CustomHitsContainerProps } from './types'

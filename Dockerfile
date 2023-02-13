@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 FROM docker.mirror.hashicorp.services/node:18-alpine AS deps
 
 RUN apk add --update --no-cache \

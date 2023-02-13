@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Given a string and character limit, returns a string truncated to the given
  * limit on full words with an ellipsis at the end.
  */

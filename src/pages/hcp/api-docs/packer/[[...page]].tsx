@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { InferGetStaticPropsType } from 'next'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { OpenApiPageContents } from 'components/open-api-page'

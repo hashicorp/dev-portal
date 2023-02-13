@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { visit } from 'unist-util-visit'
 
 const api = process.env.PLAYGROUND_API_URL

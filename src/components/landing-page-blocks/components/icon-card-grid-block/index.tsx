@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { SUPPORTED_ICONS } from 'content/supported-icons'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import { IconCardGridBlockCard, IconCardGridBlockProps } from './types'

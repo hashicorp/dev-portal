@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import { paragraphCustomAlerts, typography } from '@hashicorp/remark-plugins'
 import rehypePrism from '@mapbox/rehype-prism'

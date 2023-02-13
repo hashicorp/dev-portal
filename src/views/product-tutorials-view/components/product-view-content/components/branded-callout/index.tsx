@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import BrandedCard from 'components/branded-card'
 import StandaloneLink from 'components/standalone-link'
 import { BrandedCalloutProps } from './types'

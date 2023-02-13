@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useMemo } from 'react'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { useIntegrationsByProductSlugs } from 'hooks/integrations/use-integrations-by-product-slugs'

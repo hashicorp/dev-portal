@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Fragment } from 'react'
 import HashiHead from '@hashicorp/react-head'
 import InstruqtProvider from 'contexts/instruqt-lab'

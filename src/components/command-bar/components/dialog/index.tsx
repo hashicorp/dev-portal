@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Dialog from 'components/dialog'
 import useWindowSize from 'hooks/use-window-size'
 import { CommandBarDialogProps } from './types'

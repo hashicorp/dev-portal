@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Guess the method of dismissal for analytics tracking. This informs us
  * of how users are interacting with the dialog.
  *

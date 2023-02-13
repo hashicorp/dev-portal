@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export interface ToastOptions {
 	/**
 	 * Set the number of milliseconds after which to auto-dismiss.

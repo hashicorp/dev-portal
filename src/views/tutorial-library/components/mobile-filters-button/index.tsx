@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconSliders16 } from '@hashicorp/flight-icons/svg-react/sliders-16'
 import Button from 'components/button'
 

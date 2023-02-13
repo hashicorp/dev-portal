@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Global imports
 import AccordionDisclosure from 'components/accordion-disclosure'
 import Image from 'components/image'

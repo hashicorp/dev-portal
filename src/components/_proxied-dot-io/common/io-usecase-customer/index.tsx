@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import * as React from 'react'
 import type { ImageProps } from 'next/legacy/image'
 import Image from 'next/legacy/image'

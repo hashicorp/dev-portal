@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { CSSProperties, ReactElement } from 'react'
 import classNames from 'classnames'
 import { IconHashicorp24 } from '@hashicorp/flight-icons/svg-react/hashicorp-24'

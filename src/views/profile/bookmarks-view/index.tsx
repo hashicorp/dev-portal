@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useState } from 'react'
 import { useAllBookmarks } from 'hooks/bookmarks'
 import { ApiBookmark } from 'lib/learn-client/api/api-types'

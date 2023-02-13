@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import NextSteps from '@hashicorp/react-next-steps'
 import type { NextStepsProps } from '@hashicorp/react-next-steps/types'
 import { Products } from '@hashicorp/platform-product-meta'

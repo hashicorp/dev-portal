@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { LogoCtaSlot } from '../logo-cta-slot'
 import logo from '@hashicorp/mktg-logos/product/hcp/primary/black.svg?include'
 import { HcpSlotProps } from './types'

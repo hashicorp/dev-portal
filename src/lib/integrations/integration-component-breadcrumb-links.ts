@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Global imports
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { ProductData } from 'types/products'

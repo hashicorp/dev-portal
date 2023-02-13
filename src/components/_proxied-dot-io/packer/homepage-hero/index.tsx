@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Alert from '@hashicorp/react-alert'
 import Button from '@hashicorp/react-button'
 import s from './style.module.css'

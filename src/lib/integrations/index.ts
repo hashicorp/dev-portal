@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export * from './fetch-all-integrations'
 export * from './generate-product-integration-library-sidebar-nav-data'
 export * from './get-integration-url'

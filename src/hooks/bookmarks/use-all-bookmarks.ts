@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useQuery, useQueryClient, UseQueryResult } from '@tanstack/react-query'
 import {
 	getAllBookmarks,

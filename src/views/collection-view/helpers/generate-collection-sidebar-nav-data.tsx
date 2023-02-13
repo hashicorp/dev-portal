@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ProductData } from 'types/products'
 import { CollectionViewSidebarContent } from 'components/tutorials-sidebar'
 import { CollectionCategorySidebarSection } from './format-sidebar-sections'
