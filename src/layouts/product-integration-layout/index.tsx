@@ -32,6 +32,7 @@ interface ProductIntegrationLayoutProps {
 	getVersionChangedURL: (version: string) => string
 	children: React.ReactNode
 	sidecarSlot?: SidebarSidecarLayoutProps['sidecarSlot']
+	alertBannerSlot?: SidebarSidecarLayoutProps['alertBannerSlot']
 }
 
 /**
@@ -49,6 +50,7 @@ export default function ProductIntegrationLayout({
 	getVersionChangedURL,
 	children,
 	sidecarSlot,
+	alertBannerSlot,
 }: ProductIntegrationLayoutProps) {
 	// Determine if we're on the latest version, as that will slightly adjust the URLs
 	const onLatestVersion = integration.versions[0] === activeRelease.version
@@ -112,6 +114,7 @@ export default function ProductIntegrationLayout({
 			sidebarNavDataLevels={sidebarNavDataLevels}
 			breadcrumbLinks={breadcrumbLinks}
 			sidecarSlot={sidecarSlot}
+			alertBannerSlot={alertBannerSlot}
 		>
 			{!onLatestVersion && (
 				<HashiHead>

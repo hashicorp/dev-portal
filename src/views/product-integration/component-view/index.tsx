@@ -67,6 +67,17 @@ export default function ProductIntegrationComponentView({
 				return getIntegrationComponentUrl(integration, component, versionString)
 			}}
 			sidecarSlot={<TableOfContents headings={variableGroupHeadings} />}
+			alertBannerSlot={
+				<div
+					style={{
+						border: '1px solid magenta',
+						width: '100%',
+						padding: '1rem',
+					}}
+				>
+					TODO: add versioned alert banner component for integrations.
+				</div>
+			}
 		>
 			{serializedREADME ? (
 				<div className={s.mdxWrapper}>
