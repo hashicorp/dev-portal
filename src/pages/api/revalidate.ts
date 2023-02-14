@@ -61,7 +61,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 					)
 					const { result } = await response.json()
 
-					if (!result.navData) {
+					if (!result || !result.navData) {
 						console.log(
 							`[revalidate] failed to find nav data for path: ${path}. It is possible that this path does not have nav data, this is likely safe to ignore.`
 						)
