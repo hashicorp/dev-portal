@@ -2,27 +2,19 @@
 import { ReactElement, useRef } from 'react'
 import classNames from 'classnames'
 
-// HashiCorp imports
-import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
-
 // Global imports
 import { MAIN_ELEMENT_ID } from 'constants/element-ids'
-import { getVersionFromPath } from 'lib/get-version-from-path'
-import { removeVersionFromPath } from 'lib/remove-version-from-path'
 import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
-import useCurrentPath from 'hooks/use-current-path'
 import { useScroll } from 'framer-motion'
 import { useMobileMenu } from 'contexts'
 import BaseLayout from 'layouts/base-new'
 import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
-import InlineLink from 'components/inline-link'
 import MobileMenuContainer, {
 	MobileAuthenticationControls,
 } from 'components/mobile-menu-container'
-import PageAlert from 'components/page-alert'
 import Sidebar from 'components/sidebar'
 
 // Local imports
@@ -56,14 +48,12 @@ const SidebarSidecarLayoutContent = ({
 	sidecarSlot,
 	sidebarNavDataLevels,
 	mainWidth = 'wide',
-	versions,
+	alertBannerSlot,
 }: SidebarSidecarLayoutProps) => {
 	const { isMobileMenuRendered, mobileMenuIsOpen, setMobileMenuIsOpen } =
 		useMobileMenu()
 	const { currentLevel } = useSidebarNavData()
 	const sidebarRef = useRef<HTMLDivElement>()
-	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-	const currentlyViewedVersion = getVersionFromPath(currentPath)
 	const sidebarProps = sidebarNavDataLevels[currentLevel]
 	const sidebarIsVisible = !isMobileMenuRendered || mobileMenuIsOpen
 	const contentRef = useRef(null)
@@ -111,28 +101,7 @@ const SidebarSidecarLayoutContent = ({
 				</div>
 			</MobileMenuContainer>
 			<div className={s.contentWrapper} ref={contentRef}>
-				{currentlyViewedVersion && (
-					<PageAlert
-						className={s.versionAlert}
-						description={
-							<>
-								You are viewing documentation for version{' '}
-								{currentlyViewedVersion}.{' '}
-								<InlineLink
-									className={s.versionAlertLink}
-									href={removeVersionFromPath(currentPath)}
-									textSize={200}
-									textWeight="medium"
-								>
-									View latest version
-								</InlineLink>
-								.
-							</>
-						}
-						icon={<IconInfo16 />}
-						type="highlight"
-					/>
-				)}
+				{alertBannerSlot ? alertBannerSlot : null}
 				<div className={s.mainAreaWrapper}>
 					<main id={MAIN_ELEMENT_ID} className={s.main}>
 						<span className={s.breadcrumbOptOutGroup}>
