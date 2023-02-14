@@ -1,6 +1,7 @@
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import DevDotContent from 'components/dev-dot-content'
 import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/components'
+import VersionAlertBanner from 'components/version-alert-banner'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
 import { getIntegrationUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
@@ -24,6 +25,12 @@ export default function ProductIntegrationReadmeView({
 	breadcrumbLinks,
 	serializedREADME,
 }: ProductIntegrationReadmeViewProps) {
+	/**
+	 * Grab the current version string from the activeRelease.
+	 */
+	const currentVersion = activeRelease.version
+	const isLatestVersion = currentVersion === integration.versions[0]
+
 	return (
 		<ProductIntegrationLayout
 			title="README"
@@ -40,15 +47,12 @@ export default function ProductIntegrationReadmeView({
 			}}
 			sidecarSlot={<TryHcpCalloutSidecarPlacement productSlug={product.slug} />}
 			alertBannerSlot={
-				<div
-					style={{
-						border: '1px solid magenta',
-						width: '100%',
-						padding: '1rem',
-					}}
-				>
-					TODO: add versioned alert banner component for integrations.
-				</div>
+				isLatestVersion ? null : (
+					<VersionAlertBanner
+						currentVersion={currentVersion}
+						latestVersionUrl={getIntegrationUrl(integration)}
+					/>
+				)
 			}
 		>
 			<DevDotContent mdxRemoteProps={serializedREADME} />
