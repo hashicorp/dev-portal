@@ -1,0 +1,208 @@
+---
+componentName: LandingPageBlocks
+peerComponents:
+  - AccordionDisclosure
+---
+
+## type = 'callout'
+
+<div style={{ border: '1px solid black', padding: 24 }}>
+	<LandingPageBlocks
+		blocks={[
+			{
+				type: 'callout',
+				heading: 'Vagrant vs. Other Software',
+				body: 'Vagrant is not the only tool to manage virtual machines and development environments. ',
+				iconCardLinks: [
+					{
+						icon: 'tools',
+						text: 'CLI Tools',
+						url: '/vagrant/intro/vs/cli-tools',
+					},
+					{
+						icon: 'docker-color',
+						text: 'Docker',
+						url: '/vagrant/intro/vs/docker',
+					},
+					{
+						icon: 'terraform-color',
+						text: 'Terraform',
+						url: '/vagrant/intro/vs/terraform',
+					},
+				],
+			},
+		]}
+	/>
+</div>
+
+## type = 'card-grid'
+
+<div style={{ border: '1px solid black', padding: 24 }}>
+	<LandingPageBlocks
+		blocks={[
+			{
+				type: 'card-grid',
+				heading: 'Filtering',
+				subheading:
+					'A quick reference to the filtering syntax used in Boundary.',
+				cards: [
+					{
+						description:
+							'Configure filters for managed groups within the OIDC auth method.',
+						title: 'OIDC Managed Groups',
+						url: '/boundary/docs/concepts/filtering/oidc-managed-groups',
+					},
+					{
+						description:
+							'Use filters to list resources to further narrow down the list operation.',
+						title: 'Resource Listing',
+						url: '/boundary/docs/concepts/filtering/resource-listing',
+					},
+					{
+						description:
+							'Use worker tags and filters to control which workers are allowed to handle a given target.',
+						title: 'Worker Tags',
+						url: '/boundary/docs/concepts/filtering/worker-tags',
+					},
+					{
+						description: 'Learn how to filter events emitted by Boundary.',
+						title: 'Event Filtering',
+						url: '/boundary/docs/concepts/filtering/events',
+					},
+				],
+			},
+		]}
+	/>
+</div>
+
+## type = 'collection-card-grid'
+
+<div style={{ border: '1px solid black', padding: 24 }}>
+	<LandingPageBlocks
+		blocks={[
+			{
+				type: 'collection-card-grid',
+				heading: 'Deploy to the Cloud',
+				subheading:
+					'Build, deploy, and release applications on your preferred cloud provider.',
+				collections: [
+					{
+						description: 'Use Waypoint with AWS services.',
+						heading: 'AWS',
+						productsUsed: ['waypoint'],
+						tutorialCount: 2,
+						url: '/waypoint/tutorials/deploy-aws',
+						logo: 'aws',
+					},
+					{
+						description: 'Use Waypoint with Azure services.',
+						heading: 'Azure',
+						productsUsed: ['waypoint'],
+						tutorialCount: 1,
+						url: '/waypoint/tutorials/deploy-azure',
+						logo: 'microsoft-azure',
+					},
+					{
+						description: 'Use Waypoint with Google Cloud services.',
+						heading: 'Google Cloud',
+						productsUsed: ['waypoint'],
+						tutorialCount: 1,
+						url: '/waypoint/tutorials/deploy-google-cloud',
+						logo: 'google-cloud',
+					},
+				],
+			},
+		]}
+	/>
+</div>
+
+## type = 'tutorial-card-grid'
+
+<div style={{ border: '1px solid black', padding: 24 }}>
+	<LandingPageBlocks
+		blocks={[
+			{
+				type: 'tutorial-card-grid',
+				heading: 'Get Started',
+				subheading: 'Install and deploy a local application with Waypoint.',
+				tutorials: [
+					{
+						description:
+							'Waypoint enables you to publish any application to any platform with a single file and a single command. Build, deploy, and release applications programmatically using HashiCorp Configuration Language.',
+						duration: '5min',
+						hasInteractiveLab: false,
+						hasVideo: true,
+						heading: 'Introduction to Waypoint',
+						url: '/waypoint/tutorials/get-started-docker/get-started-intro',
+						productsUsed: ['waypoint'],
+					},
+					{
+						description:
+							'Install the Waypoint binary locally on Mac, Linux, or Windows, manually or using a package manager (Homebrew).',
+						duration: '5min',
+						hasInteractiveLab: false,
+						hasVideo: false,
+						heading: 'Install Waypoint',
+						url: '/waypoint/tutorials/get-started-docker/get-started-install',
+						productsUsed: ['waypoint'],
+					},
+					{
+						description: 'Deploy a Waypoint application locally to Docker.',
+						duration: '10min',
+						hasInteractiveLab: true,
+						hasVideo: false,
+						heading: 'Use Waypoint with Docker',
+						url: '/waypoint/tutorials/get-started-docker/get-started-docker',
+						productsUsed: ['waypoint'],
+					},
+					{
+						description:
+							'Deploy a Ruby application onto AWS Lambda with Waypoint',
+						duration: '20min',
+						hasInteractiveLab: false,
+						hasVideo: false,
+						heading: 'Deploy an Application onto AWS Lambda',
+						url: '/waypoint/tutorials/deploy-aws/aws-lambda',
+						productsUsed: ['waypoint'],
+					},
+				],
+			},
+		]}
+	/>
+</div>
+
+## type = 'icon-card-grid'
+
+<div style={{ border: '1px solid black', padding: 24 }}>
+	<LandingPageBlocks
+		blocks={[
+			{
+				type: 'icon-card-grid',
+				heading: 'Developers',
+				cards: [
+					{
+						iconName: 'guide',
+						text: 'Provision Nomad with Terraform',
+						url: 'https://github.com/hashicorp/nomad/tree/main/terraform',
+					},
+					{
+						iconName: 'api',
+						text: 'API Reference',
+						url: '/nomad/api-docs',
+					},
+					{
+						iconName: 'terminal',
+						text: 'Nomad Ecosystem Tools',
+						url: '/nomad/tools',
+					},
+					{
+						iconName: 'plug',
+						text: 'Community Task Drivers',
+						url: '/nomad/plugins/drivers/community',
+					},
+				],
+				productSlug: 'nomad',
+			},
+		]}
+	/>
+</div>
