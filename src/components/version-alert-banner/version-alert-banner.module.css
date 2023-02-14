@@ -1,0 +1,8 @@
+.root {
+	padding-left: 24px;
+	padding-right: 24px;
+}
+
+.versionAlertLink {
+	color: var(--token-color-foreground-primary) !important;
+}
