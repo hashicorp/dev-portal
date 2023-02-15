@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useEffect, useState } from 'react'
 
 // The API endpoint for status.hashicorp.com that allows us to check

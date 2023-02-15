@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { MenuItem } from 'components/sidebar'
 import { EnrichedNavItem } from 'components/sidebar/types'
 import { Collection as ApiCollection } from 'lib/learn-client/types'

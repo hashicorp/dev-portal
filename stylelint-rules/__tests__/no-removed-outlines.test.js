@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 const { lint } = require('stylelint')
 const { messages, ruleName } = require('../no-removed-outlines')
 

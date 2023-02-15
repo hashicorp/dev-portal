@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { CollectionCardsProps } from './types'
 import CardsGridList from 'components/cards-grid-list'
 import CollectionCard, {

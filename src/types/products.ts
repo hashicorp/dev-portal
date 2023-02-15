@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ProductMeta, Products } from '@hashicorp/platform-product-meta'
 import { Product as LearnProduct } from 'lib/learn-client/types'
 import { NavigationHeaderItem as NavHeaderItem } from 'components/navigation-header'

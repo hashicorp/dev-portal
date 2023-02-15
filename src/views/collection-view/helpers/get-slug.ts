@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 

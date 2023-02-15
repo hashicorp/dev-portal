@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import path from 'path'
 import { get, toError } from 'lib/learn-client'
 import { ProductPageSchema } from 'lib/learn-client/schemas'

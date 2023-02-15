@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import * as React from 'react'
 import { DialogOverlay, DialogContent, DialogOverlayProps } from '@reach/dialog'
 import { AnimatePresence, m } from 'framer-motion'

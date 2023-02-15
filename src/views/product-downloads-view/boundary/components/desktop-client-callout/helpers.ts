@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Given a release architecture string,
  * Return a more human-readable version that represents the architecture.
  */

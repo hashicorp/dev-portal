@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import createFetch from '@vercel/fetch'
 import NextAuth, { Account, Session, Profile } from 'next-auth'
 import { JWT } from 'next-auth/jwt'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import BoundaryIoLayout from 'layouts/_proxied-dot-io/boundary'
 import productData from 'data/boundary'
 import OpenApiPage from '@hashicorp/react-open-api-page'

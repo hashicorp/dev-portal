@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Image, { ImageProps } from 'next/legacy/image'
 import CallToAction from '@hashicorp/react-call-to-action'
 import s from './style.module.css'

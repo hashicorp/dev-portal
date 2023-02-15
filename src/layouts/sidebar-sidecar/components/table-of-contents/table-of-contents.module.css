@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .tableOfContentsLabel {
 	color: var(--token-color-palette-neutral-600);
 	font-size: 14px;

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import TextSplitWithImage from '@hashicorp/react-text-split-with-image'
 
 export default function IntegrationsTextSplit({

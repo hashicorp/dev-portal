@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { NextRouter } from 'next/router'
 import { signIn, SignInOptions as _SignInOptions } from 'next-auth/react'
 import { ValidAuthProviderId } from 'types/auth'

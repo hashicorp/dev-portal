@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import HashiHead from '@hashicorp/react-head'
 import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import styles from './style.module.css'

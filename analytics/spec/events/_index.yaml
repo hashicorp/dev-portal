@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 - $ref: ./page_viewed.yaml
 - $ref: ./page_scrolled.yaml
 - $ref: ./beta_opted_in.yaml

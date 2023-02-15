@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import classNames from 'classnames'
 import { IconChevronLeft16 } from '@hashicorp/flight-icons/svg-react/chevron-left-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'

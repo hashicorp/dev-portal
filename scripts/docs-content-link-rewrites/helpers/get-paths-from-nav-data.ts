@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * @NOTE copied from:
  * node_modules/@hashicorp/react-docs-page/server/consts.ts
  */

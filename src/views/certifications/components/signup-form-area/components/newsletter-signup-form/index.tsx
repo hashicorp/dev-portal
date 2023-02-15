@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import React, { useState } from 'react'
 import classNames from 'classnames'
 import MarketoForm from '@hashicorp/react-marketo-form'

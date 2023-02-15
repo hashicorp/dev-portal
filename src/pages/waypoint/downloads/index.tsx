@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import waypointData from 'data/waypoint.json'
 import { ProductData } from 'types/products'
 import ProductDownloadsView from 'views/product-downloads-view'

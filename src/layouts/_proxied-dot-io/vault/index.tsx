@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import React from 'react'
 import { trackGoal as trackFathomGoal } from 'fathom-client'
 import HashiHead from '@hashicorp/react-head'

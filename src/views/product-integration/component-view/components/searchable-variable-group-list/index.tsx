@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import FilterInput from 'components/filter-input'
 import { CheckboxField } from 'components/form/field-controls'

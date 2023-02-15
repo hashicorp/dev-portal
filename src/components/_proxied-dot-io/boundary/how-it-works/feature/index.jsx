@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import LogoList from './logo-list'
 import s from './feature.module.css'
 import { useInView } from 'react-intersection-observer'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import Heading from 'components/heading'
 import {

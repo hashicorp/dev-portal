@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import nock from 'nock'
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'

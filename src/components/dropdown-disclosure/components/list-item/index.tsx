@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { MouseEvent } from 'react'
 import { useDisclosureState } from 'components/disclosure'
 import Link from 'components/link'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import React from 'react'
 import Badge, { BadgeTheme } from '../../shared/badge'
 import svgRibbonIcon from './ribbon-icon.svg?include'

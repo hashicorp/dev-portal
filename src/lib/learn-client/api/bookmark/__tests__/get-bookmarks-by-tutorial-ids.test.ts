@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
 import * as learnApi from 'lib/learn-client'
 import { getBookmarksByTutorialIds } from '../get-bookmarks-by-tutorial-ids'

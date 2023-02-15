@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { MouseEventHandler } from 'react'
 import CSS from 'csstype'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'

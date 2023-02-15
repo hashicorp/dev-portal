@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .root {
 	composes: g-focus-border-and-box-shadow-light from global;
 	background-color: white;

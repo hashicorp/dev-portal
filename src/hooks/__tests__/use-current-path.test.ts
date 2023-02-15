@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { renderHook } from '@testing-library/react'
 import useCurrentPath from '../use-current-path'
 

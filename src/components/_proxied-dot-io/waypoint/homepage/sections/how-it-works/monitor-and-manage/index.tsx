@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useInView } from 'react-intersection-observer'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import classNames from 'classnames'

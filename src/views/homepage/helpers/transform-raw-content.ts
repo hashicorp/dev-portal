@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { getInlineContentMaps } from 'lib/tutorials/get-inline-content-maps'
 import { formatCollectionCard } from 'components/collection-card/helpers'
 import { HomePageContentProps } from '../types'

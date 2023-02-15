@@ -1,8 +1,14 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconArchive16 } from '@hashicorp/flight-icons/svg-react/archive-16'
 import { IconEnterprise16 } from '@hashicorp/flight-icons/svg-react/enterprise-16'
 import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'
 import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
 import { IconRocket16 } from '@hashicorp/flight-icons/svg-react/rocket-16'
+import { IconUsers16 } from '@hashicorp/flight-icons/svg-react/users-16'
 import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
 import classNames from 'classnames'
 import Badge, { BadgeProps } from 'components/badge'
@@ -75,6 +81,7 @@ export function GetIntegrationTags(
 		case Tier.COMMUNITY:
 			tierTag = {
 				name: 'Community',
+				icon: <IconUsers16 />,
 				description:
 					'Community integrations are published by individual maintainers, groups of maintainers, or other members of the HashiCorp community.',
 			}

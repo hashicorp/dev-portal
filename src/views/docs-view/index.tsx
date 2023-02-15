@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import dynamic from 'next/dynamic'
 import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'

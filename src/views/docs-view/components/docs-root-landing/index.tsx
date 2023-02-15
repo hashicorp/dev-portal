@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Children, ReactChild } from 'react'
 import LandingHero from 'components/landing-hero'
 import { getElementTextContent } from './utils/get-element-text-content'

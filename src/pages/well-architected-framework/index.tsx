@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import slugify from 'slugify'
 import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
