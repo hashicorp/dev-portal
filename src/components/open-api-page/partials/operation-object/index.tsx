@@ -54,7 +54,7 @@ function OperationObject({
 	type,
 	renderOperationIntro,
 }: OperationObjectProps): React.ReactElement {
-	const { operationId, parameters, responses, summary } = data
+	const { operationId, parameters = [], responses, summary } = data
 	const successResponse = responses['200']
 	const title = capitalCase(operationId.split('_').pop()!)
 

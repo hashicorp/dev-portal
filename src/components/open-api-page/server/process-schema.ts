@@ -30,7 +30,7 @@ async function processSchema(schemaJson) {
 		paths: await processMarkdownProperties(schemaJson.paths),
 		definitions: await processMarkdownProperties(schemaJson.definitions),
 	}
-	return await RefParser.dereference(withMarkdownAsHtml)
+	return await RefParser.bundle(withMarkdownAsHtml)
 }
 
 async function processSchemaString(jsonString) {
