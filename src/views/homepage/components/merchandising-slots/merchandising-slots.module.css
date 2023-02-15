@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .merchandisingSlots {
 	padding-top: var(--homepage-section-padding-y);
 	padding-bottom: var(--homepage-section-padding-y);

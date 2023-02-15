@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .docsVersionSwitcher {
 	@media (--dev-dot-mobile) {
 		/* Make trigger button and dropdown list full width on mobile */

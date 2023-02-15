@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import remark from 'remark'
 import { Parent } from 'unist-util-visit'
 import visitChildren from 'unist-util-visit-children'

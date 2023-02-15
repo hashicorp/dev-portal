@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .root {
 	/* Widths/spacing needed in multiple stylesheets */
 	--dev-dot-sidebar-width: 320px;

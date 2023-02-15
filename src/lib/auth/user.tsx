@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Session } from 'next-auth'
 import { IconBookmark16 } from '@hashicorp/flight-icons/svg-react/bookmark-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'

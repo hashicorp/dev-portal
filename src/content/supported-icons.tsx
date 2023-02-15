@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
 import { IconAwsColor16 } from '@hashicorp/flight-icons/svg-react/aws-color-16'
 import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'

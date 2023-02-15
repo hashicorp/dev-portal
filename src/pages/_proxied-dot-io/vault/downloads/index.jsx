@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import Link from 'next/link'
 import Button from '@hashicorp/react-button'

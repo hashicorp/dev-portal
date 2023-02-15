@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Heading from 'components/heading'
 import IconTile from 'components/icon-tile'
 import Text from 'components/text'

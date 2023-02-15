@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export const productLogos = {
 	boundary: {
 		color: require('@hashicorp/mktg-logos/product/boundary/logomark/color.svg?include'),

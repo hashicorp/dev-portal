@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { FeaturedCardProps } from './components/featured-card/types'
 import { UseCaseCardProps } from './components/use-case-card/types'
 

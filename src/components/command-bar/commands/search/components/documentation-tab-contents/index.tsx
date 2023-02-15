@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Configure, Index } from 'react-instantsearch-hooks-web'
 import { CommandBarDivider } from 'components/command-bar/components'
 import { CustomHitsContainer, NoResultsMessage, SuggestedPages } from '../'

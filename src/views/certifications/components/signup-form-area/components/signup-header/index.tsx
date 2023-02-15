@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Text from 'components/text'
 import Heading from 'components/heading'
 import s from './signup-header.module.css'

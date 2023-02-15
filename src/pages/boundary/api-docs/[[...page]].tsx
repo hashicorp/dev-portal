@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { InferGetStaticPropsType } from 'next'
 import { CustomPageComponent } from 'types/_app'
 /* Used server-side only */

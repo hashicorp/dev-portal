@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ChangeEvent } from 'react'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 import { useCurrentProduct } from 'contexts'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import fetchContentApiFileString from './fetch-content-api-file-string'
 
 // TODO need to be able to include from remote...

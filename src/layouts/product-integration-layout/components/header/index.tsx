@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Button from 'components/button'
 import Heading from 'components/heading'
 import Text from 'components/text'

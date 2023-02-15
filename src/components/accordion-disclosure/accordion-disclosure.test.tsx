@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { render, fireEvent } from '@testing-library/react'
 import AccordionDisclosure from '.'
 

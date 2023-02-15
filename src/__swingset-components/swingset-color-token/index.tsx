@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 function SwingsetColorToken({ token }: { token: string }): React.ReactElement {
 	return (
 		<div

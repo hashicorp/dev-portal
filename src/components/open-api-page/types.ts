@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export interface Response {
 	/** Passed to the <ResponseObject /> component. We only support "200" response codes, for now. */
 	200: Record<'schema', SchemaType>

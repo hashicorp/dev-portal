@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Used in `getStaticProp` generation functions to
  * format between devdot routes and the API versions
  */

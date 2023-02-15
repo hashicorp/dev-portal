@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Collection as ApiCollection } from 'lib/learn-client/types'
 import { sortAlphabetically } from 'lib/sort-alphabetically'
 import hcpContent from 'content/hcp/tutorials-sidebar.json'

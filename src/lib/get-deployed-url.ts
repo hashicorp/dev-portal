@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Returns a fully qualified URL to the deployed app for preview deployments and the production deployment. Useful
  * if you need to build a full URL in the context of the app.
  *

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import React from 'react'
 import Link from 'next/link'
 import useErrorPageAnalytics from '@hashicorp/react-error-view/use-error-page-analytics'

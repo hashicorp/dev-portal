@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export * from './accordion-with-mdx-content'
 export * from './certifications-hero'
 export * from './certifications-max-width'

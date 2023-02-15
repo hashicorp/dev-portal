@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /*
 Not inheriting font color, weight, or size since they can be different than the
 ones set in the surrounding text.

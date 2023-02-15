@@ -1,4 +1,7 @@
-FROM docker.mirror.hashicorp.services/node:16-alpine AS deps
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
+FROM docker.mirror.hashicorp.services/node:18-alpine AS deps
 
 RUN apk add --update --no-cache \
 	autoconf \
@@ -22,7 +25,7 @@ RUN npm install -g npm@latest
 # - see https://github.com/imagemin/optipng-bin/issues/118
 RUN CPPFLAGS="-DPNG_ARM_NEON_OPT=0" npm install
 
-FROM docker.mirror.hashicorp.services/node:16-alpine AS builder
+FROM docker.mirror.hashicorp.services/node:18-alpine AS builder
 
 RUN npm install -g npm@latest
 

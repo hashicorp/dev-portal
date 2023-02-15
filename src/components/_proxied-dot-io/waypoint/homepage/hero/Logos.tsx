@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export default function Logos() {
 	return (
 		<svg viewBox="0 0 1685 732" fill="none" xmlns="http://www.w3.org/2000/svg">

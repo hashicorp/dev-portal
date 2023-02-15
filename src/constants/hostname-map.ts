@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export const HOSTNAME_MAP = {
 	'www.boundaryproject.io': 'boundary',
 	'test-bd.hashi-mktg.com': 'boundary',

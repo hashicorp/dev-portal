@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactNode } from 'react'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'

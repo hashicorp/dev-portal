@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 const fs = require('fs')
 const path = require('path')
 const { isPreview } = require('../src/lib/env-checks')

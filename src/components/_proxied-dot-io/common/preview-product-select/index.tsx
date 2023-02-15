@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Abstracted from the ProductSwitcher component in development for the new dev
  * portal UI. This is a temporary component so there's not too much point trying
  * to DRY this up.

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useCallback, useState } from 'react'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { BookmarkButtonIconOnly } from 'components/bookmark-button'

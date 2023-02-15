@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import NextLink from 'next/link'
 import { useId } from '@react-aria/utils'
 import { LinkProps } from './types'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import path from 'path'
 import fs from 'fs'
 import { execFileSync } from 'child_process'
@@ -38,10 +43,18 @@ export function DeveloperPreviewBuilder(product) {
 
 			/**
 			 * Remove specific page files to speed up preview builds:
-			 * - Remove /src/pages/_proxied-dot-io
+			 * - /src/pages/_proxied-dot-io
+			 * - /src/pages/swingset
+			 * - /src/pages/well-architected-framework
+			 * - /src/pages/onboarding
 			 */
 			const pagesDir = path.join(cwd, 'src', 'pages')
-			const pagesDirsToRemove = ['_proxied-dot-io', 'swingset']
+			const pagesDirsToRemove = [
+				'_proxied-dot-io',
+				'swingset',
+				'well-architected-framework',
+				'onboarding',
+			]
 
 			const rootPagesDirs = (
 				await fs.promises.readdir(pagesDir, { withFileTypes: true })

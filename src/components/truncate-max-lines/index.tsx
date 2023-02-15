@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import classNames from 'classnames'
 import { TruncateMaxLinesProps } from './types'
 import s from './truncate-max-lines.module.css'

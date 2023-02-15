@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Integration } from 'lib/integrations-api-client/integration'
 import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
 import { useEffect, useRef } from 'react'

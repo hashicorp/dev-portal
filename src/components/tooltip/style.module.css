@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /*
 Duplicative composing of `.theme-light` & `.theme-dark` in JSX may seem odd,
 compared to propogating the CSS custom properties from a single parent element,

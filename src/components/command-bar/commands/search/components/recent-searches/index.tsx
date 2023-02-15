@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconHistory16 } from '@hashicorp/flight-icons/svg-react/history-16'
 import { useCommandBar } from 'components/command-bar'
 import {

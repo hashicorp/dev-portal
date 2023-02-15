@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Products } from '@hashicorp/platform-product-meta'
 import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import Placement from 'components/_proxied-dot-io/waypoint/placement-table'

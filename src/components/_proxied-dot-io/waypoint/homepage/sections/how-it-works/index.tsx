@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Section, { SectionHeading } from '../../section'
 import React from 'react'
 import s from './style.module.css'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 type NativeFieldSetProps = JSX.IntrinsicElements['fieldset']
 
 type InheritedFieldSetProps = Pick<

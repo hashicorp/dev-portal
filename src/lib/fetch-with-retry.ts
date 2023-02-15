@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 function sleep(delay: number) {
 	return new Promise((resolve) => setTimeout(resolve, delay))
 }

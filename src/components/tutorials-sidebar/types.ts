@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactNode } from 'react'
 import { SidebarProps } from 'components/sidebar'
 import { Collection, Tutorial } from 'lib/learn-client/types'
