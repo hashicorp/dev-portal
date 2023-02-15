@@ -7,28 +7,16 @@ import type { NextApiRequest, NextApiResponse } from 'next/types'
 import { StatusCodes } from 'http-status-codes'
 import { validateToken } from 'lib/api-validate-token'
 import { cachedGetProductData } from 'lib/get-product-data'
+import { ProductSlug } from 'types/products'
 
 /**
- * Accepts a POST request with a product slug, triggers revalidation for all of a product's docs paths
- * specified in its latest nav data.
+ * refactor out docs product specific logic into own function
+ *
  */
-async function handler(request: NextApiRequest, response: NextApiResponse) {
-	if (request.method !== 'POST') {
-		response.status(StatusCodes.NOT_FOUND)
-		return
-	}
 
-	const { product } = request.body
-
-	if (!product) {
-		response
-			.status(StatusCodes.BAD_REQUEST)
-			.json({ error: 'No product provided.' })
-
-		return
-	}
-
+async function handleProductDocsRevalidation(product: string) {
 	// Handle TF's sub-projects
+	// @TODO fix up type check here
 	let resolvedProduct = product
 	if (
 		resolvedProduct.startsWith('terraform-') ||
@@ -37,7 +25,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		resolvedProduct = 'terraform'
 	}
 
-	const productData = cachedGetProductData(resolvedProduct)
+	const productData = cachedGetProductData(resolvedProduct as ProductSlug)
 
 	const navDataPrefixes = productData.rootDocsPaths.map(
 		({ navDataPrefix, path, productSlugForLoader }) => {
@@ -79,13 +67,13 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		)
 	).filter(Boolean) as any[]
 
-	const revalidatePromises = []
+	const pathsToRevalidate = []
 
 	// iterates through nav data recursively and creates a revalidate request
-	function revalidateNavNodes(basePath, nodes) {
+	function constructRevalidateNavNodes(basePath, nodes) {
 		nodes.forEach(({ path, routes }) => {
 			if (routes) {
-				revalidateNavNodes(basePath, routes)
+				constructRevalidateNavNodes(basePath, routes)
 				return
 			}
 
@@ -94,15 +82,56 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 					// remove any trailing slash
 					.replace(/\/$/, '')
 
-				console.log('[revalidate]', pathToRevalidate)
-				revalidatePromises.push(response.revalidate(pathToRevalidate))
+				pathsToRevalidate.push(pathToRevalidate)
 			}
 		})
 	}
 
 	// iterate over each nav node and revalidate its path
 	navDataFiles.forEach(([basePath, navData]) => {
-		revalidateNavNodes(basePath, navData)
+		constructRevalidateNavNodes(basePath, navData)
+	})
+
+	return pathsToRevalidate
+}
+
+/**
+ * Accepts a POST request with a product slug, triggers revalidation for all of a product's docs paths
+ * specified in its latest nav data.
+ */
+async function handler(request: NextApiRequest, response: NextApiResponse) {
+	if (request.method !== 'POST') {
+		response.status(StatusCodes.NOT_FOUND)
+		return
+	}
+
+	const { product, paths } = request.body
+	const pathsExist = paths || paths.length > 0
+
+	if (!product && !pathsExist) {
+		response
+			.status(StatusCodes.BAD_REQUEST)
+			.json({ error: '[Revalidation failed]: No product or paths provided.' })
+
+		return
+	}
+
+	const pathsToRevalidate = []
+
+	if (product) {
+		const docsPaths = await handleProductDocsRevalidation(product)
+		pathsToRevalidate.push(...docsPaths)
+	}
+
+	if (pathsExist) {
+		//handle path revalidation
+	}
+
+	const revalidatePromises = []
+
+	pathsToRevalidate.forEach((path: string) => {
+		console.log('[revalidate]', path)
+		revalidatePromises.push(response.revalidate(path))
 	})
 
 	// TODO(brkalow): Add resiliency here, this has the potential to send off hundreds of calls depending on the product, so we should think about how we want to handle network hiccups or partial failure.
