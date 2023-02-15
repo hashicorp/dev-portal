@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactNode } from 'react'
 import Tabs, { Tab as MdxTab } from 'components/tabs'
 import s from './mdx-tabs.module.css'

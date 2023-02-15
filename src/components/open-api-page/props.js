@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 const boundaryPageProps = require('./fixtures/generated/boundary-page-props.json')
 const packerPageProps = require('./fixtures/generated/packer-page-props.json')
 const baseProps = {

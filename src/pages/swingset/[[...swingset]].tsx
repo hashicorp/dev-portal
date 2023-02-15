@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useState } from 'react'
 import createPage from 'swingset/page'
 import { createStaticProps, createStaticPaths } from 'swingset/server'

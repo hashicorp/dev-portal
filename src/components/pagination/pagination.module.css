@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .pagination {
 	--token-pagination-control-height: 24px;
 	--token-pagination-control-padding-horizontal: 7px;

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import React, { useContext, useState, MouseEvent } from 'react'
 import classNames from 'classnames'
 import Button from 'components/button'

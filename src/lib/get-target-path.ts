@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import {
 	TFE_VERSION_IN_PATH_REGEXP,
 	VERSION_IN_PATH_REGEX,

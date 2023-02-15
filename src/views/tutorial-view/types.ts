@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Dispatch, ReactNode, SetStateAction } from 'react'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { LearnProductData } from 'types/products'

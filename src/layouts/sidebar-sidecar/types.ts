@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactElement } from 'react'
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'

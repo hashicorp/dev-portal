@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import ReactDocsPage, { DocsPageProps } from '@hashicorp/react-docs-page'
 import ImageConfigBase from 'components/image-config'
 import { ImageConfigProps } from 'components/image-config/types'

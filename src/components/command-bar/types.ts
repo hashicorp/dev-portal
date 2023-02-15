@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { MutableRefObject, ReactElement, ReactNode } from 'react'
 import { ProductData } from 'types/products'
 

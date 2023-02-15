@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /* Sets padding for both card types, which differs from default card padding */
 .cardBase {
 	padding: 24px;

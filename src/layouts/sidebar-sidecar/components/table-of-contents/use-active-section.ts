@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useEffect, useRef, useState } from 'react'
 import { TableOfContentsHeading } from './types'
 import { useCurrentProduct } from 'contexts'

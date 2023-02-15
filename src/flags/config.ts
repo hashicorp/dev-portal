@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { Configuration } from '@happykit/flags/config'
 
 // You can replace this with your exact flag types

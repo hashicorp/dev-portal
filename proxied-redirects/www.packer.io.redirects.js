@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Redirects for Packer Plugins extraction
 // prettier-ignore
 const pluginsExtractionRedirects = [

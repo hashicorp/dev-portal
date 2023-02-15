@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Fixes up Packer plugin links that use an "old" URL format.
  *
  * For context, Packer plugins used to be served from "old" URLs like:

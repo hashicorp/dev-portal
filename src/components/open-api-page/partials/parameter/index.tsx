@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import s from './style.module.css'
 import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 import AccordionDisclosure from 'components/accordion-disclosure'

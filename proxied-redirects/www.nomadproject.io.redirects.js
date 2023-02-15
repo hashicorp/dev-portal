@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 module.exports = [
 	// Define your custom redirects within this file.
 	// Vercel's redirect documentation: https://nextjs.org/docs/api-reference/next.config.js/redirects

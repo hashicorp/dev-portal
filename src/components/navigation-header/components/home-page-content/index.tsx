@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import InlineSvg from '@hashicorp/react-inline-svg'
 import Link from 'components/link'
 import { NavBarListContainer, NavigationHeaderDropdownMenu } from '..'

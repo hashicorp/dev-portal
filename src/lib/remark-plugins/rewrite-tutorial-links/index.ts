@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * This plugin writes urls for learn tutorial content that reference other
  * learn tutorials or collections.
  *

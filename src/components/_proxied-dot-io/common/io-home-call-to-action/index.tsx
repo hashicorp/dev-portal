@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import ReactCallToAction from '@hashicorp/react-call-to-action'
 import { Products } from '@hashicorp/platform-product-meta'
 import s from './style.module.css'

@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Hack needed to avoid JSON-Serialization validation error from Next.js.
  * https://github.com/zeit/next.js/discussions/11209
  *

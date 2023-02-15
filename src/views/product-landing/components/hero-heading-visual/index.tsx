@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { CSSProperties } from 'react'
 import { HeroHeadingVisualProps } from './types'
 import s from './hero-heading-visual.module.css'

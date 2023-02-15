@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Button from '@hashicorp/react-button'
 import { useCurrentProduct } from 'contexts'
 import { rewriteDocsUrl } from 'views/docs-view/utils/product-url-adjusters'

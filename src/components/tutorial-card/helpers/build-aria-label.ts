@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ProductOption } from 'lib/learn-client/types'
 import { TutorialCardProps } from '../types'
 

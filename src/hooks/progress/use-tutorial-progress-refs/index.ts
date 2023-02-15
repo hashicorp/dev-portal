@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import useAuthentication from 'hooks/use-authentication'

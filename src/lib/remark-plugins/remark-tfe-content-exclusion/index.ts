@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { SemVer, gt, gte, lt, lte } from 'semver'
 import * as unified from 'unified'
 

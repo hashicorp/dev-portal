@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import rivet from 'rivet-graphql'
 import boundary from 'data/boundary.json'
 import consul from 'data/consul.json'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import classNames from 'classnames'
 import Image from 'next/legacy/image'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'

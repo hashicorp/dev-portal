@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ProductSlug } from 'types/products'
 import { getStaticProps as _getStaticProps } from 'views/product-root-docs-path-landing/server'
 import ProductRootDocsPathLanding from 'views/product-root-docs-path-landing'

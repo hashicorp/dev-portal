@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Products } from '@hashicorp/platform-product-meta'
 import NomadIoLayout from 'layouts/_proxied-dot-io/nomad'
 import Placement from 'components/author-primitives/shared/placement-table'

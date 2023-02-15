@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { buildApiRoutes } from '@hashicorp/react-marketo-form/server'
 import type { NextApiRequest } from 'next'
 

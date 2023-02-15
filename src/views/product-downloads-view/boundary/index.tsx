@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // View
 import ProductDownloadsView from 'views/product-downloads-view'
 // Components

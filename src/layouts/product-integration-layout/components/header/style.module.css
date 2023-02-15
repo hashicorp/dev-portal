@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .headerWrap {
 	@media (--dev-dot-tablet-up) {
 		display: grid;

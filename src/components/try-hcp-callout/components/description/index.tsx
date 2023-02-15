@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import mitigateWidows from '@hashicorp/platform-util/text/mitigate-widows'
 import s from './description.module.css'
 

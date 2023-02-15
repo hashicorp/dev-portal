@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { CommandBarLinkListItem } from 'components/command-bar/components'
 import { getIntegrationUrl } from 'lib/integrations'
 import { productSlugsToNames } from 'lib/products'

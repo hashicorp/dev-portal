@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import nock from 'nock'
 import detectAndReformatLearnUrl from '../detect-and-reformat-learn-url'
 

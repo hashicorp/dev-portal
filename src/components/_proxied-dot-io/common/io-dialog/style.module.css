@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .dialogOverlay {
 	background-color: rgba(0, 0, 0, 0.75);
 	height: 100%;

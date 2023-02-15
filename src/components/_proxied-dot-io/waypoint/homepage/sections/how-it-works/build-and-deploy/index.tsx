@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import Typical from 'components/_proxied-dot-io/waypoint/typical'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 const eventTypesToNames = {
 	'track.started': 'Instruqt Track Started',
 	'track.completed': 'Instruqt Track Completed',

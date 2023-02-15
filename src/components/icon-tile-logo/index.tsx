@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import IconTile from 'components/icon-tile'
 import ProductIcon from 'components/product-icon'
 import { IconTileLogoProps } from './types'

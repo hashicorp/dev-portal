@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import React, { ReactElement } from 'react'
 import { ProductSlug } from 'types/products'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /* eslint-disable @typescript-eslint/no-empty-function */
 import * as utils from '../utils'
 import { rewriteTutorialsLink } from '../utils/rewrite-tutorials-link'

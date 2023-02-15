@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconThumbsDown16 } from '@hashicorp/flight-icons/svg-react/thumbs-down-16'
 import { IconThumbsUp16 } from '@hashicorp/flight-icons/svg-react/thumbs-up-16'
 import type {

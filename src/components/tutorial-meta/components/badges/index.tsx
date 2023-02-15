@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactElement } from 'react'
 import { Product as ClientProduct } from 'lib/learn-client/types'
 import { TutorialData } from 'views/tutorial-view'
