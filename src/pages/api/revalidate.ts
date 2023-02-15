@@ -7,16 +7,20 @@ import type { NextApiRequest, NextApiResponse } from 'next/types'
 import { StatusCodes } from 'http-status-codes'
 import { validateToken } from 'lib/api-validate-token'
 import { cachedGetProductData } from 'lib/get-product-data'
-import { ProductSlug } from 'types/products'
+import { ProductSlug, RootDocsPath } from 'types/products'
 
 /**
  * refactor out docs product specific logic into own function
  *
  */
 
+type NavDataPrefix = Pick<
+	RootDocsPath,
+	'navDataPrefix' | 'path' | 'productSlugForLoader'
+>
+
 async function handleProductDocsRevalidation(product: string) {
 	// Handle TF's sub-projects
-	// @TODO fix up type check here
 	let resolvedProduct = product
 	if (
 		resolvedProduct.startsWith('terraform-') ||
@@ -25,10 +29,15 @@ async function handleProductDocsRevalidation(product: string) {
 		resolvedProduct = 'terraform'
 	}
 
+	// @TODO fix up type cast here
 	const productData = cachedGetProductData(resolvedProduct as ProductSlug)
 
 	const navDataPrefixes = productData.rootDocsPaths.map(
-		({ navDataPrefix, path, productSlugForLoader }) => {
+		({
+			navDataPrefix,
+			path,
+			productSlugForLoader,
+		}: RootDocsPath): NavDataPrefix => {
 			return { navDataPrefix, path, productSlugForLoader }
 		}
 	)
@@ -37,7 +46,11 @@ async function handleProductDocsRevalidation(product: string) {
 	const navDataFiles = (
 		await Promise.all(
 			navDataPrefixes.map(
-				async ({ navDataPrefix, path, productSlugForLoader }) => {
+				async ({
+					navDataPrefix,
+					path,
+					productSlugForLoader,
+				}: NavDataPrefix) => {
 					// Only re-validate a TF sub-project's paths
 					// We set resolvedProduct to `terraform`, but product will be one of the sub-project slugs
 					if (product !== resolvedProduct && productSlugForLoader !== product) {
