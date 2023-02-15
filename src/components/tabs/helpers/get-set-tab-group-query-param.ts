@@ -28,7 +28,7 @@ const setTabGroupQueryParam = ({
 }) => {
 	const urlObject = new URL(window.location.toString())
 	urlObject.searchParams.set(TAB_GROUP_PARAM_KEY, newValue)
-	router.replace(urlObject.toString(), null, { shallow: true })
+	window.history.replaceState(null, '', urlObject.toString())
 }
 
 export { getTabGroupQueryParam, setTabGroupQueryParam, TAB_GROUP_PARAM_KEY }
