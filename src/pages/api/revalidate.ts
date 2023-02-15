@@ -12,6 +12,22 @@ import { ProductSlug, RootDocsPath } from 'types/products'
 /**
  * refactor out docs product specific logic into own function
  *
+ *
+ * a cool api would be to accept a list of paths
+ * - this could get quite large and may exceed the body size limits
+ * for http request?
+ *
+ * Another option is to revalidate all paths for the product, like docs
+ * that means redirects wont work unless we fully redeploy dev portal
+ * but they can just manually run that action? or we could detect it and run
+ * when that files changes
+ *
+ * how do we get the list of paths?
+ * 	- returning them from the content sync would be absolutely dope
+ * 	- quick and dirty might be reading from git diff in an action? sounds messy
+ *  - then we can construct the paths
+ *
+ * we could also batch calls to revalidate if we have more that (100 paths?) not sure the right number there
  */
 
 type NavDataPrefix = Pick<
@@ -116,6 +132,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		return
 	}
 
+	// @TODO should we consider a limit on the number of paths?
 	const { product, paths } = request.body
 	const pathsExist = paths || paths.length > 0
 
@@ -127,27 +144,34 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		return
 	}
 
-	const pathsToRevalidate = pathsExist ? paths : []
+	try {
+		const pathsToRevalidate = pathsExist ? paths : []
 
-	if (product) {
-		const docsPaths = await handleProductDocsRevalidation(product)
-		pathsToRevalidate.push(...docsPaths)
+		if (product) {
+			const docsPaths = await handleProductDocsRevalidation(product)
+			pathsToRevalidate.push(...docsPaths)
+		}
+
+		const revalidatePromises = []
+
+		pathsToRevalidate.forEach((path: string) => {
+			// remove any trailing slash
+			const formattedPath = path.replace(/\/$/, '')
+			console.log('[revalidate]', formattedPath)
+			revalidatePromises.push(response.revalidate(formattedPath))
+		})
+
+		// TODO(brkalow): Add resiliency here, this has the potential to send off hundreds of calls depending on the product, so we should think about how we want to handle network hiccups or partial failure.
+		// wait for everything to get revalidated
+		await Promise.allSettled(revalidatePromises)
+
+		response.status(200).end()
+	} catch (e) {
+		// If there was an error, Next.js will continue
+		// to show the last successfully generated page
+		console.error('Error revalidating ', e)
+		return response.status(500).send('Error revalidating')
 	}
-
-	const revalidatePromises = []
-
-	pathsToRevalidate.forEach((path: string) => {
-		// remove any trailing slash
-		const formattedPath = path.replace(/\/$/, '')
-		console.log('[revalidate]', formattedPath)
-		revalidatePromises.push(response.revalidate(formattedPath))
-	})
-
-	// TODO(brkalow): Add resiliency here, this has the potential to send off hundreds of calls depending on the product, so we should think about how we want to handle network hiccups or partial failure.
-	// wait for everything to get revalidated
-	await Promise.allSettled(revalidatePromises)
-
-	response.status(200).end()
 }
 
 export default validateToken(handler, {
