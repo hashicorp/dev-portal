@@ -92,8 +92,6 @@ async function handleProductDocsRevalidation(product: string) {
 
 			if (typeof path !== 'undefined') {
 				const pathToRevalidate = `/${product}/${basePath}/${path}`
-					// remove any trailing slash
-					.replace(/\/$/, '')
 
 				pathsToRevalidate.push(pathToRevalidate)
 			}
@@ -129,22 +127,20 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		return
 	}
 
-	const pathsToRevalidate = []
+	const pathsToRevalidate = pathsExist ? paths : []
 
 	if (product) {
 		const docsPaths = await handleProductDocsRevalidation(product)
 		pathsToRevalidate.push(...docsPaths)
 	}
 
-	if (pathsExist) {
-		//handle path revalidation
-	}
-
 	const revalidatePromises = []
 
 	pathsToRevalidate.forEach((path: string) => {
-		console.log('[revalidate]', path)
-		revalidatePromises.push(response.revalidate(path))
+		// remove any trailing slash
+		const formattedPath = path.replace(/\/$/, '')
+		console.log('[revalidate]', formattedPath)
+		revalidatePromises.push(response.revalidate(formattedPath))
 	})
 
 	// TODO(brkalow): Add resiliency here, this has the potential to send off hundreds of calls depending on the product, so we should think about how we want to handle network hiccups or partial failure.
