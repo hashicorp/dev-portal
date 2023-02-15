@@ -8,7 +8,7 @@ import RefParser from '@apidevtools/json-schema-ref-parser'
 import traverse from '../utils/traverse'
 import markdownToHtml from '@hashicorp/platform-markdown-utils/markdown-to-html'
 
-async function processMarkdownProperties(object) {
+export async function processMarkdownProperties(object) {
 	const TARGET_PROPERTIES = ['description', 'summary', 'title']
 	const withMarkdownAsHtml = await traverse(object, async (key, value) => {
 		// Only process markdown in specific scenarios
@@ -30,7 +30,7 @@ async function processSchema(schemaJson) {
 		paths: await processMarkdownProperties(schemaJson.paths),
 		definitions: await processMarkdownProperties(schemaJson.definitions),
 	}
-	return await RefParser.bundle(withMarkdownAsHtml)
+	return await RefParser.dereference(withMarkdownAsHtml)
 }
 
 async function processSchemaString(jsonString) {

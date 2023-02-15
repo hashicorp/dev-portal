@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import RefParser from '@apidevtools/json-schema-ref-parser'
 import { InferGetStaticPropsType } from 'next'
 import { CustomPageComponent } from 'types/_app'
 // import { decycle, retrocycle } from 'cycle'
@@ -17,6 +18,7 @@ import {
 	getPropsForPage,
 	processSchemaString,
 	processSchemaFile,
+	processMarkdownProperties,
 } from 'components/open-api-page/server'
 import {
 	generateProductLandingSidebarNavData,
@@ -74,12 +76,19 @@ export async function getStaticProps({ params }) {
 		schema = await processSchemaFile(targetLocalFile)
 	} else {
 		const swaggerFile = await fetchGithubFile(targetFile)
-		schema = await processSchemaString(swaggerFile)
+		const schemaJson = JSON.parse(swaggerFile)
+		const withMarkdownAsHtml = {
+			...schemaJson,
+			paths: await processMarkdownProperties(schemaJson.paths),
+			definitions: await processMarkdownProperties(schemaJson.definitions),
+		}
+		// TODO: figure out better approach to circular references
+		// use `cycle`?
+		schema = await RefParser.bundle(withMarkdownAsHtml)
 	}
 
 	// API page data
 	const apiPageProps = getPropsForPage(schema, params)
-	// const apiPageProps = decycle(rawApiPageProps)
 
 	// Product data
 	const productData = cachedGetProductData(productSlug)

@@ -14,6 +14,7 @@ import {
 	processSchema,
 	processSchemaFile,
 	processSchemaString,
+	processMarkdownProperties,
 } from './process-schema'
 
 /**
@@ -99,6 +100,7 @@ export {
 	processSchema,
 	processSchemaFile,
 	processSchemaString,
+	processMarkdownProperties,
 	getPropsForPage,
 	getPathsFromSchema,
 	getServiceIds,
