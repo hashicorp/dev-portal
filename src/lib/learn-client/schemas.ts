@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Joi from 'joi'
 
 import { ProductOption, ThemeOption } from './types'
@@ -120,15 +125,5 @@ export const ProductPageSchema = Joi.object({
 			)
 			.required(),
 		showProductSitemap: Joi.boolean(),
-		docsCta: Joi.object({
-			heading: Joi.string().required(),
-			subheading: Joi.string().required(),
-			links: Joi.array().items(
-				Joi.object({
-					title: Joi.string(),
-					url: Joi.string(),
-				})
-			),
-		}),
 	}).required(),
 })

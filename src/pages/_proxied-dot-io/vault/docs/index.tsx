@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactElement } from 'react'
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import { Products } from '@hashicorp/platform-product-meta'

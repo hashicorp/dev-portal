@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Products } from '@hashicorp/platform-product-meta'
 import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import DocsPage from 'components/_proxied-dot-io/common/docs-page'

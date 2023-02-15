@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * A utility method to wrap a function, and log execution time.
  */
 export async function withTiming<T>(

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import useAuthentication from 'hooks/use-authentication'
 import { AuthenticatedViewProps } from './types'
 

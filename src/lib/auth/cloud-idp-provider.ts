@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Profile } from 'next-auth'
 import { Provider } from 'next-auth/providers'
 import { ValidAuthProviderId } from 'types/auth'

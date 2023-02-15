@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import fs from 'fs'
 import RefParser from '@apidevtools/json-schema-ref-parser'
 import traverse from '../utils/traverse'

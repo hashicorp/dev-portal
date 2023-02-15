@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .playerWrapper {
 	margin-bottom: 24px;
 	padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */

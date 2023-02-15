@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /*
 NOTE: This file mainly uses selectors to apply styles because it ensures that
 the correct elements, roles, states, and properties are being set in the markup.

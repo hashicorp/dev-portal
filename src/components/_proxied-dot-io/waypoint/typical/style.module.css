@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .typicalWrapper::after {
 	content: '|';
 	animation: blink 1s infinite step-start;

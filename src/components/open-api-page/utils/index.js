@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { capitalCase } from 'change-case'
 import slugify from '@hashicorp/remark-plugins/generate_slug'
 

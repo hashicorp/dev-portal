@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import StandaloneLink from 'components/standalone-link'
 import { MobileStandaloneLinkProps } from './types'
 import s from './mobile-standalone-link.module.css'

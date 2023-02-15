@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { StandaloneLinkProps } from 'components/standalone-link'
 
 interface MobileStandaloneLinkProps extends Omit<StandaloneLinkProps, 'icon'> {

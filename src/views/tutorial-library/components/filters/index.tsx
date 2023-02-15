@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { SidebarHorizontalRule } from 'components/sidebar/components'
 
 import { EditionFilter, EditionFilterProps } from '../edition-filter'

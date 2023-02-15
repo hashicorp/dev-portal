@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { test, expect } from '@playwright/test'
 import { __config } from '../../../.test/app-config'
 

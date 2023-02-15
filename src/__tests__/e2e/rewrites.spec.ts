@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { test, expect } from '@playwright/test'
 
 // This test is primarily to ensure that known dev-portal routes aren't exposed via io sites

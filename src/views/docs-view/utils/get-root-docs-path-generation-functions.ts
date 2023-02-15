@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { removeIndexPath } from 'lib/remove-index-path'

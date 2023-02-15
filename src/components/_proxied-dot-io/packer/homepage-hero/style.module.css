@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .homepageHero {
 	min-height: min(45vw, 600px);
 	padding: 64px 0;

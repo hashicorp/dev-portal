@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import classNames from 'classnames'
 import { useDisclosureState } from 'components/disclosure'
 import disclosureStyles from 'components/disclosure/disclosure.module.css'

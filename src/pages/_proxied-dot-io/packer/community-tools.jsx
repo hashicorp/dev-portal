@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import PackerIoLayout from 'layouts/_proxied-dot-io/packer'
 import productData from 'data/packer.json'
 import MarkdownPage from '@hashicorp/react-markdown-page'

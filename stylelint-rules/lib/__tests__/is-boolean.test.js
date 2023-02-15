@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import TEST_CASES from '../_test-cases'
 import isBoolean from '../is-boolean'
 

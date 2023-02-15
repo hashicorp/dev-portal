@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 const fetchFileString = require('./fetch-file-string')
 
 const API_URL = process.env.MKTG_CONTENT_API || `https://content.hashicorp.com`

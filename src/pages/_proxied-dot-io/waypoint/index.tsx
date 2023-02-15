@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import Hero from 'components/_proxied-dot-io/waypoint/homepage/hero'
 import SectionIntro from 'components/_proxied-dot-io/waypoint/homepage/sections/intro'

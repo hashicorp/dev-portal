@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .root {
 	border-radius: var(--border-radius);
 	padding: var(--padding-top-bottom) var(--padding-left-right);

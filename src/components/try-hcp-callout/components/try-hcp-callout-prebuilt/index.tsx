@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { TryHcpCallout } from '..'
 import { ProductSlugWithContent } from '../../types'
 import { tryHcpCalloutContent } from '../../content'

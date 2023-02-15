@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { render } from '@testing-library/react'
 import { ProductOption } from 'lib/learn-client/types'
 import { BrandedCallout } from './index'

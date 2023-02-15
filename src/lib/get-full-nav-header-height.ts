@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { isBrowser } from 'lib/is-browser'
 import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
 

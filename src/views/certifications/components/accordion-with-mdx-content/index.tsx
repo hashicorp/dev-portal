@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Accordion from 'components/accordion'
 import DevDotContent from 'components/dev-dot-content'
 import Image from 'components/image'

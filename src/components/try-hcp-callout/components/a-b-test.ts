@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useEffect } from 'react'
 import { isInUS } from '@hashicorp/platform-util/geo'
 import { useFlags } from 'flags/client'

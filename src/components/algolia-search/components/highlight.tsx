@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { parseAlgoliaHitHighlight } from '@algolia/autocomplete-preset-algolia'
 
 type HighlightHitProps<THit> = {

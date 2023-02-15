@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .nav {
 	/* Compensates for padding on individual nav list items */
 	margin-left: calc(var(--header-menu-item-padding-left-right) * -1);

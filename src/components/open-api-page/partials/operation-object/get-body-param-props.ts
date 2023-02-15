@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 function getBodyParamProps(bodyParam) {
 	// We always expect the bodyParam to be an object,
 	// with a schema which defines the body properties.

@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 name: Integration Library Searched
 description: A search query has been input in a products Integration Library.
 rules:

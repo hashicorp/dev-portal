@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export interface UseCaseCardProps {
 	/** Title text to show at the top of the card. */
 	heading: string

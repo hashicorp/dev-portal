@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { isObject, traverse } from 'lib/traverse'
 import { ProductViewBlock } from '../../components/product-view-content'
 import detectAndReformatLearnUrl from '../detect-and-reformat-learn-url'

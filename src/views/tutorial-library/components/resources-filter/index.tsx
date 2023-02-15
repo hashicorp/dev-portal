@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { CheckboxField } from 'components/form/field-controls'
 import { FilterSection } from '../filter-section'
 

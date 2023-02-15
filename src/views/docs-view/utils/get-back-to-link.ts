@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { SidebarBackToLinkProps } from 'components/sidebar/components/sidebar-back-to-link'
 import { getParentRootDocsPath } from 'lib/docs/get-parent-root-docs-path'
 import { ProductData, RootDocsPath } from 'types/products'

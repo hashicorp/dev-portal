@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import GiveFeedbackButton from './give-feedback-button'
 import HomePageHeaderContent from './home-page-content'
 import NavBarListContainer from './nav-bar-list-container'

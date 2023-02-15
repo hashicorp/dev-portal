@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { FeaturedStackProps } from './types'
 import s from './featured-stack.module.css'
 

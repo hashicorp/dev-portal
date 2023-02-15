@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import s from './merch-desktop-client.module.css'
 import InlineSvg from '@hashicorp/react-inline-svg'
 

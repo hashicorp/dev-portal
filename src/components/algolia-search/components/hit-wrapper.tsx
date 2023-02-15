@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactEventHandler, ReactNode } from 'react'
 import { Hit } from '@algolia/client-search'
 import Link from 'components/link'

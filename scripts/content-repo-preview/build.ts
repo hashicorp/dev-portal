@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { execFileSync } from 'child_process'
 import path from 'path'
 import fs from 'fs'
