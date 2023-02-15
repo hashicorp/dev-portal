@@ -8,7 +8,7 @@ import RefParser from '@apidevtools/json-schema-ref-parser'
 import traverse from '../utils/traverse'
 import markdownToHtml from '@hashicorp/platform-markdown-utils/markdown-to-html'
 
-export async function processMarkdownProperties(object) {
+async function processMarkdownProperties(object) {
 	const TARGET_PROPERTIES = ['description', 'summary', 'title']
 	const withMarkdownAsHtml = await traverse(object, async (key, value) => {
 		// Only process markdown in specific scenarios

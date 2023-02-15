@@ -3,10 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import RefParser from '@apidevtools/json-schema-ref-parser'
 import { InferGetStaticPropsType } from 'next'
 import { CustomPageComponent } from 'types/_app'
-// import { decycle, retrocycle } from 'cycle'
 /* Used server-side only */
 import { cachedGetProductData } from 'lib/get-product-data'
 import { isDeployPreview } from 'lib/env-checks'
@@ -18,7 +16,6 @@ import {
 	getPropsForPage,
 	processSchemaString,
 	processSchemaFile,
-	processMarkdownProperties,
 } from 'components/open-api-page/server'
 import {
 	generateProductLandingSidebarNavData,
@@ -40,7 +37,6 @@ type ApiDocsViewProps = InferGetStaticPropsType<typeof getStaticProps>
 const ApiDocsView: CustomPageComponent<ApiDocsViewProps> = ({
 	apiPageProps,
 }: ApiDocsViewProps) => {
-	// const cycledProps = retrocycle(apiPageProps)
 	return (
 		<OpenApiPageContents
 			info={apiPageProps.info}
@@ -76,15 +72,7 @@ export async function getStaticProps({ params }) {
 		schema = await processSchemaFile(targetLocalFile)
 	} else {
 		const swaggerFile = await fetchGithubFile(targetFile)
-		const schemaJson = JSON.parse(swaggerFile)
-		const withMarkdownAsHtml = {
-			...schemaJson,
-			paths: await processMarkdownProperties(schemaJson.paths),
-			definitions: await processMarkdownProperties(schemaJson.definitions),
-		}
-		// TODO: figure out better approach to circular references
-		// use `cycle`?
-		schema = await RefParser.bundle(withMarkdownAsHtml)
+		schema = await processSchemaString(swaggerFile)
 	}
 
 	// API page data

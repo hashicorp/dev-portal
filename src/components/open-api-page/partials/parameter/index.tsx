@@ -9,7 +9,7 @@ import AccordionDisclosure from 'components/accordion-disclosure'
 import Badge from 'components/badge'
 
 function Parameter({ name, data, isFirstItem, isLastItem, arrayDepth = 0 }) {
-	if (data.type === 'array') {
+	if (data.type === 'array' && data.items) {
 		return (
 			<Parameter
 				name={name}
