@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .root {
 	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-strong);

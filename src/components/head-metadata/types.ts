@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export interface HeadMetadataProps {
 	/**
 	 * The title of the current page, will be prepended to the global site title defined in config

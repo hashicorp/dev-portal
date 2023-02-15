@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactElement, ReactNode } from 'react'
 import classNames from 'classnames'
 import { IconCollections16 } from '@hashicorp/flight-icons/svg-react/collections-16'

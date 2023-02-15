@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Tabs, { Tab } from 'components/tabs'
 import AccordionDisclosure from 'components/accordion-disclosure'
 import ResponseObject from '../response-object'

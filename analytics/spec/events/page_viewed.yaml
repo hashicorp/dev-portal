@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # Automatically sent via Segment Page tracking
 name: Page Viewed
 description: User has viewed a page

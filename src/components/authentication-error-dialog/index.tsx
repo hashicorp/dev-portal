@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useCallback, useEffect, useRef } from 'react'
 import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'

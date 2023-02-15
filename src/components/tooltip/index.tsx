@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import React, { ReactElement } from 'react'
 import Portal from '@reach/portal'
 import { useTooltip, TooltipPopup } from '@reach/tooltip'

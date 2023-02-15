@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export const isInternalLink = (link: string, product: string): boolean => {
 	if (link.startsWith('/') || link.startsWith('#')) {
 		return true

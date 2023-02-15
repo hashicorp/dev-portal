@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import HashiHead from '@hashicorp/react-head'
 

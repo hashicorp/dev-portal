@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .hero {
 	padding-top: 124px;
 	display: flex;
@@ -76,6 +81,13 @@
 		rgba(89, 220, 228, 0.8) 0.25%,
 		rgba(99, 208, 255, 0.5) 95.01%
 	);
+
+  /* Size and position ensures bluish background
+  does not leak out from behind the layered SVG,
+  which has wavy white mask-like shapes */
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 100% 95%;
 	z-index: -1;
 
 	@media (--medium-up) {

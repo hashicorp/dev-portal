@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useErrorPageAnalytics } from '@hashicorp/platform-analytics'
 import Link from 'components/link'
 import s from './404.module.css'

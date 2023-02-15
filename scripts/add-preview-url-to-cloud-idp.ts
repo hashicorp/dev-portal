@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import * as crypto from 'crypto'
 import createFetch from '@vercel/fetch'
 import * as core from '@actions/core'

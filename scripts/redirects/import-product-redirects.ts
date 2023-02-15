@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import fetchGithubFile from 'lib/fetch-github-file'
 import fs from 'fs'
 import path from 'path'

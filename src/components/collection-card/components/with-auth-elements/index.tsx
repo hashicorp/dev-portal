@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useMemo, ReactElement } from 'react'
 import { useCollectionProgress } from 'hooks/progress'
 import { parseCollectionProgress } from 'components/collection-progress-group'

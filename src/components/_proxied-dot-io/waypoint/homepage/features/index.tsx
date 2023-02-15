@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import MediaObject, {
 	MediaObjectProps,
 } from 'components/_proxied-dot-io/waypoint/homepage/media-object'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { RadioField } from 'components/form/field-controls'
 import { EDITIONS } from '../../constants'
 import { FilterSection } from '../filter-section'

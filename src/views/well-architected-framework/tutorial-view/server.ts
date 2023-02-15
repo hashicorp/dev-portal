@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { serializeContent } from 'views/tutorial-view/utils/serialize-content'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
 import { getCollectionsBySection } from 'lib/learn-client/api/collection'

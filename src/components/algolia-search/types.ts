@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { AutocompleteOptions } from '@algolia/autocomplete-core'
 import { Hit } from '@algolia/client-search'
 

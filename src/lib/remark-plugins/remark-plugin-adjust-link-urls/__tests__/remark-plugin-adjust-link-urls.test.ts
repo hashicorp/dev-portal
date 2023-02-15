@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import {
 	expandUrlTestCasesWithParams,
 	TestCase,
@@ -9,7 +14,20 @@ const testEachCase = (testCases: TestCase[]) => {
 	test.each(allCases)(
 		'$input -> $expected',
 		({ input, expected, currentPath }: TestCase) => {
-			expect(preAdjustUrl({ currentPath, url: input })).toBe(expected)
+			// currentPath without trailing slash (/)
+			expect(
+				preAdjustUrl({
+					currentPath,
+					url: input,
+				})
+			).toBe(expected)
+			// currentPath with trailing slash (/)
+			expect(
+				preAdjustUrl({
+					currentPath: `${currentPath}/`,
+					url: input,
+				})
+			).toBe(expected)
 		}
 	)
 }

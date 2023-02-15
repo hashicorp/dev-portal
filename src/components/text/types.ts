@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * NOTE: this approach gets us around the following error:
  *
  * "An interface can only extend an identifier/qualified-name with optional type

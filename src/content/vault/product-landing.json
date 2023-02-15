@@ -78,7 +78,7 @@
 				{
 					"heading": "Transform Secrets Engine",
 					"body": "An Enterprise feature generates cryptographically secure tokens mapped to secure highly sensitive data.",
-					"url": "/vault/docs/secrets/databases"
+					"url": "/vault/docs/secrets/transform"
 				}
 			]
 		}

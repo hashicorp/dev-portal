@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import fs from 'fs'
 import packerRawSwagger from './raw-schemas/packer.swagger.json'
 import boundaryRawSwagger from './raw-schemas/boundary.swagger.json'

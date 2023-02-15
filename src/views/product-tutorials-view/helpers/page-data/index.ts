@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
 import { PageSlugOption } from 'lib/learn-client/api/page'
 import { HeroHeadingVisualProps } from 'views/product-landing/components/hero-heading-visual/types'

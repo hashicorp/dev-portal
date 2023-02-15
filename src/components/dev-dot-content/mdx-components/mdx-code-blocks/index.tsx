@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import { CodeTabsProps } from '@hashicorp/react-code-block/partials/code-tabs'
 import classNames from 'classnames'

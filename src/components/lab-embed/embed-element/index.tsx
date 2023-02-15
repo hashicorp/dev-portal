@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { MutableRefObject, useRef, useEffect } from 'react'
 import classNames from 'classnames'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'

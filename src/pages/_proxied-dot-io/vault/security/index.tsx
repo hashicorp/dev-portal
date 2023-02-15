@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import SecurityView from 'views/_proxied-dot-io/security'
 

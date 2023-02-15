@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .root {
 	/* Generic default theme, eg. for HCP and Sentinel */
 	--gradient-start: var(--token-color-palette-neutral-100);

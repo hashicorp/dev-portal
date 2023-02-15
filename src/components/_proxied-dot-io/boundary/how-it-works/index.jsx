@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import s from './how-it-works.module.css'
 import HowBoundaryWorksDiagram from './how-boundary-works-diagram'
 import Feature from './feature'

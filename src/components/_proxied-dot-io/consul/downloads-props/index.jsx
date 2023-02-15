@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Button from '@hashicorp/react-button'
 import s from 'pages/_proxied-dot-io/consul/downloads/style.module.css'
 

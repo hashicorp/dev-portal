@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { getTutorialSlug } from 'views/collection-view/helpers'
 import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
 import {

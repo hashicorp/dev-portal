@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import moize, { Options } from 'moize'
 import {
 	LearnProductData,
@@ -27,7 +32,7 @@ import {
 import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
-import { isProductSlug } from 'lib/products'
+import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 
 export interface TutorialPageProps {
 	tutorial: TutorialData
@@ -180,6 +185,9 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
 		const isCloud = productSlugFromCollection == 'cloud'
+		const normalizedProductSlug = normalizeSlugForDevDot(
+			productSlugFromCollection
+		)
 		const themeMatches = productSlugFromCollection === collection.theme
 		const shouldBuildTutorialPath = isCloud || themeMatches
 
@@ -190,7 +198,7 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 
 				paths.push({
 					params: {
-						productSlug: productSlugFromCollection,
+						productSlug: normalizedProductSlug,
 						tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
 					},
 				})

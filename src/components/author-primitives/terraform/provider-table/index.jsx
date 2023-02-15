@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { MdxTable } from 'components/dev-dot-content/mdx-components'
 import ProviderBadge from './components/provider-badge'
 import s from './style.module.css'

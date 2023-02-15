@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ButtonProps } from 'components/button'
 import { LinkProps } from 'components/link'
 

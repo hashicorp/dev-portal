@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Third party imports
 import {
 	GetStaticPathsResult,
@@ -82,6 +87,7 @@ export async function getStaticProps({
 	]
 
 	return {
+		revalidate: __config.dev_dot.revalidate,
 		props: {
 			metadata: {
 				title: `Integrations`,

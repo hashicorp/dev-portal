@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { MDXRemote } from 'next-mdx-remote'
 import { MdxA, MdxP } from 'components/dev-dot-content/mdx-components'
 import { ParagraphBlockProps } from './types'

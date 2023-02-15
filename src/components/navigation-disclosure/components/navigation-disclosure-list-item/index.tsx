@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import classNames from 'classnames'
 import { validateNavigationDisclosureListItemChildren } from 'components/navigation-disclosure/helpers/validate-navigation-disclosure-list-item-children'
 import { NavigationDisclosureListItemProps } from './types'

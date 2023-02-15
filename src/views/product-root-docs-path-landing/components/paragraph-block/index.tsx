@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import DevDotContent from 'components/dev-dot-content'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Footer from 'components/_proxied-dot-io/waypoint/footer'
 
 function FooterWithProps({
