@@ -9,7 +9,7 @@ import { MdxHeadingOutsideMdx } from './components/mdx-heading-outside-mdx'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
 import TableOfContents, {
 	TableOfContentsHeading,
-} from 'layouts/sidebar-sidecar/components/table-of-contents'
+} from 'components/table-of-contents'
 import { getIntegrationComponentUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import {

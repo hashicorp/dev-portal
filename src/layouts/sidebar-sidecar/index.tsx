@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-import { ReactElement, useRef } from 'react'
+import { useRef } from 'react'
 import classNames from 'classnames'
 
 // HashiCorp imports
@@ -20,7 +20,6 @@ import useCurrentPath from 'hooks/use-current-path'
 import { useScroll } from 'framer-motion'
 import { useMobileMenu } from 'contexts'
 import BaseLayout from 'layouts/base-new'
-import TableOfContents from 'layouts/sidebar-sidecar/components/table-of-contents'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import InlineLink from 'components/inline-link'
@@ -37,7 +36,6 @@ import {
 	useSidebarNavData,
 } from './contexts/sidebar-nav-data'
 import { ScrollProgressBar } from './components/scroll-progress-bar'
-import { filterTableOfContentsHeadings } from './utils/filter-table-of-contents-headings'
 import s from './sidebar-sidecar-layout.module.css'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
@@ -55,7 +53,6 @@ const SidebarSidecarLayoutContent = ({
 	breadcrumbLinks,
 	children,
 	githubFileUrl,
-	headings,
 	AlternateSidebar,
 	showScrollProgress,
 	sidecarSlot,
@@ -95,16 +92,6 @@ const SidebarSidecarLayoutContent = ({
 		sidebarContent = <AlternateSidebar {...sidebarProps} />
 	} else {
 		sidebarContent = <Sidebar {...sidebarProps} />
-	}
-
-	const SidecarContent = (): ReactElement => {
-		if (typeof sidecarSlot !== 'undefined') {
-			return sidecarSlot
-		}
-
-		return (
-			<TableOfContents headings={filterTableOfContentsHeadings(headings)} />
-		)
 	}
 
 	return (
@@ -152,9 +139,7 @@ const SidebarSidecarLayoutContent = ({
 							/>
 						)}
 					</main>
-					<div className={s.sidecarWrapper}>
-						<SidecarContent />
-					</div>
+					<div className={s.sidecarWrapper}>{sidecarSlot}</div>
 				</div>
 				{showScrollProgress ? (
 					<ScrollProgressBar progress={scrollYProgress} />
