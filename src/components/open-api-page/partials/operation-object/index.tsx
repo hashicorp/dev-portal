@@ -54,7 +54,7 @@ function OperationObject({
 	type,
 	renderOperationIntro,
 }: OperationObjectProps): React.ReactElement {
-	const { operationId, parameters, responses, summary } = data
+	const { operationId, parameters = [], responses = {}, summary } = data
 	const successResponse = responses['200']
 	const title = capitalCase(operationId.split('_').pop()!)
 
@@ -71,10 +71,12 @@ function OperationObject({
 				description={
 					<span className={s.meta}>
 						<span className={s.endpoint}>
-							<MdxInlineCode className={s.method}>
+							<MdxInlineCode className={s.endpointInlineCode}>
 								{type.toUpperCase()}
 							</MdxInlineCode>
-							<MdxInlineCode className={s.method}>{path}</MdxInlineCode>
+							<MdxInlineCode className={s.endpointInlineCode}>
+								{path}
+							</MdxInlineCode>
 						</span>
 					</span>
 				}
