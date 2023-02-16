@@ -21,6 +21,7 @@
 
 .endpoint {
 	display: block;
+	line-break: normal;
 
 	& .method {
 		color: var(--header-text-color);
