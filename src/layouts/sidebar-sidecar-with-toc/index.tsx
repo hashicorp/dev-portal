@@ -19,10 +19,8 @@ export type SidebarSidecarWithTocProps = SidebarSidecarLayoutProps & {
  * Renders a SidebarSidecarLayout with a preset `<TableOfContents />`
  * component in the sidecarSlot.
  */
-const SidebarSidecarWithToc = ({
-	headings,
-	...restProps
-}: SidebarSidecarLayoutProps & { headings: TableOfContentsHeading[] }) => {
+function SidebarSidecarWithToc(props: SidebarSidecarWithTocProps) {
+	const { headings, ...restProps } = props
 	return (
 		<SidebarSidecarLayout
 			{...restProps}
