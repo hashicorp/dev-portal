@@ -26,6 +26,15 @@ async function _getStaticPaths(): Promise<
 > {
 	const validPaths = await getTutorialPagePaths()
 
+	// For hashicorp/tutorials PR previews, skip the call to determine paths
+	// from analytics, and statically build all paths.
+	if (process.env.HASHI_ENV === 'tutorials-preview') {
+		return {
+			paths: validPaths,
+			fallback: false,
+		}
+	}
+
 	let paths = []
 
 	try {
