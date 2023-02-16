@@ -21,19 +21,14 @@
 
 .endpoint {
 	display: block;
-	line-break: normal;
 
-	& .method {
+	& .endpointInlineCode {
 		color: var(--header-text-color);
 		background: none;
 		border: none;
 		padding-left: 0;
 		padding-right: 0;
 		margin-right: 8px;
-	}
-
-	& .path {
-		color: var(--gray-2);
 		word-break: break-all;
 	}
 }

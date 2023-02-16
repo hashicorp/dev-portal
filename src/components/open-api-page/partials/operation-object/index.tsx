@@ -71,10 +71,12 @@ function OperationObject({
 				description={
 					<span className={s.meta}>
 						<span className={s.endpoint}>
-							<MdxInlineCode className={s.method}>
+							<MdxInlineCode className={s.endpointInlineCode}>
 								{type.toUpperCase()}
 							</MdxInlineCode>
-							<MdxInlineCode className={s.method}>{path}</MdxInlineCode>
+							<MdxInlineCode className={s.endpointInlineCode}>
+								{path}
+							</MdxInlineCode>
 						</span>
 					</span>
 				}
