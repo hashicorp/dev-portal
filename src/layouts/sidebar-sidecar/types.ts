@@ -23,6 +23,10 @@ interface BaseProps {
 	versions?: VersionSelectItem[]
 	showScrollProgress?: boolean
 	mainWidth?: 'wide' | 'narrow'
+	/**
+	 * Optionally render an alert banner before the main content area.
+	 */
+	alertBannerSlot?: React.ReactNode
 }
 
 /**
