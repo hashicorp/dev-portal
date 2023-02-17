@@ -1,0 +1,18 @@
+.root {
+	composes: hds-typography-body-200 from global;
+	composes: g-focus-ring-from-box-shadow from global;
+	border-radius: 4px;
+	color: var(--token-color-foreground-faint);
+	display: block;
+	font-weight: var(--token-typography-font-weight-regular);
+	padding: 4px 0;
+
+	&.isActive {
+		color: var(--token-color-foreground-strong);
+	}
+
+	&:hover {
+		color: var(--token-color-foreground-strong);
+		text-decoration: underline;
+	}
+}

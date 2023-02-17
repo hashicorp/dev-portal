@@ -1,0 +1,34 @@
+import { OutlineHeading, OutlineLinkItem } from 'components/outline-nav/types'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
+
+/**
+ * Given a flat array of headings,
+ * Return an array of outline items, for use with OutlineNav components.
+ */
+function buildOutlineItems(headings: OutlineHeading[]): OutlineLinkItem[] {
+	return headings.map((heading: OutlineHeading) => {
+		/* TODO: maybe consider resolving the backticks issue closer to server? */
+		const titleWithoutBackticks = heading.title.replace(/`/g, '')
+		return {
+			title: titleWithoutBackticks,
+			url: `#${heading.slug}`,
+		}
+	})
+}
+
+/**
+ * Given a flat array of headings in a document,
+ * render an outline nav, and automatically highlight the active heading.
+ *
+ * Note that not all provided headings will be included:
+ * - Only level 2 headings are included
+ * - Heading items flagged as within tabs will be excluded
+ */
+function OutlineNavFromHeadings({ headings }: { headings: OutlineHeading[] }) {
+	/* TODO: useMemo here... or move this closer to server? */
+	const items = buildOutlineItems(headings)
+
+	return <OutlineNavWithActive items={items} />
+}
+
+export { OutlineNavFromHeadings }
