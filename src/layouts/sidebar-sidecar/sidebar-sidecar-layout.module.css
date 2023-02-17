@@ -113,6 +113,15 @@ for further details.
 	padding-right: var(--main-area-padding-right);
 	padding-top: var(--main-area-padding-top);
 	padding-bottom: 128px;
+
+	@media (--dev-dot-sidecar-up) {
+		/* TODO: confirm this with design. Looks like zero right padding in Figma,
+		   but that might look odd in browser if any content is exactly 100% width.
+			 Having zero right padding also results in scroll bar overlap.
+			 Even a smaller value, eg 16px or 20px, seems like it could work well.
+			 If so, add something like padding-right: 16px;  */
+		padding-right: 0;
+	}
 }
 
 .breadcrumbOptOutGroup {
@@ -122,17 +131,36 @@ for further details.
 	margin-bottom: 32px;
 }
 
-.sidecarWrapper {
+.sidecarPosition {
+	--breadcrumb-bar-height: 58px;
+	--position-top: calc(
+		var(--sticky-bars-height) + var(--main-area-padding-top) +
+			var(--breadcrumb-bar-height)
+	);
+
+	/* TODO: consider sidecar position that is less reliant on breadcrumb 
+	   bar height. As is, we kind of HAVE to use breadcrumbs w sidecar.
+		 As well, the sidecar has more limited space which might look
+		 a little awkward once the breadcrumb bar is scrolled out of view. */
+
+	/* --position-top: calc(
+		var(--sticky-bars-height) + var(--main-area-padding-top)
+	); */
+
 	display: none;
 
 	@media (--dev-dot-sidecar-up) {
 		display: block;
 		flex-shrink: 0;
-		height: fit-content;
+		height: calc(100vh - var(--position-top));
 		margin-left: 48px;
 		position: sticky;
-		top: calc(var(--sticky-bars-height) + var(--main-area-padding-top));
-		width: var(--sidecar-width);
+		top: var(--position-top);
+
+		/* TODO: confirm with design - is this width for all viewport sizes?
+		   Should we change the breakpoint at which we introduce the sidecar?
+			 May want to  switch back to width: var(--sidecar-width); */
+		width: 312px;
 	}
 
 	@media (min-width: 1440px) {

@@ -1,0 +1,49 @@
+.root {
+	--gradient-scrim-height: 58px;
+	--gradient-scrim-buffer: 20px;
+
+	bottom: 0;
+	isolation: isolate;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+
+	/* Gradient scrim */
+	&::after {
+		content: '\200B';
+		display: block;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: var(--gradient-scrim-height);
+
+		/* TODO: use surface token here */
+		background: linear-gradient(
+			180deg,
+			rgba(255, 255, 255, 0) 0%,
+			rgba(255, 255, 255, 1) 100%
+		);
+	}
+}
+
+.scrollContainer {
+	overflow-y: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	/* Note: 1px padding is necessary for box-shadow border styles to appear
+	   correctly. Another option might be to add even more padding...
+		 technically the box-shadows are still cut off, but for the style
+		 of box-shadow we use in sidecar, it doesn't seem to matter much */
+	padding-left: 1px;
+	padding-right: 1px;
+	padding-top: 1px;
+	padding-bottom: calc(
+		var(--gradient-scrim-height) + var(--gradient-scrim-buffer)
+	);
+}

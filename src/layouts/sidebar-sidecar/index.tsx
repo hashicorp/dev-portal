@@ -27,7 +27,7 @@ import {
 	SidebarNavDataProvider,
 	useSidebarNavData,
 } from './contexts/sidebar-nav-data'
-import { ScrollProgressBar } from './components/scroll-progress-bar'
+import { ScrollProgressBar, SidecarScrollContainer } from './components'
 import s from './sidebar-sidecar-layout.module.css'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
@@ -108,7 +108,9 @@ const SidebarSidecarLayoutContent = ({
 							/>
 						)}
 					</main>
-					<div className={s.sidecarWrapper}>{sidecarSlot}</div>
+					<div className={s.sidecarPosition}>
+						<SidecarScrollContainer>{sidecarSlot}</SidecarScrollContainer>
+					</div>
 				</div>
 				{showScrollProgress ? (
 					<ScrollProgressBar progress={scrollYProgress} />
