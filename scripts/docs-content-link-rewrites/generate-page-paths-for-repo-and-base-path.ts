@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import fs from 'fs'
 import { cachedGetProductData } from 'lib/get-product-data'
 import {

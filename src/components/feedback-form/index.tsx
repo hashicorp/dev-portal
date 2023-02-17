@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { createContext, useMemo, useState, useRef, MouseEvent } from 'react'
 import shortid from 'shortid'
 import {

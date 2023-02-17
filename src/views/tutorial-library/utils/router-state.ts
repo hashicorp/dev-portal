@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ParsedUrlQuery } from 'querystring'
 import { InstantSearchProps } from 'react-instantsearch-hooks-web'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'

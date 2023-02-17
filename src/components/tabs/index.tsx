@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactElement, useState } from 'react'
 import classNames from 'classnames'
 import { TabItem, TabsProps } from './types'

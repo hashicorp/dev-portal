@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import InlineAlert from 'components/inline-alert'
 import { IconInfo24 } from '@hashicorp/flight-icons/svg-react/info-24'
 import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import path from 'path'
 import { ProgramSlug, RawCertificationProgramItem } from '../../types'
 import { CertificationProgramSchema } from '../schemas/certification-program'

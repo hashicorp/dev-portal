@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactElement, ReactNode } from 'react'
 import { ProductSlug } from 'types/products'
 import { SidebarBackToLinkProps } from './components/sidebar-back-to-link'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { getIsExternalLearnLink } from '../utils/get-is-external-learn-link'
 
 const testEachCase = (testCases: [string, boolean][]) => {

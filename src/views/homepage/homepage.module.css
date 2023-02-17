@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .homepage {
 	--homepage-container-padding-x: 24px;
 	--homepage-container-max-width: 1240px;

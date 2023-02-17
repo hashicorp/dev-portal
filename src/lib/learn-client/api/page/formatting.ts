@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import camelcaseKeys from 'camelcase-keys'
 import { traverse, isObject } from 'lib/traverse'
 import { ProductPage } from 'lib/learn-client/types'

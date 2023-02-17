@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-down-right-16'
 import classNames from 'classnames'
 import Badge from 'components/badge'

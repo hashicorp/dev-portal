@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export * from './mdx-blockquote'
 export * from './mdx-code-blocks'
 export * from './mdx-headings'

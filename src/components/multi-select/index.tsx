@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import DropdownDisclosure, {
 	DropdownDisclosureListItem,
 } from 'components/dropdown-disclosure'

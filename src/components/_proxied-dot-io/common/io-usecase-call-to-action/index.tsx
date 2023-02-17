@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Image from 'next/legacy/image'
 import * as React from 'react'
 import { Products } from '@hashicorp/platform-product-meta'

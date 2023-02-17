@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Feature from './feature'
 import s from './style.module.css'
 import { FeatureProps } from './feature'

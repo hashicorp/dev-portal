@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { createContext, useContext, useState } from 'react'
 
 export const MobileDrawerContext = createContext({

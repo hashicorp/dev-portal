@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ProductData } from 'types/products'
 // raw content types
 import { ProductLandingContent, ProductLandingContentBlock } from '../schema'

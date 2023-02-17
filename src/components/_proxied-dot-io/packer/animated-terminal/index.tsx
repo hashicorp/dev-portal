@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import CommandLineTerminal from '@hashicorp/react-command-line-terminal'
 import { useEffect, useState } from 'react'
 

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // imports
 const stylelint = require('stylelint')
 const { report, ruleMessages, validateOptions } = stylelint.utils

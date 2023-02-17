@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ErrorBoundary } from 'react-error-boundary'
 import { marketoFormData } from './components/newsletter-signup-form/marketo-form-data'
 import SignupHeader from './components/signup-header'

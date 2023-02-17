@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import s from './style.module.css'
 import classNames from 'classnames'
 import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'

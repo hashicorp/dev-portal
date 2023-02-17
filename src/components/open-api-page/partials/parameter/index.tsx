@@ -1,10 +1,15 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import s from './style.module.css'
 import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 import AccordionDisclosure from 'components/accordion-disclosure'
 import Badge from 'components/badge'
 
 function Parameter({ name, data, isFirstItem, isLastItem, arrayDepth = 0 }) {
-	if (data.type === 'array') {
+	if (data.type === 'array' && data.items) {
 		return (
 			<Parameter
 				name={name}

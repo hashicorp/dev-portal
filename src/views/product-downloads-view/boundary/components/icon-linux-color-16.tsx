@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Note: this should be replaced with an HDS component, once available.
  * To check availability, search for "linux" at:
  * https://flight-hashicorp.vercel.app/

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useCallback, useEffect } from 'react'
 import { TabItem } from '../types'
 import { useTabGroups } from '../provider'

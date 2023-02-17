@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 //@ts-check
 
 const proxyConfig = require('../../build-libs/proxy-config')

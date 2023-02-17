@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Badge from 'components/badge'
 import { useCommandBar } from 'components/command-bar'
 import { CmdCtrlIcon, KIcon } from 'components/command-bar/components'

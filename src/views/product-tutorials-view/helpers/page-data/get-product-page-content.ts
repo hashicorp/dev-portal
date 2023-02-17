@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { getPage, PageSlugOption } from 'lib/learn-client/api/page'
 import gatherUniqueValues from 'lib/gather-unique-values'
 import {

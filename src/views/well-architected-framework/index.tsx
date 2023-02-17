@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import slugify from 'slugify'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'

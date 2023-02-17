@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useCallback, useState } from 'react'
 import classNames from 'classnames'
 import {
@@ -316,7 +321,7 @@ export default function SearchableIntegrationsList({
 							icon={<IconX16 />}
 							color="tertiary"
 							size="small"
-							className={s.tablet_up}
+							className={classNames(s.tablet_up, s.clearFiltersButton)}
 							onClick={handleClearFilters}
 						/>
 					) : (

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import md from '@hashicorp/platform-markdown-utils/markdown-to-html'
 import mdInline from '@hashicorp/platform-markdown-utils/markdown-to-inline-html'
 

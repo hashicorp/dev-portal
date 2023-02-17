@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Image, { ImageProps } from 'next/image'
 import { CertificationProductSlug, ExamTier } from 'views/certifications/types'
 import svgConsulBadgeAssociate from './assets/consul-badge-mini-associate.svg'

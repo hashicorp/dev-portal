@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /// <reference types="@hashicorp/platform-types" />
 
 declare module '@hashicorp/platform-configs/jest/config.js'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { CertificationProductSlug, ExamTier } from 'views/certifications/types'
 import { ExamBadge } from 'views/certifications/components'
 import s from './exam-badge-and-title.module.css'

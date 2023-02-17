@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import classNames from 'classnames'
 import AccordionDisclosure from 'components/accordion-disclosure'
 import type { AccordionProps, AccordionContentItem } from './types'

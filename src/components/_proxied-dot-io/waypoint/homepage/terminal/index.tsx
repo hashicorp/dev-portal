@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import React, { useEffect, useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@reach/tabs'

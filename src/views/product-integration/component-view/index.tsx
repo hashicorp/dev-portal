@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import DevDotContent from 'components/dev-dot-content'
 import { MdxHeadingOutsideMdx } from './components/mdx-heading-outside-mdx'

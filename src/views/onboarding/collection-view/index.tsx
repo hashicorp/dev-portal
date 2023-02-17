@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import HashiHead from '@hashicorp/react-head'
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'

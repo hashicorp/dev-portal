@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /** This REGEX is used to parse a product version from a URL */
 export const VERSION_IN_PATH_REGEX = /v\d+\.\d+\.(\d+|\w+)/i
 
