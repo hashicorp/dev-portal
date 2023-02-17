@@ -9,6 +9,7 @@ import path from 'path'
 import { ProductData } from 'types/products'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { validateAgainstSchema } from 'lib/validate-against-schema'
+import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -16,7 +17,6 @@ import {
 import { ProductLandingContent, ProductLandingContentSchema } from './schema'
 import { transformRawContentToProp, extractHeadings } from './helpers'
 import { ProductLandingViewProps } from './types'
-import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
 
 const generateGetStaticProps = (product: ProductData) => {
 	return async (): Promise<
