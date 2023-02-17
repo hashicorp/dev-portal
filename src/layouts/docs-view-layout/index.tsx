@@ -8,7 +8,7 @@ import SidebarSidecarWithToc, {
 } from 'layouts/sidebar-sidecar-with-toc'
 
 /**
- * Lightweight wrapper around SidebarSidecarLayout which passes along some docs
+ * Lightweight wrapper around SidebarSidecarWithToc which passes along some docs
  * specific props.
  */
 const DocsViewLayout = (props: SidebarSidecarWithTocProps) => {
