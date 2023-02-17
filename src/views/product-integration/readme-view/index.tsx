@@ -47,12 +47,10 @@ export default function ProductIntegrationReadmeView({
 			}}
 			sidecarSlot={<TryHcpCalloutSidecarPlacement productSlug={product.slug} />}
 			alertBannerSlot={
-				isLatestVersion ? null : (
-					<VersionAlertBanner
-						currentVersion={currentVersion}
-						latestVersionUrl={getIntegrationUrl(integration)}
-					/>
-				)
+				<VersionAlertBanner
+					currentVersion={currentVersion}
+					latestVersionUrl={getIntegrationUrl(integration)}
+				/>
 			}
 		>
 			<DevDotContent mdxRemoteProps={serializedREADME} />

@@ -75,16 +75,14 @@ export default function ProductIntegrationComponentView({
 			}}
 			sidecarSlot={<TableOfContents headings={variableGroupHeadings} />}
 			alertBannerSlot={
-				isLatestVersion ? null : (
-					<VersionAlertBanner
-						currentVersion={currentVersion}
-						latestVersionUrl={getIntegrationComponentUrl(
-							integration,
-							component,
-							currentVersion
-						)}
-					/>
-				)
+				<VersionAlertBanner
+					currentVersion={currentVersion}
+					latestVersionUrl={getIntegrationComponentUrl(
+						integration,
+						component,
+						currentVersion
+					)}
+				/>
 			}
 		>
 			{serializedREADME ? (
