@@ -29,6 +29,9 @@ export function useActiveSection(
 	 * TODO: consider extracting this as a more generic option?
 	 * For example, support an optional `observerThreshold` argument, default 1?
 	 * And pass the option in when using this component on product landing pages?
+	 *
+	 * Alternately, this may no longer be an issue if the differences on the
+	 * product landing page are resolved, which is in-progress in dev-portal#1634.
 	 */
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const currentProduct = useCurrentProduct()
