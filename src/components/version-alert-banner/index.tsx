@@ -9,10 +9,8 @@ import PageAlert from 'components/page-alert'
 import s from './version-alert-banner.module.css'
 
 /**
- * Renders an alert banner if the current URL indicates a non-latest version,
- * showing a link to the latest version.
- *
- * Note that the logic here is based specifically on docs URL structures.
+ * Renders an alert banner showing the current version,
+ * as well as a link to the latest version.
  */
 export default function VersionAlertBanner({
 	currentVersion,
