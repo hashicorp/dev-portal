@@ -2,9 +2,6 @@
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 
 // Global imports
-import { getVersionFromPath } from 'lib/get-version-from-path'
-import { removeVersionFromPath } from 'lib/remove-version-from-path'
-import useCurrentPath from 'hooks/use-current-path'
 import InlineLink from 'components/inline-link'
 import PageAlert from 'components/page-alert'
 
