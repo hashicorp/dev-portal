@@ -7,9 +7,8 @@ import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import DevDotContent from 'components/dev-dot-content'
 import { MdxHeadingOutsideMdx } from './components/mdx-heading-outside-mdx'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
-import TableOfContents, {
-	TableOfContentsHeading,
-} from 'components/table-of-contents'
+import { TableOfContentsHeading } from 'components/table-of-contents'
+import { OutlineNavFromHeadings } from 'components/outline-nav/components'
 import { getIntegrationComponentUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import {
@@ -78,7 +77,7 @@ export default function ProductIntegrationComponentView({
 					version === integration.versions[0] ? 'latest' : version
 				return getIntegrationComponentUrl(integration, component, versionString)
 			}}
-			sidecarSlot={<TableOfContents headings={variableGroupHeadings} />}
+			sidecarSlot={<OutlineNavFromHeadings headings={variableGroupHeadings} />}
 			alertBannerSlot={
 				isLatestVersion ? null : (
 					<VersionAlertBanner
