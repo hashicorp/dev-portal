@@ -18,5 +18,13 @@ export interface SidebarSidecarLayoutProps {
 	versions?: VersionSelectItem[]
 	showScrollProgress?: boolean
 	mainWidth?: 'wide' | 'narrow'
+	/**
+	 * Optionally render content into the sidecar area.
+	 * If omitted, blank space will be shown in the sidecar area.
+	 */
 	sidecarSlot?: ReactNode
+	/**
+	 * Optionally render an alert banner before the main content area.
+	 */
+	alertBannerSlot?: React.ReactNode
 }
