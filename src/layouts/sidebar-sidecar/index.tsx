@@ -106,7 +106,7 @@ const SidebarSidecarLayoutContent = ({
 				</div>
 			</MobileMenuContainer>
 			<div className={s.contentWrapper} ref={contentRef}>
-				{alertBannerSlot ? alertBannerSlot : null}
+				{alertBannerSlot}
 				<div className={s.mainAreaWrapper}>
 					<main id={MAIN_ELEMENT_ID} className={s.main}>
 						<span className={s.breadcrumbOptOutGroup}>
