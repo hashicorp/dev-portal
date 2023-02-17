@@ -11,7 +11,11 @@ import { useActiveSection } from 'lib/hash-links/use-active-section'
  * Given an array of OutlineLinkItems,
  * render an outline nav, and automatically highlight the active item.
  */
-function OutlineNavWithActive({ items }: { items: OutlineLinkItem[] }) {
+function OutlineNavWithActive({
+	items,
+}: {
+	items: Omit<OutlineLinkItem, 'isActive'>[]
+}) {
 	/**
 	 * TODO: isDesktop isn't fully accurate, we may want to adjust this
 	 * based on the specific breakpoint at which we show the sidecar.
