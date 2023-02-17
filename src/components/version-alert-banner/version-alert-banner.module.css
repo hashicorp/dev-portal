@@ -4,5 +4,7 @@
 }
 
 .versionAlertLink {
+	/* Note: !important seems necessary here to ensure the color is applied
+	   to all states. @TODO: update InlineLink to better support theming. */
 	color: var(--token-color-foreground-primary) !important;
 }
