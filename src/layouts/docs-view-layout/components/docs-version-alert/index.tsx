@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { getVersionFromPath } from 'lib/get-version-from-path'
 import { removeVersionFromPath } from 'lib/remove-version-from-path'
 import useCurrentPath from 'hooks/use-current-path'
