@@ -1,5 +1,6 @@
 import { OutlineHeading, OutlineLinkItem } from 'components/outline-nav/types'
 import { OutlineNavWithActive } from 'components/outline-nav/components'
+import { useMemo } from 'react'
 
 /**
  * Given a flat array of headings,
@@ -25,9 +26,7 @@ function buildOutlineItems(headings: OutlineHeading[]): OutlineLinkItem[] {
  * - Heading items flagged as within tabs will be excluded
  */
 function OutlineNavFromHeadings({ headings }: { headings: OutlineHeading[] }) {
-	/* TODO: useMemo here... or move this closer to server? */
-	const items = buildOutlineItems(headings)
-
+	const items = useMemo(() => buildOutlineItems(headings), [headings])
 	return <OutlineNavWithActive items={items} />
 }
 

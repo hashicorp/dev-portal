@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import OutlineNav from 'components/outline-nav'
 import { OutlineLinkItem } from 'components/outline-nav/types'
 import {
@@ -33,16 +34,27 @@ function OutlineNavWithActive({
 	 * Determine the active section. Note we only enable this when the sidecar
 	 * is both visible and contains more than one item.
 	 */
-	const itemSlugs = getItemSlugs(items)
+	const itemSlugs = useMemo(() => getItemSlugs(items), [items])
 	const hasMultipleItems = itemSlugs.length > 1
 	const enableActiveSection = isDesktop && hasMultipleItems
 	const activeSection = useActiveSection(itemSlugs, enableActiveSection)
 
 	/**
-	 * TODO: actually use activeSection, add isActive props
-	 * but memo-ize and only re-calc when activeSection changes.
+	 * Using the result from useActiveSection, highlight items.
+	 * useMemo to only recalculate when items or activeSection changes.
 	 */
-	const itemsWithActive = highlightActiveItems(items, `#${activeSection}`)
+	const itemsWithActive = useMemo(
+		() => highlightActiveItems(items, `#${activeSection}`),
+		[items, activeSection]
+	)
+
+	/**
+	 * To match previous behaviour in TableOfContents,
+	 * if we don't have multiple items, then we render null
+	 */
+	if (!hasMultipleItems) {
+		return null
+	}
 
 	return <OutlineNav items={itemsWithActive} />
 }
