@@ -20,10 +20,6 @@ function buildOutlineItems(headings: OutlineHeading[]): OutlineLinkItem[] {
 /**
  * Given a flat array of headings in a document,
  * render an outline nav, and automatically highlight the active heading.
- *
- * Note that not all provided headings will be included:
- * - Only level 2 headings are included
- * - Heading items flagged as within tabs will be excluded
  */
 function OutlineNavFromHeadings({ headings }: { headings: OutlineHeading[] }) {
 	const items = useMemo(() => buildOutlineItems(headings), [headings])
