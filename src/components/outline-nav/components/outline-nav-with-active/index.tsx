@@ -18,6 +18,9 @@ function OutlineNavWithActive({
 	items: Omit<OutlineLinkItem, 'isActive'>[]
 }) {
 	/**
+	 * We useDeviceSize to avoid running active heading calculations
+	 * if we're on a viewport where we won't render the nav anyways.
+	 *
 	 * TODO: isDesktop isn't fully accurate, we may want to adjust this
 	 * based on the specific breakpoint at which we show the sidecar.
 	 *
