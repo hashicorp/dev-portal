@@ -11,15 +11,6 @@ query homepageQuery {
 			title
 			link
 		}
-		heroCards {
-			heading
-			description
-			cta {
-				title
-				link
-			}
-			subText: subtext
-		}
 		introHeading
 		introDescription
 		introOfferingsImage {
