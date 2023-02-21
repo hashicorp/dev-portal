@@ -21,7 +21,7 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
 import SearchableVariableGroupList from './components/searchable-variable-group-list'
 import { Variable } from './components/variable-group-list'
-import { getVariableGroupSlug } from './helpers'
+import { getVariableGroupSlug, getVariableSlug } from './helpers'
 import type { ProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
 import s from './style.module.css'
 import VersionAlertBanner from 'components/version-alert-banner'
@@ -50,13 +50,23 @@ export default function ProductIntegrationComponentView({
 	 * Build variable group headings, which are used for both
 	 * the table of contents and to render the headings themselves
 	 */
-	const variableGroupHeadings: TableOfContentsHeading[] = variable_groups.map(
-		(variableGroup: VariableGroup) => {
+	const variableGroupHeadings: TableOfContentsHeading[] = variable_groups
+		.map((variableGroup: VariableGroup) => {
 			const groupName = variableGroup.variable_group_config.name
+			const variableHeadings = variableGroup.variables.map((v) => {
+				return {
+					title: v.key,
+					slug: getVariableSlug(groupName, v.key),
+					level: 3 as const,
+				}
+			})
 			const slug = getVariableGroupSlug(groupName)
-			return { title: groupName, slug, level: 2 }
-		}
-	)
+			return [
+				{ title: groupName, slug, level: 2 as const },
+				...variableHeadings,
+			]
+		})
+		.flat()
 
 	/**
 	 * Grab the current version string from the activeRelease.
