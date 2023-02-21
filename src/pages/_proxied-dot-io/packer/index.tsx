@@ -58,8 +58,8 @@ export default function PackerHomepage({ data }): React.ReactElement {
 			<IoHomeHeroAlt
 				brand="packer"
 				patterns={{
-					start: '/vault-public/img/hero-pattern-start.svg',
-					end: '/vault-public/img/hero-pattern-end.svg',
+					start: '/packer-public/img/hero-pattern-start.svg',
+					end: '/packer-public/img/hero-pattern-end.svg',
 				}}
 				heading={heroHeading}
 				description={heroDescription}
