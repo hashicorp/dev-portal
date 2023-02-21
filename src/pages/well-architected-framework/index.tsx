@@ -13,7 +13,7 @@ import { WellArchitectedFrameworkLandingProps } from 'views/well-architected-fra
 import rawWafContent from 'content/well-architected-framework/index.json'
 import wafData from 'data/well-architected-framework.json'
 import getProcessedPageData from 'views/product-tutorials-view/helpers/page-data'
-import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
+import { TableOfContentsHeading } from 'components/table-of-contents'
 
 export async function getStaticProps(): Promise<{
 	props: WellArchitectedFrameworkLandingProps

@@ -7,7 +7,7 @@ import { Collection as ApiCollection } from 'lib/learn-client/types'
 import { EnrichedNavItem } from 'components/sidebar/types'
 import { NextPreviousProps } from 'views/tutorial-view/components'
 import { SidebarProps } from 'components/sidebar/types'
-import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
+import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
 import { HeroHeadingVisualProps } from 'views/product-landing/components/hero-heading-visual/types'
 import { OverviewCtaProps } from 'views/product-landing/components/overview-cta/types'
 import { ProductViewBlock } from 'views/product-tutorials-view/components/product-view-content'
@@ -29,8 +29,8 @@ export interface WellArchitectedFrameworkLandingProps {
 		}
 	}
 	layoutProps: {
-		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
-		headings: SidebarSidecarLayoutProps['headings']
+		breadcrumbLinks: SidebarSidecarWithTocProps['breadcrumbLinks']
+		headings: SidebarSidecarWithTocProps['headings']
 		sidebarSections: EnrichedNavItem[]
 	}
 }
@@ -42,7 +42,7 @@ export interface WellArchitectedFrameworkCollectionViewProps {
 	}
 	collection: ApiCollection
 	layoutProps: {
-		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
+		breadcrumbLinks: SidebarSidecarWithTocProps['breadcrumbLinks']
 		sidebarSections: EnrichedNavItem[]
 	}
 }
@@ -52,8 +52,8 @@ export interface WafTutorialViewProps {
 		nextPreviousData: NextPreviousProps
 	}
 	layoutProps: {
-		headings: SidebarSidecarLayoutProps['headings']
-		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
+		headings: SidebarSidecarWithTocProps['headings']
+		breadcrumbLinks: SidebarSidecarWithTocProps['breadcrumbLinks']
 		navLevels: SidebarProps[]
 	}
 }

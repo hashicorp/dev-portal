@@ -42,7 +42,6 @@ const ProfileBookmarksView = () => {
 				]}
 				AlternateSidebar={ProfileBookmarksSidebar}
 				sidebarNavDataLevels={[]}
-				sidecarSlot={null}
 			>
 				<ProfileBookmarksViewContent />
 			</SidebarSidecarLayout>

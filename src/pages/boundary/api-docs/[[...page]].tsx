@@ -80,9 +80,6 @@ export async function getStaticProps({ params }) {
 	// Product data
 	const productData = cachedGetProductData(productSlug)
 
-	// Layout props
-	const headings = []
-
 	// Breadcrumbs
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
@@ -147,10 +144,8 @@ export async function getStaticProps({ params }) {
 		props: {
 			apiPageProps,
 			layoutProps: {
-				headings,
 				breadcrumbLinks,
 				sidebarNavDataLevels,
-				sidecarSlot: null,
 			},
 			product: productData,
 		},

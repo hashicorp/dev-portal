@@ -4,7 +4,7 @@
  */
 
 import slugify from 'slugify'
-import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
+import { TableOfContentsHeading } from 'components/table-of-contents'
 import { ProductViewBlock } from '../components/product-view-content'
 import { LearnClientProductPageBlockEnriched } from './page-data/enrich-learn-data'
 
