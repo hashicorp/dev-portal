@@ -59,8 +59,8 @@ export default function Homepage({ data }): React.ReactElement {
 			<IoHomeHeroAlt
 				brand="boundary"
 				patterns={{
-					start: '/vault-public/img/hero-pattern-start.svg',
-					end: '/vault-public/img/hero-pattern-end.svg',
+					start: '/boundary-public/img/hero-pattern-start.svg',
+					end: '/boundary-public/img/hero-pattern-end.svg',
 				}}
 				heading={heroHeading}
 				description={heroDescription}
