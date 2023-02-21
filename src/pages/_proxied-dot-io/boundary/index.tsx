@@ -7,7 +7,7 @@ import * as React from 'react'
 import { proxiedRivetClient } from 'lib/cms'
 import Head from 'next/head'
 import { renderMetaTags } from '@hashicorp/react-head'
-import IoHomeHero from 'components/_proxied-dot-io/common/io-home-hero'
+import IoHomeHeroAlt from 'components/_proxied-dot-io/common/io-home-hero-alt'
 import IoHomeIntro from 'components/_proxied-dot-io/common/io-home-intro'
 import IoHomeInPractice from 'components/_proxied-dot-io/common/io-home-in-practice'
 import IoCardContainer from 'components/_proxied-dot-io/common/io-card-container'
@@ -23,7 +23,7 @@ export default function Homepage({ data }): React.ReactElement {
 		seo,
 		heroHeading,
 		heroDescription,
-		heroCards,
+		heroCtas,
 		introHeading,
 		introDescription,
 		introOfferingsImage,
@@ -56,15 +56,18 @@ export default function Homepage({ data }): React.ReactElement {
 		<>
 			<Head>{renderMetaTags(seo)}</Head>
 
-			<IoHomeHero
-				pattern="/boundary-public/img/home-hero-pattern.svg"
+			<IoHomeHeroAlt
 				brand="boundary"
+				patterns={{
+					start: '/vault-public/img/hero-pattern-start.svg',
+					end: '/vault-public/img/hero-pattern-end.svg',
+				}}
 				heading={heroHeading}
 				description={heroDescription}
-				cards={heroCards.map((card) => {
+				ctas={heroCtas.map((cta) => {
 					return {
-						...card,
-						cta: card.cta[0],
+						title: cta.title,
+						href: cta.link,
 					}
 				})}
 			/>
