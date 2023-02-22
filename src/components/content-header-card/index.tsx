@@ -81,15 +81,17 @@ export default function ContentHeaderCard({
 							)}
 							{note && (
 								<Text size={200} className={s.note}>
-									Updated: 12 months ago
+									{note}
 								</Text>
 							)}
 						</div>
 					)}
 				</div>
 			</div>
-
-			<div className={s.cardBottom}></div>
+			<div className={s.cardBottom}>
+				{/* TODO: Add Links here */}
+				{/* TODO: Add Buttons here */}
+			</div>
 		</Card>
 	)
 }

@@ -143,7 +143,7 @@ export default function ProductIntegrationLayout({
 				title="Docker-ref"
 				attribution="@hashicorp"
 				description="Lorem ipsum dolor sit amet consectetur. Mauris consequat elementum id molestie tellus leo consequat elementum hashicorp product."
-				note="foobar"
+				note="Updated: 12 months ago"
 				badges={[
 					{
 						text: 'Foobar',
