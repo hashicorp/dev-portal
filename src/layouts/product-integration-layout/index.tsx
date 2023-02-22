@@ -26,6 +26,8 @@ import ContentHeaderCard from 'components/content-header-card'
 import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
 import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
+import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
+import { IconAlertDiamondFill16 } from '@hashicorp/flight-icons/svg-react/alert-diamond-fill-16'
 
 interface ProductIntegrationLayoutProps {
 	title: string
@@ -181,6 +183,25 @@ export default function ProductIntegrationLayout({
 						text: 'Docs',
 						href: '/waypoint/docs',
 						icon: <IconDocs16 />,
+					},
+				]}
+				buttons={[
+					{
+						text: 'Install',
+						isPrimary: true,
+						icon: <IconDownload16 />,
+						onClick: (e) => {
+							e.preventDefault()
+							console.log('CLICKED')
+						},
+					},
+					{
+						text: 'Report',
+						icon: <IconAlertDiamondFill16 />,
+						onClick: (e) => {
+							e.preventDefault()
+							console.log('CLICKED')
+						},
 					},
 				]}
 			/>

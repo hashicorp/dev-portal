@@ -1,4 +1,5 @@
 import BadgeList, { Badge } from 'components/badge-list'
+import Button from 'components/button'
 import Card from 'components/card'
 import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
@@ -9,6 +10,7 @@ import StandaloneLink from 'components/standalone-link'
 import Text from 'components/text'
 import TruncateMaxLines from 'components/truncate-max-lines'
 import { useDeviceSize } from 'contexts'
+import { MouseEvent } from 'react'
 import { ProductSlug } from 'types/products'
 import s from './content-header-card.module.css'
 
@@ -17,15 +19,22 @@ interface DropdownItem {
 	href: string
 }
 
-interface Link {
-	text: string
-	href: string
-	icon: React.ReactElement
-}
-
 interface Dropdown {
 	text: string
 	items: Array<DropdownItem>
+}
+
+interface Link {
+	text: string
+	href: string
+	icon?: React.ReactElement
+}
+
+interface Button {
+	text: string
+	icon?: JSX.IntrinsicElements['svg']
+	isPrimary?: boolean
+	onClick: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 export interface ContentHeaderCardProps {
@@ -37,6 +46,7 @@ export interface ContentHeaderCardProps {
 	badges?: Array<Badge>
 	dropdown?: Dropdown
 	links?: Array<Link>
+	buttons?: Array<Button>
 }
 
 export default function ContentHeaderCard({
@@ -48,6 +58,7 @@ export default function ContentHeaderCard({
 	badges,
 	dropdown,
 	links,
+	buttons,
 }: ContentHeaderCardProps) {
 	const { isMobile } = useDeviceSize()
 
@@ -129,26 +140,48 @@ export default function ContentHeaderCard({
 					)}
 				</div>
 			</div>
-			<div className={s.cardBottom}>
-				{links && (
-					<ul className={s.linksList}>
-						{links.map((link: Link) => {
-							return (
-								<li key={link.text}>
-									<StandaloneLink
-										text={link.text}
-										icon={link.icon}
-										href={link.href}
-										opensInNewTab={!link.href.startsWith('/')}
-										iconPosition="leading"
-									/>
-								</li>
-							)
-						})}
-					</ul>
-				)}
-				{/* TODO: Add Buttons here */}
-			</div>
+			{(links || buttons) && (
+				<div className={s.cardBottom}>
+					{links && (
+						<ul className={s.linksList}>
+							{links.map((link: Link) => {
+								return (
+									<li key={link.text}>
+										<StandaloneLink
+											text={link.text}
+											icon={link.icon}
+											href={link.href}
+											opensInNewTab={!link.href.startsWith('/')}
+											iconPosition="leading"
+										/>
+									</li>
+								)
+							})}
+						</ul>
+					)}
+					{buttons && (
+						<ul className={s.buttonsList}>
+							{buttons.map((button: Button, index: number) => {
+								return (
+									<li key={button.text}>
+										<Button
+											text={button.text}
+											color={
+												button.isPrimary && index === 0
+													? 'primary'
+													: 'secondary'
+											}
+											icon={button.icon}
+											iconPosition="leading"
+											size="small"
+										/>
+									</li>
+								)
+							})}
+						</ul>
+					)}
+				</div>
+			)}
 		</Card>
 	)
 }

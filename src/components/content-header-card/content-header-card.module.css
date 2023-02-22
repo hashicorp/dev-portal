@@ -76,6 +76,9 @@
 		which the color value from it is not in a variable alone */
 		border-top: 1px solid rgba(101, 106, 118, 0.2);
 		border-radius: 0 0 6px 6px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 
 		& .linksList {
 			list-style: none;
@@ -87,11 +90,31 @@
 					margin-left: 12px;
 				}
 				& > * {
+					/* TODO: Rather than override our existing link component, 
+					we should eject or build in support for what we're trying
+					to do here. These styles assume the StandaloneLink styles
+					are part of its contract, but they are not and are subject
+					to change */
 					text-decoration: underline;
 					color: var(--token-color-foreground-primary);
 					&:hover {
 						color: var(--token-color-foreground-strong);
 					}
+				}
+			}
+		}
+
+		& .buttonsList {
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			display: flex;
+			flex-direction: row-reverse;
+			flex-grow: 1;
+
+			& li {
+				&:not(:first-of-type) {
+					margin-right: 12px;
 				}
 			}
 		}
