@@ -76,5 +76,24 @@
 		which the color value from it is not in a variable alone */
 		border-top: 1px solid rgba(101, 106, 118, 0.2);
 		border-radius: 0 0 6px 6px;
+
+		& .linksList {
+			list-style: none;
+			display: flex;
+			padding: 0;
+			margin: 0;
+			& li {
+				&:not(:first-of-type) {
+					margin-left: 12px;
+				}
+				& > * {
+					text-decoration: underline;
+					color: var(--token-color-foreground-primary);
+					&:hover {
+						color: var(--token-color-foreground-strong);
+					}
+				}
+			}
+		}
 	}
 }

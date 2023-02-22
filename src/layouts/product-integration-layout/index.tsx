@@ -24,6 +24,8 @@ import Header from './components/header'
 import s from './style.module.css'
 import ContentHeaderCard from 'components/content-header-card'
 import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
+import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
+import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 
 interface ProductIntegrationLayoutProps {
 	title: string
@@ -169,6 +171,18 @@ export default function ProductIntegrationLayout({
 						},
 					],
 				}}
+				links={[
+					{
+						text: 'GitHub',
+						href: 'https://github.com/hashicorp/waypoint/tree/main/builtin/docker/ref',
+						icon: <IconGithub16 />,
+					},
+					{
+						text: 'Docs',
+						href: '/waypoint/docs',
+						icon: <IconDocs16 />,
+					},
+				]}
 			/>
 
 			<h1>{title}</h1>

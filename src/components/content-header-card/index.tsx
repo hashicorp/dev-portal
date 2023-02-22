@@ -5,6 +5,7 @@ import DropdownDisclosure, {
 } from 'components/dropdown-disclosure'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
+import StandaloneLink from 'components/standalone-link'
 import Text from 'components/text'
 import TruncateMaxLines from 'components/truncate-max-lines'
 import { useDeviceSize } from 'contexts'
@@ -14,6 +15,12 @@ import s from './content-header-card.module.css'
 interface DropdownItem {
 	text: string
 	href: string
+}
+
+interface Link {
+	text: string
+	href: string
+	icon: React.ReactElement
 }
 
 interface Dropdown {
@@ -29,6 +36,7 @@ export interface ContentHeaderCardProps {
 	note?: string
 	badges?: Array<Badge>
 	dropdown?: Dropdown
+	links?: Array<Link>
 }
 
 export default function ContentHeaderCard({
@@ -39,6 +47,7 @@ export default function ContentHeaderCard({
 	note,
 	badges,
 	dropdown,
+	links,
 }: ContentHeaderCardProps) {
 	const { isMobile } = useDeviceSize()
 
@@ -121,7 +130,23 @@ export default function ContentHeaderCard({
 				</div>
 			</div>
 			<div className={s.cardBottom}>
-				{/* TODO: Add Links here */}
+				{links && (
+					<ul className={s.linksList}>
+						{links.map((link: Link) => {
+							return (
+								<li key={link.text}>
+									<StandaloneLink
+										text={link.text}
+										icon={link.icon}
+										href={link.href}
+										opensInNewTab={!link.href.startsWith('/')}
+										iconPosition="leading"
+									/>
+								</li>
+							)
+						})}
+					</ul>
+				)}
 				{/* TODO: Add Buttons here */}
 			</div>
 		</Card>
