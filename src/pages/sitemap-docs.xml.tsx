@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next'
 
 export default function SiteMap() {
-	return undefined
+	return null
 }
 
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
@@ -18,7 +18,8 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
 								process.env.SITE_URL || 'https://developer.hashicorp.com'
 							}/${sitePath.path}</loc><lastmod>${
 								sitePath.created_at
-							}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>`
+							}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+              `
 					)
 					.join('')}
     </urlset>
