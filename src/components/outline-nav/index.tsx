@@ -1,7 +1,7 @@
+import { useId } from '@react-aria/utils'
 import { OutlineListItems } from './components'
 import type { OutlineNavProps } from './types'
 import s from './outline-nav.module.css'
-import { useId } from '@react-aria/utils'
 
 /**
  * Render a <nav> element, with an "On this page" label,
