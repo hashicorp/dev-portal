@@ -7,12 +7,13 @@ import { useMemo } from 'react'
  * Return an array of outline items, for use with OutlineNav components.
  */
 function buildOutlineItems(headings: OutlineHeading[]): OutlineLinkItem[] {
-	return headings.map((heading: OutlineHeading) => {
+	return headings.map((heading: OutlineHeading, index: number) => {
 		/* TODO: maybe consider resolving the backticks issue closer to server? */
 		const titleWithoutBackticks = heading.title.replace(/`/g, '')
 		return {
 			title: titleWithoutBackticks,
 			url: `#${heading.slug}`,
+			dataHeapTrack: `toc-list-item-index-${index}`,
 		}
 	})
 }
