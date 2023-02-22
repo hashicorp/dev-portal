@@ -86,10 +86,13 @@ jobs:
       - name: Get comment body
         id: get-comment-body
         if: success() && github.event.number
-        run: |
-          echo 'body<<EOF' >> $GITHUB_OUTPUT
-          cat .next/analyze/__bundle_analysis_comment.txt >> $GITHUB_OUTPUT
-          echo '\nEOF' >> $GITHUB_OUTPUT
+        uses: actions/github-script@v6
+        with:
+          result-encoding: string
+          script: |
+            const fs = require('fs')
+            const comment = fs.readFileSync('.next/analyze/__bundle_analysis_comment.txt', 'utf8')
+            core.setOutput('body', comment)
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
