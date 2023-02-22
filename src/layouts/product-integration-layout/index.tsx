@@ -146,16 +146,29 @@ export default function ProductIntegrationLayout({
 				note="Updated: 12 months ago"
 				badges={[
 					{
-						text: 'Foobar',
-					},
-					{
-						text: 'Foobar',
-					},
-
-					{
-						text: 'Foobar',
+						text: 'Official',
+						icon: <IconHashicorp16 />,
+						tooltip:
+							'Official integrations are owned and maintained by HashiCorp.',
 					},
 				]}
+				dropdown={{
+					text: 'v2.18 (latest)',
+					items: [
+						{
+							text: 'v2.17',
+							href: '#2.17',
+						},
+						{
+							text: 'v2.16',
+							href: '#2.16',
+						},
+						{
+							text: 'v2.15',
+							href: '#2.15',
+						},
+					],
+				}}
 			/>
 
 			<h1>{title}</h1>

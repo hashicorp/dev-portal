@@ -1,4 +1,8 @@
+import BadgeList, { Badge } from 'components/badge-list'
 import Card from 'components/card'
+import DropdownDisclosure, {
+	DropdownDisclosureLinkItem,
+} from 'components/dropdown-disclosure'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
 import Text from 'components/text'
@@ -6,7 +10,16 @@ import TruncateMaxLines from 'components/truncate-max-lines'
 import { useDeviceSize } from 'contexts'
 import { ProductSlug } from 'types/products'
 import s from './content-header-card.module.css'
-import BadgeList, { Badge } from 'components/badge-list'
+
+interface DropdownItem {
+	text: string
+	href: string
+}
+
+interface Dropdown {
+	text: string
+	items: Array<DropdownItem>
+}
 
 export interface ContentHeaderCardProps {
 	icon?: Exclude<ProductSlug, 'sentinel'>
@@ -15,6 +28,7 @@ export interface ContentHeaderCardProps {
 	description?: string
 	note?: string
 	badges?: Array<Badge>
+	dropdown?: Dropdown
 }
 
 export default function ContentHeaderCard({
@@ -24,6 +38,7 @@ export default function ContentHeaderCard({
 	description,
 	note,
 	badges,
+	dropdown,
 }: ContentHeaderCardProps) {
 	const { isMobile } = useDeviceSize()
 
@@ -67,7 +82,24 @@ export default function ContentHeaderCard({
 								</TruncateMaxLines>
 							)}
 						</div>
-						<div className={s.right}>{/* TODO: add dropdown here */}</div>
+						{dropdown && (
+							<DropdownDisclosure
+								className={s.dropdown}
+								color="secondary"
+								text={dropdown.text}
+							>
+								{dropdown.items.map((item: DropdownItem) => {
+									return (
+										<DropdownDisclosureLinkItem
+											key={item.text}
+											href={item.href}
+										>
+											{item.text}
+										</DropdownDisclosureLinkItem>
+									)
+								})}
+							</DropdownDisclosure>
+						)}
 					</div>
 					{(note || badges) && (
 						<div className={s.lower}>
