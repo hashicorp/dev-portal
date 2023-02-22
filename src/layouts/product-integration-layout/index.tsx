@@ -9,18 +9,17 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
-import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/components'
 import SidebarSidecarLayout, {
 	SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
-import { Integration } from 'lib/integrations-api-client/integration'
-import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
 import {
 	generateProductIntegrationLibrarySidebarNavData,
 	getIntegrationComponentUrl,
 	getIntegrationUrl,
 } from 'lib/integrations'
-import { ProductData, ProductSlug } from 'types/products'
+import { Integration } from 'lib/integrations-api-client/integration'
+import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
+import { ProductData } from 'types/products'
 import Header from './components/header'
 import s from './style.module.css'
 
