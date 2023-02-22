@@ -21,7 +21,7 @@ function OutlineLinkWithNesting({
 				isActive={isActive}
 				dataHeapTrack={dataHeapTrack}
 			/>
-			<ol className={s.nested}>
+			<ol className={s.nested} aria-label={title}>
 				<OutlineListItems items={items} />
 			</ol>
 		</>
