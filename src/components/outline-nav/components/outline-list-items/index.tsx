@@ -13,16 +13,15 @@ function OutlineListItems({ items }: { items: OutlineLinkItem[] }) {
 	return (
 		<>
 			{items.map((item: OutlineLinkItem) => {
-				const uniqueKey = `${item.title}${item.url}`
 				if ('items' in item) {
 					return (
-						<li key={uniqueKey}>
+						<li key={item.url}>
 							<OutlineLinkWithNesting {...item} />
 						</li>
 					)
 				} else {
 					return (
-						<li key={uniqueKey}>
+						<li key={item.url}>
 							<OutlineLink {...item} />
 						</li>
 					)
