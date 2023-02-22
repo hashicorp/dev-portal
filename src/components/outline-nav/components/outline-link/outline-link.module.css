@@ -6,6 +6,7 @@
 	display: block;
 	font-weight: var(--token-typography-font-weight-regular);
 	padding: 4px 0;
+	width: fit-content;
 
 	&.isActive {
 		color: var(--token-color-foreground-strong);
