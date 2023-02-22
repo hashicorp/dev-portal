@@ -27,7 +27,6 @@ export default function OnboardingCollectionView({
 				<meta name="robots" content="noindex, nofollow" />
 			</HashiHead>
 			<SidebarSidecarLayout
-				sidecarSlot={null}
 				breadcrumbLinks={layoutProps.breadcrumbLinks}
 				sidebarNavDataLevels={[
 					generateTopLevelSidebarNavData(

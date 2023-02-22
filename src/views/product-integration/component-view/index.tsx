@@ -9,7 +9,7 @@ import { MdxHeadingOutsideMdx } from './components/mdx-heading-outside-mdx'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
 import TableOfContents, {
 	TableOfContentsHeading,
-} from 'layouts/sidebar-sidecar/components/table-of-contents'
+} from 'components/table-of-contents'
 import { getIntegrationComponentUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import {
@@ -25,6 +25,7 @@ import { Variable } from './components/variable-group-list'
 import { getVariableGroupSlug } from './helpers'
 import type { ProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
 import s from './style.module.css'
+import VersionAlertBanner from 'components/version-alert-banner'
 
 export interface ProductIntegrationComponentViewProps {
 	product: ProductData
@@ -58,6 +59,12 @@ export default function ProductIntegrationComponentView({
 		}
 	)
 
+	/**
+	 * Grab the current version string from the activeRelease.
+	 */
+	const currentVersion = activeRelease.version
+	const isLatestVersion = currentVersion === integration.versions[0]
+
 	return (
 		<ProductIntegrationLayout
 			className={s.integrationComponentView}
@@ -72,6 +79,18 @@ export default function ProductIntegrationComponentView({
 				return getIntegrationComponentUrl(integration, component, versionString)
 			}}
 			sidecarSlot={<TableOfContents headings={variableGroupHeadings} />}
+			alertBannerSlot={
+				isLatestVersion ? null : (
+					<VersionAlertBanner
+						currentVersion={currentVersion}
+						latestVersionUrl={getIntegrationComponentUrl(
+							integration,
+							component,
+							currentVersion
+						)}
+					/>
+				)
+			}
 		>
 			{serializedREADME ? (
 				<div className={s.mdxWrapper}>

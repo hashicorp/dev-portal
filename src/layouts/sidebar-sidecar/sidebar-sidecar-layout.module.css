@@ -139,18 +139,3 @@ for further details.
 		margin-left: 64px;
 	}
 }
-
-/*
-***
-* classes for the version PageAlert
-***
-*/
-
-.versionAlert {
-	padding-left: var(--main-area-padding-left);
-	padding-right: var(--main-area-padding-right);
-}
-
-.versionAlertLink {
-	color: var(--token-color-foreground-primary) !important;
-}

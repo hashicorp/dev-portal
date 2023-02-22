@@ -11,8 +11,10 @@ import rehypePrism from '@mapbox/rehype-prism'
 import getVideoUrl from './get-video-url'
 import { Tutorial as ClientTutorial } from 'lib/learn-client/types'
 import { rewriteStaticAssetsPlugin } from 'lib/remark-plugins/rewrite-static-assets'
-import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
+import { TableOfContentsHeading } from 'components/table-of-contents'
 import { splitProductFromFilename } from '.'
+import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
+import { rewriteWaypointPluginsToIntegrations } from 'lib/content-adjustments'
 
 export async function serializeContent(tutorial: ClientTutorial): Promise<{
 	content: MDXRemoteSerializeResult
@@ -42,6 +44,12 @@ export async function serializeContent(tutorial: ClientTutorial): Promise<{
 				[anchorLinks, { headings }],
 				paragraphCustomAlerts,
 				rewriteStaticAssetsPlugin,
+				[
+					remarkPluginAdjustLinkUrls,
+					{
+						urlAdjustFn: rewriteWaypointPluginsToIntegrations,
+					},
+				],
 			],
 			rehypePlugins: [
 				[rehypePrism, { ignoreMissing: true }],

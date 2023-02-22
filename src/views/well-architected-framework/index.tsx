@@ -4,7 +4,7 @@
  */
 
 import slugify from 'slugify'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import ProductViewContent from 'views/product-tutorials-view/components/product-view-content'
 import HeroHeadingVisual from 'views/product-landing/components/hero-heading-visual'
@@ -22,7 +22,7 @@ export default function WellArchitectedFrameworkLandingView(
 	const { hero, overview } = data.wafContent
 
 	return (
-		<SidebarSidecarLayout
+		<SidebarSidecarWithToc
 			headings={layoutProps.headings}
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
 			sidebarNavDataLevels={[
@@ -40,7 +40,7 @@ export default function WellArchitectedFrameworkLandingView(
 				/>
 			</div>
 			<ProductViewContent blocks={blocks} />
-		</SidebarSidecarLayout>
+		</SidebarSidecarWithToc>
 	)
 }
 

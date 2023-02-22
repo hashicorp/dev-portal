@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { TableOfContentsHeading } from '../components/table-of-contents'
+import { TableOfContentsHeading } from '../types'
 
 /**
  * Filter headings for display in table of contents.
@@ -17,6 +17,10 @@ import { TableOfContentsHeading } from '../components/table-of-contents'
  * in our `anchor-links` `remark-plugin` to add that property. For details, see
  * the `tabbedSectionDepth` logic here:
  * https://github.com/hashicorp/remark-plugins/blob/0f2d21516ab3c7120a24456838d83390e3ab179d/plugins/anchor-links/index.js#L29
+ *
+ * TODO: given the above dependency on anchor-links remark plugin,
+ * this utility might make sense to move closer to the server-side code where
+ * the anchor-links plugin is invoked - maybe move this into `getStaticProps`?
  *
  */
 export function filterTableOfContentsHeadings(
