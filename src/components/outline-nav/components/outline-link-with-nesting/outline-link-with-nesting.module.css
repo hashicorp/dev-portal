@@ -1,3 +1,5 @@
 .nested {
-	padding-left: 12px;
+	list-style: none;
+	padding: 0 0 0 12px;
+	margin: 0;
 }
