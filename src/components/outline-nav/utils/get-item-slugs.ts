@@ -1,21 +1,32 @@
 import { OutlineLinkItem } from '../types'
 
 /**
+ * Get the had from a relative URL string
+ */
+function getHash(url: string): string {
+	// Note: arbitrary URL used, we expect to handle relative links
+	const urlObject = new URL(url, 'https://www.example.com')
+	return urlObject.hash
+}
+
+/**
  * Flatten an array of OutlineLinkItem[] into an array of #hash slugs
  */
 function getItemSlugs(items: OutlineLinkItem[]) {
-	return items.reduce((acc: string[], item: OutlineLinkItem) => {
-		// Note that baseUrl isn't important, we're just using it to get the hash
-		const urlObject = new URL(item.url, 'https://www.example.com')
-		const slug = urlObject.hash.replace('#', '') // get hash without leading #
+	const itemSlugs = []
+	for (const item of items) {
+		// Get the hash without leading the `#`
+		const slug = getHash(item.url).replace('#', '')
+		// Not all item URLs have a defined hash, only push meaningful slugs
 		if (slug !== '') {
-			acc.push(slug)
+			itemSlugs.push(slug)
 		}
+		// Some items have nested items, push slugs for these
 		if ('items' in item) {
-			acc = acc.concat(getItemSlugs(item.items))
+			itemSlugs.push(...getItemSlugs(item.items))
 		}
-		return acc
-	}, [])
+	}
+	return itemSlugs
 }
 
 export { getItemSlugs }
