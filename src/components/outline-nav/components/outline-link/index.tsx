@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import Link from 'components/link'
 import type { OutlineLinkProps } from '../../types'
 import s from './outline-link.module.css'
 
@@ -12,13 +13,13 @@ function OutlineLink({
 	dataHeapTrack,
 }: OutlineLinkProps) {
 	return (
-		<a
+		<Link
 			className={classNames(s.root, { [s.isActive]: isActive })}
 			href={url}
 			data-heap-track={dataHeapTrack}
 		>
 			{title}
-		</a>
+		</Link>
 	)
 }
 
