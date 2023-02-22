@@ -23,7 +23,7 @@ import Dialog from 'components/dialog'
 import Legend from 'components/form/components/legend'
 import { CheckboxField } from 'components/form/field-controls'
 import Tag from 'components/tag'
-import FilterInput from 'components/filter-input'
+import { FilterInputWithLoadingSkeleton as FilterInput } from 'components/filter-input'
 import MultiSelect from 'components/multi-select'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
 import {
