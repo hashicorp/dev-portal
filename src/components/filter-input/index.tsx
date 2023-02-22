@@ -7,6 +7,7 @@ import { ChangeEvent, ReactElement, useRef } from 'react'
 import classNames from 'classnames'
 import { IconFilter16 } from '@hashicorp/flight-icons/svg-react/filter-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
+import { withLoadingSkeleton } from 'components/loading-skeleton'
 import s from './filter-input.module.css'
 
 interface FilterInputProps {
@@ -68,4 +69,10 @@ const FilterInput = ({
 	)
 }
 
+const FilterInputWithLoadingSkeleton = withLoadingSkeleton(
+	s.loadingSkeleton,
+	FilterInput
+)
+
+export { FilterInputWithLoadingSkeleton }
 export default FilterInput

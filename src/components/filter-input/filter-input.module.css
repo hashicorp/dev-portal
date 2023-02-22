@@ -5,6 +5,12 @@
 
 /* TODO: abstract shared input styles when there are more input components */
 
+.variables {
+	--input-padding: 8px;
+	--filter-input-border-radius: 5px;
+	--filter-input-min-height: 36px;
+}
+
 .sharedIconColorAndPositioning {
 	color: var(--token-color-palette-neutral-500);
 	position: absolute;
@@ -12,8 +18,7 @@
 }
 
 .filterInputContainer {
-	--input-padding: 8px;
-
+	composes: variables;
 	height: var(--input-height);
 	position: relative;
 	display: flex;
@@ -47,7 +52,7 @@
 	background-color: transparent;
 	border: var(--token-form-control-border-width) solid
 		var(--token-form-control-base-border-color-default);
-	border-radius: 5px;
+	border-radius: var(--filter-input-border-radius);
 	box-shadow: var(--token-elevation-inset-box-shadow);
 	color: var(--token-color-palette-neutral-700);
 	font-size: 16px; /* Override body-200 for minimum input font-size */
@@ -77,4 +82,10 @@
 	&[value]:not([value='']) {
 		border-color: var(--token-color-foreground-faint);
 	}
+}
+
+.loadingSkeleton {
+	composes: variables;
+	border-radius: var(--filter-input-border-radius);
+	height: var(--filter-input-min-height);
 }
