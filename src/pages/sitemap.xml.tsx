@@ -9,7 +9,6 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
 		`https://content.hashicorp.com/api/all-docs-paths`
 	)
 	const { result } = await response.json()
-	console.log(result)
 	const createSitemap = () => `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         ${result
