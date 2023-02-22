@@ -5,6 +5,10 @@ export interface OutlineLinkProps {
 	title: string
 	url: string
 	isActive?: boolean
+	/**
+	 * An optional `data-heap-track` attribute to attach to outline links.
+	 */
+	dataHeapTrack?: string
 }
 
 /**
