@@ -23,6 +23,7 @@ import { ProductData } from 'types/products'
 import Header from './components/header'
 import s from './style.module.css'
 import ContentHeaderCard from 'components/content-header-card'
+import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
 
 interface ProductIntegrationLayoutProps {
 	title: string
@@ -142,6 +143,19 @@ export default function ProductIntegrationLayout({
 				title="Docker-ref"
 				attribution="@hashicorp"
 				description="Lorem ipsum dolor sit amet consectetur. Mauris consequat elementum id molestie tellus leo consequat elementum hashicorp product."
+				note="foobar"
+				badges={[
+					{
+						text: 'Foobar',
+					},
+					{
+						text: 'Foobar',
+					},
+
+					{
+						text: 'Foobar',
+					},
+				]}
 			/>
 
 			<h1>{title}</h1>
