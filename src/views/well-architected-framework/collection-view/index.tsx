@@ -24,7 +24,6 @@ export default function WellArchitectedFrameworkCollectionView({
 
 	return (
 		<SidebarSidecarLayout
-			sidecarSlot={null}
 			breadcrumbLinks={breadcrumbLinks}
 			sidebarNavDataLevels={[
 				generateTopLevelSidebarNavData(metadata.wafName) as SidebarProps,

@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import SidebarSidecarLayout, {
-	SidebarSidecarLayoutProps,
-} from 'layouts/sidebar-sidecar'
+import SidebarSidecarWithToc, {
+	SidebarSidecarWithTocProps,
+} from 'layouts/sidebar-sidecar-with-toc'
 import { DocsVersionAlertBanner } from './components'
 
 /**
- * Lightweight wrapper around SidebarSidecarLayout which passes along some docs
+ * Lightweight wrapper around SidebarSidecarWithToc which passes along some docs
  * specific props.
  */
-const DocsViewLayout = (props: SidebarSidecarLayoutProps) => {
+const DocsViewLayout = (props: SidebarSidecarWithTocProps) => {
 	return (
-		<SidebarSidecarLayout
+		<SidebarSidecarWithToc
 			{...props}
 			alertBannerSlot={<DocsVersionAlertBanner />}
 		/>

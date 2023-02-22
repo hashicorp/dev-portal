@@ -39,7 +39,7 @@
 			}
 		]
 	},
-	"alertBannerActive": true,
+	"alertBannerActive": false,
 	"alertBanner": {
 		"tag": "HashiTalks 2023",
 		"url": "https://hashi.co/hashitalks-2023",

@@ -4,7 +4,6 @@
  */
 
 import { useEffect, useRef, useState } from 'react'
-import { TableOfContentsHeading } from './types'
 import { useCurrentProduct } from 'contexts'
 import useCurrentPath from 'hooks/use-current-path'
 import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
@@ -15,17 +14,25 @@ import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
  * https://github.com/hashicorp/react-components/pull/325
  */
 export function useActiveSection(
-	headings: TableOfContentsHeading[],
-	isEnabled = true
+	slugs: string[],
+	isEnabled: boolean = true
 ): string {
 	const visibleHeadings = useRef<Set<string>>(new Set())
-	const [activeSection, setActiveSection] =
-		useState<TableOfContentsHeading['slug']>()
+	const [activeSection, setActiveSection] = useState<string>()
 	const previousY = useRef<number>()
 
-	// isProductLanding is needed to determine the IntersectionObserver threshold
-	// because the headings on product landing pages are smaller than the on docs
-	// pages
+	/**
+	 * isProductLanding is needed to determine the IntersectionObserver threshold
+	 * because the headings on product landing pages are smaller than the on docs
+	 * pages
+	 *
+	 * TODO: consider extracting this as a more generic option?
+	 * For example, support an optional `observerThreshold` argument, default 1?
+	 * And pass the option in when using this component on product landing pages?
+	 *
+	 * Alternately, this may no longer be an issue if the differences on the
+	 * product landing page are resolved, which is in-progress in dev-portal#1634.
+	 */
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const currentProduct = useCurrentProduct()
 	const isProductLanding =
@@ -40,7 +47,7 @@ export function useActiveSection(
 		}
 
 		const findMatchingSectionIndex = (slug: string) => {
-			return headings.findIndex((section) => section.slug === slug)
+			return slugs.findIndex((s) => s === slug)
 		}
 
 		const observer = new IntersectionObserver(
@@ -103,7 +110,7 @@ export function useActiveSection(
 							return current
 						}
 
-						return headings[newIndex].slug
+						return slugs[newIndex]
 					})
 				}
 
@@ -117,10 +124,10 @@ export function useActiveSection(
 			}
 		)
 
-		headings.forEach((section) => {
+		slugs.forEach((s) => {
 			const el = document
 				.getElementById('main')
-				?.querySelector(`#${CSS.escape(section.slug)}`)
+				?.querySelector(`#${CSS.escape(s)}`)
 			if (el) {
 				observer.observe(el)
 			}
@@ -129,7 +136,7 @@ export function useActiveSection(
 		return () => {
 			observer.disconnect()
 		}
-	}, [headings, isEnabled, isProductLanding])
+	}, [slugs, isEnabled, isProductLanding])
 
 	return activeSection
 }
