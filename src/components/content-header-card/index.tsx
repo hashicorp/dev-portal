@@ -10,7 +10,6 @@ import StandaloneLink from 'components/standalone-link'
 import Text from 'components/text'
 import TruncateMaxLines from 'components/truncate-max-lines'
 import { useDeviceSize } from 'contexts'
-import { MouseEvent } from 'react'
 import { ProductSlug } from 'types/products'
 import s from './content-header-card.module.css'
 
