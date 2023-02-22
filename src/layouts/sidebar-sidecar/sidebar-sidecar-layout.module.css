@@ -115,12 +115,7 @@ for further details.
 	padding-bottom: 128px;
 
 	@media (--dev-dot-sidecar-up) {
-		/* TODO: confirm this with design. Looks like zero right padding in Figma,
-		   but that might look odd in browser if any content is exactly 100% width.
-			 Having zero right padding also results in scroll bar overlap.
-			 Even a smaller value, eg 16px or 20px, seems like it could work well.
-			 If so, add something like padding-right: 16px;  */
-		padding-right: 0;
+		padding-right: 16px;
 	}
 }
 
@@ -137,15 +132,6 @@ for further details.
 		var(--sticky-bars-height) + var(--main-area-padding-top) +
 			var(--breadcrumb-bar-height)
 	);
-
-	/* TODO: consider sidecar position that is less reliant on breadcrumb 
-	   bar height. As is, we kind of HAVE to use breadcrumbs w sidecar.
-		 As well, the sidecar has more limited space which might look
-		 a little awkward once the breadcrumb bar is scrolled out of view. */
-
-	/* --position-top: calc(
-		var(--sticky-bars-height) + var(--main-area-padding-top)
-	); */
 
 	display: none;
 
