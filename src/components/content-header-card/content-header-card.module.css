@@ -8,23 +8,31 @@
 		& .icon {
 			margin-right: 12px;
 			display: none;
+
 			@media (--dev-dot-tablet-up) {
 				display: block;
 			}
 		}
 
 		& .content {
+			flex-grow: 1;
+
 			& .upper {
 				display: flex;
+				gap: 16px;
+				flex-direction: column-reverse;
+				@media (--dev-dot-tablet-up) {
+					flex-direction: row;
+				}
 
 				& .left {
+					flex-grow: 1;
+
 					& .titleWrap {
 						display: flex;
 						flex-wrap: wrap;
 						align-items: center;
-
 						@media (--dev-dot-tablet-up) {
-							margin-top: 0;
 							flex-wrap: unset;
 						}
 
@@ -46,24 +54,42 @@
 
 				& .dropdown {
 					flex-shrink: 0;
-					margin-left: 12px;
+					width: 100%;
+					& > button {
+						width: 100%;
+					}
+
+					@media (--dev-dot-tablet-up) {
+						width: auto;
+						& > button {
+							width: auto;
+						}
+					}
 				}
 			}
 		}
 
 		& .lower {
 			display: flex;
-			align-items: flex-end;
+			flex-direction: column;
+			align-items: flex-start;
+			@media (--dev-dot-tablet-up) {
+				flex-direction: row;
+				align-items: flex-end;
+			}
 
 			& .badgeList {
 				margin-top: 16px;
 			}
 
 			& .note {
+				color: var(--token-color-foreground-faint);
 				flex-grow: 1;
 				text-align: right;
-				margin-top: 6px;
-				color: var(--token-color-foreground-faint);
+				margin-top: 12px;
+				@media (--dev-dot-tablet-up) {
+					margin-top: 6px;
+				}
 			}
 		}
 	}
@@ -77,8 +103,15 @@
 		border-top: 1px solid rgba(101, 106, 118, 0.2);
 		border-radius: 0 0 6px 6px;
 		display: flex;
-		justify-content: space-between;
-		align-items: center;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 16px;
+
+		@media (--dev-dot-tablet-up) {
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+		}
 
 		& .linksList {
 			list-style: none;
@@ -109,12 +142,18 @@
 			margin: 0;
 			list-style: none;
 			display: flex;
-			flex-direction: row-reverse;
 			flex-grow: 1;
+			flex-direction: row;
+			@media (--dev-dot-tablet-up) {
+				flex-direction: row-reverse;
+			}
 
 			& li {
 				&:not(:first-of-type) {
-					margin-right: 12px;
+					margin-left: 12px;
+					@media (--dev-dot-tablet-up) {
+						margin-right: 12px;
+					}
 				}
 			}
 		}

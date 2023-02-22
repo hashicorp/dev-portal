@@ -34,7 +34,7 @@ interface Button {
 	text: string
 	icon?: JSX.IntrinsicElements['svg']
 	isPrimary?: boolean
-	onClick: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => void
+	onClick: () => void
 }
 
 export interface ContentHeaderCardProps {
@@ -104,6 +104,7 @@ export default function ContentHeaderCard({
 						</div>
 						{dropdown && (
 							<DropdownDisclosure
+								listPosition="right"
 								className={s.dropdown}
 								color="secondary"
 								text={dropdown.text}
@@ -165,6 +166,10 @@ export default function ContentHeaderCard({
 								return (
 									<li key={button.text}>
 										<Button
+											onClick={(e) => {
+												e.preventDefault()
+												button.onClick()
+											}}
 											text={button.text}
 											color={
 												button.isPrimary && index === 0

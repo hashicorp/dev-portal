@@ -190,16 +190,14 @@ export default function ProductIntegrationLayout({
 						text: 'Install',
 						isPrimary: true,
 						icon: <IconDownload16 />,
-						onClick: (e) => {
-							e.preventDefault()
+						onClick: () => {
 							console.log('CLICKED')
 						},
 					},
 					{
 						text: 'Report',
 						icon: <IconAlertDiamondFill16 />,
-						onClick: (e) => {
-							e.preventDefault()
+						onClick: () => {
 							console.log('CLICKED')
 						},
 					},
