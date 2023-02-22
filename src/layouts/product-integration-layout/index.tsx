@@ -137,7 +137,12 @@ export default function ProductIntegrationLayout({
 				}}
 			/>
 
-			<ContentHeaderCard />
+			<ContentHeaderCard
+				icon="boundary"
+				title="Docker-ref"
+				attribution="@hashicorp"
+				description="Lorem ipsum dolor sit amet consectetur. Mauris consequat elementum id molestie tellus leo consequat elementum hashicorp product."
+			/>
 
 			<h1>{title}</h1>
 			<div className={className}>{children}</div>

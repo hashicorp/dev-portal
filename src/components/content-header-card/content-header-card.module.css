@@ -3,6 +3,38 @@
 
 	& .cardTop {
 		padding: 16px;
+		display: flex;
+
+		& .icon {
+			margin-right: 12px;
+		}
+
+		& .left {
+			& .titleWrap {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+
+				@media (--dev-dot-tablet-up) {
+					margin-top: 0;
+					flex-wrap: unset;
+				}
+
+				& .title {
+					color: var(--token-color-foreground-strong);
+				}
+
+				& .attribution {
+					color: var(--token-color-foreground-faint);
+					margin-left: 4px;
+				}
+			}
+
+			& .description {
+				margin-top: 2px;
+				color: var(--token-color-foreground-primary);
+			}
+		}
 	}
 
 	& .cardBottom {
