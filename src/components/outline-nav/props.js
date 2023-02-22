@@ -1,3 +1,6 @@
+/* Note: please keep this in sync with `types.ts`.
+   TODO: If Swingset supported Typescript types, we'd be able to skip this.
+	 Task: https://app.asana.com/0/1199715139452823/1199702038395513/f */
 module.exports = {
 	items: {
 		type: 'array',
@@ -20,6 +23,11 @@ module.exports = {
 					isActive: {
 						type: 'boolean',
 						description: 'If `true`, the link will be styled as active.',
+					},
+					dataHeapTrack: {
+						type: 'string',
+						description:
+							"If provided, added as `data-heap-track` on this item's `<a />` tag.",
 					},
 					items: {
 						type: 'object',

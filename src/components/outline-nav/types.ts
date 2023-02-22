@@ -1,3 +1,7 @@
+/* Note: please keep this in sync with `props.js`.
+   TODO: If Swingset supported Typescript types, we'd be able to skip this.
+	 Task: https://app.asana.com/0/1199715139452823/1199702038395513/f */
+
 /**
  * Individual outline links
  */
