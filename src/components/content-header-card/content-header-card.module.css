@@ -7,6 +7,10 @@
 
 		& .icon {
 			margin-right: 12px;
+			display: none;
+			@media (--dev-dot-tablet-up) {
+				display: block;
+			}
 		}
 
 		& .left {
@@ -42,7 +46,7 @@
 		background: var(--token-color-surface-faint);
 
 		/* This is the color from --token-surface-base-box-shadow,
-    which the color value from it is not in a variable alone */
+		which the color value from it is not in a variable alone */
 		border-top: 1px solid rgba(101, 106, 118, 0.2);
 		border-radius: 0 0 6px 6px;
 	}
