@@ -4,6 +4,8 @@ export default function SiteMap() {
 	return null
 }
 
+const siteUrl = process.env.SITE_URL || 'https://developer.hashicorp.com'
+
 export async function getServerSideProps({ res }: GetServerSidePropsContext) {
 	const response = await fetch(
 		`https://content.hashicorp.com/api/all-docs-paths`
@@ -14,11 +16,7 @@ export async function getServerSideProps({ res }: GetServerSidePropsContext) {
         ${result
 					.map(
 						(sitePath: { path: string; created_at: string }) =>
-							`<url><loc>${
-								process.env.SITE_URL || 'https://developer.hashicorp.com'
-							}/${sitePath.path}</loc><lastmod>${
-								sitePath.created_at
-							}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+							`<url><loc>${siteUrl}/${sitePath.path}</loc><lastmod>${sitePath.created_at}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
               `
 					)
 					.join('')}
