@@ -22,6 +22,7 @@ import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
 import { ProductData } from 'types/products'
 import Header from './components/header'
 import s from './style.module.css'
+import ContentHeaderCard from 'components/content-header-card'
 
 interface ProductIntegrationLayoutProps {
 	title: string
@@ -135,6 +136,9 @@ export default function ProductIntegrationLayout({
 					console.log('TODO, probably remove this')
 				}}
 			/>
+
+			<ContentHeaderCard />
+
 			<h1>{title}</h1>
 			<div className={className}>{children}</div>
 		</SidebarSidecarLayout>

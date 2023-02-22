@@ -1,0 +1,17 @@
+.contentHeaderCard {
+	padding: 0;
+
+	& .cardTop {
+		padding: 16px;
+	}
+
+	& .cardBottom {
+		padding: 12px 16px;
+		background: var(--token-color-surface-faint);
+
+		/* This is the color from --token-surface-base-box-shadow,
+    which the color value from it is not in a variable alone */
+		border-top: 1px solid rgba(101, 106, 118, 0.2);
+		border-radius: 0 0 6px 6px;
+	}
+}
