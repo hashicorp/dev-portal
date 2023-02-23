@@ -24,7 +24,7 @@ import { WafTutorialViewProps } from '../types'
 
 export async function getWafTutorialViewProps(
 	tutorialSlug: [string, string]
-): Promise<{ props: WafTutorialViewProps }> {
+): Promise<WafTutorialViewProps> {
 	const [collectionFilename, tutorialFilename] = tutorialSlug
 	const currentPath = `/${wafData.slug}/${tutorialSlug.join('/')}`
 
@@ -94,62 +94,60 @@ export async function getWafTutorialViewProps(
 		nextCollection = allWafCollections.find((c) => nextSidebarItem?.id === c.id)
 	}
 
-	return {
-		props: stripUndefinedProperties<$TSFixMe>({
-			tutorial: {
-				...fullTutorialData,
-				content: serializedContent,
-				collectionCtx: collectionContext,
-				nextPreviousData: getNextPrevious({
-					currentCollection: collectionContext.current,
-					currentTutorialSlug: fullTutorialData.slug,
-					nextCollectionInSidebar: nextCollection,
-					formatting: {
-						getCollectionSlug: (collectionSlug: string) => `/${collectionSlug}`,
-						getTutorialSlug: (tutorialSlug: string, collectionSlug: string) =>
-							`/${collectionSlug}/${splitProductFromFilename(tutorialSlug)}`,
+	return stripUndefinedProperties<$TSFixMe>({
+		tutorial: {
+			...fullTutorialData,
+			content: serializedContent,
+			collectionCtx: collectionContext,
+			nextPreviousData: getNextPrevious({
+				currentCollection: collectionContext.current,
+				currentTutorialSlug: fullTutorialData.slug,
+				nextCollectionInSidebar: nextCollection,
+				formatting: {
+					getCollectionSlug: (collectionSlug: string) => `/${collectionSlug}`,
+					getTutorialSlug: (tutorialSlug: string, collectionSlug: string) =>
+						`/${collectionSlug}/${splitProductFromFilename(tutorialSlug)}`,
+				},
+			}),
+		},
+		layoutProps: {
+			headings,
+			breadcrumbLinks: [
+				{ title: 'Developer', url: '/' },
+				{ title: wafData.name, url: `/${wafData.slug}` },
+				{
+					title: collectionContext.current.name,
+					url: `/${collectionContext.current.slug}`,
+				},
+				{
+					title: fullTutorialData.name,
+					url: `/${collectionContext.current.slug}/${splitProductFromFilename(
+						fullTutorialData.slug
+					)}`,
+					isCurrentPage: true,
+				},
+			],
+			navLevels: [
+				generateTopLevelSidebarNavData(wafData.name) as SidebarProps,
+				generateWafCollectionSidebar(
+					wafData,
+					categorizedWafCollectionSidebarItems
+				),
+				{
+					title: wafData.name,
+					visuallyHideTitle: true,
+					showFilterInput: false,
+					levelButtonProps: {
+						levelUpButtonText: collectionContext.current.shortName,
+						levelDownButtonText: fullTutorialData.name,
 					},
-				}),
-			},
-			layoutProps: {
-				headings,
-				breadcrumbLinks: [
-					{ title: 'Developer', url: '/' },
-					{ title: wafData.name, url: `/${wafData.slug}` },
-					{
-						title: collectionContext.current.name,
-						url: `/${collectionContext.current.slug}`,
+					backToLinkProps: {
+						text: collectionContext.current.shortName,
+						href: `/${collectionContext.current.slug}`,
 					},
-					{
-						title: fullTutorialData.name,
-						url: `/${collectionContext.current.slug}/${splitProductFromFilename(
-							fullTutorialData.slug
-						)}`,
-						isCurrentPage: true,
-					},
-				],
-				navLevels: [
-					generateTopLevelSidebarNavData(wafData.name) as SidebarProps,
-					generateWafCollectionSidebar(
-						wafData,
-						categorizedWafCollectionSidebarItems
-					),
-					{
-						title: wafData.name,
-						visuallyHideTitle: true,
-						showFilterInput: false,
-						levelButtonProps: {
-							levelUpButtonText: collectionContext.current.shortName,
-							levelDownButtonText: fullTutorialData.name,
-						},
-						backToLinkProps: {
-							text: collectionContext.current.shortName,
-							href: `/${collectionContext.current.slug}`,
-						},
-						menuItems: tutorialNavLevelMenuItems,
-					},
-				],
-			},
-		}),
-	}
+					menuItems: tutorialNavLevelMenuItems,
+				},
+			],
+		},
+	})
 }

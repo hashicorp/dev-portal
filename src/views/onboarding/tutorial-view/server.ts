@@ -30,7 +30,7 @@ import { OnboardingTutorialViewProps } from '../types'
 
 export async function getOnboardingTutorialProps(
 	tutorialSlug: [string, string]
-): Promise<{ props: OnboardingTutorialViewProps }> {
+): Promise<OnboardingTutorialViewProps> {
 	const [collectionFilename, tutorialFilename] = tutorialSlug
 	const currentPath = `/${onboardingData.slug}/${tutorialSlug.join('/')}`
 
@@ -99,57 +99,55 @@ export async function getOnboardingTutorialProps(
 		)
 	}
 
-	return {
-		props: stripUndefinedProperties<$TSFixMe>({
-			tutorial: {
-				...fullTutorialData,
-				content: serializedContent,
-				collectionCtx: collectionContext,
-				nextPreviousData: getNextPrevious({
-					currentCollection: collectionContext.current,
-					currentTutorialSlug: fullTutorialData.slug,
-					nextCollectionInSidebar: nextCollection,
-					formatting: {
-						getCollectionSlug: (collectionSlug: string) => `/${collectionSlug}`,
-						getTutorialSlug: (tutorialSlug: string, collectionSlug: string) =>
-							`/${collectionSlug}/${splitProductFromFilename(tutorialSlug)}`,
+	return stripUndefinedProperties<$TSFixMe>({
+		tutorial: {
+			...fullTutorialData,
+			content: serializedContent,
+			collectionCtx: collectionContext,
+			nextPreviousData: getNextPrevious({
+				currentCollection: collectionContext.current,
+				currentTutorialSlug: fullTutorialData.slug,
+				nextCollectionInSidebar: nextCollection,
+				formatting: {
+					getCollectionSlug: (collectionSlug: string) => `/${collectionSlug}`,
+					getTutorialSlug: (tutorialSlug: string, collectionSlug: string) =>
+						`/${collectionSlug}/${splitProductFromFilename(tutorialSlug)}`,
+				},
+			}),
+			full: fullTutorialData,
+		},
+		layoutProps: {
+			headings,
+			breadcrumbLinks: [
+				{ title: 'Developer', url: '/' },
+				{
+					title: collectionContext.current.name,
+					url: `/${collectionContext.current.slug}`,
+				},
+				{
+					title: fullTutorialData.name,
+					url: `/${collectionContext.current.slug}/${splitProductFromFilename(
+						fullTutorialData.slug
+					)}`,
+					isCurrentPage: true,
+				},
+			],
+			navLevels: [
+				generateTopLevelSidebarNavData(onboardingData.name) as SidebarProps,
+				{
+					title: onboardingData.name,
+					levelButtonProps: {
+						levelUpButtonText: `Main Menu`,
+						levelDownButtonText: 'Previous',
 					},
-				}),
-				full: fullTutorialData,
-			},
-			layoutProps: {
-				headings,
-				breadcrumbLinks: [
-					{ title: 'Developer', url: '/' },
-					{
-						title: collectionContext.current.name,
-						url: `/${collectionContext.current.slug}`,
+					showFilterInput: false,
+					menuItems: tutorialNavLevelMenuItems,
+					backToLinkProps: {
+						text: `${currentCollection.name}`,
+						href: `/${currentCollection.slug}`,
 					},
-					{
-						title: fullTutorialData.name,
-						url: `/${collectionContext.current.slug}/${splitProductFromFilename(
-							fullTutorialData.slug
-						)}`,
-						isCurrentPage: true,
-					},
-				],
-				navLevels: [
-					generateTopLevelSidebarNavData(onboardingData.name) as SidebarProps,
-					{
-						title: onboardingData.name,
-						levelButtonProps: {
-							levelUpButtonText: `Main Menu`,
-							levelDownButtonText: 'Previous',
-						},
-						showFilterInput: false,
-						menuItems: tutorialNavLevelMenuItems,
-						backToLinkProps: {
-							text: `${currentCollection.name}`,
-							href: `/${currentCollection.slug}`,
-						},
-					},
-				],
-			},
-		}),
-	}
+				},
+			],
+		},
+	})
 }

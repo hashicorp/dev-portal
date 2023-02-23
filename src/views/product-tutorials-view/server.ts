@@ -46,9 +46,7 @@ interface ProductTutorialsLayout {
  * TODO: figure out what to do with the /hcp/tutorials view (design dependent).
  * Taking this temporary approach for now while awaiting final designs.
  */
-export async function getCloudTutorialsViewProps(): Promise<{
-	props: ProductTutorialsViewProps
-}> {
+export async function getCloudTutorialsViewProps(): Promise<ProductTutorialsViewProps> {
 	const productData = cachedGetProductData('hcp')
 
 	/**
@@ -73,28 +71,26 @@ export async function getCloudTutorialsViewProps(): Promise<{
 	/**
 	 * Return static props
 	 */
-	return {
-		props: stripUndefinedProperties({
-			metadata: {
-				title: 'Tutorials',
-			},
-			data: {
-				pageData,
-				sitemapCollections,
-			},
-			layoutProps: {
-				headings,
-				breadcrumbLinks: getTutorialsBreadcrumb({
-					product: { name: productData.name, filename: productData.slug },
-				}),
-				sidebarSections,
-			},
-			// Note: should likely remove type casting here,
-			// it's currently needed because "hcp" is not a valid LearnProductName.
-			// Kind of a $TSFixMe.
-			product: productData as LearnProductData,
-		}),
-	}
+	return stripUndefinedProperties({
+		metadata: {
+			title: 'Tutorials',
+		},
+		data: {
+			pageData,
+			sitemapCollections,
+		},
+		layoutProps: {
+			headings,
+			breadcrumbLinks: getTutorialsBreadcrumb({
+				product: { name: productData.name, filename: productData.slug },
+			}),
+			sidebarSections,
+		},
+		// Note: should likely remove type casting here,
+		// it's currently needed because "hcp" is not a valid LearnProductName.
+		// Kind of a $TSFixMe.
+		product: productData as LearnProductData,
+	})
 }
 
 /**
@@ -107,7 +103,7 @@ export async function getCloudTutorialsViewProps(): Promise<{
  */
 export async function getProductTutorialsViewProps(
 	productData: LearnProductData
-): Promise<{ props: ProductTutorialsViewProps }> {
+): Promise<ProductTutorialsViewProps> {
 	const productSlug = productData.slug
 
 	/**
@@ -162,24 +158,22 @@ export async function getProductTutorialsViewProps(
 	/**
 	 * Return static props
 	 */
-	return {
-		props: stripUndefinedProperties({
-			metadata: {
-				title: 'Tutorials',
-			},
-			data: {
-				pageData,
-				sitemapCollections,
-			},
-			layoutProps,
-			product: {
-				...productData,
-				description,
-				docsUrl,
-				id,
-				name: name as LearnProductName,
-				slug,
-			},
-		}),
-	}
+	return stripUndefinedProperties({
+		metadata: {
+			title: 'Tutorials',
+		},
+		data: {
+			pageData,
+			sitemapCollections,
+		},
+		layoutProps,
+		product: {
+			...productData,
+			description,
+			docsUrl,
+			id,
+			name: name as LearnProductName,
+			slug,
+		},
+	})
 }

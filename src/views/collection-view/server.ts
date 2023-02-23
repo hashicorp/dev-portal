@@ -104,7 +104,7 @@ export async function getCollectionPageProps(
 		slug: LearnProductSlug | 'hcp'
 	},
 	slug: string
-): Promise<{ props: CollectionPageProps } | null> {
+): Promise<CollectionPageProps | null> {
 	// product.slug may be "hcp", needs to be "cloud" for Learn API use
 	const learnProductSlug = normalizeSlugForTutorials(product.slug)
 	const collection = await getCollection(`${learnProductSlug}/${slug}`)
@@ -128,17 +128,15 @@ export async function getCollectionPageProps(
 		),
 	}
 
-	return {
-		props: stripUndefinedProperties<$TSFixMe>({
-			metadata: {
-				title: collection.shortName,
-				description: collection.description,
-			},
-			collection: collection,
-			product,
-			layoutProps,
-		}),
-	}
+	return stripUndefinedProperties<$TSFixMe>({
+		metadata: {
+			title: collection.shortName,
+			description: collection.description,
+		},
+		collection: collection,
+		product,
+		layoutProps,
+	})
 }
 
 /**

@@ -37,7 +37,7 @@ export async function getStaticProps({
 	 * Note: `hcp` is a "product" in Dev Dot but not in Learn,
 	 * so we have to treat it slightly differently.
 	 */
-	const { props } =
+	const props =
 		productData.slug == 'hcp'
 			? await getCloudTutorialsViewProps()
 			: await getProductTutorialsViewProps(productData as LearnProductData)

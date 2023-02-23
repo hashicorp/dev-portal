@@ -55,7 +55,7 @@ export async function getTutorialPageProps(
 		slug: LearnProductSlug | 'hcp'
 	},
 	slug: [string, string]
-): Promise<{ props: TutorialPageProps } | null> {
+): Promise<TutorialPageProps | null> {
 	// product.slug may be "hcp", needs to be "cloud" for Learn API use
 	const learnProductSlug = normalizeSlugForTutorials(product.slug)
 	const { collection, tutorialReference } = await getCurrentCollectionTutorial(
@@ -122,25 +122,22 @@ export async function getTutorialPageProps(
 			after: collectionContext.current.slug,
 		})
 	}
-
-	return {
-		props: stripUndefinedProperties<$TSFixMe>({
-			metadata: {
-				title: fullTutorialData.name,
-				description: fullTutorialData.description,
-			},
-			tutorial: {
-				...fullTutorialData,
-				content: serializedContent,
-				collectionCtx: collectionContext,
-				headings,
-				nextCollectionInSidebar: nextCollection,
-			},
-			product,
-			layoutProps,
-			nextCollection,
-		}),
-	}
+	return stripUndefinedProperties<$TSFixMe>({
+		metadata: {
+			title: fullTutorialData.name,
+			description: fullTutorialData.description,
+		},
+		tutorial: {
+			...fullTutorialData,
+			content: serializedContent,
+			collectionCtx: collectionContext,
+			headings,
+			nextCollectionInSidebar: nextCollection,
+		},
+		product,
+		layoutProps,
+		nextCollection,
+	})
 }
 
 export interface TutorialPagePaths {

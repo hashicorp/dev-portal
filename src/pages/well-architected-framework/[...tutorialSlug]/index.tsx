@@ -21,7 +21,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ tutorialSlug: [string, string] }>): Promise<
 	GetStaticPropsResult<WafTutorialViewProps>
 > {
-	const { props } = await getWafTutorialViewProps(params.tutorialSlug)
+	const props = await getWafTutorialViewProps(params.tutorialSlug)
 
 	// If the tutorial doesn't exist, hit the 404
 	if (!props) {
