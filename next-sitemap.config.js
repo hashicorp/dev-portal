@@ -12,7 +12,7 @@ module.exports = {
 	robotsTxtOptions: {
 		additionalSitemaps: [
 			`${siteUrl}/hcp-sitemap.xml`,
-			`${siteUrl}/sitemap-docs.xml`,
+			`${siteUrl}/server-sitemap.xml`,
 		],
 	},
 	exclude: [
@@ -20,6 +20,7 @@ module.exports = {
 		'/onboarding/*',
 		'/profile*',
 		'sitemap.xml',
+		'/server-sitemap.xml',
 		'/boundary/docs*',
 		'/boundary/commands*',
 		'/consul/docs*',
