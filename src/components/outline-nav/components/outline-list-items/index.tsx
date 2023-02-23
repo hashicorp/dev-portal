@@ -13,19 +13,15 @@ function OutlineListItems({ items }: { items: OutlineLinkItem[] }) {
 	return (
 		<>
 			{items.map((item: OutlineLinkItem) => {
-				if ('items' in item) {
-					return (
-						<li key={item.url}>
+				return (
+					<li key={item.url}>
+						{'items' in item ? (
 							<OutlineLinkWithNesting {...item} />
-						</li>
-					)
-				} else {
-					return (
-						<li key={item.url}>
+						) : (
 							<OutlineLink {...item} />
-						</li>
-					)
-				}
+						)}
+					</li>
+				)
 			})}
 		</>
 	)
