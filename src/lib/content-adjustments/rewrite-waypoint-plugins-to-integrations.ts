@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Rewrite Waypoint `plugin` links to `integrations`.
  *
  * Waypoint /plugins have been moved to /integrations. We have redirects
