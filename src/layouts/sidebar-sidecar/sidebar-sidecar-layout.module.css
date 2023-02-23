@@ -145,6 +145,7 @@ for further details.
 		flex-shrink: 0;
 		height: min-content;
 		margin-left: 48px;
+		margin-top: var(--breadcrumb-bar-height);
 		position: sticky;
 		top: var(--sidecar-position-top);
 		width: var(--sidecar-width);
