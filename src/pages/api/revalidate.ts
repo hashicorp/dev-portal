@@ -90,7 +90,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 			}
 
 			if (typeof path !== 'undefined') {
-				const pathToRevalidate = `/${product}/${basePath}/${path}`
+				const pathToRevalidate = `/${resolvedProduct}/${basePath}/${path}`
 					// remove any trailing slash
 					.replace(/\/$/, '')
 

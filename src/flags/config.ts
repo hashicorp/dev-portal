@@ -16,6 +16,5 @@ export const config: Configuration<AppFlags> = {
 	// You can provide defaults flag values here
 	defaultFlags: {
 		testFlag: false,
-		ioHomeHeroAlt: true,
 	},
 }

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import rehypeSanitize from 'rehype-sanitize'
 import defaultSchema from 'hast-util-sanitize/lib/github.json'
 import { deepmerge } from 'deepmerge-ts'
