@@ -29,6 +29,7 @@
 		right: 0;
 		top: 0;
 		transition: var(--gradient-scrim-transition);
+		pointer-events: none;
 		z-index: 2;
 	}
 
@@ -48,6 +49,7 @@
 		position: absolute;
 		right: 0;
 		transition: var(--gradient-scrim-transition);
+		pointer-events: none;
 		z-index: 2;
 	}
 
