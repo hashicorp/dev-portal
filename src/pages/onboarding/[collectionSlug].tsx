@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { GetStaticPropsContext } from 'next'
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import {
 	Collection as ClientCollection,
@@ -17,9 +17,9 @@ import { OnboardingCollectionViewProps } from 'views/onboarding/types'
 
 export async function getStaticProps({
 	params,
-}: GetStaticPropsContext<{ collectionSlug: string }>): Promise<{
-	props: OnboardingCollectionViewProps
-}> {
+}: GetStaticPropsContext<{ collectionSlug: string }>): Promise<
+	GetStaticPropsResult<OnboardingCollectionViewProps>
+> {
 	const allOnboardingCollections = await getCollectionsBySection(
 		onboardingData.slug
 	)
@@ -56,6 +56,7 @@ export async function getStaticProps({
 				onboardingSlug: onboardingData.slug,
 			},
 		}),
+		revalidate: __config.dev_dot.revalidate,
 	}
 }
 

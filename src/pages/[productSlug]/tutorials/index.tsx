@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { GetStaticPropsContext } from 'next'
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import { LearnProductData, LearnProductSlug, ProductSlug } from 'types/products'
 import {
 	getCloudTutorialsViewProps,
@@ -28,21 +28,21 @@ function generateProductTutorialHomePaths() {
 
 export async function getStaticProps({
 	params,
-}: GetStaticPropsContext<{ productSlug: LearnProductSlug }>): Promise<{
-	props: ProductTutorialsViewProps
-}> {
+}: GetStaticPropsContext<{ productSlug: LearnProductSlug }>): Promise<
+	GetStaticPropsResult<ProductTutorialsViewProps>
+> {
 	const productData = cachedGetProductData(params.productSlug)
 
 	/**
 	 * Note: `hcp` is a "product" in Dev Dot but not in Learn,
 	 * so we have to treat it slightly differently.
 	 */
-	const props =
+	const { props } =
 		productData.slug == 'hcp'
 			? await getCloudTutorialsViewProps()
 			: await getProductTutorialsViewProps(productData as LearnProductData)
 
-	return props
+	return { props, revalidate: __config.dev_dot.revalidate }
 }
 
 export async function getStaticPaths() {

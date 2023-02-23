@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { GetStaticPropsResult } from 'next'
 import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import {
 	Collection as ApiCollection,
@@ -18,15 +19,15 @@ import { GetStaticPropsContext } from 'next'
 export async function getStaticProps({
 	params,
 }: GetStaticPropsContext<{ tutorialSlug: [string, string] }>): Promise<
-	{ props: WafTutorialViewProps } | { notFound: boolean }
+	GetStaticPropsResult<WafTutorialViewProps>
 > {
-	const props = await getWafTutorialViewProps(params.tutorialSlug)
+	const { props } = await getWafTutorialViewProps(params.tutorialSlug)
 
 	// If the tutorial doesn't exist, hit the 404
 	if (!props) {
 		return { notFound: true }
 	}
-	return props
+	return { props, revalidate: __config.dev_dot.revalidate }
 }
 
 export async function getStaticPaths() {

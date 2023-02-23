@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { GetStaticPropsContext } from 'next'
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import { Collection as ApiCollection } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
@@ -16,9 +16,9 @@ import wafData from 'data/well-architected-framework.json'
 
 export async function getStaticProps({
 	params,
-}: GetStaticPropsContext<{ collectionSlug: string }>): Promise<{
-	props: WellArchitectedFrameworkCollectionViewProps
-}> {
+}: GetStaticPropsContext<{ collectionSlug: string }>): Promise<
+	GetStaticPropsResult<WellArchitectedFrameworkCollectionViewProps>
+> {
 	const allWafCollections = await getCollectionsBySection(wafData.slug)
 	const currentCollection = allWafCollections.find(
 		(collection: ApiCollection) =>
@@ -48,6 +48,7 @@ export async function getStaticProps({
 				breadcrumbLinks,
 			},
 		}),
+		revalidate: __config.dev_dot.revalidate,
 	}
 }
 

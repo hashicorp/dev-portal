@@ -43,12 +43,12 @@ async function getStaticProps({
 
 	const productData = cachedGetProductData(productSlug) as LearnProductData
 
-	const props = await getCollectionPageProps(productData, collectionSlug)
+	const { props } = await getCollectionPageProps(productData, collectionSlug)
 	// If the collection doesn't exist, hit the 404
 	if (!props) {
 		return { notFound: true }
 	}
-	return props
+	return { props, revalidate: __config.dev_dot.revalidate }
 }
 
 export { getStaticPaths, getStaticProps }

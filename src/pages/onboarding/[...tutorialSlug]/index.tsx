@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { GetStaticPropsContext } from 'next'
+import { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import { getCollectionsBySection } from 'lib/learn-client/api/collection'
 import {
 	Collection as ApiCollection,
@@ -18,15 +18,15 @@ import { OnboardingTutorialViewProps } from 'views/onboarding/types'
 export async function getStaticProps({
 	params,
 }: GetStaticPropsContext<{ tutorialSlug: [string, string] }>): Promise<
-	{ props: OnboardingTutorialViewProps } | { notFound: boolean }
+	GetStaticPropsResult<OnboardingTutorialViewProps>
 > {
-	const props = await getOnboardingTutorialProps(params.tutorialSlug)
+	const { props } = await getOnboardingTutorialProps(params.tutorialSlug)
 
 	// If the tutorial doesn't exist, hit the 404
 	if (!props) {
 		return { notFound: true }
 	}
-	return props
+	return { props, revalidate: __config.dev_dot.revalidate }
 }
 
 export async function getStaticPaths() {
