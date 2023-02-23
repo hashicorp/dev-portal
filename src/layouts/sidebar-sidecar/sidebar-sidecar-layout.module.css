@@ -52,10 +52,12 @@ for further details.
 
 	&.mainWidth-wide {
 		--main-element-max-width: 896px;
+		--sidecar-width: 312px;
 	}
 
 	&.mainWidth-narrow {
 		--main-element-max-width: 680px;
+		--sidecar-width: 312px;
 	}
 }
 
@@ -142,7 +144,7 @@ for further details.
 		margin-left: 48px;
 		position: sticky;
 		top: var(--sidecar-position-top);
-		width: 312px;
+		width: var(--sidecar-width);
 	}
 
 	@media (min-width: 1440px) {
