@@ -52,12 +52,10 @@ for further details.
 
 	&.mainWidth-wide {
 		--main-element-max-width: 896px;
-		--sidecar-width: 220px;
 	}
 
 	&.mainWidth-narrow {
 		--main-element-max-width: 680px;
-		--sidecar-width: 288px;
 	}
 }
 
@@ -128,24 +126,22 @@ for further details.
 
 .sidecarPosition {
 	--breadcrumb-bar-height: 58px;
-	--position-top: calc(
+	--sidecar-position-top: calc(
 		var(--sticky-bars-height) + var(--main-area-padding-top) +
 			var(--breadcrumb-bar-height)
 	);
+	--max-sidecar-height: calc(100vh - var(--sidecar-position-top));
 
 	display: none;
 
 	@media (--dev-dot-sidecar-up) {
-		display: block;
+		display: flex;
+		flex-direction: column;
 		flex-shrink: 0;
-		height: calc(100vh - var(--position-top));
+		height: min-content;
 		margin-left: 48px;
 		position: sticky;
-		top: var(--position-top);
-
-		/* TODO: confirm with design - is this width for all viewport sizes?
-		   Should we change the breakpoint at which we introduce the sidecar?
-			 May want to  switch back to width: var(--sidecar-width); */
+		top: var(--sidecar-position-top);
 		width: 312px;
 	}
 
