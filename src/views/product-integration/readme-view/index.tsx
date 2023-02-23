@@ -58,12 +58,7 @@ export default function ProductIntegrationReadmeView({
 					/>
 				)
 			}
-			sidecarSlot={
-				<div>
-					{/* Note: wrapper div is necessary here, otherwise callout grows to fill the entire available sidecar height. This is due to how we've architected CardLink elements, with height: 100% set by default for ease of use in flex-based layouts. */}
-					<TryHcpCalloutSidecarPlacement productSlug={product.slug} />
-				</div>
-			}
+			sidecarSlot={<TryHcpCalloutSidecarPlacement productSlug={product.slug} />}
 		>
 			<DevDotContent mdxRemoteProps={serializedREADME} />
 		</ProductIntegrationLayout>
