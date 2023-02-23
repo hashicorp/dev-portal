@@ -132,7 +132,10 @@ for further details.
 		var(--sticky-bars-height) + var(--main-area-padding-top) +
 			var(--breadcrumb-bar-height)
 	);
-	--max-sidecar-height: calc(100vh - var(--sidecar-position-top));
+	--sidecar-viewport-bottom-spacing: 24px;
+	--max-sidecar-height: calc(
+		100vh - var(--sidecar-position-top) - var(--sidecar-viewport-bottom-spacing)
+	);
 
 	display: none;
 
