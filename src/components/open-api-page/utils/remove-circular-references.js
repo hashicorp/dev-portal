@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Stringifies JSON, replacing circular references with `undefined`.
  */
 function safeStringifyJson(obj, indent = 2) {
