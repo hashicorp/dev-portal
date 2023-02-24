@@ -13,6 +13,8 @@ import {
 } from 'lib/learn-client/api/api-types'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 import { getCollectionSlug } from 'views/collection-view/helpers'
+import { activeProductSlugs } from 'lib/products'
+import { SectionOption } from 'lib/learn-client/types'
 
 /**
  * Accepts a POST request with a tutorial object, triggers revalidation for all paths associated with that tutorial
@@ -26,7 +28,9 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 
 	try {
 		const revalidatePromises = []
-		const paths = getPathsToRevalidate()
+		const productTutorialPaths = getProductTutorialPathsToRevalidate()
+		const sectionTutorialPaths = getSectionTutorialPathsToRevalidate()
+		const paths = [...productTutorialPaths, ...sectionTutorialPaths]
 
 		if (!paths || paths.length === 0) {
 			response.status(200).end()
@@ -54,10 +58,13 @@ export default validateToken(handler, {
 	onlyMethods: ['POST'],
 })
 
-function getPathsToRevalidate(): string[] {
+function getProductTutorialPathsToRevalidate(): string[] {
 	const paths = []
 
 	// build all product tutorial landing paths
+	activeProductSlugs.forEach((productSlug) => {
+		paths.push(`/${productSlug}/tutorials`)
+	})
 
 	// build all collection paths
 
@@ -65,6 +72,26 @@ function getPathsToRevalidate(): string[] {
 
 	return paths
 }
+
+// for waf and onboarding routes that are top level
+function getSectionTutorialPathsToRevalidate() {
+	const paths = []
+
+	// build all product tutorial landing paths
+	Object.values(SectionOption).forEach((slug: SectionOption) => {
+		paths.push(`/${slug}`)
+	})
+
+	// build all collection paths
+
+	// build all tutorial paths
+
+	return paths
+}
+
+/**
+ * write as out file to test the output
+ */
 
 // tutorial.featured_collections.map((collection: ApiFeaturedCollection) => {
 // 	// add individual tutorial path per collection
