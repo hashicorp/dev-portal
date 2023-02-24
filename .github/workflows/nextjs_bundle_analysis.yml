@@ -12,12 +12,10 @@ on:
 
 jobs:
   analyze:
-    env:
-      SKIP_BUILD_PRODUCT_REDIRECTS: 1
     uses: hashicorp/nextjs-bundle-analysis/.github/workflows/analyze.yml@a4a2beb4f8f5115d0300efbda7a9c63b11fce689
     with:
       #   Uncomment any of the following inputs if you need to change the defaults
       #   node-version: 18
       #   package-manager: npm
       #   working-directory: ./
-      build-command: npm run build:webpack-only
+      build-command: SKIP_BUILD_PRODUCT_REDIRECTS=1 npm run build:webpack-only
