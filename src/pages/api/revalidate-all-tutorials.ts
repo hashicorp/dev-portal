@@ -34,7 +34,10 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	try {
 		const tutorialLandingPaths = getTutorialLandingPaths()
 		const collectionAndTutorialPaths = await getCollectionAndTutorialPaths()
-		const paths = [...tutorialLandingPaths, ...collectionAndTutorialPaths]
+		const paths: string[] = [
+			...tutorialLandingPaths,
+			...collectionAndTutorialPaths,
+		]
 
 		if (!paths || paths.length === 0) {
 			response.status(200).end()
@@ -45,10 +48,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		// runs all map functions in parallel
 		let batchRevalidatePromises = []
 		for (let i = 0; i < paths.length; i++) {
-			// The current file's path
-			const path = paths[i].path
-
-			// batch our promises
+			const path = paths[i]
 			console.log('[Revalidate]', path)
 			batchRevalidatePromises.push(response.revalidate(path))
 
