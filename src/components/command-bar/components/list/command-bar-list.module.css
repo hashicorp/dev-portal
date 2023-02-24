@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .label {
 	color: var(--token-color-foreground-primary);
 	margin-bottom: 8px;

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import path from 'path'
 import { ApiTutorial, ApiCollection } from '../api-types'
 import { formatIdentifier } from '../utils'

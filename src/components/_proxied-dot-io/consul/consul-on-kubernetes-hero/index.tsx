@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Button from '@hashicorp/react-button'
 import ReactPlayer from 'react-player'
 import s from './style.module.css'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /* eslint-disable react/no-array-index-key */
 import CalloutCard from 'components/callout-card'
 import { ProductLandingBlocksProps, ProductLandingBlock } from './types'

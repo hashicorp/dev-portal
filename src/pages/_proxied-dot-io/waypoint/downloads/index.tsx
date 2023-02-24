@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import ProductDownloadsPage from '@hashicorp/react-product-downloads-page'
 import {

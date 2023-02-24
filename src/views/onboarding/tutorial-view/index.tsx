@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Fragment } from 'react'
 import HashiHead from '@hashicorp/react-head'
 import InstruqtProvider from 'contexts/instruqt-lab'
@@ -6,7 +11,7 @@ import VideoEmbed from 'components/video-embed'
 import getVideoUrl from 'views/tutorial-view/utils/get-video-url'
 import DevDotContent from 'components/dev-dot-content'
 import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
 import { NextPrevious } from 'views/tutorial-view/components'
 import { OnboardingTutorialViewProps } from '../types'
 
@@ -39,7 +44,7 @@ export default function OnboardingTutorialView({
 				key={slug}
 				{...(isInteractive && { labId: handsOnLab.id })}
 			>
-				<SidebarSidecarLayout
+				<SidebarSidecarWithToc
 					headings={layoutProps.headings}
 					breadcrumbLinks={layoutProps.breadcrumbLinks}
 					sidebarNavDataLevels={layoutProps.navLevels}
@@ -67,7 +72,7 @@ export default function OnboardingTutorialView({
 						mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
 					/>
 					<NextPrevious {...nextPreviousData} />
-				</SidebarSidecarLayout>
+				</SidebarSidecarWithToc>
 			</InteractiveLabWrapper>
 		</>
 	)

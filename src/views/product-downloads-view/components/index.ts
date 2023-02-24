@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * This purpose of this barrel file is to help keep the import section of
  * `ProductDownloadsView` clean. This is not a standard process used across the
  * project because it affects build times when used in `src/components`, but is

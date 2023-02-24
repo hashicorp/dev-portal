@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Session } from 'next-auth'
 import { ApiBookmark } from 'lib/learn-client/api/api-types'
 import { Tutorial } from 'lib/learn-client/types'

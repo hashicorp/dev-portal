@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { InferGetStaticPropsType } from 'next'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { OpenApiPageContents } from 'components/open-api-page'
@@ -94,9 +99,6 @@ export async function getStaticProps({ params }) {
 	// Product data
 	const productData = cachedGetProductData(productSlug)
 
-	// Layout props
-	const headings = []
-
 	// Breadcrumbs
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
@@ -147,10 +149,8 @@ export async function getStaticProps({ params }) {
 		props: {
 			apiPageProps,
 			layoutProps: {
-				headings,
 				breadcrumbLinks,
 				sidebarNavDataLevels,
-				sidecarSlot: null,
 			},
 			product: productData,
 		},

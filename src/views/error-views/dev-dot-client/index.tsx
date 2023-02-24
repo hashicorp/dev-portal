@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Head from 'next/head'
 import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
 import { useEffect } from 'react'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import moize, { Options } from 'moize'
 import {
 	Collection as ClientCollection,

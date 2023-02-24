@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import algoliasearch from 'algoliasearch/lite'
 import { InstantSearch } from 'react-instantsearch-hooks-web'
 import { history } from 'instantsearch.js/es/lib/routers'
@@ -36,7 +41,7 @@ const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const searchClient = algoliasearch(appId, 'bf27a047ba263cba01ee9b4081965a1a')
 
 interface TutorialsLibraryPageProps {
-	layoutProps: Omit<SidebarSidecarLayoutProps, 'sidecarSlot' | 'headings'>
+	layoutProps: SidebarSidecarLayoutProps
 	defaultTutorials: Omit<Tutorial, 'content'>[]
 }
 
@@ -85,7 +90,6 @@ export default function TutorialsLibraryPage({
 			<SidebarSidecarLayout
 				{...layoutProps}
 				AlternateSidebar={TutorialLibrarySidebar}
-				sidecarSlot={null}
 			>
 				<TutorialsLibraryView defaultTutorials={defaultTutorials} />
 			</SidebarSidecarLayout>

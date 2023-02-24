@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useTutorialProgress } from 'hooks/progress'
 import { progressStatusToAriaLabel } from 'lib/learn-client/api/progress'
 import { TutorialProgressStatus } from 'lib/learn-client/types'

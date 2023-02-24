@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
 import VerticalTextBlockList from '@hashicorp/react-vertical-text-block-list/index.tsx'
 import SectionHeader from '@hashicorp/react-section-header'

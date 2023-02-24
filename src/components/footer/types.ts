@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export interface FooterProps {
 	/** Function that, when called without arguments, opens the consent manager. */
 	openConsentManager?: () => void

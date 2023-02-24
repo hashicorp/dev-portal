@@ -1,12 +1,15 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { GetStaticPropsResult } from 'next'
 import fs from 'fs'
 import path from 'path'
 import { ProductData } from 'types/products'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { validateAgainstSchema } from 'lib/validate-against-schema'
-import { TableOfContentsHeading } from 'layouts/sidebar-sidecar/components/table-of-contents'
-import { BreadcrumbLink } from 'components/breadcrumb-bar'
-import { SidebarProps } from 'components/sidebar'
+import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -19,11 +22,7 @@ const generateGetStaticProps = (product: ProductData) => {
 	return async (): Promise<
 		GetStaticPropsResult<
 			ProductLandingViewProps & {
-				layoutProps: {
-					headings: TableOfContentsHeading[]
-					breadcrumbLinks: BreadcrumbLink[]
-					sidebarNavDataLevels: SidebarProps[]
-				}
+				layoutProps: Omit<SidebarSidecarWithTocProps, 'children'>
 				product: ProductData
 			}
 		>

@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * An array of objects. Each object has two properties. The `testValue` property
  * is the value to be tested. The `expectedResult` property is an object
  * representing expected results for each test value. The object has an entry

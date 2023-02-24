@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconBookmarkAdd24 } from '@hashicorp/flight-icons/svg-react/bookmark-add-24'
 import { IconBookmarkRemove24 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-24'
 import { toast } from 'components/toast'

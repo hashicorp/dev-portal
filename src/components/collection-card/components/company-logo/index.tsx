@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Image from 'next/legacy/image'
 import classNames from 'classnames'
 import { CompanyLogoOption, CompanyLogoProps } from './types'

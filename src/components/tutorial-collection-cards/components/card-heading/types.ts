@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { HeadingProps } from 'components/heading'
 
 export interface CardHeadingProps {

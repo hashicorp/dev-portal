@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import path from 'path'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { normalizeRemoteLoaderSlug } from './normalize-remote-loader-slug'

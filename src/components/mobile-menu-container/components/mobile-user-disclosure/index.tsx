@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconChevronDown24 } from '@hashicorp/flight-icons/svg-react/chevron-down-24'
 import { getUserMeta } from 'lib/auth/user'
 import isAbsoluteUrl from 'lib/is-absolute-url'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Position } from '@reach/tooltip'
 import { ReactElement, ReactNode } from 'react'
 export interface TooltipProps {

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import classNames from 'classnames'
 import { IconLink16 } from '@hashicorp/flight-icons/svg-react/link-16'
 import s from './mdx-heading-permalink.module.css'

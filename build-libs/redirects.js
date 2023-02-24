@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 //@ts-check
 
 const fs = require('fs')
@@ -279,6 +284,23 @@ async function buildDevPortalRedirects() {
 		{
 			source: '/hashicorp-cloud-platform',
 			destination: '/hcp',
+			permanent: true,
+		},
+		/**
+		 * Redirect Waypoint Plugins to Waypoint Integrations
+		 *
+		 * Note: canonical list of plugin pages that require redirects can be
+		 * derived from the plugins nav-data.json file:
+		 * https://github.com/hashicorp/waypoint/blob/main/website/data/plugins-nav-data.json
+		 */
+		{
+			source: '/waypoint/plugins',
+			destination: '/waypoint/integrations',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/plugins/:slug',
+			destination: '/waypoint/integrations/hashicorp/:slug',
 			permanent: true,
 		},
 	]

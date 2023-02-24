@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { BadgeProps } from 'components/badge'
 
 export interface NumericBadgeProps extends Pick<BadgeProps, 'size' | 'type'> {

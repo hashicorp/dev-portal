@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
@@ -38,7 +43,6 @@ function CollectionView({
 			 * a follow-up PR since this is functional for the time being.
 			 */
 			sidebarNavDataLevels={sidebarNavDataLevels as any}
-			sidecarSlot={null}
 		>
 			<CollectionMeta
 				collection={collection}

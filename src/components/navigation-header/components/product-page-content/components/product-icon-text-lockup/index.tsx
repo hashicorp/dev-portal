@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import ProductIcon from 'components/product-icon'
 import { isProductSlug } from 'lib/products'
 import s from './product-icon-text-lockup.module.css'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // accepts an array and returns a truncated array with interlaced "ellipsis"
 // items, based on the current page
 export function generateTruncatedList(

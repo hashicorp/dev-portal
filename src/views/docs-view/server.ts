@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Third-party imports
 import path from 'path'
 import { Pluggable } from 'unified'
@@ -15,7 +20,7 @@ import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-
 import { isDeployPreview } from 'lib/env-checks'
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
-import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
+import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 import {
@@ -328,7 +333,7 @@ export function getStaticGenerationFunctions<
 			 */
 			const isRootPath = pathParts.length === 0 || pathParts[0] === ''
 			const isDocsLanding = isRootPath && basePath === 'docs'
-			const layoutProps: Omit<SidebarSidecarLayoutProps, 'children'> = {
+			const layoutProps: Omit<SidebarSidecarWithTocProps, 'children'> = {
 				breadcrumbLinks,
 				headings: nonEmptyHeadings,
 				// TODO: need to adjust type for sidebarNavDataLevels here

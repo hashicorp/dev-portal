@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useCallback, useState } from 'react'
 
 const RECENT_SEARCHES_KEY = 'DEV_DOT_RECENT_SEARCHES'

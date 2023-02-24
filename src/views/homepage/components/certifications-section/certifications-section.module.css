@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .collectionCards {
 	/* Negative top margin for overlap onto text-and-image section above */
 	margin: -72px auto 0 auto;

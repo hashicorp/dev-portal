@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useBookmarksByTutorialIds } from 'hooks/bookmarks'
 import CardsGridList, { CardsGridListProps } from 'components/cards-grid-list'
 import {

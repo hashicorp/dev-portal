@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Products } from '@hashicorp/platform-product-meta'
 import { ReactElement } from 'react'
 import NomadIoLayout from 'layouts/_proxied-dot-io/nomad'

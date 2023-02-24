@@ -49,8 +49,8 @@
 			"type": "inbound"
 		},
 		{
-			"text": "Plugins",
-			"url": "https://developer.hashicorp.com/waypoint/plugins",
+			"text": "Integrations",
+			"url": "https://developer.hashicorp.com/waypoint/integrations",
 			"type": "inbound"
 		},
 		{
@@ -68,14 +68,14 @@
 			"includeMDXSource": true
 		},
 		{
+			"iconName": "api",
+			"name": "API",
+			"path": "api-docs"
+		},
+		{
 			"iconName": "terminal-screen",
 			"name": "CLI",
 			"path": "commands"
-		},
-		{
-			"iconName": "plug",
-			"name": "Plugins",
-			"path": "plugins"
 		}
 	],
 	"integrationsConfig": {

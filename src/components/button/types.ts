@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * All props the native <button> HTML element accepts
  */
 type NativeButtonProps = JSX.IntrinsicElements['button']

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useState, useEffect, useRef, Dispatch, SetStateAction } from 'react'
 import CSS from 'csstype'
 import classNames from 'classnames'

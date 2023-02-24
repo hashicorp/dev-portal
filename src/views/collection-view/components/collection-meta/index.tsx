@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconCollections24 } from '@hashicorp/flight-icons/svg-react/collections-24'
 import useAuthentication from 'hooks/use-authentication'
 import Heading from 'components/heading'

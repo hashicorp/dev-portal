@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .paginatedIntegrationsList {
 	& .paginatorWrapper {
 		margin-top: 32px;

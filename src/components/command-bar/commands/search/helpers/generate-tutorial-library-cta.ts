@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { CommandBarTag } from 'components/command-bar'
 
 const generateTutorialLibraryCta = (currentProductTag: CommandBarTag) => {

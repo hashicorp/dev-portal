@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useState, useEffect } from 'react'
 
 // https://www.joshwcomeau.com/react/prefers-reduced-motion/

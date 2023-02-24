@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ConsentManagerService } from '@hashicorp/react-consent-manager/types'
 
 const localConsentManagerServices: ConsentManagerService[] = [

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import HashicorpLogoSvg from '@hashicorp/mktg-logos/corporate/hashicorp/primary/white.svg?include'
 import ConsulLogo from '@hashicorp/mktg-logos/product/consul/primary/colorwhite.svg?include'
 import TerraformLogo from '@hashicorp/mktg-logos/product/terraform/primary/colorwhite.svg?include'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ApiResponse, BaseModel, Method, request } from './standard-client'
 
 interface Component extends BaseModel {

@@ -1,5 +1,10 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactElement } from 'react'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
 import CalloutCard from 'components/callout-card'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import { developmentToast, ToastColor } from 'components/toast'
@@ -74,5 +79,5 @@ function ProductLandingView({
 	)
 }
 
-ProductLandingView.layout = SidebarSidecarLayout
+ProductLandingView.layout = SidebarSidecarWithToc
 export default ProductLandingView

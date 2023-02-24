@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { addNavItemMetaData } from './add-nav-item-meta-data'
 import { generateInstallViewNavItems } from './generate-install-view-nav-items'
 import { generateProductLandingSidebarNavData } from './generate-product-landing-nav-items'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import CallToAction from '@hashicorp/react-call-to-action'
 import NomadEnterpriseInfo from 'components/_proxied-dot-io/nomad/enterprise-info/nomad'
 import BasicHero from 'components/_proxied-dot-io/nomad/basic-hero'

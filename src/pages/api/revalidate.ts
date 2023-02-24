@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { NextApiRequest, NextApiResponse } from 'next/types'
 import { StatusCodes } from 'http-status-codes'
 import { validateToken } from 'lib/api-validate-token'
@@ -85,7 +90,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 			}
 
 			if (typeof path !== 'undefined') {
-				const pathToRevalidate = `/${product}/${basePath}/${path}`
+				const pathToRevalidate = `/${resolvedProduct}/${basePath}/${path}`
 					// remove any trailing slash
 					.replace(/\/$/, '')
 

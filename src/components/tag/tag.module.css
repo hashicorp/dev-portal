@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .root {
 	align-items: center;
 	border-radius: 50px;
@@ -5,6 +10,7 @@
 	display: flex;
 	width: fit-content;
 	min-height: 1.5rem;
+	height: 28px;
 }
 
 .removeButton {

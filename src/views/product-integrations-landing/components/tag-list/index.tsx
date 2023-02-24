@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconArchive16 } from '@hashicorp/flight-icons/svg-react/archive-16'
 import { IconEnterprise16 } from '@hashicorp/flight-icons/svg-react/enterprise-16'
 import { IconHandshake16 } from '@hashicorp/flight-icons/svg-react/handshake-16'

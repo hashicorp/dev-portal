@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { RewriteTutorialLinksPluginOptions } from '../types'
 import { DEFAULT_CONTENT_TYPE } from '../constants'
 import {

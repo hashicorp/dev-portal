@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Third-party imports
 import { ReactElement, useMemo, useState } from 'react'
 import classNames from 'classnames'

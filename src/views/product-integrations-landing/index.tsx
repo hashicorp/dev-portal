@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import s from './style.module.css'
 import SearchableIntegrationsList from './components/searchable-integrations-list'
 import { IntegrationsSearchProvider } from './contexts/integrations-search-context'
@@ -27,7 +32,6 @@ export default function ProductIntegrationsLanding({
 			<SidebarSidecarLayout
 				sidebarNavDataLevels={sidebarNavDataLevels}
 				breadcrumbLinks={breadcrumbLinks}
-				sidecarSlot={<></>}
 			>
 				<div className={s.mainArea}>
 					<BrandedHeaderCard

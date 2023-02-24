@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import HashiHead from '@hashicorp/react-head'
 import { Fragment } from 'react'
 import InstruqtProvider from 'contexts/instruqt-lab'
@@ -7,7 +12,7 @@ import getVideoUrl from 'views/tutorial-view/utils/get-video-url'
 import DevDotContent from 'components/dev-dot-content'
 import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
 import { FeaturedInCollections } from 'views/tutorial-view/components'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
 import { NextPrevious } from 'views/tutorial-view/components'
 import { generateCanonicalUrl } from 'views/tutorial-view/utils'
 import s from 'views/tutorial-view/tutorial-view.module.css'
@@ -48,7 +53,7 @@ export default function WellArchitectedFrameworkTutorialView({
 				key={slug}
 				{...(isInteractive && { labId: handsOnLab.id })}
 			>
-				<SidebarSidecarLayout
+				<SidebarSidecarWithToc
 					headings={layoutProps.headings}
 					breadcrumbLinks={layoutProps.breadcrumbLinks}
 					sidebarNavDataLevels={layoutProps.navLevels}
@@ -81,7 +86,7 @@ export default function WellArchitectedFrameworkTutorialView({
 						className={s.featuredInCollections}
 						collections={featuredInWithoutCurrent}
 					/>
-				</SidebarSidecarLayout>
+				</SidebarSidecarWithToc>
 			</InteractiveLabWrapper>
 		</>
 	)

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { LinkProps } from 'components/link'
 import { developmentToast, ToastColor } from 'components/toast'
 

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { DisclosureContent } from 'components/disclosure'
 import { validateNavigationDisclosureContentChildren } from 'components/navigation-disclosure/helpers'
 import { NavigationDisclosureContentProps } from './types'

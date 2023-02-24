@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .progressIcon {
 	/* Icon color for in progress state */
 	&.status_in_progress {

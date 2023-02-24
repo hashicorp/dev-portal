@@ -1,4 +1,9 @@
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
 import Heading from 'components/heading'
 import {
 	generateProductLandingSidebarNavData,
@@ -62,7 +67,7 @@ function ProductTutorialsView({
 	}
 
 	return (
-		<SidebarSidecarLayout
+		<SidebarSidecarWithToc
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
 			headings={layoutProps.headings}
 			AlternateSidebar={TutorialsSidebar}
@@ -85,7 +90,7 @@ function ProductTutorialsView({
 					/>
 				</div>
 			) : null}
-		</SidebarSidecarLayout>
+		</SidebarSidecarWithToc>
 	)
 }
 
