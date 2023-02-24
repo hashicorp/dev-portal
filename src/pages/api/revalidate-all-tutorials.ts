@@ -4,7 +4,6 @@
  */
 
 import fs from 'fs'
-import moize, { Options } from 'moize'
 import type { NextApiRequest, NextApiResponse } from 'next/types'
 import { StatusCodes } from 'http-status-codes'
 
@@ -57,22 +56,6 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	}
 }
 
-export default validateToken(handler, {
-	token: process.env.REVALIDATE_TOKEN,
-	onlyMethods: ['POST'],
-})
-
-const moizeOpts: Options = {
-	isPromise: true,
-	maxSize: Infinity,
-	isDeepEqual: true,
-}
-
-// limit the expensive call for collections who all have the same product
-// TODO check how this functions, will this cache properly on the edge?
-// cache the collection paths in the res header?
-const cachedGetAllCollections = moize(getAllCollections, moizeOpts)
-
 function getTutorialLandingPaths(): string[] {
 	const paths = []
 
@@ -92,7 +75,7 @@ function getTutorialLandingPaths(): string[] {
 async function getCollectionAndTutorialPaths() {
 	const collectionPaths = []
 	const tutorialPaths = []
-	const allCollections = await cachedGetAllCollections()
+	const allCollections = await getAllCollections()
 
 	allCollections.forEach((collection: ClientCollection) => {
 		// build collection path
@@ -107,13 +90,17 @@ async function getCollectionAndTutorialPaths() {
 	return [...collectionPaths, ...tutorialPaths]
 }
 
+export default validateToken(handler, {
+	token: process.env.REVALIDATE_TOKEN,
+	onlyMethods: ['POST'],
+})
+
 /**
+ * Testing Playground --------------------------------------
  * write as out file to test the output
  *
  *  TODO check on the cloud / theme handling
  */
-
-// JUST FOR TESTING PURPOSES
 ;(async function main() {
 	const tutorialLandingPaths = getTutorialLandingPaths()
 	const collectionAndTutorialPaths = await getCollectionAndTutorialPaths()
