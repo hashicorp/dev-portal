@@ -39,7 +39,7 @@ interface ApiDefaultCollection extends ApiCollectionLite {
 	tutorial_id: string
 }
 
-type ApiFeaturedCollection = ApiDefaultCollection
+export type ApiFeaturedCollection = ApiDefaultCollection
 
 export interface ApiTutorial extends ContentBaseModel, DefaultCollection {
 	content: string
