@@ -1,76 +1,16 @@
 .root {
-	--gradient-scrim-height: 58px;
-	--gradient-scrim-transition: opacity 0.25s;
+	--shadow-height: 40px;
+	--shadow-blocker-height: calc(var(--shadow-height) * 2);
 
-	/* TODO: we need a --token-color-surface-primary-transparent, or something! */
-	--gradient-scrim-start: rgba(255, 255, 255, 0);
-	--gradient-scrim-end: var(--token-color-surface-primary);
-
-	display: flex;
-	flex-direction: column;
-	isolation: isolate;
+	/* Semi-transparent tokens. Note for dev, using garish colours. */
+	--surface-transparent: rgba(255, 255, 0, 0); /* would be white, not yellow */
+	--surface-opaque: rgba(255, 255, 0, 1); /* would be fully opaque */
+	--shadow-transparent: rgba(255, 0, 255, 0); /* would be gray, not magenta */
+	--shadow-opaque: rgba(255, 0, 255, 1);
 
 	/* Note: max-sidecar-height is set in sidebar-sidecar-layout.module.css. */
 	max-height: var(--max-sidecar-height);
-	position: relative;
 	width: 100%;
-
-	/* Top gradient scrim */
-	&::before {
-		background: linear-gradient(
-			0deg,
-			var(--gradient-scrim-start) 0%,
-			var(--gradient-scrim-end) 100%
-		);
-		content: '\200B';
-		display: block;
-		height: var(--gradient-scrim-height);
-		left: 0;
-		opacity: 0;
-		pointer-events: none;
-		position: absolute;
-		right: 0;
-		top: 0;
-		z-index: 2;
-
-		@media (prefers-reduced-motion: no-preference) {
-			transition: var(--gradient-scrim-transition);
-		}
-	}
-
-	/* Bottom gradient scrim */
-	&::after {
-		background: linear-gradient(
-			180deg,
-			var(--gradient-scrim-start) 0%,
-			var(--gradient-scrim-end) 100%
-		);
-		bottom: 0;
-		content: '\200B';
-		display: block;
-		height: var(--gradient-scrim-height);
-		left: 0;
-		opacity: 0;
-		pointer-events: none;
-		position: absolute;
-		right: 0;
-		z-index: 2;
-
-		@media (prefers-reduced-motion: no-preference) {
-			transition: var(--gradient-scrim-transition);
-		}
-	}
-
-	&.showTopScrim::before {
-		opacity: 1;
-	}
-
-	&.showBottomScrim::after {
-		opacity: 1;
-	}
-}
-
-.scrollContainer {
 	overflow-y: auto;
 
 	/* Note: 1px padding is necessary for box-shadow border styles to appear
@@ -79,5 +19,36 @@
 		 of box-shadow we use in sidecar, it doesn't seem to matter much */
 	padding: 1px;
 	position: relative;
-	z-index: 1;
+	background:
+    /* Scrim blocker TOP. Covers up the shadow at the start scroll posn. */ linear-gradient(
+				var(--surface-opaque) 50%,
+				var(--surface-transparent)
+			)
+			center top,
+		/* Scrim blocker BOTTOM. Covers up the shadow at the end scroll posn. */
+			linear-gradient(var(--surface-transparent), var(--surface-opaque) 50%)
+			center bottom,
+		/* Scrim TOP */
+			radial-gradient(
+				farthest-side at 50% 0,
+				var(--shadow-opaque),
+				var(--shadow-transparent)
+			)
+			center top,
+		/* Scrim BOTTOM */
+			radial-gradient(
+				farthest-side at 50% 100%,
+				var(--shadow-opaque),
+				var(--shadow-transparent)
+			)
+			center bottom;
+	background-repeat: no-repeat;
+
+	/* Size and position:
+	   - blockers positioned "local" (scrolls with content)
+		 - shadows positioned "scroll" (only at start and end of scroll container) */
+	background-size: 100% var(--shadow-blocker-height),
+		100% var(--shadow-blocker-height), 100% var(--shadow-height),
+		100% var(--shadow-height);
+	background-attachment: local, local, scroll, scroll;
 }
