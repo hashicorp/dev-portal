@@ -66,9 +66,13 @@ export default validateToken(handler, {
 
 /**
  * TODO consider busting the cache for all other tutorials in the collections as well
- * this would only matter in the case of a name change for the sidebar data
+ * this would only matter in the case of a name change for the sidebar data.
+ *
  * This would require an additional API call as we don't have the tutorial
- * array within the featured collection objects with this return data at the moment.
+ * array within the featured collection objects with this return data.
+ *
+ * See the `augmentTutorial` function in src/lib/learn-client/api/tutorial/augment-tutorial.ts
+ * for an example of getting full tutorial data from featured collections.
  **/
 function getPathsToRevalidate(tutorial: ApiTutorialLite): string[] {
 	const paths = []
