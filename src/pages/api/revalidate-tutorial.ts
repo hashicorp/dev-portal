@@ -6,7 +6,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next/types'
 import { StatusCodes } from 'http-status-codes'
 import { validateToken } from 'lib/api-validate-token'
-import { ApiTutorial } from 'lib/learn-client/api/api-types'
+import {
+	ApiFeaturedCollection,
+	ApiProductsUsed,
+	ApiTutorialLite,
+} from 'lib/learn-client/api/api-types'
 import { getTutorialSlug } from 'views/collection-view/helpers'
 
 /***
@@ -25,7 +29,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		return
 	}
 
-	const { tutorial }: { tutorial: ApiTutorial } = request.body
+	const { tutorial }: { tutorial: ApiTutorialLite } = request.body
 
 	if (!tutorial) {
 		response
@@ -39,7 +43,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		const revalidatePromises = []
 		const paths = []
 
-		tutorial.featured_collections.map((collection) => {
+		tutorial.featured_collections.map((collection: ApiFeaturedCollection) => {
 			// build up individual tutorial path per collection
 			paths.push(getTutorialSlug(tutorial.slug, collection.slug))
 
@@ -49,7 +53,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		})
 
 		// build up product paths for each product used
-		tutorial.products_used.map((product) =>
+		tutorial.products_used.map((product: ApiProductsUsed) =>
 			paths.push(`/${product.product.slug}/tutorials`)
 		)
 
