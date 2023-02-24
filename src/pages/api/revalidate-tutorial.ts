@@ -12,16 +12,11 @@ import {
 	ApiTutorialLite,
 } from 'lib/learn-client/api/api-types'
 import { getTutorialSlug } from 'views/collection-view/helpers'
-
-/***
- *
- * WIP = This route accepts a single tutorial and will update all paths associated with that tutorial
- * along with the collections and product tutorial landing paths for the products used.
- */
+import { getCollectionSlug } from 'views/collection-view/helpers'
 
 /**
- * Accepts a POST request with a tutorial slug, triggers revalidation for all tutorials
- * in the collections the tutorial is featured in, along with the collection path.
+ * Accepts a POST request with a tutorial object, triggers revalidation for all paths associated with that tutorial
+ * along with the parent collection pages and product tutorial landing paths for the products used.
  */
 async function handler(request: NextApiRequest, response: NextApiResponse) {
 	if (request.method !== 'POST') {
@@ -34,42 +29,25 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	if (!tutorial) {
 		response
 			.status(StatusCodes.BAD_REQUEST)
-			.json({ error: '[Revalidation failed]: No tutorial provided.' })
+			.json({ error: '[Revalidation failed]: No tutorial object provided.' })
 
 		return
 	}
 
 	try {
 		const revalidatePromises = []
-		const paths = []
+		const paths = getPathsToRevalidate(tutorial)
 
-		tutorial.featured_collections.map((collection: ApiFeaturedCollection) => {
-			// build up individual tutorial path per collection
-			paths.push(getTutorialSlug(tutorial.slug, collection.slug))
-
-			// add each collection path
-			const [productSlug, collectionFilename] = collection.slug.split('/')
-			paths.push(`/${productSlug}/tutorials/${collectionFilename}`)
-		})
-
-		// build up product paths for each product used
-		tutorial.products_used.map((product: ApiProductsUsed) =>
-			paths.push(`/${product.product.slug}/tutorials`)
-		)
+		if (!paths || paths.length === 0) {
+			response.status(200).end()
+		}
 
 		paths.forEach((path: string) => {
-			// remove any trailing slash
-			const formattedPath = path.replace(/\/$/, '')
-			// TODO logic here of what to revalidate
-			// start with just the tutorial path and the collection from the tutorial map
-			console.log('[revalidate]', formattedPath)
-			revalidatePromises.push(response.revalidate(formattedPath))
+			console.log('[Revalidate]', path)
+			revalidatePromises.push(response.revalidate(path))
 		})
 
-		console.log(tutorial.slug, paths)
-
-		// TODO(brkalow): Add resiliency here, this has the potential to send off hundreds of calls depending on the product, so we should think about how we want to handle network hiccups or partial failure.
-		// wait for everything to get revalidated
+		// TODO: Add resiliency here, with concurrency or batching
 		await Promise.allSettled(revalidatePromises)
 
 		response.status(200).end()
@@ -85,3 +63,28 @@ export default validateToken(handler, {
 	token: process.env.REVALIDATE_TOKEN,
 	onlyMethods: ['POST'],
 })
+
+/**
+ * TODO consider busting the cache for all other tutorials in the collections as well
+ * this would only matter in the case of a name change for the sidebar data
+ * This would require an additional API call as we don't have the tutorial
+ * array within the featured collection objects with this return data at the moment.
+ **/
+function getPathsToRevalidate(tutorial: ApiTutorialLite): string[] {
+	const paths = []
+
+	tutorial.featured_collections.map((collection: ApiFeaturedCollection) => {
+		// add individual tutorial path per collection
+		paths.push(getTutorialSlug(tutorial.slug, collection.slug))
+
+		// add each collection path
+		paths.push(getCollectionSlug(collection.slug))
+	})
+
+	// add product tutorial landing paths for each product used
+	tutorial.products_used.map((product: ApiProductsUsed) =>
+		paths.push(`/${product.product.slug}/tutorials`)
+	)
+
+	return paths
+}
