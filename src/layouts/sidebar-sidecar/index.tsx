@@ -86,7 +86,7 @@ const SidebarSidecarLayoutContent = ({
 
 	return (
 		<div className={classNames(s.root, s[`mainWidth-${mainWidth}`])}>
-			<MobileMenuContainer className={s.mobileMenuContainer} ref={sidebarRef}>
+			<MobileMenuContainer className={s.sidebarContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
 					<MobileAuthenticationControls />
 					{sidebarContent}
@@ -94,22 +94,24 @@ const SidebarSidecarLayoutContent = ({
 			</MobileMenuContainer>
 			<div className={s.contentWrapper} ref={contentRef}>
 				{alertBannerSlot}
-				<div className={s.mainAreaWrapper}>
-					<main id={MAIN_ELEMENT_ID} className={s.main}>
-						<span className={s.breadcrumbOptOutGroup}>
-							{breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
-						</span>
-						{children}
-						{githubFileUrl && (
-							<EditOnGithubLink
-								className={s.editOnGithubLink}
-								url={githubFileUrl}
-								label="Edit this page on GitHub"
-							/>
-						)}
-					</main>
-					<div className={s.sidecarPosition}>
-						<SidecarScrollContainer>{sidecarSlot}</SidecarScrollContainer>
+				<div className={s.paddedAreaWrapper}>
+					<div className={s.breadcrumbOptOutGroup}>
+						{breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+					</div>
+					<div className={s.mainAndSidecar}>
+						<main id={MAIN_ELEMENT_ID} className={s.main}>
+							{children}
+							{githubFileUrl && (
+								<EditOnGithubLink
+									className={s.editOnGithubLink}
+									url={githubFileUrl}
+									label="Edit this page on GitHub"
+								/>
+							)}
+						</main>
+						<div className={s.sidecarPosition}>
+							<SidecarScrollContainer>{sidecarSlot}</SidecarScrollContainer>
+						</div>
 					</div>
 				</div>
 				{showScrollProgress ? (

@@ -21,51 +21,33 @@ for further details.
   to make it reusable and express this intent. */
 	--main-area-padding-top: 32px;
 
-	/* --main-area-padding-right is consistent, regardless if sidecar is shown.
-  Note that the "left" value, --main-area-padding-left, is declared in 
-  core-dev-dot-layout.module.css, as the left value  must be shared with the
-  navigation-header component, in order to match alignment in design specs. */
-	--main-area-padding-right: 24px;
-
-	/*
-  We want our footer to have a top border which spans
-  across both the main content and sidecar.
-  We also want our footer content to be aligned with our main content,
-  taking on the same max width and left-right padding.
-
-  To achieve this, we set the main content max width,
-  main content padding, and sidecar width as CSS variables
-  to be used in the main content, sidecar, and footer containers.
-
-  The footer itself contains an absolutely positioned :before element
-  which serves as the border, and which overflows the footer on both sides.
-  
-  The footer container ensures this border overflow does not cause scroll
-  using overflow hidden. We place an empty sidecar placeholder pseudo-element
-  within this container, next to the footer, to ensure spacing is consistent.
-
-  This method requires two separate "rows" for the main content + sidecar area,
-  and for the footer area. Having to share values between them is not ideal.
-  But, it sidesteps issues in mixing overflow: hidden with position: sticky.
-  Details: https://css-tricks.com/dealing-with-overflow-and-position-sticky/
-  */
-
+	/* Sidecar width and spacing are declared at this level to allow
+	   our breadcrumbBarGroup to match the max-width of main + sidecar. */
 	&.mainWidth-wide {
 		--main-element-max-width: 896px;
-		--sidecar-width: 312px;
 	}
 
 	&.mainWidth-narrow {
 		--main-element-max-width: 680px;
-		--sidecar-width: 312px;
+	}
+
+	/* Sidecar width and spacing are declared at this level to allow
+	   our breadcrumbBarGroup to match the max-width of main + sidecar. */
+	--sidecar-width: 312px;
+	--sidecar-spacing: 48px;
+
+	@media (min-width: 1440px) {
+		--sidecar-spacing: 64px;
 	}
 }
 
 /**
- * Sidebar + main containers
+ * Sidebar area
  */
 
-.mobileMenuContainer {
+/* Note: these styles are *added* to components/mobile-menu-container,
+    that component handles some layout concerns such as max height. */
+.sidebarContainer {
 	@media (--dev-dot-hide-mobile-menu) {
 		display: flex !important; /* always want this value on desktop here */
 		left: 0 !important; /* always want this value on desktop here */
@@ -74,7 +56,7 @@ for further details.
 	}
 }
 
-/* Note: container is components/mobile-menu-container */
+/* Pad content and create a scrollable area within .sidebarContainer. */
 .sidebarContentWrapper {
 	flex-shrink: 1;
 	flex-grow: 1;
@@ -86,6 +68,11 @@ for further details.
 	position: relative;
 }
 
+/**
+ * Main area
+ */
+
+/* .contentWrapper establishes the area next to the sidebar. */
 .contentWrapper {
 	width: 100%;
 
@@ -95,42 +82,62 @@ for further details.
 	}
 }
 
-.main {
-	width: 100%;
-	max-width: var(--main-element-max-width);
-	min-width: 0;
-}
-
-.editOnGithubLink {
-	margin-top: 64px;
-}
-
-.mainAreaWrapper {
+/* .paddedAreaWrapper establishes a padded area within the contentWrapper.
+    Note that `alertBannerSlot` renders outside this area, without padding. */
+.paddedAreaWrapper {
+	align-items: center;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
 	min-height: calc(100vh - var(--navigation-header-height));
-	padding-left: var(--main-area-padding-left);
-	padding-right: var(--main-area-padding-right);
-	padding-top: var(--main-area-padding-top);
 	padding-bottom: 128px;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: var(--main-area-padding-top);
 
 	@media (--dev-dot-sidecar-up) {
+		padding-left: 48px;
 		padding-right: 16px;
 	}
 }
 
+/* .breadcrumbOptOutGroup establishes an area that spans the padded area.
+   We need to align its width with the main+sidecar area below it,
+	 to prevent very long breadcrumbs from causing maxWidthWrapper to grow
+	 beyond our desired max-width. */
 .breadcrumbOptOutGroup {
+	align-items: baseline;
 	display: flex;
 	justify-content: space-between;
-	align-items: baseline;
 	margin-bottom: 32px;
+	max-width: var(--main-element-max-width);
+	width: 100%;
+
+	@media (--dev-dot-sidecar-up) {
+		max-width: calc(
+			var(--main-element-max-width) + var(--sidecar-width) +
+				var(--sidecar-spacing)
+		);
+	}
 }
 
+/* .mainAndSidecar spans the padded area, and lays out main + sidecar. */
+.mainAndSidecar {
+	display: flex;
+	max-width: fit-content;
+}
+
+/* .main handles the max-width and sizing for the main area. */
+.main {
+	max-width: var(--main-element-max-width);
+	min-width: 0;
+	width: 100%;
+}
+
+/* .sidecarPosition handles the positioning of the sidecar slot.
+   Scroll styles are handled in sidecar-scroll-container. */
 .sidecarPosition {
-	--breadcrumb-bar-height: 58px;
 	--sidecar-position-top: calc(
-		var(--sticky-bars-height) + var(--main-area-padding-top) +
-			var(--breadcrumb-bar-height)
+		var(--sticky-bars-height) + var(--main-area-padding-top)
 	);
 	--sidecar-viewport-bottom-spacing: 24px;
 	--max-sidecar-height: calc(
@@ -144,14 +151,16 @@ for further details.
 		flex-direction: column;
 		flex-shrink: 0;
 		height: min-content;
-		margin-left: 48px;
-		margin-top: var(--breadcrumb-bar-height);
+		margin-left: var(--sidecar-spacing);
 		position: sticky;
 		top: var(--sidecar-position-top);
 		width: var(--sidecar-width);
 	}
+}
 
-	@media (min-width: 1440px) {
-		margin-left: 64px;
-	}
+/* .editOnGithubLink is an element within the `.main` area.
+   It only applies to docs layouts, so could perhaps be removed from
+	 SidebarSidecarLayout and rendered as part of `children` instead. */
+.editOnGithubLink {
+	margin-top: 64px;
 }
