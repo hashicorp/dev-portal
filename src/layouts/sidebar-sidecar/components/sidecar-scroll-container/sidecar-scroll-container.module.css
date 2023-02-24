@@ -27,12 +27,15 @@
 		height: var(--gradient-scrim-height);
 		left: 0;
 		opacity: 0;
+		pointer-events: none;
 		position: absolute;
 		right: 0;
 		top: 0;
-		transition: var(--gradient-scrim-transition);
-		pointer-events: none;
 		z-index: 2;
+
+		@media (prefers-reduced-motion: no-preference) {
+			transition: var(--gradient-scrim-transition);
+		}
 	}
 
 	/* Bottom gradient scrim */
@@ -48,11 +51,14 @@
 		height: var(--gradient-scrim-height);
 		left: 0;
 		opacity: 0;
+		pointer-events: none;
 		position: absolute;
 		right: 0;
-		transition: var(--gradient-scrim-transition);
-		pointer-events: none;
 		z-index: 2;
+
+		@media (prefers-reduced-motion: no-preference) {
+			transition: var(--gradient-scrim-transition);
+		}
 	}
 
 	&.showTopScrim::before {
