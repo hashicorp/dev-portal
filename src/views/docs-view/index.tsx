@@ -48,9 +48,6 @@ const ConfigEntryReference = dynamic(
 const InlineTag = dynamic(
 	() => import('components/author-primitives/vault/inline-tag')
 )
-const NestedNode = dynamic(
-	() => import('components/author-primitives/waypoint/nested-node')
-)
 const Placement = dynamic(
 	() => import('components/author-primitives/shared/placement-table')
 )
@@ -78,7 +75,7 @@ const productsToPrimitives: ProductsToPrimitivesMap = {
 	terraform: { ProviderTable },
 	vagrant: { Button },
 	vault: { Columns, Tag: InlineTag },
-	waypoint: { NestedNode, Placement },
+	waypoint: { Placement },
 }
 
 const DocsView = ({
