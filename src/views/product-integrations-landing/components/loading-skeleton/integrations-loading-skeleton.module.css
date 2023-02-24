@@ -18,7 +18,7 @@
 	background-repeat: no-repeat;
 	background-size: 75%;
 	border-radius: 2px;
-	opacity: 0.75;
+	opacity: 0.55;
 	width: 100%;
 
 	/* Only enable faster animation if query is supported and value is no-preference */
@@ -46,70 +46,31 @@
 	margin-top: 12px;
 }
 
-.clearFiltersButton {
+.filterControlsRow {
 	composes: placeholder;
-	border-radius: 5px;
-	height: 30px;
-	width: 120px;
-}
-
-.filterControls {
-	align-items: center;
-	display: flex;
-	justify-content: space-between;
+	height: 37px;
 	margin-bottom: 22px;
 }
 
 .filterInput {
 	composes: placeholder;
-	border-radius: 5px;
 	height: 36px;
 	margin-bottom: 16px;
 }
 
-.filtersRow {
-	align-items: center;
-	display: flex;
-	flex-wrap: wrap;
-	column-gap: 8px;
-	row-gap: 12px;
-	margin-bottom: 24px;
+.filtersButton {
+	composes: placeholder;
+	height: 40px;
+	margin-bottom: 22px;
 }
 
-.filtersText {
+.resultsCountRow {
+	composes: placeholder;
+	height: 18px;
+}
+
+.tagsRow {
 	composes: placeholder;
 	height: 30px;
 	margin-bottom: 24px;
-}
-
-.mobileFiltersButton {
-	composes: placeholder;
-	border-radius: 5px;
-	height: 36px;
-	margin-bottom: 16px;
-}
-
-.multiSelect {
-	composes: placeholder;
-	border-radius: 5px;
-	height: 35px;
-	width: 100px;
-}
-
-.multiSelectsGroup {
-	display: flex;
-	gap: 12px;
-}
-
-.resultsText {
-	composes: placeholder;
-	height: 18px;
-	width: 100px;
-}
-
-.tag {
-	composes: placeholder;
-	border-radius: 50px;
-	height: 28px;
-	width: 80px;
 }
