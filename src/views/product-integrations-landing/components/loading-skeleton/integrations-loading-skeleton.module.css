@@ -1,0 +1,115 @@
+.root {
+	margin-top: 32px;
+}
+
+.placeholder {
+	--loading-skeleton-animation-duration: 4s;
+
+	animation: loading var(--loading-skeleton-animation-duration) infinite;
+	background-color: var(--token-color-palette-alpha-100);
+	background-image: linear-gradient(
+		90deg,
+		transparent,
+		var(--token-color-palette-alpha-100),
+		var(--token-color-palette-alpha-200),
+		transparent
+	);
+	background-position: -300% 0;
+	background-repeat: no-repeat;
+	background-size: 75%;
+	border-radius: 2px;
+	opacity: 0.75;
+	width: 100%;
+
+	/* Only enable faster animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		--loading-skeleton-animation-duration: 2s;
+	}
+}
+
+@keyframes loading {
+	to {
+		background-position: 400% 0;
+	}
+}
+
+.card {
+	composes: placeholder;
+	border-radius: 6px;
+	height: 140px;
+}
+
+.cardsGrid {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	margin-top: 12px;
+}
+
+.clearFiltersButton {
+	composes: placeholder;
+	border-radius: 5px;
+	height: 30px;
+	width: 120px;
+}
+
+.filterControls {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 22px;
+}
+
+.filterInput {
+	composes: placeholder;
+	border-radius: 5px;
+	height: 36px;
+	margin-bottom: 16px;
+}
+
+.filtersRow {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 8px;
+	row-gap: 12px;
+	margin-bottom: 24px;
+}
+
+.filtersText {
+	composes: placeholder;
+	height: 30px;
+	margin-bottom: 24px;
+}
+
+.mobileFiltersButton {
+	composes: placeholder;
+	border-radius: 5px;
+	height: 36px;
+	margin-bottom: 16px;
+}
+
+.multiSelect {
+	composes: placeholder;
+	border-radius: 5px;
+	height: 35px;
+	width: 100px;
+}
+
+.multiSelectsGroup {
+	display: flex;
+	gap: 12px;
+}
+
+.resultsText {
+	composes: placeholder;
+	height: 18px;
+	width: 100px;
+}
+
+.tag {
+	composes: placeholder;
+	border-radius: 50px;
+	height: 28px;
+	width: 80px;
+}
