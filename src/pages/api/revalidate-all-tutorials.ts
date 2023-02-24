@@ -20,6 +20,7 @@ import { getCollectionSlug } from 'views/collection-view/helpers'
 import { ProductSlug } from 'types/products'
 
 const BATCH_SIZE = 10
+const DELAY_TIME = 500 // ms
 
 /**
  * Accepts a POST request, triggers revalidation for all tutorial paths for all products
@@ -43,12 +44,12 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 			response.status(200).end()
 		}
 
-		// Loop over all paths to revalidate
-		// We have to use a for loop here and cannot use a map, as map
-		// runs all map functions in parallel
+		// Loop over all paths to revalidate in batches
+		// as this endpoint will fire off >1000 revalidation requests
 		let batchRevalidatePromises = []
 		for (let i = 0; i < paths.length; i++) {
-			const path = paths[i]
+			// remove any trailing slash
+			const path = paths[i].replace(/\/$/, '')
 			console.log('[Revalidate]', path)
 			batchRevalidatePromises.push(response.revalidate(path))
 
@@ -58,6 +59,8 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 				i >= paths.length - 1
 			) {
 				await Promise.allSettled(batchRevalidatePromises)
+				// delay to ensure we don't overwhelm the server
+				await delay(DELAY_TIME)
 				batchRevalidatePromises = []
 			}
 		}
@@ -103,6 +106,10 @@ async function getCollectionAndTutorialPaths() {
 	})
 
 	return [...collectionPaths, ...tutorialPaths]
+}
+
+function delay(ms: number) {
+	return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export default validateToken(handler, {
