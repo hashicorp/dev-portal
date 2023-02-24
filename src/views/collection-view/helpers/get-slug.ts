@@ -5,6 +5,7 @@
 
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
+import { SectionOption } from 'lib/learn-client/types'
 
 /**
  * takes db slug format --> waypoint/intro
@@ -22,11 +23,7 @@ export function getTutorialSlug(
 	const [rawProductSlug, collectionFilename] = collectionDbSlug.split('/')
 	const tutorialFilename = splitProductFromFilename(tutorialDbSlug)
 
-	// @TODO genericize this to use 'topic' or 'section' instead of 'product'
-	if (
-		rawProductSlug === 'well-architected-framework' ||
-		rawProductSlug === 'onboarding'
-	) {
+	if (rawProductSlug in SectionOption) {
 		return `/${collectionDbSlug}/${tutorialFilename}`
 	}
 
@@ -38,11 +35,7 @@ export function getTutorialSlug(
 export function getCollectionSlug(collectionDbSlug: string): string {
 	const [rawProductSlug, collectionFilename] = collectionDbSlug.split('/')
 
-	// @TODO genericize this to use 'topic' or 'section' instead of 'product'
-	if (
-		rawProductSlug === 'well-architected-framework' ||
-		rawProductSlug === 'onboarding'
-	) {
+	if (rawProductSlug in SectionOption) {
 		return `/${collectionDbSlug}`
 	}
 
