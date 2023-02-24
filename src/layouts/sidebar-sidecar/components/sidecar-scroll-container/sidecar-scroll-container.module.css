@@ -77,10 +77,7 @@
 	   correctly. Another option might be to add even more padding...
 		 technically the box-shadows are still cut off, but for the style
 		 of box-shadow we use in sidecar, it doesn't seem to matter much */
-	padding-left: 1px;
-	padding-right: 1px;
-	padding-top: 1px;
-	padding-bottom: 1px;
+	padding: 1px;
 	position: relative;
 	z-index: 1;
 }
