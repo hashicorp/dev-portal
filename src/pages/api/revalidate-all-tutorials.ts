@@ -97,10 +97,10 @@ async function getCollectionAndTutorialPaths() {
 	const allCollections = await getAllCollections()
 
 	allCollections.forEach((collection: ClientCollection) => {
-		// build collection path
+		// build collection paths
 		collectionPaths.push(getCollectionSlug(collection.slug))
 
-		// build tutorial path
+		// build tutorial paths
 		collection.tutorials.forEach((tutorial: ClientTutorialLite) => {
 			tutorialPaths.push(getTutorialSlug(tutorial.slug, collection.slug))
 		})
@@ -121,10 +121,10 @@ export default validateToken(handler, {
 /**
  * Testing Playground --------------------------------------
  * write as out file to test the output
+ * with npx --package @hashicorp/platform-tools@0.5.0 hc-tools src/pages/api/revalidate-all-tutorials.ts
  *
- *  TODO check on the cloud / theme handling
- */
-;(async function main() {
+ * 
+  ;(async function main() {
 	const tutorialLandingPaths = getTutorialLandingPaths()
 	const collectionAndTutorialPaths = await getCollectionAndTutorialPaths()
 	const paths = [
@@ -137,3 +137,6 @@ export default validateToken(handler, {
 		encoding: 'utf-8',
 	})
 })()
+ * 
+ *  TODO check on the cloud / theme handling
+ */
