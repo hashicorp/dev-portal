@@ -12,9 +12,15 @@ module.exports = {
 	robotsTxtOptions: {
 		additionalSitemaps: [
 			`${siteUrl}/hcp-sitemap.xml`,
+			// sitemap generated from ./pages/server-sitemap.xml/index.tsx
 			`${siteUrl}/server-sitemap.xml`,
 		],
 	},
+	/*
+	 * Exhaustive exclude list to remove duplicate sitemap paths.
+	 * This list will not exist once all phases of the Sitemap Improvements project is complete
+	 * Sitemap Improvements Asana https://app.asana.com/0/1203590180322427/overview
+	 */
 	exclude: [
 		'/swingset*',
 		'/onboarding/*',
