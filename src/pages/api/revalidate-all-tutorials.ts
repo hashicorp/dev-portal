@@ -60,6 +60,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 			) {
 				await Promise.allSettled(batchRevalidatePromises)
 				// delay to ensure we don't overwhelm the server
+				// TODO consider using p-throttle instead https://github.com/sindresorhus/p-throttle
 				await delay(DELAY_TIME)
 				batchRevalidatePromises = []
 			}
