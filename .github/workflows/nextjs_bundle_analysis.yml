@@ -10,18 +10,10 @@ on:
       - main # change this if your default branch is named differently
   workflow_dispatch:
 
-defaults:
-  run:
-    # change this if your nextjs app does not live at the root of the repo
-    working-directory: ./
-
-permissions:
-  contents: read # for checkout repository
-  actions: read # for fetching base branch bundle stats
-  pull-requests: write # for comments
-
 jobs:
   analyze:
+    env:
+      SKIP_BUILD_PRODUCT_REDIRECTS: 1
     uses: hashicorp/nextjs-bundle-analysis/.github/workflows/analyze.yml@a4a2beb4f8f5115d0300efbda7a9c63b11fce689
     with:
       #   Uncomment any of the following inputs if you need to change the defaults
