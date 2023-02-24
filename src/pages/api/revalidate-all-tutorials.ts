@@ -21,8 +21,8 @@ import { getCollectionSlug } from 'views/collection-view/helpers'
 import { ProductSlug } from 'types/products'
 
 /**
- * Accepts a POST request with a tutorial object, triggers revalidation for all paths associated with that tutorial
- * along with the parent collection pages and product tutorial landing paths for the products used.
+ * Accepts a POST request, triggers revalidation for all tutorial paths for all products
+ * landing pages, collection pages, and tutorial pages associated
  */
 async function handler(request: NextApiRequest, response: NextApiResponse) {
 	if (request.method !== 'POST') {
