@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import fs from 'fs'
 import moize, { Options } from 'moize'
 import type { NextApiRequest, NextApiResponse } from 'next/types'
 import { StatusCodes } from 'http-status-codes'
@@ -89,21 +90,21 @@ function getTutorialLandingPaths(): string[] {
 }
 
 async function getCollectionAndTutorialPaths() {
-	const paths = []
-
+	const collectionPaths = []
+	const tutorialPaths = []
 	const allCollections = await cachedGetAllCollections()
 
 	allCollections.forEach((collection: ClientCollection) => {
 		// build collection path
-		paths.push(getCollectionSlug(collection.slug))
+		collectionPaths.push(getCollectionSlug(collection.slug))
 
 		// build tutorial path
 		collection.tutorials.forEach((tutorial: ClientTutorialLite) => {
-			paths.push(getTutorialSlug(tutorial.slug, collection.slug))
+			tutorialPaths.push(getTutorialSlug(tutorial.slug, collection.slug))
 		})
 	})
 
-	return paths
+	return [...collectionPaths, ...tutorialPaths]
 }
 
 /**
@@ -111,3 +112,18 @@ async function getCollectionAndTutorialPaths() {
  *
  *  TODO check on the cloud / theme handling
  */
+
+// JUST FOR TESTING PURPOSES
+;(async function main() {
+	const tutorialLandingPaths = getTutorialLandingPaths()
+	const collectionAndTutorialPaths = await getCollectionAndTutorialPaths()
+	const paths = [
+		...tutorialLandingPaths,
+		'BREAK FOR COLLECTION AND TUTORIAL PATHS *****',
+		...collectionAndTutorialPaths,
+	]
+
+	fs.writeFileSync('all-tutorial-paths.json', JSON.stringify(paths), {
+		encoding: 'utf-8',
+	})
+})()
