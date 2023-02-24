@@ -106,18 +106,12 @@ for further details.
 	 beyond our desired max-width. */
 .breadcrumbOptOutGroup {
 	align-items: baseline;
+	align-self: flex-start;
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 32px;
 	max-width: var(--main-element-max-width);
 	width: 100%;
-
-	@media (--dev-dot-sidecar-up) {
-		max-width: calc(
-			var(--main-element-max-width) + var(--sidecar-width) +
-				var(--sidecar-spacing)
-		);
-	}
 }
 
 /* .mainAndSidecar spans the padded area, and lays out main + sidecar. */
