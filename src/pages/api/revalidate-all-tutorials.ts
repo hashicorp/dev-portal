@@ -19,6 +19,8 @@ import { getTutorialSlug } from 'views/collection-view/helpers'
 import { getCollectionSlug } from 'views/collection-view/helpers'
 import { ProductSlug } from 'types/products'
 
+const BATCH_SIZE = 10
+
 /**
  * Accepts a POST request, triggers revalidation for all tutorial paths for all products
  * landing pages, collection pages, and tutorial pages associated
@@ -30,7 +32,6 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	}
 
 	try {
-		const revalidatePromises = []
 		const tutorialLandingPaths = getTutorialLandingPaths()
 		const collectionAndTutorialPaths = await getCollectionAndTutorialPaths()
 		const paths = [...tutorialLandingPaths, ...collectionAndTutorialPaths]
@@ -39,13 +40,27 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 			response.status(200).end()
 		}
 
-		paths.forEach((path: string) => {
-			console.log('[Revalidate]', path)
-			revalidatePromises.push(response.revalidate(path))
-		})
+		// Loop over all paths to revalidate
+		// We have to use a for loop here and cannot use a map, as map
+		// runs all map functions in parallel
+		let batchRevalidatePromises = []
+		for (let i = 0; i < paths.length; i++) {
+			// The current file's path
+			const path = paths[i].path
 
-		// TODO: Add resiliency here, with concurrency or batching
-		await Promise.allSettled(revalidatePromises)
+			// batch our promises
+			console.log('[Revalidate]', path)
+			batchRevalidatePromises.push(response.revalidate(path))
+
+			// flush the batch every N paths, or at the end of the loop
+			if (
+				batchRevalidatePromises.length >= BATCH_SIZE ||
+				i >= paths.length - 1
+			) {
+				await Promise.allSettled(batchRevalidatePromises)
+				batchRevalidatePromises = []
+			}
+		}
 
 		response.status(200).end()
 	} catch (e) {
