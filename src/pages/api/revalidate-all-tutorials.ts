@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import fs from 'fs'
 import type { NextApiRequest, NextApiResponse } from 'next/types'
 import { StatusCodes } from 'http-status-codes'
 
@@ -20,7 +19,7 @@ import { getCollectionSlug } from 'views/collection-view/helpers'
 import { ProductSlug } from 'types/products'
 
 const BATCH_SIZE = 10
-const DELAY_TIME = 500 // ms
+const DELAY_TIME = 200 // ms
 
 /**
  * Accepts a POST request, triggers revalidation for all tutorial paths for all products
@@ -60,7 +59,6 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 			) {
 				await Promise.allSettled(batchRevalidatePromises)
 				// delay to ensure we don't overwhelm the server
-				// TODO consider using p-throttle instead https://github.com/sindresorhus/p-throttle
 				await delay(DELAY_TIME)
 				batchRevalidatePromises = []
 			}
@@ -70,8 +68,8 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	} catch (e) {
 		// If there was an error, Next.js will continue
 		// to show the last successfully generated page
-		console.error('Error revalidating ', e)
-		return response.status(500).send('Error revalidating')
+		console.error('Error revalidating tutorials ', e)
+		return response.status(500).send('Error revalidating tutorials ')
 	}
 }
 
@@ -117,26 +115,3 @@ export default validateToken(handler, {
 	token: process.env.REVALIDATE_TOKEN,
 	onlyMethods: ['POST'],
 })
-
-/**
- * Testing Playground --------------------------------------
- * write as out file to test the output
- * with npx --package @hashicorp/platform-tools@0.5.0 hc-tools src/pages/api/revalidate-all-tutorials.ts
- *
- * 
-  ;(async function main() {
-	const tutorialLandingPaths = getTutorialLandingPaths()
-	const collectionAndTutorialPaths = await getCollectionAndTutorialPaths()
-	const paths = [
-		...tutorialLandingPaths,
-		'BREAK FOR COLLECTION AND TUTORIAL PATHS *****',
-		...collectionAndTutorialPaths,
-	]
-
-	fs.writeFileSync('all-tutorial-paths.json', JSON.stringify(paths), {
-		encoding: 'utf-8',
-	})
-})()
- * 
- *  TODO check on the cloud / theme handling
- */
