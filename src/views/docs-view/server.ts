@@ -38,6 +38,8 @@ import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
 import { withTiming } from 'lib/with-timing'
+import outlineItemsFromHeadings from 'lib/docs/outline-items-from-headings'
+import { DocsViewProps } from './types'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -247,6 +249,7 @@ export function getStaticGenerationFunctions<
 					)
 				}
 			})
+			const outlineItems = outlineItemsFromHeadings(nonEmptyHeadings)
 
 			/**
 			 * Add fullPaths and auto-generated ids to navData
@@ -369,7 +372,12 @@ export function getStaticGenerationFunctions<
 
 			const { hideVersionSelector, projectName } = options
 
-			const finalProps = {
+			/**
+			 * TODO: the DocsViewProps type should likely be set at the
+			 * function return value level, rather than only here.
+			 * Setting here for now to keep things in scope for current work.
+			 */
+			const finalProps: DocsViewProps = {
 				layoutProps,
 				metadata: {
 					title: frontMatter.page_title ?? null,
@@ -380,6 +388,7 @@ export function getStaticGenerationFunctions<
 						pathParts,
 					}),
 				},
+				outlineItems,
 				mdxSource,
 				product: {
 					...product,
