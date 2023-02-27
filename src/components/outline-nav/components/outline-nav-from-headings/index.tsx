@@ -18,6 +18,7 @@ function OutlineNavFromHeadings({
 }: {
 	headings: AnchorLinksPluginHeading[]
 }) {
+	/* TODO: maybe consider doing this transform closer to server? */
 	const items = useMemo(() => outlineItemsFromHeadings(headings), [headings])
 	return <OutlineNavWithActive items={items} />
 }

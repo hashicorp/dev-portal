@@ -17,7 +17,6 @@ function outlineItemsFromHeadings(
 	headings: AnchorLinksPluginHeading[]
 ): OutlineLinkItem[] {
 	return headings.map((heading: AnchorLinksPluginHeading, index: number) => {
-		/* TODO: maybe consider resolving the backticks issue closer to server? */
 		const titleWithoutBackticks = heading.title.replace(/`/g, '')
 		return {
 			title: titleWithoutBackticks,
