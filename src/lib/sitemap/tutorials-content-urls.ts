@@ -3,7 +3,7 @@ import { makeSitemapElement } from './helpers'
 
 export async function allTutorialsUrls() {
 	const tutorialPaths = await generateTutorialMap()
-	return Object.entries(tutorialPaths).map(([_, slug]: [string, string]) =>
+	return Object.values(tutorialPaths).map((slug: string) =>
 		makeSitemapElement({ slug })
 	)
 }

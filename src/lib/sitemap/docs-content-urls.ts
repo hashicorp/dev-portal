@@ -2,7 +2,7 @@ import { makeSitemapElement } from './helpers'
 
 export async function allDocsUrls() {
 	const getDocsPaths = await fetch(
-		`https://content.hashicorp.com/api/all-docs-paths`
+		`${process.env.MKTG_CONTENT_API}/api/all-docs-paths`
 	)
 	const { result: docsResult } = await getDocsPaths.json()
 	return docsResult.map((page: { path: string; created_at: string }) =>
