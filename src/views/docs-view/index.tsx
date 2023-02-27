@@ -6,9 +6,7 @@
 import dynamic from 'next/dynamic'
 import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { OutlineNavWithActive } from 'components/outline-nav/components'
-import DocsVersionAlertBanner from 'components/docs-version-alert'
+import DocsViewLayout from 'layouts/docs-view-layout'
 import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
 import { DocsViewProps } from './types'
@@ -71,11 +69,7 @@ const DocsView = ({
 	}
 
 	return (
-		<SidebarSidecarLayout
-			{...layoutProps}
-			sidecarSlot={<OutlineNavWithActive items={safeOutlineItems} />}
-			alertBannerSlot={<DocsVersionAlertBanner />}
-		>
+		<DocsViewLayout {...layoutProps} outlineItems={safeOutlineItems}>
 			<div className={classNames(versions && s.contentWithVersions)}>
 				{shouldRenderSearch ? <ProductDocsSearch /> : null}
 				{versions ? (
@@ -96,7 +90,7 @@ const DocsView = ({
 					}}
 				/>
 			</div>
-		</SidebarSidecarLayout>
+		</DocsViewLayout>
 	)
 }
 

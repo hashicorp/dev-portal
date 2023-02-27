@@ -32,4 +32,4 @@ function DocsVersionAlertBanner() {
 	)
 }
 
-export default DocsVersionAlertBanner
+export { DocsVersionAlertBanner }

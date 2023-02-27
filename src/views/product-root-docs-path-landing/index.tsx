@@ -6,7 +6,7 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames'
 import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
-import DocsVersionAlertBanner from 'components/docs-version-alert'
+import { DocsVersionAlertBanner } from 'layouts/docs-view-layout/components'
 import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
 import ProductDocsSearch from 'views/docs-view/components/product-docs-search'
 import DevDotContent from 'components/dev-dot-content'
