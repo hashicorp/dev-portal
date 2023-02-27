@@ -5,9 +5,9 @@
 
 import { OutlineNavWithActive } from 'components/outline-nav/components'
 import { OutlineLinkItem } from 'components/outline-nav/types'
-import SidebarSidecarWithToc, {
-	SidebarSidecarWithTocProps,
-} from 'layouts/sidebar-sidecar-with-toc'
+import SidebarSidecarLayout, {
+	SidebarSidecarLayoutProps,
+} from 'layouts/sidebar-sidecar'
 import { DocsVersionAlertBanner } from './components'
 
 /**
@@ -17,9 +17,9 @@ import { DocsVersionAlertBanner } from './components'
 const DocsViewLayout = ({
 	outlineItems,
 	...layoutProps
-}: SidebarSidecarWithTocProps & { outlineItems: OutlineLinkItem[] }) => {
+}: SidebarSidecarLayoutProps & { outlineItems: OutlineLinkItem[] }) => {
 	return (
-		<SidebarSidecarWithToc
+		<SidebarSidecarLayout
 			{...layoutProps}
 			sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
 			alertBannerSlot={<DocsVersionAlertBanner />}

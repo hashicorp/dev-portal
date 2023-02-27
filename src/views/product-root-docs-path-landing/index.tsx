@@ -5,8 +5,7 @@
 
 import { ReactElement } from 'react'
 import classNames from 'classnames'
-import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
-import { DocsVersionAlertBanner } from 'layouts/docs-view-layout/components'
+import DocsViewLayout from 'layouts/docs-view-layout'
 import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
 import ProductDocsSearch from 'views/docs-view/components/product-docs-search'
 import DevDotContent from 'components/dev-dot-content'
@@ -26,6 +25,7 @@ const ProductRootDocsPathLanding = ({
 	product,
 	versions,
 	layoutProps,
+	outlineItems,
 }: ProductRootDocsPathLandingProps) => {
 	const { pageSubtitle, marketingContentBlocks } = pageContent
 	const showProductDocsSearch =
@@ -55,10 +55,7 @@ const ProductRootDocsPathLanding = ({
 	}
 
 	return (
-		<SidebarSidecarWithToc
-			{...layoutProps}
-			alertBannerSlot={<DocsVersionAlertBanner />}
-		>
+		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
 			<div className={versions ? s.docsLandingWithVersions : null}>
 				{showProductDocsSearch && <ProductDocsSearch />}
 				{versions ? (
@@ -81,7 +78,7 @@ const ProductRootDocsPathLanding = ({
 				/>
 				{mdxSlot}
 			</div>
-		</SidebarSidecarWithToc>
+		</DocsViewLayout>
 	)
 }
 

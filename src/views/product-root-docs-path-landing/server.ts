@@ -15,6 +15,8 @@ import {
 	GETTING_STARTED_CARD_HEADING_SLUG,
 } from './components/marketing-content'
 import { prepareMarketingBlocks } from './utils/prepare-marketing-blocks'
+import { ProductRootDocsPathLandingProps } from './types'
+import outlineItemsFromHeadings from 'lib/docs/outline-items-from-headings'
 
 /**
  * @TODO add TS to function signature & document function purpose
@@ -158,27 +160,42 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 		marketingContentBlocksWithHeadingLevels
 	)
 
+	/**
+	 * Transform sidecarHeadings into outlineItems, and pageHeading
+	 */
+	const firstHeading = sidecarHeadings[0]
+	const pageHeading = { id: firstHeading.id, title: firstHeading.title }
+	const outlineItems = outlineItemsFromHeadings(sidecarHeadings)
+
+	/**
+	 * Declare props with type for type safety
+	 *
+	 * TODO: ideally we'd declare this typing as part of the return type
+	 * of this function. For now, this is a step in that direction.
+	 */
+	const props: ProductRootDocsPathLandingProps = {
+		...generatedProps.props,
+		mdxSource: includeMDXSource ? generatedProps.props.mdxSource : null,
+		layoutProps: {
+			...generatedProps.props.layoutProps,
+			githubFileUrl: null,
+		},
+		pageContent: {
+			...pageContent,
+			marketingContentBlocks: preparedMarketingBlocks,
+		},
+		pageHeading,
+		outlineItems,
+		product: {
+			...generatedProps.props.product,
+			currentRootDocsPath,
+		},
+	}
+
 	// TODO clean this up so it's easier to understand
 	return {
 		...generatedProps,
-		props: {
-			...generatedProps.props,
-			mdxSource: includeMDXSource ? generatedProps.props.mdxSource : null,
-			layoutProps: {
-				...generatedProps.props.layoutProps,
-				githubFileUrl: null,
-				headings: sidecarHeadings,
-			},
-			pageContent: {
-				...pageContent,
-				marketingContentBlocks: preparedMarketingBlocks,
-			},
-			pageHeading: sidecarHeadings[0],
-			product: {
-				...generatedProps.props.product,
-				currentRootDocsPath,
-			},
-		},
+		props,
 	}
 }
 

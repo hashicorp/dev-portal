@@ -4,7 +4,8 @@
  */
 
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
-import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
+import { OutlineLinkItem } from 'components/outline-nav/types'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData, RootDocsPath } from 'types/products'
 
@@ -26,13 +27,12 @@ interface ProductRootDocsPathLandingProps {
 	pageContent: PageContent
 	pageHeading: {
 		id: string
-		level: 1
-		slug: string
 		title: string
 	}
 	product: ProductData
 	versions?: VersionSelectItem[]
-	layoutProps: SidebarSidecarWithTocProps
+	layoutProps: SidebarSidecarLayoutProps
+	outlineItems: OutlineLinkItem[]
 }
 
 export type {
