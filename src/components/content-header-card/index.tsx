@@ -12,6 +12,7 @@ import TruncateMaxLines from 'components/truncate-max-lines'
 import { useDeviceSize } from 'contexts'
 import { ProductSlug } from 'types/products'
 import s from './content-header-card.module.css'
+import classNames from 'classnames'
 
 interface DropdownItem {
 	text: string
@@ -37,6 +38,7 @@ interface Button {
 }
 
 export interface ContentHeaderCardProps {
+	className?: string
 	icon?: Exclude<ProductSlug, 'sentinel'>
 	title: string
 	attribution?: string
@@ -49,6 +51,7 @@ export interface ContentHeaderCardProps {
 }
 
 export default function ContentHeaderCard({
+	className,
 	icon,
 	title,
 	attribution,
@@ -62,7 +65,10 @@ export default function ContentHeaderCard({
 	const { isMobile } = useDeviceSize()
 
 	return (
-		<Card elevation="base" className={s.contentHeaderCard}>
+		<Card
+			elevation="base"
+			className={classNames(s.contentHeaderCard, className)}
+		>
 			<div className={s.cardTop}>
 				{icon && (
 					<IconTileLogo className={s.icon} size="large" productSlug={icon} />

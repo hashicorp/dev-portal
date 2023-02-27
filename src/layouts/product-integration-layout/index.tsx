@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
 import HashiHead from '@hashicorp/react-head'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import ContentHeaderCard from 'components/content-header-card'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -12,6 +14,7 @@ import {
 import SidebarSidecarLayout, {
 	SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
+import { GetIntegrationBadges } from 'lib/get-integration-badges'
 import {
 	generateProductIntegrationLibrarySidebarNavData,
 	getIntegrationComponentUrl,
@@ -20,14 +23,7 @@ import {
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
 import { ProductData } from 'types/products'
-import Header from './components/header'
 import s from './style.module.css'
-import ContentHeaderCard from 'components/content-header-card'
-import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
-import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
-import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
-import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
-import { IconAlertDiamondFill16 } from '@hashicorp/flight-icons/svg-react/alert-diamond-fill-16'
 
 interface ProductIntegrationLayoutProps {
 	title: string
@@ -131,75 +127,40 @@ export default function ProductIntegrationLayout({
 					<meta name="robots" content="noindex, nofollow" />
 				</HashiHead>
 			)}
-			<Header
-				productSlug={currentProduct.slug}
-				className={s.header}
-				integration={integration}
-				activeRelease={activeRelease}
-				getVersionChangedURL={getVersionChangedURL}
-				onInstallClicked={() => {
-					console.log('TODO, probably remove this')
-				}}
-			/>
 
 			<ContentHeaderCard
-				icon="boundary"
-				title="Docker-ref"
-				attribution="@hashicorp"
-				description="Lorem ipsum dolor sit amet consectetur. Mauris consequat elementum id molestie tellus leo consequat elementum hashicorp product."
-				note="Updated: 12 months ago"
-				badges={[
-					{
-						text: 'Official',
-						icon: <IconHashicorp16 />,
-						tooltip:
-							'Official integrations are owned and maintained by HashiCorp.',
-					},
-				]}
-				dropdown={{
-					text: 'v2.18 (latest)',
-					items: [
-						{
-							text: 'v2.17',
-							href: '#2.17',
-						},
-						{
-							text: 'v2.16',
-							href: '#2.16',
-						},
-						{
-							text: 'v2.15',
-							href: '#2.15',
-						},
-					],
-				}}
+				className={s.header}
+				icon={currentProduct.slug !== 'sentinel' ? currentProduct.slug : null}
+				title={integration.name}
+				attribution={`@${integration.organization.slug}`}
+				description={integration.description}
+				note={lastUpdatedString(integration.updated_at)}
+				badges={GetIntegrationBadges(integration, true)}
+				dropdown={
+					integration.versions.length > 1
+						? {
+								text: versionString(
+									activeRelease.version,
+									integration.versions
+								),
+								items: integration.versions
+									.filter((e: string) => e !== activeRelease.version)
+									.map((version: string) => {
+										return {
+											text: versionString(version, integration.versions),
+											href: getVersionChangedURL(version),
+										}
+									}),
+						  }
+						: undefined
+				}
 				links={[
 					{
 						text: 'GitHub',
-						href: 'https://github.com/hashicorp/waypoint/tree/main/builtin/docker/ref',
+						href: integration.subdirectory
+							? `${integration.repo_url}/tree/main${integration.subdirectory}`
+							: integration.repo_url,
 						icon: <IconGithub16 />,
-					},
-					{
-						text: 'Docs',
-						href: '/waypoint/docs',
-						icon: <IconDocs16 />,
-					},
-				]}
-				buttons={[
-					{
-						text: 'Install',
-						isPrimary: true,
-						icon: <IconDownload16 />,
-						onClick: () => {
-							console.log('CLICKED')
-						},
-					},
-					{
-						text: 'Report',
-						icon: <IconAlertDiamondFill16 />,
-						onClick: () => {
-							console.log('CLICKED')
-						},
 					},
 				]}
 			/>
@@ -208,4 +169,60 @@ export default function ProductIntegrationLayout({
 			<div className={className}>{children}</div>
 		</SidebarSidecarLayout>
 	)
+}
+
+function lastUpdatedString(updatedAtString: string) {
+	const updatedAt = new Date(updatedAtString)
+	const currentTime: Date = new Date()
+
+	// Calculate the total number of days that have passed since the last update
+	const days = Math.floor(
+		(currentTime.getTime() - updatedAt.getTime()) / 1000 / 86400
+	)
+
+	// For days
+	if (days < 7) {
+		if (days === 1) {
+			return 'Updated yesterday'
+		} else {
+			return `Updated ${days} days ago`
+		}
+	}
+
+	// Weeks
+	const weeks = Math.ceil(days / 7)
+	if (weeks < 4) {
+		if (weeks === 1) {
+			return 'Updated last week'
+		} else {
+			return `Updated ${weeks} weeks ago`
+		}
+	}
+
+	// Months
+	const AVERAGE_MONTH_LENGTH = 30.4167
+	const months = Math.ceil(days / AVERAGE_MONTH_LENGTH)
+	if (months < 12) {
+		if (months === 1) {
+			return 'Updated last month'
+		} else {
+			return `Updated ${months} months ago`
+		}
+	}
+
+	// Years
+	const years = Math.ceil(days / 365.25)
+	if (years === 1) {
+		return 'Updated last year'
+	} else {
+		return `Updated ${years} years ago`
+	}
+}
+
+function versionString(version: string, allVersions: string[]): string {
+	if (version === allVersions[0]) {
+		return `v${version} (latest)`
+	} else {
+		return `v${version}`
+	}
 }
