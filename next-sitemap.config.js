@@ -60,5 +60,6 @@ module.exports = {
 		'/vault/docs*',
 		'/vault/api-docs*',
 		'/vault/tutorials*',
+		'/well-architected-framework/*',
 	],
 }
