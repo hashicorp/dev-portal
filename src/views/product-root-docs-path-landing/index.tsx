@@ -6,8 +6,10 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames'
 import DocsViewLayout from 'layouts/docs-view-layout'
-import DocsView from 'views/docs-view'
+import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
+import docsViewStyles from 'views/docs-view/docs-view.module.css'
 import ProductDocsSearch from 'views/docs-view/components/product-docs-search'
+import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
 import { ProductRootDocsPathLandingProps } from './types'
 import {
@@ -30,10 +32,22 @@ const ProductRootDocsPathLanding = ({
 
 	let mdxSlot: ReactElement
 	if (mdxSource) {
-		const classes = classNames(s[`${product.slug}MDXWrapper`], s.mdxSlotWrapper)
+		const docsMdxComponents = getDocsMdxComponents(product.slug)
+		const classes = classNames(
+			s[`${product.slug}MDXWrapper`],
+			s.mdxSlotWrapper,
+			docsViewStyles.mdxContent
+		)
 		mdxSlot = (
 			<div className={classes}>
-				<DocsView mdxSource={mdxSource} hideSearch />
+				<DevDotContent
+					mdxRemoteProps={{
+						...mdxSource,
+						components: {
+							...docsMdxComponents,
+						},
+					}}
+				/>
 			</div>
 		)
 	}
