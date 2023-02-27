@@ -6,12 +6,13 @@
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
+import BadgeList from 'components/badge-list'
 import Button from 'components/button'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
+import { GetIntegrationBadges } from 'lib/get-integration-badges'
 import { getIntegrationUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
-import TagList, { GetIntegrationTags } from '../tag-list'
 import s from './style.module.css'
 
 interface IntegrationsListProps {
@@ -67,9 +68,9 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 					<p className={s.body}>{integration.description}</p>
 				</div>
 				<div className={s.right}>
-					<TagList
-						className={s.tagList}
-						tags={GetIntegrationTags(integration, false)}
+					<BadgeList
+						className={s.badgeList}
+						badges={GetIntegrationBadges(integration, false)}
 						size="medium"
 					/>
 					<span className={s.viewDetails}>
