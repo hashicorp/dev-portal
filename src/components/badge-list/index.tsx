@@ -21,7 +21,7 @@ interface BadgeListProps {
 export default function BadgeList({
 	badges,
 	className,
-	size = 'medium', // TODO, was small, need to pass small for usage
+	size = 'medium',
 	color = 'neutral',
 	type = 'filled',
 }: BadgeListProps) {
