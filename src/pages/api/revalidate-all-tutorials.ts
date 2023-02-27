@@ -48,7 +48,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		for (let i = 0; i < paths.length; i++) {
 			// remove any trailing slash
 			const path = paths[i].replace(/\/$/, '')
-			console.log('[Revalidate]', path)
+			console.log('[revalidate]', path)
 			batchRevalidatePromises.push(response.revalidate(path))
 
 			// flush the batch every N paths, or at the end of the loop
