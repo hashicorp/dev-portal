@@ -18,12 +18,15 @@ import s from './docs-view.module.css'
 /**
  * Layouts
  *
- * note: layout in frontmatter is not supported yet, this is early stage work.
+ * Note: layout in frontmatter is not supported yet, this is early stage work.
  * Asana task: https://app.asana.com/0/1202097197789424/1202850056121889/f
  *
- * TODO: this really isn't used at all, since we've transitioned to a separate
- * view (specifically `ProductRootDocsPathLanding`), so we should likely
- * remove the `metadata.layout` logic here.
+ * Note: this layout logic is used for non-`/docs` landing pages.
+ * The `/docs` landing pages use `ProductRootDocsPathLanding`.
+ * We could consider this approach, as it implies arbitrary layouts
+ * are supported via frontmatter. We could also consider renaming the
+ * "layout" property to something like "contentLayout", as otherwise
+ * it seems like it could be confused with broader "src/layouts" code.
  * Task: https://app.asana.com/0/1202097197789424/1204069295311480/f
  */
 const layouts = {
