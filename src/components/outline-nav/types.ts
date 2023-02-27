@@ -38,12 +38,3 @@ export type OutlineLinkItem = OutlineLinkProps | OutlineLinkWithNestingProps
 export interface OutlineNavProps {
 	items: OutlineLinkItem[]
 }
-
-/**
- * Heading type, for compatibility with existing conventions.
- */
-export interface OutlineHeading {
-	title: string
-	slug: string
-	level: 1 | 2 | 3 | 4 | 5 | 6
-}
