@@ -97,19 +97,21 @@ const SidebarSidecarLayoutContent = ({
 				<div className={s.paddedAreaWrapper}>
 					<div className={s.breadcrumbContainer}>
 						<div className={s.breadcrumbMaxWidth}>
-							{breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+							{breadcrumbLinks ? (
+								<BreadcrumbBar links={breadcrumbLinks} />
+							) : null}
 						</div>
 					</div>
 					<div className={s.mainAndSidecar}>
 						<main id={MAIN_ELEMENT_ID} className={s.main}>
 							{children}
-							{githubFileUrl && (
+							{githubFileUrl ? (
 								<EditOnGithubLink
 									className={s.editOnGithubLink}
 									url={githubFileUrl}
 									label="Edit this page on GitHub"
 								/>
-							)}
+							) : null}
 						</main>
 						<div className={s.sidecarPosition}>
 							<SidecarScrollContainer>{sidecarSlot}</SidecarScrollContainer>
