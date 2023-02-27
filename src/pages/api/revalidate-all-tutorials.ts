@@ -19,7 +19,6 @@ import { getCollectionSlug } from 'views/collection-view/helpers'
 import { ProductSlug } from 'types/products'
 
 const BATCH_SIZE = 10
-const DELAY_TIME = 200 // ms
 
 /**
  * Accepts a POST request, triggers revalidation for all tutorial paths for all products
@@ -57,9 +56,8 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 				batchRevalidatePromises.length >= BATCH_SIZE ||
 				i >= paths.length - 1
 			) {
+				// TODO potentially throttle these calls - see p-throttle or p-map
 				await Promise.allSettled(batchRevalidatePromises)
-				// delay to ensure we don't overwhelm the server
-				await delay(DELAY_TIME)
 				batchRevalidatePromises = []
 			}
 		}
@@ -105,10 +103,6 @@ async function getCollectionAndTutorialPaths() {
 	})
 
 	return [...collectionPaths, ...tutorialPaths]
-}
-
-function delay(ms: number) {
-	return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export default validateToken(handler, {
