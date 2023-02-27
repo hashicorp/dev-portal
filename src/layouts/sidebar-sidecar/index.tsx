@@ -95,8 +95,10 @@ const SidebarSidecarLayoutContent = ({
 			<div className={s.contentWrapper} ref={contentRef}>
 				{alertBannerSlot}
 				<div className={s.paddedAreaWrapper}>
-					<div className={s.breadcrumbOptOutGroup}>
-						{breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+					<div className={s.breadcrumbContainer}>
+						<div className={s.breadcrumbMaxWidth}>
+							{breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
+						</div>
 					</div>
 					<div className={s.mainAndSidecar}>
 						<main id={MAIN_ELEMENT_ID} className={s.main}>
