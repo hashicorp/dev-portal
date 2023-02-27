@@ -22,6 +22,11 @@ import s from './docs-view.module.css'
  *
  * note: layout in frontmatter is not supported yet, this is early stage work.
  * Asana task: https://app.asana.com/0/1202097197789424/1202850056121889/f
+ *
+ * TODO: this really isn't used at all, since we've transitioned to a separate
+ * view (specifically `ProductRootDocsPathLanding`), so we should likely
+ * remove the `metadata.layout` logic here.
+ * Task: https://app.asana.com/0/1202097197789424/1204069295311480/f
  */
 const layouts = {
 	'docs-root-landing': dynamic(() => import('./components/docs-root-landing')),
