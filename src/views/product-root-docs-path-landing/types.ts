@@ -4,6 +4,7 @@
  */
 
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
+import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData, RootDocsPath } from 'types/products'
 
@@ -31,6 +32,7 @@ interface ProductRootDocsPathLandingProps {
 	}
 	product: ProductData
 	versions?: VersionSelectItem[]
+	layoutProps: SidebarSidecarWithTocProps
 }
 
 export type {

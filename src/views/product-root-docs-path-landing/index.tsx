@@ -5,9 +5,9 @@
 
 import { ReactElement } from 'react'
 import classNames from 'classnames'
-import DocsViewLayout from 'layouts/docs-view-layout'
+import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
+import DocsVersionAlertBanner from 'components/docs-version-alert'
 import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
-import docsViewStyles from 'views/docs-view/docs-view.module.css'
 import ProductDocsSearch from 'views/docs-view/components/product-docs-search'
 import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
@@ -16,6 +16,7 @@ import {
 	ProductRootDocsPathLandingHero,
 	ProductRootDocsPathLandingMarketingContent,
 } from './components'
+import docsViewStyles from 'views/docs-view/docs-view.module.css'
 import s from './product-root-docs-path-landing.module.css'
 
 const ProductRootDocsPathLanding = ({
@@ -24,6 +25,7 @@ const ProductRootDocsPathLanding = ({
 	pageHeading,
 	product,
 	versions,
+	layoutProps,
 }: ProductRootDocsPathLandingProps) => {
 	const { pageSubtitle, marketingContentBlocks } = pageContent
 	const showProductDocsSearch =
@@ -53,33 +55,37 @@ const ProductRootDocsPathLanding = ({
 	}
 
 	return (
-		<div className={versions ? s.docsLandingWithVersions : null}>
-			{showProductDocsSearch && <ProductDocsSearch />}
-			{versions ? (
-				<div
-					className={classNames(
-						s.versionSwitcherWrapper,
-						showProductDocsSearch && s.hasSearch
-					)}
-				>
-					<DocsVersionSwitcher options={versions} />
-				</div>
-			) : null}
-			<ProductRootDocsPathLandingHero
-				pageHeading={pageHeading}
-				pageSubtitle={pageSubtitle}
-				iconCardGridItems={pageContent.iconCardGridItems}
-			/>
-			<ProductRootDocsPathLandingMarketingContent
-				blocks={marketingContentBlocks}
-			/>
-			{mdxSlot}
-		</div>
+		<SidebarSidecarWithToc
+			{...layoutProps}
+			alertBannerSlot={<DocsVersionAlertBanner />}
+		>
+			<div className={versions ? s.docsLandingWithVersions : null}>
+				{showProductDocsSearch && <ProductDocsSearch />}
+				{versions ? (
+					<div
+						className={classNames(
+							s.versionSwitcherWrapper,
+							showProductDocsSearch && s.hasSearch
+						)}
+					>
+						<DocsVersionSwitcher options={versions} />
+					</div>
+				) : null}
+				<ProductRootDocsPathLandingHero
+					pageHeading={pageHeading}
+					pageSubtitle={pageSubtitle}
+					iconCardGridItems={pageContent.iconCardGridItems}
+				/>
+				<ProductRootDocsPathLandingMarketingContent
+					blocks={marketingContentBlocks}
+				/>
+				{mdxSlot}
+			</div>
+		</SidebarSidecarWithToc>
 	)
 }
 
 ProductRootDocsPathLanding.contentType = 'docs'
-ProductRootDocsPathLanding.layout = DocsViewLayout
 
 export type { ProductRootDocsPathLandingProps }
 export default ProductRootDocsPathLanding

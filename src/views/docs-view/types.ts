@@ -7,6 +7,7 @@ import { ReactNode } from 'react'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import { ProductSlug } from 'types/products'
+import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
 
 export interface DocsViewProps {
 	/**
@@ -40,6 +41,11 @@ export interface DocsViewProps {
 	 * An optional, human-readable name to be rendered where the section is referenced as a versioned project
 	 */
 	projectName?: string
+
+	/**
+	 * Layout props passed to the SidebarSidecar layout.
+	 */
+	layoutProps: SidebarSidecarWithTocProps
 }
 
 export type ProductsToPrimitivesMap = Record<

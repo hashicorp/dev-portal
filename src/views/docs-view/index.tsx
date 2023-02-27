@@ -6,7 +6,8 @@
 import dynamic from 'next/dynamic'
 import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
-import DocsViewLayout from 'layouts/docs-view-layout'
+import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
+import DocsVersionAlertBanner from 'components/docs-version-alert'
 import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
 import { DocsViewProps } from './types'
@@ -35,6 +36,7 @@ const DocsView = ({
 	hideSearch = false,
 	versions,
 	projectName,
+	layoutProps,
 }: DocsViewProps) => {
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
@@ -47,31 +49,35 @@ const DocsView = ({
 	const Layout = layouts[metadata?.layout?.name] ?? DefaultLayout
 
 	return (
-		<div className={classNames(versions && s.contentWithVersions)}>
-			{shouldRenderSearch ? <ProductDocsSearch /> : null}
-			{versions ? (
-				<div className={s.versionSwitcherWrapper}>
-					<DocsVersionSwitcher options={versions} projectName={projectName} />
-				</div>
-			) : null}
-			<NoIndexTagIfVersioned />
-			<DevDotContent
-				mdxRemoteProps={{
-					compiledSource,
-					lazy,
-					scope,
-					components: {
-						...docsMdxComponents,
-						wrapper: (props) => <Layout {...props} {...metadata?.layout} />,
-					},
-				}}
-			/>
-		</div>
+		<SidebarSidecarWithToc
+			{...layoutProps}
+			alertBannerSlot={<DocsVersionAlertBanner />}
+		>
+			<div className={classNames(versions && s.contentWithVersions)}>
+				{shouldRenderSearch ? <ProductDocsSearch /> : null}
+				{versions ? (
+					<div className={s.versionSwitcherWrapper}>
+						<DocsVersionSwitcher options={versions} projectName={projectName} />
+					</div>
+				) : null}
+				<NoIndexTagIfVersioned />
+				<DevDotContent
+					mdxRemoteProps={{
+						compiledSource,
+						lazy,
+						scope,
+						components: {
+							...docsMdxComponents,
+							wrapper: (props) => <Layout {...props} {...metadata?.layout} />,
+						},
+					}}
+				/>
+			</div>
+		</SidebarSidecarWithToc>
 	)
 }
 
 DocsView.contentType = 'docs'
-DocsView.layout = DocsViewLayout
 
 export type { DocsViewProps }
 export default DocsView
