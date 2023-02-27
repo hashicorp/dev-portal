@@ -18,7 +18,6 @@ import {
 } from 'components/sidebar/helpers'
 import { isDeployPreview } from 'lib/env-checks'
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
-import { EnrichedNavItem } from 'components/sidebar/types'
 
 const basePath = 'plugins'
 const baseName = 'Plugins'
