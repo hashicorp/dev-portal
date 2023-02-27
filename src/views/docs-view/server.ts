@@ -40,6 +40,7 @@ import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics
 import { withTiming } from 'lib/with-timing'
 import outlineItemsFromHeadings from 'lib/docs/outline-items-from-headings'
 import { DocsViewProps } from './types'
+import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -79,7 +80,10 @@ export function getStaticGenerationFunctions<
 	mainBranch?: string
 	navDataPrefix?: string
 	options?: DocsViewPropOptions
-}): ReturnType<typeof _getStaticGenerationFunctions> {
+}): {
+	getStaticPaths: GetStaticPaths
+	getStaticProps: GetStaticProps<DocsViewProps>
+} {
 	/**
 	 * Get the current `rootDocsPaths` object.
 	 *
@@ -155,7 +159,9 @@ export function getStaticGenerationFunctions<
 				paths,
 			}
 		},
-		getStaticProps: async (ctx) => {
+		getStaticProps: async (
+			ctx
+		): Promise<GetStaticPropsResult<DocsViewProps>> => {
 			const pathParts = (ctx.params.page || []) as string[]
 			const currentPathUnderProduct = `/${path.join(
 				basePathForLoader,

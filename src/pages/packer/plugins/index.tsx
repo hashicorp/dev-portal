@@ -9,6 +9,8 @@ import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-ro
 import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import { isDeployPreview } from 'lib/env-checks'
+import { EnrichedNavItem } from 'components/sidebar/types'
+import { NavNode } from '@hashicorp/react-docs-sidenav/types'
 
 /**
  * Path relative to the `website` directory of the Packer GitHub repo.
@@ -64,11 +66,20 @@ async function getStaticProps(ctx) {
 		// Prepare nav data for client (such as adding `fullPath`)
 		const { preparedItems: navData } = await prepareNavDataForClient({
 			basePaths: ['packer', 'plugins'],
-			nodes: rawNavData,
+			/**
+			 * TODO: fix up types related to MenuItem[] & EnrichedMenuItem[]
+			 * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+			 */
+			nodes: rawNavData as $TSFixMe as NavNode[],
 		})
 
-		// Replace our original navData with our prepared navData
-		staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems = navData
+		/**
+		 * Replace our original navData with our prepared navData
+		 * TODO: fix up types related to MenuItem[] & EnrichedMenuItem[]
+		 * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+		 */
+		staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems =
+			navData as $TSFixMe as EnrichedNavItem[]
 
 		// Long-form content pages use a narrower main area width
 		staticProps.props.layoutProps.mainWidth = 'narrow'
