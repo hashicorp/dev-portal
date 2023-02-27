@@ -105,9 +105,8 @@ for further details.
 	 to prevent very long breadcrumbs from causing maxWidthWrapper to grow
 	 beyond our desired max-width. */
 .breadcrumbContainer {
-	align-items: baseline;
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	margin-bottom: 32px;
 	max-width: calc(
 		var(--main-element-max-width) + var(--sidecar-spacing) +
@@ -119,9 +118,6 @@ for further details.
 /* We want to limit the breadcrumb row content to be the width
    of the main content area only. */
 .breadcrumbMaxWidth {
-	align-self: flex-start;
-	display: flex;
-	justify-content: space-between;
 	max-width: var(--main-element-max-width);
 }
 
