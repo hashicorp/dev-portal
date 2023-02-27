@@ -6,7 +6,8 @@
 import dynamic from 'next/dynamic'
 import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
-import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
 import DocsVersionAlertBanner from 'components/docs-version-alert'
 import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
@@ -37,6 +38,7 @@ const DocsView = ({
 	versions,
 	projectName,
 	layoutProps,
+	outlineItems,
 }: DocsViewProps) => {
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
@@ -49,8 +51,9 @@ const DocsView = ({
 	const Layout = layouts[metadata?.layout?.name] ?? DefaultLayout
 
 	return (
-		<SidebarSidecarWithToc
+		<SidebarSidecarLayout
 			{...layoutProps}
+			sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
 			alertBannerSlot={<DocsVersionAlertBanner />}
 		>
 			<div className={classNames(versions && s.contentWithVersions)}>
@@ -73,7 +76,7 @@ const DocsView = ({
 					}}
 				/>
 			</div>
-		</SidebarSidecarWithToc>
+		</SidebarSidecarLayout>
 	)
 }
 
