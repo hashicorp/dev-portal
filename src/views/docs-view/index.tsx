@@ -7,12 +7,12 @@ import dynamic from 'next/dynamic'
 import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
 import DocsViewLayout from 'layouts/docs-view-layout'
-import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
-import { DocsViewProps, ProductsToPrimitivesMap } from './types'
+import { DocsViewProps } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import ProductDocsSearch from './components/product-docs-search'
+import getDocsMdxComponents from './utils/get-docs-mdx-components'
 import s from './docs-view.module.css'
 
 /**
@@ -28,56 +28,6 @@ const DefaultLayout = ({ children }) => (
 	<div className={s.mdxContent}>{children}</div>
 )
 
-// Author primitives
-const Badge = dynamic(() => import('components/author-primitives/shared/badge'))
-const BadgesHeader = dynamic(
-	() => import('components/author-primitives/packer/badges-header')
-)
-const Button = dynamic(
-	() => import('components/author-primitives/shared/button')
-)
-const Checklist = dynamic(
-	() => import('components/author-primitives/packer/checklist')
-)
-const Columns = dynamic(
-	() => import('components/author-primitives/vault/columns')
-)
-const ConfigEntryReference = dynamic(
-	() => import('components/author-primitives/consul/config-entry-reference')
-)
-const InlineTag = dynamic(
-	() => import('components/author-primitives/vault/inline-tag')
-)
-const Placement = dynamic(
-	() => import('components/author-primitives/shared/placement-table')
-)
-const PluginBadge = dynamic(
-	() => import('components/author-primitives/packer/plugin-badge')
-)
-const ProviderTable = dynamic(
-	() => import('components/author-primitives/terraform/provider-table')
-)
-const SentinelEmbedded = dynamic(
-	() => import('@hashicorp/react-sentinel-embedded')
-)
-
-const HCPCallout = dynamic(
-	() => import('components/dev-dot-content/mdx-components/mdx-hcp-callout')
-)
-
-const productsToPrimitives: ProductsToPrimitivesMap = {
-	boundary: null,
-	consul: { ConfigEntryReference },
-	hcp: { HCPCallout },
-	nomad: { Placement },
-	packer: { Badge, BadgesHeader, Checklist, PluginBadge },
-	sentinel: { SentinelEmbedded },
-	terraform: { ProviderTable },
-	vagrant: { Button },
-	vault: { Columns, Tag: InlineTag },
-	waypoint: { Placement },
-}
-
 const DocsView = ({
 	metadata,
 	mdxSource,
@@ -88,8 +38,7 @@ const DocsView = ({
 }: DocsViewProps) => {
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
-	const additionalComponents = productsToPrimitives[currentProduct.slug] || {}
-	const components = defaultMdxComponents({ additionalComponents })
+	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
 	const shouldRenderSearch =
 		!__config.flags.enable_global_search &&
 		!hideSearch &&
@@ -112,7 +61,7 @@ const DocsView = ({
 					lazy,
 					scope,
 					components: {
-						...components,
+						...docsMdxComponents,
 						wrapper: (props) => <Layout {...props} {...metadata?.layout} />,
 					},
 				}}
