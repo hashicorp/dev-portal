@@ -255,7 +255,11 @@ function TutorialView({
 						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
 					>
 						<TutorialMeta
-							heading={{ slug: layoutProps.headings[0].slug, text: name }}
+							heading={{
+								slug: layoutProps.headings[0].slug,
+								text: name,
+								description: (tutorial as any).description,
+							}}
 							meta={{
 								readTime,
 								edition,

@@ -28,7 +28,7 @@ interface Link {
 	icon?: React.ReactElement
 }
 
-interface Button {
+export interface Button {
 	text: string
 	icon?: JSX.IntrinsicElements['svg']
 	isPrimary?: boolean
