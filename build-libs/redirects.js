@@ -257,7 +257,7 @@ async function buildProductRedirects() {
 				ref: 'master',
 				redirectsPath: '/redirects.js',
 			}),
-			getRedirectsForProduct('cloud.hashicorp.com', {
+			getRedirectsForProduct('hcp-docs', {
 				ref: 'main',
 				redirectsPath: '/redirects.js',
 			}),
