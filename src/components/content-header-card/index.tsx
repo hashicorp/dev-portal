@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import BadgeList, { Badge } from 'components/badge-list'
 import Button from 'components/button'
 import Card from 'components/card'
@@ -8,11 +9,8 @@ import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
 import StandaloneLink from 'components/standalone-link'
 import Text from 'components/text'
-import TruncateMaxLines from 'components/truncate-max-lines'
-import { useDeviceSize } from 'contexts'
 import { ProductSlug } from 'types/products'
 import s from './content-header-card.module.css'
-import classNames from 'classnames'
 
 interface DropdownItem {
 	text: string
@@ -62,8 +60,6 @@ export default function ContentHeaderCard({
 	links,
 	buttons,
 }: ContentHeaderCardProps) {
-	const { isMobile } = useDeviceSize()
-
 	return (
 		<Card
 			elevation="base"
@@ -77,19 +73,9 @@ export default function ContentHeaderCard({
 					<div className={s.upper}>
 						<div className={s.left}>
 							<div className={s.titleWrap}>
-								<TruncateMaxLines
-									maxLines={isMobile ? 2 : 1}
-									lineHeight="var(--token-typography-body-300-line-height)"
-								>
-									<Heading
-										size={300}
-										weight="bold"
-										level={1}
-										className={s.title}
-									>
-										{title}
-									</Heading>
-								</TruncateMaxLines>
+								<Heading size={300} weight="bold" level={1} className={s.title}>
+									{title}
+								</Heading>
 								{attribution && (
 									<Text size={100} weight="medium" className={s.attribution}>
 										{attribution}
@@ -97,14 +83,9 @@ export default function ContentHeaderCard({
 								)}
 							</div>
 							{description && (
-								<TruncateMaxLines
-									maxLines={2}
-									lineHeight="var(--token-typography-body-200-line-height)"
-								>
-									<Text size={200} className={s.description}>
-										{description}
-									</Text>
-								</TruncateMaxLines>
+								<Text size={200} className={s.description}>
+									{description}
+								</Text>
 							)}
 						</div>
 						{dropdown && (
