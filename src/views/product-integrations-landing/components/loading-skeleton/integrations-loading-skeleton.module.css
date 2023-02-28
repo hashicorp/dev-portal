@@ -3,7 +3,7 @@
 }
 
 .placeholder {
-	--loading-skeleton-animation-duration: 4s;
+	--loading-skeleton-animation-duration: 4.5s;
 
 	animation: loading var(--loading-skeleton-animation-duration) infinite;
 	background-color: var(--token-color-palette-alpha-100);
@@ -23,7 +23,7 @@
 
 	/* Only enable faster animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
-		--loading-skeleton-animation-duration: 2s;
+		--loading-skeleton-animation-duration: 2.5s;
 	}
 }
 
