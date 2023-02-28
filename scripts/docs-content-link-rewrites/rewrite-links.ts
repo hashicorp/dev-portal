@@ -51,6 +51,7 @@ const main = async () => {
 			filePathPrefix: mdxFilesPrefix,
 			filePaths: changedMdxFiles,
 			urlAdjustFn,
+			repo,
 		})
 
 	// Handle files that contain links that need to be rewritten.
