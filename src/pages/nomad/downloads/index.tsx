@@ -19,8 +19,9 @@ const NomadDownloadsPage = (props) => {
 			merchandisingSlot={
 				<Card className={s.card} elevation="base">
 					<Text asElement="span">
-						A beta for Nomad v1.5.0 is available! The release can be{' '}
-						<InlineLink href="https://releases.hashicorp.com/nomad/1.5.0-beta.1/">
+						A release candidate for Nomad v1.5.0 is available! The release can
+						be{' '}
+						<InlineLink href="https://releases.hashicorp.com/nomad/1.5.0-rc.1/">
 							downloaded here
 						</InlineLink>
 						.
