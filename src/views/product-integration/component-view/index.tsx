@@ -7,8 +7,7 @@ import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import DevDotContent from 'components/dev-dot-content'
 import { MdxHeadingOutsideMdx } from './components/mdx-heading-outside-mdx'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
-import { TableOfContentsHeading } from 'components/table-of-contents'
-import { OutlineNavFromHeadings } from 'components/outline-nav/components'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
 import { getIntegrationComponentUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import {
@@ -21,8 +20,9 @@ import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
 import SearchableVariableGroupList from './components/searchable-variable-group-list'
 import { Variable } from './components/variable-group-list'
-import { getVariableGroupSlug } from './helpers'
+import { getVariableGroupSlug, getVariableSlug } from './helpers'
 import type { ProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
+import type { OutlineNavProps } from 'components/outline-nav'
 import s from './style.module.css'
 import VersionAlertBanner from 'components/version-alert-banner'
 
@@ -47,14 +47,22 @@ export default function ProductIntegrationComponentView({
 }: ProductIntegrationComponentViewProps) {
 	const { variable_groups } = component
 	/**
-	 * Build variable group headings, which are used for both
-	 * the table of contents and to render the headings themselves
+	 * Build outline nav items for the component variable groups
 	 */
-	const variableGroupHeadings: TableOfContentsHeading[] = variable_groups.map(
+	const outlineNavItems: OutlineNavProps['items'] = variable_groups.map(
 		(variableGroup: VariableGroup) => {
 			const groupName = variableGroup.variable_group_config.name
-			const slug = getVariableGroupSlug(groupName)
-			return { title: groupName, slug, level: 2 }
+			const groupSlug = getVariableGroupSlug(groupName)
+			const nestedItems = variableGroup.variables
+				.filter((v) => {
+					const isTopLevelVariable = v.key.indexOf('.') === -1
+					return isTopLevelVariable
+				})
+				.map((v) => {
+					const variableSlug = getVariableSlug(groupName, v.key)
+					return { title: v.key, url: `#${variableSlug}` }
+				})
+			return { title: groupName, url: `#${groupSlug}`, items: nestedItems }
 		}
 	)
 
@@ -77,7 +85,7 @@ export default function ProductIntegrationComponentView({
 					version === integration.versions[0] ? 'latest' : version
 				return getIntegrationComponentUrl(integration, component, versionString)
 			}}
-			sidecarSlot={<OutlineNavFromHeadings headings={variableGroupHeadings} />}
+			sidecarSlot={<OutlineNavWithActive items={outlineNavItems} />}
 			alertBannerSlot={
 				isLatestVersion ? null : (
 					<VersionAlertBanner
@@ -101,16 +109,12 @@ export default function ProductIntegrationComponentView({
 			{variable_groups.length ? (
 				<div className={s.variableGroups}>
 					{variable_groups.map((variableGroup: VariableGroup, idx: number) => {
-						const headingData = variableGroupHeadings[idx]
-
+						const groupName = variableGroup.variable_group_config.name
+						const slug = getVariableGroupSlug(groupName)
 						return (
 							<div key={variableGroup.id}>
 								{/* Note: using MDX heading here to match adjacent content */}
-								<MdxHeadingOutsideMdx
-									id={headingData.slug}
-									title={headingData.title}
-									level={headingData.level}
-								/>
+								<MdxHeadingOutsideMdx id={slug} title={groupName} level={2} />
 								<SearchableVariableGroupList
 									groupName={variableGroup.variable_group_config.name}
 									variables={variableGroup.variables.map(
