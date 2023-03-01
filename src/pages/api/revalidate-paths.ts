@@ -6,14 +6,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next/types'
 import { StatusCodes } from 'http-status-codes'
 import { validateToken } from 'lib/api-validate-token'
-import { cachedGetProductData } from 'lib/get-product-data'
-import { STATUS_CODES } from 'http'
 
-const PATHS_LIMIT = 10
+const PATHS_LIMIT = 100
 
 /**
- * Accepts a POST request with a product slug, triggers revalidation for all of a product's docs paths
- * specified in its latest nav data.
+ * Accepts a POST request with an array of paths,
+ * triggers revalidation for paths as they are passed.
+ *
+ * They should be formatted as full paths from the root of developer.hashicorp.com
  */
 async function handler(request: NextApiRequest, response: NextApiResponse) {
 	if (request.method !== 'POST') {
@@ -21,7 +21,6 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		return
 	}
 
-	// @TODO should we consider a limit on the number of paths?
 	const { paths } = request.body
 	const pathsExist = paths?.length > 0
 
@@ -60,10 +59,10 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	} catch (e) {
 		// If there was an error, Next.js will continue
 		// to show the last successfully generated page
-		console.error('Error revalidating ', e)
+		console.error('[revalidation error] ', e)
 		return response
 			.status(StatusCodes.INTERNAL_SERVER_ERROR)
-			.send('Error revalidating')
+			.send(`[revalidation error]:  ${e.message}`)
 	}
 }
 
