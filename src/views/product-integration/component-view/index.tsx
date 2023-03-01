@@ -53,10 +53,15 @@ export default function ProductIntegrationComponentView({
 		(variableGroup: VariableGroup) => {
 			const groupName = variableGroup.variable_group_config.name
 			const groupSlug = getVariableGroupSlug(groupName)
-			const nestedItems = variableGroup.variables.map((v) => {
-				const variableSlug = getVariableSlug(groupName, v.key)
-				return { title: v.key, url: `#${variableSlug}` }
-			})
+			const nestedItems = variableGroup.variables
+				.filter((v) => {
+					const isTopLevelVariable = v.key.indexOf('.') === -1
+					return isTopLevelVariable
+				})
+				.map((v) => {
+					const variableSlug = getVariableSlug(groupName, v.key)
+					return { title: v.key, url: `#${variableSlug}` }
+				})
 			return { title: groupName, url: `#${groupSlug}`, items: nestedItems }
 		}
 	)
