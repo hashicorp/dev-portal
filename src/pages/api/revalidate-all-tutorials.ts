@@ -18,7 +18,7 @@ import { getTutorialSlug } from 'views/collection-view/helpers'
 import { getCollectionSlug } from 'views/collection-view/helpers'
 import { ProductSlug } from 'types/products'
 
-const BATCH_SIZE = 10
+const BATCH_SIZE = 5
 
 /**
  * Accepts a POST request, triggers revalidation for all tutorial paths for all products
