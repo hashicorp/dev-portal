@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .root {
 	--header-text-color: var(--gray-3);
 
@@ -17,17 +22,13 @@
 .endpoint {
 	display: block;
 
-	& .method {
+	& .endpointInlineCode {
 		color: var(--header-text-color);
 		background: none;
 		border: none;
 		padding-left: 0;
 		padding-right: 0;
 		margin-right: 8px;
-	}
-
-	& .path {
-		color: var(--gray-2);
 		word-break: break-all;
 	}
 }

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ProductSlug } from 'types/products'
 import {
 	expandUrlTestCasesWithParams,
@@ -20,6 +25,7 @@ const testEachCase = (cases: TestCase[]) => {
 describe('rewriteExternalDocsLink', () => {
 	describe('when the URL is not to an external docs site', () => {
 		testEachCase([
+			{ input: '/', expected: undefined },
 			{ input: '/vault/api', expected: undefined },
 			{ input: '/waypoint/docs', expected: undefined },
 			{ input: '/vault/tutorials', expected: undefined },
@@ -48,11 +54,11 @@ describe('rewriteExternalDocsLink', () => {
 		])
 	})
 
-	describe('docs site home pages are rewritten to product landing pages', () => {
+	describe('docs site home pages are *not* rewritten', () => {
 		testEachCase(
 			Object.keys(productSlugsToHostNames).map((productSlug: ProductSlug) => {
-				const input = `https://${productSlugsToHostNames[productSlug]}`
-				const expected = `/${productSlug}`
+				const input = `https://${productSlugsToHostNames[productSlug]}/`
+				const expected = input
 				return { input, expected }
 			})
 		)

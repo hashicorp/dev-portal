@@ -14,13 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎
-        uses: actions/checkout@v2
-
-      - name: Merge `main` branch
-        uses: everlytic/branch-merge@1.1.2
-        id: branch-merge
-        with:
-          github_token: ${{  secrets.GITHUB_TOKEN }}
-          source_ref: 'main'
-          target_branch: 'staging'
-          commit_message_template: '[Automated] Merged {source_ref} into target: {target_branch}'
+        uses: actions/checkout@v3
+      - name: Sync `staging`
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git push origin --force main:staging

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .root {
 	composes: g-focus-ring-from-box-shadow from global;
 	border-radius: 6px;
@@ -24,7 +29,7 @@
 		}
 	}
 
-	&:focus {
+	&:focus-visible {
 		opacity: 1;
 		background: var(--token-color-surface-faint);
 

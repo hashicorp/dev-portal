@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import CardLink from 'components/card-link'
 import { CardDescription, CardTitle } from 'components/card/components'
 import CardsGridList from 'components/cards-grid-list'

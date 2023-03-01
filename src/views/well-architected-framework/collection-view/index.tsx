@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
@@ -19,7 +24,6 @@ export default function WellArchitectedFrameworkCollectionView({
 
 	return (
 		<SidebarSidecarLayout
-			sidecarSlot={null}
 			breadcrumbLinks={breadcrumbLinks}
 			sidebarNavDataLevels={[
 				generateTopLevelSidebarNavData(metadata.wafName) as SidebarProps,

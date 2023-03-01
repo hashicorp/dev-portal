@@ -1,5 +1,11 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ProductSlug } from 'types/products'
-import { productSlugs } from 'lib/products'
+import { cachedGetProductData } from 'lib/get-product-data'
+import { productSlugs, productSlugsToHostNames } from 'lib/products'
 import { rewriteDocsUrl } from '../product-url-adjusters'
 
 describe('rewriteDocsUrl', () => {
@@ -54,6 +60,52 @@ describe('rewriteDocsUrl', () => {
 
 		test.each(testData)('Testing subpath', (item) => {
 			expect(rewriteDocsUrl(item.input, hcpProductData)).toBe(item.expected)
+		})
+	})
+
+	describe('does not rewrite .io home page links', () => {
+		// Store an array of hostnames
+		const hostnames = Object.values(productSlugsToHostNames)
+
+		// For each product slug...
+		productSlugs.forEach((productSlug: ProductSlug) => {
+			// Fetch the product data object for `rewriteDocsUrl`
+			const productData = cachedGetProductData(productSlug)
+
+			// Test `rewriteDocsUrl` for each product data object
+			describe(`under ${productSlug} content`, () => {
+				test('does not rewrite `/`', () => {
+					expect(rewriteDocsUrl('/', productData)).toBe('/')
+				})
+
+				// build up other test cases array
+				const testCases = hostnames.map((dotIoHostName: string) => {
+					const url = `https://${dotIoHostName}`
+					return { input: { productData, url }, expected: url }
+				})
+
+				// execute each test
+				test.each(testCases)('$input.url -> $expected', (testCase) => {
+					const { input, expected } = testCase
+					expect(rewriteDocsUrl(input.url, input.productData)).toBe(expected)
+				})
+			})
+		})
+	})
+
+	describe('does not rewrite image links', () => {
+		const testData = [
+			'/pricing.png',
+			'/img/sla.jpg',
+			'/img/products/vault/sre.png',
+			'hcp-dev.svg',
+		]
+		// eslint-disable-next-line @typescript-eslint/no-var-requires
+		const nomadProductData = require(`data/nomad.json`)
+
+		test.each(testData)('Testing subpath', (item) => {
+			const processedUrl = rewriteDocsUrl(item, nomadProductData)
+			expect(processedUrl).toBe(item)
 		})
 	})
 })

@@ -1,12 +1,19 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
+import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import ProductIcon from 'components/product-icon'
 import { SuggestedPage } from '../components'
 import { generateTutorialLibraryCta } from './generate-tutorial-library-cta'
+import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 
 const generateTutorialLibrarySuggestedPage = (productSlug?: ProductSlug) => {
 	const { href: url } = generateTutorialLibraryCta(
@@ -61,6 +68,15 @@ const generateBasicSuggestedPages = (productSlug: ProductSlug) => {
 
 	if (productSlug === 'hcp') {
 		return pages.filter((page) => page.url !== '/hcp/downloads')
+	}
+
+	const hasIntegrationsEnabled = getIsEnabledProductIntegrations(productSlug)
+	if (hasIntegrationsEnabled) {
+		pages.push({
+			icon: <IconPipeline16 />,
+			text: `${productSlugsToNames[productSlug]} Integrations`,
+			url: `/${productSlug}/integrations`,
+		})
 	}
 
 	return pages

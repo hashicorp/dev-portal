@@ -1,7 +1,11 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Products } from '@hashicorp/platform-product-meta'
 import WaypointIoLayout from 'layouts/_proxied-dot-io/waypoint'
 import Placement from 'components/_proxied-dot-io/waypoint/placement-table'
-import NestedNode from 'components/_proxied-dot-io/waypoint/nested-node'
 import DocsPage from 'components/_proxied-dot-io/common/docs-page'
 import productData from 'data/waypoint.json'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
@@ -14,7 +18,7 @@ const navDataFile = `../data/${basePath}-nav-data.json`
 const localContentDir = `../content/${basePath}`
 const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
-const additionalComponents = { Placement, NestedNode }
+const additionalComponents = { Placement }
 
 function DocsView(props) {
 	return (

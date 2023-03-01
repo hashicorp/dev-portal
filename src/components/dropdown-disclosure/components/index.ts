@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import DropdownDisclosureActivator from './activator'
 import {
 	DropdownDisclosureAnchorItem,
@@ -5,6 +10,7 @@ import {
 	DropdownDisclosureDescriptionItem,
 	DropdownDisclosureLabelItem,
 	DropdownDisclosureLinkItem,
+	DropdownDisclosureListItem,
 	DropdownDisclosureSeparatorItem,
 } from './list-item'
 
@@ -15,5 +21,6 @@ export {
 	DropdownDisclosureDescriptionItem,
 	DropdownDisclosureLabelItem,
 	DropdownDisclosureLinkItem,
+	DropdownDisclosureListItem,
 	DropdownDisclosureSeparatorItem,
 }

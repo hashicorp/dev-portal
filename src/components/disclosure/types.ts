@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactElement } from 'react'
 
 type NativeDivProps = JSX.IntrinsicElements['div']
@@ -35,6 +40,12 @@ interface DisclosureProps {
 	 * enabled by default.
 	 */
 	closeOnFocusOutside?: boolean
+
+	/**
+	 * Whether or not the `useOnRouteChangeStart` hook should be enabled. Is
+	 * enabled by default.
+	 */
+	closeOnRouteChangeStart?: boolean
 
 	/**
 	 * Optional className or callback function for generating a className.

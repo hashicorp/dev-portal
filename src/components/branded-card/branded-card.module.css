@@ -1,0 +1,30 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	composes: hds-elevation-low from global;
+
+	/** Note: --gradient-start & --gradient-stop set in JS */
+	background: linear-gradient(
+		135deg,
+		var(--gradient-start) 0%,
+		var(--gradient-stop) 100%
+	);
+	border-radius: 6px;
+	display: flex;
+}
+
+.productPattern {
+	display: none;
+
+	@media (--dev-dot-tablet-up) {
+		display: block;
+		flex-grow: 0;
+		flex-shrink: 0;
+		margin: 0 0 0 auto;
+		position: relative;
+		width: 138px;
+	}
+}

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactElement } from 'react'
 import { IconAlertOctagon16 } from '@hashicorp/flight-icons/svg-react/alert-octagon-16'
 import { IconAlertOctagon24 } from '@hashicorp/flight-icons/svg-react/alert-octagon-24'

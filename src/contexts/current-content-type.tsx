@@ -1,6 +1,13 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { createContext, ReactNode, useContext } from 'react'
 
-type CurrentContentType = 'global' | 'docs' | 'tutorials'
+type SearchableContentType = 'docs' | 'tutorials' | 'integrations'
+
+type CurrentContentType = 'global' | SearchableContentType
 
 const CurrentContentTypeContext = createContext<CurrentContentType>(undefined)
 CurrentContentTypeContext.displayName = 'CurrentContentTypeContext'
@@ -44,5 +51,5 @@ const useCurrentContentType = (): CurrentContentType => {
 	return context
 }
 
-export type { CurrentContentType }
+export type { CurrentContentType, SearchableContentType }
 export { CurrentContentTypeProvider, useCurrentContentType }

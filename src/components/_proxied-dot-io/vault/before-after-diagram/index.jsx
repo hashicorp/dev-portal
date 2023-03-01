@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Image from '@hashicorp/react-image'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import alertIcon from '../../../../../public/vault-public/img/icons/alert.svg?include'

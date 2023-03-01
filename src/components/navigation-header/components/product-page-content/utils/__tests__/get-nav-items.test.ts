@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { getNavItems } from '../get-nav-items'
 import { ProductData } from 'types/products'
 
@@ -18,15 +23,18 @@ describe('getNavItems', () => {
 					name: 'CLI',
 					path: 'commands',
 				},
-				{
-					iconName: 'plug',
-					name: 'Plugins',
-					path: 'plugins',
-				},
 			],
 		} as ProductData
 		expect(getNavItems(testWaypointData)).toMatchInlineSnapshot(`
 		Array [
+		  Object {
+		    "label": "Install",
+		    "url": "/waypoint/downloads",
+		  },
+		  Object {
+		    "label": "Tutorials",
+		    "url": "/waypoint/tutorials",
+		  },
 		  Object {
 		    "label": "Documentation",
 		    "url": "/waypoint/docs",
@@ -36,16 +44,8 @@ describe('getNavItems', () => {
 		    "url": "/waypoint/commands",
 		  },
 		  Object {
-		    "label": "Plugins",
-		    "url": "/waypoint/plugins",
-		  },
-		  Object {
-		    "label": "Tutorials",
-		    "url": "/waypoint/tutorials",
-		  },
-		  Object {
-		    "label": "Install",
-		    "url": "/waypoint/downloads",
+		    "label": "Integrations",
+		    "url": "/waypoint/integrations",
 		  },
 		  Object {
 		    "label": "Try Cloud",
@@ -176,6 +176,14 @@ describe('getNavItems', () => {
 		expect(getNavItems(testTerraformData)).toMatchInlineSnapshot(`
 		Array [
 		  Object {
+		    "label": "Install",
+		    "url": "/terraform/downloads",
+		  },
+		  Object {
+		    "label": "Tutorials",
+		    "url": "/terraform/tutorials",
+		  },
+		  Object {
 		    "iconColorTheme": "terraform",
 		    "items": Array [
 		      Object {
@@ -232,14 +240,6 @@ describe('getNavItems', () => {
 		    "label": "Documentation",
 		  },
 		  Object {
-		    "label": "Tutorials",
-		    "url": "/terraform/tutorials",
-		  },
-		  Object {
-		    "label": "Install",
-		    "url": "/terraform/downloads",
-		  },
-		  Object {
 		    "label": "Registry",
 		    "opensInNewTab": true,
 		    "url": "https://registry.terraform.io/",
@@ -269,12 +269,12 @@ describe('getNavItems', () => {
 		expect(getNavItems(testHCPData)).toMatchInlineSnapshot(`
 		Array [
 		  Object {
-		    "label": "Documentation",
-		    "url": "/hcp/docs",
-		  },
-		  Object {
 		    "label": "Tutorials",
 		    "url": "/hcp/tutorials",
+		  },
+		  Object {
+		    "label": "Documentation",
+		    "url": "/hcp/docs",
 		  },
 		  Object {
 		    "label": "Try Cloud",

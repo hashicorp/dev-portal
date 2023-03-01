@@ -1,7 +1,11 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Third-party imports
 import { Fragment, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
-import { MDXRemote } from 'next-mdx-remote'
 
 // Global imports
 import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
@@ -9,8 +13,8 @@ import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
 import { useMobileMenu } from 'contexts'
 import InstruqtProvider from 'contexts/instruqt-lab'
-import { ProductOption, TutorialLite } from 'lib/learn-client/types'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { TutorialLite } from 'lib/learn-client/types'
+import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
 import {
 	CollectionCategorySidebarSection,
 	getCollectionSlug,
@@ -48,6 +52,7 @@ import {
 } from './components'
 import s from './tutorial-view.module.css'
 import { useProgressToast } from './utils/use-progress-toast'
+import { generateCollectionSidebarNavData } from 'views/collection-view/helpers/generate-collection-sidebar-nav-data'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -148,19 +153,7 @@ function TutorialView({
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(product.name),
 		generateProductLandingSidebarNavData(product),
-		{
-			levelButtonProps: {
-				levelUpButtonText: `${product.name} Home`,
-				levelDownButtonText: 'Previous',
-			},
-			title: 'Tutorials',
-			overviewItemHref: `/${product.slug}/tutorials`,
-			children: (
-				<CollectionViewSidebarContent
-					sections={collectionViewSidebarSections}
-				/>
-			),
-		},
+		generateCollectionSidebarNavData(product, layoutProps.sidebarSections),
 		{
 			levelButtonProps: {
 				levelUpButtonText: collectionCtx.current.shortName,
@@ -241,7 +234,7 @@ function TutorialView({
 				key={slug}
 				{...(isInteractive && { labId: handsOnLab.id })}
 			>
-				<SidebarSidecarLayout
+				<SidebarSidecarWithToc
 					breadcrumbLinks={layoutProps.breadcrumbLinks}
 					/**
 					 * @TODO remove casting to `any`. Will require refactoring both
@@ -281,9 +274,9 @@ function TutorialView({
 								})}
 							/>
 						)}
-						<DevDotContent>
-							<MDXRemote {...content} components={MDX_COMPONENTS} />
-						</DevDotContent>
+						<DevDotContent
+							mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+						/>
 						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
 						<FeedbackPanel />
 						<NextPrevious {...nextPreviousData} />
@@ -292,7 +285,7 @@ function TutorialView({
 							collections={featuredInWithoutCurrent}
 						/>
 					</LayoutContentWrapper>
-				</SidebarSidecarLayout>
+				</SidebarSidecarWithToc>
 			</InteractiveLabWrapper>
 		</>
 	)

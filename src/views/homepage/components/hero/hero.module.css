@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .hero {
 	background-color: var(--token-color-palette-neutral-700);
 	background-image: url('/img/homepage/hero-accent-right.svg');

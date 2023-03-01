@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Dispatch, ReactNode, SetStateAction } from 'react'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { LearnProductData } from 'types/products'
@@ -7,13 +12,13 @@ import {
 	Product as LearnClientProduct,
 	TutorialFullCollectionCtx as ClientTutorial,
 } from 'lib/learn-client/types'
-import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
+import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import { CollectionCardPropsWithId } from 'components/collection-card'
 
 type TutorialSidebarSidecarProps = Required<
 	Pick<
-		SidebarSidecarLayoutProps,
+		SidebarSidecarWithTocProps,
 		'children' | 'headings' | 'breadcrumbLinks' | 'mainWidth'
 	> & { sidebarSections: CollectionCategorySidebarSection[] }
 >

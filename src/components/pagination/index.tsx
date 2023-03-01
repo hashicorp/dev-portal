@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useState, createContext, useContext, useMemo } from 'react'
 import {
 	type PropsWithChildren,
@@ -33,7 +38,7 @@ const usePagination = () => useContext(PaginationContext)
 const Pagination = ({
 	totalItems,
 	pageSize: _pageSize,
-	page: _page = 1,
+	page = 1,
 	onPageChange = () => void 1,
 	onPageSizeChange = () => void 1,
 	children,
@@ -48,18 +53,16 @@ const Pagination = ({
 			'Pagination: pageSize is required, but was not specified. Please try passing a non-zero, positive value such as `10`.'
 		)
 	}
-	if (_page < 1) {
+	if (page < 1) {
 		throw new Error(
 			'Pagination: page must be a non-zero, positive number. Please try passing a value such as `1`.'
 		)
 	}
 
-	const [page, _setPage] = useState(_page)
 	const [pageSize, _setPageSize] = useState(_pageSize)
 
 	const setPage = (val: number) => {
 		if (val !== page) {
-			_setPage(val)
 			onPageChange(val)
 		}
 	}

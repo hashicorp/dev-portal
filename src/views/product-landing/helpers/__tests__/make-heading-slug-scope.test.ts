@@ -1,10 +1,9 @@
-import { makeHeadingSlugScope } from '../'
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
 
-jest.mock('flags/client', () => ({
-	flags: {
-		enableAuth: false,
-	},
-}))
+import { makeHeadingSlugScope } from '../'
 
 describe('makeHeadingSlugScope', () => {
 	test('returns already-unique headings unmodified', () => {

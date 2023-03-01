@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .pagination {
 	--token-pagination-control-height: 24px;
 	--token-pagination-control-padding-horizontal: 7px;
@@ -64,6 +69,8 @@
 
 .control {
 	composes: g-focus-ring-from-box-shadow from global;
+	composes: hds-typography-body-100 from global;
+	appearance: none; /* "reset" some user stylesheet styles */
 	color: inherit;
 	border-radius: 5px;
 	font-weight: var(--token-typography-font-weight-medium);

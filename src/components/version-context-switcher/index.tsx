@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ChangeEventHandler, ReactElement, useState } from 'react'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { useCurrentProduct } from 'contexts'

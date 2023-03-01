@@ -1,13 +1,21 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Fragment } from 'react'
+import { useRouter } from 'next/router'
 
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import {
 	SidebarHorizontalRule,
 	SidebarSectionHeading,
 	SidebarNavMenuItem,
+	SidebarNavHighlightItem,
 } from 'components/sidebar/components'
 import Sidebar from 'components/sidebar'
 import TutorialViewSidebarContent from './components/tutorial-view-sidebar-content'
+import { ProductSlug } from 'types/products'
 import {
 	ListItemProps,
 	SectionListProps,
@@ -40,11 +48,14 @@ function TutorialsSidebar({
 
 function CollectionViewSidebarContent({
 	sections,
+	productSlug,
 }: {
 	sections: CollectionCategorySidebarSection[]
+	productSlug: ProductSlug
 }) {
 	return (
 		<>
+			<TutorialsOverviewItem productSlug={productSlug} />
 			{sections?.map(({ title, items }: CollectionCategorySidebarSection) => {
 				return (
 					<Fragment key={title}>
@@ -67,6 +78,20 @@ function CollectionViewSidebarContent({
 				)
 			})}
 		</>
+	)
+}
+
+function TutorialsOverviewItem({ productSlug }: { productSlug: ProductSlug }) {
+	const router = useRouter()
+	const overviewItemHref = `/${productSlug}/tutorials`
+
+	return (
+		<SidebarNavHighlightItem
+			text="Tutorials"
+			href={overviewItemHref}
+			theme={productSlug}
+			isActive={router.asPath === overviewItemHref}
+		/>
 	)
 }
 

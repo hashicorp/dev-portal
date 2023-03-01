@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { GetStaticProps } from 'next'
 import semverSatisfies from 'semver/functions/satisfies'
 import semverMajor from 'semver/functions/major'

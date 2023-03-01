@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactElement } from 'react'
 import classNames from 'classnames'
 import Card from 'components/card'
@@ -33,6 +38,11 @@ const CardLink = ({
 			 * everything in the <a href>"
 			 *
 			 * https://adrianroselli.com/2020/02/block-links-cards-clickable-regions-etc.html
+			 *
+			 * Re: `span` with &nbsp; — Safari will only focus on links
+			 * that have content. This markup allows focus to behave as
+			 * expected while retaining the desired sibling
+			 * 'empty link' structure
 			 */}
 			<Link
 				aria-label={ariaLabel}
@@ -40,7 +50,9 @@ const CardLink = ({
 				data-heap-track={`card-link ${dataHeapTrack ?? ''}`}
 				href={href}
 				target={target}
-			/>
+			>
+				<span aria-hidden={true}>&nbsp;</span>
+			</Link>
 			{children}
 		</Card>
 	)

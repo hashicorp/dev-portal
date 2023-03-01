@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactNode, Component } from 'react'
 import { render, screen } from '@testing-library/react'
 import { renderHook } from '@testing-library/react'
@@ -22,6 +27,7 @@ const setup = (currentProduct: Product) => {
 				},
 				basePaths: [],
 				rootDocsPaths: [],
+				integrationsConfig: {},
 			}}
 		>
 			{children}

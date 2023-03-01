@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useState } from 'react'
 import { useId } from '@react-aria/utils'
 import classNames from 'classnames'

@@ -1,5 +1,9 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useTutorialProgress } from 'hooks/progress'
-import { useFlags } from 'flags/client'
 import { progressStatusToAriaLabel } from 'lib/learn-client/api/progress'
 import { TutorialProgressStatus } from 'lib/learn-client/types'
 import { TutorialCardBookmarkButton } from 'components/bookmark-button'
@@ -18,7 +22,6 @@ export function TutorialCardWithAuthElements({
 	BookmarkButtonComponent = TutorialCardBookmarkButton,
 	...restProps
 }: TutorialCardPropsWithId) {
-	const { flags } = useFlags()
 	/**
 	 * Get tutorial progress. Will be undefined if not authenticated.
 	 * Note as well that useTutorialProgress depends on AUTH_ENABLED.
@@ -55,12 +58,9 @@ export function TutorialCardWithAuthElements({
 					) : (
 						<CardEyebrowText>{restProps.duration}</CardEyebrowText>
 					)}
-					{/** Hide from prod until auth is enabled */}
-					{flags?.enableAuth ? (
-						<BookmarkButtonComponent
-							tutorial={{ id: tutorialId, name: restProps.heading }}
-						/>
-					) : null}
+					<BookmarkButtonComponent
+						tutorial={{ id: tutorialId, name: restProps.heading }}
+					/>
 				</>
 			}
 		/>

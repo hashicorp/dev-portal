@@ -1,33 +1,41 @@
-.companyLogo {
-	display: flex;
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
 
-	& svg {
-		height: 32px;
-		width: 32px;
+/*
+ * Style the "HashiCorp" icon products dropdown, aka product switcher.
+ */
+.productsDropdown {
+	@media (--dev-dot-show-mobile-menu) {
+		display: none;
 	}
 }
 
-.companyLogoMenuButton {
+.productsDropdownIcon {
+	color: var(--token-color-surface-primary);
+	display: block;
+	height: 32px;
+	width: 32px;
+}
+
+.productsDropdownButton {
 	padding-bottom: 2px;
 	padding-left: 0;
 	padding-right: 0;
 	padding-top: 2px;
 }
 
-.companyLogoMenuButtonDropdown {
+.productsDropdownPane {
 	border-bottom-left-radius: 0;
 	left: calc(-1 * var(--header-padding-left-right));
 }
 
-.productLogoLink {
-	composes: g-focus-ring-from-box-shadow-dark from global;
-	border-radius: 5px;
-
-	@media (--dev-dot-hide-mobile-menu) {
-		margin-left: 12px;
-	}
-}
-
-.hcpLogo {
-	max-width: 160px;
+/*
+ * Set up the product logo-ish icon lockup next to product nav items.
+ */
+.productLinkAndNav {
+	align-items: center;
+	display: flex;
+	gap: 24px;
 }

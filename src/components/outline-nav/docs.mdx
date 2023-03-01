@@ -1,0 +1,38 @@
+---
+componentName: 'OutlineNav'
+---
+
+The `<OutlineNav />` component renders a `<nav />` with a vertical list of links. It is intended for jump link navigation.
+
+<LiveComponent>
+	{`<OutlineNav items={[
+	{ title: 'Hello 1', url: '#hello1' },
+	{ title: 'Hello 2', url: '#hello2' },
+	{
+		title: 'Hello 3',
+		url: '#hello3',
+		isActive: true,
+		items: [
+			{ title: 'Nested 1', url: '#nested1' },
+			{ title: 'Nested 2', url: '#nested2', isActive: true },
+			{ title: 'Nested 3', url: '#nested3' },
+		],
+	},
+	{ title: 'Hello 4', url: '#hello4' },
+	{ title: 'This is a very long truncated list item which rather than flowing to multiple lines should be truncated and stick to one line', url: '#long-item' },
+]} />`}
+</LiveComponent>
+
+## Props
+
+<PropsTable props={componentProps} />
+
+## Supplementary Components
+
+### `<OutlineNavWithActive />`
+
+The `<OutlineNavWithActive />` component accepts an array of items similar to the base `<OutlineNav />`, but does _not_ accept `isActive` properties on the items. Instead, it uses the `use-active-section` hook to determine the currently active section on the page, and highlights `items` accordingly. Note that the `use-active-section` search is limited to only those `#hash-links` derived from the `url` of each `item`. See the `use-active-section` implementation for further details.
+
+### `<OutlineNavFromHeadings />`
+
+The `OutlineNavFromHeadings />` component provides an interface that is directly compatible with an array of `TableOfContentsHeading` items. This component has been constructed to ease the transition from the previously used `<TableOfContents />` component to `<OutlineNav />`. In the future, we may choose to reconsider how `headings` are generated - we could instead generate the `items` we need for `OutlineNav` server-side, which would remove the need for this compatibility layer component.

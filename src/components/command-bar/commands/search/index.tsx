@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconSearch24 } from '@hashicorp/flight-icons/svg-react/search-24'
 import {
 	CommandBarCommand,

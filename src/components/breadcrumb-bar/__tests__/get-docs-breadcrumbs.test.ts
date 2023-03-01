@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import getDocsBreadcrumbs, {
 	getPathBreadcrumbs,
 } from '../utils/get-docs-breadcrumbs'

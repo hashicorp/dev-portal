@@ -1,5 +1,10 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactElement } from 'react'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
 import CalloutCard from 'components/callout-card'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import { developmentToast, ToastColor } from 'components/toast'
@@ -17,7 +22,7 @@ function ProductLandingView({
 	product,
 }: ProductLandingViewProps): ReactElement {
 	const { hero, overview, overviewParagraph, get_started, blocks } = content
-	const iconCards = getIconCards(product.slug)
+	const iconCards = getIconCards(product)
 
 	if (overview.cta && overviewParagraph) {
 		developmentToast({
@@ -74,5 +79,5 @@ function ProductLandingView({
 	)
 }
 
-ProductLandingView.layout = SidebarSidecarLayout
+ProductLandingView.layout = SidebarSidecarWithToc
 export default ProductLandingView

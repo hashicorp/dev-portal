@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import * as React from 'react'
 import Head from 'next/head'

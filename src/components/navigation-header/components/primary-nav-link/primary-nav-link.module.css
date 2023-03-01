@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .root {
 	/* Composition */
 	composes: g-focus-ring-from-box-shadow-dark from global;
@@ -6,11 +11,11 @@
 	align-items: center;
 	gap: 6px;
 	border-radius: 5px;
-	color: var(--token-color-palette-neutral-400);
+	color: var(--token-color-surface-strong);
 	display: flex;
 	padding-bottom: 8px;
-	padding-left: var(--header-dropdown-menu-padding-left-right);
-	padding-right: var(--header-dropdown-menu-padding-left-right);
+	padding-left: var(--header-menu-item-padding-left-right);
+	padding-right: var(--header-menu-item-padding-left-right);
 	padding-top: 8px;
 
 	&:hover {

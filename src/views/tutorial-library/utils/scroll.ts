@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useRef, useEffect } from 'react'
 import { useInstantSearch } from 'react-instantsearch-hooks-web'
 

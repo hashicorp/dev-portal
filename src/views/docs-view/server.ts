@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Third-party imports
 import path from 'path'
 import { Pluggable } from 'unified'
@@ -13,8 +18,9 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 import { ProductData, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { isDeployPreview } from 'lib/env-checks'
+import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
-import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
+import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 import {
@@ -25,7 +31,7 @@ import {
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { SidebarProps } from 'components/sidebar'
-import { EnrichedNavItem, MenuItem } from 'components/sidebar/types'
+import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
@@ -275,48 +281,32 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Constructs the base sidebar level for `DocsView`.
 			 */
+			const docsSidebarTitle =
+				currentRootDocsPath.shortName || currentRootDocsPath.name
+			const docsBasePathFullPath = versionPathPart
+				? `/${product.slug}/${basePath}/${versionPathPart}`
+				: `/${product.slug}/${basePath}`
+			/**
+			 * Build menuItems from navData, with a branded "Overview" item
+			 *
+			 * TODO: would be great to fix up related types here at some point.
+			 * task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+			 */
+			const menuItems = addBrandedOverviewSidebarItem(navDataWithFullPaths, {
+				title: docsSidebarTitle,
+				fullPath: docsBasePathFullPath,
+				theme: product.slug,
+			}) as $TSFixMe
 			const docsSidebarLevel: SidebarProps = {
 				backToLinkProps: getBackToLink(currentRootDocsPath, product),
 				levelButtonProps: {
 					levelUpButtonText: `${product.name} Home`,
 				},
-				menuItems: navDataWithFullPaths as EnrichedNavItem[],
-				title: currentRootDocsPath.shortName || currentRootDocsPath.name,
-			}
-			/**
-			 * In some cases, the first nav item is a heading.
-			 * In these case, we'll visually hide the sidebar title,
-			 * since it will redundant right next to the authored title.
-			 */
-			const firstItemIsHeading =
-				typeof navDataWithFullPaths[0]?.heading == 'string'
-			if (firstItemIsHeading) {
-				docsSidebarLevel.visuallyHideTitle = true
-			}
-
-			/**
-			 * Check the top level of the navData for "overview" items,
-			 * which are expected to be present for consistency.
-			 * If we do no have an overview item match, then we'll
-			 * automatically add an overview item.
-			 */
-			const overviewItemMatch = navDataWithFullPaths.find((item: MenuItem) => {
-				const isPathMatch =
-					item.path == '' ||
-					item.path == '/' ||
-					item.path == '/index' ||
-					item.path == 'index'
-				return isPathMatch
-			})
-			/**
-			 * Exception: If the first navData node is a `heading`,
-			 * we'll avoid adding an overview item even if there's
-			 * no overview item match.
-			 */
-			if (!overviewItemMatch && !firstItemIsHeading) {
-				docsSidebarLevel.overviewItemHref = versionPathPart
-					? `/${product.slug}/${basePath}/${versionPathPart}`
-					: `/${product.slug}/${basePath}`
+				menuItems,
+				title: docsSidebarTitle,
+				/* We always visually hide the title, as we've added in a
+				   "highlight" item that would make showing the title redundant. */
+				visuallyHideTitle: true,
 			}
 
 			/**
@@ -343,7 +333,7 @@ export function getStaticGenerationFunctions<
 			 */
 			const isRootPath = pathParts.length === 0 || pathParts[0] === ''
 			const isDocsLanding = isRootPath && basePath === 'docs'
-			const layoutProps: Omit<SidebarSidecarLayoutProps, 'children'> = {
+			const layoutProps: Omit<SidebarSidecarWithTocProps, 'children'> = {
 				breadcrumbLinks,
 				headings: nonEmptyHeadings,
 				// TODO: need to adjust type for sidebarNavDataLevels here

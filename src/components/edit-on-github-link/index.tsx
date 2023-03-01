@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
 import classNames from 'classnames'
 import s from './edit-on-github-link.module.css'

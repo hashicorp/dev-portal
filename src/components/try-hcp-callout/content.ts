@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { TryHcpCalloutProps } from 'components/try-hcp-callout/types'
 import { ProductSlugWithContent } from './types'
 
@@ -32,7 +37,7 @@ export const tryHcpCalloutContent: Record<
 	consul: {
 		heading: 'HCP Consul',
 		description: 'Discover and securely connect your applications',
-		ctaText: 'Try HCP Consul for free',
+		ctaText: 'Try HCP Consul',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 	},
 	packer: {
@@ -56,7 +61,7 @@ export const tryHcpCalloutContent: Record<
 	hcp: {
 		heading: 'HashiCorp Cloud Platform',
 		description: 'The fastest way to get up and running with HashiCorp tools',
-		ctaText: 'Try cloud for free',
+		ctaText: 'Try cloud',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 	},
 	vagrant: {

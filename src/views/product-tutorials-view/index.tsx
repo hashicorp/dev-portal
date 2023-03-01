@@ -1,4 +1,9 @@
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
 import Heading from 'components/heading'
 import {
 	generateProductLandingSidebarNavData,
@@ -33,10 +38,15 @@ function ProductTutorialsView({
 				text: `${product.name} Home`,
 				href: `/${product.slug}`,
 			},
-			overviewItemHref: `/${product.slug}/tutorials`,
 			title: 'Tutorials',
+			/* We always visually hide the title, as we've added in a
+			"highlight" item that would make showing the title redundant. */
+			visuallyHideTitle: true,
 			children: (
-				<CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
+				<CollectionViewSidebarContent
+					productSlug={product.slug}
+					sections={layoutProps.sidebarSections}
+				/>
 			),
 		},
 	]
@@ -57,7 +67,7 @@ function ProductTutorialsView({
 	}
 
 	return (
-		<SidebarSidecarLayout
+		<SidebarSidecarWithToc
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
 			headings={layoutProps.headings}
 			AlternateSidebar={TutorialsSidebar}
@@ -80,7 +90,7 @@ function ProductTutorialsView({
 					/>
 				</div>
 			) : null}
-		</SidebarSidecarLayout>
+		</SidebarSidecarWithToc>
 	)
 }
 

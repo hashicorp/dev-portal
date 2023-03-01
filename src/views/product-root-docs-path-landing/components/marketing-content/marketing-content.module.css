@@ -1,58 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .root {
 	margin-top: 32px;
-}
-
-/*
-***
-* Classes for styling Heading elements
-***
-*/
-
-.heading {
-	composes: g-offset-scroll-margin-top from global;
-	color: var(--token-color-foreground-strong);
-
-	&.h2 {
-		margin-bottom: 24px;
-	}
-
-	&.h3 {
-		margin-bottom: 4px;
-	}
-}
-
-.sectionHeading {
-	margin-top: 48px;
-
-	&:first-child {
-		margin-top: 0;
-	}
-}
-
-/*
-***
-* Classes used in the "card-grid" block.
-***
-*/
-
-.cardGridWrapper {
-	margin-bottom: 48px;
-}
-
-.cardGridDescription {
-	color: var(--token-color-foreground-primary);
-	margin-bottom: 16px;
-}
-
-.cardGridCard {
-	height: 100%;
-}
-
-.cardGridCardTitle {
-	color: var(--token-color-foreground-strong);
-}
-
-.cardGridCardDescription {
-	color: var(--token-color-foreground-faint);
-	margin-top: 4px;
 }

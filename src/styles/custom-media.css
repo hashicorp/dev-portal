@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /*
 ***
 * DevDot
@@ -13,6 +18,6 @@
 @custom-media --dev-dot-desktop only screen and (min-width: 1001px);
 @custom-media --dev-dot-sidecar-up only screen and (min-width: 1280px);
 
-/* See --mobile-menu-breakpoint */
-@custom-media --dev-dot-show-mobile-menu (max-width: 1055px);
-@custom-media --dev-dot-hide-mobile-menu (min-width: 1056px);
+/* Search for "Should correspond to --dev-dot-hide-mobile-menu" when changing */
+@custom-media --dev-dot-show-mobile-menu (max-width: 923px);
+@custom-media --dev-dot-hide-mobile-menu (min-width: 924px);

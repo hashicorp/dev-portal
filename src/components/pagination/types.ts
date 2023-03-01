@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export interface PaginationProps {
 	/** Pass the total number of items to be paginated. If no value is defined an error will be thrown. */
 	totalItems: number

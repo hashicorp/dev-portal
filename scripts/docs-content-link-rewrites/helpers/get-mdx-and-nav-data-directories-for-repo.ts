@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Given a hashicorp repository name, return an object with two properties:
  *  - mdxPrefix: the filename prefix for MDX files
  *  - navDataPrefix: the filename prefix for nav data JSON files

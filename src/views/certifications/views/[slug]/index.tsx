@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Global
 import BaseNewLayout from 'layouts/base-new'
 // Share certifications
@@ -7,7 +12,7 @@ import {
 	SignupFormArea,
 } from 'views/certifications/components'
 // Local
-import { ExamDetailsCard, ProgramHero } from './components'
+import { ExamDetailsCard, ProgramHero, HeadingPermalink } from './components'
 import { CertificationProgramViewProps } from './types'
 import s from './program-view.module.css'
 
@@ -30,6 +35,8 @@ function CertificationProgramView({
 						{exams.map((exam) => {
 							const { title, examCode } = exam
 							const fullTitle = title + (examCode ? ` (${examCode})` : '')
+							const accordionHeading = `${fullTitle} Details`
+
 							return (
 								<div key={fullTitle}>
 									<ExamDetailsCard
@@ -41,9 +48,7 @@ function CertificationProgramView({
 										versionTested={exam.versionTested}
 										slug={slug}
 									/>
-									<h2 className={s.examAccordionHeading}>
-										{`${title}${examCode ? ` ${examCode}` : ''} Details`}
-									</h2>
+									<HeadingPermalink heading={accordionHeading} />
 									<AccordionWithMdxContent items={exam.faqItems} />
 								</div>
 							)

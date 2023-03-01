@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import TruncateMaxLines from 'components/truncate-max-lines'
 import s from './card-body.module.css'
 

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .longformPage {
 	& .longformWrapper {
 		@media (min-width: 800px) {

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { normalizeRemoteLoaderSlug } from '../normalize-remote-loader-slug'
 
 const REMOTE_LOADER_SLUGS_TO_PRODUCT_SLUGS = {

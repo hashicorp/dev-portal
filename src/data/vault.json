@@ -18,32 +18,32 @@
 		"image": "https://www.vaultproject.io/vault-public/img/og-image.png",
 		"icon": [
 			{
-				"href": "https://www.datocms-assets.com/2885/1597163356-vault-favicon.png?h=16&w=16",
+				"href": "https://www.datocms-assets.com/2885/1676497447-vault-favicon-color.png?h=16&w=16",
 				"type": "image/png",
 				"sizes": "16x16"
 			},
 			{
-				"href": "https://www.datocms-assets.com/2885/1597163356-vault-favicon.png?h=32&w=32",
+				"href": "https://www.datocms-assets.com/2885/1676497447-vault-favicon-color.png?h=32&w=32",
 				"type": "image/png",
 				"sizes": "32x32"
 			},
 			{
-				"href": "https://www.datocms-assets.com/2885/1597163356-vault-favicon.png?h=96&w=96",
+				"href": "https://www.datocms-assets.com/2885/1676497447-vault-favicon-color.png?h=96&w=96",
 				"type": "image/png",
 				"sizes": "96x96"
 			},
 			{
-				"href": "https://www.datocms-assets.com/2885/1597163356-vault-favicon.png?h=192&w=192",
+				"href": "https://www.datocms-assets.com/2885/1676497447-vault-favicon-color.png?h=192&w=192",
 				"type": "image/png",
 				"sizes": "192x192"
 			}
 		]
 	},
-	"alertBannerActive": true,
+	"alertBannerActive": false,
 	"alertBanner": {
-		"tag": "November 2 | 9AM PDT",
-		"url": "https://www.hashicorp.com/events/webinars/vault-1-12-overview",
-		"text": "Vault 1.12 is here. Join us for a technical deep dive along with live Q&A.",
+		"tag": "HashiTalks 2023",
+		"url": "https://hashi.co/hashitalks-2023",
+		"text": "Join us for the fifth annual HashiTalks, a 24-hour virtual knowledge sharing event on February 16",
 		"linkText": "Register now",
 		"expirationDate": ""
 	},
@@ -145,14 +145,7 @@
 			"os": "linux"
 		}
 	],
-	"basePaths": [
-		"docs",
-		"api-docs",
-		"intro",
-		"tutorials",
-		"downloads",
-		"downloads"
-	],
+	"basePaths": ["docs", "api-docs", "intro", "tutorials", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -164,5 +157,22 @@
 			"name": "API",
 			"path": "api-docs"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"description": "A curated collection of official, partner, and community Vault Integrations.",
+		"sidebarLinks": [
+			{
+				"title": "Plugin System Overview",
+				"href": "/vault/docs/plugins"
+			},
+			{
+				"title": "Plugin Development",
+				"href": "/vault/docs/plugins/plugin-development"
+			},
+			{
+				"title": "Custom Secrets Engine Tutorial",
+				"href": "/vault/tutorials/custom-secrets-engine"
+			}
+		]
+	}
 }

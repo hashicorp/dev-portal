@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .mainSection {
 	background: var(--token-color-surface-interactive-disabled);
 	padding-bottom: 168px;
@@ -8,13 +13,6 @@
 	flex-direction: column;
 	gap: 72px;
 	margin-top: -72px;
-}
-
-.examAccordionHeading {
-	composes: hds-typography-display-400 from global;
-	font-weight: var(--token-typography-font-weight-bold);
-	color: var(--token-color-foreground-strong);
-	margin: 40px 0 32px 0;
 }
 
 .signupForm {

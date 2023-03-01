@@ -1,8 +1,20 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .inlineCode {
-	composes: hds-typography-code-200 from global;
 	background-color: var(--token-color-palette-neutral-50);
 	border-radius: 5px;
 	border: 1px solid rgba(101, 106, 118, 0.2);
 	line-height: 1;
 	padding: 2px 4px 3px 4px;
+}
+
+.size-100 {
+	composes: hds-typography-code-100 from global;
+}
+
+.size-200 {
+	composes: hds-typography-code-200 from global;
 }

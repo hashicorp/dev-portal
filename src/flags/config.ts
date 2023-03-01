@@ -1,9 +1,13 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { Configuration } from '@happykit/flags/config'
 
 // You can replace this with your exact flag types
 export type AppFlags = {
 	[key: string]: boolean | number | string | null
-	enableAuth: boolean
 }
 
 export const config: Configuration<AppFlags> = {
@@ -12,7 +16,5 @@ export const config: Configuration<AppFlags> = {
 	// You can provide defaults flag values here
 	defaultFlags: {
 		testFlag: false,
-		ioHomeHeroAlt: true,
-		enableAuth: false,
 	},
 }

@@ -19,6 +19,7 @@
 		"plugin/log",
 		"plugin/mux",
 		"plugin/sdkv2",
+		"plugin/testing",
 		"registry",
 		"downloads"
 	],
@@ -126,7 +127,14 @@
 			"name": "SDKv2",
 			"path": "plugin/sdkv2",
 			"productSlugForLoader": "terraform-plugin-sdk",
-			"navDataPrefix": "plugin-sdk"
+			"navDataPrefix": "plugin-sdkv2"
+		},
+		{
+			"iconName": "plug",
+			"name": "Testing",
+			"path": "plugin/testing",
+			"productSlugForLoader": "terraform-plugin-testing",
+			"navDataPrefix": "plugin-testing"
 		},
 		{
 			"iconName": "plus-circle",

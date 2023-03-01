@@ -1,6 +1,15 @@
-import { MDXRemote } from 'next-mdx-remote'
-import { MdxA, MdxP } from 'components/dev-dot-content/mdx-components'
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
 
-export function ParagraphBlock(props) {
-	return <MDXRemote {...props.mdxSource} components={{ a: MdxA, p: MdxP }} />
+import DevDotContent from 'components/dev-dot-content'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+
+interface ParagraphBlockProps {
+	mdxSource: MDXRemoteSerializeResult
+}
+
+export function ParagraphBlock({ mdxSource }: ParagraphBlockProps) {
+	return <DevDotContent mdxRemoteProps={{ ...mdxSource }} />
 }

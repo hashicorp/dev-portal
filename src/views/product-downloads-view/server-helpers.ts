@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { PackageManager } from './types'
 import highlightString from '@hashicorp/platform-code-highlighting/highlight-string'
 import { generateCodeSnippetFromCommands } from './components/downloads-section/helpers'

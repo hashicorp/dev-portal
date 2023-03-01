@@ -1,0 +1,104 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.variableGroupList {
+	list-style: none;
+	padding-left: 0;
+
+	& > li.variableGroupListItem {
+		background-color: white;
+		border-radius: 6px;
+		padding: 16px;
+		padding-bottom: 0;
+		width: 100%;
+		box-shadow: var(--token-surface-base-box-shadow);
+		display: flex;
+
+		&:not(:last-of-type) {
+			margin-bottom: 20px;
+		}
+
+		&.highlight {
+			background: var(--token-color-surface-action);
+		}
+
+		& .arrowIcon {
+			color: var(--token-color-foreground-disabled);
+			margin-right: 10px;
+		}
+
+		& .indentedContent {
+			flex-grow: 1;
+		}
+
+		& .topRow {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			& .left {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+			}
+
+			& .required {
+				font-size: 13px;
+				color: var(--token-color-foreground-faint);
+				margin-left: 8px;
+
+				&.isRequired {
+					color: var(--token-color-palette-purple-300);
+				}
+			}
+		}
+
+		& .description {
+			font-size: 14px;
+			margin-top: 8px;
+			margin-bottom: 16px;
+			& > :first-child {
+				margin-top: 0;
+			}
+			& > :last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		/* Nested Children Styles */
+		& li.variableGroupListItem {
+			padding-left: 0;
+			padding-right: 0;
+			box-shadow: unset;
+
+			&:not(:last-of-type) {
+				margin-bottom: 0;
+			}
+
+			& .topRow {
+				& .key {
+					font-size: 14px;
+					color: var(--token-color-foreground-primary);
+				}
+			}
+		}
+	}
+}
+
+.key {
+	composes: g-offset-scroll-margin-top from global;
+	border: 1px solid var(--token-color-border-primary);
+	border-radius: 5px;
+	padding: 2px 4px 3px;
+	background: var(--token-color-palette-neutral-50);
+	font-size: 16px;
+	color: var(--token-color-foreground-strong);
+}
+
+.permalink {
+	@nest .topRow:hover & {
+		opacity: 1;
+	}
+}

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useRef } from 'react'
 import OperationObject from './partials/operation-object'
 import HashiHead from '@hashicorp/react-head'

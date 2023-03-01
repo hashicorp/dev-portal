@@ -1,29 +1,54 @@
-import type { MarketoForm as MarketoFormProps } from '@hashicorp/react-marketo-form/types'
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
 
-export const marketoFormData: { id: number; form: MarketoFormProps } = {
-	id: 2459,
-	form: {
+import type { MarketoFormAPIResponse } from '@hashicorp/react-marketo-form/types'
+
+export const marketoFormData: MarketoFormAPIResponse = {
+	metadata: {
+		success: true,
+		errors: [],
+		result: [
+			{
+				id: 2459,
+				name: 'FORM - Newsletter Sign Up',
+				description: '',
+				createdAt: '2022-10-26T23:38:43Z+0000',
+				updatedAt: '2023-01-03T20:57:20Z+0000',
+				url: 'https://app-ab32.marketo.com/#FO2459B2',
+				status: 'approved',
+				theme: 'simple',
+				language: 'English',
+				locale: null,
+				progressiveProfiling: false,
+				labelPosition: 'left',
+				fontFamily: 'Helvetica',
+				fontSize: '13px',
+				buttonLocation: 120,
+				buttonLabel: 'Submit',
+				waitingLabel: 'Please Wait',
+				workSpaceId: 1,
+			},
+		],
+	},
+	fields: {
+		success: true,
+		errors: [],
 		result: [
 			{
 				id: 'Email',
 				dataType: 'email',
 				validationMessage: 'Must be a valid email address.',
-				rowNumber: 0,
-				columnNumber: 0,
 				required: true,
-				label: 'Business email address',
-				formPrefill: true,
 				visibilityRules: { ruleType: 'alwaysShow' },
-				hintText: 'Business email address',
+				hintText: 'Business Email Address',
 			},
 			{
 				id: 'Consent_Privacy_Policy__c',
 				dataType: 'checkbox',
 				validationMessage: 'This field is required.',
-				rowNumber: 1,
-				columnNumber: 0,
 				required: true,
-				formPrefill: true,
 				fieldMetaData: { initiallyChecked: false },
 				visibilityRules: { ruleType: 'alwaysShow' },
 			},
@@ -31,8 +56,6 @@ export const marketoFormData: { id: number; form: MarketoFormProps } = {
 				id: 'utm_medium__c',
 				label: 'utm_medium:',
 				dataType: 'hidden',
-				rowNumber: 2,
-				columnNumber: 0,
 				required: false,
 				autoFill: {
 					value: '',
@@ -44,8 +67,6 @@ export const marketoFormData: { id: number; form: MarketoFormProps } = {
 				id: 'utm_source__c',
 				label: 'utm_source:',
 				dataType: 'hidden',
-				rowNumber: 3,
-				columnNumber: 0,
 				required: false,
 				autoFill: {
 					value: '',
@@ -57,8 +78,6 @@ export const marketoFormData: { id: number; form: MarketoFormProps } = {
 				id: 'utm_campaign__c',
 				label: 'utm_campaign:',
 				dataType: 'hidden',
-				rowNumber: 4,
-				columnNumber: 0,
 				required: false,
 				autoFill: {
 					value: '',
@@ -70,8 +89,6 @@ export const marketoFormData: { id: number; form: MarketoFormProps } = {
 				id: 'utm_cid__c',
 				label: 'utm_cid:',
 				dataType: 'hidden',
-				rowNumber: 5,
-				columnNumber: 0,
 				required: false,
 				autoFill: { value: '', valueFrom: 'query', parameterName: 'utm_cid' },
 			},
@@ -79,8 +96,6 @@ export const marketoFormData: { id: number; form: MarketoFormProps } = {
 				id: 'utm_offer__c',
 				label: 'utm_offer:',
 				dataType: 'hidden',
-				rowNumber: 6,
-				columnNumber: 0,
 				required: false,
 				autoFill: { value: '', valueFrom: 'query', parameterName: 'utm_offer' },
 			},
@@ -88,8 +103,6 @@ export const marketoFormData: { id: number; form: MarketoFormProps } = {
 				id: 'form_page_url__c',
 				label: 'form_page_url:',
 				dataType: 'hidden',
-				rowNumber: 7,
-				columnNumber: 0,
 				required: false,
 				autoFill: {
 					value: '',
@@ -101,8 +114,6 @@ export const marketoFormData: { id: number; form: MarketoFormProps } = {
 				id: 'utm_term__c',
 				label: 'utm_term:',
 				dataType: 'hidden',
-				rowNumber: 8,
-				columnNumber: 0,
 				required: false,
 				autoFill: { value: '', valueFrom: 'query', parameterName: 'utm_term' },
 			},
@@ -110,8 +121,6 @@ export const marketoFormData: { id: number; form: MarketoFormProps } = {
 				id: 'utm_content__c',
 				label: 'utm_content:',
 				dataType: 'hidden',
-				rowNumber: 9,
-				columnNumber: 0,
 				required: false,
 				autoFill: {
 					value: '',
@@ -123,8 +132,6 @@ export const marketoFormData: { id: number; form: MarketoFormProps } = {
 				id: 'utm_channel_bucket__c',
 				label: 'utm_channel_bucket:',
 				dataType: 'hidden',
-				rowNumber: 10,
-				columnNumber: 0,
 				required: false,
 				autoFill: {
 					value: '',
@@ -136,18 +143,9 @@ export const marketoFormData: { id: number; form: MarketoFormProps } = {
 				id: 'Signed_Up_For_Newsletter__c',
 				label: 'Signed Up For Newsletter:',
 				dataType: 'hidden',
-				rowNumber: 11,
-				columnNumber: 0,
 				required: false,
 				autoFill: { value: 'TRUE', valueFrom: 'default', parameterName: '' },
 			},
 		],
-		/**
-		 * TODO:
-		 * Look into why types here aren't matching up as expected.
-		 * This data and the newsletter-signup-form component generally were
-		 * pulled from hashicorp-www-next, so this seems like it's functioning
-		 * in production, so may be more an issue with incomplete types?
-		 */
-	} as unknown as MarketoFormProps,
+	},
 }

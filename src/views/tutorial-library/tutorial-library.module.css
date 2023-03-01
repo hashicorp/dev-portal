@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .pageTitle {
 	margin-bottom: 24px;
 }
@@ -10,7 +15,6 @@
 
 	& .input {
 		flex-grow: 1;
-		margin-bottom: 0;
 	}
 
 	@media (--dev-dot-tablet-down) {

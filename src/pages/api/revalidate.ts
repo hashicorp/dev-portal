@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { NextApiRequest, NextApiResponse } from 'next/types'
 import { StatusCodes } from 'http-status-codes'
 import { validateToken } from 'lib/api-validate-token'
@@ -61,7 +66,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 					)
 					const { result } = await response.json()
 
-					if (!result.navData) {
+					if (!result || !result.navData) {
 						console.log(
 							`[revalidate] failed to find nav data for path: ${path}. It is possible that this path does not have nav data, this is likely safe to ignore.`
 						)
@@ -85,7 +90,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 			}
 
 			if (typeof path !== 'undefined') {
-				const pathToRevalidate = `/${product}/${basePath}/${path}`
+				const pathToRevalidate = `/${resolvedProduct}/${basePath}/${path}`
 					// remove any trailing slash
 					.replace(/\/$/, '')
 

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Third-party imports
 import { useRouter } from 'next/router'
 
@@ -94,7 +99,9 @@ const NavigationHeader = () => {
 
 	return (
 		<header className={s.root}>
-			<LeftSideHeaderContent />
+			<div className={s.leftSide}>
+				<LeftSideHeaderContent />
+			</div>
 			<div className={s.rightSide}>
 				{GLOBAL_SEARCH_ENABLED ? (
 					<CommandBarActivator

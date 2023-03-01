@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import path from 'path'
 import { ProductSlug } from 'types/products'
 import { productSlugsToHostNames } from 'lib/products'
@@ -12,11 +17,11 @@ import { getIsRewriteableDocsLink } from './get-is-rewriteable-docs-link'
  *
  * Examples:
  *
- *   https://vaultproject.io/												--> /vault
+ *   https://vaultproject.io/												--> https://vaultproject.io/
  *   https://vaultproject.io/api										--> /vault/api-docs
  *   https://vaultproject.io/api/index.html					--> /waypoint/api-docs
  *   https://waypointproject.io/community						--> undefined
- *   https://waypointproject.io/										-->	/waypoint
+ *   https://waypointproject.io/										-->	https://waypointproject.io/
  *   https://waypointproject.io/docs								-->	/waypoint/docs
  *   https://waypointproject.io/docs/some-doc.html	--> /waypoint/docs/some-doc
  *   https://waypointproject.io/community						--> undefined
@@ -48,10 +53,10 @@ export function rewriteExternalDocsLink(urlObject: URL) {
 	) as ProductSlug
 
 	/**
-	 * If there is no `basePath`, then rewrite link to the product's landing page.
+	 * If there is no `basePath`, it's a .io home page and do *not* rewrite.
 	 */
 	if (basePath === '') {
-		return `/${productSlug}${search}${hash}`
+		return urlObject.toString()
 	}
 
 	/**

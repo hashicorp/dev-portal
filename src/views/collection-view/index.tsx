@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
@@ -11,6 +16,7 @@ import { CollectionPageProps } from './server'
 import CollectionMeta from './components/collection-meta'
 import CollectionTutorialList from './components/collection-tutorial-list'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
+import { generateCollectionSidebarNavData } from './helpers/generate-collection-sidebar-nav-data'
 
 function CollectionView({
 	collection,
@@ -22,21 +28,7 @@ function CollectionView({
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(product.name),
 		generateProductLandingSidebarNavData(product),
-		{
-			levelButtonProps: {
-				levelUpButtonText: `${product.name} Home`,
-				levelDownButtonText: 'Previous',
-			},
-			backToLinkProps: {
-				text: `${product.name} Home`,
-				href: `/${product.slug}`,
-			},
-			title: 'Tutorials',
-			overviewItemHref: `/${product.slug}/tutorials`,
-			children: (
-				<CollectionViewSidebarContent sections={layoutProps.sidebarSections} />
-			),
-		},
+		generateCollectionSidebarNavData(product, layoutProps.sidebarSections),
 	]
 
 	return (
@@ -51,7 +43,6 @@ function CollectionView({
 			 * a follow-up PR since this is functional for the time being.
 			 */
 			sidebarNavDataLevels={sidebarNavDataLevels as any}
-			sidecarSlot={null}
 		>
 			<CollectionMeta
 				collection={collection}

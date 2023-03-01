@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # Install dependencies
 npm i --production=false
 # TODO set up watcher to sync all files

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 module.exports = [
 	// define your custom redirects within this file.
 	// vercel's redirect documentation: https://vercel.com/docs/project-configuration#project-configuration/redirects
@@ -190,7 +195,7 @@ module.exports = [
 	},
 	{
 		source: '/help/admin-ui/targets/worker-filters',
-		destination: '/docs/concepts/filtering/worker-tags#target-worker-filtering',
+		destination: '/docs/concepts/filtering/worker-tags#worker-filtering',
 		permanent: false,
 	},
 	{

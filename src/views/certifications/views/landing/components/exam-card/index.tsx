@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactNode } from 'react'
 import {
 	CtaGroup,
@@ -61,7 +66,8 @@ function ExamCard({
 	examTier,
 }: ExamCardProps) {
 	return (
-		<CardLink className={s.examCard} href={url} ariaLabel="test">
+		// @TODO consider using "StandaloneLinkContents" text for aria-label?
+		<CardLink className={s.examCard} href={url} ariaLabel={title}>
 			<ExamCardContents>
 				<ExamBadgeAndTitle
 					title={title}

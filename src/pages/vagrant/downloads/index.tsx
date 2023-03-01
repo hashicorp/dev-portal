@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import CalloutCard from 'components/callout-card'
 import vagrantData from 'data/vagrant.json'
 import { ProductData } from 'types/products'

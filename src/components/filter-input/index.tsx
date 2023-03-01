@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ChangeEvent, ReactElement, useRef } from 'react'
 import classNames from 'classnames'
 import { IconFilter16 } from '@hashicorp/flight-icons/svg-react/filter-16'
@@ -9,6 +14,11 @@ interface FilterInputProps {
 	value: string
 	onChange: (newValue: string) => void
 	className?: string
+	/**
+	 * Optionally provide a custom `16px` Flight icon.
+	 * If omitted, a default IconFilter16 will be used.
+	 */
+	IconComponent?: typeof IconFilter16
 }
 
 const FilterInput = ({
@@ -16,6 +26,7 @@ const FilterInput = ({
 	value,
 	onChange,
 	className,
+	IconComponent = IconFilter16,
 }: FilterInputProps): ReactElement => {
 	const inputRef = useRef<HTMLInputElement>()
 	const showClearButton = value
@@ -32,7 +43,7 @@ const FilterInput = ({
 
 	return (
 		<div className={classNames(s.filterInputContainer, className)}>
-			<IconFilter16 className={s.filterIcon} />
+			<IconComponent className={s.filterIcon} />
 			<input
 				className={s.filterInput}
 				onChange={handleChange}
@@ -50,7 +61,7 @@ const FilterInput = ({
 					className={s.clearButton}
 					onClick={handleClear}
 				>
-					<IconX16 className={s.clearIcon} />
+					<IconX16 />
 				</button>
 			)}
 		</div>

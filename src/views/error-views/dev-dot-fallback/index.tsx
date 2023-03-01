@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useErrorPageAnalytics } from '@hashicorp/react-error-view'
 import {
 	ErrorViewContainer,

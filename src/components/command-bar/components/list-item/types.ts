@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactElement, ReactNode } from 'react'
 import { BadgeProps } from 'components/badge'
 
@@ -10,6 +15,7 @@ interface CommandBarListItemContentProps {
 	description?: string
 	icon?: ReactElement
 	title: string
+	trailingIcon?: ReactElement
 }
 
 interface CommandBarButtonListItemProps extends CommandBarListItemContentProps {

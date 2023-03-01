@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import path from 'path'
 import { test, expect, Page, Locator } from '@playwright/test'
 import { SIDEBAR_NAV_ELEMENT_ID, MAIN_ELEMENT_ID } from 'constants/element-ids'
@@ -12,12 +17,20 @@ test.describe.configure({ mode: 'parallel' })
 /**
  * Given a Playwright Locator for anchors, returns an array of hrefs.
  */
-const gatherHrefsFromLocator = async (anchorLocator: Locator) => {
+const gatherHrefsFromLocator = async (
+	anchorLocator: Locator
+): Promise<string[]> => {
 	return anchorLocator.evaluateAll((anchors: HTMLAnchorElement[]) => {
-		return anchors.map((anchor: HTMLAnchorElement) => {
-			const { pathname = '', search = '', hash = '' } = new URL(anchor.href)
-			return `${pathname}${search}${hash}`
-		})
+		return (
+			anchors
+				// filter out anchor elements with empty hrefs (such as ones injected for headings)
+				.filter((anchor: HTMLAnchorElement) => anchor.href?.length > 0)
+				// pull the path, search query string, and anchor string for each non-empty href
+				.map((anchor: HTMLAnchorElement) => {
+					const { pathname = '', search = '', hash = '' } = new URL(anchor.href)
+					return `${pathname}${search}${hash}`
+				})
+		)
 	})
 }
 

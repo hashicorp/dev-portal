@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import TutorialCard from '.'
@@ -11,12 +16,6 @@ const mockTutorialCardData = {
 	url: '/best-tutorial',
 	productsUsed: [],
 }
-
-jest.mock('flags/client', () => ({
-	flags: {
-		enableAuth: false,
-	},
-}))
 
 describe('Tutorial Card eyebrow slot', () => {
 	it('Shows base read time', () => {

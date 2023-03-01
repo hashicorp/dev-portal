@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { signIn, SignInOptions, signOut, SignOutParams } from 'next-auth/react'
 import { Session } from 'next-auth'
 import { SessionStatus, ValidAuthProviderId } from 'types/auth'

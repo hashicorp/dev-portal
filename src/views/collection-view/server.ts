@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import moize, { Options } from 'moize'
 
 import {
@@ -17,7 +22,6 @@ import {
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
-import { isProductSlug } from 'lib/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { getTutorialsBreadcrumb } from 'views/tutorial-view/utils/get-tutorials-breadcrumb'
 import {

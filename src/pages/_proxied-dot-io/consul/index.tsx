@@ -1,11 +1,15 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import * as React from 'react'
 import Head from 'next/head'
 import { proxiedRivetClient } from 'lib/cms'
-import { abTestTrack } from 'lib/ab-test-track'
 import homepageQuery from './home/query.graphql'
 import { renderMetaTags } from '@hashicorp/react-head'
-import IoHomeHero from 'components/_proxied-dot-io/common/io-home-hero'
+import IoHomeHeroAlt from 'components/_proxied-dot-io/common/io-home-hero-alt'
 import IoHomeIntro from 'components/_proxied-dot-io/common/io-home-intro'
 import IoHomeInPractice from 'components/_proxied-dot-io/common/io-home-in-practice'
 import IoCardContainer from 'components/_proxied-dot-io/common/io-card-container'
@@ -19,7 +23,7 @@ function Homepage({ data }): React.ReactElement {
 		seo,
 		heroHeading,
 		heroDescription,
-		heroCards,
+		heroCtas,
 		introHeading,
 		introDescription,
 		introOfferingsImage,
@@ -53,28 +57,22 @@ function Homepage({ data }): React.ReactElement {
 	const _introCallout = introCallout[0]
 	const _introVideo = introVideo[0]
 
-	React.useEffect(() => {
-		abTestTrack({
-			type: 'Served',
-			test_name: 'CRO home hero alt 2023-01',
-			variant: 'false',
-		})
-	}, [])
-
 	return (
 		<>
 			<Head>{renderMetaTags(seo)}</Head>
 
-			<IoHomeHero
-				pattern="/consul-public/img/home-hero-pattern.svg"
+			<IoHomeHeroAlt
 				brand="consul"
+				patterns={{
+					start: '/consul-public/img/hero-pattern-start.svg',
+					end: '/consul-public/img/hero-pattern-end.svg',
+				}}
 				heading={heroHeading}
 				description={heroDescription}
-				// ctas={heroCtas}
-				cards={heroCards.map((card) => {
+				ctas={heroCtas.map((cta) => {
 					return {
-						...card,
-						cta: card.cta[0],
+						title: cta.title,
+						href: cta.link,
 					}
 				})}
 			/>

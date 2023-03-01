@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 module.exports = [
 	// Define your custom redirects within this file.
 	// Vercel's redirect documentation: https://nextjs.org/docs/api-reference/next.config.js/redirects
@@ -193,6 +198,12 @@ module.exports = [
 		source: '/s/port-plan-failure',
 		destination:
 			'https://www.nomadproject.io/docs/operations/monitoring-nomad#progress',
+		permanent: false,
+	},
+	{
+		source: '/s/envoy-bootstrap-error',
+		destination:
+			'https://developer.hashicorp.com/nomad/docs/integrations/consul-connect#troubleshooting',
 		permanent: false,
 	},
 

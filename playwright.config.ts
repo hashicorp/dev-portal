@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { PlaywrightTestConfig } from '@playwright/test'
 import { devices } from '@playwright/test'
 
@@ -49,6 +54,7 @@ const config: PlaywrightTestConfig = {
 		{
 			name: 'docs-content-link-rewrites',
 			testMatch: 'src/__tests__/e2e/docs-content-link-rewrites.spec.ts',
+			retries: 0,
 		},
 	],
 

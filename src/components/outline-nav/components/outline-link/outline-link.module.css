@@ -1,0 +1,28 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	composes: hds-typography-body-200 from global;
+	composes: g-focus-ring-from-box-shadow from global;
+	border-radius: 4px;
+	color: var(--token-color-foreground-faint);
+	display: block;
+	font-weight: var(--token-typography-font-weight-regular);
+	max-width: 100%;
+	overflow: hidden;
+	padding: 4px 0;
+	text-overflow: ellipsis;
+	white-space: nowrap; /* necessary for text-overflow to work */
+	width: fit-content;
+
+	&.isActive {
+		color: var(--token-color-foreground-strong);
+	}
+
+	&:hover {
+		color: var(--token-color-foreground-strong);
+		text-decoration: underline;
+	}
+}

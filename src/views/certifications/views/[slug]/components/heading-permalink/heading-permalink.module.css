@@ -1,0 +1,60 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/** 
+* The permalink icon focus / hover styles should reflect 
+* the same behavior as the mdx-heading-permalink component
+* /src/components/dev-dot-content/mdx-components/mdx-heading-permalink
+**/
+
+.heading {
+	composes: hds-typography-display-400 from global;
+	composes: g-offset-scroll-margin-top from global;
+	font-weight: var(--token-typography-font-weight-bold);
+	color: var(--token-color-foreground-strong);
+	margin: 40px 0 32px 0;
+	width: fit-content;
+
+	&:hover {
+		& .icon {
+			color: var(--token-color-foreground-action-hover);
+			opacity: 1;
+		}
+	}
+}
+
+.anchorLink {
+	composes: g-focus-ring-from-box-shadow from global;
+	border-radius: 6px;
+	color: inherit;
+	display: flex;
+	align-items: center;
+
+	&:focus {
+		& .icon {
+			color: var(--token-color-foreground-action-active);
+			background: var(--token-color-surface-faint);
+			opacity: 1;
+		}
+	}
+}
+
+.icon {
+	width: 24px;
+	height: 24px;
+	border-radius: 6px;
+	margin-left: 8px;
+	opacity: 0;
+	color: var(--token-color-foreground-action);
+	padding: 4px;
+
+	@media (prefers-reduced-motion: no-preference) {
+		transition: opacity 0.2s ease;
+	}
+
+	&:hover {
+		box-shadow: var(--token-surface-mid-box-shadow);
+	}
+}

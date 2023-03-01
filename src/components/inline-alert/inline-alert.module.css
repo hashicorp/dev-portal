@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .default {
 	--background-color: var(--token-color-surface-faint);
 	--accent-color: var(--token-color-foreground-primary);

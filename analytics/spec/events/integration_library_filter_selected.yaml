@@ -1,0 +1,27 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
+name: Integration Library Filter Selected
+description: A filter has been selected in a products Integration Library.
+rules:
+  '$schema': http://json-schema.org/draft-04/schema#
+  type: object
+  properties:
+    context:
+      $ref: ../meta/context.yaml
+    properties:
+      type: object
+      properties:
+        filter_category:
+          description: The category of filter that was selected.
+          type: string
+          enum:
+            - tier
+            - component
+            - flag
+        filter_value:
+          description: The filter that was selected.
+          type: string
+      required:
+        - filter_category
+        - filter_value
