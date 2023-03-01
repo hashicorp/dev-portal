@@ -6,7 +6,8 @@
 import { normalizeRemoteLoaderSlug } from '../normalize-remote-loader-slug'
 
 const REMOTE_LOADER_SLUGS_TO_PRODUCT_SLUGS = {
-	'cloud.hashicorp.com': 'hcp',
+	'hcp-docs': 'hcp',
+	'cloud.hashicorp.com': 'hcp', // Note: cloud.hashicorp.com is being renamed to hcp-docs
 	'ptfe-releases': 'terraform',
 	'terraform-cdk': 'terraform',
 	'terraform-docs-agents': 'terraform',
