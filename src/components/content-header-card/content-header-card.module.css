@@ -148,6 +148,12 @@
 				flex-direction: row-reverse;
 			}
 
+			/* In the case where there are only buttons in the bottom row,
+			we want to left-align them always */
+			&.buttonsOnly {
+				flex-direction: row;
+			}
+
 			& li {
 				&:not(:first-of-type) {
 					margin-left: 12px;

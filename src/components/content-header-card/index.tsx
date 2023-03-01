@@ -60,6 +60,8 @@ export default function ContentHeaderCard({
 	links,
 	buttons,
 }: ContentHeaderCardProps) {
+	const hasLinks = links && links.length > 0
+	const hasButtons = buttons && buttons.length > 0
 	return (
 		<Card
 			elevation="base"
@@ -127,9 +129,9 @@ export default function ContentHeaderCard({
 					)}
 				</div>
 			</div>
-			{(links || buttons) && (
+			{(hasLinks || hasButtons) && (
 				<div className={s.cardBottom}>
-					{links && (
+					{hasLinks && (
 						<ul className={s.linksList}>
 							{links.map((link: Link) => {
 								return (
@@ -146,8 +148,12 @@ export default function ContentHeaderCard({
 							})}
 						</ul>
 					)}
-					{buttons && (
-						<ul className={s.buttonsList}>
+					{hasButtons && (
+						<ul
+							className={classNames(s.buttonsList, {
+								[s.buttonsOnly]: !hasLinks,
+							})}
+						>
 							{buttons.map((button: Button, index: number) => {
 								return (
 									<li key={button.text}>
