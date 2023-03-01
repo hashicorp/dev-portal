@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useMemo, useRef } from 'react'
 import OutlineNav from 'components/outline-nav'
 import useOnScreen from 'lib/hooks/use-on-screen'
