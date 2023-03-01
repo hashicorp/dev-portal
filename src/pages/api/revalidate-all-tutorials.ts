@@ -56,7 +56,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 				batchRevalidatePromises.length >= BATCH_SIZE ||
 				i >= paths.length - 1
 			) {
-				// TODO potentially throttle these calls - see p-throttle or p-map
+				// TODO potentially limit these calls to an interval - see p-queue
 				await Promise.allSettled(batchRevalidatePromises)
 				batchRevalidatePromises = []
 			}
