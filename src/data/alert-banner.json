@@ -1,5 +1,5 @@
 {
-	"enabled": true,
+	"enabled": false,
 	"data": {
 		"product": "hashicorp",
 		"tag": "Research",
