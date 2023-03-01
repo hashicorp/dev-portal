@@ -42,6 +42,11 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 			response.status(200).end()
 		}
 
+		// Sending 'accepted' status to avoid socket hang-up as the path revaliadation takes a very long time
+		response
+			.status(StatusCodes.ACCEPTED)
+			.send(`Revalidating all tutorials: ${paths.length} paths`)
+
 		// Loop over all paths to revalidate in batches
 		// as this endpoint will fire off >1000 revalidation requests
 		let batchRevalidatePromises = []
@@ -61,13 +66,13 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 				batchRevalidatePromises = []
 			}
 		}
-
-		response.status(200).end()
 	} catch (e) {
 		// If there was an error, Next.js will continue
 		// to show the last successfully generated page
 		console.error('Error revalidating tutorials ', e)
-		return response.status(500).send('Error revalidating tutorials ')
+		return response
+			.status(StatusCodes.INTERNAL_SERVER_ERROR)
+			.send(`Error revalidating tutorials ${e.message}`)
 	}
 }
 
