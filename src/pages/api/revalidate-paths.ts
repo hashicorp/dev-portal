@@ -55,7 +55,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 
 		response
 			.status(StatusCodes.OK)
-			.send(`[revalidation success]: for ${paths.length} tutorial paths`)
+			.send(`[revalidation success]: for ${paths.length} paths`)
 	} catch (e) {
 		// If there was an error, Next.js will continue
 		// to show the last successfully generated page
