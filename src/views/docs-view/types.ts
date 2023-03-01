@@ -6,8 +6,8 @@
 import { ReactNode } from 'react'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
-import { ProductData, ProductSlug } from 'types/products'
-import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
+import { ProductSlug } from 'types/products'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { OutlineLinkItem } from 'components/outline-nav/types'
 
 export interface DocsViewProps {
@@ -52,7 +52,7 @@ export interface DocsViewProps {
 	/**
 	 * Layout props passed to the SidebarSidecar layout.
 	 */
-	layoutProps: Omit<SidebarSidecarWithTocProps, 'children'>
+	layoutProps: Omit<SidebarSidecarLayoutProps, 'children'>
 
 	/**
 	 * Outline items, for the OutlineNav we display in the sidecar.

@@ -1,4 +1,5 @@
 import { OutlineLinkItem } from 'components/outline-nav/types'
+import { filterTableOfContentsHeadings } from 'components/table-of-contents/utils/filter-table-of-contents-headings'
 
 /**
  * Heading type coming from our remark anchor-links plugin.
@@ -16,14 +17,17 @@ export interface AnchorLinksPluginHeading {
 function outlineItemsFromHeadings(
 	headings: AnchorLinksPluginHeading[]
 ): OutlineLinkItem[] {
-	return headings.map((heading: AnchorLinksPluginHeading, index: number) => {
-		const titleWithoutBackticks = heading.title.replace(/`/g, '')
-		return {
-			title: titleWithoutBackticks,
-			url: `#${heading.slug}`,
-			dataHeapTrack: `toc-list-item-index-${index}`,
+	const filteredHeadings = filterTableOfContentsHeadings(headings)
+	return filteredHeadings.map(
+		(heading: AnchorLinksPluginHeading, index: number) => {
+			const titleWithoutBackticks = heading.title.replace(/`/g, '')
+			return {
+				title: titleWithoutBackticks,
+				url: `#${heading.slug}`,
+				dataHeapTrack: `toc-list-item-index-${index}`,
+			}
 		}
-	})
+	)
 }
 
 export default outlineItemsFromHeadings

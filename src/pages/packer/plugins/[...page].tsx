@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import DocsView from 'views/docs-view'
+import DocsView, { DocsViewProps } from 'views/docs-view'
 // Imports below are only used server-side
 import { cachedGetProductData } from 'lib/get-product-data'
 import {
@@ -18,6 +18,8 @@ import {
 } from 'components/sidebar/helpers'
 import { isDeployPreview } from 'lib/env-checks'
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
+import { MenuItem, SidebarProps } from 'components/sidebar'
+import outlineItemsFromHeadings from 'lib/docs/outline-items-from-headings'
 
 const basePath = 'plugins'
 const baseName = 'Plugins'
@@ -169,23 +171,30 @@ export async function getStaticProps({ params, ...ctx }) {
 	/**
 	 * Assemble and return static  props for the view
 	 */
-	return {
-		props: {
-			layoutProps: {
-				breadcrumbLinks,
-				githubFileUrl: props.githubFileUrl,
-				headings: props.headings,
-				sidebarNavDataLevels,
-				// Long-form content pages use a narrower main area width
-				mainWidth: 'narrow',
-			},
-			metadata: {
-				title: props.frontMatter.page_title ?? null,
-				description: props.frontMatter.description ?? null,
-			},
-			mdxSource: props.mdxSource,
-			product: productData,
+	const finalProps: DocsViewProps = {
+		layoutProps: {
+			breadcrumbLinks,
+			githubFileUrl: props.githubFileUrl,
+			/**
+			 * TODO: we should likely try to avoid casting here, and instead ensure
+			 * types are correct. Likely involves MenuItem[].
+			 * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+			 */
+			sidebarNavDataLevels: sidebarNavDataLevels as $TSFixMe as SidebarProps[],
+			// Long-form content pages use a narrower main area width
+			mainWidth: 'narrow',
 		},
+		outlineItems: outlineItemsFromHeadings(props.headings),
+		metadata: {
+			title: props.frontMatter.page_title ?? null,
+			description: props.frontMatter.description ?? null,
+		},
+		mdxSource: props.mdxSource,
+		product: productData,
+	}
+
+	return {
+		props: finalProps,
 		revalidate: __config.dev_dot.revalidate,
 	}
 }
