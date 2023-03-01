@@ -5,7 +5,7 @@
 
 import { useMemo, useRef } from 'react'
 import OutlineNav from 'components/outline-nav'
-import useOnScreen from 'lib/hooks/use-on-screen'
+import { useInView } from 'framer-motion'
 import { OutlineLinkItem } from 'components/outline-nav/types'
 import {
 	getItemSlugs,
@@ -23,7 +23,7 @@ function OutlineNavWithActive({
 	items: Omit<OutlineLinkItem, 'isActive'>[]
 }) {
 	const rootRef = useRef()
-	const isOnScreen = useOnScreen(rootRef)
+	const isInView = useInView(rootRef)
 
 	/**
 	 * Determine the active section. Note we only enable this when the sidecar
@@ -31,7 +31,9 @@ function OutlineNavWithActive({
 	 */
 	const itemSlugs = useMemo(() => getItemSlugs(items), [items])
 	const hasMultipleItems = itemSlugs.length > 1
-	const enableActiveSection = isOnScreen && hasMultipleItems
+	const enableActiveSection = isInView && hasMultipleItems
+
+	console.log({ isInView, enableActiveSection })
 	const activeSection = useActiveSection(itemSlugs, enableActiveSection)
 
 	/**
