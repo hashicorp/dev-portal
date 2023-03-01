@@ -7,13 +7,6 @@
 	/* Widths/spacing needed in multiple stylesheets */
 	--dev-dot-sidebar-width: 320px;
 
-	/* Note: "right" value is not used in multiple stylesheets,
-     so is declared in sidebar-sidecar-layout.module.css */
-	--main-area-padding-left: 24px;
-	@media (--dev-dot-sidecar-up) {
-		--main-area-padding-left: 48px;
-	}
-
 	/* General mobile and tablet breakpoints */
 	--mobile-width-breakpoint: 728px;
 	--tablet-width-breakpoint: 1000px;
