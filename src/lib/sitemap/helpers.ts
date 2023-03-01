@@ -28,7 +28,7 @@ export const makeSitemapElement = ({
 	changefreq,
 }: SitemapFactoryInput): SitemapElement => {
 	return {
-		loc: `${__config.dev_dot.canonical_base_url}/${slug}`,
+		loc: `${__config.dev_dot.canonical_base_url}${slug}`,
 		lastmod: lastmodDate ?? new Date(Date.now()).toISOString(),
 		priority: priority ?? determinePriority(slug),
 		changefreq: changefreq ?? 'daily',

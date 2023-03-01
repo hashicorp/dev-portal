@@ -7,7 +7,7 @@ export async function allDocsUrls() {
 	const { result: docsResult } = await getDocsPaths.json()
 	return docsResult.map((page: { path: string; created_at: string }) =>
 		makeSitemapElement({
-			slug: page.path,
+			slug: `/${page.path}`,
 			lastmodDate: page.created_at,
 		})
 	)

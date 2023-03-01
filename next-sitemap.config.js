@@ -57,9 +57,11 @@ module.exports = {
 		'/waypoint/commands*',
 		'/waypoint/plugins*',
 		'/waypoint/tutorials*',
+		'/waypoint/integrations*',
 		'/vault/docs*',
 		'/vault/api-docs*',
 		'/vault/tutorials*',
+		'/vault/integrations*',
 		'/well-architected-framework/*',
 	],
 }

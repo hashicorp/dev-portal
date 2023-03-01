@@ -1,21 +1,26 @@
 import { getServerSideSitemap } from 'next-sitemap'
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
-import { allDocsUrls, allTutorialsUrls } from 'lib/sitemap'
+import { allDocsUrls, allIntegrationsUrls, allTutorialsUrls } from 'lib/sitemap'
 
 export const getServerSideProps: GetServerSideProps = async (
 	ctx: GetServerSidePropsContext
 ) => {
-	// returns an array of docs content sitemap objects per slug
+	const integrationsUrlsPromise = allIntegrationsUrls()
 	const docsUrlsPromise = allDocsUrls()
-	// returns an array of tutorials content sitemap objects per slug
 	const tutorialsUrlsPromise = allTutorialsUrls()
 
-	const [docsUrls, tutorialsUrls] = await Promise.all([
+	const [integrationsUrls, docsUrls, tutorialsUrls] = await Promise.all([
+		integrationsUrlsPromise,
 		docsUrlsPromise,
 		tutorialsUrlsPromise,
 	])
 
-	const fields = [...docsUrls, ...tutorialsUrls]
+	const fields = [
+		...integrationsUrls,
+		...docsUrls,
+		...tutorialsUrls,
+		// more content-type urls
+	]
 
 	return getServerSideSitemap(ctx, fields)
 }
