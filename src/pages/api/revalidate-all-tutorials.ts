@@ -66,6 +66,8 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 				batchRevalidatePromises = []
 			}
 		}
+
+		return
 	} catch (e) {
 		// If there was an error, Next.js will continue
 		// to show the last successfully generated page
