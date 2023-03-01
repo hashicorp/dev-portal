@@ -9,7 +9,7 @@ import { Badge } from 'components/badge-list'
 import { Flag, Integration, Tier } from './integrations-api-client/integration'
 
 // Converts an Integration object into an array of Badges to be used by our badge-list
-export function GetIntegrationBadges(
+export function getIntegrationBadges(
 	integration: Integration,
 	tierFirst: boolean
 ): Array<Badge> {

@@ -10,7 +10,7 @@ import BadgeList from 'components/badge-list'
 import Button from 'components/button'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
-import { GetIntegrationBadges } from 'lib/get-integration-badges'
+import { getIntegrationBadges } from 'lib/get-integration-badges'
 import { getIntegrationUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import s from './style.module.css'
@@ -70,7 +70,7 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 				<div className={s.right}>
 					<BadgeList
 						className={s.badgeList}
-						badges={GetIntegrationBadges(integration, false)}
+						badges={getIntegrationBadges(integration, false)}
 						size="medium"
 					/>
 					<span className={s.viewDetails}>

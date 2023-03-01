@@ -14,7 +14,7 @@ import {
 import SidebarSidecarLayout, {
 	SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
-import { GetIntegrationBadges } from 'lib/get-integration-badges'
+import { getIntegrationBadges } from 'lib/get-integration-badges'
 import {
 	generateProductIntegrationLibrarySidebarNavData,
 	getIntegrationComponentUrl,
@@ -135,7 +135,7 @@ export default function ProductIntegrationLayout({
 				attribution={`@${integration.organization.slug}`}
 				description={integration.description}
 				note={lastUpdatedString(integration.updated_at)}
-				badges={GetIntegrationBadges(integration, true)}
+				badges={getIntegrationBadges(integration, true)}
 				dropdown={
 					integration.versions.length > 1
 						? {
