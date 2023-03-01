@@ -156,7 +156,7 @@ module.exports = [
 	},
 	{
 		source: '/help/admin-ui/worker-filters',
-		destination: '/docs/concepts/filtering/worker-tags',
+		destination: '/docs/concepts/domain-model/credential-stores#worker_filter',
 		permanent: false,
 	},
 	{
