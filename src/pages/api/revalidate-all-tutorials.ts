@@ -45,7 +45,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		// Sending 'accepted' status to avoid socket hang-up as the path revaliadation takes a very long time
 		response
 			.status(StatusCodes.ACCEPTED)
-			.send(`Revalidating all tutorials: ${paths.length} paths`)
+			.write('Beginning revalidation for all tutorial paths')
 
 		// Loop over all paths to revalidate in batches
 		// as this endpoint will fire off >1000 revalidation requests
@@ -67,7 +67,9 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 			}
 		}
 
-		return
+		response
+			.status(StatusCodes.OK)
+			.send(`Revalidated all tutorials: ${paths.length} paths`)
 	} catch (e) {
 		// If there was an error, Next.js will continue
 		// to show the last successfully generated page
