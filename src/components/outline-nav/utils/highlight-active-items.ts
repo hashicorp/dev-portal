@@ -17,11 +17,11 @@ function highlightActiveItems(
 	currentUrl: string
 ): OutlineLinkItem[] {
 	return items.map((item) => {
+		const isActive = item.url === currentUrl
 		if ('items' in item) {
 			const activeItems = highlightActiveItems(item.items, currentUrl)
-			return { ...item, items: activeItems }
+			return { ...item, items: activeItems, isActive }
 		} else {
-			const isActive = item.url === currentUrl
 			return { ...item, isActive }
 		}
 	})
