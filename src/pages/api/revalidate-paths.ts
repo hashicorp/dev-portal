@@ -28,7 +28,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	if (!pathsExist) {
 		response
 			.status(StatusCodes.BAD_REQUEST)
-			.json({ error: '[Revalidation failed]: No paths provided.' })
+			.json({ error: '[revalidation failed]: No paths provided.' })
 
 		return
 	}
@@ -36,7 +36,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	// TODO could remove this limit if we refactor for concurrency
 	if (paths.length > PATHS_LIMIT) {
 		response.status(StatusCodes.BAD_REQUEST).json({
-			error: `[Revalidation failed]: paths exceed limit of ${PATHS_LIMIT}.`,
+			error: `[revalidation failed]: paths exceed limit of ${PATHS_LIMIT}.`,
 		})
 
 		return
@@ -52,11 +52,11 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 			revalidatePromises.push(response.revalidate(formattedPath))
 		})
 
-		response.status(StatusCodes.ACCEPTED)
-
 		await Promise.allSettled(revalidatePromises)
 
-		response.status(StatusCodes.OK).end()
+		response
+			.status(StatusCodes.OK)
+			.send(`[revalidation success]: for ${paths.length} tutorial paths`)
 	} catch (e) {
 		// If there was an error, Next.js will continue
 		// to show the last successfully generated page
