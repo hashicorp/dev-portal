@@ -21,7 +21,25 @@ const DocsViewLayout = ({
 	return (
 		<SidebarSidecarLayout
 			{...layoutProps}
-			sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
+			/**
+			 * Note: this slice() ensures that if the layout re-renders, then
+			 * OutlineNavWithActive re-renders.
+			 *
+			 * TODO: Find another way.
+			 * An alternate solution could be to lift up `useActiveSection`, and
+			 * find elements to monitor through a ref, rather that accessing the
+			 * DOM directly in `useActiveSection`.
+			 *
+			 * For context, with the current approach of accessing the DOM directly,
+			 * we must ensure that when the content re-renders (updating heading
+			 * DOM elements), the OutlineNav must also re-render (so that
+			 * `useActiveSection` runs setup again and finds the updated DOM elements,
+			 * rather than maintaining stale references).
+			 *
+			 * We took a spike at this in the following commit:
+			 * https://github.com/hashicorp/dev-portal/pull/1685/commits/70a034789006df2f14afae665962c4087f2a6ba1
+			 */
+			sidecarSlot={<OutlineNavWithActive items={outlineItems.slice(0)} />}
 			alertBannerSlot={<DocsVersionAlertBanner />}
 		/>
 	)
