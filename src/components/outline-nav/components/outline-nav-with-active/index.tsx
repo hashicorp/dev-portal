@@ -32,8 +32,6 @@ function OutlineNavWithActive({
 	const itemSlugs = useMemo(() => getItemSlugs(items), [items])
 	const hasMultipleItems = itemSlugs.length > 1
 	const enableActiveSection = isInView && hasMultipleItems
-
-	console.log({ isInView, enableActiveSection })
 	const activeSection = useActiveSection(itemSlugs, enableActiveSection)
 
 	/**
