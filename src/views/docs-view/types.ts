@@ -55,7 +55,6 @@ export interface DocsViewProps {
 
 	/**
 	 * Outline items, for the OutlineNav we display in the sidecar.
-	 * TODO: transition to actually using this prop.
 	 */
 	outlineItems: OutlineLinkItem[]
 }
