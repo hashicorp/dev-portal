@@ -9,6 +9,9 @@ import { validateToken } from 'lib/api-validate-token'
 import { cachedGetProductData } from 'lib/get-product-data'
 
 /**
+ * @TODO move this into the /api/revalidate dir and update the filename to something like 'docs'
+ * https://app.asana.com/0/1202097197789424/1204094036463681
+ *
  * Accepts a POST request with a product slug, triggers revalidation for all of a product's docs paths
  * specified in its latest nav data.
  */
