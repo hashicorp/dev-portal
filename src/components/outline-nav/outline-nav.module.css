@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .navLabel {
 	composes: hds-typography-body-100 from global;
 	font-weight: var(--token-typography-font-weight-semibold);

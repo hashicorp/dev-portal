@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { OutlineHeading, OutlineLinkItem } from 'components/outline-nav/types'
 import { OutlineNavWithActive } from 'components/outline-nav/components'
 import { useMemo } from 'react'
