@@ -4,11 +4,9 @@
  */
 
 import { ReactNode } from 'react'
-import { GlobalThemeOption } from 'styles/themes/types'
 
 interface CoreDevDotLayoutProps {
 	children: ReactNode
-	theme?: GlobalThemeOption
 }
 
 export type { CoreDevDotLayoutProps }

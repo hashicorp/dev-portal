@@ -110,7 +110,7 @@ const NavigationHeader = () => {
 						visualLabel="Search"
 					/>
 				) : null}
-				<ThemeSwitch />
+				{__config.flags.enable_dark_mode ? <ThemeSwitch /> : null}
 				<AuthenticationControls />
 				<MobileMenuButton />
 			</div>

@@ -11,10 +11,11 @@ import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
 import { makeWelcomeToast } from 'lib/make-welcome-notification'
 import { MobileMenuProvider } from 'contexts'
 import TabProvider from 'components/tabs/provider'
+import { GlobalThemeOption } from 'styles/themes/types'
 import { CoreDevDotLayoutProps } from './types'
 import s from './core-dev-dot-layout.module.css'
 
-const CoreDevDotLayout = ({ children, theme }: CoreDevDotLayoutProps) => {
+const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 	const router = useRouter()
 	const { asPath, pathname, isReady } = router
 
@@ -28,16 +29,25 @@ const CoreDevDotLayout = ({ children, theme }: CoreDevDotLayoutProps) => {
 	}, [isReady, isToastPath])
 
 	return (
-		<ThemeProvider disableTransitionOnChange forcedTheme={theme || null}>
-			<MobileMenuProvider>
-				<TabProvider>
-					<Head>
-						<DatadogHeadTag />
-					</Head>
-					<div className={s.root}>{children}</div>
-					{isSwingset ? null : <DatadogScriptTag />}
-				</TabProvider>
-			</MobileMenuProvider>
+		<MobileMenuProvider>
+			<TabProvider>
+				<Head>
+					<DatadogHeadTag />
+				</Head>
+				<div className={s.root}>{children}</div>
+				{isSwingset ? null : <DatadogScriptTag />}
+			</TabProvider>
+		</MobileMenuProvider>
+	)
+}
+
+export function CoreDevDotLayoutWithTheme(
+	props: CoreDevDotLayoutProps & { theme?: GlobalThemeOption }
+) {
+	const { theme, ...restProps } = props
+	return (
+		<ThemeProvider disableTransitionOnChange forcedTheme={props.theme || null}>
+			<CoreDevDotLayout {...restProps} />
 		</ThemeProvider>
 	)
 }

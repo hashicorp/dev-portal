@@ -15,7 +15,9 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 // Global imports
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
-import CoreDevDotLayout from 'layouts/core-dev-dot-layout'
+import CoreDevDotLayout, {
+	CoreDevDotLayoutWithTheme,
+} from 'layouts/core-dev-dot-layout'
 import { CommandBarProvider } from 'components/command-bar'
 import Footer from 'components/footer'
 import MobileMenuContainer, {
@@ -62,6 +64,16 @@ const BaseNewLayout = ({
 	theme,
 }: BaseNewLayoutProps) => {
 	const router = useRouter()
+
+	/** @TODO remove conditional after dark mode is released */
+	const Layout = __config.flags.enable_dark_mode
+		? CoreDevDotLayoutWithTheme
+		: CoreDevDotLayout
+	const layoutProps = __config.flags.enable_dark_mode
+		? {
+				theme,
+		  }
+		: []
 	usePageviewAnalytics({
 		siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
 		includedDomains: __config.dev_dot.analytics.included_domains,
@@ -83,7 +95,7 @@ const BaseNewLayout = ({
 					hideOnMobile
 				/>
 			)}
-			<CoreDevDotLayout theme={theme}>
+			<Layout {...layoutProps}>
 				<div className={s.root} data-layout="base-new">
 					<div className={s.header}>
 						<NavigationHeader />
@@ -100,7 +112,7 @@ const BaseNewLayout = ({
 						<Footer openConsentManager={openConsentManager} />
 					</div>
 				</div>
-			</CoreDevDotLayout>
+			</Layout>
 			<ConsentManager />
 		</CommandBarProvider>
 	)
