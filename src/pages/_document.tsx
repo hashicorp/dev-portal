@@ -5,7 +5,7 @@
 
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import HashiHead from '@hashicorp/react-head'
-import { segmentPreloadScript } from '@hashicorp/platform-analytics'
+import { segmentPreloadScript } from '@hashicorp/react-consent-manager/scripts/segment'
 
 export default class MyDocument extends Document {
 	static async getInitialProps(ctx) {
