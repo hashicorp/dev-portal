@@ -15,7 +15,14 @@ import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
  */
 export function useActiveSection(
 	slugs: string[],
-	isEnabled: boolean = true
+	isEnabled: boolean = true,
+	/**
+	 * Optional HTML element from which to query-select for heading elements.
+	 * This allows consumers to pass in elements from React refs.
+	 * By default, we instead query the DOM directly, using `document` as
+	 * the containerElement.
+	 */
+	containerElement: HTMLElement = null
 ): string {
 	const visibleHeadings = useRef<Set<string>>(new Set())
 	const [activeSection, setActiveSection] = useState<string>()
@@ -73,12 +80,20 @@ export function useActiveSection(
 					? findMatchingSectionIndex(entries[0].target.id)
 					: -1
 
-				if (visibleHeadings.current.size > 0) {
+				const rootElement = containerElement || document
+
+				if (
+					visibleHeadings.current.size > 0 &&
+					typeof rootElement?.querySelector === 'function'
+				) {
 					// Find the heading closest to the top of the viewport
 					let shortestDistance
 					let closestHeading
+
 					visibleHeadings.current.forEach((headingId) => {
-						const targetElement = document.getElementById(headingId)
+						const targetElement = rootElement.querySelector(
+							`#${CSS.escape(headingId)}`
+						)
 						const distance = targetElement.getBoundingClientRect().bottom
 						if (!closestHeading || distance < shortestDistance) {
 							closestHeading = headingId
@@ -124,19 +139,20 @@ export function useActiveSection(
 			}
 		)
 
-		slugs.forEach((s) => {
-			const el = document
-				.getElementById('main')
-				?.querySelector(`#${CSS.escape(s)}`)
-			if (el) {
-				observer.observe(el)
-			}
-		})
+		const rootElement = containerElement || document
+		if (typeof rootElement?.querySelector === 'function') {
+			slugs.forEach((s) => {
+				const el = rootElement.querySelector(`#${CSS.escape(s)}`)
+				if (el) {
+					observer.observe(el)
+				}
+			})
+		}
 
 		return () => {
 			observer.disconnect()
 		}
-	}, [slugs, isEnabled, isProductLanding])
+	}, [slugs, isEnabled, isProductLanding, containerElement])
 
 	return activeSection
 }
