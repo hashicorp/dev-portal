@@ -18,7 +18,7 @@ import {
 } from 'components/sidebar/helpers'
 import { isDeployPreview } from 'lib/env-checks'
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
-import { MenuItem, SidebarProps } from 'components/sidebar'
+import { SidebarProps } from 'components/sidebar'
 import outlineItemsFromHeadings from 'lib/docs/outline-items-from-headings'
 
 const basePath = 'plugins'
@@ -169,6 +169,15 @@ export async function getStaticProps({ params, ...ctx }) {
 	]
 
 	/**
+	 * Get the current root docs path entry, which is "plugins" of course.
+	 * Note this likely isn't necessary, since these docs aren't versioned...
+	 * But doing this anyways for consistency & simpler types.
+	 */
+	const currentRootDocsPath = productData.rootDocsPaths.find(
+		(r) => r.path === basePath
+	)
+
+	/**
 	 * Assemble and return static  props for the view
 	 */
 	const finalProps: DocsViewProps = {
@@ -190,7 +199,7 @@ export async function getStaticProps({ params, ...ctx }) {
 			description: props.frontMatter.description ?? null,
 		},
 		mdxSource: props.mdxSource,
-		product: productData,
+		product: { ...productData, currentRootDocsPath },
 	}
 
 	return {

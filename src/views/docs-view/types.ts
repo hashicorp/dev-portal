@@ -6,7 +6,7 @@
 import { ReactNode } from 'react'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
-import { ProductSlug } from 'types/products'
+import { ProductSlug, ProductWithCurrentRootDocsPath } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { OutlineLinkItem } from 'components/outline-nav/types'
 
@@ -44,10 +44,9 @@ export interface DocsViewProps {
 	projectName?: string
 
 	/**
-	 * Product data.
-	 * TODO: better document this prop, it was previously undocumented.
+	 * Product data. Note we include `currentRootDocsPath` for version switching.
 	 */
-	product: $TSFixMe
+	product: ProductWithCurrentRootDocsPath
 
 	/**
 	 * Layout props passed to the SidebarSidecar layout.
