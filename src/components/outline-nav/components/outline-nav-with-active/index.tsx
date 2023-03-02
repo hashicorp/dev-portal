@@ -4,8 +4,8 @@
  */
 
 import { useMemo, useRef } from 'react'
-import OutlineNav from 'components/outline-nav'
 import { useInView } from 'framer-motion'
+import OutlineNav from 'components/outline-nav'
 import { OutlineLinkItem } from 'components/outline-nav/types'
 import {
 	getItemSlugs,
