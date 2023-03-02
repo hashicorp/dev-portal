@@ -28,7 +28,7 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 	}, [isReady, isToastPath])
 
 	return (
-		<ThemeProvider>
+		<ThemeProvider disableTransitionOnChange>
 			<MobileMenuProvider>
 				<TabProvider>
 					<Head>
