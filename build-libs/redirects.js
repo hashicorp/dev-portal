@@ -377,6 +377,7 @@ function filterInvalidRedirects(redirects, repoSlug) {
 	const productSlugsByRepo = {
 		'terraform-website': 'terraform',
 		'cloud.hashicorp.com': 'hcp',
+		'hcp-docs': 'hcp',
 	}
 	const productSlug = productSlugsByRepo[repoSlug] ?? repoSlug
 
