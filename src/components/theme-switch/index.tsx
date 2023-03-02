@@ -15,6 +15,7 @@ export default function ThemeSwitch() {
 		setMounted(true)
 	}, [])
 
+	// @TODO swap this with a loading skeleton
 	if (!mounted) {
 		return null
 	}
