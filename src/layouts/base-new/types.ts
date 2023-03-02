@@ -5,7 +5,7 @@
 
 import { ReactNode } from 'react'
 import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
-import { ThemeOption } from 'styles/themes/types'
+import { GlobalThemeOption } from 'styles/themes/types'
 
 interface BaseNewLayoutProps {
 	/**
@@ -18,7 +18,7 @@ interface BaseNewLayoutProps {
 	 * the footer from the page contents above.
 	 */
 	showFooterTopBorder?: boolean
-	theme?: ThemeOption
+	theme?: GlobalThemeOption
 }
 
 interface AlertBannerProps {
