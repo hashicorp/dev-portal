@@ -56,23 +56,8 @@ const DocsView = ({
 
 	const Layout = layouts[metadata?.layout?.name] ?? DefaultLayout
 
-	/**
-	 * TODO: figure out where non-iterable outlineItems are coming from,
-	 * and address that server side.
-	 */
-	const isOutlineItemsArray = Array.isArray(outlineItems)
-	const safeOutlineItems = isOutlineItemsArray ? outlineItems : []
-	if (!isOutlineItemsArray) {
-		console.log({
-			message: 'UNSAFE OUTLINE ITEMS',
-			productSlug: currentProduct.slug,
-			breadcrumbs: layoutProps.breadcrumbLinks.map((b) => b.title),
-			outlineItems,
-		})
-	}
-
 	return (
-		<DocsViewLayout {...layoutProps} outlineItems={safeOutlineItems}>
+		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
 			<div className={classNames(versions && s.contentWithVersions)}>
 				{shouldRenderSearch ? <ProductDocsSearch /> : null}
 				{versions ? (
