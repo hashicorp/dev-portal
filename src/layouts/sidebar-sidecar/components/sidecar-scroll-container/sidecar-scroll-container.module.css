@@ -1,0 +1,83 @@
+.root {
+	--gradient-scrim-height: 58px;
+	--gradient-scrim-transition: opacity 0.25s;
+
+	/* TODO: we need a --token-color-surface-primary-transparent, or something! */
+	--gradient-scrim-start: rgba(255, 255, 255, 0);
+	--gradient-scrim-end: var(--token-color-surface-primary);
+
+	display: flex;
+	flex-direction: column;
+	isolation: isolate;
+
+	/* Note: max-sidecar-height is set in sidebar-sidecar-layout.module.css. */
+	max-height: var(--max-sidecar-height);
+	position: relative;
+	width: 100%;
+
+	/* Top gradient scrim */
+	&::before {
+		background: linear-gradient(
+			0deg,
+			var(--gradient-scrim-start) 0%,
+			var(--gradient-scrim-end) 100%
+		);
+		content: '\200B';
+		display: block;
+		height: var(--gradient-scrim-height);
+		left: 0;
+		opacity: 0;
+		pointer-events: none;
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: 2;
+
+		@media (prefers-reduced-motion: no-preference) {
+			transition: var(--gradient-scrim-transition);
+		}
+	}
+
+	/* Bottom gradient scrim */
+	&::after {
+		background: linear-gradient(
+			180deg,
+			var(--gradient-scrim-start) 0%,
+			var(--gradient-scrim-end) 100%
+		);
+		bottom: 0;
+		content: '\200B';
+		display: block;
+		height: var(--gradient-scrim-height);
+		left: 0;
+		opacity: 0;
+		pointer-events: none;
+		position: absolute;
+		right: 0;
+		z-index: 2;
+
+		@media (prefers-reduced-motion: no-preference) {
+			transition: var(--gradient-scrim-transition);
+		}
+	}
+
+	&.showTopScrim::before {
+		opacity: 1;
+	}
+
+	&.showBottomScrim::after {
+		opacity: 1;
+	}
+}
+
+.scrollContainer {
+	overflow-y: auto;
+
+	/* Note: 1px padding is necessary for box-shadow border styles to appear
+	   correctly. Another option might be to add even more padding...
+		 technically the box-shadows are still cut off, but for the style
+		 of box-shadow we use in sidecar, it doesn't seem to matter much */
+	padding: 1px;
+	position: relative;
+	z-index: 1;
+}

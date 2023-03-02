@@ -5,16 +5,19 @@
 
 import fs from 'fs'
 import remark from 'remark'
+import matter from 'gray-matter'
 import rewriteLinksPlugin from '../rewrite-links-plugin'
 
 const getMdxLinksToRewrite = async ({
 	filePathPrefix,
 	filePaths,
 	urlAdjustFn,
+	repo,
 }: {
 	filePathPrefix: string
 	filePaths: string[]
 	urlAdjustFn: (url: string) => string
+	repo: string
 }): Promise<{
 	mdxLinksToRewrite: Record<string, Record<string, string>>
 	mdxUnrewriteableLinks: Record<string, Record<string, string>>
@@ -45,6 +48,22 @@ const getMdxLinksToRewrite = async ({
 		}
 
 		const fileContent = fs.readFileSync(filePath, 'utf-8')
+
+		/**
+		 * Ignore files that have a different `source` than the current repo. This
+		 * property indicates that the content is regularly copied over from the
+		 * source, and thus should not be modified.
+		 *
+		 * Example file in the `ptfe-releases` repository:
+		 * https://github.com/hashicorp/ptfe-releases/blob/ba4dc2af20cc9d0f46247c919be8b2ed90d1e6f8/website/docs/enterprise/registry/index.mdx?plain=1#L6
+		 */
+		const { data: frontmatter } = matter(fileContent)
+		const isSourcedFromDifferentRepo =
+			typeof frontmatter?.source === 'string' && frontmatter.source !== repo
+		if (isSourcedFromDifferentRepo) {
+			continue
+		}
+
 		const data = {
 			linksToRewrite: {},
 			unrewriteableLinks: [],

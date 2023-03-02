@@ -5,10 +5,10 @@
 
 import path from 'path'
 import fs from 'fs'
-import { v1 } from '@datadog/datadog-api-client'
+import { client, v1 } from '@datadog/datadog-api-client'
 
-const configuration = v1.createConfiguration()
-const client = new v1.MetricsApi(configuration)
+const configuration = client.createConfiguration()
+const api = new v1.MetricsApi(configuration)
 
 const TRACE_FILE_PATH = './.next/trace'
 const EVENTS = [
@@ -41,7 +41,7 @@ function captureMetric({
 	duration: number
 	timestamp?: number
 	tags?: string[]
-}) {
+}): v1.Series {
 	return {
 		host: '',
 		metric: name,
@@ -73,7 +73,7 @@ async function main() {
 			})
 		)
 
-		await client.submitMetrics({
+		await api.submitMetrics({
 			body: {
 				series: structuredMetrics,
 			},

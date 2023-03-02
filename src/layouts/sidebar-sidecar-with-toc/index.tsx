@@ -6,17 +6,16 @@
 import SidebarSidecarLayout, {
 	SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
-import TableOfContents, {
-	TableOfContentsHeading,
-} from 'components/table-of-contents'
+import { TableOfContentsHeading } from 'components/table-of-contents'
 import { filterTableOfContentsHeadings } from 'components/table-of-contents/utils/filter-table-of-contents-headings'
+import { OutlineNavFromHeadings } from 'components/outline-nav/components'
 
 export type SidebarSidecarWithTocProps = SidebarSidecarLayoutProps & {
 	headings: TableOfContentsHeading[]
 }
 
 /**
- * Renders a SidebarSidecarLayout with a preset `<TableOfContents />`
+ * Renders a SidebarSidecarLayout with a preset `<OutlineNav />`
  * component in the sidecarSlot.
  */
 function SidebarSidecarWithToc(props: SidebarSidecarWithTocProps) {
@@ -25,7 +24,9 @@ function SidebarSidecarWithToc(props: SidebarSidecarWithTocProps) {
 		<SidebarSidecarLayout
 			{...restProps}
 			sidecarSlot={
-				<TableOfContents headings={filterTableOfContentsHeadings(headings)} />
+				<OutlineNavFromHeadings
+					headings={filterTableOfContentsHeadings(headings)}
+				/>
 			}
 		/>
 	)
