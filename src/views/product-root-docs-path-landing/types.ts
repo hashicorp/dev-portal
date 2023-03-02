@@ -31,7 +31,7 @@ interface ProductRootDocsPathLandingProps {
 	}
 	product: ProductData
 	versions?: VersionSelectItem[]
-	layoutProps: SidebarSidecarLayoutProps
+	layoutProps: Omit<SidebarSidecarLayoutProps, 'children'>
 	outlineItems: OutlineLinkItem[]
 }
 

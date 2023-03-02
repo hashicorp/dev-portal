@@ -6,7 +6,7 @@
 import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
-import { GetStaticPropsContext } from 'next'
+import { GetStaticPropsResult, GetStaticPropsContext } from 'next'
 import { ProductSlug, RootDocsPath } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
@@ -17,12 +17,12 @@ import {
 import { prepareMarketingBlocks } from './utils/prepare-marketing-blocks'
 import { ProductRootDocsPathLandingProps } from './types'
 import outlineItemsFromHeadings from 'lib/docs/outline-items-from-headings'
+import { DocsViewProps } from 'views/docs-view'
 
 /**
  * @TODO add TS to function signature & document function purpose
  */
 const generateHeadingLevelsAndSidecarHeadings = ({
-	layoutHeadings,
 	marketingContentBlocks,
 	pageTitle,
 }) => {
@@ -92,11 +92,7 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 	}
 
 	// piece together the different headings
-	const sidecarHeadings = [
-		titleHeading,
-		...marketingContentHeadings,
-		...layoutHeadings.filter((heading) => heading.level !== 1),
-	]
+	const sidecarHeadings = [titleHeading, ...marketingContentHeadings]
 
 	return { sidecarHeadings, marketingContentBlocksWithHeadingLevels }
 }
@@ -136,19 +132,31 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 			basePath,
 			baseName,
 		})
-
-	// TODO: replace any with accurate type
-	const generatedProps = (await generatedGetStaticProps({
+	const getStaticPropsResult = (await generatedGetStaticProps({
 		...context,
 		params: { page: [] },
-	})) as $TSFixMe
+		// TODO: surely there isn't a need to cast here... but there seems to be?
+		// I need to review how getStaticProps typing should ideally work.
+		// The type before casting here is the
+		// GetStaticPropsResult<DocsViewProps>
+		// on its own... but then `.props` does not exist for some reason?
+	})) as GetStaticPropsResult<DocsViewProps> & { props: DocsViewProps }
 
-	// Append headings found in marketing content
+	/**
+	 * Grab the outline from the MDX content, if applicable.
+	 *
+	 * Note we slice off the first outline item, we expect it to be an <h1 />,
+	 * which would be duplicative in this context.
+	 */
+	const mdxOutline = includeMDXSource
+		? getStaticPropsResult.props.outlineItems.slice(1)
+		: []
+
+	/**
+	 * Append headings found in marketing content.
+	 */
 	const { sidecarHeadings, marketingContentBlocksWithHeadingLevels } =
 		generateHeadingLevelsAndSidecarHeadings({
-			layoutHeadings: includeMDXSource
-				? generatedProps.props.layoutProps.headings
-				: [],
 			marketingContentBlocks: pageContent.marketingContentBlocks,
 			pageTitle: `${product.name} ${baseName}`,
 		})
@@ -165,7 +173,10 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 	 */
 	const firstHeading = sidecarHeadings[0]
 	const pageHeading = { id: firstHeading.id, title: firstHeading.title }
-	const outlineItems = outlineItemsFromHeadings(sidecarHeadings)
+	const outlineItems = [
+		...outlineItemsFromHeadings(sidecarHeadings),
+		...mdxOutline,
+	]
 
 	/**
 	 * Declare props with type for type safety
@@ -174,10 +185,10 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 	 * of this function. For now, this is a step in that direction.
 	 */
 	const props: ProductRootDocsPathLandingProps = {
-		...generatedProps.props,
-		mdxSource: includeMDXSource ? generatedProps.props.mdxSource : null,
+		...getStaticPropsResult.props,
+		mdxSource: includeMDXSource ? getStaticPropsResult.props.mdxSource : null,
 		layoutProps: {
-			...generatedProps.props.layoutProps,
+			...getStaticPropsResult.props.layoutProps,
 			githubFileUrl: null,
 		},
 		pageContent: {
@@ -187,14 +198,14 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 		pageHeading,
 		outlineItems,
 		product: {
-			...generatedProps.props.product,
+			...getStaticPropsResult.props.product,
 			currentRootDocsPath,
 		},
 	}
 
 	// TODO clean this up so it's easier to understand
 	return {
-		...generatedProps,
+		...getStaticPropsResult,
 		props,
 	}
 }
