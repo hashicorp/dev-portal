@@ -7,6 +7,7 @@ import { FC } from 'react'
 import type { NextPage } from 'next'
 import type { AppProps, AppContext } from 'next/app'
 import { CurrentContentType } from 'contexts'
+import { ThemeOption } from 'lib/learn-client/types'
 
 type CustomPageComponent<
 	PageProps = Record<string, unknown>,
@@ -14,6 +15,7 @@ type CustomPageComponent<
 > = NextPage<PageProps, InitialProps> & {
 	contentType?: CurrentContentType
 	layout?: FC
+	theme?: ThemeOption
 }
 
 type ContextWithLayout = {

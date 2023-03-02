@@ -4,9 +4,11 @@
  */
 
 import { ReactNode } from 'react'
+import { ThemeOption } from 'styles/themes/types'
 
 interface CoreDevDotLayoutProps {
 	children: ReactNode
+	theme?: ThemeOption
 }
 
 export type { CoreDevDotLayoutProps }

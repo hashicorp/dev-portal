@@ -14,7 +14,7 @@ import TabProvider from 'components/tabs/provider'
 import { CoreDevDotLayoutProps } from './types'
 import s from './core-dev-dot-layout.module.css'
 
-const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
+const CoreDevDotLayout = ({ children, theme }: CoreDevDotLayoutProps) => {
 	const router = useRouter()
 	const { asPath, pathname, isReady } = router
 
@@ -28,7 +28,7 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 	}, [isReady, isToastPath])
 
 	return (
-		<ThemeProvider disableTransitionOnChange>
+		<ThemeProvider disableTransitionOnChange forcedTheme={theme || null}>
 			<MobileMenuProvider>
 				<TabProvider>
 					<Head>
