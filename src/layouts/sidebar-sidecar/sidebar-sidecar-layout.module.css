@@ -124,7 +124,11 @@ for further details.
 /* .mainAndSidecar spans the padded area, and lays out main + sidecar. */
 .mainAndSidecar {
 	display: flex;
-	max-width: 100%;
+	max-width: calc(
+		var(--main-element-max-width) + var(--sidecar-spacing) +
+			var(--sidecar-width)
+	);
+	width: 100%;
 }
 
 /* .main handles the max-width and sizing for the main area. */
