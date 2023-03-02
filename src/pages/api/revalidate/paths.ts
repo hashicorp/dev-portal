@@ -7,7 +7,7 @@ import type { NextApiRequest, NextApiResponse } from 'next/types'
 import { StatusCodes } from 'http-status-codes'
 import { validateToken } from 'lib/api-validate-token'
 
-const PATHS_LIMIT = 100
+const PATHS_LIMIT = 128
 
 /**
  * Accepts a POST request with an array of paths,
