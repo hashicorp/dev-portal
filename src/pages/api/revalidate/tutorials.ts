@@ -42,11 +42,6 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 			response.status(200).end()
 		}
 
-		// Sending 'accepted' status to avoid socket hang-up as the path revaliadation takes a very long time
-		response
-			.status(StatusCodes.ACCEPTED)
-			.write('Beginning revalidation for all tutorial paths')
-
 		// Loop over all paths to revalidate in batches
 		// as this endpoint will fire off >1000 revalidation requests
 		let batchRevalidatePromises = []
