@@ -6,6 +6,7 @@
 import { useEffect } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { ThemeProvider } from 'next-themes'
 import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
 import { makeWelcomeToast } from 'lib/make-welcome-notification'
 import { MobileMenuProvider } from 'contexts'
@@ -27,15 +28,17 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 	}, [isReady, isToastPath])
 
 	return (
-		<MobileMenuProvider>
-			<TabProvider>
-				<Head>
-					<DatadogHeadTag />
-				</Head>
-				<div className={s.root}>{children}</div>
-				{isSwingset ? null : <DatadogScriptTag />}
-			</TabProvider>
-		</MobileMenuProvider>
+		<ThemeProvider>
+			<MobileMenuProvider>
+				<TabProvider>
+					<Head>
+						<DatadogHeadTag />
+					</Head>
+					<div className={s.root}>{children}</div>
+					{isSwingset ? null : <DatadogScriptTag />}
+				</TabProvider>
+			</MobileMenuProvider>
+		</ThemeProvider>
 	)
 }
 
