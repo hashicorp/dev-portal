@@ -38,6 +38,8 @@ const DocsViewLayout = ({
 			 *
 			 * We took a spike at this in the following commit:
 			 * https://github.com/hashicorp/dev-portal/pull/1685/commits/70a034789006df2f14afae665962c4087f2a6ba1
+			 * Task:
+			 * https://app.asana.com/0/1202097197789424/1204098852315293/f
 			 */
 			sidecarSlot={<OutlineNavWithActive items={outlineItems.slice(0)} />}
 			alertBannerSlot={<DocsVersionAlertBanner />}
