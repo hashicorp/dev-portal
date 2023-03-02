@@ -132,15 +132,19 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 			basePath,
 			baseName,
 		})
-	const getStaticPropsResult = (await generatedGetStaticProps({
+	const getStaticPropsResult = await generatedGetStaticProps({
 		...context,
 		params: { page: [] },
-		// TODO: surely there isn't a need to cast here... but there seems to be?
-		// I need to review how getStaticProps typing should ideally work.
-		// The type before casting here is the
-		// GetStaticPropsResult<DocsViewProps>
-		// on its own... but then `.props` does not exist for some reason?
-	})) as GetStaticPropsResult<DocsViewProps> & { props: DocsViewProps }
+	})
+
+	/**
+	 * Our base `generatedGetStaticProps` could technically return
+	 * a redirect or not-found. We should account for these cases.
+	 * This also serves as a type guard.
+	 */
+	if (!('props' in getStaticPropsResult)) {
+		return getStaticPropsResult
+	}
 
 	/**
 	 * Grab the outline from the MDX content, if applicable.
