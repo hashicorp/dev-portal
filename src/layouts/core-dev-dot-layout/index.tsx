@@ -46,7 +46,7 @@ export function CoreDevDotLayoutWithTheme(
 ) {
 	const { theme, ...restProps } = props
 	return (
-		<ThemeProvider disableTransitionOnChange forcedTheme={props.theme || null}>
+		<ThemeProvider disableTransitionOnChange forcedTheme={theme || null}>
 			<CoreDevDotLayout {...restProps} />
 		</ThemeProvider>
 	)
