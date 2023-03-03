@@ -19,6 +19,7 @@ import useAuthentication from 'hooks/use-authentication'
 import { useCurrentProduct, useMobileMenu } from 'contexts'
 import { CommandBarActivator } from 'components/command-bar'
 import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
+import ThemeSwitch from 'components/theme-switch'
 
 // Local imports
 import { NavigationHeaderItem } from './types'
@@ -109,6 +110,7 @@ const NavigationHeader = () => {
 						visualLabel="Search"
 					/>
 				) : null}
+				{__config.flags.enable_dark_mode ? <ThemeSwitch /> : null}
 				<AuthenticationControls />
 				<MobileMenuButton />
 			</div>

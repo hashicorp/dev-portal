@@ -188,6 +188,7 @@
 		"next-mdx-remote": "^3.0.8",
 		"next-query-params": "^4.1.0",
 		"next-sitemap": "^3.1.21",
+		"next-themes": "^0.2.1",
 		"nuka-carousel": "^4.8.4",
 		"p-map": "^4.0.0",
 		"promise-polyfill": "^8.2.1",
