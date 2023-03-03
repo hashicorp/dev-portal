@@ -5,7 +5,7 @@
 
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import HashiHead from '@hashicorp/react-head'
-import { segmentPreloadScript } from '@hashicorp/react-consent-manager/scripts/segment'
+import { SegmentPreloadScript } from '@hashicorp/react-consent-manager/scripts/segment'
 
 export default class MyDocument extends Document {
 	static async getInitialProps(ctx) {
@@ -20,7 +20,7 @@ export default class MyDocument extends Document {
 					<HashiHead />
 				</Head>
 				<body>
-					<script dangerouslySetInnerHTML={{ __html: segmentPreloadScript }} />
+					<SegmentPreloadScript />
 					<Main />
 					<NextScript />
 					<script
