@@ -6,9 +6,10 @@
 import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
-import { GetStaticPropsResult, GetStaticPropsContext } from 'next'
+import { GetStaticPropsContext } from 'next'
 import { ProductSlug, RootDocsPath } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
+import outlineItemsFromHeadings from 'lib/docs/outline-items-from-headings'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
 import {
 	GETTING_STARTED_CARD_HEADING,
@@ -16,8 +17,6 @@ import {
 } from './components/marketing-content'
 import { prepareMarketingBlocks } from './utils/prepare-marketing-blocks'
 import { ProductRootDocsPathLandingProps } from './types'
-import outlineItemsFromHeadings from 'lib/docs/outline-items-from-headings'
-import { DocsViewProps } from 'views/docs-view'
 
 /**
  * @TODO add TS to function signature & document function purpose
