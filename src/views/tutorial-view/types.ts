@@ -12,14 +12,15 @@ import {
 	Product as LearnClientProduct,
 	TutorialFullCollectionCtx as ClientTutorial,
 } from 'lib/learn-client/types'
-import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import { CollectionCardPropsWithId } from 'components/collection-card'
+import { OutlineLinkItem } from 'components/outline-nav/types'
 
 type TutorialSidebarSidecarProps = Required<
 	Pick<
-		SidebarSidecarWithTocProps,
-		'children' | 'headings' | 'breadcrumbLinks' | 'mainWidth'
+		SidebarSidecarLayoutProps,
+		'children' | 'breadcrumbLinks' | 'mainWidth'
 	> & { sidebarSections: CollectionCategorySidebarSection[] }
 >
 
@@ -46,11 +47,18 @@ interface TutorialData
 	nextCollectionInSidebar?: ClientCollectionLite
 }
 interface TutorialViewProps {
-	layoutProps: TutorialSidebarSidecarProps
+	layoutProps: Omit<TutorialSidebarSidecarProps, 'children'>
 	product: Omit<LearnProductData, 'slug'> & {
 		slug: LearnClientProduct['slug'] | 'hcp'
 	} // @TODO clean up the hcp / learn product slug types https://app.asana.com/0/1202097197789424/1202946807363608
 	tutorial: TutorialData
+	outlineItems: OutlineLinkItem[]
+	pageHeading: {
+		slug: string
+		text: string
+	}
+	nextCollection?: ClientCollectionLite | null // if null, it is the last collection in the sidebar order
+	metadata: $TSFixMe
 }
 
 interface LayoutContentWrapperProps {
