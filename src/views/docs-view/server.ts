@@ -4,6 +4,7 @@
  */
 
 // Third-party imports
+import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import path from 'path'
 import { Pluggable } from 'unified'
 import rehypePrism from '@mapbox/rehype-prism'
@@ -18,11 +19,15 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 import { ProductData, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { isDeployPreview } from 'lib/env-checks'
+import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
+import { withTiming } from 'lib/with-timing'
+import outlineItemsFromHeadings from 'lib/docs/outline-items-from-headings'
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
+import { SidebarProps } from 'components/sidebar'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -30,16 +35,11 @@ import {
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
-import { SidebarProps } from 'components/sidebar'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
-import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
-import { withTiming } from 'lib/with-timing'
-import outlineItemsFromHeadings from 'lib/docs/outline-items-from-headings'
 import { DocsViewProps } from './types'
-import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
