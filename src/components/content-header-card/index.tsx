@@ -135,7 +135,7 @@ export default function ContentHeaderCard({
 						<ul className={s.linksList}>
 							{links.map((link: Link) => {
 								return (
-									<li key={link.text}>
+									<li key={link.text} className={s.link}>
 										<StandaloneLink
 											text={link.text}
 											icon={link.icon}
