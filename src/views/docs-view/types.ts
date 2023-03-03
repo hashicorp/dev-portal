@@ -44,7 +44,8 @@ export interface DocsViewProps {
 	projectName?: string
 
 	/**
-	 * Product data. Note we include `currentRootDocsPath` for version switching.
+	 * Product data. Note this is not used directly by `DocsView`. Instead,
+	 * it's routed through `_app.tsx` to set up our CurrentProductProvider.
 	 */
 	product: ProductWithCurrentRootDocsPath
 
