@@ -3,12 +3,16 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { Collection as ApiCollection } from 'lib/learn-client/types'
+import {
+	Collection as ApiCollection,
+	TutorialFullCollectionCtx,
+} from 'lib/learn-client/types'
 import { EnrichedNavItem } from 'components/sidebar/types'
-import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { SidebarProps } from 'components/sidebar/types'
 import { NextPreviousProps } from 'views/tutorial-view/components'
 import { TutorialData } from 'views/tutorial-view'
+import { OutlineLinkItem } from 'components/outline-nav/types'
 
 export interface OnboardingCollectionViewProps {
 	metadata: {
@@ -17,7 +21,7 @@ export interface OnboardingCollectionViewProps {
 	}
 	collection: ApiCollection
 	layoutProps: {
-		breadcrumbLinks: SidebarSidecarWithTocProps['breadcrumbLinks']
+		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
 		sidebarSections: EnrichedNavItem[]
 	}
 }
@@ -25,10 +29,15 @@ export interface OnboardingCollectionViewProps {
 export interface OnboardingTutorialViewProps {
 	tutorial: TutorialData & {
 		nextPreviousData: NextPreviousProps
+		full: TutorialFullCollectionCtx
 	}
+	pageHeading: {
+		slug: string
+		text: string
+	}
+	outlineItems: OutlineLinkItem[]
 	layoutProps: {
-		headings: SidebarSidecarWithTocProps['headings']
-		breadcrumbLinks: SidebarSidecarWithTocProps['breadcrumbLinks']
+		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
 		navLevels: SidebarProps[]
 	}
 }

@@ -11,18 +11,20 @@ import VideoEmbed from 'components/video-embed'
 import getVideoUrl from 'views/tutorial-view/utils/get-video-url'
 import DevDotContent from 'components/dev-dot-content'
 import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
-import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
 import { NextPrevious } from 'views/tutorial-view/components'
 import { OnboardingTutorialViewProps } from '../types'
 
 export default function OnboardingTutorialView({
 	tutorial,
 	layoutProps,
+	pageHeading,
+	outlineItems,
 }: OnboardingTutorialViewProps) {
 	const {
 		id,
 		slug,
-		name,
 		readTime,
 		edition,
 		productsUsed,
@@ -44,13 +46,13 @@ export default function OnboardingTutorialView({
 				key={slug}
 				{...(isInteractive && { labId: handsOnLab.id })}
 			>
-				<SidebarSidecarWithToc
-					headings={layoutProps.headings}
+				<SidebarSidecarLayout
+					sidecarSlot={<OutlineNavWithActive items={outlineItems.slice(0)} />}
 					breadcrumbLinks={layoutProps.breadcrumbLinks}
 					sidebarNavDataLevels={layoutProps.navLevels}
 				>
 					<TutorialMeta
-						heading={{ slug: slug, text: name }}
+						heading={pageHeading}
 						meta={{
 							readTime,
 							edition,
@@ -72,7 +74,7 @@ export default function OnboardingTutorialView({
 						mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
 					/>
 					<NextPrevious {...nextPreviousData} />
-				</SidebarSidecarWithToc>
+				</SidebarSidecarLayout>
 			</InteractiveLabWrapper>
 		</>
 	)
