@@ -67,16 +67,22 @@ async function getStaticProps(ctx) {
 		const { preparedItems: navData } = await prepareNavDataForClient({
 			basePaths: ['packer', 'plugins'],
 			/**
-			 * TODO: fix up types related to MenuItem[] & EnrichedMenuItem[]
-			 * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+			 * TODO: fix up types in prepareNavDataForClient related to
+			 * MenuItem[] & EnrichedMenuItem[]. Note that there are some
+			 * NavNode types within the prepareNavDataForClient file which
+			 * might be useful - but which are also available in shared packages.
+			 *
+			 * Task to use types from shared package:
+			 * https://app.asana.com/0/1202022787106807/1201602267333015/f
+			 *
+			 * Task to clean up MenuItem references:
+			 * https://app.asana.com/0/1202097197789424/1202405210286689/f
 			 */
 			nodes: rawNavData as $TSFixMe as NavNode[],
 		})
 
 		/**
 		 * Replace our original navData with our prepared navData
-		 * TODO: fix up types related to MenuItem[] & EnrichedMenuItem[]
-		 * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
 		 */
 		staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems =
 			navData as $TSFixMe as EnrichedNavItem[]
