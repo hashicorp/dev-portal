@@ -158,8 +158,7 @@ export default function ContentHeaderCard({
 								return (
 									<li key={button.text}>
 										<Button
-											onClick={(e) => {
-												e.preventDefault()
+											onClick={() => {
 												button.onClick()
 											}}
 											text={button.text}
