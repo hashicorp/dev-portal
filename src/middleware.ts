@@ -122,6 +122,21 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// 	}
 	// }
 
+	/**
+	 * @TODO document
+	 */
+	const regex = new RegExp(
+		`^/(${__config.dev_dot.product_slugs_with_integrations.join(
+			'|'
+		)})/integrations`
+	)
+	const isProductIntegrationsLanding = regex.test(req.nextUrl.pathname)
+	const isUrlWithQueryParams = req.nextUrl.search.length > 0
+	if (isProductIntegrationsLanding && isUrlWithQueryParams) {
+		const newPathname = `${req.nextUrl.pathname}/loading`
+		response = NextResponse.rewrite(new URL(newPathname, req.nextUrl))
+	}
+
 	if (!response) {
 		response = NextResponse.next()
 	}

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import {
 	NumberParam,
@@ -25,6 +25,7 @@ import { CheckboxField } from 'components/form/field-controls'
 import Tag from 'components/tag'
 import FilterInput from 'components/filter-input'
 import MultiSelect from 'components/multi-select'
+import LoadingSkeleton from '../loading-skeleton'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
 import {
 	integrationLibraryFilterSelectedEvent,
@@ -35,12 +36,14 @@ import s from './style.module.css'
 
 interface SearchableIntegrationsListProps {
 	className: string
+	hasQueryParams?: boolean
 }
 
 export default function SearchableIntegrationsList({
 	className,
+	hasQueryParams,
 }: SearchableIntegrationsListProps) {
-	const { filteredIntegrations: integrations } = useIntegrationsSearchContext()
+	const contextState = useIntegrationsSearchContext()
 
 	const [, setCurrentPage] = useQueryParam(
 		'page',
@@ -63,7 +66,7 @@ export default function SearchableIntegrationsList({
 	)
 
 	const filteredIntegrations = getFilteredIntegrations({
-		integrations,
+		integrations: contextState.filteredIntegrations,
 		filterQuery,
 	})
 
@@ -193,6 +196,54 @@ export default function SearchableIntegrationsList({
 	const resultText = `${filteredIntegrations.length} ${
 		filteredIntegrations.length === 1 ? 'result found' : 'results found'
 	}`
+
+	/**
+	 * -- Why a loading skeleton? --
+	 *
+	 * This effect is necessary when users land on the page and query parameters
+	 * are in the URL. Since query parameters are only accessible client-side,
+	 * filters are not applied until the first client-side render.
+	 *
+	 * Because this page is pre-rendered server-side based on the props from
+	 * getStaticProps, a hydration mismatch will happen between the two renders.
+	 * Instead of rendering the unfiltered view server-side, we render a loading
+	 * skeleton until the first client-side render via `useEffect`.
+	 *
+	 * -- Why the setTimeout? --
+	 *
+	 * The purpose of using `setTimeout` to extend the loading skeleton rendering
+	 * is to prevent a flash between the "loading" and "loaded" states for users
+	 * with faster internet connections. Flashes have high risk for harming users,
+	 * and no one wants to wait too long for a page to load.
+	 *
+	 * To balance these two needs we show the loading skeleton slightly longer
+	 * than needed to prevent the flash, and we animate the loading skeleton to
+	 * keep users engaged while it's displayed.
+	 */
+	const [isLoadingQueryParams, setIsLoadingQueryParams] =
+		useState(hasQueryParams)
+	useEffect(() => {
+		if (!isLoadingQueryParams) {
+			return
+		}
+
+		if (
+			contextState.integrations.length !==
+			contextState.filteredIntegrations.length
+		) {
+			setTimeout(() => {
+				setIsLoadingQueryParams(false)
+			}, 1500)
+		}
+	}, [
+		contextState.filteredIntegrations,
+		contextState.integrations,
+		isLoadingQueryParams,
+	])
+	if (isLoadingQueryParams) {
+		return <LoadingSkeleton />
+	}
+
 	return (
 		<div className={classNames(s.searchableIntegrationsList, className)}>
 			<div className={s.header}>
