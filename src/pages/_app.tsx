@@ -101,6 +101,7 @@ export default function App({
 	 * layoutProps come from.
 	 */
 	const allLayoutProps = {
+		theme: Component.theme,
 		...pageProps.layoutProps,
 		// @ts-expect-error - layoutProps is inferred from `fetchLayoutProps`,
 		// which current resolves to `unknown | null`.
