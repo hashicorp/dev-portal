@@ -1,5 +1,6 @@
 import classNames from 'classnames'
-import BadgeList, { Badge } from 'components/badge-list'
+import BadgeList from 'components/badge-list'
+import { Badge } from 'components/badge-list/types'
 import Button from 'components/button'
 import Card from 'components/card'
 import DropdownDisclosure, {

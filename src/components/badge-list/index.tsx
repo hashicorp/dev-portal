@@ -1,22 +1,8 @@
 import classNames from 'classnames'
 import Badge from 'components/badge'
-import { BadgeProps } from 'components/badge/types'
 import Tooltip from 'components/tooltip'
 import s from './badge-list.module.css'
-
-export interface Badge {
-	text: BadgeProps['text']
-	icon?: BadgeProps['icon']
-	color?: BadgeProps['color']
-	tooltip?: string
-}
-
-interface BadgeListProps {
-	badges: Array<Badge>
-	className?: string
-	size?: BadgeProps['size']
-	type?: BadgeProps['type']
-}
+import { Badge as BadgeListBadge, BadgeListProps } from './types'
 
 export default function BadgeList({
 	badges,
@@ -26,7 +12,7 @@ export default function BadgeList({
 }: BadgeListProps) {
 	return (
 		<ul className={classNames(s.badgeList, className)}>
-			{badges.map((badge: Badge) => {
+			{badges.map((badge: BadgeListBadge) => {
 				return (
 					<li key={badge.text} className={s.badge}>
 						{badge.tooltip ? (

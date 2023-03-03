@@ -5,7 +5,7 @@ import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
 import { IconRocket16 } from '@hashicorp/flight-icons/svg-react/rocket-16'
 import { IconUsers16 } from '@hashicorp/flight-icons/svg-react/users-16'
 import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
-import { Badge } from 'components/badge-list'
+import { Badge } from 'components/badge-list/types'
 import { Flag, Integration, Tier } from './integrations-api-client/integration'
 
 // Converts an Integration object into an array of Badges to be used by our badge-list
