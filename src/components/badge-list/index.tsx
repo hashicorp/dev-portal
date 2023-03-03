@@ -7,6 +7,7 @@ import s from './badge-list.module.css'
 export interface Badge {
 	text: BadgeProps['text']
 	icon?: BadgeProps['icon']
+	color?: BadgeProps['color']
 	tooltip?: string
 }
 
@@ -15,14 +16,12 @@ interface BadgeListProps {
 	className?: string
 	size?: BadgeProps['size']
 	type?: BadgeProps['type']
-	color?: BadgeProps['color']
 }
 
 export default function BadgeList({
 	badges,
 	className,
 	size = 'medium',
-	color = 'neutral',
 	type = 'filled',
 }: BadgeListProps) {
 	return (
@@ -35,7 +34,7 @@ export default function BadgeList({
 								<Badge
 									icon={badge.icon}
 									text={badge.text}
-									color={color}
+									color={badge.color}
 									type={type}
 									size={size}
 								/>
@@ -44,7 +43,7 @@ export default function BadgeList({
 							<Badge
 								icon={badge.icon}
 								text={badge.text}
-								color={color}
+								color={badge.color}
 								type={type}
 								size={size}
 							/>
