@@ -1,6 +1,5 @@
 import classNames from 'classnames'
 import BadgeList from 'components/badge-list'
-import { Badge } from 'components/badge-list/types'
 import Button from 'components/button'
 import Card from 'components/card'
 import DropdownDisclosure, {
@@ -10,44 +9,13 @@ import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
 import StandaloneLink from 'components/standalone-link'
 import Text from 'components/text'
-import { ProductSlug } from 'types/products'
 import s from './content-header-card.module.css'
-
-interface DropdownItem {
-	text: string
-	href: string
-}
-
-interface Dropdown {
-	text: string
-	items: Array<DropdownItem>
-}
-
-interface Link {
-	text: string
-	href: string
-	icon?: React.ReactElement
-}
-
-interface Button {
-	text: string
-	icon?: JSX.IntrinsicElements['svg']
-	isPrimary?: boolean
-	onClick: () => void
-}
-
-export interface ContentHeaderCardProps {
-	className?: string
-	icon?: Exclude<ProductSlug, 'sentinel'>
-	title: string
-	attribution?: string
-	description?: string
-	note?: string
-	badges?: Array<Badge>
-	dropdown?: Dropdown
-	links?: Array<Link>
-	buttons?: Array<Button>
-}
+import {
+	ContentHeaderCardProps,
+	DropdownItem,
+	Button as HeaderCardButton,
+	Link,
+} from './types'
 
 export default function ContentHeaderCard({
 	className,
@@ -155,7 +123,7 @@ export default function ContentHeaderCard({
 								[s.buttonsOnly]: !hasLinks,
 							})}
 						>
-							{buttons.map((button: Button, index: number) => {
+							{buttons.map((button: HeaderCardButton, index: number) => {
 								return (
 									<li key={button.text}>
 										<Button
