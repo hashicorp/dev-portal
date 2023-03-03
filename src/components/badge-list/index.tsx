@@ -5,8 +5,8 @@ import Tooltip from 'components/tooltip'
 import s from './badge-list.module.css'
 
 export interface Badge {
-	text: string
-	icon?: React.ReactElement
+	text: BadgeProps['text']
+	icon?: BadgeProps['icon']
 	tooltip?: string
 }
 
