@@ -5,7 +5,7 @@
 
 import outlineItemsFromHeadings, {
 	AnchorLinksPluginHeading,
-} from 'lib/docs/outline-items-from-headings'
+} from 'components/outline-nav/utils/outline-items-from-headings'
 import { OutlineNavWithActive } from 'components/outline-nav/components'
 import { useMemo } from 'react'
 

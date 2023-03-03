@@ -21,7 +21,7 @@ import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-
 import { isDeployPreview } from 'lib/env-checks'
 import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
 import { withTiming } from 'lib/with-timing'
-import outlineItemsFromHeadings from 'lib/docs/outline-items-from-headings'
+import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'

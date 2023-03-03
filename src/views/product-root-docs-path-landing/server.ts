@@ -9,7 +9,7 @@ import slugify from 'slugify'
 import { GetStaticPropsContext } from 'next'
 import { ProductSlug, RootDocsPath } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
-import outlineItemsFromHeadings from 'lib/docs/outline-items-from-headings'
+import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
 import {
 	GETTING_STARTED_CARD_HEADING,

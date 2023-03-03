@@ -19,7 +19,7 @@ import {
 import { isDeployPreview } from 'lib/env-checks'
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { SidebarProps } from 'components/sidebar'
-import outlineItemsFromHeadings from 'lib/docs/outline-items-from-headings'
+import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 
 const basePath = 'plugins'
 const baseName = 'Plugins'
