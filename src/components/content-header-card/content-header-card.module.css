@@ -100,7 +100,7 @@
 
 		/* This is the color from --token-surface-base-box-shadow,
 		which the color value from it is not in a variable alone */
-		border-top: 1px solid rgba(101, 106, 118, 0.2);
+		border-top: 1px solid var(--token-color-border-primary);
 		border-radius: 0 0 6px 6px;
 		display: flex;
 		flex-direction: column;
