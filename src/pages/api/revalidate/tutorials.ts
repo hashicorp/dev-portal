@@ -83,8 +83,11 @@ function getTutorialLandingPaths(): string[] {
 		paths.push(`/${productSlug}/tutorials`)
 	})
 
-	// for waf and onboarding routes that are top level
-	Object.values(SectionOption).forEach((slug: SectionOption) => {
+	// for waf landing, filter out onboarding since it doesn't have a landing page
+	const sectionOptionsWithLandingPage = Object.values(SectionOption).filter(
+		(option: SectionOption) => option === SectionOption.onboarding
+	)
+	sectionOptionsWithLandingPage.forEach((slug: SectionOption) => {
 		paths.push(`/${slug}`)
 	})
 
@@ -101,12 +104,13 @@ async function getCollectionAndTutorialPaths() {
 		collectionPaths.push(getCollectionSlug(collection.slug))
 
 		// build tutorial paths
-		collection.tutorials.forEach((tutorial: ClientTutorialLite) => {
-			tutorialPaths.push(getTutorialSlug(tutorial.slug, collection.slug))
-		})
+		// collection.tutorials.forEach((tutorial: ClientTutorialLite) => {
+		// 	tutorialPaths.push(getTutorialSlug(tutorial.slug, collection.slug))
+		// })
 	})
 
-	return [...collectionPaths, ...tutorialPaths]
+	return collectionPaths.slice(0, 50)
+	// return [...collectionPaths, ...tutorialPaths]
 }
 
 export default validateToken(handler, {
