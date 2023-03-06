@@ -4,11 +4,18 @@
  */
 
 .inlineCode {
-	background-color: var(--token-color-surface-strong);
+	background-color: var(--token-color-surface-faint);
 	border-radius: 5px;
-	border: 1px solid var(--token-color-border-strong);
+	border: 1px solid var(--token-color-palette-alpha-200);
 	line-height: 1;
 	padding: 2px 4px 3px 4px;
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-surface-strong);
+
+		/* --token-color-border-strong */
+		border-color: var(--token-color-border-primary);
+	}
 }
 
 .size-100 {
