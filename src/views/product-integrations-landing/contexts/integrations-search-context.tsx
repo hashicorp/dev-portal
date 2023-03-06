@@ -47,6 +47,7 @@ export const IntegrationsSearchContext = createContext({
 	atLeastOneFacetSelected: false,
 	filteredIntegrations: [] as Integration[],
 })
+IntegrationsSearchContext.displayName = 'IntegrationsSearchContext'
 
 interface Props {
 	integrations: Integration[]
