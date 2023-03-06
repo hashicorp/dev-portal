@@ -58,6 +58,7 @@ for further details.
 
 /* Pad content and create a scrollable area within .sidebarContainer. */
 .sidebarContentWrapper {
+	background-color: var(--token-color-surface-primary);
 	flex-shrink: 1;
 	flex-grow: 1;
 	overflow-y: auto;
