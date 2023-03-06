@@ -9,7 +9,6 @@ export const getServerSideProps: GetServerSideProps = async (
 	const docsUrlsPromise = allDocsUrls()
 	// returns an array of tutorials content sitemap objects per slug
 	const tutorialsUrlsPromise = allTutorialsUrls()
-
 	const [docsUrls, tutorialsUrls] = await Promise.all([
 		docsUrlsPromise,
 		tutorialsUrlsPromise,
