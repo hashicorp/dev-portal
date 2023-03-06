@@ -41,11 +41,28 @@
 			transform: rotate(-180deg);
 		}
 	}
+
+	@nest html[data-theme='dark'] & {
+		&[aria-expanded='true'] {
+			& .activatorText {
+				color: var(--token-color-foreground-strong);
+			}
+
+			& .activatorTrailingIcon {
+				color: var(--token-color-foreground-strong);
+				transform: rotate(-180deg);
+			}
+		}
+	}
 }
 
 .activatorText {
 	color: var(--token-color-surface-strong);
 	margin-right: 6px;
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-primary);
+	}
 }
 
 .activatorLeadingIcon {
