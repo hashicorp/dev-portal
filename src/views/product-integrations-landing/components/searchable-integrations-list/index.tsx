@@ -40,7 +40,23 @@ interface SearchableIntegrationsListProps {
 export default function SearchableIntegrationsList({
 	className,
 }: SearchableIntegrationsListProps) {
-	const { filteredIntegrations: integrations } = useIntegrationsSearchContext()
+	const {
+		atLeastOneFacetSelected,
+		communityChecked,
+		componentCheckedArray,
+		filteredIntegrations: integrations,
+		flags,
+		flagsCheckedArray,
+		officialChecked,
+		partnerChecked,
+		setCommunityChecked,
+		setComponentCheckedArray,
+		setFlagsCheckedArray,
+		setOfficialChecked,
+		setPartnerChecked,
+		sortedComponents,
+		tierOptions,
+	} = useIntegrationsSearchContext()
 
 	const [, setCurrentPage] = useQueryParam(
 		'page',
@@ -86,23 +102,6 @@ export default function SearchableIntegrationsList({
 		}
 	}, [filterQuery, filteredIntegrations.length])
 	useTypingDebounce(searchedEventCallback)
-
-	const {
-		tierOptions,
-		officialChecked,
-		setOfficialChecked,
-		partnerChecked,
-		setPartnerChecked,
-		communityChecked,
-		setCommunityChecked,
-		sortedComponents,
-		componentCheckedArray,
-		setComponentCheckedArray,
-		flags,
-		flagsCheckedArray,
-		setFlagsCheckedArray,
-		atLeastOneFacetSelected,
-	} = useIntegrationsSearchContext()
 
 	// handleClearFilters resets the state of all filters
 	const handleClearFilters = (e) => {
@@ -387,19 +386,19 @@ export default function SearchableIntegrationsList({
 // Renders Tier/Component/Flags checkboxes
 function MobileFilters() {
 	const {
-		tierOptions,
-		officialChecked,
-		setOfficialChecked,
-		partnerChecked,
-		setPartnerChecked,
 		communityChecked,
-		setCommunityChecked,
-		sortedComponents,
 		componentCheckedArray,
-		setComponentCheckedArray,
 		flags,
 		flagsCheckedArray,
+		officialChecked,
+		partnerChecked,
+		setCommunityChecked,
+		setComponentCheckedArray,
 		setFlagsCheckedArray,
+		setOfficialChecked,
+		setPartnerChecked,
+		sortedComponents,
+		tierOptions,
 	} = useIntegrationsSearchContext()
 
 	const makeToggleTierHandler = (tier: Tier) => () => {
