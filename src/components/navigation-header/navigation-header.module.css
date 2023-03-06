@@ -33,6 +33,10 @@
 		padding-bottom: 14px;
 		padding-top: 14px;
 	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-surface-faint);
+	}
 }
 
 .leftSide {
@@ -93,5 +97,13 @@
 
 	&:hover {
 		border-color: var(--token-color-palette-neutral-200);
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-strong);
+
+		&:hover {
+			border-color: var(--token-color-border-strong);
+		}
 	}
 }
