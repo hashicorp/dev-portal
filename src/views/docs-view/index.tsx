@@ -7,19 +7,27 @@ import dynamic from 'next/dynamic'
 import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
 import DocsViewLayout from 'layouts/docs-view-layout'
-import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
 import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
-import { DocsViewProps, ProductsToPrimitivesMap } from './types'
+import { DocsViewProps } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import ProductDocsSearch from './components/product-docs-search'
+import getDocsMdxComponents from './utils/get-docs-mdx-components'
 import s from './docs-view.module.css'
 
 /**
  * Layouts
  *
- * note: layout in frontmatter is not supported yet, this is early stage work.
+ * Note: layout in frontmatter is not supported yet, this is early stage work.
  * Asana task: https://app.asana.com/0/1202097197789424/1202850056121889/f
+ *
+ * Note: this layout logic is used for non-`/docs` landing pages.
+ * The `/docs` landing pages use `ProductRootDocsPathLanding`.
+ * We could consider this approach, as it implies arbitrary layouts
+ * are supported via frontmatter. We could also consider renaming the
+ * "layout" property to something like "contentLayout", as otherwise
+ * it seems like it could be confused with broader "src/layouts" code.
+ * Task: https://app.asana.com/0/1202097197789424/1204069295311480/f
  */
 const layouts = {
 	'docs-root-landing': dynamic(() => import('./components/docs-root-landing')),
@@ -28,56 +36,6 @@ const DefaultLayout = ({ children }) => (
 	<div className={s.mdxContent}>{children}</div>
 )
 
-// Author primitives
-const Badge = dynamic(() => import('components/author-primitives/shared/badge'))
-const BadgesHeader = dynamic(
-	() => import('components/author-primitives/packer/badges-header')
-)
-const Button = dynamic(
-	() => import('components/author-primitives/shared/button')
-)
-const Checklist = dynamic(
-	() => import('components/author-primitives/packer/checklist')
-)
-const Columns = dynamic(
-	() => import('components/author-primitives/vault/columns')
-)
-const ConfigEntryReference = dynamic(
-	() => import('components/author-primitives/consul/config-entry-reference')
-)
-const InlineTag = dynamic(
-	() => import('components/author-primitives/vault/inline-tag')
-)
-const Placement = dynamic(
-	() => import('components/author-primitives/shared/placement-table')
-)
-const PluginBadge = dynamic(
-	() => import('components/author-primitives/packer/plugin-badge')
-)
-const ProviderTable = dynamic(
-	() => import('components/author-primitives/terraform/provider-table')
-)
-const SentinelEmbedded = dynamic(
-	() => import('@hashicorp/react-sentinel-embedded')
-)
-
-const HCPCallout = dynamic(
-	() => import('components/dev-dot-content/mdx-components/mdx-hcp-callout')
-)
-
-const productsToPrimitives: ProductsToPrimitivesMap = {
-	boundary: null,
-	consul: { ConfigEntryReference },
-	hcp: { HCPCallout },
-	nomad: { Placement },
-	packer: { Badge, BadgesHeader, Checklist, PluginBadge },
-	sentinel: { SentinelEmbedded },
-	terraform: { ProviderTable },
-	vagrant: { Button },
-	vault: { Columns, Tag: InlineTag },
-	waypoint: { Placement },
-}
-
 const DocsView = ({
 	metadata,
 	mdxSource,
@@ -85,11 +43,12 @@ const DocsView = ({
 	hideSearch = false,
 	versions,
 	projectName,
+	layoutProps,
+	outlineItems,
 }: DocsViewProps) => {
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
-	const additionalComponents = productsToPrimitives[currentProduct.slug] || {}
-	const components = defaultMdxComponents({ additionalComponents })
+	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
 	const shouldRenderSearch =
 		!__config.flags.enable_global_search &&
 		!hideSearch &&
@@ -98,31 +57,32 @@ const DocsView = ({
 	const Layout = layouts[metadata?.layout?.name] ?? DefaultLayout
 
 	return (
-		<div className={classNames(versions && s.contentWithVersions)}>
-			{shouldRenderSearch ? <ProductDocsSearch /> : null}
-			{versions ? (
-				<div className={s.versionSwitcherWrapper}>
-					<DocsVersionSwitcher options={versions} projectName={projectName} />
-				</div>
-			) : null}
-			<NoIndexTagIfVersioned />
-			<DevDotContent
-				mdxRemoteProps={{
-					compiledSource,
-					lazy,
-					scope,
-					components: {
-						...components,
-						wrapper: (props) => <Layout {...props} {...metadata?.layout} />,
-					},
-				}}
-			/>
-		</div>
+		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
+			<div className={classNames(versions && s.contentWithVersions)}>
+				{shouldRenderSearch ? <ProductDocsSearch /> : null}
+				{versions ? (
+					<div className={s.versionSwitcherWrapper}>
+						<DocsVersionSwitcher options={versions} projectName={projectName} />
+					</div>
+				) : null}
+				<NoIndexTagIfVersioned />
+				<DevDotContent
+					mdxRemoteProps={{
+						compiledSource,
+						lazy,
+						scope,
+						components: {
+							...docsMdxComponents,
+							wrapper: (props) => <Layout {...props} {...metadata?.layout} />,
+						},
+					}}
+				/>
+			</div>
+		</DocsViewLayout>
 	)
 }
 
 DocsView.contentType = 'docs'
-DocsView.layout = DocsViewLayout
 
 export type { DocsViewProps }
 export default DocsView

@@ -70,8 +70,9 @@ const generateGetStaticProps = (product: ProductData) => {
 				 * This requires refactoring both `generateTopLevelSidebarNavData` and
 				 * `generateProductLandingSidebarNavData` to set up `menuItems` with the
 				 * correct types.
-				 * This is outside the scope of the product landing page content build,
-				 * so deferring to a sidebar-focused follow-up PR.
+				 *
+				 * Task:
+				 * https://app.asana.com/0/1202097197789424/1202405210286689/f
 				 */
 				sidebarNavDataLevels: [
 					generateTopLevelSidebarNavData(product.name),
