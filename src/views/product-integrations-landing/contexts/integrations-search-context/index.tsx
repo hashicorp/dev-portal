@@ -33,6 +33,7 @@ export const IntegrationsSearchContext = createContext({
 	page: 1,
 	pageSize: 8,
 	partnerChecked: false,
+	resetPage: () => void 1,
 	setComponentCheckedArray: (val: boolean[]) => void 1,
 	setFlagsCheckedArray: (val: boolean[]) => void 1,
 	setPage: (newValue: number) => void 1,
@@ -70,11 +71,14 @@ export const IntegrationsSearchProvider = ({
 		tiers: qsTiers,
 	} = queryParams
 
-	const { clearFilters, setPage, setPageSize, toggleTierChecked } =
+	const { clearFilters, resetPage, setPage, setPageSize, toggleTierChecked } =
 		useMemo(() => {
 			return {
 				clearFilters: () => {
 					setQueryParams({ components: [], flags: [], tiers: [] })
+				},
+				resetPage: () => {
+					setQueryParams({ page: 1 })
 				},
 				setPage: (newValue: number) => {
 					setQueryParams({ page: newValue })
@@ -245,14 +249,15 @@ export const IntegrationsSearchProvider = ({
 				matchingOfficial,
 				matchingVerified,
 				officialChecked,
+				page,
 				pageSize,
 				partnerChecked,
+				resetPage,
 				setComponentCheckedArray,
 				setFlagsCheckedArray,
+				setPage,
 				setPageSize,
 				toggleTierChecked,
-				page,
-				setPage,
 			}}
 		>
 			{children}

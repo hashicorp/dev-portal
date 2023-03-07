@@ -5,12 +5,7 @@
 
 import { useCallback, useState } from 'react'
 import classNames from 'classnames'
-import {
-	NumberParam,
-	StringParam,
-	useQueryParam,
-	withDefault,
-} from 'use-query-params'
+import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 import { IconFilter16 } from '@hashicorp/flight-icons/svg-react/filter-16'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
@@ -54,6 +49,7 @@ export default function SearchableIntegrationsList({
 		page,
 		pageSize,
 		partnerChecked,
+		resetPage,
 		setComponentCheckedArray,
 		setFlagsCheckedArray,
 		setPage,
@@ -61,16 +57,6 @@ export default function SearchableIntegrationsList({
 		toggleTierChecked,
 	} = useIntegrationsSearchContext()
 
-	const [, setCurrentPage] = useQueryParam(
-		'page',
-		withDefault(NumberParam, 1),
-		{
-			enableBatching: true,
-			updateType: 'replaceIn',
-			removeDefaultsFromUrl: true,
-		}
-	)
-	const resetPage = () => setCurrentPage(1)
 	const [filterQuery, setFilterQuery] = useQueryParam(
 		'filter',
 		withDefault(StringParam, ''),
