@@ -18,7 +18,7 @@ import { SidebarNavMenuItemBadgeProps } from './components/sidebar-nav-menu-item
  */
 
 interface DividerNavItem {
-	divider: boolean
+	divider: true
 }
 
 interface HeadingNavItem {

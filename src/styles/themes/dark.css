@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 [data-theme='dark'] {
 	--token-color-palette-blue-500: #5fbcff;
 	--token-color-palette-blue-400: #4c9eff;
