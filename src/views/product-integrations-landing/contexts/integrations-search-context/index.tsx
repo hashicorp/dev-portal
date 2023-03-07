@@ -4,7 +4,12 @@
  */
 
 import { createContext, useContext, useMemo } from 'react'
-import { NumberParam, useQueryParams, withDefault } from 'use-query-params'
+import {
+	NumberParam,
+	StringParam,
+	useQueryParams,
+	withDefault,
+} from 'use-query-params'
 import {
 	Flag,
 	Integration,
@@ -24,6 +29,7 @@ export const IntegrationsSearchContext = createContext({
 	communityChecked: false,
 	componentCheckedArray: [] as boolean[],
 	filteredIntegrations: [] as Integration[],
+	filterQuery: '',
 	flagsCheckedArray: [] as boolean[],
 	integrations: [] as Integration[],
 	matchingCommunity: 0,
@@ -35,6 +41,7 @@ export const IntegrationsSearchContext = createContext({
 	partnerChecked: false,
 	resetPage: () => void 1,
 	setComponentCheckedArray: (val: boolean[]) => void 1,
+	setFilterQuery: (newValue: string) => void 1,
 	setFlagsCheckedArray: (val: boolean[]) => void 1,
 	setPage: (newValue: number) => void 1,
 	setPageSize: (newValue: number) => void 1,
@@ -53,6 +60,7 @@ export const IntegrationsSearchProvider = ({
 		{
 			components: withDefault(CommaArrayParam, []),
 			flags: withDefault(CommaArrayParam, []),
+			filterQuery: withDefault(StringParam, ''),
 			page: withDefault(NumberParam, 1),
 			pageSize: withDefault(NumberParam, 8),
 			tiers: withDefault(CommaArrayParam, []),
@@ -66,49 +74,59 @@ export const IntegrationsSearchProvider = ({
 	const {
 		components: qsComponents,
 		flags: qsFlags,
+		filterQuery,
 		page,
 		pageSize,
 		tiers: qsTiers,
 	} = queryParams
 
-	const { clearFilters, resetPage, setPage, setPageSize, toggleTierChecked } =
-		useMemo(() => {
-			return {
-				clearFilters: () => {
-					setQueryParams({ components: [], flags: [], tiers: [] })
-				},
-				resetPage: () => {
-					setQueryParams({ page: 1 })
-				},
-				setPage: (newValue: number) => {
-					setQueryParams({ page: newValue })
-				},
-				setPageSize: (newValue: number) => {
-					setQueryParams({ pageSize: newValue })
-				},
-				toggleTierChecked: (tier: Tier) => {
-					setQueryParams((prev: $TSFixMe) => {
-						const isChecked = prev.tiers.includes(tier)
+	const {
+		clearFilters,
+		resetPage,
+		setFilterQuery,
+		setPage,
+		setPageSize,
+		toggleTierChecked,
+	} = useMemo(() => {
+		return {
+			clearFilters: () => {
+				setQueryParams({ components: [], flags: [], tiers: [] })
+			},
+			setFilterQuery: (newValue: string) => {
+				setQueryParams({ filterQuery: newValue })
+			},
+			resetPage: () => {
+				setQueryParams({ page: 1 })
+			},
+			setPage: (newValue: number) => {
+				setQueryParams({ page: newValue })
+			},
+			setPageSize: (newValue: number) => {
+				setQueryParams({ pageSize: newValue })
+			},
+			toggleTierChecked: (tier: Tier) => {
+				setQueryParams((prev: $TSFixMe) => {
+					const isChecked = prev.tiers.includes(tier)
 
-						if (isChecked) {
-							return {
-								...prev,
-								tiers: prev.tiers.filter((_tier: Tier) => _tier !== tier),
-							}
-						} else {
-							integrationLibraryFilterSelectedEvent({
-								filter_category: 'tier',
-								filter_value: tier,
-							})
-							return {
-								...prev,
-								tiers: [...prev.tiers, tier],
-							}
+					if (isChecked) {
+						return {
+							...prev,
+							tiers: prev.tiers.filter((_tier: Tier) => _tier !== tier),
 						}
-					})
-				},
-			}
-		}, [setQueryParams])
+					} else {
+						integrationLibraryFilterSelectedEvent({
+							filter_category: 'tier',
+							filter_value: tier,
+						})
+						return {
+							...prev,
+							tiers: [...prev.tiers, tier],
+						}
+					}
+				})
+			},
+		}
+	}, [setQueryParams])
 
 	const officialChecked = qsTiers.includes(Tier.OFFICIAL)
 	const partnerChecked = qsTiers.includes(Tier.PARTNER)
@@ -243,6 +261,7 @@ export const IntegrationsSearchProvider = ({
 				communityChecked,
 				componentCheckedArray,
 				filteredIntegrations,
+				filterQuery,
 				flagsCheckedArray,
 				integrations,
 				matchingCommunity,
@@ -254,6 +273,7 @@ export const IntegrationsSearchProvider = ({
 				partnerChecked,
 				resetPage,
 				setComponentCheckedArray,
+				setFilterQuery,
 				setFlagsCheckedArray,
 				setPage,
 				setPageSize,

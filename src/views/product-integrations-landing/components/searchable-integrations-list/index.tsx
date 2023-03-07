@@ -44,6 +44,7 @@ export default function SearchableIntegrationsList({
 		communityChecked,
 		componentCheckedArray,
 		filteredIntegrations: integrations,
+		filterQuery,
 		flagsCheckedArray,
 		officialChecked,
 		page,
@@ -51,21 +52,12 @@ export default function SearchableIntegrationsList({
 		partnerChecked,
 		resetPage,
 		setComponentCheckedArray,
+		setFilterQuery,
 		setFlagsCheckedArray,
 		setPage,
 		setPageSize,
 		toggleTierChecked,
 	} = useIntegrationsSearchContext()
-
-	const [filterQuery, setFilterQuery] = useQueryParam(
-		'filter',
-		withDefault(StringParam, ''),
-		{
-			enableBatching: true,
-			updateType: 'replaceIn',
-			removeDefaultsFromUrl: true,
-		}
-	)
 
 	const filteredIntegrations = getFilteredIntegrations({
 		integrations,
