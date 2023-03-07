@@ -193,50 +193,28 @@ function MobileFilters() {
 
 	return (
 		<>
-			<div className={s.optionsContainer}>
-				<Legend>Tier</Legend>
-				{tierOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
-					return (
-						<CheckboxField
-							key={id}
-							labelFontWeight="regular"
-							label={label}
-							checked={selected}
-							onChange={onChange}
-						/>
-					)
-				})}
-			</div>
-
-			<div className={s.optionsContainer}>
-				<Legend>Component</Legend>
-				{componentOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
-					return (
-						<CheckboxField
-							key={id}
-							labelFontWeight="regular"
-							label={label}
-							checked={selected}
-							onChange={onChange}
-						/>
-					)
-				})}
-			</div>
-
-			<div className={s.optionsContainer}>
-				<Legend>Flags</Legend>
-				{flagOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
-					return (
-						<CheckboxField
-							key={id}
-							labelFontWeight="regular"
-							label={label}
-							checked={selected}
-							onChange={onChange}
-						/>
-					)
-				})}
-			</div>
+			{[
+				{ name: 'Tier', options: tierOptions },
+				{ name: 'Component', options: componentOptions },
+				{ name: 'Flags', options: flagOptions },
+			].map(({ name, options }: $TSFixMe) => {
+				return (
+					<div key={name} className={s.optionsContainer}>
+						<Legend>{name}</Legend>
+						{options.map(({ id, label, onChange, selected }: $TSFixMe) => {
+							return (
+								<CheckboxField
+									key={id}
+									labelFontWeight="regular"
+									label={label}
+									checked={selected}
+									onChange={onChange}
+								/>
+							)
+						})}
+					</div>
+				)
+			})}
 		</>
 	)
 }
