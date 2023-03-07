@@ -58,7 +58,11 @@ interface TutorialViewProps {
 		text: string
 	}
 	nextCollection?: ClientCollectionLite | null // if null, it is the last collection in the sidebar order
-	metadata: $TSFixMe
+	metadata: {
+	  title: string
+	  description: string
+	  slug?: string
+	 }
 }
 
 interface LayoutContentWrapperProps {
