@@ -42,6 +42,7 @@ export default function SearchableIntegrationsList({
 }: SearchableIntegrationsListProps) {
 	const {
 		atLeastOneFacetSelected,
+		clearFilters,
 		communityChecked,
 		componentCheckedArray,
 		filteredIntegrations: integrations,
@@ -102,16 +103,10 @@ export default function SearchableIntegrationsList({
 	useTypingDebounce(searchedEventCallback)
 
 	// handleClearFilters resets the state of all filters
-	const handleClearFilters = (e) => {
+	const handleClearFilters = () => {
 		resetPage()
-
 		setFilterQuery('')
-		toggleTierChecked(Tier.COMMUNITY)
-		toggleTierChecked(Tier.OFFICIAL)
-		toggleTierChecked(Tier.PARTNER)
-
-		setComponentCheckedArray(componentCheckedArray.map((v, i) => false))
-		setFlagsCheckedArray(flagsCheckedArray.map((v, i) => false))
+		clearFilters()
 	}
 
 	const makeToggleFlagHandler = (i: number, flagName: string) => () => {
@@ -301,9 +296,7 @@ export default function SearchableIntegrationsList({
 
 			<PaginatedIntegrationsList
 				integrations={filteredIntegrations}
-				onClearFiltersClicked={() => {
-					handleClearFilters(null)
-				}}
+				onClearFiltersClicked={handleClearFilters}
 			/>
 
 			{/* 

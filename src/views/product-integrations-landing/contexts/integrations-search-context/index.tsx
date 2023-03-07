@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { createContext, useCallback, useContext, useMemo } from 'react'
+import { createContext, useContext, useMemo } from 'react'
 import { useQueryParams, withDefault } from 'use-query-params'
 import {
 	Flag,
@@ -17,6 +17,7 @@ import { integrationLibraryFilterSelectedEvent } from 'views/product-integration
 
 export const IntegrationsSearchContext = createContext({
 	atLeastOneFacetSelected: false,
+	clearFilters: () => void 1,
 	communityChecked: false,
 	componentCheckedArray: [] as boolean[],
 	filteredIntegrations: [] as Integration[],
@@ -58,30 +59,34 @@ export const IntegrationsSearchProvider = ({
 		flags: qsFlags,
 	} = queryParams
 
-	const toggleTierChecked = useCallback(
-		(tier: Tier) => {
-			setQueryParams((prev: $TSFixMe) => {
-				const isChecked = prev.tiers.includes(tier)
+	const { clearFilters, toggleTierChecked } = useMemo(() => {
+		return {
+			clearFilters: () => {
+				setQueryParams({ components: [], flags: [], tiers: [] })
+			},
+			toggleTierChecked: (tier: Tier) => {
+				setQueryParams((prev: $TSFixMe) => {
+					const isChecked = prev.tiers.includes(tier)
 
-				if (isChecked) {
-					return {
-						...prev,
-						tiers: prev.tiers.filter((_tier: Tier) => _tier !== tier),
+					if (isChecked) {
+						return {
+							...prev,
+							tiers: prev.tiers.filter((_tier: Tier) => _tier !== tier),
+						}
+					} else {
+						integrationLibraryFilterSelectedEvent({
+							filter_category: 'tier',
+							filter_value: tier,
+						})
+						return {
+							...prev,
+							tiers: [...prev.tiers, tier],
+						}
 					}
-				} else {
-					integrationLibraryFilterSelectedEvent({
-						filter_category: 'tier',
-						filter_value: tier,
-					})
-					return {
-						...prev,
-						tiers: [...prev.tiers, tier],
-					}
-				}
-			})
-		},
-		[setQueryParams]
-	)
+				})
+			},
+		}
+	}, [setQueryParams])
 
 	const officialChecked = qsTiers.includes(Tier.OFFICIAL)
 	const partnerChecked = qsTiers.includes(Tier.PARTNER)
@@ -294,6 +299,7 @@ export const IntegrationsSearchProvider = ({
 				flagsCheckedArray,
 				setFlagsCheckedArray,
 				filteredIntegrations,
+				clearFilters,
 			}}
 		>
 			{children}
