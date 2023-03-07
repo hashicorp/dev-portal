@@ -59,10 +59,10 @@ interface TutorialViewProps {
 	}
 	nextCollection?: ClientCollectionLite | null // if null, it is the last collection in the sidebar order
 	metadata: {
-	  title: string
-	  description: string
-	  slug?: string
-	 }
+		title: string
+		description: string
+		slug?: string
+	}
 }
 
 interface LayoutContentWrapperProps {
