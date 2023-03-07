@@ -72,8 +72,8 @@ export default function SearchableIntegrationsList({
 					IconComponent={IconSearch16}
 					value={filterQuery}
 					onChange={(v: string) => {
-						setFilterQuery(v)
 						resetPage()
+						setFilterQuery(v)
 					}}
 				/>
 
