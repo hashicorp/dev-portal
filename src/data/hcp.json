@@ -11,7 +11,7 @@
 			"iconName": "docs",
 			"name": "Documentation",
 			"path": "docs",
-			"productSlugForLoader": "cloud.hashicorp.com"
+			"productSlugForLoader": "hcp-docs"
 		}
 	]
 }
