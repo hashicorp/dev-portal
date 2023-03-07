@@ -22,16 +22,11 @@ function getTutorialLandingPaths(): string[] {
 }
 
 async function getCollectionAndTutorialPaths() {
-	const collectionPaths = []
-	const tutorialPaths = []
 	const allCollections = await getAllCollections()
 
-	allCollections.forEach((collection: ClientCollection) => {
-		// build collection paths
-		collectionPaths.push(getCollectionSlug(collection.slug))
-	})
-
-	return [...collectionPaths, ...tutorialPaths]
+	return allCollections.map((collection: ClientCollection) =>
+		getCollectionSlug(collection.slug)
+	)
 }
 
 export async function allTutorialsUrls() {
