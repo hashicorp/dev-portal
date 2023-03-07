@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { OutlineLinkItem } from 'components/outline-nav/types'
 import { filterTableOfContentsHeadings } from 'components/table-of-contents/utils/filter-table-of-contents-headings'
 
