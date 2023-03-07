@@ -4,7 +4,7 @@
  */
 
 import { createContext, useContext, useMemo } from 'react'
-import { QueryParamOptions, useQueryParam, withDefault } from 'use-query-params'
+import { useQueryParams, withDefault } from 'use-query-params'
 import {
 	Flag,
 	Integration,
@@ -41,28 +41,23 @@ export const IntegrationsSearchProvider = ({
 	children,
 	integrations: _integrations,
 }: IntegrationsSearchProviderProps) => {
-	const sharedOptions: QueryParamOptions = {
-		enableBatching: true,
-		updateType: 'replaceIn',
-		removeDefaultsFromUrl: true,
-	}
-	const [qsTiers, setQsTiers] = useQueryParam(
-		'tiers',
-		withDefault(CommaArrayParam, []),
-		sharedOptions
+	const [queryParams, setQueryParams] = useQueryParams(
+		{
+			components: withDefault(CommaArrayParam, []),
+			flags: withDefault(CommaArrayParam, []),
+			tiers: withDefault(CommaArrayParam, []),
+		},
+		{
+			enableBatching: true,
+			removeDefaultsFromUrl: true,
+			updateType: 'replaceIn',
+		}
 	)
-
-	const [qsComponents, setQsComponents] = useQueryParam(
-		'components',
-		withDefault(CommaArrayParam, []),
-		sharedOptions
-	)
-
-	const [qsFlags, setQsFlags] = useQueryParam(
-		'flags',
-		withDefault(CommaArrayParam, []),
-		sharedOptions
-	)
+	const {
+		tiers: qsTiers,
+		components: qsComponents,
+		flags: qsFlags,
+	} = queryParams
 
 	const officialChecked = qsTiers.includes(Tier.OFFICIAL)
 	const partnerChecked = qsTiers.includes(Tier.PARTNER)
@@ -70,23 +65,53 @@ export const IntegrationsSearchProvider = ({
 
 	const setOfficialChecked = (value: boolean) => {
 		if (value) {
-			setQsTiers((prev) => [...prev, Tier.OFFICIAL])
+			setQueryParams((prev) => {
+				return {
+					...prev,
+					tiers: [...prev.tiers, Tier.OFFICIAL],
+				}
+			})
 		} else {
-			setQsTiers((prev) => prev.filter((tier) => tier !== Tier.OFFICIAL))
+			setQueryParams((prev) => {
+				return {
+					...prev,
+					tiers: prev.tiers.filter((tier) => tier !== Tier.OFFICIAL),
+				}
+			})
 		}
 	}
 	const setPartnerChecked = (value: boolean) => {
 		if (value) {
-			setQsTiers((prev) => [...prev, Tier.PARTNER])
+			setQueryParams((prev) => {
+				return {
+					...prev,
+					tiers: [...prev.tiers, Tier.PARTNER],
+				}
+			})
 		} else {
-			setQsTiers((prev) => prev.filter((tier) => tier !== Tier.PARTNER))
+			setQueryParams((prev) => {
+				return {
+					...prev,
+					tiers: prev.tiers.filter((tier) => tier !== Tier.PARTNER),
+				}
+			})
 		}
 	}
 	const setCommunityChecked = (value: boolean) => {
 		if (value) {
-			setQsTiers((prev) => [...prev, Tier.COMMUNITY])
+			setQueryParams((prev) => {
+				return {
+					...prev,
+					tiers: [...prev.tiers, Tier.COMMUNITY],
+				}
+			})
 		} else {
-			setQsTiers((prev) => prev.filter((tier) => tier !== Tier.COMMUNITY))
+			setQueryParams((prev) => {
+				return {
+					...prev,
+					tiers: prev.tiers.filter((tier) => tier !== Tier.COMMUNITY),
+				}
+			})
 		}
 	}
 
@@ -128,7 +153,7 @@ export const IntegrationsSearchProvider = ({
 			.filter(Boolean)
 
 		// update URL & state
-		setQsFlags(newFlags)
+		setQueryParams({ flags: newFlags })
 	}
 
 	let filteredIntegrations = integrations
@@ -217,7 +242,7 @@ export const IntegrationsSearchProvider = ({
 			.filter(Boolean)
 
 		// update URL & state
-		setQsComponents(newComponents)
+		setQueryParams({ components: newComponents })
 	}
 
 	// Now filter our integrations if facets are selected
