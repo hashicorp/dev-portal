@@ -16,12 +16,14 @@ import { CommaArrayParam } from './constants'
 import { integrationLibraryFilterSelectedEvent } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/analytics'
 
 export const IntegrationsSearchContext = createContext({
+	allComponents: [] as IntegrationComponent[],
+	allFlags: [] as Flag[],
+	allTiers: [] as Tier[],
 	atLeastOneFacetSelected: false,
 	clearFilters: () => void 1,
 	communityChecked: false,
 	componentCheckedArray: [] as boolean[],
 	filteredIntegrations: [] as Integration[],
-	flags: [] as Flag[],
 	flagsCheckedArray: [] as boolean[],
 	integrations: [] as Integration[],
 	matchingCommunity: 0,
@@ -31,13 +33,14 @@ export const IntegrationsSearchContext = createContext({
 	partnerChecked: false,
 	setComponentCheckedArray: (val: boolean[]) => void 1,
 	setFlagsCheckedArray: (val: boolean[]) => void 1,
-	sortedComponents: [] as $TSFixMe[],
-	tierOptions: [] as Tier[],
 	toggleTierChecked: (tier: Tier) => void 1,
 })
 IntegrationsSearchContext.displayName = 'IntegrationsSearchContext'
 
 export const IntegrationsSearchProvider = ({
+	allComponents,
+	allFlags,
+	allTiers,
 	children,
 	integrations: _integrations,
 }: IntegrationsSearchProviderProps) => {
@@ -99,32 +102,18 @@ export const IntegrationsSearchProvider = ({
 		})
 	}, [_integrations])
 
-	const flags: Flag[] = integrations
-		// accumulate all integration flags
-		.flatMap((e) => e.flags)
-		// remove duplicates
-		.filter((value, index, self) => {
-			const _value = JSON.stringify(value)
-			return (
-				index ===
-				self.findIndex((obj) => {
-					return JSON.stringify(obj) === _value
-				})
-			)
-		})
-
 	const flagsCheckedArray = useMemo(() => {
-		return flags.map((flag) => {
+		return allFlags.map((flag: Flag) => {
 			return qsFlags.includes(flag.slug)
 		})
-	}, [flags, qsFlags])
+	}, [allFlags, qsFlags])
 
 	const setFlagsCheckedArray = (val: boolean[]) => {
 		// map [true, false, false, true] => [Flag, Flag]
 		const newFlags = val
 			.map((checked, index) => {
 				if (checked) {
-					return flags[index].slug
+					return allFlags[index].slug
 				}
 			})
 			.filter(Boolean)
@@ -134,35 +123,6 @@ export const IntegrationsSearchProvider = ({
 	}
 
 	let filteredIntegrations = integrations
-
-	// The logical sort ordering of the Tiers
-	const tierSortVal = (tier: string): number => {
-		switch (tier) {
-			case Tier.OFFICIAL:
-				return 1
-			case Tier.PARTNER:
-				return 2
-			case Tier.COMMUNITY:
-			default:
-				return 3
-		}
-	}
-
-	// Figure out the list of tiers we want to display as filters
-	// based off of the integrations list that we are passed. If there
-	// are no community integrations passed, we simply won't display
-	// that checkbox.
-	const tierOptions = Array.from(
-		new Set(integrations.map((i: Integration) => i.tier))
-	).sort((a: Tier, b: Tier) => {
-		if (tierSortVal(a) > tierSortVal(b)) {
-			return 1
-		} else if (tierSortVal(a) < tierSortVal(b)) {
-			return -1
-		} else {
-			return 0
-		}
-	})
 
 	// Calculate the number of integrations that match each tier
 	const matchingOfficial = integrations.filter(
@@ -175,45 +135,19 @@ export const IntegrationsSearchProvider = ({
 		(i) => i.tier === Tier.COMMUNITY
 	).length
 
-	// Pull out the list of all of the components used by our integrations
-	// and sort them alphabetically so they are deterministically ordered.
-	const allComponents = filteredIntegrations.flatMap(
-		(i: Integration) => i.components
-	)
-
-	const mergedComponents = [].concat(allComponents)
-	const componentIDs = mergedComponents.map((c) => c.id)
-	const dedupedComponents = mergedComponents.filter(
-		({ id }, index) => !componentIDs.includes(id, index + 1)
-	)
-
-	const sortedComponents = dedupedComponents
-		.sort((a, b) => {
-			const textA = a.name.toLowerCase()
-			const textB = b.name.toLowerCase()
-			return textA < textB ? -1 : textA > textB ? 1 : 0
-		})
-		.map((component) => {
-			// Add # of occurances to the component object for facets
-			component.occurances = mergedComponents.filter(
-				(c) => c.slug === component.slug
-			).length
-			return component
-		})
-
 	// We have to manage our component checked state in a singular
 	// state object as there are an unknown number of components.
 	const componentCheckedArray = useMemo(() => {
-		return sortedComponents.map((component) => {
+		return allComponents.map((component) => {
 			return qsComponents.includes(component.slug)
 		})
-	}, [sortedComponents, qsComponents])
+	}, [allComponents, qsComponents])
 	const setComponentCheckedArray = (val: boolean[]) => {
 		// map [true, false, false, true] => [Component, Component]
 		const newComponents = val
 			.map((checked, index) => {
 				if (checked) {
-					return sortedComponents[index].slug
+					return allComponents[index].slug
 				}
 			})
 			.filter(Boolean)
@@ -250,7 +184,7 @@ export const IntegrationsSearchProvider = ({
 			let componentMatch = !componentCheckedArray.includes(true)
 			componentCheckedArray.forEach((checked, index) => {
 				if (checked) {
-					const checkedComponent = sortedComponents[index]
+					const checkedComponent = allComponents[index]
 					// Check each integration component
 					integration.components.forEach((component: IntegrationComponent) => {
 						if (component.slug === checkedComponent.slug) {
@@ -266,7 +200,7 @@ export const IntegrationsSearchProvider = ({
 			// and return true if at least 1 flag matches
 			flagsCheckedArray.forEach((checked, index) => {
 				if (checked) {
-					const checkedFlag = flags[index]
+					const checkedFlag = allFlags[index]
 					integration.flags.forEach((flag: Flag) => {
 						if (flag.slug === checkedFlag.slug) {
 							flagMatch = true
@@ -282,12 +216,14 @@ export const IntegrationsSearchProvider = ({
 	return (
 		<IntegrationsSearchContext.Provider
 			value={{
+				allComponents,
+				allFlags,
+				allTiers,
 				atLeastOneFacetSelected,
 				clearFilters,
 				communityChecked,
 				componentCheckedArray,
 				filteredIntegrations,
-				flags,
 				flagsCheckedArray,
 				integrations,
 				matchingCommunity,
@@ -297,8 +233,6 @@ export const IntegrationsSearchProvider = ({
 				partnerChecked,
 				setComponentCheckedArray,
 				setFlagsCheckedArray,
-				sortedComponents,
-				tierOptions,
 				toggleTierChecked,
 			}}
 		>

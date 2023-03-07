@@ -41,19 +41,19 @@ export default function SearchableIntegrationsList({
 	className,
 }: SearchableIntegrationsListProps) {
 	const {
+		allComponents,
+		allFlags,
+		allTiers,
 		atLeastOneFacetSelected,
 		clearFilters,
 		communityChecked,
 		componentCheckedArray,
 		filteredIntegrations: integrations,
-		flags,
 		flagsCheckedArray,
 		officialChecked,
 		partnerChecked,
 		setComponentCheckedArray,
 		setFlagsCheckedArray,
-		sortedComponents,
-		tierOptions,
 		toggleTierChecked,
 	} = useIntegrationsSearchContext()
 
@@ -167,7 +167,7 @@ export default function SearchableIntegrationsList({
 					<div className={classNames(s.selectStack, s.tablet_up)}>
 						<MultiSelect
 							text="Tiers"
-							options={tierOptions.map((tierOption: Tier) => {
+							options={allTiers.map((tierOption: Tier) => {
 								const selected =
 									(tierOption === Tier.OFFICIAL && officialChecked) ||
 									(tierOption === Tier.PARTNER && partnerChecked) ||
@@ -185,21 +185,19 @@ export default function SearchableIntegrationsList({
 						/>
 						<MultiSelect
 							text="Components"
-							options={sortedComponents.map(
-								({ slug, plural_name, name }, i) => {
-									const selected = componentCheckedArray[i]
-									return {
-										id: slug,
-										label: capitalize(plural_name),
-										onChange: makeToggleComponentHandler(i, name),
-										selected,
-									}
+							options={allComponents.map(({ slug, plural_name, name }, i) => {
+								const selected = componentCheckedArray[i]
+								return {
+									id: slug,
+									label: capitalize(plural_name),
+									onChange: makeToggleComponentHandler(i, name),
+									selected,
 								}
-							)}
+							})}
 						/>
 						<MultiSelect
 							text="Flags"
-							options={flags.map(({ id, name }, i) => {
+							options={allFlags.map(({ id, name }, i) => {
 								const selected = flagsCheckedArray[i]
 								return {
 									id,
@@ -232,7 +230,7 @@ export default function SearchableIntegrationsList({
 
 				<div className={s.filterInfo}>
 					{/* Render x-tags for tiers */}
-					{tierOptions.map((tierOption: Tier) => {
+					{allTiers.map((tierOption: Tier) => {
 						const checked =
 							(tierOption === Tier.OFFICIAL && officialChecked) ||
 							(tierOption === Tier.PARTNER && partnerChecked) ||
@@ -251,7 +249,7 @@ export default function SearchableIntegrationsList({
 						)
 					})}
 					{/* Render x-tags for components */}
-					{sortedComponents.map((e, i) => {
+					{allComponents.map((e, i) => {
 						const checked = componentCheckedArray[i]
 						return (
 							checked && (
@@ -264,7 +262,7 @@ export default function SearchableIntegrationsList({
 						)
 					})}
 					{/* Render x-tags for flags */}
-					{flags.map((e, i) => {
+					{allFlags.map((e, i) => {
 						const checked = flagsCheckedArray[i]
 						return (
 							checked && (
@@ -347,16 +345,16 @@ export default function SearchableIntegrationsList({
 // Renders Tier/Component/Flags checkboxes
 function MobileFilters() {
 	const {
+		allComponents,
+		allFlags,
+		allTiers,
 		communityChecked,
 		componentCheckedArray,
-		flags,
 		flagsCheckedArray,
 		officialChecked,
 		partnerChecked,
 		setComponentCheckedArray,
 		setFlagsCheckedArray,
-		sortedComponents,
-		tierOptions,
 		toggleTierChecked,
 	} = useIntegrationsSearchContext()
 
@@ -376,7 +374,7 @@ function MobileFilters() {
 		<>
 			<div className={s.optionsContainer}>
 				<Legend>Tier</Legend>
-				{tierOptions.map((tierOption: Tier) => {
+				{allTiers.map((tierOption: Tier) => {
 					const checked =
 						(tierOption === Tier.OFFICIAL && officialChecked) ||
 						(tierOption === Tier.PARTNER && partnerChecked) ||
@@ -395,7 +393,7 @@ function MobileFilters() {
 
 			<div className={s.optionsContainer}>
 				<Legend>Component</Legend>
-				{sortedComponents.map((e, i) => {
+				{allComponents.map((e, i) => {
 					const checked = componentCheckedArray[i]
 					return (
 						<CheckboxField
@@ -411,7 +409,7 @@ function MobileFilters() {
 
 			<div className={s.optionsContainer}>
 				<Legend>Flags</Legend>
-				{flags.map((e, i) => {
+				{allFlags.map((e, i) => {
 					const checked = flagsCheckedArray[i]
 					return (
 						<CheckboxField
