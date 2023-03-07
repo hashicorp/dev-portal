@@ -10,9 +10,10 @@ import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
 import getVideoUrl from 'views/tutorial-view/utils/get-video-url'
 import DevDotContent from 'components/dev-dot-content'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
 import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
 import { FeaturedInCollections } from 'views/tutorial-view/components'
-import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { NextPrevious } from 'views/tutorial-view/components'
 import { generateCanonicalUrl } from 'views/tutorial-view/utils'
 import s from 'views/tutorial-view/tutorial-view.module.css'
@@ -21,11 +22,12 @@ import { WafTutorialViewProps } from '../types'
 export default function WellArchitectedFrameworkTutorialView({
 	tutorial,
 	layoutProps,
+	outlineItems,
+	pageHeading,
 }: WafTutorialViewProps) {
 	const {
 		id,
 		slug,
-		name,
 		readTime,
 		edition,
 		productsUsed,
@@ -53,14 +55,14 @@ export default function WellArchitectedFrameworkTutorialView({
 				key={slug}
 				{...(isInteractive && { labId: handsOnLab.id })}
 			>
-				<SidebarSidecarWithToc
-					headings={layoutProps.headings}
+				<SidebarSidecarLayout
+					sidecarSlot={<OutlineNavWithActive items={outlineItems.slice()} />}
 					breadcrumbLinks={layoutProps.breadcrumbLinks}
 					sidebarNavDataLevels={layoutProps.navLevels}
 					mainWidth="narrow"
 				>
 					<TutorialMeta
-						heading={{ slug: slug, text: name }}
+						heading={pageHeading}
 						meta={{
 							readTime,
 							edition,
@@ -86,7 +88,7 @@ export default function WellArchitectedFrameworkTutorialView({
 						className={s.featuredInCollections}
 						collections={featuredInWithoutCurrent}
 					/>
-				</SidebarSidecarWithToc>
+				</SidebarSidecarLayout>
 			</InteractiveLabWrapper>
 		</>
 	)
