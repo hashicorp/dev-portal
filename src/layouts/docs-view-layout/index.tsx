@@ -11,7 +11,7 @@ import SidebarSidecarLayout, {
 import { DocsVersionAlertBanner } from './components'
 
 /**
- * Lightweight wrapper around SidebarSidecarWithToc which passes along some docs
+ * Lightweight wrapper around SidebarSidecarLayout which passes along some docs
  * specific props.
  */
 const DocsViewLayout = ({
