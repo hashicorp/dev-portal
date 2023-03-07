@@ -163,7 +163,7 @@ export const IntegrationsSearchProvider = ({
 						})
 						return {
 							...prev,
-							tiers: [...prev.tiers, flag.slug],
+							flags: [...prev.flags, flag.slug],
 						}
 					}
 				})
@@ -197,8 +197,14 @@ export const IntegrationsSearchProvider = ({
 		paginatedIntegrations,
 	} = useMemo(() => {
 		const atLeastOneFacetSelected =
-			qsComponents.length > 0 || qsFlags.length > 0 || qsTiers.length > 0
+			qsComponents.length > 0 ||
+			qsFlags.length > 0 ||
+			qsTiers.length > 0 ||
+			filterQuery.length > 0
 
+		/**
+		 * First, filter by facet and filterQuery
+		 */
 		const filteredIntegrations = integrations.filter(
 			(integration: Integration) => {
 				let tierMatch = true
@@ -234,7 +240,10 @@ export const IntegrationsSearchProvider = ({
 			}
 		)
 
-		const paginatedIntegrations = integrations.slice(
+		/**
+		 * Second, paginate the filtered list
+		 */
+		const paginatedIntegrations = filteredIntegrations.slice(
 			(page - 1) * pageSize,
 			page * pageSize
 		)
