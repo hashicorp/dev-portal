@@ -44,24 +44,7 @@ export default function PaginatedIntegrationsList({
 
 	const page = coerceToDefaultValue(_page, 1)
 	const pageSize = coerceToDefaultValue(_pageSize, 8)
-
-	// Sort integrations alphabetically. Right now this is our
-	// preferred way of sorting. In the event we want to add different
-	// sorting options in the future to this list, we'll need to support
-	// them at this component.
-	const sortedIntegrations = integrations.sort(
-		(a: Integration, b: Integration): number => {
-			if (a.name < b.name) {
-				return -1
-			} else if (a.name > b.name) {
-				return 1
-			} else {
-				return 0
-			}
-		}
-	)
-
-	const currentPageIntegrations = sortedIntegrations.slice(
+	const currentPageIntegrations = integrations.slice(
 		(page - 1) * pageSize,
 		page * pageSize
 	)

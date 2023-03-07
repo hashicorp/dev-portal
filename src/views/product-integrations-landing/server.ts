@@ -74,12 +74,32 @@ export async function getStaticProps({
 	// Pull out the Product Config
 	const product = cachedGetProductData(params.productSlug)
 
+	/**
+	 * Fetch, filter, and sort all integrations for the current product.
+	 *
+	 * Sort alphabetically. Right now this is our preferred way of sorting. In the
+	 * event we want to add different sorting options in the future to this list,
+	 * we'll need to support them client-side.
+	 */
 	const integrations: Integration[] = await fetchAllProductIntegrations(
 		params.productSlug
 	)
 	const integrationsWithVersions = integrations.filter(
 		(integration: Integration) => {
 			return integration.versions.length > 0
+		}
+	)
+	const sortedIntegrationsWithVersions = integrationsWithVersions.sort(
+		(a: Integration, b: Integration): number => {
+			const aName = a.name.toLowerCase()
+			const bName = b.name.toLowerCase()
+			if (aName < bName) {
+				return -1
+			} else if (aName > bName) {
+				return 1
+			} else {
+				return 0
+			}
 		}
 	)
 
@@ -178,7 +198,7 @@ export async function getStaticProps({
 			allFlags,
 			allTiers,
 			breadcrumbLinks,
-			integrations: integrationsWithVersions,
+			integrations: sortedIntegrationsWithVersions,
 			metadata: {
 				title: `Integrations`,
 				// description: `TODO`,
