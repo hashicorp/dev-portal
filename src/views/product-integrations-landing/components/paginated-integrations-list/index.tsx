@@ -3,51 +3,32 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { Integration } from 'lib/integrations-api-client/integration'
 import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
 import { useEffect, useRef } from 'react'
 import IntegrationsList from '../integrations-list'
 import s from './style.module.css'
-import Pagination, { PaginationProps } from 'components/pagination'
+import Pagination from 'components/pagination'
 import { useDeviceSize } from 'contexts/device-size'
+import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 
 interface PaginatedIntegrationsListProps {
-	integrations: Array<Integration>
 	onClearFiltersClicked: () => void
-	onPageChange: PaginationProps['onPageChange']
-	onPageSizeChange: PaginationProps['onPageSizeChange']
-	page: PaginationProps['page']
-	pageSize: PaginationProps['pageSize']
-}
-
-/**
- * A small util to guard against invalid values for our
- * pagination query params, such as NaN or negative numbers.
- */
-function coerceToDefaultValue(value: number, init: number): number {
-	if (isNaN(value) || value < 1) {
-		return init
-	}
-	return value
 }
 
 export default function PaginatedIntegrationsList({
-	integrations,
 	onClearFiltersClicked,
-	onPageSizeChange,
-	page: _page,
-	pageSize: _pageSize,
-	onPageChange,
 }: PaginatedIntegrationsListProps) {
 	const isFirstRender = useRef(true)
 	const containerRef = useRef(null)
 
-	const page = coerceToDefaultValue(_page, 1)
-	const pageSize = coerceToDefaultValue(_pageSize, 8)
-	const currentPageIntegrations = integrations.slice(
-		(page - 1) * pageSize,
-		page * pageSize
-	)
+	const {
+		filteredIntegrations,
+		paginatedIntegrations,
+		page,
+		setPage,
+		pageSize,
+		setPageSize,
+	} = useIntegrationsSearchContext()
 
 	/**
 	 * If our pagination page changes, scroll up to the top of the wrapper.
@@ -85,16 +66,16 @@ export default function PaginatedIntegrationsList({
 	return (
 		<div className={s.paginatedIntegrationsList} ref={containerRef}>
 			<IntegrationsList
-				integrations={currentPageIntegrations}
+				integrations={paginatedIntegrations}
 				onClearFiltersClicked={onClearFiltersClicked}
 			/>
 			<div className={s.paginatorWrapper}>
 				<Pagination
-					onPageChange={onPageChange}
-					onPageSizeChange={onPageSizeChange}
+					onPageChange={setPage}
+					onPageSizeChange={setPageSize}
 					page={page}
 					pageSize={pageSize}
-					totalItems={integrations.length}
+					totalItems={filteredIntegrations.length}
 				>
 					{(isDesktop || isTablet) && <Pagination.Info />}
 					<Pagination.Nav type={isMobile ? 'compact' : 'truncated'} />

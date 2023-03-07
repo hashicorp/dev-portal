@@ -22,6 +22,17 @@ import { getDoesMatchFilterQuery } from 'views/product-integrations-landing/comp
 import { IntegrationsSearchProviderProps } from './types'
 import { CommaArrayParam } from './constants'
 
+/**
+ * A small util to guard against invalid values for our
+ * pagination query params, such as NaN or negative numbers.
+ */
+function coerceToDefaultValue(value: number, init: number): number {
+	if (isNaN(value) || value < 1) {
+		return init
+	}
+	return value
+}
+
 interface FacetFilterOption {
 	id: string
 	label: string
@@ -39,6 +50,7 @@ export const IntegrationsSearchContext = createContext({
 	integrations: [] as Integration[],
 	page: 1,
 	pageSize: 8,
+	paginatedIntegrations: [] as Integration[],
 	resetPage: () => void 1,
 	setFilterQuery: (newValue: string) => void 1,
 	setPage: (newValue: number) => void 1,
@@ -73,10 +85,10 @@ export const IntegrationsSearchProvider = ({
 		components: qsComponents,
 		flags: qsFlags,
 		filterQuery,
-		page,
-		pageSize,
 		tiers: qsTiers,
 	} = queryParams
+	const page = coerceToDefaultValue(queryParams.page, 1)
+	const pageSize = coerceToDefaultValue(queryParams.pageSize, 8)
 
 	const {
 		clearFilters,
@@ -179,7 +191,11 @@ export const IntegrationsSearchProvider = ({
 		}
 	}, [setQueryParams])
 
-	const { atLeastOneFacetSelected, filteredIntegrations } = useMemo(() => {
+	const {
+		atLeastOneFacetSelected,
+		filteredIntegrations,
+		paginatedIntegrations,
+	} = useMemo(() => {
 		const atLeastOneFacetSelected =
 			qsComponents.length > 0 || qsFlags.length > 0 || qsTiers.length > 0
 
@@ -218,11 +234,25 @@ export const IntegrationsSearchProvider = ({
 			}
 		)
 
+		const paginatedIntegrations = integrations.slice(
+			(page - 1) * pageSize,
+			page * pageSize
+		)
+
 		return {
 			atLeastOneFacetSelected,
 			filteredIntegrations,
+			paginatedIntegrations,
 		}
-	}, [filterQuery, integrations, qsComponents, qsFlags, qsTiers])
+	}, [
+		filterQuery,
+		integrations,
+		page,
+		pageSize,
+		qsComponents,
+		qsFlags,
+		qsTiers,
+	])
 
 	const componentOptions = useMemo(() => {
 		return allComponents.map((component: IntegrationComponent) => {
@@ -278,6 +308,7 @@ export const IntegrationsSearchProvider = ({
 				integrations,
 				page,
 				pageSize,
+				paginatedIntegrations,
 				resetPage,
 				setFilterQuery,
 				setPage,

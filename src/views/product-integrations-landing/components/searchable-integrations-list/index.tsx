@@ -36,12 +36,8 @@ export default function SearchableIntegrationsList({
 		filteredIntegrations,
 		filterQuery,
 		flagOptions,
-		page,
-		pageSize,
 		resetPage,
 		setFilterQuery,
-		setPage,
-		setPageSize,
 		tierOptions,
 	} = useIntegrationsSearchContext()
 
@@ -143,14 +139,7 @@ export default function SearchableIntegrationsList({
 
 			<div className={classNames(s.results, s.mobile_only)}>{resultText}</div>
 
-			<PaginatedIntegrationsList
-				integrations={filteredIntegrations}
-				onClearFiltersClicked={clearFilters}
-				onPageChange={setPage}
-				onPageSizeChange={setPageSize}
-				page={page}
-				pageSize={pageSize}
-			/>
+			<PaginatedIntegrationsList onClearFiltersClicked={clearFilters} />
 
 			{/* 
 				Mobile Filter Dialog
