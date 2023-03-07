@@ -40,7 +40,7 @@ export default function ProductSubnav({ menuItems }) {
 				{
 					text:
 						flagBag.settled && flagBag.flags.tryForFree
-							? 'Try for Free'
+							? 'Try for free'
 							: 'Try HCP Vault',
 					url: 'https://portal.cloud.hashicorp.com/sign-up',
 					theme: {

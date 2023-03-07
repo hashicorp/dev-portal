@@ -38,7 +38,7 @@ export default function ConsulSubnav({ menuItems }) {
 				{
 					text:
 						flagBag.settled && flagBag.flags.tryForFree
-							? 'Try for Free'
+							? 'Try for free'
 							: 'Try HCP Consul',
 					url: 'https://portal.cloud.hashicorp.com/sign-up',
 					theme: {
