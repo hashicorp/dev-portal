@@ -29,27 +29,17 @@ interface FacetFilterOption {
 }
 
 export const IntegrationsSearchContext = createContext({
-	allComponents: [] as IntegrationComponent[],
-	allFlags: [] as Flag[],
-	allTiers: [] as Tier[],
 	atLeastOneFacetSelected: false,
 	clearFilters: () => void 1,
-	communityChecked: false,
 	componentOptions: [] as FacetFilterOption[],
 	filteredIntegrations: [] as Integration[],
 	filterQuery: '',
-	flagsCheckedArray: [] as boolean[],
+	flagOptions: [] as FacetFilterOption[],
 	integrations: [] as Integration[],
-	matchingCommunity: 0,
-	matchingOfficial: 0,
-	matchingVerified: 0,
-	officialChecked: false,
 	page: 1,
 	pageSize: 8,
-	partnerChecked: false,
 	resetPage: () => void 1,
 	setFilterQuery: (newValue: string) => void 1,
-	setFlagsCheckedArray: (val: boolean[]) => void 1,
 	setPage: (newValue: number) => void 1,
 	setPageSize: (newValue: number) => void 1,
 	tierOptions: [] as FacetFilterOption[],
@@ -94,6 +84,7 @@ export const IntegrationsSearchProvider = ({
 		setPage,
 		setPageSize,
 		toggleComponentChecked,
+		toggleFlagChecked,
 		toggleTierChecked,
 	} = useMemo(() => {
 		return {
@@ -142,6 +133,28 @@ export const IntegrationsSearchProvider = ({
 					}
 				})
 			},
+			toggleFlagChecked: (flag: Flag) => {
+				setQueryParams((prev: $TSFixMe) => {
+					const isChecked = prev.flags.includes(flag.slug)
+					if (isChecked) {
+						return {
+							...prev,
+							flags: prev.flags.filter(
+								(slug: Flag['slug']) => slug != flag.slug
+							),
+						}
+					} else {
+						integrationLibraryFilterSelectedEvent({
+							filter_category: 'flag',
+							filter_value: flag.slug,
+						})
+						return {
+							...prev,
+							tiers: [...prev.tiers, flag.slug],
+						}
+					}
+				})
+			},
 			toggleTierChecked: (tier: Tier) => {
 				setQueryParams((prev: $TSFixMe) => {
 					const isChecked = prev.tiers.includes(tier)
@@ -165,10 +178,6 @@ export const IntegrationsSearchProvider = ({
 		}
 	}, [setQueryParams])
 
-	const officialChecked = qsTiers.includes(Tier.OFFICIAL)
-	const partnerChecked = qsTiers.includes(Tier.PARTNER)
-	const communityChecked = qsTiers.includes(Tier.COMMUNITY)
-
 	// Filter out integrations that don't have releases yet
 	const integrations = useMemo(() => {
 		return _integrations.filter((integration: Integration) => {
@@ -176,127 +185,71 @@ export const IntegrationsSearchProvider = ({
 		})
 	}, [_integrations])
 
-	const flagsCheckedArray = useMemo(() => {
-		return allFlags.map((flag: Flag) => {
-			return qsFlags.includes(flag.slug)
-		})
-	}, [allFlags, qsFlags])
+	const { atLeastOneFacetSelected, filteredIntegrations } = useMemo(() => {
+		let filteredIntegrations = integrations
 
-	const setFlagsCheckedArray = (val: boolean[]) => {
-		// map [true, false, false, true] => [Flag, Flag]
-		const newFlags = val
-			.map((checked, index) => {
-				if (checked) {
-					return allFlags[index].slug
+		const atLeastOneFacetSelected =
+			qsComponents.length > 0 || qsFlags.length > 0 || qsTiers.length > 0
+		if (atLeastOneFacetSelected) {
+			filteredIntegrations = integrations.filter((integration: Integration) => {
+				let tierMatch = true
+				if (qsTiers.length > 0) {
+					tierMatch = qsTiers.includes(integration.tier)
 				}
-			})
-			.filter(Boolean)
 
-		// update URL & state
-		setQueryParams({ flags: newFlags })
-	}
-
-	let filteredIntegrations = integrations
-
-	// Calculate the number of integrations that match each tier
-	const matchingOfficial = integrations.filter(
-		(i) => i.tier === Tier.OFFICIAL
-	).length
-	const matchingVerified = integrations.filter(
-		(i) => i.tier === Tier.PARTNER
-	).length
-	const matchingCommunity = integrations.filter(
-		(i) => i.tier === Tier.COMMUNITY
-	).length
-
-	// We have to manage our component checked state in a singular
-	// state object as there are an unknown number of components.
-	const componentCheckedArray = useMemo(() => {
-		return allComponents.map((component) => {
-			return qsComponents.includes(component.slug)
-		})
-	}, [allComponents, qsComponents])
-	const setComponentCheckedArray = (val: boolean[]) => {
-		// map [true, false, false, true] => [Component, Component]
-		const newComponents = val
-			.map((checked, index) => {
-				if (checked) {
-					return allComponents[index].slug
-				}
-			})
-			.filter(Boolean)
-
-		// update URL & state
-		setQueryParams({ components: newComponents })
-	}
-
-	// Now filter our integrations if facets are selected
-	const atLeastOneFacetSelected =
-		officialChecked ||
-		partnerChecked ||
-		communityChecked ||
-		componentCheckedArray.includes(true) ||
-		flagsCheckedArray.includes(true)
-
-	if (atLeastOneFacetSelected) {
-		filteredIntegrations = integrations.filter((integration: Integration) => {
-			// Default tierMatch to true if nothing is checked, false otherwise
-			let tierMatch: boolean =
-				!officialChecked && !partnerChecked && !communityChecked
-			if (officialChecked && integration.tier === Tier.OFFICIAL) {
-				tierMatch = true
-			}
-			if (partnerChecked && integration.tier === Tier.PARTNER) {
-				tierMatch = true
-			}
-			if (communityChecked && integration.tier === Tier.COMMUNITY) {
-				tierMatch = true
-			}
-
-			// Loop over each component to see if they match any checked components
-			// If there are no components selected, default this to true
-			let componentMatch = !componentCheckedArray.includes(true)
-			componentCheckedArray.forEach((checked, index) => {
-				if (checked) {
-					const checkedComponent = allComponents[index]
-					// Check each integration component
-					integration.components.forEach((component: IntegrationComponent) => {
-						if (component.slug === checkedComponent.slug) {
-							componentMatch = true
+				let componentMatch = true
+				if (qsComponents.length > 0) {
+					componentMatch = integration.components.some(
+						(component: IntegrationComponent) => {
+							return qsComponents.includes(component.slug)
 						}
+					)
+				}
+
+				let flagMatch = true
+				if (qsFlags.length > 0) {
+					flagMatch = integration.flags.some((flag: Flag) => {
+						return qsFlags.includes(flag.slug)
 					})
 				}
-			})
 
-			// If no flags are selected, do not filter by flag
-			let flagMatch = !flagsCheckedArray.includes(true)
-			// For each checked flag, loop over each integration's list of flags
-			// and return true if at least 1 flag matches
-			flagsCheckedArray.forEach((checked, index) => {
-				if (checked) {
-					const checkedFlag = allFlags[index]
-					integration.flags.forEach((flag: Flag) => {
-						if (flag.slug === checkedFlag.slug) {
-							flagMatch = true
-						}
-					})
-				}
+				return tierMatch && componentMatch && flagMatch
 			})
+		}
 
-			return tierMatch && componentMatch && flagMatch
-		})
-	}
+		return {
+			atLeastOneFacetSelected,
+			filteredIntegrations,
+		}
+	}, [integrations, qsComponents, qsFlags, qsTiers])
 
 	const componentOptions = useMemo(() => {
 		return allComponents.map((component: IntegrationComponent) => {
 			return {
 				id: component.slug,
 				label: capitalize(component.plural_name),
-				onChange: () => toggleComponentChecked(component),
+				onChange: () => {
+					resetPage()
+					toggleComponentChecked(component)
+				},
 				selected: qsComponents.includes(component.slug),
 			}
 		})
-	}, [allComponents, qsComponents, toggleComponentChecked])
+	}, [allComponents, qsComponents, resetPage, toggleComponentChecked])
+
+	const flagOptions = useMemo(() => {
+		return allFlags.map((flag: Flag) => {
+			return {
+				id: flag.slug,
+				label: flag.name,
+				onChange: () => {
+					resetPage()
+					toggleFlagChecked(flag)
+				},
+				selected: qsFlags.includes(flag.slug),
+			}
+		})
+	}, [allFlags, qsFlags, resetPage, toggleFlagChecked])
 
 	const tierOptions = useMemo(() => {
 		return allTiers.map((tier: Tier) => {
@@ -315,27 +268,17 @@ export const IntegrationsSearchProvider = ({
 	return (
 		<IntegrationsSearchContext.Provider
 			value={{
-				allComponents,
-				allFlags,
-				allTiers,
 				atLeastOneFacetSelected,
 				clearFilters,
-				communityChecked,
 				componentOptions,
 				filteredIntegrations,
 				filterQuery,
-				flagsCheckedArray,
+				flagOptions,
 				integrations,
-				matchingCommunity,
-				matchingOfficial,
-				matchingVerified,
-				officialChecked,
 				page,
 				pageSize,
-				partnerChecked,
 				resetPage,
 				setFilterQuery,
-				setFlagsCheckedArray,
 				setPage,
 				setPageSize,
 				tierOptions,

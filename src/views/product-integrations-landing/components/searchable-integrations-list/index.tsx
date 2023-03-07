@@ -18,10 +18,7 @@ import Tag from 'components/tag'
 import FilterInput from 'components/filter-input'
 import MultiSelect from 'components/multi-select'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
-import {
-	integrationLibraryFilterSelectedEvent,
-	integrationLibrarySearchedEvent,
-} from './helpers/analytics'
+import { integrationLibrarySearchedEvent } from './helpers/analytics'
 import { getFilteredIntegrations } from './helpers/get-filtered-integrations'
 import s from './style.module.css'
 
@@ -32,22 +29,21 @@ interface SearchableIntegrationsListProps {
 export default function SearchableIntegrationsList({
 	className,
 }: SearchableIntegrationsListProps) {
+	const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false)
 	const {
-		allFlags,
 		atLeastOneFacetSelected,
 		clearFilters,
+		componentOptions,
 		filteredIntegrations: integrations,
 		filterQuery,
-		flagsCheckedArray,
+		flagOptions,
 		page,
 		pageSize,
 		resetPage,
 		setFilterQuery,
-		setFlagsCheckedArray,
 		setPage,
 		setPageSize,
 		tierOptions,
-		componentOptions,
 	} = useIntegrationsSearchContext()
 
 	const filteredIntegrations = getFilteredIntegrations({
@@ -75,26 +71,6 @@ export default function SearchableIntegrationsList({
 	}, [filterQuery, filteredIntegrations.length])
 	useTypingDebounce(searchedEventCallback)
 
-	const makeToggleFlagHandler = (i: number, flagName: string) => () => {
-		// reset page on filter change
-		resetPage()
-
-		const newFlags = [...flagsCheckedArray]
-		const isFlagSelectedInNext = !newFlags[i]
-		// When any flag input is checked, track an analytics filtered event
-		if (isFlagSelectedInNext) {
-			integrationLibraryFilterSelectedEvent({
-				filter_category: 'flag',
-				filter_value: flagName,
-			})
-		}
-
-		newFlags[i] = isFlagSelectedInNext
-		setFlagsCheckedArray(newFlags)
-	}
-
-	const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false)
-
 	const resultText = `${filteredIntegrations.length} ${
 		filteredIntegrations.length === 1 ? 'result found' : 'results found'
 	}`
@@ -116,18 +92,7 @@ export default function SearchableIntegrationsList({
 					<div className={classNames(s.selectStack, s.tablet_up)}>
 						<MultiSelect text="Tiers" options={tierOptions} />
 						<MultiSelect text="Components" options={componentOptions} />
-						<MultiSelect
-							text="Flags"
-							options={allFlags.map(({ id, name }, i) => {
-								const selected = flagsCheckedArray[i]
-								return {
-									id,
-									label: name,
-									onChange: makeToggleFlagHandler(i, name),
-									selected,
-								}
-							})}
-						/>
+						<MultiSelect text="Flags" options={flagOptions} />
 					</div>
 					{/**
 					 * Technique ARIA22: Using role=status to present status messages
@@ -163,17 +128,8 @@ export default function SearchableIntegrationsList({
 						}
 					)}
 					{/* Render x-tags for flags */}
-					{allFlags.map((e, i) => {
-						const checked = flagsCheckedArray[i]
-						return (
-							checked && (
-								<Tag
-									key={e.id}
-									text={e.name}
-									onRemove={makeToggleFlagHandler(i, e.name)}
-								/>
-							)
-						)
+					{flagOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
+						return selected && <Tag key={id} text={label} onRemove={onChange} />
 					})}
 
 					{atLeastOneFacetSelected ? (
@@ -249,19 +205,8 @@ export default function SearchableIntegrationsList({
 
 // Renders Tier/Component/Flags checkboxes
 function MobileFilters() {
-	const {
-		allFlags,
-		componentOptions,
-		flagsCheckedArray,
-		setFlagsCheckedArray,
-		tierOptions,
-	} = useIntegrationsSearchContext()
-
-	const makeToggleFlagHandler = (index: number) => () => {
-		const newFlagsCheckedArray = [...flagsCheckedArray]
-		newFlagsCheckedArray[index] = !newFlagsCheckedArray[index]
-		setFlagsCheckedArray(newFlagsCheckedArray)
-	}
+	const { componentOptions, flagOptions, tierOptions } =
+		useIntegrationsSearchContext()
 
 	return (
 		<>
@@ -297,15 +242,14 @@ function MobileFilters() {
 
 			<div className={s.optionsContainer}>
 				<Legend>Flags</Legend>
-				{allFlags.map((e, i) => {
-					const checked = flagsCheckedArray[i]
+				{flagOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
 					return (
 						<CheckboxField
-							key={e.id}
+							key={id}
 							labelFontWeight="regular"
-							label={e.name}
-							checked={checked}
-							onChange={makeToggleFlagHandler(i)}
+							label={label}
+							checked={selected}
+							onChange={onChange}
 						/>
 					)
 				})}
