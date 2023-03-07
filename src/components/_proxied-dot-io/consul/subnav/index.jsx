@@ -4,14 +4,22 @@
  */
 
 import Subnav from '@hashicorp/react-subnav'
+import classNames from 'classnames'
+import { useFlagBag } from 'flags/client'
 import useProxiedPath from 'lib/hooks/useProxiedPath'
 import s from './style.module.css'
 
 export default function ConsulSubnav({ menuItems }) {
 	const { asPath } = useProxiedPath()
+	const flagBag = useFlagBag()
+	const classnames = classNames(
+		s.subnav,
+		flagBag.settled && s.settled,
+		flagBag.flags?.tryForFree ? s.control : s.variant
+	)
 	return (
 		<Subnav
-			className={s.subnav}
+			className={classnames}
 			hideGithubStars={true}
 			titleLink={{
 				text: 'HashiCorp Consul',
@@ -28,7 +36,10 @@ export default function ConsulSubnav({ menuItems }) {
 					url: 'https://developer.hashicorp.com/consul/downloads',
 				},
 				{
-					text: 'Try HCP Consul',
+					text:
+						flagBag.settled && flagBag.flags.tryForFree
+							? 'Try for Free'
+							: 'Try HCP Consul',
 					url: 'https://portal.cloud.hashicorp.com/sign-up',
 					theme: {
 						brand: 'consul',

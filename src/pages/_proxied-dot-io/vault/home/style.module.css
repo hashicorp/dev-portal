@@ -18,3 +18,29 @@
 		margin: 120px auto;
 	}
 }
+
+/**
+ * Hero
+ */
+
+.heroActions {
+	margin-top: var(--wpl-spacing-06);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 32px;
+}
+
+.heroActionsPrimary {
+	display: grid;
+
+	& > * {
+		grid-area: 1 / 1;
+		color: transparent;
+	}
+
+	&.settled > *:not([aria-hidden='true']) {
+		color: black;
+		z-index: 1;
+	}
+}
