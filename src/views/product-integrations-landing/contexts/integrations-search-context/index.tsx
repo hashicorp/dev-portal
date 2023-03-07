@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { createContext, useContext, useMemo } from 'react'
+import { createContext, useCallback, useContext, useMemo } from 'react'
 import { useQueryParams, withDefault } from 'use-query-params'
 import {
 	Flag,
@@ -13,27 +13,26 @@ import {
 } from 'lib/integrations-api-client/integration'
 import { IntegrationsSearchProviderProps } from './types'
 import { CommaArrayParam } from './constants'
+import { integrationLibraryFilterSelectedEvent } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/analytics'
 
 export const IntegrationsSearchContext = createContext({
-	integrations: [] as Integration[],
-	officialChecked: false,
-	partnerChecked: false,
+	atLeastOneFacetSelected: false,
 	communityChecked: false,
-	setOfficialChecked: (bool: boolean) => void 1,
-	setPartnerChecked: (bool: boolean) => void 1,
-	setCommunityChecked: (bool: boolean) => void 1,
-	tierOptions: [] as Tier[],
-	matchingOfficial: 0,
-	matchingVerified: 0,
-	matchingCommunity: 0,
-	sortedComponents: [] as $TSFixMe[],
 	componentCheckedArray: [] as boolean[],
-	setComponentCheckedArray: (val: boolean[]) => void 1,
+	filteredIntegrations: [] as Integration[],
 	flags: [] as Flag[],
 	flagsCheckedArray: [] as boolean[],
+	integrations: [] as Integration[],
+	matchingCommunity: 0,
+	matchingOfficial: 0,
+	matchingVerified: 0,
+	officialChecked: false,
+	partnerChecked: false,
+	setComponentCheckedArray: (val: boolean[]) => void 1,
 	setFlagsCheckedArray: (val: boolean[]) => void 1,
-	atLeastOneFacetSelected: false,
-	filteredIntegrations: [] as Integration[],
+	sortedComponents: [] as $TSFixMe[],
+	tierOptions: [] as Tier[],
+	toggleTierChecked: (tier: Tier) => void 1,
 })
 IntegrationsSearchContext.displayName = 'IntegrationsSearchContext'
 
@@ -59,61 +58,34 @@ export const IntegrationsSearchProvider = ({
 		flags: qsFlags,
 	} = queryParams
 
+	const toggleTierChecked = useCallback(
+		(tier: Tier) => {
+			setQueryParams((prev: $TSFixMe) => {
+				const isChecked = prev.tiers.includes(tier)
+
+				if (isChecked) {
+					return {
+						...prev,
+						tiers: prev.tiers.filter((_tier: Tier) => _tier !== tier),
+					}
+				} else {
+					integrationLibraryFilterSelectedEvent({
+						filter_category: 'tier',
+						filter_value: tier,
+					})
+					return {
+						...prev,
+						tiers: [...prev.tiers, tier],
+					}
+				}
+			})
+		},
+		[setQueryParams]
+	)
+
 	const officialChecked = qsTiers.includes(Tier.OFFICIAL)
 	const partnerChecked = qsTiers.includes(Tier.PARTNER)
 	const communityChecked = qsTiers.includes(Tier.COMMUNITY)
-
-	const setOfficialChecked = (value: boolean) => {
-		if (value) {
-			setQueryParams((prev) => {
-				return {
-					...prev,
-					tiers: [...prev.tiers, Tier.OFFICIAL],
-				}
-			})
-		} else {
-			setQueryParams((prev) => {
-				return {
-					...prev,
-					tiers: prev.tiers.filter((tier) => tier !== Tier.OFFICIAL),
-				}
-			})
-		}
-	}
-	const setPartnerChecked = (value: boolean) => {
-		if (value) {
-			setQueryParams((prev) => {
-				return {
-					...prev,
-					tiers: [...prev.tiers, Tier.PARTNER],
-				}
-			})
-		} else {
-			setQueryParams((prev) => {
-				return {
-					...prev,
-					tiers: prev.tiers.filter((tier) => tier !== Tier.PARTNER),
-				}
-			})
-		}
-	}
-	const setCommunityChecked = (value: boolean) => {
-		if (value) {
-			setQueryParams((prev) => {
-				return {
-					...prev,
-					tiers: [...prev.tiers, Tier.COMMUNITY],
-				}
-			})
-		} else {
-			setQueryParams((prev) => {
-				return {
-					...prev,
-					tiers: prev.tiers.filter((tier) => tier !== Tier.COMMUNITY),
-				}
-			})
-		}
-	}
 
 	// Filter out integrations that don't have releases yet
 	const integrations = useMemo(() => {
@@ -309,9 +281,7 @@ export const IntegrationsSearchProvider = ({
 				officialChecked,
 				partnerChecked,
 				communityChecked,
-				setOfficialChecked,
-				setPartnerChecked,
-				setCommunityChecked,
+				toggleTierChecked,
 				tierOptions,
 				matchingOfficial,
 				matchingVerified,
