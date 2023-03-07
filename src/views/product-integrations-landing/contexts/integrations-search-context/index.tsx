@@ -4,13 +4,7 @@
  */
 
 import { createContext, useContext, useMemo } from 'react'
-import {
-	decodeDelimitedArray,
-	encodeDelimitedArray,
-	QueryParamOptions,
-	useQueryParam,
-	withDefault,
-} from 'use-query-params'
+import { QueryParamOptions, useQueryParam, withDefault } from 'use-query-params'
 import {
 	Flag,
 	Integration,
@@ -18,18 +12,7 @@ import {
 	Tier,
 } from 'lib/integrations-api-client/integration'
 import { IntegrationsSearchProviderProps } from './types'
-
-/**
- * Uses a comma to delimit entries. e.g. ['a', 'b'] => qp?=a,b
- * https://github.com/pbeshai/use-query-params/blob/master/packages/use-query-params/README.md?plain=1#L374-L380
- */
-const CommaArrayParam = {
-	encode: (array: string[] | null | undefined) =>
-		encodeDelimitedArray(array, ','),
-
-	decode: (arrayStr: string | string[] | null | undefined) =>
-		decodeDelimitedArray(arrayStr, ','),
-}
+import { CommaArrayParam } from './constants'
 
 export const IntegrationsSearchContext = createContext({
 	integrations: [] as Integration[],
