@@ -5,7 +5,6 @@
 
 import { useCallback, useState } from 'react'
 import classNames from 'classnames'
-import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 import { IconFilter16 } from '@hashicorp/flight-icons/svg-react/filter-16'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
@@ -83,13 +82,6 @@ export default function SearchableIntegrationsList({
 		}
 	}, [filterQuery, filteredIntegrations.length])
 	useTypingDebounce(searchedEventCallback)
-
-	// handleClearFilters resets the state of all filters
-	const handleClearFilters = () => {
-		resetPage()
-		setFilterQuery('')
-		clearFilters()
-	}
 
 	const makeToggleFlagHandler = (i: number, flagName: string) => () => {
 		// reset page on filter change
@@ -264,7 +256,7 @@ export default function SearchableIntegrationsList({
 							color="tertiary"
 							size="small"
 							className={classNames(s.tablet_up, s.clearFiltersButton)}
-							onClick={handleClearFilters}
+							onClick={clearFilters}
 						/>
 					) : (
 						<div className={s.noFilters}>No filters selected</div>
@@ -276,7 +268,7 @@ export default function SearchableIntegrationsList({
 
 			<PaginatedIntegrationsList
 				integrations={filteredIntegrations}
-				onClearFiltersClicked={handleClearFilters}
+				onClearFiltersClicked={clearFilters}
 				onPageChange={setPage}
 				onPageSizeChange={setPageSize}
 				page={page}
@@ -315,7 +307,7 @@ export default function SearchableIntegrationsList({
 						text="Reset Filters"
 						icon={<IconX16 />}
 						color="tertiary"
-						onClick={handleClearFilters}
+						onClick={clearFilters}
 						className={s.row_fill}
 					/>
 				</div>

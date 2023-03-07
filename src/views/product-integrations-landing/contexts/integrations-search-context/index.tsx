@@ -90,7 +90,15 @@ export const IntegrationsSearchProvider = ({
 	} = useMemo(() => {
 		return {
 			clearFilters: () => {
-				setQueryParams({ components: [], flags: [], tiers: [] })
+				setQueryParams({
+					components: [],
+					filterQuery: '',
+					flags: [],
+					page: 1,
+					// @ TODO should we also reset pageSize?
+					// pageSize: 8,
+					tiers: [],
+				})
 			},
 			setFilterQuery: (newValue: string) => {
 				setQueryParams({ filterQuery: newValue })
