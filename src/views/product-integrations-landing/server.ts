@@ -77,6 +77,11 @@ export async function getStaticProps({
 	const integrations: Integration[] = await fetchAllProductIntegrations(
 		params.productSlug
 	)
+	const integrationsWithVersions = integrations.filter(
+		(integration: Integration) => {
+			return integration.versions.length > 0
+		}
+	)
 
 	/**
 	 * Get each facet's unique set of values.
@@ -173,7 +178,7 @@ export async function getStaticProps({
 			allFlags,
 			allTiers,
 			breadcrumbLinks,
-			integrations,
+			integrations: integrationsWithVersions,
 			metadata: {
 				title: `Integrations`,
 				// description: `TODO`,

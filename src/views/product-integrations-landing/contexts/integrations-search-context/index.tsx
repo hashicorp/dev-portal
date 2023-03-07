@@ -51,7 +51,7 @@ export const IntegrationsSearchProvider = ({
 	allFlags,
 	allTiers,
 	children,
-	integrations: _integrations,
+	integrations,
 }: IntegrationsSearchProviderProps) => {
 	const [queryParams, setQueryParams] = useQueryParams(
 		{
@@ -177,13 +177,6 @@ export const IntegrationsSearchProvider = ({
 			},
 		}
 	}, [setQueryParams])
-
-	// Filter out integrations that don't have releases yet
-	const integrations = useMemo(() => {
-		return _integrations.filter((integration: Integration) => {
-			return integration.versions.length > 0
-		})
-	}, [_integrations])
 
 	const { atLeastOneFacetSelected, filteredIntegrations } = useMemo(() => {
 		let filteredIntegrations = integrations
