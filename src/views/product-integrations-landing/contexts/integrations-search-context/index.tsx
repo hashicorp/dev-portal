@@ -282,24 +282,24 @@ export const IntegrationsSearchProvider = ({
 	return (
 		<IntegrationsSearchContext.Provider
 			value={{
-				integrations,
-				officialChecked,
-				partnerChecked,
-				communityChecked,
-				toggleTierChecked,
-				tierOptions,
-				matchingOfficial,
-				matchingVerified,
-				matchingCommunity,
-				sortedComponents,
-				componentCheckedArray,
-				setComponentCheckedArray,
 				atLeastOneFacetSelected,
+				clearFilters,
+				communityChecked,
+				componentCheckedArray,
+				filteredIntegrations,
 				flags,
 				flagsCheckedArray,
+				integrations,
+				matchingCommunity,
+				matchingOfficial,
+				matchingVerified,
+				officialChecked,
+				partnerChecked,
+				setComponentCheckedArray,
 				setFlagsCheckedArray,
-				filteredIntegrations,
-				clearFilters,
+				sortedComponents,
+				tierOptions,
+				toggleTierChecked,
 			}}
 		>
 			{children}
