@@ -13,6 +13,7 @@ import { createContext, useContext, useMemo } from 'react'
 import { QueryParamOptions, useQueryParam, withDefault } from 'use-query-params'
 
 import { decodeDelimitedArray, encodeDelimitedArray } from 'use-query-params'
+import { IntegrationsSearchProviderProps } from './types'
 
 /**
  * Uses a comma to delimit entries. e.g. ['a', 'b'] => qp?=a,b
@@ -49,14 +50,10 @@ export const IntegrationsSearchContext = createContext({
 })
 IntegrationsSearchContext.displayName = 'IntegrationsSearchContext'
 
-interface Props {
-	integrations: Integration[]
-}
-
-export const IntegrationsSearchProvider: React.FC<Props> = ({
+export const IntegrationsSearchProvider = ({
 	children,
 	integrations: _integrations,
-}) => {
+}: IntegrationsSearchProviderProps) => {
 	const sharedOptions: QueryParamOptions = {
 		enableBatching: true,
 		updateType: 'replaceIn',
