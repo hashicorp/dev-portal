@@ -4,10 +4,10 @@
  */
 
 [data-theme='dark'] {
-	--token-color-palette-blue-500: #5fbcff;
-	--token-color-palette-blue-400: #4c9eff;
-	--token-color-palette-blue-300: #3390ff;
-	--token-color-palette-blue-200: #0073fb;
+	--token-color-palette-blue-500: #6bc1ff;
+	--token-color-palette-blue-400: #4ca1ff;
+	--token-color-palette-blue-300: #389aff;
+	--token-color-palette-blue-200: #2b89ff;
 	--token-color-palette-blue-100: #1c345f;
 	--token-color-palette-blue-50: #111f37;
 	--token-color-palette-purple-500: #dda5ff;
@@ -58,7 +58,7 @@
 	--token-color-border-critical: #62170d;
 
 	/* focus */
-	--token-color-focus-action-internal: #0c56e9;
+	--token-color-focus-action-internal: #389aff;
 	--token-color-focus-action-external: #5990ff; /* this is a special color used only for the focus style, to pass color contrast for a11y purpose */
 	--token-color-focus-critical-internal: #c00005;
 	--token-color-focus-critical-external: #dd7578; /* this is a special color used only for the focus style, to pass color contrast for a11y purpose */
@@ -69,9 +69,9 @@
 	--token-color-foreground-faint: #b2b6bd;
 	--token-color-foreground-high-contrast: #0d0e12;
 	--token-color-foreground-disabled: #616875;
-	--token-color-foreground-action: #0073fb;
-	--token-color-foreground-action-hover: #3390ff;
-	--token-color-foreground-action-active: #4c9eff;
+	--token-color-foreground-action: #2b89ff;
+	--token-color-foreground-action-hover: #389aff;
+	--token-color-foreground-action-active: #4ca1ff;
 	--token-color-foreground-highlight: #aa3fff;
 	--token-color-foreground-highlight-on-surface: #b14fff;
 	--token-color-foreground-highlight-high-contrast: #dda5ff;
@@ -219,7 +219,7 @@
 		0 12px 24px 0 #61687559;
 
 	/* Focus styles */
-	--token-focus-ring-action-box-shadow: inset 0 0 0 1px #107dff,
+	--token-focus-ring-action-box-shadow: inset 0 0 0 1px #389aff,
 		0 0 0 3px #5990ff;
 	--token-focus-ring-critical-box-shadow: inset 0 0 0 1px #f9381e,
 		0 0 0 3px #ff5841;
@@ -239,10 +239,10 @@
 	--token-form-control-base-border-color-default: #616875;
 	--token-form-control-base-border-color-hover: #b2b6bd;
 	--token-form-control-checked-foreground-color: #030303;
-	--token-form-control-checked-surface-color-default: #0073fb;
-	--token-form-control-checked-surface-color-hover: #3390ff;
+	--token-form-control-checked-surface-color-default: #2b89ff;
+	--token-form-control-checked-surface-color-hover: #389aff;
 	--token-form-control-checked-border-color-default: #1c345f;
-	--token-form-control-checked-border-color-hover: #0073fb;
+	--token-form-control-checked-border-color-hover: #2b89ff;
 	--token-form-control-invalid-border-color-default: #f9381e;
 	--token-form-control-invalid-border-color-hover: #ff5841;
 	--token-form-control-readonly-foreground-color: #d5d7db;
