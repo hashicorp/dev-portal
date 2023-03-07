@@ -10,9 +10,10 @@ import {
 import { EnrichedNavItem } from 'components/sidebar/types'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { SidebarProps } from 'components/sidebar/types'
+import { CollectionContext } from 'views/tutorial-view'
 import { NextPreviousProps } from 'views/tutorial-view/components'
-import { TutorialData } from 'views/tutorial-view'
 import { OutlineLinkItem } from 'components/outline-nav/types'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 export interface OnboardingCollectionViewProps {
 	metadata: {
@@ -27,9 +28,10 @@ export interface OnboardingCollectionViewProps {
 }
 
 export interface OnboardingTutorialViewProps {
-	tutorial: TutorialData & {
+	tutorial: Omit<TutorialFullCollectionCtx, 'content' | 'collectionCtx'> & {
+		content: MDXRemoteSerializeResult
+		collectionCtx: CollectionContext
 		nextPreviousData: NextPreviousProps
-		full: TutorialFullCollectionCtx
 	}
 	pageHeading: {
 		slug: string

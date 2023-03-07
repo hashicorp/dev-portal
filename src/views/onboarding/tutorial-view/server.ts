@@ -128,7 +128,6 @@ export async function getOnboardingTutorialProps(
 						`/${collectionSlug}/${splitProductFromFilename(tutorialSlug)}`,
 				},
 			}),
-			full: fullTutorialData,
 		},
 		pageHeading,
 		outlineItems,
