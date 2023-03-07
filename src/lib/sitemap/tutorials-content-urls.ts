@@ -3,15 +3,9 @@ import { SectionOption } from 'lib/learn-client/types'
 import { activeProductSlugs } from 'lib/products'
 import { generateTutorialMap } from 'pages/api/tutorials-map'
 import { ProductSlug } from 'types/products'
-import {
-	getCollectionSlug,
-	getTutorialSlug,
-} from 'views/collection-view/helpers'
+import { getCollectionSlug } from 'views/collection-view/helpers'
 import { makeSitemapElement } from './helpers'
-import {
-	Collection as ClientCollection,
-	TutorialLite as ClientTutorialLite,
-} from 'lib/learn-client/types'
+import { Collection as ClientCollection } from 'lib/learn-client/types'
 
 function getTutorialLandingPaths(): string[] {
 	const activeSlugs = activeProductSlugs.map(
@@ -35,11 +29,6 @@ async function getCollectionAndTutorialPaths() {
 	allCollections.forEach((collection: ClientCollection) => {
 		// build collection paths
 		collectionPaths.push(getCollectionSlug(collection.slug))
-
-		// build tutorial paths
-		collection.tutorials.forEach((tutorial: ClientTutorialLite) => {
-			tutorialPaths.push(getTutorialSlug(tutorial.slug, collection.slug))
-		})
 	})
 
 	return [...collectionPaths, ...tutorialPaths]
