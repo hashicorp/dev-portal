@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
 import { useEffect, useRef } from 'react'
+import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
+import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
+import Pagination from 'components/pagination'
 import IntegrationsList from '../integrations-list'
 import s from './style.module.css'
-import Pagination from 'components/pagination'
-import { useDeviceSize } from 'contexts/device-size'
-import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 
 interface PaginatedIntegrationsListProps {
 	onClearFiltersClicked: () => void
@@ -61,8 +60,6 @@ export default function PaginatedIntegrationsList({
 		}
 	}, [page])
 
-	const { isDesktop, isMobile, isTablet } = useDeviceSize()
-
 	return (
 		<div className={s.paginatedIntegrationsList} ref={containerRef}>
 			<IntegrationsList
@@ -77,9 +74,18 @@ export default function PaginatedIntegrationsList({
 					pageSize={pageSize}
 					totalItems={filteredIntegrations.length}
 				>
-					{(isDesktop || isTablet) && <Pagination.Info />}
-					<Pagination.Nav type={isMobile ? 'compact' : 'truncated'} />
-					{isDesktop && <Pagination.SizeSelector sizes={[4, 8, 16, 24]} />}
+					<div className="g-hide-on-mobile">
+						<Pagination.Info />
+					</div>
+					<div className="g-hide-on-mobile">
+						<Pagination.Nav type="truncated" />
+					</div>
+					<div className="g-hide-on-tablet g-hide-on-desktop">
+						<Pagination.Nav type="compact" />
+					</div>
+					<div className="g-hide-on-mobile g-hide-on-desktop">
+						<Pagination.SizeSelector sizes={[4, 8, 16, 24]} />
+					</div>
 				</Pagination>
 			</div>
 		</div>
