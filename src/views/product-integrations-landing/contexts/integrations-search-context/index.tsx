@@ -4,7 +4,7 @@
  */
 
 import { createContext, useContext, useMemo } from 'react'
-import { useQueryParams, withDefault } from 'use-query-params'
+import { NumberParam, useQueryParams, withDefault } from 'use-query-params'
 import {
 	Flag,
 	Integration,
@@ -30,9 +30,11 @@ export const IntegrationsSearchContext = createContext({
 	matchingOfficial: 0,
 	matchingVerified: 0,
 	officialChecked: false,
+	pageSize: 8,
 	partnerChecked: false,
 	setComponentCheckedArray: (val: boolean[]) => void 1,
 	setFlagsCheckedArray: (val: boolean[]) => void 1,
+	setPageSize: (newValue: number) => void 1,
 	toggleTierChecked: (tier: Tier) => void 1,
 })
 IntegrationsSearchContext.displayName = 'IntegrationsSearchContext'
@@ -48,6 +50,7 @@ export const IntegrationsSearchProvider = ({
 		{
 			components: withDefault(CommaArrayParam, []),
 			flags: withDefault(CommaArrayParam, []),
+			pageSize: withDefault(NumberParam, 8),
 			tiers: withDefault(CommaArrayParam, []),
 		},
 		{
@@ -57,15 +60,19 @@ export const IntegrationsSearchProvider = ({
 		}
 	)
 	const {
-		tiers: qsTiers,
 		components: qsComponents,
 		flags: qsFlags,
+		pageSize,
+		tiers: qsTiers,
 	} = queryParams
 
-	const { clearFilters, toggleTierChecked } = useMemo(() => {
+	const { clearFilters, setPageSize, toggleTierChecked } = useMemo(() => {
 		return {
 			clearFilters: () => {
 				setQueryParams({ components: [], flags: [], tiers: [] })
+			},
+			setPageSize: (newValue: number) => {
+				setQueryParams({ pageSize: newValue })
 			},
 			toggleTierChecked: (tier: Tier) => {
 				setQueryParams((prev: $TSFixMe) => {
@@ -230,9 +237,11 @@ export const IntegrationsSearchProvider = ({
 				matchingOfficial,
 				matchingVerified,
 				officialChecked,
+				pageSize,
 				partnerChecked,
 				setComponentCheckedArray,
 				setFlagsCheckedArray,
+				setPageSize,
 				toggleTierChecked,
 			}}
 		>

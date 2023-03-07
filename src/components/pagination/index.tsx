@@ -259,6 +259,7 @@ const SizeSelector = ({ sizes }: SizeSelectorProps) => {
 	)
 }
 
+export type { PaginationProps }
 export default Object.assign(Pagination, {
 	Info,
 	Nav,

@@ -51,9 +51,11 @@ export default function SearchableIntegrationsList({
 		filteredIntegrations: integrations,
 		flagsCheckedArray,
 		officialChecked,
+		pageSize,
 		partnerChecked,
 		setComponentCheckedArray,
 		setFlagsCheckedArray,
+		setPageSize,
 		toggleTierChecked,
 	} = useIntegrationsSearchContext()
 
@@ -295,6 +297,8 @@ export default function SearchableIntegrationsList({
 			<PaginatedIntegrationsList
 				integrations={filteredIntegrations}
 				onClearFiltersClicked={handleClearFilters}
+				onPageSizeChange={setPageSize}
+				pageSize={pageSize}
 			/>
 
 			{/* 

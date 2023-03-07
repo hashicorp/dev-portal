@@ -8,13 +8,15 @@ import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
 import { useEffect, useRef } from 'react'
 import IntegrationsList from '../integrations-list'
 import s from './style.module.css'
-import Pagination from 'components/pagination'
+import Pagination, { PaginationProps } from 'components/pagination'
 import { useDeviceSize } from 'contexts/device-size'
 import { useQueryParam, NumberParam, withDefault } from 'use-query-params'
 
 interface PaginatedIntegrationsListProps {
 	integrations: Array<Integration>
 	onClearFiltersClicked: () => void
+	onPageSizeChange: PaginationProps['onPageSizeChange']
+	pageSize: PaginationProps['pageSize']
 }
 
 /**
@@ -31,19 +33,13 @@ function coerceToDefaultValue(value: number, init: number): number {
 export default function PaginatedIntegrationsList({
 	integrations,
 	onClearFiltersClicked,
+	onPageSizeChange,
+	pageSize: _pageSize,
 }: PaginatedIntegrationsListProps) {
 	const isFirstRender = useRef(true)
 	const containerRef = useRef(null)
-	const [_itemsPerPage, setItemsPerPage] = useQueryParam(
-		'size',
-		withDefault(NumberParam, 8),
-		{
-			enableBatching: true,
-			updateType: 'replaceIn',
-			removeDefaultsFromUrl: true,
-		}
-	)
-	const itemsPerPage = coerceToDefaultValue(_itemsPerPage, 8)
+
+	const pageSize = coerceToDefaultValue(_pageSize, 8)
 
 	// Sort integrations alphabetically. Right now this is our
 	// preferred way of sorting. In the event we want to add different
@@ -74,8 +70,8 @@ export default function PaginatedIntegrationsList({
 	const currentPage = coerceToDefaultValue(_currentPage, 1)
 
 	const currentPageIntegrations = sortedIntegrations.slice(
-		(currentPage - 1) * itemsPerPage,
-		currentPage * itemsPerPage
+		(currentPage - 1) * pageSize,
+		currentPage * pageSize
 	)
 
 	/**
@@ -119,11 +115,11 @@ export default function PaginatedIntegrationsList({
 			/>
 			<div className={s.paginatorWrapper}>
 				<Pagination
-					totalItems={integrations.length}
-					pageSize={itemsPerPage}
+					onPageChange={setCurrentPage}
+					onPageSizeChange={onPageSizeChange}
 					page={currentPage}
-					onPageChange={(page) => setCurrentPage(page)}
-					onPageSizeChange={(size) => setItemsPerPage(size)}
+					pageSize={pageSize}
+					totalItems={integrations.length}
 				>
 					{(isDesktop || isTablet) && <Pagination.Info />}
 					<Pagination.Nav type={isMobile ? 'compact' : 'truncated'} />
