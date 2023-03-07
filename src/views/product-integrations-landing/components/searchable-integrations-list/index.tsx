@@ -8,7 +8,6 @@ import classNames from 'classnames'
 import { IconFilter16 } from '@hashicorp/flight-icons/svg-react/filter-16'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
-import capitalize from '@hashicorp/platform-util/text/capitalize'
 import useTypingDebounce from 'lib/hooks/use-typing-debounce'
 import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import Button from 'components/button'
@@ -34,23 +33,21 @@ export default function SearchableIntegrationsList({
 	className,
 }: SearchableIntegrationsListProps) {
 	const {
-		allComponents,
 		allFlags,
 		atLeastOneFacetSelected,
 		clearFilters,
-		componentCheckedArray,
 		filteredIntegrations: integrations,
 		filterQuery,
 		flagsCheckedArray,
 		page,
 		pageSize,
 		resetPage,
-		setComponentCheckedArray,
 		setFilterQuery,
 		setFlagsCheckedArray,
 		setPage,
 		setPageSize,
 		tierOptions,
+		componentOptions,
 	} = useIntegrationsSearchContext()
 
 	const filteredIntegrations = getFilteredIntegrations({
@@ -96,23 +93,6 @@ export default function SearchableIntegrationsList({
 		setFlagsCheckedArray(newFlags)
 	}
 
-	const makeToggleComponentHandler =
-		(i: number, componentName: string) => () => {
-			// reset page on filter change
-			resetPage()
-
-			const newComponents = [...componentCheckedArray]
-			const isComponentSelectedInNext = !newComponents[i]
-			if (isComponentSelectedInNext) {
-				integrationLibraryFilterSelectedEvent({
-					filter_category: 'component',
-					filter_value: componentName,
-				})
-			}
-			newComponents[i] = isComponentSelectedInNext
-			setComponentCheckedArray(newComponents)
-		}
-
 	const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false)
 
 	const resultText = `${filteredIntegrations.length} ${
@@ -135,18 +115,7 @@ export default function SearchableIntegrationsList({
 					{/* tablet_up */}
 					<div className={classNames(s.selectStack, s.tablet_up)}>
 						<MultiSelect text="Tiers" options={tierOptions} />
-						<MultiSelect
-							text="Components"
-							options={allComponents.map(({ slug, plural_name, name }, i) => {
-								const selected = componentCheckedArray[i]
-								return {
-									id: slug,
-									label: capitalize(plural_name),
-									onChange: makeToggleComponentHandler(i, name),
-									selected,
-								}
-							})}
-						/>
+						<MultiSelect text="Components" options={componentOptions} />
 						<MultiSelect
 							text="Flags"
 							options={allFlags.map(({ id, name }, i) => {
@@ -186,18 +155,13 @@ export default function SearchableIntegrationsList({
 						return selected && <Tag key={id} text={label} onRemove={onChange} />
 					})}
 					{/* Render x-tags for components */}
-					{allComponents.map((e, i) => {
-						const checked = componentCheckedArray[i]
-						return (
-							checked && (
-								<Tag
-									key={e.id}
-									text={capitalize(e.plural_name)}
-									onRemove={makeToggleComponentHandler(i, e.name)}
-								/>
+					{componentOptions.map(
+						({ id, label, onChange, selected }: $TSFixMe) => {
+							return (
+								selected && <Tag key={id} text={label} onRemove={onChange} />
 							)
-						)
-					})}
+						}
+					)}
 					{/* Render x-tags for flags */}
 					{allFlags.map((e, i) => {
 						const checked = flagsCheckedArray[i]
@@ -286,20 +250,12 @@ export default function SearchableIntegrationsList({
 // Renders Tier/Component/Flags checkboxes
 function MobileFilters() {
 	const {
-		allComponents,
 		allFlags,
-		componentCheckedArray,
+		componentOptions,
 		flagsCheckedArray,
-		setComponentCheckedArray,
 		setFlagsCheckedArray,
 		tierOptions,
 	} = useIntegrationsSearchContext()
-
-	const makeToggleComponentHandler = (index: number) => () => {
-		const newComponentCheckedArray = [...componentCheckedArray]
-		newComponentCheckedArray[index] = !newComponentCheckedArray[index]
-		setComponentCheckedArray(newComponentCheckedArray)
-	}
 
 	const makeToggleFlagHandler = (index: number) => () => {
 		const newFlagsCheckedArray = [...flagsCheckedArray]
@@ -326,15 +282,14 @@ function MobileFilters() {
 
 			<div className={s.optionsContainer}>
 				<Legend>Component</Legend>
-				{allComponents.map((e, i) => {
-					const checked = componentCheckedArray[i]
+				{componentOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
 					return (
 						<CheckboxField
-							key={e.id}
+							key={id}
 							labelFontWeight="regular"
-							label={capitalize(e.plural_name)}
-							checked={checked}
-							onChange={makeToggleComponentHandler(i)}
+							label={label}
+							checked={selected}
+							onChange={onChange}
 						/>
 					)
 				})}

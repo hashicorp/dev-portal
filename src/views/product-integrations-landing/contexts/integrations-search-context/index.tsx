@@ -21,6 +21,13 @@ import { IntegrationsSearchProviderProps } from './types'
 import { CommaArrayParam } from './constants'
 import { integrationLibraryFilterSelectedEvent } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/analytics'
 
+interface FacetFilterOption {
+	id: string
+	label: string
+	onChange: () => void
+	selected: boolean
+}
+
 export const IntegrationsSearchContext = createContext({
 	allComponents: [] as IntegrationComponent[],
 	allFlags: [] as Flag[],
@@ -28,7 +35,7 @@ export const IntegrationsSearchContext = createContext({
 	atLeastOneFacetSelected: false,
 	clearFilters: () => void 1,
 	communityChecked: false,
-	componentCheckedArray: [] as boolean[],
+	componentOptions: [] as FacetFilterOption[],
 	filteredIntegrations: [] as Integration[],
 	filterQuery: '',
 	flagsCheckedArray: [] as boolean[],
@@ -41,17 +48,11 @@ export const IntegrationsSearchContext = createContext({
 	pageSize: 8,
 	partnerChecked: false,
 	resetPage: () => void 1,
-	setComponentCheckedArray: (val: boolean[]) => void 1,
 	setFilterQuery: (newValue: string) => void 1,
 	setFlagsCheckedArray: (val: boolean[]) => void 1,
 	setPage: (newValue: number) => void 1,
 	setPageSize: (newValue: number) => void 1,
-	tierOptions: [] as {
-		id: string
-		label: string
-		onChange: () => void
-		selected: boolean
-	}[],
+	tierOptions: [] as FacetFilterOption[],
 })
 IntegrationsSearchContext.displayName = 'IntegrationsSearchContext'
 
@@ -92,6 +93,7 @@ export const IntegrationsSearchProvider = ({
 		setFilterQuery,
 		setPage,
 		setPageSize,
+		toggleComponentChecked,
 		toggleTierChecked,
 	} = useMemo(() => {
 		return {
@@ -117,6 +119,28 @@ export const IntegrationsSearchProvider = ({
 			},
 			setPageSize: (newValue: number) => {
 				setQueryParams({ pageSize: newValue })
+			},
+			toggleComponentChecked: (component: IntegrationComponent) => {
+				setQueryParams((prev: $TSFixMe) => {
+					const isChecked = prev.components.includes(component.slug)
+					if (isChecked) {
+						return {
+							...prev,
+							components: prev.components.filter(
+								(slug: IntegrationComponent['slug']) => slug !== component.slug
+							),
+						}
+					} else {
+						integrationLibraryFilterSelectedEvent({
+							filter_category: 'component',
+							filter_value: component.slug,
+						})
+						return {
+							...prev,
+							components: [...prev.components, component.slug],
+						}
+					}
+				})
 			},
 			toggleTierChecked: (tier: Tier) => {
 				setQueryParams((prev: $TSFixMe) => {
@@ -263,6 +287,17 @@ export const IntegrationsSearchProvider = ({
 		})
 	}
 
+	const componentOptions = useMemo(() => {
+		return allComponents.map((component: IntegrationComponent) => {
+			return {
+				id: component.slug,
+				label: capitalize(component.plural_name),
+				onChange: () => toggleComponentChecked(component),
+				selected: qsComponents.includes(component.slug),
+			}
+		})
+	}, [allComponents, qsComponents, toggleComponentChecked])
+
 	const tierOptions = useMemo(() => {
 		return allTiers.map((tier: Tier) => {
 			return {
@@ -286,7 +321,7 @@ export const IntegrationsSearchProvider = ({
 				atLeastOneFacetSelected,
 				clearFilters,
 				communityChecked,
-				componentCheckedArray,
+				componentOptions,
 				filteredIntegrations,
 				filterQuery,
 				flagsCheckedArray,
@@ -299,7 +334,6 @@ export const IntegrationsSearchProvider = ({
 				pageSize,
 				partnerChecked,
 				resetPage,
-				setComponentCheckedArray,
 				setFilterQuery,
 				setFlagsCheckedArray,
 				setPage,
