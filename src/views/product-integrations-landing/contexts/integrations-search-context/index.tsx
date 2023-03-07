@@ -3,16 +3,20 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { createContext, useContext, useMemo } from 'react'
+import {
+	decodeDelimitedArray,
+	encodeDelimitedArray,
+	QueryParamOptions,
+	useQueryParam,
+	withDefault,
+} from 'use-query-params'
 import {
 	Flag,
 	Integration,
 	IntegrationComponent,
 	Tier,
 } from 'lib/integrations-api-client/integration'
-import { createContext, useContext, useMemo } from 'react'
-import { QueryParamOptions, useQueryParam, withDefault } from 'use-query-params'
-
-import { decodeDelimitedArray, encodeDelimitedArray } from 'use-query-params'
 import { IntegrationsSearchProviderProps } from './types'
 
 /**
