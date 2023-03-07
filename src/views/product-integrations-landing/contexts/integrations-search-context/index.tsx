@@ -30,10 +30,12 @@ export const IntegrationsSearchContext = createContext({
 	matchingOfficial: 0,
 	matchingVerified: 0,
 	officialChecked: false,
+	page: 1,
 	pageSize: 8,
 	partnerChecked: false,
 	setComponentCheckedArray: (val: boolean[]) => void 1,
 	setFlagsCheckedArray: (val: boolean[]) => void 1,
+	setPage: (newValue: number) => void 1,
 	setPageSize: (newValue: number) => void 1,
 	toggleTierChecked: (tier: Tier) => void 1,
 })
@@ -50,6 +52,7 @@ export const IntegrationsSearchProvider = ({
 		{
 			components: withDefault(CommaArrayParam, []),
 			flags: withDefault(CommaArrayParam, []),
+			page: withDefault(NumberParam, 1),
 			pageSize: withDefault(NumberParam, 8),
 			tiers: withDefault(CommaArrayParam, []),
 		},
@@ -62,41 +65,46 @@ export const IntegrationsSearchProvider = ({
 	const {
 		components: qsComponents,
 		flags: qsFlags,
+		page,
 		pageSize,
 		tiers: qsTiers,
 	} = queryParams
 
-	const { clearFilters, setPageSize, toggleTierChecked } = useMemo(() => {
-		return {
-			clearFilters: () => {
-				setQueryParams({ components: [], flags: [], tiers: [] })
-			},
-			setPageSize: (newValue: number) => {
-				setQueryParams({ pageSize: newValue })
-			},
-			toggleTierChecked: (tier: Tier) => {
-				setQueryParams((prev: $TSFixMe) => {
-					const isChecked = prev.tiers.includes(tier)
+	const { clearFilters, setPage, setPageSize, toggleTierChecked } =
+		useMemo(() => {
+			return {
+				clearFilters: () => {
+					setQueryParams({ components: [], flags: [], tiers: [] })
+				},
+				setPage: (newValue: number) => {
+					setQueryParams({ page: newValue })
+				},
+				setPageSize: (newValue: number) => {
+					setQueryParams({ pageSize: newValue })
+				},
+				toggleTierChecked: (tier: Tier) => {
+					setQueryParams((prev: $TSFixMe) => {
+						const isChecked = prev.tiers.includes(tier)
 
-					if (isChecked) {
-						return {
-							...prev,
-							tiers: prev.tiers.filter((_tier: Tier) => _tier !== tier),
+						if (isChecked) {
+							return {
+								...prev,
+								tiers: prev.tiers.filter((_tier: Tier) => _tier !== tier),
+							}
+						} else {
+							integrationLibraryFilterSelectedEvent({
+								filter_category: 'tier',
+								filter_value: tier,
+							})
+							return {
+								...prev,
+								tiers: [...prev.tiers, tier],
+							}
 						}
-					} else {
-						integrationLibraryFilterSelectedEvent({
-							filter_category: 'tier',
-							filter_value: tier,
-						})
-						return {
-							...prev,
-							tiers: [...prev.tiers, tier],
-						}
-					}
-				})
-			},
-		}
-	}, [setQueryParams])
+					})
+				},
+			}
+		}, [setQueryParams])
 
 	const officialChecked = qsTiers.includes(Tier.OFFICIAL)
 	const partnerChecked = qsTiers.includes(Tier.PARTNER)
@@ -243,6 +251,8 @@ export const IntegrationsSearchProvider = ({
 				setFlagsCheckedArray,
 				setPageSize,
 				toggleTierChecked,
+				page,
+				setPage,
 			}}
 		>
 			{children}

@@ -17,7 +17,7 @@ export interface PaginationProps {
 	/** A callback that fires when the page value changes */
 	onPageChange?: (page: number) => void
 	/** A callback that fires when the page size value changes */
-	onPageSizeChange?: (pagesize: number) => void
+	onPageSizeChange?: (pageSize: number) => void
 }
 
 export interface InfoProps {

@@ -10,12 +10,13 @@ import IntegrationsList from '../integrations-list'
 import s from './style.module.css'
 import Pagination, { PaginationProps } from 'components/pagination'
 import { useDeviceSize } from 'contexts/device-size'
-import { useQueryParam, NumberParam, withDefault } from 'use-query-params'
 
 interface PaginatedIntegrationsListProps {
 	integrations: Array<Integration>
 	onClearFiltersClicked: () => void
+	onPageChange: PaginationProps['onPageChange']
 	onPageSizeChange: PaginationProps['onPageSizeChange']
+	page: PaginationProps['page']
 	pageSize: PaginationProps['pageSize']
 }
 
@@ -34,11 +35,14 @@ export default function PaginatedIntegrationsList({
 	integrations,
 	onClearFiltersClicked,
 	onPageSizeChange,
+	page: _page,
 	pageSize: _pageSize,
+	onPageChange,
 }: PaginatedIntegrationsListProps) {
 	const isFirstRender = useRef(true)
 	const containerRef = useRef(null)
 
+	const page = coerceToDefaultValue(_page, 1)
 	const pageSize = coerceToDefaultValue(_pageSize, 8)
 
 	// Sort integrations alphabetically. Right now this is our
@@ -57,21 +61,9 @@ export default function PaginatedIntegrationsList({
 		}
 	)
 
-	// Keep track of the current page & Integrations to display
-	const [_currentPage, setCurrentPage] = useQueryParam(
-		'page',
-		withDefault(NumberParam, 1),
-		{
-			updateType: 'replaceIn',
-			removeDefaultsFromUrl: true,
-		}
-	)
-
-	const currentPage = coerceToDefaultValue(_currentPage, 1)
-
 	const currentPageIntegrations = sortedIntegrations.slice(
-		(currentPage - 1) * pageSize,
-		currentPage * pageSize
+		(page - 1) * pageSize,
+		page * pageSize
 	)
 
 	/**
@@ -103,7 +95,7 @@ export default function PaginatedIntegrationsList({
 				window.scrollBy(0, navScrollCompensation * -1)
 			}
 		}
-	}, [currentPage])
+	}, [page])
 
 	const { isDesktop, isMobile, isTablet } = useDeviceSize()
 
@@ -115,9 +107,9 @@ export default function PaginatedIntegrationsList({
 			/>
 			<div className={s.paginatorWrapper}>
 				<Pagination
-					onPageChange={setCurrentPage}
+					onPageChange={onPageChange}
 					onPageSizeChange={onPageSizeChange}
-					page={currentPage}
+					page={page}
 					pageSize={pageSize}
 					totalItems={integrations.length}
 				>
