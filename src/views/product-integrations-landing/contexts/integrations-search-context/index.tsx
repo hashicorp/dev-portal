@@ -17,9 +17,10 @@ import {
 	IntegrationComponent,
 	Tier,
 } from 'lib/integrations-api-client/integration'
+import { integrationLibraryFilterSelectedEvent } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/analytics'
+import { getDoesMatchFilterQuery } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/get-filtered-integrations'
 import { IntegrationsSearchProviderProps } from './types'
 import { CommaArrayParam } from './constants'
-import { integrationLibraryFilterSelectedEvent } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/analytics'
 
 interface FacetFilterOption {
 	id: string
@@ -179,12 +180,11 @@ export const IntegrationsSearchProvider = ({
 	}, [setQueryParams])
 
 	const { atLeastOneFacetSelected, filteredIntegrations } = useMemo(() => {
-		let filteredIntegrations = integrations
-
 		const atLeastOneFacetSelected =
 			qsComponents.length > 0 || qsFlags.length > 0 || qsTiers.length > 0
-		if (atLeastOneFacetSelected) {
-			filteredIntegrations = integrations.filter((integration: Integration) => {
+
+		const filteredIntegrations = integrations.filter(
+			(integration: Integration) => {
 				let tierMatch = true
 				if (qsTiers.length > 0) {
 					tierMatch = qsTiers.includes(integration.tier)
@@ -206,15 +206,23 @@ export const IntegrationsSearchProvider = ({
 					})
 				}
 
-				return tierMatch && componentMatch && flagMatch
-			})
-		}
+				let filterQueryMatch = true
+				if (filterQuery.length) {
+					filterQueryMatch = getDoesMatchFilterQuery({
+						integration,
+						filterQuery,
+					})
+				}
+
+				return tierMatch && componentMatch && flagMatch && filterQueryMatch
+			}
+		)
 
 		return {
 			atLeastOneFacetSelected,
 			filteredIntegrations,
 		}
-	}, [integrations, qsComponents, qsFlags, qsTiers])
+	}, [filterQuery, integrations, qsComponents, qsFlags, qsTiers])
 
 	const componentOptions = useMemo(() => {
 		return allComponents.map((component: IntegrationComponent) => {

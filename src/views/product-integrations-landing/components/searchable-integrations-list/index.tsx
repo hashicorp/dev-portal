@@ -19,7 +19,6 @@ import FilterInput from 'components/filter-input'
 import MultiSelect from 'components/multi-select'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
 import { integrationLibrarySearchedEvent } from './helpers/analytics'
-import { getFilteredIntegrations } from './helpers/get-filtered-integrations'
 import s from './style.module.css'
 
 interface SearchableIntegrationsListProps {
@@ -34,7 +33,7 @@ export default function SearchableIntegrationsList({
 		atLeastOneFacetSelected,
 		clearFilters,
 		componentOptions,
-		filteredIntegrations: integrations,
+		filteredIntegrations,
 		filterQuery,
 		flagOptions,
 		page,
@@ -45,11 +44,6 @@ export default function SearchableIntegrationsList({
 		setPageSize,
 		tierOptions,
 	} = useIntegrationsSearchContext()
-
-	const filteredIntegrations = getFilteredIntegrations({
-		integrations,
-		filterQuery,
-	})
 
 	/**
 	 * Track an "integration_library_searched" event when the filterQuery changes
