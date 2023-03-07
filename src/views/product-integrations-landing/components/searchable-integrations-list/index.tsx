@@ -10,7 +10,6 @@ import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import capitalize from '@hashicorp/platform-util/text/capitalize'
 import useTypingDebounce from 'lib/hooks/use-typing-debounce'
-import { Tier } from 'lib/integrations-api-client/integration'
 import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import Button from 'components/button'
 import Dialog from 'components/dialog'
@@ -37,25 +36,21 @@ export default function SearchableIntegrationsList({
 	const {
 		allComponents,
 		allFlags,
-		allTiers,
 		atLeastOneFacetSelected,
 		clearFilters,
-		communityChecked,
 		componentCheckedArray,
 		filteredIntegrations: integrations,
 		filterQuery,
 		flagsCheckedArray,
-		officialChecked,
 		page,
 		pageSize,
-		partnerChecked,
 		resetPage,
 		setComponentCheckedArray,
 		setFilterQuery,
 		setFlagsCheckedArray,
 		setPage,
 		setPageSize,
-		toggleTierChecked,
+		tierOptions,
 	} = useIntegrationsSearchContext()
 
 	const filteredIntegrations = getFilteredIntegrations({
@@ -139,24 +134,7 @@ export default function SearchableIntegrationsList({
 				<div className={s.filterOptions}>
 					{/* tablet_up */}
 					<div className={classNames(s.selectStack, s.tablet_up)}>
-						<MultiSelect
-							text="Tiers"
-							options={allTiers.map((tierOption: Tier) => {
-								const selected =
-									(tierOption === Tier.OFFICIAL && officialChecked) ||
-									(tierOption === Tier.PARTNER && partnerChecked) ||
-									(tierOption === Tier.COMMUNITY && communityChecked)
-								return {
-									id: tierOption,
-									label: capitalize(tierOption),
-									onChange: () => {
-										resetPage()
-										toggleTierChecked(tierOption)
-									},
-									selected,
-								}
-							})}
-						/>
+						<MultiSelect text="Tiers" options={tierOptions} />
 						<MultiSelect
 							text="Components"
 							options={allComponents.map(({ slug, plural_name, name }, i) => {
@@ -204,23 +182,8 @@ export default function SearchableIntegrationsList({
 
 				<div className={s.filterInfo}>
 					{/* Render x-tags for tiers */}
-					{allTiers.map((tierOption: Tier) => {
-						const checked =
-							(tierOption === Tier.OFFICIAL && officialChecked) ||
-							(tierOption === Tier.PARTNER && partnerChecked) ||
-							(tierOption === Tier.COMMUNITY && communityChecked)
-						return (
-							checked && (
-								<Tag
-									key={tierOption}
-									text={capitalize(tierOption)}
-									onRemove={() => {
-										resetPage()
-										toggleTierChecked(tierOption)
-									}}
-								/>
-							)
-						)
+					{tierOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
+						return selected && <Tag key={id} text={label} onRemove={onChange} />
 					})}
 					{/* Render x-tags for components */}
 					{allComponents.map((e, i) => {
@@ -325,15 +288,11 @@ function MobileFilters() {
 	const {
 		allComponents,
 		allFlags,
-		allTiers,
-		communityChecked,
 		componentCheckedArray,
 		flagsCheckedArray,
-		officialChecked,
-		partnerChecked,
 		setComponentCheckedArray,
 		setFlagsCheckedArray,
-		toggleTierChecked,
+		tierOptions,
 	} = useIntegrationsSearchContext()
 
 	const makeToggleComponentHandler = (index: number) => () => {
@@ -352,18 +311,14 @@ function MobileFilters() {
 		<>
 			<div className={s.optionsContainer}>
 				<Legend>Tier</Legend>
-				{allTiers.map((tierOption: Tier) => {
-					const checked =
-						(tierOption === Tier.OFFICIAL && officialChecked) ||
-						(tierOption === Tier.PARTNER && partnerChecked) ||
-						(tierOption === Tier.COMMUNITY && communityChecked)
+				{tierOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
 					return (
 						<CheckboxField
-							key={tierOption}
+							key={id}
 							labelFontWeight="regular"
-							label={capitalize(tierOption)}
-							checked={checked}
-							onChange={() => toggleTierChecked(tierOption)}
+							label={label}
+							checked={selected}
+							onChange={onChange}
 						/>
 					)
 				})}

@@ -10,6 +10,7 @@ import {
 	useQueryParams,
 	withDefault,
 } from 'use-query-params'
+import capitalize from '@hashicorp/platform-util/text/capitalize'
 import {
 	Flag,
 	Integration,
@@ -45,7 +46,12 @@ export const IntegrationsSearchContext = createContext({
 	setFlagsCheckedArray: (val: boolean[]) => void 1,
 	setPage: (newValue: number) => void 1,
 	setPageSize: (newValue: number) => void 1,
-	toggleTierChecked: (tier: Tier) => void 1,
+	tierOptions: [] as {
+		id: string
+		label: string
+		onChange: () => void
+		selected: boolean
+	}[],
 })
 IntegrationsSearchContext.displayName = 'IntegrationsSearchContext'
 
@@ -115,7 +121,6 @@ export const IntegrationsSearchProvider = ({
 			toggleTierChecked: (tier: Tier) => {
 				setQueryParams((prev: $TSFixMe) => {
 					const isChecked = prev.tiers.includes(tier)
-
 					if (isChecked) {
 						return {
 							...prev,
@@ -258,6 +263,20 @@ export const IntegrationsSearchProvider = ({
 		})
 	}
 
+	const tierOptions = useMemo(() => {
+		return allTiers.map((tier: Tier) => {
+			return {
+				id: tier,
+				label: capitalize(tier),
+				onChange: () => {
+					resetPage()
+					toggleTierChecked(tier)
+				},
+				selected: qsTiers.includes(tier),
+			}
+		})
+	}, [allTiers, qsTiers, resetPage, toggleTierChecked])
+
 	return (
 		<IntegrationsSearchContext.Provider
 			value={{
@@ -285,7 +304,7 @@ export const IntegrationsSearchProvider = ({
 				setFlagsCheckedArray,
 				setPage,
 				setPageSize,
-				toggleTierChecked,
+				tierOptions,
 			}}
 		>
 			{children}
