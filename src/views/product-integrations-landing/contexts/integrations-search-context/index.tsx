@@ -104,11 +104,7 @@ export const IntegrationsSearchProvider = ({
 			clearFilters: () => {
 				setQueryParams({
 					components: [],
-					filterQuery: '',
 					flags: [],
-					page: 1,
-					// @ TODO should we also reset pageSize?
-					// pageSize: 8,
 					tiers: [],
 				})
 			},
@@ -197,10 +193,7 @@ export const IntegrationsSearchProvider = ({
 		paginatedIntegrations,
 	} = useMemo(() => {
 		const atLeastOneFacetSelected =
-			qsComponents.length > 0 ||
-			qsFlags.length > 0 ||
-			qsTiers.length > 0 ||
-			filterQuery.length > 0
+			qsComponents.length > 0 || qsFlags.length > 0 || qsTiers.length > 0
 
 		/**
 		 * First, filter by facet and filterQuery
