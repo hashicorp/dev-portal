@@ -12,7 +12,7 @@ function getTutorialLandingPaths(): string[] {
 		(productSlug: ProductSlug) => `/${productSlug}/tutorials`
 	)
 	const sectionOptionsWithLandingPage = Object.values(SectionOption).filter(
-		(option: SectionOption) => option === SectionOption.onboarding
+		(option: SectionOption) => option !== SectionOption.onboarding
 	)
 	const sectionOptions = sectionOptionsWithLandingPage.map(
 		(slug: SectionOption) => `/${slug}`
