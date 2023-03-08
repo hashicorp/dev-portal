@@ -17,9 +17,9 @@ export async function withTiming<T>(
 		}
 		console.time(label)
 
-		let result: T
+		let result: Promise<T> | T
 		try {
-			result = await fn()
+			result = fn()
 		} finally {
 			if (group) {
 				console.groupEnd()
@@ -29,6 +29,6 @@ export async function withTiming<T>(
 		return result
 	} else {
 		// passthrough if env var is not specified
-		return await fn()
+		return fn()
 	}
 }

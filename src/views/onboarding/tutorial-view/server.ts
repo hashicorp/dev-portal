@@ -17,6 +17,8 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { getCollectionContext } from 'views/tutorial-view/utils/get-collection-context'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import { MenuItem, SidebarProps } from 'components/sidebar'
+import { EnrichedNavItem } from 'components/sidebar/types'
+import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 import { getNextPrevious } from 'views/tutorial-view/components'
 import { OnboardingTutorialViewProps } from '../types'
 
@@ -87,7 +89,7 @@ export async function getOnboardingTutorialProps(
 		fullTutorialData.id
 	let nextCollection
 
-	// handle next sidebarcolleciton lnogic
+	// handle next sidebar collection logic
 	if (isLastTutorial) {
 		const currentIndex = tutorialNavLevelMenuItems.findIndex(
 			(item: MenuItem) => item.fullPath === `/${currentCollection.slug}`
@@ -99,57 +101,76 @@ export async function getOnboardingTutorialProps(
 		)
 	}
 
-	return {
-		props: stripUndefinedProperties<$TSFixMe>({
-			tutorial: {
-				...fullTutorialData,
-				content: serializedContent,
-				collectionCtx: collectionContext,
-				nextPreviousData: getNextPrevious({
-					currentCollection: collectionContext.current,
-					currentTutorialSlug: fullTutorialData.slug,
-					nextCollectionInSidebar: nextCollection,
-					formatting: {
-						getCollectionSlug: (collectionSlug: string) => `/${collectionSlug}`,
-						getTutorialSlug: (tutorialSlug: string, collectionSlug: string) =>
-							`/${collectionSlug}/${splitProductFromFilename(tutorialSlug)}`,
-					},
-				}),
-				full: fullTutorialData,
-			},
-			layoutProps: {
-				headings,
-				breadcrumbLinks: [
-					{ title: 'Developer', url: '/' },
-					{
-						title: collectionContext.current.name,
-						url: `/${collectionContext.current.slug}`,
-					},
-					{
-						title: fullTutorialData.name,
-						url: `/${collectionContext.current.slug}/${splitProductFromFilename(
-							fullTutorialData.slug
-						)}`,
-						isCurrentPage: true,
-					},
-				],
-				navLevels: [
-					generateTopLevelSidebarNavData(onboardingData.name) as SidebarProps,
-					{
-						title: onboardingData.name,
-						levelButtonProps: {
-							levelUpButtonText: `Main Menu`,
-							levelDownButtonText: 'Previous',
-						},
-						showFilterInput: false,
-						menuItems: tutorialNavLevelMenuItems,
-						backToLinkProps: {
-							text: `${currentCollection.name}`,
-							href: `/${currentCollection.slug}`,
-						},
-					},
-				],
-			},
-		}),
+	/**
+	 * Generate page heading and outline nav items from headings
+	 */
+	const pageHeading = {
+		slug: headings[0].slug,
+		text: headings[0].title,
 	}
+	const outlineItems = outlineItemsFromHeadings(headings)
+
+	/**
+	 * Assemble props for the view
+	 */
+	const props = stripUndefinedProperties<OnboardingTutorialViewProps>({
+		tutorial: {
+			...fullTutorialData,
+			content: serializedContent,
+			collectionCtx: collectionContext,
+			nextPreviousData: getNextPrevious({
+				currentCollection: collectionContext.current,
+				currentTutorialSlug: fullTutorialData.slug,
+				nextCollectionInSidebar: nextCollection,
+				formatting: {
+					getCollectionSlug: (collectionSlug: string) => `/${collectionSlug}`,
+					getTutorialSlug: (tutorialSlug: string, collectionSlug: string) =>
+						`/${collectionSlug}/${splitProductFromFilename(tutorialSlug)}`,
+				},
+			}),
+		},
+		pageHeading,
+		outlineItems,
+		layoutProps: {
+			breadcrumbLinks: [
+				{ title: 'Developer', url: '/' },
+				{
+					title: collectionContext.current.name,
+					url: `/${collectionContext.current.slug}`,
+				},
+				{
+					title: fullTutorialData.name,
+					url: `/${collectionContext.current.slug}/${splitProductFromFilename(
+						fullTutorialData.slug
+					)}`,
+					isCurrentPage: true,
+				},
+			],
+			navLevels: [
+				generateTopLevelSidebarNavData(onboardingData.name) as SidebarProps,
+				{
+					title: onboardingData.name,
+					levelButtonProps: {
+						levelUpButtonText: `Main Menu`,
+						levelDownButtonText: 'Previous',
+					},
+					showFilterInput: false,
+					/**
+					 * TODO: fix up Enriched item interfaces here.
+					 *
+					 * Currently, EnrichedLinkNavItem requires both `path` and `href`,
+					 * since it extends both the RawInternalLinkNavItem and the
+					 * RawExternalLinkNavItem interfaces.
+					 */
+					menuItems: tutorialNavLevelMenuItems as $TSFixMe as EnrichedNavItem[],
+					backToLinkProps: {
+						text: `${currentCollection.name}`,
+						href: `/${currentCollection.slug}`,
+					},
+				},
+			],
+		},
+	})
+
+	return { props }
 }

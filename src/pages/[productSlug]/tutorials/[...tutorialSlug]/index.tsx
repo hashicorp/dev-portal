@@ -11,9 +11,8 @@ import {
 import { LearnProductData, LearnProductSlug } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
-import TutorialView from 'views/tutorial-view'
+import TutorialView, { TutorialViewProps } from 'views/tutorial-view'
 import {
-	TutorialPageProps,
 	TutorialPagePaths,
 	getTutorialPagePaths,
 	getTutorialPageProps,
@@ -78,7 +77,7 @@ type TutorialPageStaticPropsCtx = GetStaticPropsContext<{
 async function _getStaticProps({
 	params,
 }: TutorialPageStaticPropsCtx): Promise<
-	GetStaticPropsResult<TutorialPageProps>
+	GetStaticPropsResult<TutorialViewProps>
 > {
 	const { productSlug, tutorialSlug } = params
 
