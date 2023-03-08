@@ -39,12 +39,11 @@
 	display: grid;
 
 	& > * {
-		grid-area: 1 / 1;
+		min-width: 154px;
 		color: transparent;
 	}
 
 	&.settled > *:not([aria-hidden='true']) {
 		color: white;
-		z-index: 1;
 	}
 }

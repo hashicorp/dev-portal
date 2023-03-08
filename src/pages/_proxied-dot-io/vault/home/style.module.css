@@ -27,12 +27,11 @@
 	display: grid;
 
 	& > * {
-		grid-area: 1 / 1;
+		min-width: 140px;
 		color: transparent;
 	}
 
 	&.settled > *:not([aria-hidden='true']) {
 		color: black;
-		z-index: 1;
 	}
 }

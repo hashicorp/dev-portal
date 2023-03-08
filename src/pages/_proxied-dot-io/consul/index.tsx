@@ -97,31 +97,14 @@ function Homepage({ data }): React.ReactElement {
 								)}
 							>
 								<Button
-									title="Try HCP Consul"
+									title={renderVariant ? 'Try for free' : 'Try HCP Consul'}
 									url={cta.link}
 									theme={{ brand: 'consul' }}
-									aria-hidden={renderVariant ? 'true' : undefined}
-									tabindex={renderVariant ? '-1' : undefined}
 									onClick={() => {
 										abTestTrack({
 											type: 'Result',
 											test_name: 'io-site primary CTA copy test 03-23',
-											variant: 'false',
-										})
-									}}
-								/>
-
-								<Button
-									title="Try for free"
-									url={cta.link}
-									theme={{ brand: 'consul' }}
-									aria-hidden={renderVariant ? undefined : 'true'}
-									tabindex={renderVariant ? undefined : '-1'}
-									onClick={() => {
-										abTestTrack({
-											type: 'Result',
-											test_name: 'io-site primary CTA copy test 03-23',
-											variant: 'true',
+											variant: flagBag.flags?.tryForFree.toString(),
 										})
 									}}
 								/>
