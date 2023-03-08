@@ -50,7 +50,6 @@
 
 			& .activatorTrailingIcon {
 				color: var(--token-color-foreground-strong);
-				transform: rotate(-180deg);
 			}
 		}
 	}
