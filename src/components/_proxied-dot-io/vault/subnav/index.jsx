@@ -3,9 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import * as React from 'react'
 import Subnav from '@hashicorp/react-subnav'
+import { isInUS } from '@hashicorp/platform-util/geo'
 import classNames from 'classnames'
 import useProxiedPath from 'lib/hooks/useProxiedPath'
+import { abTestTrack } from 'lib/ab-test-track'
 import { useFlagBag } from 'flags/client'
 import Link from 'next/link'
 import s from './style.module.css'
@@ -13,12 +16,10 @@ import s from './style.module.css'
 export default function ProductSubnav({ menuItems }) {
 	const { asPath } = useProxiedPath()
 	const flagBag = useFlagBag()
-	const classnames = classNames(
-		'g-product-subnav',
-		s.subnav,
-		flagBag.settled && s.settled,
-		flagBag.flags?.tryForFree ? s.control : s.variant
-	)
+	const renderVariant = React.useMemo(() => {
+		return isInUS() && flagBag.settled && flagBag.flags?.tryForFree
+	}, [flagBag])
+	const classnames = classNames(s.subnav, flagBag.settled && s.settled)
 
 	return (
 		<Subnav
@@ -46,6 +47,12 @@ export default function ProductSubnav({ menuItems }) {
 					theme: {
 						brand: 'vault',
 					},
+					onClick: () =>
+						abTestTrack({
+							type: 'Result',
+							test_name: 'io-site primary CTA copy test 03-23',
+							variant: renderVariant ? 'true' : 'false',
+						}),
 				},
 			]}
 			currentPath={asPath}

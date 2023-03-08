@@ -3,20 +3,22 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import * as React from 'react'
 import Subnav from '@hashicorp/react-subnav'
+import { isInUS } from '@hashicorp/platform-util/geo'
 import classNames from 'classnames'
 import { useFlagBag } from 'flags/client'
+import { abTestTrack } from 'lib/ab-test-track'
 import useProxiedPath from 'lib/hooks/useProxiedPath'
 import s from './style.module.css'
 
 export default function ConsulSubnav({ menuItems }) {
 	const { asPath } = useProxiedPath()
 	const flagBag = useFlagBag()
-	const classnames = classNames(
-		s.subnav,
-		flagBag.settled && s.settled,
-		flagBag.flags?.tryForFree ? s.control : s.variant
-	)
+	const renderVariant = React.useMemo(() => {
+		return isInUS() && flagBag.settled && flagBag.flags?.tryForFree
+	}, [flagBag])
+	const classnames = classNames(s.subnav, flagBag.settled && s.settled)
 
 	return (
 		<Subnav
@@ -37,14 +39,17 @@ export default function ConsulSubnav({ menuItems }) {
 					url: 'https://developer.hashicorp.com/consul/downloads',
 				},
 				{
-					text:
-						flagBag.settled && flagBag.flags.tryForFree
-							? 'Try for free'
-							: 'Try HCP Consul',
+					text: renderVariant ? 'Try for free' : 'Try HCP Consul',
 					url: 'https://portal.cloud.hashicorp.com/sign-up',
 					theme: {
 						brand: 'consul',
 					},
+					onClick: () =>
+						abTestTrack({
+							type: 'Result',
+							test_name: 'io-site primary CTA copy test 03-23',
+							variant: renderVariant ? 'true' : 'false',
+						}),
 				},
 			]}
 			currentPath={asPath}
