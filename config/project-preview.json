@@ -11,6 +11,6 @@
 		"max_static_paths": 0
 	},
 	"flags": {
-		"enable_dark_modle": false
+		"enable_dark_mode": false
 	}
 }
