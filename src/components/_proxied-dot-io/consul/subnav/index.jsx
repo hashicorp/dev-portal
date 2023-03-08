@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { isInUS } from '@hashicorp/platform-util/geo'
 import Subnav from '@hashicorp/react-subnav'
 import classNames from 'classnames'
 import { useFlagBag } from 'flags/client'
@@ -19,47 +18,9 @@ export default function ConsulSubnav({ menuItems }) {
 		flagBag.flags?.tryForFree ? s.control : s.variant
 	)
 
-	if (isInUS()) {
-		return (
-			<Subnav
-				className={classnames}
-				hideGithubStars={true}
-				titleLink={{
-					text: 'HashiCorp Consul',
-					url: '/',
-				}}
-				ctaLinks={[
-					{
-						text: 'GitHub',
-						url: 'https://www.github.com/hashicorp/consul',
-					},
-
-					{
-						text: 'Download',
-						url: 'https://developer.hashicorp.com/consul/downloads',
-					},
-					{
-						text:
-							flagBag.settled && flagBag.flags.tryForFree
-								? 'Try for free'
-								: 'Try HCP Consul',
-						url: 'https://portal.cloud.hashicorp.com/sign-up',
-						theme: {
-							brand: 'consul',
-						},
-					},
-				]}
-				currentPath={asPath}
-				menuItemsAlign="right"
-				menuItems={menuItems}
-				constrainWidth
-				matchOnBasePath
-			/>
-		)
-	}
-
 	return (
 		<Subnav
+			className={classnames}
 			hideGithubStars={true}
 			titleLink={{
 				text: 'HashiCorp Consul',
@@ -76,7 +37,10 @@ export default function ConsulSubnav({ menuItems }) {
 					url: 'https://developer.hashicorp.com/consul/downloads',
 				},
 				{
-					text: 'Try HCP Consul',
+					text:
+						flagBag.settled && flagBag.flags.tryForFree
+							? 'Try for free'
+							: 'Try HCP Consul',
 					url: 'https://portal.cloud.hashicorp.com/sign-up',
 					theme: {
 						brand: 'consul',

@@ -4,7 +4,6 @@
  */
 
 import Subnav from '@hashicorp/react-subnav'
-import { isInUS } from '@hashicorp/platform-util/geo'
 import classNames from 'classnames'
 import useProxiedPath from 'lib/hooks/useProxiedPath'
 import { useFlagBag } from 'flags/client'
@@ -21,48 +20,9 @@ export default function ProductSubnav({ menuItems }) {
 		flagBag.flags?.tryForFree ? s.control : s.variant
 	)
 
-	if (isInUS()) {
-		return (
-			<Subnav
-				className={classnames}
-				hideGithubStars={true}
-				titleLink={{
-					text: 'HashiCorp Vault',
-					url: '/',
-				}}
-				ctaLinks={[
-					{
-						text: 'GitHub',
-						url: 'https://www.github.com/hashicorp/vault',
-					},
-					{
-						text: 'Download',
-						url: 'https://developer.hashicorp.com/vault/downloads',
-					},
-					{
-						text:
-							flagBag.settled && flagBag.flags.tryForFree
-								? 'Try for free'
-								: 'Try HCP Vault',
-						url: 'https://portal.cloud.hashicorp.com/sign-up',
-						theme: {
-							brand: 'vault',
-						},
-					},
-				]}
-				currentPath={asPath}
-				menuItems={menuItems}
-				menuItemsAlign="right"
-				constrainWidth
-				matchOnBasePath
-				Link={Link}
-			/>
-		)
-	}
-
 	return (
 		<Subnav
-			className={'g-product-subnav'}
+			className={classnames}
 			hideGithubStars={true}
 			titleLink={{
 				text: 'HashiCorp Vault',
@@ -78,7 +38,10 @@ export default function ProductSubnav({ menuItems }) {
 					url: 'https://developer.hashicorp.com/vault/downloads',
 				},
 				{
-					text: 'Try HCP Vault',
+					text:
+						flagBag.settled && flagBag.flags.tryForFree
+							? 'Try for free'
+							: 'Try HCP Vault',
 					url: 'https://portal.cloud.hashicorp.com/sign-up',
 					theme: {
 						brand: 'vault',

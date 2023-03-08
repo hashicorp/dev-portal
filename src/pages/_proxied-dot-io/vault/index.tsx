@@ -10,7 +10,6 @@ import { proxiedRivetClient } from 'lib/cms'
 import { useFlagBag } from 'flags/client'
 import homepageQuery from './home/query.graphql'
 import VaultIoLayout from 'layouts/_proxied-dot-io/vault'
-import { isInUS } from '@hashicorp/platform-util/geo'
 import { renderMetaTags } from '@hashicorp/react-head'
 import Button from '@hashicorp/react-button'
 import StandaloneLink from '@hashicorp/react-standalone-link'
@@ -73,63 +72,53 @@ export default function Homepage({ data }): React.ReactElement {
 				}}
 				heading={heroHeading}
 				description={heroDescription}
-				ctas={
-					isInUS() === false
-						? heroCtas.map((cta) => {
-								return {
-									title: cta.title,
-									href: cta.link,
-								}
-						  })
-						: null
-				}
+				// ctas={heroCtas.map((cta) => {
+				// 	return {
+				// 		title: cta.title,
+				// 		href: cta.link,
+				// 	}
+				// })}
 			>
-				{isInUS()
-					? heroCtas.map((cta, index) => {
-							if (index === 0) {
-								return (
-									<div
-										key={cta.link}
-										className={classNames(
-											s.heroActionsPrimary,
-											flagBag.settled && s.settled,
-											flagBag.flags?.tryForFree ? s.control : s.variant
-										)}
-									>
-										<Button
-											title="Try HCP Vault"
-											url={cta.link}
-											theme={{ brand: 'vault' }}
-											{...(flagBag.settled &&
-												flagBag.flags?.tryForFree === true && {
-													...hiddenProps,
-												})}
-										/>
+				{heroCtas.map((cta, index) => {
+					if (index === 0) {
+						return (
+							<div
+								key={cta.link}
+								className={classNames(
+									s.heroActionsPrimary,
+									flagBag.settled && s.settled,
+									flagBag.flags?.tryForFree ? s.control : s.variant
+								)}
+							>
+								<Button
+									title="Try HCP Vault"
+									url={cta.link}
+									theme={{ brand: 'vault' }}
+									{...(flagBag.settled &&
+										flagBag.flags?.tryForFree === true && {
+											...hiddenProps,
+										})}
+								/>
 
-										<Button
-											title="Try for free"
-											url={cta.link}
-											theme={{ brand: 'vault' }}
-											{...(flagBag.settled &&
-												flagBag.flags?.tryForFree === false && {
-													...hiddenProps,
-												})}
-										/>
-									</div>
-								)
-							}
+								<Button
+									title="Try for free"
+									url={cta.link}
+									theme={{ brand: 'vault' }}
+									{...(flagBag.settled &&
+										flagBag.flags?.tryForFree === false && {
+											...hiddenProps,
+										})}
+								/>
+							</div>
+						)
+					}
 
-							return (
-								<StandaloneLink
-									key={cta.link}
-									href={cta.link}
-									theme="secondary"
-								>
-									{cta.title}
-								</StandaloneLink>
-							)
-					  })
-					: null}
+					return (
+						<StandaloneLink key={cta.link} href={cta.link} theme="secondary">
+							{cta.title}
+						</StandaloneLink>
+					)
+				})}
 			</IoHomeHeroAlt>
 
 			<IoHomeIntro
