@@ -18,6 +18,7 @@ import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { PackageManager, SortedReleases } from './types'
 import { CollectionLite } from 'lib/learn-client/types'
+import { getEnterpriseVersionData } from './helpers/get-enterprise-version-data'
 
 const PLATFORM_MAP = {
 	Mac: 'darwin',
@@ -276,14 +277,28 @@ export const sortAndFilterReleaseVersions = ({
 				return false
 			}
 
-			// Filter out prereleases
-			const isPrelease = semverPrerelease(version) !== null
+			/**
+			 * Get enterprise version data, as our enterprise versions are not
+			 * always strictly matched to semver.
+			 *
+			 * See `getEnterpriseVersionData` for details.
+			 */
+			const { isEnterpriseVersion, versionWithoutEnterpriseId } =
+				getEnterpriseVersionData(version)
+
+			/**
+			 * Filter out pre-releases.
+			 *
+			 * Note we use the version without the `+ent` identifier here,
+			 * as otherwise, we would see inaccurate results.
+			 * See `getEnterpriseVersionData` for details.
+			 */
+			const isPrelease = semverPrerelease(versionWithoutEnterpriseId) !== null
 			if (isPrelease) {
 				return false
 			}
 
 			// Filter in enterprise versions if enterprise mode
-			const isEnterpriseVersion = !!version.match(/\+ent(?:.*?)*$/)
 			if (isEnterpriseMode) {
 				return isEnterpriseVersion
 			}
