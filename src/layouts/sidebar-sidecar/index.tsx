@@ -27,7 +27,7 @@ import {
 	SidebarNavDataProvider,
 	useSidebarNavData,
 } from './contexts/sidebar-nav-data'
-import { ScrollProgressBar } from './components/scroll-progress-bar'
+import { ScrollProgressBar, SidecarScrollContainer } from './components'
 import s from './sidebar-sidecar-layout.module.css'
 
 const SidebarSidecarLayout = (props: SidebarSidecarLayoutProps) => {
@@ -86,7 +86,7 @@ const SidebarSidecarLayoutContent = ({
 
 	return (
 		<div className={classNames(s.root, s[`mainWidth-${mainWidth}`])}>
-			<MobileMenuContainer className={s.mobileMenuContainer} ref={sidebarRef}>
+			<MobileMenuContainer className={s.sidebarContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
 					<MobileAuthenticationControls />
 					{sidebarContent}
@@ -94,21 +94,29 @@ const SidebarSidecarLayoutContent = ({
 			</MobileMenuContainer>
 			<div className={s.contentWrapper} ref={contentRef}>
 				{alertBannerSlot}
-				<div className={s.mainAreaWrapper}>
-					<main id={MAIN_ELEMENT_ID} className={s.main}>
-						<span className={s.breadcrumbOptOutGroup}>
-							{breadcrumbLinks && <BreadcrumbBar links={breadcrumbLinks} />}
-						</span>
-						{children}
-						{githubFileUrl && (
-							<EditOnGithubLink
-								className={s.editOnGithubLink}
-								url={githubFileUrl}
-								label="Edit this page on GitHub"
-							/>
-						)}
-					</main>
-					<div className={s.sidecarWrapper}>{sidecarSlot}</div>
+				<div className={s.paddedAreaWrapper}>
+					<div className={s.breadcrumbContainer}>
+						<div className={s.breadcrumbMaxWidth}>
+							{breadcrumbLinks ? (
+								<BreadcrumbBar links={breadcrumbLinks} />
+							) : null}
+						</div>
+					</div>
+					<div className={s.mainAndSidecar}>
+						<main id={MAIN_ELEMENT_ID} className={s.main}>
+							{children}
+							{githubFileUrl ? (
+								<EditOnGithubLink
+									className={s.editOnGithubLink}
+									url={githubFileUrl}
+									label="Edit this page on GitHub"
+								/>
+							) : null}
+						</main>
+						<div className={s.sidecarPosition}>
+							<SidecarScrollContainer>{sidecarSlot}</SidecarScrollContainer>
+						</div>
+					</div>
 				</div>
 				{showScrollProgress ? (
 					<ScrollProgressBar progress={scrollYProgress} />

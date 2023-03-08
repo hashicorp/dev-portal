@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { OutlineListItems, OutlineLink } from '..'
 import type { OutlineLinkWithNestingProps } from '../../types'
 import s from './outline-link-with-nesting.module.css'

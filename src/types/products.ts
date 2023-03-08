@@ -95,7 +95,7 @@ interface RootDocsPath {
 	/**
 	 * Optional product slug for our content API. For some products, this differs
 	 * from the product slug used on the client. For example, "hcp" is
-	 * "cloud.hashicorp.com" in the content API.
+	 * "hcp-docs" in the content API.
 	 */
 	productSlugForLoader?: string
 

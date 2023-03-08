@@ -10,6 +10,7 @@ import { ReactElement, useMemo } from 'react'
 import { productSlugs } from 'lib/products'
 import BaseNewLayout from 'layouts/base-new'
 import Text from 'components/text'
+import { GlobalThemeOption } from 'styles/themes/types'
 
 // Local imports
 import { HomePageProps, HomePageContentProps } from './types'
@@ -89,4 +90,6 @@ function HomePageView({ content }: HomePageProps): ReactElement {
 }
 
 HomePageView.layout = BaseNewLayout
+HomePageView.theme = GlobalThemeOption.light
+
 export default HomePageView

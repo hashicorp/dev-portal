@@ -39,6 +39,7 @@
 	/** dev dot styles are currently scoped to the layout, but dialogs render in a portal so we aren't inheriting the correct body font */
 	--font-body: var(--token-typography-font-stack-text);
 
+	background-color: var(--token-color-surface-primary);
 	border-radius: 6px;
 	box-shadow: var(--token-surface-overlay-box-shadow);
 	margin: 0;

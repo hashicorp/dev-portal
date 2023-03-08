@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 /* Note: please keep this in sync with `props.js`.
    TODO: If Swingset supported Typescript types, we'd be able to skip this.
 	 Task: https://app.asana.com/0/1199715139452823/1199702038395513/f */
@@ -32,13 +37,4 @@ export type OutlineLinkItem = OutlineLinkProps | OutlineLinkWithNestingProps
  */
 export interface OutlineNavProps {
 	items: OutlineLinkItem[]
-}
-
-/**
- * Heading type, for compatibility with existing conventions.
- */
-export interface OutlineHeading {
-	title: string
-	slug: string
-	level: 1 | 2 | 3 | 4 | 5 | 6
 }
