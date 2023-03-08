@@ -9,13 +9,13 @@ import { Collection as ClientCollection } from 'lib/learn-client/types'
 
 function getTutorialLandingPaths(): string[] {
 	const activeSlugs = activeProductSlugs.map(
-		(productSlug: ProductSlug) => `/${productSlug}/tutorials`
+		(productSlug: ProductSlug) => `${productSlug}/tutorials`
 	)
 	const sectionOptionsWithLandingPage = Object.values(SectionOption).filter(
 		(option: SectionOption) => option !== SectionOption.onboarding
 	)
 	const sectionOptions = sectionOptionsWithLandingPage.map(
-		(slug: SectionOption) => `/${slug}`
+		(slug: SectionOption) => `${slug}`
 	)
 
 	return [...activeSlugs, ...sectionOptions]

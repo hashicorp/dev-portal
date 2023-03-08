@@ -28,7 +28,11 @@ export const makeSitemapField = ({
 	changefreq,
 }: SitemapFactoryInput): SitemapElement => {
 	return {
-		loc: `${__config.dev_dot.canonical_base_url}${slug}`,
+		// Regex: remove trailing or leading slash from slug
+		loc: `${__config.dev_dot.canonical_base_url}/${slug.replace(
+			/^\/|\/$/g,
+			''
+		)}`,
 		lastmod: lastmodDate ?? new Date(Date.now()).toISOString(),
 		priority: priority ?? determinePriority(slug),
 		changefreq: changefreq ?? 'daily',
