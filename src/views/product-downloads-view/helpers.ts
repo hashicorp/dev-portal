@@ -19,7 +19,6 @@ import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { PackageManager, SortedReleases } from './types'
 import { CollectionLite } from 'lib/learn-client/types'
-import { parse } from 'path'
 
 const PLATFORM_MAP = {
 	Mac: 'darwin',
