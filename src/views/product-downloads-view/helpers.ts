@@ -6,6 +6,7 @@
 import semverRSort from 'semver/functions/rsort'
 import semverPrerelease from 'semver/functions/prerelease'
 import semverValid from 'semver/functions/valid'
+import semverParse from 'semver/functions/parse'
 import { ProductData } from 'types/products'
 import { ReleaseVersion } from 'lib/fetch-release-data'
 import {
@@ -18,7 +19,7 @@ import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { PackageManager, SortedReleases } from './types'
 import { CollectionLite } from 'lib/learn-client/types'
-import { getEnterpriseVersionData } from './helpers/get-enterprise-version-data'
+import { parse } from 'path'
 
 const PLATFORM_MAP = {
 	Mac: 'darwin',
@@ -262,6 +263,24 @@ export function prettyOs(os: string): string {
 	}
 }
 
+/**
+ * Given a version string,
+ * Return `true` if the string is a valid version with the build ID `"ent"`,
+ * or `false` if the string is a valid version not identified as enterprise,
+ * or `null` if the string could not be parsed with `semverParse`.
+ * or `false` otherwise.
+ *
+ * Note: returns `null` for invalid semver versions.
+ */
+export function getIsEnterpriseVersion(version: string): boolean | null {
+	const parsed = semverParse(version)
+	if (parsed === null) {
+		return null
+	}
+	const { build } = parsed
+	return build.length === 1 && build[0] === 'ent'
+}
+
 export const sortAndFilterReleaseVersions = ({
 	releaseVersions,
 	isEnterpriseMode = false,
@@ -277,28 +296,14 @@ export const sortAndFilterReleaseVersions = ({
 				return false
 			}
 
-			/**
-			 * Get enterprise version data, as our enterprise versions are not
-			 * always strictly matched to semver.
-			 *
-			 * See `getEnterpriseVersionData` for details.
-			 */
-			const { isEnterpriseVersion, versionWithoutEnterpriseId } =
-				getEnterpriseVersionData(version)
-
-			/**
-			 * Filter out pre-releases.
-			 *
-			 * Note we use the version without the `+ent` identifier here,
-			 * as otherwise, we would see inaccurate results.
-			 * See `getEnterpriseVersionData` for details.
-			 */
-			const isPrelease = semverPrerelease(versionWithoutEnterpriseId) !== null
-			if (isPrelease) {
+			// Filter out prereleases
+			const isPrerelease = semverPrerelease(version) !== null
+			if (isPrerelease) {
 				return false
 			}
 
 			// Filter in enterprise versions if enterprise mode
+			const isEnterpriseVersion = getIsEnterpriseVersion(version)
 			if (isEnterpriseMode) {
 				return isEnterpriseVersion
 			}

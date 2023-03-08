@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import semverPrerelease from 'semver/functions/prerelease'
 import semverValid from 'semver/functions/valid'
 import semverSort from 'semver/functions/rsort'
+import semverParse from 'semver/functions/parse'
 import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
 import { ProductData } from 'types/products'
-import { getEnterpriseVersionData } from 'views/product-downloads-view/helpers/get-enterprise-version-data'
+import { getIsEnterpriseVersion } from 'views/product-downloads-view/helpers'
 import { makeFetchWithRetry } from './fetch-with-retry'
 
 export type OperatingSystem =
@@ -86,11 +86,16 @@ export function getLatestEnterpriseVersionFromVersions(
 	 * and we want to exclude pre-releases.
 	 */
 	const relevantVersions = versions.filter((version: string) => {
+		// First check if we're semver valid, if not, return early
 		const isValid = typeof semverValid(version) === 'string'
-		const { isEnterpriseVersion, versionWithoutEnterpriseId } =
-			getEnterpriseVersionData(version)
-		const isPrerelease = semverPrerelease(versionWithoutEnterpriseId) !== null
-		return isValid && isEnterpriseVersion && !isPrerelease
+		if (!isValid) {
+			return false
+		}
+		// Next check that we have a stable enterprise release
+		const isEnterpriseVersion = getIsEnterpriseVersion(version)
+		const { prerelease } = semverParse(version)
+		const isStableRelease = prerelease.length === 0
+		return isEnterpriseVersion && isStableRelease
 	})
 	/**
 	 * Return the first array item after reverse sorting to get the latest version
