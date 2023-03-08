@@ -24,9 +24,10 @@ function getTutorialLandingPaths(): string[] {
 async function getCollectionPaths() {
 	const allCollections = await getAllCollections()
 
-	return allCollections.map((collection: ClientCollection) =>
-		getCollectionSlug(collection.slug)
-	)
+	return allCollections.map((collection: ClientCollection) => {
+		// build collection paths
+		return getCollectionSlug(collection.slug)
+	})
 }
 
 export async function allTutorialsUrls() {
