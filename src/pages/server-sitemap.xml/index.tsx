@@ -9,14 +9,14 @@ export const getServerSideProps: GetServerSideProps = async (
 	const docsUrlsPromise = allDocsUrls()
 	// returns an array of tutorials content sitemap objects per slug
 	const tutorialsUrlsPromise = allTutorialsUrls()
-	const [docsUrls, tutorialsUrls] = await Promise.all([
+	const sitemapFields = await Promise.all([
 		docsUrlsPromise,
 		tutorialsUrlsPromise,
-	])
+	]).catch((error: Error) => {
+		throw new Error('Error generating server-sitemap.xml', error)
+	})
 
-	const fields = [...docsUrls, ...tutorialsUrls]
-
-	return getServerSideSitemap(ctx, fields)
+	return getServerSideSitemap(ctx, sitemapFields)
 }
 
 // Default export to prevent next.js errors

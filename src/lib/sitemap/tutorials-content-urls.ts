@@ -21,7 +21,7 @@ function getTutorialLandingPaths(): string[] {
 	return [...activeSlugs, ...sectionOptions]
 }
 
-async function getCollectionAndTutorialPaths() {
+async function getCollectionPaths() {
 	const allCollections = await getAllCollections()
 
 	return allCollections.map((collection: ClientCollection) =>
@@ -30,21 +30,19 @@ async function getCollectionAndTutorialPaths() {
 }
 
 export async function allTutorialsUrls() {
-	const tutorialLandingUrls = getTutorialLandingPaths().map((slug: string) =>
+	const tutorialLandingSlugs = getTutorialLandingPaths().map((slug: string) =>
 		makeSitemapElement({ slug })
 	)
-	const tutorialCollectionUrlsPromise = (
-		await getCollectionAndTutorialPaths()
-	).map((slug: string) => makeSitemapElement({ slug }))
 
-	const tutorialUrlsPromise = Object.values(await generateTutorialMap()).map(
-		(slug: string) => makeSitemapElement({ slug })
+	const formattedCollectionSlugs = await getCollectionPaths()
+	const collectionSlugs = formattedCollectionSlugs.map((slug: string) =>
+		makeSitemapElement({ slug })
 	)
 
-	const allTutorialsUrls = await Promise.all([
-		...tutorialCollectionUrlsPromise,
-		...tutorialUrlsPromise,
-	])
+	const formattedTutorialSlugs = Object.values(await generateTutorialMap())
+	const tutorialSlugs = formattedTutorialSlugs.map((slug: string) =>
+		makeSitemapElement({ slug })
+	)
 
-	return [...allTutorialsUrls, ...tutorialLandingUrls]
+	return [...tutorialLandingSlugs, ...collectionSlugs, ...tutorialSlugs]
 }
