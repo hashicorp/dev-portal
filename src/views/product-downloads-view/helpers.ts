@@ -270,6 +270,32 @@ export function prettyOs(os: string): string {
  * or `false` otherwise.
  *
  * Note: returns `null` for invalid semver versions.
+ *
+ * Warning: some of our version numbers might not follow semver in the way
+ * we'd expect. As an example, our Consul version data seems to contain varying
+ * formats for "enterprise" version numbers, and certain pre-release formats
+ * will not be recognized as "ent" builds due to their formatting.
+ *
+ * Here are some specific examples from Consul releases:
+ * - `1.12.0-beta1+ent` will be parsed, as we might expect, as:
+ *   build: [ "ent" ]
+ *   prerelease: [ "beta1" ]
+ * - `1.10.0+ent-alpha` will be parsed, perhaps unexpectedly, as:
+ *   build: [ "ent-alpha" ]
+ *   prerelease: []
+ *
+ * The latter example is a valid version according to semver, but might not match our
+ * expectations. The build ID is being included before the pre-release ID,
+ * which Semver sees as a build ID with a dash in it. While we could in theory
+ * try to parse out [ "alpha" ] pre-release and [ "ent" ] build IDs, this
+ * could be brittle if we ever want a build ID that does contain dashes.
+ *
+ * A more robust path forward would be to fix the versioning format at the
+ * source to match the semver spec, which specifies that the build ID should
+ * always be after the pre-release ID.
+ *
+ * Spec: https://semver.org/#backusnaur-form-grammar-for-valid-semver-versions
+ * List of Consul releases: https://releases.hashicorp.com/consul/index.json
  */
 export function getIsEnterpriseVersion(version: string): boolean | null {
 	const parsed = semverParse(version)
