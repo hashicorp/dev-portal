@@ -327,14 +327,17 @@ export const sortAndFilterReleaseVersions = ({
 				return false
 			}
 
-			// Filter in enterprise versions if enterprise mode
-			const isEnterpriseVersion = getIsEnterpriseVersion(version)
+			/**
+			 * Filter in enterprise versions if enterprise mode (build === "ent"),
+			 * or filter out any custom "build" values otherwise.
+			 */
 			if (isEnterpriseMode) {
+				const isEnterpriseVersion = getIsEnterpriseVersion(version)
 				return isEnterpriseVersion
+			} else {
+				const { build } = semverParse(version)
+				return build.length === 0
 			}
-
-			// Filter out enterprise versions if not enterprise mode
-			return !isEnterpriseVersion
 		}
 	)
 	const sortedVersionStrings = semverRSort(filteredVersionStrings)
