@@ -19,7 +19,7 @@
 }
 
 .results {
-	color: var(--gray-3);
+	color: var(--token-color-foreground-faint);
 	font-size: 12px;
 	text-transform: uppercase;
 	font-weight: 600;
