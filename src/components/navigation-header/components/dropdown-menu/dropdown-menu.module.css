@@ -27,9 +27,6 @@
 	padding-left: var(--header-menu-item-padding-left-right);
 	padding-right: var(--header-menu-item-padding-left-right);
 	padding-top: 8px;
-	@nest html[data-theme='dark'] & {
-		color: blue;
-	}
 
 	&[aria-expanded='true'] {
 		& .activatorText {
