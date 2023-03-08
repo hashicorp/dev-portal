@@ -79,7 +79,7 @@ export default function IoHomeHeroAlt({
 									: null,
 						}}
 					/>
-					{children}
+					{children ? <div className={s.actions}>{children}</div> : null}
 				</div>
 			</div>
 		</header>

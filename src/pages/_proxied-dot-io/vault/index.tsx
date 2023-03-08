@@ -79,48 +79,46 @@ export default function Homepage({ data }): React.ReactElement {
 				// 	}
 				// })}
 			>
-				<div className={s.heroActions}>
-					{heroCtas.map((cta, index) => {
-						if (index === 0) {
-							return (
-								<div
-									key={cta.link}
-									className={classNames(
-										s.heroActionsPrimary,
-										flagBag.settled && s.settled,
-										flagBag.flags?.tryForFree ? s.control : s.variant
-									)}
-								>
-									<Button
-										title="Try HCP Vault"
-										url={cta.link}
-										theme={{ brand: 'vault' }}
-										{...(flagBag.settled &&
-											flagBag.flags?.tryForFree === true && {
-												...hiddenProps,
-											})}
-									/>
-
-									<Button
-										title="Try for free"
-										url={cta.link}
-										theme={{ brand: 'vault' }}
-										{...(flagBag.settled &&
-											flagBag.flags?.tryForFree === false && {
-												...hiddenProps,
-											})}
-									/>
-								</div>
-							)
-						}
-
+				{heroCtas.map((cta, index) => {
+					if (index === 0) {
 						return (
-							<StandaloneLink key={cta.link} href={cta.link} theme="secondary">
-								{cta.title}
-							</StandaloneLink>
+							<div
+								key={cta.link}
+								className={classNames(
+									s.heroActionsPrimary,
+									flagBag.settled && s.settled,
+									flagBag.flags?.tryForFree ? s.control : s.variant
+								)}
+							>
+								<Button
+									title="Try HCP Vault"
+									url={cta.link}
+									theme={{ brand: 'vault' }}
+									{...(flagBag.settled &&
+										flagBag.flags?.tryForFree === true && {
+											...hiddenProps,
+										})}
+								/>
+
+								<Button
+									title="Try for free"
+									url={cta.link}
+									theme={{ brand: 'vault' }}
+									{...(flagBag.settled &&
+										flagBag.flags?.tryForFree === false && {
+											...hiddenProps,
+										})}
+								/>
+							</div>
 						)
-					})}
-				</div>
+					}
+
+					return (
+						<StandaloneLink key={cta.link} href={cta.link} theme="secondary">
+							{cta.title}
+						</StandaloneLink>
+					)
+				})}
 			</IoHomeHeroAlt>
 
 			<IoHomeIntro
