@@ -168,6 +168,7 @@
 		"algoliasearch": "^4.13.0",
 		"bowser": "^2.11.0",
 		"classnames": "^2.3.1",
+		"command-score": "^0.1.2",
 		"cors": "^2.8.5",
 		"csstype": "^3.0.11",
 		"deepmerge-ts": "^4.2.2",

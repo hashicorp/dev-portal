@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import commandScore from 'command-score'
+
 import {
 	EnrichedNavItem,
 	FilteredNavItem,
@@ -34,25 +36,12 @@ export const getFilteredNavItems = (
 			return
 		}
 
-		const doesTitleMatchFilter = (
-			item as SubmenuNavItemWithMetaData | LinkNavItemWithMetaData
-		).title
-			?.toLowerCase()
-			.includes(filterValue.toLowerCase())
+		const score = commandScore(
+			(item as SubmenuNavItemWithMetaData | LinkNavItemWithMetaData).title,
+			filterValue
+		)
 
-		/**
-		 * If an item's title matches the filter, we want to include it and its
-		 * children in the filter results. `matchesFilter` is added to all items
-		 * with a title that matches, and is used in `SidebarNavSubmenu` to
-		 * determine if a submenu should be open when searching.
-		 *
-		 * If an item's title doesn't match the filter, then we need to recursively
-		 * look at the children of a submenu to see if any of those have titles or
-		 * subemnus that match the filter.
-		 *
-		 * TODO: write test cases to document this functionality more clearly
-		 */
-		if (doesTitleMatchFilter) {
+		if (score > 0) {
 			filteredItems.push({ ...item, matchesFilter: true })
 		} else if (isSubmenuNavItem) {
 			const matchingChildren = getFilteredNavItems(
