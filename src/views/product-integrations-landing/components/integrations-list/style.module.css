@@ -51,12 +51,6 @@
 		}
 
 		& .viewDetails {
-			flex-shrink: 0;
-			font-size: 14px;
-			display: flex;
-			align-items: center;
-			justify-content: flex-end;
-
 			@media (max-width: 800px) {
 				margin-top: 20px;
 			}

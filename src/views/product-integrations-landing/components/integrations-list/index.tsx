@@ -9,6 +9,7 @@ import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import Button from 'components/button'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
+import StandaloneLink from 'components/standalone-link'
 import { getIntegrationUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import TagList, { GetIntegrationTags } from '../tag-list'
@@ -72,10 +73,16 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 						tags={GetIntegrationTags(integration, false)}
 						size="medium"
 					/>
-					<span className={s.viewDetails}>
-						View Details
-						{isExternalLink ? <IconExternalLink16 /> : <IconArrowRight16 />}
-					</span>
+					<StandaloneLink
+						text="View Details"
+						color="secondary"
+						href={url}
+						icon={
+							isExternalLink ? <IconExternalLink16 /> : <IconArrowRight16 />
+						}
+						iconPosition="trailing"
+						className={s.viewDetails}
+					/>
 				</div>
 			</div>
 		</CardLink>
