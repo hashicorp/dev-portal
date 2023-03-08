@@ -5,23 +5,21 @@
 
 import { getServerSideSitemap } from 'next-sitemap'
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
-import { allDocsUrls, allTutorialsUrls } from 'lib/sitemap'
+import { allDocsFields, allTutorialsFields } from 'lib/sitemap'
 
 export const getServerSideProps: GetServerSideProps = async (
 	ctx: GetServerSidePropsContext
 ) => {
-	// returns an array of docs content sitemap objects per slug
-	const docsUrlsPromise = allDocsUrls()
-	// returns an array of tutorials content sitemap objects per slug
-	const tutorialsUrlsPromise = allTutorialsUrls()
-	const [docsUrls, tutorialsUrls] = await Promise.all([
-		docsUrlsPromise,
-		tutorialsUrlsPromise,
-	]).catch((error: Error) => {
-		throw new Error('Error generating server-sitemap.xml', error)
-	})
+	try {
+		// returns an array of docs content sitemap fields per slug
+		const docsFields = await allDocsFields()
+		// returns an array of tutorials content sitemap fields per slug
+		const tutorialsFields = await allTutorialsFields()
 
-	return getServerSideSitemap(ctx, [...docsUrls, ...tutorialsUrls])
+		return getServerSideSitemap(ctx, [...docsFields, ...tutorialsFields])
+	} catch (error) {
+		throw new Error('Error generating server-sitemap.xml', error)
+	}
 }
 
 // Default export to prevent next.js errors

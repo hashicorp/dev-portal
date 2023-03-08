@@ -21,7 +21,7 @@ export const determinePriority = (slug: string): SitemapPriority => {
 	}
 }
 
-export const makeSitemapElement = ({
+export const makeSitemapField = ({
 	slug,
 	lastmodDate,
 	priority,

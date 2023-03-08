@@ -4,7 +4,7 @@ import { activeProductSlugs } from 'lib/products'
 import { generateTutorialMap } from 'pages/api/tutorials-map'
 import { ProductSlug } from 'types/products'
 import { getCollectionSlug } from 'views/collection-view/helpers'
-import { makeSitemapElement } from './helpers'
+import { makeSitemapField } from './helpers'
 import { Collection as ClientCollection } from 'lib/learn-client/types'
 
 function getTutorialLandingPaths(): string[] {
@@ -30,20 +30,21 @@ async function getCollectionPaths() {
 	})
 }
 
-export async function allTutorialsUrls() {
-	const tutorialLandingSlugs = getTutorialLandingPaths().map((slug: string) =>
-		makeSitemapElement({ slug })
+export async function allTutorialsFields() {
+	const landingSlugs = getTutorialLandingPaths()
+	const tutorialLandingFields = landingSlugs.map((slug: string) =>
+		makeSitemapField({ slug })
 	)
 
-	const formattedCollectionSlugs = await getCollectionPaths()
-	const collectionSlugs = formattedCollectionSlugs.map((slug: string) =>
-		makeSitemapElement({ slug })
+	const collectionSlugs = await getCollectionPaths()
+	const collectionFields = collectionSlugs.map((slug: string) =>
+		makeSitemapField({ slug })
 	)
 
-	const formattedTutorialSlugs = Object.values(await generateTutorialMap())
-	const tutorialSlugs = formattedTutorialSlugs.map((slug: string) =>
-		makeSitemapElement({ slug })
+	const tutorialSlugs = Object.values(await generateTutorialMap())
+	const tutorialFields = tutorialSlugs.map((slug: string) =>
+		makeSitemapField({ slug })
 	)
 
-	return [...tutorialLandingSlugs, ...collectionSlugs, ...tutorialSlugs]
+	return [...tutorialFields, ...collectionFields, ...tutorialLandingFields]
 }
