@@ -3,9 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import semverPrerelease from 'semver/functions/prerelease'
+import semverValid from 'semver/functions/valid'
 import semverSort from 'semver/functions/rsort'
 import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
 import { ProductData } from 'types/products'
+import { getEnterpriseVersionData } from 'views/product-downloads-view/helpers/get-enterprise-version-data'
 import { makeFetchWithRetry } from './fetch-with-retry'
 
 export type OperatingSystem =
@@ -71,13 +74,40 @@ export function getLatestVersionFromVersions(versions: string[]): string {
 }
 
 /**
+ * Given an array of version strings,
+ * Return the latest non-pre-release version string that represents
+ * and enterprise version.
+ */
+export function getLatestEnterpriseVersionFromVersions(
+	versions: string[]
+): string {
+	/**
+	 * We want the latest valid enterprise versions,
+	 * and we want to exclude pre-releases.
+	 */
+	const relevantVersions = versions.filter((version: string) => {
+		const isValid = typeof semverValid(version) === 'string'
+		const { isEnterpriseVersion, versionWithoutEnterpriseId } =
+			getEnterpriseVersionData(version)
+		const isPrerelease = semverPrerelease(versionWithoutEnterpriseId) !== null
+		return isValid && isEnterpriseVersion && !isPrerelease
+	})
+	/**
+	 * Return the first array item after reverse sorting to get the latest version
+	 */
+	const [latestVersion] = semverSort(relevantVersions)
+	return latestVersion
+}
+
+/**
  * TODO: `product` should eventually just be a Product type but we have the
  * existing .io sites passing a product slug here and some newer DevDot sites
  * passing an object for the `CurrentProductContext`. This approach of allowing
  * either will make merging the `assembly-ui-v1` branch into `main` easier.
  */
 export function generateStaticProps(
-	product: ProductData | string
+	product: ProductData | string,
+	isEnterpriseMode: boolean = false
 ): Promise<{ props: GeneratedProps; revalidate: number }> {
 	let productSlug: string
 	if (typeof product === 'string') {
@@ -96,9 +126,9 @@ export function generateStaticProps(
 	)
 		.then((res) => res.json())
 		.then((result) => {
-			const latestVersion = getLatestVersionFromVersions(
-				Object.keys(result.versions)
-			)
+			const latestVersion = isEnterpriseMode
+				? getLatestEnterpriseVersionFromVersions(Object.keys(result.versions))
+				: getLatestVersionFromVersions(Object.keys(result.versions))
 
 			return {
 				// 5 minutes
