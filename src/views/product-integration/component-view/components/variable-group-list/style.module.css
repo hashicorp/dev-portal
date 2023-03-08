@@ -8,7 +8,7 @@
 	padding-left: 0;
 
 	& > li.variableGroupListItem {
-		background-color: white;
+		background-color: var(--token-color-surface-primary);
 		border-radius: 6px;
 		padding: 16px;
 		padding-bottom: 0;

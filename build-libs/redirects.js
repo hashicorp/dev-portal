@@ -169,7 +169,11 @@ async function getRedirectsForProduct(
 		latestRef = await getLatestContentRefForProduct(product)
 	} catch (error) {
 		// do nothing
-		console.warn('[redirects] failed to fetch latestRef for:', product, error)
+		console.warn(
+			'[redirects] failed to fetch latestRef for:',
+			product,
+			error.message
+		)
 	}
 
 	let repo = product
@@ -257,12 +261,28 @@ async function buildProductRedirects() {
 				ref: 'master',
 				redirectsPath: '/redirects.js',
 			}),
-			getRedirectsForProduct('cloud.hashicorp.com', {
-				ref: 'main',
-				redirectsPath: '/redirects.js',
-			}),
 		])
 	).flat()
+
+	try {
+		productRedirects.push(
+			...(await getRedirectsForProduct('hcp-docs', {
+				ref: 'main',
+				redirectsPath: '/redirects.js',
+			}))
+		)
+	} catch (err) {
+		console.warn(
+			'[redirects] failed to fetch redirects for hcp-docs. Falling back to cloud.hashicorp.com',
+			err.message
+		)
+		productRedirects.push(
+			...(await getRedirectsForProduct('cloud.hashicorp.com', {
+				ref: 'main',
+				redirectsPath: '/redirects.js',
+			}))
+		)
+	}
 
 	return [
 		...devPortalToDotIoRedirects,
@@ -357,6 +377,7 @@ function filterInvalidRedirects(redirects, repoSlug) {
 	const productSlugsByRepo = {
 		'terraform-website': 'terraform',
 		'cloud.hashicorp.com': 'hcp',
+		'hcp-docs': 'hcp',
 	}
 	const productSlug = productSlugsByRepo[repoSlug] ?? repoSlug
 

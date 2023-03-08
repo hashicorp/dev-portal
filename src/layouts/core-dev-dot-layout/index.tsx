@@ -6,10 +6,12 @@
 import { useEffect } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { ThemeProvider } from 'next-themes'
 import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
 import { makeWelcomeToast } from 'lib/make-welcome-notification'
 import { MobileMenuProvider } from 'contexts'
 import TabProvider from 'components/tabs/provider'
+import { GlobalThemeOption } from 'styles/themes/types'
 import { CoreDevDotLayoutProps } from './types'
 import s from './core-dev-dot-layout.module.css'
 
@@ -36,6 +38,17 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 				{isSwingset ? null : <DatadogScriptTag />}
 			</TabProvider>
 		</MobileMenuProvider>
+	)
+}
+
+export function CoreDevDotLayoutWithTheme(
+	props: CoreDevDotLayoutProps & { theme?: GlobalThemeOption }
+) {
+	const { theme, ...restProps } = props
+	return (
+		<ThemeProvider disableTransitionOnChange forcedTheme={theme || null}>
+			<CoreDevDotLayout {...restProps} />
+		</ThemeProvider>
 	)
 }
 

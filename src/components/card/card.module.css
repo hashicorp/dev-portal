@@ -7,8 +7,12 @@
 	/* used by components like CardLink */
 	--card-border-radius: 6px;
 
-	background-color: white;
+	background-color: var(--token-color-surface-primary);
 	border-radius: var(--card-border-radius);
 	padding: 16px;
 	width: 100%;
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-surface-faint);
+	}
 }

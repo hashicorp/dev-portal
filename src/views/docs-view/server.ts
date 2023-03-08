@@ -4,6 +4,7 @@
  */
 
 // Third-party imports
+import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import path from 'path'
 import { Pluggable } from 'unified'
 import rehypePrism from '@mapbox/rehype-prism'
@@ -18,11 +19,15 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 import { ProductData, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { isDeployPreview } from 'lib/env-checks'
+import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
+import { withTiming } from 'lib/with-timing'
+import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
-import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
+import { SidebarProps } from 'components/sidebar'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -30,14 +35,11 @@ import {
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
-import { SidebarProps } from 'components/sidebar'
-import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
-import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
-import { withTiming } from 'lib/with-timing'
+import { DocsViewProps } from './types'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -77,7 +79,10 @@ export function getStaticGenerationFunctions<
 	mainBranch?: string
 	navDataPrefix?: string
 	options?: DocsViewPropOptions
-}): ReturnType<typeof _getStaticGenerationFunctions> {
+}): {
+	getStaticPaths: GetStaticPaths
+	getStaticProps: GetStaticProps<DocsViewProps>
+} {
 	/**
 	 * Get the current `rootDocsPaths` object.
 	 *
@@ -153,7 +158,9 @@ export function getStaticGenerationFunctions<
 				paths,
 			}
 		},
-		getStaticProps: async (ctx) => {
+		getStaticProps: async (
+			ctx
+		): Promise<GetStaticPropsResult<DocsViewProps>> => {
 			const pathParts = (ctx.params.page || []) as string[]
 			const currentPathUnderProduct = `/${path.join(
 				basePathForLoader,
@@ -247,6 +254,7 @@ export function getStaticGenerationFunctions<
 					)
 				}
 			})
+			const outlineItems = outlineItemsFromHeadings(nonEmptyHeadings)
 
 			/**
 			 * Add fullPaths and auto-generated ids to navData
@@ -333,9 +341,8 @@ export function getStaticGenerationFunctions<
 			 */
 			const isRootPath = pathParts.length === 0 || pathParts[0] === ''
 			const isDocsLanding = isRootPath && basePath === 'docs'
-			const layoutProps: Omit<SidebarSidecarWithTocProps, 'children'> = {
+			const layoutProps: Omit<SidebarSidecarLayoutProps, 'children'> = {
 				breadcrumbLinks,
-				headings: nonEmptyHeadings,
 				// TODO: need to adjust type for sidebarNavDataLevels here
 				sidebarNavDataLevels: sidebarNavDataLevels as $TSFixMe,
 				/* Long-form content pages use a narrower main area width */
@@ -369,7 +376,12 @@ export function getStaticGenerationFunctions<
 
 			const { hideVersionSelector, projectName } = options
 
-			const finalProps = {
+			/**
+			 * TODO: the DocsViewProps type should likely be set at the
+			 * function return value level, rather than only here.
+			 * Setting here for now to keep things in scope for current work.
+			 */
+			const finalProps: DocsViewProps = {
 				layoutProps,
 				metadata: {
 					title: frontMatter.page_title ?? null,
@@ -380,6 +392,7 @@ export function getStaticGenerationFunctions<
 						pathParts,
 					}),
 				},
+				outlineItems,
 				mdxSource,
 				product: {
 					...product,

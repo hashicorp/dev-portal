@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Scroll data keeps track of whether we're at the start or end
  * of scrolling the sidecar contents.
  */

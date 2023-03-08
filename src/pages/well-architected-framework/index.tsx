@@ -14,6 +14,7 @@ import rawWafContent from 'content/well-architected-framework/index.json'
 import wafData from 'data/well-architected-framework.json'
 import getProcessedPageData from 'views/product-tutorials-view/helpers/page-data'
 import { TableOfContentsHeading } from 'components/table-of-contents'
+import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 
 export async function getStaticProps(): Promise<{
 	props: WellArchitectedFrameworkLandingProps
@@ -64,8 +65,8 @@ export async function getStaticProps(): Promise<{
 				pageData,
 				wafContent: wafContent.landingPage,
 			},
+			outlineItems: outlineItemsFromHeadings(headings),
 			layoutProps: {
-				headings,
 				breadcrumbLinks,
 				sidebarSections: buildCategorizedWafSidebar(
 					wafCollections,
