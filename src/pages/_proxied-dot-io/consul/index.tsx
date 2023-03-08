@@ -93,8 +93,7 @@ function Homepage({ data }): React.ReactElement {
 								key={cta.link}
 								className={classNames(
 									s.heroActionsPrimary,
-									flagBag.settled && s.settled,
-									renderVariant ? s.variant : s.control
+									flagBag.settled && s.settled
 								)}
 							>
 								<Button
