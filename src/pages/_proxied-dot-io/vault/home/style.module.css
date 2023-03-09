@@ -24,14 +24,10 @@
  */
 
 .heroActionsPrimary {
-	display: grid;
+	min-width: 140px;
+	color: transparent;
 
-	& > * {
-		min-width: 140px;
-		color: transparent;
-	}
-
-	&.settled > *:not([aria-hidden='true']) {
-		color: black;
+	&.settled {
+		color: var(--brand-text-on-primary);
 	}
 }

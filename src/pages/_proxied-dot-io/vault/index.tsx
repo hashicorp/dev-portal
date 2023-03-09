@@ -83,26 +83,23 @@ export default function Homepage({ data }): React.ReactElement {
 				{heroCtas.map((cta, index) => {
 					if (index === 0) {
 						return (
-							<div
+							<Button
 								key={cta.link}
+								title={renderVariant ? 'Try for free' : 'Try HCP Vault'}
+								url={cta.link}
+								theme={{ brand: 'vault' }}
+								onClick={() => {
+									abTestTrack({
+										type: 'Result',
+										test_name: 'io-site primary CTA copy test 03-23',
+										variant: flagBag.flags?.tryForFree.toString(),
+									})
+								}}
 								className={classNames(
 									s.heroActionsPrimary,
 									flagBag.settled && s.settled
 								)}
-							>
-								<Button
-									title={renderVariant ? 'Try for free' : 'Try HCP Vault'}
-									url={cta.link}
-									theme={{ brand: 'vault' }}
-									onClick={() => {
-										abTestTrack({
-											type: 'Result',
-											test_name: 'io-site primary CTA copy test 03-23',
-											variant: flagBag.flags?.tryForFree.toString(),
-										})
-									}}
-								/>
-							</div>
+							/>
 						)
 					}
 

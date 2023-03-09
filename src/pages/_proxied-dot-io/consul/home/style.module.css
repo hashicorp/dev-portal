@@ -36,14 +36,10 @@
  */
 
 .heroActionsPrimary {
-	display: grid;
+	min-width: 154px;
+	color: transparent;
 
-	& > * {
-		min-width: 154px;
-		color: transparent;
-	}
-
-	&.settled > *:not([aria-hidden='true']) {
-		color: white;
+	&.settled {
+		color: var(--brand-text-on-primary);
 	}
 }
