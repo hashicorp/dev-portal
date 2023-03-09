@@ -33,6 +33,10 @@
 		padding-bottom: 14px;
 		padding-top: 14px;
 	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-surface-faint);
+	}
 }
 
 .leftSide {
@@ -54,13 +58,13 @@
 	background-color: transparent;
 	border-radius: 5px;
 	border: 1px solid transparent;
-	color: var(--token-color-foreground-high-contrast);
+	color: var(--token-color-foreground-strong);
 	display: flex;
 	justify-content: center;
 	padding: 5px;
 
 	&:hover {
-		border: 1px solid var(--token-color-palette-neutral-200);
+		border: 1px solid var(--token-color-border-strong);
 	}
 
 	@media (--dev-dot-hide-mobile-menu) {
@@ -93,5 +97,13 @@
 
 	&:hover {
 		border-color: var(--token-color-palette-neutral-200);
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-strong);
+
+		&:hover {
+			border-color: var(--token-color-border-strong);
+		}
 	}
 }

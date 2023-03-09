@@ -32,7 +32,3 @@ The `<OutlineNav />` component renders a `<nav />` with a vertical list of links
 ### `<OutlineNavWithActive />`
 
 The `<OutlineNavWithActive />` component accepts an array of items similar to the base `<OutlineNav />`, but does _not_ accept `isActive` properties on the items. Instead, it uses the `use-active-section` hook to determine the currently active section on the page, and highlights `items` accordingly. Note that the `use-active-section` search is limited to only those `#hash-links` derived from the `url` of each `item`. See the `use-active-section` implementation for further details.
-
-### `<OutlineNavFromHeadings />`
-
-The `OutlineNavFromHeadings />` component provides an interface that is directly compatible with an array of `TableOfContentsHeading` items. This component has been constructed to ease the transition from the previously used `<TableOfContents />` component to `<OutlineNav />`. In the future, we may choose to reconsider how `headings` are generated - we could instead generate the `items` we need for `OutlineNav` server-side, which would remove the need for this compatibility layer component.

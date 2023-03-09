@@ -14,7 +14,7 @@ import useCurrentPath from 'hooks/use-current-path'
 import { useMobileMenu } from 'contexts'
 import InstruqtProvider from 'contexts/instruqt-lab'
 import { TutorialLite } from 'lib/learn-client/types'
-import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	CollectionCategorySidebarSection,
 	getCollectionSlug,
@@ -27,7 +27,6 @@ import {
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 import TutorialsSidebar, {
-	CollectionViewSidebarContent,
 	TutorialViewSidebarContent,
 } from 'components/tutorials-sidebar'
 import TutorialMeta from 'components/tutorial-meta'
@@ -53,6 +52,7 @@ import {
 import s from './tutorial-view.module.css'
 import { useProgressToast } from './utils/use-progress-toast'
 import { generateCollectionSidebarNavData } from 'views/collection-view/helpers/generate-collection-sidebar-nav-data'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -112,6 +112,8 @@ function TutorialView({
 	layoutProps,
 	product,
 	tutorial,
+	outlineItems,
+	pageHeading,
 }: TutorialViewProps): React.ReactElement {
 	// hooks
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
@@ -121,7 +123,6 @@ function TutorialView({
 	// variables
 	const {
 		id,
-		name,
 		slug,
 		content,
 		readTime,
@@ -234,7 +235,7 @@ function TutorialView({
 				key={slug}
 				{...(isInteractive && { labId: handsOnLab.id })}
 			>
-				<SidebarSidecarWithToc
+				<SidebarSidecarLayout
 					breadcrumbLinks={layoutProps.breadcrumbLinks}
 					/**
 					 * @TODO remove casting to `any`. Will require refactoring both
@@ -246,7 +247,7 @@ function TutorialView({
 					sidebarNavDataLevels={sidebarNavDataLevels as any}
 					showScrollProgress={true}
 					AlternateSidebar={TutorialsSidebar}
-					headings={layoutProps.headings}
+					sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
 					mainWidth={layoutProps.mainWidth}
 				>
 					<LayoutContentWrapper
@@ -255,7 +256,7 @@ function TutorialView({
 						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
 					>
 						<TutorialMeta
-							heading={{ slug: layoutProps.headings[0].slug, text: name }}
+							heading={pageHeading}
 							meta={{
 								readTime,
 								edition,
@@ -285,7 +286,7 @@ function TutorialView({
 							collections={featuredInWithoutCurrent}
 						/>
 					</LayoutContentWrapper>
-				</SidebarSidecarWithToc>
+				</SidebarSidecarLayout>
 			</InteractiveLabWrapper>
 		</>
 	)

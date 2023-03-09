@@ -54,6 +54,7 @@
 
 .separator {
 	color: var(--token-color-border-primary);
+	background-color: var(--token-color-border-primary);
 	margin-bottom: 0;
 	margin-left: 6px;
 	margin-right: 6px;
