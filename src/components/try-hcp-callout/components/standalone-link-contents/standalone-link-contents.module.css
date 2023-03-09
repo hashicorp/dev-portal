@@ -32,6 +32,10 @@
 			}
 		}
 	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-surface-faint);
+	}
 }
 
 .small {

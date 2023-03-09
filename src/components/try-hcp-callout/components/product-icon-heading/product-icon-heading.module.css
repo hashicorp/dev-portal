@@ -26,6 +26,10 @@
 	color: var(--token-color-foreground-strong);
 	display: block;
 	font-weight: var(--token-typography-font-weight-bold);
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-surface-faint);
+	}
 }
 
 /* Size classes for .heading */
