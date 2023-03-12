@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Tabs, { Tab } from '@hashicorp/react-tabs'
-import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
+// import Tabs, { Tab } from '@hashicorp/react-tabs'
+import Tabs, { Tab } from 'components/tabs'
+import { VariableGroupList } from '../variable-group-list'
 
 /**
  * ConfigEntryReference renders the reference docs for a config entry.
@@ -39,8 +40,12 @@ export default function ConfigEntryReference({ keys, topLevel = true }) {
 	const kubeKeys = topLevel ? toKubeKeys(keys) : keys
 	return (
 		<Tabs>
-			<Tab heading="HCL">{renderKeys(keys, true)}</Tab>
-			<Tab heading="Kubernetes YAML">{renderKeys(kubeKeys, false)}</Tab>
+			<Tab heading="HCL" group="HCL">
+				{renderKeys(keys, true)}
+			</Tab>
+			<Tab heading="Kubernetes YAML" group="YAML">
+				{renderKeys(kubeKeys, false)}
+			</Tab>
 		</Tabs>
 	)
 }
@@ -55,7 +60,7 @@ function renderKeys(keys, isHCLTab) {
 	if (!keys) {
 		return null
 	}
-	return <ul>{keys.map((key) => renderKey(key, isHCLTab))}</ul>
+	return <>{keys.map((key) => renderKey(key, isHCLTab))}</>
 }
 
 /**
@@ -76,44 +81,43 @@ function renderKey(key, isHCLTab) {
 		return null
 	}
 
-	const keyName = isHCLTab ? key.name : toYAMLKeyName(key.name)
-
-	let description = ''
-	if (key.description) {
-		if (typeof key.description === 'string') {
-			description = key.description
-		} else if (!isHCLTab && key.description.yaml) {
-			description = key.description.yaml
-		} else if (key.description.hcl) {
-			description = key.description.hcl
-		}
+	const variableGroup = {
+		name: 'Parameters',
+		children: [
+			{
+				name: key.name,
+				type: key.type,
+				description: key.description,
+				isHCLTab: isHCLTab,
+				required: key.require,
+				enterprise: key.enterprise,
+				children: key.children,
+			},
+		],
 	}
 
-	const htmlDescription = description && markdownToHtml(' - ' + description)
-	const type = key.type && <code>{`(${key.type})`}</code>
-	const enterpriseAlert = key.enterprise && <EnterpriseAlert inline />
-	const keyLower = keyName.toLowerCase()
-
-	// NOTE: This code copies from https://github.com/hashicorp/remark-plugins/blob/df606efc844319a2532ec54e4cf6ff2d575108ff/plugins/anchor-links/index.js
-	// to ensure the styling of each bullet is correct. The two locations should be kept
-	// in sync.
 	return (
-		<li key={keyLower} className="g-type-long-body">
-			<a id={keyLower} className="__target-lic" aria-hidden="" />
-			<p>
-				<a
-					href={'#' + keyLower}
-					aria-label={keyLower + ' permalink'}
-					className="__permalink-lic"
-				>
-					<code>{keyName}</code>
-				</a>{' '}
-				{type}
-				{enterpriseAlert}
-				<span dangerouslySetInnerHTML={{ __html: htmlDescription }} />
-			</p>
-			{renderKeys(key.children, isHCLTab)}
-		</li>
+		<VariableGroupList
+			key={key.name}
+			groupName={variableGroup.name}
+			children={variableGroup.children}
+		/>
+		// <li key={keyLower} className="g-type-long-body">
+		// 	<a id={keyLower} className="__target-lic" aria-hidden="" />
+		// 	<p>
+		// 		<a
+		// 			href={'#' + keyLower}
+		// 			aria-label={keyLower + ' permalink'}
+		// 			className="__permalink-lic"
+		// 		>
+		// 			<code>{keyName}</code>
+		// 		</a>{' '}
+		// 		{type}
+		// 		{enterpriseAlert}
+		// 		<span dangerouslySetInnerHTML={{ __html: htmlDescription }} />
+		// 	</p>
+		// 	{renderKeys(key.children, isHCLTab)}
+		// </li>
 	)
 }
 
@@ -132,67 +136,6 @@ function toKubeKeys(keys) {
 }
 
 /**
- * Converts an HCL key name to a kube yaml key name.
- *
- * Examples:
- * - Protocol => protocol
- * - MeshGateway => meshGateway
- * - ACLToken => aclToken
- * - HTTP => http
- *
- * @param {string} hclKey
- * @returns {string}
- */
-function toYAMLKeyName(hclKey) {
-	// Handle something like HTTP.
-	if (hclKey.toUpperCase() === hclKey) {
-		return hclKey.toLowerCase()
-	}
-
-	let indexFirstLowercaseChar = hclKey
-		.split('')
-		.findIndex((c) => c === c.toLowerCase())
-	// Special case to handle something like ACLToken => aclToken.
-	if (indexFirstLowercaseChar > 1) {
-		indexFirstLowercaseChar--
-	}
-
-	let lowercasePortion = ''
-	for (let i = 0; i < indexFirstLowercaseChar; i++) {
-		lowercasePortion += hclKey[i].toLowerCase()
-	}
-	return (
-		lowercasePortion + hclKey.split('').slice(indexFirstLowercaseChar).join('')
-	)
-}
-
-/**
- * Converts a markdown string to its HTML representation.
- * Currently it only supports inline code blocks (e.g. `code here`) and
- * links (e.g. [link text](http://link-url) because these were the most
- * commonly used markdown features in the key descriptions.
- *
- * @param {string} markdown the input markdown
- * @returns {string}
- */
-function markdownToHtml(markdown) {
-	let html = markdown
-
-	// Replace inline code blocks defined by backticks with <code></code>.
-	while (html.indexOf('`') > 0) {
-		html = html.replace('`', '<code>')
-		if (html.indexOf('`') <= 0) {
-			throw new Error(`'${markdown} does not have matching '\`' characters`)
-		}
-		html = html.replace('`', '</code>')
-	}
-
-	// Replace links, e.g. [link text](http://link-url),
-	// with <a href="http://link-url">link text</a>.
-	return html.replace(/\[(.*?)]\((.*?)\)/g, '<a href="$2">$1</a>')
-}
-
-/**
  * Returns true if key is a key used at the top level of a CRD. By top level we
  * mean not nested under any other key.
  *
@@ -206,8 +149,4 @@ function isTopLevelKubeKey(name) {
 		name.toLowerCase() === 'kind' ||
 		name.toLowerCase() === 'apiversion'
 	)
-}
-
-function EnterpriseAlert(props) {
-	return <EnterpriseAlertBase product={'consul'} {...props} />
 }

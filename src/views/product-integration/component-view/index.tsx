@@ -49,6 +49,9 @@ export default function ProductIntegrationComponentView({
 	/**
 	 * Build outline nav items for the component variable groups
 	 */
+	// console.log(JSON.stringify(variable_groups))
+	// console.log(JSON.stringify(processedVariablesMarkdown))
+
 	const outlineNavItems: OutlineNavProps['items'] = variable_groups.map(
 		(variableGroup: VariableGroup) => {
 			const groupName = variableGroup.variable_group_config.name
