@@ -39,7 +39,7 @@ export interface Variable {
 	 * Optional, but required if passing description MDX. The plain description
 	 * string is not rendered, but it is used for search and filter purposes.
 	 */
-	isHCLTab: boolean
+	isHCLTab?: boolean
 	description?: any
 	enterprise?: boolean | false
 	required: boolean | null
@@ -201,7 +201,7 @@ function unflattenVariables(children: Array<Variable>): Array<Variable> {
 								pointer = {
 									type: 'category',
 									required: null,
-									key: segments.slice(0, j + 1).join('.'),
+									name: segments.slice(0, j + 1).join('.'),
 									children: [],
 								}
 								rootNodes.push(pointer)
@@ -217,7 +217,7 @@ function unflattenVariables(children: Array<Variable>): Array<Variable> {
 								pointer = {
 									type: 'category',
 									required: null,
-									key: segments.slice(0, j + 1).join('.'),
+									name: segments.slice(0, j + 1).join('.'),
 									children: [],
 								}
 								oldPointer.children.push(pointer)
