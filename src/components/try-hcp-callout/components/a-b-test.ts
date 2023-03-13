@@ -5,7 +5,7 @@
 
 import { useEffect } from 'react'
 import { isInUS } from '@hashicorp/platform-util/geo'
-import { useFlags } from 'flags/client'
+import { useFlagBag } from 'flags/client'
 import { abTestTrack } from 'lib/ab-test-track'
 
 /**
@@ -22,7 +22,7 @@ import { abTestTrack } from 'lib/ab-test-track'
 const ctaSuffix = 'for free'
 
 export function useABTestCta(ctaText: string): string {
-	const { flags, settled } = useFlags()
+	const { flags, settled } = useFlagBag()
 	const flag = flags?.tryCloudFreeCta || false
 
 	let finalText = ctaText
