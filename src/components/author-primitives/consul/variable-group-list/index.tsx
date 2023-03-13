@@ -45,6 +45,7 @@ export interface Variable {
 	required: boolean | null
 	children?: Array<Variable> // User doesn't need to specify this
 	highlight?: boolean // Default false
+	default_value?: string | ''
 }
 
 export interface VariableGroup {
@@ -53,12 +54,14 @@ export interface VariableGroup {
 }
 
 export interface VariableGroupListProps {
+	parent: string
 	children: Array<Variable>
 	unflatten?: boolean // Users should never set this to false, needed for recursive nesting
 	isNested?: boolean
 }
 
 export function VariableGroupList({
+	parent,
 	children,
 	unflatten = true,
 	isNested = false,
@@ -71,9 +74,11 @@ export function VariableGroupList({
 		<ul className={s.variableGroupList}>
 			{vars.map((variable: Variable) => {
 				// Move name logic over
-				const keyName = variable.isHCLTab
+				let keyName = variable.isHCLTab
 					? variable.name
 					: toYAMLKeyName(variable.name)
+
+				keyName = parent ? `${parent}.${keyName}` : keyName
 
 				/**
 				 * Construct a permalink slug for this specific variable
@@ -112,16 +117,22 @@ export function VariableGroupList({
 									<code id={permalinkId} className={s.name}>
 										{keyName}
 									</code>
+									{variable.enterprise && <EnterpriseAlert inline />}
 									{variable.required != null && (
 										<span
 											className={classNames(s.required, {
 												[s.isRequired]: variable.required,
 											})}
 										>
-											{variable.required ? 'Required' : 'Optional'}
+											{variable.required ? 'Required' : 'Optional '}
+											{variable.default_value && (
+												<>
+													(Default: <code>{variable.default_value}</code>)
+												</>
+											)}
 										</span>
 									)}
-									{variable.enterprise && <EnterpriseAlert inline /> }
+									{/* {variable.enterprise && <EnterpriseAlert inline />} */}
 									<MdxHeadingPermalink
 										className={s.permalink}
 										level={4}
@@ -152,6 +163,7 @@ export function VariableGroupList({
 							{variable.children?.length > 0 && (
 								<VariableGroupList
 									unflatten={false}
+									parent={keyName}
 									children={variable.children}
 									isNested={true}
 								/>
