@@ -1,5 +1,3 @@
-import { Redirect } from 'next/dist/lib/load-custom-routes'
-
 /**
  * We introduced a breaking change to our URL structure in March of 2023
  * that changed the following URL structure of integration component pages to introduce
@@ -21,7 +19,7 @@ import { Redirect } from 'next/dist/lib/load-custom-routes'
  * We need these redirects to ensure that any previous links to these component pages
  * still link to the expected content.
  */
-export const integrationMultipleComponentRedirects: Array<Redirect> = [
+module.exports.integrationMultipleComponentRedirects = [
 	waypointComponentRedirect('aws-ami', 'builder', 'aws-ami-builder'),
 	waypointComponentRedirect(
 		'aws-alb',
@@ -124,11 +122,7 @@ export const integrationMultipleComponentRedirects: Array<Redirect> = [
 // Sugar to generateComponentRedirect so I can use this in a one-liner above
 // I still want to keep generateComponentRedirect as-is in the event that we
 // need to use this redirect logic for another product / situation
-function waypointComponentRedirect(
-	integration: string,
-	componentType: string,
-	componentSlug: string
-) {
+function waypointComponentRedirect(integration, componentType, componentSlug) {
 	return generateComponentRedirect({
 		product: 'waypoint',
 		org: 'hashicorp',
@@ -138,21 +132,13 @@ function waypointComponentRedirect(
 	})
 }
 
-interface generateComponentRedirectParams {
-	product: string
-	org: string
-	integration: string
-	componentType: string
-	componentSlug: string
-}
-
 function generateComponentRedirect({
 	product,
 	org,
 	integration,
 	componentType,
 	componentSlug,
-}: generateComponentRedirectParams): Redirect {
+}) {
 	return {
 		source: `/${product}/integrations/${org}/${integration}/latest/components/${componentType}`,
 		destination: `/${product}/integrations/${org}/${integration}/latest/components/${componentType}/${componentSlug}`,
