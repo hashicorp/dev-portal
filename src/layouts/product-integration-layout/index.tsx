@@ -9,18 +9,17 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
-import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/components'
 import SidebarSidecarLayout, {
 	SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
-import { Integration } from 'lib/integrations-api-client/integration'
-import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
 import {
 	generateProductIntegrationLibrarySidebarNavData,
 	getIntegrationComponentUrl,
 	getIntegrationUrl,
 } from 'lib/integrations'
-import { ProductData, ProductSlug } from 'types/products'
+import { Integration } from 'lib/integrations-api-client/integration'
+import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
+import { ProductData } from 'types/products'
 import Header from './components/header'
 import s from './style.module.css'
 
@@ -66,6 +65,28 @@ export default function ProductIntegrationLayout({
 			return rc.readme || rc.variable_groups.length
 		})
 
+	// Map the components into groupings of their component type
+	interface ComponentCategory {
+		pluralName: string
+		components: Array<ReleaseComponent>
+	}
+	const componentSidebarCategories: Map<string, ComponentCategory> = new Map<
+		string,
+		ComponentCategory
+	>()
+	for (let i = 0; i < componentsWithPages.length; i++) {
+		const component = componentsWithPages[i]
+		if (componentSidebarCategories[component.component.slug] === undefined) {
+			componentSidebarCategories[component.component.slug] = {
+				pluralName: component.component.plural_name,
+				components: [],
+			}
+		}
+		componentSidebarCategories[component.component.slug].components.push(
+			component
+		)
+	}
+
 	// Calculate the Sidebar
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
@@ -89,13 +110,15 @@ export default function ProductIntegrationLayout({
 						? getIntegrationUrl(integration)
 						: getIntegrationUrl(integration, activeRelease.version),
 				},
-				componentsWithPages.length
-					? {
-							title: 'Components',
+				...Object.keys(componentSidebarCategories)
+					.map((key: string) => componentSidebarCategories[key])
+					.map((category: ComponentCategory) => {
+						return {
+							title: category.pluralName,
 							isOpen: true,
-							routes: componentsWithPages.map((rc: ReleaseComponent) => {
+							routes: category.components.map((rc: ReleaseComponent) => {
 								return {
-									title: rc.component.name,
+									title: rc.name,
 									fullPath: onLatestVersion
 										? getIntegrationComponentUrl(integration, rc)
 										: getIntegrationComponentUrl(
@@ -105,8 +128,8 @@ export default function ProductIntegrationLayout({
 										  ),
 								}
 							}),
-					  }
-					: undefined,
+						}
+					}),
 			],
 		},
 	]
