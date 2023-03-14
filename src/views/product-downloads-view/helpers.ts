@@ -6,6 +6,7 @@
 import semverRSort from 'semver/functions/rsort'
 import semverPrerelease from 'semver/functions/prerelease'
 import semverValid from 'semver/functions/valid'
+import semverParse from 'semver/functions/parse'
 import { ProductData } from 'types/products'
 import { ReleaseVersion } from 'lib/fetch-release-data'
 import {
@@ -261,6 +262,50 @@ export function prettyOs(os: string): string {
 	}
 }
 
+/**
+ * Given a version string,
+ * Return `true` if the string is a valid version with the build ID `"ent"`,
+ * or `false` if the string is a valid version not identified as enterprise,
+ * or `null` if the string could not be parsed with `semverParse`.
+ * or `false` otherwise.
+ *
+ * Note: returns `null` for invalid semver versions.
+ *
+ * Warning: some of our version numbers might not follow semver in the way
+ * we'd expect. As an example, our Consul version data seems to contain varying
+ * formats for "enterprise" version numbers, and certain pre-release formats
+ * will not be recognized as "ent" builds due to their formatting.
+ *
+ * Here are some specific examples from Consul releases:
+ * - `1.12.0-beta1+ent` will be parsed, as we might expect, as:
+ *   build: [ "ent" ]
+ *   prerelease: [ "beta1" ]
+ * - `1.10.0+ent-alpha` will be parsed, perhaps unexpectedly, as:
+ *   build: [ "ent-alpha" ]
+ *   prerelease: []
+ *
+ * The latter example is a valid version according to semver, but might not match our
+ * expectations. The build ID is being included before the pre-release ID,
+ * which Semver sees as a build ID with a dash in it. While we could in theory
+ * try to parse out [ "alpha" ] pre-release and [ "ent" ] build IDs, this
+ * could be brittle if we ever want a build ID that does contain dashes.
+ *
+ * A more robust path forward would be to fix the versioning format at the
+ * source to match the semver spec, which specifies that the build ID should
+ * always be after the pre-release ID.
+ *
+ * Spec: https://semver.org/#backusnaur-form-grammar-for-valid-semver-versions
+ * List of Consul releases: https://releases.hashicorp.com/consul/index.json
+ */
+export function getIsEnterpriseVersion(version: string): boolean | null {
+	const parsed = semverParse(version)
+	if (parsed === null) {
+		return null
+	}
+	const { build } = parsed
+	return build.length === 1 && build[0] === 'ent'
+}
+
 export const sortAndFilterReleaseVersions = ({
 	releaseVersions,
 	isEnterpriseMode = false,
@@ -277,19 +322,22 @@ export const sortAndFilterReleaseVersions = ({
 			}
 
 			// Filter out prereleases
-			const isPrelease = semverPrerelease(version) !== null
-			if (isPrelease) {
+			const isPrerelease = semverPrerelease(version) !== null
+			if (isPrerelease) {
 				return false
 			}
 
-			// Filter in enterprise versions if enterprise mode
-			const isEnterpriseVersion = !!version.match(/\+ent(?:.*?)*$/)
+			/**
+			 * Filter in enterprise versions if enterprise mode (build === "ent"),
+			 * or filter out any custom "build" values otherwise.
+			 */
 			if (isEnterpriseMode) {
+				const isEnterpriseVersion = getIsEnterpriseVersion(version)
 				return isEnterpriseVersion
+			} else {
+				const { build } = semverParse(version)
+				return build.length === 0
 			}
-
-			// Filter out enterprise versions if not enterprise mode
-			return !isEnterpriseVersion
 		}
 	)
 	const sortedVersionStrings = semverRSort(filteredVersionStrings)

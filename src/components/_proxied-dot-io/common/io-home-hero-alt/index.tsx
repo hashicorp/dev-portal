@@ -18,7 +18,8 @@ interface IoHomeHeroAltProps {
 	}
 	heading: IntroProps['heading']
 	description: IntroProps['description']
-	ctas: IntroProps['actions']['ctas']
+	ctas?: IntroProps['actions']['ctas']
+	children?: React.ReactNode
 }
 
 export default function IoHomeHeroAlt({
@@ -27,6 +28,7 @@ export default function IoHomeHeroAlt({
 	heading,
 	description,
 	ctas,
+	children,
 }: IoHomeHeroAltProps) {
 	return (
 		<header className={s.hero}>
@@ -64,16 +66,20 @@ export default function IoHomeHeroAlt({
 						actions={{
 							layout: 'stacked',
 							theme: brand,
-							ctas: ctas.map(
-								(cta: { title: string; href: string }, index: number) => {
-									return {
-										...cta,
-										type: index === 0 ? 'button' : 'standalone-link',
-									}
-								}
-							) as IntroProps['actions']['ctas'],
+							ctas:
+								ctas && ctas.length > 0
+									? (ctas.map(
+											(cta: { title: string; href: string }, index: number) => {
+												return {
+													...cta,
+													type: index === 0 ? 'button' : 'standalone-link',
+												}
+											}
+									  ) as IntroProps['actions']['ctas'])
+									: null,
 						}}
 					/>
+					{children ? <div className={s.actions}>{children}</div> : null}
 				</div>
 			</div>
 		</header>
