@@ -42,7 +42,22 @@ function safeStringifyJson(obj, indent = 2) {
  * should likely address and resolve that intentionally.
  */
 function removeCircularReferences(obj) {
-	return JSON.parse(safeStringifyJson(obj))
+	try {
+		/**
+		 * Try to stringify the object. If it has circular references,
+		 * we'll get an error. If there's no error in making the JSON string,
+		 * there's no need to modify the object, so we return it as-is.
+		 */
+		JSON.stringify(obj)
+		return obj
+	} catch (e) {
+		/**
+		 * If we got an error, we need to somehow deal with circular references.
+		 * The `safeStringifyJson` function does this, but not perfectly.
+		 * We avoid using it unless we have to.
+		 */
+		return JSON.parse(safeStringifyJson(obj))
+	}
 }
 
 export { removeCircularReferences }
