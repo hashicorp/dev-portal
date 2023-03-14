@@ -144,29 +144,33 @@
 			display: flex;
 			flex-grow: 1;
 			flex-direction: row;
-			@media (--dev-dot-tablet-up) {
-				flex-direction: row-reverse;
+			gap: 12px;
+
+			&:not(.reversed) {
+				display: flex;
+			}
+			&.reversed {
+				display: none;
+				justify-content: flex-end;
 			}
 
-			& li {
-				&:not(:first-of-type) {
-					margin-left: 12px;
-					@media (--dev-dot-tablet-up) {
-						margin-right: 12px;
-						margin-left: 0;
-					}
+			@media (--dev-dot-tablet-up) {
+				&:not(.reversed) {
+					display: none;
+				}
+				&.reversed {
+					display: flex;
 				}
 			}
 
 			/* In the case where there are only buttons in the bottom row,
 			we want to left-align them always */
 			&.buttonsOnly {
-				flex-direction: row;
-				& li {
-					&:not(:first-of-type) {
-						margin-left: 12px;
-						margin-right: 0;
-					}
+				&:not(.reversed) {
+					display: flex;
+				}
+				&.reversed {
+					display: none;
 				}
 			}
 		}

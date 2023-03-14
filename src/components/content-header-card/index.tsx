@@ -11,6 +11,7 @@ import StandaloneLink from 'components/standalone-link'
 import Text from 'components/text'
 import s from './content-header-card.module.css'
 import {
+	ButtonListProps,
 	ContentHeaderCardProps,
 	DropdownItem,
 	Button as HeaderCardButton,
@@ -118,35 +119,66 @@ export default function ContentHeaderCard({
 						</ul>
 					)}
 					{hasButtons && (
-						<ul
-							className={classNames(s.buttonsList, {
-								[s.buttonsOnly]: !hasLinks,
-							})}
-						>
-							{buttons.map((button: HeaderCardButton, index: number) => {
-								return (
-									<li key={button.text}>
-										<Button
-											onClick={() => {
-												button.onClick()
-											}}
-											text={button.text}
-											color={
-												button.isPrimary && index === 0
-													? 'primary'
-													: 'secondary'
-											}
-											icon={button.icon}
-											iconPosition="leading"
-											size="small"
-										/>
-									</li>
-								)
-							})}
-						</ul>
+						<>
+							{/* Rendering two button lists here to avoid flex-reverse
+							to ensure dom ordering matches the visual order for a11y.
+							We need the buttons to display in reverse when the button list
+							is floating to the right.
+
+							We accomplish this by conditionally displaying the right ordered
+							button list via CSS.
+							*/}
+							<ButtonList
+								buttons={buttons}
+								hasLinks={hasLinks}
+								isReversed={false}
+							/>
+							<ButtonList
+								buttons={buttons}
+								hasLinks={hasLinks}
+								isReversed={true}
+							/>
+						</>
 					)}
 				</div>
 			)}
 		</Card>
+	)
+}
+
+function ButtonList({ buttons, hasLinks, isReversed }: ButtonListProps) {
+	let primaryIndex = 0
+	if (isReversed) {
+		buttons = buttons.reverse()
+		primaryIndex = buttons.length - 1
+	}
+	return (
+		<ul
+			className={classNames(s.buttonsList, {
+				[s.buttonsOnly]: !hasLinks,
+				[s.reversed]: isReversed,
+			})}
+		>
+			{buttons.map((button: HeaderCardButton, index: number) => {
+				return (
+					<li key={button.text}>
+						<Button
+							onClick={() => {
+								button.onClick()
+							}}
+							text={button.text}
+							color={
+								button.isPrimary && index === primaryIndex
+									? 'primary'
+									: 'secondary'
+							}
+							icon={button.icon}
+							iconPosition="leading"
+							size="small"
+						/>
+					</li>
+				)
+			})}
+		</ul>
 	)
 }

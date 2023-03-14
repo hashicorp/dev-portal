@@ -36,3 +36,9 @@ export interface ContentHeaderCardProps {
 	links?: Array<Link>
 	buttons?: Array<Button>
 }
+
+export interface ButtonListProps {
+	buttons?: Array<Button>
+	hasLinks: boolean
+	isReversed: boolean
+}
