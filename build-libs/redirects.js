@@ -17,6 +17,9 @@ const fetchGithubFile = require('./fetch-github-file')
 const loadProxiedSiteRedirects = require('./load-proxied-site-redirects')
 const { loadHashiConfigForEnvironment } = require('../config')
 const { getTutorialRedirects } = require('./tutorial-redirects')
+const {
+	integrationMultipleComponentRedirects,
+} = require('./integration-multiple-component-redirects')
 
 require('isomorphic-unfetch')
 
@@ -323,6 +326,11 @@ async function buildDevPortalRedirects() {
 			destination: '/waypoint/integrations/hashicorp/:slug',
 			permanent: true,
 		},
+		/**
+		 * Redirect for Integration Component rework.
+		 * Further details in the file this is imported from.
+		 */
+		...integrationMultipleComponentRedirects,
 	]
 }
 
