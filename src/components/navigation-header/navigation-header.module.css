@@ -58,13 +58,13 @@
 	background-color: transparent;
 	border-radius: 5px;
 	border: 1px solid transparent;
-	color: var(--token-color-foreground-strong);
+	color: var(--token-color-foreground-high-contrast);
 	display: flex;
 	justify-content: center;
 	padding: 5px;
 
 	&:hover {
-		border: 1px solid var(--token-color-border-strong);
+		border: 1px solid var(--token-color-palette-neutral-200);
 	}
 
 	@media (--dev-dot-hide-mobile-menu) {
