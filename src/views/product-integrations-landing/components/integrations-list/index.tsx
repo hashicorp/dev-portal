@@ -9,7 +9,6 @@ import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import Button from 'components/button'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
-import StandaloneLink from 'components/standalone-link'
 import { getIntegrationUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import TagList, { GetIntegrationTags } from '../tag-list'
@@ -40,6 +39,11 @@ export default function IntegrationsList({
 interface IntegrationCardProps {
 	integration: Integration
 }
+
+/**
+ * TODO: refactor the 'view details' cta to use
+ * StandaloneLinkContents when lifted to a global component
+ */
 
 function IntegrationCard({ integration }: IntegrationCardProps) {
 	const url = getIntegrationUrl(integration)
@@ -73,16 +77,10 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 						tags={GetIntegrationTags(integration, false)}
 						size="medium"
 					/>
-					<StandaloneLink
-						text="View Details"
-						color="secondary"
-						href={url}
-						icon={
-							isExternalLink ? <IconExternalLink16 /> : <IconArrowRight16 />
-						}
-						iconPosition="trailing"
-						className={s.viewDetails}
-					/>
+					<span className={s.viewDetails}>
+						View Details
+						{isExternalLink ? <IconExternalLink16 /> : <IconArrowRight16 />}
+					</span>
 				</div>
 			</div>
 		</CardLink>
