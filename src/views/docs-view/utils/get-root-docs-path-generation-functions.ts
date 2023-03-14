@@ -7,12 +7,13 @@ import { getStaticGenerationFunctions } from 'views/docs-view/server'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { removeIndexPath } from 'lib/remove-index-path'
 // types
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import { ProductSlug, ProductData, RootDocsPath } from 'types/products'
 import { Pluggable } from 'unified'
 // product-specific
 import remarkSentinel from 'lib/remark-sentinel'
 import { getLatestVagrantVmwareVersion } from './get-latest-vagrant-vmware-version'
+import { DocsViewProps } from '../types'
 
 export interface DocsViewPropOptions {
 	hideVersionSelector?: boolean
@@ -32,7 +33,7 @@ export function getRootDocsPathGenerationFunctions(
 	options?: DocsViewPropOptions
 ): {
 	getStaticPaths: GetStaticPaths
-	getStaticProps: GetStaticProps
+	getStaticProps: GetStaticProps<DocsViewProps>
 } {
 	const productData = cachedGetProductData(productSlug)
 	const rootDocsPath = productData.rootDocsPaths.find((rootDocsPath) => {
@@ -71,7 +72,9 @@ export function getRootDocsPathGenerationFunctions(
 			// Return all generated paths
 			return { paths, ...restStaticPathsResult }
 		},
-		getStaticProps: async (context) => {
+		getStaticProps: async (
+			context
+		): Promise<GetStaticPropsResult<DocsViewProps>> => {
 			// Generate getStaticPaths for this rootDocsPath
 			const { getStaticProps } =
 				getStaticGenerationFunctions(staticFunctionConfig)

@@ -9,6 +9,8 @@ import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-ro
 import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import { isDeployPreview } from 'lib/env-checks'
+import { EnrichedNavItem } from 'components/sidebar/types'
+import { NavNode } from '@hashicorp/react-docs-sidenav/types'
 
 /**
  * Path relative to the `website` directory of the Packer GitHub repo.
@@ -67,8 +69,21 @@ async function getStaticProps(ctx) {
 			nodes: rawNavData,
 		})
 
-		// Replace our original navData with our prepared navData
-		staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems = navData
+		/**
+		 * Replace our original navData with our prepared navData
+		 *
+		 * TODO: fix up types in prepareNavDataForClient related to
+		 * MenuItem[] & EnrichedMenuItem[]. Currently, prepareNavDataForClient
+		 * is returning MenuItem[] types, which are incompatible here
+		 * with the required EnrichedMenuItem type, due to the use of
+		 * optional properties rather than an intersection of more explicit
+		 * and specific nav node types.
+		 *
+		 * Task to clean up MenuItem references:
+		 * https://app.asana.com/0/1202097197789424/1202405210286689/f
+		 */
+		staticProps.props.layoutProps.sidebarNavDataLevels[2].menuItems =
+			navData as $TSFixMe as EnrichedNavItem[]
 
 		// Long-form content pages use a narrower main area width
 		staticProps.props.layoutProps.mainWidth = 'narrow'

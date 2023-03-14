@@ -9,7 +9,6 @@ import path from 'path'
 import { ProductData } from 'types/products'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { validateAgainstSchema } from 'lib/validate-against-schema'
-import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -17,16 +16,10 @@ import {
 import { ProductLandingContent, ProductLandingContentSchema } from './schema'
 import { transformRawContentToProp, extractHeadings } from './helpers'
 import { ProductLandingViewProps } from './types'
+import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 
 const generateGetStaticProps = (product: ProductData) => {
-	return async (): Promise<
-		GetStaticPropsResult<
-			ProductLandingViewProps & {
-				layoutProps: Omit<SidebarSidecarWithTocProps, 'children'>
-				product: ProductData
-			}
-		>
-	> => {
+	return async (): Promise<GetStaticPropsResult<ProductLandingViewProps>> => {
 		/**
 		 * Note: could consider other content sources. For now, JSON.
 		 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
@@ -59,8 +52,8 @@ const generateGetStaticProps = (product: ProductData) => {
 		const props = stripUndefinedProperties({
 			content,
 			product,
+			outlineItems: outlineItemsFromHeadings(extractHeadings(content)),
 			layoutProps: {
-				headings: extractHeadings(content),
 				breadcrumbLinks: [
 					{ title: 'Developer', url: '/' },
 					{ title: product.name, url: `/${product.slug}`, isCurrentPage: true },
@@ -70,8 +63,9 @@ const generateGetStaticProps = (product: ProductData) => {
 				 * This requires refactoring both `generateTopLevelSidebarNavData` and
 				 * `generateProductLandingSidebarNavData` to set up `menuItems` with the
 				 * correct types.
-				 * This is outside the scope of the product landing page content build,
-				 * so deferring to a sidebar-focused follow-up PR.
+				 *
+				 * Task:
+				 * https://app.asana.com/0/1202097197789424/1202405210286689/f
 				 */
 				sidebarNavDataLevels: [
 					generateTopLevelSidebarNavData(product.name),

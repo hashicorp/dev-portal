@@ -11,7 +11,7 @@
 ***
 */
 .root {
-	background-color: white;
+	background-color: var(--token-color-surface-primary);
 	box-shadow: var(--token-surface-base-box-shadow);
 	display: none;
 	flex-direction: column;

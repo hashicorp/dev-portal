@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import DocsView from 'views/docs-view'
+import DocsView, { DocsViewProps } from 'views/docs-view'
 // Imports below are only used server-side
 import { cachedGetProductData } from 'lib/get-product-data'
 import {
@@ -18,7 +18,8 @@ import {
 } from 'components/sidebar/helpers'
 import { isDeployPreview } from 'lib/env-checks'
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
-import { EnrichedNavItem } from 'components/sidebar/types'
+import { SidebarProps } from 'components/sidebar'
+import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 
 const basePath = 'plugins'
 const baseName = 'Plugins'
@@ -168,25 +169,41 @@ export async function getStaticProps({ params, ...ctx }) {
 	]
 
 	/**
+	 * Get the current root docs path entry, which is "plugins" of course.
+	 * Note this likely isn't necessary, since these docs aren't versioned...
+	 * But doing this anyways for consistency & simpler types.
+	 */
+	const currentRootDocsPath = productData.rootDocsPaths.find(
+		(r) => r.path === basePath
+	)
+
+	/**
 	 * Assemble and return static  props for the view
 	 */
-	return {
-		props: {
-			layoutProps: {
-				breadcrumbLinks,
-				githubFileUrl: props.githubFileUrl,
-				headings: props.headings,
-				sidebarNavDataLevels,
-				// Long-form content pages use a narrower main area width
-				mainWidth: 'narrow',
-			},
-			metadata: {
-				title: props.frontMatter.page_title ?? null,
-				description: props.frontMatter.description ?? null,
-			},
-			mdxSource: props.mdxSource,
-			product: productData,
+	const finalProps: DocsViewProps = {
+		layoutProps: {
+			breadcrumbLinks,
+			githubFileUrl: props.githubFileUrl,
+			/**
+			 * TODO: we should likely try to avoid casting here, and instead ensure
+			 * types are correct. Likely involves MenuItem[].
+			 * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+			 */
+			sidebarNavDataLevels: sidebarNavDataLevels as $TSFixMe as SidebarProps[],
+			// Long-form content pages use a narrower main area width
+			mainWidth: 'narrow',
 		},
+		outlineItems: outlineItemsFromHeadings(props.headings),
+		metadata: {
+			title: props.frontMatter.page_title ?? null,
+			description: props.frontMatter.description ?? null,
+		},
+		mdxSource: props.mdxSource,
+		product: { ...productData, currentRootDocsPath },
+	}
+
+	return {
+		props: finalProps,
 		revalidate: __config.dev_dot.revalidate,
 	}
 }

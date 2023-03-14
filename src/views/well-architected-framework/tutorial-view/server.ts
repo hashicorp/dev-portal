@@ -18,8 +18,10 @@ import {
 } from 'lib/learn-client/types'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import { MenuItem, SidebarProps } from 'components/sidebar'
+import { EnrichedNavItem } from 'components/sidebar/types'
 import { generateWafCollectionSidebar } from 'views/well-architected-framework/utils/generate-collection-sidebar'
 import { getNextPrevious } from 'views/tutorial-view/components'
+import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 import { WafTutorialViewProps } from '../types'
 
 export async function getWafTutorialViewProps(
@@ -94,8 +96,17 @@ export async function getWafTutorialViewProps(
 		nextCollection = allWafCollections.find((c) => nextSidebarItem?.id === c.id)
 	}
 
+	/**
+	 * Generate page heading and outline nav items from headings
+	 */
+	const pageHeading = {
+		slug: headings[0].slug,
+		text: headings[0].title,
+	}
+	const outlineItems = outlineItemsFromHeadings(headings)
+
 	return {
-		props: stripUndefinedProperties<$TSFixMe>({
+		props: stripUndefinedProperties<WafTutorialViewProps>({
 			tutorial: {
 				...fullTutorialData,
 				content: serializedContent,
@@ -111,8 +122,9 @@ export async function getWafTutorialViewProps(
 					},
 				}),
 			},
+			pageHeading,
+			outlineItems,
 			layoutProps: {
-				headings,
 				breadcrumbLinks: [
 					{ title: 'Developer', url: '/' },
 					{ title: wafData.name, url: `/${wafData.slug}` },
@@ -146,7 +158,15 @@ export async function getWafTutorialViewProps(
 							text: collectionContext.current.shortName,
 							href: `/${collectionContext.current.slug}`,
 						},
-						menuItems: tutorialNavLevelMenuItems,
+						/**
+						 * TODO: fix up Enriched item interfaces here.
+						 *
+						 * Currently, EnrichedLinkNavItem requires both `path` and `href`,
+						 * since it extends both the RawInternalLinkNavItem and the
+						 * RawExternalLinkNavItem interfaces.
+						 */
+						menuItems:
+							tutorialNavLevelMenuItems as $TSFixMe as EnrichedNavItem[],
 					},
 				],
 			},
