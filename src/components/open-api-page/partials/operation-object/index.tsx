@@ -67,6 +67,7 @@ function OperationObject({
 	return (
 		<div className={classNames(s.root)}>
 			<AccordionDisclosure
+				className={s.disclosureRoot}
 				title={title}
 				description={
 					<span className={s.meta}>

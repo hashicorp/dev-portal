@@ -24,6 +24,7 @@ const AccordionDisclosure = ({
 	initialOpen,
 	title,
 	groupData,
+	className,
 }: AccordionDisclosureProps) => {
 	/**
 	 * Note: useHover is used here to allow us to change the styling
@@ -50,7 +51,7 @@ const AccordionDisclosure = ({
 	 * adjacent AccordionDisclosure items.
 	 */
 	const generateContainerClassName = (isOpen: boolean) => {
-		return classNames(s.root, {
+		return classNames(className, s.root, {
 			[s.isOpen]: isOpen,
 			[s.isHovered]: isHovered,
 			[s.isNested]: isNested,

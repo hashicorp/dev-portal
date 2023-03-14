@@ -65,7 +65,11 @@ function Parameter({ name, data, isFirstItem, isLastItem, arrayDepth = 0 }) {
 	// has properties
 	return (
 		<div className={s.root}>
-			<AccordionDisclosure title={title} description={description}>
+			<AccordionDisclosure
+				className={s.disclosureRoot}
+				title={title}
+				description={description}
+			>
 				<div className={s.nestedProperties}>
 					<hr className={s.divider} />
 					{Object.keys(data.properties).map((propertyKey, idx) => {

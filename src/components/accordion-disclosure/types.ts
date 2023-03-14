@@ -45,4 +45,6 @@ export interface AccordionDisclosureProps {
 		/* The index of this specific AccordionDisclosure in the group */
 		currentIndex: number
 	}
+
+	className?: string
 }
