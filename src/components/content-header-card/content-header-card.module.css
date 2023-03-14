@@ -20,7 +20,7 @@
 			& .upper {
 				display: flex;
 				gap: 16px;
-				flex-direction: column-reverse;
+				flex-direction: column;
 				@media (--dev-dot-tablet-up) {
 					flex-direction: row;
 				}
@@ -49,6 +49,21 @@
 					& .description {
 						margin-top: 2px;
 						color: var(--token-color-foreground-primary);
+					}
+				}
+
+				& .mobileDropdown {
+					display: block;
+				}
+				& .desktopDropdown {
+					display: none;
+				}
+				@media (--dev-dot-tablet-up) {
+					& .mobileDropdown {
+						display: none;
+					}
+					& .desktopDropdown {
+						display: block;
 					}
 				}
 

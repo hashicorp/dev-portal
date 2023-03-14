@@ -37,6 +37,11 @@ export interface ContentHeaderCardProps {
 	buttons?: Array<Button>
 }
 
+export interface VersionDropdownProps {
+	className?: string
+	dropdown?: Dropdown
+}
+
 export interface ButtonListProps {
 	buttons?: Array<Button>
 	hasLinks: boolean

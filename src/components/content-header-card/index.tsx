@@ -16,6 +16,7 @@ import {
 	DropdownItem,
 	Button as HeaderCardButton,
 	Link,
+	VersionDropdownProps,
 } from './types'
 
 export default function ContentHeaderCard({
@@ -43,6 +44,12 @@ export default function ContentHeaderCard({
 				)}
 				<div className={s.content}>
 					<div className={s.upper}>
+						{dropdown && (
+							<VersionDropdown
+								className={s.mobileDropdown}
+								dropdown={dropdown}
+							/>
+						)}
 						<div className={s.left}>
 							<div className={s.titleWrap}>
 								<Heading size={300} weight="bold" level={1} className={s.title}>
@@ -61,23 +68,10 @@ export default function ContentHeaderCard({
 							)}
 						</div>
 						{dropdown && (
-							<DropdownDisclosure
-								listPosition="right"
-								className={s.dropdown}
-								color="secondary"
-								text={dropdown.text}
-							>
-								{dropdown.items.map((item: DropdownItem) => {
-									return (
-										<DropdownDisclosureLinkItem
-											key={item.text}
-											href={item.href}
-										>
-											{item.text}
-										</DropdownDisclosureLinkItem>
-									)
-								})}
-							</DropdownDisclosure>
+							<VersionDropdown
+								className={s.desktopDropdown}
+								dropdown={dropdown}
+							/>
 						)}
 					</div>
 					{(note || badges) && (
@@ -143,6 +137,25 @@ export default function ContentHeaderCard({
 				</div>
 			)}
 		</Card>
+	)
+}
+
+function VersionDropdown({ dropdown, className }: VersionDropdownProps) {
+	return (
+		<DropdownDisclosure
+			className={classNames(s.dropdown, className)}
+			listPosition="right"
+			color="secondary"
+			text={dropdown.text}
+		>
+			{dropdown.items.map((item: DropdownItem) => {
+				return (
+					<DropdownDisclosureLinkItem key={item.text} href={item.href}>
+						{item.text}
+					</DropdownDisclosureLinkItem>
+				)
+			})}
+		</DropdownDisclosure>
 	)
 }
 
