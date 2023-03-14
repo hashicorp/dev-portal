@@ -40,6 +40,9 @@ export function integrationComponentBreadcrumbLinks(
 		},
 		{
 			title: releaseComponent.component.name,
+		},
+		{
+			title: releaseComponent.name,
 			url: getIntegrationComponentUrl(
 				integration,
 				releaseComponent,
