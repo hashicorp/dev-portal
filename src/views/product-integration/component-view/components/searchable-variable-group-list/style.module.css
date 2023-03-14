@@ -22,7 +22,6 @@
 	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-faint);
 	font-size: 12px;
-	text-transform: uppercase;
 	margin-top: 24px;
 	margin-bottom: 12px;
 }
