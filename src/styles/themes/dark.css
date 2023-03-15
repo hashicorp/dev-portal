@@ -12,7 +12,7 @@
 	--token-color-palette-blue-50: #111f37;
 	--token-color-palette-purple-500: #dda5ff;
 	--token-color-palette-purple-400: #c070ff;
-	--token-color-palette-purple-300: #b14fff;
+	--token-color-palette-purple-300: #b457ff;
 	--token-color-palette-purple-200: #aa3fff;
 	--token-color-palette-purple-100: #42225b;
 	--token-color-palette-purple-50: #29123a;
@@ -43,14 +43,14 @@
 	--token-color-palette-neutral-100: #1e222a;
 	--token-color-palette-neutral-50: #15181e;
 	--token-color-palette-neutral-0: #0d0e12;
-	--token-color-palette-alpha-300: #61687566;
-	--token-color-palette-alpha-200: #61687533;
-	--token-color-palette-alpha-100: #6168751a;
+	--token-color-palette-alpha-300: #b2b6bd66;
+	--token-color-palette-alpha-200: #b2b6bd33;
+	--token-color-palette-alpha-100: #b2b6bd1a;
 
 	/* borders */
-	--token-color-border-primary: #61687533;
-	--token-color-border-faint: #6168751a;
-	--token-color-border-strong: #61687566;
+	--token-color-border-primary: #b2b6bd33;
+	--token-color-border-faint: #b2b6bd1a;
+	--token-color-border-strong: #b2b6bd66;
 	--token-color-border-action: #1c345f;
 	--token-color-border-highlight: #42225b;
 	--token-color-border-success: #054220;
@@ -73,7 +73,7 @@
 	--token-color-foreground-action-hover: #389aff;
 	--token-color-foreground-action-active: #4ca1ff;
 	--token-color-foreground-highlight: #aa3fff;
-	--token-color-foreground-highlight-on-surface: #b14fff;
+	--token-color-foreground-highlight-on-surface: #b457ff;
 	--token-color-foreground-highlight-high-contrast: #dda5ff;
 	--token-color-foreground-success: #009241;
 	--token-color-foreground-success-on-surface: #00ae4e;
@@ -84,8 +84,8 @@
 	--token-color-foreground-critical: #ef3016;
 	--token-color-foreground-critical-on-surface: #f9381e;
 	--token-color-foreground-critical-high-contrast: #ff8c7c;
-	--token-color-foreground-action-visited: #aa3fff; /* This extra color is unique for the DevDot platform (the 'visited' state of a link is not differentiated in the products applications). */
-	--token-color-foreground-action-visited-hover: #b14fff; /* This extra color is unique for the DevDot platform (the 'visited+hover' state of a link is not differentiated in the products applications). */
+	--token-color-foreground-action-visited: #b457ff; /* This extra color is unique for the DevDot platform (the 'visited' state of a link is not differentiated in the products applications). */
+	--token-color-foreground-action-visited-hover: #c070ff; /* This extra color is unique for the DevDot platform (the 'visited+hover' state of a link is not differentiated in the products applications). */
 
 	/* page */
 	--token-color-page-primary: #0d0e12;

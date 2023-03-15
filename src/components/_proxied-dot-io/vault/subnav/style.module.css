@@ -5,4 +5,17 @@
 
 .subnav {
 	border-top: 1px solid transparent;
+
+	& [data-ga-button='try-for-free'],
+	& [data-ga-button='try-hcp-vault'] {
+		color: transparent;
+		min-width: 140px;
+	}
+}
+
+.settled {
+	& [data-ga-button='try-for-free'],
+	& [data-ga-button='try-hcp-vault'] {
+		color: black;
+	}
 }

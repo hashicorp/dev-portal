@@ -4,8 +4,11 @@
  */
 
 import semverSort from 'semver/functions/rsort'
+import semverParse from 'semver/functions/parse'
+import semverValid from 'semver/functions/valid'
 import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
 import { ProductData } from 'types/products'
+import { getIsEnterpriseVersion } from 'views/product-downloads-view/helpers'
 import { makeFetchWithRetry } from './fetch-with-retry'
 
 export type OperatingSystem =
@@ -71,13 +74,45 @@ export function getLatestVersionFromVersions(versions: string[]): string {
 }
 
 /**
+ * Given an array of version strings,
+ * Return the latest non-pre-release version string that represents
+ * and enterprise version.
+ */
+export function getLatestEnterpriseVersionFromVersions(
+	versions: string[]
+): string {
+	/**
+	 * We want the latest valid enterprise versions,
+	 * and we want to exclude pre-releases.
+	 */
+	const relevantVersions = versions.filter((version: string) => {
+		// First check if we're semver valid, if not, return early
+		const isValid = typeof semverValid(version) === 'string'
+		if (!isValid) {
+			return false
+		}
+		// Next check that we have a stable enterprise release
+		const isEnterpriseVersion = getIsEnterpriseVersion(version)
+		const { prerelease } = semverParse(version)
+		const isStableRelease = prerelease.length === 0
+		return isEnterpriseVersion && isStableRelease
+	})
+	/**
+	 * Return the first array item after reverse sorting to get the latest version
+	 */
+	const [latestVersion] = semverSort(relevantVersions)
+	return latestVersion
+}
+
+/**
  * TODO: `product` should eventually just be a Product type but we have the
  * existing .io sites passing a product slug here and some newer DevDot sites
  * passing an object for the `CurrentProductContext`. This approach of allowing
  * either will make merging the `assembly-ui-v1` branch into `main` easier.
  */
 export function generateStaticProps(
-	product: ProductData | string
+	product: ProductData | string,
+	isEnterpriseMode: boolean = false
 ): Promise<{ props: GeneratedProps; revalidate: number }> {
 	let productSlug: string
 	if (typeof product === 'string') {
@@ -96,9 +131,9 @@ export function generateStaticProps(
 	)
 		.then((res) => res.json())
 		.then((result) => {
-			const latestVersion = getLatestVersionFromVersions(
-				Object.keys(result.versions)
-			)
+			const latestVersion = isEnterpriseMode
+				? getLatestEnterpriseVersionFromVersions(Object.keys(result.versions))
+				: getLatestVersionFromVersions(Object.keys(result.versions))
 
 			return {
 				// 5 minutes
