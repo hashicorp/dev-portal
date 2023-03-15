@@ -72,7 +72,7 @@
 	--token-color-foreground-action: #2b89ff;
 	--token-color-foreground-action-hover: #389aff;
 	--token-color-foreground-action-active: #4ca1ff;
-	--token-color-foreground-highlight: var(--token-color-palette-200);
+	--token-color-foreground-highlight: var(--token-color-palette-purple-200);
 	--token-color-foreground-highlight-on-surface: #b457ff;
 	--token-color-foreground-highlight-high-contrast: #dda5ff;
 	--token-color-foreground-success: #009241;
