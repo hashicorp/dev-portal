@@ -11,10 +11,6 @@
 	}
 }
 
-html[data-theme='dark'] .disclosureRoot {
-	background-color: var(--token-color-surface-faint);
-}
-
 .divider {
 	color: var(--token-color-border-primary);
 	background-color: var(--token-color-border-primary);

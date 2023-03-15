@@ -14,10 +14,6 @@
 	}
 }
 
-html[data-theme='dark'] .disclosureRoot {
-	background-color: var(--token-color-surface-faint);
-}
-
 .meta {
 	display: block;
 	width: 100%;
