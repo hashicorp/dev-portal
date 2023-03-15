@@ -43,14 +43,14 @@
 	--token-color-palette-neutral-100: #1e222a;
 	--token-color-palette-neutral-50: #15181e;
 	--token-color-palette-neutral-0: #0d0e12;
-	--token-color-palette-alpha-300: #61687566;
-	--token-color-palette-alpha-200: #61687533;
-	--token-color-palette-alpha-100: #6168751a;
+	--token-color-palette-alpha-300: #b2b6bd66;
+	--token-color-palette-alpha-200: #b2b6bd33;
+	--token-color-palette-alpha-100: #b2b6bd1a;
 
 	/* borders */
-	--token-color-border-primary: #61687533;
-	--token-color-border-faint: #6168751a;
-	--token-color-border-strong: #61687566;
+	--token-color-border-primary: #b2b6bd33;
+	--token-color-border-faint: #b2b6bd1a;
+	--token-color-border-strong: #b2b6bd66;
 	--token-color-border-action: #1c345f;
 	--token-color-border-highlight: #42225b;
 	--token-color-border-success: #054220;
