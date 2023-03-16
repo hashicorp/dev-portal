@@ -10,7 +10,10 @@
 			"text": "Learn more about Vault features",
 			"url": "/vault/docs/what-is-vault"
 		},
-		"image": "https://www.datocms-assets.com/2885/1662054123-dev-dot-product-landing-what-is-vault-diagram.png"
+		"themedImage": {
+			"light": "https://www.datocms-assets.com/2885/1678995556-devdot-vault_lm.svg",
+			"dark": "https://www.datocms-assets.com/2885/1678995554-devdot-vault_dm.svg"
+		}
 	},
 	"get_started": {
 		"heading": "Getting Started",

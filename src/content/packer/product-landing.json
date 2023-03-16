@@ -10,7 +10,10 @@
 			"text": "Learn more",
 			"url": "/packer/docs/intro"
 		},
-		"image": "https://www.datocms-assets.com/2885/1662053782-dev-dot-product-landing-what-is-packer-diagram.png"
+		"themedImage": {
+			"light": "https://www.datocms-assets.com/2885/1678995545-devdot-packer_lm.svg",
+			"dark": "https://www.datocms-assets.com/2885/1678995543-devdot-packer_dm.svg"
+		}
 	},
 	"get_started": {
 		"heading": "Get Started",

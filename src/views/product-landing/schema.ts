@@ -163,8 +163,11 @@ const ProductLandingOverviewSchema = Joi.object({
 		text: Joi.string().required(),
 		url: Joi.string().required(),
 	}),
-	image: Joi.string().required(),
-	themedImage: Joi.object({ light: Joi.string(), dark: Joi.string() }),
+	image: Joi.string(),
+	themedImage: Joi.object({
+		light: Joi.string().required(),
+		dark: Joi.string().required(),
+	}),
 })
 
 // Require either `ctas` or `iconCardLinks`

@@ -7,7 +7,7 @@ export interface OverviewCtaProps {
 	heading: string
 	headingSlug: string
 	body: string
-	image: string
+	image?: string
 	themedImage?: {
 		light: string
 		dark: string
