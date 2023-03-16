@@ -4,11 +4,15 @@
  */
 
 .inlineCode {
-	background-color: var(--token-color-palette-neutral-50);
+	background-color: var(--token-color-surface-faint);
 	border-radius: 5px;
-	border: 1px solid rgba(101, 106, 118, 0.2);
+	border: 1px solid var(--token-color-border-primary);
 	line-height: 1;
 	padding: 2px 4px 3px 4px;
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-surface-strong);
+	}
 }
 
 .size-100 {
