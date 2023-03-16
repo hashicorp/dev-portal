@@ -81,7 +81,13 @@ const HomePageContent = ({
 	)
 }
 
+const HOME_PAGE_REDESIGN_ENABLED = __config.flags.enable_home_page_redesign
+
 function HomePageView({ content }: HomePageProps): ReactElement {
+	if (HOME_PAGE_REDESIGN_ENABLED) {
+		return <p>I am the new home page!</p>
+	}
+
 	return (
 		<div className={s.homepage}>
 			<HomePageContent {...content} />
