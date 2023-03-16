@@ -10,6 +10,7 @@ import StandaloneLink from 'components/standalone-link'
 
 import { OverviewCtaProps } from './types'
 import s from './overview-cta.module.css'
+import ThemedImage from 'components/themed-image'
 
 function OverviewCta({
 	heading,
@@ -17,6 +18,7 @@ function OverviewCta({
 	body,
 	cta,
 	image,
+	themedImage,
 }: OverviewCtaProps) {
 	return (
 		<div className={s.root}>
@@ -43,7 +45,11 @@ function OverviewCta({
 				) : null}
 			</div>
 			<div className={s.imagePart}>
-				<img src={image} alt="" />
+				{themedImage ? (
+					<ThemedImage src={themedImage} />
+				) : (
+					<img src={image} alt="" />
+				)}
 			</div>
 		</div>
 	)

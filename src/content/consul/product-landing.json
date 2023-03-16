@@ -10,7 +10,11 @@
 			"text": "Learn more about Consul features",
 			"url": "/consul/docs/intro"
 		},
-		"image": "https://www.datocms-assets.com/2885/1662053770-dev-dot-product-landing-what-is-consul-diagram.png"
+		"image": "https://www.datocms-assets.com/2885/1662053770-dev-dot-product-landing-what-is-consul-diagram.png",
+		"themedImage": {
+			"light": "https://www.datocms-assets.com/2885/1678995541-devdot-consul_lm.svg",
+			"dark": "https://www.datocms-assets.com/2885/1678995539-devdot-consul_dm.svg"
+		}
 	},
 	"get_started": {
 		"heading": "Get Started",

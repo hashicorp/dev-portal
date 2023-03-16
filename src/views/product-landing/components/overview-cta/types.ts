@@ -8,6 +8,10 @@ export interface OverviewCtaProps {
 	headingSlug: string
 	body: string
 	image: string
+	themedImage?: {
+		light: string
+		dark: string
+	}
 	cta?: {
 		text: string
 		url: string

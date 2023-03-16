@@ -137,6 +137,7 @@ export interface ProductLandingContent {
 			url: string
 		}
 		image: string
+		themedImage: { light: string; dark: string }
 	}
 	overviewParagraph?: string
 	get_started: {
@@ -163,6 +164,7 @@ const ProductLandingOverviewSchema = Joi.object({
 		url: Joi.string().required(),
 	}),
 	image: Joi.string().required(),
+	themedImage: Joi.object({ light: Joi.string(), dark: Joi.string() }),
 })
 
 // Require either `ctas` or `iconCardLinks`

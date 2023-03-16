@@ -60,6 +60,7 @@ function ProductLandingView({
 					body={overview.body}
 					cta={overview.cta}
 					image={overview.image}
+					themedImage={overview.themedImage}
 				/>
 				{overviewParagraph ? (
 					<p className={s.overviewParagraph}>{overviewParagraph}</p>
