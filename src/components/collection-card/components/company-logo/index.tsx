@@ -14,16 +14,22 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
 		return <></>
 	}
 
-	const src =
-		name === 'terraform-cloud'
-			? require('@hashicorp/mktg-logos/product/terraform-cloud/primary/color.svg?url')
-			: require(`./img/${name}.png?url`)
+	const src = {
+		light:
+			name === 'terraform-cloud'
+				? require('@hashicorp/mktg-logos/product/terraform-cloud/primary/color.svg?url')
+				: require(`./img/${name}.png?url`),
+		dark:
+			name === 'terraform-cloud'
+				? require('@hashicorp/mktg-logos/product/terraform-cloud/primary/colorwhite.svg?url')
+				: require(`./img/${name}_dm.svg?url`),
+	}
 
 	return (
 		<span className={s.root}>
 			<span className={classNames(s.inner, s[`logo-${name}`])}>
 				<Image
-					src={src}
+					src={src.dark}
 					alt=""
 					/**
 					 * Note: for use in CollectionCard, consumer should provide meaningful
