@@ -8,7 +8,7 @@ import { ThemedImageProps } from './types'
  * that uses `display:none` to conditionally render content
  * based on the theme state with css
  */
-export default function ThemedImage({ src, alt = '' }: ThemedImageProps) {
+export default function ThemedImage({ src, alt }: ThemedImageProps) {
 	/**
 	 * @TODO could add protection here to throw
 	 * when used outside of the theme context. Since the

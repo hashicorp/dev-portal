@@ -3,5 +3,5 @@ export interface ThemedImageProps {
 		dark: string
 		light: string
 	}
-	alt?: string
+	alt: string
 }

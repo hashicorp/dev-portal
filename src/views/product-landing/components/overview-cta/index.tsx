@@ -44,7 +44,7 @@ function OverviewCta({
 				) : null}
 			</div>
 			<div className={s.imagePart}>
-				<ThemedImage src={image} />
+				<ThemedImage src={image} alt="" />
 			</div>
 		</div>
 	)
