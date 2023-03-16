@@ -266,10 +266,10 @@
 
 	/* form-control specifics */
 	--token-form-control-base-foreground-value-color: var(
-		--token-color-palette-neutral-100
+		--token-color-palette-neutral-700
 	);
 	--token-form-control-base-foreground-placeholder-color: var(
-		--token-color-palette-neutral-300
+		--token-color-palette-neutral-500
 	);
 	--token-form-control-base-surface-color-default: var(
 		--token-color-palette-neutral-0
@@ -283,7 +283,9 @@
 	--token-form-control-base-border-color-hover: var(
 		--token-color-palette-neutral-500
 	);
-	--token-form-control-checked-foreground-color: #030303;
+	--token-form-control-checked-foreground-color: var(
+		--token-color-palette-neutral-0
+	);
 	--token-form-control-checked-surface-color-default: var(
 		--token-color-palette-blue-200
 	);
@@ -291,10 +293,10 @@
 		--token-color-palette-blue-300
 	);
 	--token-form-control-checked-border-color-default: var(
-		--token-color-palette-blue-100
+		--token-color-palette-blue-300
 	);
 	--token-form-control-checked-border-color-hover: var(
-		--token-color-palette-blue-200
+		--token-color-palette-blue-400
 	);
 	--token-form-control-invalid-border-color-default: var(
 		--token-color-palette-red-300
@@ -308,15 +310,15 @@
 	--token-form-control-readonly-surface-color: var(
 		--token-color-palette-neutral-100
 	);
-	--token-form-control-readonly-border-color: #6168751a;
+	--token-form-control-readonly-border-color: #656a761a;
 	--token-form-control-disabled-foreground-color: var(
 		--token-color-palette-neutral-400
 	);
 	--token-form-control-disabled-surface-color: var(
-		--token-color-palette-neutral-0
+		--token-color-palette-neutral-50
 	);
-	--token-form-control-disabled-border-color: #61687533;
+	--token-form-control-disabled-border-color: #656a7633;
 	--token-form-toggle-base-surface-color-default: var(
-		--token-color-palette-neutral-0
+		--token-color-palette-neutral-100
 	); /* the toggle has a different base surface color, compared to the other controls */
 }
