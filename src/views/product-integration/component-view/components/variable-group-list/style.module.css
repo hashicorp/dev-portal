@@ -84,6 +84,18 @@
 				}
 			}
 		}
+
+		@nest html[data-theme='dark'] & {
+			background-color: var(--token-color-surface-faint);
+
+			/** 
+			* Need to repeat this because of the higher
+			* specificity with the html data attribute selector
+			**/
+			&.highlight {
+				background-color: var(--token-color-surface-action);
+			}
+		}
 	}
 }
 

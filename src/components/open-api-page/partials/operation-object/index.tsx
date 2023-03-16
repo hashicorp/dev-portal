@@ -81,7 +81,7 @@ function OperationObject({
 					</span>
 				}
 			>
-				<hr />
+				<hr className={s.divider} />
 				<div>
 					{renderOperationIntro ? renderOperationIntro({ data }) : null}
 					<div
