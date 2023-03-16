@@ -10,7 +10,7 @@
 			"text": "Learn more about Vagrant features",
 			"url": "/vagrant/intro"
 		},
-		"themedImage": {
+		"image": {
 			"light": "https://www.datocms-assets.com/2885/1678995552-devdot-vagrant_lm.svg",
 			"dark": "https://www.datocms-assets.com/2885/1678995550-devdot-vagrant_dm.svg"
 		}

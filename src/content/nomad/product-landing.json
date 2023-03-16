@@ -10,7 +10,7 @@
 			"text": "Learn more about Nomad features",
 			"url": "/nomad/intro"
 		},
-		"themedImage": {
+		"image": {
 			"light": "https://www.datocms-assets.com/2885/1678997341-devdot-nomad_lm.svg",
 			"dark": "https://www.datocms-assets.com/2885/1678997336-devdot-nomad_dm.svg"
 		}

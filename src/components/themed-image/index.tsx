@@ -1,13 +1,7 @@
-interface ThemedImageProps {
-	src: {
-		dark: string
-		light: string
-	}
-	alt?: string
-}
+import { ThemedImageProps } from './types'
 
 /**
- * See styles/themes/dark.css for the global attribute handler
+ * See styles/themes/global.css for the attribute handler
  * that uses `display:none` to conditionally render content
  * based on the theme state with css
  */

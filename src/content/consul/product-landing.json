@@ -10,7 +10,7 @@
 			"text": "Learn more about Consul features",
 			"url": "/consul/docs/intro"
 		},
-		"themedImage": {
+		"image": {
 			"light": "https://www.datocms-assets.com/2885/1678995541-devdot-consul_lm.svg",
 			"dark": "https://www.datocms-assets.com/2885/1678995539-devdot-consul_dm.svg"
 		}

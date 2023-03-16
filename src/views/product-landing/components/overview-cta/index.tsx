@@ -18,7 +18,6 @@ function OverviewCta({
 	body,
 	cta,
 	image,
-	themedImage,
 }: OverviewCtaProps) {
 	return (
 		<div className={s.root}>
@@ -45,11 +44,7 @@ function OverviewCta({
 				) : null}
 			</div>
 			<div className={s.imagePart}>
-				{themedImage ? (
-					<ThemedImage src={themedImage} />
-				) : (
-					<img src={image} alt="" />
-				)}
+				<ThemedImage src={image} />
 			</div>
 		</div>
 	)
