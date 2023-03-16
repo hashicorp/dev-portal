@@ -46,7 +46,7 @@ export default function ContentHeaderCard({
 					<div className={s.upper}>
 						{dropdown && (
 							<VersionDropdown
-								className={s.mobileDropdown}
+								className={'g-hide-on-desktop g-hide-on-tablet'}
 								dropdown={dropdown}
 							/>
 						)}
@@ -69,7 +69,7 @@ export default function ContentHeaderCard({
 						</div>
 						{dropdown && (
 							<VersionDropdown
-								className={s.desktopDropdown}
+								className={'g-hide-on-mobile'}
 								dropdown={dropdown}
 							/>
 						)}

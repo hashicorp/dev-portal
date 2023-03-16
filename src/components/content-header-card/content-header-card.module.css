@@ -52,21 +52,6 @@
 					}
 				}
 
-				& .mobileDropdown {
-					display: block;
-				}
-				& .desktopDropdown {
-					display: none;
-				}
-				@media (--dev-dot-tablet-up) {
-					& .mobileDropdown {
-						display: none;
-					}
-					& .desktopDropdown {
-						display: block;
-					}
-				}
-
 				& .dropdown {
 					flex-shrink: 0;
 					width: 100%;
