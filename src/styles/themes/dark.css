@@ -48,62 +48,88 @@
 	--token-color-palette-alpha-100: #b2b6bd1a;
 
 	/* borders */
-	--token-color-border-primary: #b2b6bd33;
-	--token-color-border-faint: #b2b6bd1a;
-	--token-color-border-strong: #b2b6bd66;
-	--token-color-border-action: #1c345f;
-	--token-color-border-highlight: #42225b;
-	--token-color-border-success: #054220;
-	--token-color-border-warning: #542800;
-	--token-color-border-critical: #62170d;
+	--token-color-border-primary: var(--token-color-palette-alpha-200);
+	--token-color-border-faint: var(--token-color-palette-alpha-100);
+	--token-color-border-strong: var(--token-color-palette-alpha-300);
+	--token-color-border-action: var(--token-color-palette-blue-100);
+	--token-color-border-highlight: var(--token-color-palette-purple-100);
+	--token-color-border-success: var(--token-color-palette-green-100);
+	--token-color-border-warning: var(--token-color-palette-amber-100);
+	--token-color-border-critical: var(--token-color-palette-red-100);
 
 	/* focus */
-	--token-color-focus-action-internal: #389aff;
+	--token-color-focus-action-internal: var(--token-color-palette-blue-300);
 	--token-color-focus-action-external: #5990ff; /* this is a special color used only for the focus style, to pass color contrast for a11y purpose */
-	--token-color-focus-critical-internal: #c00005;
+	--token-color-focus-critical-internal: var(--token-color-palette-red-300);
 	--token-color-focus-critical-external: #dd7578; /* this is a special color used only for the focus style, to pass color contrast for a11y purpose */
 
 	/* foreground */
-	--token-color-foreground-strong: #efeff1;
-	--token-color-foreground-primary: #d5d7db;
-	--token-color-foreground-faint: #b2b6bd;
-	--token-color-foreground-high-contrast: #0d0e12;
-	--token-color-foreground-disabled: #616875;
-	--token-color-foreground-action: #2b89ff;
-	--token-color-foreground-action-hover: #389aff;
-	--token-color-foreground-action-active: #4ca1ff;
+	--token-color-foreground-strong: var(--token-color-palette-neutral-700);
+	--token-color-foreground-primary: var(--token-color-palette-neutral-600);
+	--token-color-foreground-faint: var(--token-color-palette-neutral-500);
+	--token-color-foreground-high-contrast: var(--token-color-palette-neutral-0);
+	--token-color-foreground-disabled: var(--token-color-palette-neutral-400);
+	--token-color-foreground-action: var(--token-color-palette-blue-200);
+	--token-color-foreground-action-hover: var(--token-color-palette-blue-300);
+	--token-color-foreground-action-active: var(--token-color-palette-blue-400);
 	--token-color-foreground-highlight: var(--token-color-palette-purple-200);
-	--token-color-foreground-highlight-on-surface: #b457ff;
-	--token-color-foreground-highlight-high-contrast: #dda5ff;
-	--token-color-foreground-success: #009241;
-	--token-color-foreground-success-on-surface: #00ae4e;
-	--token-color-foreground-success-high-contrast: #1ce375;
-	--token-color-foreground-warning: #e88c03;
-	--token-color-foreground-warning-on-surface: #fda219;
-	--token-color-foreground-warning-high-contrast: #ffcc6a;
-	--token-color-foreground-critical: #ef3016;
-	--token-color-foreground-critical-on-surface: #f9381e;
-	--token-color-foreground-critical-high-contrast: #ff8c7c;
-	--token-color-foreground-action-visited: #b457ff; /* This extra color is unique for the DevDot platform (the 'visited' state of a link is not differentiated in the products applications). */
-	--token-color-foreground-action-visited-hover: #c070ff; /* This extra color is unique for the DevDot platform (the 'visited+hover' state of a link is not differentiated in the products applications). */
+	--token-color-foreground-highlight-on-surface: var(
+		--token-color-palette-purple-300
+	);
+	--token-color-foreground-highlight-high-contrast: var(
+		--token-color-palette-purple-500
+	);
+	--token-color-foreground-success: var(--token-color-palette-green-200);
+	--token-color-foreground-success-on-surface: var(
+		--token-color-palette-green-300
+	);
+	--token-color-foreground-success-high-contrast: var(
+		--token-color-palette-green-500
+	);
+	--token-color-foreground-warning: var(--token-color-palette-amber-200);
+	--token-color-foreground-warning-on-surface: var(
+		--token-color-palette-amber-300
+	);
+	--token-color-foreground-warning-high-contrast: var(
+		--token-color-palette-amber-500
+	);
+	--token-color-foreground-critical: var(--token-color-palette-red-200);
+	--token-color-foreground-critical-on-surface: var(
+		--token-color-palette-red-300
+	);
+	--token-color-foreground-critical-high-contrast: var(
+		--token-color-palette-red-500
+	);
+	--token-color-foreground-action-visited: var(
+		--token-color-palette-purple-300
+	);
+	--token-color-foreground-action-visited-hover: var(
+		--token-color-palette-purple-400
+	);
 
 	/* page */
-	--token-color-page-primary: #0d0e12;
-	--token-color-page-faint: #15181e;
+	--token-color-page-primary: var(--token-color-palette-neutral-0);
+	--token-color-page-faint: var(--token-color-palette-neutral-50);
 
 	/* surface */
-	--token-color-surface-strong: #1e222a;
-	--token-color-surface-primary: #0d0e12;
-	--token-color-surface-faint: #15181e;
-	--token-color-surface-interactive: #0d0e12;
-	--token-color-surface-interactive-hover: #1e222a;
-	--token-color-surface-interactive-active: #2b303c;
-	--token-color-surface-interactive-disabled: #15181e;
-	--token-color-surface-action: #111f37;
-	--token-color-surface-highlight: #29123a;
-	--token-color-surface-success: #042a15;
-	--token-color-surface-warning: #2e1b06;
-	--token-color-surface-critical: #370b06;
+	--token-color-surface-strong: var(--token-color-palette-neutral-100);
+	--token-color-surface-primary: var(--token-color-palette-neutral-0);
+	--token-color-surface-faint: var(--token-color-palette-neutral-50);
+	--token-color-surface-interactive: var(--token-color-palette-neutral-0);
+	--token-color-surface-interactive-hover: var(
+		--token-color-palette-neutral-100
+	);
+	--token-color-surface-interactive-active: var(
+		--token-color-palette-neutral-200
+	);
+	--token-color-surface-interactive-disabled: var(
+		--token-color-palette-neutral-50
+	);
+	--token-color-surface-action: var(--token-color-palette-blue-50);
+	--token-color-surface-highlight: var(--token-color-palette-purple-50);
+	--token-color-surface-success: var(--token-color-palette-green-50);
+	--token-color-surface-warning: var(--token-color-palette-amber-50);
+	--token-color-surface-critical: var(--token-color-palette-red-50);
 
 	/* boundary */
 	--token-color-hashicorp-brand: #fff;
@@ -219,37 +245,78 @@
 		0 12px 24px 0 #61687559;
 
 	/* Focus styles */
-	--token-focus-ring-action-box-shadow: inset 0 0 0 1px #389aff,
+	--token-focus-ring-action-box-shadow: inset 0 0 0 1px
+			var(--token-color-palette-blue-300),
 		0 0 0 3px #5990ff;
-	--token-focus-ring-critical-box-shadow: inset 0 0 0 1px #f9381e,
-		0 0 0 3px #ff5841;
+	--token-focus-ring-critical-box-shadow: inset 0 0 0 1px
+			var(--token-color-palette-red-300),
+		0 0 0 3px var(--token-color-palette-red-400);
+
+	/* 
+	* @TODO will update the form hex's to match the palette witih this ticket
+	* https://app.asana.com/0/1199634971449915/1204108584803973
+	*/
 
 	/* form specifics */
-	--token-form-label-color: #efeff1;
-	--token-form-legend-color: #efeff1;
-	--token-form-helper-text-color: #b2b6bd;
-	--token-form-indicator-optional-color: #b2b6bd;
-	--token-form-error-color: #f9381e;
+	--token-form-label-color: var(--token-color-palette-neutral-700);
+	--token-form-legend-color: var(--token-color-palette-neutral-700);
+	--token-form-helper-text-color: var(--token-color-palette-neutral-500);
+	--token-form-indicator-optional-color: var(--token-color-palette-neutral-500);
+	--token-form-error-color: var(--token-color-palette-red-300);
 
 	/* form-control specifics */
-	--token-form-control-base-foreground-value-color: #1e222a;
-	--token-form-control-base-foreground-placeholder-color: #434956;
-	--token-form-control-base-surface-color-default: #0d0e12;
-	--token-form-control-base-surface-color-hover: #1e222a;
-	--token-form-control-base-border-color-default: #616875;
-	--token-form-control-base-border-color-hover: #b2b6bd;
+	--token-form-control-base-foreground-value-color: var(
+		--token-color-palette-neutral-100
+	);
+	--token-form-control-base-foreground-placeholder-color: var(
+		--token-color-palette-neutral-300
+	);
+	--token-form-control-base-surface-color-default: var(
+		--token-color-palette-neutral-0
+	);
+	--token-form-control-base-surface-color-hover: var(
+		--token-color-palette-neutral-100
+	);
+	--token-form-control-base-border-color-default: var(
+		--token-color-palette-neutral-400
+	);
+	--token-form-control-base-border-color-hover: var(
+		--token-color-palette-neutral-500
+	);
 	--token-form-control-checked-foreground-color: #030303;
-	--token-form-control-checked-surface-color-default: #2b89ff;
-	--token-form-control-checked-surface-color-hover: #389aff;
-	--token-form-control-checked-border-color-default: #1c345f;
-	--token-form-control-checked-border-color-hover: #2b89ff;
-	--token-form-control-invalid-border-color-default: #f9381e;
-	--token-form-control-invalid-border-color-hover: #ff5841;
-	--token-form-control-readonly-foreground-color: #d5d7db;
-	--token-form-control-readonly-surface-color: #1e222a;
+	--token-form-control-checked-surface-color-default: var(
+		--token-color-palette-blue-200
+	);
+	--token-form-control-checked-surface-color-hover: var(
+		--token-color-palette-blue-300
+	);
+	--token-form-control-checked-border-color-default: var(
+		--token-color-palette-blue-100
+	);
+	--token-form-control-checked-border-color-hover: var(
+		--token-color-palette-blue-200
+	);
+	--token-form-control-invalid-border-color-default: var(
+		--token-color-palette-red-300
+	);
+	--token-form-control-invalid-border-color-hover: var(
+		--token-color-palette-red-400
+	);
+	--token-form-control-readonly-foreground-color: var(
+		--token-color-palette-neutral-600
+	);
+	--token-form-control-readonly-surface-color: var(
+		--token-color-palette-neutral-100
+	);
 	--token-form-control-readonly-border-color: #6168751a;
-	--token-form-control-disabled-foreground-color: #616875;
-	--token-form-control-disabled-surface-color: #0d0e12;
+	--token-form-control-disabled-foreground-color: var(
+		--token-color-palette-neutral-400
+	);
+	--token-form-control-disabled-surface-color: var(
+		--token-color-palette-neutral-0
+	);
 	--token-form-control-disabled-border-color: #61687533;
-	--token-form-toggle-base-surface-color-default: #0d0e12; /* the toggle has a different base surface color, compared to the other controls */
+	--token-form-toggle-base-surface-color-default: var(
+		--token-color-palette-neutral-0
+	); /* the toggle has a different base surface color, compared to the other controls */
 }

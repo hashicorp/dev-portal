@@ -56,6 +56,8 @@ export interface VariableGroupListProps {
 	isNested?: boolean
 }
 
+/** @TODO refactor this to use the `Card` component within the list item */
+
 export function VariableGroupList({
 	variables,
 	unflatten = true,
