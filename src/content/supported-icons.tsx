@@ -40,6 +40,11 @@ import { IconVmware16 } from '@hashicorp/flight-icons/svg-react/vmware-16'
 import { IconWaypoint16 } from '@hashicorp/flight-icons/svg-react/waypoint-16'
 import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
 
+/**
+ * @TODO refactor to remove the HashiCorp product logos from this list
+ * when product logos are needed, component should use `ProductLogo`
+ */
+
 export const SUPPORTED_ICONS = {
 	api: <IconApi16 />,
 	'aws-color': <IconAws16 />,
