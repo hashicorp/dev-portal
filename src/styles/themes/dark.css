@@ -131,8 +131,10 @@
 	--token-color-surface-warning: var(--token-color-palette-amber-50);
 	--token-color-surface-critical: var(--token-color-palette-red-50);
 
-	/* boundary */
+	/* hashicorp */
 	--token-color-hashicorp-brand: #fff;
+
+	/* boundary */
 	--token-color-boundary-brand: #f24c53;
 	--token-color-boundary-foreground: #f2474c;
 	--token-color-boundary-surface: #351114;
