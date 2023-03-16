@@ -4,12 +4,12 @@
  */
 
 import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
-import { IconAwsColor16 } from '@hashicorp/flight-icons/svg-react/aws-color-16'
-import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'
+import { IconAws16 } from '@hashicorp/flight-icons/svg-react/aws-16'
+import { IconBoundary16 } from '@hashicorp/flight-icons/svg-react/boundary-16'
 import { IconCloud16 } from '@hashicorp/flight-icons/svg-react/cloud-16'
 import { IconCode16 } from '@hashicorp/flight-icons/svg-react/code-16'
 import { IconConnection16 } from '@hashicorp/flight-icons/svg-react/connection-16'
-import { IconConsulColor16 } from '@hashicorp/flight-icons/svg-react/consul-color-16'
+import { IconConsul16 } from '@hashicorp/flight-icons/svg-react/consul-16'
 import { IconDatabase16 } from '@hashicorp/flight-icons/svg-react/database-16'
 import { IconDockerColor16 } from '@hashicorp/flight-icons/svg-react/docker-color-16'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
@@ -26,28 +26,30 @@ import { IconKubernetesColor16 } from '@hashicorp/flight-icons/svg-react/kuberne
 import { IconMicrosoftColor16 } from '@hashicorp/flight-icons/svg-react/microsoft-color-16'
 import { IconOracleColor16 } from '@hashicorp/flight-icons/svg-react/oracle-color-16'
 import { IconOrg16 } from '@hashicorp/flight-icons/svg-react/org-16'
-import { IconPackerColor16 } from '@hashicorp/flight-icons/svg-react/packer-color-16'
+import { IconPacker16 } from '@hashicorp/flight-icons/svg-react/packer-16'
 import { IconPlug16 } from '@hashicorp/flight-icons/svg-react/plug-16'
 import { IconPlusCircle16 } from '@hashicorp/flight-icons/svg-react/plus-circle-16'
 import { IconProvider16 } from '@hashicorp/flight-icons/svg-react/provider-16'
 import { IconServer16 } from '@hashicorp/flight-icons/svg-react/server-16'
 import { IconTerminal16 } from '@hashicorp/flight-icons/svg-react/terminal-16'
 import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
-import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terraform-color-16'
+import { IconTerraform16 } from '@hashicorp/flight-icons/svg-react/terraform-16'
 import { IconTools16 } from '@hashicorp/flight-icons/svg-react/tools-16'
-import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
+import { IconVault16 } from '@hashicorp/flight-icons/svg-react/vault-16'
 import { IconVmware16 } from '@hashicorp/flight-icons/svg-react/vmware-16'
-import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
+import { IconWaypoint16 } from '@hashicorp/flight-icons/svg-react/waypoint-16'
 import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
 
 export const SUPPORTED_ICONS = {
 	api: <IconApi16 />,
-	'aws-color': <IconAwsColor16 />,
-	'boundary-color': <IconBoundaryColor16 />,
+	'aws-color': <IconAws16 />,
+	'boundary-color': (
+		<IconBoundary16 color={`var(--token-color-boundary-brand)`} />
+	),
 	cloud: <IconCloud16 />,
 	code: <IconCode16 />,
 	connection: <IconConnection16 />,
-	'consul-color': <IconConsulColor16 />,
+	'consul-color': <IconConsul16 color={`var(--token-color-consul-brand)`} />,
 	database: <IconDatabase16 />,
 	'docker-color': <IconDockerColor16 />,
 	docs: <IconDocs16 />,
@@ -64,17 +66,19 @@ export const SUPPORTED_ICONS = {
 	'microsoft-color': <IconMicrosoftColor16 />,
 	'oracle-color': <IconOracleColor16 />,
 	org: <IconOrg16 />,
-	'packer-color': <IconPackerColor16 />,
+	'packer-color': <IconPacker16 color={`var(--token-color-packer-brand)`} />,
 	plug: <IconPlug16 />,
 	'plus-circle': <IconPlusCircle16 />,
 	provider: <IconProvider16 />,
 	server: <IconServer16 />,
 	'terminal-screen': <IconTerminalScreen16 />,
 	terminal: <IconTerminal16 />,
-	'terraform-color': <IconTerraformColor16 />,
+	'terraform-color': (
+		<IconTerraform16 color={`var(--token-color-terraform-brand)`} />
+	),
 	tools: <IconTools16 />,
-	'vault-color': <IconVaultColor16 />,
+	'vault-color': <IconVault16 color={`var(--token-color-vault-brand)`} />,
 	vmware: <IconVmware16 />,
-	'waypoint-color': <IconWaypointColor16 />,
+	'waypoint-color': <IconWaypoint16 />,
 	wrench: <IconWrench16 />,
 }
