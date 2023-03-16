@@ -57,7 +57,7 @@
 
 .summary {
 	/* Base typography */
-	composes: g-type-body-200 from global;
+	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-primary);
 
 	/* Remove the top margin from any first item */
