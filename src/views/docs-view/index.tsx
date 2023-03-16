@@ -9,6 +9,7 @@ import { useCurrentProduct } from 'contexts'
 import DocsViewLayout from 'layouts/docs-view-layout'
 import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
+import LandingHero from 'components/landing-hero'
 import { DocsViewProps } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import getDocsMdxComponents from './utils/get-docs-mdx-components'
@@ -49,27 +50,46 @@ const DocsView = ({
 	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
 	const Layout = layouts[metadata?.layout?.name] ?? DefaultLayout
 
+	/**
+	 * Extract a pageHeading item, we might use this in the `LandingHero`.
+	 * TODO: move this server-side.
+	 */
+	const pageHeading = {
+		id: outlineItems[0].url.substring(1),
+		title: outlineItems[0].title,
+	}
+
+	const hasLandingHero = metadata?.layout?.name === 'docs-root-landing'
+
 	return (
 		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
-			<div className={classNames(versions && s.contentWithVersions)}>
+			<div className={s.heroAndVersionHeader}>
 				{versions ? (
 					<div className={s.versionSwitcherWrapper}>
 						<DocsVersionSwitcher options={versions} projectName={projectName} />
 					</div>
 				) : null}
-				<NoIndexTagIfVersioned />
-				<DevDotContent
-					mdxRemoteProps={{
-						compiledSource,
-						lazy,
-						scope,
-						components: {
-							...docsMdxComponents,
-							wrapper: (props) => <Layout {...props} {...metadata?.layout} />,
-						},
-					}}
-				/>
+				{hasLandingHero ? (
+					<div className={s.landingHeroWrapper}>
+						<LandingHero
+							pageHeading={pageHeading}
+							pageSubtitle={metadata.layout.subtitle}
+						/>
+					</div>
+				) : null}
 			</div>
+			<NoIndexTagIfVersioned />
+			<DevDotContent
+				mdxRemoteProps={{
+					compiledSource,
+					lazy,
+					scope,
+					components: {
+						...docsMdxComponents,
+						wrapper: (props) => <Layout {...props} {...metadata?.layout} />,
+					},
+				}}
+			/>
 		</DocsViewLayout>
 	)
 }

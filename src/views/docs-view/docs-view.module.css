@@ -15,34 +15,44 @@
 	}
 }
 
-.contentWithVersions {
-	position: relative;
+/*
 
-	& .versionSwitcherWrapper {
-		width: 100%;
-		margin-bottom: 16px;
+TODO: finalize flex layout for "landing hero" + version selector
 
-		@media (--dev-dot-tablet-up) {
-			margin-bottom: 0;
-			width: auto;
-			position: absolute;
-			right: 0;
-			top: 0;
-		}
-	}
+*/
 
-	& .mdxContent {
-		@media (--dev-dot-mobile) {
-			margin-top: 0;
-		}
-	}
+.heroAndVersionHeader {
+	align-items: flex-start;
+	border: 1px solid magenta;
+	display: flex;
 
-	/* Add margin to all possible docs headings when versions are defined.
-  This eliminates possible overlap between heading and version switcher dropdown */
-	@media (--dev-dot-tablet-up) {
-		& h1:first-child,
-		& :global(.landing-hero) {
-			margin-right: 180px;
-		}
-	}
+	/* DOM order is version selector, then title. On small viewports, with
+	   wrapping, we have multiple rows so row-reverse has no effect.
+		 On large viewports, where we have space to put everything in one row,
+		 we show the version selector after the landingHero (if present). */
+	flex-direction: row-reverse;
+	flex-wrap: wrap;
+	gap: 16px;
+
+	/* TODO: only 16px margin if landingHero is not shown */
+	margin-bottom: 32px;
+}
+
+.landingHeroWrapper {
+	border: 1px solid red;
+	flex-grow: 99; /* eats up all the space next to versionSwitcherWrapper */
+	min-width: min(100%, 20rem); /* 20rem, or fit container if alone in row */
+	width: 0; /* start from zero width, no arbitary breakpoint for flex-wrap */
+}
+
+.versionSwitcherWrapper {
+	border: 1px solid green;
+
+	/* TODO: maybe don't flex-grow on large viewports if landingHero not shown?
+	   Alternately... we'll run into the same problem with absolute positioning.
+		 Maybe should always use "don't render h1 in MDX" approach, and always
+		 use a flex layout, with the `h1` taking the place of `landingHero`? */
+	flex-grow: 1; /* grows when alone, lets landingHeroWrapper grow more */
+	min-width: max-content; /* keep the selector on one line */
+	width: 0; /* start from zero width, no arbitary breakpoint for flex-wrap */
 }
