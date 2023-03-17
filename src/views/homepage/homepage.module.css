@@ -21,3 +21,44 @@
 .homepageContent {
 	z-index: 1;
 }
+
+.card {
+	flex-direction: column;
+	gap: 16px;
+	display: flex;
+	height: 100%;
+
+	& h2,
+	& p {
+		margin: 0;
+	}
+}
+
+.chicletNav {
+	margin-bottom: 60px;
+
+	& ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+
+		& li a {
+			display: flex;
+			gap: 10px;
+			padding-bottom: 12px;
+			padding-left: 16px;
+			padding-right: 16px;
+			padding-top: 12px;
+			font-size: 1rem;
+			font-weight: 600;
+			line-height: 1.5;
+			background-color: #0a0c10;
+			color: var(--token-color-foreground-high-contrast);
+			border-radius: 5px;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+		}
+	}
+}

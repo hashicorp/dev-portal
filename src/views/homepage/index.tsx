@@ -21,6 +21,7 @@ import { HeroWithVideo } from './components/hero'
 import { HcpSlot, VaultSlot } from './components/merchandising-slots/slots'
 import { CertificationsSection } from './components/certifications-section'
 import s from './homepage.module.css'
+import Card from 'components/card'
 
 const VIDEO_URL = 'https://hashicorp.wistia.com/medias/m17a0rrzj1'
 const VIDEO_THUMBNAIL_URL =
@@ -85,7 +86,164 @@ const HOME_PAGE_REDESIGN_ENABLED = __config.flags.enable_home_page_redesign
 
 function HomePageView({ content }: HomePageProps): ReactElement {
 	if (HOME_PAGE_REDESIGN_ENABLED) {
-		return <p>I am the new home page!</p>
+		return (
+			<div
+				style={{
+					maxWidth: 1240,
+					margin: '0 auto',
+				}}
+			>
+				<header style={{ marginBottom: 78, marginTop: 148 }}>
+					<h1
+						style={{
+							fontSize: 70,
+							fontWeight: 700,
+							marginTop: 0,
+							marginBottom: 10,
+							width: 'fit-content',
+							lineHeight: '84px',
+						}}
+					>
+						Step inside.
+					</h1>
+					<p
+						style={{
+							fontSize: 70,
+							fontWeight: 600,
+							marginTop: 0,
+							marginBottom: 0,
+							width: 'fit-content',
+							lineHeight: '84px',
+						}}
+					>
+						Define your path.
+					</p>
+				</header>
+				<div className={s.chicletNav}>
+					<p
+						style={{
+							fontWeight: 500,
+							fontSize: 13,
+							lineHeight: '18px',
+							marginBottom: 24,
+						}}
+					>
+						Explore by product
+					</p>
+					<nav>
+						<ul>
+							<li>
+								<a href="/hcp">
+									<img alt="" src="https://placekitten.com/g/22/22" />
+									HCP
+								</a>
+							</li>
+							<li>
+								<a href="/packer">
+									<img alt="" src="https://placekitten.com/g/22/22" />
+									Packer
+								</a>
+							</li>
+							<li>
+								<a href="/terraform">
+									<img alt="" src="https://placekitten.com/g/22/22" />
+									Terraform
+								</a>
+							</li>
+							<li>
+								<a href="/consul">
+									<img alt="" src="https://placekitten.com/g/22/22" />
+									Consul
+								</a>
+							</li>
+							<li>
+								<a href="/boundary">
+									<img alt="" src="https://placekitten.com/g/22/22" />
+									Boundary
+								</a>
+							</li>
+							<li>
+								<a href="/vault">
+									<img alt="" src="https://placekitten.com/g/22/22" />
+									Vault
+								</a>
+							</li>
+							<li>
+								<a href="/nomad">
+									<img alt="" src="https://placekitten.com/g/22/22" />
+									Nomad
+								</a>
+							</li>
+							<li>
+								<a href="/waypoint">
+									<img alt="" src="https://placekitten.com/g/22/22" />
+									Waypoint
+								</a>
+							</li>
+							<li>
+								<a href="/vagrant">
+									<img alt="" src="https://placekitten.com/g/22/22" />
+									Vagrant
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+				<div
+					style={{
+						display: 'grid',
+						gridTemplateAreas: `
+"b a a"
+"b c d"
+`,
+						columnGap: 40,
+						rowGap: 32,
+						marginBottom: 227,
+						gridTemplateRows: 'repeat(2, 1fr)',
+						gridTemplateColumns: 'repeat(3, 1fr)',
+					}}
+				>
+					<div style={{ gridArea: 'a' }}>
+						<Card className={s.card}>
+							<div>
+								<h2>Solution central...</h2>
+								<p>
+									Let our enhanced search do the heavy lifting to put you on the
+									right path
+								</p>
+							</div>
+						</Card>
+					</div>
+					<div style={{ gridArea: 'b', paddingTop: 66 }}>
+						<Card className={s.card}>
+							<img alt="" src="https://placekitten.com/g/373/286" />
+							<h2>Get HashiCorp certified</h2>
+							<p>
+								Earn certifications to verify your skills and communicate your
+								proficiency with HashiCorp multi-cloud products.
+							</p>
+							<p>Learn more</p>
+						</Card>
+					</div>
+					<div style={{ gridArea: 'c' }}>
+						<Card className={s.card}>
+							<h2>HashiCorp Cloud Platform</h2>
+							<p>
+								The fastest way to get up and running with HashiCorp products
+							</p>
+							<p>Learn more</p>
+						</Card>
+					</div>
+					<div style={{ gridArea: 'd' }}>
+						<Card className={s.card}>
+							<img alt="" src="https://placekitten.com/g/320/185" />
+							<h2>What is HashiCorp’s Well-Architected Framework?</h2>
+							<p>Learn more</p>
+						</Card>
+					</div>
+				</div>
+			</div>
+		)
 	}
 
 	return (
