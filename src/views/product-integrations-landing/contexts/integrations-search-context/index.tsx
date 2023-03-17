@@ -46,12 +46,6 @@ export const IntegrationsSearchProvider = ({
 		USE_QUERY_PARAMS_CONFIG_MAP,
 		USE_QUERY_PARAMS_OPTIONS
 	)
-	const {
-		components: qsComponents,
-		flags: qsFlags,
-		filterQuery,
-		tiers: qsTiers,
-	} = queryParams
 	const page = coerceToDefaultValue(queryParams.page, DEFAULT_PAGE_VALUE)
 	const pageSize = coerceToDefaultValue(
 		queryParams.pageSize,
@@ -169,7 +163,9 @@ export const IntegrationsSearchProvider = ({
 		}
 
 		const atLeastOneFacetSelected =
-			qsComponents.length > 0 || qsFlags.length > 0 || qsTiers.length > 0
+			queryParams.components.length > 0 ||
+			queryParams.flags.length > 0 ||
+			queryParams.tiers.length > 0
 
 		/**
 		 * First, filter by facet and filterQuery
@@ -177,31 +173,31 @@ export const IntegrationsSearchProvider = ({
 		const filteredIntegrations = integrations.filter(
 			(integration: Integration) => {
 				let tierMatch = true
-				if (qsTiers.length > 0) {
-					tierMatch = qsTiers.includes(integration.tier)
+				if (queryParams.tiers.length > 0) {
+					tierMatch = queryParams.tiers.includes(integration.tier)
 				}
 
 				let componentMatch = true
-				if (qsComponents.length > 0) {
+				if (queryParams.components.length > 0) {
 					componentMatch = integration.components.some(
 						(component: IntegrationComponent) => {
-							return qsComponents.includes(component.slug)
+							return queryParams.components.includes(component.slug)
 						}
 					)
 				}
 
 				let flagMatch = true
-				if (qsFlags.length > 0) {
+				if (queryParams.flags.length > 0) {
 					flagMatch = integration.flags.some((flag: Flag) => {
-						return qsFlags.includes(flag.slug)
+						return queryParams.flags.includes(flag.slug)
 					})
 				}
 
 				let filterQueryMatch = true
-				if (filterQuery.length) {
+				if (queryParams.filterQuery.length) {
 					filterQueryMatch = getDoesMatchFilterQuery({
 						integration,
-						filterQuery,
+						filterQuery: queryParams.filterQuery,
 					})
 				}
 
@@ -233,58 +229,59 @@ export const IntegrationsSearchProvider = ({
 			filteredIntegrations,
 			paginatedIntegrations,
 		}
+	}, [integrations, page, pageSize, queryParams, router.isReady])
+
+	/**
+	 * Generate the options arrays for UI elements.
+	 *
+	 * @TODO move this to the component that actually renders UI?
+	 */
+	const { componentOptions, flagOptions, tierOptions } = useMemo(() => {
+		return {
+			componentOptions: allComponents.map((component: IntegrationComponent) => {
+				return {
+					id: component.slug,
+					label: capitalize(component.plural_name),
+					onChange: () => {
+						resetPage()
+						toggleComponentChecked(component)
+					},
+					selected: queryParams.components.includes(component.slug),
+				}
+			}),
+			flagOptions: allFlags.map((flag: Flag) => {
+				return {
+					id: flag.slug,
+					label: flag.name,
+					onChange: () => {
+						resetPage()
+						toggleFlagChecked(flag)
+					},
+					selected: queryParams.flags.includes(flag.slug),
+				}
+			}),
+			tierOptions: allTiers.map((tier: Tier) => {
+				return {
+					id: tier,
+					label: capitalize(tier),
+					onChange: () => {
+						resetPage()
+						toggleTierChecked(tier)
+					},
+					selected: queryParams.tiers.includes(tier),
+				}
+			}),
+		}
 	}, [
-		filterQuery,
-		integrations,
-		page,
-		pageSize,
-		qsComponents,
-		qsFlags,
-		qsTiers,
-		router.isReady,
+		allComponents,
+		allFlags,
+		allTiers,
+		queryParams,
+		resetPage,
+		toggleComponentChecked,
+		toggleFlagChecked,
+		toggleTierChecked,
 	])
-
-	const componentOptions = useMemo(() => {
-		return allComponents.map((component: IntegrationComponent) => {
-			return {
-				id: component.slug,
-				label: capitalize(component.plural_name),
-				onChange: () => {
-					resetPage()
-					toggleComponentChecked(component)
-				},
-				selected: qsComponents.includes(component.slug),
-			}
-		})
-	}, [allComponents, qsComponents, resetPage, toggleComponentChecked])
-
-	const flagOptions = useMemo(() => {
-		return allFlags.map((flag: Flag) => {
-			return {
-				id: flag.slug,
-				label: flag.name,
-				onChange: () => {
-					resetPage()
-					toggleFlagChecked(flag)
-				},
-				selected: qsFlags.includes(flag.slug),
-			}
-		})
-	}, [allFlags, qsFlags, resetPage, toggleFlagChecked])
-
-	const tierOptions = useMemo(() => {
-		return allTiers.map((tier: Tier) => {
-			return {
-				id: tier,
-				label: capitalize(tier),
-				onChange: () => {
-					resetPage()
-					toggleTierChecked(tier)
-				},
-				selected: qsTiers.includes(tier),
-			}
-		})
-	}, [allTiers, qsTiers, resetPage, toggleTierChecked])
 
 	/**
 	 * If `isLoading` hasn't already been updated, and it's ready to be updated,
@@ -305,7 +302,7 @@ export const IntegrationsSearchProvider = ({
 				clearFilters,
 				componentOptions,
 				filteredIntegrations,
-				filterQuery,
+				filterQuery: queryParams.filterQuery,
 				flagOptions,
 				integrations,
 				isLoading,
