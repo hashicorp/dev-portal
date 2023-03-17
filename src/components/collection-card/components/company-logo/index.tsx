@@ -28,20 +28,35 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
 
 	return (
 		<span className={s.root}>
-			<ThemedLogo theme={GlobalThemeOption.dark} src={src.dark} />
-			<ThemedLogo theme={GlobalThemeOption.light} src={src.light} />
+			<ThemedLogo
+				hideOnTheme={GlobalThemeOption.light}
+				src={src.dark}
+				name={name}
+			/>
+			<ThemedLogo
+				hideOnTheme={GlobalThemeOption.dark}
+				src={src.light}
+				name={name}
+			/>
 		</span>
 	)
 }
 
-function ThemedLogo({ theme, src }: { theme: GlobalThemeOption; src: string }) {
+function ThemedLogo({
+	hideOnTheme,
+	src,
+	name,
+}: {
+	hideOnTheme: GlobalThemeOption
+	src: string
+	name: string
+}) {
 	return (
 		<span
 			className={classNames(s.inner, s[`logo-${name}`])}
-			data-hide-on-theme={theme}
+			data-hide-on-theme={hideOnTheme}
 		>
 			<Image
-				data-hide-on-theme={theme}
 				src={src}
 				alt=""
 				/**
