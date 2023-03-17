@@ -33,7 +33,7 @@ the correct elements, roles, states, and properties are being set in the markup.
 Styles for each tab button.
 */
 .tabButton[role='tab'] {
-	background-color: var(--token-color-surface-primary);
+	background-color: transparent;
 	border-radius: 5px;
 	border: 1px solid transparent;
 	color: var(--token-color-foreground-faint);
@@ -59,7 +59,6 @@ Styles for each tab button.
 
 	/* In nested tabs, use a thick bottom border, visible when active */
 	&.isNested {
-		background-color: transparent;
 		border: none;
 		border-bottom: 2px solid transparent;
 		padding: 8px 12px 6px 12px;
@@ -74,7 +73,6 @@ Styles for each tab button.
 	}
 
 	&.variant--compact {
-		background-color: transparent;
 		border: none;
 		padding-bottom: 6px;
 		padding-left: 12px;
@@ -84,7 +82,7 @@ Styles for each tab button.
 
 		&[aria-selected='true'] {
 			&::after {
-				background-color: var(--token-color-palette-blue-200);
+				background-color: var(--token-color-foreground-action);
 				border-radius: 3px;
 				bottom: -1px;
 				content: '';

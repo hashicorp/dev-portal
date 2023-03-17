@@ -40,6 +40,12 @@ interface IntegrationCardProps {
 	integration: Integration
 }
 
+/**
+ * TODO: refactor the 'view details' cta to use
+ * StandaloneLinkContents when lifted to a global component
+ * https://app.asana.com/0/1202097197789424/1204167616054151
+ */
+
 function IntegrationCard({ integration }: IntegrationCardProps) {
 	const url = getIntegrationUrl(integration)
 	const isExternalLink = !url.startsWith('/')

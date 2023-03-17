@@ -5,10 +5,16 @@
 
 import ConsulIoLayout from 'layouts/_proxied-dot-io/consul'
 import * as React from 'react'
+import classNames from 'classnames'
 import Head from 'next/head'
 import { proxiedRivetClient } from 'lib/cms'
+import { useFlagBag } from 'flags/client'
 import homepageQuery from './home/query.graphql'
+import { abTestTrack } from 'lib/ab-test-track'
+import { isInUS } from '@hashicorp/platform-util/geo'
 import { renderMetaTags } from '@hashicorp/react-head'
+import Button from '@hashicorp/react-button'
+import StandaloneLink from '@hashicorp/react-standalone-link'
 import IoHomeHeroAlt from 'components/_proxied-dot-io/common/io-home-hero-alt'
 import IoHomeIntro from 'components/_proxied-dot-io/common/io-home-intro'
 import IoHomeInPractice from 'components/_proxied-dot-io/common/io-home-in-practice'
@@ -56,6 +62,10 @@ function Homepage({ data }): React.ReactElement {
 	} = data
 	const _introCallout = introCallout[0]
 	const _introVideo = introVideo[0]
+	const flagBag = useFlagBag()
+	const renderVariant = React.useMemo(() => {
+		return isInUS() && flagBag.settled && flagBag.flags?.tryForFree
+	}, [flagBag])
 
 	return (
 		<>
@@ -69,13 +79,43 @@ function Homepage({ data }): React.ReactElement {
 				}}
 				heading={heroHeading}
 				description={heroDescription}
-				ctas={heroCtas.map((cta) => {
-					return {
-						title: cta.title,
-						href: cta.link,
+				// ctas={heroCtas.map((cta) => {
+				// 	return {
+				// 		title: cta.title,
+				// 		href: cta.link,
+				// 	}
+				// })}
+			>
+				{heroCtas.map((cta, index) => {
+					if (index === 0) {
+						return (
+							<Button
+								key={cta.link}
+								title={renderVariant ? 'Try for free' : 'Try HCP Consul'}
+								url={cta.link}
+								theme={{ brand: 'consul' }}
+								onClick={() => {
+									abTestTrack({
+										type: 'Result',
+										test_name: 'io-site primary CTA copy test 03-23',
+										variant: flagBag.flags?.tryForFree.toString(),
+									})
+								}}
+								className={classNames(
+									s.heroActionsPrimary,
+									flagBag.settled && s.settled
+								)}
+							/>
+						)
 					}
+
+					return (
+						<StandaloneLink key={cta.link} href={cta.link} theme="secondary">
+							{cta.title}
+						</StandaloneLink>
+					)
 				})}
-			/>
+			</IoHomeHeroAlt>
 
 			<IoHomeIntro
 				brand="consul"

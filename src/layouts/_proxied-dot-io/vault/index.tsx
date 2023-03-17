@@ -5,6 +5,8 @@
 
 import React from 'react'
 import { trackGoal as trackFathomGoal } from 'fathom-client'
+import { useFlagBag } from 'flags/client'
+import { abTestTrack } from 'lib/ab-test-track'
 import HashiHead from '@hashicorp/react-head'
 import AlertBanner from '@hashicorp/react-alert-banner'
 import Min100Layout from '@hashicorp/react-min-100-layout'
@@ -34,8 +36,19 @@ function VaultIoLayout({ children, data }: Props): React.ReactElement {
 		siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID_VAULT,
 		includedDomains: productData.analyticsConfig.includedDomains,
 	})
+	const flagBag = useFlagBag()
 	const { themeClass } = useProductMeta(productData.name as Products)
 	const { useCaseNavItems } = data
+
+	React.useEffect(() => {
+		if (flagBag.settled) {
+			abTestTrack({
+				type: 'Served',
+				test_name: 'io-site primary CTA copy test 03-23',
+				variant: flagBag.flags.tryForFree.toString(),
+			})
+		}
+	}, [flagBag])
 
 	return (
 		<>

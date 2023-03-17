@@ -30,3 +30,16 @@
 		margin-bottom: 128px;
 	}
 }
+
+/**
+ * Hero
+ */
+
+.heroActionsPrimary {
+	min-width: 154px;
+	color: transparent;
+
+	&.settled {
+		color: var(--brand-text-on-primary);
+	}
+}
