@@ -12,12 +12,15 @@ const getDoesMatchFilterQuery = ({
 	integration: Integration
 	filterQuery: string
 }) => {
+	const lowerCaseFilterQuery = filterQuery.toLowerCase()
+	const lowerCaseName = integration.name.toLowerCase()
+	const lowerCaseDescription = integration.description.toLowerCase()
+	const lowerCaseOrganizationSlug = integration.organization.slug.toLowerCase()
+
 	return (
-		integration.name.toLowerCase().includes(filterQuery.toLowerCase()) ||
-		integration.description.toLowerCase().includes(filterQuery.toLowerCase()) ||
-		integration.organization.slug
-			.toLowerCase()
-			.includes(filterQuery.toLowerCase())
+		lowerCaseName.includes(lowerCaseFilterQuery) ||
+		lowerCaseDescription.includes(lowerCaseFilterQuery) ||
+		lowerCaseOrganizationSlug.includes(lowerCaseFilterQuery)
 	)
 }
 
