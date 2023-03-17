@@ -5,12 +5,7 @@
 
 import { createContext, useContext, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-import {
-	NumberParam,
-	StringParam,
-	useQueryParams,
-	withDefault,
-} from 'use-query-params'
+import { useQueryParams } from 'use-query-params'
 import capitalize from '@hashicorp/platform-util/text/capitalize'
 import {
 	Flag,
@@ -24,7 +19,12 @@ import {
 	IntegrationsSearchContextState,
 	IntegrationsSearchProviderProps,
 } from './types'
-import { CommaArrayParam } from './constants'
+import {
+	DEFAULT_PAGE_SIZE_VALUE,
+	DEFAULT_PAGE_VALUE,
+	USE_QUERY_PARAMS_CONFIG_MAP,
+	USE_QUERY_PARAMS_OPTIONS,
+} from './constants'
 import { coerceToDefaultValue } from './helpers'
 
 export const IntegrationsSearchContext =
@@ -43,19 +43,8 @@ export const IntegrationsSearchProvider = ({
 	const [isLoading, setIsLoading] = useState(true)
 
 	const [queryParams, setQueryParams] = useQueryParams(
-		{
-			components: withDefault(CommaArrayParam, []),
-			flags: withDefault(CommaArrayParam, []),
-			filterQuery: withDefault(StringParam, ''),
-			page: withDefault(NumberParam, 1),
-			pageSize: withDefault(NumberParam, 8),
-			tiers: withDefault(CommaArrayParam, []),
-		},
-		{
-			enableBatching: true,
-			removeDefaultsFromUrl: true,
-			updateType: 'replaceIn',
-		}
+		USE_QUERY_PARAMS_CONFIG_MAP,
+		USE_QUERY_PARAMS_OPTIONS
 	)
 	const {
 		components: qsComponents,
@@ -63,8 +52,11 @@ export const IntegrationsSearchProvider = ({
 		filterQuery,
 		tiers: qsTiers,
 	} = queryParams
-	const page = coerceToDefaultValue(queryParams.page, 1)
-	const pageSize = coerceToDefaultValue(queryParams.pageSize, 8)
+	const page = coerceToDefaultValue(queryParams.page, DEFAULT_PAGE_VALUE)
+	const pageSize = coerceToDefaultValue(
+		queryParams.pageSize,
+		DEFAULT_PAGE_SIZE_VALUE
+	)
 
 	const {
 		clearFilters,
