@@ -19,13 +19,13 @@ import SearchableIntegrationsList from './components/searchable-integrations-lis
 import s from './style.module.css'
 
 export interface ViewProps {
-	allComponents: Array<IntegrationComponent>
-	allFlags: Array<Flag>
-	allTiers: Array<Tier>
-	breadcrumbLinks: Array<BreadcrumbLink>
-	integrations: Array<Integration>
+	allComponents: IntegrationComponent[]
+	allFlags: Flag[]
+	allTiers: Tier[]
+	breadcrumbLinks: BreadcrumbLink[]
+	integrations: Integration[]
 	product: ProductData
-	sidebarNavDataLevels: Array<SidebarProps>
+	sidebarNavDataLevels: SidebarProps[]
 }
 
 export default function ProductIntegrationsLanding({
