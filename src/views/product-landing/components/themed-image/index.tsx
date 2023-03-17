@@ -9,23 +9,13 @@ import { ThemedImageProps } from './types'
  * based on the theme state with css
  */
 export default function ThemedImage({ src, alt }: ThemedImageProps) {
-	/**
-	 * @TODO could add protection here to throw
-	 * when used outside of the theme context. Since the
-	 * entire app is wrapped with the provier when using the
-	 * core devdot layout, it's currently low-risk
-	 * */
 	return (
 		<>
 			{/* When the theme is dark, hide this div */}
-			<div data-hide-on-theme="dark">
-				<img src={src.light} alt={alt} />
-			</div>
+			<img data-hide-on-theme="dark" src={src.light} alt={alt} />
 
 			{/* When the theme is light, hide this div */}
-			<div data-hide-on-theme="light">
-				<img src={src.dark} alt={alt} />
-			</div>
+			<img data-hide-on-theme="light" src={src.dark} alt={alt} />
 		</>
 	)
 }

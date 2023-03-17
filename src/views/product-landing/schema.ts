@@ -4,7 +4,7 @@
  */
 
 import { CalloutCardProps } from 'components/callout-card/types'
-import { ThemedImageProps } from 'components/themed-image/types'
+import { ThemedImageProps } from 'views/product-landing/components/themed-image/types'
 import Joi from 'joi'
 
 /**

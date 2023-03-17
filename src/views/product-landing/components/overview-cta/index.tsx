@@ -10,7 +10,7 @@ import StandaloneLink from 'components/standalone-link'
 
 import { OverviewCtaProps } from './types'
 import s from './overview-cta.module.css'
-import ThemedImage from 'components/themed-image'
+import ThemedImage from 'views/product-landing/components/themed-image'
 
 function OverviewCta({
 	heading,
