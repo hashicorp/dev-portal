@@ -19,44 +19,15 @@ import {
 } from 'lib/integrations-api-client/integration'
 import { integrationLibraryFilterSelectedEvent } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/analytics'
 import { getDoesMatchFilterQuery } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/get-filtered-integrations'
-import { IntegrationsSearchProviderProps } from './types'
+import {
+	IntegrationsSearchContextState,
+	IntegrationsSearchProviderProps,
+} from './types'
 import { CommaArrayParam } from './constants'
+import { coerceToDefaultValue } from './helpers'
 
-/**
- * A small util to guard against invalid values for our
- * pagination query params, such as NaN or negative numbers.
- */
-function coerceToDefaultValue(value: number, init: number): number {
-	if (isNaN(value) || value < 1) {
-		return init
-	}
-	return value
-}
-
-interface FacetFilterOption {
-	id: string
-	label: string
-	onChange: () => void
-	selected: boolean
-}
-
-export const IntegrationsSearchContext = createContext({
-	atLeastOneFacetSelected: false,
-	clearFilters: () => void 1,
-	componentOptions: [] as FacetFilterOption[],
-	filteredIntegrations: [] as Integration[],
-	filterQuery: '',
-	flagOptions: [] as FacetFilterOption[],
-	integrations: [] as Integration[],
-	page: 1,
-	pageSize: 8,
-	paginatedIntegrations: [] as Integration[],
-	resetPage: () => void 1,
-	setFilterQuery: (newValue: string) => void 1,
-	setPage: (newValue: number) => void 1,
-	setPageSize: (newValue: number) => void 1,
-	tierOptions: [] as FacetFilterOption[],
-})
+export const IntegrationsSearchContext =
+	createContext<IntegrationsSearchContextState>(undefined)
 IntegrationsSearchContext.displayName = 'IntegrationsSearchContext'
 
 export const IntegrationsSearchProvider = ({

@@ -6,12 +6,41 @@ import {
 	Tier,
 } from 'lib/integrations-api-client/integration'
 
+interface FacetFilterOption {
+	id: string
+	label: string
+	onChange: () => void
+	selected: boolean
+}
+
+interface IntegrationsSearchContextState {
+	atLeastOneFacetSelected: boolean
+	clearFilters: () => void
+	componentOptions: FacetFilterOption[]
+	filteredIntegrations: Integration[]
+	filterQuery: string
+	flagOptions: FacetFilterOption[]
+	integrations: Integration[]
+	page: number
+	pageSize: number
+	paginatedIntegrations: Integration[]
+	resetPage: () => void
+	setFilterQuery: (newValue: string) => void
+	setPage: (newValue: number) => void
+	setPageSize: (newValue: number) => void
+	tierOptions: FacetFilterOption[]
+}
+
 interface IntegrationsSearchProviderProps {
-	allComponents: Array<IntegrationComponent>
-	allFlags: Array<Flag>
-	allTiers: Array<Tier>
+	allComponents: IntegrationComponent[]
+	allFlags: Flag[]
+	allTiers: Tier[]
 	children: ReactNode
 	integrations: Integration[]
 }
 
-export type { IntegrationsSearchProviderProps }
+export type {
+	FacetFilterOption,
+	IntegrationsSearchContextState,
+	IntegrationsSearchProviderProps,
+}
