@@ -36,6 +36,7 @@ export default function SearchableIntegrationsList({
 		filteredIntegrations,
 		filterQuery,
 		flagOptions,
+		isLoading,
 		resetPage,
 		setFilterQuery,
 		tierOptions,
@@ -60,6 +61,13 @@ export default function SearchableIntegrationsList({
 		}
 	}, [filterQuery, filteredIntegrations.length])
 	useTypingDebounce(searchedEventCallback)
+
+	/**
+	 * @TODO replace with actual loading skeleton (currently on different branch)
+	 */
+	if (isLoading) {
+		return <h1>Loading...</h1>
+	}
 
 	const resultText = `${filteredIntegrations.length} ${
 		filteredIntegrations.length === 1 ? 'result found' : 'results found'

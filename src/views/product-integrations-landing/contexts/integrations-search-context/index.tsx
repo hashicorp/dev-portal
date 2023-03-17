@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { createContext, useContext, useMemo } from 'react'
+import { createContext, useContext, useMemo, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 import {
 	NumberParam,
 	StringParam,
@@ -37,6 +38,10 @@ export const IntegrationsSearchProvider = ({
 	children,
 	integrations,
 }: IntegrationsSearchProviderProps) => {
+	const router = useRouter()
+	const hasFilteredAfterRouterReady = useRef(false)
+	const [isLoading, setIsLoading] = useState(true)
+
 	const [queryParams, setQueryParams] = useQueryParams(
 		{
 			components: withDefault(CommaArrayParam, []),
@@ -163,6 +168,14 @@ export const IntegrationsSearchProvider = ({
 		filteredIntegrations,
 		paginatedIntegrations,
 	} = useMemo(() => {
+		if (!router.isReady) {
+			return {
+				atLeastOneFacetSelected: false,
+				filteredIntegrations: [],
+				paginatedIntegrations: [],
+			}
+		}
+
 		const atLeastOneFacetSelected =
 			qsComponents.length > 0 || qsFlags.length > 0 || qsTiers.length > 0
 
@@ -212,6 +225,17 @@ export const IntegrationsSearchProvider = ({
 			page * pageSize
 		)
 
+		/**
+		 * Third, update the `hasFilteredAfterRouterReady` ref to indicate that
+		 * filtering has been completed.
+		 */
+		if (hasFilteredAfterRouterReady.current === false) {
+			hasFilteredAfterRouterReady.current = true
+		}
+
+		/**
+		 * Lastly, return the data as a neatly packaged object.
+		 */
 		return {
 			atLeastOneFacetSelected,
 			filteredIntegrations,
@@ -225,6 +249,7 @@ export const IntegrationsSearchProvider = ({
 		qsComponents,
 		qsFlags,
 		qsTiers,
+		router.isReady,
 	])
 
 	const componentOptions = useMemo(() => {
@@ -269,6 +294,18 @@ export const IntegrationsSearchProvider = ({
 		})
 	}, [allTiers, qsTiers, resetPage, toggleTierChecked])
 
+	/**
+	 * If `isLoading` hasn't already been updated, and it's ready to be updated,
+	 * update it after a 1.5 second delay. The purpose of the delay is to
+	 */
+	if (
+		isLoading === true &&
+		router.isReady &&
+		hasFilteredAfterRouterReady.current === true
+	) {
+		setIsLoading(false)
+	}
+
 	return (
 		<IntegrationsSearchContext.Provider
 			value={{
@@ -279,6 +316,7 @@ export const IntegrationsSearchProvider = ({
 				filterQuery,
 				flagOptions,
 				integrations,
+				isLoading,
 				page,
 				pageSize,
 				paginatedIntegrations,

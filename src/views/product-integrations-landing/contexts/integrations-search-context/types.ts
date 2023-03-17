@@ -21,6 +21,7 @@ interface IntegrationsSearchContextState {
 	filterQuery: string
 	flagOptions: FacetFilterOption[]
 	integrations: Integration[]
+	isLoading: boolean
 	page: number
 	pageSize: number
 	paginatedIntegrations: Integration[]
