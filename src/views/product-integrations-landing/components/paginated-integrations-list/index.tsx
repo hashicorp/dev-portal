@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { useDeviceSize } from 'contexts'
 import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import Pagination from 'components/pagination'
 import IntegrationsList from '../integrations-list'
@@ -24,6 +25,7 @@ export default function PaginatedIntegrationsList({
 		setPageSize,
 	} = useIntegrationsSearchContext()
 
+	const { isDesktop, isMobile, isTablet } = useDeviceSize()
 	return (
 		<div className={s.paginatedIntegrationsList}>
 			<IntegrationsList
@@ -38,18 +40,9 @@ export default function PaginatedIntegrationsList({
 					pageSize={pageSize}
 					totalItems={filteredIntegrations.length}
 				>
-					<div className="g-hide-on-mobile">
-						<Pagination.Info />
-					</div>
-					<div className="g-hide-on-mobile">
-						<Pagination.Nav type="truncated" />
-					</div>
-					<div className="g-hide-on-tablet g-hide-on-desktop">
-						<Pagination.Nav type="compact" />
-					</div>
-					<div className="g-hide-on-mobile g-hide-on-desktop">
-						<Pagination.SizeSelector sizes={[4, 8, 16, 24]} />
-					</div>
+					{(isDesktop || isTablet) && <Pagination.Info />}
+					<Pagination.Nav type={isMobile ? 'compact' : 'truncated'} />
+					{isDesktop && <Pagination.SizeSelector sizes={[4, 8, 16, 24]} />}
 				</Pagination>
 			</div>
 		</div>
