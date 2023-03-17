@@ -27,7 +27,7 @@
 	flex: 1 1 0;
 	justify-content: center;
 	max-width: 560px;
-	min-width: min(100%, 240px);
+	min-width: min(100%, 220px);
 
 	& img {
 		display: block;
