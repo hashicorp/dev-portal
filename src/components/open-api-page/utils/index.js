@@ -48,7 +48,7 @@ function getServiceIds(operationObjects) {
 }
 
 /* Given a schema, return a flattened list of operation objects */
-function getOperationObjects(schema) {
+function getOperationObjects(schema, mayHaveCircularReferences = false) {
 	const pathItemObjects = Object.keys(schema.paths).reduce((acc, path) => {
 		acc.push({ __path: path, ...schema.paths[path] })
 		return acc
@@ -70,13 +70,25 @@ function getOperationObjects(schema) {
 			if (!pathItemObject[type]) {
 				return acc
 			}
+
+			/**
+			 * The Waypoint API docs have circular references.
+			 * We manually try to deal with those here. This is a band-aid solution,
+			 * it seems to have unintended side-effects when applied to other
+			 * products' API docs, and almost certainly merits further investigation.
+			 *
+			 * Asana task:
+			 * https://app.asana.com/0/1202097197789424/1203989531295664/f
+			 */
+			const data = mayHaveCircularReferences
+				? removeCircularReferences(pathItemObject[type])
+				: pathItemObject[type]
+
 			// If the request type is supported, push the associated operation
 			acc.push({
 				__type: type,
 				__path: pathItemObject.__path,
-				...stripUndefinedProperties(
-					removeCircularReferences(pathItemObject[type])
-				),
+				...stripUndefinedProperties(data),
 			})
 			return acc
 		}, [])

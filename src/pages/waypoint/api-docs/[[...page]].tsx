@@ -60,7 +60,8 @@ export async function getStaticPaths() {
 	}
 
 	if (schema) {
-		paths = getPathsFromSchema(schema)
+		const mayHaveCircularReferences = true
+		paths = getPathsFromSchema(schema, mayHaveCircularReferences)
 	}
 
 	return { paths, fallback: false }
@@ -76,7 +77,21 @@ export async function getStaticProps({ params }) {
 	}
 
 	// API page data
-	const apiPageProps = getPropsForPage(schema, params)
+	/**
+	 * Note: the Waypoint API docs have circular references.
+	 * We manually try to deal with those. This is a band-aid solution,
+	 * it seems to have unintended side-effects when applied to other
+	 * products' API docs, and almost certainly merits further investigation.
+	 *
+	 * Asana task:
+	 * https://app.asana.com/0/1202097197789424/1203989531295664/f
+	 */
+	const mayHaveCircularReferences = true
+	const apiPageProps = getPropsForPage(
+		schema,
+		params,
+		mayHaveCircularReferences
+	)
 
 	// Product data
 	const productData = cachedGetProductData(productSlug)

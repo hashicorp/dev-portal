@@ -5,10 +5,14 @@
 
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import DevDotContent from 'components/dev-dot-content'
-import { MdxHeadingOutsideMdx } from './components/mdx-heading-outside-mdx'
-import ProductIntegrationLayout from 'layouts/product-integration-layout'
+import type { OutlineNavProps } from 'components/outline-nav'
 import { OutlineNavWithActive } from 'components/outline-nav/components'
-import { getIntegrationComponentUrl } from 'lib/integrations'
+import VersionAlertBanner from 'components/version-alert-banner'
+import ProductIntegrationLayout from 'layouts/product-integration-layout'
+import {
+	getIntegrationComponentUrl,
+	getLatestIntegrationVersion,
+} from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import {
 	Variable as ApiVariable,
@@ -18,13 +22,12 @@ import {
 } from 'lib/integrations-api-client/release'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
+import { MdxHeadingOutsideMdx } from './components/mdx-heading-outside-mdx'
 import SearchableVariableGroupList from './components/searchable-variable-group-list'
 import { Variable } from './components/variable-group-list'
 import { getVariableGroupSlug, getVariableSlug } from './helpers'
 import type { ProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
-import type { OutlineNavProps } from 'components/outline-nav'
 import s from './style.module.css'
-import VersionAlertBanner from 'components/version-alert-banner'
 
 export interface ProductIntegrationComponentViewProps {
 	product: ProductData
@@ -75,14 +78,16 @@ export default function ProductIntegrationComponentView({
 	return (
 		<ProductIntegrationLayout
 			className={s.integrationComponentView}
-			title={`${integration.name} ${component.component.name}`}
+			title={`${component.name}`}
 			breadcrumbLinks={breadcrumbLinks}
 			currentProduct={product}
 			integration={integration}
 			activeRelease={activeRelease}
 			getVersionChangedURL={(version: string) => {
 				const versionString =
-					version === integration.versions[0] ? 'latest' : version
+					version === getLatestIntegrationVersion(integration.versions)
+						? 'latest'
+						: version
 				return getIntegrationComponentUrl(integration, component, versionString)
 			}}
 			sidecarSlot={<OutlineNavWithActive items={outlineNavItems} />}
@@ -92,8 +97,7 @@ export default function ProductIntegrationComponentView({
 						currentVersion={currentVersion}
 						latestVersionUrl={getIntegrationComponentUrl(
 							integration,
-							component,
-							currentVersion
+							component
 						)}
 					/>
 				)

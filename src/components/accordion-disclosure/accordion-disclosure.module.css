@@ -51,6 +51,10 @@
 	&.isNested {
 		box-shadow: var(--token-surface-base-box-shadow);
 	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-surface-faint);
+	}
 }
 
 .button {
