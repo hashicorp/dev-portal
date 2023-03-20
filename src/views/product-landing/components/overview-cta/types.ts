@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ThemedImageProps } from 'views/product-landing/components/themed-image/types'
+import { ThemedImageProps } from 'views/product-landing/components/themed-image'
 
 export interface OverviewCtaProps {
 	heading: string

@@ -1,4 +1,13 @@
-import { ThemedImageProps } from './types'
+import Image from 'next/image'
+import s from './themed-image.module.css'
+
+export interface ThemedImageProps {
+	src: {
+		dark: string
+		light: string
+	}
+	alt: string
+}
 
 /**
  * This component can be used in views where we need to
@@ -11,11 +20,13 @@ import { ThemedImageProps } from './types'
 export default function ThemedImage({ src, alt }: ThemedImageProps) {
 	return (
 		<>
-			{/* When the theme is dark, hide this div */}
-			<img data-hide-on-theme="dark" src={src.light} alt={alt} />
+			<span data-hide-on-theme="light" className={s.root}>
+				<Image className={s.image} src={src.dark} alt={alt} fill />
+			</span>
 
-			{/* When the theme is light, hide this div */}
-			<img data-hide-on-theme="light" src={src.dark} alt={alt} />
+			<span data-hide-on-theme="dark" className={s.root}>
+				<Image className={s.image} src={src.light} alt={alt} fill />
+			</span>
 		</>
 	)
 }
