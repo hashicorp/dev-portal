@@ -15,9 +15,8 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 // Global imports
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
-import CoreDevDotLayout, {
-	CoreDevDotLayoutWithTheme,
-} from 'layouts/core-dev-dot-layout'
+import { CoreDevDotLayoutWithTheme } from 'layouts/core-dev-dot-layout'
+import { GlobalThemeOption } from 'styles/themes/types'
 import { CommandBarProvider } from 'components/command-bar'
 import Footer from 'components/footer'
 import MobileMenuContainer, {
@@ -65,15 +64,16 @@ const BaseNewLayout = ({
 }: BaseNewLayoutProps) => {
 	const router = useRouter()
 
-	/** @TODO remove conditional after dark mode is released */
-	const Layout = __config.flags.enable_dark_mode
-		? CoreDevDotLayoutWithTheme
-		: CoreDevDotLayout
+	/**
+	 * @TODO remove conditional after dark mode is released
+	 * Right now we are forcing 'light' mode on all pages
+	 */
+	const Layout = CoreDevDotLayoutWithTheme
 	const layoutProps = __config.flags.enable_dark_mode
 		? {
 				theme,
 		  }
-		: []
+		: { theme: GlobalThemeOption.light }
 	usePageviewAnalytics({
 		siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
 		includedDomains: __config.dev_dot.analytics.included_domains,
