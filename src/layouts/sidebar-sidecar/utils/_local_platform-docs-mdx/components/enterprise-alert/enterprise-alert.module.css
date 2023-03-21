@@ -29,7 +29,7 @@
 		}
 	}
 
-	@media (--dev-dot-tablet) {
+	@media (--dev-dot-tablet-up) {
 		flex-direction: row;
 	}
 }
@@ -51,7 +51,7 @@
 	margin-right: var(--tag-margin);
 	margin-bottom: var(--tag-margin);
 
-	@media (--dev-dot-tablet) {
+	@media (--dev-dot-tablet-up) {
 		margin-bottom: 0;
 	}
 }
