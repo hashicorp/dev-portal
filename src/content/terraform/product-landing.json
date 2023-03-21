@@ -17,7 +17,7 @@
 		"body": "Follow a code-complete, hands-on tutorial to learn the Terraform basics with your favorite infrastructure provider.",
 		"iconCardLinks": [
 			{
-				"icon": "aws-color",
+				"icon": "aws",
 				"text": "Amazon Web Services",
 				"url": "/terraform/tutorials/aws-get-started"
 			},

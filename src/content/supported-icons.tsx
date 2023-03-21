@@ -43,11 +43,14 @@ import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
 /**
  * @TODO refactor to remove the HashiCorp product logos from this list
  * when product logos are needed, component should use `ProductIcon`
+ *
+ * With the introduction of theming, when adding new icons to this list,
+ * consider both dark and light states.
  */
 
 export const SUPPORTED_ICONS = {
 	api: <IconApi16 />,
-	'aws-color': <IconAws16 />,
+	aws: <IconAws16 />,
 	'boundary-color': <IconBoundaryColor16 />,
 	cloud: <IconCloud16 />,
 	code: <IconCode16 />,

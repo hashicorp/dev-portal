@@ -32,6 +32,11 @@ const ProductIcon = ({ productSlug, ...rest }: ProductIconProps) => {
 	if (!Icon) {
 		return null
 	}
+	/**
+	 * The color is set here for theming purposes. We import the logo without
+	 * color and then set the product brand color since all the product icons
+	 * have a single fill color.
+	 */
 	return <Icon {...rest} color={`var(--token-color-${productSlug}-brand)`} />
 }
 
