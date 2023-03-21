@@ -5,14 +5,15 @@
 
 import type { ReactNode } from 'react'
 import classNames from 'classnames'
+
 import { useCurrentProduct } from 'contexts'
-import s from './enterprise-alert.module.css'
 import Badge from 'components/badge'
 import ProductIcon from 'components/product-icon'
-import { ProductSlug } from 'types/products'
-import { isProductSlug, productSlugsToNames } from 'lib/products'
 import Text from 'components/text'
 import InlineLink from 'components/inline-link'
+import { ProductSlug } from 'types/products'
+import { isProductSlug, productSlugsToNames } from 'lib/products'
+import s from './enterprise-alert.module.css'
 
 interface EnterpriseAlertProps {
 	productSlug: ProductSlug
