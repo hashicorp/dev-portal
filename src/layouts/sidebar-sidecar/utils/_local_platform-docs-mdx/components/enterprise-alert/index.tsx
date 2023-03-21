@@ -39,6 +39,14 @@ export function EnterpriseAlert({
 		return null
 	}
 
+	if (!isValidProduct) {
+		throw new Error(
+			`[EnterpriseAlert]: Invalid product option passed. Expected one of ${Object.keys(
+				productSlugsToNames
+			).filter((slug) => slug !== 'hcp')}`
+		)
+	}
+
 	return (
 		<Element
 			className={classNames(s.root, className, {
@@ -47,7 +55,7 @@ export function EnterpriseAlert({
 		>
 			<Badge
 				className={s.badge}
-				icon={isValidProduct ? <ProductIcon productSlug={productSlug} /> : null}
+				icon={<ProductIcon productSlug={productSlug} />}
 				text="Enterprise"
 				type="outlined"
 				size="medium"
