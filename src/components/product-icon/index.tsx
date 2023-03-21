@@ -29,6 +29,8 @@ const productSlugsToIcons = {
 
 const ProductIcon = ({ productSlug, ...rest }: ProductIconProps) => {
 	const Icon = productSlugsToIcons[productSlug]
+	const brandColorSlug = productSlug === 'hcp' ? 'hashicorp' : productSlug
+
 	if (!Icon) {
 		return null
 	}
@@ -37,7 +39,7 @@ const ProductIcon = ({ productSlug, ...rest }: ProductIconProps) => {
 	 * color and then set the product brand color since all the product icons
 	 * have a single fill color.
 	 */
-	return <Icon {...rest} color={`var(--token-color-${productSlug}-brand)`} />
+	return <Icon {...rest} color={`var(--token-color-${brandColorSlug}-brand)`} />
 }
 
 export type { ProductIconProps }
