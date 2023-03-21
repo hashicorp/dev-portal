@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import type { ComponentProps } from 'react'
+import NextLink from 'next/link'
 import { LinkProps } from 'components/link'
 import { TextProps } from 'components/text'
 
-export interface InlineLinkProps {
+export interface InlineLinkProps extends ComponentProps<typeof NextLink> {
 	/**
 	 * The content to render within the `<a>` element.
 	 */
