@@ -81,12 +81,20 @@ async function _getStaticProps({
 > {
 	const { productSlug, tutorialSlug } = params
 
+	const [slug, variant] = tutorialSlug[tutorialSlug.length - 1].split('--')
+	if (variant) {
+		tutorialSlug[tutorialSlug.length - 1] = slug
+	}
+
 	const productData = cachedGetProductData(productSlug) as LearnProductData
 	const props = await getTutorialPageProps(productData, tutorialSlug)
 	// If the tutorial doesn't exist, hit the 404
 	if (!props) {
 		return { notFound: true }
 	}
+
+	// @ts-expect-error - yolo
+	props.props.tutorial_variant = variant
 	return props
 }
 const getStaticProps = (ctx) =>
