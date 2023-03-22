@@ -23,7 +23,7 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
 		dark:
 			name === 'terraform-cloud'
 				? require('@hashicorp/mktg-logos/product/terraform-cloud/primary/colorwhite.svg?url')
-				: require(`./img/${name}_dm.png?url`),
+				: require(`./img/${name}-dark-mode.png?url`),
 	}
 
 	return (
