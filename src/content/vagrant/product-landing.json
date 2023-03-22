@@ -10,7 +10,10 @@
 			"text": "Learn more about Vagrant features",
 			"url": "/vagrant/intro"
 		},
-		"image": "https://www.datocms-assets.com/2885/1662053789-dev-dot-product-landing-what-is-vagrant-diagram.png"
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095215-devdot-vagrant_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087784-devdot-vagrant_dm.png"
+		}
 	},
 	"get_started": {
 		"heading": "Getting Started",
