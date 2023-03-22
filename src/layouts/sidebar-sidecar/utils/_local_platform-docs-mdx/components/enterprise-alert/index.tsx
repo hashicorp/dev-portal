@@ -81,11 +81,11 @@ export function EnterpriseAlert({
 	)
 }
 
-export function DocsEnterpriseAlert(
-	props: Omit<EnterpriseAlertProps, 'productSlug'> & {
-		product?: ProductSlug
-	}
-) {
+type DocsEnterpriseAlertProps = Omit<EnterpriseAlertProps, 'productSlug'> & {
+	product?: ProductSlug
+}
+
+export function DocsEnterpriseAlert(props: DocsEnterpriseAlertProps) {
 	const currentProduct = useCurrentProduct()
 	return (
 		<EnterpriseAlert
