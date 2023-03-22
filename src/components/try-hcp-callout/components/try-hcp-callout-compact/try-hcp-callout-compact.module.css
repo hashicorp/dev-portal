@@ -13,7 +13,6 @@
 	flex-direction: column;
 	isolation: isolate;
 	padding: var(--padding);
-	max-width: 330px;
 }
 
 .backgroundBase {
@@ -30,13 +29,7 @@
 
 .background {
 	composes: backgroundBase;
-	background-color: var(--token-color-surface-faint);
-	background-image: linear-gradient(
-			to left,
-			var(--token-color-surface-primary),
-			transparent 80%
-		),
-		url('./img/try-hcp-callout-compact-background.svg?url');
+	background-image: url('./img/try-hcp-callout-compact-background.svg?url');
 	background-size: auto;
 	background-repeat: no-repeat;
 	background-position: left bottom;
