@@ -72,7 +72,6 @@ export function EnterpriseAlert({
 								href={`https://www.hashicorp.com/products/${productSlug}`}
 								target="_blank"
 								rel="noopener noreferrer"
-								className={s.link}
 								textSize={200}
 							>
 								{productSlugsToNames[productSlug]} Enterprise
