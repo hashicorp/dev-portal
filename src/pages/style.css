@@ -15,7 +15,8 @@
 @import '~@hashicorp/design-system-tokens/dist/devdot/css/helpers/elevation.css';
 @import '~@hashicorp/design-system-tokens/dist/devdot/css/helpers/typography.css';
 
-/* Theme token files */
+/* Theme files */
+@import 'styles/themes/global.css';
 @import 'styles/themes/dark.css';
 
 /* Display 600 type style. HDS candidate, only in Dev Dot for now */

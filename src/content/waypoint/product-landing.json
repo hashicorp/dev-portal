@@ -10,7 +10,10 @@
 			"text": "Learn more about Waypoint features",
 			"url": "/waypoint/docs/intro"
 		},
-		"image": "https://www.datocms-assets.com/2885/1651594712-dev-dot-product-landing-what-is-waypoint-diagram.png"
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095382-devdot-waypoint_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087832-devdot-waypoint_dm.png"
+		}
 	},
 	"get_started": {
 		"heading": "Getting Started",
