@@ -94,7 +94,7 @@ async function _getStaticProps({
 	}
 
 	// @ts-expect-error - yolo
-	props.props.tutorial_variant = variant
+	props.props.tutorial_variant = variant || 'DEFAULT...UNVARIANTED'
 	return props
 }
 const getStaticProps = (ctx) =>
