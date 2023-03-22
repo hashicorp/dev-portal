@@ -4,8 +4,6 @@
  */
 
 .root {
-	--tag-margin: 12px;
-
 	background: var(--token-color-surface-faint);
 	border: 1px solid var(--token-color-border-faint);
 	display: flex;
@@ -14,6 +12,7 @@
 	padding: 16px;
 	border-radius: 6px;
 	color: var(--token-color-foreground-primary);
+	gap: 12px;
 
 	&.inline {
 		background: none;
@@ -21,8 +20,6 @@
 		padding: 0 7px;
 		display: inline-flex;
 		vertical-align: middle;
-
-		--tag-margin: 0;
 
 		&:first-child {
 			padding-left: 0;
@@ -48,10 +45,4 @@
 
 .badge {
 	align-self: baseline;
-	margin-right: var(--tag-margin);
-	margin-bottom: var(--tag-margin);
-
-	@media (--dev-dot-tablet-up) {
-		margin-bottom: 0;
-	}
 }
