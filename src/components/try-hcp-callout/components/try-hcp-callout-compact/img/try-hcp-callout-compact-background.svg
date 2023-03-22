@@ -36,6 +36,10 @@
 <stop offset="0.140625" stop-color="#1FBCFF" stop-opacity="0.9"/>
 <stop offset="0.776042" stop-color="#BE87FF" stop-opacity="0"/>
 </radialGradient>
+<linearGradient id="paint3_linear_14_11369" x1="283.574" y1="280.929" x2="150.927" y2="272.788" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</linearGradient>
 <clipPath id="clip0_14_11369">
 <rect width="326" height="440" fill="white"/>
 </clipPath>
