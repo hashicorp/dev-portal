@@ -13,6 +13,7 @@
 	flex-direction: column;
 	isolation: isolate;
 	padding: var(--padding);
+	max-width: 330px;
 }
 
 .backgroundBase {
