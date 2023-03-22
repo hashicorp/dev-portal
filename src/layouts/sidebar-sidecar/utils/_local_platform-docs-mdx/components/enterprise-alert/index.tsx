@@ -22,10 +22,6 @@ interface EnterpriseAlertProps {
 	children?: ReactNode
 }
 
-//
-// Base components need to be slightly modified
-// to fit our use cases in dev-portal
-//
 export function EnterpriseAlert({
 	productSlug,
 	inline,
