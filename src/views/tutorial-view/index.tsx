@@ -114,6 +114,8 @@ function TutorialView({
 	tutorial,
 	outlineItems,
 	pageHeading,
+	// @ts-expect-error - yolo
+	tutorial_variant,
 }: TutorialViewProps): React.ReactElement {
 	// hooks
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
@@ -276,7 +278,11 @@ function TutorialView({
 							/>
 						)}
 						<DevDotContent
-							mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+							mdxRemoteProps={{
+								...content,
+								components: MDX_COMPONENTS,
+								scope: { tutorial_variant },
+							}}
 						/>
 						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
 						<FeedbackPanel />
