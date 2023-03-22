@@ -13,6 +13,24 @@
 			color: var(--token-color-foreground-high-contrast);
 		}
 	}
+
+	@nest html[data-theme='dark'] & {
+		&.foreground-light {
+			color: var(--token-color-foreground-strong);
+
+			&:active {
+				color: var(--token-color-foreground-strong);
+			}
+		}
+
+		&.foreground-dark {
+			color: var(--token-color-foreground-high-contrast);
+
+			&:active {
+				color: var(--token-color-foreground-high-contrast);
+			}
+		}
+	}
 }
 
 .heroBackground {
