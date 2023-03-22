@@ -21,7 +21,7 @@
 
 .title {
 	composes: hds-typography-body-200 from global;
-	color: var(--token-color-surface-faint);
+	color: var(--token-color-surface-primary);
 	font-weight: var(--token-typography-font-weight-semibold);
 }
 
