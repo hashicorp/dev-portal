@@ -29,7 +29,11 @@ const productSlugsToIcons = {
 
 const ProductIcon = ({ productSlug, ...rest }: ProductIconProps) => {
 	const Icon = productSlugsToIcons[productSlug]
-	const brandColorSlug = productSlug === 'hcp' ? 'hashicorp' : productSlug
+	// Color should inherit from parent for hcp
+	const color =
+		productSlug === 'hcp'
+			? undefined
+			: `var(--token-color-${productSlug}-brand)`
 
 	if (!Icon) {
 		return null
@@ -39,7 +43,7 @@ const ProductIcon = ({ productSlug, ...rest }: ProductIconProps) => {
 	 * color and then set the product brand color since all the product icons
 	 * have a single fill color.
 	 */
-	return <Icon {...rest} color={`var(--token-color-${brandColorSlug}-brand)`} />
+	return <Icon {...rest} color={color} />
 }
 
 export type { ProductIconProps }
