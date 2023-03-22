@@ -226,25 +226,25 @@
 		0 8px 16px -10px #6168751a;
 	--token-elevation-high-box-shadow: 0 2px 3px 0 #61687526,
 		0 16px 16px -10px #61687533;
-	--token-elevation-higher-box-shadow: 0 2px 3px 0 #6168751a,
-		0 12px 28px 0 #61687540;
-	--token-elevation-overlay-box-shadow: 0 2px 3px 0 #61687540,
-		0 12px 24px 0 #61687559;
+	--token-elevation-higher-box-shadow: 0 2px 3px 0 #4349561a,
+		0 12px 28px 0 #43495640;
+	--token-elevation-overlay-box-shadow: 0 2px 3px 0 #43495640,
+		0 12px 24px 0 #43495659;
 
 	/* surface */
-	--token-surface-inset-box-shadow: inset 0 0 0 1px #6168754d,
+	--token-surface-inset-box-shadow: inset 0 0 0 1px #b2b6bd4d,
 		inset 0 1px 2px 1px #6168751a;
-	--token-surface-base-box-shadow: 0 0 0 1px #61687533;
-	--token-surface-low-box-shadow: 0 0 0 1px #61687526, 0 1px 1px 0 #6168750d,
+	--token-surface-base-box-shadow: 0 0 0 1px #b2b6bd33;
+	--token-surface-low-box-shadow: 0 0 0 1px #b2b6bd26, 0 1px 1px 0 #6168750d,
 		0 2px 2px 0 #6168750d;
-	--token-surface-mid-box-shadow: 0 0 0 1px #61687526, 0 2px 3px 0 #6168751a,
+	--token-surface-mid-box-shadow: 0 0 0 1px #b2b6bd26, 0 2px 3px 0 #6168751a,
 		0 8px 16px -10px #61687533;
-	--token-surface-high-box-shadow: 0 0 0 1px #61687540, 0 2px 3px 0 #61687526,
+	--token-surface-high-box-shadow: 0 0 0 1px #b2b6bd40, 0 2px 3px 0 #61687526,
 		0 16px 16px -10px #61687533;
-	--token-surface-higher-box-shadow: 0 0 0 1px #61687533, 0 2px 3px 0 #6168751a,
-		0 12px 28px 0 #61687540;
-	--token-surface-overlay-box-shadow: 0 0 0 1px #61687540, 0 2px 3px 0 #61687540,
-		0 12px 24px 0 #61687559;
+	--token-surface-higher-box-shadow: 0 0 0 1px #b2b6bd33, 0 2px 3px 0 #4349561a,
+		0 12px 28px 0 #43495640;
+	--token-surface-overlay-box-shadow: 0 0 0 1px #b2b6bd40, 0 2px 3px 0 #43495640,
+		0 12px 24px 0 #43495659;
 
 	/* Focus styles */
 	--token-focus-ring-action-box-shadow: inset 0 0 0 1px
@@ -268,10 +268,10 @@
 
 	/* form-control specifics */
 	--token-form-control-base-foreground-value-color: var(
-		--token-color-palette-neutral-100
+		--token-color-palette-neutral-700
 	);
 	--token-form-control-base-foreground-placeholder-color: var(
-		--token-color-palette-neutral-300
+		--token-color-palette-neutral-500
 	);
 	--token-form-control-base-surface-color-default: var(
 		--token-color-palette-neutral-0
@@ -285,7 +285,9 @@
 	--token-form-control-base-border-color-hover: var(
 		--token-color-palette-neutral-500
 	);
-	--token-form-control-checked-foreground-color: #030303;
+	--token-form-control-checked-foreground-color: var(
+		--token-color-palette-neutral-0
+	);
 	--token-form-control-checked-surface-color-default: var(
 		--token-color-palette-blue-200
 	);
@@ -293,10 +295,10 @@
 		--token-color-palette-blue-300
 	);
 	--token-form-control-checked-border-color-default: var(
-		--token-color-palette-blue-100
+		--token-color-palette-blue-300
 	);
 	--token-form-control-checked-border-color-hover: var(
-		--token-color-palette-blue-200
+		--token-color-palette-blue-400
 	);
 	--token-form-control-invalid-border-color-default: var(
 		--token-color-palette-red-300
@@ -310,15 +312,15 @@
 	--token-form-control-readonly-surface-color: var(
 		--token-color-palette-neutral-100
 	);
-	--token-form-control-readonly-border-color: #6168751a;
+	--token-form-control-readonly-border-color: #656a761a;
 	--token-form-control-disabled-foreground-color: var(
 		--token-color-palette-neutral-400
 	);
 	--token-form-control-disabled-surface-color: var(
-		--token-color-palette-neutral-0
+		--token-color-palette-neutral-50
 	);
-	--token-form-control-disabled-border-color: #61687533;
+	--token-form-control-disabled-border-color: #656a7633;
 	--token-form-toggle-base-surface-color-default: var(
-		--token-color-palette-neutral-0
+		--token-color-palette-neutral-100
 	); /* the toggle has a different base surface color, compared to the other controls */
 }
