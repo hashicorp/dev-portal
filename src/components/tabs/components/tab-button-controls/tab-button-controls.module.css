@@ -59,6 +59,7 @@ Styles for each tab button.
 
 	/* In nested tabs, use a thick bottom border, visible when active */
 	&.isNested {
+		background-color: transparent;
 		border: none;
 		border-bottom: 2px solid transparent;
 		padding: 8px 12px 6px 12px;
@@ -73,6 +74,7 @@ Styles for each tab button.
 	}
 
 	&.variant--compact {
+		background-color: transparent;
 		border: none;
 		padding-bottom: 6px;
 		padding-left: 12px;
