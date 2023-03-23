@@ -10,7 +10,10 @@
 			"text": "Learn more",
 			"url": "/terraform/intro"
 		},
-		"image": "https://www.datocms-assets.com/2885/1662746959-terraform-dev-dot-visual.png"
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095195-devdot-terraform_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087761-devdot-terraform_dm.png"
+		}
 	},
 	"get_started": {
 		"heading": "Get Started",
