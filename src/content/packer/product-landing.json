@@ -20,7 +20,7 @@
 		"body": "Follow a code-complete, hands-on tutorial to learn the Packer basics.",
 		"iconCardLinks": [
 			{
-				"icon": "aws-color",
+				"icon": "aws",
 				"text": "Amazon Web Services",
 				"url": "/packer/tutorials/aws-get-started"
 			},
