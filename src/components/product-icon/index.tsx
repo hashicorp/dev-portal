@@ -60,20 +60,23 @@ const productSlugsToIcons = {
 		16: IconWaypoint16,
 		24: IconWaypoint24,
 	},
-	sentinel: null,
 }
 
 const ProductIcon = ({ productSlug, size = 16, ...rest }: ProductIconProps) => {
-	const Icon = productSlugsToIcons[productSlug][size]
+	const Icon = productSlugsToIcons[productSlug]
+		? productSlugsToIcons[productSlug][size]
+		: null
+
+	if (!Icon) {
+		return null
+	}
+
 	// Color should inherit from parent for hcp
 	const color =
 		productSlug === 'hcp'
 			? undefined
 			: `var(--token-color-${productSlug}-brand)`
 
-	if (!Icon) {
-		return null
-	}
 	/**
 	 * The color is set here for theming purposes. We import the logo without
 	 * color and then set the product brand color since all the product icons
