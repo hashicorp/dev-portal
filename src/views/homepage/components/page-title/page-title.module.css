@@ -1,0 +1,17 @@
+.root {
+	color: var(--token-color-foreground-high-contrast);
+	font-size: 4.375rem;
+	font-weight: var(--token-typography-font-weight-bold);
+	line-height: 1.2;
+	margin: 0;
+	padding: 0;
+}
+
+.line1 {
+	display: block;
+}
+
+.line2 {
+	display: block;
+	margin-top: 10px;
+}
