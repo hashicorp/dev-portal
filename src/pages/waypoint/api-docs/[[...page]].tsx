@@ -6,6 +6,7 @@
 import { InferGetStaticPropsType } from 'next'
 import { CustomPageComponent } from 'types/_app'
 /* Used server-side only */
+import path from 'path'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { isDeployPreview } from 'lib/env-checks'
 import fetchGithubFile from 'lib/fetch-github-file'
@@ -70,6 +71,9 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
 	let schema
 	if (isDeployPreview(productSlug)) {
+		const localFileFullPath = path.join(process.cwd(), targetLocalFile)
+		const localFileResolvedPath = path.resolve(targetLocalFile)
+		console.log({ targetLocalFile, localFileFullPath, localFileResolvedPath })
 		schema = await processSchemaFile(targetLocalFile)
 	} else {
 		const swaggerFile = await fetchGithubFile(targetFile)
