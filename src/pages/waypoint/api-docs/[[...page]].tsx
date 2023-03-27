@@ -126,7 +126,6 @@ export async function getStaticProps({ params }) {
 	const filteredMenuItems = apiPageProps.navData.filter(
 		(menuItem) => menuItem.path != ''
 	)
-	console.log(apiPageProps.navData)
 
 	// Menu items for the sidebar, from the existing dot-io-oriented navData
 	const apiSidebarMenuItems = filteredMenuItems.map((menuItem) => {
