@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export function lastUpdatedString(updatedAtString: string) {
 	const updatedAt = new Date(updatedAtString)
 	const currentTime: Date = new Date()

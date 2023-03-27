@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * We introduced a breaking change to our URL structure in March of 2023
  * that changed the following URL structure of integration component pages to introduce
  * the support for multiple different similarly-typed components:
