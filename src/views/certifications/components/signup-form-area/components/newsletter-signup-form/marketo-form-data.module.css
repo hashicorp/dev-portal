@@ -36,6 +36,10 @@
 		margin: 0;
 	}
 
+	& [class*='error'] {
+		color: var(--token-color-palette-red-200);
+	}
+
 	/* Make button look more like Dev Dot */
 	& button {
 		background-color: var(--token-color-foreground-action);
@@ -44,6 +48,10 @@
 
 	& span[class*='required'] {
 		color: var(--token-color-palette-red-200);
+	}
+
+	& input:placeholder-shown {
+		color: var(--token-color-foreground-disabled);
 	}
 
 	/** Dark Theme overrides */
@@ -60,6 +68,9 @@
 			& a {
 				color: var(--token-color-foreground-primary);
 			}
+		}
+		& input {
+			color: var(--token-color-foreground-high-contrast);
 		}
 	}
 
