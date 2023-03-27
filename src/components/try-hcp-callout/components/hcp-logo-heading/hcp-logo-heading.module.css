@@ -8,5 +8,10 @@
 		display: block;
 		height: 28px;
 		width: auto;
+
+		/** For theming, paths need to have a token fill **/
+		& path {
+			fill: var(--token-color-foreground-strong);
+		}
 	}
 }
