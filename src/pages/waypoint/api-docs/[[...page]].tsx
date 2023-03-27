@@ -122,7 +122,7 @@ export async function getStaticProps({ params }) {
 	// @ts-expect-error `isCurrentPage` is an expected optional field
 	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
 
-	// Remove the 'index' page, whose path is '/waypoint/api-docs'
+	// Remove the 'index' menu item, whose path is '/waypoint/api-docs'
 	const filteredMenuItems = apiPageProps.navData.filter(
 		(menuItem) => menuItem.path != ''
 	)
