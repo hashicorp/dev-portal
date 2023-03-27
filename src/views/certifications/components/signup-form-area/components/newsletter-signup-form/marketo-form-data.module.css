@@ -42,6 +42,27 @@
 		border-radius: var(--token-form-control-border-radius);
 	}
 
+	& span[class*='required'] {
+		color: var(--token-color-palette-red-200);
+	}
+
+	/** Dark Theme overrides */
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-primary);
+
+		& [data-field-id='Email'] label {
+			color: var(--token-color-foreground-strong);
+		}
+
+		& [data-field-id='Consent_Privacy_Policy__c'] label {
+			color: var(--token-color-foreground-primary);
+
+			& a {
+				color: var(--token-color-foreground-primary);
+			}
+		}
+	}
+
 	/* Adjust layout using CSS grid */
 	@media (min-width: 768px) {
 		grid-template-columns: 1fr max-content;
