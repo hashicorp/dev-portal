@@ -107,7 +107,7 @@ export async function getStaticProps({ params }) {
 	]
 	// Remove the 'index' page '/waypoint/api-docs' from the breadcrumbs
 	const shouldAddBreadcrumb = !(
-		apiPageProps.operationCategory.slug === productData.slug
+		apiPageProps.operationCategory?.slug === productData.slug
 	)
 
 	// Breadcrumbs - Render conditional category
