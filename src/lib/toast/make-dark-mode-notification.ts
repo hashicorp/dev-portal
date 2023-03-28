@@ -41,7 +41,7 @@ export function makeDarkModeToast() {
 		color: ToastColor.highlight,
 		title: `Theme switching is now available!`,
 		description:
-			'To switch themes, open the profile dropdown in the top right corner of the page and select from the Theme dropdown.',
+			'You can now switch between system, light, and dark themes on HashiCorp Developer. To switch themes, open the profile dropdown in the top right corner of the page and select from the Theme dropdown.',
 		autoDismiss: AUTO_DISMISS,
 		onDismissCallback: permanentlyDismiss,
 		dismissOnRouteChange: false,
