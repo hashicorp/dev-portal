@@ -6,10 +6,10 @@
 import Cookies from 'js-cookie'
 import { toast, ToastColor } from 'components/toast'
 
-const DISMISS_COOKIE = 'dev-dot-dismiss-welcome'
-const SESSION_COOKIE = 'dev-dot-welcome-session'
+const DISMISS_COOKIE = 'dev-dot-dismiss-dark-mode'
+const SESSION_COOKIE = 'dev-dot-dark-mode-session'
 const AUTO_DISMISS = 15000 // 15 seconds
-const MAX_DATE = new Date('1/31/2023')
+const MAX_DATE = new Date('6/15/2023')
 
 function permanentlyDismiss() {
 	// Set dismiss cookie that expires after a year assuming we won't need these notifications in a year after GA
@@ -19,7 +19,7 @@ function permanentlyDismiss() {
 	Cookies.remove(SESSION_COOKIE)
 }
 
-export function makeWelcomeToast() {
+export function makeDarkModeToast() {
 	// If the current date is later than the last day we want to show the notifications, return
 	if (new Date() > MAX_DATE) {
 		return
@@ -39,8 +39,9 @@ export function makeWelcomeToast() {
 	// If welcome toast cookie has not expired and all other checks have passed, render toast
 	toast({
 		color: ToastColor.highlight,
-		title: `Welcome to HashiCorp Developer!`,
-		description: 'Your destination for documentation and tutorials.',
+		title: `Theme switching is now available!`,
+		description:
+			'To switch themes, open the profile dropdown in the top right corner of the page and select from the Theme dropdown.',
 		autoDismiss: AUTO_DISMISS,
 		onDismissCallback: permanentlyDismiss,
 		dismissOnRouteChange: false,
