@@ -20,10 +20,14 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 	const { asPath, pathname, isReady } = router
 
 	const isSwingset = asPath.startsWith('/swingset')
-	const isToastPath = pathname !== '/' && pathname !== '/_error' && !isSwingset
+	const isToastPath =
+		pathname !== '/' &&
+		pathname !== '/sign-up' &&
+		pathname !== '/_error' &&
+		!isSwingset
 
 	useEffect(() => {
-		if (isReady && isToastPath) {
+		if (__config.flags.enable_dark_mode && isReady && isToastPath) {
 			makeDarkModeToast()
 		}
 	}, [isReady, isToastPath])
