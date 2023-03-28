@@ -39,9 +39,9 @@ export function makeDarkModeToast() {
 	// If welcome toast cookie has not expired and all other checks have passed, render toast
 	toast({
 		color: ToastColor.highlight,
-		title: `Theme switching is now available!`,
+		title: `Theme support is now available!`,
 		description:
-			'You can now switch between system, light, and dark themes on HashiCorp Developer. To switch themes, open the profile dropdown in the top right corner of the page and select from the Theme dropdown.',
+			'Switch between system, light, and dark themes from the profile dropdown in the top right corner of the page.',
 		autoDismiss: AUTO_DISMISS,
 		onDismissCallback: permanentlyDismiss,
 		dismissOnRouteChange: false,
