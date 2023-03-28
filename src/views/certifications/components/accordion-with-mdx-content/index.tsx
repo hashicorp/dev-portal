@@ -2,7 +2,7 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-import NextImage from 'next/image'
+import NextImage, { ImageProps as NextImageProps } from 'next/image'
 import Accordion from 'components/accordion'
 import DevDotContent from 'components/dev-dot-content'
 import Image from 'components/image'
@@ -10,7 +10,29 @@ import { ImageProps } from 'components/image/types'
 import { AccordionWithMdxContentProps, AccordionMdxItem } from './types'
 import s from './accordion-with-mdx-content.module.css'
 
-function ThemedMdxImage({ alt, src, title, width, height }) {
+interface ThemedMdxImageProps {
+	src: {
+		light: string
+		dark: string
+	}
+	alt: NextImageProps['alt']
+	width: NextImageProps['width']
+	height: NextImageProps['height']
+	title?: NextImageProps['title']
+}
+
+function ThemedMdxImage({
+	alt,
+	src,
+	title,
+	width,
+	height,
+}: ThemedMdxImageProps) {
+	if (!src.light || !src.dark) {
+		throw new Error(
+			`[ThemedImage]: Please provide both 'dark' and 'light' src values`
+		)
+	}
 	return (
 		<>
 			<span data-hide-on-theme="dark">
