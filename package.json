@@ -114,7 +114,7 @@
 		"@hashicorp/platform-util": "^0.2.0",
 		"@hashicorp/react-alert-banner": "^7.0.4",
 		"@hashicorp/react-button": "^6.3.1",
-		"@hashicorp/react-call-to-action": "^5.2.0",
+		"@hashicorp/react-call-to-action": "^5.3.0",
 		"@hashicorp/react-code-block": "^6.2.2",
 		"@hashicorp/react-command-line-terminal": "^3.0.0",
 		"@hashicorp/react-consent-manager": "^9.0.1",
