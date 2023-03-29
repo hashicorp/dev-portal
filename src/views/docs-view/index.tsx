@@ -50,9 +50,7 @@ const DocsView = ({
 	const { compiledSource, scope } = mdxSource
 	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
 	const shouldRenderSearch =
-		!__config.flags.enable_global_search &&
-		!hideSearch &&
-		__config.flags.enable_product_docs_search
+		!hideSearch && __config.flags.enable_product_docs_search
 
 	const Layout = layouts[metadata?.layout?.name] ?? DefaultLayout
 
