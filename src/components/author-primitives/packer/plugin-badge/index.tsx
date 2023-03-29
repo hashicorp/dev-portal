@@ -4,9 +4,12 @@
  */
 
 import React from 'react'
-import Badge, { BadgeTheme } from '../../shared/badge'
-import svgRibbonIcon from './ribbon-icon.svg?include'
-import svgCheckIcon from './check-icon.svg?include'
+import Badge from 'components/badge'
+import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
+import { IconRocket16 } from '@hashicorp/flight-icons/svg-react/rocket-16'
+import { IconUsers16 } from '@hashicorp/flight-icons/svg-react/users-16'
+import { IconHashicorp16 } from '@hashicorp/flight-icons/svg-react/hashicorp-16'
+import { IconArchive16 } from '@hashicorp/flight-icons/svg-react/archive-16'
 
 type PluginLabelType =
 	| 'official'
@@ -18,34 +21,30 @@ type PluginLabelType =
 const badgeTypes = {
 	official: {
 		label: 'Official',
-		theme: 'gold',
-		iconSvg: svgRibbonIcon,
+		iconSvg: <IconHashicorp16 />,
 	},
 	community: {
 		label: 'Community',
-		theme: 'gray',
-		iconSvg: false,
+		iconSvg: <IconUsers16 />,
 	},
 	hcp_packer_ready: {
 		label: 'HCP Packer Ready',
-		theme: 'blue',
-		iconSvg: svgCheckIcon,
+		iconSvg: <IconRocket16 />,
 	},
 	verified: {
 		label: 'Verified',
-		theme: 'purple',
-		iconSvg: svgRibbonIcon,
+
+		iconSvg: <IconAward16 />,
 	},
 	archived: {
 		label: 'Archived',
-		theme: 'light-gray',
-		iconSvg: false,
+		iconSvg: <IconArchive16 />,
 	},
 }
 
 function PluginBadge({ type }: { type: PluginLabelType }): React.ReactElement {
-	const { label, theme, iconSvg } = badgeTypes[type]
-	return <Badge label={label} theme={theme as BadgeTheme} iconSvg={iconSvg} />
+	const { label, iconSvg } = badgeTypes[type]
+	return <Badge text={label} size="small" type="outlined" icon={iconSvg} />
 }
 
 export default PluginBadge
