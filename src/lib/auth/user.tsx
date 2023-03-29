@@ -4,9 +4,6 @@
  */
 
 import { Session } from 'next-auth'
-import { IconBookmark16 } from '@hashicorp/flight-icons/svg-react/bookmark-16'
-import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
-import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import useAuthentication from 'hooks/use-authentication'
 import { UserDropdownDisclosureProps } from 'components/user-dropdown-disclosure'
@@ -38,17 +35,14 @@ const getUserMenuItems = ({
 }): UserDropdownDisclosureProps['items'] => {
 	return [
 		{
-			icon: <IconBookmark16 />,
 			label: 'Bookmarks',
 			href: '/profile/bookmarks',
 		},
 		{
-			icon: <IconExternalLink16 />,
 			label: 'Account Settings',
 			href: 'https://portal.cloud.hashicorp.com/account-settings',
 		},
 		{
-			icon: <IconSignOut16 />,
 			label: 'Sign Out',
 			onClick: () => signOut(),
 		},

@@ -9,8 +9,6 @@ import { useRouter } from 'next/router'
 // HashiCorp imports
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
-import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
-import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 
 // Global imports
@@ -66,13 +64,12 @@ const AuthenticationControls = () => {
 						? getUserMenuItems({ signOut })
 						: [
 								{
-									icon: <IconSignIn16 />,
 									label: 'Sign in',
 									onClick: () => signIn(),
 								},
 								{
 									href: '/sign-up',
-									icon: <IconUserPlus16 />,
+
 									label: 'Sign up',
 								},
 						  ]
