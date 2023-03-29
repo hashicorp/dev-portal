@@ -1,0 +1,15 @@
+.label {
+	composes: hds-typography-body-200 from global;
+}
+
+.listItem {
+	display: flex;
+	border-radius: 5px;
+	color: var(--token-color-foreground-primary);
+	grid-gap: 8px;
+	gap: 8px;
+	width: 100%;
+	border: none;
+	padding: 8px 10px 8px 16px;
+	justify-content: space-between;
+}

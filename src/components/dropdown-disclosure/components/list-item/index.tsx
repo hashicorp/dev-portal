@@ -2,7 +2,7 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-
+import classNames from 'classnames'
 import { MouseEvent } from 'react'
 import { useDisclosureState } from 'components/disclosure'
 import Link from 'components/link'
@@ -20,9 +20,10 @@ import s from './list-item.module.css'
  * Wraps its content in an <li> element and applies the necessary styles.
  */
 const DropdownDisclosureListItem = ({
+	className,
 	children,
 }: DropdownDisclosureListItemProps) => {
-	return <li className={s.root}>{children}</li>
+	return <li className={classNames(s.root, className)}>{children}</li>
 }
 
 /**

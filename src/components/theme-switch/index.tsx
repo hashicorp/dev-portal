@@ -11,7 +11,11 @@ import { useTheme } from 'next-themes'
  * @TODO this is just an FPO component for testing, will be updated when the final switcher is designed
  */
 
-export default function ThemeSwitch() {
+interface ThemeSelectProps {
+	labelledById?: string
+}
+
+export default function ThemeSelect({ labelledById }: ThemeSelectProps) {
 	const [mounted, setMounted] = useState(false)
 	const { theme, setTheme } = useTheme()
 
@@ -26,10 +30,16 @@ export default function ThemeSwitch() {
 	}
 
 	return (
-		<select value={theme} onChange={(e) => setTheme(e.target.value)}>
-			<option value="system">System</option>
-			<option value="dark">Dark</option>
-			<option value="light">Light</option>
-		</select>
+		<>
+			<select
+				id={labelledById}
+				value={theme}
+				onChange={(e) => setTheme(e.target.value)}
+			>
+				<option value="system">System</option>
+				<option value="dark">Dark</option>
+				<option value="light">Light</option>
+			</select>
+		</>
 	)
 }
