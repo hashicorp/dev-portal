@@ -15,8 +15,8 @@ import { IconPacker16 } from '@hashicorp/flight-icons/svg-react/packer-16'
 import { IconPacker24 } from '@hashicorp/flight-icons/svg-react/packer-24'
 import { IconTerraform16 } from '@hashicorp/flight-icons/svg-react/terraform-16'
 import { IconTerraform24 } from '@hashicorp/flight-icons/svg-react/terraform-24'
-import { IconVagrant16 } from '@hashicorp/flight-icons/svg-react/vagrant-16'
-import { IconVagrant24 } from '@hashicorp/flight-icons/svg-react/vagrant-24'
+import { IconVagrantColor16 } from '@hashicorp/flight-icons/svg-react/vagrant-color-16'
+import { IconVagrantColor24 } from '@hashicorp/flight-icons/svg-react/vagrant-color-24'
 import { IconVault16 } from '@hashicorp/flight-icons/svg-react/vault-16'
 import { IconVault24 } from '@hashicorp/flight-icons/svg-react/vault-24'
 import { IconWaypoint16 } from '@hashicorp/flight-icons/svg-react/waypoint-16'
@@ -49,8 +49,8 @@ const productSlugsToIcons = {
 		24: IconTerraform24,
 	},
 	vagrant: {
-		16: IconVagrant16,
-		24: IconVagrant24,
+		16: IconVagrantColor16,
+		24: IconVagrantColor24,
 	},
 	vault: {
 		16: IconVault16,
