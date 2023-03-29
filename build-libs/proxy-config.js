@@ -16,14 +16,6 @@
  * @type {Record<string, SiteProxyConfig>}
  */
 const proxyConfig = {
-	boundary: {
-		domain: 'https://www.boundaryproject.io',
-		host: '(www\\.boundaryproject\\.io|test-bd\\.hashi-mktg\\.com)',
-		assets: [
-			'/files/press-kit.zip',
-			'/data/vault/boundary-controller-policy.hcl',
-		],
-	},
 	consul: {
 		domain: 'https://www.consul.io',
 		host: '(www\\.consul\\.io|test-cs\\.hashi-mktg\\.com)',
