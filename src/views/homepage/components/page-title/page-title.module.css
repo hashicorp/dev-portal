@@ -1,0 +1,23 @@
+/**
+ * Since there are no HDS tokens or typography helper classes that produce these
+ * font styles, we're manually setting a few properties manually based on the
+ * Figma designs. If these styles become reused in other upcoming landing page
+ * work, we should abstract a global helper class into `src/pages/style.css`.
+ */
+.root {
+	color: var(--token-color-foreground-high-contrast);
+	font-size: 4.375rem;
+	font-weight: var(--token-typography-font-weight-bold);
+	line-height: 1.2;
+	margin: 0;
+	padding: 0;
+}
+
+.line1 {
+	display: block;
+}
+
+.line2 {
+	display: block;
+	margin-top: 10px;
+}
