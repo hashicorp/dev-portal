@@ -69,7 +69,6 @@ const UserDropdownDisclosure = ({
 	user,
 }: UserDropdownDisclosureProps) => {
 	const { pathname } = useRouter()
-	// TODO handle elsewhere?
 	const shouldRenderThemeSwitcher =
 		__config.flags.enable_dark_mode &&
 		pathname !== '/' &&
