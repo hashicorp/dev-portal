@@ -5,7 +5,6 @@
  * work, we should abstract a global helper class into `src/pages/style.css`.
  */
 .root {
-	color: var(--token-color-foreground-high-contrast);
 	font-size: 4.375rem;
 	font-weight: var(--token-typography-font-weight-bold);
 	line-height: 1.2;
@@ -13,11 +12,32 @@
 	padding: 0;
 }
 
+/**
+ * The first line of the title text is a gradient color. This is accomplished
+ * using 2 backgrounds because the colors in the gradient include some
+ * transparency. To make the gradient "vibrant", we place a white background
+ * behind the gradient one using.
+ */
 .line1 {
 	display: block;
+	background: linear-gradient(
+			90deg,
+			rgba(136, 143, 255, 0.46) 9.03%,
+			rgba(223, 255, 199, 0.57) 41.12%,
+			rgba(255, 177, 80, 0.31) 61.68%
+		),
+		linear-gradient(
+			var(--token-color-foreground-high-contrast),
+			var(--token-color-foreground-high-contrast)
+		);
+	background-clip: text;
+	color: transparent;
+	width: fit-content;
 }
 
 .line2 {
 	display: block;
 	margin-top: 10px;
+	color: var(--token-color-foreground-high-contrast);
+	width: fit-content;
 }
