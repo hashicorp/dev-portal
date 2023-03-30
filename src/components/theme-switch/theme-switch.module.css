@@ -1,24 +1,26 @@
 .root {
 	position: relative;
 	width: 100%;
+	color: var(--token-color-foreground-primary);
+	max-width: 110px;
 }
 .select {
-	composes: g-focus-ring-from-box-shadow from global;
-	composes: hds-surface-low from global;
+	composes: g-focus-ring-from-box-shadow-dark from global;
+	composes: hds-font-weight-medium from global;
+	composes: hds-typography-body-100 from global;
 	appearance: none;
-	background-color: var(--token-color-surface-primary);
+	background-color: var(--token-color-surface-faint);
 	border-radius: 5px;
-	border: none;
+	border: 1px solid var(--token-color-border-strong);
+	color: var(--token-color-foreground-primary);
 	cursor: pointer;
-	padding-bottom: 8px;
-	padding-left: 34px;
-	padding-right: 40px;
-	padding-top: 8px;
+	padding: 3px 20px 3px 30px;
 	width: 100%;
 }
 
-.productIcon,
+.themeIcon,
 .trailingIcon {
+	width: 12px;
 	align-items: center;
 	bottom: 0;
 	display: flex;
@@ -27,17 +29,10 @@
 	top: 0;
 }
 
-.productIcon {
+.themeIcon {
 	left: 12px;
 }
 
 .trailingIcon {
-	color: var(--token-color-palette-neutral-600);
-	right: 12px;
-}
-
-.option {
-	composes: hds-typography-body-200 from global;
-	color: var(--token-color-foreground-strong);
-	font-weight: var(--token-typography-font-weight-regular);
+	right: 9px;
 }

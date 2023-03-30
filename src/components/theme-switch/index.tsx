@@ -11,11 +11,6 @@ import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import s from './theme-switch.module.css'
 
-/**
- *
- * @TODO this is just an FPO component for testing, will be updated when the final switcher is designed
- */
-
 interface ThemeSelectProps {
 	labelledById?: string
 }
@@ -42,7 +37,7 @@ export default function ThemeSelect({ labelledById }: ThemeSelectProps) {
 
 	return (
 		<div className={s.root}>
-			<span className={s.productIcon}>{themeIcons[theme]}</span>
+			<span className={s.themeIcon}>{themeIcons[theme]}</span>
 			<select
 				className={s.select}
 				id={labelledById}
