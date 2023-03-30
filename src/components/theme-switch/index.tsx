@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
+import s from './theme-switch.module.css'
 
 /**
  *
@@ -30,8 +32,12 @@ export default function ThemeSelect({ labelledById }: ThemeSelectProps) {
 	}
 
 	return (
-		<>
+		<div className={s.root}>
+			<span className={s.productIcon}>
+				<IconCaret16 />
+			</span>
 			<select
+				className={s.select}
 				id={labelledById}
 				value={theme}
 				onChange={(e) => setTheme(e.target.value)}
@@ -40,6 +46,9 @@ export default function ThemeSelect({ labelledById }: ThemeSelectProps) {
 				<option value="dark">Dark</option>
 				<option value="light">Light</option>
 			</select>
-		</>
+			<span className={s.trailingIcon}>
+				<IconCaret16 />
+			</span>
+		</div>
 	)
 }
