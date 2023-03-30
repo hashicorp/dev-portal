@@ -13,7 +13,7 @@ export default function UserDropdownDisclosureThemeSwitcher() {
 				<label className={s.label} htmlFor="theme-switcher">
 					Theme
 				</label>
-				<ThemeSwitcher labelledById="theme-switcher" />
+				<ThemeSwitcher id="theme-switcher" />
 			</DropdownDisclosureListItem>
 		</>
 	)

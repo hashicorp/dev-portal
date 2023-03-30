@@ -14,7 +14,7 @@ import { GlobalThemeOption } from 'styles/themes/types'
 import s from './theme-switch.module.css'
 
 interface ThemeSelectProps {
-	labelledById?: string
+	id?: string
 }
 
 const ThemeIcons = {
@@ -23,7 +23,7 @@ const ThemeIcons = {
 	[GlobalThemeOption.light]: <IconSun16 />,
 }
 
-export default function ThemeSelect({ labelledById }: ThemeSelectProps) {
+export default function ThemeSelect({ id }: ThemeSelectProps) {
 	const [mounted, setMounted] = useState(false)
 	const { theme, setTheme } = useTheme()
 
@@ -41,8 +41,9 @@ export default function ThemeSelect({ labelledById }: ThemeSelectProps) {
 		<div className={s.root}>
 			<span className={s.themeIcon}>{ThemeIcons[theme]}</span>
 			<select
+				aria-label="Choose a different theme"
 				className={s.select}
-				id={labelledById}
+				id={id}
 				value={theme}
 				onChange={(e) => setTheme(e.target.value)}
 			>
