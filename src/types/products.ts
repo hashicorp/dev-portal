@@ -20,14 +20,7 @@ type ProductName =
 	| 'Vault'
 	| 'Waypoint'
 
-type ProductSlug =
-	| Exclude<Products, 'hashicorp'>
-	| 'hcp'
-	| 'sentinel'
-	// This enables literals (e.g. 'boundary') in conjuction with a generic `string` type
-	// `(string & {})` is a workaround for this issue: https://github.com/Microsoft/TypeScript/issues/29729
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	| (string & {})
+type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
 
 interface Product extends ProductMeta {
 	name: ProductName
