@@ -74,7 +74,8 @@ async function getStaticPathsWithVersion(): Promise<
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
-	const enabledProductSlugs = __config.dev_dot.product_slugs_with_integrations
+	const enabledProductSlugs = __config.dev_dot
+		.product_slugs_with_integrations as ProductSlug[]
 	// Fetch integrations for all products
 	const allIntegrations = await fetchAllIntegrations(enabledProductSlugs)
 	// Build a flat array of path parameters for each integration

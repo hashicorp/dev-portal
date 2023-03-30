@@ -1,0 +1,41 @@
+.root {
+	margin-top: 72px;
+}
+
+.label {
+	composes: hds-typography-display-100 from global;
+	color: var(--token-color-foreground-high-contrast);
+	font-weight: var(--token-typography-font-weight-medium);
+}
+
+.nav {
+	margin-top: 30px;
+}
+
+.navList {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+.navListLink {
+	composes: g-focus-ring-from-box-shadow from global;
+	background-color: var(--token-color-foreground-strong);
+	border-radius: 10px;
+	box-shadow: 0 0 0 1px var(--token-color-border-strong);
+	color: var(--token-color-foreground-high-contrast);
+	display: flex;
+	font-size: 1rem;
+	font-weight: 600;
+	gap: 10px;
+	letter-spacing: -0.5px;
+	line-height: 1.5;
+	padding-bottom: 12px;
+	padding-left: 16px;
+	padding-right: 16px;
+	padding-top: 12px;
+}
