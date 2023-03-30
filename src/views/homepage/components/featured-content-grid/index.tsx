@@ -4,6 +4,14 @@ import Heading from 'components/heading'
 import Text from 'components/text'
 import s from './featured-content-grid.module.css'
 
+const FEATURED_SEARCH_TERMS = [
+	'Consul Kubernetes Helm Chart',
+	'Vault AppRole Auth Method',
+	'Nomad Service Discovery',
+	'Terraform Variables',
+	'Cloud Operating Model',
+]
+
 const FeaturedContentGrid = () => {
 	const { setCurrentInputValue, toggleIsOpen } = useCommandBar()
 
@@ -22,15 +30,20 @@ const FeaturedContentGrid = () => {
 						</Text>
 					</div>
 					<div className={s.searchCardCarousel}>
-						{/* @TODO */}
-						<button
-							onClick={() => {
-								setCurrentInputValue('TEST')
-								toggleIsOpen()
-							}}
-						>
-							open search
-						</button>
+						<ul>
+							{FEATURED_SEARCH_TERMS.map((featuredSearchTerm: string) => (
+								<li key={featuredSearchTerm}>
+									<button
+										onClick={() => {
+											setCurrentInputValue(featuredSearchTerm)
+											toggleIsOpen()
+										}}
+									>
+										{featuredSearchTerm}
+									</button>
+								</li>
+							))}
+						</ul>
 					</div>
 				</Card>
 			</div>
