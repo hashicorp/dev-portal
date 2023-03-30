@@ -23,8 +23,6 @@ import { NavigationHeaderItem } from './types'
 import { HomePageHeaderContent, ProductPageHeaderContent } from './components'
 import s from './navigation-header.module.css'
 
-const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
-
 /**
  * The header content displayed to the far right of the window. This content is
  * the same for every page in the app.
@@ -100,12 +98,10 @@ const NavigationHeader = () => {
 				<LeftSideHeaderContent />
 			</div>
 			<div className={s.rightSide}>
-				{GLOBAL_SEARCH_ENABLED ? (
-					<CommandBarActivator
-						leadingIcon={<IconSearch16 />}
-						visualLabel="Search"
-					/>
-				) : null}
+				<CommandBarActivator
+					leadingIcon={<IconSearch16 />}
+					visualLabel="Search"
+				/>
 				<AuthenticationControls />
 				<MobileMenuButton />
 			</div>

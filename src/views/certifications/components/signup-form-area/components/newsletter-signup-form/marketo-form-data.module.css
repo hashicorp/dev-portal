@@ -36,10 +36,42 @@
 		margin: 0;
 	}
 
+	& [class*='error'] {
+		color: var(--token-color-palette-red-200);
+	}
+
 	/* Make button look more like Dev Dot */
 	& button {
 		background-color: var(--token-color-foreground-action);
 		border-radius: var(--token-form-control-border-radius);
+	}
+
+	& span[class*='required'] {
+		color: var(--token-color-palette-red-200);
+	}
+
+	& input:placeholder-shown {
+		color: var(--token-color-foreground-disabled);
+	}
+
+	/** Dark Theme overrides */
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-primary);
+
+		& [data-field-id='Email'] label {
+			color: var(--token-color-foreground-strong);
+		}
+
+		& [data-field-id='Consent_Privacy_Policy__c'] label {
+			color: var(--token-color-foreground-primary);
+
+			& a {
+				color: var(--token-color-foreground-primary);
+			}
+		}
+		& input {
+			color: var(--token-color-foreground-high-contrast);
+		}
 	}
 
 	/* Adjust layout using CSS grid */
