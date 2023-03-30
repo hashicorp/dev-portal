@@ -9,16 +9,18 @@ import { IconMoon16 } from '@hashicorp/flight-icons/svg-react/moon-16'
 import { IconSun16 } from '@hashicorp/flight-icons/svg-react/sun-16'
 import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
+
+import { GlobalThemeOption } from 'styles/themes/types'
 import s from './theme-switch.module.css'
 
 interface ThemeSelectProps {
 	labelledById?: string
 }
 
-const themeIcons = {
-	system: <IconMonitor16 />,
-	dark: <IconMoon16 />,
-	light: <IconSun16 />,
+const ThemeIcons = {
+	[GlobalThemeOption.system]: <IconMonitor16 />,
+	[GlobalThemeOption.dark]: <IconMoon16 />,
+	[GlobalThemeOption.light]: <IconSun16 />,
 }
 
 export default function ThemeSelect({ labelledById }: ThemeSelectProps) {
@@ -37,7 +39,7 @@ export default function ThemeSelect({ labelledById }: ThemeSelectProps) {
 
 	return (
 		<div className={s.root}>
-			<span className={s.themeIcon}>{themeIcons[theme]}</span>
+			<span className={s.themeIcon}>{ThemeIcons[theme]}</span>
 			<select
 				className={s.select}
 				id={labelledById}
