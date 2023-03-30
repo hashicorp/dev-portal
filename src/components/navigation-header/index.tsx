@@ -66,7 +66,6 @@ const AuthenticationControls = () => {
 								},
 								{
 									href: '/sign-up',
-
 									label: 'Sign up',
 								},
 						  ]
