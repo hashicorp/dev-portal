@@ -17,6 +17,8 @@
  * using 2 backgrounds because the colors in the gradient include some
  * transparency. To make the gradient "vibrant", we place a white background
  * behind the gradient one using.
+ *
+ * https://stackoverflow.com/a/28592238
  */
 .line1 {
 	display: block;
