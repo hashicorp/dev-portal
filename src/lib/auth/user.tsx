@@ -39,11 +39,11 @@ const getUserMenuItems = ({
 			href: '/profile/bookmarks',
 		},
 		{
-			label: 'Account Settings',
+			label: 'Account settings',
 			href: 'https://portal.cloud.hashicorp.com/account-settings',
 		},
 		{
-			label: 'Sign Out',
+			label: 'Sign out',
 			onClick: () => signOut(),
 		},
 	]

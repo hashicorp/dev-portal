@@ -8,14 +8,13 @@
 	composes: g-focus-ring-from-box-shadow-dark from global;
 	composes: hds-font-weight-medium from global;
 	composes: hds-typography-body-100 from global;
-	line-height: 0.875rem;
 	appearance: none;
 	background-color: var(--token-color-surface-faint);
 	border-radius: 5px;
 	border: 1px solid var(--token-color-border-strong);
 	color: var(--token-color-foreground-primary);
 	cursor: pointer;
-	padding: 6px 20px 6px 30px;
+	padding: 3px 20px 3px 30px;
 	width: 100%;
 }
 
