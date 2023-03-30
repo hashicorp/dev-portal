@@ -11,7 +11,6 @@ import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
 import { DocsViewProps } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
-import ProductDocsSearch from './components/product-docs-search'
 import getDocsMdxComponents from './utils/get-docs-mdx-components'
 import s from './docs-view.module.css'
 
@@ -40,7 +39,6 @@ const DocsView = ({
 	metadata,
 	mdxSource,
 	lazy,
-	hideSearch = false,
 	versions,
 	projectName,
 	layoutProps,
@@ -49,15 +47,11 @@ const DocsView = ({
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
 	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
-	const shouldRenderSearch =
-		!hideSearch && __config.flags.enable_product_docs_search
-
 	const Layout = layouts[metadata?.layout?.name] ?? DefaultLayout
 
 	return (
 		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
 			<div className={classNames(versions && s.contentWithVersions)}>
-				{shouldRenderSearch ? <ProductDocsSearch /> : null}
 				{versions ? (
 					<div className={s.versionSwitcherWrapper}>
 						<DocsVersionSwitcher options={versions} projectName={projectName} />
