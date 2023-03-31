@@ -1,0 +1,53 @@
+.root {
+	color: var(--token-color-foreground-high-contrast);
+	display: grid;
+	gap: 60px;
+	grid-template-areas:
+		'b a a'
+		'b c d';
+	grid-template-rows: repeat(2, 1fr);
+	grid-template-columns: repeat(3, 1fr);
+	margin-bottom: 237px;
+	margin-top: 60px;
+}
+
+.gridAreaA {
+	grid-area: a;
+}
+
+.gridAreaB {
+	grid-area: b;
+	padding-top: 66px;
+}
+
+.gridAreaC {
+	grid-area: c;
+}
+
+.gridAreaD {
+	grid-area: d;
+}
+
+.searchCard {
+	background-color: var(--token-color-foreground-strong);
+	border-radius: 10px;
+	border: 1px solid magenta; /* TODO: remove; denotes WIP */
+	box-shadow: none;
+	padding-bottom: 18px;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 20px;
+}
+
+.searchCardText {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 20px;
+}
+
+.card {
+	background-color: var(--token-color-foreground-strong);
+	border: 1px solid magenta; /* TODO: remove; denotes WIP */
+	height: 100%;
+}

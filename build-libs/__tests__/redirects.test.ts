@@ -129,18 +129,7 @@ describe('groupSimpleRedirects', () => {
 				has: [
 					{
 						type: 'host',
-						value: '(www\\.boundaryproject\\.io|test-bd\\.hashi-mktg\\.com)',
-					},
-				],
-			},
-			{
-				source: '/another-source',
-				destination: '/another-destination',
-				permanent: true,
-				has: [
-					{
-						type: 'host',
-						value: '(www\\.boundaryproject\\.io|test-bd\\.hashi-mktg\\.com)',
+						value: '(www\\.waypointproject\\.io|test-wp\\.hashi-mktg\\.com)',
 					},
 				],
 			},
@@ -180,7 +169,7 @@ describe('groupSimpleRedirects', () => {
 		])
 
 		expect(groupedSimpleRedirects).toStrictEqual({
-			boundary: {
+			waypoint: {
 				'/source': {
 					destination: '/destination',
 					permanent: false,
@@ -195,12 +184,6 @@ describe('groupSimpleRedirects', () => {
 					destination: '/destination',
 					permanent: false,
 				},
-				'/another-source': {
-					destination: '/another-destination',
-					permanent: true,
-				},
-			},
-			waypoint: {
 				'/another-source': {
 					destination: '/another-destination',
 					permanent: true,
