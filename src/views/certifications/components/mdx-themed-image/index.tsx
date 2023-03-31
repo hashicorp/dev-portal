@@ -1,4 +1,5 @@
 import NextImage, { ImageProps as NextImageProps } from 'next/image'
+import s from './mdx-themed-image.module.css'
 
 interface MdxThemedImageProps {
 	lightSrc: string
@@ -24,8 +25,9 @@ export default function MdxThemedImage({
 	}
 	return (
 		<>
-			<span data-hide-on-theme="dark">
+			<span data-hide-on-theme="dark" className={s.root}>
 				<NextImage
+					className={s.image}
 					src={lightSrc}
 					alt={alt}
 					title={title}
@@ -33,8 +35,9 @@ export default function MdxThemedImage({
 					height={height}
 				/>
 			</span>
-			<span data-hide-on-theme="light">
+			<span data-hide-on-theme="light" className={s.root}>
 				<NextImage
+					className={s.image}
 					src={darkSrc}
 					alt={alt}
 					title={title}
