@@ -47,6 +47,12 @@
 
 		/* TODO update the light version with a token instead of manual box shadow */
 		box-shadow: unset;
+
+		/* Ensures the g-focus-ring-from-box-shadow-dark styles aren't overridden */
+		&:focus-visible {
+			box-shadow: var(--custom-token-focus-ring-action-box-shadow-dark);
+			outline: transparent;
+		}
 	}
 }
 
