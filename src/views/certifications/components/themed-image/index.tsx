@@ -1,10 +1,8 @@
 import NextImage, { ImageProps as NextImageProps } from 'next/image'
 
 interface ThemedMdxImageProps {
-	src: {
-		light: string
-		dark: string
-	}
+	lightSrc: string
+	darkSrc: string
 	alt: NextImageProps['alt']
 	width: NextImageProps['width']
 	height: NextImageProps['height']
@@ -12,13 +10,14 @@ interface ThemedMdxImageProps {
 }
 
 export default function ThemedMdxImage({
+	lightSrc,
+	darkSrc,
 	alt,
-	src,
 	title,
 	width,
 	height,
 }: ThemedMdxImageProps) {
-	if (!src.light || !src.dark) {
+	if (!lightSrc || !darkSrc) {
 		throw new Error(
 			`[ThemedImage]: Please provide both 'dark' and 'light' src values`
 		)
@@ -27,7 +26,7 @@ export default function ThemedMdxImage({
 		<>
 			<span data-hide-on-theme="dark">
 				<NextImage
-					src={src.light}
+					src={lightSrc}
 					alt={alt}
 					title={title}
 					width={width}
@@ -36,7 +35,7 @@ export default function ThemedMdxImage({
 			</span>
 			<span data-hide-on-theme="light">
 				<NextImage
-					src={src.dark}
+					src={darkSrc}
 					alt={alt}
 					title={title}
 					width={width}
