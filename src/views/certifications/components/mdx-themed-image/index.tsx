@@ -1,6 +1,6 @@
 import NextImage, { ImageProps as NextImageProps } from 'next/image'
 
-interface ThemedMdxImageProps {
+interface MdxThemedImageProps {
 	lightSrc: string
 	darkSrc: string
 	alt: NextImageProps['alt']
@@ -9,14 +9,14 @@ interface ThemedMdxImageProps {
 	title?: NextImageProps['title']
 }
 
-export default function ThemedMdxImage({
+export default function MdxThemedImage({
 	lightSrc,
 	darkSrc,
 	alt,
 	title,
 	width,
 	height,
-}: ThemedMdxImageProps) {
+}: MdxThemedImageProps) {
 	if (!lightSrc || !darkSrc) {
 		throw new Error(
 			`[ThemedImage]: Please provide both 'dark' and 'light' src values`
