@@ -21,18 +21,6 @@ const proxyConfig = require('./proxy-config')
  * @type {Record<string, SiteProxySettings>}
  */
 const proxySettings = {
-	boundary: {
-		domain: proxyConfig.boundary.domain,
-		host: proxyConfig.boundary.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/boundary'),
-			...buildAssetRoutesToProxy(
-				proxyConfig.boundary.assets,
-				'/boundary-public'
-			),
-			...getDevPortalRoutesToProxy('boundary'),
-		],
-	},
 	nomad: {
 		domain: proxyConfig.nomad.domain,
 		host: proxyConfig.nomad.host,

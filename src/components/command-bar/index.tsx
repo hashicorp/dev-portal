@@ -25,8 +25,6 @@ import {
 	SupportedCommand,
 } from './types'
 
-const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
-
 const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
 	currentCommand: commands.search,
 	currentInputValue: '',
@@ -127,10 +125,6 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	 * Set up the cmd/ctrl + k keydown listener.
 	 */
 	useEffect(() => {
-		if (!GLOBAL_SEARCH_ENABLED) {
-			return
-		}
-
 		const handleKeyDown = (e: KeyboardEvent) => {
 			const { ctrlKey, metaKey, key } = e
 			if (key === 'k' && (ctrlKey || metaKey)) {
