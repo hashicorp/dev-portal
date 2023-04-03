@@ -1,3 +1,4 @@
 .label {
-	composes: label from '../user-dropown-switcher/user-dropdown-switcher.module.css';
+	composes: hds-typography-body-200 from global;
+	composes: hds-font-weight-medium from global;
 }
