@@ -25,12 +25,22 @@
 	z-index: 2;
 }
 
-.mobileAuthenticationControls {
+.mobileAuthenticationControlsWrap {
+	margin-bottom: 24px;
+}
+
+.unauthenticatedControls {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-bottom: 24px;
+}
+
+.unauthenticatedControlButtons {
 	align-items: center;
 	display: flex;
 	gap: 24px;
 	justify-content: space-between;
-	margin-bottom: 24px;
 
 	& > * {
 		width: 100%;

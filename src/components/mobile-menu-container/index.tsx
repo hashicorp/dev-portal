@@ -57,24 +57,26 @@ const MobileAuthenticationControls = () => {
 	let content
 	if (showUnauthenticatedUI) {
 		content = (
-			<>
-				<Button
-					icon={<IconSignIn16 />}
-					iconPosition="trailing"
-					onClick={() => signIn()}
-					size="medium"
-					text="Sign In"
-				/>
-				<ButtonLink
-					color="secondary"
-					href="/sign-up"
-					icon={<IconUserPlus16 />}
-					iconPosition="trailing"
-					size="medium"
-					text="Sign Up"
-				/>
+			<div className={s.unauthenticatedControls}>
+				<div className={s.unauthenticatedControlButtons}>
+					<Button
+						icon={<IconSignIn16 />}
+						iconPosition="trailing"
+						onClick={() => signIn()}
+						size="medium"
+						text="Sign In"
+					/>
+					<ButtonLink
+						color="secondary"
+						href="/sign-up"
+						icon={<IconUserPlus16 />}
+						iconPosition="trailing"
+						size="medium"
+						text="Sign Up"
+					/>
+				</div>
 				<MobileMenuThemeSwitcher />
-			</>
+			</div>
 		)
 	} else if (isAuthenticated) {
 		content = (
@@ -87,8 +89,13 @@ const MobileAuthenticationControls = () => {
 	}
 
 	return (
-		<div className="g-show-with-mobile-menu">
-			<div className={s.mobileAuthenticationControls}>{content}</div>
+		<div
+			className={classNames(
+				'g-show-with-mobile-menu',
+				s.mobileAuthenticationControlsWrap
+			)}
+		>
+			{content}
 		</div>
 	)
 }
