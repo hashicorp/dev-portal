@@ -88,6 +88,9 @@ const contentSectionCollector: Plugin<[ContentSectionCollectorPluginOptions]> =
 	}
 
 /**
+ * @TODO we need to investigate whether this is actually getting parsed as MDX
+ * We may need to use the remark-mdx plugin https://www.npmjs.com/package/remark-mdx/v/1.6.22
+ *
  * Given some MDX content, split content on headings of the provided level, and
  * Return an array of content sections.
  */
