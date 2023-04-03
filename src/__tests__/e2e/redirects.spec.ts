@@ -15,32 +15,32 @@ test('should render based on hc_dd_proxied_site cookie', async ({
 	await context.addCookies([
 		{
 			name: 'hc_dd_proxied_site',
-			value: 'www.consul.io',
+			value: 'www.waypointproject.io',
 			url: baseURL,
 		},
 	])
 	await page.goto('/')
-	await expect(page).toHaveTitle('Consul by HashiCorp')
+	await expect(page).toHaveTitle('Waypoint by HashiCorp')
 })
 
 test('should use middleware redirects', async ({ page, context, baseURL }) => {
 	await context.addCookies([
 		{
 			name: 'hc_dd_proxied_site',
-			value: 'www.consul.io',
+			value: 'www.waypointproject.io',
 			url: baseURL,
 		},
 	])
-	await page.goto('/use-cases/network-middleware-automation')
+	await page.goto('/home')
 	const { pathname } = new URL(page.url())
-	expect(pathname).toBe('/use-cases/network-infrastructure-automation')
+	expect(pathname).toBe('/')
 })
 
 test('should use glob-based redirects', async ({ page, context, baseURL }) => {
 	await context.addCookies([
 		{
 			name: 'hc_dd_proxied_site',
-			value: 'www.consul.io',
+			value: 'www.waypointproject.io',
 			url: baseURL,
 		},
 	])
