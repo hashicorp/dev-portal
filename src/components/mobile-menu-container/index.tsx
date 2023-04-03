@@ -21,6 +21,7 @@ import Button from 'components/button'
 import ButtonLink from 'components/button-link'
 
 // Local imports
+import MobileMenuThemeSwitcher from 'components/theme-switcher/mobile-menu-switcher'
 import { MobileMenuContainerProps } from './types'
 import { MobileUserDisclosure } from './components'
 import s from './mobile-menu-container.module.css'
@@ -72,6 +73,7 @@ const MobileAuthenticationControls = () => {
 					size="medium"
 					text="Sign Up"
 				/>
+				<MobileMenuThemeSwitcher />
 			</>
 		)
 	} else if (isAuthenticated) {

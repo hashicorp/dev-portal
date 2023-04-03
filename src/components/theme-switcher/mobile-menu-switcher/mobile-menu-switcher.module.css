@@ -1,0 +1,3 @@
+.label {
+	composes: label from '../user-dropown-switcher/user-dropdown-switcher.module.css';
+}
