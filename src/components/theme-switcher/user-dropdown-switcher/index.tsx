@@ -1,4 +1,4 @@
-import ThemeSwitcher from 'components/theme-switch'
+import ThemeSwitcher from 'components/theme-switcher'
 import {
 	DropdownDisclosureListItem,
 	DropdownDisclosureSeparatorItem,

@@ -13,7 +13,7 @@ import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 	DropdownDisclosureSeparatorItem,
 } from 'components/dropdown-disclosure'
-import UserDropdownDisclosureThemeSwitcher from 'components/theme-switch/user-dropdown-switcher'
+import UserDropdownDisclosureThemeSwitcher from 'components/theme-switcher/user-dropdown-switcher'
 import {
 	UserDropdownDisclosureItem,
 	UserDropdownDisclosureProps,

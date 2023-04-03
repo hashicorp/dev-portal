@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
 
 import { GlobalThemeOption } from 'styles/themes/types'
-import s from './theme-switch.module.css'
+import s from './theme-switcher.module.css'
 
 interface ThemeSelectProps {
 	id?: string
@@ -41,7 +41,6 @@ export default function ThemeSelect({ id }: ThemeSelectProps) {
 		<div className={s.root}>
 			<span className={s.themeIcon}>{ThemeIcons[theme]}</span>
 			<select
-				aria-label="Choose a different theme"
 				className={s.select}
 				id={id}
 				value={theme}
