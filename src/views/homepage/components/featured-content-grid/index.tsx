@@ -1,3 +1,4 @@
+import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
 import Card from 'components/card'
 import { useCommandBar } from 'components/command-bar'
 import Heading from 'components/heading'
@@ -11,6 +12,20 @@ const FEATURED_SEARCH_TERMS = [
 	'Terraform Variables',
 	'Cloud Operating Model',
 ]
+
+const FeaturedCard = ({ children }: $TSFixMe) => {
+	return (
+		<div className={s.card}>
+			<div>{children}</div>
+			<div className={s.learnMoreCta}>
+				<Text size={300} weight="medium">
+					Learn More
+				</Text>
+				<IconArrowRight24 />
+			</div>
+		</div>
+	)
+}
 
 const FeaturedContentGrid = () => {
 	const { setCurrentInputValue, toggleIsOpen } = useCommandBar()
@@ -48,27 +63,24 @@ const FeaturedContentGrid = () => {
 				</Card>
 			</div>
 			<div className={s.gridAreaB}>
-				<Card className={s.card}>
+				<FeaturedCard>
 					<h2>Get HashiCorp certified</h2>
 					<p>
 						Earn certifications to verify your skills and communicate your
 						proficiency with HashiCorp multi-cloud products.
 					</p>
-					<p>Learn more</p>
-				</Card>
+				</FeaturedCard>
 			</div>
 			<div className={s.gridAreaC}>
-				<Card className={s.card}>
+				<FeaturedCard>
 					<h2>HashiCorp Cloud Platform</h2>
 					<p>The fastest way to get up and running with HashiCorp products</p>
-					<p>Learn more</p>
-				</Card>
+				</FeaturedCard>
 			</div>
 			<div className={s.gridAreaD}>
-				<Card className={s.card}>
+				<FeaturedCard>
 					<h2>What is HashiCorp’s Well-Architected Framework?</h2>
-					<p>Learn more</p>
-				</Card>
+				</FeaturedCard>
 			</div>
 		</div>
 	)
