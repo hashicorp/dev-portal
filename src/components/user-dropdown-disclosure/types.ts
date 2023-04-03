@@ -12,13 +12,13 @@ import { DropdownDisclosureProps } from 'components/dropdown-disclosure'
 
 type UserDropdownDisclosureItem =
 	| {
-			icon: DropdownDisclosureLinkItemProps['icon']
+			icon?: DropdownDisclosureLinkItemProps['icon']
 			href: DropdownDisclosureLinkItemProps['href']
 			label: DropdownDisclosureLinkItemProps['children']
 			onClick?: never
 	  }
 	| {
-			icon: DropdownDisclosureButtonItemProps['icon']
+			icon?: DropdownDisclosureButtonItemProps['icon']
 			href?: never
 			label: DropdownDisclosureButtonItemProps['children']
 			onClick: DropdownDisclosureButtonItemProps['onClick']

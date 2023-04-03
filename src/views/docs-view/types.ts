@@ -29,13 +29,6 @@ export interface DocsViewProps {
 	 */
 	lazy?: boolean
 
-	/**
-	 * Optional boolean that enables hiding the `ProductDocsSearch` component. If
-	 * `hideSearch` falsy, then `ProductDocsSearch` is automatically rendered if
-	 * the `enable_product_docs_search` feature flag is enabled.
-	 */
-	hideSearch?: boolean
-
 	versions?: VersionSelectItem[]
 
 	/**
