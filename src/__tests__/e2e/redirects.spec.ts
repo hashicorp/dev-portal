@@ -40,7 +40,7 @@ test('should use glob-based redirects', async ({ page, context, baseURL }) => {
 	await context.addCookies([
 		{
 			name: 'hc_dd_proxied_site',
-			value: 'www.waypointproject.io',
+			value: 'www.vaultproject.io',
 			url: baseURL,
 		},
 	])
