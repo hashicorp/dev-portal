@@ -3,6 +3,7 @@
 	color: var(--token-color-foreground-primary);
 	width: 100%;
 }
+
 .select {
 	composes: g-focus-ring-from-box-shadow-dark from global;
 	composes: hds-font-weight-medium from global;
