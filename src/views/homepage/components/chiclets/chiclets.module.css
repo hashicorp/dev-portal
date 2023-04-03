@@ -23,10 +23,23 @@
 }
 
 .navListLink {
+	/* composition */
 	composes: g-focus-ring-from-box-shadow from global;
-	background-color: var(--token-color-foreground-strong);
+
+	/* properties */
+	background: var(--token-color-border-strong);
 	border-radius: 10px;
-	box-shadow: 0 0 0 1px var(--token-color-border-strong);
+	display: block;
+	padding: 1px;
+
+	&:hover {
+		background: var(--hover-background);
+	}
+}
+
+.navListLinkContent {
+	background-color: var(--token-color-foreground-strong);
+	border-radius: inherit;
 	color: var(--token-color-foreground-high-contrast);
 	display: flex;
 	font-size: 1rem;
@@ -34,8 +47,39 @@
 	gap: 10px;
 	letter-spacing: -0.5px;
 	line-height: 1.5;
-	padding-bottom: 12px;
-	padding-left: 16px;
-	padding-right: 16px;
-	padding-top: 12px;
+	padding-bottom: 11px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 11px;
+}
+
+/*
+***
+* Variables unique to each SolutionType.
+***
+*/
+
+.solutionType--notSpecified {
+	--hover-background: linear-gradient(to right, #b5d9fa80, #1a5ee580);
+}
+
+.solutionType--infrastructure {
+	--hover-background: linear-gradient(to right, #8cdeff80, #8763d980);
+}
+
+.solutionType--networking {
+	--hover-background: linear-gradient(to right, #ffb2b880, #c74fb880);
+}
+
+.solutionType--security {
+	--hover-background: linear-gradient(to right, #ffe58c80, #f26b6380);
+}
+
+.solutionType--application {
+	--hover-background: linear-gradient(
+		to right,
+		#a3f7d680,
+		#5ed2d980,
+		#5494e380
+	);
 }
