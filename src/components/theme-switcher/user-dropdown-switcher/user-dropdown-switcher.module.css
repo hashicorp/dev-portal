@@ -9,7 +9,7 @@
 	color: var(--token-color-foreground-primary);
 	width: 100%;
 	border: none;
-	padding: 8px 10px 8px 16px;
-	justify-content: space-between;
+	padding: 8px 16px 8px 16px;
+	gap: 12px;
 	align-items: center;
 }

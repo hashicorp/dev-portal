@@ -1,7 +1,7 @@
 .root {
 	position: relative;
 	color: var(--token-color-foreground-primary);
-	width: fit-content;
+	width: 100%;
 }
 .select {
 	composes: g-focus-ring-from-box-shadow-dark from global;
@@ -13,7 +13,7 @@
 	border: 1px solid var(--token-color-border-strong);
 	color: var(--token-color-foreground-primary);
 	cursor: pointer;
-	padding: 4px 28px 4px 30px;
+	padding: 4px 30px 4px 28px;
 	width: 100%;
 }
 
