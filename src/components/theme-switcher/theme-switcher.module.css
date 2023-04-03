@@ -14,7 +14,7 @@
 	border: 1px solid var(--token-color-border-strong);
 	color: var(--token-color-foreground-primary);
 	cursor: pointer;
-	padding: 3px 20px 3px 30px;
+	padding: 4px 20px 4px 30px;
 	width: 100%;
 }
 
