@@ -56,3 +56,14 @@ export default function ThemeSelect({ id }: ThemeSelectProps) {
 		</div>
 	)
 }
+
+export function ThemeSelectWithLabel({ id }: Required<ThemeSelectProps>) {
+	return (
+		<>
+			<label className={s.label} htmlFor={id}>
+				Theme
+			</label>
+			<ThemeSelect id={id} />
+		</>
+	)
+}

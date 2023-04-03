@@ -21,7 +21,7 @@ import Button from 'components/button'
 import ButtonLink from 'components/button-link'
 
 // Local imports
-import MobileMenuThemeSwitcher from 'components/theme-switcher/mobile-menu-switcher'
+import { ThemeSelectWithLabel } from 'components/theme-switcher'
 import { MobileMenuContainerProps } from './types'
 import { MobileUserDisclosure } from './components'
 import s from './mobile-menu-container.module.css'
@@ -75,7 +75,9 @@ const MobileAuthenticationControls = () => {
 						text="Sign Up"
 					/>
 				</div>
-				<MobileMenuThemeSwitcher />
+				<div className={s.themeSwitcher}>
+					<ThemeSelectWithLabel id="theme-switcher-mobile-menu" />
+				</div>
 			</div>
 		)
 	} else if (isAuthenticated) {
