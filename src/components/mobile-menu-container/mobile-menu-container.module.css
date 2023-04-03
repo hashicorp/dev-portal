@@ -39,7 +39,7 @@
 .unauthenticatedControlButtons {
 	align-items: center;
 	display: flex;
-	gap: 24px;
+	gap: 12px;
 	justify-content: space-between;
 
 	& > * {
