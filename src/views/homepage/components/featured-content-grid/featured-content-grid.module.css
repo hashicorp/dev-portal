@@ -31,6 +31,7 @@
 .searchCard {
 	background-color: var(--token-color-foreground-strong);
 	border-radius: 10px;
+	border: 1px solid magenta; /* TODO: remove; denotes WIP */
 	box-shadow: none;
 	padding-bottom: 18px;
 	padding-left: 24px;
@@ -45,14 +46,8 @@
 	margin-bottom: 20px;
 }
 
-.searchCardCarousel {
-	border-radius: 8px;
-	background-color: #222429; /* TODO */
-	height: 125px;
-	width: 100%;
-}
-
 .card {
 	background-color: var(--token-color-foreground-strong);
+	border: 1px solid magenta; /* TODO: remove; denotes WIP */
 	height: 100%;
 }

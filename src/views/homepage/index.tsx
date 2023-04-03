@@ -136,6 +136,13 @@ function HomePageView({ content }: HomePageProps): ReactElement {
 	)
 }
 
+/**
+ * `contentType` is set to "tutorials" so that all of the featured Search
+ * options will show the Tutorials tab by default. If we decide to feature
+ * Search terms that should show other tabs on click, then CommandBar will need
+ * to have functionality added to do so.
+ */
+HomePageView.contentType = 'tutorials'
 HomePageView.layout = BaseNewLayout
 HomePageView.theme = GlobalThemeOption.light
 
