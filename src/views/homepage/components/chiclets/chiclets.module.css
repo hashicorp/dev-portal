@@ -3,7 +3,10 @@
 }
 
 .label {
+	/* composition */
 	composes: hds-typography-display-100 from global;
+
+	/* properties */
 	color: var(--token-color-foreground-high-contrast);
 	font-weight: var(--token-typography-font-weight-medium);
 }
@@ -56,6 +59,8 @@
 /*
 ***
 * Variables unique to each SolutionType.
+*
+* @TODO in VQA: check with Kelly on HEX color values vs. HDS tokens
 ***
 */
 
