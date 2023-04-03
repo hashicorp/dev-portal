@@ -2,8 +2,9 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-import classNames from 'classnames'
+
 import { MouseEvent } from 'react'
+import classNames from 'classnames'
 import { useDisclosureState } from 'components/disclosure'
 import Link from 'components/link'
 import Text from 'components/text'
