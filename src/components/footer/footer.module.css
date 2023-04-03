@@ -7,10 +7,10 @@
 
 .root {
 	--padding: 24px;
-	--logo-button-margin-bottom: 8px;
 
 	align-items: center;
 	color: var(--token-color-palette-neutral-600);
+	gap: 12px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
@@ -21,7 +21,7 @@
 .logo {
 	composes: g-focus-ring-from-box-shadow from global;
 	border-radius: 6px;
-	margin: 0 24px var(--logo-button-margin-bottom) 0;
+	margin: 0 24px 0 0;
 	position: relative;
 
 	& svg {
@@ -44,30 +44,29 @@
 }
 
 .feedbackButton {
-	margin-bottom: var(--logo-button-margin-bottom);
+	flex-shrink: 0;
+}
 
-	/**
+/**
 	* We render two different buttons depending on the view so that the 
 	* focus order can remain aligned with the visual presentation of the 
 	* footer links
 	*/
-
-	&.mobile {
-		@media (--list-horizontally) {
-			display: none;
-		}
-	}
-
-	&.desktop {
-		display: none;
-
-		@media (--list-horizontally) {
-			display: flex;
-		}
-	}
+.actionMobile {
+	display: flex;
+	gap: 24px;
+	align-items: center;
 
 	@media (--list-horizontally) {
-		margin-bottom: 0;
+		display: none;
+	}
+}
+
+.actionDesktop {
+	display: none;
+
+	@media (--list-horizontally) {
+		display: flex;
 	}
 }
 

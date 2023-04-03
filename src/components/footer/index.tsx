@@ -11,6 +11,7 @@ import { IconPencilTool16 } from '@hashicorp/flight-icons/svg-react/pencil-tool-
 import ButtonLink from 'components/button-link'
 import Text from 'components/text'
 import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
+import ThemeSelect from 'components/theme-switcher'
 import { FooterItem, FooterProps } from './types'
 import s from './footer.module.css'
 
@@ -69,15 +70,18 @@ function Footer({
 			>
 				<InlineSvg src={svgHashicorpLogo} />
 			</a>
-			<ButtonLink
-				text="Give Feedback"
-				href={FEEDBACK_FORM_URL}
-				color="secondary"
-				size="small"
-				icon={<IconPencilTool16 />}
-				opensInNewTab={true}
-				className={classNames(s.feedbackButton, s.mobile)}
-			/>
+			<span className={classNames(s.actionMobile)}>
+				<ButtonLink
+					text="Give Feedback"
+					href={FEEDBACK_FORM_URL}
+					color="secondary"
+					size="small"
+					icon={<IconPencilTool16 />}
+					opensInNewTab={true}
+					className={s.feedbackButton}
+				/>
+				<ThemeSelect />
+			</span>
 			<ul className={s.links}>
 				{FOOTER_ITEMS.map((item: FooterItem, index: number) => {
 					/**
@@ -131,7 +135,7 @@ function Footer({
 						</li>
 					)
 				})}
-				<li>
+				<li className={classNames(s.actionDesktop, s.linkListItem)}>
 					<ButtonLink
 						text="Give Feedback"
 						href={FEEDBACK_FORM_URL}
@@ -139,8 +143,10 @@ function Footer({
 						size="small"
 						icon={<IconPencilTool16 />}
 						opensInNewTab={true}
-						className={classNames(s.feedbackButton, s.desktop)}
 					/>
+				</li>
+				<li className={classNames(s.actionDesktop, s.linkListItem)}>
+					<ThemeSelect />
 				</li>
 			</ul>
 		</footer>
