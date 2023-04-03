@@ -27,7 +27,7 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 		!isSwingset
 
 	useEffect(() => {
-		if (__config.flags.enable_dark_mode && isReady && isToastPath) {
+		if (isReady && isToastPath) {
 			makeDarkModeToast()
 		}
 	}, [isReady, isToastPath])
