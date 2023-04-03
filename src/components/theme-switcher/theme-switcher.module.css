@@ -36,3 +36,8 @@
 .trailingIcon {
 	right: 9px;
 }
+
+.label {
+	composes: hds-typography-body-200 from global;
+	composes: hds-font-weight-medium from global;
+}

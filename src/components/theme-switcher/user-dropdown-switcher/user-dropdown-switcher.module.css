@@ -1,8 +1,3 @@
-.label {
-	composes: hds-typography-body-200 from global;
-	composes: hds-font-weight-medium from global;
-}
-
 .listItem {
 	display: flex;
 	color: var(--token-color-foreground-primary);
