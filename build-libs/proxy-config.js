@@ -16,11 +16,6 @@
  * @type {Record<string, SiteProxyConfig>}
  */
 const proxyConfig = {
-	consul: {
-		domain: 'https://www.consul.io',
-		host: '(www\\.consul\\.io|test-cs\\.hashi-mktg\\.com)',
-		assets: ['/files/press-kit.zip'],
-	},
 	nomad: {
 		domain: 'https://www.nomadproject.io',
 		host: '(www\\.nomadproject\\.io|test-nm\\.hashi-mktg\\.com)',
