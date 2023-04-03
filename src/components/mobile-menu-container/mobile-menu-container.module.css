@@ -49,6 +49,7 @@
 
 .themeSwitcher {
 	display: flex;
+	justify-content: space-between;
 	color: var(--token-color-foreground-primary);
 	gap: 12px;
 	align-items: center;
