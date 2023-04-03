@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Card from 'components/card'
 import { useCommandBar } from 'components/command-bar'
 import Heading from 'components/heading'
