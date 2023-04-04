@@ -80,7 +80,6 @@ function Footer({
 					href={FEEDBACK_FORM_URL}
 					color="secondary"
 					size="small"
-					icon={<IconPencilTool16 />}
 					opensInNewTab={true}
 					className={s.feedbackButton}
 				/>
@@ -147,7 +146,6 @@ function Footer({
 						href={FEEDBACK_FORM_URL}
 						color="secondary"
 						size="small"
-						icon={<IconPencilTool16 />}
 						opensInNewTab={true}
 					/>
 				</li>
