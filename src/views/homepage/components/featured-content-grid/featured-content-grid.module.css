@@ -92,6 +92,7 @@
 	width: 373px;
 }
 
+/* TODO replace magic numbers with variables */
 .certificationsCardContent {
 	padding-top: calc(286px - 64px + 50px);
 }
@@ -158,6 +159,7 @@
 	width: 373px;
 }
 
+/* TODO replace magic numbers with variables */
 .wafCardContent {
 	margin-bottom: 48px;
 	padding-top: calc(179px - 25px + 30px);
