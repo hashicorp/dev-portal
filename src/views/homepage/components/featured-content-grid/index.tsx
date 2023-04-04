@@ -38,6 +38,37 @@ const FeaturedCard = ({ children, className, href, title }: $TSFixMe) => {
 	)
 }
 
+const CertificationsFeaturedCard = () => {
+	const title = 'Get HashiCorp certified'
+
+	return (
+		<FeaturedCard
+			className={s.certificationsCard}
+			href="/certifications"
+			title={title}
+		>
+			<div className={s.certificationsCardContent}>
+				<Image
+					alt=""
+					className={s.certificationsGraphic}
+					height={286}
+					src={certificationsGraphic}
+					width={373}
+				/>
+				<div className={s.certificationsCardContentText}>
+					<Heading level={2} size={400} weight="bold">
+						{title}
+					</Heading>
+					<Text asElement="p" size={300} weight="regular">
+						Earn certifications to verify your skills and communicate your
+						proficiency with HashiCorp multi-cloud products.
+					</Text>
+				</div>
+			</div>
+		</FeaturedCard>
+	)
+}
+
 const HcpFeaturedCard = () => {
 	const title = 'HashiCorp Cloud Platform'
 
@@ -108,30 +139,7 @@ const FeaturedContentGrid = () => {
 				</Card>
 			</div>
 			<div className={s.gridAreaB}>
-				<FeaturedCard
-					className={s.certificationsCard}
-					href="/certifications"
-					title="Get HashiCorp certified"
-				>
-					<div className={s.certificationsCardContent}>
-						<Image
-							alt=""
-							className={s.certificationsGraphic}
-							height={286}
-							src={certificationsGraphic}
-							width={373}
-						/>
-						<div className={s.certificationsCardContentText}>
-							<Heading level={2} size={400} weight="bold">
-								Get HashiCorp certified
-							</Heading>
-							<Text asElement="p" size={300} weight="regular">
-								Earn certifications to verify your skills and communicate your
-								proficiency with HashiCorp multi-cloud products.
-							</Text>
-						</div>
-					</div>
-				</FeaturedCard>
+				<CertificationsFeaturedCard />
 			</div>
 			<div className={s.gridAreaC}>
 				<HcpFeaturedCard />
