@@ -10,7 +10,6 @@ import Card from 'components/card'
 import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 } from 'components/dropdown-disclosure'
-import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
 import StandaloneLink from 'components/standalone-link'
 import Text from 'components/text'
@@ -57,9 +56,7 @@ export default function ContentHeaderCard({
 						)}
 						<div className={s.left}>
 							<div className={s.titleWrap}>
-								<Heading size={300} weight="bold" level={1} className={s.title}>
-									{title}
-								</Heading>
+								<span className={s.title}>{title}</span>
 								{attribution && (
 									<Text size={100} weight="medium" className={s.attribution}>
 										{attribution}
