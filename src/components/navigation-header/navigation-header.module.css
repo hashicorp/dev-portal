@@ -99,7 +99,11 @@
 	}
 }
 
-.userDropdownDisclosure button[aria-expanded] {
+.userDropdownDisclosureActivator {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow-dark from global;
+
+	/* properties */
 	background-color: transparent;
 	color: var(--token-color-foreground-high-contrast);
 
