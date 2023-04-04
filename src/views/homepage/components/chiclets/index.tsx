@@ -6,19 +6,12 @@
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import ProductIcon from 'components/product-icon'
+import { type SolutionType } from './types'
+import {
+	PRODUCT_SLUGS_BY_SOLUTION_TYPE,
+	SOLUTION_TYPES_IN_DISPLAY_ORDER,
+} from './constants'
 import s from './chiclets.module.css'
-
-const PRODUCT_SLUGS = [
-	'hcp',
-	'packer',
-	'terraform',
-	'consul',
-	'boundary',
-	'vault',
-	'nomad',
-	'waypoint',
-	'vagrant',
-]
 
 const Chiclets = () => {
 	return (
@@ -28,18 +21,26 @@ const Chiclets = () => {
 			</p>
 			<nav aria-labelledby="chiclets-nav-label" className={s.nav}>
 				<ul className={s.navList}>
-					{PRODUCT_SLUGS.map((productSlug: ProductSlug) => {
-						const href = `/${productSlug}`
-						const text =
-							productSlug === 'hcp' ? 'HCP' : productSlugsToNames[productSlug]
-						return (
-							<li key={productSlug}>
-								<a className={s.navListLink} href={href}>
-									<ProductIcon productSlug={productSlug} size={24} />
-									{text}
-								</a>
-							</li>
-						)
+					{SOLUTION_TYPES_IN_DISPLAY_ORDER.map((solutionType: SolutionType) => {
+						const productSlugs = PRODUCT_SLUGS_BY_SOLUTION_TYPE[solutionType]
+						return productSlugs.map((productSlug: ProductSlug) => {
+							const href = `/${productSlug}`
+							const text =
+								productSlug === 'hcp' ? 'HCP' : productSlugsToNames[productSlug]
+							return (
+								<li
+									key={productSlug}
+									className={s[`solutionType--${solutionType}`]}
+								>
+									<a className={s.navListLink} href={href}>
+										<div className={s.navListLinkContent}>
+											<ProductIcon productSlug={productSlug} size={24} />
+											{text}
+										</div>
+									</a>
+								</li>
+							)
+						})
 					})}
 				</ul>
 			</nav>
