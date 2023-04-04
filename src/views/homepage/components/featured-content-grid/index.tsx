@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import classNames from 'classnames'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
+import hcpLogo from '@hashicorp/mktg-logos/product/hcp/primary/white.svg?include'
+import InlineSvg from '@hashicorp/react-inline-svg'
 import Card from 'components/card'
 import CardLink from 'components/card-link'
 import { useCommandBar } from 'components/command-bar'
@@ -32,6 +34,21 @@ const FeaturedCard = ({ children, className, href, title }: $TSFixMe) => {
 				<IconArrowRight24 />
 			</div>
 		</CardLink>
+	)
+}
+
+const HcpFeaturedCard = () => {
+	const title = 'HashiCorp Cloud Platform'
+
+	return (
+		<FeaturedCard className={s.hcpCard} href="/hcp" title={title}>
+			<h2 aria-label={title} className={s.hcpCardTitle}>
+				<InlineSvg aria-hidden="true" className={s.hcpLogo} src={hcpLogo} />
+			</h2>
+			<p className={s.hcpCardBody}>
+				The fastest way to get up and running with HashiCorp products
+			</p>
+		</FeaturedCard>
 	)
 }
 
@@ -97,10 +114,7 @@ const FeaturedContentGrid = () => {
 				</FeaturedCard>
 			</div>
 			<div className={s.gridAreaC}>
-				<FeaturedCard href="/hcp" title="HashiCorp Cloud Platform">
-					<h2>HashiCorp Cloud Platform</h2>
-					<p>The fastest way to get up and running with HashiCorp products</p>
-				</FeaturedCard>
+				<HcpFeaturedCard />
 			</div>
 			<div className={s.gridAreaD}>
 				<FeaturedCard
