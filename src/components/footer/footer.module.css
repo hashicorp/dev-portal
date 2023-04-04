@@ -10,7 +10,7 @@
 
 	align-items: center;
 	color: var(--token-color-palette-neutral-600);
-	gap: 12px;
+	gap: 16px;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
