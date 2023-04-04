@@ -49,6 +49,7 @@
 .card {
 	background-color: var(--token-color-foreground-strong);
 	border: 1px solid magenta; /* TODO: remove; denotes WIP */
+	color: var(--token-color-palette-neutral-0);
 	height: 100%;
 	display: flex;
 	flex-direction: column;
