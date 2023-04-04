@@ -69,6 +69,10 @@ const CertificationsFeaturedCard = () => {
 	)
 }
 
+/**
+ * @TODO The graphic for this component needs refined, but that will take some
+ * Design work in Figma. Will resolve in VQA.
+ */
 const HcpFeaturedCard = () => {
 	const title = 'HashiCorp Cloud Platform'
 
