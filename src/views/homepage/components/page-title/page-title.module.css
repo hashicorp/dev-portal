@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Since there are no HDS tokens or typography helper classes that produce these
  * font styles, we're manually setting a few properties manually based on the
  * Figma designs. If these styles become reused in other upcoming landing page

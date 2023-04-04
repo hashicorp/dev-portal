@@ -1,13 +1,25 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+// Third-party imports
 import Image from 'next/image'
 import classNames from 'classnames'
+
+// HashiCorp imports
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
 import hcpLogo from '@hashicorp/mktg-logos/product/hcp/primary/white.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
+
+// Global imports
 import Card from 'components/card'
 import CardLink from 'components/card-link'
 import { useCommandBar } from 'components/command-bar'
 import Heading from 'components/heading'
 import Text from 'components/text'
+
+// Local imports
 import certificationsGraphic from '../../img/certifications-graphic.svg'
 import wafGraphic from '../../img/waf-graphic.svg?include'
 import s from './featured-content-grid.module.css'
