@@ -4,6 +4,7 @@
  */
 
 import React, { ReactElement } from 'react'
+import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
@@ -61,6 +62,9 @@ function Footer({
 	openConsentManager,
 	className,
 }: FooterProps): React.ReactElement {
+	const { pathname } = useRouter()
+	const shouldRenderThemeSwitcher = pathname !== '/' && pathname !== 'sign-up'
+
 	return (
 		<footer className={classNames(s.root, className)}>
 			<a
@@ -80,7 +84,9 @@ function Footer({
 					opensInNewTab={true}
 					className={s.feedbackButton}
 				/>
-				<ThemeSelect />
+				{shouldRenderThemeSwitcher ? (
+					<ThemeSelect ariaLabel="Select a theme" />
+				) : null}
 			</span>
 			<ul className={s.links}>
 				{FOOTER_ITEMS.map((item: FooterItem, index: number) => {
@@ -145,9 +151,11 @@ function Footer({
 						opensInNewTab={true}
 					/>
 				</li>
-				<li className={classNames(s.actionDesktop, s.linkListItem)}>
-					<ThemeSelect ariaLabel="Select a theme" />
-				</li>
+				{shouldRenderThemeSwitcher ? (
+					<li className={classNames(s.actionDesktop, s.linkListItem)}>
+						<ThemeSelect ariaLabel="Select a theme" />
+					</li>
+				) : null}
 			</ul>
 		</footer>
 	)
