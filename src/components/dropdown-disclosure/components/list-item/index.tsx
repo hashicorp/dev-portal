@@ -97,10 +97,10 @@ const DropdownDisclosureButtonItem = ({
 					toggleDisclosure()
 				}}
 			>
-				{icon}
 				<Text asElement="span" size={200} weight="medium">
 					{children}
 				</Text>
+				{icon}
 			</button>
 		</DropdownDisclosureListItem>
 	)
@@ -119,10 +119,10 @@ const DropdownDisclosureLinkItem = ({
 	return (
 		<DropdownDisclosureListItem>
 			<Link className={s.link} href={href} rel={rel} target={target}>
-				{icon}
 				<Text asElement="span" size={200} weight="medium">
 					{children}
 				</Text>
+				{icon}
 			</Link>
 		</DropdownDisclosureListItem>
 	)

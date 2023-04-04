@@ -39,15 +39,15 @@ const renderItem = (
 	if (href) {
 		content = (
 			<Link href={href} className={s.link} opensInNewTab={isExternal} rel={rel}>
-				{icon}
 				{labelElement}
+				{icon}
 			</Link>
 		)
 	} else if (onClick) {
 		content = (
 			<button className={s.button} onClick={onClick}>
-				{icon}
 				{labelElement}
+				{icon}
 			</button>
 		)
 	}
