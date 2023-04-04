@@ -10,7 +10,7 @@ export default function UserDropdownDisclosureThemeSwitcher() {
 		<>
 			<DropdownDisclosureSeparatorItem />
 			<DropdownDisclosureListItem className={s.listItem}>
-				<ThemeSelectWithLabel id="theme-switcher-user-dropdown" />
+				<ThemeSelectWithLabel />
 			</DropdownDisclosureListItem>
 		</>
 	)

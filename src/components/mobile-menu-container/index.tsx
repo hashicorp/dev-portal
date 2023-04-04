@@ -74,7 +74,7 @@ const MobileAuthenticationControls = () => {
 					/>
 				</div>
 				<div className={s.themeSwitcher}>
-					<ThemeSelectWithLabel id="theme-switcher-mobile-menu" />
+					<ThemeSelectWithLabel />
 				</div>
 			</div>
 		)
