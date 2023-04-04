@@ -146,7 +146,7 @@ function Footer({
 					/>
 				</li>
 				<li className={classNames(s.actionDesktop, s.linkListItem)}>
-					<ThemeSelect />
+					<ThemeSelect ariaLabel="Select a theme" />
 				</li>
 			</ul>
 		</footer>

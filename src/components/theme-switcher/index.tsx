@@ -15,6 +15,7 @@ import s from './theme-switcher.module.css'
 
 interface ThemeSelectProps {
 	id?: string
+	ariaLabel?: string
 }
 
 const ThemeIcons = {
@@ -23,7 +24,7 @@ const ThemeIcons = {
 	[GlobalThemeOption.light]: <IconSun16 />,
 }
 
-export default function ThemeSelect({ id }: ThemeSelectProps) {
+export default function ThemeSelect({ id, ariaLabel }: ThemeSelectProps) {
 	const [mounted, setMounted] = useState(false)
 	const { theme, setTheme } = useTheme()
 
@@ -37,10 +38,17 @@ export default function ThemeSelect({ id }: ThemeSelectProps) {
 		return null
 	}
 
+	if (id && ariaLabel) {
+		throw new Error(
+			'[ThemeSelect]: Please only pass one of "id" or "ariaLabel", but not both'
+		)
+	}
+
 	return (
 		<div className={s.root}>
 			<span className={s.themeIcon}>{ThemeIcons[theme]}</span>
 			<select
+				aria-label={ariaLabel}
 				className={s.select}
 				id={id}
 				value={theme}
