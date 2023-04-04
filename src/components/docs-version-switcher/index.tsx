@@ -53,7 +53,7 @@ const DocsVersionSwitcher = ({
 			(option: DocsVersionSwitcherOption) => option.version === selectedVersion
 		)
 	} else {
-		selectedOption = options[0]
+		selectedOption = options.find((o) => o.isLatest)
 	}
 
 	// Build the `ariaLabel` that is announced when the activator is focused

@@ -52,6 +52,10 @@ describe('DocsVersionSwitcher', () => {
 		}
 	})
 
+	afterEach(() => {
+		mockUserRouter.mockReset()
+	})
+
 	it.each([
 		['/waypoint/docs', 'v0.9.x (latest)'],
 		['/waypoint/docs/v0.8.x', 'v0.8.x'],
@@ -92,5 +96,39 @@ describe('DocsVersionSwitcher', () => {
 
 		// link to v0.7.x
 		expect(links[1]).toHaveAttribute('rel', 'nofollow')
+	})
+
+	it('selects the latest version by default when a prerelease version is present', () => {
+		mockUserRouter.mockImplementation(() => ({
+			asPath: '/nomad/docs',
+		}))
+		const options = [
+			{
+				isLatest: false,
+				label: 'v1.6.0 (next)',
+				version: 'v1.6.x',
+				name: 'v1.6.x',
+			},
+			{
+				isLatest: true,
+				label: 'v1.5.x (latest)',
+				version: 'v1.5.x',
+				name: 'latest',
+			},
+			{ isLatest: false, label: 'v1.4.x', version: 'v1.4.x', name: 'v1.4.x' },
+			{ isLatest: false, label: 'v1.3.x', version: 'v1.3.x', name: 'v1.3.x' },
+		]
+
+		const { queryByRole } = render(<DocsVersionSwitcher options={options} />, {
+			wrapper,
+		})
+
+		const dropdownButton = queryByRole('button')
+		expect(dropdownButton).toHaveTextContent('v1.5.x (latest)')
+
+		const list = queryByRole('list')
+		expect(list.textContent).toMatchInlineSnapshot(
+			`"Waypointv1.6.0 (next)v1.4.xv1.3.x"`
+		)
 	})
 })
