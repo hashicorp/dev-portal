@@ -38,7 +38,7 @@ export default function ProductIntegrationReadmeView({
 
 	return (
 		<ProductIntegrationLayout
-			title="README"
+			title={integration.name}
 			className={s.readmeView}
 			breadcrumbLinks={breadcrumbLinks}
 			currentProduct={product}
