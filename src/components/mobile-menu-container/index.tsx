@@ -59,11 +59,7 @@ const MobileAuthenticationControls = () => {
 		content = (
 			<div className={s.unauthenticatedControls}>
 				<div className={s.unauthenticatedControlButtons}>
-					<Button
-						onClick={() => signIn()}
-						size="medium"
-						text="Sign In"
-					/>
+					<Button onClick={() => signIn()} size="medium" text="Sign In" />
 					<ButtonLink
 						color="secondary"
 						href="/sign-up"
