@@ -9,6 +9,7 @@ import { useCommandBar } from 'components/command-bar'
 import Heading from 'components/heading'
 import Text from 'components/text'
 import certificationsGraphic from '../../img/certifications-graphic.svg'
+import wafGraphic from '../../img/waf-graphic.svg?include'
 import s from './featured-content-grid.module.css'
 
 const FEATURED_SEARCH_TERMS = [
@@ -48,6 +49,25 @@ const HcpFeaturedCard = () => {
 			<p className={s.hcpCardBody}>
 				The fastest way to get up and running with HashiCorp products
 			</p>
+		</FeaturedCard>
+	)
+}
+
+const WafFeaturedCard = () => {
+	const title = 'What is HashiCorp’s Well-Architected Framework?'
+
+	return (
+		<FeaturedCard
+			className={s.wafCard}
+			href="/well-architected-framework"
+			title={title}
+		>
+			<div className={s.wafCardContent}>
+				<InlineSvg className={s.wafGraphic} src={wafGraphic} />
+				<Heading level={2} size={400} weight="bold">
+					{title}
+				</Heading>
+			</div>
 		</FeaturedCard>
 	)
 }
@@ -117,12 +137,7 @@ const FeaturedContentGrid = () => {
 				<HcpFeaturedCard />
 			</div>
 			<div className={s.gridAreaD}>
-				<FeaturedCard
-					href="/well-architected-framework"
-					title="What is HashiCorp’s Well-Architected Framework?"
-				>
-					<h2>What is HashiCorp’s Well-Architected Framework?</h2>
-				</FeaturedCard>
+				<WafFeaturedCard />
 			</div>
 		</div>
 	)

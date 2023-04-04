@@ -5,7 +5,6 @@
 	grid-template-areas:
 		'b a a'
 		'b c d';
-	grid-template-rows: repeat(2, 1fr);
 	grid-template-columns: repeat(3, 1fr);
 	margin-bottom: 237px;
 	margin-top: 60px;
@@ -89,6 +88,7 @@
 
 .certificationsCard {
 	border: none;
+	padding-top: 0;
 	width: 373px;
 }
 
@@ -144,4 +144,28 @@
 	/* properties */
 	margin-bottom: 50px;
 	margin-top: 0;
+}
+
+/*
+***
+* WAF FeaturedCard
+***
+*/
+
+.wafCard {
+	border: none;
+	padding-top: 0;
+	width: 373px;
+}
+
+.wafCardContent {
+	margin-bottom: 48px;
+	padding-top: calc(179px - 25px + 30px);
+}
+
+.wafGraphic svg {
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: -25px;
 }
