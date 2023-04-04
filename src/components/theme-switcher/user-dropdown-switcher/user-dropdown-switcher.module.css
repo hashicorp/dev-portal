@@ -1,12 +1,8 @@
-.label {
-	composes: hds-typography-body-200 from global;
-	composes: hds-font-weight-medium from global;
-}
-
 .listItem {
 	display: flex;
 	color: var(--token-color-foreground-primary);
-	padding: 8px 16px 8px 16px;
+	padding: 12px 16px 8px 16px;
 	gap: 12px;
 	align-items: center;
+	justify-content: space-between;
 }

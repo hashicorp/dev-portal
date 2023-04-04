@@ -1,4 +1,4 @@
-import ThemeSwitcher from 'components/theme-switcher'
+import { ThemeSelectWithLabel } from 'components/theme-switcher'
 import {
 	DropdownDisclosureListItem,
 	DropdownDisclosureSeparatorItem,
@@ -10,10 +10,7 @@ export default function UserDropdownDisclosureThemeSwitcher() {
 		<>
 			<DropdownDisclosureSeparatorItem />
 			<DropdownDisclosureListItem className={s.listItem}>
-				<label className={s.label} htmlFor="theme-switcher">
-					Theme
-				</label>
-				<ThemeSwitcher id="theme-switcher-user-dropdown" />
+				<ThemeSelectWithLabel />
 			</DropdownDisclosureListItem>
 		</>
 	)

@@ -13,6 +13,7 @@ import Disclosure, {
 import Link from 'components/link'
 import Text from 'components/text'
 import { UserDropdownDisclosureItem } from 'components/user-dropdown-disclosure'
+import UserDropdownDisclosureThemeSwitcher from 'components/theme-switcher/user-dropdown-switcher'
 import { MobileUserDisclosureProps } from './types'
 import s from './mobile-user-disclosure.module.css'
 
@@ -80,7 +81,10 @@ const MobileUserDisclosure = ({
 				<Text asElement="span" className={s.label} size={100} weight="semibold">
 					{label}
 				</Text>
-				<ul className={s.list}>{items.map(renderItem)}</ul>
+				<ul className={s.list}>
+					{items.map(renderItem)}
+					<UserDropdownDisclosureThemeSwitcher />
+				</ul>
 			</DisclosureContent>
 		</Disclosure>
 	)
