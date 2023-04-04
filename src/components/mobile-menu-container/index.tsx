@@ -60,7 +60,6 @@ const MobileAuthenticationControls = () => {
 			<div className={s.unauthenticatedControls}>
 				<div className={s.unauthenticatedControlButtons}>
 					<Button
-						iconPosition="trailing"
 						onClick={() => signIn()}
 						size="medium"
 						text="Sign In"
@@ -68,7 +67,6 @@ const MobileAuthenticationControls = () => {
 					<ButtonLink
 						color="secondary"
 						href="/sign-up"
-						iconPosition="trailing"
 						size="medium"
 						text="Sign Up"
 					/>
