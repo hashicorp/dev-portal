@@ -1,9 +1,12 @@
+import Image from 'next/image'
+import classNames from 'classnames'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
 import Card from 'components/card'
 import CardLink from 'components/card-link'
 import { useCommandBar } from 'components/command-bar'
 import Heading from 'components/heading'
 import Text from 'components/text'
+import certificationsGraphic from '../../img/certifications-graphic.svg'
 import s from './featured-content-grid.module.css'
 
 const FEATURED_SEARCH_TERMS = [
@@ -14,9 +17,13 @@ const FEATURED_SEARCH_TERMS = [
 	'Cloud Operating Model',
 ]
 
-const FeaturedCard = ({ children, href, title }: $TSFixMe) => {
+const FeaturedCard = ({ children, className, href, title }: $TSFixMe) => {
 	return (
-		<CardLink ariaLabel={title} className={s.card} href={href}>
+		<CardLink
+			ariaLabel={title}
+			className={classNames(s.card, className)}
+			href={href}
+		>
 			<div>{children}</div>
 			<div className={s.learnMoreCta}>
 				<Text size={300} weight="medium">
@@ -64,12 +71,29 @@ const FeaturedContentGrid = () => {
 				</Card>
 			</div>
 			<div className={s.gridAreaB}>
-				<FeaturedCard href="/certifications" title="Get HashiCorp certified">
-					<h2>Get HashiCorp certified</h2>
-					<p>
-						Earn certifications to verify your skills and communicate your
-						proficiency with HashiCorp multi-cloud products.
-					</p>
+				<FeaturedCard
+					className={s.certificationsCard}
+					href="/certifications"
+					title="Get HashiCorp certified"
+				>
+					<div className={s.certificationsCardContent}>
+						<Image
+							alt=""
+							className={s.certificationsGraphic}
+							height={286}
+							src={certificationsGraphic}
+							width={373}
+						/>
+						<div className={s.certificationsCardContentText}>
+							<Heading level={2} size={400} weight="bold">
+								Get HashiCorp certified
+							</Heading>
+							<Text asElement="p" size={300} weight="regular">
+								Earn certifications to verify your skills and communicate your
+								proficiency with HashiCorp multi-cloud products.
+							</Text>
+						</div>
+					</div>
 				</FeaturedCard>
 			</div>
 			<div className={s.gridAreaC}>

@@ -17,7 +17,7 @@
 
 .gridAreaB {
 	grid-area: b;
-	padding-top: 66px;
+	padding-top: 136px;
 }
 
 .gridAreaC {
@@ -55,6 +55,7 @@
 	flex-direction: column;
 	justify-content: space-between;
 	padding: 24px;
+	position: relative;
 
 	&:hover .learnMoreCta {
 		gap: 10px;
@@ -78,4 +79,26 @@
 	@media (prefers-reduced-motion: no-preference) {
 		transition: gap 0.2s ease-in-out, padding-right 0.2s ease-in-out;
 	}
+}
+
+.certificationsCard {
+	width: 373px;
+}
+
+.certificationsCardContent {
+	padding-top: calc(286px - 64px + 50px);
+}
+
+.certificationsGraphic {
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: -64px;
+}
+
+.certificationsCardContentText {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	margin-bottom: 70px;
 }
