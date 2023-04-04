@@ -8,7 +8,6 @@ import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
-import { IconPencilTool16 } from '@hashicorp/flight-icons/svg-react/pencil-tool-16'
 import ButtonLink from 'components/button-link'
 import Text from 'components/text'
 import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
@@ -83,9 +82,7 @@ function Footer({
 					opensInNewTab={true}
 					className={s.feedbackButton}
 				/>
-				{shouldRenderThemeSwitcher ? (
-					<ThemeSelect ariaLabel="Select a theme" />
-				) : null}
+				{shouldRenderThemeSwitcher ? <ThemeSelect ariaLabel="theme" /> : null}
 			</span>
 			<ul className={s.links}>
 				{FOOTER_ITEMS.map((item: FooterItem, index: number) => {
@@ -151,7 +148,7 @@ function Footer({
 				</li>
 				{shouldRenderThemeSwitcher ? (
 					<li className={classNames(s.actionDesktop, s.linkListItem)}>
-						<ThemeSelect ariaLabel="Select a theme" />
+						<ThemeSelect ariaLabel="theme" />
 					</li>
 				) : null}
 			</ul>
