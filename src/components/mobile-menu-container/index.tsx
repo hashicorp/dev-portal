@@ -9,10 +9,6 @@ import classNames from 'classnames'
 import { m, useReducedMotion } from 'framer-motion'
 import { useRouter } from 'next/router'
 
-// HashiCorp imports
-import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
-import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
-
 // Global imports
 import { getUserMenuItems } from 'lib/auth/user'
 import { useMobileMenu } from 'contexts'
@@ -49,6 +45,8 @@ const MobileAuthenticationControls = () => {
 	const { isAuthenticated, isLoading, signIn, signOut, user } =
 		useAuthentication()
 	const showUnauthenticatedUI = !isLoading && !isAuthenticated
+	const { pathname } = useRouter()
+	const shouldRenderThemeSwitcher = pathname !== '/'
 
 	if (!isAuthenticated && !showUnauthenticatedUI) {
 		return null
@@ -67,9 +65,11 @@ const MobileAuthenticationControls = () => {
 						text="Sign Up"
 					/>
 				</div>
-				<div className={s.themeSwitcher}>
-					<ThemeSelectWithLabel />
-				</div>
+				{shouldRenderThemeSwitcher ? (
+					<div className={s.themeSwitcher}>
+						<ThemeSelectWithLabel />
+					</div>
+				) : null}
 			</div>
 		)
 	} else if (isAuthenticated) {
