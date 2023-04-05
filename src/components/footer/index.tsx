@@ -82,7 +82,7 @@ function Footer({
 					opensInNewTab={true}
 					className={s.feedbackButton}
 				/>
-				{shouldRenderThemeSwitcher ? <ThemeSelect ariaLabel="theme" /> : null}
+				{shouldRenderThemeSwitcher ? <ThemeSelect /> : null}
 			</span>
 			<ul className={s.links}>
 				{FOOTER_ITEMS.map((item: FooterItem, index: number) => {
@@ -148,7 +148,7 @@ function Footer({
 				</li>
 				{shouldRenderThemeSwitcher ? (
 					<li className={classNames(s.actionDesktop, s.linkListItem)}>
-						<ThemeSelect ariaLabel="theme" />
+						<ThemeSelect />
 					</li>
 				) : null}
 			</ul>
