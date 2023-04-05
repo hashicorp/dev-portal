@@ -181,3 +181,7 @@
 		}
 	}
 }
+
+.title {
+	composes: hds-typography-display-300 from global, hds-font-weight-bold from global;
+}
