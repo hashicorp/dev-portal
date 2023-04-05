@@ -11,7 +11,9 @@ type InheritedLinkProps = Pick<
 	'className' | 'download' | 'href' | 'onClick' | 'opensInNewTab'
 >
 
-export interface StandaloneLinkProps extends InheritedLinkProps {
+interface StandaloneLinkProps
+	extends StandaloneLinkContentsProps,
+		InheritedLinkProps {
 	/**
 	 * A non-visible label presented by screen readers. Passed directly to the
 	 * internal link element as the `aria-label` prop.
@@ -21,14 +23,22 @@ export interface StandaloneLinkProps extends InheritedLinkProps {
 	ariaLabel?: LinkProps['aria-label']
 
 	/**
-	 * Determines the set of colors to use for various states of the component.
-	 */
-	color?: 'primary' | 'secondary'
-
-	/**
 	 * A data-heap-track string to add to the <a /> element.
 	 */
 	'data-heap-track'?: string
+}
+
+interface StandaloneLinkContentsProps {
+	/**
+	 * A string of one or more classnames. Is appended to list of classnames
+	 * passed to the container element.
+	 */
+	className?: string
+
+	/**
+	 * Determines the set of colors to use for various states of the component.
+	 */
+	color?: 'primary' | 'secondary'
 
 	/**
 	 * An icon from `@hashicorp/flight-icons` to render.
@@ -73,3 +83,5 @@ export interface StandaloneLinkProps extends InheritedLinkProps {
 	 */
 	textClassName?: string
 }
+
+export type { StandaloneLinkContentsProps, StandaloneLinkProps }
