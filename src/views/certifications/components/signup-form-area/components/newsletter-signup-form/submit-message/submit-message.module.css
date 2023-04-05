@@ -14,6 +14,16 @@
 			color: var(--token-color-foreground-high-contrast);
 			text-decoration: underline;
 		}
+
+		@nest html[data-theme='dark'] & {
+			& .submittedMsgText {
+				color: var(--token-color-foreground-strong);
+			}
+			& .submittedMsgTextLink {
+				color: var(--token-color-foreground-strong);
+				text-decoration: underline;
+			}
+		}
 	}
 }
 
@@ -29,6 +39,18 @@
 
 	&.error {
 		color: var(--token-color-foreground-warning);
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-strong);
+
+		&.success {
+			color: var(--token-color-foreground-success);
+		}
+
+		&.error {
+			color: var(--token-color-foreground-warning);
+		}
 	}
 }
 

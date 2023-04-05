@@ -53,3 +53,11 @@
 	margin: 0 auto;
 	max-width: var(--content-max-width);
 }
+
+.actions {
+	margin-top: var(--wpl-spacing-06);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 32px;
+}

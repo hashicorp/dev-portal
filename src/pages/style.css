@@ -15,7 +15,8 @@
 @import '~@hashicorp/design-system-tokens/dist/devdot/css/helpers/elevation.css';
 @import '~@hashicorp/design-system-tokens/dist/devdot/css/helpers/typography.css';
 
-/* Theme token files */
+/* Theme files */
+@import 'styles/themes/global.css';
 @import 'styles/themes/dark.css';
 
 /* Display 600 type style. HDS candidate, only in Dev Dot for now */
@@ -26,10 +27,6 @@
 
 /* Product color styles */
 @import 'styles/products.css';
-
-/* Proxied Boundary page styles */
-@import './_proxied-dot-io/boundary/home/style.css';
-@import '../components/_proxied-dot-io/boundary/footer/style.css';
 
 /* Proxied Sentinel page styles */
 @import '../components/_proxied-dot-io/sentinel/Footer/style.css';

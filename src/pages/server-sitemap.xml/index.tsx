@@ -5,23 +5,21 @@
 
 import { getServerSideSitemap } from 'next-sitemap'
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
+import { allDocsFields, allTutorialsFields } from 'lib/sitemap'
 
 export const getServerSideProps: GetServerSideProps = async (
 	ctx: GetServerSidePropsContext
 ) => {
-	const response = await fetch(
-		`https://content.hashicorp.com/api/all-docs-paths`
-	)
+	try {
+		// returns an array of docs content sitemap fields per slug
+		const docsFields = await allDocsFields()
+		// returns an array of tutorials content sitemap fields per slug
+		const tutorialsFields = await allTutorialsFields()
 
-	const { result } = await response.json()
-	const fields = result.map((page: { path: string; created_at: string }) => ({
-		loc: `${__config.dev_dot.canonical_base_url}/${page.path}`,
-		lastmod: page.created_at,
-		priority: 0.7,
-		changefreq: 'daily',
-	}))
-
-	return getServerSideSitemap(ctx, fields)
+		return getServerSideSitemap(ctx, [...docsFields, ...tutorialsFields])
+	} catch (error) {
+		throw new Error('Error generating server-sitemap.xml', error)
+	}
 }
 
 // Default export to prevent next.js errors

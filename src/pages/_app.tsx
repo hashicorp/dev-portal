@@ -14,6 +14,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { NextAdapter } from 'next-query-params'
 import { QueryParamProvider } from 'use-query-params'
+import { useFlags } from 'flags/client'
+import { FlagBagProvider } from 'flags/client'
 
 // HashiCorp imports
 import {
@@ -72,6 +74,7 @@ export default function App({
 	layoutProps,
 	host,
 }: CustomAppProps & Awaited<ReturnType<typeof App['getInitialProps']>>) {
+	const flagBag = useFlags()
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
@@ -115,32 +118,34 @@ export default function App({
 				<QueryParamProvider adapter={NextAdapter}>
 					<CurrentContentTypeProvider currentContentType={currentContentType}>
 						<ErrorBoundary FallbackComponent={DevDotClient}>
-							<SessionProvider session={session}>
-								<DeviceSizeProvider>
-									<CurrentProductProvider currentProduct={currentProduct}>
-										<CodeTabsProvider>
-											<HeadMetadata {...pageProps.metadata} host={host} />
-											<LazyMotion
-												features={() =>
-													import('lib/framer-motion-features').then(
-														(mod) => mod.default
-													)
-												}
-												strict={process.env.NODE_ENV === 'development'}
-											>
-												<Layout {...allLayoutProps} data={allLayoutProps}>
-													<Component {...pageProps} />
-												</Layout>
-												<Toaster />
-												{showProductSwitcher ? (
-													<PreviewProductSwitcher />
-												) : null}
-												<ReactQueryDevtools />
-											</LazyMotion>
-										</CodeTabsProvider>
-									</CurrentProductProvider>
-								</DeviceSizeProvider>
-							</SessionProvider>
+							<FlagBagProvider value={flagBag}>
+								<SessionProvider session={session}>
+									<DeviceSizeProvider>
+										<CurrentProductProvider currentProduct={currentProduct}>
+											<CodeTabsProvider>
+												<HeadMetadata {...pageProps.metadata} host={host} />
+												<LazyMotion
+													features={() =>
+														import('lib/framer-motion-features').then(
+															(mod) => mod.default
+														)
+													}
+													strict={process.env.NODE_ENV === 'development'}
+												>
+													<Layout {...allLayoutProps} data={allLayoutProps}>
+														<Component {...pageProps} />
+													</Layout>
+													<Toaster />
+													{showProductSwitcher ? (
+														<PreviewProductSwitcher />
+													) : null}
+													<ReactQueryDevtools />
+												</LazyMotion>
+											</CodeTabsProvider>
+										</CurrentProductProvider>
+									</DeviceSizeProvider>
+								</SessionProvider>
+							</FlagBagProvider>
 						</ErrorBoundary>
 					</CurrentContentTypeProvider>
 				</QueryParamProvider>

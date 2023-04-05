@@ -1,0 +1,68 @@
+---
+componentName: ContentHeaderCard
+---
+
+## Playground
+
+<LiveComponent>
+{`
+<ContentHeaderCard
+  icon="waypoint"
+  title="Cool Integration"
+  attribution="@hashicorp"
+  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+  note="Updated 10 months ago"
+  badges={[
+    {
+      text: "Cool",
+      tooltip: "You are cool ;)"
+    },
+    {
+      text: "Foobar",
+      tooltip: "A tooltip for foobar"
+    }
+  ]}
+  links={[
+    {
+      text: "GitHub",
+      href: "https://github.com"
+    },
+    {
+      text: "Home",
+      href: "/"
+    },
+  ]}
+  buttons={[
+    {
+      text: "Frog",
+      isPrimary: true,
+      onClick: () => {alert("Ribbit")}
+    },
+    {
+      text: "Dog",
+      isPrimary: true,
+      onClick: () => {alert("Bark")}
+    },
+    {
+      text: "Cat",
+      isPrimary: true,
+      onClick: () => {alert("You are a winner ^_^")}
+    }
+  ]}
+  dropdown={{
+    text: "v1.0.0 (latest)",
+    items: [
+      {
+        text: "v0.10.0",
+        href: "#"
+      },
+      {
+        text: "v0.9.0",
+        href: "#"
+      }
+    ]
+  }}
+/>
+`}
+
+</LiveComponent>

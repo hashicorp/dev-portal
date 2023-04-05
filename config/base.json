@@ -43,8 +43,7 @@
 	"flags": {
 		"enable_datadog": true,
 		"enable_io_beta_cta": true,
-		"enable_product_docs_search": true,
-		"enable_global_search": true,
-		"enable_dark_mode": true
+		"enable_dark_mode": true,
+		"enable_home_page_redesign": false
 	}
 }
