@@ -7,24 +7,41 @@ import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { IconMonitor16 } from '@hashicorp/flight-icons/svg-react/monitor-16'
 import { IconMoon16 } from '@hashicorp/flight-icons/svg-react/moon-16'
 import { IconSun16 } from '@hashicorp/flight-icons/svg-react/sun-16'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ReactElement } from 'react'
 import { useTheme } from 'next-themes'
 
 import { GlobalThemeOption } from 'styles/themes/types'
 import s from './theme-switcher.module.css'
 
+interface ThemeConfig {
+	icon: ReactElement
+	label: string
+	value: string
+}
+
+const THEME_CONFIGS: { [key in GlobalThemeOption]: ThemeConfig } = {
+	[GlobalThemeOption.dark]: {
+		icon: <IconMoon16 />,
+		label: 'Dark',
+		value: 'dark',
+	},
+	[GlobalThemeOption.light]: {
+		icon: <IconSun16 />,
+		label: 'Light',
+		value: 'light',
+	},
+	[GlobalThemeOption.system]: {
+		icon: <IconMonitor16 />,
+		label: 'System',
+		value: 'system',
+	},
+}
+
 interface ThemeSelectProps {
 	id?: string
-	ariaLabel?: string
 }
 
-const ThemeIcons = {
-	[GlobalThemeOption.system]: <IconMonitor16 />,
-	[GlobalThemeOption.dark]: <IconMoon16 />,
-	[GlobalThemeOption.light]: <IconSun16 />,
-}
-
-export default function ThemeSelect({ id, ariaLabel }: ThemeSelectProps) {
+export default function ThemeSelect({ id }: ThemeSelectProps) {
 	const [mounted, setMounted] = useState(false)
 	const { theme, setTheme } = useTheme()
 
@@ -38,15 +55,16 @@ export default function ThemeSelect({ id, ariaLabel }: ThemeSelectProps) {
 		return null
 	}
 
-	if (id && ariaLabel) {
-		throw new Error(
-			'[ThemeSelect]: Please only pass one of "id" or "ariaLabel", but not both'
-		)
+	// If no `id` is given, generate an `aria-label` that matches selected option
+	let ariaLabel
+	const hasId = id?.length > 0
+	if (!hasId) {
+		ariaLabel = THEME_CONFIGS[theme].label
 	}
 
 	return (
 		<div className={s.root}>
-			<span className={s.themeIcon}>{ThemeIcons[theme]}</span>
+			<span className={s.themeIcon}>{THEME_CONFIGS[theme].icon}</span>
 			<select
 				aria-label={ariaLabel}
 				className={s.select}
@@ -54,9 +72,11 @@ export default function ThemeSelect({ id, ariaLabel }: ThemeSelectProps) {
 				value={theme}
 				onChange={(e) => setTheme(e.target.value)}
 			>
-				<option value="system">System</option>
-				<option value="dark">Dark</option>
-				<option value="light">Light</option>
+				{Object.values(THEME_CONFIGS).map(({ label, value }: ThemeConfig) => (
+					<option key={value} value={value}>
+						{label}
+					</option>
+				))}
 			</select>
 			<span className={s.trailingIcon}>
 				<IconCaret16 />
