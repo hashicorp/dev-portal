@@ -29,7 +29,7 @@
 			"description": "Starting in March 2023, the Terraform Associate 003 will begin to replace the Terraform Associate 002 certification. The objective differences between the exam versions focus on reorganization and rewording of objectives to cover recent and future Terraform product growth.",
 			"links": {
 				"prepare": "/terraform/tutorials/certification-003",
-				"register": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049382552"
+				"register": "https://cp.certmetrics.com/hashicorp/en/login"
 			},
 			"faqSlug": "terraform-associate-003"
 		}
