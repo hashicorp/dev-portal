@@ -69,11 +69,7 @@ const BaseNewLayout = ({
 	 * Right now we are forcing 'light' mode on all pages
 	 */
 	const Layout = CoreDevDotLayoutWithTheme
-	const layoutProps = __config.flags.enable_dark_mode
-		? {
-				theme,
-		  }
-		: { theme: GlobalThemeOption.light }
+	const layoutProps = { theme: GlobalThemeOption.light }
 	usePageviewAnalytics({
 		siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
 		includedDomains: __config.dev_dot.analytics.included_domains,

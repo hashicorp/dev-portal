@@ -70,10 +70,7 @@ const UserDropdownDisclosure = ({
 	user,
 }: UserDropdownDisclosureProps) => {
 	const { pathname } = useRouter()
-	const shouldRenderThemeSwitcher =
-		__config.flags.enable_dark_mode &&
-		pathname !== '/' &&
-		pathname !== 'sign-up'
+	const shouldRenderThemeSwitcher = pathname !== '/' && pathname !== 'sign-up'
 
 	let userMeta
 	if (user) {
