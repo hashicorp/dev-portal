@@ -85,29 +85,29 @@ function WaypointIoLayout({ children, data }: Props): React.ReactElement {
 								: undefined,
 							{
 								text: 'Enterprise',
-								url: 'https://www.hashicorp.com/products/consul/?utm_source=oss&utm_medium=header-nav&utm_campaign=consul',
+								url: 'https://www.hashicorp.com/products/waypoint/',
 								type: 'outbound',
 							},
 							'divider',
 							{
 								text: 'Tutorials',
-								url: 'https://learn.hashicorp.com/consul',
+								url: 'https://developer.hashicorp.com/waypoint/tutorials',
 								type: 'outbound',
 							},
 							{
 								text: 'Docs',
-								url: '/docs',
-								type: 'inbound',
+								url: 'https://developer.hashicorp.com/waypoint/docs',
+								type: 'outbound',
 							},
 							{
 								text: 'API',
-								url: '/api-docs',
-								type: 'inbound',
+								url: 'https://developer.hashicorp.com/waypoint/api-docs',
+								type: 'outbound',
 							},
 							{
 								text: 'CLI',
-								url: '/commands',
-								type: 'inbound,',
+								url: 'https://developer.hashicorp.com/waypoint/commands',
+								type: 'outbound,',
 							},
 							{
 								text: 'Community',
