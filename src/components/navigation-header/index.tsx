@@ -54,7 +54,7 @@ const AuthenticationControls = () => {
 	return (
 		<div className={s.authenticationControls}>
 			<UserDropdownDisclosure
-				className={s.userDropdownDisclosure}
+				activatorClassName={s.userDropdownDisclosureActivator}
 				listPosition="right"
 				items={
 					user

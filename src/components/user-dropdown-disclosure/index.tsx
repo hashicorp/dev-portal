@@ -63,6 +63,7 @@ const renderItem = (
  * both authenticated and unauthenticated users.
  */
 const UserDropdownDisclosure = ({
+	activatorClassName,
 	className,
 	items,
 	listPosition,
@@ -81,6 +82,7 @@ const UserDropdownDisclosure = ({
 
 	return (
 		<DropdownDisclosure
+			activatorClassName={activatorClassName}
 			aria-label="User menu"
 			className={className}
 			icon={user ? userMeta.icon : <IconUser24 />}
