@@ -84,12 +84,6 @@ function WaypointIoLayout({ children, data }: Props): React.ReactElement {
 								  }
 								: undefined,
 							{
-								text: 'Enterprise',
-								url: 'https://www.hashicorp.com/products/waypoint/',
-								type: 'outbound',
-							},
-							'divider',
-							{
 								text: 'Tutorials',
 								url: 'https://developer.hashicorp.com/waypoint/tutorials',
 								type: 'outbound',
