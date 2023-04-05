@@ -17,7 +17,7 @@
 			"description": "The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform open source. This includes understanding which enterprise features exist and what can and cannot be done using the open source offering. You should have professional experience using Terraform in production, but performing the exam objectives in a personal demo environment may be sufficient.",
 			"links": {
 				"prepare": "/terraform/tutorials/certification",
-				"register": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049382552"
+				"register": "https://cp.certmetrics.com/hashicorp/en/login"
 			},
 			"faqSlug": "terraform-associate-002"
 		},

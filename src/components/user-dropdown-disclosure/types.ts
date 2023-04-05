@@ -24,10 +24,13 @@ type UserDropdownDisclosureItem =
 			onClick: DropdownDisclosureButtonItemProps['onClick']
 	  }
 
-interface UserDropdownDisclosureProps {
-	className?: DropdownDisclosureProps['className']
+type PickedDropdownDisclosureProps = Pick<
+	DropdownDisclosureProps,
+	'activatorClassName' | 'className' | 'listPosition'
+>
+
+interface UserDropdownDisclosureProps extends PickedDropdownDisclosureProps {
 	items: UserDropdownDisclosureItem[]
-	listPosition?: DropdownDisclosureProps['listPosition']
 	user: Session['user']
 }
 

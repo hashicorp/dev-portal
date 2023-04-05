@@ -17,7 +17,6 @@
 		"product_slugs_with_integrations": ["vault", "waypoint"]
 	},
 	"flags": {
-		"enable_product_docs_search": true,
 		"enable_dark_mode": false
 	}
 }
