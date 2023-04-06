@@ -42,7 +42,7 @@ interface ThemeSelectProps {
 	id: string
 }
 
-function ThemeSelect({ id }: ThemeSelectProps) {
+export default function ThemeSwitcher({ id }: ThemeSelectProps) {
 	const [mounted, setMounted] = useState(false)
 	const { theme, setTheme } = useTheme()
 
@@ -78,14 +78,14 @@ function ThemeSelect({ id }: ThemeSelectProps) {
 	)
 }
 
-export default function ThemeSelectWithLabel() {
+export function ThemeSwitcherWithLabel() {
 	const id = useId()
 	return (
 		<>
 			<label className={s.label} htmlFor={id}>
 				Theme
 			</label>
-			<ThemeSelect id={id} />
+			<ThemeSwitcher id={id} />
 		</>
 	)
 }

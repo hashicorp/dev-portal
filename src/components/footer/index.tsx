@@ -11,7 +11,7 @@ import InlineSvg from '@hashicorp/react-inline-svg'
 import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
 import Text from 'components/text'
 import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
-import ThemeSelectWithLabel from 'components/theme-switcher'
+import { ThemeSwitcherWithLabel } from 'components/theme-switcher'
 import { FooterItem, FooterProps } from './types'
 import s from './footer.module.css'
 
@@ -88,7 +88,7 @@ function Footer({
 				</a>
 				{shouldRenderThemeSwitcher ? (
 					<span className={s.themeSwitcher}>
-						<ThemeSelectWithLabel />
+						<ThemeSwitcherWithLabel />
 					</span>
 				) : null}
 			</span>
