@@ -15,10 +15,7 @@
 	text-decoration: none;
 	width: fit-content;
 
-	&:active {
-		text-decoration: underline;
-	}
-
+	&:active,
 	&:hover {
 		text-decoration: underline;
 	}
@@ -31,6 +28,14 @@
 		text-decoration: none;
 		margin: -5px;
 		padding: 5px;
+	}
+
+	/*
+  When rendered inside of `StandaloneLink`, prevent `StandaloneLinkContents`
+  from setting its own color.
+  */
+	& .contents {
+		color: inherit !important;
 	}
 }
 
@@ -58,22 +63,25 @@
 ***
 */
 
-.color-primary {
+.primary {
 	color: var(--token-color-foreground-action);
 
-	&:active {
+	/* only change color on active for <a href> */
+	&[href]:active {
 		color: var(--token-color-foreground-action-active);
 	}
 
-	&:hover {
+	/* only change color on active for <a href> */
+	&[href]:hover {
 		color: var(--token-color-foreground-action-hover);
 	}
 }
 
-.color-secondary {
+.secondary {
 	color: var(--token-color-foreground-strong);
 
-	&:active {
+	/* only change color on active for <a href> */
+	&[href]:active {
 		color: var(--token-color-foreground-primary);
 	}
 }
