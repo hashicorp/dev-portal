@@ -34,9 +34,6 @@ const HOSTNAME_MAP = {
 	'www.consul.io': 'consul',
 	'test-cs.hashi-mktg.com': 'consul',
 
-	'www.nomadproject.io': 'nomad',
-	'test-nm.hashi-mktg.com': 'nomad',
-
 	'www.packer.io': 'packer',
 	'test-pk.hashi-mktg.com': 'packer',
 

@@ -21,15 +21,6 @@ const proxyConfig = {
 		host: '(www\\.consul\\.io|test-cs\\.hashi-mktg\\.com)',
 		assets: ['/files/press-kit.zip'],
 	},
-	nomad: {
-		domain: 'https://www.nomadproject.io',
-		host: '(www\\.nomadproject\\.io|test-nm\\.hashi-mktg\\.com)',
-		assets: [
-			'/files/press-kit.zip',
-			'/data/vault/nomad-server-policy.hcl',
-			'/data/vault/nomad-cluster-role.json',
-		],
-	},
 	packer: {
 		domain: 'https://www.packer.io',
 		host: '(www\\.packer\\.io|test-pk\\.hashi-mktg\\.com)',
