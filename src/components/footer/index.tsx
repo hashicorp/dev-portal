@@ -12,6 +12,7 @@ import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/
 import Text from 'components/text'
 import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
 import { ThemeSwitcherWithLabel } from 'components/theme-switcher'
+import Link from 'components/link'
 import { FooterItem, FooterProps } from './types'
 import s from './footer.module.css'
 
@@ -119,18 +120,14 @@ function Footer({
 					let innerElement: ReactElement
 					if (item.type === 'link') {
 						innerElement = (
-							// Note: we do follow this rule, eslint just doesn't recognize it
-							// eslint-disable-next-line react/jsx-no-target-blank
-
-							<a
+							<Link
 								className={s.linkAction}
 								href={item.href}
-								target={item.opensInNewTab ? '_blank' : undefined}
-								rel={item.opensInNewTab ? 'noreferrer' : undefined}
+								opensInNewTab={item.opensInNewTab}
 							>
 								{textElement}
 								{item.opensInNewTab ? <IconExternalLink16 /> : null}
-							</a>
+							</Link>
 						)
 					} else if (item.type === 'consent-manager') {
 						innerElement = (
