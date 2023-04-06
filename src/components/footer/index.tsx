@@ -71,7 +71,13 @@ function Footer({
 	const shouldRenderThemeSwitcher = pathname !== '/' && pathname !== 'sign-up'
 
 	return (
-		<footer className={classNames(s.root, className)}>
+		<footer
+			className={classNames(
+				s.root,
+				className,
+				!shouldRenderThemeSwitcher && s.row
+			)}
+		>
 			<span className={s.logoAndSwitcher}>
 				<a
 					href="https://www.hashicorp.com/"

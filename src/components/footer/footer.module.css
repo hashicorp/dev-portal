@@ -13,6 +13,10 @@
 	padding: 24px;
 	position: relative;
 	flex-direction: column;
+
+	&.row {
+		flex-direction: row;
+	}
 }
 
 .logoAndSwitcher {
