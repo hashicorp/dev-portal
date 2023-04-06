@@ -202,12 +202,12 @@
 	--token-color-vault-brand: #ffdd04;
 	--token-color-vault-brand-alt: #fff; /* this is a special "alternative" color, used as an exception in some contexts where the normal "brand" color for Vault would not work */
 	--token-color-vault-foreground: #ffdd04;
-	--token-color-vault-surface: #2b220b;
+	--token-color-vault-surface: #1e2328;
 	--token-color-vault-border: #8f7d09;
 	--token-color-vault-gradient-primary-start: #feec7b;
 	--token-color-vault-gradient-primary-stop: #ffdd04;
-	--token-color-vault-gradient-faint-start: #2b220b; /* this is the 'vault-50' value at 25% opacity on white */
-	--token-color-vault-gradient-faint-stop: #1a160d;
+	--token-color-vault-gradient-faint-start: #1e2328; /* this is the 'vault-50' value at 25% opacity on white */
+	--token-color-vault-gradient-faint-stop: #13161a;
 
 	/* waypoint */
 	--token-color-waypoint-brand: #14c6cb;
