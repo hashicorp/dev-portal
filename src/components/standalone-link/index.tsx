@@ -6,14 +6,43 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames'
 import Link from 'components/link'
-import { StandaloneLinkProps } from './types'
+import {
+	type StandaloneLinkContentsProps,
+	type StandaloneLinkProps,
+} from './types'
 import s from './standalone-link.module.css'
+
+const StandaloneLinkContents = ({
+	className,
+	color,
+	icon,
+	iconPosition,
+	size,
+	text,
+	textClassName,
+}: StandaloneLinkContentsProps) => {
+	const containerClasses = classNames(
+		s.contents,
+		s[`color-${color}`],
+		s[size],
+		className
+	)
+	const textClasses = classNames(s.text, textClassName)
+
+	return (
+		<div className={containerClasses}>
+			{iconPosition === 'leading' && icon}
+			<span className={textClasses}>{text}</span>
+			{iconPosition === 'trailing' && icon}
+		</div>
+	)
+}
 
 const StandaloneLink = ({
 	ariaLabel,
 	className,
-	color = 'primary',
 	'data-heap-track': dataHeapTrack,
+	color = 'primary',
 	download,
 	href,
 	icon,
@@ -24,7 +53,7 @@ const StandaloneLink = ({
 	text,
 	textClassName,
 }: StandaloneLinkProps): ReactElement => {
-	const classes = classNames(s.root, s[`color-${color}`], s[size], className)
+	const classes = classNames(s.root, className)
 	const rel = opensInNewTab ? 'noreferrer noopener' : undefined
 
 	return (
@@ -38,12 +67,18 @@ const StandaloneLink = ({
 			rel={rel}
 			opensInNewTab={opensInNewTab}
 		>
-			{iconPosition === 'leading' && icon}
-			<span className={classNames(s.text, textClassName)}>{text}</span>
-			{iconPosition === 'trailing' && icon}
+			<StandaloneLinkContents
+				color={color}
+				icon={icon}
+				iconPosition={iconPosition}
+				size={size}
+				text={text}
+				textClassName={textClassName}
+			/>
 		</Link>
 	)
 }
 
-export type { StandaloneLinkProps }
+export type { StandaloneLinkContentsProps, StandaloneLinkProps }
+export { StandaloneLinkContents }
 export default StandaloneLink
