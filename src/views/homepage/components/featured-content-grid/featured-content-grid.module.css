@@ -32,24 +32,6 @@
 	grid-area: d;
 }
 
-.searchCard {
-	background-color: var(--token-color-foreground-strong);
-	border-radius: 10px;
-	border: 1px solid magenta; /* TODO: remove; denotes WIP */
-	box-shadow: none;
-	padding-bottom: 18px;
-	padding-left: 24px;
-	padding-right: 24px;
-	padding-top: 20px;
-}
-
-.searchCardText {
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	margin-bottom: 20px;
-}
-
 .card {
 	background-color: var(--token-color-foreground-strong);
 	border: 1px solid magenta; /* TODO: remove; denotes WIP */
@@ -83,6 +65,90 @@
 	@media (prefers-reduced-motion: no-preference) {
 		transition: gap 0.2s ease-in-out, padding-right 0.2s ease-in-out;
 	}
+}
+
+/*
+***
+* SearchFeaturedCard
+***
+*/
+
+.searchCard {
+	background: url('../../img/search-card-graphic.svg');
+	border-radius: 10px;
+	box-shadow: none;
+	padding-bottom: 18px;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 20px;
+}
+
+.searchCardText {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 20px;
+}
+
+.searchCardCarousel {
+	border-radius: 10px;
+	overflow: hidden;
+	padding-bottom: 38px;
+	padding-top: 38px;
+	position: relative;
+	z-index: 0;
+}
+
+.searchCardCarouselBackground {
+	background: linear-gradient(
+			90deg,
+			rgba(13, 13, 21, 0) -0.96%,
+			rgba(13, 13, 21, 0.42) 20.63%,
+			rgba(13, 13, 21, 0.4) 79.73%,
+			rgba(13, 13, 21, 0) 104.43%
+		),
+		#2a283a40;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	z-index: -1;
+}
+
+.searchCardList {
+	align-items: center;
+	display: flex;
+	gap: 20px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.searchCardListItem {
+	flex-shrink: 0;
+}
+
+.searchCardButton {
+	/* variables */
+	--padding-left-right: 24px;
+	--padding-top-bottom: 16px;
+
+	/* composition */
+	composes: g-focus-ring-from-box-shadow-dark from global;
+
+	/* properties */
+	align-items: center;
+	background-color: var(--token-color-foreground-strong);
+	border-radius: 10px;
+	border: none;
+	color: var(--token-color-palette-neutral-0);
+	display: flex;
+	gap: 16px;
+	padding-bottom: var(--padding-top-bottom);
+	padding-left: var(--padding-left-right);
+	padding-right: var(--padding-left-right);
+	padding-top: var(--padding-top-bottom);
 }
 
 /*

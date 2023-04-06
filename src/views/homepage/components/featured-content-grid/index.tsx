@@ -8,6 +8,7 @@ import Image from 'next/image'
 import classNames from 'classnames'
 
 // HashiCorp imports
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
 import hcpLogo from '@hashicorp/mktg-logos/product/hcp/primary/white.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
@@ -17,6 +18,7 @@ import Card from 'components/card'
 import CardLink from 'components/card-link'
 import { useCommandBar } from 'components/command-bar'
 import Heading from 'components/heading'
+import { StandaloneLinkContents } from 'components/standalone-link'
 import Text from 'components/text'
 
 // Local imports
@@ -31,6 +33,51 @@ const FEATURED_SEARCH_TERMS = [
 	'Terraform Variables',
 	'Cloud Operating Model',
 ]
+
+const SearchFeaturedCard = () => {
+	const { setCurrentInputValue, toggleIsOpen } = useCommandBar()
+
+	return (
+		<Card className={s.searchCard} elevation="base">
+			<div className={s.searchCardText}>
+				<Heading level={2} size={400} weight="bold">
+					Search with ease
+				</Heading>
+				<Text size={200} weight="medium">
+					Explore highly regarded resources
+					<br />
+					on a wide range of topics.
+				</Text>
+			</div>
+			<div className={s.searchCardCarousel}>
+				<div className={s.searchCardCarouselBackground} />
+				<ul className={s.searchCardList}>
+					{FEATURED_SEARCH_TERMS.map((featuredSearchTerm: string) => (
+						<li className={s.searchCardListItem} key={featuredSearchTerm}>
+							<button
+								className={s.searchCardButton}
+								onClick={() => {
+									setCurrentInputValue(featuredSearchTerm)
+									toggleIsOpen()
+								}}
+							>
+								<Text asElement="span" size={200} weight="semibold">
+									{featuredSearchTerm}
+								</Text>
+								<StandaloneLinkContents
+									color="primary"
+									icon={<IconArrowRight16 />}
+									iconPosition="trailing"
+									text="Explore"
+								/>
+							</button>
+						</li>
+					))}
+				</ul>
+			</div>
+		</Card>
+	)
+}
 
 const FeaturedCard = ({ children, className, href, title }: $TSFixMe) => {
 	return (
@@ -120,39 +167,10 @@ const WafFeaturedCard = () => {
 }
 
 const FeaturedContentGrid = () => {
-	const { setCurrentInputValue, toggleIsOpen } = useCommandBar()
-
 	return (
 		<div className={s.root}>
 			<div className={s.gridAreaA}>
-				<Card className={s.searchCard} elevation="base">
-					<div className={s.searchCardText}>
-						<Heading level={2} size={400} weight="bold">
-							Search with ease
-						</Heading>
-						<Text size={200} weight="medium">
-							Explore highly regarded resources
-							<br />
-							on a wide range of topics.
-						</Text>
-					</div>
-					<div className={s.searchCardCarousel}>
-						<ul>
-							{FEATURED_SEARCH_TERMS.map((featuredSearchTerm: string) => (
-								<li key={featuredSearchTerm}>
-									<button
-										onClick={() => {
-											setCurrentInputValue(featuredSearchTerm)
-											toggleIsOpen()
-										}}
-									>
-										{featuredSearchTerm}
-									</button>
-								</li>
-							))}
-						</ul>
-					</div>
-				</Card>
+				<SearchFeaturedCard />
 			</div>
 			<div className={s.gridAreaB}>
 				<CertificationsFeaturedCard />
