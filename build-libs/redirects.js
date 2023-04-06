@@ -46,9 +46,6 @@ const HOSTNAME_MAP = {
 	'www.vagrantup.com': 'vagrant',
 	'test-vg.hashi-mktg.com': 'vagrant',
 
-	'www.vaultproject.io': 'vault',
-	'test-vt.hashi-mktg.com': 'vault',
-
 	'www.waypointproject.io': 'waypoint',
 	'test-wp.hashi-mktg.com': 'waypoint',
 }

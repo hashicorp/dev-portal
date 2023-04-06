@@ -51,11 +51,6 @@ const proxyConfig = {
 		host: '(www\\.vagrantup\\.com|test-vg\\.hashi-mktg\\.com)',
 		assets: ['/files/press-kit.zip'],
 	},
-	vault: {
-		domain: 'https://www.vaultproject.io',
-		host: '(www\\.vaultproject\\.io|test-vt\\.hashi-mktg\\.com)',
-		assets: ['/files/press-kit.zip'],
-	},
 	waypoint: {
 		domain: 'https://www.waypointproject.io',
 		host: '(www\\.waypointproject\\.io|test-wp\\.hashi-mktg\\.com)',

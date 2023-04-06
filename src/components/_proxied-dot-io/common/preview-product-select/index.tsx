@@ -29,7 +29,6 @@ const IO_SITES_ON_DEV_PORTAL = [
 	'waypoint',
 	'nomad',
 	'sentinel',
-	'vault',
 	'packer',
 	'vagrant',
 	'consul',

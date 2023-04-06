@@ -291,40 +291,6 @@ describe('addHostCondition', () => {
 		]
 	`)
 	})
-
-	test('adds io host condition for non-GA products in production', () => {
-		const redirect = {
-			source: '/vault/docs/foo',
-			destination: '/vault/docs/bar',
-			permanent: true,
-		}
-
-		let result
-
-		withHashiEnv('production', () => {
-			result = addHostCondition([redirect], 'vault', [
-				'waypoint',
-				'consul',
-				'vault',
-			])
-		})
-
-		expect(result).toMatchInlineSnapshot(`
-		Array [
-		  Object {
-		    "destination": "/vault/docs/bar",
-		    "has": Array [
-		      Object {
-		        "type": "host",
-		        "value": "(www\\\\.vaultproject\\\\.io|test-vt\\\\.hashi-mktg\\\\.com)",
-		      },
-		    ],
-		    "permanent": true,
-		    "source": "/vault/docs/foo",
-		  },
-		]
-	`)
-	})
 })
 
 describe('filterInvalidRedirects', () => {
