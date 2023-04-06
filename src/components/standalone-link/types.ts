@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactElement } from 'react'
 import { LinkProps } from 'components/link'
+import { ReactElement } from 'react'
 
 interface SharedBaseProps {
 	/**
@@ -82,15 +82,4 @@ interface StandaloneLinkProps extends SharedBaseProps, InheritedLinkProps {
 	'data-heap-track'?: string
 }
 
-interface StandaloneLinkContentsProps extends SharedBaseProps {
-	/**
-	 * Optional boolean for specifying if `StandaloneLinkContents` should inherit
-	 * its container's color properties. When `true`, does not apply the helper
-	 * classes associated with the `color` prop.
-	 *
-	 * Default: `false`.
-	 */
-	inheritColor?: boolean
-}
-
-export type { StandaloneLinkContentsProps, StandaloneLinkProps }
+export type { SharedBaseProps, StandaloneLinkProps }

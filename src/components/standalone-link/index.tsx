@@ -5,38 +5,24 @@
 
 import classNames from 'classnames'
 import Link from 'components/link'
-import { ToastColor, developmentToast } from 'components/toast'
-import {
-	type StandaloneLinkContentsProps,
-	type StandaloneLinkProps,
-} from './types'
 import s from './standalone-link.module.css'
+import { SharedBaseProps, type StandaloneLinkProps } from './types'
 
 const DEFAULT_COLOR_VARIANT = 'primary'
 
 const StandaloneLinkContents = ({
 	className,
-	color,
+	color = DEFAULT_COLOR_VARIANT,
 	icon,
 	iconPosition,
-	inheritColor = false,
 	size,
 	text,
 	textClassName,
-}: StandaloneLinkContentsProps) => {
-	if (color && inheritColor) {
-		developmentToast({
-			color: ToastColor.warning,
-			title: 'Warning in `StandaloneLinkContents`',
-			description:
-				'`StandaloneLinkContents` does not accept both `color` and `inheritColor`; `inheritColor` takes precedence.',
-		})
-	}
-
+}: SharedBaseProps) => {
 	const containerClasses = classNames(
 		s.standaloneLinkContents,
 		s[size],
-		!inheritColor && s[color ?? DEFAULT_COLOR_VARIANT],
+		s[color],
 		className
 	)
 	const textClasses = classNames(s.text, textClassName)
@@ -82,7 +68,7 @@ const StandaloneLink = ({
 			<StandaloneLinkContents
 				icon={icon}
 				iconPosition={iconPosition}
-				inheritColor
+				color={color}
 				size={size}
 				text={text}
 				textClassName={textClassName}
@@ -91,6 +77,9 @@ const StandaloneLink = ({
 	)
 }
 
-export type { StandaloneLinkContentsProps, StandaloneLinkProps }
 export { StandaloneLinkContents }
+export type {
+	SharedBaseProps as StandaloneLinkContentsProps,
+	StandaloneLinkProps,
+}
 export default StandaloneLink
