@@ -26,7 +26,6 @@ import s from './style.module.css'
 import { HOSTNAME_MAP, SLUG_TO_HOSTNAME_MAP } from 'constants/hostname-map'
 
 const IO_SITES_ON_DEV_PORTAL = [
-	'waypoint',
 	'nomad',
 	'sentinel',
 	'vault',

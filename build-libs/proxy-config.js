@@ -56,11 +56,6 @@ const proxyConfig = {
 		host: '(www\\.vaultproject\\.io|test-vt\\.hashi-mktg\\.com)',
 		assets: ['/files/press-kit.zip'],
 	},
-	waypoint: {
-		domain: 'https://www.waypointproject.io',
-		host: '(www\\.waypointproject\\.io|test-wp\\.hashi-mktg\\.com)',
-		assets: ['/files/press-kit.zip'],
-	},
 }
 
 module.exports = proxyConfig

@@ -48,9 +48,6 @@ const HOSTNAME_MAP = {
 
 	'www.vaultproject.io': 'vault',
 	'test-vt.hashi-mktg.com': 'vault',
-
-	'www.waypointproject.io': 'waypoint',
-	'test-wp.hashi-mktg.com': 'waypoint',
 }
 
 // Redirect all proxied product pages
