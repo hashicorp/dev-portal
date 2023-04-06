@@ -48,6 +48,7 @@
 }
 
 .themeSwitcher {
+	composes: hds-font-weight-medium from global;
 	display: flex;
 	justify-content: space-between;
 	color: var(--token-color-foreground-primary);

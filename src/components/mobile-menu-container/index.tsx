@@ -17,7 +17,7 @@ import Button from 'components/button'
 import ButtonLink from 'components/button-link'
 
 // Local imports
-import { ThemeSelectWithLabel } from 'components/theme-switcher'
+import { ThemeSwitcherWithLabel } from 'components/theme-switcher'
 import { MobileMenuContainerProps } from './types'
 import { MobileUserDisclosure } from './components'
 import s from './mobile-menu-container.module.css'
@@ -67,7 +67,7 @@ const MobileAuthenticationControls = () => {
 				</div>
 				{shouldRenderThemeSwitcher ? (
 					<div className={s.themeSwitcher}>
-						<ThemeSelectWithLabel />
+						<ThemeSwitcherWithLabel />
 					</div>
 				) : null}
 			</div>
