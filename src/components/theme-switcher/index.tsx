@@ -81,21 +81,19 @@ function ThemeSelect({ id }: ThemeSelectProps) {
 
 interface ThemeSelectWithLabelProps {
 	visuallyHideLabel?: boolean
-	className?: string
 }
 
 export default function ThemeSelectWithLabel({
 	visuallyHideLabel = false,
-	className,
 }: ThemeSelectWithLabelProps) {
 	const id = useId()
 	return (
 		<>
 			<label
 				className={classNames(
-					s.label,
 					visuallyHideLabel ? 'g-screen-reader-only' : undefined,
-					className
+
+					s.label
 				)}
 				htmlFor={id}
 			>

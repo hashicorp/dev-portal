@@ -6,6 +6,7 @@
 import React, { ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
 import Text from 'components/text'
@@ -13,7 +14,6 @@ import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
 import ThemeSelectWithLabel from 'components/theme-switcher'
 import { FooterItem, FooterProps } from './types'
 import s from './footer.module.css'
-import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 
 const FOOTER_ITEMS: FooterItem[] = [
 	{
@@ -72,7 +72,7 @@ function Footer({
 
 	return (
 		<footer className={classNames(s.root, className)}>
-			<span className={s.top}>
+			<span className={s.logoAndSwitcher}>
 				<a
 					href="https://www.hashicorp.com/"
 					aria-label="Go to HashiCorp home page"
@@ -81,7 +81,7 @@ function Footer({
 					<InlineSvg src={svgHashicorpLogo} />
 				</a>
 				{shouldRenderThemeSwitcher ? (
-					<span className={s.themeAction}>
+					<span className={s.themeSwitcher}>
 						<ThemeSelectWithLabel />
 					</span>
 				) : null}
@@ -115,17 +115,16 @@ function Footer({
 						innerElement = (
 							// Note: we do follow this rule, eslint just doesn't recognize it
 							// eslint-disable-next-line react/jsx-no-target-blank
-							<span className={s.linkWrap}>
-								<a
-									className={s.linkAction}
-									href={item.href}
-									target={item.opensInNewTab ? '_blank' : undefined}
-									rel={item.opensInNewTab ? 'noreferrer' : undefined}
-								>
-									{textElement}
-								</a>
+
+							<a
+								className={s.linkAction}
+								href={item.href}
+								target={item.opensInNewTab ? '_blank' : undefined}
+								rel={item.opensInNewTab ? 'noreferrer' : undefined}
+							>
+								{textElement}
 								{item.opensInNewTab ? <IconExternalLink16 /> : null}
-							</span>
+							</a>
 						)
 					} else if (item.type === 'consent-manager') {
 						innerElement = (
@@ -137,9 +136,7 @@ function Footer({
 
 					return (
 						// eslint-disable-next-line react/no-array-index-key
-						<li className={s.linkListItem} key={index}>
-							{innerElement}
-						</li>
+						<li key={index}>{innerElement}</li>
 					)
 				})}
 			</ul>
