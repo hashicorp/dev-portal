@@ -38,9 +38,6 @@
 /* Proxied Nomad page styles */
 @import '../components/_proxied-dot-io/nomad/footer/style.css';
 
-/* Proxied Packer page styles */
-@import '../components/_proxied-dot-io/packer/footer/style.css';
-
 /* Proxied Consul page styles */
 @import '../components/_proxied-dot-io/consul/footer/style.css';
 

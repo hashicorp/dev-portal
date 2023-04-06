@@ -30,11 +30,6 @@ const proxyConfig = {
 			'/data/vault/nomad-cluster-role.json',
 		],
 	},
-	packer: {
-		domain: 'https://www.packer.io',
-		host: '(www\\.packer\\.io|test-pk\\.hashi-mktg\\.com)',
-		assets: ['/files/press-kit.zip'],
-	},
 	sentinel: {
 		// actually https://docs.hashicorp.com, but using test-st.hashi-mktg.com as a test
 		domain: 'https://docs.hashicorp.com',

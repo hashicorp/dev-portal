@@ -30,15 +30,6 @@ const proxySettings = {
 			...getDevPortalRoutesToProxy('nomad'),
 		],
 	},
-	packer: {
-		domain: proxyConfig.packer.domain,
-		host: proxyConfig.packer.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/packer'),
-			...buildAssetRoutesToProxy(proxyConfig.packer.assets, '/packer'),
-			...getDevPortalRoutesToProxy('packer'),
-		],
-	},
 	sentinel: {
 		domain: proxyConfig.sentinel.domain,
 		host: proxyConfig.sentinel.host,

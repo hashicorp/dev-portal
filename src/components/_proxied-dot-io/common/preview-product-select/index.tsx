@@ -30,7 +30,6 @@ const IO_SITES_ON_DEV_PORTAL = [
 	'nomad',
 	'sentinel',
 	'vault',
-	'packer',
 	'vagrant',
 	'consul',
 ]

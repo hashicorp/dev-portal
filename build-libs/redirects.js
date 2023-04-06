@@ -37,9 +37,6 @@ const HOSTNAME_MAP = {
 	'www.nomadproject.io': 'nomad',
 	'test-nm.hashi-mktg.com': 'nomad',
 
-	'www.packer.io': 'packer',
-	'test-pk.hashi-mktg.com': 'packer',
-
 	'docs.hashicorp.com': 'sentinel',
 	'test-st.hashi-mktg.com': 'sentinel',
 

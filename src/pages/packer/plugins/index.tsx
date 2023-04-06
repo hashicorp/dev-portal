@@ -6,7 +6,7 @@
 import DocsView from 'views/docs-view'
 // Imports below are used server-side
 import { getRootDocsPathGenerationFunctions } from 'views/docs-view/utils/get-root-docs-path-generation-functions'
-import { appendRemotePluginsNavData } from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
+import { appendRemotePluginsNavData } from 'views/packer-plugins/server'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import { isDeployPreview } from 'lib/env-checks'
 import { EnrichedNavItem } from 'components/sidebar/types'
