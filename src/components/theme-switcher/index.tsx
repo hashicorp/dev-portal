@@ -5,11 +5,11 @@
 
 import { useState, useEffect, ReactElement } from 'react'
 import { useId } from '@react-aria/utils'
+import { useTheme } from 'next-themes'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { IconMonitor16 } from '@hashicorp/flight-icons/svg-react/monitor-16'
 import { IconMoon16 } from '@hashicorp/flight-icons/svg-react/moon-16'
 import { IconSun16 } from '@hashicorp/flight-icons/svg-react/sun-16'
-import { useTheme } from 'next-themes'
 
 import { GlobalThemeOption } from 'styles/themes/types'
 import s from './theme-switcher.module.css'
