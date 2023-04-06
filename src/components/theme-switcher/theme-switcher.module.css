@@ -1,7 +1,7 @@
 .root {
 	position: relative;
 	color: var(--token-color-foreground-primary);
-	width: 100%;
+	width: fit-content;
 }
 
 .select {
@@ -35,4 +35,9 @@
 
 .trailingIcon {
 	right: 9px;
+}
+
+.label {
+	composes: hds-typography-body-200 from global;
+	composes: hds-font-weight-medium from global;
 }

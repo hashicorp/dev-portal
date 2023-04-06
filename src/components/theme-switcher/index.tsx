@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { useId } from '@react-aria/utils'
 import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { IconMonitor16 } from '@hashicorp/flight-icons/svg-react/monitor-16'
 import { IconMoon16 } from '@hashicorp/flight-icons/svg-react/moon-16'
@@ -82,5 +83,17 @@ export default function ThemeSelect({ id }: ThemeSelectProps) {
 				<IconCaret16 />
 			</span>
 		</div>
+	)
+}
+
+export function ThemeSelectWithLabel() {
+	const id = useId()
+	return (
+		<>
+			<label className={s.label} htmlFor={id}>
+				Theme
+			</label>
+			<ThemeSelect id={id} />
+		</>
 	)
 }
