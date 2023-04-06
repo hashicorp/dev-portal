@@ -70,7 +70,7 @@
 }
 
 .linkListItem {
-	margin-top: 16px;
+	margin-top: 24px;
 	line-height: 0;
 
 	&:not(:last-child) {
