@@ -8,14 +8,19 @@
 .root {
 	--padding: 24px;
 
-	align-items: center;
 	color: var(--token-color-palette-neutral-600);
 	gap: 16px;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
 	padding: var(--padding);
 	position: relative;
+	flex-direction: column;
+}
+
+.top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .logo {
@@ -36,38 +41,16 @@
 			fill: var(--token-color-hashicorp-brand);
 		}
 	}
-
-	@media (--list-horizontally) {
-		margin-right: 40px;
-		margin-bottom: 0;
-	}
 }
 
 .feedbackButton {
 	flex-shrink: 0;
 }
 
-/**
-	* We render two different buttons depending on the view so that the 
-	* focus order can remain aligned with the visual presentation of the 
-	* footer links
-	*/
-.actionMobile {
+.themeAction {
 	display: flex;
-	gap: 24px;
+	gap: 12px;
 	align-items: center;
-
-	@media (--list-horizontally) {
-		display: none;
-	}
-}
-
-.actionDesktop {
-	display: none;
-
-	@media (--list-horizontally) {
-		display: flex;
-	}
 }
 
 .links {
@@ -93,11 +76,6 @@
 	&:not(:last-child) {
 		margin-right: var(--padding);
 	}
-
-	@media (--list-horizontally) {
-		width: auto;
-		margin-top: 0;
-	}
 }
 
 .linkAction {
@@ -111,4 +89,11 @@
 		color: var(--token-color-foreground-strong);
 		text-decoration: underline;
 	}
+}
+
+.linkWrap {
+	display: flex;
+	align-items: center;
+	color: var(--token-color-foreground-faint);
+	gap: 7px;
 }

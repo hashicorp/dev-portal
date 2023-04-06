@@ -8,6 +8,7 @@ import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
 import { IconMonitor16 } from '@hashicorp/flight-icons/svg-react/monitor-16'
 import { IconMoon16 } from '@hashicorp/flight-icons/svg-react/moon-16'
 import { IconSun16 } from '@hashicorp/flight-icons/svg-react/sun-16'
+import classNames from 'classnames'
 import { useState, useEffect, ReactElement } from 'react'
 import { useTheme } from 'next-themes'
 
@@ -16,33 +17,33 @@ import s from './theme-switcher.module.css'
 
 interface ThemeConfig {
 	icon: ReactElement
-	label: string
+	text: string
 	value: string
 }
 
 const THEME_CONFIGS: { [key in GlobalThemeOption]: ThemeConfig } = {
 	[GlobalThemeOption.dark]: {
 		icon: <IconMoon16 />,
-		label: 'Dark',
+		text: 'Dark',
 		value: 'dark',
 	},
 	[GlobalThemeOption.light]: {
 		icon: <IconSun16 />,
-		label: 'Light',
+		text: 'Light',
 		value: 'light',
 	},
 	[GlobalThemeOption.system]: {
 		icon: <IconMonitor16 />,
-		label: 'System',
+		text: 'System',
 		value: 'system',
 	},
 }
 
 interface ThemeSelectProps {
-	id?: string
+	id: string
 }
 
-export default function ThemeSelect({ id }: ThemeSelectProps) {
+function ThemeSelect({ id }: ThemeSelectProps) {
 	const [mounted, setMounted] = useState(false)
 	const { theme, setTheme } = useTheme()
 
@@ -56,26 +57,18 @@ export default function ThemeSelect({ id }: ThemeSelectProps) {
 		return null
 	}
 
-	// If no `id` is given, generate an `aria-label` that matches selected option
-	let ariaLabel
-	const hasId = id?.length > 0
-	if (!hasId) {
-		ariaLabel = THEME_CONFIGS[theme].label
-	}
-
 	return (
 		<div className={s.root}>
 			<span className={s.themeIcon}>{THEME_CONFIGS[theme].icon}</span>
 			<select
-				aria-label={ariaLabel}
 				className={s.select}
 				id={id}
 				value={theme}
 				onChange={(e) => setTheme(e.target.value)}
 			>
-				{Object.values(THEME_CONFIGS).map(({ label, value }: ThemeConfig) => (
+				{Object.values(THEME_CONFIGS).map(({ text, value }: ThemeConfig) => (
 					<option key={value} value={value}>
-						{label}
+						{text}
 					</option>
 				))}
 			</select>
@@ -86,11 +79,26 @@ export default function ThemeSelect({ id }: ThemeSelectProps) {
 	)
 }
 
-export function ThemeSelectWithLabel() {
+interface ThemeSelectWithLabelProps {
+	visuallyHideLabel?: boolean
+	className?: string
+}
+
+export default function ThemeSelectWithLabel({
+	visuallyHideLabel = false,
+	className,
+}: ThemeSelectWithLabelProps) {
 	const id = useId()
 	return (
 		<>
-			<label className={s.label} htmlFor={id}>
+			<label
+				className={classNames(
+					s.label,
+					visuallyHideLabel ? 'g-screen-reader-only' : undefined,
+					className
+				)}
+				htmlFor={id}
+			>
 				Theme
 			</label>
 			<ThemeSelect id={id} />

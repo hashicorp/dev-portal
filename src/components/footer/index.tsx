@@ -8,12 +8,12 @@ import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
-import ButtonLink from 'components/button-link'
 import Text from 'components/text'
 import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
-import ThemeSelect from 'components/theme-switcher'
+import ThemeSelectWithLabel from 'components/theme-switcher'
 import { FooterItem, FooterProps } from './types'
 import s from './footer.module.css'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 
 const FOOTER_ITEMS: FooterItem[] = [
 	{
@@ -55,6 +55,12 @@ const FOOTER_ITEMS: FooterItem[] = [
 		href: 'https://www.hashicorp.com/trade-controls',
 		text: 'Trade Controls',
 	},
+	{
+		type: 'link',
+		href: FEEDBACK_FORM_URL,
+		text: 'Give Feedback',
+		opensInNewTab: true,
+	},
 ]
 
 function Footer({
@@ -66,23 +72,19 @@ function Footer({
 
 	return (
 		<footer className={classNames(s.root, className)}>
-			<a
-				href="https://www.hashicorp.com/"
-				aria-label="Go to HashiCorp home page"
-				className={s.logo}
-			>
-				<InlineSvg src={svgHashicorpLogo} />
-			</a>
-			<span className={classNames(s.actionMobile)}>
-				<ButtonLink
-					text="Give Feedback"
-					href={FEEDBACK_FORM_URL}
-					color="secondary"
-					size="small"
-					opensInNewTab={true}
-					className={s.feedbackButton}
-				/>
-				{shouldRenderThemeSwitcher ? <ThemeSelect /> : null}
+			<span className={s.top}>
+				<a
+					href="https://www.hashicorp.com/"
+					aria-label="Go to HashiCorp home page"
+					className={s.logo}
+				>
+					<InlineSvg src={svgHashicorpLogo} />
+				</a>
+				{shouldRenderThemeSwitcher ? (
+					<span className={s.themeAction}>
+						<ThemeSelectWithLabel />
+					</span>
+				) : null}
 			</span>
 			<ul className={s.links}>
 				{FOOTER_ITEMS.map((item: FooterItem, index: number) => {
@@ -113,14 +115,17 @@ function Footer({
 						innerElement = (
 							// Note: we do follow this rule, eslint just doesn't recognize it
 							// eslint-disable-next-line react/jsx-no-target-blank
-							<a
-								className={s.linkAction}
-								href={item.href}
-								target={item.opensInNewTab ? '_blank' : undefined}
-								rel={item.opensInNewTab ? 'noreferrer' : undefined}
-							>
-								{textElement}
-							</a>
+							<span className={s.linkWrap}>
+								<a
+									className={s.linkAction}
+									href={item.href}
+									target={item.opensInNewTab ? '_blank' : undefined}
+									rel={item.opensInNewTab ? 'noreferrer' : undefined}
+								>
+									{textElement}
+								</a>
+								{item.opensInNewTab ? <IconExternalLink16 /> : null}
+							</span>
 						)
 					} else if (item.type === 'consent-manager') {
 						innerElement = (
@@ -137,20 +142,6 @@ function Footer({
 						</li>
 					)
 				})}
-				<li className={classNames(s.actionDesktop, s.linkListItem)}>
-					<ButtonLink
-						text="Give Feedback"
-						href={FEEDBACK_FORM_URL}
-						color="secondary"
-						size="small"
-						opensInNewTab={true}
-					/>
-				</li>
-				{shouldRenderThemeSwitcher ? (
-					<li className={classNames(s.actionDesktop, s.linkListItem)}>
-						<ThemeSelect />
-					</li>
-				) : null}
 			</ul>
 		</footer>
 	)

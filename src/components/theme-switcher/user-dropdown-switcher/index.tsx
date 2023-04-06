@@ -1,4 +1,4 @@
-import { ThemeSelectWithLabel } from 'components/theme-switcher'
+import ThemeSelectWithLabel from 'components/theme-switcher'
 import {
 	DropdownDisclosureListItem,
 	DropdownDisclosureSeparatorItem,
