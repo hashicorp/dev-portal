@@ -85,7 +85,7 @@ const BaseNewLayout = ({
 				/>
 			)}
 			<CoreDevDotLayoutWithTheme theme={theme}>
-				<div className={s.root} data-CoreDevDotLayoutWithTheme="base-new">
+				<div className={s.root} data-layout="base-new">
 					<div className={s.header}>
 						<NavigationHeader />
 					</div>
