@@ -17,6 +17,7 @@ import { UserDropdownDisclosureItem } from 'components/user-dropdown-disclosure'
 import UserDropdownDisclosureThemeSwitcher from 'components/theme-switcher/user-dropdown-switcher'
 import { MobileUserDisclosureProps } from './types'
 import s from './mobile-user-disclosure.module.css'
+import isThemedPath from 'lib/isThemedPath'
 
 /**
  * Handles rendering a list item for `MobileUserDisclosure`.
@@ -65,7 +66,6 @@ const MobileUserDisclosure = ({
 }: MobileUserDisclosureProps) => {
 	const { icon, label, description } = getUserMeta(user)
 	const { pathname } = useRouter()
-	const shouldRenderThemeSwitcher = pathname !== '/'
 
 	return (
 		<Disclosure containerClassName={s.root} initialOpen={initialOpen}>
@@ -86,7 +86,7 @@ const MobileUserDisclosure = ({
 				</Text>
 				<ul className={s.list}>
 					{items.map(renderItem)}
-					{shouldRenderThemeSwitcher ? (
+					{isThemedPath(pathname) ? (
 						<UserDropdownDisclosureThemeSwitcher />
 					) : null}
 				</ul>

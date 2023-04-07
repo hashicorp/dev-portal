@@ -29,6 +29,7 @@
 			"/certifications",
 			"/certifications/[slug]"
 		],
+		"non_themed_paths": ["/", "/sign-up"],
 		"datadog_config": {
 			"scriptUrl": "https://www.datadoghq-browser-agent.com/datadog-rum-v4.js",
 			"applicationId": "40a2019f-88ad-4076-ab52-ffd074064eed",

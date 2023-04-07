@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import { getUserMeta } from 'lib/auth/user'
 import isAbsoluteUrl from 'lib/is-absolute-url'
+import isThemedPath from 'lib/isThemedPath'
 import DropdownDisclosure, {
 	DropdownDisclosureButtonItem,
 	DropdownDisclosureDescriptionItem,
@@ -70,7 +71,6 @@ const UserDropdownDisclosure = ({
 	user,
 }: UserDropdownDisclosureProps) => {
 	const { pathname } = useRouter()
-	const shouldRenderThemeSwitcher = pathname !== '/' && pathname !== 'sign-up'
 
 	let userMeta
 	if (user) {
@@ -97,9 +97,7 @@ const UserDropdownDisclosure = ({
 				</>
 			) : null}
 			{items.map(renderItem)}
-			{shouldRenderThemeSwitcher ? (
-				<UserDropdownDisclosureThemeSwitcher />
-			) : null}
+			{isThemedPath(pathname) ? <UserDropdownDisclosureThemeSwitcher /> : null}
 		</DropdownDisclosure>
 	)
 }
