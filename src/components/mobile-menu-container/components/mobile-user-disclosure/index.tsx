@@ -7,6 +7,7 @@ import { IconChevronDown24 } from '@hashicorp/flight-icons/svg-react/chevron-dow
 import { useRouter } from 'next/router'
 import { getUserMeta } from 'lib/auth/user'
 import isAbsoluteUrl from 'lib/is-absolute-url'
+import isThemedPath from 'lib/isThemedPath'
 import Disclosure, {
 	DisclosureActivator,
 	DisclosureContent,
@@ -17,7 +18,6 @@ import { UserDropdownDisclosureItem } from 'components/user-dropdown-disclosure'
 import UserDropdownDisclosureThemeSwitcher from 'components/theme-switcher/user-dropdown-switcher'
 import { MobileUserDisclosureProps } from './types'
 import s from './mobile-user-disclosure.module.css'
-import isThemedPath from 'lib/isThemedPath'
 
 /**
  * Handles rendering a list item for `MobileUserDisclosure`.
