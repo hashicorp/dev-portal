@@ -82,6 +82,15 @@ interface StandaloneLinkProps extends SharedBaseProps, InheritedLinkProps {
 	'data-heap-track'?: string
 }
 
-type StandaloneLinkContentsProps = SharedBaseProps
+interface StandaloneLinkContentsProps extends SharedBaseProps {
+	/**
+	 * Optional boolean for specifying if `StandaloneLinkContents` should inherit
+	 * its container's color properties. When `true`, does not apply the helper
+	 * classes associated with the `color` prop.
+	 *
+	 * Default: `false`.
+	 */
+	inheritColor?: boolean
+}
 
 export type { StandaloneLinkContentsProps, StandaloneLinkProps }

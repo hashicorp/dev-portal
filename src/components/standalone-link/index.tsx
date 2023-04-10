@@ -5,6 +5,7 @@
 
 import classNames from 'classnames'
 import Link from 'components/link'
+import { ToastColor, developmentToast } from 'components/toast'
 import {
 	type StandaloneLinkContentsProps,
 	type StandaloneLinkProps,
@@ -15,14 +16,29 @@ const DEFAULT_COLOR_VARIANT = 'primary'
 
 const StandaloneLinkContents = ({
 	className,
-	color = DEFAULT_COLOR_VARIANT,
+	color,
 	icon,
 	iconPosition,
+	inheritColor = false,
 	size,
 	text,
 	textClassName,
 }: StandaloneLinkContentsProps) => {
-	const containerClasses = classNames(s.contents, s[size], s[color], className)
+	if (color && inheritColor) {
+		developmentToast({
+			color: ToastColor.warning,
+			title: 'Warning in `StandaloneLinkContents`',
+			description:
+				'`StandaloneLinkContents` does not accept both `color` and `inheritColor`; `inheritColor` takes precedence.',
+		})
+	}
+
+	const containerClasses = classNames(
+		s.standaloneLinkContents,
+		s[size],
+		!inheritColor && s[color ?? DEFAULT_COLOR_VARIANT],
+		className
+	)
 	const textClasses = classNames(s.text, textClassName)
 
 	return (
@@ -49,7 +65,7 @@ const StandaloneLink = ({
 	text,
 	textClassName,
 }: StandaloneLinkProps) => {
-	const classes = classNames(s.root, s[color], className)
+	const classes = classNames(s.standaloneLink, s[color], className)
 	const rel = opensInNewTab ? 'noreferrer noopener' : undefined
 
 	return (
@@ -66,6 +82,7 @@ const StandaloneLink = ({
 			<StandaloneLinkContents
 				icon={icon}
 				iconPosition={iconPosition}
+				inheritColor
 				size={size}
 				text={text}
 				textClassName={textClassName}

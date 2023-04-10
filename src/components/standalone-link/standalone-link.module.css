@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.root {
+.standaloneLink {
 	/* composition */
 	composes: g-focus-ring-from-box-shadow from global;
 
@@ -29,17 +29,9 @@
 		margin: -5px;
 		padding: 5px;
 	}
-
-	/*
-  When rendered inside of `StandaloneLink`, prevent `StandaloneLinkContents`
-  from setting its own color.
-  */
-	& .contents {
-		color: inherit !important;
-	}
 }
 
-.contents {
+.standaloneLinkContents {
 	align-items: center;
 	display: flex;
 	gap: 6px;
@@ -66,13 +58,11 @@
 .primary {
 	color: var(--token-color-foreground-action);
 
-	/* only change color on active for <a href> */
-	&[href]:active {
+	&.standaloneLink:active {
 		color: var(--token-color-foreground-action-active);
 	}
 
-	/* only change color on active for <a href> */
-	&[href]:hover {
+	&.standaloneLink:hover {
 		color: var(--token-color-foreground-action-hover);
 	}
 }
@@ -80,8 +70,7 @@
 .secondary {
 	color: var(--token-color-foreground-strong);
 
-	/* only change color on active for <a href> */
-	&[href]:active {
+	&.standaloneLink:active {
 		color: var(--token-color-foreground-primary);
 	}
 }
