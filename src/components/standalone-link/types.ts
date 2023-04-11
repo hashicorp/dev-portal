@@ -6,29 +6,7 @@
 import { ReactElement } from 'react'
 import { LinkProps } from 'components/link'
 
-type InheritedLinkProps = Pick<
-	LinkProps,
-	'className' | 'download' | 'href' | 'onClick' | 'opensInNewTab'
->
-
-interface StandaloneLinkProps
-	extends StandaloneLinkContentsProps,
-		InheritedLinkProps {
-	/**
-	 * A non-visible label presented by screen readers. Passed directly to the
-	 * internal link element as the `aria-label` prop.
-	 *
-	 * ref: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label
-	 */
-	ariaLabel?: LinkProps['aria-label']
-
-	/**
-	 * A data-heap-track string to add to the <a /> element.
-	 */
-	'data-heap-track'?: string
-}
-
-interface StandaloneLinkContentsProps {
+interface SharedBaseProps {
 	/**
 	 * A string of one or more classnames. Is appended to list of classnames
 	 * passed to the container element.
@@ -82,6 +60,37 @@ interface StandaloneLinkContentsProps {
 	 * Optional className to apply to `text`'s wrapper element.
 	 */
 	textClassName?: string
+}
+
+type InheritedLinkProps = Pick<
+	LinkProps,
+	'className' | 'download' | 'href' | 'onClick' | 'opensInNewTab'
+>
+
+interface StandaloneLinkProps extends SharedBaseProps, InheritedLinkProps {
+	/**
+	 * A non-visible label presented by screen readers. Passed directly to the
+	 * internal link element as the `aria-label` prop.
+	 *
+	 * ref: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label
+	 */
+	ariaLabel?: LinkProps['aria-label']
+
+	/**
+	 * A data-heap-track string to add to the <a /> element.
+	 */
+	'data-heap-track'?: string
+}
+
+interface StandaloneLinkContentsProps extends SharedBaseProps {
+	/**
+	 * Optional boolean for specifying if `StandaloneLinkContents` should inherit
+	 * its container's color properties. When `true`, does not apply the helper
+	 * classes associated with the `color` prop.
+	 *
+	 * Default: `false`.
+	 */
+	inheritColor?: boolean
 }
 
 export type { StandaloneLinkContentsProps, StandaloneLinkProps }

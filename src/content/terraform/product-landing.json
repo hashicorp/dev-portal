@@ -102,8 +102,8 @@
 		{
 			"type": "collection_cards",
 			"collectionSlugs": [
-				"terraform/certification",
-				"terraform/certification-associate-tutorials"
+				"terraform/certification-003",
+				"terraform/certification-associate-tutorials-003"
 			]
 		}
 	]

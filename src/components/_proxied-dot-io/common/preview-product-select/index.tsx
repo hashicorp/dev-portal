@@ -27,11 +27,9 @@ import { HOSTNAME_MAP, SLUG_TO_HOSTNAME_MAP } from 'constants/hostname-map'
 
 const IO_SITES_ON_DEV_PORTAL = [
 	'waypoint',
-	'nomad',
 	'sentinel',
 	'vault',
 	'vagrant',
-	'consul',
 ]
 
 const products = allProducts.filter((product: Product) =>

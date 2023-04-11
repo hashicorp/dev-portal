@@ -21,15 +21,6 @@ const proxyConfig = require('./proxy-config')
  * @type {Record<string, SiteProxySettings>}
  */
 const proxySettings = {
-	nomad: {
-		domain: proxyConfig.nomad.domain,
-		host: proxyConfig.nomad.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/nomad'),
-			...buildAssetRoutesToProxy(proxyConfig.nomad.assets, '/nomad-public'),
-			...getDevPortalRoutesToProxy('nomad'),
-		],
-	},
 	sentinel: {
 		domain: proxyConfig.sentinel.domain,
 		host: proxyConfig.sentinel.host,
@@ -70,15 +61,6 @@ const proxySettings = {
 				'/waypoint-public'
 			),
 			...getDevPortalRoutesToProxy('waypoint'),
-		],
-	},
-	consul: {
-		domain: proxyConfig.consul.domain,
-		host: proxyConfig.consul.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/consul'),
-			...buildAssetRoutesToProxy(proxyConfig.consul.assets, '/consul-public'),
-			...getDevPortalRoutesToProxy('consul'),
 		],
 	},
 }

@@ -134,28 +134,6 @@ describe('groupSimpleRedirects', () => {
 				],
 			},
 			{
-				source: '/source',
-				destination: '/destination',
-				permanent: false,
-				has: [
-					{
-						type: 'host',
-						value: '(www\\.consul\\.io|test-cs\\.hashi-mktg\\.com)',
-					},
-				],
-			},
-			{
-				source: '/another-source',
-				destination: '/another-destination',
-				permanent: true,
-				has: [
-					{
-						type: 'host',
-						value: '(www\\.consul\\.io|test-cs\\.hashi-mktg\\.com)',
-					},
-				],
-			},
-			{
 				source: '/another-source',
 				destination: '/another-destination',
 				permanent: true,
@@ -170,16 +148,6 @@ describe('groupSimpleRedirects', () => {
 
 		expect(groupedSimpleRedirects).toStrictEqual({
 			waypoint: {
-				'/source': {
-					destination: '/destination',
-					permanent: false,
-				},
-				'/another-source': {
-					destination: '/another-destination',
-					permanent: true,
-				},
-			},
-			consul: {
 				'/source': {
 					destination: '/destination',
 					permanent: false,

@@ -16,20 +16,6 @@
  * @type {Record<string, SiteProxyConfig>}
  */
 const proxyConfig = {
-	consul: {
-		domain: 'https://www.consul.io',
-		host: '(www\\.consul\\.io|test-cs\\.hashi-mktg\\.com)',
-		assets: ['/files/press-kit.zip'],
-	},
-	nomad: {
-		domain: 'https://www.nomadproject.io',
-		host: '(www\\.nomadproject\\.io|test-nm\\.hashi-mktg\\.com)',
-		assets: [
-			'/files/press-kit.zip',
-			'/data/vault/nomad-server-policy.hcl',
-			'/data/vault/nomad-cluster-role.json',
-		],
-	},
 	sentinel: {
 		// actually https://docs.hashicorp.com, but using test-st.hashi-mktg.com as a test
 		domain: 'https://docs.hashicorp.com',
