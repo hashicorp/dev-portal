@@ -25,13 +25,7 @@ import ProductIcon from 'components/product-icon'
 import s from './style.module.css'
 import { HOSTNAME_MAP, SLUG_TO_HOSTNAME_MAP } from 'constants/hostname-map'
 
-const IO_SITES_ON_DEV_PORTAL = [
-	'waypoint',
-	'sentinel',
-	'vault',
-	'packer',
-	'vagrant',
-]
+const IO_SITES_ON_DEV_PORTAL = ['waypoint', 'sentinel', 'vault', 'vagrant']
 
 const products = allProducts.filter((product: Product) =>
 	IO_SITES_ON_DEV_PORTAL.includes(product.slug)
