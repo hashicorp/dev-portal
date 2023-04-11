@@ -32,41 +32,6 @@
 	grid-area: d;
 }
 
-.card {
-	background-color: var(--token-color-foreground-strong);
-	border: 1px solid magenta; /* TODO: remove; denotes WIP */
-	color: var(--token-color-palette-neutral-0);
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	padding: 24px;
-	position: relative;
-
-	&:hover .learnMoreCta {
-		gap: 10px;
-		padding-right: 0;
-	}
-}
-
-.learnMoreCta {
-	/* composition */
-	composes: hds-font-weight-medium from global;
-	composes: hds-typography-body-300 from global;
-
-	/* properties */
-	align-items: center;
-	align-self: flex-end;
-	display: flex;
-	gap: 6px;
-	padding-right: 4px;
-
-	/* Only enable animation if query is supported and value is no-preference */
-	@media (prefers-reduced-motion: no-preference) {
-		transition: gap 0.2s ease-in-out, padding-right 0.2s ease-in-out;
-	}
-}
-
 /*
 ***
 * SearchFeaturedCard

@@ -6,18 +6,15 @@
 // Third-party imports
 import { useRef, useState } from 'react'
 import Image from 'next/image'
-import classNames from 'classnames'
 
 // HashiCorp imports
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
-import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
 import hcpLogo from '@hashicorp/mktg-logos/product/hcp/primary/white.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
 
 // Global imports
 import useSafeLayoutEffect from 'hooks/use-safe-layout-effect'
 import Card from 'components/card'
-import CardLink from 'components/card-link'
 import { useCommandBar } from 'components/command-bar'
 import Heading from 'components/heading'
 import { StandaloneLinkContents } from 'components/standalone-link'
@@ -26,6 +23,7 @@ import Text from 'components/text'
 // Local imports
 import certificationsGraphic from '../../img/certifications-graphic.svg'
 import wafGraphic from '../../img/waf-graphic.svg?include'
+import FeaturedCard from './featured-card'
 import s from './featured-content-grid.module.css'
 
 const FEATURED_SEARCH_TERMS = [
@@ -154,24 +152,6 @@ const SearchFeaturedCard = () => {
 				</div>
 			</div>
 		</Card>
-	)
-}
-
-const FeaturedCard = ({ children, className, href, title }: $TSFixMe) => {
-	return (
-		<CardLink
-			ariaLabel={title}
-			className={classNames(s.card, className)}
-			href={href}
-		>
-			<div>{children}</div>
-			<div className={s.learnMoreCta}>
-				<Text size={300} weight="medium">
-					Learn More
-				</Text>
-				<IconArrowRight24 />
-			</div>
-		</CardLink>
 	)
 }
 
