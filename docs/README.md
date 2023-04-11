@@ -63,7 +63,6 @@ This will give you a development server running on [localhost:3000](http://local
 To preview the co-located `.io` project sites, you can run variations on the `npm start` command:
 
 ```sh
-npm run start:nomad # https://www.nomadproject.io
 npm run start:sentinel # https://docs.hashicorp.com/sentinel
 npm run start:vault # https://www.vaultproject.io
 npm run start:waypoint # https://www.boundaryproject.io
@@ -72,6 +71,7 @@ npm run start:waypoint # https://www.boundaryproject.io
 > **Note**: we're currently in the process of migrating `.io` sites into [the hashicorp/web repository](https://github.com/hashicorp/web). At present the following domains are served from `hashicorp/web`:
 >
 > - `boundaryproject.io`
+> - `nomadproject.io`
 > - `consul.io`
 >
 > We expect to migrate the remaining `.io` sites to serve from `hashicorp/web` by 2023-04-14.

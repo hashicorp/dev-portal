@@ -21,15 +21,6 @@ const proxyConfig = require('./proxy-config')
  * @type {Record<string, SiteProxySettings>}
  */
 const proxySettings = {
-	nomad: {
-		domain: proxyConfig.nomad.domain,
-		host: proxyConfig.nomad.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/nomad'),
-			...buildAssetRoutesToProxy(proxyConfig.nomad.assets, '/nomad-public'),
-			...getDevPortalRoutesToProxy('nomad'),
-		],
-	},
 	packer: {
 		domain: proxyConfig.packer.domain,
 		host: proxyConfig.packer.host,
