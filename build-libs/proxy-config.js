@@ -16,11 +16,6 @@
  * @type {Record<string, SiteProxyConfig>}
  */
 const proxyConfig = {
-	consul: {
-		domain: 'https://www.consul.io',
-		host: '(www\\.consul\\.io|test-cs\\.hashi-mktg\\.com)',
-		assets: ['/files/press-kit.zip'],
-	},
 	packer: {
 		domain: 'https://www.packer.io',
 		host: '(www\\.packer\\.io|test-pk\\.hashi-mktg\\.com)',

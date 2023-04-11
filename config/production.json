@@ -15,8 +15,5 @@
 			"idp_url": "https://auth.idp.hashicorp.com"
 		},
 		"product_slugs_with_integrations": ["vault", "waypoint"]
-	},
-	"flags": {
-		"enable_dark_mode": false
 	}
 }

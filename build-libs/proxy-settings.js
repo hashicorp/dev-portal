@@ -72,15 +72,6 @@ const proxySettings = {
 			...getDevPortalRoutesToProxy('waypoint'),
 		],
 	},
-	consul: {
-		domain: proxyConfig.consul.domain,
-		host: proxyConfig.consul.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/consul'),
-			...buildAssetRoutesToProxy(proxyConfig.consul.assets, '/consul-public'),
-			...getDevPortalRoutesToProxy('consul'),
-		],
-	},
 }
 module.exports = proxySettings
 

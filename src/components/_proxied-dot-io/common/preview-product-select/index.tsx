@@ -31,7 +31,6 @@ const IO_SITES_ON_DEV_PORTAL = [
 	'vault',
 	'packer',
 	'vagrant',
-	'consul',
 ]
 
 const products = allProducts.filter((product: Product) =>
