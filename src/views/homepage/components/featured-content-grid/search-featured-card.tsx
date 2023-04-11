@@ -120,11 +120,8 @@ const SearchFeaturedCard = () => {
 			</div>
 			<div className={s.searchCardCarousel}>
 				<div className={s.searchCardCarouselBackground} />
-				<div
-					className={s.searchCardButtonContainer}
-					ref={scrollableAreaRef}
-					id="my-test-thing"
-				>
+				<div className={s.fadedBackground} />
+				<div className={s.searchCardButtonContainer} ref={scrollableAreaRef}>
 					{FEATURED_SEARCH_TERMS.map((term, index) => {
 						const id = `search-term-${index}`
 						return (
