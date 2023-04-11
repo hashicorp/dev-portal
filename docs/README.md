@@ -75,6 +75,7 @@ npm run start:waypoint # https://www.boundaryproject.io
 > - `nomadproject.io`
 > - `packer.io`
 > - `vagrantup.com`
+> - `vaultproject.io`
 >
 > We expect to migrate the remaining `.io` sites to serve from `hashicorp/web` by 2023-04-14.
 

@@ -27,11 +27,6 @@ const proxyConfig = {
 	//   host: 'test-tf.hashi-mktg.com',
 	//   assets: [],
 	// },
-	vault: {
-		domain: 'https://www.vaultproject.io',
-		host: '(www\\.vaultproject\\.io|test-vt\\.hashi-mktg\\.com)',
-		assets: ['/files/press-kit.zip'],
-	},
 	waypoint: {
 		domain: 'https://www.waypointproject.io',
 		host: '(www\\.waypointproject\\.io|test-wp\\.hashi-mktg\\.com)',

@@ -33,15 +33,6 @@ const proxySettings = {
 			...getDevPortalRoutesToProxy('sentinel'),
 		],
 	},
-	vault: {
-		domain: proxyConfig.vault.domain,
-		host: proxyConfig.vault.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/vault'),
-			...buildAssetRoutesToProxy(proxyConfig.vault.assets, '/vault-public'),
-			...getDevPortalRoutesToProxy('vault'),
-		],
-	},
 	waypoint: {
 		domain: proxyConfig.waypoint.domain,
 		host: proxyConfig.waypoint.host,
