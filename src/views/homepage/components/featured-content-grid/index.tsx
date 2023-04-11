@@ -4,6 +4,7 @@
  */
 
 // Third-party imports
+import { useRef, useState } from 'react'
 import Image from 'next/image'
 import classNames from 'classnames'
 
@@ -14,6 +15,7 @@ import hcpLogo from '@hashicorp/mktg-logos/product/hcp/primary/white.svg?include
 import InlineSvg from '@hashicorp/react-inline-svg'
 
 // Global imports
+import useSafeLayoutEffect from 'hooks/use-safe-layout-effect'
 import Card from 'components/card'
 import CardLink from 'components/card-link'
 import { useCommandBar } from 'components/command-bar'
@@ -35,7 +37,65 @@ const FEATURED_SEARCH_TERMS = [
 ]
 
 const SearchFeaturedCard = () => {
+	const scrollableAreaRef = useRef<HTMLDivElement>()
+	const previousIndex = useRef(0)
+	const [isAnimationEnabled, setIsAnimationEnabled] = useState(true)
+	const [currentIndex, setCurrentIndex] = useState(0)
 	const { setCurrentInputValue, toggleIsOpen } = useCommandBar()
+
+	useSafeLayoutEffect(() => {
+		if (previousIndex.current === currentIndex) {
+			return
+		}
+
+		let scrollDirectionMultiplier: -1 | 1
+		if (currentIndex > previousIndex.current) {
+			scrollDirectionMultiplier = 1
+		} else {
+			scrollDirectionMultiplier = -1
+		}
+
+		if (
+			currentIndex === 0 &&
+			previousIndex.current === FEATURED_SEARCH_TERMS.length - 1
+		) {
+			scrollableAreaRef.current.scrollTo(0, 0)
+		} else if (
+			currentIndex === FEATURED_SEARCH_TERMS.length - 1 &&
+			previousIndex.current === 0
+		) {
+			scrollableAreaRef.current.scrollTo(
+				scrollableAreaRef.current.scrollWidth,
+				0
+			)
+		} else {
+			const { width } =
+				scrollableAreaRef.current.children[
+					previousIndex.current
+				].getBoundingClientRect()
+			scrollableAreaRef.current.scrollBy(scrollDirectionMultiplier * width, 0)
+		}
+
+		previousIndex.current = currentIndex
+	}, [currentIndex])
+
+	useSafeLayoutEffect(() => {
+		if (!isAnimationEnabled) {
+			return
+		}
+
+		const interval = setInterval(() => {
+			setCurrentIndex((prev: number) => {
+				if (prev === FEATURED_SEARCH_TERMS.length - 1) {
+					return 0
+				} else {
+					return prev + 1
+				}
+			})
+		}, 4000)
+
+		return () => clearInterval(interval)
+	}, [isAnimationEnabled])
 
 	return (
 		<Card className={s.searchCard} elevation="base">
@@ -51,18 +111,36 @@ const SearchFeaturedCard = () => {
 			</div>
 			<div className={s.searchCardCarousel}>
 				<div className={s.searchCardCarouselBackground} />
-				<ul className={s.searchCardList}>
-					{FEATURED_SEARCH_TERMS.map((featuredSearchTerm: string) => (
-						<li className={s.searchCardListItem} key={featuredSearchTerm}>
+				<div
+					className={s.searchCardButtonContainer}
+					ref={scrollableAreaRef}
+					id="my-test-thing"
+				>
+					{FEATURED_SEARCH_TERMS.map((term, index) => {
+						const id = `search-term-${index}`
+						return (
 							<button
+								id={id}
+								key={id}
 								className={s.searchCardButton}
 								onClick={() => {
-									setCurrentInputValue(featuredSearchTerm)
-									toggleIsOpen()
+									setIsAnimationEnabled(false)
+									if (index === currentIndex) {
+										setCurrentInputValue(term)
+										toggleIsOpen()
+									} else {
+										setCurrentIndex(index)
+									}
 								}}
+								tabIndex={index === currentIndex ? 0 : -1}
 							>
-								<Text asElement="span" size={200} weight="semibold">
-									{featuredSearchTerm}
+								<Text
+									asElement="span"
+									size={200}
+									weight="semibold"
+									style={{ whiteSpace: 'nowrap' }}
+								>
+									{term}
 								</Text>
 								<StandaloneLinkContents
 									color="primary"
@@ -71,9 +149,9 @@ const SearchFeaturedCard = () => {
 									text="Explore"
 								/>
 							</button>
-						</li>
-					))}
-				</ul>
+						)
+					})}
+				</div>
 			</div>
 		</Card>
 	)

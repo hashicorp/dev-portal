@@ -129,26 +129,37 @@
 	flex-shrink: 0;
 }
 
+.searchCardButtonContainer {
+	align-items: center;
+	display: flex;
+	gap: 24px;
+	max-width: 100%;
+	overflow: hidden;
+	position: relative;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+
+	&::before,
+	&::after {
+		content: '';
+		min-height: 1px;
+		min-width: 300px;
+	}
+}
+
 .searchCardButton {
-	/* variables */
-	--padding-left-right: 24px;
-	--padding-top-bottom: 16px;
-
-	/* composition */
-	composes: g-focus-ring-from-box-shadow-dark from global;
-
-	/* properties */
 	align-items: center;
 	background-color: var(--token-color-foreground-strong);
 	border-radius: 10px;
-	border: none;
 	color: var(--token-color-palette-neutral-0);
 	display: flex;
 	gap: 16px;
-	padding-bottom: var(--padding-top-bottom);
-	padding-left: var(--padding-left-right);
-	padding-right: var(--padding-left-right);
-	padding-top: var(--padding-top-bottom);
+	border: none;
+	padding-bottom: 16px;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 16px;
+	scroll-snap-align: center;
 }
 
 /*
