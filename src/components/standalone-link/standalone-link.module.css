@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.root {
+.standaloneLink {
 	/* composition */
 	composes: g-focus-ring-from-box-shadow from global;
 
@@ -15,10 +15,7 @@
 	text-decoration: none;
 	width: fit-content;
 
-	&:active {
-		text-decoration: underline;
-	}
-
+	&:active,
 	&:hover {
 		text-decoration: underline;
 	}
@@ -34,7 +31,7 @@
 	}
 }
 
-.contents {
+.standaloneLinkContents {
 	align-items: center;
 	display: flex;
 	gap: 6px;
@@ -58,22 +55,22 @@
 ***
 */
 
-.color-primary {
+.primary {
 	color: var(--token-color-foreground-action);
 
-	&:active {
+	&.standaloneLink:active {
 		color: var(--token-color-foreground-action-active);
 	}
 
-	&:hover {
+	&.standaloneLink:hover {
 		color: var(--token-color-foreground-action-hover);
 	}
 }
 
-.color-secondary {
+.secondary {
 	color: var(--token-color-foreground-strong);
 
-	&:active {
+	&.standaloneLink:active {
 		color: var(--token-color-foreground-primary);
 	}
 }

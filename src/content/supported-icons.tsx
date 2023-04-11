@@ -4,7 +4,6 @@
  */
 
 import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
-import { IconAws16 } from '@hashicorp/flight-icons/svg-react/aws-16'
 import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'
 import { IconCloud16 } from '@hashicorp/flight-icons/svg-react/cloud-16'
 import { IconCode16 } from '@hashicorp/flight-icons/svg-react/code-16'
@@ -39,6 +38,7 @@ import { IconVault16 } from '@hashicorp/flight-icons/svg-react/vault-16'
 import { IconVmware16 } from '@hashicorp/flight-icons/svg-react/vmware-16'
 import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
 import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
+import ThemedAwsIcon from './themed-icons/aws-color'
 
 /**
  * @TODO refactor to remove the HashiCorp product logos from this list
@@ -50,7 +50,7 @@ import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
 
 export const SUPPORTED_ICONS = {
 	api: <IconApi16 />,
-	aws: <IconAws16 />,
+	aws: <ThemedAwsIcon />,
 	'boundary-color': <IconBoundaryColor16 />,
 	cloud: <IconCloud16 />,
 	code: <IconCode16 />,
