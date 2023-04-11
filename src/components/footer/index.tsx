@@ -13,6 +13,7 @@ import Text from 'components/text'
 import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
 import { ThemeSwitcherWithLabel } from 'components/theme-switcher'
 import Link from 'components/link'
+import isThemedPath from 'lib/isThemedPath'
 import { FooterItem, FooterProps } from './types'
 import s from './footer.module.css'
 
@@ -69,7 +70,7 @@ function Footer({
 	className,
 }: FooterProps): React.ReactElement {
 	const { pathname } = useRouter()
-	const shouldRenderThemeSwitcher = pathname !== '/' && pathname !== 'sign-up'
+	const shouldRenderThemeSwitcher = isThemedPath(pathname)
 
 	return (
 		<footer

@@ -7,6 +7,7 @@ import { IconChevronDown24 } from '@hashicorp/flight-icons/svg-react/chevron-dow
 import { useRouter } from 'next/router'
 import { getUserMeta } from 'lib/auth/user'
 import isAbsoluteUrl from 'lib/is-absolute-url'
+import isThemedPath from 'lib/isThemedPath'
 import Disclosure, {
 	DisclosureActivator,
 	DisclosureContent,
@@ -65,7 +66,6 @@ const MobileUserDisclosure = ({
 }: MobileUserDisclosureProps) => {
 	const { icon, label, description } = getUserMeta(user)
 	const { pathname } = useRouter()
-	const shouldRenderThemeSwitcher = pathname !== '/'
 
 	return (
 		<Disclosure containerClassName={s.root} initialOpen={initialOpen}>
@@ -86,7 +86,7 @@ const MobileUserDisclosure = ({
 				</Text>
 				<ul className={s.list}>
 					{items.map(renderItem)}
-					{shouldRenderThemeSwitcher ? (
+					{isThemedPath(pathname) ? (
 						<UserDropdownDisclosureThemeSwitcher />
 					) : null}
 				</ul>
