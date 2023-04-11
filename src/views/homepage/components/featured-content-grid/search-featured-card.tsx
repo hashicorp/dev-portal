@@ -140,20 +140,22 @@ const SearchFeaturedCard = () => {
 								}}
 								tabIndex={index === currentIndex ? 0 : -1}
 							>
-								<Text
-									asElement="span"
-									size={200}
-									weight="semibold"
-									style={{ whiteSpace: 'nowrap' }}
-								>
-									{term}
-								</Text>
-								<StandaloneLinkContents
-									color="primary"
-									icon={<IconArrowRight16 />}
-									iconPosition="trailing"
-									text="Explore"
-								/>
+								<div className={s.buttonContent}>
+									<Text
+										asElement="span"
+										size={200}
+										weight="semibold"
+										style={{ whiteSpace: 'nowrap' }}
+									>
+										{term}
+									</Text>
+									<StandaloneLinkContents
+										color="primary"
+										icon={<IconArrowRight16 />}
+										iconPosition="trailing"
+										text="Explore"
+									/>
+								</div>
 							</button>
 						)
 					})}

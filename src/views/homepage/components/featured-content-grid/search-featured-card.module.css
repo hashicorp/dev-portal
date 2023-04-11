@@ -81,23 +81,42 @@
 	composes: g-focus-ring-from-box-shadow-dark from global;
 
 	/* properties */
-	align-items: center;
-	background-color: var(--token-color-foreground-strong);
+	background: linear-gradient(
+		to right,
+		#19182259,
+		#7b42bc59,
+		#63d0ff59,
+		#dc477d59,
+		#ffd81459,
+		#ec585d59,
+		#60dea959,
+		#14c6cb59,
+		#0850c559,
+		#45416100
+	);
 	border-radius: 10px;
 	color: var(--token-color-palette-neutral-0);
-	display: flex;
-	gap: 16px;
 	border: none;
-	padding-bottom: 16px;
-	padding-left: 24px;
-	padding-right: 24px;
-	padding-top: 16px;
 	scroll-snap-align: center;
+	padding: 1px 0;
 	opacity: 0.5;
 	z-index: 1;
+	transition: opacity 120ms ease-in-out;
 
 	&[tabindex='0'] {
 		opacity: 1;
 		z-index: 3;
 	}
+}
+
+.buttonContent {
+	align-items: center;
+	border-radius: inherit;
+	display: flex;
+	gap: 16px;
+	padding-bottom: 16px;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 16px;
+	background-color: var(--token-color-foreground-strong);
 }
