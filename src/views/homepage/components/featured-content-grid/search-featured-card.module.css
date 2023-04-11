@@ -18,13 +18,12 @@
 .searchCardCarousel {
 	border-radius: 10px;
 	overflow: hidden;
-	padding-bottom: 38px;
-	padding-top: 38px;
 	position: relative;
 	z-index: 0;
 }
 
 .searchCardCarouselBackground {
+	backdrop-filter: blur(5px);
 	background: linear-gradient(
 			90deg,
 			rgba(13, 13, 21, 0) -0.96%,
@@ -47,6 +46,8 @@
 	gap: 24px;
 	max-width: 100%;
 	overflow: hidden;
+	padding-bottom: 38px;
+	padding-top: 38px;
 	position: relative;
 	scroll-snap-type: x mandatory;
 	scroll-behavior: smooth;
@@ -60,6 +61,10 @@
 }
 
 .searchCardButton {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow-dark from global;
+
+	/* properties */
 	align-items: center;
 	background-color: var(--token-color-foreground-strong);
 	border-radius: 10px;
