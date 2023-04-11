@@ -21,6 +21,7 @@ interface DropdownDisclosureListItemProps {
 	 * subcompopnents exported from this folder.
 	 */
 	children: ReactNode
+	className?: string
 }
 
 /**
