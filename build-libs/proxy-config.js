@@ -27,11 +27,6 @@ const proxyConfig = {
 	//   host: 'test-tf.hashi-mktg.com',
 	//   assets: [],
 	// },
-	vagrant: {
-		domain: 'https://www.vagrantup.com',
-		host: '(www\\.vagrantup\\.com|test-vg\\.hashi-mktg\\.com)',
-		assets: ['/files/press-kit.zip'],
-	},
 	waypoint: {
 		domain: 'https://www.waypointproject.io',
 		host: '(www\\.waypointproject\\.io|test-wp\\.hashi-mktg\\.com)',

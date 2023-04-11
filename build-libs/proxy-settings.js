@@ -33,15 +33,6 @@ const proxySettings = {
 			...getDevPortalRoutesToProxy('sentinel'),
 		],
 	},
-	vagrant: {
-		domain: proxyConfig.vagrant.domain,
-		host: proxyConfig.vagrant.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/vagrant'),
-			...buildAssetRoutesToProxy(proxyConfig.vagrant.assets, '/vagrant-public'),
-			...getDevPortalRoutesToProxy('vagrant'),
-		],
-	},
 	waypoint: {
 		domain: proxyConfig.waypoint.domain,
 		host: proxyConfig.waypoint.host,

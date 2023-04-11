@@ -34,9 +34,6 @@ const HOSTNAME_MAP = {
 	'docs.hashicorp.com': 'sentinel',
 	'test-st.hashi-mktg.com': 'sentinel',
 
-	'www.vagrantup.com': 'vagrant',
-	'test-vg.hashi-mktg.com': 'vagrant',
-
 	'www.waypointproject.io': 'waypoint',
 	'test-wp.hashi-mktg.com': 'waypoint',
 }
