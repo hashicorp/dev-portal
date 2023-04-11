@@ -34,42 +34,6 @@
 
 /*
 ***
-* HCP FeaturedCard
-***
-*/
-
-/* @TODO replace this with a smaller asset; need to connect with Design */
-.hcpCard {
-	background-color: transparent;
-	background-image: url('../../img/hcp-graphic.png');
-	background-position: center center;
-	background-repeat: no-repeat;
-	border: none;
-}
-
-.hcpCardTitle {
-	margin-top: 64px;
-	margin-bottom: 24px;
-}
-
-.hcpLogo svg {
-	display: block;
-	height: 30px;
-	width: auto;
-}
-
-.hcpCardBody {
-	/* composition */
-	composes: hds-typography-display-400 from global;
-	composes: hds-font-weight-semibold from global;
-
-	/* properties */
-	margin-bottom: 50px;
-	margin-top: 0;
-}
-
-/*
-***
 * WAF FeaturedCard
 ***
 */
