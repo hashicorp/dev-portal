@@ -3,28 +3,40 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactElement } from 'react'
 import classNames from 'classnames'
 import Link from 'components/link'
+import { ToastColor, developmentToast } from 'components/toast'
 import {
 	type StandaloneLinkContentsProps,
 	type StandaloneLinkProps,
 } from './types'
 import s from './standalone-link.module.css'
 
+const DEFAULT_COLOR_VARIANT = 'primary'
+
 const StandaloneLinkContents = ({
 	className,
 	color,
 	icon,
 	iconPosition,
+	inheritColor = false,
 	size,
 	text,
 	textClassName,
 }: StandaloneLinkContentsProps) => {
+	if (color && inheritColor) {
+		developmentToast({
+			color: ToastColor.warning,
+			title: 'Warning in `StandaloneLinkContents`',
+			description:
+				'`StandaloneLinkContents` does not accept both `color` and `inheritColor`; `inheritColor` takes precedence.',
+		})
+	}
+
 	const containerClasses = classNames(
-		s.contents,
-		s[`color-${color}`],
+		s.standaloneLinkContents,
 		s[size],
+		!inheritColor && s[color ?? DEFAULT_COLOR_VARIANT],
 		className
 	)
 	const textClasses = classNames(s.text, textClassName)
@@ -41,8 +53,8 @@ const StandaloneLinkContents = ({
 const StandaloneLink = ({
 	ariaLabel,
 	className,
+	color = DEFAULT_COLOR_VARIANT,
 	'data-heap-track': dataHeapTrack,
-	color = 'primary',
 	download,
 	href,
 	icon,
@@ -52,8 +64,8 @@ const StandaloneLink = ({
 	size = 'medium',
 	text,
 	textClassName,
-}: StandaloneLinkProps): ReactElement => {
-	const classes = classNames(s.root, className)
+}: StandaloneLinkProps) => {
+	const classes = classNames(s.standaloneLink, s[color], className)
 	const rel = opensInNewTab ? 'noreferrer noopener' : undefined
 
 	return (
@@ -68,9 +80,9 @@ const StandaloneLink = ({
 			opensInNewTab={opensInNewTab}
 		>
 			<StandaloneLinkContents
-				color={color}
 				icon={icon}
 				iconPosition={iconPosition}
+				inheritColor
 				size={size}
 				text={text}
 				textClassName={textClassName}
