@@ -33,7 +33,7 @@ const MyComponent = () => {
 ### With a trailing icon
 
 <LiveComponent>
-{`
+	{`
 <StandaloneLink
   href="/"
   icon={<SwingsetTestIcon name="arrow-right" />}
@@ -46,7 +46,7 @@ const MyComponent = () => {
 ### With a leading icon
 
 <LiveComponent>
-{`
+	{`
 <StandaloneLink
   href="/"
   icon={<SwingsetTestIcon name="github" />}
@@ -59,7 +59,7 @@ const MyComponent = () => {
 ### With color set to secondary
 
 <LiveComponent>
-{`
+	{`
 <StandaloneLink
   color="secondary"
   href="/"
@@ -73,7 +73,7 @@ const MyComponent = () => {
 ### With varying size values
 
 <LiveComponent>
-{`
+	{`
 <>
   <StandaloneLink
     href="/"
@@ -98,5 +98,62 @@ const MyComponent = () => {
     text="Get Started"
   />
 </>
+`}
+</LiveComponent>
+
+### `StandaloneLinkContents`
+
+`StandaloneLink` exports a utility component called `StandaloneLinkContents`. This utility is responsible for displaying the inner contents of `StandaloneLink`. It is useful where the _look_ of `StandaloneLink` is needed but no `<a>` link element is needed, such as a call-to-action that is placed inside of a `CardLink`.
+
+<LiveComponent>
+	{`
+<div style={{ display: 'flex', gap: 24 }}>
+  <div>
+    <StandaloneLinkContents
+      color="primary"
+      icon={<SwingsetTestIcon name="github" size={16} />}
+      iconPosition="leading"
+      size="small"
+      text="Get Started"
+    />
+    <StandaloneLinkContents
+      color="primary"
+      icon={<SwingsetTestIcon name="github" size={16} />}
+      iconPosition="leading"
+      size="medium"
+      text="Get Started"
+    />
+    <StandaloneLinkContents
+      color="primary"
+      icon={<SwingsetTestIcon name="github" size={24} />}
+      iconPosition="leading"
+      size="large"
+      text="Get Started"
+    />
+  </div>
+  <div>
+    <StandaloneLinkContents
+      color="secondary"
+      icon={<SwingsetTestIcon name="arrow-right" size={16} />}
+      iconPosition="trailing"
+      size="small"
+      text="Get Started"
+    />
+    <StandaloneLinkContents
+      color="secondary"
+      icon={<SwingsetTestIcon name="arrow-right" size={16} />}
+      iconPosition="trailing"
+      size="medium"
+      text="Get Started"
+    />
+    <StandaloneLinkContents
+      color="secondary"
+      icon={<SwingsetTestIcon name="arrow-right" size={24} />}
+      iconPosition="trailing"
+      size="large"
+      text="Get Started"
+    />
+  </div>
+</div>
 `}
 </LiveComponent>

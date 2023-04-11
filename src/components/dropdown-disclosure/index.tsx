@@ -35,6 +35,7 @@ const handleError = (message: string) => {
 }
 
 const DropdownDisclosure = ({
+	activatorClassName,
 	'aria-label': ariaLabel,
 	children,
 	className,
@@ -89,7 +90,7 @@ const DropdownDisclosure = ({
 		>
 			<DropdownDisclosureActivator
 				aria-label={ariaLabel}
-				className={s.activator}
+				className={classNames(s.activator, activatorClassName)}
 				color={color}
 				hideChevron={hideChevron}
 			>

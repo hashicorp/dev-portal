@@ -2,7 +2,7 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-
+import { useRouter } from 'next/router'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import { getUserMeta } from 'lib/auth/user'
 import isAbsoluteUrl from 'lib/is-absolute-url'
@@ -13,6 +13,7 @@ import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 	DropdownDisclosureSeparatorItem,
 } from 'components/dropdown-disclosure'
+import UserDropdownDisclosureThemeSwitcher from 'components/theme-switcher/user-dropdown-switcher'
 import {
 	UserDropdownDisclosureItem,
 	UserDropdownDisclosureProps,
@@ -62,11 +63,15 @@ const renderItem = (
  * both authenticated and unauthenticated users.
  */
 const UserDropdownDisclosure = ({
+	activatorClassName,
 	className,
 	items,
 	listPosition,
 	user,
 }: UserDropdownDisclosureProps) => {
+	const { pathname } = useRouter()
+	const shouldRenderThemeSwitcher = pathname !== '/' && pathname !== 'sign-up'
+
 	let userMeta
 	if (user) {
 		userMeta = getUserMeta(user)
@@ -74,6 +79,7 @@ const UserDropdownDisclosure = ({
 
 	return (
 		<DropdownDisclosure
+			activatorClassName={activatorClassName}
 			aria-label="User menu"
 			className={className}
 			icon={user ? userMeta.icon : <IconUser24 />}
@@ -91,6 +97,9 @@ const UserDropdownDisclosure = ({
 				</>
 			) : null}
 			{items.map(renderItem)}
+			{shouldRenderThemeSwitcher ? (
+				<UserDropdownDisclosureThemeSwitcher />
+			) : null}
 		</DropdownDisclosure>
 	)
 }

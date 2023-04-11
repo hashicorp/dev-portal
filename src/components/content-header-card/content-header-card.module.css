@@ -127,16 +127,18 @@
 				&:not(:first-of-type) {
 					margin-left: 12px;
 				}
-				& > * {
-					/* TODO: Rather than override our existing link component, 
-					we should eject or build in support for what we're trying
-					to do here. These styles assume the StandaloneLink styles
-					are part of its contract, but they are not and are subject
-					to change */
-					text-decoration: underline;
-					color: var(--token-color-foreground-primary);
-					&:hover {
-						color: var(--token-color-foreground-strong);
+				& > a {
+					& > * {
+						/* TODO: Rather than override our existing link component,
+						we should eject or build in support for what we're trying
+						to do here. These styles assume the StandaloneLink styles
+						are part of its contract, but they are not and are subject
+						to change */
+						text-decoration: underline;
+						color: var(--token-color-foreground-primary);
+						&:hover {
+							color: var(--token-color-foreground-strong);
+						}
 					}
 				}
 			}
@@ -180,4 +182,8 @@
 			}
 		}
 	}
+}
+
+.title {
+	composes: hds-typography-display-300 from global, hds-font-weight-bold from global;
 }
