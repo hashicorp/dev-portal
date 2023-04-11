@@ -3,54 +3,19 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// Third-party imports
-import Image from 'next/image'
-
 // HashiCorp imports
 import hcpLogo from '@hashicorp/mktg-logos/product/hcp/primary/white.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
 
 // Global imports
 import Heading from 'components/heading'
-import Text from 'components/text'
 
 // Local imports
-import certificationsGraphic from '../../img/certifications-graphic.svg'
 import wafGraphic from '../../img/waf-graphic.svg?include'
+import CertificationsFeaturedCard from './certifications-featured-card'
 import FeaturedCard from './featured-card'
 import SearchFeaturedCard from './search-featured-card'
 import s from './featured-content-grid.module.css'
-
-const CertificationsFeaturedCard = () => {
-	const title = 'Get HashiCorp certified'
-
-	return (
-		<FeaturedCard
-			className={s.certificationsCard}
-			href="/certifications"
-			title={title}
-		>
-			<div className={s.certificationsCardContent}>
-				<Image
-					alt=""
-					className={s.certificationsGraphic}
-					height={286}
-					src={certificationsGraphic}
-					width={373}
-				/>
-				<div className={s.certificationsCardContentText}>
-					<Heading level={2} size={400} weight="bold">
-						{title}
-					</Heading>
-					<Text asElement="p" size={300} weight="regular">
-						Earn certifications to verify your skills and communicate your
-						proficiency with HashiCorp multi-cloud products.
-					</Text>
-				</div>
-			</div>
-		</FeaturedCard>
-	)
-}
 
 /**
  * @TODO The graphic for this component needs refined, but that will take some
