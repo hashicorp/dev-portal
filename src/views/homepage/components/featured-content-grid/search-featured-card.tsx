@@ -24,6 +24,35 @@ const SearchFeaturedCard = () => {
 	const { setCurrentInputValue, toggleIsOpen } = useCommandBar()
 
 	useSafeLayoutEffect(() => {
+		if (isAnimationEnabled === false) {
+			return
+		}
+
+		const interactionListener = (event: $TSFixMe) => {
+			const isInteractionInside = scrollableAreaRef.current.contains(
+				event.target as Node
+			)
+			if (isInteractionInside) {
+				setIsAnimationEnabled(false)
+			}
+		}
+
+		document.addEventListener('focusin', interactionListener)
+		scrollableAreaRef.current.addEventListener(
+			'pointerenter',
+			interactionListener
+		)
+
+		return () => {
+			document.removeEventListener('focusin', interactionListener)
+			scrollableAreaRef.current.removeEventListener(
+				'pointerenter',
+				interactionListener
+			)
+		}
+	}, [isAnimationEnabled])
+
+	useSafeLayoutEffect(() => {
 		if (previousIndex.current === currentIndex) {
 			return
 		}
