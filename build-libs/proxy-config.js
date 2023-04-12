@@ -16,11 +16,6 @@
  * @type {Record<string, SiteProxyConfig>}
  */
 const proxyConfig = {
-	packer: {
-		domain: 'https://www.packer.io',
-		host: '(www\\.packer\\.io|test-pk\\.hashi-mktg\\.com)',
-		assets: ['/files/press-kit.zip'],
-	},
 	sentinel: {
 		// actually https://docs.hashicorp.com, but using test-st.hashi-mktg.com as a test
 		domain: 'https://docs.hashicorp.com',
@@ -32,21 +27,6 @@ const proxyConfig = {
 	//   host: 'test-tf.hashi-mktg.com',
 	//   assets: [],
 	// },
-	vagrant: {
-		domain: 'https://www.vagrantup.com',
-		host: '(www\\.vagrantup\\.com|test-vg\\.hashi-mktg\\.com)',
-		assets: ['/files/press-kit.zip'],
-	},
-	vault: {
-		domain: 'https://www.vaultproject.io',
-		host: '(www\\.vaultproject\\.io|test-vt\\.hashi-mktg\\.com)',
-		assets: ['/files/press-kit.zip'],
-	},
-	waypoint: {
-		domain: 'https://www.waypointproject.io',
-		host: '(www\\.waypointproject\\.io|test-wp\\.hashi-mktg\\.com)',
-		assets: ['/files/press-kit.zip'],
-	},
 }
 
 module.exports = proxyConfig
