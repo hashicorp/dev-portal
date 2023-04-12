@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import usePrefersReducedMotion from 'lib/hooks/usePrefersReducedMotion'
 import useSafeLayoutEffect from 'hooks/use-safe-layout-effect'
 import Card from 'components/card'
 import { useCommandBar } from 'components/command-bar'
@@ -20,9 +21,16 @@ const FEATURED_SEARCH_TERMS = [
 const SearchFeaturedCard = () => {
 	const scrollableAreaRef = useRef<HTMLDivElement>()
 	const previousIndex = useRef(0)
-	const [isAnimationEnabled, setIsAnimationEnabled] = useState(true)
 	const [currentIndex, setCurrentIndex] = useState(0)
+	const prefersReducedMotion = usePrefersReducedMotion()
+	const [isAnimationEnabled, setIsAnimationEnabled] = useState(
+		!prefersReducedMotion
+	)
 	const { setCurrentInputValue, toggleIsOpen } = useCommandBar()
+
+	useEffect(() => {
+		setIsAnimationEnabled(!prefersReducedMotion)
+	}, [prefersReducedMotion])
 
 	useSafeLayoutEffect(() => {
 		if (isAnimationEnabled === false) {
