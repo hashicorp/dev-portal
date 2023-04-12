@@ -10,6 +10,7 @@ import DocsViewLayout from 'layouts/docs-view-layout'
 import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
 import LandingHero from 'components/landing-hero'
+import DocsPageHeading from './components/docs-page-heading'
 import { DocsViewProps } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import getDocsMdxComponents from './utils/get-docs-mdx-components'
@@ -44,40 +45,47 @@ const DocsView = ({
 	projectName,
 	layoutProps,
 	outlineItems,
+	pageHeading,
 }: DocsViewProps) => {
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
 	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
 	const Layout = layouts[metadata?.layout?.name] ?? DefaultLayout
 
-	/**
-	 * Extract a pageHeading item, we might use this in the `LandingHero`.
-	 * TODO: move this server-side.
-	 */
-	const pageHeading = {
-		id: outlineItems[0].url.substring(1),
-		title: outlineItems[0].title,
-	}
-
+	const hasPageHeading = pageHeading?.id && pageHeading?.title
 	const hasLandingHero = metadata?.layout?.name === 'docs-root-landing'
 
 	return (
 		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
-			<div className={s.heroAndVersionHeader}>
-				{versions ? (
-					<div className={s.versionSwitcherWrapper}>
-						<DocsVersionSwitcher options={versions} projectName={projectName} />
+			{hasPageHeading ? (
+				<div
+					className={classNames(s.heroAndVersionHeader, {
+						[s.hasLandingHero]: hasLandingHero,
+					})}
+				>
+					{versions ? (
+						<div className={s.versionSwitcherWrapper}>
+							<DocsVersionSwitcher
+								options={versions}
+								projectName={projectName}
+							/>
+						</div>
+					) : null}
+
+					<div className={s.pageHeadingWrapper}>
+						{hasLandingHero ? (
+							<LandingHero
+								pageHeading={pageHeading}
+								pageSubtitle={metadata.layout.subtitle}
+							/>
+						) : (
+							<DocsPageHeading id={pageHeading.id}>
+								{pageHeading.title}
+							</DocsPageHeading>
+						)}
 					</div>
-				) : null}
-				{hasLandingHero ? (
-					<div className={s.landingHeroWrapper}>
-						<LandingHero
-							pageHeading={pageHeading}
-							pageSubtitle={metadata.layout.subtitle}
-						/>
-					</div>
-				) : null}
-			</div>
+				</div>
+			) : null}
 			<NoIndexTagIfVersioned />
 			<DevDotContent
 				mdxRemoteProps={{

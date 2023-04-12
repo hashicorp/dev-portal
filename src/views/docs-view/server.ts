@@ -40,6 +40,7 @@ import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { DocsViewProps } from './types'
+import remarkPluginRemoveH1 from 'lib/remark-plugins/remark-plugin-remove-h1'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -178,6 +179,12 @@ export function getStaticGenerationFunctions<
 					 * expected to have been run for remote content.
 					 */
 					[anchorLinks, { headings }],
+					/**
+					 * Remove the `<h1 />` from MDX, we'll render this outside
+					 * the MDX content area, integrating it into our layout
+					 * in various ways depending on the specific docs view used.
+					 */
+					remarkPluginRemoveH1,
 					/**
 					 * The `contentType` configuration is necessary so that the
 					 * `rewriteTutorialLinksPlugin` does not rewrite links like
@@ -361,6 +368,18 @@ export function getStaticGenerationFunctions<
 				(versions.length > 1 || versions[0].version !== 'v0.0.x')
 
 			/**
+			 * Construct a page heading object from outline data.
+			 * We'll render this to replace the `<h1 />` we're removed from MDX.
+			 * This gives us flexibility in how we lay out the `<h1 />`,
+			 * such as placing it in the same flex container as the version select,
+			 * or constructing the "Landing Hero" on docs landing pages.
+			 */
+			const pageHeading = {
+				id: outlineItems[0].url.substring(1),
+				title: outlineItems[0].title,
+			}
+
+			/**
 			 * We want to show "Edit on GitHub" links for public content repos only.
 			 * Currently, HCP and Sentinel docs are stored in private repositories.
 			 *
@@ -393,6 +412,7 @@ export function getStaticGenerationFunctions<
 					}),
 				},
 				outlineItems,
+				pageHeading,
 				mdxSource,
 				product: {
 					...product,
