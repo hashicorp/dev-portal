@@ -129,7 +129,15 @@ const SearchFeaturedCard = () => {
 							<button
 								id={id}
 								key={id}
-								className={s.searchCardButton}
+								className={classNames(
+									s.searchCardButton,
+									index === currentIndex && s.currentSearchCardButton
+								)}
+								onFocus={() => {
+									if (index !== currentIndex) {
+										setCurrentIndex(index)
+									}
+								}}
 								onClick={() => {
 									setIsAnimationEnabled(false)
 									if (index === currentIndex) {
@@ -139,7 +147,6 @@ const SearchFeaturedCard = () => {
 										setCurrentIndex(index)
 									}
 								}}
-								tabIndex={index === currentIndex ? 0 : -1}
 							>
 								<div className={s.buttonContent}>
 									<Text

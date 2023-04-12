@@ -103,7 +103,9 @@
 	z-index: 1;
 	transition: opacity 120ms ease-in-out;
 
-	&[tabindex='0'] {
+	&:focus,
+	&:focus-visible,
+	&.currentSearchCardButton {
 		opacity: 1;
 		z-index: 3;
 	}
