@@ -45,6 +45,10 @@ const DocsVersionSwitcher = ({
 		return null
 	}
 
+	const latestVersion = options.find(
+		(option: VersionSelectItem) => option.isLatest === true
+	)
+
 	// Get the selected option
 	const selectedVersion = getVersionFromPath(currentPath)
 	let selectedOption: DocsVersionSwitcherOption
@@ -53,7 +57,7 @@ const DocsVersionSwitcher = ({
 			(option: DocsVersionSwitcherOption) => option.version === selectedVersion
 		)
 	} else {
-		selectedOption = options[0]
+		selectedOption = latestVersion
 	}
 
 	// Build the `ariaLabel` that is announced when the activator is focused
