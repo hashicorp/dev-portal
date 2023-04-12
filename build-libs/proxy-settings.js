@@ -33,18 +33,6 @@ const proxySettings = {
 			...getDevPortalRoutesToProxy('sentinel'),
 		],
 	},
-	waypoint: {
-		domain: proxyConfig.waypoint.domain,
-		host: proxyConfig.waypoint.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
-			...buildAssetRoutesToProxy(
-				proxyConfig.waypoint.assets,
-				'/waypoint-public'
-			),
-			...getDevPortalRoutesToProxy('waypoint'),
-		],
-	},
 }
 module.exports = proxySettings
 

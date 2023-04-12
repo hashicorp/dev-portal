@@ -33,9 +33,6 @@ const PROXIED_PRODUCT = getProxiedProductSlug()
 const HOSTNAME_MAP = {
 	'docs.hashicorp.com': 'sentinel',
 	'test-st.hashi-mktg.com': 'sentinel',
-
-	'www.waypointproject.io': 'waypoint',
-	'test-wp.hashi-mktg.com': 'waypoint',
 }
 
 // Redirect all proxied product pages
