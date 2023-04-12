@@ -85,7 +85,7 @@ describe('DocsVersionSwitcher', () => {
 			{ wrapper }
 		)
 
-		// assert that only 2 of the 3 versions are shown in the dropdown
+		// assert that only n-1 versions are shown in the dropdown
 		const links = queryAllByRole('link')
 		expect(links).toHaveLength(3)
 
@@ -110,7 +110,7 @@ describe('DocsVersionSwitcher', () => {
 		// link to latest
 		expect(links[1]).not.toHaveAttribute('rel')
 
-		// link to v0.7.x
+		// link to an older version
 		expect(links[2]).toHaveAttribute('rel', 'nofollow')
 	})
 })
