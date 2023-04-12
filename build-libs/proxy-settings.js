@@ -33,24 +33,6 @@ const proxySettings = {
 			...getDevPortalRoutesToProxy('sentinel'),
 		],
 	},
-	vagrant: {
-		domain: proxyConfig.vagrant.domain,
-		host: proxyConfig.vagrant.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/vagrant'),
-			...buildAssetRoutesToProxy(proxyConfig.vagrant.assets, '/vagrant-public'),
-			...getDevPortalRoutesToProxy('vagrant'),
-		],
-	},
-	vault: {
-		domain: proxyConfig.vault.domain,
-		host: proxyConfig.vault.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/vault'),
-			...buildAssetRoutesToProxy(proxyConfig.vault.assets, '/vault-public'),
-			...getDevPortalRoutesToProxy('vault'),
-		],
-	},
 }
 module.exports = proxySettings
 

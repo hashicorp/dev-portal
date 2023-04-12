@@ -36,19 +36,6 @@ test('should use middleware redirects', async ({ page, context, baseURL }) => {
 	expect(pathname).toBe('/')
 })
 
-test('should use glob-based redirects', async ({ page, context, baseURL }) => {
-	await context.addCookies([
-		{
-			name: 'hc_dd_proxied_site',
-			value: 'www.vaultproject.io',
-			url: baseURL,
-		},
-	])
-	await page.goto('/security/index.html')
-	const { pathname } = new URL(page.url())
-	expect(pathname).toBe('/security')
-})
-
 test('should use dev portal redirects', async ({ page, context, baseURL }) => {
 	await page.goto('/hashicorp-cloud-platform')
 	const { pathname } = new URL(page.url())
