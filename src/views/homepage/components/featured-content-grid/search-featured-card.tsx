@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import classNames from 'classnames'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import useSafeLayoutEffect from 'hooks/use-safe-layout-effect'
 import Card from 'components/card'
@@ -159,6 +160,17 @@ const SearchFeaturedCard = () => {
 							</button>
 						)
 					})}
+				</div>
+				<div className={s.positionIndicatorBar}>
+					{FEATURED_SEARCH_TERMS.map((_, index) => (
+						<div
+							className={classNames(
+								s.positionIndicator,
+								index === currentIndex && s.currentPositionIndicator
+							)}
+							key={`position-indicator-${index}`}
+						/>
+					))}
 				</div>
 			</div>
 		</Card>

@@ -111,6 +111,7 @@
 
 .buttonContent {
 	align-items: center;
+	background-color: var(--token-color-foreground-strong);
 	border-radius: inherit;
 	display: flex;
 	gap: 16px;
@@ -118,5 +119,29 @@
 	padding-left: 24px;
 	padding-right: 24px;
 	padding-top: 16px;
-	background-color: var(--token-color-foreground-strong);
+}
+
+.positionIndicatorBar {
+	position: absolute;
+	bottom: 12px;
+	left: 0;
+	right: 0;
+	z-index: 3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+
+.positionIndicator {
+	background-color: #8a8ea0;
+	border-radius: 5px;
+	height: 6px;
+	width: 10px;
+	transition: width 120ms ease-in-out, color 120ms ease-in-out;
+
+	&.currentPositionIndicator {
+		background-color: #d2d5e2;
+		width: 26px;
+	}
 }
