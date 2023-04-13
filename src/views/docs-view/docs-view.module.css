@@ -19,7 +19,7 @@
 	margin-bottom: 16px;
 
 	/* When rendering the landing hero element, bump up the bottom margin */
-	&.asLandingHero {
+	&.hasLandingHero {
 		margin-bottom: 32px;
 	}
 }

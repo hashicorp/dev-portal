@@ -4,41 +4,34 @@
  */
 
 import classNames from 'classnames'
-import DocsVersionSwitcher from 'components/docs-version-switcher'
-import LandingHero from 'components/landing-hero'
-import DocsPlainPageHeading from '../docs-plain-page-heading'
 import s from './docs-page-heading.module.css'
 
 function DocsPageHeading({
-	asLandingHero,
 	className,
-	pageHeading,
-	projectName,
-	subtitle,
-	versions,
+	versionSelectorSlot,
+	headingSlot,
 }: {
-	asLandingHero: boolean
-	/** Optional className to set `margin` on the root element.  */
+	/**
+	 * Optional className to set `margin` on the root element.
+	 */
 	className?: string
-	pageHeading: { id: string; title: string }
-	projectName?: string
-	subtitle: string
-	versions: $TSFixMe
+	/**
+	 * Heading element to render, expected to work as narrow as 20em.
+	 * Layed out to occupy as much of the width of the container as it can.
+	 */
+	headingSlot?: $TSFixMe
+	/**
+	 * Optional version select element to render alongside the heading.
+	 * Layed out to never shrink below its max-content width, and yields as much
+	 * space as possible to the adjacent heading element. When flex-wrap
+	 * puts it on a single line, it grows to fill the container.
+	 */
+	versionSelectorSlot?: $TSFixMe
 }) {
 	return (
 		<div className={classNames(s.root, className)}>
-			{versions ? (
-				<div className={s.versionSwitcherWrapper}>
-					<DocsVersionSwitcher options={versions} projectName={projectName} />
-				</div>
-			) : null}
-			<div className={s.pageHeadingWrapper}>
-				{asLandingHero ? (
-					<LandingHero pageHeading={pageHeading} pageSubtitle={subtitle} />
-				) : (
-					<DocsPlainPageHeading id={pageHeading.id} title={pageHeading.title} />
-				)}
-			</div>
+			<div className={s.versionSwitcherWrapper}>{versionSelectorSlot}</div>
+			<div className={s.pageHeadingWrapper}>{headingSlot}</div>
 		</div>
 	)
 }

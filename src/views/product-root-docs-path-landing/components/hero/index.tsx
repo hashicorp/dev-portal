@@ -8,6 +8,8 @@ import { ProductRootDocsPathLandingIconCardLinkGrid } from 'views/product-root-d
 import { ProductRootDocsPathLandingHeroProps } from './types'
 import s from './hero.module.css'
 import DocsPageHeading from 'views/docs-view/components/docs-page-heading'
+import LandingHero from 'components/landing-hero'
+import DocsVersionSwitcher from 'components/docs-version-switcher'
 
 const ProductRootDocsPathLandingHero = ({
 	pageHeading,
@@ -20,10 +22,10 @@ const ProductRootDocsPathLandingHero = ({
 	return (
 		<header>
 			<DocsPageHeading
-				asLandingHero
-				pageHeading={pageHeading}
-				subtitle={pageSubtitle}
-				versions={versions}
+				versionSelectorSlot={<DocsVersionSwitcher options={versions} />}
+				headingSlot={
+					<LandingHero pageHeading={pageHeading} pageSubtitle={pageSubtitle} />
+				}
 			/>
 			{currentProduct.slug !== 'terraform' ? (
 				<div className={s.iconCardGridLink}>

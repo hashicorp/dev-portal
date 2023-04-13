@@ -11,22 +11,27 @@ import DocsPageHeading from './components/docs-page-heading'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import getDocsMdxComponents from './utils/get-docs-mdx-components'
 import s from './docs-view.module.css'
+import LandingHero from 'components/landing-hero'
+import DocsPlainPageHeading from './components/docs-plain-page-heading'
+import DocsVersionSwitcher from 'components/docs-version-switcher'
 
 /**
  * Layouts
  *
- * Note: layout in frontmatter is not supported yet, this is early stage work.
+ * Note: layout in frontmatter is not fully supported yet.
  * Asana task: https://app.asana.com/0/1202097197789424/1202850056121889/f
  *
- * Note: this layout logic is used for non-`/docs` landing pages.
- * The `/docs` landing pages use `ProductRootDocsPathLanding`.
- * We could consider this approach, as it implies arbitrary layouts
- * are supported via frontmatter. We could also consider renaming the
- * "layout" property to something like "contentLayout", as otherwise
- * it seems like it could be confused with broader "src/layouts" code.
+ * Note: layout adjustments may make sense to adjust in `getStaticProps` logic,
+ * rather than adjust during render. For example, this could could give us
+ * more granular and efficient control over processing markdown and extracting
+ * or replacing specific elements.
  * Task: https://app.asana.com/0/1202097197789424/1204069295311480/f
+ *
+ * For now, we're kind of imitating the proposed layouts-in-frontmatter approach
+ * by setting `docs-root-landing` in `get-custom-layout.ts`, detecting that
+ * here, and rendering a slightly different page heading as a result.
  */
-function checkHasLandingHero(layoutData) {
+function isDocsRootLandingLayout(layoutData) {
 	return layoutData?.name === 'docs-root-landing'
 }
 
@@ -45,7 +50,10 @@ const DocsView = ({
 	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
 
 	/**
-	 * Check if we have a `pageHeading` to render.
+	 * Check if we have a `pageHeading` to render. The `DocsPageHeading` element
+	 * is used on nearly all docs pages, to render a heading element alongside an
+	 * optional version selector. On docs "landing" pages, the heading element
+	 * takes on additional styles (see `LandingHero`).
 	 *
 	 * The one use case where we don't have this is for Packer plugin docs,
 	 * which uses this `DocsView` component directly but uses `docs-view/server`
@@ -58,7 +66,21 @@ const DocsView = ({
 	 * at which point we can always safely render <DocsPageHeading />.
 	 */
 	const renderPageHeadingOutsideMdx = pageHeading?.id && pageHeading?.title
-	const hasLandingHero = checkHasLandingHero(metadata.layout)
+	const hasLandingHero = isDocsRootLandingLayout(metadata.layout)
+	// For `docs-root-landing` layouts, use <LandingHero /> as the heading element
+	let headingSlot
+	if (hasLandingHero) {
+		headingSlot = (
+			<LandingHero
+				pageHeading={pageHeading}
+				pageSubtitle={metadata?.layout?.subtitle}
+			/>
+		)
+	} else {
+		headingSlot = (
+			<DocsPlainPageHeading id={pageHeading.id} title={pageHeading.title} />
+		)
+	}
 
 	return (
 		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
@@ -67,11 +89,10 @@ const DocsView = ({
 					className={classNames(s.docsPageHeading, {
 						[s.hasLandingHero]: hasLandingHero,
 					})}
-					asLandingHero={hasLandingHero}
-					subtitle={metadata?.layout?.subtitle}
-					pageHeading={pageHeading}
-					versions={versions}
-					projectName={projectName}
+					versionSelectorSlot={
+						<DocsVersionSwitcher options={versions} projectName={projectName} />
+					}
+					headingSlot={headingSlot}
 				/>
 			) : null}
 			<NoIndexTagIfVersioned />
