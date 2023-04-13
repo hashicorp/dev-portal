@@ -134,40 +134,35 @@ const SearchFeaturedCard = () => {
 	}
 
 	return (
-		<Card className={s.searchCard} elevation="base">
-			<div className={s.searchCardText}>
-				<Heading level={2} size={400} weight="bold">
-					Search with ease
-				</Heading>
-				<Text size={200} weight="medium">
-					Explore highly regarded resources
-					<br />
-					on a wide range of topics.
-				</Text>
-			</div>
-			<div className={s.searchCardCarousel}>
-				<div className={s.searchCardCarouselBackground} />
+		<Card className={s.root} elevation="base">
+			<Heading className={s.heading} level={2} size={400} weight="bold">
+				Search with ease
+			</Heading>
+			<Text className={s.description} size={200} weight="medium">
+				<span>Find examples, reference material,</span>
+				<span>and architecture guidance</span>
+			</Text>
+			<div className={s.carousel}>
+				<div className={s.blurredBackground} />
 				<div className={s.fadedBackground} />
-				<div className={s.searchCardButtonContainer} ref={scrollableAreaRef}>
+				<div className={s.buttonContainer} ref={scrollableAreaRef}>
 					{FEATURED_SEARCH_TERMS.map((term, index) => {
 						const id = `search-term-${index}`
+						const isCurrent = index === currentIndex
 						return (
 							<button
 								id={id}
 								key={id}
-								className={classNames(
-									s.searchCardButton,
-									index === currentIndex && s.currentSearchCardButton
-								)}
+								className={classNames(s.button, isCurrent && s.currentButton)}
 								onClick={() => handleClickOrFocus('click', index)}
 								onFocus={() => handleClickOrFocus('focus', index)}
 							>
 								<div className={s.buttonContent}>
 									<Text
 										asElement="span"
+										className={s.buttonText}
 										size={200}
 										weight="semibold"
-										style={{ whiteSpace: 'nowrap' }}
 									>
 										{term}
 									</Text>
@@ -183,15 +178,18 @@ const SearchFeaturedCard = () => {
 					})}
 				</div>
 				<div className={s.positionIndicatorBar}>
-					{FEATURED_SEARCH_TERMS.map((_, index) => (
-						<div
-							className={classNames(
-								s.positionIndicator,
-								index === currentIndex && s.currentPositionIndicator
-							)}
-							key={`position-indicator-${index}`}
-						/>
-					))}
+					{FEATURED_SEARCH_TERMS.map((_, index) => {
+						const id = `position-indicator-${index}`
+						return (
+							<div
+								className={classNames(
+									s.positionIndicator,
+									index === currentIndex && s.currentPositionIndicator
+								)}
+								key={id}
+							/>
+						)
+					})}
 				</div>
 			</div>
 		</Card>

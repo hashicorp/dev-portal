@@ -1,30 +1,36 @@
-.searchCard {
+.root {
 	background: url('../../img/search-card-graphic.svg');
 	background-color: var(--token-color-foreground-strong);
 	background-size: cover;
-	background-position: center center;
+	background-position: center left;
 	border-radius: 10px;
-	box-shadow: none;
+	box-shadow: none; /* TODO - should there be elevation? */
 	padding-bottom: 18px;
 	padding-left: 24px;
 	padding-right: 24px;
 	padding-top: 20px;
 }
 
-.searchCardText {
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	margin-bottom: 20px;
+.heading {
+	margin-bottom: 8px;
 }
 
-.searchCardCarousel {
+.description {
+	margin-bottom: 20px;
+
+	/* to break up lines without using a <br /> */
+	& span {
+		display: block;
+	}
+}
+
+.carousel {
 	border-radius: 10px;
 	overflow: hidden;
 	position: relative;
 }
 
-.searchCardCarouselBackground {
+.blurredBackground {
 	backdrop-filter: blur(5px);
 	background: linear-gradient(
 			90deg,
@@ -52,14 +58,14 @@
 	);
 	bottom: 0;
 	left: 0;
+	pointer-events: none; /* allow clicks to pass through this element */
 	position: absolute;
 	right: 0;
 	top: 0;
 	z-index: 2;
-	pointer-events: none;
 }
 
-.searchCardButtonContainer {
+.buttonContainer {
 	align-items: center;
 	display: flex;
 	gap: 24px;
@@ -68,9 +74,14 @@
 	padding-bottom: 38px;
 	padding-top: 38px;
 	position: relative;
-	scroll-behavior: smooth;
 	scroll-snap-type: x mandatory;
 
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		scroll-behavior: smooth;
+	}
+
+	/* spacers that enable the first/last buttons to be centered */
 	&::before,
 	&::after {
 		content: '';
@@ -79,7 +90,7 @@
 	}
 }
 
-.searchCardButton {
+.button {
 	/* composition */
 	composes: g-focus-ring-from-box-shadow-dark from global;
 
@@ -96,19 +107,24 @@
 		#14c6cb59,
 		#0850c559,
 		#45416100
-	);
+	); /* TODO - are these tokens? */
+
 	border-radius: 10px;
-	color: var(--token-color-palette-neutral-0);
 	border: none;
-	scroll-snap-align: center;
-	padding: 1px 0;
+	color: var(--token-color-palette-neutral-0);
 	opacity: 0.5;
+	padding: 1px 0;
+	scroll-snap-align: center;
 	z-index: 1;
-	transition: opacity 120ms ease-in-out;
+
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: opacity 120ms ease-in-out;
+	}
 
 	&:focus,
 	&:focus-visible,
-	&.currentSearchCardButton {
+	&.currentButton {
 		opacity: 1;
 		z-index: 3;
 	}
@@ -126,27 +142,35 @@
 	padding-top: 16px;
 }
 
+.buttonText {
+	white-space: nowrap;
+}
+
 .positionIndicatorBar {
-	position: absolute;
+	align-items: center;
 	bottom: 12px;
+	display: flex;
+	gap: 10px;
+	justify-content: center;
 	left: 0;
+	position: absolute;
 	right: 0;
 	z-index: 3;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 10px;
 }
 
 .positionIndicator {
-	background-color: #8a8ea0;
+	background-color: #8a8ea0; /* TODO - a token? */
 	border-radius: 5px;
 	height: 6px;
 	width: 10px;
-	transition: width 120ms ease-in-out, color 120ms ease-in-out;
+
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: width 120ms ease-in-out, color 120ms ease-in-out;
+	}
 
 	&.currentPositionIndicator {
-		background-color: #d2d5e2;
+		background-color: #d2d5e2; /* TODO - a token? */
 		width: 26px;
 	}
 }
