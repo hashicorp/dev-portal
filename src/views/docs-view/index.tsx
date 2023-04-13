@@ -10,7 +10,7 @@ import DocsViewLayout from 'layouts/docs-view-layout'
 import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
 import LandingHero from 'components/landing-hero'
-import DocsPageHeading from './components/docs-page-heading'
+import DocsPlainPageHeading from './components/docs-plain-page-heading'
 import { DocsViewProps } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import getDocsMdxComponents from './utils/get-docs-mdx-components'
@@ -71,7 +71,6 @@ const DocsView = ({
 							/>
 						</div>
 					) : null}
-
 					<div className={s.pageHeadingWrapper}>
 						{hasLandingHero ? (
 							<LandingHero
@@ -79,9 +78,10 @@ const DocsView = ({
 								pageSubtitle={metadata.layout.subtitle}
 							/>
 						) : (
-							<DocsPageHeading id={pageHeading.id}>
-								{pageHeading.title}
-							</DocsPageHeading>
+							<DocsPlainPageHeading
+								id={pageHeading.id}
+								title={pageHeading.title}
+							/>
 						)}
 					</div>
 				</div>

@@ -4,21 +4,14 @@
  */
 
 import Heading from 'components/heading'
-import s from './docs-page-heading.module.css'
-import { ReactNode } from 'react'
+import s from './docs-plain-page-heading.module.css'
 
-function DocsPageHeading({
-	id,
-	children,
-}: {
-	id: string
-	children: ReactNode
-}) {
+function DocsPlainPageHeading({ id, title }: { id: string; title: string }) {
 	return (
 		<Heading className={s.root} id={id} level={1} size={600} weight="bold">
-			{children}
+			{title}
 		</Heading>
 	)
 }
 
-export default DocsPageHeading
+export default DocsPlainPageHeading
