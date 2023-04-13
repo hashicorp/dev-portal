@@ -6,9 +6,7 @@
 import dynamic from 'next/dynamic'
 
 const productLayoutDict = {
-	waypoint: dynamic(() => import('layouts/_proxied-dot-io/waypoint')),
 	sentinel: dynamic(() => import('layouts/_proxied-dot-io/sentinel')),
-	vault: dynamic(() => import('layouts/_proxied-dot-io/vault')),
 }
 
 export default productLayoutDict
