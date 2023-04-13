@@ -15,6 +15,7 @@ import { DocsViewProps } from './types'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import getDocsMdxComponents from './utils/get-docs-mdx-components'
 import s from './docs-view.module.css'
+import DocsPageHeading from './components/docs-page-heading'
 
 /**
  * Layouts
@@ -57,34 +58,24 @@ const DocsView = ({
 
 	return (
 		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
+			{/* Render the DocsPageHeading, but only if we have the pageHeading
+			    prop available. The one use case where we don't have this is for
+					Packer plugin docs, which uses this `DocsView` component directly
+					but uses `docs-view/server` indirectly, with some other modifications,
+					such as add badges above the page heading. Packer plugins MDX
+					processing does _not_ remove the `<h1 />` from MDX content, so we
+					do not want to render a duplicative `DocsPageHeading` `h1` element.
+
+					The Packer plugins use case will fade away after Integrations work,
+					at which point we can always safely render <DocsPageHeading />. */}
 			{hasPageHeading ? (
-				<div
-					className={classNames(s.heroAndVersionHeader, {
-						[s.hasLandingHero]: hasLandingHero,
-					})}
-				>
-					{versions ? (
-						<div className={s.versionSwitcherWrapper}>
-							<DocsVersionSwitcher
-								options={versions}
-								projectName={projectName}
-							/>
-						</div>
-					) : null}
-					<div className={s.pageHeadingWrapper}>
-						{hasLandingHero ? (
-							<LandingHero
-								pageHeading={pageHeading}
-								pageSubtitle={metadata.layout.subtitle}
-							/>
-						) : (
-							<DocsPlainPageHeading
-								id={pageHeading.id}
-								title={pageHeading.title}
-							/>
-						)}
-					</div>
-				</div>
+				<DocsPageHeading
+					hasLandingHero={hasLandingHero}
+					subtitle={metadata?.layout?.subtitle}
+					pageHeading={pageHeading}
+					versions={versions}
+					projectName={projectName}
+				/>
 			) : null}
 			<NoIndexTagIfVersioned />
 			<DevDotContent
