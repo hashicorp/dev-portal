@@ -54,8 +54,12 @@ export interface DocsViewProps {
 
 	/**
 	 * Page heading, renders the `<h1 />` for the page outside the MDX area.
+	 *
 	 * Optional. If provided, the MDX area should have its `<h1 />` removed
-	 * using `remarkPluginRemoveH1`.
+	 * using `remarkPluginRemoveH1`. The one case where we do _not_ use
+	 * `pageHeading` is in Packer plugins. That use case is expected to be
+	 * deprecated soon, so we may be able to make this a required property
+	 * in the near future.
 	 */
 	pageHeading?: {
 		id: string
