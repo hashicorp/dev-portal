@@ -21,7 +21,9 @@ import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-
 import { isDeployPreview } from 'lib/env-checks'
 import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
 import { withTiming } from 'lib/with-timing'
-import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
+import outlineItemsFromHeadings, {
+	AnchorLinksPluginHeading,
+} from 'components/outline-nav/utils/outline-items-from-headings'
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
@@ -167,7 +169,7 @@ export function getStaticGenerationFunctions<
 				basePathForLoader,
 				pathParts.join('/')
 			)}`
-			const headings = [] // populated by anchorLinks plugin below
+			const headings: AnchorLinksPluginHeading[] = [] // populated by anchorLinks plugin below
 
 			const loader = getLoader({
 				mainBranch,
@@ -210,6 +212,24 @@ export function getStaticGenerationFunctions<
 				],
 				scope: await getScope(),
 			})
+
+			/**
+			 * Construct a page heading object from outline data.
+			 * We'll render this to replace the `<h1 />` we're removed from MDX.
+			 *
+			 * This gives us flexibility in how we lay out the `<h1 />`,
+			 * such as placing it in the same flex container as the version select,
+			 * or constructing the "Landing Hero" on docs landing pages.
+			 *
+			 * Note: we are relying here on a few document properties as
+			 * asserted by our content conformance work:
+			 * - We expect there to be an `<h1 />` in every docs `.mdx` document
+			 * - We expect the `<h1 />` to be the first heading in the document
+			 */
+			const pageHeading = {
+				id: headings[0].slug,
+				title: headings[0].title,
+			}
 
 			/**
 			 * Try to load the static props for the given context. If there is a
@@ -366,18 +386,6 @@ export function getStaticGenerationFunctions<
 			const hasMeaningfulVersions =
 				versions.length > 0 &&
 				(versions.length > 1 || versions[0].version !== 'v0.0.x')
-
-			/**
-			 * Construct a page heading object from outline data.
-			 * We'll render this to replace the `<h1 />` we're removed from MDX.
-			 * This gives us flexibility in how we lay out the `<h1 />`,
-			 * such as placing it in the same flex container as the version select,
-			 * or constructing the "Landing Hero" on docs landing pages.
-			 */
-			const pageHeading = {
-				id: outlineItems[0].url.substring(1),
-				title: outlineItems[0].title,
-			}
 
 			/**
 			 * We want to show "Edit on GitHub" links for public content repos only.
