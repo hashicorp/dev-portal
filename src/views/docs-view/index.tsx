@@ -4,18 +4,14 @@
  */
 
 import dynamic from 'next/dynamic'
-import classNames from 'classnames'
 import { useCurrentProduct } from 'contexts'
 import DocsViewLayout from 'layouts/docs-view-layout'
 import DevDotContent from 'components/dev-dot-content'
-import DocsVersionSwitcher from 'components/docs-version-switcher'
-import LandingHero from 'components/landing-hero'
-import DocsPlainPageHeading from './components/docs-plain-page-heading'
 import { DocsViewProps } from './types'
+import DocsPageHeading from './components/docs-page-heading'
 import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import getDocsMdxComponents from './utils/get-docs-mdx-components'
 import s from './docs-view.module.css'
-import DocsPageHeading from './components/docs-page-heading'
 
 /**
  * Layouts
