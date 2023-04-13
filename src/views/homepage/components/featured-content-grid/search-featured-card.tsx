@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import usePrefersReducedMotion from 'lib/hooks/usePrefersReducedMotion'
-import useSafeLayoutEffect from 'hooks/use-safe-layout-effect'
 import Card from 'components/card'
 import { useCommandBar } from 'components/command-bar'
 import Heading from 'components/heading'
@@ -32,7 +31,7 @@ const SearchFeaturedCard = () => {
 		setIsAnimationEnabled(!prefersReducedMotion)
 	}, [prefersReducedMotion])
 
-	useSafeLayoutEffect(() => {
+	useEffect(() => {
 		if (isAnimationEnabled === false) {
 			return
 		}
@@ -52,7 +51,18 @@ const SearchFeaturedCard = () => {
 			interactionListener
 		)
 
+		const interval = setInterval(() => {
+			setCurrentIndex((prev: number) => {
+				if (prev === FEATURED_SEARCH_TERMS.length - 1) {
+					return 0
+				} else {
+					return prev + 1
+				}
+			})
+		}, 4000)
+
 		return () => {
+			clearInterval(interval)
 			document.removeEventListener('focusin', interactionListener)
 			scrollableAreaRef.current.removeEventListener(
 				'pointerenter',
@@ -61,7 +71,7 @@ const SearchFeaturedCard = () => {
 		}
 	}, [isAnimationEnabled])
 
-	useSafeLayoutEffect(() => {
+	useEffect(() => {
 		if (previousIndex.current === currentIndex) {
 			return
 		}
@@ -96,24 +106,6 @@ const SearchFeaturedCard = () => {
 
 		previousIndex.current = currentIndex
 	}, [currentIndex])
-
-	useSafeLayoutEffect(() => {
-		if (!isAnimationEnabled) {
-			return
-		}
-
-		const interval = setInterval(() => {
-			setCurrentIndex((prev: number) => {
-				if (prev === FEATURED_SEARCH_TERMS.length - 1) {
-					return 0
-				} else {
-					return prev + 1
-				}
-			})
-		}, 4000)
-
-		return () => clearInterval(interval)
-	}, [isAnimationEnabled])
 
 	/**
 	 * @TODO abstract the "is centered" logic to share in effect too
@@ -167,8 +159,8 @@ const SearchFeaturedCard = () => {
 									s.searchCardButton,
 									index === currentIndex && s.currentSearchCardButton
 								)}
-								onFocus={() => handleClickOrFocus('focus', index)}
 								onClick={() => handleClickOrFocus('click', index)}
+								onFocus={() => handleClickOrFocus('focus', index)}
 							>
 								<div className={s.buttonContent}>
 									<Text
