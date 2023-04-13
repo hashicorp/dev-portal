@@ -36,7 +36,6 @@ import rehypePrism from '@mapbox/rehype-prism'
 import shimRemoteIncludes from 'lib/shim-remote-includes'
 import { fixupPackerPluginUrls } from './fixup-plugin-urls'
 import { fixupRedirectedPackerPlugins } from './fixup-redirected-plugin-urls'
-import remarkPluginRemoveH1 from 'lib/remark-plugins/remark-plugin-remove-h1'
 
 async function generateStaticPaths({
 	navDataFile,
