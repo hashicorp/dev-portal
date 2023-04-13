@@ -2,8 +2,6 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-
-import dynamic from 'next/dynamic'
 import { useCurrentProduct } from 'contexts'
 import DocsViewLayout from 'layouts/docs-view-layout'
 import DevDotContent from 'components/dev-dot-content'
@@ -27,12 +25,9 @@ import s from './docs-view.module.css'
  * it seems like it could be confused with broader "src/layouts" code.
  * Task: https://app.asana.com/0/1202097197789424/1204069295311480/f
  */
-const layouts = {
-	'docs-root-landing': dynamic(() => import('./components/docs-root-landing')),
+function checkHasLandingHero(layoutData) {
+	return layoutData?.name === 'docs-root-landing'
 }
-const DefaultLayout = ({ children }) => (
-	<div className={s.mdxContent}>{children}</div>
-)
 
 const DocsView = ({
 	metadata,
@@ -47,10 +42,9 @@ const DocsView = ({
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
 	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
-	const Layout = layouts[metadata?.layout?.name] ?? DefaultLayout
 
 	const hasPageHeading = pageHeading?.id && pageHeading?.title
-	const hasLandingHero = metadata?.layout?.name === 'docs-root-landing'
+	const hasLandingHero = checkHasLandingHero(metadata.layout)
 
 	return (
 		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
@@ -81,7 +75,7 @@ const DocsView = ({
 					scope,
 					components: {
 						...docsMdxComponents,
-						wrapper: (props) => <Layout {...props} {...metadata?.layout} />,
+						wrapper: (props) => <div className={s.mdxContent} {...props} />,
 					},
 				}}
 			/>
