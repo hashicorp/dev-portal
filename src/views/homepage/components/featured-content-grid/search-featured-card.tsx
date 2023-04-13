@@ -107,32 +107,6 @@ const SearchFeaturedCard = () => {
 		previousIndex.current = currentIndex
 	}, [currentIndex])
 
-	/**
-	 * @TODO abstract the "is centered" logic to share in effect too
-	 */
-	const handleClickOrFocus = (type: 'click' | 'focus', buttonIndex: number) => {
-		setIsAnimationEnabled(false)
-
-		const buttonsContainer = scrollableAreaRef.current
-		const buttonChildren = Array.from(buttonsContainer.children)
-		const buttonInteractedWith = buttonChildren[buttonIndex]
-
-		const containerRectangle = buttonsContainer.getBoundingClientRect()
-		const buttonRectangle = buttonInteractedWith.getBoundingClientRect()
-
-		const leftPaddingIfCentered =
-			(containerRectangle.width - buttonRectangle.width) / 2
-		const currentLeftPadding = buttonRectangle.left - containerRectangle.left
-		const paddingDifference = leftPaddingIfCentered - currentLeftPadding
-
-		if (Math.abs(paddingDifference) > 10) {
-			setCurrentIndex(buttonIndex)
-		} else if (type === 'click') {
-			setCurrentInputValue(FEATURED_SEARCH_TERMS[buttonIndex])
-			toggleIsOpen()
-		}
-	}
-
 	return (
 		<Card className={s.root} elevation="base">
 			<Heading className={s.heading} level={2} size={400} weight="bold">
@@ -154,8 +128,14 @@ const SearchFeaturedCard = () => {
 								id={id}
 								key={id}
 								className={classNames(s.button, isCurrent && s.currentButton)}
-								onClick={() => handleClickOrFocus('click', index)}
-								onFocus={() => handleClickOrFocus('focus', index)}
+								onClick={() => {
+									if (isCurrent) {
+										setCurrentInputValue(FEATURED_SEARCH_TERMS[index])
+										toggleIsOpen()
+									} else {
+										setCurrentIndex(index)
+									}
+								}}
 							>
 								<div className={s.buttonContent}>
 									<Text
