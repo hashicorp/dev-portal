@@ -44,4 +44,9 @@
 		height: auto;
 		margin: 0;
 	}
+
+	/** Ensures broken image link text is legible on the white background */
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-surface-primary);
+	}
 }
