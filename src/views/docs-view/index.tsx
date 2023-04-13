@@ -43,7 +43,7 @@ const DocsView = ({
 	const { compiledSource, scope } = mdxSource
 	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
 
-	const hasPageHeading = pageHeading?.id && pageHeading?.title
+	const hasPageHeadingOutsideMdx = pageHeading?.id && pageHeading?.title
 	const hasLandingHero = checkHasLandingHero(metadata.layout)
 
 	return (
@@ -58,7 +58,7 @@ const DocsView = ({
 
 					The Packer plugins use case will fade away after Integrations work,
 					at which point we can always safely render <DocsPageHeading />. */}
-			{hasPageHeading ? (
+			{hasPageHeadingOutsideMdx ? (
 				<DocsPageHeading
 					hasLandingHero={hasLandingHero}
 					subtitle={metadata?.layout?.subtitle}
