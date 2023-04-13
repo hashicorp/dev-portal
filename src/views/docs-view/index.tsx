@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 import { useCurrentProduct } from 'contexts'
+import classNames from 'classnames'
 import DocsViewLayout from 'layouts/docs-view-layout'
 import DevDotContent from 'components/dev-dot-content'
 import { DocsViewProps } from './types'
@@ -43,24 +44,30 @@ const DocsView = ({
 	const { compiledSource, scope } = mdxSource
 	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
 
-	const hasPageHeadingOutsideMdx = pageHeading?.id && pageHeading?.title
+	/**
+	 * Check if we have a `pageHeading` to render.
+	 *
+	 * The one use case where we don't have this is for Packer plugin docs,
+	 * which uses this `DocsView` component directly but uses `docs-view/server`
+	 * indirectly, with some other modifications, such as adding badges above the
+	 * page heading. Packer plugins MDX processing does _not_ remove the `<h1 />`
+	 * from MDX content, so we do not want to render a duplicative
+	 * `DocsPageHeading` `h1` element.
+	 *
+	 * The Packer plugins use case will fade away after Integrations work,
+	 * at which point we can always safely render <DocsPageHeading />.
+	 */
+	const renderPageHeadingOutsideMdx = pageHeading?.id && pageHeading?.title
 	const hasLandingHero = checkHasLandingHero(metadata.layout)
 
 	return (
 		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
-			{/* Render the DocsPageHeading, but only if we have the pageHeading
-			    prop available. The one use case where we don't have this is for
-					Packer plugin docs, which uses this `DocsView` component directly
-					but uses `docs-view/server` indirectly, with some other modifications,
-					such as add badges above the page heading. Packer plugins MDX
-					processing does _not_ remove the `<h1 />` from MDX content, so we
-					do not want to render a duplicative `DocsPageHeading` `h1` element.
-
-					The Packer plugins use case will fade away after Integrations work,
-					at which point we can always safely render <DocsPageHeading />. */}
-			{hasPageHeadingOutsideMdx ? (
+			{renderPageHeadingOutsideMdx ? (
 				<DocsPageHeading
-					hasLandingHero={hasLandingHero}
+					className={classNames(s.docsPageHeading, {
+						[s.hasLandingHero]: hasLandingHero,
+					})}
+					asLandingHero={hasLandingHero}
 					subtitle={metadata?.layout?.subtitle}
 					pageHeading={pageHeading}
 					versions={versions}

@@ -12,4 +12,6 @@ export interface ProductRootDocsPathLandingHeroProps {
 	pageHeading: ProductRootDocsPathLandingProps['pageHeading']
 	pageSubtitle: string
 	iconCardGridItems?: IconCardGridItem[]
+	versions: $TSFixMe
+	projectName?: string
 }

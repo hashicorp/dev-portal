@@ -11,19 +11,10 @@
 	/* DOM order is version selector, then title. On small viewports, with
 	   wrapping, we have multiple rows so row-reverse has no effect.
 		 On large viewports, where we have space to put everything in one row,
-		 we show the version selector after the landingHero (if present). */
+		 we show the version selector after the landingHero (if used). */
 	flex-direction: row-reverse;
 	flex-wrap: wrap;
 	gap: 16px;
-	margin-bottom: 16px;
-
-	/* When rendering the landing hero element, bump up the bottom margin */
-
-	/* TODO: consider a more composition-ish approach here? Maybe
-	   <HeadingWithVersionLayout> with render slots or something? */
-	&.hasLandingHero {
-		margin-bottom: 32px;
-	}
 }
 
 .pageHeadingWrapper {

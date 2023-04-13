@@ -10,31 +10,30 @@ import DocsPlainPageHeading from '../docs-plain-page-heading'
 import s from './docs-page-heading.module.css'
 
 function DocsPageHeading({
-	hasLandingHero,
+	asLandingHero,
+	className,
 	pageHeading,
 	projectName,
 	subtitle,
 	versions,
 }: {
-	hasLandingHero: boolean
+	asLandingHero: boolean
+	/** Optional className to set `margin` on the root element.  */
+	className?: string
 	pageHeading: { id: string; title: string }
-	projectName: string
-	subtitle: string // metadata.layout.subtitle
+	projectName?: string
+	subtitle: string
 	versions: $TSFixMe
 }) {
 	return (
-		<div
-			className={classNames(s.root, {
-				[s.hasLandingHero]: hasLandingHero,
-			})}
-		>
+		<div className={classNames(s.root, className)}>
 			{versions ? (
 				<div className={s.versionSwitcherWrapper}>
 					<DocsVersionSwitcher options={versions} projectName={projectName} />
 				</div>
 			) : null}
 			<div className={s.pageHeadingWrapper}>
-				{hasLandingHero ? (
+				{asLandingHero ? (
 					<LandingHero pageHeading={pageHeading} pageSubtitle={subtitle} />
 				) : (
 					<DocsPlainPageHeading id={pageHeading.id} title={pageHeading.title} />

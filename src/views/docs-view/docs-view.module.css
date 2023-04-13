@@ -14,3 +14,12 @@
 		margin-top: 0;
 	}
 }
+
+.docsPageHeading {
+	margin-bottom: 16px;
+
+	/* When rendering the landing hero element, bump up the bottom margin */
+	&.asLandingHero {
+		margin-bottom: 32px;
+	}
+}
