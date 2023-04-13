@@ -1,5 +1,8 @@
 .searchCard {
 	background: url('../../img/search-card-graphic.svg');
+	background-color: var(--token-color-foreground-strong);
+	background-size: cover;
+	background-position: center center;
 	border-radius: 10px;
 	box-shadow: none;
 	padding-bottom: 18px;
