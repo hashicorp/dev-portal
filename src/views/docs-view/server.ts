@@ -214,24 +214,6 @@ export function getStaticGenerationFunctions<
 			})
 
 			/**
-			 * Construct a page heading object from outline data.
-			 * We'll render this to replace the `<h1 />` we're removed from MDX.
-			 *
-			 * This gives us flexibility in how we lay out the `<h1 />`,
-			 * such as placing it in the same flex container as the version select,
-			 * or constructing the "Landing Hero" on docs landing pages.
-			 *
-			 * Note: we are relying here on a few document properties as
-			 * asserted by our content conformance work:
-			 * - We expect there to be an `<h1 />` in every docs `.mdx` document
-			 * - We expect the `<h1 />` to be the first heading in the document
-			 */
-			const pageHeading = {
-				id: headings[0].slug,
-				title: headings[0].title,
-			}
-
-			/**
 			 * Try to load the static props for the given context. If there is a
 			 * ContentApiError with a 404 status, return a 404 status and page.
 			 * https://nextjs.org/docs/api-reference/data-fetching/get-static-props#notfound
@@ -252,6 +234,24 @@ export function getStaticGenerationFunctions<
 
 				// Throw non-404 errors
 				throw error
+			}
+
+			/**
+			 * Construct a page heading object from outline data.
+			 * We'll render this to replace the `<h1 />` we're removed from MDX.
+			 *
+			 * This gives us flexibility in how we lay out the `<h1 />`,
+			 * such as placing it in the same flex container as the version select,
+			 * or constructing the "Landing Hero" on docs landing pages.
+			 *
+			 * Note: we are relying here on a few document properties as
+			 * asserted by our content conformance work:
+			 * - We expect there to be an `<h1 />` in every docs `.mdx` document
+			 * - We expect the `<h1 />` to be the first heading in the document
+			 */
+			const pageHeading = {
+				id: headings[0].slug,
+				title: headings[0].title,
 			}
 
 			const { navData, mdxSource, githubFileUrl, versions, frontMatter } =
