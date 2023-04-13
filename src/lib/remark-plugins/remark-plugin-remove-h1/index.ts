@@ -7,6 +7,10 @@ import { Heading } from 'mdast'
 import { Plugin, Transformer } from 'unified'
 import { visit, SKIP, Parent, Node } from 'unist-util-visit'
 
+/**
+ * This plugin removes any `<h1 />` element from the `remark` AST
+ * no which it is run.
+ */
 const remarkPluginRemoveH1: Plugin = (): Transformer => {
 	return function transformer(tree: Node) {
 		visit(
