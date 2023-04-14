@@ -76,7 +76,7 @@ const DocsView = ({
 				pageSubtitle={metadata?.layout?.subtitle}
 			/>
 		)
-	} else {
+	} else if (renderPageHeadingOutsideMdx) {
 		headingSlot = (
 			<DocsPlainPageHeading id={pageHeading.id} title={pageHeading.title} />
 		)
@@ -90,7 +90,12 @@ const DocsView = ({
 						[s.hasLandingHero]: hasLandingHero,
 					})}
 					versionSelectorSlot={
-						<DocsVersionSwitcher options={versions} projectName={projectName} />
+						versions && versions.length > 0 ? (
+							<DocsVersionSwitcher
+								options={versions}
+								projectName={projectName}
+							/>
+						) : null
 					}
 					headingSlot={headingSlot}
 				/>
