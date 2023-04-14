@@ -50,7 +50,11 @@ const DocsView = ({
 	const Layout = layouts[metadata?.layout?.name] ?? DefaultLayout
 
 	return (
-		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
+		<DocsViewLayout
+			{...layoutProps}
+			outlineItems={outlineItems}
+			versions={versions}
+		>
 			<div className={classNames(versions && s.contentWithVersions)}>
 				{versions ? (
 					<div className={s.versionSwitcherWrapper}>
