@@ -5,6 +5,7 @@
 
 import classNames from 'classnames'
 import s from './docs-page-heading.module.css'
+import { ReactNode } from 'react'
 
 function DocsPageHeading({
 	className,
@@ -19,18 +20,20 @@ function DocsPageHeading({
 	 * Heading element to render, expected to work as narrow as 20em.
 	 * Layed out to occupy as much of the width of the container as it can.
 	 */
-	headingSlot?: $TSFixMe
+	headingSlot: ReactNode
 	/**
 	 * Optional version select element to render alongside the heading.
 	 * Layed out to never shrink below its max-content width, and yields as much
 	 * space as possible to the adjacent heading element. When flex-wrap
 	 * puts it on a single line, it grows to fill the container.
 	 */
-	versionSelectorSlot?: $TSFixMe
+	versionSelectorSlot?: ReactNode
 }) {
 	return (
 		<div className={classNames(s.root, className)}>
-			<div className={s.versionSwitcherWrapper}>{versionSelectorSlot}</div>
+			{versionSelectorSlot ? (
+				<div className={s.versionSwitcherWrapper}>{versionSelectorSlot}</div>
+			) : null}
 			<div className={s.pageHeadingWrapper}>{headingSlot}</div>
 		</div>
 	)
