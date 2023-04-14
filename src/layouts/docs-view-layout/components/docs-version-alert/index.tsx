@@ -23,7 +23,7 @@ function DocsVersionAlertBanner({
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const versionFromPath = getVersionFromPath(currentPath)
 
-	// find curent version in list of versions, to give VersionAlertBanner access to `releaseStage`
+	// find curent version in list of versions
 	const { releaseStage, isLatest } = versions.find(
 		(currentVersion: VersionSelectItem) =>
 			currentVersion.version === versionFromPath
