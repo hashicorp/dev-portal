@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import deriveKeyEventState from 'lib/derive-key-event-state'
 import usePrefersReducedMotion from 'lib/hooks/usePrefersReducedMotion'
 import Card from 'components/card'
 import { useCommandBar } from 'components/command-bar'
@@ -19,7 +20,6 @@ const FEATURED_SEARCH_TERMS = [
 
 const SearchFeaturedCard = () => {
 	const scrollableAreaRef = useRef<HTMLDivElement>()
-	const previousIndex = useRef(0)
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const prefersReducedMotion = usePrefersReducedMotion()
 	const [isAnimationEnabled, setIsAnimationEnabled] = useState(
@@ -71,40 +71,25 @@ const SearchFeaturedCard = () => {
 		}
 	}, [isAnimationEnabled])
 
+	/**
+	 * When `currentIndex` changes, check if the button at that index is centered.
+	 * If it's not, then center it.
+	 */
 	useEffect(() => {
-		if (previousIndex.current === currentIndex) {
-			return
-		}
+		const { left: containerLeft, width: containerWidth } =
+			scrollableAreaRef.current.getBoundingClientRect()
+		const { left: buttonLeft, width: buttonWidth } =
+			scrollableAreaRef.current.children
+				.item(currentIndex)
+				.getBoundingClientRect()
 
-		let scrollDirectionMultiplier: -1 | 1
-		if (currentIndex > previousIndex.current) {
-			scrollDirectionMultiplier = 1
-		} else {
-			scrollDirectionMultiplier = -1
-		}
+		const widthDifference = containerWidth - buttonWidth
+		const buttonLeftWhenCentered = containerLeft + widthDifference / 2
 
-		if (
-			currentIndex === 0 &&
-			previousIndex.current === FEATURED_SEARCH_TERMS.length - 1
-		) {
-			scrollableAreaRef.current.scrollTo(0, 0)
-		} else if (
-			currentIndex === FEATURED_SEARCH_TERMS.length - 1 &&
-			previousIndex.current === 0
-		) {
-			scrollableAreaRef.current.scrollTo(
-				scrollableAreaRef.current.scrollWidth,
-				0
-			)
-		} else {
-			const { width } =
-				scrollableAreaRef.current.children[
-					previousIndex.current
-				].getBoundingClientRect()
-			scrollableAreaRef.current.scrollBy(scrollDirectionMultiplier * width, 0)
+		const buttonOffsetFromCenter = buttonLeft - buttonLeftWhenCentered
+		if (buttonOffsetFromCenter > 10) {
+			scrollableAreaRef.current.scrollBy(buttonOffsetFromCenter, 0)
 		}
-
-		previousIndex.current = currentIndex
 	}, [currentIndex])
 
 	return (
@@ -133,6 +118,12 @@ const SearchFeaturedCard = () => {
 										setCurrentInputValue(FEATURED_SEARCH_TERMS[index])
 										toggleIsOpen()
 									} else {
+										setCurrentIndex(index)
+									}
+								}}
+								onKeyUp={(e) => {
+									const { isShiftTabKey, isTabKey } = deriveKeyEventState(e)
+									if (isShiftTabKey || isTabKey) {
 										setCurrentIndex(index)
 									}
 								}}
