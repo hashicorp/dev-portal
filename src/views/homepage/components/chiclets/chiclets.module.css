@@ -4,30 +4,31 @@
  */
 
 .root {
-	margin-top: 72px;
+	margin-top: 122px;
 }
 
 .label {
 	/* composition */
-	composes: hds-typography-display-100 from global;
+	composes: hds-typography-display-400 from global;
+	composes: hds-font-weight-semibold from global;
 
 	/* properties */
 	color: var(--token-color-foreground-high-contrast);
-	font-weight: var(--token-typography-font-weight-medium);
-}
-
-.nav {
-	margin-top: 30px;
+	margin-bottom: 24px;
 }
 
 .navList {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 20px;
+	gap: 16px;
 	list-style: none;
 	margin: 0;
 	padding: 0;
 	width: 100%;
+
+	@media (--dev-dot-tablet-down) {
+		gap: 8px;
+	}
 }
 
 .navListLink {
@@ -46,19 +47,41 @@
 }
 
 .navListLinkContent {
+	align-items: center;
 	background-color: var(--token-color-foreground-strong);
 	border-radius: inherit;
 	color: var(--token-color-foreground-high-contrast);
 	display: flex;
-	font-size: 1rem;
-	font-weight: 600;
 	gap: 10px;
-	letter-spacing: -0.5px;
-	line-height: 1.5;
-	padding-bottom: 11px;
-	padding-left: 15px;
-	padding-right: 15px;
-	padding-top: 11px;
+	padding: 12px 15px;
+
+	@media (--dev-dot-tablet-down) {
+		gap: 6px;
+		padding-bottom: 7px;
+		padding-left: 9px;
+		padding-right: 9px;
+		padding-top: 7px;
+
+		& svg {
+			height: 22px;
+			width: 22px;
+		}
+	}
+}
+
+.chicletText {
+	composes: hds-font-weight-semibold from global;
+	font-family: var(--token-typography-display-200-font-family);
+	font-size: var(--token-typography-display-200-font-size);
+	line-height: var(--token-typography-display-200-line-height);
+	margin: 0;
+	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		font-family: var(--token-typography-body-200-font-family);
+		font-size: var(--token-typography-body-200-font-size);
+		line-height: var(--token-typography-body-200-line-height);
+	}
 }
 
 /*
