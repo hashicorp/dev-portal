@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import deriveKeyEventState from 'lib/derive-key-event-state'
@@ -27,17 +27,39 @@ const SearchFeaturedCard = () => {
 	)
 	const { setCurrentInputValue, toggleIsOpen } = useCommandBar()
 
+	/**
+	 * Keep the animation enabled/disabled state in sync with changes to the
+	 * `prefers-reduced-motion` setting. If a user updates their setting while the
+	 * page is open, the enabled/disabled state will update to respect the
+	 * setting's new value.
+	 */
 	useEffect(() => {
 		setIsAnimationEnabled(!prefersReducedMotion)
 	}, [prefersReducedMotion])
 
+	/**
+	 * If animation is enabled, set up the animation interval and event listeners
+	 * that are used to disable the animation with certain interactions.
+	 */
 	useEffect(() => {
+		// Nothing to do if animation is already disabled
 		if (isAnimationEnabled === false) {
 			return
 		}
 
-		const interactionListener = (event: $TSFixMe) => {
-			const isInteractionInside = scrollableAreaRef.current.contains(
+		/**
+		 * Pull element into a variable to prevent specific React warning:
+		 *
+		 * "The ref value 'scrollableAreaRef.current' will likely have changed by
+		 * the time this effect cleanup function runs. If this ref points to a node
+		 * rendered by React, copy 'scrollableAreaRef.current' to a variable inside
+		 * the effect, and use that variable in the cleanup function.""
+		 */
+		const scrollableElement = scrollableAreaRef.current
+
+		// Create focus & pointer listener
+		const interactionListener = (event: FocusEvent | PointerEvent) => {
+			const isInteractionInside = scrollableElement.contains(
 				event.target as Node
 			)
 			if (isInteractionInside) {
@@ -45,12 +67,11 @@ const SearchFeaturedCard = () => {
 			}
 		}
 
+		// Add the listener for events that should disable animation
 		document.addEventListener('focusin', interactionListener)
-		scrollableAreaRef.current.addEventListener(
-			'pointerenter',
-			interactionListener
-		)
+		scrollableElement.addEventListener('pointerenter', interactionListener)
 
+		// Set up the animation interval
 		const interval = setInterval(() => {
 			setCurrentIndex((prev: number) => {
 				if (prev === FEATURED_SEARCH_TERMS.length - 1) {
@@ -61,13 +82,11 @@ const SearchFeaturedCard = () => {
 			})
 		}, 4000)
 
+		// Clean up the listeners and interval
 		return () => {
-			clearInterval(interval)
 			document.removeEventListener('focusin', interactionListener)
-			scrollableAreaRef.current.removeEventListener(
-				'pointerenter',
-				interactionListener
-			)
+			scrollableElement.removeEventListener('pointerenter', interactionListener)
+			clearInterval(interval)
 		}
 	}, [isAnimationEnabled])
 
@@ -105,7 +124,7 @@ const SearchFeaturedCard = () => {
 				<div className={s.blurredBackground} />
 				<div className={s.fadedBackground} />
 				<div className={s.buttonContainer} ref={scrollableAreaRef}>
-					{FEATURED_SEARCH_TERMS.map((term, index) => {
+					{FEATURED_SEARCH_TERMS.map((term: string, index: number) => {
 						const id = `search-term-${index}`
 						const isCurrent = index === currentIndex
 						return (
@@ -121,7 +140,7 @@ const SearchFeaturedCard = () => {
 										setCurrentIndex(index)
 									}
 								}}
-								onKeyUp={(e) => {
+								onKeyUp={(e: KeyboardEvent<HTMLButtonElement>) => {
 									const { isShiftTabKey, isTabKey } = deriveKeyEventState(e)
 									if (isShiftTabKey || isTabKey) {
 										setCurrentIndex(index)
@@ -149,13 +168,14 @@ const SearchFeaturedCard = () => {
 					})}
 				</div>
 				<div className={s.positionIndicatorBar}>
-					{FEATURED_SEARCH_TERMS.map((_, index) => {
+					{FEATURED_SEARCH_TERMS.map((_: string, index: number) => {
 						const id = `position-indicator-${index}`
+						const isCurrent = index === currentIndex
 						return (
 							<div
 								className={classNames(
 									s.positionIndicator,
-									index === currentIndex && s.currentPositionIndicator
+									isCurrent && s.currentPositionIndicator
 								)}
 								key={id}
 							/>
