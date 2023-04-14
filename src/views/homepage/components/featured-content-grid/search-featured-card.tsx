@@ -87,7 +87,7 @@ const SearchFeaturedCard = () => {
 		const buttonLeftWhenCentered = containerLeft + widthDifference / 2
 
 		const buttonOffsetFromCenter = buttonLeft - buttonLeftWhenCentered
-		if (buttonOffsetFromCenter > 10) {
+		if (Math.abs(buttonOffsetFromCenter) > 10) {
 			scrollableAreaRef.current.scrollBy(buttonOffsetFromCenter, 0)
 		}
 	}, [currentIndex])
