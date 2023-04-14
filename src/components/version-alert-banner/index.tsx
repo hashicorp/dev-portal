@@ -29,7 +29,7 @@ export default function VersionAlertBanner({
 	let versionMessage = 'You are viewing documentation for version'
 
 	if (typeof releaseStage !== 'undefined' && releaseStage !== 'stable') {
-		versionMessage = 'You are viewing pre-released documentation for version'
+		versionMessage = `You are viewing documentation for pre-release version`
 	}
 
 	return (
