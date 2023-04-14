@@ -22,7 +22,7 @@ const SearchFeaturedCard = () => {
 	const scrollableAreaRef = useRef<HTMLDivElement>()
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const prefersReducedMotion = usePrefersReducedMotion()
-	const [isAnimationEnabled, setIsAnimationEnabled] = useState(
+	const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(
 		!prefersReducedMotion
 	)
 	const { setCurrentInputValue, toggleIsOpen } = useCommandBar()
@@ -34,7 +34,7 @@ const SearchFeaturedCard = () => {
 	 * setting's new value.
 	 */
 	useEffect(() => {
-		setIsAnimationEnabled(!prefersReducedMotion)
+		setIsAutoScrollEnabled(!prefersReducedMotion)
 	}, [prefersReducedMotion])
 
 	/**
@@ -43,7 +43,7 @@ const SearchFeaturedCard = () => {
 	 */
 	useEffect(() => {
 		// Nothing to do if animation is already disabled
-		if (isAnimationEnabled === false) {
+		if (isAutoScrollEnabled === false) {
 			return
 		}
 
@@ -63,7 +63,7 @@ const SearchFeaturedCard = () => {
 				event.target as Node
 			)
 			if (isInteractionInside) {
-				setIsAnimationEnabled(false)
+				setIsAutoScrollEnabled(false)
 			}
 		}
 
@@ -88,7 +88,7 @@ const SearchFeaturedCard = () => {
 			scrollableElement.removeEventListener('pointerenter', interactionListener)
 			clearInterval(interval)
 		}
-	}, [isAnimationEnabled])
+	}, [isAutoScrollEnabled])
 
 	/**
 	 * When `currentIndex` changes, check if the button at that index is centered.
@@ -127,25 +127,28 @@ const SearchFeaturedCard = () => {
 					{FEATURED_SEARCH_TERMS.map((term: string, index: number) => {
 						const id = `search-term-${index}`
 						const isCurrent = index === currentIndex
+						const handleClick = () => {
+							if (isCurrent) {
+								setCurrentInputValue(FEATURED_SEARCH_TERMS[index])
+								toggleIsOpen()
+							} else {
+								setCurrentIndex(index)
+							}
+						}
+						const handleKeyUp = (event: KeyboardEvent<HTMLButtonElement>) => {
+							const { isShiftTabKey, isTabKey } = deriveKeyEventState(event)
+							if (isShiftTabKey || isTabKey) {
+								setCurrentIndex(index)
+							}
+						}
+
 						return (
 							<button
 								id={id}
 								key={id}
 								className={classNames(s.button, isCurrent && s.currentButton)}
-								onClick={() => {
-									if (isCurrent) {
-										setCurrentInputValue(FEATURED_SEARCH_TERMS[index])
-										toggleIsOpen()
-									} else {
-										setCurrentIndex(index)
-									}
-								}}
-								onKeyUp={(e: KeyboardEvent<HTMLButtonElement>) => {
-									const { isShiftTabKey, isTabKey } = deriveKeyEventState(e)
-									if (isShiftTabKey || isTabKey) {
-										setCurrentIndex(index)
-									}
-								}}
+								onClick={handleClick}
+								onKeyUp={handleKeyUp}
 							>
 								<div className={s.buttonContent}>
 									<Text
