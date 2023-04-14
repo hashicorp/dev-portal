@@ -13,6 +13,12 @@
 	grid-template-columns: repeat(3, 1fr);
 	margin-bottom: 237px;
 	margin-top: 60px;
+
+	@media (--dev-dot-tablet-down) {
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+	}
 }
 
 .gridAreaA {
@@ -94,7 +100,6 @@
 .certificationsCard {
 	border: none;
 	padding-top: 0;
-	width: 373px;
 }
 
 /* TODO replace magic numbers with variables */
@@ -107,6 +112,7 @@
 	position: absolute;
 	right: 0;
 	top: -64px;
+	width: 100%;
 }
 
 .certificationsCardContentText {
@@ -161,7 +167,6 @@
 .wafCard {
 	border: none;
 	padding-top: 0;
-	width: 373px;
 }
 
 /* TODO replace magic numbers with variables */
@@ -175,4 +180,5 @@
 	position: absolute;
 	right: 0;
 	top: -25px;
+	width: 100%;
 }
