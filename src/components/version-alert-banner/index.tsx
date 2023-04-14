@@ -26,14 +26,11 @@ export default function VersionAlertBanner({
 	releaseStage?: string
 	latestVersionUrl: string
 }) {
-	function determineVersionMessage() {
-		if (typeof releaseStage !== 'undefined' && releaseStage !== 'stable') {
-			return 'You are viewing pre-released documentation for version'
-		}
-		return 'You are viewing documentation for version'
-	}
+	let versionMessage = 'You are viewing documentation for version'
 
-	const versionMessage = determineVersionMessage()
+	if (typeof releaseStage !== 'undefined' && releaseStage !== 'stable') {
+		versionMessage = 'You are viewing pre-released documentation for version'
+	}
 
 	return (
 		<PageAlert
