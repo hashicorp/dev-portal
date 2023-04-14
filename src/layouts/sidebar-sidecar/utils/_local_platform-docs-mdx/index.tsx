@@ -4,8 +4,7 @@
  */
 
 import React from 'react'
-import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
-import { useCurrentProduct } from 'contexts'
+import { DocsEnterpriseAlert } from './components/enterprise-alert'
 import Image from 'components/image'
 import { ImageProps } from 'components/image/types'
 
@@ -36,16 +35,7 @@ function makeImageElement({ noBorder }: { noBorder: ImageProps['noBorder'] }) {
 // deprecated, this can be moved inline.
 function _defaultComponents() {
 	return {
-		EnterpriseAlert,
+		EnterpriseAlert: DocsEnterpriseAlert,
 		img: makeImageElement({ noBorder: true }),
 	}
-}
-
-//
-// Base components need to be slightly modified
-// to fit our use cases in dev-portal
-//
-function EnterpriseAlert(props) {
-	const currentProduct = useCurrentProduct()
-	return <EnterpriseAlertBase product={currentProduct?.slug} {...props} />
 }

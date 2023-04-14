@@ -12,16 +12,17 @@ import CustomHitsContainer from '../custom-hits-container'
 import NoResultsMessage from '../no-results-message'
 import TabContentsCta from '../tab-contents-cta'
 import { IntegrationsTabContentsProps } from './types'
+import { ProductSlug } from 'types/products'
 
 const IntegrationsTabContents = ({
 	currentProductTag,
 }: IntegrationsTabContentsProps) => {
 	const { currentInputValue } = useCommandBar()
-	const { integrations } = useIntegrationsByProductSlugs({
-		productSlugs: currentProductTag
-			? [currentProductTag.id]
-			: __config.dev_dot.product_slugs_with_integrations,
-	})
+	const productSlugs = currentProductTag
+		? ([currentProductTag.id] as ProductSlug[])
+		: (__config.dev_dot.product_slugs_with_integrations as ProductSlug[])
+
+	const { integrations } = useIntegrationsByProductSlugs({ productSlugs })
 
 	const filteredIntegrations = useMemo(() => {
 		return getFilteredIntegrations({

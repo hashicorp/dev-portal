@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
 import HashiHead from '@hashicorp/react-head'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import ContentHeaderCard from 'components/content-header-card'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -12,6 +14,7 @@ import {
 import SidebarSidecarLayout, {
 	SidebarSidecarLayoutProps,
 } from 'layouts/sidebar-sidecar'
+import { getIntegrationBadges } from 'lib/get-integration-badges'
 import {
 	generateProductIntegrationLibrarySidebarNavData,
 	getIntegrationComponentUrl,
@@ -20,8 +23,8 @@ import {
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
 import { ProductData } from 'types/products'
-import Header from './components/header'
 import s from './style.module.css'
+import { lastUpdatedString, versionString } from './utils'
 
 interface ProductIntegrationLayoutProps {
 	title: string
@@ -149,16 +152,44 @@ export default function ProductIntegrationLayout({
 					<meta name="robots" content="noindex, nofollow" />
 				</HashiHead>
 			)}
-			<Header
-				productSlug={currentProduct.slug}
+
+			<ContentHeaderCard
 				className={s.header}
-				integration={integration}
-				activeRelease={activeRelease}
-				getVersionChangedURL={getVersionChangedURL}
-				onInstallClicked={() => {
-					console.log('TODO, probably remove this')
-				}}
+				icon={currentProduct.slug !== 'sentinel' ? currentProduct.slug : null}
+				title={integration.name}
+				attribution={`@${integration.organization.slug}`}
+				description={integration.description}
+				note={lastUpdatedString(integration.updated_at)}
+				badges={getIntegrationBadges(integration, true)}
+				dropdown={
+					integration.versions.length > 1
+						? {
+								text: versionString(
+									activeRelease.version,
+									integration.versions
+								),
+								items: integration.versions
+									.filter((e: string) => e !== activeRelease.version)
+									.map((version: string) => {
+										return {
+											text: versionString(version, integration.versions),
+											href: getVersionChangedURL(version),
+										}
+									}),
+						  }
+						: undefined
+				}
+				links={[
+					{
+						text: 'GitHub',
+						href: integration.subdirectory
+							? `${integration.repo_url}/tree/main${integration.subdirectory}`
+							: integration.repo_url,
+						icon: <IconGithub16 />,
+					},
+				]}
 			/>
+
 			<h1>{title}</h1>
 			<div className={className}>{children}</div>
 		</SidebarSidecarLayout>

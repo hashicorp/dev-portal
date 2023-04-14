@@ -105,9 +105,13 @@ export async function getStaticProps({ params }) {
 		{ title: 'Waypoint', url: `/waypoint` },
 		{ title: 'API', url: `/waypoint/api-docs` },
 	]
+	// Remove the 'index' page '/waypoint/api-docs' from the breadcrumbs
+	const shouldAddBreadcrumb = !(
+		apiPageProps.operationCategory?.slug === productData.slug
+	)
 
 	// Breadcrumbs - Render conditional category
-	if ('operationCategory' in apiPageProps) {
+	if (shouldAddBreadcrumb && 'operationCategory' in apiPageProps) {
 		breadcrumbLinks.push({
 			title: apiPageProps.operationCategory.name,
 			url: `/waypoint/api-docs/${apiPageProps.operationCategory.slug}`,
@@ -118,8 +122,13 @@ export async function getStaticProps({ params }) {
 	// @ts-expect-error `isCurrentPage` is an expected optional field
 	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
 
+	// Remove the 'index' menu item, whose path is '/waypoint/api-docs'
+	const filteredMenuItems = apiPageProps.navData.filter(
+		(menuItem) => menuItem.path != ''
+	)
+
 	// Menu items for the sidebar, from the existing dot-io-oriented navData
-	const apiSidebarMenuItems = apiPageProps.navData.map((menuItem) => {
+	const apiSidebarMenuItems = filteredMenuItems.map((menuItem) => {
 		if (menuItem.hasOwnProperty('path')) {
 			// Path differs on dev-dot, so all nodes with `path` must be adjusted
 			return {
@@ -130,6 +139,25 @@ export async function getStaticProps({ params }) {
 			return menuItem
 		}
 	})
+
+	const menuItems = [
+		{
+			title: 'API',
+			fullPath: '/waypoint/api-docs/',
+			theme: 'waypoint',
+		},
+	]
+
+	if (apiSidebarMenuItems.length > 0) {
+		menuItems.push(
+			...[
+				{
+					divider: true,
+				},
+				...apiSidebarMenuItems,
+			]
+		)
+	}
 
 	// Construct sidebar nav data levels
 	const sidebarNavDataLevels = [
@@ -144,17 +172,7 @@ export async function getStaticProps({ params }) {
 			/* We always visually hide the title, as we've added in a
 			"highlight" item that would make showing the title redundant. */
 			visuallyHideTitle: true,
-			menuItems: [
-				{
-					title: 'API',
-					fullPath: '/waypoint/api-docs/',
-					theme: 'waypoint',
-				},
-				{
-					divider: true,
-				},
-				...apiSidebarMenuItems,
-			],
+			menuItems,
 		},
 	]
 

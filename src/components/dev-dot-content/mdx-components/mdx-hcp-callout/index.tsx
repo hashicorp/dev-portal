@@ -65,30 +65,21 @@ export default function HCPCallout({ product }: HCPCalloutProps) {
 			}
 		>
 			<div className={s.textContainer}>
-				<Text
-					asElement="p"
-					weight="bold"
-					color="var(--white)"
-					className={s.heading}
-				>
+				<Text asElement="p" weight="bold" className={s.heading}>
 					Looking for <span className={s.solutionGradient}>{productName}</span>{' '}
 					fundamentals?
 				</Text>
-				<Text
-					asElement="p"
-					size={200}
-					color="var(--white)"
-					className={s.subHeading}
-				>
+				<Text asElement="p" size={200} className={s.subHeading}>
 					Read core {productName} documentation and tutorials, including
 					self-hosted open source docs.
 				</Text>
 				<StandaloneLink
 					text={`Go to ${productName}`}
 					href={`/${product}/docs`}
-					icon={<IconArrowRight16 color="var(--white)" className={s.ctaIcon} />}
+					icon={<IconArrowRight16 className={s.ctaIcon} />}
 					iconPosition="trailing"
 					className={s.ctaWrapper}
+					color="secondary"
 				/>
 			</div>
 			<div className={s.solutionPattern}>

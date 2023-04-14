@@ -1,0 +1,95 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	margin-top: 72px;
+}
+
+.label {
+	/* composition */
+	composes: hds-typography-display-100 from global;
+
+	/* properties */
+	color: var(--token-color-foreground-high-contrast);
+	font-weight: var(--token-typography-font-weight-medium);
+}
+
+.nav {
+	margin-top: 30px;
+}
+
+.navList {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+.navListLink {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
+	background: var(--token-color-border-strong);
+	border-radius: 10px;
+	display: block;
+	padding: 1px;
+
+	&:hover {
+		background: var(--hover-background);
+	}
+}
+
+.navListLinkContent {
+	background-color: var(--token-color-foreground-strong);
+	border-radius: inherit;
+	color: var(--token-color-foreground-high-contrast);
+	display: flex;
+	font-size: 1rem;
+	font-weight: 600;
+	gap: 10px;
+	letter-spacing: -0.5px;
+	line-height: 1.5;
+	padding-bottom: 11px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 11px;
+}
+
+/*
+***
+* Variables unique to each SolutionType.
+*
+* @TODO in VQA: check with Kelly on HEX color values vs. HDS tokens
+***
+*/
+
+.solutionType--notSpecified {
+	--hover-background: linear-gradient(to right, #b5d9fa80, #1a5ee580);
+}
+
+.solutionType--infrastructure {
+	--hover-background: linear-gradient(to right, #8cdeff80, #8763d980);
+}
+
+.solutionType--networking {
+	--hover-background: linear-gradient(to right, #ffb2b880, #c74fb880);
+}
+
+.solutionType--security {
+	--hover-background: linear-gradient(to right, #ffe58c80, #f26b6380);
+}
+
+.solutionType--application {
+	--hover-background: linear-gradient(
+		to right,
+		#a3f7d680,
+		#5ed2d980,
+		#5494e380
+	);
+}

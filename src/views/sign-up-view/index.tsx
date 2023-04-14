@@ -5,6 +5,7 @@
 
 // Third-party imports
 import { useRouter } from 'next/router'
+import { ThemeProvider } from 'next-themes'
 
 // HashiCorp imports
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
@@ -53,67 +54,69 @@ const SignUpView = () => {
 	}
 
 	return (
-		<div className={s.root}>
-			<main className={s.main}>
-				<div>
-					<Link aria-label="HashiCorp Developer" href="/">
-						<InlineSvg
-							className={s.logo}
-							src={require('./img/logo-black.svg?include')}
-						/>
-					</Link>
-					<Heading className={s.heading} level={1} size={500} weight="bold">
-						{TITLE}
-					</Heading>
-					<ul className={s.list}>
-						{DETAILS.map((detail: string, index: number) => {
-							return (
-								// eslint-disable-next-line react/no-array-index-key
-								<li key={index} className={s.listItem}>
-									<IconCheckCircle16 className={s.detailIcon} />
-									<Text asElement="span" size={200} weight="regular">
-										{detail}
-									</Text>
-								</li>
-							)
-						})}
-					</ul>
-					<Button
-						icon={<IconUserPlus16 />}
-						iconPosition="trailing"
-						size="medium"
-						text={SIGN_UP_BUTTON_TEXT}
-						onClick={() => signUp()}
-					/>
-					<div className={s.signInContainer}>
-						<Text size={200} weight="regular">
-							{SIGN_IN_HINT_TEXT}
-						</Text>
+		<ThemeProvider forcedTheme="light">
+			<div className={s.root}>
+				<main className={s.main}>
+					<div>
+						<Link aria-label="HashiCorp Developer" href="/">
+							<InlineSvg
+								className={s.logo}
+								src={require('./img/logo-black.svg?include')}
+							/>
+						</Link>
+						<Heading className={s.heading} level={1} size={500} weight="bold">
+							{TITLE}
+						</Heading>
+						<ul className={s.list}>
+							{DETAILS.map((detail: string, index: number) => {
+								return (
+									// eslint-disable-next-line react/no-array-index-key
+									<li key={index} className={s.listItem}>
+										<IconCheckCircle16 className={s.detailIcon} />
+										<Text asElement="span" size={200} weight="regular">
+											{detail}
+										</Text>
+									</li>
+								)
+							})}
+						</ul>
 						<Button
-							color="tertiary"
-							icon={<IconArrowRight16 />}
+							icon={<IconUserPlus16 />}
 							iconPosition="trailing"
-							onClick={() => signIn()}
 							size="medium"
-							text={SIGN_IN_BUTTON_TEXT}
+							text={SIGN_UP_BUTTON_TEXT}
+							onClick={() => signUp()}
+						/>
+						<div className={s.signInContainer}>
+							<Text size={200} weight="regular">
+								{SIGN_IN_HINT_TEXT}
+							</Text>
+							<Button
+								color="tertiary"
+								icon={<IconArrowRight16 />}
+								iconPosition="trailing"
+								onClick={() => signIn()}
+								size="medium"
+								text={SIGN_IN_BUTTON_TEXT}
+							/>
+						</div>
+					</div>
+				</main>
+				<aside className={s.aside}>
+					<div className={s.asideGradient} />
+					<div className={s.asideGraphicContainer}>
+						<InlineSvg
+							className={s.asideGraphic}
+							/**
+							 * Replace with real graphic when it's available
+							 * ref: https://app.asana.com/0/1202097197789424/1202683836858983/f
+							 */
+							src={require('./img/aside-graphic.svg?include')}
 						/>
 					</div>
-				</div>
-			</main>
-			<aside className={s.aside}>
-				<div className={s.asideGradient} />
-				<div className={s.asideGraphicContainer}>
-					<InlineSvg
-						className={s.asideGraphic}
-						/**
-						 * Replace with real graphic when it's available
-						 * ref: https://app.asana.com/0/1202097197789424/1202683836858983/f
-						 */
-						src={require('./img/aside-graphic.svg?include')}
-					/>
-				</div>
-			</aside>
-		</div>
+				</aside>
+			</div>
+		</ThemeProvider>
 	)
 }
 

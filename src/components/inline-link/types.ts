@@ -6,7 +6,7 @@
 import { LinkProps } from 'components/link'
 import { TextProps } from 'components/text'
 
-export interface InlineLinkProps {
+export interface InlineLinkProps extends LinkProps {
 	/**
 	 * The content to render within the `<a>` element.
 	 */

@@ -10,7 +10,10 @@
 			"text": "Learn more about Sentinel features",
 			"url": "/vault/docs/what-is-vault"
 		},
-		"image": "https://place-hold.it/680x250"
+		"image": {
+			"light": "https://place-hold.it/680x250",
+			"dark": "https://place-hold.it/680x250"
+		}
 	},
 	"get_started": {
 		"heading": "Getting Started",
