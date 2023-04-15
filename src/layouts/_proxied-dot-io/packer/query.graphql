@@ -1,8 +1,0 @@
-query UseCasesQuery {
-	packerNav {
-		useCases {
-			url: slug
-			text: heroHeading
-		}
-	}
-}

@@ -63,13 +63,22 @@ This will give you a development server running on [localhost:3000](http://local
 To preview the co-located `.io` project sites, you can run variations on the `npm start` command:
 
 ```sh
-npm run start:nomad # https://www.nomadproject.io
 npm run start:sentinel # https://docs.hashicorp.com/sentinel
 npm run start:vault # https://www.vaultproject.io
 npm run start:waypoint # https://www.boundaryproject.io
 ```
 
-> **Note**: we're currently in the process of migrating `.io` sites into [the hashicorp/web repository](https://github.com/hashicorp/web). At present `boundaryproject.io` is served from `hashicorp/web`, and we expect to migrate the remaining `.io` sites in the near future.
+> **Note**: we're currently in the process of migrating `.io` sites into [the hashicorp/web repository](https://github.com/hashicorp/web). At present the following domains are served from `hashicorp/web`:
+>
+> - `boundaryproject.io`
+> - `consul.io`
+> - `nomadproject.io`
+> - `packer.io`
+> - `vagrantup.com`
+> - `vaultproject.io`
+> - `waypointproject.io`
+>
+> We expect to migrate the remaining `.io` sites to serve from `hashicorp/web` by 2023-04-14.
 
 These commands set the `DEV_IO` env variable in order to simulate the environment we use to deploy the `.io` sites. Further details on the local preview processes for the `.io` sites can be found in [MKTG-040 RFC](https://docs.google.com/document/d/1iLx2jL09YkLbhSXdK9ScSedwSiujYDEa524FejOAnZM/edit) and in the [corresponding Digital RFC](https://docs.google.com/document/d/1tvEhrLF0YyRimgR-Ibd_lo7sqTvw0TFAi77jbgjROVk/edit).
 
