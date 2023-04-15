@@ -16,31 +16,26 @@
 	max-height: 50vh;
 	overflow: auto;
 
-	&:focus {
-		outline: transparent;
-	}
+	&[tabindex='0'] {
+		&:focus {
+			outline: transparent;
+		}
 
-	&:focus-visible {
-		outline: transparent;
+		&:focus-visible {
+			outline: transparent;
 
-		& + .tableFocusRing {
-			box-shadow: var(--token-focus-ring-action-box-shadow);
+			& ~ .tableFocusRing {
+				box-shadow: var(--token-focus-ring-action-box-shadow);
+			}
 		}
 	}
 
 	& table {
 		border-spacing: 0;
-		position: relative;
 		width: 100%;
 
 		& thead {
-			/**
-       * Why `position: sticky` and `top: 0`?
-       * https://stackoverflow.com/a/58563703
-       */
 			& th {
-				position: sticky;
-				top: 0;
 				padding: 8px 12px;
 				background: var(--bg);
 				border-bottom: 1px solid var(--border);
@@ -92,6 +87,60 @@
 	}
 }
 
+.scrim {
+	--scrim-size: 60px;
+
+	content: '';
+	opacity: 0;
+	pointer-events: none;
+	position: absolute;
+
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: opacity 0.25s;
+	}
+
+	&.showScrim {
+		opacity: 1;
+	}
+}
+
+.topScrim {
+	composes: scrim;
+	background: linear-gradient(to bottom, #ffff, #fff0) top;
+	height: var(--scrim-size);
+	left: 1px;
+	right: var(--vertical-scrollbar-width);
+	top: 0;
+}
+
+.bottomScrim {
+	composes: scrim;
+	background: linear-gradient(to top, #ffff, #fff0) bottom;
+	bottom: var(--horizontal-scrollbar-width);
+	height: var(--scrim-size);
+	left: 1px;
+	right: var(--vertical-scrollbar-width);
+}
+
+.leftScrim {
+	composes: scrim;
+	background: linear-gradient(to right, #ffff, #fff0) left;
+	bottom: var(--horizontal-scrollbar-width);
+	left: 0;
+	top: 1px;
+	width: var(--scrim-size);
+}
+
+.rightScrim {
+	composes: scrim;
+	background: linear-gradient(to left, #ffff, #fff0) right;
+	bottom: var(--horizontal-scrollbar-width);
+	right: var(--vertical-scrollbar-width);
+	top: 1px;
+	width: var(--scrim-size);
+}
+
 /**
  * Why `pointer-events: none`? (https://stackoverflow.com/a/6441884)
  * 
@@ -107,4 +156,5 @@
 	position: absolute;
 	right: 0;
 	top: 0;
+	z-index: 1;
 }
