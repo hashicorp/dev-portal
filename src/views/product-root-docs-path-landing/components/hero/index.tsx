@@ -22,7 +22,9 @@ const ProductRootDocsPathLandingHero = ({
 	return (
 		<header>
 			<DocsPageHeading
-				versionSelectorSlot={<DocsVersionSwitcher options={versions} />}
+				versionSelectorSlot={
+					versions ? <DocsVersionSwitcher options={versions} /> : null
+				}
 				headingSlot={
 					<LandingHero pageHeading={pageHeading} pageSubtitle={pageSubtitle} />
 				}

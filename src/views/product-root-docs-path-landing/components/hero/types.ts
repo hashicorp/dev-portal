@@ -13,6 +13,6 @@ export interface ProductRootDocsPathLandingHeroProps {
 	pageHeading: ProductRootDocsPathLandingProps['pageHeading']
 	pageSubtitle: string
 	iconCardGridItems?: IconCardGridItem[]
-	versions: VersionSelectItem[]
+	versions?: VersionSelectItem[]
 	projectName?: string
 }
