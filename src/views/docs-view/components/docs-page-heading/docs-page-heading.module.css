@@ -18,7 +18,7 @@
 
 .pageHeadingWrapper {
 	flex-grow: 99; /* eats up all the space next to versionSwitcherWrapper */
-	min-width: min(100%, 20rem); /* 20rem, or fit container if alone in row */
+	min-width: min(100%, 28rem); /* 28rem, or fit container if alone in row */
 	width: 0; /* start from zero width, no arbitary breakpoint for flex-wrap */
 }
 

@@ -17,7 +17,7 @@ function DocsPageHeading({
 	 */
 	className?: string
 	/**
-	 * Heading element to render, expected to work as narrow as 20em.
+	 * Heading element to render, expected to work as narrow as 28em.
 	 * Layed out to occupy as much of the width of the container as it can.
 	 */
 	headingSlot: ReactNode
