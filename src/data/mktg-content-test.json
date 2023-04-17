@@ -1,0 +1,14 @@
+{
+	"slug": "mktg-content-test",
+	"name": "Mktg Content Test",
+	"basePaths": ["docs"],
+	"docsNavItems": ["docs"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "Documentation",
+			"path": "docs",
+			"shortName": "Docs"
+		}
+	]
+}
