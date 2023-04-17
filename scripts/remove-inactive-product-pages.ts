@@ -31,7 +31,7 @@ async function main() {
 	 * Ensure we retain _proxied-dot-io as it serves our production .io sites
 	 */
 	for (const dir of rootPagesDirs) {
-		if (dir.name === 'sentinel') {
+		if (dir.name === 'sentinel' || dir.name === 'mktg-content-test') {
 			console.log(`🧹 removing pages at /${dir.name}`)
 			if (!process.env.DRY_RUN) {
 				await fs.promises.rm(path.join(pagesDir, dir.name), {
