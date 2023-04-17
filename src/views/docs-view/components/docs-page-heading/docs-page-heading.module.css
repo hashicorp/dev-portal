@@ -5,7 +5,6 @@
 
 .root {
 	align-items: flex-start;
-	border: 1px solid magenta;
 	display: flex;
 
 	/* DOM order is version selector, then title. On small viewports, with
@@ -18,19 +17,12 @@
 }
 
 .pageHeadingWrapper {
-	border: 1px solid red;
 	flex-grow: 99; /* eats up all the space next to versionSwitcherWrapper */
 	min-width: min(100%, 20rem); /* 20rem, or fit container if alone in row */
 	width: 0; /* start from zero width, no arbitary breakpoint for flex-wrap */
 }
 
 .versionSwitcherWrapper {
-	border: 1px solid green;
-
-	/* TODO: maybe don't flex-grow on large viewports if landingHero not shown?
-	   Alternately... we'll run into the same problem with absolute positioning.
-		 Maybe should always use "don't render h1 in MDX" approach, and always
-		 use a flex layout, with the `h1` taking the place of `landingHero`? */
 	flex-grow: 1; /* grows when alone, lets pageHeadingWrapper grow more */
 	min-width: max-content; /* keep the selector on one line */
 	width: 0; /* start from zero width, no arbitary breakpoint for flex-wrap */
