@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
 import {
 	IconCardGridItem,
 	ProductRootDocsPathLandingProps,
@@ -12,6 +13,6 @@ export interface ProductRootDocsPathLandingHeroProps {
 	pageHeading: ProductRootDocsPathLandingProps['pageHeading']
 	pageSubtitle: string
 	iconCardGridItems?: IconCardGridItem[]
-	versions: $TSFixMe
+	versions: VersionSelectItem[]
 	projectName?: string
 }
