@@ -8,6 +8,7 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import path from 'path'
 import { Pluggable } from 'unified'
 import rehypePrism from '@mapbox/rehype-prism'
+import slugify from 'slugify'
 
 // HashiCorp Imports
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
@@ -19,6 +20,7 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 import { ProductData, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { isDeployPreview } from 'lib/env-checks'
+import remarkPluginRemoveH1 from 'lib/remark-plugins/remark-plugin-remove-h1'
 import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
 import { withTiming } from 'lib/with-timing'
 import outlineItemsFromHeadings, {
@@ -42,7 +44,6 @@ import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { DocsViewProps } from './types'
-import remarkPluginRemoveH1 from 'lib/remark-plugins/remark-plugin-remove-h1'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -236,6 +237,9 @@ export function getStaticGenerationFunctions<
 				throw error
 			}
 
+			const { navData, mdxSource, githubFileUrl, versions, frontMatter } =
+				loadStaticPropsResult
+
 			/**
 			 * Construct a page heading object from outline data.
 			 * We'll render this to replace the `<h1 />` we're removed from MDX.
@@ -244,18 +248,31 @@ export function getStaticGenerationFunctions<
 			 * such as placing it in the same flex container as the version select,
 			 * or constructing the "Landing Hero" on docs landing pages.
 			 *
-			 * Note: we are relying here on a few document properties as
+			 * Note: we expect a few document properties as
 			 * asserted by our content conformance work:
 			 * - We expect there to be an `<h1 />` in every docs `.mdx` document
 			 * - We expect the `<h1 />` to be the first heading in the document
+			 *
+			 * However, we cannot guarantee these assumptions. If there is no `h1`
+			 * in the MDX, we'll render without a page heading - this is something
+			 * that should be fixed at the content level.
 			 */
-			const pageHeading = {
-				id: headings[0].slug,
-				title: headings[0].title,
+			let pageHeading: { id: string; title: string }
+			const h1Match = headings.find(
+				(h: AnchorLinksPluginHeading) => h.level === 1
+			)
+			if (h1Match) {
+				pageHeading = {
+					id: h1Match.slug,
+					title: h1Match.title,
+				}
+			} else {
+				const fallbackHeading = pathParts[pathParts.length - 1]
+				pageHeading = {
+					id: slugify(fallbackHeading, { lower: true }),
+					title: fallbackHeading,
+				}
 			}
-
-			const { navData, mdxSource, githubFileUrl, versions, frontMatter } =
-				loadStaticPropsResult
 
 			/**
 			 * NOTE: we've encountered empty headings on at least one page:
