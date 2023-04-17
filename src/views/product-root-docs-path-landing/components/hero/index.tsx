@@ -5,11 +5,11 @@
 
 import { useCurrentProduct } from 'contexts'
 import { ProductRootDocsPathLandingIconCardLinkGrid } from 'views/product-root-docs-path-landing/components'
-import { ProductRootDocsPathLandingHeroProps } from './types'
-import s from './hero.module.css'
 import DocsPageHeading from 'views/docs-view/components/docs-page-heading'
 import LandingHero from 'components/landing-hero'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
+import { ProductRootDocsPathLandingHeroProps } from './types'
+import s from './hero.module.css'
 
 const ProductRootDocsPathLandingHero = ({
 	pageHeading,

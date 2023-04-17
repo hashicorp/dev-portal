@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { ReactNode } from 'react'
 import classNames from 'classnames'
 import s from './docs-page-heading.module.css'
-import { ReactNode } from 'react'
 
 function DocsPageHeading({
 	className,
