@@ -64,6 +64,7 @@ const DocsView = ({
 	 *
 	 * The Packer plugins use case will fade away after Integrations work,
 	 * at which point we can always safely render <DocsPageHeading />.
+	 * Task: https://app.asana.com/0/1202097197789424/1204412156894157/f
 	 */
 	const renderPageHeadingOutsideMdx = pageHeading?.id && pageHeading?.title
 	const hasLandingHero = isDocsRootLandingLayout(metadata.layout)
