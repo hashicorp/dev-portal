@@ -74,7 +74,6 @@
 	padding-bottom: 38px;
 	padding-top: 38px;
 	position: relative;
-	scroll-snap-type: x mandatory;
 
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
@@ -114,7 +113,6 @@
 	color: var(--token-color-palette-neutral-0);
 	opacity: 0.5;
 	padding: 1px 0;
-	scroll-snap-align: center;
 	z-index: 1;
 
 	/* Only enable animation if query is supported and value is no-preference */
