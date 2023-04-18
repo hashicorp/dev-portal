@@ -1,4 +1,4 @@
-import { KeyboardEvent, useLayoutEffect, useRef, useState } from 'react'
+import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import deriveKeyEventState from 'lib/derive-key-event-state'
@@ -33,7 +33,7 @@ const SearchFeaturedCard = () => {
 	 * page is open, the enabled/disabled state will update to respect the
 	 * setting's new value.
 	 */
-	useLayoutEffect(() => {
+	useEffect(() => {
 		setIsAutoScrollEnabled(!prefersReducedMotion)
 	}, [prefersReducedMotion])
 
@@ -41,7 +41,7 @@ const SearchFeaturedCard = () => {
 	 * If animation is enabled, set up the animation interval and event listeners
 	 * that are used to disable the animation with certain interactions.
 	 */
-	useLayoutEffect(() => {
+	useEffect(() => {
 		// Nothing to do if animation is already disabled
 		if (isAutoScrollEnabled === false) {
 			return
@@ -94,7 +94,7 @@ const SearchFeaturedCard = () => {
 	 * When `currentIndex` changes, check if the button at that index is centered.
 	 * If it's not, then center it.
 	 */
-	useLayoutEffect(() => {
+	useEffect(() => {
 		const { left: containerLeft, width: containerWidth } =
 			scrollableAreaRef.current.getBoundingClientRect()
 		const { left: buttonLeft, width: buttonWidth } =
