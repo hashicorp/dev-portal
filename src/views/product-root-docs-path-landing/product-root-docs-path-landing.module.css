@@ -48,30 +48,3 @@
 		margin-top: 0;
 	}
 }
-
-.docsLandingWithVersions {
-	position: relative;
-
-	@media (--dev-dot-tablet-up) {
-		& :global(.landing-hero) {
-			margin-right: 25%;
-		}
-	}
-
-	& .versionSwitcherWrapper {
-		width: 100%;
-		margin-bottom: 16px;
-
-		@media (--dev-dot-tablet-up) {
-			margin-bottom: 0;
-			width: auto;
-			position: absolute;
-			right: 0;
-			top: 0;
-
-			&.hasSearch {
-				top: 70px;
-			}
-		}
-	}
-}
