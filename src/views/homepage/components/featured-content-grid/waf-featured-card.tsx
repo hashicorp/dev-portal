@@ -1,5 +1,4 @@
 import InlineSvg from '@hashicorp/react-inline-svg'
-import Heading from 'components/heading'
 import wafGraphic from '../../img/waf-graphic.svg?include'
 import FeaturedCard from './featured-card'
 import s from './waf-featured-card.module.css'
@@ -15,9 +14,7 @@ const WafFeaturedCard = () => {
 		>
 			<div className={s.wafCardContent}>
 				<InlineSvg className={s.wafGraphic} src={wafGraphic} />
-				<Heading level={2} size={400} weight="bold">
-					{title}
-				</Heading>
+				<h2 className={s.title}>{title}</h2>
 			</div>
 		</FeaturedCard>
 	)
