@@ -1,0 +1,24 @@
+.certificationsCard {
+	border: none;
+	padding-top: 0;
+	width: 373px;
+}
+
+/* TODO replace magic numbers with variables */
+.certificationsCardContent {
+	padding-top: calc(286px - 64px + 50px);
+}
+
+.certificationsGraphic {
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: -64px;
+}
+
+.certificationsCardContentText {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	margin-bottom: 70px;
+}
