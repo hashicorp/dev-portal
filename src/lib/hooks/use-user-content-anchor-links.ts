@@ -22,7 +22,11 @@ function useUserContentAnchorLinks() {
 	const { asPath } = useRouter()
 
 	/**
-	 * Handle when the hash changes, such as on initial load
+	 * Handle when the hash changes, such as on initial load.
+	 *
+	 * Note that in order for `asPath` events to be triggered, all anchor links
+	 * should use the `Link` component from `next/link`. Using a plain `<a />`
+	 * tag does not seem to trigger the `next/router` change we expect.
 	 */
 	useEffect(() => {
 		const hash = hashFromUrlString(asPath)
@@ -38,16 +42,22 @@ function useUserContentAnchorLinks() {
 	 * components that might be intended to link to a `#user-content-` element.
 	 */
 	useEffect(() => {
-		function handleClick(event: MouseEvent) {
-			// We only react to anchor element clicks that set the current location
-			const isAnchor = event.target && event.target instanceof HTMLAnchorElement
-			const isRelevantAnchor = isAnchor && event.target.href === location.href
+		function handleClick({ target }: MouseEvent) {
+			// We only care about elements for which we can find the closest anchor
+			const closestAnchor = target instanceof Element && target.closest('a')
+			if (!closestAnchor) {
+				return
+			}
+			// We only react to anchor element clicks that re-set the current location
+			// Anchor element clicks that _change_ the location.href hash will be
+			// handled by our `asPath` based useEffect.
+			const isRelevantAnchor = closestAnchor.href === location.href
 			if (!isRelevantAnchor) {
 				return
 			}
 			// Knowing we're dealing with the anchor element that was just clicked
-			// to set the current location.href, handle the hash from that href.
-			const hash = hashFromUrlString(event.target.href)
+			// to re-set the current location.href, handle the hash from that href.
+			const hash = hashFromUrlString(closestAnchor.href)
 			handleUserContentHash(hash)
 		}
 		// Add the click listener on the document, and set up useEffect cleanup
