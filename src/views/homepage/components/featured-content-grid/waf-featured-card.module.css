@@ -1,12 +1,11 @@
 .wafCard {
 	border: none;
 	padding-top: 0;
-	width: 373px;
+	gap: 40px;
 }
 
 /* TODO replace magic numbers with variables */
 .wafCardContent {
-	margin-bottom: 48px;
 	padding-top: calc(179px - 25px + 30px);
 }
 
@@ -15,4 +14,5 @@
 	position: absolute;
 	right: 0;
 	top: -25px;
+	width: 100%;
 }

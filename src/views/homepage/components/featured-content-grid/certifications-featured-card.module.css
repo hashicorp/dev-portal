@@ -1,7 +1,7 @@
 .certificationsCard {
 	border: none;
 	padding-top: 0;
-	width: 373px;
+	gap: 70px;
 }
 
 /* TODO replace magic numbers with variables */
@@ -14,11 +14,11 @@
 	position: absolute;
 	right: 0;
 	top: -64px;
+	width: 100%;
 }
 
 .certificationsCardContentText {
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
-	margin-bottom: 70px;
 }

@@ -11,8 +11,14 @@
 		'b a a'
 		'b c d';
 	grid-template-columns: repeat(3, 1fr);
-	margin-bottom: 237px;
-	margin-top: 60px;
+	margin-bottom: 188px;
+	margin-top: 52px;
+
+	@media (--dev-dot-tablet-down) {
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+	}
 }
 
 .gridAreaA {

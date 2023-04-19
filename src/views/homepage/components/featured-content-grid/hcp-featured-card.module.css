@@ -5,11 +5,13 @@
 	background-position: center center;
 	background-repeat: no-repeat;
 	border: none;
+	gap: 50px;
+	padding-top: 88px;
 }
 
 .hcpCardTitle {
-	margin-top: 64px;
 	margin-bottom: 24px;
+	margin-top: 0;
 }
 
 .hcpLogo svg {
@@ -19,11 +21,7 @@
 }
 
 .hcpCardBody {
-	/* composition */
 	composes: hds-typography-display-400 from global;
-	composes: hds-font-weight-semibold from global;
-
-	/* properties */
-	margin-bottom: 50px;
-	margin-top: 0;
+	composes: hds-font-weight-bold from global;
+	margin: 0;
 }
