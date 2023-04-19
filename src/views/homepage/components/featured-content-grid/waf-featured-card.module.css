@@ -1,0 +1,18 @@
+.wafCard {
+	border: none;
+	padding-top: 0;
+	width: 373px;
+}
+
+/* TODO replace magic numbers with variables */
+.wafCardContent {
+	margin-bottom: 48px;
+	padding-top: calc(179px - 25px + 30px);
+}
+
+.wafGraphic svg {
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: -25px;
+}
