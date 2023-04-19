@@ -25,7 +25,7 @@ export function MdxThemedImage({
 		)
 	}
 
-	// if no width and height passed, do auto dimensions
+	// if no width and height passed, do auto dimensions... is this possible?
 	return (
 		<>
 			<span data-hide-on-theme="dark" className={s.root}>

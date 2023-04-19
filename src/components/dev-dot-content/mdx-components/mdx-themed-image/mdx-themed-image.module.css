@@ -1,11 +1,10 @@
 .root {
 	display: block;
-	width: fit-content;
-	border: 1px solid magenta;
 }
 
 .image {
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
+	border-radius: 6px;
 }
