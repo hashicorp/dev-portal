@@ -23,6 +23,7 @@
 	&:hover {
 		opacity: 1;
 		box-shadow: var(--token-surface-mid-box-shadow);
+		cursor: pointer;
 
 		& .icon {
 			color: var(--token-color-foreground-action-hover);
