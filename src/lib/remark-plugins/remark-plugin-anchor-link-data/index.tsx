@@ -42,8 +42,12 @@ const remarkPluginAnchorLinkData: Plugin<
 				hProperties: {
 					...(node.data?.hProperties as $TSFixMe),
 					id,
-					// used for aria-label
-					'data-text-content': title,
+					/**
+					 * The 'data-text-content' attribute is used for the `aria-label` on
+					 * heading permalinks. We use keep only letters, numbers, and spaces,
+					 * which allows us to sanitize this property in a more robust way.
+					 */
+					'data-text-content': title.replace(/[^\w\-\s]+/g, ''),
 				},
 			}
 			//
