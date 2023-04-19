@@ -107,13 +107,28 @@ export function makeMdxHeadingElement(level: HeadingProps['level']) {
 		 * It's similar to the `element.textContent` of the heading, which is hard
 		 * to get at render time, but easy to get when running our `remark` plugins.
 		 *
-		 * Our newer `anchor-links` plugin, used for integrations, adds `id` and
-		 * `data-text-content` properties to heading elements, without any injected
-		 * elements or global classNames.
+		 * Our newer `remark-plugin-anchor-links-data`, used for integrations,
+		 * adds `id` and `data-text-content` properties to heading elements,
+		 * without any injected elements or global classNames.
 		 *
-		 * In the future, we could avoid injecting a `__permalink-h` element in our
-		 * `anchor-links` remark plugin, and instead set `data-text-content` on
-		 * the heading element itself, in order to simplify our process here.
+		 * In the future, we could switch all use cases to the newer plugin,
+		 * to avoid injecting a `__permalink-h` element. This would simplify our
+		 * process, but would require contending with a few features of our
+		 * older anchor-links plugin
+		 *
+		 * - "aliases", which are not supported by the new plugin, but which we
+		 *   may need to continue to support in historical contexts. We could
+		 *   pass these through via a `data-alias-ids` property, rather than
+		 *   injecting additional `<a />` elements as we do in the old plugin.
+		 * - "list items that start with code" anchor links, which are a feature
+		 *   we've considered removing but may still need to support in historical
+		 *   contexts. One possibility would be to implement these as a separate
+		 *   plugin. It seems the reason we put these in the old anchor-links
+		 *   plugin was to avoid `id` collisions. With separate plugins, we could
+		 *   avoid `id` collisions by passing existing `anchor-links` as an
+		 *   argument to a separate `remark-code-list-item-anchor-links` plugin.
+		 *
+		 * Task: https://app.asana.com/0/1100423001970639/1202560954440296/f
 		 */
 		let permalinkAriaLabel: string
 		if (dataTextContent) {
