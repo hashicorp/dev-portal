@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { Children, ReactChild, ReactFragment, ReactPortal } from 'react'
+import { Children } from 'react'
 import classNames from 'classnames'
 import Heading, { HeadingProps } from 'components/heading'
 import MdxHeadingPermalink from '../mdx-heading-permalink'
+import { isInjectedPermalink } from './utils'
 import s from './mdx-headings.module.css'
 
 /**
@@ -42,35 +43,40 @@ const HEADING_LEVELS_TO_PROPS: Record<
 	},
 }
 
-function isInjectedPermalink(child: ReactChild | ReactFragment | ReactPortal) {
-	const isLiteral = typeof child === 'string' || typeof child === 'number'
-	if (isLiteral) {
-		return false
-	}
-	const hasClassName = 'props' in child && 'className' in child.props
-	if (!hasClassName) {
-		return true
-	}
-	return child.props.className === '__permalink-h'
-}
-
-/* This is a temporary solution to render an updated permalink element while our remark plugin continues to inject the current one. The full implementation will eventually live in this component, but it will require a larger update to the anchorLinks remark plugin.  We detect the injected permalink by the `__permalink-h` class which the remark plugin applies to the element. */
-
 /**
  * Returns a Heading component with a fixed "level", suitable for use in
  * MDX contexts such as docs and tutorial pages.
  *
  * Note: we likely want to explicitly destructure the props incoming
  * from MDX which we want to use. As is, we intentionally override
- * the incoming props.className, props.level, props.size, and props.weight.
+ * the incoming `className`, `level`, `size`, and `weight`, and we
+ * intentionally omit the incoming `data-text-content`.
  */
 export function makeMdxHeadingElement(level: HeadingProps['level']) {
 	const fixedClassName = classNames(s.heading, s[`h${level}`])
 	const { size, weight } = HEADING_LEVELS_TO_PROPS[level]
 
-	return function MdxHeading(props) {
-		const { children, 'data-text-content': dataTextContent, ...rest } = props
-
+	return function MdxHeading({
+		children,
+		'data-text-content': dataTextContent,
+		id,
+		/**
+		 * TODO: we likely want to make the purpose of individual attributes
+		 * within `...restProps` more explicit, to avoid an opaque spreading
+		 * of unknown props. There should be no need for props others than
+		 * those explicitly documented in this interface, though that assumption
+		 * likely requires some investigation.
+		 *
+		 * Task: https://app.asana.com/0/1202097197789424/1204434105702090/f
+		 */
+		...restProps
+	}: Omit<HeadingProps, 'size' | 'weight' | 'level' | 'className'> & {
+		/**
+		 * Optional property to pass the text content of the heading.
+		 * Used to generate an `aria-label` for the heading permalink.
+		 */
+		'data-text-content'?: string
+	}) {
 		/**
 		 * Normalize children, to avoid rendering legacy injected permalinks.
 		 *
@@ -120,14 +126,15 @@ export function makeMdxHeadingElement(level: HeadingProps['level']) {
 		}
 
 		/**
-		 * If we have a permalinkAriaLabel, that means we have the intent to
+		 * If we have an id & permalinkAriaLabel, that means we have the intent to
 		 * render a permalink for this heading. We avoid permalinks for `<h1 />`.
 		 */
-		const shouldRenderPermalink = permalinkAriaLabel && level !== 1
+		const shouldRenderPermalink = id && permalinkAriaLabel && level !== 1
 
 		return (
 			<Heading
-				{...rest}
+				{...restProps}
+				id={id}
 				level={level}
 				className={fixedClassName}
 				size={size}
@@ -136,7 +143,7 @@ export function makeMdxHeadingElement(level: HeadingProps['level']) {
 				{shouldRenderPermalink ? (
 					<MdxHeadingPermalink
 						ariaLabel={permalinkAriaLabel}
-						href={`#${props.id.replace(/^user-content-/, '')}`}
+						href={`#${id.replace(/^user-content-/, '')}`}
 						level={level}
 					/>
 				) : null}
