@@ -33,6 +33,7 @@ import {
 	MdxCodeBlockConfig,
 	MdxCodeTabs,
 	MdxPre,
+	MdxThemedImage,
 } from './mdx-components'
 import s from './dev-dot-content.module.css'
 
@@ -65,6 +66,7 @@ const DEFAULT_MDX_COMPONENTS = {
 	Tip: MdxTip,
 	TryHcpCallout: MdxTryHcpCallout,
 	Warning: MdxWarning,
+	ThemedImage: MdxThemedImage,
 }
 
 /**
