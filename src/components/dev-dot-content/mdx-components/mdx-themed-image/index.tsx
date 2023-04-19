@@ -1,5 +1,6 @@
 import NextImage, { ImageProps as NextImageProps } from 'next/image'
 import s from './mdx-themed-image.module.css'
+import { getNewImageUrl } from 'lib/remark-plugins/rewrite-static-assets'
 
 interface MdxThemedImageProps {
 	src: { dark: string; light: string }
@@ -30,7 +31,7 @@ export function MdxThemedImage({
 			<span data-hide-on-theme="dark" className={s.root}>
 				<NextImage
 					className={s.image}
-					src={src.light}
+					src={getNewImageUrl(src.light)}
 					alt={alt}
 					title={title}
 					width={width}
@@ -40,7 +41,7 @@ export function MdxThemedImage({
 			<span data-hide-on-theme="light" className={s.root}>
 				<NextImage
 					className={s.image}
-					src={src.dark}
+					src={getNewImageUrl(src.dark)}
 					alt={alt}
 					title={title}
 					width={width}

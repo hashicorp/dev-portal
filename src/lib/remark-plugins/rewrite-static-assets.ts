@@ -47,36 +47,42 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				return [node]
 			}
 
-			const isVercelBuild =
-				process.env.VERCEL_ENV === 'production' ||
-				process.env.VERCEL_ENV === 'preview'
-			const newUrl = new URL(ASSET_API_ENDPOINT)
+			const newUrl = getNewImageUrl(node.url)
 
-			/**
-			 * If building in a vercel preview, we can assume the assets are pushed up
-			 * to git and can be served via the GH CDN.
-			 * */
-			if (isVercelBuild) {
-				const params = newUrl.searchParams
-
-				// for /tutorials previews, we pass the branchname as an env via gh workflow
-				// otherwise, for prod, we reference images in the main branch
-				const branchName = process.env.PREVIEW_BRANCH || 'main'
-
-				// assumes tutorials has a /public dir where images live
-				const assetPath = path.join('public', node.url)
-
-				params.set('product', 'tutorials')
-				params.set('version', branchName)
-				params.set('asset', assetPath)
-			} else {
-				//  Otherwise, pass the unchanged path to a custom asset server for local dev
-				newUrl.pathname = path.join(newUrl.pathname, node.url)
+			if (typeof newUrl === 'string') {
+				node.url = newUrl
 			}
-
-			node.url = newUrl.toString()
 
 			return [node]
 		})
 	}
+}
+
+export function getNewImageUrl(url: string): string | undefined {
+	const isVercelBuild = true
+	const newUrl = new URL(ASSET_API_ENDPOINT)
+
+	/**
+	 * If building in a vercel preview, we can assume the assets are pushed up
+	 * to git and can be served via the GH CDN.
+	 * */
+	if (isVercelBuild) {
+		const params = newUrl.searchParams
+
+		// for /tutorials previews, we pass the branchname as an env via gh workflow
+		// otherwise, for prod, we reference images in the main branch
+		const branchName = process.env.PREVIEW_BRANCH || 'main'
+
+		// assumes tutorials has a /public dir where images live
+		const assetPath = path.join('public', url)
+
+		params.set('product', 'tutorials')
+		params.set('version', branchName)
+		params.set('asset', assetPath)
+	} else {
+		//  Otherwise, pass the unchanged path to a custom asset server for local dev
+		newUrl.pathname = path.join(newUrl.pathname, url)
+	}
+
+	return newUrl.toString()
 }
