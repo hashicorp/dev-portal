@@ -2,15 +2,17 @@
 	border: none;
 	padding-top: 0;
 	gap: 70px;
+	margin-top: 136px;
+
+	/* 1000px with 16px base font */
+	@media screen and (max-width: 62.5rem) {
+		margin-top: 64px;
+	}
 }
 
 /* TODO replace magic numbers with variables */
 .certificationsCardContent {
 	padding-top: calc(286px - 64px + 50px);
-
-	@media screen and (max-width: 62.5rem) {
-		padding-top: 64px;
-	}
 }
 
 .certificationsGraphic {
