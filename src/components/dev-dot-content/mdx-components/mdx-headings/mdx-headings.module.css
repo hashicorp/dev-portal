@@ -35,7 +35,8 @@
 	}
 
 	&:hover {
-		& :global(.__permalink-h) {
+		/* Reveal permalink on hover */
+		& a {
 			opacity: 1;
 		}
 	}
