@@ -32,7 +32,7 @@ const schema = deepmerge(defaultSchema, {
 	 * any security concern here, and a stricter set of specific strings and
 	 * regex patterns for classNames would be much more difficult to maintain.
 	 */
-	attributes: { '*': ['className'] },
+	attributes: { '*': ['className', 'data-text-content'] },
 })
 
 /**
