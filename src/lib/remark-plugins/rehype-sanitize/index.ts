@@ -31,6 +31,11 @@ const schema = deepmerge(defaultSchema, {
 	 * all class name values on all elements. However, there doesn't seem to be
 	 * any security concern here, and a stricter set of specific strings and
 	 * regex patterns for classNames would be much more difficult to maintain.
+	 *
+	 * Note: newer versions of `rehype-stringify` allow for regex-based filtering.
+	 * For example, we could only allow `data-text-content` attributes with
+	 * alphanumeric characters. However, this would require updating a significant
+	 * number of dependencies across packages (namely `next-mdx-remote`).
 	 */
 	attributes: { '*': ['className', 'data-text-content'] },
 })
