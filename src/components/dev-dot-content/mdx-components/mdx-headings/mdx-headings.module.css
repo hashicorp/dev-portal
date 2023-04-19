@@ -36,6 +36,8 @@
 
 	&:hover {
 		/* Reveal permalink on hover */
+
+		/* TODO: change this to a @nest style in mdx-heading-permalink? */
 		& a {
 			opacity: 1;
 		}
