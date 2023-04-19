@@ -57,10 +57,7 @@
 
 	@media (--dev-dot-tablet-down) {
 		gap: 6px;
-		padding-bottom: 7px;
-		padding-left: 9px;
-		padding-right: 9px;
-		padding-top: 7px;
+		padding: 9px;
 
 		& svg {
 			height: 22px;
