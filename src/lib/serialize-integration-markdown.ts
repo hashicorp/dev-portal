@@ -9,21 +9,28 @@ import rehypePrism from '@mapbox/rehype-prism'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import rehypeSanitize, { schema } from 'lib/remark-plugins/rehype-sanitize'
-
-// TODO: export types from `next-mdx-remote` v3
-const SERIALIZE_OPTIONS: Parameters<typeof serialize>[1] = {
-	mdxOptions: {
-		remarkPlugins: [paragraphCustomAlerts, typography],
-		rehypePlugins: [
-			[rehypePrism, { ignoreMissing: true }],
-			rehypeSurfaceCodeNewlines,
-			[rehypeSanitize, schema],
-		],
-	},
-}
+import remarkPluginAnchorLinkData from 'lib/remark-plugins/remark-plugin-anchor-link-data'
+// Types
+import type { AnchorLinkItem } from 'lib/remark-plugins/remark-plugin-anchor-link-data'
 
 export default async function serializeIntegrationMarkdown(
-	markdown: string
+	markdown: string,
+	anchorLinks: AnchorLinkItem[] = []
 ): Promise<MDXRemoteSerializeResult> {
+	// TODO: export types from `next-mdx-remote` v3
+	const SERIALIZE_OPTIONS: Parameters<typeof serialize>[1] = {
+		mdxOptions: {
+			remarkPlugins: [
+				[remarkPluginAnchorLinkData, { anchorLinks }],
+				paragraphCustomAlerts,
+				typography,
+			],
+			rehypePlugins: [
+				[rehypePrism, { ignoreMissing: true }],
+				rehypeSurfaceCodeNewlines,
+				[rehypeSanitize, schema],
+			],
+		},
+	}
 	return await serialize(markdown, SERIALIZE_OPTIONS)
 }
