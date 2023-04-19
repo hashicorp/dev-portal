@@ -12,8 +12,7 @@ interface MdxHeadingPermalinkProps {
 	className?: string
 	level: 1 | 2 | 3 | 4 | 5 | 6
 	href: string
-	/** TODO: should make this required, need to fix up some spots */
-	ariaLabel?: string
+	ariaLabel: string
 }
 
 export default function MdxHeadingPermalink({
