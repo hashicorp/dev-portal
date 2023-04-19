@@ -138,6 +138,13 @@
 	padding-left: 24px;
 	padding-right: 24px;
 	padding-top: 16px;
+
+	/* 700px with 16px base font */
+	@media screen and (max-width: 43.75rem) {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 12px;
+	}
 }
 
 .buttonText {
