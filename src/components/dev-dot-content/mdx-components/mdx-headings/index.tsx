@@ -136,7 +136,7 @@ export function makeMdxHeadingElement(level: HeadingProps['level']) {
 				{shouldRenderPermalink ? (
 					<MdxHeadingPermalink
 						aria-label={permalinkAriaLabel}
-						href={`#${props.id}`}
+						href={`#${props.id.replace(/^user-content-/, '')}`}
 						level={level}
 					/>
 				) : null}
