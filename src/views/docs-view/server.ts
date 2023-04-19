@@ -20,7 +20,7 @@ import { anchorLinks } from '@hashicorp/remark-plugins'
 import { ProductData, RootDocsPath } from 'types/products'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { isDeployPreview } from 'lib/env-checks'
-import remarkPluginRemoveH1 from 'lib/remark-plugins/remark-plugin-remove-h1'
+import remarkPluginRemoveFirstH1 from 'lib/remark-plugins/remark-plugin-remove-first-h1'
 import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
 import { withTiming } from 'lib/with-timing'
 import outlineItemsFromHeadings, {
@@ -187,7 +187,7 @@ export function getStaticGenerationFunctions<
 					 * the MDX content area, integrating it into our layout
 					 * in various ways depending on the specific docs view used.
 					 */
-					remarkPluginRemoveH1,
+					remarkPluginRemoveFirstH1,
 					/**
 					 * The `contentType` configuration is necessary so that the
 					 * `rewriteTutorialLinksPlugin` does not rewrite links like
