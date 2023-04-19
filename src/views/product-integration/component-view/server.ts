@@ -218,20 +218,28 @@ async function getStaticProps({
 		releaseComponent
 	)
 
+	/**
+	 * Serialize README, get anchor links
+	 * TODO: WIP, should clean this up a lil
+	 */
+	const anchorLinks = []
+	const serializedREADME = releaseComponent.readme
+		? await serializeIntegrationMarkdown(releaseComponent.readme, anchorLinks)
+		: undefined
+
 	return {
 		revalidate: __config.dev_dot.revalidate,
 		props: {
 			metadata: {
 				title: `${integration.name} ${releaseComponent.component.name}${titleVersion} | Integrations`,
 			},
+			anchorLinks,
 			product: productData,
 			integration,
 			activeRelease,
 			component: releaseComponent,
 			processedVariablesMarkdown,
-			serializedREADME: releaseComponent.readme
-				? await serializeIntegrationMarkdown(releaseComponent.readme)
-				: undefined,
+			serializedREADME,
 			breadcrumbLinks: integrationComponentBreadcrumbLinks(
 				productData,
 				integration,

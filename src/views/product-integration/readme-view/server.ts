@@ -169,6 +169,15 @@ async function getStaticProps({
 				activeRelease,
 				true
 		  )
+	/**
+	 * Serialize README, get anchor links
+	 * TODO: WIP, should clean this up a lil
+	 */
+	const anchorLinks = []
+	const serializedREADME = await serializeIntegrationMarkdown(
+		activeRelease.readme,
+		anchorLinks
+	)
 	// Return static props
 	return {
 		revalidate: __config.dev_dot.revalidate,
@@ -177,13 +186,12 @@ async function getStaticProps({
 				title: metadataTitle,
 				description: integration.description,
 			},
+			anchorLinks,
 			product: productData,
 			integration,
 			activeRelease,
 			breadcrumbLinks,
-			serializedREADME: await serializeIntegrationMarkdown(
-				activeRelease.readme
-			),
+			serializedREADME,
 		},
 	}
 }
