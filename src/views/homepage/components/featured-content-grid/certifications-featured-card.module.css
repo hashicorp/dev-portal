@@ -7,6 +7,10 @@
 /* TODO replace magic numbers with variables */
 .certificationsCardContent {
 	padding-top: calc(286px - 64px + 50px);
+
+	@media screen and (max-width: 62.5rem) {
+		padding-top: 64px;
+	}
 }
 
 .certificationsGraphic {
