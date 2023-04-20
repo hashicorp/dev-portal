@@ -5,6 +5,7 @@
 
 import fs from 'fs'
 import path from 'path'
+import { Plugin } from 'unified'
 import type { Root, RootContent, Node } from 'hast'
 import hastUtilToHtml from 'hast-util-to-html'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -178,7 +179,12 @@ async function getProcessedHast(mdxString: string): Promise<Root> {
 	await serialize(mdxString, {
 		mdxOptions: {
 			rehypePlugins: [
-				[rehypeSanitize, schema],
+				/**
+				 * Note: The VFile type definition varies between the newer version of
+				 * `rehype-sanitize` we use and the `unified` version used by
+				 * `next-mdx-remote`, so casting to `Plugin` here is necessary.
+				 */
+				[rehypeSanitize as Plugin, schema],
 				[rehypeExtractHast, { extractedData }],
 			],
 		},

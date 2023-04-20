@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { Plugin } from 'unified'
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import { paragraphCustomAlerts, typography } from '@hashicorp/remark-plugins'
 import rehypePrism from '@mapbox/rehype-prism'
@@ -28,7 +29,12 @@ export default async function serializeIntegrationMarkdown(
 			rehypePlugins: [
 				[rehypePrism, { ignoreMissing: true }],
 				rehypeSurfaceCodeNewlines,
-				[rehypeSanitize, schema],
+				/**
+				 * Note: The VFile type definition varies between the newer version of
+				 * `rehype-sanitize` we use and the `unified` version used by
+				 * `next-mdx-remote`, so casting to `Plugin` here is necessary.
+				 */
+				[rehypeSanitize as Plugin, schema],
 			],
 		},
 	}
