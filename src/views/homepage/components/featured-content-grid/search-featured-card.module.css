@@ -120,6 +120,15 @@
 	padding: 1px 0;
 	z-index: 1;
 
+	@media (--dev-dot-mobile) {
+		/**
+    * @TODO replace magic numbers with variables
+    *   - 44px is ideal touch target for next/previous button
+    *   - 12px is the gap between buttons
+    */
+		min-width: calc(100% - 2 * 44px - 2 * 12px);
+	}
+
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
 		transition: opacity 120ms ease-in-out;
