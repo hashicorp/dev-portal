@@ -62,6 +62,7 @@ interface TutorialViewProps {
 		title: string
 		description: string
 		slug?: string
+		variant?: string
 	}
 }
 

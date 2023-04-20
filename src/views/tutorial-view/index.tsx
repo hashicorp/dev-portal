@@ -53,6 +53,7 @@ import s from './tutorial-view.module.css'
 import { useProgressToast } from './utils/use-progress-toast'
 import { generateCollectionSidebarNavData } from 'views/collection-view/helpers/generate-collection-sidebar-nav-data'
 import { OutlineNavWithActive } from 'components/outline-nav/components'
+import VariantProvider from './utils/variants'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -114,6 +115,7 @@ function TutorialView({
 	tutorial,
 	outlineItems,
 	pageHeading,
+	metadata,
 }: TutorialViewProps): React.ReactElement {
 	// hooks
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
@@ -255,36 +257,41 @@ function TutorialView({
 						product={product}
 						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
 					>
-						<TutorialMeta
-							heading={pageHeading}
-							meta={{
-								readTime,
-								edition,
-								productsUsed,
-								isInteractive,
-								hasVideo,
-							}}
-							tutorialId={id}
-						/>
-						<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
-						{hasVideo && video.id && !video.videoInline && (
-							<VideoEmbed
-								url={getVideoUrl({
-									videoId: video.id,
-									videoHost: video.videoHost,
-								})}
+						{/** should default to the first variant in the list */}
+						<VariantProvider initialVariant={metadata.variant || 'optionA'}>
+							<TutorialMeta
+								heading={pageHeading}
+								meta={{
+									readTime,
+									edition,
+									productsUsed,
+									isInteractive,
+									hasVideo,
+								}}
+								tutorialId={id}
 							/>
-						)}
-						<DevDotContent
-							mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
-						/>
-						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
-						<FeedbackPanel />
-						<NextPrevious {...nextPreviousData} />
-						<FeaturedInCollections
-							className={s.featuredInCollections}
-							collections={featuredInWithoutCurrent}
-						/>
+							<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
+							{hasVideo && video.id && !video.videoInline && (
+								<VideoEmbed
+									url={getVideoUrl({
+										videoId: video.id,
+										videoHost: video.videoHost,
+									})}
+								/>
+							)}
+
+							<DevDotContent
+								mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+							/>
+
+							<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
+							<FeedbackPanel />
+							<NextPrevious {...nextPreviousData} />
+							<FeaturedInCollections
+								className={s.featuredInCollections}
+								collections={featuredInWithoutCurrent}
+							/>
+						</VariantProvider>
 					</LayoutContentWrapper>
 				</SidebarSidecarLayout>
 			</InteractiveLabWrapper>

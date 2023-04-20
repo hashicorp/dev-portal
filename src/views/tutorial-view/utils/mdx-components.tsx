@@ -8,6 +8,7 @@ import AccordionDisclosure from 'components/accordion-disclosure'
 import Image from 'components/image'
 import InteractiveLabCallout from 'components/interactive-lab-callout'
 import VideoEmbed from 'components/video-embed'
+import { MdxVariant } from './variants'
 
 /**
  * @TODO
@@ -25,6 +26,7 @@ const MDX_COMPONENTS = {
 	InteractiveLabCallout,
 	img: Image,
 	VideoEmbed,
+	Variant: MdxVariant,
 }
 
 export default MDX_COMPONENTS

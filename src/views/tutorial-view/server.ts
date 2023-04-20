@@ -31,6 +31,7 @@ import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 
+const VARIANT_OPTIONS = ['optionA', 'optionB']
 /**
  * Given a ProductData object (imported from src/data JSON files) and a tutorial
  * slug, fetches and returns the page props for
@@ -119,6 +120,7 @@ export async function getTutorialPageProps(
 			metadata: {
 				title: fullTutorialData.name,
 				description: fullTutorialData.description,
+				variant: VARIANT_OPTIONS[0],
 			},
 			tutorial: {
 				...fullTutorialData,
