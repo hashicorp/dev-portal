@@ -15,7 +15,10 @@ const config: Config.InitialOptions = {
 		'!**/*.d.ts',
 		'!**/node_modules/**',
 	],
-	testPathIgnorePatterns: ['<rootDir>/src/__tests__/e2e'],
+	testPathIgnorePatterns: [
+		'<rootDir>/src/__tests__/e2e',
+		'rehype-sanitize.test.ts',
+	],
 	testEnvironment: 'jsdom',
 }
 

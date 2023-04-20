@@ -30,9 +30,10 @@
 		"test:e2e": "playwright test --project default",
 		"test:e2e:linkRewrites:loadData": "hc-tools ./scripts/docs-content-link-rewrites/generate-page-paths-for-repo-and-base-path.ts",
 		"test:e2e:linkRewrites": "npx playwright test --project docs-content-link-rewrites",
-		"test:watch": "jest --watch",
-		"test": "jest",
-		"test:ci": "jest --runInBand",
+		"test:watch": "jest --config=jest.config.ts --watch",
+		"test": "jest --config=jest.config.ts",
+		"test:esm": "NODE_OPTIONS=--experimental-vm-modules jest --config=jest.config.mjs",
+		"test:ci": "jest --config=jest.config.ts --runInBand && npm run test:esm -- --runInBand",
 		"typecheck": "tsc -p ."
 	},
 	"simple-git-hooks": {
