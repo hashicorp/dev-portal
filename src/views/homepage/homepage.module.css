@@ -29,6 +29,14 @@
 	padding-left: var(--padding-left-right);
 	padding-right: var(--padding-left-right);
 	padding-top: 146px;
+
+	@media (--dev-dot-tablet) {
+		padding-top: 120px;
+	}
+
+	@media (--dev-dot-mobile) {
+		padding-top: 24px;
+	}
 }
 
 .homepage {
