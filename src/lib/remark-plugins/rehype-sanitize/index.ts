@@ -36,10 +36,14 @@ const schema = deepmerge(defaultSchema, {
 			 */
 			'className',
 			/**
-			 * We enable data-text-content for all elements. We ensure that only
-			 * alphanumeric characters are present, any `data-text-content` attribute
-			 * with any other characters will be stripped out.
 			 * `data-text-content` is used for our `remark-plugin-anchor-links-data`.
+			 * We enable data-text-content for all elements (enabling it for heading
+			 * elements only would be less clean, and no more safe).
+			 *
+			 * We use config here to ensure that only alphanumeric characters are
+			 * present. Any `data-text-content` attribute with any other characters
+			 * will be removed completely.
+			 *
 			 * In the future, we could safely expand this to 'data*' to avoid having
 			 * to maintain and reason about specific use cases.
 			 * Ref: https://github.com/syntax-tree/hast-util-sanitize#attributes
