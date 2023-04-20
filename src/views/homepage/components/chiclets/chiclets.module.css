@@ -5,6 +5,14 @@
 
 .root {
 	margin-top: 122px;
+
+	@media only screen and (max-width: 1440px) {
+		margin-top: 72px;
+	}
+
+	@media (--dev-dot-mobile) {
+		margin-top: 32px;
+	}
 }
 
 .label {
