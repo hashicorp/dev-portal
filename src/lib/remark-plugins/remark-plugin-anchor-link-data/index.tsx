@@ -20,11 +20,17 @@ type RemarkPluginAnchorLinkDataOptions = {
 }
 
 /**
- * Revised version of `anchor-links` from `@hashicorp/remark-plugins`
- * that avoids injecting elements, instead only adding the necessary data
- * for us to render anchor links at a later stage in our process.
+ * A remark plugin that adds `id` and `data-text-content` attributes
+ * to all heading elements in the incoming `mdast` tree.
  *
- * TODO: write clearer description
+ * It requires an `anchorLinks` array argument, to which it
+ * appends an `{ id, level, title }` object for each heading element
+ * it traverses.
+ *
+ * Note: this is a revised version of our older `anchor-links` from
+ * `@hashicorp/remark-plugins`. This revised version avoids injecting elements,
+ * instead only adding the necessary data for us to render anchor links using
+ * MDX components.
  */
 const remarkPluginAnchorLinkData: Plugin<
 	[RemarkPluginAnchorLinkDataOptions]
