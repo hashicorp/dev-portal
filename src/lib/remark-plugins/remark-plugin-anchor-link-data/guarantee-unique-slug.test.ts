@@ -10,4 +10,17 @@ describe('guaranteeUniqueSlug', () => {
 		const result = guaranteeUniqueSlug('Hello World', [])
 		expect(result).toBe('hello-world')
 	})
+
+	it('returns a unique version of the provided string if a conflicting slug already exists', () => {
+		const result = guaranteeUniqueSlug('Hello World', ['hello-world'])
+		expect(result).toBe('hello-world-1')
+	})
+
+	it('properly handles multiple duplicates', () => {
+		const result = guaranteeUniqueSlug('Hello World', [
+			'hello-world',
+			'hello-world-1',
+		])
+		expect(result).toBe('hello-world-2')
+	})
 })
