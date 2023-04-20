@@ -1,12 +1,11 @@
 .wafCard {
 	border: none;
 	padding-top: 0;
-	width: 373px;
+	gap: 40px;
 }
 
 /* TODO replace magic numbers with variables */
 .wafCardContent {
-	margin-bottom: 48px;
 	padding-top: calc(179px - 25px + 30px);
 }
 
@@ -15,4 +14,20 @@
 	position: absolute;
 	right: 0;
 	top: -25px;
+	width: 100%;
+}
+
+.title {
+	composes: hds-font-weight-bold from global;
+	font-family: var(--token-typography-display-400-font-family);
+	font-size: var(--token-typography-display-400-font-size);
+	line-height: var(--token-typography-display-400-line-height);
+	margin: 0;
+	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		font-family: var(--token-typography-display-300-font-family);
+		font-size: var(--token-typography-display-300-font-size);
+		line-height: var(--token-typography-display-300-line-height);
+	}
 }

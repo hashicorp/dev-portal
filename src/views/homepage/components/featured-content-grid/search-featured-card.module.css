@@ -75,6 +75,11 @@
 	padding-top: 38px;
 	position: relative;
 
+	/* 500px with 16px base font */
+	@media screen and (max-width: 31.25rem) {
+		gap: 12px;
+	}
+
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
 		scroll-behavior: smooth;
@@ -115,6 +120,15 @@
 	padding: 1px 0;
 	z-index: 1;
 
+	@media (--dev-dot-mobile) {
+		/**
+    * @TODO replace magic numbers with variables
+    *   - 44px is ideal touch target for next/previous button
+    *   - 12px is the gap between buttons
+    */
+		min-width: calc(100% - 2 * 44px - 2 * 12px);
+	}
+
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
 		transition: opacity 120ms ease-in-out;
@@ -138,10 +152,27 @@
 	padding-left: 24px;
 	padding-right: 24px;
 	padding-top: 16px;
+
+	/* 700px with 16px base font */
+	@media screen and (max-width: 43.75rem) {
+		align-items: flex-start;
+		flex-direction: column;
+	}
 }
 
 .buttonText {
+	text-align: left;
 	white-space: nowrap;
+
+	/* 700px with 16px base font */
+	@media screen and (max-width: 43.75rem) {
+		white-space: unset;
+	}
+
+	/* 500px with 16px base font */
+	@media screen and (max-width: 31.25rem) {
+		word-break: break-word;
+	}
 }
 
 .positionIndicatorBar {

@@ -11,8 +11,15 @@
 		'b a a'
 		'b c d';
 	grid-template-columns: repeat(3, 1fr);
-	margin-bottom: 237px;
-	margin-top: 60px;
+	margin-bottom: 188px;
+	margin-top: 52px;
+
+	/* 1000px with 16px base font */
+	@media screen and (max-width: 62.5rem) {
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+	}
 }
 
 .gridAreaA {
@@ -22,6 +29,11 @@
 .gridAreaB {
 	grid-area: b;
 	padding-top: 136px;
+
+	/* 1000px with 16px base font */
+	@media screen and (max-width: 62.5rem) {
+		padding-top: 64px;
+	}
 }
 
 .gridAreaC {
