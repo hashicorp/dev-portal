@@ -7,7 +7,7 @@ import { Plugin, Transformer } from 'unified'
 import { visit, Node } from 'unist-util-visit'
 import { Heading } from 'mdast'
 import toString from 'mdast-util-to-string'
-import generateSlug from './generate-slug'
+import guaranteeUniqueSlug from './guarantee-unique-slug'
 
 export type AnchorLinkItem = {
 	id: string
@@ -30,13 +30,13 @@ const remarkPluginAnchorLinkData: Plugin<
 	[RemarkPluginAnchorLinkDataOptions]
 > = ({ anchorLinks }: RemarkPluginAnchorLinkDataOptions): Transformer => {
 	// this array keeps track of existing slugs to prevent duplicates per-page
-	const links = []
+	const existingIds = []
 	return function transformer(tree: Node) {
 		visit(tree, 'heading', (node: Heading) => {
 			const level = node.depth
 			const title = toString(node)
 			// generate the slug and use it as the headline's id property
-			const id = generateSlug(title, links)
+			const id = guaranteeUniqueSlug(title, existingIds)
 			node.data = {
 				...node.data,
 				hProperties: {
