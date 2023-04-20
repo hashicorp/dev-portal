@@ -23,4 +23,9 @@ describe('guaranteeUniqueSlug', () => {
 		])
 		expect(result).toBe('hello-world-2')
 	})
+
+	it('properly handles edge case conflicts', () => {
+		const result = guaranteeUniqueSlug('Step 1', ['step', 'step-1'])
+		expect(result).toBe('step-1-1')
+	})
 })
