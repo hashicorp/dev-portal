@@ -11,8 +11,15 @@
 		'b a a'
 		'b c d';
 	grid-template-columns: repeat(3, 1fr);
-	margin-bottom: 237px;
-	margin-top: 60px;
+	margin-bottom: 188px;
+	margin-top: 52px;
+
+	/* 1000px with 16px base font */
+	@media screen and (max-width: 62.5rem) {
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+	}
 }
 
 .gridAreaA {
@@ -22,6 +29,11 @@
 .gridAreaB {
 	grid-area: b;
 	padding-top: 136px;
+
+	/* 1000px with 16px base font */
+	@media screen and (max-width: 62.5rem) {
+		padding-top: 64px;
+	}
 }
 
 .gridAreaC {
@@ -30,149 +42,4 @@
 
 .gridAreaD {
 	grid-area: d;
-}
-
-.searchCard {
-	background-color: var(--token-color-foreground-strong);
-	border-radius: 10px;
-	border: 1px solid magenta; /* TODO: remove; denotes WIP */
-	box-shadow: none;
-	padding-bottom: 18px;
-	padding-left: 24px;
-	padding-right: 24px;
-	padding-top: 20px;
-}
-
-.searchCardText {
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	margin-bottom: 20px;
-}
-
-.card {
-	background-color: var(--token-color-foreground-strong);
-	border: 1px solid magenta; /* TODO: remove; denotes WIP */
-	color: var(--token-color-palette-neutral-0);
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	padding: 24px;
-	position: relative;
-
-	&:hover .learnMoreCta {
-		gap: 10px;
-		padding-right: 0;
-	}
-}
-
-.learnMoreCta {
-	/* composition */
-	composes: hds-font-weight-medium from global;
-	composes: hds-typography-body-300 from global;
-
-	/* properties */
-	align-items: center;
-	align-self: flex-end;
-	display: flex;
-	gap: 6px;
-	padding-right: 4px;
-
-	/* Only enable animation if query is supported and value is no-preference */
-	@media (prefers-reduced-motion: no-preference) {
-		transition: gap 0.2s ease-in-out, padding-right 0.2s ease-in-out;
-	}
-}
-
-/*
-***
-* Certifications FeaturedCard
-***
-*/
-
-.certificationsCard {
-	border: none;
-	padding-top: 0;
-	width: 373px;
-}
-
-/* TODO replace magic numbers with variables */
-.certificationsCardContent {
-	padding-top: calc(286px - 64px + 50px);
-}
-
-.certificationsGraphic {
-	left: 0;
-	position: absolute;
-	right: 0;
-	top: -64px;
-}
-
-.certificationsCardContentText {
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
-	margin-bottom: 70px;
-}
-
-/*
-***
-* HCP FeaturedCard
-***
-*/
-
-/* @TODO replace this with a smaller asset; need to connect with Design */
-.hcpCard {
-	background-color: transparent;
-	background-image: url('../../img/hcp-graphic.png');
-	background-position: center center;
-	background-repeat: no-repeat;
-	border: none;
-}
-
-.hcpCardTitle {
-	margin-top: 64px;
-	margin-bottom: 24px;
-}
-
-.hcpLogo svg {
-	display: block;
-	height: 30px;
-	width: auto;
-}
-
-.hcpCardBody {
-	/* composition */
-	composes: hds-typography-display-400 from global;
-	composes: hds-font-weight-semibold from global;
-
-	/* properties */
-	margin-bottom: 50px;
-	margin-top: 0;
-}
-
-/*
-***
-* WAF FeaturedCard
-***
-*/
-
-.wafCard {
-	border: none;
-	padding-top: 0;
-	width: 373px;
-}
-
-/* TODO replace magic numbers with variables */
-.wafCardContent {
-	margin-bottom: 48px;
-	padding-top: calc(179px - 25px + 30px);
-}
-
-.wafGraphic svg {
-	left: 0;
-	position: absolute;
-	right: 0;
-	top: -25px;
 }
