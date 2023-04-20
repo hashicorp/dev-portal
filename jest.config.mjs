@@ -5,7 +5,6 @@
 
 /** @type {import('@jest/types').Config} */
 const config = {
-	// transform: { '^.+\\.tsx?$': ['ts-jest', { useESM: true }] },
 	extensionsToTreatAsEsm: ['.ts'],
 	testRegex: ['rehype-sanitize.test.ts$'],
 }
