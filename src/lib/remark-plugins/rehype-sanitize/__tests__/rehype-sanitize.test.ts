@@ -9,8 +9,6 @@ import path from 'path'
 /** @typedef { import('hast').Root } Root */
 /** @typedef { import('hast').RootContent } RootContent */
 /** @typedef { import('hast').Node } Node */
-// import { Plugin } from 'unified'
-// import type { Root, RootContent, Node } from 'hast'
 import hastUtilToHtml from 'hast-util-to-html'
 import { serialize } from 'next-mdx-remote/serialize'
 import rehypeSanitize, { schema } from '..'
@@ -186,7 +184,6 @@ describe('rehypeSanitize', () => {
  * @returns {Promise<Root>}
  */
 async function getProcessedHast(mdxString) {
-	/** @type { hast?: Root } */
 	const extractedData = {}
 	await serialize(mdxString, {
 		mdxOptions: {
@@ -203,7 +200,7 @@ async function getProcessedHast(mdxString) {
 			],
 		},
 	})
-	/** @ts-expect-error - trying to get Jest to work with rehype-stringify */
+	/** @ts-expect-error - .hast is filled in by the rehypeExtractHast plugin */
 	return extractedData.hast
 }
 
