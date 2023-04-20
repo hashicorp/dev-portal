@@ -48,6 +48,7 @@ export function MdxVariant({
 	children: ReactNode
 }) {
 	// check if is active
+	// potentially just 'hide' to retain SEO on canonical link
 	const { activeVariant } = useVariants()
 	console.log({ children }, 'VARIANT ', activeVariant)
 	return activeVariant === type ? <div>{children}</div> : null

@@ -47,8 +47,16 @@ export async function getTutorialPageProps(
 	product: Omit<LearnProductData, 'slug'> & {
 		slug: LearnClientProduct['slug'] | 'hcp'
 	},
-	slug: [string, string]
+	fullSlug: [string, string]
 ): Promise<{ props: TutorialViewProps } | null> {
+	let slug = fullSlug
+	const [collectionFilename, tutorialWithVariant] = fullSlug
+	const [tutorialFilename, variant] = tutorialWithVariant.split('--')
+	if (variant) {
+		slug = [collectionFilename, tutorialFilename]
+	}
+
+	console.log(slug)
 	// product.slug may be "hcp", needs to be "cloud" for Learn API use
 	const learnProductSlug = normalizeSlugForTutorials(product.slug)
 	const { collection, tutorialReference } = await getCurrentCollectionTutorial(
@@ -120,7 +128,7 @@ export async function getTutorialPageProps(
 			metadata: {
 				title: fullTutorialData.name,
 				description: fullTutorialData.description,
-				variant: VARIANT_OPTIONS[0],
+				variant: variant || VARIANT_OPTIONS[0],
 			},
 			tutorial: {
 				...fullTutorialData,
