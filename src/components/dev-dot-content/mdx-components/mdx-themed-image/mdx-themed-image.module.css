@@ -1,4 +1,4 @@
-.root {
+/* .root {
 	display: block;
 }
 
@@ -7,4 +7,18 @@
 	height: 100%;
 	object-fit: contain;
 	border-radius: 6px;
+} */
+
+.root {
+	align-items: center;
+	display: flex;
+	width: 500px;
+	height: 100%;
+	position: relative;
+	border: 1px solid magenta;
+}
+
+.image {
+	object-position: center;
+	object-fit: contain;
 }

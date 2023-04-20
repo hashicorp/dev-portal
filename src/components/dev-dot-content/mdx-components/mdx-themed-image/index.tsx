@@ -34,8 +34,7 @@ export function MdxThemedImage({
 					src={getNewImageUrl(src.light)}
 					alt={alt}
 					title={title}
-					width={width}
-					height={height}
+					fill
 				/>
 			</span>
 			<span data-hide-on-theme="light" className={s.root}>
@@ -44,8 +43,7 @@ export function MdxThemedImage({
 					src={getNewImageUrl(src.dark)}
 					alt={alt}
 					title={title}
-					width={width}
-					height={height}
+					fill
 				/>
 			</span>
 		</>
