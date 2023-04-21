@@ -6,7 +6,9 @@ import {
 	ReactNode,
 	Dispatch,
 	SetStateAction,
+	useEffect,
 } from 'react'
+import { useRouter } from 'next/router'
 
 // context
 
@@ -52,9 +54,14 @@ export function MdxVariant({
 }) {
 	// check if is active
 	// potentially just 'hide' to retain SEO on canonical link
-	const { activeVariant } = useVariants()
+	const { activeVariant } = useVariants() // or is default
 	console.log({ children }, 'VARIANT ', activeVariant)
-	return activeVariant === type ? <div>{children}</div> : null
+	return activeVariant === type ? (
+		<div>
+			<h1>{`Variant: ${activeVariant}`}</h1>
+			{children}
+		</div>
+	) : null
 }
 
 type VariantContextValue = {
@@ -77,10 +84,21 @@ export default function VariantProvider({
 	variant?: string // the type
 }) {
 	const [activeVariant, setActiveVariant] = useState<string>(variant)
+	const router = useRouter()
+
+	console.log({ router })
 	const contextValue = useMemo(
 		() => ({ activeVariant, setActiveVariant }),
 		[activeVariant]
 	)
+
+	useEffect(() => {
+		if (typeof router.query.variant === 'string') {
+			if (router.query.variant !== activeVariant) {
+				setActiveVariant(router.query.variant)
+			}
+		}
+	}, [router.query.variant])
 
 	return (
 		<VariantContext.Provider value={contextValue}>

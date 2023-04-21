@@ -31,7 +31,7 @@ import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 
-export const VARIANT_OPTIONS = ['optionA', 'optionB']
+export const VARIANT_OPTIONS = ['terraform-oss', 'terraform-cloud']
 /**
  * Given a ProductData object (imported from src/data JSON files) and a tutorial
  * slug, fetches and returns the page props for
@@ -47,7 +47,7 @@ export async function getTutorialPageProps(
 	product: Omit<LearnProductData, 'slug'> & {
 		slug: LearnClientProduct['slug'] | 'hcp'
 	},
-	fullSlug: [string, string]
+	fullSlug: [string, string] // add a third here, which would be the variant
 ): Promise<{ props: TutorialViewProps } | null> {
 	const slug = fullSlug
 	// const [collectionFilename, tutorialWithVariant] = fullSlug

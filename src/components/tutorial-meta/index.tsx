@@ -78,11 +78,11 @@ export default function TutorialMeta({
 					<TutorialMetaBookmarkButton
 						tutorial={{ id: tutorialId, name: heading.text }}
 					/>
-					{['optionA', 'optionB'].map((option) => (
+					{['oss', 'tfc'].map((option) => (
 						<ButtonLink
 							key={option}
 							text={option}
-							href={getVariantPath(asPath, option)} // make work with hashes & query etc
+							href={`/terraform/tutorials/configuration-language/variables?variant=${option}`} // make work with hashes & query etc
 						/>
 					))}
 				</span>

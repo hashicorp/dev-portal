@@ -125,10 +125,6 @@ function TutorialView({
 	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
 
-	const router = useRouter()
-
-	console.log({ router })
-
 	// variables
 	const {
 		id,
@@ -265,9 +261,7 @@ function TutorialView({
 						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
 					>
 						{/** should default to the first variant in the list */}
-						<VariantProvider
-							variant={(router.query.variant as string) || 'optionA'}
-						>
+						<VariantProvider variant={'oss'}>
 							<TutorialMeta
 								heading={pageHeading}
 								meta={{
