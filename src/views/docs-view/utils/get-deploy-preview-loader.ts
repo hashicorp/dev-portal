@@ -7,8 +7,8 @@
 import path from 'path'
 
 // HashiCorp Imports
-import FileSystemLoader from '../../../views/docs-view/server-loaders/loaders/file-system'
-import RemoteContentLoader from '../../../views/docs-view/server-loaders/loaders/remote-content'
+import FileSystemLoader from '../loaders/file-system'
+import RemoteContentLoader from '../loaders/remote-content'
 import {
 	includeMarkdown,
 	paragraphCustomAlerts,

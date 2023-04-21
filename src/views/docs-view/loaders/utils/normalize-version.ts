@@ -1,4 +1,4 @@
-export const normalizeVersion = (version) => {
+export const normalizeVersion = (version: string) => {
 	if (version === 'latest') {
 		return version
 	}

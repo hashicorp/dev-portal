@@ -5,18 +5,18 @@
 
 import { GetStaticPaths, GetStaticProps, GetStaticPathsResult } from 'next'
 import { ContentApiError } from '../content-api'
-import FileSystemLoader from './loaders/file-system'
-import RemoteContentLoader from './loaders/remote-content'
-import { DataLoader } from './loaders/types'
+import FileSystemLoader from './file-system'
+import RemoteContentLoader from './remote-content'
+import { DataLoader } from './types'
 
 // We currently export most utilities individually,
 // since we have cases such as Packer remote plugin docs
 // where we want to re-use these utilities to build
 // getStaticPaths and getStaticProps functions that
 // fall outside the use case of local-only content
-export { getNodeFromPath } from './loaders/get-node-from-path'
-export { getPathsFromNavData } from './loaders/get-paths-from-nav-data'
-export { validateNavData } from './loaders/validate-nav-data'
+export { getNodeFromPath } from './utils/get-node-from-path'
+export { getPathsFromNavData } from './utils/get-paths-from-nav-data'
+export { validateNavData } from './utils/validate-nav-data'
 export { default as validateFilePaths } from '@hashicorp/react-docs-sidenav/utils/validate-file-paths'
 
 interface BaseOpts {

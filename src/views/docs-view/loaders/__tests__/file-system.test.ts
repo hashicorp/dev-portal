@@ -5,10 +5,10 @@
 
 import { mocked } from 'jest-mock'
 import FileSystemLoader from '../file-system'
-import { resolveNavData } from '../resolve-nav-data'
-import navData from '../../__fixtures__/navData.json'
+import { resolveNavData } from '../utils'
+import navData from '../__fixtures__/navData.json'
 
-jest.mock('../../utils/resolve-nav-data')
+jest.mock('../utils/resolve-nav-data')
 const mockedResolveNavData = mocked(resolveNavData)
 
 const CONTENT_DIR = 'src/views/docs-view/server/__fixtures__'

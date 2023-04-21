@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { VersionSelectItem } from '../../../views/docs-view/server-loaders/loaders/remote-content'
+import { VersionSelectItem } from '../../../views/docs-view/loaders/remote-content'
 import type { MenuItem } from 'components/sidebar'
 import { getParentRootDocsPath } from 'lib/docs/get-parent-root-docs-path'
 import { ProductData } from 'types/products'

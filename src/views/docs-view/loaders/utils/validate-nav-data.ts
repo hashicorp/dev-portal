@@ -3,11 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { NavData } from '@hashicorp/react-docs-sidenav/types'
 import validateFilePaths from '@hashicorp/react-docs-sidenav/utils/validate-file-paths'
 import validateRouteStructure from '@hashicorp/react-docs-sidenav/utils/validate-route-structure'
 import validateUnlinkedContent from '@hashicorp/react-docs-sidenav/utils/validate-unlinked-content'
 
-export async function validateNavData(navData, localContentDir) {
+export async function validateNavData(
+	navData: NavData,
+	localContentDir: string
+) {
 	const withFilePaths = await validateFilePaths(navData, localContentDir)
 	// Validate unlinked content checks for content files that are NOT
 	// included in the provided navData. This requires filesystem access,

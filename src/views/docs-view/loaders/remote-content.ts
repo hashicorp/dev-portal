@@ -11,11 +11,13 @@ import {
 	fetchNavData,
 	fetchVersionMetadataList,
 	fetchDocument,
-} from '../../content-api'
-import { getPathsFromNavData } from './get-paths-from-nav-data'
-import { stripVersionFromPathParams } from '../../utils/strip-version-from-path'
-import { normalizeVersion } from '../../utils/normalize-version'
-import renderPageMdx from '../../render-page-mdx'
+} from '../content-api'
+import {
+	stripVersionFromPathParams,
+	getPathsFromNavData,
+	normalizeVersion,
+} from './utils'
+import renderPageMdx from '../render-page-mdx'
 import { DEFAULT_PARAM_ID, REMARK_ARRAY_ERROR } from '../consts'
 import {
 	DataLoader,

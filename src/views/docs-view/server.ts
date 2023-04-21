@@ -11,7 +11,7 @@ import rehypePrism from '@mapbox/rehype-prism'
 
 // HashiCorp Imports
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
-import RemoteContentLoader from '../../views/docs-view/server-loaders/loaders/remote-content'
+import RemoteContentLoader from './loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
 
 // Global imports

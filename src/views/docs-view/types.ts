@@ -5,7 +5,7 @@
 
 import { ReactNode } from 'react'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { VersionSelectItem } from '../../views/docs-view/server-loaders/loaders/remote-content'
+import { VersionSelectItem } from './loaders/remote-content'
 import { ProductSlug, ProductWithCurrentRootDocsPath } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { OutlineLinkItem } from 'components/outline-nav/types'

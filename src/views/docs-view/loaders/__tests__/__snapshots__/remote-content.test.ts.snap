@@ -4,11 +4,6 @@ exports[`RemoteContentLoader generates paths from remote nav data 1`] = `
 Array [
   Object {
     "params": Object {
-      "page": Array [],
-    },
-  },
-  Object {
-    "params": Object {
       "page": Array [
         "build",
       ],

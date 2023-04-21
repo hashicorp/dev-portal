@@ -100,7 +100,7 @@ need to reload your shell.
 }
 `;
 
-exports[`contentApi fetchDocument should throw if a document is not found 1`] = `"Failed to fetch: http://localhost:3001/api/content/waypoint/doc/latest/commands/k8s-bootstrap"`;
+exports[`contentApi fetchDocument should throw if a document is not found 1`] = `"Failed to fetch: https://content.hashicorp.com/api/content/waypoint/doc/latest/commands/k8s-bootstrap"`;
 
 exports[`contentApi fetchNavData should return the requested navdata 1`] = `
 Object {
@@ -375,7 +375,7 @@ Object {
 }
 `;
 
-exports[`contentApi fetchNavData should throw if a navData is not found 1`] = `"Failed to fetch: http://localhost:3001/api/content/waypoint/nav-data/v0.9000.x/commands"`;
+exports[`contentApi fetchNavData should throw if a navData is not found 1`] = `"Failed to fetch: https://content.hashicorp.com/api/content/waypoint/nav-data/v0.9000.x/commands"`;
 
 exports[`contentApi fetchVersionMetadataList should return an empty list for invalid product name 1`] = `Array []`;
 

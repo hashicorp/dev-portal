@@ -5,7 +5,7 @@
 
 import { NavNode } from '@hashicorp/react-docs-sidenav/types'
 
-import { DEFAULT_PARAM_ID } from '../consts'
+import { DEFAULT_PARAM_ID } from '../../consts'
 
 export function getPathArraysFromNodes(navNodes: NavNode[]): string[][] {
 	const slugs: string[][] = navNodes.reduce((acc, navNode) => {

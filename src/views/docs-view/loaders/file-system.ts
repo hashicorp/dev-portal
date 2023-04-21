@@ -8,11 +8,13 @@ import fs from 'fs'
 import { GetStaticPropsContext } from 'next'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { Pluggable } from 'unified'
-import renderPageMdx from '../../render-page-mdx'
-import { stripVersionFromPathParams } from '../../utils/strip-version-from-path'
-import { getNodeFromPath } from './get-node-from-path'
-import { getPathsFromNavData } from './get-paths-from-nav-data'
-import { resolveNavData } from './resolve-nav-data'
+import renderPageMdx from '../render-page-mdx'
+import {
+	getNodeFromPath,
+	getPathsFromNavData,
+	resolveNavData,
+	stripVersionFromPathParams,
+} from './utils'
 import { DEFAULT_PARAM_ID, REMARK_ARRAY_ERROR } from '../consts'
 import {
 	DataLoader,

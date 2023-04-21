@@ -4,11 +4,11 @@
  */
 
 import nock from 'nock'
-import document_200 from '../../../content-api/__fixtures__/document_200.json'
-import navData_200 from '../../../content-api/__fixtures__/navData_200.json'
-import document_v4 from '../../../content-api/__fixtures__/document_v0.4.x.json'
-import navData_v4 from '../../../content-api/__fixtures__/navData_v0.4.x.json'
-import versionMetadata_200 from '../../../content-api/__fixtures__/versionMetadata_200.json'
+import document_200 from '../../content-api/__fixtures__/document_200.json'
+import navData_200 from '../../content-api/__fixtures__/navData_200.json'
+import document_v4 from '../../content-api/__fixtures__/document_v0.4.x.json'
+import navData_v4 from '../../content-api/__fixtures__/navData_v0.4.x.json'
+import versionMetadata_200 from '../../content-api/__fixtures__/versionMetadata_200.json'
 import RemoteContentLoader, {
 	mapVersionList,
 	VersionMetadataItem,
