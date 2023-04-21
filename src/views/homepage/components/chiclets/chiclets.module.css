@@ -61,7 +61,14 @@
 	display: block;
 	padding: 1px;
 
+	/* this is --token-surface-mid-box-shadow in dark mode */
+	box-shadow: 0 0 0 1px #b2b6bd26, 0 2px 3px 0 #6168751a,
+		0 8px 16px -10px #61687533;
+
 	&:hover {
+		/* this is --token-surface-high-box-shadow in dark mode */
+		box-shadow: 0 0 0 1px #b2b6bd40, 0 2px 3px 0 #61687526,
+			0 16px 16px -10px #61687533;
 		background: var(--hover-background);
 	}
 }
