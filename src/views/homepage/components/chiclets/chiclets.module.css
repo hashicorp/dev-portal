@@ -10,6 +10,10 @@
 		margin-top: 72px;
 	}
 
+	@media (--dev-dot-tablet) {
+		margin-top: 80px;
+	}
+
 	@media (--dev-dot-mobile) {
 		margin-top: 32px;
 	}
@@ -25,7 +29,7 @@
 	margin-bottom: 24px;
 	padding: 0;
 
-	@media (--dev-dot-mobile) {
+	@media (--dev-dot-tablet-down) {
 		font-family: var(--token-typography-display-300-font-family);
 		font-size: var(--token-typography-display-300-font-size);
 		line-height: var(--token-typography-display-300-line-height);
