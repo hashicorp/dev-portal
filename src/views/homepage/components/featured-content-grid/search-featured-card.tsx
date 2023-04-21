@@ -112,7 +112,7 @@ const SearchFeaturedCard = () => {
 	}, [currentIndex])
 
 	return (
-		<Card className={s.root} elevation="base">
+		<Card className={s.root} elevation="mid">
 			<Heading className={s.heading} level={2} size={400} weight="bold">
 				Search with ease
 			</Heading>

@@ -2,9 +2,9 @@
 	background: url('../../img/search-card-graphic.svg');
 	background-color: var(--token-color-foreground-strong);
 	background-size: cover;
-	background-position: center left;
+	background-position: center top;
+	border: 1px solid var(--token-color-foreground-strong);
 	border-radius: 10px;
-	box-shadow: none; /* TODO - should there be elevation? */
 	padding-bottom: 18px;
 	padding-left: 24px;
 	padding-right: 24px;
