@@ -3,7 +3,6 @@
 	background-color: var(--token-color-foreground-strong);
 	background-size: cover;
 	background-position: center top;
-	border: 1px solid var(--token-color-foreground-strong);
 	border-radius: 10px;
 	padding-bottom: 18px;
 	padding-left: 24px;
