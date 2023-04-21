@@ -20,7 +20,7 @@ const isRunningInEsmMode = !!process.env.TEST_ESM
  *
  * TODO: determine this from "type": "module" in package.json
  */
-const ESM_PACKAGES = ['src/lib/remark-plugins/rehype-sanitize']
+const ESM_TEST_DIRS = ['src/lib/remark-plugins/rehype-sanitize']
 
 /**
  * Override the base next jest-transformer to force it into ESM mode
@@ -42,8 +42,8 @@ const esmConfig: Config.InitialOptions = {
  * Exclude ESM-native packages from running when not in ESM mode
  */
 const ignorePatternForModuleType = isRunningInEsmMode
-	? `<rootDir>/(?!${ESM_PACKAGES.join('|')}).*/.*`
-	: `<rootDir>/(${ESM_PACKAGES.join('|')})/.*`
+	? `<rootDir>/(?!${ESM_TEST_DIRS.join('|')}).*/.*`
+	: `<rootDir>/(${ESM_TEST_DIRS.join('|')})/.*`
 
 /**
  * Build the final config.
