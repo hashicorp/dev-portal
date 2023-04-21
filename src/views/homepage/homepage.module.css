@@ -21,10 +21,22 @@
 }
 
 .limitedWidthContainer {
+	--padding-left-right: 24px;
+
 	margin: 0 auto;
 	margin-bottom: 72px;
-	max-width: 1235px;
-	padding-top: 147px;
+	max-width: calc(1232px + 2 * var(--padding-left-right));
+	padding-left: var(--padding-left-right);
+	padding-right: var(--padding-left-right);
+	padding-top: 146px;
+
+	@media (--dev-dot-tablet) {
+		padding-top: 120px;
+	}
+
+	@media (--dev-dot-mobile) {
+		padding-top: 24px;
+	}
 }
 
 .homepage {

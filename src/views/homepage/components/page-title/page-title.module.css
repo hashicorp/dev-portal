@@ -11,10 +11,13 @@
  */
 .root {
 	font-size: 4.375rem;
-	font-weight: var(--token-typography-font-weight-bold);
 	line-height: 1.2;
 	margin: 0;
 	padding: 0;
+
+	@media (--dev-dot-mobile) {
+		font-size: 2.5rem;
+	}
 }
 
 /**
@@ -26,7 +29,6 @@
  * https://stackoverflow.com/a/28592238
  */
 .line1 {
-	display: block;
 	background: linear-gradient(
 			90deg,
 			rgba(136, 143, 255, 0.46) 9.03%,
@@ -39,12 +41,15 @@
 		);
 	background-clip: text;
 	color: transparent;
+	display: block;
+	font-weight: var(--token-typography-font-weight-bold);
 	width: fit-content;
 }
 
 .line2 {
-	display: block;
-	margin-top: 10px;
 	color: var(--token-color-foreground-high-contrast);
+	display: block;
+	font-weight: var(--token-typography-font-weight-semibold);
+	margin-top: 10px;
 	width: fit-content;
 }
