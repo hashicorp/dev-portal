@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import s from './mdx-table.module.css'
 
@@ -47,7 +47,7 @@ export function MdxTable(props: JSX.IntrinsicElements['table']) {
 	const showLeftScrim = isScrollable && !isAtStart
 	const showRightScrim = isScrollable && !isAtEnd
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		const scrollableElement = scrollableRef.current
 
 		const scrollListener = () => {
