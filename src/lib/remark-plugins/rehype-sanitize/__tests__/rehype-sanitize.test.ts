@@ -5,10 +5,7 @@
 
 import fs from 'fs'
 import path from 'path'
-/** @typedef { import('unified').User } Plugin */
-/** @typedef { import('hast').Root } Root */
-/** @typedef { import('hast').RootContent } RootContent */
-/** @typedef { import('hast').Node } Node */
+import type { Root, RootContent, Node } from 'hast'
 import hastUtilToHtml from 'hast-util-to-html'
 import { serialize } from 'next-mdx-remote/serialize'
 import rehypeSanitize, { schema } from '..'
@@ -60,13 +57,11 @@ describe('rehypeSanitize', () => {
 		 * types are inaccurate (ie, `jsx` notes are possible)`, we use the more
 		 * generic `Node` type here.
 		 */
-		const jsxNodes = root.children.filter(
-			(/* @type Node */ n) => n.type === 'jsx'
-		)
+		const jsxNodes = root.children.filter((n: Node) => n.type === 'jsx')
 		expect(jsxNodes.length).toBe(0)
 		// Another backup assertion, if we filter out newlines, we should only
 		// see two nodes: the heading node and paragraph node.
-		const elementNodes = root.children.filter((/* @type RootContent */ n) => {
+		const elementNodes = root.children.filter((n: RootContent) => {
 			if ('value' in n) {
 				return n.value !== '\n'
 			} else {
@@ -94,13 +89,11 @@ describe('rehypeSanitize', () => {
 		/**
 		 * Assert that the AST we'll render does not have any JSX nodes
 		 */
-		const jsxNodes = root.children.filter(
-			(/** @type Node */ n) => n.type === 'jsx'
-		)
+		const jsxNodes = root.children.filter((n: Node) => n.type === 'jsx')
 		expect(jsxNodes.length).toBe(0)
 		// Another backup assertion, if we filter out newlines, we should only
 		// see two nodes: the heading node and paragraph node.
-		const elementNodes = root.children.filter((n) => {
+		const elementNodes = root.children.filter((n: RootContent) => {
 			if ('value' in n) {
 				return n.value !== '\n'
 			} else {
@@ -179,12 +172,9 @@ describe('rehypeSanitize', () => {
 /**
  * Utility to process a markdown string with `next-mdx-remote`,
  * returning the rehype syntax tree just after sanitization.
- *
- * @param {string} mdxString
- * @returns {Promise<Root>}
  */
-async function getProcessedHast(mdxString) {
-	const extractedData = {}
+async function getProcessedHast(mdxString: string): Promise<Root> {
+	const extractedData: { hast?: Root } = {}
 	await serialize(mdxString, {
 		mdxOptions: {
 			rehypePlugins: [
@@ -194,12 +184,10 @@ async function getProcessedHast(mdxString) {
 				 * `next-mdx-remote`, so casting to `Plugin` here is necessary.
 				 */
 				[rehypeSanitize, schema],
-				/** @ts-expect-error - trying to get Jest to work with rehype-stringify */
 				[rehypeExtractHast, { extractedData }],
 			],
 		},
 	})
-	/** @ts-expect-error - .hast is filled in by the rehypeExtractHast plugin */
 	return extractedData.hast
 }
 
@@ -208,8 +196,12 @@ async function getProcessedHast(mdxString) {
  * going to render via `next-mdx-remote` in a clearer way than trying to
  * assert on the serialized result.
  */
-export default function rehypeExtractHast({ extractedData }) {
-	return function transformer(tree) {
+export default function rehypeExtractHast({
+	extractedData,
+}: {
+	extractedData: Record<string, unknown>
+}) {
+	return function transformer(tree: Node): void {
 		extractedData.hast = tree
 	}
 }
