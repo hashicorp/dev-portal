@@ -4,10 +4,10 @@
  */
 
 import { CSSProperties, useLayoutEffect, useRef, useState } from 'react'
-import s from './mdx-table.module.css'
 import classNames from 'classnames'
+import s from './mdx-table.module.css'
 
-const getHorizontalScrollData = (element) => {
+const getScrollData = (element) => {
 	const { scrollLeft, scrollWidth, clientWidth, offsetWidth } = element
 
 	const isScrollable = scrollWidth > clientWidth
@@ -23,29 +23,6 @@ const getHorizontalScrollData = (element) => {
 	}
 }
 
-const getVerticalScrollData = (element) => {
-	const { scrollTop, scrollHeight, clientHeight, offsetHeight } = element
-
-	const isScrollable = scrollHeight > clientHeight
-	const isAtStart = scrollTop === 0
-	const isAtEnd = scrollHeight - clientHeight - scrollTop <= 10
-	const scrollbarWidth = offsetHeight - clientHeight
-
-	return {
-		isScrollable,
-		isAtStart,
-		isAtEnd,
-		scrollbarWidth,
-	}
-}
-
-const getScrollData = (element) => {
-	return {
-		horizontal: getHorizontalScrollData(element),
-		vertical: getVerticalScrollData(element),
-	}
-}
-
 /**
  * Lightweight wrapper around the native <table> element. Encapsulates styles,
  * enables scrolling when tables are too tall or wide, and uses `tabindex="0"`
@@ -57,33 +34,23 @@ const getScrollData = (element) => {
  */
 export function MdxTable(props: JSX.IntrinsicElements['table']) {
 	const scrollableRef = useRef<HTMLDivElement>()
-	const [scrollData, setScrollData] = useState<{
-		horizontal: {
+	const [{ isScrollable, isAtStart, isAtEnd, scrollbarWidth }, setScrollData] =
+		useState<{
 			isScrollable: boolean
 			isAtStart?: boolean
 			isAtEnd?: boolean
 			scrollbarWidth?: number
-		}
-		vertical: {
-			isScrollable: boolean
-			isAtStart?: boolean
-			isAtEnd?: boolean
-			scrollbarWidth?: number
-		}
-	}>({
-		horizontal: {
+		}>({
 			isScrollable: false,
-		},
-		vertical: {
-			isScrollable: false,
-		},
-	})
+		})
+	const showLeftScrim = isScrollable && !isAtStart
+	const showRightScrim = isScrollable && !isAtEnd
 
 	useLayoutEffect(() => {
 		const scrollableElement = scrollableRef.current
 
-		const scrollListener = (event) => {
-			setScrollData(getScrollData(event.target))
+		const scrollListener = () => {
+			setScrollData(getScrollData(scrollableRef.current))
 		}
 
 		setScrollData(getScrollData(scrollableRef.current))
@@ -96,17 +63,6 @@ export function MdxTable(props: JSX.IntrinsicElements['table']) {
 			scrollableElement.removeEventListener('scroll', scrollListener)
 		}
 	}, [])
-
-	const isScrollable =
-		scrollData.horizontal.isScrollable && scrollData.vertical.isScrollable
-	const showTopScrim =
-		scrollData.vertical.isScrollable && !scrollData.vertical.isAtStart
-	const showBottomScrim =
-		scrollData.vertical.isScrollable && !scrollData.vertical.isAtEnd
-	const showLeftScrim =
-		scrollData.horizontal.isScrollable && !scrollData.horizontal.isAtStart
-	const showRightScrim =
-		scrollData.horizontal.isScrollable && !scrollData.horizontal.isAtEnd
 
 	return (
 		<div className={s.root}>
@@ -121,15 +77,10 @@ export function MdxTable(props: JSX.IntrinsicElements['table']) {
 			<div
 				style={
 					{
-						'--horizontal-scrollbar-width': `${scrollData.horizontal.scrollbarWidth}px`,
-						'--vertical-scrollbar-width': `${scrollData.vertical.scrollbarWidth}px`,
+						'--horizontal-scrollbar-width': `${scrollbarWidth}px`,
 					} as CSSProperties
 				}
 			>
-				<div className={classNames(s.topScrim, showTopScrim && s.showScrim)} />
-				<div
-					className={classNames(s.bottomScrim, showBottomScrim && s.showScrim)}
-				/>
 				<div
 					className={classNames(s.leftScrim, showLeftScrim && s.showScrim)}
 				/>
