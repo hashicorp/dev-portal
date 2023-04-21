@@ -178,11 +178,6 @@ async function getProcessedHast(mdxString: string): Promise<Root> {
 	await serialize(mdxString, {
 		mdxOptions: {
 			rehypePlugins: [
-				/**
-				 * Note: The VFile type definition varies between the newer version of
-				 * `rehype-sanitize` we use and the `unified` version used by
-				 * `next-mdx-remote`, so casting to `Plugin` here is necessary.
-				 */
 				[rehypeSanitize, schema],
 				[rehypeExtractHast, { extractedData }],
 			],
