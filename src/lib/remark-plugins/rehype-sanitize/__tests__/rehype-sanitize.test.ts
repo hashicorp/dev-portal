@@ -193,7 +193,6 @@ async function getProcessedHast(mdxString) {
 				 * `rehype-sanitize` we use and the `unified` version used by
 				 * `next-mdx-remote`, so casting to `Plugin` here is necessary.
 				 */
-				/** @ts-expect-error - trying to get Jest to work with rehype-stringify */
 				[rehypeSanitize, schema],
 				/** @ts-expect-error - trying to get Jest to work with rehype-stringify */
 				[rehypeExtractHast, { extractedData }],
