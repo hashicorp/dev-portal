@@ -11,8 +11,8 @@ import { ProductData } from 'types/products'
 import {
 	getNodeFromPath,
 	getPathsFromNavData,
-} from '@hashicorp/react-docs-page/server'
-import renderPageMdx from '@hashicorp/react-docs-page/render-page-mdx'
+} from '../../views/docs-view/server-loaders'
+import renderPageMdx from '../../views/docs-view/render-page-mdx'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { getProductUrlAdjuster } from 'views/docs-view/utils/product-url-adjusters'
 import resolveNavDataWithRemotePlugins, {
