@@ -9,7 +9,7 @@
 
 .background {
 	background-color: var(--token-color-foreground-strong);
-	background-image: url('./img/background.svg');
+	background-image: url('./img/background.png');
 	background-position: center top;
 	background-repeat: no-repeat;
 	background-size: cover;
