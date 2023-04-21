@@ -18,9 +18,14 @@ const FEATURED_SEARCH_TERMS = [
 	'Cloud Operating Model',
 ]
 
+// Starting the animation from the center, as requested from Design
+const INITIALLY_CENTERED_TERM_INDEX = 2
+
 const SearchFeaturedCard = () => {
 	const scrollableAreaRef = useRef<HTMLDivElement>()
-	const [currentIndex, setCurrentIndex] = useState(0)
+	const [currentIndex, setCurrentIndex] = useState(
+		INITIALLY_CENTERED_TERM_INDEX
+	)
 	const prefersReducedMotion = usePrefersReducedMotion()
 	const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(
 		!prefersReducedMotion
