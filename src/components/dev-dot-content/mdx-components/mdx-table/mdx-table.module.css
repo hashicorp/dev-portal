@@ -87,7 +87,7 @@
 }
 
 .scrim {
-	--scrim-size: 60px;
+	--scrim-size: 30px;
 
 	content: '';
 	opacity: 0;
