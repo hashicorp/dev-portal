@@ -74,11 +74,11 @@ type TutorialPageStaticPropsCtx = GetStaticPropsContext<{
 	tutorialSlug: [string, string]
 }>
 
-async function _getStaticProps({
-	params,
-}: TutorialPageStaticPropsCtx): Promise<
-	GetStaticPropsResult<TutorialViewProps>
-> {
+async function _getStaticProps(
+	staticProps
+): Promise<GetStaticPropsResult<TutorialViewProps>> {
+	const { params }: TutorialPageStaticPropsCtx = staticProps
+	console.log(staticProps)
 	const { productSlug, tutorialSlug } = params
 
 	const productData = cachedGetProductData(productSlug) as LearnProductData

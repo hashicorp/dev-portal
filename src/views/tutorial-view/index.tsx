@@ -6,6 +6,7 @@
 // Third-party imports
 import { Fragment, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 // Global imports
 import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
@@ -54,6 +55,8 @@ import { useProgressToast } from './utils/use-progress-toast'
 import { generateCollectionSidebarNavData } from 'views/collection-view/helpers/generate-collection-sidebar-nav-data'
 import { OutlineNavWithActive } from 'components/outline-nav/components'
 import VariantProvider from './utils/variants'
+import { VARIANT_OPTIONS } from './server'
+import ButtonLink from 'components/button-link'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -121,6 +124,10 @@ function TutorialView({
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
+
+	const router = useRouter()
+
+	console.log({ router })
 
 	// variables
 	const {
@@ -258,7 +265,9 @@ function TutorialView({
 						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
 					>
 						{/** should default to the first variant in the list */}
-						<VariantProvider initialVariant={metadata.variant || 'optionA'}>
+						<VariantProvider
+							variant={(router.query.variant as string) || 'optionA'}
+						>
 							<TutorialMeta
 								heading={pageHeading}
 								meta={{

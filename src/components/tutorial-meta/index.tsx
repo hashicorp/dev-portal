@@ -2,16 +2,18 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-
 import useAuthentication from 'hooks/use-authentication'
 import { TutorialData } from 'views/tutorial-view'
 import Heading from 'components/heading'
 import InlineLink from 'components/inline-link'
+import ButtonLink from 'components/button-link'
 import Text from 'components/text'
 import { Badges, getIsBeta } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
 import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
+import useCurrentPath from 'hooks/use-current-path'
+import { useRouter } from 'next/router'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -22,12 +24,22 @@ interface TutorialMetaProps {
 	tutorialId: TutorialData['id']
 }
 
+function getVariantPath(path, variantType) {
+	const { hash, pathname, search } = new URL(
+		path,
+		'https://developer.hashicorp.com'
+	)
+
+	return pathname + search + hash
+}
+
 export default function TutorialMeta({
 	heading,
 	meta,
 	tutorialId,
 }: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
+	const { asPath } = useRouter()
 
 	/**
 	 * We only need to show the Create Account CTA if auth is enabled and there is
@@ -66,6 +78,13 @@ export default function TutorialMeta({
 					<TutorialMetaBookmarkButton
 						tutorial={{ id: tutorialId, name: heading.text }}
 					/>
+					{['optionA', 'optionB'].map((option) => (
+						<ButtonLink
+							key={option}
+							text={option}
+							href={getVariantPath(asPath, option)} // make work with hashes & query etc
+						/>
+					))}
 				</span>
 				{showCreateAccountCta ? (
 					<Text className={s.createAccountCta} size={200}>

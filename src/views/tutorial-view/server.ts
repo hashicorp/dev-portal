@@ -31,7 +31,7 @@ import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 
-const VARIANT_OPTIONS = ['optionA', 'optionB']
+export const VARIANT_OPTIONS = ['optionA', 'optionB']
 /**
  * Given a ProductData object (imported from src/data JSON files) and a tutorial
  * slug, fetches and returns the page props for
@@ -49,14 +49,13 @@ export async function getTutorialPageProps(
 	},
 	fullSlug: [string, string]
 ): Promise<{ props: TutorialViewProps } | null> {
-	let slug = fullSlug
-	const [collectionFilename, tutorialWithVariant] = fullSlug
-	const [tutorialFilename, variant] = tutorialWithVariant.split('--')
-	if (variant) {
-		slug = [collectionFilename, tutorialFilename]
-	}
+	const slug = fullSlug
+	// const [collectionFilename, tutorialWithVariant] = fullSlug
+	// const [tutorialFilename, variant] = tutorialWithVariant.split('--')
+	// if (variant) {
+	// 	slug = [collectionFilename, tutorialFilename]
+	// }
 
-	console.log(slug)
 	// product.slug may be "hcp", needs to be "cloud" for Learn API use
 	const learnProductSlug = normalizeSlugForTutorials(product.slug)
 	const { collection, tutorialReference } = await getCurrentCollectionTutorial(
@@ -128,7 +127,7 @@ export async function getTutorialPageProps(
 			metadata: {
 				title: fullTutorialData.name,
 				description: fullTutorialData.description,
-				variant: variant || VARIANT_OPTIONS[0],
+				// variant: variant || VARIANT_OPTIONS[0],
 			},
 			tutorial: {
 				...fullTutorialData,
