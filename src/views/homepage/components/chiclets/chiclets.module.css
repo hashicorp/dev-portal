@@ -40,7 +40,7 @@
 .navList {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 16px;
+	gap: 15px;
 	list-style: none;
 	margin: 0;
 	padding: 0;
