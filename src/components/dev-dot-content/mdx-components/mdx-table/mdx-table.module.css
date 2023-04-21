@@ -107,7 +107,7 @@
 .leftScrim {
 	composes: scrim;
 	background: linear-gradient(to right, #ffff, #fff0) left;
-	bottom: var(--horizontal-scrollbar-width);
+	bottom: 0;
 	left: 0;
 	top: 1px;
 	width: var(--scrim-size);
@@ -116,7 +116,7 @@
 .rightScrim {
 	composes: scrim;
 	background: linear-gradient(to left, #ffff, #fff0) right;
-	bottom: var(--horizontal-scrollbar-width);
+	bottom: 0;
 	right: 0;
 	top: 1px;
 	width: var(--scrim-size);

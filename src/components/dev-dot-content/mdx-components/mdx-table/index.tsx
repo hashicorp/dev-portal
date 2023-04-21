@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { CSSProperties, useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import s from './mdx-table.module.css'
 
@@ -13,22 +13,19 @@ interface ScrollData {
 	isScrollable: boolean
 	isAtStart?: boolean
 	isAtEnd?: boolean
-	scrollbarWidth?: number
 }
 
 const getScrollData = (element: ScrollableRefElement): ScrollData => {
-	const { scrollLeft, scrollWidth, clientWidth, offsetWidth } = element
+	const { clientWidth, scrollLeft, scrollWidth } = element
 
 	const isScrollable = scrollWidth > clientWidth
 	const isAtStart = scrollLeft === 0
 	const isAtEnd = scrollWidth - clientWidth - scrollLeft <= 10
-	const scrollbarWidth = offsetWidth - clientWidth
 
 	return {
 		isScrollable,
 		isAtStart,
 		isAtEnd,
-		scrollbarWidth,
 	}
 }
 
@@ -43,7 +40,7 @@ const getScrollData = (element: ScrollableRefElement): ScrollData => {
  */
 export function MdxTable(props: JSX.IntrinsicElements['table']) {
 	const scrollableRef = useRef<ScrollableRefElement>()
-	const [{ isScrollable, isAtStart, isAtEnd, scrollbarWidth }, setScrollData] =
+	const [{ isScrollable, isAtStart, isAtEnd }, setScrollData] =
 		useState<ScrollData>({
 			isScrollable: false,
 		})
@@ -78,13 +75,7 @@ export function MdxTable(props: JSX.IntrinsicElements['table']) {
 				<table {...props} />
 			</div>
 			<div className={s.tableFocusRing} />
-			<div
-				style={
-					{
-						'--horizontal-scrollbar-width': `${scrollbarWidth}px`,
-					} as CSSProperties
-				}
-			>
+			<div>
 				<div
 					className={classNames(s.leftScrim, showLeftScrim && s.showScrim)}
 				/>
