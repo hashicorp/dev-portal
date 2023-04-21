@@ -7,7 +7,16 @@ import { CSSProperties, useLayoutEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import s from './mdx-table.module.css'
 
-const getScrollData = (element) => {
+type ScrollableRefElement = HTMLDivElement
+
+interface ScrollData {
+	isScrollable: boolean
+	isAtStart?: boolean
+	isAtEnd?: boolean
+	scrollbarWidth?: number
+}
+
+const getScrollData = (element: ScrollableRefElement): ScrollData => {
 	const { scrollLeft, scrollWidth, clientWidth, offsetWidth } = element
 
 	const isScrollable = scrollWidth > clientWidth
@@ -33,14 +42,9 @@ const getScrollData = (element) => {
  * https://www.tpgi.com/short-note-on-improving-usability-of-scrollable-regions/
  */
 export function MdxTable(props: JSX.IntrinsicElements['table']) {
-	const scrollableRef = useRef<HTMLDivElement>()
+	const scrollableRef = useRef<ScrollableRefElement>()
 	const [{ isScrollable, isAtStart, isAtEnd, scrollbarWidth }, setScrollData] =
-		useState<{
-			isScrollable: boolean
-			isAtStart?: boolean
-			isAtEnd?: boolean
-			scrollbarWidth?: number
-		}>({
+		useState<ScrollData>({
 			isScrollable: false,
 		})
 	const showLeftScrim = isScrollable && !isAtStart
