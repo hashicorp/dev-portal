@@ -175,18 +175,34 @@ const SearchFeaturedCard = () => {
 						)
 					})}
 				</div>
-				<div className={s.positionIndicatorBar}>
+				{/**
+				 * This element serves 2 purposes:
+				 *  - a visual indicator of position in the list of search term buttons
+				 *  - additional way to change position using a click, tap, etc.
+				 *
+				 * The clickable elements are intentionally hidden from keyboard and
+				 * screen reader users. These users have already navigated through the
+				 * list of buttons, so they do not need 5 extra TAB stops.
+				 */}
+				<div aria-hidden className={s.positionIndicatorBar}>
 					{FEATURED_SEARCH_TERMS.map((_: string, index: number) => {
 						const id = `position-indicator-${index}`
 						const isCurrent = index === currentIndex
+						const classes = classNames(
+							s.positionIndicator,
+							isCurrent && s.currentPositionIndicator
+						)
 						return (
 							<div
-								className={classNames(
-									s.positionIndicator,
-									isCurrent && s.currentPositionIndicator
-								)}
+								className={s.positionIndicatorContainer}
 								key={id}
-							/>
+								onClick={() => {
+									setIsAutoScrollEnabled(false)
+									setCurrentIndex(index)
+								}}
+							>
+								<div className={classes} />
+							</div>
 						)
 					})}
 				</div>
