@@ -11,7 +11,7 @@ import {
 	fetchNavData,
 	fetchVersionMetadataList,
 	fetchDocument,
-} from '../content-api'
+} from './content-api'
 import {
 	stripVersionFromPathParams,
 	getPathsFromNavData,

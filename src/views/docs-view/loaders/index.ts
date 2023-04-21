@@ -4,7 +4,7 @@
  */
 
 import { GetStaticPaths, GetStaticProps, GetStaticPathsResult } from 'next'
-import { ContentApiError } from '../content-api'
+import { ContentApiError } from './content-api'
 import FileSystemLoader from './file-system'
 import RemoteContentLoader from './remote-content'
 import { DataLoader } from './types'

@@ -34,4 +34,5 @@ export interface DataLoaderOpts {
 export type RemarkPlugins =
 	| ((params?: ParsedUrlQuery, version?: string) => Pluggable[])
 	| Pluggable[]
+
 export type RemarkPluginsArray = Pluggable<[Settings?], Settings>[]

@@ -18,6 +18,7 @@ describe('contentApi', () => {
 	let scope: nock.Scope
 
 	beforeEach(() => {
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		scope = nock(process.env.MKTG_CONTENT_API!)
 	})
 

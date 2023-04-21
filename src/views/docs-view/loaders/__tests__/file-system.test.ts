@@ -11,7 +11,7 @@ import navData from '../__fixtures__/navData.json'
 jest.mock('../utils/resolve-nav-data')
 const mockedResolveNavData = mocked(resolveNavData)
 
-const CONTENT_DIR = 'src/views/docs-view/server/__fixtures__'
+const CONTENT_DIR = 'src/views/docs-view/loaders/__fixtures__'
 
 let loader: FileSystemLoader
 
@@ -55,7 +55,7 @@ describe('FileSystemLoader', () => {
 		    "description": "Welcome to the intro guide to Vault! This guide is the best place to start with Vault. We cover what Vault is, what problems it can solve, how it compares to existing software, and contains a quick start for using Vault.",
 		    "page_title": "Introduction",
 		  },
-		  "githubFileUrl": "https://github.com/hashicorp/waypoint/blob/main/website/src/views/docs-view/server/__fixtures__/index.mdx",
+		  "githubFileUrl": "https://github.com/hashicorp/waypoint/blob/main/website/src/views/docs-view/loaders/__fixtures__/index.mdx",
 		  "mdxSource": Object {
 		    "compiledSource": Any<String>,
 		    "scope": Object {
@@ -92,7 +92,7 @@ describe('FileSystemLoader', () => {
 		    "description": "Welcome to the intro guide to Vault! This guide is the best place to start with Vault. We cover what Vault is, what problems it can solve, how it compares to existing software, and contains a quick start for using Vault.",
 		    "page_title": "Introduction",
 		  },
-		  "githubFileUrl": "https://hashicorp.com/src/views/docs-view/server/__fixtures__/index.mdx",
+		  "githubFileUrl": "https://hashicorp.com/src/views/docs-view/loaders/__fixtures__/index.mdx",
 		  "mdxSource": Object {
 		    "compiledSource": Any<String>,
 		    "scope": Object {
