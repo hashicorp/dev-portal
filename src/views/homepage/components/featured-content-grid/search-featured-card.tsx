@@ -22,15 +22,19 @@ const FEATURED_SEARCH_TERMS = [
 const INITIALLY_CENTERED_TERM_INDEX = 2
 
 const SearchFeaturedCard = () => {
-	const scrollableAreaRef = useRef<HTMLDivElement>()
-	const [currentIndex, setCurrentIndex] = useState(
-		INITIALLY_CENTERED_TERM_INDEX
-	)
 	const prefersReducedMotion = usePrefersReducedMotion()
 	const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(
 		!prefersReducedMotion
 	)
-	const { setCurrentInputValue, toggleIsOpen } = useCommandBar()
+	const {
+		isOpen: isCommandBarOpen,
+		setCurrentInputValue: setCommandBarSearchValue,
+		toggleIsOpen: toggleCommandBar,
+	} = useCommandBar()
+	const scrollableAreaRef = useRef<HTMLDivElement>()
+	const [currentIndex, setCurrentIndex] = useState(
+		INITIALLY_CENTERED_TERM_INDEX
+	)
 
 	/**
 	 * Keep the animation enabled/disabled state in sync with changes to the
@@ -45,10 +49,13 @@ const SearchFeaturedCard = () => {
 	/**
 	 * If animation is enabled, set up the animation interval and event listeners
 	 * that are used to disable the animation with certain interactions.
+	 *
+	 * If the animation has been disabled, set up event listeners that are used to
+	 * re-enable the animation with certain interactions.
 	 */
 	useEffect(() => {
-		// Nothing to do if animation is already disabled
-		if (isAutoScrollEnabled === false) {
+		// Never set up listeners if a user prefers reduced motion
+		if (prefersReducedMotion) {
 			return
 		}
 
@@ -63,37 +70,60 @@ const SearchFeaturedCard = () => {
 		const scrollableElement = scrollableAreaRef.current
 
 		// Create focus & pointer listener
-		const interactionListener = (event: FocusEvent | PointerEvent) => {
-			const isInteractionInside = scrollableElement.contains(
-				event.target as Node
-			)
-			if (isInteractionInside) {
+		const interactionListener = () => {
+			if (isAutoScrollEnabled) {
 				setIsAutoScrollEnabled(false)
+				return
+			}
+
+			// If CommandBar is open, do not auto scroll scrolling
+			const canRenable = !isCommandBarOpen
+			if (!isAutoScrollEnabled && canRenable) {
+				setIsAutoScrollEnabled(true)
+				return
 			}
 		}
 
-		// Add the listener for events that should disable animation
-		document.addEventListener('focusin', interactionListener)
-		scrollableElement.addEventListener('pointerenter', interactionListener)
+		// Derive the event listener types from isAutoScrollEnabled
+		let focusListenerType
+		let pointerListenerType
+		if (isAutoScrollEnabled) {
+			focusListenerType = 'focusin'
+			pointerListenerType = 'pointerenter'
+		} else {
+			focusListenerType = 'focusout'
+			pointerListenerType = 'pointerleave'
+		}
 
-		// Set up the animation interval
-		const interval = setInterval(() => {
-			setCurrentIndex((prev: number) => {
-				if (prev === FEATURED_SEARCH_TERMS.length - 1) {
-					return 0
-				} else {
-					return prev + 1
-				}
-			})
-		}, 4000)
+		// Add the event listeners to the necessary elements
+		document.addEventListener(focusListenerType, interactionListener)
+		scrollableElement.addEventListener(pointerListenerType, interactionListener)
+
+		// If auto scroll is enabeld, set up the animation interval
+		let interval: NodeJS.Timer
+		if (isAutoScrollEnabled) {
+			interval = setInterval(() => {
+				setCurrentIndex((prev: number) => {
+					const isLastIndex = FEATURED_SEARCH_TERMS.length - 1
+					if (prev === isLastIndex) {
+						return 0
+					} else {
+						return prev + 1
+					}
+				})
+			}, 4000)
+		}
 
 		// Clean up the listeners and interval
 		return () => {
-			document.removeEventListener('focusin', interactionListener)
-			scrollableElement.removeEventListener('pointerenter', interactionListener)
+			document.removeEventListener(focusListenerType, interactionListener)
+			scrollableElement.removeEventListener(
+				pointerListenerType,
+				interactionListener
+			)
 			clearInterval(interval)
 		}
-	}, [isAutoScrollEnabled])
+	}, [isAutoScrollEnabled, isCommandBarOpen, prefersReducedMotion])
 
 	/**
 	 * When `currentIndex` changes, check if the button at that index is centered.
@@ -134,8 +164,8 @@ const SearchFeaturedCard = () => {
 						const isCurrent = index === currentIndex
 						const handleClick = () => {
 							if (isCurrent) {
-								setCurrentInputValue(FEATURED_SEARCH_TERMS[index])
-								toggleIsOpen()
+								setCommandBarSearchValue(FEATURED_SEARCH_TERMS[index])
+								toggleCommandBar()
 							} else {
 								setCurrentIndex(index)
 							}
