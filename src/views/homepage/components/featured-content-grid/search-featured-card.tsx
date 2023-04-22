@@ -213,6 +213,17 @@ const SearchFeaturedCard = () => {
 				 * The clickable elements are intentionally hidden from keyboard and
 				 * screen reader users. These users have already navigated through the
 				 * list of buttons, so they do not need 5 extra TAB stops.
+				 *
+				 * From MDN web docs:
+				 * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden
+				 *
+				 * > "Use caution when using aria-hidden to hide visibly rendered
+				 *   content from assistive technologies. You should not be hiding
+				 *   visible content unless doing so improves the experience for users
+				 *   of assistive technologies by removing redundant or extraneous
+				 *   content. Only when identical or equivalent meaning and
+				 *   functionality is exposed to assistive technologies can removing
+				 *   visible content from the accessibility API be considered."
 				 */}
 				<div aria-hidden className={s.positionIndicatorBar}>
 					{FEATURED_SEARCH_TERMS.map((_: string, index: number) => {
@@ -226,10 +237,7 @@ const SearchFeaturedCard = () => {
 							<div
 								className={s.positionIndicatorContainer}
 								key={id}
-								onClick={() => {
-									setIsAutoScrollEnabled(false)
-									setCurrentIndex(index)
-								}}
+								onClick={() => setCurrentIndex(index)}
 							>
 								<div className={classes} />
 							</div>
