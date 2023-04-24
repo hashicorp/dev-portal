@@ -8,6 +8,7 @@ import DevDotContent from 'components/dev-dot-content'
 import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/components'
 import VersionAlertBanner from 'components/version-alert-banner'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
+import useUserContentAnchorLinks from 'lib/hooks/use-user-content-anchor-links'
 import { getIntegrationUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
@@ -30,6 +31,9 @@ export default function ProductIntegrationReadmeView({
 	breadcrumbLinks,
 	serializedREADME,
 }: ProductIntegrationReadmeViewProps) {
+	// We expect user content here, so we need to handle `#user-content-` links
+	useUserContentAnchorLinks()
+
 	/**
 	 * Grab the current version string from the activeRelease.
 	 */
