@@ -219,8 +219,7 @@ async function getStaticProps({
 	)
 
 	/**
-	 * Serialize README, get anchor links
-	 * TODO: WIP, should clean this up a lil
+	 * Serialize the README, extracting anchor links as we do
 	 */
 	const anchorLinks = []
 	const serializedREADME = releaseComponent.readme
@@ -233,12 +232,12 @@ async function getStaticProps({
 			metadata: {
 				title: `${integration.name} ${releaseComponent.component.name}${titleVersion} | Integrations`,
 			},
-			anchorLinks,
 			product: productData,
 			integration,
 			activeRelease,
 			component: releaseComponent,
 			processedVariablesMarkdown,
+			anchorLinks,
 			serializedREADME,
 			breadcrumbLinks: integrationComponentBreadcrumbLinks(
 				productData,
