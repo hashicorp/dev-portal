@@ -85,25 +85,25 @@ export default function VariantProvider({
 	variant?: string // the type
 }) {
 	const [activeVariant, setActiveVariant] = useState<string>(variant)
-	const router = useRouter()
+	//const router = useRouter()
 
 	const contextValue = useMemo(
 		() => ({ activeVariant, setActiveVariant }),
 		[activeVariant]
 	)
 
-	useEffect(() => {
-		if (typeof router.query.variant === 'string') {
-			// if its a valid variant
-			if (
-				router.query.variant !== activeVariant &&
-				isValidVariantOption(router.query.variant, variantData.consul)
-			) {
-				console.log('yeah')
-				setActiveVariant(router.query.variant)
-			}
-		}
-	}, [router.query.variant])
+	// useEffect(() => {
+	// 	if (typeof router.query.variant === 'string') {
+	// 		// if its a valid variant
+	// 		if (
+	// 			router.query.variant !== activeVariant &&
+	// 			isValidVariantOption(router.query.variant, variantData.consul)
+	// 		) {
+	// 			console.log('yeah')
+	// 			setActiveVariant(router.query.variant)
+	// 		}
+	// 	}
+	// }, [router.query.variant])
 
 	return (
 		<VariantContext.Provider value={contextValue}>

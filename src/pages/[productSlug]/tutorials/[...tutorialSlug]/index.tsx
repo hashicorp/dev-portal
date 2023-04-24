@@ -71,7 +71,7 @@ async function _getStaticPaths(): Promise<
 }
 type TutorialPageStaticPropsCtx = GetStaticPropsContext<{
 	productSlug: LearnProductSlug
-	tutorialSlug: [string, string]
+	tutorialSlug: [string, string] | [string, string, string]
 }>
 
 async function _getStaticProps(
