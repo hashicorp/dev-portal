@@ -259,7 +259,7 @@ function TutorialView({
 						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
 					>
 						{/** should default to the first variant in the list */}
-						<VariantProvider variant={'oss'}>
+						<VariantProvider variant={'self-managed'}>
 							<TutorialMeta
 								heading={pageHeading}
 								meta={{

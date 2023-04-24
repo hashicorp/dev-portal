@@ -75,11 +75,11 @@ export default function TutorialMeta({
 					<TutorialMetaBookmarkButton
 						tutorial={{ id: tutorialId, name: heading.text }}
 					/>
-					{variantsData.terraform.map((option) => (
+					{variantsData.consul.map((option) => (
 						<ButtonLink
 							key={option.id}
 							text={option.name}
-							href={`/terraform/tutorials/configuration-language/variables?variant=${option.id}`} // make work with hashes & query etc
+							href={`/consul/tutorials/kubernetes/kubernetes-api-gateway?variant=${option.id}`} // make work with hashes & query etc
 						/>
 					))}
 				</span>

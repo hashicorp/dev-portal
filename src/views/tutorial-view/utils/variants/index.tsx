@@ -97,7 +97,7 @@ export default function VariantProvider({
 			// if its a valid variant
 			if (
 				router.query.variant !== activeVariant &&
-				isValidVariantOption(router.query.variant, variantData.terraform)
+				isValidVariantOption(router.query.variant, variantData.consul)
 			) {
 				console.log('yeah')
 				setActiveVariant(router.query.variant)
