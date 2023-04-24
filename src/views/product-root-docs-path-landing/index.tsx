@@ -61,15 +61,11 @@ const ProductRootDocsPathLanding = ({
 	return (
 		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
 			<div className={versions ? s.docsLandingWithVersions : null}>
-				{versions ? (
-					<div className={s.versionSwitcherWrapper}>
-						<DocsVersionSwitcher options={versions} />
-					</div>
-				) : null}
 				<ProductRootDocsPathLandingHero
 					pageHeading={pageHeading}
 					pageSubtitle={pageSubtitle}
 					iconCardGridItems={pageContent.iconCardGridItems}
+					versions={versions}
 				/>
 				<ProductRootDocsPathLandingMarketingContent
 					blocks={marketingContentBlocks}

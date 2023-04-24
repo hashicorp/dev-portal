@@ -4,7 +4,6 @@ _temp-migrations/
 .git-blame-ignore-revs
 .next
 .vercel
-*.css
 node_modules
 out
 playwright-report/

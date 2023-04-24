@@ -9,6 +9,7 @@ import type { OutlineNavProps } from 'components/outline-nav'
 import { OutlineNavWithActive } from 'components/outline-nav/components'
 import VersionAlertBanner from 'components/version-alert-banner'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
+import useUserContentAnchorLinks from 'lib/hooks/use-user-content-anchor-links'
 import {
 	getIntegrationComponentUrl,
 	getLatestIntegrationVersion,
@@ -48,6 +49,9 @@ export default function ProductIntegrationComponentView({
 	breadcrumbLinks,
 	processedVariablesMarkdown,
 }: ProductIntegrationComponentViewProps) {
+	// We expect user content here, so we need to handle `#user-content-` links
+	useUserContentAnchorLinks()
+
 	const { variable_groups } = component
 	/**
 	 * Build outline nav items for the component variable groups
