@@ -12,8 +12,7 @@ import { Badges, getIsBeta } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
 import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
-import useCurrentPath from 'hooks/use-current-path'
-import { useRouter } from 'next/router'
+import variantsData from 'content/variants.json'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -39,8 +38,6 @@ export default function TutorialMeta({
 	tutorialId,
 }: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
-	const { asPath } = useRouter()
-
 	/**
 	 * We only need to show the Create Account CTA if auth is enabled and there is
 	 * not already a user authenticated.
@@ -78,11 +75,11 @@ export default function TutorialMeta({
 					<TutorialMetaBookmarkButton
 						tutorial={{ id: tutorialId, name: heading.text }}
 					/>
-					{['oss', 'tfc'].map((option) => (
+					{variantsData.terraform.map((option) => (
 						<ButtonLink
-							key={option}
-							text={option}
-							href={`/terraform/tutorials/configuration-language/variables?variant=${option}`} // make work with hashes & query etc
+							key={option.id}
+							text={option.name}
+							href={`/terraform/tutorials/configuration-language/variables?variant=${option.id}`} // make work with hashes & query etc
 						/>
 					))}
 				</span>

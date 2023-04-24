@@ -55,8 +55,6 @@ import { useProgressToast } from './utils/use-progress-toast'
 import { generateCollectionSidebarNavData } from 'views/collection-view/helpers/generate-collection-sidebar-nav-data'
 import { OutlineNavWithActive } from 'components/outline-nav/components'
 import VariantProvider from './utils/variants'
-import { VARIANT_OPTIONS } from './server'
-import ButtonLink from 'components/button-link'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the

@@ -1,0 +1,40 @@
+{
+	"operating-system": [
+		{
+			"id": "manual-install",
+			"name": "Manual Installation"
+		},
+		{
+			"id": "homebrew-osx",
+			"name": "Homebew on OS X"
+		},
+		{
+			"id": "chocolatey-windows",
+			"name": "Chocolatey on Windows"
+		},
+		{
+			"id": "linux",
+			"name": "Linux"
+		}
+	],
+	"terraform": [
+		{
+			"id": "oss",
+			"name": "Terraform OSS"
+		},
+		{
+			"id": "tfc",
+			"name": "Terraform Cloud"
+		}
+	],
+	"consul": [
+		{
+			"id": "self-managed",
+			"name": "Self Managed"
+		},
+		{
+			"id": "hcp",
+			"name": "HashiCorp Cloud Platform (HCP)"
+		}
+	]
+}

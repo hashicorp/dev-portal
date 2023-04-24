@@ -9,6 +9,7 @@ import {
 	useEffect,
 } from 'react'
 import { useRouter } from 'next/router'
+import variantData from 'content/variants.json'
 
 // context
 
@@ -58,7 +59,7 @@ export function MdxVariant({
 	console.log({ children }, 'VARIANT ', activeVariant)
 	return activeVariant === type ? (
 		<div>
-			<h1>{`Variant: ${activeVariant}`}</h1>
+			<h2 style={{ color: 'pink' }}>{`Variant: ${activeVariant}`}</h2>
 			{children}
 		</div>
 	) : null
@@ -73,7 +74,7 @@ export function useVariants(): VariantContextValue {
 	return useContext(VariantContext)
 }
 
-const VariantContext = createContext(undefined)
+const VariantContext = createContext({ activeVariant: null })
 VariantContext.displayName = 'VariantContext'
 
 export default function VariantProvider({
@@ -86,7 +87,6 @@ export default function VariantProvider({
 	const [activeVariant, setActiveVariant] = useState<string>(variant)
 	const router = useRouter()
 
-	console.log({ router })
 	const contextValue = useMemo(
 		() => ({ activeVariant, setActiveVariant }),
 		[activeVariant]
@@ -94,7 +94,12 @@ export default function VariantProvider({
 
 	useEffect(() => {
 		if (typeof router.query.variant === 'string') {
-			if (router.query.variant !== activeVariant) {
+			// if its a valid variant
+			if (
+				router.query.variant !== activeVariant &&
+				isValidVariantOption(router.query.variant, variantData.terraform)
+			) {
+				console.log('yeah')
 				setActiveVariant(router.query.variant)
 			}
 		}
@@ -105,4 +110,9 @@ export default function VariantProvider({
 			{children}
 		</VariantContext.Provider>
 	)
+}
+
+function isValidVariantOption(variantOptionId, variantType) {
+	console.log('hi')
+	return Boolean(variantType.find((option) => option.id === variantOptionId))
 }
