@@ -7,7 +7,7 @@ import { getVersionFromPath } from 'lib/get-version-from-path'
 import { removeVersionFromPath } from 'lib/remove-version-from-path'
 import useCurrentPath from 'hooks/use-current-path'
 import VersionAlertBanner from 'components/version-alert-banner'
-import { VersionSelectItem } from '../../../../views/docs-view/loaders/remote-content'
+import { VersionSelectItem } from 'views/docs-view/loaders/remote-content'
 
 /**
  * Renders an alert banner if the current URL indicates a non-latest version,

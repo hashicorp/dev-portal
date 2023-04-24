@@ -11,4 +11,4 @@
  */
 export const DEFAULT_PARAM_ID = 'page'
 export const REMARK_ARRAY_ERROR =
-	'`remarkPlugins:` When specified as a function, must return an array of remark plugins'
+	'`remarkPlugins`: When specified as a function, must return an array of remark plugins'

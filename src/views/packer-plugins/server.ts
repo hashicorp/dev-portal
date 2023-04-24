@@ -9,7 +9,7 @@ import grayMatter from 'gray-matter'
 import { Pluggable } from 'unified'
 import { ProductData } from 'types/products'
 import { getNodeFromPath, getPathsFromNavData } from '../docs-view/loaders'
-import renderPageMdx from '../../views/docs-view/render-page-mdx'
+import renderPageMdx from 'views/docs-view/render-page-mdx'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { getProductUrlAdjuster } from 'views/docs-view/utils/product-url-adjusters'
 import resolveNavDataWithRemotePlugins, {
