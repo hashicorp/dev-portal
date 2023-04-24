@@ -13,6 +13,7 @@ import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
 import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
 import variantsData from 'content/variants.json'
+import { NextRouter, useRouter } from 'next/router'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -23,13 +24,25 @@ interface TutorialMetaProps {
 	tutorialId: TutorialData['id']
 }
 
-function getVariantPath(path, variantType) {
-	const { hash, pathname, search } = new URL(
-		path,
-		'https://developer.hashicorp.com'
-	)
+function getVariantPath(router: NextRouter, variantType: string) {
+	let path = router.asPath
 
-	return pathname + search + hash
+	if (!variantType) {
+		return router.asPath
+	}
+
+	if (router.query.tutorialSlug.length === 3) {
+		const arr = path.split('/')
+		const variantInPath = arr.slice().pop()
+
+		if (variantInPath === variantType) {
+			return router.asPath
+		}
+		arr[arr.length - 1] = variantType
+		path = arr.join('/')
+	}
+
+	return path
 }
 
 export default function TutorialMeta({
@@ -38,6 +51,8 @@ export default function TutorialMeta({
 	tutorialId,
 }: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
+	const router = useRouter()
+
 	/**
 	 * We only need to show the Create Account CTA if auth is enabled and there is
 	 * not already a user authenticated.
@@ -79,7 +94,7 @@ export default function TutorialMeta({
 						<ButtonLink
 							key={option.id}
 							text={option.name}
-							href={`/consul/tutorials/kubernetes/kubernetes-api-gateway?variant=${option.id}`} // make work with hashes & query etc
+							href={getVariantPath(router, option.id)} // make work with hashes & query etc
 						/>
 					))}
 				</span>

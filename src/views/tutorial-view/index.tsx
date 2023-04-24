@@ -6,7 +6,6 @@
 // Third-party imports
 import { Fragment, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 
 // Global imports
 import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
@@ -118,6 +117,7 @@ function TutorialView({
 	pageHeading,
 	metadata,
 }: TutorialViewProps): React.ReactElement {
+	console.log('variant', metadata.variant)
 	// hooks
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
