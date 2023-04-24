@@ -47,7 +47,6 @@ export default function VariantProvider({
 	children: ReactNode
 	variant?: string // the type
 }) {
-	console.log('variant in provider', variant)
 	const [activeVariant, setActiveVariant] = useState<string>(variant)
 
 	const contextValue = useMemo(
