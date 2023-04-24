@@ -59,7 +59,8 @@ export default function ProductIntegrationComponentView({
 
 	/**
 	 * Build outline nav items for any README content.
-	 * Note: if no README content is present, `anchorLinks` is an empty array.
+	 * Note: if no README content is present, `anchorLinks` will be an empty
+	 * array, so `readmeOutlineItems` will also be an empty array.
 	 */
 	const readmeOutlineItems = anchorLinks.map(
 		({ title, id }: AnchorLinkItem) => {
