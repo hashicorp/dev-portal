@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import InlineSvg from '@hashicorp/react-inline-svg'
 import wafGraphic from '../../img/waf-graphic.svg?include'
 import FeaturedCard from './featured-card'

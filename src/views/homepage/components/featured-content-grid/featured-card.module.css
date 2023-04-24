@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .card {
 	background-color: var(--token-color-foreground-strong);
 	border: 1px solid magenta; /* TODO: remove; denotes WIP */
