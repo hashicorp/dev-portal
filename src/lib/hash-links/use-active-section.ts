@@ -47,7 +47,10 @@ export function useActiveSection(
 		}
 
 		/**
-		 * Some headings are in sanitized user content, so while our links
+		 * Given a heading `#id`, match it to an incoming `#slug` hash URL.
+		 *
+		 * Normally this would be very straightforward, `id` and `slug` would match.
+		 * However, some headings are in sanitized user content, so while our links
 		 * use the `#slug` URL, at the DOM level the heading `id`s have been
 		 * sanitized to `user-content-<slug>`.
 		 *
