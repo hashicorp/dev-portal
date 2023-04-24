@@ -99,5 +99,8 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"description": "A curated collection of official, partner, and community Nomad Integrations."
+	}
 }
