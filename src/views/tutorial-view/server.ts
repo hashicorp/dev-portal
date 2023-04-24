@@ -30,8 +30,12 @@ import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
+import variantsData from 'content/variants.json'
+import { VariantOption } from './utils/variants'
 
-export const VARIANT_OPTIONS = ['terraform-oss', 'terraform-cloud']
+// @TODO replace with frontmatter value when api and content sync is updated
+const TEMP_VARIANT_FRONTMATTER = 'consul'
+
 /**
  * Given a ProductData object (imported from src/data JSON files) and a tutorial
  * slug, fetches and returns the page props for
@@ -50,7 +54,6 @@ export async function getTutorialPageProps(
 	fullSlug: [string, string] | [string, string, string] // add a third here, which would be the variant
 ): Promise<{ props: TutorialViewProps } | null> {
 	const slug = fullSlug.slice(0, 2) as [string, string]
-	const variant = fullSlug[2]
 
 	// product.slug may be "hcp", needs to be "cloud" for Learn API use
 	const learnProductSlug = normalizeSlugForTutorials(product.slug)
@@ -68,6 +71,29 @@ export async function getTutorialPageProps(
 	// double guard if tutorial doesn't exist after call - return 404
 	if (fullTutorialData === null) {
 		return null
+	}
+	const variantOptionSlug = fullSlug[2]
+
+	let variant = undefined
+
+	// @TODO source the frontmatter value from `fullTutorialData`
+	if (variantOptionSlug || TEMP_VARIANT_FRONTMATTER) {
+		// @TODO test for `varianSlug in variantsData` from both tutorial and not
+		// this will happen in the content sync eventually
+		if (TEMP_VARIANT_FRONTMATTER in variantsData) {
+			console.log('yo')
+			// if the variant is pass via path, prioritize, otherwise take the first option from
+			// whats defined in the variants list from the frontmatter
+			const tutorialVariant = variantsData[TEMP_VARIANT_FRONTMATTER]
+			const tutorialVariantOption = tutorialVariant.find(
+				(option: VariantOption) => option.id === variantOptionSlug
+			)
+
+			variant =
+				variantOptionSlug && Boolean(tutorialVariantOption)
+					? tutorialVariantOption
+					: tutorialVariant[0]
+		}
 	}
 
 	const { content: serializedContent, headings } = await serializeContent(
@@ -123,7 +149,7 @@ export async function getTutorialPageProps(
 			metadata: {
 				title: fullTutorialData.name,
 				description: fullTutorialData.description,
-				variant: variant || 'self-managed',
+				variant,
 			},
 			tutorial: {
 				...fullTutorialData,

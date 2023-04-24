@@ -12,6 +12,7 @@ import {
 	Product as LearnClientProduct,
 	TutorialFullCollectionCtx as ClientTutorial,
 } from 'lib/learn-client/types'
+import type { VariantOption } from './utils/variants'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import { CollectionCardPropsWithId } from 'components/collection-card'
@@ -62,7 +63,7 @@ interface TutorialViewProps {
 		title: string
 		description: string
 		slug?: string
-		variant?: string
+		variant?: VariantOption
 	}
 }
 

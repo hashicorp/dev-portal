@@ -9,6 +9,15 @@ import {
 	useEffect,
 } from 'react'
 
+export interface Variant {
+	[key: string]: VariantOption[]
+}
+
+export interface VariantOption {
+	id: string
+	name: string
+}
+
 export function MdxVariant({
 	type,
 	children,

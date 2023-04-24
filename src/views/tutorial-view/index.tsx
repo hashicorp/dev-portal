@@ -188,6 +188,7 @@ function TutorialView({
 		(t: TutorialLite) => t.id
 	)
 
+	console.log(metadata.variant)
 	/**
 	 * Prime `tutorial` and `collection` progress queries with a batch query.
 	 *
@@ -259,7 +260,7 @@ function TutorialView({
 						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
 					>
 						{/** should default to the first variant in the list */}
-						<VariantProvider variant={metadata.variant}>
+						<VariantProvider variant={metadata.variant.id}>
 							<TutorialMeta
 								heading={pageHeading}
 								meta={{
