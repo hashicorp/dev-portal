@@ -20,13 +20,15 @@ const CertificationsFeaturedCard = () => {
 			title={title}
 		>
 			<div className={s.certificationsCardContent}>
-				<Image
-					alt=""
-					className={s.certificationsGraphic}
-					height={286}
-					src={certificationsGraphic}
-					width={373}
-				/>
+				<div className={s.graphicContainer}>
+					<Image
+						alt=""
+						className={s.certificationsGraphic}
+						height={528}
+						width={498}
+						src={certificationsGraphic}
+					/>
+				</div>
 				<div className={s.certificationsCardContentText}>
 					<h2 className={s.title}>{title}</h2>
 					<p className={s.body}>{body}</p>
