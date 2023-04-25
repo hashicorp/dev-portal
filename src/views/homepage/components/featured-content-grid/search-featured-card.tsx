@@ -67,7 +67,7 @@ const SearchFeaturedCard = () => {
 		 * rendered by React, copy 'scrollableAreaRef.current' to a variable inside
 		 * the effect, and use that variable in the cleanup function.""
 		 */
-		const scrollableElement = scrollableAreaRef.current
+		const scrollableElementParent = scrollableAreaRef.current.parentElement
 
 		// Create focus & pointer listener
 		const interactionListener = () => {
@@ -96,8 +96,14 @@ const SearchFeaturedCard = () => {
 		}
 
 		// Add the event listeners to the necessary elements
-		scrollableElement.addEventListener(focusListenerType, interactionListener)
-		scrollableElement.addEventListener(pointerListenerType, interactionListener)
+		scrollableElementParent.addEventListener(
+			focusListenerType,
+			interactionListener
+		)
+		scrollableElementParent.addEventListener(
+			pointerListenerType,
+			interactionListener
+		)
 
 		// If auto scroll is enabeld, set up the animation interval
 		let interval: NodeJS.Timer
@@ -116,11 +122,11 @@ const SearchFeaturedCard = () => {
 
 		// Clean up the listeners and interval
 		return () => {
-			scrollableElement.removeEventListener(
+			scrollableElementParent.removeEventListener(
 				focusListenerType,
 				interactionListener
 			)
-			scrollableElement.removeEventListener(
+			scrollableElementParent.removeEventListener(
 				pointerListenerType,
 				interactionListener
 			)
