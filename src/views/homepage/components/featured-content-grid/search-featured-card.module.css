@@ -1,15 +1,18 @@
 .root {
 	background-color: var(--token-color-foreground-strong);
-	background-size: cover;
 	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: cover;
 	border-radius: 10px;
 	padding-bottom: 18px;
 	padding-left: 24px;
 	padding-right: 24px;
 	padding-top: 20px;
 
-	@media (--dev-dot-tablet-up) {
+	/* 500px with 16px base font */
+	@media (min-width: 31.25rem) {
 		background-image: url('../../img/search-card-graphic.svg');
+		background-position-x: 1rem;
 	}
 }
 
