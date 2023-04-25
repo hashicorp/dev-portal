@@ -9,7 +9,7 @@ import FeaturedCard from './featured-card'
 import s from './waf-featured-card.module.css'
 
 const WafFeaturedCard = () => {
-	const title = 'What is HashiCorp’s Well-Architected Framework?'
+	const title = 'Well-Architected Framework: product best practices'
 
 	return (
 		<FeaturedCard

@@ -17,7 +17,7 @@ const Chiclets = () => {
 	return (
 		<div className={s.root}>
 			<p className={s.label} id="chiclets-nav-label">
-				Explore tutorials and documentation by product
+				Explore tutorials & documentation by product
 			</p>
 			<nav aria-labelledby="chiclets-nav-label">
 				<ul className={s.navList}>

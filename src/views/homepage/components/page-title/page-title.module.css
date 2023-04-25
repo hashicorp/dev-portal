@@ -50,6 +50,5 @@
 	color: var(--token-color-foreground-high-contrast);
 	display: block;
 	font-weight: var(--token-typography-font-weight-semibold);
-	margin-top: 10px;
 	width: fit-content;
 }

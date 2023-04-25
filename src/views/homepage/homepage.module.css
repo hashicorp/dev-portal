@@ -9,12 +9,12 @@
 
 .background {
 	background-color: var(--token-color-foreground-strong);
-	background-image: url('./img/background.svg');
+	background-image: url('./img/background.png');
 	background-position: center top;
 	background-repeat: no-repeat;
 	background-size: cover;
 	content: '';
-	height: 1000px;
+	height: 1145px;
 	position: absolute;
 	width: 100%;
 	z-index: -1;
