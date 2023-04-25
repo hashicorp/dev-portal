@@ -173,11 +173,8 @@ async function getStaticProps({
 	/**
 	 * Serialize the README, extracting anchor links as we do
 	 */
-	const anchorLinks = []
-	const serializedREADME = await serializeIntegrationMarkdown(
-		activeRelease.readme,
-		anchorLinks
-	)
+	const { serializeResult: serializedREADME, anchorLinks } =
+		await serializeIntegrationMarkdown(activeRelease.readme)
 
 	// Return static props
 	return {
