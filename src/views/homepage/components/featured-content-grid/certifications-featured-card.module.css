@@ -1,19 +1,34 @@
 .certificationsCard {
+	--graphic-position-top: -44px;
+	--graphic-max-height: 286px;
+
 	border: none;
 	padding-top: 0;
 	gap: 70px;
+
+	@media (--dev-dot-mobile) {
+		--graphic-max-height: 38vh;
+	}
 }
 
-/* TODO replace magic numbers with variables */
 .certificationsCardContent {
-	padding-top: calc(286px - 64px + 50px);
+	padding-top: calc(var(--graphic-max-height));
+}
+
+.graphicContainer {
+	left: 0;
+	max-height: var(--graphic-max-height);
+	position: absolute;
+	right: 0;
+	top: var(--graphic-position-top);
+	overflow: hidden;
+	width: fit-content;
+	margin: 0 auto;
 }
 
 .certificationsGraphic {
-	left: 0;
-	position: absolute;
-	right: 0;
-	top: -64px;
+	height: 100%;
+	max-width: 400px;
 	width: 100%;
 }
 
