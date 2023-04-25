@@ -87,6 +87,12 @@
 	right: 0;
 	top: 0;
 	z-index: 2;
+
+	/* 500px with 16px base font */
+	@media (max-width: 31.25rem) {
+		/* hide on mobile because it decreases contrast too much */
+		display: none;
+	}
 }
 
 .buttonContainer {
