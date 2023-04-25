@@ -77,8 +77,8 @@ const SearchFeaturedCard = () => {
 			}
 
 			// If CommandBar is open, do not auto scroll scrolling
-			const canRenable = !isCommandBarOpen
-			if (!isAutoScrollEnabled && canRenable) {
+			const canReenable = !isCommandBarOpen
+			if (!isAutoScrollEnabled && canReenable) {
 				setIsAutoScrollEnabled(true)
 				return
 			}
