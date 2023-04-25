@@ -14,7 +14,24 @@
 }
 
 .heading {
+	composes: hds-font-weight-bold from global;
+	color: var(--token-color-foreground-high-contrast);
+	font-family: var(--token-typography-display-400-font-family);
+	font-size: var(--token-typography-display-400-font-size);
+	line-height: var(--token-typography-display-400-line-height);
+	margin: 0;
 	margin-bottom: 8px;
+	padding: 0;
+
+	@media (--dev-dot-mobile) {
+		margin-bottom: 4px;
+	}
+
+	@media (--dev-dot-tablet-down) {
+		font-family: var(--token-typography-display-300-font-family);
+		font-size: var(--token-typography-display-300-font-size);
+		line-height: var(--token-typography-display-300-line-height);
+	}
 }
 
 .description {

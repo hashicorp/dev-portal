@@ -148,9 +148,7 @@ const SearchFeaturedCard = () => {
 
 	return (
 		<Card className={s.root} elevation="mid">
-			<Heading className={s.heading} level={2} size={400} weight="bold">
-				Search with ease
-			</Heading>
+			<h2 className={s.heading}>Search with ease</h2>
 			<Text className={s.description} size={200} weight="medium">
 				<span>Find examples, reference material,</span>
 				<span>and architecture guidance</span>
