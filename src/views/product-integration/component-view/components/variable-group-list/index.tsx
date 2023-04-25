@@ -105,6 +105,7 @@ export function VariableGroupList({
 										</span>
 									)}
 									<MdxHeadingPermalink
+										ariaLabel={`${variable.key} permalink`}
 										className={s.permalink}
 										level={4}
 										href={`#${permalinkId}`}

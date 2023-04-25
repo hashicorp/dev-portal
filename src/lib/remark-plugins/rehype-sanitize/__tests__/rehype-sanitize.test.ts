@@ -8,7 +8,7 @@ import path from 'path'
 import type { Root, RootContent, Node } from 'hast'
 import hastUtilToHtml from 'hast-util-to-html'
 import { serialize } from 'next-mdx-remote/serialize'
-import rehypeSanitize, { schema } from '../'
+import rehypeSanitize, { schema } from '..'
 
 /**
  * Note: `rehype-sanitize` includes significant test coverage
