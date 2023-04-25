@@ -10,6 +10,10 @@
 		margin-top: 72px;
 	}
 
+	@media (--dev-dot-tablet) {
+		margin-top: 80px;
+	}
+
 	@media (--dev-dot-mobile) {
 		margin-top: 32px;
 	}
@@ -25,7 +29,7 @@
 	margin-bottom: 24px;
 	padding: 0;
 
-	@media (--dev-dot-mobile) {
+	@media (--dev-dot-tablet-down) {
 		font-family: var(--token-typography-display-300-font-family);
 		font-size: var(--token-typography-display-300-font-size);
 		line-height: var(--token-typography-display-300-line-height);
@@ -36,7 +40,7 @@
 .navList {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 16px;
+	gap: 15px;
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -57,7 +61,14 @@
 	display: block;
 	padding: 1px;
 
+	/* this is --token-surface-mid-box-shadow in dark mode */
+	box-shadow: 0 0 0 1px #b2b6bd26, 0 2px 3px 0 #6168751a,
+		0 8px 16px -10px #61687533;
+
 	&:hover {
+		/* this is --token-surface-high-box-shadow in dark mode */
+		box-shadow: 0 0 0 1px #b2b6bd40, 0 2px 3px 0 #61687526,
+			0 16px 16px -10px #61687533;
 		background: var(--hover-background);
 	}
 }

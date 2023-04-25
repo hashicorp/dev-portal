@@ -5,11 +5,10 @@
 
 .card {
 	background-color: var(--token-color-foreground-strong);
-	border: 1px solid magenta; /* TODO: remove; denotes WIP */
 	color: var(--token-color-palette-neutral-0);
-	height: 100%;
 	display: flex;
 	flex-direction: column;
+	height: 100%;
 	justify-content: space-between;
 	padding: 24px;
 	position: relative;
@@ -20,15 +19,12 @@
 	}
 }
 
-.learnMoreCta {
-	/* composition */
-	composes: hds-font-weight-medium from global;
-	composes: hds-typography-body-300 from global;
-
-	/* properties */
-	align-items: center;
+.learnMoreCtaContainer {
 	align-self: flex-end;
-	display: flex;
+}
+
+.learnMoreCta {
+	color: var(--token-color-palette-neutral-0);
 	gap: 6px;
 	padding-right: 4px;
 
