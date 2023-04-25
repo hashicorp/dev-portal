@@ -1,5 +1,4 @@
 .root {
-	background: url('../../img/search-card-graphic.svg');
 	background-color: var(--token-color-foreground-strong);
 	background-size: cover;
 	background-position: center top;
@@ -8,6 +7,10 @@
 	padding-left: 24px;
 	padding-right: 24px;
 	padding-top: 20px;
+
+	@media (--dev-dot-tablet-up) {
+		background-image: url('../../img/search-card-graphic.svg');
+	}
 }
 
 .heading {
