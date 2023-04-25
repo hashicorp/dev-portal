@@ -1,0 +1,28 @@
+{
+	"meta": {
+		"status_code": 200,
+		"status_text": "OK"
+	},
+	"result": {
+		"product": "waypoint",
+		"githubFile": "website/content/commands/index.mdx",
+		"metadata": {
+			"layout": "commands",
+			"page_title": "Waypoint Commands (CLI)"
+		},
+		"version": "v0.4.x",
+		"created_at": "Sat Oct 02 2021 23:51:18 GMT+0000 (Coordinated Universal Time)",
+		"markdownSource": "# Waypoint Commands (CLI)\n\nWaypoint is controlled via a very easy to use command-line interface (CLI). Waypoint\nis only a single command-line application: `waypoint`. This application then takes a\nsubcommand such as `artifact` or `deployment`. The complete list of subcommands is in\nthe navigation to the left.\n\nThe waypoint CLI is a well-behaved command line application. In erroneous cases, a\nnon-zero exit status will be returned. It also responds to -h and --help as you'd most\nlikely expect.\n\nTo view a list of the available commands at any time, just run waypoint with no arguments:\n\n```shell-session\n$ waypoint\nUsage: waypoint [-version] [-help] [-autocomplete-(un)install] <command> [args]\n\nCommon commands:\n    build        Build a new versioned artifact from source\n    deploy       Deploy a pushed artifact\n    release      Release a deployment\n    up           Perform the build, deploy, and release steps for the app\n\nOther commands:\n    artifact        Artifact and build management\n    config          Application configuration management\n    context         Server access configurations\n    deployment      Deployment creation and management\n    destroy         Delete all the resources created for an app\n    docs            Show documentation for components\n    exec            Execute a command in the context of a running application instance\n    fmt             Rewrite waypoint.hcl configuration to a canonical format\n    hostname        Application URLs\n    init            Initialize and validate a project\n    install         Install the Waypoint server to Kubernetes, Nomad, or Docker\n    logs            Show log output from the current application deployment\n    project         Project management\n    runner          Runner management\n    server          Server management\n    token           Authenticate and invite collaborators\n    ui              Open the web UI\n    version         Prints the version of this Waypoint CLI\n```\n\nTo get help for any specific command, pass the -h flag to the relevant subcommand.\nFor example, to see help about the up subcommand:\n\n```shell-session\n$ waypoint up -h\nUsage: waypoint up [options]\n\n  Perform the build, deploy, and release steps for the app.\n\nGlobal Options:\n\n  -workspace=<string>\n      Workspace to operate in. Defaults to 'default'. The default is default.\n\nOperation Options:\n\n  -label=<key=value>\n      Labels to set for this operation. Can be specified multiple times.\n\n  -remote\n      True to use a remote runner to execute. This defaults to false unless\n      'runner.default' is set in your configuration. The default is false.\n\n  -remote-source=<key=value>\n      Override configurations for how remote runners source data. This is\n      specified to the data source type being used in your configuration. This\n      is used for example to set a specific Git ref to run against.\n```\n\nRunning `waypoint -autocomplete-install` will add the waypoint autocomplete capability\nso you can do `waypoint <tab>` on commands. Running `waypoint -autocomplete-uninstall`\nwill remove it. Please note that this will modify your shell init script, so you will\nneed to reload your shell.\n",
+		"mdxTransforms": [
+			"extract-frontmatter",
+			"include-partials",
+			"paragraph-custom-alerts",
+			"rewrite-internal-redirects",
+			"rewrite-internal-links-v2",
+			"rewrite-static-assets"
+		],
+		"sha": "48f450f6330f39d5e4f2a92f6480a77742e40d2b",
+		"subpath": "commands",
+		"fullPath": "doc/v0.4.x/commands"
+	}
+}

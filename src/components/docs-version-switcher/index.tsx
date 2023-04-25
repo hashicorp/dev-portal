@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
+import { VersionSelectItem } from 'views/docs-view/loaders/remote-content'
 import { ProductWithCurrentRootDocsPath } from 'types/products'
 import { getTargetPath } from 'lib/get-target-path'
 import { getVersionFromPath } from 'lib/get-version-from-path'
