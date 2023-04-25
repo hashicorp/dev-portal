@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Image from 'next/image'
 import certificationsGraphic from '../../img/certifications-graphic.svg'
 import FeaturedCard from './featured-card'

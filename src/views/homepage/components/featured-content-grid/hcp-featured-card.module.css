@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .hcpCard {
 	background-color: var(--token-color-foreground-strong);
 	background-image: url('../../img/hcp-graphic.svg');

@@ -15,7 +15,7 @@ import {
 } from '@hashicorp/remark-plugins'
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import rehypePrism from '@mapbox/rehype-prism'
-import { getStaticGenerationFunctions as getStaticGenerationFunctionsBase } from '@hashicorp/react-docs-page/server'
+import { getStaticGenerationFunctions as getStaticGenerationFunctionsBase } from 'views/docs-view/loaders'
 import getIsBetaProduct from 'lib/get-is-beta-product'
 import { ProductSlug } from 'types/products'
 

@@ -20,7 +20,8 @@ import { FlagBagProvider } from 'flags/client'
 // HashiCorp imports
 import {
 	initializeUTMParamsCapture,
-	addCloudLinkHandler,
+	addGlobalLinkHandler,
+	track,
 } from '@hashicorp/platform-analytics'
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
@@ -62,8 +63,8 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 }
 
 initializeUTMParamsCapture()
-addCloudLinkHandler((destinationUrl: string) => {
-	window.analytics.track('Outbound link', {
+addGlobalLinkHandler((destinationUrl: string) => {
+	track('Outbound link', {
 		destination_url: destinationUrl,
 	})
 })

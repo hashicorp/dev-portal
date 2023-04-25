@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
+import { VersionSelectItem } from '../docs-view/loaders/remote-content'
 import { OutlineLinkItem } from 'components/outline-nav/types'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
