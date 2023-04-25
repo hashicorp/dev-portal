@@ -96,7 +96,7 @@ const SearchFeaturedCard = () => {
 		}
 
 		// Add the event listeners to the necessary elements
-		document.addEventListener(focusListenerType, interactionListener)
+		scrollableElement.addEventListener(focusListenerType, interactionListener)
 		scrollableElement.addEventListener(pointerListenerType, interactionListener)
 
 		// If auto scroll is enabeld, set up the animation interval
@@ -116,7 +116,10 @@ const SearchFeaturedCard = () => {
 
 		// Clean up the listeners and interval
 		return () => {
-			document.removeEventListener(focusListenerType, interactionListener)
+			scrollableElement.removeEventListener(
+				focusListenerType,
+				interactionListener
+			)
 			scrollableElement.removeEventListener(
 				pointerListenerType,
 				interactionListener
