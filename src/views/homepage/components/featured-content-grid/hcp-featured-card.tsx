@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import hcpLogo from '@hashicorp/mktg-logos/product/hcp/primary/white.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import FeaturedCard from './featured-card'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconAwsColor16 } from '@hashicorp/flight-icons/svg-react/aws-color-16'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import IconAwsColorWhite16 from './img/aws-dark-mode.svg?include'
