@@ -14,9 +14,14 @@ import { Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
+// Types
+import type { AnchorLinkItem } from 'lib/remark-plugins/remark-plugin-anchor-link-data'
+// Styles
 import s from './style.module.css'
 
 export interface ProductIntegrationReadmeViewProps {
+	anchorLinks: AnchorLinkItem[]
 	product: ProductData
 	integration: Integration
 	activeRelease: Release
@@ -30,6 +35,7 @@ export default function ProductIntegrationReadmeView({
 	activeRelease,
 	breadcrumbLinks,
 	serializedREADME,
+	anchorLinks,
 }: ProductIntegrationReadmeViewProps) {
 	// We expect user content here, so we need to handle `#user-content-` links
 	useUserContentAnchorLinks()
@@ -54,7 +60,16 @@ export default function ProductIntegrationReadmeView({
 					? getIntegrationUrl(integration)
 					: getIntegrationUrl(integration, version)
 			}}
-			sidecarSlot={<TryHcpCalloutSidecarPlacement productSlug={product.slug} />}
+			sidecarSlot={
+				<div className={s.sidecarContents}>
+					<OutlineNavWithActive
+						items={anchorLinks.map(({ title, id }: AnchorLinkItem) => {
+							return { title, url: `#${id}` }
+						})}
+					/>
+					<TryHcpCalloutSidecarPlacement productSlug={product.slug} />
+				</div>
+			}
 			alertBannerSlot={
 				isLatestVersion ? null : (
 					<VersionAlertBanner
