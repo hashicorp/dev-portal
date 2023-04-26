@@ -260,7 +260,7 @@ function TutorialView({
 						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
 					>
 						{/** should default to the first variant in the list */}
-						<VariantProvider variant={metadata.variant.id}>
+						<VariantProvider variant={metadata.variant?.id}>
 							<TutorialMeta
 								heading={pageHeading}
 								meta={{
