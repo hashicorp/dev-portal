@@ -59,7 +59,7 @@ function renderKeys(keys, isHCLTab) {
 	if (!keys) {
 		return null
 	}
-	return <>{keys.map((key) => renderKey(key, isHCLTab))}</>
+	return <ul>{keys.map((key) => renderKey(key, isHCLTab))}</ul>
 }
 
 /**
