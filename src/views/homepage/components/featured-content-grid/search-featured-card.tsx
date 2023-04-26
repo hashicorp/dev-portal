@@ -167,9 +167,10 @@ const SearchFeaturedCard = () => {
 			}
 		)
 
+		const newXPosition = sumPreviousButtonsWidths - buttonLeftToContainerLeft
 		scrollableAreaRef.current.style.setProperty(
-			'left',
-			`calc(-1 * ${sumPreviousButtonsWidths - buttonLeftToContainerLeft}px)`
+			'transform',
+			`translateX(calc(-1 * ${newXPosition}px))`
 		)
 	}, [currentIndex])
 

@@ -93,7 +93,7 @@
 	position: absolute;
 	right: 0;
 	top: 0;
-	z-index: 2;
+	z-index: 3;
 
 	/* 500px with 16px base font */
 	@media (max-width: 31.25rem) {
@@ -105,14 +105,15 @@
 .buttonsContainer {
 	align-items: center;
 	display: flex;
-	left: 100vw;
 	padding-bottom: 38px;
 	padding-top: 38px;
 	position: relative;
+	transform: translateX(100vw);
+	z-index: 2;
 
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
-		transition: left var(--auto-scroll-transition-length) ease-in-out;
+		transition: transform var(--auto-scroll-transition-length) ease-in-out;
 	}
 }
 
@@ -172,7 +173,7 @@
 	&:focus-visible,
 	&.currentButton {
 		opacity: 1;
-		z-index: 3;
+		z-index: 4;
 	}
 }
 
