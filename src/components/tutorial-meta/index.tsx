@@ -25,24 +25,25 @@ interface TutorialMetaProps {
 }
 
 function getVariantPath(router: NextRouter, variantType: string) {
-	let path = router.asPath
-
 	if (!variantType) {
 		return router.asPath
 	}
 
+	const arr = router.asPath.split('/')
+
 	if (router.query.tutorialSlug.length === 3) {
-		const arr = path.split('/')
 		const variantInPath = arr.slice().pop()
 
 		if (variantInPath === variantType) {
 			return router.asPath
 		}
 		arr[arr.length - 1] = variantType
-		path = arr.join('/')
+	} else {
+		// otherwise just add the variant to the path
+		arr.push(variantType)
 	}
 
-	return path
+	return arr.join('/')
 }
 
 export default function TutorialMeta({
