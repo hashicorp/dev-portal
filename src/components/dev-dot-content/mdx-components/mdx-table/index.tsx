@@ -5,29 +5,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
+import { getScrollData, type ScrollData } from 'lib/get-scroll-data'
 import s from './mdx-table.module.css'
-
-type ScrollableRefElement = HTMLDivElement
-
-interface ScrollData {
-	isScrollable: boolean
-	isAtStart?: boolean
-	isAtEnd?: boolean
-}
-
-const getScrollData = (element: ScrollableRefElement): ScrollData => {
-	const { clientWidth, scrollLeft, scrollWidth } = element
-
-	const isScrollable = scrollWidth > clientWidth
-	const isAtStart = scrollLeft === 0
-	const isAtEnd = scrollWidth - clientWidth - scrollLeft <= 10
-
-	return {
-		isScrollable,
-		isAtStart,
-		isAtEnd,
-	}
-}
 
 /**
  * Lightweight wrapper around the native <table> element. Encapsulates styles,
@@ -39,10 +18,12 @@ const getScrollData = (element: ScrollableRefElement): ScrollData => {
  * https://www.tpgi.com/short-note-on-improving-usability-of-scrollable-regions/
  */
 export function MdxTable(props: JSX.IntrinsicElements['table']) {
-	const scrollableRef = useRef<ScrollableRefElement>()
+	const scrollableRef = useRef<HTMLDivElement>()
 	const [{ isScrollable, isAtStart, isAtEnd }, setScrollData] =
 		useState<ScrollData>({
 			isScrollable: false,
+			isAtStart: null,
+			isAtEnd: null,
 		})
 	const showLeftScrim = isScrollable && !isAtStart
 	const showRightScrim = isScrollable && !isAtEnd
@@ -51,10 +32,10 @@ export function MdxTable(props: JSX.IntrinsicElements['table']) {
 		const scrollableElement = scrollableRef.current
 
 		const scrollListener = () => {
-			setScrollData(getScrollData(scrollableRef.current))
+			setScrollData(getScrollData({ element: scrollableRef.current }))
 		}
 
-		setScrollData(getScrollData(scrollableRef.current))
+		setScrollData(getScrollData({ element: scrollableRef.current }))
 
 		window.addEventListener('resize', scrollListener)
 		scrollableElement.addEventListener('scroll', scrollListener)
