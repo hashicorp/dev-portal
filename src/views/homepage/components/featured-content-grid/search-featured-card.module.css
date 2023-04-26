@@ -4,6 +4,8 @@
  */
 
 .root {
+	--auto-scroll-transition-length: 400ms;
+
 	background-color: var(--token-color-foreground-strong);
 	background-position: center top;
 	background-repeat: no-repeat;
@@ -100,32 +102,29 @@
 	}
 }
 
-.buttonContainer {
+.buttonsContainer {
 	align-items: center;
 	display: flex;
-	gap: 24px;
-	max-width: 100%;
-	overflow: hidden;
+	left: 100vw;
 	padding-bottom: 38px;
 	padding-top: 38px;
 	position: relative;
 
-	/* 500px with 16px base font */
-	@media screen and (max-width: 31.25rem) {
-		gap: 12px;
-	}
-
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
-		scroll-behavior: smooth;
+		transition: left var(--auto-scroll-transition-length) ease-in-out;
 	}
+}
 
-	/* spacers that enable the first/last buttons to be centered */
-	&::before,
-	&::after {
-		content: '';
-		min-height: 1px;
-		min-width: 300px;
+.buttonContainer {
+	padding-left: 12px;
+	padding-right: 12px;
+	z-index: 1;
+
+	/* 500px with 16px base font */
+	@media screen and (max-width: 31.25rem) {
+		padding-left: 6px;
+		padding-right: 6px;
 	}
 }
 
@@ -153,7 +152,6 @@
 	color: var(--token-color-palette-neutral-0);
 	opacity: 0.5;
 	padding: 1px 0;
-	z-index: 1;
 
 	/* 500px with 16px base font */
 	@media screen and (max-width: 31.25rem) {
@@ -167,7 +165,7 @@
 
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
-		transition: opacity 120ms ease-in-out;
+		transition: opacity var(--auto-scroll-transition-length) ease-in-out;
 	}
 
 	&:focus,
@@ -235,7 +233,8 @@
 
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
-		transition: width 120ms ease-in-out, color 120ms ease-in-out;
+		transition: width var(--auto-scroll-transition-length) ease-in-out,
+			color var(--auto-scroll-transition-length) ease-in-out;
 	}
 
 	&.currentPositionIndicator {
