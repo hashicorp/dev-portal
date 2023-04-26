@@ -113,7 +113,7 @@
 		"@hashicorp/platform-util": "^0.2.0",
 		"@hashicorp/react-alert-banner": "^7.0.5",
 		"@hashicorp/react-button": "^6.3.1",
-		"@hashicorp/react-code-block": "^6.2.2",
+		"@hashicorp/react-code-block": "^6.3.0-canary-20230426224812",
 		"@hashicorp/react-consent-manager": "^9.0.1",
 		"@hashicorp/react-docs-page": "^17.8.0",
 		"@hashicorp/react-docs-sidenav": "^9.1.0",
