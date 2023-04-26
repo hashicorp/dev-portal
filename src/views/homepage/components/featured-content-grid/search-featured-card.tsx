@@ -3,20 +3,14 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import {
-	KeyboardEvent,
-	MutableRefObject,
-	useEffect,
-	useRef,
-	useState,
-} from 'react'
+import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import deriveKeyEventState from 'lib/derive-key-event-state'
 import usePrefersReducedMotion from 'lib/hooks/usePrefersReducedMotion'
+import { useOnSwipe } from 'hooks/use-on-swipe'
 import Card from 'components/card'
 import { useCommandBar } from 'components/command-bar'
-import Heading from 'components/heading'
 import { StandaloneLinkContents } from 'components/standalone-link'
 import Text from 'components/text'
 import s from './search-featured-card.module.css'
@@ -31,56 +25,6 @@ const FEATURED_SEARCH_TERMS = [
 
 // Starting the animation from the center, as requested from Design
 const INITIALLY_CENTERED_TERM_INDEX = 2
-
-/**
- * @TODO
- *
- * - move to own file
- * - document
- */
-const useSwipeDectector = ({
-	ref,
-	onSwipeLeft,
-	onSwipeRight,
-}: {
-	ref: MutableRefObject<HTMLElement>
-	onSwipeLeft: () => void
-	onSwipeRight: () => void
-}): void => {
-	const clientX = useRef<number>()
-
-	useEffect(() => {
-		const elementWithListeners = ref.current
-
-		const handleTouchStart = (event: TouchEvent) => {
-			const firstTouch = event.touches.item(0)
-			clientX.current = firstTouch.clientX
-		}
-
-		const handleTouchMove = (event: TouchEvent) => {
-			const changedTouch = event.changedTouches.item(0)
-			const clientXDiff = clientX.current - changedTouch.clientX
-
-			if (Math.abs(clientXDiff) < 20) {
-				return
-			}
-
-			if (clientXDiff < 0) {
-				onSwipeLeft()
-			} else {
-				onSwipeRight()
-			}
-		}
-
-		elementWithListeners.addEventListener('touchstart', handleTouchStart)
-		elementWithListeners.addEventListener('touchend', handleTouchMove)
-
-		return () => {
-			elementWithListeners.removeEventListener('touchstart', handleTouchStart)
-			elementWithListeners.removeEventListener('touchend', handleTouchMove)
-		}
-	}, [ref, onSwipeLeft, onSwipeRight])
-}
 
 const SearchFeaturedCard = () => {
 	const prefersReducedMotion = usePrefersReducedMotion()
@@ -100,7 +44,7 @@ const SearchFeaturedCard = () => {
 	/**
 	 * @TODO document
 	 */
-	useSwipeDectector({
+	useOnSwipe({
 		ref: scrollableAreaRef,
 		onSwipeLeft: () => {
 			setCurrentIndex((prevIndex: number) => {
