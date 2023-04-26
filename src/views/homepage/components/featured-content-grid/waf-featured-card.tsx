@@ -1,10 +1,15 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import InlineSvg from '@hashicorp/react-inline-svg'
 import wafGraphic from '../../img/waf-graphic.svg?include'
 import FeaturedCard from './featured-card'
 import s from './waf-featured-card.module.css'
 
 const WafFeaturedCard = () => {
-	const title = 'What is HashiCorp’s Well-Architected Framework?'
+	const title = 'Well-Architected Framework: product best practices'
 
 	return (
 		<FeaturedCard

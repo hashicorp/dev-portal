@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
@@ -18,14 +23,23 @@ const FEATURED_SEARCH_TERMS = [
 	'Cloud Operating Model',
 ]
 
+// Starting the animation from the center, as requested from Design
+const INITIALLY_CENTERED_TERM_INDEX = 2
+
 const SearchFeaturedCard = () => {
-	const scrollableAreaRef = useRef<HTMLDivElement>()
-	const [currentIndex, setCurrentIndex] = useState(0)
 	const prefersReducedMotion = usePrefersReducedMotion()
 	const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(
 		!prefersReducedMotion
 	)
-	const { setCurrentInputValue, toggleIsOpen } = useCommandBar()
+	const {
+		isOpen: isCommandBarOpen,
+		setCurrentInputValue: setCommandBarSearchValue,
+		toggleIsOpen: toggleCommandBar,
+	} = useCommandBar()
+	const scrollableAreaRef = useRef<HTMLDivElement>()
+	const [currentIndex, setCurrentIndex] = useState(
+		INITIALLY_CENTERED_TERM_INDEX
+	)
 
 	/**
 	 * Keep the animation enabled/disabled state in sync with changes to the
@@ -40,10 +54,13 @@ const SearchFeaturedCard = () => {
 	/**
 	 * If animation is enabled, set up the animation interval and event listeners
 	 * that are used to disable the animation with certain interactions.
+	 *
+	 * If the animation has been disabled, set up event listeners that are used to
+	 * re-enable the animation with certain interactions.
 	 */
 	useEffect(() => {
-		// Nothing to do if animation is already disabled
-		if (isAutoScrollEnabled === false) {
+		// Never set up listeners if a user prefers reduced motion
+		if (prefersReducedMotion) {
 			return
 		}
 
@@ -55,40 +72,72 @@ const SearchFeaturedCard = () => {
 		 * rendered by React, copy 'scrollableAreaRef.current' to a variable inside
 		 * the effect, and use that variable in the cleanup function.""
 		 */
-		const scrollableElement = scrollableAreaRef.current
+		const scrollableElementParent = scrollableAreaRef.current.parentElement
 
 		// Create focus & pointer listener
-		const interactionListener = (event: FocusEvent | PointerEvent) => {
-			const isInteractionInside = scrollableElement.contains(
-				event.target as Node
-			)
-			if (isInteractionInside) {
+		const interactionListener = () => {
+			if (isAutoScrollEnabled) {
 				setIsAutoScrollEnabled(false)
+				return
+			}
+
+			// If CommandBar is open, do not auto scroll scrolling
+			const canReenable = !isCommandBarOpen
+			if (!isAutoScrollEnabled && canReenable) {
+				setIsAutoScrollEnabled(true)
+				return
 			}
 		}
 
-		// Add the listener for events that should disable animation
-		document.addEventListener('focusin', interactionListener)
-		scrollableElement.addEventListener('pointerenter', interactionListener)
+		// Derive the event listener types from isAutoScrollEnabled
+		let focusListenerType
+		let pointerListenerType
+		if (isAutoScrollEnabled) {
+			focusListenerType = 'focusin'
+			pointerListenerType = 'pointerenter'
+		} else {
+			focusListenerType = 'focusout'
+			pointerListenerType = 'pointerleave'
+		}
 
-		// Set up the animation interval
-		const interval = setInterval(() => {
-			setCurrentIndex((prev: number) => {
-				if (prev === FEATURED_SEARCH_TERMS.length - 1) {
-					return 0
-				} else {
-					return prev + 1
-				}
-			})
-		}, 4000)
+		// Add the event listeners to the necessary elements
+		scrollableElementParent.addEventListener(
+			focusListenerType,
+			interactionListener
+		)
+		scrollableElementParent.addEventListener(
+			pointerListenerType,
+			interactionListener
+		)
+
+		// If auto scroll is enabeld, set up the animation interval
+		let interval: NodeJS.Timer
+		if (isAutoScrollEnabled) {
+			interval = setInterval(() => {
+				setCurrentIndex((prev: number) => {
+					const isLastIndex = FEATURED_SEARCH_TERMS.length - 1
+					if (prev === isLastIndex) {
+						return 0
+					} else {
+						return prev + 1
+					}
+				})
+			}, 4000)
+		}
 
 		// Clean up the listeners and interval
 		return () => {
-			document.removeEventListener('focusin', interactionListener)
-			scrollableElement.removeEventListener('pointerenter', interactionListener)
+			scrollableElementParent.removeEventListener(
+				focusListenerType,
+				interactionListener
+			)
+			scrollableElementParent.removeEventListener(
+				pointerListenerType,
+				interactionListener
+			)
 			clearInterval(interval)
 		}
-	}, [isAutoScrollEnabled])
+	}, [isAutoScrollEnabled, isCommandBarOpen, prefersReducedMotion])
 
 	/**
 	 * When `currentIndex` changes, check if the button at that index is centered.
@@ -112,10 +161,8 @@ const SearchFeaturedCard = () => {
 	}, [currentIndex])
 
 	return (
-		<Card className={s.root} elevation="base">
-			<Heading className={s.heading} level={2} size={400} weight="bold">
-				Search with ease
-			</Heading>
+		<Card className={s.root} elevation="mid">
+			<h2 className={s.heading}>Search with ease</h2>
 			<Text className={s.description} size={200} weight="medium">
 				<span>Find examples, reference material,</span>
 				<span>and architecture guidance</span>
@@ -129,8 +176,8 @@ const SearchFeaturedCard = () => {
 						const isCurrent = index === currentIndex
 						const handleClick = () => {
 							if (isCurrent) {
-								setCurrentInputValue(FEATURED_SEARCH_TERMS[index])
-								toggleIsOpen()
+								setCommandBarSearchValue(FEATURED_SEARCH_TERMS[index])
+								toggleCommandBar()
 							} else {
 								setCurrentIndex(index)
 							}
@@ -170,18 +217,42 @@ const SearchFeaturedCard = () => {
 						)
 					})}
 				</div>
-				<div className={s.positionIndicatorBar}>
+				{/**
+				 * This element serves 2 purposes:
+				 *  - a visual indicator of position in the list of search term buttons
+				 *  - additional way to change position using a click, tap, etc.
+				 *
+				 * The clickable elements are intentionally hidden from keyboard and
+				 * screen reader users. These users have already navigated through the
+				 * list of buttons, so they do not need 5 extra TAB stops.
+				 *
+				 * From MDN web docs:
+				 * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden
+				 *
+				 * > "Use caution when using aria-hidden to hide visibly rendered
+				 *   content from assistive technologies. You should not be hiding
+				 *   visible content unless doing so improves the experience for users
+				 *   of assistive technologies by removing redundant or extraneous
+				 *   content. Only when identical or equivalent meaning and
+				 *   functionality is exposed to assistive technologies can removing
+				 *   visible content from the accessibility API be considered."
+				 */}
+				<div aria-hidden className={s.positionIndicatorBar}>
 					{FEATURED_SEARCH_TERMS.map((_: string, index: number) => {
 						const id = `position-indicator-${index}`
 						const isCurrent = index === currentIndex
+						const classes = classNames(
+							s.positionIndicator,
+							isCurrent && s.currentPositionIndicator
+						)
 						return (
 							<div
-								className={classNames(
-									s.positionIndicator,
-									isCurrent && s.currentPositionIndicator
-								)}
+								className={s.positionIndicatorContainer}
 								key={id}
-							/>
+								onClick={() => setCurrentIndex(index)}
+							>
+								<div className={classes} />
+							</div>
 						)
 					})}
 				</div>

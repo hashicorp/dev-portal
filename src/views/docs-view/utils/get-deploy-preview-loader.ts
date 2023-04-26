@@ -7,8 +7,8 @@
 import path from 'path'
 
 // HashiCorp Imports
-import FileSystemLoader from '@hashicorp/react-docs-page/server/loaders/file-system'
-import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
+import FileSystemLoader from '../loaders/file-system'
+import RemoteContentLoader from '../loaders/remote-content'
 import {
 	includeMarkdown,
 	paragraphCustomAlerts,

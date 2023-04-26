@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { type ProductSlug } from 'types/products'
 import { type SolutionType } from './types'
 

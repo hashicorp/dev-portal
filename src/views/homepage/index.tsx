@@ -125,15 +125,14 @@ const RedesignedHomePageContent = () => {
 }
 
 function HomePageView({ content }: HomePageProps): ReactElement {
+	let homePageContent
 	if (HOME_PAGE_REDESIGN_ENABLED) {
-		return <RedesignedHomePageContent />
+		homePageContent = <RedesignedHomePageContent />
+	} else {
+		homePageContent = <HomePageContent {...content} />
 	}
 
-	return (
-		<div className={s.homepage}>
-			<HomePageContent {...content} />
-		</div>
-	)
+	return <div className={s.homepage}>{homePageContent}</div>
 }
 
 /**

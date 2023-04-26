@@ -12,8 +12,7 @@ import slugify from 'slugify'
 
 // HashiCorp Imports
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
-import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
-import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
+import RemoteContentLoader from './loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
 
 // Global imports

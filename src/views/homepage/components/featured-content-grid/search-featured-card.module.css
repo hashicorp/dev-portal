@@ -1,18 +1,45 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .root {
-	background: url('../../img/search-card-graphic.svg');
 	background-color: var(--token-color-foreground-strong);
+	background-position: center top;
+	background-repeat: no-repeat;
 	background-size: cover;
-	background-position: center left;
 	border-radius: 10px;
-	box-shadow: none; /* TODO - should there be elevation? */
 	padding-bottom: 18px;
 	padding-left: 24px;
 	padding-right: 24px;
 	padding-top: 20px;
+
+	/* 500px with 16px base font */
+	@media (min-width: 31.25rem) {
+		background-image: url('../../img/search-card-graphic.svg');
+		background-position-x: 1rem;
+	}
 }
 
 .heading {
+	composes: hds-font-weight-bold from global;
+	color: var(--token-color-foreground-high-contrast);
+	font-family: var(--token-typography-display-400-font-family);
+	font-size: var(--token-typography-display-400-font-size);
+	line-height: var(--token-typography-display-400-line-height);
+	margin: 0;
 	margin-bottom: 8px;
+	padding: 0;
+
+	@media (--dev-dot-mobile) {
+		margin-bottom: 4px;
+	}
+
+	@media (--dev-dot-tablet-down) {
+		font-family: var(--token-typography-display-300-font-family);
+		font-size: var(--token-typography-display-300-font-size);
+		line-height: var(--token-typography-display-300-line-height);
+	}
 }
 
 .description {
@@ -40,6 +67,7 @@
 			rgba(13, 13, 21, 0) 104.43%
 		),
 		#2a283a40;
+	border-radius: 10px;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -56,6 +84,7 @@
 		transparent 60%,
 		#2a283a40 90%
 	);
+	border-radius: 10px;
 	bottom: 0;
 	left: 0;
 	pointer-events: none; /* allow clicks to pass through this element */
@@ -63,6 +92,12 @@
 	right: 0;
 	top: 0;
 	z-index: 2;
+
+	/* 500px with 16px base font */
+	@media (max-width: 31.25rem) {
+		/* hide on mobile because it decreases contrast too much */
+		display: none;
+	}
 }
 
 .buttonContainer {
@@ -120,7 +155,8 @@
 	padding: 1px 0;
 	z-index: 1;
 
-	@media (--dev-dot-mobile) {
+	/* 500px with 16px base font */
+	@media screen and (max-width: 31.25rem) {
 		/**
     * @TODO replace magic numbers with variables
     *   - 44px is ideal touch target for next/previous button
@@ -164,13 +200,9 @@
 	text-align: left;
 	white-space: nowrap;
 
-	/* 700px with 16px base font */
-	@media screen and (max-width: 43.75rem) {
-		white-space: unset;
-	}
-
 	/* 500px with 16px base font */
 	@media screen and (max-width: 31.25rem) {
+		white-space: unset;
 		word-break: break-word;
 	}
 }
@@ -179,7 +211,6 @@
 	align-items: center;
 	bottom: 12px;
 	display: flex;
-	gap: 10px;
 	justify-content: center;
 	left: 0;
 	position: absolute;
@@ -187,11 +218,20 @@
 	z-index: 3;
 }
 
+/* Purpose of this element is to increase the touch target */
+.positionIndicatorContainer {
+	padding: 5px;
+}
+
 .positionIndicator {
 	background-color: #8a8ea0; /* TODO - a token? */
 	border-radius: 5px;
 	height: 6px;
 	width: 10px;
+
+	&:hover {
+		cursor: pointer;
+	}
 
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
