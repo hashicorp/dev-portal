@@ -12,9 +12,9 @@ import { Badges, getIsBeta } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
 import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
-import variantsData from 'content/variants.json'
 import { NextRouter, useRouter } from 'next/router'
 import { VariantOption } from 'views/tutorial-view/utils/variants'
+import { TutorialVariant } from 'views/tutorial-view/types'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -23,7 +23,7 @@ interface TutorialMetaProps {
 		hasVideo: boolean
 	}
 	tutorialId: TutorialData['id']
-	variant?: string
+	variant?: TutorialVariant
 }
 
 function getVariantPath(router: NextRouter, variantType: string) {
@@ -96,7 +96,7 @@ export default function TutorialMeta({
 						tutorial={{ id: tutorialId, name: heading.text }}
 					/>
 					{variant
-						? variantsData[variant].map((option: VariantOption) => (
+						? variant.allOptions.map((option: VariantOption) => (
 								<ButtonLink
 									key={option.id}
 									text={option.name}

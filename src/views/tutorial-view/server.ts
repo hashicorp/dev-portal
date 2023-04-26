@@ -85,10 +85,14 @@ export async function getTutorialPageProps(
 				(option: VariantOption) => option.id === variantOptionSlug
 			)
 
-			variant =
-				variantOptionSlug && Boolean(tutorialVariantOption)
-					? tutorialVariantOption
-					: tutorialVariant[0]
+			variant = {
+				id: fullTutorialData.variant,
+				activeOption:
+					variantOptionSlug && Boolean(tutorialVariantOption)
+						? tutorialVariantOption
+						: tutorialVariant[0],
+				allOptions: tutorialVariant,
+			}
 		}
 	}
 

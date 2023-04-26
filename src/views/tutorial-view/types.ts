@@ -63,8 +63,14 @@ interface TutorialViewProps {
 		title: string
 		description: string
 		slug?: string
-		variant?: VariantOption
+		variant?: TutorialVariant
 	}
+}
+
+export interface TutorialVariant {
+	id: string
+	activeOption: VariantOption
+	allOptions: VariantOption[]
 }
 
 interface LayoutContentWrapperProps {

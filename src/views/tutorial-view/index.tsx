@@ -260,7 +260,7 @@ function TutorialView({
 						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
 					>
 						{/** should default to the first variant in the list */}
-						<VariantProvider variant={metadata.variant?.id}>
+						<VariantProvider variant={metadata.variant?.activeOption.id}>
 							<TutorialMeta
 								heading={pageHeading}
 								meta={{
@@ -271,6 +271,7 @@ function TutorialView({
 									hasVideo,
 								}}
 								tutorialId={id}
+								variant={metadata.variant}
 							/>
 							<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
 							{hasVideo && video.id && !video.videoInline && (
