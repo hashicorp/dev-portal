@@ -106,19 +106,29 @@
 
 .leftScrim {
 	composes: scrim;
-	background: linear-gradient(to right, #ffff, #fff0) left;
+	background: linear-gradient(
+			to right,
+			var(--token-color-page-primary),
+			transparent
+		)
+		left;
 	bottom: 0;
 	left: 0;
-	top: 1px;
+	top: 0;
 	width: var(--scrim-size);
 }
 
 .rightScrim {
 	composes: scrim;
-	background: linear-gradient(to left, #ffff, #fff0) right;
+	background: linear-gradient(
+			to left,
+			var(--token-color-page-primary),
+			transparent
+		)
+		right;
 	bottom: 0;
 	right: 0;
-	top: 1px;
+	top: 0;
 	width: var(--scrim-size);
 }
 
