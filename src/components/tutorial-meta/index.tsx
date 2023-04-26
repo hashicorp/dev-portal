@@ -14,6 +14,7 @@ import s from './tutorial-meta.module.css'
 import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
 import variantsData from 'content/variants.json'
 import { NextRouter, useRouter } from 'next/router'
+import { VariantOption } from 'views/tutorial-view/utils/variants'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -22,6 +23,7 @@ interface TutorialMetaProps {
 		hasVideo: boolean
 	}
 	tutorialId: TutorialData['id']
+	variant?: string
 }
 
 function getVariantPath(router: NextRouter, variantType: string) {
@@ -51,6 +53,7 @@ export default function TutorialMeta({
 	heading,
 	meta,
 	tutorialId,
+	variant,
 }: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 	const router = useRouter()
@@ -92,13 +95,15 @@ export default function TutorialMeta({
 					<TutorialMetaBookmarkButton
 						tutorial={{ id: tutorialId, name: heading.text }}
 					/>
-					{variantsData.consul.map((option) => (
-						<ButtonLink
-							key={option.id}
-							text={option.name}
-							href={getVariantPath(router, option.id)} // make work with hashes & query etc
-						/>
-					))}
+					{variant
+						? variantsData[variant].map((option: VariantOption) => (
+								<ButtonLink
+									key={option.id}
+									text={option.name}
+									href={getVariantPath(router, option.id)} // make work with hashes & query etc
+								/>
+						  ))
+						: null}
 				</span>
 				{showCreateAccountCta ? (
 					<Text className={s.createAccountCta} size={200}>
