@@ -43,11 +43,10 @@ const useSwipeDectector = ({
 	onSwipeLeft,
 	onSwipeRight,
 }: {
-	// @TODO let `HTMLDivElement` be passed in
-	ref: MutableRefObject<HTMLDivElement>
+	ref: MutableRefObject<HTMLElement>
 	onSwipeLeft: () => void
 	onSwipeRight: () => void
-}) => {
+}): void => {
 	const clientX = useRef<number>()
 
 	useEffect(() => {
