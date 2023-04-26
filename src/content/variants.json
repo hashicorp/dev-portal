@@ -36,5 +36,15 @@
 			"id": "hcp",
 			"name": "HashiCorp Cloud Platform (HCP)"
 		}
+	],
+	"consul-k8s-mgr": [
+		{
+			"id": "helm",
+			"name": "Helm"
+		},
+		{
+			"id": "k8s-cli",
+			"name": "Consul K8S CLI (Mac & Linux)"
+		}
 	]
 }
