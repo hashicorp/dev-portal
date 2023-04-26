@@ -3,7 +3,13 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { KeyboardEvent, useEffect, useRef, useState } from 'react'
+import {
+	KeyboardEvent,
+	MutableRefObject,
+	useEffect,
+	useRef,
+	useState,
+} from 'react'
 import classNames from 'classnames'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import deriveKeyEventState from 'lib/derive-key-event-state'
@@ -26,6 +32,57 @@ const FEATURED_SEARCH_TERMS = [
 // Starting the animation from the center, as requested from Design
 const INITIALLY_CENTERED_TERM_INDEX = 2
 
+/**
+ * @TODO
+ *
+ * - move to own file
+ * - document
+ */
+const useSwipeDectector = ({
+	ref,
+	onSwipeLeft,
+	onSwipeRight,
+}: {
+	// @TODO let `HTMLDivElement` be passed in
+	ref: MutableRefObject<HTMLDivElement>
+	onSwipeLeft: () => void
+	onSwipeRight: () => void
+}) => {
+	const clientX = useRef<number>()
+
+	useEffect(() => {
+		const elementWithListeners = ref.current
+
+		const handleTouchStart = (event: TouchEvent) => {
+			const firstTouch = event.touches.item(0)
+			clientX.current = firstTouch.clientX
+		}
+
+		const handleTouchMove = (event: TouchEvent) => {
+			const changedTouch = event.changedTouches.item(0)
+			const clientXDiff = clientX.current - changedTouch.clientX
+
+			if (Math.abs(clientXDiff) < 20) {
+				return
+			}
+
+			if (clientXDiff < 0) {
+				onSwipeLeft()
+			} else {
+				onSwipeRight()
+			}
+		}
+
+		elementWithListeners.addEventListener('touchstart', handleTouchStart)
+		elementWithListeners.addEventListener('touchend', handleTouchMove)
+
+		return () => {
+			elementWithListeners.removeEventListener('touchstart', handleTouchStart)
+			elementWithListeners.removeEventListener('touchend', handleTouchMove)
+		}
+	}, [ref, onSwipeLeft, onSwipeRight])
+}
+
 const SearchFeaturedCard = () => {
 	const prefersReducedMotion = usePrefersReducedMotion()
 	const [isAutoScrollEnabled, setIsAutoScrollEnabled] = useState(
@@ -36,10 +93,35 @@ const SearchFeaturedCard = () => {
 		setCurrentInputValue: setCommandBarSearchValue,
 		toggleIsOpen: toggleCommandBar,
 	} = useCommandBar()
-	const scrollableAreaRef = useRef<HTMLDivElement>()
 	const [currentIndex, setCurrentIndex] = useState(
 		INITIALLY_CENTERED_TERM_INDEX
 	)
+	const scrollableAreaRef = useRef<HTMLDivElement>()
+
+	/**
+	 * @TODO document
+	 */
+	useSwipeDectector({
+		ref: scrollableAreaRef,
+		onSwipeLeft: () => {
+			setCurrentIndex((prevIndex: number) => {
+				if (prevIndex === 0) {
+					return FEATURED_SEARCH_TERMS.length - 1
+				} else {
+					return prevIndex - 1
+				}
+			})
+		},
+		onSwipeRight: () => {
+			setCurrentIndex((prevIndex: number) => {
+				if (prevIndex === FEATURED_SEARCH_TERMS.length - 1) {
+					return 0
+				} else {
+					return prevIndex + 1
+				}
+			})
+		},
+	})
 
 	/**
 	 * Keep the animation enabled/disabled state in sync with changes to the
