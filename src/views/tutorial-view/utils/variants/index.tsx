@@ -19,17 +19,17 @@ export interface VariantOption {
 }
 
 export function MdxVariant({
-	type,
+	option,
 	children,
 }: {
-	type: string
+	option: string
 	children: ReactNode
 }) {
 	// check if is active
 	// potentially just 'hide' to retain SEO on canonical link
 	const { activeVariant } = useVariants() // or is default
 
-	return activeVariant === type ? (
+	return activeVariant === option ? (
 		<div>
 			<h2 style={{ color: 'pink' }}>{`Variant: ${activeVariant}`}</h2>
 			{children}
@@ -48,6 +48,13 @@ export function useVariants(): VariantContextValue {
 
 const VariantContext = createContext({ activeVariant: null })
 VariantContext.displayName = 'VariantContext'
+
+/**
+ * @TODO
+ * - handle all variant data for the tutorial,
+ * - needs to be able to do undefined
+ *
+ */
 
 export default function VariantProvider({
 	children,
