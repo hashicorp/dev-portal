@@ -33,9 +33,6 @@ import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items
 import variantsData from 'content/variants.json'
 import { VariantOption } from './utils/variants'
 
-// @TODO replace with frontmatter value when api and content sync is updated
-const TEMP_VARIANT_FRONTMATTER = 'consul'
-
 /**
  * Given a ProductData object (imported from src/data JSON files) and a tutorial
  * slug, fetches and returns the page props for
@@ -76,15 +73,14 @@ export async function getTutorialPageProps(
 
 	let variant = undefined
 
-	// @TODO source the frontmatter value from `fullTutorialData`
-	if (variantOptionSlug || TEMP_VARIANT_FRONTMATTER) {
+	// If the variant is in the path or defined in the tutorial frontmatter
+	if (variantOptionSlug || fullTutorialData.variant) {
 		// @TODO test for `varianSlug in variantsData` from both tutorial and not
 		// this will happen in the content sync eventually
-		if (TEMP_VARIANT_FRONTMATTER in variantsData) {
-			console.log('yo')
+		if (fullTutorialData.variant in variantsData) {
 			// if the variant is pass via path, prioritize, otherwise take the first option from
 			// whats defined in the variants list from the frontmatter
-			const tutorialVariant = variantsData[TEMP_VARIANT_FRONTMATTER]
+			const tutorialVariant = variantsData[fullTutorialData.variant]
 			const tutorialVariantOption = tutorialVariant.find(
 				(option: VariantOption) => option.id === variantOptionSlug
 			)

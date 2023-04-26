@@ -53,6 +53,7 @@ export interface ApiTutorial extends ContentBaseModel, DefaultCollection {
 	hands_on_lab_id: string | null
 	hands_on_lab_provider: HandsOnLabProviderOption | null
 	products_used: ApiProductsUsed[] // Returns empty array if no products used
+	variant: string
 }
 
 // Everything in base ApiTutorial, except content

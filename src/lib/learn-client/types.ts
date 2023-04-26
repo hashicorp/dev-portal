@@ -33,6 +33,7 @@ export interface Tutorial {
 	video?: TutorialVideo
 	handsOnLab?: TutorialHandsOnLab
 	repo?: string
+	variant?: string
 }
 
 export interface CollectionCtxLite {

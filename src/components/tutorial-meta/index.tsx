@@ -31,6 +31,7 @@ function getVariantPath(router: NextRouter, variantType: string) {
 
 	const arr = router.asPath.split('/')
 
+	// if the variant is defined in the path, use that
 	if (router.query.tutorialSlug.length === 3) {
 		const variantInPath = arr.slice().pop()
 

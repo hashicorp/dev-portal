@@ -40,6 +40,7 @@ export function formatTutorialData(
 		read_time,
 		edition,
 		products_used,
+		variant,
 	} = tutorial
 	const productsUsed = products_used.map(formatProductUsed)
 	const video = formatVideo(tutorial)
@@ -61,6 +62,7 @@ export function formatTutorialData(
 		video,
 		handsOnLab,
 		edition: edition,
+		variant,
 	}
 }
 
