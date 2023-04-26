@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Tabs, { Tab } from '@hashicorp/react-tabs'
+import Tabs, { Tab } from 'components/tabs'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
 
 /**
@@ -39,8 +39,12 @@ export default function ConfigEntryReference({ keys, topLevel = true }) {
 	const kubeKeys = topLevel ? toKubeKeys(keys) : keys
 	return (
 		<Tabs>
-			<Tab heading="HCL">{renderKeys(keys, true)}</Tab>
-			<Tab heading="Kubernetes YAML">{renderKeys(kubeKeys, false)}</Tab>
+			<Tab heading="HCL" group="hcl">
+				{renderKeys(keys, true)}
+			</Tab>
+			<Tab heading="Kubernetes YAML" group="yaml">
+				{renderKeys(kubeKeys, false)}
+			</Tab>
 		</Tabs>
 	)
 }
@@ -55,7 +59,7 @@ function renderKeys(keys, isHCLTab) {
 	if (!keys) {
 		return null
 	}
-	return <ul>{keys.map((key) => renderKey(key, isHCLTab))}</ul>
+	return <>{keys.map((key) => renderKey(key, isHCLTab))}</>
 }
 
 /**
