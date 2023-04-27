@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { KeyboardEvent, useEffect, useRef, useState } from 'react'
+import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import deriveKeyEventState from 'lib/derive-key-event-state'
 import usePrefersReducedMotion from 'lib/hooks/usePrefersReducedMotion'
+import { useOnSwipe } from 'hooks/use-on-swipe'
 import Card from 'components/card'
 import { useCommandBar } from 'components/command-bar'
 import { StandaloneLinkContents } from 'components/standalone-link'
@@ -39,6 +40,35 @@ const SearchFeaturedCard = () => {
 	const [currentIndex, setCurrentIndex] = useState(
 		INITIALLY_CENTERED_TERM_INDEX
 	)
+
+	// Callback for incrementing currentIndex and wrapping back to the first index
+	const incrementIndex = useCallback(() => {
+		setCurrentIndex((prevIndex: number) => {
+			if (prevIndex === FEATURED_SEARCH_TERMS.length - 1) {
+				return 0
+			} else {
+				return prevIndex + 1
+			}
+		})
+	}, [])
+
+	// Callback for decrementing currentIndex and wrapping back to the last index
+	const decrementIndex = useCallback(() => {
+		setCurrentIndex((prevIndex: number) => {
+			if (prevIndex === 0) {
+				return FEATURED_SEARCH_TERMS.length - 1
+			} else {
+				return prevIndex - 1
+			}
+		})
+	}, [])
+
+	// Handline incrementing or decrementing currentIndex when a user swipes
+	useOnSwipe({
+		ref: scrollableAreaRef,
+		onSwipeLeft: () => decrementIndex(),
+		onSwipeRight: () => incrementIndex(),
+	})
 
 	/**
 	 * Keep the animation enabled/disabled state in sync with changes to the
@@ -113,14 +143,7 @@ const SearchFeaturedCard = () => {
 		let interval: NodeJS.Timer
 		if (isAutoScrollEnabled) {
 			interval = setInterval(() => {
-				setCurrentIndex((prev: number) => {
-					const isLastIndex = FEATURED_SEARCH_TERMS.length - 1
-					if (prev === isLastIndex) {
-						return 0
-					} else {
-						return prev + 1
-					}
-				})
+				incrementIndex()
 			}, 4000)
 		}
 
@@ -136,7 +159,12 @@ const SearchFeaturedCard = () => {
 			)
 			clearInterval(interval)
 		}
-	}, [isAutoScrollEnabled, isCommandBarOpen, prefersReducedMotion])
+	}, [
+		incrementIndex,
+		isAutoScrollEnabled,
+		isCommandBarOpen,
+		prefersReducedMotion,
+	])
 
 	/**
 	 * When `currentIndex` changes, check if the button at that index is centered.
