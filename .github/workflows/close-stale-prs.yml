@@ -8,7 +8,7 @@ jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/stale@v5
+      - uses: actions/stale@v5 # TSCCR: no entry for repository "actions/stale"
         with:
           days-before-pr-stale: 20
           days-before-pr-close: 5
