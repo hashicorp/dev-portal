@@ -85,32 +85,6 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		sharedOptions
 	)
 
-	const officialChecked = qsTiers.includes(Tier.OFFICIAL)
-	const partnerChecked = qsTiers.includes(Tier.PARTNER)
-	const communityChecked = qsTiers.includes(Tier.COMMUNITY)
-
-	const setOfficialChecked = (value: boolean) => {
-		if (value) {
-			setQsTiers((prev) => [...prev, Tier.OFFICIAL])
-		} else {
-			setQsTiers((prev) => prev.filter((tier) => tier !== Tier.OFFICIAL))
-		}
-	}
-	const setPartnerChecked = (value: boolean) => {
-		if (value) {
-			setQsTiers((prev) => [...prev, Tier.PARTNER])
-		} else {
-			setQsTiers((prev) => prev.filter((tier) => tier !== Tier.PARTNER))
-		}
-	}
-	const setCommunityChecked = (value: boolean) => {
-		if (value) {
-			setQsTiers((prev) => [...prev, Tier.COMMUNITY])
-		} else {
-			setQsTiers((prev) => prev.filter((tier) => tier !== Tier.COMMUNITY))
-		}
-	}
-
 	// Filter out integrations that don't have releases yet
 	const integrations = useMemo(() => {
 		return _integrations.filter((integration: Integration) => {
@@ -229,9 +203,7 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 
 	// Now filter our integrations if facets are selected
 	const atLeastOneFacetSelected =
-		officialChecked ||
-		partnerChecked ||
-		communityChecked ||
+		tiersCheckedArray.includes(true) ||
 		componentCheckedArray.includes(true) ||
 		flagsCheckedArray.includes(true)
 
@@ -239,17 +211,15 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 	if (atLeastOneFacetSelected) {
 		filteredIntegrations = integrations.filter((integration: Integration) => {
 			// Default tierMatch to true if nothing is checked, false otherwise
-			let tierMatch: boolean =
-				!officialChecked && !partnerChecked && !communityChecked
-			if (officialChecked && integration.tier === Tier.OFFICIAL) {
-				tierMatch = true
-			}
-			if (partnerChecked && integration.tier === Tier.PARTNER) {
-				tierMatch = true
-			}
-			if (communityChecked && integration.tier === Tier.COMMUNITY) {
-				tierMatch = true
-			}
+			let tierMatch = !tiersCheckedArray.includes(true)
+			tiersCheckedArray.forEach((checked, index) => {
+				if (checked) {
+					const checkedTier = tiers[index]
+					if (integration.tier === checkedTier) {
+						tierMatch = true
+					}
+				}
+			})
 
 			// Loop over each component to see if they match any checked components
 			// If there are no components selected, default this to true
