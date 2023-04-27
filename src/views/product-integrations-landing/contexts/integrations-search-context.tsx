@@ -35,9 +35,6 @@ export const IntegrationsSearchContext = createContext({
 	setPartnerChecked: (bool: boolean) => void 1,
 	setCommunityChecked: (bool: boolean) => void 1,
 	tierOptions: [] as Tier[],
-	matchingOfficial: 0,
-	matchingVerified: 0,
-	matchingCommunity: 0,
 	sortedComponents: [] as $TSFixMe[],
 	componentCheckedArray: [] as boolean[],
 	setComponentCheckedArray: (val: boolean[]) => void 1,
@@ -177,17 +174,6 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		}
 	})
 
-	// Calculate the number of integrations that match each tier
-	const matchingOfficial = integrations.filter(
-		(i) => i.tier === Tier.OFFICIAL
-	).length
-	const matchingVerified = integrations.filter(
-		(i) => i.tier === Tier.PARTNER
-	).length
-	const matchingCommunity = integrations.filter(
-		(i) => i.tier === Tier.COMMUNITY
-	).length
-
 	// Pull out the list of all of the components used by our integrations
 	// and sort them alphabetically so they are deterministically ordered.
 	const allComponents = filteredIntegrations.flatMap(
@@ -303,9 +289,6 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 				setPartnerChecked,
 				setCommunityChecked,
 				tierOptions,
-				matchingOfficial,
-				matchingVerified,
-				matchingCommunity,
 				sortedComponents,
 				componentCheckedArray,
 				setComponentCheckedArray,
