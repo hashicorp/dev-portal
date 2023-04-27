@@ -171,20 +171,35 @@ const SearchFeaturedCard = () => {
 	 * If it's not, then center it.
 	 */
 	useEffect(() => {
-		const { left: containerLeft, width: containerWidth } =
-			scrollableAreaRef.current.getBoundingClientRect()
-		const { left: buttonLeft, width: buttonWidth } =
-			scrollableAreaRef.current.children
-				.item(currentIndex)
-				.getBoundingClientRect()
+		// Pull overall container and current button container elements into variables
+		const buttonsContainer = scrollableAreaRef.current
+		const buttonContainerToCenter = buttonsContainer.children.item(currentIndex)
 
-		const widthDifference = containerWidth - buttonWidth
-		const buttonLeftWhenCentered = containerLeft + widthDifference / 2
+		// Pull element widths into variables
+		const containerWidth = buttonsContainer.clientWidth
+		const buttonContainerWidth = buttonContainerToCenter.clientWidth
 
-		const buttonOffsetFromCenter = buttonLeft - buttonLeftWhenCentered
-		if (Math.abs(buttonOffsetFromCenter) > 10) {
-			scrollableAreaRef.current.scrollBy(buttonOffsetFromCenter, 0)
-		}
+		// Get distance from left button container edge to overall container's left edge
+		const widthDifference = containerWidth - buttonContainerWidth
+		const buttonLeftToContainerLeft = widthDifference / 2
+
+		let sumPreviousButtonsWidths = 0
+		Array.from(buttonsContainer.childNodes).find(
+			(buttonElement: HTMLButtonElement, index: number) => {
+				if (index === currentIndex) {
+					return true
+				} else {
+					sumPreviousButtonsWidths += buttonElement.clientWidth
+					return false
+				}
+			}
+		)
+
+		const newXPosition = sumPreviousButtonsWidths - buttonLeftToContainerLeft
+		scrollableAreaRef.current.style.setProperty(
+			'transform',
+			`translateX(calc(-1 * ${newXPosition}px))`
+		)
 	}, [currentIndex])
 
 	return (
@@ -197,7 +212,7 @@ const SearchFeaturedCard = () => {
 			<div className={s.carousel}>
 				<div className={s.blurredBackground} />
 				<div className={s.fadedBackground} />
-				<div className={s.buttonContainer} ref={scrollableAreaRef}>
+				<div className={s.buttonsContainer} ref={scrollableAreaRef}>
 					{FEATURED_SEARCH_TERMS.map((term: string, index: number) => {
 						const id = `search-term-${index}`
 						const isCurrent = index === currentIndex
@@ -217,30 +232,31 @@ const SearchFeaturedCard = () => {
 						}
 
 						return (
-							<button
-								id={id}
-								key={id}
-								className={classNames(s.button, isCurrent && s.currentButton)}
-								onClick={handleClick}
-								onKeyUp={handleKeyUp}
-							>
-								<div className={s.buttonContent}>
-									<Text
-										asElement="span"
-										className={s.buttonText}
-										size={200}
-										weight="semibold"
-									>
-										{term}
-									</Text>
-									<StandaloneLinkContents
-										color="primary"
-										icon={<IconArrowRight16 />}
-										iconPosition="trailing"
-										text="Explore"
-									/>
-								</div>
-							</button>
+							<div className={s.buttonContainer} key={id}>
+								<button
+									id={id}
+									className={classNames(s.button, isCurrent && s.currentButton)}
+									onClick={handleClick}
+									onKeyUp={handleKeyUp}
+								>
+									<div className={s.buttonContent}>
+										<Text
+											asElement="span"
+											className={s.buttonText}
+											size={200}
+											weight="semibold"
+										>
+											{term}
+										</Text>
+										<StandaloneLinkContents
+											color="primary"
+											icon={<IconArrowRight16 />}
+											iconPosition="trailing"
+											text="Explore"
+										/>
+									</div>
+								</button>
+							</div>
 						)
 					})}
 				</div>
