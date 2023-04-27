@@ -1,8 +1,8 @@
-import BaseNewLayout from 'layouts/base-new'
-import s from './tutorials-landing.module.css'
-import StandaloneLink from 'components/standalone-link'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
+import BaseNewLayout from 'layouts/base-new'
 import { GlobalThemeOption } from 'styles/themes/types'
+import StandaloneLink from 'components/standalone-link'
+import s from './tutorials-landing.module.css'
 
 const TITLE = 'Start here'
 const SUBTITLE =
