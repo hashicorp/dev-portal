@@ -10,7 +10,9 @@ interface UseOnSwipeOptions {
 const DEFAULT_CLIENT_X_DIFF_THRESHOLD = 20
 
 /**
- * @TODO document
+ * Given a ref associated with a swipeable HTML element and callback functions
+ * swiping left and swiping right, invokes the appropriate callback when a swipe
+ * is detected.
  */
 const useOnSwipe = ({
 	diffThreshold = DEFAULT_CLIENT_X_DIFF_THRESHOLD,
@@ -32,7 +34,8 @@ const useOnSwipe = ({
 			const changedTouch = event.changedTouches.item(0)
 			const clientXDiff = clientX.current - changedTouch.clientX
 
-			if (Math.abs(clientXDiff) <= diffThreshold) {
+			// If the diff is negligble, then the swipe was too small to be meaningful
+			if (clientXDiff === 0 || Math.abs(clientXDiff) <= diffThreshold) {
 				return
 			}
 
@@ -53,4 +56,5 @@ const useOnSwipe = ({
 	}, [diffThreshold, onSwipeLeft, onSwipeRight, ref])
 }
 
+export type { UseOnSwipeOptions }
 export { useOnSwipe }
