@@ -289,12 +289,6 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		<IntegrationsSearchContext.Provider
 			value={{
 				integrations,
-				// officialChecked,
-				// partnerChecked,
-				// communityChecked,
-				// setOfficialChecked,
-				// setPartnerChecked,
-				// setCommunityChecked,
 				tierOptions: tiers,
 				tiersCheckedArray,
 				setTiersCheckedArray,
