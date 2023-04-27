@@ -192,13 +192,6 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 			const textB = b.name.toLowerCase()
 			return textA < textB ? -1 : textA > textB ? 1 : 0
 		})
-		.map((component) => {
-			// Add # of occurances to the component object for facets
-			component.occurances = mergedComponents.filter(
-				(c) => c.slug === component.slug
-			).length
-			return component
-		})
 
 	// We have to manage our component checked state in a singular
 	// state object as there are an unknown number of components.
