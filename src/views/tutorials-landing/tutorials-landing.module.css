@@ -1,0 +1,118 @@
+.root {
+	--content-max-width: 1240px;
+}
+
+.hero {
+	background-color: #d9d9d9;
+	padding-bottom: 84px;
+	padding-top: 218px;
+}
+
+.header {
+	margin: 0 auto;
+	max-width: var(--content-max-width);
+}
+
+.title {
+	font-size: 54px;
+	font-weight: 700;
+	line-height: 70px;
+	margin-bottom: 21px;
+	max-width: 850px;
+}
+
+.subtitle {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 24px;
+	max-width: 850px;
+}
+
+.section {
+	margin: 124px auto;
+	max-width: var(--content-max-width);
+}
+
+.leftRight {
+	align-items: flex-start;
+	column-gap: 58px;
+	display: flex;
+	flex-direction: row;
+}
+
+/*
+
+LEFT
+
+*/
+
+.left {
+	max-width: 365px;
+}
+
+.sectionTitle {
+	font-size: 30px;
+	font-weight: 700;
+	line-height: 38px;
+	margin-bottom: 21px;
+}
+
+.sectionDescription {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 24px;
+}
+
+.featuredUseCasesTitle {
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 32px;
+	margin-bottom: 24px;
+	margin-top: 70px;
+}
+
+.featuredUseCasesList {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	row-gap: 32px;
+}
+
+/*
+
+RIGHT
+
+*/
+
+.right {
+	flex-grow: 1;
+}
+
+.grid {
+	display: grid;
+	gap: 21px;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+}
+
+.card {
+	border-radius: 10px;
+	overflow: hidden;
+	width: 100%;
+}
+
+.cardHeader {
+	background-color: #dbdbdc;
+	composes: hds-elevation-mid from global;
+	content: '';
+	height: 142px;
+	position: relative;
+}
+
+.cardBody {
+	background-color: #fafafa;
+	content: '';
+	height: 228px;
+}
