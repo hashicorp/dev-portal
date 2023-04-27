@@ -2,6 +2,7 @@ import BaseNewLayout from 'layouts/base-new'
 import s from './tutorials-landing.module.css'
 import StandaloneLink from 'components/standalone-link'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
+import { GlobalThemeOption } from 'styles/themes/types'
 
 const TITLE = 'Start here'
 const SUBTITLE =
@@ -68,5 +69,6 @@ const TutorialsLandingView = () => {
 
 TutorialsLandingView.contentType = 'tutorials'
 TutorialsLandingView.layout = BaseNewLayout
+TutorialsLandingView.theme = GlobalThemeOption.light
 
 export default TutorialsLandingView
