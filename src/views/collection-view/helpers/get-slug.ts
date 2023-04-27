@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import Cookies from 'js-cookie'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 
@@ -33,6 +34,21 @@ export function getTutorialSlug(
 	// rawProductSlug may be "cloud", needs to be "hcp" for Dev Dot purposes
 	const productSlug = normalizeSlugForDevDot(rawProductSlug)
 	return `/${productSlug}/tutorials/${collectionFilename}/${tutorialFilename}`
+}
+
+export function appendPathWithVariant(path: string, tutorialVariant: string) {
+	if (!tutorialVariant) {
+		// return early if no variant
+		return path
+	}
+	// check if there are any variant cookies
+	const variantCookie = Cookies.get(tutorialVariant)
+	// use the cookie value to append the path
+	if (variantCookie) {
+		return [path, variantCookie].join('/')
+	} else {
+		return path
+	}
 }
 
 export function getCollectionSlug(collectionDbSlug: string): string {

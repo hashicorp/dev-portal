@@ -117,7 +117,6 @@ function TutorialView({
 	pageHeading,
 	metadata,
 }: TutorialViewProps): React.ReactElement {
-	console.log('variant', metadata.variant)
 	// hooks
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
@@ -188,7 +187,6 @@ function TutorialView({
 		(t: TutorialLite) => t.id
 	)
 
-	console.log(metadata.variant)
 	/**
 	 * Prime `tutorial` and `collection` progress queries with a batch query.
 	 *

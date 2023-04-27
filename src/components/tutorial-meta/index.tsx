@@ -2,6 +2,7 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
+import Cookies from 'js-cookie'
 import useAuthentication from 'hooks/use-authentication'
 import { TutorialData } from 'views/tutorial-view'
 import Heading from 'components/heading'
@@ -101,6 +102,13 @@ export default function TutorialMeta({
 									key={option.id}
 									text={option.name}
 									href={getVariantPath(router, option.id)} // make work with hashes & query etc
+									onClick={() => {
+										const variantCookie = Cookies.get(variant.id)
+										// if it exists and its not already set with the same value
+										if (!variantCookie || variantCookie !== option.id) {
+											Cookies.set(variant.id, option.id)
+										}
+									}}
 								/>
 						  ))
 						: null}

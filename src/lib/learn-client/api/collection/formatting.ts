@@ -58,6 +58,7 @@ export function formatToTutorialLite(
 		edition,
 		products_used,
 		default_collection,
+		variant,
 	}: ApiTutorialLite = item.tutorial
 	const productsUsed = products_used.map(formatProductUsed)
 	const video = formatVideo(item.tutorial)
@@ -74,6 +75,7 @@ export function formatToTutorialLite(
 		video,
 		handsOnLab,
 		defaultContext: formatToCollectionLite(default_collection),
+		variant,
 	}
 }
 
