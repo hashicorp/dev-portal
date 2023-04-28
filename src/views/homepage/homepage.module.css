@@ -9,8 +9,9 @@
 
 .background {
 	background-color: var(--token-color-foreground-strong);
-	background-image: url('./img/background.png');
-	background-position: center top;
+	background-image: url('./img/background.svg');
+	background-position-x: center;
+	background-position-y: top;
 	background-repeat: no-repeat;
 	background-size: cover;
 	content: '';
@@ -18,6 +19,11 @@
 	position: absolute;
 	width: 100%;
 	z-index: -1;
+
+	@media (--dev-dot-mobile) {
+		background-position-x: -550px;
+		background-position-y: -30px;
+	}
 }
 
 .limitedWidthContainer {
