@@ -6,21 +6,21 @@
 // Libraries
 import { sentenceCase } from 'change-case'
 // Local
+import { findLatestStableVersion } from '../../utils'
 import {
 	buildApiDocsBreadcrumbs,
 	buildSchemaProps,
 	buildSidebarNavDataLevels,
 	buildVersionSwitcherData,
-	findLatestStableVersion,
 	parseApiDocsVersionIdServiceId,
-} from '../utils'
+} from './utils'
 // Types
 import type { GetStaticPropsResult } from 'next'
 import type {
 	ApiDocsServiceData,
 	ApiDocsVersionData,
 	ApiDocsViewProps,
-} from '../types'
+} from '../../types'
 import type { ProductData, ProductSlug } from 'types/products'
 import type { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { cachedGetProductData } from 'lib/get-product-data'

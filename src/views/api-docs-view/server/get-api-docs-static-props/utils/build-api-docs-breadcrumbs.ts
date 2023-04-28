@@ -1,6 +1,6 @@
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { Product } from 'types/products'
-import { ApiDocsServiceData } from '../types'
+import { ApiDocsServiceData } from '../../../types'
 
 /**
  * Build breadcrumbs for an API docs view

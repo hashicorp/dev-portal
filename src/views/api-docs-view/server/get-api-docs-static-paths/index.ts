@@ -6,10 +6,11 @@
 // Global
 import { isDeployPreview } from 'lib/env-checks'
 // Local
-import { findLatestStableVersion, getApiDocsPaths } from '../utils'
+import { findLatestStableVersion } from '../../utils'
+import { fetchApiDocsPaths } from './fetch-api-docs-paths'
 // Types
 import type { GetStaticPathsResult } from 'next'
-import type { ApiDocsVersionData, ApiDocsParams } from '../types'
+import type { ApiDocsVersionData, ApiDocsParams } from '../../types'
 import type { ProductSlug } from 'types/products'
 
 /**
@@ -55,7 +56,7 @@ export async function getApiDocsStaticPaths(
 		return { paths: [], fallback: 'blocking' }
 	}
 	// Parse the path parts for all API docs pages we need to statically render.
-	const apiDocsPaths = await getApiDocsPaths(latestStableVersion.targetFile)
+	const apiDocsPaths = await fetchApiDocsPaths(latestStableVersion.targetFile)
 
 	/**
 	 * Format and return static paths. Note we set fallback 'blocking', rather

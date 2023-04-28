@@ -25,7 +25,7 @@ import type { GithubFile } from 'lib/fetch-github-file'
  * - ['<versionId>'] - for the index page, or a single service page
  * - ['<versionId>', '<serviceId>'] - when there are multiple services
  */
-async function getApiDocsPaths(
+async function fetchApiDocsPaths(
 	targetFile: GithubFile,
 	versionId?: string
 ): Promise<string[][]> {
@@ -65,4 +65,4 @@ async function getApiDocsPaths(
 	])
 }
 
-export { getApiDocsPaths }
+export { fetchApiDocsPaths }

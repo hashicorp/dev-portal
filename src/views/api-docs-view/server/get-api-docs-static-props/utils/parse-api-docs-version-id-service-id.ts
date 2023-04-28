@@ -1,5 +1,3 @@
-import { isDateVersion } from './is-date-version'
-
 /**
  * Given pathParts for a current API docs page being rendered,
  * parse out possible `versionId` and `serviceId` parts from the pathParts, and
@@ -31,6 +29,16 @@ function parseApiDocsVersionIdServiceId(pathParts: string[] | undefined): {
 			serviceId: pathParts[0],
 		}
 	}
+}
+
+/**
+ * Given a string,
+ *
+ * Return `true` if it matches a date version format,
+ * or `false` otherwise.
+ */
+export function isDateVersion(maybeVersion: string) {
+	return /^\d\d\d\d-\d\d-\d\d$/.test(maybeVersion)
 }
 
 export { parseApiDocsVersionIdServiceId }

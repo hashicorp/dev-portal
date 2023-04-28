@@ -12,7 +12,7 @@ import {
 // Types
 import type { GithubFile } from 'lib/fetch-github-file'
 import type { OperationObjectType } from 'components/open-api-page/types'
-import type { ApiDocsSwaggerSchema, ApiDocsServiceData } from '../types'
+import type { ApiDocsSwaggerSchema, ApiDocsServiceData } from '../../../types'
 
 /**
  * Given a targetFile, and optional target `serviceId`,

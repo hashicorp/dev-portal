@@ -1,3 +1,5 @@
+import { ApiDocsVersionData } from '../types'
+
 /**
  * Given an array of version data,
  * Return the latest `stable` version.
@@ -5,7 +7,9 @@
  * Note: only supports date-based version formats, for example "2023-01-15".
  * We'd need to update the sort logic in order to support other formats.
  */
-function findLatestStableVersion(versionData: $TSFixMe[]): $TSFixMe {
+function findLatestStableVersion(
+	versionData: ApiDocsVersionData[]
+): ApiDocsVersionData {
 	// If we have exactly one version, we assume it's the latest stable version.
 	if (versionData.length === 1) {
 		return versionData[0]

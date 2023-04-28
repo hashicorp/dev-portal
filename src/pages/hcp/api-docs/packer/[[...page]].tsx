@@ -10,6 +10,8 @@ import {
 	getApiDocsStaticPaths,
 	ApiDocsParams,
 } from 'views/api-docs-view/server'
+import { buildApiDocsBreadcrumbs } from 'views/api-docs-view/server/get-api-docs-static-props/utils'
+import { fetchCloudApiVersionData } from 'views/api-docs-view/utils'
 // Components
 import {
 	PathTruncationAside,
@@ -17,11 +19,7 @@ import {
 } from 'views/api-docs-view/components'
 // Types
 import type { ApiDocsViewProps } from 'views/api-docs-view/types'
-import {
-	buildApiDocsBreadcrumbs,
-	fetchCloudApiVersionData,
-} from 'views/api-docs-view/utils'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import type { GetStaticPaths, GetStaticProps } from 'next'
 
 /**
  * The product slug is used to fetch product data for the layout.
