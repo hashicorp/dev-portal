@@ -1,10 +1,11 @@
+import type { ReactElement } from 'react'
 import type { ParsedUrlQuery } from 'querystring'
+import type { GithubFile } from 'lib/fetch-github-file'
 import type { BreadcrumbLink } from 'components/breadcrumb-bar'
+import type { OperationObjectType } from 'components/open-api-page/types'
+import type { SidebarProps } from 'components/sidebar'
 import type { VersionSwitcherOption } from 'components/version-switcher/types'
-import { GithubFile } from 'lib/fetch-github-file'
 import type { ProductData } from 'types/products'
-import { OperationObjectType } from 'components/open-api-page/types'
-import { ReactElement } from 'react'
 
 /**
  * Params type for `getStaticPaths` and `getStaticProps`.
@@ -59,7 +60,7 @@ export interface ApiDocsViewProps {
 	 */
 	layoutProps: {
 		breadcrumbLinks: BreadcrumbLink[]
-		sidebarNavDataLevels: $TSFixMe
+		sidebarNavDataLevels: SidebarProps[]
 	}
 
 	/**

@@ -13,6 +13,7 @@ import DocsPageHeading from 'views/docs-view/components/docs-page-heading'
 import { HeadingWithBadge } from './components'
 // Types
 import type { ApiDocsViewProps } from 'views/api-docs-view/types'
+import type { OperationObjectType } from 'components/open-api-page/types'
 // Styles
 import s from './api-docs-view.module.css'
 
@@ -67,7 +68,7 @@ function ApiDocsView({
 			{serviceData ? (
 				<>
 					<h1 className={s.serviceHeading}>{serviceData.name}</h1>
-					{serviceData.operations.map((operation: $TSFixMe) => {
+					{serviceData.operations.map((operation: OperationObjectType) => {
 						return (
 							<OperationObject
 								key={operation.__type + operation.__path}
