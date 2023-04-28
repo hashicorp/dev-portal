@@ -186,12 +186,11 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		({ id }, index) => !componentIDs.includes(id, index + 1)
 	)
 
-	const sortedComponents = dedupedComponents
-		.sort((a, b) => {
-			const textA = a.name.toLowerCase()
-			const textB = b.name.toLowerCase()
-			return textA < textB ? -1 : textA > textB ? 1 : 0
-		})
+	const sortedComponents = dedupedComponents.sort((a, b) => {
+		const textA = a.name.toLowerCase()
+		const textB = b.name.toLowerCase()
+		return textA < textB ? -1 : textA > textB ? 1 : 0
+	})
 
 	// We have to manage our component checked state in a singular
 	// state object as there are an unknown number of components.
