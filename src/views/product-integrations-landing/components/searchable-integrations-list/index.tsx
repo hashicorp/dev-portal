@@ -89,12 +89,8 @@ export default function SearchableIntegrationsList({
 
 	const {
 		tierOptions,
-		officialChecked,
-		setOfficialChecked,
-		partnerChecked,
-		setPartnerChecked,
-		communityChecked,
-		setCommunityChecked,
+		tiersCheckedArray,
+		setTiersCheckedArray,
 		sortedComponents,
 		componentCheckedArray,
 		setComponentCheckedArray,
@@ -109,15 +105,13 @@ export default function SearchableIntegrationsList({
 		resetPage()
 
 		setFilterQuery('')
-		setOfficialChecked(false)
-		setPartnerChecked(false)
-		setCommunityChecked(false)
 
+		setTiersCheckedArray(tiersCheckedArray.map((v, i) => false))
 		setComponentCheckedArray(componentCheckedArray.map((v, i) => false))
 		setFlagsCheckedArray(flagsCheckedArray.map((v, i) => false))
 	}
 
-	const makeToggleTierHandler = (tier: Tier) => () => {
+	const makeToggleTierHandler = (index: number, tier: Tier) => () => {
 		// reset page on filter change
 		resetPage()
 
@@ -131,26 +125,11 @@ export default function SearchableIntegrationsList({
 			}
 		}
 
-		switch (tier) {
-			case Tier.OFFICIAL: {
-				const next = !officialChecked
-				fireTierAnalytics(next)
-				setOfficialChecked(next)
-				break
-			}
-			case Tier.PARTNER: {
-				const next = !partnerChecked
-				fireTierAnalytics(next)
-				setPartnerChecked(next)
-				break
-			}
-			case Tier.COMMUNITY: {
-				const next = !communityChecked
-				fireTierAnalytics(next)
-				setCommunityChecked(next)
-				break
-			}
-		}
+		const newTierCheckedArray = [...tiersCheckedArray]
+		newTierCheckedArray[index] = !newTierCheckedArray[index]
+		setTiersCheckedArray(newTierCheckedArray)
+
+		fireTierAnalytics(newTierCheckedArray[index])
 	}
 
 	const makeToggleFlagHandler = (i: number, flagName: string) => () => {
@@ -211,15 +190,12 @@ export default function SearchableIntegrationsList({
 					<div className={classNames(s.selectStack, s.tablet_up)}>
 						<MultiSelect
 							text="Tiers"
-							options={tierOptions.map((tierOption) => {
-								const selected =
-									(tierOption === Tier.OFFICIAL && officialChecked) ||
-									(tierOption === Tier.PARTNER && partnerChecked) ||
-									(tierOption === Tier.COMMUNITY && communityChecked)
+							options={tierOptions.map((tierOption, i) => {
+								const selected = tiersCheckedArray[i]
 								return {
 									id: tierOption,
 									label: capitalize(tierOption),
-									onChange: makeToggleTierHandler(tierOption),
+									onChange: makeToggleTierHandler(i, tierOption),
 									selected,
 								}
 							})}
@@ -273,17 +249,14 @@ export default function SearchableIntegrationsList({
 
 				<div className={s.filterInfo}>
 					{/* Render x-tags for tiers */}
-					{tierOptions.map((e) => {
-						const checked =
-							(e === Tier.OFFICIAL && officialChecked) ||
-							(e === Tier.PARTNER && partnerChecked) ||
-							(e === Tier.COMMUNITY && communityChecked)
+					{tierOptions.map((e, i) => {
+						const checked = tiersCheckedArray[i]
 						return (
 							checked && (
 								<Tag
 									key={e}
 									text={capitalize(e)}
-									onRemove={makeToggleTierHandler(e)}
+									onRemove={makeToggleTierHandler(i, e)}
 								/>
 							)
 						)
@@ -388,12 +361,8 @@ export default function SearchableIntegrationsList({
 function MobileFilters() {
 	const {
 		tierOptions,
-		officialChecked,
-		setOfficialChecked,
-		partnerChecked,
-		setPartnerChecked,
-		communityChecked,
-		setCommunityChecked,
+		tiersCheckedArray,
+		setTiersCheckedArray,
 		sortedComponents,
 		componentCheckedArray,
 		setComponentCheckedArray,
@@ -402,18 +371,10 @@ function MobileFilters() {
 		setFlagsCheckedArray,
 	} = useIntegrationsSearchContext()
 
-	const makeToggleTierHandler = (tier: Tier) => () => {
-		switch (tier) {
-			case Tier.OFFICIAL:
-				setOfficialChecked(!officialChecked)
-				break
-			case Tier.PARTNER:
-				setPartnerChecked(!partnerChecked)
-				break
-			case Tier.COMMUNITY:
-				setCommunityChecked(!communityChecked)
-				break
-		}
+	const makeToggleTierHandler = (index: number) => () => {
+		const newTierCheckedArray = [...tiersCheckedArray]
+		newTierCheckedArray[index] = !newTierCheckedArray[index]
+		setTiersCheckedArray(newTierCheckedArray)
 	}
 
 	const makeToggleComponentHandler = (index: number) => () => {
@@ -432,18 +393,15 @@ function MobileFilters() {
 		<>
 			<div className={s.optionsContainer}>
 				<Legend>Tier</Legend>
-				{tierOptions.map((e) => {
-					const checked =
-						(e === Tier.OFFICIAL && officialChecked) ||
-						(e === Tier.PARTNER && partnerChecked) ||
-						(e === Tier.COMMUNITY && communityChecked)
+				{tierOptions.map((e, i) => {
+					const checked = tiersCheckedArray[i]
 					return (
 						<CheckboxField
 							key={e}
 							labelFontWeight="regular"
 							label={capitalize(e)}
 							checked={checked}
-							onChange={makeToggleTierHandler(e)}
+							onChange={makeToggleTierHandler(i)}
 						/>
 					)
 				})}

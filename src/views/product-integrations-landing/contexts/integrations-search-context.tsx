@@ -28,13 +28,9 @@ const CommaArrayParam = {
 
 export const IntegrationsSearchContext = createContext({
 	integrations: [] as Integration[],
-	officialChecked: false,
-	partnerChecked: false,
-	communityChecked: false,
-	setOfficialChecked: (bool: boolean) => void 1,
-	setPartnerChecked: (bool: boolean) => void 1,
-	setCommunityChecked: (bool: boolean) => void 1,
 	tierOptions: [] as Tier[],
+	tiersCheckedArray: [] as boolean[],
+	setTiersCheckedArray: (val: boolean[]) => void 1,
 	sortedComponents: [] as $TSFixMe[],
 	componentCheckedArray: [] as boolean[],
 	setComponentCheckedArray: (val: boolean[]) => void 1,
@@ -47,6 +43,19 @@ export const IntegrationsSearchContext = createContext({
 
 interface Props {
 	integrations: Integration[]
+}
+
+// The logical sort ordering of the Tiers
+const tierSortVal = (tier: string): number => {
+	switch (tier) {
+		case Tier.OFFICIAL:
+			return 1
+		case Tier.PARTNER:
+			return 2
+		case Tier.COMMUNITY:
+		default:
+			return 3
+	}
 }
 
 export const IntegrationsSearchProvider: React.FC<Props> = ({
@@ -76,32 +85,6 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		sharedOptions
 	)
 
-	const officialChecked = qsTiers.includes(Tier.OFFICIAL)
-	const partnerChecked = qsTiers.includes(Tier.PARTNER)
-	const communityChecked = qsTiers.includes(Tier.COMMUNITY)
-
-	const setOfficialChecked = (value: boolean) => {
-		if (value) {
-			setQsTiers((prev) => [...prev, Tier.OFFICIAL])
-		} else {
-			setQsTiers((prev) => prev.filter((tier) => tier !== Tier.OFFICIAL))
-		}
-	}
-	const setPartnerChecked = (value: boolean) => {
-		if (value) {
-			setQsTiers((prev) => [...prev, Tier.PARTNER])
-		} else {
-			setQsTiers((prev) => prev.filter((tier) => tier !== Tier.PARTNER))
-		}
-	}
-	const setCommunityChecked = (value: boolean) => {
-		if (value) {
-			setQsTiers((prev) => [...prev, Tier.COMMUNITY])
-		} else {
-			setQsTiers((prev) => prev.filter((tier) => tier !== Tier.COMMUNITY))
-		}
-	}
-
 	// Filter out integrations that don't have releases yet
 	const integrations = useMemo(() => {
 		return _integrations.filter((integration: Integration) => {
@@ -109,19 +92,73 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		})
 	}, [_integrations])
 
-	const flags: Flag[] = integrations
-		// accumulate all integration flags
-		.flatMap((e) => e.flags)
-		// remove duplicates
-		.filter((value, index, self) => {
-			const _value = JSON.stringify(value)
-			return (
-				index ===
-				self.findIndex((obj) => {
-					return JSON.stringify(obj) === _value
+	// accumulate all unique filterable integration fields
+	// - tiers
+	// - components
+	// - flags
+	// - types
+	const { tiers, components, flags, types } = integrations.reduce(
+		(acc, next) => {
+			// collect tiers
+			if (!acc.tiers.some((e) => e == next.tier)) {
+				acc.tiers = acc.tiers.concat(next.tier)
+				acc.tiers = acc.tiers.sort((a: Tier, b: Tier) => {
+					if (tierSortVal(a) > tierSortVal(b)) {
+						return 1
+					} else if (tierSortVal(a) < tierSortVal(b)) {
+						return -1
+					} else {
+						return 0
+					}
 				})
-			)
+			}
+			// collect components
+			next.components.forEach((component) => {
+				if (!acc.components.some((e) => e.id == component.id)) {
+					acc.components = acc.components.concat(component).sort((a, b) => {
+						const textA = a.name.toLowerCase()
+						const textB = b.name.toLowerCase()
+						return textA < textB ? -1 : textA > textB ? 1 : 0
+					})
+				}
+			})
+			// collect flags
+			next.flags.forEach((flag) => {
+				if (!acc.flags.some((e) => e.id == flag.id)) {
+					acc.flags = acc.flags.concat(flag)
+				}
+			})
+			// collect types
+			// TODO(kevinwang): add support for types
+			return acc
+		},
+		{
+			tiers: [] as Tier[],
+			components: [] as IntegrationComponent[],
+			flags: [] as Flag[],
+			types: [] as $TSFixMe[], // TODO(kevinwang): add support for types
+		}
+	)
+
+	const tiersCheckedArray = useMemo(() => {
+		return tiers.map((tier) => {
+			return qsTiers.includes(tier)
 		})
+	}, [tiers, qsTiers])
+
+	const setTiersCheckedArray = (val: boolean[]) => {
+		// map [true, false, false, true] => [Tier, Tier]
+		const newTiers = val
+			.map((checked, index) => {
+				if (checked) {
+					return tiers[index]
+				}
+			})
+			.filter(Boolean)
+
+		// update URL & state
+		setQsTiers(newTiers)
+	}
 
 	const flagsCheckedArray = useMemo(() => {
 		return flags.map((flag) => {
@@ -143,68 +180,19 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		setQsFlags(newFlags)
 	}
 
-	let filteredIntegrations = integrations
-
-	// The logical sort ordering of the Tiers
-	const tierSortVal = (tier: string): number => {
-		switch (tier) {
-			case Tier.OFFICIAL:
-				return 1
-			case Tier.PARTNER:
-				return 2
-			case Tier.COMMUNITY:
-			default:
-				return 3
-		}
-	}
-
-	// Figure out the list of tiers we want to display as filters
-	// based off of the integrations list that we are passed. If there
-	// are no community integrations passed, we simply won't display
-	// that checkbox.
-	const tierOptions = Array.from(
-		new Set(integrations.map((i: Integration) => i.tier))
-	).sort((a: Tier, b: Tier) => {
-		if (tierSortVal(a) > tierSortVal(b)) {
-			return 1
-		} else if (tierSortVal(a) < tierSortVal(b)) {
-			return -1
-		} else {
-			return 0
-		}
-	})
-
-	// Pull out the list of all of the components used by our integrations
-	// and sort them alphabetically so they are deterministically ordered.
-	const allComponents = filteredIntegrations.flatMap(
-		(i: Integration) => i.components
-	)
-
-	const mergedComponents = [].concat(allComponents)
-	const componentIDs = mergedComponents.map((c) => c.id)
-	const dedupedComponents = mergedComponents.filter(
-		({ id }, index) => !componentIDs.includes(id, index + 1)
-	)
-
-	const sortedComponents = dedupedComponents.sort((a, b) => {
-		const textA = a.name.toLowerCase()
-		const textB = b.name.toLowerCase()
-		return textA < textB ? -1 : textA > textB ? 1 : 0
-	})
-
 	// We have to manage our component checked state in a singular
 	// state object as there are an unknown number of components.
 	const componentCheckedArray = useMemo(() => {
-		return sortedComponents.map((component) => {
+		return components.map((component) => {
 			return qsComponents.includes(component.slug)
 		})
-	}, [sortedComponents, qsComponents])
+	}, [components, qsComponents])
 	const setComponentCheckedArray = (val: boolean[]) => {
 		// map [true, false, false, true] => [Component, Component]
 		const newComponents = val
 			.map((checked, index) => {
 				if (checked) {
-					return sortedComponents[index].slug
+					return components[index].slug
 				}
 			})
 			.filter(Boolean)
@@ -215,33 +203,30 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 
 	// Now filter our integrations if facets are selected
 	const atLeastOneFacetSelected =
-		officialChecked ||
-		partnerChecked ||
-		communityChecked ||
+		tiersCheckedArray.includes(true) ||
 		componentCheckedArray.includes(true) ||
 		flagsCheckedArray.includes(true)
 
+	let filteredIntegrations = integrations
 	if (atLeastOneFacetSelected) {
 		filteredIntegrations = integrations.filter((integration: Integration) => {
 			// Default tierMatch to true if nothing is checked, false otherwise
-			let tierMatch: boolean =
-				!officialChecked && !partnerChecked && !communityChecked
-			if (officialChecked && integration.tier === Tier.OFFICIAL) {
-				tierMatch = true
-			}
-			if (partnerChecked && integration.tier === Tier.PARTNER) {
-				tierMatch = true
-			}
-			if (communityChecked && integration.tier === Tier.COMMUNITY) {
-				tierMatch = true
-			}
+			let tierMatch = !tiersCheckedArray.includes(true)
+			tiersCheckedArray.forEach((checked, index) => {
+				if (checked) {
+					const checkedTier = tiers[index]
+					if (integration.tier === checkedTier) {
+						tierMatch = true
+					}
+				}
+			})
 
 			// Loop over each component to see if they match any checked components
 			// If there are no components selected, default this to true
 			let componentMatch = !componentCheckedArray.includes(true)
 			componentCheckedArray.forEach((checked, index) => {
 				if (checked) {
-					const checkedComponent = sortedComponents[index]
+					const checkedComponent = components[index]
 					// Check each integration component
 					integration.components.forEach((component: IntegrationComponent) => {
 						if (component.slug === checkedComponent.slug) {
@@ -274,14 +259,10 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		<IntegrationsSearchContext.Provider
 			value={{
 				integrations,
-				officialChecked,
-				partnerChecked,
-				communityChecked,
-				setOfficialChecked,
-				setPartnerChecked,
-				setCommunityChecked,
-				tierOptions,
-				sortedComponents,
+				tierOptions: tiers,
+				tiersCheckedArray,
+				setTiersCheckedArray,
+				sortedComponents: components,
 				componentCheckedArray,
 				setComponentCheckedArray,
 				atLeastOneFacetSelected,
