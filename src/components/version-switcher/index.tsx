@@ -59,5 +59,5 @@ function VersionSwitcher({ options, label }: VersionSwitcherProps) {
 	)
 }
 
-export type { VersionSwitcherProps }
+export type { VersionSwitcherProps, VersionSwitcherOption }
 export default VersionSwitcher
