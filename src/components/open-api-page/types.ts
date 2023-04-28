@@ -14,6 +14,10 @@ export interface SchemaType {
 }
 
 export interface OperationObjectType {
+	/** The request type associated with the object */
+	__type: 'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch'
+	/** The operation path */
+	__path: string
 	/** Flag whether this operation is deprecated */
 	deprecated: boolean
 	/** A unique string used to identify the operation.*/
