@@ -21,38 +21,36 @@ import s from './homepage.module.css'
 
 function HomePageView(): ReactElement {
 	return (
-		<div className={s.homepage}>
-			<div className={s.root}>
-				<div className={s.background} />
-				<div className={s.limitedWidthContainer}>
-					<PageTitle />
-					<Chiclets />
-					<FeaturedContentGrid />
-					<PreFooter
-						heading="Looking for help?"
-						description="We offer paid support, a free forum, and other community resources."
-						actions={[
-							{
-								icon: 'support',
-								heading: 'Support',
-								description: 'Open a support ticket',
-								link: 'https://support.hashicorp.com/hc/en-us',
-							},
-							{
-								icon: 'help',
-								heading: 'Forum',
-								description: 'Find your answer on the forum',
-								link: 'https://discuss.hashicorp.com/',
-							},
-							{
-								icon: 'user',
-								heading: 'Community',
-								description: 'Join our community',
-								link: 'https://www.hashicorp.com/community',
-							},
-						]}
-					/>
-				</div>
+		<div className={s.root}>
+			<div className={s.background} />
+			<div className={s.limitedWidthContainer}>
+				<PageTitle />
+				<Chiclets />
+				<FeaturedContentGrid />
+				<PreFooter
+					heading="Looking for help?"
+					description="We offer paid support, a free forum, and other community resources."
+					actions={[
+						{
+							icon: 'support',
+							heading: 'Support',
+							description: 'Open a support ticket',
+							link: 'https://support.hashicorp.com/hc/en-us',
+						},
+						{
+							icon: 'help',
+							heading: 'Forum',
+							description: 'Find your answer on the forum',
+							link: 'https://discuss.hashicorp.com/',
+						},
+						{
+							icon: 'user',
+							heading: 'Community',
+							description: 'Join our community',
+							link: 'https://www.hashicorp.com/community',
+						},
+					]}
+				/>
 			</div>
 		</div>
 	)

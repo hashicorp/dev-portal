@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.homepage {
+.root {
 	--homepage-container-padding-x: 24px;
 	--homepage-container-max-width: 1240px;
 	--homepage-container-width: min(
@@ -16,9 +16,7 @@
 	@media (--dev-dot-tablet-up) {
 		--homepage-section-padding-y: 88px;
 	}
-}
 
-.root {
 	position: relative;
 }
 
