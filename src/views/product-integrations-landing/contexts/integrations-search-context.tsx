@@ -35,9 +35,6 @@ export const IntegrationsSearchContext = createContext({
 	setPartnerChecked: (bool: boolean) => void 1,
 	setCommunityChecked: (bool: boolean) => void 1,
 	tierOptions: [] as Tier[],
-	matchingOfficial: 0,
-	matchingVerified: 0,
-	matchingCommunity: 0,
 	sortedComponents: [] as $TSFixMe[],
 	componentCheckedArray: [] as boolean[],
 	setComponentCheckedArray: (val: boolean[]) => void 1,
@@ -177,17 +174,6 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		}
 	})
 
-	// Calculate the number of integrations that match each tier
-	const matchingOfficial = integrations.filter(
-		(i) => i.tier === Tier.OFFICIAL
-	).length
-	const matchingVerified = integrations.filter(
-		(i) => i.tier === Tier.PARTNER
-	).length
-	const matchingCommunity = integrations.filter(
-		(i) => i.tier === Tier.COMMUNITY
-	).length
-
 	// Pull out the list of all of the components used by our integrations
 	// and sort them alphabetically so they are deterministically ordered.
 	const allComponents = filteredIntegrations.flatMap(
@@ -200,19 +186,11 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		({ id }, index) => !componentIDs.includes(id, index + 1)
 	)
 
-	const sortedComponents = dedupedComponents
-		.sort((a, b) => {
-			const textA = a.name.toLowerCase()
-			const textB = b.name.toLowerCase()
-			return textA < textB ? -1 : textA > textB ? 1 : 0
-		})
-		.map((component) => {
-			// Add # of occurances to the component object for facets
-			component.occurances = mergedComponents.filter(
-				(c) => c.slug === component.slug
-			).length
-			return component
-		})
+	const sortedComponents = dedupedComponents.sort((a, b) => {
+		const textA = a.name.toLowerCase()
+		const textB = b.name.toLowerCase()
+		return textA < textB ? -1 : textA > textB ? 1 : 0
+	})
 
 	// We have to manage our component checked state in a singular
 	// state object as there are an unknown number of components.
@@ -303,9 +281,6 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 				setPartnerChecked,
 				setCommunityChecked,
 				tierOptions,
-				matchingOfficial,
-				matchingVerified,
-				matchingCommunity,
 				sortedComponents,
 				componentCheckedArray,
 				setComponentCheckedArray,
