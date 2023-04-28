@@ -97,6 +97,9 @@ export default function SearchableIntegrationsList({
 		flags,
 		flagsCheckedArray,
 		setFlagsCheckedArray,
+		types,
+		typesCheckedArray,
+		setTypesCheckedArray,
 		atLeastOneFacetSelected,
 	} = useIntegrationsSearchContext()
 
@@ -167,6 +170,22 @@ export default function SearchableIntegrationsList({
 			setComponentCheckedArray(newComponents)
 		}
 
+	const makeToggleTypeHandler = (i: number, typeName: string) => () => {
+		// reset page on filter change
+		resetPage()
+
+		const newTypes = [...typesCheckedArray]
+		const isTypeSelectedInNext = !newTypes[i]
+		if (isTypeSelectedInNext) {
+			integrationLibraryFilterSelectedEvent({
+				filter_category: 'type',
+				filter_value: typeName,
+			})
+		}
+		newTypes[i] = isTypeSelectedInNext
+		setTypesCheckedArray(newTypes)
+	}
+
 	const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false)
 
 	const resultText = `${filteredIntegrations.length} ${
@@ -222,6 +241,18 @@ export default function SearchableIntegrationsList({
 									id,
 									label: name,
 									onChange: makeToggleFlagHandler(i, name),
+									selected,
+								}
+							})}
+						/>
+						<MultiSelect
+							text="Types"
+							options={types.map(({ id, name }, i) => {
+								const selected = typesCheckedArray[i]
+								return {
+									id,
+									label: name,
+									onChange: makeToggleTypeHandler(i, name),
 									selected,
 								}
 							})}
