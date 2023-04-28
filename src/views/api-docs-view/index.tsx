@@ -1,0 +1,89 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+// Global
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import VersionSwitcher from 'components/version-switcher'
+import NoIndexTagIfVersioned from 'components/no-index-tag-if-versioned'
+import OperationObject from 'components/open-api-page/partials/operation-object'
+import DocsPageHeading from 'views/docs-view/components/docs-page-heading'
+// Local
+import { HeadingWithBadge } from './components'
+// Types
+import type { ApiDocsViewProps } from 'views/api-docs-view/types'
+// Styles
+import s from './api-docs-view.module.css'
+
+/**
+ * Render an API docs view.
+ *
+ * When `serviceData` is provided, detailed operation objects are shown.
+ * Otherwise, a prompt to select an operation from the sidebar is shown.
+ */
+function ApiDocsView({
+	pageHeading,
+	layoutProps,
+	serviceData,
+	massagePathFn = (path: string) => path,
+	renderOperationIntro,
+	isVersionedUrl,
+	versionSwitcherData,
+}: ApiDocsViewProps) {
+	/**
+	 * We always render the API docs name in a heading-styled element.
+	 *
+	 * When `serviceData` is provided, we'll render the service name
+	 * in an `h1` element, as the `serviceName` is a more meaningful page title.
+	 * In such cases, our page heading needs to be a `p` element to avoid
+	 * having multiple `h1` elements on the page.
+	 */
+	const pageHeadingTag = serviceData ? 'p' : 'h1'
+
+	return (
+		<SidebarSidecarLayout
+			breadcrumbLinks={layoutProps.breadcrumbLinks}
+			sidebarNavDataLevels={layoutProps.sidebarNavDataLevels}
+		>
+			<NoIndexTagIfVersioned isVersioned={isVersionedUrl} />
+			<DocsPageHeading
+				headingSlot={
+					<HeadingWithBadge
+						elem={pageHeadingTag}
+						text={pageHeading.text}
+						badgeText={pageHeading.badgeText}
+					/>
+				}
+				versionSelectorSlot={
+					versionSwitcherData ? (
+						<VersionSwitcher
+							label={versionSwitcherData.label}
+							options={versionSwitcherData.options}
+						/>
+					) : null
+				}
+			/>
+			{serviceData ? (
+				<>
+					<h1 className={s.serviceHeading}>{serviceData.name}</h1>
+					{serviceData.operations.map((operation: $TSFixMe) => {
+						return (
+							<OperationObject
+								key={operation.__type + operation.__path}
+								type={operation.__type}
+								data={operation}
+								path={massagePathFn(operation.__path)}
+								renderOperationIntro={renderOperationIntro}
+							/>
+						)
+					})}
+				</>
+			) : (
+				<p className={s.sidebarPrompt}>Select a service from the sidebar.</p>
+			)}
+		</SidebarSidecarLayout>
+	)
+}
+
+export default ApiDocsView
