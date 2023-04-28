@@ -3,6 +3,21 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+.homepage {
+	--homepage-container-padding-x: 24px;
+	--homepage-container-max-width: 1240px;
+	--homepage-container-width: min(
+		100% - calc(var(--homepage-container-padding-x) * 2),
+		var(--homepage-container-max-width, 1240px)
+	);
+	--homepage-section-padding-y: 64px;
+	--homepage-grid-gap: 24px;
+
+	@media (--dev-dot-tablet-up) {
+		--homepage-section-padding-y: 88px;
+	}
+}
+
 .root {
 	position: relative;
 }
@@ -43,23 +58,4 @@
 	@media (--dev-dot-mobile) {
 		padding-top: 24px;
 	}
-}
-
-.homepage {
-	--homepage-container-padding-x: 24px;
-	--homepage-container-max-width: 1240px;
-	--homepage-container-width: min(
-		100% - calc(var(--homepage-container-padding-x) * 2),
-		var(--homepage-container-max-width, 1240px)
-	);
-	--homepage-section-padding-y: 64px;
-	--homepage-grid-gap: 24px;
-
-	@media (--dev-dot-tablet-up) {
-		--homepage-section-padding-y: 88px;
-	}
-}
-
-.homepageContent {
-	z-index: 1;
 }
