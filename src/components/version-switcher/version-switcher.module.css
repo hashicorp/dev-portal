@@ -1,0 +1,53 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/*
+
+@TODO
+These styles largely reach into and override styles in `DropdownDisclosure`
+in order to get it to occupy the full width of its parent container.
+
+Should we consider a `fullWidth` prop on `DropdownDisclosure`
+rather than these styles?
+
+Task:
+https://app.asana.com/0/1202097197789424/1204412156894162/f
+
+*/
+
+.root {
+	width: 100%;
+
+	/* Make trigger button fill container */
+	& button {
+		width: 100%;
+		justify-content: space-between;
+	}
+
+	/* Make dropdown list fill container */
+	& > div {
+		width: 100%;
+	}
+
+	/* Make dropdown list fill container */
+	& ul {
+		max-height: 234px;
+		overflow: auto;
+		width: 100%;
+		max-width: 100%;
+
+		& li:first-child span {
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		& a:active,
+		& a:focus {
+			background: var(--token-color-surface-action);
+		}
+	}
+}
