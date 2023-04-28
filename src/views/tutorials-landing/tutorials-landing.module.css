@@ -87,7 +87,8 @@ RIGHT
 */
 
 .right {
-	flex-grow: 1;
+	max-width: 820px;
+	width: 100%;
 }
 
 .grid {
@@ -100,19 +101,109 @@ RIGHT
 .card {
 	border-radius: 10px;
 	overflow: hidden;
-	width: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 .cardHeader {
-	background-color: #dbdbdc;
 	composes: hds-elevation-mid from global;
-	content: '';
-	height: 142px;
+	align-items: flex-end;
+	background-color: #dbdbdc;
+	display: flex;
+	min-height: 142px;
+	padding-bottom: 48px;
+	padding-left: 42px;
+	padding-right: 42px;
+	padding-top: 62px;
 	position: relative;
+}
+
+.cardTitle {
+	font-size: 24px;
+	font-weight: 600;
+	height: fit-content;
+	line-height: 32px;
+	margin: 0;
+	padding: 0;
 }
 
 .cardBody {
 	background-color: #fafafa;
-	content: '';
-	height: 228px;
+	padding-bottom: 34px;
+	padding-left: 42px;
+	padding-right: 42px;
+	padding-top: 42px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex-grow: 1;
+}
+
+.cardBodyLeftRight {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.cardText {
+	max-width: 220px;
+}
+
+.fakeBookmarkButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	height: 48px;
+	border-radius: 24px;
+	border: 1px solid black;
+}
+
+.cardEyebrow {
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 18px;
+}
+
+.cardDescription {
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 18px;
+}
+
+.cardBadges {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin-top: 40px;
+}
+
+.certificationCard {
+	background-color: #dbdbdc;
+	border-radius: 10px;
+	padding: 70px 40px;
+}
+
+.certificationCardEyebrow {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 18px;
+}
+
+.certificationCardTitle {
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 32px;
+	margin-top: 12px;
+	margin-bottom: 20px;
+}
+
+.certificationCardBody {
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 18px;
+	margin-bottom: 36px;
 }
