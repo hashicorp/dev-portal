@@ -487,7 +487,7 @@ function MobileFilters() {
 
 			{types.length ? (
 				<div className={s.optionsContainer}>
-					<Legend>types</Legend>
+					<Legend>Type</Legend>
 					{types.map((e, i) => {
 						const checked = typesCheckedArray[i]
 						return (
