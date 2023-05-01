@@ -6,6 +6,7 @@ import type { OperationObjectType } from 'components/open-api-page/types'
 import type { SidebarProps } from 'components/sidebar'
 import type { VersionSwitcherOption } from 'components/version-switcher/types'
 import type { ProductData } from 'types/products'
+import { ApiDocsVersionAlertProps } from './components/api-docs-version-alert/types'
 
 /**
  * Params type for `getStaticPaths` and `getStaticProps`.
@@ -107,4 +108,9 @@ export interface ApiDocsViewProps {
 	 * Optional. If set to `true`, a `noindex` tag will be added to the page.
 	 */
 	isVersionedUrl?: boolean
+
+	/**
+	 * Optional. If provided, a version alert will be shown.
+	 */
+	versionAlert?: ApiDocsVersionAlertProps
 }

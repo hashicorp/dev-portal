@@ -160,6 +160,11 @@ export async function getApiDocsStaticProps({
 			serviceData,
 			isVersionedUrl,
 			versionSwitcherData,
+			versionAlert: {
+				isVersionedUrl,
+				currentVersion,
+				latestStableVersion,
+			},
 		},
 	}
 }

@@ -10,7 +10,7 @@ import NoIndexTagIfVersioned from 'components/no-index-tag-if-versioned'
 import OperationObject from 'components/open-api-page/partials/operation-object'
 import DocsPageHeading from 'views/docs-view/components/docs-page-heading'
 // Local
-import { HeadingWithBadge } from './components'
+import { ApiDocsVersionAlert, HeadingWithBadge } from './components'
 // Types
 import type { ApiDocsViewProps } from 'views/api-docs-view/types'
 import type { OperationObjectType } from 'components/open-api-page/types'
@@ -30,6 +30,7 @@ function ApiDocsView({
 	massagePathFn = (path: string) => path,
 	renderOperationIntro,
 	isVersionedUrl,
+	versionAlert,
 	versionSwitcherData,
 }: ApiDocsViewProps) {
 	/**
@@ -46,6 +47,7 @@ function ApiDocsView({
 		<SidebarSidecarLayout
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
 			sidebarNavDataLevels={layoutProps.sidebarNavDataLevels}
+			alertBannerSlot={<ApiDocsVersionAlert {...versionAlert} />}
 		>
 			<NoIndexTagIfVersioned isVersioned={isVersionedUrl} />
 			<DocsPageHeading
