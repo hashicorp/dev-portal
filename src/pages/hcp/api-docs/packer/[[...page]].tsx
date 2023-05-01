@@ -65,7 +65,7 @@ function HcpPackerApiDocsView(props: ApiDocsViewProps) {
 export const getStaticPaths: GetStaticPaths<ApiDocsParams> = async () => {
 	const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
 	// TODO: shim to demo multiple stable releases
-	versionData[0].releaseStage = 'stable'
+	versionData[1].releaseStage = 'stable'
 	return await getApiDocsStaticPaths(PRODUCT_SLUG, versionData)
 }
 
@@ -82,7 +82,7 @@ export const getStaticProps: GetStaticProps<
 	// Fetch all version data, based on remote `stable` & `preview` subfolders
 	const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
 	// TODO: shim to demo multiple stable releases
-	versionData[0].releaseStage = 'stable'
+	versionData[1].releaseStage = 'stable'
 	// If we can't find any version data at all, render a 404 page.
 	if (!versionData) {
 		return { notFound: true }
