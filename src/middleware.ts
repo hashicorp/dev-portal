@@ -122,6 +122,23 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// 	}
 	// }
 
+	/**
+	 * Detect a variant query param and rewrite to the correct path. This would ultimately be driven by detecting a tutorial route
+	 * and the existence of a pre-defined variant key. For demonstration, this is hard-coded to checking for ?variant=
+	 */
+	if (
+		req.nextUrl.pathname == '/variants' &&
+		req.nextUrl.searchParams.has('variant')
+	) {
+		const url = req.nextUrl.clone()
+		const variant = url.searchParams.get('variant')
+
+		url.searchParams.delete('variant')
+		url.pathname = `${url.pathname}/${variant}`
+
+		response = NextResponse.rewrite(url)
+	}
+
 	if (!response) {
 		response = NextResponse.next()
 	}
