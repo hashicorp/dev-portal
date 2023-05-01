@@ -3,6 +3,7 @@ import { getJsonFilesFromGithubDir } from './fetch-json-files-from-github-dir'
 // Types
 import type { FileTreeEntry, GithubDir } from './fetch-file-tree-from-github'
 import type { ApiDocsVersionData } from '../../types'
+import { sortDateVersionData } from '../sort-date-version-data'
 
 /**
  * Extract a `versionId` from a cloud API docs spec file path.
@@ -55,8 +56,8 @@ async function fetchCloudApiVersionData(
 		}
 		return { versionId, releaseStage, targetFile }
 	})
-	// Return the version data
-	return versionData
+	// Return the version data, sorted in descending order
+	return sortDateVersionData(versionData)
 }
 
 export { fetchCloudApiVersionData }
