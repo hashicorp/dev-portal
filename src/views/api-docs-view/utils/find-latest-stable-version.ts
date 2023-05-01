@@ -1,4 +1,5 @@
 import { ApiDocsVersionData } from '../types'
+import { sortDateVersionData } from './sort-date-version-data'
 
 /**
  * Given an array of version data,
@@ -15,12 +16,7 @@ function findLatestStableVersion(
 		return versionData[0]
 	}
 	// Sort versions in descending order
-	const versionsDescending = versionData.sort((a, b) => {
-		// We expect consistent YYYY-MM-DD formatting, so string compare works fine
-		const aBeforeB = a.versionId > b.versionId
-		const bBeforeA = b.versionId > a.versionId
-		return aBeforeB ? -1 : bBeforeA ? 1 : 0
-	})
+	const versionsDescending = sortDateVersionData(versionData)
 	// Return the first 'stable' release we can find in descending versions
 	return versionsDescending.find((v) => v.releaseStage === 'stable')
 }
