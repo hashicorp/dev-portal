@@ -6,7 +6,7 @@
  * an empty string will be returned. Meaningful values are all values
  * other than `undefined` and `null`.
  */
-function getQueryString(params: Record<string, any>): string {
+function buildQueryStringSuffix(params: Record<string, any>): string {
 	const queryParams = new URLSearchParams()
 	for (const [key, value] of Object.entries(params)) {
 		if (value === undefined || value === null) {
@@ -20,4 +20,4 @@ function getQueryString(params: Record<string, any>): string {
 	return queryString
 }
 
-export { getQueryString }
+export { buildQueryStringSuffix }

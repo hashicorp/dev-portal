@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/core'
-import { getQueryString } from './get-query-string'
+import { buildQueryStringSuffix } from './build-query-string-suffix'
 
 /**
  * Initialize octokit.
@@ -45,7 +45,7 @@ export async function fetchFileTreeFromGithub(
 	 */
 	const tree_sha = `${githubDir.ref}:${githubDir.path}`
 	// Set up query params for the request, to allow recursive trees
-	const queryString = getQueryString(options)
+	const queryString = buildQueryStringSuffix(options)
 	// Make the octokit request
 	const response = await octokit.request(
 		`GET /repos/{owner}/{repo}/git/trees/{tree_sha}${queryString}`,
