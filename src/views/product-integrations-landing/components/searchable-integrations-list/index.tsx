@@ -400,6 +400,9 @@ function MobileFilters() {
 		flags,
 		flagsCheckedArray,
 		setFlagsCheckedArray,
+		types,
+		typesCheckedArray,
+		setTypesCheckedArray,
 	} = useIntegrationsSearchContext()
 
 	const makeToggleTierHandler = (index: number) => () => {
@@ -420,55 +423,85 @@ function MobileFilters() {
 		setFlagsCheckedArray(newFlagsCheckedArray)
 	}
 
+	const makeToggleTypeHandler = (index: number) => () => {
+		const newTypesCheckedArray = [...typesCheckedArray]
+		newTypesCheckedArray[index] = !newTypesCheckedArray[index]
+		setTypesCheckedArray(newTypesCheckedArray)
+	}
+
 	return (
 		<>
-			<div className={s.optionsContainer}>
-				<Legend>Tier</Legend>
-				{tierOptions.map((e, i) => {
-					const checked = tiersCheckedArray[i]
-					return (
-						<CheckboxField
-							key={e}
-							labelFontWeight="regular"
-							label={capitalize(e)}
-							checked={checked}
-							onChange={makeToggleTierHandler(i)}
-						/>
-					)
-				})}
-			</div>
+			{tierOptions.length ? (
+				<div className={s.optionsContainer}>
+					<Legend>Tier</Legend>
+					{tierOptions.map((e, i) => {
+						const checked = tiersCheckedArray[i]
+						return (
+							<CheckboxField
+								key={e}
+								labelFontWeight="regular"
+								label={capitalize(e)}
+								checked={checked}
+								onChange={makeToggleTierHandler(i)}
+							/>
+						)
+					})}
+				</div>
+			) : null}
 
-			<div className={s.optionsContainer}>
-				<Legend>Component</Legend>
-				{sortedComponents.map((e, i) => {
-					const checked = componentCheckedArray[i]
-					return (
-						<CheckboxField
-							key={e.id}
-							labelFontWeight="regular"
-							label={capitalize(e.plural_name)}
-							checked={checked}
-							onChange={makeToggleComponentHandler(i)}
-						/>
-					)
-				})}
-			</div>
+			{sortedComponents.length ? (
+				<div className={s.optionsContainer}>
+					<Legend>Component</Legend>
+					{sortedComponents.map((e, i) => {
+						const checked = componentCheckedArray[i]
+						return (
+							<CheckboxField
+								key={e.id}
+								labelFontWeight="regular"
+								label={capitalize(e.plural_name)}
+								checked={checked}
+								onChange={makeToggleComponentHandler(i)}
+							/>
+						)
+					})}
+				</div>
+			) : null}
 
-			<div className={s.optionsContainer}>
-				<Legend>Flags</Legend>
-				{flags.map((e, i) => {
-					const checked = flagsCheckedArray[i]
-					return (
-						<CheckboxField
-							key={e.id}
-							labelFontWeight="regular"
-							label={e.name}
-							checked={checked}
-							onChange={makeToggleFlagHandler(i)}
-						/>
-					)
-				})}
-			</div>
+			{flags.length ? (
+				<div className={s.optionsContainer}>
+					<Legend>Flags</Legend>
+					{flags.map((e, i) => {
+						const checked = flagsCheckedArray[i]
+						return (
+							<CheckboxField
+								key={e.id}
+								labelFontWeight="regular"
+								label={e.name}
+								checked={checked}
+								onChange={makeToggleFlagHandler(i)}
+							/>
+						)
+					})}
+				</div>
+			) : null}
+
+			{types.length ? (
+				<div className={s.optionsContainer}>
+					<Legend>types</Legend>
+					{types.map((e, i) => {
+						const checked = typesCheckedArray[i]
+						return (
+							<CheckboxField
+								key={e.id}
+								labelFontWeight="regular"
+								label={e.name}
+								checked={checked}
+								onChange={makeToggleTypeHandler(i)}
+							/>
+						)
+					})}
+				</div>
+			) : null}
 		</>
 	)
 }
