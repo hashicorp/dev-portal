@@ -10,7 +10,7 @@ import NoIndexTagIfVersioned from 'components/no-index-tag-if-versioned'
 import OperationObject from 'components/open-api-page/partials/operation-object'
 import DocsPageHeading from 'views/docs-view/components/docs-page-heading'
 // Local
-import { ApiDocsVersionAlert, HeadingWithBadge } from './components'
+import { ApiDocsVersionAlert, HeadingWithBadges } from './components'
 // Types
 import type { ApiDocsViewProps } from 'views/api-docs-view/types'
 import type { OperationObjectType } from 'components/open-api-page/types'
@@ -57,10 +57,10 @@ function ApiDocsView({
 			<NoIndexTagIfVersioned isVersioned={isVersionedUrl} />
 			<DocsPageHeading
 				headingSlot={
-					<HeadingWithBadge
+					<HeadingWithBadges
 						elem={pageHeadingTag}
 						text={pageHeading.text}
-						badgeText={pageHeading.badgeText}
+						badges={pageHeading.badges}
 					/>
 				}
 				versionSelectorSlot={

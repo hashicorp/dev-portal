@@ -1,5 +1,5 @@
 import Badge from 'components/badge'
-import s from './heading-with-badge.module.css'
+import s from './heading-with-badges.module.css'
 
 /**
  * Render a heading with an optional badge.
@@ -8,26 +8,30 @@ import s from './heading-with-badge.module.css'
  * because there's an `h1` later on the page, used for the service name.
  * We should likely fix this up in a future iteration of API page work.
  */
-function HeadingWithBadge({
+function HeadingWithBadges({
 	text,
-	badgeText,
+	badges,
 	elem,
 }: {
 	text: string
-	badgeText?: string
+	badges?: string[]
 	elem: 'p' | 'h1'
 }) {
 	const Elem = elem
 	return (
 		<Elem className={s.root}>
 			{text}
-			{badgeText ? (
-				<span className={s.badgeContainer}>
-					<Badge text={badgeText} type="outlined" />
-				</span>
-			) : null}
+			{badges.length
+				? badges.map((badge: string) => {
+						return (
+							<span key={badge} className={s.badgeContainer}>
+								<Badge text={badge} type="outlined" />
+							</span>
+						)
+				  })
+				: null}
 		</Elem>
 	)
 }
 
-export { HeadingWithBadge }
+export { HeadingWithBadges }

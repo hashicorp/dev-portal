@@ -133,7 +133,10 @@ export async function getApiDocsStaticProps({
 	 */
 	const pageHeading = {
 		text: schema.info.title,
-		badgeText: sentenceCase(currentVersion.releaseStage),
+		badges: [sentenceCase(currentVersion.releaseStage)],
+	}
+	if (schema.info['x-beta-feature'] === true) {
+		pageHeading.badges.push('Beta')
 	}
 
 	/**

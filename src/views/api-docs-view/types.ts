@@ -70,7 +70,7 @@ export interface ApiDocsViewProps {
 	 */
 	pageHeading: {
 		text: string
-		badgeText?: string
+		badges?: string[]
 	}
 
 	/**
