@@ -18,7 +18,7 @@ function buildVersionSwitcherData({
 	const latestStableVersion = findLatestStableVersion(versionData)
 	const options = versionData.map((v: ApiDocsVersionData) => {
 		const isLatest = v.versionId === latestStableVersion?.versionId
-		const label = `${v.versionId}${isLatest ? ' (latest)' : ''}`
+		const label = `${v.versionId} (${v.releaseStage})`
 		const ariaLabel = `Choose a version of the ${apiName}. Currently viewing ${label}.`
 		return {
 			label,
