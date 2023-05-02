@@ -19,6 +19,7 @@ rules:
             - tier
             - component
             - flag
+            - type
         filter_value:
           description: The filter that was selected.
           type: string

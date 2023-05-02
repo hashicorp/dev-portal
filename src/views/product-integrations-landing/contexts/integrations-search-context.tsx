@@ -8,6 +8,7 @@ import {
 	Integration,
 	IntegrationComponent,
 	Tier,
+	IntegrationType,
 } from 'lib/integrations-api-client/integration'
 import { createContext, useContext, useMemo } from 'react'
 import { QueryParamOptions, useQueryParam, withDefault } from 'use-query-params'
@@ -37,6 +38,9 @@ export const IntegrationsSearchContext = createContext({
 	flags: [] as Flag[],
 	flagsCheckedArray: [] as boolean[],
 	setFlagsCheckedArray: (val: boolean[]) => void 1,
+	types: [] as IntegrationType[],
+	typesCheckedArray: [] as boolean[],
+	setTypesCheckedArray: (val: boolean[]) => void 1,
 	atLeastOneFacetSelected: false,
 	filteredIntegrations: [] as Integration[],
 })
@@ -85,6 +89,12 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		sharedOptions
 	)
 
+	const [qsTypes, setQsTypes] = useQueryParam(
+		'types',
+		withDefault(CommaArrayParam, []),
+		sharedOptions
+	)
+
 	// Filter out integrations that don't have releases yet
 	const integrations = useMemo(() => {
 		return _integrations.filter((integration: Integration) => {
@@ -129,14 +139,19 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 				}
 			})
 			// collect types
-			// TODO(kevinwang): add support for types
+			console.log(next.integration_type)
+			if (next.integration_type) {
+				if (!acc.types.some((e) => e.id == next.integration_type.id)) {
+					acc.types = acc.types.concat(next.integration_type)
+				}
+			}
 			return acc
 		},
 		{
 			tiers: [] as Tier[],
 			components: [] as IntegrationComponent[],
 			flags: [] as Flag[],
-			types: [] as $TSFixMe[], // TODO(kevinwang): add support for types
+			types: [] as IntegrationType[],
 		}
 	)
 
@@ -201,11 +216,31 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 		setQsComponents(newComponents)
 	}
 
+	const typesCheckedArray = useMemo(() => {
+		return types.map((type) => {
+			return qsTypes.includes(type.slug)
+		})
+	}, [types, qsTypes])
+
+	const setTypesCheckedArray = (val: boolean[]) => {
+		// map [true, false, false, true] => [Type, Type]
+		const newTypes = val
+			.map((checked, index) => {
+				if (checked) {
+					return types[index].slug
+				}
+			})
+			.filter(Boolean)
+		// update URL & state
+		setQsTypes(newTypes)
+	}
+
 	// Now filter our integrations if facets are selected
 	const atLeastOneFacetSelected =
 		tiersCheckedArray.includes(true) ||
 		componentCheckedArray.includes(true) ||
-		flagsCheckedArray.includes(true)
+		flagsCheckedArray.includes(true) ||
+		typesCheckedArray.includes(true)
 
 	let filteredIntegrations = integrations
 	if (atLeastOneFacetSelected) {
@@ -251,7 +286,17 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 				}
 			})
 
-			return tierMatch && componentMatch && flagMatch
+			let typeMatch = !typesCheckedArray.includes(true)
+			typesCheckedArray.forEach((checked, index) => {
+				if (checked) {
+					const checkedType = types[index]
+					if (integration.integration_type === checkedType) {
+						typeMatch = true
+					}
+				}
+			})
+
+			return tierMatch && componentMatch && flagMatch && typeMatch
 		})
 	}
 
@@ -269,6 +314,9 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 				flags,
 				flagsCheckedArray,
 				setFlagsCheckedArray,
+				types,
+				typesCheckedArray,
+				setTypesCheckedArray,
 				filteredIntegrations,
 			}}
 		>
