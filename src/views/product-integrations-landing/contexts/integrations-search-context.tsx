@@ -139,7 +139,6 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 				}
 			})
 			// collect types
-			console.log(next.integration_type)
 			if (next.integration_type) {
 				if (!acc.types.some((e) => e.id == next.integration_type.id)) {
 					acc.types = acc.types.concat(next.integration_type)
