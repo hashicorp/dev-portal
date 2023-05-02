@@ -2,13 +2,15 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
+import { useRouter } from 'next/router'
 import { useCurrentProduct } from 'contexts'
 import classNames from 'classnames'
+import { getVersionFromPath } from 'lib/get-version-from-path'
 import DocsViewLayout from 'layouts/docs-view-layout'
 import DevDotContent from 'components/dev-dot-content'
+import NoIndexTagIfVersioned from 'components/no-index-tag-if-versioned'
 import { DocsViewProps } from './types'
 import DocsPageHeading from './components/docs-page-heading'
-import { NoIndexTagIfVersioned } from './components/no-index-tag-if-versioned'
 import getDocsMdxComponents from './utils/get-docs-mdx-components'
 import s from './docs-view.module.css'
 import LandingHero from 'components/landing-hero'
@@ -45,6 +47,7 @@ const DocsView = ({
 	outlineItems,
 	pageHeading,
 }: DocsViewProps) => {
+	const { asPath } = useRouter()
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
 	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
@@ -105,7 +108,7 @@ const DocsView = ({
 					headingSlot={headingSlot}
 				/>
 			) : null}
-			<NoIndexTagIfVersioned />
+			<NoIndexTagIfVersioned isVersioned={!!getVersionFromPath(asPath)} />
 			<DevDotContent
 				mdxRemoteProps={{
 					compiledSource,
