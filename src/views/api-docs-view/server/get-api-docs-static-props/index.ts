@@ -131,12 +131,12 @@ export async function getApiDocsStaticProps({
 	/**
 	 * Build a heading for versioned pages, showing a `releaseStage` badge
 	 */
-	const pageHeading = {
+	const pageHeading: ApiDocsViewProps['pageHeading'] = {
 		text: schema.info.title,
 		badges: [sentenceCase(currentVersion.releaseStage)],
 	}
 	if (schema.info['x-beta-feature'] === true) {
-		pageHeading.badges.push('Beta')
+		pageHeading.badges.push({ text: 'Beta', type: 'filled' })
 	}
 
 	/**
