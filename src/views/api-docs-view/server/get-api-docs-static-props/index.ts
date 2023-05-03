@@ -135,9 +135,6 @@ export async function getApiDocsStaticProps({
 		text: schema.info.title,
 		badges: [sentenceCase(currentVersion.releaseStage)],
 	}
-	if (schema.info['x-beta-feature'] === true) {
-		pageHeading.badges.push({ text: 'Beta', type: 'filled' })
-	}
 
 	/**
 	 * Build version switcher data, specific to versioned API docs views
