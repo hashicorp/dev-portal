@@ -16,6 +16,7 @@ import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
 import { NextRouter, useRouter } from 'next/router'
 import { VariantOption } from 'views/tutorial-view/utils/variants'
 import { TutorialVariant } from 'views/tutorial-view/types'
+import { useVariants } from 'views/tutorial-view/utils/variants'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -58,6 +59,7 @@ export default function TutorialMeta({
 }: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 	const router = useRouter()
+	const { activeVariant, setActiveVariant } = useVariants()
 
 	/**
 	 * We only need to show the Create Account CTA if auth is enabled and there is
@@ -113,6 +115,43 @@ export default function TutorialMeta({
 						  ))
 						: null}
 				</span>
+
+				<fieldset>
+					<legend>Operating System</legend>
+					<div
+						id="radioGroup"
+						style={{ position: 'absolute', top: '0', zIndex: 100 }}
+					>
+						{variant?.allOptions.map((option: VariantOption) => (
+							<>
+								<input
+									checked={option.id === activeVariant}
+									type="radio"
+									id={`${variant.id}:${option.id}`}
+									name={variant.id}
+									value={option.id}
+									onChange={(e) => {
+										const url = new URL(
+											router.asPath,
+											'https://developer.hashicorp.com'
+										)
+										router.push(
+											`${url.pathname.toString()}?variant=${option.id}`,
+											`${url.pathname.toString()}?variant=${option.id}`,
+											{
+												shallow: true,
+											}
+										)
+										setActiveVariant(option.id)
+									}}
+								/>
+								<label htmlFor={`${variant.id}:${option.id}`}>
+									{option.name}
+								</label>
+							</>
+						))}
+					</div>
+				</fieldset>
 				{showCreateAccountCta ? (
 					<Text className={s.createAccountCta} size={200}>
 						Reference this often?{' '}

@@ -70,11 +70,13 @@ export default function VariantProvider({
 		[activeVariant]
 	)
 
-	useEffect(() => {
-		if (variant !== activeVariant) {
-			setActiveVariant(variant)
-		}
-	}, [variant, activeVariant, setActiveVariant])
+	// useEffect(() => {
+	// 	console.log(variant, activeVariant, '****')
+	// 	if (variant && activeVariant === null) {
+	// 		setActiveVariant(variant)
+	// 	}
+	// }, [variant, activeVariant, setActiveVariant])
+	// console.log(activeVariant, 'active variant in provider')
 
 	return (
 		<VariantContext.Provider value={contextValue}>
