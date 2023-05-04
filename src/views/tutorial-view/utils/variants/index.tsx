@@ -70,22 +70,9 @@ export default function VariantProvider({
 		[activeVariant]
 	)
 
-	// useEffect(() => {
-	// 	console.log(variant, activeVariant, '****')
-	// 	if (variant && activeVariant === null) {
-	// 		setActiveVariant(variant)
-	// 	}
-	// }, [variant, activeVariant, setActiveVariant])
-	// console.log(activeVariant, 'active variant in provider')
-
 	return (
 		<VariantContext.Provider value={contextValue}>
 			{children}
 		</VariantContext.Provider>
 	)
-}
-
-// TODO Need to add this validation, requires knowledge of the active type
-function isValidVariantOption(variantOptionId, variantType) {
-	return Boolean(variantType.find((option) => option.id === variantOptionId))
 }
