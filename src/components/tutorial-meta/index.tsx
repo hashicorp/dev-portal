@@ -29,26 +29,17 @@ interface TutorialMetaProps {
 }
 
 function getVariantPath(router: NextRouter, variantType: string) {
-	if (!variantType) {
+	const url = new URL(router.asPath, 'https://developer.hashicorp.com')
+
+	// if the variant is not defined, or if it is defined in the path already, use that
+	if (!variantType || url.searchParams.get('variant') === variantType) {
 		return router.asPath
 	}
 
-	const arr = router.asPath.split('/')
+	// otherwise just add the variant to the path
+	url.searchParams.set('variant', variantType)
 
-	// if the variant is defined in the path, use that
-	if (router.query.tutorialSlug.length === 3) {
-		const variantInPath = arr.slice().pop()
-
-		if (variantInPath === variantType) {
-			return router.asPath
-		}
-		arr[arr.length - 1] = variantType
-	} else {
-		// otherwise just add the variant to the path
-		arr.push(variantType)
-	}
-
-	return arr.join('/')
+	return url.pathname.toString() + url.search.toString()
 }
 
 export default function TutorialMeta({
@@ -118,10 +109,7 @@ export default function TutorialMeta({
 
 				<fieldset>
 					<legend>Operating System</legend>
-					<div
-						id="radioGroup"
-						style={{ position: 'absolute', top: '0', zIndex: 100 }}
-					>
+					<div id="radioGroup">
 						{variant?.allOptions.map((option: VariantOption) => (
 							<>
 								<input
