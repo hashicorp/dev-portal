@@ -8,6 +8,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ThemeProvider } from 'next-themes'
 import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
+import ZenDeskCrawlerTag from 'lib/zendesk'
 import { makeDarkModeToast } from 'lib/toast/make-dark-mode-notification'
 import isThemedPath from 'lib/isThemedPath'
 import { MobileMenuProvider } from 'contexts'
@@ -33,6 +34,7 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 		<MobileMenuProvider>
 			<TabProvider>
 				<Head>
+					<ZenDeskCrawlerTag />
 					<DatadogHeadTag />
 				</Head>
 				<div className={s.root}>{children}</div>
