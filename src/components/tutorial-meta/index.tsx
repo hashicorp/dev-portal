@@ -107,40 +107,41 @@ export default function TutorialMeta({
 						  ))
 						: null}
 				</span>
-
-				<fieldset>
-					<legend>{variant.id}</legend>
-					<div id="radioGroup">
-						{variant?.allOptions.map((option: VariantOption) => (
-							<>
-								<input
-									checked={option.id === activeVariant}
-									type="radio"
-									id={`${variant.id}:${option.id}`}
-									name={variant.id}
-									value={option.id}
-									onChange={(e) => {
-										const url = new URL(
-											router.asPath,
-											'https://developer.hashicorp.com'
-										)
-										router.push(
-											`${url.pathname.toString()}?variant=${option.id}`,
-											`${url.pathname.toString()}?variant=${option.id}`,
-											{
-												shallow: true,
-											}
-										)
-										setActiveVariant(option.id)
-									}}
-								/>
-								<label htmlFor={`${variant.id}:${option.id}`}>
-									{option.name}
-								</label>
-							</>
-						))}
-					</div>
-				</fieldset>
+				{variant ? (
+					<fieldset>
+						<legend>{variant.id}</legend>
+						<div id="radioGroup">
+							{variant?.allOptions.map((option: VariantOption) => (
+								<>
+									<input
+										checked={option.id === activeVariant}
+										type="radio"
+										id={`${variant.id}:${option.id}`}
+										name={variant.id}
+										value={option.id}
+										onChange={(e) => {
+											const url = new URL(
+												router.asPath,
+												'https://developer.hashicorp.com'
+											)
+											router.push(
+												`${url.pathname.toString()}?variant=${option.id}`,
+												`${url.pathname.toString()}?variant=${option.id}`,
+												{
+													shallow: true,
+												}
+											)
+											setActiveVariant(option.id)
+										}}
+									/>
+									<label htmlFor={`${variant.id}:${option.id}`}>
+										{option.name}
+									</label>
+								</>
+							))}
+						</div>
+					</fieldset>
+				) : null}
 				{showCreateAccountCta ? (
 					<Text className={s.createAccountCta} size={200}>
 						Reference this often?{' '}
