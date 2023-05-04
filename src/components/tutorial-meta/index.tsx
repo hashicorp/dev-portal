@@ -124,13 +124,11 @@ export default function TutorialMeta({
 												router.asPath,
 												'https://developer.hashicorp.com'
 											)
-											router.push(
-												`${url.pathname.toString()}?variant=${option.id}`,
-												`${url.pathname.toString()}?variant=${option.id}`,
-												{
-													shallow: true,
-												}
-											)
+											url.searchParams.set('variant', option.id)
+											const path = `${url.pathname.toString()}${url.search.toString()}`
+											router.push(path, path, {
+												shallow: true,
+											})
 											setActiveVariant(option.id)
 										}}
 									/>
