@@ -109,7 +109,7 @@ export default function TutorialMeta({
 				</span>
 
 				<fieldset>
-					<legend>Operating System</legend>
+					<legend>{variant.id}</legend>
 					<div id="radioGroup">
 						{variant?.allOptions.map((option: VariantOption) => (
 							<>

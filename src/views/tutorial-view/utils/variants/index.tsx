@@ -6,7 +6,6 @@ import {
 	ReactNode,
 	Dispatch,
 	SetStateAction,
-	useEffect,
 } from 'react'
 
 export interface Variant {
