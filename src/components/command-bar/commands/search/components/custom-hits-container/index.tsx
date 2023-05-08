@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { useEffect } from 'react'
 import { useHits } from 'react-instantsearch-hooks-web'
 import { CommandBarList } from 'components/command-bar/components'
 import { CustomHitsContainerProps } from './types'
@@ -15,15 +16,30 @@ import {
 	TutorialHitObject,
 } from '../'
 import s from './custom-hits-container.module.css'
+import { useHitCountsContext } from '../../helpers/hit-counts-provider'
 
 const CustomHitsContainer = ({
 	integrationsHits = [],
 	noResultsSlot,
 	type,
 }: CustomHitsContainerProps) => {
+	const [hitCounts, setHitCounts] = useHitCountsContext()
 	const { hits } = useHits<DocumentationHitObject | TutorialHitObject>()
 
-	console.log({ type, hitCount: hits.length })
+	/**
+	 * TODO: this hitCounts stuff is spiked in without regard for efficiency,
+	 * could probably use a lot of refinement.
+	 */
+	useEffect(() => {
+		const updatedHitCount =
+			type === 'integrations' ? integrationsHits.length : hits.length
+		if (hitCounts[type] === updatedHitCount) {
+			return
+		}
+		if (typeof setHitCounts === 'function') {
+			setHitCounts({ ...(hitCounts || {}), [type]: updatedHitCount })
+		}
+	}, [hits, integrationsHits, type])
 
 	const shouldShowNoResultsSlot =
 		type === 'integrations'

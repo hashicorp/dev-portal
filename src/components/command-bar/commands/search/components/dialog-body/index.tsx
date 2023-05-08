@@ -15,6 +15,7 @@ import {
 	useCurrentContentType,
 	useCurrentProduct,
 } from 'contexts'
+import { useHitCountsContext } from '../../helpers/hit-counts-provider'
 import { CommandBarTag, useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 import Tabs, { Tab } from 'components/tabs'
@@ -58,6 +59,7 @@ const SearchCommandBarDialogBodyContent = ({
 }) => {
 	const { currentInputValue } = useCommandBar()
 	const contentType = useCurrentContentType()
+	const [hitCounts] = useHitCountsContext()
 
 	/**
 	 * Generate suggested pages, memoized.
@@ -158,7 +160,7 @@ const SearchCommandBarDialogBodyContent = ({
 								}}
 							>
 								<span>{icon}</span>
-								{heading}
+								{heading} ({hitCounts[contentType]})
 							</div>
 							<div>{content}</div>
 						</div>
