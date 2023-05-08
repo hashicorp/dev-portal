@@ -26,7 +26,7 @@ function PathTruncationAside({ path }: { path: string }) {
 			<DevDotContent>
 				<div className="alert alert-info">
 					<strong>Note:</strong> Operation paths have been truncated for
-					clarity. The full path to this operation is:
+					clarity. The full path to this operation is below:
 				</div>
 			</DevDotContent>
 			<CodeBlock code={path} theme="dark" options={{ showClipboard: true }} />
