@@ -6,7 +6,9 @@ import {
 	ReactNode,
 	Dispatch,
 	SetStateAction,
+	useEffect,
 } from 'react'
+import { TutorialVariant } from 'views/tutorial-view/types'
 
 export interface Variant {
 	[key: string]: VariantOption[]
@@ -60,14 +62,22 @@ export default function VariantProvider({
 	variant,
 }: {
 	children: ReactNode
-	variant?: string // the type
+	variant?: TutorialVariant // the type
 }) {
-	const [activeVariant, setActiveVariant] = useState<string>(variant)
+	const [activeVariant, setActiveVariant] = useState<string>(
+		variant?.activeOption.id
+	)
 
 	const contextValue = useMemo(
 		() => ({ activeVariant, setActiveVariant }),
 		[activeVariant]
 	)
+
+	useEffect(() => {
+		if (variant && variant.activeOption.id !== activeVariant) {
+			setActiveVariant(variant.activeOption.id)
+		}
+	}, [variant, activeVariant])
 
 	return (
 		<VariantContext.Provider value={contextValue}>
