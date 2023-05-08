@@ -18,6 +18,7 @@ import {
 	truncatePackerOperationPath,
 } from 'views/api-docs-view/components'
 // Types
+import type { OperationObjectType } from 'components/open-api-page/types'
 import type { ApiDocsViewProps } from 'views/api-docs-view/types'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 
