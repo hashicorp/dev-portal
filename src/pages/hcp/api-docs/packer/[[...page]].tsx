@@ -51,7 +51,7 @@ function HcpPackerApiDocsView(props: ApiDocsViewProps) {
 		<ApiDocsView
 			{...props}
 			massagePathFn={truncatePackerOperationPath}
-			renderOperationIntro={({ data }: { data: $TSFixMe }) => (
+			renderOperationIntro={({ data }: { data: OperationObjectType }) => (
 				<PathTruncationAside path={data.__path} />
 			)}
 		/>
