@@ -104,8 +104,8 @@ const SearchCommandBarDialogBodyContent = ({
 		}
 	}, [currentProductTag, suggestedPages])
 	const searchableContentTypes = Object.keys(tabsBySearchableContentType)
-	const activeTabIndex =
-		contentType === 'global' ? 0 : searchableContentTypes.indexOf(contentType)
+	// const activeTabIndex =
+	// 	contentType === 'global' ? 0 : searchableContentTypes.indexOf(contentType)
 
 	/**
 	 * Don't render search result Tabs at all if there is no text in the input.
@@ -138,8 +138,34 @@ const SearchCommandBarDialogBodyContent = ({
 	}
 
 	return (
-		<div className={s.tabsWrapper}>
-			<Tabs
+		<div className={s.tabsWrapper} style={{ border: '2px solid magenta' }}>
+			<div style={{ display: 'flex' }}>
+				{searchableContentTypes.map((contentType: SearchableContentType) => {
+					if (contentType === 'integrations' && !shouldRenderIntegrationsTab) {
+						return null
+					}
+
+					const { heading, icon, content } =
+						tabsBySearchableContentType[contentType]
+					return (
+						<div key={heading} style={{ maxWidth: '33%' }}>
+							<div
+								style={{
+									display: 'flex',
+									gap: '8px',
+									alignItems: 'center',
+									fontWeight: 'bold',
+								}}
+							>
+								<span>{icon}</span>
+								{heading}
+							</div>
+							<div>{content}</div>
+						</div>
+					)
+				})}
+			</div>
+			{/* <Tabs
 				showAnchorLine={false}
 				initialActiveIndex={activeTabIndex}
 				variant="compact"
@@ -157,7 +183,7 @@ const SearchCommandBarDialogBodyContent = ({
 						</Tab>
 					)
 				})}
-			</Tabs>
+			</Tabs> */}
 		</div>
 	)
 }
