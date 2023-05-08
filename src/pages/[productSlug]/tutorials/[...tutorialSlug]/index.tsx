@@ -78,9 +78,7 @@ async function _getStaticProps(
 	staticProps
 ): Promise<GetStaticPropsResult<TutorialViewProps>> {
 	const { params }: TutorialPageStaticPropsCtx = staticProps
-	console.log(staticProps)
 	const { productSlug, tutorialSlug } = params
-
 	const productData = cachedGetProductData(productSlug) as LearnProductData
 	const props = await getTutorialPageProps(productData, tutorialSlug)
 	// If the tutorial doesn't exist, hit the 404

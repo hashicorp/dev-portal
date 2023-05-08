@@ -28,12 +28,12 @@ interface TutorialMetaProps {
 	variant?: TutorialVariant
 }
 
-function getVariantPath(router: NextRouter, variantType: string) {
-	const url = new URL(router.asPath, 'https://developer.hashicorp.com')
+export function getVariantPath(path: string, variantType: string) {
+	const url = new URL(path, 'https://developer.hashicorp.com')
 
 	// if the variant is not defined, or if it is defined in the path already, use that
 	if (!variantType || url.searchParams.get('variant') === variantType) {
-		return router.asPath
+		return path
 	}
 
 	// otherwise just add the variant to the path
@@ -93,8 +93,9 @@ export default function TutorialMeta({
 						? variant.allOptions.map((option: VariantOption) => (
 								<ButtonLink
 									key={option.id}
+									color={activeVariant === option.id ? 'primary' : 'secondary'}
 									text={option.name}
-									href={getVariantPath(router, option.id)} // make work with hashes & query etc
+									href={getVariantPath(router.asPath, option.id)} // make work with hashes & query etc
 									onClick={() => {
 										const variantCookie = Cookies.get(variant.id)
 										setActiveVariant(option.id)
@@ -107,39 +108,6 @@ export default function TutorialMeta({
 						  ))
 						: null}
 				</span>
-				{variant ? (
-					<fieldset>
-						<legend>{variant.id}</legend>
-						<div id="radioGroup">
-							{variant?.allOptions.map((option: VariantOption) => (
-								<>
-									<input
-										checked={option.id === activeVariant}
-										type="radio"
-										id={`${variant.id}:${option.id}`}
-										name={variant.id}
-										value={option.id}
-										onChange={(e) => {
-											const url = new URL(
-												router.asPath,
-												'https://developer.hashicorp.com'
-											)
-											url.searchParams.set('variant', option.id)
-											const path = `${url.pathname.toString()}${url.search.toString()}`
-											router.push(path, path, {
-												shallow: true,
-											})
-											setActiveVariant(option.id)
-										}}
-									/>
-									<label htmlFor={`${variant.id}:${option.id}`}>
-										{option.name}
-									</label>
-								</>
-							))}
-						</div>
-					</fieldset>
-				) : null}
 				{showCreateAccountCta ? (
 					<Text className={s.createAccountCta} size={200}>
 						Reference this often?{' '}

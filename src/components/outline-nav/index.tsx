@@ -4,6 +4,7 @@
  */
 
 import { useId } from '@react-aria/utils'
+import Button from 'components/button'
 import { OutlineListItems } from './components'
 import type { OutlineNavProps } from './types'
 import s from './outline-nav.module.css'
@@ -16,14 +17,25 @@ function OutlineNav({ items }: OutlineNavProps) {
 	const uniqueId = useId()
 
 	return (
-		<nav aria-labelledby={uniqueId}>
-			<p id={uniqueId} className={s.navLabel}>
-				On this page:
-			</p>
-			<ol className={s.listRoot}>
-				<OutlineListItems items={items} />
-			</ol>
-		</nav>
+		<>
+			<p className={s.navLabel}>Configuration</p>
+			<Button
+				color="secondary"
+				text="Consul Edition: HCP"
+				onClick={() => {
+					window.scrollTo({ top: 0, behavior: 'smooth' })
+				}}
+			/>
+			<br />
+			<nav aria-labelledby={uniqueId}>
+				<p id={uniqueId} className={s.navLabel}>
+					On this page:
+				</p>
+				<ol className={s.listRoot}>
+					<OutlineListItems items={items} />
+				</ol>
+			</nav>
+		</>
 	)
 }
 
