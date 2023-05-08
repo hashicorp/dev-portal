@@ -15,7 +15,7 @@ import {
 	useCurrentContentType,
 	useCurrentProduct,
 } from 'contexts'
-import { useHitCountsContext } from '../../helpers/hit-counts-provider'
+import { useHitsContext } from '../../helpers/hit-counts-provider'
 import { CommandBarTag, useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 import Tabs, { Tab } from 'components/tabs'
@@ -27,14 +27,19 @@ import {
 	getCurrentProductTag,
 } from '../../helpers'
 import {
+	DocumentationHit,
 	DocumentationTabContents,
+	IntegrationHit,
 	IntegrationsTabContents,
 	RecentSearches,
 	SuggestedPage,
 	SuggestedPages,
+	TutorialHit,
 	TutorialsTabContents,
 } from '../'
 import s from './search-command-bar-dialog-body.module.css'
+import { CommandBarList } from 'components/command-bar/components'
+import sortByProperty from './sort-by-property'
 
 // TODO(brkalow): We might consider lazy-loading the search client & the insights library
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
@@ -59,7 +64,7 @@ const SearchCommandBarDialogBodyContent = ({
 }) => {
 	const { currentInputValue } = useCommandBar()
 	const contentType = useCurrentContentType()
-	const [hitCounts] = useHitCountsContext()
+	const [hitsData] = useHitsContext()
 
 	/**
 	 * Generate suggested pages, memoized.
@@ -139,9 +144,61 @@ const SearchCommandBarDialogBodyContent = ({
 		shouldRenderIntegrationsTab = true
 	}
 
+	const allHitsData = Object.keys(hitsData).reduce((acc, type) => {
+		const hitsArray = hitsData[type]
+		const hitsWithType = hitsArray.map((h) => ({ ...h, _type: type }))
+		acc = acc.concat(hitsWithType)
+		return acc
+	}, [] as $TSFixMe)
+	const sortedMergedHits = sortByProperty(allHitsData, '__position', 'asc')
+
+	// TODO: maybe useId instead?
+	const labelElementId = `all-search-results-label`
+
 	return (
 		<div className={s.tabsWrapper} style={{ border: '2px solid magenta' }}>
-			<div style={{ display: 'flex' }}>
+			{sortedMergedHits.length > 0 ? (
+				<>
+					<div id={labelElementId} className="g-screen-reader-only">
+						All search results
+					</div>
+					<CommandBarList ariaLabelledBy={labelElementId}>
+						{sortedMergedHits.map((hitObject) => {
+							let id
+							let hitElement
+							if (hitObject._type === 'integrations') {
+								id = hitObject.id
+								hitElement = <IntegrationHit hit={hitObject} />
+							} else if (hitObject._type === 'docs') {
+								id = hitObject.objectID
+								hitElement = <DocumentationHit hit={hitObject} />
+							} else if (hitObject._type === 'tutorials') {
+								id = hitObject.objectID
+								hitElement = <TutorialHit hit={hitObject} />
+							}
+							return (
+								<div key={id}>
+									{/* <pre>
+										<code>
+											{JSON.stringify({ posn: hitObject.__position }, null, 2)}
+										</code>
+									</pre> */}
+									{hitElement}
+								</div>
+							)
+						})}
+					</CommandBarList>
+				</>
+			) : (
+				<p style={{ border: '1px solid magenta' }}>
+					No results match your search.
+				</p>
+			)}
+
+			{/* <pre>
+				<code>{JSON.stringify({ allHitsData }, null, 2)}</code>
+			</pre> */}
+			<div style={{ display: 'none' }}>
 				{searchableContentTypes.map((contentType: SearchableContentType) => {
 					if (contentType === 'integrations' && !shouldRenderIntegrationsTab) {
 						return null
@@ -149,6 +206,7 @@ const SearchCommandBarDialogBodyContent = ({
 
 					const { heading, icon, content } =
 						tabsBySearchableContentType[contentType]
+
 					return (
 						<div key={heading} style={{ maxWidth: '33%' }}>
 							<div
@@ -160,7 +218,7 @@ const SearchCommandBarDialogBodyContent = ({
 								}}
 							>
 								<span>{icon}</span>
-								{heading} ({hitCounts[contentType]})
+								{heading} ({hitsData[contentType]?.length})
 							</div>
 							<div>{content}</div>
 						</div>

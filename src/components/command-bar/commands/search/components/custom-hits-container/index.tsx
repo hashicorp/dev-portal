@@ -16,28 +16,35 @@ import {
 	TutorialHitObject,
 } from '../'
 import s from './custom-hits-container.module.css'
-import { useHitCountsContext } from '../../helpers/hit-counts-provider'
+import { useHitsContext } from '../../helpers/hit-counts-provider'
 
 const CustomHitsContainer = ({
 	integrationsHits = [],
 	noResultsSlot,
 	type,
 }: CustomHitsContainerProps) => {
-	const [hitCounts, setHitCounts] = useHitCountsContext()
+	const [hitsData, setHitsData] = useHitsContext()
 	const { hits } = useHits<DocumentationHitObject | TutorialHitObject>()
 
 	/**
-	 * TODO: this hitCounts stuff is spiked in without regard for efficiency,
+	 * TODO: this hitsData stuff is spiked in without regard for efficiency,
 	 * could probably use a lot of refinement.
 	 */
 	useEffect(() => {
-		const updatedHitCount =
-			type === 'integrations' ? integrationsHits.length : hits.length
-		if (hitCounts[type] === updatedHitCount) {
+		const updatedHits =
+			type === 'integrations'
+				? integrationsHits.map((h, idx) => {
+						return { ...h, __position: idx + 1 }
+				  })
+				: hits
+		if (JSON.stringify(hitsData[type]) === JSON.stringify(updatedHits)) {
 			return
 		}
-		if (typeof setHitCounts === 'function') {
-			setHitCounts({ ...(hitCounts || {}), [type]: updatedHitCount })
+		if (typeof setHitsData === 'function') {
+			const updates = {
+				[type]: updatedHits,
+			}
+			setHitsData({ ...(hitsData || {}), ...updates })
 		}
 	}, [hits, integrationsHits, type])
 

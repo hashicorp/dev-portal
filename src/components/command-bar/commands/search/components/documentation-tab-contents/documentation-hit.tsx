@@ -56,7 +56,7 @@ const DocumentationHit = ({ hit }: DocumentationHitProps) => {
 
 	return (
 		<CommandBarLinkListItem
-			title={page_title?.value}
+			title={'[docs] ' + page_title?.value}
 			description={description?.value}
 			url={url}
 			badges={productName ? [productName] : undefined}

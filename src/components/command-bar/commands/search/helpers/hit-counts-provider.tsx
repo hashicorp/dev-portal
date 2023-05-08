@@ -1,23 +1,23 @@
 import { ReactNode, createContext, useContext, useState } from 'react'
 
 // Create Context object.
-const HitCountsContext = createContext([])
+const SearchHitsContext = createContext([])
 
 // Provider
-function HitCountsProvider({ children }: { children: ReactNode }) {
+function SearchHitsProvider({ children }: { children: ReactNode }) {
 	const value = useState({})
 
 	return (
-		<HitCountsContext.Provider value={value}>
+		<SearchHitsContext.Provider value={value}>
 			{children}
-		</HitCountsContext.Provider>
+		</SearchHitsContext.Provider>
 	)
 }
 
 // useContext Hook.
-function useHitCountsContext() {
-	return useContext(HitCountsContext)
+function useHitsContext() {
+	return useContext(SearchHitsContext)
 }
 
-export { useHitCountsContext }
-export default HitCountsProvider
+export { useHitsContext }
+export default SearchHitsProvider

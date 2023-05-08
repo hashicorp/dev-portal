@@ -24,7 +24,7 @@ import {
 	CommandBarTag,
 	SupportedCommand,
 } from './types'
-import HitCountsProvider from './commands/search/helpers/hit-counts-provider'
+import SearchHitsProvider from './commands/search/helpers/hit-counts-provider'
 
 const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
 	currentCommand: commands.search,
@@ -168,12 +168,12 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	])
 
 	return (
-		<HitCountsProvider>
+		<SearchHitsProvider>
 			<CommandBarContext.Provider value={contextValue}>
 				{children}
 				<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen} />
 			</CommandBarContext.Provider>
-		</HitCountsProvider>
+		</SearchHitsProvider>
 	)
 }
 

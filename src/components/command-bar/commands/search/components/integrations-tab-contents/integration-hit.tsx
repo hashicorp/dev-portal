@@ -14,7 +14,7 @@ const IntegrationHit = ({ hit }: IntegrationHitProps) => {
 		<CommandBarLinkListItem
 			description={hit.description}
 			badges={[productSlugsToNames[hit.product.slug]]}
-			title={hit.name}
+			title={'[integration] ' + hit.name}
 			url={url}
 		/>
 	)

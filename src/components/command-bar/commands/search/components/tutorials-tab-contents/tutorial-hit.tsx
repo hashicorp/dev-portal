@@ -53,7 +53,7 @@ const TutorialHit = ({ hit }: TutorialHitProps) => {
 
 	return (
 		<CommandBarLinkListItem
-			title={page_title?.value}
+			title={'[tutorial] ' + page_title?.value}
 			description={description?.value}
 			url={resultUrl}
 			badges={badges}
