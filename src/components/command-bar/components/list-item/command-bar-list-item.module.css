@@ -40,7 +40,8 @@
 	margin-top: 2px;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	white-space: nowrap;
+
+	/* white-space: nowrap; */
 }
 
 /* NOTE: this is for highlighting some text in search results from algolia */

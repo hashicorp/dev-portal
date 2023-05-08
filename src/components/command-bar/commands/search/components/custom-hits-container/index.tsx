@@ -23,6 +23,8 @@ const CustomHitsContainer = ({
 }: CustomHitsContainerProps) => {
 	const { hits } = useHits<DocumentationHitObject | TutorialHitObject>()
 
+	console.log({ type, hitCount: hits.length })
+
 	const shouldShowNoResultsSlot =
 		type === 'integrations'
 			? integrationsHits && integrationsHits.length <= 0
