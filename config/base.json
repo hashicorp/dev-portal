@@ -43,7 +43,6 @@
 	},
 	"flags": {
 		"enable_datadog": true,
-		"enable_io_beta_cta": true,
-		"enable_home_page_redesign": false
+		"enable_io_beta_cta": true
 	}
 }

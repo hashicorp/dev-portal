@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import NextImage, { ImageProps as NextImageProps } from 'next/image'
 import s from './mdx-themed-image.module.css'
 

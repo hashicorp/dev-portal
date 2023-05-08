@@ -15,10 +15,14 @@ import remarkPluginAnchorLinkData from 'lib/remark-plugins/remark-plugin-anchor-
 import type { AnchorLinkItem } from 'lib/remark-plugins/remark-plugin-anchor-link-data'
 
 export default async function serializeIntegrationMarkdown(
-	markdown: string,
-	anchorLinks: AnchorLinkItem[] = []
-): Promise<MDXRemoteSerializeResult> {
+	markdown: string
+): Promise<{
+	serializeResult: MDXRemoteSerializeResult
+	anchorLinks: AnchorLinkItem[]
+}> {
 	// TODO: export types from `next-mdx-remote` v3
+	// anchorLinks will be mutated by `remarkPluginAnchorLinkData`
+	const anchorLinks: AnchorLinkItem[] = []
 	const SERIALIZE_OPTIONS: Parameters<typeof serialize>[1] = {
 		mdxOptions: {
 			remarkPlugins: [
@@ -38,5 +42,6 @@ export default async function serializeIntegrationMarkdown(
 			],
 		},
 	}
-	return await serialize(markdown, SERIALIZE_OPTIONS)
+	const serializeResult = await serialize(markdown, SERIALIZE_OPTIONS)
+	return { serializeResult, anchorLinks }
 }

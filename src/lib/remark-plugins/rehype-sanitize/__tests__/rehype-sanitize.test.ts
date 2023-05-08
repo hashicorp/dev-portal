@@ -5,6 +5,7 @@
 
 import fs from 'fs'
 import path from 'path'
+import { Plugin } from 'unified'
 import type { Root, RootContent, Node } from 'hast'
 import hastUtilToHtml from 'hast-util-to-html'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -178,7 +179,7 @@ async function getProcessedHast(mdxString: string): Promise<Root> {
 	await serialize(mdxString, {
 		mdxOptions: {
 			rehypePlugins: [
-				[rehypeSanitize, schema],
+				[rehypeSanitize as Plugin, schema],
 				[rehypeExtractHast, { extractedData }],
 			],
 		},

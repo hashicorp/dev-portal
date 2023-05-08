@@ -108,6 +108,7 @@ export default function ContentHeaderCard({
 											href={link.href}
 											opensInNewTab={!link.href.startsWith('/')}
 											iconPosition="leading"
+											color="secondary"
 										/>
 									</li>
 								)

@@ -32,7 +32,7 @@ function integrationLibraryFilterSelectedEvent({
 	filter_category,
 	filter_value,
 }: {
-	filter_category: 'tier' | 'component' | 'flag'
+	filter_category: 'tier' | 'component' | 'flag' | 'type'
 	filter_value: string
 }) {
 	safeAnalyticsTrack('Integration Library Filtered Selected', {
