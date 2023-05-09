@@ -6,11 +6,9 @@
 import { ReactElement, useMemo } from 'react'
 import classNames from 'classnames'
 import { useDeviceSize } from 'contexts'
-import Button from 'components/button'
 import { useActiveSection } from 'lib/hash-links/use-active-section'
 import { TableOfContentsHeading, TableOfContentsProps } from './types'
 import s from './table-of-contents.module.css'
-import DropdownDisclosure from 'components/dropdown-disclosure'
 
 const TABLE_OF_CONTENTS_LABEL_ID = 'table-of-contents-label'
 
@@ -45,24 +43,22 @@ const TableOfContents = ({ headings }: TableOfContentsProps): ReactElement => {
 	}
 
 	return (
-		<>
-			<nav aria-labelledby={TABLE_OF_CONTENTS_LABEL_ID}>
-				<p className={s.tableOfContentsLabel} id={TABLE_OF_CONTENTS_LABEL_ID}>
-					On this page
-				</p>
-				<ol className={s.tableOfContentsList}>
-					{headings.map((heading, index) => (
-						<TableOfContentsListItem
-							isActive={heading.slug === activeSection}
-							key={heading.slug}
-							slug={heading.slug}
-							title={heading.title}
-							index={index}
-						/>
-					))}
-				</ol>
-			</nav>
-		</>
+		<nav aria-labelledby={TABLE_OF_CONTENTS_LABEL_ID}>
+			<p className={s.tableOfContentsLabel} id={TABLE_OF_CONTENTS_LABEL_ID}>
+				On this page
+			</p>
+			<ol className={s.tableOfContentsList}>
+				{headings.map((heading, index) => (
+					<TableOfContentsListItem
+						isActive={heading.slug === activeSection}
+						key={heading.slug}
+						slug={heading.slug}
+						title={heading.title}
+						index={index}
+					/>
+				))}
+			</ol>
+		</nav>
 	)
 }
 
