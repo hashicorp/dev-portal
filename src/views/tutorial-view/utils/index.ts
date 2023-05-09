@@ -5,10 +5,7 @@
 
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import { TutorialListItemProps } from 'components/tutorials-sidebar/types'
-import {
-	getTutorialSlug,
-	appendPathWithVariant,
-} from 'views/collection-view/helpers'
+import { getTutorialSlug } from 'views/collection-view/helpers'
 
 export function splitProductFromFilename(slug: string): string {
 	return slug.split('/')[1]
@@ -22,17 +19,14 @@ export function formatTutorialToMenuItem(
 	},
 	currentPath: string
 ): TutorialListItemProps {
-	const path = appendPathWithVariant(
-		getTutorialSlug(tutorial.slug, collection.slug),
-		tutorial.variant
-	)
+	const href = getTutorialSlug(tutorial.slug, collection.slug)
 
 	return {
 		tutorialId: tutorial.id,
 		collectionId: collection.id,
 		text: tutorial.name,
-		href: path,
-		isActive: path === currentPath,
+		href,
+		isActive: href === currentPath,
 	}
 }
 
