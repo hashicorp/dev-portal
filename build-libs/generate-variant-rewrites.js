@@ -93,17 +93,18 @@ async function getVariantRewrites() {
 	return tutorialVariants.flatMap((tutorial) => {
 		const variant = variantData[tutorial.variant]
 		console.log({ variant })
+		const tutorialFilename = tutorial.slug.split('/')[1]
 
 		return variant.map((variantOption) => ({
-			source: '/:product/tutorials/:collection/:tutorial',
-			destination: `/:product/tutorials/:collection/:tutorial/${variantOption.id}`,
+			source: `/:product/tutorials/:collection/${tutorialFilename}`,
+			destination: `/:product/tutorials/:collection/${tutorialFilename}/${variantOption.id}`,
 			has: [
 				{ type: 'cookie', key: tutorial.variant, value: variantOption.id },
-				{
-					type: 'query',
-					key: 'variant',
-					value: variantOption.id,
-				},
+				// {
+				// 	type: 'query',
+				// 	key: 'variant',
+				// 	value: variantOption.id,
+				// },
 			],
 		}))
 	})

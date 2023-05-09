@@ -1,0 +1,68 @@
+[
+	{
+		"source": "/:product/tutorials/:collection/kubernetes-secure-agents",
+		"destination": "/:product/tutorials/:collection/kubernetes-secure-agents/helm",
+		"has": [
+			{
+				"type": "cookie",
+				"key": "consul-k8s-mgr",
+				"value": "helm"
+			}
+		]
+	},
+	{
+		"source": "/:product/tutorials/:collection/kubernetes-secure-agents",
+		"destination": "/:product/tutorials/:collection/kubernetes-secure-agents/consul-k8s-cli",
+		"has": [
+			{
+				"type": "cookie",
+				"key": "consul-k8s-mgr",
+				"value": "consul-k8s-cli"
+			}
+		]
+	},
+	{
+		"source": "/:product/tutorials/:collection/kubernetes-layer7-observability",
+		"destination": "/:product/tutorials/:collection/kubernetes-layer7-observability/helm",
+		"has": [
+			{
+				"type": "cookie",
+				"key": "consul-k8s-mgr",
+				"value": "helm"
+			}
+		]
+	},
+	{
+		"source": "/:product/tutorials/:collection/kubernetes-layer7-observability",
+		"destination": "/:product/tutorials/:collection/kubernetes-layer7-observability/consul-k8s-cli",
+		"has": [
+			{
+				"type": "cookie",
+				"key": "consul-k8s-mgr",
+				"value": "consul-k8s-cli"
+			}
+		]
+	},
+	{
+		"source": "/:product/tutorials/:collection/kubernetes-api-gateway",
+		"destination": "/:product/tutorials/:collection/kubernetes-api-gateway/self-managed",
+		"has": [
+			{
+				"type": "cookie",
+				"key": "consul",
+				"value": "self-managed"
+			}
+		]
+	},
+	{
+		"source": "/:product/tutorials/:collection/kubernetes-api-gateway",
+		"destination": "/:product/tutorials/:collection/kubernetes-api-gateway/hcp",
+		"has": [
+			{
+				"type": "cookie",
+				"key": "consul",
+				"value": "hcp"
+			}
+		]
+	}
+]

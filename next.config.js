@@ -11,7 +11,6 @@ const { redirectsConfig } = require('./build-libs/redirects')
 const rewritesConfig = require('./build-libs/rewrites')
 const HashiConfigPlugin = require('./config/plugin')
 const { loadHashiConfigForEnvironment } = require('./config')
-const { getVariantRewrites } = require('./build-libs/generate-variant-rewrites')
 
 // Set api key for Happy Kit feature flags
 const happyKitKey = process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
@@ -101,16 +100,24 @@ module.exports = withSwingset({
 				JSON.stringify(simpleRedirects, null, 2),
 				'utf-8'
 			)
-			return globRedirects
+			return [
+				...globRedirects,
+				// {
+				// 	source: '/:product/tutorials/:collection/:tutorial',
+				// 	destination: '/:product/tutorials/:collection/:tutorial/hcp',
+				// 	has: [
+				// 		{
+				// 			type: 'cookie',
+				// 			key: 'consul',
+				// 			value: 'hcp',
+				// 		},
+				// 	],
+				// 	permanent: false,
+				// },
+			]
 		},
 		async rewrites() {
 			const rewrites = await rewritesConfig()
-			const variantRewrites = await getVariantRewrites()
-			console.log({ variantRewrites })
-			fs.writeFileSync(
-				'_generated-variant-rewrites.json',
-				JSON.stringify(variantRewrites, null, 2)
-			)
 
 			if (process.env.DEBUG_REWRITES) {
 				await fs.promises.writeFile(
