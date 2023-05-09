@@ -20,17 +20,20 @@ function ApiDocsVersionAlert({
 	}
 
 	/**
+	 * If this is a versioned URL, but it's the same content as the latest URL,
+	 * we also won't show a version alert.
+	 */
+	if (latestStableVersion.versionId === currentVersion.versionId) {
+		return null
+	}
+
+	/**
 	 * Otherwise, build a message and link, and show the version alert.
 	 */
 	const latestLinkUrl = '/hcp/api-docs/packer'
-	let latestLinkText = 'View latest version'
+	const latestLinkText = 'View latest version'
 	let versionMessage: string
-	if (latestStableVersion.versionId === currentVersion.versionId) {
-		// May be the latest stable version at an "explicit version" URL
-		versionMessage =
-			'You are viewing the latest documentation at a versioned URL.'
-		latestLinkText = `View at the latest URL`
-	} else if (currentVersion.releaseStage === 'preview') {
+	if (currentVersion.releaseStage === 'preview') {
 		// May be a preview version
 		versionMessage = `You are viewing documentation for the preview version ${currentVersion.versionId}.`
 	} else {
