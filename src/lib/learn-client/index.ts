@@ -2,7 +2,7 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-
+import { PHASE_PRODUCTION_BUILD } from 'next/constants'
 import { withTiming } from 'lib/with-timing'
 
 function getFetch() {
@@ -27,7 +27,7 @@ const fetch = (...params) => {
 	)
 }
 
-export function get(path: string, token?: string) {
+export async function get(path: string, token?: string) {
 	const options: RequestInit = {
 		method: 'GET',
 	}
@@ -35,6 +35,62 @@ export function get(path: string, token?: string) {
 	if (token) {
 		options.headers = {
 			Authorization: `Bearer ${token}`,
+		}
+	}
+
+	// If production build & server, attempt to read from fs as cache
+	if (
+		process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD &&
+		typeof window === 'undefined'
+	) {
+		const _fs = await import('fs')
+		const _path = await import('path')
+		const cacheDir = _path.join(process.cwd(), '.learn-cache')
+
+		// try to make the cache dir
+		try {
+			console.log('- creating cache dir')
+			_fs.mkdirSync(cacheDir)
+			console.log("- created cache dir: '%s'", cacheDir)
+		} catch (e) {
+			console.log('- erroring creating cache dir', e.message)
+			// if it already exists, that's fine
+		}
+
+		const cachePath = _path.join(cacheDir, path.replace(/[/?<>\\:*|"]/g, '_'))
+
+		// If the file exists, return it
+		try {
+			const file = _fs.readFileSync(cachePath, { encoding: 'utf-8' })
+			console.log('[cache HIT]', cachePath)
+			return {
+				ok: true,
+				json: async () => JSON.parse(file),
+			}
+		} catch (e) {
+			console.log('[cache MISS]', cachePath)
+			// If the file doesn't exist, request and cache it
+			const res = await fetch(
+				`${process.env.NEXT_PUBLIC_LEARN_API_BASE_URL}${path}`,
+				options
+			)
+			const json = await res.json()
+
+			try {
+				console.log("- writing cache file: '%s'", cachePath)
+				_fs.writeFileSync(cachePath, JSON.stringify(json))
+				console.log("- wrote cache file: '%s'", cachePath)
+				return {
+					ok: res.ok,
+					json: async () => json,
+				}
+			} catch (e) {
+				console.log('- error writing cache file', e.message)
+				return {
+					ok: res.ok,
+					json: async () => json,
+				}
+			}
 		}
 	}
 

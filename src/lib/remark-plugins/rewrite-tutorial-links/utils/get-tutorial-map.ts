@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { PHASE_PRODUCTION_BUILD } from 'next/constants'
 import fetch from 'node-fetch'
 import moize, { Options } from 'moize'
 import { generateTutorialMap } from 'pages/api/tutorials-map'
@@ -10,7 +11,10 @@ import { withTiming } from 'lib/with-timing'
 
 export async function getTutorialMap() {
 	let result = {}
-	const isDuringBuild = process.env.VERCEL && process.env.CI
+	const isDuringBuild =
+		process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD ||
+		(process.env.VERCEL && process.env.CI)
+
 	const baseUrl = process.env.VERCEL_URL
 		? `https://${process.env.VERCEL_URL}`
 		: 'http://localhost:3000'
