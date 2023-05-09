@@ -13,7 +13,7 @@ import { Badges, getIsBeta } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
 import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
-import { NextRouter, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { VariantOption } from 'views/tutorial-view/utils/variants'
 import { TutorialVariant } from 'views/tutorial-view/types'
 import { useVariants } from 'views/tutorial-view/utils/variants'
@@ -50,7 +50,7 @@ export default function TutorialMeta({
 }: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 	const router = useRouter()
-	const { activeVariant, setActiveVariant } = useVariants()
+	const { activeVariant } = useVariants()
 
 	/**
 	 * We only need to show the Create Account CTA if auth is enabled and there is
@@ -89,23 +89,37 @@ export default function TutorialMeta({
 					<TutorialMetaBookmarkButton
 						tutorial={{ id: tutorialId, name: heading.text }}
 					/>
-					{variant
-						? variant.allOptions.map((option: VariantOption) => (
-								<ButtonLink
-									key={option.id}
-									color={activeVariant === option.id ? 'primary' : 'secondary'}
-									text={option.name}
-									href={getVariantPath(router.asPath, option.id)} // make work with hashes & query etc
-									onClick={() => {
-										const variantCookie = Cookies.get(variant.id)
-										// if it exists and its not already set with the same value
-										if (!variantCookie || variantCookie !== option.id) {
-											Cookies.set(variant.id, option.id)
-										}
-									}}
-								/>
-						  ))
-						: null}
+
+					{variant ? (
+						<>
+							<label id="variant-options-label">{variant.id}</label>
+							<nav>
+								<ul aria-labelledby="variant-options-label">
+									{variant.allOptions.map((option: VariantOption) => (
+										<li
+											key={option.id}
+											aria-current={activeVariant === option.id}
+										>
+											<ButtonLink
+												color={
+													activeVariant === option.id ? 'primary' : 'secondary'
+												}
+												text={option.name}
+												href={getVariantPath(router.asPath, option.id)} // make work with hashes & query etc
+												onClick={() => {
+													const variantCookie = Cookies.get(variant.id)
+													// if it exists and its not already set with the same value
+													if (!variantCookie || variantCookie !== option.id) {
+														Cookies.set(variant.id, option.id)
+													}
+												}}
+											/>
+										</li>
+									))}
+								</ul>
+							</nav>
+						</>
+					) : null}
 				</span>
 				{/* {variant ? (
 					<fieldset>

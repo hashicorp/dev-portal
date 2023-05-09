@@ -100,21 +100,7 @@ module.exports = withSwingset({
 				JSON.stringify(simpleRedirects, null, 2),
 				'utf-8'
 			)
-			return [
-				...globRedirects,
-				// {
-				// 	source: '/:product/tutorials/:collection/:tutorial',
-				// 	destination: '/:product/tutorials/:collection/:tutorial/hcp',
-				// 	has: [
-				// 		{
-				// 			type: 'cookie',
-				// 			key: 'consul',
-				// 			value: 'hcp',
-				// 		},
-				// 	],
-				// 	permanent: false,
-				// },
-			]
+			return globRedirects
 		},
 		async rewrites() {
 			const rewrites = await rewritesConfig()
