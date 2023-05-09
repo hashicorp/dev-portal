@@ -1,0 +1,79 @@
+{
+	"terraform": {
+		"title": "Build, change, and destroy infrastructure",
+		"description": "Terraform is an infrastructure as code tool that lets you build, change, and version infrastructure safely and efficiently.",
+		"featuredUseCases": [
+			{
+				"href": "/terraform/tutorials/applications",
+				"text": "Deploy and Monitor Applications"
+			},
+			{ "href": "/terraform/tutorials/aws", "text": "Manage AWS Services" },
+			{ "href": "/terraform/tutorials/azure", "text": "Manage Azure Services" }
+		],
+		"featuredCollections": [
+			{
+				"href": "/terraform/tutorials/aws-get-started",
+				"title": "Get started with AWS",
+				"description": "Build, change, and destroy AWS infrastructure.",
+				"tutorialCount": "8",
+				"badges": ["terraform", "video", "interactive"]
+			},
+			{
+				"href": "/terraform/tutorials/azure-get-started",
+				"title": "Get started with Azure",
+				"description": "Build, change, and destroy Azure infrastructure.",
+				"tutorialCount": "8",
+				"badges": ["terraform", "video", "interactive"]
+			},
+			{
+				"href": "/terraform/tutorials/cloud-get-started/cloud-sign-up",
+				"title": "Get started with Terraform Cloud",
+				"description": "Collaborate on version-controlled configuration.",
+				"tutorialCount": "10",
+				"badges": ["terraform"]
+			}
+		]
+	},
+	"packer": {
+		"title": "Automate creating machine images",
+		"description": "Packer is an open source tool that lets you create identical machine images for multiple platforms from a single source template. Packer can create golden images to use in image pipelines.",
+		"featuredUseCases": null,
+		"featuredCollections": null
+	},
+	"consul": {
+		"title": "Manage secure network connectivity",
+		"description": "Consul is a service networking solution that enables teams to manage secure network connectivity between services and across multi-cloud environments and runtimes. Consul offers service discovery, identity-based authorization, L7 traffic management, and service-to-service encryption.",
+		"featuredUseCases": null,
+		"featuredCollections": null
+	},
+	"vault": {
+		"title": "Secure, store, and tightly control access to secrets",
+		"description": "Vault is an identity-based secrets and encryption management system. A secret is anything that you want to tightly control access to, such as API encryption keys, passwords, and certificates. Vault provides encryption services that are gated by authentication and authorization methods. Using Vault’s UI, CLI, or HTTP API, access to secrets and other sensitive data can be securely stored and managed, tightly controlled (restricted), and auditable.",
+		"featuredUseCases": null,
+		"featuredCollections": null
+	},
+	"boundary": {
+		"title": "Manage identity-based access",
+		"description": "Boundary is a tool for managing identity-based access for modern, dynamic infrastructure.",
+		"featuredUseCases": null,
+		"featuredCollections": null
+	},
+	"nomad": {
+		"title": "Schedule and orchestrate workloads",
+		"description": "Nomad is a flexible workload orchestrator that enables an organization to easily deploy and manage any containerized or legacy application using a single, unified workflow. Nomad can run a diverse workload of Docker, non-containerized, microservice, and batch applications.",
+		"featuredUseCases": null,
+		"featuredCollections": null
+	},
+	"waypoint": {
+		"title": "Publish any application to any platform",
+		"description": "Waypoint allows developers to deploy, manage, and observe their applications through a consistent abstraction of underlying infrastructure. Waypoint works with Kubernetes, ECS and many other platforms.",
+		"featuredUseCases": null,
+		"featuredCollections": null
+	},
+	"vagrant": {
+		"title": "Build and manage virtual machine environments",
+		"description": "Vagrant is the command line utility for managing the lifecycle of virtual machines. Isolate dependencies and their configuration within a single disposable and consistent environment.",
+		"featuredUseCases": null,
+		"featuredCollections": null
+	}
+}
