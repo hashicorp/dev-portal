@@ -41,6 +41,13 @@ export interface IntegrationComponent {
 	plural_name: string
 }
 
+export interface IntegrationType extends BaseModel {
+	slug: string
+	name: string
+	plural_name: string
+	description: string
+}
+
 export interface Integration extends BaseModel {
 	slug: string
 	name: string | null
@@ -58,6 +65,7 @@ export interface Integration extends BaseModel {
 	flags: Array<Flag>
 	versions: string[]
 	components: Array<IntegrationComponent>
+	integration_type: IntegrationType | null
 }
 
 async function fetchProductIntegrations(
