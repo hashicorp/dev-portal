@@ -88,6 +88,7 @@ const DevDotContent = ({
 		content = (
 			<MDXRemote
 				{...mdxRemoteProps}
+				// @ts-expect-error -- The next-mdx-remote types are wrong here, we don't want a record of ReactNode
 				components={{
 					...DEFAULT_MDX_COMPONENTS,
 					...mdxRemoteProps?.components,

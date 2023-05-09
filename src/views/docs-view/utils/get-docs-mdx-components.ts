@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactNode } from 'react'
+import { type ComponentType } from 'react'
 import dynamic from 'next/dynamic'
 import { ProductSlug } from 'types/products'
 import defaultMdxComponents from 'layouts/sidebar-sidecar/utils/_local_platform-docs-mdx'
@@ -47,7 +47,10 @@ const HCPCallout = dynamic(
 	() => import('components/dev-dot-content/mdx-components/mdx-hcp-callout')
 )
 
-const productsToPrimitives: Record<ProductSlug, Record<string, ReactNode>> = {
+const productsToPrimitives: Record<
+	ProductSlug,
+	Record<string, ComponentType>
+> = {
 	boundary: null,
 	consul: { ConfigEntryReference },
 	hcp: { HCPCallout },

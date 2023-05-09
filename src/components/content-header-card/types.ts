@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { type ReactElement } from 'react'
 import { Badge } from 'components/badge-list/types'
 import { ProductSlug } from 'types/products'
 
@@ -24,7 +25,7 @@ export interface Link {
 
 export interface Button {
 	text: string
-	icon?: JSX.IntrinsicElements['svg']
+	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>
 	isPrimary?: boolean
 	onClick: () => void
 }

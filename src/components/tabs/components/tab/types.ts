@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 
 export interface TabProps {
 	/**
@@ -19,5 +19,5 @@ export interface TabProps {
 	/**
 	 * An optional icon to render before the text of a Tab.
 	 */
-	icon?: JSX.IntrinsicElements['svg']
+	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>
 }
