@@ -1,0 +1,14 @@
+.hitContainer {
+	border: 1px solid black;
+	padding: 1rem;
+	border-radius: 5px;
+}
+
+.withHighlight {
+	color: black;
+	& mark {
+		background-color: transparent;
+		color: var(--token-color-foreground-action);
+		font-style: normal;
+	}
+}

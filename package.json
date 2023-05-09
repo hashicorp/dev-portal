@@ -8,6 +8,7 @@
 		"clean": "rimraf .next node_modules",
 		"lint": "next-hashicorp lint",
 		"lint:stylelint": "npx stylelint '**/*.css'",
+		"temp-update-unified-index": "hc-tools ./scripts/_temp-update-unified-index/index.ts",
 		"prebuild": "hc-tools ./scripts/remove-inactive-product-pages.ts && hc-tools ./scripts/generate-opt-in-redirect-checks.ts",
 		"prepare": "simple-git-hooks",
 		"prettier:check": "prettier --check .",
