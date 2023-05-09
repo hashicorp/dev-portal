@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import { InlineAlertProps } from 'components/inline-alert'
 
 export interface MdxInlineAlertProps {
