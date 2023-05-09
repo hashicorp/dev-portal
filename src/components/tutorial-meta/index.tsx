@@ -107,6 +107,40 @@ export default function TutorialMeta({
 						  ))
 						: null}
 				</span>
+				{/* {variant ? (
+					<fieldset>
+						<legend>{variant.id}</legend>
+						<div id="radioGroup">
+							{variant?.allOptions.map((option: VariantOption) => (
+								<>
+									<input
+										checked={option.id === activeVariant}
+										type="radio"
+										id={`${variant.id}:${option.id}`}
+										name={variant.id}
+										value={option.id}
+										onChange={(e) => {
+											const url = new URL(
+												router.asPath,
+												'https://developer.hashicorp.com'
+											)
+											url.searchParams.set('variant', option.id)
+											const path = `${url.pathname.toString()}${url.search.toString()}`
+											router.push(path, path, {
+												shallow: true,
+											})
+											setActiveVariant(option.id)
+											// TODO add cookie here
+										}}
+									/>
+									<label htmlFor={`${variant.id}:${option.id}`}>
+										{option.name}
+									</label>
+								</>
+							))}
+						</div>
+					</fieldset>
+				) : null} */}
 				{showCreateAccountCta ? (
 					<Text className={s.createAccountCta} size={200}>
 						Reference this often?{' '}
