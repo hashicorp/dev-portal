@@ -127,6 +127,14 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	 * and the existence of a pre-defined variant key. For demonstration, this is hard-coded to checking for ?variant=
 	 */
 
+	/**
+	 * - build up a map of all variant tutorial paths
+	 * 	- query the api for all tutorials, filter out those that don't have variants
+	 * - write the file to a generated artifact
+	 * - in middleware, check for the cookie, check whether the request path has the same
+	 * - variant as an active cookie
+	 */
+
 	if (
 		req.nextUrl.pathname.includes('/tutorials') &&
 		req.nextUrl.searchParams.has('variant')
