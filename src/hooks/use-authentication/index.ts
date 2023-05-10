@@ -85,7 +85,7 @@ const useAuthentication = (
 		const segmentUserId = safeGetSegmentId()
 
 		if (canAnalyzeUser() && segmentUserId !== session.id) {
-			analytics?.identify(session.id, {
+			window.analytics?.identify(session.id, {
 				email: user.email,
 				devPortalSignUp: true,
 			})
