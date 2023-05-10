@@ -43,6 +43,7 @@ export async function getApiDocsStaticProps({
 	pathParts,
 	versionData,
 	buildCustomBreadcrumbs,
+	mayHaveCircularReferences,
 }: {
 	productSlug: ProductSlug
 	baseUrl: string
@@ -62,6 +63,16 @@ export async function getApiDocsStaticProps({
 		productData: ProductData
 		versionId?: string
 	}) => BreadcrumbLink[]
+	/**
+	 * The Waypoint API docs have circular references.
+	 * We manually try to deal with those. This is a band-aid solution,
+	 * it seems to have unintended side-effects when applied to other
+	 * products' API docs, and almost certainly merits further investigation.
+	 *
+	 * Asana task:
+	 * https://app.asana.com/0/1202097197789424/1203989531295664/f
+	 */
+	mayHaveCircularReferences?: boolean
 }): Promise<GetStaticPropsResult<ApiDocsViewProps>> {
 	/**
 	 * Parse out URL params
@@ -92,6 +103,7 @@ export async function getApiDocsStaticProps({
 	const schemaProps = await buildSchemaProps({
 		targetFile: currentVersion.targetFile,
 		serviceId,
+		mayHaveCircularReferences,
 	})
 	// If page props were not found, render a 404 page
 	if ('notFound' in schemaProps) {

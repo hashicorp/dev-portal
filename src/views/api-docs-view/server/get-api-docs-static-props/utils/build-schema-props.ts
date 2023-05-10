@@ -29,9 +29,20 @@ import type { ApiDocsSwaggerSchema, ApiDocsServiceData } from '../../../types'
 async function buildSchemaProps({
 	targetFile,
 	serviceId,
+	mayHaveCircularReferences,
 }: {
 	targetFile: GithubFile
 	serviceId?: string
+	/**
+	 * The Waypoint API docs have circular references.
+	 * We manually try to deal with those. This is a band-aid solution,
+	 * it seems to have unintended side-effects when applied to other
+	 * products' API docs, and almost certainly merits further investigation.
+	 *
+	 * Asana task:
+	 * https://app.asana.com/0/1202097197789424/1203989531295664/f
+	 */
+	mayHaveCircularReferences?: boolean
 }): Promise<
 	| {
 			schema: ApiDocsSwaggerSchema
@@ -56,7 +67,10 @@ async function buildSchemaProps({
 	 * TODO: would be ideal to add return types to these two functions.
 	 * Slightly outside scope of current work, leaving this alone for now.
 	 */
-	const operationObjects = getOperationObjects(schema) as OperationObjectType[]
+	const operationObjects = getOperationObjects(
+		schema,
+		mayHaveCircularReferences
+	) as OperationObjectType[]
 	const serviceIds = getServiceIds(operationObjects) as string[]
 
 	/**

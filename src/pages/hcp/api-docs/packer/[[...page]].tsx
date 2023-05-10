@@ -64,7 +64,7 @@ function HcpPackerApiDocsView(props: ApiDocsViewProps) {
  */
 export const getStaticPaths: GetStaticPaths<ApiDocsParams> = async () => {
 	const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
-	return await getApiDocsStaticPaths(PRODUCT_SLUG, versionData)
+	return await getApiDocsStaticPaths({ productSlug: PRODUCT_SLUG, versionData })
 }
 
 /**
