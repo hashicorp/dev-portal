@@ -46,7 +46,7 @@ export interface ApiDocsVersionData {
 	// A unique id for this version, used to construct URL paths for example
 	versionId: string
 	// The release stage of this version of the API docs
-	releaseStage: string // typically 'stable' | 'preview'
+	releaseStage?: string // typically 'stable' | 'preview'
 	// The schema file we'll fetch and render into the page for this version
 	targetFile: GithubFile
 }

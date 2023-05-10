@@ -22,6 +22,14 @@ import type {
 	ApiDocsViewProps,
 } from 'views/api-docs-view/types'
 import type { GetStaticPaths, GetStaticProps } from 'next'
+import {
+	buildApiDocsBreadcrumbs,
+	buildSidebarNavDataLevels,
+} from 'views/api-docs-view/server/get-api-docs-static-props/utils'
+import {
+	generateProductLandingSidebarNavData,
+	generateTopLevelSidebarNavData,
+} from 'components/sidebar/helpers'
 
 /**
  * The product slug is used to fetch product data for the layout.
@@ -58,8 +66,13 @@ function getVersionData(): ApiDocsVersionData[] {
 	}
 	return [
 		{
+			/**
+			 * Note this is a `versionId` placeholder. Since it isn't date-based,
+			 * currently we won't render a dedicated versioned URL for it.
+			 * In the future, we could support version formats other than date-based.
+			 * That might better align with versioned API docs for Waypoint.
+			 */
 			versionId: 'latest',
-			releaseStage: 'stable',
 			targetFile,
 		},
 	]
@@ -112,6 +125,42 @@ export const getStaticProps: GetStaticProps<
 		pathParts: params.page,
 		versionData,
 		mayHaveCircularReferences: MAY_HAVE_CIRCULAR_REFERENCES,
+		buildCustomSidebarNavDataLevels: ({ productData, serviceIds }) => {
+			return [
+				generateTopLevelSidebarNavData(productData.name),
+				generateProductLandingSidebarNavData(productData),
+				{
+					backToLinkProps: {
+						text: `${productData.name} Home`,
+						href: `/${productData.slug}`,
+					},
+					visuallyHideTitle: true,
+					title: 'API',
+					levelButtonProps: {
+						levelUpButtonText: `${productData.name} Home`,
+					},
+					menuItems: [
+						{
+							title: 'API',
+							fullPath: '/waypoint/api-docs',
+							theme: productData.slug,
+						},
+					],
+				},
+			]
+		},
+		buildCustomBreadcrumbs: ({ productData, versionId }) => {
+			return buildApiDocsBreadcrumbs({
+				productData,
+				apiDocs: { name: 'API', url: BASE_URL },
+				/**
+				 * Note: We intentionally omit `serviceData`, to avoid an extra item
+				 * in the breadcrumb, as unlike `/hcp/api-docs/packer`
+				 * we don't want to include a link with the service name.
+				 */
+				versionId,
+			})
+		},
 	})
 }
 

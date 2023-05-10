@@ -42,6 +42,7 @@ export async function getApiDocsStaticProps({
 	baseUrl,
 	pathParts,
 	versionData,
+	buildCustomSidebarNavDataLevels,
 	buildCustomBreadcrumbs,
 	mayHaveCircularReferences,
 }: {
@@ -63,6 +64,19 @@ export async function getApiDocsStaticProps({
 		productData: ProductData
 		versionId?: string
 	}) => BreadcrumbLink[]
+	/**
+	 * Optional. Override the default method for building breadcrumbs.
+	 * Used by Waypoint API docs, as they
+	 */
+	buildCustomSidebarNavDataLevels?: ({
+		productData,
+		serviceIds,
+		versionId,
+	}: {
+		productData: ProductData
+		serviceIds: string[]
+		versionId?: string
+	}) => $TSFixMe
 	/**
 	 * The Waypoint API docs have circular references.
 	 * We manually try to deal with those. This is a band-aid solution,
@@ -133,19 +147,23 @@ export async function getApiDocsStaticProps({
 	/**
 	 * Build sidebar nav data levels
 	 */
-	const sidebarNavDataLevels = buildSidebarNavDataLevels({
-		productData,
-		serviceIds,
-		versionId,
-		baseUrl,
-	})
+	const sidebarNavDataLevels = buildCustomSidebarNavDataLevels
+		? buildCustomSidebarNavDataLevels({ productData, serviceIds, versionId })
+		: buildSidebarNavDataLevels({
+				productData,
+				serviceIds,
+				versionId,
+				baseUrl,
+		  })
 
 	/**
 	 * Build a heading for versioned pages, showing a `releaseStage` badge
 	 */
 	const pageHeading = {
 		text: schema.info.title,
-		badgeText: sentenceCase(currentVersion.releaseStage),
+		badgeText: currentVersion.releaseStage
+			? sentenceCase(currentVersion.releaseStage)
+			: null,
 	}
 
 	/**
