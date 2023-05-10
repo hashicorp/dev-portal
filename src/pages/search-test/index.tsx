@@ -43,15 +43,16 @@ function CustomHits() {
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
 			{hits.map((hit) => {
-				const { objectID, _type, _highlightResult } = hit as $TSFixMe
-				const { page_title, description, urlPath, products } = _highlightResult
+				const { objectID, _highlightResult } = hit as $TSFixMe
+				const { page_title, _type, description, urlPath, products } =
+					_highlightResult
 				return (
 					<div key={objectID}>
 						<CardLink href={hit.urlPath} ariaLabel={hit.page_title as string}>
 							<Text
 								dangerouslySetInnerHTML={{
 									__html:
-										`[${_type}] ` +
+										`[${_type?.value}] ` +
 										page_title?.value +
 										` (products: ${(products || [])
 											.map((p) => p?.value)
