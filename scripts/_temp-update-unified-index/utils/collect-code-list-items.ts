@@ -1,9 +1,12 @@
 import remark from 'remark'
 import { visit } from 'unist-util-visit'
 import { is } from 'unist-util-is'
+// import visit from 'unist-util-visit'
+// import is from 'unist-util-is'
 // types
 import type { ListItem, Paragraph, InlineCode } from 'mdast'
 import type { Plugin } from 'unified'
+import toString from 'mdast-util-to-string'
 
 /**
  * A remark plugin that finds <li /> nodes that start with inline code,
@@ -31,7 +34,7 @@ const codeListItemCollector: Plugin<[{ collector: string[] }]> =
 				return
 			}
 			// If we have found <li> → <p> → <code>, then we extract the text.
-			collector.push(nestedChild.value)
+			collector.push(toString(nestedChild))
 		})
 	}
 
@@ -57,7 +60,7 @@ export async function collectCodeListItems(
 	return remark()
 		.use(codeListItemCollector, { collector: codeListItems })
 		.process(mdxContent)
-		.then(() => codeListItems)
+		.then(() => codeListItems.slice(0, 100))
 }
 
 /**

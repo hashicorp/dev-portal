@@ -3,10 +3,6 @@ import { getSlugsForRemoteLoader } from './get-slugs-for-remote-loader'
 
 const fetch = createFetch(null, { timeout: 2 * 1000 })
 
-function sleep(ms: number) {
-	return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
 /**
  * Fetch docs records to add to our search index.
  */
@@ -25,7 +21,6 @@ export async function fetchDocs(
 	const docsRecords = []
 	const failedRecords = []
 	for (let i = startFrom; i < docsPaths.length; i++) {
-		await sleep(10)
 		const uniquePath = docsPaths[i].path
 		const [urlProductSlug, urlBasePath, ...restPath] = uniquePath.split('/')
 		const { productSlug, basePath } = getSlugsForRemoteLoader(

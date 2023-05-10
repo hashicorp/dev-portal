@@ -2,6 +2,7 @@ import remark from 'remark'
 import type { Heading } from 'mdast'
 import type { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
+// import visit from 'unist-util-visit'
 import toString from 'mdast-util-to-string'
 
 export async function collectHeadings(mdxContent: string): Promise<string[]> {
@@ -20,5 +21,5 @@ export async function collectHeadings(mdxContent: string): Promise<string[]> {
 	return remark()
 		.use(headingMapper)
 		.process(mdxContent)
-		.then(() => headings)
+		.then(() => headings.slice(0, 100).map((h) => h.split('<a')[0]))
 }

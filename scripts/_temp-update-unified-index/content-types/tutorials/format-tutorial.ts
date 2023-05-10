@@ -1,4 +1,5 @@
 import { NormalizedSearchObject } from '../../types'
+import { collectHeadings } from '../../utils/collect-headings'
 
 type ApiTutorial = $TSFixMe
 
@@ -15,9 +16,9 @@ type ApiTutorial = $TSFixMe
  * on an actual need for such attributes, rather than trying to preemptively
  * add them.
  */
-export function formatTutorial(
+export async function formatTutorial(
 	tutorialRecord: ApiTutorial
-): NormalizedSearchObject {
+): Promise<NormalizedSearchObject> {
 	const tutorialSlug = tutorialRecord.slug.split('/')[1]
 	const collectionSlug = tutorialRecord.default_collection.slug.split('/')[1]
 	const collectionSection = tutorialRecord.default_collection.slug.split('/')[0]
@@ -33,12 +34,21 @@ export function formatTutorial(
 	 * that it's worth maintaining, rather than trying to create a completely
 	 * UI-and-URL agnostic search object.
 	 */
-	const urlPath = `/${collectionSection}/tutorials/${collectionSlug}/${tutorialSlug}`
+	let urlPath
+	if (collectionSection === 'well-architected-framework') {
+		urlPath = `/${collectionSection}/${collectionSlug}/${tutorialSlug}`
+	} else if (collectionSection === 'cloud') {
+		urlPath = `/hcp/tutorials/${collectionSlug}/${tutorialSlug}`
+	} else {
+		urlPath = `/${collectionSection}/tutorials/${collectionSlug}/${tutorialSlug}`
+	}
 	return {
 		objectID: tutorialRecord.id,
 		description: tutorialRecord.description,
 		page_title: tutorialRecord.name,
 		products: tutorialRecord.products_used.map((p: $TSFixMe) => p.product.slug),
 		urlPath,
+		headings: await collectHeadings(tutorialRecord.content),
+		codeListItems: [],
 	}
 }

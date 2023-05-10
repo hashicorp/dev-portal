@@ -28,6 +28,21 @@ const searchClient = algoliasearch(appId, apiKey)
 // 	},
 // }
 
+function renderHighlightArray(facet, matchesOnly = false) {
+	return (facet || [])
+		.filter((entry) => {
+			if (matchesOnly) {
+				return entry.matchLevel !== 'none'
+			} else {
+				return true
+			}
+		})
+		.map((entry) => {
+			return entry?.value
+		})
+		.join(', ')
+}
+
 function CustomHits() {
 	const { indexUiState } = useInstantSearch()
 	const { hits } = useHits()
@@ -44,8 +59,19 @@ function CustomHits() {
 		<div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
 			{hits.map((hit) => {
 				const { objectID, _highlightResult } = hit as $TSFixMe
-				const { page_title, _type, description, urlPath, products } =
-					_highlightResult
+				const {
+					page_title,
+					_type,
+					description,
+					urlPath,
+					products,
+					headings,
+					codeListItems,
+				} = _highlightResult
+
+				const headingsHighlight = renderHighlightArray(headings, true)
+				const codeListItemsHighlight = renderHighlightArray(codeListItems, true)
+
 				return (
 					<div key={objectID}>
 						<CardLink href={hit.urlPath} ariaLabel={hit.page_title as string}>
@@ -54,9 +80,7 @@ function CustomHits() {
 									__html:
 										`[${_type?.value}] ` +
 										page_title?.value +
-										` (products: ${(products || [])
-											.map((p) => p?.value)
-											.join(', ')})`,
+										` (products: ${renderHighlightArray(products)})`,
 								}}
 								asElement="span"
 								className={s.withHighlight}
@@ -68,20 +92,67 @@ function CustomHits() {
 								dangerouslySetInnerHTML={{
 									__html: description?.value,
 								}}
-								asElement="span"
+								style={{ lineHeight: '1.6em', marginTop: '4px' }}
 								className={s.withHighlight}
 								size={200}
 							/>
-							<br />
 							<Text
 								dangerouslySetInnerHTML={{
 									__html: urlPath?.value,
 								}}
-								asElement="span"
 								className={s.withHighlight}
-								style={{ color: 'gray' }}
+								style={{ color: 'gray', marginTop: '8px' }}
 								size={200}
 							/>
+							{headingsHighlight ? (
+								<>
+									<Text
+										style={{ marginTop: '12px' }}
+										size={200}
+										weight="medium"
+									>
+										Headings:
+									</Text>
+									<Text
+										dangerouslySetInnerHTML={{
+											__html: headingsHighlight,
+										}}
+										asElement="span"
+										className={s.withHighlight}
+										style={{
+											color: 'gray',
+											display: 'block',
+											paddingLeft: '8px',
+										}}
+										size={200}
+									/>
+								</>
+							) : null}
+							{codeListItemsHighlight ? (
+								<>
+									<Text
+										style={{ marginTop: '12px' }}
+										size={200}
+										weight="medium"
+									>
+										Code List Items:
+									</Text>
+									<Text
+										dangerouslySetInnerHTML={{
+											__html: codeListItemsHighlight,
+										}}
+										asElement="span"
+										className={s.withHighlight}
+										style={{
+											color: 'gray',
+											display: 'block',
+											paddingLeft: '8px',
+										}}
+										size={200}
+									/>
+								</>
+							) : null}
+
 							{/* <pre>
 								<code>{JSON.stringify({ hit }, null, 2)}</code>
 							</pre> */}

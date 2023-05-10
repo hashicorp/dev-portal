@@ -19,19 +19,26 @@ const INTEGRATIONS_API = process.env.NEXT_PUBLIC_INTEGRATIONS_API_BASE_URL
 const LEARN_API = process.env.NEXT_PUBLIC_LEARN_API_BASE_URL
 
 async function main() {
-	const LIMIT = 5
+	const LIMIT = undefined
 	/**
 	 * Fetch and format search objects from all sources
 	 */
 	// Fetch and format "Docs" search objects
-	const docsRecords = await fetchDocs(DOCS_API, LIMIT)
+	// TODO: realistically needs a couple of manual passes to be manageable...
+	const docsRecords = await fetchDocs(DOCS_API, 3000, 1999)
 	const docsSearchObjects = []
+	let i = 0
 	for (const docsRecord of docsRecords) {
 		docsSearchObjects.push(await formatDoc(docsRecord))
+		console.log(`${i + 1} / ${docsRecords.length} Processed docsRecord.`)
+		i++
 	}
 	// Fetch and format "Tutorials" search objects
 	const tutorialRecords = await fetchTutorials(LEARN_API, LIMIT)
-	const tutorialSearchObjects = tutorialRecords.map(formatTutorial)
+	const tutorialSearchObjects = []
+	for (const tutorialRecord of tutorialRecords) {
+		tutorialSearchObjects.push(await formatTutorial(tutorialRecord))
+	}
 	// Fetch and format "Integrations" search objects
 	const integrationRecords = await fetchIntegrations(INTEGRATIONS_API, LIMIT)
 	const integrationSearchObjects = integrationRecords.map(formatIntegration)
@@ -47,9 +54,9 @@ async function main() {
 		}))
 	}
 	const allSearchObjects = [
-		...addType(docsSearchObjects, 'docs'),
+		// ...addType(docsSearchObjects, 'docs'),
 		...addType(tutorialSearchObjects, 'tutorial'),
-		...addType(integrationSearchObjects, 'integration'),
+		// ...addType(integrationSearchObjects, 'integration'),
 	]
 	/**
 	 * Push the search objects to Algolia

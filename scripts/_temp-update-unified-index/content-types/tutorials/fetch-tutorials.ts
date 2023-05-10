@@ -13,7 +13,7 @@ export async function fetchTutorials(apiBaseUrl: string, limit?: number) {
 	const result = await fetchRecursive({
 		endpointUrl,
 		limit,
-		extraParams: { limit: '20' },
+		extraParams: { limit: '20', full: '1' },
 	})
 	return result
 }
