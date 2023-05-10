@@ -33,6 +33,9 @@ const targetFile = {
 // The path to read from when running local preview in the context of the waypoint repository
 const targetLocalFile = '../../pkg/server/gen/server.swagger.json'
 
+/**
+ * TODO: use revised `views/api-docs-view` & related utilities.
+ */
 type ApiDocsViewProps = InferGetStaticPropsType<typeof getStaticProps>
 const ApiDocsView: CustomPageComponent<ApiDocsViewProps> = ({
 	apiPageProps,
