@@ -81,9 +81,26 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 					name="google-site-verification"
 					content="zRQZqfAsOX-ypXfU0mzAIzb5rUvj5fA4Zw2jWJRN-JI"
 				/>
-				<meta name="zd-site-verification" content="9qmgy2yz6zbk00tcci2y" />
-				<meta name="zd-site-verification" content="sofub11in9jqtgm2ep394s" />
-				<meta name="zd-site-verification" content="i9kf36ff33gvhvcjrvsik" />
+				{/**
+				 * Note that `key` values here are necessary, as NextJS de-dupes
+				 * `meta` tags based on `name`.
+				 * Ref: https://github.com/vercel/next.js/pull/17099
+				 */}
+				<meta
+					name="zd-site-verification"
+					key="9qmgy2yz6zbk00tcci2y"
+					content="9qmgy2yz6zbk00tcci2y"
+				/>
+				<meta
+					name="zd-site-verification"
+					key="sofub11in9jqtgm2ep394s"
+					content="sofub11in9jqtgm2ep394s"
+				/>
+				<meta
+					name="zd-site-verification"
+					key="i9kf36ff33gvhvcjrvsik"
+					content="i9kf36ff33gvhvcjrvsik"
+				/>
 
 				{/* Some og tags do not get picked up for twitter's share cards, so we need these tags as well */}
 				<meta name="twitter:image" key="twitter:image" content={ogImageUrl} />
