@@ -4,4 +4,6 @@ export interface NormalizedSearchObject {
 	products: string[]
 	page_title: string
 	description: string
+	headings?: string[]
+	codeListItems?: string[]
 }
