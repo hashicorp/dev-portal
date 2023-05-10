@@ -52,8 +52,10 @@ function CustomHits() {
 								dangerouslySetInnerHTML={{
 									__html:
 										`[${_type}] ` +
-										page_title.value +
-										` (products: ${products.map((p) => p.value).join(', ')})`,
+										page_title?.value +
+										` (products: ${(products || [])
+											.map((p) => p?.value)
+											.join(', ')})`,
 								}}
 								asElement="span"
 								className={s.withHighlight}
@@ -63,7 +65,7 @@ function CustomHits() {
 							<br />
 							<Text
 								dangerouslySetInnerHTML={{
-									__html: description.value,
+									__html: description?.value,
 								}}
 								asElement="span"
 								className={s.withHighlight}
@@ -72,7 +74,7 @@ function CustomHits() {
 							<br />
 							<Text
 								dangerouslySetInnerHTML={{
-									__html: urlPath.value,
+									__html: urlPath?.value,
 								}}
 								asElement="span"
 								className={s.withHighlight}

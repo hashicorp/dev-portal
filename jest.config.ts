@@ -53,7 +53,7 @@ const ignorePatternForModuleType = isRunningInEsmMode
  */
 const config: Config.InitialOptions = {
 	setupFilesAfterEnv: ['<rootDir>/.test/setup-jest.js'],
-	roots: ['config', 'src', 'build-libs', 'stylelint-rules'],
+	roots: ['config', 'src', 'build-libs', 'stylelint-rules', 'scripts'],
 	moduleDirectories: ['node_modules', 'src'],
 	collectCoverageFrom: [
 		'**/*.{js,jsx,ts,tsx}',

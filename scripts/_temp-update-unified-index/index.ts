@@ -19,12 +19,12 @@ const INTEGRATIONS_API = process.env.NEXT_PUBLIC_INTEGRATIONS_API_BASE_URL
 const LEARN_API = process.env.NEXT_PUBLIC_LEARN_API_BASE_URL
 
 async function main() {
-	const LIMIT = 20
+	const LIMIT = undefined
 	/**
 	 * Fetch and format search objects from all sources
 	 */
 	// Fetch and format "Docs" search objects
-	const docsRecords = await fetchDocs(DOCS_API, LIMIT)
+	const docsRecords = await fetchDocs(DOCS_API, 3000)
 	const docsSearchObjects = docsRecords.map(formatDoc)
 	// Fetch and format "Tutorials" search objects
 	const tutorialRecords = await fetchTutorials(LEARN_API, LIMIT)
