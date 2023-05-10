@@ -32,6 +32,9 @@ const targetFile = {
 // The path to read from when running local preview in the context of the boundary repository
 const targetLocalFile = '../../internal/gen/controller.swagger.json'
 
+/**
+ * TODO: use revised `views/api-docs-view` & related utilities.
+ */
 type ApiDocsViewProps = InferGetStaticPropsType<typeof getStaticProps>
 const ApiDocsView: CustomPageComponent<ApiDocsViewProps> = ({
 	apiPageProps,
