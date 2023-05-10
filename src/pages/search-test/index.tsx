@@ -36,11 +36,15 @@ function CustomHits() {
 		return <>Type a search...</>
 	}
 
+	if (hits.length === 0) {
+		return <>No results.</>
+	}
+
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
 			{hits.map((hit) => {
-				const { objectID, _type, products, _highlightResult } = hit as $TSFixMe
-				const { page_title, description, urlPath } = _highlightResult
+				const { objectID, _type, _highlightResult } = hit as $TSFixMe
+				const { page_title, description, urlPath, products } = _highlightResult
 				return (
 					<div key={objectID}>
 						<CardLink href={hit.urlPath} ariaLabel={hit.page_title as string}>
@@ -49,7 +53,7 @@ function CustomHits() {
 									__html:
 										`[${_type}] ` +
 										page_title.value +
-										` (products: ${products.join(', ')})`,
+										` (products: ${products.map((p) => p.value).join(', ')})`,
 								}}
 								asElement="span"
 								className={s.withHighlight}
@@ -76,8 +80,8 @@ function CustomHits() {
 								size={200}
 							/>
 							{/* <pre>
-							<code>{JSON.stringify({ hit }, null, 2)}</code>
-						</pre> */}
+								<code>{JSON.stringify({ hit }, null, 2)}</code>
+							</pre> */}
 						</CardLink>
 					</div>
 				)
