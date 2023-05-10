@@ -82,6 +82,8 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 					content="zRQZqfAsOX-ypXfU0mzAIzb5rUvj5fA4Zw2jWJRN-JI"
 				/>
 				<meta name="zd-site-verification" content="9qmgy2yz6zbk00tcci2y" />
+				<meta name="zd-site-verification" content="sofub11in9jqtgm2ep394s" />
+				<meta name="zd-site-verification" content="i9kf36ff33gvhvcjrvsik" />
 
 				{/* Some og tags do not get picked up for twitter's share cards, so we need these tags as well */}
 				<meta name="twitter:image" key="twitter:image" content={ogImageUrl} />
