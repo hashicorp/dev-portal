@@ -1,44 +1,33 @@
+// Third-party
 import algoliasearch from 'algoliasearch/lite'
-import Link from 'next/link'
-import Text from 'components/text'
 import {
 	InstantSearch,
 	SearchBox,
 	useHits,
 	useInstantSearch,
 } from 'react-instantsearch-hooks-web'
-import s from './search-test.module.css'
+// Components
 import CardLink from 'components/card-link'
+import Text from 'components/text'
+// Local
+import s from './search-test.module.css'
 
-// const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
-// const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
-// const searchClient = algoliasearch(appId, apiKey)
+const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
+const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
+const searchClient = algoliasearch(appId, apiKey)
 
-const customSearchClient = {
-	search(requests) {
-		return fetch('/api/search', {
-			method: 'post',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ requests }),
-		}).then((res) => res.json())
-	},
-}
+// const customSearchClient = {
+// 	search(requests) {
+// 		return fetch('/api/search', {
+// 			method: 'post',
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 			},
+// 			body: JSON.stringify({ requests }),
+// 		}).then((res) => res.json())
+// 	},
+// }
 
-function TextWithHighlight({ html }) {
-	return (
-		<Text
-			dangerouslySetInnerHTML={{
-				__html: html,
-			}}
-			asElement="span"
-			className={s.withHighlight}
-			size={200}
-			weight="medium"
-		/>
-	)
-}
 function CustomHits() {
 	const { indexUiState } = useInstantSearch()
 	const { hits } = useHits()
@@ -101,10 +90,7 @@ function SearchTest() {
 	return (
 		<div style={{ padding: '1rem', maxWidth: '800px', margin: 'auto' }}>
 			<p>Omni Search Test</p>
-			<InstantSearch
-				indexName="spike_DEVDOT_omni"
-				searchClient={customSearchClient}
-			>
+			<InstantSearch indexName="spike_DEVDOT_omni" searchClient={searchClient}>
 				<SearchBox />
 				<CustomHits />
 			</InstantSearch>
