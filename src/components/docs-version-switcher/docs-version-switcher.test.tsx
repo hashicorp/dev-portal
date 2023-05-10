@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { type ReactNode } from 'react'
 import { VersionSelectItem } from 'views/docs-view/loaders/remote-content'
 import { render } from '@testing-library/react'
 import { CurrentProductProvider } from 'contexts'
@@ -49,7 +50,7 @@ describe('DocsVersionSwitcher', () => {
 			},
 		]
 
-		wrapper = function Wrapper({ children }) {
+		wrapper = function Wrapper({ children }: { children: ReactNode }) {
 			return (
 				<CurrentProductProvider
 					currentProduct={

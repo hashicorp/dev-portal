@@ -10,7 +10,7 @@ import {
 	Tier,
 	IntegrationType,
 } from 'lib/integrations-api-client/integration'
-import { createContext, useContext, useMemo } from 'react'
+import { type ReactNode, createContext, useContext, useMemo } from 'react'
 import { QueryParamOptions, useQueryParam, withDefault } from 'use-query-params'
 
 import { decodeDelimitedArray, encodeDelimitedArray } from 'use-query-params'
@@ -47,6 +47,7 @@ export const IntegrationsSearchContext = createContext({
 
 interface Props {
 	integrations: Integration[]
+	children: ReactNode
 }
 
 // The logical sort ordering of the Tiers
@@ -62,10 +63,10 @@ const tierSortVal = (tier: string): number => {
 	}
 }
 
-export const IntegrationsSearchProvider: React.FC<Props> = ({
+export const IntegrationsSearchProvider = ({
 	children,
 	integrations: _integrations,
-}) => {
+}: Props) => {
 	const sharedOptions: QueryParamOptions = {
 		enableBatching: true,
 		updateType: 'replaceIn',

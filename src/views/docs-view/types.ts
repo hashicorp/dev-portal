@@ -23,12 +23,6 @@ export interface DocsViewProps {
 	 */
 	mdxSource: MDXRemoteSerializeResult
 
-	/**
-	 * Identical to the `MDXRemoteProps['lazy']` prop. The value is passed
-	 * unchanged to `MDXRemote`.
-	 */
-	lazy?: boolean
-
 	versions?: VersionSelectItem[]
 
 	/**

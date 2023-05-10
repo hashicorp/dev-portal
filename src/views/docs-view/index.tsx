@@ -40,7 +40,6 @@ function isDocsRootLandingLayout(layoutData) {
 const DocsView = ({
 	metadata,
 	mdxSource,
-	lazy,
 	versions,
 	projectName,
 	layoutProps,
@@ -112,7 +111,6 @@ const DocsView = ({
 			<DevDotContent
 				mdxRemoteProps={{
 					compiledSource,
-					lazy,
 					scope,
 					components: {
 						...docsMdxComponents,
