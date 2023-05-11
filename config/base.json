@@ -22,7 +22,6 @@
 		"canonical_base_url": "https://developer.hashicorp.com",
 		"max_static_paths": 10,
 		"revalidate": 360,
-		"beta_product_slugs": [],
 		"non_product_mobile_menu_routes": [
 			"/",
 			"/_error",
