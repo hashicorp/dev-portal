@@ -15,7 +15,6 @@ const {
 } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
 const loadProxiedSiteRedirects = require('./load-proxied-site-redirects')
-const { loadHashiConfigForEnvironment } = require('../config')
 const { getTutorialRedirects } = require('./tutorial-redirects')
 const {
 	integrationMultipleComponentRedirects,
@@ -24,8 +23,6 @@ const {
 require('isomorphic-unfetch')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
-
-const config = loadHashiConfigForEnvironment()
 
 const PROXIED_PRODUCT = getProxiedProductSlug()
 
@@ -67,10 +64,9 @@ const devPortalToDotIoRedirects = isPreview()
  *
  * @param {Redirect[]} redirects
  * @param {string} productSlug
- * @param {string[]} betaSlugs
  * @returns {Redirect[]}
  */
-function addHostCondition(redirects, productSlug, betaSlugs) {
+function addHostCondition(redirects, productSlug) {
 	const host = proxySettings[productSlug]?.host
 	return redirects.map((redirect) => {
 		if (productSlug == PROXIED_PRODUCT) {
@@ -78,7 +74,7 @@ function addHostCondition(redirects, productSlug, betaSlugs) {
 		}
 
 		// If the productSlug is NOT a beta product, it is GA, so handle the redirect appropriately (exclude sentinel)
-		if (!betaSlugs.includes(productSlug) && productSlug !== 'sentinel') {
+		if (productSlug !== 'sentinel') {
 			// The redirect should always apply in lower environments
 			if (process.env.HASHI_ENV !== 'production') {
 				return redirect
@@ -194,11 +190,7 @@ async function getRedirectsForProduct(
 	// Filter invalid redirects, such as those without a `/{productSlug}` prefix.
 	const validRedirects = filterInvalidRedirects(parsedRedirects, product)
 
-	return addHostCondition(
-		validRedirects,
-		product,
-		config['dev_dot.beta_product_slugs']
-	)
+	return addHostCondition(validRedirects, product)
 }
 
 async function buildProductRedirects() {
@@ -269,11 +261,7 @@ async function buildProductRedirects() {
 	return [
 		...devPortalToDotIoRedirects,
 		...productRedirects,
-		...addHostCondition(
-			sentinelIoRedirects,
-			'sentinel',
-			config['dev_dot.beta_product_slugs']
-		),
+		...addHostCondition(sentinelIoRedirects, 'sentinel'),
 	]
 }
 
