@@ -62,6 +62,7 @@ const SearchCommandBarDialogBodyContent = ({
 	currentProductTag: CommandBarTag
 	recentSearches: string[]
 }) => {
+	const [isUnified, setIsUnified] = useState(false)
 	const { currentInputValue } = useCommandBar()
 	const contentType = useCurrentContentType()
 	const [hitsData] = useHitsContext()
@@ -111,8 +112,8 @@ const SearchCommandBarDialogBodyContent = ({
 		}
 	}, [currentProductTag, suggestedPages])
 	const searchableContentTypes = Object.keys(tabsBySearchableContentType)
-	// const activeTabIndex =
-	// 	contentType === 'global' ? 0 : searchableContentTypes.indexOf(contentType)
+	const activeTabIndex =
+		contentType === 'global' ? 0 : searchableContentTypes.indexOf(contentType)
 
 	/**
 	 * Don't render search result Tabs at all if there is no text in the input.
@@ -157,8 +158,11 @@ const SearchCommandBarDialogBodyContent = ({
 
 	return (
 		<div className={s.tabsWrapper} style={{ border: '2px solid magenta' }}>
+			<button onClick={() => setIsUnified(!isUnified)}>
+				changes results to: {isUnified ? 'tabbed' : 'unified, simple merge'}
+			</button>
 			{sortedMergedHits.length > 0 ? (
-				<>
+				<div style={{ display: isUnified ? 'block' : 'none' }}>
 					<div id={labelElementId} className="g-screen-reader-only">
 						All search results
 					</div>
@@ -188,7 +192,7 @@ const SearchCommandBarDialogBodyContent = ({
 							)
 						})}
 					</CommandBarList>
-				</>
+				</div>
 			) : (
 				<p style={{ border: '1px solid magenta' }}>
 					No results match your search.
@@ -198,7 +202,7 @@ const SearchCommandBarDialogBodyContent = ({
 			{/* <pre>
 				<code>{JSON.stringify({ allHitsData }, null, 2)}</code>
 			</pre> */}
-			<div style={{ display: 'none' }}>
+			{/* <div style={{ display: isUnified ? 'none' : 'block' }}>
 				{searchableContentTypes.map((contentType: SearchableContentType) => {
 					if (contentType === 'integrations' && !shouldRenderIntegrationsTab) {
 						return null
@@ -224,26 +228,33 @@ const SearchCommandBarDialogBodyContent = ({
 						</div>
 					)
 				})}
-			</div>
-			{/* <Tabs
-				showAnchorLine={false}
-				initialActiveIndex={activeTabIndex}
-				variant="compact"
-			>
-				{searchableContentTypes.map((contentType: SearchableContentType) => {
-					if (contentType === 'integrations' && !shouldRenderIntegrationsTab) {
-						return null
-					}
+			</div> */}
+			<div style={{ display: isUnified ? 'none' : 'block' }}>
+				<Tabs
+					showAnchorLine={false}
+					initialActiveIndex={activeTabIndex}
+					variant="compact"
+				>
+					{searchableContentTypes.map((contentType: SearchableContentType) => {
+						if (
+							contentType === 'integrations' &&
+							!shouldRenderIntegrationsTab
+						) {
+							return null
+						}
 
-					const { heading, icon, content } =
-						tabsBySearchableContentType[contentType]
-					return (
-						<Tab heading={heading} icon={icon} key={contentType}>
-							{content}
-						</Tab>
-					)
-				})}
-			</Tabs> */}
+						const { heading, icon, content } =
+							tabsBySearchableContentType[contentType]
+
+						const headingText = `${heading} (${hitsData[contentType]?.length})`
+						return (
+							<Tab heading={headingText} icon={icon} key={contentType}>
+								{content}
+							</Tab>
+						)
+					})}
+				</Tabs>
+			</div>
 		</div>
 	)
 }
