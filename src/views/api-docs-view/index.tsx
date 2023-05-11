@@ -43,6 +43,11 @@ function ApiDocsView({
 	 */
 	const pageHeadingTag = serviceData ? 'p' : 'h1'
 
+	/**
+	 * We only show the version switcher if we have at least 2 options.
+	 */
+	const showVersionSwitcher = versionSwitcherData?.options?.length > 1
+
 	return (
 		<SidebarSidecarLayout
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
@@ -59,7 +64,7 @@ function ApiDocsView({
 					/>
 				}
 				versionSelectorSlot={
-					versionSwitcherData ? (
+					showVersionSwitcher ? (
 						<VersionSwitcher
 							label={versionSwitcherData.label}
 							options={versionSwitcherData.options}
