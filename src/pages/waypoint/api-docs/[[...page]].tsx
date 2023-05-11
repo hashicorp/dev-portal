@@ -11,21 +11,12 @@ import {
 	ApiDocsParams,
 } from 'views/api-docs-view/server'
 // Components
-import {
-	PathTruncationAside,
-	truncatePackerOperationPath,
-} from 'views/api-docs-view/components'
-// Types
-import type { OperationObjectType } from 'components/open-api-page/types'
 import type {
 	ApiDocsVersionData,
 	ApiDocsViewProps,
 } from 'views/api-docs-view/types'
 import type { GetStaticPaths, GetStaticProps } from 'next'
-import {
-	buildApiDocsBreadcrumbs,
-	buildSidebarNavDataLevels,
-} from 'views/api-docs-view/server/get-api-docs-static-props/utils'
+import { buildApiDocsBreadcrumbs } from 'views/api-docs-view/server/get-api-docs-static-props/utils'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -69,6 +60,7 @@ function getVersionData(): ApiDocsVersionData[] {
 			/**
 			 * Note this is a `versionId` placeholder. Since it isn't date-based,
 			 * currently we won't render a dedicated versioned URL for it.
+			 *
 			 * In the future, we could support version formats other than date-based.
 			 * That might better align with versioned API docs for Waypoint.
 			 */
@@ -76,21 +68,6 @@ function getVersionData(): ApiDocsVersionData[] {
 			targetFile,
 		},
 	]
-}
-
-/**
- * Render `<ApiDocsView />` with custom operation path truncation.
- */
-function WaypointApiDocsView(props: ApiDocsViewProps) {
-	return (
-		<ApiDocsView
-			{...props}
-			massagePathFn={truncatePackerOperationPath}
-			renderOperationIntro={({ data }: { data: OperationObjectType }) => (
-				<PathTruncationAside path={data.__path} />
-			)}
-		/>
-	)
 }
 
 /**
@@ -125,7 +102,7 @@ export const getStaticProps: GetStaticProps<
 		pathParts: params.page,
 		versionData,
 		mayHaveCircularReferences: MAY_HAVE_CIRCULAR_REFERENCES,
-		buildCustomSidebarNavDataLevels: ({ productData, serviceIds }) => {
+		buildCustomSidebarNavDataLevels: ({ productData }) => {
 			return [
 				generateTopLevelSidebarNavData(productData.name),
 				generateProductLandingSidebarNavData(productData),
@@ -164,4 +141,4 @@ export const getStaticProps: GetStaticProps<
 	})
 }
 
-export default WaypointApiDocsView
+export default ApiDocsView
