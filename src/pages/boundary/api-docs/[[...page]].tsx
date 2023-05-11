@@ -10,23 +10,12 @@ import {
 	getApiDocsStaticPaths,
 	ApiDocsParams,
 } from 'views/api-docs-view/server'
-// Components
-import {
-	PathTruncationAside,
-	truncatePackerOperationPath,
-} from 'views/api-docs-view/components'
 // Types
-import type { OperationObjectType } from 'components/open-api-page/types'
 import type {
 	ApiDocsVersionData,
 	ApiDocsViewProps,
 } from 'views/api-docs-view/types'
 import type { GetStaticPaths, GetStaticProps } from 'next'
-import { buildApiDocsBreadcrumbs } from 'views/api-docs-view/server/get-api-docs-static-props/utils'
-import {
-	generateProductLandingSidebarNavData,
-	generateTopLevelSidebarNavData,
-} from 'components/sidebar/helpers'
 
 /**
  * The product slug is used to fetch product data for the layout.
@@ -55,8 +44,9 @@ function getVersionData(): ApiDocsVersionData[] {
 			/**
 			 * Note this is a `versionId` placeholder. Since it isn't date-based,
 			 * currently we won't render a dedicated versioned URL for it.
+			 *
 			 * In the future, we could support version formats other than date-based.
-			 * That might better align with versioned API docs for Waypoint.
+			 * That might better align with versioned API docs for Boundary.
 			 */
 			versionId: 'latest',
 			targetFile,
@@ -65,30 +55,12 @@ function getVersionData(): ApiDocsVersionData[] {
 }
 
 /**
- * Render `<ApiDocsView />` with custom operation path truncation.
- */
-function BoundaryApiDocsPage(props: ApiDocsViewProps) {
-	return (
-		<ApiDocsView
-			{...props}
-			massagePathFn={truncatePackerOperationPath}
-			renderOperationIntro={({ data }: { data: OperationObjectType }) => (
-				<PathTruncationAside path={data.__path} />
-			)}
-		/>
-	)
-}
-
-/**
  * Get static paths, using `versionData` fetched from GitHub.
  */
 export const getStaticPaths: GetStaticPaths<ApiDocsParams> = async () => {
 	// Use the hard-coded version data
 	const versionData = await getVersionData()
-	return await getApiDocsStaticPaths({
-		productSlug: PRODUCT_SLUG,
-		versionData,
-	})
+	return await getApiDocsStaticPaths({ productSlug: PRODUCT_SLUG, versionData })
 }
 
 /**
@@ -109,43 +81,7 @@ export const getStaticProps: GetStaticProps<
 		baseUrl: BASE_URL,
 		pathParts: params.page,
 		versionData,
-		// buildCustomSidebarNavDataLevels: ({ productData, serviceIds }) => {
-		// 	return [
-		// 		generateTopLevelSidebarNavData(productData.name),
-		// 		generateProductLandingSidebarNavData(productData),
-		// 		{
-		// 			backToLinkProps: {
-		// 				text: `${productData.name} Home`,
-		// 				href: `/${productData.slug}`,
-		// 			},
-		// 			visuallyHideTitle: true,
-		// 			title: 'API',
-		// 			levelButtonProps: {
-		// 				levelUpButtonText: `${productData.name} Home`,
-		// 			},
-		// 			menuItems: [
-		// 				{
-		// 					title: 'API',
-		// 					fullPath: BASE_URL,
-		// 					theme: productData.slug,
-		// 				},
-		// 			],
-		// 		},
-		// 	]
-		// },
-		// buildCustomBreadcrumbs: ({ productData, versionId }) => {
-		// 	return buildApiDocsBreadcrumbs({
-		// 		productData,
-		// 		apiDocs: { name: 'API', url: BASE_URL },
-		// 		/**
-		// 		 * Note: We intentionally omit `serviceData`, to avoid an extra item
-		// 		 * in the breadcrumb, as unlike `/hcp/api-docs/packer`
-		// 		 * we don't want to include a link with the service name.
-		// 		 */
-		// 		versionId,
-		// 	})
-		// },
 	})
 }
 
-export default BoundaryApiDocsPage
+export default ApiDocsView
