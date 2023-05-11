@@ -34,12 +34,12 @@ const PRODUCT_SLUG = 'hcp'
 const BASE_URL = '/hcp/api-docs/packer'
 
 /**
- * We source version data from a directory in the `hcp-specs-internal` repo.
+ * We source version data from a directory in the `hcp-specs` repo.
  * See `fetchCloudApiVersionData` for details.
  */
 const GITHUB_SOURCE_DIRECTORY = {
 	owner: 'hashicorp',
-	repo: 'hcp-specs-internal',
+	repo: 'hcp-specs',
 	path: 'specs/cloud-packer-service',
 	ref: 'main',
 }
