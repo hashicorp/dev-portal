@@ -19,7 +19,10 @@ import {
 } from 'views/api-docs-view/components'
 // Types
 import type { OperationObjectType } from 'components/open-api-page/types'
-import type { ApiDocsViewProps } from 'views/api-docs-view/types'
+import type {
+	ApiDocsVersionData,
+	ApiDocsViewProps,
+} from 'views/api-docs-view/types'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { isDeployPreview } from 'lib/env-checks'
 
@@ -38,29 +41,35 @@ const BASE_URL = '/hcp/api-docs/packer'
  * We source version data from a directory in the `hcp-specs` repo.
  * See `fetchCloudApiVersionData` for details.
  */
-const GITHUB_SOURCE_DIRECTORY = {
-	owner: 'hashicorp',
-	repo: 'hcp-specs',
-	path: 'specs/cloud-packer-service',
-	ref: 'main',
-}
+// const GITHUB_SOURCE_DIRECTORY = {
+// 	owner: 'hashicorp',
+// 	repo: 'hcp-specs',
+// 	path: 'specs/cloud-packer-service',
+// 	ref: 'main',
+// }
 
 /**
  * Fetch all version data, based on remote `stable` & `preview` subfolders
  */
 async function buildVersionData() {
-	const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
 	/**
 	 * Shim version data from "beta" labelled proof-of-concept
 	 *
 	 * TODO: remove shim to demo beta labels
 	 */
-	versionData[2].targetFile = {
-		owner: 'hashicorp',
-		repo: 'cloud-packer-service',
-		path: 'proto-public/20210430/swagger/hcp.swagger.json',
-		ref: 'poc_proto_extensions_beta_flag',
-	}
+	// const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
+	const versionData: ApiDocsVersionData[] = [
+		{
+			versionId: '2021-04-30',
+			releaseStage: 'stable',
+			targetFile: {
+				owner: 'hashicorp',
+				repo: 'cloud-packer-service',
+				path: 'proto-public/20210430/swagger/hcp.swagger.json',
+				ref: 'poc_proto_extensions_beta_flag',
+			},
+		},
+	]
 	// Return versionData
 	return versionData
 }
