@@ -3,159 +3,149 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { InferGetStaticPropsType } from 'next'
-import { CustomPageComponent } from 'types/_app'
-/* Used server-side only */
-import { cachedGetProductData } from 'lib/get-product-data'
-import { isDeployPreview } from 'lib/env-checks'
-import fetchGithubFile from 'lib/fetch-github-file'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { OpenApiPageContents } from 'components/open-api-page'
+// View
+import ApiDocsView from 'views/api-docs-view'
 import {
-	getPathsFromSchema,
-	getPropsForPage,
-	processSchemaString,
-	processSchemaFile,
-} from 'components/open-api-page/server'
+	getApiDocsStaticProps,
+	getApiDocsStaticPaths,
+	ApiDocsParams,
+} from 'views/api-docs-view/server'
+// Components
+import {
+	PathTruncationAside,
+	truncatePackerOperationPath,
+} from 'views/api-docs-view/components'
+// Types
+import type { OperationObjectType } from 'components/open-api-page/types'
+import type {
+	ApiDocsVersionData,
+	ApiDocsViewProps,
+} from 'views/api-docs-view/types'
+import type { GetStaticPaths, GetStaticProps } from 'next'
+import { buildApiDocsBreadcrumbs } from 'views/api-docs-view/server/get-api-docs-static-props/utils'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 
-const productSlug = 'boundary'
-const targetFile = {
-	owner: 'hashicorp',
-	repo: 'boundary',
-	path: 'internal/gen/controller.swagger.json',
-	ref: 'stable-website',
-}
-// The path to read from when running local preview in the context of the boundary repository
-const targetLocalFile = '../../internal/gen/controller.swagger.json'
+/**
+ * The product slug is used to fetch product data for the layout.
+ */
+const PRODUCT_SLUG = 'boundary'
 
 /**
- * TODO: use revised `views/api-docs-view` & related utilities.
+ * The baseUrl is used to generate
+ * breadcrumb links, sidebar nav levels, and version switcher links.
  */
-type ApiDocsViewProps = InferGetStaticPropsType<typeof getStaticProps>
-const ApiDocsView: CustomPageComponent<ApiDocsViewProps> = ({
-	apiPageProps,
-}: ApiDocsViewProps) => {
+const BASE_URL = '/boundary/api-docs'
+
+/**
+ * Version data is hard-coded for now. In the future, we could fetch
+ * version data from elsewhere, as we do for `/hcp/api-docs/packer`.
+ */
+function getVersionData(): ApiDocsVersionData[] {
+	const targetFile = {
+		owner: 'hashicorp',
+		repo: 'boundary',
+		path: 'internal/gen/controller.swagger.json',
+		ref: 'stable-website',
+	}
+	return [
+		{
+			/**
+			 * Note this is a `versionId` placeholder. Since it isn't date-based,
+			 * currently we won't render a dedicated versioned URL for it.
+			 * In the future, we could support version formats other than date-based.
+			 * That might better align with versioned API docs for Waypoint.
+			 */
+			versionId: 'latest',
+			targetFile,
+		},
+	]
+}
+
+/**
+ * Render `<ApiDocsView />` with custom operation path truncation.
+ */
+function BoundaryApiDocsPage(props: ApiDocsViewProps) {
 	return (
-		<OpenApiPageContents
-			info={apiPageProps.info}
-			operationCategory={apiPageProps.operationCategory}
-			renderOperationIntro={null}
+		<ApiDocsView
+			{...props}
+			massagePathFn={truncatePackerOperationPath}
+			renderOperationIntro={({ data }: { data: OperationObjectType }) => (
+				<PathTruncationAside path={data.__path} />
+			)}
 		/>
 	)
 }
 
-export async function getStaticPaths() {
-	let schema
-	let paths
-	if (isDeployPreview(productSlug)) {
-		schema = await processSchemaFile(targetLocalFile)
-	} else if (isDeployPreview()) {
-		// If we are in a deploy preview that isn't in the boundary repository, don't pre-render any paths
-		paths = []
-	} else {
-		const swaggerFile = await fetchGithubFile(targetFile)
-		schema = await processSchemaString(swaggerFile)
-	}
-
-	if (schema) {
-		paths = getPathsFromSchema(schema)
-	}
-
-	return { paths, fallback: false }
-}
-
-export async function getStaticProps({ params }) {
-	let schema
-	if (isDeployPreview(productSlug)) {
-		schema = await processSchemaFile(targetLocalFile)
-	} else {
-		const swaggerFile = await fetchGithubFile(targetFile)
-		schema = await processSchemaString(swaggerFile)
-	}
-
-	// API page data
-	const apiPageProps = getPropsForPage(schema, params)
-
-	// Product data
-	const productData = cachedGetProductData(productSlug)
-
-	// Breadcrumbs
-	const breadcrumbLinks = [
-		{ title: 'Developer', url: '/' },
-		{ title: 'Boundary', url: `/boundary` },
-		{ title: 'API', url: `/boundary/api-docs` },
-	]
-
-	// Breadcrumbs - Render conditional category
-	if ('operationCategory' in apiPageProps) {
-		breadcrumbLinks.push({
-			title: apiPageProps.operationCategory.name,
-			url: `/boundary/api-docs/${apiPageProps.operationCategory.slug}`,
-		})
-	}
-
-	// Breadcrumbs - Make final element dark-text
-	// @ts-expect-error `isCurrentPage` is an expected optional field
-	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
-
-	// Menu items for the sidebar, from the existing dot-io-oriented navData
-	const apiSidebarMenuItems = apiPageProps.navData.map((menuItem) => {
-		if (menuItem.hasOwnProperty('path')) {
-			// Path differs on dev-dot, so all nodes with `path` must be adjusted
-			return {
-				...menuItem,
-				fullPath: `/boundary/api-docs/${menuItem.path}`,
-			}
-		} else {
-			return menuItem
-		}
+/**
+ * Get static paths, using `versionData` fetched from GitHub.
+ */
+export const getStaticPaths: GetStaticPaths<ApiDocsParams> = async () => {
+	// Use the hard-coded version data
+	const versionData = await getVersionData()
+	return await getApiDocsStaticPaths({
+		productSlug: PRODUCT_SLUG,
+		versionData,
 	})
-
-	// Construct sidebar nav data levels
-	const sidebarNavDataLevels = [
-		generateTopLevelSidebarNavData(productData.name),
-		generateProductLandingSidebarNavData(productData),
-		{
-			backToLinkProps: { text: 'Boundary Home', href: '/boundary/' },
-			title: 'API',
-			levelButtonProps: {
-				levelUpButtonText: `${productData.name} Home`,
-			},
-			/* We always visually hide the title, as we've added in a
-			"highlight" item that would make showing the title redundant. */
-			visuallyHideTitle: true,
-			menuItems: [
-				{
-					title: 'API',
-					fullPath: '/boundary/api-docs/',
-					theme: 'boundary',
-				},
-				{
-					divider: true,
-				},
-				...apiSidebarMenuItems,
-			],
-		},
-	]
-
-	// Return props for the page
-	return {
-		props: {
-			apiPageProps,
-			layoutProps: {
-				breadcrumbLinks,
-				sidebarNavDataLevels,
-			},
-			product: productData,
-		},
-	}
 }
 
-ApiDocsView.contentType = 'docs'
-ApiDocsView.layout = SidebarSidecarLayout
+/**
+ * Get static props, using `versionData` fetched from GitHub.
+ *
+ * We need all version data for the version selector,
+ * and of course we need specific data for the current version.
+ */
+export const getStaticProps: GetStaticProps<
+	ApiDocsViewProps,
+	ApiDocsParams
+> = async ({ params }: { params: ApiDocsParams }) => {
+	// Use the hard-coded version data
+	const versionData = await getVersionData()
+	// Return static props
+	return await getApiDocsStaticProps({
+		productSlug: PRODUCT_SLUG,
+		baseUrl: BASE_URL,
+		pathParts: params.page,
+		versionData,
+		// buildCustomSidebarNavDataLevels: ({ productData, serviceIds }) => {
+		// 	return [
+		// 		generateTopLevelSidebarNavData(productData.name),
+		// 		generateProductLandingSidebarNavData(productData),
+		// 		{
+		// 			backToLinkProps: {
+		// 				text: `${productData.name} Home`,
+		// 				href: `/${productData.slug}`,
+		// 			},
+		// 			visuallyHideTitle: true,
+		// 			title: 'API',
+		// 			levelButtonProps: {
+		// 				levelUpButtonText: `${productData.name} Home`,
+		// 			},
+		// 			menuItems: [
+		// 				{
+		// 					title: 'API',
+		// 					fullPath: BASE_URL,
+		// 					theme: productData.slug,
+		// 				},
+		// 			],
+		// 		},
+		// 	]
+		// },
+		// buildCustomBreadcrumbs: ({ productData, versionId }) => {
+		// 	return buildApiDocsBreadcrumbs({
+		// 		productData,
+		// 		apiDocs: { name: 'API', url: BASE_URL },
+		// 		/**
+		// 		 * Note: We intentionally omit `serviceData`, to avoid an extra item
+		// 		 * in the breadcrumb, as unlike `/hcp/api-docs/packer`
+		// 		 * we don't want to include a link with the service name.
+		// 		 */
+		// 		versionId,
+		// 	})
+		// },
+	})
+}
 
-export default ApiDocsView
+export default BoundaryApiDocsPage
