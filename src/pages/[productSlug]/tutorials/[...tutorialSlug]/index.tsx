@@ -65,6 +65,7 @@ async function _getStaticPaths(): Promise<
 	}
 
 	// arbitrary comment to force a PR rebuild
+	// another arbitrary comment to force a PR rebuild
 	return {
 		// Testing 0 static generated pages
 		paths: paths.slice(0, 0),
