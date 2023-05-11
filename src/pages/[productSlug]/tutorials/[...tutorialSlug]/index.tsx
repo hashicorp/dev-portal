@@ -65,7 +65,8 @@ async function _getStaticPaths(): Promise<
 	}
 
 	return {
-		paths,
+		// Testing 0 static generated pages
+		paths: paths.slice(0, 0),
 		fallback: 'blocking',
 	}
 }

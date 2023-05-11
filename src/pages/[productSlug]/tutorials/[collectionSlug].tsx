@@ -24,8 +24,9 @@ async function getStaticPaths(): Promise<
 	const paths = await getCollectionPagePaths()
 
 	return {
-		paths,
-		fallback: false,
+		// Testing 0 static generated pages
+		paths: paths.slice(0, 0),
+		fallback: 'blocking',
 	}
 }
 

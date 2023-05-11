@@ -35,5 +35,9 @@ export async function getStaticProps({
 export async function getStaticPaths() {
 	const slugs = getAllCertificationProgramSlugs()
 	const paths = slugs.map((slug: string) => ({ params: { slug } }))
-	return { paths, fallback: false }
+	return {
+		// Testing 0 static generated pages
+		paths: paths.slice(0, 0),
+		fallback: 'blocking',
+	}
 }

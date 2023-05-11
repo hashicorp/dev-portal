@@ -67,7 +67,11 @@ export async function getStaticPaths() {
 		}
 	})
 
-	return { paths, fallback: false }
+	return {
+		// Testing 0 static generated pages
+		paths: paths.slice(0, 0),
+		fallback: 'blocking',
+	}
 }
 
 export default OnboardingCollectionView
