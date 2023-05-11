@@ -64,6 +64,7 @@ async function _getStaticPaths(): Promise<
 		paths = validPaths.slice(0, __config.learn.max_static_paths ?? 0)
 	}
 
+	// arbitrary comment to force a PR rebuild
 	return {
 		// Testing 0 static generated pages
 		paths: paths.slice(0, 0),
