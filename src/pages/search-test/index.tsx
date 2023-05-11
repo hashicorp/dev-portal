@@ -31,6 +31,7 @@ function CustomHits() {
 							hits: hits.map((hit) => {
 								return {
 									'__rankingInfo.userScore': hit._rankingInfo.userScore,
+									__position: hit.__position,
 									objectID: hit.objectID,
 									page_title: hit.page_title,
 									// ...hit,
