@@ -89,6 +89,8 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 		}))
 		.flat()
 		.map((params: PathParams) => ({ params }))
+		.slice(0, __config.integrations.max_static_paths)
+
 	// Return static paths
 	return { paths, fallback: 'blocking' }
 }

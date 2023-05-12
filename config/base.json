@@ -40,6 +40,9 @@
 	"learn": {
 		"max_static_paths": 10
 	},
+	"integrations": {
+		"max_static_paths": 10
+	},
 	"flags": {
 		"enable_datadog": true,
 		"enable_io_beta_cta": true

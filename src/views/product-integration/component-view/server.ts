@@ -106,7 +106,9 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	}
 
 	return {
-		paths: allPaths.map((params: PathParams) => ({ params })),
+		paths: allPaths
+			.map((params: PathParams) => ({ params }))
+			.slice(0, __config.integrations.max_static_paths),
 		fallback: 'blocking',
 	}
 }
