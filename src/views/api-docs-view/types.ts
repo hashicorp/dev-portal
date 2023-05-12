@@ -7,7 +7,6 @@ import type { SidebarProps } from 'components/sidebar'
 import type { VersionSwitcherOption } from 'components/version-switcher/types'
 import type { ProductData } from 'types/products'
 import { ApiDocsVersionAlertProps } from './components/api-docs-version-alert/types'
-import { HeadingWithBadgesProps } from './components'
 
 /**
  * Params type for `getStaticPaths` and `getStaticProps`.
@@ -71,7 +70,7 @@ export interface ApiDocsViewProps {
 	 */
 	pageHeading: {
 		text: string
-		badges?: HeadingWithBadgesProps['badges']
+		badgeText?: string
 	}
 
 	/**

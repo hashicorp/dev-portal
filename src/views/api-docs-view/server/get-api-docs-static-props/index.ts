@@ -131,9 +131,9 @@ export async function getApiDocsStaticProps({
 	/**
 	 * Build a heading for versioned pages, showing a `releaseStage` badge
 	 */
-	const pageHeading: ApiDocsViewProps['pageHeading'] = {
+	const pageHeading = {
 		text: schema.info.title,
-		badges: [sentenceCase(currentVersion.releaseStage)],
+		badgeText: sentenceCase(currentVersion.releaseStage),
 	}
 
 	/**
