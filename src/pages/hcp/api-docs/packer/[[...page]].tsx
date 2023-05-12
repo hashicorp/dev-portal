@@ -41,37 +41,11 @@ const BASE_URL = '/hcp/api-docs/packer'
  * We source version data from a directory in the `hcp-specs` repo.
  * See `fetchCloudApiVersionData` for details.
  */
-// const GITHUB_SOURCE_DIRECTORY = {
-// 	owner: 'hashicorp',
-// 	repo: 'hcp-specs',
-// 	path: 'specs/cloud-packer-service',
-// 	ref: 'main',
-// }
-
-/**
- * Fetch all version data, based on remote `stable` & `preview` subfolders
- */
-async function buildVersionData() {
-	/**
-	 * Shim version data from "beta" labelled proof-of-concept
-	 *
-	 * TODO: remove shim to demo beta labels
-	 */
-	// const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
-	const versionData: ApiDocsVersionData[] = [
-		{
-			versionId: '2021-04-30',
-			releaseStage: 'stable',
-			targetFile: {
-				owner: 'hashicorp',
-				repo: 'cloud-packer-service',
-				path: 'proto-public/20210430/swagger/hcp.swagger.json',
-				ref: 'poc_proto_extensions_beta_flag',
-			},
-		},
-	]
-	// Return versionData
-	return versionData
+const GITHUB_SOURCE_DIRECTORY = {
+	owner: 'hashicorp',
+	repo: 'hcp-specs',
+	path: 'specs/cloud-packer-service',
+	ref: 'main',
 }
 
 /**
@@ -98,7 +72,7 @@ export const getStaticPaths: GetStaticPaths<ApiDocsParams> = async () => {
 		return { paths: [], fallback: 'blocking' }
 	}
 	// Otherwise, fetch version data, and use that to generate paths
-	const versionData = await buildVersionData()
+	const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
 	return await getApiDocsStaticPaths(PRODUCT_SLUG, versionData)
 }
 
@@ -112,8 +86,8 @@ export const getStaticProps: GetStaticProps<
 	ApiDocsViewProps,
 	ApiDocsParams
 > = async ({ params }: { params: ApiDocsParams }) => {
-	// Build version data
-	const versionData = await buildVersionData()
+	// Fetch all version data, based on remote `stable` & `preview` subfolders
+	const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
 	// If we can't find any version data at all, render a 404 page.
 	if (!versionData) {
 		return { notFound: true }
