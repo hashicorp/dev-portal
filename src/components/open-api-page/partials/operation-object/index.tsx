@@ -74,7 +74,7 @@ function OperationObject({
 			<AccordionDisclosure
 				title={
 					<>
-						<Text asElement="span" weight="semibold">
+						<Text className={s.title} asElement="span" weight="semibold">
 							{title}
 						</Text>
 						{showBetaLabel ? (
