@@ -1,5 +1,5 @@
 import Badge from 'components/badge'
-import s from './heading-with-badges.module.css'
+import s from './heading-with-badge.module.css'
 
 /**
  * Render a heading with an optional badge.
