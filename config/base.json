@@ -42,7 +42,6 @@
 	},
 	"flags": {
 		"enable_datadog": true,
-		"enable_io_beta_cta": true,
-		"enable_api_docs_beta_label": false
+		"enable_io_beta_cta": true
 	}
 }

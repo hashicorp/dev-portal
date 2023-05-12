@@ -66,9 +66,6 @@ function OperationObject({
 	const bodyParam = parameters.filter((p) => p.in === 'body')[0] // Note: we only accept a single "in=body" param
 	const bodyProps = bodyParam ? getBodyParamProps(bodyParam) : []
 
-	const showBetaLabel =
-		__config.flags.enable_api_docs_beta_label && data['x-beta-feature']
-
 	return (
 		<div className={classNames(s.root)}>
 			<AccordionDisclosure
@@ -77,7 +74,7 @@ function OperationObject({
 						<Text className={s.title} asElement="span" weight="semibold">
 							{title}
 						</Text>
-						{showBetaLabel ? (
+						{data['x-beta-feature'] ? (
 							<Badge className={s.titleBadge} text="Beta" color="neutral" />
 						) : null}
 					</>

@@ -2,8 +2,5 @@
 	"extends": "base",
 	"io_sites": {
 		"max_static_paths": 10
-	},
-	"flags": {
-		"enable_api_docs_beta_label": true
 	}
 }

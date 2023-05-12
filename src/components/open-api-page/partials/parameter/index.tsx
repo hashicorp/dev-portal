@@ -26,9 +26,6 @@ function Parameter({ name, data, isFirstItem, isLastItem, arrayDepth = 0 }) {
 		arrayDepth > 0 ? arrayFrom(arrayDepth, '[]').join('') : ''
 	const typeString = `${data.type}${typeArraySuffix}`
 
-	const showBetaLabel =
-		__config.flags.enable_api_docs_beta_label && data['x-beta-feature']
-
 	const title = (
 		<>
 			<MdxInlineCode className={s.name} size={100}>
@@ -36,7 +33,7 @@ function Parameter({ name, data, isFirstItem, isLastItem, arrayDepth = 0 }) {
 			</MdxInlineCode>{' '}
 			<code className={`${s.typeString} g-type-code`}>{typeString}</code>{' '}
 			{data.required && <Badge text="Required" color="highlight" />}
-			{showBetaLabel ? <Badge text="Beta" color="neutral" /> : null}
+			{data['x-beta-feature'] ? <Badge text="Beta" color="neutral" /> : null}
 			{data.title && (
 				<div
 					className={s.descriptiveText}
