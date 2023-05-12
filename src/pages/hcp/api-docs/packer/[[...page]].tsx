@@ -19,10 +19,7 @@ import {
 } from 'views/api-docs-view/components'
 // Types
 import type { OperationObjectType } from 'components/open-api-page/types'
-import type {
-	ApiDocsVersionData,
-	ApiDocsViewProps,
-} from 'views/api-docs-view/types'
+import type { ApiDocsViewProps } from 'views/api-docs-view/types'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { isDeployPreview } from 'lib/env-checks'
 
