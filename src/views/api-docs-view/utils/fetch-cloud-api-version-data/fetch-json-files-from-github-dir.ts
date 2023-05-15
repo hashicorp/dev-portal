@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import path from 'path'
 import { fetchFileTreeFromGithub } from './fetch-file-tree-from-github'
 import type { FileTreeEntry, GithubDir } from './fetch-file-tree-from-github'
