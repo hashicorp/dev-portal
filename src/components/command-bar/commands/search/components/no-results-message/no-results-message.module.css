@@ -4,9 +4,8 @@
  */
 
 .root {
+	padding: 32px 0;
+	text-align: center;
+	border: 1px solid magenta;
 	color: var(--token-color-foreground-primary);
-	margin-bottom: 16px;
-	padding-left: 8px;
-	padding-right: 8px;
-	padding-top: 16px;
 }

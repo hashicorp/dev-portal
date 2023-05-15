@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
@@ -36,6 +36,48 @@ import {
 } from '../'
 import s from './search-command-bar-dialog-body.module.css'
 
+function TabHeadingWithCount({
+	heading,
+	count,
+}: {
+	heading: string
+	count: number
+}) {
+	return (
+		<span
+			style={{
+				display: 'inline-flex',
+				alignItems: 'center',
+				gap: '6px',
+			}}
+		>
+			{heading}
+			{typeof count === 'number' ? (
+				<>
+					{/* Note: could consider <Badge /> here? */}
+					<span
+						style={{
+							display: 'flex',
+							alignItems: 'center',
+							textAlign: 'center',
+							justifyContent: 'center',
+							fontSize: 'var(--token-typography-body-100-font-size)',
+							background: 'var(--token-color-surface-strong)',
+							borderRadius: '9999px',
+							position: 'relative',
+							lineHeight: 0,
+							width: '1.5rem',
+							height: '1.5rem',
+						}}
+					>
+						{String(count)}
+					</span>
+				</>
+			) : null}
+		</span>
+	)
+}
+
 // TODO(brkalow): We might consider lazy-loading the search client & the insights library
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
@@ -47,7 +89,7 @@ const PRODUCT_SLUGS_WITH_INTEGRATIONS =
 interface SearchableContentTypeTab {
 	heading: TabProps['heading']
 	icon: TabProps['icon']
-	content: TabProps['children']
+	renderContent: ({ activeTabIdx, tabData }: $TSFixMe) => ReactNode
 }
 
 const SearchCommandBarDialogBodyContent = ({
@@ -79,28 +121,41 @@ const SearchCommandBarDialogBodyContent = ({
 			docs: {
 				heading: 'Documentation',
 				icon: <IconDocs16 />,
-				content: (
+				renderContent: ({ activeTabIndex, setActiveTabIndex, tabData }) => (
 					<DocumentationTabContents
 						currentProductTag={currentProductTag}
 						suggestedPages={suggestedPages}
+						setActiveTabIndex={setActiveTabIndex}
+						activeTabIndex={activeTabIndex}
+						tabData={tabData}
 					/>
 				),
 			},
 			tutorials: {
 				heading: 'Tutorials',
 				icon: <IconLearn16 />,
-				content: (
+				renderContent: ({ activeTabIndex, setActiveTabIndex, tabData }) => (
 					<TutorialsTabContents
 						currentProductTag={currentProductTag}
 						tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
+						setActiveTabIndex={setActiveTabIndex}
+						activeTabIndex={activeTabIndex}
+						tabData={tabData}
 					/>
 				),
 			},
 			integrations: {
 				heading: 'Integrations',
 				icon: <IconPipeline16 />,
-				content: (
-					<IntegrationsTabContents currentProductTag={currentProductTag} />
+				renderContent: ({ activeTabIndex, setActiveTabIndex, tabData }) => (
+					<>
+						<IntegrationsTabContents
+							currentProductTag={currentProductTag}
+							setActiveTabIndex={setActiveTabIndex}
+							activeTabIndex={activeTabIndex}
+							tabData={tabData}
+						/>
+					</>
 				),
 			},
 		}
@@ -139,6 +194,20 @@ const SearchCommandBarDialogBodyContent = ({
 		shouldRenderIntegrationsTab = true
 	}
 
+	/**
+	 * TODO: clean this up
+	 */
+	const tabData = searchableContentTypes.reduce(
+		(acc, contentType: SearchableContentType, idx) => {
+			acc[contentType] = {
+				heading: tabsBySearchableContentType[contentType].heading,
+				tabIdx: idx,
+			}
+			return acc
+		},
+		{}
+	)
+
 	return (
 		<div className={s.tabsWrapper}>
 			<Tabs
@@ -151,56 +220,29 @@ const SearchCommandBarDialogBodyContent = ({
 						return null
 					}
 
-					const { heading, icon, content } =
+					const { heading, icon, renderContent } =
 						tabsBySearchableContentType[contentType]
-					const hitCount = hitCounts[contentType]
-
-					/**
-					 * TODO: split this out as a separate component
-					 */
-					const headingElem = (
-						<span
-							style={{
-								display: 'inline-flex',
-								alignItems: 'center',
-								gap: '6px',
-							}}
-						>
-							{heading}
-							{typeof hitCount === 'number' ? (
-								<>
-									{/* Note: could consider <Badge /> here? */}
-									<span
-										style={{
-											display: 'flex',
-											alignItems: 'center',
-											textAlign: 'center',
-											justifyContent: 'center',
-											fontSize: 'var(--token-typography-body-100-font-size)',
-											background: 'var(--token-color-surface-strong)',
-											borderRadius: '9999px',
-											position: 'relative',
-											lineHeight: 0,
-											width: '1.5rem',
-											height: '1.5rem',
-										}}
-									>
-										{' ' + String(hitCount)}
-									</span>
-								</>
-							) : null}
-						</span>
-					)
 
 					return (
 						<Tab
 							heading={heading}
-							labelSlot={headingElem}
+							labelSlot={
+								<TabHeadingWithCount
+									heading={heading}
+									count={hitCounts[contentType]}
+								/>
+							}
 							icon={icon}
 							key={contentType}
-						>
-							{content}
-						</Tab>
+							/**
+							 * TODO: maybe rethink this as a tab context?
+							 * Could potentially do something like NestedTabContext?
+							 * This would avoid the "pass-through" issue here.
+							 */
+							renderContent={({ activeTabIndex, setActiveTabIndex }) =>
+								renderContent({ activeTabIndex, setActiveTabIndex, tabData })
+							}
+						/>
 					)
 				})}
 			</Tabs>

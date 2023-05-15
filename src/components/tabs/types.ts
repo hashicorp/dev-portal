@@ -82,6 +82,7 @@ export interface TabsProps {
  */
 export interface RawTabItem {
 	content: ReactNode
+	renderContent: (props: $TSFixMe) => ReactNode
 	group?: string
 	icon?: TabProps['icon']
 	label: string

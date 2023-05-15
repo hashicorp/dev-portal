@@ -11,6 +11,9 @@ import { SuggestedPagesProps } from '../suggested-pages/types'
 interface DocumentationTabContentsProps {
 	currentProductTag?: CommandBarTag
 	suggestedPages: SuggestedPagesProps['pages']
+	activeTabIndex: number
+	setActiveTabIndex: (index: number) => void
+	tabData: $TSFixMe
 }
 
 type DocumentationHitObject = Hit<{

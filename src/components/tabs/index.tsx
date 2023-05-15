@@ -65,6 +65,14 @@ const Tabs = ({
 	})
 
 	/**
+	 * TODO: add description
+	 */
+	function setSyncedIndexWithOnChange(index) {
+		setSyncedActiveTabIndex(index)
+		onChange?.(index)
+	}
+
+	/**
 	 * If there's overflow, show a dropdown. Otherwise show typical tabs.
 	 * TODO: current TabDropdownControls is temporary, and will be redone later.
 	 * Task to replace TabDropdownControls:
@@ -88,16 +96,13 @@ const Tabs = ({
 						ariaLabel={ariaLabel}
 						ariaLabelledBy={ariaLabelledBy}
 						isNested={allowNestedStyles && isNested}
-						setActiveTabIndex={(index) => {
-							setSyncedActiveTabIndex(index)
-							onChange?.(index)
-						}}
+						setActiveTabIndex={setSyncedIndexWithOnChange}
 						tabItems={tabItems}
 						variant={variant}
 					/>
 				</div>
 				{tabItems.map((tabItem: TabItem) => {
-					const { content, tabId, panelId, isActive } = tabItem
+					const { content, tabId, panelId, isActive, renderContent } = tabItem
 					return (
 						<div
 							aria-hidden={!isActive}
@@ -110,7 +115,12 @@ const Tabs = ({
 							key={panelId}
 							role="tabpanel"
 						>
-							{content}
+							{renderContent
+								? renderContent({
+										activeTabIndex,
+										setActiveTabIndex: setSyncedIndexWithOnChange,
+								  })
+								: content}
 						</div>
 					)
 				})}

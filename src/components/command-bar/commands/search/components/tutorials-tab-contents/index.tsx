@@ -11,6 +11,9 @@ import { TutorialsTabContentsProps } from './types'
 const TutorialsTabContents = ({
 	currentProductTag,
 	tutorialLibraryCta,
+	setActiveTabIndex,
+	tabData,
+	activeTabIndex,
 }: TutorialsTabContentsProps) => {
 	let filters
 	if (currentProductTag) {
@@ -27,7 +30,14 @@ const TutorialsTabContents = ({
 			<Configure filters={filters} />
 			<CustomHitsContainer
 				type="tutorials"
-				noResultsSlot={<NoResultsMessage type="tutorials" />}
+				noResultsSlot={
+					<NoResultsMessage
+						type="tutorials"
+						activeTabIndex={activeTabIndex}
+						setActiveTabIndex={setActiveTabIndex}
+						tabData={tabData}
+					/>
+				}
 			/>
 			<TabContentsCta
 				href={tutorialLibraryCta.href}

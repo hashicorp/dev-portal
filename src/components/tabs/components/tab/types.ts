@@ -9,7 +9,21 @@ export interface TabProps {
 	/**
 	 * The content to render within the tab panel
 	 */
-	children: ReactNode
+	children?: ReactNode
+
+	/**
+	 * Optional render function to provide as an alternative to `children`.
+	 * This allows consumers to use elements within the content to set
+	 * the active tab.
+	 *
+	 * TODO: maybe combine with `children` prop or something, somehow? Or...
+	 * Note that if both children and renderContent are provided,
+	 * only renderContent will be used.
+	 */
+	renderContent?: (props: {
+		activeTabIndex: number
+		setActiveTabIndex: (idx: number) => void
+	}) => ReactNode
 
 	/**
 	 * The text to show in the tab button

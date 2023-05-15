@@ -17,6 +17,9 @@ interface TutorialsTabContentsProps {
 		href: string
 		text: string
 	}
+	activeTabIndex: number
+	setActiveTabIndex: (index: number) => void
+	tabData: $TSFixMe
 }
 
 type TutorialHitObject = Hit<{

@@ -16,6 +16,9 @@ import { ProductSlug } from 'types/products'
 
 const IntegrationsTabContents = ({
 	currentProductTag,
+	setActiveTabIndex,
+	tabData,
+	activeTabIndex,
 }: IntegrationsTabContentsProps) => {
 	const { currentInputValue } = useCommandBar()
 	const productSlugs = currentProductTag
@@ -36,7 +39,14 @@ const IntegrationsTabContents = ({
 			<CustomHitsContainer
 				integrationsHits={filteredIntegrations}
 				type="integrations"
-				noResultsSlot={<NoResultsMessage type="integrations" />}
+				noResultsSlot={
+					<NoResultsMessage
+						type="integrations"
+						activeTabIndex={activeTabIndex}
+						setActiveTabIndex={setActiveTabIndex}
+						tabData={tabData}
+					/>
+				}
 			/>
 			{currentProductTag ? (
 				<TabContentsCta

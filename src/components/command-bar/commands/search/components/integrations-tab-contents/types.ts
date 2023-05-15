@@ -8,6 +8,9 @@ import { Integration } from 'lib/integrations-api-client/integration'
 
 interface IntegrationsTabContentsProps {
 	currentProductTag?: CommandBarTag
+	activeTabIndex: number
+	setActiveTabIndex: (index: number) => void
+	tabData: $TSFixMe
 }
 
 type IntegrationHitObject = Integration

@@ -12,6 +12,9 @@ import s from './documentation-tab-contents.module.css'
 const DocumentationTabContents = ({
 	currentProductTag,
 	suggestedPages,
+	activeTabIndex,
+	setActiveTabIndex,
+	tabData,
 }: DocumentationTabContentsProps) => {
 	let filters
 	if (currentProductTag) {
@@ -25,7 +28,12 @@ const DocumentationTabContents = ({
 			<CustomHitsContainer
 				noResultsSlot={
 					<>
-						<NoResultsMessage type="docs" />
+						<NoResultsMessage
+							type="docs"
+							activeTabIndex={activeTabIndex}
+							setActiveTabIndex={setActiveTabIndex}
+							tabData={tabData}
+						/>
 						<CommandBarDivider className={s.divider} />
 						<SuggestedPages pages={suggestedPages} />
 					</>
