@@ -17,6 +17,7 @@ import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import BaseNewLayout from 'layouts/base-new'
 import Badge from 'components/badge'
+import ProductIcon from 'components/product-icon'
 import StandaloneLink, {
 	StandaloneLinkContents,
 } from 'components/standalone-link'
@@ -29,6 +30,16 @@ import s from './tutorials-landing.module.css'
 const TITLE = 'Start here'
 const SUBTITLE =
 	'Brief intro - this is our opportunity to shape the value of this page for our Beginner practitioners. Max character count of 150 would be ideal.  Discover step-by-step learning paths to help you complete essential task to get started with HashiCorp products.'
+const PRODUCT_DESCRIPTIONS = {
+	terraform: 'Build, change, and destroy infrastructure',
+	packer: 'Automate creating machine images',
+	consul: 'Manage secure network connectivity',
+	vault: 'Secure, store, and tightly control access to secrets',
+	boundary: 'Manage identity-based access',
+	nomad: 'Schedule and orchestrate workloads',
+	waypoint: 'Publish any application to any platform',
+	vagrant: 'Build and manage virtual machine environments',
+}
 const ICON_MAP = {
 	vault: {
 		icon: <IconVaultColor16 />,
@@ -74,20 +85,24 @@ const ICON_MAP = {
 const DEFAULT_BADGES = Object.values(ICON_MAP)
 
 const ProductSection = ({
-	title,
-	description,
+	certification,
+	featuredCollections,
+	featuredUseCases,
+	productSlug,
 	productTutorialsLandingCta,
 	tutorialsLibraryCta,
-	featuredUseCases,
-	featuredCollections,
-	certification,
 }: $TSFixMe) => {
 	return (
 		<section className={s.section}>
 			<div className={s.leftRight}>
 				<div className={s.left}>
-					<h2 className={s.sectionTitle}>{title}</h2>
-					<p className={s.sectionDescription}>{description}</p>
+					<h2 className={s.sectionTitle}>
+						<ProductIcon productSlug={productSlug} size={24} />
+						<span>{productSlugsToNames[productSlug]}</span>
+					</h2>
+					<p className={s.sectionDescription}>
+						{PRODUCT_DESCRIPTIONS[productSlug]}
+					</p>
 					<ul className={s.generalCtasList}>
 						<li>
 							<StandaloneLink
@@ -255,8 +270,7 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 				return (
 					<ProductSection
 						key={productSlug}
-						title={sectionData.title}
-						description={sectionData.description}
+						productSlug={productSlug}
 						productTutorialsLandingCta={{
 							href: `/${productSlug}/tutorials`,
 							text: `Explore more ${productName} learning paths`,

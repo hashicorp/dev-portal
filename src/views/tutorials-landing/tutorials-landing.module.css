@@ -51,8 +51,11 @@ LEFT
 }
 
 .sectionTitle {
+	align-items: center;
+	display: flex;
 	font-size: 30px;
 	font-weight: 700;
+	gap: 8px;
 	line-height: 38px;
 	margin-bottom: 21px;
 }
