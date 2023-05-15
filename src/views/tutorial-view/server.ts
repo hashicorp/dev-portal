@@ -75,7 +75,7 @@ export async function getTutorialPageProps(
 	// @TODO, the variant data will be passed from the API, check for that in the
 	// tutorial data
 	if (variantSlug) {
-		// slugs in the query params are formatted like ?variants="slug:optionSlug"
+		// slugs in the query params are formatted like ?variants=slug:optionSlug
 		const VARIANT_SLUG_SPLIT_CHAR = ':'
 		const [slug, optionSlug] = variantSlug.split(VARIANT_SLUG_SPLIT_CHAR)
 
