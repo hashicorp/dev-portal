@@ -31,5 +31,9 @@
 .readTime {
 	composes: hds-font-weight-medium from global;
 	composes: hds-typography-display-100 from global;
-	color: var(--token-color-palette-neutral-600);
+	color: var(--token-color-foreground-faint);
+}
+
+.seperator {
+	color: var(--token-color-foreground-faint);
 }

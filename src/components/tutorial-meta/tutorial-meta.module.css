@@ -14,6 +14,7 @@
 	composes: g-offset-scroll-margin-top from global;
 	margin-top: 0;
 	margin-bottom: var(--spacing-med);
+	color: var(--token-color-foreground-strong);
 
 	@media (--dev-dot-tablet-up) {
 		margin-bottom: var(--spacing-sml);

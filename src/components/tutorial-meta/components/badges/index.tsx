@@ -36,6 +36,9 @@ export function Badges({ options }: BadgesProps): React.ReactElement {
 			<li>
 				<p className={s.readTime}>{getReadableTime(readTime)}</p>
 			</li>
+			<li>
+				<p className={s.seperator}>|</p>
+			</li>
 			{badges.map((badge: ReactElement, index: number) => (
 				// eslint-disable-next-line react/no-array-index-key
 				<li key={index}>{badge}</li>
