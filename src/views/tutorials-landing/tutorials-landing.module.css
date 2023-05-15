@@ -1,0 +1,219 @@
+.root {
+	--content-max-width: 1240px;
+}
+
+.hero {
+	background-color: #d9d9d9;
+	padding-bottom: 84px;
+	padding-top: 218px;
+}
+
+.header {
+	margin: 0 auto;
+	max-width: var(--content-max-width);
+}
+
+.title {
+	font-size: 54px;
+	font-weight: 700;
+	line-height: 70px;
+	margin-bottom: 21px;
+	max-width: 850px;
+}
+
+.subtitle {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 24px;
+	max-width: 850px;
+}
+
+.section {
+	margin: 124px auto;
+	max-width: var(--content-max-width);
+}
+
+.leftRight {
+	align-items: flex-start;
+	column-gap: 58px;
+	display: flex;
+	flex-direction: row;
+}
+
+/*
+
+LEFT
+
+*/
+
+.left {
+	max-width: 365px;
+}
+
+.sectionTitle {
+	font-size: 30px;
+	font-weight: 700;
+	line-height: 38px;
+	margin-bottom: 21px;
+}
+
+.sectionDescription {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 24px;
+}
+
+.generalCtasList {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	list-style: none;
+	margin: 0;
+	margin-top: 32px;
+	padding: 0;
+}
+
+.featuredUseCasesTitle {
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 32px;
+	margin-bottom: 24px;
+	margin-top: 70px;
+}
+
+.featuredUseCasesList {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	row-gap: 32px;
+}
+
+/*
+
+RIGHT
+
+*/
+
+.right {
+	max-width: 820px;
+	width: 100%;
+}
+
+.grid {
+	display: grid;
+	gap: 21px;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+}
+
+.card {
+	border-radius: 10px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.cardHeader {
+	composes: hds-elevation-mid from global;
+	align-items: flex-end;
+	background-color: #dbdbdc;
+	display: flex;
+	min-height: 142px;
+	padding-bottom: 48px;
+	padding-left: 42px;
+	padding-right: 42px;
+	padding-top: 62px;
+	position: relative;
+}
+
+.cardTitle {
+	font-size: 24px;
+	font-weight: 600;
+	height: fit-content;
+	line-height: 32px;
+	margin: 0;
+	padding: 0;
+}
+
+.cardBody {
+	background-color: #fafafa;
+	padding-bottom: 34px;
+	padding-left: 42px;
+	padding-right: 42px;
+	padding-top: 42px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	flex-grow: 1;
+}
+
+.cardBodyLeftRight {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.cardText {
+	max-width: 220px;
+}
+
+.fakeBookmarkButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 48px;
+	height: 48px;
+	border-radius: 24px;
+	border: 1px solid black;
+}
+
+.cardEyebrow {
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 18px;
+}
+
+.cardDescription {
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 18px;
+}
+
+.cardBadges {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin-top: 40px;
+}
+
+.certificationCard {
+	background-color: #dbdbdc;
+	border-radius: 10px;
+	padding: 70px 40px;
+}
+
+.certificationCardEyebrow {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 18px;
+}
+
+.certificationCardTitle {
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 32px;
+	margin-top: 12px;
+	margin-bottom: 20px;
+}
+
+.certificationCardBody {
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 18px;
+	margin-bottom: 36px;
+}
