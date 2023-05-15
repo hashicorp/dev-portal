@@ -22,6 +22,7 @@ export default function InteractiveLabButton() {
 			onClick={() => ctx.setActive(!ctx.active)}
 			icon={<IconTerminalScreen16 />}
 			data-heap-track="interactive-lab-button"
+			color="secondary"
 		/>
 	)
 }
