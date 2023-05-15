@@ -128,7 +128,7 @@
 		"@hashicorp/react-product-downloads-page": "^2.9.0",
 		"@hashicorp/react-search": "^6.5.0",
 		"@hashicorp/react-sentinel-embedded": "^2.0.0",
-		"@hashicorp/react-subnav": "^9.5.2",
+		"@hashicorp/react-subnav": "^9.6.0",
 		"@hashicorp/react-tabs": "^7.2.1",
 		"@hashicorp/remark-plugins": "^4.1.1",
 		"@hashicorp/sentinel-embedded": "^0.0.14",
