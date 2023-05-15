@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { Product } from 'types/products'
 import { ApiDocsServiceData } from '../../../types'
