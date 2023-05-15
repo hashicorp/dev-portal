@@ -25,7 +25,7 @@ const DocumentationTabContents = ({
 			<CustomHitsContainer
 				noResultsSlot={
 					<>
-						<NoResultsMessage />
+						<NoResultsMessage type="docs" />
 						<CommandBarDivider className={s.divider} />
 						<SuggestedPages pages={suggestedPages} />
 					</>

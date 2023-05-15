@@ -27,7 +27,7 @@ const TutorialsTabContents = ({
 			<Configure filters={filters} />
 			<CustomHitsContainer
 				type="tutorials"
-				noResultsSlot={<NoResultsMessage />}
+				noResultsSlot={<NoResultsMessage type="tutorials" />}
 			/>
 			<TabContentsCta
 				href={tutorialLibraryCta.href}

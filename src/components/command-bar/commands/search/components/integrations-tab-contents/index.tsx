@@ -36,7 +36,7 @@ const IntegrationsTabContents = ({
 			<CustomHitsContainer
 				integrationsHits={filteredIntegrations}
 				type="integrations"
-				noResultsSlot={<NoResultsMessage />}
+				noResultsSlot={<NoResultsMessage type="integrations" />}
 			/>
 			{currentProductTag ? (
 				<TabContentsCta
