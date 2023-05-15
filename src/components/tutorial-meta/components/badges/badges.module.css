@@ -4,27 +4,17 @@
  */
 
 .list {
-	--badge-spacing: 8px;
-
 	align-items: flex-start;
 	display: flex;
 	flex-wrap: wrap;
-	gap: var(--badge-spacing);
+	gap: var(--tag-spacing); /* defined in tutorial-meta.module.css */
 	list-style: none;
 	margin: 0;
-	margin-bottom: calc(
-		var(--spacing-lrg) - var(--badge-spacing)
-	); /* --spacing tokens live in tutorial-meta-module.css */
-
 	padding: 0;
 
 	& li {
 		align-self: center;
 		display: flex;
-	}
-
-	@media (--dev-dot-tablet-up) {
-		margin-bottom: calc(var(--spacing-xl) - var(--badge-spacing));
 	}
 }
 

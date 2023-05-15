@@ -8,6 +8,7 @@
 	--spacing-med: 20px;
 	--spacing-lrg: 24px;
 	--spacing-xl: 32px;
+	--tag-spacing: 8px;
 }
 
 .heading {
@@ -26,6 +27,19 @@
 }
 
 .meta {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-bottom: calc(var(--spacing-lrg) - var(--tag-spacing));
+
+	@media (--dev-dot-tablet-up) {
+		margin-bottom: calc(var(--spacing-xl) - var(--tag-spacing));
+	}
+}
+
+.createAccountCta {
+	color: var(--token-color-foreground-primary);
+	margin-top: 32px;
 	margin-bottom: var(--spacing-lrg);
 
 	@media (--dev-dot-tablet-up) {
@@ -33,17 +47,9 @@
 	}
 }
 
-.createAccountCta {
-	color: var(--token-color-foreground-primary);
-	margin-top: 32px;
-}
-
 .buttonGroup {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	gap: 16px;
-
-	@media (--medium-up) {
-		flex-direction: row;
-	}
+	align-items: center;
 }
