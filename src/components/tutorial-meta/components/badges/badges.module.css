@@ -11,21 +11,20 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
-
-	& li {
-		align-self: center;
-		display: flex;
-	}
 }
 
-.readTime {
+.listItem {
 	composes: hds-font-weight-medium from global;
 	composes: hds-typography-display-100 from global;
 	color: var(--token-color-foreground-faint);
+	align-self: center;
+	display: flex;
 }
 
 .seperator {
+	padding-bottom: 2px;
+}
+
+.badge {
 	color: var(--token-color-foreground-faint);
-	composes: hds-font-weight-medium from global;
-	composes: hds-typography-display-100 from global;
 }
