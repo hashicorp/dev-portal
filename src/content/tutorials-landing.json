@@ -1,34 +1,45 @@
 {
 	"terraform": {
-		"featuredUseCases": null,
-		"featuredCollections": null
+		"featuredUseCases": [
+			{
+				"href": "/terraform/tutorials/applications",
+				"text": "Deploy and Monitor Applications"
+			},
+			{ "href": "/terraform/tutorials/aws", "text": "Manage AWS Services" },
+			{ "href": "/terraform/tutorials/azure", "text": "Manage Azure Services" }
+		],
+		"featuredCollectionSlugs": [
+			"terraform/aws-get-started",
+			"terraform/azure-get-started",
+			"terraform/gcp-get-started"
+		]
 	},
 	"packer": {
 		"featuredUseCases": null,
-		"featuredCollections": null
+		"featuredCollectionSlugs": null
 	},
 	"consul": {
 		"featuredUseCases": null,
-		"featuredCollections": null
+		"featuredCollectionSlugs": null
 	},
 	"vault": {
 		"featuredUseCases": null,
-		"featuredCollections": null
+		"featuredCollectionSlugs": null
 	},
 	"boundary": {
 		"featuredUseCases": null,
-		"featuredCollections": null
+		"featuredCollectionSlugs": null
 	},
 	"nomad": {
 		"featuredUseCases": null,
-		"featuredCollections": null
+		"featuredCollectionSlugs": null
 	},
 	"waypoint": {
 		"featuredUseCases": null,
-		"featuredCollections": null
+		"featuredCollectionSlugs": null
 	},
 	"vagrant": {
 		"featuredUseCases": null,
-		"featuredCollections": null
+		"featuredCollectionSlugs": null
 	}
 }
