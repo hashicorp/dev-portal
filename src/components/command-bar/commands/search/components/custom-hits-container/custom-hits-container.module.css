@@ -6,4 +6,7 @@
 .comandBarListWrapper {
 	margin-bottom: 12px;
 	margin-top: 12px;
+
+	/* border-top: 1px solid var(--token-color-border-primary); */
+	padding-top: 8px;
 }

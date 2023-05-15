@@ -17,6 +17,11 @@ export interface TabProps {
 	heading: string
 
 	/**
+	 * TODO: add description
+	 */
+	labelSlot?: ReactNode
+
+	/**
 	 * An optional icon to render before the text of a Tab.
 	 */
 	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>

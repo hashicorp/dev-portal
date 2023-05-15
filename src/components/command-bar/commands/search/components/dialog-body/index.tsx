@@ -24,6 +24,7 @@ import {
 	generateSuggestedPages,
 	generateTutorialLibraryCta,
 	getCurrentProductTag,
+	useHitsContext,
 } from '../../helpers'
 import {
 	DocumentationTabContents,
@@ -58,6 +59,7 @@ const SearchCommandBarDialogBodyContent = ({
 }) => {
 	const { currentInputValue } = useCommandBar()
 	const contentType = useCurrentContentType()
+	const [hitCounts] = useHitsContext()
 
 	/**
 	 * Generate suggested pages, memoized.
@@ -151,8 +153,52 @@ const SearchCommandBarDialogBodyContent = ({
 
 					const { heading, icon, content } =
 						tabsBySearchableContentType[contentType]
+					const hitCount = hitCounts[contentType]
+
+					/**
+					 * TODO: split this out as a separate component
+					 */
+					const headingElem = (
+						<span
+							style={{
+								display: 'inline-flex',
+								alignItems: 'center',
+								gap: '6px',
+							}}
+						>
+							{heading}
+							{typeof hitCount === 'number' ? (
+								<>
+									{/* Note: could consider <Badge /> here? */}
+									<span
+										style={{
+											display: 'flex',
+											alignItems: 'center',
+											textAlign: 'center',
+											justifyContent: 'center',
+											fontSize: 'var(--token-typography-body-100-font-size)',
+											background: 'var(--token-color-surface-strong)',
+											borderRadius: '9999px',
+											position: 'relative',
+											lineHeight: 0,
+											width: '1.5rem',
+											height: '1.5rem',
+										}}
+									>
+										{' ' + String(hitCount)}
+									</span>
+								</>
+							) : null}
+						</span>
+					)
+
 					return (
-						<Tab heading={heading} icon={icon} key={contentType}>
+						<Tab
+							heading={heading}
+							labelSlot={headingElem}
+							icon={icon}
+							key={contentType}
+						>
 							{content}
 						</Tab>
 					)
