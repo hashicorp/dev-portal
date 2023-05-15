@@ -79,10 +79,12 @@ export async function getTutorialPageProps(
 		const VARIANT_SLUG_SPLIT_CHAR = ':'
 		const [slug, optionSlug] = variantSlug.split(VARIANT_SLUG_SPLIT_CHAR)
 
-		// @TODO, expand this to pass the active variant option and all variant option data
-		variant = {
-			slug,
-			optionSlug,
+		if (slug && optionSlug) {
+			// @TODO, expand this to pass the active variant option and all variant option data
+			variant = {
+				slug,
+				optionSlug,
+			}
 		}
 	}
 
