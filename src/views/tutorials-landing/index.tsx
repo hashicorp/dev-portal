@@ -23,7 +23,6 @@ import StandaloneLink, {
 import { GlobalThemeOption } from 'styles/themes/types'
 
 // Local imports
-import testData from './content.json'
 import s from './tutorials-landing.module.css'
 
 // Constants
@@ -204,7 +203,7 @@ const ProductSection = ({
 	)
 }
 
-const TutorialsLandingView = () => {
+const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 	return (
 		<div className={s.root}>
 			<div className={s.hero}>
@@ -213,9 +212,9 @@ const TutorialsLandingView = () => {
 					<p className={s.subtitle}>{SUBTITLE}</p>
 				</header>
 			</div>
-			{Object.keys(testData).map((productSlug: ProductSlug) => {
+			{Object.keys(pageContent).map((productSlug: ProductSlug) => {
 				const productName = productSlugsToNames[productSlug]
-				const sectionData = testData[productSlug]
+				const sectionData = pageContent[productSlug]
 				const featuredUseCases = sectionData.featuredUseCases ?? [
 					{ href: '#', text: 'Featured use case #1' },
 					{ href: '#', text: 'Featured use case #2' },
