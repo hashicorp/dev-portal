@@ -16,30 +16,57 @@
 	},
 	"packer": {
 		"featuredUseCases": null,
-		"featuredCollectionSlugs": null
+		"featuredCollectionSlugs": [
+			"packer/docker-get-started",
+			"packer/aws-get-started",
+			"packer/hcp-get-started"
+		]
 	},
 	"consul": {
 		"featuredUseCases": null,
-		"featuredCollectionSlugs": null
+		"featuredCollectionSlugs": [
+			"consul/get-started-hcp",
+			"consul/get-started-kubernetes",
+			"consul/get-started-vms"
+		]
 	},
 	"vault": {
 		"featuredUseCases": null,
-		"featuredCollectionSlugs": null
+		"featuredCollectionSlugs": [
+			"vault/getting-started",
+			"vault/getting-started-ui",
+			"vault/cloud"
+		]
 	},
 	"boundary": {
 		"featuredUseCases": null,
-		"featuredCollectionSlugs": null
+		"featuredCollectionSlugs": [
+			"boundary/hcp-getting-started",
+			"boundary/oss-getting-started"
+		]
 	},
 	"nomad": {
 		"featuredUseCases": null,
-		"featuredCollectionSlugs": null
+		"featuredCollectionSlugs": [
+			"nomad/get-started",
+			"nomad/cluster-setup",
+			"nomad/manage-jobs"
+		]
 	},
 	"waypoint": {
 		"featuredUseCases": null,
-		"featuredCollectionSlugs": null
+		"featuredCollectionSlugs": [
+			"waypoint/collection",
+			"waypoint/collection",
+			"waypoint/collection"
+		]
 	},
 	"vagrant": {
 		"featuredUseCases": null,
-		"featuredCollectionSlugs": null
+		"featuredCollectionSlugs": [
+			"vagrant/collection",
+			"vagrant/collection",
+			"vagrant/collection"
+		]
 	}
 }
