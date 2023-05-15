@@ -23,6 +23,7 @@ export default function InteractiveLabButton() {
 			icon={<IconTerminalScreen16 />}
 			data-heap-track="interactive-lab-button"
 			color="secondary"
+			size="small"
 		/>
 	)
 }

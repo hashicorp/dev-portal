@@ -4,10 +4,12 @@
  */
 
 .list {
+	--tag-spacing: 12px;
+
 	align-items: flex-start;
 	display: flex;
 	flex-wrap: wrap;
-	gap: var(--tag-spacing); /* defined in tutorial-meta.module.css */
+	gap: var(--tag-spacing);
 	list-style: none;
 	margin: 0;
 	padding: 0;

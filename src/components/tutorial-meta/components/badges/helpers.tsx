@@ -34,8 +34,10 @@ export function getIsBeta(productsUsed: ProductUsed[]): boolean {
 	return productsUsed.some(({ isBeta }: ProductUsed) => isBeta)
 }
 
-function TutorialMetaBadge(props: Omit<BadgeProps, 'type' | 'className'>) {
-	return <Badge {...props} type="base" className={s.badge} />
+function TutorialMetaBadge(
+	props: Omit<BadgeProps, 'type' | 'className' | 'size'>
+) {
+	return <Badge {...props} type="base" className={s.badge} size="small" />
 }
 
 /**

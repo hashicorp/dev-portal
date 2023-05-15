@@ -54,16 +54,23 @@ export function BookmarkButtonIconOnly({
  * only in the tutorial meta component.
  */
 
-function BookmarkButtonTextAndIcon({
+function BookmarkButtonSecondaryIcon({
 	handleOnClick,
 	isBookmarked,
 }: BookmarkButtonProps) {
 	const { add, remove } = bookmarkButtonConfig
 	const buttonProps = isBookmarked
-		? { text: remove.text, icon: remove.baseIcon }
-		: { text: add.text, icon: add.baseIcon }
+		? { ['aria-label']: remove.text, icon: remove.baseIcon }
+		: { ['aria-label']: add.text, icon: add.baseIcon }
 
-	return <Button color="secondary" onClick={handleOnClick} {...buttonProps} />
+	return (
+		<Button
+			color="secondary"
+			size="small"
+			onClick={handleOnClick}
+			{...buttonProps}
+		/>
+	)
 }
 
 /**
@@ -76,4 +83,4 @@ function BookmarkButtonTextAndIcon({
  * upon user interaction, if authenticated.
  */
 export const TutorialCardBookmarkButton = Connected(BookmarkButtonIconOnly)
-export const TutorialMetaBookmarkButton = Connected(BookmarkButtonTextAndIcon)
+export const TutorialMetaBookmarkButton = Connected(BookmarkButtonSecondaryIcon)
