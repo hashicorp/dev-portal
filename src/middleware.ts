@@ -122,6 +122,27 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// 	}
 	// }
 
+	/**
+	 * Detect the variants query param and rewrite to the correct path.
+	 *
+	 * Request path: /{product}/tutorials/{collection}/{tutorial}?variants={slug:optionSlug}
+	 * Rendered path: /{product}/tutorials/{collection}/{tutorial}/{variant}
+	 */
+
+	if (
+		req.nextUrl.pathname.includes('/tutorials') &&
+		req.nextUrl.searchParams.has('variants')
+	) {
+		const url = req.nextUrl.clone()
+		// We only support one variant per tutorial now, in the future this will support an array of variant options
+		const variant = url.searchParams.get('variants')
+
+		url.searchParams.delete('variants')
+		// rewrite to the static route
+		url.pathname = `${url.pathname}/${variant}`
+		response = NextResponse.rewrite(url)
+	}
+
 	if (!response) {
 		response = NextResponse.next()
 	}
