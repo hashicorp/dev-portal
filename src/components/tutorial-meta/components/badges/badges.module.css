@@ -26,4 +26,6 @@
 
 .seperator {
 	color: var(--token-color-foreground-faint);
+	composes: hds-font-weight-medium from global;
+	composes: hds-typography-display-100 from global;
 }
