@@ -85,6 +85,7 @@ export interface RawTabItem {
 	group?: string
 	icon?: TabProps['icon']
 	label: string
+	labelSlot?: TabProps['headingSlot']
 }
 
 /**
