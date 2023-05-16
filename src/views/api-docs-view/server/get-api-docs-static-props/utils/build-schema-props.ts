@@ -2,7 +2,10 @@
 import { capitalCase } from 'change-case'
 // Global
 import fetchGithubFile from 'lib/fetch-github-file'
-import { processSchemaString } from 'components/open-api-page/server/process-schema'
+import {
+	processSchemaFile,
+	processSchemaString,
+} from 'components/open-api-page/server/process-schema'
 import {
 	getOperationObjects,
 	getServiceIds,
@@ -53,16 +56,22 @@ async function buildSchemaProps({
 	| { notFound: true }
 > {
 	/**
-	 * Fetch and process the OpenAPI swagger file for this version
-	 */
-	const swaggerFile = await fetchGithubFile(targetFile)
-	/**
+	 * Grab the schema.
+	 *
+	 * If the provided `targetFile` is a string, we'll load from the filesystem.
+	 * Else, we assume a remote GitHub file, and load using the GitHub API.
+	 *
 	 * TODO: would be ideal to validate & properly type the schema, eg with `zod`.
 	 * For now, we cast it to the good-enough ApiDocsSwaggerSchema.
 	 */
-	const schema = (await processSchemaString(
-		swaggerFile
-	)) as ApiDocsSwaggerSchema
+	let schema
+	if (typeof targetFile === 'string') {
+		schema = await processSchemaFile(targetFile)
+	} else {
+		const swaggerFile = await fetchGithubFile(targetFile)
+		schema = await processSchemaString(swaggerFile)
+	}
+
 	/**
 	 * TODO: would be ideal to add return types to these two functions.
 	 * Slightly outside scope of current work, leaving this alone for now.
