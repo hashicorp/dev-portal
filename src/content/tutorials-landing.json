@@ -5,8 +5,11 @@
 				"href": "/terraform/tutorials/applications",
 				"text": "Deploy and Monitor Applications"
 			},
-			{ "href": "/terraform/tutorials/aws", "text": "Manage AWS Services" },
-			{ "href": "/terraform/tutorials/azure", "text": "Manage Azure Services" }
+			{ "href": "/terraform/tutorials/it-saas", "text": "IT/SaaS Providers" },
+			{
+				"href": "/terraform/tutorials/kubernetes",
+				"text": "Manage Kubernetes with Terraform"
+			}
 		],
 		"featuredCollectionSlugs": [
 			"terraform/aws-get-started",
