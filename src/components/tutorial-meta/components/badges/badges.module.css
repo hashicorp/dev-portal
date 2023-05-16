@@ -4,12 +4,12 @@
  */
 
 .list {
-	--tag-spacing: 12px;
+	--badge-spacing: 12px;
 
 	align-items: flex-start;
 	display: flex;
 	flex-wrap: wrap;
-	gap: var(--tag-spacing);
+	gap: var(--badge-spacing);
 	list-style: none;
 	margin: 0;
 	padding: 0;
