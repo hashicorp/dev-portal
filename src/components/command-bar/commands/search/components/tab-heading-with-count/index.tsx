@@ -1,3 +1,4 @@
+import Badge from 'components/badge'
 import s from './tab-heading-with-count.module.css'
 
 /**
@@ -17,7 +18,7 @@ function TabHeadingWithCount({
 		<span className={s.root}>
 			{heading}
 			{typeof count === 'number' ? (
-				<span className={s.countBadge}>{String(count)}</span>
+				<Badge className={s.countBadge} text={String(count)} />
 			) : null}
 		</span>
 	)

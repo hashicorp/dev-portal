@@ -5,14 +5,5 @@
 }
 
 .countBadge {
-	align-items: center;
-	background: var(--token-color-surface-strong);
-	border-radius: 9999px;
-	display: flex;
-	font-size: var(--token-typography-body-100-font-size);
-	height: 1.5rem;
-	justify-content: center;
-	line-height: 0;
-	position: relative;
-	width: 1.5rem;
+	color: inherit;
 }
