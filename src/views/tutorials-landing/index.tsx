@@ -82,7 +82,6 @@ const ICON_MAP = {
 		label: 'Interactive',
 	},
 }
-const DEFAULT_BADGES = Object.values(ICON_MAP)
 
 const ProductSection = ({
 	certification,
@@ -230,42 +229,13 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 			{Object.keys(pageContent).map((productSlug: ProductSlug) => {
 				const productName = productSlugsToNames[productSlug]
 				const sectionData = pageContent[productSlug]
-				const featuredUseCases = sectionData.featuredUseCases ?? [
-					{ href: '#', text: 'Featured use case #1' },
-					{ href: '#', text: 'Featured use case #2' },
-					{ href: '#', text: 'Featured use case #3' },
-				]
-				const featuredCollections = sectionData.featuredCollections
-					? sectionData.featuredCollections.map((featuredCollection) => ({
-							...featuredCollection,
-							badges: featuredCollection.badges.map((badge) => ICON_MAP[badge]),
-					  }))
-					: [
-							{
-								badges: DEFAULT_BADGES,
-								href: '#',
-								title: 'Install Product',
-								description:
-									'Brief description to gives the user enough context to take the next step with confidence',
-								tutorialCount: 'XX',
-							},
-							{
-								badges: DEFAULT_BADGES,
-								href: '#',
-								title: 'Build infrastructure',
-								description:
-									'Brief description to gives the user enough context to take the next step with confidence',
-								tutorialCount: 'XX',
-							},
-							{
-								badges: DEFAULT_BADGES,
-								href: '#',
-								title: 'Change infrastructure',
-								description:
-									'Brief description to gives the user enough context to take the next step with confidence',
-								tutorialCount: 'XX',
-							},
-					  ]
+				const featuredUseCases = sectionData.featuredUseCases
+				const featuredCollections = sectionData.featuredCollections.map(
+					(featuredCollection) => ({
+						...featuredCollection,
+						badges: featuredCollection.badges.map((badge) => ICON_MAP[badge]),
+					})
+				)
 
 				return (
 					<ProductSection
