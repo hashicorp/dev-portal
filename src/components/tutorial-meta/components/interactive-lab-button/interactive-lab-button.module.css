@@ -1,0 +1,7 @@
+.button {
+	flex-grow: 1;
+
+	@media (--dev-dot-tablet-up) {
+		flex-grow: 0;
+	}
+}
