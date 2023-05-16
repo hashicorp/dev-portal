@@ -11,7 +11,6 @@ import {
 import { VariantsDropdownDisclosureProps } from './types'
 import s from './variants-dropdown-disclosure.module.css'
 
-// @TODO add aria-labelledBy
 
 export function VariantsDropdownDisclosure({
 	variant,
