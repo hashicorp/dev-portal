@@ -62,6 +62,11 @@ interface TutorialViewProps {
 		title: string
 		description: string
 		slug?: string
+		// @TODO expand this type
+		variant?: {
+			slug: string
+			optionSlug: string
+		}
 	}
 }
 

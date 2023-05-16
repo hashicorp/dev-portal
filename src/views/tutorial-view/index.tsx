@@ -114,6 +114,7 @@ function TutorialView({
 	tutorial,
 	outlineItems,
 	pageHeading,
+	metadata,
 }: TutorialViewProps): React.ReactElement {
 	// hooks
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
@@ -266,6 +267,12 @@ function TutorialView({
 							}}
 							tutorialId={id}
 						/>
+						{metadata.variant ? (
+							<div style={{ border: '1px solid magenta' }}>
+								<h2>Variant: {metadata.variant.slug}</h2>
+								<p>Option: {metadata.variant.optionSlug}</p>
+							</div>
+						) : null}
 						<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
 						{hasVideo && video.id && !video.videoInline && (
 							<VideoEmbed

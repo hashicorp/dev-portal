@@ -46,8 +46,11 @@ export async function getTutorialPageProps(
 	product: Omit<LearnProductData, 'slug'> & {
 		slug: LearnClientProduct['slug'] | 'hcp'
 	},
-	slug: [string, string]
+	fullSlug: [string, string] | [string, string, string] // Third option is a variant
 ): Promise<{ props: TutorialViewProps } | null> {
+	// Remove the variant from the slug
+	const slug = fullSlug.slice(0, 2) as [string, string]
+
 	// product.slug may be "hcp", needs to be "cloud" for Learn API use
 	const learnProductSlug = normalizeSlugForTutorials(product.slug)
 	const { collection, tutorialReference } = await getCurrentCollectionTutorial(
@@ -64,6 +67,25 @@ export async function getTutorialPageProps(
 	// double guard if tutorial doesn't exist after call - return 404
 	if (fullTutorialData === null) {
 		return null
+	}
+
+	const variantSlug = fullSlug[2]
+	let variant = undefined
+
+	// @TODO, the variant data will be passed from the API, check for that in the
+	// tutorial data
+	if (variantSlug) {
+		// slugs in the query params are formatted like ?variants=slug:optionSlug
+		const VARIANT_SLUG_SPLIT_CHAR = ':'
+		const [slug, optionSlug] = variantSlug.split(VARIANT_SLUG_SPLIT_CHAR)
+
+		if (slug && optionSlug) {
+			// @TODO, expand this to pass the active variant option and all variant option data
+			variant = {
+				slug,
+				optionSlug,
+			}
+		}
 	}
 
 	const { content: serializedContent, headings } = await serializeContent(
@@ -119,6 +141,7 @@ export async function getTutorialPageProps(
 			metadata: {
 				title: fullTutorialData.name,
 				description: fullTutorialData.description,
+				variant,
 			},
 			tutorial: {
 				...fullTutorialData,
