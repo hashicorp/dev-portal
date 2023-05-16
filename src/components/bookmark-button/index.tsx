@@ -52,6 +52,11 @@ export function BookmarkButtonIconOnly({
 /**
  * This component is a regular button, currently used
  * only in the tutorial meta component.
+ *
+ * 05-16-23 - we removed the label associated with this button to clean up the metadata area.
+ * This comes with the tradeoff of this button being more difficult for voice recognition users to interact with it
+ * as they need to guess the associated aria label to do so. See all the tradeoffs documented here:
+ *  https://www.figma.com/file/NAFjIPkbwjyY8jPl6T9nlP/Tutorial-Variants?type=design&node-id=357-36771&t=R7V6tJoa5Omj5Fe4-0
  */
 
 function BookmarkButtonSecondaryIcon({
