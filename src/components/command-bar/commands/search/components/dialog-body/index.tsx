@@ -33,6 +33,7 @@ import {
 	SuggestedPage,
 	SuggestedPages,
 	TutorialsTabContents,
+	TabHeadingWithCount,
 } from '../'
 import s from './search-command-bar-dialog-body.module.css'
 
@@ -155,7 +156,13 @@ const SearchCommandBarDialogBodyContent = ({
 						tabsBySearchableContentType[contentType]
 					return (
 						<Tab
-							heading={`${heading} (${hitCounts[contentType]})`}
+							heading={heading}
+							headingSlot={
+								<TabHeadingWithCount
+									heading={heading}
+									count={hitCounts[contentType]}
+								/>
+							}
 							icon={icon}
 							key={contentType}
 						>
