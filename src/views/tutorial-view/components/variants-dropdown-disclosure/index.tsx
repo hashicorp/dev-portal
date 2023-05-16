@@ -6,6 +6,7 @@ import Text from 'components/text'
 import {
 	getVariantParam,
 	getVariantPath,
+	TutorialVariantOption,
 } from 'views/tutorial-view/utils/variants'
 import { VariantsDropdownDisclosureProps } from './types'
 import s from './variants-dropdown-disclosure.module.css'
@@ -25,11 +26,11 @@ export function VariantsDropdownDisclosure({
 				{variant.name}
 			</Text>
 			<DropdownDisclosure
-				aria-label={variant.name}
+				aria-label={`${variant.name}: ${activeOption.name}`}
 				color="secondary"
 				text={activeOption.name}
 			>
-				{variant.options.map((option) => (
+				{variant.options.map((option: TutorialVariantOption) => (
 					<DropdownDisclosureLinkItem
 						key={option.slug}
 						href={getVariantPath(

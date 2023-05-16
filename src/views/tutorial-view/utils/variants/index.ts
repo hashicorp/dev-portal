@@ -20,3 +20,5 @@ export function getVariantParam(
 ) {
 	return `${slug}:${optionSlug}`
 }
+
+export type { TutorialVariant, TutorialVariantOption }

@@ -47,7 +47,7 @@ import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
 import getVideoUrl from './utils/get-video-url'
 import { useProgressToast } from './utils/use-progress-toast'
-import { TutorialVariant } from './utils/variants/types'
+import { TutorialVariant } from './utils/variants'
 import {
 	FeaturedInCollections,
 	NextPrevious,
