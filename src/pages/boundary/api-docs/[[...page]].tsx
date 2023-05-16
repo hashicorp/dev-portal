@@ -32,7 +32,7 @@ const BASE_URL = '/boundary/api-docs'
 
 /**
  * The path to read from when running local preview in the context
- * of the `hashicorp/waypoint` repository.
+ * of the `hashicorp/boundary` repository.
  */
 const TARGET_LOCAL_FILE = '../../internal/gen/controller.swagger.json'
 
