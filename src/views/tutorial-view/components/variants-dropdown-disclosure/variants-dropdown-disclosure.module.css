@@ -8,6 +8,13 @@
 }
 
 .dropdownDisclosure {
+	/** 
+	* 🏴‍☠️ FLAG
+	* Reaching into the component here to
+	* override styles. This would be better to
+	* update the actual dropdown disclosure list width, which
+	* is currently set to `max-content`.
+	*/
 	& ul {
 		width: fit-content;
 	}
