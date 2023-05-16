@@ -8,6 +8,8 @@
 	--spacing-med: 20px;
 	--spacing-lrg: 24px;
 	--spacing-xl: 32px;
+
+	margin-bottom: var(--spacing-xl);
 }
 
 .heading {
@@ -23,7 +25,7 @@
 	flex-wrap: wrap;
 	justify-content: space-between;
 	gap: 16px 8px;
-	margin-bottom: var(--spacing-lrg);
+	margin-bottom: var(--spacing-sml);
 
 	@media (--dev-dot-tablet-up) {
 		flex-direction: row;
@@ -32,17 +34,11 @@
 
 .createAccountCta {
 	color: var(--token-color-foreground-primary);
-	margin-top: var(--spacing-lrg);
-	margin-bottom: var(--spacing-lrg);
-
-	@media (--dev-dot-tablet-up) {
-		margin-bottom: var(--spacing-xl);
-	}
 }
 
 .buttonGroup {
 	display: flex;
 	flex-direction: row;
-	gap: 16px;
+	gap: 12px;
 	align-items: center;
 }

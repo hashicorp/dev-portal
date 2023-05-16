@@ -47,7 +47,6 @@ export default function TutorialMeta({
 			>
 				{heading.text}
 			</Heading>
-
 			<div className={s.meta}>
 				<Badges
 					options={{
