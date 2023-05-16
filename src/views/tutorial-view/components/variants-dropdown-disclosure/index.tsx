@@ -27,6 +27,9 @@ export function VariantsDropdownDisclosure({
 				aria-label={`${variant.name}: ${activeOption.name}`}
 				color="secondary"
 				text={activeOption.name}
+				listPosition="right"
+				className={s.dropdownDisclosure}
+				activatorClassName={s.dropdownActivator}
 			>
 				{variant.options.map((option: TutorialVariantOption) => (
 					<DropdownDisclosureLinkItem

@@ -6,3 +6,13 @@
 	margin-bottom: 8px;
 	color: var(--token-color-foreground-primary);
 }
+
+.dropdownDisclosure {
+	& ul {
+		width: fit-content;
+	}
+}
+
+.dropdownActivator {
+	text-align: left;
+}
