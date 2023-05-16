@@ -21,6 +21,7 @@ import {
 import type { OperationObjectType } from 'components/open-api-page/types'
 import type { ApiDocsViewProps } from 'views/api-docs-view/types'
 import type { GetStaticPaths, GetStaticProps } from 'next'
+import { isDeployPreview } from 'lib/env-checks'
 
 /**
  * The product slug is used to fetch product data for the layout.
@@ -63,6 +64,11 @@ function HcpPackerApiDocsView(props: ApiDocsViewProps) {
  * Get static paths, using `versionData` fetched from GitHub.
  */
 export const getStaticPaths: GetStaticPaths<ApiDocsParams> = async () => {
+	// If we are in a deploy preview, don't pre-render any paths
+	if (isDeployPreview()) {
+		return { paths: [], fallback: 'blocking' }
+	}
+	// Otherwise, fetch version data, and use that to generate paths
 	const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
 	return await getApiDocsStaticPaths({ productSlug: PRODUCT_SLUG, versionData })
 }

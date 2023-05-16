@@ -14,12 +14,12 @@ componentName: Badge
 | `icon`            | An icon from `@hashicorp/flight-icons` to render.                                                                                                                                                           | No        | undefined     | ReactElement                                                                       |
 | `size`            | The size of the badge, which mainly affects font size and padding.                                                                                                                                          | No        | "medium"      | One of: "small", "medium", "large"                                                 |
 | `text`            | The text to render inside of the badge. This is not required for icon-only badges.                                                                                                                          | No        | undefined     | string                                                                             |
-| `type`            | The kind of style to apply to the badge, which mainly affects background color and border.                                                                                                                  | No        | "filled"      | One of: "filled", "inverted", "outlined"                                           |
+| `type`            | The kind of style to apply to the badge, which mainly affects background color and border.                                                                                                                  | No        | "filled"      | One of: "filled", "inverted", "outlined", "base"                                   |
 
 ## Playground
 
 <LiveComponent>
-{`
+	{`
 <Badge
   text="Default"
 />
@@ -42,6 +42,7 @@ componentName: Badge
 			<th>Type: filled</th>
 			<th>Type: inverted</th>
 			<th>Type: outlined</th>
+			<th>Type: base</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -56,7 +57,7 @@ componentName: Badge
 			return (
 				<tr>
 					<td>{color}</td>
-					{['filled', 'inverted', 'outlined'].map((type) => {
+					{['filled', 'inverted', 'outlined', 'base'].map((type) => {
 						return (
 							<td
 								style={{
