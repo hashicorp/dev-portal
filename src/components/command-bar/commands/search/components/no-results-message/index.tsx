@@ -10,39 +10,50 @@ import { useCommandBar } from 'components/command-bar'
 import { SearchableContentType } from 'contexts'
 
 function NoResultsMessage({
-	type,
 	activeTabIndex,
 	setActiveTabIndex,
 	tabData,
 }: {
-	type: 'docs' | 'integrations' | 'tutorials'
 	activeTabIndex: number
 	setActiveTabIndex: (index: number) => void
 	tabData: $TSFixMe
 }) {
 	const { currentInputValue } = useCommandBar()
 	const [hitCounts] = useHitsContext()
+	/**
+	 * TODO: write a context & hook like the below, to avoid props threading.
+	 * Currently difficult to do this WITHOUT tab threading, or refactoring
+	 * a bunch of things, so going with context seems like it might be fine
+	 * for now, especially since we may move away from the tabbed interface
+	 * in the near future once the "unified" index lands.
+	 */
+	// const { tabItems, activeTabIndex, setActiveTabIndex } = useTabsData()
 
-	const contextName = type
-
-	const otherTabsWithResults = Object.keys(tabData)
-		.map((contentType: SearchableContentType) => {
+	const tabDataWithCounts = Object.keys(tabData).map(
+		(contentType: SearchableContentType) => {
 			return {
 				type: contentType,
 				heading: tabData[contentType].heading,
 				tabIdx: tabData[contentType].tabIdx,
 				hitCount: hitCounts[contentType],
 			}
-		})
-		.filter((otherTab) => {
-			return otherTab.type !== type && otherTab.hitCount > 0
-		})
+		}
+	)
+
+	const currentTabData = tabDataWithCounts.find(
+		(tab) => tab.tabIdx === activeTabIndex
+	)
+	const otherTabsWithResults = tabDataWithCounts.filter((otherTab) => {
+		return otherTab.tabIdx !== currentTabData.tabIdx && otherTab.hitCount > 0
+	})
 
 	return (
 		<div className={s.root}>
 			<Text asElement="p" size={300} weight="medium">
 				Sorry, no matches for &Prime;{currentInputValue}&Prime; were found
-				{otherTabsWithResults.length > 0 ? `within ${contextName}.` : '.'}
+				{otherTabsWithResults.length > 0
+					? `within ${currentTabData.heading}.`
+					: '.'}
 			</Text>
 			{otherTabsWithResults.length > 0 ? (
 				<Text asElement="p" size={300} weight="medium">

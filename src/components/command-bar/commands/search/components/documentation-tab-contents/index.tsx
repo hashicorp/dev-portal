@@ -29,7 +29,6 @@ const DocumentationTabContents = ({
 				noResultsSlot={
 					<>
 						<NoResultsMessage
-							type="docs"
 							activeTabIndex={activeTabIndex}
 							setActiveTabIndex={setActiveTabIndex}
 							tabData={tabData}

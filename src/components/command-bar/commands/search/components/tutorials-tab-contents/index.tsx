@@ -32,7 +32,6 @@ const TutorialsTabContents = ({
 				type="tutorials"
 				noResultsSlot={
 					<NoResultsMessage
-						type="tutorials"
 						activeTabIndex={activeTabIndex}
 						setActiveTabIndex={setActiveTabIndex}
 						tabData={tabData}

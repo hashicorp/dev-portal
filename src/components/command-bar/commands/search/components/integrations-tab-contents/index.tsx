@@ -41,7 +41,6 @@ const IntegrationsTabContents = ({
 				type="integrations"
 				noResultsSlot={
 					<NoResultsMessage
-						type="integrations"
 						activeTabIndex={activeTabIndex}
 						setActiveTabIndex={setActiveTabIndex}
 						tabData={tabData}
