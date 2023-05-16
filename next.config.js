@@ -144,6 +144,7 @@ module.exports = withSwingset({
 			contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 		},
 		experimental: {
+			instrumentationHook: true,
 			largePageDataBytes: 512 * 1000, // 512KB
 		},
 	})
