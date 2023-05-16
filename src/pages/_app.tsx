@@ -17,6 +17,8 @@ import { QueryParamProvider } from 'use-query-params'
 import { useFlags } from 'flags/client'
 import { FlagBagProvider } from 'flags/client'
 
+import '../../instrumentation'
+
 // HashiCorp imports
 import {
 	initializeUTMParamsCapture,
