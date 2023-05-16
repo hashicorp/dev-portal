@@ -4,7 +4,7 @@
  */
 
 .list {
-	--tag-spacing: 12px;
+	--badge-spacing: 12px;
 
 	align-items: flex-start;
 	display: flex;
