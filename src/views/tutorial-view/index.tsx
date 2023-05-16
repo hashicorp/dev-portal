@@ -19,9 +19,12 @@ import {
 	CollectionCategorySidebarSection,
 	getCollectionSlug,
 	getTutorialSlug,
+	generateCollectionSidebarNavData,
 } from 'views/collection-view/helpers'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
+
 import DevDotContent from 'components/dev-dot-content'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
@@ -43,6 +46,7 @@ import {
 import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
 import getVideoUrl from './utils/get-video-url'
+import { useProgressToast } from './utils/use-progress-toast'
 import {
 	FeaturedInCollections,
 	NextPrevious,
@@ -51,9 +55,9 @@ import {
 	VariantsDropdownDisclosure,
 } from './components'
 import s from './tutorial-view.module.css'
-import { useProgressToast } from './utils/use-progress-toast'
-import { generateCollectionSidebarNavData } from 'views/collection-view/helpers/generate-collection-sidebar-nav-data'
-import { OutlineNavWithActive } from 'components/outline-nav/components'
+
+// @TODO temporary stub of variant data
+import variantData from './utils/_tmp-variants-data.json'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -251,7 +255,9 @@ function TutorialView({
 					AlternateSidebar={TutorialsSidebar}
 					sidecarSlot={
 						<>
-							<VariantsDropdownDisclosure />
+							{metadata.variant ? (
+								<VariantsDropdownDisclosure variant={variantData[0]} />
+							) : null}
 							<OutlineNavWithActive items={outlineItems} />
 						</>
 					}
