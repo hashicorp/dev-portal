@@ -4,7 +4,7 @@
  */
 
 .header {
-	--spacing-sml: 18px;
+	--spacing-sml: 16px;
 	--spacing-med: 20px;
 	--spacing-lrg: 24px;
 	--spacing-xl: 32px;
@@ -13,16 +13,8 @@
 .heading {
 	composes: g-offset-scroll-margin-top from global;
 	margin-top: 0;
-	margin-bottom: var(--spacing-med);
+	margin-bottom: var(--spacing-sml);
 	color: var(--token-color-foreground-strong);
-
-	@media (--dev-dot-tablet-up) {
-		margin-bottom: var(--spacing-sml);
-	}
-
-	@media (--dev-dot-desktop) {
-		margin-bottom: var(--spacing-lrg);
-	}
 }
 
 .meta {
