@@ -34,7 +34,7 @@ const BASE_URL = '/boundary/api-docs'
  * The path to read from when running local preview in the context
  * of the `hashicorp/waypoint` repository.
  */
-const TARGET_LOCAL_FILE = '../../pkg/server/gen/server.swagger.json'
+const TARGET_LOCAL_FILE = '../../internal/gen/controller.swagger.json'
 
 /**
  * Version data is hard-coded for now. In the future, we could fetch
