@@ -4,7 +4,7 @@
  */
 
 import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
-import { IconBookmarkRemoveFill16 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-fill-16'
+import { IconBookmarkFill16 } from '@hashicorp/flight-icons/svg-react/bookmark-fill-16'
 import Button from 'components/button'
 import { Connected } from './helpers/connected-bookmark-button'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
@@ -19,7 +19,7 @@ const bookmarkButtonConfig: BookmarkButtonConfigType = {
 	},
 	remove: {
 		text: 'Remove bookmark',
-		baseIcon: <IconBookmarkRemoveFill16 />,
+		baseIcon: <IconBookmarkFill16 />,
 		iconWithHover: <RemoveBookmarkIcon />,
 	},
 }
