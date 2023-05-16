@@ -56,17 +56,16 @@
 	"waypoint": {
 		"featuredUseCases": null,
 		"featuredCollectionSlugs": [
-			"waypoint/collection",
-			"waypoint/collection",
-			"waypoint/collection"
+			"waypoint/get-started-docker",
+			"waypoint/get-started-kubernetes",
+			"waypoint/get-started-nomad"
 		]
 	},
 	"vagrant": {
 		"featuredUseCases": null,
 		"featuredCollectionSlugs": [
-			"vagrant/collection",
-			"vagrant/collection",
-			"vagrant/collection"
+			"vagrant/getting-started",
+			"vagrant/networking-provisioning-operations"
 		]
 	}
 }
