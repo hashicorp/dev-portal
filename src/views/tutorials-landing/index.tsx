@@ -19,6 +19,10 @@ import {
 	PAGE_SUBTITLE,
 	PRODUCT_DESCRIPTIONS,
 	BADGE_ICON_MAP,
+	CONTENT_TYPES_SECTION_TITLE,
+	CONTENT_TYPES_SECTION_ITEMS,
+	BETTER_TOGETHER_SECTION_TITLE,
+	BETTER_TOGETHER_SECTION_COLLECTION_SLUGS,
 } from './constants'
 import s from './tutorials-landing.module.css'
 
@@ -156,7 +160,164 @@ const ProductSection = ({
 	)
 }
 
+const renderProductSections = (productSlugs, pageContent) => {
+	return productSlugs.map((productSlug: ProductSlug) => {
+		const productName = productSlugsToNames[productSlug]
+		const sectionData = pageContent[productSlug]
+		const featuredUseCases = sectionData.featuredUseCases
+		const featuredCollections = sectionData.featuredCollections.map(
+			(featuredCollection) => ({
+				...featuredCollection,
+				badges: featuredCollection.badges.map((badge) => BADGE_ICON_MAP[badge]),
+			})
+		)
+
+		return (
+			<ProductSection
+				key={productSlug}
+				productSlug={productSlug}
+				productTutorialsLandingCta={{
+					href: `/${productSlug}/tutorials`,
+					text: `Explore more ${productName} learning paths`,
+				}}
+				tutorialsLibraryCta={{
+					href: `/tutorials/library?product=${productSlug}`,
+					text: `Search all ${productName} tutorials`,
+				}}
+				featuredUseCases={featuredUseCases}
+				featuredCollections={featuredCollections}
+			/>
+		)
+	})
+}
+
+const ContentTypesSection = () => {
+	return (
+		<section
+			className={s.contentTypesSection}
+			style={{ paddingTop: 80, paddingBottom: 80 }}
+		>
+			<div className={s.contentTypesSectionTextWrapper}>
+				<h2
+					className={s.contentTypesTitle}
+					style={{
+						marginTop: 0,
+						marginBottom: 42,
+						fontSize: '1.875rem',
+						fontWeight: 700,
+						lineHeight: '1.27',
+						maxWidth: '60%',
+					}}
+				>
+					{CONTENT_TYPES_SECTION_TITLE}
+				</h2>
+				<ul
+					style={{
+						display: 'flex',
+						alignItems: 'flex-start',
+						gap: 48,
+						listStyle: 'none',
+						padding: 0,
+						margin: 0,
+					}}
+				>
+					{CONTENT_TYPES_SECTION_ITEMS.map(
+						({ imageSource, title, description }) => {
+							return (
+								<li
+									key={title}
+									style={{ display: 'flex', alignItems: 'flex-start', gap: 32 }}
+								>
+									<img alt="" src={imageSource} />
+									<div>
+										<h3
+											style={{
+												marginTop: 0,
+												marginBottom: 8,
+												fontSize: '1.5rem',
+												fontWeight: 600,
+												lineHeight: '1.3',
+											}}
+										>
+											{title}
+										</h3>
+										<p
+											style={{
+												fontSize: '1rem',
+												fontWeight: 600,
+												lineHeight: '1.5',
+												color: '#656A76',
+												margin: 0,
+											}}
+										>
+											{description}
+										</p>
+									</div>
+								</li>
+							)
+						}
+					)}
+				</ul>
+			</div>
+		</section>
+	)
+}
+
+const BetterTogetherSection = () => {
+	return (
+		<section className={s.betterTogetherSection}>
+			<h2
+				style={{
+					fontSize: '1.875rem',
+					fontWeight: 700,
+					lineHeight: '1.3',
+					maxWidth: '40%',
+					marginBottom: 36,
+				}}
+			>
+				{BETTER_TOGETHER_SECTION_TITLE}
+			</h2>
+			<ul
+				style={{
+					margin: 0,
+					padding: 0,
+					display: 'flex',
+					gap: 22,
+					alignItems: 'flex-start',
+					listStyle: 'none',
+				}}
+			>
+				{BETTER_TOGETHER_SECTION_COLLECTION_SLUGS.map((collectionSlug) => {
+					return (
+						<li
+							key={collectionSlug}
+							style={{
+								backgroundColor: '#DBDBDC',
+								border: '1px solid magenta',
+								width: 400,
+								height: 300,
+								borderRadius: 10,
+								padding: 24,
+							}}
+						>
+							{collectionSlug}
+						</li>
+					)
+				})}
+			</ul>
+		</section>
+	)
+}
+
 const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
+	const productSlugKeys = Object.keys(pageContent)
+	const [
+		firstProductSlug,
+		secondProductSlug,
+		thirdProductSlug,
+		...remainingProductSlugs
+	] = productSlugKeys
+
 	return (
 		<div className={s.root}>
 			<div className={s.hero}>
@@ -165,36 +326,13 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 					<p className={s.subtitle}>{PAGE_SUBTITLE}</p>
 				</header>
 			</div>
-			{Object.keys(pageContent).map((productSlug: ProductSlug) => {
-				const productName = productSlugsToNames[productSlug]
-				const sectionData = pageContent[productSlug]
-				const featuredUseCases = sectionData.featuredUseCases
-				const featuredCollections = sectionData.featuredCollections.map(
-					(featuredCollection) => ({
-						...featuredCollection,
-						badges: featuredCollection.badges.map(
-							(badge) => BADGE_ICON_MAP[badge]
-						),
-					})
-				)
-
-				return (
-					<ProductSection
-						key={productSlug}
-						productSlug={productSlug}
-						productTutorialsLandingCta={{
-							href: `/${productSlug}/tutorials`,
-							text: `Explore more ${productName} learning paths`,
-						}}
-						tutorialsLibraryCta={{
-							href: `/tutorials/library?product=${productSlug}`,
-							text: `Search all ${productName} tutorials`,
-						}}
-						featuredUseCases={featuredUseCases}
-						featuredCollections={featuredCollections}
-					/>
-				)
-			})}
+			{renderProductSections(
+				[firstProductSlug, secondProductSlug, thirdProductSlug],
+				pageContent
+			)}
+			<ContentTypesSection />
+			{renderProductSections(remainingProductSlugs, pageContent)}
+			<BetterTogetherSection />
 		</div>
 	)
 }
