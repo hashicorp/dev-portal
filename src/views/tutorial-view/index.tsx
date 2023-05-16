@@ -48,6 +48,7 @@ import {
 	NextPrevious,
 	getNextPrevious,
 	FeedbackPanel,
+	VariantsDropdownDisclosure,
 } from './components'
 import s from './tutorial-view.module.css'
 import { useProgressToast } from './utils/use-progress-toast'
@@ -248,7 +249,12 @@ function TutorialView({
 					sidebarNavDataLevels={sidebarNavDataLevels as any}
 					showScrollProgress={true}
 					AlternateSidebar={TutorialsSidebar}
-					sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
+					sidecarSlot={
+						<>
+							<VariantsDropdownDisclosure />
+							<OutlineNavWithActive items={outlineItems} />
+						</>
+					}
 					mainWidth={layoutProps.mainWidth}
 				>
 					<LayoutContentWrapper
