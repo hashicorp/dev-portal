@@ -15,7 +15,20 @@
 		]
 	},
 	"packer": {
-		"featuredUseCases": null,
+		"featuredUseCases": [
+			{
+				"href": "/packer/tutorials/cloud-production/golden-image-with-hcp-packer",
+				"text": "Build a Golden Image Pipeline with HCP Packer"
+			},
+			{
+				"href": "/packer/tutorials/cloud-production/multicloud",
+				"text": "Standardize Machine Images Across Multiple Cloud Providers"
+			},
+			{
+				"href": "/packer/tutorials/cloud-production/github-actions",
+				"text": "Automate Packer with GitHub Actions"
+			}
+		],
 		"featuredCollectionSlugs": [
 			"packer/docker-get-started",
 			"packer/aws-get-started",
@@ -23,7 +36,20 @@
 		]
 	},
 	"consul": {
-		"featuredUseCases": null,
+		"featuredUseCases": [
+			{
+				"href": "/consul/tutorials/kubernetes",
+				"text": "Service Mesh on Kubernetes"
+			},
+			{
+				"href": "/consul/tutorials/microservices",
+				"text": "Microservices with Consul on Kubernetes"
+			},
+			{
+				"href": "/consul/tutorials/network-infrastructure-automation",
+				"text": "Network Automation with CTS"
+			}
+		],
 		"featuredCollectionSlugs": [
 			"consul/get-started-hcp",
 			"consul/get-started-kubernetes",
@@ -31,7 +57,20 @@
 		]
 	},
 	"vault": {
-		"featuredUseCases": null,
+		"featuredUseCases": [
+			{
+				"href": "/vault/tutorials/adp",
+				"text": "Advanced Data Protection"
+			},
+			{
+				"href": "/vault/tutorials/db-credentials",
+				"text": "Database Credential Rotation"
+			},
+			{
+				"href": "/vault/tutorials/encryption-as-a-service",
+				"text": "Data Encryption"
+			}
+		],
 		"featuredCollectionSlugs": [
 			"vault/getting-started",
 			"vault/getting-started-ui",
@@ -39,14 +78,40 @@
 		]
 	},
 	"boundary": {
-		"featuredUseCases": null,
+		"featuredUseCases": [
+			{
+				"href": "/boundary/tutorials/hcp-administration",
+				"text": "HCP Boundary Resource Management Workflows"
+			},
+			{
+				"href": "/boundary/tutorials/oss-administration",
+				"text": "Self-Hosted Boundary Resource Management Workflows"
+			},
+			{
+				"href": "/boundary/tutorials/access-management",
+				"text": "Secure Access Management Workflows"
+			}
+		],
 		"featuredCollectionSlugs": [
 			"boundary/hcp-getting-started",
 			"boundary/oss-getting-started"
 		]
 	},
 	"nomad": {
-		"featuredUseCases": null,
+		"featuredUseCases": [
+			{
+				"href": "/nomad/tutorials/autoscaler",
+				"text": "Dynamically Resize with Nomad Autoscaler"
+			},
+			{
+				"href": "/nomad/tutorials/stateful-workloads",
+				"text": "Stateful Workloads"
+			},
+			{
+				"href": "/nomad/tutorials/task-deps",
+				"text": "Task Dependencies"
+			}
+		],
 		"featuredCollectionSlugs": [
 			"nomad/get-started",
 			"nomad/cluster-setup",
@@ -54,7 +119,20 @@
 		]
 	},
 	"waypoint": {
-		"featuredUseCases": null,
+		"featuredUseCases": [
+			{
+				"href": "/waypoint/tutorials/deploy-aws",
+				"text": "Deploy an application onto AWS services"
+			},
+			{
+				"href": "/waypoint/tutorials/deploy-azure",
+				"text": "Deploy an application onto an Azure Container Instance"
+			},
+			{
+				"href": "/waypoint/tutorials/deploy-google-cloud",
+				"text": "Deploy an application to Google Cloud Run"
+			}
+		],
 		"featuredCollectionSlugs": [
 			"waypoint/get-started-docker",
 			"waypoint/get-started-kubernetes",
@@ -62,7 +140,20 @@
 		]
 	},
 	"vagrant": {
-		"featuredUseCases": null,
+		"featuredUseCases": [
+			{
+				"href": "/vagrant/tutorials/networking-provisioning-operations/getting-started-provisioning",
+				"text": "Provision a Virtual Machine"
+			},
+			{
+				"href": "/vagrant/tutorials/networking-provisioning-operations/getting-started-networking",
+				"text": "Configure the Network"
+			},
+			{
+				"href": "/vagrant/tutorials/networking-provisioning-operations/getting-started-providers",
+				"text": "Explore Other Providers"
+			}
+		],
 		"featuredCollectionSlugs": [
 			"vagrant/getting-started",
 			"vagrant/networking-provisioning-operations"
