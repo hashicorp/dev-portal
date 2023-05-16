@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Shared
+import { isDeployPreview } from 'lib/env-checks'
 // View
 import ApiDocsView from 'views/api-docs-view'
 import {
@@ -34,6 +36,12 @@ const PRODUCT_SLUG = 'waypoint'
 const BASE_URL = '/waypoint/api-docs'
 
 /**
+ * The path to read from when running local preview in the context
+ * of the `hashicorp/waypoint` repository.
+ */
+const TARGET_LOCAL_FILE = '../../pkg/server/gen/server.swagger.json'
+
+/**
  * The Waypoint API docs have circular references.
  * We manually try to deal with those. This is a band-aid solution,
  * it seems to have unintended side-effects when applied to other
@@ -49,12 +57,14 @@ const MAY_HAVE_CIRCULAR_REFERENCES = true
  * version data from elsewhere, as we do for `/hcp/api-docs/packer`.
  */
 function getVersionData(): ApiDocsVersionData[] {
-	const targetFile = {
-		owner: 'hashicorp',
-		repo: 'waypoint',
-		path: 'pkg/server/gen/server.swagger.json',
-		ref: 'stable-website',
-	}
+	const targetFile = isDeployPreview(PRODUCT_SLUG)
+		? TARGET_LOCAL_FILE
+		: {
+				owner: 'hashicorp',
+				repo: 'waypoint',
+				path: 'pkg/server/gen/server.swagger.json',
+				ref: 'stable-website',
+		  }
 	return [
 		{
 			/**
