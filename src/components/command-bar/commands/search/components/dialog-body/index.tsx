@@ -24,6 +24,7 @@ import {
 	generateSuggestedPages,
 	generateTutorialLibraryCta,
 	getCurrentProductTag,
+	useHitsContext,
 } from '../../helpers'
 import {
 	DocumentationTabContents,
@@ -58,6 +59,7 @@ const SearchCommandBarDialogBodyContent = ({
 }) => {
 	const { currentInputValue } = useCommandBar()
 	const contentType = useCurrentContentType()
+	const [hitCounts] = useHitsContext()
 
 	/**
 	 * Generate suggested pages, memoized.
@@ -152,7 +154,11 @@ const SearchCommandBarDialogBodyContent = ({
 					const { heading, icon, content } =
 						tabsBySearchableContentType[contentType]
 					return (
-						<Tab heading={heading} icon={icon} key={contentType}>
+						<Tab
+							heading={`${heading} (${hitCounts[contentType]})`}
+							icon={icon}
+							key={contentType}
+						>
 							{content}
 						</Tab>
 					)
