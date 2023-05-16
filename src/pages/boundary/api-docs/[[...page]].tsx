@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Shared
+import { isDeployPreview } from 'lib/env-checks'
 // View
 import ApiDocsView from 'views/api-docs-view'
 import {
@@ -29,16 +31,24 @@ const PRODUCT_SLUG = 'boundary'
 const BASE_URL = '/boundary/api-docs'
 
 /**
+ * The path to read from when running local preview in the context
+ * of the `hashicorp/waypoint` repository.
+ */
+const TARGET_LOCAL_FILE = '../../pkg/server/gen/server.swagger.json'
+
+/**
  * Version data is hard-coded for now. In the future, we could fetch
  * version data from elsewhere, as we do for `/hcp/api-docs/packer`.
  */
 function getVersionData(): ApiDocsVersionData[] {
-	const targetFile = {
-		owner: 'hashicorp',
-		repo: 'boundary',
-		path: 'internal/gen/controller.swagger.json',
-		ref: 'stable-website',
-	}
+	const targetFile = isDeployPreview(PRODUCT_SLUG)
+		? TARGET_LOCAL_FILE
+		: {
+				owner: 'hashicorp',
+				repo: 'boundary',
+				path: 'internal/gen/controller.swagger.json',
+				ref: 'stable-website',
+		  }
 	return [
 		{
 			/**
