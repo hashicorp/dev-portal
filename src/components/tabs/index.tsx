@@ -3,13 +3,14 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactElement, useState } from 'react'
+import { KeyboardEvent, ReactElement, useState, useRef, useEffect } from 'react'
 import classNames from 'classnames'
 import { TabItem, TabsProps } from './types'
 import { useHasOverflow, useSyncedTabGroups, useTabItems } from './hooks'
 import { Tab, TabButtonControls, TabDropdownControls } from './components'
 import TabNestingProvider, { useIsNested } from './helpers/tab-nesting-context'
 import s from './tabs.module.css'
+import deriveKeyEventState from 'lib/derive-key-event-state'
 
 const Tabs = ({
 	allowNestedStyles = false,
@@ -47,6 +48,64 @@ const Tabs = ({
 	 */
 	const [activeTabIndex, setActiveTabIndex] =
 		useState<number>(initialActiveIndex)
+
+	/**
+	 * TODO: this is for <button /> elements rendered within content
+	 * that change the current tab. Need to find better home for it.
+	 *
+	 * After keydown events on elements within tabbed content that change tabs,
+	 * We want to focus the tab controls (may be buttons, or select).
+	 */
+	const wasKeypress = useRef<boolean>(false)
+
+	/**
+	 * TODO: this is for <button /> elements rendered within content
+	 * that change the current tab. Need to find better home for it.
+	 *
+	 * After keypress events, but not after clicks,
+	 * focus the newly active tab button.
+	 * The `wasKeypress` ref is necessary so that this effect only runs when
+	 * `activeTabIndex` is updated via arrow key presses.
+	 */
+	useEffect(() => {
+		if (wasKeypress.current) {
+			const tabControlsContainer = overflowTargetRef.current
+			/**
+			 * Activation of button elements within content could happen regardless
+			 * of which control style is being used, so we account for both:
+			 * - `select` for `tab-dropdown-controls`
+			 * - `button` for `tab-button-controls`
+			 */
+			let focusTarget
+			const selectControl = tabControlsContainer.querySelector('select')
+			if (selectControl) {
+				focusTarget = selectControl
+			} else {
+				const buttonElements = Array.from(
+					tabControlsContainer.querySelectorAll('button')
+				)
+				focusTarget = buttonElements[activeTabIndex]
+			}
+			focusTarget?.focus()
+			wasKeypress.current = false
+		}
+	}, [activeTabIndex])
+
+	/**
+	 * TODO: this is for <button /> elements rendered within content
+	 * that change the current tab. Need to find better home for it.
+	 */
+	const handleKeyUp = (
+		event: KeyboardEvent<HTMLButtonElement>,
+		newIndex: number
+	) => {
+		const { isSpaceKey, isEnterKey } = deriveKeyEventState(event)
+		const isActivated = isSpaceKey || isEnterKey
+		if (isActivated && newIndex !== activeTabIndex) {
+			wasKeypress.current = true
+			setActiveTabIndex(newIndex)
+		}
+	}
 
 	/**
 	 * useTabItems efficiently handles validation & activation of tabItems
@@ -119,6 +178,7 @@ const Tabs = ({
 								? renderContent({
 										activeTabIndex,
 										setActiveTabIndex: setSyncedIndexWithOnChange,
+										handleKeyUp,
 								  })
 								: content}
 						</div>

@@ -12,10 +12,12 @@ import { SearchableContentType } from 'contexts'
 function NoResultsMessage({
 	activeTabIndex,
 	setActiveTabIndex,
+	handleKeyUp,
 	tabData,
 }: {
 	activeTabIndex: number
 	setActiveTabIndex: (index: number) => void
+	handleKeyUp: (event: $TSFixMe, idx: number) => void
 	tabData: $TSFixMe
 }) {
 	const { currentInputValue } = useCommandBar()
@@ -52,18 +54,19 @@ function NoResultsMessage({
 			<Text asElement="p" size={300} weight="medium">
 				Sorry, no matches for &Prime;{currentInputValue}&Prime; were found
 				{otherTabsWithResults.length > 0
-					? `within ${currentTabData.heading}.`
+					? ` within ${currentTabData.heading}.`
 					: '.'}
 			</Text>
 			{otherTabsWithResults.length > 0 ? (
-				<Text asElement="p" size={300} weight="medium">
+				<Text asElement="p" size={300}>
 					Check the{' '}
 					{otherTabsWithResults.map((otherTab, idx) => {
 						const isLastItem = idx === otherTabsWithResults.length - 1
 						return (
 							<span key={otherTab.type}>
 								<button
-									style={{ cursor: 'pointer' }}
+									className={s.linkStyledButton}
+									onKeyUp={(e) => handleKeyUp(e, otherTab.tabIdx)}
 									onClick={() => setActiveTabIndex(otherTab.tabIdx)}
 								>
 									{otherTab.heading}
@@ -77,7 +80,7 @@ function NoResultsMessage({
 				</Text>
 			) : null}
 			{/* <pre style={{ textAlign: 'left' }}>
-				<code>{JSON.stringify({ otherTabsWithResults }, null, 2)}</code>
+				<code>{JSON.stringify({ handleKeyUp }, null, 2)}</code>
 			</pre> */}
 		</div>
 	)

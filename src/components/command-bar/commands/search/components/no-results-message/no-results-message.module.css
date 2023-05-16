@@ -6,6 +6,39 @@
 .root {
 	padding: 32px 0;
 	text-align: center;
-	border: 1px solid magenta;
 	color: var(--token-color-foreground-primary);
+}
+
+.linkStyledButton {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
+	background: none;
+	border: none;
+	border-radius: 5px;
+	color: var(--token-color-foreground-action);
+	cursor: pointer;
+	display: inline-block;
+	font-size: inherit;
+	padding: 0;
+	text-decoration: underline;
+
+	&:active {
+		color: var(--token-color-foreground-action-active);
+	}
+
+	&:hover {
+		color: var(--token-color-foreground-action-hover);
+	}
+
+	/*
+  Not styling ::before with position: absolute and -5px positions because that
+  does not work on links that span more than one line.
+  */
+	&:focus-visible {
+		text-decoration: none;
+		margin: -5px;
+		padding: 5px;
+	}
 }

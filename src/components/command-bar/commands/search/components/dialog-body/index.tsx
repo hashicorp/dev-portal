@@ -121,12 +121,18 @@ const SearchCommandBarDialogBodyContent = ({
 			docs: {
 				heading: 'Documentation',
 				icon: <IconDocs16 />,
-				renderContent: ({ activeTabIndex, setActiveTabIndex, tabData }) => (
+				renderContent: ({
+					activeTabIndex,
+					setActiveTabIndex,
+					handleKeyUp,
+					tabData,
+				}) => (
 					<DocumentationTabContents
 						currentProductTag={currentProductTag}
 						suggestedPages={suggestedPages}
 						setActiveTabIndex={setActiveTabIndex}
 						activeTabIndex={activeTabIndex}
+						handleKeyUp={handleKeyUp}
 						tabData={tabData}
 					/>
 				),
@@ -134,11 +140,17 @@ const SearchCommandBarDialogBodyContent = ({
 			tutorials: {
 				heading: 'Tutorials',
 				icon: <IconLearn16 />,
-				renderContent: ({ activeTabIndex, setActiveTabIndex, tabData }) => (
+				renderContent: ({
+					activeTabIndex,
+					setActiveTabIndex,
+					handleKeyUp,
+					tabData,
+				}) => (
 					<TutorialsTabContents
 						currentProductTag={currentProductTag}
 						tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
 						setActiveTabIndex={setActiveTabIndex}
+						handleKeyUp={handleKeyUp}
 						activeTabIndex={activeTabIndex}
 						tabData={tabData}
 					/>
@@ -147,11 +159,17 @@ const SearchCommandBarDialogBodyContent = ({
 			integrations: {
 				heading: 'Integrations',
 				icon: <IconPipeline16 />,
-				renderContent: ({ activeTabIndex, setActiveTabIndex, tabData }) => (
+				renderContent: ({
+					activeTabIndex,
+					setActiveTabIndex,
+					handleKeyUp,
+					tabData,
+				}) => (
 					<>
 						<IntegrationsTabContents
 							currentProductTag={currentProductTag}
 							setActiveTabIndex={setActiveTabIndex}
+							handleKeyUp={handleKeyUp}
 							activeTabIndex={activeTabIndex}
 							tabData={tabData}
 						/>
@@ -239,8 +257,8 @@ const SearchCommandBarDialogBodyContent = ({
 							 * Could potentially do something like NestedTabContext?
 							 * This would avoid the "pass-through" issue here.
 							 */
-							renderContent={({ activeTabIndex, setActiveTabIndex }) =>
-								renderContent({ activeTabIndex, setActiveTabIndex, tabData })
+							renderContent={(tabContextProps: $TSFixMe) =>
+								renderContent({ ...tabContextProps, tabData })
 							}
 						/>
 					)

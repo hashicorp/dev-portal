@@ -19,6 +19,7 @@ const IntegrationsTabContents = ({
 	setActiveTabIndex,
 	tabData,
 	activeTabIndex,
+	handleKeyUp,
 }: IntegrationsTabContentsProps) => {
 	const { currentInputValue } = useCommandBar()
 	const productSlugs = currentProductTag
@@ -43,6 +44,7 @@ const IntegrationsTabContents = ({
 					<NoResultsMessage
 						activeTabIndex={activeTabIndex}
 						setActiveTabIndex={setActiveTabIndex}
+						handleKeyUp={handleKeyUp}
 						tabData={tabData}
 					/>
 				}

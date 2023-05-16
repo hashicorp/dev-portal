@@ -14,6 +14,7 @@ const DocumentationTabContents = ({
 	suggestedPages,
 	activeTabIndex,
 	setActiveTabIndex,
+	handleKeyUp,
 	tabData,
 }: DocumentationTabContentsProps) => {
 	let filters
@@ -31,6 +32,7 @@ const DocumentationTabContents = ({
 						<NoResultsMessage
 							activeTabIndex={activeTabIndex}
 							setActiveTabIndex={setActiveTabIndex}
+							handleKeyUp={handleKeyUp}
 							tabData={tabData}
 						/>
 						<CommandBarDivider className={s.divider} />

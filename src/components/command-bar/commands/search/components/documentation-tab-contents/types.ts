@@ -13,6 +13,7 @@ interface DocumentationTabContentsProps {
 	suggestedPages: SuggestedPagesProps['pages']
 	activeTabIndex: number
 	setActiveTabIndex: (index: number) => void
+	handleKeyUp: (event: $TSFixMe, idx: number) => void
 	tabData: $TSFixMe
 }
 

@@ -10,6 +10,7 @@ interface IntegrationsTabContentsProps {
 	currentProductTag?: CommandBarTag
 	activeTabIndex: number
 	setActiveTabIndex: (index: number) => void
+	handleKeyUp: (event: $TSFixMe, idx: number) => void
 	tabData: $TSFixMe
 }
 

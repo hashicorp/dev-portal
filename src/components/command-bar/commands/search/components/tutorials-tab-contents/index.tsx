@@ -14,6 +14,7 @@ const TutorialsTabContents = ({
 	setActiveTabIndex,
 	tabData,
 	activeTabIndex,
+	handleKeyUp,
 }: TutorialsTabContentsProps) => {
 	let filters
 	if (currentProductTag) {
@@ -34,6 +35,7 @@ const TutorialsTabContents = ({
 					<NoResultsMessage
 						activeTabIndex={activeTabIndex}
 						setActiveTabIndex={setActiveTabIndex}
+						handleKeyUp={handleKeyUp}
 						tabData={tabData}
 					/>
 				}
