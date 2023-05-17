@@ -12,6 +12,7 @@
 	composes: hds-font-weight-semibold from global;
 	color: var(--token-color-foreground-strong);
 	margin-bottom: 8px;
+	display: block;
 }
 
 .list {
