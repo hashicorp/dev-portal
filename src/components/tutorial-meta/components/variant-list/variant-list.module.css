@@ -28,9 +28,36 @@
 }
 
 /** 
-* Subtle override here for the border color to adjust the button link
-* within the container background color
+* 🏴‍☠️ Style overrides here
+* These adjustments to the border and background colors for
+* secondary button link styles are due to the elements appearing
+* in the container with the surface-faint background color.
 */
-.linkBorderColor {
+.linkOverrides {
+	&:hover:not(:disabled),
+	&:active:not(:disabled),
+	&:focus,
+	&:focus-visible {
+		text-decoration: none;
+	}
+}
+
+.secondaryLinkOverrides {
+	background-color: var(--token-color-surface-primary);
 	border-color: var(--token-color-border-primary);
+
+	&:hover:not(:disabled),
+	&:active:not(:disabled),
+	&:focus,
+	&:focus-visible {
+		border-color: var(--token-color-border-primary);
+	}
+
+	&:hover:not(:disabled) {
+		background-color: var(--token-color-surface-interactive-hover);
+	}
+
+	&:active:not(:disabled) {
+		background-color: var(--token-color-surface-interactive-active);
+	}
 }

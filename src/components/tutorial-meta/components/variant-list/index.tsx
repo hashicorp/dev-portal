@@ -33,7 +33,10 @@ export default function VariantList({ variant }: { variant: TutorialVariant }) {
 								aria-current={activeVariantOption.slug === option.slug}
 							>
 								<ButtonLink
-									className={classNames(!isActiveOption && s.linkBorderColor)}
+									className={classNames(
+										s.linkOverrides,
+										!isActiveOption && s.secondaryLinkOverrides
+									)}
 									size="small"
 									color={isActiveOption ? 'primary' : 'secondary'}
 									text={option.name}
