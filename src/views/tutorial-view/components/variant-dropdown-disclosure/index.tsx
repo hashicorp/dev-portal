@@ -7,6 +7,7 @@ import Text from 'components/text'
 import {
 	getVariantParam,
 	getVariantPath,
+	TutorialVariant,
 	TutorialVariantOption,
 } from 'views/tutorial-view/utils/variants'
 import { VariantDropdownDisclosureProps } from './types'
@@ -23,7 +24,6 @@ export function VariantDropdownDisclosure({
 	variant,
 	className,
 }: VariantDropdownDisclosureProps) {
-	const { asPath } = useRouter()
 	// @TODO hook this into useVariants hook once data is wired
 	const activeOption = variant.options[0]
 
@@ -35,23 +35,10 @@ export function VariantDropdownDisclosure({
 			className={s.dropdownDisclosure}
 			activatorClassName={s.dropdownActivator}
 		>
-			{variant.options.map((option: TutorialVariantOption) => {
-				if (option.slug === activeOption.slug) {
-					return null
-				}
-
-				return (
-					<DropdownDisclosureLinkItem
-						key={option.slug}
-						href={getVariantPath(
-							asPath,
-							getVariantParam(variant.slug, option.slug)
-						)}
-					>
-						{option.name}
-					</DropdownDisclosureLinkItem>
-				)
-			})}
+			<VariantDropdownDisclosureItems
+				variant={variant}
+				activeOption={activeOption}
+			/>
 		</DropdownDisclosure>
 	)
 }
@@ -70,5 +57,37 @@ export function VariantDropdownWithLabel({
 			</Text>
 			{children}
 		</div>
+	)
+}
+
+export function VariantDropdownDisclosureItems({
+	variant,
+
+	activeOption,
+}: {
+	variant: TutorialVariant
+	activeOption: TutorialVariantOption
+}) {
+	const { asPath } = useRouter()
+	return (
+		<>
+			{variant.options.map((option: TutorialVariantOption) => {
+				if (option.slug === activeOption.slug) {
+					return null
+				}
+
+				return (
+					<DropdownDisclosureLinkItem
+						key={option.slug}
+						href={getVariantPath(
+							asPath,
+							getVariantParam(variant.slug, option.slug)
+						)}
+					>
+						{option.name}
+					</DropdownDisclosureLinkItem>
+				)
+			})}
+		</>
 	)
 }

@@ -1,13 +1,8 @@
-import { useRouter } from 'next/router'
-import DropdownDisclosure, {
-	DropdownDisclosureLinkItem,
-} from 'components/dropdown-disclosure'
+import DropdownDisclosure from 'components/dropdown-disclosure'
 import {
-	getVariantParam,
-	getVariantPath,
-	TutorialVariantOption,
-} from 'views/tutorial-view/utils/variants'
-import { VariantDropdownWithLabel } from 'views/tutorial-view/components'
+	VariantDropdownDisclosureItems,
+	VariantDropdownWithLabel,
+} from 'views/tutorial-view/components'
 import { VariantDropdownDisclosureProps } from 'views/tutorial-view/components/variant-dropdown-disclosure/types'
 import s from './mobile-variant-dropdown-disclosure.module.css'
 
@@ -22,7 +17,6 @@ export function MobileVariantDropdownDisclosure({
 	variant,
 	className,
 }: VariantDropdownDisclosureProps) {
-	const { asPath } = useRouter()
 	// @TODO hook this into useVariants hook once data is wired
 	const activeOption = variant.options[1]
 
@@ -36,23 +30,10 @@ export function MobileVariantDropdownDisclosure({
 					className={s.dropdownDisclosure}
 					activatorClassName={s.dropdownActivator}
 				>
-					{variant.options.map((option: TutorialVariantOption) => {
-						if (option.slug === activeOption.slug) {
-							return null
-						}
-
-						return (
-							<DropdownDisclosureLinkItem
-								key={option.slug}
-								href={getVariantPath(
-									asPath,
-									getVariantParam(variant.slug, option.slug)
-								)}
-							>
-								{option.name}
-							</DropdownDisclosureLinkItem>
-						)
-					})}
+					<VariantDropdownDisclosureItems
+						variant={variant}
+						activeOption={activeOption}
+					/>
 				</DropdownDisclosure>
 			</VariantDropdownWithLabel>
 		</span>
