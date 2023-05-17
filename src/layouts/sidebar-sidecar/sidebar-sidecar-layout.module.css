@@ -107,7 +107,7 @@ for further details.
 .breadcrumbContainer {
 	display: flex;
 	justify-content: flex-start;
-	margin-bottom: 32px;
+	margin-bottom: 24px;
 	max-width: calc(
 		var(--main-element-max-width) + var(--sidecar-spacing) +
 			var(--sidecar-width)
