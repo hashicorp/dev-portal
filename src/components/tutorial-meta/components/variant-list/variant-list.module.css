@@ -26,3 +26,11 @@
 	gap: 8px;
 	flex-wrap: wrap;
 }
+
+/** 
+* Subtle override here for the border color to adjust the button link
+* within the container background color
+*/
+.linkBorderColor {
+	border-color: var(--token-color-border-primary);
+}

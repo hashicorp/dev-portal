@@ -1,5 +1,6 @@
 // @TODO uncomment when enabling cookies
 // import Cookies from 'js-cookie'
+import classNames from 'classnames'
 import {
 	TutorialVariant,
 	TutorialVariantOption,
@@ -25,18 +26,16 @@ export default function VariantList({ variant }: { variant: TutorialVariant }) {
 				<ul aria-labelledby={VARIANT_LIST_ID} className={s.list}>
 					{variant.options.map((option: TutorialVariantOption) => {
 						const variantParam = getVariantParam(variant.slug, option.slug)
+						const isActiveOption = activeVariantOption.slug === option.slug
 						return (
 							<li
 								key={option.slug}
 								aria-current={activeVariantOption.slug === option.slug}
 							>
 								<ButtonLink
+									className={classNames(!isActiveOption && s.linkBorderColor)}
 									size="small"
-									color={
-										activeVariantOption.slug === option.slug
-											? 'primary'
-											: 'secondary'
-									}
+									color={isActiveOption ? 'primary' : 'secondary'}
 									text={option.name}
 									href={getVariantPath(asPath, variantParam)}
 									onClick={() => {
