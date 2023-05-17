@@ -37,6 +37,7 @@
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-medium from global;
 	composes: g-focus-ring-from-box-shadow from global;
+	display: flex;
 	border-radius: 5px;
 	border: 1px solid;
 	padding: 6px 12px;
