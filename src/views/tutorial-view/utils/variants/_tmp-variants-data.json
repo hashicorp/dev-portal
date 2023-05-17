@@ -8,12 +8,7 @@
 				"slug": "hcp",
 				"name": "Hashicorp Cloud Platform (HCP)"
 			},
-			{ "slug": "self-managed", "name": "Self Managed" },
-			{ "slug": "self-managed", "name": "Koba" },
-			{ "slug": "self-managed", "name": "Ubuntu" },
-			{ "slug": "self-managed", "name": "Frank Herbert" },
-			{ "slug": "self-managed", "name": "Calamansi" },
-			{ "slug": "self-managed", "name": "Lavender" }
+			{ "slug": "self-managed", "name": "Self Managed" }
 		]
 	}
 ]
