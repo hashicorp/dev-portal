@@ -23,7 +23,8 @@ const PAGE_SUBTITLE =
  */
 
 const PRODUCT_DESCRIPTIONS = {
-	terraform: 'Provision and manage infrastructure',
+	terraform:
+		'Provision and manage infrastructure using declarative, human-readable configuration files.',
 	packer: 'Automate creating machine images',
 	consul: 'Manage secure network connectivity',
 	vault: 'Secure, store, and tightly control access to secrets',
