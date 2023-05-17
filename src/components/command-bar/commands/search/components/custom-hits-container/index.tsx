@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { useEffect } from 'react'
 import { useHits } from 'react-instantsearch-hooks-web'
 import { CommandBarList } from 'components/command-bar/components'
+import { useHitsContext } from '../../helpers'
 import { CustomHitsContainerProps } from './types'
 import {
 	DocumentationHit,
@@ -21,7 +23,21 @@ const CustomHitsContainer = ({
 	noResultsSlot,
 	type,
 }: CustomHitsContainerProps) => {
+	const [hitCounts, setHitCounts] = useHitsContext()
 	const { hits } = useHits<DocumentationHitObject | TutorialHitObject>()
+
+	/**
+	 * When hits within this index context are updated,
+	 * Update the <HitCountsProvider /> data for this content type.
+	 */
+	useEffect(() => {
+		const hitsArray = type === 'integrations' ? integrationsHits : hits
+		const hitsCount = hitsArray.length
+		const needsUpdate = hitCounts[type] !== hitsCount
+		if (needsUpdate && typeof setHitCounts === 'function') {
+			setHitCounts({ ...hitCounts, [type]: hitsCount })
+		}
+	}, [type, hits, integrationsHits, hitCounts, setHitCounts])
 
 	const shouldShowNoResultsSlot =
 		type === 'integrations'
