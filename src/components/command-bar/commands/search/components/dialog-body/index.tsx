@@ -67,7 +67,7 @@ const SearchCommandBarDialogBodyContent = ({
 
 	/**
 	 * Transform searchableContentTypes into content tab data with hit counts.
-	 * We use this to render
+	 * We use this to render helpful information in our "no results" message.
 	 */
 	const tabData = useMemo(() => {
 		return searchableContentTypes.map((type) => {
