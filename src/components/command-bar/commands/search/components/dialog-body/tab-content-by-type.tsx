@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactNode } from 'react'
+import { ReactElement, ReactNode } from 'react'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { SearchableContentType } from 'contexts'
 import { CommandBarTag } from 'components/command-bar/types'
-import { TabProps } from 'components/tabs/components/tab'
 import { generateTutorialLibraryCta } from '../../helpers'
 import {
 	DocumentationTabContents,
@@ -21,7 +20,7 @@ import {
 /**
  * We require some up-to-date props to render each content type tab.
  */
-interface ContentTabProps {
+interface RenderContentProps {
 	noResultsMessageSlot: ReactNode
 	currentProductTag: CommandBarTag
 	suggestedPages: SuggestedPage[]
@@ -32,13 +31,13 @@ interface ContentTabProps {
  * tab's content.
  */
 interface SearchableContentTypeTab {
-	heading: TabProps['heading']
-	icon: TabProps['icon']
+	heading: string
+	icon: ReactElement<React.JSX.IntrinsicElements['svg']>
 	renderContent: ({
 		noResultsMessageSlot,
 		currentProductTag,
 		suggestedPages,
-	}: ContentTabProps) => TabProps['children']
+	}: RenderContentProps) => ReactNode
 }
 
 /**
@@ -51,7 +50,7 @@ export const tabContentByType: Record<
 	docs: {
 		heading: 'Documentation',
 		icon: <IconDocs16 />,
-		renderContent: (props: ContentTabProps) => (
+		renderContent: (props: RenderContentProps) => (
 			<DocumentationTabContents
 				currentProductTag={props.currentProductTag}
 				suggestedPages={props.suggestedPages}
@@ -62,7 +61,7 @@ export const tabContentByType: Record<
 	tutorials: {
 		heading: 'Tutorials',
 		icon: <IconLearn16 />,
-		renderContent: (props: ContentTabProps) => (
+		renderContent: (props: RenderContentProps) => (
 			<TutorialsTabContents
 				currentProductTag={props.currentProductTag}
 				tutorialLibraryCta={generateTutorialLibraryCta(props.currentProductTag)}
@@ -73,7 +72,7 @@ export const tabContentByType: Record<
 	integrations: {
 		heading: 'Integrations',
 		icon: <IconPipeline16 />,
-		renderContent: (props: ContentTabProps) => (
+		renderContent: (props: RenderContentProps) => (
 			<IntegrationsTabContents
 				currentProductTag={props.currentProductTag}
 				noResultsMessageSlot={props.noResultsMessageSlot}

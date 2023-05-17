@@ -61,7 +61,10 @@ const SearchCommandBarDialogBodyContent = ({
 		return generateSuggestedPages(currentProductTag?.id as ProductSlug)
 	}, [currentProductTag])
 
-	const searchableContentTypes = Object.keys(tabContentByType)
+	const searchableContentTypes = Object.keys(
+		tabContentByType
+	) as SearchableContentType[]
+
 	const activeTabIndex =
 		contentType === 'global' ? 0 : searchableContentTypes.indexOf(contentType)
 

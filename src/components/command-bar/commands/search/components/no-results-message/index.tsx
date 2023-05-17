@@ -3,15 +3,25 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { ReactElement } from 'react'
+import { SearchableContentType } from 'contexts'
 import Text from 'components/text'
 import { useCommandBar } from 'components/command-bar'
 import s from './no-results-message.module.css'
 
-export interface NoResultsMessageProps {
-	tabsWithResults: $TSFixMe[]
+interface NoResultsMessageProps {
+	tabsWithResults: {
+		type: SearchableContentType
+		heading: string
+		icon: ReactElement<React.JSX.IntrinsicElements['svg']>
+	}[]
 	currentTabHeading: string
 }
 
+/**
+ * Renders a "no results" message, that optionally directs visitors
+ * to other content-type tabs with results, if such results are present.
+ */
 const NoResultsMessage = ({
 	tabsWithResults,
 	currentTabHeading,
