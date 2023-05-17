@@ -5,13 +5,13 @@
 
 import { Configure, Index } from 'react-instantsearch-hooks-web'
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
-import { CustomHitsContainer, NoResultsMessage, TabContentsCta } from '../'
+import { CustomHitsContainer, TabContentsCta } from '../'
 import { TutorialsTabContentsProps } from './types'
 
 const TutorialsTabContents = ({
 	currentProductTag,
 	tutorialLibraryCta,
-	noResultsProps,
+	noResultsMessageSlot,
 }: TutorialsTabContentsProps) => {
 	let filters
 	if (currentProductTag) {
@@ -28,7 +28,7 @@ const TutorialsTabContents = ({
 			<Configure filters={filters} />
 			<CustomHitsContainer
 				type="tutorials"
-				noResultsSlot={<NoResultsMessage {...noResultsProps} />}
+				noResultsSlot={noResultsMessageSlot}
 			/>
 			<TabContentsCta
 				href={tutorialLibraryCta.href}

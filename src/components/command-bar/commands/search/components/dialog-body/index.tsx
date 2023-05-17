@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
@@ -34,9 +34,9 @@ import {
 	SuggestedPages,
 	TutorialsTabContents,
 	TabHeadingWithCount,
+	NoResultsMessage,
 } from '../'
 import s from './search-command-bar-dialog-body.module.css'
-import { NoResultsMessageProps } from '../no-results-message'
 
 // TODO(brkalow): We might consider lazy-loading the search client & the insights library
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
@@ -46,17 +46,16 @@ const searchClient = algoliasearch(appId, apiKey)
 const PRODUCT_SLUGS_WITH_INTEGRATIONS =
 	__config.dev_dot.product_slugs_with_integrations
 
+interface ContentTabProps {
+	noResultsMessageSlot: ReactNode
+}
+
 interface SearchableContentTypeTab {
 	heading: TabProps['heading']
 	icon: TabProps['icon']
-	/**
-	 * TODO: maybe noResultsSlot within each
-	 * <Type>TabContents component would make more sense?
-	 */
 	renderContent: ({
-		tabData,
-		currentTabIndex,
-	}: NoResultsMessageProps) => TabProps['children']
+		noResultsMessageSlot,
+	}: ContentTabProps) => TabProps['children']
 }
 
 const SearchCommandBarDialogBodyContent = ({
@@ -88,32 +87,32 @@ const SearchCommandBarDialogBodyContent = ({
 			docs: {
 				heading: 'Documentation',
 				icon: <IconDocs16 />,
-				renderContent: ({ tabData, currentTabIndex }) => (
+				renderContent: ({ noResultsMessageSlot }: ContentTabProps) => (
 					<DocumentationTabContents
 						currentProductTag={currentProductTag}
 						suggestedPages={suggestedPages}
-						noResultsProps={{ tabData, currentTabIndex }}
+						noResultsMessageSlot={noResultsMessageSlot}
 					/>
 				),
 			},
 			tutorials: {
 				heading: 'Tutorials',
 				icon: <IconLearn16 />,
-				renderContent: ({ tabData, currentTabIndex }) => (
+				renderContent: ({ noResultsMessageSlot }: ContentTabProps) => (
 					<TutorialsTabContents
 						currentProductTag={currentProductTag}
 						tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
-						noResultsProps={{ tabData, currentTabIndex }}
+						noResultsMessageSlot={noResultsMessageSlot}
 					/>
 				),
 			},
 			integrations: {
 				heading: 'Integrations',
 				icon: <IconPipeline16 />,
-				renderContent: ({ tabData, currentTabIndex }) => (
+				renderContent: ({ noResultsMessageSlot }: ContentTabProps) => (
 					<IntegrationsTabContents
 						currentProductTag={currentProductTag}
-						noResultsProps={{ tabData, currentTabIndex }}
+						noResultsMessageSlot={noResultsMessageSlot}
 					/>
 				),
 			},
@@ -193,7 +192,11 @@ const SearchCommandBarDialogBodyContent = ({
 							icon={icon}
 							key={contentType}
 						>
-							{renderContent({ tabData, currentTabIndex: index })}
+							{renderContent({
+								noResultsMessageSlot: (
+									<NoResultsMessage currentTabIndex={index} tabData={tabData} />
+								),
+							})}
 						</Tab>
 					)
 				})}

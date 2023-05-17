@@ -5,14 +5,14 @@
 
 import { Configure, Index } from 'react-instantsearch-hooks-web'
 import { CommandBarDivider } from 'components/command-bar/components'
-import { CustomHitsContainer, NoResultsMessage, SuggestedPages } from '../'
+import { CustomHitsContainer, SuggestedPages } from '../'
 import { DocumentationTabContentsProps } from './types'
 import s from './documentation-tab-contents.module.css'
 
 const DocumentationTabContents = ({
 	currentProductTag,
 	suggestedPages,
-	noResultsProps,
+	noResultsMessageSlot,
 }: DocumentationTabContentsProps) => {
 	let filters
 	if (currentProductTag) {
@@ -26,7 +26,7 @@ const DocumentationTabContents = ({
 			<CustomHitsContainer
 				noResultsSlot={
 					<>
-						<NoResultsMessage {...noResultsProps} />
+						{noResultsMessageSlot}
 						<CommandBarDivider className={s.divider} />
 						<SuggestedPages pages={suggestedPages} />
 					</>

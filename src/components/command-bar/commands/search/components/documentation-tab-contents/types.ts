@@ -3,16 +3,16 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { ReactNode } from 'react'
 import { Hit } from '@algolia/client-search'
 import { CommandBarTag } from 'components/command-bar/types'
 import { ProductSlug } from 'types/products'
 import { SuggestedPagesProps } from '../suggested-pages/types'
-import { NoResultsMessageProps } from '../no-results-message'
 
 interface DocumentationTabContentsProps {
 	currentProductTag?: CommandBarTag
 	suggestedPages: SuggestedPagesProps['pages']
-	noResultsProps: NoResultsMessageProps
+	noResultsMessageSlot: ReactNode
 }
 
 type DocumentationHitObject = Hit<{

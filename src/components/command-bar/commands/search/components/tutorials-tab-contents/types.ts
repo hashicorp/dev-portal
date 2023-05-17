@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { ReactNode } from 'react'
 import { Hit } from '@algolia/client-search'
 import {
 	CollectionLevelOption,
@@ -10,7 +11,6 @@ import {
 	TutorialLite,
 } from 'lib/learn-client/types'
 import { CommandBarTag } from 'components/command-bar/types'
-import { NoResultsMessageProps } from '../no-results-message'
 
 interface TutorialsTabContentsProps {
 	currentProductTag?: CommandBarTag
@@ -18,7 +18,7 @@ interface TutorialsTabContentsProps {
 		href: string
 		text: string
 	}
-	noResultsProps: NoResultsMessageProps
+	noResultsMessageSlot: ReactNode
 }
 
 type TutorialHitObject = Hit<{
