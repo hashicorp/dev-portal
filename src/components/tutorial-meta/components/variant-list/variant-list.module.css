@@ -1,5 +1,10 @@
 .root {
 	margin-bottom: 24px;
+	display: none;
+
+	@media (--dev-dot-tablet-up) {
+		display: block;
+	}
 }
 
 .label {
@@ -7,11 +12,6 @@
 	composes: hds-font-weight-semibold from global;
 	color: var(--token-color-foreground-strong);
 	margin-bottom: 8px;
-	display: none;
-
-	@media (--dev-dot-tablet-up) {
-		display: block;
-	}
 }
 
 .list {
