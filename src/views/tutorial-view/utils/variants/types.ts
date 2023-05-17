@@ -2,6 +2,7 @@ export interface TutorialVariant {
 	id: string
 	slug: string
 	name: string
+	activeOption: TutorialVariantOption
 	options: TutorialVariantOption[]
 }
 

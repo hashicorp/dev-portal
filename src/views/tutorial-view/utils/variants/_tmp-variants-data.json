@@ -3,6 +3,10 @@
 		"id": "1234567",
 		"slug": "deployment",
 		"name": "Deployment",
+		"activeOption": {
+			"slug": "hcp",
+			"name": "Hashicorp Cloud Platform (HCP)"
+		},
 		"options": [
 			{
 				"slug": "hcp",
