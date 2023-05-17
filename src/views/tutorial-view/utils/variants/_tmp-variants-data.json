@@ -1,0 +1,14 @@
+[
+	{
+		"id": "1234567",
+		"slug": "deployment",
+		"name": "Deployment",
+		"options": [
+			{
+				"slug": "hcp",
+				"name": "Hashicorp Cloud Platform (HCP)"
+			},
+			{ "slug": "self-managed", "name": "Self Managed" }
+		]
+	}
+]
