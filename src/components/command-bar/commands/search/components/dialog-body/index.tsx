@@ -174,34 +174,29 @@ const SearchCommandBarDialogBodyContent = ({
 				initialActiveIndex={activeTabIndex}
 				variant="compact"
 			>
-				{searchableContentTypes.map(
-					(contentType: SearchableContentType, index: number) => {
-						if (
-							contentType === 'integrations' &&
-							!shouldRenderIntegrationsTab
-						) {
-							return null
-						}
-
-						const { heading, icon, renderContent } =
-							tabsBySearchableContentType[contentType]
-						return (
-							<Tab
-								heading={heading}
-								headingSlot={
-									<TabHeadingWithCount
-										heading={heading}
-										count={hitCounts[contentType]}
-									/>
-								}
-								icon={icon}
-								key={contentType}
-							>
-								{renderContent({ tabData, currentTabIndex: index })}
-							</Tab>
-						)
+				{searchableContentTypes.map((contentType, index) => {
+					if (contentType === 'integrations' && !shouldRenderIntegrationsTab) {
+						return null
 					}
-				)}
+
+					const { heading, icon, renderContent } =
+						tabsBySearchableContentType[contentType]
+					return (
+						<Tab
+							heading={heading}
+							headingSlot={
+								<TabHeadingWithCount
+									heading={heading}
+									count={hitCounts[contentType]}
+								/>
+							}
+							icon={icon}
+							key={contentType}
+						>
+							{renderContent({ tabData, currentTabIndex: index })}
+						</Tab>
+					)
+				})}
 			</Tabs>
 		</div>
 	)
