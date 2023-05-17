@@ -30,10 +30,7 @@ export function VariantList({ variant }: { variant: TutorialVariant }) {
 						return (
 							<li key={option.slug}>
 								<Link
-									className={classNames(
-										s.link,
-										isActiveOption ? s.activeLink : s.inActiveLink
-									)}
+									className={classNames(s.link)}
 									href={getVariantPath(asPath, variantParam)}
 									aria-current={isActiveOption ? 'page' : undefined}
 									onClick={() => {
