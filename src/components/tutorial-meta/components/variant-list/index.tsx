@@ -23,34 +23,34 @@ export default function VariantList({ variant }: { variant: TutorialVariant }) {
 			</label>
 			<nav>
 				<ul aria-labelledby={VARIANT_LIST_ID} className={s.list}>
-					{variant.options.map((option: TutorialVariantOption) => (
-						<li
-							key={option.slug}
-							aria-current={activeVariantOption.slug === option.slug}
-						>
-							<ButtonLink
-								size="small"
-								color={
-									activeVariantOption.slug === option.slug
-										? 'primary'
-										: 'secondary'
-								}
-								text={option.name}
-								href={getVariantPath(
-									asPath,
-									getVariantParam(variant.slug, option.slug)
-								)}
-								onClick={() => {
-									// @TODO add this in when we have real data to check against
-									// const variantCookie = Cookies.get(variant.id)
-									// // if it exists and its not already set with the same value
-									// if (!variantCookie || variantCookie !== option.id) {
-									// 	Cookies.set(variant.id, option.id)
-									// }
-								}}
-							/>
-						</li>
-					))}
+					{variant.options.map((option: TutorialVariantOption) => {
+						const variantParam = getVariantParam(variant.slug, option.slug)
+						return (
+							<li
+								key={option.slug}
+								aria-current={activeVariantOption.slug === option.slug}
+							>
+								<ButtonLink
+									size="small"
+									color={
+										activeVariantOption.slug === option.slug
+											? 'primary'
+											: 'secondary'
+									}
+									text={option.name}
+									href={getVariantPath(asPath, variantParam)}
+									onClick={() => {
+										// @TODO add this in when we have real data to check against
+										// const variantCookie = Cookies.get(variant.slug)
+										// // if it exists and its not already set with the same value
+										// if (!variantCookie || variantCookie !== variantParam) {
+										// 	Cookies.set(variant.id, variantParam)
+										// }
+									}}
+								/>
+							</li>
+						)
+					})}
 				</ul>
 			</nav>
 		</div>
