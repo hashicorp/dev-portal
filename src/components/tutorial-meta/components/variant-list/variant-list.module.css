@@ -34,17 +34,12 @@
 */
 
 .link {
-	--border-width: 1px;
-
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-medium from global;
 	composes: g-focus-ring-from-box-shadow from global;
 	border-radius: 5px;
-	border: var(--border-width) solid;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: calc(7px - var(--border-width)) calc(12px - var(--border-width));
+	border: 1px solid;
+	padding: 6px 12px;
 	box-shadow: var(--token-elevation-low-box-shadow);
 
 	&:focus,
