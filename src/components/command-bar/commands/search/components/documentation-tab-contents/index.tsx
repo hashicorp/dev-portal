@@ -12,6 +12,7 @@ import s from './documentation-tab-contents.module.css'
 const DocumentationTabContents = ({
 	currentProductTag,
 	suggestedPages,
+	noResultsProps,
 }: DocumentationTabContentsProps) => {
 	let filters
 	if (currentProductTag) {
@@ -25,7 +26,7 @@ const DocumentationTabContents = ({
 			<CustomHitsContainer
 				noResultsSlot={
 					<>
-						<NoResultsMessage />
+						<NoResultsMessage {...noResultsProps} />
 						<CommandBarDivider className={s.divider} />
 						<SuggestedPages pages={suggestedPages} />
 					</>

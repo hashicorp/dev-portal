@@ -5,9 +5,11 @@
 
 import { CommandBarTag } from 'components/command-bar/types'
 import { Integration } from 'lib/integrations-api-client/integration'
+import { NoResultsMessageProps } from '../no-results-message'
 
 interface IntegrationsTabContentsProps {
 	currentProductTag?: CommandBarTag
+	noResultsProps: NoResultsMessageProps
 }
 
 type IntegrationHitObject = Integration

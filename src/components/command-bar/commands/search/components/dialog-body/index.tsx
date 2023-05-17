@@ -36,6 +36,7 @@ import {
 	TabHeadingWithCount,
 } from '../'
 import s from './search-command-bar-dialog-body.module.css'
+import { NoResultsMessageProps } from '../no-results-message'
 
 // TODO(brkalow): We might consider lazy-loading the search client & the insights library
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
@@ -48,7 +49,14 @@ const PRODUCT_SLUGS_WITH_INTEGRATIONS =
 interface SearchableContentTypeTab {
 	heading: TabProps['heading']
 	icon: TabProps['icon']
-	content: TabProps['children']
+	/**
+	 * TODO: maybe noResultsSlot within each
+	 * <Type>TabContents component would make more sense?
+	 */
+	renderContent: ({
+		tabData,
+		currentTabIndex,
+	}: NoResultsMessageProps) => TabProps['children']
 }
 
 const SearchCommandBarDialogBodyContent = ({
@@ -80,28 +88,33 @@ const SearchCommandBarDialogBodyContent = ({
 			docs: {
 				heading: 'Documentation',
 				icon: <IconDocs16 />,
-				content: (
+				renderContent: ({ tabData, currentTabIndex }) => (
 					<DocumentationTabContents
 						currentProductTag={currentProductTag}
 						suggestedPages={suggestedPages}
+						noResultsProps={{ tabData, currentTabIndex }}
 					/>
 				),
 			},
 			tutorials: {
 				heading: 'Tutorials',
 				icon: <IconLearn16 />,
-				content: (
+				renderContent: ({ tabData, currentTabIndex }) => (
 					<TutorialsTabContents
 						currentProductTag={currentProductTag}
 						tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
+						noResultsProps={{ tabData, currentTabIndex }}
 					/>
 				),
 			},
 			integrations: {
 				heading: 'Integrations',
 				icon: <IconPipeline16 />,
-				content: (
-					<IntegrationsTabContents currentProductTag={currentProductTag} />
+				renderContent: ({ tabData, currentTabIndex }) => (
+					<IntegrationsTabContents
+						currentProductTag={currentProductTag}
+						noResultsProps={{ tabData, currentTabIndex }}
+					/>
 				),
 			},
 		}
@@ -140,6 +153,20 @@ const SearchCommandBarDialogBodyContent = ({
 		shouldRenderIntegrationsTab = true
 	}
 
+	/**
+	 * TODO: clean this up
+	 */
+	const tabData = searchableContentTypes.reduce(
+		(acc, contentType: SearchableContentType, idx) => {
+			acc[contentType] = {
+				heading: tabsBySearchableContentType[contentType].heading,
+				tabIdx: idx,
+			}
+			return acc
+		},
+		{}
+	)
+
 	return (
 		<div className={s.tabsWrapper}>
 			<Tabs
@@ -147,29 +174,34 @@ const SearchCommandBarDialogBodyContent = ({
 				initialActiveIndex={activeTabIndex}
 				variant="compact"
 			>
-				{searchableContentTypes.map((contentType: SearchableContentType) => {
-					if (contentType === 'integrations' && !shouldRenderIntegrationsTab) {
-						return null
-					}
+				{searchableContentTypes.map(
+					(contentType: SearchableContentType, index: number) => {
+						if (
+							contentType === 'integrations' &&
+							!shouldRenderIntegrationsTab
+						) {
+							return null
+						}
 
-					const { heading, icon, content } =
-						tabsBySearchableContentType[contentType]
-					return (
-						<Tab
-							heading={heading}
-							headingSlot={
-								<TabHeadingWithCount
-									heading={heading}
-									count={hitCounts[contentType]}
-								/>
-							}
-							icon={icon}
-							key={contentType}
-						>
-							{content}
-						</Tab>
-					)
-				})}
+						const { heading, icon, renderContent } =
+							tabsBySearchableContentType[contentType]
+						return (
+							<Tab
+								heading={heading}
+								headingSlot={
+									<TabHeadingWithCount
+										heading={heading}
+										count={hitCounts[contentType]}
+									/>
+								}
+								icon={icon}
+								key={contentType}
+							>
+								{renderContent({ tabData, currentTabIndex: index })}
+							</Tab>
+						)
+					}
+				)}
 			</Tabs>
 		</div>
 	)

@@ -4,9 +4,11 @@
  */
 
 .root {
+	padding: 32px 0;
+	text-align: center;
 	color: var(--token-color-foreground-primary);
-	margin-bottom: 16px;
-	padding-left: 8px;
-	padding-right: 8px;
-	padding-top: 16px;
+}
+
+.otherTabText {
+	font-weight: var(--token-typography-font-weight-medium);
 }

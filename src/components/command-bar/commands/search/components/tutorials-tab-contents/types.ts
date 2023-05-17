@@ -10,6 +10,7 @@ import {
 	TutorialLite,
 } from 'lib/learn-client/types'
 import { CommandBarTag } from 'components/command-bar/types'
+import { NoResultsMessageProps } from '../no-results-message'
 
 interface TutorialsTabContentsProps {
 	currentProductTag?: CommandBarTag
@@ -17,6 +18,7 @@ interface TutorialsTabContentsProps {
 		href: string
 		text: string
 	}
+	noResultsProps: NoResultsMessageProps
 }
 
 type TutorialHitObject = Hit<{
