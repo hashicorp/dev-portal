@@ -1,6 +1,6 @@
 // @TODO uncomment when enabling cookies
 // import Cookies from 'js-cookie'
-import Link from 'next/link'
+import Link from 'components/link'
 import classNames from 'classnames'
 import {
 	TutorialVariant,
@@ -28,16 +28,14 @@ export default function VariantList({ variant }: { variant: TutorialVariant }) {
 						const variantParam = getVariantParam(variant.slug, option.slug)
 						const isActiveOption = activeVariantOption.slug === option.slug
 						return (
-							<li
-								key={option.slug}
-								aria-current={activeVariantOption.slug === option.slug}
-							>
+							<li key={option.slug}>
 								<Link
 									className={classNames(
 										s.link,
 										isActiveOption ? s.activeLink : s.inActiveLink
 									)}
 									href={getVariantPath(asPath, variantParam)}
+									aria-current={isActiveOption ? 'page' : false}
 									onClick={() => {
 										// @TODO add this in when we have real data to check against
 										// const variantCookie = Cookies.get(variant.slug)
