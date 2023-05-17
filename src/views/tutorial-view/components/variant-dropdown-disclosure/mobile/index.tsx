@@ -18,7 +18,7 @@ export function MobileVariantDropdownDisclosure({
 	className,
 }: VariantDropdownDisclosureProps) {
 	// @TODO hook this into useVariants hook once data is wired
-	const activeOption = variant.options[1]
+	const activeOption = variant.options[0]
 
 	return (
 		<span className={className}>
