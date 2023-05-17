@@ -15,6 +15,7 @@ import {
 import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import commands from './commands'
 import { CommandBarActivator, CommandBarDialog } from './components'
+import SearchHitsProvider from './commands/search/helpers/hit-counts-provider'
 import {
 	CommandBarCommand,
 	CommandBarContextState,
@@ -167,10 +168,12 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	])
 
 	return (
-		<CommandBarContext.Provider value={contextValue}>
-			{children}
-			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen} />
-		</CommandBarContext.Provider>
+		<SearchHitsProvider>
+			<CommandBarContext.Provider value={contextValue}>
+				{children}
+				<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen} />
+			</CommandBarContext.Provider>
+		</SearchHitsProvider>
 	)
 }
 
