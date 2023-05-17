@@ -2,12 +2,12 @@ import { useRouter } from 'next/router'
 import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 } from 'components/dropdown-disclosure'
-import Text from 'components/text'
 import {
 	getVariantParam,
 	getVariantPath,
 	TutorialVariantOption,
 } from 'views/tutorial-view/utils/variants'
+import { VariantDropdownWithLabel } from 'views/tutorial-view/components'
 import { VariantDropdownDisclosureProps } from 'views/tutorial-view/components/variant-dropdown-disclosure/types'
 import s from './mobile-variant-dropdown-disclosure.module.css'
 
@@ -27,35 +27,34 @@ export function MobileVariantDropdownDisclosure({
 	const activeOption = variant.options[1]
 
 	return (
-		<div className={className}>
-			<Text weight="semibold" size={100} className={s.label}>
-				{variant.name}
-			</Text>
-			<DropdownDisclosure
-				aria-label={`${variant.name}: ${activeOption.name}`}
-				color="secondary"
-				text={activeOption.name}
-				className={s.dropdownDisclosure}
-				activatorClassName={s.dropdownActivator}
-			>
-				{variant.options.map((option: TutorialVariantOption) => {
-					if (option.slug === activeOption.slug) {
-						return null
-					}
+		<span className={className}>
+			<VariantDropdownWithLabel text={variant.name}>
+				<DropdownDisclosure
+					aria-label={`${variant.name}: ${activeOption.name}`}
+					color="secondary"
+					text={activeOption.name}
+					className={s.dropdownDisclosure}
+					activatorClassName={s.dropdownActivator}
+				>
+					{variant.options.map((option: TutorialVariantOption) => {
+						if (option.slug === activeOption.slug) {
+							return null
+						}
 
-					return (
-						<DropdownDisclosureLinkItem
-							key={option.slug}
-							href={getVariantPath(
-								asPath,
-								getVariantParam(variant.slug, option.slug)
-							)}
-						>
-							{option.name}
-						</DropdownDisclosureLinkItem>
-					)
-				})}
-			</DropdownDisclosure>
-		</div>
+						return (
+							<DropdownDisclosureLinkItem
+								key={option.slug}
+								href={getVariantPath(
+									asPath,
+									getVariantParam(variant.slug, option.slug)
+								)}
+							>
+								{option.name}
+							</DropdownDisclosureLinkItem>
+						)
+					})}
+				</DropdownDisclosure>
+			</VariantDropdownWithLabel>
+		</span>
 	)
 }

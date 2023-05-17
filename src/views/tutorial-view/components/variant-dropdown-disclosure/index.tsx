@@ -1,5 +1,5 @@
+import { ReactNode } from 'react'
 import { useRouter } from 'next/router'
-import classNames from 'classnames'
 import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 } from 'components/dropdown-disclosure'
@@ -28,35 +28,47 @@ export function VariantDropdownDisclosure({
 	const activeOption = variant.options[0]
 
 	return (
-		<div className={classNames(s.root, className)}>
-			<Text weight="semibold" size={100} className={s.label}>
-				{variant.name}
-			</Text>
-			<DropdownDisclosure
-				aria-label={`${variant.name}: ${activeOption.name}`}
-				color="secondary"
-				text={activeOption.name}
-				className={s.dropdownDisclosure}
-				activatorClassName={s.dropdownActivator}
-			>
-				{variant.options.map((option: TutorialVariantOption) => {
-					if (option.slug === activeOption.slug) {
-						return null
-					}
+		<DropdownDisclosure
+			aria-label={`${variant.name}: ${activeOption.name}`}
+			color="secondary"
+			text={activeOption.name}
+			className={s.dropdownDisclosure}
+			activatorClassName={s.dropdownActivator}
+		>
+			{variant.options.map((option: TutorialVariantOption) => {
+				if (option.slug === activeOption.slug) {
+					return null
+				}
 
-					return (
-						<DropdownDisclosureLinkItem
-							key={option.slug}
-							href={getVariantPath(
-								asPath,
-								getVariantParam(variant.slug, option.slug)
-							)}
-						>
-							{option.name}
-						</DropdownDisclosureLinkItem>
-					)
-				})}
-			</DropdownDisclosure>
+				return (
+					<DropdownDisclosureLinkItem
+						key={option.slug}
+						href={getVariantPath(
+							asPath,
+							getVariantParam(variant.slug, option.slug)
+						)}
+					>
+						{option.name}
+					</DropdownDisclosureLinkItem>
+				)
+			})}
+		</DropdownDisclosure>
+	)
+}
+
+export function VariantDropdownWithLabel({
+	text,
+	children,
+}: {
+	text: string
+	children: ReactNode
+}) {
+	return (
+		<div className={s.labelRoot}>
+			<Text weight="semibold" size={100} className={s.label}>
+				{text}
+			</Text>
+			{children}
 		</div>
 	)
 }
