@@ -4,7 +4,7 @@
  */
 
 .list {
-	--badge-spacing: 8px;
+	--badge-spacing: 12px;
 
 	align-items: flex-start;
 	display: flex;
@@ -12,24 +12,21 @@
 	gap: var(--badge-spacing);
 	list-style: none;
 	margin: 0;
-	margin-bottom: calc(
-		var(--spacing-lrg) - var(--badge-spacing)
-	); /* --spacing tokens live in tutorial-meta-module.css */
-
 	padding: 0;
-
-	& li {
-		align-self: center;
-		display: flex;
-	}
-
-	@media (--dev-dot-tablet-up) {
-		margin-bottom: calc(var(--spacing-xl) - var(--badge-spacing));
-	}
 }
 
-.readTime {
+.listItem {
 	composes: hds-font-weight-medium from global;
 	composes: hds-typography-display-100 from global;
-	color: var(--token-color-palette-neutral-600);
+	color: var(--token-color-foreground-faint);
+	align-self: center;
+	display: flex;
+}
+
+.seperator {
+	padding-bottom: 2px;
+}
+
+.badge {
+	color: var(--token-color-foreground-faint);
 }
