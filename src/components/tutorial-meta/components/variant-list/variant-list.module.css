@@ -42,11 +42,6 @@
 	border: 1px solid;
 	padding: 6px 12px;
 	box-shadow: var(--token-elevation-low-box-shadow);
-
-	&:focus,
-	&:focus-visible {
-		outline: transparent;
-	}
 }
 
 .activeLink {
