@@ -35,7 +35,7 @@ export default function VariantList({ variant }: { variant: TutorialVariant }) {
 										isActiveOption ? s.activeLink : s.inActiveLink
 									)}
 									href={getVariantPath(asPath, variantParam)}
-									aria-current={isActiveOption ? 'page' : false}
+									aria-current={isActiveOption ? 'page' : undefined}
 									onClick={() => {
 										// @TODO add this in when we have real data to check against
 										// const variantCookie = Cookies.get(variant.slug)
