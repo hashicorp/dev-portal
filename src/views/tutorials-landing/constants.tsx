@@ -88,27 +88,26 @@ const BADGE_ICON_MAP = {
  * ContentTypesSection constants
  */
 
-const CONTENT_TYPES_SECTION_TITLE =
-	'Jump start your learning how/why statement that leads to our tutorial library'
+const CONTENT_TYPES_SECTION_TITLE = 'Learn your way, at your own pace'
 
 const CONTENT_TYPES_SECTION_ITEMS = [
 	{
 		imageSource: 'https://placekitten.com/g/70/70',
 		title: 'Byte-sized video demonstrations',
 		description:
-			'Each video lecture is about 5 minutes long and led by HashiCorp engineers',
+			'Build confidence and learn what is coming with short demo videos',
 	},
 	{
 		imageSource: 'https://placekitten.com/g/70/70',
-		title: 'Hands-on labs & study guides',
+		title: 'Hosted terminal environments',
 		description:
-			'Practice your recently learned skills with our in-browser development environment',
+			'Skip the prerequisites and try a tutorial from your browser window',
 	},
 	{
 		imageSource: 'https://placekitten.com/g/70/70',
-		title: 'Bookmark and track your path',
+		title: 'Save your place, and your favorites',
 		description:
-			'Meeting you where you’re most familiar with for smooth product adoption',
+			'Life can be busy. Bookmark a tutorial to save your place on your learning path',
 	},
 ]
 
