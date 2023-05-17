@@ -11,6 +11,13 @@ import {
 import { VariantsDropdownDisclosureProps } from './types'
 import s from './variants-dropdown-disclosure.module.css'
 
+/**
+ * @TODO we should refactor dropdown disclosure to accept
+ * aria-labelledby instead of passing the aria-label with the
+ * combined visual label text and active option
+ * https://app.asana.com/0/1204333057896641/1204621995316433
+ */
+
 export function VariantsDropdownDisclosure({
 	variant,
 }: VariantsDropdownDisclosureProps) {
