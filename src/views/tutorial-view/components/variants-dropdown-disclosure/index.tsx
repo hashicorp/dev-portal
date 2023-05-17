@@ -30,17 +30,23 @@ export function VariantsDropdownDisclosure({
 				className={s.dropdownDisclosure}
 				activatorClassName={s.dropdownActivator}
 			>
-				{variant.options.map((option: TutorialVariantOption) => (
-					<DropdownDisclosureLinkItem
-						key={option.slug}
-						href={getVariantPath(
-							asPath,
-							getVariantParam(variant.slug, option.slug)
-						)}
-					>
-						{option.name}
-					</DropdownDisclosureLinkItem>
-				))}
+				{variant.options.map((option: TutorialVariantOption) => {
+					if (option.slug === activeOption.slug) {
+						return null
+					}
+
+					return (
+						<DropdownDisclosureLinkItem
+							key={option.slug}
+							href={getVariantPath(
+								asPath,
+								getVariantParam(variant.slug, option.slug)
+							)}
+						>
+							{option.name}
+						</DropdownDisclosureLinkItem>
+					)
+				})}
 			</DropdownDisclosure>
 		</div>
 	)
