@@ -58,7 +58,7 @@ describe('CurrentProductContext', () => {
 
 		let error
 		renderHook(() => useCurrentProduct(), {
-			wrapper: class Wrapper extends Component {
+			wrapper: class Wrapper extends Component<{ children: ReactNode }> {
 				state = { error: false }
 
 				static getDerivedStateFromError() {

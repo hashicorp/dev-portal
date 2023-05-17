@@ -111,6 +111,12 @@
 		border-color: var(--token-color-palette-neutral-200);
 	}
 
+	@nest html[data-theme='light'] & {
+		&:active {
+			background-color: var(--token-color-foreground-primary);
+		}
+	}
+
 	@nest html[data-theme='dark'] & {
 		color: var(--token-color-foreground-strong);
 

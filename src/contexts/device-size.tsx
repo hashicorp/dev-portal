@@ -3,7 +3,13 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import {
+	type ReactNode,
+	createContext,
+	useContext,
+	useEffect,
+	useState,
+} from 'react'
 import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
 
 const DEFAULT_MOBILE_WIDTH = 728
@@ -18,7 +24,7 @@ interface DeviceSize {
 const DeviceSizeContext = createContext<DeviceSize>(undefined)
 DeviceSizeContext.displayName = 'DeviceSizeContext'
 
-const DeviceSizeProvider: React.FC = ({ children }) => {
+const DeviceSizeProvider = ({ children }: { children: ReactNode }) => {
 	let mobileWidth: number
 	let tabletWidth: number
 	let mobileMediaQueryListObject: MediaQueryList
