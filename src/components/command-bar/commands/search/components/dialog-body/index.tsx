@@ -3,12 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
-import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
-import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
-import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { ProductSlug } from 'types/products'
 import {
 	SearchableContentType,
@@ -18,24 +15,20 @@ import {
 import { CommandBarTag, useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 import Tabs, { Tab } from 'components/tabs'
-import { TabProps } from 'components/tabs/components/tab'
 import useRecentSearches from '../../hooks/use-recent-searches'
 import {
 	generateSuggestedPages,
-	generateTutorialLibraryCta,
 	getCurrentProductTag,
 	useHitsContext,
 } from '../../helpers'
 import {
-	DocumentationTabContents,
-	IntegrationsTabContents,
 	RecentSearches,
 	SuggestedPage,
 	SuggestedPages,
-	TutorialsTabContents,
 	TabHeadingWithCount,
 	NoResultsMessage,
 } from '../'
+import { tabContentByType } from './tab-content-by-type'
 import s from './search-command-bar-dialog-body.module.css'
 
 // TODO(brkalow): We might consider lazy-loading the search client & the insights library
@@ -46,18 +39,10 @@ const searchClient = algoliasearch(appId, apiKey)
 const PRODUCT_SLUGS_WITH_INTEGRATIONS =
 	__config.dev_dot.product_slugs_with_integrations
 
-interface ContentTabProps {
-	noResultsMessageSlot: ReactNode
-}
-
-interface SearchableContentTypeTab {
-	heading: TabProps['heading']
-	icon: TabProps['icon']
-	renderContent: ({
-		noResultsMessageSlot,
-	}: ContentTabProps) => TabProps['children']
-}
-
+/**
+ * Render search results across Docs, Tutorials, and Integrations,
+ * grouped in Tabs by content type.
+ */
 const SearchCommandBarDialogBodyContent = ({
 	currentProductTag,
 	recentSearches,
@@ -76,51 +61,21 @@ const SearchCommandBarDialogBodyContent = ({
 		return generateSuggestedPages(currentProductTag?.id as ProductSlug)
 	}, [currentProductTag])
 
-	/**
-	 * Generate an object used to render all of the Tab elements to preselect the
-	 * Tab for the CurrentContentType.
-	 */
-	const tabsBySearchableContentType = useMemo<
-		Record<SearchableContentType, SearchableContentTypeTab>
-	>(() => {
-		return {
-			docs: {
-				heading: 'Documentation',
-				icon: <IconDocs16 />,
-				renderContent: ({ noResultsMessageSlot }: ContentTabProps) => (
-					<DocumentationTabContents
-						currentProductTag={currentProductTag}
-						suggestedPages={suggestedPages}
-						noResultsMessageSlot={noResultsMessageSlot}
-					/>
-				),
-			},
-			tutorials: {
-				heading: 'Tutorials',
-				icon: <IconLearn16 />,
-				renderContent: ({ noResultsMessageSlot }: ContentTabProps) => (
-					<TutorialsTabContents
-						currentProductTag={currentProductTag}
-						tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
-						noResultsMessageSlot={noResultsMessageSlot}
-					/>
-				),
-			},
-			integrations: {
-				heading: 'Integrations',
-				icon: <IconPipeline16 />,
-				renderContent: ({ noResultsMessageSlot }: ContentTabProps) => (
-					<IntegrationsTabContents
-						currentProductTag={currentProductTag}
-						noResultsMessageSlot={noResultsMessageSlot}
-					/>
-				),
-			},
-		}
-	}, [currentProductTag, suggestedPages])
-	const searchableContentTypes = Object.keys(tabsBySearchableContentType)
+	const searchableContentTypes = Object.keys(tabContentByType)
 	const activeTabIndex =
 		contentType === 'global' ? 0 : searchableContentTypes.indexOf(contentType)
+
+	/**
+	 * Transform searchableContentTypes into content tab data with hit counts.
+	 * We use this to render
+	 */
+	const tabData = useMemo(() => {
+		return searchableContentTypes.map((type) => {
+			const { heading, icon } = tabContentByType[type]
+			const hitCount = hitCounts[type]
+			return { type, heading, icon, hitCount }
+		})
+	}, [searchableContentTypes, hitCounts])
 
 	/**
 	 * Don't render search result Tabs at all if there is no text in the input.
@@ -152,20 +107,6 @@ const SearchCommandBarDialogBodyContent = ({
 		shouldRenderIntegrationsTab = true
 	}
 
-	/**
-	 * TODO: clean this up
-	 */
-	const tabData = searchableContentTypes.reduce(
-		(acc, contentType: SearchableContentType, idx) => {
-			acc[contentType] = {
-				heading: tabsBySearchableContentType[contentType].heading,
-				tabIdx: idx,
-			}
-			return acc
-		},
-		{}
-	)
-
 	return (
 		<div className={s.tabsWrapper}>
 			<Tabs
@@ -173,13 +114,13 @@ const SearchCommandBarDialogBodyContent = ({
 				initialActiveIndex={activeTabIndex}
 				variant="compact"
 			>
-				{searchableContentTypes.map((contentType, index) => {
+				{searchableContentTypes.map((contentType: SearchableContentType) => {
 					if (contentType === 'integrations' && !shouldRenderIntegrationsTab) {
 						return null
 					}
 
-					const { heading, icon, renderContent } =
-						tabsBySearchableContentType[contentType]
+					const { heading, icon, renderContent } = tabContentByType[contentType]
+
 					return (
 						<Tab
 							heading={heading}
@@ -193,8 +134,17 @@ const SearchCommandBarDialogBodyContent = ({
 							key={contentType}
 						>
 							{renderContent({
+								currentProductTag,
+								suggestedPages,
 								noResultsMessageSlot: (
-									<NoResultsMessage currentTabIndex={index} tabData={tabData} />
+									<NoResultsMessage
+										currentTabHeading={heading}
+										tabsWithResults={tabData.filter((tabData) => {
+											const isOtherTab = tabData.type !== contentType
+											const tabHasResults = tabData.hitCount > 0
+											return isOtherTab && tabHasResults
+										})}
+									/>
 								),
 							})}
 						</Tab>
