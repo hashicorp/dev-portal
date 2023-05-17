@@ -42,9 +42,6 @@ const NoResultsMessage = ({
 					section{tabsWithResults.length === 1 ? '' : 's'} to see other results.
 				</Text>
 			) : null}
-			{/* <pre style={{ textAlign: 'left' }}>
-			<code>{JSON.stringify({ handleKeyUp }, null, 2)}</code>
-		</pre> */}
 		</div>
 	)
 }
