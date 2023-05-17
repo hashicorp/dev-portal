@@ -54,10 +54,14 @@
 		/**
 		* We need a lighter color focus ring for this style so the blue
 		* focus styles are easily visible against the blue bg-color
+		*
+		* We could lift this up to a global focus ring helper in styles.css
+		* if we find this being used elsewhere
 		*/
 		&:focus-visible {
 			box-shadow: inset 0 0 0 1px var(--token-color-palette-blue-300),
-				0 0 0 1px var(--token-color-surface-primary), 0 0 0 4px #5990ff;
+				0 0 0 1px var(--token-color-surface-primary),
+				0 0 0 4px var(--token-color-focus-action-external);
 		}
 	}
 
