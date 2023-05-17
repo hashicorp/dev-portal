@@ -1,6 +1,6 @@
 import DropdownDisclosure from 'components/dropdown-disclosure'
-import { TutorialVariant } from 'views/tutorial-view/utils/variants'
 import { VariantDropdownWithLabel, VariantDropdownDisclosureItems } from '../'
+import { VariantDropdownDisclosureProps } from '../types'
 import s from './sidecar-variant-dropdown-disclosure.module.css'
 
 /**
@@ -12,9 +12,7 @@ import s from './sidecar-variant-dropdown-disclosure.module.css'
 
 export function SidecarVariantDropdownDisclosure({
 	variant,
-}: {
-	variant: TutorialVariant
-}) {
+}: VariantDropdownDisclosureProps) {
 	// @TODO hook this into useVariants hook once data is wired
 	const activeOption = variant.options[0]
 

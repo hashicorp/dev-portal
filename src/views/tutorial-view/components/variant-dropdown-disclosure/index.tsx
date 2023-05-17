@@ -1,23 +1,22 @@
-import { ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import { DropdownDisclosureLinkItem } from 'components/dropdown-disclosure'
 import Text from 'components/text'
 import {
 	getVariantParam,
 	getVariantPath,
-	TutorialVariant,
 	TutorialVariantOption,
 } from 'views/tutorial-view/utils/variants'
 import { SidecarVariantDropdownDisclosure } from './sidecar'
 import s from './variant-dropdown-disclosure.module.css'
+import {
+	VariantDropdownDisclosureItemProps,
+	VariantDropdownDisclosureWithLabelProps,
+} from './types'
 
 export function VariantDropdownWithLabel({
 	text,
 	children,
-}: {
-	text: string
-	children: ReactNode
-}) {
+}: VariantDropdownDisclosureWithLabelProps) {
 	return (
 		<div className={s.labelRoot}>
 			<Text weight="semibold" size={100} className={s.label}>
@@ -31,10 +30,7 @@ export function VariantDropdownWithLabel({
 export function VariantDropdownDisclosureItems({
 	variant,
 	activeOption,
-}: {
-	variant: TutorialVariant
-	activeOption: TutorialVariantOption
-}) {
+}: VariantDropdownDisclosureItemProps) {
 	const { asPath } = useRouter()
 	return (
 		<>
