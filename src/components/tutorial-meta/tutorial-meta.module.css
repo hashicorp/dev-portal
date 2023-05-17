@@ -43,9 +43,13 @@
 	align-items: center;
 }
 
-.variantList {
+.variantList,
+.mobileVariantDropdownDisclosure {
 	margin-top: 24px;
 	margin-bottom: 24px;
+}
+
+.variantList {
 	display: none;
 
 	@media (--dev-dot-tablet-up) {
@@ -54,7 +58,6 @@
 }
 
 .mobileVariantDropdownDisclosure {
-	margin-top: 24px;
 	display: block;
 	width: 100%;
 

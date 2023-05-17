@@ -1,0 +1,14 @@
+.label {
+	margin-bottom: 8px;
+	color: var(--token-color-foreground-primary);
+}
+
+.dropdownDisclosure {
+	width: 100%;
+}
+
+.dropdownActivator {
+	text-align: left;
+	width: 100%;
+	justify-content: space-between;
+}
