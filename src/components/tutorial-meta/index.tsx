@@ -12,6 +12,8 @@ import { Badges, getIsBeta } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
 import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
+import { TutorialVariant } from 'views/tutorial-view/utils/variants'
+import VariantList from './components/variant-list'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -20,12 +22,14 @@ interface TutorialMetaProps {
 		hasVideo: boolean
 	}
 	tutorialId: TutorialData['id']
+	variant?: TutorialVariant
 }
 
 export default function TutorialMeta({
 	heading,
 	meta,
 	tutorialId,
+	variant,
 }: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 

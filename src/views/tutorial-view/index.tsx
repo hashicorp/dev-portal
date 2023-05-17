@@ -281,6 +281,7 @@ function TutorialView({
 								hasVideo,
 							}}
 							tutorialId={id}
+							variant={variantData[0] as TutorialVariant}
 						/>
 						{metadata.variant ? (
 							<div style={{ border: '1px solid magenta' }}>
