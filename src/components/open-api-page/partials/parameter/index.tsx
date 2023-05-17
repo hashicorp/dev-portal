@@ -33,6 +33,7 @@ function Parameter({ name, data, isFirstItem, isLastItem, arrayDepth = 0 }) {
 			</MdxInlineCode>{' '}
 			<code className={`${s.typeString} g-type-code`}>{typeString}</code>{' '}
 			{data.required && <Badge text="Required" color="highlight" />}
+			{data['x-beta-feature'] ? <Badge text="Beta" color="neutral" /> : null}
 			{data.title && (
 				<div
 					className={s.descriptiveText}

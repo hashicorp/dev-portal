@@ -19,6 +19,14 @@
 	width: 100%;
 }
 
+.title {
+	color: var(--token-color-foreground-strong);
+}
+
+.titleBadge {
+	margin-left: 8px;
+}
+
 .endpoint {
 	display: block;
 

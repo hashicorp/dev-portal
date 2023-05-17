@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 import InlineLink from 'components/inline-link'
 import PageAlert from 'components/page-alert'
