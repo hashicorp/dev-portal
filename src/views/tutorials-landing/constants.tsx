@@ -16,14 +16,14 @@ import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-
 const PAGE_TITLE = 'Learn HashiCorp products'
 
 const PAGE_SUBTITLE =
-	'Brief intro - this is our opportunity to shape the value of this page for our Beginner practitioners. Max character count of 150 would be ideal.  Discover step-by-step learning paths to help you complete essential task to get started with HashiCorp products.'
+	'Learn HashiCorp products with step-by-step, hands-on, command-line tutorials, videos, and hosted terminal sessions. Actionable examples help you learn how to provision, secure, connect, or run any application on any infrastructure.'
 
 /**
  * ProductSection constants
  */
 
 const PRODUCT_DESCRIPTIONS = {
-	terraform: 'Build, change, and destroy infrastructure',
+	terraform: 'Provision and manage infrastructure',
 	packer: 'Automate creating machine images',
 	consul: 'Manage secure network connectivity',
 	vault: 'Secure, store, and tightly control access to secrets',
