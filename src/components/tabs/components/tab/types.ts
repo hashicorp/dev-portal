@@ -12,9 +12,21 @@ export interface TabProps {
 	children: ReactNode
 
 	/**
-	 * The text to show in the tab button
+	 * The `heading` is plain text used with `<select />`-based tab controls.
+	 * It is always required, as we must use `<select />`-based tab controls on
+	 * certain smaller viewport sizes.
 	 */
 	heading: string
+
+	/**
+	 * The optional `headingSlot` is used with `<button />`-based tab controls.
+	 * It allows rendering arbitrary content, and generally appears only
+	 * at larger viewport sizes.
+	 *
+	 * If `headingSlot` is not provided, the `heading` string will be used with
+	 * both the `<select />` and `<button />` based tab controls.
+	 */
+	headingSlot?: ReactNode
 
 	/**
 	 * An optional icon to render before the text of a Tab.
