@@ -1,3 +1,27 @@
 .root {
-	color: red;
+	margin-bottom: 24px;
+}
+
+.label {
+	composes: hds-typgraphy-body-200 from global;
+	composes: hds-font-weight-semibold from global;
+	color: var(--token-color-foreground-strong);
+	margin-bottom: 8px;
+	display: none;
+
+	@media (--dev-dot-tablet-up) {
+		display: block;
+	}
+}
+
+.list {
+	list-style: none;
+	margin: 0;
+	background: var(--token-color-surface-faint);
+	border: 1px solid var(--token-color-border-faint);
+	border-radius: 6px;
+	padding: 8px;
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
 }

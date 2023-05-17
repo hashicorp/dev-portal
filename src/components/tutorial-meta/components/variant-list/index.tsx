@@ -1,4 +1,5 @@
-import Cookies from 'js-cookie'
+// @TODO uncomment when enabling cookies
+// import Cookies from 'js-cookie'
 import {
 	TutorialVariant,
 	TutorialVariantOption,
@@ -17,15 +18,18 @@ export default function VariantList({ variant }: { variant: TutorialVariant }) {
 
 	return (
 		<div className={s.root}>
-			<label id={VARIANT_LIST_ID}>{variant.slug}</label>
+			<label id={VARIANT_LIST_ID} className={s.label}>
+				{variant.name}
+			</label>
 			<nav>
-				<ul aria-labelledby={VARIANT_LIST_ID}>
+				<ul aria-labelledby={VARIANT_LIST_ID} className={s.list}>
 					{variant.options.map((option: TutorialVariantOption) => (
 						<li
 							key={option.slug}
 							aria-current={activeVariantOption.slug === option.slug}
 						>
 							<ButtonLink
+								size="small"
 								color={
 									activeVariantOption.slug === option.slug
 										? 'primary'
@@ -34,14 +38,15 @@ export default function VariantList({ variant }: { variant: TutorialVariant }) {
 								text={option.name}
 								href={getVariantPath(
 									asPath,
-									getVariantParam(variant.slug, activeVariantOption.slug)
+									getVariantParam(variant.slug, option.slug)
 								)}
 								onClick={() => {
-									const variantCookie = Cookies.get(variant.id)
-									// if it exists and its not already set with the same value
-									if (!variantCookie || variantCookie !== option.id) {
-										Cookies.set(variant.id, option.id)
-									}
+									// @TODO add this in when we have real data to check against
+									// const variantCookie = Cookies.get(variant.id)
+									// // if it exists and its not already set with the same value
+									// if (!variantCookie || variantCookie !== option.id) {
+									// 	Cookies.set(variant.id, option.id)
+									// }
 								}}
 							/>
 						</li>
