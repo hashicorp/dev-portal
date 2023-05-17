@@ -81,6 +81,7 @@ export default function TutorialMeta({
 					to bookmark tutorials.
 				</Text>
 			) : null}
+			{variant ? <VariantList variant={variant} /> : null}
 		</header>
 	)
 }
