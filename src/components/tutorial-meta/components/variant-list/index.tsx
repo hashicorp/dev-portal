@@ -11,7 +11,7 @@ import {
 import { useRouter } from 'next/router'
 import s from './variant-list.module.css'
 
-export default function VariantList({ variant }: { variant: TutorialVariant }) {
+export function VariantList({ variant }: { variant: TutorialVariant }) {
 	// @TODO hook this into a useVariants hook
 	const activeVariantOption = variant.options[0]
 	const VARIANT_LIST_ID = 'variant-list-label'

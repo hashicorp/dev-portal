@@ -5,15 +5,14 @@
 
 import useAuthentication from 'hooks/use-authentication'
 import { TutorialData } from 'views/tutorial-view'
+import { TutorialVariant } from 'views/tutorial-view/utils/variants'
 import Heading from 'components/heading'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
-import { Badges, getIsBeta } from './components'
+import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
+import { Badges, getIsBeta, VariantList } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
-import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
-import { TutorialVariant } from 'views/tutorial-view/utils/variants'
-import VariantList from './components/variant-list'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
