@@ -16,6 +16,7 @@ import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { CollectionCategorySidebarSection } from 'views/collection-view/helpers'
 import { CollectionCardPropsWithId } from 'components/collection-card'
 import { OutlineLinkItem } from 'components/outline-nav/types'
+import { TutorialVariant } from './utils/variants'
 
 type TutorialSidebarSidecarProps = Required<
 	Pick<
@@ -62,11 +63,7 @@ interface TutorialViewProps {
 		title: string
 		description: string
 		slug?: string
-		// @TODO expand this type
-		variant?: {
-			slug: string
-			optionSlug: string
-		}
+		variant?: TutorialVariant
 	}
 }
 
