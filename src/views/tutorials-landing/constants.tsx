@@ -24,14 +24,21 @@ const PAGE_SUBTITLE =
 
 const PRODUCT_DESCRIPTIONS = {
 	terraform:
-		'Provision and manage infrastructure using declarative, human-readable configuration files.',
-	packer: 'Automate creating machine images',
-	consul: 'Manage secure network connectivity',
-	vault: 'Secure, store, and tightly control access to secrets',
-	boundary: 'Manage identity-based access',
-	nomad: 'Schedule and orchestrate workloads',
-	waypoint: 'Publish any application to any platform',
-	vagrant: 'Build and manage virtual machine environments',
+		'Provision and manage infrastructure using declarative, human-readable configuration files',
+	packer:
+		'Create machine images for multiple platforms automatically from one source configuration',
+	consul:
+		'Connect and secure services with mutual TLS, and automate network rules across clouds',
+	vault:
+		'Securely store, access, deploy, and rotate secrets. Encrypt data in flight and at rest',
+	boundary:
+		'Control access to critical systems with fine-grained, identity-based authorizations',
+	nomad:
+		'Deploy and manage containers and other applications on-premises and in the cloud at scale',
+	waypoint:
+		'Let teams without infrastructure knowledge ship applications using a PaaS-like interface',
+	vagrant:
+		'Build, manage, and share virtual machine environments with a single workflow',
 }
 
 const BADGE_ICON_MAP = {
