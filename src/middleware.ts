@@ -47,9 +47,6 @@ function setHappyKitCookie(
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const { geo } = req
 
-	const label = `[middleware] ${req.nextUrl.pathname}`
-	console.time(label)
-
 	let response: NextResponse
 
 	// Handle redirects
@@ -66,7 +63,6 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			)
 		}
 		if (destination.startsWith('http')) {
-			console.timeEnd(label)
 			return NextResponse.redirect(destination, permanent ? 308 : 307)
 		}
 
@@ -81,7 +77,6 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			url.hash = hash
 		}
 
-		console.timeEnd(label)
 		return NextResponse.redirect(url, permanent ? 308 : 307)
 	}
 
@@ -101,7 +96,6 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			// The GA redirects should be permanent
 			const response = NextResponse.redirect(redirectUrl, 308)
 
-			console.timeEnd(label)
 			return response
 		}
 	}
@@ -125,8 +119,6 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	if (!response) {
 		response = NextResponse.next()
 	}
-
-	console.timeEnd(label)
 
 	// Continue request processing
 	return setGeoCookie(req, response)

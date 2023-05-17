@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { withTiming } from 'lib/with-timing'
 const fetch = getFetch()
 
 function getFetch() {
@@ -59,18 +58,15 @@ export async function request<ResponseObject>(
 		})
 		requestURL.search = new URLSearchParams(opts.query).toString()
 	}
-	const label = `[integrations-api] ${method.toUpperCase()} ${requestURL.toString()}`
-	return await withTiming(label, () =>
-		fetch(requestURL.toString(), {
-			method: method,
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: opts?.body ? JSON.stringify(opts.body) : undefined,
-		}).then((res) => {
-			return res.json()
-		})
-	)
+	return await fetch(requestURL.toString(), {
+		method: method,
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: opts?.body ? JSON.stringify(opts.body) : undefined,
+	}).then((res) => {
+		return res.json()
+	})
 }
 
 export interface PaginationQuery {
