@@ -9,7 +9,7 @@
 }
 
 .label {
-	composes: hds-typgraphy-body-200 from global;
+	composes: hds-typography-body-200 from global;
 	composes: hds-font-weight-semibold from global;
 	color: var(--token-color-foreground-strong);
 	margin-bottom: 8px;
