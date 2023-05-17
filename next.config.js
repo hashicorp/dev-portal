@@ -128,6 +128,7 @@ module.exports = withSwingset({
 			// TODO: determine if DevDot needs this or not
 			SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
 			HAPPY_KIT_KEY: happyKitKey,
+			NEXT_OTEL_VERBOSE: '1',
 		},
 		svgo: {
 			plugins: [
