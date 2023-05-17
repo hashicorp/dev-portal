@@ -1,5 +1,6 @@
 // @TODO uncomment when enabling cookies
 // import Cookies from 'js-cookie'
+import Link from 'next/link'
 import classNames from 'classnames'
 import {
 	TutorialVariant,
@@ -7,7 +8,6 @@ import {
 	getVariantParam,
 	getVariantPath,
 } from 'views/tutorial-view/utils/variants'
-import ButtonLink from 'components/button-link'
 import { useRouter } from 'next/router'
 import s from './variant-list.module.css'
 
@@ -32,14 +32,11 @@ export default function VariantList({ variant }: { variant: TutorialVariant }) {
 								key={option.slug}
 								aria-current={activeVariantOption.slug === option.slug}
 							>
-								<ButtonLink
+								<Link
 									className={classNames(
-										s.linkOverrides,
-										!isActiveOption && s.secondaryLinkOverrides
+										s.link,
+										isActiveOption ? s.activeLink : s.inActiveLink
 									)}
-									size="small"
-									color={isActiveOption ? 'primary' : 'secondary'}
-									text={option.name}
 									href={getVariantPath(asPath, variantParam)}
 									onClick={() => {
 										// @TODO add this in when we have real data to check against
@@ -49,7 +46,9 @@ export default function VariantList({ variant }: { variant: TutorialVariant }) {
 										// 	Cookies.set(variant.id, variantParam)
 										// }
 									}}
-								/>
+								>
+									{option.name}
+								</Link>
 							</li>
 						)
 					})}

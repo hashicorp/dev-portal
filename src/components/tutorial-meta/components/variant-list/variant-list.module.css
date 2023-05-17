@@ -28,37 +28,57 @@
 	flex-wrap: wrap;
 }
 
-/** 
-* 🏴‍☠️ Style overrides here
-* These adjustments to the border and background colors for
-* secondary button link styles are due to the elements appearing
-* in the container with the surface-faint background color.
+/**
+* Shares some similar styles with `button-link` but is unique enough
+* to warrant its own styles to avoid overrides
 */
-.linkOverrides {
-	&:hover:not(:disabled),
-	&:active:not(:disabled),
+
+.link {
+	--border-width: 1px;
+
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-medium from global;
+	composes: g-focus-ring-from-box-shadow from global;
+	border-radius: 5px;
+	border: var(--border-width) solid;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: calc(7px - var(--border-width)) calc(12px - var(--border-width));
+	box-shadow: var(--token-elevation-low-box-shadow);
+
 	&:focus,
 	&:focus-visible {
-		text-decoration: none;
+		outline: transparent;
 	}
 }
 
-.secondaryLinkOverrides {
-	background-color: var(--token-color-surface-primary);
-	border-color: var(--token-color-border-primary);
+.activeLink {
+	background-color: var(--token-color-foreground-action);
+	border-color: var(--token-color-foreground-action-hover);
+	color: var(--token-color-foreground-high-contrast);
 
-	&:hover:not(:disabled),
-	&:active:not(:disabled),
-	&:focus,
-	&:focus-visible {
-		border-color: var(--token-color-border-primary);
+	&:hover {
+		background-color: var(--token-color-foreground-action-hover);
+		border-color: var(--token-color-foreground-action-active);
 	}
 
-	&:hover:not(:disabled) {
+	&:active {
+		background-color: var(--token-color-foreground-action-active);
+		border-color: var(--token-color-foreground-action-active);
+	}
+}
+
+.inActiveLink {
+	background-color: var(--token-color-surface-primary);
+	border-color: var(--token-color-border-primary);
+	color: var(--token-color-foreground-primary);
+
+	&:hover {
 		background-color: var(--token-color-surface-interactive-hover);
 	}
 
-	&:active:not(:disabled) {
+	&:active {
 		background-color: var(--token-color-surface-interactive-active);
 	}
 }
