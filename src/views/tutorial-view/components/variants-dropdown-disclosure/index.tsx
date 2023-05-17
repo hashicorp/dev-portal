@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import classNames from 'classnames'
 import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 } from 'components/dropdown-disclosure'
@@ -20,13 +21,14 @@ import s from './variants-dropdown-disclosure.module.css'
 
 export function VariantsDropdownDisclosure({
 	variant,
+	className,
 }: VariantsDropdownDisclosureProps) {
 	const { asPath } = useRouter()
 	// @TODO hook this into useVariants hook once data is wired
 	const activeOption = variant.options[0]
 
 	return (
-		<div className={s.root}>
+		<div className={classNames(s.root, className)}>
 			<Text weight="semibold" size={100} className={s.label}>
 				{variant.name}
 			</Text>

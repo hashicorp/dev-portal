@@ -6,6 +6,7 @@
 import useAuthentication from 'hooks/use-authentication'
 import { TutorialData } from 'views/tutorial-view'
 import { TutorialVariant } from 'views/tutorial-view/utils/variants'
+import { VariantsDropdownDisclosure as MobileVariantDropdownDisclosure } from 'views/tutorial-view/components'
 import Heading from 'components/heading'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
@@ -80,7 +81,15 @@ export default function TutorialMeta({
 					to bookmark tutorials.
 				</Text>
 			) : null}
-			{variant ? <VariantList variant={variant} /> : null}
+			{variant ? (
+				<>
+					<VariantList variant={variant} />
+					<MobileVariantDropdownDisclosure
+						variant={variant}
+						className={s.mobileVariantDropdownDisclosure}
+					/>
+				</>
+			) : null}
 		</header>
 	)
 }

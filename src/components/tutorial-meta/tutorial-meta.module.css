@@ -42,3 +42,13 @@
 	gap: 12px;
 	align-items: center;
 }
+
+.mobileVariantDropdownDisclosure {
+	margin-top: 24px;
+	display: block;
+	width: 100%;
+
+	@media (--dev-dot-tablet-up) {
+		display: none;
+	}
+}
