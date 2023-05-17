@@ -9,8 +9,8 @@ import {
 	getVariantPath,
 	TutorialVariantOption,
 } from 'views/tutorial-view/utils/variants'
-import { VariantsDropdownDisclosureProps } from './types'
-import s from './variants-dropdown-disclosure.module.css'
+import { VariantDropdownDisclosureProps } from './types'
+import s from './variant-dropdown-disclosure.module.css'
 
 /**
  * @TODO we should refactor dropdown disclosure to accept
@@ -19,10 +19,10 @@ import s from './variants-dropdown-disclosure.module.css'
  * https://app.asana.com/0/1204333057896641/1204621995316433
  */
 
-export function VariantsDropdownDisclosure({
+export function VariantDropdownDisclosure({
 	variant,
 	className,
-}: VariantsDropdownDisclosureProps) {
+}: VariantDropdownDisclosureProps) {
 	const { asPath } = useRouter()
 	// @TODO hook this into useVariants hook once data is wired
 	const activeOption = variant.options[0]

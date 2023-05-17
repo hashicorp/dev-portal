@@ -6,7 +6,7 @@
 import useAuthentication from 'hooks/use-authentication'
 import { TutorialData } from 'views/tutorial-view'
 import { TutorialVariant } from 'views/tutorial-view/utils/variants'
-import { VariantsDropdownDisclosure as MobileVariantDropdownDisclosure } from 'views/tutorial-view/components'
+import { VariantDropdownDisclosure as MobileVariantDropdownDisclosure } from 'views/tutorial-view/components'
 import Heading from 'components/heading'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
@@ -83,7 +83,7 @@ export default function TutorialMeta({
 			) : null}
 			{variant ? (
 				<>
-					<VariantList variant={variant} />
+					<VariantList variant={variant} className={s.variantList} />
 					<MobileVariantDropdownDisclosure
 						variant={variant}
 						className={s.mobileVariantDropdownDisclosure}
