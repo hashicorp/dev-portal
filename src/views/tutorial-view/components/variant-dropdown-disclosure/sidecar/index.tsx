@@ -1,7 +1,7 @@
 import DropdownDisclosure from 'components/dropdown-disclosure'
 import { TutorialVariant } from 'views/tutorial-view/utils/variants'
-import { VariantDropdownWithLabel, VariantDropdownDisclosureItems } from '.'
-import s from './variant-dropdown-disclosure.module.css'
+import { VariantDropdownWithLabel, VariantDropdownDisclosureItems } from '../'
+import s from './sidecar-variant-dropdown-disclosure.module.css'
 
 /**
  * @TODO we should refactor dropdown disclosure to accept

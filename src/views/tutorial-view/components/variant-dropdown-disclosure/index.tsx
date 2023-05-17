@@ -8,7 +8,7 @@ import {
 	TutorialVariant,
 	TutorialVariantOption,
 } from 'views/tutorial-view/utils/variants'
-import { SidecarVariantDropdownDisclosure } from './sidecar-variant-dropdown-disclosure'
+import { SidecarVariantDropdownDisclosure } from './sidecar'
 import s from './variant-dropdown-disclosure.module.css'
 
 export function VariantDropdownWithLabel({
