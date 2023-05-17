@@ -22,10 +22,10 @@ interface NoResultsMessageProps {
  * Renders a "no results" message, that optionally directs visitors
  * to other content-type tabs with results, if such results are present.
  */
-const NoResultsMessage = ({
+function NoResultsMessage({
 	tabsWithResults,
 	currentTabHeading,
-}: NoResultsMessageProps) => {
+}: NoResultsMessageProps) {
 	const { currentInputValue } = useCommandBar()
 
 	return (
