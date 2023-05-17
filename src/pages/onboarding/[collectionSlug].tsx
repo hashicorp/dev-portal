@@ -67,7 +67,10 @@ export async function getStaticPaths() {
 		}
 	})
 
-	return { paths, fallback: false }
+	return {
+		paths: paths.slice(0, __config.learn.max_static_paths ?? 0),
+		fallback: 'blocking',
+	}
 }
 
 export default OnboardingCollectionView
