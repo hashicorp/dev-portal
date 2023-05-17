@@ -73,6 +73,10 @@
 ***
 */
 
+.base {
+	padding: 0;
+}
+
 .filled-neutral {
 	background-color: var(--token-color-surface-strong);
 	color: var(--token-color-foreground-primary);
@@ -86,6 +90,11 @@
 .outlined-neutral {
 	background-color: transparent;
 	border-color: var(--token-color-foreground-faint);
+	color: var(--token-color-foreground-primary);
+}
+
+.base-neutral {
+	background-color: transparent;
 	color: var(--token-color-foreground-primary);
 }
 
@@ -105,6 +114,11 @@
 	color: var(--token-color-foreground-high-contrast);
 }
 
+.base-neutral-dark-mode {
+	background-color: transparent;
+	color: var(--token-color-foreground-high-contrast);
+}
+
 .filled-highlight {
 	background-color: var(--token-color-surface-highlight);
 	color: var(--token-color-foreground-highlight-on-surface);
@@ -118,6 +132,11 @@
 .outlined-highlight {
 	background-color: transparent;
 	border-color: currentColor;
+	color: var(--token-color-foreground-highlight);
+}
+
+.base-highlight {
+	background-color: transparent;
 	color: var(--token-color-foreground-highlight);
 }
 
@@ -137,6 +156,11 @@
 	color: var(--token-color-foreground-success);
 }
 
+.base-success {
+	background-color: transparent;
+	color: var(--token-color-foreground-success);
+}
+
 .filled-warning {
 	background-color: var(--token-color-surface-warning);
 	color: var(--token-color-foreground-warning-on-surface);
@@ -153,6 +177,11 @@
 	color: var(--token-color-foreground-warning);
 }
 
+.base-warning {
+	background-color: transparent;
+	color: var(--token-color-foreground-warning);
+}
+
 .filled-critical {
 	background-color: var(--token-color-surface-critical);
 	color: var(--token-color-foreground-critical-on-surface);
@@ -166,5 +195,10 @@
 .outlined-critical {
 	background-color: transparent;
 	border-color: currentColor;
+	color: var(--token-color-foreground-critical);
+}
+
+.base-critical {
+	background-color: transparent;
 	color: var(--token-color-foreground-critical);
 }
