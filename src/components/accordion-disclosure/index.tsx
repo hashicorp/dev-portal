@@ -72,9 +72,13 @@ const AccordionDisclosure = ({
 					ref={hoverRef}
 				>
 					<span className={s.labelContainer}>
-						<Text asElement="span" className={s.title} weight="semibold">
-							{title}
-						</Text>
+						{typeof title === 'string' ? (
+							<Text asElement="span" className={s.title} weight="semibold">
+								{title}
+							</Text>
+						) : (
+							title
+						)}
 						{description && (
 							<Text asElement="span" className={s.description} size={200}>
 								{description}

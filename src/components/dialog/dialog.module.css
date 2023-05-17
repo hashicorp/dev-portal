@@ -15,20 +15,17 @@
 }
 
 .contentWrapper {
-	align-items: flex-start;
+	align-items: center;
 	display: flex;
+	flex-direction: column;
 	height: 100vh;
 	justify-content: center;
 	padding: 24px;
 	width: 100vw;
 
-	@media (--dev-dot-tablet-up) {
-		padding-top: 20vh;
-	}
-
 	&.bottom {
 		padding: 0;
-		padding-top: 20vh;
+		height: 80vh;
 		width: 100%;
 		position: fixed;
 		bottom: 0;
