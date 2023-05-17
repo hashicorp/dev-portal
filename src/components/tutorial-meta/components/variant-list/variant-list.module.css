@@ -48,16 +48,8 @@
 	background-color: var(--token-color-foreground-action);
 	border-color: var(--token-color-foreground-action-hover);
 	color: var(--token-color-foreground-high-contrast);
-
-	&:hover {
-		background-color: var(--token-color-foreground-action-hover);
-		border-color: var(--token-color-foreground-action-active);
-	}
-
-	&:active {
-		background-color: var(--token-color-foreground-action-active);
-		border-color: var(--token-color-foreground-action-active);
-	}
+	cursor: not-allowed;
+	box-shadow: none;
 }
 
 .inActiveLink {
