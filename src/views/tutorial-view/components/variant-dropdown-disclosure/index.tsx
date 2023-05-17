@@ -1,8 +1,6 @@
 import { ReactNode } from 'react'
 import { useRouter } from 'next/router'
-import DropdownDisclosure, {
-	DropdownDisclosureLinkItem,
-} from 'components/dropdown-disclosure'
+import { DropdownDisclosureLinkItem } from 'components/dropdown-disclosure'
 import Text from 'components/text'
 import {
 	getVariantParam,
@@ -10,38 +8,8 @@ import {
 	TutorialVariant,
 	TutorialVariantOption,
 } from 'views/tutorial-view/utils/variants'
-import { VariantDropdownDisclosureProps } from './types'
+import { SidecarVariantDropdownDisclosure } from './sidecar-variant-dropdown-disclosure'
 import s from './variant-dropdown-disclosure.module.css'
-
-/**
- * @TODO we should refactor dropdown disclosure to accept
- * aria-labelledby instead of passing the aria-label with the
- * combined visual label text and active option
- * https://app.asana.com/0/1204333057896641/1204621995316433
- */
-
-export function VariantDropdownDisclosure({
-	variant,
-	className,
-}: VariantDropdownDisclosureProps) {
-	// @TODO hook this into useVariants hook once data is wired
-	const activeOption = variant.options[0]
-
-	return (
-		<DropdownDisclosure
-			aria-label={`${variant.name}: ${activeOption.name}`}
-			color="secondary"
-			text={activeOption.name}
-			className={s.dropdownDisclosure}
-			activatorClassName={s.dropdownActivator}
-		>
-			<VariantDropdownDisclosureItems
-				variant={variant}
-				activeOption={activeOption}
-			/>
-		</DropdownDisclosure>
-	)
-}
 
 export function VariantDropdownWithLabel({
 	text,
@@ -62,7 +30,6 @@ export function VariantDropdownWithLabel({
 
 export function VariantDropdownDisclosureItems({
 	variant,
-
 	activeOption,
 }: {
 	variant: TutorialVariant
@@ -91,3 +58,5 @@ export function VariantDropdownDisclosureItems({
 		</>
 	)
 }
+
+export { SidecarVariantDropdownDisclosure }
