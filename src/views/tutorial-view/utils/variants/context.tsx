@@ -12,7 +12,12 @@ import { TutorialVariant } from './types'
 
 type VariantContextValue = {
 	activeVariant?: TutorialVariant
-	setActiveVariant?: Dispatch<SetStateAction<string>>
+	setActiveVariant?: Dispatch<SetStateAction<TutorialVariant>>
+}
+
+interface VariantProviderProps {
+	children: ReactNode
+	variant?: TutorialVariant
 }
 
 export function useVariants(): VariantContextValue {
@@ -25,10 +30,7 @@ VariantContext.displayName = 'VariantContext'
 export default function VariantProvider({
 	children,
 	variant,
-}: {
-	children: ReactNode
-	variant?: TutorialVariant // the type
-}) {
+}: VariantProviderProps) {
 	const [activeVariant, setActiveVariant] = useState<TutorialVariant>(variant)
 
 	const contextValue = useMemo(
@@ -37,10 +39,7 @@ export default function VariantProvider({
 	)
 
 	useEffect(() => {
-		if (
-			variant &&
-			variant.activeOption.slug !== activeVariant.activeOption.slug
-		) {
+		if (variant && variant.activeOption.id !== activeVariant?.activeOption.id) {
 			setActiveVariant(variant)
 		}
 	}, [variant, activeVariant])

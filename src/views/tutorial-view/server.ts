@@ -91,9 +91,9 @@ export async function getTutorialPageProps(
 			if (
 				paramVariantSlug &&
 				paramOptionSlug &&
-				paramVariantSlug === variant.slug &&
+				paramVariantSlug === tutorialVariant.slug &&
 				paramOptionSlug !== defaultVariantOption.slug &&
-				variant.options.find(
+				tutorialVariant.options.find(
 					(el: ClientTutorialVariantOption) => el.slug === paramOptionSlug
 				)
 			) {
