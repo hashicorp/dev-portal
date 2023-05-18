@@ -16,6 +16,7 @@ import {
 	ProductOption,
 	TutorialLite as ClientTutorialLite,
 	Product as LearnClientProduct,
+	TutorialVariantOption as ClientTutorialVariantOption,
 } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from './utils'
@@ -30,10 +31,6 @@ import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
-
-// @TODO temporary stub of variant data
-import variantData from './utils/variants/_tmp-variants-data.json'
-import { TutorialVariant } from './utils/variants'
 
 /**
  * Given a ProductData object (imported from src/data JSON files) and a tutorial
@@ -76,18 +73,41 @@ export async function getTutorialPageProps(
 	const variantSlug = fullSlug[2]
 	let variant = undefined
 
-	// @TODO, the variant data will be passed from the API, check for that in the
-	// tutorial data
+	if (variantSlug || fullTutorialData.variant) {
+		const tutorialVariant = fullTutorialData.variant
+		// find the default variant base on the order number
+		const defaultVariantOption = tutorialVariant.options.find(
+			(option: ClientTutorialVariantOption) => option.displayOrder === 1
+		)
+		let activeOption = defaultVariantOption
 
-	// TUTORIAL VARIANT, decide the active variant
-	if (variantSlug) {
-		// slugs in the query params are formatted like ?variants=slug:optionSlug
-		const VARIANT_SLUG_SPLIT_CHAR = ':'
-		const [slug, optionSlug] = variantSlug.split(VARIANT_SLUG_SPLIT_CHAR)
+		// if the variant slug is passed via query param, use that, otherwise pass the default
+		if (variantSlug) {
+			// slugs in the query params are formatted like ?variants=slug:optionSlug
+			const [paramVariantSlug, paramOptionSlug] = variantSlug.split(':')
 
-		if (slug && optionSlug) {
-			// @TODO, expand this to pass the active variant option and all variant option data
-			variant = variantData[0] as TutorialVariant
+			// check that the variant slug pass is valid, isn't the default
+			// and matches an available option in the tutorial variant data
+			if (
+				paramVariantSlug &&
+				paramOptionSlug &&
+				paramVariantSlug === variant.slug &&
+				paramOptionSlug !== defaultVariantOption.slug &&
+				variant.options.find(
+					(el: ClientTutorialVariantOption) => el.slug === paramOptionSlug
+				)
+			) {
+				// if its not the default, set a different active option
+				activeOption = tutorialVariant.options.find(
+					(option: ClientTutorialVariantOption) =>
+						option.slug === paramOptionSlug
+				)
+			}
+		}
+
+		variant = {
+			...fullTutorialData.variant,
+			activeOption,
 		}
 	}
 

@@ -47,7 +47,6 @@ import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
 import getVideoUrl from './utils/get-video-url'
 import { useProgressToast } from './utils/use-progress-toast'
-import { TutorialVariant } from './utils/variants'
 import {
 	FeaturedInCollections,
 	NextPrevious,
@@ -56,9 +55,6 @@ import {
 	VariantsDropdownDisclosure,
 } from './components'
 import s from './tutorial-view.module.css'
-
-// @TODO temporary stub of variant data
-import variantData from './utils/variants/_tmp-variants-data.json'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -257,9 +253,7 @@ function TutorialView({
 					sidecarSlot={
 						<>
 							{metadata.variant ? (
-								<VariantsDropdownDisclosure
-									variant={variantData[0] as TutorialVariant}
-								/>
+								<VariantsDropdownDisclosure variant={metadata.variant} />
 							) : null}
 							<OutlineNavWithActive items={outlineItems} />
 						</>
@@ -281,11 +275,7 @@ function TutorialView({
 								hasVideo,
 							}}
 							tutorialId={id}
-							variant={
-								metadata.variant
-									? (variantData[0] as TutorialVariant)
-									: undefined
-							}
+							variant={metadata.variant ? metadata.variant : undefined}
 						/>
 						<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
 						{hasVideo && video.id && !video.videoInline && (
