@@ -1,3 +1,7 @@
+import {
+	TutorialVariant as ClientTutorialVariant,
+	TutorialVariantOption as ClientTutorialVariantOption,
+} from 'lib/learn-client/types'
 import { TutorialVariant, TutorialVariantOption } from './types'
 
 export function getVariantPath(path: string, variantType: string) {
@@ -19,6 +23,53 @@ export function getVariantParam(
 	optionSlug: TutorialVariantOption['slug']
 ) {
 	return `${slug}:${optionSlug}`
+}
+
+export function getTutorialViewVariantData(
+	variantSlug: string,
+	tutorialVariant?: ClientTutorialVariant
+): TutorialVariant | undefined {
+	let variant = undefined
+
+	if (tutorialVariant) {
+		// find the default variant base on the order number
+		const defaultVariantOption = tutorialVariant.options.find(
+			(option: ClientTutorialVariantOption) => option.displayOrder === 1
+		)
+		let activeOption = defaultVariantOption
+
+		// if the variant slug is passed via query param, use that, otherwise pass the default
+		if (variantSlug) {
+			// slugs in the query params are formatted like ?variants=slug:optionSlug
+			const [paramVariantSlug, paramOptionSlug] = variantSlug.split(':')
+			const isValidVariantOption = tutorialVariant.options.find(
+				(el: ClientTutorialVariantOption) => el.slug === paramOptionSlug
+			)
+			// check that the variant slug pass is valid, isn't the default
+			// and matches an available option in the tutorial variant data
+			const isValidVariantParam =
+				paramVariantSlug &&
+				paramOptionSlug &&
+				paramVariantSlug === tutorialVariant.slug &&
+				paramOptionSlug !== defaultVariantOption.slug &&
+				isValidVariantOption
+
+			if (isValidVariantParam) {
+				// if its not the default, set a different active option
+				activeOption = tutorialVariant.options.find(
+					(option: ClientTutorialVariantOption) =>
+						option.slug === paramOptionSlug
+				)
+			}
+		}
+
+		variant = {
+			...tutorialVariant,
+			activeOption,
+		}
+	}
+
+	return variant
 }
 
 export type { TutorialVariant, TutorialVariantOption }
