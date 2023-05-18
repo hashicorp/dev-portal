@@ -45,7 +45,7 @@ interface DropdownDisclosureProps
 	 * Elements to render within the dropdown portion of the component. Expected
 	 * to be an array of subcomponents exported from `components/list-item`.
 	 */
-	children?: ReactNode[] | ReactNode
+	children?: ReactNode[]
 
 	/**
 	 * Optional. Appended to the list of classnames sent to the  inner-rendered
