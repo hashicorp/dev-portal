@@ -61,7 +61,8 @@ export function formatTutorialData(
 	// the database, this is an extra protection
 	// @TODO once learn api variants updates are released, remove this check
 	// right now the prod api doesn't return tutorials with an emtpy variants array
-	const formattedVariant = variants ? formatVariant(variants[0]) : undefined
+	const formattedVariant =
+		variants && variants.length > 0 ? formatVariant(variants[0]) : undefined
 
 	return {
 		id,
