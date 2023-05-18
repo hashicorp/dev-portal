@@ -10,6 +10,7 @@ export interface VariantDropdownDisclosureProps {
 }
 
 export interface VariantDropdownDisclosureWithLabelProps {
+	id: string
 	text: string
 	children: ReactNode
 }

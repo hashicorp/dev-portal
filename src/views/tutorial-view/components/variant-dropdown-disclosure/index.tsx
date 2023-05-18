@@ -14,12 +14,13 @@ import {
 } from './types'
 
 export function VariantDropdownWithLabel({
+	id,
 	text,
 	children,
 }: VariantDropdownDisclosureWithLabelProps) {
 	return (
 		<div className={s.labelRoot}>
-			<Text weight="semibold" size={100} className={s.label}>
+			<Text weight="semibold" size={100} className={s.label} id={id}>
 				{text}
 			</Text>
 			{children}

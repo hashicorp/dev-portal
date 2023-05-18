@@ -39,6 +39,8 @@ interface DropdownDisclosureProps
 	 */
 	'aria-label'?: DropdownDisclosureActivatorProps['aria-label']
 
+	'aria-describedby'?: DropdownDisclosureActivatorProps['aria-describedby']
+
 	/**
 	 * Elements to render within the dropdown portion of the component. Expected
 	 * to be an array of subcomponents exported from `components/list-item`.

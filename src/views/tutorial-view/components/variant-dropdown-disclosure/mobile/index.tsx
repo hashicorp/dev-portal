@@ -1,3 +1,4 @@
+import { useId } from '@react-aria/utils'
 import DropdownDisclosure from 'components/dropdown-disclosure'
 import {
 	VariantDropdownDisclosureItems,
@@ -6,25 +7,19 @@ import {
 import { VariantDropdownDisclosureProps } from 'views/tutorial-view/components/variant-dropdown-disclosure/types'
 import s from './mobile-variant-dropdown-disclosure.module.css'
 
-/**
- * @TODO we should refactor dropdown disclosure to accept
- * aria-labelledby instead of passing the aria-label with the
- * combined visual label text and active option
- * https://app.asana.com/0/1204333057896641/1204621995316433
- */
-
 export function MobileVariantDropdownDisclosure({
 	variant,
 	className,
 }: VariantDropdownDisclosureProps) {
 	// @TODO hook this into useVariants hook once data is wired
 	const activeOption = variant.options[0]
+	const labelId = useId()
 
 	return (
 		<span className={className}>
-			<VariantDropdownWithLabel text={variant.name}>
+			<VariantDropdownWithLabel text={variant.name} id={labelId}>
 				<DropdownDisclosure
-					aria-label={`${variant.name}: ${activeOption.name}`}
+					aria-describedby={labelId}
 					color="secondary"
 					text={activeOption.name}
 					className={s.dropdownDisclosure}
