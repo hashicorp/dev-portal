@@ -1,3 +1,5 @@
+// @TODO unify these with the learn api client types
+
 export interface TutorialVariant {
 	id: string
 	slug: string
