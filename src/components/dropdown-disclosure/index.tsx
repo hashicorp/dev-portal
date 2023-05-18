@@ -87,7 +87,7 @@ const DropdownDisclosure = ({
 			containerClassName={classNames(
 				s.root,
 				s[`list-position--${listPosition}`],
-				isFullWidth && s['root-full-width'],
+				isFullWidth && s['full-width'],
 				className
 			)}
 		>
@@ -96,7 +96,7 @@ const DropdownDisclosure = ({
 				aria-describedby={ariaDescribedBy}
 				className={classNames(
 					s.activator,
-					isFullWidth && s['activator-full-width'],
+					isFullWidth && s['full-width'],
 					activatorClassName
 				)}
 				color={color}
@@ -105,12 +105,9 @@ const DropdownDisclosure = ({
 				{icon || text}
 			</DropdownDisclosureActivator>
 			<DisclosureContent
-				className={classNames(
-					s.content,
-					isFullWidth && s['content-full-width']
-				)}
+				className={classNames(s.content, isFullWidth && s['full-width'])}
 			>
-				<ul className={classNames(s.list, isFullWidth && s['list-full-width'])}>
+				<ul className={classNames(s.list, isFullWidth && s['full-width'])}>
 					{children}
 				</ul>
 			</DisclosureContent>

@@ -22,6 +22,10 @@
 
 .activator {
 	width: fit-content;
+
+	&.full-width {
+		justify-content: space-between;
+	}
 }
 
 .content {
@@ -41,24 +45,12 @@
 	min-width: 200px;
 	padding: 4px 0;
 	width: max-content;
+
+	&.full-width {
+		max-width: unset;
+	}
 }
 
-.root-full-width {
+.full-width {
 	width: 100%;
-}
-
-.activator-full-width {
-	width: 100%;
-	justify-content: space-between;
-}
-
-.content-full-width {
-	width: 100%;
-	display: flex;
-}
-
-.list-full-width {
-	max-width: unset;
-	width: 100%;
-	flex-grow: 1;
 }
