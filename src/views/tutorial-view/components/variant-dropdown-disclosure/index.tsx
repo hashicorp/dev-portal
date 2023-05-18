@@ -22,7 +22,7 @@ export function VariantDropdownDisclosure({
 	const { asPath } = useRouter()
 
 	return (
-		<div className={s.labelRoot}>
+		<div className={s.root}>
 			<Text weight="semibold" size={100} className={s.label} id={labelId}>
 				{variant.name}
 			</Text>
