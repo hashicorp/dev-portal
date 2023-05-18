@@ -37,20 +37,17 @@ const { getHashiConfig } = require('./index')
  * See the test file at `./config/__tests__/index.test.js` for a more thorough example.
  */
 module.exports = function HashiConfigPlugin() {
-	const env = process.env.HASHI_ENV
-		? (() => {
-				console.log(
-					'[HashiConfigPlugin] HASHI_ENV set to:',
-					process.env.HASHI_ENV
-				)
-				return process.env.HASHI_ENV
-		  })()
-		: (() => {
-				console.log(
-					"[HashiConfigPlugin] HASHI_ENV not set. Defaulting to 'development'"
-				)
-				return 'development'
-		  })()
+	let env = process.env.HASHI_ENV
+	if (env) {
+		console.log(
+			`[HashiConfigPlugin] HASHI_ENV set to: ${process.env.HASHI_ENV}`
+		)
+	} else {
+		console.log(
+			"[HashiConfigPlugin] HASHI_ENV not set. Defaulting to 'development'"
+		)
+		env = 'development'
+	}
 
 	const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
 	const baseConfigPath = path.join(process.cwd(), 'config', `base.json`)
