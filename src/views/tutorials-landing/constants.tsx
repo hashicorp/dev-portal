@@ -16,7 +16,7 @@ import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-
 const PAGE_TITLE = 'Learn HashiCorp products'
 
 const PAGE_SUBTITLE =
-	'Learn HashiCorp products with step-by-step, hands-on, command-line tutorials, videos, and hosted terminal sessions. Actionable examples help you learn how to provision, secure, connect, or run any application on any infrastructure.'
+	'Start learning with step-by-step, hands-on, command-line tutorials, videos, and hosted terminal sessions. Actionable examples help you learn to provision, secure, connect, or run any application on any infrastructure.'
 
 /**
  * ProductSection constants
