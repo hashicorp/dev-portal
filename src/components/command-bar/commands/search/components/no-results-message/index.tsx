@@ -68,6 +68,7 @@ function NoResultsMessage({
 									className={s.linkStyledButton}
 									onKeyUp={(e) => handleKeyUp(e, otherTab.tabIdx)}
 									onClick={() => setActiveTabIndex(otherTab.tabIdx)}
+									aria-label={`Switch to ${otherTab.heading} results`}
 								>
 									{otherTab.heading}
 								</button>

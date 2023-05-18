@@ -69,6 +69,7 @@ function TabHeadingWithCount({
 							width: '1.5rem',
 							height: '1.5rem',
 						}}
+						aria-label={`${count} results`}
 					>
 						{String(count)}
 					</span>
