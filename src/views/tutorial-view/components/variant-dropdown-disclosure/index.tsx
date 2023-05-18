@@ -1,5 +1,8 @@
+import { useId } from '@react-aria/utils'
 import { useRouter } from 'next/router'
-import { DropdownDisclosureLinkItem } from 'components/dropdown-disclosure'
+import DropdownDisclosure, {
+	DropdownDisclosureLinkItem,
+} from 'components/dropdown-disclosure'
 import Text from 'components/text'
 import {
 	getVariantParam,
@@ -7,53 +10,60 @@ import {
 	TutorialVariantOption,
 } from 'views/tutorial-view/utils/variants'
 import { SidecarVariantDropdownDisclosure } from './sidecar'
+import { MobileVariantDropdownDisclosure } from './mobile'
+import { VariantDropdownDisclosureProps } from './types'
 import s from './variant-dropdown-disclosure.module.css'
-import {
-	VariantDropdownDisclosureItemProps,
-	VariantDropdownDisclosureWithLabelProps,
-} from './types'
 
-export function VariantDropdownWithLabel({
-	id,
-	text,
-	children,
-}: VariantDropdownDisclosureWithLabelProps) {
+function VariantDropdownDisclosure({
+	variant,
+	classNames,
+}: VariantDropdownDisclosureProps & {
+	classNames: {
+		dropdownRoot: string
+		dropdownActivator: string
+	}
+}) {
+	// @TODO hook this into useVariants hook once data is wired
+	const activeOption = variant.options[0]
+	const labelId = useId()
+	const { asPath } = useRouter()
+
 	return (
 		<div className={s.labelRoot}>
-			<Text weight="semibold" size={100} className={s.label} id={id}>
-				{text}
+			<Text weight="semibold" size={100} className={s.label} id={labelId}>
+				{variant.name}
 			</Text>
-			{children}
+			<DropdownDisclosure
+				aria-describedby={labelId}
+				color="secondary"
+				text={activeOption.name}
+				className={classNames.dropdownRoot}
+				activatorClassName={classNames.dropdownActivator}
+			>
+				{variant.options.map((option: TutorialVariantOption) => {
+					if (option.slug === activeOption.slug) {
+						return null
+					}
+
+					return (
+						<DropdownDisclosureLinkItem
+							key={option.slug}
+							href={getVariantPath(
+								asPath,
+								getVariantParam(variant.slug, option.slug)
+							)}
+						>
+							{option.name}
+						</DropdownDisclosureLinkItem>
+					)
+				})}
+			</DropdownDisclosure>
 		</div>
 	)
 }
 
-export function VariantDropdownDisclosureItems({
-	variant,
-	activeOption,
-}: VariantDropdownDisclosureItemProps) {
-	const { asPath } = useRouter()
-	return (
-		<>
-			{variant.options.map((option: TutorialVariantOption) => {
-				if (option.slug === activeOption.slug) {
-					return null
-				}
-
-				return (
-					<DropdownDisclosureLinkItem
-						key={option.slug}
-						href={getVariantPath(
-							asPath,
-							getVariantParam(variant.slug, option.slug)
-						)}
-					>
-						{option.name}
-					</DropdownDisclosureLinkItem>
-				)
-			})}
-		</>
-	)
+export {
+	VariantDropdownDisclosure,
+	SidecarVariantDropdownDisclosure,
+	MobileVariantDropdownDisclosure,
 }
-
-export { SidecarVariantDropdownDisclosure }
