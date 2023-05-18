@@ -6,7 +6,6 @@
 import useAuthentication from 'hooks/use-authentication'
 import { TutorialData } from 'views/tutorial-view'
 import { TutorialVariant } from 'views/tutorial-view/utils/variants'
-import { MobileVariantDropdownDisclosure } from 'views/tutorial-view/components/variant-dropdown-disclosure/mobile'
 import Heading from 'components/heading'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'

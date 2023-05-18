@@ -70,6 +70,8 @@ interface DropdownDisclosureProps
 	 * container. The default is "left".
 	 */
 	listPosition?: 'left' | 'right'
+
+	isFullWidth?: boolean
 }
 
 export type { DropdownDisclosureProps }

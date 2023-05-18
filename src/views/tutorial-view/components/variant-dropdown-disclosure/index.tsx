@@ -9,20 +9,13 @@ import {
 	getVariantPath,
 	TutorialVariantOption,
 } from 'views/tutorial-view/utils/variants'
-import { SidecarVariantDropdownDisclosure } from './sidecar'
-import { MobileVariantDropdownDisclosure } from './mobile'
 import { VariantDropdownDisclosureProps } from './types'
 import s from './variant-dropdown-disclosure.module.css'
 
-function VariantDropdownDisclosure({
+export function VariantDropdownDisclosure({
 	variant,
-	classNames,
-}: VariantDropdownDisclosureProps & {
-	classNames: {
-		dropdownRoot: string
-		dropdownActivator: string
-	}
-}) {
+	isFullWidth,
+}: VariantDropdownDisclosureProps) {
 	// @TODO hook this into useVariants hook once data is wired
 	const activeOption = variant.options[0]
 	const labelId = useId()
@@ -37,8 +30,7 @@ function VariantDropdownDisclosure({
 				aria-describedby={labelId}
 				color="secondary"
 				text={activeOption.name}
-				className={classNames.dropdownRoot}
-				activatorClassName={classNames.dropdownActivator}
+				isFullWidth={isFullWidth}
 			>
 				{variant.options.map((option: TutorialVariantOption) => {
 					if (option.slug === activeOption.slug) {
@@ -60,10 +52,4 @@ function VariantDropdownDisclosure({
 			</DropdownDisclosure>
 		</div>
 	)
-}
-
-export {
-	VariantDropdownDisclosure,
-	SidecarVariantDropdownDisclosure,
-	MobileVariantDropdownDisclosure,
 }

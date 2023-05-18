@@ -42,3 +42,24 @@
 	padding: 4px 0;
 	width: max-content;
 }
+
+.root-full-width {
+	width: 100%;
+}
+
+.activator-full-width {
+	text-align: left;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.content-full-width {
+	width: 100%;
+	display: flex;
+}
+
+.list-full-width {
+	max-width: unset;
+	width: 100%;
+	flex-grow: 1;
+}

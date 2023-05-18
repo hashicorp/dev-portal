@@ -46,6 +46,7 @@ const DropdownDisclosure = ({
 	icon,
 	listPosition = 'left',
 	text,
+	isFullWidth,
 }: DropdownDisclosureProps) => {
 	// Check if `children` are valid
 	validateDropdownDisclosureChildren(children)
@@ -86,20 +87,32 @@ const DropdownDisclosure = ({
 			containerClassName={classNames(
 				s.root,
 				s[`list-position--${listPosition}`],
+				isFullWidth && s['root-full-width'],
 				className
 			)}
 		>
 			<DropdownDisclosureActivator
 				aria-label={ariaLabel}
 				aria-describedby={ariaDescribedBy}
-				className={classNames(s.activator, activatorClassName)}
+				className={classNames(
+					s.activator,
+					isFullWidth && s['activator-full-width'],
+					activatorClassName
+				)}
 				color={color}
 				hideChevron={hideChevron}
 			>
 				{icon || text}
 			</DropdownDisclosureActivator>
-			<DisclosureContent className={s.content}>
-				<ul className={s.list}>{children}</ul>
+			<DisclosureContent
+				className={classNames(
+					s.content,
+					isFullWidth && s['content-full-width']
+				)}
+			>
+				<ul className={classNames(s.list, isFullWidth && s['list-full-width'])}>
+					{children}
+				</ul>
 			</DisclosureContent>
 		</Disclosure>
 	)
