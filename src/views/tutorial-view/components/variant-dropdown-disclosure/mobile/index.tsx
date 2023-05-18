@@ -4,17 +4,14 @@ import s from './mobile-variant-dropdown-disclosure.module.css'
 
 export function MobileVariantDropdownDisclosure({
 	variant,
-	className,
 }: VariantDropdownDisclosureProps) {
 	return (
-		<div className={className}>
-			<VariantDropdownDisclosure
-				variant={variant}
-				classNames={{
-					dropdownRoot: s.dropdownDisclosure,
-					dropdownActivator: s.dropdownActivator,
-				}}
-			/>
-		</div>
+		<VariantDropdownDisclosure
+			variant={variant}
+			classNames={{
+				dropdownRoot: s.dropdownDisclosure,
+				dropdownActivator: s.dropdownActivator,
+			}}
+		/>
 	)
 }

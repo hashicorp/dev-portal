@@ -10,21 +10,16 @@ import {
 } from 'views/tutorial-view/utils/variants'
 import { useRouter } from 'next/router'
 import s from './variant-list.module.css'
+import { MobileVariantDropdownDisclosure } from 'views/tutorial-view/components'
 
-export function VariantList({
-	variant,
-	className,
-}: {
-	variant: TutorialVariant
-	className?: string
-}) {
+export function DesktopVariantList({ variant }: { variant: TutorialVariant }) {
 	// @TODO hook this into a useVariants hook
 	const activeVariantOption = variant.options[0]
 	const VARIANT_LIST_ID = 'variant-list-label'
 	const { asPath } = useRouter()
 
 	return (
-		<div className={className}>
+		<>
 			<label id={VARIANT_LIST_ID} className={s.label}>
 				{variant.name}
 			</label>
@@ -55,6 +50,19 @@ export function VariantList({
 					})}
 				</ul>
 			</nav>
-		</div>
+		</>
+	)
+}
+
+export function VariantList({ variant }: { variant: TutorialVariant }) {
+	return (
+		<>
+			<div className={s.desktopVariantList}>
+				<DesktopVariantList variant={variant} />
+			</div>
+			<div className={s.mobileVariantDropdownDisclosure}>
+				<MobileVariantDropdownDisclosure variant={variant} />
+			</div>
+		</>
 	)
 }

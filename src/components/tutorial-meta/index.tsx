@@ -81,15 +81,7 @@ export default function TutorialMeta({
 					to bookmark tutorials.
 				</Text>
 			) : null}
-			{variant ? (
-				<>
-					<VariantList variant={variant} className={s.variantList} />
-					<MobileVariantDropdownDisclosure
-						variant={variant}
-						className={s.mobileVariantDropdownDisclosure}
-					/>
-				</>
-			) : null}
+			{variant ? <VariantList variant={variant} /> : null}
 		</header>
 	)
 }

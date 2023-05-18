@@ -70,3 +70,26 @@
 		}
 	}
 }
+
+.desktopVariantList,
+.mobileVariantDropdownDisclosure {
+	margin-top: 24px;
+	margin-bottom: 24px;
+}
+
+.desktopVariantList {
+	display: none;
+
+	@media (--dev-dot-tablet-up) {
+		display: block;
+	}
+}
+
+.mobileVariantDropdownDisclosure {
+	display: block;
+	width: 100%;
+
+	@media (--dev-dot-tablet-up) {
+		display: none;
+	}
+}
