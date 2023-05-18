@@ -59,7 +59,9 @@ export function formatTutorialData(
 	// We only accept a single variant currently, so we take the first array item
 	// The learn-api-content-sync should prevent multiple variants from syncing into
 	// the database, this is an extra protection
-	const formattedVariant = formatVariant(variants[0])
+	// @TODO once learn api variants updates are released, remove this check
+	// right now the prod api doesn't return tutorials with an emtpy variants array
+	const formattedVariant = variants ? formatVariant(variants[0]) : undefined
 
 	return {
 		id,

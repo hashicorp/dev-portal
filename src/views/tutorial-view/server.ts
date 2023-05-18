@@ -73,7 +73,7 @@ export async function getTutorialPageProps(
 	const variantSlug = fullSlug[2]
 	let variant = undefined
 
-	if (variantSlug || fullTutorialData.variant) {
+	if (fullTutorialData.variant) {
 		const tutorialVariant = fullTutorialData.variant
 		// find the default variant base on the order number
 		const defaultVariantOption = tutorialVariant.options.find(
