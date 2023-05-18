@@ -1,15 +1,10 @@
-// @TODO unify these with the learn api client types
+import {
+	TutorialVariant as ClientTutorialVariant,
+	TutorialVariantOption as ClientTutorialVariantOption,
+} from 'lib/learn-client/types'
 
-export interface TutorialVariant {
-	id: string
-	slug: string
-	name: string
+export interface TutorialVariant extends ClientTutorialVariant {
 	activeOption: TutorialVariantOption
-	options: TutorialVariantOption[]
 }
 
-export interface TutorialVariantOption {
-	id: string
-	name: string
-	slug: string
-}
+export type TutorialVariantOption = ClientTutorialVariantOption
