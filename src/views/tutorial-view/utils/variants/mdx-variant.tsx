@@ -1,11 +1,11 @@
-import { ReactNode } from 'react'
+import { ReactElement } from 'react'
 import { useVariants } from './context'
 import { TutorialVariantOption } from './types'
 
 interface MdxVariantProps {
 	slug: string // the variant slug
 	option: string // the variant option slug
-	children: ReactNode
+	children: ReactElement
 }
 
 export function MdxVariant({ slug, option, children }: MdxVariantProps) {
