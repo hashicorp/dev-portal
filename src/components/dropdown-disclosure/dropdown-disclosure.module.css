@@ -25,6 +25,7 @@
 
 	&.full-width {
 		justify-content: space-between;
+		text-align: left;
 	}
 }
 
