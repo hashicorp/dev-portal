@@ -18,11 +18,11 @@ export function MdxVariant({ slug, option, children }: MdxVariantProps) {
 
 	if (!isValidVariantOption) {
 		throw new Error(
-			`[mdx-variant]: Option not valid for variant ${slug}, please pass one of — ${activeVariant.options
+			`[mdx-variant]: Option not valid for variant: '${slug}'. Please pass a slug of available options — ${activeVariant.options
 				.map((o: TutorialVariantOption) => o.slug)
 				.join(', ')}`
 		)
 	}
 
-	return shouldRenderContent ? { children } : null
+	return shouldRenderContent ? children : null
 }
