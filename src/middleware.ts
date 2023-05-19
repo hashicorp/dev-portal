@@ -9,7 +9,6 @@ import redirects from 'data/_redirects.generated.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 import { getEdgeFlags } from 'flags/edge'
-import optInRedirectChecks from '.generated/opt-in-redirect-checks'
 
 function determineProductSlug(req: NextRequest): string {
 	// .io preview on dev portal
@@ -47,9 +46,6 @@ function setHappyKitCookie(
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const { geo } = req
 
-	const label = `[middleware] ${req.nextUrl.pathname}`
-	console.time(label)
-
 	let response: NextResponse
 
 	// Handle redirects
@@ -66,7 +62,6 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			)
 		}
 		if (destination.startsWith('http')) {
-			console.timeEnd(label)
 			return NextResponse.redirect(destination, permanent ? 308 : 307)
 		}
 
@@ -81,29 +76,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			url.hash = hash
 		}
 
-		console.timeEnd(label)
 		return NextResponse.redirect(url, permanent ? 308 : 307)
-	}
-
-	/**
-	 * DO NOT REMOVE THIS BLOCK
-	 *
-	 * Redirect product site docs paths to the relevant developer paths in production.
-	 */
-	if (process.env.HASHI_ENV === 'production') {
-		const url = req.nextUrl.clone()
-
-		if (optInRedirectChecks[product]?.test(url.pathname)) {
-			const redirectUrl = new URL(__config.dev_dot.canonical_base_url)
-			redirectUrl.pathname = `${product}${url.pathname}`
-			redirectUrl.search = url.search
-
-			// The GA redirects should be permanent
-			const response = NextResponse.redirect(redirectUrl, 308)
-
-			console.timeEnd(label)
-			return response
-		}
 	}
 
 	/**
@@ -125,8 +98,6 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	if (!response) {
 		response = NextResponse.next()
 	}
-
-	console.timeEnd(label)
 
 	// Continue request processing
 	return setGeoCookie(req, response)
