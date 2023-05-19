@@ -11,8 +11,8 @@ import {
 import { TutorialVariant } from './types'
 
 type VariantContextValue = {
-	activeVariant?: TutorialVariant
-	setActiveVariant?: Dispatch<SetStateAction<TutorialVariant>>
+	currentVariant?: TutorialVariant
+	setCurrentVariant?: Dispatch<SetStateAction<TutorialVariant>>
 }
 
 interface VariantProviderProps {
@@ -20,29 +20,32 @@ interface VariantProviderProps {
 	variant?: TutorialVariant
 }
 
-export function useVariants(): VariantContextValue {
+export function useVariant(): VariantContextValue {
 	return useContext(VariantContext)
 }
 
-const VariantContext = createContext({ activeVariant: null })
+const VariantContext = createContext({ currentVariant: null })
 VariantContext.displayName = 'VariantContext'
 
 export default function VariantProvider({
 	children,
 	variant,
 }: VariantProviderProps) {
-	const [activeVariant, setActiveVariant] = useState<TutorialVariant>(variant)
+	const [currentVariant, setCurrentVariant] = useState<TutorialVariant>(variant)
 
 	const contextValue = useMemo(
-		() => ({ activeVariant, setActiveVariant }),
-		[activeVariant]
+		() => ({ currentVariant, setCurrentVariant }),
+		[currentVariant]
 	)
 
 	useEffect(() => {
-		if (variant && variant.activeOption.id !== activeVariant?.activeOption.id) {
-			setActiveVariant(variant)
+		if (
+			variant &&
+			variant.activeOption.id !== currentVariant?.activeOption.id
+		) {
+			setCurrentVariant(variant)
 		}
-	}, [variant, activeVariant])
+	}, [variant, currentVariant])
 
 	return (
 		<VariantContext.Provider value={contextValue}>
