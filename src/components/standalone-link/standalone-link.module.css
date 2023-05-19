@@ -3,20 +3,19 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.root {
+.standaloneLink {
+	/* composition */
 	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
 	align-items: center;
 	border-radius: 5px;
 	cursor: pointer;
 	display: flex;
-	font-family: var(--token-typography-font-stack-text);
 	text-decoration: none;
 	width: fit-content;
 
-	&:active {
-		text-decoration: underline;
-	}
-
+	&:active,
 	&:hover {
 		text-decoration: underline;
 	}
@@ -30,21 +29,21 @@
 		margin: -5px;
 		padding: 5px;
 	}
+}
+
+.standaloneLinkContents {
+	align-items: center;
+	display: flex;
+	gap: 6px;
+	width: fit-content;
 
 	& svg {
 		flex-shrink: 0;
-
-		&:first-child {
-			margin-right: 6px;
-		}
-
-		&:last-child {
-			margin-left: 6px;
-		}
 	}
 }
 
 .text {
+	font-family: var(--token-typography-font-stack-text);
 	font-size: var(--font-size);
 	font-weight: var(--token-typography-font-weight-medium);
 	line-height: var(--line-height);
@@ -56,22 +55,22 @@
 ***
 */
 
-.color-primary {
+.primary {
 	color: var(--token-color-foreground-action);
 
-	&:active {
+	&.standaloneLink:active {
 		color: var(--token-color-foreground-action-active);
 	}
 
-	&:hover {
+	&.standaloneLink:hover {
 		color: var(--token-color-foreground-action-hover);
 	}
 }
 
-.color-secondary {
+.secondary {
 	color: var(--token-color-foreground-strong);
 
-	&:active {
+	&.standaloneLink:active {
 		color: var(--token-color-foreground-primary);
 	}
 }

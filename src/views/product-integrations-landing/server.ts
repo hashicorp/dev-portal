@@ -24,6 +24,7 @@ import {
 	IntegrationComponent,
 	Flag,
 	Tier,
+	IntegrationType,
 } from 'lib/integrations-api-client/integration'
 import { generateProductIntegrationLibrarySidebarNavData } from 'lib/integrations'
 import { ViewProps } from 'views/product-integrations-landing'
@@ -112,6 +113,7 @@ export async function getStaticProps({
 	> = {}
 	const flagsById: Record<Flag['id'], Flag> = {}
 	const tiersSet = new Set<Tier>()
+	const typesById = new Set<IntegrationType>()
 	integrations.forEach((integration: Integration) => {
 		integration.components.forEach((component: IntegrationComponent) => {
 			if (!componentsById[component.id]) {
@@ -124,6 +126,11 @@ export async function getStaticProps({
 			}
 		})
 		tiersSet.add(integration.tier)
+
+		const integrationType = integration.integration_type
+		if (integrationType && !typesById[integrationType.id]) {
+			typesById[integrationType.id] = integrationType
+		}
 	})
 
 	/**
@@ -166,6 +173,20 @@ export async function getStaticProps({
 		}
 		return 0
 	})
+	// @TODO should these be sorted? Not currently done in prod
+	const allTypes = Object.values(typesById).sort(
+		(a: IntegrationType, b: IntegrationType) => {
+			const aName = a.plural_name.toLowerCase()
+			const bName = b.plural_name.toLowerCase()
+			if (aName < bName) {
+				return -1
+			}
+			if (aName > bName) {
+				return 1
+			}
+			return 0
+		}
+	)
 
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(product.name),
@@ -197,6 +218,7 @@ export async function getStaticProps({
 			allComponents,
 			allFlags,
 			allTiers,
+			allTypes,
 			breadcrumbLinks,
 			integrations: sortedIntegrationsWithVersions,
 			metadata: {

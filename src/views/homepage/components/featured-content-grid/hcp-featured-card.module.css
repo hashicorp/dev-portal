@@ -1,0 +1,41 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.hcpCard {
+	background-color: var(--token-color-foreground-strong);
+	background-image: url('../../img/hcp-graphic.svg');
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border: none;
+	gap: 50px;
+	padding-top: 88px;
+}
+
+.hcpCardTitle {
+	margin-bottom: 24px;
+	margin-top: 0;
+}
+
+.hcpLogo svg {
+	display: block;
+	height: 30px;
+	width: auto;
+}
+
+.hcpCardBody {
+	composes: hds-font-weight-bold from global;
+	font-family: var(--token-typography-display-400-font-family);
+	font-size: var(--token-typography-display-400-font-size);
+	line-height: var(--token-typography-display-400-line-height);
+	margin: 0;
+	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		font-family: var(--token-typography-display-300-font-family);
+		font-size: var(--token-typography-display-300-font-size);
+		line-height: var(--token-typography-display-300-line-height);
+	}
+}

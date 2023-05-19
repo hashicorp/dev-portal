@@ -5,7 +5,7 @@
 
 import { ReactNode } from 'react'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
+import { VersionSelectItem } from './loaders/remote-content'
 import { ProductSlug, ProductWithCurrentRootDocsPath } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { OutlineLinkItem } from 'components/outline-nav/types'
@@ -22,19 +22,6 @@ export interface DocsViewProps {
 	 * `compiledSource` and `scope`.
 	 */
 	mdxSource: MDXRemoteSerializeResult
-
-	/**
-	 * Identical to the `MDXRemoteProps['lazy']` prop. The value is passed
-	 * unchanged to `MDXRemote`.
-	 */
-	lazy?: boolean
-
-	/**
-	 * Optional boolean that enables hiding the `ProductDocsSearch` component. If
-	 * `hideSearch` falsy, then `ProductDocsSearch` is automatically rendered if
-	 * the `enable_product_docs_search` feature flag is enabled.
-	 */
-	hideSearch?: boolean
 
 	versions?: VersionSelectItem[]
 
@@ -58,6 +45,20 @@ export interface DocsViewProps {
 	 * Outline items, for the OutlineNav we display in the sidecar.
 	 */
 	outlineItems: OutlineLinkItem[]
+
+	/**
+	 * Page heading, renders the `<h1 />` for the page outside the MDX area.
+	 *
+	 * Optional. If provided, the MDX area should have its `<h1 />` removed
+	 * using `remarkPluginRemoveH1`. The one case where we do _not_ use
+	 * `pageHeading` is in Packer plugins. That use case is expected to be
+	 * deprecated soon, so we may be able to make this a required property
+	 * in the near future.
+	 */
+	pageHeading?: {
+		id: string
+		title: string
+	}
 }
 
 export type ProductsToPrimitivesMap = Record<

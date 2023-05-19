@@ -3,36 +3,30 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
+import { VersionSelectItem } from 'views/docs-view/loaders/remote-content'
 import { ProductWithCurrentRootDocsPath } from 'types/products'
 import { getTargetPath } from 'lib/get-target-path'
 import { getVersionFromPath } from 'lib/get-version-from-path'
 import { removeVersionFromPath } from 'lib/remove-version-from-path'
 import { useCurrentProduct } from 'contexts'
 import useCurrentPath from 'hooks/use-current-path'
-import DropdownDisclosure, {
-	DropdownDisclosureLabelItem,
-	DropdownDisclosureAnchorItem,
-} from 'components/dropdown-disclosure'
+import VersionSwitcher, {
+	VersionSwitcherOption,
+} from 'components/version-switcher'
 import { DocsVersionSwitcherOption, DocsVersionSwitcherProps } from './types'
-import s from './docs-version-switcher.module.css'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
+/**
+ * Render a docs version switcher directly from loaded `VersionSelectItem`s,
+ * wrapping a generic `VersionSwitcher` in docs-related logic.
+ */
 const DocsVersionSwitcher = ({
 	options,
 	projectName,
 }: DocsVersionSwitcherProps) => {
 	const currentProduct = useCurrentProduct() as ProductWithCurrentRootDocsPath
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-
-	// Don't do anything if there aren't any options
-	if (!options || options.length === 0) {
-		if (IS_DEV) {
-			console.warn('DocsVersionSwitcher has no `options` to render.')
-		}
-		return null
-	}
 
 	// Check if `currentRootDocsPath` is set
 	const currentRootDocsPath = currentProduct.currentRootDocsPath
@@ -45,7 +39,10 @@ const DocsVersionSwitcher = ({
 		return null
 	}
 
-	// Get the selected option
+	/**
+	 * Find the selected option, either by parsing a version from the path,
+	 * or fallback to latest (for non-versioned URLs).
+	 */
 	const selectedVersion = getVersionFromPath(currentPath)
 	let selectedOption: DocsVersionSwitcherOption
 	if (selectedVersion) {
@@ -53,59 +50,52 @@ const DocsVersionSwitcher = ({
 			(option: DocsVersionSwitcherOption) => option.version === selectedVersion
 		)
 	} else {
-		selectedOption = options[0]
+		// Fall back to selecting the latest version
+		selectedOption = options.find(
+			(option: VersionSelectItem) => option.isLatest === true
+		)
 	}
 
-	// Build the `ariaLabel` that is announced when the activator is focused
-	const currentRootDocsPathName =
-		currentRootDocsPath.shortName || currentRootDocsPath.name
-	const nameForLabel =
-		projectName || `${currentProduct.name} ${currentRootDocsPathName}`
-	const ariaLabel = `Choose a ${nameForLabel} version. Currently viewing ${selectedOption.label}.`
+	/**
+	 * Construct a project name to be used in ariaLabels for each option.
+	 */
+	let projectNameForLabel: string
+	if (projectName) {
+		projectNameForLabel = projectName
+	} else {
+		const docsName = currentRootDocsPath.shortName || currentRootDocsPath.name
+		projectNameForLabel = `${currentProduct.name} ${docsName}`
+	}
+
+	/**
+	 * Encode docs concerns into the `options` to pass to `VersionSwitcher`.
+	 */
+	const optionsForVersionSwitcher = options.map(
+		(option: VersionSelectItem): VersionSwitcherOption => {
+			// Destructure properties we'll pass through
+			const { label, isLatest } = option
+			// Determine if this option is selected
+			const isSelected = option.version === selectedOption.version
+			// Build the href for the option
+			const href = option.isLatest
+				? removeVersionFromPath(currentPath)
+				: getTargetPath({
+						basePath: `${currentProduct.slug}/${currentRootDocsPath.path}`,
+						asPath: currentPath,
+						version: option.version,
+				  })
+			// Build the aria-label for the Activator when this option is selected.
+			const ariaLabel = `Choose a ${projectNameForLabel} version. Currently viewing ${label}.`
+			// Return the VersionSwitcherOption
+			return { label, href, isSelected, isLatest, ariaLabel }
+		}
+	)
+
 	return (
-		<nav>
-			<DropdownDisclosure
-				aria-label={ariaLabel}
-				className={s.docsVersionSwitcher}
-				text={selectedOption.label}
-				color="secondary"
-				listPosition="right"
-			>
-				<DropdownDisclosureLabelItem>
-					{projectName ?? currentProduct.name}
-				</DropdownDisclosureLabelItem>
-				{options
-					// Hide currently selected version from dropdown list
-					.filter(
-						(option: VersionSelectItem) =>
-							option.version !== selectedOption.version
-					)
-					.map((option: VersionSelectItem) => {
-						let href: string
-						let rel: string
-						if (option.isLatest) {
-							href = removeVersionFromPath(currentPath)
-							rel = undefined
-						} else {
-							href = getTargetPath({
-								basePath: `${currentProduct.slug}/${currentRootDocsPath.path}`,
-								asPath: currentPath,
-								version: option.version,
-							})
-							rel = 'nofollow'
-						}
-						return (
-							<DropdownDisclosureAnchorItem
-								key={option.version}
-								href={href}
-								rel={rel}
-							>
-								{option.label}
-							</DropdownDisclosureAnchorItem>
-						)
-					})}
-			</DropdownDisclosure>
-		</nav>
+		<VersionSwitcher
+			label={projectName ?? currentProduct.name}
+			options={optionsForVersionSwitcher}
+		/>
 	)
 }
 

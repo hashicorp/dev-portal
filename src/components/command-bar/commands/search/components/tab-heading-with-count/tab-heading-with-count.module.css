@@ -1,0 +1,9 @@
+.root {
+	align-items: center;
+	display: inline-flex;
+	gap: 6px;
+}
+
+.countBadge {
+	color: inherit;
+}

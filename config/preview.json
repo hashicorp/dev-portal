@@ -2,9 +2,5 @@
 	"extends": "base",
 	"io_sites": {
 		"max_static_paths": 10
-	},
-	"flags": {
-		"enable_global_search": true,
-		"enable_home_page_redesign": true
 	}
 }

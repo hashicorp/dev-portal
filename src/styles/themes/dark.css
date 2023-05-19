@@ -131,8 +131,10 @@
 	--token-color-surface-warning: var(--token-color-palette-amber-50);
 	--token-color-surface-critical: var(--token-color-palette-red-50);
 
-	/* boundary */
+	/* hashicorp */
 	--token-color-hashicorp-brand: #fff;
+
+	/* boundary */
 	--token-color-boundary-brand: #f24c53;
 	--token-color-boundary-foreground: #f2474c;
 	--token-color-boundary-surface: #351114;
@@ -200,12 +202,12 @@
 	--token-color-vault-brand: #ffdd04;
 	--token-color-vault-brand-alt: #fff; /* this is a special "alternative" color, used as an exception in some contexts where the normal "brand" color for Vault would not work */
 	--token-color-vault-foreground: #ffdd04;
-	--token-color-vault-surface: #2b220b;
+	--token-color-vault-surface: #1e2328;
 	--token-color-vault-border: #8f7d09;
 	--token-color-vault-gradient-primary-start: #feec7b;
 	--token-color-vault-gradient-primary-stop: #ffdd04;
-	--token-color-vault-gradient-faint-start: #2b220b; /* this is the 'vault-50' value at 25% opacity on white */
-	--token-color-vault-gradient-faint-stop: #1a160d;
+	--token-color-vault-gradient-faint-start: #1e2328; /* this is the 'vault-50' value at 25% opacity on white */
+	--token-color-vault-gradient-faint-stop: #13161a;
 
 	/* waypoint */
 	--token-color-waypoint-brand: #14c6cb;
@@ -224,25 +226,25 @@
 		0 8px 16px -10px #6168751a;
 	--token-elevation-high-box-shadow: 0 2px 3px 0 #61687526,
 		0 16px 16px -10px #61687533;
-	--token-elevation-higher-box-shadow: 0 2px 3px 0 #6168751a,
-		0 12px 28px 0 #61687540;
-	--token-elevation-overlay-box-shadow: 0 2px 3px 0 #61687540,
-		0 12px 24px 0 #61687559;
+	--token-elevation-higher-box-shadow: 0 2px 3px 0 #4349561a,
+		0 12px 28px 0 #43495640;
+	--token-elevation-overlay-box-shadow: 0 2px 3px 0 #43495640,
+		0 12px 24px 0 #43495659;
 
 	/* surface */
-	--token-surface-inset-box-shadow: inset 0 0 0 1px #6168754d,
+	--token-surface-inset-box-shadow: inset 0 0 0 1px #b2b6bd4d,
 		inset 0 1px 2px 1px #6168751a;
-	--token-surface-base-box-shadow: 0 0 0 1px #61687533;
-	--token-surface-low-box-shadow: 0 0 0 1px #61687526, 0 1px 1px 0 #6168750d,
+	--token-surface-base-box-shadow: 0 0 0 1px #b2b6bd33;
+	--token-surface-low-box-shadow: 0 0 0 1px #b2b6bd26, 0 1px 1px 0 #6168750d,
 		0 2px 2px 0 #6168750d;
-	--token-surface-mid-box-shadow: 0 0 0 1px #61687526, 0 2px 3px 0 #6168751a,
+	--token-surface-mid-box-shadow: 0 0 0 1px #b2b6bd26, 0 2px 3px 0 #6168751a,
 		0 8px 16px -10px #61687533;
-	--token-surface-high-box-shadow: 0 0 0 1px #61687540, 0 2px 3px 0 #61687526,
+	--token-surface-high-box-shadow: 0 0 0 1px #b2b6bd40, 0 2px 3px 0 #61687526,
 		0 16px 16px -10px #61687533;
-	--token-surface-higher-box-shadow: 0 0 0 1px #61687533, 0 2px 3px 0 #6168751a,
-		0 12px 28px 0 #61687540;
-	--token-surface-overlay-box-shadow: 0 0 0 1px #61687540, 0 2px 3px 0 #61687540,
-		0 12px 24px 0 #61687559;
+	--token-surface-higher-box-shadow: 0 0 0 1px #b2b6bd33, 0 2px 3px 0 #4349561a,
+		0 12px 28px 0 #43495640;
+	--token-surface-overlay-box-shadow: 0 0 0 1px #b2b6bd40, 0 2px 3px 0 #43495640,
+		0 12px 24px 0 #43495659;
 
 	/* Focus styles */
 	--token-focus-ring-action-box-shadow: inset 0 0 0 1px

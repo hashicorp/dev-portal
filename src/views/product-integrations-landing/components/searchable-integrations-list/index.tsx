@@ -36,6 +36,7 @@ export default function SearchableIntegrationsList({
 		filteredIntegrations,
 		filterQuery,
 		flagOptions,
+		typeOptions,
 		isLoading,
 		resetPage,
 		setFilterQuery,
@@ -91,6 +92,7 @@ export default function SearchableIntegrationsList({
 						<MultiSelect text="Tiers" options={tierOptions} />
 						<MultiSelect text="Components" options={componentOptions} />
 						<MultiSelect text="Flags" options={flagOptions} />
+						<MultiSelect text="Types" options={typeOptions} />
 					</div>
 					{/**
 					 * Technique ARIA22: Using role=status to present status messages
@@ -127,6 +129,10 @@ export default function SearchableIntegrationsList({
 					)}
 					{/* Render x-tags for flags */}
 					{flagOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
+						return selected && <Tag key={id} text={label} onRemove={onChange} />
+					})}
+					{/* Render x-tags for types */}
+					{typeOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
 						return selected && <Tag key={id} text={label} onRemove={onChange} />
 					})}
 
@@ -196,7 +202,7 @@ export default function SearchableIntegrationsList({
 
 // Renders Tier/Component/Flags checkboxes
 function MobileFilters() {
-	const { componentOptions, flagOptions, tierOptions } =
+	const { componentOptions, flagOptions, tierOptions, typeOptions } =
 		useIntegrationsSearchContext()
 
 	return (
@@ -205,7 +211,12 @@ function MobileFilters() {
 				{ name: 'Tier', options: tierOptions },
 				{ name: 'Component', options: componentOptions },
 				{ name: 'Flags', options: flagOptions },
+				{ name: 'Types', options: typeOptions },
 			].map(({ name, options }: $TSFixMe) => {
+				if (!options.length) {
+					return null
+				}
+
 				return (
 					<div key={name} className={s.optionsContainer}>
 						<Legend>{name}</Legend>

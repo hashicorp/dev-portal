@@ -30,6 +30,7 @@ const USE_QUERY_PARAMS_CONFIG_MAP = {
 	components: CommaArrayParam,
 	flags: CommaArrayParam,
 	tiers: CommaArrayParam,
+	types: CommaArrayParam,
 	filterQuery: withDefault(StringParam, DEFAULT_STRING_PARAM_VALUE),
 	page: withDefault(NumberParam, DEFAULT_PAGE_VALUE),
 	pageSize: withDefault(NumberParam, DEFAULT_PAGE_SIZE_VALUE),

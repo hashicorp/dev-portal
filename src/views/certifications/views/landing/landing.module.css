@@ -48,6 +48,10 @@
 	background: var(--token-color-surface-strong);
 	padding-top: calc(var(--section-top-padding) + var(--programs-faq-overlap));
 	padding-bottom: 168px;
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-page-primary);
+	}
 }
 
 .faqHeading {

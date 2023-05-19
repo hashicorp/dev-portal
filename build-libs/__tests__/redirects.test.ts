@@ -120,95 +120,6 @@ describe('splitRedirectsByType', () => {
 })
 
 describe('groupSimpleRedirects', () => {
-	test('groups simple redirects by product', () => {
-		const groupedSimpleRedirects = groupSimpleRedirects([
-			{
-				source: '/source',
-				destination: '/destination',
-				permanent: false,
-				has: [
-					{
-						type: 'host',
-						value: '(www\\.boundaryproject\\.io|test-bd\\.hashi-mktg\\.com)',
-					},
-				],
-			},
-			{
-				source: '/another-source',
-				destination: '/another-destination',
-				permanent: true,
-				has: [
-					{
-						type: 'host',
-						value: '(www\\.boundaryproject\\.io|test-bd\\.hashi-mktg\\.com)',
-					},
-				],
-			},
-			{
-				source: '/source',
-				destination: '/destination',
-				permanent: false,
-				has: [
-					{
-						type: 'host',
-						value: '(www\\.consul\\.io|test-cs\\.hashi-mktg\\.com)',
-					},
-				],
-			},
-			{
-				source: '/another-source',
-				destination: '/another-destination',
-				permanent: true,
-				has: [
-					{
-						type: 'host',
-						value: '(www\\.consul\\.io|test-cs\\.hashi-mktg\\.com)',
-					},
-				],
-			},
-			{
-				source: '/another-source',
-				destination: '/another-destination',
-				permanent: true,
-				has: [
-					{
-						type: 'host',
-						value: 'www.waypointproject.io',
-					},
-				],
-			},
-		])
-
-		expect(groupedSimpleRedirects).toStrictEqual({
-			boundary: {
-				'/source': {
-					destination: '/destination',
-					permanent: false,
-				},
-				'/another-source': {
-					destination: '/another-destination',
-					permanent: true,
-				},
-			},
-			consul: {
-				'/source': {
-					destination: '/destination',
-					permanent: false,
-				},
-				'/another-source': {
-					destination: '/another-destination',
-					permanent: true,
-				},
-			},
-			waypoint: {
-				'/another-source': {
-					destination: '/another-destination',
-					permanent: true,
-				},
-			},
-		})
-	})
-
 	test('handles simple redirects without associated product', () => {
 		const groupedSimpleRedirects = groupSimpleRedirects([
 			{
@@ -265,7 +176,7 @@ describe('addHostCondition', () => {
 		let result
 
 		withHashiEnv('production', () => {
-			result = addHostCondition([redirect], 'vault', ['waypoint', 'consul'])
+			result = addHostCondition([redirect], 'vault')
 		})
 
 		expect(result).toMatchInlineSnapshot(`
@@ -295,47 +206,13 @@ describe('addHostCondition', () => {
 		let result
 
 		withHashiEnv('preview', () => {
-			result = addHostCondition([redirect], 'vault', ['waypoint', 'consul'])
+			result = addHostCondition([redirect], 'vault')
 		})
 
 		expect(result).toMatchInlineSnapshot(`
 		Array [
 		  Object {
 		    "destination": "/vault/docs/bar",
-		    "permanent": true,
-		    "source": "/vault/docs/foo",
-		  },
-		]
-	`)
-	})
-
-	test('adds io host condition for non-GA products in production', () => {
-		const redirect = {
-			source: '/vault/docs/foo',
-			destination: '/vault/docs/bar',
-			permanent: true,
-		}
-
-		let result
-
-		withHashiEnv('production', () => {
-			result = addHostCondition([redirect], 'vault', [
-				'waypoint',
-				'consul',
-				'vault',
-			])
-		})
-
-		expect(result).toMatchInlineSnapshot(`
-		Array [
-		  Object {
-		    "destination": "/vault/docs/bar",
-		    "has": Array [
-		      Object {
-		        "type": "host",
-		        "value": "(www\\\\.vaultproject\\\\.io|test-vt\\\\.hashi-mktg\\\\.com)",
-		      },
-		    ],
 		    "permanent": true,
 		    "source": "/vault/docs/foo",
 		  },

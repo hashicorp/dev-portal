@@ -1,8 +1,9 @@
-import { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import {
 	Flag,
 	Integration,
 	IntegrationComponent,
+	IntegrationType,
 	Tier,
 } from 'lib/integrations-api-client/integration'
 
@@ -30,12 +31,14 @@ interface IntegrationsSearchContextState {
 	setPage: (newValue: number) => void
 	setPageSize: (newValue: number) => void
 	tierOptions: FacetFilterOption[]
+	typeOptions: FacetFilterOption[]
 }
 
 interface IntegrationsSearchProviderProps {
 	allComponents: IntegrationComponent[]
 	allFlags: Flag[]
 	allTiers: Tier[]
+	allTypes: IntegrationType[]
 	children: ReactNode
 	integrations: Integration[]
 }

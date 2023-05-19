@@ -99,12 +99,22 @@
 	}
 }
 
-.userDropdownDisclosure button[aria-expanded] {
+.userDropdownDisclosureActivator {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow-dark from global;
+
+	/* properties */
 	background-color: transparent;
 	color: var(--token-color-foreground-high-contrast);
 
 	&:hover {
 		border-color: var(--token-color-palette-neutral-200);
+	}
+
+	@nest html[data-theme='light'] & {
+		&:active {
+			background-color: var(--token-color-foreground-primary);
+		}
 	}
 
 	@nest html[data-theme='dark'] & {

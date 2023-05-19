@@ -7,8 +7,8 @@
 import path from 'path'
 
 // HashiCorp Imports
-import FileSystemLoader from '@hashicorp/react-docs-page/server/loaders/file-system'
-import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
+import FileSystemLoader from '../loaders/file-system'
+import RemoteContentLoader from '../loaders/remote-content'
 import {
 	includeMarkdown,
 	paragraphCustomAlerts,
@@ -75,7 +75,11 @@ export function getDeployPreviewLoader({
 			// - images reside in `website/img` rather than `website/public` (Next.js serves static assets from `public`)
 			// - TFE/C content exclusion markdown comments are used
 			const remarkTerraformPlugins = []
-			if (currentRootDocsPath.productSlugForLoader?.match(/^terraform/i)) {
+			if (
+				currentRootDocsPath.productSlugForLoader?.match(
+					/^(terraform|ptfe-releases)/i
+				)
+			) {
 				remarkTerraformPlugins.push(
 					remarkRewriteAssets({
 						product: currentRootDocsPath.productSlugForLoader,

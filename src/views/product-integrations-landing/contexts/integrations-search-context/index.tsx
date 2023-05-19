@@ -11,6 +11,7 @@ import {
 	Flag,
 	Integration,
 	IntegrationComponent,
+	IntegrationType,
 	Tier,
 } from 'lib/integrations-api-client/integration'
 import { integrationLibraryFilterSelectedEvent } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/analytics'
@@ -35,6 +36,7 @@ export const IntegrationsSearchProvider = ({
 	allComponents,
 	allFlags,
 	allTiers,
+	allTypes,
 	children,
 	integrations,
 }: IntegrationsSearchProviderProps) => {
@@ -61,6 +63,7 @@ export const IntegrationsSearchProvider = ({
 		toggleComponentChecked,
 		toggleFlagChecked,
 		toggleTierChecked,
+		toggleTypeChecked,
 	} = useMemo(() => {
 		return {
 			clearFilters: () => {
@@ -68,6 +71,7 @@ export const IntegrationsSearchProvider = ({
 					components: [],
 					flags: [],
 					tiers: [],
+					types: [],
 				})
 			},
 			setFilterQuery: (newValue: string) => {
@@ -146,6 +150,28 @@ export const IntegrationsSearchProvider = ({
 					}
 				})
 			},
+			toggleTypeChecked: (type: IntegrationType) => {
+				setQueryParams((prev: $TSFixMe) => {
+					const isChecked = prev.types.includes(type.slug)
+					if (isChecked) {
+						return {
+							...prev,
+							types: prev.types.filter(
+								(slug: IntegrationType['slug']) => slug !== type.slug
+							),
+						}
+					} else {
+						integrationLibraryFilterSelectedEvent({
+							filter_category: 'type',
+							filter_value: type.name,
+						})
+						return {
+							...prev,
+							types: [...prev.types, type.slug],
+						}
+					}
+				})
+			},
 		}
 	}, [setQueryParams])
 
@@ -165,7 +191,8 @@ export const IntegrationsSearchProvider = ({
 		const atLeastOneFacetSelected =
 			queryParams.components.length > 0 ||
 			queryParams.flags.length > 0 ||
-			queryParams.tiers.length > 0
+			queryParams.tiers.length > 0 ||
+			queryParams.types.length > 0
 
 		/**
 		 * First, filter by facet and filterQuery
@@ -193,6 +220,13 @@ export const IntegrationsSearchProvider = ({
 					})
 				}
 
+				let typeMatch = true
+				if (queryParams.types.length > 0) {
+					typeMatch = queryParams.types.includes(
+						integration.integration_type.slug
+					)
+				}
+
 				let filterQueryMatch = true
 				if (queryParams.filterQuery.length) {
 					filterQueryMatch = getDoesMatchFilterQuery({
@@ -201,7 +235,13 @@ export const IntegrationsSearchProvider = ({
 					})
 				}
 
-				return tierMatch && componentMatch && flagMatch && filterQueryMatch
+				return (
+					tierMatch &&
+					componentMatch &&
+					flagMatch &&
+					typeMatch &&
+					filterQueryMatch
+				)
 			}
 		)
 
@@ -236,52 +276,68 @@ export const IntegrationsSearchProvider = ({
 	 *
 	 * @TODO move this to the component that actually renders UI?
 	 */
-	const { componentOptions, flagOptions, tierOptions } = useMemo(() => {
-		return {
-			componentOptions: allComponents.map((component: IntegrationComponent) => {
-				return {
-					id: component.slug,
-					label: capitalize(component.plural_name),
-					onChange: () => {
-						resetPage()
-						toggleComponentChecked(component)
-					},
-					selected: queryParams.components.includes(component.slug),
-				}
-			}),
-			flagOptions: allFlags.map((flag: Flag) => {
-				return {
-					id: flag.slug,
-					label: flag.name,
-					onChange: () => {
-						resetPage()
-						toggleFlagChecked(flag)
-					},
-					selected: queryParams.flags.includes(flag.slug),
-				}
-			}),
-			tierOptions: allTiers.map((tier: Tier) => {
-				return {
-					id: tier,
-					label: capitalize(tier),
-					onChange: () => {
-						resetPage()
-						toggleTierChecked(tier)
-					},
-					selected: queryParams.tiers.includes(tier),
-				}
-			}),
-		}
-	}, [
-		allComponents,
-		allFlags,
-		allTiers,
-		queryParams,
-		resetPage,
-		toggleComponentChecked,
-		toggleFlagChecked,
-		toggleTierChecked,
-	])
+	const { componentOptions, flagOptions, tierOptions, typeOptions } =
+		useMemo(() => {
+			return {
+				componentOptions: allComponents.map(
+					(component: IntegrationComponent) => {
+						return {
+							id: component.slug,
+							label: capitalize(component.plural_name),
+							onChange: () => {
+								resetPage()
+								toggleComponentChecked(component)
+							},
+							selected: queryParams.components.includes(component.slug),
+						}
+					}
+				),
+				flagOptions: allFlags.map((flag: Flag) => {
+					return {
+						id: flag.slug,
+						label: flag.name,
+						onChange: () => {
+							resetPage()
+							toggleFlagChecked(flag)
+						},
+						selected: queryParams.flags.includes(flag.slug),
+					}
+				}),
+				tierOptions: allTiers.map((tier: Tier) => {
+					return {
+						id: tier,
+						label: capitalize(tier),
+						onChange: () => {
+							resetPage()
+							toggleTierChecked(tier)
+						},
+						selected: queryParams.tiers.includes(tier),
+					}
+				}),
+				typeOptions: allTypes.map((type: IntegrationType) => {
+					return {
+						id: type.slug,
+						label: type.plural_name,
+						onChange: () => {
+							resetPage()
+							toggleTypeChecked(type)
+						},
+						selected: queryParams.types.includes(type.slug),
+					}
+				}),
+			}
+		}, [
+			allComponents,
+			allFlags,
+			allTiers,
+			allTypes,
+			queryParams,
+			resetPage,
+			toggleComponentChecked,
+			toggleFlagChecked,
+			toggleTierChecked,
+			toggleTypeChecked,
+		])
 
 	/**
 	 * If `isLoading` hasn't already been updated, and it's ready to be updated,
@@ -314,6 +370,7 @@ export const IntegrationsSearchProvider = ({
 				setPage,
 				setPageSize,
 				tierOptions,
+				typeOptions,
 			}}
 		>
 			{children}

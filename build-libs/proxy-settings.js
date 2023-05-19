@@ -21,36 +21,6 @@ const proxyConfig = require('./proxy-config')
  * @type {Record<string, SiteProxySettings>}
  */
 const proxySettings = {
-	boundary: {
-		domain: proxyConfig.boundary.domain,
-		host: proxyConfig.boundary.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/boundary'),
-			...buildAssetRoutesToProxy(
-				proxyConfig.boundary.assets,
-				'/boundary-public'
-			),
-			...getDevPortalRoutesToProxy('boundary'),
-		],
-	},
-	nomad: {
-		domain: proxyConfig.nomad.domain,
-		host: proxyConfig.nomad.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/nomad'),
-			...buildAssetRoutesToProxy(proxyConfig.nomad.assets, '/nomad-public'),
-			...getDevPortalRoutesToProxy('nomad'),
-		],
-	},
-	packer: {
-		domain: proxyConfig.packer.domain,
-		host: proxyConfig.packer.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/packer'),
-			...buildAssetRoutesToProxy(proxyConfig.packer.assets, '/packer'),
-			...getDevPortalRoutesToProxy('packer'),
-		],
-	},
 	sentinel: {
 		domain: proxyConfig.sentinel.domain,
 		host: proxyConfig.sentinel.host,
@@ -61,45 +31,6 @@ const proxySettings = {
 				'/sentinel-public'
 			),
 			...getDevPortalRoutesToProxy('sentinel'),
-		],
-	},
-	vagrant: {
-		domain: proxyConfig.vagrant.domain,
-		host: proxyConfig.vagrant.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/vagrant'),
-			...buildAssetRoutesToProxy(proxyConfig.vagrant.assets, '/vagrant-public'),
-			...getDevPortalRoutesToProxy('vagrant'),
-		],
-	},
-	vault: {
-		domain: proxyConfig.vault.domain,
-		host: proxyConfig.vault.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/vault'),
-			...buildAssetRoutesToProxy(proxyConfig.vault.assets, '/vault-public'),
-			...getDevPortalRoutesToProxy('vault'),
-		],
-	},
-	waypoint: {
-		domain: proxyConfig.waypoint.domain,
-		host: proxyConfig.waypoint.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/waypoint'),
-			...buildAssetRoutesToProxy(
-				proxyConfig.waypoint.assets,
-				'/waypoint-public'
-			),
-			...getDevPortalRoutesToProxy('waypoint'),
-		],
-	},
-	consul: {
-		domain: proxyConfig.consul.domain,
-		host: proxyConfig.consul.host,
-		routesToProxy: [
-			...gatherRoutesToProxy('/_proxied-dot-io/consul'),
-			...buildAssetRoutesToProxy(proxyConfig.consul.assets, '/consul-public'),
-			...getDevPortalRoutesToProxy('consul'),
 		],
 	},
 }

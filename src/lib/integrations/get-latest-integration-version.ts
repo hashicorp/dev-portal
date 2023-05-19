@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // 0.0.0 is a special release which we use for our bootstrap
 // integrations, which technically will not qualify as a latest
 // release.  For example, if a Bootstrap Integration upgrades

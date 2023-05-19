@@ -9,17 +9,19 @@ const octokit = new Octokit({
 	auth: process.env.GITHUB_TOKEN,
 })
 
+export interface GithubFile {
+	owner: string
+	repo: string
+	path: string
+	ref?: string
+}
+
 async function fetchGithubFile({
 	owner,
 	repo,
 	path,
 	ref,
-}: {
-	owner: string
-	repo: string
-	path: string
-	ref?: string
-}): Promise<string> {
+}: GithubFile): Promise<string> {
 	const response = await octokit.request(
 		'GET /repos/{owner}/{repo}/contents/{path}',
 		{ owner, repo, path, ref }

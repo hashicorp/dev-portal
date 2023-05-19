@@ -74,7 +74,8 @@ async function getStaticPathsWithVersion(): Promise<
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
-	const enabledProductSlugs = __config.dev_dot.product_slugs_with_integrations
+	const enabledProductSlugs = __config.dev_dot
+		.product_slugs_with_integrations as ProductSlug[]
 	// Fetch integrations for all products
 	const allIntegrations = await fetchAllIntegrations(enabledProductSlugs)
 	// Build a flat array of path parameters for each integration
@@ -168,6 +169,13 @@ async function getStaticProps({
 				activeRelease,
 				true
 		  )
+
+	/**
+	 * Serialize the README, extracting anchor links as we do
+	 */
+	const { serializeResult: serializedREADME, anchorLinks } =
+		await serializeIntegrationMarkdown(activeRelease.readme)
+
 	// Return static props
 	return {
 		revalidate: __config.dev_dot.revalidate,
@@ -180,9 +188,8 @@ async function getStaticProps({
 			integration,
 			activeRelease,
 			breadcrumbLinks,
-			serializedREADME: await serializeIntegrationMarkdown(
-				activeRelease.readme
-			),
+			anchorLinks,
+			serializedREADME,
 		},
 	}
 }

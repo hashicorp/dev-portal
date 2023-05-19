@@ -4,8 +4,8 @@
  */
 
 .root {
-	background-color: white;
-	box-shadow: var(--token-surface-base-box-shadow);
+	background-color: var(--token-color-surface-strong);
+	padding: 12px;
 	border-radius: 6px;
 	display: flex;
 	flex-wrap: wrap;
@@ -19,8 +19,9 @@
 	}
 
 	&.noBorder {
-		box-shadow: none;
-		border-radius: 0;
+		& img {
+			box-shadow: none;
+		}
 	}
 
 	&.inline {
@@ -35,9 +36,17 @@
   dev-portal.
   */
 	& img {
+		box-shadow: var(--token-surface-base-box-shadow);
+		background-color: white;
+		border-radius: 5px;
 		display: block;
 		max-width: 100%;
 		height: auto;
 		margin: 0;
+	}
+
+	/** Ensures broken image link text is legible on the white background */
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-surface-primary);
 	}
 }

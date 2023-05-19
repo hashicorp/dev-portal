@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-const EmptyLayout: React.FC = ({ children }) => <>{children}</>
+import { type ReactNode } from 'react'
+
+const EmptyLayout = ({ children }: { children: ReactNode }) => <>{children}</>
 
 export default EmptyLayout

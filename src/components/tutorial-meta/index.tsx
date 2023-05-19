@@ -67,16 +67,16 @@ export default function TutorialMeta({
 						tutorial={{ id: tutorialId, name: heading.text }}
 					/>
 				</span>
-				{showCreateAccountCta ? (
-					<Text className={s.createAccountCta} size={200}>
-						Reference this often?{' '}
-						<InlineLink href="/sign-up" textSize={200}>
-							Create an account
-						</InlineLink>{' '}
-						to bookmark tutorials.
-					</Text>
-				) : null}
 			</div>
+			{showCreateAccountCta ? (
+				<Text className={s.createAccountCta} size={100}>
+					Reference this often?{' '}
+					<InlineLink href="/sign-up" textSize={100}>
+						Create an account
+					</InlineLink>{' '}
+					to bookmark tutorials.
+				</Text>
+			) : null}
 		</header>
 	)
 }

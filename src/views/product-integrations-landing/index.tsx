@@ -9,6 +9,7 @@ import {
 	IntegrationComponent,
 	Tier,
 	type Integration,
+	IntegrationType,
 } from 'lib/integrations-api-client/integration'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { type BreadcrumbLink } from 'components/breadcrumb-bar'
@@ -22,6 +23,7 @@ export interface ViewProps {
 	allComponents: IntegrationComponent[]
 	allFlags: Flag[]
 	allTiers: Tier[]
+	allTypes: IntegrationType[]
 	breadcrumbLinks: BreadcrumbLink[]
 	integrations: Integration[]
 	product: ProductData
@@ -32,6 +34,7 @@ export default function ProductIntegrationsLanding({
 	allComponents,
 	allFlags,
 	allTiers,
+	allTypes,
 	breadcrumbLinks,
 	integrations,
 	product,
@@ -42,6 +45,7 @@ export default function ProductIntegrationsLanding({
 			allComponents={allComponents}
 			allFlags={allFlags}
 			allTiers={allTiers}
+			allTypes={allTypes}
 			integrations={integrations}
 		>
 			<SidebarSidecarLayout
