@@ -52,7 +52,7 @@ import {
 	NextPrevious,
 	getNextPrevious,
 	FeedbackPanel,
-	VariantsDropdownDisclosure,
+	VariantDropdownDisclosure,
 } from './components'
 import s from './tutorial-view.module.css'
 
@@ -253,7 +253,10 @@ function TutorialView({
 					sidecarSlot={
 						<>
 							{metadata.variant ? (
-								<VariantsDropdownDisclosure variant={metadata.variant} />
+								<VariantDropdownDisclosure
+									variant={metadata.variant}
+									isFullWidth
+								/>
 							) : null}
 							<OutlineNavWithActive items={outlineItems} />
 						</>

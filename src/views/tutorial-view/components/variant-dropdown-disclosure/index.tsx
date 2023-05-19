@@ -1,3 +1,4 @@
+import { useId } from '@react-aria/utils'
 import { useRouter } from 'next/router'
 import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
@@ -8,34 +9,28 @@ import {
 	getVariantPath,
 	TutorialVariantOption,
 } from 'views/tutorial-view/utils/variants'
-import { VariantsDropdownDisclosureProps } from './types'
-import s from './variants-dropdown-disclosure.module.css'
+import { VariantDropdownDisclosureProps } from './types'
+import s from './variant-dropdown-disclosure.module.css'
 
-/**
- * @TODO we should refactor dropdown disclosure to accept
- * aria-labelledby instead of passing the aria-label with the
- * combined visual label text and active option
- * https://app.asana.com/0/1204333057896641/1204621995316433
- */
-
-export function VariantsDropdownDisclosure({
+export function VariantDropdownDisclosure({
 	variant,
-}: VariantsDropdownDisclosureProps) {
-	const { asPath } = useRouter()
+	isFullWidth,
+}: VariantDropdownDisclosureProps) {
 	// @TODO hook this into useVariants hook once data is wired
 	const activeOption = variant.options[0]
+	const labelId = useId()
+	const { asPath } = useRouter()
 
 	return (
 		<div className={s.root}>
-			<Text weight="semibold" size={100} className={s.label}>
+			<Text weight="semibold" size={100} className={s.label} id={labelId}>
 				{variant.name}
 			</Text>
 			<DropdownDisclosure
-				aria-label={`${variant.name}: ${activeOption.name}`}
+				aria-describedby={labelId}
 				color="secondary"
 				text={activeOption.name}
-				className={s.dropdownDisclosure}
-				activatorClassName={s.dropdownActivator}
+				isFullWidth={isFullWidth}
 			>
 				{variant.options.map((option: TutorialVariantOption) => {
 					if (option.slug === activeOption.slug) {

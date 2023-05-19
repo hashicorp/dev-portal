@@ -12,7 +12,10 @@
 				"slug": "hcp",
 				"name": "Hashicorp Cloud Platform (HCP)"
 			},
-			{ "slug": "self-managed", "name": "Self Managed" }
+			{ "slug": "self-managed", "name": "Self Managed" },
+			{ "slug": "sycamore", "name": "Sycamore" },
+			{ "slug": "jinx", "name": "Jinx" },
+			{ "slug": "alpenglow", "name": "Alpenglow" }
 		]
 	}
 ]
