@@ -21,7 +21,6 @@ import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-
 import { isDeployPreview } from 'lib/env-checks'
 import remarkPluginRemoveFirstH1 from 'lib/remark-plugins/remark-plugin-remove-first-h1'
 import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
-import { withTiming } from 'lib/with-timing'
 import outlineItemsFromHeadings, {
 	AnchorLinksPluginHeading,
 } from 'components/outline-nav/utils/outline-items-from-headings'
@@ -220,10 +219,7 @@ export function getStaticGenerationFunctions<
 			 */
 			let loadStaticPropsResult
 			try {
-				loadStaticPropsResult = await withTiming(
-					'[docs-view/server::loadStaticProps]',
-					() => loader.loadStaticProps(ctx)
-				)
+				loadStaticPropsResult = await loader.loadStaticProps(ctx)
 			} catch (error) {
 				console.error('[docs-view/server] error loading static props', error)
 
@@ -302,14 +298,11 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Add fullPaths and auto-generated ids to navData
 			 */
-			const { preparedItems: navDataWithFullPaths } = await withTiming(
-				'[docs-view/server::prepareNavDataForClient]',
-				() =>
-					prepareNavDataForClient({
-						basePaths: [product.slug, basePath],
-						nodes: navData,
-					})
-			)
+			const { preparedItems: navDataWithFullPaths } =
+				await prepareNavDataForClient({
+					basePaths: [product.slug, basePath],
+					nodes: navData,
+				})
 
 			/**
 			 * Figure out of a specific docs version is being viewed

@@ -23,6 +23,7 @@ import TutorialHit, {
 	TutorialHitObject,
 } from './tutorials-tab-contents/tutorial-hit'
 import TutorialsTabContents from './tutorials-tab-contents'
+import TabHeadingWithCount from './tab-heading-with-count'
 
 export type {
 	DocumentationHitObject,
@@ -42,6 +43,7 @@ export {
 	RecentSearches,
 	SuggestedPages,
 	TabContentsCta,
+	TabHeadingWithCount,
 	TutorialHit,
 	TutorialsTabContents,
 }

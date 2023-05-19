@@ -14,7 +14,9 @@ export function lastUpdatedString(updatedAtString: string) {
 
 	// For days
 	if (days < 7) {
-		if (days === 1) {
+		if (days < 1) {
+			return 'Updated today'
+		} else if (days === 1) {
 			return 'Updated yesterday'
 		} else {
 			return `Updated ${days} days ago`
