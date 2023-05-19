@@ -3,12 +3,20 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import classNames from 'classnames'
 import { IconFilter16 } from '@hashicorp/flight-icons/svg-react/filter-16'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
+import capitalize from '@hashicorp/platform-util/text/capitalize'
 import useTypingDebounce from 'lib/hooks/use-typing-debounce'
+import {
+	Flag,
+	Integration,
+	IntegrationComponent,
+	IntegrationType,
+	Tier,
+} from 'lib/integrations-api-client/integration'
 import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import Button from 'components/button'
 import Dialog from 'components/dialog'
@@ -25,6 +33,19 @@ interface SearchableIntegrationsListProps {
 	className: string
 }
 
+// Returns logical sort ordering of a Tier
+const getTierSortValue = (tier: Tier): number => {
+	switch (tier) {
+		case Tier.OFFICIAL:
+			return 1
+		case Tier.PARTNER:
+			return 2
+		case Tier.COMMUNITY:
+		default:
+			return 3
+	}
+}
+
 export default function SearchableIntegrationsList({
 	className,
 }: SearchableIntegrationsListProps) {
@@ -32,19 +53,180 @@ export default function SearchableIntegrationsList({
 	const {
 		atLeastOneFacetSelected,
 		clearFilters,
-		componentOptions,
 		filteredIntegrations,
-		filterQuery,
-		flagOptions,
-		typeOptions,
+		integrations,
 		isLoading,
+		queryParams,
 		resetPage,
 		setFilterQuery,
-		tierOptions,
+		toggleComponentChecked,
+		toggleFlagChecked,
+		toggleTierChecked,
+		toggleTypeChecked,
 	} = useIntegrationsSearchContext()
 
+	const { allComponents, allFlags, allTiers, allTypes } = useMemo(() => {
+		/**
+		 * Get each facet's unique set of values.
+		 */
+		const componentsById: Record<
+			IntegrationComponent['id'],
+			IntegrationComponent
+		> = {}
+		const flagsById: Record<Flag['id'], Flag> = {}
+		const tiersSet = new Set<Tier>()
+		const typesById = new Set<IntegrationType>()
+		integrations.forEach((integration: Integration) => {
+			integration.components.forEach((component: IntegrationComponent) => {
+				if (!componentsById[component.id]) {
+					componentsById[component.id] = component
+				}
+			})
+			integration.flags.forEach((flag: Flag) => {
+				if (!flagsById[flag.id]) {
+					flagsById[flag.id] = flag
+				}
+			})
+			tiersSet.add(integration.tier)
+
+			const integrationType = integration.integration_type
+			if (integrationType && !typesById[integrationType.id]) {
+				typesById[integrationType.id] = integrationType
+			}
+		})
+
+		/**
+		 * Create flat, sorted arrays of objects for each facet.
+		 *
+		 * @TODO is the `occurances` property needed on each `IntegrationComponent`?
+		 */
+		const allComponents = Object.values(componentsById).sort(
+			(a: IntegrationComponent, b: IntegrationComponent) => {
+				const aName = a.name.toLowerCase()
+				const bName = b.name.toLowerCase()
+				if (aName < bName) {
+					return -1
+				}
+				if (aName > bName) {
+					return 1
+				}
+				return 0
+			}
+		)
+		const allFlags = Object.values(flagsById).sort((a: Flag, b: Flag) => {
+			const aName = a.name.toLowerCase()
+			const bName = b.name.toLowerCase()
+			if (aName < bName) {
+				return -1
+			}
+			if (aName > bName) {
+				return 1
+			}
+			return 0
+		})
+		const allTiers = Array.from(tiersSet).sort((a: Tier, b: Tier) => {
+			const aTierSortValue = getTierSortValue(a)
+			const bTierSortValue = getTierSortValue(b)
+			if (aTierSortValue < bTierSortValue) {
+				return -1
+			}
+			if (aTierSortValue > bTierSortValue) {
+				return 1
+			}
+			return 0
+		})
+		// @TODO should these be sorted? Not currently done in prod
+		const allTypes = Object.values(typesById).sort(
+			(a: IntegrationType, b: IntegrationType) => {
+				const aName = a.plural_name.toLowerCase()
+				const bName = b.plural_name.toLowerCase()
+				if (aName < bName) {
+					return -1
+				}
+				if (aName > bName) {
+					return 1
+				}
+				return 0
+			}
+		)
+
+		return {
+			allComponents,
+			allFlags,
+			allTiers,
+			allTypes,
+		}
+	}, [integrations])
+
 	/**
-	 * Track an "integration_library_searched" event when the filterQuery changes
+	 * Create arrays of options for each facet.
+	 */
+	const { componentOptions, flagOptions, tierOptions, typeOptions } =
+		useMemo(() => {
+			return {
+				componentOptions: allComponents.map(
+					(component: IntegrationComponent) => {
+						return {
+							id: component.slug,
+							label: capitalize(component.plural_name),
+							onChange: () => {
+								resetPage()
+								toggleComponentChecked(component)
+							},
+							selected: queryParams.components.includes(component.slug),
+						}
+					}
+				),
+				flagOptions: allFlags.map((flag: Flag) => {
+					return {
+						id: flag.slug,
+						label: flag.name,
+						onChange: () => {
+							resetPage()
+							toggleFlagChecked(flag)
+						},
+						selected: queryParams.flags.includes(flag.slug),
+					}
+				}),
+				tierOptions: allTiers.map((tier: Tier) => {
+					return {
+						id: tier,
+						label: capitalize(tier),
+						onChange: () => {
+							resetPage()
+							toggleTierChecked(tier)
+						},
+						selected: queryParams.tiers.includes(tier),
+					}
+				}),
+				typeOptions: allTypes.map((type: IntegrationType) => {
+					return {
+						id: type.slug,
+						label: type.plural_name,
+						onChange: () => {
+							resetPage()
+							toggleTypeChecked(type)
+						},
+						selected: queryParams.types.includes(type.slug),
+					}
+				}),
+			}
+		}, [
+			allComponents,
+			allFlags,
+			allTiers,
+			allTypes,
+			queryParams,
+			resetPage,
+			toggleComponentChecked,
+			toggleFlagChecked,
+			toggleTierChecked,
+			toggleTypeChecked,
+		])
+
+	/**
+	 * Track an "integration_library_searched" event when the
+	 * queryParams.filterQuery changes.
 	 *
 	 * Note: we only want to track this event if the query input is meaningful.
 	 * We consider query input lengths of more than 2 characters to be meaningful
@@ -54,13 +236,13 @@ export default function SearchableIntegrationsList({
 	 * Without useTypingDebounce, an event would fire on every character typed.
 	 */
 	const searchedEventCallback = useCallback(() => {
-		if (filterQuery.length > 2) {
+		if (queryParams.filterQuery.length > 2) {
 			integrationLibrarySearchedEvent({
-				search_query: filterQuery,
+				search_query: queryParams.filterQuery,
 				results_count: filteredIntegrations.length,
 			})
 		}
-	}, [filterQuery, filteredIntegrations.length])
+	}, [queryParams.filterQuery, filteredIntegrations.length])
 	useTypingDebounce(searchedEventCallback)
 
 	/**
@@ -79,7 +261,7 @@ export default function SearchableIntegrationsList({
 				<FilterInput
 					className={s.filterInput}
 					IconComponent={IconSearch16}
-					value={filterQuery}
+					value={queryParams.filterQuery}
 					onChange={(v: string) => {
 						resetPage()
 						setFilterQuery(v)
@@ -193,7 +375,12 @@ export default function SearchableIntegrationsList({
 				</div>
 
 				<div className={s.mobileFilters}>
-					<MobileFilters />
+					<MobileFilters
+						componentOptions={componentOptions}
+						flagOptions={flagOptions}
+						tierOptions={tierOptions}
+						typeOptions={typeOptions}
+					/>
 				</div>
 			</Dialog>
 		</div>
@@ -201,10 +388,12 @@ export default function SearchableIntegrationsList({
 }
 
 // Renders Tier/Component/Flags checkboxes
-function MobileFilters() {
-	const { componentOptions, flagOptions, tierOptions, typeOptions } =
-		useIntegrationsSearchContext()
-
+function MobileFilters({
+	componentOptions,
+	flagOptions,
+	tierOptions,
+	typeOptions,
+}: $TSFixMe) {
 	return (
 		<>
 			{[
