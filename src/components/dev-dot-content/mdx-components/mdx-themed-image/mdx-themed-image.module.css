@@ -12,8 +12,7 @@
 .root {
 	align-items: center;
 	display: flex;
-	width: 500px;
-	height: 100%;
+	width: 100%;
 	position: relative;
 	border: 1px solid magenta;
 }
@@ -21,4 +20,6 @@
 .image {
 	object-position: center;
 	object-fit: contain;
+	width: 100%;
+	height: fit-content;
 }
