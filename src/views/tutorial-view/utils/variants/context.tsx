@@ -39,6 +39,8 @@ export default function VariantProvider({
 	)
 
 	useEffect(() => {
+		// if the variant is passed from tutorial view, and the active option
+		// doesn't match what is already instate, update it
 		if (
 			variant &&
 			variant.activeOption.id !== currentVariant?.activeOption.id
