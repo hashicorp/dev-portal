@@ -5,18 +5,10 @@
 }
 
 .desktopVariantList {
-	display: none;
-
-	@media (--dev-dot-tablet-up) {
-		display: block;
-	}
+	composes: g-hide-on-mobile from global;
 }
 
 .mobileVariantDropdownDisclosure {
-	display: block;
+	composes: g-hide-on-tablet-up from global;
 	width: 100%;
-
-	@media (--dev-dot-tablet-up) {
-		display: none;
-	}
 }
