@@ -19,11 +19,20 @@ const getTierSortValue = (tier: Tier): number => {
 	}
 }
 
+interface GetUniqueFacetArraysParams {
+	integrations: Integration[]
+}
+
+interface GetUniqueFacetArraysResult {
+	allComponents: IntegrationComponent[]
+	allFlags: Flag[]
+	allTiers: Tier[]
+	allTypes: IntegrationType[]
+}
+
 const getUniqueFacetArrays = ({
 	integrations,
-}: {
-	integrations: Integration[]
-}) => {
+}: GetUniqueFacetArraysParams): GetUniqueFacetArraysResult => {
 	/**
 	 * Get each facet's unique set of values.
 	 */
@@ -120,4 +129,5 @@ const getUniqueFacetArrays = ({
 	}
 }
 
+export type { GetUniqueFacetArraysResult }
 export { getUniqueFacetArrays }

@@ -267,17 +267,19 @@ function MobileFilters({
 				return (
 					<div key={name} className={s.optionsContainer}>
 						<Legend>{name}</Legend>
-						{options.map(({ id, label, onChange, selected }: $TSFixMe) => {
-							return (
-								<CheckboxField
-									key={id}
-									labelFontWeight="regular"
-									label={label}
-									checked={selected}
-									onChange={onChange}
-								/>
-							)
-						})}
+						{options.map(
+							({ id, label, onChange, selected }: FacetFilterOption) => {
+								return (
+									<CheckboxField
+										key={id}
+										labelFontWeight="regular"
+										label={label}
+										checked={selected}
+										onChange={onChange}
+									/>
+								)
+							}
+						)}
 					</div>
 				)
 			})}

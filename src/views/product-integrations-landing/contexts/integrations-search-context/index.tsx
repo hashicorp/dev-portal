@@ -84,90 +84,99 @@ export const IntegrationsSearchProvider = ({
 				setQueryParams({ pageSize: newValue })
 			},
 			toggleComponentChecked: (component: IntegrationComponent) => {
-				setQueryParams((prev: $TSFixMe) => {
-					const isChecked = prev.components.includes(component.slug)
-					if (isChecked) {
-						return {
-							...prev,
-							components: prev.components.filter(
-								(slug: IntegrationComponent['slug']) => slug !== component.slug
-							),
-						}
-					} else {
-						integrationLibraryFilterSelectedEvent({
-							filter_category: 'component',
-							filter_value: component.slug,
-						})
-						return {
-							...prev,
-							components: [...prev.components, component.slug],
+				setQueryParams(
+					(prev: IntegrationsSearchContextState['queryParams']) => {
+						const isChecked = prev.components.includes(component.slug)
+						if (isChecked) {
+							return {
+								...prev,
+								components: prev.components.filter(
+									(slug: IntegrationComponent['slug']) =>
+										slug !== component.slug
+								),
+							}
+						} else {
+							integrationLibraryFilterSelectedEvent({
+								filter_category: 'component',
+								filter_value: component.slug,
+							})
+							return {
+								...prev,
+								components: [...prev.components, component.slug],
+							}
 						}
 					}
-				})
+				)
 			},
 			toggleFlagChecked: (flag: Flag) => {
-				setQueryParams((prev: $TSFixMe) => {
-					const isChecked = prev.flags.includes(flag.slug)
-					if (isChecked) {
-						return {
-							...prev,
-							flags: prev.flags.filter(
-								(slug: Flag['slug']) => slug != flag.slug
-							),
-						}
-					} else {
-						integrationLibraryFilterSelectedEvent({
-							filter_category: 'flag',
-							filter_value: flag.slug,
-						})
-						return {
-							...prev,
-							flags: [...prev.flags, flag.slug],
+				setQueryParams(
+					(prev: IntegrationsSearchContextState['queryParams']) => {
+						const isChecked = prev.flags.includes(flag.slug)
+						if (isChecked) {
+							return {
+								...prev,
+								flags: prev.flags.filter(
+									(slug: Flag['slug']) => slug != flag.slug
+								),
+							}
+						} else {
+							integrationLibraryFilterSelectedEvent({
+								filter_category: 'flag',
+								filter_value: flag.slug,
+							})
+							return {
+								...prev,
+								flags: [...prev.flags, flag.slug],
+							}
 						}
 					}
-				})
+				)
 			},
 			toggleTierChecked: (tier: Tier) => {
-				setQueryParams((prev: $TSFixMe) => {
-					const isChecked = prev.tiers.includes(tier)
-					if (isChecked) {
-						return {
-							...prev,
-							tiers: prev.tiers.filter((_tier: Tier) => _tier !== tier),
-						}
-					} else {
-						integrationLibraryFilterSelectedEvent({
-							filter_category: 'tier',
-							filter_value: tier,
-						})
-						return {
-							...prev,
-							tiers: [...prev.tiers, tier],
+				setQueryParams(
+					(prev: IntegrationsSearchContextState['queryParams']) => {
+						const isChecked = prev.tiers.includes(tier)
+						if (isChecked) {
+							return {
+								...prev,
+								tiers: prev.tiers.filter((_tier: Tier) => _tier !== tier),
+							}
+						} else {
+							integrationLibraryFilterSelectedEvent({
+								filter_category: 'tier',
+								filter_value: tier,
+							})
+							return {
+								...prev,
+								tiers: [...prev.tiers, tier],
+							}
 						}
 					}
-				})
+				)
 			},
 			toggleTypeChecked: (type: IntegrationType) => {
-				setQueryParams((prev: $TSFixMe) => {
-					const isChecked = prev.types.includes(type.slug)
-					if (isChecked) {
-						return {
-							...prev,
-							types: prev.types.filter(
-								(slug: IntegrationType['slug']) => slug !== type.slug
-							),
-						}
-					} else {
-						integrationLibraryFilterSelectedEvent({
-							filter_category: 'type',
-							filter_value: type.name,
-						})
-						return {
-							...prev,
-							types: [...prev.types, type.slug],
+				setQueryParams(
+					(prev: IntegrationsSearchContextState['queryParams']) => {
+						const isChecked = prev.types.includes(type.slug)
+						if (isChecked) {
+							return {
+								...prev,
+								types: prev.types.filter(
+									(slug: IntegrationType['slug']) => slug !== type.slug
+								),
+							}
+						} else {
+							integrationLibraryFilterSelectedEvent({
+								filter_category: 'type',
+								filter_value: type.name,
+							})
+							return {
+								...prev,
+								types: [...prev.types, type.slug],
+							}
 						}
 					}
-				})
+				)
 			},
 		}
 	}, [setQueryParams])

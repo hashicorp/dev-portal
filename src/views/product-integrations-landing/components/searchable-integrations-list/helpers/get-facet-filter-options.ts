@@ -5,12 +5,33 @@ import {
 	IntegrationType,
 	Tier,
 } from 'lib/integrations-api-client/integration'
+import { IntegrationsSearchContextState } from 'views/product-integrations-landing/contexts/integrations-search-context/types'
+import { GetUniqueFacetArraysResult } from './get-unique-facet-arrays'
 
 interface FacetFilterOption {
 	id: string
 	label: string
 	onChange: () => void
 	selected: boolean
+}
+
+interface GetFacetFilterOptionsParams
+	extends GetUniqueFacetArraysResult,
+		Pick<
+			IntegrationsSearchContextState,
+			| 'queryParams'
+			| 'resetPage'
+			| 'toggleComponentChecked'
+			| 'toggleFlagChecked'
+			| 'toggleTierChecked'
+			| 'toggleTypeChecked'
+		> {}
+
+interface GetFacetFilterOptionsResult {
+	componentOptions: FacetFilterOption[]
+	flagOptions: FacetFilterOption[]
+	tierOptions: FacetFilterOption[]
+	typeOptions: FacetFilterOption[]
 }
 
 const getFacetFilterOptions = ({
@@ -24,12 +45,7 @@ const getFacetFilterOptions = ({
 	toggleFlagChecked,
 	toggleTierChecked,
 	toggleTypeChecked,
-}: $TSFixMe): {
-	componentOptions: FacetFilterOption[]
-	flagOptions: FacetFilterOption[]
-	tierOptions: FacetFilterOption[]
-	typeOptions: FacetFilterOption[]
-} => {
+}: GetFacetFilterOptionsParams): GetFacetFilterOptionsResult => {
 	const componentOptions = allComponents.map(
 		(component: IntegrationComponent) => {
 			return {
