@@ -6,7 +6,6 @@
 import { createContext, useContext, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useQueryParams } from 'use-query-params'
-import capitalize from '@hashicorp/platform-util/text/capitalize'
 import {
 	Flag,
 	Integration,
@@ -14,8 +13,10 @@ import {
 	IntegrationType,
 	Tier,
 } from 'lib/integrations-api-client/integration'
-import { integrationLibraryFilterSelectedEvent } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/analytics'
-import { getDoesMatchFilterQuery } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/get-filtered-integrations'
+import {
+	integrationLibraryFilterSelectedEvent,
+	getDoesMatchFilterQuery,
+} from 'views/product-integrations-landing/components/searchable-integrations-list/helpers'
 import {
 	IntegrationsSearchContextState,
 	IntegrationsSearchProviderProps,
@@ -33,10 +34,6 @@ export const IntegrationsSearchContext =
 IntegrationsSearchContext.displayName = 'IntegrationsSearchContext'
 
 export const IntegrationsSearchProvider = ({
-	allComponents,
-	allFlags,
-	allTiers,
-	allTypes,
 	children,
 	integrations,
 }: IntegrationsSearchProviderProps) => {
@@ -272,74 +269,6 @@ export const IntegrationsSearchProvider = ({
 	}, [integrations, page, pageSize, queryParams, router.isReady])
 
 	/**
-	 * Generate the options arrays for UI elements.
-	 *
-	 * @TODO move this to the component that actually renders UI?
-	 */
-	const { componentOptions, flagOptions, tierOptions, typeOptions } =
-		useMemo(() => {
-			return {
-				componentOptions: allComponents.map(
-					(component: IntegrationComponent) => {
-						return {
-							id: component.slug,
-							label: capitalize(component.plural_name),
-							onChange: () => {
-								resetPage()
-								toggleComponentChecked(component)
-							},
-							selected: queryParams.components.includes(component.slug),
-						}
-					}
-				),
-				flagOptions: allFlags.map((flag: Flag) => {
-					return {
-						id: flag.slug,
-						label: flag.name,
-						onChange: () => {
-							resetPage()
-							toggleFlagChecked(flag)
-						},
-						selected: queryParams.flags.includes(flag.slug),
-					}
-				}),
-				tierOptions: allTiers.map((tier: Tier) => {
-					return {
-						id: tier,
-						label: capitalize(tier),
-						onChange: () => {
-							resetPage()
-							toggleTierChecked(tier)
-						},
-						selected: queryParams.tiers.includes(tier),
-					}
-				}),
-				typeOptions: allTypes.map((type: IntegrationType) => {
-					return {
-						id: type.slug,
-						label: type.plural_name,
-						onChange: () => {
-							resetPage()
-							toggleTypeChecked(type)
-						},
-						selected: queryParams.types.includes(type.slug),
-					}
-				}),
-			}
-		}, [
-			allComponents,
-			allFlags,
-			allTiers,
-			allTypes,
-			queryParams,
-			resetPage,
-			toggleComponentChecked,
-			toggleFlagChecked,
-			toggleTierChecked,
-			toggleTypeChecked,
-		])
-
-	/**
 	 * If `isLoading` hasn't already been updated, and it's ready to be updated,
 	 * update it after a 1.5 second delay. The purpose of the delay is to
 	 */
@@ -356,21 +285,21 @@ export const IntegrationsSearchProvider = ({
 			value={{
 				atLeastOneFacetSelected,
 				clearFilters,
-				componentOptions,
 				filteredIntegrations,
-				filterQuery: queryParams.filterQuery,
-				flagOptions,
 				integrations,
 				isLoading,
 				page,
 				pageSize,
 				paginatedIntegrations,
+				queryParams,
 				resetPage,
 				setFilterQuery,
 				setPage,
 				setPageSize,
-				tierOptions,
-				typeOptions,
+				toggleComponentChecked,
+				toggleFlagChecked,
+				toggleTierChecked,
+				toggleTypeChecked,
 			}}
 		>
 			{children}

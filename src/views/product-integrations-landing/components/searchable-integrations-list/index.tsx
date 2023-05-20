@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import classNames from 'classnames'
 import { IconFilter16 } from '@hashicorp/flight-icons/svg-react/filter-16'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
@@ -18,8 +18,18 @@ import Legend from 'components/form/components/legend'
 import MultiSelect from 'components/multi-select'
 import Tag from 'components/tag'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
-import { integrationLibrarySearchedEvent } from './helpers/analytics'
+import {
+	integrationLibrarySearchedEvent,
+	getFacetFilterOptions,
+	getUniqueFacetArrays,
+	type FacetFilterOption,
+} from './helpers'
 import s from './style.module.css'
+
+interface FacetControlConfig {
+	name: string
+	options: FacetFilterOption[]
+}
 
 interface SearchableIntegrationsListProps {
 	className: string
@@ -32,19 +42,64 @@ export default function SearchableIntegrationsList({
 	const {
 		atLeastOneFacetSelected,
 		clearFilters,
-		componentOptions,
 		filteredIntegrations,
-		filterQuery,
-		flagOptions,
-		typeOptions,
+		integrations,
 		isLoading,
+		queryParams,
 		resetPage,
 		setFilterQuery,
-		tierOptions,
+		toggleComponentChecked,
+		toggleFlagChecked,
+		toggleTierChecked,
+		toggleTypeChecked,
 	} = useIntegrationsSearchContext()
 
+	const { allComponents, allFlags, allTiers, allTypes } = useMemo(() => {
+		return getUniqueFacetArrays({ integrations })
+	}, [integrations])
+
 	/**
-	 * Track an "integration_library_searched" event when the filterQuery changes
+	 * Create arrays of options for each facet.
+	 */
+	const { componentOptions, flagOptions, tierOptions, typeOptions } =
+		useMemo(() => {
+			return getFacetFilterOptions({
+				allComponents,
+				allFlags,
+				allTiers,
+				allTypes,
+				queryParams,
+				resetPage,
+				toggleComponentChecked,
+				toggleFlagChecked,
+				toggleTierChecked,
+				toggleTypeChecked,
+			})
+		}, [
+			allComponents,
+			allFlags,
+			allTiers,
+			allTypes,
+			queryParams,
+			resetPage,
+			toggleComponentChecked,
+			toggleFlagChecked,
+			toggleTierChecked,
+			toggleTypeChecked,
+		])
+
+	const facetControlsConfig = useMemo<FacetControlConfig[]>(() => {
+		return [
+			{ name: 'Tiers', options: tierOptions },
+			{ name: 'Components', options: componentOptions },
+			{ name: 'Flags', options: flagOptions },
+			{ name: 'Types', options: typeOptions },
+		]
+	}, [componentOptions, flagOptions, tierOptions, typeOptions])
+
+	/**
+	 * Track an "integration_library_searched" event when the
+	 * queryParams.filterQuery changes.
 	 *
 	 * Note: we only want to track this event if the query input is meaningful.
 	 * We consider query input lengths of more than 2 characters to be meaningful
@@ -54,13 +109,13 @@ export default function SearchableIntegrationsList({
 	 * Without useTypingDebounce, an event would fire on every character typed.
 	 */
 	const searchedEventCallback = useCallback(() => {
-		if (filterQuery.length > 2) {
+		if (queryParams.filterQuery.length > 2) {
 			integrationLibrarySearchedEvent({
-				search_query: filterQuery,
+				search_query: queryParams.filterQuery,
 				results_count: filteredIntegrations.length,
 			})
 		}
-	}, [filterQuery, filteredIntegrations.length])
+	}, [queryParams.filterQuery, filteredIntegrations.length])
 	useTypingDebounce(searchedEventCallback)
 
 	/**
@@ -79,7 +134,7 @@ export default function SearchableIntegrationsList({
 				<FilterInput
 					className={s.filterInput}
 					IconComponent={IconSearch16}
-					value={filterQuery}
+					value={queryParams.filterQuery}
 					onChange={(v: string) => {
 						resetPage()
 						setFilterQuery(v)
@@ -89,10 +144,17 @@ export default function SearchableIntegrationsList({
 				<div className={s.filterOptions}>
 					{/* tablet_up */}
 					<div className={classNames(s.selectStack, s.tablet_up)}>
-						<MultiSelect text="Tiers" options={tierOptions} />
-						<MultiSelect text="Components" options={componentOptions} />
-						<MultiSelect text="Flags" options={flagOptions} />
-						<MultiSelect text="Types" options={typeOptions} />
+						{facetControlsConfig.map(
+							({ name, options }: FacetControlConfig) => {
+								return (
+									<MultiSelect
+										key={`facet-multi-select-${name}`}
+										text={name}
+										options={options}
+									/>
+								)
+							}
+						)}
 					</div>
 					{/**
 					 * Technique ARIA22: Using role=status to present status messages
@@ -115,25 +177,15 @@ export default function SearchableIntegrationsList({
 				</div>
 
 				<div className={s.filterInfo}>
-					{/* Render x-tags for tiers */}
-					{tierOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
-						return selected && <Tag key={id} text={label} onRemove={onChange} />
-					})}
-					{/* Render x-tags for components */}
-					{componentOptions.map(
-						({ id, label, onChange, selected }: $TSFixMe) => {
-							return (
-								selected && <Tag key={id} text={label} onRemove={onChange} />
-							)
-						}
-					)}
-					{/* Render x-tags for flags */}
-					{flagOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
-						return selected && <Tag key={id} text={label} onRemove={onChange} />
-					})}
-					{/* Render x-tags for types */}
-					{typeOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
-						return selected && <Tag key={id} text={label} onRemove={onChange} />
+					{/* Render x-tags for each facet */}
+					{facetControlsConfig.map(({ options }: FacetControlConfig) => {
+						return options.map(
+							({ id, label, onChange, selected }: FacetFilterOption) => {
+								return selected ? (
+									<Tag key={id} text={label} onRemove={onChange} />
+								) : null
+							}
+						)
 					})}
 
 					{atLeastOneFacetSelected ? (
@@ -193,30 +245,25 @@ export default function SearchableIntegrationsList({
 				</div>
 
 				<div className={s.mobileFilters}>
-					<MobileFilters />
+					<MobileFilters facetControlsConfig={facetControlsConfig} />
 				</div>
 			</Dialog>
 		</div>
 	)
 }
 
-// Renders Tier/Component/Flags checkboxes
-function MobileFilters() {
-	const { componentOptions, flagOptions, tierOptions, typeOptions } =
-		useIntegrationsSearchContext()
-
+// Renders facet filter checkboxes
+function MobileFilters({
+	facetControlsConfig,
+}: {
+	facetControlsConfig: FacetControlConfig[]
+}) {
 	return (
 		<>
-			{[
-				{ name: 'Tier', options: tierOptions },
-				{ name: 'Component', options: componentOptions },
-				{ name: 'Flags', options: flagOptions },
-				{ name: 'Types', options: typeOptions },
-			].map(({ name, options }: $TSFixMe) => {
+			{facetControlsConfig.map(({ name, options }: FacetControlConfig) => {
 				if (!options.length) {
 					return null
 				}
-
 				return (
 					<div key={name} className={s.optionsContainer}>
 						<Legend>{name}</Legend>

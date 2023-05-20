@@ -4,13 +4,7 @@
  */
 
 import { ProductData } from 'types/products'
-import {
-	Flag,
-	IntegrationComponent,
-	Tier,
-	type Integration,
-	IntegrationType,
-} from 'lib/integrations-api-client/integration'
+import { type Integration } from 'lib/integrations-api-client/integration'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { type BreadcrumbLink } from 'components/breadcrumb-bar'
 import { type SidebarProps } from 'components/sidebar'
@@ -20,10 +14,6 @@ import SearchableIntegrationsList from './components/searchable-integrations-lis
 import s from './style.module.css'
 
 export interface ViewProps {
-	allComponents: IntegrationComponent[]
-	allFlags: Flag[]
-	allTiers: Tier[]
-	allTypes: IntegrationType[]
 	breadcrumbLinks: BreadcrumbLink[]
 	integrations: Integration[]
 	product: ProductData
@@ -31,23 +21,13 @@ export interface ViewProps {
 }
 
 export default function ProductIntegrationsLanding({
-	allComponents,
-	allFlags,
-	allTiers,
-	allTypes,
 	breadcrumbLinks,
 	integrations,
 	product,
 	sidebarNavDataLevels,
 }: ViewProps) {
 	return (
-		<IntegrationsSearchProvider
-			allComponents={allComponents}
-			allFlags={allFlags}
-			allTiers={allTiers}
-			allTypes={allTypes}
-			integrations={integrations}
-		>
+		<IntegrationsSearchProvider integrations={integrations}>
 			<SidebarSidecarLayout
 				breadcrumbLinks={breadcrumbLinks}
 				sidebarNavDataLevels={sidebarNavDataLevels}
