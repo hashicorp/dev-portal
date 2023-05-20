@@ -6,7 +6,7 @@
 import { useMemo } from 'react'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { useIntegrationsByProductSlugs } from 'hooks/integrations/use-integrations-by-product-slugs'
-import { getFilteredIntegrations } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/get-filtered-integrations'
+import { getFilteredIntegrations } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers'
 import { useCommandBar } from 'components/command-bar'
 import CustomHitsContainer from '../custom-hits-container'
 import NoResultsMessage from '../no-results-message'

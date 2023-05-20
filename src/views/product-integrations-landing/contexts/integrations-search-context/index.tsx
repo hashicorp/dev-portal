@@ -13,8 +13,10 @@ import {
 	IntegrationType,
 	Tier,
 } from 'lib/integrations-api-client/integration'
-import { integrationLibraryFilterSelectedEvent } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/analytics'
-import { getDoesMatchFilterQuery } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/get-filtered-integrations'
+import {
+	integrationLibraryFilterSelectedEvent,
+	getDoesMatchFilterQuery,
+} from 'views/product-integrations-landing/components/searchable-integrations-list/helpers'
 import {
 	IntegrationsSearchContextState,
 	IntegrationsSearchProviderProps,

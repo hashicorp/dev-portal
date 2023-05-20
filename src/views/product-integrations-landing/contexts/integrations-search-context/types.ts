@@ -7,13 +7,6 @@ import {
 	Tier,
 } from 'lib/integrations-api-client/integration'
 
-interface FacetFilterOption {
-	id: string
-	label: string
-	onChange: () => void
-	selected: boolean
-}
-
 interface IntegrationsSearchContextState {
 	atLeastOneFacetSelected: boolean
 	clearFilters: () => void
@@ -39,8 +32,4 @@ interface IntegrationsSearchProviderProps {
 	integrations: Integration[]
 }
 
-export type {
-	FacetFilterOption,
-	IntegrationsSearchContextState,
-	IntegrationsSearchProviderProps,
-}
+export type { IntegrationsSearchContextState, IntegrationsSearchProviderProps }

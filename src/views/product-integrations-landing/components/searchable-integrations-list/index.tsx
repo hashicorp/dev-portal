@@ -8,15 +8,7 @@ import classNames from 'classnames'
 import { IconFilter16 } from '@hashicorp/flight-icons/svg-react/filter-16'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
-import capitalize from '@hashicorp/platform-util/text/capitalize'
 import useTypingDebounce from 'lib/hooks/use-typing-debounce'
-import {
-	Flag,
-	Integration,
-	IntegrationComponent,
-	IntegrationType,
-	Tier,
-} from 'lib/integrations-api-client/integration'
 import { useIntegrationsSearchContext } from 'views/product-integrations-landing/contexts/integrations-search-context'
 import Button from 'components/button'
 import Dialog from 'components/dialog'
@@ -26,24 +18,15 @@ import Legend from 'components/form/components/legend'
 import MultiSelect from 'components/multi-select'
 import Tag from 'components/tag'
 import PaginatedIntegrationsList from '../paginated-integrations-list'
-import { integrationLibrarySearchedEvent } from './helpers/analytics'
+import {
+	integrationLibrarySearchedEvent,
+	getFacetFilterOptions,
+	getUniqueFacetArrays,
+} from './helpers'
 import s from './style.module.css'
 
 interface SearchableIntegrationsListProps {
 	className: string
-}
-
-// Returns logical sort ordering of a Tier
-const getTierSortValue = (tier: Tier): number => {
-	switch (tier) {
-		case Tier.OFFICIAL:
-			return 1
-		case Tier.PARTNER:
-			return 2
-		case Tier.COMMUNITY:
-		default:
-			return 3
-	}
 }
 
 export default function SearchableIntegrationsList({
@@ -66,96 +49,7 @@ export default function SearchableIntegrationsList({
 	} = useIntegrationsSearchContext()
 
 	const { allComponents, allFlags, allTiers, allTypes } = useMemo(() => {
-		/**
-		 * Get each facet's unique set of values.
-		 */
-		const componentsById: Record<
-			IntegrationComponent['id'],
-			IntegrationComponent
-		> = {}
-		const flagsById: Record<Flag['id'], Flag> = {}
-		const tiersSet = new Set<Tier>()
-		const typesById = new Set<IntegrationType>()
-		integrations.forEach((integration: Integration) => {
-			integration.components.forEach((component: IntegrationComponent) => {
-				if (!componentsById[component.id]) {
-					componentsById[component.id] = component
-				}
-			})
-			integration.flags.forEach((flag: Flag) => {
-				if (!flagsById[flag.id]) {
-					flagsById[flag.id] = flag
-				}
-			})
-			tiersSet.add(integration.tier)
-
-			const integrationType = integration.integration_type
-			if (integrationType && !typesById[integrationType.id]) {
-				typesById[integrationType.id] = integrationType
-			}
-		})
-
-		/**
-		 * Create flat, sorted arrays of objects for each facet.
-		 *
-		 * @TODO is the `occurances` property needed on each `IntegrationComponent`?
-		 */
-		const allComponents = Object.values(componentsById).sort(
-			(a: IntegrationComponent, b: IntegrationComponent) => {
-				const aName = a.name.toLowerCase()
-				const bName = b.name.toLowerCase()
-				if (aName < bName) {
-					return -1
-				}
-				if (aName > bName) {
-					return 1
-				}
-				return 0
-			}
-		)
-		const allFlags = Object.values(flagsById).sort((a: Flag, b: Flag) => {
-			const aName = a.name.toLowerCase()
-			const bName = b.name.toLowerCase()
-			if (aName < bName) {
-				return -1
-			}
-			if (aName > bName) {
-				return 1
-			}
-			return 0
-		})
-		const allTiers = Array.from(tiersSet).sort((a: Tier, b: Tier) => {
-			const aTierSortValue = getTierSortValue(a)
-			const bTierSortValue = getTierSortValue(b)
-			if (aTierSortValue < bTierSortValue) {
-				return -1
-			}
-			if (aTierSortValue > bTierSortValue) {
-				return 1
-			}
-			return 0
-		})
-		// @TODO should these be sorted? Not currently done in prod
-		const allTypes = Object.values(typesById).sort(
-			(a: IntegrationType, b: IntegrationType) => {
-				const aName = a.plural_name.toLowerCase()
-				const bName = b.plural_name.toLowerCase()
-				if (aName < bName) {
-					return -1
-				}
-				if (aName > bName) {
-					return 1
-				}
-				return 0
-			}
-		)
-
-		return {
-			allComponents,
-			allFlags,
-			allTiers,
-			allTypes,
-		}
+		return getUniqueFacetArrays({ integrations })
 	}, [integrations])
 
 	/**
@@ -163,54 +57,18 @@ export default function SearchableIntegrationsList({
 	 */
 	const { componentOptions, flagOptions, tierOptions, typeOptions } =
 		useMemo(() => {
-			return {
-				componentOptions: allComponents.map(
-					(component: IntegrationComponent) => {
-						return {
-							id: component.slug,
-							label: capitalize(component.plural_name),
-							onChange: () => {
-								resetPage()
-								toggleComponentChecked(component)
-							},
-							selected: queryParams.components.includes(component.slug),
-						}
-					}
-				),
-				flagOptions: allFlags.map((flag: Flag) => {
-					return {
-						id: flag.slug,
-						label: flag.name,
-						onChange: () => {
-							resetPage()
-							toggleFlagChecked(flag)
-						},
-						selected: queryParams.flags.includes(flag.slug),
-					}
-				}),
-				tierOptions: allTiers.map((tier: Tier) => {
-					return {
-						id: tier,
-						label: capitalize(tier),
-						onChange: () => {
-							resetPage()
-							toggleTierChecked(tier)
-						},
-						selected: queryParams.tiers.includes(tier),
-					}
-				}),
-				typeOptions: allTypes.map((type: IntegrationType) => {
-					return {
-						id: type.slug,
-						label: type.plural_name,
-						onChange: () => {
-							resetPage()
-							toggleTypeChecked(type)
-						},
-						selected: queryParams.types.includes(type.slug),
-					}
-				}),
-			}
+			return getFacetFilterOptions({
+				allComponents,
+				allFlags,
+				allTiers,
+				allTypes,
+				queryParams,
+				resetPage,
+				toggleComponentChecked,
+				toggleFlagChecked,
+				toggleTierChecked,
+				toggleTypeChecked,
+			})
 		}, [
 			allComponents,
 			allFlags,
