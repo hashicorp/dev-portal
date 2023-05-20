@@ -22,8 +22,14 @@ import {
 	integrationLibrarySearchedEvent,
 	getFacetFilterOptions,
 	getUniqueFacetArrays,
+	type FacetFilterOption,
 } from './helpers'
 import s from './style.module.css'
+
+interface FacetControlConfig {
+	name: string
+	options: FacetFilterOption[]
+}
 
 interface SearchableIntegrationsListProps {
 	className: string
@@ -82,6 +88,15 @@ export default function SearchableIntegrationsList({
 			toggleTypeChecked,
 		])
 
+	const facetControlsConfig = useMemo<FacetControlConfig[]>(() => {
+		return [
+			{ name: 'Tiers', options: tierOptions },
+			{ name: 'Components', options: componentOptions },
+			{ name: 'Flags', options: flagOptions },
+			{ name: 'Types', options: typeOptions },
+		]
+	}, [componentOptions, flagOptions, tierOptions, typeOptions])
+
 	/**
 	 * Track an "integration_library_searched" event when the
 	 * queryParams.filterQuery changes.
@@ -129,10 +144,17 @@ export default function SearchableIntegrationsList({
 				<div className={s.filterOptions}>
 					{/* tablet_up */}
 					<div className={classNames(s.selectStack, s.tablet_up)}>
-						<MultiSelect text="Tiers" options={tierOptions} />
-						<MultiSelect text="Components" options={componentOptions} />
-						<MultiSelect text="Flags" options={flagOptions} />
-						<MultiSelect text="Types" options={typeOptions} />
+						{facetControlsConfig.map(
+							({ name, options }: FacetControlConfig) => {
+								return (
+									<MultiSelect
+										key={`facet-multi-select-${name}`}
+										text={name}
+										options={options}
+									/>
+								)
+							}
+						)}
 					</div>
 					{/**
 					 * Technique ARIA22: Using role=status to present status messages
@@ -155,25 +177,15 @@ export default function SearchableIntegrationsList({
 				</div>
 
 				<div className={s.filterInfo}>
-					{/* Render x-tags for tiers */}
-					{tierOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
-						return selected && <Tag key={id} text={label} onRemove={onChange} />
-					})}
-					{/* Render x-tags for components */}
-					{componentOptions.map(
-						({ id, label, onChange, selected }: $TSFixMe) => {
-							return (
-								selected && <Tag key={id} text={label} onRemove={onChange} />
-							)
-						}
-					)}
-					{/* Render x-tags for flags */}
-					{flagOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
-						return selected && <Tag key={id} text={label} onRemove={onChange} />
-					})}
-					{/* Render x-tags for types */}
-					{typeOptions.map(({ id, label, onChange, selected }: $TSFixMe) => {
-						return selected && <Tag key={id} text={label} onRemove={onChange} />
+					{/* Render x-tags for each facet */}
+					{facetControlsConfig.map(({ options }: FacetControlConfig) => {
+						return options.map(
+							({ id, label, onChange, selected }: FacetFilterOption) => {
+								return selected ? (
+									<Tag key={id} text={label} onRemove={onChange} />
+								) : null
+							}
+						)
 					})}
 
 					{atLeastOneFacetSelected ? (
@@ -233,37 +245,25 @@ export default function SearchableIntegrationsList({
 				</div>
 
 				<div className={s.mobileFilters}>
-					<MobileFilters
-						componentOptions={componentOptions}
-						flagOptions={flagOptions}
-						tierOptions={tierOptions}
-						typeOptions={typeOptions}
-					/>
+					<MobileFilters facetControlsConfig={facetControlsConfig} />
 				</div>
 			</Dialog>
 		</div>
 	)
 }
 
-// Renders Tier/Component/Flags checkboxes
+// Renders facet filter checkboxes
 function MobileFilters({
-	componentOptions,
-	flagOptions,
-	tierOptions,
-	typeOptions,
-}: $TSFixMe) {
+	facetControlsConfig,
+}: {
+	facetControlsConfig: FacetControlConfig[]
+}) {
 	return (
 		<>
-			{[
-				{ name: 'Tier', options: tierOptions },
-				{ name: 'Component', options: componentOptions },
-				{ name: 'Flags', options: flagOptions },
-				{ name: 'Types', options: typeOptions },
-			].map(({ name, options }: $TSFixMe) => {
+			{facetControlsConfig.map(({ name, options }: FacetControlConfig) => {
 				if (!options.length) {
 					return null
 				}
-
 				return (
 					<div key={name} className={s.optionsContainer}>
 						<Legend>{name}</Legend>
