@@ -32,6 +32,6 @@
 				"register": "https://cp.certmetrics.com/hashicorp/en/login"
 			},
 			"faqSlug": "terraform-associate-002"
-		}
+		} 
 	]
 }
