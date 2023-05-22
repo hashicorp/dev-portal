@@ -226,7 +226,6 @@ function TutorialView({
 		collectionTutorialIds,
 	})
 
-	console.log(metadata.variant)
 	return (
 		<>
 			<Head>
