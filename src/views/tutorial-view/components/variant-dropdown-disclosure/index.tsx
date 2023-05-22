@@ -12,12 +12,12 @@ import {
 import { VariantDropdownDisclosureProps } from './types'
 import s from './variant-dropdown-disclosure.module.css'
 
+/** @TODO add onclick for cookie setting */
+
 export function VariantDropdownDisclosure({
 	variant,
 	isFullWidth,
 }: VariantDropdownDisclosureProps) {
-	// @TODO hook this into useVariants hook once data is wired
-	const activeOption = variant.options[0]
 	const labelId = useId()
 	const { asPath } = useRouter()
 
@@ -29,11 +29,11 @@ export function VariantDropdownDisclosure({
 			<DropdownDisclosure
 				aria-describedby={labelId}
 				color="secondary"
-				text={activeOption.name}
+				text={variant.activeOption.name}
 				isFullWidth={isFullWidth}
 			>
 				{variant.options.map((option: TutorialVariantOption) => {
-					if (option.slug === activeOption.slug) {
+					if (option.slug === variant.activeOption.slug) {
 						return null
 					}
 

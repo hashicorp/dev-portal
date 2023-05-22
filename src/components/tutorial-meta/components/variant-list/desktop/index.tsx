@@ -12,8 +12,6 @@ import { useRouter } from 'next/router'
 import s from './desktop-variant-list.module.css'
 
 export function DesktopVariantList({ variant }: { variant: TutorialVariant }) {
-	// @TODO hook this into a useVariants hook
-	const activeVariantOption = variant.options[0]
 	const VARIANT_LIST_ID = 'variant-list-label'
 	const { asPath } = useRouter()
 
@@ -26,7 +24,7 @@ export function DesktopVariantList({ variant }: { variant: TutorialVariant }) {
 				<ul aria-labelledby={VARIANT_LIST_ID} className={s.list}>
 					{variant.options.map((option: TutorialVariantOption) => {
 						const variantParam = getVariantParam(variant.slug, option.slug)
-						const isActiveOption = activeVariantOption.slug === option.slug
+						const isActiveOption = variant.activeOption.slug === option.slug
 						return (
 							<li key={option.slug}>
 								<Link
