@@ -30,6 +30,7 @@ import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
+import { getTutorialViewVariantData } from './utils/variants'
 
 /**
  * Given a ProductData object (imported from src/data JSON files) and a tutorial
@@ -70,23 +71,10 @@ export async function getTutorialPageProps(
 	}
 
 	const variantSlug = fullSlug[2]
-	let variant = undefined
-
-	// @TODO, the variant data will be passed from the API, check for that in the
-	// tutorial data
-	if (variantSlug) {
-		// slugs in the query params are formatted like ?variants=slug:optionSlug
-		const VARIANT_SLUG_SPLIT_CHAR = ':'
-		const [slug, optionSlug] = variantSlug.split(VARIANT_SLUG_SPLIT_CHAR)
-
-		if (slug && optionSlug) {
-			// @TODO, expand this to pass the active variant option and all variant option data
-			variant = {
-				slug,
-				optionSlug,
-			}
-		}
-	}
+	const variant = getTutorialViewVariantData(
+		variantSlug,
+		fullTutorialData.variant
+	)
 
 	const { content: serializedContent, headings } = await serializeContent(
 		fullTutorialData

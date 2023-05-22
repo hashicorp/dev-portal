@@ -1,12 +1,12 @@
-export interface TutorialVariant {
-	id: string
-	slug: string
-	name: string
-	options: TutorialVariantOption[]
+import {
+	TutorialVariant as ClientTutorialVariant,
+	TutorialVariantOption as ClientTutorialVariantOption,
+} from 'lib/learn-client/types'
+
+// @TODO rename to TutorialViewVariant? Wait until rebase to avoid conflicts
+
+export interface TutorialVariant extends ClientTutorialVariant {
+	activeOption: TutorialVariantOption
 }
 
-export interface TutorialVariantOption {
-	id: string
-	name: string
-	slug: string
-}
+export type TutorialVariantOption = ClientTutorialVariantOption
