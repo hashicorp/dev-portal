@@ -115,10 +115,17 @@ const DropdownDisclosureLinkItem = ({
 	icon,
 	rel,
 	target,
+	onClick,
 }: DropdownDisclosureLinkItemProps) => {
 	return (
 		<DropdownDisclosureListItem>
-			<Link className={s.link} href={href} rel={rel} target={target}>
+			<Link
+				className={s.link}
+				href={href}
+				rel={rel}
+				target={target}
+				onClick={onClick}
+			>
 				<Text asElement="span" size={200} weight="medium">
 					{children}
 				</Text>

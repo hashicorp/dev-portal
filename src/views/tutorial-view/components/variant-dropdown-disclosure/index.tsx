@@ -7,6 +7,7 @@ import Text from 'components/text'
 import {
 	getVariantParam,
 	getVariantPath,
+	handleVariantCookie,
 	TutorialVariantOption,
 } from 'views/tutorial-view/utils/variants'
 import { VariantDropdownDisclosureProps } from './types'
@@ -44,6 +45,9 @@ export function VariantDropdownDisclosure({
 								asPath,
 								getVariantParam(variant.slug, option.slug)
 							)}
+							onClick={() => {
+								handleVariantCookie(variant.slug, option.slug)
+							}}
 						>
 							{option.name}
 						</DropdownDisclosureLinkItem>
