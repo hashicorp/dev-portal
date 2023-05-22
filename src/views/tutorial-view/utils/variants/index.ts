@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import {
 	TutorialVariant as ClientTutorialVariant,
 	TutorialVariantOption as ClientTutorialVariantOption,
@@ -23,6 +24,16 @@ export function getVariantParam(
 	optionSlug: TutorialVariantOption['slug']
 ) {
 	return `${slug}:${optionSlug}`
+}
+
+export function handleVariantCookie(slug: string, optionSlug: string) {
+	const key = `variant-${slug}`
+	const value = Cookies.get(key)
+
+	// if it exists and its not already set with the same value
+	if (!value || value !== optionSlug) {
+		Cookies.set(`variant-${slug}`, optionSlug)
+	}
 }
 
 export function getTutorialViewVariantData(
