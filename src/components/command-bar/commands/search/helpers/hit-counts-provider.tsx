@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { SearchableContentType } from 'contexts'
 import { ReactNode, createContext, useContext, useState } from 'react'
 
