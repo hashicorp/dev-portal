@@ -283,7 +283,6 @@ function TutorialView({
 									hasVideo,
 								}}
 								tutorialId={id}
-								variant={metadata.variant ? metadata.variant : undefined}
 							/>
 							<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
 							{hasVideo && video.id && !video.videoInline && (

@@ -5,7 +5,6 @@
 
 import useAuthentication from 'hooks/use-authentication'
 import { TutorialData } from 'views/tutorial-view'
-import { TutorialVariant } from 'views/tutorial-view/utils/variants'
 import Heading from 'components/heading'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
@@ -21,14 +20,12 @@ interface TutorialMetaProps {
 		hasVideo: boolean
 	}
 	tutorialId: TutorialData['id']
-	variant?: TutorialVariant
 }
 
 export default function TutorialMeta({
 	heading,
 	meta,
 	tutorialId,
-	variant,
 }: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 
@@ -80,7 +77,7 @@ export default function TutorialMeta({
 					to bookmark tutorials.
 				</Text>
 			) : null}
-			{variant ? <VariantList variant={variant} /> : null}
+			<VariantList />
 		</header>
 	)
 }
