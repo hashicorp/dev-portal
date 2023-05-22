@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { useVariants } from './context'
+import { useVariant } from './context'
 import { TutorialVariantOption } from './types'
 
 interface MdxVariantProps {
@@ -9,16 +9,16 @@ interface MdxVariantProps {
 }
 
 export function MdxVariant({ slug, option, children }: MdxVariantProps) {
-	const { activeVariant } = useVariants()
+	const { currentVariant } = useVariant()
 	const shouldRenderContent =
-		activeVariant.slug === slug && activeVariant.activeOption.slug === option
-	const isValidVariantOption = activeVariant.options.find(
+		currentVariant.slug === slug && currentVariant.activeOption.slug === option
+	const isValidVariantOption = currentVariant.options.find(
 		(o: TutorialVariantOption) => o.slug === option
 	)
 
 	if (!isValidVariantOption) {
 		throw new Error(
-			`[mdx-variant]: Option not valid for variant: '${slug}'. Please pass a slug of available options — ${activeVariant.options
+			`[mdx-variant]: Option not valid for variant: '${slug}'. Please pass one of the available options — ${currentVariant.options
 				.map((o: TutorialVariantOption) => o.slug)
 				.join(', ')}`
 		)
