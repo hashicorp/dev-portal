@@ -1,7 +1,7 @@
 import { VariantDropdownDisclosure } from 'views/tutorial-view/components'
+import { useVariant } from 'views/tutorial-view/utils/variants/context'
 import { DesktopVariantList } from './desktop'
 import s from './variant-list.module.css'
-import { useVariant } from 'views/tutorial-view/utils/variants/context'
 
 export function VariantList() {
 	const { currentVariant } = useVariant()
