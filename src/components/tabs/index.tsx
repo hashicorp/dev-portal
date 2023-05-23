@@ -74,7 +74,7 @@ const Tabs = ({
 
 	return (
 		<TabNestingProvider>
-			<div>
+			<>
 				<div
 					className={classNames(s.tabControls, s[`variant--${variant}`], {
 						[s.isCheckingOverflow]: hasOverflow === null,
@@ -114,7 +114,7 @@ const Tabs = ({
 						</div>
 					)
 				})}
-			</div>
+			</>
 		</TabNestingProvider>
 	)
 }

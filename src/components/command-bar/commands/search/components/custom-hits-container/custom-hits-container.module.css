@@ -7,3 +7,9 @@
 	margin-bottom: 12px;
 	margin-top: 12px;
 }
+
+.noResultsSlot {
+	display: flex;
+	flex-direction: column;
+	flex: 1 0 0;
+}

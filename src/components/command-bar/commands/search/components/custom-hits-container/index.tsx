@@ -44,7 +44,7 @@ const CustomHitsContainer = ({
 			? integrationsHits && integrationsHits.length <= 0
 			: hits && hits.length <= 0
 	if (shouldShowNoResultsSlot) {
-		return <>{noResultsSlot}</>
+		return <div className={s.noResultsSlot}>{noResultsSlot}</div>
 	}
 
 	const labelElementId = `${type}-search-results-label`
