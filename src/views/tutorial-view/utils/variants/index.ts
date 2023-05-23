@@ -26,6 +26,17 @@ export function getVariantParam(
 	return `${slug}:${optionSlug}`
 }
 
+/**
+ * All variant cookie data is stored as a stringified object
+ * with the shape { slug : optionSlug }, real world usecase:
+ * {"operating-system":"macos","deploy":"hcp"}
+ *
+ * This function checks for the `variants` cookie, parses the
+ * object and looks for the variant slug as a property on that object
+ * If its not set, the property / value is added, otherwise its overwritten
+ *
+ */
+
 export function handleVariantCookie(slug: string, optionSlug: string) {
 	const key = 'variants'
 	const allVariants = Cookies.get(key)
@@ -41,7 +52,6 @@ export function handleVariantCookie(slug: string, optionSlug: string) {
 
 	const optionValue = variantsObj[slug]
 
-	// if it doesnt exist, set it, if not check that its not already set with the same value
 	if (!optionValue || optionValue !== optionSlug) {
 		variantsObj[slug] = optionSlug
 		Cookies.set(key, JSON.stringify(variantsObj))
