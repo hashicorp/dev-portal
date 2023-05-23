@@ -70,23 +70,26 @@ async function getVariantRewrites() {
 		(tutorial) => tutorial.variants?.length > 0
 	)
 
+	// mabye build from collection
 	// build each path with the correct cookie
 	return tutorialVariants.flatMap((tutorial) => {
 		const tutorialFilename = tutorial.slug.split('/')[1]
 		// we only support 1 variant right now
 		const variant = tutorial.variants[0]
 
-		return variant.options.map((option) => ({
-			source: `/:product/tutorials/:collection/${tutorialFilename}`,
-			destination: `/:product/tutorials/:collection/${tutorialFilename}/${variant.slug}:${option.slug}`,
-			has: [
-				{
-					type: 'cookie',
-					key: variant.slug,
-					value: option.slug,
+		return tutorial.featured_collections.map((collection) => {
+			const [product, collectionFilename] = collection.slug.split('/')
+
+			const rewrite = {
+				path: `/${product}/tutorials/${collectionFilename}/${tutorialFilename}`,
+				variant: {
+					slug: variant.slug,
+					options: variant.options.map(({ slug }) => slug),
 				},
-			],
-		}))
+			}
+
+			return rewrite
+		})
 	})
 }
 

@@ -88,7 +88,7 @@ async function rewritesConfig() {
 	return {
 		variantRewrites,
 		generalRewrites: {
-			beforeFiles: [...dotIoRewrites, ...variantRewrites],
+			beforeFiles: [...dotIoRewrites],
 		},
 	}
 }
