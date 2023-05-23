@@ -162,11 +162,8 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 		try {
 			const cookie = req.cookies.get('variants')
-			console.log({ cookie })
 			const allVariantsCookie = JSON.parse(cookie.value)
 			variantOption = allVariantsCookie[tutorialVariant.slug]
-
-			console.log(variantOption)
 		} catch (e) {
 			console.log(e)
 		}
