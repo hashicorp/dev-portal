@@ -26,15 +26,24 @@ export function getVariantParam(
 	return `${slug}:${optionSlug}`
 }
 
-export function handleVariantCookie(id: string, optionId: string) {
+export function handleVariantCookie(slug: string, optionSlug: string) {
 	const key = 'variants'
 	const allVariants = Cookies.get(key)
-	const variantsObj = allVariants ? JSON.parse(allVariants) : {}
-	const optionValue = variantsObj[id]
+	let variantsObj = {}
+
+	try {
+		if (allVariants) {
+			variantsObj = JSON.parse(allVariants)
+		}
+	} catch (e) {
+		console.error('[handleVariantCookie]: Error parsing variants cookie ', e)
+	}
+
+	const optionValue = variantsObj[slug]
 
 	// if it doesnt exist, set it, if not check that its not already set with the same value
-	if (!optionValue || optionValue !== optionId) {
-		variantsObj[id] = optionId
+	if (!optionValue || optionValue !== optionSlug) {
+		variantsObj[slug] = optionSlug
 		Cookies.set(key, JSON.stringify(variantsObj))
 	}
 }
