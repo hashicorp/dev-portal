@@ -39,20 +39,19 @@ export function getVariantParam(
 
 export function handleVariantCookie(slug: string, optionSlug: string) {
 	const key = 'variants'
-	const allVariants = Cookies.get(key)
 	let variantsObj = {}
 
 	try {
-		if (allVariants) {
-			variantsObj = JSON.parse(allVariants)
+		const variantsCookie = Cookies.get(key)
+
+		if (variantsCookie) {
+			variantsObj = JSON.parse(variantsCookie)
 		}
 	} catch (e) {
 		console.error('[handleVariantCookie]: Error parsing variants cookie ', e)
 	}
 
-	const optionValue = variantsObj[slug]
-
-	if (!optionValue || optionValue !== optionSlug) {
+	if (!variantsObj[slug] || variantsObj[slug] !== optionSlug) {
 		variantsObj[slug] = optionSlug
 		Cookies.set(key, JSON.stringify(variantsObj))
 	}
