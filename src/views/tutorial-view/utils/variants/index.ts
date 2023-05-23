@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import {
 	TutorialVariant as ClientTutorialVariant,
 	TutorialVariantOption as ClientTutorialVariantOption,
@@ -23,6 +24,37 @@ export function getVariantParam(
 	optionSlug: TutorialVariantOption['slug']
 ) {
 	return `${slug}:${optionSlug}`
+}
+
+/**
+ * All variant cookie data is stored as a stringified object
+ * with the shape { slug : optionSlug }, real world usecase:
+ * {"operating-system":"macos","deploy":"hcp"}
+ *
+ * This function checks for the `variants` cookie, parses the
+ * object and looks for the variant slug as a property on that object
+ * If its not set, the property / value is added, otherwise its overwritten
+ *
+ */
+
+export function handleVariantCookie(slug: string, optionSlug: string) {
+	const key = 'variants'
+	let variantsObj = {}
+
+	try {
+		const variantsCookie = Cookies.get(key)
+
+		if (variantsCookie) {
+			variantsObj = JSON.parse(variantsCookie)
+		}
+	} catch (e) {
+		console.error('[handleVariantCookie]: Error parsing variants cookie ', e)
+	}
+
+	if (!variantsObj[slug] || variantsObj[slug] !== optionSlug) {
+		variantsObj[slug] = optionSlug
+		Cookies.set(key, JSON.stringify(variantsObj))
+	}
 }
 
 export function getTutorialViewVariantData(

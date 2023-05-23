@@ -1,5 +1,3 @@
-// @TODO uncomment when enabling cookies
-// import Cookies from 'js-cookie'
 import Link from 'components/link'
 import classNames from 'classnames'
 import {
@@ -7,6 +5,7 @@ import {
 	TutorialVariantOption,
 	getVariantParam,
 	getVariantPath,
+	handleVariantCookie,
 } from 'views/tutorial-view/utils/variants'
 import { useRouter } from 'next/router'
 import s from './desktop-variant-list.module.css'
@@ -32,12 +31,7 @@ export function DesktopVariantList({ variant }: { variant: TutorialVariant }) {
 									href={getVariantPath(asPath, variantParam)}
 									aria-current={isActiveOption ? 'page' : undefined}
 									onClick={() => {
-										// @TODO add this in when we have real data to check against
-										// const variantCookie = Cookies.get(variant.slug)
-										// // if it exists and its not already set with the same value
-										// if (!variantCookie || variantCookie !== variantParam) {
-										// 	Cookies.set(variant.id, variantParam)
-										// }
+										handleVariantCookie(variant.slug, option.slug)
 									}}
 								>
 									{option.name}
