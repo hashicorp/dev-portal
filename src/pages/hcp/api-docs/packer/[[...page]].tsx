@@ -70,7 +70,7 @@ export const getStaticPaths: GetStaticPaths<ApiDocsParams> = async () => {
 	}
 	// Otherwise, fetch version data, and use that to generate paths
 	const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
-	return await getApiDocsStaticPaths(PRODUCT_SLUG, versionData)
+	return await getApiDocsStaticPaths({ productSlug: PRODUCT_SLUG, versionData })
 }
 
 /**
