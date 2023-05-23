@@ -58,9 +58,7 @@ async function fetchTutorials(after) {
 	}
 }
 
-// rewrite /:product/tutorials/:collection/tutorial?variants="slug:optionSlug"
-// with proper cookie
-// to /:product/tutorials/:collection/tutorial/{slug:optionSlug}
+// @TODO write comment
 async function getVariantRewrites() {
 	// get all tutorial paths with variants
 	const allTutorials = await fetchAll({})
@@ -69,28 +67,26 @@ async function getVariantRewrites() {
 	const tutorialVariants = allTutorials.filter(
 		(tutorial) => tutorial.variants?.length > 0
 	)
+	const variantsObj = {}
 
-	// mabye build from collection
-	// build each path with the correct cookie
-	return tutorialVariants.flatMap((tutorial) => {
+	// for each tutorial that has variants defined
+	tutorialVariants.map((tutorial) => {
 		const tutorialFilename = tutorial.slug.split('/')[1]
-		// we only support 1 variant right now
-		const variant = tutorial.variants[0]
+		const variant = tutorial.variants[0] // we only support 1 variant right now
 
-		return tutorial.featured_collections.map((collection) => {
+		// map over the collection paths to build up each tutorial path with the variant options
+		tutorial.featured_collections.map((collection) => {
 			const [product, collectionFilename] = collection.slug.split('/')
+			const path = `/${product}/tutorials/${collectionFilename}/${tutorialFilename}`
 
-			const rewrite = {
-				path: `/${product}/tutorials/${collectionFilename}/${tutorialFilename}`,
-				variant: {
-					slug: variant.slug,
-					options: variant.options.map(({ slug }) => slug),
-				},
+			variantsObj[path] = {
+				slug: variant.slug,
+				options: variant.options.map(({ slug }) => slug),
 			}
-
-			return rewrite
 		})
 	})
+
+	return variantsObj
 }
 
 module.exports = { getVariantRewrites }
