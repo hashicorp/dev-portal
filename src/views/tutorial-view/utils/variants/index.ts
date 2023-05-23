@@ -26,13 +26,16 @@ export function getVariantParam(
 	return `${slug}:${optionSlug}`
 }
 
-export function handleVariantCookie(slug: string, optionSlug: string) {
-	const key = `variant-${slug}`
-	const value = Cookies.get(key)
+export function handleVariantCookie(id: string, optionId: string) {
+	const key = 'variants'
+	const allVariants = Cookies.get(key)
+	const variantsObj = allVariants ? JSON.parse(allVariants) : {}
+	const optionValue = variantsObj[id]
 
-	// if it exists and its not already set with the same value
-	if (!value || value !== optionSlug) {
-		Cookies.set(`variant-${slug}`, optionSlug)
+	// if it doesnt exist, set it, if not check that its not already set with the same value
+	if (!optionValue || optionValue !== optionId) {
+		variantsObj[id] = optionId
+		Cookies.set(key, JSON.stringify(variantsObj))
 	}
 }
 
