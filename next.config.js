@@ -98,17 +98,22 @@ module.exports = withSwingset({
 			return globRedirects
 		},
 		async rewrites() {
-			const rewrites = await rewritesConfig()
+			const { variantRewrites, generalRewrites } = await rewritesConfig()
+			await fs.promises.writeFile(
+				path.join('src', 'data', '_variant-rewrites.generated.json'),
+				JSON.stringify(variantRewrites, null, 2),
+				'utf-8'
+			)
 
 			if (process.env.DEBUG_REWRITES) {
 				await fs.promises.writeFile(
 					path.join('src', 'data', '_rewrites.generated.json'),
-					JSON.stringify(rewrites, null, 2),
+					JSON.stringify(generalRewrites, null, 2),
 					'utf-8'
 				)
 			}
 
-			return rewrites
+			return generalRewrites
 		},
 		env: {
 			ASSET_API_ENDPOINT: process.env.ASSET_API_ENDPOINT,

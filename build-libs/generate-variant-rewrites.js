@@ -78,11 +78,11 @@ async function getVariantRewrites() {
 
 		return variant.options.map((option) => ({
 			source: `/:product/tutorials/:collection/${tutorialFilename}`,
-			destination: `/:product/tutorials/:collection/${tutorialFilename}/${option.slug}`,
+			destination: `/:product/tutorials/:collection/${tutorialFilename}/${variant.slug}:${option.slug}`,
 			has: [
 				{
 					type: 'cookie',
-					key: `variant-${tutorial.variant}`,
+					key: variant.slug,
 					value: option.slug,
 				},
 			],

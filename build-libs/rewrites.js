@@ -84,8 +84,12 @@ const dotIoRewrites = productsToProxy.reduce((acc, slug) => {
 
 async function rewritesConfig() {
 	const variantRewrites = await getVariantRewrites()
+
 	return {
-		beforeFiles: [...dotIoRewrites, ...variantRewrites],
+		variantRewrites,
+		generalRewrites: {
+			beforeFiles: [...dotIoRewrites, ...variantRewrites],
+		},
 	}
 }
 
