@@ -66,22 +66,24 @@ async function getVariantRewrites() {
 	const allTutorials = await fetchAll({})
 
 	// filter out those that don't have variants
-	const tutorialVariants = allTutorials.filter((tutorial) =>
-		Boolean(tutorial.variant)
+	const tutorialVariants = allTutorials.filter(
+		(tutorial) => tutorial.variants?.length > 0
 	)
 
 	// build each path with the correct cookie
 	return tutorialVariants.flatMap((tutorial) => {
 		const tutorialFilename = tutorial.slug.split('/')[1]
+		// we only support 1 variant right now
+		const variant = tutorial.variants[0]
 
-		return tutorial.variant.map((variantOption) => ({
+		return variant.options.map((option) => ({
 			source: `/:product/tutorials/:collection/${tutorialFilename}`,
-			destination: `/:product/tutorials/:collection/${tutorialFilename}/${variantOption.id}`,
+			destination: `/:product/tutorials/:collection/${tutorialFilename}/${option.slug}`,
 			has: [
 				{
 					type: 'cookie',
 					key: `variant-${tutorial.variant}`,
-					value: variantOption.id,
+					value: option.slug,
 				},
 			],
 		}))
