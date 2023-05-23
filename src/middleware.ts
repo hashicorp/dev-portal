@@ -6,10 +6,12 @@
 import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
+import variantRewrites from 'data/_variant-rewrites.generated.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 import { getEdgeFlags } from 'flags/edge'
 import optInRedirectChecks from '.generated/opt-in-redirect-checks'
+import { getVariantParam } from 'views/tutorial-view/utils/variants'
 
 function determineProductSlug(req: NextRequest): string {
 	// .io preview on dev portal
@@ -121,8 +123,15 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	 *
 	 * Request path: /{product}/tutorials/{collection}/{tutorial}?variants={slug:optionSlug}
 	 * Rendered path: /{product}/tutorials/{collection}/{tutorial}/{variant}
+	 *
+	 *
+	 * Check for the `variants` cookie
+	 * Check if the current tutorial path is on the variant rewrites sheet
+	 * If so, check for the variant object
+	 * If present, redirect to the option
 	 */
 
+	// potentially check for the variantRewrites[req.nextUrl.pathname] instead of just includes /tutorials
 	if (
 		req.nextUrl.pathname.includes('/tutorials') &&
 		req.nextUrl.searchParams.has('variants')
@@ -134,6 +143,39 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		url.searchParams.delete('variants')
 		// rewrite to the static route
 		url.pathname = `${url.pathname}/${variant}`
+		response = NextResponse.rewrite(url)
+	}
+
+	// Check for the `variants` cookie
+	//  * Check if the current tutorial path is on the variant rewrites sheet
+	//  * If so, check for the variant object
+	//  * If present, redirect to the option
+
+	// if the pathname includes tutorials,
+	// the path is included in variants data as having a variant
+	// the cookie exists and has the associated value
+
+	if (req.cookies.get('variants') && variantRewrites[req.nextUrl.pathname]) {
+		const url = req.nextUrl.clone()
+		const tutorialVariant = variantRewrites[req.nextUrl.pathname]
+		let variantOption
+
+		try {
+			const cookie = req.cookies.get('variants')
+			console.log({ cookie })
+			const allVariantsCookie = JSON.parse(cookie.value)
+			variantOption = allVariantsCookie[tutorialVariant.slug]
+
+			console.log(variantOption)
+		} catch (e) {
+			console.log(e)
+		}
+
+		// rewrite to the static route
+		url.pathname = `${url.pathname}/${getVariantParam(
+			tutorialVariant.slug,
+			variantOption
+		)}`
 		response = NextResponse.rewrite(url)
 	}
 
