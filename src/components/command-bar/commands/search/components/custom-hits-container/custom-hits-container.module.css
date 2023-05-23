@@ -8,6 +8,10 @@
 	margin-top: 12px;
 }
 
+/**
+ * Flex attributes here allow specific pieces of content in the "No Results"
+ * to grow to fill the container.
+ */
 .noResultsSlot {
 	display: flex;
 	flex-direction: column;

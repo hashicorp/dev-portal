@@ -3,6 +3,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+/**
+ * Flex attributes here ensure the `no-results-message` eats up any
+ * remaining vertical space in the parent container, and also ensure
+ * the content of the `no-results-message` is vertically centered.
+ */
 .root {
 	color: var(--token-color-foreground-primary);
 	display: flex;
