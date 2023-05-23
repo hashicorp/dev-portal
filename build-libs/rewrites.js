@@ -7,6 +7,7 @@
 
 const proxySettings = require('./proxy-settings')
 const { getProxiedProductSlug, isPreview } = require('../src/lib/env-checks')
+const { getVariantRewrites } = require('./generate-variant-rewrites')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 
@@ -82,8 +83,9 @@ const dotIoRewrites = productsToProxy.reduce((acc, slug) => {
 }, [])
 
 async function rewritesConfig() {
+	const variantRewrites = await getVariantRewrites()
 	return {
-		beforeFiles: [...dotIoRewrites],
+		beforeFiles: [...dotIoRewrites, ...variantRewrites],
 	}
 }
 
