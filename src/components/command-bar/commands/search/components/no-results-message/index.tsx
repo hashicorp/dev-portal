@@ -31,7 +31,7 @@ function NoResultsMessage({
 	return (
 		<div className={s.root}>
 			<Text asElement="p" size={300} weight="medium">
-				Sorry, no matches for &Prime;{currentInputValue}&Prime; were found
+				No matches for &Prime;{currentInputValue}&Prime; were found
 				{tabsWithResults.length > 0 ? ` within ${currentTabHeading}.` : '.'}
 			</Text>
 			{tabsWithResults.length > 0 ? (
