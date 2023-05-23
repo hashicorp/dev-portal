@@ -35,7 +35,7 @@ function NoResultsMessage({
 				{tabsWithResults.length > 0 ? ` within ${currentTabHeading}.` : '.'}
 			</Text>
 			{tabsWithResults.length > 0 ? (
-				<Text asElement="p" size={300}>
+				<Text className={s.checkOtherTabs} asElement="p" size={200}>
 					Check the{' '}
 					{tabsWithResults.map((otherTab, idx) => {
 						const isLastItem = idx === tabsWithResults.length - 1

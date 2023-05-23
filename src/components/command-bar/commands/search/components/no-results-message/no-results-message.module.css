@@ -9,9 +9,13 @@
 	color: var(--token-color-foreground-primary);
 }
 
+.checkOtherTabs {
+	margin-top: 2px;
+}
+
 .otherTab {
 	font-weight: var(--token-typography-font-weight-medium);
-	margin: 0 0.25em;
+	margin: 0 0.2em;
 }
 
 .otherTabIcon {
