@@ -1,23 +1,82 @@
 .root {
-	/* TODO */
+	background-color: var(--token-color-surface-faint);
+	height: 100%;
+	overflow: hidden;
+	padding: 0;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: space-between;
+	padding-bottom: 24px;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.headerImage {
+	background-position: center center;
+	height: 86px;
+	width: 100%;
 }
 
 .eyebrow {
-	/* TODO */
+	margin-bottom: 12px;
+}
+
+.eyebrowPart {
+	composes: hds-typography-display-100 from global;
+	composes: hds-font-weight-medium from global;
+	color: var(--token-color-foreground-faint);
+	display: inline;
+
+	&:not(:first-child)::before {
+		content: '\2022';
+		margin-left: 6px;
+		margin-right: 6px;
+	}
 }
 
 .title {
-	/* TODO */
+	composes: hds-typography-display-400 from global;
+	composes: hds-font-weight-semibold from global;
 }
 
 .description {
-	/* TODO */
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-medium from global;
+	margin-top: 21px;
 }
 
-.badges {
-	/* TODO */
+.footer {
+	align-items: flex-end;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 24px;
+}
+
+.badgeList {
+	align-items: center;
+	display: flex;
+	gap: 6px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.badgeListItem {
+	z-index: 1;
 }
 
 .icon {
-	/* TODO */
+	align-items: center;
+	border-radius: 20px;
+	border: 1.5px solid black;
+	display: flex;
+	height: 40px;
+	justify-content: center;
+	margin-left: auto;
+	margin-right: 0;
+	width: 40px;
 }
