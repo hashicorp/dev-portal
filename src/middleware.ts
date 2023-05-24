@@ -144,7 +144,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		} else if (req.cookies.has('variants')) {
 			/**
 			 * Otherwise, check for the 'variants' cookie, validate that the path
-			 * has an active cookie for the associate variant / option. If so, rewrite
+			 * has an active cookie for the associated variant / option. If so, rewrite
 			 * to the variant url.
 			 *
 			 * Request path: /{product}/tutorials/{collection}/{tutorial}
