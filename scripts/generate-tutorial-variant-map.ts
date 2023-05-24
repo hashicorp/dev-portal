@@ -23,9 +23,6 @@ async function fetchTutorialsWithVariants() {
 	if (response.ok) {
 		const data = await response.json()
 		return data.result
-	} else if (response.status === 404) {
-		console.log('[generateTutorialVariantMap] 404: No variant tutorials found')
-		return null
 	} else {
 		return new Error(`${response.status} ${response.statusText}`)
 	}
@@ -51,7 +48,7 @@ async function getVariantRewrites() {
 	const variantsObj = {}
 
 	// return early if no tutorials have variants
-	if (tutorialsWithVariants === null) {
+	if (tutorialsWithVariants.length === 0) {
 		return variantsObj
 	}
 
