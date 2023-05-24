@@ -155,7 +155,12 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// the path is included in variants data as having a variant
 	// the cookie exists and has the associated value
 
-	if (req.cookies.get('variants') && variantRewrites[req.nextUrl.pathname]) {
+	if (
+		req.cookies.get('variants') &&
+		variantRewrites[req.nextUrl.pathname] &&
+		!req.nextUrl.searchParams.has('variants')
+	) {
+		console.log('rewriting as base ')
 		const url = req.nextUrl.clone()
 		const tutorialVariant = variantRewrites[req.nextUrl.pathname]
 		let variantOption
