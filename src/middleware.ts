@@ -118,66 +118,59 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// 	}
 	// }
 
-	/**
-	 * Detect the variants query param and rewrite to the correct path.
-	 *
-	 * Request path: /{product}/tutorials/{collection}/{tutorial}?variants={slug:optionSlug}
-	 * Rendered path: /{product}/tutorials/{collection}/{tutorial}/{variant}
-	 *
-	 *
-	 * Check for the `variants` cookie
-	 * Check if the current tutorial path is on the variant rewrites sheet
-	 * If so, check for the variant object
-	 * If present, redirect to the option
-	 */
-
-	// potentially check for the variantRewrites[req.nextUrl.pathname] instead of just includes /tutorials
-	if (
-		req.nextUrl.pathname.includes('/tutorials') &&
-		req.nextUrl.searchParams.has('variants')
-	) {
-		const url = req.nextUrl.clone()
-		// We only support one variant per tutorial now, in the future this will support an array of variant options
-		const variant = url.searchParams.get('variants')
-
-		url.searchParams.delete('variants')
-		// rewrite to the static route
-		url.pathname = `${url.pathname}/${variant}`
-		response = NextResponse.rewrite(url)
-	}
-
-	// Check for the `variants` cookie
-	//  * Check if the current tutorial path is on the variant rewrites sheet
-	//  * If so, check for the variant object
-	//  * If present, redirect to the option
-
-	// if the pathname includes tutorials,
-	// the path is included in variants data as having a variant
-	// the cookie exists and has the associated value
-
-	if (
-		req.cookies.get('variants') &&
-		variantRewrites[req.nextUrl.pathname] &&
-		!req.nextUrl.searchParams.has('variants')
-	) {
-		console.log('rewriting as base ')
+	// Check if this path is assocaite with a tutorial variant
+	if (variantRewrites[req.nextUrl.pathname]) {
+		// check for query param first
 		const url = req.nextUrl.clone()
 		const tutorialVariant = variantRewrites[req.nextUrl.pathname]
-		let variantOption
 
-		try {
-			const cookie = req.cookies.get('variants')
-			const allVariantsCookie = JSON.parse(cookie.value)
-			variantOption = allVariantsCookie[tutorialVariant.slug]
-		} catch (e) {
-			console.log(e)
+		if (req.nextUrl.searchParams.has('variants')) {
+			/**
+			 * Detect the variants query param and rewrite to the correct path.
+			 * Note: We only support one variant, this is handled in tutorial-view/server
+			 *
+			 * Request path: /{product}/tutorials/{collection}/{tutorial}?variants={slug:optionSlug}
+			 * Rendered path: /{product}/tutorials/{collection}/{tutorial}/{variant}
+			 */
+			const variantParam = url.searchParams.get('variants')
+			const isValidVariantOption = tutorialVariant.options.find(
+				(option: string) => variantParam.endsWith(option)
+			)
+
+			if (isValidVariantOption) {
+				url.searchParams.delete('variants')
+				url.pathname = `${url.pathname}/${variantParam}`
+			}
+		} else if (req.cookies.has('variants')) {
+			/**
+			 * Otherwise, check for the 'variants' cookie, validate that the path
+			 * has an active cookie for the associate variant / option. If so, rewrite
+			 * to the variant url.
+			 *
+			 * Request path: /{product}/tutorials/{collection}/{tutorial}
+			 * Rendered path: /{product}/tutorials/{collection}/{tutorial}/{variant}
+			 * */
+			let variantOptionValue
+
+			try {
+				const cookie = req.cookies.get('variants')
+				// all variant cookie options are stored in a single object
+				const allVariantsCookie = JSON.parse(cookie.value)
+				// grab the specific variant slug from the cookie object
+				variantOptionValue = allVariantsCookie[tutorialVariant.slug]
+			} catch (e) {
+				console.log('Variant cookie could not be parsed.', e)
+			}
+
+			// If the cookie is set with a variant option preference, rewrite
+			if (variantOptionValue) {
+				url.pathname = `${url.pathname}/${getVariantParam(
+					tutorialVariant.slug,
+					variantOptionValue
+				)}`
+			}
 		}
 
-		// rewrite to the static route
-		url.pathname = `${url.pathname}/${getVariantParam(
-			tutorialVariant.slug,
-			variantOption
-		)}`
 		response = NextResponse.rewrite(url)
 	}
 
