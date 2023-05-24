@@ -94,6 +94,8 @@ async function getVariantRewrites() {
 	return variantsObj
 }
 
+// @TODO if this file gets too large, consider storing it in vercel edge config
+// https://vercel.com/docs/storage/edge-config
 ;(async function writeVariantRewriteMap() {
 	const variantRewrites = await getVariantRewrites()
 
