@@ -162,8 +162,11 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 				console.log('[middleware] Variant cookie could not be parsed.', e)
 			}
 
-			// If the cookie is set with a variant option preference, rewrite
-			if (variantOptionValue) {
+			// If the cookie is set with a non-default variant option preference, rewrite
+			if (
+				variantOptionValue &&
+				variantOptionValue !== tutorialVariant.defaultOption
+			) {
 				url.pathname = `${url.pathname}/${getVariantParam(
 					tutorialVariant.slug,
 					variantOptionValue

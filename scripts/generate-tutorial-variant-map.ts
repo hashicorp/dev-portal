@@ -60,7 +60,20 @@ async function fetchTutorials(after) {
 	}
 }
 
-// @TODO write comment
+/**
+ * Fetch all the tutorials with variants defined and build up a map
+ * of every possible collection tutorial path and the associated variant
+ * slug and variant options. Example output:
+ *
+ * "/consul/tutorials/kubernetes/kubernetes-api-gateway": {
+ *  "slug": "consul-deploy",
+ *  "options": [
+ *    "hcp",
+ *    "self-managed"
+ *  ],
+ *  "defaultOption": "hcp",
+ * },
+ */
 async function getVariantRewrites() {
 	// get all tutorial paths with variants
 	const allTutorials = await fetchAll({
@@ -87,6 +100,9 @@ async function getVariantRewrites() {
 			variantsObj[path] = {
 				slug: variant.slug,
 				options: variant.options.map(({ slug }) => slug),
+				defaultOption: variant.options.find(
+					(option) => option.display_order === 1
+				),
 			}
 		})
 	})
