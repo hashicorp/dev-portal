@@ -26,10 +26,24 @@ import type { ProductSlug } from 'types/products'
  * from `lib/env-checks` return `true`, we could load the schema a local
  * file instead in order to better support content repo previews.
  */
-export async function getApiDocsStaticPaths(
-	productSlug: ProductSlug,
+export async function getApiDocsStaticPaths({
+	productSlug,
+	versionData,
+	mayHaveCircularReferences,
+}: {
+	productSlug: ProductSlug
 	versionData: ApiDocsVersionData[]
-): Promise<GetStaticPathsResult<ApiDocsParams>> {
+	/**
+	 * The Waypoint API docs have circular references.
+	 * We manually try to deal with those. This is a band-aid solution,
+	 * it seems to have unintended side-effects when applied to other
+	 * products' API docs, and almost certainly merits further investigation.
+	 *
+	 * Asana task:
+	 * https://app.asana.com/0/1202097197789424/1203989531295664/f
+	 */
+	mayHaveCircularReferences?: boolean
+}): Promise<GetStaticPathsResult<ApiDocsParams>> {
 	/**
 	 * Determine if we want to skip building static content.
 	 *
@@ -56,7 +70,10 @@ export async function getApiDocsStaticPaths(
 		return { paths: [], fallback: 'blocking' }
 	}
 	// Parse the path parts for all API docs pages we need to statically render.
-	const apiDocsPaths = await fetchApiDocsPaths(latestStableVersion.targetFile)
+	const apiDocsPaths = await fetchApiDocsPaths({
+		targetFile: latestStableVersion.targetFile,
+		mayHaveCircularReferences,
+	})
 
 	/**
 	 * Format and return static paths. Note we set fallback 'blocking', rather

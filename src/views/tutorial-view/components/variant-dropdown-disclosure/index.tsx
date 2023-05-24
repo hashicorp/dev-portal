@@ -8,6 +8,7 @@ import {
 	getVariantParam,
 	getVariantPath,
 	handleVariantCookie,
+	sortVariantOptions,
 	TutorialVariantOption,
 } from 'views/tutorial-view/utils/variants'
 import { VariantDropdownDisclosureProps } from './types'
@@ -33,26 +34,28 @@ export function VariantDropdownDisclosure({
 				text={variant.activeOption.name}
 				isFullWidth={isFullWidth}
 			>
-				{variant.options.map((option: TutorialVariantOption) => {
-					if (option.slug === variant.activeOption.slug) {
-						return null
-					}
+				{variant.options
+					.sort(sortVariantOptions)
+					.map((option: TutorialVariantOption) => {
+						if (option.slug === variant.activeOption.slug) {
+							return null
+						}
 
-					return (
-						<DropdownDisclosureLinkItem
-							key={option.slug}
-							href={getVariantPath(
-								asPath,
-								getVariantParam(variant.slug, option.slug)
-							)}
-							onClick={() => {
-								handleVariantCookie(variant.slug, option.slug)
-							}}
-						>
-							{option.name}
-						</DropdownDisclosureLinkItem>
-					)
-				})}
+						return (
+							<DropdownDisclosureLinkItem
+								key={option.slug}
+								href={getVariantPath(
+									asPath,
+									getVariantParam(variant.slug, option.slug)
+								)}
+								onClick={() => {
+									handleVariantCookie(variant.slug, option.slug)
+								}}
+							>
+								{option.name}
+							</DropdownDisclosureLinkItem>
+						)
+					})}
 			</DropdownDisclosure>
 		</div>
 	)
