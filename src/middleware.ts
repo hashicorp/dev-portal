@@ -118,7 +118,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// 	}
 	// }
 
-	// Check if this path is assocaite with a tutorial variant
+	// Check if this path is associated with a tutorial variant
 	if (variantRewrites[req.nextUrl.pathname]) {
 		// check for query param first
 		const url = req.nextUrl.clone()
