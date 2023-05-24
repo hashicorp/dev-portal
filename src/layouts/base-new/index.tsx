@@ -4,7 +4,8 @@
  */
 
 // Third-party imports
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import classNames from 'classnames'
 import AlertBanner from '@hashicorp/react-alert-banner'
 
@@ -40,7 +41,7 @@ const { ConsentManager, openConsentManager } = createConsentManager({
 const NonProductPageMobileMenu = () => {
 	return (
 		<MobileMenuContainer className={s.mobileMenuContainer}>
-			<MobileAuthenticationControls />
+			{/* <MobileAuthenticationControls /> */}
 			<ul className={s.mobileMenuNavList}>
 				<SidebarNavMenuItem item={{ heading: 'Main Menu' }} />
 				{generateTopLevelSubNavItems().map((item: $TSFixMe, index: number) => (
@@ -63,11 +64,11 @@ const BaseNewLayout = ({
 }: BaseNewLayoutProps) => {
 	const router = useRouter()
 
-	usePageviewAnalytics({
-		siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
-		includedDomains: __config.dev_dot.analytics.included_domains,
-	})
-	useScrollPercentageAnalytics()
+	// usePageviewAnalytics({
+	// 	siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
+	// 	includedDomains: __config.dev_dot.analytics.included_domains,
+	// })
+	// useScrollPercentageAnalytics()
 
 	/**
 	 * We only want to show this menu for certain routes. Other routes use
@@ -86,9 +87,7 @@ const BaseNewLayout = ({
 			)}
 			<CoreDevDotLayoutWithTheme theme={theme}>
 				<div className={s.root} data-layout="base-new">
-					<div className={s.header}>
-						<NavigationHeader />
-					</div>
+					<div className={s.header}>{/* <NavigationHeader /> */}</div>
 					<div className={s.contentArea}>
 						{shouldShowMobileMenu ? <NonProductPageMobileMenu /> : null}
 						{children}

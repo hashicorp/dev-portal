@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+'use client'
+
 // Third-party imports
 import { useRef } from 'react'
 import classNames from 'classnames'
@@ -88,7 +90,7 @@ const SidebarSidecarLayoutContent = ({
 		<div className={classNames(s.root, s[`mainWidth-${mainWidth}`])}>
 			<MobileMenuContainer className={s.sidebarContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
-					<MobileAuthenticationControls />
+					{/* <MobileAuthenticationControls /> */}
 					{sidebarContent}
 				</div>
 			</MobileMenuContainer>

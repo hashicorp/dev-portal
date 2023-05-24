@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+'use client'
+
 import {
 	Flag,
 	Integration,

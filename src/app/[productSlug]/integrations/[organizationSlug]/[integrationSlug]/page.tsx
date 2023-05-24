@@ -9,5 +9,5 @@ import {
 	getStaticProps,
 } from 'views/product-integration/readme-view/server'
 
-export { getStaticPaths, getStaticProps }
+export { getStaticPaths }
 export default ProductIntegrationReadmeView

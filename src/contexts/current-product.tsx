@@ -4,7 +4,7 @@
  */
 
 import { createContext, ReactNode, useContext } from 'react'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import { ProductData } from 'types/products'
 
 export type RouteChangeStartHandler = (url: string) => void
@@ -23,8 +23,8 @@ const CurrentProductProvider = ({
 	children,
 	currentProduct,
 }: CurrentProductProviderProps) => {
-	const router = useRouter()
-	const value = router.asPath === '/' ? null : currentProduct
+	const pathname = usePathname()
+	const value = pathname === '/' ? null : currentProduct
 
 	return (
 		<CurrentProductContext.Provider value={value}>
@@ -35,13 +35,13 @@ const CurrentProductProvider = ({
 
 const useCurrentProduct = (): ProductData => {
 	const context = useContext(CurrentProductContext)
-	if (context === undefined) {
-		throw new Error(
-			'useCurrentProduct must be used within a CurrentProductProvider'
-		)
-	}
+	// if (context === undefined) {
+	// 	throw new Error(
+	// 		'useCurrentProduct must be used within a CurrentProductProvider'
+	// 	)
+	// }
 
-	return context
+	return context || {}
 }
 
 export { CurrentProductProvider, useCurrentProduct }

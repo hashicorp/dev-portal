@@ -84,11 +84,11 @@ const DeviceSizeProvider = ({ children }: { children: ReactNode }) => {
 
 const useDeviceSize = (): DeviceSize => {
 	const context = useContext(DeviceSizeContext)
-	if (context === undefined) {
-		throw new Error('useDeviceSize must be used within a DeviceSizeProvider')
-	}
+	// if (context === undefined) {
+	// 	throw new Error('useDeviceSize must be used within a DeviceSizeProvider')
+	// }
 
-	return context
+	return context || {}
 }
 
 export { DeviceSizeProvider, useDeviceSize }

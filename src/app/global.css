@@ -1,0 +1,297 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/* Global Styles */
+@import '~@hashicorp/mktg-global-styles/style.css';
+
+/*
+***
+* HashiCorp Design System Tokens. These are used in DevDot pages.
+***
+*/
+@import '~@hashicorp/design-system-tokens/dist/devdot/css/tokens.css';
+@import '~@hashicorp/design-system-tokens/dist/devdot/css/helpers/elevation.css';
+@import '~@hashicorp/design-system-tokens/dist/devdot/css/helpers/typography.css';
+
+/* Theme files */
+@import 'styles/themes/global.css';
+@import 'styles/themes/dark.css';
+
+/* Display 600 type style. HDS candidate, only in Dev Dot for now */
+@import 'styles/hds-typography-display-600.css';
+
+/* Sizing styles, used in DevDot */
+@import 'styles/sizing.css';
+
+/* Product color styles */
+@import 'styles/products.css';
+
+/* Proxied Sentinel page styles */
+
+/* @import '../components/_proxied-dot-io/sentinel/Footer/style.css'; */
+
+/* Print Styles */
+
+/* @import './print.css'; */
+
+/*
+ * About this selector:
+ * `.g-subnav ~ *` finds all elements after the navigation.
+ * `:target` finds the active permalink on the page.
+ *
+ * About this style:
+ * `scroll-margin-top` adjusts the vertical scroll of a permalink.
+ * `64px` adjusts the scroll to account for the navigation.
+ * `0.5em` further adjusts the scroll to give the permalink breathing room.
+ *
+ * See: https://developer.mozilla.org/en-US/docs/Web/CSS/:target
+ * See: https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin-top
+ */
+.g-subnav ~ * :target {
+	scroll-margin-top: calc(64px + 0.5em);
+}
+
+/* Custom web font, deprecated */
+@font-face {
+	font-family: 'klavika-web';
+	src: url('/fonts/klavika/medium.woff2') format('woff2'),
+		url('/fonts/klavika/medium.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+}
+
+/* VAULT */
+
+/*
+ * Layout Styles
+ *
+ * Note: this is possibly debt we want to replace.
+ * ref: https://app.asana.com/0/1100423001970639/1200768863236365/f
+ */
+.g-section-block section {
+	padding-top: 96px;
+	padding-bottom: 96px;
+
+	& > .g-section-header + *,
+	& > .g-grid-container > .g-section-header + * {
+		margin-top: 72px;
+	}
+
+	&:not(.no-section-spacing) > * + *,
+	&:not(.g-featured-slider-section) > .g-grid-container > * + * {
+		margin-top: 96px;
+	}
+}
+
+.g-section-block .button-container {
+	display: -webkit-box;
+	display: flex;
+	flex-wrap: wrap;
+	-webkit-box-pack: center;
+	justify-content: center;
+	margin: auto -8px -16px;
+}
+
+.g-section-block section > * + .button-container,
+.g-section-block section > .g-grid-container > * + .button-container {
+	margin-top: 40px;
+}
+
+.g-section-block .button-container > * {
+	margin: auto 8px 16px;
+}
+
+.g-section-block.theme-black-background-white-text {
+	background: var(--gray-1);
+	color: white;
+}
+
+/*
+Mobile & tablet visibility helpers, specific to dev-dot.
+*/
+@media (--dev-dot-mobile) {
+	.g-hide-on-mobile {
+		display: none !important;
+	}
+}
+
+@media (--dev-dot-tablet) {
+	.g-hide-on-tablet {
+		display: none !important;
+	}
+}
+
+@media (--dev-dot-desktop) {
+	.g-hide-on-desktop {
+		display: none !important;
+	}
+}
+
+@media (--dev-dot-show-mobile-menu) {
+	.g-hide-with-mobile-menu {
+		display: none !important;
+	}
+}
+
+@media (--dev-dot-hide-mobile-menu) {
+	.g-show-with-mobile-menu {
+		display: none !important;
+	}
+}
+
+/*
+***
+* Screen reader only global helper
+***
+* Visually hides content so it is only available to screen readers. Sourced
+* Scott O'Hara's Inclusively Hidden article.
+*
+* https://www.scottohara.me/blog/2017/04/14/inclusively-hidden.html
+***
+*/
+.g-screen-reader-only:not(:focus):not(:active) {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+/*
+TODO: this will eventually replace the other focus helpers but they are heavily
+used at the moment and need to be refactored carefully. The places they are used
+do extra math to account for padding, which this helper now does with padding
+and negative margin.
+*/
+.g-focus-ring-from-box-shadow {
+	&:focus {
+		outline: transparent;
+	}
+
+	&:focus-visible {
+		box-shadow: var(--token-focus-ring-action-box-shadow);
+		outline: transparent;
+	}
+}
+
+/*
+***
+* TODO: update the hardcoded box-shadow hex colors to design system tokens after
+* we hear from design which tokens to use.
+***
+*/
+.g-focus-ring-from-box-shadow-dark {
+	&:focus {
+		outline: transparent;
+	}
+
+	&:focus-visible {
+		box-shadow: var(--custom-token-focus-ring-action-box-shadow-dark);
+		outline: transparent;
+	}
+}
+
+.g-focus-border-and-box-shadow-light {
+	&:focus,
+	&:focus-visible {
+		outline: transparent;
+	}
+
+	&:focus-visible {
+		border: 1px solid var(--token-color-palette-blue-200);
+		box-shadow: 0 0 0 3px var(--token-color-focus-action-external);
+		outline: transparent;
+	}
+}
+
+.g-focus-border-and-box-shadow-dark {
+	&:focus,
+	&:focus-visible {
+		outline: transparent;
+	}
+
+	&:focus-visible {
+		border: 1px solid #107dff;
+		box-shadow: 0 0 0 3px #5fbcff;
+		outline: transparent;
+	}
+}
+
+/*
+***
+* Scroll offset global helper, which accounts for fixed headings
+* TODO: use this for docs and learn content as well. Will likely make sense
+* to make this shift when we move to shared MDX content components for
+* heading elements across both Docs and Learn.
+* CSS → MDX task: https://app.asana.com/0/1201987349274776/1201653123138729/f
+* "Reconcile" task: https://app.asana.com/0/1201987349274776/1202052090505082/f
+***
+*/
+:root {
+	--permalink-scroll-offset: 24px;
+	--total-scroll-offset: calc(
+		var(--navigation-header-height) + var(--permalink-scroll-offset)
+	);
+	--ce-color: purple;
+}
+
+.g-offset-scroll-margin-top {
+	scroll-margin-top: var(--total-scroll-offset);
+
+	/*
+  Docs and Learn jump link headings have an anchor child with an `id`,
+  rather than an `id` on the element itself. These are added by our
+  anchor-links remark plugin.
+  https://github.com/hashicorp/web-platform-packages/tree/main/packages/remark-plugins/plugins/anchor-links
+  We can likely remove this issue by refactoring our anchor-links plugin
+  to avoid adding these extra elements:
+  https://app.asana.com/0/1202097197789424/1201532549545236/f
+  */
+	& a:global(.__target-h) {
+		scroll-margin-top: var(--total-scroll-offset);
+	}
+}
+
+.content_exclusion {
+	color: var(--ce-color);
+	display: flex;
+	justify-content: center;
+
+	&.begin {
+		border-top-right-radius: 8px;
+		border-top-left-radius: 8px;
+		border-left: 1px dashed var(--ce-color);
+		border-right: 1px dashed var(--ce-color);
+		border-top: 1px dashed var(--ce-color);
+		margin-bottom: -20px;
+
+		& .content_exclusion_inner {
+			transform: translateY(-50%);
+		}
+	}
+
+	&.end {
+		border-bottom-right-radius: 8px;
+		border-bottom-left-radius: 8px;
+		border-left: 1px dashed var(--ce-color);
+		border-right: 1px dashed var(--ce-color);
+		border-bottom: 1px dashed var(--ce-color);
+		margin-top: -20px;
+
+		& .content_exclusion_inner {
+			transform: translateY(50%);
+		}
+	}
+}
+
+.content_exclusion_inner {
+	border-radius: 100px;
+	border: 1px dashed var(--ce-color);
+	padding: 0 10px;
+	font-size: 12px;
+	background: white;
+}

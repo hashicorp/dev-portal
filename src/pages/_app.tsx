@@ -14,6 +14,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { NextAdapter } from 'next-query-params'
 import { QueryParamProvider } from 'use-query-params'
+
+import '@reach/dialog/styles.css'
+
 import { useFlags } from 'flags/client'
 import { FlagBagProvider } from 'flags/client'
 

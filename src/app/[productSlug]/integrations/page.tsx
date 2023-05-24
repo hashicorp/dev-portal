@@ -9,5 +9,9 @@ import {
 	getStaticProps,
 } from 'views/product-integrations-landing/server'
 
-export { getStaticPaths, getStaticProps }
-export default ProductIntegrationsLanding
+export { getStaticPaths }
+
+export default async function ({ params }) {
+	const { props } = await getStaticProps({ params })
+	return <ProductIntegrationsLanding {...props} />
+}

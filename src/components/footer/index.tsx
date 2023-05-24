@@ -4,7 +4,7 @@
  */
 
 import React, { ReactElement } from 'react'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import classNames from 'classnames'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import InlineSvg from '@hashicorp/react-inline-svg'
@@ -69,7 +69,7 @@ function Footer({
 	openConsentManager,
 	className,
 }: FooterProps): React.ReactElement {
-	const { pathname } = useRouter()
+	const pathname = usePathname()
 	const shouldRenderThemeSwitcher = isThemedPath(pathname)
 
 	return (

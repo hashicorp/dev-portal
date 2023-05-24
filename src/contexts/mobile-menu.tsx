@@ -137,11 +137,11 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
  */
 const useMobileMenu = (): MobileMenuContextState => {
 	const context = useContext(MobileMenuContext)
-	if (context === undefined) {
-		throw new Error('useMobileMenu must be used within a MobileMenuProvider')
-	}
+	// if (context === undefined) {
+	// 	throw new Error('useMobileMenu must be used within a MobileMenuProvider')
+	// }
 
-	return context
+	return context || {}
 }
 
 export { MobileMenuProvider, useMobileMenu }

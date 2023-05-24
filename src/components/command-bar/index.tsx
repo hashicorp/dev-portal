@@ -144,7 +144,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	/**
 	 * If it is open, handle closing the dialog on `routeChangeStart`.
 	 */
-	useOnRouteChangeStart({ handler: toggleIsOpen, shouldListen: state.isOpen })
+	// useOnRouteChangeStart({ handler: toggleIsOpen, shouldListen: state.isOpen })
 
 	/**
 	 * Memoize the Context value

@@ -113,10 +113,10 @@ const Disclosure = ({
 	}, [closeDisclosure, contentContainerId])
 
 	// if enabled, close the disclosure on next/router's `routeChangeStart`
-	useOnRouteChangeStart({
-		handler: closeDisclosure,
-		shouldListen: closeOnRouteChangeStart && isOpen,
-	})
+	// useOnRouteChangeStart({
+	// 	handler: closeDisclosure,
+	// 	shouldListen: closeOnRouteChangeStart && isOpen,
+	// })
 
 	// if enabled, close the disclosure on click outside
 	useOnClickOutside(

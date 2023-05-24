@@ -70,10 +70,10 @@ const NavigationHeaderDropdownMenu = ({
 	}
 
 	// if the disclosure is open, handle closing it on `routeChangeStart`
-	useOnRouteChangeStart({
-		handler: () => setIsOpen(false),
-		shouldListen: isOpen,
-	})
+	// useOnRouteChangeStart({
+	// 	handler: () => setIsOpen(false),
+	// 	shouldListen: isOpen,
+	// })
 
 	// Check for an accesible label if there is a leading icon
 	const accessibleLabel = ariaLabel || label
