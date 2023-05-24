@@ -1,4 +1,6 @@
-const createFetch = require('@vercel/fetch')
+import createFetch from '@vercel/fetch'
+import path from 'path'
+import fs from 'fs'
 const fetch = createFetch()
 
 const MAX_LIMIT = '100' // Defaults to API max
@@ -11,7 +13,7 @@ async function fetchAll({ after, fetchedTutorials }) {
 
 	const response = await fetchTutorials(after)
 
-	if (response.ok) {
+	if ('ok' in response && response.ok) {
 		const data = await response.json()
 		const allTutorials = [...fetchedTutorials, ...data.result]
 
@@ -61,7 +63,10 @@ async function fetchTutorials(after) {
 // @TODO write comment
 async function getVariantRewrites() {
 	// get all tutorial paths with variants
-	const allTutorials = await fetchAll({})
+	const allTutorials = await fetchAll({
+		after: undefined,
+		fetchedTutorials: undefined,
+	})
 
 	// filter out those that don't have variants
 	const tutorialVariants = allTutorials.filter(
@@ -89,4 +94,12 @@ async function getVariantRewrites() {
 	return variantsObj
 }
 
-module.exports = { getVariantRewrites }
+;(async function writeVariantRewriteMap() {
+	const variantRewrites = await getVariantRewrites()
+
+	await fs.promises.writeFile(
+		path.join('src', '.generated', 'tutorial-variant-map.json'),
+		JSON.stringify(variantRewrites, null, 2),
+		'utf-8'
+	)
+})()

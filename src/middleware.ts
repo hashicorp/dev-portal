@@ -6,7 +6,7 @@
 import { NextResponse } from 'next/server'
 import type { NextFetchEvent, NextRequest } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
-import variantRewrites from 'data/_variant-rewrites.generated.json'
+import variantRewrites from '.generated/tutorial-variant-map.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 import { getEdgeFlags } from 'flags/edge'
