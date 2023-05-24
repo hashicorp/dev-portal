@@ -21,24 +21,29 @@ export function DesktopVariantList({ variant }: { variant: TutorialVariant }) {
 			</label>
 			<nav>
 				<ul aria-labelledby={VARIANT_LIST_ID} className={s.list}>
-					{variant.options.map((option: TutorialVariantOption) => {
-						const variantParam = getVariantParam(variant.slug, option.slug)
-						const isActiveOption = variant.activeOption.slug === option.slug
-						return (
-							<li key={option.slug}>
-								<Link
-									className={classNames(s.link)}
-									href={getVariantPath(asPath, variantParam)}
-									aria-current={isActiveOption ? 'page' : undefined}
-									onClick={() => {
-										handleVariantCookie(variant.slug, option.slug)
-									}}
-								>
-									{option.name}
-								</Link>
-							</li>
+					{variant.options
+						.sort(
+							(a: TutorialVariantOption, b: TutorialVariantOption) =>
+								a.displayOrder - b.displayOrder
 						)
-					})}
+						.map((option: TutorialVariantOption) => {
+							const variantParam = getVariantParam(variant.slug, option.slug)
+							const isActiveOption = variant.activeOption.slug === option.slug
+							return (
+								<li key={option.slug}>
+									<Link
+										className={classNames(s.link)}
+										href={getVariantPath(asPath, variantParam)}
+										aria-current={isActiveOption ? 'page' : undefined}
+										onClick={() => {
+											handleVariantCookie(variant.slug, option.slug)
+										}}
+									>
+										{option.name}
+									</Link>
+								</li>
+							)
+						})}
 				</ul>
 			</nav>
 		</>

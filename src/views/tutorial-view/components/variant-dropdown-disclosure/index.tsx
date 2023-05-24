@@ -33,26 +33,31 @@ export function VariantDropdownDisclosure({
 				text={variant.activeOption.name}
 				isFullWidth={isFullWidth}
 			>
-				{variant.options.map((option: TutorialVariantOption) => {
-					if (option.slug === variant.activeOption.slug) {
-						return null
-					}
-
-					return (
-						<DropdownDisclosureLinkItem
-							key={option.slug}
-							href={getVariantPath(
-								asPath,
-								getVariantParam(variant.slug, option.slug)
-							)}
-							onClick={() => {
-								handleVariantCookie(variant.slug, option.slug)
-							}}
-						>
-							{option.name}
-						</DropdownDisclosureLinkItem>
+				{variant.options
+					.sort(
+						(a: TutorialVariantOption, b: TutorialVariantOption) =>
+							b.displayOrder - a.displayOrder
 					)
-				})}
+					.map((option: TutorialVariantOption) => {
+						if (option.slug === variant.activeOption.slug) {
+							return null
+						}
+
+						return (
+							<DropdownDisclosureLinkItem
+								key={option.slug}
+								href={getVariantPath(
+									asPath,
+									getVariantParam(variant.slug, option.slug)
+								)}
+								onClick={() => {
+									handleVariantCookie(variant.slug, option.slug)
+								}}
+							>
+								{option.name}
+							</DropdownDisclosureLinkItem>
+						)
+					})}
 			</DropdownDisclosure>
 		</div>
 	)
