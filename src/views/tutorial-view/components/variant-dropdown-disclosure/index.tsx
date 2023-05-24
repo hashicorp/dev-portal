@@ -8,6 +8,7 @@ import {
 	getVariantParam,
 	getVariantPath,
 	handleVariantCookie,
+	sortVariantOptions,
 	TutorialVariantOption,
 } from 'views/tutorial-view/utils/variants'
 import { VariantDropdownDisclosureProps } from './types'
@@ -34,10 +35,7 @@ export function VariantDropdownDisclosure({
 				isFullWidth={isFullWidth}
 			>
 				{variant.options
-					.sort(
-						(a: TutorialVariantOption, b: TutorialVariantOption) =>
-							b.displayOrder - a.displayOrder
-					)
+					.sort(sortVariantOptions)
 					.map((option: TutorialVariantOption) => {
 						if (option.slug === variant.activeOption.slug) {
 							return null

@@ -6,6 +6,7 @@ import {
 	getVariantParam,
 	getVariantPath,
 	handleVariantCookie,
+	sortVariantOptions,
 } from 'views/tutorial-view/utils/variants'
 import { useRouter } from 'next/router'
 import s from './desktop-variant-list.module.css'
@@ -22,10 +23,7 @@ export function DesktopVariantList({ variant }: { variant: TutorialVariant }) {
 			<nav>
 				<ul aria-labelledby={VARIANT_LIST_ID} className={s.list}>
 					{variant.options
-						.sort(
-							(a: TutorialVariantOption, b: TutorialVariantOption) =>
-								a.displayOrder - b.displayOrder
-						)
+						.sort(sortVariantOptions)
 						.map((option: TutorialVariantOption) => {
 							const variantParam = getVariantParam(variant.slug, option.slug)
 							const isActiveOption = variant.activeOption.slug === option.slug
