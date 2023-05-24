@@ -82,7 +82,9 @@ const dotIoRewrites = productsToProxy.reduce((acc, slug) => {
 }, [])
 
 async function rewritesConfig() {
-	return { beforeFiles: [...dotIoRewrites] }
+	return {
+		beforeFiles: [...dotIoRewrites],
+	}
 }
 
 module.exports = rewritesConfig
