@@ -118,7 +118,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// 	}
 	// }
 
-	// Check if this path is assocaite with a tutorial variant
+	// Check if this path is associated with a tutorial variant
 	if (variantRewrites[req.nextUrl.pathname]) {
 		// check for query param first
 		const url = req.nextUrl.clone()
@@ -144,7 +144,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 		} else if (req.cookies.has('variants')) {
 			/**
 			 * Otherwise, check for the 'variants' cookie, validate that the path
-			 * has an active cookie for the associate variant / option. If so, rewrite
+			 * has an active cookie for the associated variant / option. If so, rewrite
 			 * to the variant url.
 			 *
 			 * Request path: /{product}/tutorials/{collection}/{tutorial}
@@ -159,7 +159,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 				// grab the specific variant slug from the cookie object
 				variantOptionValue = allVariantsCookie[tutorialVariant.slug]
 			} catch (e) {
-				console.log('Variant cookie could not be parsed.', e)
+				console.log('[middleware] Variant cookie could not be parsed.', e)
 			}
 
 			// If the cookie is set with a variant option preference, rewrite
