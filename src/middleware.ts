@@ -159,7 +159,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 				// grab the specific variant slug from the cookie object
 				variantOptionValue = allVariantsCookie[tutorialVariant.slug]
 			} catch (e) {
-				console.log('Variant cookie could not be parsed.', e)
+				console.log('[middleware] Variant cookie could not be parsed.', e)
 			}
 
 			// If the cookie is set with a variant option preference, rewrite
