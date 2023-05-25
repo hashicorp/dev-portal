@@ -138,9 +138,9 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		// link is not "disabled"
 		return (
 			<Link
-				aria-current={ariaCurrent}
+				aria-current="page"
 				aria-label={ariaLabel}
-				className={classNames(item.isActive && s.isActive, className)}
+				className={classNames(s.isActive, className)}
 				data-heap-track="sidebar-nav-link-item"
 				href={href}
 				opensInNewTab={isExternal}
