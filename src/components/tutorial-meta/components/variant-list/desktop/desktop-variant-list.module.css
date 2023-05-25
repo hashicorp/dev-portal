@@ -38,7 +38,6 @@
 		background-color: var(--token-color-foreground-action);
 		border-color: var(--token-color-foreground-action-hover);
 		color: var(--token-color-foreground-high-contrast);
-		cursor: not-allowed;
 		box-shadow: none;
 
 		/**
