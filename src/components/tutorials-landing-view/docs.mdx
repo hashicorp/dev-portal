@@ -6,33 +6,30 @@ peerComponents:
 
 # ContentCardLink
 
-<LiveComponent>
-	{`
-<div style={{ display: 'flex', gap: 48 }}>
-  <div style={{ width: 400 }}>
-    <div>With headerImageUrl</div>
-    <TutorialsLandingView.ContentCardLink
-      headerImageUrl="https://placekitten.com/g/800/86"
-      eyebrowParts={['Eyebrow 1', 'Eyebrow 2', 'Eyebrow 3']}
-      title="Content item title"
-      description="Brief description to give the user enough context to move forward with confidence. Max Character count of 130."
-      badges={[
-        { icon: <ProductIcon productSlug="terraform" />, label: 'Terraform' },
-        { icon: <SwingsetTestIcon name="learn" />, label: 'Learn' },
-        { icon: <SwingsetTestIcon name="thumbs-up" />, label: 'Thumbs up' },
-      ]}
-      href="#"
-    />
-  </div>
-  <div style={{ width: 400 }}>
-    <div>With backgroundImageUrl</div>
-    <TutorialsLandingView.ContentCardLink
-      backgroundImageUrl="https://placekitten.com/g/400/400"
-      title="Content item title"
-      description="Brief description to give the user enough context to move forward with confidence. Max Character count of 130."
-      href="#"
-    />
-  </div>
+## With `headerImageUrl`
+
+<div style={{ width: 400 }}>
+	<TutorialsLandingView.ContentCardLink
+		headerImageUrl="https://placekitten.com/g/800/86"
+		eyebrowParts={['Eyebrow 1', 'Eyebrow 2', 'Eyebrow 3']}
+		title="Content item title"
+		description="Brief description to give the user enough context to move forward with confidence. Max Character count of 130."
+		badges={[
+			{ icon: <ProductIcon productSlug="terraform" />, label: 'Terraform' },
+			{ icon: <SwingsetTestIcon name="learn" />, label: 'Learn' },
+			{ icon: <SwingsetTestIcon name="thumbs-up" />, label: 'Thumbs up' },
+		]}
+		href="#"
+	/>
 </div>
-`}
-</LiveComponent>
+
+## With `backgroundImageUrl`
+
+<div style={{ width: 400 }}>
+	<TutorialsLandingView.ContentCardLink
+		backgroundImageUrl=""
+		title="Content item title"
+		description="Brief description to give the user enough context to move forward with confidence. Max Character count of 130."
+		href="#"
+	/>
+</div>
