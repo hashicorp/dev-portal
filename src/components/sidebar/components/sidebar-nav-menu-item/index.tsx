@@ -103,6 +103,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 
 	// Conditionally determining props for the <a>
 	const ariaCurrent = !isExternal && item.isActive ? 'page' : undefined
+	console.log({ ariaCurrent }, { isExternal }, item.isActive, href)
 	const ariaLabel = isExternal
 		? `${item.title}. Opens in a new tab.`
 		: undefined
