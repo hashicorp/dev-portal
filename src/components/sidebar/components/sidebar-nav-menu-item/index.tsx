@@ -110,11 +110,9 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	 * Due to how we are rewriting routes for tutorial variants, the URLs rendered in
 	 * this component are incorrect during SSR, and for some reason are NOT
 	 * getting reconciled on the client even though all of the props and state
-	 * values internal to Link are correct.
-	 *
-	 * I think it's because of some hydration mismatch, so I'm using the
-	 * ariaCurrent state value as a key here to force the error view to completely
-	 * re-mount.
+	 * values internal to Link are correct. So the ariaCurrent value wasn't being
+	 * set properly and the active item wouldn't render. We think its due to a hydration
+	 * mismatch error. This set state ensures that after the component mounts, it gets resolved.
 	 */
 	useEffect(() => {
 		setAriaCurrent(!isExternal && item.isActive ? 'page' : undefined)
