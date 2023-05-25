@@ -26,6 +26,13 @@ export function getVariantParam(
 	return `${slug}:${optionSlug}`
 }
 
+export function sortVariantOptions(
+	a: TutorialVariantOption,
+	b: TutorialVariantOption
+) {
+	return a.displayOrder - b.displayOrder
+}
+
 /**
  * All variant cookie data is stored as a stringified object
  * with the shape { slug : optionSlug }, real world usecase:

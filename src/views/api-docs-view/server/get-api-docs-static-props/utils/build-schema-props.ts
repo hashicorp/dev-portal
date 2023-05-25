@@ -7,7 +7,10 @@
 import { capitalCase } from 'change-case'
 // Global
 import fetchGithubFile from 'lib/fetch-github-file'
-import { processSchemaString } from 'components/open-api-page/server/process-schema'
+import {
+	processSchemaFile,
+	processSchemaString,
+} from 'components/open-api-page/server/process-schema'
 import {
 	getOperationObjects,
 	getServiceIds,
@@ -34,9 +37,20 @@ import type { ApiDocsSwaggerSchema, ApiDocsServiceData } from '../../../types'
 async function buildSchemaProps({
 	targetFile,
 	serviceId,
+	mayHaveCircularReferences,
 }: {
 	targetFile: GithubFile
 	serviceId?: string
+	/**
+	 * The Waypoint API docs have circular references.
+	 * We manually try to deal with those. This is a band-aid solution,
+	 * it seems to have unintended side-effects when applied to other
+	 * products' API docs, and almost certainly merits further investigation.
+	 *
+	 * Asana task:
+	 * https://app.asana.com/0/1202097197789424/1203989531295664/f
+	 */
+	mayHaveCircularReferences?: boolean
 }): Promise<
 	| {
 			schema: ApiDocsSwaggerSchema
@@ -47,21 +61,30 @@ async function buildSchemaProps({
 	| { notFound: true }
 > {
 	/**
-	 * Fetch and process the OpenAPI swagger file for this version
-	 */
-	const swaggerFile = await fetchGithubFile(targetFile)
-	/**
+	 * Grab the schema.
+	 *
+	 * If the provided `targetFile` is a string, we'll load from the filesystem.
+	 * Else, we assume a remote GitHub file, and load using the GitHub API.
+	 *
 	 * TODO: would be ideal to validate & properly type the schema, eg with `zod`.
 	 * For now, we cast it to the good-enough ApiDocsSwaggerSchema.
 	 */
-	const schema = (await processSchemaString(
-		swaggerFile
-	)) as ApiDocsSwaggerSchema
+	let schema
+	if (typeof targetFile === 'string') {
+		schema = await processSchemaFile(targetFile)
+	} else {
+		const swaggerFile = await fetchGithubFile(targetFile)
+		schema = await processSchemaString(swaggerFile)
+	}
+
 	/**
 	 * TODO: would be ideal to add return types to these two functions.
 	 * Slightly outside scope of current work, leaving this alone for now.
 	 */
-	const operationObjects = getOperationObjects(schema) as OperationObjectType[]
+	const operationObjects = getOperationObjects(
+		schema,
+		mayHaveCircularReferences
+	) as OperationObjectType[]
 	const serviceIds = getServiceIds(operationObjects) as string[]
 
 	/**

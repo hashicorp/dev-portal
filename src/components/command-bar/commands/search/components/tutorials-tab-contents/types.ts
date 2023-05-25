@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { ReactNode } from 'react'
 import { Hit } from '@algolia/client-search'
 import {
 	CollectionLevelOption,
@@ -17,6 +18,7 @@ interface TutorialsTabContentsProps {
 		href: string
 		text: string
 	}
+	noResultsMessageSlot: ReactNode
 }
 
 type TutorialHitObject = Hit<{

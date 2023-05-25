@@ -9,7 +9,10 @@ import {
 	getOperationObjects,
 	getServiceIds,
 } from 'components/open-api-page/utils'
-import { processSchemaString } from 'components/open-api-page/server/process-schema'
+import {
+	processSchemaFile,
+	processSchemaString,
+} from 'components/open-api-page/server/process-schema'
 // Types
 import type { GithubFile } from 'lib/fetch-github-file'
 
@@ -30,19 +33,58 @@ import type { GithubFile } from 'lib/fetch-github-file'
  * - ['<versionId>'] - for the index page, or a single service page
  * - ['<versionId>', '<serviceId>'] - when there are multiple services
  */
-async function fetchApiDocsPaths(
-	targetFile: GithubFile,
-	versionId?: string
-): Promise<string[][]> {
+async function fetchApiDocsPaths({
+	targetFile,
+	versionId,
+	mayHaveCircularReferences,
+}: {
 	/**
-	 * Grab the schema, and parse out operation objects.
+	 * Specify the target file.
+	 *
+	 * - Provide a `GithubFile` object to load a file using the GitHub API.
+	 * - Provide a `string` file path, relative to the current working directory
+	 *   from which the website is run, to load a local file.
+	 */
+	targetFile: GithubFile | string
+	versionId?: string
+	/**
+	 * The Waypoint API docs have circular references.
+	 * We manually try to deal with those. This is a band-aid solution,
+	 * it seems to have unintended side-effects when applied to other
+	 * products' API docs, and almost certainly merits further investigation.
+	 *
+	 * Asana task:
+	 * https://app.asana.com/0/1202097197789424/1203989531295664/f
+	 */
+	mayHaveCircularReferences?: boolean
+}): Promise<string[][]> {
+	/**
+	 * Grab the schema.
+	 *
+	 * If the provided `targetFile` is a string, we'll load from the filesystem.
+	 * Else, we assume a remote GitHub file, and load using the GitHub API.
+	 *
+	 * TODO: would be ideal to validate & properly type the schema, eg with `zod`.
+	 * For now, we cast it to the good-enough ApiDocsSwaggerSchema.
+	 */
+	let schema
+	if (typeof targetFile === 'string') {
+		schema = await processSchemaFile(targetFile)
+	} else {
+		const swaggerFile = await fetchGithubFile(targetFile)
+		schema = await processSchemaString(swaggerFile)
+	}
+
+	/**
+	 * Parse out operation objects.
 	 *
 	 * Each operation object is associated with an operation category, also known
 	 * as a "service", and these services are what drive our URL structure.
 	 */
-	const swaggerFile = await fetchGithubFile(targetFile)
-	const schema = await processSchemaString(swaggerFile)
-	const operationObjects = getOperationObjects(schema)
+	const operationObjects = getOperationObjects(
+		schema,
+		mayHaveCircularReferences
+	)
 	const serviceSlugs = getServiceIds(operationObjects).map(getServicePathSlug)
 
 	/**
