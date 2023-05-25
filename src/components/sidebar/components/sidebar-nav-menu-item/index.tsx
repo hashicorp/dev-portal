@@ -111,7 +111,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	/**
 	 * Note from on this useEffect:
 	 *
-	 * Due to how we are rewriting routes on the io sites, the URLs rendered in
+	 * Due to how we are rewriting routes for tutorial variants, the URLs rendered in
 	 * this component are incorrect during SSR, and for some reason are NOT
 	 * getting reconciled on the client even though all of the props and state
 	 * values internal to Link are correct.
