@@ -48,11 +48,7 @@ const TutorialsLandingContentCardLink = ({
 				style={
 					backgroundImageUrl
 						? {
-								// TODO uncomment when there are svgs to send through
-								// background: `url(${backgroundImageUrl})`,
-								backgroundColor: 'lightgray',
-								paddingTop: 44,
-								height: '100%',
+								backgroundImage: `url(${backgroundImageUrl})`,
 						  }
 						: null
 				}
