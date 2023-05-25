@@ -112,10 +112,8 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 			setAriaCurrent(isAriaCurrent ? 'page' : undefined)
 		}
 
-		if (ariaCurrent) {
-			console.log(href, '*** is current')
-		}
-	}, [item.isActive, isExternal, item.href])
+		console.log(href, item.isActive, '*** is current')
+	}, [item.isActive, isExternal, ariaCurrent, href])
 
 	const ariaLabel = isExternal
 		? `${item.title}. Opens in a new tab.`
