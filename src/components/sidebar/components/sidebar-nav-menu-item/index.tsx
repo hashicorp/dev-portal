@@ -100,9 +100,8 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 
 	// Determine the trailing icon to use, if any
 	const trailingIcon = isExternal ? <IconExternalLink16 /> : item.trailingIcon
-	const [ariaCurrent, setAriaCurrent] = useState<'page' | undefined>(
-		!isExternal && item.isActive ? 'page' : undefined
-	)
+	const ariaCurrent = !isExternal && item.isActive ? 'page' : undefined
+	const [isMounted, setIsMounted] = useState(false)
 
 	/**
 	 * Note from on this useEffect:
@@ -112,10 +111,11 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	 * getting reconciled on the client even though all of the props and state
 	 * values internal to Link are correct. So the ariaCurrent value wasn't being
 	 * set properly and the active item wouldn't render. We think its due to a hydration
-	 * mismatch error. This set state ensures that after the component mounts, it gets resolved.
+	 * mismatch error. This set state ensures that after the component mounts, it gets resolved
+	 * by forcing a rerender.
 	 */
 	useEffect(() => {
-		setAriaCurrent(!isExternal && item.isActive ? 'page' : undefined)
+		setIsMounted(true)
 	}, [])
 
 	const ariaLabel = isExternal
@@ -149,6 +149,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		// link is not "disabled"
 		return (
 			<Link
+				key={String(isMounted)}
 				aria-current={ariaCurrent}
 				aria-label={ariaLabel}
 				className={className}
