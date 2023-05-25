@@ -81,7 +81,7 @@ const TutorialsLandingContentCardLink = ({
 									className={s.badgeListItem}
 								>
 									<Tooltip label={label}>
-										<Badge ariaLabel={label} icon={icon} size="small" />
+										<Badge ariaLabel={label} icon={icon} size="medium" />
 									</Tooltip>
 								</li>
 							))}
