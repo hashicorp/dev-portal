@@ -83,6 +83,11 @@ async function getVariantRewrites() {
 ;(async function writeVariantRewriteMap() {
 	const variantRewrites = await getVariantRewrites()
 
+
+	await fs.promises.mkdir(path.join(process.cwd(), 'src', '.generated'), {
+		recursive: true,
+	})
+	
 	await fs.promises.writeFile(
 		path.join('src', '.generated', 'tutorial-variant-map.json'),
 		JSON.stringify(variantRewrites, null, 2),
