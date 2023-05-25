@@ -104,9 +104,6 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	const trailingIcon = isExternal ? <IconExternalLink16 /> : item.trailingIcon
 	const [ariaCurrent, setAriaCurrent] = useState<'page' | undefined>()
 
-	if (ariaCurrent) {
-		console.log(ariaCurrent, href, item.isActive, '*** is current')
-	}
 
 	/**
 	 * Note from on this useEffect:
