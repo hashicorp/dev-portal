@@ -25,7 +25,7 @@
 		"start:vault": "cross-env DEV_IO=vault npm run start",
 		"start:waypoint": "cross-env DEV_IO=waypoint npm run start",
 		"start:with-axe": "AXE_ENABLED=true npm start",
-		"start": "npm run prestart && next",
+		"start": "next",
 		"start:remote-watch": "next-remote-watch ../content ../data",
 		"serve": "next build && next start",
 		"test:e2e": "playwright test --project default",
