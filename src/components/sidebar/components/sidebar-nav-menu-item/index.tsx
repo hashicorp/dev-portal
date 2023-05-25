@@ -90,8 +90,6 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	const href = item.fullPath || item.href
 	const isExternal = isAbsoluteUrl(href)
 	const hasBadge = !!(item as $TSFixMe).badge
-	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-	const isActive = href === currentPath
 
 	// Determine the leading icon to use, if any
 	let leadingIcon
@@ -104,10 +102,10 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 
 	// Determine the trailing icon to use, if any
 	const trailingIcon = isExternal ? <IconExternalLink16 /> : item.trailingIcon
-	const ariaCurrent = !isExternal && isActive ? 'page' : undefined
+	const ariaCurrent = !isExternal && item.isActive ? 'page' : undefined
 
 	if (ariaCurrent) {
-		console.log(ariaCurrent, href, item.isActive, isActive, '*** is current')
+		console.log(ariaCurrent, href, item.isActive, '*** is current')
 	}
 
 	const ariaLabel = isExternal
@@ -143,7 +141,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 			<Link
 				aria-current={ariaCurrent}
 				aria-label={ariaLabel}
-				className={classNames(isActive && s.isActive, className)}
+				className={className}
 				data-heap-track="sidebar-nav-link-item"
 				href={href}
 				opensInNewTab={isExternal}

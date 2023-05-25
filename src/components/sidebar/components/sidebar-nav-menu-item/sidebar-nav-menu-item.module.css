@@ -31,11 +31,6 @@
 		background-color: var(--token-color-palette-neutral-200);
 	}
 
-	&.isActive {
-		background-color: var(--token-color-palette-neutral-200);
-		color: var(--token-color-foreground-strong);
-	}
-
 	/* AKA open */
 	&[aria-expanded='true'] {
 		margin-bottom: 0;
