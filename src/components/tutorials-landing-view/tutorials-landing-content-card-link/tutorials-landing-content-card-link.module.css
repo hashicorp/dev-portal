@@ -1,22 +1,24 @@
 .root {
 	background-color: var(--token-color-surface-faint);
-	height: 100%;
 	overflow: hidden;
 	padding: 0;
 }
 
 .content {
+	background-position: right center;
+	background-repeat: no-repeat;
 	display: flex;
 	flex-direction: column;
-	flex-grow: 1;
 	justify-content: space-between;
 	padding-bottom: 24px;
 	padding-left: 40px;
 	padding-right: 40px;
+	padding-top: 44px;
 }
 
 .headerImage {
-	background-position: center center;
+	background-position: right center;
+	background-repeat: no-repeat;
 	height: 86px;
 	width: 100%;
 }
