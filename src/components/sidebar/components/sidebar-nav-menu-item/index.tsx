@@ -107,7 +107,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	const ariaCurrent = !isExternal && isActive ? 'page' : undefined
 
 	if (ariaCurrent) {
-		console.log(ariaCurrent, href, item.isActive, '*** is current')
+		console.log(ariaCurrent, href, item.isActive, isActive, '*** is current')
 	}
 
 	const ariaLabel = isExternal
@@ -143,7 +143,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 			<Link
 				aria-current={ariaCurrent}
 				aria-label={ariaLabel}
-				className={classNames(isActive, s.isActive, className)}
+				className={classNames(isActive && s.isActive, className)}
 				data-heap-track="sidebar-nav-link-item"
 				href={href}
 				opensInNewTab={isExternal}
