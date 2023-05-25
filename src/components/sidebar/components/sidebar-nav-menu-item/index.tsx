@@ -108,6 +108,24 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		console.log(ariaCurrent, href, item.isActive, '*** is current')
 	}
 
+	const [isMounted, setIsMounted] = useState(false)
+
+	/**
+	 * Note from Bryce on this useEffect:
+	 *
+	 * Due to how we are rewriting routes on the io sites, the URLs rendered in
+	 * this component are incorrect during SSR, and for some reason are NOT
+	 * getting reconciled on the client even though all of the props and state
+	 * values internal to Link are correct.
+	 *
+	 * I think it's because of some hydration mismatch, so I'm using the
+	 * isMounted state value as a key here to force the error view to completely
+	 * re-mount. I'm sorry, I tried everything else I could think of. :')
+	 */
+	useEffect(() => {
+		setIsMounted(true)
+	}, [])
+
 	const ariaLabel = isExternal
 		? `${item.title}. Opens in a new tab.`
 		: undefined
@@ -139,6 +157,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		// link is not "disabled"
 		return (
 			<Link
+				key={String(isMounted)}
 				aria-current={ariaCurrent}
 				aria-label={ariaLabel}
 				className={className}
