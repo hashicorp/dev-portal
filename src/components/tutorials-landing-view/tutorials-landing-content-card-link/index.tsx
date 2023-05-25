@@ -1,4 +1,5 @@
 import { useId } from '@react-aria/utils'
+import classNames from 'classnames'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
 import Badge from 'components/badge'
 import CardLink from 'components/card-link'
@@ -32,10 +33,11 @@ const TutorialsLandingContentCardLink = ({
 	title,
 }: ContentCardLinkProps) => {
 	const uniqueId = useId()
+	const hasHeaderImage = headerImageUrl?.length > 0
 
 	return (
 		<CardLink ariaLabel={title} className={s.root} href={href}>
-			{headerImageUrl ? (
+			{hasHeaderImage ? (
 				<div
 					className={s.headerImage}
 					style={{
@@ -44,7 +46,9 @@ const TutorialsLandingContentCardLink = ({
 				/>
 			) : null}
 			<div
-				className={s.content}
+				className={classNames(s.content, {
+					[s.hasHeaderImage]: hasHeaderImage,
+				})}
 				style={
 					backgroundImageUrl
 						? {

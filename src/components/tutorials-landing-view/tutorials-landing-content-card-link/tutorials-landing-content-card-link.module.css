@@ -12,8 +12,12 @@
 	justify-content: space-between;
 	padding-bottom: 24px;
 	padding-left: 40px;
-	padding-right: 40px;
+	padding-right: 24px;
 	padding-top: 44px;
+
+	&.hasHeaderImage {
+		padding-top: 0;
+	}
 }
 
 .headerImage {
