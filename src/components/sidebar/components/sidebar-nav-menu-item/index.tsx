@@ -34,8 +34,6 @@ import {
 	SupportedIconName,
 } from './types'
 import s from './sidebar-nav-menu-item.module.css'
-import classNames from 'classnames'
-import useCurrentPath from 'hooks/use-current-path'
 
 /**
  * Used for leading icon in `SidebarNavLinkItem`.
