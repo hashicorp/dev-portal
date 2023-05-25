@@ -34,6 +34,7 @@ import {
 	SupportedIconName,
 } from './types'
 import s from './sidebar-nav-menu-item.module.css'
+import classNames from 'classnames'
 
 /**
  * Used for leading icon in `SidebarNavLinkItem`.
@@ -139,7 +140,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 			<Link
 				aria-current={ariaCurrent}
 				aria-label={ariaLabel}
-				className={className}
+				className={classNames(item.isActive && s.isActive, className)}
 				data-heap-track="sidebar-nav-link-item"
 				href={href}
 				opensInNewTab={isExternal}

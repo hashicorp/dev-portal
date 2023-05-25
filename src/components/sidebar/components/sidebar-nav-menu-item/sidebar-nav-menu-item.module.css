@@ -21,14 +21,19 @@
 
 	&:focus,
 	&:hover,
-	&[aria-current='true'],
+	&[aria-current='page'],
 	&[aria-expanded='true'] {
 		color: var(--token-color-foreground-strong);
 	}
 
 	/* AKA active */
-	&[aria-current='true'] {
+	&[aria-current='page'] {
 		background-color: var(--token-color-palette-neutral-200);
+	}
+
+	&.isActive {
+		background-color: var(--token-color-palette-neutral-200);
+		color: var(--token-color-foreground-strong);
 	}
 
 	/* AKA open */
