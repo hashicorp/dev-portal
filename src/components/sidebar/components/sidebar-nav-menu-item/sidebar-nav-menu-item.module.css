@@ -21,13 +21,13 @@
 
 	&:focus,
 	&:hover,
-	&[aria-current='page'],
+	&[aria-current='true'],
 	&[aria-expanded='true'] {
 		color: var(--token-color-foreground-strong);
 	}
 
 	/* AKA active */
-	&[aria-current='page'] {
+	&[aria-current='true'] {
 		background-color: var(--token-color-palette-neutral-200);
 	}
 
