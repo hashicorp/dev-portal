@@ -7,10 +7,10 @@ import {
 	Flag,
 	Integration,
 	IntegrationComponent,
-	Tier,
 	IntegrationType,
+	Tier,
 } from 'lib/integrations-api-client/integration'
-import { type ReactNode, createContext, useContext, useMemo } from 'react'
+import { createContext, useContext, useMemo, type ReactNode } from 'react'
 import { QueryParamOptions, useQueryParam, withDefault } from 'use-query-params'
 
 import { decodeDelimitedArray, encodeDelimitedArray } from 'use-query-params'
@@ -286,11 +286,13 @@ export const IntegrationsSearchProvider = ({
 				}
 			})
 
+			// If no types are selected, do not filter by type
 			let typeMatch = !typesCheckedArray.includes(true)
 			typesCheckedArray.forEach((checked, index) => {
+				// set typeMatch to true if the integrations type is selected
 				if (checked) {
 					const checkedType = types[index]
-					if (integration.integration_type === checkedType) {
+					if (integration.integration_type.slug === checkedType.slug) {
 						typeMatch = true
 					}
 				}

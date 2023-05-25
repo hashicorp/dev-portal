@@ -9,13 +9,13 @@ import { useIntegrationsByProductSlugs } from 'hooks/integrations/use-integratio
 import { getFilteredIntegrations } from 'views/product-integrations-landing/components/searchable-integrations-list/helpers/get-filtered-integrations'
 import { useCommandBar } from 'components/command-bar'
 import CustomHitsContainer from '../custom-hits-container'
-import NoResultsMessage from '../no-results-message'
 import TabContentsCta from '../tab-contents-cta'
 import { IntegrationsTabContentsProps } from './types'
 import { ProductSlug } from 'types/products'
 
 const IntegrationsTabContents = ({
 	currentProductTag,
+	noResultsMessageSlot,
 }: IntegrationsTabContentsProps) => {
 	const { currentInputValue } = useCommandBar()
 	const productSlugs = currentProductTag
@@ -36,7 +36,7 @@ const IntegrationsTabContents = ({
 			<CustomHitsContainer
 				integrationsHits={filteredIntegrations}
 				type="integrations"
-				noResultsSlot={<NoResultsMessage />}
+				noResultsSlot={noResultsMessageSlot}
 			/>
 			{currentProductTag ? (
 				<TabContentsCta
