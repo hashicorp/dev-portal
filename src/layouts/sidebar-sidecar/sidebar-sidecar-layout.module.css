@@ -144,11 +144,9 @@ for further details.
 	--sidecar-position-top: calc(
 		var(--sticky-bars-height) + var(--main-area-padding-top)
 	);
-	--sidecar-top-slot-variant-disclosure-height: 0;
 	--sidecar-viewport-bottom-spacing: 24px;
 	--max-sidecar-height: calc(
-		100vh - var(--sidecar-position-top) - var(--sidecar-viewport-bottom-spacing) -
-			var(--sidecar-top-slot-variant-disclosure-height)
+		100vh - var(--sidecar-position-top) - var(--sidecar-viewport-bottom-spacing)
 	);
 
 	display: none;
@@ -166,6 +164,12 @@ for further details.
 	*/
 	&.topSlotDropdown {
 		--sidecar-top-slot-variant-disclosure-height: 63px;
+		--max-sidecar-height: calc(
+			100vh - var(--sidecar-position-top) -
+				var(--sidecar-viewport-bottom-spacing) -
+				var(--sidecar-top-slot-variant-disclosure-height) -
+				var(--sidecar-top-slot-variant-disclosure-height)
+		);
 	}
 
 	@media (--dev-dot-sidecar-up) {
