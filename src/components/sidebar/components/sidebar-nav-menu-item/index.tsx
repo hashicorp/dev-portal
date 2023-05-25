@@ -106,9 +106,6 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		!isExternal && item.isActive ? 'page' : undefined
 	)
 
-	if (ariaCurrent) {
-		console.log(ariaCurrent, href, item.isActive, '*** is current')
-	}
 
 	/**
 	 * Note from on this useEffect:
