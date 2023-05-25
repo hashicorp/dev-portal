@@ -106,7 +106,6 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		!isExternal && item.isActive ? 'page' : undefined
 	)
 
-
 	/**
 	 * Note from on this useEffect:
 	 *
