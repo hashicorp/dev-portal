@@ -38,18 +38,18 @@ export function formatTutorialToMenuItem(
 ): TutorialListItemProps {
 	const path = getTutorialSlug(tutorial.slug, collection.slug)
 	const currentPathWithoutVariant = cleanVariantFromPath(currentPath)
-	console.log(
-		{ currentPath },
-		{ currentPathWithoutVariant },
-		path === currentPathWithoutVariant
-	)
+	const isActive = path === currentPathWithoutVariant
+
+	if (isActive) {
+		console.log({ currentPath }, { currentPathWithoutVariant }, 'IS ACTIVE')
+	}
 
 	return {
 		tutorialId: tutorial.id,
 		collectionId: collection.id,
 		text: tutorial.name,
 		href: path,
-		isActive: path === currentPathWithoutVariant,
+		isActive,
 	}
 }
 

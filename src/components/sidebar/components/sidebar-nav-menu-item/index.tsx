@@ -106,11 +106,12 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		!isExternal && item.isActive ? 'page' : undefined
 	)
 
+	console.log(ariaCurrent, href, item.isActive, '*** is current')
+
 	useEffect(() => {
 		const isAriaCurrent = !isExternal && item.isActive
 		setAriaCurrent(isAriaCurrent ? 'page' : undefined)
-
-		console.log(ariaCurrent, href, item.isActive, '*** is current')
+		console.log(isAriaCurrent, href, 'in effect ')
 	}, [item.isActive, isExternal, ariaCurrent, href])
 
 	const ariaLabel = isExternal
