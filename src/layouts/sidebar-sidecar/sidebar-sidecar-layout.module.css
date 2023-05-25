@@ -161,6 +161,7 @@ for further details.
 	* be in the scrollable sidecarslot area, and need its dropdown content
 	* to render outside of that scrollable area. This workaround retains the 
 	* scroll / scrim style behavior of the current sidecar slot.
+	* https://app.asana.com/0/1204333057896641/1204669563792095
 	*/
 	&.topSlotDropdown {
 		--sidecar-top-slot-variant-disclosure-height: 63px;
