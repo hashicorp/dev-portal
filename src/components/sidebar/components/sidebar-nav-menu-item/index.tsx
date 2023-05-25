@@ -102,8 +102,21 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	const trailingIcon = isExternal ? <IconExternalLink16 /> : item.trailingIcon
 
 	// Conditionally determining props for the <a>
-	const ariaCurrent = !isExternal && item.isActive ? 'page' : undefined
-	console.log({ ariaCurrent }, { isExternal }, item.isActive, href)
+	const [ariaCurrent, setAriaCurrent] = useState<'page' | undefined>(
+		!isExternal && item.isActive ? 'page' : undefined
+	)
+
+	useEffect(() => {
+		const isAriaCurrent = !isExternal && item.isActive
+		if (isAriaCurrent !== Boolean(ariaCurrent)) {
+			setAriaCurrent(isAriaCurrent ? 'page' : undefined)
+		}
+
+		if (ariaCurrent) {
+			console.log(href, '*** is current')
+		}
+	}, [item.isActive, isExternal, item.href])
+
 	const ariaLabel = isExternal
 		? `${item.title}. Opens in a new tab.`
 		: undefined
@@ -143,7 +156,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 				opensInNewTab={isExternal}
 				rel={rel}
 			>
-				{anchorContent}
+				*{anchorContent}
 			</Link>
 		)
 	} else {

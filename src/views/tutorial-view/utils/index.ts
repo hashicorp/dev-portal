@@ -41,8 +41,7 @@ export function formatTutorialToMenuItem(
 	console.log(
 		{ currentPath },
 		{ currentPathWithoutVariant },
-		path === currentPathWithoutVariant,
-		'HIIIIIIIII'
+		path === currentPathWithoutVariant
 	)
 
 	return {
