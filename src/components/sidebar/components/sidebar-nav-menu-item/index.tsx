@@ -102,7 +102,9 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 
 	// Determine the trailing icon to use, if any
 	const trailingIcon = isExternal ? <IconExternalLink16 /> : item.trailingIcon
-	const [ariaCurrent, setAriaCurrent] = useState<'page' | undefined>()
+	const [ariaCurrent, setAriaCurrent] = useState<'page' | undefined>(
+		!isExternal && item.isActive ? 'page' : undefined
+	)
 
 	if (ariaCurrent) {
 		console.log(ariaCurrent, href, item.isActive, '*** is current')
