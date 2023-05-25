@@ -14,10 +14,11 @@ interface ContentCardLinkBadge {
 }
 
 interface ContentCardLinkProps {
+	backgroundImageColor?: 'light' | 'dark'
 	backgroundImageUrl?: string
-	badges: ContentCardLinkBadge[]
+	badges?: ContentCardLinkBadge[]
 	description: string
-	eyebrowParts: ContentCardLinkEyebrowPart[]
+	eyebrowParts?: ContentCardLinkEyebrowPart[]
 	headerImageUrl?: string
 	href: string
 	title: string
@@ -25,6 +26,7 @@ interface ContentCardLinkProps {
 
 const TutorialsLandingContentCardLink = ({
 	backgroundImageUrl,
+	backgroundImageColor = 'light',
 	badges,
 	description,
 	eyebrowParts,
@@ -34,6 +36,11 @@ const TutorialsLandingContentCardLink = ({
 }: ContentCardLinkProps) => {
 	const uniqueId = useId()
 	const hasHeaderImage = headerImageUrl?.length > 0
+	const hasBackgroundImage = backgroundImageUrl?.length > 0
+	const hasLightBackgroundImage =
+		hasBackgroundImage && backgroundImageColor === 'light'
+	const hasDarkBackgroundImage =
+		hasBackgroundImage && backgroundImageColor === 'dark'
 
 	return (
 		<CardLink ariaLabel={title} className={s.root} href={href}>
@@ -48,16 +55,19 @@ const TutorialsLandingContentCardLink = ({
 			<div
 				className={classNames(s.content, {
 					[s.hasHeaderImage]: hasHeaderImage,
+					[s.hasBackgroundImage]: hasBackgroundImage,
+					[s.hasLightBackgroundImage]: hasLightBackgroundImage,
+					[s.hasDarkBackgroundImage]: hasDarkBackgroundImage,
 				})}
 				style={
-					backgroundImageUrl
+					hasBackgroundImage
 						? {
 								backgroundImage: `url(${backgroundImageUrl})`,
 						  }
 						: null
 				}
 			>
-				<div>
+				<div className={s.text}>
 					{eyebrowParts?.length > 0 ? (
 						<div className={s.eyebrow}>
 							{eyebrowParts.map(

@@ -1,22 +1,54 @@
 .root {
 	background-color: var(--token-color-surface-faint);
+	color: var(--token-color-foreground-strong);
+	display: flex;
+	flex-direction: column;
 	overflow: hidden;
 	padding: 0;
 }
 
 .content {
-	background-position: right center;
+	background-position: center center;
 	background-repeat: no-repeat;
 	display: flex;
 	flex-direction: column;
+	flex-grow: 1;
 	justify-content: space-between;
 	padding-bottom: 24px;
 	padding-left: 40px;
 	padding-right: 24px;
-	padding-top: 44px;
+	padding-top: 40px;
 
 	&.hasHeaderImage {
 		padding-top: 0;
+
+		& .text {
+			padding-right: 16px;
+		}
+	}
+
+	&.hasBackgroundImage {
+		padding-left: 24px;
+
+		& .text {
+			padding-right: 32px;
+		}
+	}
+
+	&.hasLightBackgroundImage {
+		color: #0d0e12;
+
+		& .description {
+			color: inherit;
+		}
+	}
+
+	&.hasDarkBackgroundImage {
+		color: #efeff1;
+
+		& .description {
+			color: inherit;
+		}
 	}
 }
 
@@ -52,6 +84,7 @@
 .description {
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-medium from global;
+	color: var(--token-color-foreground-primary);
 	margin-top: 21px;
 }
 
@@ -59,7 +92,7 @@
 	align-items: flex-end;
 	display: flex;
 	justify-content: space-between;
-	margin-top: 24px;
+	margin-top: 32px;
 }
 
 .badgeList {
@@ -77,8 +110,10 @@
 
 .icon {
 	align-items: center;
+	border-color: inherit;
 	border-radius: 20px;
-	border: 1.5px solid black;
+	border-style: solid;
+	border-width: 1.5px;
 	display: flex;
 	height: 40px;
 	justify-content: center;
