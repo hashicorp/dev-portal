@@ -38,6 +38,12 @@ export function formatTutorialToMenuItem(
 ): TutorialListItemProps {
 	const path = getTutorialSlug(tutorial.slug, collection.slug)
 	const currentPathWithoutVariant = cleanVariantFromPath(currentPath)
+	console.log(
+		{ currentPath },
+		{ currentPathWithoutVariant },
+		path === currentPathWithoutVariant,
+		'HIIIIIIIII'
+	)
 
 	return {
 		tutorialId: tutorial.id,
