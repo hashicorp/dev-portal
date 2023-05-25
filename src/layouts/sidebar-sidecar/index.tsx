@@ -114,7 +114,12 @@ const SidebarSidecarLayoutContent = ({
 								/>
 							) : null}
 						</main>
-						<div className={s.sidecarPosition}>
+						<div
+							className={classNames(
+								s.sidecarPosition,
+								sidecarTopSlot && s.topSlotDropdown
+							)}
+						>
 							{sidecarTopSlot}
 							<SidecarScrollContainer>{sidecarSlot}</SidecarScrollContainer>
 						</div>

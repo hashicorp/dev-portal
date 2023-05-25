@@ -144,12 +144,29 @@ for further details.
 	--sidecar-position-top: calc(
 		var(--sticky-bars-height) + var(--main-area-padding-top)
 	);
+	--sidecar-top-slot-variant-disclosure-height: 0;
 	--sidecar-viewport-bottom-spacing: 24px;
 	--max-sidecar-height: calc(
-		100vh - var(--sidecar-position-top) - var(--sidecar-viewport-bottom-spacing)
+		100vh - var(--sidecar-position-top) - var(--sidecar-viewport-bottom-spacing) -
+			var(--sidecar-top-slot-variant-disclosure-height)
 	);
 
 	display: none;
+
+	/** 
+	* NOTE! 
+	* Hard-coded height value to account for the height of the variants
+	* dropdown disclosure. We should find a more permanent workaround
+	* for the topslot to work for every generic component. 
+	* 
+	* This solves an issue where the variant dropdown disclosure shouldn't
+	* be in the scrollable sidecarslot area, and need its dropdown content
+	* to render outside of that scrollable area. This workaround retains the 
+	* scroll / scrim style behavior of the current sidecar slot.
+	*/
+	&.topSlotDropdown {
+		--sidecar-top-slot-variant-disclosure-height: 63px;
+	}
 
 	@media (--dev-dot-sidecar-up) {
 		display: flex;
