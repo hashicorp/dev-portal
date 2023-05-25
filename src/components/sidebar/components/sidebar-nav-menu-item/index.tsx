@@ -163,7 +163,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 				opensInNewTab={isExternal}
 				rel={rel}
 			>
-				*{anchorContent}
+				{anchorContent}
 			</Link>
 		)
 	} else {
