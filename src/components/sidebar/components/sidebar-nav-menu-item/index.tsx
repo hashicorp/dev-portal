@@ -104,7 +104,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	const [isMounted, setIsMounted] = useState(false)
 
 	/**
-	 * Note from on this useEffect:
+	 * Note on this useEffect:
 	 *
 	 * Due to how we are rewriting routes for tutorial variants, the URLs rendered in
 	 * this component are incorrect during SSR, and for some reason are NOT
