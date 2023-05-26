@@ -1,5 +1,5 @@
 import { type CollectionContentCardLinkProps } from '../types'
-import TutorialsLandingContentCardLink from '../content-card-link'
+import ContentCardLink from '../content-card-link'
 import boundaryGraphic from './img/boundary.svg'
 import consulGraphic from './img/consul.svg'
 import nomadGraphic from './img/nomad.svg'
@@ -29,7 +29,7 @@ const CollectionContentCardLink = ({
 	tutorialCount,
 }: CollectionContentCardLinkProps) => {
 	return (
-		<TutorialsLandingContentCardLink
+		<ContentCardLink
 			badges={badges}
 			description={description}
 			headerImageUrl={PRODUCT_SLUGS_TO_HEADER_IMAGES[productSlug]}

@@ -1,5 +1,5 @@
 import { type CertificationContentCardLinkProps } from '../types'
-import TutorialsLandingContentCardLink from '../content-card-link'
+import ContentCardLink from '../content-card-link'
 import consulGraphic from './img/consul.svg'
 import terraformGraphic from './img/terraform.svg'
 import vaultGraphic from './img/vault.svg'
@@ -27,7 +27,7 @@ const CertificationContentCardLink = ({
 }: CertificationContentCardLinkProps) => {
 	const { url, lightOrDark } = PRODUCT_SLUGS_TO_BACKGROUND_IMAGES[productSlug]
 	return (
-		<TutorialsLandingContentCardLink
+		<ContentCardLink
 			backgroundImageUrl={url}
 			backgroundImageColor={lightOrDark}
 			title={title}
