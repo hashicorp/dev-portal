@@ -41,9 +41,6 @@ export function DesktopVariantList({ variant }: { variant: TutorialVariant }) {
 												option: option.slug,
 											})
 										}}
-										data-heap-track={
-											isActiveOption ? 'active-variant' : undefined
-										}
 									>
 										{option.name}
 									</Link>
