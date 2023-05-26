@@ -14,7 +14,6 @@ import {
 import { VariantDropdownDisclosureProps } from './types'
 import s from './variant-dropdown-disclosure.module.css'
 
-/** @TODO add onclick for cookie setting */
 
 export function VariantDropdownDisclosure({
 	variant,
