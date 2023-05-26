@@ -47,7 +47,7 @@ export default function VariantProvider({
 		) {
 			setCurrentVariant(variant)
 		}
-	}, [variant, currentVariant])
+	}, [variant, variant?.activeOption?.id, currentVariant?.activeOption?.id])
 
 	return (
 		<VariantContext.Provider value={contextValue}>
