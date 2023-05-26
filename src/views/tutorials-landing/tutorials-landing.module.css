@@ -11,21 +11,6 @@
 
 /*
 
-ContentTypesSection
-
-*/
-
-.contentTypesSection {
-	background-color: #d9d9d940;
-}
-
-.contentTypesSectionTextWrapper {
-	margin: 0 auto;
-	max-width: var(--content-max-width);
-}
-
-/*
-
 BetterTogetherSection
 
 */
