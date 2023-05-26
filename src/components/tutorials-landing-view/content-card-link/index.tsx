@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
 import Badge from 'components/badge'
 import CardLink from 'components/card-link'
+import { ToastColor, developmentToast } from 'components/toast'
 import Tooltip from 'components/tooltip'
 import {
 	type ContentCardLinkBadge,
@@ -12,8 +13,8 @@ import {
 import s from './tutorials-landing-content-card-link.module.css'
 
 const ContentCardLink = ({
-	backgroundImageUrl,
 	backgroundImageColor = 'light',
+	backgroundImageUrl,
 	badges,
 	description,
 	eyebrowParts,
@@ -28,6 +29,15 @@ const ContentCardLink = ({
 		hasBackgroundImage && backgroundImageColor === 'light'
 	const hasDarkBackgroundImage =
 		hasBackgroundImage && backgroundImageColor === 'dark'
+
+	if (hasHeaderImage && hasBackgroundImage) {
+		developmentToast({
+			color: ToastColor.critical,
+			title: 'Error in `ContentCardLink`',
+			description:
+				'`ContentCardLink` does not accept both `headerImageUrl` and `backgroundImageUrl`. Only provide one.',
+		})
+	}
 
 	return (
 		<CardLink ariaLabel={title} className={s.root} href={href}>
