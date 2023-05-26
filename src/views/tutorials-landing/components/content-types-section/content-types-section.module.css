@@ -1,0 +1,44 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+}
+
+.title {
+	composes: hds-typography-display-500 from global;
+	composes: hds-font-weight-bold from global;
+	color: var(--token-color-foreground-primary);
+}
+
+.list {
+	align-items: flex-start;
+	display: flex;
+	gap: 64px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.listItem {
+	align-items: flex-start;
+	display: flex;
+	gap: 40px;
+}
+
+.listItemTextContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.listItemTitle {
+	composes: hds-typography-display-400 from global;
+	composes: hds-font-weight-semibold from global;
+	color: var(--token-color-foreground-primary);
+}
+
+.listItemDescription {
+	composes: hds-typography-display-200 from global;
+	composes: hds-font-weight-semibold from global;
+	color: var(--token-color-foreground-primary);
+}
