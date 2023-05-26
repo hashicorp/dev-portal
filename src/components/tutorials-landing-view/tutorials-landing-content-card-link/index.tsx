@@ -4,25 +4,12 @@ import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-
 import Badge from 'components/badge'
 import CardLink from 'components/card-link'
 import Tooltip from 'components/tooltip'
+import {
+	type ContentCardLinkBadge,
+	type ContentCardLinkEyebrowPart,
+	type ContentCardLinkProps,
+} from '../types'
 import s from './tutorials-landing-content-card-link.module.css'
-
-type ContentCardLinkEyebrowPart = string
-
-interface ContentCardLinkBadge {
-	icon: $TSFixMe
-	label: string
-}
-
-interface ContentCardLinkProps {
-	backgroundImageColor?: 'light' | 'dark'
-	backgroundImageUrl?: string
-	badges?: ContentCardLinkBadge[]
-	description: string
-	eyebrowParts?: ContentCardLinkEyebrowPart[]
-	headerImageUrl?: string
-	href: string
-	title: string
-}
 
 const TutorialsLandingContentCardLink = ({
 	backgroundImageUrl,
