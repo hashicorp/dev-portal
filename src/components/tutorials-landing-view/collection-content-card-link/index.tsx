@@ -1,5 +1,5 @@
 import { type CollectionContentCardLinkProps } from '../types'
-import TutorialsLandingContentCardLink from '../tutorials-landing-content-card-link'
+import TutorialsLandingContentCardLink from '../content-card-link'
 import boundaryGraphic from './img/boundary.svg'
 import consulGraphic from './img/consul.svg'
 import nomadGraphic from './img/nomad.svg'
@@ -20,7 +20,7 @@ const PRODUCT_SLUGS_TO_HEADER_IMAGES = {
 	waypoint: waypointGraphic,
 }
 
-const TutorialsLandingCollectionContentCardLink = ({
+const CollectionContentCardLink = ({
 	badges,
 	description,
 	href,
@@ -43,4 +43,4 @@ const TutorialsLandingCollectionContentCardLink = ({
 	)
 }
 
-export default TutorialsLandingCollectionContentCardLink
+export default CollectionContentCardLink

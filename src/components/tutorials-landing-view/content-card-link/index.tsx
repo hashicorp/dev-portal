@@ -11,7 +11,7 @@ import {
 } from '../types'
 import s from './tutorials-landing-content-card-link.module.css'
 
-const TutorialsLandingContentCardLink = ({
+const ContentCardLink = ({
 	backgroundImageUrl,
 	backgroundImageColor = 'light',
 	badges,
@@ -97,4 +97,4 @@ const TutorialsLandingContentCardLink = ({
 	)
 }
 
-export default TutorialsLandingContentCardLink
+export default ContentCardLink

@@ -1,5 +1,5 @@
 import { type CertificationContentCardLinkProps } from '../types'
-import TutorialsLandingContentCardLink from '../tutorials-landing-content-card-link'
+import TutorialsLandingContentCardLink from '../content-card-link'
 import consulGraphic from './img/consul.svg'
 import terraformGraphic from './img/terraform.svg'
 import vaultGraphic from './img/vault.svg'
@@ -19,7 +19,7 @@ const PRODUCT_SLUGS_TO_BACKGROUND_IMAGES = {
 	},
 }
 
-const TutorialsLandingCertificationContentCardLink = ({
+const CertificationContentCardLink = ({
 	productSlug,
 	description,
 	href,
@@ -37,4 +37,4 @@ const TutorialsLandingCertificationContentCardLink = ({
 	)
 }
 
-export default TutorialsLandingCertificationContentCardLink
+export default CertificationContentCardLink
