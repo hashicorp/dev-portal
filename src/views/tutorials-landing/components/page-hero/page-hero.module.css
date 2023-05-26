@@ -2,6 +2,7 @@
 .title {
 	composes: hds-font-family-sans-display from global;
 	composes: hds-font-weight-bold from global;
+	color: var(--token-color-foreground-strong);
 	font-size: 3.375rem; /* 54px */
 	line-height: 1.296; /* 70px */
 	margin: 0;
@@ -11,5 +12,6 @@
 .subtitle {
 	composes: hds-typography-display-400 from global;
 	composes: hds-font-weight-medium from global;
+	color: var(--token-color-foreground-primary);
 	margin-top: 20px;
 }

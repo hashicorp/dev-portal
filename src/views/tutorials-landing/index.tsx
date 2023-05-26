@@ -339,6 +339,5 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 
 TutorialsLandingView.contentType = 'tutorials'
 TutorialsLandingView.layout = BaseNewLayout
-TutorialsLandingView.theme = GlobalThemeOption.light
 
 export default TutorialsLandingView
