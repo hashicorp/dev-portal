@@ -24,6 +24,7 @@ import {
 	BETTER_TOGETHER_SECTION_TITLE,
 	BETTER_TOGETHER_SECTION_COLLECTION_SLUGS,
 } from './constants'
+import { PageHero } from './components/page-hero'
 import s from './tutorials-landing.module.css'
 
 const ProductSection = ({
@@ -320,12 +321,11 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 
 	return (
 		<div className={s.root}>
-			<div className={s.hero}>
-				<header className={s.header}>
-					<h1 className={s.title}>{PAGE_TITLE}</h1>
-					<p className={s.subtitle}>{PAGE_SUBTITLE}</p>
-				</header>
-			</div>
+			<PageHero
+				className={s.pageHero}
+				subtitle={PAGE_SUBTITLE}
+				title={PAGE_TITLE}
+			/>
 			{renderProductSections(
 				[firstProductSlug, secondProductSlug, thirdProductSlug],
 				pageContent
@@ -339,6 +339,5 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 
 TutorialsLandingView.contentType = 'tutorials'
 TutorialsLandingView.layout = BaseNewLayout
-TutorialsLandingView.theme = GlobalThemeOption.light
 
 export default TutorialsLandingView

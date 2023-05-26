@@ -4,32 +4,6 @@
 	padding-bottom: 300px;
 }
 
-.hero {
-	background-color: #d9d9d9;
-	padding-bottom: 84px;
-	padding-top: 218px;
-}
-
-.header {
-	margin: 0 auto;
-	max-width: var(--content-max-width);
-}
-
-.title {
-	font-size: 54px;
-	font-weight: 700;
-	line-height: 70px;
-	margin-bottom: 21px;
-	max-width: 850px;
-}
-
-.subtitle {
-	font-size: 18px;
-	font-weight: 600;
-	line-height: 24px;
-	max-width: 850px;
-}
-
 .section {
 	margin: 124px auto;
 	max-width: var(--content-max-width);
