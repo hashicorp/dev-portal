@@ -1,7 +1,8 @@
+import { type CertificationContentCardLinkProps } from '../types'
+import TutorialsLandingContentCardLink from '../tutorials-landing-content-card-link'
 import consulGraphic from './img/consul.svg'
 import terraformGraphic from './img/terraform.svg'
 import vaultGraphic from './img/vault.svg'
-import TutorialsLandingContentCardLink from '../tutorials-landing-content-card-link'
 
 const PRODUCT_SLUGS_TO_BACKGROUND_IMAGES = {
 	consul: {
@@ -18,14 +19,12 @@ const PRODUCT_SLUGS_TO_BACKGROUND_IMAGES = {
 	},
 }
 
-type TutorialsLandingCertificationContentCardLinkProps = $TSFixMe
-
 const TutorialsLandingCertificationContentCardLink = ({
 	productSlug,
 	description,
 	href,
 	title,
-}: TutorialsLandingCertificationContentCardLinkProps) => {
+}: CertificationContentCardLinkProps) => {
 	const { url, lightOrDark } = PRODUCT_SLUGS_TO_BACKGROUND_IMAGES[productSlug]
 	return (
 		<TutorialsLandingContentCardLink
