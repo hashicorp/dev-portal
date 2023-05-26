@@ -11,6 +11,23 @@ export function splitProductFromFilename(slug: string): string {
 	return slug.split('/')[1]
 }
 
+// Handles variant routes that in the url show as query params,
+// but are rewritten to static paths in middleware. We want to check
+// against the default tutorial path for 'current', not with the variant
+function cleanVariantFromPath(tutorialPath: string) {
+	const currentPathParts = tutorialPath.split('/')
+	// Expected variant tutorial path structure
+	// /:product/tutorials/:collection/:tutorial/:variant
+	const isVariantPath =
+		currentPathParts.length === 6 && currentPathParts[5].includes(':')
+
+	if (isVariantPath) {
+		currentPathParts.pop()
+	}
+
+	return currentPathParts.join('/')
+}
+
 export function formatTutorialToMenuItem(
 	tutorial: ClientTutorialLite,
 	collection: {
@@ -20,13 +37,14 @@ export function formatTutorialToMenuItem(
 	currentPath: string
 ): TutorialListItemProps {
 	const path = getTutorialSlug(tutorial.slug, collection.slug)
+	const currentPathWithoutVariant = cleanVariantFromPath(currentPath)
 
 	return {
 		tutorialId: tutorial.id,
 		collectionId: collection.id,
 		text: tutorial.name,
 		href: path,
-		isActive: path === currentPath,
+		isActive: path === currentPathWithoutVariant,
 	}
 }
 

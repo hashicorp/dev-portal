@@ -5,6 +5,7 @@
 
 import { ReactElement, ReactNode } from 'react'
 import { TextProps } from 'components/text'
+import { LinkProps } from 'components/link'
 
 /**
  * All props from the native <a> and <button> elements.
@@ -89,6 +90,7 @@ interface DropdownDisclosureLinkItemProps {
 	 */
 	rel?: NativeAnchorProps['rel']
 	target?: NativeAnchorProps['target']
+	onClick?: LinkProps['onClick']
 }
 
 export type {
