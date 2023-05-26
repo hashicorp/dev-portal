@@ -12,10 +12,13 @@ export function VariantList() {
 
 	return (
 		<>
-			<div className={s.desktopVariantList}>
+			<div className={s.desktopVariantList} data-heap-track="variant-list">
 				<DesktopVariantList variant={currentVariant} />
 			</div>
-			<div className={s.mobileVariantDropdownDisclosure}>
+			<div
+				className={s.mobileVariantDropdownDisclosure}
+				data-heap-track="variant-list"
+			>
 				<VariantDropdownDisclosure isFullWidth variant={currentVariant} />
 			</div>
 		</>
