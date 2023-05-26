@@ -1,4 +1,5 @@
 import { type BadgeProps } from 'components/badge'
+import { ProductSlug } from 'types/products'
 
 interface ContentCardLinkBadge {
 	icon: BadgeProps['icon']
@@ -18,7 +19,17 @@ interface ContentCardLinkProps {
 	title: string
 }
 
+interface CollectionContentCardLinkProps
+	extends Pick<
+		ContentCardLinkProps,
+		'badges' | 'description' | 'href' | 'title'
+	> {
+	productSlug: ProductSlug
+	tutorialCount: number
+}
+
 export type {
+	CollectionContentCardLinkProps,
 	ContentCardLinkBadge,
 	ContentCardLinkEyebrowPart,
 	ContentCardLinkProps,

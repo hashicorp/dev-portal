@@ -1,3 +1,4 @@
+import { type CollectionContentCardLinkProps } from '../types'
 import TutorialsLandingContentCardLink from '../tutorials-landing-content-card-link'
 import boundaryGraphic from './img/boundary.svg'
 import consulGraphic from './img/consul.svg'
@@ -19,23 +20,21 @@ const PRODUCT_SLUGS_TO_HEADER_IMAGES = {
 	waypoint: waypointGraphic,
 }
 
-type TutorialsLandingCollectionContentCardLinkProps = $TSFixMe
-
 const TutorialsLandingCollectionContentCardLink = ({
 	badges,
 	description,
 	href,
-	name,
 	productSlug,
+	title,
 	tutorialCount,
-}: TutorialsLandingCollectionContentCardLinkProps) => {
+}: CollectionContentCardLinkProps) => {
 	return (
 		<TutorialsLandingContentCardLink
-			headerImageUrl={PRODUCT_SLUGS_TO_HEADER_IMAGES[productSlug]}
 			badges={badges}
 			description={description}
-			title={name}
+			headerImageUrl={PRODUCT_SLUGS_TO_HEADER_IMAGES[productSlug]}
 			href={href}
+			title={title}
 			eyebrowParts={[
 				'Learning path',
 				`${tutorialCount} tutorial${tutorialCount > 1 ? 's' : ''}`,
