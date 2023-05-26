@@ -79,7 +79,7 @@ export function getTutorialViewVariantData(
 
 		// if the variant slug is passed via query param, use that, otherwise pass the default
 		if (variantSlug) {
-			// slugs in the query params are formatted like ?variants=slug:optionSlug
+			// slugs in the query params are formatted like `slug:optionSlug`
 			const [paramVariantSlug, paramOptionSlug] = variantSlug.split(':')
 			const isValidVariantOption = tutorialVariant.options.find(
 				(el: ClientTutorialVariantOption) => el.slug === paramOptionSlug
