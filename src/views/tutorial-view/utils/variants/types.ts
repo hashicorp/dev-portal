@@ -3,7 +3,6 @@ import {
 	TutorialVariantOption as ClientTutorialVariantOption,
 } from 'lib/learn-client/types'
 
-
 export interface TutorialVariant extends ClientTutorialVariant {
 	activeOption: TutorialVariantOption
 }

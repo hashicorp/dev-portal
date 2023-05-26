@@ -14,7 +14,6 @@ import {
 import { VariantDropdownDisclosureProps } from './types'
 import s from './variant-dropdown-disclosure.module.css'
 
-
 export function VariantDropdownDisclosure({
 	variant,
 	isFullWidth,
