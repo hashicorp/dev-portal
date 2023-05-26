@@ -59,7 +59,8 @@ export function formatTutorialData(
 	// We only accept a single variant currently, so we take the first array item
 	// The learn-api-content-sync should prevent multiple variants from syncing into
 	// the database, this is an extra protection
-	const formattedVariant = variants?.length > 0 ? formatVariant(variants[0]) : undefined
+	const formattedVariant =
+		variants?.length > 0 ? formatVariant(variants[0]) : undefined
 
 	return {
 		id,
