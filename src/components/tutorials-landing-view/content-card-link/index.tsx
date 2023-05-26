@@ -1,4 +1,3 @@
-import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
 import Badge from 'components/badge'
@@ -22,7 +21,6 @@ const ContentCardLink = ({
 	href,
 	title,
 }: ContentCardLinkProps) => {
-	const uniqueId = useId()
 	const hasHeaderImage = headerImageUrl?.length > 0
 	const hasBackgroundImage = backgroundImageUrl?.length > 0
 	const hasLightBackgroundImage =
@@ -67,17 +65,11 @@ const ContentCardLink = ({
 				<div className={s.text}>
 					{eyebrowParts?.length > 0 ? (
 						<div className={s.eyebrow}>
-							{eyebrowParts.map(
-								(eyebrowPart: ContentCardLinkEyebrowPart, index: number) => (
-									<span
-										className={s.eyebrowPart}
-										// eslint-disable-next-line react/no-array-index-key
-										key={`${uniqueId}-eyebrowPart-${index}`}
-									>
-										{eyebrowPart}
-									</span>
-								)
-							)}
+							{eyebrowParts.map((eyebrowPart: ContentCardLinkEyebrowPart) => (
+								<span className={s.eyebrowPart} key={eyebrowPart}>
+									{eyebrowPart}
+								</span>
+							))}
 						</div>
 					) : null}
 					<h3 className={s.title}>{title}</h3>
@@ -87,10 +79,7 @@ const ContentCardLink = ({
 					{badges?.length > 0 ? (
 						<ul className={s.badgeList}>
 							{badges.map(({ icon, label }: ContentCardLinkBadge) => (
-								<li
-									key={`${uniqueId}-badge-${label}`}
-									className={s.badgeListItem}
-								>
+								<li key={label} className={s.badgeListItem}>
 									<Tooltip label={label}>
 										<Badge ariaLabel={label} icon={icon} size="medium" />
 									</Tooltip>
