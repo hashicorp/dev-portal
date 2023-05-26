@@ -36,10 +36,7 @@ export default function VariantProvider({
 	const router = useRouter()
 	console.log({ router })
 
-	const contextValue = useMemo(
-		() => ({ currentVariant, setCurrentVariant }),
-		[currentVariant, currentVariant?.activeOption]
-	)
+	const contextValue = { currentVariant, setCurrentVariant }
 
 	useEffect(() => {
 		// if the variant is passed from tutorial view, and the active option
@@ -50,7 +47,7 @@ export default function VariantProvider({
 		) {
 			setCurrentVariant(variant)
 		}
-	}, [variant, variant?.activeOption, currentVariant?.activeOption])
+	}, [variant, currentVariant])
 
 	return (
 		<VariantContext.Provider value={contextValue}>
