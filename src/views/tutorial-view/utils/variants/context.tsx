@@ -9,6 +9,7 @@ import {
 	useEffect,
 } from 'react'
 import { TutorialVariant } from './types'
+import { useRouter } from 'next/router'
 
 type VariantContextValue = {
 	currentVariant?: TutorialVariant
@@ -32,10 +33,12 @@ export default function VariantProvider({
 	variant,
 }: VariantProviderProps) {
 	const [currentVariant, setCurrentVariant] = useState<TutorialVariant>(variant)
+	const router = useRouter()
+	console.log({ router })
 
 	const contextValue = useMemo(
 		() => ({ currentVariant, setCurrentVariant }),
-		[currentVariant]
+		[currentVariant, currentVariant?.activeOption]
 	)
 
 	useEffect(() => {
@@ -47,7 +50,7 @@ export default function VariantProvider({
 		) {
 			setCurrentVariant(variant)
 		}
-	}, [variant, currentVariant])
+	}, [variant, variant?.activeOption, currentVariant?.activeOption])
 
 	return (
 		<VariantContext.Provider value={contextValue}>
