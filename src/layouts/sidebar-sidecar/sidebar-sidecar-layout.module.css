@@ -151,6 +151,28 @@ for further details.
 
 	display: none;
 
+	/** 
+	* NOTE! 
+	* Hard-coded height value to account for the height of the variants
+	* dropdown disclosure. We should find a more permanent workaround
+	* for the topslot to work for every generic component. 
+	* 
+	* This solves an issue where the variant dropdown disclosure shouldn't
+	* be in the scrollable sidecarslot area, and need its dropdown content
+	* to render outside of that scrollable area. This workaround retains the 
+	* scroll / scrim style behavior of the current sidecar slot.
+	* https://app.asana.com/0/1204333057896641/1204669563792095
+	*/
+	&.topSlotDropdown {
+		--sidecar-top-slot-variant-disclosure-height: 63px;
+		--max-sidecar-height: calc(
+			100vh - var(--sidecar-position-top) -
+				var(--sidecar-viewport-bottom-spacing) -
+				var(--sidecar-top-slot-variant-disclosure-height) -
+				var(--sidecar-top-slot-variant-disclosure-height)
+		);
+	}
+
 	@media (--dev-dot-sidecar-up) {
 		display: flex;
 		flex-direction: column;
