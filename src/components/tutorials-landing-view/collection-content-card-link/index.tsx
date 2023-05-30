@@ -1,4 +1,5 @@
 import { ProductUsed, TutorialLite } from 'lib/learn-client/types'
+import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import { getCollectionSlug } from 'views/collection-view/helpers'
 import { type CollectionContentCardLinkProps } from '../types'
 import ContentCardLink from '../content-card-link'
@@ -7,7 +8,7 @@ import { BADGE_ICON_MAP, PRODUCT_SLUGS_TO_HEADER_IMAGES } from './constants'
 const CollectionContentCardLink = ({
 	collection,
 }: CollectionContentCardLinkProps) => {
-	const [productSlug] = collection.slug.split('/')
+	const productSlug = normalizeSlugForDevDot(collection.slug.split('/')[0])
 	const title = collection.name
 	const description = collection.description
 	const headerImageUrl = PRODUCT_SLUGS_TO_HEADER_IMAGES[productSlug]
