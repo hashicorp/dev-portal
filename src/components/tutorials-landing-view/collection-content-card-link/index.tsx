@@ -5,9 +5,9 @@ import ContentCardLink from '../content-card-link'
 import { BADGE_ICON_MAP, PRODUCT_SLUGS_TO_HEADER_IMAGES } from './constants'
 
 const CollectionContentCardLink = ({
-	productSlug,
 	collection,
 }: CollectionContentCardLinkProps) => {
+	const [productSlug] = collection.slug.split('/')
 	const title = collection.name
 	const description = collection.description
 	const headerImageUrl = PRODUCT_SLUGS_TO_HEADER_IMAGES[productSlug]

@@ -22,7 +22,6 @@ interface ContentCardLinkProps {
 
 interface CollectionContentCardLinkProps {
 	collection: Collection
-	productSlug: ProductSlug
 }
 
 interface CertificationContentCardLinkProps
