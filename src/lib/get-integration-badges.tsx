@@ -56,6 +56,7 @@ export function getIntegrationBadges(
 	}
 
 	return [
+		// Be sure to keep this tierFirst entry here as the first item
 		...(tierFirst ? [tierBadge] : []),
 		...(typeBadge ? [typeBadge] : []),
 		...integration.flags.map((flag: Flag) => {
@@ -84,6 +85,7 @@ export function getIntegrationBadges(
 				icon: icon,
 			}
 		}),
+		// Be sure to keep this tierFirst entry here as the last item
 		...(tierFirst ? [] : [tierBadge]),
 	]
 }
