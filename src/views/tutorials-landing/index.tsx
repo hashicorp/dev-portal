@@ -11,13 +11,13 @@ import ProductIcon from 'components/product-icon'
 import StandaloneLink, {
 	StandaloneLinkContents,
 } from 'components/standalone-link'
+import { BADGE_ICON_MAP } from 'components/tutorials-landing-view/collection-content-card-link/constants'
 
 // Local imports
 import {
 	PAGE_TITLE,
 	PAGE_SUBTITLE,
 	PRODUCT_DESCRIPTIONS,
-	BADGE_ICON_MAP,
 	CONTENT_TYPES_SECTION_TITLE,
 	CONTENT_TYPES_SECTION_ITEMS,
 	BETTER_TOGETHER_SECTION_TITLE,
