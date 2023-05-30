@@ -56,8 +56,8 @@ export function getIntegrationBadges(
 	}
 
 	return [
-		...(typeBadge ? [typeBadge] : []),
 		...(tierFirst ? [tierBadge] : []),
+		...(typeBadge ? [typeBadge] : []),
 		...integration.flags.map((flag: Flag) => {
 			let icon = undefined
 			switch (flag.slug) {
