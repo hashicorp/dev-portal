@@ -16,7 +16,7 @@ const CollectionContentCardLink = ({
 	const tutorialCount = collection.tutorials.length
 	const eyebrowParts = [
 		'Learning path',
-		`${tutorialCount} tutorial${tutorialCount > 1 ? 's' : ''}`,
+		`${tutorialCount} tutorial${tutorialCount != 1 ? 's' : ''}`,
 	]
 
 	let hasVideo = false
