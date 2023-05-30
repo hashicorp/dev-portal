@@ -18,25 +18,28 @@ peerComponents:
 		'waypoint',
 	].map((productSlug) => {
 		const productName = productSlug[0].toUpperCase() + productSlug.substring(1)
+		const mockTutorial = {
+			productsUsed: [
+				{
+					product: {
+						slug: productSlug,
+					},
+				},
+			],
+			video: {},
+			handsOnLab: {},
+		}
 		return (
 			<div style={{ width: 399 }}>
 				<TutorialsLandingView.CollectionContentCardLink
 					productSlug={productSlug}
-					tutorialCount={8}
-					title={`${productName} collection title`}
-					description="Brief description to give the user enough context to move forward with confidence. Max Character count of 130."
-					badges={[
-						{
-							icon: <ProductIcon productSlug={productSlug} />,
-							label: productName,
-						},
-						{ icon: <SwingsetTestIcon name="play" />, label: 'Video' },
-						{
-							icon: <SwingsetTestIcon name="terminal-screen" />,
-							label: 'Interactive',
-						},
-					]}
-					href="#"
+					collection={{
+						name: `${productName} collection title`,
+						description:
+							'Brief description to give the user enough context to move forward with confidence. Max Character count of 130.',
+						slug: `${productSlug}/get-started`,
+						tutorials: new Array(8).fill(mockTutorial),
+					}}
 				/>
 			</div>
 		)
