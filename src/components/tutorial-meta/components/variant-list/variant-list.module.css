@@ -1,0 +1,14 @@
+.desktopVariantList,
+.mobileVariantDropdownDisclosure {
+	margin-top: 24px;
+	margin-bottom: 24px;
+}
+
+.desktopVariantList {
+	composes: g-hide-on-mobile from global;
+}
+
+.mobileVariantDropdownDisclosure {
+	composes: g-hide-on-tablet-up from global;
+	width: 100%;
+}

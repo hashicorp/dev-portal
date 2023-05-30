@@ -6,9 +6,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
-import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
-import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
-import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { ProductSlug } from 'types/products'
 import {
 	SearchableContentType,
@@ -18,23 +15,20 @@ import {
 import { CommandBarTag, useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 import Tabs, { Tab } from 'components/tabs'
-import { TabProps } from 'components/tabs/components/tab'
 import useRecentSearches from '../../hooks/use-recent-searches'
 import {
 	generateSuggestedPages,
-	generateTutorialLibraryCta,
 	getCurrentProductTag,
 	useHitsContext,
 } from '../../helpers'
 import {
-	DocumentationTabContents,
-	IntegrationsTabContents,
 	RecentSearches,
 	SuggestedPage,
 	SuggestedPages,
-	TutorialsTabContents,
 	TabHeadingWithCount,
+	NoResultsMessage,
 } from '../'
+import { tabContentByType } from './tab-content-by-type'
 import s from './search-command-bar-dialog-body.module.css'
 
 // TODO(brkalow): We might consider lazy-loading the search client & the insights library
@@ -45,12 +39,10 @@ const searchClient = algoliasearch(appId, apiKey)
 const PRODUCT_SLUGS_WITH_INTEGRATIONS =
 	__config.dev_dot.product_slugs_with_integrations
 
-interface SearchableContentTypeTab {
-	heading: TabProps['heading']
-	icon: TabProps['icon']
-	content: TabProps['children']
-}
-
+/**
+ * Render search results across Docs, Tutorials, and Integrations,
+ * grouped in Tabs by content type.
+ */
 const SearchCommandBarDialogBodyContent = ({
 	currentProductTag,
 	recentSearches,
@@ -69,46 +61,24 @@ const SearchCommandBarDialogBodyContent = ({
 		return generateSuggestedPages(currentProductTag?.id as ProductSlug)
 	}, [currentProductTag])
 
-	/**
-	 * Generate an object used to render all of the Tab elements to preselect the
-	 * Tab for the CurrentContentType.
-	 */
-	const tabsBySearchableContentType = useMemo<
-		Record<SearchableContentType, SearchableContentTypeTab>
-	>(() => {
-		return {
-			docs: {
-				heading: 'Documentation',
-				icon: <IconDocs16 />,
-				content: (
-					<DocumentationTabContents
-						currentProductTag={currentProductTag}
-						suggestedPages={suggestedPages}
-					/>
-				),
-			},
-			tutorials: {
-				heading: 'Tutorials',
-				icon: <IconLearn16 />,
-				content: (
-					<TutorialsTabContents
-						currentProductTag={currentProductTag}
-						tutorialLibraryCta={generateTutorialLibraryCta(currentProductTag)}
-					/>
-				),
-			},
-			integrations: {
-				heading: 'Integrations',
-				icon: <IconPipeline16 />,
-				content: (
-					<IntegrationsTabContents currentProductTag={currentProductTag} />
-				),
-			},
-		}
-	}, [currentProductTag, suggestedPages])
-	const searchableContentTypes = Object.keys(tabsBySearchableContentType)
+	const searchableContentTypes = Object.keys(
+		tabContentByType
+	) as SearchableContentType[]
+
 	const activeTabIndex =
 		contentType === 'global' ? 0 : searchableContentTypes.indexOf(contentType)
+
+	/**
+	 * Transform searchableContentTypes into content tab data with hit counts.
+	 * We use this to render helpful information in our "no results" message.
+	 */
+	const tabData = useMemo(() => {
+		return searchableContentTypes.map((type) => {
+			const { heading, icon } = tabContentByType[type]
+			const hitCount = hitCounts[type]
+			return { type, heading, icon, hitCount }
+		})
+	}, [searchableContentTypes, hitCounts])
 
 	/**
 	 * Don't render search result Tabs at all if there is no text in the input.
@@ -152,8 +122,8 @@ const SearchCommandBarDialogBodyContent = ({
 						return null
 					}
 
-					const { heading, icon, content } =
-						tabsBySearchableContentType[contentType]
+					const { heading, icon, renderContent } = tabContentByType[contentType]
+
 					return (
 						<Tab
 							heading={heading}
@@ -166,7 +136,20 @@ const SearchCommandBarDialogBodyContent = ({
 							icon={icon}
 							key={contentType}
 						>
-							{content}
+							{renderContent({
+								currentProductTag,
+								suggestedPages,
+								noResultsMessageSlot: (
+									<NoResultsMessage
+										currentTabHeading={heading}
+										tabsWithResults={tabData.filter((tabData) => {
+											const isOtherTab = tabData.type !== contentType
+											const tabHasResults = tabData.hitCount > 0
+											return isOtherTab && tabHasResults
+										})}
+									/>
+								),
+							})}
 						</Tab>
 					)
 				})}

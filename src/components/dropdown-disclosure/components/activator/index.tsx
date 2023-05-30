@@ -13,6 +13,7 @@ import s from './activator.module.css'
 
 const DropdownDisclosureActivator = ({
 	'aria-label': ariaLabel,
+	'aria-describedby': ariaDescribedBy,
 	children,
 	className,
 	color = 'primary',
@@ -29,6 +30,7 @@ const DropdownDisclosureActivator = ({
 		'aria-controls': contentContainerId,
 		'aria-expanded': isOpen,
 		'aria-label': ariaLabel,
+		'aria-describedby': ariaDescribedBy,
 		className: classes,
 		onClick: toggleDisclosure,
 	}

@@ -1,0 +1,8 @@
+.root {
+	margin-bottom: 24px;
+}
+
+.label {
+	margin-bottom: 8px;
+	color: var(--token-color-foreground-primary);
+}

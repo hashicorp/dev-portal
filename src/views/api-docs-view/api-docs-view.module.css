@@ -11,4 +11,5 @@
 
 .sidebarPrompt {
 	composes: hds-typography-body-300 from global;
+	margin-top: 16px;
 }
