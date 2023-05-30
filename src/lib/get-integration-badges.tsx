@@ -47,8 +47,18 @@ export function getIntegrationBadges(
 			break
 	}
 
+	let typeBadge: Badge
+	if (integration.integration_type) {
+		typeBadge = {
+			text: integration.integration_type.name,
+			tooltip: integration.integration_type.description,
+		}
+	}
+
 	return [
+		// Be sure to keep this tierFirst entry here as the first item
 		...(tierFirst ? [tierBadge] : []),
+		...(typeBadge ? [typeBadge] : []),
 		...integration.flags.map((flag: Flag) => {
 			let icon = undefined
 			switch (flag.slug) {
@@ -75,6 +85,7 @@ export function getIntegrationBadges(
 				icon: icon,
 			}
 		}),
+		// Be sure to keep this tierFirst entry here as the last item
 		...(tierFirst ? [] : [tierBadge]),
 	]
 }

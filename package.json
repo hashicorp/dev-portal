@@ -26,7 +26,7 @@
 		"start:waypoint": "cross-env DEV_IO=waypoint npm run start",
 		"start:with-axe": "AXE_ENABLED=true npm start",
 		"start": "next",
-		"start:remote-watch": "next-remote-watch ../content ../data",
+		"start:remote-watch": "npm run prestart && next-remote-watch ../content ../data",
 		"serve": "next build && next start",
 		"test:e2e": "playwright test --project default",
 		"test:e2e:linkRewrites:loadData": "hc-tools ./scripts/docs-content-link-rewrites/generate-page-paths-for-repo-and-base-path.ts",
