@@ -47,7 +47,16 @@ export function getIntegrationBadges(
 			break
 	}
 
+	let typeBadge: Badge
+	if (integration.integration_type) {
+		typeBadge = {
+			text: integration.integration_type.name,
+			tooltip: integration.integration_type.description,
+		}
+	}
+
 	return [
+		...(typeBadge ? [typeBadge] : []),
 		...(tierFirst ? [tierBadge] : []),
 		...integration.flags.map((flag: Flag) => {
 			let icon = undefined
