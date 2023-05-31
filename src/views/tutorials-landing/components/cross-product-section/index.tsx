@@ -1,7 +1,7 @@
-import CollectionContentCardLink from 'components/tutorials-landing-view/collection-content-card-link'
-import s from './cross-product-section.module.css'
 import classNames from 'classnames'
 import { Collection } from 'lib/learn-client/types'
+import CollectionContentCardLink from 'components/tutorials-landing-view/collection-content-card-link'
+import s from './cross-product-section.module.css'
 
 interface CrossProductSectionProps {
 	className?: string
