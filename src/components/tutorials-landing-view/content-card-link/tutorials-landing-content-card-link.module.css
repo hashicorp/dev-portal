@@ -10,6 +10,7 @@
 .content {
 	background-position: center center;
 	background-repeat: no-repeat;
+	background-size: cover;
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
