@@ -1,4 +1,3 @@
-import { ProductSlug } from 'types/products'
 import { Collection } from 'lib/learn-client/types'
 import { type BadgeProps } from 'components/badge'
 
@@ -24,9 +23,12 @@ interface CollectionContentCardLinkProps {
 	collection: Collection
 }
 
-interface CertificationContentCardLinkProps
-	extends Pick<ContentCardLinkProps, 'description' | 'href' | 'title'> {
-	productSlug: ProductSlug
+interface CertificationContentCardLinkProps {
+	certification: {
+		slug: string
+		title: string
+		description: string
+	}
 }
 
 export type {

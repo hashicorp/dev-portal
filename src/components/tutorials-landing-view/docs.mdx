@@ -50,32 +50,28 @@ peerComponents:
 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
 	{[
 		{
-			productSlug: 'consul',
-			title: 'Verify your Networking Automation skills',
-			description:
-				'The Consul Associate Certification is for Site Reliability Engineers, Solutions Architects, DevOps professionals, or other Cloud Engineers who know the basic concepts and skills to build, secure, and maintain open source HashiCorp Consul.',
-		},
-		{
-			productSlug: 'terraform',
+			slug: 'infrastructure-automation',
 			title: 'Verify your Infrastructure Automation skills',
 			description:
 				'The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform open source.',
 		},
 		{
-			productSlug: 'vault',
+			slug: 'networking-automation',
+			title: 'Verify your Networking Automation skills',
+			description:
+				'The Consul Associate Certification is for Site Reliability Engineers, Solutions Architects, DevOps professionals, or other Cloud Engineers who know the basic concepts and skills to build, secure, and maintain open source HashiCorp Consul.',
+		},
+		{
+			slug: 'security-automation',
 			title: 'Verify your Security Automation skills',
 			description:
 				'Ready to demonstrate your advanced Vault Enterprise skills in production? Successfully complete a lab-based exam and earn the Vault Operations Professional certification.',
 		},
-	].map(({ productSlug, title, description }) => {
-		const productName = productSlug[0].toUpperCase() + productSlug.substring(1)
+	].map((certificationProgram) => {
 		return (
 			<div style={{ width: 399 }}>
 				<TutorialsLandingView.CertificationContentCardLink
-					productSlug={productSlug}
-					title={title}
-					description={description}
-					href="#"
+					certification={certificationProgram}
 				/>
 			</div>
 		)
