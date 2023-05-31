@@ -1,7 +1,7 @@
 .root {
 	display: flex;
 	align-items: flex-start;
-	gap: 58px;
+	gap: 80px;
 }
 
 .left {
@@ -9,48 +9,61 @@
 	width: 100%;
 }
 
-.sectionTitle {
+.titleWrapper {
 	align-items: center;
 	display: flex;
-	font-size: 30px;
-	font-weight: 700;
-	gap: 8px;
-	line-height: 38px;
-	margin-bottom: 21px;
-	margin-top: 0;
+	gap: 12px;
 }
 
-.sectionDescription {
-	font-size: 18px;
-	font-weight: 600;
-	line-height: 24px;
+.title {
+	composes: hds-typography-display-500 from global;
+	composes: hds-font-weight-bold from global;
+	color: var(--token-color-foreground-primary);
+}
+
+.description {
+	composes: hds-typography-body-300 from global;
+	composes: hds-font-weight-regular from global;
+	color: var(--token-color-foreground-primary);
+	margin-top: 20px;
 }
 
 .generalCtasList {
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
-	list-style: none;
 	margin: 0;
-	margin-top: 32px;
+	margin-top: 40px;
+	row-gap: 20px;
+	list-style: none;
 	padding: 0;
 }
 
+.separator {
+	border: none;
+	background-color: var(--token-color-border-primary);
+	color: var(--token-color-border-primary);
+	height: 1px;
+	margin-bottom: 56px;
+	margin-top: 56px;
+}
+
 .featuredUseCasesTitle {
-	font-size: 24px;
-	font-weight: 600;
-	line-height: 32px;
-	margin-bottom: 24px;
-	margin-top: 70px;
+	composes: hds-typography-code-200 from global;
+	composes: hds-font-weight-regular from global;
+	background-color: var(--token-color-surface-strong);
+	border-radius: 5px;
+	color: var(--token-color-foreground-primary);
+	padding: 8px;
+	width: fit-content;
 }
 
 .featuredUseCasesList {
 	display: flex;
 	flex-direction: column;
-	list-style: none;
 	margin: 0;
+	margin-top: 20px;
 	padding: 0;
-	row-gap: 32px;
+	row-gap: 20px;
 }
 
 .right {
@@ -60,10 +73,10 @@
 
 .grid {
 	display: grid;
-	gap: 21px;
+	gap: 20px;
 	grid-template-columns: repeat(2, 1fr);
 	grid-template-rows: repeat(2, 1fr);
+	list-style: none;
 	margin: 0;
 	padding: 0;
-	list-style: none;
 }
