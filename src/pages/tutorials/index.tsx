@@ -1,9 +1,14 @@
 import pageContent from 'content/tutorials-landing.json'
+import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+import { Collection } from 'lib/learn-client/types'
 import { getCollections } from 'lib/learn-client/api/collection'
 import TutorialsLandingView from 'views/tutorials-landing'
+import { BETTER_TOGETHER_SECTION_COLLECTION_SLUGS } from 'views/tutorials-landing/constants'
 
 const getStaticProps = async () => {
-	const collectionSlugsToFetch = new Set<string>()
+	const collectionSlugsToFetch = new Set<string>([
+		...BETTER_TOGETHER_SECTION_COLLECTION_SLUGS,
+	])
 
 	Object.values(pageContent).forEach(({ featuredCollectionSlugs }) => {
 		featuredCollectionSlugs?.forEach((collectionSlug) => {
@@ -12,7 +17,6 @@ const getStaticProps = async () => {
 	})
 
 	const collections = await getCollections(Array.from(collectionSlugsToFetch))
-	console.log(collections)
 
 	Object.entries(pageContent).forEach(
 		([productSlug, productPageContent]: $TSFixMe) => {
@@ -59,10 +63,22 @@ const getStaticProps = async () => {
 		}
 	)
 
+	const crossProductSectionCollections =
+		BETTER_TOGETHER_SECTION_COLLECTION_SLUGS.map(
+			(collectionSlug: Collection['slug']) =>
+				collections.find(
+					(collection: Collection) => collection.slug === collectionSlug
+				)
+		)
+	console.log({ crossProductSectionCollections })
+
 	return {
-		props: {
-			pageContent,
-		},
+		props: stripUndefinedProperties({
+			pageContent: {
+				...pageContent,
+				crossProductSectionCollections,
+			},
+		}),
 	}
 }
 
