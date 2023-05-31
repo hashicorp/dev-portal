@@ -26,6 +26,7 @@ const renderProductSections = (productSlugs, pageContent) => {
 			<ProductSection
 				key={`product-section-${productSlug}`}
 				certification={certification}
+				className={s.productSection}
 				featuredUseCases={featuredUseCases}
 				featuredCollections={featuredCollections}
 				product={{
