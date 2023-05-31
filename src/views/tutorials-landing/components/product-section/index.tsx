@@ -7,7 +7,6 @@ import CertificationContentCardLink from 'components/tutorials-landing-view/cert
 
 const ProductSection = ({
 	certification,
-	className,
 	featuredCollections,
 	featuredUseCases,
 	product,
@@ -69,9 +68,15 @@ const ProductSection = ({
 							<CollectionContentCardLink collection={collection} />
 						</li>
 					))}
+					{certification ? (
+						<li>
+							<CertificationContentCardLink
+								key={certification.slug}
+								certification={certification}
+							/>
+						</li>
+					) : null}
 				</ul>
-				{/* TODO */}
-				{/* {certification ? <CertificationContentCardLink certification={certification} /> : null} */}
 			</div>
 		</div>
 	)
