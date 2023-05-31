@@ -21,9 +21,12 @@ import {
 	CONTENT_TYPES_SECTION_TITLE,
 	CONTENT_TYPES_SECTION_ITEMS,
 	BETTER_TOGETHER_SECTION_TITLE,
-	BETTER_TOGETHER_SECTION_COLLECTION_SLUGS,
 } from './constants'
-import { ContentTypesSection, PageHero } from './components'
+import {
+	ContentTypesSection,
+	CrossProductSection,
+	PageHero,
+} from './components'
 import s from './tutorials-landing.module.css'
 
 const ProductSection = ({
@@ -191,54 +194,9 @@ const renderProductSections = (productSlugs, pageContent) => {
 	})
 }
 
-const BetterTogetherSection = () => {
-	return (
-		<section className={s.betterTogetherSection}>
-			<h2
-				style={{
-					fontSize: '1.875rem',
-					fontWeight: 700,
-					lineHeight: '1.3',
-					maxWidth: '40%',
-					marginBottom: 36,
-				}}
-			>
-				{BETTER_TOGETHER_SECTION_TITLE}
-			</h2>
-			<ul
-				style={{
-					margin: 0,
-					padding: 0,
-					display: 'flex',
-					gap: 22,
-					alignItems: 'flex-start',
-					listStyle: 'none',
-				}}
-			>
-				{BETTER_TOGETHER_SECTION_COLLECTION_SLUGS.map((collectionSlug) => {
-					return (
-						<li
-							key={collectionSlug}
-							style={{
-								backgroundColor: '#DBDBDC',
-								border: '1px solid magenta',
-								width: 400,
-								height: 300,
-								borderRadius: 10,
-								padding: 24,
-							}}
-						>
-							{collectionSlug}
-						</li>
-					)
-				})}
-			</ul>
-		</section>
-	)
-}
-
 const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
-	const productSlugKeys = Object.keys(pageContent)
+	const { crossProductSectionCollections, ...restPageContent } = pageContent
+	const productSlugKeys = Object.keys(restPageContent)
 	const [
 		firstProductSlug,
 		secondProductSlug,
@@ -262,7 +220,11 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 				title={CONTENT_TYPES_SECTION_TITLE}
 			/>
 			{renderProductSections(remainingProductSlugs, pageContent)}
-			<BetterTogetherSection />
+			<CrossProductSection
+				title={BETTER_TOGETHER_SECTION_TITLE}
+				collections={crossProductSectionCollections}
+				className={s.crossProductSection}
+			/>
 		</div>
 	)
 }
