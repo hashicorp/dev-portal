@@ -1,0 +1,123 @@
+.root {
+	background-color: var(--token-color-surface-faint);
+	color: var(--token-color-foreground-strong);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	padding: 0;
+}
+
+.content {
+	background-position: center center;
+	background-repeat: no-repeat;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: space-between;
+	padding-bottom: 24px;
+	padding-left: 40px;
+	padding-right: 24px;
+	padding-top: 40px;
+
+	&.hasHeaderImage {
+		padding-top: 0;
+
+		& .text {
+			padding-right: 16px;
+		}
+	}
+
+	&.hasBackgroundImage {
+		padding-left: 24px;
+
+		& .text {
+			padding-right: 32px;
+		}
+	}
+
+	&.hasLightBackgroundImage {
+		color: #0d0e12;
+
+		& .description {
+			color: inherit;
+		}
+	}
+
+	&.hasDarkBackgroundImage {
+		color: #efeff1;
+
+		& .description {
+			color: inherit;
+		}
+	}
+}
+
+.headerImage {
+	background-position: right center;
+	background-repeat: no-repeat;
+	height: 86px;
+	width: 100%;
+}
+
+.eyebrow {
+	margin-bottom: 12px;
+}
+
+.eyebrowPart {
+	composes: hds-typography-display-100 from global;
+	composes: hds-font-weight-medium from global;
+	color: var(--token-color-foreground-faint);
+	display: inline;
+
+	&:not(:first-child)::before {
+		content: '\2022';
+		margin-left: 6px;
+		margin-right: 6px;
+	}
+}
+
+.title {
+	composes: hds-typography-display-400 from global;
+	composes: hds-font-weight-semibold from global;
+}
+
+.description {
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-medium from global;
+	color: var(--token-color-foreground-primary);
+	margin-top: 21px;
+}
+
+.footer {
+	align-items: flex-end;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 32px;
+}
+
+.badgeList {
+	align-items: center;
+	display: flex;
+	gap: 6px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.badgeListItem {
+	z-index: 1;
+}
+
+.icon {
+	align-items: center;
+	border-color: inherit;
+	border-radius: 20px;
+	border-style: solid;
+	border-width: 1.5px;
+	display: flex;
+	height: 40px;
+	justify-content: center;
+	margin-left: auto;
+	margin-right: 0;
+	width: 40px;
+}

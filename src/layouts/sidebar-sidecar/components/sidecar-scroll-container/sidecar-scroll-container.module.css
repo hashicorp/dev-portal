@@ -77,6 +77,7 @@
 
 .scrollContainer {
 	overflow-y: auto;
+	overflow-x: hidden;
 
 	/* Note: 1px padding is necessary for box-shadow border styles to appear
 	   correctly. Another option might be to add even more padding...

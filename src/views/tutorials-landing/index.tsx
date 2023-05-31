@@ -11,19 +11,20 @@ import ProductIcon from 'components/product-icon'
 import StandaloneLink, {
 	StandaloneLinkContents,
 } from 'components/standalone-link'
-import { GlobalThemeOption } from 'styles/themes/types'
+import { BADGE_ICON_MAP } from 'components/tutorials-landing-view/collection-content-card-link/constants'
 
 // Local imports
 import {
 	PAGE_TITLE,
 	PAGE_SUBTITLE,
+	PRODUCT_SECTIONS_ORDER_BY_SLUG,
 	PRODUCT_DESCRIPTIONS,
-	BADGE_ICON_MAP,
 	CONTENT_TYPES_SECTION_TITLE,
 	CONTENT_TYPES_SECTION_ITEMS,
 	BETTER_TOGETHER_SECTION_TITLE,
 	BETTER_TOGETHER_SECTION_COLLECTION_SLUGS,
 } from './constants'
+import { ContentTypesSection, PageHero } from './components'
 import s from './tutorials-landing.module.css'
 
 const ProductSection = ({
@@ -191,78 +192,6 @@ const renderProductSections = (productSlugs, pageContent) => {
 	})
 }
 
-const ContentTypesSection = () => {
-	return (
-		<section
-			className={s.contentTypesSection}
-			style={{ paddingTop: 80, paddingBottom: 80 }}
-		>
-			<div className={s.contentTypesSectionTextWrapper}>
-				<h2
-					className={s.contentTypesTitle}
-					style={{
-						marginTop: 0,
-						marginBottom: 42,
-						fontSize: '1.875rem',
-						fontWeight: 700,
-						lineHeight: '1.27',
-						maxWidth: '60%',
-					}}
-				>
-					{CONTENT_TYPES_SECTION_TITLE}
-				</h2>
-				<ul
-					style={{
-						display: 'flex',
-						alignItems: 'flex-start',
-						gap: 48,
-						listStyle: 'none',
-						padding: 0,
-						margin: 0,
-					}}
-				>
-					{CONTENT_TYPES_SECTION_ITEMS.map(
-						({ imageSource, title, description }) => {
-							return (
-								<li
-									key={title}
-									style={{ display: 'flex', alignItems: 'flex-start', gap: 32 }}
-								>
-									<img alt="" src={imageSource} />
-									<div>
-										<h3
-											style={{
-												marginTop: 0,
-												marginBottom: 8,
-												fontSize: '1.5rem',
-												fontWeight: 600,
-												lineHeight: '1.3',
-											}}
-										>
-											{title}
-										</h3>
-										<p
-											style={{
-												fontSize: '1rem',
-												fontWeight: 600,
-												lineHeight: '1.5',
-												color: '#656A76',
-												margin: 0,
-											}}
-										>
-											{description}
-										</p>
-									</div>
-								</li>
-							)
-						}
-					)}
-				</ul>
-			</div>
-		</section>
-	)
-}
-
 const BetterTogetherSection = () => {
 	return (
 		<section className={s.betterTogetherSection}>
@@ -310,27 +239,28 @@ const BetterTogetherSection = () => {
 }
 
 const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
-	const productSlugKeys = Object.keys(pageContent)
 	const [
 		firstProductSlug,
 		secondProductSlug,
 		thirdProductSlug,
 		...remainingProductSlugs
-	] = productSlugKeys
+	] = PRODUCT_SECTIONS_ORDER_BY_SLUG
 
 	return (
 		<div className={s.root}>
-			<div className={s.hero}>
-				<header className={s.header}>
-					<h1 className={s.title}>{PAGE_TITLE}</h1>
-					<p className={s.subtitle}>{PAGE_SUBTITLE}</p>
-				</header>
-			</div>
+			<PageHero
+				className={s.pageHero}
+				subtitle={PAGE_SUBTITLE}
+				title={PAGE_TITLE}
+			/>
 			{renderProductSections(
 				[firstProductSlug, secondProductSlug, thirdProductSlug],
 				pageContent
 			)}
-			<ContentTypesSection />
+			<ContentTypesSection
+				items={CONTENT_TYPES_SECTION_ITEMS}
+				title={CONTENT_TYPES_SECTION_TITLE}
+			/>
 			{renderProductSections(remainingProductSlugs, pageContent)}
 			<BetterTogetherSection />
 		</div>
@@ -339,6 +269,5 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 
 TutorialsLandingView.contentType = 'tutorials'
 TutorialsLandingView.layout = BaseNewLayout
-TutorialsLandingView.theme = GlobalThemeOption.light
 
 export default TutorialsLandingView
