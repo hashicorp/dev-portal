@@ -8,8 +8,6 @@
 TODO - polish in upcoming layout PR
 */
 .productSection {
-	padding-left: 56px;
-	padding-right: 56px;
 	max-width: var(--content-max-width);
 	margin: 80px auto;
 }
