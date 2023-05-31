@@ -1,11 +1,15 @@
 import pageData from 'content/tutorials-landing.json'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+import { Collection } from 'lib/learn-client/types'
 import { getCollections } from 'lib/learn-client/api/collection'
 import TutorialsLandingView from 'views/tutorials-landing'
+import { BETTER_TOGETHER_SECTION_COLLECTION_SLUGS } from 'views/tutorials-landing/constants'
 
 const getStaticProps = async () => {
-	// Build up list of collection slugs to fetch
-	const collectionSlugsToFetch = new Set<string>()
+	const collectionSlugsToFetch = new Set<string>([
+		...BETTER_TOGETHER_SECTION_COLLECTION_SLUGS,
+	])
+
 	Object.values(pageData).forEach(({ featuredCollectionSlugs }) => {
 		featuredCollectionSlugs?.forEach((collectionSlug) => {
 			collectionSlugsToFetch.add(collectionSlug)
@@ -38,8 +42,21 @@ const getStaticProps = async () => {
 		}
 	)
 
+	const crossProductSectionCollections =
+		BETTER_TOGETHER_SECTION_COLLECTION_SLUGS.map(
+			(collectionSlug: Collection['slug']) =>
+				collections.find(
+					(collection: Collection) => collection.slug === collectionSlug
+				)
+		)
+
 	return {
-		props: stripUndefinedProperties({ pageContent }),
+		props: stripUndefinedProperties({
+			pageContent: {
+				...pageContent,
+				crossProductSectionCollections,
+			},
+		}),
 	}
 }
 

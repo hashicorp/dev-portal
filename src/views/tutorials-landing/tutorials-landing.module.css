@@ -15,14 +15,16 @@ TODO - polish in upcoming layout PR
 }
 
 /*
-
-BetterTogetherSection
-
+TODO - apply similar width, margin, padding across sections in the upcoming
+layout PR
 */
-
-.betterTogetherSection {
+.crossProductSection {
 	margin: 0 auto;
 	max-width: var(--content-max-width);
+	padding-bottom: 64px;
+	padding-left: 56px;
+	padding-right: 56px;
+	padding-top: 56px;
 }
 
 .card {

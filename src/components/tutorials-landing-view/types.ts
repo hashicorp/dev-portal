@@ -21,6 +21,8 @@ interface ContentCardLinkProps {
 
 interface CollectionContentCardLinkProps {
 	collection: Collection
+	hideBadges?: boolean
+	hideImages?: boolean
 }
 
 interface CertificationContentCardLinkProps {
