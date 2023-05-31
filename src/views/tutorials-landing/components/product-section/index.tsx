@@ -9,6 +9,7 @@ import {
 	CollectionContentCardLinkProps,
 } from 'components/tutorials-landing-view/types'
 import s from './product-section.module.css'
+import classNames from 'classnames'
 
 type Certification = CertificationContentCardLinkProps['certification']
 type Collection = CollectionContentCardLinkProps['collection']
@@ -19,6 +20,7 @@ interface FeaturedUseCase {
 
 interface ProductSectionProps {
 	certification: Certification
+	className?: string
 	featuredCollections: Collection[]
 	featuredUseCases: FeaturedUseCase[]
 	product: {
@@ -30,6 +32,7 @@ interface ProductSectionProps {
 
 const ProductSection = ({
 	certification,
+	className,
 	featuredCollections,
 	featuredUseCases,
 	product,
@@ -37,8 +40,8 @@ const ProductSection = ({
 	const { slug, name, description } = product
 
 	return (
-		<div className={s.root}>
-			<div className={s.left}>
+		<div className={classNames(s.root, className)}>
+			<div>
 				<div className={s.titleWrapper}>
 					<ProductIcon productSlug={slug} size={24} />
 					<h2 className={s.title}>{name}</h2>
@@ -85,23 +88,21 @@ const ProductSection = ({
 					})}
 				</ul>
 			</div>
-			<div className={s.right}>
-				<ul className={s.grid}>
-					{featuredCollections.map((collection: Collection) => (
-						<li key={collection.slug}>
-							<CollectionContentCardLink collection={collection} />
-						</li>
-					))}
-					{certification ? (
-						<li>
-							<CertificationContentCardLink
-								key={certification.slug}
-								certification={certification}
-							/>
-						</li>
-					) : null}
-				</ul>
-			</div>
+			<ul className={s.grid}>
+				{featuredCollections.map((collection: Collection) => (
+					<li key={collection.slug}>
+						<CollectionContentCardLink collection={collection} />
+					</li>
+				))}
+				{certification ? (
+					<li>
+						<CertificationContentCardLink
+							key={certification.slug}
+							certification={certification}
+						/>
+					</li>
+				) : null}
+			</ul>
 		</div>
 	)
 }
