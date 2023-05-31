@@ -17,6 +17,7 @@ import { BADGE_ICON_MAP } from 'components/tutorials-landing-view/collection-con
 import {
 	PAGE_TITLE,
 	PAGE_SUBTITLE,
+	PRODUCT_SECTIONS_ORDER_BY_SLUG,
 	PRODUCT_DESCRIPTIONS,
 	CONTENT_TYPES_SECTION_TITLE,
 	CONTENT_TYPES_SECTION_ITEMS,
@@ -196,13 +197,12 @@ const renderProductSections = (productSlugs, pageContent) => {
 
 const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 	const { crossProductSectionCollections, ...restPageContent } = pageContent
-	const productSlugKeys = Object.keys(restPageContent)
 	const [
 		firstProductSlug,
 		secondProductSlug,
 		thirdProductSlug,
 		...remainingProductSlugs
-	] = productSlugKeys
+	] = PRODUCT_SECTIONS_ORDER_BY_SLUG
 
 	return (
 		<div className={s.root}>
@@ -213,13 +213,13 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 			/>
 			{renderProductSections(
 				[firstProductSlug, secondProductSlug, thirdProductSlug],
-				pageContent
+				restPageContent
 			)}
 			<ContentTypesSection
 				items={CONTENT_TYPES_SECTION_ITEMS}
 				title={CONTENT_TYPES_SECTION_TITLE}
 			/>
-			{renderProductSections(remainingProductSlugs, pageContent)}
+			{renderProductSections(remainingProductSlugs, restPageContent)}
 			<CrossProductSection
 				title={BETTER_TOGETHER_SECTION_TITLE}
 				collections={crossProductSectionCollections}
