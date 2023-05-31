@@ -17,19 +17,21 @@ const renderProductSections = (productSlugs, pageContent) => {
 	return productSlugs.map((productSlug: ProductSlug) => {
 		const productName = productSlugsToNames[productSlug]
 		const sectionData = pageContent[productSlug]
+		const certification = sectionData.certification
 		const featuredUseCases = sectionData.featuredUseCases
 		const featuredCollections = sectionData.featuredCollections
 
 		return (
 			<ProductSection
-				key={productSlug}
+				key={`product-section-${productSlug}`}
+				certification={certification}
+				featuredUseCases={featuredUseCases}
+				featuredCollections={featuredCollections}
 				product={{
 					slug: productSlug,
 					name: productName,
 					description: PRODUCT_DESCRIPTIONS[productSlug],
 				}}
-				featuredUseCases={featuredUseCases}
-				featuredCollections={featuredCollections}
 			/>
 		)
 	})
