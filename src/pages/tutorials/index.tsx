@@ -70,7 +70,6 @@ const getStaticProps = async () => {
 					(collection: Collection) => collection.slug === collectionSlug
 				)
 		)
-	console.log({ crossProductSectionCollections })
 
 	return {
 		props: stripUndefinedProperties({
