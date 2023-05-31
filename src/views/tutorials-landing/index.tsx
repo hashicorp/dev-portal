@@ -22,6 +22,7 @@ import {
 	CONTENT_TYPES_SECTION_ITEMS,
 	BETTER_TOGETHER_SECTION_TITLE,
 	BETTER_TOGETHER_SECTION_COLLECTION_SLUGS,
+	PRODUCT_SECTIONS_ORDER_BY_SLUG,
 } from './constants'
 import { ContentTypesSection, PageHero } from './components'
 import s from './tutorials-landing.module.css'
@@ -238,13 +239,12 @@ const BetterTogetherSection = () => {
 }
 
 const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
-	const productSlugKeys = Object.keys(pageContent)
 	const [
 		firstProductSlug,
 		secondProductSlug,
 		thirdProductSlug,
 		...remainingProductSlugs
-	] = productSlugKeys
+	] = PRODUCT_SECTIONS_ORDER_BY_SLUG
 
 	return (
 		<div className={s.root}>
