@@ -24,6 +24,11 @@ export interface SidebarSidecarLayoutProps {
 	 */
 	sidecarSlot?: ReactNode
 	/**
+	 * Optionally render content above the scrollable sidecar area.
+	 * If omitted, blank space will be shown above the scrollable sidecar area.
+	 */
+	sidecarTopSlot?: ReactNode
+	/**
 	 * Optionally render an alert banner before the main content area.
 	 */
 	alertBannerSlot?: ReactNode

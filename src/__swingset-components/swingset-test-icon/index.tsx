@@ -30,12 +30,16 @@ import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 import { IconInfo24 } from '@hashicorp/flight-icons/svg-react/info-24'
 import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { IconLearn24 } from '@hashicorp/flight-icons/svg-react/learn-24'
+import { IconPlay16 } from '@hashicorp/flight-icons/svg-react/play-16'
+import { IconPlay24 } from '@hashicorp/flight-icons/svg-react/play-24'
 import { IconPlus16 } from '@hashicorp/flight-icons/svg-react/plus-16'
 import { IconPlus24 } from '@hashicorp/flight-icons/svg-react/plus-24'
 import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
 import { IconSignIn24 } from '@hashicorp/flight-icons/svg-react/sign-in-24'
 import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
 import { IconSignOut24 } from '@hashicorp/flight-icons/svg-react/sign-out-24'
+import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
+import { IconTerminalScreen24 } from '@hashicorp/flight-icons/svg-react/terminal-screen-24'
 import { IconThumbsDown16 } from '@hashicorp/flight-icons/svg-react/thumbs-down-16'
 import { IconThumbsDown24 } from '@hashicorp/flight-icons/svg-react/thumbs-down-24'
 import { IconThumbsUp16 } from '@hashicorp/flight-icons/svg-react/thumbs-up-16'
@@ -125,6 +129,14 @@ const ICON_MAP = {
 	'user-plus': {
 		16: <IconUserPlus16 />,
 		24: <IconUserPlus24 />,
+	},
+	play: {
+		16: <IconPlay16 />,
+		24: <IconPlay24 />,
+	},
+	'terminal-screen': {
+		16: <IconTerminalScreen16 />,
+		24: <IconTerminalScreen24 />,
 	},
 }
 
