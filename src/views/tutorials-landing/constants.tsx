@@ -59,8 +59,8 @@ const BETTER_TOGETHER_SECTION_TITLE =
 
 const BETTER_TOGETHER_SECTION_COLLECTION_SLUGS = [
 	'well-architected-framework/com',
-	'terraform/tutorials/hashicorp',
-	'hcp/tutorials/consul-cloud',
+	'terraform/hashicorp',
+	'cloud/consul-cloud',
 ]
 
 export {
