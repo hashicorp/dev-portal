@@ -74,7 +74,7 @@ export default function App({
 	pageProps: { session, ...pageProps },
 	layoutProps,
 	host,
-}: CustomAppProps & Awaited<ReturnType<typeof App['getInitialProps']>>) {
+}: CustomAppProps & Awaited<ReturnType<(typeof App)['getInitialProps']>>) {
 	const flagBag = useFlags()
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
