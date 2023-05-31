@@ -1,3 +1,5 @@
+import { ProductSlug } from 'types/products'
+
 /**
  * General page-level constants
  */
@@ -10,6 +12,20 @@ const PAGE_SUBTITLE =
 /**
  * ProductSection constants
  */
+
+const PRODUCT_SECTIONS_ORDER_BY_SLUG: Exclude<
+	ProductSlug,
+	'hcp' | 'sentinel'
+>[] = [
+	'terraform',
+	'vault',
+	'consul',
+	'nomad',
+	'packer',
+	'boundary',
+	'vagrant',
+	'waypoint',
+]
 
 const PRODUCT_DESCRIPTIONS = {
 	terraform: 'Build, change, and destroy infrastructure',
@@ -66,6 +82,7 @@ const BETTER_TOGETHER_SECTION_COLLECTION_SLUGS = [
 export {
 	PAGE_TITLE,
 	PAGE_SUBTITLE,
+	PRODUCT_SECTIONS_ORDER_BY_SLUG,
 	PRODUCT_DESCRIPTIONS,
 	CONTENT_TYPES_SECTION_TITLE,
 	CONTENT_TYPES_SECTION_ITEMS,

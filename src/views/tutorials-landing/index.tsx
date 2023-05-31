@@ -17,6 +17,7 @@ import { BADGE_ICON_MAP } from 'components/tutorials-landing-view/collection-con
 import {
 	PAGE_TITLE,
 	PAGE_SUBTITLE,
+	PRODUCT_SECTIONS_ORDER_BY_SLUG,
 	PRODUCT_DESCRIPTIONS,
 	CONTENT_TYPES_SECTION_TITLE,
 	CONTENT_TYPES_SECTION_ITEMS,
@@ -238,13 +239,12 @@ const BetterTogetherSection = () => {
 }
 
 const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
-	const productSlugKeys = Object.keys(pageContent)
 	const [
 		firstProductSlug,
 		secondProductSlug,
 		thirdProductSlug,
 		...remainingProductSlugs
-	] = productSlugKeys
+	] = PRODUCT_SECTIONS_ORDER_BY_SLUG
 
 	return (
 		<div className={s.root}>
