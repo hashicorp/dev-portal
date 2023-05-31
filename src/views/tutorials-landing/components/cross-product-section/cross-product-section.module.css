@@ -1,5 +1,6 @@
 .root {
 	background-color: var(--token-color-surface-primary);
+	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	border-radius: 15px;
