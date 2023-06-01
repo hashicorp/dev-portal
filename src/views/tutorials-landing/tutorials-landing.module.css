@@ -1,136 +1,48 @@
 .root {
-	--content-max-width: 1240px;
+	--padding-left-right: 56px;
+	--text-max-width: 1240px;
 
-	padding-bottom: 300px;
+	padding-bottom: 120px;
 }
 
-/*
-TODO - polish in upcoming layout PR
-*/
-.productSection {
-	max-width: var(--content-max-width);
-	margin: 80px auto;
-}
-
-/*
-TODO - apply similar width, margin, padding across sections in the upcoming
-layout PR
-*/
-.crossProductSection {
+.section {
 	margin: 0 auto;
-	max-width: var(--content-max-width);
-	padding-bottom: 64px;
-	padding-left: 56px;
-	padding-right: 56px;
-	padding-top: 56px;
+	max-width: calc(var(--text-max-width) + 2 * var(--padding-left-right));
 }
 
-.card {
-	border-radius: 10px;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
+.pageHero {
+	padding-left: var(--padding-left-right);
+	padding-right: var(--padding-left-right);
+	max-width: 70%;
+	margin-top: 200px;
+	margin-bottom: 200px;
 }
 
-.cardHeader {
-	composes: hds-elevation-mid from global;
-	align-items: flex-end;
-	background-color: #dbdbdc;
-	display: flex;
-	min-height: 142px;
+.productSection {
+	margin-bottom: 96px;
+	margin-top: 96px;
 	padding-bottom: 48px;
-	padding-left: 42px;
-	padding-right: 42px;
-	padding-top: 62px;
-	position: relative;
+	padding-left: var(--padding-left-right);
+	padding-right: var(--padding-left-right);
+	padding-top: 48px;
 }
 
-.cardTitle {
-	font-size: 24px;
-	font-weight: 600;
-	height: fit-content;
-	line-height: 32px;
-	margin: 0;
-	padding: 0;
+.contentTypesSectionWrapper {
+	background-color: var(--token-color-page-faint);
+	margin-bottom: 164px;
+	margin-top: 164px;
+	padding-bottom: 120px;
+	padding-top: 88px;
 }
 
-.cardBody {
-	background-color: #fafafa;
-	padding-bottom: 34px;
-	padding-left: 42px;
-	padding-right: 42px;
-	padding-top: 42px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	flex-grow: 1;
+.contentTypesSection {
+	padding-left: var(--padding-left-right);
+	padding-right: var(--padding-left-right);
 }
 
-.cardBodyLeftRight {
-	display: flex;
-	align-items: flex-start;
-	justify-content: space-between;
-}
-
-.cardText {
-	max-width: 220px;
-}
-
-.fakeBookmarkButton {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 48px;
-	height: 48px;
-	border-radius: 24px;
-	border: 1px solid black;
-}
-
-.cardEyebrow {
-	font-size: 13px;
-	font-weight: 500;
-	line-height: 18px;
-}
-
-.cardDescription {
-	font-size: 13px;
-	font-weight: 500;
-	line-height: 18px;
-}
-
-.cardBadges {
-	display: flex;
-	align-items: center;
-	gap: 4px;
-	margin-top: 40px;
-}
-
-.certificationCard {
-	background-color: #dbdbdc;
-	border-radius: 10px;
-	padding: 70px 40px;
-}
-
-.certificationCardEyebrow {
-	display: flex;
-	align-items: center;
-	gap: 4px;
-	font-size: 13px;
-	font-weight: 500;
-	line-height: 18px;
-}
-
-.certificationCardTitle {
-	font-size: 24px;
-	font-weight: 600;
-	line-height: 32px;
-	margin-top: 12px;
-	margin-bottom: 20px;
-}
-
-.certificationCardBody {
-	font-size: 13px;
-	font-weight: 500;
-	line-height: 18px;
-	margin-bottom: 36px;
+.crossProductSection {
+	padding-bottom: 64px;
+	padding-left: var(--padding-left-right);
+	padding-right: var(--padding-left-right);
+	padding-top: var(--padding-left-right);
 }
