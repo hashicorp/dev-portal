@@ -55,7 +55,7 @@ const ProductSection = ({
 							icon={<IconArrowRight24 />}
 							iconPosition="trailing"
 							size="large"
-							text={`Explore more ${name} tutorials`}
+							text={`Explore more ${name} learning paths`}
 						/>
 					</li>
 					<li>
