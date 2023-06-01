@@ -33,6 +33,7 @@ import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items
 import {
 	TutorialVariantOption,
 	getTutorialViewVariantData,
+	getVariantParam,
 } from './utils/variants'
 
 /**
@@ -215,15 +216,17 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 				if (tutorial.variant) {
 					tutorial.variant.options.forEach(
 						(variantOption: TutorialVariantOption) => {
-							const variantPathValue =
-								tutorial.variant.slug + ':' + variantOption.slug
+							const variantParam = getVariantParam(
+								tutorial.variant.slug,
+								variantOption.slug
+							)
 							paths.push({
 								params: {
 									productSlug: normalizedProductSlug,
 									tutorialSlug: [
 										collectionSlug,
 										tutorialSlug,
-										variantPathValue,
+										variantParam,
 									] as [string, string, string],
 								},
 							})
