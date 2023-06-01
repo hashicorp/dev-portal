@@ -1,38 +1,40 @@
 import { type CertificationContentCardLinkProps } from '../types'
 import ContentCardLink from '../content-card-link'
-import consulGraphic from './img/consul.svg'
-import terraformGraphic from './img/terraform.svg'
-import vaultGraphic from './img/vault.svg'
+import networkingAutomationGraphic from './img/consul.svg'
+import infrastructionAutomationGraphic from './img/terraform.svg'
+import securityAutomationGraphic from './img/vault.svg'
 
-const PRODUCT_SLUGS_TO_BACKGROUND_IMAGES = {
-	consul: {
-		url: consulGraphic,
+const CERTIFICATION_PROGRAM_SLUGS_TO_BACKGROUND_IMAGES = {
+	'networking-automation': {
+		url: networkingAutomationGraphic,
 		lightOrDark: 'dark',
 	},
-	terraform: {
-		url: terraformGraphic,
+	'infrastructure-automation': {
+		url: infrastructionAutomationGraphic,
 		lightOrDark: 'dark',
 	},
-	vault: {
-		url: vaultGraphic,
+	'security-automation': {
+		url: securityAutomationGraphic,
 		lightOrDark: 'light',
 	},
 }
 
 const CertificationContentCardLink = ({
-	productSlug,
-	description,
-	href,
-	title,
+	certification,
 }: CertificationContentCardLinkProps) => {
-	const { url, lightOrDark } = PRODUCT_SLUGS_TO_BACKGROUND_IMAGES[productSlug]
+	const { url, lightOrDark } =
+		CERTIFICATION_PROGRAM_SLUGS_TO_BACKGROUND_IMAGES[certification.slug]
+	const title = certification.title
+	const description = certification.description
+	const href = `/certifications/${certification.slug}`
+
 	return (
 		<ContentCardLink
-			backgroundImageUrl={url}
 			backgroundImageColor={lightOrDark}
-			title={title}
+			backgroundImageUrl={url}
 			description={description}
 			href={href}
+			title={title}
 		/>
 	)
 }
