@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import BaseNewLayout from 'layouts/base-new'
@@ -76,7 +77,7 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 				</section>
 			</div>
 			{renderProductSections(remainingProductSlugs, restPageContent)}
-			<section className={s.section}>
+			<section className={classNames(s.section, s.crossProductSectionWrapper)}>
 				<CrossProductSection
 					title={BETTER_TOGETHER_SECTION_TITLE}
 					collections={crossProductSectionCollections}

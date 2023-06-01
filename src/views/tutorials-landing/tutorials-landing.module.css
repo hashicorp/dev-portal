@@ -1,48 +1,80 @@
 .root {
-	--padding-left-right: 56px;
-	--text-max-width: 1240px;
+	--total-text-to-edge-spacing: 100px;
+	--page-padding-left-right: 40px;
+	--page-padding-top: 220px;
+	--section-padding-left-right: calc(
+		var(--total-text-to-edge-spacing) - var(--page-padding-left-right)
+	);
 
-	padding-bottom: 120px;
-}
+	padding-left: var(--page-padding-left-right);
+	padding-right: var(--page-padding-left-right);
+	padding-top: var(--page-padding-top);
 
-.section {
-	margin: 0 auto;
-	max-width: calc(var(--text-max-width) + 2 * var(--padding-left-right));
+	/* 1440px and below */
+	@media only screen and (max-width: 1440px) {
+		--page-padding-top: 148px;
+	}
+
+	/* 1000px and below */
+	@media (--dev-dot-tablet-down) {
+		--section-padding-left-right: 0;
+		--page-padding-top: 124px;
+	}
+
+	/* 425px and below */
+	@media only screen and (max-width: 425px) {
+		--page-padding-left-right: 20px;
+		--page-padding-top: 40px;
+	}
 }
 
 .pageHero {
-	padding-left: var(--padding-left-right);
-	padding-right: var(--padding-left-right);
-	max-width: 70%;
-	margin-top: 200px;
-	margin-bottom: 200px;
+	--page-hero-max-width: 70%;
+
+	border: 1px solid green;
+	max-width: var(--page-hero-max-width);
+
+	/* 1000px and below */
+	@media (--dev-dot-tablet-down) {
+		--page-hero-max-width: 90%;
+	}
+
+	/* 425px and below */
+	@media only screen and (max-width: 425px) {
+		--page-hero-max-width: 100%;
+	}
+}
+
+.section {
+	border: 1px solid magenta;
+	padding-left: var(--section-padding-left-right);
+	padding-right: var(--section-padding-left-right);
+	max-width: calc(1240px + 2 * var(--section-padding-left-right));
+	margin: 0 auto;
 }
 
 .productSection {
-	margin-bottom: 96px;
-	margin-top: 96px;
-	padding-bottom: 48px;
-	padding-left: var(--padding-left-right);
-	padding-right: var(--padding-left-right);
-	padding-top: 48px;
-}
-
-.contentTypesSectionWrapper {
-	background-color: var(--token-color-page-faint);
-	margin-bottom: 164px;
-	margin-top: 164px;
 	padding-bottom: 120px;
-	padding-top: 88px;
+	padding-top: 120px;
 }
 
 .contentTypesSection {
-	padding-left: var(--padding-left-right);
-	padding-right: var(--padding-left-right);
+	background-color: pink;
+}
+
+.crossProductSectionWrapper {
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .crossProductSection {
-	padding-bottom: 64px;
-	padding-left: var(--padding-left-right);
-	padding-right: var(--padding-left-right);
-	padding-top: var(--padding-left-right);
+	--cross-product-section-padding-left-right: var(--section-padding-left-right);
+
+	padding-left: var(--cross-product-section-padding-left-right);
+	padding-right: var(--cross-product-section-padding-left-right);
+
+	/* 1000px and below */
+	@media (--dev-dot-tablet-down) {
+		--cross-product-section-padding-left-right: 40px;
+	}
 }
