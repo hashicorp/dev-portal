@@ -5,7 +5,11 @@
 
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import { TutorialListItemProps } from 'components/tutorials-sidebar/types'
-import { getTutorialSlug } from 'views/collection-view/helpers'
+// A `.tsx` module exported in the barrel-export file (/helpers/index.ts) causes
+// hc-tools to error, which breaks our `./scripts/warm-cache.ts`.
+//
+// To avoid this, we import from the specific file here to avoid unintended side effects.
+import { getTutorialSlug } from 'views/collection-view/helpers/get-slug'
 
 export function splitProductFromFilename(slug: string): string {
 	return slug.split('/')[1]
