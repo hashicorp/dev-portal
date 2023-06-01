@@ -10,6 +10,9 @@ interface MdxVariantProps {
 
 export function MdxVariant({ slug, option, children }: MdxVariantProps) {
 	const { currentVariant } = useVariant()
+	if (!currentVariant) {
+		return null
+	}
 	const shouldRenderContent =
 		currentVariant.slug === slug && currentVariant.activeOption.slug === option
 	const isValidVariantOption = currentVariant.options.find(
