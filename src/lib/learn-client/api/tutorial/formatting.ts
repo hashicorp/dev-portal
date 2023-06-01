@@ -143,7 +143,7 @@ export function formatHandsOnLab({
 	return handsOnLab
 }
 
-function formatVariant(variant: ApiTutorialVariant): TutorialVariant {
+export function formatVariant(variant: ApiTutorialVariant): TutorialVariant {
 	const { options, ...rest } = variant
 	return {
 		...rest,
