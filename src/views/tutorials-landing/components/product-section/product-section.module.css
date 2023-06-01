@@ -1,0 +1,75 @@
+.root {
+	column-gap: 64px;
+	display: grid;
+	grid-template-columns: 338px 1fr;
+	grid-template-rows: 1fr;
+	width: 100%;
+}
+
+.titleWrapper {
+	align-items: center;
+	display: flex;
+	gap: 12px;
+}
+
+.title {
+	composes: hds-typography-display-500 from global;
+	composes: hds-font-weight-bold from global;
+	color: var(--token-color-foreground-primary);
+}
+
+.description {
+	composes: hds-typography-body-300 from global;
+	composes: hds-font-weight-regular from global;
+	color: var(--token-color-foreground-primary);
+	margin-top: 20px;
+}
+
+.generalCtasList {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	margin-top: 40px;
+	row-gap: 20px;
+	list-style: none;
+	padding: 0;
+}
+
+.separator {
+	border: none;
+	background-color: var(--token-color-border-primary);
+	color: var(--token-color-border-primary);
+	height: 1px;
+	margin-bottom: 56px;
+	margin-top: 56px;
+}
+
+.featuredUseCasesTitle {
+	composes: hds-typography-code-200 from global;
+	composes: hds-font-weight-regular from global;
+	background-color: var(--token-color-surface-strong);
+	border-radius: 5px;
+	color: var(--token-color-foreground-primary);
+	padding: 8px;
+	width: fit-content;
+}
+
+.featuredUseCasesList {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	margin: 0;
+	margin-top: 20px;
+	padding: 0;
+	row-gap: 20px;
+}
+
+.grid {
+	display: grid;
+	gap: 20px;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}

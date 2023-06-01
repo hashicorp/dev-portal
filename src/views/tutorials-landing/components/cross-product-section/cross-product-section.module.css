@@ -1,0 +1,41 @@
+.root {
+	background-color: var(--token-color-surface-primary);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 32px;
+
+	/* TODO rexport SVGs from Figma during vqa/polish */
+
+	@nest html[data-theme='light'] & {
+		background-image: url('img/background-light.svg');
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-image: url('img/background-dark.svg');
+	}
+}
+
+.title {
+	composes: hds-typography-display-500 from global;
+	composes: hds-font-weight-bold from global;
+	color: var(--token-color-foreground-strong);
+	width: 50%;
+}
+
+.list {
+	column-gap: 20px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: 1fr;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.listItem {
+	height: 100%;
+}

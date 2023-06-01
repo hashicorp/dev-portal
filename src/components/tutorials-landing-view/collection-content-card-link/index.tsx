@@ -7,12 +7,16 @@ import { BADGE_ICON_MAP, PRODUCT_SLUGS_TO_HEADER_IMAGES } from './constants'
 
 const CollectionContentCardLink = ({
 	collection,
+	hideBadges,
+	hideImages,
 }: CollectionContentCardLinkProps) => {
 	const productSlug = normalizeSlugForDevDot(collection.slug.split('/')[0])
+	const href = getCollectionSlug(collection.slug)
 	const title = collection.name
 	const description = collection.description
-	const headerImageUrl = PRODUCT_SLUGS_TO_HEADER_IMAGES[productSlug]
-	const href = getCollectionSlug(collection.slug)
+	const headerImageUrl = hideImages
+		? undefined
+		: PRODUCT_SLUGS_TO_HEADER_IMAGES[productSlug]
 
 	const tutorialCount = collection.tutorials.length
 	const eyebrowParts = [
@@ -36,15 +40,18 @@ const CollectionContentCardLink = ({
 		})
 	})
 
-	const badges = []
-	productsUsed.forEach((productUsed: ProductUsed['product']['slug']) =>
-		badges.push(BADGE_ICON_MAP[productUsed])
-	)
-	if (hasVideo) {
-		badges.push(BADGE_ICON_MAP.video)
-	}
-	if (hasLab) {
-		badges.push(BADGE_ICON_MAP.interactive)
+	let badges
+	if (!hideBadges) {
+		badges = []
+		productsUsed.forEach((productUsed: ProductUsed['product']['slug']) =>
+			badges.push(BADGE_ICON_MAP[productUsed])
+		)
+		if (hasVideo) {
+			badges.push(BADGE_ICON_MAP.video)
+		}
+		if (hasLab) {
+			badges.push(BADGE_ICON_MAP.interactive)
+		}
 	}
 
 	return (
