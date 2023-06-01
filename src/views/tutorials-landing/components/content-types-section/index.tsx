@@ -20,7 +20,7 @@ const ContentTypesSection = ({
 	title,
 }: ContentTypesSectionProps) => {
 	return (
-		<section className={classNames(s.root, className)}>
+		<div className={classNames(s.root, className)}>
 			<h2 className={s.title}>{title}</h2>
 			<ul className={s.list}>
 				{items.map(
@@ -39,7 +39,7 @@ const ContentTypesSection = ({
 					}
 				)}
 			</ul>
-		</section>
+		</div>
 	)
 }
 

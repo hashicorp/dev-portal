@@ -27,18 +27,19 @@ const renderProductSections = (productSlugs, pageContent) => {
 		const featuredCollections = sectionData.featuredCollections
 
 		return (
-			<ProductSection
-				key={`product-section-${productSlug}`}
-				certification={certification}
-				className={s.productSection}
-				featuredUseCases={featuredUseCases}
-				featuredCollections={featuredCollections}
-				product={{
-					slug: productSlug,
-					name: productName,
-					description: PRODUCT_DESCRIPTIONS[productSlug],
-				}}
-			/>
+			<section className={s.section} key={`product-section-${productSlug}`}>
+				<ProductSection
+					certification={certification}
+					className={s.productSection}
+					featuredUseCases={featuredUseCases}
+					featuredCollections={featuredCollections}
+					product={{
+						slug: productSlug,
+						name: productName,
+						description: PRODUCT_DESCRIPTIONS[productSlug],
+					}}
+				/>
+			</section>
 		)
 	})
 }
@@ -54,25 +55,34 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 
 	return (
 		<div className={s.root}>
-			<PageHero
-				className={s.pageHero}
-				subtitle={PAGE_SUBTITLE}
-				title={PAGE_TITLE}
-			/>
+			<div className={s.section}>
+				<PageHero
+					className={s.pageHero}
+					subtitle={PAGE_SUBTITLE}
+					title={PAGE_TITLE}
+				/>
+			</div>
 			{renderProductSections(
 				[firstProductSlug, secondProductSlug, thirdProductSlug],
 				restPageContent
 			)}
-			<ContentTypesSection
-				items={CONTENT_TYPES_SECTION_ITEMS}
-				title={CONTENT_TYPES_SECTION_TITLE}
-			/>
+			<div className={s.contentTypesSectionWrapper}>
+				<section className={s.section}>
+					<ContentTypesSection
+						className={s.contentTypesSection}
+						items={CONTENT_TYPES_SECTION_ITEMS}
+						title={CONTENT_TYPES_SECTION_TITLE}
+					/>
+				</section>
+			</div>
 			{renderProductSections(remainingProductSlugs, restPageContent)}
-			<CrossProductSection
-				title={BETTER_TOGETHER_SECTION_TITLE}
-				collections={crossProductSectionCollections}
-				className={s.crossProductSection}
-			/>
+			<section className={s.section}>
+				<CrossProductSection
+					title={BETTER_TOGETHER_SECTION_TITLE}
+					collections={crossProductSectionCollections}
+					className={s.crossProductSection}
+				/>
+			</section>
 		</div>
 	)
 }
