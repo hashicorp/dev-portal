@@ -30,15 +30,15 @@
 			"featuredUseCases": [
 				{
 					"href": "/vault/tutorials/adp",
-					"text": "Advanced Data Protection"
+					"text": "Advanced data protection"
 				},
 				{
 					"href": "/vault/tutorials/db-credentials",
-					"text": "Database Credential Rotation"
+					"text": "Database credential rotation"
 				},
 				{
 					"href": "/vault/tutorials/encryption-as-a-service",
-					"text": "Data Encryption"
+					"text": "Data encryption"
 				}
 			],
 			"featuredCollectionSlugs": [
@@ -82,15 +82,15 @@
 			"featuredUseCases": [
 				{
 					"href": "/nomad/tutorials/autoscaler",
-					"text": "Dynamically Resize with Nomad Autoscaler"
+					"text": "Auto-scaled applications"
 				},
 				{
 					"href": "/nomad/tutorials/stateful-workloads",
-					"text": "Stateful Workloads"
+					"text": "Stateful workloads"
 				},
 				{
 					"href": "/nomad/tutorials/task-deps",
-					"text": "Task Dependencies"
+					"text": "Task dependencies"
 				}
 			],
 			"featuredCollectionSlugs": [
@@ -124,15 +124,15 @@
 			"featuredUseCases": [
 				{
 					"href": "/boundary/tutorials/hcp-administration",
-					"text": "HCP Boundary Resource Management Workflows"
+					"text": "Resource management"
 				},
 				{
 					"href": "/boundary/tutorials/oss-administration",
-					"text": "Self-Hosted Boundary Resource Management Workflows"
+					"text": "Self-hosted resource management workflows"
 				},
 				{
 					"href": "/boundary/tutorials/access-management",
-					"text": "Secure Access Management Workflows"
+					"text": "Secure access ,management workflows"
 				}
 			],
 			"featuredCollectionSlugs": [
@@ -144,15 +144,15 @@
 			"featuredUseCases": [
 				{
 					"href": "/vagrant/tutorials/networking-provisioning-operations/getting-started-provisioning",
-					"text": "Provision a Virtual Machine"
+					"text": "Provision a virtual machine"
 				},
 				{
 					"href": "/vagrant/tutorials/networking-provisioning-operations/getting-started-networking",
-					"text": "Configure the Network"
+					"text": "Configure the network"
 				},
 				{
 					"href": "/vagrant/tutorials/networking-provisioning-operations/getting-started-providers",
-					"text": "Explore Other Providers"
+					"text": "Explore other providers"
 				}
 			],
 			"featuredCollectionSlugs": [
