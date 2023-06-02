@@ -185,8 +185,8 @@
 	"crossProductSection": {
 		"collectionSlugs": [
 			"well-architected-framework/com",
-			"terraform/hashicorp",
-			"cloud/consul-cloud"
+			"consul/network-infrastructure-automation",
+			"cloud/networking"
 		]
 	}
 }
