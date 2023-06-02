@@ -3,14 +3,40 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { Collection } from 'lib/learn-client/types'
 import { getCollections } from 'lib/learn-client/api/collection'
 import TutorialsLandingView from 'views/tutorials-landing'
-import { BETTER_TOGETHER_SECTION_COLLECTION_SLUGS } from 'views/tutorials-landing/constants'
+import { LearnProductSlug } from 'types/products'
+
+/**
+ * @TODO
+ * - clean up types to be shared across files
+ * - add validation on the JSON file
+ */
+interface PageContent {
+	crossProductSection: {
+		collectionSlugs: string[]
+	}
+	productSections: Record<
+		LearnProductSlug,
+		{
+			certificationProgram: {
+				slug: string
+				title: string
+				description: string
+			}
+			featuredUseCases: { href: string; text: string }[]
+			featuredCollectionSlugs: string[]
+		}
+	>
+}
 
 const getStaticProps = async () => {
+	const { crossProductSection, productSections } = pageData as PageContent
+	const crossProductSectionCollectionSlugs = crossProductSection.collectionSlugs
+
 	const collectionSlugsToFetch = new Set<string>([
-		...BETTER_TOGETHER_SECTION_COLLECTION_SLUGS,
+		...crossProductSectionCollectionSlugs,
 	])
 
-	Object.values(pageData).forEach(({ featuredCollectionSlugs }) => {
+	Object.values(productSections).forEach(({ featuredCollectionSlugs }) => {
 		featuredCollectionSlugs?.forEach((collectionSlug) => {
 			collectionSlugsToFetch.add(collectionSlug)
 		})
@@ -21,7 +47,7 @@ const getStaticProps = async () => {
 
 	// Package up fetched data for the view
 	const pageContent = {}
-	Object.entries(pageData).forEach(
+	Object.entries(productSections).forEach(
 		([productSlug, productContent]: $TSFixMe) => {
 			const certification = productContent.certificationProgram
 			const featuredUseCases = productContent.featuredUseCases
@@ -41,14 +67,12 @@ const getStaticProps = async () => {
 			}
 		}
 	)
-
-	const crossProductSectionCollections =
-		BETTER_TOGETHER_SECTION_COLLECTION_SLUGS.map(
-			(collectionSlug: Collection['slug']) =>
-				collections.find(
-					(collection: Collection) => collection.slug === collectionSlug
-				)
-		)
+	const crossProductSectionCollections = crossProductSectionCollectionSlugs.map(
+		(collectionSlug: Collection['slug']) =>
+			collections.find(
+				(collection: Collection) => collection.slug === collectionSlug
+			)
+	)
 
 	return {
 		props: stripUndefinedProperties({
