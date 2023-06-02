@@ -68,16 +68,12 @@ const CONTENT_TYPES_SECTION_ITEMS = [
 
 /**
  * BetterTogetherSection constants
+ *
+ * @TODO rename to match `CrossProductSection` name
  */
 
 const BETTER_TOGETHER_SECTION_TITLE =
 	'Better together - Opportunity to elevate larger workflows'
-
-const BETTER_TOGETHER_SECTION_COLLECTION_SLUGS = [
-	'well-architected-framework/com',
-	'terraform/hashicorp',
-	'cloud/consul-cloud',
-]
 
 export {
 	PAGE_TITLE,
@@ -87,5 +83,4 @@ export {
 	CONTENT_TYPES_SECTION_TITLE,
 	CONTENT_TYPES_SECTION_ITEMS,
 	BETTER_TOGETHER_SECTION_TITLE,
-	BETTER_TOGETHER_SECTION_COLLECTION_SLUGS,
 }
