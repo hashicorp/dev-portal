@@ -52,27 +52,6 @@
 				"vault/cloud"
 			]
 		},
-		"packer": {
-			"featuredUseCases": [
-				{
-					"href": "/packer/tutorials/cloud-production/golden-image-with-hcp-packer",
-					"text": "Build a Golden Image Pipeline with HCP Packer"
-				},
-				{
-					"href": "/packer/tutorials/cloud-production/multicloud",
-					"text": "Standardize Machine Images Across Multiple Cloud Providers"
-				},
-				{
-					"href": "/packer/tutorials/cloud-production/github-actions",
-					"text": "Automate Packer with GitHub Actions"
-				}
-			],
-			"featuredCollectionSlugs": [
-				"packer/docker-get-started",
-				"packer/aws-get-started",
-				"packer/hcp-get-started"
-			]
-		},
 		"consul": {
 			"certificationProgram": {
 				"slug": "networking-automation",
@@ -99,27 +78,6 @@
 				"consul/get-started-vms"
 			]
 		},
-
-		"boundary": {
-			"featuredUseCases": [
-				{
-					"href": "/boundary/tutorials/hcp-administration",
-					"text": "HCP Boundary Resource Management Workflows"
-				},
-				{
-					"href": "/boundary/tutorials/oss-administration",
-					"text": "Self-Hosted Boundary Resource Management Workflows"
-				},
-				{
-					"href": "/boundary/tutorials/access-management",
-					"text": "Secure Access Management Workflows"
-				}
-			],
-			"featuredCollectionSlugs": [
-				"boundary/hcp-getting-started",
-				"boundary/oss-getting-started"
-			]
-		},
 		"nomad": {
 			"featuredUseCases": [
 				{
@@ -141,25 +99,45 @@
 				"nomad/manage-jobs"
 			]
 		},
-		"waypoint": {
+		"packer": {
 			"featuredUseCases": [
 				{
-					"href": "/waypoint/tutorials/deploy-aws",
-					"text": "Deploy an application onto AWS services"
+					"href": "/packer/tutorials/cloud-production/golden-image-with-hcp-packer",
+					"text": "Build a Golden Image Pipeline with HCP Packer"
 				},
 				{
-					"href": "/waypoint/tutorials/deploy-azure",
-					"text": "Deploy an application onto an Azure Container Instance"
+					"href": "/packer/tutorials/cloud-production/multicloud",
+					"text": "Standardize Machine Images Across Multiple Cloud Providers"
 				},
 				{
-					"href": "/waypoint/tutorials/deploy-google-cloud",
-					"text": "Deploy an application to Google Cloud Run"
+					"href": "/packer/tutorials/cloud-production/github-actions",
+					"text": "Automate Packer with GitHub Actions"
 				}
 			],
 			"featuredCollectionSlugs": [
-				"waypoint/get-started-docker",
-				"waypoint/get-started-kubernetes",
-				"waypoint/get-started-nomad"
+				"packer/docker-get-started",
+				"packer/aws-get-started",
+				"packer/hcp-get-started"
+			]
+		},
+		"boundary": {
+			"featuredUseCases": [
+				{
+					"href": "/boundary/tutorials/hcp-administration",
+					"text": "HCP Boundary Resource Management Workflows"
+				},
+				{
+					"href": "/boundary/tutorials/oss-administration",
+					"text": "Self-Hosted Boundary Resource Management Workflows"
+				},
+				{
+					"href": "/boundary/tutorials/access-management",
+					"text": "Secure Access Management Workflows"
+				}
+			],
+			"featuredCollectionSlugs": [
+				"boundary/hcp-getting-started",
+				"boundary/oss-getting-started"
 			]
 		},
 		"vagrant": {
@@ -180,6 +158,27 @@
 			"featuredCollectionSlugs": [
 				"vagrant/getting-started",
 				"vagrant/networking-provisioning-operations"
+			]
+		},
+		"waypoint": {
+			"featuredUseCases": [
+				{
+					"href": "/waypoint/tutorials/deploy-aws",
+					"text": "Deploy an application onto AWS services"
+				},
+				{
+					"href": "/waypoint/tutorials/deploy-azure",
+					"text": "Deploy an application onto an Azure Container Instance"
+				},
+				{
+					"href": "/waypoint/tutorials/deploy-google-cloud",
+					"text": "Deploy an application to Google Cloud Run"
+				}
+			],
+			"featuredCollectionSlugs": [
+				"waypoint/get-started-docker",
+				"waypoint/get-started-kubernetes",
+				"waypoint/get-started-nomad"
 			]
 		}
 	},
