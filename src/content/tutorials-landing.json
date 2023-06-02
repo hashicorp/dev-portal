@@ -49,7 +49,7 @@
 			"certificationProgram": {
 				"slug": "security-automation",
 				"title": "Get certified",
-				"description": "Ready to demonstrate your advanced Vault Enterprise skills in production? Successfully complete a lab-based exam and earn the Vault Operations Professional certification."
+				"description": "Validate your cloud security skills by studying for and passing the Vault Associate certification exam."
 			}
 		},
 		"consul": {
@@ -75,7 +75,7 @@
 			"certificationProgram": {
 				"slug": "networking-automation",
 				"title": "Get certified",
-				"description": "The Consul Associate Certification is for Site Reliability Engineers, Solutions Architects, DevOps professionals, or other Cloud Engineers who know the basic concepts and skills to build, secure, and maintain open source HashiCorp Consul."
+				"description": "Validate your networking automation skills by studying for and passing the Consul Associate certification exam."
 			}
 		},
 		"nomad": {
