@@ -23,8 +23,34 @@
 			"certificationProgram": {
 				"slug": "infrastructure-automation",
 				"title": "Get certified",
-				"description": "The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform open source."
+				"description": "Validate your infrastructure automation skills by studying for and passing the Terraform Associate certification exam."
 			}
+		},
+		"vault": {
+			"certificationProgram": {
+				"slug": "security-automation",
+				"title": "Get certified",
+				"description": "Ready to demonstrate your advanced Vault Enterprise skills in production? Successfully complete a lab-based exam and earn the Vault Operations Professional certification."
+			},
+			"featuredUseCases": [
+				{
+					"href": "/vault/tutorials/adp",
+					"text": "Advanced Data Protection"
+				},
+				{
+					"href": "/vault/tutorials/db-credentials",
+					"text": "Database Credential Rotation"
+				},
+				{
+					"href": "/vault/tutorials/encryption-as-a-service",
+					"text": "Data Encryption"
+				}
+			],
+			"featuredCollectionSlugs": [
+				"vault/getting-started",
+				"vault/getting-started-ui",
+				"vault/cloud"
+			]
 		},
 		"packer": {
 			"featuredUseCases": [
@@ -73,32 +99,7 @@
 				"consul/get-started-vms"
 			]
 		},
-		"vault": {
-			"certificationProgram": {
-				"slug": "security-automation",
-				"title": "Get certified",
-				"description": "Ready to demonstrate your advanced Vault Enterprise skills in production? Successfully complete a lab-based exam and earn the Vault Operations Professional certification."
-			},
-			"featuredUseCases": [
-				{
-					"href": "/vault/tutorials/adp",
-					"text": "Advanced Data Protection"
-				},
-				{
-					"href": "/vault/tutorials/db-credentials",
-					"text": "Database Credential Rotation"
-				},
-				{
-					"href": "/vault/tutorials/encryption-as-a-service",
-					"text": "Data Encryption"
-				}
-			],
-			"featuredCollectionSlugs": [
-				"vault/getting-started",
-				"vault/getting-started-ui",
-				"vault/cloud"
-			]
-		},
+
 		"boundary": {
 			"featuredUseCases": [
 				{
