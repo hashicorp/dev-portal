@@ -22,7 +22,7 @@
 			],
 			"certificationProgram": {
 				"slug": "infrastructure-automation",
-				"title": "Verify your Infrastructure Automation skills",
+				"title": "Get certified",
 				"description": "The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform open source."
 			}
 		},
@@ -50,7 +50,7 @@
 		"consul": {
 			"certificationProgram": {
 				"slug": "networking-automation",
-				"title": "Verify your Networking Automation skills",
+				"title": "Get certified",
 				"description": "The Consul Associate Certification is for Site Reliability Engineers, Solutions Architects, DevOps professionals, or other Cloud Engineers who know the basic concepts and skills to build, secure, and maintain open source HashiCorp Consul."
 			},
 			"featuredUseCases": [
@@ -76,7 +76,7 @@
 		"vault": {
 			"certificationProgram": {
 				"slug": "security-automation",
-				"title": "Verify your Security Automation skills",
+				"title": "Get certified",
 				"description": "Ready to demonstrate your advanced Vault Enterprise skills in production? Successfully complete a lab-based exam and earn the Vault Operations Professional certification."
 			},
 			"featuredUseCases": [
