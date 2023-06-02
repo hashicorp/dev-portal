@@ -56,15 +56,15 @@
 			"featuredUseCases": [
 				{
 					"href": "/consul/tutorials/kubernetes",
-					"text": "Service Mesh on Kubernetes"
+					"text": "Service mesh"
 				},
 				{
 					"href": "/consul/tutorials/microservices",
-					"text": "Microservices with Consul on Kubernetes"
+					"text": "Microservices on Kubernetes"
 				},
 				{
 					"href": "/consul/tutorials/network-infrastructure-automation",
-					"text": "Network Automation with CTS"
+					"text": "Network automation"
 				}
 			],
 			"featuredCollectionSlugs": [
