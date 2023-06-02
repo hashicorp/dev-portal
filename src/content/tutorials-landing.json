@@ -1,11 +1,4 @@
 {
-	"crossProductSection": {
-		"collectionSlugs": [
-			"well-architected-framework/com",
-			"terraform/hashicorp",
-			"cloud/consul-cloud"
-		]
-	},
 	"productSections": {
 		"terraform": {
 			"certificationProgram": {
@@ -185,5 +178,12 @@
 				"vagrant/networking-provisioning-operations"
 			]
 		}
+	},
+	"crossProductSection": {
+		"collectionSlugs": [
+			"well-architected-framework/com",
+			"terraform/hashicorp",
+			"cloud/consul-cloud"
+		]
 	}
 }
