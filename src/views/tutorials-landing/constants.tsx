@@ -68,6 +68,8 @@ const CONTENT_TYPES_SECTION_ITEMS = [
 
 /**
  * BetterTogetherSection constants
+ *
+ * @TODO rename to match `CrossProductSection` name
  */
 
 const BETTER_TOGETHER_SECTION_TITLE =
