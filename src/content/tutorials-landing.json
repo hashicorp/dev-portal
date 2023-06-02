@@ -1,27 +1,30 @@
 {
 	"productSections": {
 		"terraform": {
-			"certificationProgram": {
-				"slug": "infrastructure-automation",
-				"title": "Verify your Infrastructure Automation skills",
-				"description": "The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform open source."
-			},
 			"featuredUseCases": [
 				{
-					"href": "/terraform/tutorials/applications",
-					"text": "Deploy and Monitor Applications"
+					"href": "/terraform/tutorials/networking/multicloud-kubernetes",
+					"text": "Multi-cloud infrastructure"
 				},
-				{ "href": "/terraform/tutorials/it-saas", "text": "IT/SaaS Providers" },
 				{
-					"href": "/terraform/tutorials/kubernetes",
-					"text": "Manage Kubernetes with Terraform"
+					"href": "/terraform/tutorials/cloud/no-code-provisioning",
+					"text": "Self-service deployment"
+				},
+				{
+					"href": "/terraform/tutorials/kubernetes/kubernetes-provider",
+					"text": "Kubernetes management"
 				}
 			],
 			"featuredCollectionSlugs": [
 				"terraform/aws-get-started",
 				"terraform/azure-get-started",
 				"terraform/gcp-get-started"
-			]
+			],
+			"certificationProgram": {
+				"slug": "infrastructure-automation",
+				"title": "Verify your Infrastructure Automation skills",
+				"description": "The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform open source."
+			}
 		},
 		"packer": {
 			"featuredUseCases": [
