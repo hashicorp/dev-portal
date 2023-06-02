@@ -103,15 +103,15 @@
 			"featuredUseCases": [
 				{
 					"href": "/packer/tutorials/cloud-production/golden-image-with-hcp-packer",
-					"text": "Build a Golden Image Pipeline with HCP Packer"
+					"text": "Golden image pipelines"
 				},
 				{
 					"href": "/packer/tutorials/cloud-production/multicloud",
-					"text": "Standardize Machine Images Across Multiple Cloud Providers"
+					"text": "Standardized images across clouds"
 				},
 				{
 					"href": "/packer/tutorials/cloud-production/github-actions",
-					"text": "Automate Packer with GitHub Actions"
+					"text": "Automated image building"
 				}
 			],
 			"featuredCollectionSlugs": [
