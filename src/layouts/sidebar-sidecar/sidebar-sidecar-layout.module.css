@@ -172,7 +172,6 @@ for further details.
 	 absolutely positioned dropdown pane. */
 .sidecarTopSlot {
 	flex-shrink: 0;
-	max-height: calc(var(--max-sidecar-height) / 2);
 
 	/* Note: we don't ever want the top slot to be very tall, and we don't
 	   really want this container to ever have to scroll.
@@ -180,6 +179,7 @@ for further details.
 		 does exceed the available height. We set its max-height to
 		 half the available sidecar max-height, as otherwise it would clobber
 		 the sidecar scrollable content down to a 0px tall container. */
+	max-height: calc(var(--max-sidecar-height) / 2);
 	overflow-y: auto;
 }
 
