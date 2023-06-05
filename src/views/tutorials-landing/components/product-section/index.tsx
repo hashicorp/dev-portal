@@ -140,29 +140,23 @@ const MobileProductSection = ({
 	)
 }
 
-const NonMobileProductSection = () => {
-	return <div className="g-hide-on-mobile g-hide-on-tablet">NOT MOBILE</div>
-}
-
-const ProductSection = ({
+const NonMobileProductSection = ({
 	certification,
-	className,
 	featuredCollections,
 	featuredUseCases,
 	product,
-}: ProductSectionProps) => {
+}) => {
 	return (
-		<div className={classNames(s.root, className)}>
-			<MobileProductSection
-				certification={certification}
-				product={product}
-				featuredCollections={featuredCollections}
-				featuredUseCases={featuredUseCases}
-			/>
-			<NonMobileProductSection />
-			{/* <div>
+		<div
+			className={classNames(
+				'g-hide-on-mobile',
+				'g-hide-on-tablet',
+				s.mobileRoot
+			)}
+		>
+			<div>
 				<SectionTitle product={product} />
-				<SectionDescription text={description} />
+				<SectionDescription text={product.description} />
 				<CtasAndFeaturedUseCases
 					product={product}
 					featuredUseCases={featuredUseCases}
@@ -182,7 +176,32 @@ const ProductSection = ({
 						/>
 					</li>
 				) : null}
-			</ul> */}
+			</ul>
+		</div>
+	)
+}
+
+const ProductSection = ({
+	certification,
+	className,
+	featuredCollections,
+	featuredUseCases,
+	product,
+}: ProductSectionProps) => {
+	return (
+		<div className={classNames(s.root, className)}>
+			<MobileProductSection
+				certification={certification}
+				product={product}
+				featuredCollections={featuredCollections}
+				featuredUseCases={featuredUseCases}
+			/>
+			<NonMobileProductSection
+				certification={certification}
+				product={product}
+				featuredCollections={featuredCollections}
+				featuredUseCases={featuredUseCases}
+			/>
 		</div>
 	)
 }

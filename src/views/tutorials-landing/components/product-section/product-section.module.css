@@ -1,14 +1,15 @@
 .root {
+	@media (--dev-dot-tablet-down) {
+		padding-right: 0 !important; /* TODO */
+	}
+}
+
+.mobileRoot {
 	column-gap: 64px;
 	display: grid;
 	grid-template-columns: 338px 1fr;
 	grid-template-rows: 1fr;
 	width: 100%;
-
-	@media (--dev-dot-tablet-down) {
-		display: block;
-		padding-right: 0 !important; /* TODO */
-	}
 }
 
 .titleWrapper {
@@ -86,6 +87,7 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	width: 100%;
 }
 
 /* mobile */
