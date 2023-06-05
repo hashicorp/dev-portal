@@ -7,6 +7,11 @@
 	line-height: 1.296; /* 70px */
 	margin: 0;
 	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		font-size: 2.25rem; /* 36px */
+		line-height: 1.944; /* 70px */
+	}
 }
 
 .subtitle {
@@ -14,4 +19,8 @@
 	composes: hds-font-weight-medium from global;
 	color: var(--token-color-foreground-primary);
 	margin-top: 20px;
+
+	@media (--dev-dot-tablet-down) {
+		composes: hds-typography-display-300 from global;
+	}
 }
