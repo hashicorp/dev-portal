@@ -1,0 +1,23 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
+name: Beta Opted Out
+description: The user has opted out of the Dev Portal beta
+rules:
+  '$schema': http://json-schema.org/draft-04/schema#
+  type: object
+  properties:
+    context:
+      $ref: ../meta/context.yaml
+    properties:
+      type: object
+      properties:
+        bucket:
+          description: The opt-out bucket that the user has opted out from
+          type: string
+          enum:
+            - learn
+            - waypoint-io
+            - vault-io
+      required:
+        - bucket

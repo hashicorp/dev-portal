@@ -1,0 +1,19 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	align-items: center;
+	display: flex;
+	margin-bottom: 8px;
+}
+
+.text {
+	/* composition */
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-medium from global;
+
+	/* properties */
+	color: var(--token-color-foreground-faint);
+}

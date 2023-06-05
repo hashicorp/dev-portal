@@ -1,0 +1,40 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/*
+***
+* @TODO Common properties to potentially add in the future:
+*   - display: flex
+*   - align-items: center
+***
+*/
+.root {
+	position: relative;
+}
+
+.root,
+.activator,
+.contentContainer {
+	line-height: normal;
+	width: 100%;
+}
+
+/*
+***
+* Notes:
+*   - Setting only the default state of the .content container prevents us from
+*     accidentally setting the open state of the container to something
+*     incorrect that can potentially break the semantics of the element
+*   - Using the aria-expanded attribute selector ensures we're correctly setting
+*     the value in the component's JS
+*   - Using the next-sibling combinator (`+`) ensures that the .content
+*     container is the sibling element immediately after the button
+*
+* ref: https://adrianroselli.com/2020/05/disclosure-widgets.html#CSS
+***
+*/
+.activator[aria-expanded='false'] + .contentContainer {
+	display: none;
+}

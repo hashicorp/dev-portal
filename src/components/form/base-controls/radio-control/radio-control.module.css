@@ -1,0 +1,43 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	appearance: none;
+	background-color: var(--token-form-control-base-surface-color-default);
+	background-position: center center;
+	background-size: var(--token-form-radio-background-image-size)
+		var(--token-form-radio-background-image-size);
+	border-color: var(--token-form-control-base-border-color-default);
+	border-radius: 50%;
+	border-style: solid;
+	border-width: var(--token-form-radio-border-width);
+	box-shadow: var(--hds-elevation-inset-box-shadow);
+	cursor: pointer;
+	height: var(--token-form-radio-size);
+	margin: 0;
+	padding: 0;
+	width: var(--token-form-radio-size);
+
+	&:checked {
+		background-color: var(--token-form-control-checked-surface-color-default);
+		border-color: var(--token-form-control-checked-border-color-default);
+		background-image: var(--token-form-radio-background-image-data-url);
+	}
+
+	&:focus {
+		outline: var(--token-color-focus-action-external) solid 3px;
+		outline-offset: 1px;
+	}
+
+	&:hover:checked {
+		background-color: var(--token-form-control-checked-border-color-default);
+		border-color: var(--token-form-control-checked-border-color-hover);
+	}
+
+	&:hover:not(:checked) {
+		background-color: var(--token-form-control-base-surface-color-hover);
+		border-color: var(--token-form-control-base-border-color-hover);
+	}
+}

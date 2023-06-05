@@ -1,0 +1,15 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
+description: The related HashiCorp product
+type: string
+enum:
+  - boundary
+  - consul
+  - nomad
+  - packer
+  - sentinel
+  - terraform
+  - vagrant
+  - vault
+  - waypoint

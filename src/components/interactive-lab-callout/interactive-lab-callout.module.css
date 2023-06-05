@@ -1,0 +1,59 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.interactiveCallout {
+	align-items: center;
+	background-color: var(--token-color-foreground-strong);
+
+	@media (--dev-dot-tablet-up) {
+		display: flex;
+		gap: 32px;
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(
+			--token-color-foreground-strong
+		); /** Needed to supercede the dark mode card .root dark mode background  */
+	}
+}
+
+.title {
+	composes: hds-typography-body-200 from global;
+	color: var(--token-color-surface-primary);
+	font-weight: var(--token-typography-font-weight-semibold);
+}
+
+.description {
+	composes: hds-typography-body-100 from global;
+
+	/**
+   * TODO: raise line-height rounding issue with design-systems
+   * TLDR; line-height defined in relative-to-font-size units often
+   * ends up with weird rounding. Re-defined in rems here to fix that.
+   * (line-height is already indirectly rems, since font-size is rems).
+   * Details in Asana task:
+   * https://app.asana.com/0/1201987349274776/1202093639417968/f
+   */
+	line-height: 1.125rem;
+	color: var(--token-color-surface-faint);
+	margin-top: 4px;
+	max-width: 45em;
+}
+
+.ctaButton {
+	margin-top: 12px;
+}
+
+.image {
+	display: none;
+
+	@media (--dev-dot-tablet-up) {
+		display: block;
+		position: relative;
+		flex-shrink: 0;
+		margin-left: auto;
+		width: 133px;
+	}
+}

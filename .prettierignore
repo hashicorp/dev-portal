@@ -1,0 +1,13 @@
+_temp-migrations/
+.DS_Store
+.env*
+.git-blame-ignore-revs
+.next
+.vercel
+node_modules
+out
+playwright-report/
+src/data/_redirects.generated.json
+src/data/_rewrites.generated.json
+test-results/
+tsconfig.tsbuildinfo

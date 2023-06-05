@@ -1,0 +1,89 @@
+{
+	"hero": {
+		"heading": "Manage Secrets & Protect Sensitive Data",
+		"image": "https://www.datocms-assets.com/2885/1662767802-dev-dot-vault-landing-hero-2x.png"
+	},
+	"overview": {
+		"heading": "What is Vault?",
+		"body": "Secure, store, and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets, and other sensitive data using a UI, CLI, or HTTP API.",
+		"cta": {
+			"text": "Learn more about Vault features",
+			"url": "/vault/docs/what-is-vault"
+		},
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095239-devdot-vault_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087583-devdot-vault_dm.png"
+		}
+	},
+	"get_started": {
+		"heading": "Getting Started",
+		"body": "Use Vault to securely store, access, and manage secrets and other sensitive data.",
+		"ctas": [
+			{
+				"text": "CLI Quick Start",
+				"url": "/vault/tutorials/getting-started"
+			},
+			{
+				"text": "Developer Quick Start",
+				"url": "/vault/docs/get-started/developer-qs"
+			}
+		]
+	},
+	"blocks": [
+		{
+			"type": "heading",
+			"heading": "Use Cases",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "collection_cards",
+			"collectionSlugs": [
+				"vault/secrets-management",
+				"vault/db-credentials",
+				"vault/adp"
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Get Certified",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "collection_cards",
+			"collectionSlugs": ["vault/associate-cert", "vault/ops-pro-cert"]
+		},
+		{
+			"type": "heading",
+			"heading": "Popular Vault Features",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Key/Value Secrets Engine",
+					"body": "Key-value store used to persist arbitrary secrets within the configured physical storage for Vault.",
+					"url": "/vault/docs/secrets/kv"
+				},
+				{
+					"heading": "Database Secrets Engine",
+					"body": "Dynamically generates database credentials based on pre-configured roles.",
+					"url": "/vault/docs/secrets/databases"
+				},
+				{
+					"heading": "Transit Secrets Engine",
+					"body": "Encrypt data in-transit to provide encryption as a service.",
+					"url": "/vault/docs/secrets/transit"
+				},
+				{
+					"heading": "Transform Secrets Engine",
+					"body": "An Enterprise feature generates cryptographically secure tokens mapped to secure highly sensitive data.",
+					"url": "/vault/docs/secrets/transform"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,110 @@
+{
+	"hero": {
+		"heading": "Automate Infrastructure on Any Cloud",
+		"image": "https://www.datocms-assets.com/2885/1663105398-dev-dot-terraform-landing-hero-2x.png"
+	},
+	"overview": {
+		"heading": "What is Terraform?",
+		"body": "Terraform is an infrastructure as code tool that lets you build, change, and version infrastructure safely and efficiently. This includes low-level components like compute instances, storage, and networking; and high-level components like DNS entries and SaaS features.",
+		"cta": {
+			"text": "Learn more",
+			"url": "/terraform/intro"
+		},
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095195-devdot-terraform_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087761-devdot-terraform_dm.png"
+		}
+	},
+	"get_started": {
+		"heading": "Get Started",
+		"body": "Follow a code-complete, hands-on tutorial to learn the Terraform basics with your favorite infrastructure provider.",
+		"iconCardLinks": [
+			{
+				"icon": "aws",
+				"text": "Amazon Web Services",
+				"url": "/terraform/tutorials/aws-get-started"
+			},
+			{
+				"icon": "microsoft-color",
+				"text": "Azure",
+				"url": "/terraform/tutorials/azure-get-started"
+			},
+			{
+				"icon": "terraform-color",
+				"text": "Terraform Cloud",
+				"url": "/terraform/tutorials/cloud-get-started"
+			},
+			{
+				"icon": "gcp-color",
+				"text": "Google Cloud Platform",
+				"url": "/terraform/tutorials/gcp-get-started"
+			},
+			{
+				"icon": "oracle-color",
+				"text": "Oracle Cloud",
+				"url": "/terraform/tutorials/oci-get-started"
+			},
+			{
+				"icon": "docker-color",
+				"text": "Docker",
+				"url": "/terraform/tutorials/docker-get-started"
+			}
+		]
+	},
+	"blocks": [
+		{
+			"type": "heading",
+			"heading": "Featured Documentation",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Configuration Language",
+					"body": "Describe infrastructure in Terraform configuration language.",
+					"url": "/terraform/language"
+				},
+				{
+					"heading": "Terraform CLI",
+					"body": "Learn Terraform's CLI-based workflows.",
+					"url": "/terraform/cli"
+				},
+				{
+					"heading": "Terraform Cloud",
+					"body": "Collaborate with your team to provision infrastructure.",
+					"url": "/terraform/cloud-docs"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Popular Use Cases",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"terraform/multicloud-kubernetes",
+				"terraform/preview-environments-vercel",
+				"terraform/cdktf-assets-stacks-lambda",
+				"packer/golden-image-with-hcp-packer"
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Get Certified",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "collection_cards",
+			"collectionSlugs": [
+				"terraform/certification-003",
+				"terraform/certification-associate-tutorials-003"
+			]
+		}
+	]
+}

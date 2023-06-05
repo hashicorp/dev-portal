@@ -1,0 +1,29 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
+name: Video Played
+description: User has played a video
+rules:
+  '$schema': http://json-schema.org/draft-04/schema#
+  type: object
+  properties:
+    context:
+      $ref: ../meta/context.yaml
+    properties:
+      type: object
+      properties:
+        video_url:
+          description: A URL identifier for the video
+          type: string
+        video_progress:
+          description: The percentage of the video content that has been watched
+          type: number
+          enum:
+            - 1
+            - 25
+            - 50
+            - 75
+            - 90
+      required:
+        - video_url
+        - video_progress

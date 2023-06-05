@@ -1,0 +1,24 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
+name: Page Scrolled
+description: User has scrolled down a percentage of the page
+rules:
+  '$schema': http://json-schema.org/draft-04/schema#
+  type: object
+  properties:
+    context:
+      $ref: ../meta/context.yaml
+    properties:
+      type: object
+      properties:
+        percent:
+          description: The percentage of the page that has been scrolled by
+          type: number
+          enum:
+            - 25
+            - 50
+            - 75
+            - 90
+      required:
+        - percent

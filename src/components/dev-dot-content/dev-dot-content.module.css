@@ -1,0 +1,87 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/*
+***
+* Remainder of styles in .root are for docs content. We likely want to convert
+* these to MDX components.
+*
+* Asana task: https://app.asana.com/0/1201010428539925/1201653123138729/f
+***
+*/
+.root {
+	composes: hds-typography-body-300 from global;
+
+	& :global {
+		/* Note on alert overrides: alert classes are applied at content
+       extraction time, so it is currently difficult to remove or modify these
+       classes and their associated styles rather than override them.
+       https://app.asana.com/0/1100423001970639/1202448738938137/f */
+
+		& .alert {
+			background-color: var(--themed-bg);
+			border: 1px solid var(--themed-border);
+			border-radius: 6px;
+			color: var(--token-color-palette-neutral-600);
+			padding: 16px;
+			margin: 20px 0;
+
+			/* Alert override:  letter-spacing, which in global styles is tracked out */
+			&.g-type-body {
+				letter-spacing: 0;
+			}
+
+			& :not(pre) > code {
+				background-color: var(--token-color-surface-faint);
+				border-radius: 5px;
+				border: 1px solid var(--token-color-border-primary);
+
+				@nest html[data-theme='dark'] & {
+					background-color: var(--token-color-surface-strong);
+				}
+			}
+
+			&.alert-info {
+				--themed-bg: var(--token-color-surface-action);
+				--themed-border: var(--token-color-border-action);
+			}
+
+			&.alert-success {
+				--themed-bg: var(--token-color-surface-success);
+				--themed-border: var(--token-color-border-success);
+			}
+
+			&.alert-warning {
+				--themed-bg: var(--token-color-surface-warning);
+				--themed-border: var(--token-color-border-warning);
+			}
+
+			&.alert-danger {
+				--themed-bg: var(--token-color-surface-critical);
+				--themed-border: var(--token-color-border-critical);
+			}
+
+			& p {
+				&:first-child {
+					margin-top: 0;
+				}
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+
+	/**
+   * Note: <h{n} /> styles have been moved to
+   * ./mdx-components/mdx-headings.
+   */
+
+	/**
+   * Note: <ol />, <ul />, & <li /> styles have been moved to
+   * ./mdx-components/mdx-lists.
+   */
+}

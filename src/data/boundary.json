@@ -1,0 +1,73 @@
+{
+	"name": "Boundary",
+	"slug": "boundary",
+	"algoliaConfig": {
+		"indexName": "product_BOUNDARY",
+		"searchOnlyApiKey": "8308498decdf72e11590fc6356e5fdde"
+	},
+	"analyticsConfig": {
+		"includedDomains": "boundaryproject.io www.boundaryproject.io",
+		"segmentWriteKey": "JkNZiSgwVRAAFrkqqdHLxf0xfcZuhYYc"
+	},
+	"datoToken": "88b4984480dad56295a8aadae6caad",
+	"metadata": {
+		"title": "Boundary by HashiCorp",
+		"description": "Boundary is an open source solution that automates a secure identity-based user access to hosts and services across environments.",
+		"image": "https://www.boundaryproject.io/boundary-public/img/og-image.png",
+		"icon": [
+			{
+				"href": "/boundary-public/_favicon.ico"
+			}
+		]
+	},
+	"alertBannerActive": true,
+	"alertBanner": {
+		"tag": "HashiConf",
+		"url": "https://hashiconf.com/2023?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
+		"text": "Our community conference is taking place in San Francisco and online October 10-12.",
+		"linkText": "Register now",
+		"expirationDate": ""
+	},
+	"subnavItems": [
+		{
+			"text": "Overview",
+			"url": "/",
+			"type": "inbound"
+		},
+		"divider",
+		{
+			"text": "Tutorials",
+			"url": "https://developer.hashicorp.com/boundary/tutorials",
+			"type": "inbound"
+		},
+		{
+			"text": "Docs",
+			"url": "/docs",
+			"type": "inbound"
+		},
+		{
+			"text": "API",
+			"url": "/api-docs",
+			"type": "inbound"
+		},
+		{
+			"text": "Community",
+			"url": "/community",
+			"type": "inbound"
+		}
+	],
+	"basePaths": ["docs", "api-docs", "downloads"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "Documentation",
+			"path": "docs",
+			"shortName": "Docs"
+		},
+		{
+			"iconName": "api",
+			"name": "API",
+			"path": "api-docs"
+		}
+	]
+}

@@ -1,0 +1,75 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	list-style: none;
+	width: 100%;
+}
+
+.link,
+.button {
+	composes: g-focus-ring-from-box-shadow from global;
+	align-items: center;
+	background-color: transparent;
+	border-radius: 5px;
+	color: var(--token-color-foreground-primary);
+	display: flex;
+	gap: 8px;
+	width: 100%;
+	border: none;
+	padding: 8px 10px 8px 16px;
+	position: relative;
+	text-decoration: none;
+	justify-content: space-between;
+
+	& span {
+		display: block;
+	}
+
+	&::before {
+		background-color: transparent;
+		border-radius: 2px;
+		bottom: 6px;
+		content: '';
+		left: 4px;
+		position: absolute;
+		top: 6px;
+		width: 2px;
+	}
+
+	&:hover {
+		color: var(--token-color-foreground-action-hover);
+
+		&::before {
+			background-color: var(--token-color-foreground-action-hover);
+		}
+	}
+
+	&:active,
+	&:focus {
+		color: var(--token-color-foreground-action-active);
+	}
+}
+
+.separator {
+	color: var(--token-color-border-primary);
+	background-color: var(--token-color-border-primary);
+	margin-bottom: 0;
+	margin-left: 6px;
+	margin-right: 6px;
+	margin-top: 3px;
+}
+
+.description {
+	color: var(--token-color-foreground-faint);
+	display: block;
+	padding: 2px 16px 4px;
+}
+
+.label {
+	color: var(--token-color-foreground-strong);
+	display: block;
+	padding: 10px 16px 4px;
+}

@@ -1,0 +1,54 @@
+{
+	"featuredTutorialsSlugs": [
+		"boundary/oidc-auth",
+		"boundary/oss-vault-cred-brokering-quickstart",
+		"boundary/hcp-manage-workers",
+		"boundary/hcp-ssh-cred-injection",
+		"boundary/oidc-idp-groups",
+		"boundary/prometheus-metrics"
+	],
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Getting Started"
+		},
+		{
+			"title": "What is Boundary?",
+			"fullPath": "/boundary/docs/overview/what-is-boundary"
+		},
+		{
+			"title": "Quick Start",
+			"fullPath": "/boundary/docs/getting-started"
+		}
+	],
+	"sidecarMarketingCard": {
+		"title": "About Boundary",
+		"subtitle": "Boundary is an intelligent proxy that creates granular, identity-based access controls for dynamic infrastructure.",
+		"featuredDocsLinks": [
+			{
+				"href": "/boundary/docs/overview/what-is-boundary",
+				"text": "What is Boundary?"
+			},
+			{
+				"href": "/boundary/docs/overview/use-cases",
+				"text": "Use Cases"
+			},
+			{
+				"href": "/boundary/docs/concepts/domain-model",
+				"text": "Domain Model"
+			},
+			{
+				"href": "/boundary/docs/api-clients",
+				"text": "Clients"
+			}
+		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "HCP Boundary",
+		"description": "Securely connect to clouds and remote hosts",
+		"ctaText": "Try HCP Boundary for free",
+		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
+	}
+}

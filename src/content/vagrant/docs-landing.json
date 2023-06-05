@@ -1,0 +1,109 @@
+{
+	"iconCardGridItems": [
+		{
+			"iconName": "terminal",
+			"name": "CLI",
+			"path": "docs/cli"
+		},
+		{
+			"iconName": "docs",
+			"name": "Vagrantfile",
+			"path": "docs/vagrantfile"
+		},
+		{
+			"iconName": "cloud",
+			"name": "Vagrant Cloud",
+			"path": "vagrant-cloud"
+		}
+	],
+	"pageSubtitle": "Vagrant is the command line utility for managing the lifecycle of virtual machines.",
+	"marketingContentBlocks": [
+		{
+			"type": "card-grid",
+			"title": "Fundamentals",
+			"cards": [
+				{
+					"description": "The package format for Vagrant environments - create your own or use one from the public catalog.",
+					"title": "Boxes",
+					"url": "/vagrant/docs/boxes"
+				},
+				{
+					"description": "Describe your virtual machine's configuration and how to provision it.",
+					"title": "Vagrantfile",
+					"url": "/vagrant/docs/vagrantfile"
+				},
+				{
+					"description": "Provisioners allow you to automatically install software, alter configurations, and more.",
+					"title": "Provisioning",
+					"url": "/vagrant/docs/provisioning"
+				},
+				{
+					"description": "Create and configure your virtual machine with the single most important Vagrant CLI command.",
+					"title": "The 'up' command",
+					"url": "/vagrant/docs/cli/up"
+				},
+				{
+					"description": "Sync files from your host machine to the guest machine.",
+					"title": "Synced Folders",
+					"url": "/vagrant/docs/synced-folders"
+				},
+				{
+					"description": "Access your virtual machines through the high-level networking set up by Vagrant.",
+					"title": "Networking",
+					"url": "/vagrant/docs/networking"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Vagrant Cloud",
+			"description": "Vagrant Cloud serves a public, searchable index of Vagrant boxes.",
+			"cards": [
+				{
+					"description": "Use the public catalog to find boxes that contain the technologies you need for your Vagrant environment.",
+					"title": "Catalog",
+					"url": "/vagrant/vagrant-cloud/boxes/catalog"
+				},
+				{
+					"description": "Create your boxes with Packer, the Vagrant Cloud web interface, or the API.",
+					"title": "Creation",
+					"url": "/vagrant/vagrant-cloud/boxes/create"
+				},
+				{
+					"description": "Version and track the lifecycle of your boxes to make updates and fixes more efficiently.",
+					"title": "Lifecycle",
+					"url": "/vagrant/vagrant-cloud/boxes/lifecycle"
+				}
+			]
+		},
+		{
+			"type": "section-heading",
+			"title": "Developers"
+		},
+		{
+			"type": "icon-card-grid",
+			"cards": [
+				{
+					"iconName": "terminal",
+					"text": "CLI Commands",
+					"url": "/vagrant/docs/cli"
+				},
+				{
+					"iconName": "api",
+					"text": "Vagrant Cloud API",
+					"url": "/vagrant/vagrant-cloud/api"
+				},
+				{
+					"iconName": "plug",
+					"text": "Plugins",
+					"url": "/vagrant/docs/plugins"
+				},
+				{
+					"iconName": "guide",
+					"text": "Providers",
+					"url": "/vagrant/docs/providers"
+				}
+			]
+		}
+	]
+}

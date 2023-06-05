@@ -1,0 +1,127 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/*
+***
+* Class for the main container.
+***
+* Note: `min-height` is needed on the home page because the
+* `NavigationHeaderDropdownMenu` buttons that are intended to make the header
+* grow are only inside of the absolutely positioned `nav` element. On the
+* product pages, the main menu is a `NavigationHeaderDropdownMenu` button
+* located inside of an element that's not absolutely positioned.
+***
+*/
+.root {
+	--header-padding-left-right: 24px;
+	--header-menu-item-padding-left-right: 12px;
+
+	background-color: var(--token-color-palette-neutral-700);
+	display: flex;
+	padding-top: 0;
+	padding-bottom: 0;
+	min-height: var(--navigation-header-height);
+	justify-content: space-between;
+	padding-left: var(--header-padding-left-right);
+	padding-right: var(--header-padding-left-right);
+	position: relative;
+	width: 100%;
+
+	@media (--dev-dot-show-mobile-menu) {
+		padding-bottom: 14px;
+		padding-top: 14px;
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-surface-faint);
+	}
+}
+
+.leftSide {
+	align-items: center;
+	display: flex;
+	justify-content: left;
+	gap: 24px;
+}
+
+.rightSide {
+	align-items: center;
+	display: flex;
+	justify-content: right;
+	gap: 12px;
+}
+
+.mobileMenuButton {
+	align-items: center;
+	background-color: transparent;
+	border-radius: 5px;
+	border: 1px solid transparent;
+	color: var(--token-color-foreground-high-contrast);
+	display: flex;
+	justify-content: center;
+	padding: 5px;
+
+	&:hover {
+		border: 1px solid var(--token-color-palette-neutral-200);
+	}
+
+	@media (--dev-dot-hide-mobile-menu) {
+		display: none;
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-strong);
+
+		&:hover {
+			border: 1px solid var(--token-color-border-strong);
+		}
+	}
+}
+
+.authenticationControls {
+	/* properties */
+	align-items: center;
+	display: flex;
+	gap: 16px;
+
+	@media (--dev-dot-show-mobile-menu) {
+		display: none;
+	}
+}
+
+.signUpLink {
+	color: var(--token-color-foreground-high-contrast);
+
+	&:hover {
+		color: var(--token-color-foreground-high-contrast);
+	}
+}
+
+.userDropdownDisclosureActivator {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow-dark from global;
+
+	/* properties */
+	background-color: transparent;
+	color: var(--token-color-foreground-high-contrast);
+
+	&:hover {
+		border-color: var(--token-color-palette-neutral-200);
+	}
+
+	@nest html[data-theme='light'] & {
+		&:active {
+			background-color: var(--token-color-foreground-primary);
+		}
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-strong);
+
+		&:hover {
+			border-color: var(--token-color-border-strong);
+		}
+	}
+}

@@ -1,0 +1,90 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+@custom-media --list-horizontally (min-width: 1280px);
+
+.root {
+	color: var(--token-color-palette-neutral-600);
+	gap: 24px;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 24px;
+	position: relative;
+	flex-direction: column;
+
+	&.row {
+		flex-direction: row;
+	}
+}
+
+.logoAndSwitcher {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 24px;
+}
+
+.logo {
+	composes: g-focus-ring-from-box-shadow from global;
+	border-radius: 6px;
+	margin: 0 24px 0 0;
+	position: relative;
+
+	& svg {
+		/*
+    default inline display results in misalignment with footer links
+    */
+		display: block;
+		height: 28px;
+		width: auto;
+
+		& path {
+			fill: var(--token-color-hashicorp-brand);
+		}
+	}
+}
+
+.themeSwitcher {
+	/* label font weight */
+	composes: hds-font-weight-regular from global;
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	color: var(--token-color-foreground-faint);
+}
+
+.links {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	width: 100%;
+	gap: 24px;
+
+	@media (--list-horizontally) {
+		margin-top: 0;
+		width: auto;
+		align-items: center;
+	}
+}
+
+.linkAction {
+	composes: g-focus-ring-from-box-shadow from global;
+	border-radius: 6px;
+	background: none;
+	border: none;
+	color: var(--token-color-foreground-faint);
+	display: flex;
+	align-items: center;
+	gap: 7px;
+
+	&:hover {
+		color: var(--token-color-foreground-strong);
+		text-decoration: underline;
+	}
+}

@@ -1,0 +1,10 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.collectionProgressContainer {
+	display: flex;
+	min-height: 36px;
+	margin-bottom: 16px;
+}

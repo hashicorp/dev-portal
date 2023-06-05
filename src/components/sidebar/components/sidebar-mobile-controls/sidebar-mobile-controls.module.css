@@ -1,0 +1,29 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 12px;
+}
+
+.rightAlign {
+	justify-content: flex-end;
+}
+
+.levelUpButton {
+	padding-bottom: 7px;
+	padding-left: 3px;
+	padding-right: 9px;
+	padding-top: 7px;
+}
+
+.levelDownButton {
+	padding-bottom: 7px;
+	padding-left: 9px;
+	padding-right: 3px;
+	padding-top: 7px;
+}

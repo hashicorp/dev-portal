@@ -1,0 +1,142 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+
+	@media (--dev-dot-desktop) {
+		flex-direction: row;
+	}
+}
+
+.main {
+	background-color: var(--token-color-foreground-high-contrast);
+	padding-bottom: 76px;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 55px;
+	display: flex;
+	justify-content: center;
+
+	@media (--dev-dot-tablet-up) {
+		align-items: center;
+		padding: 0;
+		flex-grow: 1;
+	}
+
+	@media (--dev-dot-desktop) {
+		width: 50vw;
+	}
+}
+
+.logo {
+	margin-bottom: 16px;
+}
+
+.heading {
+	color: var(--token-color-foreground-strong);
+	margin-bottom: 24px;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	list-style: none;
+	margin: 0;
+	margin-bottom: 24px;
+	padding: 0;
+}
+
+.listItem {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	color: var(--token-color-foreground-primary);
+
+	& > svg {
+		align-self: center;
+	}
+}
+
+.detailIcon {
+	flex-shrink: 0;
+}
+
+.signInContainer {
+	align-items: center;
+	color: var(--token-color-foreground-primary);
+	display: flex;
+	gap: 8px;
+	margin-top: 16px;
+}
+
+.aside {
+	/* composition */
+	composes: g-hide-on-mobile from global;
+
+	/* properties */
+	background-color: var(--token-color-foreground-strong);
+	height: 50vh;
+	overflow: hidden;
+	position: relative;
+
+	@media (--dev-dot-desktop) {
+		height: 100vh;
+		width: 50vw;
+	}
+}
+
+.asideGradient {
+	&::before {
+		background: radial-gradient(
+			42.35% 104.19% at 1.3% 0%,
+			#121c31 0%,
+			rgba(53, 27, 83, 0) 100%
+		);
+		content: '';
+		height: 100vw;
+		opacity: 0.8;
+		position: absolute;
+		top: 50vh;
+		transform-origin: top left;
+		transform: rotate(-90deg);
+		width: 50vh;
+
+		@media (--dev-dot-desktop) {
+			top: 100vh;
+			width: 100vh;
+		}
+	}
+}
+
+.asideGraphicContainer {
+	align-items: center;
+	justify-content: flex-end;
+	display: flex;
+	height: 100%;
+	width: 100%;
+}
+
+.asideGraphic {
+	overflow: hidden;
+	padding-top: 60px;
+
+	& svg {
+		height: 421px;
+		width: auto;
+	}
+
+	@media (--dev-dot-desktop) {
+		padding: 0;
+
+		& svg {
+			height: auto;
+			width: auto;
+		}
+	}
+}

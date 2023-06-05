@@ -1,0 +1,65 @@
+---
+componentName: CardLink
+peerComponents:
+  - AccordionDisclosure
+---
+
+See `CardLink`'s <a href="https://github.com/hashicorp/dev-portal/blob/main/src/components/card-link/types.ts" target="_blank" rel="noreferrer noopener">types.ts file (opens in new tab)</a> for more details on the props this component exposes.
+
+## Playground
+
+<LiveComponent>
+{`
+<CardLink ariaLabel="I am a CardLink that goes to the home page" href="/">
+  I am a CardLink that goes to the home page
+</CardLink>
+`}
+</LiveComponent>
+
+## Examples
+
+<AccordionDisclosure
+  title="The `ariaLabel` prop"
+  description="When a `CardLink`element comes into focus, and a screen reader is being used, the screen reader will present just the content of `ariaLabel`."
+>
+
+Since `CardLink` allows any kind of content to be rendered within it, the `ariaLabel` prop is required to make sure we're intentional about the screen reader experience.
+
+<CardLink ariaLabel="Waypoint URL Service" href="/waypoint/docs/url">
+	<p style={{ margin: 0 }}>
+		<strong>Waypoint URL Service</strong>
+	</p>
+	<p style={{ marginBottom: 0, marginTop: 4 }}>
+		The Waypoint URL service is a free, public service hosted by HashiCorp to
+		view your deployed app.
+	</p>
+</CardLink>
+
+</AccordionDisclosure>
+
+<br />
+
+<AccordionDisclosure
+  title="The `opensInNewTab` prop"
+  description="The `opensInNewTab` prop is useful when a `CardLink` should be opened in a new browser tab."
+>
+
+By default, `CardLink`s will not open their `href` in a new browser tab. The `opensInNewTab` prop is required to change the default functionality of `CardLink`.
+
+Click the following `CardLink` to open it in a new browser tab.
+
+<CardLink
+	ariaLabel="Waypoint URL service"
+	href="/waypoint/docs/url"
+	opensInNewTab
+>
+	<p style={{ margin: 0 }}>
+		<strong>Waypoint URL Service</strong>
+	</p>
+	<p style={{ marginBottom: 0, marginTop: 4 }}>
+		The Waypoint URL service is a free, public service hosted by HashiCorp to
+		view your deployed app.
+	</p>
+</CardLink>
+
+</AccordionDisclosure>

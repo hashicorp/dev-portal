@@ -1,0 +1,6 @@
+{
+	"extends": "base",
+	"io_sites": {
+		"max_static_paths": 10
+	}
+}

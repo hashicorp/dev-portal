@@ -1,0 +1,196 @@
+---
+componentName: DropdownDisclosure
+---
+
+## Label with Primary Button style
+
+<LiveComponent>
+{`
+<DropdownDisclosure
+  color="primary"
+  text="Click to open"
+>
+  <DropdownDisclosureButtonItem
+    onClick={() => console.log('clicked option 1')}
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 1 (button)
+  </DropdownDisclosureButtonItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 2 (link)
+  </DropdownDisclosureLinkItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 3 (link)
+  </DropdownDisclosureLinkItem>
+</DropdownDisclosure>
+`}
+</LiveComponent>
+
+## Label with Secondary Button style
+
+<LiveComponent>
+{`
+<DropdownDisclosure
+  color="secondary"
+  text="Click to open"
+>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 1
+  </DropdownDisclosureLinkItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 2
+  </DropdownDisclosureLinkItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 3
+  </DropdownDisclosureLinkItem>
+</DropdownDisclosure>
+`}
+</LiveComponent>
+
+## Label with listPosition="right"
+
+<LiveComponent>
+{`
+<DropdownDisclosure
+  color="primary"
+  text="Click to open"
+  listPosition="right"
+>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 1
+  </DropdownDisclosureLinkItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 2
+  </DropdownDisclosureLinkItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 3
+  </DropdownDisclosureLinkItem>
+</DropdownDisclosure>
+`}
+</LiveComponent>
+
+## With an icon and the chevron
+
+Note: this `aria-label` is not descriptive. Make sure to use something more descriptive in practice.
+
+<LiveComponent>
+{`
+<DropdownDisclosure
+  aria-label="Add something"
+  icon={<SwingsetTestIcon name="plus" size={24} />}
+>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 1
+  </DropdownDisclosureLinkItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 2
+  </DropdownDisclosureLinkItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 3
+  </DropdownDisclosureLinkItem>
+</DropdownDisclosure>
+`}
+</LiveComponent>
+
+## With an icon and no chevron
+
+Note: this `aria-label` is not descriptive. Make sure to use something more descriptive in practice.
+
+<LiveComponent>
+{`
+<DropdownDisclosure
+  aria-label="Add something"
+  hideChevron
+  icon={<SwingsetTestIcon name="plus" size={24} />}
+>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 1
+  </DropdownDisclosureLinkItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 2
+  </DropdownDisclosureLinkItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="plus" />}
+  >
+    Option 3
+  </DropdownDisclosureLinkItem>
+</DropdownDisclosure>
+`}
+</LiveComponent>
+
+## With an image and the chevron
+
+<LiveComponent>
+{`
+<DropdownDisclosure
+  aria-label="User menu"
+  icon={<img src="https://placekitten.com/100/100" />}
+>
+  <DropdownDisclosureLabelItem>
+    Signed in with email
+  </DropdownDisclosureLabelItem>
+  <DropdownDisclosureDescriptionItem>
+    salty@thehound.design
+  </DropdownDisclosureDescriptionItem>
+  <DropdownDisclosureSeparatorItem />
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="bookmark" />}
+  >
+    Bookmarks
+  </DropdownDisclosureLinkItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="external-link" />}
+  >
+    Account Settings
+  </DropdownDisclosureLinkItem>
+  <DropdownDisclosureLinkItem
+    href="#"
+    icon={<SwingsetTestIcon name="sign-out" />}
+  >
+    Sign Out
+  </DropdownDisclosureLinkItem>
+</DropdownDisclosure>
+`}
+</LiveComponent>

@@ -1,0 +1,87 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/*
+NOTE: This file uses `role` selectors to apply styles because it ensures that
+the correct elements, roles, states, and properties are being set in the markup.
+*/
+
+.tabControls {
+	opacity: 1;
+
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: opacity 0.3s ease-in-out;
+	}
+
+	/*
+  Styles for showing a bottom border on the tab buttons container.
+  */
+	&.showAnchorLine {
+		border-bottom: 1px solid var(--token-color-palette-neutral-200);
+		padding-bottom: 16px;
+
+		/* No border if allowNestedStyles for all tabs (whether nested or not) */
+		&.allowNestedStyles {
+			border-bottom: none;
+		}
+	}
+
+	&.variant--compact {
+		border: none;
+		padding: 0;
+		position: relative;
+
+		&::after {
+			border-bottom: 1px solid var(--token-color-border-primary);
+			bottom: 0;
+			content: '';
+			height: 1px;
+			left: 0;
+			position: absolute;
+			right: 0;
+		}
+	}
+}
+
+/* While hasOverflow is being checked, temporarily hide the controls */
+.isCheckingOverflow {
+	opacity: 0;
+}
+
+/*
+Styles for each tab panel.
+
+Since `aria-hidden` does not have perfect screen reader support, we can maximize
+compatibility by using it as a selector to apply additional styles. This also
+keeps us from having to set styles in the JSX.
+
+ref: https://twitter.com/heydonworks/status/408263890284191745
+ref: https://twitter.com/MarcoInEnglish/status/363284092806119424
+*/
+.tabPanel[role='tabpanel'] {
+	border-radius: 6px;
+
+	&[aria-hidden='true'] {
+		display: none;
+		visibility: hidden;
+	}
+
+	&.allowNestedStyles:not(.isNested) {
+		box-shadow: var(--token-surface-base-box-shadow);
+		padding: 16px;
+	}
+
+	/* Note: !important necessary to override dev-dot-content styles.
+     Can be removed once all spacing styles are applied via MDX components.
+     Task: https://app.asana.com/0/1201987349274776/1201653123138729/f */
+	& > *:first-child {
+		margin-top: 0 !important;
+	}
+
+	& > *:last-child {
+		margin-bottom: 0 !important;
+	}
+}

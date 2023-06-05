@@ -1,0 +1,141 @@
+{
+	"pageSubtitle": "Consul is a multi-networking tool that offers a fully-featured service mesh solution. It solves the networking and security challenges of operating microservices and cloud infrastructure in multi-cloud and hybrid cloud environments. This documentation describes Consul concepts, the problems it solves, and contains quick-start tutorials for using Consul.",
+	"marketingContentBlocks": [
+		{
+			"type": "section-heading",
+			"title": "Use cases"
+		},
+		{
+			"type": "card-grid",
+			"title": "Service mesh",
+			"description": "Consul service mesh provides service-to-service connection authorization and encryption using mutual transport layer security (TLS).",
+			"cards": [
+				{
+					"title": "Register mesh services",
+					"description": "Define and register services with Consul and associate them with health checks.",
+					"url": "/consul/docs/services/services"
+				},
+				{
+					"title": "Configure mesh behavior",
+					"description": "The exported services configuration entry enables you to export services from a single file.",
+					"url": "/consul/docs/connect/config-entries/exported-services"
+				},
+				{
+					"title": "Manage mesh traffic",
+					"description": "Gateways provide connectivity into, out of, and between Consul service meshes.",
+					"url": "/consul/docs/connect/gateways"
+				},
+				{
+					"title": "Control ingress traffic",
+					"description": "Deploy a Consul API gateway to manage north-south network traffic .",
+					"url": "/consul/docs/api-gateway"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Kubernetes",
+			"description": "Consul has many integrations with Kubernetes. You can deploy Consul to Kubernetes using the Helm chart or Consul K8s CLI, sync services between Consul and Kubernetes, run Consul service mesh, and more.",
+			"cards": [
+				{
+					"title": "Install Consul on Kubernetes",
+					"description": "Consul runs directly on Kubernetes to support pure K8s workloads. You can also join workloads to Consul servers outside of Kubernetes to support mixed environments.",
+					"url": "/consul/docs/k8s/installation/install"
+				},
+				{
+					"title": "Simplify service mesh on Kubernetes with Consul Dataplane",
+					"description": "Consul Dataplane manages proxies but leaves responsibility for other functions to the orchestrator, removing the need to run client agents on every node.",
+					"url": "/consul/docs/connect/dataplane"
+				},
+				{
+					"title": "Connect services deployed to multiple Kubernetes clusters",
+					"description": "Install and federate Consul on multiple Kubernetes clusters.",
+					"url": "/consul/docs/k8s/deployment-configurations/multi-cluster"
+				},
+				{
+					"title": "Sync Kubernetes and Consul services",
+					"description": "Automatically sync your Kubernetes and Consul services to seamlessly secure communications between your Kubernetes and Consul services.",
+					"url": "/consul/docs/k8s/service-sync"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Network infrastructure automation",
+			"description": "Consul-Terraform-Sync (CTS) enables dynamic updates to network infrastructure devices triggered by service changes.",
+			"cards": [
+				{
+					"title": "Install and configure the CTS",
+					"description": "Install the CTS binary.",
+					"url": "/consul/docs/nia/installation/install"
+				},
+				{
+					"title": "Define dynamic updates",
+					"description": "Configure CTS Tasks to automatically update network infrastructure when your Consul services change.",
+					"url": "/consul/docs/nia/tasks"
+				},
+				{
+					"title": "Create a Terraform module",
+					"description": "Automatically execute Terraform modules for network infrastructure automation with CTS.",
+					"url": "/consul/docs/nia/terraform-modules"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Platforms",
+			"description": "Consul integrates with several platforms and products. Learn more about Consul integrations and how to enable them.",
+			"cards": [
+				{
+					"title": "Nomad",
+					"description": "Use Consul service mesh with Nomad to provide secure service to service communication between Nomad jobs.",
+					"url": "/consul/docs/connect/nomad"
+				},
+				{
+					"title": "Vault",
+					"description": "Use Consul with Vault to manage and sign certificates. The Vault CA provider uses the Vault PKI secrets engine to generate and sign certificates.",
+					"url": "/consul/docs/connect/ca/vault"
+				},
+				{
+					"title": "AWS ECS",
+					"description": "Deploy Consul service mesh on AWS ECS (Elastic Container Service).",
+					"url": "/consul/docs/ecs"
+				},
+				{
+					"title": "AWS Lambda",
+					"description": "Integrate AWS Lambda with Consul services by registering Lambda functions as Consul services and invoking them from your service mesh.",
+					"url": "/consul/docs/lambda"
+				}
+			]
+		},
+		{
+			"type": "section-heading",
+			"title": "Developers"
+		},
+		{
+			"type": "icon-card-grid",
+			"cards": [
+				{
+					"iconName": "connection",
+					"text": "Envoy integration",
+					"url": "/consul/docs/connect/proxies/envoy"
+				},
+				{
+					"iconName": "api",
+					"text": "HTTP API structure",
+					"url": "/consul/api-docs"
+				},
+				{
+					"iconName": "download",
+					"text": "Download Consul tools",
+					"url": "/consul/docs/integrate/download-tools"
+				},
+				{
+					"iconName": "terminal",
+					"text": "GitHub samples",
+					"url": "https://github.com/hashicorp?q=learn-consul&type=public&language=&sort=stargazers"
+				}
+			]
+		}
+	]
+}

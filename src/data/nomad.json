@@ -1,0 +1,106 @@
+{
+	"name": "Nomad",
+	"slug": "nomad",
+	"algoliaConfig": {
+		"indexName": "product_NOMAD",
+		"searchOnlyApiKey": "9bfec34ea54e56a11bd50d6bfedc5e71"
+	},
+	"analyticsConfig": {
+		"includedDomains": "nomadproject.io www.nomadproject.io",
+		"segmentWriteKey": "qW11yxgipKMsKFKQUCpTVgQUYftYsJj0"
+	},
+	"datoToken": "88b4984480dad56295a8aadae6caad",
+	"metadata": {
+		"title": "Nomad by HashiCorp",
+		"description": "Nomad is a highly available, distributed, data-center aware cluster and application scheduler designed to support the modern datacenter with support for long-running services, batch jobs, and much more.",
+		"image": "https://www.nomadproject.io/nomad-public/img/og-image.png",
+		"icon": [
+			{
+				"href": "/nomad-public/_favicon.ico"
+			}
+		]
+	},
+	"alertBannerActive": true,
+	"alertBanner": {
+		"tag": "HashiConf",
+		"url": "https://hashiconf.com/2023?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
+		"text": "Our community conference is taking place in San Francisco and online October 10-12.",
+		"linkText": "Register now",
+		"expirationDate": ""
+	},
+	"version": "1.2.5",
+	"subnavItems": [
+		{
+			"text": "Overview",
+			"url": "/",
+			"type": "inbound"
+		},
+		{
+			"text": "Enterprise",
+			"url": "https://www.hashicorp.com/products/nomad/",
+			"type": "outbound"
+		},
+		"divider",
+		{
+			"text": "Tutorials",
+			"url": "https://developer.hashicorp.com/nomad/tutorials",
+			"type": "outbound"
+		},
+		{
+			"text": "Docs",
+			"url": "/docs",
+			"type": "inbound"
+		},
+		{
+			"text": "API",
+			"url": "/api-docs",
+			"type": "inbound"
+		},
+		{
+			"text": "Plugins",
+			"url": "/plugins",
+			"type": "inbound"
+		},
+		{
+			"text": "Tools",
+			"url": "/tools",
+			"type": "inbound"
+		},
+		{
+			"text": "Community",
+			"url": "/community",
+			"type": "inbound"
+		}
+	],
+	"basePaths": ["docs", "api-docs", "plugins", "tools", "intro", "downloads"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "Documentation",
+			"path": "docs"
+		},
+		{
+			"iconName": "entry-point",
+			"name": "Intro",
+			"path": "intro"
+		},
+		{
+			"iconName": "api",
+			"name": "API",
+			"path": "api-docs"
+		},
+		{
+			"iconName": "terminal-screen",
+			"name": "Tools",
+			"path": "tools"
+		},
+		{
+			"iconName": "plug",
+			"name": "Plugins",
+			"path": "plugins"
+		}
+	],
+	"integrationsConfig": {
+		"description": "A curated collection of official, partner, and community Nomad Integrations."
+	}
+}

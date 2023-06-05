@@ -1,0 +1,179 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	width: fit-content;
+	position: relative;
+}
+
+.activatorWrapper {
+	padding-bottom: 16px;
+	padding-top: 16px;
+}
+
+.activator {
+	/* Composition */
+	composes: g-focus-ring-from-box-shadow-dark from global;
+
+	/* CSS properties */
+	align-items: center;
+	background-color: transparent;
+	border-radius: 5px;
+	border: 0;
+	display: flex;
+	padding-bottom: 8px;
+	padding-left: var(--header-menu-item-padding-left-right);
+	padding-right: var(--header-menu-item-padding-left-right);
+	padding-top: 8px;
+
+	&[aria-expanded='true'] {
+		& .activatorText {
+			color: var(--token-color-surface-primary);
+		}
+
+		& .activatorTrailingIcon {
+			color: var(--token-color-surface-primary);
+			transform: rotate(-180deg);
+		}
+	}
+
+	@nest html[data-theme='dark'] & {
+		&[aria-expanded='true'] {
+			& .activatorText {
+				color: var(--token-color-foreground-strong);
+			}
+
+			& .activatorTrailingIcon {
+				color: var(--token-color-foreground-strong);
+			}
+		}
+	}
+}
+
+.activatorText {
+	color: var(--token-color-surface-strong);
+	margin-right: 6px;
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-primary);
+	}
+}
+
+.activatorLeadingIcon {
+	margin-right: 4px;
+}
+
+.activatorTrailingIcon {
+	color: var(--token-color-surface-strong);
+
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: transform 0.2s ease-in-out;
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-strong);
+	}
+}
+
+.dropdownContainer {
+	background-color: var(--token-color-surface-primary);
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	box-shadow: var(--token-elevation-higher-box-shadow);
+	min-width: 252px;
+	padding: 16px;
+	position: absolute;
+}
+
+.itemGroupDivider {
+	margin-bottom: 20px;
+	margin-top: 20px;
+	color: var(--token-color-border-primary);
+	background-color: var(--token-color-border-primary);
+}
+
+.itemGroup {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	&.twoColumns {
+		column-count: 2;
+		width: max-content;
+		gap: 24px;
+	}
+}
+
+.itemGroupLabel {
+	margin-bottom: 12px;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.itemLink {
+	/* Composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* CSS Properties */
+	align-items: center;
+	border-radius: 5px;
+	color: var(--token-color-foreground-primary);
+	display: flex;
+	padding: 8px;
+	text-decoration: none;
+	width: 100%;
+
+	&:not(:last-child) {
+		margin-bottom: 2px;
+	}
+
+	/* Only apply hover styles to the text */
+	&:hover .itemText {
+		color: var(--token-color-foreground-strong);
+		text-decoration: underline;
+	}
+}
+
+.itemLink[aria-disabled='true'] {
+	/* Overwrite hover state styles on the text */
+	&:hover {
+		cursor: not-allowed;
+
+		& .itemText {
+			color: var(--token-color-foreground-disabled);
+			text-decoration: none;
+		}
+	}
+
+	/* Make sure everything has the disabled color */
+	& * {
+		color: var(--token-color-foreground-disabled);
+		fill: var(--token-color-foreground-disabled);
+	}
+}
+
+.itemLinkContent {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	gap: 8px;
+	width: 100%;
+
+	/* prevent children from shrinking */
+	& > * {
+		flex-shrink: 0;
+	}
+}
+
+.leftAlignedItemLinkContent {
+	align-items: center;
+	display: flex;
+	gap: 8px;
+}
+
+.leftAlignedItemLinkContentIcon {
+	display: flex;
+}

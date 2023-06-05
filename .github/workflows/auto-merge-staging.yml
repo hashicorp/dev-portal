@@ -1,0 +1,22 @@
+name: 'Sync `staging` Branch'
+
+# This workflow attempts to merge updates from `main` into the long-standing staging branch.
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+concurrency: merge_main
+
+jobs:
+  merge-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@v3
+      - name: Sync `staging`
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git push origin --force main:staging

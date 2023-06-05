@@ -1,0 +1,32 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.content {
+	position: relative;
+}
+
+.closeButton {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
+	appearance: none;
+	background-color: transparent;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+	display: flex;
+	height: fit-content;
+	padding: 8px;
+	position: absolute;
+	right: 16px;
+	top: 16px;
+	width: fit-content;
+}
+
+.body {
+	margin-bottom: 24px;
+	margin-top: 4px;
+}

@@ -1,0 +1,116 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	--padding: 24px;
+	--border-radius: 5px;
+
+	background: none;
+	border-radius: var(--border-radius);
+	display: flex;
+	isolation: isolate;
+	padding: 0;
+}
+
+.backgroundBase {
+	/* Shared border-radius from Card hides overflow, but shows focus styles */
+	border-radius: var(--border-radius);
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: -1;
+}
+
+.background {
+	composes: backgroundBase;
+	background-image: url('./img/try-hcp-callout-background.svg');
+	background-size: auto;
+	background-repeat: no-repeat;
+	background-position: left bottom;
+}
+
+.textContainer {
+	display: flex;
+	flex-direction: column;
+	padding: 24px;
+}
+
+/* Handles horizontal sizing of the image area */
+.imageContainer {
+	--image-top-offset: -26px;
+	--image-width: 340px;
+	--image-height: 220px;
+
+	display: none;
+
+	@media (--dev-dot-tablet-up) {
+		/* Shared border-radius from Card hides overflow, but shows focus styles */
+		border-radius: var(--border-radius);
+		display: flex;
+		flex-direction: column;
+		flex-shrink: 0;
+		margin-left: auto;
+		max-width: var(--image-width);
+		overflow: hidden;
+		position: relative;
+		width: 40%;
+		z-index: -1;
+	}
+}
+
+/* Aligns image to top, except once at max-height, then sticks bottom-right */
+.imageWrapper {
+	flex-grow: 1;
+	margin-top: auto;
+	max-height: calc(var(--image-height) + var(--image-top-offset));
+	position: relative;
+}
+
+/* Positions the image */
+.image {
+	/* Default image is Vault, this gets used with generic HCP callouts too */
+	--background-src: url('./img/try-hcp-callout-ui-mock-vault.svg');
+
+	background-image: var(--background-src);
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	background-size: auto;
+	height: var(--image-height);
+	left: 0;
+	position: absolute;
+	top: var(--image-top-offset);
+	width: var(--image-width);
+
+	&.boundary {
+		--background-src: url('./img/try-hcp-callout-ui-mock-boundary.svg');
+	}
+
+	&.consul {
+		--background-src: url('./img/try-hcp-callout-ui-mock-consul.svg');
+	}
+
+	&.packer {
+		--background-src: url('./img/try-hcp-callout-ui-mock-packer.svg');
+	}
+
+	&.terraform {
+		--background-src: url('./img/try-hcp-callout-ui-mock-terraform.svg');
+	}
+
+	&.vagrant {
+		--background-src: url('./img/try-hcp-callout-ui-mock-vagrant.svg');
+	}
+
+	&.vault {
+		--background-src: url('./img/try-hcp-callout-ui-mock-vault.svg');
+	}
+
+	&.waypoint {
+		--background-src: url('./img/try-hcp-callout-ui-mock-waypoint.svg');
+	}
+}

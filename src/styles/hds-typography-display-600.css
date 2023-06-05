@@ -1,0 +1,21 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/* "Display 600" is a larger heading size created specifically for use
+    in Dev Dot. It does not yet exist in HDS. But, we want to make it as
+		easy to use within Dev Dot as other HDS display styles. So here,
+		we set up an hds-like class. If / when Display 600 is added to HDS,
+		we'll remove this custom class name.  */
+.hds-typography-display-600 {
+	composes: hds-typography-display-500 from global;
+	font-size: 36px;
+	line-height: 1.222222;
+
+	/* Display 600 is very large, so on small viewports, we bump the size down. */
+	@media (--dev-dot-mobile) {
+		font-size: 32px;
+		line-height: 1.25;
+	}
+}

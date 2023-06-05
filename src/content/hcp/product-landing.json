@@ -1,0 +1,92 @@
+{
+	"hero": {
+		"heading": "The fastest way to get up and running with HashiCorp tools",
+		"image": "https://www.datocms-assets.com/2885/1662767810-dev-dot-hcp-landing-hero-2x.png"
+	},
+	"overview": {
+		"heading": "What is HCP?",
+		"body": "HashiCorp Cloud Platform (HCP) is a fully-managed platform offering HashiCorp products-as-a-service. HCP removes the management overhead associated with deploying and maintaining HashiCorp products so that your teams can focus on developing and deploying applications.",
+		"cta": {
+			"text": "What is HCP?",
+			"url": "/hcp/docs/hcp"
+		},
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1662053773-dev-dot-product-landing-what-is-hcp-diagram.png",
+			"dark": "https://www.datocms-assets.com/2885/1679096025-hcp_dm.svg"
+		}
+	},
+	"get_started": {
+		"heading": "Getting Started",
+		"body": "Complete the following tutorials for step-by-step guidance on getting started:",
+		"iconCardLinks": [
+			{
+				"icon": "vault-color",
+				"text": "HCP Vault",
+				"url": "/vault/tutorials/cloud"
+			},
+			{
+				"icon": "consul-color",
+				"text": "HCP Consul",
+				"url": "/consul/tutorials/get-started-hcp"
+			},
+			{
+				"icon": "packer-color",
+				"text": "HCP Packer",
+				"url": "/packer/tutorials/hcp-get-started"
+			},
+			{
+				"icon": "boundary-color",
+				"text": "HCP Boundary",
+				"url": "/boundary/tutorials/hcp-getting-started"
+			},
+			{
+				"icon": "waypoint-color",
+				"text": "HCP Waypoint",
+				"url": "/waypoint/tutorials/runners/hcp-runners-on-your-infra"
+			}
+		],
+		"fixedColumns": 2
+	},
+	"blocks": [
+		{
+			"type": "heading",
+			"heading": "Featured Content",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "collection_cards",
+			"collectionSlugs": ["cloud/networking"]
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Create and manage an AWS HVN",
+					"body": "Explore how to create and manage a HashiCorp Virtual Network (HVN) for AWS and connect it to your VPC.",
+					"url": "/hcp/docs/hcp/network/hvn-aws/hvn-aws"
+				},
+				{
+					"heading": "Create and manage an Azure HVN",
+					"body": "Explore how to create and manage a HashiCorp Virtual Network (HVN) for Azure and connect it to your VNet.",
+					"url": "/hcp/docs/hcp/network/hvn-azure/hvn-azure"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Popular Use Cases",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"cloud/vault-oidc-okta",
+				"boundary/hcp-manage-scopes",
+				"packer/golden-image-with-hcp-packer",
+				"consul/kubernetes-api-gateway"
+			]
+		}
+	]
+}

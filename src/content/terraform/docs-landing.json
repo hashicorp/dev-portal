@@ -1,0 +1,84 @@
+{
+	"pageSubtitle": "Terraform is an infrastructure as code tool that lets you build, change, and version infrastructure safely and efficiently. This includes low-level components like compute instances, storage, and networking, as well as high-level components like DNS entries and SaaS features.",
+	"marketingContentBlocks": [
+		{
+			"type": "card-grid",
+			"title": "Introduction",
+			"cards": [
+				{
+					"description": "How Terraform solves infrastructure challenges.",
+					"title": "What is Terraform?",
+					"url": "/terraform/intro"
+				},
+				{
+					"description": "Popular use cases and related documentation you can use to create Terraform configurations and workflows.",
+					"title": "Use Cases",
+					"url": "/terraform/intro/use-cases"
+				},
+				{
+					"description": "Learn how Terraform compares to other tools and services.",
+					"title": "Terraform vs. Alternatives",
+					"url": "/terraform/intro/vs"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Manage Infrastructure",
+			"cards": [
+				{
+					"description": "Describe infrastructure on various providers with Terraform's configuration language.",
+					"title": "Configuration Language",
+					"url": "/terraform/language"
+				},
+				{
+					"description": "Use the Terraform CLI to manage configuration, plugins, infrastructure, and state.",
+					"title": "Terraform CLI",
+					"url": "/terraform/cli"
+				},
+				{
+					"description": "Use CDK for Terraform to write and deploy Terraform configurations in your preferred programming language.",
+					"title": "CDK for Terraform",
+					"url": "/terraform/cdktf"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Collaborate",
+			"cards": [
+				{
+					"description": "Terraform Cloud helps teams use Terraform together, with version control, state sharing, governance, and more.",
+					"title": "Terraform Cloud",
+					"url": "/terraform/cloud-docs"
+				},
+				{
+					"description": "Terraform Enterprise is a self-hosted instance of Terraform Cloud, which is ideal for organizations that have strict security and compliance requirements.",
+					"title": "Terraform Enterprise",
+					"url": "/terraform/enterprise"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Develop and Share",
+			"cards": [
+				{
+					"description": "Create a provider to allow Terraform to interact with a service.",
+					"title": "Plugin Development",
+					"url": "/terraform/plugin"
+				},
+				{
+					"description": "Create reusable configurations with modules.",
+					"title": "Modules",
+					"url": "/terraform/language/modules/develop"
+				},
+				{
+					"description": "Publish a provider or module to the Terraform Registry to make it publicly available.",
+					"title": "Registry Publishing",
+					"url": "/terraform/registry"
+				}
+			]
+		}
+	]
+}

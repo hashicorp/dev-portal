@@ -1,0 +1,11 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	background: var(--token-color-surface-faint);
+	box-shadow: var(--token-surface-base-box-shadow);
+	border-radius: 6px;
+	padding: 16px;
+}

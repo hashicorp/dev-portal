@@ -1,0 +1,67 @@
+{
+	"featuredCollectionsSlugs": [
+		"consul/get-started-hcp",
+		"consul/get-started-kubernetes",
+		"consul/get-started-vms"
+	],
+	"featuredTutorialsSlugs": [
+		"consul/kubernetes-api-gateway",
+		"consul/consul-terraform-sync-intro",
+		"consul/serverless-consul-with-lambda"
+	],
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Get Started"
+		},
+		{
+			"title": "What is Consul?",
+			"fullPath": "/consul/docs/intro"
+		},
+		{
+			"title": "Consul with Kubernetes",
+			"fullPath": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy"
+		},
+		{
+			"title": "Consul with Virtual Machines",
+			"fullPath": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
+		},
+		{
+			"title": "HCP Consul",
+			"fullPath": "/consul/tutorials/get-started-hcp/hcp-gs-deploy"
+		},
+		{
+			"divider": true
+		},
+		{
+			"title": "Install Consul K8s CLI",
+			"fullPath": "/consul/docs/k8s/installation/install-cli"
+		}
+	],
+	"sidecarMarketingCard": {
+		"title": "About Consul",
+		"subtitle": "Consul offers a fully-featured service mesh solution that solves the networking and security challenges of operating microservices in multi-cloud and hybrid-cloud environment.",
+		"featuredDocsLinks": [
+			{
+				"href": "/consul/docs/intro",
+				"text": "What is Consul?"
+			},
+			{
+				"href": "/consul/api-docs",
+				"text": "API Introduction"
+			},
+			{
+				"href": "/consul/commands",
+				"text": "Commands (CLI)"
+			}
+		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "HCP Consul",
+		"description": "Discover and securely connect your applications",
+		"ctaText": "Try HCP Consul for free",
+		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
+	}
+}

@@ -1,0 +1,14 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+:root {
+	--input-height: 36px;
+	--input-icon-size: 16px;
+
+	/* NOTE: The --navigation-header-height may be brittle & inaccurate.
+    See layouts/base-new/base-new-layout.module.css
+    comments for details */
+	--navigation-header-height: 68px;
+}

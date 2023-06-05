@@ -1,0 +1,15 @@
+{
+	"extends": "base",
+	"io_sites": {
+		"max_static_paths": 1
+	},
+	"dev_dot": {
+		"max_static_paths": 1,
+		"algolia": {
+			"tutorialsIndexName": "staging_LEARN"
+		}
+	},
+	"learn": {
+		"max_static_paths": 1
+	}
+}

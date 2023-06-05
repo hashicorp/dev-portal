@@ -1,0 +1,99 @@
+{
+	"pageSubtitle": "Learn and develop your knowledge of Waypoint with these tutorials and code resources.",
+	"marketingContentBlocks": [
+		{
+			"type": "card-grid",
+			"title": "Fundamentals",
+			"cards": [
+				{
+					"title": "Quick Start",
+					"description": "It only takes a few minutes to get started with Waypoint on your local development environment.",
+					"url": "/waypoint/docs/getting-started"
+				},
+				{
+					"title": "App Lifecycle",
+					"description": "Waypoint has an opinionated view on the minimum application lifecycle: build, deploy, and release.",
+					"url": "/waypoint/docs/lifecycle"
+				},
+				{
+					"title": "Projects",
+					"description": "A project contains one or more applications and each one in a project represents a single deployable object.",
+					"url": "/waypoint/docs/projects"
+				},
+			  	{
+					"title": "Runners",
+					"description": "Waypoint utilizes \"runners\" to execute jobs. Runners are programs running `waypoint runner agent`.",
+					"url": "/waypoint/docs/runner"
+				},
+				{
+					"title": "waypoint.hcl",
+					"description": "The waypoint.hcl file configures each Waypoint project and defines how Waypoint builds, deploys, and releases it.",
+					"url": "/waypoint/docs/waypoint-hcl"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Application Configuration",
+			"cards": [
+				{
+					"title": "Overview",
+					"description": "Waypoint can configure your application by setting environment variables and writing files.",
+					"url": "/waypoint/docs/app-config"
+				},
+				{
+					"title": "Dynamic Values",
+					"description": "Waypoint can sync app config values with external systems like Kubernetes ConfigMaps, HashiCorp Vault, and more.",
+					"url": "/waypoint/docs/app-config/dynamic"
+				},
+				{
+					"title": "Files",
+					"description": "Waypoint can write configs to files for apps that expect configurations at a certain path or in a certain format.",
+					"url": "/waypoint/docs/waypoint-hcl"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Debugging",
+			"cards": [
+				{
+					"title": "Tips and Troubleshooting",
+					"description": "Common tips and troubleshooting methods.",
+					"url": "/waypoint/docs/troubleshooting"
+				},
+				{
+					"title": "Logs",
+					"description": "Waypoint app logs are aggregated and available to view via the CLI and UI.",
+					"url": "/waypoint/docs/logs"
+				},
+				{
+					"title": "Exec",
+					"description": "Waypoint enables you to execute commands in the context of a deployed application.",
+					"url": "/waypoint/docs/exec"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Highlighted Features",
+			"cards": [
+				{
+					"title": "Waypoint URL Service",
+					"description": "The Waypoint URL service is a free, public service hosted by HashiCorp to view your deployed app.",
+					"url": "/waypoint/docs/url"
+				},
+				{
+					"title": "Waypoint Runners",
+					"description": "Waypoint has three types of runners to execute every operation: CLI, remote, and on-demand.",
+					"url": "/waypoint/docs/runner"
+				},
+				{
+					"title": "Waypoint Triggers",
+					"description": "Trigger URLs are pre-configured Waypoint lifecycle operations for execution inside CI environments.",
+					"url": "/waypoint/docs/triggers"
+				}
+			]
+		}
+	]
+}

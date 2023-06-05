@@ -1,0 +1,210 @@
+{
+	"hero": {
+		"heading": "Development Environments Made Easy",
+		"image": "https://www.datocms-assets.com/2885/1662767777-dev-dot-vagrant-landing-hero-2x.png"
+	},
+	"overview": {
+		"heading": "What is Vagrant?",
+		"body": "Vagrant is the command line utility for managing the lifecycle of virtual machines. Isolate dependencies and their configuration within a single disposable and consistent environment.",
+		"cta": {
+			"text": "Learn more about Vagrant features",
+			"url": "/vagrant/intro"
+		},
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095215-devdot-vagrant_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087784-devdot-vagrant_dm.png"
+		}
+	},
+	"get_started": {
+		"heading": "Getting Started",
+		"body": "Use Vagrant to create and configure a reproducible and portable work environment.",
+		"ctas": [
+			{
+				"text": "CLI Quick Start",
+				"url": "/vagrant/tutorials/getting-started"
+			}
+		]
+	},
+	"blocks": [
+		{
+			"type": "callout",
+			"heading": "Use HCP Login for Vagrant Cloud",
+			"body": "Create a new HCP account or link your existing one to Vagrant Cloud.",
+			"ctas": [
+				{
+					"text": "Learn More",
+					"url": "https://discuss.hashicorp.com/t/adding-hcp-login-for-vagrant-cloud/48025"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Fundamentals",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Boxes",
+					"body": "The package format for Vagrant environments - create your own or use one from the public catalog.",
+					"url": "/vagrant/docs/boxes"
+				},
+				{
+					"heading": "Install and Specify a Box",
+					"body": "Use a base image to quickly clone a virtual machine.",
+					"url": "/vagrant/tutorials/getting-started/getting-started-boxes"
+				}
+			]
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Vagrantfile",
+					"body": "Describe your virtual machine's configuration and how to provision it.",
+					"url": "/vagrant/docs/vagrantfile"
+				},
+				{
+					"heading": "Create a Vagrantfile",
+					"body": "Begin your Vagrant project by creating a Vagrantfile.",
+					"url": "/vagrant/tutorials/getting-started/getting-started-project-setup"
+				}
+			]
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "vagrant up",
+					"body": "Create and configure your virtual machine with the single most important Vagrant CLI command.",
+					"url": "/vagrant/docs/cli/up"
+				},
+				{
+					"heading": "Boot an Environment",
+					"body": "Start your virtual machine with vagrant up.",
+					"url": "/vagrant/tutorials/getting-started/getting-started-up"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Important Concepts",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Synced Folders",
+					"body": "Sync files from your host machine to the guest machine.",
+					"url": "/vagrant/docs/synced-folders"
+				},
+				{
+					"heading": "Synchronize Your Files",
+					"body": "Vagrant automatically syncs files to and from the guest machine allowing you to edits files locally and run them in your virtual machine.",
+					"url": "/vagrant/tutorials/getting-started/getting-started-synced-folders"
+				}
+			]
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Networking",
+					"body": "Access your virtual machines through the high-level networking set up by Vagrant.",
+					"url": "/vagrant/docs/networking"
+				},
+				{
+					"heading": "Configure Your Network",
+					"body": "Forward network traffic from your local machine to your virtual guest machine running on Vagrant.",
+					"url": "/vagrant/tutorials/networking-provisioning-operations/getting-started-networking"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Additional Reading",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Plugins",
+					"body": "Add additional functionality to Vagrant via plugins.",
+					"url": "/vagrant/docs/plugins"
+				},
+				{
+					"heading": "Providers",
+					"body": "Manage other types of machines via providers.",
+					"url": "/vagrant/docs/providers"
+				},
+				{
+					"heading": "Triggers",
+					"body": "Execute commands on your system before or after Vagrant operations.",
+					"url": "/vagrant/docs/triggers"
+				},
+				{
+					"heading": "Vagrant Share",
+					"body": "Share your Vagrant environment with anyone via a single command.",
+					"url": "/vagrant/docs/share"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Use Cases with Vagrant",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "The Nomad Autoscaler",
+					"body": "Try out the autoscaling feature of HashiCorp Nomad in a Vagrant environment.",
+					"url": "/nomad/tutorials/autoscaler/autoscaler-vagrant-demo"
+				},
+				{
+					"heading": "Data Encryption in Vault",
+					"body": "Try out data encryption in a Java application with HashiCorp Vault in a Vagrant environment.",
+					"url": "/vault/tutorials/app-integration/eaas-spring-demo"
+				}
+			]
+		},
+		{
+			"type": "callout",
+			"heading": "Contributing to Vagrant",
+			"body": "HashiCorp has some community guidelines to ensure our public forums are a safe space for everyone. When contributing to Vagrant, please respect the same guidelines.",
+			"ctas": [
+				{ "text": "Learn More", "url": "/vagrant/intro/contributing-guide" }
+			]
+		},
+		{
+			"type": "callout",
+			"heading": "Vagrant vs. Other Software",
+			"body": "Vagrant is not the only tool to manage virtual machines and development environments. ",
+			"iconCardLinks": [
+				{
+					"icon": "tools",
+					"text": "CLI Tools",
+					"url": "/vagrant/intro/vs/cli-tools"
+				},
+				{
+					"icon": "docker-color",
+					"text": "Docker",
+					"url": "/vagrant/intro/vs/docker"
+				},
+				{
+					"icon": "terraform-color",
+					"text": "Terraform",
+					"url": "/vagrant/intro/vs/terraform"
+				}
+			]
+		}
+	]
+}

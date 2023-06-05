@@ -1,0 +1,18 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	composes: g-focus-ring-from-box-shadow-dark from global;
+	color: var(--token-color-surface-strong);
+	border-radius: 5px;
+
+	&:hover {
+		color: var(--token-color-surface-primary);
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-primary);
+	}
+}

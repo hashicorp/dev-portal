@@ -1,0 +1,395 @@
+---
+name: 'Color'
+---
+
+{/* workaround to drop swingset's styling of first h1 */}
+<h1 />
+
+Color tokens in this project are currently coming from mixed sources.
+
+## Marketing Color Tokens
+
+At the global marketing level, we have [color tokens set up in `@hashicorp/mktg-global-styles`](https://github.com/hashicorp/mktg-global-styles/blob/main/custom-properties/color.css) which are available for use. These can be viewed in [our `react-components` playground](https://react-components.vercel.app/docs/color).
+
+These tokens are necessary to include in this project in order for our shared `@hashicorp/react-*` component packages to render correctly.
+
+## Placeholders for Design System Color Tokens
+
+We have additional color tokens set up, which are acting as a temporary placeholder for tokens expected to be sourced from the design systems team, from [`hashicorp/design-system-tokens`](https://github.com/hashicorp/design-system-tokens). These temporary tokens are outlined below.
+
+## Neutral Palette
+
+<>
+	{[
+		'token-color-palette-neutral-700',
+		'token-color-palette-neutral-600',
+		'token-color-palette-neutral-500',
+		'token-color-palette-neutral-400',
+		'token-color-palette-neutral-300',
+		'token-color-palette-neutral-200',
+		'token-color-palette-neutral-100',
+		'token-color-palette-neutral-50',
+		'token-color-palette-neutral-0',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Blue Palette
+
+<>
+	{[
+		'token-color-palette-blue-500',
+		'token-color-palette-blue-400',
+		'token-color-palette-blue-300',
+		'token-color-palette-blue-200',
+		'token-color-palette-blue-100',
+		'token-color-palette-blue-50',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Purple Palette
+
+<>
+	{[
+		'token-color-palette-purple-500',
+		'token-color-palette-purple-400',
+		'token-color-palette-purple-300',
+		'token-color-palette-purple-200',
+		'token-color-palette-purple-100',
+		'token-color-palette-purple-50',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Green Palette
+
+<>
+	{[
+		'token-color-palette-green-500',
+		'token-color-palette-green-400',
+		'token-color-palette-green-300',
+		'token-color-palette-green-200',
+		'token-color-palette-green-100',
+		'token-color-palette-green-50',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Amber Palette
+
+<>
+	{[
+		'token-color-palette-amber-500',
+		'token-color-palette-amber-400',
+		'token-color-palette-amber-300',
+		'token-color-palette-amber-200',
+		'token-color-palette-amber-100',
+		'token-color-palette-amber-50',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Red Palette
+
+<>
+	{[
+		'token-color-palette-red-500',
+		'token-color-palette-red-400',
+		'token-color-palette-red-300',
+		'token-color-palette-red-200',
+		'token-color-palette-red-100',
+		'token-color-palette-red-50',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Alpha Palette
+
+<>
+	{[
+		'token-color-palette-alpha-300',
+		'token-color-palette-alpha-200',
+		'token-color-palette-alpha-100',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Action Colors
+
+<>
+	{[
+		'token-color-action-foreground-primary',
+		'token-color-action-foreground-on-faint',
+		'token-color-action-foreground-high-contrast',
+		'token-color-action-background-primary',
+		'token-color-action-background-hover',
+		'token-color-action-background-active',
+		'token-color-action-background-faint',
+		'token-color-action-border-primary',
+		'token-color-action-border-on-primary',
+		'token-color-action-border-on-hover',
+		'token-color-action-border-on-faint',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Highlight Colors
+
+<>
+	{[
+		'token-color-highlight-foreground-primary',
+		'token-color-highlight-foreground-on-faint',
+		'token-color-highlight-foreground-high-contrast',
+		'token-color-highlight-background-primary',
+		'token-color-highlight-background-hover',
+		'token-color-highlight-background-active',
+		'token-color-highlight-background-faint',
+		'token-color-highlight-border-primary',
+		'token-color-highlight-border-on-primary',
+		'token-color-highlight-border-on-hover',
+		'token-color-highlight-border-on-faint',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Status Colors
+
+### Success
+
+<>
+	{[
+		'token-color-success-foreground-primary',
+		'token-color-success-foreground-on-faint',
+		'token-color-success-foreground-high-contrast',
+		'token-color-success-background-primary',
+		'token-color-success-background-hover',
+		'token-color-success-background-active',
+		'token-color-success-background-faint',
+		'token-color-success-border-primary',
+		'token-color-success-border-on-primary',
+		'token-color-success-border-on-hover',
+		'token-color-success-border-on-faint',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+### Warning
+
+<>
+	{[
+		'token-color-warning-foreground-primary',
+		'token-color-warning-foreground-on-faint',
+		'token-color-warning-foreground-high-contrast',
+		'token-color-warning-background-primary',
+		'token-color-warning-background-hover',
+		'token-color-warning-background-active',
+		'token-color-warning-background-faint',
+		'token-color-warning-border-primary',
+		'token-color-warning-border-on-primary',
+		'token-color-warning-border-on-hover',
+		'token-color-warning-border-on-faint',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+### Critical
+
+<>
+	{[
+		'token-color-critical-foreground-primary',
+		'token-color-critical-foreground-on-faint',
+		'token-color-critical-foreground-high-contrast',
+		'token-color-critical-background-primary',
+		'token-color-critical-background-hover',
+		'token-color-critical-background-active',
+		'token-color-critical-background-faint',
+		'token-color-critical-border-primary',
+		'token-color-critical-border-on-primary',
+		'token-color-critical-border-on-hover',
+		'token-color-critical-border-on-faint',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+### Neutral
+
+<>
+	{[
+		'token-color-neutral-foreground-primary',
+		'token-color-neutral-foreground-secondary',
+		'token-color-neutral-foreground-faint',
+		'token-color-neutral-background-primary',
+		'token-color-neutral-background-secondary',
+		'token-color-neutral-background-base',
+		'token-color-neutral-border-primary',
+		'token-color-neutral-border-faint',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## HashiCorp Brand Colors
+
+<>
+	{['token-color-hashicorp-brand'].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Boundary Brand Colors
+
+<>
+	{[
+		'token-color-boundary-brand',
+		'token-color-boundary-foreground',
+		'token-color-boundary-background',
+		'token-color-boundary-border',
+		'token-color-boundary-gradient-primary-start',
+		'token-color-boundary-gradient-primary-stop',
+		'token-color-boundary-gradient-faint-start',
+		'token-color-boundary-gradient-faint-stop',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Consul Brand Colors
+
+<>
+	{[
+		'token-color-consul-brand',
+		'token-color-consul-foreground',
+		'token-color-consul-background',
+		'token-color-consul-border',
+		'token-color-consul-gradient-primary-start',
+		'token-color-consul-gradient-primary-stop',
+		'token-color-consul-gradient-faint-start',
+		'token-color-consul-gradient-faint-stop',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## HCP Brand Colors
+
+<>
+	{['token-color-hcp-brand'].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Nomad Brand Colors
+
+<>
+	{[
+		'token-color-nomad-brand',
+		'token-color-nomad-foreground',
+		'token-color-nomad-background',
+		'token-color-nomad-border',
+		'token-color-nomad-gradient-primary-start',
+		'token-color-nomad-gradient-primary-stop',
+		'token-color-nomad-gradient-faint-start',
+		'token-color-nomad-gradient-faint-stop',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Packer Brand Colors
+
+<>
+	{[
+		'token-color-packer-brand',
+		'token-color-packer-foreground',
+		'token-color-packer-background',
+		'token-color-packer-border',
+		'token-color-packer-gradient-primary-start',
+		'token-color-packer-gradient-primary-stop',
+		'token-color-packer-gradient-faint-start',
+		'token-color-packer-gradient-faint-stop',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Terraform Brand Colors
+
+<>
+	{[
+		'token-color-terraform-brand',
+		'token-color-terraform-foreground',
+		'token-color-terraform-background',
+		'token-color-terraform-border',
+		'token-color-terraform-gradient-primary-start',
+		'token-color-terraform-gradient-primary-stop',
+		'token-color-terraform-gradient-faint-start',
+		'token-color-terraform-gradient-faint-stop',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Vagrant Brand Colors
+
+<>
+	{[
+		'token-color-vagrant-brand',
+		'token-color-vagrant-foreground',
+		'token-color-vagrant-background',
+		'token-color-vagrant-border',
+		'token-color-vagrant-gradient-primary-start',
+		'token-color-vagrant-gradient-primary-stop',
+		'token-color-vagrant-gradient-faint-start',
+		'token-color-vagrant-gradient-faint-stop',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Vault Brand Colors
+
+<>
+	{[
+		'token-color-vault-brand',
+		'token-color-vault-brand-alt',
+		'token-color-vault-foreground',
+		'token-color-vault-background',
+		'token-color-vault-border',
+		'token-color-vault-gradient-primary-start',
+		'token-color-vault-gradient-primary-stop',
+		'token-color-vault-gradient-faint-start',
+		'token-color-vault-gradient-faint-stop',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>
+
+## Waypoint Brand Colors
+
+<>
+	{[
+		'token-color-waypoint-brand',
+		'token-color-waypoint-foreground',
+		'token-color-waypoint-background',
+		'token-color-waypoint-border',
+		'token-color-waypoint-gradient-primary-start',
+		'token-color-waypoint-gradient-primary-stop',
+		'token-color-waypoint-gradient-faint-start',
+		'token-color-waypoint-gradient-faint-stop',
+	].map((n) => (
+		<SwingsetColorToken key={n} token={n} />
+	))}
+</>

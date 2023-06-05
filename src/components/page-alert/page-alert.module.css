@@ -1,0 +1,72 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	align-items: center;
+	background-color: var(--background-color);
+	border-bottom: 1px solid var(--border-color);
+	display: flex;
+	gap: 12px;
+	padding: 16px;
+}
+
+.icon {
+	color: var(--title-color);
+	display: flex;
+	flex-shrink: 0;
+	padding-bottom: 2px;
+	padding-top: 2px;
+}
+
+.contentContainer {
+	flex-grow: 1;
+}
+
+.title {
+	color: var(--title-color);
+	margin-bottom: 4px;
+	margin-top: 0;
+}
+
+.description {
+	color: var(--token-color-foreground-primary);
+	margin: 0;
+}
+
+/*
+***
+* classes for each `type`
+***
+*/
+
+.neutral {
+	--background-color: var(--token-color-surface-faint);
+	--border-color: var(--token-color-border-strong);
+	--title-color: var(--token-color-foreground-primary);
+}
+
+.highlight {
+	--background-color: var(--token-color-surface-highlight);
+	--border-color: var(--token-color-border-highlight);
+	--title-color: var(--token-color-foreground-highlight-on-surface);
+}
+
+.success {
+	--background-color: var(--token-color-surface-success);
+	--border-color: var(--token-color-border-success);
+	--title-color: var(--token-color-foreground-success-on-surface);
+}
+
+.warning {
+	--background-color: var(--token-color-surface-warning);
+	--border-color: var(--token-color-border-warning);
+	--title-color: var(--token-color-foreground-warning-on-surface);
+}
+
+.critical {
+	--background-color: var(--token-color-surface-critical);
+	--border-color: var(--token-color-border-critical);
+	--title-color: var(--token-color-foreground-critical-on-surface);
+}

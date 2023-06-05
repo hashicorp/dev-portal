@@ -1,0 +1,25 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	display: flex;
+	align-items: center;
+}
+
+.icon {
+	/** Note: --icon-color is set in JS */
+	color: var(--icon-color);
+	margin-right: 8px;
+
+	& svg {
+		display: block;
+	}
+}
+
+.text {
+	composes: hds-typography-body-200 from global;
+	color: var(--token-color-foreground-primary);
+	font-weight: var(--token-typography-font-weight-semibold);
+}

@@ -1,0 +1,80 @@
+{
+	"pageSubtitle": "Boundary is designed to grant access to critical systems using the principle of least privilege, solving challenges organizations encounter when users need to securely access applications and machines. This documentation covers the main concepts of Boundary and its architecture.",
+	"marketingContentBlocks": [
+		{
+			"type": "card-grid",
+			"title": "Fundamentals",
+			"cards": [
+				{
+					"title": "Deploy HCP Boundary",
+					"description": "How to deploy HCP Boundary services and login for the first time.",
+					"url": "/boundary/docs/getting-started/deploy-and-login"
+				},
+				{
+					"title": "Connect to a Target",
+					"description": "Connecting to a target securely through Boundary.",
+					"url": "/boundary/docs/getting-started/connect-to-target"
+				},
+				{
+					"title": "Boundary Domain Model",
+					"description": "Understand the Boundary's domain model that allows administrators to organize IAM (Identity and Access Management) and target resources.",
+					"url": "/boundary/docs/concepts/domain-model"
+				},
+				{
+					"title": "Boundary Configuration",
+					"description": "Use HashiCorp Configuration Language (HCL) to configure Boundary controllers and workers.",
+					"url": "/boundary/docs/configuration"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Boundary Security Model",
+			"description": "Understand Boundary's security norms. Learn how permissions, identity, and target security are handled within the Boundary product.",
+			"cards": [
+				{
+					"description": "Boundary's permissions model is a composable, RBAC, allow-only model that attempts to marry flexibility with usability.",
+					"title": "Permissions",
+					"url": "/boundary/docs/concepts/security/permissions"
+				},
+				{
+					"description": "Boundary secures data at rest.",
+					"title": "Data Security",
+					"url": "/boundary/docs/concepts/security/data-encryption"
+				},
+				{
+					"description": "Boundary ensures its connections are secure via TLS.",
+					"title": "Connections",
+					"url": "/boundary/docs/concepts/security/connections-tls"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Filtering",
+			"description": "A quick reference to the filtering syntax used in Boundary.",
+			"cards": [
+				{
+					"description": "Configure filters for managed groups within the OIDC auth method.",
+					"title": "OIDC Managed Groups",
+					"url": "/boundary/docs/concepts/filtering/oidc-managed-groups"
+				},
+				{
+					"description": "Use filters to list resources to further narrow down the list operation.",
+					"title": "Resource Listing",
+					"url": "/boundary/docs/concepts/filtering/resource-listing"
+				},
+				{
+					"description": "Use worker tags and filters to control which workers are allowed to handle a given target.",
+					"title": "Worker Tags",
+					"url": "/boundary/docs/concepts/filtering/worker-tags"
+				},
+				{
+					"description": "Learn how to filter events emitted by Boundary.",
+					"title": "Event Filtering",
+					"url": "/boundary/docs/concepts/filtering/events"
+				}
+			]
+		}
+	]
+}

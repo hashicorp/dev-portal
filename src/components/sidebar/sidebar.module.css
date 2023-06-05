@@ -1,0 +1,51 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.sidebar {
+	& ul ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		margin-left: 0.5em;
+	}
+}
+
+.nav {
+	position: relative;
+
+	/*
+  Ensures there is 32px total spacing above the `<nav>` element when nothing is
+  rendered above it.
+  */
+	&:first-child {
+		margin-top: 8px;
+	}
+}
+
+.navList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/*
+***
+* The values set in the following classes are specific so that Sidebar content
+* always appears consistently placed regardless of viewport size.
+***
+*/
+
+.backToLinkWrapper {
+	margin-top: 8px;
+}
+
+.filterInputWrapper {
+	margin-bottom: 16px;
+	margin-top: 16px;
+}
+
+.filterInputWrapper--mobile {
+	margin-top: 12px;
+}

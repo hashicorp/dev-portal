@@ -1,0 +1,26 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.editLink {
+	align-items: center;
+	color: var(--token-color-palette-blue-200);
+	cursor: pointer;
+	display: flex;
+	width: fit-content;
+	font-family: inherit;
+	font-size: 14px;
+	font-weight: 500;
+	margin-top: 24px;
+	transition: color 0.2s;
+
+	&:hover {
+		color: var(--token-color-palette-blue-400);
+	}
+}
+
+.editLinkIcon {
+	display: block;
+	margin-right: 8px;
+}

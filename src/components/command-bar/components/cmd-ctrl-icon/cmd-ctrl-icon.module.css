@@ -1,0 +1,17 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	display: flex;
+
+	& svg {
+		height: 10px;
+		width: 40px;
+
+		& path {
+			fill: currentColor;
+		}
+	}
+}

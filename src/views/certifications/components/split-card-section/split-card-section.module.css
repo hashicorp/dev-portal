@@ -1,0 +1,21 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 48px;
+	row-gap: 24px;
+}
+
+.startContent {
+	flex: 16em 1 1;
+	min-width: 0;
+}
+
+.endContent {
+	flex: 24em 2 1;
+	min-width: 0;
+}

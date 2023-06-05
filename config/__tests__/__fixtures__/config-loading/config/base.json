@@ -1,0 +1,8 @@
+{
+	"foo": "bar",
+	"deeply": {
+		"nested": {
+			"property": true
+		}
+	}
+}

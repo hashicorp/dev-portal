@@ -1,0 +1,15 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	padding-left: 24px;
+	padding-right: 24px;
+}
+
+.versionAlertLink {
+	/* Note: !important seems necessary here to ensure the color is applied
+	   to all states. @TODO: update InlineLink to better support theming. */
+	color: var(--token-color-foreground-primary) !important;
+}

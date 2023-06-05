@@ -1,0 +1,33 @@
+name: Register Preview URL with CloudIDP
+
+on:
+  deployment_status:
+
+jobs:
+  on-deploy:
+    runs-on: ubuntu-latest
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview'
+    steps:
+      - name: summary
+        run: |
+          echo "# Summary" >> $GITHUB_STEP_SUMMARY
+          echo "Deployed to: ${{ github.event.deployment_status.environment }}" >> $GITHUB_STEP_SUMMARY
+          echo "Deployed State: ${{ github.event.deployment_status.state }}" >> $GITHUB_STEP_SUMMARY
+          echo "target_url: ${{ github.event.deployment_status.target_url }}" >> $GITHUB_STEP_SUMMARY
+
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install npm@8
+        run: npm install --global npm@8
+      - name: Install dependencies
+        run: npm ci
+      - name: Add Preview URL to CloudIDP
+        run: npx hc-tools ./scripts/add-preview-url-to-cloud-idp.ts
+        env:
+          CLOUD_IDP_DEPLOYMENT_PREVIEW_PRIVATE_KEY: ${{ secrets.CLOUD_IDP_DEPLOYMENT_PREVIEW_PRIVATE_KEY }}
+          PREVIEW_URL: ${{ github.event.deployment_status.target_url }}
+          FLOW_IDP_DEPLOYMENT_READY_URL: ${{ secrets.FLOW_IDP_DEPLOYMENT_READY_URL }}
+          VERCEL_API_TOKEN: ${{ secrets.VERCEL_API_TOKEN }}
+          VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}

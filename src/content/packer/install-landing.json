@@ -1,0 +1,48 @@
+{
+	"featuredCollectionsSlugs": [
+		"packer/aws-get-started",
+		"packer/docker-get-started",
+		"packer/hcp-get-started",
+		"packer/configuration-language"
+	],
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Getting Started"
+		},
+		{
+			"title": "Packer Tutorials",
+			"href": "/packer/tutorials#get-started"
+		},
+		{
+			"title": "HCP Packer Tutorials",
+			"fullPath": "/packer/tutorials/hcp"
+		}
+	],
+	"sidecarMarketingCard": {
+		"title": "About Packer",
+		"subtitle": "Packer lets you create identical machine images for multiple platforms from a single source configuration.",
+		"featuredDocsLinks": [
+			{
+				"href": "/packer/docs/commands",
+				"text": "Packer CLI"
+			},
+			{
+				"href": "/packer/docs/templates",
+				"text": "Templates"
+			},
+			{
+				"href": "/packer/docs/plugins",
+				"text": "Plugins"
+			}
+		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "HCP Packer",
+		"description": "Automate build management across your cloud providers",
+		"ctaText": "Try HCP Packer for free",
+		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
+	}
+}

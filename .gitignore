@@ -1,0 +1,20 @@
+node_modules
+.DS_Store
+.next
+out
+.env*.local
+.vercel
+_temp-migrations/
+src/data/_redirects.generated.json
+src/data/_rewrites.generated.json
+test-results/
+playwright-report/
+tsconfig.tsbuildinfo
+src/.generated/
+scripts/docs-content-link-rewrites/.generated
+
+# sitemap
+sitemap-0.xml
+sitemap.xml
+robots.txt
+

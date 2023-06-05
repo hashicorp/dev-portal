@@ -1,0 +1,24 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.text {
+	composes: hds-typography-body-200 from global;
+	font-weight: var(--token-typography-font-weight-medium);
+}
+
+/* Note: rather than setting size here, we could create a separate
+   <ProductIcon24 /> component or something. But, the 16px and 24px versions
+	 of product icons are identical, so seemed more efficient to only load
+	 in the 16px version, and scale it up when we need the 24px size. */
+.icon {
+	width: 24px;
+	height: 24px;
+}

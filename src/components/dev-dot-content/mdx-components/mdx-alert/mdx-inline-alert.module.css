@@ -1,0 +1,27 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.spacing {
+	margin: 16px 0;
+}
+
+/** 
+* This components chidlren can render regular markdown
+* that inherits the global long form content type styles
+* however this component needs to maintain specific type
+* styles defined in inline-alert.module.css 
+* 
+* Currently only anchor and paragraph elements are accounted for
+* but depending on authoring behavior, additional adjustments
+* could be made
+**/
+.typographyOverride {
+	& p,
+	& a {
+		font-family: unset;
+		font-size: unset;
+		line-height: unset;
+	}
+}

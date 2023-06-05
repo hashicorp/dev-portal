@@ -1,0 +1,149 @@
+{
+	"pageSubtitle": "Nomad is a highly available, distributed, data-center aware cluster and application scheduler designed to support the modern datacenter with support for long-running services, batch jobs, and much more.",
+	"marketingContentBlocks": [
+		{
+			"type": "getting-started-card",
+			"description": "Learn how to use Nomad to schedule and orchestrate workloads.",
+			"callToAction": {
+				"text": "CLI Quick Start",
+				"url": "/nomad/tutorials/get-started"
+			}
+		},
+		{
+			"type": "section-heading",
+			"title": "Use Cases"
+		},
+		{
+			"type": "card-grid",
+			"title": "Fundamentals",
+			"description": "Become familiar with the core concepts of Nomad.",
+			"cards": [
+				{
+					"title": "Installing Nomad",
+					"description": "Nomad is available as a pre-compiled binary, a package for several OSs, or as source code for you to build from.",
+					"url": "/nomad/docs/install"
+				},
+				{
+					"title": "Writing Job Specs",
+					"description": "The Nomad job specification or 'jobspec' is written in HCL and defines the schema for Nomad jobs.",
+					"url": "/nomad/docs/job-specification"
+				},
+				{
+					"title": "Agent Configuration",
+					"description": "The Nomad agent specification is written in HCL and defines configs like networking, plugins, and integrations.",
+					"url": "/nomad/docs/configuration"
+				},
+				{
+					"title": "Manage Nomad Jobs",
+					"description": "Learn how to deploy and manage jobs.",
+					"url": "/nomad/tutorials/manage-jobs"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Nomad Pack",
+			"description": "Use Nomad Pack to deploy popular applications to Nomad.",
+			"cards": [
+				{
+					"title": "Introduction to Nomad Pack",
+					"description": "Learn about Nomad Pack and how to use it to easily create, share, deploy, and re-use Nomad job specs.",
+					"url": "/nomad/tutorials/job-specifications/nomad-pack-intro"
+				},
+				{
+					"title": "Write a custom Nomad Pack",
+					"description": "Learn how to create your own custom Nomad Pack.",
+					"url": "/nomad/tutorials/job-specifications/nomad-pack-writing-packs"
+				},
+				{
+					"title": "Community Repository",
+					"description": "The registry of community-maintained packs for Nomad Pack.",
+					"url": "https://github.com/hashicorp/nomad-pack-community-registry"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Autoscaling",
+			"description": "Automatically maintain your cluster and workload instance count to respond to demand while minimizing over-provisioning cost.",
+			"cards": [
+				{
+					"title": "Introduction to Autoscaling",
+					"description": "The Nomad Autoscaler is a horizontal application and cluster autoscaler for Nomad.",
+					"url": "/nomad/tools/autoscaling"
+				},
+				{
+					"title": "Horizontal Cluster Autoscaling",
+					"description": "Learn how to use the autoscaler to dynamically scale infrastructure up and down and handle application load spikes.",
+					"url": "/nomad/tutorials/autoscaler/horizontal-cluster-scaling"
+				},
+				{
+					"title": "Create On-demand Batch Jobs",
+					"description": "Learn how to use the autoscaler to automatically provision and decommission clients for running batch jobs.",
+					"url": "/nomad/tutorials/autoscaler/horizontal-cluster-scaling-on-demand-batch"
+				},
+				{
+					"title": "Manage Job Placement and Affinities",
+					"description": "Learn how to use the affinity stanza to express job placement preferences.",
+					"url": "/nomad/tutorials/advanced-scheduling/affinity"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Cluster Management",
+			"description": "Learn the features operators will need to build and maintain Nomad clusters.",
+			"cards": [
+				{
+					"title": "Upgrade a Cluster",
+					"description": "Learn about the process of upgrading a cluster including upgrading in place.",
+					"url": "/nomad/docs/upgrade"
+				},
+				{
+					"title": "Enable Multi-Region Federation",
+					"description": "Learn how to use federation to allow users to submit jobs or interact with the API from any region attached to the cluster.",
+					"url": "/nomad/tutorials/manage-clusters/federation"
+				},
+				{
+					"title": "Connect Nodes into a Cluster",
+					"description": "Learn how to connect nodes to a cluster manually, with Cloud Auto-Join, or with Consul.",
+					"url": "/nomad/tutorials/manage-clusters/clustering"
+				},
+				{
+					"title": "Enable Autopilot",
+					"description": "Learn about the Autopilot features and how to use them to cleanup servers, monitor Raft state, and introduce servers stably.",
+					"url": "/nomad/tutorials/manage-clusters/autopilot"
+				}
+			]
+		},
+		{
+			"type": "section-heading",
+			"title": "Developers"
+		},
+		{
+			"type": "icon-card-grid",
+			"cards": [
+				{
+					"iconName": "guide",
+					"text": "Provision Nomad with Terraform",
+					"url": "https://github.com/hashicorp/nomad/tree/main/terraform"
+				},
+				{
+					"iconName": "api",
+					"text": "API Reference",
+					"url": "/nomad/api-docs"
+				},
+				{
+					"iconName": "terminal",
+					"text": "Nomad Ecosystem Tools",
+					"url": "/nomad/tools"
+				},
+				{
+					"iconName": "plug",
+					"text": "Community Task Drivers",
+					"url": "/nomad/plugins/drivers/community"
+				}
+			]
+		}
+	]
+}

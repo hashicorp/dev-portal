@@ -1,0 +1,62 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	&[aria-expanded='true'] .chevronWrapper {
+		transform: rotate(-180deg);
+	}
+}
+
+.hasIcon {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
+	align-items: center;
+	background-color: var(--token-color-surface-interactive);
+	border-radius: 5px;
+	border: 1px solid transparent;
+	display: flex;
+	gap: 4px;
+	padding: 1px;
+	width: fit-content;
+
+	&:active {
+		background-color: var(--token-color-surface-interactive-active);
+		border-color: var(--token-color-border-strong);
+	}
+
+	&:hover {
+		border-color: var(--token-color-border-strong);
+	}
+}
+
+.childrenWrapper,
+.chevronWrapper {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+.childrenWrapper {
+	height: 2rem;
+	padding: 2px;
+	width: 2rem;
+	border-radius: 3px;
+
+	& img {
+		border-radius: inherit;
+		height: 100%;
+		object-fit: cover;
+		width: 100%;
+	}
+}
+
+.chevronWrapper {
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: transform 0.3s;
+	}
+}

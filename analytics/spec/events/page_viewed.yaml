@@ -1,0 +1,14 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
+# Automatically sent via Segment Page tracking
+name: Page Viewed
+description: User has viewed a page
+rules:
+  '$schema': http://json-schema.org/draft-04/schema#
+  type: object
+  properties:
+    context:
+      $ref: ../meta/context.yaml
+    properties:
+      $ref: ../meta/context.yaml

@@ -1,0 +1,163 @@
+---
+componentName: 'Sidebar'
+---
+
+🚨 These docs are a work in progress 🚨
+
+## Default Sidebar with no props
+
+<div style={{ border: '1px solid black', maxWidth: 320, padding: 24 }}>
+	<Sidebar />
+</div>
+
+## Sidebar with some submenus open on load
+
+`SidebarNavSubmenuItem` elements can be rendered open on load if the `item` prop passed has an `isOpen` property set to `true`.
+
+<div style={{ border: '1px solid black', maxWidth: 320, padding: 24 }}>
+	<Sidebar
+		menuItems={[
+			{
+				title: 'Parent Menu 1',
+				isOpen: true,
+				routes: [
+					{
+						title: 'Child Item 1',
+						href: '#',
+					},
+					{
+						title: 'Child Item 1',
+						href: '#',
+					},
+					{
+						title: 'Child Item 2',
+						href: '#',
+					},
+				],
+			},
+			{
+				title: 'Parent Menu 2',
+				routes: [
+					{
+						title: 'Child Item 1',
+						href: '#',
+					},
+					{
+						title: 'Child Item 1',
+						href: '#',
+					},
+					{
+						title: 'Child Item 2',
+						href: '#',
+					},
+				],
+			},
+			{
+				title: 'Root Item 1',
+				href: '#',
+			},
+			{
+				title: 'Root Item 1',
+				href: '#',
+			},
+		]}
+	/>
+</div>
+
+## Sidebar with Badges
+
+At the current time of writing, only the "highlight" and "neutral" [`Badge`](/swingset/components/badge) colors are supported. This is because other `Badge` colors are for used for indicating a status, and so they must also have an icon. See [Understanding Success Criterion 1.4.1: Use of Color (Level A)](https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html) for further reading on the topic. Supporting icons in Sidebar Badges has not been designed at this time.
+
+<div style={{ border: '1px solid black', maxWidth: 320, padding: 24 }}>
+	<Sidebar
+		menuItems={[
+			{
+				title: 'Internal link item with a "highlight" Badge',
+				href: '/',
+				badge: {
+					text: 'Badge',
+					color: 'highlight',
+					type: 'filled',
+				},
+			},
+			{
+				title: 'Internal link item with a "neutral" Badge',
+				href: '/',
+				badge: {
+					text: 'Badge',
+					color: 'neutral',
+					type: 'outlined',
+				},
+			},
+			{
+				title: 'External link item with a Badge',
+				href: 'https://hashicorp.com',
+				badge: {
+					text: 'Badge',
+					color: 'highlight',
+					type: 'filled',
+				},
+			},
+			{
+				title: 'Submenu item with a Badge',
+				badge: {
+					text: 'Badge',
+					color: 'highlight',
+					type: 'filled',
+				},
+				routes: [
+					{
+						title: 'Child item 1',
+						href: '/',
+					},
+					{
+						title: 'Child item 2',
+						href: '/',
+					},
+					{
+						title: 'Child item 3',
+						href: '/',
+					},
+				],
+			},
+		]}
+	/>
+</div>
+
+## Sidebar with `<sup>` tags in `title`
+
+At the current time of writing, only the "highlight" and "neutral" [`Badge`](/swingset/components/badge) colors are supported. This is because other `Badge` colors are used for indicating a status, and so they must also have an icon. See [Understanding Success Criterion 1.4.1: Use of Color (Level A)](https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html) for further reading on the topic. Supporting icons in Sidebar Badges has not been designed at this time.
+
+<div style={{ border: '1px solid black', maxWidth: 320, padding: 24 }}>
+	<Sidebar
+		menuItems={[
+			{
+				title: 'Internal link item with a "highlight" Badge <sup>Badge</sup>',
+				href: '/',
+			},
+			{
+				title: 'External link item with a Badge <sup>Badge</sup>',
+				href: 'https://hashicorp.com',
+			},
+			{ divider: true },
+			{ heading: 'Test Heading' },
+			{
+				title: 'Submenu item with a Badge <sup>Badge</sup>',
+				routes: [
+					{
+						title: 'Child item 1',
+						href: '/',
+					},
+					{
+						title: 'Child item 2',
+						href: '/',
+					},
+					{
+						title: 'Child item 3',
+						href: '/',
+					},
+				],
+			},
+		]}
+	/>
+</div>

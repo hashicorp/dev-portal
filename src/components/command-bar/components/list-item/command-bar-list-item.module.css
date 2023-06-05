@@ -1,0 +1,103 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.listItem {
+	border-radius: 5px;
+	background-color: transparent;
+	width: 100%;
+}
+
+.icon {
+	display: flex;
+}
+
+.textWrapper {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.titleAndBadgeWrapper {
+	align-items: center;
+	display: flex;
+	gap: 8px;
+	max-width: 100%;
+}
+
+.title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.productBadge {
+	background-color: var(--token-color-surface-primary);
+}
+
+.description {
+	margin-top: 2px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* NOTE: this is for highlighting some text in search results from algolia */
+.title mark,
+.description mark {
+	background-color: transparent;
+	color: var(--token-color-foreground-action);
+	font-style: normal;
+}
+
+.linkOrButton {
+	--gap: 8px;
+	--trailing-icon-size: 16px;
+
+	align-items: center;
+	background-color: transparent;
+	border-radius: 5px;
+	border: none;
+	box-shadow: none;
+	color: var(--token-color-foreground-primary);
+	display: flex;
+	gap: var(--gap);
+	padding: 8px;
+	width: 100%;
+
+	& .hasTrailingIcon {
+		width: calc(100% - var(--gap) - var(--trailing-icon-size));
+	}
+
+	& .trailingIcon {
+		display: flex;
+		height: var(--trailing-icon-size);
+		width: var(--trailing-icon-size);
+
+		& svg {
+			height: var(--trailing-icon-size);
+			width: var(--trailing-icon-size);
+		}
+	}
+
+	&:focus,
+	&:focus-visible {
+		outline: transparent;
+	}
+
+	&:focus-visible,
+	&:hover {
+		background-color: var(--token-color-surface-strong);
+		color: var(--token-color-foreground-strong);
+		cursor: pointer;
+	}
+
+	&:hover {
+		box-shadow: var(--token-surface-base-box-shadow);
+	}
+
+	&:focus-visible {
+		box-shadow: var(--token-focus-ring-action-box-shadow);
+	}
+}

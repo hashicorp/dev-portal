@@ -1,0 +1,101 @@
+{
+	"hero": {
+		"heading": "Automate Service Networking Across Clouds",
+		"image": "https://www.datocms-assets.com/2885/1662767788-dev-dot-consul-landing-hero-2x.png"
+	},
+	"overview": {
+		"heading": "What is Consul?",
+		"body": "Consul is a service networking solution that enables teams to manage secure network connectivity between services and across multi-cloud environments and runtimes. Consul offers service discovery, identity-based authorization, L7 traffic management, and service-to-service encryption.",
+		"cta": {
+			"text": "Learn more about Consul features",
+			"url": "/consul/docs/intro"
+		},
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095130-devdot-consul_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087694-devdot-consul_dm.png"
+		}
+	},
+	"get_started": {
+		"heading": "Get Started",
+		"body": "Learn how to run service discovery and a service mesh with Consul.",
+		"iconCardLinks": [
+			{
+				"icon": "kubernetes-color",
+				"text": "Consul with Kubernetes",
+				"url": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy"
+			},
+			{
+				"icon": "server",
+				"text": "Consul with Virtual Machines",
+				"url": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
+			},
+			{
+				"icon": "hcp",
+				"text": "HCP Consul Quick Start",
+				"url": "/consul/tutorials/get-started-hcp/hcp-gs-deploy"
+			}
+		]
+	},
+	"blocks": [
+		{
+			"type": "heading",
+			"heading": "Featured Documentation",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Service Mesh",
+					"body": "Consul Service Mesh provides service-to-service connection authorization and encryption using mTLS.",
+					"url": "/consul/docs/connect"
+				},
+				{
+					"heading": "Kubernetes",
+					"body": "Deploy Consul to Kubernetes using the Helm chart, sync services between Consul and Kubernetes, and more.",
+					"url": "/consul/docs/k8s"
+				},
+				{
+					"heading": "HCP Consul",
+					"body": "Deploy a managed HCP Consul cluster to quickly get started with Consul's full capabilities.",
+					"url": "/hcp/docs/consul"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Popular Use Cases",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "collection_cards",
+			"collectionSlugs": [
+				"consul/service-mesh-security",
+				"consul/service-mesh-traffic-management"
+			]
+		},
+		{
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"consul/kubernetes-api-gateway",
+				"consul/consul-terraform-sync-intro",
+				"consul/serverless-consul-with-lambda"
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Get Certified",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "collection_cards",
+			"collectionSlugs": [
+				"consul/certification",
+				"consul/certification-associate-tutorials"
+			]
+		}
+	]
+}

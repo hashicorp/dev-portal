@@ -1,0 +1,22 @@
+{
+	"featuredTutorialsSlugs": [],
+	"doesNotHavePackageManagers": true,
+	"sidecarMarketingCard": {
+		"title": "About Sentinel",
+		"subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros diam, fringilla ac malesuada vel, faucibus quis mauris.",
+		"featuredDocsLinks": [
+			{
+				"href": "/sentinel/intro/why",
+				"text": "Why Sentinel?"
+			},
+			{
+				"href": "/sentinel/intro/getting-started",
+				"text": "Getting Started"
+			},
+			{
+				"href": "/sentinel/docs/commands",
+				"text": "CLI Commands"
+			}
+		]
+	}
+}

@@ -1,0 +1,59 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.animatedDialogOverlay {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: var(--token-color-border-strong);
+	z-index: 100;
+	overflow: hidden;
+}
+
+.contentWrapper {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	justify-content: center;
+	padding: 24px;
+	width: 100vw;
+
+	&.bottom {
+		padding: 0;
+		height: 80vh;
+		width: 100%;
+		position: fixed;
+		bottom: 0;
+	}
+}
+
+.content {
+	/** dev dot styles are currently scoped to the layout, but dialogs render in a portal so we aren't inheriting the correct body font */
+	--font-body: var(--token-typography-font-stack-text);
+
+	background-color: var(--token-color-surface-primary);
+	border-radius: 6px;
+	box-shadow: var(--token-surface-overlay-box-shadow);
+	margin: 0;
+	max-width: 600px;
+	min-width: 300px;
+	padding: 24px;
+	width: 100%;
+
+	&.bottom {
+		height: 100%;
+		overflow-y: auto;
+		max-width: none;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+		box-shadow: none;
+
+		/* Ensures that content in the dialog is not hidden by the floating control bar on mobile browsers */
+		padding-bottom: env(safe-area-inset-bottom);
+	}
+}

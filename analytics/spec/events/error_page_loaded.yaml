@@ -1,0 +1,19 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
+name: Error Page Loaded
+description: The user has encountered an error page
+rules:
+  '$schema': http://json-schema.org/draft-04/schema#
+  type: object
+  properties:
+    context:
+      $ref: ../meta/context.yaml
+    properties:
+      type: object
+      properties:
+        http_status_code:
+          description: The HTTP status error code that was thrown
+          type: number
+      required:
+        - http_status_code

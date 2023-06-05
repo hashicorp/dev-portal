@@ -1,0 +1,459 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RemoteContentLoader generates paths from remote nav data 1`] = `
+Array [
+  Object {
+    "params": Object {
+      "page": Array [],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "build",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "deploy",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "context",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "context-inspect",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "destroy",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "exec",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "init",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "install",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "login",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "logs",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "project-apply",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "release",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "ui",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "up",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "artifact-build",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "artifact-list-builds",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "artifact-list",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "artifact-push",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "auth-method-list",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "auth-method-inspect",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "auth-method-set-oidc",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "auth-method-delete",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "config-get",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "config-set",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "config-source-get",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "config-source-set",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "config-sync",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "context-clear",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "context-create",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "context-delete",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "context-list",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "context-rename",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "context-use",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "context-verify",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "deployment-deploy",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "deployment-destroy",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "deployment-list",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "docs",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "fmt",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "hostname-delete",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "hostname-list",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "hostname-register",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "plugin",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "project-inspect",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "project-list",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "release-list",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "runner-agent",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "server-bootstrap",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "server-config-set",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "server-install",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "server-restore",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "server-run",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "server-snapshot",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "server-uninstall",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "server-upgrade",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "status",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "token-exchange",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "token-invite",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "token-new",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "user-inspect",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "user-invite",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "user-modify",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "user-token",
+      ],
+    },
+  },
+  Object {
+    "params": Object {
+      "page": Array [
+        "version",
+      ],
+    },
+  },
+]
+`;

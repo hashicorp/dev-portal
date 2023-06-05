@@ -1,0 +1,40 @@
+name: 'CI'
+
+on:
+  pull_request:
+  merge_group:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: 'Run Tests 🧪'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - run: npm ci
+      - run: npm run test:ci
+
+  lint:
+    name: 'Lint'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run lint check
+        run: npm run lint

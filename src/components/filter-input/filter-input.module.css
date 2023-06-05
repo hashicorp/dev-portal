@@ -1,0 +1,79 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/* TODO: abstract shared input styles when there are more input components */
+
+.sharedIconColorAndPositioning {
+	color: var(--token-color-palette-neutral-500);
+	position: absolute;
+	top: calc((var(--input-height) - var(--input-icon-size)) / 2);
+}
+
+.filterInputContainer {
+	--input-padding: 8px;
+
+	height: var(--input-height);
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.filterIcon {
+	composes: sharedIconColorAndPositioning;
+	left: var(--input-padding);
+}
+
+.clearButton {
+	composes: sharedIconColorAndPositioning;
+	background-color: transparent;
+	border: none;
+	display: flex;
+	height: var(--input-icon-size);
+	padding: 0;
+	right: var(--input-padding);
+	width: var(--input-icon-size);
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.filterInput {
+	composes: g-focus-ring-from-box-shadow from global;
+	appearance: none;
+	background-color: transparent;
+	border: var(--token-form-control-border-width) solid
+		var(--token-form-control-base-border-color-default);
+	border-radius: 5px;
+	box-shadow: var(--token-elevation-inset-box-shadow);
+	color: var(--token-color-palette-neutral-700);
+	font-size: 16px; /* Override body-200 for minimum input font-size */
+	line-height: 1.25; /* Works out to 20px, for consistency with design */
+	padding-bottom: calc(
+		var(--input-padding) - var(--token-form-control-border-width)
+	);
+	padding-left: calc(var(--input-padding) * 2 + var(--input-icon-size));
+	padding-right: calc(var(--input-padding) * 2 + var(--input-icon-size));
+	padding-top: calc(
+		var(--input-padding) - var(--token-form-control-border-width)
+	);
+	position: relative;
+	width: 100%;
+
+	&::placeholder {
+		color: var(--token-color-palette-neutral-500);
+		opacity: 1;
+	}
+
+	&:hover {
+		cursor: text;
+		border-color: var(--token-form-control-base-border-color-hover);
+	}
+
+	/* Styling for when a non-empty value is entered */
+	&[value]:not([value='']) {
+		border-color: var(--token-color-foreground-faint);
+	}
+}

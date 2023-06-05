@@ -1,0 +1,34 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.longformPage {
+	& .longformWrapper {
+		@media (min-width: 800px) {
+			margin-top: 80px;
+			margin-bottom: 120px;
+			max-width: 70%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		& .alert {
+			color: var(--gray-2);
+			padding: 24px 16px;
+			background-color: var(--gray-6);
+			border-radius: 3px;
+
+			& > *:first-child {
+				margin-top: 0;
+			}
+			& > *:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		& a {
+			color: var(--brand-link);
+		}
+	}
+}

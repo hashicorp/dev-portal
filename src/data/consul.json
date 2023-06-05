@@ -1,0 +1,51 @@
+{
+	"name": "Consul",
+	"slug": "consul",
+	"algoliaConfig": {
+		"indexName": "product_CONSUL",
+		"searchOnlyApiKey": "fbd5dc1f0078d41509fcc560386fd534"
+	},
+	"analyticsConfig": {
+		"includedDomains": "consul.io www.consul.io",
+		"segmentWriteKey": "IyzLrqXkox5KJ8XL4fo8vTYNGfiKlTCm"
+	},
+	"datoToken": "88b4984480dad56295a8aadae6caad",
+	"metadata": {
+		"title": "Consul by HashiCorp",
+		"description": "Consul is a service networking solution to automate network configurations, discover services, and enable secure connectivity across any cloud or runtime.",
+		"image": "https://www.consulproject.io/consul-public/img/og-image.png",
+		"icon": [
+			{
+				"href": "/consul-public/_favicon.ico"
+			}
+		]
+	},
+	"alertBannerActive": true,
+	"alertBanner": {
+		"tag": "HashiConf",
+		"url": "https://hashiconf.com/2023?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
+		"text": "Our community conference is taking place in San Francisco and online October 10-12.",
+		"linkText": "Register now",
+		"expirationDate": ""
+	},
+	"version": "1.11.3",
+	"subnavItems": [],
+	"basePaths": ["docs", "api-docs", "commands", "downloads"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "Documentation",
+			"path": "docs"
+		},
+		{
+			"iconName": "api",
+			"name": "API",
+			"path": "api-docs"
+		},
+		{
+			"iconName": "terminal-screen",
+			"name": "CLI",
+			"path": "commands"
+		}
+	]
+}

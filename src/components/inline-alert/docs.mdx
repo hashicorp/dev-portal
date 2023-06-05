@@ -1,0 +1,56 @@
+---
+componentName: 'InlineAlert'
+---
+
+The `InlineAlert` component is currently used in long-form MDX content to highlight various messages. See related documentation for the component for use in [MDX here](/swingset/components/mdxinlinealert). Also refer to the [HDS `Alert` component spec](https://design-system-components-hashicorp.vercel.app/components/alert).
+
+## Props
+
+| Prop name     | Description                                                | Required? | Default value | Type                                     |
+| ------------- | ---------------------------------------------------------- | --------- | ------------- | ---------------------------------------- |
+| `title`       | A title to render for the alert.                           | Yes       | Undefined     | string                                   |
+| `description` | The alert body text to render.                             | Yes       | Undefined     | string                                   |
+| `color`       | The color theme with associated styles.                    | No        | Neutral       | neutral, highlight, warning, or critical |
+| `icon`        | An option to pass a 24x24 icon to render next to the title | No        | Info icon     | svg                                      |
+
+## Playground
+
+<LiveComponent>
+	{`
+	<InlineAlert color="highlight" title="This is a custom title" description="Caramels tart candy canes shortbread lemon drops." />
+	`}
+</LiveComponent>
+
+## Examples
+
+### Neutral
+
+<InlineAlert
+	title="This is a title"
+	description="Caramels tart candy canes shortbread lemon drops. "
+/>
+
+### Highlight
+
+<InlineAlert
+	color="highlight"
+	title="This is a title"
+	description="Caramels tart candy canes shortbread lemon drops. "
+/>
+
+### Warning
+
+<InlineAlert
+	color="warning"
+	title="This is a custom title"
+	description="Caramels tart candy canes shortbread lemon drops. "
+/>
+
+### Crtical with icon override
+
+<InlineAlert
+	color="critical"
+	title="This is a custom title"
+	description="Caramels tart candy canes shortbread lemon drops. "
+	icon={<SwingsetTestIcon name="alert-triangle" />}
+/>

@@ -1,0 +1,44 @@
+{
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Getting Started"
+		},
+		{
+			"title": "Introduction to Nomad",
+			"fullPath": "/nomad/intro"
+		},
+		{
+			"title": "Nomad Vocabulary",
+			"fullPath": "/nomad/tutorials/get-started/get-started-vocab"
+		}
+	],
+	"featuredTutorialsSlugs": [
+		"nomad/web-ui-access",
+		"nomad/cluster-setup-aws",
+		"nomad/jobs-configuring",
+		"nomad/job-spec-java-linux",
+		"nomad/task-dependencies-interjob",
+		"nomad/stateful-workloads-host-volumes"
+	],
+	"sidecarMarketingCard": {
+		"title": "About Nomad",
+		"subtitle": "Orchestrate, deploy, and manage containers, binaries, and batch jobs in the cloud or on-prem.",
+		"featuredDocsLinks": [
+			{
+				"href": "/nomad/docs/install",
+				"text": "Installing"
+			},
+			{
+				"href": "/nomad/docs/upgrade",
+				"text": "Upgrading"
+			},
+			{
+				"href": "/nomad/docs/integrations",
+				"text": "Integrations"
+			}
+		]
+	}
+}

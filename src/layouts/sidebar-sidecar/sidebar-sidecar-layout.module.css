@@ -1,0 +1,193 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/*
+NOTE:
+Relies on `--sticky-bars-height` being set,
+this is currently being done in `BaseNewLayout`.
+See comment in src/layouts/base-new/base-new-layout.module.css
+for further details.
+*/
+
+.root {
+	display: flex;
+	flex-grow: 1;
+
+	/* For a coherent visual effect, the top padding value
+  must be used for sticky positioning in addition to
+  padding the content area. So, we create a CSS var
+  to make it reusable and express this intent. */
+	--main-area-padding-top: 32px;
+
+	/* Sidecar width and spacing are declared at this level to allow
+	   our breadcrumbBarGroup to match the max-width of main + sidecar. */
+	&.mainWidth-wide {
+		--main-element-max-width: 896px;
+	}
+
+	&.mainWidth-narrow {
+		--main-element-max-width: 680px;
+	}
+
+	/* Sidecar width and spacing are declared at this level to allow
+	   our breadcrumbBarGroup to match the max-width of main + sidecar. */
+	--sidecar-width: 312px;
+	--sidecar-spacing: 48px;
+
+	@media (min-width: 1440px) {
+		--sidecar-spacing: 64px;
+	}
+}
+
+/**
+ * Sidebar area
+ */
+
+/* Note: these styles are *added* to components/mobile-menu-container,
+    that component handles some layout concerns such as max height. */
+.sidebarContainer {
+	@media (--dev-dot-hide-mobile-menu) {
+		display: flex !important; /* always want this value on desktop here */
+		left: 0 !important; /* always want this value on desktop here */
+		position: sticky; /* fixed does not take up horiz. space the same */
+		width: var(--dev-dot-sidebar-width); /* custom width overwrite */
+	}
+}
+
+/* Pad content and create a scrollable area within .sidebarContainer. */
+.sidebarContentWrapper {
+	flex-shrink: 1;
+	flex-grow: 1;
+	overflow-y: auto;
+	padding-bottom: 48px;
+	padding-left: 16px;
+	padding-right: 16px;
+	padding-top: 24px;
+	position: relative;
+}
+
+/**
+ * Main area
+ */
+
+/* .contentWrapper establishes the area next to the sidebar. */
+.contentWrapper {
+	width: 100%;
+
+	@media (--dev-dot-hide-mobile-menu) {
+		/* 100vw - 100% is the scrollbar width */
+		max-width: calc(100vw - (100vw - 100%) - var(--dev-dot-sidebar-width));
+	}
+}
+
+/* .paddedAreaWrapper establishes a padded area within the contentWrapper.
+    Note that `alertBannerSlot` renders outside this area, without padding. */
+.paddedAreaWrapper {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	min-height: calc(100vh - var(--navigation-header-height));
+	padding-bottom: 128px;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: var(--main-area-padding-top);
+
+	@media (--dev-dot-sidecar-up) {
+		padding-left: 48px;
+		padding-right: 16px;
+	}
+}
+
+/* .breadcrumbContainer establishes an area that spans the padded area.
+   We need to align its width with the main+sidecar area below it,
+	 to prevent very long breadcrumbs from causing maxWidthWrapper to grow
+	 beyond our desired max-width. */
+.breadcrumbContainer {
+	display: flex;
+	justify-content: flex-start;
+	margin-bottom: 24px;
+	max-width: calc(
+		var(--main-element-max-width) + var(--sidecar-spacing) +
+			var(--sidecar-width)
+	);
+	width: 100%;
+}
+
+/* We want to limit the breadcrumb row content to be the width
+   of the main content area only. */
+.breadcrumbMaxWidth {
+	max-width: var(--main-element-max-width);
+}
+
+/* .mainAndSidecar spans the padded area, and lays out main + sidecar. */
+.mainAndSidecar {
+	display: flex;
+	max-width: calc(
+		var(--main-element-max-width) + var(--sidecar-spacing) +
+			var(--sidecar-width)
+	);
+	width: 100%;
+}
+
+/* .main handles the max-width and sizing for the main area. */
+.main {
+	max-width: var(--main-element-max-width);
+	min-width: 0;
+	width: 100%;
+}
+
+/* .sidecarPosition handles the positioning of the sidecar slot.
+   Scroll styles are handled in sidecar-scroll-container. */
+.sidecarPosition {
+	--sidecar-position-top: calc(
+		var(--sticky-bars-height) + var(--main-area-padding-top)
+	);
+	--sidecar-viewport-bottom-spacing: 24px;
+	--max-sidecar-height: calc(
+		100vh - var(--sidecar-position-top) - var(--sidecar-viewport-bottom-spacing)
+	);
+
+	display: none;
+
+	/** 
+	* NOTE! 
+	* Hard-coded height value to account for the height of the variants
+	* dropdown disclosure. We should find a more permanent workaround
+	* for the topslot to work for every generic component. 
+	* 
+	* This solves an issue where the variant dropdown disclosure shouldn't
+	* be in the scrollable sidecarslot area, and need its dropdown content
+	* to render outside of that scrollable area. This workaround retains the 
+	* scroll / scrim style behavior of the current sidecar slot.
+	* https://app.asana.com/0/1204333057896641/1204669563792095
+	*/
+	&.topSlotDropdown {
+		--sidecar-top-slot-variant-disclosure-height: 63px;
+		--max-sidecar-height: calc(
+			100vh - var(--sidecar-position-top) -
+				var(--sidecar-viewport-bottom-spacing) -
+				var(--sidecar-top-slot-variant-disclosure-height) -
+				var(--sidecar-top-slot-variant-disclosure-height)
+		);
+	}
+
+	@media (--dev-dot-sidecar-up) {
+		display: flex;
+		flex-direction: column;
+		flex-shrink: 0;
+		height: min-content;
+		margin-left: var(--sidecar-spacing);
+		position: sticky;
+		top: var(--sidecar-position-top);
+		width: var(--sidecar-width);
+	}
+}
+
+/* .editOnGithubLink is an element within the `.main` area.
+   It only applies to docs layouts, so could perhaps be removed from
+	 SidebarSidecarLayout and rendered as part of `children` instead. */
+.editOnGithubLink {
+	margin-top: 64px;
+}

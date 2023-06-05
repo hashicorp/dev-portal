@@ -1,0 +1,69 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.heading {
+	composes: g-offset-scroll-margin-top from global;
+	width: fit-content;
+
+	/*
+  Special spacing rule for subsequent list elements.
+  TODO: can we rethink the design spec for spacing to avoid sibling selectors?
+  */
+	& + ul,
+	& + ol {
+		margin-top: 12px;
+	}
+
+	/*
+  Special spacing rule for subsequent paragraph elements.
+	This ensures the margin-bottom from headings will always take precedence.
+  */
+	& + p {
+		margin-top: 0;
+	}
+
+	/*
+  TODO: these values are a special request from design for the purposes of the
+  inital preview. They make <code> elements within heading elements a little
+  less jarring.
+  */
+	& code {
+		font-size: 0.8em;
+		font-weight: 500;
+	}
+
+	/* Reveal nested permalinks on hover */
+	&:hover a {
+		opacity: 1;
+	}
+}
+
+.h1 {
+	color: var(--token-color-foreground-strong);
+
+	/* Note that spacing between the h1 and breadcrumb is handled at the
+	   SidecarSidecar layout level, with margin-bottom on the breadcrumb group. */
+	margin-bottom: 20px;
+}
+
+.h2 {
+	color: var(--token-color-foreground-strong);
+	margin-bottom: 16px;
+	margin-top: 48px;
+}
+
+.h3 {
+	color: var(--token-color-foreground-strong);
+	margin-bottom: 12px;
+	margin-top: 32px;
+}
+
+.h4,
+.h5,
+.h6 {
+	color: var(--token-color-foreground-primary);
+	margin-bottom: 8px;
+	margin-top: 24px;
+}

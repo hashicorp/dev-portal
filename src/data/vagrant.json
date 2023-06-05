@@ -1,0 +1,69 @@
+{
+	"name": "Vagrant",
+	"slug": "vagrant",
+	"algoliaConfig": {
+		"indexName": "product_VAGRANT",
+		"searchOnlyApiKey": "c4c3e690f46940fa3ba9624da4d7fc0c"
+	},
+	"analyticsConfig": {
+		"includedDomains": "vagrantup.com www.vagrantup.com",
+		"segmentWriteKey": "wFMyBE4PJCZttWfu0pNhYdWr7ygW0io4"
+	},
+	"datoToken": "88b4984480dad56295a8aadae6caad",
+	"metadata": {
+		"title": "Vagrant by HashiCorp",
+		"description": "Vagrant enables users to create and configure lightweight, reproducible, and portable development environments.",
+		"image": "https://www.vagrantup.com/vagrant/img/og-image.png",
+		"icon": [
+			{
+				"href": "/vagrant-public/favicon.ico"
+			}
+		]
+	},
+	"alertBannerActive": true,
+	"alertBanner": {
+		"tag": "HashiConf",
+		"url": "https://hashiconf.com/2023?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
+		"text": "Our community conference is taking place in San Francisco and online October 10-12.",
+		"linkText": "Register now",
+		"expirationDate": ""
+	},
+	"version": "2.2.19",
+	"vmwareUtilityVersion": "1.0.21",
+	"subnavItems": [
+		{
+			"text": "Intro",
+			"url": "https://developer.hashicorp.com/vagrant/intro",
+			"type": "inbound"
+		},
+		{
+			"text": "Docs",
+			"url": "https://developer.hashicorp.com/vagrant/docs",
+			"type": "inbound"
+		},
+		{
+			"text": "Community",
+			"url": "/community",
+			"type": "inbound"
+		}
+	],
+	"basePaths": ["docs", "intro", "vagrant-cloud", "vmware", "downloads"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "Documentation",
+			"path": "docs"
+		},
+		{
+			"iconName": "entry-point",
+			"name": "Intro",
+			"path": "intro",
+			"addOverviewItem": false
+		},
+		{
+			"iconName": "cloud",
+			"name": "Vagrant Cloud",
+			"path": "vagrant-cloud"
+		}
+	]
+}

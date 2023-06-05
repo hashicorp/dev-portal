@@ -1,0 +1,254 @@
+---
+componentName: Tabs
+peerComponents:
+  - InlineLink
+  - SwingsetTestIcon
+---
+
+## Tabs Props
+
+| Prop name            | Description                                                                  | Required? | Default value | Type      |
+| -------------------- | ---------------------------------------------------------------------------- | --------- | ------------- | --------- |
+| `ariaLabel`          | A non-visible label describing the purpose of the Tabs                       | No        | undefined     | string    |
+| `ariaLabelledBy`     | The `id` of an element containing a label describing the purpose of the Tabs | No        | undefined     | string    |
+| `children`           | At least two `Tab` components, one for each button and panel to render       | Yes       | N/A           | ReactNode |
+| `initialActiveIndex` | The index of the tab to show as active on initial render                     | No        | 0             | number    |
+| `showAnchorLine`     | Whether or not a full-width border should be shown below the tab buttons     | No        | false         | boolean   |
+
+## Tab props
+
+| Prop name  | Description                                | Required? | Default value | Type      |
+| ---------- | ------------------------------------------ | --------- | ------------- | --------- |
+| `children` | The content to render within the tab panel | Yes       | N/A           | ReactNode |
+| `heading`  | The text to show in the tab button         | Yes       | N/A           | string    |
+
+## Playground
+
+<LiveComponent>
+{`
+<Tabs>
+  <Tab heading="Windows">
+    <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows">Read more on Wikipedia</InlineLink>.</p>
+  </Tab>
+  <Tab heading="Mac OS">
+    <p>The family of Macintosh operating systems developed by Apple Inc. includes the graphical user interface-based operating systems it has designed for use with its Macintosh series of personal computers since 1984, as well as the related system software it once created for compatible third-party systems. <InlineLink href="https://en.wikipedia.org/wiki/Macintosh_operating_systems">Read more on Wikipedia</InlineLink>.</p>
+  </Tab>
+  <Tab heading="Linux">
+    <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux">Read more on Wikipedia</InlineLink>.</p>
+  </Tab>
+</Tabs>
+`}
+</LiveComponent>
+
+## Examples
+
+### With `icon`s for each `Tab`
+
+<LiveComponent>
+{`
+<Tabs>
+  <Tab heading="Documentation" icon={<SwingsetTestIcon name="docs" />}>
+    <p>Documentation tab content</p>
+  </Tab>
+  <Tab heading="Tutorials" icon={<SwingsetTestIcon name="learn" />}>
+    <p>Tutorials tab content</p>
+  </Tab>
+</Tabs>
+`}
+</LiveComponent>
+
+### With `variant="compact"` and `icon`s for each `Tab`
+
+<LiveComponent>
+{`
+<Tabs variant="compact">
+  <Tab heading="Documentation" icon={<SwingsetTestIcon name="docs" />}>
+    <p>Documentation tab content</p>
+  </Tab>
+  <Tab heading="Tutorials" icon={<SwingsetTestIcon name="learn" />}>
+    <p>Tutorials tab content</p>
+  </Tab>
+</Tabs>
+`}
+</LiveComponent>
+
+### With `ariaLabel` set for a non-visible label (test using a screen reader)
+
+<LiveComponent>
+{`
+<Tabs ariaLabel="Definitions of Common Operating Systems">
+  <Tab heading="Windows">
+    <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows">Read more on Wikipedia</InlineLink>.</p>
+  </Tab>
+  <Tab heading="Mac OS">
+    <p>The family of Macintosh operating systems developed by Apple Inc. includes the graphical user interface-based operating systems it has designed for use with its Macintosh series of personal computers since 1984, as well as the related system software it once created for compatible third-party systems. <InlineLink href="https://en.wikipedia.org/wiki/Macintosh_operating_systems">Read more on Wikipedia</InlineLink>.</p>
+  </Tab>
+  <Tab heading="Linux">
+    <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux">Read more on Wikipedia</InlineLink>.</p>
+  </Tab>
+</Tabs>
+`}
+</LiveComponent>
+
+### With `ariaLabelledBy` set for a visible label (also test using a screen reader)
+
+<LiveComponent>
+{`
+<>
+  <p
+    className="hds-typography-display-400 hds-font-weight-bold"
+    id="ariaLablledBy-test-label"
+    style={{ marginBottom: 12 }}
+  >
+    Definitions of Common Operating Systems
+  </p>
+  <Tabs ariaLabel="ariaLablledBy-test-label">
+    <Tab heading="Windows">
+      <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows">Read more on Wikipedia</InlineLink>.</p>
+    </Tab>
+    <Tab heading="Mac OS">
+      <p>The family of Macintosh operating systems developed by Apple Inc. includes the graphical user interface-based operating systems it has designed for use with its Macintosh series of personal computers since 1984, as well as the related system software it once created for compatible third-party systems. <InlineLink href="https://en.wikipedia.org/wiki/Macintosh_operating_systems">Read more on Wikipedia</InlineLink>.</p>
+    </Tab>
+    <Tab heading="Linux">
+      <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux">Read more on Wikipedia</InlineLink>.</p>
+    </Tab>
+  </Tabs>
+</>
+`}
+</LiveComponent>
+
+### With `initialActiveIndex` set to something other than the default first tab
+
+<LiveComponent>
+{`
+<Tabs initialActiveIndex={1}>
+  <Tab heading="Windows">
+    <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows">Read more on Wikipedia</InlineLink>.</p>
+  </Tab>
+  <Tab heading="Mac OS">
+    <p>The family of Macintosh operating systems developed by Apple Inc. includes the graphical user interface-based operating systems it has designed for use with its Macintosh series of personal computers since 1984, as well as the related system software it once created for compatible third-party systems. <InlineLink href="https://en.wikipedia.org/wiki/Macintosh_operating_systems">Read more on Wikipedia</InlineLink>.</p>
+  </Tab>
+  <Tab heading="Linux">
+    <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux">Read more on Wikipedia</InlineLink>.</p>
+  </Tab>
+</Tabs>
+`}
+</LiveComponent>
+
+### With `showAnchorLine` set to false
+
+<LiveComponent>
+{`
+<Tabs showAnchorLine={false}>
+  <Tab heading="Windows">
+    <p>Microsoft Windows, commonly referred to as Windows, is a group of several proprietary graphical operating system families, all of which are developed and marketed by Microsoft. <InlineLink href="https://en.wikipedia.org/wiki/Microsoft_Windows">Read more on Wikipedia</InlineLink>.</p>
+  </Tab>
+  <Tab heading="Mac OS">
+    <p>The family of Macintosh operating systems developed by Apple Inc. includes the graphical user interface-based operating systems it has designed for use with its Macintosh series of personal computers since 1984, as well as the related system software it once created for compatible third-party systems. <InlineLink href="https://en.wikipedia.org/wiki/Macintosh_operating_systems">Read more on Wikipedia</InlineLink>.</p>
+  </Tab>
+  <Tab heading="Linux">
+    <p>Linux is a family of open-source Unix-like operating systems based on the Linux kernel,[12] an operating system kernel first released on September 17, 1991, by Linus Torvalds. <InlineLink href="https://en.wikipedia.org/wiki/Linux">Read more on Wikipedia</InlineLink>.</p>
+  </Tab>
+</Tabs>
+`}
+</LiveComponent>
+
+### With `Tabs` that oveflow their container
+
+There are times when a row of `Tab`s is too wide to fit inside of its containing element. In these cases, a single `select` element is rendered rather than many `Tab` buttons. For each `Tab`, the `select` will have an `option` for it.
+
+<LiveComponent>
+{`
+<Tabs>
+  {Array.from(new Array(10)).map((_, index) => {
+    return (
+      <Tab heading={"Tab #" + (index+1)}>
+        <p>Tab {index+1} content: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium viverra suspendisse potenti nullam ac tortor. Laoreet id donec ultrices tincidunt arcu non sodales neque. Risus at ultrices mi tempus imperdiet. Morbi tristique senectus et netus et malesuada fames.</p>
+      </Tab>
+    )
+  })}
+</Tabs>
+`}
+</LiveComponent>
+
+### With `Tabs` nested within a `Tab`
+
+It is possible for `Tabs` to be nested within a `Tab`. The `allowNestedStyles` prop should be used on the parent `Tabs` in this case. This prop ensures that nested `Tabs` will be styled in a way that more clearly displays the nested hierarchy.
+
+<LiveComponent>
+{`
+<Tabs allowNestedStyles>
+  <Tab heading="Tab 1">
+    <Tabs>
+      {Array.from(new Array(5)).map((_, index) => {
+        return (
+          <Tab heading={"Nested Tab 1-" + (index+1)}>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium viverra suspendisse potenti nullam ac tortor. Laoreet id donec ultrices tincidunt arcu non sodales neque. Risus at ultrices mi tempus imperdiet. Morbi tristique senectus et netus et malesuada fames.</p>
+          </Tab>
+        )
+      })}
+    </Tabs>
+  </Tab>
+  <Tab heading="Tab 2">
+    <Tabs>
+      {Array.from(new Array(5)).map((_, index) => {
+        return (
+          <Tab heading={"Nested Tab 2-" + (index+1)}>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium viverra suspendisse potenti nullam ac tortor. Laoreet id donec ultrices tincidunt arcu non sodales neque. Risus at ultrices mi tempus imperdiet. Morbi tristique senectus et netus et malesuada fames.</p>
+          </Tab>
+        )
+      })}
+    </Tabs>
+  </Tab>
+  <Tab heading="Tab 3">
+    <Tabs>
+      {Array.from(new Array(5)).map((_, index) => {
+        return (
+          <Tab heading={"Nested Tab 3-" + (index+1)}>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Pretium viverra suspendisse potenti nullam ac tortor. Laoreet id donec ultrices tincidunt arcu non sodales neque. Risus at ultrices mi tempus imperdiet. Morbi tristique senectus et netus et malesuada fames.</p>
+          </Tab>
+        )
+      })}
+    </Tabs>
+  </Tab>
+</Tabs>
+`}
+</LiveComponent>
+
+### With group syncing from `TabProvider`
+
+First, second and third tabs should be actively synced based on their matching `group` property.
+
+_Note_: the `TabProvider` must wrap the page where this component is used for 'groups' to function properly.
+
+_Note_: ideally, tab groups should appear in the same order. However, in practice, it is possible for authors to change the order, or vary the number of tabs. Our implementation needs to account for the fact that a tab with a particular `group` value could appear at any place in the array of tab children.
+
+<LiveComponent>
+{`
+<TabProvider>
+  <Tabs>
+    <Tab heading="First Tab" group="first">
+      <p>First tab content</p>
+    </Tab>
+    <Tab heading="Second Tab" group="second">
+      <p>Second tab content</p>
+    </Tab>
+    <Tab heading="Third Tab" group="third">
+      <p>Third tab content</p>
+    </Tab>
+  </Tabs>
+  <Tabs>
+     <Tab heading="Second Group Tab" group="second">
+      <p>More second group tab content</p>
+    </Tab>
+    <Tab heading="First Group Tab" group="first">
+      <p>More first tab content</p>
+    </Tab>
+   
+    <Tab heading="Third Tab" group="third">
+      <p>More third tab content</p>
+    </Tab>
+  </Tabs>
+</TabProvider>
+`}
+</LiveComponent>

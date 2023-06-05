@@ -1,0 +1,13 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.eyebrow {
+	composes: hds-typography-body-100 from global;
+	align-items: center;
+	color: var(--token-color-foreground-faint);
+	display: flex;
+	gap: 6px;
+	font-weight: var(--token-typography-font-weight-medium);
+}

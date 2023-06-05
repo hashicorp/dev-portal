@@ -1,0 +1,20 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	/* Composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* CSS Properties */
+	border-radius: 5px;
+	display: block;
+	padding: 8px;
+	text-decoration: none;
+	width: 100%;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}

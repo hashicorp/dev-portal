@@ -1,0 +1,24 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	/**
+   *
+   * Expects properties to be set in JS (or in parent CSS):
+   *
+   * var(--line-height): a unitless expression of line height
+   * var(--max-lines): a number of lines to show before truncating
+  */
+
+	/** Both variables are unitless, so we multiply by 1em for "x lines high" */
+	max-height: calc(var(--line-height) * var(--max-lines) * 1em);
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+	/** Webkit styles are necessary for "x lines high" truncation in Safari */
+	display: -webkit-box;
+	-webkit-line-clamp: var(--max-lines);
+	-webkit-box-orient: vertical;
+}

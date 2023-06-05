@@ -1,0 +1,21 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.cardPadding {
+	padding: 24px;
+}
+
+.heading {
+	composes: hds-typography-display-400 from global;
+	color: var(--token-color-foreground-strong);
+	font-weight: var(--token-typography-font-weight-semibold);
+	margin: 0;
+}
+
+.description {
+	composes: hds-typography-body-200 from global;
+	color: var(--token-color-foreground-primary);
+	margin: 4px 0 0 0;
+}

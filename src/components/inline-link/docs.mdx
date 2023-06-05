@@ -1,0 +1,55 @@
+---
+componentName: InlineLink
+---
+
+The `InlineLink` component should be used withing a body of text. It is based on the <a href="https://design-system-components-hashicorp.vercel.app/components/link/inline" target="_blank" rel="noreferrer noopener">HashiCorp Design System (HDS) Link::Inline component (opens in new tab)</a>.
+
+See `InlineLink`'s <a href="https://github.com/hashicorp/dev-portal/blob/main/src/components/inline-link/types.ts" target="_blank" rel="noreferrer noopener">types.ts file (opens in new tab)</a> for more details on the props this component exposes.
+
+## Playground
+
+<LiveComponent>
+{`
+<InlineLink href="/" textWeight="medium">link to home</InlineLink>
+`}
+</LiveComponent>
+
+## Examples
+
+### Inline with other text
+
+<LiveComponent>
+{`
+<p>This is some text with a link <InlineLink href="/">link to home</InlineLink>. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+`}
+</LiveComponent>
+
+### Different `textSize` values
+
+<LiveComponent>
+{`
+<>
+  <InlineLink href="/" textSize={100}>link with size=100</InlineLink>
+  <br />
+  <InlineLink href="/" textSize={200}>link with size=200</InlineLink>
+  <br />
+  <InlineLink href="/" textSize={300}>link with size=300</InlineLink>
+</>
+`}
+</LiveComponent>
+
+### Different `textWeight` values
+
+<LiveComponent>
+{`
+<>
+  <InlineLink href="/" textWeight="regular">link with textWeight=regular</InlineLink>
+  <br />
+  <InlineLink href="/" textWeight="medium">link with textWeight=medium</InlineLink>
+  <br />
+  <InlineLink href="/" textWeight="semibold">link with textWeight=semibold</InlineLink>
+  <br />
+  <InlineLink href="/" textWeight="bold">link with textWeight=bold</InlineLink>
+</>
+`}
+</LiveComponent>

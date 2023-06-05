@@ -1,0 +1,141 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.filterOptions {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin-bottom: 22px;
+}
+
+.tablet_up {
+	composes: g-hide-on-mobile from global;
+}
+.mobile_only {
+	composes: g-hide-on-tablet from global;
+	composes: g-hide-on-desktop from global;
+}
+
+.results {
+	color: var(--token-color-foreground-faint);
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-medium from global;
+	margin-bottom: 12px;
+}
+
+.filterInfo {
+	display: flex;
+	flex-wrap: wrap;
+	grid-column-gap: 8px;
+	grid-row-gap: 12px;
+	min-height: 30px;
+}
+
+.clearFiltersButton {
+	margin-left: -4px; /** to override the grid gap **/
+}
+
+.noFilters {
+	display: flex;
+	align-items: center;
+	color: var(--token-color-foreground-faint);
+	composes: hds-typography-body-200 from global;
+	composes: hds-font-weight-semibold from global;
+}
+
+.header {
+	border-radius: 5px;
+	margin-bottom: 24px;
+
+	& > h1 {
+		margin-top: 0;
+	}
+}
+
+.filterInput {
+	margin-bottom: 16px;
+}
+
+.selectStack {
+	display: flex;
+	flex-direction: row;
+
+	& > :not(:first-child) {
+		margin-left: 12px;
+	}
+}
+
+.option {
+	display: flex;
+	align-items: center;
+
+	& > .check {
+		display: flex;
+		min-width: 16px;
+		margin-right: 9px;
+
+		& > svg {
+			color: var(--token-color-palette-blue-200);
+		}
+	}
+}
+
+.exitIcon {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
+	background-color: transparent;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+	display: flex;
+	height: fit-content;
+	padding: 8px;
+	color: var(--token-color-foreground-faint);
+}
+
+.justifyEnd {
+	justify-content: flex-end;
+}
+
+.row {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 4px;
+
+	/* debug */
+
+	/* background-color: aliceblue;
+	border: 1px dotted blue; */
+}
+
+.row_fill {
+	display: flex;
+	flex: 1;
+}
+
+.mobileFilters {
+	margin-top: 20px;
+}
+
+.optionsContainer {
+	margin-bottom: 24px;
+
+	/* each children has a margin bottom of 12px */
+	& > *:not(:last-child) {
+		margin-bottom: 12px;
+	}
+
+	/* first child has margin bottom of 8px */
+	& > *:first-child {
+		margin-bottom: 8px;
+	}
+}

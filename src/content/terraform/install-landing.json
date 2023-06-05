@@ -1,0 +1,62 @@
+{
+	"featuredCollectionsSlugs": [
+		"terraform/aws-get-started",
+		"terraform/azure-get-started",
+		"terraform/docker-get-started",
+		"terraform/gcp-get-started",
+		"terraform/oci-get-started",
+		"terraform/cloud-get-started"
+	],
+	"sidebarMenuItems": [
+		{
+			"divider": true
+		},
+		{
+			"heading": "Getting Started"
+		},
+		{
+			"title": "What is Terraform?",
+			"fullPath": "/terraform/intro"
+		},
+		{
+			"title": "Terraform Tutorials",
+			"href": "/terraform/tutorials#get-started"
+		},
+		{
+			"title": "Terraform Cloud Tutorials",
+			"fullPath": "/terraform/tutorials/cloud-get-started/cloud-sign-up"
+		}
+	],
+	"sidecarMarketingCard": {
+		"title": "About Terraform",
+		"subtitle": "Define cloud and on-prem resources in human-readable configuration files that you can version, reuse, and share.",
+		"featuredDocsLinks": [
+			{
+				"href": "/terraform/intro",
+				"text": "Introduction to Terraform"
+			},
+			{
+				"href": "/terraform/language",
+				"text": "Configuration Language"
+			},
+			{
+				"href": "/terraform/cli/commands",
+				"text": "Terraform CLI"
+			},
+			{
+				"href": "/terraform/cloud-docs",
+				"text": "Terraform Cloud"
+			},
+			{
+				"href": "/terraform/language/providers",
+				"text": "Provider Use"
+			}
+		]
+	},
+	"sidecarHcpCallout": {
+		"heading": "Terraform Cloud",
+		"description": "Automate your infrastructure provisioning at any scale",
+		"ctaText": "Try Terraform Cloud for free",
+		"ctaUrl": "https://app.terraform.io/public/signup/account"
+	}
+}

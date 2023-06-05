@@ -1,0 +1,56 @@
+---
+componentName: CardsGridList
+---
+
+Displays cards in a grid. Intended for use in main content areas.
+
+The layout for this component is driven by minimum width settings on card children, rather than by explicit column counts. This reduces brittleness, helps ensure we never shrink cards below their desired minimum width, and opens the possibility of using this component outside of our main content area, if desired.
+
+Note that `CardsGridList` should be passed raw card elements as `children`, such as `<div />`, `<a />`, `<CardLink />`, and so on. Do _not_ wrap card elements in `<li />`, as the component handles this internally.
+
+## Props
+
+| Prop name   | Description                                                                                                                                                          | Required? | Default value | Type      |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------- | --------- |
+| `children`  | The card elements to render within the `CardsGridList` layout. These will automatically be wrapped in `<li />` elements, so do _not_ provide `<li />` as `children`. | Yes       | N/A           | ReactNode |
+| `isOrdered` | If true, layout will always use 1 column.                                                                                                                            | No        | `false`       | `boolean` |
+
+## Playground
+
+<LiveComponent>
+{`
+<CardsGridList isOrdered={false}>
+	<div style={{ border: '1px solid magenta', padding: '16px' }}>I am a fake card.</div>
+	<div style={{ border: '1px solid magenta', padding: '16px' }}>I am a fake card.</div>
+	<div style={{ border: '1px solid magenta', padding: '16px' }}>I am a fake card.</div>
+	<div style={{ border: '1px solid magenta', padding: '16px' }}>I am a fake card.</div>
+</CardsGridList>
+`}
+</LiveComponent>
+
+## Examples
+
+### Automatic, responsive three-column layout for cards in multiple of 3
+
+<LiveComponent>
+{`
+<CardsGridList>
+	<div style={{ border: '1px solid magenta', padding: '16px' }}>I am a fake card.</div>
+	<div style={{ border: '1px solid magenta', padding: '16px' }}>I am a fake card.</div>
+	<div style={{ border: '1px solid magenta', padding: '16px' }}>I am a fake card.</div>
+</CardsGridList>
+`}
+</LiveComponent>
+
+<LiveComponent>
+{`
+<CardsGridList>
+	<div style={{ border: '1px solid magenta', padding: '16px' }}>I am a fake card.</div>
+	<div style={{ border: '1px solid magenta', padding: '16px' }}>I am a fake card.</div>
+	<div style={{ border: '1px solid magenta', padding: '16px' }}>I am a fake card.</div>
+	<div style={{ border: '1px solid magenta', padding: '16px' }}>I am a fake card.</div>
+	<div style={{ border: '1px solid magenta', padding: '16px' }}>I am a fake card.</div>
+	<div style={{ border: '1px solid magenta', padding: '16px' }}>I am a fake card.</div>
+</CardsGridList>
+`}
+</LiveComponent>

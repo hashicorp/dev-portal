@@ -1,0 +1,84 @@
+{
+	"name": "Waypoint",
+	"slug": "waypoint",
+	"algoliaConfig": {
+		"indexName": "product_WAYPOINT",
+		"searchOnlyApiKey": "5e4adfd8094367056501547d6fedb6c5"
+	},
+	"analyticsConfig": {
+		"includedDomains": "waypointproject.io www.waypointproject.io",
+		"segmentWriteKey": "9mlIVayJbNtJW2EOdAFKHNKcdLAgEDlV"
+	},
+	"metadata": {
+		"title": "Waypoint by HashiCorp",
+		"description": "Waypoint is an open source solution that provides a modern workflow for build, deploy, and release across platforms.",
+		"image": "https://www.waypointproject.io/waypoint-public/img/og-image.png",
+		"icon": [
+			{
+				"href": "/waypoint-public/_favicon.ico"
+			}
+		]
+	},
+	"alertBannerActive": true,
+	"alertBanner": {
+		"tag": "HashiConf",
+		"url": "https://hashiconf.com/2023?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
+		"text": "Our community conference is taking place in San Francisco and online October 10-12.",
+		"linkText": "Register now",
+		"expirationDate": ""
+	},
+	"subnavItems": [
+		{
+			"text": "Overview",
+			"url": "/",
+			"type": "inbound"
+		},
+		{
+			"text": "Tutorials",
+			"url": "https://developer.hashicorp.com/waypoint/tutorials",
+			"type": "inbound"
+		},
+		{
+			"text": "Docs",
+			"url": "https://developer.hashicorp.com/waypoint/docs",
+			"type": "inbound"
+		},
+		{
+			"text": "CLI",
+			"url": "https://developer.hashicorp.com/waypoint/commands",
+			"type": "inbound"
+		},
+		{
+			"text": "Integrations",
+			"url": "https://developer.hashicorp.com/waypoint/integrations",
+			"type": "inbound"
+		},
+		{
+			"text": "Community",
+			"url": "/community",
+			"type": "inbound"
+		}
+	],
+	"basePaths": ["commands", "docs", "plugins", "tutorials", "downloads"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "Documentation",
+			"path": "docs",
+			"includeMDXSource": true
+		},
+		{
+			"iconName": "api",
+			"name": "API",
+			"path": "api-docs"
+		},
+		{
+			"iconName": "terminal-screen",
+			"name": "CLI",
+			"path": "commands"
+		}
+	],
+	"integrationsConfig": {
+		"description": "A curated collection of official, partner, and community Waypoint Integrations."
+	}
+}

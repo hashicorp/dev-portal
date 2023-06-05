@@ -1,0 +1,118 @@
+---
+componentName: Badge
+---
+
+## Props
+
+| Prop name         | Description                                                                                                                                                                                                 | Required? | Default value | Type                                                                               |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ------------- | ---------------------------------------------------------------------------------- |
+| `ariaDescribedBy` | The value of the `id` of the element that describes the badge. The describing element does not have to be visible. If there are multiple labeling elements, this can be be a comma-separated list of `id`s. | No        | undefined     | string                                                                             |
+| `ariaLabel`       | A non-visual label accessible and descriptive label for the badge.                                                                                                                                          | No        | undefined     | string                                                                             |
+| `ariaLabelledBy`  | The value of the `id` of the element that labels the badge. The labeling element does not have to be visible. If there are multiple labeling elements, this can be be a comma-separated list of `id`s.      | No        | undefined     | string                                                                             |
+| `className`       | A string of one or more classnames. Is appended to list of classnames passed to the container element.                                                                                                      | No        | undefined     | string                                                                             |
+| `color`           | The name of the color to apply styles to the badge.                                                                                                                                                         | No        | "neutral"     | One of: "error", "highlight", "neutral-dark-mode", "neutral", "success", "warning" |
+| `icon`            | An icon from `@hashicorp/flight-icons` to render.                                                                                                                                                           | No        | undefined     | ReactElement                                                                       |
+| `size`            | The size of the badge, which mainly affects font size and padding.                                                                                                                                          | No        | "medium"      | One of: "small", "medium", "large"                                                 |
+| `text`            | The text to render inside of the badge. This is not required for icon-only badges.                                                                                                                          | No        | undefined     | string                                                                             |
+| `type`            | The kind of style to apply to the badge, which mainly affects background color and border.                                                                                                                  | No        | "filled"      | One of: "filled", "inverted", "outlined", "base"                                   |
+
+## Playground
+
+<LiveComponent>
+	{`
+<Badge
+  text="Default"
+/>
+`}
+</LiveComponent>
+
+## Inline with a paragraph
+
+<p>
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit{' '}
+	{<Badge icon={<SwingsetTestIcon name="plus" />} text="Lorem ipsum" />}
+</p>
+
+## All `color`, `type`, and `size` variations
+
+<table>
+	<thead>
+		<tr>
+			<th>Color</th>
+			<th>Type: filled</th>
+			<th>Type: inverted</th>
+			<th>Type: outlined</th>
+			<th>Type: base</th>
+		</tr>
+	</thead>
+	<tbody>
+		{[
+			'neutral',
+			'neutral-dark-mode',
+			'highlight',
+			'success',
+			'warning',
+			'critical',
+		].map((color) => {
+			return (
+				<tr>
+					<td>{color}</td>
+					{['filled', 'inverted', 'outlined', 'base'].map((type) => {
+						return (
+							<td
+								style={{
+									backgroundColor:
+										color === 'neutral-dark-mode' ? 'black' : 'transparent',
+									padding: 16,
+								}}
+							>
+								{['small', 'medium', 'large'].map((size) => {
+									const statusToIcon = {
+										success: 'check',
+										warning: 'alert-triangle',
+										critical: 'cross',
+									}
+									const statusIcon = statusToIcon[color]
+									return (
+										<div
+											style={{
+												display: 'flex',
+												alignItems: 'center',
+												marginBottom: 8,
+												gap: 8,
+											}}
+										>
+											<Badge
+												color={color}
+												icon={<SwingsetTestIcon name={statusIcon} />}
+												size={size}
+												text="Lorem ipsum"
+												type={type}
+											/>
+											{/* To avoid the error */}
+											{!statusIcon && (
+												<Badge
+													color={color}
+													size={size}
+													text="Lorem ipsum"
+													type={type}
+												/>
+											)}
+											<Badge
+												ariaLabel="Lorem ipsum"
+												color={color}
+												size={size}
+												icon={<SwingsetTestIcon name={statusIcon} />}
+												type={type}
+											/>
+										</div>
+									)
+								})}
+							</td>
+						)
+					})}
+				</tr>
+			)
+		})}
+	</tbody>
+</table>

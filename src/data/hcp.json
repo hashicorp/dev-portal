@@ -1,0 +1,17 @@
+{
+	"slug": "hcp",
+	"name": "HashiCorp Cloud Platform",
+	"algoliaConfig": {
+		"indexName": "product_HCP",
+		"searchOnlyApiKey": "1162c7d22059acafddb62badfdf68f35"
+	},
+	"basePaths": ["docs", "api-docs/packer"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "Documentation",
+			"path": "docs",
+			"productSlugForLoader": "hcp-docs"
+		}
+	]
+}

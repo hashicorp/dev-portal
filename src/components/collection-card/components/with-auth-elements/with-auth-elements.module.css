@@ -1,0 +1,14 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.collectionProgressContainer {
+	width: 100%;
+}
+
+.completeIcons {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}

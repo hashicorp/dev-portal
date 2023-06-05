@@ -1,0 +1,21 @@
+name: Warm Developer Cache
+on: [deployment_status]
+
+jobs:
+  cache:
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'production' && github.event.sender.id == 35613825
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install npm@8
+        run: npm install --global npm@8
+      - name: Install dependencies
+        run: npm ci
+      - name: Cache .io sites, docs paths, and tutorial paths
+        run: npx hc-tools ./scripts/warm-cache.ts
+        env:
+          REVALIDATE_TOKEN: ${{ secrets.REVALIDATE_TOKEN }}

@@ -1,0 +1,84 @@
+{
+	"hero": {
+		"heading": "Simple and secure remote access",
+		"image": "https://www.datocms-assets.com/2885/1662767785-dev-dot-boundary-landing-hero-2x.png"
+	},
+	"overview": {
+		"heading": "What is Boundary?",
+		"body": "Securely access any system from anywhere based on user identity.",
+		"cta": {
+			"text": "Learn more about Boundary features",
+			"url": "/boundary/docs/overview/what-is-boundary"
+		},
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095102-devdot-boundary_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087672-devdot-boundary_dm.png"
+		}
+	},
+	"get_started": {
+		"heading": "Getting Started",
+		"body": "Quick start with a new identity-based access management tool.",
+		"iconCardLinks": [
+			{
+				"icon": "hcp",
+				"text": "HCP Boundary Quick Start",
+				"url": "/boundary/tutorials/hcp-getting-started"
+			},
+			{
+				"icon": "hcp",
+				"text": "Boundary OSS Quick Start",
+				"url": "/boundary/tutorials/oss-getting-started"
+			}
+		]
+	},
+	"blocks": [
+		{
+			"type": "heading",
+			"heading": "How Boundary Works",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Identity-based Access",
+					"body": "Enable privileged sessions for users and applications based on user identity and role.",
+					"url": "/boundary/tutorials/access-management/oidc-auth"
+				},
+				{
+					"heading": "Service Discovery",
+					"body": "Service discovery focuses on automating the process of onboarding new or changed infrastructure resources to Boundary as hosts.",
+					"url": "/boundary/docs/concepts/service-discovery"
+				},
+				{
+					"heading": "Infrastructure as Code with Terraform",
+					"body": "Define policies and manage Boundary with Terraform provider that supports the full breadth of Boundary configurations.",
+					"url": "https://registry.terraform.io/providers/hashicorp/boundary"
+				},
+				{
+					"heading": "Session Visibility and Audit Logs",
+					"body": "Visibility into session metrics, events, logs, and traces with the ability to export data to business intelligence and event monitoring tools",
+					"url": "/boundary/tutorials/oss-configuration/event-logging"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Popular Tutorials",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"boundary/oidc-auth",
+				"boundary/oss-vault-cred-brokering-quickstart",
+				"boundary/hcp-manage-workers",
+				"boundary/hcp-ssh-cred-injection",
+				"boundary/oss-manage-targets",
+				"boundary/oidc-idp-groups"
+			]
+		}
+	]
+}

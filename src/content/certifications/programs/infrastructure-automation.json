@@ -1,0 +1,25 @@
+{
+	"title": "Infrastructure Automation",
+	"summary": {
+		"heading": "Infrastructure<br />Automation Certifications",
+		"description": "Verify your infrastructure automation skills."
+	},
+	"hero": {
+		"heading": "Infrastructure<br />Automation Certifications",
+		"description": "Pass the Terraform Associate certification exam to validate your infrastructure automation skills."
+	},
+	"exams": [
+		{
+			"title": "Terraform Associate",
+			"examCode": "003",
+			"productSlug": "terraform",
+			"versionTested": "Terraform 1.0 or higher",
+			"description": "The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform open source. This includes understanding which enterprise features exist and what can and cannot be done using the open source offering. You should have professional experience using Terraform in production, but performing the exam objectives in a personal demo environment may be sufficient.",
+			"links": {
+				"prepare": "/terraform/tutorials/certification-003",
+				"register": "https://cp.certmetrics.com/hashicorp/en/login"
+			},
+			"faqSlug": "terraform-associate-003"
+		}	
+	]
+}

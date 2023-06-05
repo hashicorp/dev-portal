@@ -1,0 +1,36 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.icon {
+	color: var(--token-color-foreground-primary);
+}
+
+.heading {
+	margin-top: 12px;
+	margin-bottom: 0;
+}
+
+.description {
+	composes: hds-typography-body-300 from global;
+	composes: hds-font-weight-regular from global;
+	margin-top: 8px;
+	color: var(--token-color-foreground-primary);
+}
+
+.createAccountCta {
+	color: var(--token-color-foreground-primary);
+	margin-top: 12px;
+}
+
+.cta {
+	width: 100%;
+	margin-top: 24px;
+	margin-bottom: 16px;
+
+	@media (--dev-dot-tablet-up) {
+		margin-top: 32px;
+		margin-bottom: 24px;
+	}
+}

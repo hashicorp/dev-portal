@@ -1,0 +1,28 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 1px dashed var(--token-color-border-strong);
+	padding: 24px;
+	text-align: center;
+	border-radius: 6px;
+}
+
+.heading {
+	margin-top: 8px;
+}
+
+.subheading {
+	color: var(--token-color-foreground-primary);
+	margin-top: 4px;
+}
+
+.callToAction {
+	margin-top: 16px;
+}

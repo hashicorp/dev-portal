@@ -1,0 +1,50 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.button {
+	--buttonSize: 16px;
+	--hoverIconOpacity: 0;
+	--baseIconOpacity: 1;
+
+	align-items: center;
+	background: none;
+	border: none;
+	color: var(--token-color-foreground-faint);
+	cursor: pointer;
+	display: flex;
+	height: var(--buttonSize);
+	padding: 0;
+	position: relative;
+	width: var(--buttonSize);
+	z-index: 1;
+
+	@media (prefers-reduced-motion: no-preference) {
+		transition: color 0.175s ease;
+	}
+
+	&:hover,
+	&:focus-visible {
+		--hoverIconOpacity: 1;
+		--baseIconOpacity: 0;
+
+		color: var(--token-color-foreground-strong);
+	}
+
+	&:focus-visible::before {
+		border-radius: 5px;
+		bottom: -1px;
+		box-shadow: var(--token-focus-ring-action-box-shadow);
+		content: '';
+		left: -1px;
+		position: absolute;
+		right: -1px;
+		top: -1px;
+	}
+
+	&:focus,
+	&:focus-visible {
+		outline: transparent;
+	}
+}

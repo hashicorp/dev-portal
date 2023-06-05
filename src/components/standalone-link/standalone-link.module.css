@@ -1,0 +1,97 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.standaloneLink {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
+	align-items: center;
+	border-radius: 5px;
+	cursor: pointer;
+	display: flex;
+	text-decoration: none;
+	width: fit-content;
+
+	&:active,
+	&:hover {
+		text-decoration: underline;
+	}
+
+	/*
+  Not styling ::before with position: absolute and -5px positions because that
+  does not work on links that span more than one line.
+  */
+	&:focus-visible {
+		text-decoration: none;
+		margin: -5px;
+		padding: 5px;
+	}
+}
+
+.standaloneLinkContents {
+	align-items: center;
+	display: flex;
+	gap: 6px;
+	width: fit-content;
+
+	& svg {
+		flex-shrink: 0;
+	}
+}
+
+.text {
+	font-family: var(--token-typography-font-stack-text);
+	font-size: var(--font-size);
+	font-weight: var(--token-typography-font-weight-medium);
+	line-height: var(--line-height);
+}
+
+/*
+***
+* color helper classes
+***
+*/
+
+.primary {
+	color: var(--token-color-foreground-action);
+
+	&.standaloneLink:active {
+		color: var(--token-color-foreground-action-active);
+	}
+
+	&.standaloneLink:hover {
+		color: var(--token-color-foreground-action-hover);
+	}
+}
+
+.secondary {
+	color: var(--token-color-foreground-strong);
+
+	&.standaloneLink:active {
+		color: var(--token-color-foreground-primary);
+	}
+}
+
+/*
+***
+* size helper classes
+***
+*/
+
+.small {
+	--font-size: var(--token-typography-body-100-font-size);
+	--line-height: 1rem;
+}
+
+.medium {
+	--font-size: var(--token-typography-body-200-font-size);
+	--line-height: 1rem;
+}
+
+.large {
+	--font-size: var(--token-typography-body-300-font-size);
+	--line-height: 1.5rem;
+}

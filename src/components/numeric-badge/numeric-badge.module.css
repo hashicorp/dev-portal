@@ -1,0 +1,33 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	border-radius: var(--border-radius);
+	padding: var(--padding-top-bottom) var(--padding-left-right);
+}
+
+/*
+***
+* Size classes
+***
+*/
+
+.small {
+	--border-radius: 0.625rem;
+	--padding-left-right: 7px;
+	--padding-top-bottom: 1px;
+}
+
+.medium {
+	--border-radius: 0.75rem;
+	--padding-left-right: 11px;
+	--padding-top-bottom: 3px;
+}
+
+.large {
+	--border-radius: 1rem;
+	--padding-left-right: 13px;
+	--padding-top-bottom: 3px;
+}

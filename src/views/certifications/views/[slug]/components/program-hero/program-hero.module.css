@@ -1,0 +1,64 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.allCertificationsLink {
+	margin-bottom: 24px;
+
+	&.foreground-light {
+		color: var(--token-color-foreground-high-contrast);
+
+		&:active {
+			color: var(--token-color-foreground-high-contrast);
+		}
+	}
+
+	/** 
+	* Need to 'flip' these for dark mode since the token values 
+	* for text color swap but the backgrounds remain the same
+	**/
+	@nest html[data-theme='dark'] & {
+		&.foreground-light {
+			color: var(--token-color-foreground-strong);
+
+			&:active {
+				color: var(--token-color-foreground-strong);
+			}
+		}
+
+		&.foreground-dark {
+			color: var(--token-color-foreground-high-contrast);
+
+			&:active {
+				color: var(--token-color-foreground-high-contrast);
+			}
+		}
+	}
+}
+
+.heroBackground {
+	background: var(--background-image);
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	bottom: -10%;
+	left: -10%;
+	overflow: hidden;
+	position: absolute;
+	right: -10%;
+	top: -10%;
+	z-index: -1;
+
+	&.theme-infrastructure-automation {
+		--background-image: url('./assets/infrastructure-hero.svg');
+	}
+
+	&.theme-security-automation {
+		--background-image: url('./assets/security-hero.svg');
+	}
+
+	&.theme-networking-automation {
+		--background-image: url('./assets/networking-hero.svg');
+	}
+}

@@ -1,0 +1,62 @@
+{
+	"pageSubtitle": "Packer lets you create identical machine images for multiple platforms from a single source configuration. A common use case is creating golden images for organizations to use in cloud infrastructure.",
+	"iconCardGridItems": [],
+	"marketingContentBlocks": [
+		{
+			"type": "card-grid",
+			"title": "Build Images",
+			"description": "Standardize and automate your workflow.",
+			"cards": [
+				{
+					"description": "Define the images Packer should build and the plugins it should use during the build process.",
+					"title": "Templates",
+					"url": "/packer/docs/templates"
+				},
+				{
+					"description": "Use the Packer CLI to build images, validate templates, and manage plugins.",
+					"title": "Packer CLI",
+					"url": "/packer/docs/commands"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Use Plugins",
+			"description": "Use built-in and external plugins to perform tasks during each build.",
+			"cards": [
+				{
+					"description": "Use builders, data sources, provisioners, and post-processors.",
+					"title": "Plugin Overview",
+					"url": "/packer/docs/plugins"
+				},
+				{
+					"description": "Add external plugins to your template and install plugin binaries.",
+					"title": "Install External Plugins",
+					"url": "/packer/docs/plugins/install-plugins"
+				},
+				{
+					"description": "Find documentation for available external plugins.",
+					"title": "External Plugins",
+					"url": "/packer/plugins"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Collaborate and Integrate",
+			"description": "Manage images for your organization and extend Packer functionality.",
+			"cards": [
+				{
+					"description": "Centrally track image metadata and enforce up-to-date image versions.",
+					"title": "HCP Packer",
+					"url": "/hcp/docs/packer"
+				},
+				{
+					"description": "Create custom builders, provisioners, post-processors, and data sources.",
+					"title": "Plugin Development",
+					"url": "/packer/docs/plugins/creation"
+				}
+			]
+		}
+	]
+}
