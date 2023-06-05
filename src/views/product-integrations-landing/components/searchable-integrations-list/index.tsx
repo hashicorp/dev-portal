@@ -112,6 +112,7 @@ export default function SearchableIntegrationsList({
 		setTiersCheckedArray(tiersCheckedArray.map((v, i) => false))
 		setComponentCheckedArray(componentCheckedArray.map((v, i) => false))
 		setFlagsCheckedArray(flagsCheckedArray.map((v, i) => false))
+		setTypesCheckedArray(typesCheckedArray.map((v, i) => false))
 	}
 
 	const makeToggleTierHandler = (index: number, tier: Tier) => () => {
@@ -247,11 +248,11 @@ export default function SearchableIntegrationsList({
 						/>
 						<MultiSelect
 							text="Types"
-							options={types.map(({ id, name }, i) => {
+							options={types.map(({ id, name, plural_name }, i) => {
 								const selected = typesCheckedArray[i]
 								return {
 									id,
-									label: name,
+									label: plural_name,
 									onChange: makeToggleTypeHandler(i, name),
 									selected,
 								}
@@ -314,6 +315,19 @@ export default function SearchableIntegrationsList({
 									key={e.id}
 									text={e.name}
 									onRemove={makeToggleFlagHandler(i, e.name)}
+								/>
+							)
+						)
+					})}
+					{/* Render x-tags for Types */}
+					{types.map((e, i) => {
+						const checked = typesCheckedArray[i]
+						return (
+							checked && (
+								<Tag
+									key={e.id}
+									text={e.plural_name}
+									onRemove={makeToggleTypeHandler(i, e.name)}
 								/>
 							)
 						)

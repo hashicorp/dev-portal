@@ -176,7 +176,7 @@ describe('addHostCondition', () => {
 		let result
 
 		withHashiEnv('production', () => {
-			result = addHostCondition([redirect], 'vault', ['waypoint', 'consul'])
+			result = addHostCondition([redirect], 'vault')
 		})
 
 		expect(result).toMatchInlineSnapshot(`
@@ -206,7 +206,7 @@ describe('addHostCondition', () => {
 		let result
 
 		withHashiEnv('preview', () => {
-			result = addHostCondition([redirect], 'vault', ['waypoint', 'consul'])
+			result = addHostCondition([redirect], 'vault')
 		})
 
 		expect(result).toMatchInlineSnapshot(`

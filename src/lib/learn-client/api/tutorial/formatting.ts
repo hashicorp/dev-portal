@@ -3,7 +3,13 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ApiCollection, ApiCollectionLite, ApiTutorial } from '../api-types'
+import {
+	ApiCollection,
+	ApiCollectionLite,
+	ApiTutorial,
+	ApiTutorialVariant,
+	ApiTutorialVariantOption,
+} from '../api-types'
 import {
 	Tutorial,
 	CollectionLite,
@@ -12,6 +18,7 @@ import {
 	TutorialFullCollectionCtx,
 	CollectionCtxLite,
 	CollectionCtxFull,
+	TutorialVariant,
 } from 'lib/learn-client/types'
 import { formatCollection, formatProductUsed } from '../collection/formatting'
 import { ApiTutorialFullCollectionCtx } from './augment-tutorial'
@@ -40,6 +47,7 @@ export function formatTutorialData(
 		read_time,
 		edition,
 		products_used,
+		variants,
 	} = tutorial
 	const productsUsed = products_used.map(formatProductUsed)
 	const video = formatVideo(tutorial)
@@ -48,6 +56,11 @@ export function formatTutorialData(
 		featured_collections,
 		default_collection_id
 	)
+	// We only accept a single variant currently, so we take the first array item
+	// The learn-api-content-sync should prevent multiple variants from syncing into
+	// the database, this is an extra protection
+	const formattedVariant =
+		variants?.length > 0 ? formatVariant(variants[0]) : undefined
 
 	return {
 		id,
@@ -61,6 +74,7 @@ export function formatTutorialData(
 		video,
 		handsOnLab,
 		edition: edition,
+		variant: formattedVariant,
 	}
 }
 
@@ -127,4 +141,17 @@ export function formatHandsOnLab({
 	}
 
 	return handsOnLab
+}
+
+export function formatVariant(variant: ApiTutorialVariant): TutorialVariant {
+	const { options, ...rest } = variant
+	return {
+		...rest,
+		options: options.map(
+			({ display_order, ...rest }: ApiTutorialVariantOption) => ({
+				displayOrder: display_order,
+				...rest,
+			})
+		),
+	}
 }

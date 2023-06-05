@@ -7,10 +7,10 @@ import {
 	Flag,
 	Integration,
 	IntegrationComponent,
-	Tier,
 	IntegrationType,
+	Tier,
 } from 'lib/integrations-api-client/integration'
-import { createContext, useContext, useMemo } from 'react'
+import { createContext, useContext, useMemo, type ReactNode } from 'react'
 import { QueryParamOptions, useQueryParam, withDefault } from 'use-query-params'
 
 import { decodeDelimitedArray, encodeDelimitedArray } from 'use-query-params'
@@ -47,6 +47,7 @@ export const IntegrationsSearchContext = createContext({
 
 interface Props {
 	integrations: Integration[]
+	children: ReactNode
 }
 
 // The logical sort ordering of the Tiers
@@ -62,10 +63,10 @@ const tierSortVal = (tier: string): number => {
 	}
 }
 
-export const IntegrationsSearchProvider: React.FC<Props> = ({
+export const IntegrationsSearchProvider = ({
 	children,
 	integrations: _integrations,
-}) => {
+}: Props) => {
 	const sharedOptions: QueryParamOptions = {
 		enableBatching: true,
 		updateType: 'replaceIn',
@@ -285,11 +286,13 @@ export const IntegrationsSearchProvider: React.FC<Props> = ({
 				}
 			})
 
+			// If no types are selected, do not filter by type
 			let typeMatch = !typesCheckedArray.includes(true)
 			typesCheckedArray.forEach((checked, index) => {
+				// set typeMatch to true if the integrations type is selected
 				if (checked) {
 					const checkedType = types[index]
-					if (integration.integration_type === checkedType) {
+					if (integration.integration_type.slug === checkedType.slug) {
 						typeMatch = true
 					}
 				}
