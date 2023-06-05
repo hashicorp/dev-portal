@@ -40,6 +40,7 @@
 	/* 425px and below */
 	@media only screen and (max-width: 425px) {
 		--page-padding-top: 40px;
+		--section-padding-left-right-inner: 20px;
 	}
 }
 
