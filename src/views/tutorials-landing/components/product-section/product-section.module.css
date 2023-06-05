@@ -4,6 +4,11 @@
 	grid-template-columns: 338px 1fr;
 	grid-template-rows: 1fr;
 	width: 100%;
+
+	@media (--dev-dot-tablet-down) {
+		display: block;
+		padding-right: 0 !important; /* TODO */
+	}
 }
 
 .titleWrapper {
@@ -33,6 +38,10 @@
 	row-gap: 20px;
 	list-style: none;
 	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		margin-top: 0;
+	}
 }
 
 .separator {
@@ -42,6 +51,11 @@
 	height: 1px;
 	margin-bottom: 56px;
 	margin-top: 56px;
+
+	@media (--dev-dot-tablet-down) {
+		margin-bottom: 40px;
+		margin-top: 40px;
+	}
 }
 
 .featuredUseCasesTitle {
@@ -72,4 +86,33 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
+}
+
+/* mobile */
+
+.mobileFeaturedCollectionsList {
+	display: grid;
+	gap: 20px;
+	grid-template-columns: repeat(3, minmax(40vw, 400px));
+	list-style: none;
+	margin-bottom: 0;
+	margin-top: 40px;
+	overflow-x: auto;
+	padding-bottom: 16px;
+	padding-left: 4px;
+	padding-right: 40px;
+	padding-top: 4px;
+}
+
+.mobileCertificationCardAndCtas {
+	display: grid;
+	gap: 20px;
+	grid-template-columns: repeat(3, minmax(40vw, 400px));
+	padding-left: 4px;
+	margin-top: 20px;
+}
+
+.mobileCtasAndFeaturedUseCases {
+	padding-top: 12px;
+	padding-bottom: 32px;
 }
