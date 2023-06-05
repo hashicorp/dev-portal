@@ -104,6 +104,10 @@
 	padding-left: 4px;
 	padding-right: 40px;
 	padding-top: 4px;
+
+	@media only screen and (max-width: 500px) {
+		grid-template-columns: repeat(3, minmax(75vw, 280px));
+	}
 }
 
 .mobileCertificationCardAndCtas {
@@ -112,6 +116,11 @@
 	grid-template-columns: repeat(3, minmax(40vw, 400px));
 	padding-left: 4px;
 	margin-top: 20px;
+
+	@media (--dev-dot-mobile) {
+		grid-template-columns: 1fr;
+		padding-right: 40px;
+	}
 }
 
 .mobileCtasAndFeaturedUseCases {

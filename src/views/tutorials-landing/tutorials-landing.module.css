@@ -35,6 +35,11 @@
 		--cross-product-section-border-radius: 0px;
 		--content-types-section-padding-top: 48px;
 		--content-types-section-padding-bottom: 64px;
+		--product-section-padding-top-bottom: 64px;
+	}
+
+	@media (--dev-dot-mobile) {
+		--product-section-padding-top-bottom: 36px;
 	}
 
 	/* 425px and below */
