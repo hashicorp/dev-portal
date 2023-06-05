@@ -128,7 +128,7 @@ jobs:
 
       # DANGER: ONLY AUTO MERGE INTERNAL PRs
       - name: Admin merge the pull request
-        if: ${{ steps.find-pull-request.outputs.number && steps.pr-files.outputs.count != '0' && github.repository == 'hashicorp/dev-portal' }}
+        if: ${{ steps.find-pull-request.outputs.number && steps.pr-files.outputs.count != '0' && github.repository == 'hashicorp/dev-portal-internal' }}
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_WITH_REPO_AND_WORKFLOW_SCOPE }}
           PR_NUMBER: ${{ steps.find-pull-request.outputs.number }}
