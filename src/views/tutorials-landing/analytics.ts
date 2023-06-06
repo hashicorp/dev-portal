@@ -1,4 +1,4 @@
-import { ProductSlug } from 'types/products'
+// import { ProductSlug } from 'types/products'
 import { safeAnalyticsTrack } from 'lib/analytics'
 
 interface TutorialsFrontDoorLinkClickedEvent {
@@ -9,7 +9,8 @@ interface TutorialsFrontDoorLinkClickedEvent {
 		| 'product-tutorials-landing'
 		| 'tutorial-library'
 	linkPath: string
-	productSlug: ProductSlug
+	// @TODO clean up types across view's code
+	productSlug: $TSFixMe
 }
 
 type UtilWrapperArguments = Pick<
