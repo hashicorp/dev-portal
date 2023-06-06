@@ -4,6 +4,7 @@ import { ProductName, ProductSlug } from 'types/products'
 import {
 	trackFeaturedUseCaseLinkClicked,
 	trackProductTutorialsLandingLinkClicked,
+	trackTutorialLibraryLinkClicked,
 } from 'views/tutorials-landing/analytics'
 import ProductIcon from 'components/product-icon'
 import StandaloneLink from 'components/standalone-link'
@@ -36,20 +37,22 @@ interface ProductSectionProps {
 
 const GeneralCtasList = ({ product }) => {
 	const { name, slug } = product
-	const href = `/${slug}/tutorials`
+	const productTutorialsLandingHref = `/${slug}/tutorials`
+	const tutorialLibraryHref = `/tutorials/library?product=${slug}`
+
 	return (
 		<ul className={s.generalCtasList}>
 			<li>
 				<StandaloneLink
 					color="secondary"
-					href={href}
+					href={productTutorialsLandingHref}
 					icon={<IconArrowRight24 />}
 					iconPosition="trailing"
 					size="large"
 					text={`Explore more ${name} learning paths`}
 					onClick={() => {
 						trackProductTutorialsLandingLinkClicked({
-							linkPath: href,
+							linkPath: productTutorialsLandingHref,
 							productSlug: product.slug,
 						})
 					}}
@@ -58,11 +61,17 @@ const GeneralCtasList = ({ product }) => {
 			<li>
 				<StandaloneLink
 					color="secondary"
-					href={`/tutorials/library?product=${slug}`}
+					href={tutorialLibraryHref}
 					icon={<IconArrowRight24 />}
 					iconPosition="trailing"
 					size="large"
 					text={`Browse all ${name} tutorials`}
+					onClick={() => {
+						trackTutorialLibraryLinkClicked({
+							linkPath: tutorialLibraryHref,
+							productSlug: product.slug,
+						})
+					}}
 				/>
 			</li>
 		</ul>
