@@ -4,7 +4,7 @@
 
 on:
   schedule:
-    - cron: '0 */2 * * *' # https://crontab.guru/every-2-hours
+    - cron: "0 */2 * * *" # https://crontab.guru/every-2-hours
   workflow_dispatch:
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
         with:
           source_branch: repo-sync
           destination_branch: main
-          pr_title: 'repo sync'
+          pr_title: "repo sync"
           pr_body: |
             This is an automated pull request to sync changes between the public and private repos.
             This pull request should be **merged** (not squashed) to preserve continuity across repos.
