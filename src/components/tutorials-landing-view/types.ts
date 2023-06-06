@@ -1,5 +1,6 @@
 import { Collection } from 'lib/learn-client/types'
 import { type BadgeProps } from 'components/badge'
+import { CardLinkProps } from 'components/card-link'
 
 interface ContentCardLinkBadge {
 	icon: BadgeProps['icon']
@@ -16,6 +17,7 @@ interface ContentCardLinkProps {
 	eyebrowParts?: ContentCardLinkEyebrowPart[]
 	headerImageUrl?: string
 	href: string
+	onClick?: CardLinkProps['onClick']
 	title: string
 }
 
