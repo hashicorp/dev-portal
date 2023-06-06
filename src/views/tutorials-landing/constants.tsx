@@ -50,19 +50,19 @@ const CONTENT_TYPES_SECTION_TITLE =
 
 const CONTENT_TYPES_SECTION_ITEMS = [
 	{
-		imageSource: playIcon,
+		icon: playIcon,
 		title: 'Byte-sized video demonstrations',
 		description:
 			'Each video lecture is about 5 minutes long and led by HashiCorp engineers',
 	},
 	{
-		imageSource: terminalScreenIcon,
+		icon: terminalScreenIcon,
 		title: 'Hands-on labs & study guides',
 		description:
 			'Practice your recently learned skills with our in-browser development environment',
 	},
 	{
-		imageSource: bookmarkIcon,
+		icon: bookmarkIcon,
 		title: 'Bookmark and track your path',
 		description:
 			'Meeting you where you’re most familiar with for smooth product adoption',
