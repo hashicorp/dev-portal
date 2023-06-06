@@ -3,7 +3,6 @@
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	border-radius: 15px;
 	display: flex;
 	flex-direction: column;
 	row-gap: 32px;
@@ -17,6 +16,10 @@
 	@nest html[data-theme='dark'] & {
 		background-image: url('img/background-dark.svg');
 	}
+
+	@media (--dev-dot-tablet-down) {
+		padding-right: 0 !important; /* TODO */
+	}
 }
 
 .title {
@@ -29,11 +32,24 @@
 .list {
 	column-gap: 20px;
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(3, minmax(auto, 400px));
 	grid-template-rows: 1fr;
 	list-style: none;
 	margin: 0;
 	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		overflow-y: auto;
+		grid-template-columns: repeat(3, minmax(40vw, 280px));
+		padding-left: 4px;
+		padding-top: 4px;
+		padding-bottom: 16px;
+		padding-right: 40px;
+	}
+
+	@media only screen and (max-width: 500px) {
+		grid-template-columns: repeat(3, minmax(75vw, 280px));
+	}
 }
 
 .listItem {

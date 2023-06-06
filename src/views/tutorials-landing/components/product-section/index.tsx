@@ -30,63 +30,137 @@ interface ProductSectionProps {
 	}
 }
 
-const ProductSection = ({
+const GeneralCtasList = ({ product }) => {
+	const { name, slug } = product
+	return (
+		<ul className={s.generalCtasList}>
+			<li>
+				<StandaloneLink
+					color="secondary"
+					href={`/${slug}/tutorials`}
+					icon={<IconArrowRight24 />}
+					iconPosition="trailing"
+					size="large"
+					text={`Explore more ${name} learning paths`}
+				/>
+			</li>
+			<li>
+				<StandaloneLink
+					color="secondary"
+					href={`/tutorials/library?product=${slug}`}
+					icon={<IconArrowRight24 />}
+					iconPosition="trailing"
+					size="large"
+					text={`Browse all ${name} tutorials`}
+				/>
+			</li>
+		</ul>
+	)
+}
+
+const FeaturedUseCasesList = ({ featuredUseCases }) => {
+	return (
+		<>
+			<h3 className={s.featuredUseCasesTitle}>Featured use cases</h3>
+			<ul className={s.featuredUseCasesList}>
+				{featuredUseCases.map(({ href, text }: FeaturedUseCase) => {
+					return (
+						<li key={href}>
+							<StandaloneLink
+								color="secondary"
+								href={href}
+								icon={<IconArrowRight24 />}
+								iconPosition="trailing"
+								size="large"
+								text={text}
+							/>
+						</li>
+					)
+				})}
+			</ul>
+		</>
+	)
+}
+
+const CtasAndFeaturedUseCases = ({ product, featuredUseCases }) => {
+	return (
+		<>
+			<GeneralCtasList product={product} />
+			<hr className={s.separator} />
+			<FeaturedUseCasesList featuredUseCases={featuredUseCases} />
+		</>
+	)
+}
+
+const SectionTitle = ({ product }) => {
+	const { name, slug } = product
+	return (
+		<div className={s.titleWrapper}>
+			<ProductIcon productSlug={slug} size={24} />
+			<h2 className={s.title}>{name}</h2>
+		</div>
+	)
+}
+
+const SectionDescription = ({ text }) => {
+	return <p className={s.description}>{text}</p>
+}
+
+const MobileProductSection = ({
 	certification,
-	className,
+	product,
+	featuredCollections,
+	featuredUseCases,
+}) => {
+	return (
+		<div className="g-hide-on-desktop">
+			<SectionTitle product={product} />
+			<SectionDescription text={product.description} />
+			<ul className={s.mobileFeaturedCollectionsList}>
+				{featuredCollections.map((collection) => (
+					<li key={collection.id}>
+						<CollectionContentCardLink collection={collection} />
+					</li>
+				))}
+			</ul>
+			<div className={s.mobileCertificationCardAndCtas}>
+				{certification ? (
+					<div>
+						<CertificationContentCardLink certification={certification} />
+					</div>
+				) : null}
+				<div className={s.mobileCtasAndFeaturedUseCases}>
+					<CtasAndFeaturedUseCases
+						product={product}
+						featuredUseCases={featuredUseCases}
+					/>
+				</div>
+			</div>
+		</div>
+	)
+}
+
+const NonMobileProductSection = ({
+	certification,
 	featuredCollections,
 	featuredUseCases,
 	product,
-}: ProductSectionProps) => {
-	const { slug, name, description } = product
-
+}) => {
 	return (
-		<div className={classNames(s.root, className)}>
+		<div
+			className={classNames(
+				'g-hide-on-mobile',
+				'g-hide-on-tablet',
+				s.mobileRoot
+			)}
+		>
 			<div>
-				<div className={s.titleWrapper}>
-					<ProductIcon productSlug={slug} size={24} />
-					<h2 className={s.title}>{name}</h2>
-				</div>
-				<p className={s.description}>{description}</p>
-				<ul className={s.generalCtasList}>
-					<li>
-						<StandaloneLink
-							color="secondary"
-							href={`/${slug}/tutorials`}
-							icon={<IconArrowRight24 />}
-							iconPosition="trailing"
-							size="large"
-							text={`Explore more ${name} learning paths`}
-						/>
-					</li>
-					<li>
-						<StandaloneLink
-							color="secondary"
-							href={`/tutorials/library?product=${slug}`}
-							icon={<IconArrowRight24 />}
-							iconPosition="trailing"
-							size="large"
-							text={`Browse all ${name} tutorials`}
-						/>
-					</li>
-				</ul>
-				<hr className={s.separator} />
-				<h3 className={s.featuredUseCasesTitle}>Featured use cases</h3>
-				<ul className={s.featuredUseCasesList}>
-					{featuredUseCases.map(({ href, text }: FeaturedUseCase) => {
-						return (
-							<li key={href}>
-								<StandaloneLink
-									color="secondary"
-									href={href}
-									icon={<IconArrowRight24 />}
-									iconPosition="trailing"
-									size="large"
-									text={text}
-								/>
-							</li>
-						)
-					})}
-				</ul>
+				<SectionTitle product={product} />
+				<SectionDescription text={product.description} />
+				<CtasAndFeaturedUseCases
+					product={product}
+					featuredUseCases={featuredUseCases}
+				/>
 			</div>
 			<ul className={s.grid}>
 				{featuredCollections.map((collection: Collection) => (
@@ -103,6 +177,31 @@ const ProductSection = ({
 					</li>
 				) : null}
 			</ul>
+		</div>
+	)
+}
+
+const ProductSection = ({
+	certification,
+	className,
+	featuredCollections,
+	featuredUseCases,
+	product,
+}: ProductSectionProps) => {
+	return (
+		<div className={classNames(s.root, className)}>
+			<MobileProductSection
+				certification={certification}
+				product={product}
+				featuredCollections={featuredCollections}
+				featuredUseCases={featuredUseCases}
+			/>
+			<NonMobileProductSection
+				certification={certification}
+				product={product}
+				featuredCollections={featuredCollections}
+				featuredUseCases={featuredUseCases}
+			/>
 		</div>
 	)
 }
