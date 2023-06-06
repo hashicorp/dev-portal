@@ -6,6 +6,7 @@ import { ProductSlug } from 'types/products'
 
 const PAGE_TITLE = 'Start here'
 
+// Used in page preamble AND for og:description
 const PAGE_SUBTITLE =
 	'Brief intro - this is our opportunity to shape the value of this page for our Beginner practitioners. Max character count of 150 would be ideal.  Discover step-by-step learning paths to help you complete essential task to get started with HashiCorp products.'
 

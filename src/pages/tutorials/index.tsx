@@ -4,6 +4,7 @@ import { Collection } from 'lib/learn-client/types'
 import { getCollections } from 'lib/learn-client/api/collection'
 import TutorialsLandingView from 'views/tutorials-landing'
 import { LearnProductSlug } from 'types/products'
+import { PAGE_SUBTITLE } from 'views/tutorials-landing/constants'
 
 /**
  * @TODO
@@ -76,6 +77,11 @@ const getStaticProps = async () => {
 
 	return {
 		props: stripUndefinedProperties({
+			metadata: {
+				title: 'HashiCorp Tutorials',
+				description: PAGE_SUBTITLE,
+				localOgImage: 'tutorials.jpg',
+			},
 			pageContent: {
 				...pageContent,
 				crossProductSectionCollections,
