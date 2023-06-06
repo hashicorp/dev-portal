@@ -1,4 +1,7 @@
 import { ProductSlug } from 'types/products'
+import bookmarkIcon from './img/bookmark-add-custom.svg?include'
+import playIcon from './img/play-custom.svg?include'
+import terminalScreenIcon from './img/terminal-screen-custom.svg?include'
 
 /**
  * General page-level constants
@@ -6,6 +9,7 @@ import { ProductSlug } from 'types/products'
 
 const PAGE_TITLE = 'Start here'
 
+// Used in page preamble AND for og:description
 const PAGE_SUBTITLE =
 	'Brief intro - this is our opportunity to shape the value of this page for our Beginner practitioners. Max character count of 150 would be ideal.  Discover step-by-step learning paths to help you complete essential task to get started with HashiCorp products.'
 
@@ -47,19 +51,19 @@ const CONTENT_TYPES_SECTION_TITLE =
 
 const CONTENT_TYPES_SECTION_ITEMS = [
 	{
-		imageSource: 'https://placekitten.com/g/70/70',
+		icon: playIcon,
 		title: 'Byte-sized video demonstrations',
 		description:
 			'Each video lecture is about 5 minutes long and led by HashiCorp engineers',
 	},
 	{
-		imageSource: 'https://placekitten.com/g/70/70',
+		icon: terminalScreenIcon,
 		title: 'Hands-on labs & study guides',
 		description:
 			'Practice your recently learned skills with our in-browser development environment',
 	},
 	{
-		imageSource: 'https://placekitten.com/g/70/70',
+		icon: bookmarkIcon,
 		title: 'Bookmark and track your path',
 		description:
 			'Meeting you where you’re most familiar with for smooth product adoption',

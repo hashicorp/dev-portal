@@ -1,5 +1,11 @@
+import classNames from 'classnames'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
 import { ProductName, ProductSlug } from 'types/products'
+import {
+	trackFeaturedUseCaseLinkClicked,
+	trackProductTutorialsLandingLinkClicked,
+	trackTutorialLibraryLinkClicked,
+} from 'views/tutorials-landing/analytics'
 import ProductIcon from 'components/product-icon'
 import StandaloneLink from 'components/standalone-link'
 import CollectionContentCardLink from 'components/tutorials-landing-view/collection-content-card-link'
@@ -9,7 +15,6 @@ import {
 	CollectionContentCardLinkProps,
 } from 'components/tutorials-landing-view/types'
 import s from './product-section.module.css'
-import classNames from 'classnames'
 
 type Certification = CertificationContentCardLinkProps['certification']
 type Collection = CollectionContentCardLinkProps['collection']
@@ -32,33 +37,48 @@ interface ProductSectionProps {
 
 const GeneralCtasList = ({ product }) => {
 	const { name, slug } = product
+	const productTutorialsLandingHref = `/${slug}/tutorials`
+	const tutorialLibraryHref = `/tutorials/library?product=${slug}`
+
 	return (
 		<ul className={s.generalCtasList}>
 			<li>
 				<StandaloneLink
 					color="secondary"
-					href={`/${slug}/tutorials`}
+					href={productTutorialsLandingHref}
 					icon={<IconArrowRight24 />}
 					iconPosition="trailing"
 					size="large"
 					text={`Explore more ${name} learning paths`}
+					onClick={() => {
+						trackProductTutorialsLandingLinkClicked({
+							linkPath: productTutorialsLandingHref,
+							productSlug: product.slug,
+						})
+					}}
 				/>
 			</li>
 			<li>
 				<StandaloneLink
 					color="secondary"
-					href={`/tutorials/library?product=${slug}`}
+					href={tutorialLibraryHref}
 					icon={<IconArrowRight24 />}
 					iconPosition="trailing"
 					size="large"
 					text={`Browse all ${name} tutorials`}
+					onClick={() => {
+						trackTutorialLibraryLinkClicked({
+							linkPath: tutorialLibraryHref,
+							productSlug: product.slug,
+						})
+					}}
 				/>
 			</li>
 		</ul>
 	)
 }
 
-const FeaturedUseCasesList = ({ featuredUseCases }) => {
+const FeaturedUseCasesList = ({ featuredUseCases, product }) => {
 	return (
 		<>
 			<h3 className={s.featuredUseCasesTitle}>Featured use cases</h3>
@@ -73,6 +93,12 @@ const FeaturedUseCasesList = ({ featuredUseCases }) => {
 								iconPosition="trailing"
 								size="large"
 								text={text}
+								onClick={() => {
+									trackFeaturedUseCaseLinkClicked({
+										linkPath: href,
+										productSlug: product.slug,
+									})
+								}}
 							/>
 						</li>
 					)
@@ -87,7 +113,10 @@ const CtasAndFeaturedUseCases = ({ product, featuredUseCases }) => {
 		<>
 			<GeneralCtasList product={product} />
 			<hr className={s.separator} />
-			<FeaturedUseCasesList featuredUseCases={featuredUseCases} />
+			<FeaturedUseCasesList
+				featuredUseCases={featuredUseCases}
+				product={product}
+			/>
 		</>
 	)
 }
@@ -126,7 +155,10 @@ const MobileProductSection = ({
 			<div className={s.mobileCertificationCardAndCtas}>
 				{certification ? (
 					<div>
-						<CertificationContentCardLink certification={certification} />
+						<CertificationContentCardLink
+							certification={certification}
+							product={product}
+						/>
 					</div>
 				) : null}
 				<div className={s.mobileCtasAndFeaturedUseCases}>
@@ -173,6 +205,7 @@ const NonMobileProductSection = ({
 						<CertificationContentCardLink
 							key={certification.slug}
 							certification={certification}
+							product={product}
 						/>
 					</li>
 				) : null}
