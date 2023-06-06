@@ -1,7 +1,10 @@
 import classNames from 'classnames'
 import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
 import { ProductName, ProductSlug } from 'types/products'
-import { trackFeaturedUseCaseLinkClicked } from 'views/tutorials-landing/analytics'
+import {
+	trackFeaturedUseCaseLinkClicked,
+	trackProductTutorialsLandingLinkClicked,
+} from 'views/tutorials-landing/analytics'
 import ProductIcon from 'components/product-icon'
 import StandaloneLink from 'components/standalone-link'
 import CollectionContentCardLink from 'components/tutorials-landing-view/collection-content-card-link'
@@ -33,16 +36,23 @@ interface ProductSectionProps {
 
 const GeneralCtasList = ({ product }) => {
 	const { name, slug } = product
+	const href = `/${slug}/tutorials`
 	return (
 		<ul className={s.generalCtasList}>
 			<li>
 				<StandaloneLink
 					color="secondary"
-					href={`/${slug}/tutorials`}
+					href={href}
 					icon={<IconArrowRight24 />}
 					iconPosition="trailing"
 					size="large"
 					text={`Explore more ${name} learning paths`}
+					onClick={() => {
+						trackProductTutorialsLandingLinkClicked({
+							linkPath: href,
+							productSlug: product.slug,
+						})
+					}}
 				/>
 			</li>
 			<li>
