@@ -126,7 +126,10 @@ const MobileProductSection = ({
 			<div className={s.mobileCertificationCardAndCtas}>
 				{certification ? (
 					<div>
-						<CertificationContentCardLink certification={certification} />
+						<CertificationContentCardLink
+							certification={certification}
+							product={product}
+						/>
 					</div>
 				) : null}
 				<div className={s.mobileCtasAndFeaturedUseCases}>
@@ -173,6 +176,7 @@ const NonMobileProductSection = ({
 						<CertificationContentCardLink
 							key={certification.slug}
 							certification={certification}
+							product={product}
 						/>
 					</li>
 				) : null}

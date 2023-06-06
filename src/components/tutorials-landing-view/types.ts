@@ -1,3 +1,4 @@
+import { ProductSlug } from 'types/products'
 import { Collection } from 'lib/learn-client/types'
 import { type BadgeProps } from 'components/badge'
 import { CardLinkProps } from 'components/card-link'
@@ -32,6 +33,9 @@ interface CertificationContentCardLinkProps {
 		slug: string
 		title: string
 		description: string
+	}
+	product: {
+		slug: ProductSlug
 	}
 }
 
