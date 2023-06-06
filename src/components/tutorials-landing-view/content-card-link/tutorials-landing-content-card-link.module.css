@@ -19,6 +19,11 @@
 	padding-left: 40px;
 	padding-right: 24px;
 	padding-top: 40px;
+	gap: 24px;
+
+	@media (--dev-dot-tablet-down) {
+		gap: 32px;
+	}
 
 	&.hasHeaderImage {
 		padding-top: 0;
@@ -80,20 +85,24 @@
 .title {
 	composes: hds-typography-display-400 from global;
 	composes: hds-font-weight-semibold from global;
+
+	@media (--dev-dot-tablet-down) {
+		composes: hds-typography-display-300 from global;
+		composes: hds-font-weight-bold from global;
+	}
 }
 
 .description {
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-medium from global;
 	color: var(--token-color-foreground-primary);
-	margin-top: 21px;
+	margin-top: 20px;
 }
 
 .footer {
 	align-items: flex-end;
 	display: flex;
 	justify-content: space-between;
-	margin-top: 32px;
 }
 
 .badgeList {
@@ -110,6 +119,7 @@
 }
 
 .icon {
+	composes: g-hide-on-mobile from global;
 	align-items: center;
 	border-color: inherit;
 	border-radius: 20px;

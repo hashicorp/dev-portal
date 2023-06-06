@@ -27,7 +27,7 @@ const renderProductSections = (productSlugs, pageContent) => {
 		const featuredCollections = sectionData.featuredCollections
 
 		return (
-			<section className={s.section} key={`product-section-${productSlug}`}>
+			<section key={`product-section-${productSlug}`}>
 				<ProductSection
 					certification={certification}
 					className={s.productSection}
@@ -55,7 +55,7 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 
 	return (
 		<div className={s.root}>
-			<div className={s.section}>
+			<div>
 				<PageHero
 					className={s.pageHero}
 					subtitle={PAGE_SUBTITLE}
@@ -66,17 +66,17 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 				[firstProductSlug, secondProductSlug, thirdProductSlug],
 				restPageContent
 			)}
-			<div className={s.contentTypesSectionWrapper}>
-				<section className={s.section}>
+			<section>
+				<div className={s.contentTypesSectionWrapper}>
 					<ContentTypesSection
 						className={s.contentTypesSection}
 						items={CONTENT_TYPES_SECTION_ITEMS}
 						title={CONTENT_TYPES_SECTION_TITLE}
 					/>
-				</section>
-			</div>
+				</div>
+			</section>
 			{renderProductSections(remainingProductSlugs, restPageContent)}
-			<section className={s.section}>
+			<section>
 				<CrossProductSection
 					title={BETTER_TOGETHER_SECTION_TITLE}
 					collections={crossProductSectionCollections}
