@@ -29,16 +29,16 @@
 		"vault": {
 			"featuredUseCases": [
 				{
-					"href": "/vault/tutorials/adp",
-					"text": "Advanced data protection"
+					"href": "/vault/tutorials/kubernetes",
+					"text": "Vault on Kubernetes"
 				},
 				{
 					"href": "/vault/tutorials/db-credentials",
 					"text": "Database credential rotation"
 				},
 				{
-					"href": "/vault/tutorials/encryption-as-a-service",
-					"text": "Data encryption"
+					"href": "/vault/tutorials/secrets-management",
+					"text": "Secrets management"
 				}
 			],
 			"featuredCollectionSlugs": [
@@ -56,15 +56,15 @@
 			"featuredUseCases": [
 				{
 					"href": "/consul/tutorials/kubernetes",
-					"text": "Service mesh"
+					"text": "Service discovery and health monitoring"
 				},
 				{
 					"href": "/consul/tutorials/microservices",
-					"text": "Microservices on Kubernetes"
+					"text": "Service mesh on Kubernetes"
 				},
 				{
 					"href": "/consul/tutorials/network-infrastructure-automation",
-					"text": "Network automation"
+					"text": "Service mesh and gateways"
 				}
 			],
 			"featuredCollectionSlugs": [
@@ -124,20 +124,21 @@
 			"featuredUseCases": [
 				{
 					"href": "/boundary/tutorials/hcp-administration",
-					"text": "Resource management"
+					"text": "Credential management"
 				},
 				{
 					"href": "/boundary/tutorials/oss-administration",
-					"text": "Self-hosted resource management workflows"
+					"text": "Identity management"
 				},
 				{
 					"href": "/boundary/tutorials/access-management",
-					"text": "Secure access management workflows"
+					"text": "Worker management"
 				}
 			],
 			"featuredCollectionSlugs": [
 				"boundary/hcp-getting-started",
-				"boundary/oss-getting-started"
+				"boundary/oss-getting-started",
+				"boundary/hcp-administration"
 			]
 		},
 		"vagrant": {
