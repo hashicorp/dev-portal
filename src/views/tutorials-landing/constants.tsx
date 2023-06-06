@@ -83,8 +83,7 @@ const CONTENT_TYPES_SECTION_ITEMS = [
  * @TODO rename to match `CrossProductSection` name
  */
 
-const BETTER_TOGETHER_SECTION_TITLE =
-	'Better together - Opportunity to elevate larger workflows'
+const BETTER_TOGETHER_SECTION_TITLE = 'Use HashiCorp products together'
 
 export {
 	PAGE_TITLE,
