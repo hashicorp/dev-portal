@@ -1,4 +1,10 @@
 .root {
+	@media (--dev-dot-tablet-down) {
+		padding-right: 0 !important; /* TODO */
+	}
+}
+
+.mobileRoot {
 	column-gap: 64px;
 	display: grid;
 	grid-template-columns: 338px 1fr;
@@ -33,6 +39,10 @@
 	row-gap: 20px;
 	list-style: none;
 	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		margin-top: 0;
+	}
 }
 
 .separator {
@@ -42,6 +52,11 @@
 	height: 1px;
 	margin-bottom: 56px;
 	margin-top: 56px;
+
+	@media (--dev-dot-tablet-down) {
+		margin-bottom: 40px;
+		margin-top: 40px;
+	}
 }
 
 .featuredUseCasesTitle {
@@ -72,4 +87,43 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
+	width: 100%;
+}
+
+/* mobile */
+
+.mobileFeaturedCollectionsList {
+	display: grid;
+	gap: 20px;
+	grid-template-columns: repeat(3, minmax(40vw, 400px));
+	list-style: none;
+	margin-bottom: 0;
+	margin-top: 40px;
+	overflow-x: auto;
+	padding-bottom: 16px;
+	padding-left: 4px;
+	padding-right: 40px;
+	padding-top: 4px;
+
+	@media only screen and (max-width: 500px) {
+		grid-template-columns: repeat(3, minmax(75vw, 280px));
+	}
+}
+
+.mobileCertificationCardAndCtas {
+	display: grid;
+	gap: 20px;
+	grid-template-columns: repeat(3, minmax(40vw, 400px));
+	padding-left: 4px;
+	margin-top: 20px;
+
+	@media (--dev-dot-mobile) {
+		grid-template-columns: 1fr;
+		padding-right: 40px;
+	}
+}
+
+.mobileCtasAndFeaturedUseCases {
+	padding-top: 12px;
+	padding-bottom: 32px;
 }
