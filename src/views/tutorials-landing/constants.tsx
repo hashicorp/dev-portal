@@ -1,4 +1,7 @@
 import { ProductSlug } from 'types/products'
+import bookmarkIcon from './img/bookmark-add-custom.svg?include'
+import playIcon from './img/play-custom.svg?include'
+import terminalScreenIcon from './img/terminal-screen-custom.svg?include'
 
 /**
  * General page-level constants
@@ -6,6 +9,7 @@ import { ProductSlug } from 'types/products'
 
 const PAGE_TITLE = 'Learn HashiCorp products'
 
+// Used in page preamble AND for og:description
 const PAGE_SUBTITLE =
 	'Start learning with step-by-step, hands-on, command-line tutorials, videos, and hosted terminal sessions. Actionable examples help you learn to provision, secure, connect, or run any application on any infrastructure.'
 
@@ -54,19 +58,19 @@ const CONTENT_TYPES_SECTION_TITLE = 'Learn your way, at your own pace'
 
 const CONTENT_TYPES_SECTION_ITEMS = [
 	{
-		imageSource: 'https://placekitten.com/g/70/70',
+		icon: playIcon,
 		title: 'Byte-sized video demonstrations',
 		description:
 			'Build confidence and learn what is coming with short demo videos',
 	},
 	{
-		imageSource: 'https://placekitten.com/g/70/70',
+		icon: terminalScreenIcon,
 		title: 'Hosted terminal environments',
 		description:
 			'Skip the prerequisites and try a tutorial from your browser window',
 	},
 	{
-		imageSource: 'https://placekitten.com/g/70/70',
+		icon: bookmarkIcon,
 		title: 'Save your place, and your favorites',
 		description:
 			'Life can be busy. Bookmark a tutorial to save your place on your learning path',

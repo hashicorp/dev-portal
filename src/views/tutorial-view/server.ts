@@ -30,7 +30,11 @@ import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
-import { getTutorialViewVariantData } from './utils/variants'
+import {
+	TutorialVariantOption,
+	getTutorialViewVariantData,
+	getVariantParam,
+} from './utils/variants'
 
 /**
  * Given a ProductData object (imported from src/data JSON files) and a tutorial
@@ -208,9 +212,29 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 						tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
 					},
 				})
+				// If the Tutorial has variants, push a path for each one
+				if (tutorial.variant) {
+					tutorial.variant.options.forEach(
+						(variantOption: TutorialVariantOption) => {
+							const variantParam = getVariantParam(
+								tutorial.variant.slug,
+								variantOption.slug
+							)
+							paths.push({
+								params: {
+									productSlug: normalizedProductSlug,
+									tutorialSlug: [
+										collectionSlug,
+										tutorialSlug,
+										variantParam,
+									] as [string, string, string],
+								},
+							})
+						}
+					)
+				}
 			})
 		}
 	})
-
 	return paths
 }

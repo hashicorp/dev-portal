@@ -1,6 +1,7 @@
 import { ProductUsed, TutorialLite } from 'lib/learn-client/types'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import { getCollectionSlug } from 'views/collection-view/helpers'
+import { trackCollectionCardLinkClicked } from 'views/tutorials-landing/analytics'
 import { type CollectionContentCardLinkProps } from '../types'
 import ContentCardLink from '../content-card-link'
 import { BADGE_ICON_MAP, PRODUCT_SLUGS_TO_HEADER_IMAGES } from './constants'
@@ -54,6 +55,10 @@ const CollectionContentCardLink = ({
 		}
 	}
 
+	const handleClick = () => {
+		trackCollectionCardLinkClicked({ linkPath: href, productSlug })
+	}
+
 	return (
 		<ContentCardLink
 			badges={badges}
@@ -62,6 +67,7 @@ const CollectionContentCardLink = ({
 			href={href}
 			title={title}
 			eyebrowParts={eyebrowParts}
+			onClick={handleClick}
 		/>
 	)
 }
