@@ -55,15 +55,15 @@
 		"consul": {
 			"featuredUseCases": [
 				{
-					"href": "/consul/tutorials/kubernetes",
+					"href": "/consul/tutorials/developer-discovery",
 					"text": "Service discovery and health monitoring"
 				},
 				{
-					"href": "/consul/tutorials/microservices",
+					"href": "/consul/tutorials/kubernetes",
 					"text": "Service mesh on Kubernetes"
 				},
 				{
-					"href": "/consul/tutorials/network-infrastructure-automation",
+					"href": "/consul/tutorials/developer-mesh",
 					"text": "Service mesh and gateways"
 				}
 			],
@@ -123,15 +123,15 @@
 		"boundary": {
 			"featuredUseCases": [
 				{
-					"href": "/boundary/tutorials/hcp-administration",
+					"href": "/boundary/tutorials/credential-management",
 					"text": "Credential management"
 				},
 				{
-					"href": "/boundary/tutorials/oss-administration",
+					"href": "/boundary/tutorials/identity-management",
 					"text": "Identity management"
 				},
 				{
-					"href": "/boundary/tutorials/access-management",
+					"href": "/boundary/tutorials/worker-management",
 					"text": "Worker management"
 				}
 			],
