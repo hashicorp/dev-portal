@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import InlineSvg from '@hashicorp/react-inline-svg'
 import s from './content-types-section.module.css'
 
 // TODO update imageSource to `icon`
@@ -27,9 +28,7 @@ const ContentTypesSection = ({
 					({ imageSource, title, description }: ContentTypesSectionItem) => {
 						return (
 							<li key={title} className={s.listItem}>
-								{/* TODO <img /> will be replaced with icon */}
-								{/* eslint-disable-next-line @next/next/no-img-element */}
-								<img alt="" src={imageSource} />
+								<InlineSvg className={s.listItemIcon} src={imageSource} />
 								<div className={s.listItemTextContainer}>
 									<h3 className={s.listItemTitle}>{title}</h3>
 									<p className={s.listItemDescription}>{description}</p>

@@ -47,6 +47,16 @@
 	}
 }
 
+.listItemIcon {
+	background-color: var(--token-color-surface-strong);
+	display: flex;
+	padding-bottom: 14px;
+	padding-left: 18px;
+	padding-right: 18px;
+	padding-top: 14px;
+	border-radius: 5px;
+}
+
 .listItemTextContainer {
 	display: flex;
 	flex-direction: column;
