@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { ProductName, ProductSlug } from 'types/products'
 import {
 	trackFeaturedUseCaseLinkClicked,
@@ -40,9 +40,9 @@ const ProductSectionStandaloneLink = ({ href, text, onClick }) => {
 		<StandaloneLink
 			color="secondary"
 			href={href}
-			icon={<IconArrowRight24 />}
+			icon={<IconArrowRight16 />}
 			iconPosition="trailing"
-			size="large"
+			size="small"
 			text={text}
 			onClick={onClick}
 		/>
