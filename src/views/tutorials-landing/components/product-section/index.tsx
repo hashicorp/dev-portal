@@ -35,6 +35,20 @@ interface ProductSectionProps {
 	}
 }
 
+const ProductSectionStandaloneLink = ({ href, text, onClick }) => {
+	return (
+		<StandaloneLink
+			color="secondary"
+			href={href}
+			icon={<IconArrowRight24 />}
+			iconPosition="trailing"
+			size="large"
+			text={text}
+			onClick={onClick}
+		/>
+	)
+}
+
 const GeneralCtasList = ({ product }) => {
 	const { name, slug } = product
 	const productTutorialsLandingHref = `/${slug}/tutorials`
@@ -43,12 +57,8 @@ const GeneralCtasList = ({ product }) => {
 	return (
 		<ul className={s.generalCtasList}>
 			<li>
-				<StandaloneLink
-					color="secondary"
+				<ProductSectionStandaloneLink
 					href={productTutorialsLandingHref}
-					icon={<IconArrowRight24 />}
-					iconPosition="trailing"
-					size="large"
 					text={`Explore more ${name} learning paths`}
 					onClick={() => {
 						trackProductTutorialsLandingLinkClicked({
@@ -59,12 +69,8 @@ const GeneralCtasList = ({ product }) => {
 				/>
 			</li>
 			<li>
-				<StandaloneLink
-					color="secondary"
+				<ProductSectionStandaloneLink
 					href={tutorialLibraryHref}
-					icon={<IconArrowRight24 />}
-					iconPosition="trailing"
-					size="large"
 					text={`Browse all ${name} tutorials`}
 					onClick={() => {
 						trackTutorialLibraryLinkClicked({
@@ -86,12 +92,8 @@ const FeaturedUseCasesList = ({ featuredUseCases, product }) => {
 				{featuredUseCases.map(({ href, text }: FeaturedUseCase) => {
 					return (
 						<li key={href}>
-							<StandaloneLink
-								color="secondary"
+							<ProductSectionStandaloneLink
 								href={href}
-								icon={<IconArrowRight24 />}
-								iconPosition="trailing"
-								size="large"
 								text={text}
 								onClick={() => {
 									trackFeaturedUseCaseLinkClicked({
