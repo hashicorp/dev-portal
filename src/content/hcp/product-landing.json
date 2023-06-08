@@ -25,6 +25,11 @@
 				"url": "/vault/tutorials/cloud"
 			},
 			{
+				"icon": "vault-color",
+				"text": "HCP Vault Secrets",
+				"url": "/hcp/vault-secrets"
+			},
+			{
 				"icon": "consul-color",
 				"text": "HCP Consul",
 				"url": "/consul/tutorials/get-started-hcp"
