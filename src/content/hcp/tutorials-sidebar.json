@@ -11,7 +11,7 @@
 		{
 			"name": "HCP Vault Secrets",
 			"items": [
-				{ "name": "Quickstart", "collectionSlug": "vault/vault-secrets-get-started" }
+				{ "name": "Quickstart", "collectionSlug": "vault/vault-secrets-get-started", "isBeta": true }
 			]
 		},
 		{
