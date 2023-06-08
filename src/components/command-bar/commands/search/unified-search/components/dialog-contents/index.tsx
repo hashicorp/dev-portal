@@ -20,12 +20,7 @@ import { Configure, Index } from 'react-instantsearch-hooks-web'
 import { CommandBarDivider } from 'components/command-bar/components'
 import { CustomHitsContainer } from '../'
 import { buildAlgoliaFilters } from './build-algolia-filters'
-
-/**
- * TODO: add description
- */
-const PRODUCT_SLUGS_WITH_INTEGRATIONS =
-	__config.dev_dot.product_slugs_with_integrations
+import { getShouldRenderIntegrationsTab } from './get-should-render-integrations-tab'
 
 /**
  * TODO: should rethink this pretty heavily.
@@ -93,20 +88,8 @@ function UnifiedSearchDialogContents({
 	/**
 	 * Determine whether the Integrations tab should be rendered.
 	 */
-	let shouldRenderIntegrationsTab
-	if (PRODUCT_SLUGS_WITH_INTEGRATIONS.length <= 0) {
-		// If no products have integrations, do not render it
-		shouldRenderIntegrationsTab = false
-	} else if (currentProductTag) {
-		// If there is a product tag, render it if the product has integrations
-		const productHasIntegrations = PRODUCT_SLUGS_WITH_INTEGRATIONS.includes(
-			currentProductTag.id
-		)
-		shouldRenderIntegrationsTab = productHasIntegrations
-	} else {
-		// Otherwise search is across all products, so render it
-		shouldRenderIntegrationsTab = true
-	}
+	const shouldRenderIntegrationsTab =
+		getShouldRenderIntegrationsTab(currentProductTag)
 
 	return (
 		<div className={s.tabsWrapper}>
