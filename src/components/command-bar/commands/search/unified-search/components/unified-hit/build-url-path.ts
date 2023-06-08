@@ -3,9 +3,8 @@ import { getIntegrationUrl } from 'lib/integrations'
 
 export function buildUrlPath(searchHit: $TSFixMe): string {
 	if (searchHit.type === 'docs') {
-		return `/${searchHit.objectID}`
-			.replace(/\/index$/, '')
-			.replace('/_docs', '/')
+		const objectIdWithoutType = searchHit.objectID.replace('docs_', '')
+		return `/${objectIdWithoutType}`.replace(/\/index$/, '')
 	} else if (searchHit.type === 'tutorial') {
 		const { slug, defaultContext } = searchHit
 		return getTutorialSlug(slug, defaultContext.slug)
