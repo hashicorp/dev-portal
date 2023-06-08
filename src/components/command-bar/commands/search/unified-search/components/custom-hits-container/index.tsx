@@ -54,4 +54,4 @@ const CustomHitsContainer = ({
 }
 
 export type { CustomHitsContainerProps }
-export default CustomHitsContainer
+export { CustomHitsContainer }

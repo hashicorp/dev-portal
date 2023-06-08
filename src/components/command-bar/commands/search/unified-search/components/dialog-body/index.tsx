@@ -40,7 +40,10 @@ export function UnifiedSearchDialogBody() {
 	useSetStateDebounce(setSearchQuery, currentInputValue, 300)
 
 	// Add a new "recent search" when the (debounced) `searchQuery` value updates.
-	// TODO: consider longer debounce for setting recent search queries?
+	/**
+	 * TODO: consider longer debounce for setting recent search queries?
+	 * Or maybe additional debounce should be built into `useRecentSearches`?
+	 */
 	useEffect(() => addRecentSearch(searchQuery), [addRecentSearch, searchQuery])
 
 	// Generate suggested pages, memoized.

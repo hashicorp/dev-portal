@@ -16,6 +16,7 @@ import type { SearchableContentType } from 'contexts'
 import s from './dialog-contents.module.css'
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
+import AllTabContents from '../all-tab-contents'
 
 /**
  * TODO: add description
@@ -116,7 +117,7 @@ function UnifiedSearchDialogContents({
 						return null
 					}
 
-					const { heading, icon, renderContent } = tabContentByType[contentType]
+					const { heading, icon } = tabContentByType[contentType]
 
 					const tutorialLibraryCta =
 						generateTutorialLibraryCta(currentProductTag)
@@ -133,10 +134,11 @@ function UnifiedSearchDialogContents({
 							icon={icon}
 							key={contentType}
 						>
-							{renderContent({
-								currentProductTag,
-								suggestedPages,
-								noResultsMessageSlot: (
+							<AllTabContents
+								currentContentType={contentType}
+								currentProductTag={currentProductTag}
+								suggestedPages={suggestedPages}
+								noResultsMessageSlot={
 									<NoResultsMessage
 										currentTabHeading={heading}
 										tabsWithResults={tabData.filter((tabData) => {
@@ -145,8 +147,8 @@ function UnifiedSearchDialogContents({
 											return isOtherTab && tabHasResults
 										})}
 									/>
-								),
-							})}
+								}
+							/>
 							{contentType === 'tutorials' ? (
 								<TabContentsCta
 									href={tutorialLibraryCta.href}

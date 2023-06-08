@@ -3,24 +3,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactElement, ReactNode } from 'react'
+import { ReactElement } from 'react'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { SearchableContentType } from 'contexts'
-import { CommandBarTag } from 'components/command-bar/types'
-import { SuggestedPage } from '../../../components'
-// TODO: simplify these, all same index now
-import AllTabContents from '../all-tab-contents'
-
-/**
- * We require some up-to-date props to render each content type tab.
- */
-interface RenderContentProps {
-	noResultsMessageSlot: ReactNode
-	currentProductTag: CommandBarTag
-	suggestedPages: SuggestedPage[]
-}
 
 /**
  * Each content type has a set of properties we use to render that
@@ -29,11 +16,6 @@ interface RenderContentProps {
 interface SearchableContentTypeTab {
 	heading: string
 	icon: ReactElement<React.JSX.IntrinsicElements['svg']>
-	renderContent: ({
-		noResultsMessageSlot,
-		currentProductTag,
-		suggestedPages,
-	}: RenderContentProps) => ReactNode
 }
 
 /**
@@ -49,48 +31,17 @@ export const tabContentByType: Record<
 	all: {
 		heading: 'All',
 		icon: <IconDocs16 />,
-		renderContent: (props: RenderContentProps) => (
-			<AllTabContents
-				currentProductTag={props.currentProductTag}
-				suggestedPages={props.suggestedPages}
-				noResultsMessageSlot={props.noResultsMessageSlot}
-			/>
-		),
 	},
 	docs: {
 		heading: 'Documentation',
 		icon: <IconDocs16 />,
-		renderContent: (props: RenderContentProps) => (
-			<AllTabContents
-				currentContentType="docs"
-				currentProductTag={props.currentProductTag}
-				suggestedPages={props.suggestedPages}
-				noResultsMessageSlot={props.noResultsMessageSlot}
-			/>
-		),
 	},
 	tutorials: {
 		heading: 'Tutorials',
 		icon: <IconLearn16 />,
-		renderContent: (props: RenderContentProps) => (
-			<AllTabContents
-				currentContentType="tutorials"
-				currentProductTag={props.currentProductTag}
-				suggestedPages={props.suggestedPages}
-				noResultsMessageSlot={props.noResultsMessageSlot}
-			/>
-		),
 	},
 	integrations: {
 		heading: 'Integrations',
 		icon: <IconPipeline16 />,
-		renderContent: (props: RenderContentProps) => (
-			<AllTabContents
-				currentContentType="integrations"
-				currentProductTag={props.currentProductTag}
-				suggestedPages={props.suggestedPages}
-				noResultsMessageSlot={props.noResultsMessageSlot}
-			/>
-		),
 	},
 }
