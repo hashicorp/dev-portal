@@ -16,7 +16,10 @@ import type { SearchableContentType } from 'contexts'
 import s from './dialog-contents.module.css'
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
-import AllTabContents from '../all-tab-contents'
+import { Configure, Index } from 'react-instantsearch-hooks-web'
+import { CommandBarDivider } from 'components/command-bar/components'
+import { CustomHitsContainer } from '../'
+import { buildAlgoliaFilters } from './build-algolia-filters'
 
 /**
  * TODO: add description
@@ -119,6 +122,11 @@ function UnifiedSearchDialogContents({
 
 					const { heading, icon } = tabContentByType[contentType]
 
+					/**
+					 * Build filters for Algolia
+					 */
+					const filters = buildAlgoliaFilters(currentProductTag, contentType)
+
 					const tutorialLibraryCta =
 						generateTutorialLibraryCta(currentProductTag)
 
@@ -134,21 +142,26 @@ function UnifiedSearchDialogContents({
 							icon={icon}
 							key={contentType}
 						>
-							<AllTabContents
-								currentContentType={contentType}
-								currentProductTag={currentProductTag}
-								suggestedPages={suggestedPages}
-								noResultsMessageSlot={
-									<NoResultsMessage
-										currentTabHeading={heading}
-										tabsWithResults={tabData.filter((tabData) => {
-											const isOtherTab = tabData.type !== contentType
-											const tabHasResults = tabData.hitCount > 0
-											return isOtherTab && tabHasResults
-										})}
-									/>
-								}
-							/>
+							<Index indexName={__config.dev_dot.algolia.unifiedIndexName}>
+								<Configure filters={filters.join(' AND ')} />
+								<CustomHitsContainer
+									type={contentType}
+									noResultsSlot={
+										<>
+											<NoResultsMessage
+												currentTabHeading={heading}
+												tabsWithResults={tabData.filter((tabData) => {
+													const isOtherTab = tabData.type !== contentType
+													const tabHasResults = tabData.hitCount > 0
+													return isOtherTab && tabHasResults
+												})}
+											/>
+											<CommandBarDivider className={s.divider} />
+											<SuggestedPages pages={suggestedPages} />
+										</>
+									}
+								/>
+							</Index>
 							{contentType === 'tutorials' ? (
 								<TabContentsCta
 									href={tutorialLibraryCta.href}
