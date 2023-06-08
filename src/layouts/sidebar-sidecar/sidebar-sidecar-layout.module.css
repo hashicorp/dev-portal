@@ -174,13 +174,15 @@ for further details.
 	flex-shrink: 0;
 
 	/* Note: we don't ever want the top slot to be very tall, and we don't
-	   really want this container to ever have to scroll.
-	   But we do want to gracefully handle unexpected edge cases where it 
-		 does exceed the available height. We set its max-height to
-		 half the available sidecar max-height, as otherwise it would clobber
-		 the sidecar scrollable content down to a 0px tall container. */
+	   really want this container to ever have to scroll. However, we also
+		 need overflow: visible here to allow things like the variant dropdown
+		 to visually overflow the .sidecarTopSlot rather than cause it to
+		 turn into a scrollable container or increase in height.
+		 There is still a potential edge case here where .sidecarTopSlot
+		 content is too tall even in its default state, but this is
+		 not expected to be an edge case we'll run into. */
 	max-height: calc(var(--max-sidecar-height) / 2);
-	overflow-y: auto;
+	overflow: visible;
 }
 
 /* .editOnGithubLink is an element within the `.main` area.
