@@ -3,16 +3,19 @@ import {
 	NoResultsMessage,
 	RecentSearches,
 	SuggestedPages,
+	TabContentsCta,
 	TabHeadingWithCount,
 } from '../../../components'
 import { useCommandBar } from 'components/command-bar'
-import { useHitsContext } from '../../../helpers'
+import { generateTutorialLibraryCta, useHitsContext } from '../../../helpers'
 import { tabContentByType } from './tab-content-by-type'
 import Tabs, { Tab } from 'components/tabs'
 // Types
 import type { SearchableContentType } from 'contexts'
 // Styles
 import s from './dialog-contents.module.css'
+import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
+import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 
 /**
  * TODO: add description
@@ -115,6 +118,9 @@ function UnifiedSearchDialogContents({
 
 					const { heading, icon, renderContent } = tabContentByType[contentType]
 
+					const tutorialLibraryCta =
+						generateTutorialLibraryCta(currentProductTag)
+
 					return (
 						<Tab
 							heading={heading}
@@ -141,32 +147,26 @@ function UnifiedSearchDialogContents({
 									/>
 								),
 							})}
+							{contentType === 'tutorials' ? (
+								<TabContentsCta
+									href={tutorialLibraryCta.href}
+									icon={<IconGuide16 />}
+									text={tutorialLibraryCta.text}
+								/>
+							) : null}
+							{contentType === 'integrations' && currentProductTag ? (
+								<TabContentsCta
+									href={`/${currentProductTag.id}/integrations`}
+									icon={<IconPipeline16 />}
+									text={`See all ${currentProductTag.text} integrations`}
+								/>
+							) : null}
 						</Tab>
 					)
 				})}
 			</Tabs>
 		</div>
 	)
-
-	// return (
-	// 	<div style={{ border: '2px solid magenta', overflow: 'hidden' }}>
-	// 		Unified search results pane will go here.
-	// 		<pre>
-	// 			<code>
-	// 				{JSON.stringify(
-	// 					{
-	// 						currentProductTag,
-	// 						recentSearches,
-	// 						// Note: icon ends up making a "cyclic reference" error
-	// 						suggestedPages: suggestedPages.map(({ icon, ...rest }) => rest),
-	// 					},
-	// 					null,
-	// 					2
-	// 				)}
-	// 			</code>
-	// 		</pre>
-	// 	</div>
-	// )
 }
 
 export { UnifiedSearchDialogContents }

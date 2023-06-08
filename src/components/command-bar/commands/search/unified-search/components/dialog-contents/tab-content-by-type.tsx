@@ -9,12 +9,8 @@ import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { SearchableContentType } from 'contexts'
 import { CommandBarTag } from 'components/command-bar/types'
-import { generateTutorialLibraryCta } from '../../../helpers'
 import { SuggestedPage } from '../../../components'
 // TODO: simplify these, all same index now
-import IntegrationsTabContents from '../integrations-tab-contents'
-import DocumentationTabContents from '../documentation-tab-contents'
-import TutorialsTabContents from '../tutorials-tab-contents'
 import AllTabContents from '../all-tab-contents'
 
 /**
@@ -42,6 +38,9 @@ interface SearchableContentTypeTab {
 
 /**
  * Build an object used to render all of the Tab elements, by content type.
+ *
+ * TODO: all renderContent are pretty much the same, should pull this apart
+ * a little bit more.
  */
 export const tabContentByType: Record<
 	SearchableContentType | 'all',
@@ -62,7 +61,8 @@ export const tabContentByType: Record<
 		heading: 'Documentation',
 		icon: <IconDocs16 />,
 		renderContent: (props: RenderContentProps) => (
-			<DocumentationTabContents
+			<AllTabContents
+				currentContentType="docs"
 				currentProductTag={props.currentProductTag}
 				suggestedPages={props.suggestedPages}
 				noResultsMessageSlot={props.noResultsMessageSlot}
@@ -73,9 +73,10 @@ export const tabContentByType: Record<
 		heading: 'Tutorials',
 		icon: <IconLearn16 />,
 		renderContent: (props: RenderContentProps) => (
-			<TutorialsTabContents
+			<AllTabContents
+				currentContentType="tutorials"
 				currentProductTag={props.currentProductTag}
-				tutorialLibraryCta={generateTutorialLibraryCta(props.currentProductTag)}
+				suggestedPages={props.suggestedPages}
 				noResultsMessageSlot={props.noResultsMessageSlot}
 			/>
 		),
@@ -84,8 +85,10 @@ export const tabContentByType: Record<
 		heading: 'Integrations',
 		icon: <IconPipeline16 />,
 		renderContent: (props: RenderContentProps) => (
-			<IntegrationsTabContents
+			<AllTabContents
+				currentContentType="integrations"
 				currentProductTag={props.currentProductTag}
+				suggestedPages={props.suggestedPages}
 				noResultsMessageSlot={props.noResultsMessageSlot}
 			/>
 		),

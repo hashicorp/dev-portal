@@ -6,9 +6,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
+//
 import { useCurrentProduct } from 'contexts'
 import { useCommandBar } from 'components/command-bar'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
+//
 import useRecentSearches from '../../../hooks/use-recent-searches'
 import { generateSuggestedPages, getCurrentProductTag } from '../../../helpers'
 import { UnifiedSearchDialogContents } from '../dialog-contents'
@@ -35,13 +37,16 @@ export function UnifiedSearchDialogBody() {
 	const { recentSearches, addRecentSearch } = useRecentSearches()
 
 	/**
+	 * Put two effects below in a useSearchQuery hook?
+	 */
+
+	/**
 	 * Delay sending off search queries while the user is typing.
 	 */
 	useEffect(() => {
 		const typingDebounce = setTimeout(() => {
 			setSearchQuery(currentInputValue)
 		}, 300)
-
 		return () => clearTimeout(typingDebounce)
 	}, [currentInputValue])
 
@@ -51,6 +56,11 @@ export function UnifiedSearchDialogBody() {
 	useEffect(() => {
 		addRecentSearch(searchQuery)
 	}, [addRecentSearch, searchQuery])
+
+	/**
+	 * Put the three effects below, and useSetUpAndCleanUpCommandState below,
+	 * in a useCommandStateWithProduct hook?
+	 */
 
 	/**
 	 * Create callback for setting up this command's state.

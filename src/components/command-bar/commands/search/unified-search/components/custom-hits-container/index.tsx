@@ -8,12 +8,6 @@ import { useHits } from 'react-instantsearch-hooks-web'
 import { CommandBarList } from 'components/command-bar/components'
 import { useHitsContext } from '../../../helpers'
 import { CustomHitsContainerProps } from './types'
-import {
-	DocumentationHit,
-	DocumentationHitObject,
-	TutorialHit,
-	TutorialHitObject,
-} from '../'
 import s from './custom-hits-container.module.css'
 import { UnifiedHit } from '../unified-hit'
 
@@ -23,7 +17,7 @@ const CustomHitsContainer = ({
 	type,
 }: CustomHitsContainerProps) => {
 	const [hitCounts, setHitCounts] = useHitsContext()
-	const { hits } = useHits<DocumentationHitObject | TutorialHitObject>()
+	const { hits } = useHits()
 
 	/**
 	 * When hits within this index context are updated,
@@ -50,30 +44,9 @@ const CustomHitsContainer = ({
 			</div>
 			<div className={s.comandBarListWrapper}>
 				<CommandBarList ariaLabelledBy={labelElementId}>
-					{hits.map(
-						(hit: DocumentationHitObject | TutorialHitObject | $TSFixMe) => {
-							let hitObject
-
-							// TODO: all content types could use a unified hit type
-							// return <UnifiedHit key={hit.objectID} hit={hit} />
-
-							if (type === 'all' || type === 'integrations') {
-								return <UnifiedHit key={hit.objectID} hit={hit} />
-							}
-
-							if (type === 'docs') {
-								hitObject = hit as DocumentationHitObject
-								return (
-									<DocumentationHit key={hitObject.objectID} hit={hitObject} />
-								)
-							}
-
-							if (type === 'tutorials') {
-								hitObject = hit as TutorialHitObject
-								return <TutorialHit key={hitObject.objectID} hit={hitObject} />
-							}
-						}
-					)}
+					{hits.map((hit: $TSFixMe) => {
+						return <UnifiedHit key={hit.objectID} hit={hit} />
+					})}
 				</CommandBarList>
 			</div>
 		</>
