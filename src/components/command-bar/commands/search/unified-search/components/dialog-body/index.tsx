@@ -3,20 +3,20 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
+import { useSetStateDebounce } from './use-set-state-debounce'
 //
-import { useCurrentProduct } from 'contexts'
 import { useCommandBar } from 'components/command-bar'
-import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 //
 import useRecentSearches from '../../../hooks/use-recent-searches'
-import { generateSuggestedPages, getCurrentProductTag } from '../../../helpers'
+import { generateSuggestedPages } from '../../../helpers'
 import { UnifiedSearchDialogContents } from '../dialog-contents'
 // Types
 import type { SuggestedPage } from '../../../components'
 import type { ProductSlug } from 'types/products'
+import { useCommandBarProductTag } from './use-command-bar-product-tag'
 
 /**
  * TODO: add description
@@ -31,78 +31,20 @@ const searchClient = algoliasearch(appId, apiKey)
  * TODO: add description
  */
 export function UnifiedSearchDialogBody() {
-	const currentProduct = useCurrentProduct()
-	const { addTag, currentInputValue, currentTags, removeTag } = useCommandBar()
-	const [searchQuery, setSearchQuery] = useState(undefined)
+	const { currentInputValue } = useCommandBar()
+	const currentProductTag = useCommandBarProductTag()
+	const [searchQuery, setSearchQuery] = useState<string>(undefined)
 	const { recentSearches, addRecentSearch } = useRecentSearches()
 
-	/**
-	 * Put two effects below in a useSearchQuery hook?
-	 */
+	// Delay sending off search queries while the user is typing
+	useSetStateDebounce(setSearchQuery, currentInputValue, 300)
 
-	/**
-	 * Delay sending off search queries while the user is typing.
-	 */
-	useEffect(() => {
-		const typingDebounce = setTimeout(() => {
-			setSearchQuery(currentInputValue)
-		}, 300)
-		return () => clearTimeout(typingDebounce)
-	}, [currentInputValue])
+	// Add a new "recent search" when the (debounced) `searchQuery` value updates.
+	// TODO: consider longer debounce for setting recent search queries?
+	useEffect(() => addRecentSearch(searchQuery), [addRecentSearch, searchQuery])
 
-	/**
-	 * Add a new recent search when `searchQuery` updates.
-	 */
-	useEffect(() => {
-		addRecentSearch(searchQuery)
-	}, [addRecentSearch, searchQuery])
-
-	/**
-	 * Put the three effects below, and useSetUpAndCleanUpCommandState below,
-	 * in a useCommandStateWithProduct hook?
-	 */
-
-	/**
-	 * Create callback for setting up this command's state.
-	 */
-	const setUpCommandState = useCallback(() => {
-		if (currentProduct) {
-			addTag({
-				id: currentProduct.slug,
-				text: currentProduct.slug === 'hcp' ? 'HCP' : currentProduct.name,
-			})
-		}
-	}, [addTag, currentProduct])
-
-	/**
-	 * Create callback for cleaning up this command's state.
-	 */
-	const cleanUpCommandState = useCallback(() => {
-		if (currentProduct) {
-			removeTag(currentProduct.slug)
-		}
-	}, [currentProduct, removeTag])
-
-	/**
-	 * Leveraging the set up + clean up hook exposed by CommandBarDialog.
-	 */
-	useSetUpAndCleanUpCommandState(setUpCommandState, cleanUpCommandState)
-
-	/**
-	 * Get the CommandBarTag object for the current product if it's present.
-	 */
-	const currentProductTag = useMemo(
-		() =>
-			getCurrentProductTag({
-				currentProduct,
-				currentTags,
-			}),
-		[currentProduct, currentTags]
-	)
-
-	/**
-	 * Generate suggested pages, memoized.
-	 */
+	// Generate suggested pages, memoized.
+	// TODO: investigate why this was memo-ized?
 	const suggestedPages = useMemo<SuggestedPage[]>(() => {
 		return generateSuggestedPages(currentProductTag?.id as ProductSlug)
 	}, [currentProductTag])
