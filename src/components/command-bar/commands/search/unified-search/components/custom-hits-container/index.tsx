@@ -42,7 +42,7 @@ const CustomHitsContainer = ({
 			<div id={labelElementId} className="g-screen-reader-only">
 				{type} search results
 			</div>
-			<div className={s.comandBarListWrapper}>
+			<div className={s.commandBarListWrapper}>
 				<CommandBarList ariaLabelledBy={labelElementId}>
 					{hits.map((hit: $TSFixMe) => {
 						return <UnifiedHit key={hit.objectID} hit={hit} />
