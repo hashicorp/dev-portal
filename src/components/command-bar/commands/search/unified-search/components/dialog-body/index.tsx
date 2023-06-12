@@ -3,29 +3,29 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
+// Libraries
 import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
-import { useSetStateDebounce } from '../../utils/use-set-state-debounce'
-//
+// Shared search-related utilities
 import { useCommandBar } from 'components/command-bar'
-//
-import useRecentSearches from '../../../hooks/use-recent-searches'
 import { generateSuggestedPages } from '../../../helpers'
+// Shared search components
+import { RecentSearches, SuggestedPages } from '../../../components'
+// Unified search components
 import { UnifiedHitsContainer } from '../unified-hits-container'
-// Types
-import {
-	RecentSearches,
-	SuggestedPages,
-	type SuggestedPage,
-} from '../../../components'
-import type { ProductSlug } from 'types/products'
+// Unified search utilities
+import { useDebouncedRecentSearches } from '../../utils/use-debounced-recent-searches'
 import { useCommandBarProductTag } from '../../utils/use-command-bar-product-tag'
 import { buildAlgoliaFilters } from '../../utils/build-algolia-filters'
+// Types
+import type { ProductSlug } from 'types/products'
+import type { SuggestedPage } from '../../../components'
+// Styles
 import s from './dialog-body.module.css'
 
 /**
- * TODO: add description
+ * Initialize the algolia search client.
  *
  * TODO(brkalow): We might consider lazy-loading the search client & the insights library
  */
@@ -34,33 +34,21 @@ const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
 const searchClient = algoliasearch(appId, apiKey)
 
 /**
- * TODO: add description
+ * Render the command bar dialog body for unified search results.
+ *
+ * If we have an input value in the command bar, we render search results
+ * from Algolia, through the `UnifiedHitsContainer` component. We apply
+ * an initial filter for the current product context where applicable.
+ *
+ * If we don't have an input value, we render suggested pages, which are
+ * tailored to the current product context where applicable.
+ *
+ * This component also tracks recent searches through `useRecentSearches`.
  */
 export function UnifiedSearchCommandBarDialogBody() {
 	const { currentInputValue } = useCommandBar()
 	const currentProductTag = useCommandBarProductTag()
-	// TODO: debouncing should be handled by recent searches hook, I think
-	const [debouncedInput, setDebouncedInput] = useState<string>(undefined)
-	const { recentSearches, addRecentSearch } = useRecentSearches()
-
-	/**
-	 * Delay recording search queries while the user is typing
-	 */
-	useSetStateDebounce(setDebouncedInput, currentInputValue, 300)
-
-	/**
-	 * Add a new "recent search" when the debounced input value updates.
-	 *
-	 * TODO: consider longer debounce for setting recent search queries?
-	 * Or maybe additional debounce should be built into `useRecentSearches`?
-	 * `debouncedInput` is now only used for recent search queries,
-	 * so maybe the debounce should be part of some variation of the
-	 * `useRecentSearches` hook instead of how things currently are?
-	 */
-	useEffect(
-		() => addRecentSearch(debouncedInput),
-		[addRecentSearch, debouncedInput]
-	)
+	const recentSearches = useDebouncedRecentSearches(currentInputValue)
 
 	/**
 	 * Generate suggested pages for the current product (if any).

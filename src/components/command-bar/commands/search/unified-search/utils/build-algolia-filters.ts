@@ -15,7 +15,5 @@ export function buildAlgoliaFilters(currentProductTag: $TSFixMe): string {
 		productFilter = `products:${id} OR edition:${id}`
 	}
 
-	console.log({ productFilter })
-
 	return productFilter
 }
