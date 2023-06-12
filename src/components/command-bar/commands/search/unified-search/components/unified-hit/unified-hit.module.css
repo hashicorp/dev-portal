@@ -1,5 +1,6 @@
 .withHighlight {
 	color: black;
+
 	& mark {
 		background-color: transparent;
 		color: var(--token-color-foreground-action);

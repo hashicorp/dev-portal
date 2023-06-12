@@ -7,8 +7,9 @@ import { useMemo } from 'react'
 // Libraries
 import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
-// Shared search
+// Command bar
 import { useCommandBar } from 'components/command-bar'
+// Shared search
 import { generateSuggestedPages } from '../../../helpers'
 import { RecentSearches, SuggestedPages } from '../../../components'
 // Unified search

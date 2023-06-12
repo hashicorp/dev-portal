@@ -1,25 +1,18 @@
 // Components
 import CardLink from 'components/card-link'
 import Text from 'components/text'
-// Local
+// Helpers
 import { buildUrlPath } from '../../utils/build-url-path'
+// Styles
 import s from './unified-hit.module.css'
 
-function renderHighlightArray(facet, matchesOnly = false) {
-	return (facet || [])
-		.filter((entry) => {
-			if (matchesOnly) {
-				return entry.matchLevel !== 'none'
-			} else {
-				return true
-			}
-		})
-		.map((entry) => {
-			return entry?.value
-		})
-		.join(', ')
-}
-
+/**
+ * TODO: this is a placeholder component for a "hit" card component.
+ * It can likely be ignored for now.
+ *
+ * We'll replace this with something properly usable in a future pass
+ * to the "All" tab work for unified search.
+ */
 export function UnifiedHit({ hit }) {
 	const { objectID, _highlightResult } = hit as $TSFixMe
 	const { page_title, type, description, products, headings, codeListItems } =
@@ -134,4 +127,25 @@ export function UnifiedHit({ hit }) {
 			</CardLink>
 		</div>
 	)
+}
+
+/**
+ * Placeholder function to render some highlighted information.
+ *
+ * We'll replace this with something properly usable in a future pass
+ * to the "All" tab work for unified search.
+ */
+function renderHighlightArray(facet, matchesOnly = false) {
+	return (facet || [])
+		.filter((entry) => {
+			if (matchesOnly) {
+				return entry.matchLevel !== 'none'
+			} else {
+				return true
+			}
+		})
+		.map((entry) => {
+			return entry?.value
+		})
+		.join(', ')
 }
