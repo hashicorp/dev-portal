@@ -1,7 +1,15 @@
 import { getTutorialSlug } from 'views/collection-view/helpers'
 import { getIntegrationUrl } from 'lib/integrations'
+// Types
+import type { Hit } from 'instantsearch.js'
 
-export function buildUrlPath(searchHit: $TSFixMe): string {
+/**
+ * Builds a URL path to an arbitrary hit from our unified `<env>_DEVDOT_omni`
+ * Algolia indices.
+ *
+ * TODO: consider baking a `urlPath` property into each Algolia object?
+ */
+export function buildUrlPath(searchHit: Hit): string {
 	if (searchHit.type === 'docs') {
 		const objectIdWithoutType = searchHit.objectID.replace('docs_', '')
 		return `/${objectIdWithoutType}`.replace(/\/index$/, '')
