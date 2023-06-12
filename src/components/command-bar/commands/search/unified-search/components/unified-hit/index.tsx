@@ -2,7 +2,9 @@
 import CardLink from 'components/card-link'
 import Text from 'components/text'
 // Helpers
-import { buildUrlPath } from '../../utils/build-url-path'
+import { buildUrlPath, renderHighlightArrayHtml } from './helpers'
+// Types
+import type { Hit } from 'instantsearch.js'
 // Styles
 import s from './unified-hit.module.css'
 
@@ -13,7 +15,7 @@ import s from './unified-hit.module.css'
  * We'll replace this with something properly usable in a future pass
  * to the "All" tab work for unified search.
  */
-export function UnifiedHit({ hit }) {
+export function UnifiedHit({ hit }: { hit: Hit }) {
 	const { objectID, _highlightResult } = hit as $TSFixMe
 	const { page_title, type, description, products, headings, codeListItems } =
 		_highlightResult
@@ -45,8 +47,8 @@ export function UnifiedHit({ hit }) {
 	 */
 	const urlPath = buildUrlPath(hit)
 
-	const headingsHighlight = renderHighlightArray(headings, true)
-	const codeListItemsHighlight = renderHighlightArray(codeListItems, true)
+	const headingsHighlight = renderHighlightArrayHtml(headings, true)
+	const codeListItemsHighlight = renderHighlightArrayHtml(codeListItems, true)
 
 	return (
 		<div key={objectID}>
@@ -56,7 +58,7 @@ export function UnifiedHit({ hit }) {
 						__html:
 							`[${type?.value}] ` +
 							page_title?.value +
-							` (products: ${renderHighlightArray(products)})`,
+							` (products: ${renderHighlightArrayHtml(products)})`,
 					}}
 					asElement="span"
 					className={s.withHighlight}
@@ -127,25 +129,4 @@ export function UnifiedHit({ hit }) {
 			</CardLink>
 		</div>
 	)
-}
-
-/**
- * Placeholder function to render some highlighted information.
- *
- * We'll replace this with something properly usable in a future pass
- * to the "All" tab work for unified search.
- */
-function renderHighlightArray(facet, matchesOnly = false) {
-	return (facet || [])
-		.filter((entry) => {
-			if (matchesOnly) {
-				return entry.matchLevel !== 'none'
-			} else {
-				return true
-			}
-		})
-		.map((entry) => {
-			return entry?.value
-		})
-		.join(', ')
 }

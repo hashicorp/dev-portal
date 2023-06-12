@@ -1,120 +1,65 @@
-import { ReactElement, useMemo } from 'react'
-import {
-	NoResultsMessage,
-	SuggestedPages,
-	TabContentsCta,
-	TabHeadingWithCount,
-} from '../../../components'
-import { generateTutorialLibraryCta } from '../../../helpers'
-import Tabs, { Tab } from 'components/tabs'
-// Types
-import type { SearchableContentType } from 'contexts'
-// Styles
-import s from './dialog-contents.module.css'
-import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
-import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
-import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
-import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
-import { IconGlobe16 } from '@hashicorp/flight-icons/svg-react/globe-16'
+// Libraries
+import { useMemo } from 'react'
 import { useHits } from 'react-instantsearch-hooks-web'
+// Global
+import Tabs, { Tab } from 'components/tabs'
 import { CommandBarDivider } from 'components/command-bar/components'
 import { CommandBarList } from 'components/command-bar/components'
+// Shared search
+import {
+	NoResultsMessage,
+	SuggestedPage,
+	SuggestedPages,
+	TabHeadingWithCount,
+} from '../../../components'
+// Unified search
 import { UnifiedHit } from '../unified-hit'
-import { getShouldRenderIntegrationsTab } from '../../utils/get-should-render-integrations-tab'
-import { getAlgoliaContentType } from '../../utils/get-algolia-content-type'
-import { filterUnifiedSearchHits } from '../../utils/filter-unified-search-hits'
+import { gatherSearchTabsContent } from './helpers'
+// Types
+import type { ProductSlug } from 'types/products'
+import type { Hit } from 'instantsearch.js'
+import type { UnifiedSearchTabContent } from './helpers'
+// Styles
+import s from './unified-hits-container.module.css'
 
 /**
- * Each content type has a set of properties we use to render that
- * tab's content.
+ * Render search results from our unified index into content-type tabs.
+ *
+ * Note: this component needs to be used within an `InstantSearch` container
+ * imported from 'react-instantsearch-hooks-web'. That container provides
+ * the context from which `rawHits` are pulled.
  */
-interface SearchableContentTypeTab {
-	heading: string
-	icon: ReactElement<React.JSX.IntrinsicElements['svg']>
-}
-
-/**
- * Build an object used to render all of the Tab elements, by content type.
- */
-export const tabContentByType: Record<
-	SearchableContentType | 'all',
-	SearchableContentTypeTab
-> = {
-	all: {
-		heading: 'All',
-		icon: <IconGlobe16 />,
-	},
-	docs: {
-		heading: 'Documentation',
-		icon: <IconDocs16 />,
-	},
-	tutorials: {
-		heading: 'Tutorials',
-		icon: <IconLearn16 />,
-	},
-	integrations: {
-		heading: 'Integrations',
-		icon: <IconPipeline16 />,
-	},
-}
-
-export function UnifiedHitsContainer({ currentProductTag, suggestedPages }) {
+export function UnifiedHitsContainer({
+	currentProductSlug,
+	suggestedPages,
+}: {
+	currentProductSlug?: ProductSlug
+	suggestedPages: SuggestedPage[]
+}) {
 	const { hits: rawHits } = useHits()
 
 	/**
 	 * Transform searchableContentTypes into data for each content tab.
 	 *
 	 * Note: we set up this data before rather than during render,
-	 * because each tab potentially needs any other tab's data in order
-	 * to render a helpful "No Results" message.
+	 * because each tab needs data from all other tabs in order
+	 * to show a helpful "No Results" message.
 	 */
-	const tabData = useMemo(() => {
-		const searchableContentTypes = Object.keys(tabContentByType)
-		return searchableContentTypes.map((contentType: SearchableContentType) => {
-			const { heading, icon } = tabContentByType[contentType]
-			// TODO: refactor use of algoliaContentType,
-			// maybe the SearchableContentType type should be updated?
-			const algoliaContentType = getAlgoliaContentType(contentType)
-			const hits = filterUnifiedSearchHits(rawHits, {
-				contentType: ['docs', 'tutorial', 'integration'].includes(
-					algoliaContentType
-				)
-					? algoliaContentType
-					: undefined,
-			})
-			return {
-				type: contentType,
-				heading,
-				icon,
-				hits,
-				hitCount: hits.length,
-				algoliaContentType,
-			}
-		})
-	}, [rawHits])
+	const allTabData = useMemo(
+		() => gatherSearchTabsContent(rawHits, currentProductSlug),
+		[rawHits, currentProductSlug]
+	)
 
 	/**
-	 * Determine whether the Integrations tab should be rendered.
+	 * Render the tabs. This is mostly presentation since `tabData` logic is done.
 	 */
-	const shouldRenderIntegrationsTab = useMemo<boolean>(() => {
-		return getShouldRenderIntegrationsTab(currentProductTag)
-	}, [currentProductTag])
-
 	return (
 		<div className={s.tabsWrapper}>
 			<Tabs showAnchorLine={false} variant="compact">
-				{tabData.map((thisTabData: $TSFixMe) => {
-					const { type, heading, icon, hits, algoliaContentType } = thisTabData
-					if (type === 'integrations' && !shouldRenderIntegrationsTab) {
-						return null
-					}
-
-					const tutorialLibraryCta =
-						generateTutorialLibraryCta(currentProductTag)
-
-					const hitCount = hits && hits.length
-					const hasNoResults = hitCount <= 0
-					const commandBarListElementId = `${algoliaContentType}-search-results-label`
+				{allTabData.map((tabData: UnifiedSearchTabContent) => {
+					const { type, heading, icon, hits, hitCount, otherTabsWithResults } =
+						tabData
+					const resultsLabelId = `${type}-search-results-label`
 
 					return (
 						<Tab
@@ -125,55 +70,31 @@ export function UnifiedHitsContainer({ currentProductTag, suggestedPages }) {
 							icon={icon}
 							key={type}
 						>
-							{hasNoResults ? (
+							{hitCount > 0 ? (
+								<>
+									<div id={resultsLabelId} className="g-screen-reader-only">
+										{type} search results
+									</div>
+									<div className={s.commandBarListWrapper}>
+										<CommandBarList ariaLabelledBy={resultsLabelId}>
+											{/* TODO: would be great to have a more detailed type 
+											    here for `hit`, but for now, not over-engineering. */}
+											{hits.map((hit: Hit) => (
+												<UnifiedHit key={hit.objectID} hit={hit} />
+											))}
+										</CommandBarList>
+									</div>
+								</>
+							) : (
 								<>
 									<NoResultsMessage
 										currentTabHeading={heading}
-										tabsWithResults={tabData.filter((tabData) => {
-											const isOtherTab = tabData.type !== type
-											const tabHasResults = tabData.hitCount > 0
-											return isOtherTab && tabHasResults
-										})}
+										tabsWithResults={otherTabsWithResults}
 									/>
 									<CommandBarDivider className={s.divider} />
 									<SuggestedPages pages={suggestedPages} />
 								</>
-							) : (
-								<>
-									<div
-										id={commandBarListElementId}
-										className="g-screen-reader-only"
-									>
-										{type} search results
-									</div>
-									<div className={s.commandBarListWrapper}>
-										<CommandBarList ariaLabelledBy={commandBarListElementId}>
-											{hits.map((hit: $TSFixMe) => {
-												return <UnifiedHit key={hit.objectID} hit={hit} />
-											})}
-										</CommandBarList>
-									</div>
-								</>
 							)}
-							{/* THOUGHT: maybe drop these CTAs, the "suggested pages" already
-							    cover all of the same content? Also, maybe "suggested pages"
-									should be more of a flex layout? Very TALL right now. */}
-							{/* Show the tutorials library CTA in the Tutorials tab */}
-							{type === 'tutorials' ? (
-								<TabContentsCta
-									href={tutorialLibraryCta.href}
-									icon={<IconGuide16 />}
-									text={tutorialLibraryCta.text}
-								/>
-							) : null}
-							{/* Show a product-specific integrations CTA where applicable */}
-							{type === 'integrations' && currentProductTag ? (
-								<TabContentsCta
-									href={`/${currentProductTag.id}/integrations`}
-									icon={<IconPipeline16 />}
-									text={`See all ${currentProductTag.text} integrations`}
-								/>
-							) : null}
 						</Tab>
 					)
 				})}

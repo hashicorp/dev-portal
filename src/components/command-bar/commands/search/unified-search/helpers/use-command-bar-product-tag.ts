@@ -4,6 +4,24 @@ import { useCurrentProduct } from 'contexts'
 import { getCurrentProductTag } from '../../helpers'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 
+/**
+ * Set and un-set the command-bar-level product filtering tag.
+ *
+ * TODO: consider refactoring this.
+ *
+ * We've had feedback from design at least that the "product tag" interface
+ * doesn't feel right within the search modal. This raises a few questions:
+ *
+ * - Is this genuinely a command-bar-wide setting, or are "product tag" filters
+ *   something we could apply to the "Search" command only for now? (Note:
+ *   I'm not even sure other "commands" (ie "settings") are implemented yet...
+ *   managing the "tags" at the command bar level feels like it may have
+ *   been a premature abstraction based on relatively speculative use cases).
+ *
+ * - In the context of search, specifically auto-filtering to a given product
+ *   when in that product context, Would typing-based filters, such as
+ *   `product:<productSlug>`, be preferable to the "product tag" approach?
+ */
 export function useCommandBarProductTag() {
 	const currentProduct = useCurrentProduct()
 	const { addTag, currentTags, removeTag } = useCommandBar()

@@ -14,9 +14,9 @@ import { generateSuggestedPages } from '../../../helpers'
 import { RecentSearches, SuggestedPages } from '../../../components'
 // Unified search
 import { UnifiedHitsContainer } from '../unified-hits-container'
-import { useDebouncedRecentSearches } from '../../utils/use-debounced-recent-searches'
-import { useCommandBarProductTag } from '../../utils/use-command-bar-product-tag'
-import { buildAlgoliaFilters } from '../../utils/build-algolia-filters'
+import { useDebouncedRecentSearches } from '../../helpers/use-debounced-recent-searches'
+import { useCommandBarProductTag } from '../../helpers/use-command-bar-product-tag'
+import { getAlgoliaProductFilterString } from './helpers'
 // Types
 import type { ProductSlug } from 'types/products'
 import type { SuggestedPage } from '../../../components'
@@ -47,14 +47,15 @@ const searchClient = algoliasearch(appId, apiKey)
 export function UnifiedSearchCommandBarDialogBody() {
 	const { currentInputValue } = useCommandBar()
 	const currentProductTag = useCommandBarProductTag()
+	const currentProductSlug = currentProductTag?.id as ProductSlug
 	const recentSearches = useDebouncedRecentSearches(currentInputValue)
 
 	/**
 	 * Generate suggested pages for the current product (if any).
 	 */
 	const suggestedPages = useMemo<SuggestedPage[]>(() => {
-		return generateSuggestedPages(currentProductTag?.id as ProductSlug)
-	}, [currentProductTag])
+		return generateSuggestedPages(currentProductSlug)
+	}, [currentProductSlug])
 
 	/**
 	 * If there's no searchQuery yet, show suggested pages.
@@ -78,10 +79,10 @@ export function UnifiedSearchCommandBarDialogBody() {
 		>
 			<Configure
 				query={currentInputValue}
-				filters={buildAlgoliaFilters(currentProductTag)}
+				filters={getAlgoliaProductFilterString(currentProductSlug)}
 			/>
 			<UnifiedHitsContainer
-				currentProductTag={currentProductTag}
+				currentProductSlug={currentProductSlug}
 				suggestedPages={suggestedPages}
 			/>
 		</InstantSearch>
