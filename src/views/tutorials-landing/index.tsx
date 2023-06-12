@@ -55,12 +55,8 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 
 	return (
 		<div className={s.root}>
-			<div>
-				<PageHero
-					className={s.pageHero}
-					subtitle={PAGE_SUBTITLE}
-					title={PAGE_TITLE}
-				/>
+			<div className={s.pageHero}>
+				<PageHero subtitle={PAGE_SUBTITLE} title={PAGE_TITLE} />
 			</div>
 			{renderProductSections(
 				[firstProductSlug, secondProductSlug, thirdProductSlug],
