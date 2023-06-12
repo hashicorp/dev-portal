@@ -7,7 +7,7 @@ import {
 	TabHeadingWithCount,
 } from '../../../components'
 import { useCommandBar } from 'components/command-bar'
-import { generateTutorialLibraryCta, useHitsContext } from '../../../helpers'
+import { generateTutorialLibraryCta } from '../../../helpers'
 import { tabContentByType } from './tab-content-by-type'
 import Tabs, { Tab } from 'components/tabs'
 // Types
@@ -26,64 +26,60 @@ import { filterUnifiedSearchHits } from './filter-unified-search-hits'
 import { buildAlgoliaFilters } from './build-algolia-filters'
 
 function UnifiedHitsContainer({ currentProductTag, suggestedPages }) {
-	const [hitCounts] = useHitsContext()
 	const { hits: rawHits } = useHits()
 
 	/**
-	 * TODO: add description
-	 */
-	const searchableContentTypes = Object.keys(
-		tabContentByType
-	) as SearchableContentType[]
-
-	/**
-	 * TODO: add description
-	 */
-	const activeTabIndex = 0
-
-	/**
-	 * Transform searchableContentTypes into content tab data with hit counts.
-	 * We use this to render helpful information in our "no results" message.
+	 * Transform searchableContentTypes into data for each content tab.
+	 *
+	 * Note: we set up this data before rather than during render,
+	 * because each tab potentially needs any other tab's data in order
+	 * to render a helpful "No Results" message.
 	 */
 	const tabData = useMemo(() => {
-		return searchableContentTypes.map((type) => {
-			const { heading, icon } = tabContentByType[type]
-			const hitCount = hitCounts[type]
-			return { type, heading, icon, hitCount }
+		const searchableContentTypes = Object.keys(tabContentByType)
+		return searchableContentTypes.map((contentType: SearchableContentType) => {
+			const { heading, icon } = tabContentByType[contentType]
+			// TODO: refactor use of algoliaContentType,
+			// maybe the SearchableContentType type should be updated?
+			const algoliaContentType = getAlgoliaContentType(contentType)
+			const hits = filterUnifiedSearchHits(rawHits, {
+				contentType: ['docs', 'tutorial', 'integration'].includes(
+					algoliaContentType
+				)
+					? algoliaContentType
+					: undefined,
+			})
+			return {
+				type: contentType,
+				heading,
+				icon,
+				hits,
+				hitCount: hits.length,
+				algoliaContentType,
+			}
 		})
-	}, [searchableContentTypes, hitCounts])
+	}, [rawHits])
 
 	/**
 	 * Determine whether the Integrations tab should be rendered.
+	 *
+	 * TODO: could useMemo here, will re-render a lot without currentProductTag
+	 * changing, so even though it's minor, might be worth it.
 	 */
 	const shouldRenderIntegrationsTab =
 		getShouldRenderIntegrationsTab(currentProductTag)
 
 	return (
 		<div className={s.tabsWrapper}>
-			<Tabs
-				showAnchorLine={false}
-				initialActiveIndex={activeTabIndex}
-				variant="compact"
-			>
-				{searchableContentTypes.map((contentType: SearchableContentType) => {
-					if (contentType === 'integrations' && !shouldRenderIntegrationsTab) {
+			<Tabs showAnchorLine={false} variant="compact">
+				{tabData.map((thisTabData: $TSFixMe) => {
+					const { type, heading, icon, hits, algoliaContentType } = thisTabData
+					if (type === 'integrations' && !shouldRenderIntegrationsTab) {
 						return null
 					}
 
-					const { heading, icon } = tabContentByType[contentType]
-
 					const tutorialLibraryCta =
 						generateTutorialLibraryCta(currentProductTag)
-
-					const algoliaContentType = getAlgoliaContentType(contentType)
-					const hits = filterUnifiedSearchHits(rawHits, {
-						contentType: ['docs', 'tutorial', 'integration'].includes(
-							algoliaContentType
-						)
-							? algoliaContentType
-							: undefined,
-					})
 
 					const hitCount = hits && hits.length
 					const hasNoResults = hitCount <= 0
@@ -96,14 +92,14 @@ function UnifiedHitsContainer({ currentProductTag, suggestedPages }) {
 								<TabHeadingWithCount heading={heading} count={hitCount} />
 							}
 							icon={icon}
-							key={contentType}
+							key={type}
 						>
 							{hasNoResults ? (
 								<>
 									<NoResultsMessage
 										currentTabHeading={heading}
 										tabsWithResults={tabData.filter((tabData) => {
-											const isOtherTab = tabData.type !== contentType
+											const isOtherTab = tabData.type !== type
 											const tabHasResults = tabData.hitCount > 0
 											return isOtherTab && tabHasResults
 										})}
@@ -117,7 +113,7 @@ function UnifiedHitsContainer({ currentProductTag, suggestedPages }) {
 										id={commandBarListElementId}
 										className="g-screen-reader-only"
 									>
-										{contentType} search results
+										{type} search results
 									</div>
 									<div className={s.commandBarListWrapper}>
 										<CommandBarList ariaLabelledBy={commandBarListElementId}>
@@ -128,14 +124,19 @@ function UnifiedHitsContainer({ currentProductTag, suggestedPages }) {
 									</div>
 								</>
 							)}
-							{contentType === 'tutorials' ? (
+							{/* THOUGHT: maybe drop these CTAs, the "suggested pages" already
+							    cover all of the same content? Also, maybe "suggested pages"
+									should be more of a flex layout? Very TALL right now. */}
+							{/* Show the tutorials library CTA in the Tutorials tab */}
+							{type === 'tutorials' ? (
 								<TabContentsCta
 									href={tutorialLibraryCta.href}
 									icon={<IconGuide16 />}
 									text={tutorialLibraryCta.text}
 								/>
 							) : null}
-							{contentType === 'integrations' && currentProductTag ? (
+							{/* Show a product-specific integrations CTA where applicable */}
+							{type === 'integrations' && currentProductTag ? (
 								<TabContentsCta
 									href={`/${currentProductTag.id}/integrations`}
 									icon={<IconPipeline16 />}
