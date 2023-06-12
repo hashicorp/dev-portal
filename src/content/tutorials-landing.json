@@ -1,48 +1,117 @@
 {
-	"crossProductSection": {
-		"collectionSlugs": [
-			"well-architected-framework/com",
-			"terraform/hashicorp",
-			"cloud/consul-cloud"
-		]
-	},
 	"productSections": {
 		"terraform": {
-			"certificationProgram": {
-				"slug": "infrastructure-automation",
-				"title": "Verify your Infrastructure Automation skills",
-				"description": "The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform open source."
-			},
 			"featuredUseCases": [
 				{
-					"href": "/terraform/tutorials/applications",
-					"text": "Deploy and Monitor Applications"
+					"href": "/terraform/tutorials/networking/multicloud-kubernetes",
+					"text": "Multi-cloud infrastructure"
 				},
-				{ "href": "/terraform/tutorials/aws", "text": "Manage AWS Services" },
 				{
-					"href": "/terraform/tutorials/azure",
-					"text": "Manage Azure Services"
+					"href": "/terraform/tutorials/cloud/no-code-provisioning",
+					"text": "Self-service deployment"
+				},
+				{
+					"href": "/terraform/tutorials/kubernetes/kubernetes-provider",
+					"text": "Kubernetes management"
 				}
 			],
 			"featuredCollectionSlugs": [
 				"terraform/aws-get-started",
 				"terraform/azure-get-started",
 				"terraform/gcp-get-started"
+			],
+			"certificationProgram": {
+				"slug": "infrastructure-automation",
+				"title": "Get certified",
+				"description": "Validate your infrastructure automation skills by studying for and passing the Terraform Associate certification exam."
+			}
+		},
+		"vault": {
+			"featuredUseCases": [
+				{
+					"href": "/vault/tutorials/kubernetes",
+					"text": "Vault on Kubernetes"
+				},
+				{
+					"href": "/vault/tutorials/db-credentials",
+					"text": "Database credential rotation"
+				},
+				{
+					"href": "/vault/tutorials/secrets-management",
+					"text": "Secrets management"
+				}
+			],
+			"featuredCollectionSlugs": [
+				"vault/getting-started",
+				"vault/getting-started-ui",
+				"vault/cloud"
+			],
+			"certificationProgram": {
+				"slug": "security-automation",
+				"title": "Get certified",
+				"description": "Validate your cloud security skills by studying for and passing the Vault Associate certification exam."
+			}
+		},
+		"consul": {
+			"featuredUseCases": [
+				{
+					"href": "/consul/tutorials/developer-discovery",
+					"text": "Service discovery and health monitoring"
+				},
+				{
+					"href": "/consul/tutorials/kubernetes",
+					"text": "Service mesh on Kubernetes"
+				},
+				{
+					"href": "/consul/tutorials/developer-mesh",
+					"text": "Service mesh and gateways"
+				}
+			],
+			"featuredCollectionSlugs": [
+				"consul/get-started-hcp",
+				"consul/get-started-kubernetes",
+				"consul/get-started-vms"
+			],
+			"certificationProgram": {
+				"slug": "networking-automation",
+				"title": "Get certified",
+				"description": "Validate your networking automation skills by studying for and passing the Consul Associate certification exam."
+			}
+		},
+		"nomad": {
+			"featuredUseCases": [
+				{
+					"href": "/nomad/tutorials/autoscaler",
+					"text": "Auto-scaled applications"
+				},
+				{
+					"href": "/nomad/tutorials/stateful-workloads",
+					"text": "Stateful workloads"
+				},
+				{
+					"href": "/nomad/tutorials/task-deps",
+					"text": "Task dependencies"
+				}
+			],
+			"featuredCollectionSlugs": [
+				"nomad/get-started",
+				"nomad/cluster-setup",
+				"nomad/manage-jobs"
 			]
 		},
 		"packer": {
 			"featuredUseCases": [
 				{
 					"href": "/packer/tutorials/cloud-production/golden-image-with-hcp-packer",
-					"text": "Build a Golden Image Pipeline with HCP Packer"
+					"text": "Golden image pipelines"
 				},
 				{
 					"href": "/packer/tutorials/cloud-production/multicloud",
-					"text": "Standardize Machine Images Across Multiple Cloud Providers"
+					"text": "Standardized images across clouds"
 				},
 				{
 					"href": "/packer/tutorials/cloud-production/github-actions",
-					"text": "Automate Packer with GitHub Actions"
+					"text": "Automated image building"
 				}
 			],
 			"featuredCollectionSlugs": [
@@ -51,97 +120,45 @@
 				"packer/hcp-get-started"
 			]
 		},
-		"consul": {
-			"certificationProgram": {
-				"slug": "networking-automation",
-				"title": "Verify your Networking Automation skills",
-				"description": "The Consul Associate Certification is for Site Reliability Engineers, Solutions Architects, DevOps professionals, or other Cloud Engineers who know the basic concepts and skills to build, secure, and maintain open source HashiCorp Consul."
-			},
-			"featuredUseCases": [
-				{
-					"href": "/consul/tutorials/kubernetes",
-					"text": "Service Mesh on Kubernetes"
-				},
-				{
-					"href": "/consul/tutorials/microservices",
-					"text": "Microservices with Consul on Kubernetes"
-				},
-				{
-					"href": "/consul/tutorials/network-infrastructure-automation",
-					"text": "Network Automation with CTS"
-				}
-			],
-			"featuredCollectionSlugs": [
-				"consul/get-started-hcp",
-				"consul/get-started-kubernetes",
-				"consul/get-started-vms"
-			]
-		},
-		"vault": {
-			"certificationProgram": {
-				"slug": "security-automation",
-				"title": "Verify your Security Automation skills",
-				"description": "Ready to demonstrate your advanced Vault Enterprise skills in production? Successfully complete a lab-based exam and earn the Vault Operations Professional certification."
-			},
-			"featuredUseCases": [
-				{
-					"href": "/vault/tutorials/adp",
-					"text": "Advanced Data Protection"
-				},
-				{
-					"href": "/vault/tutorials/db-credentials",
-					"text": "Database Credential Rotation"
-				},
-				{
-					"href": "/vault/tutorials/encryption-as-a-service",
-					"text": "Data Encryption"
-				}
-			],
-			"featuredCollectionSlugs": [
-				"vault/getting-started",
-				"vault/getting-started-ui",
-				"vault/cloud"
-			]
-		},
 		"boundary": {
 			"featuredUseCases": [
 				{
-					"href": "/boundary/tutorials/hcp-administration",
-					"text": "HCP Boundary Resource Management Workflows"
+					"href": "/boundary/tutorials/credential-management",
+					"text": "Credential management"
 				},
 				{
-					"href": "/boundary/tutorials/oss-administration",
-					"text": "Self-Hosted Boundary Resource Management Workflows"
+					"href": "/boundary/tutorials/identity-management",
+					"text": "Identity management"
 				},
 				{
-					"href": "/boundary/tutorials/access-management",
-					"text": "Secure Access Management Workflows"
+					"href": "/boundary/tutorials/worker-management",
+					"text": "Worker management"
 				}
 			],
 			"featuredCollectionSlugs": [
 				"boundary/hcp-getting-started",
-				"boundary/oss-getting-started"
+				"boundary/oss-getting-started",
+				"boundary/hcp-administration"
 			]
 		},
-		"nomad": {
+		"vagrant": {
 			"featuredUseCases": [
 				{
-					"href": "/nomad/tutorials/autoscaler",
-					"text": "Dynamically Resize with Nomad Autoscaler"
+					"href": "/vagrant/tutorials/networking-provisioning-operations/getting-started-provisioning",
+					"text": "Provision a virtual machine"
 				},
 				{
-					"href": "/nomad/tutorials/stateful-workloads",
-					"text": "Stateful Workloads"
+					"href": "/vagrant/tutorials/networking-provisioning-operations/getting-started-networking",
+					"text": "Configure the network"
 				},
 				{
-					"href": "/nomad/tutorials/task-deps",
-					"text": "Task Dependencies"
+					"href": "/vagrant/tutorials/networking-provisioning-operations/getting-started-providers",
+					"text": "Explore other providers"
 				}
 			],
 			"featuredCollectionSlugs": [
-				"nomad/get-started",
-				"nomad/cluster-setup",
-				"nomad/manage-jobs"
+				"vagrant/getting-started",
+				"vagrant/networking-provisioning-operations"
 			]
 		},
 		"waypoint": {
@@ -164,26 +181,13 @@
 				"waypoint/get-started-kubernetes",
 				"waypoint/get-started-nomad"
 			]
-		},
-		"vagrant": {
-			"featuredUseCases": [
-				{
-					"href": "/vagrant/tutorials/networking-provisioning-operations/getting-started-provisioning",
-					"text": "Provision a Virtual Machine"
-				},
-				{
-					"href": "/vagrant/tutorials/networking-provisioning-operations/getting-started-networking",
-					"text": "Configure the Network"
-				},
-				{
-					"href": "/vagrant/tutorials/networking-provisioning-operations/getting-started-providers",
-					"text": "Explore Other Providers"
-				}
-			],
-			"featuredCollectionSlugs": [
-				"vagrant/getting-started",
-				"vagrant/networking-provisioning-operations"
-			]
 		}
+	},
+	"crossProductSection": {
+		"collectionSlugs": [
+			"well-architected-framework/com",
+			"consul/network-infrastructure-automation",
+			"cloud/networking"
+		]
 	}
 }
