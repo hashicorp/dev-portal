@@ -7,11 +7,11 @@ import terminalScreenIcon from './img/terminal-screen-custom.svg?include'
  * General page-level constants
  */
 
-const PAGE_TITLE = 'Start here'
+const PAGE_TITLE = 'Learn HashiCorp products'
 
 // Used in page preamble AND for og:description
 const PAGE_SUBTITLE =
-	'Brief intro - this is our opportunity to shape the value of this page for our Beginner practitioners. Max character count of 150 would be ideal.  Discover step-by-step learning paths to help you complete essential task to get started with HashiCorp products.'
+	'Start learning with step-by-step, hands-on, command-line tutorials, videos, and hosted terminal sessions. Actionable examples help you learn to provision, secure, connect, or run any application on any infrastructure.'
 
 /**
  * ProductSection constants
@@ -32,41 +32,48 @@ const PRODUCT_SECTIONS_ORDER_BY_SLUG: Exclude<
 ]
 
 const PRODUCT_DESCRIPTIONS = {
-	terraform: 'Build, change, and destroy infrastructure',
-	packer: 'Automate creating machine images',
-	consul: 'Manage secure network connectivity',
-	vault: 'Secure, store, and tightly control access to secrets',
-	boundary: 'Manage identity-based access',
-	nomad: 'Schedule and orchestrate workloads',
-	waypoint: 'Publish any application to any platform',
-	vagrant: 'Build and manage virtual machine environments',
+	terraform:
+		'Provision and manage infrastructure using declarative, human-readable configuration files',
+	packer:
+		'Create machine images for multiple platforms automatically from one source configuration',
+	consul:
+		'Connect and secure services with mutual TLS, and automate network rules across clouds',
+	vault:
+		'Securely store, access, deploy, and rotate secrets. Encrypt data in flight and at rest',
+	boundary:
+		'Control access to critical systems with fine-grained, identity-based authorizations',
+	nomad:
+		'Deploy and manage containers and other applications on-premises and in the cloud at scale',
+	waypoint:
+		'Let teams without infrastructure knowledge ship applications using a PaaS-like interface',
+	vagrant:
+		'Build, manage, and share virtual machine environments with a single workflow',
 }
 
 /**
  * ContentTypesSection constants
  */
 
-const CONTENT_TYPES_SECTION_TITLE =
-	'Jump start your learning how/why statement that leads to our tutorial library'
+const CONTENT_TYPES_SECTION_TITLE = 'Learn your way, at your own pace'
 
 const CONTENT_TYPES_SECTION_ITEMS = [
 	{
 		icon: playIcon,
 		title: 'Byte-sized video demonstrations',
 		description:
-			'Each video lecture is about 5 minutes long and led by HashiCorp engineers',
+			'Build confidence and learn what is coming with short demo videos',
 	},
 	{
 		icon: terminalScreenIcon,
-		title: 'Hands-on labs & study guides',
+		title: 'Hosted terminal environments',
 		description:
-			'Practice your recently learned skills with our in-browser development environment',
+			'Skip the prerequisites and try a tutorial from your browser window',
 	},
 	{
 		icon: bookmarkIcon,
-		title: 'Bookmark and track your path',
+		title: 'Save your place, and your favorites',
 		description:
-			'Meeting you where you’re most familiar with for smooth product adoption',
+			'Life can be busy. Bookmark a tutorial to save your place on your learning path',
 	},
 ]
 
@@ -76,8 +83,7 @@ const CONTENT_TYPES_SECTION_ITEMS = [
  * @TODO rename to match `CrossProductSection` name
  */
 
-const BETTER_TOGETHER_SECTION_TITLE =
-	'Better together - Opportunity to elevate larger workflows'
+const BETTER_TOGETHER_SECTION_TITLE = 'Use HashiCorp products together'
 
 export {
 	PAGE_TITLE,
