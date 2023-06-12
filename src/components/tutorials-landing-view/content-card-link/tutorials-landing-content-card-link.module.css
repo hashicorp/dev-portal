@@ -83,12 +83,18 @@
 }
 
 .title {
-	composes: hds-typography-display-400 from global;
-	composes: hds-font-weight-semibold from global;
+	composes: hds-typography-display-300 from global;
+	composes: hds-font-weight-bold from global;
 
-	@media (--dev-dot-tablet-down) {
-		composes: hds-typography-display-300 from global;
-		composes: hds-font-weight-bold from global;
+	/* 
+	* Cant use 'composes' in a mediaquery since both classes will be added
+	* this overrides to hds-typography-display-400 and semibold weight
+	*/
+	@media (--dev-dot-desktop) {
+		font-family: var(--token-typography-display-400-font-family);
+		font-size: var(--token-typography-display-400-font-size);
+		line-height: var(--token-typography-display-400-line-height);
+		font-weight: 600;
 	}
 }
 
