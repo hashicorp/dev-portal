@@ -35,7 +35,7 @@ export function filterUnifiedSearchHits(
 	// Get the normalized content type that we use in Algolia
 	const algoliaContentType = algoliaContentTypeMap[contentType]
 
-	// If there isn't a matching algolia content type (for "all", for example),
+	// If there isn't a matching algolia content type (for "global", for example),
 	// then don't filter the hits at all.
 	if (algoliaContentType === null) {
 		return hits
