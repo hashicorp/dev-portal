@@ -7,14 +7,12 @@ import { useMemo } from 'react'
 // Libraries
 import algoliasearch from 'algoliasearch'
 import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
-// Shared search-related utilities
+// Shared search
 import { useCommandBar } from 'components/command-bar'
 import { generateSuggestedPages } from '../../../helpers'
-// Shared search components
 import { RecentSearches, SuggestedPages } from '../../../components'
-// Unified search components
+// Unified search
 import { UnifiedHitsContainer } from '../unified-hits-container'
-// Unified search utilities
 import { useDebouncedRecentSearches } from '../../utils/use-debounced-recent-searches'
 import { useCommandBarProductTag } from '../../utils/use-command-bar-product-tag'
 import { buildAlgoliaFilters } from '../../utils/build-algolia-filters'
