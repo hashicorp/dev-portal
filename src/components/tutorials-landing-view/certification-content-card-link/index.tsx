@@ -1,3 +1,4 @@
+import { trackCertificationCardLinkClicked } from 'views/tutorials-landing/analytics'
 import { type CertificationContentCardLinkProps } from '../types'
 import ContentCardLink from '../content-card-link'
 import networkingAutomationGraphic from './img/consul.svg'
@@ -21,12 +22,20 @@ const CERTIFICATION_PROGRAM_SLUGS_TO_BACKGROUND_IMAGES = {
 
 const CertificationContentCardLink = ({
 	certification,
+	product,
 }: CertificationContentCardLinkProps) => {
 	const { url, lightOrDark } =
 		CERTIFICATION_PROGRAM_SLUGS_TO_BACKGROUND_IMAGES[certification.slug]
 	const title = certification.title
 	const description = certification.description
 	const href = `/certifications/${certification.slug}`
+
+	const handleClick = () => {
+		trackCertificationCardLinkClicked({
+			linkPath: href,
+			productSlug: product.slug,
+		})
+	}
 
 	return (
 		<ContentCardLink
@@ -35,6 +44,7 @@ const CertificationContentCardLink = ({
 			description={description}
 			href={href}
 			title={title}
+			onClick={handleClick}
 		/>
 	)
 }

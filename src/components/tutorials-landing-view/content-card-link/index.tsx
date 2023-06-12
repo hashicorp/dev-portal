@@ -19,6 +19,7 @@ const ContentCardLink = ({
 	eyebrowParts,
 	headerImageUrl,
 	href,
+	onClick,
 	title,
 }: ContentCardLinkProps) => {
 	const hasHeaderImage = headerImageUrl?.length > 0
@@ -38,7 +39,12 @@ const ContentCardLink = ({
 	}
 
 	return (
-		<CardLink ariaLabel={title} className={s.root} href={href}>
+		<CardLink
+			ariaLabel={title}
+			className={s.root}
+			href={href}
+			onClick={onClick}
+		>
 			{hasHeaderImage ? (
 				<div
 					className={s.headerImage}

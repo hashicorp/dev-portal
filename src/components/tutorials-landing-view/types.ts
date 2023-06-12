@@ -1,5 +1,7 @@
+import { ProductSlug } from 'types/products'
 import { Collection } from 'lib/learn-client/types'
 import { type BadgeProps } from 'components/badge'
+import { CardLinkProps } from 'components/card-link'
 
 interface ContentCardLinkBadge {
 	icon: BadgeProps['icon']
@@ -16,6 +18,7 @@ interface ContentCardLinkProps {
 	eyebrowParts?: ContentCardLinkEyebrowPart[]
 	headerImageUrl?: string
 	href: string
+	onClick?: CardLinkProps['onClick']
 	title: string
 }
 
@@ -30,6 +33,9 @@ interface CertificationContentCardLinkProps {
 		slug: string
 		title: string
 		description: string
+	}
+	product: {
+		slug: ProductSlug
 	}
 }
 
