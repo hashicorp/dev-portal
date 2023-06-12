@@ -4,4 +4,3 @@
  */
 
 export * from './dialog-body'
-export * from './unified-hits-container'
