@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useCommandBar } from 'components/command-bar'
 import { useCurrentProduct } from 'contexts'
-import { getCurrentProductTag } from '../../../helpers'
+import { getCurrentProductTag } from '../../helpers'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
 
 export function useCommandBarProductTag() {

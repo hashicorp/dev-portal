@@ -1,14 +1,11 @@
-import { useMemo } from 'react'
+import { ReactElement, useMemo } from 'react'
 import {
 	NoResultsMessage,
-	RecentSearches,
 	SuggestedPages,
 	TabContentsCta,
 	TabHeadingWithCount,
 } from '../../../components'
-import { useCommandBar } from 'components/command-bar'
 import { generateTutorialLibraryCta } from '../../../helpers'
-import { tabContentByType } from './tab-content-by-type'
 import Tabs, { Tab } from 'components/tabs'
 // Types
 import type { SearchableContentType } from 'contexts'
@@ -16,16 +13,52 @@ import type { SearchableContentType } from 'contexts'
 import s from './dialog-contents.module.css'
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
-import { Configure, Index, useHits } from 'react-instantsearch-hooks-web'
+import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
+import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
+import { IconGlobe16 } from '@hashicorp/flight-icons/svg-react/globe-16'
+import { useHits } from 'react-instantsearch-hooks-web'
 import { CommandBarDivider } from 'components/command-bar/components'
 import { CommandBarList } from 'components/command-bar/components'
 import { UnifiedHit } from '../unified-hit'
-import { getShouldRenderIntegrationsTab } from './get-should-render-integrations-tab'
-import { getAlgoliaContentType } from './get-algolia-content-type'
-import { filterUnifiedSearchHits } from './filter-unified-search-hits'
-import { buildAlgoliaFilters } from './build-algolia-filters'
+import { getShouldRenderIntegrationsTab } from '../../utils/get-should-render-integrations-tab'
+import { getAlgoliaContentType } from '../../utils/get-algolia-content-type'
+import { filterUnifiedSearchHits } from '../../utils/filter-unified-search-hits'
 
-function UnifiedHitsContainer({ currentProductTag, suggestedPages }) {
+/**
+ * Each content type has a set of properties we use to render that
+ * tab's content.
+ */
+interface SearchableContentTypeTab {
+	heading: string
+	icon: ReactElement<React.JSX.IntrinsicElements['svg']>
+}
+
+/**
+ * Build an object used to render all of the Tab elements, by content type.
+ */
+export const tabContentByType: Record<
+	SearchableContentType | 'all',
+	SearchableContentTypeTab
+> = {
+	all: {
+		heading: 'All',
+		icon: <IconGlobe16 />,
+	},
+	docs: {
+		heading: 'Documentation',
+		icon: <IconDocs16 />,
+	},
+	tutorials: {
+		heading: 'Tutorials',
+		icon: <IconLearn16 />,
+	},
+	integrations: {
+		heading: 'Integrations',
+		icon: <IconPipeline16 />,
+	},
+}
+
+export function UnifiedHitsContainer({ currentProductTag, suggestedPages }) {
 	const { hits: rawHits } = useHits()
 
 	/**
@@ -150,55 +183,3 @@ function UnifiedHitsContainer({ currentProductTag, suggestedPages }) {
 		</div>
 	)
 }
-/**
- * TODO: should rethink this pretty heavily.
- *
- * Rather than having multiple index `Configure` blocks, maybe have a single
- * component, like the `all-tab-contents`, and apply a filter by `type` on
- * the front-end. This will ensure counts match up properly.
- *
- * When doing this, should consider bumping up `hitsPerPage` from the default
- * `20`. Reasoning: the single "page" will be filtered down for each content
- * type, we want to make sure we have a good mix of types, even if one
- * content type has stronger relevance than another.
- *
- * As well, with the above refactor in place, `useHitsContext`
- * should no longer be necessary.
- */
-function UnifiedSearchDialogContents({
-	currentProductTag,
-	recentSearches,
-	suggestedPages,
-}: {
-	currentProductTag: $TSFixMe
-	recentSearches: $TSFixMe
-	suggestedPages: $TSFixMe
-}) {
-	const { currentInputValue } = useCommandBar()
-
-	/**
-	 * Don't render search result Tabs at all if there is no text in the input.
-	 */
-	if (!currentInputValue) {
-		return (
-			<div className={s.suggestedPagesWrapper}>
-				<RecentSearches recentSearches={recentSearches} />
-				<SuggestedPages pages={suggestedPages} />
-			</div>
-		)
-	}
-
-	const filters = buildAlgoliaFilters(currentProductTag)
-
-	return (
-		<Index indexName={__config.dev_dot.algolia.unifiedIndexName}>
-			<Configure filters={filters} />
-			<UnifiedHitsContainer
-				currentProductTag={currentProductTag}
-				suggestedPages={suggestedPages}
-			/>
-		</Index>
-	)
-}
-
-export { UnifiedSearchDialogContents }

@@ -4,4 +4,4 @@
  */
 
 export * from './dialog-body'
-export * from './dialog-contents'
+export * from './unified-hits-container'

@@ -2,9 +2,23 @@
 import CardLink from 'components/card-link'
 import Text from 'components/text'
 // Local
-import { buildUrlPath } from './build-url-path'
-import { renderHighlightArray } from './render-highlight-array'
+import { buildUrlPath } from '../../utils/build-url-path'
 import s from './unified-hit.module.css'
+
+function renderHighlightArray(facet, matchesOnly = false) {
+	return (facet || [])
+		.filter((entry) => {
+			if (matchesOnly) {
+				return entry.matchLevel !== 'none'
+			} else {
+				return true
+			}
+		})
+		.map((entry) => {
+			return entry?.value
+		})
+		.join(', ')
+}
 
 export function UnifiedHit({ hit }) {
 	const { objectID, _highlightResult } = hit as $TSFixMe
