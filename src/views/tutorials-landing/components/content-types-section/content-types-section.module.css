@@ -38,6 +38,7 @@
 .listItem {
 	align-items: flex-start;
 	display: flex;
+	flex: 1;
 	gap: 40px;
 	flex-direction: row;
 
