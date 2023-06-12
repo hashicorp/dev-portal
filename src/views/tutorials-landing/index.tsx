@@ -50,20 +50,20 @@ const ProductSectionBackgroundSvg = ({ productSlug, side }) => {
 }
 
 const renderProductSections = (productSlugs, pageContent) => {
-	return productSlugs.map((productSlug: ProductSlug) => {
+	return productSlugs.map((productSlug: ProductSlug, index: number) => {
 		const productName = productSlugsToNames[productSlug]
-		const sectionData = pageContent[productSlug]
-		const certification = sectionData.certification
-		const featuredUseCases = sectionData.featuredUseCases
-		const featuredCollections = sectionData.featuredCollections
+		const { certification, featuredUseCases, featuredCollections } =
+			pageContent[productSlug]
 
 		return (
 			<section
 				className={s.productSectionWrapper}
 				key={`product-section-${productSlug}`}
 			>
-				<ProductSectionBackgroundSvg productSlug={productSlug} side="left" />
-				<ProductSectionBackgroundSvg productSlug={productSlug} side="right" />
+				<ProductSectionBackgroundSvg
+					productSlug={productSlug}
+					side={index % 2 === 0 ? 'right' : 'left'}
+				/>
 				<ProductSection
 					certification={certification}
 					className={s.productSection}

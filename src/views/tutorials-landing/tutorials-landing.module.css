@@ -67,14 +67,6 @@
 .productSectionWrapper {
 	overflow: hidden;
 	position: relative;
-
-	&:nth-child(odd) .productSectionSvgRight {
-		display: none;
-	}
-
-	&:nth-child(even) .productSectionSvgLeft {
-		display: none;
-	}
 }
 
 .productSection {
