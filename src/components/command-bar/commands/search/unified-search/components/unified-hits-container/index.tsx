@@ -95,12 +95,10 @@ export function UnifiedHitsContainer({ currentProductTag, suggestedPages }) {
 
 	/**
 	 * Determine whether the Integrations tab should be rendered.
-	 *
-	 * TODO: could useMemo here, will re-render a lot without currentProductTag
-	 * changing, so even though it's minor, might be worth it.
 	 */
-	const shouldRenderIntegrationsTab =
-		getShouldRenderIntegrationsTab(currentProductTag)
+	const shouldRenderIntegrationsTab = useMemo<boolean>(() => {
+		return getShouldRenderIntegrationsTab(currentProductTag)
+	}, [currentProductTag])
 
 	return (
 		<div className={s.tabsWrapper}>
