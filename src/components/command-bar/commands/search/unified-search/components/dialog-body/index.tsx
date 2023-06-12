@@ -30,7 +30,7 @@ const searchClient = algoliasearch(appId, apiKey)
 /**
  * TODO: add description
  */
-export function UnifiedSearchDialogBody() {
+export function UnifiedSearchCommandBarDialogBody() {
 	const { currentInputValue } = useCommandBar()
 	const currentProductTag = useCommandBarProductTag()
 	const [searchQuery, setSearchQuery] = useState<string>(undefined)
