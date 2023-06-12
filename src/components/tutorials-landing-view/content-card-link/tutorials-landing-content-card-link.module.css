@@ -23,6 +23,8 @@
 
 	@media (--dev-dot-tablet-down) {
 		gap: 32px;
+		padding-left: 24px;
+		padding-right: 24px;
 	}
 
 	&.hasHeaderImage {
@@ -34,8 +36,6 @@
 	}
 
 	&.hasBackgroundImage {
-		padding-left: 24px;
-
 		& .text {
 			padding-right: 32px;
 		}
