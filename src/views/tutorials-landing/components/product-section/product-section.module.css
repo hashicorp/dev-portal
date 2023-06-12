@@ -18,6 +18,13 @@
 	gap: 12px;
 }
 
+.productIcon {
+	@media (--dev-dot-mobile) {
+		width: 32px;
+		height: 32px;
+	}
+}
+
 .title {
 	composes: hds-typography-display-500 from global;
 	composes: hds-font-weight-bold from global;

@@ -127,7 +127,7 @@ const SectionTitle = ({ product }) => {
 	const { name, slug } = product
 	return (
 		<div className={s.titleWrapper}>
-			<ProductIcon productSlug={slug} size={24} />
+			<ProductIcon className={s.productIcon} productSlug={slug} size={24} />
 			<h2 className={s.title}>{name}</h2>
 		</div>
 	)
