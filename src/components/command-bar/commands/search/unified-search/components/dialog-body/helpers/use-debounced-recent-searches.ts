@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import useRecentSearches from '../../hooks/use-recent-searches'
+import useRecentSearches from '../../../../hooks/use-recent-searches'
 // Types
 import type { Dispatch, SetStateAction } from 'react'
 

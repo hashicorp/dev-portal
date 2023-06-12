@@ -14,9 +14,11 @@ import { generateSuggestedPages } from '../../../helpers'
 import { RecentSearches, SuggestedPages } from '../../../components'
 // Unified search
 import { UnifiedHitsContainer } from '../unified-hits-container'
-import { useDebouncedRecentSearches } from '../../helpers/use-debounced-recent-searches'
-import { useCommandBarProductTag } from '../../helpers/use-command-bar-product-tag'
-import { getAlgoliaProductFilterString } from './helpers'
+import {
+	getAlgoliaProductFilterString,
+	useCommandBarProductTag,
+	useDebouncedRecentSearches,
+} from './helpers'
 // Types
 import type { ProductSlug } from 'types/products'
 import type { SuggestedPage } from '../../../components'
