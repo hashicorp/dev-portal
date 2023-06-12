@@ -51,7 +51,7 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 	const codeListItemsHighlight = renderHighlightArrayHtml(codeListItems, true)
 
 	return (
-		<div key={objectID}>
+		<div key={objectID} style={{ border: '1px solid magenta' }}>
 			<CardLink href={urlPath} ariaLabel={hit.page_title as string}>
 				<Text
 					dangerouslySetInnerHTML={{
