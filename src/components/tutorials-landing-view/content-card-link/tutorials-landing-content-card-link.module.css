@@ -67,6 +67,11 @@
 		margin-left: 6px;
 		margin-right: 6px;
 	}
+
+	/** Awkward tablet size where cards are very narrow */
+	@media only screen and (min-width: 1000px) and (max-width: 1100px) {
+		display: none;
+	}
 }
 
 .title {
@@ -124,4 +129,9 @@
 	margin-left: auto;
 	margin-right: 0;
 	width: 40px;
+
+	/** Awkward tablet size where cards are very narrow */
+	@media only screen and (min-width: 1000px) and (max-width: 1100px) {
+		display: none;
+	}
 }
