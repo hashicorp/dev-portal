@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import rivet from 'rivet-graphql'
+// import rivet from 'rivet-graphql'
 import boundary from 'data/boundary.json'
 import consul from 'data/consul.json'
 import nomad from 'data/nomad.json'
@@ -21,12 +21,12 @@ if (process.env.HASHI_ENV === 'preview') {
 	url += '/preview'
 }
 
-const token = process.env.HASHI_DATO_TOKEN || '2f7896a6b4f1948af64900319aed60'
+// const token = process.env.HASHI_DATO_TOKEN || '2f7896a6b4f1948af64900319aed60'
 
-const globalConfig = {
-	url,
-	headers: { Authorization: token },
-}
+// const globalConfig = {
+// 	url,
+// 	headers: { Authorization: token },
+// }
 
 const productConfig = [
 	boundary,
@@ -42,39 +42,39 @@ const productConfig = [
 	return a
 }, {} as { [key in ProductSlug]: ProductData })
 
-function rivetClient(config: {
-	url?: string
-	headers?: Record<string, unknown>
-}) {
-	const clientConfig = {
-		...globalConfig,
-		headers: {
-			...globalConfig.headers,
-			...config.headers,
-		},
-	}
+// function rivetClient(config: {
+// 	url?: string
+// 	headers?: Record<string, unknown>
+// }) {
+// 	const clientConfig = {
+// 		...globalConfig,
+// 		headers: {
+// 			...globalConfig.headers,
+// 			...config.headers,
+// 		},
+// 	}
 
-	return rivet(clientConfig.url, {
-		headers: clientConfig.headers,
-		cors: true,
-		retryCount: 3,
-	})
-}
+// 	return rivet(clientConfig.url, {
+// 		headers: clientConfig.headers,
+// 		cors: true,
+// 		retryCount: 3,
+// 	})
+// }
 
-const instance = rivetClient({})
-const client = instance.client
+// const instance = rivetClient({})
+// const client = instance.client
 
-function proxiedRivetClient(productSlug: ProductSlug) {
-	const product = productConfig[productSlug]
-	if (product.datoToken) {
-		return rivetClient({ headers: { Authorization: product.datoToken } })
-	}
+// function proxiedRivetClient(productSlug: ProductSlug) {
+// 	const product = productConfig[productSlug]
+// 	if (product.datoToken) {
+// 		return rivetClient({ headers: { Authorization: product.datoToken } })
+// 	}
 
-	return instance
-}
+// 	return instance
+// }
 
-export default instance
-export { productConfig, client, proxiedRivetClient }
+// export default instance
+export { productConfig }
 
 /**
  *
