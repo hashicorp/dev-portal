@@ -7,6 +7,11 @@
 			"path": "docs/vault"
 		},
 		{
+			"iconName": "vault-color",
+			"name": "HCP Vault Secrets",
+			"path": "docs/vault-secrets"
+		},
+		{
 			"iconName": "consul-color",
 			"name": "HCP Consul",
 			"path": "docs/consul"
