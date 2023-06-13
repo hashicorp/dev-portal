@@ -1,3 +1,5 @@
+import classNames from 'classnames'
+import InlineSvg from '@hashicorp/react-inline-svg'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import BaseNewLayout from 'layouts/base-new'
@@ -16,18 +18,52 @@ import {
 	PageHero,
 	ProductSection,
 } from './components'
+import diamondSvg from './img/diamond.svg?include'
+import elipseSvg from './img/elipse.svg?include'
+import hexSvg from './img/hex.svg?include'
+import hexVertSvg from './img/hex-vert.svg?include'
 import s from './tutorials-landing.module.css'
 
+// Not currently in constants because of custom placement by product
+const PRODUCT_SLUGS_TO_BACKGROUND_SVGS = {
+	boundary: diamondSvg,
+	consul: elipseSvg,
+	nomad: hexSvg,
+	packer: hexVertSvg,
+	terraform: hexVertSvg,
+	vagrant: hexSvg,
+	vault: diamondSvg,
+	waypoint: hexSvg,
+}
+
+const ProductSectionBackgroundSvg = ({ productSlug, side }) => {
+	return (
+		<InlineSvg
+			className={classNames({
+				[s.productSectionSvgLeft]: side === 'left',
+				[s.productSectionSvgRight]: side === 'right',
+				[s[`productSectionSvg--${productSlug}`]]: productSlug,
+			})}
+			src={PRODUCT_SLUGS_TO_BACKGROUND_SVGS[productSlug]}
+		/>
+	)
+}
+
 const renderProductSections = (productSlugs, pageContent) => {
-	return productSlugs.map((productSlug: ProductSlug) => {
+	return productSlugs.map((productSlug: ProductSlug, index: number) => {
 		const productName = productSlugsToNames[productSlug]
-		const sectionData = pageContent[productSlug]
-		const certification = sectionData.certification
-		const featuredUseCases = sectionData.featuredUseCases
-		const featuredCollections = sectionData.featuredCollections
+		const { certification, featuredUseCases, featuredCollections } =
+			pageContent[productSlug]
 
 		return (
-			<section key={`product-section-${productSlug}`}>
+			<section
+				className={s.productSectionWrapper}
+				key={`product-section-${productSlug}`}
+			>
+				<ProductSectionBackgroundSvg
+					productSlug={productSlug}
+					side={index % 2 === 0 ? 'right' : 'left'}
+				/>
 				<ProductSection
 					certification={certification}
 					className={s.productSection}
