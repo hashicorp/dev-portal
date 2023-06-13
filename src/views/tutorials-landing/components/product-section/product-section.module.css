@@ -112,6 +112,10 @@
 	padding-right: 40px;
 	padding-top: 4px;
 
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
 	@media only screen and (max-width: 500px) {
 		grid-template-columns: repeat(3, minmax(75vw, 280px));
 	}
