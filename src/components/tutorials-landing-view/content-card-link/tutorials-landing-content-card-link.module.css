@@ -28,18 +28,26 @@
 	}
 
 	&.hasLightBackgroundImage {
-		color: #0d0e12;
+		color: var(--token-color-foreground-strong);
 
 		& .description {
 			color: inherit;
 		}
+
+		@nest html[data-theme='dark'] & {
+			color: var(--token-color-foreground-high-contrast);
+		}
 	}
 
 	&.hasDarkBackgroundImage {
-		color: #efeff1;
+		color: var(--token-color-foreground-high-contrast);
 
 		& .description {
 			color: inherit;
+		}
+
+		@nest html[data-theme='dark'] & {
+			color: var(--token-color-foreground-strong);
 		}
 	}
 }
