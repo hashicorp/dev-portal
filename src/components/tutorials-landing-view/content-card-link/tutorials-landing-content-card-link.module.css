@@ -15,12 +15,12 @@
 	flex-direction: column;
 	flex-grow: 1;
 	justify-content: space-between;
-	padding: 32px 24px 24px 32px;
-	gap: 32px;
+	gap: 24px;
+	padding: 24px;
 
-	@media (--dev-dot-tablet-down) {
-		gap: 24px;
-		padding: 24px;
+	@media screen and (min-width: 1440px) {
+		padding: 32px 32px 24px 32px;
+		gap: 32px;
 	}
 
 	&.hasHeaderImage {
@@ -61,7 +61,11 @@
 }
 
 .eyebrow {
-	margin-bottom: 12px;
+	margin-bottom: 8px;
+
+	@media screen and (min-width: 1440px) {
+		margin-bottom: 12px;
+	}
 }
 
 .eyebrowPart {
@@ -90,7 +94,7 @@
 	* Cant use 'composes' in a mediaquery since both classes will be added
 	* this overrides to hds-typography-display-400 and semibold weight
 	*/
-	@media (--dev-dot-desktop) {
+	@media screen and (min-width: 1440px) {
 		font-family: var(--token-typography-display-400-font-family);
 		font-size: var(--token-typography-display-400-font-size);
 		line-height: var(--token-typography-display-400-line-height);
@@ -102,10 +106,10 @@
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-medium from global;
 	color: var(--token-color-foreground-primary);
-	margin-top: 20px;
+	margin-top: 16px;
 
-	@media (min-width: 1440px) {
-		margin-right: 8px;
+	@media screen and (min-width: 1440px) {
+		margin-top: 20px;
 	}
 }
 
@@ -145,5 +149,9 @@
 	/** Awkward tablet size where cards are very narrow */
 	@media only screen and (min-width: 1000px) and (max-width: 1100px) {
 		display: none;
+	}
+
+	@media screen and (min-width: 1440px) {
+		margin-right: -8px;
 	}
 }
