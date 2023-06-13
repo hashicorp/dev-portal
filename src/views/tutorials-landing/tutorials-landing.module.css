@@ -32,11 +32,18 @@
 		--page-padding-top: 124px;
 		/* stylelint-disable-next-line length-zero-no-unit */
 		--section-padding-left-right-outer: 0px;
-		/* stylelint-disable-next-line length-zero-no-unit */
-		--cross-product-section-border-radius: 0px;
 		--content-types-section-padding-top: 48px;
 		--content-types-section-padding-bottom: 64px;
 		--product-section-padding-top-bottom: 60px;
+	}
+
+	/** 
+	* This is the width where the cross product section spans
+	* the entire page, so we need to remove the border radius
+	*/
+	@media screen and (max-width: 1320px) {
+		/* stylelint-disable-next-line length-zero-no-unit */
+		--cross-product-section-border-radius: 0px;
 	}
 
 	@media (--dev-dot-mobile) {
