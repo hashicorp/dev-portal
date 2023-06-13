@@ -90,11 +90,11 @@
 	display: grid;
 	gap: 20px;
 	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(2, 1fr);
 	list-style: none;
 	margin: 0;
 	padding: 0;
 	width: 100%;
+	height: min-content;
 }
 
 /* mobile */
@@ -136,5 +136,4 @@
 
 .mobileCtasAndFeaturedUseCases {
 	padding-top: 12px;
-	padding-bottom: 32px;
 }
