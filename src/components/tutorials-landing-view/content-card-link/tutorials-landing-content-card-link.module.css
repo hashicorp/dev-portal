@@ -15,7 +15,7 @@
 	flex-direction: column;
 	flex-grow: 1;
 	justify-content: space-between;
-	padding: 32px 32px 24px 32px;
+	padding: 32px 24px 24px 32px;
 	gap: 32px;
 
 	@media (--dev-dot-tablet-down) {
@@ -103,6 +103,10 @@
 	composes: hds-font-weight-medium from global;
 	color: var(--token-color-foreground-primary);
 	margin-top: 20px;
+
+	@media (min-width: 1440px) {
+		margin-right: 8px;
+	}
 }
 
 .footer {
