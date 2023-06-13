@@ -15,30 +15,16 @@
 	flex-direction: column;
 	flex-grow: 1;
 	justify-content: space-between;
-	padding-bottom: 24px;
-	padding-left: 40px;
-	padding-right: 24px;
-	padding-top: 40px;
-	gap: 24px;
+	padding: 32px 32px 24px 32px;
+	gap: 32px;
 
 	@media (--dev-dot-tablet-down) {
-		gap: 32px;
-		padding-left: 24px;
-		padding-right: 24px;
+		gap: 24px;
+		padding: 24px;
 	}
 
 	&.hasHeaderImage {
 		padding-top: 0;
-
-		& .text {
-			padding-right: 16px;
-		}
-	}
-
-	&.hasBackgroundImage {
-		& .text {
-			padding-right: 32px;
-		}
 	}
 
 	&.hasLightBackgroundImage {
@@ -63,11 +49,11 @@
 	background-repeat: no-repeat;
 	height: 86px;
 	width: 100%;
+	margin-bottom: 12px;
 }
 
 .eyebrow {
 	margin-bottom: 12px;
-	margin-top: 12px;
 }
 
 .eyebrowPart {
