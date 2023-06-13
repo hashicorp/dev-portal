@@ -157,9 +157,9 @@ function DocsView() {
 // 	return { paths: [{ params: { page: [] } }], fallback: false }
 // }
 
-export async function getStaticProps(context) {
-	return { props: {} }
-}
+// export async function getStaticProps(context) {
+// 	return { props: {} }
+// }
 
 // Export view with layout
 DocsView.layout = SentinelIoLayout
