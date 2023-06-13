@@ -144,7 +144,7 @@ const MobileProductSection = ({
 	featuredUseCases,
 }) => {
 	return (
-		<div className="g-hide-on-desktop">
+		<div className={classNames(s.mobileRoot, 'g-hide-on-desktop')}>
 			<SectionTitle product={product} />
 			<SectionDescription text={product.description} />
 			<ul className={s.mobileFeaturedCollectionsList}>
@@ -185,7 +185,7 @@ const NonMobileProductSection = ({
 			className={classNames(
 				'g-hide-on-mobile',
 				'g-hide-on-tablet',
-				s.mobileRoot
+				s.nonMobileRoot
 			)}
 		>
 			<div>
@@ -224,7 +224,7 @@ const ProductSection = ({
 	product,
 }: ProductSectionProps) => {
 	return (
-		<div className={classNames(s.root, className)}>
+		<div className={className}>
 			<MobileProductSection
 				certification={certification}
 				product={product}
