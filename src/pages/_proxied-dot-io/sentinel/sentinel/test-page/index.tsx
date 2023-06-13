@@ -152,10 +152,10 @@ function DocsView() {
 // 		  }
 // )
 
-export async function getStaticPaths(context) {
-	// const result = await generatedGetStaticPaths(context)
-	return { paths: [{ params: { page: [] } }], fallback: false }
-}
+// export async function getStaticPaths(context) {
+// 	// const result = await generatedGetStaticPaths(context)
+// 	return { paths: [{ params: { page: [] } }], fallback: false }
+// }
 
 export async function getStaticProps(context) {
 	return { props: {} }
