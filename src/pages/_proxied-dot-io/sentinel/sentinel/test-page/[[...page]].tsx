@@ -4,13 +4,13 @@ import DocsPage from 'components/_proxied-dot-io/common/docs-page'
 import { isVersionedDocsEnabled } from 'lib/env-checks'
 import productData from 'data/sentinel.json'
 // Imports below are used in getStatic functions only
-import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
+// import { getStaticGenerationFunctions } from 'lib/_proxied-dot-io/get-static-generation-functions'
 
 const product = { name: productData.name, slug: productData.slug as Products }
 const basePath = 'sentinel/intro'
-const navDataFile = `../data/intro-nav-data.json`
-const localContentDir = `../content/${basePath}`
-const localPartialsDir = `../content/partials`
+// const navDataFile = `../data/intro-nav-data.json`
+// const localContentDir = `../content/${basePath}`
+// const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
 const additionalComponents = {}
 
@@ -135,30 +135,32 @@ function DocsView() {
 	)
 }
 
-const { getStaticProps } = getStaticGenerationFunctions(
-	enableVersionedDocs
-		? {
-				strategy: 'remote',
-				basePath,
-				fallback: 'blocking',
-				product: productData.slug,
-		  }
-		: {
-				strategy: 'fs',
-				localContentDir,
-				navDataFile,
-				localPartialsDir,
-				product: productData.slug,
-		  }
-)
+// const { getStaticProps } = getStaticGenerationFunctions(
+// 	enableVersionedDocs
+// 		? {
+// 				strategy: 'remote',
+// 				basePath,
+// 				fallback: 'blocking',
+// 				product: productData.slug,
+// 		  }
+// 		: {
+// 				strategy: 'fs',
+// 				localContentDir,
+// 				navDataFile,
+// 				localPartialsDir,
+// 				product: productData.slug,
+// 		  }
+// )
 
 export async function getStaticPaths(context) {
 	// const result = await generatedGetStaticPaths(context)
-	return { fallback: 'blocking', paths: [{ params: { page: [] } }] }
+	return { fallback: false, paths: [{ params: { page: [] } }] }
 }
 
-// Export getStatic functions
-export { getStaticProps }
+export async function getStaticProps(context) {
+	return { props: {} }
+}
+
 // Export view with layout
 DocsView.layout = SentinelIoLayout
 export default DocsView
