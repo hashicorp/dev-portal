@@ -1,3 +1,5 @@
+import SentinelIoLayout from 'layouts/_proxied-dot-io/sentinel'
+
 function TestPage() {
 	return (
 		<div style={{ border: '1px solid magenta' }}>
@@ -5,5 +7,7 @@ function TestPage() {
 		</div>
 	)
 }
+
+TestPage.layout = SentinelIoLayout
 
 export default TestPage
