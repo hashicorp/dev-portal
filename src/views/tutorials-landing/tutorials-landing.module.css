@@ -24,6 +24,7 @@
 	/* 1440px and below */
 	@media only screen and (max-width: 1440px) {
 		--page-padding-top: 148px;
+		--product-section-padding-top-bottom: 86px;
 	}
 
 	/* 1000px and below */
@@ -35,7 +36,7 @@
 		--cross-product-section-border-radius: 0px;
 		--content-types-section-padding-top: 48px;
 		--content-types-section-padding-bottom: 64px;
-		--product-section-padding-top-bottom: 64px;
+		--product-section-padding-top-bottom: 60px;
 	}
 
 	@media (--dev-dot-mobile) {
@@ -62,6 +63,7 @@
 	);
 	padding-left: var(--section-padding-left-right);
 	padding-right: var(--section-padding-left-right);
+	padding-bottom: var(--product-section-padding-top-bottom);
 }
 
 .productSection {
