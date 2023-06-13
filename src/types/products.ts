@@ -5,8 +5,6 @@
 
 import { ProductMeta, Products } from '@hashicorp/platform-product-meta'
 import { Product as LearnProduct } from 'lib/learn-client/types'
-import { NavigationHeaderItem as NavHeaderItem } from 'components/navigation-header'
-import { MenuItem } from 'components/sidebar'
 
 type ProductName =
 	| 'Boundary'
@@ -19,6 +17,7 @@ type ProductName =
 	| 'Vagrant'
 	| 'Vault'
 	| 'Waypoint'
+	| 'HCP Vault Secrets'
 
 type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
 
