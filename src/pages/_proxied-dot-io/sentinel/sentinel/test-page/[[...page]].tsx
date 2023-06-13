@@ -154,7 +154,7 @@ function DocsView() {
 
 export async function getStaticPaths(context) {
 	// const result = await generatedGetStaticPaths(context)
-	return { fallback: false, paths: [{ params: { page: [] } }] }
+	return { paths: [{ params: { page: [] } }], fallback: false }
 }
 
 export async function getStaticProps(context) {
