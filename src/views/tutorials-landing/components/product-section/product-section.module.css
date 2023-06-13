@@ -107,6 +107,7 @@
 	margin-bottom: 0;
 	margin-top: 40px;
 	overflow-x: auto;
+	scrollbar-width: none;
 	padding-bottom: 16px;
 	padding-left: 4px;
 	padding-right: 40px;
