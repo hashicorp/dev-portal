@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { VariantDropdownDisclosure } from 'views/tutorial-view/components'
 import { useVariant } from 'views/tutorial-view/utils/variants/context'
 import { DesktopVariantList } from './desktop'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .label {
 	composes: hds-typography-body-200 from global;
 	composes: hds-font-weight-semibold from global;
