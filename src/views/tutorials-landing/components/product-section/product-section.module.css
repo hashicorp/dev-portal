@@ -139,4 +139,9 @@
 	padding-top: 12px;
 	margin-left: 24px;
 	padding-right: 24px;
+
+	@media (--dev-dot-mobile) {
+		margin-left: 0;
+		padding-right: 0;
+	}
 }
