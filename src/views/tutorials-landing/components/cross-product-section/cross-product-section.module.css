@@ -27,6 +27,14 @@
 	composes: hds-font-weight-bold from global;
 	color: var(--token-color-foreground-strong);
 	width: 50%;
+
+	@media (--dev-dot-tablet-down) {
+		width: 75%;
+	}
+
+	@media (--dev-dot-mobile) {
+		width: 100%;
+	}
 }
 
 .list {
