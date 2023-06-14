@@ -159,6 +159,8 @@
 	padding-right: var(--section-padding-left-right);
 	padding-top: var(--content-types-section-padding-top);
 	padding-bottom: var(--content-types-section-padding-bottom);
+	margin-top: var(--product-section-padding-top-bottom);
+	margin-bottom: var(--product-section-padding-top-bottom);
 }
 
 .contentTypesSection {
@@ -181,6 +183,7 @@
 	padding-right: var(--section-padding-left-right-inner);
 	padding-top: var(--section-padding-left-right-inner);
 	padding-bottom: calc(1.5 * var(--section-padding-left-right-inner));
+	margin-top: var(--product-section-padding-top-bottom);
 
 	/**
 	* To handle the scroll margin for the cards, the left /right
