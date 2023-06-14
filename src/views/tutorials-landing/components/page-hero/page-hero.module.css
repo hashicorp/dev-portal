@@ -15,7 +15,7 @@
 
 	@media (--dev-dot-tablet-down) {
 		font-size: 2.25rem; /* 36px */
-		line-height: 1.4; /* 50px */
+		line-height: 1.3; /* 46px */
 	}
 }
 
