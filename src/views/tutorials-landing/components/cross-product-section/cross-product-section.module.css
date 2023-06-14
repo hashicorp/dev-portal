@@ -1,5 +1,5 @@
 .root {
-	--mobile-left-padding: 24px;
+	--left-right-padding: 24px;
 
 	background-color: var(--token-color-surface-primary);
 	background-position: center center;
@@ -24,7 +24,7 @@
 	}
 
 	@media (--dev-dot-tablet) {
-		--mobile-left-padding: 40px;
+		--left-right-padding: 40px;
 	}
 }
 
@@ -36,7 +36,8 @@
 
 	@media (--dev-dot-tablet-down) {
 		width: 75%;
-		padding-left: var(--mobile-left-padding);
+		padding-left: var(--left-right-padding);
+		padding-right: var(--left-right-padding);
 	}
 
 	@media (--dev-dot-mobile) {
@@ -62,10 +63,10 @@
 	@media (--dev-dot-tablet-down) {
 		overflow-y: auto;
 		grid-template-columns: repeat(3, minmax(40vw, 280px));
-		padding-left: var(--mobile-left-padding);
+		padding-left: var(--left-right-padding);
+		padding-right: var(--left-right-padding);
 		padding-top: 4px;
 		padding-bottom: 16px;
-		padding-right: 40px;
 	}
 
 	@media only screen and (max-width: 500px) {

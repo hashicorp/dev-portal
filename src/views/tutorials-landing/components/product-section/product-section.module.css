@@ -1,8 +1,8 @@
 .mobileRoot {
-	--mobile-left-padding: 24px;
+	--mobile-left-right-padding: 24px;
 
 	@media (--dev-dot-tablet) {
-		--mobile-left-padding: 40px;
+		--mobile-left-right-padding: 40px;
 	}
 }
 
@@ -21,7 +21,8 @@
 	color: blue;
 
 	@media (--dev-dot-tablet-down) {
-		padding-left: var(--mobile-left-padding);
+		padding-left: var(--mobile-left-right-padding);
+		padding-right: var(--mobile-left-right-padding);
 	}
 }
 
@@ -45,7 +46,8 @@
 	margin-top: 20px;
 
 	@media (--dev-dot-tablet-down) {
-		padding-left: var(--mobile-left-padding);
+		padding-left: var(--mobile-left-right-padding);
+		padding-right: var(--mobile-left-right-padding);
 	}
 }
 
@@ -134,7 +136,8 @@
 	}
 
 	@media (--dev-dot-tablet-down) {
-		padding-left: var(--mobile-left-padding);
+		padding-left: var(--mobile-left-right-padding);
+		padding-right: var(--mobile-left-right-padding);
 	}
 }
 
@@ -151,7 +154,8 @@
 	}
 
 	@media (--dev-dot-tablet-down) {
-		padding-left: var(--mobile-left-padding);
+		padding-left: var(--mobile-left-right-padding);
+		padding-right: var(--mobile-left-right-padding);
 	}
 }
 
