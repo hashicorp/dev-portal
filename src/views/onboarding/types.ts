@@ -10,7 +10,7 @@ import {
 import { EnrichedNavItem } from 'components/sidebar/types'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { SidebarProps } from 'components/sidebar/types'
-import { CollectionContext } from 'views/tutorial-view'
+import { CollectionContext, TutorialViewProps } from 'views/tutorial-view'
 import { NextPreviousProps } from 'views/tutorial-view/components'
 import { OutlineLinkItem } from 'components/outline-nav/types'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
@@ -42,4 +42,5 @@ export interface OnboardingTutorialViewProps {
 		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
 		navLevels: SidebarProps[]
 	}
+	metadata?: TutorialViewProps['metadata']
 }

@@ -14,6 +14,8 @@ import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { OutlineNavWithActive } from 'components/outline-nav/components'
 import { NextPrevious } from 'views/tutorial-view/components'
+import VariantProvider from 'views/tutorial-view/utils/variants/context'
+import { VariantDropdownDisclosure } from 'views/tutorial-view/components'
 import { OnboardingTutorialViewProps } from '../types'
 
 export default function OnboardingTutorialView({
@@ -21,6 +23,7 @@ export default function OnboardingTutorialView({
 	layoutProps,
 	pageHeading,
 	outlineItems,
+	metadata,
 }: OnboardingTutorialViewProps) {
 	const {
 		id,
@@ -46,35 +49,45 @@ export default function OnboardingTutorialView({
 				key={slug}
 				{...(isInteractive && { labId: handsOnLab.id })}
 			>
-				<SidebarSidecarLayout
-					sidecarSlot={<OutlineNavWithActive items={outlineItems.slice(0)} />}
-					breadcrumbLinks={layoutProps.breadcrumbLinks}
-					sidebarNavDataLevels={layoutProps.navLevels}
-				>
-					<TutorialMeta
-						heading={pageHeading}
-						meta={{
-							readTime,
-							edition,
-							productsUsed,
-							isInteractive,
-							hasVideo,
-						}}
-						tutorialId={id}
-					/>
-					{video?.id && !video.videoInline && (
-						<VideoEmbed
-							url={getVideoUrl({
-								videoId: video.id,
-								videoHost: video.videoHost,
-							})}
+				<VariantProvider>
+					<SidebarSidecarLayout
+						sidecarSlot={<OutlineNavWithActive items={outlineItems.slice(0)} />}
+						breadcrumbLinks={layoutProps.breadcrumbLinks}
+						sidebarNavDataLevels={layoutProps.navLevels}
+						sidecarTopSlot={
+							metadata.variant ? (
+								<VariantDropdownDisclosure
+									variant={metadata.variant}
+									isFullWidth
+								/>
+							) : null
+						}
+					>
+						<TutorialMeta
+							heading={pageHeading}
+							meta={{
+								readTime,
+								edition,
+								productsUsed,
+								isInteractive,
+								hasVideo,
+							}}
+							tutorialId={id}
 						/>
-					)}
-					<DevDotContent
-						mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
-					/>
-					<NextPrevious {...nextPreviousData} />
-				</SidebarSidecarLayout>
+						{video?.id && !video.videoInline && (
+							<VideoEmbed
+								url={getVideoUrl({
+									videoId: video.id,
+									videoHost: video.videoHost,
+								})}
+							/>
+						)}
+						<DevDotContent
+							mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+						/>
+						<NextPrevious {...nextPreviousData} />
+					</SidebarSidecarLayout>
+				</VariantProvider>
 			</InteractiveLabWrapper>
 		</>
 	)
