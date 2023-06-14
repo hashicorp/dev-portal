@@ -119,31 +119,21 @@
 
 .productSectionSvgLeft {
 	left: 0;
-
-	&.productSectionSvg--terraform {
-		transform: translate(-45%, 25%);
-	}
-
-	&.productSectionSvg--vault {
-		transform: translate(-45%, 20%);
-	}
+	transform: translate(-40%, 20%);
 }
 
 .productSectionSvgRight {
 	right: 0;
-
-	&.productSectionSvg--terraform {
-		display: flex;
-		align-items: center;
-		transform: translateX(50%);
-	}
+	display: flex;
+	align-items: center;
+	transform: translateX(5%);
 }
 
 .gradientMask {
 	background: linear-gradient(
 		180deg,
 		var(--token-color-page-primary),
-		transparent 25% 75%,
+		transparent 25% 85%,
 		var(--token-color-page-primary)
 	);
 	bottom: 0;
