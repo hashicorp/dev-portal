@@ -48,6 +48,7 @@
 
 	@media (--dev-dot-mobile) {
 		--product-section-padding-top-bottom: 36px;
+		--section-padding-left-right-inner: 24px;
 	}
 
 	/* 425px and below */

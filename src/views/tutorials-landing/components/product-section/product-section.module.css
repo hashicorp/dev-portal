@@ -1,5 +1,9 @@
 .mobileRoot {
 	--mobile-left-padding: 24px;
+
+	@media (--dev-dot-tablet) {
+		--mobile-left-padding: 40px;
+	}
 }
 
 .nonMobileRoot {
@@ -143,7 +147,7 @@
 
 	@media (--dev-dot-mobile) {
 		grid-template-columns: 1fr;
-		padding-right: 40px;
+		padding-right: 24px;
 	}
 
 	@media (--dev-dot-tablet-down) {
