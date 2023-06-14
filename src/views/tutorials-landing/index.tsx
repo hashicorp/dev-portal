@@ -38,14 +38,17 @@ const PRODUCT_SLUGS_TO_BACKGROUND_SVGS = {
 
 const ProductSectionBackgroundSvg = ({ productSlug, side }) => {
 	return (
-		<InlineSvg
-			className={classNames({
-				[s.productSectionSvgLeft]: side === 'left',
-				[s.productSectionSvgRight]: side === 'right',
-				[s[`productSectionSvg--${productSlug}`]]: productSlug,
-			})}
-			src={PRODUCT_SLUGS_TO_BACKGROUND_SVGS[productSlug]}
-		/>
+		<>
+			<span className={s.gradientMask} />
+			<InlineSvg
+				className={classNames({
+					[s.productSectionSvgLeft]: side === 'left',
+					[s.productSectionSvgRight]: side === 'right',
+					[s[`productSectionSvg--${productSlug}`]]: productSlug,
+				})}
+				src={PRODUCT_SLUGS_TO_BACKGROUND_SVGS[productSlug]}
+			/>
+		</>
 	)
 }
 

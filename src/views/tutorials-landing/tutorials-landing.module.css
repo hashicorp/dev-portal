@@ -110,7 +110,7 @@
 	position: absolute;
 	top: 0;
 	width: 50%;
-	z-index: -1;
+	z-index: -2;
 
 	& svg {
 		width: 100%;
@@ -123,6 +123,10 @@
 	&.productSectionSvg--terraform {
 		transform: translate(-45%, 25%);
 	}
+
+	&.productSectionSvg--vault {
+		transform: translate(-45%, 25%);
+	}
 }
 
 .productSectionSvgRight {
@@ -133,6 +137,20 @@
 		align-items: center;
 		transform: translateX(50%);
 	}
+}
+
+.gradientMask {
+	background: linear-gradient(
+		180deg,
+		var(--token-color-page-primary),
+		transparent 25% 75%,
+		var(--token-color-page-primary)
+	);
+	bottom: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: -1;
 }
 
 .contentTypesSectionWrapper {
