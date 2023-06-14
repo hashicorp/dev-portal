@@ -162,4 +162,14 @@
 	padding-right: var(--section-padding-left-right-inner);
 	padding-top: var(--section-padding-left-right-inner);
 	padding-bottom: calc(1.5 * var(--section-padding-left-right-inner));
+
+	/**
+	* To handle the scroll margin for the cards, the left /right
+	* padding is handle within the component at this size.
+	* see ./product-section/product-section.module.css
+	*/
+	@media (--dev-dot-tablet-down) {
+		padding-right: 0;
+		padding-left: 0;
+	}
 }

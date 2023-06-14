@@ -1,4 +1,6 @@
 .root {
+	--mobile-left-padding: 24px;
+
 	background-color: var(--token-color-surface-primary);
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -30,6 +32,7 @@
 
 	@media (--dev-dot-tablet-down) {
 		width: 75%;
+		padding-left: var(--mobile-left-padding);
 	}
 
 	@media (--dev-dot-mobile) {
@@ -55,7 +58,7 @@
 	@media (--dev-dot-tablet-down) {
 		overflow-y: auto;
 		grid-template-columns: repeat(3, minmax(40vw, 280px));
-		padding-left: 4px;
+		padding-left: var(--mobile-left-padding);
 		padding-top: 4px;
 		padding-bottom: 16px;
 		padding-right: 40px;
