@@ -39,6 +39,7 @@ export function DesktopVariantList({ variant }: { variant: TutorialVariant }) {
 											safeAnalyticsTrack('Variant Selected', {
 												variant: variant.slug,
 												option: option.slug,
+												path: asPath,
 											})
 										}}
 									>

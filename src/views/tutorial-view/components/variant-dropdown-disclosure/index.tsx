@@ -52,6 +52,7 @@ export function VariantDropdownDisclosure({
 									safeAnalyticsTrack('Variant Selected', {
 										variant: variant.slug,
 										option: option.slug,
+										path: asPath,
 									})
 								}}
 							>
