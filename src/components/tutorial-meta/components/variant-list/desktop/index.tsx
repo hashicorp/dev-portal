@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { useRouter } from 'next/router'
 import Link from 'components/link'
 import classNames from 'classnames'
+import { safeAnalyticsTrack } from 'lib/analytics'
 import {
 	TutorialVariant,
 	TutorialVariantOption,
@@ -13,7 +15,6 @@ import {
 	handleVariantCookie,
 	sortVariantOptions,
 } from 'views/tutorial-view/utils/variants'
-import { useRouter } from 'next/router'
 import s from './desktop-variant-list.module.css'
 
 export function DesktopVariantList({ variant }: { variant: TutorialVariant }) {
@@ -40,6 +41,11 @@ export function DesktopVariantList({ variant }: { variant: TutorialVariant }) {
 										aria-current={isActiveOption ? 'page' : undefined}
 										onClick={() => {
 											handleVariantCookie(variant.slug, option.slug)
+											safeAnalyticsTrack('Variant Selected', {
+												variant: variant.slug,
+												option: option.slug,
+												path: asPath,
+											})
 										}}
 									>
 										{option.name}
