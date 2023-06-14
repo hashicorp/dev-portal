@@ -252,17 +252,15 @@ function TutorialView({
 						sidebarNavDataLevels={sidebarNavDataLevels as any}
 						showScrollProgress={true}
 						AlternateSidebar={TutorialsSidebar}
-						sidecarSlot={
-							<>
-								{metadata.variant ? (
-									<VariantDropdownDisclosure
-										variant={metadata.variant}
-										isFullWidth
-									/>
-								) : null}
-								<OutlineNavWithActive items={outlineItems} />
-							</>
+						sidecarTopSlot={
+							metadata.variant ? (
+								<VariantDropdownDisclosure
+									variant={metadata.variant}
+									isFullWidth
+								/>
+							) : null
 						}
+						sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
 						mainWidth={layoutProps.mainWidth}
 					>
 						<LayoutContentWrapper

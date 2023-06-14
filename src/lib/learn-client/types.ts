@@ -80,6 +80,7 @@ export interface TutorialLite
 		| 'productsUsed'
 		| 'video'
 		| 'handsOnLab'
+		| 'variant'
 	> {
 	defaultContext: CollectionLite
 }

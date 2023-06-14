@@ -13,6 +13,7 @@ import {
 import {
 	formatHandsOnLab,
 	formatToCollectionLite,
+	formatVariant,
 	formatVideo,
 } from '../tutorial/formatting'
 
@@ -62,6 +63,10 @@ export function formatToTutorialLite(
 	const productsUsed = products_used.map(formatProductUsed)
 	const video = formatVideo(item.tutorial)
 	const handsOnLab = formatHandsOnLab(item.tutorial)
+	const formattedVariant =
+		item.tutorial.variants?.length > 0
+			? formatVariant(item.tutorial.variants[0])
+			: undefined
 
 	return {
 		id,
@@ -74,6 +79,7 @@ export function formatToTutorialLite(
 		video,
 		handsOnLab,
 		defaultContext: formatToCollectionLite(default_collection),
+		variant: formattedVariant,
 	}
 }
 

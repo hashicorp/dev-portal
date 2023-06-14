@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ReactElement } from 'react'
 import { useVariant } from './context'
 import { TutorialVariantOption } from './types'
@@ -10,6 +15,9 @@ interface MdxVariantProps {
 
 export function MdxVariant({ slug, option, children }: MdxVariantProps) {
 	const { currentVariant } = useVariant()
+	if (!currentVariant) {
+		return null
+	}
 	const shouldRenderContent =
 		currentVariant.slug === slug && currentVariant.activeOption.slug === option
 	const isValidVariantOption = currentVariant.options.find(

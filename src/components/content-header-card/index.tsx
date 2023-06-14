@@ -81,7 +81,6 @@ export default function ContentHeaderCard({
 							{badges && (
 								<BadgeList
 									className={s.badgeList}
-									type="outlined"
 									size="small"
 									badges={badges}
 								/>
