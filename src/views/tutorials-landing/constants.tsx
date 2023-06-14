@@ -73,7 +73,7 @@ const CONTENT_TYPES_SECTION_ITEMS = [
 		icon: bookmarkIcon,
 		title: 'Save your place, and your favorites',
 		description:
-			'Life can be busy. Bookmark a tutorial to save your place on your learning path',
+			'Life can be busy. Create an account to bookmark tutorials and save your place',
 	},
 ]
 
