@@ -145,6 +145,10 @@
 		grid-template-columns: 1fr;
 		padding-right: 40px;
 	}
+
+	@media (--dev-dot-tablet-down) {
+		padding-left: var(--mobile-left-padding);
+	}
 }
 
 .mobileCtasAndFeaturedUseCases {
@@ -152,20 +156,12 @@
 	width: 100%;
 
 	&:not(:first-child) {
-		margin-left: 24px;
+		padding-left: 24px;
 		padding-right: 24px;
 
 		@media (--dev-dot-mobile) {
-			margin-left: 0;
+			padding-left: 0;
 			padding-right: 0;
 		}
-
-		@media (--dev-dot-tablet-down) {
-			padding-left: 24px;
-		}
-	}
-
-	@media (--dev-dot-tablet-down) {
-		margin-left: var(--mobile-left-padding);
 	}
 }
