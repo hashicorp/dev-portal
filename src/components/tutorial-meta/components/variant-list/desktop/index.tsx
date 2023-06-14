@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useRouter } from 'next/router'
 import Link from 'components/link'
 import classNames from 'classnames'
