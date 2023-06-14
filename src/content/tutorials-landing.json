@@ -169,7 +169,7 @@
 				},
 				{
 					"href": "/waypoint/tutorials/deploy-azure",
-					"text": "Deploy an application onto an Azure Container Instance"
+					"text": "Deploy an Azure Container Instance application"
 				},
 				{
 					"href": "/waypoint/tutorials/deploy-google-cloud",
