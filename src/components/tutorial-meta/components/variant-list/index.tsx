@@ -20,10 +20,7 @@ export function VariantList() {
 			<div className={s.desktopVariantList} data-heap-track="variant-list">
 				<DesktopVariantList variant={currentVariant} />
 			</div>
-			<div
-				className={s.mobileVariantDropdownDisclosure}
-				data-heap-track="variant-list"
-			>
+			<div className={s.mobileVariantDropdownDisclosure}>
 				<VariantDropdownDisclosure isFullWidth variant={currentVariant} />
 			</div>
 		</>
