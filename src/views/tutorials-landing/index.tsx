@@ -18,10 +18,10 @@ import {
 	PageHero,
 	ProductSection,
 } from './components'
-import diamondSvg from './img/diamond.svg?include'
-import elipseSvg from './img/elipse.svg?include'
-import hexSvg from './img/hex.svg?include'
-import hexVertSvg from './img/hex-vert.svg?include'
+import diamondSvg from './img/diamond-fade.svg?include'
+import elipseSvg from './img/elipse-fade.svg?include'
+import hexSvg from './img/hex-fade.svg?include'
+import hexVertSvg from './img/hex-vert-fade.svg?include'
 import s from './tutorials-landing.module.css'
 
 // Not currently in constants because of custom placement by product
