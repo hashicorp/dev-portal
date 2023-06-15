@@ -11,6 +11,7 @@ import ErrorViewSwitcher from 'views/error-view-switcher'
 import { productConfig } from 'lib/cms'
 import { isProductSlug } from 'lib/products'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
+
 function Error({ statusCode, proxiedProductSlug }) {
 	// Unlike other pages, we can't use redirects and rewrites
 	// to display proxied .io domain 404 pages on specific hosts.
