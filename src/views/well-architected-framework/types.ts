@@ -13,6 +13,7 @@ import { OverviewCtaProps } from 'views/product-landing/components/overview-cta/
 import { ProductViewBlock } from 'views/product-tutorials-view/components/product-view-content'
 import { TutorialData } from 'views/tutorial-view'
 import { OutlineLinkItem } from 'components/outline-nav/types'
+import { TutorialViewProps } from 'views/tutorial-view'
 
 export interface WellArchitectedFrameworkLandingProps {
 	metadata: {
@@ -51,6 +52,7 @@ export interface WellArchitectedFrameworkCollectionViewProps {
 export interface WafTutorialViewProps {
 	tutorial: TutorialData & {
 		nextPreviousData: NextPreviousProps
+		variant?: TutorialViewProps['metadata']['variant']
 	}
 	pageHeading: {
 		slug: string

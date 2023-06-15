@@ -22,11 +22,14 @@ import { EnrichedNavItem } from 'components/sidebar/types'
 import { generateWafCollectionSidebar } from 'views/well-architected-framework/utils/generate-collection-sidebar'
 import { getNextPrevious } from 'views/tutorial-view/components'
 import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
+import { getTutorialViewVariantData } from 'views/tutorial-view/utils/variants'
 import { WafTutorialViewProps } from '../types'
 
 export async function getWafTutorialViewProps(
-	tutorialSlug: [string, string]
+	fullSlug: [string, string] | [string, string, string] // Third option is a variant
 ): Promise<{ props: WafTutorialViewProps }> {
+	// Remove the variant from the slug
+	const tutorialSlug = fullSlug.slice(0, 2) as [string, string]
 	const [collectionFilename, tutorialFilename] = tutorialSlug
 	const currentPath = `/${wafData.slug}/${tutorialSlug.join('/')}`
 
@@ -52,6 +55,12 @@ export async function getWafTutorialViewProps(
 	if (fullTutorialData === null) {
 		return null
 	}
+
+	const variantSlug = fullSlug[2]
+	const variant = getTutorialViewVariantData(
+		variantSlug,
+		fullTutorialData.variant
+	)
 
 	const { content: serializedContent, headings } = await serializeContent(
 		fullTutorialData
@@ -121,6 +130,7 @@ export async function getWafTutorialViewProps(
 							`/${collectionSlug}/${splitProductFromFilename(tutorialSlug)}`,
 					},
 				}),
+				variant,
 			},
 			pageHeading,
 			outlineItems,
