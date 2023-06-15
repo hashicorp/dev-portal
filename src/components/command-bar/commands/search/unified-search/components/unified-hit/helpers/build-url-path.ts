@@ -40,9 +40,14 @@ export function buildUrlPath(searchHit: Hit): string {
 		/**
 		 * Something's gone wrong, this should never happen in our indexing.
 		 * Link to the home page as insurance. And ideally, should log
-		 * an error here.
-		 * TODO: log an error maybe?
+		 * an error here, not just locally, but maybe elsewhere?
+		 *
+		 * TODO: figure out where to log errors like this in such a way that
+		 * they're surfaced to the team, rather than only appearing in-browser.
 		 */
+		console.error(
+			`Unexpected input in build-url-path: content type "${searchHit.type}" is not a recognized content type. Valid content types are "docs", "tutorial", and "integration". Please ensure the object pushed to Algolia only use these content types.`
+		)
 		return '/'
 	}
 }
