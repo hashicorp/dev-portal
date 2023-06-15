@@ -7,17 +7,12 @@ import BaseLayout from 'layouts/base-new'
 import proxiedLayouts from 'layouts/_proxied-dot-io/dict'
 import { getProxiedProductSlug } from 'lib/env-checks'
 import ErrorViewSwitcher from 'views/error-view-switcher'
-import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 // product data, needed to render top navigation
 import { productConfig } from 'lib/cms'
 import { isProductSlug } from 'lib/products'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 
-// resolve a default export
-function resolve(obj) {
-	return obj && obj.__esModule ? obj.default : obj
-}
-function Error({ statusCode, proxiedProductSlug, layoutProps }) {
+function Error({ statusCode, proxiedProductSlug }) {
 	// Unlike other pages, we can't use redirects and rewrites
 	// to display proxied .io domain 404 pages on specific hosts.
 	// Instead, we must use getServerSideProps to determine which
@@ -61,7 +56,7 @@ function Error({ statusCode, proxiedProductSlug, layoutProps }) {
 	const Layout = isProxiedDotIo ? ProxiedLayout : BaseLayout
 
 	return (
-		<Layout data={{ ...layoutProps }}>
+		<Layout>
 			<ErrorViewSwitcher
 				statusCode={statusCode}
 				isProxiedDotIo={isProxiedDotIo}
@@ -96,26 +91,6 @@ export async function getServerSideProps(ctx) {
 	}
 
 	/**
-	 * Resolve the next/dynamic component so we can access the layout component itself,
-	 * and subsequently the static .rivetParams via fetchLayoutProps
-	 */
-	let layoutProps = {}
-
-	try {
-		if (proxiedProductSlug) {
-			const layout = resolve(
-				await proxiedLayouts[proxiedProductSlug].render.preload()
-			)
-			layoutProps = await fetchLayoutProps(layout, proxiedProductSlug)
-		}
-	} catch {
-		/**
-		 * Do nothing, continue on with no layoutProps. Ensure that we don't potentially get into an
-		 * infinite error scenario if the fetching fails when attempting to render the error page
-		 */
-	}
-
-	/**
 	 * Determine the product context, in order to render the correct
 	 * navigation header on the dev-dot 404 page.
 	 */
@@ -136,7 +111,6 @@ export async function getServerSideProps(ctx) {
 			statusCode,
 			proxiedProductSlug,
 			hostname: urlObj.hostname,
-			layoutProps,
 		},
 	}
 }
