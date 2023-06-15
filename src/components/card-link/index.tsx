@@ -16,6 +16,7 @@ const CardLink = ({
 	children,
 	className,
 	href,
+	onClick,
 	opensInNewTab,
 	'data-heap-track': dataHeapTrack,
 }: CardLinkProps): ReactElement => {
@@ -50,6 +51,7 @@ const CardLink = ({
 				data-heap-track={`card-link ${dataHeapTrack ?? ''}`}
 				href={href}
 				target={target}
+				onClick={onClick}
 			>
 				<span aria-hidden={true}>&nbsp;</span>
 			</Link>
