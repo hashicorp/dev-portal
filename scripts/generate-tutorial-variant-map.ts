@@ -65,7 +65,15 @@ async function getVariantRewrites() {
 		// map over the collection paths to build up each tutorial path with the variant options
 		tutorial.featured_collections.map((collection: ApiFeaturedCollection) => {
 			const [product, collectionFilename] = collection.slug.split('/')
-			const path = `/${product}/tutorials/${collectionFilename}/${tutorialFilename}`
+			let path = `/${product}/tutorials/${collectionFilename}/${tutorialFilename}`
+
+			if (
+				product === 'onboarding' ||
+				product === 'well-architected-framework'
+			) {
+				path = `/${product}/${collectionFilename}/${tutorialFilename}`
+			}
+
 			const defaultOption = variant.options.find(
 				(option: ApiTutorialVariantOption) => option.display_order === 1
 			)
