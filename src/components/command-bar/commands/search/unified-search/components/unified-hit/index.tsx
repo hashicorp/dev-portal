@@ -51,7 +51,14 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 	const codeListItemsHighlight = renderHighlightArrayHtml(codeListItems, true)
 
 	return (
-		<div key={objectID} style={{ border: '1px solid magenta' }}>
+		<div
+			key={objectID}
+			className={s.cardLinkColorOverride}
+			style={{
+				border: '1px solid magenta',
+				color: 'var(--token-color-foreground-strong)',
+			}}
+		>
 			<CardLink href={urlPath} ariaLabel={hit.page_title as string}>
 				<Text
 					dangerouslySetInnerHTML={{
@@ -79,7 +86,10 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 						__html: urlPath,
 					}}
 					className={s.withHighlight}
-					style={{ color: 'gray', marginTop: '8px' }}
+					style={{
+						color: 'var(--token-color-foreground-faint)',
+						marginTop: '8px',
+					}}
 					size={200}
 				/>
 				{headingsHighlight ? (
@@ -94,7 +104,7 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 							asElement="span"
 							className={s.withHighlight}
 							style={{
-								color: 'gray',
+								color: 'var(--token-color-foreground-faint)',
 								display: 'block',
 								paddingLeft: '8px',
 							}}
@@ -114,7 +124,7 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 							asElement="span"
 							className={s.withHighlight}
 							style={{
-								color: 'gray',
+								color: 'var(--token-color-foreground-faint)',
 								display: 'block',
 								paddingLeft: '8px',
 							}}
