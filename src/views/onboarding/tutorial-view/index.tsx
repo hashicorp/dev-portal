@@ -49,7 +49,7 @@ export default function OnboardingTutorialView({
 				key={slug}
 				{...(isInteractive && { labId: handsOnLab.id })}
 			>
-				<VariantProvider>
+				<VariantProvider variant={metadata?.variant}>
 					<SidebarSidecarLayout
 						sidecarSlot={<OutlineNavWithActive items={outlineItems.slice(0)} />}
 						breadcrumbLinks={layoutProps.breadcrumbLinks}
