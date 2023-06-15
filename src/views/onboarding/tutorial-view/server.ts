@@ -123,11 +123,6 @@ export async function getOnboardingTutorialProps(
 	 * Assemble props for the view
 	 */
 	const props = stripUndefinedProperties<OnboardingTutorialViewProps>({
-		metadata: {
-			title: fullTutorialData.name,
-			description: fullTutorialData.description,
-			variant,
-		},
 		tutorial: {
 			...fullTutorialData,
 			content: serializedContent,
@@ -142,6 +137,7 @@ export async function getOnboardingTutorialProps(
 						`/${collectionSlug}/${splitProductFromFilename(tutorialSlug)}`,
 				},
 			}),
+			variant,
 		},
 		pageHeading,
 		outlineItems,

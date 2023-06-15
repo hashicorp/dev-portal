@@ -28,10 +28,14 @@ export interface OnboardingCollectionViewProps {
 }
 
 export interface OnboardingTutorialViewProps {
-	tutorial: Omit<TutorialFullCollectionCtx, 'content' | 'collectionCtx'> & {
+	tutorial: Omit<
+		TutorialFullCollectionCtx,
+		'content' | 'collectionCtx' | 'variant'
+	> & {
 		content: MDXRemoteSerializeResult
 		collectionCtx: CollectionContext
 		nextPreviousData: NextPreviousProps
+		variant?: TutorialViewProps['metadata']['variant']
 	}
 	pageHeading: {
 		slug: string
@@ -42,5 +46,4 @@ export interface OnboardingTutorialViewProps {
 		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
 		navLevels: SidebarProps[]
 	}
-	metadata?: TutorialViewProps['metadata']
 }

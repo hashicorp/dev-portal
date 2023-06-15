@@ -23,7 +23,6 @@ export default function OnboardingTutorialView({
 	layoutProps,
 	pageHeading,
 	outlineItems,
-	metadata,
 }: OnboardingTutorialViewProps) {
 	const {
 		id,
@@ -35,6 +34,7 @@ export default function OnboardingTutorialView({
 		handsOnLab,
 		content,
 		nextPreviousData,
+		variant,
 	} = tutorial
 	const hasVideo = Boolean(video)
 	const isInteractive = Boolean(handsOnLab)
@@ -49,17 +49,14 @@ export default function OnboardingTutorialView({
 				key={slug}
 				{...(isInteractive && { labId: handsOnLab.id })}
 			>
-				<VariantProvider variant={metadata?.variant}>
+				<VariantProvider variant={variant}>
 					<SidebarSidecarLayout
 						sidecarSlot={<OutlineNavWithActive items={outlineItems.slice(0)} />}
 						breadcrumbLinks={layoutProps.breadcrumbLinks}
 						sidebarNavDataLevels={layoutProps.navLevels}
 						sidecarTopSlot={
-							metadata.variant ? (
-								<VariantDropdownDisclosure
-									variant={metadata.variant}
-									isFullWidth
-								/>
+							variant ? (
+								<VariantDropdownDisclosure variant={variant} isFullWidth />
 							) : null
 						}
 					>
