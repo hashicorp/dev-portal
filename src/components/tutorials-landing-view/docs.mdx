@@ -1,0 +1,79 @@
+---
+componentName: TutorialsLandingView
+peerComponents:
+  - ProductIcon
+---
+
+## CollectionContentCardLink
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+	{[
+		'boundary',
+		'consul',
+		'nomad',
+		'packer',
+		'terraform',
+		'vagrant',
+		'vault',
+		'waypoint',
+	].map((productSlug) => {
+		const productName = productSlug[0].toUpperCase() + productSlug.substring(1)
+		const mockTutorial = {
+			productsUsed: [
+				{
+					product: {
+						slug: productSlug,
+					},
+				},
+			],
+			video: {},
+			handsOnLab: {},
+		}
+		return (
+			<div style={{ width: 399 }}>
+				<TutorialsLandingView.CollectionContentCardLink
+					collection={{
+						name: `${productName} collection title`,
+						description:
+							'Brief description to give the user enough context to move forward with confidence. Max Character count of 130.',
+						slug: `${productSlug}/get-started`,
+						tutorials: new Array(8).fill(mockTutorial),
+					}}
+				/>
+			</div>
+		)
+	})}
+</div>
+
+## CertificationContentCardLink
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+	{[
+		{
+			slug: 'infrastructure-automation',
+			title: 'Verify your Infrastructure Automation skills',
+			description:
+				'The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform open source.',
+		},
+		{
+			slug: 'networking-automation',
+			title: 'Verify your Networking Automation skills',
+			description:
+				'The Consul Associate Certification is for Site Reliability Engineers, Solutions Architects, DevOps professionals, or other Cloud Engineers who know the basic concepts and skills to build, secure, and maintain open source HashiCorp Consul.',
+		},
+		{
+			slug: 'security-automation',
+			title: 'Verify your Security Automation skills',
+			description:
+				'Ready to demonstrate your advanced Vault Enterprise skills in production? Successfully complete a lab-based exam and earn the Vault Operations Professional certification.',
+		},
+	].map((certificationProgram) => {
+		return (
+			<div style={{ width: 399 }}>
+				<TutorialsLandingView.CertificationContentCardLink
+					certification={certificationProgram}
+				/>
+			</div>
+		)
+	})}
+</div>

@@ -24,6 +24,7 @@
 		"revalidate": 360,
 		"non_product_mobile_menu_routes": [
 			"/",
+			"/tutorials",
 			"/_error",
 			"/certifications",
 			"/certifications/[slug]"
