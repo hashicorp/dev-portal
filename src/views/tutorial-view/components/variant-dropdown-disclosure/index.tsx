@@ -5,6 +5,7 @@
 
 import { useId } from '@react-aria/utils'
 import { useRouter } from 'next/router'
+import { safeAnalyticsTrack } from 'lib/analytics'
 import DropdownDisclosure, {
 	DropdownDisclosureLinkItem,
 } from 'components/dropdown-disclosure'
@@ -53,6 +54,11 @@ export function VariantDropdownDisclosure({
 								)}
 								onClick={() => {
 									handleVariantCookie(variant.slug, option.slug)
+									safeAnalyticsTrack('Variant Selected', {
+										variant: variant.slug,
+										option: option.slug,
+										path: asPath,
+									})
 								}}
 							>
 								{option.name}
