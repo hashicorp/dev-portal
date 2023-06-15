@@ -1,4 +1,6 @@
 .root {
+	--left-right-padding: 24px;
+
 	background-color: var(--token-color-surface-primary);
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -20,6 +22,10 @@
 	@media (--dev-dot-tablet-down) {
 		padding-right: 0 !important; /* TODO */
 	}
+
+	@media (--dev-dot-tablet) {
+		--left-right-padding: 40px;
+	}
 }
 
 .title {
@@ -27,9 +33,21 @@
 	composes: hds-font-weight-bold from global;
 	color: var(--token-color-foreground-strong);
 	width: 50%;
+
+	@media (--dev-dot-tablet-down) {
+		width: 75%;
+		padding-left: var(--left-right-padding);
+		padding-right: var(--left-right-padding);
+	}
+
+	@media (--dev-dot-mobile) {
+		width: 100%;
+	}
 }
 
 .list {
+	overflow-x: auto;
+	scrollbar-width: none;
 	column-gap: 20px;
 	display: grid;
 	grid-template-columns: repeat(3, minmax(auto, 400px));
@@ -38,13 +56,17 @@
 	margin: 0;
 	padding: 0;
 
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
 	@media (--dev-dot-tablet-down) {
 		overflow-y: auto;
 		grid-template-columns: repeat(3, minmax(40vw, 280px));
-		padding-left: 4px;
+		padding-left: var(--left-right-padding);
+		padding-right: var(--left-right-padding);
 		padding-top: 4px;
 		padding-bottom: 16px;
-		padding-right: 40px;
 	}
 
 	@media only screen and (max-width: 500px) {

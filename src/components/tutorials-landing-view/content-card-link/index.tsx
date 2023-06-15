@@ -56,7 +56,6 @@ const ContentCardLink = ({
 			<div
 				className={classNames(s.content, {
 					[s.hasHeaderImage]: hasHeaderImage,
-					[s.hasBackgroundImage]: hasBackgroundImage,
 					[s.hasLightBackgroundImage]: hasLightBackgroundImage,
 					[s.hasDarkBackgroundImage]: hasDarkBackgroundImage,
 				})}

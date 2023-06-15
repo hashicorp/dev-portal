@@ -1,10 +1,12 @@
-.root {
-	@media (--dev-dot-tablet-down) {
-		padding-right: 0 !important; /* TODO */
+.mobileRoot {
+	--mobile-left-right-padding: 24px;
+
+	@media (--dev-dot-tablet) {
+		--mobile-left-right-padding: 40px;
 	}
 }
 
-.mobileRoot {
+.nonMobileRoot {
 	column-gap: 64px;
 	display: grid;
 	grid-template-columns: 338px 1fr;
@@ -16,6 +18,19 @@
 	align-items: center;
 	display: flex;
 	gap: 12px;
+	color: blue;
+
+	@media (--dev-dot-tablet-down) {
+		padding-left: var(--mobile-left-right-padding);
+		padding-right: var(--mobile-left-right-padding);
+	}
+}
+
+.productIcon {
+	@media (--dev-dot-mobile) {
+		width: 32px;
+		height: 32px;
+	}
 }
 
 .title {
@@ -29,6 +44,11 @@
 	composes: hds-font-weight-regular from global;
 	color: var(--token-color-foreground-primary);
 	margin-top: 20px;
+
+	@media (--dev-dot-tablet-down) {
+		padding-left: var(--mobile-left-right-padding);
+		padding-right: var(--mobile-left-right-padding);
+	}
 }
 
 .generalCtasList {
@@ -83,11 +103,11 @@
 	display: grid;
 	gap: 20px;
 	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(2, 1fr);
 	list-style: none;
 	margin: 0;
 	padding: 0;
 	width: 100%;
+	height: min-content;
 }
 
 /* mobile */
@@ -95,18 +115,29 @@
 .mobileFeaturedCollectionsList {
 	display: grid;
 	gap: 20px;
-	grid-template-columns: repeat(3, minmax(40vw, 400px));
+	grid-auto-columns: minmax(40vw, 400px);
+	grid-auto-flow: column;
 	list-style: none;
 	margin-bottom: 0;
 	margin-top: 40px;
 	overflow-x: auto;
+	scrollbar-width: none;
 	padding-bottom: 16px;
 	padding-left: 4px;
 	padding-right: 40px;
 	padding-top: 4px;
 
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
 	@media only screen and (max-width: 500px) {
-		grid-template-columns: repeat(3, minmax(75vw, 280px));
+		grid-auto-columns: minmax(75vw, 280px);
+	}
+
+	@media (--dev-dot-tablet-down) {
+		padding-left: var(--mobile-left-right-padding);
+		padding-right: var(--mobile-left-right-padding);
 	}
 }
 
@@ -119,11 +150,26 @@
 
 	@media (--dev-dot-mobile) {
 		grid-template-columns: 1fr;
-		padding-right: 40px;
+		padding-right: 24px;
+	}
+
+	@media (--dev-dot-tablet-down) {
+		padding-left: var(--mobile-left-right-padding);
+		padding-right: var(--mobile-left-right-padding);
 	}
 }
 
 .mobileCtasAndFeaturedUseCases {
 	padding-top: 12px;
-	padding-bottom: 32px;
+	width: 100%;
+
+	&:not(:first-child) {
+		padding-left: 24px;
+		padding-right: 24px;
+
+		@media (--dev-dot-mobile) {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
 }

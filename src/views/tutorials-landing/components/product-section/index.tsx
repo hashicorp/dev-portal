@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { ProductName, ProductSlug } from 'types/products'
 import {
 	trackFeaturedUseCaseLinkClicked,
@@ -35,6 +35,20 @@ interface ProductSectionProps {
 	}
 }
 
+const ProductSectionStandaloneLink = ({ href, text, onClick }) => {
+	return (
+		<StandaloneLink
+			color="secondary"
+			href={href}
+			icon={<IconArrowRight16 />}
+			iconPosition="trailing"
+			size="small"
+			text={text}
+			onClick={onClick}
+		/>
+	)
+}
+
 const GeneralCtasList = ({ product }) => {
 	const { name, slug } = product
 	const productTutorialsLandingHref = `/${slug}/tutorials`
@@ -43,12 +57,8 @@ const GeneralCtasList = ({ product }) => {
 	return (
 		<ul className={s.generalCtasList}>
 			<li>
-				<StandaloneLink
-					color="secondary"
+				<ProductSectionStandaloneLink
 					href={productTutorialsLandingHref}
-					icon={<IconArrowRight24 />}
-					iconPosition="trailing"
-					size="large"
 					text={`Explore more ${name} learning paths`}
 					onClick={() => {
 						trackProductTutorialsLandingLinkClicked({
@@ -59,12 +69,8 @@ const GeneralCtasList = ({ product }) => {
 				/>
 			</li>
 			<li>
-				<StandaloneLink
-					color="secondary"
+				<ProductSectionStandaloneLink
 					href={tutorialLibraryHref}
-					icon={<IconArrowRight24 />}
-					iconPosition="trailing"
-					size="large"
 					text={`Browse all ${name} tutorials`}
 					onClick={() => {
 						trackTutorialLibraryLinkClicked({
@@ -86,12 +92,8 @@ const FeaturedUseCasesList = ({ featuredUseCases, product }) => {
 				{featuredUseCases.map(({ href, text }: FeaturedUseCase) => {
 					return (
 						<li key={href}>
-							<StandaloneLink
-								color="secondary"
+							<ProductSectionStandaloneLink
 								href={href}
-								icon={<IconArrowRight24 />}
-								iconPosition="trailing"
-								size="large"
 								text={text}
 								onClick={() => {
 									trackFeaturedUseCaseLinkClicked({
@@ -125,7 +127,7 @@ const SectionTitle = ({ product }) => {
 	const { name, slug } = product
 	return (
 		<div className={s.titleWrapper}>
-			<ProductIcon productSlug={slug} size={24} />
+			<ProductIcon className={s.productIcon} productSlug={slug} size={24} />
 			<h2 className={s.title}>{name}</h2>
 		</div>
 	)
@@ -142,7 +144,7 @@ const MobileProductSection = ({
 	featuredUseCases,
 }) => {
 	return (
-		<div className="g-hide-on-desktop">
+		<div className={classNames(s.mobileRoot, 'g-hide-on-desktop')}>
 			<SectionTitle product={product} />
 			<SectionDescription text={product.description} />
 			<ul className={s.mobileFeaturedCollectionsList}>
@@ -183,7 +185,7 @@ const NonMobileProductSection = ({
 			className={classNames(
 				'g-hide-on-mobile',
 				'g-hide-on-tablet',
-				s.mobileRoot
+				s.nonMobileRoot
 			)}
 		>
 			<div>
@@ -222,7 +224,7 @@ const ProductSection = ({
 	product,
 }: ProductSectionProps) => {
 	return (
-		<div className={classNames(s.root, className)}>
+		<div className={className}>
 			<MobileProductSection
 				certification={certification}
 				product={product}

@@ -22,7 +22,7 @@
 			],
 			"certificationProgram": {
 				"slug": "infrastructure-automation",
-				"title": "Get certified",
+				"title": "Get certified: Infrastructure automation",
 				"description": "Validate your infrastructure automation skills by studying for and passing the Terraform Associate certification exam."
 			}
 		},
@@ -48,7 +48,7 @@
 			],
 			"certificationProgram": {
 				"slug": "security-automation",
-				"title": "Get certified",
+				"title": "Get certified: Security automation",
 				"description": "Validate your cloud security skills by studying for and passing the Vault Associate certification exam."
 			}
 		},
@@ -74,7 +74,7 @@
 			],
 			"certificationProgram": {
 				"slug": "networking-automation",
-				"title": "Get certified",
+				"title": "Get certified: Networking automation",
 				"description": "Validate your networking automation skills by studying for and passing the Consul Associate certification exam."
 			}
 		},
@@ -169,7 +169,7 @@
 				},
 				{
 					"href": "/waypoint/tutorials/deploy-azure",
-					"text": "Deploy an application onto an Azure Container Instance"
+					"text": "Deploy an Azure Container Instance application"
 				},
 				{
 					"href": "/waypoint/tutorials/deploy-google-cloud",

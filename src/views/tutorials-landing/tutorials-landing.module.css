@@ -24,6 +24,7 @@
 	/* 1440px and below */
 	@media only screen and (max-width: 1440px) {
 		--page-padding-top: 148px;
+		--product-section-padding-top-bottom: 86px;
 	}
 
 	/* 1000px and below */
@@ -31,15 +32,23 @@
 		--page-padding-top: 124px;
 		/* stylelint-disable-next-line length-zero-no-unit */
 		--section-padding-left-right-outer: 0px;
-		/* stylelint-disable-next-line length-zero-no-unit */
-		--cross-product-section-border-radius: 0px;
 		--content-types-section-padding-top: 48px;
 		--content-types-section-padding-bottom: 64px;
-		--product-section-padding-top-bottom: 64px;
+		--product-section-padding-top-bottom: 60px;
+	}
+
+	/** 
+	* This is the width where the cross product section spans
+	* the entire page, so we need to remove the border radius
+	*/
+	@media screen and (max-width: 1320px) {
+		/* stylelint-disable-next-line length-zero-no-unit */
+		--cross-product-section-border-radius: 0px;
 	}
 
 	@media (--dev-dot-mobile) {
 		--product-section-padding-top-bottom: 36px;
+		--section-padding-left-right-inner: 24px;
 	}
 
 	/* 425px and below */
@@ -62,6 +71,7 @@
 	);
 	padding-left: var(--section-padding-left-right);
 	padding-right: var(--section-padding-left-right);
+	padding-bottom: var(--product-section-padding-top-bottom);
 }
 
 .productSectionWrapper {
@@ -79,6 +89,16 @@
 	padding-left: var(--section-padding-left-right);
 	padding-right: var(--section-padding-left-right);
 	position: relative;
+
+	/**
+	* To handle the scroll margin for the cards, the left /right
+	* padding is handle within the component at this size.
+	* see ./product-section/product-section.module.css
+	*/
+	@media (--dev-dot-tablet-down) {
+		padding-right: 0;
+		padding-left: 0;
+	}
 }
 
 .productSectionSvgLeft,
@@ -90,7 +110,7 @@
 	position: absolute;
 	top: 0;
 	width: 50%;
-	z-index: -1;
+	z-index: -2;
 
 	& svg {
 		width: 100%;
@@ -99,20 +119,28 @@
 
 .productSectionSvgLeft {
 	left: 0;
-
-	&.productSectionSvg--terraform {
-		transform: translate(-45%, 25%);
-	}
+	transform: translate(-50%, 30%);
 }
 
 .productSectionSvgRight {
 	right: 0;
+	display: flex;
+	align-items: center;
+	transform: translateX(40%);
+}
 
-	&.productSectionSvg--terraform {
-		display: flex;
-		align-items: center;
-		transform: translateX(50%);
-	}
+.gradientMask {
+	background: linear-gradient(
+		180deg,
+		var(--token-color-page-primary),
+		transparent 25% 85%,
+		var(--token-color-page-primary)
+	);
+	bottom: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: -1;
 }
 
 .contentTypesSectionWrapper {
@@ -121,6 +149,8 @@
 	padding-right: var(--section-padding-left-right);
 	padding-top: var(--content-types-section-padding-top);
 	padding-bottom: var(--content-types-section-padding-bottom);
+	margin-top: var(--product-section-padding-top-bottom);
+	margin-bottom: var(--product-section-padding-top-bottom);
 }
 
 .contentTypesSection {
@@ -143,4 +173,15 @@
 	padding-right: var(--section-padding-left-right-inner);
 	padding-top: var(--section-padding-left-right-inner);
 	padding-bottom: calc(1.5 * var(--section-padding-left-right-inner));
+	margin-top: var(--product-section-padding-top-bottom);
+
+	/**
+	* To handle the scroll margin for the cards, the left /right
+	* padding is handle within the component at this size.
+	* see ./product-section/product-section.module.css
+	*/
+	@media (--dev-dot-tablet-down) {
+		padding-right: 0;
+		padding-left: 0;
+	}
 }

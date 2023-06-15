@@ -18,10 +18,10 @@ import {
 	PageHero,
 	ProductSection,
 } from './components'
-import diamondSvg from './img/diamond.svg?include'
-import elipseSvg from './img/elipse.svg?include'
-import hexSvg from './img/hex.svg?include'
-import hexVertSvg from './img/hex-vert.svg?include'
+import diamondSvg from './img/diamond-fade.svg?include'
+import elipseSvg from './img/elipse-fade.svg?include'
+import hexSvg from './img/hex-fade.svg?include'
+import hexVertSvg from './img/hex-vert-fade.svg?include'
 import s from './tutorials-landing.module.css'
 
 // Not currently in constants because of custom placement by product
@@ -38,14 +38,17 @@ const PRODUCT_SLUGS_TO_BACKGROUND_SVGS = {
 
 const ProductSectionBackgroundSvg = ({ productSlug, side }) => {
 	return (
-		<InlineSvg
-			className={classNames({
-				[s.productSectionSvgLeft]: side === 'left',
-				[s.productSectionSvgRight]: side === 'right',
-				[s[`productSectionSvg--${productSlug}`]]: productSlug,
-			})}
-			src={PRODUCT_SLUGS_TO_BACKGROUND_SVGS[productSlug]}
-		/>
+		<>
+			<span className={s.gradientMask} />
+			<InlineSvg
+				className={classNames({
+					[s.productSectionSvgLeft]: side === 'left',
+					[s.productSectionSvgRight]: side === 'right',
+					[s[`productSectionSvg--${productSlug}`]]: productSlug,
+				})}
+				src={PRODUCT_SLUGS_TO_BACKGROUND_SVGS[productSlug]}
+			/>
+		</>
 	)
 }
 
@@ -91,12 +94,8 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 
 	return (
 		<div className={s.root}>
-			<div>
-				<PageHero
-					className={s.pageHero}
-					subtitle={PAGE_SUBTITLE}
-					title={PAGE_TITLE}
-				/>
+			<div className={s.pageHero}>
+				<PageHero subtitle={PAGE_SUBTITLE} title={PAGE_TITLE} />
 			</div>
 			{renderProductSections(
 				[firstProductSlug, secondProductSlug, thirdProductSlug],
