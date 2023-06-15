@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 
 // Global imports
 import { getUserMenuItems } from 'lib/auth/user'
+import isThemedPath from 'lib/isThemedPath'
 import { useMobileMenu } from 'contexts'
 import useAuthentication from 'hooks/use-authentication'
 import Button from 'components/button'
@@ -46,7 +47,7 @@ const MobileAuthenticationControls = () => {
 		useAuthentication()
 	const showUnauthenticatedUI = !isLoading && !isAuthenticated
 	const { pathname } = useRouter()
-	const shouldRenderThemeSwitcher = pathname !== '/'
+	const shouldRenderThemeSwitcher = isThemedPath(pathname)
 
 	if (!isAuthenticated && !showUnauthenticatedUI) {
 		return null
