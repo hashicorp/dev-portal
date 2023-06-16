@@ -1,0 +1,15 @@
+.cardLinkColorOverride {
+	& > div {
+		color: var(--token-color-foreground-strong);
+	}
+}
+
+.withHighlight {
+	color: var(--token-color-foreground-strong);
+
+	& mark {
+		background-color: transparent;
+		color: var(--token-color-foreground-action);
+		font-style: normal;
+	}
+}
