@@ -80,6 +80,7 @@ const initialAlgoliaData: UnifiedSearchResults = {
  */
 export function UnifiedSearchCommandBarDialogBody() {
 	const { currentInputValue } = useCommandBar()
+	// TODO: could split into a smaller component, then state might cause less updates
 	const [algoliaData, setAlgoliaData] =
 		useState<UnifiedSearchResults>(initialAlgoliaData)
 	const currentProductTag = useCommandBarProductTag()
