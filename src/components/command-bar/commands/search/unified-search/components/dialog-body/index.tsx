@@ -84,7 +84,7 @@ export function UnifiedSearchCommandBarDialogBody() {
 	}
 
 	/**
-	 * Otherwise, render search results
+	 * Render search results
 	 */
 	return (
 		<SearchResults
