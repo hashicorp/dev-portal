@@ -1,6 +1,5 @@
 import type { Hit } from 'instantsearch.js'
 
-// TODO: set up an enum for this
 export type UnifiedSearchableContentType =
 	| 'global'
 	| 'docs'
