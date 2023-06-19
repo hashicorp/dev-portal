@@ -139,6 +139,8 @@ function HitsReporter({
 	type: 'docs' | 'integration' | 'tutorial'
 	currentInputValue: string
 }) {
+	// TODO: this doesn't have to be a context, it could be state I think?
+	// Context is only used in this file.
 	const [hitsData, setHitsData] = useUnifiedHitsContext()
 	const { hits } = useHits()
 
