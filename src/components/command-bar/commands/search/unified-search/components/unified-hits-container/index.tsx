@@ -14,9 +14,7 @@ import {
 } from '../../../components'
 // Unified search
 import { UnifiedHit } from '../unified-hit'
-import { gatherSearchTabsContent } from './helpers'
 // Types
-import type { ProductSlug } from 'types/products'
 import type { Hit } from 'instantsearch.js'
 import type { UnifiedSearchTabContent } from './helpers'
 // Styles
@@ -28,37 +26,25 @@ import s from './unified-hits-container.module.css'
  * Note: this component needs to be used within an `InstantSearch` container
  * imported from 'react-instantsearch-hooks-web'. That container provides
  * the context from which `rawHits` are pulled.
+ *
+ * TODO: rewrite description, this component is now mostly presentational.
  */
 export function UnifiedHitsContainer({
-	currentProductSlug,
+	tabData,
 	suggestedPages,
 }: {
-	currentProductSlug?: ProductSlug
+	tabData: UnifiedSearchTabContent[]
 	suggestedPages: SuggestedPage[]
 }) {
-	const { hits: rawHits } = useHits()
-
-	/**
-	 * Transform searchableContentTypes into data for each content tab.
-	 *
-	 * Note: we set up this data before rather than during render,
-	 * because each tab needs data from all other tabs in order
-	 * to show a helpful "No Results" message.
-	 */
-	const allTabData = useMemo(
-		() => gatherSearchTabsContent(rawHits, currentProductSlug),
-		[rawHits, currentProductSlug]
-	)
-
 	/**
 	 * Render the tabs. This is mostly presentation since `tabData` logic is done.
 	 */
 	return (
 		<div className={s.tabsWrapper}>
 			<Tabs showAnchorLine={false} variant="compact">
-				{allTabData.map((tabData: UnifiedSearchTabContent) => {
+				{tabData.map((tabDatum: UnifiedSearchTabContent) => {
 					const { type, heading, icon, hits, hitCount, otherTabsWithResults } =
-						tabData
+						tabDatum
 					const resultsLabelId = `${type}-search-results-label`
 
 					return (

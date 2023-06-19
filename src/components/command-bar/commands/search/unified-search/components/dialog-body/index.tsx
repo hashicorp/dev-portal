@@ -6,7 +6,13 @@
 import { useMemo } from 'react'
 // Libraries
 import algoliasearch from 'algoliasearch'
-import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
+import {
+	Configure,
+	InstantSearch,
+	Index,
+	Hits,
+	useHits,
+} from 'react-instantsearch-hooks-web'
 // Command bar
 import { useCommandBar } from 'components/command-bar'
 // Shared search
@@ -19,6 +25,7 @@ import {
 	useCommandBarProductTag,
 	useDebouncedRecentSearches,
 } from './helpers'
+import { gatherSearchTabsContent } from '../unified-hits-container/helpers'
 // Types
 import type { ProductSlug } from 'types/products'
 import type { SuggestedPage } from '../../../components'
@@ -81,12 +88,59 @@ export function UnifiedSearchCommandBarDialogBody() {
 		>
 			<Configure
 				query={currentInputValue}
-				filters={getAlgoliaProductFilterString(currentProductSlug)}
+				filters={getAlgoliaProductFilterString(
+					currentProductSlug,
+					'integration'
+				)}
 			/>
-			<UnifiedHitsContainer
+
+			{/* <Index
+				indexName={__config.dev_dot.algolia.unifiedIndexName}
+				indexId="all"
+			>
+				<Configure />
+				<Hits />
+			</Index> */}
+
+			<CustomHitsContainer
 				currentProductSlug={currentProductSlug}
 				suggestedPages={suggestedPages}
 			/>
 		</InstantSearch>
+	)
+}
+
+/**
+ * Note: has to be a separate component, I think?
+ *
+ * TODO: maybe useHits provides filtering capabilities?
+ * Or is there a hook version of "Configure"? Not sure...
+ */
+function CustomHitsContainer({
+	currentProductSlug,
+	suggestedPages,
+}: {
+	currentProductSlug?: ProductSlug
+	suggestedPages: SuggestedPage[]
+}) {
+	const { hits: rawHits } = useHits()
+
+	/**
+	 * Transform searchableContentTypes into data for each content tab.
+	 *
+	 * Note: we set up this data before rather than during render,
+	 * because each tab needs data from all other tabs in order
+	 * to show a helpful "No Results" message.
+	 */
+	const allTabData = useMemo(
+		() => gatherSearchTabsContent(rawHits, currentProductSlug),
+		[rawHits, currentProductSlug]
+	)
+
+	return (
+		<UnifiedHitsContainer
+			tabData={allTabData}
+			suggestedPages={suggestedPages}
+		/>
 	)
 }

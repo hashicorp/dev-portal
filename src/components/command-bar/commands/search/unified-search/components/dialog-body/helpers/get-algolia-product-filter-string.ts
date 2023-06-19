@@ -9,14 +9,21 @@ import { ProductSlug } from 'types/products'
  *
  * Note: intended for use with our unified search indices, which are
  * named `<env>_DEVDOT_omni` in Algolia.
+ *
+ * TODO: add functionality to exclude integrations for certain products somehow?
+ * Maybe this is as simple as a client-side filter once the other filter
+ * fixes have been put in place.
  */
 export function getAlgoliaProductFilterString(
-	productSlug?: ProductSlug
+	productSlug?: ProductSlug,
+	resultType?: 'docs' | 'integration' | 'tutorial'
 ): string {
-	let filterString = ''
-
+	/**
+	 * Product filter
+	 */
+	let productFilter = ''
 	if (productSlug) {
-		filterString = `products:${productSlug}`
+		productFilter = `products:${productSlug}`
 
 		/**
 		 * The edition:hcp only applies to `tutorials` records, which will
@@ -26,9 +33,23 @@ export function getAlgoliaProductFilterString(
 		 * Ref: https://www.algolia.com/doc/api-reference/api-parameters/filters/
 		 */
 		if (productSlug === 'hcp') {
-			filterString += ` OR edition:${productSlug}`
+			productFilter += ` OR edition:${productSlug}`
 		}
 	}
 
-	return filterString
+	/**
+	 * Type filter
+	 */
+	let typeFilter = ''
+	if (resultType) {
+		typeFilter = `type:${resultType}`
+	}
+
+	/**
+	 * Combine filters, results must match ALL filters at once.
+	 */
+	return [typeFilter, productFilter]
+		.filter((s) => s !== '')
+		.map((s) => `(${s})`)
+		.join(' AND ')
 }
