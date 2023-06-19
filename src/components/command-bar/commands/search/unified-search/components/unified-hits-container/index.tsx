@@ -37,7 +37,10 @@ export function UnifiedHitsContainer({
 						<Tab
 							heading={heading}
 							headingSlot={
-								<TabHeadingWithCount heading={heading} count={hitCount} />
+								<TabHeadingWithCount
+									heading={heading}
+									count={type === 'global' ? undefined : hitCount}
+								/>
 							}
 							icon={icon}
 							key={type}
