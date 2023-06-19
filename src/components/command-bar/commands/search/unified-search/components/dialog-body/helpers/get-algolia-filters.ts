@@ -1,4 +1,5 @@
 import { ProductSlug } from 'types/products'
+import { UnifiedSearchableContentType } from '../../../types'
 
 /**
  * Given an optional product slug,
@@ -10,13 +11,12 @@ import { ProductSlug } from 'types/products'
  * Note: intended for use with our unified search indices, which are
  * named `<env>_DEVDOT_omni` in Algolia.
  *
- * TODO: add functionality to exclude integrations for certain products somehow?
- * Maybe this is as simple as a client-side filter once the other filter
- * fixes have been put in place.
+ * TODO: for non-specific `resultType`, filter to only show `integration`
+ * results for products with integrations config flags on.
  */
-export function getAlgoliaProductFilterString(
+export function getAlgoliaFilters(
 	productSlug?: ProductSlug,
-	resultType?: 'global' | 'docs' | 'integration' | 'tutorial'
+	resultType?: UnifiedSearchableContentType
 ): string {
 	/**
 	 * Product filter
@@ -43,6 +43,18 @@ export function getAlgoliaProductFilterString(
 	let typeFilter = ''
 	if (resultType && resultType !== 'global') {
 		typeFilter = `type:${resultType}`
+	} else {
+		/**
+		 * TODO: add filter to only include 'integrations` for
+		 * for products with integrations config flags on.
+		 *
+		 * Maybe something like...
+		 *
+		 * (type:docs OR type:tutorial OR products:<withIntegrations> OR products<withIntegrations>)
+		 *
+		 * ... which should show 'docs' and 'tutorial' entries for ALL products,
+		 * and should show integrations for all explicitly specified products.
+		 */
 	}
 
 	/**

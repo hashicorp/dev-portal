@@ -9,11 +9,11 @@ import { getShouldRenderIntegrationsTab } from './get-should-render-integrations
 import type { ReactElement } from 'react'
 import type { Hit } from 'instantsearch.js'
 import type { CurrentContentType } from 'contexts'
-import { ProductSlug } from 'types/products'
-import {
+import type { ProductSlug } from 'types/products'
+import type {
 	UnifiedSearchResults,
 	UnifiedSearchableContentType,
-} from '../../dialog-body'
+} from '../../../types'
 
 /**
  * Each content type tab has a set of properties required for rendering.
@@ -24,7 +24,7 @@ export interface UnifiedSearchTabContent {
 	hitCount: number
 	hits: Hit[]
 	icon: ReactElement<React.JSX.IntrinsicElements['svg']>
-	otherTabsWithResults: OtherTabData
+	otherTabData: OtherTabData
 }
 
 /**
@@ -66,10 +66,10 @@ const tabContentByType: Record<
  * Used to render helpful "no results" messages for each tab.
  */
 function getOtherTabsWithResults(
-	allTabData: Omit<UnifiedSearchTabContent, 'otherTabsWithResults'>[],
+	tabsData: Omit<UnifiedSearchTabContent, 'otherTabData'>[],
 	currentTabType: CurrentContentType
 ): OtherTabData {
-	return allTabData
+	return tabsData
 		.filter((tabData) => {
 			const isOtherTab = tabData.type !== currentTabType
 			const tabHasResults = tabData.hitCount > 0
@@ -84,8 +84,12 @@ function getOtherTabsWithResults(
 		})
 }
 
-export function tabsContentFromAlgoliaData(
-	algoliaData: UnifiedSearchResults,
+/**
+ * Transform unified search results into tab data that the
+ * `UnifiedHitsContainer` component can render.
+ */
+export function tabsDataFromSearchResults(
+	unifiedSearchResults: UnifiedSearchResults,
 	currentProductSlug?: ProductSlug
 ): UnifiedSearchTabContent[] {
 	const searchableContentTypes = Object.keys(tabContentByType)
@@ -100,9 +104,9 @@ export function tabsContentFromAlgoliaData(
 	/**
 	 * Map each content type to { heading, hits, icon } etcetera for each tab
 	 */
-	const allTabData = validContentTypes.map((type: CurrentContentType) => {
+	const tabsData = validContentTypes.map((type: CurrentContentType) => {
 		const { heading, icon } = tabContentByType[type]
-		const hits = algoliaData[type].hits
+		const hits = unifiedSearchResults[type].hits
 		const hitCount = hits.length
 		//
 		return { type, heading, hits, hitCount, icon }
@@ -110,11 +114,8 @@ export function tabsContentFromAlgoliaData(
 	/**
 	 * Add "other" tab data to each search tab. Used for "no results" messages.
 	 */
-	return allTabData.map((currentTab) => {
-		const otherTabsWithResults = getOtherTabsWithResults(
-			allTabData,
-			currentTab.type
-		)
-		return { ...currentTab, otherTabsWithResults }
+	return tabsData.map((currentTab) => {
+		const otherTabData = getOtherTabsWithResults(tabsData, currentTab.type)
+		return { ...currentTab, otherTabData }
 	})
 }

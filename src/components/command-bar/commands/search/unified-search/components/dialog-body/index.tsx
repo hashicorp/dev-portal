@@ -19,19 +19,22 @@ import { generateSuggestedPages } from '../../../helpers'
 import { RecentSearches, SuggestedPages } from '../../../components'
 // Unified search
 import { UnifiedHitsContainer } from '../unified-hits-container'
+import { tabsDataFromSearchResults } from '../unified-hits-container/helpers'
 import {
-	getAlgoliaProductFilterString,
+	getAlgoliaFilters,
 	useCommandBarProductTag,
 	useDebouncedRecentSearches,
 } from './helpers'
-
 // Types
 import type { Hit } from 'instantsearch.js'
 import type { ProductSlug } from 'types/products'
 import type { SuggestedPage } from '../../../components'
+import type {
+	UnifiedSearchResults,
+	UnifiedSearchableContentType,
+} from '../../types'
 // Styles
 import s from './dialog-body.module.css'
-import { tabsContentFromAlgoliaData } from '../unified-hits-container/helpers'
 
 const ALGOLIA_INDEX_NAME = __config.dev_dot.algolia.unifiedIndexName
 
@@ -44,34 +47,11 @@ const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
 const searchClient = algoliasearch(appId, apiKey)
 
-// TODO: set up an enum for this, separate types file
-export type UnifiedSearchableContentType =
-	| 'global'
-	| 'docs'
-	| 'integration'
-	| 'tutorial'
-
-export type UnifiedSearchResults = Record<
-	UnifiedSearchableContentType,
-	{
-		searchQuery?: string
-		hits: Hit[]
-	}
->
-
-const initialAlgoliaData: UnifiedSearchResults = {
-	global: { hits: [] },
-	docs: { hits: [] },
-	integration: { hits: [] },
-	tutorial: { hits: [] },
-}
-
 /**
  * Render the command bar dialog body for unified search results.
  *
- * If we have an input value in the command bar, we render search results
- * from Algolia, through the `UnifiedHitsContainer` component. We apply
- * an initial filter for the current product context where applicable.
+ * If we have an input in the command bar, we render search results.
+ * We apply an initial filter for the current product context where applicable.
  *
  * If we don't have an input value, we render suggested pages, which are
  * tailored to the current product context where applicable.
@@ -80,16 +60,9 @@ const initialAlgoliaData: UnifiedSearchResults = {
  */
 export function UnifiedSearchCommandBarDialogBody() {
 	const { currentInputValue } = useCommandBar()
-	// TODO: could split into a smaller component, then state might cause less updates
-	const [algoliaData, setAlgoliaData] =
-		useState<UnifiedSearchResults>(initialAlgoliaData)
 	const currentProductTag = useCommandBarProductTag()
 	const currentProductSlug = currentProductTag?.id as ProductSlug
 	const recentSearches = useDebouncedRecentSearches(currentInputValue)
-
-	function setHitData(type, hits) {
-		setAlgoliaData((previous) => ({ ...previous, [type]: { hits } }))
-	}
 
 	/**
 	 * Generate suggested pages for the current product (if any).
@@ -111,36 +84,77 @@ export function UnifiedSearchCommandBarDialogBody() {
 	}
 
 	/**
-	 * Render search results based on the current input value.
+	 * Otherwise, render search results
 	 */
 	return (
+		<SearchResults
+			currentInputValue={currentInputValue}
+			currentProductSlug={currentProductSlug}
+			suggestedPages={suggestedPages}
+		/>
+	)
+}
+
+/**
+ * Render unified search results for the provided query input.
+ */
+function SearchResults({
+	currentProductSlug,
+	currentInputValue,
+	suggestedPages,
+}: {
+	currentProductSlug: ProductSlug
+	currentInputValue: string
+	suggestedPages: SuggestedPage[]
+}) {
+	/**
+	 * State collects results from multiple separate content-type queries.
+	 */
+	const [unifiedSearchResults, setUnifiedSearchResults] =
+		useState<UnifiedSearchResults>({
+			global: { hits: [] },
+			docs: { hits: [] },
+			integration: { hits: [] },
+			tutorial: { hits: [] },
+		})
+	/**
+	 * `setHitData` allows easy updating of hits for a specific content type
+	 */
+	function setHitData(type: UnifiedSearchableContentType, hits: Hit[]) {
+		setUnifiedSearchResults((previous) => ({ ...previous, [type]: { hits } }))
+	}
+
+	/**
+	 * Transform unified search results into data for each content-type tab.
+	 *
+	 * Note: we set up this data before rather than during render,
+	 * because each tab needs data from all other tabs in order
+	 * to show a helpful "No Results" message.
+	 */
+	const tabsData = useMemo(() => {
+		return tabsDataFromSearchResults(unifiedSearchResults, currentProductSlug)
+	}, [unifiedSearchResults, currentProductSlug])
+
+	return (
 		<>
+			{/* <InstantSearch /> updates algoliaData, and renders nothing.
+			    Maybe helpful to think of this as "the part that fetches results". */}
 			<InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
 				{['global', 'docs', 'integration', 'tutorial'].map(
-					(type: 'global' | 'docs' | 'integration' | 'tutorial') => {
+					(type: UnifiedSearchableContentType) => {
+						const filters = getAlgoliaFilters(currentProductSlug, type)
 						return (
 							<Index key={type} indexName={ALGOLIA_INDEX_NAME} indexId={type}>
-								{/* TODO: is it possible to filter out not-yet-activated integrations for the all tab at this point? Maybe something like...
-								(type:docs OR type:tutorial OR products:<withIntegrations> OR products<withIntegrations>),
-								which should show 'docs' and 'tutorial' entries for ALL products,
-								and should show integrations for all explicitly specified products.
-								(with the optional AND (products:<product> OR edition:<product>)) */}
-								<Configure
-									query={currentInputValue}
-									filters={getAlgoliaProductFilterString(
-										currentProductSlug,
-										type
-									)}
-								/>
+								<Configure query={currentInputValue} filters={filters} />
 								<HitsReporter setHits={(hits) => setHitData(type, hits)} />
 							</Index>
 						)
 					}
 				)}
 			</InstantSearch>
-			<CustomHitsContainer
-				algoliaData={algoliaData}
-				currentProductSlug={currentProductSlug}
+			{/* UnifiedHitsContainer renders search results in a tabbed interface. */}
+			<UnifiedHitsContainer
+				tabsData={tabsData}
 				suggestedPages={suggestedPages}
 			/>
 		</>
@@ -148,56 +162,13 @@ export function UnifiedSearchCommandBarDialogBody() {
 }
 
 /**
- * TODO: this is meant as a non-rendering component to gather data
- * in a context, rather than entangle getting search results data
- * and rendering search results.
+ * When hits within this index context are updated,
+ * Update the <HitCountsProvider /> data for this content type.
  *
- * TODO: maybe Algolia has a better way to do this?
- * All I really want to do is gather all `hitsData` across the three
- * different content type searches, and have that data accessible
- * so that I can render the presentational `UnifiedHitsContainer`.
+ * This component doesn't render anything, it only gathers hit data.
  */
-function HitsReporter({ setHits }: { setHits: $TSFixMe }) {
+function HitsReporter({ setHits }: { setHits: (hits: Hit[]) => void }) {
 	const { hits } = useHits()
-
-	/**
-	 * When hits within this index context are updated,
-	 * Update the <HitCountsProvider /> data for this content type.
-	 */
 	useEffect(() => setHits(hits), [hits])
-
-	// This component doesn't render anything, it only gathers hit data
 	return null
-}
-
-/**
- * Note: has to be a separate component, I think?
- */
-function CustomHitsContainer({
-	algoliaData,
-	currentProductSlug,
-	suggestedPages,
-}: {
-	algoliaData: $TSFixMe
-	currentProductSlug?: ProductSlug
-	suggestedPages: SuggestedPage[]
-}) {
-	/**
-	 * Transform searchableContentTypes into data for each content tab.
-	 *
-	 * Note: we set up this data before rather than during render,
-	 * because each tab needs data from all other tabs in order
-	 * to show a helpful "No Results" message.
-	 */
-	const allTabData = useMemo(
-		() => tabsContentFromAlgoliaData(algoliaData, currentProductSlug),
-		[algoliaData, currentProductSlug]
-	)
-
-	return (
-		<UnifiedHitsContainer
-			tabData={allTabData}
-			suggestedPages={suggestedPages}
-		/>
-	)
 }

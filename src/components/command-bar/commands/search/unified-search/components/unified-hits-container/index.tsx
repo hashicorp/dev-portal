@@ -19,31 +19,20 @@ import s from './unified-hits-container.module.css'
 
 /**
  * Render search results from our unified index into content-type tabs.
- *
- * Note: this component needs to be used within an `InstantSearch` container
- * imported from 'react-instantsearch-hooks-web'. That container provides
- * the context from which `rawHits` are pulled.
- *
- * TODO: rewrite description, this component is now mostly presentational.
  */
 export function UnifiedHitsContainer({
-	tabData,
+	tabsData,
 	suggestedPages,
 }: {
-	tabData: UnifiedSearchTabContent[]
+	tabsData: UnifiedSearchTabContent[]
 	suggestedPages: SuggestedPage[]
 }) {
-	/**
-	 * Render the tabs. This is mostly presentation since `tabData` logic is done.
-	 */
 	return (
 		<div className={s.tabsWrapper}>
 			<Tabs showAnchorLine={false} variant="compact">
-				{tabData.map((tabDatum: UnifiedSearchTabContent) => {
-					const { type, heading, icon, hits, hitCount, otherTabsWithResults } =
-						tabDatum
+				{tabsData.map((tabData: UnifiedSearchTabContent) => {
+					const { type, heading, icon, hits, hitCount, otherTabData } = tabData
 					const resultsLabelId = `${type}-search-results-label`
-
 					return (
 						<Tab
 							heading={heading}
@@ -72,7 +61,7 @@ export function UnifiedHitsContainer({
 								<>
 									<NoResultsMessage
 										currentTabHeading={heading}
-										tabsWithResults={otherTabsWithResults}
+										tabsWithResults={otherTabData}
 									/>
 									<CommandBarDivider className={s.divider} />
 									<SuggestedPages pages={suggestedPages} />
