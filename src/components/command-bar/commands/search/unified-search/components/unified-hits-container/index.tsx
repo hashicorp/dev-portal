@@ -1,6 +1,3 @@
-// Libraries
-import { useMemo } from 'react'
-import { useHits } from 'react-instantsearch-hooks-web'
 // Global
 import Tabs, { Tab } from 'components/tabs'
 import { CommandBarDivider } from 'components/command-bar/components'

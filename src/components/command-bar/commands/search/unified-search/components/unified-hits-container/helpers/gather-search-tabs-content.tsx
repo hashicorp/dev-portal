@@ -5,12 +5,15 @@ import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 // Helpers
 import { getShouldRenderIntegrationsTab } from './get-should-render-integrations-tab'
-import { filterUnifiedSearchHits } from './filter-unified-search-hits'
 // Types
 import type { ReactElement } from 'react'
 import type { Hit } from 'instantsearch.js'
 import type { CurrentContentType } from 'contexts'
 import { ProductSlug } from 'types/products'
+import {
+	UnifiedSearchResults,
+	UnifiedSearchableContentType,
+} from '../../dialog-body'
 
 /**
  * Each content type tab has a set of properties required for rendering.
@@ -34,7 +37,7 @@ type OtherTabData = Pick<UnifiedSearchTabContent, 'type' | 'heading' | 'icon'>[]
  * Basic heading and icon content for each tab, which we'll build on.
  */
 const tabContentByType: Record<
-	CurrentContentType,
+	UnifiedSearchableContentType,
 	Pick<UnifiedSearchTabContent, 'heading' | 'icon'>
 > = {
 	global: {
@@ -45,11 +48,11 @@ const tabContentByType: Record<
 		heading: 'Documentation',
 		icon: <IconDocs16 />,
 	},
-	tutorials: {
+	tutorial: {
 		heading: 'Tutorials',
 		icon: <IconLearn16 />,
 	},
-	integrations: {
+	integration: {
 		heading: 'Integrations',
 		icon: <IconPipeline16 />,
 	},
@@ -81,8 +84,8 @@ function getOtherTabsWithResults(
 		})
 }
 
-export function gatherSearchTabsContent(
-	rawHits: Hit[],
+export function tabsContentFromAlgoliaData(
+	algoliaData: UnifiedSearchResults,
 	currentProductSlug?: ProductSlug
 ): UnifiedSearchTabContent[] {
 	const searchableContentTypes = Object.keys(tabContentByType)
@@ -99,7 +102,7 @@ export function gatherSearchTabsContent(
 	 */
 	const allTabData = validContentTypes.map((type: CurrentContentType) => {
 		const { heading, icon } = tabContentByType[type]
-		const hits = filterUnifiedSearchHits(rawHits, type)
+		const hits = algoliaData[type].hits
 		const hitCount = hits.length
 		//
 		return { type, heading, hits, hitCount, icon }
