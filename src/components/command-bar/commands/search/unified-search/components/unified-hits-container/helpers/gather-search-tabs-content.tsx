@@ -88,7 +88,7 @@ function getOtherTabsWithResults(
  * Transform unified search results into tab data that the
  * `UnifiedHitsContainer` component can render.
  */
-export function tabsDataFromSearchResults(
+export function gatherSearchTabsData(
 	unifiedSearchResults: UnifiedSearchResults,
 	currentProductSlug?: ProductSlug
 ): UnifiedSearchTabContent[] {

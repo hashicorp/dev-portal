@@ -19,7 +19,7 @@ import { generateSuggestedPages } from '../../../helpers'
 import { RecentSearches, SuggestedPages } from '../../../components'
 // Unified search
 import { UnifiedHitsContainer } from '../unified-hits-container'
-import { tabsDataFromSearchResults } from '../unified-hits-container/helpers'
+import { gatherSearchTabsData } from '../unified-hits-container/helpers'
 import {
 	getAlgoliaFilters,
 	useCommandBarProductTag,
@@ -132,7 +132,7 @@ function SearchResults({
 	 * to show a helpful "No Results" message.
 	 */
 	const tabsData = useMemo(() => {
-		return tabsDataFromSearchResults(unifiedSearchResults, currentProductSlug)
+		return gatherSearchTabsData(unifiedSearchResults, currentProductSlug)
 	}, [unifiedSearchResults, currentProductSlug])
 
 	return (
