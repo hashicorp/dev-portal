@@ -3,14 +3,13 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 // Libraries
 import algoliasearch from 'algoliasearch'
 import {
 	Configure,
 	InstantSearch,
 	Index,
-	Hits,
 	useHits,
 } from 'react-instantsearch-hooks-web'
 // Command bar
@@ -31,6 +30,9 @@ import type { ProductSlug } from 'types/products'
 import type { SuggestedPage } from '../../../components'
 // Styles
 import s from './dialog-body.module.css'
+import UnifiedSearchHitsProvider, {
+	useUnifiedHitsContext,
+} from '../../contexts/use-unified-hits-context'
 
 /**
  * Initialize the algolia search client.
@@ -82,32 +84,84 @@ export function UnifiedSearchCommandBarDialogBody() {
 	 * Render search results based on the current input value.
 	 */
 	return (
-		<InstantSearch
-			indexName={__config.dev_dot.algolia.unifiedIndexName}
-			searchClient={searchClient}
-		>
-			<Configure
-				query={currentInputValue}
-				filters={getAlgoliaProductFilterString(
-					currentProductSlug,
-					'integration'
-				)}
-			/>
-
-			{/* <Index
+		<UnifiedSearchHitsProvider>
+			<InstantSearch
 				indexName={__config.dev_dot.algolia.unifiedIndexName}
-				indexId="all"
+				searchClient={searchClient}
 			>
-				<Configure />
-				<Hits />
-			</Index> */}
+				{['all', 'docs', 'integration', 'tutorial'].map(
+					(contentType: 'docs' | 'integration' | 'tutorial') => {
+						return (
+							<Index
+								indexName={__config.dev_dot.algolia.unifiedIndexName}
+								key={contentType}
+								indexId={contentType}
+							>
+								<Configure
+									query={currentInputValue}
+									filters={getAlgoliaProductFilterString(
+										currentProductSlug,
+										contentType
+									)}
+								/>
+								<HitsReporter
+									type={contentType}
+									currentInputValue={currentInputValue}
+								/>
+							</Index>
+						)
+					}
+				)}
 
-			<CustomHitsContainer
-				currentProductSlug={currentProductSlug}
-				suggestedPages={suggestedPages}
-			/>
-		</InstantSearch>
+				<CustomHitsContainer
+					currentProductSlug={currentProductSlug}
+					suggestedPages={suggestedPages}
+				/>
+			</InstantSearch>
+		</UnifiedSearchHitsProvider>
 	)
+}
+
+/**
+ * TODO: this is meant as a non-rendering component to gather data
+ * in a context, rather than entangle getting search results data
+ * and rendering search results.
+ *
+ * TODO: maybe Algolia has a better way to do this?
+ * All I really want to do is gather all `hitsData` across the three
+ * different content type searches, and have that data accessible
+ * so that I can render the presentational `UnifiedHitsContainer`.
+ */
+function HitsReporter({
+	type,
+	currentInputValue,
+}: {
+	type: 'docs' | 'integration' | 'tutorial'
+	currentInputValue: string
+}) {
+	const [hitsData, setHitsData] = useUnifiedHitsContext()
+	const { hits } = useHits()
+
+	/**
+	 * When hits within this index context are updated,
+	 * Update the <HitCountsProvider /> data for this content type.
+	 */
+	useEffect(() => {
+		const hitsArray = hits
+		// Only update if needed (ie if last time we set these hits with a different currentInputValue)
+		const needsUpdate = hitsData[type]?.currentInputValue !== currentInputValue
+		if (needsUpdate && typeof setHitsData === 'function') {
+			const thisHitData = {
+				hits: hitsArray,
+				hitCount: hitsArray.length,
+				currentInputValue,
+			}
+			setHitsData({ ...hitsData, [type]: thisHitData })
+		}
+	}, [type, hits, hitsData, setHitsData, currentInputValue])
+
+	// This component doesn't render anything, it only gathers hit data
+	return null
 }
 
 /**
@@ -123,7 +177,9 @@ function CustomHitsContainer({
 	currentProductSlug?: ProductSlug
 	suggestedPages: SuggestedPage[]
 }) {
-	const { hits: rawHits } = useHits()
+	const [hitsData] = useUnifiedHitsContext()
+
+	// const { hits: rawHits } = useHits()
 
 	/**
 	 * Transform searchableContentTypes into data for each content tab.
@@ -132,15 +188,30 @@ function CustomHitsContainer({
 	 * because each tab needs data from all other tabs in order
 	 * to show a helpful "No Results" message.
 	 */
-	const allTabData = useMemo(
-		() => gatherSearchTabsContent(rawHits, currentProductSlug),
-		[rawHits, currentProductSlug]
+	// const allTabData = useMemo(
+	// 	() => gatherSearchTabsContent(rawHits, currentProductSlug),
+	// 	[rawHits, currentProductSlug]
+	// )
+
+	const debugHitData = ['all', 'docs', 'integration', 'tutorial'].map(
+		(contentType) => {
+			return {
+				contentType,
+				hitCount: hitsData[contentType]?.hitCount,
+				hits: hitsData[contentType]?.hits.map(({ objectID }) => objectID),
+			}
+		}
 	)
 
 	return (
-		<UnifiedHitsContainer
-			tabData={allTabData}
-			suggestedPages={suggestedPages}
-		/>
+		<>
+			<pre>
+				<code>{JSON.stringify(debugHitData, null, 2)}</code>
+			</pre>
+			{/* <UnifiedHitsContainer
+				tabData={allTabData}
+				suggestedPages={suggestedPages}
+			/> */}
+		</>
 	)
 }

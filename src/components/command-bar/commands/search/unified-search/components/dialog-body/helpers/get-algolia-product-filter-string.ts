@@ -16,7 +16,7 @@ import { ProductSlug } from 'types/products'
  */
 export function getAlgoliaProductFilterString(
 	productSlug?: ProductSlug,
-	resultType?: 'docs' | 'integration' | 'tutorial'
+	resultType?: 'all' | 'docs' | 'integration' | 'tutorial'
 ): string {
 	/**
 	 * Product filter
@@ -41,7 +41,7 @@ export function getAlgoliaProductFilterString(
 	 * Type filter
 	 */
 	let typeFilter = ''
-	if (resultType) {
+	if (resultType && resultType !== 'all') {
 		typeFilter = `type:${resultType}`
 	}
 
