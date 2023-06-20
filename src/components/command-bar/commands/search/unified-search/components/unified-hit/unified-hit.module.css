@@ -4,6 +4,49 @@
 	}
 }
 
+.cardRoot {
+	display: flex;
+	gap: 12px;
+}
+
+.cardIcon {
+	width: 5em;
+	flex-shrink: 0;
+	flex-grow: 0;
+	height: 28px;
+	border: 1px solid magenta;
+}
+
+.cardContents {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.resultTitle {
+	border: 1px solid magenta;
+}
+
+.resultDescription {
+	border: 1px solid magenta;
+}
+
+.resultMeta {
+	border: 1px solid magenta;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding: 2px;
+
+	& > div {
+		border: 1px solid magenta;
+
+		&[data-has-highlight='false'] {
+			opacity: 0.4;
+		}
+	}
+}
+
 .withHighlight {
 	color: var(--token-color-foreground-strong);
 

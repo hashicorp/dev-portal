@@ -1,5 +1,3 @@
-import { getTutorialSlug } from 'views/collection-view/helpers'
-import { getIntegrationUrl } from 'lib/integrations'
 // Types
 import type { Hit } from 'instantsearch.js'
 import { buildUrlPath } from './build-url-path'
@@ -52,6 +50,9 @@ export function buildUrlPathWithHighlights(searchHit: Hit): string {
 		 * Currently, contains the `<product>/` prefix to ensure uniqueness.
 		 * This is not necessary in Algolia, we have an objectID for uniqueness.
 		 * The `<product>/` prefix adds complexity for tutorial slug construction.
+		 *
+		 * TODO: need to handle `well-architected-framework` slugs...
+		 * They seem to have needs outside of what is handled here.
 		 */
 		if ('value' in slug && typeof slug.value === 'string') {
 			// Replace closing </mark> highlight HTML with <-mark>,
@@ -82,27 +83,47 @@ export function buildUrlPathWithHighlights(searchHit: Hit): string {
 		 */
 		const collectionSlug = 'slug' in defaultContext && defaultContext.slug
 		if ('value' in collectionSlug && typeof collectionSlug.value === 'string') {
-			// Replace closing </mark> highlight HTML with <-mark>,
-			// so that we can split on the `<product>/` slug part to get
-			// the isolated collection Slug.
-			const collectionSlugHighlightWithoutProduct = collectionSlug.value
-				.replace(/<\/mark>/g, '<-mark>')
-				.split('/')
-				.slice(1)
-				.join('/')
-				.replace(/<-mark>/g, '</mark>')
-			// Apply the same formatting to the non-highlighted collection slug
-			const collectionSlugWithoutProduct = searchHit.defaultContext.slug
-				.split('/')
-				.slice(1)
-				.join('/')
-			// TODO: this is a naive replace, we could first isolate the segment
-			// of the URL that we know is the collection slug, and only apply
-			// the `replace` to that segment.
-			urlPathWithHighlight = urlPathWithHighlight.replace(
-				collectionSlugWithoutProduct,
-				collectionSlugHighlightWithoutProduct
-			)
+			// Split the collection slug into the raw product, and filename
+			const [rawProductSlug, collectionFilename] =
+				searchHit.defaultContext.slug.split('/')
+			if (
+				rawProductSlug === 'well-architected-framework' ||
+				rawProductSlug === 'onboarding'
+			) {
+				/**
+				 * For "topics" or "sections", we include the "rawProductSlug" part,
+				 * as unlike all other collections with standard products, the urlPath
+				 * will have the full collection DB slug in it directly.
+				 */
+				/**
+				 * TODO: this is a naive replace, we could first isolate the segment
+				 * of the URL that we know is the collection slug, and only apply
+				 * the `replace` to that segment.
+				 */
+				urlPathWithHighlight = urlPathWithHighlight.replace(
+					searchHit.defaultContext.slug,
+					collectionSlug.value
+				)
+			} else {
+				// Replace closing </mark> highlight HTML with <-mark>,
+				// so that we can split on the `<product>/` slug part to get
+				// the isolated collection Slug.
+				const collectionSlugHighlightWithoutProduct = collectionSlug.value
+					.replace(/<\/mark>/g, '<-mark>')
+					.split('/')
+					.slice(1)
+					.join('/')
+					.replace(/<-mark>/g, '</mark>')
+				/**
+				 * TODO: this is a naive replace, we could first isolate the segment
+				 * of the URL that we know is the collection slug, and only apply
+				 * the `replace` to that segment.
+				 */
+				urlPathWithHighlight = urlPathWithHighlight.replace(
+					collectionFilename,
+					collectionSlugHighlightWithoutProduct
+				)
+			}
 		}
 		// Return the urlPath with added highlights
 		return urlPathWithHighlight

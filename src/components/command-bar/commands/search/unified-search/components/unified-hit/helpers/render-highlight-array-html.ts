@@ -4,7 +4,7 @@
  * We'll replace this with something properly usable in a future pass
  * to the "All" tab work for unified search.
  */
-export function renderHighlightArrayHtml(facet, matchesOnly = false) {
+export function renderHighlightArrayHtml(facet, matchesOnly = false): string[] {
 	return (facet || [])
 		.filter((entry) => {
 			if (matchesOnly) {
@@ -16,5 +16,4 @@ export function renderHighlightArrayHtml(facet, matchesOnly = false) {
 		.map((entry) => {
 			return entry?.value
 		})
-		.join(', ')
 }
