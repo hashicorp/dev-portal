@@ -1,67 +1,10 @@
-.cardLinkColorOverride {
-	color: var(--token-color-foreground-strong);
-
-	& > div {
-		color: var(--token-color-foreground-strong);
-	}
-}
-
-.cardRoot {
-	display: flex;
-	gap: 12px;
-}
-
-.cardIcon {
-	width: 5em;
-	flex-shrink: 0;
-	flex-grow: 0;
-	height: 28px;
-	border: 1px solid magenta;
-}
-
-.cardContents {
-	display: flex;
-	flex-direction: column;
-	gap: 6px;
-}
-
-.resultTitle {
-	border: 1px solid magenta;
-}
-
-.resultDescription {
-	border: 1px solid magenta;
-}
-
-.resultMeta {
-	border: 1px solid magenta;
-	display: flex;
-	flex-direction: column;
-	gap: 2px;
-	padding: 2px;
-
-	& > div {
-		border: 1px solid magenta;
-
-		&[data-has-highlight='true'] {
-			background: aliceblue;
-		}
-
-		&[data-hidden='true'] {
-			opacity: 0.4;
-		}
-	}
-}
-
-.withHighlight {
+.styleNestedMarkElements {
 	& mark {
 		background-color: transparent;
 		color: var(--token-color-foreground-action);
 		font-style: normal;
 	}
 }
-
-/* Actual design implemention */
 
 .root {
 	--border-radius: 5px;
@@ -90,13 +33,13 @@
 }
 
 .title {
-	composes: withHighlight;
+	composes: styleNestedMarkElements;
 	color: var(--token-color-foreground-strong);
 	display: block;
 }
 
 .description {
-	composes: withHighlight;
+	composes: styleNestedMarkElements;
 	color: var(--token-color-foreground-primary);
 	display: block;
 	margin-top: 2px;
@@ -142,7 +85,7 @@
 /* URL path with highlighting */
 
 .breadcrumb {
-	composes: withHighlight;
+	composes: styleNestedMarkElements;
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-regular from global;
 	color: var(--token-color-foreground-faint);
