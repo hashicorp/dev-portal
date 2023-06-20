@@ -1,8 +1,9 @@
 // Components
-import CardLink from 'components/card-link'
 import Text from 'components/text'
 // Helpers
 import { buildUrlPath, renderHighlightArrayHtml } from './helpers'
+import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
+
 // Types
 import type { Hit, HitAttributeHighlightResult } from 'instantsearch.js'
 // Styles
@@ -37,7 +38,8 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 	 */
 	let defaultProductSlug: ProductSlug
 	if (hit.type === 'tutorial') {
-		defaultProductSlug = hit.defaultContext.section
+		const normalizedSlug = normalizeSlugForDevDot(hit.defaultContext.section)
+		defaultProductSlug = isProductSlug(normalizedSlug) ? normalizedSlug : null
 	} else {
 		const hasDefaultProduct =
 			Array.isArray(hit.products) && hit.products.length > 0
