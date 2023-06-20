@@ -41,7 +41,11 @@
 	& > div {
 		border: 1px solid magenta;
 
-		&[data-has-highlight='false'] {
+		&[data-has-highlight='true'] {
+			background: aliceblue;
+		}
+
+		&[data-hidden='true'] {
 			opacity: 0.4;
 		}
 	}

@@ -24,13 +24,15 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 
 	const urlPath = buildUrlPath(hit)
 	const urlPathWithHighlight = buildUrlPathWithHighlights(hit)
-	const hasUrlPathHighlight = urlPathWithHighlight !== urlPath
+	const hasUrlPathHighlight = urlPathWithHighlight.includes('<mark>')
 
 	const headingsHighlight = renderHighlightArrayHtml(headings, true).join(', ')
+	const hasHeadingsHighlight = !!headingsHighlight
 	const codeListItemsHighlight = renderHighlightArrayHtml(
 		codeListItems,
 		true
 	).join(', ')
+	const hasCodeListHighlight = !!codeListItemsHighlight
 
 	const hasDefaultProduct = !!products && products.length > 0
 	const productsHighlight = renderHighlightArrayHtml(products)
@@ -67,23 +69,52 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 							<TextWithHighlight html={description?.value} />
 						</div>
 						<div className={s.resultMeta}>
-							<div data-has-highlight={hasDefaultProduct}>
-								<TextWithHighlight html="Default product: " />
+							<div
+								data-has-highlight={
+									productsHighlight[0] &&
+									productsHighlight[0].includes('<mark>')
+								}
+								data-hidden={!hasDefaultProduct}
+							>
+								<TextWithHighlight html="Product: " />
 								<TextWithHighlight html={productsHighlight[0]} />
 							</div>
-							<div data-has-highlight={hasUrlPathHighlight}>
+							<div
+								data-has-highlight={hasUrlPathHighlight}
+								// data-hidden={
+								// 	!hasUrlPathHighlight &&
+								// 	(hasOtherProductsHighlight ||
+								// 		hasHeadingsHighlight ||
+								// 		hasCodeListHighlight)
+								// }
+							>
 								<TextWithHighlight html="URL path: " />
 								<TextWithHighlight html={urlPathWithHighlight} />
 							</div>
-							<div data-has-highlight={hasOtherProductsHighlight}>
+							<div
+								data-has-highlight={hasOtherProductsHighlight}
+								data-hidden={otherProducts.length === 0 || hasUrlPathHighlight}
+							>
 								<TextWithHighlight html="Matched other product(s): " />
 								<TextWithHighlight html={otherProductsHighlight} />
 							</div>
-							<div data-has-highlight={!!headingsHighlight}>
+							<div
+								data-has-highlight={headingsHighlight.includes('<mark>')}
+								data-hidden={
+									!headingsHighlight.includes('<mark>') || hasUrlPathHighlight
+								}
+							>
 								<TextWithHighlight html="Matched headings: " />
 								<TextWithHighlight html={headingsHighlight} />
 							</div>
-							<div data-has-highlight={!!codeListItemsHighlight}>
+							<div
+								data-has-highlight={codeListItemsHighlight.includes('<mark>')}
+								data-hidden={
+									!codeListItemsHighlight.includes('<mark>') ||
+									hasUrlPathHighlight ||
+									hasHeadingsHighlight
+								}
+							>
 								<TextWithHighlight html="Matched code list items: " />
 								<TextWithHighlight html={codeListItemsHighlight} />
 							</div>
