@@ -24,6 +24,9 @@ import { ProductSlug } from 'types/products'
  *
  * We'll replace this with something properly usable in a future pass
  * to the "All" tab work for unified search.
+ *
+ * TODO: move the parsing logic here to a helper (Hit --> UnifiedHitProps)
+ * so that `UnifiedHit` becomes a simpler presentation component.
  */
 export function UnifiedHit({ hit }: { hit: Hit }) {
 	const { page_title, description } = hit._highlightResult
