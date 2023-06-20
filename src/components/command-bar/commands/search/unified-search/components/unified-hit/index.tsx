@@ -84,6 +84,7 @@ type AlgoliaContentType = 'docs' | 'tutorial' | 'integration'
 /**
  * TODO: move this somewhere else, it's also used for tabs.
  * Could add "global" here as well.
+ * Basically a partial version of `tabContentByType`.
  */
 const iconComponentMap: Record<AlgoliaContentType, $TSFixMe> = {
 	docs: <IconDocs16 />,
