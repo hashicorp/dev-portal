@@ -52,6 +52,9 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 	}
 
 	const urlPath = buildUrlPath(hit)
+
+	// TODO: remove this for now, should do this in a follow-up PR.
+	// Having a `breadcrumb` property in Algolia probably makes more sense.
 	const urlPathWithHighlight = buildUrlPathWithHighlights(hit)
 
 	return (
