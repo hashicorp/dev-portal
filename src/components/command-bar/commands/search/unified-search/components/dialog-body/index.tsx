@@ -3,10 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 // Libraries
 import algoliasearch from 'algoliasearch'
-import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
+import {
+	Configure,
+	InstantSearch,
+	Index,
+	useHits,
+} from 'react-instantsearch-hooks-web'
 // Command bar
 import { useCommandBar } from 'components/command-bar'
 // Shared search
@@ -14,16 +19,24 @@ import { generateSuggestedPages } from '../../../helpers'
 import { RecentSearches, SuggestedPages } from '../../../components'
 // Unified search
 import { UnifiedHitsContainer } from '../unified-hits-container'
+import { gatherSearchTabsData } from '../unified-hits-container/helpers'
 import {
-	getAlgoliaProductFilterString,
+	getAlgoliaFilters,
 	useCommandBarProductTag,
 	useDebouncedRecentSearches,
 } from './helpers'
 // Types
+import type { Hit } from 'instantsearch.js'
 import type { ProductSlug } from 'types/products'
 import type { SuggestedPage } from '../../../components'
+import type {
+	UnifiedSearchResults,
+	UnifiedSearchableContentType,
+} from '../../types'
 // Styles
 import s from './dialog-body.module.css'
+
+const ALGOLIA_INDEX_NAME = __config.dev_dot.algolia.unifiedIndexName
 
 /**
  * Initialize the algolia search client.
@@ -37,9 +50,8 @@ const searchClient = algoliasearch(appId, apiKey)
 /**
  * Render the command bar dialog body for unified search results.
  *
- * If we have an input value in the command bar, we render search results
- * from Algolia, through the `UnifiedHitsContainer` component. We apply
- * an initial filter for the current product context where applicable.
+ * If we have an input in the command bar, we render search results.
+ * We apply an initial filter for the current product context where applicable.
  *
  * If we don't have an input value, we render suggested pages, which are
  * tailored to the current product context where applicable.
@@ -72,21 +84,91 @@ export function UnifiedSearchCommandBarDialogBody() {
 	}
 
 	/**
-	 * Render search results based on the current input value.
+	 * Render search results
 	 */
 	return (
-		<InstantSearch
-			indexName={__config.dev_dot.algolia.unifiedIndexName}
-			searchClient={searchClient}
-		>
-			<Configure
-				query={currentInputValue}
-				filters={getAlgoliaProductFilterString(currentProductSlug)}
-			/>
+		<SearchResults
+			currentInputValue={currentInputValue}
+			currentProductSlug={currentProductSlug}
+			suggestedPages={suggestedPages}
+		/>
+	)
+}
+
+/**
+ * Render unified search results for the provided query input.
+ */
+function SearchResults({
+	currentProductSlug,
+	currentInputValue,
+	suggestedPages,
+}: {
+	currentProductSlug: ProductSlug
+	currentInputValue: string
+	suggestedPages: SuggestedPage[]
+}) {
+	/**
+	 * State collects results from multiple separate content-type queries.
+	 */
+	const [unifiedSearchResults, setUnifiedSearchResults] =
+		useState<UnifiedSearchResults>({
+			global: { hits: [] },
+			docs: { hits: [] },
+			integration: { hits: [] },
+			tutorial: { hits: [] },
+		})
+	/**
+	 * `setHitData` allows easy updating of hits for a specific content type
+	 */
+	function setHitData(type: UnifiedSearchableContentType, hits: Hit[]) {
+		setUnifiedSearchResults((previous) => ({ ...previous, [type]: { hits } }))
+	}
+
+	/**
+	 * Transform unified search results into data for each content-type tab.
+	 *
+	 * Note: we set up this data before rather than during render,
+	 * because each tab needs data from all other tabs in order
+	 * to show a helpful "No Results" message.
+	 */
+	const tabsData = useMemo(() => {
+		return gatherSearchTabsData(unifiedSearchResults, currentProductSlug)
+	}, [unifiedSearchResults, currentProductSlug])
+
+	return (
+		<>
+			{/* <InstantSearch /> updates algoliaData, and renders nothing.
+			    Maybe helpful to think of this as "the part that fetches results". */}
+			<InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
+				{['global', 'docs', 'integration', 'tutorial'].map(
+					(type: UnifiedSearchableContentType) => {
+						const filters = getAlgoliaFilters(currentProductSlug, type)
+						return (
+							<Index key={type} indexName={ALGOLIA_INDEX_NAME} indexId={type}>
+								<Configure query={currentInputValue} filters={filters} />
+								<HitsReporter setHits={(hits) => setHitData(type, hits)} />
+							</Index>
+						)
+					}
+				)}
+			</InstantSearch>
+			{/* UnifiedHitsContainer renders search results in a tabbed interface. */}
 			<UnifiedHitsContainer
-				currentProductSlug={currentProductSlug}
+				tabsData={tabsData}
 				suggestedPages={suggestedPages}
 			/>
-		</InstantSearch>
+		</>
 	)
+}
+
+/**
+ * When hits within this index context are updated,
+ * Update the <HitCountsProvider /> data for this content type.
+ *
+ * This component doesn't render anything, it only gathers hit data.
+ */
+function HitsReporter({ setHits }: { setHits: (hits: Hit[]) => void }) {
+	const { hits } = useHits()
+	useEffect(() => setHits(hits), [hits])
+	return null
 }
