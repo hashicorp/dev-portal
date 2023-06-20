@@ -29,6 +29,20 @@ import { buildUrlPath } from './build-url-path'
  * is used, and then once `urlPath_<changeIdentifier>` is no longer
  * used remove it completely from indexing. Complex though if URL
  * changes happen, which they're kind of expected to!
+ *
+ * THOUGHT on HIGHLIGHTING A "URL PATH": maybe a middle path here could be
+ * to have `breadcrumb`, as a consistent attribute across all unified search
+ * index entries. This might _resemble_ a url path, but the intent would be
+ * different: it would highlight the hierarchy and might not reflect the URL
+ * path exactly. For example, tutorials and integrations are already equipped
+ * to have pretty human-readable breadcrumbs.
+ *
+ * THOUGHT on DOCS: `docs` entries should almost certainly have a `slug`
+ * property, right now we derive the urlPath from the objectID and this
+ * 1) feels weird and 2) is major compromise and makes highlighted breadcrumbs
+ * for docs nearly impossible because while Algolia allows us to search and
+ * match against `objectID`, it seems to also omit `objectID` from
+ * the `_highlightResult` info it gives us.
  */
 export function buildUrlPathWithHighlights(searchHit: Hit): string {
 	const urlPath = buildUrlPath(searchHit)
