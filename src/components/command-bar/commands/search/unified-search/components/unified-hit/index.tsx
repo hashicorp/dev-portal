@@ -1,7 +1,7 @@
 // Components
 import Text from 'components/text'
 // Helpers
-import { buildUrlPath, renderHighlightArrayHtml } from './helpers'
+import { buildUrlPath } from './helpers'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 
 // Types
@@ -73,6 +73,16 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 
 type AlgoliaContentType = 'docs' | 'tutorial' | 'integration'
 
+/**
+ * TODO: move this somewhere else, it's also used for tabs.
+ * Could add "global" here as well.
+ */
+const iconComponentMap: Record<AlgoliaContentType, $TSFixMe> = {
+	docs: <IconDocs16 />,
+	tutorial: <IconLearn16 />,
+	integration: <IconPipeline16 />,
+}
+
 function UnifiedHitPresentation({
 	type,
 	href,
@@ -92,12 +102,6 @@ function UnifiedHitPresentation({
 	productName: string
 	breadcrumbHtml: string
 }) {
-	const iconComponentMap: Record<AlgoliaContentType, $TSFixMe> = {
-		docs: <IconDocs16 />,
-		tutorial: <IconLearn16 />,
-		integration: <IconPipeline16 />,
-	}
-
 	return (
 		<LinkCoverParent className={s.root} href={href} ariaLabel={ariaLabel}>
 			<IconTile className={s.icon} size="small">
