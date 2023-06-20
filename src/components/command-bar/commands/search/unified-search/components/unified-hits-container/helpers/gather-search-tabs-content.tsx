@@ -5,12 +5,15 @@ import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 // Helpers
 import { getShouldRenderIntegrationsTab } from './get-should-render-integrations-tab'
-import { filterUnifiedSearchHits } from './filter-unified-search-hits'
 // Types
 import type { ReactElement } from 'react'
 import type { Hit } from 'instantsearch.js'
 import type { CurrentContentType } from 'contexts'
-import { ProductSlug } from 'types/products'
+import type { ProductSlug } from 'types/products'
+import type {
+	UnifiedSearchResults,
+	UnifiedSearchableContentType,
+} from '../../../types'
 
 /**
  * Each content type tab has a set of properties required for rendering.
@@ -21,7 +24,7 @@ export interface UnifiedSearchTabContent {
 	hitCount: number
 	hits: Hit[]
 	icon: ReactElement<React.JSX.IntrinsicElements['svg']>
-	otherTabsWithResults: OtherTabData
+	otherTabData: OtherTabData
 }
 
 /**
@@ -34,7 +37,7 @@ type OtherTabData = Pick<UnifiedSearchTabContent, 'type' | 'heading' | 'icon'>[]
  * Basic heading and icon content for each tab, which we'll build on.
  */
 const tabContentByType: Record<
-	CurrentContentType,
+	UnifiedSearchableContentType,
 	Pick<UnifiedSearchTabContent, 'heading' | 'icon'>
 > = {
 	global: {
@@ -45,11 +48,11 @@ const tabContentByType: Record<
 		heading: 'Documentation',
 		icon: <IconDocs16 />,
 	},
-	tutorials: {
+	tutorial: {
 		heading: 'Tutorials',
 		icon: <IconLearn16 />,
 	},
-	integrations: {
+	integration: {
 		heading: 'Integrations',
 		icon: <IconPipeline16 />,
 	},
@@ -63,10 +66,10 @@ const tabContentByType: Record<
  * Used to render helpful "no results" messages for each tab.
  */
 function getOtherTabsWithResults(
-	allTabData: Omit<UnifiedSearchTabContent, 'otherTabsWithResults'>[],
+	tabsData: Omit<UnifiedSearchTabContent, 'otherTabData'>[],
 	currentTabType: CurrentContentType
 ): OtherTabData {
-	return allTabData
+	return tabsData
 		.filter((tabData) => {
 			const isOtherTab = tabData.type !== currentTabType
 			const tabHasResults = tabData.hitCount > 0
@@ -81,8 +84,12 @@ function getOtherTabsWithResults(
 		})
 }
 
-export function gatherSearchTabsContent(
-	rawHits: Hit[],
+/**
+ * Transform unified search results into tab data that the
+ * `UnifiedHitsContainer` component can render.
+ */
+export function gatherSearchTabsData(
+	unifiedSearchResults: UnifiedSearchResults,
 	currentProductSlug?: ProductSlug
 ): UnifiedSearchTabContent[] {
 	const searchableContentTypes = Object.keys(tabContentByType)
@@ -97,9 +104,9 @@ export function gatherSearchTabsContent(
 	/**
 	 * Map each content type to { heading, hits, icon } etcetera for each tab
 	 */
-	const allTabData = validContentTypes.map((type: CurrentContentType) => {
+	const tabsData = validContentTypes.map((type: CurrentContentType) => {
 		const { heading, icon } = tabContentByType[type]
-		const hits = filterUnifiedSearchHits(rawHits, type)
+		const hits = unifiedSearchResults[type].hits
 		const hitCount = hits.length
 		//
 		return { type, heading, hits, hitCount, icon }
@@ -107,11 +114,8 @@ export function gatherSearchTabsContent(
 	/**
 	 * Add "other" tab data to each search tab. Used for "no results" messages.
 	 */
-	return allTabData.map((currentTab) => {
-		const otherTabsWithResults = getOtherTabsWithResults(
-			allTabData,
-			currentTab.type
-		)
-		return { ...currentTab, otherTabsWithResults }
+	return tabsData.map((currentTab) => {
+		const otherTabData = getOtherTabsWithResults(tabsData, currentTab.type)
+		return { ...currentTab, otherTabData }
 	})
 }

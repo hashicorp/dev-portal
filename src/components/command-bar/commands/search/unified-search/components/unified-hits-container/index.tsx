@@ -1,6 +1,3 @@
-// Libraries
-import { useMemo } from 'react'
-import { useHits } from 'react-instantsearch-hooks-web'
 // Global
 import Tabs, { Tab } from 'components/tabs'
 import { CommandBarDivider } from 'components/command-bar/components'
@@ -14,9 +11,7 @@ import {
 } from '../../../components'
 // Unified search
 import { UnifiedHit } from '../unified-hit'
-import { gatherSearchTabsContent } from './helpers'
 // Types
-import type { ProductSlug } from 'types/products'
 import type { Hit } from 'instantsearch.js'
 import type { UnifiedSearchTabContent } from './helpers'
 // Styles
@@ -24,48 +19,28 @@ import s from './unified-hits-container.module.css'
 
 /**
  * Render search results from our unified index into content-type tabs.
- *
- * Note: this component needs to be used within an `InstantSearch` container
- * imported from 'react-instantsearch-hooks-web'. That container provides
- * the context from which `rawHits` are pulled.
  */
 export function UnifiedHitsContainer({
-	currentProductSlug,
+	tabsData,
 	suggestedPages,
 }: {
-	currentProductSlug?: ProductSlug
+	tabsData: UnifiedSearchTabContent[]
 	suggestedPages: SuggestedPage[]
 }) {
-	const { hits: rawHits } = useHits()
-
-	/**
-	 * Transform searchableContentTypes into data for each content tab.
-	 *
-	 * Note: we set up this data before rather than during render,
-	 * because each tab needs data from all other tabs in order
-	 * to show a helpful "No Results" message.
-	 */
-	const allTabData = useMemo(
-		() => gatherSearchTabsContent(rawHits, currentProductSlug),
-		[rawHits, currentProductSlug]
-	)
-
-	/**
-	 * Render the tabs. This is mostly presentation since `tabData` logic is done.
-	 */
 	return (
 		<div className={s.tabsWrapper}>
 			<Tabs showAnchorLine={false} variant="compact">
-				{allTabData.map((tabData: UnifiedSearchTabContent) => {
-					const { type, heading, icon, hits, hitCount, otherTabsWithResults } =
-						tabData
+				{tabsData.map((tabData: UnifiedSearchTabContent) => {
+					const { type, heading, icon, hits, hitCount, otherTabData } = tabData
 					const resultsLabelId = `${type}-search-results-label`
-
 					return (
 						<Tab
 							heading={heading}
 							headingSlot={
-								<TabHeadingWithCount heading={heading} count={hitCount} />
+								<TabHeadingWithCount
+									heading={heading}
+									count={type === 'global' ? undefined : hitCount}
+								/>
 							}
 							icon={icon}
 							key={type}
@@ -89,7 +64,7 @@ export function UnifiedHitsContainer({
 								<>
 									<NoResultsMessage
 										currentTabHeading={heading}
-										tabsWithResults={otherTabsWithResults}
+										tabsWithResults={otherTabData}
 									/>
 									<CommandBarDivider className={s.divider} />
 									<SuggestedPages pages={suggestedPages} />

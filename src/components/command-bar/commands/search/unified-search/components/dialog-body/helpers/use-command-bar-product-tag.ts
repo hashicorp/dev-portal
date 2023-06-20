@@ -3,6 +3,13 @@ import { useCommandBar } from 'components/command-bar'
 import { useCurrentProduct } from 'contexts'
 import { getCurrentProductTag } from '../../../../helpers'
 import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
+import { ProductSlug } from 'types/products'
+import { isProductSlug } from 'lib/products'
+
+type CommandBarProductTag = {
+	id: ProductSlug
+	text: string
+}
 
 /**
  * Set and un-set the command-bar-level product filtering tag.
@@ -22,7 +29,7 @@ import { useSetUpAndCleanUpCommandState } from 'components/command-bar/hooks'
  *   when in that product context, Would typing-based filters, such as
  *   `product:<productSlug>`, be preferable to the "product tag" approach?
  */
-export function useCommandBarProductTag() {
+export function useCommandBarProductTag(): CommandBarProductTag | null {
 	const currentProduct = useCurrentProduct()
 	const { addTag, currentTags, removeTag } = useCommandBar()
 
@@ -64,5 +71,12 @@ export function useCommandBarProductTag() {
 		[currentProduct, currentTags]
 	)
 
-	return currentProductTag
+	if (isProductSlug(currentProductTag?.id)) {
+		return {
+			id: currentProductTag.id,
+			text: currentProductTag.text,
+		}
+	} else {
+		return null
+	}
 }
