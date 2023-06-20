@@ -8,7 +8,6 @@ import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slu
 import type { Hit, HitAttributeHighlightResult } from 'instantsearch.js'
 // Styles
 import s from './unified-hit.module.css'
-import { buildUrlPathWithHighlights } from './helpers/build-url-path-with-highlights'
 import LinkCoverParent from './components/link-cover-parent'
 import IconTile from 'components/icon-tile'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
@@ -37,6 +36,8 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 	 * Docs and integrations are always expected to have a single product.
 	 * Tutorials may have no products (for WAF and onboarding), otherwise
 	 * their default collection context signals their default product.
+	 *
+	 * TODO: move this to a helper, parseDefaultProductSlug (Hit --> ProductSlug)
 	 */
 	let defaultProductSlug: ProductSlug
 	if (hit.type === 'tutorial') {
@@ -51,29 +52,30 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 		defaultProductSlug = null
 	}
 
-	const urlPath = buildUrlPath(hit)
-
-	// TODO: remove this for now, should do this in a follow-up PR.
-	// Having a `breadcrumb` property in Algolia probably makes more sense.
-	const urlPathWithHighlight = buildUrlPathWithHighlights(hit)
+	/**
+	 * TODO: Move this to a helper, parseUnifiedHitProps (Hit --> UnifiedHitProps)
+	 */
+	const ariaLabel = hit.page_title + ' ' + hit.description
+	const href = buildUrlPath(hit)
+	const type = hit.type
+	const titleHtml = (page_title as HitAttributeHighlightResult).value
+	const descriptionHtml = (description as HitAttributeHighlightResult).value
+	const productSlug = defaultProductSlug
+	const productName =
+		defaultProductSlug === 'hcp'
+			? 'HCP'
+			: productSlugsToNames[defaultProductSlug]
 
 	return (
-		<>
-			<UnifiedHitPresentation
-				ariaLabel={hit.page_title + ' ' + hit.description}
-				href={urlPath}
-				type={hit.type}
-				titleHtml={(page_title as HitAttributeHighlightResult).value}
-				descriptionHtml={(description as HitAttributeHighlightResult).value}
-				productSlug={defaultProductSlug}
-				breadcrumbHtml={urlPathWithHighlight}
-				productName={
-					defaultProductSlug === 'hcp'
-						? 'HCP'
-						: productSlugsToNames[defaultProductSlug]
-				}
-			/>
-		</>
+		<UnifiedHitPresentation
+			ariaLabel={ariaLabel}
+			href={href}
+			type={type}
+			titleHtml={titleHtml}
+			descriptionHtml={descriptionHtml}
+			productSlug={productSlug}
+			productName={productName}
+		/>
 	)
 }
 
@@ -97,7 +99,6 @@ function UnifiedHitPresentation({
 	descriptionHtml,
 	productSlug,
 	productName,
-	breadcrumbHtml,
 }: {
 	type: AlgoliaContentType
 	href: string
@@ -106,7 +107,6 @@ function UnifiedHitPresentation({
 	descriptionHtml: string
 	productSlug: ProductSlug
 	productName: string
-	breadcrumbHtml: string
 }) {
 	return (
 		<LinkCoverParent className={s.root} href={href} ariaLabel={ariaLabel}>
@@ -141,10 +141,7 @@ function UnifiedHitPresentation({
 							<IconDot16 className={s.metaDotSeparator} />
 						</>
 					) : null}
-					<div
-						className={s.breadcrumb}
-						dangerouslySetInnerHTML={{ __html: breadcrumbHtml }}
-					/>
+					<div className={s.breadcrumb}>{href}</div>
 				</div>
 			</div>
 		</LinkCoverParent>
