@@ -20,8 +20,7 @@ import { isProductSlug, productSlugsToNames } from 'lib/products'
 import { ProductSlug } from 'types/products'
 
 /**
- * TODO: this is a placeholder component for a "hit" card component.
- * It can likely be ignored for now.
+ * TODO: update description
  *
  * We'll replace this with something properly usable in a future pass
  * to the "All" tab work for unified search.
