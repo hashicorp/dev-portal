@@ -4,14 +4,14 @@
  */
 
 import { ReactElement } from 'react'
-import { SearchableContentType } from 'contexts'
+import { CurrentContentType } from 'contexts'
 import Text from 'components/text'
 import { useCommandBar } from 'components/command-bar'
 import s from './no-results-message.module.css'
 
 interface NoResultsMessageProps {
 	tabsWithResults: {
-		type: SearchableContentType
+		type: CurrentContentType
 		heading: string
 		icon: ReactElement<React.JSX.IntrinsicElements['svg']>
 	}[]

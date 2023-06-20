@@ -14,5 +14,8 @@
 			"idp_url": "https://auth.idp.hashicorp.com"
 		},
 		"product_slugs_with_integrations": ["vault", "waypoint", "nomad"]
+	},
+	"flags": {
+		"enable_unified_search": false
 	}
 }
