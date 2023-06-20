@@ -7,6 +7,7 @@ import { buildUrlPath, renderHighlightArrayHtml } from './helpers'
 import type { Hit } from 'instantsearch.js'
 // Styles
 import s from './unified-hit.module.css'
+import { buildUrlPathWithHighlights } from './helpers/build-url-path-with-highlights'
 
 /**
  * TODO: this is a placeholder component for a "hit" card component.
@@ -20,33 +21,9 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 	const { page_title, type, description, products, headings, codeListItems } =
 		_highlightResult
 
-	/**
-	 * TODO: construct urlPath from hit data,
-	 * use highlighted hit data I think?
-	 * (Reference how we do this currently for each content type, we have
-	 * all the same data so should be able to do the same thing here)
-	 *
-	 * Alternately, add `urlPath` to all search objects.
-	 * On the fence about which to do, want to time-box constructing
-	 * the `urlPath` client side to see how much effort it is,
-	 * since it feels like a better solution maybe?
-	 *
-	 * Although then won't match say `<product>/<content_type>` because
-	 * `product` and `content_type` are in separate properties 🤔
-	 * But I guess `<product> <content_type>` (space not slash)
-	 * would work fine as a query?
-	 *
-	 * Only disadvantage of `urlPath` in search object is it needs
-	 * to be updated in tandem with front-end. To address this, could
-	 * add a different `urlPath_<changeIdentifier>` before rolling out a
-	 * new feature, once the old `hit.urlPath` is no longer used then
-	 * migrate to it by making both values the same, and switching which
-	 * is used, and then once `urlPath_<changeIdentifier>` is no longer
-	 * used remove it completely from indexing. Complex though if URL
-	 * changes happen, which they're kind of expected to!
-	 */
+	// TODO: build highlighted urlPath
 	const urlPath = buildUrlPath(hit)
-
+	const urlPathWithHighlight = buildUrlPathWithHighlights(hit)
 	const headingsHighlight = renderHighlightArrayHtml(headings, true)
 	const codeListItemsHighlight = renderHighlightArrayHtml(codeListItems, true)
 
@@ -83,7 +60,7 @@ export function UnifiedHit({ hit }: { hit: Hit }) {
 				/>
 				<Text
 					dangerouslySetInnerHTML={{
-						__html: urlPath,
+						__html: urlPathWithHighlight,
 					}}
 					className={s.withHighlight}
 					style={{
