@@ -1,83 +1,17 @@
-// Components
-import Text from 'components/text'
-// Helpers
-import { buildUrlPath } from './helpers'
-import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
-
-// Types
-import type { Hit, HitAttributeHighlightResult } from 'instantsearch.js'
-// Styles
-import s from './unified-hit.module.css'
-import LinkRegion from './components/link-region'
-import IconTile from 'components/icon-tile'
+// Icons
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconDot16 } from '@hashicorp/flight-icons/svg-react/dot-16'
 import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
+// Components
+import Text from 'components/text'
+import IconTile from 'components/icon-tile'
 import ProductIcon from 'components/product-icon'
-import { isProductSlug, productSlugsToNames } from 'lib/products'
-import { ProductSlug } from 'types/products'
-
-/**
- * TODO: update description
- *
- * We'll replace this with something properly usable in a future pass
- * to the "All" tab work for unified search.
- *
- * TODO: move the parsing logic here to a helper (Hit --> UnifiedHitProps)
- * so that `UnifiedHit` becomes a simpler presentation component.
- */
-export function UnifiedHit({ hit }: { hit: Hit }) {
-	const { page_title, description } = hit._highlightResult
-
-	/**
-	 * Determine the "default product slug" for this entry.
-	 *
-	 * Docs and integrations are always expected to have a single product.
-	 * Tutorials may have no products (for WAF and onboarding), otherwise
-	 * their default collection context signals their default product.
-	 *
-	 * TODO: move this to a helper, parseDefaultProductSlug (Hit --> ProductSlug)
-	 */
-	let defaultProductSlug: ProductSlug
-	if (hit.type === 'tutorial') {
-		const normalizedSlug = normalizeSlugForDevDot(hit.defaultContext.section)
-		defaultProductSlug = isProductSlug(normalizedSlug) ? normalizedSlug : null
-	} else {
-		const hasDefaultProduct =
-			Array.isArray(hit.products) && hit.products.length > 0
-		defaultProductSlug = hasDefaultProduct ? hit.products[0] : null
-	}
-	if (!isProductSlug(defaultProductSlug)) {
-		defaultProductSlug = null
-	}
-
-	/**
-	 * TODO: Move this to a helper, parseUnifiedHitProps (Hit --> UnifiedHitProps)
-	 */
-	const ariaLabel = hit.page_title + ' ' + hit.description
-	const href = buildUrlPath(hit)
-	const type = hit.type
-	const titleHtml = (page_title as HitAttributeHighlightResult).value
-	const descriptionHtml = (description as HitAttributeHighlightResult).value
-	const productSlug = defaultProductSlug
-	const productName =
-		defaultProductSlug === 'hcp'
-			? 'HCP'
-			: productSlugsToNames[defaultProductSlug]
-
-	return (
-		<UnifiedHitPresentation
-			ariaLabel={ariaLabel}
-			href={href}
-			type={type}
-			titleHtml={titleHtml}
-			descriptionHtml={descriptionHtml}
-			productSlug={productSlug}
-			productName={productName}
-		/>
-	)
-}
+import LinkRegion from './components/link-region'
+// Types
+import { UnifiedHitProps } from './types'
+// Styles
+import s from './unified-hit.module.css'
 
 type AlgoliaContentType = 'docs' | 'tutorial' | 'integration'
 
@@ -92,7 +26,10 @@ const iconComponentMap: Record<AlgoliaContentType, $TSFixMe> = {
 	integration: <IconPipeline16 />,
 }
 
-function UnifiedHitPresentation({
+/**
+ * Render a link to a search hit.
+ */
+export function UnifiedHit({
 	type,
 	href,
 	ariaLabel,
@@ -100,15 +37,7 @@ function UnifiedHitPresentation({
 	descriptionHtml,
 	productSlug,
 	productName,
-}: {
-	type: AlgoliaContentType
-	href: string
-	ariaLabel: string
-	titleHtml: string
-	descriptionHtml: string
-	productSlug: ProductSlug
-	productName: string
-}) {
+}: UnifiedHitProps) {
 	return (
 		<LinkRegion className={s.root} href={href} ariaLabel={ariaLabel}>
 			<IconTile className={s.icon} size="small">
