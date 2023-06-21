@@ -149,7 +149,6 @@ interface ProductData extends Product {
 	algoliaConfig: {
 		indexName: string
 	}
-	basePaths: string[]
 	rootDocsPaths: RootDocsPath[]
 	/**
 	 * When configuring docsNavItems, authors have the option to specify

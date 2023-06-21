@@ -56,7 +56,6 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["docs", "api-docs", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",

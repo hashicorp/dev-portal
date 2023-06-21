@@ -25,7 +25,6 @@ const setup = (currentProduct: Product) => {
 				algoliaConfig: {
 					indexName: '',
 				},
-				basePaths: [],
 				rootDocsPaths: [],
 				integrationsConfig: {},
 			}}

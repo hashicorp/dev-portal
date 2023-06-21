@@ -30,7 +30,6 @@
 	},
 	"version": "1.11.3",
 	"subnavItems": [],
-	"basePaths": ["docs", "api-docs", "commands", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",

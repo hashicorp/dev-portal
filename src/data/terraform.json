@@ -4,25 +4,6 @@
 	"algoliaConfig": {
 		"indexName": "product_TERRAFORM"
 	},
-	"basePaths": [
-		"cdktf",
-		"cli",
-		"cloud-docs",
-		"cloud-docs/agents",
-		"docs",
-		"enterprise",
-		"internals",
-		"intro",
-		"language",
-		"plugin",
-		"plugin/framework",
-		"plugin/log",
-		"plugin/mux",
-		"plugin/sdkv2",
-		"plugin/testing",
-		"registry",
-		"downloads"
-	],
 	"docsNavItems": [
 		"docs",
 		"language",

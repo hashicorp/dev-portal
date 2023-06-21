@@ -30,15 +30,6 @@ See the `ProductSlug` type defined in [`types/products.ts`](/src/types/products.
 
 </details>
 
-<!-- basePaths -->
-
-<details>
-<summary><code>basePaths</code></summary>
-
-🚧 DEPRECATED - this property is being replaced by the `rootDocsPaths` property. The new property is detailed in the next section. 🚧
-
-</details>
-
 <!-- rootDocsPaths -->
 
 <details>

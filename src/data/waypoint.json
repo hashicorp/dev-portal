@@ -59,7 +59,6 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["commands", "docs", "plugins", "tutorials", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",

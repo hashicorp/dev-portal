@@ -5,7 +5,6 @@
 		"indexName": "product_HCP",
 		"searchOnlyApiKey": "1162c7d22059acafddb62badfdf68f35"
 	},
-	"basePaths": ["docs", "api-docs/packer"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
