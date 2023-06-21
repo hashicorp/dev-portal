@@ -1,11 +1,8 @@
-// Components
-// Types
 import type { ProductSlug } from 'types/products'
-
-type AlgoliaContentType = 'docs' | 'tutorial' | 'integration'
+import type { UnifiedSearchableContentType } from '../../types'
 
 export interface UnifiedHitProps {
-	type: AlgoliaContentType
+	type: Exclude<UnifiedSearchableContentType, 'global'>
 	href: string
 	ariaLabel: string
 	titleHtml: string
