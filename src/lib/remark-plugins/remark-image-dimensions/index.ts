@@ -7,19 +7,22 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 			console.log(node.value)
 			// use regex to capture the src
 
-			const srcRegex = /{[\r\n]*\s*dark:.*[\r\n]*\s*light:.*[\r\n]*\s*}/
+			const srcRegex = /src={{[\r\n]*\s*dark:.*[\r\n]*\s*light:.*[\r\n]*\s*}}/
 			const match = node.value.match(srcRegex)
 
 			// console.log('<MATCH', match)
 			// coerce to string, trim all whitespace
-			const src = String(match[0]).replaceAll(/[\r\n\s]*/g, '')
+			const src = String(match[0])
+			// clean up string, trim whitespace, remove surrounding JSX syntax
+			const cleanString = src.replaceAll(/src={{|}}|'|"|[\r\n\s]*/g, '')
+
 			// target dark / light src directly
+			// trim off the string
+			const srcSetObj = Object.fromEntries(
+				cleanString.split(',').map((src: string) => src.split(':'))
+			)
 
-			const obj = JSON.parse(JSON.stringify(src))
-
-			console.log(JSON.stringify(src))
-
-			console.log(node.value.split(srcRegex))
+			console.log(srcSetObj)
 
 			// use regex to capture the width / height
 
