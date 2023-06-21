@@ -75,6 +75,10 @@
 			0 16px 16px -10px #61687533;
 		background: var(--hover-background);
 	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-border-primary);
+	}
 }
 
 .navListLinkContent {
