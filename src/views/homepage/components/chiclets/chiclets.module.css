@@ -77,7 +77,7 @@
 	}
 
 	@nest html[data-theme='dark'] & {
-		background-color: var(--token-color-border-primary);
+		background-color: var(--token-color-border-faint);
 	}
 }
 
