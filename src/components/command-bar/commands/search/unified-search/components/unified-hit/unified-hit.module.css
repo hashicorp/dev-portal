@@ -82,10 +82,9 @@
 	color: var(--token-color-foreground-faint);
 }
 
-/* URL path with highlighting */
+/* URL path */
 
 .breadcrumb {
-	composes: styleNestedMarkElements;
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-regular from global;
 	color: var(--token-color-foreground-faint);
