@@ -47,7 +47,7 @@ const getIsRewriteableDocsLink = (link: string): boolean => {
 		 */
 		// eslint-disable-next-line @typescript-eslint/no-var-requires
 		const productData = require(`data/${productSlug}.json`) as ProductData
-		const acceptedBasePaths = productData.basePaths
+		const acceptedBasePaths = productData.rootDocsPaths.map((e) => e.path)
 		if (acceptedBasePaths.includes('api-docs')) {
 			acceptedBasePaths.push('api')
 		}
