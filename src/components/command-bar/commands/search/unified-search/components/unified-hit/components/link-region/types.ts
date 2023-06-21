@@ -9,11 +9,20 @@ import { ReactNode } from 'react'
 type InheritedLinkProps = Pick<LinkProps, 'href' | 'onClick' | 'opensInNewTab'>
 
 export interface LinkRegionProps extends InheritedLinkProps {
+	/**
+	 * Children to render in the linked region.
+	 */
 	children: ReactNode
+
+	/**
+	 * Optional className to set on the root element. This `className` can set
+	 * a `--border-radius` CSS custom property in order to control the
+	 * `border-radius` of the link focus outline.
+	 */
 	className?: string
 
 	/**
-	 * The text used as the `CardLink`'s accessible label. Required so the element
+	 * The text used as the `LinkRegion`'s accessible label. Required so the element
 	 * is announced by screen readers.
 	 */
 	ariaLabel: LinkProps['aria-label']
