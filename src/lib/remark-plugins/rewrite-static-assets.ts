@@ -31,7 +31,6 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 			if (!is<Image>(node, 'image') && !is<Definition>(node, 'definition')) {
 				return [node]
 			}
-
 			/**
 			 * Hotfix: the Definition node could be used by an image or link reference
 			 * This regex checks if the path starts with /img or /public/img. While
@@ -59,6 +58,9 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 }
 
 export function getNewImageUrl(url: string): string | undefined {
+	// const isVercelBuild =
+	// 	process.env.VERCEL_ENV === 'production' ||
+	// 	process.env.VERCEL_ENV === 'preview'
 	const isVercelBuild = true
 	const newUrl = new URL(ASSET_API_ENDPOINT)
 
