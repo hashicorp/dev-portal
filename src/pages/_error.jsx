@@ -68,8 +68,6 @@ function Error({ statusCode, proxiedProductSlug }) {
 export async function getServerSideProps(ctx) {
 	const { req, res, err } = ctx
 
-	console.error('[pages/_error]', err)
-
 	// Determine which layout to use, may be dev-portal's base layout,
 	// or may be a proxied product layout, depending on the URL host
 	const urlObj = new URL(req.url, `http://${req.headers.host}`)
