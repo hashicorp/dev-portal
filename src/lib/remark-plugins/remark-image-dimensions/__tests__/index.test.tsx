@@ -51,3 +51,15 @@ How goes it
 		// `)
 	})
 })
+
+/** *
+ * test if THEMED IMAGE JSX
+ *
+ * test if light and dark are swapped
+ *
+ * test if asset 404s
+ *
+ * test various tabs / spacing setups
+ *
+ * test if width /height are passed that it overrides
+ */

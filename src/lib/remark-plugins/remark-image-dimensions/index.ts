@@ -1,10 +1,13 @@
 import { Plugin, Transformer } from 'unified'
 import { visit } from 'unist-util-visit'
 
+import { getNewImageUrl } from '../rewrite-static-assets'
+
 const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 	return function transformer(tree) {
 		visit(tree, 'jsx', (node: any) => {
-			console.log(node.value)
+			// FRIST TEST IF IT IS THEMEDIMAGE
+
 			// use regex to capture the src
 
 			const srcRegex = /src={{[\r\n]*\s*dark:.*[\r\n]*\s*light:.*[\r\n]*\s*}}/
@@ -17,18 +20,31 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 			const cleanString = src.replaceAll(/src={{|}}|'|"|[\r\n\s]*/g, '')
 
 			// target dark / light src directly
-			// trim off the string
-			const srcSetObj = Object.fromEntries(
+			const rawSrcSet = Object.fromEntries(
 				cleanString.split(',').map((src: string) => src.split(':'))
 			)
 
-			console.log(srcSetObj)
+			// define correct src values
+			const srcSet = {
+				dark: getNewImageUrl(rawSrcSet.dark),
+				light: getNewImageUrl(rawSrcSet.light),
+			}
 
-			// use regex to capture the width / height
+			console.log({ srcSet })
 
-			// get all the right props
+			// capture the width / height
 
-			// recompose as a new string
+			// check if width is defined
+
+			// if so, use that
+
+			// otherwise get the dimensions
+
+			let value = node.value
+
+			value = value.replace(/dark:\s*'|"[a-b]*'|"/, `dark: '${srcSet.dark}'`)
+			value = value.replace(/light:\s*'|"[a-b]*'|"/, `light: '${srcSet.light}'`)
+			console.log('FINALLLLL', value, node.value)
 		})
 	}
 }
