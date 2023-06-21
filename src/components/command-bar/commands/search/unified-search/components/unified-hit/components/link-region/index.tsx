@@ -4,11 +4,21 @@ import classNames from 'classnames'
 import Link from 'components/link'
 import { developmentToast, ToastColor } from 'components/toast'
 // Types
-import type { LinkCoverParentProps } from './types'
+import type { LinkRegionProps } from './types'
 // Styles
-import s from './link-cover-parent.module.css'
+import s from './link-region.module.css'
 
-function LinkCoverParent({
+/**
+ * Renders `children` and an adjacent link element in a parent container,
+ * with the link element covering the parent container.
+ *
+ * To adjust the `border-radius` of the focus outline, the incoming
+ * `className` can set a `--border-radius` CSS custom property.
+ *
+ * Note: we could potentially use this component in `CardLink`.
+ * For now, didn't want to reach for that abstraction too early.
+ */
+function LinkRegion({
 	ariaLabel,
 	children,
 	className,
@@ -16,16 +26,16 @@ function LinkCoverParent({
 	onClick,
 	opensInNewTab,
 	'data-heap-track': dataHeapTrack,
-}: LinkCoverParentProps): ReactElement {
+}: LinkRegionProps): ReactElement {
 	const classes = classNames(s.root, className)
 	const target = opensInNewTab ? '_blank' : undefined
 
 	if (!ariaLabel) {
 		developmentToast({
 			color: ToastColor.critical,
-			title: 'Error in CardLink',
+			title: 'Error in LinkRegion',
 			description:
-				'`CardLink` requires the `ariaLabel` prop in order to be announced by screen readers.',
+				'`LinkRegion` requires the `ariaLabel` prop in order to be announced by screen readers.',
 		})
 	}
 
@@ -57,4 +67,4 @@ function LinkCoverParent({
 	)
 }
 
-export default LinkCoverParent
+export default LinkRegion

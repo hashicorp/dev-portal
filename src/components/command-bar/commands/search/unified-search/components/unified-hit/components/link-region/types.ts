@@ -8,7 +8,7 @@ import { ReactNode } from 'react'
 
 type InheritedLinkProps = Pick<LinkProps, 'href' | 'onClick' | 'opensInNewTab'>
 
-export interface LinkCoverParentProps extends InheritedLinkProps {
+export interface LinkRegionProps extends InheritedLinkProps {
 	children: ReactNode
 	className?: string
 

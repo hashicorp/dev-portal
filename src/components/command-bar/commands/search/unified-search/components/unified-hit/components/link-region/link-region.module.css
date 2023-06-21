@@ -21,10 +21,13 @@
 	left: 0;
 	right: 0;
 
-	/* makes the whole card clickable */
+	/* makes the whole region clickable */
 	&::before {
 		background-color: transparent;
-		border-radius: var(--border-radius);
+
+		/* --border-radius can be set by the incoming `className`
+		   passed to this component */
+		border-radius: var(--border-radius, 0);
 		bottom: 0;
 		content: '';
 		display: block;

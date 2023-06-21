@@ -8,7 +8,7 @@ import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slu
 import type { Hit, HitAttributeHighlightResult } from 'instantsearch.js'
 // Styles
 import s from './unified-hit.module.css'
-import LinkCoverParent from './components/link-cover-parent'
+import LinkRegion from './components/link-region'
 import IconTile from 'components/icon-tile'
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconDot16 } from '@hashicorp/flight-icons/svg-react/dot-16'
@@ -110,7 +110,7 @@ function UnifiedHitPresentation({
 	productName: string
 }) {
 	return (
-		<LinkCoverParent className={s.root} href={href} ariaLabel={ariaLabel}>
+		<LinkRegion className={s.root} href={href} ariaLabel={ariaLabel}>
 			<IconTile className={s.icon} size="small">
 				{iconComponentMap[type]}
 			</IconTile>
@@ -145,6 +145,6 @@ function UnifiedHitPresentation({
 					<div className={s.breadcrumb}>{href}</div>
 				</div>
 			</div>
-		</LinkCoverParent>
+		</LinkRegion>
 	)
 }
