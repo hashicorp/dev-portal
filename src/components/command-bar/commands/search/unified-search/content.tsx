@@ -1,6 +1,6 @@
 // Icons
 import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
-import { IconGlobe16 } from '@hashicorp/flight-icons/svg-react/globe-16'
+import { IconGrid16 } from '@hashicorp/flight-icons/svg-react/grid-16'
 import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 // Types
@@ -19,7 +19,7 @@ export const tabContentByType: Record<
 > = {
 	global: {
 		heading: 'All',
-		icon: <IconGlobe16 />,
+		icon: <IconGrid16 />,
 	},
 	docs: {
 		heading: 'Documentation',
