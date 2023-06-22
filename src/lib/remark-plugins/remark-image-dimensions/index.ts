@@ -7,22 +7,24 @@ import { getNewImageUrl } from '../rewrite-static-assets'
 const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 	return async function transformer(tree) {
 		const themedImageNodes = []
+		// @TODO find where a JSX node defition is provided
 		visit(tree, 'jsx', (node: $TSFixMe) => {
 			// FRIST TEST IF IT IS THEMEDIMAGE
 			themedImageNodes.push(node)
 		})
 
-		console.log('START', tree)
-
 		for (const node of themedImageNodes) {
-			console.log(node)
 			// use regex to capture the src
 			const srcRegex = /src={{[\r\n]*\s*dark:.*[\r\n]*\s*light:.*[\r\n]*\s*}}/
 			const match = node.value.match(srcRegex)
-
-			// console.log('<MATCH', match)
-			// coerce to string, trim all whitespace
 			const src = String(match[0])
+
+			// We assume the first item in the array is the full match string
+			// If it doesn't exist, skip
+			if (!src) {
+				continue
+			}
+
 			// clean up string, trim whitespace, remove surrounding JSX syntax
 			const cleanString = src.replaceAll(/src={{|}}|'|"|[\r\n\s]*/g, '')
 
@@ -37,26 +39,35 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 				light: getNewImageUrl(rawSrcSet.light),
 			}
 
-			// console.log({ srcSet })
-
-			// capture the width / height
-			// do I use the dark width / height?
-			// should I capture both?
-			const dimensions = await probe(srcSet.dark)
-
 			let value = node.value
 
 			value = value.replace(/dark:\s*('|").*('|")/, `dark: '${srcSet.dark}'`)
 			value = value.replace(/light:\s*('|").*('|")/, `light: '${srcSet.light}'`)
-			value = value.replaceAll(
-				/width=\s*('|").*('|")/g,
-				`width='${dimensions.width}'`
-			)
-			value = value.replaceAll(
-				/height=\s*('|").*('|")/g,
-				`height='${dimensions.height}'`
-			)
-			console.log('FINALLLLL', value)
+
+			let dimensions
+			try {
+				console.log(srcSet.dark)
+				dimensions = await probe(srcSet.dark)
+
+				value = value.replaceAll(
+					/width=\s*('|").*('|")/g,
+					`width='${dimensions.width}'`
+				)
+				value = value.replaceAll(
+					/height=\s*('|").*('|")/g,
+					`height='${dimensions.height}'`
+				)
+			} catch (e) {
+				if (e.statusCode === 404) {
+					console.error(
+						'[remarkPluginCalculateImageDimensions] Image path not found, unable to calculate dimensions'
+					)
+				}
+
+				node.value = value
+			}
+
+			console.log('FINAL', value)
 
 			node.value = value
 		}

@@ -58,10 +58,9 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 }
 
 export function getNewImageUrl(url: string): string | undefined {
-	// const isVercelBuild =
-	// 	process.env.VERCEL_ENV === 'production' ||
-	// 	process.env.VERCEL_ENV === 'preview'
-	const isVercelBuild = true
+	const isVercelBuild =
+		process.env.VERCEL_ENV === 'production' ||
+		process.env.VERCEL_ENV === 'preview'
 	const newUrl = new URL(ASSET_API_ENDPOINT)
 
 	/**
