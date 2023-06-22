@@ -10,6 +10,7 @@ import remarkPluginCalculateImageDimensions from '../index'
 import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MdxThemedImage } from 'components/dev-dot-content/mdx-components'
+import { ReactNode } from 'react'
 
 // FIXTURES -----------------------------------------
 
@@ -20,8 +21,8 @@ How goes it
 
 <ThemedImage
 	src={{
-        dark: 'img/boundary/boundary-components-min.png',
-        light: 'img/boundary/boundary-desktop-cluster-url.png'
+        dark: '/img/boundary/boundary-components-min.png',
+        light: '/img/boundary/boundary-desktop-cluster-url.png'
     }}
     alt='themed image'
 />
@@ -33,8 +34,8 @@ const sourceWithAlternatePropOrder = `
 <ThemedImage
     alt='themed image'
     src={{
-     light: 'img/boundary/boundary-desktop-cluster-url.png',
-     dark: 'img/boundary/boundary-components-min.png'
+     light: '/img/boundary/boundary-desktop-cluster-url.png',
+     dark: '/img/boundary/boundary-components-min.png'
     }}
 />
 `
@@ -44,8 +45,8 @@ const sourceWithWidthHeightOverride = `
 
 <ThemedImage
     src={{
-        light: 'img/boundary/boundary-desktop-cluster-url.png',
-        dark: 'img/boundary/boundary-components-min.png'
+        light: '/img/boundary/boundary-desktop-cluster-url.png',
+        dark: '/img/boundary/boundary-components-min.png'
     }}
     alt='themed image'
     width='500'
@@ -61,11 +62,17 @@ const sourceWithAdditionalMdxComponent = `
 <ThemedImage
     alt='themed image'
     src={{
-     light: 'img/boundary/boundary-desktop-cluster-url.png',
-     dark: 'img/boundary/boundary-components-min.png'
+     light: '/img/boundary/boundary-desktop-cluster-url.png',
+     dark: '/img/boundary/boundary-components-min.png'
     }}
 />
 `
+
+function TestTipComponent({ children }) {
+	return <p>{children}</p>
+}
+
+const MDX_COMPONENTS = { ThemedImage: MdxThemedImage as any }
 
 // ASSERTIONS -----------------------------------------------------------
 describe('themed image dimensions remark plugin', () => {
@@ -79,7 +86,7 @@ describe('themed image dimensions remark plugin', () => {
 		})
 
 		const { container } = render(
-			<MDXRemote {...mdxSource} components={{ ThemedImage: MdxThemedImage }} />
+			<MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
 		)
 
 		expect(container).toMatchInlineSnapshot(`
@@ -139,7 +146,7 @@ describe('themed image dimensions remark plugin', () => {
 		})
 
 		const { container } = render(
-			<MDXRemote {...mdxSource} components={{ ThemedImage: MdxThemedImage }} />
+			<MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
 		)
 
 		// we expect to fallback to the plain `img` tag, without width and height defined
@@ -185,7 +192,7 @@ describe('themed image dimensions remark plugin', () => {
 		})
 
 		const { container } = render(
-			<MDXRemote {...mdxSource} components={{ ThemedImage: MdxThemedImage }} />
+			<MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
 		)
 
 		// we expect to fallback to the plain `img` tag, without width and height defined
@@ -242,7 +249,7 @@ describe('themed image dimensions remark plugin', () => {
 		})
 
 		const { container } = render(
-			<MDXRemote {...mdxSource} components={{ ThemedImage: MdxThemedImage }} />
+			<MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
 		)
 
 		// we expect to fallback to the plain `img` tag, without width and height defined
@@ -302,8 +309,8 @@ describe('themed image dimensions remark plugin', () => {
 			<MDXRemote
 				{...mdxSource}
 				components={{
-					ThemedImage: MdxThemedImage,
-					Tip: ({ children }) => <p>{children}</p>,
+					ThemedImage: MdxThemedImage as any,
+					Tip: TestTipComponent as any,
 				}}
 			/>
 		)
