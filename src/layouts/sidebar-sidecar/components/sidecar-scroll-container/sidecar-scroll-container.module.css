@@ -14,9 +14,7 @@
 	display: flex;
 	flex-direction: column;
 	isolation: isolate;
-
-	/* Note: max-sidecar-height is set in sidebar-sidecar-layout.module.css. */
-	max-height: var(--max-sidecar-height);
+	min-height: 0;
 	position: relative;
 	width: 100%;
 
@@ -77,6 +75,7 @@
 
 .scrollContainer {
 	overflow-y: auto;
+	overflow-x: hidden;
 
 	/* Note: 1px padding is necessary for box-shadow border styles to appear
 	   correctly. Another option might be to add even more padding...

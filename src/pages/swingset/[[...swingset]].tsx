@@ -30,6 +30,7 @@ const components = {
 	SwingsetTestIcon,
 }
 
+// @ts-expect-error -- the swingset type is wrong here (by extension of next-mdx-remote)
 const SwingsetPage = createPage({ components })
 
 const SwingsetLayout = ({ children }) => {

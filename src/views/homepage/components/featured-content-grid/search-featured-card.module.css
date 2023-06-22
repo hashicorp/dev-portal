@@ -1,18 +1,56 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .root {
-	background: url('../../img/search-card-graphic.svg');
+	--auto-scroll-transition-length: 400ms;
+
 	background-color: var(--token-color-foreground-strong);
+	background-position: center top;
+	background-repeat: no-repeat;
 	background-size: cover;
-	background-position: center left;
 	border-radius: 10px;
-	box-shadow: none; /* TODO - should there be elevation? */
 	padding-bottom: 18px;
 	padding-left: 24px;
 	padding-right: 24px;
 	padding-top: 20px;
+
+	/* 500px with 16px base font */
+	@media (min-width: 31.25rem) {
+		background-image: url('../../img/search-card-graphic.svg');
+		background-position-x: 1rem;
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-foreground-high-contrast);
+		color: var(--token-color-foreground-strong);
+	}
 }
 
 .heading {
+	composes: hds-font-weight-bold from global;
+	color: var(--token-color-foreground-high-contrast);
+	font-family: var(--token-typography-display-400-font-family);
+	font-size: var(--token-typography-display-400-font-size);
+	line-height: var(--token-typography-display-400-line-height);
+	margin: 0;
 	margin-bottom: 8px;
+	padding: 0;
+
+	@media (--dev-dot-mobile) {
+		margin-bottom: 4px;
+	}
+
+	@media (--dev-dot-tablet-down) {
+		font-family: var(--token-typography-display-300-font-family);
+		font-size: var(--token-typography-display-300-font-size);
+		line-height: var(--token-typography-display-300-line-height);
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-strong);
+	}
 }
 
 .description {
@@ -21,6 +59,10 @@
 	/* to break up lines without using a <br /> */
 	& span {
 		display: block;
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-primary);
 	}
 }
 
@@ -40,6 +82,7 @@
 			rgba(13, 13, 21, 0) 104.43%
 		),
 		#2a283a40;
+	border-radius: 10px;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -56,36 +99,46 @@
 		transparent 60%,
 		#2a283a40 90%
 	);
+	border-radius: 10px;
 	bottom: 0;
 	left: 0;
 	pointer-events: none; /* allow clicks to pass through this element */
 	position: absolute;
 	right: 0;
 	top: 0;
-	z-index: 2;
+	z-index: 3;
+
+	/* 500px with 16px base font */
+	@media (max-width: 31.25rem) {
+		/* hide on mobile because it decreases contrast too much */
+		display: none;
+	}
 }
 
-.buttonContainer {
+.buttonsContainer {
 	align-items: center;
 	display: flex;
-	gap: 24px;
-	max-width: 100%;
-	overflow: hidden;
 	padding-bottom: 38px;
 	padding-top: 38px;
 	position: relative;
+	transform: translateX(100vw);
+	z-index: 2;
 
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
-		scroll-behavior: smooth;
+		transition: transform var(--auto-scroll-transition-length) ease-in-out;
 	}
+}
 
-	/* spacers that enable the first/last buttons to be centered */
-	&::before,
-	&::after {
-		content: '';
-		min-height: 1px;
-		min-width: 300px;
+.buttonContainer {
+	padding-left: 12px;
+	padding-right: 12px;
+	z-index: 1;
+
+	/* 500px with 16px base font */
+	@media screen and (max-width: 31.25rem) {
+		padding-left: 6px;
+		padding-right: 6px;
 	}
 }
 
@@ -113,18 +166,27 @@
 	color: var(--token-color-palette-neutral-0);
 	opacity: 0.5;
 	padding: 1px 0;
-	z-index: 1;
+
+	/* 500px with 16px base font */
+	@media screen and (max-width: 31.25rem) {
+		/**
+    * @TODO replace magic numbers with variables
+    *   - 44px is ideal touch target for next/previous button
+    *   - 12px is the gap between buttons
+    */
+		min-width: calc(100% - 2 * 44px - 2 * 12px);
+	}
 
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
-		transition: opacity 120ms ease-in-out;
+		transition: opacity var(--auto-scroll-transition-length) ease-in-out;
 	}
 
 	&:focus,
 	&:focus-visible,
 	&.currentButton {
 		opacity: 1;
-		z-index: 3;
+		z-index: 4;
 	}
 }
 
@@ -138,22 +200,44 @@
 	padding-left: 24px;
 	padding-right: 24px;
 	padding-top: 16px;
+
+	/* 700px with 16px base font */
+	@media screen and (max-width: 43.75rem) {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-foreground-high-contrast);
+		color: var(--token-color-foreground-strong);
+	}
 }
 
 .buttonText {
+	text-align: left;
 	white-space: nowrap;
+
+	/* 500px with 16px base font */
+	@media screen and (max-width: 31.25rem) {
+		white-space: unset;
+		word-break: break-word;
+	}
 }
 
 .positionIndicatorBar {
 	align-items: center;
 	bottom: 12px;
 	display: flex;
-	gap: 10px;
 	justify-content: center;
 	left: 0;
 	position: absolute;
 	right: 0;
 	z-index: 3;
+}
+
+/* Purpose of this element is to increase the touch target */
+.positionIndicatorContainer {
+	padding: 5px;
 }
 
 .positionIndicator {
@@ -162,9 +246,14 @@
 	height: 6px;
 	width: 10px;
 
+	&:hover {
+		cursor: pointer;
+	}
+
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
-		transition: width 120ms ease-in-out, color 120ms ease-in-out;
+		transition: width var(--auto-scroll-transition-length) ease-in-out,
+			color var(--auto-scroll-transition-length) ease-in-out;
 	}
 
 	&.currentPositionIndicator {

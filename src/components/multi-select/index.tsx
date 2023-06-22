@@ -11,6 +11,11 @@ import { MultiSelectOption, MultiSelectProps } from './types'
 import s from './multi-select.module.css'
 
 const MultiSelect = ({ text, options }: MultiSelectProps) => {
+	// If there are no options, don't render the dropdown since it throws
+	// when 0 children are passed.
+	if (!options.length) {
+		return null
+	}
 	return (
 		<DropdownDisclosure
 			closeOnRouteChangeStart={false}

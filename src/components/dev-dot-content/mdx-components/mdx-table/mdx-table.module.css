@@ -3,19 +3,36 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-/*
-We are using a wrapper here to enable horizontal scrolling while still retaining full width tables
-
-TODO: implement a more accessible horizontal overflow solution as KB-only users aren't able to focus and scroll these elements
-*/
-
-.tableWrapper {
+.root {
 	--bg: var(--token-color-palette-neutral-50);
 	--border: var(--token-color-palette-alpha-200);
 	--radius: 6px;
 
+	position: relative;
+}
+
+.tableWrapper {
 	margin: 24px 0;
 	overflow-x: auto;
+
+	/**
+   * When the table is scrollable (which is programmatically determined in the
+   JavaScript), and the table wrapper comes into browser focus (with the TAB or
+   SHIFT+TAB keys), make the table's focus ring visible via box-shadow.
+   */
+	&[tabindex='0'] {
+		&:focus {
+			outline: transparent;
+		}
+
+		&:focus-visible {
+			outline: transparent;
+
+			& ~ .tableFocusRing {
+				box-shadow: var(--token-focus-ring-action-box-shadow);
+			}
+		}
+	}
 
 	& table {
 		border-spacing: 0;
@@ -43,6 +60,7 @@ TODO: implement a more accessible horizontal overflow solution as KB-only users 
 				}
 			}
 		}
+
 		& tbody {
 			& tr {
 				& td {
@@ -71,4 +89,63 @@ TODO: implement a more accessible horizontal overflow solution as KB-only users 
 			}
 		}
 	}
+}
+
+.scrim {
+	bottom: 0;
+	content: '';
+	opacity: 0;
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	width: 30px;
+
+	&.showScrim {
+		opacity: 1;
+	}
+
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: opacity 0.25s;
+	}
+}
+
+.leftScrim {
+	composes: scrim;
+	background: linear-gradient(
+			to right,
+			var(--token-color-page-primary),
+			transparent
+		)
+		left;
+	left: 0;
+}
+
+.rightScrim {
+	composes: scrim;
+	background: linear-gradient(
+			to left,
+			var(--token-color-page-primary),
+			transparent
+		)
+		right;
+	right: 0;
+}
+
+/**
+ * Why `pointer-events: none`? (https://stackoverflow.com/a/6441884)
+ * 
+ * To allow mouse/touch events to "pass through" this absolutely position
+ * element. Otherwise, this element would receive the events and scrolling on
+ * the `overflow: auto` element above would be blocked.
+ */
+.tableFocusRing {
+	border-radius: var(--radius);
+	bottom: 0;
+	left: 0;
+	pointer-events: none;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 1;
 }

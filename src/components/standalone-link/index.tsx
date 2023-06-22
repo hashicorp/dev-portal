@@ -13,6 +13,7 @@ import {
 import s from './standalone-link.module.css'
 
 const DEFAULT_COLOR_VARIANT = 'primary'
+const DEFAULT_SIZE_VARIANT = 'medium'
 
 const StandaloneLinkContents = ({
 	className,
@@ -20,7 +21,7 @@ const StandaloneLinkContents = ({
 	icon,
 	iconPosition,
 	inheritColor = false,
-	size,
+	size = DEFAULT_SIZE_VARIANT,
 	text,
 	textClassName,
 }: StandaloneLinkContentsProps) => {
@@ -61,7 +62,7 @@ const StandaloneLink = ({
 	iconPosition,
 	onClick,
 	opensInNewTab = false,
-	size = 'medium',
+	size = DEFAULT_SIZE_VARIANT,
 	text,
 	textClassName,
 }: StandaloneLinkProps) => {

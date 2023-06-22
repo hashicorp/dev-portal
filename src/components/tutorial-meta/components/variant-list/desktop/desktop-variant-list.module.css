@@ -1,0 +1,76 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.label {
+	composes: hds-typography-body-200 from global;
+	composes: hds-font-weight-semibold from global;
+	color: var(--token-color-foreground-strong);
+	margin-bottom: 8px;
+	display: block;
+}
+
+.list {
+	list-style: none;
+	margin: 0;
+	background: var(--token-color-surface-faint);
+	border: 1px solid var(--token-color-border-faint);
+	border-radius: 6px;
+	padding: 8px;
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+/**
+* Shares some similar styles with `button-link` but is unique enough
+* to warrant its own styles to avoid overrides
+*/
+
+.link {
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-medium from global;
+	composes: g-focus-ring-from-box-shadow from global;
+	display: flex;
+	border-radius: 5px;
+	border: 1px solid;
+	padding: 6px 12px;
+	box-shadow: var(--token-elevation-low-box-shadow);
+
+	/* Link styles for the 'current' or active link based on `aria-current` */
+	&[aria-current='page'] {
+		background-color: var(--token-color-foreground-action);
+		border-color: var(--token-color-foreground-action-hover);
+		color: var(--token-color-foreground-high-contrast);
+		box-shadow: none;
+
+		/**
+		* We need a lighter color focus ring for this style so the blue
+		* focus styles are easily visible against the blue bg-color
+		*
+		* We could lift this up to a global focus ring helper in styles.css
+		* if we find this being used elsewhere
+		*/
+		&:focus-visible {
+			box-shadow: inset 0 0 0 1px var(--token-color-palette-blue-300),
+				0 0 0 1px var(--token-color-surface-primary),
+				0 0 0 4px var(--token-color-focus-action-external);
+		}
+	}
+
+	/* Link styles for the inactive or not current links based on `aria-current` */
+	&:not([aria-current='page']) {
+		background-color: var(--token-color-surface-primary);
+		border-color: var(--token-color-border-primary);
+		color: var(--token-color-foreground-primary);
+
+		&:hover {
+			background-color: var(--token-color-surface-interactive-hover);
+		}
+
+		&:active {
+			background-color: var(--token-color-surface-interactive-active);
+		}
+	}
+}

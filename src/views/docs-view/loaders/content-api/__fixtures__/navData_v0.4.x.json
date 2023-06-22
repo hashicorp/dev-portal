@@ -1,0 +1,228 @@
+{
+	"meta": {
+		"status_code": 200,
+		"status_text": "OK"
+	},
+	"result": {
+		"product": "waypoint",
+		"githubFile": "website/content/commands-nav-data.json",
+		"version": "v0.4.x",
+		"created_at": "Sat Oct 02 2021 23:51:16 GMT+0000 (Coordinated Universal Time)",
+		"sha": "48f450f6330f39d5e4f2a92f6480a77742e40d2b",
+		"subpath": "commands",
+		"fullPath": "nav-data/v0.4.x/commands",
+		"navData": [
+			{
+				"title": "build",
+				"path": "v0.4.x/build"
+			},
+			{
+				"title": "deploy",
+				"path": "v0.4.x/deploy"
+			},
+			{
+				"title": "context",
+				"path": "v0.4.x/context"
+			},
+			{
+				"title": "context-inspect",
+				"path": "v0.4.x/context-inspect"
+			},
+			{
+				"title": "destroy",
+				"path": "v0.4.x/destroy"
+			},
+			{
+				"title": "exec",
+				"path": "v0.4.x/exec"
+			},
+			{
+				"title": "init",
+				"path": "v0.4.x/init"
+			},
+			{
+				"title": "install",
+				"path": "v0.4.x/install"
+			},
+			{
+				"title": "logs",
+				"path": "v0.4.x/logs"
+			},
+			{
+				"title": "project apply",
+				"path": "v0.4.x/project-apply"
+			},
+			{
+				"title": "release",
+				"path": "v0.4.x/release"
+			},
+			{
+				"title": "ui",
+				"path": "v0.4.x/ui"
+			},
+			{
+				"title": "up",
+				"path": "v0.4.x/up"
+			},
+			{
+				"divider": true
+			},
+			{
+				"title": "artifact build",
+				"path": "v0.4.x/artifact-build"
+			},
+			{
+				"title": "artifact list-builds",
+				"path": "v0.4.x/artifact-list-builds"
+			},
+			{
+				"title": "artifact list",
+				"path": "v0.4.x/artifact-list"
+			},
+			{
+				"title": "artifact push",
+				"path": "v0.4.x/artifact-push"
+			},
+			{
+				"title": "config get",
+				"path": "v0.4.x/config-get"
+			},
+			{
+				"title": "config set",
+				"path": "v0.4.x/config-set"
+			},
+			{
+				"title": "config source-get",
+				"path": "v0.4.x/config-source-get"
+			},
+			{
+				"title": "config source-set",
+				"path": "v0.4.x/config-source-set"
+			},
+			{
+				"title": "config sync",
+				"path": "v0.4.x/config-sync"
+			},
+			{
+				"title": "context clear",
+				"path": "v0.4.x/context-clear"
+			},
+			{
+				"title": "context create",
+				"path": "v0.4.x/context-create"
+			},
+			{
+				"title": "context delete",
+				"path": "v0.4.x/context-delete"
+			},
+			{
+				"title": "context list",
+				"path": "v0.4.x/context-list"
+			},
+			{
+				"title": "context rename",
+				"path": "v0.4.x/context-rename"
+			},
+			{
+				"title": "context use",
+				"path": "v0.4.x/context-use"
+			},
+			{
+				"title": "context verify",
+				"path": "v0.4.x/context-verify"
+			},
+			{
+				"title": "deployment deploy",
+				"path": "v0.4.x/deployment-deploy"
+			},
+			{
+				"title": "deployment destroy",
+				"path": "v0.4.x/deployment-destroy"
+			},
+			{
+				"title": "deployment list",
+				"path": "v0.4.x/deployment-list"
+			},
+			{
+				"title": "docs",
+				"path": "v0.4.x/docs"
+			},
+			{
+				"title": "fmt",
+				"path": "v0.4.x/fmt"
+			},
+			{
+				"title": "hostname delete",
+				"path": "v0.4.x/hostname-delete"
+			},
+			{
+				"title": "hostname list",
+				"path": "v0.4.x/hostname-list"
+			},
+			{
+				"title": "hostname register",
+				"path": "v0.4.x/hostname-register"
+			},
+			{
+				"title": "plugin",
+				"path": "v0.4.x/plugin"
+			},
+			{
+				"title": "project list",
+				"path": "v0.4.x/project-list"
+			},
+			{
+				"title": "runner agent",
+				"path": "v0.4.x/runner-agent"
+			},
+			{
+				"title": "server bootstrap",
+				"path": "v0.4.x/server-bootstrap"
+			},
+			{
+				"title": "server config-set",
+				"path": "v0.4.x/server-config-set"
+			},
+			{
+				"title": "server install",
+				"path": "v0.4.x/server-install"
+			},
+			{
+				"title": "server restore",
+				"path": "v0.4.x/server-restore"
+			},
+			{
+				"title": "server run",
+				"path": "v0.4.x/server-run"
+			},
+			{
+				"title": "server snapshot",
+				"path": "v0.4.x/server-snapshot"
+			},
+			{
+				"title": "server uninstall",
+				"path": "v0.4.x/server-uninstall"
+			},
+			{
+				"title": "server upgrade",
+				"path": "v0.4.x/server-upgrade"
+			},
+			{
+				"title": "token exchange",
+				"path": "v0.4.x/token-exchange"
+			},
+			{
+				"title": "token invite",
+				"path": "v0.4.x/token-invite"
+			},
+			{
+				"title": "token new",
+				"path": "v0.4.x/token-new"
+			},
+			{
+				"title": "version",
+				"path": "v0.4.x/version"
+			}
+		]
+	}
+}

@@ -5,3 +5,4 @@
 
 export * from './badges'
 export * from './badges/helpers'
+export * from './variant-list'

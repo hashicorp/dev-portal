@@ -5,16 +5,11 @@
 
 .preFooter {
 	position: relative;
-	padding-top: var(--homepage-section-padding-y);
-	padding-bottom: var(--homepage-section-padding-y);
 }
 
 .container {
 	--grid-template-columns: 4;
 
-	margin-right: auto;
-	margin-left: auto;
-	width: var(--homepage-container-width);
 	display: grid;
 	grid-template-columns: repeat(var(--grid-template-columns), 1fr);
 	grid-gap: var(--homepage-grid-gap);
@@ -27,6 +22,7 @@
 
 .content {
 	grid-column: 1 / -1;
+	color: var(--token-color-foreground-strong);
 
 	@media (--dev-dot-tablet-up) {
 		grid-column: 1 / 7;
@@ -62,4 +58,9 @@
 
 .actionsHeading {
 	margin-bottom: 8px;
+	color: var(--token-color-foreground-strong);
+}
+
+.actionsDescription {
+	color: var(--token-color-foreground-primary);
 }

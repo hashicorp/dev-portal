@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, ComponentType } from 'react'
 import dynamic from 'next/dynamic'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -20,7 +20,8 @@ import { FlagBagProvider } from 'flags/client'
 // HashiCorp imports
 import {
 	initializeUTMParamsCapture,
-	addCloudLinkHandler,
+	addGlobalLinkHandler,
+	track,
 } from '@hashicorp/platform-analytics'
 import '@hashicorp/platform-util/nprogress/style.css'
 import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analytics'
@@ -33,9 +34,6 @@ import {
 	CurrentProductProvider,
 	DeviceSizeProvider,
 } from 'contexts'
-import fetchLayoutProps, {
-	ComponentMaybeWithQuery,
-} from 'lib/_proxied-dot-io/fetch-layout-props'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
 import EmptyLayout from 'layouts/empty'
@@ -62,8 +60,8 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 }
 
 initializeUTMParamsCapture()
-addCloudLinkHandler((destinationUrl: string) => {
-	window.analytics.track('Outbound link', {
+addGlobalLinkHandler((destinationUrl: string) => {
+	track('Outbound link', {
 		destination_url: destinationUrl,
 	})
 })
@@ -71,9 +69,8 @@ addCloudLinkHandler((destinationUrl: string) => {
 export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
-	layoutProps,
 	host,
-}: CustomAppProps & Awaited<ReturnType<typeof App['getInitialProps']>>) {
+}: CustomAppProps & Awaited<ReturnType<(typeof App)['getInitialProps']>>) {
 	const flagBag = useFlags()
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
@@ -103,14 +100,7 @@ export default function App({
 	 * TODO: refactor this so that pageProps.layoutProps is the only place where
 	 * layoutProps come from.
 	 */
-	const allLayoutProps = {
-		theme: Component.theme,
-		...pageProps.layoutProps,
-		// @ts-expect-error - layoutProps is inferred from `fetchLayoutProps`,
-		// which current resolves to `unknown | null`.
-		// Spread types may only be created from object types.
-		...layoutProps,
-	}
+	const allLayoutProps = { theme: Component.theme, ...pageProps.layoutProps }
 
 	return (
 		<QueryClientProvider client={queryClient}>
@@ -157,24 +147,7 @@ export default function App({
 App.getInitialProps = async ({
 	Component,
 	ctx,
-}: CustomAppContext<{ Component: ComponentMaybeWithQuery }>) => {
-	// Determine the product being served through our rewrites so we can fetch the correct layout data
-	let proxiedProduct
-	if (ctx.pathname.includes('_proxied-dot-io/vault')) {
-		proxiedProduct = 'vault'
-	} else if (ctx.pathname.includes('_proxied-dot-io/consul')) {
-		proxiedProduct = 'consul'
-	} else if (ctx.pathname.includes('_proxied-dot-io/nomad')) {
-		proxiedProduct = 'nomad'
-	} else if (ctx.pathname.includes('_proxied-dot-io/boundary')) {
-		proxiedProduct = 'boundary'
-	} else if (ctx.pathname.includes('_proxied-dot-io/packer')) {
-		proxiedProduct = 'packer'
-	} else if (ctx.pathname.includes('_proxied-dot-io/vagrant')) {
-		proxiedProduct = 'vagrant'
-	}
-	const layoutProps = await fetchLayoutProps(Component.layout, proxiedProduct)
-
+}: CustomAppContext<{ Component: ComponentType }>) => {
 	let pageProps = {}
 
 	if (Component.getInitialProps) {
@@ -190,7 +163,6 @@ App.getInitialProps = async ({
 
 	return {
 		pageProps,
-		layoutProps,
 		host,
 	}
 }

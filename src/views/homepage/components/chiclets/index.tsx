@@ -17,9 +17,9 @@ const Chiclets = () => {
 	return (
 		<div className={s.root}>
 			<p className={s.label} id="chiclets-nav-label">
-				Explore by product
+				Explore tutorials & documentation by product
 			</p>
-			<nav aria-labelledby="chiclets-nav-label" className={s.nav}>
+			<nav aria-labelledby="chiclets-nav-label">
 				<ul className={s.navList}>
 					{SOLUTION_TYPES_IN_DISPLAY_ORDER.map((solutionType: SolutionType) => {
 						const productSlugs = PRODUCT_SLUGS_BY_SOLUTION_TYPE[solutionType]
@@ -35,7 +35,7 @@ const Chiclets = () => {
 									<a className={s.navListLink} href={href}>
 										<div className={s.navListLinkContent}>
 											<ProductIcon productSlug={productSlug} size={24} />
-											{text}
+											<span className={s.chicletText}>{text}</span>
 										</div>
 									</a>
 								</li>

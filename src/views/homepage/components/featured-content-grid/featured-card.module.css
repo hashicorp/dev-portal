@@ -1,10 +1,14 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .card {
 	background-color: var(--token-color-foreground-strong);
-	border: 1px solid magenta; /* TODO: remove; denotes WIP */
-	color: var(--token-color-palette-neutral-0);
-	height: 100%;
+	color: var(--token-color-foreground-high-contrast);
 	display: flex;
 	flex-direction: column;
+	height: 100%;
 	justify-content: space-between;
 	padding: 24px;
 	position: relative;
@@ -13,17 +17,19 @@
 		gap: 10px;
 		padding-right: 0;
 	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-foreground-high-contrast);
+		color: var(--token-color-foreground-strong);
+	}
+}
+
+.learnMoreCtaContainer {
+	align-self: flex-end;
 }
 
 .learnMoreCta {
-	/* composition */
-	composes: hds-font-weight-medium from global;
-	composes: hds-typography-body-300 from global;
-
-	/* properties */
-	align-items: center;
-	align-self: flex-end;
-	display: flex;
+	color: inherit;
 	gap: 6px;
 	padding-right: 4px;
 

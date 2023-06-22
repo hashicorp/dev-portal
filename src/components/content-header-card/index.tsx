@@ -81,7 +81,6 @@ export default function ContentHeaderCard({
 							{badges && (
 								<BadgeList
 									className={s.badgeList}
-									type="outlined"
 									size="small"
 									badges={badges}
 								/>
@@ -108,6 +107,7 @@ export default function ContentHeaderCard({
 											href={link.href}
 											opensInNewTab={!link.href.startsWith('/')}
 											iconPosition="leading"
+											color="secondary"
 										/>
 									</li>
 								)

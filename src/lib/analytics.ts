@@ -42,7 +42,6 @@ export const makeDevAnalyticsLogger = () => {
 	) {
 		try {
 			window.analytics.ready(() => {
-				// @ts-expect-error - register doesn't exist on our current SegmentAnalytics.AnalyticsJS type
 				window.analytics.register(AnalyticsPluginEventLogger)
 			})
 		} catch {

@@ -9,6 +9,7 @@ import type { OutlineNavProps } from 'components/outline-nav'
 import { OutlineNavWithActive } from 'components/outline-nav/components'
 import VersionAlertBanner from 'components/version-alert-banner'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
+import useUserContentAnchorLinks from 'lib/hooks/use-user-content-anchor-links'
 import {
 	getIntegrationComponentUrl,
 	getLatestIntegrationVersion,
@@ -27,9 +28,13 @@ import SearchableVariableGroupList from './components/searchable-variable-group-
 import { Variable } from './components/variable-group-list'
 import { getVariableGroupSlug, getVariableSlug } from './helpers'
 import type { ProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
+// Types
+import type { AnchorLinkItem } from 'lib/remark-plugins/remark-plugin-anchor-link-data'
+// Styles
 import s from './style.module.css'
 
 export interface ProductIntegrationComponentViewProps {
+	anchorLinks: AnchorLinkItem[]
 	product: ProductData
 	integration: Integration
 	activeRelease: Release
@@ -47,12 +52,27 @@ export default function ProductIntegrationComponentView({
 	serializedREADME,
 	breadcrumbLinks,
 	processedVariablesMarkdown,
+	anchorLinks,
 }: ProductIntegrationComponentViewProps) {
-	const { variable_groups } = component
+	// We expect user content here, so we need to handle `#user-content-` links
+	useUserContentAnchorLinks()
+
+	/**
+	 * Build outline nav items for any README content.
+	 * Note: if no README content is present, `anchorLinks` will be an empty
+	 * array, so `readmeOutlineItems` will also be an empty array.
+	 */
+	const readmeOutlineItems = anchorLinks.map(
+		({ title, id }: AnchorLinkItem) => {
+			return { title, url: `#${id}` }
+		}
+	)
+
 	/**
 	 * Build outline nav items for the component variable groups
 	 */
-	const outlineNavItems: OutlineNavProps['items'] = variable_groups.map(
+	const { variable_groups } = component
+	const variablesOutlineItems: OutlineNavProps['items'] = variable_groups.map(
 		(variableGroup: VariableGroup) => {
 			const groupName = variableGroup.variable_group_config.name
 			const groupSlug = getVariableGroupSlug(groupName)
@@ -68,6 +88,11 @@ export default function ProductIntegrationComponentView({
 			return { title: groupName, url: `#${groupSlug}`, items: nestedItems }
 		}
 	)
+
+	/**
+	 * Concatenate outline nav items
+	 */
+	const outlineNavItems = [...readmeOutlineItems, ...variablesOutlineItems]
 
 	/**
 	 * Grab the current version string from the activeRelease.

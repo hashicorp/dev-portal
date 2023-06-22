@@ -48,6 +48,7 @@ const SidebarSidecarLayoutContent = ({
 	AlternateSidebar,
 	showScrollProgress,
 	sidecarSlot,
+	sidecarTopSlot,
 	sidebarNavDataLevels,
 	mainWidth = 'wide',
 	alertBannerSlot,
@@ -114,6 +115,7 @@ const SidebarSidecarLayoutContent = ({
 							) : null}
 						</main>
 						<div className={s.sidecarPosition}>
+							<div className={s.sidecarTopSlot}>{sidecarTopSlot}</div>
 							<SidecarScrollContainer>{sidecarSlot}</SidecarScrollContainer>
 						</div>
 					</div>

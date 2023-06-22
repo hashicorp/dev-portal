@@ -3,7 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ApiCollection, ApiTutorial } from './api/api-types'
+import {
+	ApiCollection,
+	ApiTutorial,
+	ApiTutorialVariant,
+	ApiTutorialVariantOption,
+} from './api/api-types'
 
 /**
  * These types reflect data shapes returned from client methods
@@ -33,6 +38,7 @@ export interface Tutorial {
 	video?: TutorialVideo
 	handsOnLab?: TutorialHandsOnLab
 	repo?: string
+	variant?: TutorialVariant
 }
 
 export interface CollectionCtxLite {
@@ -74,6 +80,7 @@ export interface TutorialLite
 		| 'productsUsed'
 		| 'video'
 		| 'handsOnLab'
+		| 'variant'
 	> {
 	defaultContext: CollectionLite
 }
@@ -112,6 +119,15 @@ export interface ProductUsed {
 	isPrimary: boolean
 	minVersion?: string
 	maxVersion?: string
+}
+
+export interface TutorialVariantOption
+	extends Omit<ApiTutorialVariantOption, 'display_order'> {
+	displayOrder: number
+}
+
+export interface TutorialVariant extends Omit<ApiTutorialVariant, 'options'> {
+	options: TutorialVariantOption[]
 }
 
 export interface getAllTutorialsOptions {

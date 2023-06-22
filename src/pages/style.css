@@ -121,6 +121,12 @@ Mobile & tablet visibility helpers, specific to dev-dot.
 	}
 }
 
+@media (--dev-dot-tablet-up) {
+	.g-hide-on-tablet-up {
+		display: none !important;
+	}
+}
+
 @media (--dev-dot-desktop) {
 	.g-hide-on-desktop {
 		display: none !important;

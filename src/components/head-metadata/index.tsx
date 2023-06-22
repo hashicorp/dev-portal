@@ -81,6 +81,68 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 					name="google-site-verification"
 					content="zRQZqfAsOX-ypXfU0mzAIzb5rUvj5fA4Zw2jWJRN-JI"
 				/>
+				{/**
+				 * Note that `key` values here are necessary, as NextJS de-dupes
+				 * `meta` tags based on `name`.
+				 * Ref: https://github.com/vercel/next.js/pull/17099
+				 *
+				 * We have one zd crawler for each product
+				 */}
+
+				<meta
+					name="zd-site-verification"
+					key="9qmgy2yz6zbk00tcci2y"
+					content="9qmgy2yz6zbk00tcci2y"
+					data-product="hcp"
+				/>
+				<meta
+					name="zd-site-verification"
+					key="xxmpuhow9r8iz9sq31d2bc"
+					content="xxmpuhow9r8iz9sq31d2bc"
+					data-product="terraform"
+				/>
+				<meta
+					name="zd-site-verification"
+					key="iuwt0p3j768fmso8hm98"
+					content="iuwt0p3j768fmso8hm98"
+					data-product="packer"
+				/>
+				<meta
+					name="zd-site-verification"
+					key="lhbjuf5innptc678ken0f8"
+					content="lhbjuf5innptc678ken0f8"
+					data-product="consul"
+				/>
+				<meta
+					name="zd-site-verification"
+					key="d4udllp6txbot6z8cuzxs"
+					content="d4udllp6txbot6z8cuzxs"
+					data-product="boundary"
+				/>
+				<meta
+					name="zd-site-verification"
+					key="1i8so200ii4smuo4wm0j9"
+					content="1i8so200ii4smuo4wm0j9"
+					data-product="vault"
+				/>
+				<meta
+					name="zd-site-verification"
+					key="ykjjnuk3ng93l06hwzj6ug"
+					content="ykjjnuk3ng93l06hwzj6ug"
+					data-product="nomad"
+				/>
+				<meta
+					name="zd-site-verification"
+					key="9kcw71js0xc1yjobla5mq"
+					content="9kcw71js0xc1yjobla5mq"
+					data-product="waypoint"
+				/>
+				<meta
+					name="zd-site-verification"
+					key="3aoyn57r4ver42w2u8cyy"
+					content="3aoyn57r4ver42w2u8cyy"
+					data-product="vagrant"
+				/>
 
 				{/* Some og tags do not get picked up for twitter's share cards, so we need these tags as well */}
 				<meta name="twitter:image" key="twitter:image" content={ogImageUrl} />

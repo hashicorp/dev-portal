@@ -27,7 +27,7 @@ interface SidebarNavMenuItemProps {
 	item: MenuItem
 }
 
-type SupportedIconName = 'home' & ProductSlug
+type SupportedIconName = 'home' & 'guide' & ProductSlug
 interface SidebarNavLinkItem extends MenuItem {
 	leadingIconName?: SupportedIconName
 }

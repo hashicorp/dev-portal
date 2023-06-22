@@ -5,7 +5,7 @@
 
 import { ReactNode } from 'react'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
+import { VersionSelectItem } from './loaders/remote-content'
 import { ProductSlug, ProductWithCurrentRootDocsPath } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { OutlineLinkItem } from 'components/outline-nav/types'
@@ -22,12 +22,6 @@ export interface DocsViewProps {
 	 * `compiledSource` and `scope`.
 	 */
 	mdxSource: MDXRemoteSerializeResult
-
-	/**
-	 * Identical to the `MDXRemoteProps['lazy']` prop. The value is passed
-	 * unchanged to `MDXRemote`.
-	 */
-	lazy?: boolean
 
 	versions?: VersionSelectItem[]
 
