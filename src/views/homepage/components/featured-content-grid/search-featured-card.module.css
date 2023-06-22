@@ -21,6 +21,11 @@
 		background-image: url('../../img/search-card-graphic.svg');
 		background-position-x: 1rem;
 	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-foreground-high-contrast);
+		color: var(--token-color-foreground-strong);
+	}
 }
 
 .heading {
@@ -42,6 +47,10 @@
 		font-size: var(--token-typography-display-300-font-size);
 		line-height: var(--token-typography-display-300-line-height);
 	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-strong);
+	}
 }
 
 .description {
@@ -50,6 +59,10 @@
 	/* to break up lines without using a <br /> */
 	& span {
 		display: block;
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-primary);
 	}
 }
 
@@ -192,6 +205,11 @@
 	@media screen and (max-width: 43.75rem) {
 		align-items: flex-start;
 		flex-direction: column;
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-foreground-high-contrast);
+		color: var(--token-color-foreground-strong);
 	}
 }
 

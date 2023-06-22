@@ -54,6 +54,7 @@ function PreFooter({ heading, description, actions }: PreFooterProps) {
 											{action.heading}
 										</Heading>
 										<StandaloneLink
+											className={s.actionsDescription}
 											color="secondary"
 											href={action.link}
 											icon={<IconExternalLink16 />}

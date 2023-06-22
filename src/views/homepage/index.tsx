@@ -64,6 +64,5 @@ function HomePageView(): ReactElement {
  */
 HomePageView.contentType = 'tutorials'
 HomePageView.layout = BaseNewLayout
-HomePageView.theme = GlobalThemeOption.light
 
 export default HomePageView
