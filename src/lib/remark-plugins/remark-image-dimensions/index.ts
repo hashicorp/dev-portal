@@ -1,15 +1,24 @@
 import { Plugin, Transformer } from 'unified'
 import { visit } from 'unist-util-visit'
+import find from 'unist-util-find'
+import probe from 'probe-image-size'
 
 import { getNewImageUrl } from '../rewrite-static-assets'
+import { Node } from 'unist'
 
 const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
-	return function transformer(tree) {
+	return async function transformer(tree) {
+		const themedImageNodes = []
 		visit(tree, 'jsx', (node: any) => {
 			// FRIST TEST IF IT IS THEMEDIMAGE
+			themedImageNodes.push(node)
+		})
 
+		console.log('START', tree)
+
+		for (const node of themedImageNodes) {
+			console.log(node)
 			// use regex to capture the src
-
 			const srcRegex = /src={{[\r\n]*\s*dark:.*[\r\n]*\s*light:.*[\r\n]*\s*}}/
 			const match = node.value.match(srcRegex)
 
@@ -30,22 +39,31 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 				light: getNewImageUrl(rawSrcSet.light),
 			}
 
-			console.log({ srcSet })
+			// console.log({ srcSet })
 
 			// capture the width / height
-
-			// check if width is defined
-
-			// if so, use that
-
-			// otherwise get the dimensions
+			// do I use the dark width / height?
+			// should I capture both?
+			const dimensions = await probe(srcSet.dark)
 
 			let value = node.value
 
-			value = value.replace(/dark:\s*'|"[a-b]*'|"/, `dark: '${srcSet.dark}'`)
-			value = value.replace(/light:\s*'|"[a-b]*'|"/, `light: '${srcSet.light}'`)
-			console.log('FINALLLLL', value, node.value)
-		})
+			value = value.replace(/dark:\s*('|").*('|")/, `dark: '${srcSet.dark}'`)
+			value = value.replace(/light:\s*('|").*('|")/, `light: '${srcSet.light}'`)
+			value = value.replaceAll(
+				/width=\s*('|").*('|")/g,
+				`width='${dimensions.width}'`
+			)
+			value = value.replaceAll(
+				/height=\s*('|").*('|")/g,
+				`height='${dimensions.height}'`
+			)
+			console.log('FINALLLLL', value)
+
+			node.value = value
+		}
+
+		return tree
 	}
 }
 
