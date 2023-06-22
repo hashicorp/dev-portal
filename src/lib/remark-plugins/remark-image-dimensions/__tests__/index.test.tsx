@@ -35,8 +35,6 @@ describe('themed image dimensions remark plugin', () => {
 			},
 		})
 
-		console.log({ mdxSource })
-
 		const { container } = render(
 			<MDXRemote {...mdxSource} components={{ ThemedImage: MdxThemedImage }} />
 		)
