@@ -17,16 +17,21 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 		})
 
 		for (const node of themedImageNodes) {
-			// use regex to capture the src
+			/* use regex to capture the src, targeting something like:
+			 * src={{
+			 *   dark: 'some-path',
+			 *   light: 'some-path-light'
+			 * }}
+			 */
 			const srcRegex =
 				/src={{[\r\n]*\s*(dark:.*[\r\n]*\s*|light:.*[\r\n]*\s*)+}}/
 			const match = node.value.match(srcRegex)
+			// We assume the first item in the array is the full match string
 			const src = match?.length > 0 ? String(match[0]) : null
 			let value = node.value
 			let dimensions
 
-			// We assume the first item in the array is the full match string
-			// If it doesn't exist, skip
+			// Return early if no match was found
 			if (!src) {
 				console.log(
 					'[remarkPluginCalculateImageDimensions]: No srcSet found on ThemedImage '
@@ -54,6 +59,7 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 
 			try {
 				// TODO check if its a url that can be 'fetched'
+				// IOW handle the case for /img/...
 				dimensions = await probe(srcSet.dark)
 				const widthAndHeightDefined =
 					value.includes('width') && value.includes('height')
@@ -69,7 +75,6 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 					value = strWithWidthAndHeight
 				}
 			} catch (e) {
-				// @TODO throw error if not 404 here?
 				if (e.statusCode === 404) {
 					console.error(
 						'[remarkPluginCalculateImageDimensions] Image path not found, unable to calculate dimensions ' +
