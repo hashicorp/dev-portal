@@ -1,3 +1,6 @@
+/// <reference types="remark-mdx" />
+
+import type { Root } from 'mdast'
 import { Plugin, Transformer } from 'unified'
 import { visit } from 'unist-util-visit'
 import probe from 'probe-image-size'
@@ -5,10 +8,10 @@ import probe from 'probe-image-size'
 import { getNewImageUrl } from '../rewrite-static-assets'
 
 const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
-	return async function transformer(tree) {
+	return async function transformer(tree: Root) {
 		const themedImageNodes = []
 		// @TODO find where a JSX node defition is provided
-		visit(tree, 'jsx', (node: $TSFixMe) => {
+		visit(tree, 'jsx', (node) => {
 			// FRIST TEST IF IT IS THEMEDIMAGE
 			themedImageNodes.push(node)
 		})
@@ -40,23 +43,31 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 			}
 
 			let value = node.value
-
 			value = value.replace(/dark:\s*('|").*('|")/, `dark: '${srcSet.dark}'`)
 			value = value.replace(/light:\s*('|").*('|")/, `light: '${srcSet.light}'`)
 
 			let dimensions
 			try {
-				console.log(srcSet.dark)
 				dimensions = await probe(srcSet.dark)
+				const widthString = `width='${dimensions.width}'`
+				const heightString = `height='${dimensions.height}'`
+				// if width and height are passed, don't overwrite
 
-				value = value.replaceAll(
-					/width=\s*('|").*('|")/g,
-					`width='${dimensions.width}'`
-				)
-				value = value.replaceAll(
-					/height=\s*('|").*('|")/g,
-					`height='${dimensions.height}'`
-				)
+				const widthAndHeightDefined =
+					value.includes('width') && value.includes('height')
+
+				if (!widthAndHeightDefined) {
+					// insert width and height after alt
+					// value = value.replaceAll(/alt=\s*('|").*('|")/g, widthString)
+					// value = value.replaceAll(/height=\s*('|").*('|")/g, heightString)
+
+					const closingTagIndex = value.indexOf('/>')
+					console.log(closingTagIndex, value.slice(0, closingTagIndex))
+					const withoutClosingTag = value.slice(0, closingTagIndex)
+					withoutClosingTag.concat(`,\n${widthString},\n${heightString}\n/>`)
+					console.log('WITHOUT', withoutClosingTag)
+					// value = withoutClosingTag.join('')
+				}
 			} catch (e) {
 				if (e.statusCode === 404) {
 					console.error(
@@ -66,8 +77,6 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 
 				node.value = value
 			}
-
-			console.log('FINAL', value)
 
 			node.value = value
 		}

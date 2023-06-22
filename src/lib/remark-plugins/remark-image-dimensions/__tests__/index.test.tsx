@@ -22,22 +22,22 @@ How goes it
         light: 'img/boundary/boundary-desktop-cluster-url.png'
     }}
     alt='themed image'
-    width='500'
-    height='300'
 />
 `
 
 describe('themed image dimensions remark plugin', () => {
 	process.env.VERCEL_ENV = 'preview'
 
-	it('should rewrite src urls', async () => {
+	it('should rewrite src urls for previews', async () => {
 		const mdxSource = await serialize(source, {
 			mdxOptions: {
 				remarkPlugins: [remarkPluginCalculateImageDimensions],
 			},
 		})
 
-		const { container, getAllByAltText } = render(
+		console.log({ mdxSource })
+
+		const { container } = render(
 			<MDXRemote {...mdxSource} components={{ ThemedImage: MdxThemedImage }} />
 		)
 
