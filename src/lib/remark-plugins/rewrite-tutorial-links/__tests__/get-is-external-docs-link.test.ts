@@ -21,7 +21,9 @@ describe('getIsRewriteableDocsLink', () => {
 
 	Object.keys(productSlugsToHostNames).forEach((slug: ProductSlug) => {
 		// eslint-disable-next-line @typescript-eslint/no-var-requires
-		const basePaths = require(`data/${slug}.json`).basePaths
+		const basePaths = require(`data/${slug}.json`).rootDocsPaths.map(
+			(e) => e.path
+		)
 		const hostname = productSlugsToHostNames[slug]
 		const origin = `https://${hostname}`
 
