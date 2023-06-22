@@ -9,8 +9,6 @@ interface MdxThemedImageProps {
 	alt?: NextImageProps['alt']
 }
 
-// TODO handle captions
-
 export function MdxThemedImage({
 	src,
 	alt = '',
@@ -53,7 +51,7 @@ export function MdxThemedImage({
 						height={height}
 					/>
 				) : (
-					<img className={s.image} src={src.light} alt={alt} title={title} />
+					<img className={s.image} src={src.dark} alt={alt} title={title} />
 				)}
 			</span>
 		</>

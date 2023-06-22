@@ -18,15 +18,19 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 
 		for (const node of themedImageNodes) {
 			// use regex to capture the src
-			const srcRegex = /src={{[\r\n]*\s*dark:.*[\r\n]*\s*light:.*[\r\n]*\s*}}/
+			const srcRegex =
+				/src={{[\r\n]*\s*(dark:.*[\r\n]*\s*|light:.*[\r\n]*\s*)+}}/
 			const match = node.value.match(srcRegex)
-			const src = String(match[0])
+			const src = match?.length > 0 ? String(match[0]) : null
 			let value = node.value
 			let dimensions
 
 			// We assume the first item in the array is the full match string
 			// If it doesn't exist, skip
 			if (!src) {
+				console.log(
+					'[remarkPluginCalculateImageDimensions]: No srcSet found on ThemedImage '
+				)
 				continue
 			}
 
@@ -49,12 +53,13 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 			value = value.replace(/light:\s*('|").*('|")/, `light: '${srcSet.light}'`)
 
 			try {
+				// TODO check if its a url that can be 'fetched'
 				dimensions = await probe(srcSet.dark)
 				const widthAndHeightDefined =
 					value.includes('width') && value.includes('height')
 
 				// only overwrite width and height if not defined
-				if (!widthAndHeightDefined) {
+				if (!widthAndHeightDefined && dimensions) {
 					const closingTagIndex = value.indexOf('/>')
 					const withoutClosingTag = value.slice(0, closingTagIndex)
 					// insert width / height before closing tag
