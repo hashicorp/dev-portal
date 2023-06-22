@@ -21,6 +21,8 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 			const srcRegex = /src={{[\r\n]*\s*dark:.*[\r\n]*\s*light:.*[\r\n]*\s*}}/
 			const match = node.value.match(srcRegex)
 			const src = String(match[0])
+			let value = node.value
+			let dimensions
 
 			// We assume the first item in the array is the full match string
 			// If it doesn't exist, skip
@@ -31,30 +33,27 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 			// clean up string, trim whitespace, remove surrounding JSX syntax
 			const cleanString = src.replaceAll(/src={{|}}|'|"|[\r\n\s]*/g, '')
 
-			// target dark / light src directly
+			// Turn the light / dark src strings into an object
 			const rawSrcSet = Object.fromEntries(
 				cleanString.split(',').map((src: string) => src.split(':'))
 			)
 
-			// define correct src values
+			// get the correct image paths for mktg-content-api or local asset server
 			const srcSet = {
 				dark: getNewImageUrl(rawSrcSet.dark),
 				light: getNewImageUrl(rawSrcSet.light),
 			}
 
-			let value = node.value
+			// update src definitions in the string
 			value = value.replace(/dark:\s*('|").*('|")/, `dark: '${srcSet.dark}'`)
 			value = value.replace(/light:\s*('|").*('|")/, `light: '${srcSet.light}'`)
 
-			let dimensions
 			try {
 				dimensions = await probe(srcSet.dark)
-
-				// if width and height are passed, don't overwrite
-
 				const widthAndHeightDefined =
 					value.includes('width') && value.includes('height')
 
+				// only overwrite width and height if not defined
 				if (!widthAndHeightDefined) {
 					const closingTagIndex = value.indexOf('/>')
 					const withoutClosingTag = value.slice(0, closingTagIndex)
@@ -65,13 +64,16 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 					value = strWithWidthAndHeight
 				}
 			} catch (e) {
+				// @TODO throw error if not 404 here?
 				if (e.statusCode === 404) {
 					console.error(
-						'[remarkPluginCalculateImageDimensions] Image path not found, unable to calculate dimensions'
+						'[remarkPluginCalculateImageDimensions] Image path not found, unable to calculate dimensions ' +
+							e
 					)
+					node.value = value
+				} else {
+					throw e
 				}
-
-				node.value = value
 			}
 
 			node.value = value
