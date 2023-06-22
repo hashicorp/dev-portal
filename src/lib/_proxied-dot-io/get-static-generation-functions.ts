@@ -136,8 +136,8 @@ export const getStaticGenerationFunctions: typeof getStaticGenerationFunctionsBa
 
 				return {
 					...result,
-					// Do not statically generate any .io site pages
-					paths: [],
+					// Do not statically generate any .io site pages when reading remote content
+					...(opts.strategy === 'remote' && { paths: [] }),
 				}
 			},
 			getStaticProps,

@@ -9,6 +9,16 @@
 			]
 		},
 		{
+			"name": "HCP Vault Secrets",
+			"items": [
+				{
+					"name": "Quickstart",
+					"collectionSlug": "vault/hcp-vault-secrets-get-started",
+					"isBeta": true
+				}
+			]
+		},
+		{
 			"name": "HCP Consul",
 			"items": [
 				{ "name": "Quickstart", "collectionSlug": "consul/get-started-hcp" },
