@@ -6,6 +6,20 @@ import probe from 'probe-image-size'
 
 import { getNewImageUrl } from '../rewrite-static-assets'
 
+/**
+ * Explain how images are sourced
+ * - they live in tutorials repo
+ * - mktg-content-api or local asset server
+ *
+ * @TODO fix the dev-portal image paths, not a huge issue rn but confusing for debugging
+ *
+ * - test with real content,
+ * - put themed image into staging, test on a preview
+ * - document
+ * - clean up code
+ * - clean up tests
+ */
+
 const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 	return async function transformer(tree: Root) {
 		const themedImageNodes = []
@@ -41,12 +55,10 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 
 			// clean up string, trim whitespace, remove surrounding JSX syntax
 			const cleanString = src.replaceAll(/src={{|}}|'|"|[\r\n\s]*/g, '')
-
 			// Turn the light / dark src strings into an object
 			const rawSrcSet = Object.fromEntries(
 				cleanString.split(',').map((src: string) => src.split(':'))
 			)
-
 			// get the correct image paths for mktg-content-api or local asset server
 			const srcSet = {
 				dark: getNewImageUrl(rawSrcSet.dark),
@@ -57,23 +69,11 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 			value = value.replace(/dark:\s*('|").*('|")/, `dark: '${srcSet.dark}'`)
 			value = value.replace(/light:\s*('|").*('|")/, `light: '${srcSet.light}'`)
 
+			// get dimensions
 			try {
 				// TODO check if its a url that can be 'fetched'
 				// IOW handle the case for /img/...
 				dimensions = await probe(srcSet.dark)
-				const widthAndHeightDefined =
-					value.includes('width') && value.includes('height')
-
-				// only overwrite width and height if not defined
-				if (!widthAndHeightDefined && dimensions) {
-					const closingTagIndex = value.indexOf('/>')
-					const withoutClosingTag = value.slice(0, closingTagIndex)
-					// insert width / height before closing tag
-					const strWithWidthAndHeight = withoutClosingTag.concat(
-						`\n${`width='${dimensions.width}'`}\n${`height='${dimensions.height}'`}\n/>`
-					)
-					value = strWithWidthAndHeight
-				}
 			} catch (e) {
 				if (e.statusCode === 404) {
 					console.error(
@@ -84,6 +84,20 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 				} else {
 					throw e
 				}
+			}
+
+			const widthAndHeightDefined =
+				value.includes('width') && value.includes('height')
+
+			// only overwrite width and height if not defined
+			if (!widthAndHeightDefined && dimensions) {
+				const closingTagIndex = value.indexOf('/>')
+				const withoutClosingTag = value.slice(0, closingTagIndex)
+				// insert width / height before closing tag
+				const strWithWidthAndHeight = withoutClosingTag.concat(
+					`\n${`width='${dimensions.width}'`}\n${`height='${dimensions.height}'`}\n/>`
+				)
+				value = strWithWidthAndHeight
 			}
 
 			node.value = value
