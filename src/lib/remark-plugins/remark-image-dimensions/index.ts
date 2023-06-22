@@ -1,15 +1,13 @@
 import { Plugin, Transformer } from 'unified'
 import { visit } from 'unist-util-visit'
-import find from 'unist-util-find'
 import probe from 'probe-image-size'
 
 import { getNewImageUrl } from '../rewrite-static-assets'
-import { Node } from 'unist'
 
 const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 	return async function transformer(tree) {
 		const themedImageNodes = []
-		visit(tree, 'jsx', (node: any) => {
+		visit(tree, 'jsx', (node: $TSFixMe) => {
 			// FRIST TEST IF IT IS THEMEDIMAGE
 			themedImageNodes.push(node)
 		})
