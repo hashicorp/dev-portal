@@ -11,6 +11,8 @@ import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MdxThemedImage } from 'components/dev-dot-content/mdx-components'
 
+// FIXTURES -----------------------------------------
+
 const source = `
 # Hello
 
@@ -25,15 +27,15 @@ How goes it
 />
 `
 
-const sourceWithDifferntProps = `
+const sourceWithAlternatePropOrder = `
 # Hello
 
 <ThemedImage
-    src={{
-        light: 'img/boundary/boundary-desktop-cluster-url.png',
-        dark: 'img/boundary/boundary-components-min.png'
-    }}
     alt='themed image'
+    src={{
+     light: 'img/boundary/boundary-desktop-cluster-url.png',
+     dark: 'img/boundary/boundary-components-min.png'
+    }}
 />
 `
 
@@ -51,6 +53,21 @@ const sourceWithWidthHeightOverride = `
 />
 `
 
+const sourceWithAdditionalMdxComponent = `
+# Hello
+
+<Tip>Hi</Tip>
+
+<ThemedImage
+    alt='themed image'
+    src={{
+     light: 'img/boundary/boundary-desktop-cluster-url.png',
+     dark: 'img/boundary/boundary-components-min.png'
+    }}
+/>
+`
+
+// ASSERTIONS -----------------------------------------------------------
 describe('themed image dimensions remark plugin', () => {
 	it('should rewrite src urls, width, height for previews', async () => {
 		process.env.VERCEL_ENV = 'preview'
@@ -161,7 +178,7 @@ describe('themed image dimensions remark plugin', () => {
 	it('should handle various prop orders', async () => {
 		process.env.VERCEL_ENV = 'preview'
 
-		const mdxSource = await serialize(sourceWithDifferntProps, {
+		const mdxSource = await serialize(sourceWithAlternatePropOrder, {
 			mdxOptions: {
 				remarkPlugins: [remarkPluginCalculateImageDimensions],
 			},
@@ -271,10 +288,70 @@ describe('themed image dimensions remark plugin', () => {
 		</div>
 	`)
 	})
-})
 
-/** *
- * test if THEMED IMAGE JSX
- *
- * test various tabs / spacing setups
- */
+	it('only adjusts `ThemedImage` component', async () => {
+		process.env.VERCEL_ENV = 'preview'
+
+		const mdxSource = await serialize(sourceWithAdditionalMdxComponent, {
+			mdxOptions: {
+				remarkPlugins: [remarkPluginCalculateImageDimensions],
+			},
+		})
+
+		const { container } = render(
+			<MDXRemote
+				{...mdxSource}
+				components={{
+					ThemedImage: MdxThemedImage,
+					Tip: ({ children }) => <p>{children}</p>,
+				}}
+			/>
+		)
+
+		// we expect to fallback to the plain `img` tag, without width and height defined
+		expect(container).toMatchInlineSnapshot(`
+		<div>
+		  <h1>
+		    Hello
+		  </h1>
+		  <p>
+		    Hi
+		  </p>
+		  <span
+		    class="root"
+		    data-hide-on-theme="dark"
+		  >
+		    <img
+		      alt="themed image"
+		      class="image"
+		      data-nimg="1"
+		      decoding="async"
+		      height="431"
+		      loading="lazy"
+		      src="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-desktop-cluster-url.png&w=3840&q=75"
+		      srcset="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-desktop-cluster-url.png&w=1200&q=75 1x, /_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-desktop-cluster-url.png&w=3840&q=75 2x"
+		      style="color: transparent;"
+		      width="1192"
+		    />
+		  </span>
+		  <span
+		    class="root"
+		    data-hide-on-theme="light"
+		  >
+		    <img
+		      alt="themed image"
+		      class="image"
+		      data-nimg="1"
+		      decoding="async"
+		      height="431"
+		      loading="lazy"
+		      src="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-components-min.png&w=3840&q=75"
+		      srcset="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-components-min.png&w=1200&q=75 1x, /_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-components-min.png&w=3840&q=75 2x"
+		      style="color: transparent;"
+		      width="1192"
+		    />
+		  </span>
+		</div>
+	`)
+	})
+})
