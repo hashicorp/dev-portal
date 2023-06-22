@@ -132,9 +132,9 @@ export function rewriteDocsUrl(
 	}
 
 	// Prefix docs URLs. "/docs/some-path" becomes "/waypoint/docs/some-path"
-	const isCurrentProductDocsUrl = currentProduct.basePaths.some(
-		(basePath: string) => inputUrl.startsWith(`/${basePath}`)
-	)
+	const isCurrentProductDocsUrl = currentProduct.rootDocsPaths
+		.map((e) => e.path)
+		.some((basePath: string) => inputUrl.startsWith(`/${basePath}`))
 	const isProductPath = new RegExp(`^/(${productSlugs.join('|')})`)
 
 	if (isCurrentProductDocsUrl) {
@@ -205,7 +205,8 @@ function rewriteSentinelDocsUrls(
 	 * - Any other "/sentinel/:slug" URL is expected to be a "/docs" URL
 	 *   - We need to adjust these urls to be "/sentinel/docs/:slug"
 	 */
-	const isBasePathExceptDocs = sentinelData.basePaths
+	const isBasePathExceptDocs = sentinelData.rootDocsPaths
+		.map((e) => e.path)
 		.filter((p: string) => p !== 'docs')
 		.some(
 			(basePath: string) =>
