@@ -123,7 +123,7 @@
 }
 
 .body {
-	background-color: var(--token-color-surface-primary);
+	background-color: var(--token-color-surface-faint);
 	flex-grow: 1;
 	flex-shrink: 1;
 	overflow-y: auto;
