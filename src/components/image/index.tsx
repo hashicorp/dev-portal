@@ -95,12 +95,11 @@ function Image({
 
 	let theme
 	const themedImageSuffix = new RegExp(/(#|%23)hide-on-(dark|light)/)
-	console.log(themedImageSuffix.test(src), 'TESTING', src)
+
 	if (themedImageSuffix.test(src)) {
-		console.log('yay')
-		// TODO use url search params
-		theme = src.replace(/(#|%23)hide-on-/, '')
-		console.log(theme)
+		const match = src.match(themedImageSuffix)
+		// match second capture group (dark|light)
+		theme = match[2]
 	}
 	return (
 		<span
@@ -111,7 +110,6 @@ function Image({
 			})}
 			data-hide-on-theme={theme ? theme : null}
 		>
-			hi
 			{dimensions ? (
 				<NextImage
 					src={src}

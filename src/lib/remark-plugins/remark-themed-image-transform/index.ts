@@ -126,8 +126,10 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 		visit(tree, 'image', (node: JSX) => {
 			// TODO use url search params
 			// append the search params with width and height?
-			node.url = `${node.url}&width=1920&height=1080`
-			console.log(node)
+			// we only manipulate mktg-content-api src
+			if (node.url.startsWith('http')) {
+				imageNodesForDimensions.push(node)
+			}
 		})
 
 		/**
@@ -138,27 +140,20 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 		 * where async isn't supported. Taken from suggestion in this issue
 		 *  https://github.com/syntax-tree/unist-util-visit-parents/issues/8#issuecomment-1413405543
 		 */
-		// for (const node of imageNodesForDimensions) {
-		// 	let value = node.value
-		// 	const srcSet = node.src
+		for (const node of imageNodesForDimensions) {
+			const url = new URL(node.url)
 
-		// 	if (srcSet) {
-		// 		// push to array to perform async transform with dimesions
-		// 		if (!value.includes('width') && !value.includes('height')) {
-		// 			const dimensions = await getImageDimensions(srcSet.dark)
+			const dimensions = await getImageDimensions(node.url)
 
-		// 			if (dimensions) {
-		// 				value = concatWithWidthAndHeight(value, dimensions)
-		// 			}
-		// 		}
-		// 	} else {
-		// 		console.log(
-		// 			'[remarkPluginThemedImageTransform]: No srcSet found on ThemedImage '
-		// 		)
-		// 	}
+			if (dimensions) {
+				// add as search params
+				url.searchParams.append('width', dimensions.width)
+				url.searchParams.append('height', dimensions.width)
+			}
 
-		// 	node.value = value
-		// }
+			console.log(url.toString(), url)
+			node.url = url.toString()
+		}
 	}
 }
 
