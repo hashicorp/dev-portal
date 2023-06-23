@@ -4,7 +4,7 @@ import { Plugin, Transformer } from 'unified'
 import { visit } from 'unist-util-visit'
 import {
 	getSrcSetWithUpdatedPaths,
-	getDimensions,
+	getImageDimensions,
 	concatWithWidthAndHeight,
 } from './helpers'
 
@@ -74,7 +74,7 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 			value = value.replace(PATTERNS.darkProp, `dark: '${srcSet.dark}'`)
 			value = value.replace(PATTERNS.lightProp, `light: '${srcSet.light}'`)
 
-			const dimensions = await getDimensions(srcSet.dark)
+			const dimensions = await getImageDimensions(srcSet.dark)
 			const widthAndHeightDefined =
 				value.includes('width') && value.includes('height')
 

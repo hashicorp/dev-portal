@@ -2,22 +2,21 @@ import probe from 'probe-image-size'
 import { getNewImageUrl } from '../rewrite-static-assets'
 import { PATTERNS } from '.'
 
-export async function getDimensions(src: string) {
+export async function getImageDimensions(src: string) {
 	let dimensions
 
-	// get dimensions
-	try {
-		// TODO check if its a url that can be 'fetched'
-		// IOW handle the case for /img/...
-		dimensions = await probe(src)
-	} catch (e) {
-		if (e.statusCode === 404) {
-			console.error(
-				'[remarkPluginCalculateImageDimensions] Image path not found, unable to calculate dimensions ' +
-					e
-			)
-		} else {
-			throw e
+	if (src.startsWith('http')) {
+		try {
+			dimensions = await probe(src)
+		} catch (e) {
+			if (e.statusCode === 404) {
+				console.error(
+					'[remarkPluginCalculateImageDimensions] Image path not found, unable to calculate dimensions ' +
+						e
+				)
+			} else {
+				throw e
+			}
 		}
 	}
 
