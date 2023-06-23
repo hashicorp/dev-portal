@@ -122,7 +122,6 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 		const imageNodesForDimensions = []
 
 		visit(tree, 'image', (node: JSX) => {
-			// append the search params with width and height?
 			// we only manipulate mktg-content-api src
 			if (node.url.startsWith('http')) {
 				imageNodesForDimensions.push(node)
