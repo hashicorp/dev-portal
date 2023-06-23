@@ -14,7 +14,14 @@
 	display: flex;
 	width: 100%;
 	position: relative;
-	border: 1px solid magenta;
+	background-color: var(--token-color-surface-strong);
+	padding: 12px;
+	border-radius: 6px;
+	flex-wrap: wrap;
+	overflow: hidden;
+	text-align: center;
+	justify-content: center;
+	margin: 16px auto;
 }
 
 .image {
@@ -22,4 +29,10 @@
 	object-fit: contain;
 	width: 100%;
 	height: fit-content;
+	box-shadow: var(--token-surface-base-box-shadow);
+	background-color: white;
+	border-radius: 5px;
+	display: block;
+	max-width: 100%;
+	margin: 0;
 }
