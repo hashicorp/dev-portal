@@ -121,8 +121,6 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 	return async function transformer(tree: Root) {
 		const imageNodesForDimensions = []
 
-		// We visit the 'jsx' nodes with `ThemedImage`, update the src strings
-		// and add to an outside array for dimensions calculation, sync its async
 		visit(tree, 'image', (node: JSX) => {
 			// append the search params with width and height?
 			// we only manipulate mktg-content-api src
