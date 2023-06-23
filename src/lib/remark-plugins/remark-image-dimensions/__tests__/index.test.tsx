@@ -194,10 +194,48 @@ describe('themed image dimensions remark plugin', () => {
 		const { container } = render(
 			<MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
 		)
-		const img = container.querySelector('img')
 
-		expect(img).toHaveAttribute('width', '1192')
-		expect(img).toHaveAttribute('height', '431')
+		expect(container).toMatchInlineSnapshot(`
+		<div>
+		  <h1>
+		    Hello
+		  </h1>
+		  <span
+		    class="root"
+		    data-hide-on-theme="dark"
+		  >
+		    <img
+		      alt="themed image"
+		      class="image"
+		      data-nimg="1"
+		      decoding="async"
+		      height="431"
+		      loading="lazy"
+		      src="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-desktop-cluster-url.png&w=3840&q=75"
+		      srcset="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-desktop-cluster-url.png&w=1200&q=75 1x, /_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-desktop-cluster-url.png&w=3840&q=75 2x"
+		      style="color: transparent;"
+		      width="1192"
+		    />
+		  </span>
+		  <span
+		    class="root"
+		    data-hide-on-theme="light"
+		  >
+		    <img
+		      alt="themed image"
+		      class="image"
+		      data-nimg="1"
+		      decoding="async"
+		      height="431"
+		      loading="lazy"
+		      src="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-components-min.png&w=3840&q=75"
+		      srcset="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-components-min.png&w=1200&q=75 1x, /_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-components-min.png&w=3840&q=75 2x"
+		      style="color: transparent;"
+		      width="1192"
+		    />
+		  </span>
+		</div>
+	`)
 	})
 
 	it('should allow width / height to be overridden via props', async () => {
@@ -209,14 +247,56 @@ describe('themed image dimensions remark plugin', () => {
 			},
 		})
 
-		const { getAllByAltText } = render(
+		const { container, getAllByAltText } = render(
 			<MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
 		)
 
-		getAllByAltText('themed image').forEach((el) => {
-			expect(el).toHaveAttribute('width', '500')
-			expect(el).toHaveAttribute('height', '300')
-		})
+		// getAllByAltText('themed image').forEach((el) => {
+		// 	expect(el).toHaveAttribute('width', '500')
+		// 	expect(el).toHaveAttribute('height', '300')
+		// })
+
+		expect(container).toMatchInlineSnapshot(`
+		<div>
+		  <h1>
+		    Hello
+		  </h1>
+		  <span
+		    class="root"
+		    data-hide-on-theme="dark"
+		  >
+		    <img
+		      alt="themed image"
+		      class="image"
+		      data-nimg="1"
+		      decoding="async"
+		      height="300"
+		      loading="lazy"
+		      src="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-desktop-cluster-url.png&w=1080&q=75"
+		      srcset="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-desktop-cluster-url.png&w=640&q=75 1x, /_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-desktop-cluster-url.png&w=1080&q=75 2x"
+		      style="color: transparent;"
+		      width="500"
+		    />
+		  </span>
+		  <span
+		    class="root"
+		    data-hide-on-theme="light"
+		  >
+		    <img
+		      alt="themed image"
+		      class="image"
+		      data-nimg="1"
+		      decoding="async"
+		      height="300"
+		      loading="lazy"
+		      src="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-components-min.png&w=1080&q=75"
+		      srcset="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-components-min.png&w=640&q=75 1x, /_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-components-min.png&w=1080&q=75 2x"
+		      style="color: transparent;"
+		      width="500"
+		    />
+		  </span>
+		</div>
+	`)
 	})
 
 	it('only adjusts `ThemedImage` component', async () => {
@@ -246,5 +326,50 @@ describe('themed image dimensions remark plugin', () => {
 		expect(
 			container.querySelector('[data-hide-on-theme="light"]')
 		).toBeInTheDocument()
+
+		expect(container).toMatchInlineSnapshot(`
+		<div>
+		  <h1>
+		    Hello
+		  </h1>
+		  <p>
+		    Hi
+		  </p>
+		  <span
+		    class="root"
+		    data-hide-on-theme="dark"
+		  >
+		    <img
+		      alt="themed image"
+		      class="image"
+		      data-nimg="1"
+		      decoding="async"
+		      height="431"
+		      loading="lazy"
+		      src="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-desktop-cluster-url.png&w=3840&q=75"
+		      srcset="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-desktop-cluster-url.png&w=1200&q=75 1x, /_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-desktop-cluster-url.png&w=3840&q=75 2x"
+		      style="color: transparent;"
+		      width="1192"
+		    />
+		  </span>
+		  <span
+		    class="root"
+		    data-hide-on-theme="light"
+		  >
+		    <img
+		      alt="themed image"
+		      class="image"
+		      data-nimg="1"
+		      decoding="async"
+		      height="431"
+		      loading="lazy"
+		      src="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-components-min.png&w=3840&q=75"
+		      srcset="/_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-components-min.png&w=1200&q=75 1x, /_next/image?url=https%3A%2F%2Fcontent.hashicorp.com%2Fapi%2Fassets%3Fproduct%3Dtutorials%26version%3Dmain%26asset%3Dpublic%252Fimg%252Fboundary%252Fboundary-components-min.png&w=3840&q=75 2x"
+		      style="color: transparent;"
+		      width="1192"
+		    />
+		  </span>
+		</div>
+	`)
 	})
 })
