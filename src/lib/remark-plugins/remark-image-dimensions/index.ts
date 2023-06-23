@@ -43,7 +43,7 @@ export const PATTERNS = {
 	lightProp: /light:\s*('|").*('|")/,
 }
 
-const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
+const remarkPluginThemedImageSrcAndDimensions: Plugin = (): Transformer => {
 	return async function transformer(tree: Root) {
 		const themedImageNodes = []
 
@@ -59,27 +59,30 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 			const src = match?.length > 0 ? String(match[0]) : null
 			let value = node.value
 
-			// Return early if no match was found
 			if (!src) {
 				console.log(
-					'[remarkPluginCalculateImageDimensions]: No srcSet found on ThemedImage '
+					'[remarkPluginThemedImageSrcAndDimensions]: No srcSet found on ThemedImage '
 				)
 				continue
 			}
 
-			// get the correct image paths for mktg-content-api or local asset server
+			/**
+			 * Tutorial images dont live in this repository, so we need to calculate
+			 * the correct path and update the source string
+			 */
 			const srcSet = getSrcSetWithUpdatedPaths(src)
-
-			// update src path definitions in the node value
 			value = value.replace(PATTERNS.darkProp, `dark: '${srcSet.dark}'`)
 			value = value.replace(PATTERNS.lightProp, `light: '${srcSet.light}'`)
 
-			const dimensions = await getImageDimensions(srcSet.dark)
 			const widthAndHeightDefined =
 				value.includes('width') && value.includes('height')
 
-			// only overwrite width and height if not defined & dimensions exist
-			if (!widthAndHeightDefined && dimensions) {
+			/**
+			 * If width and height aren't defined via props by the author, we attempt
+			 * to calculate the file dimensions and append those props to the source string
+			 */
+			if (!widthAndHeightDefined) {
+				const dimensions = await getImageDimensions(srcSet.dark)
 				value = concatWithWidthAndHeight(value, dimensions)
 			}
 
@@ -88,4 +91,4 @@ const remarkPluginCalculateImageDimensions: Plugin = (): Transformer => {
 	}
 }
 
-export default remarkPluginCalculateImageDimensions
+export default remarkPluginThemedImageSrcAndDimensions

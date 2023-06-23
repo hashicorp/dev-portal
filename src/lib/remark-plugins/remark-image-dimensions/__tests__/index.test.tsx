@@ -5,7 +5,7 @@
 
 import { render } from '@testing-library/react'
 
-import remarkPluginCalculateImageDimensions from '../index'
+import remarkPluginThemedImageSrcAndDimensions from '../index'
 
 import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -80,7 +80,7 @@ describe('themed image dimensions remark plugin', () => {
 
 		const mdxSource = await serialize(source, {
 			mdxOptions: {
-				remarkPlugins: [remarkPluginCalculateImageDimensions],
+				remarkPlugins: [remarkPluginThemedImageSrcAndDimensions],
 			},
 		})
 
@@ -140,7 +140,7 @@ describe('themed image dimensions remark plugin', () => {
 
 		const mdxSource = await serialize(source, {
 			mdxOptions: {
-				remarkPlugins: [remarkPluginCalculateImageDimensions],
+				remarkPlugins: [remarkPluginThemedImageSrcAndDimensions],
 			},
 		})
 
@@ -186,7 +186,7 @@ describe('themed image dimensions remark plugin', () => {
 
 		const mdxSource = await serialize(sourceWithAlternatePropOrder, {
 			mdxOptions: {
-				remarkPlugins: [remarkPluginCalculateImageDimensions],
+				remarkPlugins: [remarkPluginThemedImageSrcAndDimensions],
 			},
 		})
 
@@ -243,7 +243,7 @@ describe('themed image dimensions remark plugin', () => {
 
 		const mdxSource = await serialize(sourceWithWidthHeightOverride, {
 			mdxOptions: {
-				remarkPlugins: [remarkPluginCalculateImageDimensions],
+				remarkPlugins: [remarkPluginThemedImageSrcAndDimensions],
 			},
 		})
 
@@ -300,7 +300,7 @@ describe('themed image dimensions remark plugin', () => {
 
 		const mdxSource = await serialize(sourceWithAdditionalMdxComponent, {
 			mdxOptions: {
-				remarkPlugins: [remarkPluginCalculateImageDimensions],
+				remarkPlugins: [remarkPluginThemedImageSrcAndDimensions],
 			},
 		})
 
