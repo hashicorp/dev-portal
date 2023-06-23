@@ -25,6 +25,10 @@
 	flex-shrink: 0;
 	position: relative;
 	top: 4px;
+
+	@media (--dev-dot-mobile) {
+		display: none;
+	}
 }
 
 .content {
