@@ -35,7 +35,6 @@ function generateStyleProp(
 function getContentApiDimensions(
 	url: string
 ): { width: number; height: number } | null {
-	console.log('GETTING DIMENTIONS')
 	// We only care about Content API urls, which will always start with a protocol.
 	if (!url.startsWith('http')) {
 		return null
@@ -86,8 +85,6 @@ function Image({
 	 */
 	const style = generateStyleProp(width, height)
 	let dimensions
-
-	console.log(width, height, 'WIDTH AND HEIGHT')
 
 	if (!width && !height) {
 		dimensions = getContentApiDimensions(src)
