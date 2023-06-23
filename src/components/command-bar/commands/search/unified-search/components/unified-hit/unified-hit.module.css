@@ -62,9 +62,11 @@
 .metaDotSeparator {
 	color: var(--token-color-foreground-faint);
 	display: block;
-	width: 6px;
-	height: 6px;
 	flex-shrink: 0;
+	height: 6px;
+	position: relative;
+	top: 1px;
+	width: 6px;
 }
 
 /* Product icon breadcrumb */
