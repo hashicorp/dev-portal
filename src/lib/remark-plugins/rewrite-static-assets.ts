@@ -61,7 +61,7 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
  * For tutorials content, images live in a /public directory in the tutorials repository
  *
  * For dev portal previews / prod, we source these image paths from the mktg-content-api,
- * which uses the GitHub API. For tutorials repo previes, we use the PREVIEW_BRANCH env
+ * which uses the GitHub API. For tutorials repo previews, we use the PREVIEW_BRANCH env
  * to target the correct path via the GitHub API.
  *
  * For authors working on content locally, we spin up a custom asset server within docker
