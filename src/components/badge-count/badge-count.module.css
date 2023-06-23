@@ -8,22 +8,22 @@
 	 things set up to be able to import this SCSS directly. */
 
 .hds-badge-count {
-	--hds-badge-count-border-width: 1px;
+	--border-width: 1px;
 
 	display: inline-flex;
 	align-items: center;
 	max-width: 100%;
 	font-weight: var(--token-typography-font-weight-medium);
 	font-family: var(--token-typography-font-stack-text);
-	border: var(--hds-badge-count-border-width) solid transparent;
+	border: var(--border-width) solid transparent;
 
 	/* Size props, set by `hds-badge-count--size-<size>` classes */
 	min-height: var(--height);
-	padding: calc(var(--padding-vertical) - var(--border-width))
-		calc(var(--padding-horizontal) - var(--border-width));
+	padding: calc(var(--padding-vertical) - (var(--border-width) * 2))
+		calc(var(--padding-horizontal) - (var(--border-width) * 2));
 	font-size: var(--font-size);
 	line-height: var(--line-height);
-	border-radius: var(--height) / 2;
+	border-radius: calc(var(--height) / 2);
 }
 
 /* SIZE ($size-props) */
