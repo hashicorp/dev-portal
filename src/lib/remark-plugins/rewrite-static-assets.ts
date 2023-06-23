@@ -80,9 +80,21 @@ export function getNewImageUrl(url: string): string | undefined {
 		params.set('product', 'tutorials')
 		params.set('version', branchName)
 		params.set('asset', assetPath)
-	} else {
-		//  Otherwise, pass the unchanged path to a custom asset server for local dev
+	} else if (process.env.HASHI_ENV === 'development') {
+		// Otherwise, pass the unchanged path to a custom asset server for tutorials repo local dev.
+		// In the docker compose file in the tutorials repo, this HASHI_ENV is set for the frontend
+		// This line should only ever run when the local tutorials workflow is going
 		newUrl.pathname = path.join(newUrl.pathname, url)
+	} else {
+		/**
+		 * @TODO Fix local tutorials images for dev-portal
+		 *
+		 * Tutorial images are currently broken for local development in dev-portal
+		 * Since the local files aren't available.
+		 *
+		 * For local dev in dev-portal, we should just use the mktg-content-api, like in prod / previews
+		 */
+		return url
 	}
 
 	return newUrl.toString()

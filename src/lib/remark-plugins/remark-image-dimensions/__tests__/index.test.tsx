@@ -10,7 +10,6 @@ import remarkPluginCalculateImageDimensions from '../index'
 import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MdxThemedImage } from 'components/dev-dot-content/mdx-components'
-import { ReactNode } from 'react'
 
 // FIXTURES -----------------------------------------
 
@@ -165,7 +164,7 @@ describe('themed image dimensions remark plugin', () => {
 		    <img
 		      alt="themed image"
 		      class="image"
-		      src="https://content.hashicorp.com/api/assets/img/boundary/boundary-desktop-cluster-url.png"
+		      src="/img/boundary/boundary-desktop-cluster-url.png"
 		    />
 		  </span>
 		  <span
@@ -175,7 +174,7 @@ describe('themed image dimensions remark plugin', () => {
 		    <img
 		      alt="themed image"
 		      class="image"
-		      src="https://content.hashicorp.com/api/assets/img/boundary/boundary-components-min.png"
+		      src="/img/boundary/boundary-components-min.png"
 		    />
 		  </span>
 		</div>
