@@ -8,8 +8,7 @@ export async function getImageDimensions(src: string) {
 	}
 
 	try {
-		const dimensions = await probe(src)
-		return dimensions
+		return await probe(src)
 	} catch (e) {
 		if (e.statusCode === 404) {
 			console.error(
@@ -30,6 +29,8 @@ export function getSrcSetWithUpdatedPaths(src: string): {
 	// clean up string, trim whitespace, remove surrounding JSX syntax
 	const cleanString = src.replaceAll(PATTERNS.jsxAndWhitespace, '')
 	// Turn the light / dark src strings into an object
+	// assumes paths only have one ':', iow the tutorials repo format
+	// i.e. /img/boundary/some-path.png
 	const rawSrcSet = Object.fromEntries(
 		cleanString.split(',').map((src: string) => src.split(':'))
 	)
