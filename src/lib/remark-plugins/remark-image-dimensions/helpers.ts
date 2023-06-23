@@ -3,24 +3,24 @@ import { getNewImageUrl } from '../rewrite-static-assets'
 import { PATTERNS } from '.'
 
 export async function getImageDimensions(src: string) {
-	let dimensions
-
-	if (src.startsWith('http')) {
-		try {
-			dimensions = await probe(src)
-		} catch (e) {
-			if (e.statusCode === 404) {
-				console.error(
-					'[remarkPluginCalculateImageDimensions] Image path not found, unable to calculate dimensions ' +
-						e
-				)
-			} else {
-				throw e
-			}
-		}
+	if (!src.startsWith('http')) {
+		return
 	}
 
-	return dimensions
+	try {
+		const dimensions = await probe(src)
+		return dimensions
+	} catch (e) {
+		if (e.statusCode === 404) {
+			console.error(
+				'[remarkPluginThemedImageSrcAndDimensions] Image path not found, unable to calculate dimensions ' +
+					e
+			)
+			return
+		} else {
+			throw e
+		}
+	}
 }
 
 export function getSrcSetWithUpdatedPaths(src: string): {
@@ -42,7 +42,7 @@ export function getSrcSetWithUpdatedPaths(src: string): {
 
 export function concatWithWidthAndHeight(
 	srcString: string,
-	dimensions: { width: string; height: string }
+	dimensions?: { width: string; height: string }
 ): string {
 	// isolate the src string contents before the closing tag
 	const withoutClosingTag = srcString.slice(0, srcString.indexOf('/>'))
