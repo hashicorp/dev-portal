@@ -112,7 +112,7 @@ export default function App({
 									<DeviceSizeProvider>
 										<CurrentProductProvider currentProduct={currentProduct}>
 											<CodeTabsProvider>
-												<HeadMetadata {...pageProps.metadata} host={host} />
+												<HeadMetadata {...pageProps.metadata} />
 												<LazyMotion
 													features={() =>
 														import('lib/framer-motion-features').then(
