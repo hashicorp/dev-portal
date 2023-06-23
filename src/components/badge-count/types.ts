@@ -22,9 +22,10 @@ export interface BadgeCountProps {
 	type?: 'filled' | 'inverted' | 'outlined'
 
 	/**
-	 * Note: HDS supports `neutral-dark-mode` as a separate color.
-	 * In Dev Dot, we support a single `neutral` color that is used for both
-	 * light and dark mode.
+	 * Note: HDS names the dark theme `neutral-dark-mode`.
+	 * Have renamed here to `neutral-dark` to avoid confusion
+	 * with "dark mode" settings, which _seem_ to be separate from the
+	 * distinction between the light and dark themes of this component.
 	 */
-	color?: 'neutral'
+	color?: 'neutral' | 'neutral-dark'
 }
