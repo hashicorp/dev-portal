@@ -93,7 +93,6 @@ export function getNewImageUrl(url: string): string | undefined {
 		params.set('version', branchName)
 		params.set('asset', assetPath)
 
-		// GET WIDTH AND HEIGHT HERE?
 	} else if (process.env.HASHI_ENV === 'development') {
 		// Otherwise, pass the unchanged path to a custom asset server for tutorials repo local dev.
 		// In the docker compose file in the tutorials repo, this HASHI_ENV is set for the frontend
