@@ -33,6 +33,15 @@ import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
 
+import { vercelStegaCombine } from '@vercel/stega'
+
+function encodeEditInfo(text: string, href: string): string {
+	return vercelStegaCombine(text, {
+		origin: 'https://github.com/hashicorp/dev-portal',
+		href,
+	})
+}
+
 const Sidebar = ({
 	backToLinkProps,
 	children,
@@ -122,10 +131,12 @@ const Sidebar = ({
 			{backToElement}
 			{sidebarFilterInput}
 			<nav
+				data-vercel-edit-info
 				aria-labelledby={SIDEBAR_LABEL_ID}
 				className={s.nav}
 				id={SIDEBAR_NAV_ELEMENT_ID}
 			>
+				{encodeEditInfo('test', '')}
 				<div className={visuallyHideTitle ? 'g-screen-reader-only' : undefined}>
 					<SidebarTitleHeading text={title} id={SIDEBAR_LABEL_ID} />
 				</div>
