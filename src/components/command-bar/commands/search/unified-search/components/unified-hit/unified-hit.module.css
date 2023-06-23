@@ -60,6 +60,7 @@
 	display: block;
 	width: 6px;
 	height: 6px;
+	flex-shrink: 0;
 }
 
 /* Product icon breadcrumb */
@@ -88,4 +89,7 @@
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-regular from global;
 	color: var(--token-color-foreground-faint);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
