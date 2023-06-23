@@ -81,8 +81,9 @@ const remarkPluginThemedImageSrcAndDimensions: Plugin = (): Transformer => {
 
 			const widthAndHeightDefined =
 				value.includes('width') && value.includes('height')
-			if (!widthAndHeightDefined) {
-				const dimensions = await getImageDimensions(srcSet.dark)
+			const dimensions = await getImageDimensions(srcSet.dark)
+
+			if (!widthAndHeightDefined && dimensions) {
 				value = concatWithWidthAndHeight(value, dimensions)
 			}
 
