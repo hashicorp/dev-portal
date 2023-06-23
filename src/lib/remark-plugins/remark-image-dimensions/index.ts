@@ -45,45 +45,57 @@ export const PATTERNS = {
 
 const remarkPluginThemedImageSrcAndDimensions: Plugin = (): Transformer => {
 	return async function transformer(tree: Root) {
-		const themedImageNodes = []
+		const imageNodesForDimensions = []
 
+		// We visit the 'jsx' nodes with `ThemedImage`, update the src strings
+		// and add to an outside array for dimensions calculation, sync its async
 		visit(tree, 'jsx', (node: JSX) => {
-			if (node.value.includes('ThemedImage')) {
-				themedImageNodes.push(node)
+			if (!node.value.includes('ThemedImage')) {
+				return node
 			}
-		})
 
-		for (const node of themedImageNodes) {
 			const match = node.value.match(PATTERNS.src)
 			// We assume the first item in the array is the full match string
 			const src = match?.length > 0 ? String(match[0]) : null
-			let value = node.value
 
-			if (!src) {
+			if (src) {
+				/**
+				 * Tutorial images dont live in this repository, so we need to calculate
+				 * the correct path and update the source string
+				 */
+				const srcSet = getSrcSetWithUpdatedPaths(src)
+				let value = node.value
+				value = value.replace(PATTERNS.darkProp, `dark: '${srcSet.dark}'`)
+				value = value.replace(PATTERNS.lightProp, `light: '${srcSet.light}'`)
+
+				// push to array to perform async transform with dimesions
+				if (!value.includes('width') && !value.includes('height')) {
+					imageNodesForDimensions.push([node, srcSet])
+				}
+
+				node.value = value
+			} else {
 				console.log(
 					'[remarkPluginThemedImageSrcAndDimensions]: No srcSet found on ThemedImage '
 				)
-				continue
 			}
 
-			/**
-			 * Tutorial images dont live in this repository, so we need to calculate
-			 * the correct path and update the source string
-			 */
-			const srcSet = getSrcSetWithUpdatedPaths(src)
-			value = value.replace(PATTERNS.darkProp, `dark: '${srcSet.dark}'`)
-			value = value.replace(PATTERNS.lightProp, `light: '${srcSet.light}'`)
+			return node
+		})
 
-			/**
-			 * If width and height aren't defined via props by the author, we attempt
-			 * to calculate the file dimensions and append those props to the source string
-			 */
-
-			const widthAndHeightDefined =
-				value.includes('width') && value.includes('height')
+		/**
+		 * If width and height aren't defined via props by the author, we attempt
+		 * to calculate the file dimensions and append those props to the source string
+		 *
+		 * This involves async tasks so is handled in a separate loop from the 'visit'
+		 * where async isn't supported. Taken from suggestion in this issue
+		 *  https://github.com/syntax-tree/unist-util-visit-parents/issues/8#issuecomment-1413405543
+		 */
+		for (const [node, srcSet] of imageNodesForDimensions) {
+			let value = node.value
 			const dimensions = await getImageDimensions(srcSet.dark)
 
-			if (!widthAndHeightDefined && dimensions) {
+			if (dimensions) {
 				value = concatWithWidthAndHeight(value, dimensions)
 			}
 
