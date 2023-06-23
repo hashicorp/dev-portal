@@ -44,8 +44,6 @@ export const PATTERNS = {
 }
 
 export const rewriteThemedImageSrc = (tree: Root) => {
-	// We visit the 'jsx' nodes with `ThemedImage`, update the src strings
-	// and add to an outside array for dimensions calculation, sync its async
 	visit(tree, 'jsx', (node: JSX) => {
 		if (!node.value.includes('ThemedImage')) {
 			return node
