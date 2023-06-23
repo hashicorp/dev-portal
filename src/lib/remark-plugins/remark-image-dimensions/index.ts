@@ -9,17 +9,17 @@ import {
 } from './helpers'
 
 /**
- * Explain how images are sourced
- * - they live in tutorials repo
- * - mktg-content-api or local asset server
+ * This plugin rewrites the ThemedImage content source to be consumed by dev portal.
  *
- * @TODO fix the dev-portal image paths, not a huge issue rn but confusing for debugging
+ * The source content needs to be adjusted in two ways:
+ *  - The image src paths reference the tutorials repo paths and need to be adjusted
+ *  - We use next/image and need to calculate the dimensions of the asset if possible
  *
- * - test with real content,
- * - put themed image into staging, test on a preview
- * - document
- * - clean up code
- * - clean up tests
+ * This Plugin targets a 'jsx' node whose value is a plain string. The string is manipulated
+ * via a regexes to manually update the component props to their final values.
+ *
+ * Note that when we migrate to MDX V2, we will be able to use the parsed JSX node, not just
+ * a plain string. This plugin can be incredibly simplified when that migration occurs.
  */
 
 export const PATTERNS = {
@@ -74,13 +74,13 @@ const remarkPluginThemedImageSrcAndDimensions: Plugin = (): Transformer => {
 			value = value.replace(PATTERNS.darkProp, `dark: '${srcSet.dark}'`)
 			value = value.replace(PATTERNS.lightProp, `light: '${srcSet.light}'`)
 
-			const widthAndHeightDefined =
-				value.includes('width') && value.includes('height')
-
 			/**
 			 * If width and height aren't defined via props by the author, we attempt
 			 * to calculate the file dimensions and append those props to the source string
 			 */
+
+			const widthAndHeightDefined =
+				value.includes('width') && value.includes('height')
 			if (!widthAndHeightDefined) {
 				const dimensions = await getImageDimensions(srcSet.dark)
 				value = concatWithWidthAndHeight(value, dimensions)

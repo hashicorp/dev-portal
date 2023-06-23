@@ -57,6 +57,16 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 	}
 }
 
+/**
+ * For tutorials content, images live in a /public directory in the tutorials repository
+ *
+ * For dev portal previews / prod, we source these image paths from the mktg-content-api,
+ * which uses the GitHub API. For tutorials repo previes, we use the PREVIEW_BRANCH env
+ * to target the correct path via the GitHub API.
+ *
+ * For authors working on content locally, we spin up a custom asset server within docker
+ * and the paths are served 1-1.
+ */
 export function getNewImageUrl(url: string): string | undefined {
 	const isVercelBuild =
 		process.env.VERCEL_ENV === 'production' ||
