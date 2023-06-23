@@ -69,8 +69,7 @@ addGlobalLinkHandler((destinationUrl: string) => {
 export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
-	host,
-}: CustomAppProps & Awaited<ReturnType<(typeof App)['getInitialProps']>>) {
+}: CustomAppProps) {
 	const flagBag = useFlags()
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
