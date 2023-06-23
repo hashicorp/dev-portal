@@ -5,7 +5,7 @@
 
 import { render } from '@testing-library/react'
 
-import remarkPluginThemedImageSrcAndDimensions from '../index'
+import remarkPluginThemedImageTransform from '../index'
 
 import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -72,19 +72,18 @@ function TestTipComponent({ children }) {
 }
 
 const MDX_COMPONENTS = { ThemedImage: MdxThemedImage as any }
+const SERIALIZE_OPTIONS = {
+	mdxOptions: {
+		remarkPlugins: [remarkPluginThemedImageTransform],
+	},
+}
 
 // ASSERTIONS -----------------------------------------------------------
 describe('themed image dimensions remark plugin', () => {
 	it('should rewrite src urls, width, height for previews', async () => {
 		// adjusting this env so we can test that the src url is rewritten
 		process.env.VERCEL_ENV = 'preview'
-
-		const mdxSource = await serialize(source, {
-			mdxOptions: {
-				remarkPlugins: [remarkPluginThemedImageSrcAndDimensions],
-			},
-		})
-
+		const mdxSource = await serialize(source, SERIALIZE_OPTIONS)
 		const { container } = render(
 			<MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
 		)
@@ -138,13 +137,7 @@ describe('themed image dimensions remark plugin', () => {
 	it('should default to plain `img` without width / height 404 if source isnt found', async () => {
 		// this .env won't source from the content api, so the file will 404 since its not available locally
 		process.env.VERCEL_ENV = 'development'
-
-		const mdxSource = await serialize(source, {
-			mdxOptions: {
-				remarkPlugins: [remarkPluginThemedImageSrcAndDimensions],
-			},
-		})
-
+		const mdxSource = await serialize(source, SERIALIZE_OPTIONS)
 		const { container } = render(
 			<MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
 		)
@@ -184,13 +177,10 @@ describe('themed image dimensions remark plugin', () => {
 
 	it('should handle various prop orders', async () => {
 		process.env.VERCEL_ENV = 'preview'
-
-		const mdxSource = await serialize(sourceWithAlternatePropOrder, {
-			mdxOptions: {
-				remarkPlugins: [remarkPluginThemedImageSrcAndDimensions],
-			},
-		})
-
+		const mdxSource = await serialize(
+			sourceWithAlternatePropOrder,
+			SERIALIZE_OPTIONS
+		)
 		const { container } = render(
 			<MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
 		)
@@ -240,13 +230,10 @@ describe('themed image dimensions remark plugin', () => {
 
 	it('should allow width / height to be overridden via props', async () => {
 		process.env.VERCEL_ENV = 'preview'
-
-		const mdxSource = await serialize(sourceWithWidthHeightOverride, {
-			mdxOptions: {
-				remarkPlugins: [remarkPluginThemedImageSrcAndDimensions],
-			},
-		})
-
+		const mdxSource = await serialize(
+			sourceWithWidthHeightOverride,
+			SERIALIZE_OPTIONS
+		)
 		const { getAllByAltText } = render(
 			<MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
 		)
@@ -259,13 +246,10 @@ describe('themed image dimensions remark plugin', () => {
 
 	it('only adjusts `ThemedImage` component', async () => {
 		process.env.VERCEL_ENV = 'preview'
-
-		const mdxSource = await serialize(sourceWithAdditionalMdxComponent, {
-			mdxOptions: {
-				remarkPlugins: [remarkPluginThemedImageSrcAndDimensions],
-			},
-		})
-
+		const mdxSource = await serialize(
+			sourceWithAdditionalMdxComponent,
+			SERIALIZE_OPTIONS
+		)
 		const { container, getByText } = render(
 			<MDXRemote
 				{...mdxSource}
