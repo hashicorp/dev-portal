@@ -117,6 +117,51 @@ const injectThemedImageDimensions = async (tree: Root) => {
 	}
 }
 
+export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
+	return async function transformer(tree: Root) {
+		const imageNodesForDimensions = []
+
+		// We visit the 'jsx' nodes with `ThemedImage`, update the src strings
+		// and add to an outside array for dimensions calculation, sync its async
+		visit(tree, 'image', (node: JSX) => {
+			// TODO use url search params
+			// append the search params with width and height?
+			node.url = `${node.url}&width=1920&height=1080`
+			console.log(node)
+		})
+
+		/**
+		 * If width and height aren't defined via props by the author, we attempt
+		 * to calculate the file dimensions and append those props to the source string
+		 *
+		 * This involves async tasks so is handled in a separate loop from the 'visit'
+		 * where async isn't supported. Taken from suggestion in this issue
+		 *  https://github.com/syntax-tree/unist-util-visit-parents/issues/8#issuecomment-1413405543
+		 */
+		// for (const node of imageNodesForDimensions) {
+		// 	let value = node.value
+		// 	const srcSet = node.src
+
+		// 	if (srcSet) {
+		// 		// push to array to perform async transform with dimesions
+		// 		if (!value.includes('width') && !value.includes('height')) {
+		// 			const dimensions = await getImageDimensions(srcSet.dark)
+
+		// 			if (dimensions) {
+		// 				value = concatWithWidthAndHeight(value, dimensions)
+		// 			}
+		// 		}
+		// 	} else {
+		// 		console.log(
+		// 			'[remarkPluginThemedImageTransform]: No srcSet found on ThemedImage '
+		// 		)
+		// 	}
+
+		// 	node.value = value
+		// }
+	}
+}
+
 const remarkPluginThemedImageTransform: Plugin = (): Transformer => {
 	return async function transformer(tree: Root) {
 		rewriteThemedImageSrc(tree)

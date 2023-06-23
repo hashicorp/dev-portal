@@ -19,6 +19,7 @@ import { is } from 'unist-util-is'
 import { Plugin } from 'unified'
 import { Node } from 'unist'
 import { Image, Definition } from 'mdast'
+import { getImageDimensions } from './remark-themed-image-transform/helpers'
 
 // This env is set for local docker previews by a custom asset server,
 // otherwise we use the content api for previews / prod
@@ -68,9 +69,10 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
  * and the paths are served 1-1.
  */
 export function getNewImageUrl(url: string): string | undefined {
-	const isVercelBuild =
-		process.env.VERCEL_ENV === 'production' ||
-		process.env.VERCEL_ENV === 'preview'
+	// const isVercelBuild =
+	// 	process.env.VERCEL_ENV === 'production' ||
+	// 	process.env.VERCEL_ENV === 'preview'
+	const isVercelBuild = true
 	const newUrl = new URL(ASSET_API_ENDPOINT)
 
 	/**
@@ -82,7 +84,7 @@ export function getNewImageUrl(url: string): string | undefined {
 
 		// for /tutorials previews, we pass the branchname as an env via gh workflow
 		// otherwise, for prod, we reference images in the main branch
-		const branchName = process.env.PREVIEW_BRANCH || 'main'
+		const branchName = process.env.PREVIEW_BRANCH || 'staging'
 
 		// assumes tutorials has a /public dir where images live
 		const assetPath = path.join('public', url)
@@ -90,6 +92,8 @@ export function getNewImageUrl(url: string): string | undefined {
 		params.set('product', 'tutorials')
 		params.set('version', branchName)
 		params.set('asset', assetPath)
+
+		// GET WIDTH AND HEIGHT HERE?
 	} else if (process.env.HASHI_ENV === 'development') {
 		// Otherwise, pass the unchanged path to a custom asset server for tutorials repo local dev.
 		// In the docker compose file in the tutorials repo, this HASHI_ENV is set for the frontend

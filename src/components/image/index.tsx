@@ -35,6 +35,7 @@ function generateStyleProp(
 function getContentApiDimensions(
 	url: string
 ): { width: number; height: number } | null {
+	console.log('GETTING DIMENTIONS')
 	// We only care about Content API urls, which will always start with a protocol.
 	if (!url.startsWith('http')) {
 		return null
@@ -86,15 +87,20 @@ function Image({
 	const style = generateStyleProp(width, height)
 	let dimensions
 
+	console.log(width, height, 'WIDTH AND HEIGHT')
+
 	if (!width && !height) {
 		dimensions = getContentApiDimensions(src)
 	}
 
 	let theme
-	const themedImageSuffix = new RegExp(/#hide-on-(dark|light)$/)
+	const themedImageSuffix = new RegExp(/(#|%23)hide-on-(dark|light)/)
+	console.log(themedImageSuffix.test(src), 'TESTING', src)
 	if (themedImageSuffix.test(src)) {
 		console.log('yay')
-		theme = src.replace(/#hide-on-/, '')
+		// TODO use url search params
+		theme = src.replace(/(#|%23)hide-on-/, '')
+		console.log(theme)
 	}
 	return (
 		<span
@@ -105,6 +111,7 @@ function Image({
 			})}
 			data-hide-on-theme={theme ? theme : null}
 		>
+			hi
 			{dimensions ? (
 				<NextImage
 					src={src}
