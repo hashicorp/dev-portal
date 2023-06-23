@@ -131,7 +131,7 @@ const Sidebar = ({
 			{backToElement}
 			{sidebarFilterInput}
 			<nav
-				data-vercel-edit-info
+				data-vercel-edit-info={encodeEditInfo('test', '')}
 				aria-labelledby={SIDEBAR_LABEL_ID}
 				className={s.nav}
 				id={SIDEBAR_NAV_ELEMENT_ID}
