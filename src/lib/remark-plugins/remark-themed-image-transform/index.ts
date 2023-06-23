@@ -124,7 +124,6 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 		// We visit the 'jsx' nodes with `ThemedImage`, update the src strings
 		// and add to an outside array for dimensions calculation, sync its async
 		visit(tree, 'image', (node: JSX) => {
-			// TODO use url search params
 			// append the search params with width and height?
 			// we only manipulate mktg-content-api src
 			if (node.url.startsWith('http')) {
