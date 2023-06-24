@@ -61,7 +61,7 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 	)
 
 	const ogImagePath = props.localOgImage || `${productSlug ?? 'base'}.jpg`
-	const ogImageUrl = `${getDeployedUrl(props.host)}/og-image/${ogImagePath}`
+	const ogImageUrl = `${getDeployedUrl()}/og-image/${ogImagePath}`
 
 	return (
 		// TODO: OpenGraph image to be passed as the image prop here
