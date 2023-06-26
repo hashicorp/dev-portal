@@ -59,7 +59,6 @@ const NonProductPageMobileMenu = () => {
 const BaseNewLayout = ({
 	children,
 	showFooterTopBorder = false,
-	theme,
 }: BaseNewLayoutProps) => {
 	const router = useRouter()
 
@@ -84,7 +83,7 @@ const BaseNewLayout = ({
 					hideOnMobile
 				/>
 			)}
-			<CoreDevDotLayoutWithTheme theme={theme}>
+			<CoreDevDotLayoutWithTheme>
 				<div className={s.root} data-layout="base-new">
 					<div className={s.header}>
 						<NavigationHeader />
