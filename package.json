@@ -192,7 +192,6 @@
 		"rehype-sanitize": "^5.0.1",
 		"remark-gfm": "^3.0.1",
 		"remark-mdx": "^1.6.22",
-		"rivet-graphql": "^0.3.1",
 		"semver": "^7.3.5",
 		"shortid": "^2.2.16",
 		"slugify": "^1.6.4",
