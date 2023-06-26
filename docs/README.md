@@ -160,7 +160,7 @@ export default SomePage
 
 ## Configuration
 
-Per-environment configuration values are defined in JSON files in the `config/` folder. Each environment has its own config file, currently:
+Per-environment configuration values are defined in JSON files in the `config/` folder. Each environment has its own config file, controlled by the `HASHI_ENV` environment variable, currently:
 
 ```
 config/
@@ -184,7 +184,7 @@ The configuration values are available globally within the application. They can
 console.log(__config.my_config_value)
 ```
 
-Configuration files should be used for any non-sensitive configuration values needed throughout the application which might vary by environment. Consider API endpoints, constants, and flags in scope for the configuration files.
+Configuration files should be used for any non-sensitive configuration values needed throughout the application which might vary by environment. Consider API endpoints, constants, and flags in scope for the configuration files. Any references to `__config` are replaced at build-time with the values from the environment's configuration file using [Webpack's DefinePlugin](https://webpack.js.org/plugins/define-plugin/).
 
 ## Analytics
 

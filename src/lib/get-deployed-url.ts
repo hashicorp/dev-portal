@@ -9,14 +9,14 @@
  *
  * Returns an empty string in development.
  */
-export default function getDeployedUrl(host?: string) {
+export default function getDeployedUrl() {
 	// preview deployments should derive the url from Vercel's env var
 	if (process.env.HASHI_ENV === 'preview') {
 		return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
 	}
 
 	if (process.env.HASHI_ENV === 'development') {
-		return host ? `http://${host}` : ''
+		return process.env.HOST_NAME || `http://localhost:3000`
 	}
 
 	// use our canonical URL for production
