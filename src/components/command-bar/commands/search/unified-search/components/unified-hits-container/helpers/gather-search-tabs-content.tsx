@@ -1,8 +1,5 @@
-// Icons
-import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
-import { IconGlobe16 } from '@hashicorp/flight-icons/svg-react/globe-16'
-import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
-import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
+// Content (icons and tab names by type)
+import { tabContentByType } from '../../../content'
 // Helpers
 import { getShouldRenderIntegrationsTab } from './get-should-render-integrations-tab'
 // Types
@@ -10,10 +7,7 @@ import type { ReactElement } from 'react'
 import type { Hit } from 'instantsearch.js'
 import type { CurrentContentType } from 'contexts'
 import type { ProductSlug } from 'types/products'
-import type {
-	UnifiedSearchResults,
-	UnifiedSearchableContentType,
-} from '../../../types'
+import type { UnifiedSearchResults } from '../../../types'
 
 /**
  * Each content type tab has a set of properties required for rendering.
@@ -32,32 +26,6 @@ export interface UnifiedSearchTabContent {
  * in order to provide helpful "no results" messages.
  */
 type OtherTabData = Pick<UnifiedSearchTabContent, 'type' | 'heading' | 'icon'>[]
-
-/**
- * Basic heading and icon content for each tab, which we'll build on.
- */
-const tabContentByType: Record<
-	UnifiedSearchableContentType,
-	Pick<UnifiedSearchTabContent, 'heading' | 'icon'>
-> = {
-	global: {
-		heading: 'All',
-		icon: <IconGlobe16 />,
-	},
-	docs: {
-		heading: 'Documentation',
-		icon: <IconDocs16 />,
-	},
-	tutorial: {
-		heading: 'Tutorials',
-		icon: <IconLearn16 />,
-	},
-	integration: {
-		heading: 'Integrations',
-		icon: <IconPipeline16 />,
-	},
-}
-
 /**
  * Given all the tab data collected so far, and a specific content type,
  * Return an array of basic data for tabs other than the specified content
