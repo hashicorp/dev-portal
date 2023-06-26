@@ -4,16 +4,11 @@
  */
 
 import { LinkProps } from 'components/link'
-import { ReactNode } from 'react'
+import { PropsWithChildren } from 'react'
 
 type InheritedLinkProps = Pick<LinkProps, 'href' | 'onClick' | 'opensInNewTab'>
 
-export interface LinkRegionProps extends InheritedLinkProps {
-	/**
-	 * Children to render in the linked region.
-	 */
-	children: ReactNode
-
+export interface LinkRegionProps extends PropsWithChildren<InheritedLinkProps> {
 	/**
 	 * Optional className to set on the root element. This `className` can set
 	 * a `--border-radius` CSS custom property in order to control the
