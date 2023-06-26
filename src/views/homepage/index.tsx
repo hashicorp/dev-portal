@@ -7,7 +7,6 @@
 import { ReactElement } from 'react'
 
 // Global imports
-import { GlobalThemeOption } from 'styles/themes/types'
 import BaseNewLayout from 'layouts/base-new'
 
 // Local imports
