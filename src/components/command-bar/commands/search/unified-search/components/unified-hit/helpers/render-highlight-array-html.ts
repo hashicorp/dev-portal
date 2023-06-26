@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Placeholder function to render some highlighted information.
  *
  * We'll replace this with something properly usable in a future pass

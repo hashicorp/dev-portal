@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { getTutorialSlug } from 'views/collection-view/helpers'
 import { getIntegrationUrl } from 'lib/integrations'
 // Types
