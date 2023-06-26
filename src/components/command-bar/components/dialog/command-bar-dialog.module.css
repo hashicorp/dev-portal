@@ -131,7 +131,7 @@
 
 .footer {
 	align-items: center;
-	background-color: var(--token-color-surface-primary);
+	background-color: var(--token-color-surface-faint);
 	box-shadow: var(--token-surface-base-box-shadow);
 	display: flex;
 	flex-grow: 0;
