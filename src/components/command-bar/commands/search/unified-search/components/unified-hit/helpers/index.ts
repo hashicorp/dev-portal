@@ -1,2 +1,3 @@
 export * from './build-url-path'
-export * from './render-highlight-array-html'
+export * from './get-unified-hit-props'
+export * from './parse-default-product-slug'
