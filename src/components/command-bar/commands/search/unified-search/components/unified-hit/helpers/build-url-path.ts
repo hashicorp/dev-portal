@@ -4,10 +4,8 @@ import { getIntegrationUrl } from 'lib/integrations'
 import type { Hit } from 'instantsearch.js'
 
 /**
- * Builds a URL path to an arbitrary hit from our unified `<env>_DEVDOT_omni`
- * Algolia indices.
- *
- * TODO: consider baking a `urlPath` property into each Algolia object?
+ * Builds a URL path to an arbitrary hit from
+ * our unified `<env>_DEVDOT_omni` Algolia indices.
  */
 export function buildUrlPath(searchHit: Hit): string {
 	if (searchHit.type === 'docs') {
