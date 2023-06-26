@@ -3,13 +3,9 @@ import Tabs, { Tab } from 'components/tabs'
 import { CommandBarDivider } from 'components/command-bar/components'
 import { CommandBarList } from 'components/command-bar/components'
 // Shared search
-import {
-	NoResultsMessage,
-	SuggestedPage,
-	SuggestedPages,
-	TabHeadingWithCount,
-} from '../../../components'
+import { NoResultsMessage, TabHeadingWithCount } from '../../../components'
 // Unified search
+import SuggestedPages, { SuggestedPage } from '../suggested-pages'
 import { UnifiedHit } from '../unified-hit'
 import { getUnifiedHitProps } from '../unified-hit/helpers'
 // Types
