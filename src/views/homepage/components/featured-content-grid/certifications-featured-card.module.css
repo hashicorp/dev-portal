@@ -71,4 +71,8 @@
 		font-size: var(--token-typography-body-200-font-size);
 		line-height: var(--token-typography-body-200-line-height);
 	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-primary);
+	}
 }

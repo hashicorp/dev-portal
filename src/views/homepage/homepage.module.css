@@ -37,6 +37,11 @@
 		background-position-x: -550px;
 		background-position-y: -30px;
 	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-page-primary);
+		background-image: url('./img/background-dark.svg');
+	}
 }
 
 .limitedWidthContainer {
