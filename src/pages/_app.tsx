@@ -121,7 +121,7 @@ export default function App({
 													}
 													strict={process.env.NODE_ENV === 'development'}
 												>
-													<Layout {...allLayoutProps} data={allLayoutProps}>
+													<Layout {...allLayoutProps}>
 														<Component {...pageProps} />
 													</Layout>
 													<Toaster />
