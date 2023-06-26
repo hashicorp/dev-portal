@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-import React, { useEffect, useState, ComponentType } from 'react'
+import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -28,7 +28,7 @@ import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analyti
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 
 // Global imports
-import type { CustomAppProps, CustomAppContext } from 'types/_app'
+import type { CustomAppProps } from 'types/_app'
 import {
 	CurrentContentTypeProvider,
 	CurrentProductProvider,
@@ -69,8 +69,7 @@ addGlobalLinkHandler((destinationUrl: string) => {
 export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
-	host,
-}: CustomAppProps & Awaited<ReturnType<(typeof App)['getInitialProps']>>) {
+}: CustomAppProps) {
 	const flagBag = useFlags()
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
@@ -96,12 +95,6 @@ export default function App({
 	const currentContentType = Component.contentType ?? 'global'
 	const currentProduct = pageProps.product || null
 
-	/**
-	 * TODO: refactor this so that pageProps.layoutProps is the only place where
-	 * layoutProps come from.
-	 */
-	const allLayoutProps = { theme: Component.theme, ...pageProps.layoutProps }
-
 	return (
 		<QueryClientProvider client={queryClient}>
 			<SSRProvider>
@@ -113,7 +106,7 @@ export default function App({
 									<DeviceSizeProvider>
 										<CurrentProductProvider currentProduct={currentProduct}>
 											<CodeTabsProvider>
-												<HeadMetadata {...pageProps.metadata} host={host} />
+												<HeadMetadata {...pageProps.metadata} />
 												<LazyMotion
 													features={() =>
 														import('lib/framer-motion-features').then(
@@ -122,7 +115,7 @@ export default function App({
 													}
 													strict={process.env.NODE_ENV === 'development'}
 												>
-													<Layout {...allLayoutProps} data={allLayoutProps}>
+													<Layout {...pageProps.layoutProps}>
 														<Component {...pageProps} />
 													</Layout>
 													<Toaster />
@@ -142,27 +135,4 @@ export default function App({
 			</SSRProvider>
 		</QueryClientProvider>
 	)
-}
-
-App.getInitialProps = async ({
-	Component,
-	ctx,
-}: CustomAppContext<{ Component: ComponentType }>) => {
-	let pageProps = {}
-
-	if (Component.getInitialProps) {
-		pageProps = await Component.getInitialProps(ctx)
-	}
-
-	let host
-	if (ctx.req) {
-		host = ctx.req.headers.host
-	} else {
-		host = window.location.host
-	}
-
-	return {
-		pageProps,
-		host,
-	}
 }

@@ -11,6 +11,7 @@ import {
 } from '../../../components'
 // Unified search
 import { UnifiedHit } from '../unified-hit'
+import { getUnifiedHitProps } from '../unified-hit/helpers'
 // Types
 import type { Hit } from 'instantsearch.js'
 import type { UnifiedSearchTabContent } from './helpers'
@@ -52,12 +53,14 @@ export function UnifiedHitsContainer({
 									</div>
 									<div className={s.commandBarListWrapper}>
 										<CommandBarList ariaLabelledBy={resultsLabelId}>
-											{/* TODO: would be great to have a more detailed type 
-											    here for `hit`, but for now, not over-engineering. */}
 											{hits.map((hit: Hit) => (
-												<UnifiedHit key={hit.objectID} hit={hit} />
+												<UnifiedHit
+													key={hit.objectID}
+													{...getUnifiedHitProps(hit)}
+												/>
 											))}
 										</CommandBarList>
+										{/* TODO: add suggested pages */}
 									</div>
 								</>
 							) : (
