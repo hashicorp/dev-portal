@@ -19,7 +19,6 @@ import { is } from 'unist-util-is'
 import { Plugin } from 'unified'
 import { Node } from 'unist'
 import { Image, Definition } from 'mdast'
-import { getImageDimensions } from './remark-themed-image-transform/helpers'
 
 // This env is set for local docker previews by a custom asset server,
 // otherwise we use the content api for previews / prod
@@ -92,7 +91,6 @@ export function getNewImageUrl(url: string): string | undefined {
 		params.set('product', 'tutorials')
 		params.set('version', branchName)
 		params.set('asset', assetPath)
-
 	} else if (process.env.HASHI_ENV === 'development') {
 		// Otherwise, pass the unchanged path to a custom asset server for tutorials repo local dev.
 		// In the docker compose file in the tutorials repo, this HASHI_ENV is set for the frontend
