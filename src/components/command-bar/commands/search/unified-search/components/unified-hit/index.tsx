@@ -4,7 +4,7 @@ import { IconDot16 } from '@hashicorp/flight-icons/svg-react/dot-16'
 import Text from 'components/text'
 import IconTile from 'components/icon-tile'
 import ProductIcon from 'components/product-icon'
-import LinkRegion from '../link-region'
+import LinkRegion from 'components/link-region'
 // Content (icons by content type)
 import { tabContentByType } from '../../content'
 // Types

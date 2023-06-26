@@ -17,6 +17,7 @@ import s from './link-region.module.css'
  *
  * Note: we could potentially use this component in `CardLink`.
  * For now, didn't want to reach for that abstraction too early.
+ * Task: https://app.asana.com/0/1202097197789424/1204909667042721/f
  */
 function LinkRegion({
 	ariaLabel,
