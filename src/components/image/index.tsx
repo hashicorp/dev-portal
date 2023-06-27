@@ -5,10 +5,10 @@
 
 import { CSSProperties, ReactElement } from 'react'
 import NextImage from 'next/image'
+import { GlobalThemeOption } from 'styles/themes/types'
 import { ImageProps } from './types'
 import classNames from 'classnames'
 import s from './image.module.css'
-import { GlobalThemeOption } from 'styles/themes/types'
 
 /**
  * Create an object to be passed as a style prop to the underlying img element
