@@ -53,7 +53,9 @@ function getContentApiDimensions(
 	return null
 }
 
-function getTheme(src: string): GlobalThemeOption | undefined {
+function getTheme(
+	src: string
+): GlobalThemeOption.dark | GlobalThemeOption.light | undefined {
 	let theme
 	// The second arg, the dev-portal url, is arbitrary to satisfy the URL constructor
 	const url = new URL(src, 'https://developer.hashicorp.com')
