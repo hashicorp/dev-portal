@@ -20,6 +20,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
+	user-select: none;
 
 	/* makes the whole region clickable */
 	&::before {

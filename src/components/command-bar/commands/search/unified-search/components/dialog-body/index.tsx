@@ -16,8 +16,9 @@ import {
 import { useCommandBar } from 'components/command-bar'
 // Shared search
 import { generateSuggestedPages } from '../../../helpers'
-import { RecentSearches, SuggestedPages } from '../../../components'
+import { RecentSearches } from '../../../components'
 // Unified search
+import SuggestedPages from '../suggested-pages'
 import { UnifiedHitsContainer } from '../unified-hits-container'
 import { gatherSearchTabsData } from '../unified-hits-container/helpers'
 import {
