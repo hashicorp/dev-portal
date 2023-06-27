@@ -25,6 +25,17 @@ import { Image, Definition } from 'mdast'
 const ASSET_API_ENDPOINT =
 	process.env.ASSET_API_ENDPOINT || `${process.env.MKTG_CONTENT_API}/api/assets`
 
+/**
+ * This Plugin rewrites src asset paths for tutorials content. With tutorials, images live in a
+ * /public directory in the tutorials repository.
+ *
+ * For dev portal previews / prod, we source these image paths from the mktg-content-api,
+ * which uses the GitHub API. For tutorials repo previews, we use the PREVIEW_BRANCH env
+ * to target the correct path via the GitHub API.
+ *
+ * For authors working on content locally, we spin up a custom asset server within docker
+ * and the paths are served 1-1.
+ */
 export const rewriteStaticAssetsPlugin: Plugin = () => {
 	return function transformer(tree) {
 		return flatMap(tree, (node: Node) => {
@@ -63,7 +74,9 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 
 				// for /tutorials previews, we pass the branchname as an env via gh workflow
 				// otherwise, for prod, we reference images in the main branch
-				const branchName = process.env.PREVIEW_BRANCH || 'staging'
+				// @TODO uncomment
+				// const branchName = process.env.PREVIEW_BRANCH || 'main'
+				const branchName = 'staging'
 
 				// assumes tutorials has a /public dir where images live
 				const assetPath = path.join('public', node.url)
@@ -91,59 +104,4 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 			return [node]
 		})
 	}
-}
-
-/**
- * For tutorials content, images live in a /public directory in the tutorials repository
- *
- * For dev portal previews / prod, we source these image paths from the mktg-content-api,
- * which uses the GitHub API. For tutorials repo previews, we use the PREVIEW_BRANCH env
- * to target the correct path via the GitHub API.
- *
- * For authors working on content locally, we spin up a custom asset server within docker
- * and the paths are served 1-1.
- */
-function getNewImageUrl(url: string): string | undefined {
-	// const isVercelBuild =
-	// 	process.env.VERCEL_ENV === 'production' ||
-	// 	process.env.VERCEL_ENV === 'preview'
-	const isVercelBuild = true
-	const newUrl = new URL(ASSET_API_ENDPOINT)
-	const urlForHash = new URL(url, 'https://developer.hashicorp.com')
-	newUrl.hash = urlForHash.hash
-
-	/**
-	 * If building in a vercel preview, we can assume the assets are pushed up
-	 * to git and can be served via the GH CDN.
-	 * */
-	if (isVercelBuild) {
-		const params = newUrl.searchParams
-
-		// for /tutorials previews, we pass the branchname as an env via gh workflow
-		// otherwise, for prod, we reference images in the main branch
-		const branchName = process.env.PREVIEW_BRANCH || 'staging'
-
-		// assumes tutorials has a /public dir where images live
-		const assetPath = path.join('public', url)
-
-		params.set('product', 'tutorials')
-		params.set('version', branchName)
-		params.set('asset', assetPath)
-	} else {
-		/**
-		 * Otherwise, pass the unchanged path to a custom asset server for tutorials repo local dev.
-		 *
-		 * @TODO Fix local tutorials images for dev-portal
-		 * https://app.asana.com/0/1202097197789424/1204908882543128
-		 *
-		 * Tutorial images are currently broken for local development in dev-portal
-		 * Since the local files aren't available.
-		 *
-		 * For local dev in dev-portal, we should just use the mktg-content-api, like in prod / previews
-		 */
-		newUrl.pathname = path.join(newUrl.pathname, url)
-	}
-
-	console.log(newUrl.hash, 'HASHI')
-	return newUrl.toString()
 }
