@@ -84,11 +84,7 @@ function Image({
 	 * any base styles.
 	 */
 	const style = generateStyleProp(width, height)
-	let dimensions
-
-	if (!width && !height) {
-		dimensions = getContentApiDimensions(src)
-	}
+	const dimensions = getContentApiDimensions(src)
 
 	let theme
 	const themedImageSuffix = new RegExp(/(#|%23)hide-on-(dark|light)/)
