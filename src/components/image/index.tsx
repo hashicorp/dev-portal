@@ -55,6 +55,7 @@ function getContentApiDimensions(
 
 function getTheme(src: string): GlobalThemeOption | undefined {
 	let theme
+	// The second arg, the dev-portal url, is arbitrary to satisfy the URL constructor
 	const url = new URL(src, 'https://developer.hashicorp.com')
 	const themedImageSuffix = new RegExp(/#(dark|light)-theme-only/)
 
@@ -64,7 +65,7 @@ function getTheme(src: string): GlobalThemeOption | undefined {
 		theme = match[1]
 	} else if (url.hash) {
 		console.warn(
-			'[Image]: hash (#) detected in src url but it does not match the theme pattern: #{dark|light}-theme-only'
+			'[Image]: A hash (#) was detected in src url but it does not match the theme pattern: #{dark|light}-theme-only'
 		)
 	}
 
