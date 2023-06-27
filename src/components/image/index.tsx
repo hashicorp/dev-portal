@@ -84,9 +84,20 @@ function Image({
 	 * any base styles.
 	 */
 	const style = generateStyleProp(width, height)
+	let dimensions
 
-	const dimensions = getContentApiDimensions(src)
+	if (!width && !height) {
+		dimensions = getContentApiDimensions(src)
+	}
 
+	let theme
+	const themedImageSuffix = new RegExp(/(#|%23)hide-on-(dark|light)/)
+
+	if (themedImageSuffix.test(src)) {
+		const match = src.match(themedImageSuffix)
+		// match second capture group (dark|light)
+		theme = match[2]
+	}
 	return (
 		<span
 			className={classNames(s.root, {
@@ -94,6 +105,7 @@ function Image({
 				[s.noBorder]: noBorder,
 				[s.inline]: inline,
 			})}
+			data-hide-on-theme={theme ? theme : null}
 		>
 			{dimensions ? (
 				<NextImage
