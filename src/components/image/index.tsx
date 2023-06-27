@@ -36,8 +36,8 @@ function generateStyleProp(
 function getContentApiDimensions(
 	url: string
 ): { width: number; height: number } | null {
-	// We only care about Content API urls, which will always start with a protocol.
-	if (!url.startsWith('http')) {
+	// We only care about Content API urls
+	if (!url.startsWith(process.env.ASSET_API_ENDPOINT)) {
 		return null
 	}
 	const urlParams = new URL(url).searchParams
