@@ -64,14 +64,14 @@ export function UnifiedHitsContainer({
 									</div>
 								</>
 							) : (
-								<>
+								<div className={s.noResultsWrapper}>
 									<NoResultsMessage
 										currentTabHeading={heading}
 										tabsWithResults={otherTabData}
 									/>
 									<CommandBarDivider className={s.divider} />
 									<SuggestedPages pages={suggestedPages} />
-								</>
+								</div>
 							)}
 						</Tab>
 					)

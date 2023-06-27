@@ -5,6 +5,7 @@
 
 import { ReactElement } from 'react'
 import { CurrentContentType } from 'contexts'
+import Badge from 'components/badge'
 import Text from 'components/text'
 import { useCommandBar } from 'components/command-bar'
 import s from './no-results-message.module.css'
@@ -41,15 +42,19 @@ function NoResultsMessage({
 						const isLastItem = idx === tabsWithResults.length - 1
 						return (
 							<span key={otherTab.type}>
-								<span className={s.otherTab}>
-									<span className={s.otherTabIcon}>{otherTab.icon}</span>
-									{otherTab.heading}
-								</span>
+								<Badge
+									className={s.otherTabBadge}
+									icon={otherTab.icon}
+									text={otherTab.heading}
+									type="outlined"
+									size="small"
+								/>
 								{!isLastItem ? <span>{' or '}</span> : null}
 							</span>
 						)
 					})}{' '}
-					section{tabsWithResults.length === 1 ? '' : 's'} to see other results.
+					section{tabsWithResults.length === 1 ? '' : 's'} to see additional
+					results.
 				</Text>
 			) : null}
 		</div>
