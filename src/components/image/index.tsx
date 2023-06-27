@@ -8,6 +8,7 @@ import NextImage from 'next/image'
 import { ImageProps } from './types'
 import classNames from 'classnames'
 import s from './image.module.css'
+import { GlobalThemeOption } from 'styles/themes/types'
 
 /**
  * Create an object to be passed as a style prop to the underlying img element
@@ -52,6 +53,19 @@ function getContentApiDimensions(
 	return null
 }
 
+function getTheme(src: string): GlobalThemeOption | undefined {
+	let theme
+	const themedImageSuffix = new RegExp(/(#|%23)hide-on-(dark|light)/)
+
+	if (themedImageSuffix.test(src)) {
+		const match = src.match(themedImageSuffix)
+		// match second capture group (dark|light)
+		theme = match[2]
+	}
+
+	return theme
+}
+
 /**
  * An Image component for use in MDX
  */
@@ -85,15 +99,8 @@ function Image({
 	 */
 	const style = generateStyleProp(width, height)
 	const dimensions = getContentApiDimensions(src)
+	const theme = getTheme(src)
 
-	let theme
-	const themedImageSuffix = new RegExp(/(#|%23)hide-on-(dark|light)/)
-
-	if (themedImageSuffix.test(src)) {
-		const match = src.match(themedImageSuffix)
-		// match second capture group (dark|light)
-		theme = match[2]
-	}
 	return (
 		<span
 			className={classNames(s.root, {
