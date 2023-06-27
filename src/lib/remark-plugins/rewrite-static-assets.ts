@@ -86,11 +86,18 @@ function getNewImageUrl(url: string): string | undefined {
 		const branchName = process.env.PREVIEW_BRANCH || 'staging'
 
 		// assumes tutorials has a /public dir where images live
-		const assetPath = path.join('public', url)
+		const assetUrl = new URL(
+			path.join('public', url),
+			'https://developer.hashicorp.com'
+		)
+		// remove leading slash for mktg-content-api
+		const assetPath = assetUrl.pathname.replace(/^\//, '')
+		console.log({ assetPath })
 
 		params.set('product', 'tutorials')
 		params.set('version', branchName)
 		params.set('asset', assetPath)
+		newUrl.hash = assetUrl.hash
 	} else if (process.env.HASHI_ENV === 'development') {
 		// Otherwise, pass the unchanged path to a custom asset server for tutorials repo local dev.
 		// In the docker compose file in the tutorials repo, this HASHI_ENV is set for the frontend
@@ -109,5 +116,6 @@ function getNewImageUrl(url: string): string | undefined {
 		return url
 	}
 
+	console.log(newUrl.hash, 'HASHI')
 	return newUrl.toString()
 }
