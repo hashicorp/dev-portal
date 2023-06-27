@@ -57,10 +57,10 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				return [node]
 			}
 
-			// const isVercelBuild =
-			// 	process.env.VERCEL_ENV === 'production' ||
-			// 	process.env.VERCEL_ENV === 'preview'
-			const isVercelBuild = true
+			const isVercelBuild =
+				process.env.VERCEL_ENV === 'production' ||
+				process.env.VERCEL_ENV === 'preview'
+
 			const newUrl = new URL(ASSET_API_ENDPOINT)
 			const urlForHash = new URL(node.url, 'https://developer.hashicorp.com')
 			newUrl.hash = urlForHash.hash
@@ -74,9 +74,7 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 
 				// for /tutorials previews, we pass the branchname as an env via gh workflow
 				// otherwise, for prod, we reference images in the main branch
-				// @TODO uncomment
-				// const branchName = process.env.PREVIEW_BRANCH || 'main'
-				const branchName = 'staging'
+				const branchName = process.env.PREVIEW_BRANCH || 'main'
 
 				// assumes tutorials has a /public dir where images live
 				const assetPath = path.join('public', node.url)
