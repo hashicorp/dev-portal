@@ -116,7 +116,7 @@ function Image({
 				[s.noBorder]: noBorder,
 				[s.inline]: inline,
 			})}
-			data-hide-on-theme={theme ? theme : null}
+			data-show-on-theme={theme ? theme : null}
 		>
 			{dimensions ? (
 				<NextImage
