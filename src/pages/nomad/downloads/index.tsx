@@ -7,9 +7,29 @@ import nomadData from 'data/nomad.json'
 import { ProductData } from 'types/products'
 import ProductDownloadsView from 'views/product-downloads-view'
 import { generateGetStaticProps } from 'views/product-downloads-view/server'
+import Card from 'components/card'
+import InlineLink from 'components/inline-link'
+import Text from 'components/text'
+import s from './style.module.css'
 
 const NomadDownloadsPage = (props) => {
-	return <ProductDownloadsView {...props} />
+	return (
+		<ProductDownloadsView
+			{...props}
+			merchandisingSlot={
+				<Card className={s.card} elevation="base">
+					<Text asElement="span">
+						A beta for Nomad v1.6.0 is available! The release can
+						be{' '}
+						<InlineLink href="https://releases.hashicorp.com/nomad/1.6.0-beta.1/">
+							downloaded here
+						</InlineLink>
+						.
+					</Text>
+				</Card>
+			}
+		/>
+	)
 }
 
 const getStaticProps = generateGetStaticProps(nomadData as ProductData)
