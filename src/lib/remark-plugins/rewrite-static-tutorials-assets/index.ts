@@ -62,14 +62,17 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				process.env.VERCEL_ENV === 'preview'
 
 			const newUrl = new URL(ASSET_API_ENDPOINT)
+			const { hash, pathname } = new URL(
+				node.url,
+				'https://developer.hashicorp.com'
+			)
 
 			/**
 			 * For themed images, authors append their image urls
 			 * with the hash #hide-on-{theme}
 			 */
-			if (node.url.includes('#')) {
-				const urlForHash = new URL(node.url, 'https://developer.hashicorp.com')
-				newUrl.hash = urlForHash.hash
+			if (hash) {
+				newUrl.hash = hash
 			}
 
 			/**
@@ -84,7 +87,7 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				const branchName = process.env.PREVIEW_BRANCH || 'main'
 
 				// assumes tutorials has a /public dir where images live
-				const assetPath = path.join('public', node.url)
+				const assetPath = path.join('public', pathname)
 
 				params.set('product', 'tutorials')
 				params.set('version', branchName)
@@ -101,7 +104,7 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				 *
 				 * For local dev in dev-portal, we should just use the mktg-content-api, like in prod / previews
 				 */
-				newUrl.pathname = path.join(newUrl.pathname, node.url)
+				newUrl.pathname = path.join(newUrl.pathname, pathname)
 			}
 
 			node.url = newUrl.toString()
