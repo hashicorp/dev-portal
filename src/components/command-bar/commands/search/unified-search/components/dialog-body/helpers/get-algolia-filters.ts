@@ -10,9 +10,6 @@ import { UnifiedSearchableContentType } from '../../../types'
  *
  * Note: intended for use with our unified search indices, which are
  * named `<env>_DEVDOT_omni` in Algolia.
- *
- * TODO: for non-specific `resultType`, filter to only show `integration`
- * results for products with integrations config flags on.
  */
 export function getAlgoliaFilters(
 	productSlug?: ProductSlug,
@@ -43,18 +40,6 @@ export function getAlgoliaFilters(
 	let typeFilter = ''
 	if (resultType && resultType !== 'global') {
 		typeFilter = `type:${resultType}`
-	} else {
-		/**
-		 * TODO: add filter to only include 'integrations` for
-		 * for products with integrations config flags on.
-		 *
-		 * Maybe something like...
-		 *
-		 * (type:docs OR type:tutorial OR products:<withIntegrations> OR products<withIntegrations>)
-		 *
-		 * ... which should show 'docs' and 'tutorial' entries for ALL products,
-		 * and should show integrations for all explicitly specified products.
-		 */
 	}
 
 	/**
