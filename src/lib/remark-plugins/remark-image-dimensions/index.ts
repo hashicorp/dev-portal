@@ -7,7 +7,10 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 	return async function transformer(tree: Root) {
 		const imageNodesForDimensions = []
 		visit(tree, 'image', (node: Image) => {
-			imageNodesForDimensions.push(node)
+			// only transform nodes that we can fetch size on
+			if (node.url.startsWith('http')) {
+				imageNodesForDimensions.push(node)
+			}
 		})
 		/**
 		 * If width and height aren't defined via props by the author, we attempt
@@ -19,10 +22,7 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 		 */
 		for (const node of imageNodesForDimensions) {
 			const url = await getUrlWithDimensions(node.url)
-
-			if (url) {
-				node.url = url
-			}
+			node.url = url
 		}
 	}
 }
@@ -30,10 +30,12 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 export async function getUrlWithDimensions(
 	nodeUrl: string
 ): Promise<string | undefined> {
-	if (!nodeUrl.startsWith('http')) {
-		return
-	}
 	const url = new URL(nodeUrl)
+	// if width / height already defined in url, return early
+	if (url.searchParams.get('width') && url.searchParams.get('height')) {
+		return nodeUrl
+	}
+
 	const dimensions = await getImageDimensions(nodeUrl)
 
 	if (dimensions) {

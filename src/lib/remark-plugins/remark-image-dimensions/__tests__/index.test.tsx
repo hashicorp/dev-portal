@@ -15,14 +15,14 @@ jest.mock('probe-image-size', () => {
 })
 
 describe('remarkPluginInjectImageDimensions', () => {
-	it('wont add width / height if no protocol in src', async () => {
-		const src = `/img/themed/test.png`
+	it('does not rewrite if width/ height already defined', async () => {
+		const src = `https://content.hashicorp.com/api/assets/img/themed/test-placeholder.png?width=700&height=700`
 		const url = await getUrlWithDimensions(src)
 
-		expect(url).toBe(undefined)
+		expect(url).toEqual(src)
 	})
 
-	it('adds dimensions when protocol is in src', async () => {
+	it('adds dimensions to src url', async () => {
 		const src = `https://content.hashicorp.com/api/assets/img/themed/test-placeholder.png`
 		const url = await getUrlWithDimensions(src)
 
@@ -30,7 +30,7 @@ describe('remarkPluginInjectImageDimensions', () => {
 		expect(url).toContain(`height=${probeDimensions.height}`)
 	})
 
-	it('passes through hash', async () => {
+	it('passes through hash to src url', async () => {
 		const src = `https://content.hashicorp.com/api/assets/img/themed/test.png#hide-on-dark`
 		const url = await getUrlWithDimensions(src)
 
