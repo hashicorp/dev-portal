@@ -7,10 +7,7 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 	return async function transformer(tree: Root) {
 		const imageNodesForDimensions = []
 		visit(tree, 'image', (node: Image) => {
-			// we only manipulate mktg-content-api src
-			if (node.url.startsWith('http')) {
-				imageNodesForDimensions.push(node)
-			}
+			imageNodesForDimensions.push(node)
 		})
 		/**
 		 * If width and height aren't defined via props by the author, we attempt
@@ -33,6 +30,9 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 export async function getUrlWithDimensions(
 	nodeUrl: string
 ): Promise<string | undefined> {
+	if (!nodeUrl.startsWith('http')) {
+		return
+	}
 	const url = new URL(nodeUrl)
 	const dimensions = await getImageDimensions(nodeUrl)
 
@@ -44,10 +44,6 @@ export async function getUrlWithDimensions(
 }
 
 async function getImageDimensions(src: string) {
-	if (!src.startsWith('http')) {
-		return
-	}
-
 	try {
 		return await probe(src)
 	} catch (e) {

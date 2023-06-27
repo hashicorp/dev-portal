@@ -3,22 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { render } from '@testing-library/react'
-import { MDXRemote } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
-import Image from 'components/image'
-import { remarkPluginInjectImageDimensions } from '..'
+import { getUrlWithDimensions } from '..'
 
-// FIXTURES -----------------------------------------
-
-const MDX_COMPONENTS = { img: Image as any }
-const SERIALIZE_OPTIONS = {
-	mdxOptions: {
-		remarkPlugins: [remarkPluginInjectImageDimensions],
-	},
-}
 const probeDimensions = { width: '500', height: '300' }
-const alt = 'image test'
 
 // Mock the external call to get dimensions
 jest.mock('probe-image-size', () => {
@@ -27,48 +14,28 @@ jest.mock('probe-image-size', () => {
 	})
 })
 
-// ASSERTIONS -----------------------------------------------------------
-
 describe('remarkPluginInjectImageDimensions', () => {
 	it('wont add width / height if no protocol in src', async () => {
-		const source = `
-![${alt}](/img/themed/test.png)
-`
-		const mdxSource = await serialize(source, SERIALIZE_OPTIONS)
-		const { getByAltText } = render(
-			<MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
-		)
-		const img = getByAltText(alt)
+		const source = `/img/themed/test.png`
+		const url = await getUrlWithDimensions(source)
 
-		expect(img).not.toHaveAttribute('width')
-		expect(img).not.toHaveAttribute('height')
+		expect(url).toBe(undefined)
 	})
 
 	it('adds dimensions when protocol is in src', async () => {
-		const source = `
-![${alt}](https://content.hashicorp.com/api/assets/img/themed/test-placeholder.png)
-`
-		const mdxSource = await serialize(source, SERIALIZE_OPTIONS)
-		const { getByAltText } = render(
-			<MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
-		)
-		const img = getByAltText(alt)
+		const source = `https://content.hashicorp.com/api/assets/img/themed/test-placeholder.png`
+		const url = await getUrlWithDimensions(source)
 
-		expect(img).toHaveAttribute('width', probeDimensions.width)
-		expect(img).toHaveAttribute('height', probeDimensions.height)
+		expect(url).toContain(`width=${probeDimensions.width}`)
+		expect(url).toContain(`height=${probeDimensions.height}`)
 	})
 
-	it('rewrites width / height when theme hash is passed', async () => {
-		const source = `
-![${alt}](https://content.hashicorp.com/api/assets/img/themed/test.png#hide-on-dark)
-`
-		const mdxSource = await serialize(source, SERIALIZE_OPTIONS)
-		const { getByAltText } = render(
-			<MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
-		)
-		const img = getByAltText(alt)
+	it('passes through hash', async () => {
+		const source = `https://content.hashicorp.com/api/assets/img/themed/test.png#hide-on-dark`
+		const url = await getUrlWithDimensions(source)
 
-		expect(img).toHaveAttribute('width', probeDimensions.width)
-		expect(img).toHaveAttribute('height', probeDimensions.height)
+		expect(url).toContain(`width=${probeDimensions.width}`)
+		expect(url).toContain(`height=${probeDimensions.height}`)
+		expect(url).toContain(`#hide-on-dark`)
 	})
 })
