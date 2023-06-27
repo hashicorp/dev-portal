@@ -31,8 +31,6 @@ describe('image component', () => {
 			<Image src="/img/themed/dark-test.png" alt="plain test" />
 		)
 		const image = getByAltText('plain test')
-
-		expect(image).toBeInTheDocument()
 		expect(image.parentElement).not.toHaveAttribute('data-hide-on-theme')
 	})
 })
