@@ -10,7 +10,7 @@ describe('image component', () => {
 	it('adds a `data-hide-on-theme` attribute when hash is passed', async () => {
 		const { getByAltText } = render(
 			<Image
-				src="/img/themed/dark-test.png#hide-on-light"
+				src="/img/themed/dark-test.png#light-theme-only"
 				alt="dark theme test"
 			/>
 		)
@@ -18,9 +18,9 @@ describe('image component', () => {
 		expect(image.parentElement).toHaveAttribute('data-hide-on-theme', 'light')
 	})
 
-	it('only matches the `hide-on-{theme}` hash pattern', async () => {
+	it('only matches the `{dark|light}-theme-only` hash pattern', async () => {
 		const { getByAltText } = render(
-			<Image src="/img/themed/dark-test.png#bora-bora-theme" alt="test" />
+			<Image src="/img/themed/dark-test.png#koba-theme-only" alt="test" />
 		)
 		const image = getByAltText('test')
 		expect(image.parentElement).not.toHaveAttribute('data-hide-on-theme')

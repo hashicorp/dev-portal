@@ -69,7 +69,7 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 
 			/**
 			 * For themed images, authors append their image urls
-			 * with the hash #hide-on-{theme}
+			 * with the hash #{dark|light}-theme-only
 			 */
 			if (hash) {
 				newUrl.hash = hash

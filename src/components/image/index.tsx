@@ -56,7 +56,7 @@ function getContentApiDimensions(
 function getTheme(src: string): GlobalThemeOption | undefined {
 	let theme
 	const url = new URL(src, 'https://developer.hashicorp.com')
-	const themedImageSuffix = new RegExp(/#hide-on-(dark|light)/)
+	const themedImageSuffix = new RegExp(/#(dark|light)-theme-only/)
 
 	if (themedImageSuffix.test(url.hash)) {
 		const match = url.hash.match(themedImageSuffix)
