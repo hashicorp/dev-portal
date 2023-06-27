@@ -95,12 +95,6 @@ export default function App({
 	const currentContentType = Component.contentType ?? 'global'
 	const currentProduct = pageProps.product || null
 
-	/**
-	 * TODO: refactor this so that pageProps.layoutProps is the only place where
-	 * layoutProps come from.
-	 */
-	const allLayoutProps = { theme: Component.theme, ...pageProps.layoutProps }
-
 	return (
 		<QueryClientProvider client={queryClient}>
 			<SSRProvider>
@@ -121,7 +115,7 @@ export default function App({
 													}
 													strict={process.env.NODE_ENV === 'development'}
 												>
-													<Layout {...allLayoutProps} data={allLayoutProps}>
+													<Layout {...pageProps.layoutProps}>
 														<Component {...pageProps} />
 													</Layout>
 													<Toaster />
