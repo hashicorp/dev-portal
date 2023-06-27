@@ -22,7 +22,9 @@ function TabHeadingWithCount({
 	return (
 		<span className={s.root}>
 			{heading}
-			{typeof count === 'number' ? <BadgeCount text={String(count)} /> : null}
+			{typeof count === 'number' ? (
+				<BadgeCount text={String(count)} size="small" />
+			) : null}
 		</span>
 	)
 }
