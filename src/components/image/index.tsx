@@ -99,7 +99,11 @@ function Image({
 	 * any base styles.
 	 */
 	const style = generateStyleProp(width, height)
-	const dimensions = getContentApiDimensions(src)
+	let dimensions = width && height ? { width, height } : null
+	if (!dimensions) {
+		dimensions = getContentApiDimensions(src)
+	}
+
 	const theme = getTheme(src)
 
 	return (
