@@ -44,7 +44,7 @@ describe('remarkPluginInjectImageDimensions', () => {
 		expect(img).not.toHaveAttribute('height')
 	})
 
-	it('returns dimensions from probe function when url has protocol', async () => {
+	it('adds dimensions when protocol is in src', async () => {
 		const source = `
 ![${alt}](https://content.hashicorp.com/api/assets/img/themed/test-placeholder.png)
 `

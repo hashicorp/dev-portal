@@ -1,5 +1,4 @@
-import type { Root } from 'mdast'
-import type { JSX } from 'remark-mdx'
+import type { Image, Root } from 'mdast'
 import { Plugin, Transformer } from 'unified'
 import { visit } from 'unist-util-visit'
 import probe from 'probe-image-size'
@@ -7,7 +6,7 @@ import probe from 'probe-image-size'
 export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 	return async function transformer(tree: Root) {
 		const imageNodesForDimensions = []
-		visit(tree, 'image', (node: JSX) => {
+		visit(tree, 'image', (node: Image) => {
 			// we only manipulate mktg-content-api src
 			if (node.url.startsWith('http')) {
 				imageNodesForDimensions.push(node)
@@ -22,21 +21,29 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 		 *  https://github.com/syntax-tree/unist-util-visit-parents/issues/8#issuecomment-1413405543
 		 */
 		for (const node of imageNodesForDimensions) {
-			const url = new URL(node.url)
+			const url = await getUrlWithDimensions(node.url)
 
-			const dimensions = await getImageDimensions(node.url)
-
-			if (dimensions) {
-				url.searchParams.append('width', dimensions.width)
-				url.searchParams.append('height', dimensions.height)
-
-				node.url = url.toString()
+			if (url) {
+				node.url = url
 			}
 		}
 	}
 }
 
-export async function getImageDimensions(src: string) {
+export async function getUrlWithDimensions(
+	nodeUrl: string
+): Promise<string | undefined> {
+	const url = new URL(nodeUrl)
+	const dimensions = await getImageDimensions(nodeUrl)
+
+	if (dimensions) {
+		url.searchParams.append('width', dimensions.width)
+		url.searchParams.append('height', dimensions.height)
+		return url.toString()
+	}
+}
+
+async function getImageDimensions(src: string) {
 	if (!src.startsWith('http')) {
 		return
 	}
