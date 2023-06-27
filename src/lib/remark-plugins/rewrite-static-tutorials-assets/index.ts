@@ -62,8 +62,15 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				process.env.VERCEL_ENV === 'preview'
 
 			const newUrl = new URL(ASSET_API_ENDPOINT)
-			const urlForHash = new URL(node.url, 'https://developer.hashicorp.com')
-			newUrl.hash = urlForHash.hash
+
+			/**
+			 * For themed images, authors append their image urls
+			 * with the hash #hide-on-{theme}
+			 */
+			if (node.url.includes('#')) {
+				const urlForHash = new URL(node.url, 'https://developer.hashicorp.com')
+				newUrl.hash = urlForHash.hash
+			}
 
 			/**
 			 * If building in a vercel preview, we can assume the assets are pushed up
