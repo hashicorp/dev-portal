@@ -62,6 +62,10 @@ function getTheme(src: string): GlobalThemeOption | undefined {
 		const match = url.hash.match(themedImageSuffix)
 		// match capture group (dark|light)
 		theme = match[1]
+	} else if (url.hash) {
+		console.warn(
+			'[Image]: hash (#) detected in src url but it does not match the theme pattern: #{dark|light}-theme-only'
+		)
 	}
 
 	return theme
