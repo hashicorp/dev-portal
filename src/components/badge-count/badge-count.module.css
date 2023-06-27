@@ -19,8 +19,8 @@
 
 	/* Size props, set by `hds-badge-count--size-<size>` classes */
 	min-height: var(--height);
-	padding: calc(var(--padding-vertical) - (var(--border-width) * 2))
-		calc(var(--padding-horizontal) - (var(--border-width) * 2));
+	padding: calc(var(--padding-vertical) - var(--border-width))
+		calc(var(--padding-horizontal) - var(--border-width));
 	font-size: var(--font-size);
 	line-height: var(--line-height);
 	border-radius: calc(var(--height) / 2);
