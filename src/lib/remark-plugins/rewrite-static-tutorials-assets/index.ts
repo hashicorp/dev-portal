@@ -31,7 +31,7 @@ const ASSET_API_ENDPOINT =
  *
  * For dev portal previews / prod, we source these image paths from the mktg-content-api,
  * which acts as a proxy-cache in front of the GitHub CDN. For tutorials repo previews, we use the PREVIEW_BRANCH env
- * to target the correct path via the GitHub API.
+ * to target the correct path via the GitHub CDN. See: https://github.com/hashicorp/mktg-content-workflows/blob/main/api/assets.ts
  *
  * For authors working on content locally, we spin up a custom asset server within docker
  * and the paths are served 1-1.
