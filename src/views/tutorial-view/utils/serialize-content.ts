@@ -15,6 +15,7 @@ import { TableOfContentsHeading } from 'components/table-of-contents'
 import { splitProductFromFilename } from '.'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { rewriteWaypointPluginsToIntegrations } from 'lib/content-adjustments'
+import { remarkPluginInjectImageDimensions } from 'lib/remark-plugins/remark-image-dimensions'
 
 export async function serializeContent(tutorial: ClientTutorial): Promise<{
 	content: MDXRemoteSerializeResult
@@ -44,6 +45,7 @@ export async function serializeContent(tutorial: ClientTutorial): Promise<{
 				[anchorLinks, { headings }],
 				paragraphCustomAlerts,
 				rewriteStaticAssetsPlugin,
+				remarkPluginInjectImageDimensions,
 				[
 					remarkPluginAdjustLinkUrls,
 					{
