@@ -21,15 +21,13 @@ function SuggestedPage({ icon, url, text }: SuggestedPageProps) {
 				<IconTile className={s.icon} size="small">
 					{icon}
 				</IconTile>
-				<div className={s.content}>
-					<Text
-						dangerouslySetInnerHTML={{ __html: text }}
-						asElement="span"
-						className={s.text}
-						size={300}
-						weight="medium"
-					/>
-				</div>
+				<Text
+					dangerouslySetInnerHTML={{ __html: text }}
+					asElement="span"
+					className={s.text}
+					size={300}
+					weight="medium"
+				/>
 			</div>
 		</LinkRegion>
 	)
