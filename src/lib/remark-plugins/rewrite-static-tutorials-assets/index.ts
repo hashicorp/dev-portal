@@ -62,6 +62,7 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				process.env.VERCEL_ENV === 'preview'
 
 			const newUrl = new URL(ASSET_API_ENDPOINT)
+			// The second arg, the dev-portal url, is arbitrary to satisfy the URL constructor
 			const { hash, pathname } = new URL(
 				node.url,
 				'https://developer.hashicorp.com'
