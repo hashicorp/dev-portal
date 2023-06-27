@@ -13,6 +13,6 @@
 		"max_static_paths": 1
 	},
 	"flags": {
-		"enable_unified_search": true
+		"enable_unified_search": false
 	}
 }
