@@ -5,14 +5,10 @@
 
 import { ReactElement } from 'react'
 
-interface SuggestedPage {
+interface SuggestedPageProps {
 	icon: ReactElement
 	text: string
 	url: string
 }
 
-interface SuggestedPagesProps {
-	pages: SuggestedPage[]
-}
-
-export type { SuggestedPage, SuggestedPagesProps }
+export type { SuggestedPageProps }
