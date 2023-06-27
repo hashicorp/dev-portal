@@ -26,6 +26,8 @@ const ASSET_API_ENDPOINT =
 	process.env.ASSET_API_ENDPOINT || `${process.env.MKTG_CONTENT_API}/api/assets`
 
 /**
+ * @TODO write tests for this plugin - https://app.asana.com/0/1202097197789424/1204921235104809
+ *
  * This Plugin rewrites src asset paths for tutorials content. With tutorials, images live in a
  * /public directory in the tutorials repository.
  *
