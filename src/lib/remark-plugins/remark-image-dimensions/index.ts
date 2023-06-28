@@ -61,14 +61,14 @@ async function getImageDimensions(src: string) {
 	try {
 		return await probe(src)
 	} catch (e) {
-		if (e.statusCode === 404) {
-			console.error(
-				`[remarkPluginInjectImageDimensions] Image path: ${src} not found, unable to calculate dimensions ` +
-					e
-			)
-			return
-		} else {
-			throw e
-		}
+		/**
+		 * Catching all errors here to prevent urls from breaking
+		 * if not found or formatted improperly
+		 */
+		console.error(
+			`[remarkPluginInjectImageDimensions] Unable to calculate dimensions for image path: ${src}` +
+				e
+		)
+		return
 	}
 }
