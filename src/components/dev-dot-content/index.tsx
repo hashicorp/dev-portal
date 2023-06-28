@@ -5,7 +5,7 @@
 
 import { ReactElement } from 'react'
 import classNames from 'classnames'
-import { MDXRemote } from 'next-mdx-remote'
+import { MDXRemote } from 'next-mdx-remote-v1'
 import ImageConfig from 'components/image-config'
 import { DevDotContentProps } from './types'
 import {

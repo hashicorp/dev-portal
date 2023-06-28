@@ -65,10 +65,8 @@ module.exports = withSwingset({
 	componentsRoot: 'src/components/**/*',
 	docsRoot: 'src/swingset-docs/*',
 })(
-	withHashicorp({
-		nextOptimizedImages: true,
-		css: false,
-		transpileModules: [
+	withHashicorp()({
+		transpilePackages: [
 			'@hashicorp/flight-icons',
 			/**
 			 * TODO: once Sentinel has been migrated into the dev-portal repository,
@@ -80,7 +78,6 @@ module.exports = withSwingset({
 			'swingset',
 			'unist-util-visit',
 		],
-	})({
 		webpack(config) {
 			config.plugins.push(HashiConfigPlugin())
 			return config
@@ -124,14 +121,6 @@ module.exports = withSwingset({
 			// TODO: determine if DevDot needs this or not
 			SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
 			HAPPY_KIT_KEY: happyKitKey,
-		},
-		svgo: {
-			plugins: [
-				{
-					removeViewBox: false,
-					collapseGroups: false,
-				},
-			],
 		},
 		images: {
 			formats: ['image/avif', 'image/webp'],

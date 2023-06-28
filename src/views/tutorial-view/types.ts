@@ -4,7 +4,7 @@
  */
 
 import { Dispatch, ReactNode, SetStateAction } from 'react'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote-v1'
 import { LearnProductData } from 'types/products'
 import {
 	Collection as ClientCollection,
