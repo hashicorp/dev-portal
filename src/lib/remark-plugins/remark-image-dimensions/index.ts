@@ -3,6 +3,11 @@ import { Plugin, Transformer } from 'unified'
 import { visit } from 'unist-util-visit'
 import probe from 'probe-image-size'
 
+/**
+ * This plugin injects image dimensions for images whose src references the mktg-content-api.
+ * This only applies to tutorials currently, for docs content this is done via mktg-content-workflows
+ * https://github.com/hashicorp/mktg-content-workflows/blob/main/shared/transforms/rewrite-site-static-assets.ts
+ */
 export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 	return async function transformer(tree: Root) {
 		const imageNodesForDimensions = []
