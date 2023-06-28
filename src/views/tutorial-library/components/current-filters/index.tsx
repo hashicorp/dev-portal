@@ -8,7 +8,7 @@ import Text from 'components/text'
 import Tag from 'components/tag'
 import { productSlugsToNames } from 'lib/products'
 import currentFiltersStyle from './current-filters.module.css'
-import { EDITIONS, RESOURCES, CONTENT_TYPES } from '../../constants'
+import { EDITIONS, RESOURCES } from '../../constants'
 import { ClearFiltersButton } from '../clear-filters-button'
 
 interface Refinement {
@@ -28,12 +28,6 @@ function CurrentFilterItem({ refinement, refine }: CurrentFilterItemProps) {
 	const { label, type, attribute } = refinement
 
 	let labelText
-
-	// This is a "Content type" filter
-	if (attribute === 'type') {
-		const contentType = CONTENT_TYPES.find((entry) => entry.value === label)
-		labelText = contentType?.label
-	}
 
 	// This is a "Resource" filter
 	if (type === 'disjunctive') {
