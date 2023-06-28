@@ -16,6 +16,7 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 			 * Only transform nodes using the mktg-content-api src.
 			 * This is dependent on `rewriteStaticAssets` running before this plugin
 			 * to transform the src URLs from local file paths to mktg-content-api urls
+			 * See: src/lib/remark-plugins/rewrite-static-tutorials-assets/index.ts
 			 */
 			if (node.url.startsWith(process.env.MKTG_CONTENT_API)) {
 				imageNodesForDimensions.push(node)
