@@ -3,18 +3,17 @@ import Tabs, { Tab } from 'components/tabs'
 import { CommandBarDivider } from 'components/command-bar/components'
 import { CommandBarList } from 'components/command-bar/components'
 // Shared search
-import {
-	NoResultsMessage,
-	SuggestedPage,
-	SuggestedPages,
-	TabHeadingWithCount,
-} from '../../../components'
+import { TabHeadingWithCount } from '../../../components'
 // Unified search
+import NoResultsMessage from '../no-results-message'
+import SuggestedPages from '../suggested-pages'
+
 import { UnifiedHit } from '../unified-hit'
 import { getUnifiedHitProps } from '../unified-hit/helpers'
 // Types
 import type { Hit } from 'instantsearch.js'
 import type { UnifiedSearchTabContent } from './helpers'
+import type { SuggestedPageProps } from '../suggested-pages/types'
 // Styles
 import s from './unified-hits-container.module.css'
 
@@ -26,7 +25,7 @@ export function UnifiedHitsContainer({
 	suggestedPages,
 }: {
 	tabsData: UnifiedSearchTabContent[]
-	suggestedPages: SuggestedPage[]
+	suggestedPages: SuggestedPageProps[]
 }) {
 	return (
 		<div className={s.tabsWrapper}>
@@ -54,24 +53,23 @@ export function UnifiedHitsContainer({
 									<div className={s.commandBarListWrapper}>
 										<CommandBarList ariaLabelledBy={resultsLabelId}>
 											{hits.map((hit: Hit) => (
-												<UnifiedHit
-													key={hit.objectID}
-													{...getUnifiedHitProps(hit)}
-												/>
+												<li key={hit.objectID}>
+													<UnifiedHit {...getUnifiedHitProps(hit)} />
+												</li>
 											))}
 										</CommandBarList>
 										{/* TODO: add suggested pages */}
 									</div>
 								</>
 							) : (
-								<>
+								<div className={s.noResultsWrapper}>
 									<NoResultsMessage
 										currentTabHeading={heading}
 										tabsWithResults={otherTabData}
 									/>
 									<CommandBarDivider className={s.divider} />
 									<SuggestedPages pages={suggestedPages} />
-								</>
+								</div>
 							)}
 						</Tab>
 					)
