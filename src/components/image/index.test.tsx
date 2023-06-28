@@ -6,14 +6,6 @@
 import { render } from '@testing-library/react'
 import Image from 'components/image'
 
-const probeDimensions = { width: '500', height: '300' }
-
-// Mock the external call to get dimensions
-jest.mock('probe-image-size', () => {
-	return jest.fn(() => {
-		return probeDimensions
-	})
-})
 
 describe('image component', () => {
 	it('adds a `data-hide-on-theme` attribute when hash is passed', async () => {
