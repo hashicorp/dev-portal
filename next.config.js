@@ -77,6 +77,8 @@ module.exports = withSwingset({
 			'@hashicorp/sentinel-embedded',
 			'swingset',
 			'unist-util-visit',
+			'unist-util-visit-parents',
+			'unist-util-is',
 		],
 		webpack(config) {
 			config.plugins.push(HashiConfigPlugin())
