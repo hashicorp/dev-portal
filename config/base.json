@@ -11,7 +11,7 @@
 		"algolia": {
 			"docsIndexName": "product_DEVDOT",
 			"tutorialsIndexName": "prod_LEARN",
-			"unifiedIndexName": "staging_DEVDOT_omni"
+			"unifiedIndexName": "prod_DEVDOT_omni"
 		},
 		"analytics": {
 			"included_domains": "developer.hashi-mktg.com developer.hashicorp.com"
@@ -45,6 +45,6 @@
 	"flags": {
 		"enable_datadog": true,
 		"enable_io_beta_cta": true,
-		"enable_unified_search": false
+		"enable_unified_search": true
 	}
 }
