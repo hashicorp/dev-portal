@@ -22,7 +22,10 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 		 */
 		for (const node of imageNodesForDimensions) {
 			const url = await getUrlWithDimensions(node.url)
-			node.url = url
+
+			if (url) {
+				node.url = url
+			}
 		}
 	}
 }
