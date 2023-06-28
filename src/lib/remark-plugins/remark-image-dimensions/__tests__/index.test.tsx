@@ -3,7 +3,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { getUrlWithDimensions } from '..'
+import { render } from '@testing-library/react'
+import { MDXRemote } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
+import Image from 'components/image'
+import { remarkPluginInjectImageDimensions, getUrlWithDimensions } from '..'
 
 const probeDimensions = { width: '500', height: '300' }
 
@@ -15,6 +19,27 @@ jest.mock('probe-image-size', () => {
 })
 
 describe('remarkPluginInjectImageDimensions', () => {
+	it('does not rewrite if non-mktg-content-api url', async () => {
+		const imgSrc = `https://placehold.co/600x400/pink/FFF`
+		const alt = 'image alt'
+		const source = `
+![${alt}](${imgSrc})
+`
+		const mdxSource = await serialize(source, {
+			mdxOptions: {
+				remarkPlugins: [remarkPluginInjectImageDimensions],
+			},
+		})
+		const { getByAltText } = render(
+			<MDXRemote {...mdxSource} components={{ img: Image as any }} />
+		)
+		const img = getByAltText(alt)
+
+		expect(img).not.toHaveAttribute('width')
+		expect(img).not.toHaveAttribute('height')
+		expect(img).toHaveAttribute('src', imgSrc)
+	})
+
 	it('does not rewrite if width/ height already defined', async () => {
 		const src = `https://content.hashicorp.com/api/assets/img/themed/test-placeholder.png?width=700&height=700`
 		const url = await getUrlWithDimensions(src)

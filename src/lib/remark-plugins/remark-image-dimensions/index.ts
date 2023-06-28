@@ -7,8 +7,12 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 	return async function transformer(tree: Root) {
 		const imageNodesForDimensions = []
 		visit(tree, 'image', (node: Image) => {
-			// only transform nodes that we can fetch size on
-			if (node.url.startsWith('http')) {
+			/**
+			 * Only transform nodes using the mktg-content-api src.
+			 * This is dependent on `rewriteStaticAssets` running before this plugin
+			 * to transform the src URLs from local file paths to mktg-content-api urls
+			 */
+			if (node.url.startsWith(process.env.MKTG_CONTENT_API)) {
 				imageNodesForDimensions.push(node)
 			}
 		})
