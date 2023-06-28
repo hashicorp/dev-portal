@@ -10,6 +10,7 @@ import ProductDownloadsView from 'views/product-downloads-view'
 import { generateGetStaticProps } from 'views/product-downloads-view/server'
 import InlineAlert from 'components/inline-alert'
 import ButtonLink from 'components/button-link'
+import s from './style.module.css'
 
 const NomadDownloadsPage = (props) => {
 	return (
@@ -21,8 +22,10 @@ const NomadDownloadsPage = (props) => {
 					description="A beta for Nomad v1.6.0 is available."
 					ctaSlot={
 						<ButtonLink
+							aria-label="Download beta for Nomad v.1.6.0"
+							className={s.downloadLink}
 							size="small"
-							color="secondary"
+							color="tertiary"
 							text="Download"
 							icon={<IconDownload16 />}
 							href="https://releases.hashicorp.com/nomad/1.6.0-beta.1/"
