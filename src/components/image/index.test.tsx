@@ -45,8 +45,8 @@ describe('image component', () => {
 		)
 		const image = getByAltText(alt)
 
-		expect(image).toHaveAttribute('width', probeDimensions.width)
-		expect(image).toHaveAttribute('height', probeDimensions.height)
+		expect(image).toHaveAttribute('width', '500')
+		expect(image).toHaveAttribute('height', '300')
 		expect(image).toHaveAttribute('srcset')
 	})
 })
