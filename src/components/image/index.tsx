@@ -5,10 +5,10 @@
 
 import { CSSProperties, ReactElement } from 'react'
 import NextImage from 'next/image'
+import { GlobalThemeOption } from 'styles/themes/types'
 import { ImageProps } from './types'
 import classNames from 'classnames'
 import s from './image.module.css'
-import { GlobalThemeOption } from 'styles/themes/types'
 
 /**
  * Create an object to be passed as a style prop to the underlying img element
@@ -53,15 +53,22 @@ function getContentApiDimensions(
 	return null
 }
 
-function getTheme(src: string): GlobalThemeOption | undefined {
+function getTheme(
+	src: string
+): GlobalThemeOption.dark | GlobalThemeOption.light | undefined {
 	let theme
+	// The second arg, the dev-portal url, is arbitrary to satisfy the URL constructor
 	const url = new URL(src, 'https://developer.hashicorp.com')
-	const themedImageSuffix = new RegExp(/#hide-on-(dark|light)/)
+	const themedImageSuffix = new RegExp(/#(dark|light)-theme-only/)
 
 	if (themedImageSuffix.test(url.hash)) {
 		const match = url.hash.match(themedImageSuffix)
 		// match capture group (dark|light)
 		theme = match[1]
+	} else if (url.hash) {
+		console.warn(
+			'[Image]: A hash (#) was detected in src url but it does not match the theme pattern: #{dark|light}-theme-only'
+		)
 	}
 
 	return theme
@@ -113,7 +120,7 @@ function Image({
 				[s.noBorder]: noBorder,
 				[s.inline]: inline,
 			})}
-			data-hide-on-theme={theme ? theme : null}
+			data-show-on-theme={theme ? theme : null}
 		>
 			{dimensions ? (
 				<NextImage

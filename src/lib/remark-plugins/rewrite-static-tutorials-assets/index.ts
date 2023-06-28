@@ -26,12 +26,14 @@ const ASSET_API_ENDPOINT =
 	process.env.ASSET_API_ENDPOINT || `${process.env.MKTG_CONTENT_API}/api/assets`
 
 /**
+ * @TODO write tests for this plugin - https://app.asana.com/0/1202097197789424/1204921235104809
+ *
  * This Plugin rewrites src asset paths for tutorials content. With tutorials, images live in a
  * /public directory in the tutorials repository.
  *
  * For dev portal previews / prod, we source these image paths from the mktg-content-api,
- * which uses the GitHub API. For tutorials repo previews, we use the PREVIEW_BRANCH env
- * to target the correct path via the GitHub API.
+ * which acts as a proxy-cache in front of the GitHub CDN. For tutorials repo previews, we use the PREVIEW_BRANCH env
+ * to target the correct path via the GitHub CDN. See: https://github.com/hashicorp/mktg-content-workflows/blob/main/api/assets.ts
  *
  * For authors working on content locally, we spin up a custom asset server within docker
  * and the paths are served 1-1.
@@ -62,6 +64,7 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				process.env.VERCEL_ENV === 'preview'
 
 			const newUrl = new URL(ASSET_API_ENDPOINT)
+			// The second arg, the dev-portal url, is arbitrary to satisfy the URL constructor
 			const { hash, pathname } = new URL(
 				node.url,
 				'https://developer.hashicorp.com'
@@ -69,7 +72,7 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 
 			/**
 			 * For themed images, authors append their image urls
-			 * with the hash #hide-on-{theme}
+			 * with the hash #{dark|light}-theme-only
 			 */
 			if (hash) {
 				newUrl.hash = hash

@@ -29,7 +29,11 @@ function DocsVersionAlertBanner({
 		return null
 	}
 
-	// find curent version in list of versions, to give VersionAlertBanner access to VersionSelectItem's releaseStage and label
+	if (!versions || versions?.length === 0) {
+		return null
+	}
+
+	// find current version in list of versions, to give VersionAlertBanner access to VersionSelectItem's releaseStage and label
 	const { releaseStage, label } = versions.find(
 		(currentVersion: VersionSelectItem) =>
 			currentVersion.version === versionFromPath
