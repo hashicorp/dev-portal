@@ -13,7 +13,7 @@ export interface BadgeCountProps {
 	/**
 	 * The text to render inside of the badge.
 	 */
-	text?: string
+	text: string
 
 	/**
 	 * The kind of style to apply to the badge, which mainly affects background
