@@ -52,7 +52,7 @@ export default function TutorialLibraryView({
 	const filtersState = useFiltersState()
 
 	// configure our search client with custom settings
-	useConfigure({ hitsPerPage: 24 })
+	useConfigure({ hitsPerPage: 24, filters: 'type:tutorial' })
 
 	const handleDialogDismiss = () => setShowMobileFilters(false)
 
