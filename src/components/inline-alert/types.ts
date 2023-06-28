@@ -7,6 +7,7 @@ import { type ReactNode, type ReactElement } from 'react'
 
 export interface InlineAlertProps {
 	className?: string
+	ctaSlot?: ReactNode
 	color?: 'neutral' | 'highlight' | 'warning' | 'critical'
 	description: ReactNode
 	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>
