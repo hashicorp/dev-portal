@@ -43,31 +43,27 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 export async function getUrlWithDimensions(
 	nodeUrl: string
 ): Promise<string | undefined> {
-	const url = new URL(nodeUrl)
-	// if width / height already defined in url, return early
-	if (url.searchParams.get('width') && url.searchParams.get('height')) {
-		return nodeUrl
-	}
-
-	const dimensions = await getImageDimensions(nodeUrl)
-
-	if (dimensions) {
-		url.searchParams.append('width', dimensions.width)
-		url.searchParams.append('height', dimensions.height)
-		return url.toString()
-	}
-}
-
-async function getImageDimensions(src: string) {
 	try {
-		return await probe(src)
+		const url = new URL(nodeUrl)
+		// if width / height already defined in url, return early
+		if (url.searchParams.get('width') && url.searchParams.get('height')) {
+			return nodeUrl
+		}
+
+		const dimensions = await probe(nodeUrl)
+
+		if (dimensions) {
+			url.searchParams.append('width', dimensions.width)
+			url.searchParams.append('height', dimensions.height)
+			return url.toString()
+		}
 	} catch (e) {
 		/**
 		 * Catching all errors here to prevent urls from breaking
 		 * if not found or formatted improperly
 		 */
 		console.error(
-			`[remarkPluginInjectImageDimensions] Unable to calculate dimensions for image path: ${src}` +
+			`[remarkPluginInjectImageDimensions] Unable to calculate dimensions for image path: ${nodeUrl}` +
 				e
 		)
 		return
