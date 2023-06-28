@@ -37,6 +37,19 @@ export const EDITIONS = [
 ]
 
 /**
+ * Controls the content type filters
+ *
+ * TODO: hide these for now, keep this /tutorials/library and not
+ * like /advanced-search which kind of the direction we go if we
+ * keep this filter visible.
+ */
+export const CONTENT_TYPES = [
+	{ value: 'docs', label: 'Documentation' },
+	{ value: 'tutorial', label: 'Tutorial' },
+	{ value: 'integration', label: 'Integration' },
+]
+
+/**
  * Valid edition slugs for filtering tutorials by.
  */
 export const VALID_EDITION_SLUGS_FOR_FILTERING = EDITIONS.map(

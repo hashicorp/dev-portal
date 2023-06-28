@@ -13,6 +13,7 @@ import { RESOURCES } from '../../constants'
 
 export function useFiltersState() {
 	const { refine: refineEdition } = useMenu({ attribute: 'edition' })
+	const { refine: refineContentType } = useMenu({ attribute: 'type' })
 	const { refine: refineProduct } = useRefinementList({
 		attribute: 'products',
 		operator: 'and',
@@ -28,6 +29,7 @@ export function useFiltersState() {
 
 	const selectedProducts = indexUiState?.refinementList?.products ?? []
 	const selectedEdition = indexUiState?.menu?.edition
+	const selectedContentType = indexUiState?.menu?.type
 
 	const resources = RESOURCES.map((resource) => {
 		if (resource.attribute === 'hasVideo') {
@@ -57,5 +59,9 @@ export function useFiltersState() {
 			selectedEdition,
 		},
 		resources: { resources },
+		contentType: {
+			refine: refineContentType,
+			selectedContentType,
+		},
 	}
 }

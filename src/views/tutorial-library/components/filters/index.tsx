@@ -9,11 +9,13 @@ import { EditionFilter, EditionFilterProps } from '../edition-filter'
 import { ProductFilter, ProductFilterProps } from '../product-filter'
 import { ResourcesFilter, ResourcesFilterProps } from '../resources-filter'
 import { useFiltersState } from './use-filters-state'
+import { ContentTypeFilter, ContentTypeFilterProps } from '../type-filter'
 
 interface TutorialLibraryFiltersProps {
 	products: ProductFilterProps
 	edition: EditionFilterProps
 	resources: ResourcesFilterProps
+	contentType: ContentTypeFilterProps
 }
 
 /**
@@ -23,6 +25,7 @@ export function TutorialLibraryFilters({
 	products,
 	edition,
 	resources,
+	contentType,
 }: TutorialLibraryFiltersProps) {
 	return (
 		<div>
@@ -31,6 +34,8 @@ export function TutorialLibraryFilters({
 			<EditionFilter {...edition} />
 			<SidebarHorizontalRule />
 			<ResourcesFilter {...resources} />
+			<SidebarHorizontalRule />
+			<ContentTypeFilter {...contentType} />
 		</div>
 	)
 }
