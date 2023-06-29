@@ -31,6 +31,33 @@ describe('rewriteDocsUrl', () => {
 		)
 	})
 
+	describe('does not rewrite tutorial links', () => {
+		const testData = [
+			{
+				input:
+					'/well-architected-framework/operational-excellence/operational-excellence-workspaces-projects',
+				expected:
+					'/well-architected-framework/operational-excellence/operational-excellence-workspaces-projects',
+			},
+			{
+				input: '/onboarding/tfcb-week-5/module-use',
+				expected: '/onboarding/tfcb-week-5/module-use',
+			},
+			{
+				input:
+					'/boundary/tutorials/hcp-getting-started/hcp-getting-started-intro',
+				expected:
+					'/boundary/tutorials/hcp-getting-started/hcp-getting-started-intro',
+			},
+		]
+		// eslint-disable-next-line @typescript-eslint/no-var-requires
+		const hcpProductData = require(`data/hcp.json`)
+
+		test.each(testData)('Testing subpath', (item) => {
+			expect(rewriteDocsUrl(item.input, hcpProductData)).toBe(item.expected)
+		})
+	})
+
 	describe('Rewrite non-docs base paths to external links', () => {
 		const testData = [
 			{ input: '/pricing', expected: 'https://cloud.hashicorp.com/pricing' },
