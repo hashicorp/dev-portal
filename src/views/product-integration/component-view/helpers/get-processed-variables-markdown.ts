@@ -5,7 +5,7 @@
 
 import { ReleaseComponent } from 'lib/integrations-api-client/release'
 import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote-v1'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 type ProcessedVariableMarkdown = { description?: MDXRemoteSerializeResult }
 export type ProcessedVariablesMarkdown = Record<

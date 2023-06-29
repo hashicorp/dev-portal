@@ -17,7 +17,7 @@ import RemoteContentLoader, {
 let loader: RemoteContentLoader
 let scope: nock.Scope
 
-import * as nextMdxRemote from 'next-mdx-remote-v1/serialize'
+import * as nextMdxRemote from 'next-mdx-remote/serialize'
 const serializeSpy = jest.spyOn(nextMdxRemote, 'serialize')
 const mockMdxContentHook = jest.fn()
 
