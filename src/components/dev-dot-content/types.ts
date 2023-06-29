@@ -4,7 +4,7 @@
  */
 
 import { type ReactNode, type ElementType } from 'react'
-import { type MDXRemoteSerializeResult } from 'next-mdx-remote-v1'
+import { type MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 type MDXRemoteProps = MDXRemoteSerializeResult & {
 	components?: Record<string, ElementType>

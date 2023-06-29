@@ -4,7 +4,7 @@
  */
 
 import { ReactNode } from 'react'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote-v1'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { VersionSelectItem } from './loaders/remote-content'
 import { ProductSlug, ProductWithCurrentRootDocsPath } from 'types/products'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
