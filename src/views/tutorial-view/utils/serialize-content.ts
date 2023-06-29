@@ -10,7 +10,7 @@ import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/reh
 import rehypePrism from '@mapbox/rehype-prism'
 import getVideoUrl from './get-video-url'
 import { Tutorial as ClientTutorial } from 'lib/learn-client/types'
-import { rewriteStaticAssetsPlugin } from 'lib/remark-plugins/rewrite-static-assets'
+import { rewriteStaticAssetsPlugin } from 'lib/remark-plugins/rewrite-static-tutorials-assets'
 import { TableOfContentsHeading } from 'components/table-of-contents'
 import { splitProductFromFilename } from '.'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
