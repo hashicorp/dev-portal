@@ -6,7 +6,6 @@
 import { render } from '@testing-library/react'
 import Image from 'components/image'
 
-
 describe('image component', () => {
 	it('adds a `data-hide-on-theme` attribute when hash is passed', async () => {
 		const { getByAltText } = render(
