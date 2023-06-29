@@ -39,6 +39,11 @@ describe('rewriteDocsUrl', () => {
 				expected:
 					'/well-architected-framework/operational-excellence/operational-excellence-workspaces-projects',
 			},
+			// special case for non devdot 'waf' link
+			{
+				input: 'https://aws.amazon.com/architecture/well-architected/',
+				expected: 'https://aws.amazon.com/architecture/well-architected/',
+			},
 			{
 				input: '/onboarding/tfcb-week-5/module-use',
 				expected: '/onboarding/tfcb-week-5/module-use',
