@@ -11,3 +11,8 @@
 [data-theme='light'] [data-hide-on-theme='light'] {
 	display: none;
 }
+
+[data-theme='dark'] [data-show-on-theme='light'],
+[data-theme='light'] [data-show-on-theme='dark'] {
+	display: none;
+}
