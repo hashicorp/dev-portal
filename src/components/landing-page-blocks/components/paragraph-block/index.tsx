@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { MDXRemote } from 'next-mdx-remote'
+import { MDXRemote } from 'next-mdx-remote-v1'
 import { MdxA, MdxP } from 'components/dev-dot-content/mdx-components'
 import { ParagraphBlockProps } from './types'
 

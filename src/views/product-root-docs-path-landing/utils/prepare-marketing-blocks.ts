@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { serialize } from 'next-mdx-remote/serialize'
+import { serialize } from 'next-mdx-remote-v1/serialize'
 
 /**
  * Prepares marketing content blocks for rendering on the client.
