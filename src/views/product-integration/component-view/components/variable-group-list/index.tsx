@@ -14,7 +14,7 @@ import {
 	MdxInlineCode,
 	MdxP,
 } from 'components/dev-dot-content/mdx-components'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote-v1'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import s from './style.module.css'
 
 /**

@@ -13,7 +13,7 @@ import { SidebarProps } from 'components/sidebar/types'
 import { CollectionContext, TutorialViewProps } from 'views/tutorial-view'
 import { NextPreviousProps } from 'views/tutorial-view/components'
 import { OutlineLinkItem } from 'components/outline-nav/types'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote-v1'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 
 export interface OnboardingCollectionViewProps {
 	metadata: {
