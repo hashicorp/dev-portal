@@ -6,14 +6,6 @@
 import { render } from '@testing-library/react'
 import Image from 'components/image'
 
-const probeDimensions = { width: '500', height: '300' }
-
-// Mock the external call to get dimensions
-jest.mock('probe-image-size', () => {
-	return jest.fn(() => {
-		return probeDimensions
-	})
-})
 
 describe('image component', () => {
 	it('adds a `data-hide-on-theme` attribute when hash is passed', async () => {
@@ -53,8 +45,8 @@ describe('image component', () => {
 		)
 		const image = getByAltText(alt)
 
-		expect(image).toHaveAttribute('width', probeDimensions.width)
-		expect(image).toHaveAttribute('height', probeDimensions.height)
+		expect(image).toHaveAttribute('width', '500')
+		expect(image).toHaveAttribute('height', '300')
 		expect(image).toHaveAttribute('srcset')
 	})
 })
