@@ -30,13 +30,13 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 		 * where async isn't supported. Taken from suggestion in this issue
 		 *  https://github.com/syntax-tree/unist-util-visit-parents/issues/8#issuecomment-1413405543
 		 */
-		for (const node of imageNodesForDimensions) {
+		const promises = imageNodesForDimensions.map(async (node: Image) => {
 			const url = await getUrlWithDimensions(node.url)
-
 			if (url) {
 				node.url = url
 			}
-		}
+		})
+		await Promise.all(promises)
 	}
 }
 
