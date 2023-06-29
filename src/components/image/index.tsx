@@ -5,6 +5,7 @@
 
 import { CSSProperties, ReactElement } from 'react'
 import NextImage from 'next/image'
+import { GlobalThemeOption } from 'styles/themes/types'
 import { ImageProps } from './types'
 import classNames from 'classnames'
 import s from './image.module.css'
@@ -52,6 +53,27 @@ function getContentApiDimensions(
 	return null
 }
 
+function getTheme(
+	src: string
+): GlobalThemeOption.dark | GlobalThemeOption.light | undefined {
+	let theme
+	// The second arg, the dev-portal url, is arbitrary to satisfy the URL constructor
+	const url = new URL(src, 'https://developer.hashicorp.com')
+	const themedImageSuffix = new RegExp(/#(dark|light)-theme-only/)
+
+	if (themedImageSuffix.test(url.hash)) {
+		const match = url.hash.match(themedImageSuffix)
+		// match capture group (dark|light)
+		theme = match[1]
+	} else if (url.hash) {
+		console.warn(
+			'[Image]: A hash (#) was detected in src url but it does not match the theme pattern: #{dark|light}-theme-only'
+		)
+	}
+
+	return theme
+}
+
 /**
  * An Image component for use in MDX
  */
@@ -84,8 +106,8 @@ function Image({
 	 * any base styles.
 	 */
 	const style = generateStyleProp(width, height)
-
 	const dimensions = getContentApiDimensions(src)
+	const theme = getTheme(src)
 
 	return (
 		<span
@@ -94,6 +116,7 @@ function Image({
 				[s.noBorder]: noBorder,
 				[s.inline]: inline,
 			})}
+			data-show-on-theme={theme ? theme : null}
 		>
 			{dimensions ? (
 				<NextImage

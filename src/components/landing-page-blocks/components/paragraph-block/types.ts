@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote-v1'
 
 interface ParagraphBlockProps {
 	mdxSource: MDXRemoteSerializeResult

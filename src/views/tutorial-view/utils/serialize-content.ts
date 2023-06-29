@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { serialize } from 'next-mdx-remote/serialize'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote-v1/serialize'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote-v1'
 import { anchorLinks, paragraphCustomAlerts } from '@hashicorp/remark-plugins'
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import rehypePrism from '@mapbox/rehype-prism'
 import getVideoUrl from './get-video-url'
 import { Tutorial as ClientTutorial } from 'lib/learn-client/types'
-import { rewriteStaticAssetsPlugin } from 'lib/remark-plugins/rewrite-static-assets'
+import { rewriteStaticAssetsPlugin } from 'lib/remark-plugins/rewrite-static-tutorials-assets'
 import { TableOfContentsHeading } from 'components/table-of-contents'
 import { splitProductFromFilename } from '.'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
