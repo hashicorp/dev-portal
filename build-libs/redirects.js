@@ -231,9 +231,8 @@ async function buildProductRedirects() {
 			getRedirectsForProduct('vagrant'),
 			getRedirectsForProduct('packer'),
 			getRedirectsForProduct('consul'),
-			getRedirectsForProduct('terraform-website', {
-				ref: 'master',
-				redirectsPath: '/redirects.js',
+			getRedirectsForProduct('terraform-docs-common', {
+				ref: 'main',
 			}),
 		])
 	).flat()
