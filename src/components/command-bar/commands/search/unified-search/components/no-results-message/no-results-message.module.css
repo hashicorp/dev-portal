@@ -1,0 +1,20 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	color: var(--token-color-foreground-primary);
+	margin-top: 8px;
+	padding: 12px;
+}
+
+.checkOtherTabs {
+	margin-top: 8px;
+}
+
+.otherTabBadge {
+	position: relative;
+	top: 0.125em;
+	margin: 0 2px;
+}

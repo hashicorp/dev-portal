@@ -3,9 +3,11 @@ import Tabs, { Tab } from 'components/tabs'
 import { CommandBarDivider } from 'components/command-bar/components'
 import { CommandBarList } from 'components/command-bar/components'
 // Shared search
-import { NoResultsMessage, TabHeadingWithCount } from '../../../components'
+import { TabHeadingWithCount } from '../../../components'
 // Unified search
+import NoResultsMessage from '../no-results-message'
 import SuggestedPages from '../suggested-pages'
+
 import { UnifiedHit } from '../unified-hit'
 import { getUnifiedHitProps } from '../unified-hit/helpers'
 // Types
@@ -60,14 +62,14 @@ export function UnifiedHitsContainer({
 									</div>
 								</>
 							) : (
-								<>
+								<div className={s.noResultsWrapper}>
 									<NoResultsMessage
 										currentTabHeading={heading}
 										tabsWithResults={otherTabData}
 									/>
 									<CommandBarDivider className={s.divider} />
 									<SuggestedPages pages={suggestedPages} />
-								</>
+								</div>
 							)}
 						</Tab>
 					)
