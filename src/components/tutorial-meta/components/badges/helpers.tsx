@@ -16,15 +16,6 @@ const editionDisplayOptions: { [K in EditionOption]: string } = {
 	[EditionOption.hcp]: 'HCP',
 	[EditionOption.tfcStandard]: 'Standard',
 	[EditionOption.tfcPlus]: 'Plus',
-	/**
-	 * Deprecated pricing tiers as of March '23
-	 * To be removed after all content is updated
-	 */
-	[EditionOption.tfcFree]: 'Terraform Cloud',
-	[EditionOption.tfcTeam]: 'Team',
-	[EditionOption.tfcGov]: 'Team & Governance',
-	[EditionOption.tfcBiz]: 'Business',
-	/* --------------------------------------*/
 }
 
 /**
