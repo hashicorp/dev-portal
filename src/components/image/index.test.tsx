@@ -33,4 +33,19 @@ describe('image component', () => {
 		const image = getByAltText('plain test')
 		expect(image.parentElement).not.toHaveAttribute('data-show-on-theme')
 	})
+
+	it('renders the next/image component when dimensions are in url', async () => {
+		const alt = 'dimensions test'
+		const { getByAltText } = render(
+			<Image
+				src="https://content.hashicorp.com/api/assets/img/themed/test-placeholder.png?width=500&height=300"
+				alt={alt}
+			/>
+		)
+		const image = getByAltText(alt)
+
+		expect(image).toHaveAttribute('width', '500')
+		expect(image).toHaveAttribute('height', '300')
+		expect(image).toHaveAttribute('srcset')
+	})
 })
