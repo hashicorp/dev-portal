@@ -59,6 +59,9 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				return [node]
 			}
 
+			const isVercelBuild =
+				process.env.VERCEL_ENV === 'production' ||
+				process.env.VERCEL_ENV === 'preview'
 			const newUrl = new URL(ASSET_API_ENDPOINT)
 			// The second arg, the dev-portal url, is arbitrary to satisfy the URL constructor
 			const { hash, pathname } = new URL(
@@ -78,7 +81,7 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 			 * For the local tutorials repo workflow, a custom asset server hosts
 			 * the images, so we don't adjust the path.
 			 */
-			if (process.env.TUTORIALS_LOCAL === 'true') {
+			if (!isVercelBuild && process.env.TUTORIALS_LOCAL === 'true') {
 				newUrl.pathname = path.join(newUrl.pathname, pathname)
 			} else {
 				/**
