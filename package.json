@@ -178,6 +178,7 @@
 		"next-themes": "^0.2.1",
 		"nuka-carousel": "^4.8.4",
 		"p-map": "^4.0.0",
+		"probe-image-size": "^7.2.3",
 		"promise-polyfill": "^8.2.1",
 		"query-string": "^7.1.1",
 		"react": "^18.2.0",
