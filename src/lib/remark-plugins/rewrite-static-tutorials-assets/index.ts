@@ -59,10 +59,6 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				return [node]
 			}
 
-			const isVercelBuild =
-				process.env.VERCEL_ENV === 'production' ||
-				process.env.VERCEL_ENV === 'preview'
-
 			const newUrl = new URL(ASSET_API_ENDPOINT)
 			// The second arg, the dev-portal url, is arbitrary to satisfy the URL constructor
 			const { hash, pathname } = new URL(
@@ -79,10 +75,16 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 			}
 
 			/**
-			 * If building in a vercel preview, we can assume the assets are pushed up
-			 * to git and can be served via the GH CDN.
-			 * */
-			if (isVercelBuild) {
+			 * For the local tutorials repo workflow, a custom asset server hosts
+			 * the images, so we don't adjust the path.
+			 */
+			if (process.env.TUTORIALS_LOCAL === 'true') {
+				newUrl.pathname = path.join(newUrl.pathname, pathname)
+			} else {
+				/**
+				 * If not building for local tutorials workflow, we can assume the assets are pushed up
+				 * to git and can be served via the GH CDN.
+				 * */
 				const params = newUrl.searchParams
 
 				// for /tutorials previews, we pass the branchname as an env via gh workflow
@@ -95,19 +97,6 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				params.set('product', 'tutorials')
 				params.set('version', branchName)
 				params.set('asset', assetPath)
-			} else {
-				/**
-				 * Otherwise, pass the unchanged path to a custom asset server for tutorials repo local dev.
-				 *
-				 * @TODO Fix local tutorials images for dev-portal
-				 * https://app.asana.com/0/1202097197789424/1204908882543128
-				 *
-				 * Tutorial images are currently broken for local development in dev-portal
-				 * Since the local files aren't available.
-				 *
-				 * For local dev in dev-portal, we should just use the mktg-content-api, like in prod / previews
-				 */
-				newUrl.pathname = path.join(newUrl.pathname, pathname)
 			}
 
 			node.url = newUrl.toString()
