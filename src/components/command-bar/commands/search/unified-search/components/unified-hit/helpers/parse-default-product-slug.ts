@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Helpers
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import { isProductSlug } from 'lib/products'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Icons
 import { IconDot16 } from '@hashicorp/flight-icons/svg-react/dot-16'
 // Components

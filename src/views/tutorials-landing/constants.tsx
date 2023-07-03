@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ProductSlug } from 'types/products'
 import bookmarkIcon from './img/bookmark-add-custom.svg?include'
 import playIcon from './img/play-custom.svg?include'
