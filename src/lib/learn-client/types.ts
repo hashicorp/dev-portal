@@ -74,6 +74,7 @@ export interface TutorialLite
 		Tutorial,
 		| 'id'
 		| 'name'
+		| 'shortName'
 		| 'slug'
 		| 'description'
 		| 'readTime'
