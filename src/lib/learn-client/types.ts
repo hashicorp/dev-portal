@@ -29,6 +29,7 @@ export interface Tutorial {
 	id?: ApiTutorial['id'] // uuid
 	slug: identifier
 	name: string
+	shortName: string
 	description: string
 	content: string // mdx content
 	collectionCtx: CollectionCtxLite
