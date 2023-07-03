@@ -14,6 +14,7 @@ const editionDisplayOptions: { [K in EditionOption]: string } = {
 	[EditionOption.openSource]: 'Open Source',
 	[EditionOption.enterprise]: 'Enterprise',
 	[EditionOption.hcp]: 'HCP',
+	[EditionOption.tfcFree]: 'Terraform Cloud',
 	[EditionOption.tfcStandard]: 'Standard',
 	[EditionOption.tfcPlus]: 'Plus',
 }

@@ -234,6 +234,7 @@ export enum EditionOption {
 	openSource = 'open_source',
 	enterprise = 'enterprise',
 	hcp = 'hcp',
+	tfcFree = 'tfc:free',
 	tfcStandard = 'tfc:standard',
 	tfcPlus = 'tfc:plus',
 }
