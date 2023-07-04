@@ -1,0 +1,42 @@
+.root {
+	background: var(--token-color-surface-highlight);
+	padding: 32px;
+}
+
+.container {
+	display: flex;
+	gap: 32px;
+	flex-wrap: wrap;
+}
+
+.instructions {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	max-width: 20em;
+}
+
+.fileInput {
+	position: relative;
+	overflow: hidden;
+	margin-top: 16px;
+
+	& > input {
+		width: 100%;
+	}
+}
+
+.textArea {
+	composes: hds-typography-code-100 from global;
+	background: var(--token-color-surface-highlight);
+	border-radius: 5px;
+	border: 1px solid var(--token-color-border-primary);
+	color: var(--token-color-foreground-primary);
+	flex-grow: 1;
+	height: 200px;
+	line-height: 1.6;
+	width: 20em;
+	flex-shrink: none;
+	padding: 16px;
+	resize: none;
+}
