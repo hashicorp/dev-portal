@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ProductUsed, TutorialLite } from 'lib/learn-client/types'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import { getCollectionSlug } from 'views/collection-view/helpers'
