@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import pageData from 'content/tutorials-landing.json'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { Collection } from 'lib/learn-client/types'
