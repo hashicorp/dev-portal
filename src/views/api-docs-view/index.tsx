@@ -41,7 +41,7 @@ function ApiDocsView({
 	 * In such cases, our page heading needs to be a `p` element to avoid
 	 * having multiple `h1` elements on the page.
 	 */
-	const pageHeadingTag = serviceData && serviceData.name ? 'p' : 'h1'
+	const pageHeadingTag = serviceData?.name ? 'p' : 'h1'
 
 	/**
 	 * We only show the version switcher if we have at least 2 options.
