@@ -1,0 +1,19 @@
+.root {
+	display: flex;
+	gap: 24px;
+}
+
+.sidebar {
+	padding: 24px;
+	width: 400px;
+	border: 1px solid var(--token-color-border-highlight);
+}
+
+.main {
+	padding: 24px;
+	border: 1px solid var(--token-color-border-highlight);
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	width: 100%;
+}

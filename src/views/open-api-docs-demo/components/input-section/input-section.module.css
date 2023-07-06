@@ -1,6 +1,7 @@
 .root {
 	background: var(--token-color-surface-highlight);
 	padding: 32px;
+	border-bottom: 1px solid var(--token-color-border-highlight);
 }
 
 .container {

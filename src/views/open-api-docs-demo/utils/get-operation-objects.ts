@@ -1,5 +1,9 @@
+import { getPathItemObjects } from './get-path-item-objects'
+import type { SchemaJson } from '../types'
+
 /* Given a schema, return a flattened list of operation objects */
-export function getOperationObjects(pathItemObjects: $TSFixMe): $TSFixMe[] {
+export function getOperationObjects(schemaJson: SchemaJson): $TSFixMe[] {
+	const pathItemObjects = getPathItemObjects(schemaJson)
 	const operationObjects = pathItemObjects.reduce((acc, pathItemObject) => {
 		// Each path can support many operations through different request types
 		const requestTypes = [
