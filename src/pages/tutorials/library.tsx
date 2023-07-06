@@ -4,7 +4,7 @@
  */
 
 import algoliasearch from 'algoliasearch/lite'
-import { Configure, InstantSearch } from 'react-instantsearch-hooks-web'
+import { InstantSearch } from 'react-instantsearch-hooks-web'
 import { history } from 'instantsearch.js/es/lib/routers'
 import { useRouter } from 'next/router'
 
