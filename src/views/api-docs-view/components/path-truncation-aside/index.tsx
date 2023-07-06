@@ -7,6 +7,17 @@ import DevDotContent from 'components/dev-dot-content'
 import CodeBlock from '@hashicorp/react-code-block'
 
 /**
+ * Truncates HCP Vault Secrets API operation paths for clarity.
+ * Intended to be used with a `<PathTruncationAside />` in each operation intro.
+ */
+function truncateVaultSecretsOperationPath(path: string) {
+	return path.replace(
+		/\/secrets\/\d\d\d\d-\d\d-\d\d\/organizations\/\{location.organization_id\}\/projects\/\{location\.project_id\}/,
+		''
+	)
+}
+
+/**
  * Truncates HCP Packer API operation paths for clarity.
  * Intended to be used with a `<PathTruncationAside />` in each operation intro.
  */
@@ -39,4 +50,8 @@ function PathTruncationAside({ path }: { path: string }) {
 	)
 }
 
-export { PathTruncationAside, truncatePackerOperationPath }
+export {
+	PathTruncationAside,
+	truncatePackerOperationPath,
+	truncateVaultSecretsOperationPath,
+}
