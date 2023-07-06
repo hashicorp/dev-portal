@@ -91,7 +91,7 @@ export const getStaticProps: GetStaticProps<
 		return { notFound: true }
 	}
 	// Return static props
-	return await getApiDocsStaticProps({
+	const staticPropsResult = await getApiDocsStaticProps({
 		productSlug: PRODUCT_SLUG,
 		baseUrl: BASE_URL,
 		pathParts: params.page,
@@ -106,6 +106,16 @@ export const getStaticProps: GetStaticProps<
 			})
 		},
 	})
+	/**
+	 * Shims specific to HCP Vault Secrets
+	 */
+	if (!('props' in staticPropsResult)) {
+		return staticPropsResult
+	}
+	// We shim in the removal of the service name, as it's redundant.
+	staticPropsResult.props.serviceData.name = ''
+	// Return the static props results with shimmed modifications
+	return staticPropsResult
 }
 
 export default HcpVaultSecretsApiDocsView
