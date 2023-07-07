@@ -8,8 +8,23 @@ import Text from 'components/text'
 import OpenApiDocsView from './open-api-docs-view'
 import { DevCodeBlock, InputSection } from './components'
 import { useSchemaJson, useSchemaAsProps } from './utils'
+// Default fixture value
+import HCP_VAULT_SECRETS_SCHEMA from './fixtures/hcp-vault-secrets.swagger.json'
 // Styles
 import s from './open-api-docs-demo.module.css'
+
+/**
+ * Use the HCP Vault Secrets schema as the default value, stringify it first.
+ *
+ * This is kind of silly, but when we load actual schemas we'll be getting
+ * a string value, so feels worth it to avoid having to refactor anything
+ * once we're ready to move into more of a production-ish setup.
+ */
+const DEFAULT_SCHEMA_FILE_STRING = JSON.stringify(
+	HCP_VAULT_SECRETS_SCHEMA,
+	null,
+	2
+)
 
 /**
  * Render the input section and display section together.
@@ -23,7 +38,9 @@ import s from './open-api-docs-demo.module.css'
  * - https://api.readme.dev/docs - just cool, not useful here
  */
 function OpenApiDocsDemoView() {
-	const [schemaFileString, setSchemaFileString] = useState('')
+	const [schemaFileString, setSchemaFileString] = useState(
+		DEFAULT_SCHEMA_FILE_STRING
+	)
 	const schemaJson = useSchemaJson(schemaFileString)
 
 	/**
