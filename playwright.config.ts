@@ -67,6 +67,8 @@ const config: PlaywrightTestConfig = {
 					// Run in preview mode to support changing the product based on the
 					// hc_dd_proxied_site cookie
 					HASHI_ENV: 'preview',
+					// Production cloudfront URL for learn-api
+					NEXT_PUBLIC_LEARN_API_URL: 'https://d12gxxue1j9dxg.cloudfront.net',
 				},
 		  }
 		: undefined,
