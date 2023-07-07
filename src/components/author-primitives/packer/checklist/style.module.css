@@ -6,13 +6,15 @@
 .root {
 	& ul {
 		list-style: none;
-		margin-left: 2rem;
+		margin-left: 8px;
 
 		& li {
-			color: #525252;
+			color: var(--token-color-foreground-primary);
+			position: relative;
 
 			&::before {
 				content: '';
+				position: absolute;
 				display: block;
 				width: 18px;
 				margin-left: calc(-1 * 1.6rem);
