@@ -47,8 +47,14 @@ function setHappyKitCookie(
  */
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const { geo } = req
-	const ua = userAgent(req)
-	console.log(`[DEBUG] user agent: ${JSON.stringify(ua, null, 2)}`)
+
+	// 07/07/2023 — Simple UA check
+	const { ua } = userAgent(req)
+	const regexp = /(bytespider|bytedance)/i
+	if (regexp.test(ua)) {
+		return NextResponse.json(null, { status: 404 })
+	}
+	// ----------------------
 
 	let response: NextResponse
 
