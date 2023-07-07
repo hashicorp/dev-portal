@@ -1,14 +1,24 @@
+import { ReactNode } from 'react'
 import AccordionDisclosure from 'components/accordion-disclosure'
 import s from './mdx-accordion.module.css'
 
-/**
- * @TODO
- *   - deprecate string option for collapse
- *   - warn that collapse is `true` by default now?
- */
-export const MdxAccordion = ({ children, collapse, heading }) => {
+interface MdxAccordionProps {
+	children: ReactNode
+	collapse?: 'true' | boolean
+	heading: string
+}
+
+export const MdxAccordion = ({
+	children,
+	collapse,
+	heading,
+}: MdxAccordionProps) => {
 	return (
-		<AccordionDisclosure title={heading} className={s.accordionWrapper}>
+		<AccordionDisclosure
+			title={heading}
+			className={s.accordionWrapper}
+			initialOpen={!collapse}
+		>
 			{children}
 		</AccordionDisclosure>
 	)
