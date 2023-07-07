@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import SwaggerParser from '@apidevtools/swagger-parser'
-import type { SchemaJson } from '../types'
+import type { OpenApiSchema } from '../types'
+
+type ParsedSchema = OpenApiSchema | { error: string }
 
 /**
  * Given a string of JSON, parse it into a schema data object.
@@ -17,10 +19,8 @@ import type { SchemaJson } from '../types'
  * Note: we'll need some UI / UX solution for presenting circular references
  * as well, I think!
  */
-export function useSchemaJson(
-	schemaFileString: string
-): SchemaJson | { error: string } {
-	const [schemaJson, setSchemaJson] = useState<SchemaJson>()
+export function useSchemaJson(schemaFileString: string): ParsedSchema {
+	const [schemaJson, setSchemaJson] = useState<ParsedSchema>()
 
 	/**
 	 * When the incoming schema file string changes, parse & validate it.

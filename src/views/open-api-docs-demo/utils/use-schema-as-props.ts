@@ -1,19 +1,19 @@
 import { useMemo } from 'react'
-import { getOperationObjects } from '.'
-import { OpenApiDocsViewProps, SchemaJson } from '../types'
+import { getOperationProps } from '.'
+import { OpenApiDocsViewProps, OpenApiSchema } from '../types'
 
 /**
  * Given a schema object,
  * Return props for an Open API docs view.
  */
 export function useSchemaAsProps(
-	schemaJson: SchemaJson
+	schemaJson: OpenApiSchema | { error: string }
 ): OpenApiDocsViewProps | null {
 	const viewProps = useMemo(() => {
 		if (!schemaJson || 'error' in schemaJson) {
 			return null
 		}
-		const operationObjects = getOperationObjects(schemaJson)
+		const operationObjects = getOperationProps(schemaJson)
 		return { operationObjects, _schema: schemaJson }
 	}, [schemaJson])
 

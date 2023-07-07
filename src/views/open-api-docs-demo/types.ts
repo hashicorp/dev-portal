@@ -1,7 +1,18 @@
-// TODO: replace with zod schema, and inferred type as a result, maybe?
-export type SchemaJson = $TSFixMe
+import { OpenAPI } from 'openapi-types'
+
+type DataForPrototyping = $TSFixMe
+
+export interface OperationProps {
+	operationId: string
+	slug: string
+	summary?: string
+	_data: DataForPrototyping
+}
 
 export interface OpenApiDocsViewProps {
-	operationObjects: $TSFixMe
-	_schema: SchemaJson
+	operationObjects: OperationProps[]
+	_schema: OpenApiSchema
 }
+
+type OpenApiSchema = OpenAPI.Document
+export type { OpenApiSchema }
