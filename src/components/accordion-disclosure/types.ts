@@ -13,6 +13,8 @@ export interface AccordionDisclosureProps {
 	 */
 	children: ReactNode
 
+	className?: string
+
 	/**
 	 * Secondary label text that renders below the main `title` with less
 	 * emphasis. Always shows regardless of the `AccordionDisclosure`'s

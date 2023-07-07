@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+export * from './mdx-accordion'
 export * from './mdx-blockquote'
 export * from './mdx-code-blocks'
 export * from './mdx-headings'
