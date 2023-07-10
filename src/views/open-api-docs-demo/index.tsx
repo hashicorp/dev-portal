@@ -6,7 +6,12 @@ import BaseNewLayout from 'layouts/base-new'
 import Text from 'components/text'
 // Local
 import OpenApiDocsView from './open-api-docs-view'
-import { DevCodeBlock, InputSection } from './components'
+import {
+	DevCodeBlock,
+	InputSection,
+	MobileMenuLevels,
+	buildMobileMenu,
+} from './components'
 import { useSchemaJson, useSchemaAsProps } from './utils'
 // Default fixture value
 import HCP_VAULT_SECRETS_SCHEMA from './fixtures/hcp-vault-secrets.swagger.json'
@@ -53,7 +58,10 @@ function OpenApiDocsDemoView() {
 	const viewProps = useSchemaAsProps(schemaJson)
 
 	return (
-		<BaseNewLayout showFooterTopBorder>
+		<BaseNewLayout
+			showFooterTopBorder
+			mobileMenuSlot={<MobileMenuLevels levels={buildMobileMenu()} />}
+		>
 			<div className={s.root}>
 				<InputSection
 					fileString={schemaFileString}

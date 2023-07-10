@@ -4,6 +4,7 @@
  */
 
 // Third-party imports
+import type { ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import AlertBanner from '@hashicorp/react-alert-banner'
@@ -59,6 +60,7 @@ const NonProductPageMobileMenu = () => {
 const BaseNewLayout = ({
 	children,
 	showFooterTopBorder = false,
+	mobileMenuSlot,
 }: BaseNewLayoutProps) => {
 	const router = useRouter()
 
@@ -71,9 +73,21 @@ const BaseNewLayout = ({
 	/**
 	 * We only want to show this menu for certain routes. Other routes use
 	 * SidebarSidecarLayout, which handles the mobile menu for those routes.
+	 *
+	 * TODO: update description, we could accept a slot prop here to
+	 * allow composition of layouts rather than passing data through
+	 * the SidebarNavDataProvider.
 	 */
+	let parsedMobileMenuSlot: ReactNode
 	const shouldShowMobileMenu =
 		__config.dev_dot.non_product_mobile_menu_routes.includes(router.route)
+	if (mobileMenuSlot) {
+		parsedMobileMenuSlot = mobileMenuSlot
+	} else if (shouldShowMobileMenu) {
+		parsedMobileMenuSlot = <NonProductPageMobileMenu />
+	} else {
+		parsedMobileMenuSlot = null
+	}
 
 	return (
 		<CommandBarProvider>
@@ -89,7 +103,7 @@ const BaseNewLayout = ({
 						<NavigationHeader />
 					</div>
 					<div className={s.contentArea}>
-						{shouldShowMobileMenu ? <NonProductPageMobileMenu /> : null}
+						{parsedMobileMenuSlot}
 						{children}
 					</div>
 					<div

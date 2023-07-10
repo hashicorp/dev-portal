@@ -17,6 +17,11 @@ interface BaseNewLayoutProps {
 	 * the footer from the page contents above.
 	 */
 	showFooterTopBorder?: boolean
+
+	/**
+	 * TODO: this is temporary, exploring how to untangle things
+	 */
+	mobileMenuSlot?: ReactNode
 }
 
 interface AlertBannerProps {
