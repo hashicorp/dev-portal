@@ -14,6 +14,7 @@ import {
 import { getCollection } from 'lib/learn-client/api/collection'
 import { CollectionContext } from '..'
 import { formatCollectionCard } from 'components/collection-card/helpers'
+import { splitProductFromFilename } from '.'
 
 /**
  * We need to get the database slug for this tutorial, which may belong in a different
@@ -57,10 +58,8 @@ export async function getCurrentCollectionTutorial(
 	 * so we only need the slug to make another request to get the full tutorial data in server.ts
 	 */
 	const currentTutorial = collection?.tutorials.find(
-		(t: ClientTutorialLite) => {
-			const [, currentTFilename] = t.slug.split('/')
-			return tutorialFilename === currentTFilename
-		}
+		(t: ClientTutorialLite) =>
+			tutorialFilename === splitProductFromFilename(t.slug)
 	)
 
 	if (!currentTutorial) {

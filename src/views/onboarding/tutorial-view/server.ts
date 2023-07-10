@@ -48,10 +48,8 @@ export async function getOnboardingTutorialProps(
 			collection.slug === `${onboardingData.slug}/${collectionFilename}`
 	)
 	const currentTutorialReference = currentCollection?.tutorials.find(
-		(t: ApiTutorialLite) => {
-			const [, currentTFilename] = t.slug.split('/')
-			return tutorialFilename === currentTFilename
-		}
+		(t: ApiTutorialLite) =>
+			tutorialFilename === splitProductFromFilename(t.slug)
 	)
 
 	// The tutorial doesn't exist in collection - return 404
