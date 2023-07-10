@@ -9,8 +9,33 @@ import { test, expect } from '@playwright/test'
  * List of dev-portal paths and expected H1's.
  */
 
-// this currently contains the first collection for each product and the first 2 tutorials
+// First 2 alphabetical collections for each product & the first 3 tutorials for each
+// This test and list should be treated as ephemeral as collections and tutorials are subject to change, making this
+// list out of date.
 const table = [
+	['/hcp/tutorials/consul-cloud', 'HashiCorp Cloud Platform'],
+	[
+		'/hcp/tutorials/consul-cloud/amazon-peering-hcp',
+		'Peering an AWS VPC with HashiCorp Cloud Platform (HCP)',
+	],
+	['/hcp/tutorials/consul-cloud/consul-deploy', 'Deploy HCP Consul'],
+	[
+		'/hcp/tutorials/consul-cloud/consul-client-aws-ec2',
+		'Configure EC2 as a Consul Client for HCP Consul',
+	],
+	['/hcp/tutorials/networking', 'HashiCorp Virtual Network'],
+	[
+		'/hcp/tutorials/networking/amazon-peering-hcp',
+		'Peering an AWS VPC with HashiCorp Cloud Platform (HCP)',
+	],
+	[
+		'/hcp/tutorials/networking/azure-peering-hcp',
+		'Peering an Azure Virtual Network with HashiCorp Cloud Platform (HCP)',
+	],
+	[
+		'/hcp/tutorials/networking/amazon-transit-gateway',
+		'Connect an Amazon Transit Gateway to your HashiCorp Virtual Network',
+	],
 	[
 		'/boundary/tutorials/credential-management',
 		'Credential Management Workflows',
@@ -23,26 +48,38 @@ const table = [
 		'/boundary/tutorials/credential-management/hcp-certificate-injection',
 		'SSH Certificate Injection with HCP Boundary',
 	],
-	['/hcp/tutorials/networking', 'HashiCorp Virtual Network'],
 	[
-		'/hcp/tutorials/networking/amazon-peering-hcp',
-		'Peering an AWS VPC with HashiCorp Cloud Platform (HCP)',
+		'/boundary/tutorials/credential-management/hcp-private-vault-cred-injection',
+		'HCP Credential Injection with Private Vault',
+	],
+	['/boundary/tutorials/enterprise', 'Boundary Enterprise'],
+	[
+		'/boundary/tutorials/enterprise/hashicorp-enterprise-license',
+		'Install a HashiCorp Enterprise License',
 	],
 	[
-		'/hcp/tutorials/networking/azure-peering-hcp',
-		'Peering an Azure Virtual Network with HashiCorp Cloud Platform (HCP)',
+		'/boundary/tutorials/enterprise/ent-reference-architecture',
+		'Boundary Enterprise Reference Architecture',
 	],
 	[
-		'/onboarding/consul-enterprise-week-1',
-		'Consul Enterprise Week 1 Onboarding Journey',
+		'/boundary/tutorials/enterprise/ent-deployment-guide',
+		'Boundary Enterprise Deployment Guide',
 	],
 	[
-		'/onboarding/consul-enterprise-week-1/consul-enterprise-w1-welcome',
-		'Week 1 - Welcome to Consul Enterprise',
+		'/nomad/tutorials/advanced-scheduling',
+		'Define Application Placement Preferences',
 	],
 	[
-		'/onboarding/consul-enterprise-week-1/reference-architecture',
-		'Consul Reference Architecture',
+		'/nomad/tutorials/advanced-scheduling/advanced-scheduling',
+		'Advanced Scheduling with Nomad',
+	],
+	[
+		'/nomad/tutorials/advanced-scheduling/preemption',
+		'Prevent Priority Inversion with Preemption',
+	],
+	[
+		'/nomad/tutorials/advanced-scheduling/affinity',
+		'Express Job Placement Preferences with Affinities',
 	],
 	['/nomad/tutorials/access-control', 'Secure Nomad with Access Control'],
 	[
@@ -52,6 +89,10 @@ const table = [
 	[
 		'/nomad/tutorials/access-control/access-control-bootstrap',
 		'Bootstrap Nomad ACL System',
+	],
+	[
+		'/nomad/tutorials/access-control/access-control-policies',
+		'Nomad ACL Policy Concepts',
 	],
 	[
 		'/consul/tutorials/certification-associate-tutorials',
@@ -65,14 +106,22 @@ const table = [
 		'/consul/tutorials/certification-associate-tutorials/federation-gossip-wan',
 		'Federate Multiple Datacenters Using WAN Gossip',
 	],
-	['/vagrant/tutorials/getting-started', 'Get Started'],
 	[
-		'/vagrant/tutorials/getting-started/getting-started-index',
-		'What is Vagrant?',
+		'/consul/tutorials/certification-associate-tutorials/deployment-guide',
+		'Deployment Guide',
+	],
+	['/consul/tutorials/certification', 'Prepare for Consul Certification'],
+	[
+		'/consul/tutorials/certification/associate-study',
+		'Study Guide - Consul Associate Certification',
 	],
 	[
-		'/vagrant/tutorials/getting-started/getting-started-install',
-		'Install Vagrant',
+		'/consul/tutorials/certification/associate-questions',
+		'Sample Questions - Consul Associate Certification',
+	],
+	[
+		'/consul/tutorials/certification/associate-review',
+		'Review Guide - Consul Associate Certification',
 	],
 	['/packer/tutorials/aws-get-started', 'Getting Started with AWS'],
 	[
@@ -83,6 +132,81 @@ const table = [
 		'/packer/tutorials/aws-get-started/aws-get-started-build-image',
 		'Build an Image',
 	],
+	['/packer/tutorials/aws-get-started/aws-get-started-provision', 'Provision'],
+	['/packer/tutorials/cloud-production', 'Use Cases'],
+	[
+		'/packer/tutorials/cloud-production/golden-image-with-hcp-packer',
+		'Build a Golden Image Pipeline with HCP Packer',
+	],
+	[
+		'/packer/tutorials/cloud-production/multicloud',
+		'Standardize Machine Images Across Multiple Cloud Providers',
+	],
+	[
+		'/packer/tutorials/cloud-production/github-actions',
+		'Automate Packer with GitHub Actions',
+	],
+	[
+		'/onboarding/consul-enterprise-week-1',
+		'Consul Enterprise Week 1 Onboarding Journey',
+	],
+	[
+		'/onboarding/consul-enterprise-week-1/consul-enterprise-w1-welcome',
+		'Week 1 - Welcome to Consul Enterprise',
+	],
+	[
+		'/onboarding/consul-enterprise-week-1/reference-architecture',
+		'Consul Reference Architecture',
+	],
+	[
+		'/onboarding/consul-enterprise-week-1/kubernetes-minikube',
+		'Consul Service Discovery and Service Mesh on Minikube',
+	],
+	[
+		'/onboarding/consul-enterprise-week-2',
+		'Consul Enterprise Week 2 Onboarding Journey',
+	],
+	[
+		'/onboarding/consul-enterprise-week-2/consul-enterprise-w2-welcome',
+		'Week 2 - Welcome to Consul Enterprise',
+	],
+	[
+		'/onboarding/consul-enterprise-week-2/virtual-machine-gs-service-discovery',
+		'Register your services to Consul',
+	],
+	[
+		'/onboarding/consul-enterprise-week-2/consul-enterprise-service-definitions',
+		'Register Services with Service Definitions',
+	],
+	['/vagrant/tutorials/getting-started', 'Get Started'],
+	[
+		'/vagrant/tutorials/getting-started/getting-started-index',
+		'What is Vagrant?',
+	],
+	[
+		'/vagrant/tutorials/getting-started/getting-started-install',
+		'Install Vagrant',
+	],
+	[
+		'/vagrant/tutorials/getting-started/getting-started-project-setup',
+		'Initialize a Project Directory',
+	],
+	[
+		'/vagrant/tutorials/networking-provisioning-operations',
+		'Networking and Provisioning Environments',
+	],
+	[
+		'/vagrant/tutorials/networking-provisioning-operations/getting-started-provisioning',
+		'Provision a Virtual Machine',
+	],
+	[
+		'/vagrant/tutorials/networking-provisioning-operations/getting-started-networking',
+		'Configure the Network',
+	],
+	[
+		'/vagrant/tutorials/networking-provisioning-operations/getting-started-providers',
+		'Explore Other Providers',
+	],
 	['/terraform/tutorials/0-14', 'Terraform 0.14 tutorials'],
 	[
 		'/terraform/tutorials/0-14/sensitive-variables',
@@ -92,15 +216,22 @@ const table = [
 		'/terraform/tutorials/0-14/provider-versioning',
 		'Lock and Upgrade Provider Versions',
 	],
-	['/vault/tutorials/app-integration', 'App Integration'],
+	['/terraform/tutorials/0-13', 'Terraform 0.13 tutorials'],
+	['/terraform/tutorials/0-13/count', 'Manage Similar Resources with Count'],
 	[
-		'/vault/tutorials/app-integration/secure-introduction',
-		'Secure Introduction of Vault Clients',
+		'/terraform/tutorials/0-13/for-each',
+		'Manage Similar Resources with For Each',
 	],
 	[
-		'/vault/tutorials/app-integration/application-integration',
-		'Use Consul Template and Envconsul with Vault',
+		'/terraform/tutorials/0-13/cloud-login',
+		'Log in to Terraform Cloud from the CLI',
 	],
+	['/waypoint/tutorials/configuration', 'Configuration'],
+	[
+		'/waypoint/tutorials/configuration/static-application-configuration',
+		'Static Application Configuration',
+	],
+	['/waypoint/tutorials/configuration/input-variables', 'Input Variables'],
 	['/waypoint/tutorials/application-deployment', 'Application Deployment'],
 	[
 		'/waypoint/tutorials/application-deployment/gitops-helm-deployment',
@@ -114,6 +245,34 @@ const table = [
 	[
 		'/well-architected-framework/com/implement-cloud-operating-model',
 		'HashiCorp Well-Architected Framework Introduction',
+	],
+	['/well-architected-framework/nomad', 'Nomad'],
+	[
+		'/well-architected-framework/nomad/production-reference-architecture-vm-with-consul',
+		'Nomad Reference Architecture',
+	],
+	['/vault/tutorials/adp', 'Advanced Data Protection'],
+	['/vault/tutorials/adp/transform', 'Transform Secrets Engine'],
+	[
+		'/vault/tutorials/adp/tokenization',
+		'Tokenize Data with Transform Secrets Engine',
+	],
+	[
+		'/vault/tutorials/adp/transform-code-example',
+		'Encrypting data with Transform secrets engine',
+	],
+	['/vault/tutorials/app-integration', 'App Integration'],
+	[
+		'/vault/tutorials/app-integration/secure-introduction',
+		'Secure Introduction of Vault Clients',
+	],
+	[
+		'/vault/tutorials/app-integration/application-integration',
+		'Use Consul Template and Envconsul with Vault',
+	],
+	[
+		'/vault/tutorials/app-integration/approle-trusted-entities',
+		'AppRole With Terraform & Chef',
 	],
 ]
 
