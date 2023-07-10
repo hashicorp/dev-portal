@@ -36,6 +36,7 @@ export async function getOnboardingTutorialProps(
 ): Promise<{ props: OnboardingTutorialViewProps }> {
 	// Remove the variant from the slug
 	const tutorialSlug = fullSlug.slice(0, 2) as [string, string]
+	console.log({ tutorialSlug })
 	const [collectionFilename, tutorialFilename] = tutorialSlug
 	const currentPath = `/${onboardingData.slug}/${tutorialSlug.join('/')}`
 
@@ -47,14 +48,17 @@ export async function getOnboardingTutorialProps(
 		(collection: ApiCollection) =>
 			collection.slug === `${onboardingData.slug}/${collectionFilename}`
 	)
-	const currentTutorialReference = currentCollection?.tutorials.find((t) =>
-		t.slug.endsWith(tutorialFilename)
-	)
+	const currentTutorialReference = currentCollection?.tutorials.find((t) => {
+		const [, currentTFilename] = t.slug.split('/')
+		return tutorialFilename === currentTFilename
+	})
 
 	// The tutorial doesn't exist in collection - return 404
 	if (!currentCollection || !currentTutorialReference) {
 		return null
 	}
+
+	console.log({ currentTutorialReference })
 
 	// Need to get tutorial data with full mdx content
 	const fullTutorialData = await getTutorial(currentTutorialReference.slug)
