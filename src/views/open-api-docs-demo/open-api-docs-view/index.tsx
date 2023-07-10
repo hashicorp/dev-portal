@@ -12,6 +12,7 @@ import CodeBlock from '@hashicorp/react-code-block'
 import Text from 'components/text'
 import Badge from 'components/badge'
 import { truncateHcpOperationPath } from '../utils'
+import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
 
 /**
  * Placeholder for an Open API docs view.
@@ -20,6 +21,7 @@ function OpenApiDocsView({ operationObjects, _schema }: OpenApiDocsViewProps) {
 	return (
 		<div className={s.root}>
 			<div className={s.sidebar}>
+				<SidebarBackToLink text="HashiCorp Cloud Platform" href="/hcp" />
 				<OpenApiSidebarContents operationObjects={operationObjects} />
 			</div>
 			<div className={s.main}>

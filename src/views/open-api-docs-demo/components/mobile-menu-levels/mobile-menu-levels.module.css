@@ -10,10 +10,12 @@
 
 .levelUpButton {
 	margin-right: auto;
+	padding: 7px 9px 7px 3px;
 }
 
 .levelDownButton {
 	margin-left: auto;
+	padding: 7px 9px 7px 3px;
 }
 
 .listResetStyles {

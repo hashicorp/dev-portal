@@ -64,7 +64,7 @@ function OpenApiDocsDemoView() {
 			mobileMenuSlot={
 				<MobileMenuLevels
 					levels={buildMobileMenuLevels({
-						heading: 'HCP Vault Secrets API',
+						heading: 'Vault Secrets API',
 						content:
 							viewProps !== null ? (
 								<OpenApiSidebarContents

@@ -4,12 +4,19 @@
 }
 
 .sidebar {
+	display: none;
 	border: 1px solid var(--token-color-border-highlight);
 	height: calc(100vh - var(--navigation-header-height));
 	padding: 24px;
 	position: sticky;
 	top: var(--navigation-header-height);
 	width: 400px;
+	overflow: auto;
+	padding-bottom: 100px;
+
+	@media (--dev-dot-hide-mobile-menu) {
+		display: block;
+	}
 }
 
 .main {
@@ -19,8 +26,7 @@
 	flex: 1 1 0;
 	gap: 24px;
 	min-width: 0;
-	padding: 24px;
-	padding-bottom: 120px;
+	padding: 24px 24px 120px 24px;
 }
 
 /**

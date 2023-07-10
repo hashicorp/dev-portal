@@ -72,10 +72,11 @@ export function buildMobileMenuLevels({
 		{
 			heading,
 			content: (
-				<>
+				<div>
 					{/* Provided content for this level */}
 					{content}
 					{/* Common resources for this product */}
+					<SidebarHorizontalRule />
 					<ul className={s.listResetStyles}>
 						{generateResourcesNavItems(hcpProductData.slug as $TSFixMe).map(
 							(item, index) => (
@@ -84,7 +85,7 @@ export function buildMobileMenuLevels({
 							)
 						)}
 					</ul>
-				</>
+				</div>
 			),
 		},
 	]
