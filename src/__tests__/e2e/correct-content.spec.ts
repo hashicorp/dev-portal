@@ -11,15 +11,6 @@ import { test, expect } from '@playwright/test'
 
 // this currently contains the first collection for each product and the first 2 tutorials
 const table = [
-	['/cloud/tutorials/networking', 'HashiCorp Virtual Network'],
-	[
-		'/cloud/tutorials/networking/amazon-peering-hcp',
-		'Peering an AWS VPC with HashiCorp Cloud Platform (HCP)',
-	],
-	[
-		'/cloud/tutorials/networking/azure-peering-hcp',
-		'Peering an Azure Virtual Network with HashiCorp Cloud Platform (HCP)',
-	],
 	[
 		'/boundary/tutorials/credential-management',
 		'Credential Management Workflows',
@@ -32,6 +23,27 @@ const table = [
 		'/boundary/tutorials/credential-management/hcp-certificate-injection',
 		'SSH Certificate Injection with HCP Boundary',
 	],
+	['/hcp/tutorials/networking', 'HashiCorp Virtual Network'],
+	[
+		'/hcp/tutorials/networking/amazon-peering-hcp',
+		'Peering an AWS VPC with HashiCorp Cloud Platform (HCP)',
+	],
+	[
+		'/hcp/tutorials/networking/azure-peering-hcp',
+		'Peering an Azure Virtual Network with HashiCorp Cloud Platform (HCP)',
+	],
+	[
+		'/onboarding/consul-enterprise-week-1',
+		'Consul Enterprise Week 1 Onboarding Journey',
+	],
+	[
+		'/onboarding/consul-enterprise-week-1/consul-enterprise-w1-welcome',
+		'Week 1 - Welcome to Consul Enterprise',
+	],
+	[
+		'/onboarding/consul-enterprise-week-1/reference-architecture',
+		'Consul Reference Architecture',
+	],
 	['/nomad/tutorials/access-control', 'Secure Nomad with Access Control'],
 	[
 		'/nomad/tutorials/access-control/access-control',
@@ -40,18 +52,6 @@ const table = [
 	[
 		'/nomad/tutorials/access-control/access-control-bootstrap',
 		'Bootstrap Nomad ACL System',
-	],
-	[
-		'/onboarding/tutorials/consul-enterprise-week-1',
-		'Consul Enterprise Week 1 Onboarding Journey',
-	],
-	[
-		'/onboarding/tutorials/consul-enterprise-week-1/consul-enterprise-w1-welcome',
-		'Week 1 - Welcome to Consul Enterprise',
-	],
-	[
-		'/onboarding/tutorials/consul-enterprise-week-1/reference-architecture',
-		'Consul Reference Architecture',
 	],
 	[
 		'/consul/tutorials/certification-associate-tutorials',
@@ -65,6 +65,15 @@ const table = [
 		'/consul/tutorials/certification-associate-tutorials/federation-gossip-wan',
 		'Federate Multiple Datacenters Using WAN Gossip',
 	],
+	['/vagrant/tutorials/getting-started', 'Get Started'],
+	[
+		'/vagrant/tutorials/getting-started/getting-started-index',
+		'What is Vagrant?',
+	],
+	[
+		'/vagrant/tutorials/getting-started/getting-started-install',
+		'Install Vagrant',
+	],
 	['/packer/tutorials/aws-get-started', 'Getting Started with AWS'],
 	[
 		'/packer/tutorials/aws-get-started/get-started-install-cli',
@@ -74,23 +83,23 @@ const table = [
 		'/packer/tutorials/aws-get-started/aws-get-started-build-image',
 		'Build an Image',
 	],
+	['/terraform/tutorials/0-14', 'Terraform 0.14 tutorials'],
 	[
-		'/vagrant/tutorials/networking-provisioning-operations',
-		'Networking and Provisioning Environments',
+		'/terraform/tutorials/0-14/sensitive-variables',
+		'Protect Sensitive Input Variables',
 	],
 	[
-		'/vagrant/tutorials/networking-provisioning-operations/getting-started-provisioning',
-		'Provision a Virtual Machine',
+		'/terraform/tutorials/0-14/provider-versioning',
+		'Lock and Upgrade Provider Versions',
+	],
+	['/vault/tutorials/app-integration', 'App Integration'],
+	[
+		'/vault/tutorials/app-integration/secure-introduction',
+		'Secure Introduction of Vault Clients',
 	],
 	[
-		'/vagrant/tutorials/networking-provisioning-operations/getting-started-networking',
-		'Configure the Network',
-	],
-	['/terraform/tutorials/0-13', 'Terraform 0.13 tutorials'],
-	['/terraform/tutorials/0-13/count', 'Manage Similar Resources with Count'],
-	[
-		'/terraform/tutorials/0-13/for-each',
-		'Manage Similar Resources with For Each',
+		'/vault/tutorials/app-integration/application-integration',
+		'Use Consul Template and Envconsul with Vault',
 	],
 	['/waypoint/tutorials/application-deployment', 'Application Deployment'],
 	[
@@ -105,12 +114,6 @@ const table = [
 	[
 		'/well-architected-framework/com/implement-cloud-operating-model',
 		'HashiCorp Well-Architected Framework Introduction',
-	],
-	['/vault/tutorials/adp', 'Advanced Data Protection'],
-	['/vault/tutorials/adp/transform', 'Transform Secrets Engine'],
-	[
-		'/vault/tutorials/adp/tokenization',
-		'Tokenize Data with Transform Secrets Engine',
 	],
 ]
 
