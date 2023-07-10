@@ -234,17 +234,9 @@ export enum EditionOption {
 	openSource = 'open_source',
 	enterprise = 'enterprise',
 	hcp = 'hcp',
+	tfcFree = 'tfc:free',
 	tfcStandard = 'tfc:standard',
 	tfcPlus = 'tfc:plus',
-	/**
-	 * Deprecated pricing tiers as of March '23
-	 * To be removed after all content is updated
-	 */
-	tfcFree = 'tfc:free',
-	tfcTeam = 'tfc:team',
-	tfcGov = 'tfc:team_governance',
-	tfcBiz = 'tfc:business',
-	/* ----------------------------------*/
 }
 
 export type BadgeOption =

@@ -20,6 +20,7 @@ import useHover from 'hooks/use-hover'
 
 const AccordionDisclosure = ({
 	children,
+	className,
 	description,
 	initialOpen,
 	title,
@@ -67,7 +68,7 @@ const AccordionDisclosure = ({
 				initialOpen={initialOpen}
 			>
 				<DisclosureActivator
-					className={s.button}
+					className={classNames(s.button, className)}
 					data-heap-track="accordion-disclosure-activator"
 					ref={hoverRef}
 				>
