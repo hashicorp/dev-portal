@@ -10,7 +10,8 @@ import {
 	DevCodeBlock,
 	InputSection,
 	MobileMenuLevels,
-	buildMobileMenu,
+	OpenApiSidebarContents,
+	buildMobileMenuLevels,
 } from './components'
 import { useSchemaJson, useSchemaAsProps } from './utils'
 // Default fixture value
@@ -60,7 +61,19 @@ function OpenApiDocsDemoView() {
 	return (
 		<BaseNewLayout
 			showFooterTopBorder
-			mobileMenuSlot={<MobileMenuLevels levels={buildMobileMenu()} />}
+			mobileMenuSlot={
+				<MobileMenuLevels
+					levels={buildMobileMenuLevels({
+						heading: 'HCP Vault Secrets API',
+						content:
+							viewProps !== null ? (
+								<OpenApiSidebarContents
+									operationObjects={viewProps.operationObjects}
+								/>
+							) : null,
+					})}
+				/>
+			}
 		>
 			<div className={s.root}>
 				<InputSection

@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import {
 	SidebarHorizontalRule,
 	SidebarNavMenuItem,
@@ -6,9 +7,22 @@ import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-item
 import { generateProductLandingSidebarMenuItems } from 'components/sidebar/helpers/generate-product-landing-nav-items'
 import { generateResourcesNavItems } from 'components/sidebar/helpers'
 import hcpProductData from 'data/hcp.json'
-import s from './build-mobile-menu.module.css'
+import s from './mobile-menu-levels.module.css'
 
-export function buildMobileMenu() {
+/**
+ * TODO: this is a total stopgap, just trying to get
+ * something workable for mobile menu prototyping.
+ *
+ * Intent is to solidify this into an alternative pattern
+ * for composing mobile menu contents later.
+ */
+export function buildMobileMenuLevels({
+	heading,
+	content,
+}: {
+	heading: string
+	content: ReactNode
+}) {
 	return [
 		{
 			heading: 'Main Menu',
@@ -56,14 +70,12 @@ export function buildMobileMenu() {
 			),
 		},
 		{
-			heading: 'HCP Vault Secrets API',
+			heading,
 			content: (
-				<ul className={s.listResetStyles}>
-					<h3 className={s.heading}>HCP Vault Secrets API</h3>
-					<div style={{ border: '1px solid magenta' }}>
-						TODO: mobile nav contents will go here
-					</div>
-					<SidebarHorizontalRule />
+				<>
+					{/* Provided content for this level */}
+					{content}
+					{/* Common resources for this product */}
 					<ul className={s.listResetStyles}>
 						{generateResourcesNavItems(hcpProductData.slug as $TSFixMe).map(
 							(item, index) => (
@@ -72,7 +84,7 @@ export function buildMobileMenu() {
 							)
 						)}
 					</ul>
-				</ul>
+				</>
 			),
 		},
 	]

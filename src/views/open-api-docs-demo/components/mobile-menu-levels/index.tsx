@@ -15,8 +15,11 @@ interface MobileMenuLevelData {
 }
 
 /**
- * The mobile menu that shows on non-product pages, or pages that do not use the
- * SidebarSidecarLayout that usually handles the mobile menu.
+ * TODO: this is a total stopgap, just trying to get
+ * something workable for mobile menu prototyping.
+ *
+ * Intent is to solidify this into an alternative pattern
+ * for composing mobile menu contents later.
  */
 export function MobileMenuLevels({
 	levels,

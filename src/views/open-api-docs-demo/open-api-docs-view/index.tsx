@@ -1,5 +1,5 @@
 // Local
-import { DevCodeBlock } from '../components'
+import { DevCodeBlock, OpenApiSidebarContents } from '../components'
 // Types
 import type {
 	OpenApiDocsViewProps,
@@ -20,18 +20,7 @@ function OpenApiDocsView({ operationObjects, _schema }: OpenApiDocsViewProps) {
 	return (
 		<div className={s.root}>
 			<div className={s.sidebar}>
-				<ul>
-					<li>
-						<a href={`#overview`}>Overview</a>
-					</li>
-					{operationObjects.map((o) => {
-						return (
-							<li key={o.operationId}>
-								<a href={`#${o.slug}`}>{o.operationId}</a>
-							</li>
-						)
-					})}
-				</ul>
+				<OpenApiSidebarContents operationObjects={operationObjects} />
 			</div>
 			<div className={s.main}>
 				<MdxHeadingOutsideMdx id="overview" level={3} title="Overview" />
