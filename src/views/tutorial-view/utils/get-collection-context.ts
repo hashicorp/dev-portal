@@ -9,6 +9,7 @@ import {
 	ProductOption,
 	SectionOption,
 	TutorialFullCollectionCtx as ClientTutorialFullCollectionCtx,
+	TutorialLite as ClientTutorialLite,
 } from 'lib/learn-client/types'
 import { getCollection } from 'lib/learn-client/api/collection'
 import { CollectionContext } from '..'
@@ -55,8 +56,11 @@ export async function getCurrentCollectionTutorial(
 	 * This type is only `TutorialLite` which doesn't have the tutorial content
 	 * so we only need the slug to make another request to get the full tutorial data in server.ts
 	 */
-	const currentTutorial = collection?.tutorials.find((t) =>
-		t.slug.endsWith(tutorialFilename)
+	const currentTutorial = collection?.tutorials.find(
+		(t: ClientTutorialLite) => {
+			const [, currentTFilename] = t.slug.split('/')
+			return tutorialFilename === currentTFilename
+		}
 	)
 
 	if (!currentTutorial) {
