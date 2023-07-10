@@ -68,7 +68,7 @@ function OpenApiDocsDemoView() {
 						content:
 							viewProps !== null ? (
 								<OpenApiSidebarContents
-									operationObjects={viewProps.operationObjects}
+									operationGroups={viewProps.operationGroups}
 								/>
 							) : null,
 					})}

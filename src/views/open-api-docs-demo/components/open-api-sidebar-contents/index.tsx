@@ -1,33 +1,44 @@
 import { useMemo } from 'react'
 
 import { SidebarNavMenuItem } from 'components/sidebar/components'
-import { OperationProps } from 'views/open-api-docs-demo/types'
-import s from './open-api-sidebar-contents.module.css'
+import { OperationGroup } from 'views/open-api-docs-demo/types'
 import { useActiveSection } from 'lib/hash-links/use-active-section'
+import s from './open-api-sidebar-contents.module.css'
 
 export function OpenApiSidebarContents({
-	operationObjects,
+	operationGroups,
 }: {
-	operationObjects: OperationProps[]
+	operationGroups: OperationGroup[]
 }) {
+	// Determine active section
 	const operationSlugs = useMemo(
-		() => operationObjects.map((o) => o.slug),
-		[operationObjects]
+		() => operationGroups.map(({ items }) => items.map((o) => o.slug)).flat(),
+		[operationGroups]
 	)
 	const activeSection = useActiveSection(operationSlugs)
 
 	/**
-	 * TODO: group into sections
+	 * Build nav items for operation groups
 	 */
-	const operationNavItems = useMemo(
-		() =>
-			operationObjects.map((o) => ({
-				title: o.operationId,
-				fullPath: `#${o.slug}`,
-				isActive: o.slug === activeSection,
-			})),
-		[operationObjects, activeSection]
-	)
+	const operationNavItems = useMemo(() => {
+		// format to sidebar sections
+		return Object.keys(operationGroups)
+			.map((groupSlug: string) => {
+				const { heading, items } = operationGroups[groupSlug]
+				return [
+					{ divider: true },
+					{
+						heading,
+					},
+					...items.map((o) => ({
+						title: o.operationId,
+						fullPath: `#${o.slug}`,
+						isActive: o.slug === activeSection,
+					})),
+				]
+			})
+			.flat()
+	}, [operationGroups, activeSection])
 
 	return (
 		<ul className={s.listResetStyles}>
@@ -37,9 +48,6 @@ export function OpenApiSidebarContents({
 					fullPath: '/open-api-docs-demo',
 					theme: 'hcp',
 					isActive: true,
-				},
-				{
-					divider: true,
 				},
 				...operationNavItems,
 			].map((item: $TSFixMe, index: number) => (

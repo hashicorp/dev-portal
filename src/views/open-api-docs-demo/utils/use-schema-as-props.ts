@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { getOperationProps } from '.'
+import { getOperationProps, groupOperations } from '.'
 import { OpenApiDocsViewProps, OpenApiSchema } from '../types'
 
 /**
@@ -14,7 +14,8 @@ export function useSchemaAsProps(
 			return null
 		}
 		const operationObjects = getOperationProps(schemaJson)
-		return { operationObjects, _schema: schemaJson }
+		const operationGroups = groupOperations(operationObjects)
+		return { operationObjects, operationGroups, _schema: schemaJson }
 	}, [schemaJson])
 
 	return viewProps

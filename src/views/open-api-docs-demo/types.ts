@@ -2,6 +2,8 @@ import { OpenAPI } from 'openapi-types'
 
 type DataForPrototyping = $TSFixMe
 
+export type OperationGroup = { heading: string; items: OperationProps[] }
+
 export interface OperationProps {
 	operationId: string
 	slug: string
@@ -10,7 +12,7 @@ export interface OperationProps {
 }
 
 export interface OpenApiDocsViewProps {
-	operationObjects: OperationProps[]
+	operationGroups: OperationGroup[]
 	_schema: OpenApiSchema
 }
 
