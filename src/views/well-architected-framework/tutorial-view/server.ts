@@ -39,8 +39,11 @@ export async function getWafTutorialViewProps(
 		(collection: ApiCollection) =>
 			collection.slug === `${wafData.slug}/${collectionFilename}`
 	)
-	const currentTutorialReference = currentCollection?.tutorials.find((t) =>
-		t.slug.endsWith(tutorialFilename)
+	const currentTutorialReference = currentCollection?.tutorials.find(
+		(t: ApiTutorialLite) => {
+			const [, currentTFilename] = t.slug.split('/')
+			return tutorialFilename === currentTFilename
+		}
 	)
 
 	// The tutorial doesn't exist in collection - return 404
