@@ -10,7 +10,7 @@
 	padding: 24px;
 	position: sticky;
 	top: var(--navigation-header-height);
-	width: 400px;
+	width: 320px;
 	overflow: auto;
 	padding-bottom: 100px;
 
