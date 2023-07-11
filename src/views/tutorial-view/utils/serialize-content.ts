@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { serialize } from 'next-mdx-remote-v1/serialize'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote-v1'
+import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { anchorLinks, paragraphCustomAlerts } from '@hashicorp/remark-plugins'
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import rehypePrism from '@mapbox/rehype-prism'
