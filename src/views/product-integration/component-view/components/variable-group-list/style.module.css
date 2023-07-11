@@ -25,7 +25,7 @@
 		}
 
 		& .arrowIcon {
-			color: var(--token-color-foreground-disabled);
+			color: var(--token-color-foreground-faint);
 			margin-right: 10px;
 		}
 
