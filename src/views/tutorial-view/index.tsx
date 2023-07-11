@@ -112,6 +112,8 @@ const LayoutContentWrapper = ({
  * /:productSlug/tutorials/:collectionSlug/:tutorialSlug
  */
 function TutorialView({
+	// @ts-expect-error - debug
+	_params,
 	layoutProps,
 	product,
 	tutorial,
@@ -119,6 +121,7 @@ function TutorialView({
 	pageHeading,
 	metadata,
 }: TutorialViewProps): React.ReactElement {
+	console.log('_params', _params)
 	// hooks
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =

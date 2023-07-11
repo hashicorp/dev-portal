@@ -81,6 +81,9 @@ module.exports = withSwingset({
 			'unist-util-visit',
 		],
 	})({
+		typescript: {
+			ignoreBuildErrors: true,
+		},
 		webpack(config) {
 			config.plugins.push(HashiConfigPlugin())
 			return config

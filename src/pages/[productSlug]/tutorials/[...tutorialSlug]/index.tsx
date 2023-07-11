@@ -86,6 +86,8 @@ async function getStaticProps({
 	if (!props) {
 		return { notFound: true }
 	}
+	// @ts-expect-error debug
+	props._params = params
 	return props
 }
 
