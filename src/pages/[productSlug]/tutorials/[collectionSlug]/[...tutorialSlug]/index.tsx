@@ -33,38 +33,38 @@ async function getStaticPaths(): Promise<
 		}
 	}
 
-	let paths = []
+	// let paths: $TSFixMe[] = []
 
-	try {
-		paths = (
-			await Promise.all(
-				activeProductSlugs.map(async (productSlug) => {
-					// fetch paths from analytics for each product
-					const analyticsPaths = await getStaticPathsFromAnalytics<
-						TutorialPagePaths['params']
-					>({
-						param: 'tutorialSlug',
-						limit: __config.learn.max_static_paths ?? 0,
-						pathPrefix: `/${productSlug}/tutorials`,
-						validPaths,
-					})
+	// try {
+	// 	paths = (
+	// 		await Promise.all(
+	// 			activeProductSlugs.map(async (productSlug) => {
+	// 				// fetch paths from analytics for each product
+	// 				const analyticsPaths = await getStaticPathsFromAnalytics<
+	// 					TutorialPagePaths['params']
+	// 				>({
+	// 					param: 'tutorialSlug',
+	// 					limit: __config.learn.max_static_paths ?? 0,
+	// 					pathPrefix: `/${productSlug}/tutorials`,
+	// 					validPaths,
+	// 				})
 
-					// add the productSlug param to the resulting params object
-					return analyticsPaths.map((result) => {
-						result.params.productSlug = productSlug
+	// 				// add the productSlug param to the resulting params object
+	// 				return analyticsPaths.map((result) => {
+	// 					result.params.productSlug = productSlug
 
-						return result
-					})
-				})
-			)
-		).flat()
-	} catch {
-		// In the case of an error, fallback to using the base list of generated paths to ensure we do _some_ form of static generation
-		paths = validPaths.slice(0, __config.learn.max_static_paths ?? 0)
-	}
+	// 					return result
+	// 				})
+	// 			})
+	// 		)
+	// 	).flat()
+	// } catch {
+	// In the case of an error, fallback to using the base list of generated paths to ensure we do _some_ form of static generation
+	// paths = validPaths.slice(0, __config.learn.max_static_paths ?? 0)
+	// }
 
 	return {
-		paths,
+		paths: [],
 		fallback: 'blocking',
 	}
 }
