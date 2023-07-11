@@ -21,7 +21,12 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ tutorialSlug: [string, string] }>): Promise<
 	{ props: WafTutorialViewProps } | { notFound: boolean }
 > {
-	const props = await getWafTutorialViewProps(params.tutorialSlug)
+	const props = await getWafTutorialViewProps([
+		// @ts-expect-error - debug
+		params.collectionSlug,
+		// @ts-expect-error - debug
+		...params.tutorialSlug,
+	])
 
 	// If the tutorial doesn't exist, hit the 404
 	if (!props) {
@@ -32,13 +37,14 @@ export async function getStaticProps({
 
 export async function getStaticPaths() {
 	const allCollections = await getCollectionsBySection(wafData.slug)
-	let paths = []
+	let paths: $TSFixMe[] = []
 	allCollections.forEach((c: ApiCollection) => {
 		const collectionSlug = splitProductFromFilename(c.slug)
 		c.tutorials.forEach(({ slug }: { slug: ApiTutorialLite['slug'] }) =>
 			paths.push({
 				params: {
-					tutorialSlug: [collectionSlug, splitProductFromFilename(slug)],
+					collectionSlug,
+					tutorialSlug: [splitProductFromFilename(slug)],
 				},
 			})
 		)
@@ -53,17 +59,17 @@ export async function getStaticPaths() {
 		}
 	}
 
-	try {
-		paths = await getStaticPathsFromAnalytics({
-			param: 'tutorialSlug',
-			limit: __config.learn.max_static_paths ?? 0,
-			pathPrefix: `/well-architected-framework`,
-			validPaths: paths,
-		})
-	} catch {
-		// In the case of an error, fallback to using the base list of generated paths to ensure we do _some_ form of static generation
-		paths = paths.slice(0, __config.learn.max_static_paths ?? 0)
-	}
+	// try {
+	// 	paths = await getStaticPathsFromAnalytics({
+	// 		param: 'tutorialSlug',
+	// 		limit: __config.learn.max_static_paths ?? 0,
+	// 		pathPrefix: `/well-architected-framework`,
+	// 		validPaths: paths,
+	// 	})
+	// } catch {
+	// In the case of an error, fallback to using the base list of generated paths to ensure we do _some_ form of static generation
+	paths = paths.slice(0, __config.learn.max_static_paths ?? 0)
+	// }
 
 	return { paths, fallback: 'blocking' }
 }
