@@ -93,7 +93,9 @@ interface NoResultsMessageProps {
 	onClearFiltersClicked: () => void
 }
 
-function NoResultsMessage({ onClearFiltersClicked }: NoResultsMessageProps) {
+export function NoResultsMessage({
+	onClearFiltersClicked,
+}: NoResultsMessageProps) {
 	return (
 		<div className={s.noResultsWrapper}>
 			<p className={s.noResultsTitle}>No Results</p>

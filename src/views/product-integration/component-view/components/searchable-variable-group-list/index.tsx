@@ -7,6 +7,7 @@ import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import FilterInput from 'components/filter-input'
 import { CheckboxField } from 'components/form/field-controls'
 import { useState } from 'react'
+import { NoResultsMessage } from 'views/product-integrations-landing/components/integrations-list'
 import { Variable, VariableGroupList } from '../variable-group-list'
 import {
 	applyQueryFilter,
@@ -86,18 +87,23 @@ export default function SearchableVariableGroupList({
 			 * Technique ARIA22: Using role=status to present status messages
 			 * https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA22
 			 */}
+			<p className={s.results} role="status">
+				{numMatches} {numMatches === 1 ? 'Result' : 'Results'}
+			</p>
 			{numMatches > 0 ? (
-				<>
-					<p className={s.results} role="status">
-						{numMatches} {numMatches === 1 ? 'Result' : 'Results'}
-					</p>
-					<VariableGroupList
-						groupName={groupName}
-						variables={matchesWithAncestors}
-					/>
-				</>
+				<VariableGroupList
+					groupName={groupName}
+					variables={matchesWithAncestors}
+				/>
 			) : (
-				<p>Empty</p>
+				<NoResultsMessage
+					onClearFiltersClicked={() => {
+						setSearchQuery('')
+						if (requiredOnly) {
+							setRequiredOnly(false)
+						}
+					}}
+				/>
 			)}
 		</div>
 	)
