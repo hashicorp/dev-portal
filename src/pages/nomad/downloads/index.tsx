@@ -18,11 +18,11 @@ const NomadDownloadsPage = (props) => {
 			{...props}
 			merchandisingSlot={
 				<InlineAlert
-					title="New beta release!"
-					description="A beta for Nomad v1.6.0 is available."
+					title="New release candidate!"
+					description="A release candidate for Nomad v1.6.0 is available."
 					ctaSlot={
 						<ButtonLink
-							aria-label="Download beta for Nomad v.1.6.0"
+							aria-label="Download release candidate for Nomad v.1.6.0"
 							className={s.downloadLink}
 							size="small"
 							color="tertiary"
