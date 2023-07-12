@@ -30,7 +30,18 @@ export const generateProductLandingSidebarMenuItems = (
 
 	let docsItems
 	const menuItems = []
-	const introNavItem = routes.find((route) => route.title === 'Intro')
+	const introNavItem = routes.find((route) => route.fullPath.endsWith('/intro'))
+
+	/**
+	 * This order is meaninful and should align with the global nav order see
+	 * /src/components/navigation-header/components/product-page-content/utils/get-nav-items.ts
+	 *
+	 * - Install
+	 * - Intro (if exists)
+	 * - Tutorials
+	 * - Documentation and all other docs paths (e.g. API / CLI)
+	 * - Integrations
+	 */
 
 	if (product.slug !== 'hcp') {
 		menuItems.push({
