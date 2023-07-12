@@ -6,8 +6,8 @@
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
 import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
-import { ProductData, RootDocsPath } from 'types/products'
-import { EnrichedNavItem, MenuItem, SidebarProps } from '../types'
+import { ProductData } from 'types/products'
+import { EnrichedNavItem, SidebarProps } from '../types'
 
 /**
  * Generates the Sidebar menuItems for product landing pages
@@ -30,6 +30,14 @@ export const generateProductLandingSidebarMenuItems = (
 
 	let docsItems
 	const menuItems = []
+	const introNavItem = routes.find((route) => route.title === 'Intro')
+
+	if (product.slug !== 'hcp') {
+		menuItems.push({
+			title: 'Install',
+			fullPath: `/${product.slug}/downloads`,
+		})
+	}
 
 	if (product.slug === 'terraform') {
 		docsItems = [
@@ -40,20 +48,22 @@ export const generateProductLandingSidebarMenuItems = (
 			},
 		]
 	} else {
-		docsItems = routes
+		docsItems = routes.filter((route) => route.title !== 'Intro')
 	}
 
-	if (product.slug !== 'hcp') {
-		menuItems.push({
-			title: 'Install',
-			fullPath: `/${product.slug}/downloads`,
-		})
+	if (introNavItem) {
+		menuItems.push(introNavItem)
 	}
 
-	menuItems.push({
-		title: 'Tutorials',
-		fullPath: `/${product.slug}/tutorials`,
-	})
+	menuItems.push(
+		...[
+			{
+				title: 'Tutorials',
+				fullPath: `/${product.slug}/tutorials`,
+			},
+			...docsItems,
+		]
+	)
 
 	if (getIsEnabledProductIntegrations(product.slug)) {
 		menuItems.push({
@@ -61,8 +71,6 @@ export const generateProductLandingSidebarMenuItems = (
 			fullPath: `/${product.slug}/integrations`,
 		})
 	}
-
-	menuItems.push(...docsItems)
 
 	return menuItems
 }
