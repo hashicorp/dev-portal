@@ -97,7 +97,7 @@ export default function SearchableVariableGroupList({
 				/>
 			) : (
 				<NoResultsMessage
-					description={'Try adjusting your keywords.'}
+					description="Try adjusting your keywords."
 					onClearFiltersClicked={() => {
 						setSearchQuery('')
 						if (requiredOnly) {
