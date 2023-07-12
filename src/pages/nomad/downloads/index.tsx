@@ -28,7 +28,7 @@ const NomadDownloadsPage = (props) => {
 							color="tertiary"
 							text="Download"
 							icon={<IconDownload16 />}
-							href="https://releases.hashicorp.com/nomad/1.6.0-beta.1/"
+							href="https://releases.hashicorp.com/nomad/1.6.0-rc.1/"
 						/>
 					}
 				/>
