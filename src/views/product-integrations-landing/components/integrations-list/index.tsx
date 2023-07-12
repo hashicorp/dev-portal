@@ -91,14 +91,19 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 
 interface NoResultsMessageProps {
 	onClearFiltersClicked: () => void
+	description?: string
 }
 
-function NoResultsMessage({ onClearFiltersClicked }: NoResultsMessageProps) {
+export function NoResultsMessage({
+	onClearFiltersClicked,
+	description,
+}: NoResultsMessageProps) {
 	return (
 		<div className={s.noResultsWrapper}>
 			<p className={s.noResultsTitle}>No Results</p>
 			<p className={s.noResultsDescription}>
-				Try adjusting your selected filters or using different keywords.
+				{description ||
+					'Try adjusting your selected filters or using different keywords.'}
 			</p>
 			<div className={s.noResultsButtonWrapper}>
 				<Button
