@@ -41,7 +41,11 @@ export async function getStaticProps({
 
 	return {
 		props: stripUndefinedProperties({
-			metadata: { wafName: wafData.name, wafSlug: wafData.slug },
+			metadata: {
+				title: currentCollection.name,
+				wafName: wafData.name,
+				wafSlug: wafData.slug,
+			},
 			collection: currentCollection,
 			layoutProps: {
 				sidebarSections,
