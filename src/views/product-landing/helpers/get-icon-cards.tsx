@@ -12,6 +12,7 @@ import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled
 
 /**
  * The order of these items is meaningful, should match the top navigation items
+ * We should refactor to drive this via global config https://app.asana.com/0/1204807665183200/1205002760871766/f
  */
 
 export function getIconCards(product: ProductData) {

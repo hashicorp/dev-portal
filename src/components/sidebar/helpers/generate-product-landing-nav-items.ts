@@ -33,7 +33,7 @@ export const generateProductLandingSidebarMenuItems = (
 	const introNavItem = routes.find((route) => route.fullPath.endsWith('/intro'))
 
 	/**
-	 * This order is meaninful and should align with the global nav order see
+	 * This order is meaningful and should align with the global nav order see
 	 * /src/components/navigation-header/components/product-page-content/utils/get-nav-items.ts
 	 *
 	 * - Install
@@ -41,6 +41,8 @@ export const generateProductLandingSidebarMenuItems = (
 	 * - Tutorials
 	 * - Documentation and all other docs paths (e.g. API / CLI)
 	 * - Integrations
+	 *
+	 * We should refactor to drive this via global config https://app.asana.com/0/1204807665183200/1205002760871766/f
 	 */
 
 	if (product.slug !== 'hcp') {
