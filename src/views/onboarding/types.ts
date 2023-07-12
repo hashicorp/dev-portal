@@ -28,6 +28,9 @@ export interface OnboardingCollectionViewProps {
 }
 
 export interface OnboardingTutorialViewProps {
+	metadata: {
+		title: string
+	}
 	tutorial: Omit<
 		TutorialFullCollectionCtx,
 		'content' | 'collectionCtx' | 'variant'
