@@ -59,7 +59,9 @@ export const generateProductLandingSidebarMenuItems = (
 			},
 		]
 	} else {
-		docsItems = routes.filter((route) => route.title !== 'Intro')
+		docsItems = introNavItem
+			? routes.filter((route) => !route.fullPath.endsWith('/intro'))
+			: routes
 	}
 
 	if (introNavItem) {
