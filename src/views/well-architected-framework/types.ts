@@ -50,9 +50,7 @@ export interface WellArchitectedFrameworkCollectionViewProps {
 }
 
 export interface WafTutorialViewProps {
-	metadata: {
-		title: string
-	}
+	metadata: HeadMetadataProps
 	tutorial: TutorialData & {
 		nextPreviousData: NextPreviousProps
 		variant?: TutorialViewProps['metadata']['variant']
