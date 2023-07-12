@@ -117,6 +117,9 @@ export async function getWafTutorialViewProps(
 
 	return {
 		props: stripUndefinedProperties<WafTutorialViewProps>({
+			metadata: {
+				title: fullTutorialData.name,
+			},
 			tutorial: {
 				...fullTutorialData,
 				content: serializedContent,
