@@ -124,6 +124,9 @@ export async function getOnboardingTutorialProps(
 	 * Assemble props for the view
 	 */
 	const props = stripUndefinedProperties<OnboardingTutorialViewProps>({
+		metadata: {
+			title: fullTutorialData.name,
+		},
 		tutorial: {
 			...fullTutorialData,
 			content: serializedContent,

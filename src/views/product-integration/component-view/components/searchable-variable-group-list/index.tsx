@@ -33,11 +33,10 @@ export default function SearchableVariableGroupList({
 	 * required property is relevant for the variables we're rendering.
 	 *
 	 * We consider the required property to be relevant if any of the variables
-	 * have their required property set to `true` or `false`, rather than
-	 * the default `null` setting.
+	 * have their required property set to `true`.
 	 */
 	const isRequiredRelevant = variables.find(
-		({ required }: Variable) => required === true || required === false
+		({ required }: Variable) => required === true
 	)
 
 	/**
