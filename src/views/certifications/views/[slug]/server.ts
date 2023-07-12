@@ -27,7 +27,10 @@ export async function getStaticProps({
 		props: {
 			pageContent,
 			slug,
-			metadata: { localOgImage: 'certifications.jpg' },
+			metadata: {
+				title: pageContent.title,
+				localOgImage: 'certifications.jpg',
+			},
 		},
 	}
 }
