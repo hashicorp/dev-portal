@@ -7,6 +7,7 @@ import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
 import FilterInput from 'components/filter-input'
 import { CheckboxField } from 'components/form/field-controls'
 import { useState } from 'react'
+import { NoResultsMessage } from 'views/product-integrations-landing/components/integrations-list'
 import { Variable, VariableGroupList } from '../variable-group-list'
 import {
 	applyQueryFilter,
@@ -88,10 +89,22 @@ export default function SearchableVariableGroupList({
 			<p className={s.results} role="status">
 				{numMatches} {numMatches === 1 ? 'Result' : 'Results'}
 			</p>
-			<VariableGroupList
-				groupName={groupName}
-				variables={matchesWithAncestors}
-			/>
+			{numMatches > 0 ? (
+				<VariableGroupList
+					groupName={groupName}
+					variables={matchesWithAncestors}
+				/>
+			) : (
+				<NoResultsMessage
+					description="Try adjusting your keywords."
+					onClearFiltersClicked={() => {
+						setSearchQuery('')
+						if (requiredOnly) {
+							setRequiredOnly(false)
+						}
+					}}
+				/>
+			)}
 		</div>
 	)
 }
