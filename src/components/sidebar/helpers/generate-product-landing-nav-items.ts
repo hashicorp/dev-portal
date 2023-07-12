@@ -9,8 +9,6 @@ import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled
 import { ProductData, RootDocsPath } from 'types/products'
 import { EnrichedNavItem, MenuItem, SidebarProps } from '../types'
 
-const IS_DEV = process.env.NODE_ENV !== 'production'
-
 /**
  * Generates the Sidebar menuItems for product landing pages
  * (/waypoint, /vault, etc.).
@@ -31,6 +29,8 @@ export const generateProductLandingSidebarMenuItems = (
 	}))
 
 	let docsItems
+	const menuItems = []
+
 	if (product.slug === 'terraform') {
 		docsItems = [
 			{
@@ -43,26 +43,26 @@ export const generateProductLandingSidebarMenuItems = (
 		docsItems = routes
 	}
 
-	const menuItems = [
-		...docsItems,
-		{
-			title: 'Tutorials',
-			fullPath: `/${product.slug}/tutorials`,
-		},
-	]
-
 	if (product.slug !== 'hcp') {
 		menuItems.push({
 			title: 'Install',
 			fullPath: `/${product.slug}/downloads`,
 		})
 	}
+
+	menuItems.push({
+		title: 'Tutorials',
+		fullPath: `/${product.slug}/tutorials`,
+	})
+
 	if (getIsEnabledProductIntegrations(product.slug)) {
 		menuItems.push({
 			title: 'Integrations',
 			fullPath: `/${product.slug}/integrations`,
 		})
 	}
+
+	menuItems.push(...docsItems)
 
 	return menuItems
 }
