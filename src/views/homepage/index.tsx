@@ -61,7 +61,6 @@ function HomePageView(): ReactElement {
  * Search terms that should show other tabs on click, then CommandBar will need
  * to have functionality added to do so.
  */
-HomePageView.contentType = 'tutorials'
 HomePageView.layout = BaseNewLayout
 
 export default HomePageView
