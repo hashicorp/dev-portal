@@ -148,6 +148,7 @@ interface MenuItem {
 	badge?: SidebarNavMenuItemBadgeProps
 	/* Optional props to cover NavHighlightItem */
 	theme?: NavHighlightItem['theme']
+	isDirectLink?: boolean
 }
 
 interface SidebarBaseProps {

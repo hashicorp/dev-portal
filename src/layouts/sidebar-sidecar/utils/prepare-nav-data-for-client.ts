@@ -197,7 +197,7 @@ async function prepareNavNodeForClient({
 		} else {
 			// Otherwise, this is a genuinely external NavDirectLink,
 			// so we only need to add an `id` to it.
-			const preparedItem = { ...node, id }
+			const preparedItem: MenuItem = { ...node, id }
 
 			/**
 			 * Rewrite external Learn and Docs links if needed. Default to the
@@ -218,6 +218,7 @@ async function prepareNavNodeForClient({
 
 				if (newHref) {
 					preparedItem.href = newHref
+					preparedItem.isDirectLink = true
 				}
 			} catch (error) {
 				console.error(
