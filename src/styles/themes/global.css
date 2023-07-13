@@ -16,3 +16,9 @@
 [data-theme='light'] [data-show-on-theme='dark'] {
 	display: none;
 }
+
+@keyframes hds-flight-icon-animation-rotation {
+	100% {
+		transform: rotate(360deg);
+	}
+}
