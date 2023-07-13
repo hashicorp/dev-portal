@@ -13,6 +13,7 @@ import {
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 import { ProductSlug } from 'types/products'
 import isAbsoluteUrl from 'lib/is-absolute-url'
@@ -101,7 +102,10 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	}
 
 	// Determine the trailing icon to use, if any
-	const trailingIcon = isExternal ? <IconExternalLink16 /> : item.trailingIcon
+	let trailingIcon = isExternal ? <IconExternalLink16 /> : item.trailingIcon
+	if (item.isDirectLink) {
+		trailingIcon = <IconArrowRight16 />
+	}
 	const ariaCurrent = !isExternal && item.isActive ? 'page' : undefined
 	const [isMounted, setIsMounted] = useState(false)
 

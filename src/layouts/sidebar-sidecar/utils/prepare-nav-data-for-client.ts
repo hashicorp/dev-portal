@@ -191,6 +191,7 @@ async function prepareNavNodeForClient({
 				href: null,
 				id,
 				path: node.href,
+				isDirectLink: true,
 			}
 			return { preparedItem, traversedNodes: 1 }
 		} else {
