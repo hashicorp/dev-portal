@@ -41,12 +41,6 @@ function OpenApiDocsView({ operationGroups, _schema }: OpenApiDocsViewProps) {
 									title={o.operationId}
 								/>
 								<div className={s.operationColumns}>
-									<div className={s.operationPropertiesColumn}>
-										{o.summary ? <Text>{o.summary}</Text> : null}
-										<DevCodeBlock className={s.propertiesPlaceholder}>
-											{JSON.stringify(o, null, 2)}
-										</DevCodeBlock>
-									</div>
 									<div className={s.operationCodeColumn}>
 										<div className={s.methodAndPath}>
 											<Badge text={o._data.__type.toUpperCase()} />
@@ -55,13 +49,25 @@ function OpenApiDocsView({ operationGroups, _schema }: OpenApiDocsViewProps) {
 													showClipboard: true,
 												}}
 												className={s.codePlaceholder}
-												code={truncatedPath}
+												// Insert <wbr/> to allow line breaks in the path
+												code={truncatedPath.replace(/([^<])\//g, '$1/<wbr/>')}
 											/>
 										</div>
-										<br />
+										{truncatedPath !== o._data.__path ? (
+											<>
+												{' '}
+												<br />
+												<DevCodeBlock className={s.propertiesPlaceholder}>
+													Note: full path is <strong>{o._data.__path}</strong>.
+													Has been truncated for clarity.
+												</DevCodeBlock>
+											</>
+										) : null}
+									</div>
+									<div className={s.operationPropertiesColumn}>
+										{o.summary ? <Text>{o.summary}</Text> : null}
 										<DevCodeBlock className={s.propertiesPlaceholder}>
-											Note: full path is <strong>{o._data.__path}</strong>. Has
-											been truncated for clarity.
+											{JSON.stringify(o, null, 2)}
 										</DevCodeBlock>
 									</div>
 								</div>

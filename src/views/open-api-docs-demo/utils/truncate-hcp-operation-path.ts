@@ -7,7 +7,7 @@
  */
 export function truncateHcpOperationPath(path: string) {
 	return path.replace(
-		/\/[a-z]*.\/\d\d\d\d-\d\d-\d\d\/organizations\/\{location.organization_id\}\/projects\/\{location\.project_id\}/,
+		/(\/[a-z]*\/\d\d\d\d-\d\d-\d\d\/organizations\/\{[a-z_.]*\}\/projects\/\{[a-z_.]*\})/,
 		''
 	)
 }
