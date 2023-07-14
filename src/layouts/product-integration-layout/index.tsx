@@ -105,7 +105,6 @@ export default function ProductIntegrationLayout({
 				levelDownButtonText: 'Previous',
 			},
 			showFilterInput: false,
-
 			menuItems: [
 				{
 					title: integration.name,
