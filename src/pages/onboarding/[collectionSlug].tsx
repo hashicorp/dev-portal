@@ -52,6 +52,7 @@ export async function getStaticProps({
 			collection: currentCollection,
 			layoutProps: { breadcrumbLinks, sidebarSections },
 			metadata: {
+				title: currentCollection.name,
 				onboardingName: onboardingData.name,
 				onboardingSlug: onboardingData.slug,
 			},

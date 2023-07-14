@@ -3,11 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import isUuid from 'validator/lib/isUUID'
+import { z } from 'zod'
 import { identifier, slug } from 'lib/learn-client/types'
 
 function formatSlug(slug: slug) {
 	return slug.replace('/', '|')
+}
+
+function isUuid(id: string) {
+	return z.string().uuid().safeParse(id).success
 }
 
 // if the identifier is a slug, we need to format for the request to replace slashes (/) with pipes (|)

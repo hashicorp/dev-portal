@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import classNames from 'classnames'
 import { Collection } from 'lib/learn-client/types'
 import CollectionContentCardLink from 'components/tutorials-landing-view/collection-content-card-link'

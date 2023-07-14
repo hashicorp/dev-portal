@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { trackCertificationCardLinkClicked } from 'views/tutorials-landing/analytics'
 import { type CertificationContentCardLinkProps } from '../types'
 import ContentCardLink from '../content-card-link'
