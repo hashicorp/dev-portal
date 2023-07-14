@@ -138,12 +138,15 @@ export function VariableGroupList({
 							</div>
 
 							{variable.variables?.length > 0 && (
-								<VariableGroupList
-									groupName={groupName}
-									unflatten={false}
-									variables={variable.variables}
-									isNested={true}
-								/>
+								<>
+									<hr className={s.nestedDivider} />
+									<VariableGroupList
+										groupName={groupName}
+										unflatten={false}
+										variables={variable.variables}
+										isNested={true}
+									/>
+								</>
 							)}
 						</div>
 					</li>
