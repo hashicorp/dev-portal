@@ -13,5 +13,6 @@ AccordionDisclosureContext.displayName = 'AccordionDisclosureContext'
  * is a descendant of an accordion disclosure component
  */
 export const useAccordionDisclosureContext = () => {
+	console.log('testing')
 	return useContext(AccordionDisclosureContext)
 }
