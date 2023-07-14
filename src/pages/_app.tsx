@@ -87,7 +87,6 @@ export default function App({
 			})
 	)
 
-	// const Layout = Component.layout ?? EmptyLayout
 	const currentProduct = pageProps.product || null
 
 	return (
