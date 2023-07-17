@@ -94,7 +94,13 @@ export function VariableGroupList({
 						<div className={s.indentedContent}>
 							<div className={s.topRow}>
 								<span className={s.left}>
-									<code id={permalinkId} className={s.key}>
+									<code
+										id={permalinkId}
+										className={classNames(
+											s.key,
+											isNested ? s.nestedKeyType : s.topLevelKeyType
+										)}
+									>
 										{variable.key}
 									</code>
 									{variable.required != null && (
