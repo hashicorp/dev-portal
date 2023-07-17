@@ -30,6 +30,7 @@
 	display: flex;
 	padding-top: 4px;
 	padding-bottom: 4px;
+	text-transform: capitalize;
 
 	&:not(:last-child)::after {
 		color: var(--token-color-palette-neutral-400);
