@@ -14,6 +14,7 @@ export default function InlineAlert({
 	description,
 	icon = <IconInfo24 />,
 	title,
+	ctaSlot,
 }: InlineAlertProps) {
 	return (
 		<div className={classNames(s.default, s[color], className)}>
@@ -23,6 +24,7 @@ export default function InlineAlert({
 			<span className={s.content}>
 				<p className={s.title}>{title}</p>
 				<span className={s.description}>{description}</span>
+				{ctaSlot ? <span className={s.ctaSlot}>{ctaSlot}</span> : null}
 			</span>
 		</div>
 	)

@@ -4,14 +4,14 @@
  */
 
 import { ReactElement } from 'react'
-import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
+import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import Badge, { BadgeProps } from 'components/badge'
 import { MenuItem } from 'components/sidebar'
 import { ProductSlug } from 'types/products'
 
 interface RightIconsContainerProps {
 	badge?: ReturnType<typeof Badge>
-	icon?: ReturnType<typeof IconChevronRight16>
+	icon?: ReturnType<typeof IconChevronDown16>
 }
 
 interface SidebarNavMenuItemBadgeProps {
@@ -27,7 +27,7 @@ interface SidebarNavMenuItemProps {
 	item: MenuItem
 }
 
-type SupportedIconName = 'home' & ProductSlug
+type SupportedIconName = 'home' & 'guide' & ProductSlug
 interface SidebarNavLinkItem extends MenuItem {
 	leadingIconName?: SupportedIconName
 }

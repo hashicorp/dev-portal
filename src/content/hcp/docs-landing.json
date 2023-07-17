@@ -2,9 +2,9 @@
 	"pageSubtitle": "Learn and develop your knowledge of HashiCorp Cloud Platform with these reference docs.",
 	"iconCardGridItems": [
 		{
-			"iconName": "vault-color",
-			"name": "HCP Vault",
-			"path": "docs/vault"
+			"iconName": "boundary-color",
+			"name": "HCP Boundary",
+			"path": "docs/boundary"
 		},
 		{
 			"iconName": "consul-color",
@@ -12,14 +12,19 @@
 			"path": "docs/consul"
 		},
 		{
+			"iconName": "vault-color",
+			"name": "HCP Vault",
+			"path": "docs/vault"
+		},
+		{
+			"iconName": "vault-color",
+			"name": "HCP Vault Secrets",
+			"path": "docs/vault-secrets"
+		},
+		{
 			"iconName": "packer-color",
 			"name": "HCP Packer",
 			"path": "docs/packer"
-		},
-		{
-			"iconName": "boundary-color",
-			"name": "HCP Boundary",
-			"path": "docs/boundary"
 		},
 		{
 			"iconName": "waypoint-color",

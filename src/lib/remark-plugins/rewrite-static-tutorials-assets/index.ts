@@ -25,13 +25,25 @@ import { Image, Definition } from 'mdast'
 const ASSET_API_ENDPOINT =
 	process.env.ASSET_API_ENDPOINT || `${process.env.MKTG_CONTENT_API}/api/assets`
 
+/**
+ * @TODO write tests for this plugin - https://app.asana.com/0/1202097197789424/1204921235104809
+ *
+ * This Plugin rewrites src asset paths for tutorials content. With tutorials, images live in a
+ * /public directory in the tutorials repository.
+ *
+ * For dev portal previews / prod, we source these image paths from the mktg-content-api,
+ * which acts as a proxy-cache in front of the GitHub CDN. For tutorials repo previews, we use the PREVIEW_BRANCH env
+ * to target the correct path via the GitHub CDN. See: https://github.com/hashicorp/mktg-content-workflows/blob/main/api/assets.ts
+ *
+ * For authors working on content locally, we spin up a custom asset server within docker
+ * and the paths are served 1-1.
+ */
 export const rewriteStaticAssetsPlugin: Plugin = () => {
 	return function transformer(tree) {
 		return flatMap(tree, (node: Node) => {
 			if (!is<Image>(node, 'image') && !is<Definition>(node, 'definition')) {
 				return [node]
 			}
-
 			/**
 			 * Hotfix: the Definition node could be used by an image or link reference
 			 * This regex checks if the path starts with /img or /public/img. While
@@ -51,12 +63,31 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				process.env.VERCEL_ENV === 'production' ||
 				process.env.VERCEL_ENV === 'preview'
 			const newUrl = new URL(ASSET_API_ENDPOINT)
+			// The second arg, the dev-portal url, is arbitrary to satisfy the URL constructor
+			const { hash, pathname } = new URL(
+				node.url,
+				'https://developer.hashicorp.com'
+			)
 
 			/**
-			 * If building in a vercel preview, we can assume the assets are pushed up
-			 * to git and can be served via the GH CDN.
-			 * */
-			if (isVercelBuild) {
+			 * For themed images, authors append their image urls
+			 * with the hash #{dark|light}-theme-only
+			 */
+			if (hash) {
+				newUrl.hash = hash
+			}
+
+			/**
+			 * For the local tutorials repo workflow, a custom asset server hosts
+			 * the images, so we don't adjust the path.
+			 */
+			if (!isVercelBuild && process.env.TUTORIALS_LOCAL === 'true') {
+				newUrl.pathname = path.join(newUrl.pathname, pathname)
+			} else {
+				/**
+				 * If not building for local tutorials workflow, we can assume the assets are pushed up
+				 * to git and can be served via the GH CDN.
+				 * */
 				const params = newUrl.searchParams
 
 				// for /tutorials previews, we pass the branchname as an env via gh workflow
@@ -64,14 +95,11 @@ export const rewriteStaticAssetsPlugin: Plugin = () => {
 				const branchName = process.env.PREVIEW_BRANCH || 'main'
 
 				// assumes tutorials has a /public dir where images live
-				const assetPath = path.join('public', node.url)
+				const assetPath = path.join('public', pathname)
 
 				params.set('product', 'tutorials')
 				params.set('version', branchName)
 				params.set('asset', assetPath)
-			} else {
-				//  Otherwise, pass the unchanged path to a custom asset server for local dev
-				newUrl.pathname = path.join(newUrl.pathname, node.url)
 			}
 
 			node.url = newUrl.toString()

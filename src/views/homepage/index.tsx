@@ -7,7 +7,6 @@
 import { ReactElement } from 'react'
 
 // Global imports
-import { GlobalThemeOption } from 'styles/themes/types'
 import BaseNewLayout from 'layouts/base-new'
 
 // Local imports
@@ -64,6 +63,5 @@ function HomePageView(): ReactElement {
  */
 HomePageView.contentType = 'tutorials'
 HomePageView.layout = BaseNewLayout
-HomePageView.theme = GlobalThemeOption.light
 
 export default HomePageView

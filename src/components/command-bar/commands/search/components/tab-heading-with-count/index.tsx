@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Badge from 'components/badge'
+import BadgeCount from 'components/badge-count'
 import s from './tab-heading-with-count.module.css'
 
 /**
@@ -23,7 +23,7 @@ function TabHeadingWithCount({
 		<span className={s.root}>
 			{heading}
 			{typeof count === 'number' ? (
-				<Badge className={s.countBadge} text={String(count)} />
+				<BadgeCount text={String(count)} size="small" />
 			) : null}
 		</span>
 	)

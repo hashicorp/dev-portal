@@ -28,15 +28,12 @@ import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analyti
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 
 // Global imports
-import type { CustomAppProps, CustomAppContext } from 'types/_app'
+import type { CustomAppProps } from 'types/_app'
 import {
 	CurrentContentTypeProvider,
 	CurrentProductProvider,
 	DeviceSizeProvider,
 } from 'contexts'
-import fetchLayoutProps, {
-	ComponentMaybeWithQuery,
-} from 'lib/_proxied-dot-io/fetch-layout-props'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
 import EmptyLayout from 'layouts/empty'
@@ -72,9 +69,7 @@ addGlobalLinkHandler((destinationUrl: string) => {
 export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
-	layoutProps,
-	host,
-}: CustomAppProps & Awaited<ReturnType<(typeof App)['getInitialProps']>>) {
+}: CustomAppProps) {
 	const flagBag = useFlags()
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
@@ -100,19 +95,6 @@ export default function App({
 	const currentContentType = Component.contentType ?? 'global'
 	const currentProduct = pageProps.product || null
 
-	/**
-	 * TODO: refactor this so that pageProps.layoutProps is the only place where
-	 * layoutProps come from.
-	 */
-	const allLayoutProps = {
-		theme: Component.theme,
-		...pageProps.layoutProps,
-		// @ts-expect-error - layoutProps is inferred from `fetchLayoutProps`,
-		// which current resolves to `unknown | null`.
-		// Spread types may only be created from object types.
-		...layoutProps,
-	}
-
 	return (
 		<QueryClientProvider client={queryClient}>
 			<SSRProvider>
@@ -124,7 +106,7 @@ export default function App({
 									<DeviceSizeProvider>
 										<CurrentProductProvider currentProduct={currentProduct}>
 											<CodeTabsProvider>
-												<HeadMetadata {...pageProps.metadata} host={host} />
+												<HeadMetadata {...pageProps.metadata} />
 												<LazyMotion
 													features={() =>
 														import('lib/framer-motion-features').then(
@@ -133,7 +115,7 @@ export default function App({
 													}
 													strict={process.env.NODE_ENV === 'development'}
 												>
-													<Layout {...allLayoutProps} data={allLayoutProps}>
+													<Layout {...pageProps.layoutProps}>
 														<Component {...pageProps} />
 													</Layout>
 													<Toaster />
@@ -153,45 +135,4 @@ export default function App({
 			</SSRProvider>
 		</QueryClientProvider>
 	)
-}
-
-App.getInitialProps = async ({
-	Component,
-	ctx,
-}: CustomAppContext<{ Component: ComponentMaybeWithQuery }>) => {
-	// Determine the product being served through our rewrites so we can fetch the correct layout data
-	let proxiedProduct
-	if (ctx.pathname.includes('_proxied-dot-io/vault')) {
-		proxiedProduct = 'vault'
-	} else if (ctx.pathname.includes('_proxied-dot-io/consul')) {
-		proxiedProduct = 'consul'
-	} else if (ctx.pathname.includes('_proxied-dot-io/nomad')) {
-		proxiedProduct = 'nomad'
-	} else if (ctx.pathname.includes('_proxied-dot-io/boundary')) {
-		proxiedProduct = 'boundary'
-	} else if (ctx.pathname.includes('_proxied-dot-io/packer')) {
-		proxiedProduct = 'packer'
-	} else if (ctx.pathname.includes('_proxied-dot-io/vagrant')) {
-		proxiedProduct = 'vagrant'
-	}
-	const layoutProps = await fetchLayoutProps(Component.layout, proxiedProduct)
-
-	let pageProps = {}
-
-	if (Component.getInitialProps) {
-		pageProps = await Component.getInitialProps(ctx)
-	}
-
-	let host
-	if (ctx.req) {
-		host = ctx.req.headers.host
-	} else {
-		host = window.location.host
-	}
-
-	return {
-		pageProps,
-		layoutProps,
-		host,
-	}
 }

@@ -231,9 +231,8 @@ async function buildProductRedirects() {
 			getRedirectsForProduct('vagrant'),
 			getRedirectsForProduct('packer'),
 			getRedirectsForProduct('consul'),
-			getRedirectsForProduct('terraform-website', {
-				ref: 'master',
-				redirectsPath: '/redirects.js',
+			getRedirectsForProduct('terraform-docs-common', {
+				ref: 'main',
 			}),
 		])
 	).flat()
@@ -350,7 +349,9 @@ function filterInvalidRedirects(redirects, repoSlug) {
 	 * Normalize the repoSlug into a productSlug.
 	 */
 	const productSlugsByRepo = {
+		/** @deprecated - terraform-website is now archived and redirects have been moved to `terraform-docs-common` */
 		'terraform-website': 'terraform',
+		'terraform-docs-common': 'terraform',
 		'cloud.hashicorp.com': 'hcp',
 		'hcp-docs': 'hcp',
 	}

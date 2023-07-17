@@ -105,13 +105,14 @@ export default function ProductIntegrationLayout({
 				levelDownButtonText: 'Previous',
 			},
 			showFilterInput: false,
-			title: integration.name,
 			menuItems: [
 				{
-					title: 'Overview',
+					title: integration.name,
 					fullPath: onLatestVersion
 						? getIntegrationUrl(integration)
 						: getIntegrationUrl(integration, activeRelease.version),
+					theme: currentProduct.slug,
+					isActive: true,
 				},
 				...Object.keys(componentSidebarCategories)
 					.map((key: string) => componentSidebarCategories[key])

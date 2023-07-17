@@ -1,0 +1,84 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	--left-right-padding: 24px;
+
+	background-color: var(--token-color-surface-primary);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	row-gap: 32px;
+
+	/* TODO rexport SVGs from Figma during vqa/polish */
+
+	@nest html[data-theme='light'] & {
+		background-image: url('img/background-light.svg');
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-image: url('img/background-dark.svg');
+	}
+
+	@media (--dev-dot-tablet-down) {
+		padding-right: 0 !important; /* TODO */
+	}
+
+	@media (--dev-dot-tablet) {
+		--left-right-padding: 40px;
+	}
+}
+
+.title {
+	composes: hds-typography-display-500 from global;
+	composes: hds-font-weight-bold from global;
+	color: var(--token-color-foreground-strong);
+	width: 50%;
+
+	@media (--dev-dot-tablet-down) {
+		width: 75%;
+		padding-left: var(--left-right-padding);
+		padding-right: var(--left-right-padding);
+	}
+
+	@media (--dev-dot-mobile) {
+		width: 100%;
+	}
+}
+
+.list {
+	overflow-x: auto;
+	scrollbar-width: none;
+	column-gap: 20px;
+	display: grid;
+	grid-template-columns: repeat(3, minmax(auto, 400px));
+	grid-template-rows: 1fr;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	@media (--dev-dot-tablet-down) {
+		overflow-y: auto;
+		grid-template-columns: repeat(3, minmax(40vw, 280px));
+		padding-left: var(--left-right-padding);
+		padding-right: var(--left-right-padding);
+		padding-top: 4px;
+		padding-bottom: 16px;
+	}
+
+	@media only screen and (max-width: 500px) {
+		grid-template-columns: repeat(3, minmax(75vw, 280px));
+	}
+}
+
+.listItem {
+	height: 100%;
+}

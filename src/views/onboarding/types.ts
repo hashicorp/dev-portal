@@ -10,13 +10,14 @@ import {
 import { EnrichedNavItem } from 'components/sidebar/types'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { SidebarProps } from 'components/sidebar/types'
-import { CollectionContext } from 'views/tutorial-view'
+import { CollectionContext, TutorialViewProps } from 'views/tutorial-view'
 import { NextPreviousProps } from 'views/tutorial-view/components'
 import { OutlineLinkItem } from 'components/outline-nav/types'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { HeadMetadataProps } from 'components/head-metadata/types'
 
 export interface OnboardingCollectionViewProps {
-	metadata: {
+	metadata: HeadMetadataProps & {
 		onboardingName: string
 		onboardingSlug: string
 	}
@@ -28,10 +29,15 @@ export interface OnboardingCollectionViewProps {
 }
 
 export interface OnboardingTutorialViewProps {
-	tutorial: Omit<TutorialFullCollectionCtx, 'content' | 'collectionCtx'> & {
+	metadata: HeadMetadataProps
+	tutorial: Omit<
+		TutorialFullCollectionCtx,
+		'content' | 'collectionCtx' | 'variant'
+	> & {
 		content: MDXRemoteSerializeResult
 		collectionCtx: CollectionContext
 		nextPreviousData: NextPreviousProps
+		variant?: TutorialViewProps['metadata']['variant']
 	}
 	pageHeading: {
 		slug: string
