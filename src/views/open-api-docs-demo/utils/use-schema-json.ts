@@ -32,7 +32,23 @@ export function useSchemaJson(schemaFileString: string): ParsedSchema {
 				const schemaJson = await SwaggerParser.validate(rawSchemaJson, {
 					dereference: { circular: false },
 				})
-				setSchemaJson(schemaJson)
+				/**
+				 * Note: we validate here but don't guarantee an OpenAPI 3.1 schema...
+				 * I guess Swagger is a different spec or something? And there
+				 * are different / older versions like 3.0 and 3.1?
+				 * TODO: update this validation to guarantee an OpenAPI 3.1 schema
+				 * Maybe server-side validation would be a good route,
+				 * to open up the possible tools we could use beyond
+				 * client-side JavaScript:
+				 * https://openapi.tools/
+				 *
+				 * Ugly quick version: check for `openapi` property
+				 * on the schemaJson object, should be "3.1".
+				 * Notably thought HCP Vault Secrets has "swagger: 2.0",
+				 * so maybe we should aim for that rather than aim to support
+				 * the latest version of the spec?
+				 */
+				setSchemaJson(schemaJson as $TSFixMe)
 			} catch (err) {
 				setSchemaJson({ error: err.message })
 			}

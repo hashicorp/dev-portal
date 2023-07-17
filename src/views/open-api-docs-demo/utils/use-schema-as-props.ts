@@ -15,7 +15,7 @@ export function useSchemaAsProps(
 		}
 		const operationObjects = getOperationProps(schemaJson)
 		const operationGroups = groupOperations(operationObjects)
-		return { operationObjects, operationGroups, _schema: schemaJson }
+		return { operationGroups, _schema: schemaJson }
 	}, [schemaJson])
 
 	return viewProps

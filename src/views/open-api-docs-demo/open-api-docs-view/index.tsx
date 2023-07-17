@@ -1,9 +1,10 @@
 // Local
-import { DevCodeBlock, OpenApiSidebarContents } from '../components'
+import { DevCodeBlock, OpenApiSidebarContents, Parameter } from '../components'
 // Types
 import type {
 	OpenApiDocsViewProps,
 	OperationProps,
+	ParameterProps,
 } from 'views/open-api-docs-demo/types'
 // Styles
 import s from './open-api-docs-view.module.css'
@@ -13,6 +14,25 @@ import Text from 'components/text'
 import Badge from 'components/badge'
 import { truncateHcpOperationPath } from '../utils'
 import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
+
+function ParametersSection({
+	heading,
+	parameters,
+}: {
+	heading: string
+	parameters: ParameterProps[]
+}) {
+	return (
+		<>
+			<div>{heading}</div>
+			<div>
+				{parameters.map((p) => {
+					return <Parameter key={p.name} name={p.name} />
+				})}
+			</div>
+		</>
+	)
+}
 
 /**
  * Placeholder for an Open API docs view.
@@ -66,8 +86,27 @@ function OpenApiDocsView({ operationGroups, _schema }: OpenApiDocsViewProps) {
 									</div>
 									<div className={s.operationPropertiesColumn}>
 										{o.summary ? <Text>{o.summary}</Text> : null}
+										{o.pathParameters?.length > 0 ? (
+											<ParametersSection
+												heading="Path Parameters"
+												parameters={o.pathParameters}
+											/>
+										) : null}
+										{o.queryParameters?.length > 0 ? (
+											<ParametersSection
+												heading="Query Parameters"
+												parameters={o.queryParameters}
+											/>
+										) : null}
+										{o.bodyParameters?.length > 0 ? (
+											<ParametersSection
+												heading="Body Parameters"
+												parameters={o.bodyParameters}
+											/>
+										) : null}
+										<div>Responses</div>
 										<DevCodeBlock className={s.propertiesPlaceholder}>
-											{JSON.stringify(o, null, 2)}
+											{JSON.stringify(o._data.responses, null, 2)}
 										</DevCodeBlock>
 									</div>
 								</div>

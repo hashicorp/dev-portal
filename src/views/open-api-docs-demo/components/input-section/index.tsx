@@ -24,13 +24,13 @@ export function InputSection({
 		<div className={classNames(s.root, { [s.shown]: shown })}>
 			<button className={s.hideShow} onClick={() => setShown(!shown)}>
 				<IconCode16 />
-				<Text>.swagger.json</Text>
+				<Text>Upload .json</Text>
 			</button>
 			<div className={s.container}>
 				<div className={s.instructions}>
 					<Text>
-						Upload an OpenAPI .swagger.json file, or paste the file contents
-						into the text area.
+						Upload an OpenAPI .json file, or paste the file contents into the
+						text area.
 					</Text>
 					<span className={s.fileInput}>
 						<FileStringInput accept=".json" setFileString={setFileString} />
