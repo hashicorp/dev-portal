@@ -182,8 +182,37 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: Converge
-	// TODO: DigitalOcean
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'converge',
+		components: [
+			{
+				type: TYPE_PROVISIONER,
+				newSlug: 'converge',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'digitalocean',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'digitalocean',
+			},
+			{
+				type: TYPE_DATA_SOURCE,
+				newSlug: 'digitalocen-image', // TODO: a Typo is here
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				newSlug: 'digitalocean-import',
+			},
+		],
+	},
+
 	// TODO: Docker
 	// TODO: External
 	// TODO: Git
