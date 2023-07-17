@@ -89,5 +89,3 @@ export default function OnboardingTutorialView({
 		</>
 	)
 }
-
-OnboardingTutorialView.contentType = 'tutorials'
