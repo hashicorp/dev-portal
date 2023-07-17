@@ -212,8 +212,34 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'docker',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'docker',
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				slug: 'docker-import',
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				slug: 'docker-push',
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				slug: 'docker-save',
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				slug: 'docker-tag',
+			},
+		],
+	},
 
-	// TODO: Docker
 	// TODO: External
 	// TODO: Git
 	// TODO: Google Cloud Platform
