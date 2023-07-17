@@ -122,7 +122,5 @@ const DocsView = ({
 	)
 }
 
-DocsView.contentType = 'docs'
-
 export type { DocsViewProps }
 export default DocsView
