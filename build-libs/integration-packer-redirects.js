@@ -239,8 +239,22 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-
-	// TODO: External
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'external',
+		indexPages: [TYPE_DATA_SOURCE],
+		components: [
+			{
+				type: TYPE_DATA_SOURCE,
+				slug: 'external',
+			},
+			{
+				type: TYPE_DATA_SOURCE,
+				slug: 'raw',
+			},
+		],
+	},
 	// TODO: Git
 	// TODO: Google Cloud Platform
 	// TODO: Gridscale
