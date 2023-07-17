@@ -43,5 +43,6 @@ export default async function serializeIntegrationMarkdown(
 		},
 	}
 	const serializeResult = await serialize(markdown, SERIALIZE_OPTIONS)
-	return { serializeResult, anchorLinks }
+	const filteredAnchorLinks = anchorLinks.filter((item) => item.level <= 2)
+	return { serializeResult, anchorLinks: filteredAnchorLinks }
 }
