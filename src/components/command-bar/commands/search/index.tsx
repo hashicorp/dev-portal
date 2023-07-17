@@ -9,7 +9,6 @@ import {
 	SupportedCommand,
 } from 'components/command-bar/types'
 import { getCurrentProductTag } from './helpers'
-import SearchCommandBarDialogBody from './components/dialog-body'
 import { UnifiedSearchCommandBarDialogBody } from './unified-search/components'
 
 type Options = Parameters<CommandBarCommand['inputProps']['placeholder']>[0]
@@ -40,9 +39,7 @@ const searchCommand: CommandBarCommand = {
 	inputProps: {
 		placeholder: generatePlaceholder,
 	},
-	DialogBody: __config.flags.enable_unified_search
-		? UnifiedSearchCommandBarDialogBody
-		: SearchCommandBarDialogBody,
+	DialogBody: UnifiedSearchCommandBarDialogBody,
 }
 
 export default searchCommand
