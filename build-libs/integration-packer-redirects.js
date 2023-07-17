@@ -171,8 +171,17 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-
-	// TODO: CloudStack
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'cloudstack',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'cloudstack',
+			},
+		],
+	},
 	// TODO: Converge
 	// TODO: DigitalOcean
 	// TODO: Docker
