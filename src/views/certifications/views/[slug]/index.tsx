@@ -23,7 +23,7 @@ function CertificationProgramView({
 	const { hero, exams } = pageContent
 
 	return (
-		<>
+		<BaseNewLayout>
 			<ProgramHero
 				heading={hero.heading}
 				description={hero.description}
@@ -59,9 +59,8 @@ function CertificationProgramView({
 					</div>
 				</CertificationsMaxWidth>
 			</div>
-		</>
+		</BaseNewLayout>
 	)
 }
 
-CertificationProgramView.layout = BaseNewLayout
 export default CertificationProgramView

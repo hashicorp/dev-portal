@@ -10,7 +10,6 @@ import { getShouldRenderIntegrationsTab } from './get-should-render-integrations
 // Types
 import type { ReactElement } from 'react'
 import type { Hit } from 'instantsearch.js'
-import type { CurrentContentType } from 'contexts'
 import type { ProductSlug } from 'types/products'
 import type { UnifiedSearchResults } from '../../../types'
 
@@ -24,7 +23,7 @@ const PRODUCT_SLUGS_WITH_INTEGRATIONS =
  * Each content type tab has a set of properties required for rendering.
  */
 export interface UnifiedSearchTabContent {
-	type: CurrentContentType
+	type: 'global' | 'docs' | 'tutorials' | 'integrations'
 	heading: string
 	hitCount: number
 	hits: Hit[]
@@ -46,7 +45,7 @@ type OtherTabData = Pick<UnifiedSearchTabContent, 'type' | 'heading' | 'icon'>[]
  */
 function getOtherTabsWithResults(
 	tabsData: Omit<UnifiedSearchTabContent, 'otherTabData'>[],
-	currentTabType: CurrentContentType
+	currentTabType: 'global' | 'docs' | 'tutorials' | 'integrations'
 ): OtherTabData {
 	return tabsData
 		.filter((tabData) => {
@@ -83,47 +82,49 @@ export function gatherSearchTabsData(
 	/**
 	 * Map each content type to { heading, hits, icon } etcetera for each tab
 	 */
-	const tabsData = validContentTypes.map((type: CurrentContentType) => {
-		const { heading, icon } = tabContentByType[type]
-		const rawHits = unifiedSearchResults[type].hits
+	const tabsData = validContentTypes.map(
+		(type: 'global' | 'docs' | 'tutorials' | 'integrations') => {
+			const { heading, icon } = tabContentByType[type]
+			const rawHits = unifiedSearchResults[type].hits
 
-		/**
-		 * If the resultType is `global`, we want to include all results...
-		 * **Except** we need to filter out `integrations` for products that don't
-		 * yet have their integrations global config flags set to `true`.
-		 *
-		 * Ideally we would do this with an Algolia filter, but this doesn't seem
-		 * possible, as Algolia is extremely limiting in what filters they allow.
-		 * Specifically, they strictly allow only "conjunctions of disjunctions",
-		 * or in other words "(X OR Y) AND (A OR B)", so filters such as
-		 * `(type:docs OR type:tutorial) OR (type:integration AND products:waypoint)`
-		 * do not seem to be possible.
-		 * Ref: https://www.algolia.com/doc/api-reference/api-parameters/filters/
-		 * Playground: https://www.algolia.com/doc/api-reference/api-parameters/filters/#filters-syntax-validator
-		 *
-		 * The caveat with this approach is that we'll see a more limited list
-		 * of results when searching for terms that return `integrations` results
-		 * from inactive products. One way to mitigate this would be to add
-		 * filtering logic at indexing time, however, we'd then need to replicate
-		 * our integration flags from this repository to the integrations repo.
-		 *
-		 * The ideal solution would be if Algolia supported slightly more
-		 * complex filtering logic.
-		 */
-		const hits = rawHits.filter((hit: Hit) => {
-			// If this hit is not an integration, definitely include it
-			if (hit.type !== 'integration') {
-				return true
-			}
-			// For integration hits, only include it for active products
-			// Note that we expect integrations to have exactly one product.
-			const hitProductSlug = hit.products[0]
-			return PRODUCT_SLUGS_WITH_INTEGRATIONS.includes(hitProductSlug)
-		})
-		const hitCount = hits.length
+			/**
+			 * If the resultType is `global`, we want to include all results...
+			 * **Except** we need to filter out `integrations` for products that don't
+			 * yet have their integrations global config flags set to `true`.
+			 *
+			 * Ideally we would do this with an Algolia filter, but this doesn't seem
+			 * possible, as Algolia is extremely limiting in what filters they allow.
+			 * Specifically, they strictly allow only "conjunctions of disjunctions",
+			 * or in other words "(X OR Y) AND (A OR B)", so filters such as
+			 * `(type:docs OR type:tutorial) OR (type:integration AND products:waypoint)`
+			 * do not seem to be possible.
+			 * Ref: https://www.algolia.com/doc/api-reference/api-parameters/filters/
+			 * Playground: https://www.algolia.com/doc/api-reference/api-parameters/filters/#filters-syntax-validator
+			 *
+			 * The caveat with this approach is that we'll see a more limited list
+			 * of results when searching for terms that return `integrations` results
+			 * from inactive products. One way to mitigate this would be to add
+			 * filtering logic at indexing time, however, we'd then need to replicate
+			 * our integration flags from this repository to the integrations repo.
+			 *
+			 * The ideal solution would be if Algolia supported slightly more
+			 * complex filtering logic.
+			 */
+			const hits = rawHits.filter((hit: Hit) => {
+				// If this hit is not an integration, definitely include it
+				if (hit.type !== 'integration') {
+					return true
+				}
+				// For integration hits, only include it for active products
+				// Note that we expect integrations to have exactly one product.
+				const hitProductSlug = hit.products[0]
+				return PRODUCT_SLUGS_WITH_INTEGRATIONS.includes(hitProductSlug)
+			})
+			const hitCount = hits.length
 
-		return { type, heading, hits, hitCount, icon }
-	})
+			return { type, heading, hits, hitCount, icon }
+		}
+	)
 	/**
 	 * Add "other" tab data to each search tab. Used for "no results" messages.
 	 */

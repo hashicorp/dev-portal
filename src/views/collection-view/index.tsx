@@ -9,9 +9,7 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
-import TutorialsSidebar, {
-	CollectionViewSidebarContent,
-} from 'components/tutorials-sidebar'
+import TutorialsSidebar from 'components/tutorials-sidebar'
 import { CollectionPageProps } from './server'
 import CollectionMeta from './components/collection-meta'
 import CollectionTutorialList from './components/collection-tutorial-list'
@@ -60,7 +58,5 @@ function CollectionView({
 		</SidebarSidecarLayout>
 	)
 }
-
-CollectionView.contentType = 'tutorials'
 
 export default CollectionView

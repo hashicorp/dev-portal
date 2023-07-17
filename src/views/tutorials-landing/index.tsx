@@ -98,36 +98,35 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 	] = PRODUCT_SECTIONS_ORDER_BY_SLUG
 
 	return (
-		<div className={s.root}>
-			<div className={s.pageHero}>
-				<PageHero subtitle={PAGE_SUBTITLE} title={PAGE_TITLE} />
-			</div>
-			{renderProductSections(
-				[firstProductSlug, secondProductSlug, thirdProductSlug],
-				restPageContent
-			)}
-			<section>
-				<div className={s.contentTypesSectionWrapper}>
-					<ContentTypesSection
-						className={s.contentTypesSection}
-						items={CONTENT_TYPES_SECTION_ITEMS}
-						title={CONTENT_TYPES_SECTION_TITLE}
-					/>
+		<BaseNewLayout>
+			<div className={s.root}>
+				<div className={s.pageHero}>
+					<PageHero subtitle={PAGE_SUBTITLE} title={PAGE_TITLE} />
 				</div>
-			</section>
-			{renderProductSections(remainingProductSlugs, restPageContent)}
-			<section>
-				<CrossProductSection
-					title={BETTER_TOGETHER_SECTION_TITLE}
-					collections={crossProductSectionCollections}
-					className={s.crossProductSection}
-				/>
-			</section>
-		</div>
+				{renderProductSections(
+					[firstProductSlug, secondProductSlug, thirdProductSlug],
+					restPageContent
+				)}
+				<section>
+					<div className={s.contentTypesSectionWrapper}>
+						<ContentTypesSection
+							className={s.contentTypesSection}
+							items={CONTENT_TYPES_SECTION_ITEMS}
+							title={CONTENT_TYPES_SECTION_TITLE}
+						/>
+					</div>
+				</section>
+				{renderProductSections(remainingProductSlugs, restPageContent)}
+				<section>
+					<CrossProductSection
+						title={BETTER_TOGETHER_SECTION_TITLE}
+						collections={crossProductSectionCollections}
+						className={s.crossProductSection}
+					/>
+				</section>
+			</div>
+		</BaseNewLayout>
 	)
 }
-
-TutorialsLandingView.contentType = 'tutorials'
-TutorialsLandingView.layout = BaseNewLayout
 
 export default TutorialsLandingView
