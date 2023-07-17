@@ -19,7 +19,7 @@ export function formatSitemapCollection(
 		tutorials: collection.tutorials.map((t: ClientTutorialLite) => ({
 			id: t.id,
 			slug: t.slug,
-			name: t.name,
+			name: t.shortName || t.name,
 		})),
 	}
 }
