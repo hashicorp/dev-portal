@@ -132,7 +132,31 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: Azure
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'azure',
+		indexPages: [TYPE_BUILDER],
+		components: [
+			{
+				type: TYPE_BUILDER,
+				slug: 'arm',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'chroot',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'dtl',
+			},
+			{
+				type: TYPE_PROVISIONER,
+				newSlug: 'dtlartifact',
+			},
+		],
+	},
+
 	// TODO: Chef
 	// TODO: CloudStack
 	// TODO: Converge
