@@ -1,13 +1,13 @@
 import { useMemo } from 'react'
 import { getOperationProps, groupOperations } from '.'
-import { OpenApiDocsViewProps, OpenApiSchema } from '../types'
+import { OpenApiDocsViewProps, OpenApiDocument } from '../types'
 
 /**
  * Given a schema object,
  * Return props for an Open API docs view.
  */
 export function useSchemaAsProps(
-	schemaJson: OpenApiSchema | { error: string }
+	schemaJson: OpenApiDocument | { error: string }
 ): OpenApiDocsViewProps | null {
 	const viewProps = useMemo(() => {
 		if (!schemaJson || 'error' in schemaJson) {

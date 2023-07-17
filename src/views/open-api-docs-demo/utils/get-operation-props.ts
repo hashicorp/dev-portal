@@ -1,47 +1,35 @@
 import { snakeCase } from 'change-case'
-import type {
-	OperationProps,
-	OpenApiSchema,
-	OperationSchema,
-	ParameterSchema,
-	ParameterProps,
-} from '../types'
+import type { OperationProps, OpenApiDocument, ParameterProps } from '../types'
 import getBodyParamProps from './get-body-parameter-props'
 import slugify from 'slugify'
-
-const REQUEST_TYPES = [
-	'get',
-	'put',
-	'post',
-	'delete',
-	'options',
-	'head',
-	'patch',
-]
+import { getParameterPropsFromParameter } from './get-parameter-props'
 
 /**
  * Given a schema, return a flattened list of operation objects
  * */
-export function getOperationProps(schemaJson: OpenApiSchema): OperationProps[] {
+export function getOperationProps(
+	schemaJson: OpenApiDocument
+): OperationProps[] {
 	// Set up an accumulator array
 	const operationObjects = []
 	/**
 	 * Iterate over all paths in the schema.
 	 * Each path can support many operations through different request types.
 	 */
-	for (const path in schemaJson.paths) {
-		const pathItemObject = schemaJson.paths[path]
-		for (const type of REQUEST_TYPES) {
-			// TODO: figure out how to not cast types here
-			const operation = pathItemObject[type] as OperationSchema
-			//  Continue if a given request type is not supported on this path
-			if (!operation) {
+	for (const [path, pathItemObject] of Object.entries(schemaJson.paths)) {
+		for (const [type, operation] of Object.entries(pathItemObject)) {
+			// String values are apparently possible, but not sure how to support them
+			if (typeof operation === 'string') {
 				continue
 			}
+			// We only want operation objects.
+			if (!('operationId' in operation)) {
+				continue
+			}
+			console.log(operation)
 
-			// Get parameters
-			// TODO: figure out how to not cast types here
-			const parameters = operation.parameters as ParameterSchema[]
+			// Get parameters, if there are any
+			const parameters = 'parameters' in operation ? operation.parameters : []
 
 			const pathParameters: ParameterProps[] = []
 			const queryParameters: ParameterProps[] = []
@@ -58,9 +46,9 @@ export function getOperationProps(schemaJson: OpenApiSchema): OperationProps[] {
 					}
 					//
 					if (parameter.in === 'path') {
-						pathParameters.push({ name: parameter.name })
+						pathParameters.push(getParameterPropsFromParameter(parameter))
 					} else if (parameter.in === 'query') {
-						queryParameters.push({ name: parameter.name })
+						queryParameters.push(getParameterPropsFromParameter(parameter))
 					} else if (parameter.in === 'body') {
 						// We expect a single body parameter
 						bodyParameters = getBodyParamProps(parameter)

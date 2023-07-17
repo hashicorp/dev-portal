@@ -4,6 +4,7 @@
  */
 
 import { ParameterProps, ParameterSchema } from '../types'
+import { getParameterPropsFromSchemaObject } from './get-parameter-props'
 
 function getBodyParamProps(bodyParam: ParameterSchema): ParameterProps[] {
 	// Skip reference objects, we expect these to be de-referenced
@@ -30,7 +31,7 @@ function getBodyParamProps(bodyParam: ParameterSchema): ParameterProps[] {
 			continue
 		}
 		// Push props
-		bodyProps.push({ name: key })
+		bodyProps.push(getParameterPropsFromSchemaObject(value, key))
 	}
 	return bodyProps
 }

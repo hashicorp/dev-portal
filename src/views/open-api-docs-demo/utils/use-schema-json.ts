@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import SwaggerParser from '@apidevtools/swagger-parser'
-import type { OpenApiSchema } from '../types'
+import type { OpenApiDocument } from '../types'
 
-type ParsedSchema = OpenApiSchema | { error: string }
+type ParsedSchema = OpenApiDocument | { error: string }
 
 /**
  * Given a string of JSON, parse it into a schema data object.

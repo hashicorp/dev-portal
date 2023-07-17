@@ -6,6 +6,7 @@ export type OperationGroup = { heading: string; items: OperationProps[] }
 
 export interface ParameterProps {
 	name: string
+	_data: DataForPrototyping
 }
 
 export interface OperationProps {
@@ -20,7 +21,7 @@ export interface OperationProps {
 
 export interface OpenApiDocsViewProps {
 	operationGroups: OperationGroup[]
-	_schema: OpenApiSchema
+	_schema: OpenApiDocument
 }
 
 /**
@@ -32,4 +33,5 @@ export interface OpenApiDocsViewProps {
 export type OperationSchema = OpenAPIV3_1.OperationObject
 export type ParametersSchema = OpenAPIV3_1.ParameterObject[]
 export type ParameterSchema = OpenAPIV3_1.ParameterObject
-export type OpenApiSchema = OpenAPIV3_1.Document
+export type OpenApiDocument = OpenAPIV3_1.Document
+export type OpenApiSchemaObject = OpenAPIV3_1.SchemaObject

@@ -27,7 +27,7 @@ function ParametersSection({
 			<div>{heading}</div>
 			<div>
 				{parameters.map((p) => {
-					return <Parameter key={p.name} name={p.name} />
+					return <Parameter key={p.name} name={p.name} _data={p._data} />
 				})}
 			</div>
 		</>
