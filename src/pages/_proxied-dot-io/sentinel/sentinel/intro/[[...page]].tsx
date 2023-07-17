@@ -19,17 +19,19 @@ const localPartialsDir = `../content/partials`
 const enableVersionedDocs = isVersionedDocsEnabled(productData.slug)
 const additionalComponents = {}
 
-function DocsView(props) {
+export default function SentinelDocsPage(props) {
 	return (
-		<DocsPage
-			product={product}
-			baseRoute={basePath}
-			staticProps={props}
-			additionalComponents={additionalComponents}
-			showVersionSelect={enableVersionedDocs}
-			algoliaConfig={productData.algoliaConfig}
-			showEditPage={false}
-		/>
+		<SentinelIoLayout {...props.layoutProps}>
+			<DocsPage
+				product={product}
+				baseRoute={basePath}
+				staticProps={props}
+				additionalComponents={additionalComponents}
+				showVersionSelect={enableVersionedDocs}
+				algoliaConfig={productData.algoliaConfig}
+				showEditPage={false}
+			/>
+		</SentinelIoLayout>
 	)
 }
 
@@ -52,6 +54,3 @@ const { getStaticPaths, getStaticProps } = getStaticGenerationFunctions(
 
 // Export getStatic functions
 export { getStaticPaths, getStaticProps }
-// Export view with layout
-DocsView.layout = SentinelIoLayout
-export default DocsView

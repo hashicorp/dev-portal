@@ -113,5 +113,4 @@ export async function getServerSideProps(ctx) {
 	}
 }
 
-Error.layout = ({ children }) => <>{children}</>
 export default Error
