@@ -156,8 +156,22 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'chef',
+		components: [
+			{
+				type: TYPE_PROVISIONER,
+				slug: 'chef-client',
+			},
+			{
+				type: TYPE_PROVISIONER,
+				slug: 'chef-solo',
+			},
+		],
+	},
 
-	// TODO: Chef
 	// TODO: CloudStack
 	// TODO: Converge
 	// TODO: DigitalOcean
