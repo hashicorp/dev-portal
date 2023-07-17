@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { SearchableContentType } from 'contexts'
 import { ReactNode, createContext, useContext, useState } from 'react'
 
 const SearchHitsContext = createContext([])
 
-type HitCounts = Record<SearchableContentType, number>
+type HitCounts = Record<'docs' | 'tutorials' | 'integrations', number>
 
 /**
  * Intended to provides search hit counts across content types.

@@ -10,10 +10,12 @@ import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
 import { LazyMotion } from 'framer-motion'
 import { SessionProvider } from 'next-auth/react'
+import { type Session } from 'next-auth'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { NextAdapter } from 'next-query-params'
 import { QueryParamProvider } from 'use-query-params'
+import type { AppProps } from 'next/app'
 import { useFlags } from 'flags/client'
 import { FlagBagProvider } from 'flags/client'
 
@@ -28,15 +30,9 @@ import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analyti
 import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 
 // Global imports
-import type { CustomAppProps } from 'types/_app'
-import {
-	CurrentContentTypeProvider,
-	CurrentProductProvider,
-	DeviceSizeProvider,
-} from 'contexts'
+import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
 import { isDeployPreview, isPreview } from 'lib/env-checks'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
-import EmptyLayout from 'layouts/empty'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
@@ -69,7 +65,7 @@ addGlobalLinkHandler((destinationUrl: string) => {
 export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
-}: CustomAppProps) {
+}: AppProps<{ session?: Session } & Record<string, any>>) {
 	const flagBag = useFlags()
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
@@ -91,46 +87,40 @@ export default function App({
 			})
 	)
 
-	const Layout = Component.layout ?? EmptyLayout
-	const currentContentType = Component.contentType ?? 'global'
 	const currentProduct = pageProps.product || null
 
 	return (
 		<QueryClientProvider client={queryClient}>
 			<SSRProvider>
 				<QueryParamProvider adapter={NextAdapter}>
-					<CurrentContentTypeProvider currentContentType={currentContentType}>
-						<ErrorBoundary FallbackComponent={DevDotClient}>
-							<FlagBagProvider value={flagBag}>
-								<SessionProvider session={session}>
-									<DeviceSizeProvider>
-										<CurrentProductProvider currentProduct={currentProduct}>
-											<CodeTabsProvider>
-												<HeadMetadata {...pageProps.metadata} />
-												<LazyMotion
-													features={() =>
-														import('lib/framer-motion-features').then(
-															(mod) => mod.default
-														)
-													}
-													strict={process.env.NODE_ENV === 'development'}
-												>
-													<Layout {...pageProps.layoutProps}>
-														<Component {...pageProps} />
-													</Layout>
-													<Toaster />
-													{showProductSwitcher ? (
-														<PreviewProductSwitcher />
-													) : null}
-													<ReactQueryDevtools />
-												</LazyMotion>
-											</CodeTabsProvider>
-										</CurrentProductProvider>
-									</DeviceSizeProvider>
-								</SessionProvider>
-							</FlagBagProvider>
-						</ErrorBoundary>
-					</CurrentContentTypeProvider>
+					<ErrorBoundary FallbackComponent={DevDotClient}>
+						<FlagBagProvider value={flagBag}>
+							<SessionProvider session={session}>
+								<DeviceSizeProvider>
+									<CurrentProductProvider currentProduct={currentProduct}>
+										<CodeTabsProvider>
+											<HeadMetadata {...pageProps.metadata} />
+											<LazyMotion
+												features={() =>
+													import('lib/framer-motion-features').then(
+														(mod) => mod.default
+													)
+												}
+												strict={process.env.NODE_ENV === 'development'}
+											>
+												<Component {...pageProps} />
+												<Toaster />
+												{showProductSwitcher ? (
+													<PreviewProductSwitcher />
+												) : null}
+												<ReactQueryDevtools />
+											</LazyMotion>
+										</CodeTabsProvider>
+									</CurrentProductProvider>
+								</DeviceSizeProvider>
+							</SessionProvider>
+						</FlagBagProvider>
+					</ErrorBoundary>
 				</QueryParamProvider>
 			</SSRProvider>
 		</QueryClientProvider>
