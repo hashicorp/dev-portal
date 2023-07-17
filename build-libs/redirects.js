@@ -19,6 +19,12 @@ const { getTutorialRedirects } = require('./tutorial-redirects')
 const {
 	integrationMultipleComponentRedirects,
 } = require('./integration-multiple-component-redirects')
+const {
+	generatePackerPluginRedirects,
+} = require('./integration-packer-redirects')
+
+// TODO: just calling for testing
+generatePackerPluginRedirects()
 
 require('isomorphic-unfetch')
 
