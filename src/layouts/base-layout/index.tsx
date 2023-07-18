@@ -20,8 +20,8 @@ import NavigationHeader from 'components/navigation-header'
 import alertBannerData from 'data/alert-banner.json'
 
 // Local imports
-import { BaseNewLayoutProps, AlertBannerProps } from './types'
-import s from './base-new-layout.module.css'
+import { BaseLayoutProps, AlertBannerProps } from './types'
+import s from './base-layout.module.css'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	preset: 'oss',
@@ -31,7 +31,7 @@ const { ConsentManager, openConsentManager } = createConsentManager({
  * Renders a layout with a navigation header, footer, and content area.
  *
  * Note: this layout will _always_ render a `MobileMenuButton`, even if
- * no `mobileMenuSlot` is provided. When `BaseNewLayout` is used directly,
+ * no `mobileMenuSlot` is provided. When `BaseLayout` is used directly,
  * we expect the consumer of the layout to render a `MobileMenuContainer`
  * somewhere else in their view, or provide `mobileMenuSlot` with a
  * `MobileMenuContainer` to render.
@@ -39,11 +39,11 @@ const { ConsentManager, openConsentManager } = createConsentManager({
  * If you need a layout with a built-in generic global mobile menu,
  * use `BaseLayoutWithMobileMenu`.
  */
-const BaseNewLayout = ({
+const BaseLayout = ({
 	children,
 	showFooterTopBorder = false,
 	mobileMenuSlot,
-}: BaseNewLayoutProps) => {
+}: BaseLayoutProps) => {
 	usePageviewAnalytics({
 		siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
 		includedDomains: __config.dev_dot.analytics.included_domains,
@@ -81,4 +81,4 @@ const BaseNewLayout = ({
 	)
 }
 
-export default BaseNewLayout
+export default BaseLayout

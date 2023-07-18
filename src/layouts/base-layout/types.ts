@@ -6,7 +6,7 @@
 import { ReactNode } from 'react'
 import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
 
-interface BaseNewLayoutProps {
+interface BaseLayoutProps {
 	/**
 	 * Content to render within the layout.
 	 */
@@ -55,4 +55,4 @@ interface AlertBannerProps {
 	expirationDate?: string
 }
 
-export type { BaseNewLayoutProps, AlertBannerProps }
+export type { BaseLayoutProps, AlertBannerProps }

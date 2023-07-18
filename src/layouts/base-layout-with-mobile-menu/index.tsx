@@ -1,14 +1,14 @@
 // Library
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 // Layout
-import BaseNewLayout from 'layouts/base-new'
+import BaseLayout from 'layouts/base-layout'
 // Components
 import MobileMenuContainer, {
 	MobileAuthenticationControls,
 } from 'components/mobile-menu-container'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 // Types
-import type { BaseNewLayoutProps } from 'layouts/base-new/types'
+import type { BaseLayoutProps } from 'layouts/base-layout/types'
 // Styles
 import s from './base-layout-with-mobile-menu.module.css'
 
@@ -42,11 +42,9 @@ function NonProductPageMobileMenu() {
  * Render our base layout with generic mobile menu contents.
  */
 function BaseLayoutWithMobileMenu(
-	props: Omit<BaseNewLayoutProps, 'mobileMenuSlot'>
+	props: Omit<BaseLayoutProps, 'mobileMenuSlot'>
 ) {
-	return (
-		<BaseNewLayout {...props} mobileMenuSlot={<NonProductPageMobileMenu />} />
-	)
+	return <BaseLayout {...props} mobileMenuSlot={<NonProductPageMobileMenu />} />
 }
 
 export default BaseLayoutWithMobileMenu
