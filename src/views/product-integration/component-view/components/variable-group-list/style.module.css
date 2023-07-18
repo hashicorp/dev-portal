@@ -76,6 +76,12 @@
 			&:not(:last-of-type) {
 				margin-bottom: 0;
 			}
+
+			& .topRow {
+				& .key {
+					color: var(--token-color-foreground-primary);
+				}
+			}
 		}
 
 		@nest html[data-theme='dark'] & {
@@ -105,10 +111,6 @@
 	padding: 2px 4px 3px;
 	background: var(--token-color-palette-neutral-50);
 	color: var(--token-color-foreground-strong);
-}
-
-.nestedKey {
-	color: var(--token-color-foreground-primary);
 }
 
 .permalink {
