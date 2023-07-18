@@ -37,7 +37,7 @@ const { ConsentManager, openConsentManager } = createConsentManager({
  * `MobileMenuContainer` to render.
  *
  * If you need a layout with a built-in generic global mobile menu,
- * use `BaseLayoutWithMobileMenu`.
+ * use `BaseLayoutGenericMobileMenu`.
  */
 const BaseLayout = ({
 	children,

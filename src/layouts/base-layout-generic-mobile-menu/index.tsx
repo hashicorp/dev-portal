@@ -10,7 +10,7 @@ import { SidebarNavMenuItem } from 'components/sidebar/components'
 // Types
 import type { BaseLayoutProps } from 'layouts/base-layout/types'
 // Styles
-import s from './base-layout-with-mobile-menu.module.css'
+import s from './base-layout-generic-mobile-menu.module.css'
 
 /**
  * A mobile menu pane with contents for use on on non-product pages.
@@ -41,10 +41,10 @@ function NonProductPageMobileMenu() {
 /**
  * Render our base layout with generic mobile menu contents.
  */
-function BaseLayoutWithMobileMenu(
+function BaseLayoutGenericMobileMenu(
 	props: Omit<BaseLayoutProps, 'mobileMenuSlot'>
 ) {
 	return <BaseLayout {...props} mobileMenuSlot={<NonProductPageMobileMenu />} />
 }
 
-export default BaseLayoutWithMobileMenu
+export default BaseLayoutGenericMobileMenu
