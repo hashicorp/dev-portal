@@ -1,0 +1,11 @@
+.mobileMenuContainer {
+	padding: 24px;
+	z-index: 4;
+}
+
+.mobileMenuNavList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
