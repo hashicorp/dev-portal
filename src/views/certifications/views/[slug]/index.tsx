@@ -4,7 +4,8 @@
  */
 
 // Global
-import BaseLayoutGenericMobileMenu from 'layouts/base-layout-generic-mobile-menu'
+import BaseLayout from 'layouts/base-layout'
+import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 // Share certifications
 import {
 	AccordionWithMdxContent,
@@ -23,7 +24,7 @@ function CertificationProgramView({
 	const { hero, exams } = pageContent
 
 	return (
-		<BaseLayoutGenericMobileMenu>
+		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<ProgramHero
 				heading={hero.heading}
 				description={hero.description}
@@ -59,7 +60,7 @@ function CertificationProgramView({
 					</div>
 				</CertificationsMaxWidth>
 			</div>
-		</BaseLayoutGenericMobileMenu>
+		</BaseLayout>
 	)
 }
 

@@ -4,8 +4,9 @@
  */
 
 // Global
-import BaseLayoutGenericMobileMenu from 'layouts/base-layout-generic-mobile-menu'
+import BaseLayout from 'layouts/base-layout'
 // Shared components
+import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import {
 	AccordionWithMdxContent,
 	CertificationsMaxWidth,
@@ -23,7 +24,7 @@ function CertificationsLandingView({
 }: CertificationLandingProps) {
 	const { hero } = pageContent
 	return (
-		<BaseLayoutGenericMobileMenu>
+		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<div className={s.root}>
 				{/* Hero */}
 				<LandingHero heading={hero.heading} description={hero.description} />
@@ -55,7 +56,7 @@ function CertificationsLandingView({
 					</CertificationsMaxWidth>
 				</div>
 			</div>
-		</BaseLayoutGenericMobileMenu>
+		</BaseLayout>
 	)
 }
 

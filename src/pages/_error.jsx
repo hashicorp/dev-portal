@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import BaseLayoutGenericMobileMenu from 'layouts/base-layout-generic-mobile-menu'
+import BaseLayout from 'layouts/base'
+import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import proxiedLayouts from 'layouts/_proxied-dot-io/dict'
 import { getProxiedProductSlug } from 'lib/env-checks'
 import ErrorViewSwitcher from 'views/error-view-switcher'
@@ -53,7 +54,11 @@ function Error({ statusCode, proxiedProductSlug }) {
 
 	const ProxiedLayout = proxiedLayouts[proxiedProductSlug]
 	const isProxiedDotIo = Boolean(ProxiedLayout)
-	const Layout = isProxiedDotIo ? ProxiedLayout : BaseLayoutGenericMobileMenu
+	const Layout = isProxiedDotIo
+		? ProxiedLayout
+		: (props) => (
+				<BaseLayout {...props} mobileMenuSlot={<MobileMenuLevelsGeneric />} />
+		  )
 
 	return (
 		<Layout>
