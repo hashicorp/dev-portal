@@ -4,7 +4,6 @@
  */
 
 // Third-party imports
-import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import AlertBanner from '@hashicorp/react-alert-banner'
 
@@ -13,67 +12,43 @@ import usePageviewAnalytics from '@hashicorp/platform-analytics'
 import createConsentManager from '@hashicorp/react-consent-manager/loader'
 
 // Global imports
-import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import { CoreDevDotLayoutWithTheme } from 'layouts/core-dev-dot-layout'
 import { CommandBarProvider } from 'components/command-bar'
 import Footer from 'components/footer'
-import MobileMenuContainer, {
-	MobileAuthenticationControls,
-} from 'components/mobile-menu-container'
 import NavigationHeader from 'components/navigation-header'
-import { SidebarNavMenuItem } from 'components/sidebar/components'
 import alertBannerData from 'data/alert-banner.json'
 
 // Local imports
-import { BaseNewLayoutProps, AlertBannerProps } from './types'
-import s from './base-new-layout.module.css'
+import { BaseLayoutProps, AlertBannerProps } from './types'
+import s from './base-layout.module.css'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	preset: 'oss',
 })
 
 /**
- * The mobile menu that shows on non-product pages, or pages that do not use the
- * SidebarSidecarLayout that usually handles the mobile menu.
+ * Renders a layout with a navigation header, footer, and content area.
+ *
+ * Note: this layout will _always_ render a `MobileMenuButton`, even if
+ * no `mobileMenuSlot` is provided. When `BaseLayout` is used directly,
+ * we expect the consumer of the layout to render a `MobileMenuContainer`
+ * somewhere else in their view, or provide `mobileMenuSlot` with a
+ * `MobileMenuContainer` to render.
+ *
+ * If you need a layout with a built-in generic global mobile menu,
+ * use `BaseLayoutGenericMobileMenu`.
  */
-const NonProductPageMobileMenu = () => {
-	return (
-		<MobileMenuContainer className={s.mobileMenuContainer}>
-			<MobileAuthenticationControls />
-			<ul className={s.mobileMenuNavList}>
-				<SidebarNavMenuItem item={{ heading: 'Main Menu' }} />
-				{generateTopLevelSubNavItems().map((item: $TSFixMe, index: number) => (
-					// eslint-disable-next-line react/no-array-index-key
-					<SidebarNavMenuItem item={item} key={index} />
-				))}
-			</ul>
-		</MobileMenuContainer>
-	)
-}
-
-/**
- * TODO (future enhancement): rename and abstract `SidebarNavDataProvider` for
- * use here.
- */
-const BaseNewLayout = ({
+const BaseLayout = ({
 	children,
 	showFooterTopBorder = false,
-}: BaseNewLayoutProps) => {
-	const router = useRouter()
-
+	mobileMenuSlot,
+}: BaseLayoutProps) => {
 	usePageviewAnalytics({
 		siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
 		includedDomains: __config.dev_dot.analytics.included_domains,
 	})
 	useScrollPercentageAnalytics()
-
-	/**
-	 * We only want to show this menu for certain routes. Other routes use
-	 * SidebarSidecarLayout, which handles the mobile menu for those routes.
-	 */
-	const shouldShowMobileMenu =
-		__config.dev_dot.non_product_mobile_menu_routes.includes(router.route)
 
 	return (
 		<CommandBarProvider>
@@ -89,7 +64,7 @@ const BaseNewLayout = ({
 						<NavigationHeader />
 					</div>
 					<div className={s.contentArea}>
-						{shouldShowMobileMenu ? <NonProductPageMobileMenu /> : null}
+						{mobileMenuSlot}
 						{children}
 					</div>
 					<div
@@ -106,4 +81,4 @@ const BaseNewLayout = ({
 	)
 }
 
-export default BaseNewLayout
+export default BaseLayout
