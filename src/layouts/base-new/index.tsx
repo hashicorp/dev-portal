@@ -28,8 +28,16 @@ const { ConsentManager, openConsentManager } = createConsentManager({
 })
 
 /**
- * TODO (future enhancement): rename and abstract `SidebarNavDataProvider` for
- * use here.
+ * Renders a layout with a navigation header, footer, and content area.
+ *
+ * Note: this layout will _always_ render a `MobileMenuButton`, even if
+ * no `mobileMenuSlot` is provided. When `BaseNewLayout` is used directly,
+ * we expect the consumer of the layout to render a `MobileMenuContainer`
+ * somewhere else in their view, or provide `mobileMenuSlot` with a
+ * `MobileMenuContainer` to render.
+ *
+ * If you need a layout with a built-in generic global mobile menu,
+ * use `BaseLayoutWithMobileMenu`.
  */
 const BaseNewLayout = ({
 	children,
