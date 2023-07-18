@@ -96,10 +96,7 @@ export function VariableGroupList({
 								<span className={s.left}>
 									<code
 										id={permalinkId}
-										className={classNames(
-											s.key,
-											isNested ? s.nestedKeyType : s.topLevelKeyType
-										)}
+										className={classNames(s.key, isNested && s.nestedKey)}
 									>
 										{variable.key}
 									</code>

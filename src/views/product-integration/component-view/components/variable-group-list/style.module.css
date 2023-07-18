@@ -99,6 +99,7 @@
 
 .key {
 	composes: g-offset-scroll-margin-top from global;
+	composes: hds-typography-code-200 from global;
 	border: 1px solid var(--token-color-border-primary);
 	border-radius: 5px;
 	padding: 2px 4px 3px;
@@ -106,12 +107,7 @@
 	color: var(--token-color-foreground-strong);
 }
 
-.topLevelKeyType {
-	composes: hds-typography-code-300 from global;
-}
-
-.nestedKeyType {
-	composes: hds-typography-code-200 from global;
+.nestedKey {
 	color: var(--token-color-foreground-primary);
 }
 
