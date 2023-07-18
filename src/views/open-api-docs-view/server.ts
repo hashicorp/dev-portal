@@ -1,5 +1,12 @@
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { OpenApiDocsParams, OpenApiDocsViewProps } from './types'
+// Types
+import type {
+	GetStaticPaths,
+	GetStaticPropsContext,
+	GetStaticPropsResult,
+} from 'next'
+import type { OpenApiDocsParams, OpenApiDocsViewProps } from './types'
+import type { ProductSlug } from 'types/products'
+import { cachedGetProductData } from 'lib/get-product-data'
 
 /**
  * Get static paths for the view.
@@ -28,11 +35,20 @@ export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
  *
  * For now, we have a placeholder. We'll expand this as we build out the view.
  */
-export const getStaticProps: GetStaticProps<
-	OpenApiDocsViewProps
-> = async () => {
+export async function getStaticProps(
+	/**
+	 * Product slug is used to grab productData, which we use in a few places,
+	 * including in the mobile navigation, which has a product-nav pane.
+	 */
+	productSlug: ProductSlug,
+	// Note: params aren't used yet, but will be for versioned API docs.
+	{ params }: GetStaticPropsContext<OpenApiDocsParams>
+): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
+	const productData = cachedGetProductData(productSlug)
+
 	return {
 		props: {
+			productData,
 			placeholder: 'placeholder data for the revised API docs template',
 			IS_REVISED_TEMPLATE: true,
 		},

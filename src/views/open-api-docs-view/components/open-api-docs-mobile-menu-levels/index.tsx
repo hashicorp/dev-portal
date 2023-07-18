@@ -1,5 +1,3 @@
-// Product data
-import HCP_PRODUCT_DATA from 'data/hcp.json'
 // Components
 import MobileMenuLevels from 'components/mobile-menu-levels'
 import { SidebarHorizontalRule } from 'components/sidebar/components'
@@ -12,22 +10,19 @@ import {
 import type { ProductData } from 'types/products'
 
 /**
- * Placeholder global product data, should get from getStaticProps
- * instead, I think.
- *
- * TODO: get from getStaticProps, pass into this component
- */
-const PRODUCT_DATA = HCP_PRODUCT_DATA as ProductData
-
-/**
  * Placeholder for OpenApiDocsView mobile menu levels.
  */
-export function OpenApiDocsMobileMenuLevels() {
+export function OpenApiDocsMobileMenuLevels({
+	productData,
+}: {
+	// Product data, used to generate mobile menu levels.
+	productData: ProductData
+}) {
 	return (
 		<MobileMenuLevels
 			levels={[
 				mobileMenuLevelMain(),
-				mobileMenuLevelProduct(PRODUCT_DATA),
+				mobileMenuLevelProduct(productData),
 				{
 					levelButtonText: 'Previous',
 					content: (
@@ -38,7 +33,7 @@ export function OpenApiDocsMobileMenuLevels() {
 							</div>
 							{/* Common resources for this product */}
 							<SidebarHorizontalRule />
-							<ProductResourceNavItems slug={PRODUCT_DATA.slug} />
+							<ProductResourceNavItems slug={productData.slug} />
 						</div>
 					),
 				},
