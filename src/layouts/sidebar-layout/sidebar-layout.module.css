@@ -1,0 +1,29 @@
+.root {
+	display: flex;
+	gap: 48px;
+
+	@media (min-width: 1440px) {
+		gap: 64px;
+	}
+}
+
+.sidebarArea {
+	/* Note that --navigation-header-height is set by BaseLayout styles */
+	background-color: var(--token-color-surface-primary);
+	box-shadow: var(--token-surface-base-box-shadow);
+	display: none;
+	height: calc(100vh - var(--navigation-header-height));
+	overflow: auto;
+	padding: 24px 24px 100px 24px;
+	position: sticky;
+	top: var(--navigation-header-height);
+	width: 312px;
+
+	@media (--dev-dot-hide-mobile-menu) {
+		display: block;
+	}
+}
+
+.mainArea {
+	flex: 1 1 0;
+}
