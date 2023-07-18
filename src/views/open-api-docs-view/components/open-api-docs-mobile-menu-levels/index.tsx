@@ -27,7 +27,7 @@ export function OpenApiDocsMobileMenuLevels({
 					levelButtonText: 'Previous',
 					content: (
 						<div>
-							{/* Provided content for this level */}
+							{/* API docs mobile menu contents */}
 							<div style={{ border: '1px solid magenta' }}>
 								PLACEHOLDER for OpenApiDocsView mobile menu contents
 							</div>
