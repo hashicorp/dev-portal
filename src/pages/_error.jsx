@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import BaseLayoutGenericMobileMenu from 'layouts/base-layout-with-mobile-menu'
+import BaseLayoutGenericMobileMenu from 'layouts/base-layout-generic-mobile-menu'
 import proxiedLayouts from 'layouts/_proxied-dot-io/dict'
 import { getProxiedProductSlug } from 'lib/env-checks'
 import ErrorViewSwitcher from 'views/error-view-switcher'
