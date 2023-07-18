@@ -1,7 +1,7 @@
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
 // Local
-import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
+import { OpenApiDocsMobileMenuLevels } from './components'
 // Types
 import type { OpenApiDocsViewProps } from './types'
 
@@ -16,7 +16,7 @@ function OpenApiDocsView(props: OpenApiDocsViewProps) {
 					PLACEHOLDER for sidebar contents
 				</div>
 			}
-			mobileMenuSlot={<MobileMenuLevelsGeneric />}
+			mobileMenuSlot={<OpenApiDocsMobileMenuLevels />}
 		>
 			<div style={{ border: '1px solid magenta' }}>
 				<h1>OpenApiDocsView Placeholder</h1>
