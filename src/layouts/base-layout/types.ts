@@ -3,15 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactNode } from 'react'
+import { PropsWithChildren, ReactNode } from 'react'
 import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
 
-interface BaseLayoutProps {
-	/**
-	 * Content to render within the layout.
-	 */
-	children: ReactNode
-
+interface BaseLayoutProps extends PropsWithChildren {
 	/**
 	 * Defaults to false. If true, a border will be shown to separate
 	 * the footer from the page contents above.
