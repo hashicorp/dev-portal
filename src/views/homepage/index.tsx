@@ -7,7 +7,7 @@
 import { ReactElement } from 'react'
 
 // Global imports
-import BaseNewLayout from 'layouts/base-new'
+import BaseLayoutWithMobileMenu from 'layouts/base-layout-with-mobile-menu'
 
 // Local imports
 import {
@@ -20,7 +20,7 @@ import s from './homepage.module.css'
 
 function HomePageView(): ReactElement {
 	return (
-		<BaseNewLayout>
+		<BaseLayoutWithMobileMenu>
 			<div className={s.root}>
 				<div className={s.background} />
 				<div className={s.limitedWidthContainer}>
@@ -53,7 +53,7 @@ function HomePageView(): ReactElement {
 					/>
 				</div>
 			</div>
-		</BaseNewLayout>
+		</BaseLayoutWithMobileMenu>
 	)
 }
 

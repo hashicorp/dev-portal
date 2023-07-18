@@ -4,7 +4,7 @@
  */
 
 // Global
-import BaseNewLayout from 'layouts/base-new'
+import BaseLayoutWithMobileMenu from 'layouts/base-layout-with-mobile-menu'
 // Shared components
 import {
 	AccordionWithMdxContent,
@@ -23,7 +23,7 @@ function CertificationsLandingView({
 }: CertificationLandingProps) {
 	const { hero } = pageContent
 	return (
-		<BaseNewLayout>
+		<BaseLayoutWithMobileMenu>
 			<div className={s.root}>
 				{/* Hero */}
 				<LandingHero heading={hero.heading} description={hero.description} />
@@ -55,7 +55,7 @@ function CertificationsLandingView({
 					</CertificationsMaxWidth>
 				</div>
 			</div>
-		</BaseNewLayout>
+		</BaseLayoutWithMobileMenu>
 	)
 }
 

@@ -4,7 +4,7 @@
  */
 
 // Global
-import BaseNewLayout from 'layouts/base-new'
+import BaseLayoutWithMobileMenu from 'layouts/base-layout-with-mobile-menu'
 // Share certifications
 import {
 	AccordionWithMdxContent,
@@ -23,7 +23,7 @@ function CertificationProgramView({
 	const { hero, exams } = pageContent
 
 	return (
-		<BaseNewLayout>
+		<BaseLayoutWithMobileMenu>
 			<ProgramHero
 				heading={hero.heading}
 				description={hero.description}
@@ -59,7 +59,7 @@ function CertificationProgramView({
 					</div>
 				</CertificationsMaxWidth>
 			</div>
-		</BaseNewLayout>
+		</BaseLayoutWithMobileMenu>
 	)
 }
 
