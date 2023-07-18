@@ -42,6 +42,9 @@ interface BaseLayoutProps {
 	 * elements, we could make this prop required, and remove the possibility
 	 * of the `MobileMenuButton` potentially having no `MobileMenuContainer`
 	 * to open and close.
+	 *
+	 * Discussion Task:
+	 * https://app.asana.com/0/1202097197789424/1205087147421651/f
 	 */
 	mobileMenuSlot?: ReactNode
 }
