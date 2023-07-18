@@ -6,7 +6,7 @@
 /*
 NOTE:
 Relies on `--sticky-bars-height` being set,
-this is currently being done in `BaseNewLayout`.
+this is currently being done in `BaseLayout`.
 See comment in src/layouts/base-new/base-new-layout.module.css
 for further details.
 */

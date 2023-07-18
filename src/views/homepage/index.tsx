@@ -7,7 +7,8 @@
 import { ReactElement } from 'react'
 
 // Global imports
-import BaseNewLayout from 'layouts/base-new'
+import BaseLayout from 'layouts/base-layout'
+import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 
 // Local imports
 import {
@@ -20,7 +21,7 @@ import s from './homepage.module.css'
 
 function HomePageView(): ReactElement {
 	return (
-		<BaseNewLayout>
+		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<div className={s.root}>
 				<div className={s.background} />
 				<div className={s.limitedWidthContainer}>
@@ -53,7 +54,7 @@ function HomePageView(): ReactElement {
 					/>
 				</div>
 			</div>
-		</BaseNewLayout>
+		</BaseLayout>
 	)
 }
 
