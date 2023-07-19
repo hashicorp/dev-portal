@@ -1,21 +1,20 @@
 // Library
+import fetchGithubFile from 'lib/fetch-github-file'
 import { cachedGetProductData } from 'lib/get-product-data'
 // Utilities
-import { parseAndValidateOpenApiSchema } from './utils'
+import { findLatestStableVersion, parseAndValidateOpenApiSchema } from './utils'
 // Types
 import type {
 	GetStaticPaths,
 	GetStaticPropsContext,
 	GetStaticPropsResult,
 } from 'next'
-import type { OpenApiDocsParams, OpenApiDocsViewProps } from './types'
+import type {
+	OpenApiDocsParams,
+	OpenApiDocsViewProps,
+	OpenApiDocsVersionData,
+} from './types'
 import type { ProductSlug } from 'types/products'
-
-/**
- * PLACEHOLDER direct import of HCP Vault Secrets data
- * TODO: remove this, load from GitHub instead.
- */
-import PLACEHOLDER_OPEN_API_JSON from './fixtures/hcp-vault-secrets.swagger.json'
 
 /**
  * Get static paths for the view.
@@ -45,40 +44,52 @@ export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
  * For now, we have a placeholder. We'll expand this as we build out the view.
  */
 export async function getStaticProps({
-	productSlug,
 	context,
+	productSlug,
+	versionData,
 }: {
-	productSlug: ProductSlug
 	context: GetStaticPropsContext<OpenApiDocsParams>
+	productSlug: ProductSlug
+	versionData: OpenApiDocsVersionData[]
 }): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
 	// Get the product data
 	const productData = cachedGetProductData(productSlug)
 
 	/**
-	 * Determine the versionId
-	 * If we a path part, we treat that as the versionId. Otherwise, latest.
+	 * Parse the version to render, or 404 if a non-existent version is requested.
 	 */
 	const pathParts = context.params?.page
 	const versionId = pathParts?.length > 1 ? pathParts[0] : null
+	const isVersionedUrl = typeof versionId === 'string'
+	const latestStableVersion = findLatestStableVersion(versionData)
+	// Resolve the current version
+	let targetVersion
+	if (isVersionedUrl) {
+		targetVersion = versionData.find((v) => v.versionId === versionId)
+	} else {
+		targetVersion = latestStableVersion
+	}
+	// If we can't resolve the current version, render a 404 page
+	if (!targetVersion) {
+		return { notFound: true }
+	}
 
 	/**
-	 * Fetch the OpenAPI schema file string for this version.
-	 * TODO: actually fetch this, for now, using a direct import.
+	 * Fetch, parse, and validate the OpenAPI schema for this version.
 	 */
-	const schemaFileString = JSON.stringify(PLACEHOLDER_OPEN_API_JSON)
-
-	/**
-	 * Parse and validate the OpenAPI schema file string.
-	 */
+	const schemaFileString = await fetchGithubFile(targetVersion.targetFile)
 	const schemaData = await parseAndValidateOpenApiSchema(schemaFileString)
 
+	/**
+	 * Return props
+	 */
 	return {
 		props: {
 			productData,
 			IS_REVISED_TEMPLATE: true,
 			_placeholder: {
 				productSlug,
-				versionId,
+				targetVersion,
 				schemaData,
 			},
 		},

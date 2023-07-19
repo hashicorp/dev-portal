@@ -135,8 +135,9 @@ export const getStaticProps: GetStaticProps<
 	 */
 	if (USE_REVISED_TEMPLATE) {
 		return await getOpenApiDocsStaticProps({
-			productSlug: PRODUCT_SLUG,
 			context: { params },
+			productSlug: PRODUCT_SLUG,
+			versionData,
 		})
 	}
 
