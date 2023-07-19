@@ -1,20 +1,29 @@
 // Library
 import fetchGithubFile from 'lib/fetch-github-file'
+import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { cachedGetProductData } from 'lib/get-product-data'
 // Utilities
-import { findLatestStableVersion, parseAndValidateOpenApiSchema } from './utils'
+import {
+	findLatestStableVersion,
+	getOperationProps,
+	groupOperations,
+	parseAndValidateOpenApiSchema,
+} from './utils'
 // Types
 import type {
 	GetStaticPaths,
 	GetStaticPropsContext,
 	GetStaticPropsResult,
 } from 'next'
+// Utilities
+
+// Types
+import type { ProductSlug } from 'types/products'
 import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
 	OpenApiDocsVersionData,
 } from './types'
-import type { ProductSlug } from 'types/products'
 
 /**
  * Get static paths for the view.
@@ -83,6 +92,8 @@ export async function getStaticProps({
 			? sourceFile
 			: await fetchGithubFile(sourceFile)
 	const schemaData = await parseAndValidateOpenApiSchema(schemaFileString)
+	const operationProps = getOperationProps(schemaData)
+	const operationGroups = groupOperations(operationProps)
 
 	/**
 	 * Return props
@@ -94,8 +105,8 @@ export async function getStaticProps({
 			_placeholder: {
 				productSlug,
 				targetVersion,
-				schemaData,
 			},
+			operationGroups: stripUndefinedProperties(operationGroups),
 		},
 	}
 }
