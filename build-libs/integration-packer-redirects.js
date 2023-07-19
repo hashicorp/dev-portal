@@ -255,7 +255,27 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: Git
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'git',
+		indexPages: [TYPE_DATA_SOURCE],
+		components: [
+			{
+				type: TYPE_DATA_SOURCE,
+				slug: 'commit',
+			},
+			{
+				type: TYPE_DATA_SOURCE,
+				slug: 'repository',
+			},
+			{
+				type: TYPE_DATA_SOURCE,
+				slug: 'tree',
+			},
+		],
+	},
+
 	// TODO: Google Cloud Platform
 	// TODO: Gridscale
 	// TODO: HashiCups
