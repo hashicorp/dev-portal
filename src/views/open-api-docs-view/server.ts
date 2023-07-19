@@ -1,13 +1,21 @@
 // Library
 import { cachedGetProductData } from 'lib/get-product-data'
+// Utilities
+import { parseAndValidateOpenApiSchema } from './utils'
 // Types
-import type { OpenApiDocsParams, OpenApiDocsViewProps } from './types'
-import type { ProductSlug } from 'types/products'
 import type {
 	GetStaticPaths,
 	GetStaticPropsContext,
 	GetStaticPropsResult,
 } from 'next'
+import type { OpenApiDocsParams, OpenApiDocsViewProps } from './types'
+import type { ProductSlug } from 'types/products'
+
+/**
+ * PLACEHOLDER direct import of HCP Vault Secrets data
+ * TODO: remove this, load from GitHub instead.
+ */
+import PLACEHOLDER_OPEN_API_JSON from './fixtures/hcp-vault-secrets.swagger.json'
 
 /**
  * Get static paths for the view.
@@ -53,6 +61,17 @@ export async function getStaticProps({
 	const pathParts = context.params?.page
 	const versionId = pathParts?.length > 1 ? pathParts[0] : null
 
+	/**
+	 * Fetch the OpenAPI schema file string for this version.
+	 * TODO: actually fetch this, for now, using a direct import.
+	 */
+	const schemaFileString = JSON.stringify(PLACEHOLDER_OPEN_API_JSON)
+
+	/**
+	 * Parse and validate the OpenAPI schema file string.
+	 */
+	const schemaData = await parseAndValidateOpenApiSchema(schemaFileString)
+
 	return {
 		props: {
 			productData,
@@ -60,6 +79,7 @@ export async function getStaticProps({
 			_placeholder: {
 				productSlug,
 				versionId,
+				schemaData,
 			},
 		},
 	}
