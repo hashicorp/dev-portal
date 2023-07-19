@@ -105,6 +105,7 @@ export async function getStaticProps({
 			_placeholder: {
 				productSlug,
 				targetVersion,
+				schemaData,
 			},
 			operationGroups: stripUndefinedProperties(operationGroups),
 		},
