@@ -37,5 +37,8 @@ export interface OpenApiDocsParams extends ParsedUrlQuery {
 export interface OpenApiDocsViewProps {
 	IS_REVISED_TEMPLATE: true
 	productData: ProductData
+	/**
+	 * Some temporary data we'll remove for the production implementation.
+	 */
 	_placeholder: $TSFixMe
 }
