@@ -2,6 +2,12 @@ import { CSSProperties, ReactNode } from 'react'
 import classNames from 'classnames'
 import s from './dev-code-block.module.css'
 
+/**
+ * A temporary component for prototyping and scaffolding.
+ *
+ * Context: sometimes it feels useful to have some visual thing on the page that
+ * shows what props & data I have access to in a component when prototyping.
+ */
 export function DevCodeBlock({
 	children,
 	style,
