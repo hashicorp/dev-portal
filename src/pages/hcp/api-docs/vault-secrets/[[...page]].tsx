@@ -26,7 +26,11 @@ import {
 // Types
 import type { OperationObjectType } from 'components/open-api-page/types'
 import type { ApiDocsViewProps } from 'views/api-docs-view/types'
-import type { GetStaticPaths, GetStaticProps } from 'next'
+import type {
+	GetStaticPaths,
+	GetStaticProps,
+	GetStaticPropsContext,
+} from 'next'
 import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
 import { isDeployPreview } from 'lib/env-checks'
 
@@ -118,23 +122,27 @@ export const getStaticPaths: GetStaticPaths<ApiDocsParams> = async (ctx) => {
 export const getStaticProps: GetStaticProps<
 	ApiDocsViewProps | OpenApiDocsViewProps,
 	ApiDocsParams
-> = async ({ params }: { params: ApiDocsParams }) => {
-	/**
-	 * 🚩 If the flag is enabled, use the revised template
-	 */
-	if (USE_REVISED_TEMPLATE) {
-		return await getOpenApiDocsStaticProps(PRODUCT_SLUG, { params })
-	}
-
-	/**
-	 * Otherwise, use the existing API docs view
-	 */
+> = async ({ params }: GetStaticPropsContext<ApiDocsParams>) => {
 	// Fetch all version data, based on remote `stable` & `preview` subfolders
 	const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
 	// If we can't find any version data at all, render a 404 page.
 	if (!versionData) {
 		return { notFound: true }
 	}
+
+	/**
+	 * 🚩 If the flag is enabled, use the revised template
+	 */
+	if (USE_REVISED_TEMPLATE) {
+		return await getOpenApiDocsStaticProps({
+			productSlug: PRODUCT_SLUG,
+			context: { params },
+		})
+	}
+
+	/**
+	 * Otherwise, use the existing API docs view
+	 */
 	// Return static props
 	const staticPropsResult = await getApiDocsStaticProps({
 		productSlug: PRODUCT_SLUG,

@@ -22,7 +22,7 @@ export interface OpenApiDocsParams extends ParsedUrlQuery {
  * For now, we have a placeholder. We'll expand this as we build out the view.
  */
 export interface OpenApiDocsViewProps {
-	placeholder: string
+	_placeholder: $TSFixMe
 	productData: ProductData
 	IS_REVISED_TEMPLATE: true
 }

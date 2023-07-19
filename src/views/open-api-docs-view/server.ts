@@ -1,12 +1,13 @@
+// Library
+import { cachedGetProductData } from 'lib/get-product-data'
 // Types
+import type { OpenApiDocsParams, OpenApiDocsViewProps } from './types'
+import type { ProductSlug } from 'types/products'
 import type {
 	GetStaticPaths,
 	GetStaticPropsContext,
 	GetStaticPropsResult,
 } from 'next'
-import type { OpenApiDocsParams, OpenApiDocsViewProps } from './types'
-import type { ProductSlug } from 'types/products'
-import { cachedGetProductData } from 'lib/get-product-data'
 
 /**
  * Get static paths for the view.
@@ -35,22 +36,31 @@ export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
  *
  * For now, we have a placeholder. We'll expand this as we build out the view.
  */
-export async function getStaticProps(
-	/**
-	 * Product slug is used to grab productData, which we use in a few places,
-	 * including in the mobile navigation, which has a product-nav pane.
-	 */
-	productSlug: ProductSlug,
-	// Note: params aren't used yet, but will be for versioned API docs.
-	{ params }: GetStaticPropsContext<OpenApiDocsParams>
-): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
+export async function getStaticProps({
+	productSlug,
+	context,
+}: {
+	productSlug: ProductSlug
+	context: GetStaticPropsContext<OpenApiDocsParams>
+}): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
+	// Get the product data
 	const productData = cachedGetProductData(productSlug)
+
+	/**
+	 * Determine the versionId
+	 * If we a path part, we treat that as the versionId. Otherwise, latest.
+	 */
+	const pathParts = context.params?.page
+	const versionId = pathParts?.length > 1 ? pathParts[0] : null
 
 	return {
 		props: {
 			productData,
-			placeholder: 'placeholder data for the revised API docs template',
 			IS_REVISED_TEMPLATE: true,
+			_placeholder: {
+				productSlug,
+				versionId,
+			},
 		},
 	}
 }
