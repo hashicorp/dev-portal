@@ -15,6 +15,30 @@ import type { MobileMenuLevelData } from '../types'
 import s from './level-components.module.css'
 
 /**
+ * TODO: these "level components" are a good candidate for refactoring.
+ * We should refactor `mobile-menu-levels` `level-components` to decouple
+ * business logic & presentation.
+ *
+ * This approach here to build `MobileMenuLevelData` doesn't fit as nicely
+ * into our "view-model" approach to component composition.
+ *
+ * This was created as an initial mechanism to decouple the mobile menu from
+ * the sidebar nav data context, and the intertwined `generate` functions were
+ * retained as a way to ensure consistency with existing mobile menus.
+ *
+ * We'll likely want to refactor this further to split out the intertwined:
+ * - logic for generating the menu item data (eg `generateResourcesNavItems`)
+ * - presentation of that data using `<SidebarNavMenuItem />`
+ *
+ * To do this consistently across the app, it feels like this might be a
+ * reasonably large scope of refactor. With this in mind, this work
+ * was left out of the scope of the API docs template revision.
+ *
+ * Task:
+ * https://app.asana.com/0/1202097197789424/1205093670087688/f
+ */
+
+/**
  * Render a list of resource nav items for a given product slug.
  */
 export function ProductResourceNavItems({ slug }: { slug: ProductSlug }) {
