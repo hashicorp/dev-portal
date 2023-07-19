@@ -275,9 +275,18 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-
-	// TODO: Google Cloud Platform
-	// TODO: Gridscale
+	// TODO: Google Cloud Platform ❌ (TODO, DNE in Integrations Library)
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'gridscale',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'gridscale',
+			},
+		],
+	},
 	// TODO: HashiCups
 	// TODO: Hetzner Cloud
 	// TODO: HyperOne
