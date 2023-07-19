@@ -42,9 +42,17 @@ import s from './level-components.module.css'
  * Render a list of resource nav items for a given product slug.
  */
 export function ProductResourceNavItems({ slug }: { slug: ProductSlug }) {
+	/**
+	 * TODO: this is some business logic that's intertwined with presentation.
+	 * As mentioned in the comment at the top of this file, this is an initial
+	 * cut at decoupling the mobile menu from the sidebar nav data context,
+	 * and is likely something we want to further refactor.
+	 */
+	const menuItems = generateResourcesNavItems(slug)
+
 	return (
 		<ul className={s.listResetStyles}>
-			{generateResourcesNavItems(slug).map((item: MenuItem, index: number) => (
+			{menuItems.map((item: MenuItem, index: number) => (
 				// eslint-disable-next-line react/no-array-index-key
 				<SidebarNavMenuItem item={item} key={index} />
 			))}
@@ -56,18 +64,24 @@ export function ProductResourceNavItems({ slug }: { slug: ProductSlug }) {
  * Return mobile menu level data for the shared `main` menu pane.
  */
 export function mobileMenuLevelMain(): MobileMenuLevelData {
+	/**
+	 * TODO: this is some business logic that's intertwined with presentation.
+	 * As mentioned in the comment at the top of this file, this is an initial
+	 * cut at decoupling the mobile menu from the sidebar nav data context,
+	 * and is likely something we want to further refactor.
+	 */
+	const menuItems = generateTopLevelSubNavItems()
+
 	return {
 		levelButtonText: 'Main Menu',
 		content: (
 			<>
 				<h3 className={s.heading}>Main Menu</h3>
 				<ul className={s.listResetStyles}>
-					{generateTopLevelSubNavItems().map(
-						(item: MenuItem, index: number) => (
-							// eslint-disable-next-line react/no-array-index-key
-							<SidebarNavMenuItem item={item} key={index} />
-						)
-					)}
+					{menuItems.map((item: MenuItem, index: number) => (
+						// eslint-disable-next-line react/no-array-index-key
+						<SidebarNavMenuItem item={item} key={index} />
+					))}
 				</ul>
 			</>
 		),
@@ -80,18 +94,26 @@ export function mobileMenuLevelMain(): MobileMenuLevelData {
 export function mobileMenuLevelProduct(
 	productData: ProductData
 ): MobileMenuLevelData {
+	/**
+	 * TODO: this is some business logic that's intertwined with presentation.
+	 * As mentioned in the comment at the top of this file, this is an initial
+	 * cut at decoupling the mobile menu from the sidebar nav data context,
+	 * and is likely something we want to further refactor.
+	 */
+	const menuItems = [
+		{
+			title: productData.name,
+			fullPath: `/${productData.slug}`,
+			theme: productData.slug,
+		},
+		...generateProductLandingSidebarMenuItems(productData),
+	]
+
 	return {
 		levelButtonText: `${productData.name} Home`,
 		content: (
 			<ul className={s.listResetStyles}>
-				{[
-					{
-						title: productData.name,
-						fullPath: `/${productData.slug}`,
-						theme: productData.slug,
-					},
-					...generateProductLandingSidebarMenuItems(productData),
-				].map((item: MenuItem, index: number) => (
+				{menuItems.map((item: MenuItem, index: number) => (
 					// eslint-disable-next-line react/no-array-index-key
 					<SidebarNavMenuItem item={item} key={index} />
 				))}
