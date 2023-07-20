@@ -520,10 +520,64 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: Parallels
-	// TODO: ProfitBrix
-	// TODO: Proxmox
-	// TODO: Puppet
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'parallels',
+		indexPages: [TYPE_BUILDER],
+		components: [
+			{
+				type: TYPE_BUILDER,
+				slug: 'iso',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'pvm',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'profitbricks',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'profitbricks',
+			},
+		],
+	},
+	{
+		// enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'proxmox',
+		indexPages: [TYPE_BUILDER],
+		components: [
+			{
+				type: TYPE_BUILDER,
+				slug: 'clone',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'iso',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'puppet',
+		components: [
+			{
+				type: TYPE_PROVISIONER,
+				slug: 'puppet-masterless',
+			},
+			{
+				type: TYPE_PROVISIONER,
+				slug: 'puppet-server',
+			},
+		],
+	},
 	// TODO: QEMU
 	// TODO: Salt
 	// TODO: Scaleway
