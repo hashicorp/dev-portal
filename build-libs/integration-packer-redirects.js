@@ -359,15 +359,89 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-
-	// TODO: InSpec
-	// TODO: JD Cloud
-	// TODO: Kamatera
-	// TODO: Linode
-	// TODO: Libvirt
-	// TODO: LXC
-	// TODO: LXD
-	// TODO: Mondoo
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'inspec',
+		components: [
+			{
+				type: TYPE_PROVISIONER,
+				newSlug: 'inspec',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'jdcloud',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'jdcloud',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'kamatera',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'kamatera',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'linode',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'linode',
+			},
+		],
+	},
+	// TODO: Libvirt ❌ (TODO, DNE in Integrations Library)
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'lxc',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'lxc',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'lxd',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'lxd',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'mondoo',
+		newSlug: 'cnspec',
+		components: [
+			{
+				type: TYPE_PROVISIONER,
+				slug: 'cnspec',
+			},
+			{
+				type: TYPE_PROVISIONER,
+				slug: 'mondoo',
+			},
+		],
+	},
 	// TODO: Naver Cloud
 	// TODO: Nutanix
 	// TODO: OpenStack
