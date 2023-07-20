@@ -644,9 +644,47 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: Triton
-	// TODO: UCloud
-	// TODO: UpCloud
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'triton',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'triton',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'ucloud',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'uhost',
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				newSlug: 'import',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'upcloud',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'upcloud',
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				newSlug: 'upcloud-import',
+			},
+		],
+	},
 	// TODO: Vagrant
 	// TODO: VirtualBox
 	// TODO: Volcengine
