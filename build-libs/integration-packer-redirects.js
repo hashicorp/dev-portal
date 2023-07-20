@@ -685,8 +685,45 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: Vagrant
-	// TODO: VirtualBox
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'vagrant',
+		components: [
+			{
+				type: TYPE_POST_PROCESSOR,
+				slug: 'vagrant',
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				slug: 'vagrant-cloud',
+			},
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'vagrant',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'virtualbox',
+		indexPages: [TYPE_BUILDER],
+		components: [
+			{
+				type: TYPE_BUILDER,
+				slug: 'iso',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'ovf',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'vm',
+			},
+		],
+	},
 	// TODO: Volcengine
 	// TODO: VMWare vSphere
 	// TODO: VMware
