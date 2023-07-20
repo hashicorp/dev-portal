@@ -600,10 +600,50 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: Scaleway
-	// TODO: SSH Key
-	// TODO: Tart
-	// TODO: Tencent Cloud
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'scaleway',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'scaleway',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'sshkey',
+		components: [
+			{
+				type: TYPE_DATA_SOURCE,
+				newSlug: 'sshkey',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'tart',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'tart',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'tencentcloud',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'cvm',
+			},
+		],
+	},
 	// TODO: Triton
 	// TODO: UCloud
 	// TODO: UpCloud
