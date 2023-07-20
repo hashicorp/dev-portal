@@ -47,7 +47,7 @@ function DirectionalLinkBox({
 					{label}
 				</Text>
 			</span>
-			<Text className={s.name}>{name}</Text>
+			{name ? <Text className={s.name}>{name}</Text> : null}
 		</Link>
 	)
 }
