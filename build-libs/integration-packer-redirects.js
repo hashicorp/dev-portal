@@ -724,8 +724,45 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: Volcengine
-	// TODO: VMWare vSphere
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'volcengine',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'volcengine-ecs',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'vsphere',
+		indexPages: [TYPE_BUILDER],
+		components: [
+			{
+				type: TYPE_BUILDER,
+				slug: 'vsphere-clone',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'vsphere-iso',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'vsphere-supervisor',
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				slug: 'vsphere',
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				slug: 'vsphere-template',
+			},
+		],
+	},
 	// TODO: VMware
 	// TODO: Vultr
 	// TODO: Yandex
