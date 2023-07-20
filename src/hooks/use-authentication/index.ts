@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { Session } from 'next-auth'
 import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
@@ -26,16 +27,19 @@ const useAuthentication = (
 	options: UseAuthenticationOptions = {}
 ): UseAuthenticationResult => {
 	// Get router path for `signIn` and `signOut` `callbackUrl`s
-	const router = useRouter()
+	let pathname
+	try {
+		const router = useRouter()
+		pathname = router.asPath
+	} catch (err) {
+		pathname = usePathname()
+	}
 
 	// Set up memoized `signIn` and `signOut` callbacks
-	const signIn = useMemo(
-		() => makeSignIn({ routerPath: router.asPath }),
-		[router.asPath]
-	)
+	const signIn = useMemo(() => makeSignIn({ routerPath: pathname }), [pathname])
 	const signOut = useMemo(
-		() => makeSignOut({ routerPath: router.asPath }),
-		[router.asPath]
+		() => makeSignOut({ routerPath: pathname }),
+		[pathname]
 	)
 
 	// Get option properties from `options` parameter

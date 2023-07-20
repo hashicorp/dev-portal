@@ -12,7 +12,8 @@ import {
 	useEffect,
 	useState,
 } from 'react'
-import { useRouter } from 'next/router'
+import { useRouter as usePagesRouter } from 'next/router'
+import { useRouter as useAppRouter } from 'next/navigation'
 import getCSSVariableFromDocument from 'lib/get-css-variable-from-document'
 import { useNoScrollBody } from 'hooks/use-no-scroll-body'
 
@@ -43,7 +44,12 @@ MobileMenuContext.displayName = 'MobileMenuContext'
  * Provider for managing open/closed state of the mobile menu.
  */
 const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
-	const router = useRouter()
+	let router
+	try {
+		router = usePagesRouter()
+	} catch (err) {
+		router = useAppRouter()
+	}
 	const [isMobileMenuRendered, setIsMobileMenuRendered] =
 		useState<boolean>(false)
 	const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState<boolean>()

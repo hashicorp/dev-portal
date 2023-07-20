@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import { getUserMeta } from 'lib/auth/user'
 import isAbsoluteUrl from 'lib/is-absolute-url'
@@ -70,7 +71,12 @@ const UserDropdownDisclosure = ({
 	listPosition,
 	user,
 }: UserDropdownDisclosureProps) => {
-	const { pathname } = useRouter()
+	let pathname
+	try {
+		pathname = useRouter().pathname
+	} catch (err) {
+		pathname = usePathname()
+	}
 
 	let userMeta
 	if (user) {

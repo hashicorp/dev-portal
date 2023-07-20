@@ -16,17 +16,17 @@ import { CoreDevDotLayoutProps } from './types'
 import s from './core-dev-dot-layout.module.css'
 
 const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
-	const router = useRouter()
-	const { asPath, pathname, isReady } = router
+	// const router = useRouter()
+	// const { asPath, pathname, isReady } = router
 
-	const isSwingset = asPath.startsWith('/swingset')
-	const isToastPath = isThemedPath(pathname) && !isSwingset
+	// const isSwingset = asPath.startsWith('/swingset')
+	// const isToastPath = isThemedPath(pathname) && !isSwingset
 
-	useEffect(() => {
-		if (isReady && isToastPath) {
-			makeDarkModeToast()
-		}
-	}, [isReady, isToastPath])
+	// useEffect(() => {
+	// 	if (isReady && isToastPath) {
+	// 		makeDarkModeToast()
+	// 	}
+	// }, [isReady, isToastPath])
 
 	return (
 		<MobileMenuProvider>
@@ -35,7 +35,7 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 					<DatadogHeadTag />
 				</Head>
 				<div className={s.root}>{children}</div>
-				{isSwingset ? null : <DatadogScriptTag />}
+				{/* {isSwingset ? null : <DatadogScriptTag />} */}
 			</TabProvider>
 		</MobileMenuProvider>
 	)

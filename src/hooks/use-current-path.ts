@@ -4,6 +4,7 @@
  */
 
 import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 
 interface UseCurrentPathOptions {
 	excludeHash?: boolean
@@ -15,10 +16,17 @@ interface UseCurrentPathOptions {
  * hash and/or search portion of the path. Uses `window.location`.
  */
 const useCurrentPath = (options: UseCurrentPathOptions = {}): string => {
-	const router = useRouter()
+	let path
+	try {
+		const router = useRouter()
+		path = router.asPath
+	} catch (err) {
+		path = usePathname()
+	}
+
 	const { excludeHash = false, excludeSearch = false } = options
 	const { hash, pathname, search } = new URL(
-		router.asPath,
+		path,
 		// TODO: replace this with an environment variable soon
 		'https://www.hashicorp.com'
 	)

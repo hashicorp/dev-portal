@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+'use client'
+
 // Third-party imports
 import classNames from 'classnames'
 import AlertBanner from '@hashicorp/react-alert-banner'

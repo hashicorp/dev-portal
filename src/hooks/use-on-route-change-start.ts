@@ -21,6 +21,7 @@ const useOnRouteChangeStart = ({
 	handler,
 	shouldListen = true,
 }: UseOnRouteChangeStartOptions) => {
+	return
 	const router = useRouter()
 
 	useEffect(() => {

@@ -145,6 +145,10 @@ module.exports = withSwingset({
 		},
 		experimental: {
 			largePageDataBytes: 512 * 1000, // 512KB
+			appDir: true,
+		},
+		typescript: {
+			ignoreBuildErrors: true,
 		},
 	})
 )

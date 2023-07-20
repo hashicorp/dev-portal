@@ -9,5 +9,7 @@
 		"node_modules/@hashicorp/design-system-tokens/dist/devdot/css/tokens.css",
 		"node_modules/@hashicorp/design-system-tokens/dist/devdot/css/helpers/elevation.css",
 		"node_modules/@hashicorp/design-system-tokens/dist/devdot/css/helpers/typography.css"
-	]
+	],
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true
 }

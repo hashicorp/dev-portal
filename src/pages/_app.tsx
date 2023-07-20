@@ -18,6 +18,7 @@ import { QueryParamProvider } from 'use-query-params'
 import type { AppProps } from 'next/app'
 import { useFlags } from 'flags/client'
 import { FlagBagProvider } from 'flags/client'
+import '@reach/dialog/styles.css'
 
 // HashiCorp imports
 import {
@@ -66,6 +67,7 @@ export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
 }: AppProps<{ session?: Session } & Record<string, any>>) {
+	console.log('App', session)
 	const flagBag = useFlags()
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
