@@ -1,4 +1,5 @@
 import type { ParsedUrlQuery } from 'querystring'
+import { ProductData } from 'types/products'
 
 /**
  * Params type for `getStaticPaths` and `getStaticProps`.
@@ -22,5 +23,6 @@ export interface OpenApiDocsParams extends ParsedUrlQuery {
  */
 export interface OpenApiDocsViewProps {
 	placeholder: string
+	productData: ProductData
 	IS_REVISED_TEMPLATE: true
 }
