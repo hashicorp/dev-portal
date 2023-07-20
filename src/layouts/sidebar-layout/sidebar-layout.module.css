@@ -15,6 +15,8 @@
 	background-color: var(--token-color-surface-primary);
 	box-shadow: var(--token-surface-base-box-shadow);
 	display: none;
+	flex-grow: 0;
+	flex-shrink: 0;
 
 	/* Even if content is long, area shoul dbe fully within the viewport.
 	   For shorter content, we don't need the height to be tall. */
@@ -31,5 +33,8 @@
 }
 
 .mainArea {
-	flex: 1 1 0;
+	flex-grow: 1;
+	flex-shrink: 1;
+	min-width: 0;
+	overflow: hidden;
 }
