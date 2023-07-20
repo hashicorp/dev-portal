@@ -24,7 +24,7 @@
 	cursor: pointer;
 	display: flex;
 	gap: 6px;
-	left: 8px;
+	right: 8px;
 	outline: transparent;
 	padding: 16px;
 	position: absolute;
