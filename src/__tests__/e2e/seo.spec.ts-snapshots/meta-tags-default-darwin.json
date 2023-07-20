@@ -1,0 +1,132 @@
+[
+	{
+		"name": null,
+		"property": null,
+		"content": null
+	},
+	{
+		"name": null,
+		"property": null,
+		"content": "ie=edge"
+	},
+	{
+		"name": null,
+		"property": "og:locale",
+		"content": "en_US"
+	},
+	{
+		"name": null,
+		"property": "og:type",
+		"content": "website"
+	},
+	{
+		"name": null,
+		"property": "article:publisher",
+		"content": "https://www.facebook.com/HashiCorp/"
+	},
+	{
+		"name": "twitter:site",
+		"property": null,
+		"content": "@HashiCorp"
+	},
+	{
+		"name": "twitter:card",
+		"property": null,
+		"content": "summary_large_image"
+	},
+	{
+		"name": "theme-color",
+		"property": null,
+		"content": "#000"
+	},
+	{
+		"name": "description",
+		"property": "og:description",
+		"content": "Explore HashiCorp product documentation, tutorials, and examples."
+	},
+	{
+		"name": "twitter:description",
+		"property": null,
+		"content": "Explore HashiCorp product documentation, tutorials, and examples."
+	},
+	{
+		"name": null,
+		"property": "og:site_name",
+		"content": "HashiCorp Developer"
+	},
+	{
+		"name": null,
+		"property": "og:title",
+		"content": "HashiCorp Developer"
+	},
+	{
+		"name": null,
+		"property": "og:image",
+		"content": "https://undefined/og-image/base.jpg"
+	},
+	{
+		"name": "viewport",
+		"property": null,
+		"content": "width=device-width, initial-scale=1.0"
+	},
+	{
+		"name": "google-site-verification",
+		"property": null,
+		"content": "zRQZqfAsOX-ypXfU0mzAIzb5rUvj5fA4Zw2jWJRN-JI"
+	},
+	{
+		"name": "zd-site-verification",
+		"property": null,
+		"content": "xnvnvv1i0wl4tf0pzaymb"
+	},
+	{
+		"name": "zd-site-verification",
+		"property": null,
+		"content": "36fp2i1pj67d8cjtzf4fi9"
+	},
+	{
+		"name": "zd-site-verification",
+		"property": null,
+		"content": "nbe87kfyp1sck7b13vj1i"
+	},
+	{
+		"name": "zd-site-verification",
+		"property": null,
+		"content": "wvsmmqa1cfb9am9zlwfj"
+	},
+	{
+		"name": "zd-site-verification",
+		"property": null,
+		"content": "cw22oopfwr68ujj0n5pn9i"
+	},
+	{
+		"name": "zd-site-verification",
+		"property": null,
+		"content": "lkslvganwfgfqfwpdeicgh"
+	},
+	{
+		"name": "zd-site-verification",
+		"property": null,
+		"content": "jl2wp2hoej9rz6c8rmqdns"
+	},
+	{
+		"name": "zd-site-verification",
+		"property": null,
+		"content": "2eb0cu6xceo73t0038m0tb"
+	},
+	{
+		"name": "zd-site-verification",
+		"property": null,
+		"content": "n52xisxdf3higs2q9kuogd"
+	},
+	{
+		"name": "twitter:image",
+		"property": null,
+		"content": "https://undefined/og-image/base.jpg"
+	},
+	{
+		"name": "next-head-count",
+		"property": null,
+		"content": "29"
+	}
+]

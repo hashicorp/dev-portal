@@ -6,6 +6,22 @@
 import { test, expect } from '@playwright/test'
 import { __config } from '../../../.test/app-config'
 
+test.only('foobar', async ({ page, context, baseURL }) => {
+	await page.goto('/')
+	const headElement = await page.$('head')
+	const headMetaTags = await headElement.$$('meta')
+
+	const list = []
+	for (const metaTag of headMetaTags) {
+		list.push({
+			name: await metaTag.getAttribute('name'),
+			property: await metaTag.getAttribute('property'),
+			content: await metaTag.getAttribute('content'),
+		})
+	}
+	expect(JSON.stringify(list, null, 2)).toMatchSnapshot('meta-tags.json')
+})
+
 test('should render the proper page title and description', async ({
 	page,
 	context,
