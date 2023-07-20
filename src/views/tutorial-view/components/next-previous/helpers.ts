@@ -37,18 +37,18 @@ export function getNextPrevious({
 		tutorialIndex === currentCollection.tutorials.length - 1
 
 	if (!isFirstTutorial) {
-		const { slug, name } = currentCollection.tutorials[tutorialIndex - 1]
+		const { slug, shortName } = currentCollection.tutorials[tutorialIndex - 1]
 		previousTutorial = {
 			path: formatting.getTutorialSlug(slug, currentCollection.slug),
-			name,
+			name: shortName,
 		}
 	}
 
 	if (!isLastTutorial) {
-		const { slug, name } = currentCollection.tutorials[tutorialIndex + 1]
+		const { slug, shortName } = currentCollection.tutorials[tutorialIndex + 1]
 		nextTutorial = {
 			path: formatting.getTutorialSlug(slug, currentCollection.slug),
-			name,
+			name: shortName,
 		}
 	}
 
