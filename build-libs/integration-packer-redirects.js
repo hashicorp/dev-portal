@@ -548,7 +548,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		// enabled: false, // ✅ Tested
+		enabled: false, // ✅ Tested
 		org: 'BrandonRomano',
 		slug: 'proxmox',
 		indexPages: [TYPE_BUILDER],
@@ -578,8 +578,28 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: QEMU
-	// TODO: Salt
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'qemu',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'qemu',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'salt',
+		components: [
+			{
+				type: TYPE_PROVISIONER,
+				newSlug: 'salt-masterless',
+			},
+		],
+	},
 	// TODO: Scaleway
 	// TODO: SSH Key
 	// TODO: Tart
