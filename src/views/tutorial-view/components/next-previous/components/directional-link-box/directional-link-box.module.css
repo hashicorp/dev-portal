@@ -4,10 +4,11 @@
  */
 
 .linkbox {
-	color: var(--token-color-foreground-primary);
+	border: 1px solid red;
+	border-radius: 6px;
 	display: flex;
+	flex-direction: column;
 	flex-wrap: wrap;
-	align-items: center;
 	text-align: center;
 	justify-content: center;
 	height: 100%;
@@ -15,13 +16,13 @@
 	@media (--dev-dot-tablet-up) {
 		&.direction-previous {
 			text-align: left;
-			justify-content: flex-start;
+			align-items: flex-start;
 		}
 
 		&.direction-next,
 		&.direction-final {
 			text-align: right;
-			justify-content: flex-end;
+			align-items: flex-end;
 		}
 	}
 }
@@ -40,6 +41,19 @@
 	}
 }
 
-.text {
-	color: var(--token-color-foreground-primary);
+.directionLabel {
+	color: var(--token-color-foreground-faint);
+	display: flex;
+	align-items: center;
+	margin-bottom: 12px;
+}
+
+.labelText {
+	color: var(--token-color-foreground-faint);
+}
+
+.name {
+	composes: --token-typography-body-200 from global;
+	font-weight: var(--token-typography-font-weight-semibold);
+	color: var(--token-color-foreground-strong);
 }
