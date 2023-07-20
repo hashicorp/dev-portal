@@ -33,7 +33,32 @@ export async function parseAndValidateOpenApiSchema(
 	const rawSchemaJson = await new OASNormalize(fileString).validate({
 		convertToLatest: true,
 	})
-	// Dereference the schema to resolve any `$ref` references
+	/**
+	 * Dereference the schema.
+	 *
+	 * For context, in OpenAPI schemas, there are often pointers or references
+	 * to shared definitions within the schema. In JSON, these might look like:
+	 *
+	 * "schema": {
+	 * 		"$ref": "#/definitions/..."
+	 * }
+	 *
+	 * Example: https://github.com/hashicorp/hcp-specs/blob/e65c7e982b65ce408ab7e456049a4bf3d5fa7ce0/specs/cloud-vault-secrets/preview/2023-06-13/hcp.swagger.json#L28
+	 *
+	 * With the full schema file available, these references can be resolved
+	 * by looking up the referenced definition and replacing the reference.
+	 * For our purposes, it seems preferable to resolve these references
+	 * so that we can pass data to presentational components that do not need
+	 * to be aware of the full schema file in order to render the data.
+	 * After de-referencing, the schema might look like:
+	 *
+	 * "schema": {
+	 * 		"type": "object",
+	 * 		"properties": {
+	 * 			"some-referenced-stuff": "..."
+	 * 		}
+	 * }
+	 */
 	const schemaJson = await new OASNormalize(rawSchemaJson).deref()
 	// Return the dereferenced schema.
 	// We know it's OpenAPI 3.0, so we cast it to the appropriate type.
