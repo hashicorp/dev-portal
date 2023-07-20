@@ -4,6 +4,6 @@
 		"max_static_paths": 10
 	},
 	"flags": {
-		"enable_hcp_vault_secrets_api_docs_revision": true
+		"enable_hcp_vault_secrets_api_docs_revision": false
 	}
 }
