@@ -63,7 +63,7 @@ export async function getStaticProps({
 	const isVersionedUrl = typeof versionId === 'string'
 	const latestStableVersion = findLatestStableVersion(versionData)
 	// Resolve the current version
-	let targetVersion
+	let targetVersion: OpenApiDocsVersionData | undefined
 	if (isVersionedUrl) {
 		targetVersion = versionData.find((v) => v.versionId === versionId)
 	} else {
@@ -77,7 +77,11 @@ export async function getStaticProps({
 	/**
 	 * Fetch, parse, and validate the OpenAPI schema for this version.
 	 */
-	const schemaFileString = await fetchGithubFile(targetVersion.targetFile)
+	const { sourceFile } = targetVersion
+	const schemaFileString =
+		typeof sourceFile === 'string'
+			? sourceFile
+			: await fetchGithubFile(sourceFile)
 	const schemaData = await parseAndValidateOpenApiSchema(schemaFileString)
 
 	/**

@@ -137,7 +137,10 @@ export const getStaticProps: GetStaticProps<
 		return await getOpenApiDocsStaticProps({
 			context: { params },
 			productSlug: PRODUCT_SLUG,
-			versionData,
+			// Handle rename of `targetFile` to `sourceFile` for new template
+			versionData: versionData.map(({ targetFile, ...rest }) => {
+				return { ...rest, sourceFile: targetFile }
+			}),
 		})
 	}
 
