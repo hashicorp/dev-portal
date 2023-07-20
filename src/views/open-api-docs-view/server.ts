@@ -1,12 +1,20 @@
+// Library
+import fetchGithubFile from 'lib/fetch-github-file'
+import { cachedGetProductData } from 'lib/get-product-data'
+// Utilities
+import { findLatestStableVersion, parseAndValidateOpenApiSchema } from './utils'
 // Types
 import type {
 	GetStaticPaths,
 	GetStaticPropsContext,
 	GetStaticPropsResult,
 } from 'next'
-import type { OpenApiDocsParams, OpenApiDocsViewProps } from './types'
+import type {
+	OpenApiDocsParams,
+	OpenApiDocsViewProps,
+	OpenApiDocsVersionData,
+} from './types'
 import type { ProductSlug } from 'types/products'
-import { cachedGetProductData } from 'lib/get-product-data'
 
 /**
  * Get static paths for the view.
@@ -35,22 +43,59 @@ export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
  *
  * For now, we have a placeholder. We'll expand this as we build out the view.
  */
-export async function getStaticProps(
-	/**
-	 * Product slug is used to grab productData, which we use in a few places,
-	 * including in the mobile navigation, which has a product-nav pane.
-	 */
-	productSlug: ProductSlug,
-	// Note: params aren't used yet, but will be for versioned API docs.
-	{ params }: GetStaticPropsContext<OpenApiDocsParams>
-): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
+export async function getStaticProps({
+	context,
+	productSlug,
+	versionData,
+}: {
+	context: GetStaticPropsContext<OpenApiDocsParams>
+	productSlug: ProductSlug
+	versionData: OpenApiDocsVersionData[]
+}): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
+	// Get the product data
 	const productData = cachedGetProductData(productSlug)
 
+	/**
+	 * Parse the version to render, or 404 if a non-existent version is requested.
+	 */
+	const pathParts = context.params?.page
+	const versionId = pathParts?.length > 1 ? pathParts[0] : null
+	const isVersionedUrl = typeof versionId === 'string'
+	const latestStableVersion = findLatestStableVersion(versionData)
+	// Resolve the current version
+	let targetVersion: OpenApiDocsVersionData | undefined
+	if (isVersionedUrl) {
+		targetVersion = versionData.find((v) => v.versionId === versionId)
+	} else {
+		targetVersion = latestStableVersion
+	}
+	// If we can't resolve the current version, render a 404 page
+	if (!targetVersion) {
+		return { notFound: true }
+	}
+
+	/**
+	 * Fetch, parse, and validate the OpenAPI schema for this version.
+	 */
+	const { sourceFile } = targetVersion
+	const schemaFileString =
+		typeof sourceFile === 'string'
+			? sourceFile
+			: await fetchGithubFile(sourceFile)
+	const schemaData = await parseAndValidateOpenApiSchema(schemaFileString)
+
+	/**
+	 * Return props
+	 */
 	return {
 		props: {
 			productData,
-			placeholder: 'placeholder data for the revised API docs template',
 			IS_REVISED_TEMPLATE: true,
+			_placeholder: {
+				productSlug,
+				targetVersion,
+				schemaData,
+			},
 		},
 	}
 }
