@@ -12,4 +12,5 @@ export interface DirectionalLinkBoxProps {
 	label: string
 	ariaLabel: CardLinkProps['ariaLabel']
 	direction: DirectionOption
+	name?: string
 }

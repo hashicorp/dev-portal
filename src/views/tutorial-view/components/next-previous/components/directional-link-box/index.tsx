@@ -22,6 +22,7 @@ const IconDict: { [k in DirectionOption]: typeof IconArrowRight16 } = {
 function DirectionalLinkBox({
 	href,
 	label,
+	name,
 	ariaLabel,
 	direction,
 }: DirectionalLinkBoxProps) {
@@ -38,6 +39,7 @@ function DirectionalLinkBox({
 			<Text className={s.text} asElement="span" size={200} weight="medium">
 				{label}
 			</Text>
+			<Text>{name}</Text>
 		</CardLink>
 	)
 }
