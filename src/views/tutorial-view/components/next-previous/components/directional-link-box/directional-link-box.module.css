@@ -55,6 +55,12 @@
 	display: flex;
 	align-items: center;
 	margin-bottom: 12px;
+
+	/** this references standalone link / small type styles */
+	font-family: var(--token-typography-font-stack-text);
+	font-size: var(--token-typography-body-100-font-size);
+	font-weight: var(--token-typography-font-weight-medium);
+	line-height: 1rem;
 }
 
 .labelText {
