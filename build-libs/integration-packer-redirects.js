@@ -442,11 +442,84 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: Naver Cloud
-	// TODO: Nutanix
-	// TODO: OpenStack
-	// TODO: Oracle
-	// TODO: Outscale
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'ncloud',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'ncloud',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'nutanix',
+		indexPages: [TYPE_BUILDER],
+		components: [
+			{
+				type: TYPE_BUILDER,
+				slug: 'nutanix',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'openstack',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'openstack',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'oracle',
+		indexPages: [TYPE_BUILDER],
+		components: [
+			{
+				type: TYPE_BUILDER,
+				slug: 'classic',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'oci',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'outscale',
+		indexPages: [TYPE_BUILDER],
+		components: [
+			{
+				type: TYPE_BUILDER,
+				slug: 'outscale-bsu',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'outscale-bsusurrogate',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'outscale-bsuvolume',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'outscale-chroot',
+			},
+			{
+				type: TYPE_DATA_SOURCE,
+				newSlug: 'omi',
+			},
+		],
+	},
 	// TODO: Parallels
 	// TODO: ProfitBrix
 	// TODO: Proxmox
