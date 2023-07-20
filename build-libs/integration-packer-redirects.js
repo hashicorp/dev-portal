@@ -287,10 +287,79 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: HashiCups
-	// TODO: Hetzner Cloud
-	// TODO: HyperOne
-	// TODO: Hyper-V
+	{
+		enabled: false, // ❌ TODO: Not Sync'd
+		org: 'BrandonRomano',
+		slug: 'hashicups',
+		indexPages: [
+			TYPE_POST_PROCESSOR,
+			TYPE_PROVISIONER,
+			TYPE_DATA_SOURCE,
+			TYPE_BUILDER,
+		],
+		components: [
+			{
+				type: TYPE_POST_PROCESSOR,
+				slug: 'receipt',
+			},
+			{
+				type: TYPE_PROVISIONER,
+				slug: 'toppings',
+			},
+			{
+				type: TYPE_DATA_SOURCE,
+				slug: 'coffees',
+			},
+			{
+				type: TYPE_DATA_SOURCE,
+				slug: 'ingredients',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'order',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'hetzner-cloud',
+		newSlug: 'hcloud',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'hetzner-cloud',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'hyperone',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'hyperone',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'hyperv',
+		indexPages: [TYPE_BUILDER],
+		components: [
+			{
+				type: TYPE_BUILDER,
+				slug: 'iso',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'vmcx',
+			},
+		],
+	},
+
 	// TODO: InSpec
 	// TODO: JD Cloud
 	// TODO: Kamatera
