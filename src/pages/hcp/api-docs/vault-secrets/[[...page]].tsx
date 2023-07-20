@@ -123,7 +123,7 @@ export const getStaticProps: GetStaticProps<
 	 * 🚩 If the flag is enabled, use the revised template
 	 */
 	if (USE_REVISED_TEMPLATE) {
-		return await getOpenApiDocsStaticProps({ params })
+		return await getOpenApiDocsStaticProps(PRODUCT_SLUG, { params })
 	}
 
 	/**
