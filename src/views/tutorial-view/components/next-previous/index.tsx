@@ -89,7 +89,8 @@ export function NextPrevious({
 			return (
 				<DirectionalLinkBox
 					href={finalLink}
-					label="Browse Tutorials"
+					label="Next"
+					name="Explore tutorial library"
 					direction="final"
 					ariaLabel="Browse Tutorials"
 				/>
