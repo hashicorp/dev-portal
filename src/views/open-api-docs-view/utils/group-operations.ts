@@ -52,15 +52,17 @@ export function groupOperations(
 			acc: Record<string, { heading: string; items: OperationProps[] }>,
 			o: OperationProps
 		) => {
+			// Truncate the common HCP-related prefix from the path, if applicable
 			const truncatedPath = truncateHcpOperationPath(o._placeholder.__path)
-			const firstTwoSegments = truncatedPath.split('/').slice(0, 3).join('/')
-			if (!acc[firstTwoSegments]) {
-				acc[firstTwoSegments] = {
-					heading: firstTwoSegments,
+			// Grab the first two path segments, to use as a group slug
+			const groupSlug = truncatedPath.split('/').slice(0, 3).join('/')
+			if (!acc[groupSlug]) {
+				acc[groupSlug] = {
+					heading: groupSlug,
 					items: [],
 				}
 			}
-			acc[firstTwoSegments].items.push(o)
+			acc[groupSlug].items.push(o)
 			return acc
 		},
 		{} as Record<string, OperationGroup>
