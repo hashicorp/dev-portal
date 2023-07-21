@@ -1,7 +1,10 @@
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
 // Local
-import { OpenApiDocsMobileMenuLevels } from './components'
+import {
+	OpenApiDocsMobileMenuLevels,
+	OpenApiSidebarContents,
+} from './components'
 import { DevCodeBlock, OperationSections } from './components'
 // Types
 import type { OpenApiDocsViewProps, OperationProps } from './types'
@@ -16,31 +19,7 @@ function OpenApiDocsView({
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
-			sidebarSlot={
-				<div style={{ border: '1px solid magenta', overflow: 'hidden' }}>
-					{/**
-					 *
-					 * Placeholder for sidebar (and mobile nav?) contents
-					 *
-					 **/}
-					{operationGroups.map((group) => {
-						return (
-							<>
-								<div>{group.heading}</div>
-								<ul key={group.heading}>
-									{group.items.map((o: OperationProps) => {
-										return (
-											<li key={o.operationId}>
-												<a href={`#${o.slug}`}>{o.operationId}</a>
-											</li>
-										)
-									})}
-								</ul>
-							</>
-						)
-					})}
-				</div>
-			}
+			sidebarSlot={<OpenApiSidebarContents operationGroups={operationGroups} />}
 			mobileMenuSlot={<OpenApiDocsMobileMenuLevels productData={productData} />}
 		>
 			{/**
