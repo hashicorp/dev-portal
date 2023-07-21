@@ -3,11 +3,12 @@ import SidebarLayout from 'layouts/sidebar-layout'
 // Local
 import {
 	OpenApiDocsMobileMenuLevels,
+	OpenApiOverview,
 	OpenApiSidebarContents,
+	OpenApiOperations,
 } from './components'
-import { DevCodeBlock, OperationSections } from './components'
 // Types
-import type { OpenApiDocsViewProps, OperationProps } from './types'
+import type { OpenApiDocsViewProps } from './types'
 
 /**
  * Placeholder for a revised OpenAPI docs view.
@@ -15,65 +16,15 @@ import type { OpenApiDocsViewProps, OperationProps } from './types'
 function OpenApiDocsView({
 	productData,
 	operationGroups,
-	...restProps
+	_placeholder,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
 			sidebarSlot={<OpenApiSidebarContents operationGroups={operationGroups} />}
 			mobileMenuSlot={<OpenApiDocsMobileMenuLevels productData={productData} />}
 		>
-			{/**
-			 *
-			 * Placeholder for overview
-			 *
-			 **/}
-			<div style={{ border: '1px solid magenta' }}>
-				<h1>{restProps._placeholder.schemaData.info.title}</h1>
-				<DevCodeBlock>{JSON.stringify(restProps, null, 2)}</DevCodeBlock>
-			</div>
-
-			<br />
-
-			{/**
-			 *
-			 * Placeholder for operations
-			 *
-			 **/}
-			<div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-				{operationGroups
-					.map((group) => group.items)
-					.flat()
-					.map((o: OperationProps) => {
-						return (
-							<div
-								key={o.operationId}
-								style={{ border: '1px solid magenta', padding: '2px' }}
-							>
-								<div style={{ border: '1px solid magenta' }}>
-									<h3 id={o.slug} className="g-offset-scroll-margin-top">
-										{o.operationId}
-									</h3>
-								</div>
-								<OperationSections
-									examplesSlot={
-										<div style={{ border: '1px solid magenta' }}>
-											Examples{' '}
-											<DevCodeBlock>{JSON.stringify(o, null, 2)}</DevCodeBlock>
-										</div>
-									}
-									detailsSlot={
-										<div style={{ border: '1px solid magenta' }}>
-											Details
-											<DevCodeBlock style={{ maxHeight: '500px' }}>
-												{JSON.stringify(o, null, 2)}
-											</DevCodeBlock>
-										</div>
-									}
-								/>
-							</div>
-						)
-					})}
-			</div>
+			<OpenApiOverview _placeholder={_placeholder} />
+			<OpenApiOperations operationGroups={operationGroups} />
 		</SidebarLayout>
 	)
 }
