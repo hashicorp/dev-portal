@@ -36,6 +36,7 @@ import { makeDevAnalyticsLogger } from 'lib/analytics'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
+import '@reach/dialog/styles.css' // Global CSS for components/dialog; Potentially redudant given our applied styles
 
 // Local imports
 import './style.css'
@@ -64,7 +65,7 @@ addGlobalLinkHandler((destinationUrl: string) => {
 
 export default function App({
 	Component,
-	pageProps: { session, ...pageProps },
+	pageProps,
 }: AppProps<{ session?: Session } & Record<string, any>>) {
 	const flagBag = useFlags()
 	useAnchorLinkAnalytics()
@@ -95,7 +96,7 @@ export default function App({
 				<QueryParamProvider adapter={NextAdapter}>
 					<ErrorBoundary FallbackComponent={DevDotClient}>
 						<FlagBagProvider value={flagBag}>
-							<SessionProvider session={session}>
+							<SessionProvider>
 								<DeviceSizeProvider>
 									<CurrentProductProvider currentProduct={currentProduct}>
 										<CodeTabsProvider>

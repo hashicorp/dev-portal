@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// See _app.tsx for global reach style
 import { DialogOverlay, DialogContent } from '@reach/dialog'
-import '@reach/dialog/styles.css'
+
 import {
 	AnimatePresence,
 	m as slimMotion,
@@ -57,6 +58,7 @@ export default function Dialog({
 						className={classNames(s.contentWrapper, s[variant])}
 					>
 						<DialogContent
+							style={{ background: 'red' }}
 							aria-describedby={ariaDescribedBy}
 							aria-label={label}
 							className={classNames(s.content, s[variant], contentClassName)}
