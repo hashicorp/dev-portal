@@ -763,9 +763,52 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: VMware
-	// TODO: Vultr
-	// TODO: Yandex
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'vmware',
+		indexPages: [TYPE_BUILDER],
+		components: [
+			{
+				type: TYPE_BUILDER,
+				slug: 'iso',
+			},
+			{
+				type: TYPE_BUILDER,
+				slug: 'vmx',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'vultr',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'vultr',
+			},
+		],
+	},
+	{
+		enabled: false, // ✅ Tested
+		org: 'BrandonRomano',
+		slug: 'yandex',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'yandex',
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				slug: 'yandex-import',
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				slug: 'yandex-export',
+			},
+		],
+	},
 ]
 
 module.exports.generatePackerPluginRedirects = () => {
