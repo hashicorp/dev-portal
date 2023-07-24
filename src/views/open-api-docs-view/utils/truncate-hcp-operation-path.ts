@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Truncates HCP operation paths for clarity.
  *
  * TODO: this is a shim for development.
