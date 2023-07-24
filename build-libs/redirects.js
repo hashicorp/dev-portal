@@ -19,12 +19,7 @@ const { getTutorialRedirects } = require('./tutorial-redirects')
 const {
 	integrationMultipleComponentRedirects,
 } = require('./integration-multiple-component-redirects')
-const {
-	generatePackerPluginRedirects,
-} = require('./integration-packer-redirects')
-
-// TODO: just calling for testing
-generatePackerPluginRedirects()
+const { packerPluginRedirects } = require('./integration-packer-redirects')
 
 require('isomorphic-unfetch')
 
@@ -303,6 +298,11 @@ async function buildDevPortalRedirects() {
 		 * Further details in the file this is imported from.
 		 */
 		...integrationMultipleComponentRedirects,
+		/**
+		 * Redirects from our former Packer Plugin library to our
+		 * new integrations library for Packer,
+		 */
+		...packerPluginRedirects,
 	]
 }
 

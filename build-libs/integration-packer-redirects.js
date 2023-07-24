@@ -28,7 +28,7 @@ function getOldPluginComponentSlug(componentType) {
  */
 const packerPluginIntegrations = [
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'oneandone',
 		components: [
@@ -39,7 +39,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'alicloud',
 		components: [
@@ -54,7 +54,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'anka',
 		newSlug: 'veertu-anka',
@@ -74,7 +74,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'ansible',
 		components: [
@@ -89,7 +89,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'amazon',
 		indexPages: [TYPE_DATA_SOURCE, TYPE_BUILDER],
@@ -133,7 +133,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'azure',
 		indexPages: [TYPE_BUILDER],
@@ -157,7 +157,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'chef',
 		components: [
@@ -172,7 +172,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'cloudstack',
 		components: [
@@ -183,7 +183,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'converge',
 		components: [
@@ -194,7 +194,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'digitalocean',
 		components: [
@@ -213,7 +213,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'docker',
 		components: [
@@ -240,7 +240,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'external',
 		indexPages: [TYPE_DATA_SOURCE],
@@ -256,7 +256,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'git',
 		indexPages: [TYPE_DATA_SOURCE],
@@ -277,7 +277,7 @@ const packerPluginIntegrations = [
 	},
 	// TODO: Google Cloud Platform ❌ (TODO, DNE in Integrations Library)
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'gridscale',
 		components: [
@@ -321,7 +321,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'hetzner-cloud',
 		newSlug: 'hcloud',
@@ -333,7 +333,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'hyperone',
 		components: [
@@ -344,7 +344,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'hyperv',
 		indexPages: [TYPE_BUILDER],
@@ -360,7 +360,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'inspec',
 		components: [
@@ -371,7 +371,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'jdcloud',
 		components: [
@@ -382,7 +382,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'kamatera',
 		components: [
@@ -393,7 +393,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'linode',
 		components: [
@@ -405,7 +405,7 @@ const packerPluginIntegrations = [
 	},
 	// TODO: Libvirt ❌ (TODO, DNE in Integrations Library)
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'lxc',
 		components: [
@@ -416,7 +416,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'lxd',
 		components: [
@@ -427,7 +427,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'mondoo',
 		newSlug: 'cnspec',
@@ -443,7 +443,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'ncloud',
 		components: [
@@ -454,7 +454,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'nutanix',
 		indexPages: [TYPE_BUILDER],
@@ -466,7 +466,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'openstack',
 		components: [
@@ -477,7 +477,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'oracle',
 		indexPages: [TYPE_BUILDER],
@@ -493,7 +493,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'outscale',
 		indexPages: [TYPE_BUILDER],
@@ -521,7 +521,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'parallels',
 		indexPages: [TYPE_BUILDER],
@@ -537,7 +537,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'profitbricks',
 		components: [
@@ -548,7 +548,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'proxmox',
 		indexPages: [TYPE_BUILDER],
@@ -564,7 +564,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'puppet',
 		components: [
@@ -579,7 +579,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'qemu',
 		components: [
@@ -590,7 +590,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'salt',
 		components: [
@@ -601,7 +601,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'scaleway',
 		components: [
@@ -612,7 +612,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'sshkey',
 		components: [
@@ -623,7 +623,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'tart',
 		components: [
@@ -634,7 +634,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'tencentcloud',
 		components: [
@@ -645,7 +645,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'triton',
 		components: [
@@ -656,7 +656,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'ucloud',
 		components: [
@@ -671,7 +671,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'upcloud',
 		components: [
@@ -686,7 +686,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'vagrant',
 		components: [
@@ -705,7 +705,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'virtualbox',
 		indexPages: [TYPE_BUILDER],
@@ -725,7 +725,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'volcengine',
 		components: [
@@ -736,7 +736,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'vsphere',
 		indexPages: [TYPE_BUILDER],
@@ -764,7 +764,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'vmware',
 		indexPages: [TYPE_BUILDER],
@@ -780,7 +780,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'vultr',
 		components: [
@@ -791,7 +791,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ✅ Tested
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'yandex',
 		components: [
@@ -811,17 +811,13 @@ const packerPluginIntegrations = [
 	},
 ]
 
-module.exports.generatePackerPluginRedirects = () => {
+const generatePackerPluginRedirects = () => {
 	let redirects = []
 	packerPluginIntegrations.forEach((integration) => {
 		if (integration.enabled === false) {
 			// exit early if integration is not enabled
 			return
 		}
-
-		// TODO: Remove Testing Prefix
-		const testingPrefix =
-			'https://dev-portal-git-brpacker-plugins-hashicorp.vercel.app'
 
 		// For each component create a redirect
 		integration.components.forEach((component) => {
@@ -836,8 +832,8 @@ module.exports.generatePackerPluginRedirects = () => {
 			}`
 
 			redirects.push({
-				source: testingPrefix + redirectSource,
-				destination: testingPrefix + redirectDestination,
+				source: redirectSource,
+				destination: redirectDestination,
 				permanent: true,
 			})
 		})
@@ -852,12 +848,13 @@ module.exports.generatePackerPluginRedirects = () => {
 			}`
 
 			redirects.push({
-				source: testingPrefix + redirectSource,
-				destination: testingPrefix + redirectDestination,
+				source: redirectSource,
+				destination: redirectDestination,
 				permanent: true,
 			})
 		})
 	})
-	// TODO: remove log
-	console.log(redirects)
+	return redirects
 }
+
+module.exports.packerPluginRedirects = generatePackerPluginRedirects()
