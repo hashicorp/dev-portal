@@ -2,15 +2,8 @@ import { useMemo } from 'react'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 import { OperationGroup } from 'views/open-api-docs-view/types'
 import { useActiveSection } from 'lib/hash-links/use-active-section'
+import { extractHashSlug } from 'lib/hash-links/extract-hash-slug'
 import s from './open-api-sidebar-contents.module.css'
-
-/**
- * TODO: I feel like this was already written somewhere else,
- * should go find it.
- */
-function getSlugFromPath(path: string) {
-	return path.replace(/^#/, '')
-}
 
 /**
  * Renders sidebar contents for OpenApiDocsView.
@@ -43,6 +36,7 @@ export function OpenApiSidebarContents({
 					},
 					...items.map((o) => ({
 						title: o.operationId,
+						slug: o.slug,
 						fullPath: `#${o.slug}`,
 					})),
 				]
@@ -57,7 +51,7 @@ export function OpenApiSidebarContents({
 		() =>
 			operationNavItems
 				.filter((item) => typeof item.fullPath === 'string')
-				.map((item) => getSlugFromPath(item.fullPath)),
+				.map((item) => extractHashSlug(item.fullPath)),
 		[operationNavItems]
 	)
 	const activeSection = useActiveSection(operationSlugs)
@@ -72,8 +66,7 @@ export function OpenApiSidebarContents({
 				return item
 			}
 			// Handle items with paths, that could be a match
-			const slug = getSlugFromPath(item.fullPath)
-			return { ...item, isActive: slug === activeSection }
+			return { ...item, isActive: item.fullPath === `#${activeSection}` }
 		})
 	}, [operationNavItems, activeSection])
 
