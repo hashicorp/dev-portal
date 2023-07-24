@@ -75,6 +75,8 @@ export function VariableGroupList({
 				 * Construct a permalink slug for this specific variable
 				 */
 				const permalinkId = getVariableSlug(groupName, variable.key)
+				const hasChildren = variable.variables?.length > 0
+				const isTopLevelParent = hasChildren && !isNested
 				return (
 					<li
 						key={variable.key}
@@ -113,11 +115,7 @@ export function VariableGroupList({
 								</span>
 								{variable.type ? (
 									<Badge
-										type={
-											variable.variables && variable.variables.length > 0
-												? 'inverted'
-												: 'filled'
-										}
+										type={hasChildren ? 'inverted' : 'filled'}
 										color="highlight"
 										text={variable.type}
 									/>
@@ -136,15 +134,15 @@ export function VariableGroupList({
 									/>
 								) : null}
 							</div>
-
-							{variable.variables?.length > 0 && (
+							{isTopLevelParent ? <hr className={s.nestedDivider} /> : null}
+							{hasChildren ? (
 								<VariableGroupList
 									groupName={groupName}
 									unflatten={false}
 									variables={variable.variables}
 									isNested={true}
 								/>
-							)}
+							) : null}
 						</div>
 					</li>
 				)

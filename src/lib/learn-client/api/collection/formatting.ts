@@ -53,6 +53,7 @@ export function formatToTutorialLite(
 	const {
 		id,
 		name,
+		short_name,
 		slug,
 		description,
 		read_time,
@@ -71,6 +72,7 @@ export function formatToTutorialLite(
 	return {
 		id,
 		name,
+		shortName: short_name || name,
 		slug,
 		description,
 		readTime: read_time,

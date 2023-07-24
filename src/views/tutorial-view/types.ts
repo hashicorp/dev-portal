@@ -36,6 +36,7 @@ interface TutorialData
 		ClientTutorial,
 		| 'id'
 		| 'name'
+		| 'shortName'
 		| 'slug'
 		| 'readTime'
 		| 'productsUsed'

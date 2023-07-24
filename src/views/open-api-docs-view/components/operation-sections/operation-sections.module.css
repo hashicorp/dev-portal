@@ -1,0 +1,24 @@
+.root {
+	display: flex;
+	flex-direction: row-reverse;
+	flex-wrap: wrap;
+	gap: 24px;
+}
+
+.detailsSlot {
+	min-width: min(100%, 360px);
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 0;
+	gap: 8px;
+}
+
+.examplesSlot {
+	--sticky-spacing: 24px;
+
+	min-width: min(100%, 360px);
+	align-self: flex-start;
+	flex: 1 1 0;
+	position: sticky;
+	top: calc(var(--navigation-header-height) + var(--sticky-spacing));
+}

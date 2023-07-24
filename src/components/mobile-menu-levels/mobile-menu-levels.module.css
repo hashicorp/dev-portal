@@ -1,0 +1,19 @@
+.mobileMenuContainer {
+	padding: 24px;
+	z-index: 4;
+}
+
+.levelButtons {
+	display: flex;
+	margin-bottom: 12px;
+}
+
+.levelUpButton {
+	margin-right: auto;
+	padding: 7px 9px 7px 3px;
+}
+
+.levelDownButton {
+	margin-left: auto;
+	padding: 7px 9px 7px 3px;
+}

@@ -83,4 +83,3 @@ export default function ProductIntegrationReadmeView({
 		</ProductIntegrationLayout>
 	)
 }
-ProductIntegrationReadmeView.contentType = 'integrations'
