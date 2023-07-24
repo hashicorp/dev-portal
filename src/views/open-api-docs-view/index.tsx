@@ -1,5 +1,7 @@
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
+// Components
+import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
 // Local
 import {
 	OpenApiDocsMobileMenuLevels,
@@ -20,8 +22,18 @@ function OpenApiDocsView({
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
-			sidebarSlot={<OpenApiSidebarContents operationGroups={operationGroups} />}
-			mobileMenuSlot={<OpenApiDocsMobileMenuLevels productData={productData} />}
+			sidebarSlot={
+				<>
+					<SidebarBackToLink text="HashiCorp Cloud Platform" href="/hcp" />
+					<OpenApiSidebarContents operationGroups={operationGroups} />
+				</>
+			}
+			mobileMenuSlot={
+				<OpenApiDocsMobileMenuLevels
+					productData={productData}
+					operationGroups={operationGroups}
+				/>
+			}
 		>
 			<OpenApiOverview _placeholder={_placeholder} />
 			<OpenApiOperations operationGroups={operationGroups} />
