@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Third-party
+import { ReactNode } from 'react'
 import classNames from 'classnames'
 // Components
 import Badge from 'components/badge'
@@ -15,9 +17,10 @@ import s from './operation-header.module.css'
 
 interface OperationHeaderProps {
 	slug: OperationProps['slug']
-	headerText: OperationProps['operationId']
+	headerSlot: ReactNode
+	headerAriaLabel: string
 	method: OperationProps['type']
-	path: OperationProps['path']['truncated']
+	path: ReactNode
 	className?: string
 }
 
@@ -28,16 +31,17 @@ interface OperationHeaderProps {
  */
 export function OperationHeader({
 	slug,
-	headerText,
+	headerSlot,
+	headerAriaLabel,
 	method,
 	path,
 	className,
 }: OperationHeaderProps) {
 	return (
 		<div className={classNames(className, s.wrapper)}>
-			<ContentWithPermalink id={slug} ariaLabel={headerText}>
+			<ContentWithPermalink id={slug} ariaLabel={headerAriaLabel}>
 				<h3 id={slug} className={s.heading}>
-					{headerText}
+					{headerSlot}
 				</h3>
 			</ContentWithPermalink>
 			<div className={s.methodAndPath}>
