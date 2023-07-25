@@ -1,0 +1,5 @@
+.heading {
+	composes: g-offset-scroll-margin-top from global;
+	composes: hds-typography-display-400 from global;
+	font-weight: var(--token-typography-font-weight-bold);
+}
