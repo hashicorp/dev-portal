@@ -12,8 +12,8 @@ import s from './operation-header.module.css'
 interface OperationHeaderProps {
 	slug: OperationProps['slug']
 	headerText: OperationProps['operationId']
-	method: string
-	path: string
+	method: OperationProps['type']
+	path: OperationProps['path']['truncated']
 	className?: string
 }
 
