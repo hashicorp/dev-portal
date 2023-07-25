@@ -1,0 +1,11 @@
+.heading {
+	composes: hds-typography-display-700 from global;
+}
+
+.releaseStageBadge {
+	text-transform: capitalize;
+}
+
+.statusWrapper {
+	display: flex;
+}
