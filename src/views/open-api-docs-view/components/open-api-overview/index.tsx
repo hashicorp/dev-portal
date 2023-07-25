@@ -29,8 +29,7 @@ export function OpenApiOverview({ _placeholder }: { _placeholder: $TSFixMe }) {
 					type="outlined"
 					size="small"
 				/>
-
-				{/** TODO plug in with real data */}
+				{/** TODO plug in with real data (not sure where we source this) */}
 				<Status text="Operational" href="https://google.com" />
 			</header>
 
@@ -39,6 +38,7 @@ export function OpenApiOverview({ _placeholder }: { _placeholder: $TSFixMe }) {
 					<h2>Overview</h2>
 					<p>{_placeholder.schemaData.info.description}</p>
 					<h2>Additional Resources</h2>
+					{/** TODO extract out of inline content, where do we want to keep this authorable data? */}
 					<p>
 						Use the following resources to give you enough context to be
 						successful.

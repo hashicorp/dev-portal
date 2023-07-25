@@ -6,7 +6,7 @@ import s from './status.module.css'
 
 export function Status({ text, href }: { text: string; href: string }) {
 	return (
-		<div className={s.statusWrapper}>
+		<div className={s.wrapper}>
 			<Badge
 				text={text}
 				type="outlined"
@@ -20,6 +20,7 @@ export function Status({ text, href }: { text: string; href: string }) {
 				iconPosition="trailing"
 				color="secondary"
 				href={href}
+				size="small"
 			/>
 		</div>
 	)
