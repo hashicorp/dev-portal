@@ -40,8 +40,8 @@ export function OpenApiOperations({
 							<OperationHeader
 								slug={operation.slug}
 								id={operation.operationId}
-								type="get"
-								path="/app"
+								type={operation._placeholder.__type}
+								path={operation._placeholder.truncatedPath}
 							/>
 							<OperationSections
 								examplesSlot={<OperationExamples operation={operation} />}
