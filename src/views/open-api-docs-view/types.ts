@@ -22,6 +22,11 @@ export interface PropertyDetailProps {
 export interface OperationProps {
 	operationId: string
 	slug: string
+	type: string
+	path: {
+		full: string
+		truncated: string
+	}
 	queryParameters?: PropertyDetailProps[]
 	pathParameters?: PropertyDetailProps[]
 	bodyParameters?: PropertyDetailProps[]

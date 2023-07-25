@@ -63,6 +63,11 @@ export function getOperationProps(
 			operationObjects.push({
 				operationId: operation.operationId,
 				slug: slugify(snakeCase(operation.operationId), { lower: true }),
+				type,
+				path: {
+					full: path,
+					truncated: truncateHcpOperationPath(path),
+				},
 				summary: operation.summary,
 				bodyParameters,
 				pathParameters,
@@ -70,7 +75,6 @@ export function getOperationProps(
 				_placeholder: {
 					__type: type,
 					__path: path,
-					truncatedPath: truncateHcpOperationPath(path),
 					...operation,
 				},
 			})
