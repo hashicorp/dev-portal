@@ -1,7 +1,7 @@
+import classNames from 'classnames'
 import type { OperationProps } from 'views/open-api-docs-view/types'
 import Badge from 'components/badge'
 import s from './operation-header.module.css'
-import classNames from 'classnames'
 
 /**
  * Renders a header for an operation item,
