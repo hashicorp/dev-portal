@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import classNames from 'classnames'
 import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
-import Link from 'components/link'
+import InlineLink from 'components/inline-link'
 import Badge from 'components/badge'
 import IconTile from 'components/icon-tile'
 import { Status } from './components/status'
 import s from './open-api-overview.module.css'
-import classNames from 'classnames'
 
 /**
  * Render an overview section for an OpenApiView.
@@ -34,7 +34,6 @@ export function OpenApiOverview({
 					{/** TODO plug in with real data (not sure where we source this) */}
 					<Status text="Operational" href="https://google.com" />
 				</span>
-
 				<Badge
 					className={s.releaseStageBadge}
 					text={_placeholder.targetVersion.releaseStage}
@@ -43,34 +42,41 @@ export function OpenApiOverview({
 				/>
 			</header>
 			<section className={s.content}>
-				<div>
-					<h2>Overview</h2>
-					<p>{_placeholder.schemaData.info.description}</p>
-					<h2>Additional Resources</h2>
-					{/** TODO extract out of inline content, where do we want to keep this authorable data? */}
-					<p>
-						Use the following resources to give you enough context to be
-						successful.
-					</p>
-					<ul>
-						<li>
-							<Link href="/vault/tutorials/hcp-vault-secrets-get-started">
-								HCP Vault Secrets quick start
-							</Link>
-						</li>
-						<li>
-							<Link href="/hcp/docs/vault-secrets/constraints-and-known-issues">
-								Constraints and limitations
-							</Link>
-						</li>
-						<li>
-							<Link href="/hcp/docs/vault-secrets">
-								What is HCP Vault Secrets?
-							</Link>
-						</li>
-					</ul>
+				<div className={s.overviewAndResources}>
+					<span>
+						<h2 className={s.contentHeading}>Overview</h2>
+						<p>{_placeholder.schemaData.info.description}</p>
+					</span>
+					<span>
+						<h2 className={s.contentHeading}>Additional Resources</h2>
+						{/** TODO extract out of inline content, where do we want to keep this authorable data? */}
+						<p>
+							Use the following resources to give you enough context to be
+							successful.
+						</p>
+						<ul className={s.resourceList}>
+							<li>
+								<InlineLink href="/vault/tutorials/hcp-vault-secrets-get-started">
+									HCP Vault Secrets quick start
+								</InlineLink>
+							</li>
+							<li>
+								<InlineLink href="/hcp/docs/vault-secrets/constraints-and-known-issues">
+									Constraints and limitations
+								</InlineLink>
+							</li>
+							<li>
+								<InlineLink href="/hcp/docs/vault-secrets">
+									What is HCP Vault Secrets?
+								</InlineLink>
+							</li>
+						</ul>
+					</span>
 				</div>
-				<div style={{ border: '1px solid magenta' }}>
+				<div
+					style={{ border: '1px solid magenta' }}
+					className={s.variablesForm}
+				>
 					Add your own variables form
 				</div>
 			</section>
