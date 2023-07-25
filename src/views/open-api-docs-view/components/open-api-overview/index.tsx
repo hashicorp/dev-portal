@@ -9,31 +9,40 @@ import Badge from 'components/badge'
 import IconTile from 'components/icon-tile'
 import { Status } from './components/status'
 import s from './open-api-overview.module.css'
+import classNames from 'classnames'
 
 /**
  * Render an overview section for an OpenApiView.
  */
 
-export function OpenApiOverview({ _placeholder }: { _placeholder: $TSFixMe }) {
+export function OpenApiOverview({
+	_placeholder,
+	className,
+}: {
+	_placeholder: $TSFixMe
+	className?: string
+}) {
 	console.log(_placeholder)
 	return (
-		<div>
-			<header>
-				<IconTile size="medium">
+		<div className={classNames(className, s.overviewWrapper)}>
+			<header className={s.header}>
+				<IconTile size="medium" className={s.icon}>
 					<IconVaultColor16 />
 				</IconTile>
-				<h1 className={s.heading}>{_placeholder.schemaData.info.title}</h1>
+				<span>
+					<h1 className={s.heading}>{_placeholder.schemaData.info.title}</h1>
+					{/** TODO plug in with real data (not sure where we source this) */}
+					<Status text="Operational" href="https://google.com" />
+				</span>
+
 				<Badge
 					className={s.releaseStageBadge}
 					text={_placeholder.targetVersion.releaseStage}
 					type="outlined"
 					size="small"
 				/>
-				{/** TODO plug in with real data (not sure where we source this) */}
-				<Status text="Operational" href="https://google.com" />
 			</header>
-
-			<section>
+			<section className={s.content}>
 				<div>
 					<h2>Overview</h2>
 					<p>{_placeholder.schemaData.info.description}</p>

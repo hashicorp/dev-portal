@@ -12,6 +12,7 @@ import {
 	OpenApiSidebarContents,
 	OpenApiOperations,
 } from './components'
+import s from './open-api-docs-view.module.css'
 // Types
 import type { OpenApiDocsViewProps } from './types'
 
@@ -28,7 +29,7 @@ function OpenApiDocsView({
 			sidebarSlot={<OpenApiSidebarContents operationGroups={operationGroups} />}
 			mobileMenuSlot={<OpenApiDocsMobileMenuLevels productData={productData} />}
 		>
-			<OpenApiOverview _placeholder={_placeholder} />
+			<OpenApiOverview className={s.overview} _placeholder={_placeholder} />
 			<OpenApiOperations operationGroups={operationGroups} />
 		</SidebarLayout>
 	)

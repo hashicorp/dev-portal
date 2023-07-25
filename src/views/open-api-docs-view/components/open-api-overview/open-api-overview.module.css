@@ -1,11 +1,32 @@
+.overviewWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.header {
+	display: flex;
+	align-items: flex-start;
+	gap: 16px;
+}
+
 .heading {
-	composes: hds-typography-display-700 from global;
+	composes: hds-typography-display-600 from global;
+	font-weight: var(--token-typography-font-weight-bold);
+	margin: 0 0 9px 0;
+}
+
+.icon {
+	margin-top: 3px;
 }
 
 .releaseStageBadge {
+	margin-top: 13px;
 	text-transform: capitalize;
 }
 
-.statusWrapper {
-	display: flex;
+.content {
+	@media (--dev-dot-desktop) {
+		display: flex;
+	}
 }
