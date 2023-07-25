@@ -10,21 +10,21 @@ import s from './operation-header.module.css'
 
 interface OperationHeaderProps {
 	slug: OperationProps['slug']
-	id: OperationProps['operationId']
+	headerText: OperationProps['operationId']
 	type: string
 	path: string
 }
 
 export function OperationHeader({
 	slug,
-	id,
+	headerText,
 	type,
 	path,
 }: OperationHeaderProps) {
 	return (
 		<div className={s.wrapper}>
 			<h3 id={slug} className={s.heading}>
-				{id}
+				{headerText}
 			</h3>
 			<div className={s.methodAndPath}>
 				<Badge type="outlined" text={type.toUpperCase()} />

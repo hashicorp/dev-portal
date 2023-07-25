@@ -39,7 +39,7 @@ export function OpenApiOperations({
 						>
 							<OperationHeader
 								slug={operation.slug}
-								id={operation.operationId}
+								headerText={operation.operationId}
 								type={operation._placeholder.__type}
 								path={operation._placeholder.truncatedPath}
 							/>
