@@ -6,19 +6,29 @@ import s from './operation-header.module.css'
  * Renders a header for an operation item,
  * showing the name of the operation in a linkable heading,
  * and showing other metadata such as the request type.
- *
- * TODO: implement this presentation component.
  */
-export function OperationHeader({ operation }: { operation: OperationProps }) {
-	const { slug, operationId } = operation
+
+interface OperationHeaderProps {
+	slug: OperationProps['slug']
+	id: OperationProps['operationId']
+	type: string
+	path: string
+}
+
+export function OperationHeader({
+	slug,
+	id,
+	type,
+	path,
+}: OperationHeaderProps) {
 	return (
 		<div className={s.wrapper}>
 			<h3 id={slug} className={s.heading}>
-				{operationId}
+				{id}
 			</h3>
 			<div className={s.methodAndPath}>
-				<Badge type="outlined" text={'GET'} /> {/* opeartion type */}
-				<p className={s.path}>/apps</p> {/** truncated path */}
+				<Badge type="outlined" text={type.toUpperCase()} />
+				<p className={s.path}>{path}</p>
 			</div>
 		</div>
 	)

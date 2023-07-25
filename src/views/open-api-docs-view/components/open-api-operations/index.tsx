@@ -37,7 +37,12 @@ export function OpenApiOperations({
 							key={operation.operationId}
 							style={{ border: '1px solid magenta', padding: '2px' }}
 						>
-							<OperationHeader operation={operation} />
+							<OperationHeader
+								slug={operation.slug}
+								id={operation.operationId}
+								type="get"
+								path="/app"
+							/>
 							<OperationSections
 								examplesSlot={<OperationExamples operation={operation} />}
 								detailsSlot={<OperationDetails operation={operation} />}
