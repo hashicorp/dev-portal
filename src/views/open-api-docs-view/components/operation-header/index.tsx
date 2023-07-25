@@ -1,4 +1,5 @@
 import type { OperationProps } from 'views/open-api-docs-view/types'
+import Badge from 'components/badge'
 import s from './operation-header.module.css'
 
 /**
@@ -11,10 +12,14 @@ import s from './operation-header.module.css'
 export function OperationHeader({ operation }: { operation: OperationProps }) {
 	const { slug, operationId } = operation
 	return (
-		<div style={{ border: '1px solid magenta' }}>
+		<div className={s.wrapper}>
 			<h3 id={slug} className={s.heading}>
 				{operationId}
 			</h3>
+			<div className={s.methodAndPath}>
+				<Badge type="outlined" text={'GET'} /> {/* opeartion type */}
+				<p className={s.path}>/apps</p> {/** truncated path */}
+			</div>
 		</div>
 	)
 }

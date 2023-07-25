@@ -1,5 +1,21 @@
+.wrapper {
+	margin-bottom: 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
 .heading {
 	composes: g-offset-scroll-margin-top from global;
 	composes: hds-typography-display-400 from global;
 	font-weight: var(--token-typography-font-weight-bold);
+}
+
+.methodAndPath {
+	display: flex;
+	gap: 8px;
+}
+.path {
+	composes: hds-typography-code-300 from global;
+	color: var(--token-color-foreground-primary);
 }
