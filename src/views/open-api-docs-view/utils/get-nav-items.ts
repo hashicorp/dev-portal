@@ -4,15 +4,22 @@ import { OperationGroup, OpenApiNavItem } from '../types'
 /**
  * Build nav items for each operation, group-by-group.
  */
-export function getNavItems(
+export function getNavItems({
+	basePath,
+	operationGroups,
+	productSlug,
+	title,
+}: {
+	basePath: string
 	operationGroups: OperationGroup[]
-): OpenApiNavItem[] {
+	productSlug: ProductSlug
+	title: string
+}): OpenApiNavItem[] {
 	// Build the top-level page nav item
-	// TODO: use productData here or something
 	const pageNavItem = {
-		title: 'HCP Vault Secrets API',
-		fullPath: '/hcp/api-docs/vault-secrets',
-		theme: 'hcp' as ProductSlug,
+		title,
+		fullPath: basePath,
+		theme: productSlug,
 	}
 	// Include grouped operation items
 	const operationGroupItems = getOperationGroupItems(operationGroups)
