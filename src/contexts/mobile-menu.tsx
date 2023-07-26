@@ -105,7 +105,6 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 
 		// Close the mobile menu if it's open on route change start
 		const handleRouteChange = () => {
-			console.log('HANDLE ROUTE CHANGE')
 			if (mobileMenuIsOpen) {
 				setMobileMenuIsOpen(false)
 			}
