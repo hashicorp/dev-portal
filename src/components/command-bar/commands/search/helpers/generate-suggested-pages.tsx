@@ -11,7 +11,7 @@ import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
 import ProductIcon from 'components/product-icon'
-import { SuggestedPage } from '../components'
+import { SuggestedPageProps } from '../unified-search/components/suggested-pages/types'
 import { generateTutorialLibraryCta } from './generate-tutorial-library-cta'
 import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 
@@ -86,7 +86,10 @@ const generateBasicSuggestedPages = (productSlug: ProductSlug) => {
  * These are pages listed after the main pages for a product, and just before a
  * link to the Ttorials Library.
  */
-const EXTRA_PAGES: Record<Exclude<ProductSlug, 'sentinel'>, SuggestedPage[]> = {
+const EXTRA_PAGES: Record<
+	Exclude<ProductSlug, 'sentinel'>,
+	SuggestedPageProps[]
+> = {
 	boundary: [
 		{
 			icon: <IconDocs16 />,
@@ -256,7 +259,9 @@ const EXTRA_PAGES: Record<Exclude<ProductSlug, 'sentinel'>, SuggestedPage[]> = {
  * @TODO potential optimization: cache the result in React Query forever (since
  * the list won't change while a user is actively using the site).
  */
-const generateSuggestedPages = (productSlug?: ProductSlug): SuggestedPage[] => {
+const generateSuggestedPages = (
+	productSlug?: ProductSlug
+): SuggestedPageProps[] => {
 	const extraPages = productSlug && EXTRA_PAGES[productSlug]
 	if (extraPages) {
 		return [
