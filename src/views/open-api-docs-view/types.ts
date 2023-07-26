@@ -1,6 +1,48 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { ParsedUrlQuery } from 'querystring'
 import type { ProductData } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'
+
+/**
+ * Property details are used to document the shape of the requests and
+ * response data of each operation.
+ */
+export interface PropertyDetailProps {
+	name: string
+	/**
+	 * Some temporary data to mess around with during prototyping.
+	 * TODO: remove this for the production implementation.
+	 */
+	_placeholder: $TSFixMe
+}
+
+/**
+ * Operations are specific request types to specific endpoints.
+ * They form the basis of OpenAPI docs pages.
+ */
+export interface OperationProps {
+	operationId: string
+	slug: string
+	queryParameters?: PropertyDetailProps[]
+	pathParameters?: PropertyDetailProps[]
+	bodyParameters?: PropertyDetailProps[]
+	summary?: string
+	/**
+	 * Some temporary data to mess around with during prototyping.
+	 * TODO: remove this for the production implementation.
+	 */
+	_placeholder: $TSFixMe
+}
+
+/**
+ * Operation groups collect operations into sections based
+ * on the operation paths.
+ */
+export type OperationGroup = { heading: string; items: OperationProps[] }
 
 /**
  * A type to describe versioned API docs source files.
@@ -37,6 +79,11 @@ export interface OpenApiDocsParams extends ParsedUrlQuery {
 export interface OpenApiDocsViewProps {
 	IS_REVISED_TEMPLATE: true
 	productData: ProductData
+	/**
+	 * Operations form the basis of OpenAPI docs.
+	 * They're grouped into sections based on operation paths.
+	 */
+	operationGroups: OperationGroup[]
 	/**
 	 * Some temporary data we'll remove for the production implementation.
 	 */
