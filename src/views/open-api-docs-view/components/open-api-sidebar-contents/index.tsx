@@ -25,12 +25,13 @@ export function OpenApiSidebarContents({
 	 * Here, we remove the hash, so that we can compare to the `fullPath`
 	 * of each nav item, which are not expected to have hashes,
 	 * to the URL path that we're on.
+	 *
+	 * Note that domain does not matter, as we're just grabbing the hash
 	 */
-	const urlPathname = useMemo(() => {
-		// Note that domain does not matter, as we're just grabbing the hash
-		const { pathname } = new URL(asPath, 'https://www.example.com')
-		return pathname
-	}, [asPath])
+	const urlPathname = useMemo(
+		() => new URL(asPath, 'https://www.example.com').pathname,
+		[asPath]
+	)
 
 	/**
 	 * Build an array of section slugs,
