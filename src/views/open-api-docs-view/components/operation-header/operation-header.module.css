@@ -18,6 +18,10 @@
 	gap: 8px;
 }
 
+.method {
+	text-transform: uppercase;
+}
+
 .path {
 	composes: hds-typography-code-300 from global;
 	color: var(--token-color-foreground-primary);

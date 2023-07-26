@@ -2,6 +2,7 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
+
 import classNames from 'classnames'
 import type { OperationProps } from 'views/open-api-docs-view/types'
 import Badge from 'components/badge'
@@ -34,7 +35,7 @@ export function OperationHeader({
 				{headerText}
 			</h3>
 			<div className={s.methodAndPath}>
-				<Badge type="outlined" text={method.toUpperCase()} />
+				<Badge className={s.method} type="outlined" text={method} />
 				<p className={s.path}>{path}</p>
 			</div>
 		</div>
