@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 import { OperationGroup } from 'views/open-api-docs-view/types'
 import { useActiveSection } from 'lib/hash-links/use-active-section'
-import { extractHashSlug } from 'lib/hash-links/extract-hash-slug'
 import s from './open-api-sidebar-contents.module.css'
 
 /**
@@ -47,13 +46,11 @@ export function OpenApiSidebarContents({
 	/**
 	 * Determine the active section, based on operation slugs
 	 */
-	const operationSlugs = useMemo(
-		() =>
-			operationNavItems
-				.filter((item) => typeof item.fullPath === 'string')
-				.map((item) => extractHashSlug(item.fullPath)),
-		[operationNavItems]
-	)
+	const operationSlugs = useMemo(() => {
+		return operationNavItems
+			.filter((item) => typeof item.slug === 'string')
+			.map((item) => item.slug)
+	}, [operationNavItems])
 	const activeSection = useActiveSection(operationSlugs)
 
 	/**
