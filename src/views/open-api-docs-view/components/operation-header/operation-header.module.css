@@ -9,6 +9,7 @@
 	composes: hds-typography-display-400 from global;
 	font-weight: var(--token-typography-font-weight-bold);
 	color: var(--token-color-foreground-strong);
+	overflow-wrap: break-word;
 }
 
 .methodAndPath {
@@ -20,4 +21,7 @@
 .path {
 	composes: hds-typography-code-300 from global;
 	color: var(--token-color-foreground-primary);
+	overflow-wrap: break-word;
+	flex-shrink: 1;
+	min-width: 0;
 }
