@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Library
 import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 // Components

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { DevCodeBlock } from '../dev-code-block'
 import type { OperationProps } from 'views/open-api-docs-view/types'
 

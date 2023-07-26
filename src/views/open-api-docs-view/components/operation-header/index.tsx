@@ -1,3 +1,7 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
 import classNames from 'classnames'
 import type { OperationProps } from 'views/open-api-docs-view/types'
 import Badge from 'components/badge'
