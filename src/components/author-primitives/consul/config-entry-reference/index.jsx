@@ -5,6 +5,7 @@
 
 import Tabs, { Tab } from 'components/tabs'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
+import { MdxListItem } from 'components/dev-dot-content/mdx-components'
 
 /**
  * ConfigEntryReference renders the reference docs for a config entry.
@@ -102,7 +103,7 @@ function renderKey(key, isHCLTab) {
 	// to ensure the styling of each bullet is correct. The two locations should be kept
 	// in sync.
 	return (
-		<li key={keyLower} className="g-type-long-body">
+		<MdxListItem key={keyLower}>
 			<a id={keyLower} className="__target-lic" aria-hidden="" />
 			<p>
 				<a
@@ -117,7 +118,7 @@ function renderKey(key, isHCLTab) {
 				<span dangerouslySetInnerHTML={{ __html: htmlDescription }} />
 			</p>
 			{renderKeys(key.children, isHCLTab)}
-		</li>
+		</MdxListItem>
 	)
 }
 
