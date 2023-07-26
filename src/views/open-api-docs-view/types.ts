@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { ParsedUrlQuery } from 'querystring'
 import type { ProductData } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'

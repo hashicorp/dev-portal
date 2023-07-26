@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 export { DevCodeBlock } from './dev-code-block'
 export { OpenApiDocsMobileMenuLevels } from './open-api-docs-mobile-menu-levels'
 export { OpenApiOperations } from './open-api-operations'
