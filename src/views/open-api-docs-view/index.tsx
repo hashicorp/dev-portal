@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
 // Local
