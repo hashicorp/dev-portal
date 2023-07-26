@@ -70,7 +70,13 @@ export interface OpenApiDocsParams extends ParsedUrlQuery {
 /**
  * Nav items are used to render the sidebar and mobile nav.
  *
- * TODO: move these types to sidebar component?
+ * TODO: move these types to sidebar component.
+ * For now, this is difficult, as the MenuItem type is a complex
+ * interface that requires a larger effort to untangle, and all
+ * related Sidebar components are similarly entangled.
+ * Rationale is to start with simpler slightly duplicative types here,
+ * rather than try to embark on the `MenuItem` type refactor.
+ * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
  */
 type DividerNavItem = { divider: true }
 type HeadingNavItem = { heading: string }
