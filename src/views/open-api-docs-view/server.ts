@@ -5,6 +5,7 @@ import { cachedGetProductData } from 'lib/get-product-data'
 // Utilities
 import {
 	findLatestStableVersion,
+	getNavItems,
 	getOperationProps,
 	groupOperations,
 	parseAndValidateOpenApiSchema,
@@ -94,6 +95,7 @@ export async function getStaticProps({
 	const schemaData = await parseAndValidateOpenApiSchema(schemaFileString)
 	const operationProps = getOperationProps(schemaData)
 	const operationGroups = groupOperations(operationProps)
+	const navItems = getNavItems(operationGroups)
 
 	/**
 	 * Return props
@@ -108,6 +110,7 @@ export async function getStaticProps({
 				schemaData,
 			},
 			operationGroups: stripUndefinedProperties(operationGroups),
+			navItems,
 		},
 	}
 }

@@ -1,5 +1,5 @@
 import type { ParsedUrlQuery } from 'querystring'
-import type { ProductData } from 'types/products'
+import type { ProductData, ProductSlug } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'
 
 /**
@@ -68,6 +68,21 @@ export interface OpenApiDocsParams extends ParsedUrlQuery {
 }
 
 /**
+ * Nav items are used to render the sidebar and mobile nav.
+ *
+ * TODO: move these types to sidebar component?
+ */
+type DividerNavItem = { divider: true }
+type HeadingNavItem = { heading: string }
+type LinkNavItem = {
+	title: string
+	fullPath: string
+	theme?: ProductSlug
+}
+
+export type OperationNavItem = DividerNavItem | HeadingNavItem | LinkNavItem
+
+/**
  * We'll use this type to document the shape of props for the view component.
  * For now, we have a placeholder. We'll expand this as we build out the view.
  */
@@ -79,6 +94,10 @@ export interface OpenApiDocsViewProps {
 	 * They're grouped into sections based on operation paths.
 	 */
 	operationGroups: OperationGroup[]
+	/**
+	 * Operation nav items are rendered into the sidebar and mobile nav.
+	 */
+	navItems: OperationNavItem[]
 	/**
 	 * Some temporary data we'll remove for the production implementation.
 	 */

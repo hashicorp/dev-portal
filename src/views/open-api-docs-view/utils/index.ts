@@ -1,5 +1,6 @@
 export { findLatestStableVersion } from './find-latest-stable-version'
 export { getBodyParameterProps } from './get-body-parameter-props'
+export { getNavItems } from './get-nav-items'
 export { getOperationProps } from './get-operation-props'
 export {
 	getPropertyDetailPropsFromParameter,

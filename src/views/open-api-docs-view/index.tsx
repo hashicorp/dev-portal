@@ -18,6 +18,7 @@ import type { OpenApiDocsViewProps } from './types'
 function OpenApiDocsView({
 	productData,
 	operationGroups,
+	navItems,
 	_placeholder,
 }: OpenApiDocsViewProps) {
 	return (
@@ -25,13 +26,13 @@ function OpenApiDocsView({
 			sidebarSlot={
 				<>
 					<SidebarBackToLink text="HashiCorp Cloud Platform" href="/hcp" />
-					<OpenApiSidebarContents operationGroups={operationGroups} />
+					<OpenApiSidebarContents navItems={navItems} />
 				</>
 			}
 			mobileMenuSlot={
 				<OpenApiDocsMobileMenuLevels
 					productData={productData}
-					operationGroups={operationGroups}
+					navItems={navItems}
 				/>
 			}
 		>

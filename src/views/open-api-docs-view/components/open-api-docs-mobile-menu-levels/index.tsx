@@ -10,23 +10,18 @@ import {
 import { OpenApiSidebarContents } from '../open-api-sidebar-contents'
 // Types
 import type { ProductData } from 'types/products'
-import { OperationGroup } from 'views/open-api-docs-view/types'
+import type { OperationNavItem } from 'views/open-api-docs-view/types'
 
 /**
  * Placeholder for OpenApiDocsView mobile menu levels.
  */
 export function OpenApiDocsMobileMenuLevels({
 	productData,
-	operationGroups,
+	navItems,
 }: {
 	// Product data, used to generate mobile menu levels.
 	productData: ProductData
-	/**
-	 * Operation groups, used to render the mobile.
-	 * TODO: lift out logic from within OpenApiSidebarContents,
-	 * that component should be more purely presentational.
-	 */
-	operationGroups: OperationGroup[]
+	navItems: OperationNavItem[]
 }) {
 	return (
 		<MobileMenuLevels
@@ -38,7 +33,7 @@ export function OpenApiDocsMobileMenuLevels({
 					content: (
 						<div>
 							{/* API docs mobile menu contents */}
-							<OpenApiSidebarContents operationGroups={operationGroups} />
+							<OpenApiSidebarContents navItems={navItems} />
 							{/* Common resources for this product */}
 							<SidebarHorizontalRule />
 							<ProductResourceNavItems slug={productData.slug} />

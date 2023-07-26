@@ -1,83 +1,80 @@
 import { useMemo } from 'react'
-import { SidebarNavMenuItem } from 'components/sidebar/components'
-import { OperationGroup } from 'views/open-api-docs-view/types'
+import { useRouter } from 'next/router'
+// Lib
 import { useActiveSection } from 'lib/hash-links/use-active-section'
+// Components
+import { SidebarNavMenuItem } from 'components/sidebar/components'
+// Types
+import type { OperationNavItem } from 'views/open-api-docs-view/types'
+// Styles
 import s from './open-api-sidebar-contents.module.css'
 
 /**
  * Renders sidebar contents for OpenApiDocsView.
- *
- * TODO: refactor operationGroups prop,
- * should be `operationNavItems` instead, I think!
- * And `operationNavItems` should be build server-side.
- *
- * Note: `isActive` highlighting will still happen within this component.
  */
 export function OpenApiSidebarContents({
-	operationGroups,
+	navItems,
 }: {
-	operationGroups: OperationGroup[]
+	navItems: OperationNavItem[]
 }) {
+	const { asPath } = useRouter()
+
 	/**
-	 * Build nav items for operation groups
+	 * Note next/router `asPath` returns *with* the `#hash`.
 	 *
-	 * TODO: extract this out to getStaticProps
+	 * Here, we remove the hash, so that we can compare to the `fullPath`
+	 * of each nav item, which are not expected to have hashes,
+	 * to the URL path that we're on.
 	 */
-	const operationNavItems = useMemo(() => {
-		// format to sidebar sections
-		return Object.keys(operationGroups)
-			.map((groupSlug: string) => {
-				const { heading, items } = operationGroups[groupSlug]
-				return [
-					{ divider: true },
-					{
-						heading,
-					},
-					...items.map((o) => ({
-						title: o.operationId,
-						slug: o.slug,
-						fullPath: `#${o.slug}`,
-					})),
-				]
-			})
-			.flat()
-	}, [operationGroups])
+	const urlPathname = useMemo(() => {
+		// Note that domain does not matter, as we're just grabbing the hash
+		const { pathname } = new URL(asPath, 'https://www.example.com')
+		return pathname
+	}, [asPath])
 
 	/**
-	 * Determine the active section, based on operation slugs
+	 * Build an array of section slugs,
+	 * and pass these to `useActiveSection`.
 	 */
-	const operationSlugs = useMemo(() => {
-		return operationNavItems
-			.filter((item) => typeof item.slug === 'string')
-			.map((item) => item.slug)
-	}, [operationNavItems])
-	const activeSection = useActiveSection(operationSlugs)
+	const sectionSlugs = useMemo(() => {
+		return (
+			navItems
+				.map((item) => {
+					// Only grab slugs from link items
+					if (!('fullPath' in item)) {
+						return null
+					}
+					// Note that domain does not matter, we're just grabbing the hash
+					const { hash } = new URL(item.fullPath, 'https://www.example.com')
+					return hash.replace('#', '')
+				})
+				// Filter out any null or empty string values
+				.filter((slug) => typeof slug === 'string' && slug !== '')
+		)
+	}, [navItems])
+	const activeSection = useActiveSection(sectionSlugs)
 
 	/**
-	 * Highlight any active matched sections
+	 * Highlight any active matched sidenav items.
+	 * These could match `#activeSection` or the full pathname.
 	 */
-	const operationNavItemsWithActive = useMemo(() => {
-		return operationNavItems.map((item) => {
+	const navItemsWithActive = useMemo(() => {
+		return navItems.map((item) => {
 			// Handle dividers, headings, any non-path items
-			if (!item.fullPath) {
+			if (!('fullPath' in item)) {
 				return item
 			}
 			// Handle items with paths, that could be a match
-			return { ...item, isActive: item.fullPath === `#${activeSection}` }
+			const isActiveHash = item.fullPath === `#${activeSection}`
+			const isActivePath = item.fullPath === urlPathname
+			return { ...item, isActive: isActivePath || isActiveHash }
 		})
-	}, [operationNavItems, activeSection])
+	}, [navItems, activeSection, urlPathname])
 
+	// Render a generic list of `SideBarNavMenuItem`
 	return (
 		<ul className={s.listResetStyles}>
-			{[
-				{
-					title: 'HCP Vault Secrets API',
-					fullPath: '/hcp/api-docs/vault-secrets',
-					theme: 'hcp',
-					isActive: true, // always active, since this is a single-page
-				},
-				...operationNavItemsWithActive,
-			].map((item: $TSFixMe, index: number) => (
+			{navItemsWithActive.map((item: OperationNavItem, index: number) => (
 				// eslint-disable-next-line react/no-array-index-key
 				<SidebarNavMenuItem item={item} key={index} />
 			))}
