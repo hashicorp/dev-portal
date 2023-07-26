@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Components
 import MobileMenuLevels from 'components/mobile-menu-levels'
 import { SidebarHorizontalRule } from 'components/sidebar/components'
