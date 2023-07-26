@@ -80,7 +80,7 @@ type LinkNavItem = {
 	theme?: ProductSlug
 }
 
-export type OperationNavItem = DividerNavItem | HeadingNavItem | LinkNavItem
+export type OpenApiNavItem = DividerNavItem | HeadingNavItem | LinkNavItem
 
 /**
  * We'll use this type to document the shape of props for the view component.
@@ -97,7 +97,7 @@ export interface OpenApiDocsViewProps {
 	/**
 	 * Operation nav items are rendered into the sidebar and mobile nav.
 	 */
-	navItems: OperationNavItem[]
+	navItems: OpenApiNavItem[]
 	/**
 	 * Some temporary data we'll remove for the production implementation.
 	 */

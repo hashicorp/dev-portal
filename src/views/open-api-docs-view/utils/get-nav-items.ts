@@ -1,12 +1,12 @@
 import { ProductSlug } from 'types/products'
-import { OperationGroup, OperationNavItem } from '../types'
+import { OperationGroup, OpenApiNavItem } from '../types'
 
 /**
  * Build nav items for each operation, group-by-group.
  */
 export function getNavItems(
 	operationGroups: OperationGroup[]
-): OperationNavItem[] {
+): OpenApiNavItem[] {
 	// Build the top-level page nav item
 	// TODO: use productData here or something
 	const pageNavItem = {
@@ -25,8 +25,8 @@ export function getNavItems(
  */
 function getOperationGroupItems(
 	operationGroups: OperationGroup[]
-): OperationNavItem[] {
-	const navItems: OperationNavItem[] = []
+): OpenApiNavItem[] {
+	const navItems: OpenApiNavItem[] = []
 	// Build items for each group
 	for (const { heading, items } of Object.values(operationGroups)) {
 		// Start each group with a divider and heading

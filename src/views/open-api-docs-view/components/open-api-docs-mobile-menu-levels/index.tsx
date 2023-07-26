@@ -10,7 +10,7 @@ import {
 import { OpenApiSidebarContents } from '../open-api-sidebar-contents'
 // Types
 import type { ProductData } from 'types/products'
-import type { OperationNavItem } from 'views/open-api-docs-view/types'
+import type { OpenApiNavItem } from 'views/open-api-docs-view/types'
 
 /**
  * Placeholder for OpenApiDocsView mobile menu levels.
@@ -21,7 +21,7 @@ export function OpenApiDocsMobileMenuLevels({
 }: {
 	// Product data, used to generate mobile menu levels.
 	productData: ProductData
-	navItems: OperationNavItem[]
+	navItems: OpenApiNavItem[]
 }) {
 	return (
 		<MobileMenuLevels

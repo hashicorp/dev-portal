@@ -5,7 +5,7 @@ import { useActiveSection } from 'lib/hash-links/use-active-section'
 // Components
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 // Types
-import type { OperationNavItem } from 'views/open-api-docs-view/types'
+import type { OpenApiNavItem } from 'views/open-api-docs-view/types'
 // Styles
 import s from './open-api-sidebar-contents.module.css'
 
@@ -15,7 +15,7 @@ import s from './open-api-sidebar-contents.module.css'
 export function OpenApiSidebarContents({
 	navItems,
 }: {
-	navItems: OperationNavItem[]
+	navItems: OpenApiNavItem[]
 }) {
 	const { asPath } = useRouter()
 
@@ -74,7 +74,7 @@ export function OpenApiSidebarContents({
 	// Render a generic list of `SideBarNavMenuItem`
 	return (
 		<ul className={s.listResetStyles}>
-			{navItemsWithActive.map((item: OperationNavItem, index: number) => (
+			{navItemsWithActive.map((item: OpenApiNavItem, index: number) => (
 				// eslint-disable-next-line react/no-array-index-key
 				<SidebarNavMenuItem item={item} key={index} />
 			))}
