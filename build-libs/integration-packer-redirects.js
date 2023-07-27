@@ -275,7 +275,25 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: Google Cloud Platform ❌ (TODO, DNE in Integrations Library)
+	{
+		enabled: true,
+		org: 'BrandonRomano',
+		slug: 'googlecompute',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'googlecompute',
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				slug: 'googlecompute-export',
+			},
+			{
+				type: TYPE_POST_PROCESSOR,
+				slug: 'googlecompute-import',
+			},
+		],
+	},
 	{
 		enabled: true,
 		org: 'BrandonRomano',
