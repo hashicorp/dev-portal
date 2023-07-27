@@ -421,7 +421,17 @@ const packerPluginIntegrations = [
 			},
 		],
 	},
-	// TODO: Libvirt ❌ (TODO, DNE in Integrations Library)
+	{
+		enabled: true,
+		org: 'BrandonRomano',
+		slug: 'libvirt',
+		components: [
+			{
+				type: TYPE_BUILDER,
+				newSlug: 'libvirt',
+			},
+		],
+	},
 	{
 		enabled: true,
 		org: 'BrandonRomano',
