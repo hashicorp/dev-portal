@@ -84,6 +84,10 @@ export interface OpenApiDocsParams extends ParsedUrlQuery {
 export interface OpenApiDocsViewProps {
 	IS_REVISED_TEMPLATE: true
 	productData: ProductData
+	title: string
+	description: string
+	releaseStage: string
+
 	/**
 	 * Operations form the basis of OpenAPI docs.
 	 * They're grouped into sections based on operation paths.

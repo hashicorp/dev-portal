@@ -14,15 +14,27 @@ import s from './open-api-overview.module.css'
 /**
  * Render an overview section for an OpenApiView.
  */
+const SHOW_OVERVIEW_AND_FORM = true
+
+interface OpenApiOverviewProps {
+	title: string
+	badgeText: string
+	description: string
+	status?: {
+		text: string
+		href: string
+	}
+	className?: string
+	_placeholder: any
+}
 
 export function OpenApiOverview({
-	_placeholder,
+	title,
+	badgeText,
+	description,
+	status,
 	className,
-}: {
-	_placeholder: $TSFixMe
-	className?: string
-}) {
-	console.log(_placeholder)
+}: OpenApiOverviewProps) {
 	return (
 		<div className={classNames(className, s.overviewWrapper)}>
 			<header className={s.header}>
@@ -30,56 +42,64 @@ export function OpenApiOverview({
 					<IconVaultColor16 />
 				</IconTile>
 				<span>
-					<h1 className={s.heading}>{_placeholder.schemaData.info.title}</h1>
+					<h1 className={s.heading}>{title}</h1>
 					{/** TODO plug in with real data (not sure where we source this) */}
 					<Status text="Operational" href="https://google.com" />
 				</span>
 				<Badge
 					className={s.releaseStageBadge}
-					text={_placeholder.targetVersion.releaseStage}
+					text={badgeText}
 					type="outlined"
 					size="small"
 				/>
 			</header>
-			<section className={s.content}>
-				<div className={s.overviewAndResources}>
-					<span>
-						<h2 className={s.contentHeading}>Overview</h2>
-						<p>{_placeholder.schemaData.info.description}</p>
-					</span>
-					<span>
-						<h2 className={s.contentHeading}>Additional Resources</h2>
-						{/** TODO extract out of inline content, where do we want to keep this authorable data? */}
-						<p>
-							Use the following resources to give you enough context to be
-							successful.
-						</p>
-						<ul className={s.resourceList}>
-							<li>
-								<InlineLink href="/vault/tutorials/hcp-vault-secrets-get-started">
-									HCP Vault Secrets quick start
-								</InlineLink>
-							</li>
-							<li>
-								<InlineLink href="/hcp/docs/vault-secrets/constraints-and-known-issues">
-									Constraints and limitations
-								</InlineLink>
-							</li>
-							<li>
-								<InlineLink href="/hcp/docs/vault-secrets">
-									What is HCP Vault Secrets?
-								</InlineLink>
-							</li>
-						</ul>
-					</span>
-				</div>
-				<div
-					style={{ border: '1px solid magenta' }}
-					className={s.variablesForm}
-				>
-					Add your own variables form
-				</div>
-			</section>
+			{SHOW_OVERVIEW_AND_FORM ? (
+				<section className={s.content}>
+					{/**
+					 * TODO extract out of inline content, figure out where we want to keep this data
+					 * ideally somewhere with the open API data.
+					 * */}
+					<div className={s.overviewAndResources}>
+						<span>
+							<h2 className={s.contentHeading}>Overview</h2>
+							<p>{description}</p>
+						</span>
+						<span>
+							<h2 className={s.contentHeading}>Additional Resources</h2>
+							<p>
+								Use the following resources to give you enough context to be
+								successful.
+							</p>
+							<ul className={s.resourceList}>
+								<li>
+									<InlineLink href="/vault/tutorials/hcp-vault-secrets-get-started">
+										HCP Vault Secrets quick start
+									</InlineLink>
+								</li>
+								<li>
+									<InlineLink href="/hcp/docs/vault-secrets/constraints-and-known-issues">
+										Constraints and limitations
+									</InlineLink>
+								</li>
+								<li>
+									<InlineLink href="/hcp/docs/vault-secrets">
+										What is HCP Vault Secrets?
+									</InlineLink>
+								</li>
+							</ul>
+						</span>
+					</div>
+					{/**
+					 * TODO Implement this, connect potentially with https://status.hashicorp.com/api
+					 * */}
+					<div
+						style={{ border: '1px solid magenta' }}
+						className={s.variablesForm}
+					>
+						Add your own variables form
+					</div>
+				</section>
+			) : null}
 		</div>
 	)
 }

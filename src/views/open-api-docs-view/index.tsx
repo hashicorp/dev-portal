@@ -21,6 +21,9 @@ import type { OpenApiDocsViewProps } from './types'
  */
 function OpenApiDocsView({
 	productData,
+	title,
+	releaseStage,
+	description,
 	operationGroups,
 	_placeholder,
 }: OpenApiDocsViewProps) {
@@ -29,7 +32,13 @@ function OpenApiDocsView({
 			sidebarSlot={<OpenApiSidebarContents operationGroups={operationGroups} />}
 			mobileMenuSlot={<OpenApiDocsMobileMenuLevels productData={productData} />}
 		>
-			<OpenApiOverview className={s.overview} _placeholder={_placeholder} />
+			<OpenApiOverview
+				className={s.overview}
+				title={title}
+				badgeText={releaseStage}
+				description={description}
+				_placeholder={_placeholder}
+			/>
 			<OpenApiOperations operationGroups={operationGroups} />
 		</SidebarLayout>
 	)
