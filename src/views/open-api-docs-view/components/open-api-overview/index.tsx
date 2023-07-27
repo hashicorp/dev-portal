@@ -8,6 +8,7 @@ import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-
 import Badge from 'components/badge'
 import IconTile from 'components/icon-tile'
 import OverviewBlurb from './components/overview-blurb'
+import VariablesForm from './components/variables-form'
 import { Status } from './components/status'
 import { OpenApiOverviewProps } from './types'
 import s from './open-api-overview.module.css'
@@ -15,8 +16,13 @@ import s from './open-api-overview.module.css'
 /**
  * Render an overview section for an OpenApiView.
  *
- * Currently not rendering the overview and form section
- * Until that source content and data is sorted out.
+ * Currently rendering the overview and form section for testing purposes
+ * But set up the conditional rendering in case we want to hide it
+ * and release without this section.
+ *
+ * Status is also optional right now as it is a skateboard
+ * component and may be implemented at a later time. Once implemented
+ * it should be required.
  */
 const SHOW_OVERVIEW_AND_FORM = true
 
@@ -35,7 +41,6 @@ export function OpenApiOverview({
 				</IconTile>
 				<span>
 					<h1 className={s.heading}>{title}</h1>
-					{/** TODO plug in with real data */}
 					{status ? <Status text={status.text} href={status.href} /> : null}
 				</span>
 				<Badge
@@ -47,16 +52,12 @@ export function OpenApiOverview({
 			</header>
 			{SHOW_OVERVIEW_AND_FORM ? (
 				<section className={s.content}>
-					<OverviewBlurb description={description} />
-					{/**
-					 * TODO Implement this, connect potentially with https://status.hashicorp.com/api
-					 * */}
-					<div
-						style={{ border: '1px solid magenta' }}
-						className={s.variablesForm}
-					>
-						Add your own variables form
-					</div>
+					<span className={s.contentBlurb}>
+						<OverviewBlurb description={description} />
+					</span>
+					<span className={s.variablesForm}>
+						<VariablesForm />
+					</span>
 				</section>
 			) : null}
 		</div>

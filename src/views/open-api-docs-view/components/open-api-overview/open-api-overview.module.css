@@ -41,6 +41,10 @@
 	}
 }
 
+.contentBlurb {
+	flex: 1;
+}
+
 .variablesForm {
 	flex: 1;
 }
