@@ -306,7 +306,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false, // ❌ TODO: Not Sync'd
+		enabled: true,
 		org: 'BrandonRomano',
 		slug: 'hashicups',
 		indexPages: [
