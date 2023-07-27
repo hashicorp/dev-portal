@@ -12,6 +12,7 @@ import s from './inline-link.module.css'
 const InlineLink = ({
 	children,
 	className,
+	color = 'primary',
 	href,
 	textSize = 300,
 	textWeight = 'regular',
@@ -21,6 +22,7 @@ const InlineLink = ({
 		s.root,
 		`hds-typography-body-${textSize}`,
 		`hds-font-weight-${textWeight}`,
+		s[color],
 		className
 	)
 

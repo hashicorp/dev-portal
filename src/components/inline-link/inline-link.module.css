@@ -10,13 +10,8 @@ ones set in the surrounding text.
 .root {
 	composes: g-focus-ring-from-box-shadow from global;
 	border-radius: 5px;
-	color: var(--token-color-foreground-action);
 	cursor: pointer;
 	text-decoration: underline;
-
-	&:active {
-		color: var(--token-color-foreground-action-active);
-	}
 
 	/*
   Not styling ::before with position: absolute and -5px positions because that
@@ -26,6 +21,14 @@ ones set in the surrounding text.
 		text-decoration: none;
 		margin: -5px;
 		padding: 5px;
+	}
+}
+
+.primary {
+	color: var(--token-color-foreground-action);
+
+	&:active {
+		color: var(--token-color-foreground-action-active);
 	}
 
 	&:hover {
@@ -39,4 +42,20 @@ ones set in the surrounding text.
 			color: var(--token-color-foreground-action-visited-hover);
 		}
 	}
+}
+
+.secondary {
+	color: var(--token-color-foreground-primary);
+
+	&:active {
+		color: var(--token-color-foreground-faint);
+	}
+
+	&:hover {
+		color: var(--token-color-foreground-faint);
+	}
+
+	/**
+	* Note: The HDS spec doesn't specify visit styles for the 'secondary' color
+	*/
 }
