@@ -5,28 +5,20 @@
 
 import classNames from 'classnames'
 import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
-import InlineLink from 'components/inline-link'
 import Badge from 'components/badge'
 import IconTile from 'components/icon-tile'
+import OverviewBlurb from './components/overview-blurb'
 import { Status } from './components/status'
+import { OpenApiOverviewProps } from './types'
 import s from './open-api-overview.module.css'
 
 /**
  * Render an overview section for an OpenApiView.
+ *
+ * Currently not rendering the overview and form section
+ * Until that source content and data is sorted out.
  */
 const SHOW_OVERVIEW_AND_FORM = true
-
-interface OpenApiOverviewProps {
-	title: string
-	badgeText: string
-	description: string
-	status?: {
-		text: string
-		href: string
-	}
-	className?: string
-	_placeholder: any
-}
 
 export function OpenApiOverview({
 	title,
@@ -55,46 +47,7 @@ export function OpenApiOverview({
 			</header>
 			{SHOW_OVERVIEW_AND_FORM ? (
 				<section className={s.content}>
-					{/**
-					 * TODO extract out of inline content, figure out where we want to keep this data
-					 * ideally somewhere with the open API data.
-					 * */}
-					<div className={s.overviewAndResources}>
-						<span>
-							<h2 className={s.contentHeading}>Overview</h2>
-							<p>{description}</p>
-						</span>
-						<span>
-							<h2 className={s.contentHeading}>Additional Resources</h2>
-							<p>
-								Use the following resources to give you enough context to be
-								successful.
-							</p>
-							<ul className={s.resourceList}>
-								<li className={s.resourceLink}>
-									<InlineLink
-										color="secondary"
-										href="/vault/tutorials/hcp-vault-secrets-get-started"
-									>
-										HCP Vault Secrets quick start
-									</InlineLink>
-								</li>
-								<li className={s.resourceLink}>
-									<InlineLink
-										color="secondary"
-										href="/hcp/docs/vault-secrets/constraints-and-known-issues"
-									>
-										Constraints and limitations
-									</InlineLink>
-								</li>
-								<li className={s.resourceLink}>
-									<InlineLink color="secondary" href="/hcp/docs/vault-secrets">
-										What is HCP Vault Secrets?
-									</InlineLink>
-								</li>
-							</ul>
-						</span>
-					</div>
+					<OverviewBlurb description={description} />
 					{/**
 					 * TODO Implement this, connect potentially with https://status.hashicorp.com/api
 					 * */}

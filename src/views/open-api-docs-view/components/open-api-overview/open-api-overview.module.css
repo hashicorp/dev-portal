@@ -27,15 +27,9 @@
 }
 
 .content {
-	composes: hds-typography-body-300 from global;
-	color: var(--token-color-foreground-primary);
 	display: flex;
 	flex-direction: column;
 	gap: 32px;
-
-	& p {
-		margin: 0;
-	}
 
 	@media (--dev-dot-desktop) {
 		flex-direction: row;
@@ -44,36 +38,6 @@
 
 	@media screen and (min-width: 1440px) {
 		gap: 64px;
-	}
-}
-
-.overviewAndResources {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
-}
-
-.contentHeading {
-	composes: hds-typography-display-400 from global;
-	font-weight: var(--token-typography-font-weight-bold);
-	color: var(--token-color-foreground-strong);
-	margin: 0 0 8px 0;
-}
-
-.resourceList {
-	list-style: none;
-	margin: 16px 0 0 0;
-	padding: 0;
-}
-
-.resourceLink {
-	& a {
-		font-weight: var(--token-typography-font-weight-medium);
-	}
-
-	&:not(:last-child) {
-		margin-bottom: 12px;
 	}
 }
 

@@ -1,0 +1,35 @@
+.overviewAndResources {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	composes: hds-typography-body-300 from global;
+	color: var(--token-color-foreground-primary);
+
+	& p {
+		margin: 0;
+	}
+}
+
+.contentHeading {
+	composes: hds-typography-display-400 from global;
+	font-weight: var(--token-typography-font-weight-bold);
+	color: var(--token-color-foreground-strong);
+	margin: 0 0 8px 0;
+}
+
+.resourceList {
+	list-style: none;
+	margin: 16px 0 0 0;
+	padding: 0;
+}
+
+.resourceLink {
+	& a {
+		font-weight: var(--token-typography-font-weight-medium);
+	}
+
+	&:not(:last-child) {
+		margin-bottom: 12px;
+	}
+}
