@@ -43,8 +43,8 @@ export function OpenApiOverview({
 				</IconTile>
 				<span>
 					<h1 className={s.heading}>{title}</h1>
-					{/** TODO plug in with real data (not sure where we source this) */}
-					<Status text="Operational" href="https://google.com" />
+					{/** TODO plug in with real data */}
+					{status ? <Status text={status.text} href={status.href} /> : null}
 				</span>
 				<Badge
 					className={s.releaseStageBadge}
@@ -72,17 +72,26 @@ export function OpenApiOverview({
 							</p>
 							<ul className={s.resourceList}>
 								<li>
-									<InlineLink href="/vault/tutorials/hcp-vault-secrets-get-started">
+									<InlineLink
+										className={s.resourceLink}
+										href="/vault/tutorials/hcp-vault-secrets-get-started"
+									>
 										HCP Vault Secrets quick start
 									</InlineLink>
 								</li>
 								<li>
-									<InlineLink href="/hcp/docs/vault-secrets/constraints-and-known-issues">
+									<InlineLink
+										className={s.resourceLink}
+										href="/hcp/docs/vault-secrets/constraints-and-known-issues"
+									>
 										Constraints and limitations
 									</InlineLink>
 								</li>
 								<li>
-									<InlineLink href="/hcp/docs/vault-secrets">
+									<InlineLink
+										className={s.resourceLink}
+										href="/hcp/docs/vault-secrets"
+									>
 										What is HCP Vault Secrets?
 									</InlineLink>
 								</li>

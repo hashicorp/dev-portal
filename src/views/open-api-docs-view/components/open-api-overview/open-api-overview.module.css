@@ -67,6 +67,11 @@
 	padding: 0;
 }
 
+.resourceLink {
+	color: var(--token-color-foreground-strong);
+	font-weight: var(--token-typography-font-weight-semibold);
+}
+
 .variablesForm {
 	flex: 1;
 }
