@@ -159,37 +159,11 @@ const packerPluginIntegrations = [
 	{
 		enabled: true,
 		org: 'BrandonRomano',
-		slug: 'chef',
-		components: [
-			{
-				type: TYPE_PROVISIONER,
-				slug: 'chef-client',
-			},
-			{
-				type: TYPE_PROVISIONER,
-				slug: 'chef-solo',
-			},
-		],
-	},
-	{
-		enabled: true,
-		org: 'BrandonRomano',
 		slug: 'cloudstack',
 		components: [
 			{
 				type: TYPE_BUILDER,
 				newSlug: 'cloudstack',
-			},
-		],
-	},
-	{
-		enabled: true,
-		org: 'BrandonRomano',
-		slug: 'converge',
-		components: [
-			{
-				type: TYPE_PROVISIONER,
-				newSlug: 'converge',
 			},
 		],
 	},
@@ -374,17 +348,6 @@ const packerPluginIntegrations = [
 			{
 				type: TYPE_BUILDER,
 				slug: 'vmcx',
-			},
-		],
-	},
-	{
-		enabled: true,
-		org: 'BrandonRomano',
-		slug: 'inspec',
-		components: [
-			{
-				type: TYPE_PROVISIONER,
-				newSlug: 'inspec',
 			},
 		],
 	},
@@ -594,37 +557,11 @@ const packerPluginIntegrations = [
 	{
 		enabled: true,
 		org: 'BrandonRomano',
-		slug: 'puppet',
-		components: [
-			{
-				type: TYPE_PROVISIONER,
-				slug: 'puppet-masterless',
-			},
-			{
-				type: TYPE_PROVISIONER,
-				slug: 'puppet-server',
-			},
-		],
-	},
-	{
-		enabled: true,
-		org: 'BrandonRomano',
 		slug: 'qemu',
 		components: [
 			{
 				type: TYPE_BUILDER,
 				newSlug: 'qemu',
-			},
-		],
-	},
-	{
-		enabled: true,
-		org: 'BrandonRomano',
-		slug: 'salt',
-		components: [
-			{
-				type: TYPE_PROVISIONER,
-				newSlug: 'salt-masterless',
 			},
 		],
 	},
@@ -839,6 +776,67 @@ const packerPluginIntegrations = [
 	},
 ]
 
+// There are a few Packer plugins that have been archived,
+// and the transition to our integrations library feels like
+// the right time to no longer present them on our website.
+//
+// Specifically, we would have to unarchive these repos on
+// GitHub, and then make the Integrations Library adjustments,
+// and then re-archive. The Packer team felt this was not needed.
+//
+// We will redirect to the respective GitHub repositories
+// so anyone looking for this information can still find the
+// information.
+const archivedPluginRedirects = [
+	// Chef
+	{
+		source: '/packer/plugins/provisioners/chef/chef-client',
+		destination:
+			'https://github.com/hashicorp/packer-plugin-chef/blob/main/docs/provisioners/chef-client.mdx',
+		permanent: true,
+	},
+	{
+		source: '/packer/plugins/provisioners/chef/chef-solo',
+		destination:
+			'https://github.com/hashicorp/packer-plugin-chef/blob/main/docs/provisioners/chef-solo.mdx',
+		permanent: true,
+	},
+	// Converge
+	{
+		source: '/packer/plugins/provisioners/converge',
+		destination:
+			'https://github.com/hashicorp/packer-plugin-converge/blob/main/docs/provisioners/converge.mdx',
+		permanent: true,
+	},
+	// InSpec
+	{
+		source: '/packer/plugins/provisioners/inspec',
+		destination:
+			'https://github.com/hashicorp/packer-plugin-inspec/blob/main/docs/provisioners/inspec.mdx',
+		permanent: true,
+	},
+	// Puppet
+	{
+		source: '/plugins/provisioners/puppet/puppet-masterless',
+		destination:
+			'https://github.com/hashicorp/packer-plugin-puppet/blob/main/docs/provisioners/puppet-masterless.mdx',
+		permanent: true,
+	},
+	{
+		source: '/packer/plugins/provisioners/puppet/puppet-server',
+		destination:
+			'https://github.com/hashicorp/packer-plugin-puppet/blob/main/docs/provisioners/puppet-server.mdx',
+		permanent: true,
+	},
+	// Salt
+	{
+		source: '/packer/plugins/provisioners/salt',
+		destination:
+			'https://github.com/hashicorp/packer-plugin-salt/blob/main/docs/provisioners/salt-masterless.mdx',
+		permanent: true,
+	},
+]
+
 const generatePackerPluginRedirects = () => {
 	let redirects = []
 	packerPluginIntegrations.forEach((integration) => {
@@ -882,7 +880,9 @@ const generatePackerPluginRedirects = () => {
 			})
 		})
 	})
-	return redirects
+
+	// All of the generated redirects + the Archived redirects
+	return redirects.concat(archivedPluginRedirects)
 }
 
 module.exports.packerPluginRedirects = generatePackerPluginRedirects()
