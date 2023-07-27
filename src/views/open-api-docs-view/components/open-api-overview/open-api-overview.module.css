@@ -68,8 +68,14 @@
 }
 
 .resourceLink {
-	color: var(--token-color-foreground-strong);
-	font-weight: var(--token-typography-font-weight-semibold);
+	& a {
+		color: var(--token-color-foreground-strong);
+		font-weight: var(--token-typography-font-weight-semibold);
+	}
+
+	&:not(:last-child) {
+		margin-bottom: 12px;
+	}
 }
 
 .variablesForm {
