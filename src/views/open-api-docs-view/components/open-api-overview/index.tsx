@@ -72,17 +72,23 @@ export function OpenApiOverview({
 							</p>
 							<ul className={s.resourceList}>
 								<li className={s.resourceLink}>
-									<InlineLink href="/vault/tutorials/hcp-vault-secrets-get-started">
+									<InlineLink
+										color="secondary"
+										href="/vault/tutorials/hcp-vault-secrets-get-started"
+									>
 										HCP Vault Secrets quick start
 									</InlineLink>
 								</li>
 								<li className={s.resourceLink}>
-									<InlineLink href="/hcp/docs/vault-secrets/constraints-and-known-issues">
+									<InlineLink
+										color="secondary"
+										href="/hcp/docs/vault-secrets/constraints-and-known-issues"
+									>
 										Constraints and limitations
 									</InlineLink>
 								</li>
 								<li className={s.resourceLink}>
-									<InlineLink href="/hcp/docs/vault-secrets">
+									<InlineLink color="secondary" href="/hcp/docs/vault-secrets">
 										What is HCP Vault Secrets?
 									</InlineLink>
 								</li>

@@ -69,8 +69,7 @@
 
 .resourceLink {
 	& a {
-		color: var(--token-color-foreground-strong);
-		font-weight: var(--token-typography-font-weight-semibold);
+		font-weight: var(--token-typography-font-weight-medium);
 	}
 
 	&:not(:last-child) {
