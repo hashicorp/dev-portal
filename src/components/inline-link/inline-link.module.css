@@ -45,14 +45,18 @@ ones set in the surrounding text.
 }
 
 .secondary {
-	color: var(--token-color-foreground-primary);
+	color: var(--token-color-foreground-strong);
 
 	&:active {
 		color: var(--token-color-foreground-faint);
 	}
 
 	&:hover {
-		color: var(--token-color-foreground-faint);
+		color: var(--token-color-foreground-primary);
+	}
+
+	&:focus {
+		color: var(--token-color-foreground-strong);
 	}
 
 	/**
