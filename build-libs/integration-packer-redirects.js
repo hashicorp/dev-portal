@@ -881,6 +881,13 @@ const generatePackerPluginRedirects = () => {
 		})
 	})
 
+	// Redirect the Plugin landing page to the new Integrations landing page
+	redirects.push({
+		source: '/packer/plugins',
+		destination: '/packer/integrations',
+		permanent: true,
+	})
+
 	// All of the generated redirects + the Archived redirects
 	return redirects.concat(archivedPluginRedirects)
 }
