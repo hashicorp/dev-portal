@@ -29,7 +29,7 @@
 		"expirationDate": ""
 	},
 	"version": "1.7.10",
-	"basePaths": ["docs", "guides", "intro", "plugins", "downloads"],
+	"basePaths": ["docs", "guides", "intro", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -40,11 +40,6 @@
 			"iconName": "guide",
 			"name": "Guides",
 			"path": "guides"
-		},
-		{
-			"iconName": "plug",
-			"name": "Plugins",
-			"path": "plugins"
 		}
 	],
 	"integrationsConfig": {
