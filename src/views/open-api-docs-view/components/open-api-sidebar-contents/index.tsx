@@ -7,6 +7,7 @@ import { useMemo } from 'react'
 import { useRouter } from 'next/router'
 // Lib
 import { useActiveSection } from 'lib/hash-links/use-active-section'
+import newUrl from 'lib/new-url'
 // Components
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 // Types
@@ -31,12 +32,9 @@ export function OpenApiSidebarContents({
 	 * of each nav item, which are not expected to have hashes,
 	 * to the URL path that we're on.
 	 *
-	 * Note that domain does not matter, as we're just grabbing the hash
+	 * Note that domain does not matter, as we're just grabbing the full path.
 	 */
-	const urlPathname = useMemo(
-		() => new URL(asPath, 'https://www.example.com').pathname,
-		[asPath]
-	)
+	const urlPathname = useMemo(() => newUrl(asPath).pathname, [asPath])
 
 	/**
 	 * Build an array of section slugs,
@@ -50,9 +48,8 @@ export function OpenApiSidebarContents({
 					if (!('fullPath' in item)) {
 						return null
 					}
-					// Note that domain does not matter, we're just grabbing the hash
-					const { hash } = new URL(item.fullPath, 'https://www.example.com')
-					return hash.replace('#', '')
+					// Grab the `#hash-slug` without `#`
+					return newUrl(item.fullPath).hash.replace('#', '')
 				})
 				// Filter out any null or empty string values
 				.filter((slug) => typeof slug === 'string' && slug !== '')
