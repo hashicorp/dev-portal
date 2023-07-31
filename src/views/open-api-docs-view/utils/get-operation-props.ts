@@ -7,7 +7,11 @@
 import { snakeCase } from 'change-case'
 import slugify from 'slugify'
 // Local
-import { getBodyParameterProps, getPropertyDetailPropsFromParameter } from './'
+import {
+	getBodyParameterProps,
+	getPropertyDetailPropsFromParameter,
+	truncateHcpOperationPath,
+} from './'
 // Types
 import type { OperationProps, PropertyDetailProps } from '../types'
 import type { OpenAPIV3 } from 'openapi-types'
@@ -64,6 +68,11 @@ export function getOperationProps(
 			operationObjects.push({
 				operationId: operation.operationId,
 				slug: slugify(snakeCase(operation.operationId), { lower: true }),
+				type,
+				path: {
+					full: path,
+					truncated: truncateHcpOperationPath(path),
+				},
 				summary: operation.summary,
 				bodyParameters,
 				pathParameters,

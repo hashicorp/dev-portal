@@ -16,8 +16,8 @@ import {
 import { useCommandBar } from 'components/command-bar'
 // Shared search
 import { generateSuggestedPages } from '../../../helpers'
-import { RecentSearches } from '../../../components'
 // Unified search
+import { RecentSearches } from '../recent-searches'
 import SuggestedPages from '../suggested-pages'
 import { UnifiedHitsContainer } from '../unified-hits-container'
 import { gatherSearchTabsData } from '../unified-hits-container/helpers'
@@ -29,7 +29,7 @@ import {
 // Types
 import type { Hit } from 'instantsearch.js'
 import type { ProductSlug } from 'types/products'
-import type { SuggestedPage } from '../../../components'
+import type { SuggestedPageProps } from '../suggested-pages/types'
 import type {
 	UnifiedSearchResults,
 	UnifiedSearchableContentType,
@@ -68,7 +68,7 @@ export function UnifiedSearchCommandBarDialogBody() {
 	/**
 	 * Generate suggested pages for the current product (if any).
 	 */
-	const suggestedPages = useMemo<SuggestedPage[]>(() => {
+	const suggestedPages = useMemo<SuggestedPageProps[]>(() => {
 		return generateSuggestedPages(currentProductSlug)
 	}, [currentProductSlug])
 
@@ -106,7 +106,7 @@ function SearchResults({
 }: {
 	currentProductSlug: ProductSlug
 	currentInputValue: string
-	suggestedPages: SuggestedPage[]
+	suggestedPages: SuggestedPageProps[]
 }) {
 	/**
 	 * State collects results from multiple separate content-type queries.

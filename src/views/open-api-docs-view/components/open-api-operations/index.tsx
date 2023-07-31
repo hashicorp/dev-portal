@@ -13,6 +13,7 @@ import type {
 	OperationGroup,
 	OperationProps,
 } from 'views/open-api-docs-view/types'
+import s from './open-api-operations.module.css'
 
 /**
  * Render operation items for an OpenApiView.
@@ -42,7 +43,13 @@ export function OpenApiOperations({
 							key={operation.operationId}
 							style={{ border: '1px solid magenta', padding: '2px' }}
 						>
-							<OperationHeader operation={operation} />
+							<OperationHeader
+								className={s.header}
+								slug={operation.slug}
+								headerText={operation.operationId}
+								method={operation.type}
+								path={operation.path.truncated}
+							/>
 							<OperationSections
 								examplesSlot={<OperationExamples operation={operation} />}
 								detailsSlot={<OperationDetails operation={operation} />}
