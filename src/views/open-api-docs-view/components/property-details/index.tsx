@@ -3,64 +3,19 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import s from './style.module.css'
-// import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
-// import Badge from 'components/badge'
+import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
+import Badge from 'components/badge'
 import { DevCodeBlock } from '../dev-code-block'
+import s from './property-details.module.css'
+import classNames from 'classnames'
 
-/**
- * TODO: move this to getStaticProps
- */
-export function propertyDetailsFromData(
-	name: string,
-	data: $TSFixMe,
-	arrayDepth: number = 0
-): PropertyDetailsProps {
-	//
-	if (data.type === 'array' && data.items) {
-		return propertyDetailsFromData(name, data.items, arrayDepth + 1)
-	}
-	//
-	const hasProperties = data.type === 'object' && Boolean(data.properties)
-	const nestedProperties = hasProperties
-		? Object.keys(data.properties).map((propertyKey, idx) => {
-				return propertyDetailsFromData(
-					propertyKey,
-					data.properties[propertyKey]
-				)
-		  })
-		: null
-	//
-	const typeArraySuffix =
-		arrayDepth > 0 ? arrayFrom(arrayDepth, '[]').join('') : ''
-	const typeString = `${data.type}${typeArraySuffix}`
-	//
-	return {
-		name,
-		type: typeString,
-		description: data.description || data.title,
-		isRequired: data.required,
-		nestedProperties,
-	}
-}
-
-/**
- * TODO: move this somewhere else
- */
-function arrayFrom(length, value = null) {
-	const array = []
-	for (let i = 0; i < length; i++) {
-		array.push(value)
-	}
-	return array
-}
-
-type PropertyDetailsProps = {
+export type PropertyDetailsProps = {
 	name: string
 	type: string
 	isRequired?: boolean
-	description?: string
+	description?: string // Plain text or HTML
 	nestedProperties?: PropertyDetailsProps[]
+	depth?: number
 }
 
 /**
@@ -78,22 +33,92 @@ export function PropertyDetails({
 	isRequired,
 	description,
 	nestedProperties,
+	depth = 0,
+}: PropertyDetailsProps) {
+	if (depth === 0) {
+		return (
+			<div className={s.baseProperty}>
+				<div className={s.basePropertyMeta}>
+					<MdxInlineCode>{name}</MdxInlineCode>
+					<span className={s.basePropertyType}>{type}</span>
+					{isRequired ? <Badge text="Required" color="highlight" /> : null}
+				</div>
+				{description ? (
+					<div
+						className={s.basePropertyDescription}
+						dangerouslySetInnerHTML={{ __html: description }}
+					/>
+				) : null}
+				{nestedProperties ? (
+					<NestedProperties nestedProperties={nestedProperties} depth={depth} />
+				) : null}
+			</div>
+		)
+	} else {
+		return (
+			<PropertyDetailsNested
+				name={name}
+				type={type}
+				isRequired={isRequired}
+				description={description}
+				nestedProperties={nestedProperties}
+			/>
+		)
+	}
+}
+
+/**
+ * TODO: write description
+ */
+function NestedProperties({
+	nestedProperties,
+	depth,
+}: Pick<PropertyDetailsProps, 'nestedProperties' | 'depth'>) {
+	return (
+		<ul className={s.nestedPropertyList}>
+			{nestedProperties.map((nestedProperty, idx) => {
+				return (
+					<li key={idx}>
+						<PropertyDetailsNested {...nestedProperty} depth={depth + 1} />
+					</li>
+				)
+			})}
+		</ul>
+	)
+}
+
+/**
+ * TODO: write description
+ */
+function PropertyDetailsNested({
+	name,
+	type,
+	isRequired,
+	description,
+	nestedProperties,
+	depth = 0,
 }: PropertyDetailsProps) {
 	return (
-		<div className={s.root}>
-			<DevCodeBlock>
-				{JSON.stringify(
-					{
-						name,
-						type,
-						isRequired,
-						description,
-						nestedProperties,
-					},
-					null,
-					2
-				)}
-			</DevCodeBlock>
+		<div className={s.nestedProperty}>
+			<div className={s.nestedPropertyMeta}>
+				<div className={s.nestedPropertyIcon}>ICON</div>
+				<code className={s.nestedPropertyName}>{name}</code>
+				<span className={s.nestedPropertyType}>{type}</span>
+				{isRequired ? (
+					<Badge text="Required" color="highlight" size="small" />
+				) : null}
+			</div>
+			<div className={classNames(s.nestedPropertyBody, s[`depth-${depth}`])}>
+				{description ? (
+					<div
+						className={s.nestedPropertyDescription}
+						dangerouslySetInnerHTML={{ __html: description }}
+					/>
+				) : null}
+				{nestedProperties ? (
+					<NestedProperties nestedProperties={nestedProperties} depth={depth} />
+				) : null}
+			</div>
 		</div>
 	)
 }

@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { PropertyDetailsProps } from '../components/property-details'
 import { getPropertyDetailPropsFromSchemaObject } from './'
 // Types
 import type { OpenAPIV3 } from 'openapi-types'
-import type { PropertyDetailProps } from '../types'
 
 /**
  * Given the parameter object from a body parameter,
@@ -14,9 +14,9 @@ import type { PropertyDetailProps } from '../types'
  *
  * Return property detail data.
  */
-export function getBodyParameterProps(
+export async function getBodyParameterProps(
 	bodyParam: OpenAPIV3.ParameterObject
-): PropertyDetailProps[] {
+): Promise<PropertyDetailsProps[]> {
 	// Skip the bodyParam.schema if it's a reference
 	// We don't expect references, but for typing purposes we handle them.
 	if ('$ref' in bodyParam.schema) {
@@ -37,7 +37,7 @@ export function getBodyParameterProps(
 			continue
 		}
 		// Push props
-		bodyProps.push(getPropertyDetailPropsFromSchemaObject(value, key))
+		bodyProps.push(await getPropertyDetailPropsFromSchemaObject(key, value))
 	}
 	return bodyProps
 }

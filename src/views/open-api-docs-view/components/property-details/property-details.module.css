@@ -1,0 +1,113 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.listResetStyles {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+/*
+
+Common styles
+
+*/
+
+.description {
+	color: var(--token-color-foreground-faint);
+	& p {
+		margin: 0;
+	}
+}
+
+/*
+
+Base property
+
+*/
+
+.baseProperty {
+	border: 1px solid magenta;
+}
+
+.basePropertyMeta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+
+.basePropertyType {
+	composes: hds-typography-code-200 from global;
+}
+
+/* Style markdown rendered within the description */
+.basePropertyDescription {
+	composes: hds-typography-body-200 from global;
+	composes: description;
+}
+
+/*
+
+Nested property list
+
+*/
+
+.nestedPropertyList {
+	composes: listResetStyles;
+}
+
+/*
+
+Nested properties
+
+*/
+
+.nestedProperty {
+	border: 1px solid orange;
+}
+
+.nestedPropertyMeta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+
+	/* TODO: should technically be varied */
+	gap: 6px;
+}
+
+.nestedPropertyIcon {
+	border: 1px solid magenta;
+	width: 12px;
+	height: 12px;
+	overflow: hidden;
+}
+
+.nestedPropertyBody {
+	padding-left: 18px;
+
+	&.depth-0 {
+		padding-left: 0;
+	}
+}
+
+.nestedPropertyName {
+	composes: hds-typography-code-100 from global;
+	background: var(--token-color-surface-strong);
+	border-radius: 5px;
+	color: var(--token-color-foreground-strong);
+	padding: 2px 4px 3px 4px;
+}
+
+.nestedPropertyType {
+	composes: hds-typography-code-100 from global;
+	color: var(--token-color-foreground-primary);
+}
+
+.nestedPropertyDescription {
+	composes: hds-typography-body-100 from global;
+	composes: description;
+}

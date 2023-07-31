@@ -4,87 +4,53 @@
  */
 
 import { DevCodeBlock } from '../dev-code-block'
-import { PropertyDetails, propertyDetailsFromData } from '../'
+import { PropertyDetails, PropertyDetailsProps } from '../property-details'
 import type { OperationProps } from 'views/open-api-docs-view/types'
 
 /**
  * TODO: implement this presentation component.
  */
-export function OperationDetails({ operation }: { operation: OperationProps }) {
-	/**
-	 * TODO: split out response data parsing to getStaticProps
-	 */
-	const responseData = []
-	for (const key of Object.keys(operation._placeholder.responses)) {
-		const value = operation._placeholder.responses[key]
-		const definition = value.content['application/json']
-		if (definition.schema.properties) {
-			responseData.push({
-				heading: key,
-				propertyDetails: Object.keys(definition.schema.properties).map(
-					(propertyKey) => {
-						const data = definition.schema.properties[propertyKey]
-						return propertyDetailsFromData(propertyKey, data)
-					}
-				),
-			})
-		}
-	}
-
+export function OperationDetails({
+	operation,
+	requestData,
+	responseData,
+}: {
+	operation: OperationProps
+	requestData: { heading: string; propertyDetails: PropertyDetailsProps[] }[]
+	responseData: { heading: string; propertyDetails: PropertyDetailsProps[] }[]
+}) {
 	return (
 		<div style={{ border: '1px solid magenta' }}>
-			<div>Parameters</div>
-			{operation.pathParameters?.length > 0 ? (
-				<>
-					<div>Path parameters</div>
-					{operation.pathParameters.map((param) => {
-						const props = propertyDetailsFromData(
-							param.name,
-							param._placeholder
-						)
-						return <PropertyDetails key={param.name} {...props} />
-					})}
-				</>
-			) : null}
-			{operation.queryParameters?.length > 0 ? (
-				<>
-					<div>Query parameters</div>
-					{operation.queryParameters.map((param) => {
-						const props = propertyDetailsFromData(
-							param.name,
-							param._placeholder
-						)
-						return <PropertyDetails key={param.name} {...props} />
-					})}
-				</>
-			) : null}
-			{operation.bodyParameters?.length > 0 ? (
-				<>
-					<div>Body parameters</div>
-					{operation.bodyParameters.map((param) => {
-						const props = propertyDetailsFromData(
-							param.name,
-							param._placeholder
-						)
-						return <PropertyDetails key={param.name} {...props} />
-					})}
-				</>
-			) : null}
+			<div>Request</div>
+			{requestData.length > 0 ? (
+				requestData.map((request) => {
+					return (
+						<>
+							<div>{request.heading}</div>
+							{request.propertyDetails.map((property) => {
+								return <PropertyDetails key={property.name} {...property} />
+							})}
+						</>
+					)
+				})
+			) : (
+				<div>No request data.</div>
+			)}
+			<div>Response</div>
 			{responseData.length > 0 ? (
-				<>
-					<div>Responses</div>
-					{responseData.map((response) => {
-						return (
-							<>
-								<div>{response.heading}</div>
-								{response.propertyDetails.map((property) => {
-									return <PropertyDetails key={property.name} {...property} />
-								})}
-							</>
-						)
-					})}
-				</>
-			) : null}
+				responseData.map((response) => {
+					return (
+						<>
+							<div>{response.heading}</div>
+							{response.propertyDetails.map((property) => {
+								return <PropertyDetails key={property.name} {...property} />
+							})}
+						</>
+					)
+				})
+			) : (
+				<div>No response data</div>
+			)}
 			{/* <DevCodeBlock style={{ maxHeight: '500px' }}>
 				{JSON.stringify(operation, null, 2)}
 			</DevCodeBlock> */}

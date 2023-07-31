@@ -52,7 +52,13 @@ export function OpenApiOperations({
 							/>
 							<OperationSections
 								examplesSlot={<OperationExamples operation={operation} />}
-								detailsSlot={<OperationDetails operation={operation} />}
+								detailsSlot={
+									<OperationDetails
+										operation={operation}
+										requestData={operation.requestData}
+										responseData={operation.responseData}
+									/>
+								}
 							/>
 						</div>
 					)

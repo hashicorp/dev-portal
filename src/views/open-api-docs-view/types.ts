@@ -6,19 +6,7 @@
 import type { ParsedUrlQuery } from 'querystring'
 import type { ProductData, ProductSlug } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'
-
-/**
- * Property details are used to document the shape of the requests and
- * response data of each operation.
- */
-export interface PropertyDetailProps {
-	name: string
-	/**
-	 * Some temporary data to mess around with during prototyping.
-	 * TODO: remove this for the production implementation.
-	 */
-	_placeholder: $TSFixMe
-}
+import type { PropertyDetailsProps } from './components/property-details'
 
 /**
  * Operations are specific request types to specific endpoints.
@@ -32,9 +20,14 @@ export interface OperationProps {
 		full: string
 		truncated: string
 	}
-	queryParameters?: PropertyDetailProps[]
-	pathParameters?: PropertyDetailProps[]
-	bodyParameters?: PropertyDetailProps[]
+	requestData: {
+		heading: string
+		propertyDetails: PropertyDetailsProps[]
+	}[]
+	responseData: {
+		heading: string
+		propertyDetails: PropertyDetailsProps[]
+	}[]
 	summary?: string
 	/**
 	 * Some temporary data to mess around with during prototyping.
