@@ -4,7 +4,7 @@
  */
 
 import type { ParsedUrlQuery } from 'querystring'
-import type { ProductData } from 'types/products'
+import type { ProductData, ProductSlug } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'
 
 /**
@@ -78,6 +78,27 @@ export interface OpenApiDocsParams extends ParsedUrlQuery {
 }
 
 /**
+ * Nav items are used to render the sidebar and mobile nav.
+ *
+ * TODO: move these types to sidebar component.
+ * For now, this is difficult, as the MenuItem type is a complex
+ * interface that requires a larger effort to untangle, and all
+ * related Sidebar components are similarly entangled.
+ * Rationale is to start with simpler slightly duplicative types here,
+ * rather than try to embark on the `MenuItem` type refactor.
+ * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+ */
+type DividerNavItem = { divider: true }
+type HeadingNavItem = { heading: string }
+type LinkNavItem = {
+	title: string
+	fullPath: string
+	theme?: ProductSlug
+}
+
+export type OpenApiNavItem = DividerNavItem | HeadingNavItem | LinkNavItem
+
+/**
  * We'll use this type to document the shape of props for the view component.
  * For now, we have a placeholder. We'll expand this as we build out the view.
  */
@@ -89,6 +110,10 @@ export interface OpenApiDocsViewProps {
 	 * They're grouped into sections based on operation paths.
 	 */
 	operationGroups: OperationGroup[]
+	/**
+	 * Operation nav items are rendered into the sidebar and mobile nav.
+	 */
+	navItems: OpenApiNavItem[]
 	/**
 	 * Some temporary data we'll remove for the production implementation.
 	 */
