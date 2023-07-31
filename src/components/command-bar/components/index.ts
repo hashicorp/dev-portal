@@ -6,12 +6,7 @@
 export { CommandBarActivator } from './activator'
 export { CmdCtrlIcon } from './cmd-ctrl-icon'
 export { default as Command } from './dialog'
-export { CommandBarDivider, type CommandBarDividerProps } from './divider'
+export { CommandBarDivider } from './divider'
 export { KIcon } from './k-icon'
-export {
-	CommandBarButtonListItem,
-	type CommandBarButtonListItemProps,
-	CommandBarLinkListItem,
-	type CommandBarLinkListItemProps,
-} from './list-item'
-export { CommandBarList, type CommandBarListProps } from './list'
+export { CommandBarButtonListItem, CommandBarLinkListItem } from './list-item'
+export { CommandBarList } from './list'
