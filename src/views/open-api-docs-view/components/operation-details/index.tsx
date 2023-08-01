@@ -4,7 +4,6 @@
  */
 
 import { PropertyDetails, PropertyDetailsProps } from '../property-details'
-import type { OperationProps } from 'views/open-api-docs-view/types'
 import s from './operation-details.module.css'
 
 /**
@@ -14,7 +13,6 @@ export function OperationDetails({
 	requestData,
 	responseData,
 }: {
-	operation: OperationProps
 	requestData: { heading: string; propertyDetails: PropertyDetailsProps[] }[]
 	responseData: { heading: string; propertyDetails: PropertyDetailsProps[] }[]
 }) {
