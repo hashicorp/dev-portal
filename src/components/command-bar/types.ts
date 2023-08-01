@@ -49,6 +49,12 @@ interface CommandBarContextValue extends CommandBarContextState {
 	setCurrentCommand: (command: SupportedCommand) => void
 	setCurrentInputValue: (newValue: string) => void
 	toggleIsOpen: () => void
+	/**
+	 * a11y element id for labelling the following elements:
+	 * - CommandBarDialog (dialog): aria-labelledby
+	 * - CommandBarDialogFooter (div): id
+	 */
+	instructionsElementId: string
 }
 
 interface AddTagAction {
