@@ -1,7 +1,6 @@
 /**
  * Skateboard component 🛹
  *
- * Still need to implement this, connect potentially with https://status.hashicorp.com/api
  * */
 
 export default function VariablesForm() {

@@ -6,6 +6,7 @@ import s from './status.module.css'
 
 /**
  * Skateboard component 🛹
+ * Still need to implement this, connect potentially with https://status.hashicorp.com/api
  * Will need to refactor to support multiple status 'states'.
  * Currently this only renders a 'green' state.
  */
