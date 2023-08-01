@@ -53,12 +53,10 @@ export function PropertyDetails({
 				{nestedProperties?.length > 0 ? (
 					<>
 						<hr className={s.baseNestedDivider} />
-						<div className={s.baseNestedProperties}>
-							<NestedProperties
-								nestedProperties={nestedProperties}
-								depth={depth}
-							/>
-						</div>
+						<NestedProperties
+							nestedProperties={nestedProperties}
+							depth={depth}
+						/>
 					</>
 				) : null}
 			</div>
