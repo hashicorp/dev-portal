@@ -18,6 +18,10 @@ import type { OperationProps } from '../types'
 import type { PropertyDetailsProps } from '../components/property-details'
 import type { OpenAPIV3 } from 'openapi-types'
 
+/**
+ * TODO: maybe split out `getRequestData` and `getResponseData` helpers.
+ * This map would live in `getResponseData`.
+ */
 const RESPONSE_HEADINGS: Record<string, string> = {
 	'200': 'Successful Response',
 	default: 'Default Response',
@@ -48,6 +52,7 @@ export async function getOperationProps(
 
 			/**
 			 * Parse request data.
+			 * TODO: split to `getRequestData`?
 			 */
 			const parameters = 'parameters' in operation ? operation.parameters : []
 			const pathParameters: PropertyDetailsProps[] = []
@@ -103,6 +108,7 @@ export async function getOperationProps(
 
 			/**
 			 * Parse response data
+			 * TODO: split to `getResponseData`?
 			 */
 			const responseData: {
 				heading: string

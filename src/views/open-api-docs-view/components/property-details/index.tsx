@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import classNames from 'classnames'
 import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 import Badge from 'components/badge'
 import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-down-right-16'
-import { DevCodeBlock } from '../dev-code-block'
 import s from './property-details.module.css'
-import classNames from 'classnames'
 
 export type PropertyDetailsProps = {
 	name: string
@@ -96,6 +95,8 @@ function NestedProperties({
 
 /**
  * TODO: write description
+ *
+ * Also, maybe split this out to a separate file?
  */
 function PropertyDetailsNested({
 	name,
