@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { DevCodeBlock } from '../dev-code-block'
 import { PropertyDetails, PropertyDetailsProps } from '../property-details'
 import type { OperationProps } from 'views/open-api-docs-view/types'
 import s from './operation-details.module.css'
@@ -12,7 +11,6 @@ import s from './operation-details.module.css'
  * TODO: implement this presentation component.
  */
 export function OperationDetails({
-	operation,
 	requestData,
 	responseData,
 }: {
@@ -32,9 +30,6 @@ export function OperationDetails({
 				items={responseData}
 				noItemsMessage="No response data."
 			/>
-			{/* <DevCodeBlock style={{ maxHeight: '500px' }}>
-				{JSON.stringify(operation, null, 2)}
-			</DevCodeBlock> */}
 		</div>
 	)
 }
