@@ -7,7 +7,7 @@
 .detailsSection {
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	gap: 24px;
 }
 
 .detailsHeading {
@@ -19,7 +19,7 @@
 .detailsSectionContent {
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
+	gap: 32px;
 }
 
 .detailsSubsection {
