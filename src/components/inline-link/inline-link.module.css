@@ -61,5 +61,13 @@ ones set in the surrounding text.
 
 	/**
 	* Note: The HDS spec doesn't specify visit styles for the 'secondary' color
+	* so we're using the primary :visited styles for consistency
 	*/
+	&:visited {
+		color: var(--token-color-foreground-action-visited);
+
+		&:hover {
+			color: var(--token-color-foreground-action-visited-hover);
+		}
+	}
 }
