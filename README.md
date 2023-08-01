@@ -1,7 +1,11 @@
 # HashiCorp Developer - developer.hashicorp.com
 
-Welcome to HashiCorp Developer! This is the home for HashiCorp product reference documentation, along with all other kinds of content for our practitioners.
+Welcome to HashiCorp Developer! This is the home for HashiCorp product reference documentation and tutorials for our practitioners.
 
-## Contributing to the project
+## Developers
 
-Additional documentation for internal collaborators is located in the [docs directory](./docs/README.md).
+Additional documentation is located in the [docs directory](./docs/README.md).
+
+## Content Authors
+
+Please see [this documentation](./src/content/README.md) for contributing content updates to Developer.
