@@ -18,6 +18,11 @@ import type { OperationProps } from '../types'
 import type { PropertyDetailsProps } from '../components/property-details'
 import type { OpenAPIV3 } from 'openapi-types'
 
+const RESPONSE_HEADINGS: Record<string, string> = {
+	'200': 'Successful Response',
+	default: 'Default Response',
+}
+
 /**
  * Given a schema, return a flattened list of operation prop objects.
  */
@@ -126,8 +131,9 @@ export async function getOperationProps(
 							await getPropertyDetailPropsFromSchemaObject(propertyKey, data)
 						)
 					}
+					const responseHeading = RESPONSE_HEADINGS[key]
 					responseData.push({
-						heading: key,
+						heading: responseHeading ? responseHeading : key,
 						propertyDetails,
 					})
 				}

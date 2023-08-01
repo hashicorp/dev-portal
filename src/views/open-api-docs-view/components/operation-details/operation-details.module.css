@@ -1,0 +1,45 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 48px;
+}
+
+.detailsSection {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.detailsHeading {
+	composes: hds-typography-display-300 from global;
+	font-weight: var(--token-typography-font-weight-bold);
+	color: var(--token-color-foreground-strong);
+}
+
+.detailsSectionContent {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+}
+
+.detailsSubsection {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.detailsSubheading {
+	composes: hds-typography-display-200 from global;
+	font-weight: var(--token-typography-font-weight-semibold);
+	color: var(--token-color-foreground-primary);
+}
+
+.detailsProperties {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.detailsNoItems {
+	color: magenta;
+}

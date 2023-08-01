@@ -49,8 +49,14 @@ export function PropertyDetails({
 						dangerouslySetInnerHTML={{ __html: description }}
 					/>
 				) : null}
-				{nestedProperties ? (
-					<NestedProperties nestedProperties={nestedProperties} depth={depth} />
+				{nestedProperties?.length > 0 ? (
+					<>
+						<hr className={s.baseNestedDivider} />
+						<NestedProperties
+							nestedProperties={nestedProperties}
+							depth={depth}
+						/>
+					</>
 				) : null}
 			</div>
 		)

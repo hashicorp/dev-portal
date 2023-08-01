@@ -30,7 +30,7 @@ Base property
 */
 
 .baseProperty {
-	border: 1px solid magenta;
+	/* border: 1px solid magenta; */
 }
 
 .basePropertyMeta {
@@ -48,6 +48,14 @@ Base property
 .basePropertyDescription {
 	composes: hds-typography-body-200 from global;
 	composes: description;
+	margin-top: 8px;
+}
+
+.baseNestedDivider {
+	margin: 16px 0;
+	height: 1px;
+	border: none;
+	background-color: var(--token-color-border-primary);
 }
 
 /*
@@ -67,7 +75,7 @@ Nested properties
 */
 
 .nestedProperty {
-	border: 1px solid orange;
+	/* border: 1px solid orange; */
 }
 
 .nestedPropertyMeta {
@@ -80,7 +88,7 @@ Nested properties
 }
 
 .nestedPropertyIcon {
-	border: 1px solid magenta;
+	border: 1px solid orange;
 	width: 12px;
 	height: 12px;
 	overflow: hidden;
