@@ -66,6 +66,9 @@ Nested property list
 
 .nestedPropertyList {
 	composes: listResetStyles;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 }
 
 /*
@@ -83,12 +86,12 @@ Nested properties
 	flex-wrap: wrap;
 	align-items: center;
 
-	/* TODO: should technically be varied */
+	/* TODO: should technically be varied, 4px between name & type */
 	gap: 6px;
 }
 
 .nestedPropertyIcon {
-	border: 1px solid orange;
+	color: var(--token-color-foreground-faint);
 	width: 12px;
 	height: 12px;
 	overflow: hidden;
@@ -118,4 +121,9 @@ Nested properties
 .nestedPropertyDescription {
 	composes: hds-typography-body-100 from global;
 	composes: description;
+	margin-top: 4px;
+}
+
+.nestedPropertyNestedList {
+	margin-top: 20px;
 }

@@ -5,6 +5,7 @@
 
 import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 import Badge from 'components/badge'
+import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-down-right-16'
 import { DevCodeBlock } from '../dev-code-block'
 import s from './property-details.module.css'
 import classNames from 'classnames'
@@ -107,7 +108,7 @@ function PropertyDetailsNested({
 	return (
 		<div className={s.nestedProperty}>
 			<div className={s.nestedPropertyMeta}>
-				<div className={s.nestedPropertyIcon}>ICON</div>
+				<IconCornerDownRight16 className={s.nestedPropertyIcon} />
 				<code className={s.nestedPropertyName}>{name}</code>
 				<span className={s.nestedPropertyType}>{type}</span>
 				{isRequired ? (
@@ -121,8 +122,13 @@ function PropertyDetailsNested({
 						dangerouslySetInnerHTML={{ __html: description }}
 					/>
 				) : null}
-				{nestedProperties ? (
-					<NestedProperties nestedProperties={nestedProperties} depth={depth} />
+				{nestedProperties?.length > 0 ? (
+					<div className={s.nestedPropertyNestedList}>
+						<NestedProperties
+							nestedProperties={nestedProperties}
+							depth={depth}
+						/>
+					</div>
 				) : null}
 			</div>
 		</div>
