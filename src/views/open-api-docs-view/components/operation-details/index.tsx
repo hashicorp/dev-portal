@@ -34,6 +34,9 @@ export function OperationDetails({
 	)
 }
 
+/**
+ * TODO: add description
+ */
 function DetailsSection({
 	heading,
 	items,
