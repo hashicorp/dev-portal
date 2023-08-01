@@ -48,14 +48,21 @@ Base property
 .basePropertyDescription {
 	composes: hds-typography-body-200 from global;
 	composes: description;
-	margin-top: 8px;
+	margin-top: 4px;
 }
 
 .baseNestedDivider {
-	margin: 16px 0;
+	margin: 8px 0;
 	height: 1px;
+	height: 0;
 	border: none;
 	background-color: var(--token-color-border-primary);
+}
+
+.baseNestedProperties {
+	padding-left: 12px;
+	margin-left: 8px;
+	border-left: 1px solid var(--token-color-border-primary);
 }
 
 /*
@@ -68,7 +75,7 @@ Nested property list
 	composes: listResetStyles;
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 8px;
 }
 
 /*
@@ -95,14 +102,13 @@ Nested properties
 	width: 12px;
 	height: 12px;
 	overflow: hidden;
+	display: none;
 }
 
 .nestedPropertyBody {
-	padding-left: 18px;
-
-	&.depth-0 {
-		padding-left: 0;
-	}
+	margin-left: 8px;
+	padding-left: 12px;
+	border-left: 1px solid var(--token-color-border-primary);
 }
 
 .nestedPropertyName {
@@ -125,5 +131,5 @@ Nested properties
 }
 
 .nestedPropertyNestedList {
-	margin-top: 20px;
+	margin-top: 8px;
 }

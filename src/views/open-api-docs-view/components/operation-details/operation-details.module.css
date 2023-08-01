@@ -19,7 +19,7 @@
 .detailsSectionContent {
 	display: flex;
 	flex-direction: column;
-	gap: 40px;
+	gap: 24px;
 }
 
 .detailsSubsection {
@@ -37,7 +37,7 @@
 .detailsProperties {
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
+	gap: 16px;
 }
 
 .detailsNoItems {
