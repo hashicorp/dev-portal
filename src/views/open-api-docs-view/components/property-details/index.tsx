@@ -3,10 +3,14 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Third party
 import classNames from 'classnames'
+// HDS
+import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-down-right-16'
+// Components
 import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 import Badge from 'components/badge'
-import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-down-right-16'
+// Styles
 import s from './property-details.module.css'
 
 /**
