@@ -4,42 +4,43 @@
 	gap: 48px;
 }
 
-.detailsSection {
+.section {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
 }
 
-.detailsHeading {
+.sectionHeading {
 	composes: hds-typography-display-300 from global;
 	font-weight: var(--token-typography-font-weight-bold);
 	color: var(--token-color-foreground-strong);
 }
 
-.detailsSectionContent {
+.sectionGroups {
 	display: flex;
 	flex-direction: column;
 	gap: 40px;
 }
 
-.detailsSubsection {
+.group {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
 }
 
-.detailsSubheading {
+.groupHeading {
 	composes: hds-typography-display-200 from global;
 	font-weight: var(--token-typography-font-weight-semibold);
 	color: var(--token-color-foreground-primary);
 }
 
-.detailsProperties {
+.groupProperties {
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
 }
 
-.detailsNoItems {
-	color: magenta;
+.noGroupsMessage {
+	composes: hds-typography-body-200 from global;
+	color: var(--token-color-foreground-faint);
 }

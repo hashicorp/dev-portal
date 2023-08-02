@@ -7,7 +7,7 @@ import { PropertyDetails, PropertyDetailsProps } from '../property-details'
 import s from './operation-details.module.css'
 
 /**
- * TODO: implement this presentation component.
+ * Render request and response data for an operation.
  */
 export function OperationDetails({
 	requestData,
@@ -18,43 +18,45 @@ export function OperationDetails({
 }) {
 	return (
 		<div className={s.root}>
-			<DetailsSection
+			<PropertyDetailsSection
 				heading="Request"
-				items={requestData}
-				noItemsMessage="No request data."
+				groups={requestData}
+				noGroupsMessage="No request data."
 			/>
-			<DetailsSection
+			<PropertyDetailsSection
 				heading="Response"
-				items={responseData}
-				noItemsMessage="No response data."
+				groups={responseData}
+				noGroupsMessage="No response data."
 			/>
 		</div>
 	)
 }
 
 /**
- * TODO: add description
+ * Render a section with many groups of property details.
+ *
+ * Used to show request and response details for operations
  */
-function DetailsSection({
+function PropertyDetailsSection({
 	heading,
-	items,
-	noItemsMessage,
+	groups,
+	noGroupsMessage,
 }: {
 	heading: string
-	items: { heading: string; propertyDetails: PropertyDetailsProps[] }[]
-	noItemsMessage: string
+	groups: { heading: string; propertyDetails: PropertyDetailsProps[] }[]
+	noGroupsMessage: string
 }) {
 	return (
-		<div className={s.detailsSection}>
-			<div className={s.detailsHeading}>{heading}</div>
-			{items.length > 0 ? (
-				<div className={s.detailsSectionContent}>
-					{items.map((item) => {
+		<div className={s.section}>
+			<div className={s.sectionHeading}>{heading}</div>
+			{groups.length > 0 ? (
+				<div className={s.sectionGroups}>
+					{groups.map((group) => {
 						return (
-							<div className={s.detailsSubsection} key={item.heading}>
-								<div className={s.detailsSubheading}>{item.heading}</div>
-								<div className={s.detailsProperties}>
-									{item.propertyDetails.map((property) => {
+							<div className={s.group} key={group.heading}>
+								<div className={s.groupHeading}>{group.heading}</div>
+								<div className={s.groupProperties}>
+									{group.propertyDetails.map((property) => {
 										return <PropertyDetails key={property.name} {...property} />
 									})}
 								</div>
@@ -63,7 +65,7 @@ function DetailsSection({
 					})}
 				</div>
 			) : (
-				<div className={s.detailsNoItems}>{noItemsMessage}</div>
+				<div className={s.noGroupsMessage}>{noGroupsMessage}</div>
 			)}
 		</div>
 	)
