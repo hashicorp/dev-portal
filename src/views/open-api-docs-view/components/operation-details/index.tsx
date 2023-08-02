@@ -6,6 +6,11 @@
 import { PropertyDetails, PropertyDetailsProps } from '../property-details'
 import s from './operation-details.module.css'
 
+export interface PropertyDetailsGroup {
+	heading: string
+	propertyDetails: PropertyDetailsProps[]
+}
+
 /**
  * Render request and response data for an operation.
  */
@@ -13,8 +18,8 @@ export function OperationDetails({
 	requestData,
 	responseData,
 }: {
-	requestData: { heading: string; propertyDetails: PropertyDetailsProps[] }[]
-	responseData: { heading: string; propertyDetails: PropertyDetailsProps[] }[]
+	requestData: PropertyDetailsGroup[]
+	responseData: PropertyDetailsGroup[]
 }) {
 	return (
 		<div className={s.root}>
@@ -43,7 +48,7 @@ function PropertyDetailsSection({
 	noGroupsMessage,
 }: {
 	heading: string
-	groups: { heading: string; propertyDetails: PropertyDetailsProps[] }[]
+	groups: PropertyDetailsGroup[]
 	noGroupsMessage: string
 }) {
 	return (

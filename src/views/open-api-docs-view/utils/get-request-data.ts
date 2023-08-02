@@ -9,6 +9,7 @@ import {
 	getPropertyDetailPropsFromSchemaObject,
 } from './get-property-detail-props'
 // Types
+import type { PropertyDetailsGroup } from '../components/operation-details'
 import type { PropertyDetailsProps } from '../components/property-details'
 import type { OpenAPIV3 } from 'openapi-types'
 
@@ -19,12 +20,7 @@ import type { OpenAPIV3 } from 'openapi-types'
 export async function getRequestData(
 	parameters: (OpenAPIV3.ParameterObject | OpenAPIV3.ReferenceObject)[],
 	requestBody?: OpenAPIV3.RequestBodyObject | OpenAPIV3.ReferenceObject
-): Promise<
-	{
-		heading: string
-		propertyDetails: PropertyDetailsProps[]
-	}[]
-> {
+): Promise<PropertyDetailsGroup[]> {
 	// Build arrays of path, query, and body parameters
 	const pathParameters: PropertyDetailsProps[] = []
 	const queryParameters: PropertyDetailsProps[] = []
@@ -56,10 +52,7 @@ export async function getRequestData(
 			? await getBodyParameterProps(requestBody)
 			: []
 	// Build an array of request data, using any parameters present
-	const requestData: {
-		heading: string
-		propertyDetails: PropertyDetailsProps[]
-	}[] = []
+	const requestData: PropertyDetailsGroup[] = []
 	if (pathParameters.length > 0) {
 		requestData.push({
 			heading: 'Path Parameters',

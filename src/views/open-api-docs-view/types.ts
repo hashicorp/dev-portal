@@ -6,7 +6,7 @@
 import type { ParsedUrlQuery } from 'querystring'
 import type { ProductData, ProductSlug } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'
-import type { PropertyDetailsProps } from './components/property-details'
+import type { PropertyDetailsGroup } from './components/operation-details'
 
 /**
  * Operations are specific request types to specific endpoints.
@@ -20,14 +20,8 @@ export interface OperationProps {
 		full: string
 		truncated: string
 	}
-	requestData: {
-		heading: string
-		propertyDetails: PropertyDetailsProps[]
-	}[]
-	responseData: {
-		heading: string
-		propertyDetails: PropertyDetailsProps[]
-	}[]
+	requestData: PropertyDetailsGroup[]
+	responseData: PropertyDetailsGroup[]
 	summary?: string
 	/**
 	 * Some temporary data to mess around with during prototyping.
