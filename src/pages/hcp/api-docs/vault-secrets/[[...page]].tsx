@@ -135,6 +135,7 @@ export const getStaticProps: GetStaticProps<
 	 */
 	if (USE_REVISED_TEMPLATE) {
 		return await getOpenApiDocsStaticProps({
+			basePath: BASE_URL,
 			context: { params },
 			productSlug: PRODUCT_SLUG,
 			// Handle rename of `targetFile` to `sourceFile` for new template

@@ -2,13 +2,17 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-
+import { ReactElement } from 'react'
 import Badge from 'components/badge'
 import { useCommandBar } from 'components/command-bar'
 import { CmdCtrlIcon, KIcon } from 'components/command-bar/components'
 import Text from 'components/text'
-import { CommandBarActivatorProps } from './types'
 import s from './command-bar-activator.module.css'
+
+interface CommandBarActivatorProps {
+	leadingIcon: ReactElement
+	visualLabel: string
+}
 
 const CommandBarActivator = ({
 	leadingIcon,

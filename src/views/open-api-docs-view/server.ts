@@ -10,6 +10,7 @@ import { cachedGetProductData } from 'lib/get-product-data'
 // Utilities
 import {
 	findLatestStableVersion,
+	getNavItems,
 	getOperationProps,
 	groupOperations,
 	parseAndValidateOpenApiSchema,
@@ -61,10 +62,12 @@ export async function getStaticProps({
 	context,
 	productSlug,
 	versionData,
+	basePath,
 }: {
 	context: GetStaticPropsContext<OpenApiDocsParams>
 	productSlug: ProductSlug
 	versionData: OpenApiDocsVersionData[]
+	basePath: string
 }): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
 	// Get the product data
 	const productData = cachedGetProductData(productSlug)
@@ -97,8 +100,15 @@ export async function getStaticProps({
 			? sourceFile
 			: await fetchGithubFile(sourceFile)
 	const schemaData = await parseAndValidateOpenApiSchema(schemaFileString)
+	const { title } = schemaData.info
 	const operationProps = getOperationProps(schemaData)
 	const operationGroups = groupOperations(operationProps)
+	const navItems = getNavItems({
+		operationGroups,
+		basePath,
+		title,
+		productSlug: productData.slug,
+	})
 
 	/**
 	 * Return props
@@ -116,6 +126,7 @@ export async function getStaticProps({
 				schemaData,
 			},
 			operationGroups: stripUndefinedProperties(operationGroups),
+			navItems,
 		},
 	}
 }

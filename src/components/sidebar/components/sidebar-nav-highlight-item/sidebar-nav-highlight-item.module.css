@@ -59,6 +59,10 @@
 	font-weight: var(--token-typography-font-weight-medium);
 }
 
+.icon {
+	flex-shrink: 0;
+}
+
 /*
  * Theming
  */

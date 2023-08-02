@@ -9,12 +9,11 @@ import Badge from 'components/badge'
 import Text from 'components/text'
 import StandaloneLink from 'components/standalone-link'
 import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
-import { CommandBarDialogFooterProps } from './types'
 import s from './command-bar-dialog.module.css'
+import { useCommandBar } from 'components/command-bar'
 
-const CommandBarDialogFooter = ({
-	instructionsElementId,
-}: CommandBarDialogFooterProps) => {
+const CommandBarDialogFooter = () => {
+	const { instructionsElementId } = useCommandBar()
 	return (
 		<div className={s.footer}>
 			<div className={s.footerLeft} id={instructionsElementId}>
