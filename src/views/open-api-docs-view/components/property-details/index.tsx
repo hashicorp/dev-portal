@@ -13,7 +13,7 @@ import s from './property-details.module.css'
  * Types are shared by the "base" and "deeper" variations of
  * the property details component.
  */
-export type PropertyDetailsProps = {
+export interface PropertyDetailsProps {
 	name: string
 	type: string
 	isRequired?: boolean
