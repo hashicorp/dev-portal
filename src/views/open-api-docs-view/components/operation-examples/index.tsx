@@ -26,21 +26,35 @@ export function OperationExamples({
 }: {
 	operation: OperationProps
 }) {
-	// TODO: extract `heading` as a prop
+	/**
+	 * TODO: extract `heading` as a prop
+	 */
 	const heading = operation.operationId
-	// TODO: extract `urlCode` as a prop, this processing should be done
-	// in getStaticProps or whatnot
+	/**
+	 * TODO: extract `urlCode` as a prop, this processing should be done
+	 * in getStaticProps or whatnot
+	 */
 	const rawOperationUrl = operation.path.full
-	// Add syntax highlighting around the path {parameters}
+	// Insert <wbr/> before forward slashes for more logical line breaks
+	const urlWithWordBreaks = rawOperationUrl.replace(/\//g, '/<wbr/>')
+	// Add syntax highlighting around any {parameters} in the path
 	const parameterRegex = /{([^}]+)}/g
-	const urlWithParameterHighlights = rawOperationUrl.replace(
+	const urlCode = urlWithWordBreaks.replace(
 		parameterRegex,
 		'<span class="token regex">{$1}</span>'
 	)
-	// Insert <wbr/> to allow line breaks in the path
-	const urlCode = urlWithParameterHighlights.replace(/([^<])\//g, '$1/<wbr/>')
+
+	/**
+	 * TODO: everything above should be lifted out of this component,
+	 * really this is just a pre-configured code block.
+	 */
 	return (
 		<CodeBlock
+			/**
+			 * TODO: this s.codeBlock style has structure-specific override styles
+			 * to force CodeBlock to wrap. `options.wrapCode` prop should be
+			 * implemented in the CodeBlock component itself instead.
+			 */
 			className={s.codeBlock}
 			options={{ heading, showClipboard: true }}
 			code={urlCode}
