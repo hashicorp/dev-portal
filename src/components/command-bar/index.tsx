@@ -14,7 +14,7 @@ import {
 } from 'react'
 import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import commands from './commands'
-import { CommandBarActivator, CommandBarDialog } from './components'
+import { CommandBarActivator, Command } from './components'
 import SearchHitsProvider from './commands/search/helpers/hit-counts-provider'
 import {
 	CommandBarCommand,
@@ -157,6 +157,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 			setCurrentCommand,
 			setCurrentInputValue,
 			toggleIsOpen,
+			instructionsElementId: 'footer-keyboard-instructions',
 		}
 	}, [
 		addTag,
@@ -171,7 +172,11 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		<SearchHitsProvider>
 			<CommandBarContext.Provider value={contextValue}>
 				{children}
-				<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen} />
+				<Command.Dialog isOpen={state.isOpen} onDismiss={toggleIsOpen}>
+					<Command.Header />
+					<Command.Body />
+					<Command.Footer />
+				</Command.Dialog>
 			</CommandBarContext.Provider>
 		</SearchHitsProvider>
 	)

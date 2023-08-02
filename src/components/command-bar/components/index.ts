@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-export * from './activator'
-export * from './cmd-ctrl-icon'
-export * from './dialog'
-export * from './divider'
-export * from './k-icon'
-export * from './list-item'
-export * from './list'
+export { CommandBarActivator } from './activator'
+export { CmdCtrlIcon } from './cmd-ctrl-icon'
+export { default as Command } from './dialog'
+export { CommandBarDivider } from './divider'
+export { KIcon } from './k-icon'
+export { CommandBarButtonListItem, CommandBarLinkListItem } from './list-item'
+export { CommandBarList } from './list'
