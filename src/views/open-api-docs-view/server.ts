@@ -116,6 +116,9 @@ export async function getStaticProps({
 	return {
 		props: {
 			productData,
+			title: schemaData.info.title,
+			releaseStage: targetVersion.releaseStage,
+			description: schemaData.info.description,
 			IS_REVISED_TEMPLATE: true,
 			_placeholder: {
 				productSlug,
