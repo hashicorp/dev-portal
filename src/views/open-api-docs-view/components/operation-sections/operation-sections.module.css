@@ -18,12 +18,16 @@
 	gap: 8px;
 }
 
+.examplesStickyContainer {
+	position: relative;
+	flex: 1 1 0;
+	border: 1px solid orange;
+	min-width: min(100%, 360px);
+}
+
 .examplesSlot {
 	--sticky-spacing: 24px;
 
-	min-width: min(100%, 360px);
-	align-self: flex-start;
-	flex: 1 1 0;
 	position: sticky;
 	top: calc(var(--navigation-header-height) + var(--sticky-spacing));
 }
