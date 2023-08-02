@@ -17,7 +17,8 @@ import type { OpenAPIV3 } from 'openapi-types'
  * Return request data formatted for display.
  */
 export async function getRequestData(
-	parameters: (OpenAPIV3.ParameterObject | OpenAPIV3.ReferenceObject)[]
+	parameters: (OpenAPIV3.ParameterObject | OpenAPIV3.ReferenceObject)[],
+	requestBody?: OpenAPIV3.RequestBodyObject | OpenAPIV3.ReferenceObject
 ): Promise<
 	{
 		heading: string
@@ -27,7 +28,6 @@ export async function getRequestData(
 	// Build arrays of path, query, and body parameters
 	const pathParameters: PropertyDetailsProps[] = []
 	const queryParameters: PropertyDetailsProps[] = []
-	let bodyParameters: PropertyDetailsProps[] = []
 	if (Array.isArray(parameters)) {
 		for (const parameter of parameters) {
 			// Skip references
@@ -47,12 +47,14 @@ export async function getRequestData(
 				queryParameters.push(
 					await getPropertyDetailPropsFromParameter(parameter)
 				)
-			} else if (parameter.in === 'body') {
-				// We expect a single body parameter
-				bodyParameters = await getBodyParameterProps(parameter)
 			}
 		}
 	}
+	// Build body parameters from requestBody data, if present
+	const bodyParameters =
+		requestBody && !('$ref' in requestBody)
+			? await getBodyParameterProps(requestBody)
+			: []
 	// Build an array of request data, using any parameters present
 	const requestData: {
 		heading: string
@@ -87,11 +89,15 @@ export async function getRequestData(
  * Return property detail data.
  */
 export async function getBodyParameterProps(
-	bodyParam: OpenAPIV3.ParameterObject
+	requestBody: OpenAPIV3.RequestBodyObject
 ): Promise<PropertyDetailsProps[]> {
-	// Skip the bodyParam.schema if it's a reference
+	const schema = requestBody.content['application/json'].schema
+	// If we don't find the expected schema, return an empty array
+	if (!schema) {
+		return []
+	}
 	// We don't expect references, but for typing purposes we handle them.
-	if ('$ref' in bodyParam.schema) {
+	if ('$ref' in schema) {
 		return []
 	}
 	/**
@@ -99,7 +105,8 @@ export async function getBodyParameterProps(
 	 * We flatten the body properties to avoid showing a redundant object.
 	 */
 	const bodyProps = []
-	for (const [key, value] of Object.entries(bodyParam.schema.properties)) {
+	const requiredProperties = schema.required || []
+	for (const [key, value] of Object.entries(schema.properties)) {
 		// Skip reference objects, we expect these to be de-referenced
 		// before this function is called
 		if ('$ref' in value) {
@@ -109,8 +116,11 @@ export async function getBodyParameterProps(
 		if (value.readOnly) {
 			continue
 		}
+		const isRequired = requiredProperties.includes(key)
 		// Push props
-		bodyProps.push(await getPropertyDetailPropsFromSchemaObject(key, value))
+		bodyProps.push(
+			await getPropertyDetailPropsFromSchemaObject(key, value, isRequired)
+		)
 	}
 	return bodyProps
 }

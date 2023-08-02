@@ -97,31 +97,33 @@ function PropertyDetailsNested({
 	depth = 0,
 }: PropertyDetailsProps) {
 	return (
-		<div className={s.nestedRoot}>
-			<div className={s.nestedMeta}>
-				<IconCornerDownRight16 className={s.nestedIcon} />
-				<div className={s.nestedNameAndType}>
-					<code className={s.nestedName}>{name}</code>
-					<span className={s.nestedType}>{type}</span>
+		<div className={classNames(s.nestedRoot, s[`depth-${depth}`])}>
+			<div className={s.nestedMetaAndDescription}>
+				<div className={s.nestedMeta}>
+					<IconCornerDownRight16 className={s.nestedIcon} />
+					<div className={s.nestedNameAndType}>
+						<code className={s.nestedName}>{name}</code>
+						<span className={s.nestedType}>{type}</span>
+					</div>
+					{isRequired ? (
+						<Badge text="Required" color="highlight" size="small" />
+					) : null}
 				</div>
-				{isRequired ? (
-					<Badge text="Required" color="highlight" size="small" />
-				) : null}
-			</div>
-			<div className={classNames(s.nestedBody, s[`depth-${depth}`])}>
 				{description ? (
 					<div
 						className={s.nestedDescription}
 						dangerouslySetInnerHTML={{ __html: description }}
 					/>
 				) : null}
-				{nestedProperties?.length > 0 ? (
+			</div>
+			{nestedProperties?.length > 0 ? (
+				<div className={s.nestedBody}>
 					<ListNestedProperties
 						nestedProperties={nestedProperties}
 						depth={depth}
 					/>
-				) : null}
-			</div>
+				</div>
+			) : null}
 		</div>
 	)
 }

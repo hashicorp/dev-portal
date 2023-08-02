@@ -91,6 +91,18 @@ Nested properties
 */
 
 .nestedRoot {
+	--nested-property-inset: 18px;
+
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	&.depth-0 {
+		--nested-property-inset: 0;
+	}
+}
+
+.nestedMetaAndDescription {
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
@@ -130,19 +142,12 @@ Nested properties
 	color: var(--token-color-foreground-primary);
 }
 
-.nestedBody {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 20px;
-	padding-left: 18px;
-
-	&.depth-0 {
-		padding-left: 0;
-	}
-}
-
 .nestedDescription {
 	composes: hds-typography-body-100 from global;
 	composes: description;
+	padding-left: var(--nested-property-inset);
+}
+
+.nestedBody {
+	padding-left: var(--nested-property-inset);
 }

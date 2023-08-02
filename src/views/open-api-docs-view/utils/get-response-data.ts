@@ -45,14 +45,20 @@ export async function getResponseData(
 		 */
 		if (definition.schema.properties) {
 			const propertyDetails: PropertyDetailsProps[] = []
+			const requiredProperties = definition.schema.required || []
 			for (const propertyKey of Object.keys(definition.schema.properties)) {
 				const data = definition.schema.properties[propertyKey]
 				// If this schema is a reference, skip it
 				if ('$ref' in data) {
 					continue
 				}
+				const isRequired = requiredProperties.includes(propertyKey)
 				propertyDetails.push(
-					await getPropertyDetailPropsFromSchemaObject(propertyKey, data)
+					await getPropertyDetailPropsFromSchemaObject(
+						propertyKey,
+						data,
+						isRequired
+					)
 				)
 			}
 			responseData.push({

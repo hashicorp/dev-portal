@@ -39,7 +39,10 @@ export async function getOperationProps(
 			 * Parse request and response details for this operation
 			 */
 			const parameters = 'parameters' in operation ? operation.parameters : []
-			const requestData = await getRequestData(parameters)
+			const requestData = await getRequestData(
+				parameters,
+				operation.requestBody
+			)
 			const responseData = await getResponseData(operation.responses)
 
 			/**
