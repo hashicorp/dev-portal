@@ -9,6 +9,10 @@ import Badge from 'components/badge'
 import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-down-right-16'
 import s from './property-details.module.css'
 
+/**
+ * Types are shared by the "base" and "deeper" variations of
+ * the property details component.
+ */
 export type PropertyDetailsProps = {
 	name: string
 	type: string
@@ -19,13 +23,9 @@ export type PropertyDetailsProps = {
 }
 
 /**
- * - name string (shown as MDX inline code, with border)
- * - type string (shown as code without border)
- * - (optional) required boolean (shows badge)
- * - (optional) description markdown
- * - (optional) nested properties
+ * Render a top-level property, with optional nested properties.
  *
- * TODO: will need to support "beta" badge for HCP Packer docs.
+ * Future: will need to support "beta" badge for HCP Packer docs.
  */
 export function PropertyDetails({
 	name,
@@ -35,56 +35,46 @@ export function PropertyDetails({
 	nestedProperties,
 	depth = 0,
 }: PropertyDetailsProps) {
-	if (depth === 0) {
-		return (
-			<div className={s.baseProperty}>
-				<div className={s.basePropertyMeta}>
+	return (
+		<div className={s.baseRoot}>
+			<div className={s.baseMetaAndDescription}>
+				<div className={s.baseMeta}>
 					<MdxInlineCode>{name}</MdxInlineCode>
-					<span className={s.basePropertyType}>{type}</span>
+					<span className={s.baseType}>{type}</span>
 					{isRequired ? <Badge text="Required" color="highlight" /> : null}
 				</div>
 				{description ? (
 					<div
-						className={s.basePropertyDescription}
+						className={s.baseDescription}
 						dangerouslySetInnerHTML={{ __html: description }}
 					/>
 				) : null}
-				{nestedProperties?.length > 0 ? (
-					<>
-						<hr className={s.baseNestedDivider} />
-						<NestedProperties
-							nestedProperties={nestedProperties}
-							depth={depth}
-						/>
-					</>
-				) : null}
 			</div>
-		)
-	} else {
-		return (
-			<PropertyDetailsNested
-				name={name}
-				type={type}
-				isRequired={isRequired}
-				description={description}
-				nestedProperties={nestedProperties}
-			/>
-		)
-	}
+			{nestedProperties?.length > 0 ? (
+				<>
+					<hr className={s.baseNestedDivider} />
+					<ListNestedProperties
+						nestedProperties={nestedProperties}
+						depth={depth}
+					/>
+				</>
+			) : null}
+		</div>
+	)
 }
 
 /**
- * TODO: write description
+ * Render a list of nested properties within a base property.
  */
-function NestedProperties({
+function ListNestedProperties({
 	nestedProperties,
 	depth,
 }: Pick<PropertyDetailsProps, 'nestedProperties' | 'depth'>) {
 	return (
-		<ul className={s.nestedPropertyList}>
-			{nestedProperties.map((nestedProperty, idx) => {
+		<ul className={s.listNestedProperties}>
+			{nestedProperties.map((nestedProperty) => {
 				return (
-					<li key={idx}>
+					<li key={`${nestedProperty.name}_${depth}`}>
 						<PropertyDetailsNested {...nestedProperty} depth={depth + 1} />
 					</li>
 				)
@@ -94,9 +84,9 @@ function NestedProperties({
 }
 
 /**
- * TODO: write description
+ * Renders details for a property nested within another property.
  *
- * Also, maybe split this out to a separate file?
+ * Future: will need to support "beta" badge for HCP Packer docs.
  */
 function PropertyDetailsNested({
 	name,
@@ -107,29 +97,29 @@ function PropertyDetailsNested({
 	depth = 0,
 }: PropertyDetailsProps) {
 	return (
-		<div className={s.nestedProperty}>
-			<div className={s.nestedPropertyMeta}>
-				<IconCornerDownRight16 className={s.nestedPropertyIcon} />
-				<code className={s.nestedPropertyName}>{name}</code>
-				<span className={s.nestedPropertyType}>{type}</span>
+		<div className={s.nestedRoot}>
+			<div className={s.nestedMeta}>
+				<IconCornerDownRight16 className={s.nestedIcon} />
+				<div className={s.nestedNameAndType}>
+					<code className={s.nestedName}>{name}</code>
+					<span className={s.nestedType}>{type}</span>
+				</div>
 				{isRequired ? (
 					<Badge text="Required" color="highlight" size="small" />
 				) : null}
 			</div>
-			<div className={classNames(s.nestedPropertyBody, s[`depth-${depth}`])}>
+			<div className={classNames(s.nestedBody, s[`depth-${depth}`])}>
 				{description ? (
 					<div
-						className={s.nestedPropertyDescription}
+						className={s.nestedDescription}
 						dangerouslySetInnerHTML={{ __html: description }}
 					/>
 				) : null}
 				{nestedProperties?.length > 0 ? (
-					<div className={s.nestedPropertyNestedList}>
-						<NestedProperties
-							nestedProperties={nestedProperties}
-							depth={depth}
-						/>
-					</div>
+					<ListNestedProperties
+						nestedProperties={nestedProperties}
+						depth={depth}
+					/>
 				) : null}
 			</div>
 		</div>

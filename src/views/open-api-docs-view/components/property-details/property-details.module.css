@@ -3,6 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+/*
+
+Common styles
+
+*/
+
+/* Split this out as it's a common pattern.
+   At some point, it might make sense to abstract it or add it
+	 at a global .css level. */
 .listResetStyles {
 	list-style: none;
 	margin: 0;
@@ -10,12 +19,9 @@
 	width: 100%;
 }
 
-/*
-
-Common styles
-
-*/
-
+/* Description styles markdown content. Note we do not use MDX in this
+   case, so specific styles we want for markdown content will need
+	 to be added here. */
 .description {
 	color: var(--token-color-foreground-faint);
 	& p {
@@ -25,34 +31,41 @@ Common styles
 
 /*
 
-Base property
+Base properties, at the top level
 
 */
 
-.baseProperty {
-	/* border: 1px solid magenta; */
+.baseRoot {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
 
-.basePropertyMeta {
+.baseMetaAndDescription {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.baseMeta {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 8px;
 }
 
-.basePropertyType {
+.baseType {
 	composes: hds-typography-code-200 from global;
 }
 
 /* Style markdown rendered within the description */
-.basePropertyDescription {
+.baseDescription {
 	composes: hds-typography-body-200 from global;
 	composes: description;
-	margin-top: 8px;
 }
 
 .baseNestedDivider {
-	margin: 16px 0;
+	margin: 0;
 	height: 1px;
 	border: none;
 	background-color: var(--token-color-border-primary);
@@ -60,11 +73,11 @@ Base property
 
 /*
 
-Nested property list
+List of nested properties within a base property
 
 */
 
-.nestedPropertyList {
+.listNestedProperties {
 	composes: listResetStyles;
 	display: flex;
 	flex-direction: column;
@@ -77,35 +90,34 @@ Nested properties
 
 */
 
-.nestedProperty {
-	/* border: 1px solid orange; */
+.nestedRoot {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 }
 
-.nestedPropertyMeta {
+.nestedMeta {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-
-	/* TODO: should technically be varied, 4px between name & type */
 	gap: 6px;
 }
 
-.nestedPropertyIcon {
+.nestedIcon {
 	color: var(--token-color-foreground-faint);
 	width: 12px;
 	height: 12px;
 	overflow: hidden;
 }
 
-.nestedPropertyBody {
-	padding-left: 18px;
-
-	&.depth-0 {
-		padding-left: 0;
-	}
+.nestedNameAndType {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
 }
 
-.nestedPropertyName {
+.nestedName {
 	composes: hds-typography-code-100 from global;
 	background: var(--token-color-surface-strong);
 	border-radius: 5px;
@@ -113,17 +125,24 @@ Nested properties
 	padding: 2px 4px 3px 4px;
 }
 
-.nestedPropertyType {
+.nestedType {
 	composes: hds-typography-code-100 from global;
 	color: var(--token-color-foreground-primary);
 }
 
-.nestedPropertyDescription {
-	composes: hds-typography-body-100 from global;
-	composes: description;
-	margin-top: 4px;
+.nestedBody {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 20px;
+	padding-left: 18px;
+
+	&.depth-0 {
+		padding-left: 0;
+	}
 }
 
-.nestedPropertyNestedList {
-	margin-top: 20px;
+.nestedDescription {
+	composes: hds-typography-body-100 from global;
+	composes: description;
 }
