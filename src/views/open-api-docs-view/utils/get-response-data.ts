@@ -1,19 +1,11 @@
+// Third party
+import { getReasonPhrase } from 'http-status-codes'
+
 // Utils
 import { getPropertyDetailPropsFromSchemaObject } from './get-property-detail-props'
 // Types
 import type { PropertyDetailsProps } from '../components/property-details'
 import type { OpenAPIV3 } from 'openapi-types'
-
-/**
- * Map known response codes to human-readable headings.
- *
- * If an response code isn't in this map, we use the response code itself
- * as the heading.
- */
-const RESPONSE_CODE_HEADINGS: Record<string, string> = {
-	'200': 'Successful Response',
-	default: 'Default Response',
-}
 
 /**
  * Given OpenAPI responses data,
@@ -61,8 +53,14 @@ export async function getResponseData(
 					)
 				)
 			}
+			// Determine the heading text to show
+			const headingText =
+				responseCode === 'default'
+					? `Default Response`
+					: `${responseCode} -  ${getReasonPhrase(responseCode)}`
+
 			responseData.push({
-				heading: RESPONSE_CODE_HEADINGS[responseCode] ?? responseCode,
+				heading: headingText,
 				propertyDetails,
 			})
 		}
