@@ -9,7 +9,6 @@ import Badge from 'components/badge'
 import IconTile from 'components/icon-tile'
 import OverviewBlurb from './components/overview-blurb'
 import { Status } from './components/status'
-import { OpenApiOverviewProps } from './types'
 import s from './open-api-overview.module.css'
 
 /**
@@ -19,6 +18,17 @@ import s from './open-api-overview.module.css'
  * component and may be implemented at a later time. Once implemented
  * it should be required.
  */
+
+export interface OpenApiOverviewProps {
+	title: string
+	badgeText: string
+	description: string
+	status?: {
+		text: string
+		href: string
+	}
+	className?: string
+}
 
 export function OpenApiOverview({
 	title,
