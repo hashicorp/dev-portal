@@ -56,6 +56,7 @@ Base properties, at the top level
 
 .baseType {
 	composes: hds-typography-code-200 from global;
+	color: var(--token-color-foreground-primary);
 }
 
 /* Style markdown rendered within the description */
