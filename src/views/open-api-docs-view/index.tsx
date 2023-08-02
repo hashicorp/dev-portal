@@ -37,8 +37,6 @@ function OpenApiDocsView({
 				title={title}
 				badgeText={releaseStage}
 				description={description}
-				/** TODO for demo purposes only, remove before merging*/
-				status={{ text: 'Operational', href: 'https://google.com' }}
 			/>
 			<OpenApiOperations operationGroups={operationGroups} />
 		</SidebarLayout>
