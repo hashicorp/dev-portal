@@ -6,7 +6,7 @@ import { PineconeClient } from 'lib/ai/services/pinecone'
 import { fetchUserInfo, type UserInfoSchema } from 'lib/auth/fetch-user-info'
 
 export const config = {
-	// runtime: 'experimental-edge',
+	runtime: 'experimental-edge',
 }
 
 import { z } from 'zod'
@@ -20,28 +20,31 @@ const edgeConfigSchema = z.object({
 })
 type EdgeConfigSchema = z.infer<typeof edgeConfigSchema>
 
-import { type NextApiRequest, type NextApiResponse } from 'next'
-export default async function apihandler(
-	req: NextApiRequest,
-	res: NextApiResponse
-) {
-	// https://github.com/vercel/next.js/issues/9965#issuecomment-584319868
-	res.setHeader('Cache-Control', 'no-cache, no-transform')
-	res.setHeader('Content-Type', 'text/html; charset=utf-8')
-	const mock = toRandomChunks(MOCK_TEXT)
+// import { type NextApiRequest, type NextApiResponse } from 'next'
+// export default async function apihandler(
+// 	req: NextApiRequest,
+// 	res: NextApiResponse
+// ) {
+// 	// https://github.com/vercel/next.js/issues/9965#issuecomment-584319868
+// 	res.setHeader('Cache-Control', 'no-cache, no-transform')
+// 	res.setHeader('Content-Type', 'text/html; charset=utf-8')
+// 	const mock = toRandomChunks(MOCK_TEXT)
 
-	for await (const chunk of mock) {
-		res.write(chunk)
-		await sleep(50)
-	}
-	res.end()
-}
+// 	for await (const chunk of mock) {
+// 		res.write(chunk)
+// 		await sleep(50)
+// 	}
+// 	res.end()
+// }
 
 // export const config = {
 // 	runtime: 'experimental-edge',
 // }
 import { type NextRequest, type NextFetchEvent } from 'next/server'
-async function edgehandler(req: NextRequest, evt: NextFetchEvent) {
+export default async function edgehandler(
+	req: NextRequest,
+	evt: NextFetchEvent
+) {
 	console.log(`[${req.method}] ${req.url}`)
 	const headers = req.headers
 	const authorization = headers.get('authorization')
