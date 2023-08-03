@@ -6,11 +6,10 @@ import { PineconeClient } from 'lib/ai/services/pinecone'
 import { fetchUserInfo, type UserInfoSchema } from 'lib/auth/fetch-user-info'
 
 export const config = {
-	runtime: 'experimental-edge',
+	// runtime: 'experimental-edge',
 }
 
 import { z } from 'zod'
-import { type NextRequest } from 'next/server'
 
 const bodySchema = z.object({
 	task: z.string(),
@@ -21,7 +20,28 @@ const edgeConfigSchema = z.object({
 })
 type EdgeConfigSchema = z.infer<typeof edgeConfigSchema>
 
-export default async function handler(req: NextRequest) {
+import { type NextApiRequest, type NextApiResponse } from 'next'
+export default async function apihandler(
+	req: NextApiRequest,
+	res: NextApiResponse
+) {
+	// https://github.com/vercel/next.js/issues/9965#issuecomment-584319868
+	res.setHeader('Cache-Control', 'no-cache, no-transform')
+	res.setHeader('Content-Type', 'text/html; charset=utf-8')
+	const mock = toRandomChunks(MOCK_TEXT)
+
+	for await (const chunk of mock) {
+		res.write(chunk)
+		await sleep(50)
+	}
+	res.end()
+}
+
+// export const config = {
+// 	runtime: 'experimental-edge',
+// }
+import { type NextRequest, type NextFetchEvent } from 'next/server'
+async function edgehandler(req: NextRequest, evt: NextFetchEvent) {
 	console.log(`[${req.method}] ${req.url}`)
 	const headers = req.headers
 	const authorization = headers.get('authorization')
@@ -73,6 +93,7 @@ export default async function handler(req: NextRequest) {
 			const pinecone = await PineconeClient.init()
 			// 2. queries pinecone for the most similar questions, via vector commparison
 
+			// @ts-expect-error - safeParse() return type is not working
 			const task = parsedBody.data.task
 
 			const vectorEmbedding = await openai.createEmbedding({
@@ -177,7 +198,7 @@ const MOCK_TEXT =
 
 function streamFromIterable<T = any>(
 	iterable: Iterable<T>,
-	processChunk: (part: T) => string
+	processChunk: (part: T) => Promise<string> | string
 ) {
 	const encoder = new TextEncoder()
 	return new ReadableStream({

@@ -22,3 +22,7 @@
 		transform: rotate(360deg);
 	}
 }
+.loadingIcon {
+	animation: hds-flight-icon-animation-rotation 9s linear infinite;
+	animation-duration: 0.7s;
+}

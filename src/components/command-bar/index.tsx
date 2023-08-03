@@ -103,12 +103,9 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		dispatch({ type: 'TOGGLE_IS_OPEN' })
 	}, [])
 
-	const setCurrentCommand = useCallback(
-		(commandName: keyof typeof SupportedCommand) => {
-			dispatch({ type: 'SET_CURRENT_COMMAND', value: commandName })
-		},
-		[]
-	)
+	const setCurrentCommand = useCallback((commandName: SupportedCommand) => {
+		dispatch({ type: 'SET_CURRENT_COMMAND', value: commandName })
+	}, [])
 
 	const addTag = useCallback((newTag: CommandBarTag) => {
 		dispatch({ type: 'ADD_TAG', value: newTag })
@@ -175,7 +172,10 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 				<Command.Dialog isOpen={state.isOpen} onDismiss={toggleIsOpen}>
 					<Command.Header />
 					<Command.Body />
-					<Command.Footer />
+					{
+						// TODO(kevinwang): This conditional needs an abstraction
+						state.currentCommand.name == 'chat' ? null : <Command.Footer />
+					}
 				</Command.Dialog>
 			</CommandBarContext.Provider>
 		</SearchHitsProvider>
@@ -191,10 +191,5 @@ const useCommandBar = (): CommandBarContextValue => {
 	return context
 }
 
-export type { CommandBarCommand, CommandBarTag }
-export {
-	CommandBarActivator,
-	CommandBarProvider,
-	SupportedCommand,
-	useCommandBar,
-}
+export type { CommandBarCommand, CommandBarTag, SupportedCommand }
+export { CommandBarActivator, CommandBarProvider, useCommandBar }

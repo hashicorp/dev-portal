@@ -18,7 +18,6 @@ import { QueryParamProvider } from 'use-query-params'
 import type { AppProps } from 'next/app'
 import { useFlags } from 'flags/client'
 import { FlagBagProvider } from 'flags/client'
-import ChatBox from 'components/chatbox/chatbox'
 
 // HashiCorp imports
 import {
@@ -110,7 +109,6 @@ export default function App({
 												strict={process.env.NODE_ENV === 'development'}
 											>
 												<Component {...pageProps} />
-												<ChatBox />
 												<Toaster />
 												{showProductSwitcher ? (
 													<PreviewProductSwitcher />

@@ -36,6 +36,14 @@ import type {
 } from '../../types'
 // Styles
 import s from './dialog-body.module.css'
+import {
+	CommandBarButtonListItem,
+	CommandBarDivider,
+	CommandBarList,
+} from 'components/command-bar/components'
+import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
+import IconTile from 'components/icon-tile'
+import useAuthentication from 'hooks/use-authentication'
 
 const ALGOLIA_INDEX_NAME = __config.dev_dot.algolia.unifiedIndexName
 
@@ -60,10 +68,11 @@ const searchClient = algoliasearch(appId, apiKey)
  * This component also tracks recent searches through `useRecentSearches`.
  */
 export function UnifiedSearchCommandBarDialogBody() {
-	const { currentInputValue } = useCommandBar()
+	const { currentInputValue, setCurrentCommand } = useCommandBar()
 	const currentProductTag = useCommandBarProductTag()
 	const currentProductSlug = currentProductTag?.id as ProductSlug
 	const recentSearches = useDebouncedRecentSearches(currentInputValue)
+	const { user, signIn } = useAuthentication()
 
 	/**
 	 * Generate suggested pages for the current product (if any).
@@ -72,12 +81,56 @@ export function UnifiedSearchCommandBarDialogBody() {
 		return generateSuggestedPages(currentProductSlug)
 	}, [currentProductSlug])
 
+	const ExperimentalAI = ({ input }: { input: string }) => {
+		if (!user) {
+			return (
+				<>
+					{/*@ts-expect-error - TODO(kevinwang): fix CommandBarList.label prop type */}
+					<CommandBarList label="" ariaLabelledBy="FIXME">
+						<CommandBarButtonListItem
+							title={`Create an account to try out Developer AI!`}
+							icon={
+								<IconTile size="small">
+									<IconWand24 />
+								</IconTile>
+							}
+							onClick={() => {
+								signIn()
+							}}
+						/>
+					</CommandBarList>
+					<CommandBarDivider />
+				</>
+			)
+		}
+		return (
+			<>
+				{/*@ts-expect-error - TODO(kevinwang): fix CommandBarList.label prop type */}
+				<CommandBarList label="" ariaLabelledBy="FIXME">
+					<CommandBarButtonListItem
+						title={`Ask Developer: ${input}`}
+						icon={
+							<IconTile size="small">
+								<IconWand24 />
+							</IconTile>
+						}
+						onClick={() => {
+							setCurrentCommand('chat')
+						}}
+					/>
+				</CommandBarList>
+				<CommandBarDivider />
+			</>
+		)
+	}
+
 	/**
 	 * If there's no searchQuery yet, show suggested pages.
 	 */
 	if (!currentInputValue) {
 		return (
 			<div className={s.suggestedPagesWrapper}>
+				<ExperimentalAI input={currentInputValue} />
 				<RecentSearches recentSearches={recentSearches} />
 				<SuggestedPages pages={suggestedPages} />
 			</div>
@@ -88,11 +141,16 @@ export function UnifiedSearchCommandBarDialogBody() {
 	 * Render search results
 	 */
 	return (
-		<SearchResults
-			currentInputValue={currentInputValue}
-			currentProductSlug={currentProductSlug}
-			suggestedPages={suggestedPages}
-		/>
+		<>
+			<div className={s.suggestedPagesWrapper}>
+				<ExperimentalAI input={currentInputValue} />
+			</div>
+			<SearchResults
+				currentInputValue={currentInputValue}
+				currentProductSlug={currentProductSlug}
+				suggestedPages={suggestedPages}
+			/>
+		</>
 	)
 }
 

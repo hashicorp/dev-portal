@@ -9,7 +9,6 @@ import remarkGfm from 'remark-gfm'
 // https://helios.hashicorp.design/icons/library
 import { IconLoading24 } from '@hashicorp/flight-icons/svg-react/loading-24'
 import { IconSend24 } from '@hashicorp/flight-icons/svg-react/send-24'
-import { IconLock24 } from '@hashicorp/flight-icons/svg-react/lock-24'
 import { IconHashicorp24 } from '@hashicorp/flight-icons/svg-react/hashicorp-24'
 import { IconThumbsUp24 } from '@hashicorp/flight-icons/svg-react/thumbs-up-24'
 import { IconThumbsDown24 } from '@hashicorp/flight-icons/svg-react/thumbs-down-24'
@@ -158,16 +157,16 @@ const ChatBox = () => {
 	}
 
 	const [messageList, setMessageList] = useState<Message[]>([
-		{
-			type: 'user',
-			text: 'What is boundary?',
-			image: 'https://avatars.githubusercontent.com/u/26389321?v=4',
-		},
-		{
-			type: 'assistant',
-			text: 'Boundary is an identity-aware proxy that simplifies and secures least-privileged access to cloud infrastructure. It enables single sign-on to target services and applications via external identity providers, provides just-in-time network access to private resources, enables passwordless access with dynamic credentials via HashiCorp Vault, automates discovery of new target systems, records and manages privileged sessions, and standardizes access workflow with a consistent experience for any type of infrastructure across any provider. For more information, please refer to What is Boundary and Why Boundary.',
-			image: undefined,
-		},
+		// {
+		// 	type: 'user',
+		// 	text: 'What is boundary?',
+		// 	image: 'https://avatars.githubusercontent.com/u/26389321?v=4',
+		// },
+		// {
+		// 	type: 'assistant',
+		// 	text: 'Boundary is an identity-aware proxy that simplifies and secures least-privileged access to cloud infrastructure. It enables single sign-on to target services and applications via external identity providers, provides just-in-time network access to private resources, enables passwordless access with dynamic credentials via HashiCorp Vault, automates discovery of new target systems, records and manages privileged sessions, and standardizes access workflow with a consistent experience for any type of infrastructure across any provider. For more information, please refer to What is Boundary and Why Boundary.',
+		// 	image: undefined,
+		// },
 	])
 
 	// side-effect to scroll text response to bottom as text streams in from the backend
@@ -201,180 +200,110 @@ const ChatBox = () => {
 
 	return (
 		<div className={cn(s.chat)}>
-			{!user ? (
-				<div
-					style={{
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-						justifyContent: 'center',
-						height: '100%',
-					}}
-				>
-					<div
-						style={{
-							borderRadius: 8,
-							border: '1px solid var(--token-color-palette-neutral-400)',
-							padding: 14,
-							display: 'flex',
-						}}
-					>
-						<IconLock24
-							style={{
-								color: 'var(--token-color-palette-neutral-400)',
-							}}
+			<>
+				<div ref={textContentRef} style={{ height: '100%' }}>
+					{messageList.map((e, i) => {
+						switch (e.type) {
+							case 'user':
+								return (
+									<UserMessage key={i} image={e.image}>
+										{e.text}
+									</UserMessage>
+								)
+							case 'assistant':
+								return (
+									<>
+										<AssistantMessage key={i}>
+											<ReactMarkdown
+												remarkPlugins={[remarkGfm]}
+												components={{
+													p: ({ children }) => (
+														<p style={{ margin: 0 }}>{children}</p>
+													),
+												}}
+											>
+												{e.text}
+											</ReactMarkdown>
+										</AssistantMessage>
+										<div
+											style={{
+												padding: `24px 1.5rem`,
+											}}
+										>
+											<span
+												// divider
+												style={{
+													display: 'block',
+													width: `100%`,
+													borderBottom: `1px solid var(--token-color-palette-neutral-300)`,
+													marginBottom: `24px`,
+												}}
+											/>
+											<div
+												style={{
+													display: 'flex',
+													flexDirection: 'row',
+													justifyContent: 'flex-end',
+													gap: `16px`,
+												}}
+											>
+												<Button
+													size="small"
+													color="secondary"
+													icon={<IconClipboard24 height={12} width={12} />}
+													aria-label="FIXME"
+												></Button>
+												<Button
+													size="small"
+													color="secondary"
+													icon={<IconThumbsUp24 height={12} width={12} />}
+													aria-label="FIXME"
+												></Button>
+												<Button
+													size="small"
+													color="secondary"
+													icon={<IconThumbsDown24 height={12} width={12} />}
+													aria-label="FIXME"
+												></Button>
+											</div>
+										</div>
+									</>
+								)
+							default:
+								null
+						}
+					})}
+				</div>
+
+				<form onSubmit={handleSubmit}>
+					<div className={s['search-area']}>
+						{isLoading ? (
+							<IconLoading24 className={'loadingIcon'} />
+						) : (
+							<IconSend24 />
+						)}
+						<textarea
+							id="task"
+							rows={1}
+							className={cn(s.reset, s.textarea)}
+							placeholder="Send a new message"
+						></textarea>
+						<Button
+							disabled={isLoading}
+							type="submit"
+							icon={<IconSend24 height={16} width={16} />}
+							text="Send"
 						/>
 					</div>
-					<div style={{ textAlign: 'center' }}>
-						<p>
-							<b>Please login</b>
-						</p>
-						<p
-							style={{
-								color: 'var(--token-color-palette-neutral-400)',
-							}}
-						>
-							You must be signed in to use this feature. Please{' '}
-							<a
-								style={{ cursor: 'pointer' }}
-								onClick={(e) => {
-									e.preventDefault()
-									signIn()
-								}}
-							>
-								sign in
-							</a>{' '}
-							or{' '}
-							<a
-								style={{ cursor: 'pointer' }}
-								onClick={(e) => {
-									e.preventDefault()
-									signUp()
-								}}
-							>
-								sign up
-							</a>{' '}
-							to continue
-						</p>
-					</div>
-				</div>
-			) : (
-				<>
-					<div ref={textContentRef}>
-						<div className={s.overlayContainer} style={{ height: 'unset' }}>
-							<div className={cn(s.overlay, s.overlaybottom, s.overlaytop)} />
 
-							<div className={s.scroller}>
-								{messageList.map((e, i) => {
-									switch (e.type) {
-										case 'user':
-											return (
-												<UserMessage key={i} image={e.image}>
-													{e.text}
-												</UserMessage>
-											)
-										case 'assistant':
-											return (
-												<>
-													<AssistantMessage key={i}>
-														<ReactMarkdown
-															remarkPlugins={[remarkGfm]}
-															components={{
-																p: ({ children }) => (
-																	<p style={{ margin: 0 }}>{children}</p>
-																),
-															}}
-														>
-															{e.text}
-														</ReactMarkdown>
-													</AssistantMessage>
-													<div
-														style={{
-															padding: `24px 1.5rem`,
-														}}
-													>
-														<span
-															// divider
-															style={{
-																display: 'block',
-																width: `100%`,
-																borderBottom: `1px solid var(--token-color-palette-neutral-300)`,
-																marginBottom: `24px`,
-															}}
-														/>
-														<div
-															style={{
-																display: 'flex',
-																flexDirection: 'row',
-																justifyContent: 'flex-end',
-																gap: `16px`,
-															}}
-														>
-															<Button
-																size="small"
-																color="secondary"
-																icon={
-																	<IconClipboard24 height={12} width={12} />
-																}
-																aria-label="FIXME"
-															></Button>
-															<Button
-																size="small"
-																color="secondary"
-																icon={<IconThumbsUp24 height={12} width={12} />}
-																aria-label="FIXME"
-															></Button>
-															<Button
-																size="small"
-																color="secondary"
-																icon={
-																	<IconThumbsDown24 height={12} width={12} />
-																}
-																aria-label="FIXME"
-															></Button>
-														</div>
-													</div>
-												</>
-											)
-										default:
-											null
-									}
-								})}
-							</div>
-						</div>
-					</div>
-
-					<form onSubmit={handleSubmit}>
-						<div className={s['search-area']}>
-							{isLoading ? (
-								<IconLoading24 className={s.loadingIcon} />
-							) : (
-								<IconSend24 />
-							)}
-							<textarea
-								id="task"
-								rows={1}
-								className={cn(s.reset, s.textarea)}
-								placeholder="Send a new message"
-							></textarea>
-							<Button
-								disabled={isLoading}
-								type="submit"
-								className={{}}
-								icon={<IconSend24 height={16} width={16} />}
-								text="Send"
-							/>
-						</div>
-
-						<footer className={s.bottom}>
-							<span className={s.disclaimer}>
-								Disclaimer: This is an experimental feature... add more
-								warnings.
-							</span>
-						</footer>
-					</form>
-				</>
-			)}
+					<footer className={s.bottom}>
+						<span className={s.disclaimer}>
+							AI Disclaimer: HashiCorp AI may produce inaccurate information and
+							cause your computer to implode. Use at your own risk.
+						</span>
+					</footer>
+				</form>
+			</>
 		</div>
 	)
 }

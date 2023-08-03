@@ -28,6 +28,8 @@ const CommandBarDialogHeader = () => {
 		commandBarState,
 		currentProduct,
 	})
+	// @ts-expect-error - TODO(kevinwang) adjust interface to allow for disabled
+	const disabled = currentCommand.inputProps.disabled
 
 	return (
 		<div className={s.header}>
@@ -45,6 +47,7 @@ const CommandBarDialogHeader = () => {
 			) : null}
 			<div className={s.inputWrapper}>
 				<input
+					disabled={disabled}
 					aria-label={inputPlaceholder}
 					className={s.input}
 					onChange={(e: ChangeEvent<HTMLInputElement>) =>
