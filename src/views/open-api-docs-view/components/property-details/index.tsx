@@ -52,7 +52,7 @@ export function PropertyDetails({
 				</div>
 			</div>
 			{description || hasNestedProperties ? (
-				<div className={s.baseBody}>
+				<div>
 					{description ? (
 						<ItemWithNestingIndicator
 							listItemStyle={!hasNestedProperties ? 'last' : null}
@@ -66,7 +66,6 @@ export function PropertyDetails({
 							/>
 						</ItemWithNestingIndicator>
 					) : null}
-
 					{hasNestedProperties ? (
 						<ListNestedProperties
 							nestedProperties={nestedProperties}
@@ -120,7 +119,7 @@ function PropertyDetailsNested({
 }: PropertyDetailsProps) {
 	const hasNestedProperties = nestedProperties?.length > 0
 	return (
-		<div className={classNames(s.nestedRoot, s[`depth-${depth}`])}>
+		<div>
 			<ItemWithNestingIndicator listItemStyle={isLastItem ? 'last' : 'middle'}>
 				<div className={s.nestedMeta}>
 					<IconCornerDownRight16 className={s.nestedIcon} />
@@ -136,25 +135,23 @@ function PropertyDetailsNested({
 
 			{description || hasNestedProperties ? (
 				<ItemWithNestingIndicator hideBorder={isLastItem}>
-					<div className={s.nestedBody}>
-						{description ? (
-							<ItemWithNestingIndicator
-								listItemStyle={!hasNestedProperties ? 'last' : null}
-								hideIndicator={!hasNestedProperties}
-							>
-								<div
-									className={s.nestedDescription}
-									dangerouslySetInnerHTML={{ __html: description }}
-								/>
-							</ItemWithNestingIndicator>
-						) : null}
-						{hasNestedProperties ? (
-							<ListNestedProperties
-								nestedProperties={nestedProperties}
-								depth={depth}
+					{description ? (
+						<ItemWithNestingIndicator
+							listItemStyle={!hasNestedProperties ? 'last' : null}
+							hideIndicator={!hasNestedProperties}
+						>
+							<div
+								className={s.nestedDescription}
+								dangerouslySetInnerHTML={{ __html: description }}
 							/>
-						) : null}
-					</div>
+						</ItemWithNestingIndicator>
+					) : null}
+					{hasNestedProperties ? (
+						<ListNestedProperties
+							nestedProperties={nestedProperties}
+							depth={depth}
+						/>
+					) : null}
 				</ItemWithNestingIndicator>
 			) : null}
 		</div>
