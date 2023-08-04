@@ -4,6 +4,7 @@
  */
 
 // Third party
+import type { PropsWithChildren } from 'react'
 import classNames from 'classnames'
 // HDS
 import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-down-right-16'
@@ -24,6 +25,7 @@ export interface PropertyDetailsProps {
 	description?: string // Plain text or HTML
 	nestedProperties?: PropertyDetailsProps[]
 	depth?: number
+	isLastItem?: boolean
 }
 
 /**
@@ -39,6 +41,7 @@ export function PropertyDetails({
 	nestedProperties,
 	depth = 0,
 }: PropertyDetailsProps) {
+	const hasNestedProperties = nestedProperties?.length > 0
 	return (
 		<div className={s.baseRoot}>
 			<div className={s.baseMetaAndDescription}>
@@ -48,16 +51,23 @@ export function PropertyDetails({
 					{isRequired ? <Badge text="Required" color="highlight" /> : null}
 				</div>
 			</div>
-			{description || nestedProperties?.length > 0 ? (
+			{description || hasNestedProperties ? (
 				<div className={s.baseBody}>
 					{description ? (
-						<div
-							className={s.baseDescription}
-							dangerouslySetInnerHTML={{ __html: description }}
-						/>
+						<ItemWithNestingIndicator
+							listItemStyle={!hasNestedProperties ? 'last' : null}
+							hideIndicator={!hasNestedProperties}
+						>
+							<div
+								className={classNames(s.baseDescription, {
+									[s.hasNestedProperties]: hasNestedProperties,
+								})}
+								dangerouslySetInnerHTML={{ __html: description }}
+							/>
+						</ItemWithNestingIndicator>
 					) : null}
 
-					{nestedProperties?.length > 0 ? (
+					{hasNestedProperties ? (
 						<ListNestedProperties
 							nestedProperties={nestedProperties}
 							depth={depth}
@@ -78,10 +88,15 @@ function ListNestedProperties({
 }: Pick<PropertyDetailsProps, 'nestedProperties' | 'depth'>) {
 	return (
 		<ul className={s.listNestedProperties}>
-			{nestedProperties.map((nestedProperty) => {
+			{nestedProperties.map((nestedProperty, idx) => {
+				const isLastItem = idx === nestedProperties.length - 1
 				return (
 					<li key={`${nestedProperty.name}_${depth}`}>
-						<PropertyDetailsNested {...nestedProperty} depth={depth + 1} />
+						<PropertyDetailsNested
+							{...nestedProperty}
+							depth={depth + 1}
+							isLastItem={isLastItem}
+						/>
 					</li>
 				)
 			})}
@@ -101,10 +116,12 @@ function PropertyDetailsNested({
 	description,
 	nestedProperties,
 	depth = 0,
+	isLastItem,
 }: PropertyDetailsProps) {
+	const hasNestedProperties = nestedProperties?.length > 0
 	return (
 		<div className={classNames(s.nestedRoot, s[`depth-${depth}`])}>
-			<div className={s.nestedMetaAndDescription}>
+			<ItemWithNestingIndicator listItemStyle={isLastItem ? 'last' : 'middle'}>
 				<div className={s.nestedMeta}>
 					<IconCornerDownRight16 className={s.nestedIcon} />
 					<div className={s.nestedNameAndType}>
@@ -115,24 +132,64 @@ function PropertyDetailsNested({
 						<Badge text="Required" color="highlight" size="small" />
 					) : null}
 				</div>
-			</div>
+			</ItemWithNestingIndicator>
 
-			{description || nestedProperties?.length > 0 ? (
-				<div className={s.nestedBody}>
-					{description ? (
-						<div
-							className={s.nestedDescription}
-							dangerouslySetInnerHTML={{ __html: description }}
-						/>
-					) : null}
-					{nestedProperties?.length > 0 ? (
-						<ListNestedProperties
-							nestedProperties={nestedProperties}
-							depth={depth}
-						/>
-					) : null}
-				</div>
+			{description || hasNestedProperties ? (
+				<ItemWithNestingIndicator hideBorder={isLastItem}>
+					<div className={s.nestedBody}>
+						{description ? (
+							<ItemWithNestingIndicator
+								listItemStyle={!hasNestedProperties ? 'last' : null}
+								hideIndicator={!hasNestedProperties}
+							>
+								<div
+									className={s.nestedDescription}
+									dangerouslySetInnerHTML={{ __html: description }}
+								/>
+							</ItemWithNestingIndicator>
+						) : null}
+						{hasNestedProperties ? (
+							<ListNestedProperties
+								nestedProperties={nestedProperties}
+								depth={depth}
+							/>
+						) : null}
+					</div>
+				</ItemWithNestingIndicator>
 			) : null}
+		</div>
+	)
+}
+
+/**
+ * TODO: write description
+ */
+function ItemWithNestingIndicator({
+	children,
+	listItemStyle,
+	hideBorder,
+	hideIndicator,
+}: PropsWithChildren<{
+	listItemStyle?: 'middle' | 'last'
+	hideBorder?: boolean
+	hideIndicator?: boolean
+}>) {
+	return (
+		<div className={s.itemWithNestingIndicator}>
+			<div
+				className={classNames(s.nestingIndicatorContainer, {
+					[s.hideIndicator]: hideIndicator,
+				})}
+			>
+				<div
+					className={classNames(s.nestingIndicator, {
+						[s.isLastItem]: listItemStyle === 'last',
+						[s.isMiddleItem]: listItemStyle === 'middle',
+						[s.hideBorder]: hideBorder,
+					})}
+				/>
+			</div>
+			<div>{children}</div>
 		</div>
 	)
 }

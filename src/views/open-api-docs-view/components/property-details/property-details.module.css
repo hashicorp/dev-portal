@@ -38,7 +38,10 @@ Base properties, at the top level
 .baseRoot {
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: 4px;
+
+	--nesting-line-color: var(--token-color-border-primary);
+	--nesting-line-width: 1px;
 }
 
 .baseMetaAndDescription {
@@ -63,6 +66,10 @@ Base properties, at the top level
 .baseDescription {
 	composes: hds-typography-body-200 from global;
 	composes: description;
+
+	&.hasNestedProperties {
+		padding-bottom: 4px;
+	}
 }
 
 .baseNestedDivider {
@@ -74,12 +81,15 @@ Base properties, at the top level
 }
 
 .baseBody {
-	padding-left: 8px;
-	margin-left: 8px;
-	border-left: 1px solid var(--token-color-border-primary);
+	/* padding-left: 8px; */
+
+	/* margin-left: 8px; */
+
+	/* border-left: 1px solid var(--token-color-border-primary); */
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+
+	/* gap: 8px; */
 }
 
 /*
@@ -92,7 +102,8 @@ List of nested properties within a base property
 	composes: listResetStyles;
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+
+	/* gap: 8px; */
 }
 
 /*
@@ -106,7 +117,8 @@ Nested properties
 
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+
+	/* gap: 8px; */
 
 	&.depth-0 {
 		--nested-property-inset: 0;
@@ -124,6 +136,7 @@ Nested properties
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 6px;
+	padding: 4px 0;
 }
 
 .nestedIcon {
@@ -157,13 +170,72 @@ Nested properties
 .nestedDescription {
 	composes: hds-typography-body-100 from global;
 	composes: description;
+	padding: 4px 0;
 }
 
 .nestedBody {
-	display: flex;
+	/* padding: 4px 0 0 0; */
+
+	/* display: flex;
 	flex-direction: column;
-	gap: 8px;
-	border-left: 1px solid var(--token-color-border-primary);
-	margin-left: 8px;
-	padding-left: var(--nested-property-inset);
+	gap: 8px; */
+
+	/* border-left: 1px solid var(--token-color-border-primary); */
+
+	/* margin-left: 8px; */
+
+	/* padding-left: var(--nested-property-inset); */
+}
+
+/*
+
+Nesting indicators
+
+*/
+
+.itemWithNestingIndicator {
+	display: flex;
+	gap: 4px;
+	padding-left: 8px;
+}
+
+.nestingIndicatorContainer {
+	position: relative;
+	width: 8px;
+
+	&.hideIndicator {
+		display: none;
+	}
+}
+
+.nestingIndicator {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	border-width: var(--nesting-line-width);
+	border-color: var(--nesting-line-color);
+	border-left-style: solid;
+
+	&.isLastItem {
+		height: 55%;
+		border-bottom-style: solid;
+		border-bottom-left-radius: 4px;
+	}
+
+	&.hideBorder {
+		border-color: transparent;
+	}
+
+	&.isMiddleItem {
+		height: 100%;
+
+		&::after {
+			position: absolute;
+			content: '';
+			top: 45%;
+			width: 100%;
+			border-bottom: var(--nesting-line-width) solid var(--nesting-line-color);
+		}
+	}
 }

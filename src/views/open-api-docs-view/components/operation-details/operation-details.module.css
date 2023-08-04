@@ -12,7 +12,7 @@
 .section {
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
+	gap: 16px;
 }
 
 .sectionHeading {
@@ -24,7 +24,7 @@
 .sectionGroups {
 	display: flex;
 	flex-direction: column;
-	gap: 32px;
+	gap: 24px;
 }
 
 .group {
