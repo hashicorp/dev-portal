@@ -203,6 +203,8 @@ export function SidebarNavMenuButton({ item }: SidebarNavMenuButtonProps) {
  * or `false` otherwise.
  *
  * TODO: update input `item` type to be the "submenu" item type specifically.
+ * Can't do this yet cause MenuItem still needs more work before we can.
+ * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
  */
 function getDefaultOpen(item: MenuItemOptionalProperties): boolean {
 	const defaultOpenProps = [
@@ -227,7 +229,11 @@ function getDefaultOpen(item: MenuItemOptionalProperties): boolean {
 const SidebarNavSubmenuItem = ({
 	item,
 }: {
-	// TODO: update this `item` type to be the "submenu" item type specifically.
+	/**
+	 * TODO: update this `item` type to be the "submenu" item type specifically.
+	 * Can't do this yet cause MenuItem still needs more work before we can.
+	 * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+	 */
 	item: MenuItemOptionalProperties
 }) => {
 	const buttonRef = useRef<HTMLButtonElement>()
