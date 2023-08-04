@@ -2,5 +2,12 @@
 	"extends": "base",
 	"io_sites": {
 		"max_static_paths": 10
+	},
+	"dev_dot": {
+		"algolia": {
+			"docsIndexName": "product_DEVDOT",
+			"tutorialsIndexName": "staging_DEVDOT_omni",
+			"unifiedIndexName": "staging_DEVDOT_omni"
+		}
 	}
 }
