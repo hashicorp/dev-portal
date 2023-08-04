@@ -83,7 +83,11 @@ async function getPropertyDetailsFromSchema(
 		arrayDepth > 0 ? arrayFrom(arrayDepth, '[]').join('') : ''
 	const typeString = `${schema.type}${typeArraySuffix}`
 	// Build the description
-	const description = await markdownToHtml(schema.description)
+	// TODO: decide if falling back to the schema title makes sense... probably?
+	const description = await markdownToHtml(
+		schema.description ? schema.description : schema.title
+	)
+	// const description = await markdownToHtml(schema.description)
 	// Build out nested properties, if present
 	const hasProperties = schema.type === 'object' && Boolean(schema.properties)
 	const nestedProperties: PropertyDetailsProps[] = []
