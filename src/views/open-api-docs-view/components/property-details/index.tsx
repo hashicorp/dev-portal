@@ -47,18 +47,23 @@ export function PropertyDetails({
 					<span className={s.baseType}>{type}</span>
 					{isRequired ? <Badge text="Required" color="highlight" /> : null}
 				</div>
-				{description ? (
-					<div
-						className={s.baseDescription}
-						dangerouslySetInnerHTML={{ __html: description }}
-					/>
-				) : null}
 			</div>
-			{nestedProperties?.length > 0 ? (
-				<ListNestedProperties
-					nestedProperties={nestedProperties}
-					depth={depth}
-				/>
+			{description || nestedProperties?.length > 0 ? (
+				<div className={s.baseBody}>
+					{description ? (
+						<div
+							className={s.baseDescription}
+							dangerouslySetInnerHTML={{ __html: description }}
+						/>
+					) : null}
+
+					{nestedProperties?.length > 0 ? (
+						<ListNestedProperties
+							nestedProperties={nestedProperties}
+							depth={depth}
+						/>
+					) : null}
+				</div>
 			) : null}
 		</div>
 	)
@@ -110,19 +115,22 @@ function PropertyDetailsNested({
 						<Badge text="Required" color="highlight" size="small" />
 					) : null}
 				</div>
-				{description ? (
-					<div
-						className={s.nestedDescription}
-						dangerouslySetInnerHTML={{ __html: description }}
-					/>
-				) : null}
 			</div>
-			{nestedProperties?.length > 0 ? (
+
+			{description || nestedProperties?.length > 0 ? (
 				<div className={s.nestedBody}>
-					<ListNestedProperties
-						nestedProperties={nestedProperties}
-						depth={depth}
-					/>
+					{description ? (
+						<div
+							className={s.nestedDescription}
+							dangerouslySetInnerHTML={{ __html: description }}
+						/>
+					) : null}
+					{nestedProperties?.length > 0 ? (
+						<ListNestedProperties
+							nestedProperties={nestedProperties}
+							depth={depth}
+						/>
+					) : null}
 				</div>
 			) : null}
 		</div>

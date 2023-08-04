@@ -38,7 +38,7 @@ Base properties, at the top level
 .baseRoot {
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 8px;
 }
 
 .baseMetaAndDescription {
@@ -66,10 +66,20 @@ Base properties, at the top level
 }
 
 .baseNestedDivider {
-	margin: 0;
-	height: 1px;
-	border: none;
 	background-color: var(--token-color-border-primary);
+	border: none;
+	display: none;
+	height: 1px;
+	margin: 0;
+}
+
+.baseBody {
+	padding-left: 8px;
+	margin-left: 8px;
+	border-left: 1px solid var(--token-color-border-primary);
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 }
 
 /*
@@ -82,7 +92,7 @@ List of nested properties within a base property
 	composes: listResetStyles;
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 8px;
 }
 
 /*
@@ -92,11 +102,11 @@ Nested properties
 */
 
 .nestedRoot {
-	--nested-property-inset: 18px;
+	--nested-property-inset: 12px;
 
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 8px;
 
 	&.depth-0 {
 		--nested-property-inset: 0;
@@ -121,6 +131,7 @@ Nested properties
 	width: 12px;
 	height: 12px;
 	overflow: hidden;
+	display: none;
 }
 
 .nestedNameAndType {
@@ -146,9 +157,13 @@ Nested properties
 .nestedDescription {
 	composes: hds-typography-body-100 from global;
 	composes: description;
-	padding-left: var(--nested-property-inset);
 }
 
 .nestedBody {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	border-left: 1px solid var(--token-color-border-primary);
+	margin-left: 8px;
 	padding-left: var(--nested-property-inset);
 }
