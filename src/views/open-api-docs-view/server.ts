@@ -101,7 +101,7 @@ export async function getStaticProps({
 			: await fetchGithubFile(sourceFile)
 	const schemaData = await parseAndValidateOpenApiSchema(schemaFileString)
 	const { title } = schemaData.info
-	const operationProps = getOperationProps(schemaData)
+	const operationProps = await getOperationProps(schemaData)
 	const operationGroups = groupOperations(operationProps)
 	const navItems = getNavItems({
 		operationGroups,
