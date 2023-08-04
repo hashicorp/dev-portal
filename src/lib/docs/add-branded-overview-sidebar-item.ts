@@ -10,9 +10,11 @@ import { MenuItem } from 'components/sidebar/types'
  * Determine whether a `menuItem` is an "overview" item.
  */
 function isOverviewItem(item: MenuItem) {
+	// Item must have a `path`, otherwise definitely not an overview item
 	if (!('path' in item)) {
 		return false
 	}
+	// Path must match certain criteria for "overview" items
 	const isPathMatch =
 		item.path === '' ||
 		item.path === '/' ||

@@ -98,6 +98,16 @@ export async function getWafTutorialViewProps(
 	if (isLastTutorial) {
 		const filteredSidebarItems = categorizedWafCollectionSidebarItems.filter(
 			(item) => {
+				/**
+				 * Filter out divider and heading items, these are definitely
+				 * not the "next" item.
+				 *
+				 * Note that tutorials sidebars will never have
+				 * divider or heading items, so this is probably unnecessary.
+				 * But it's here for consistency with other sidebar types.
+				 * Types could potentially be refactored to reflect that
+				 * tutorial sidebars only use a subset of possible `MenuItem` types.
+				 */
 				const isDivider = 'divider' in item
 				const isHeading = 'heading' in item
 				return !isDivider && !isHeading
