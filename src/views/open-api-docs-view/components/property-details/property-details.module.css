@@ -72,14 +72,6 @@ Base properties, at the top level
 	}
 }
 
-.baseNestedDivider {
-	background-color: var(--token-color-border-primary);
-	border: none;
-	display: none;
-	height: 1px;
-	margin: 0;
-}
-
 .baseBody {
 	/* padding-left: 8px; */
 
@@ -118,8 +110,6 @@ Nested properties
 	display: flex;
 	flex-direction: column;
 
-	/* gap: 8px; */
-
 	&.depth-0 {
 		--nested-property-inset: 0;
 	}
@@ -136,7 +126,7 @@ Nested properties
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 6px;
-	padding: 4px 0;
+	padding: 8px 0 4px 0;
 }
 
 .nestedIcon {
@@ -170,7 +160,7 @@ Nested properties
 .nestedDescription {
 	composes: hds-typography-body-100 from global;
 	composes: description;
-	padding: 4px 0;
+	padding: 0 0 4px 0;
 }
 
 .nestedBody {
@@ -233,7 +223,7 @@ Nesting indicators
 		&::after {
 			position: absolute;
 			content: '';
-			top: 45%;
+			top: 50%;
 			width: 100%;
 			border-bottom: var(--nesting-line-width) solid var(--nesting-line-color);
 		}
