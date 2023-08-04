@@ -102,14 +102,6 @@ Nested properties
 	padding: 8px 0;
 }
 
-.nestedIcon {
-	color: var(--token-color-foreground-faint);
-	width: 12px;
-	height: 12px;
-	overflow: hidden;
-	display: none;
-}
-
 .nestedNameAndType {
 	display: flex;
 	flex-wrap: wrap;

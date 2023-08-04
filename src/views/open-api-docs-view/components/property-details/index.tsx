@@ -6,8 +6,6 @@
 // Third party
 import type { PropsWithChildren } from 'react'
 import classNames from 'classnames'
-// HDS
-import { IconCornerDownRight16 } from '@hashicorp/flight-icons/svg-react/corner-down-right-16'
 // Components
 import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 import Badge from 'components/badge'
@@ -122,7 +120,6 @@ function PropertyDetailsNested({
 		<div>
 			<ItemWithNestingIndicator listItemStyle={isLastItem ? 'last' : 'middle'}>
 				<div className={s.nestedMeta}>
-					<IconCornerDownRight16 className={s.nestedIcon} />
 					<div className={s.nestedNameAndType}>
 						<code className={s.nestedName}>{name}</code>
 						<span className={s.nestedType}>{type}</span>
