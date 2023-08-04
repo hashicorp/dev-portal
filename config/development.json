@@ -4,12 +4,7 @@
 		"max_static_paths": 1
 	},
 	"dev_dot": {
-		"max_static_paths": 1,
-		"algolia": {
-			"docsIndexName": "product_DEVDOT",
-			"tutorialsIndexName": "staging_DEVDOT_omni",
-			"unifiedIndexName": "staging_DEVDOT_omni"
-		}
+		"max_static_paths": 1
 	},
 	"learn": {
 		"max_static_paths": 1
