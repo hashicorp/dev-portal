@@ -292,7 +292,7 @@ const SidebarNavSubmenuItem = ({
 					{item.routes.map((route: MenuItem, i) => {
 						/**
 						 * Note: these items _aren't_ stable since we filter them
-						 * client-side... perhapse `useId` would be appropriate here?
+						 * client-side... perhaps `useId` would be appropriate here?
 						 * Or we could do that server-side before passing props to the
 						 * client? `heading` and `divider` items do _not_ have a
 						 * meaningful identifier; and some other items could potentially
