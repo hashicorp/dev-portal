@@ -159,7 +159,9 @@ function PropertyDetailsNested({
 }
 
 /**
- * TODO: write description
+ * Display `children` alongside a nesting indicator element.
+ *
+ * TODO: maybe refactor this a bit to avoid the conditional classes.
  */
 function ItemWithNestingIndicator({
 	children,
@@ -173,19 +175,17 @@ function ItemWithNestingIndicator({
 }>) {
 	return (
 		<div className={s.itemWithNestingIndicator}>
-			<div
-				className={classNames(s.nestingIndicatorContainer, {
-					[s.hideIndicator]: hideIndicator,
-				})}
-			>
-				<div
-					className={classNames(s.nestingIndicator, {
-						[s.isLastItem]: listItemStyle === 'last',
-						[s.isMiddleItem]: listItemStyle === 'middle',
-						[s.hideBorder]: hideBorder,
-					})}
-				/>
-			</div>
+			{!hideIndicator ? (
+				<div className={s.nestingIndicatorContainer}>
+					<div
+						className={classNames(s.nestingIndicator, {
+							[s.isLastItem]: listItemStyle === 'last',
+							[s.isMiddleItem]: listItemStyle === 'middle',
+							[s.hideBorder]: hideBorder,
+						})}
+					/>
+				</div>
+			) : null}
 			<div>{children}</div>
 		</div>
 	)

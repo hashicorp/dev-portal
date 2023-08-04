@@ -152,10 +152,6 @@ Nesting indicators
 .nestingIndicatorContainer {
 	position: relative;
 	width: 8px;
-
-	&.hideIndicator {
-		display: none;
-	}
 }
 
 .nestingIndicator {
