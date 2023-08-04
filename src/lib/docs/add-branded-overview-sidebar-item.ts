@@ -4,12 +4,15 @@
  */
 
 import { ProductSlug } from 'types/products'
-import { MenuItem, EnrichedNavItem } from 'components/sidebar/types'
+import { MenuItem } from 'components/sidebar/types'
 
 /**
  * Determine whether a `menuItem` is an "overview" item.
  */
 function isOverviewItem(item: MenuItem) {
+	if (!('path' in item)) {
+		return false
+	}
 	const isPathMatch =
 		item.path === '' ||
 		item.path === '/' ||
@@ -22,7 +25,7 @@ function isOverviewItem(item: MenuItem) {
  * Determine whether a `menuItem` is an "heading" item.
  */
 function isHeadingItem(item: MenuItem) {
-	return typeof item.heading == 'string'
+	return 'heading' in item && typeof item.heading == 'string'
 }
 
 /**

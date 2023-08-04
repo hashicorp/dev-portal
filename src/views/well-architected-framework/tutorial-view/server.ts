@@ -17,7 +17,7 @@ import {
 	TutorialLite as ClientTutorialLite,
 } from 'lib/learn-client/types'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
-import { MenuItem, SidebarProps } from 'components/sidebar'
+import { SidebarProps } from 'components/sidebar'
 import { EnrichedNavItem } from 'components/sidebar/types'
 import { generateWafCollectionSidebar } from 'views/well-architected-framework/utils/generate-collection-sidebar'
 import { getNextPrevious } from 'views/tutorial-view/components'
@@ -97,13 +97,21 @@ export async function getWafTutorialViewProps(
 
 	if (isLastTutorial) {
 		const filteredSidebarItems = categorizedWafCollectionSidebarItems.filter(
-			(item: MenuItem) => !item.divider && !item.heading
+			(item) => {
+				const isDivider = 'divider' in item
+				const isHeading = 'heading' in item
+				return !isDivider && !isHeading
+			}
 		)
 		const currentIndex = filteredSidebarItems.findIndex(
-			(item: MenuItem) => item.fullPath === `/${currentCollection.slug}`
+			(item) =>
+				'fullPath' in item && item.fullPath === `/${currentCollection.slug}`
 		)
-		const nextSidebarItem: MenuItem = filteredSidebarItems[currentIndex + 1]
-		nextCollection = allWafCollections.find((c) => nextSidebarItem?.id === c.id)
+		const nextSidebarItem = filteredSidebarItems[currentIndex + 1]
+		nextCollection = allWafCollections.find((c) => {
+			const hasId = nextSidebarItem && 'id' in nextSidebarItem
+			return hasId && nextSidebarItem.id === c.id
+		})
 	}
 
 	/**

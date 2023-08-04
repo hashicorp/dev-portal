@@ -124,7 +124,7 @@ export interface NavHighlightItem {
  * with optional properties to cover all possible menu item types.
  * ref: https://app.asana.com/0/1202097197789424/1202405210286689/f
  */
-interface MenuItem {
+interface MenuItemOptionalProperties {
 	divider?: boolean
 	fullPath?: string
 	hasActiveChild?: boolean
@@ -136,7 +136,6 @@ interface MenuItem {
 	path?: string
 	routes?: MenuItem[]
 	title?: string
-	heading?: string
 	isOpen?: boolean
 	/**
 	 * Optional icon to display at right of the menu item.
@@ -149,6 +148,15 @@ interface MenuItem {
 	/* Optional props to cover NavHighlightItem */
 	theme?: NavHighlightItem['theme']
 }
+
+/**
+ * TODO: build out this revised MenuItem type to capture all of the
+ * different things `MenuItemOptionalProperties`, but with a union
+ * of more concrete and distinguishable types instead.
+ *
+ * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+ */
+type MenuItem = MenuItemOptionalProperties | HeadingNavItem
 
 interface SidebarBaseProps {
 	/**
@@ -219,6 +227,7 @@ export type {
 	EnrichedSubmenuNavItem,
 	FilteredNavItem,
 	LinkNavItemWithMetaData,
+	MenuItemOptionalProperties,
 	MenuItem,
 	NavItemWithMetaData,
 	SidebarProps,

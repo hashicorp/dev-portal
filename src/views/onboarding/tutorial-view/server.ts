@@ -102,7 +102,7 @@ export async function getOnboardingTutorialProps(
 	// handle next sidebar collection logic
 	if (isLastTutorial) {
 		const currentIndex = tutorialNavLevelMenuItems.findIndex(
-			(item: MenuItem) => item.fullPath === `/${currentCollection.slug}`
+			(item) => item.fullPath === `/${currentCollection.slug}`
 		)
 		const nextSidebarItem: MenuItem =
 			tutorialNavLevelMenuItems[currentIndex + 1]

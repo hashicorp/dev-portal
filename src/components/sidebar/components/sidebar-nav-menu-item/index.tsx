@@ -18,7 +18,7 @@ import { ProductSlug } from 'types/products'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Badge from 'components/badge'
 import Link from 'components/link'
-import { MenuItem } from 'components/sidebar'
+import { MenuItem, MenuItemOptionalProperties } from 'components/sidebar'
 import ProductIcon from 'components/product-icon'
 import {
 	SidebarHorizontalRule,
@@ -31,7 +31,6 @@ import {
 	SidebarNavLinkItemProps,
 	SidebarNavMenuButtonProps,
 	SidebarNavMenuItemBadgeProps,
-	SidebarNavMenuItemProps,
 	SupportedIconName,
 } from './types'
 import s from './sidebar-nav-menu-item.module.css'
@@ -199,17 +198,40 @@ export function SidebarNavMenuButton({ item }: SidebarNavMenuButtonProps) {
 }
 
 /**
+ * Given a MenuItem,
+ * Return `true` if the item should be shown "open" by default,
+ * or `false` otherwise.
+ *
+ * TODO: update input `item` type to be the "submenu" item type specifically.
+ */
+function getDefaultOpen(item: MenuItemOptionalProperties): boolean {
+	const defaultOpenProps = [
+		'isOpen',
+		'hasActiveChild',
+		'hasChildrenMatchingFilter',
+		'matchesFilter',
+	]
+	const isDefaultOpen = defaultOpenProps.reduce((acc, prop) => {
+		if (item[prop]) {
+			return true
+		}
+		return acc
+	}, false)
+	return isDefaultOpen
+}
+
+/**
  * Handles rendering a collapsible/expandable submenu item and its child menu
  * items in the Sidebar.
  */
-const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
+const SidebarNavSubmenuItem = ({
+	item,
+}: {
+	// TODO: update this `item` type to be the "submenu" item type specifically.
+	item: MenuItemOptionalProperties
+}) => {
 	const buttonRef = useRef<HTMLButtonElement>()
-	const [isOpen, setIsOpen] = useState(
-		item.isOpen ||
-			item.hasActiveChild ||
-			item.hasChildrenMatchingFilter ||
-			item.matchesFilter
-	)
+	const [isOpen, setIsOpen] = useState(getDefaultOpen(item))
 	const hasBadge = !!(item as $TSFixMe).badge
 
 	/**
@@ -218,18 +240,8 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 	 * if we pass the props needed instead of just the item object?
 	 */
 	useEffect(() => {
-		setIsOpen(
-			item.isOpen ||
-				item.hasActiveChild ||
-				item.hasChildrenMatchingFilter ||
-				item.matchesFilter
-		)
-	}, [
-		item.isOpen,
-		item.hasActiveChild,
-		item.hasChildrenMatchingFilter,
-		item.matchesFilter,
-	])
+		setIsOpen(getDefaultOpen(item))
+	}, [item])
 
 	const handleKeyDown: KeyboardEventHandler<HTMLUListElement> = (e) => {
 		if (e.key === 'Escape') {
@@ -272,7 +284,19 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 			{isOpen && (
 				<ul id={listId} onKeyDown={handleKeyDown}>
 					{item.routes.map((route: MenuItem, i) => {
-						const key = `${route.id || route.fullPath || route.title}-${i}`
+						/**
+						 * Note: these items _aren't_ stable since we filter them
+						 * client-side... perhapse `useId` would be appropriate here?
+						 * Or we could do that server-side before passing props to the
+						 * client? `heading` and `divider` items do _not_ have a
+						 * meaningful identifier; and some other items could potentially
+						 * have duplicate identifiers. We need to better account for that.
+						 */
+						const uniqueIshId =
+							'heading' in route
+								? route.heading
+								: route.id || route.fullPath || route.title
+						const key = `${uniqueIshId}-${i}`
 						return <SidebarNavMenuItem key={key} item={route} />
 					})}
 				</ul>
@@ -289,15 +313,15 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
  *  - SidebarNavSubmenu
  *  - SidebarNavLink
  */
-const SidebarNavMenuItem = ({ item }: SidebarNavMenuItemProps) => {
+const SidebarNavMenuItem = ({ item }: { item: MenuItem }) => {
 	let itemContent
-	if (item.divider) {
+	if ('divider' in item) {
 		itemContent = <SidebarHorizontalRule />
-	} else if (item.heading) {
+	} else if ('heading' in item) {
 		itemContent = <SidebarSectionHeading text={item.heading} />
-	} else if (item.routes) {
+	} else if ('routes' in item) {
 		itemContent = <SidebarNavSubmenuItem item={item} />
-	} else if (item.theme) {
+	} else if ('theme' in item) {
 		itemContent = (
 			<SidebarNavHighlightItem
 				theme={item.theme}
@@ -310,7 +334,7 @@ const SidebarNavMenuItem = ({ item }: SidebarNavMenuItemProps) => {
 		itemContent = <SidebarNavLinkItem item={item} />
 	}
 
-	return <li id={item.id}>{itemContent}</li>
+	return <li>{itemContent}</li>
 }
 
 export { SidebarNavLinkItem, SidebarNavSubmenuItem }
