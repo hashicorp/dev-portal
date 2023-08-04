@@ -19,8 +19,8 @@ import {
 	CollectionCategorySidebarSection,
 	getCollectionSlug,
 	getTutorialSlug,
-	generateCollectionSidebarNavData,
 } from 'views/collection-view/helpers'
+import { generateCollectionSidebarNavData } from 'views/collection-view/helpers/generate-collection-sidebar-nav-data'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 
 import DevDotContent from 'components/dev-dot-content'
@@ -307,8 +307,6 @@ function TutorialView({
 		</>
 	)
 }
-
-TutorialView.contentType = 'tutorials'
 
 export type {
 	TutorialViewProps,

@@ -91,56 +91,56 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 
 				<meta
 					name="zd-site-verification"
-					key="9qmgy2yz6zbk00tcci2y"
-					content="9qmgy2yz6zbk00tcci2y"
+					key="xnvnvv1i0wl4tf0pzaymb"
+					content="xnvnvv1i0wl4tf0pzaymb"
 					data-product="hcp"
 				/>
 				<meta
 					name="zd-site-verification"
-					key="xxmpuhow9r8iz9sq31d2bc"
-					content="xxmpuhow9r8iz9sq31d2bc"
+					key="36fp2i1pj67d8cjtzf4fi9"
+					content="36fp2i1pj67d8cjtzf4fi9"
 					data-product="terraform"
 				/>
 				<meta
 					name="zd-site-verification"
-					key="iuwt0p3j768fmso8hm98"
-					content="iuwt0p3j768fmso8hm98"
+					key="nbe87kfyp1sck7b13vj1i"
+					content="nbe87kfyp1sck7b13vj1i"
 					data-product="packer"
 				/>
 				<meta
 					name="zd-site-verification"
-					key="lhbjuf5innptc678ken0f8"
-					content="lhbjuf5innptc678ken0f8"
+					key="wvsmmqa1cfb9am9zlwfj"
+					content="wvsmmqa1cfb9am9zlwfj"
 					data-product="consul"
 				/>
 				<meta
 					name="zd-site-verification"
-					key="d4udllp6txbot6z8cuzxs"
-					content="d4udllp6txbot6z8cuzxs"
+					key="cw22oopfwr68ujj0n5pn9i"
+					content="cw22oopfwr68ujj0n5pn9i"
 					data-product="boundary"
 				/>
 				<meta
 					name="zd-site-verification"
-					key="1i8so200ii4smuo4wm0j9"
-					content="1i8so200ii4smuo4wm0j9"
+					key="lkslvganwfgfqfwpdeicgh"
+					content="lkslvganwfgfqfwpdeicgh"
 					data-product="vault"
 				/>
 				<meta
 					name="zd-site-verification"
-					key="ykjjnuk3ng93l06hwzj6ug"
-					content="ykjjnuk3ng93l06hwzj6ug"
+					key="jl2wp2hoej9rz6c8rmqdns"
+					content="jl2wp2hoej9rz6c8rmqdns"
 					data-product="nomad"
 				/>
 				<meta
 					name="zd-site-verification"
-					key="9kcw71js0xc1yjobla5mq"
-					content="9kcw71js0xc1yjobla5mq"
+					key="2eb0cu6xceo73t0038m0tb"
+					content="2eb0cu6xceo73t0038m0tb"
 					data-product="waypoint"
 				/>
 				<meta
 					name="zd-site-verification"
-					key="3aoyn57r4ver42w2u8cyy"
-					content="3aoyn57r4ver42w2u8cyy"
+					key="n52xisxdf3higs2q9kuogd"
+					content="n52xisxdf3higs2q9kuogd"
 					data-product="vagrant"
 				/>
 

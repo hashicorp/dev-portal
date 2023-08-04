@@ -36,12 +36,12 @@ function ApiDocsView({
 	/**
 	 * We always render the API docs name in a heading-styled element.
 	 *
-	 * When `serviceData` is provided, we'll render the service name
+	 * When `serviceData.name` is provided, we'll render the service name
 	 * in an `h1` element, as the `serviceName` is a more meaningful page title.
 	 * In such cases, our page heading needs to be a `p` element to avoid
 	 * having multiple `h1` elements on the page.
 	 */
-	const pageHeadingTag = serviceData ? 'p' : 'h1'
+	const pageHeadingTag = serviceData?.name ? 'p' : 'h1'
 
 	/**
 	 * We only show the version switcher if we have at least 2 options.
@@ -73,8 +73,10 @@ function ApiDocsView({
 				}
 			/>
 			{serviceData ? (
-				<>
-					<h1 className={s.serviceHeading}>{serviceData.name}</h1>
+				<div className={s.serviceData}>
+					{serviceData.name ? (
+						<h1 className={s.serviceHeading}>{serviceData.name}</h1>
+					) : null}
 					{serviceData.operations.map((operation: OperationObjectType) => {
 						return (
 							<OperationObject
@@ -86,7 +88,7 @@ function ApiDocsView({
 							/>
 						)
 					})}
-				</>
+				</div>
 			) : (
 				<p className={s.sidebarPrompt}>Select a service from the sidebar.</p>
 			)}

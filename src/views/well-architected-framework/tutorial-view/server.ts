@@ -13,8 +13,8 @@ import wafData from 'data/well-architected-framework.json'
 import wafContent from 'content/well-architected-framework/index.json'
 import { buildCategorizedWafSidebar } from 'views/well-architected-framework/utils/generate-sidebar-items'
 import {
-	Collection as ApiCollection,
-	TutorialLite as ApiTutorialLite,
+	Collection as ClientCollection,
+	TutorialLite as ClientTutorialLite,
 } from 'lib/learn-client/types'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import { MenuItem, SidebarProps } from 'components/sidebar'
@@ -36,11 +36,12 @@ export async function getWafTutorialViewProps(
 	// get all the waf collections to generate the collection level sidebar
 	const allWafCollections = await getCollectionsBySection(wafData.slug)
 	const currentCollection = allWafCollections.find(
-		(collection: ApiCollection) =>
+		(collection: ClientCollection) =>
 			collection.slug === `${wafData.slug}/${collectionFilename}`
 	)
-	const currentTutorialReference = currentCollection?.tutorials.find((t) =>
-		t.slug.endsWith(tutorialFilename)
+	const currentTutorialReference = currentCollection?.tutorials.find(
+		(t: ClientTutorialLite) =>
+			tutorialFilename === splitProductFromFilename(t.slug)
 	)
 
 	// The tutorial doesn't exist in collection - return 404
@@ -70,7 +71,7 @@ export async function getWafTutorialViewProps(
 		fullTutorialData.collectionCtx
 	)
 	const tutorialNavLevelMenuItems = collectionContext.current.tutorials.map(
-		(t: ApiTutorialLite) => {
+		(t: ClientTutorialLite) => {
 			const fullTutorialPath = `/${
 				collectionContext.current.slug
 			}/${splitProductFromFilename(t.slug)}`
@@ -116,6 +117,9 @@ export async function getWafTutorialViewProps(
 
 	return {
 		props: stripUndefinedProperties<WafTutorialViewProps>({
+			metadata: {
+				title: fullTutorialData.name,
+			},
 			tutorial: {
 				...fullTutorialData,
 				content: serializedContent,

@@ -4,7 +4,6 @@
  */
 
 import { ReactElement } from 'react'
-import { CurrentContentType } from 'contexts'
 import Badge from 'components/badge'
 import Text from 'components/text'
 import { useCommandBar } from 'components/command-bar'
@@ -12,7 +11,7 @@ import s from './no-results-message.module.css'
 
 interface NoResultsMessageProps {
 	tabsWithResults: {
-		type: CurrentContentType
+		type: 'global' | 'docs' | 'tutorials' | 'integrations'
 		heading: string
 		icon: ReactElement<React.JSX.IntrinsicElements['svg']>
 	}[]

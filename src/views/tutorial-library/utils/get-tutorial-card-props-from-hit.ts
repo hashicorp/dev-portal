@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { TutorialHitObject } from 'components/command-bar/commands/search/components'
+import { TutorialHitObject } from 'components/command-bar/commands/search/unified-search/types'
 import { TutorialCardPropsWithId } from 'components/tutorial-card'
 import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
 import { getTutorialSlug } from 'views/collection-view/helpers'

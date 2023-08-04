@@ -4,7 +4,7 @@
  */
 
 import { NextResponse } from 'next/server'
-import type { NextFetchEvent, NextRequest } from 'next/server'
+import { type NextFetchEvent, type NextRequest, userAgent } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
 import variantRewrites from '.generated/tutorial-variant-map.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
@@ -47,6 +47,14 @@ function setHappyKitCookie(
  */
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const { geo } = req
+
+	// 07/07/2023 — Simple UA check
+	const { ua } = userAgent(req)
+	const regexp = /(bytespider|bytedance)/i
+	if (regexp.test(ua)) {
+		return NextResponse.json(null, { status: 404 })
+	}
+	// ----------------------
 
 	let response: NextResponse
 

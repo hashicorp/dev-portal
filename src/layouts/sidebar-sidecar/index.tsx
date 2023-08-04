@@ -13,7 +13,7 @@ import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import { useScroll } from 'framer-motion'
 import { useMobileMenu } from 'contexts'
-import BaseLayout from 'layouts/base-new'
+import BaseLayout from 'layouts/base-layout'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import MobileMenuContainer, {

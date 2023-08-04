@@ -11,7 +11,7 @@ import {
 	useState,
 } from 'react'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
-import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
+import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 import { ProductSlug } from 'types/products'
@@ -266,7 +266,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 							<SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
 						) : undefined
 					}
-					icon={<IconChevronRight16 />}
+					icon={<IconChevronDown16 />}
 				/>
 			</button>
 			{isOpen && (

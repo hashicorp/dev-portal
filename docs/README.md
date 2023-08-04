@@ -141,6 +141,7 @@ src/
 - **`components`** - Shareable, smaller components for use across any number of other components
 - **`views`** - Componentry which represents a full site "view." This is a way to abstract out page components and easily co-locate related code. Not necessarily intended for re-use, unless one needs to render the same view on multiple pages. This also allows us to co-locate sub-components and test files with page components, which is otherwise difficult with file-based routing
 - **`layouts`** - Layout components which are generic and possibly used across different pages (see [Next.js docs](https://nextjs.org/docs/basic-features/layouts#per-page-layouts))
+  - **Note**: In support of future app-router adoption, we are no longer using the `.layout` or `.getLayout` pattern, which is not supported in the app directory.
 - **`hooks`** - Shared hooks which are applicable for use across a variety of other components. Hooks which access shared contexts should live in `contexts/` (see below)
 - **`contexts`** - Shared [contexts](https://reactjs.org/docs/context.html) and utilities for accessing / interacting with the context values
 
@@ -153,9 +154,14 @@ import SomeLayout from 'layouts/some-layout'
 
 // if we need to adjust props, can wrap this to make any changes necessary
 const SomePage = SomePageView
-SomePage.layout = SomeLayout
 
-export default SomePage
+export default function SomePage(props) {
+	return (
+		<SomeLayout>
+			<SomePageView {...props} />
+		</SomeLayout>
+	)
+}
 ```
 
 ## Configuration

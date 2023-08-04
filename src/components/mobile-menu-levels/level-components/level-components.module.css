@@ -1,0 +1,20 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.listResetStyles {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+.heading {
+	color: var(--token-color-foreground-primary);
+	font-size: var(--token-typography-display-100-font-size);
+	font-weight: var(--token-typography-font-weight-semibold);
+	line-height: var(--token-typography-display-100-line-height);
+	padding: 0 8px;
+	margin: 0 0 12px 0;
+}

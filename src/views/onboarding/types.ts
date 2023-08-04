@@ -14,9 +14,10 @@ import { CollectionContext, TutorialViewProps } from 'views/tutorial-view'
 import { NextPreviousProps } from 'views/tutorial-view/components'
 import { OutlineLinkItem } from 'components/outline-nav/types'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { HeadMetadataProps } from 'components/head-metadata/types'
 
 export interface OnboardingCollectionViewProps {
-	metadata: {
+	metadata: HeadMetadataProps & {
 		onboardingName: string
 		onboardingSlug: string
 	}
@@ -28,6 +29,7 @@ export interface OnboardingCollectionViewProps {
 }
 
 export interface OnboardingTutorialViewProps {
+	metadata: HeadMetadataProps
 	tutorial: Omit<
 		TutorialFullCollectionCtx,
 		'content' | 'collectionCtx' | 'variant'

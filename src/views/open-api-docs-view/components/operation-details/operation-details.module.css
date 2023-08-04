@@ -1,0 +1,46 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 48px;
+}
+
+.section {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.sectionHeading {
+	composes: hds-typography-display-300 from global;
+	font-weight: var(--token-typography-font-weight-bold);
+	color: var(--token-color-foreground-strong);
+}
+
+.sectionGroups {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+}
+
+.group {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.groupHeading {
+	composes: hds-typography-display-200 from global;
+	font-weight: var(--token-typography-font-weight-semibold);
+	color: var(--token-color-foreground-primary);
+}
+
+.groupProperties {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.noGroupsMessage {
+	composes: hds-typography-body-200 from global;
+	color: var(--token-color-foreground-faint);
+}

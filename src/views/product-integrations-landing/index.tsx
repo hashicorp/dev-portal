@@ -45,4 +45,3 @@ export default function ProductIntegrationsLanding({
 		</IntegrationsSearchProvider>
 	)
 }
-ProductIntegrationsLanding.contentType = 'integrations'

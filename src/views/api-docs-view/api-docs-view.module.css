@@ -3,10 +3,16 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+.serviceData {
+	margin-top: 32px;
+	display: flex;
+	flex-direction: column;
+}
+
 .serviceHeading {
 	composes: hds-typography-display-400 from global;
 	font-weight: var(--token-typography-font-weight-bold);
-	margin: 32px 0 16px 0;
+	margin-bottom: 16px;
 }
 
 .sidebarPrompt {

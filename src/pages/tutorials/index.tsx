@@ -83,7 +83,7 @@ const getStaticProps = async () => {
 	return {
 		props: stripUndefinedProperties({
 			metadata: {
-				title: 'HashiCorp Tutorials',
+				title: 'Tutorials',
 				description: PAGE_SUBTITLE,
 				localOgImage: 'tutorials.jpg',
 			},
