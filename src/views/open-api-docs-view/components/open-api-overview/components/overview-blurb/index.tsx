@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import InlineLink from 'components/inline-link'
 import { OpenApiOverviewProps } from '../../'
 import s from './overview-blurb.module.css'
