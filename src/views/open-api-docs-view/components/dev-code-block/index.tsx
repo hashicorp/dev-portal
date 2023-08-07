@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { CSSProperties, ReactNode } from 'react'
 import classNames from 'classnames'
 import s from './dev-code-block.module.css'

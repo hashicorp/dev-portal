@@ -12,7 +12,7 @@ import {
 } from 'components/command-bar/components'
 import { RecentSearch, RecentSearchesProps } from './types'
 
-const RecentSearches = ({ recentSearches }: RecentSearchesProps) => {
+export const RecentSearches = ({ recentSearches }: RecentSearchesProps) => {
 	const { inputRef, setCurrentInputValue } = useCommandBar()
 
 	if (!recentSearches || recentSearches.length === 0) {
@@ -42,4 +42,3 @@ const RecentSearches = ({ recentSearches }: RecentSearchesProps) => {
 }
 
 export type { RecentSearch, RecentSearchesProps }
-export default RecentSearches

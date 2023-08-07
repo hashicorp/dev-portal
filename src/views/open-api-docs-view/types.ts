@@ -1,19 +1,12 @@
-import type { ParsedUrlQuery } from 'querystring'
-import type { ProductData } from 'types/products'
-import type { GithubFile } from 'lib/fetch-github-file'
-
 /**
- * Property details are used to document the shape of the requests and
- * response data of each operation.
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
  */
-export interface PropertyDetailProps {
-	name: string
-	/**
-	 * Some temporary data to mess around with during prototyping.
-	 * TODO: remove this for the production implementation.
-	 */
-	_placeholder: $TSFixMe
-}
+
+import type { ParsedUrlQuery } from 'querystring'
+import type { ProductData, ProductSlug } from 'types/products'
+import type { GithubFile } from 'lib/fetch-github-file'
+import type { PropertyDetailsGroup } from './components/operation-details'
 
 /**
  * Operations are specific request types to specific endpoints.
@@ -22,9 +15,13 @@ export interface PropertyDetailProps {
 export interface OperationProps {
 	operationId: string
 	slug: string
-	queryParameters?: PropertyDetailProps[]
-	pathParameters?: PropertyDetailProps[]
-	bodyParameters?: PropertyDetailProps[]
+	type: string
+	path: {
+		full: string
+		truncated: string
+	}
+	requestData: PropertyDetailsGroup[]
+	responseData: PropertyDetailsGroup[]
 	summary?: string
 	/**
 	 * Some temporary data to mess around with during prototyping.
@@ -68,17 +65,46 @@ export interface OpenApiDocsParams extends ParsedUrlQuery {
 }
 
 /**
+ * Nav items are used to render the sidebar and mobile nav.
+ *
+ * TODO: move these types to sidebar component.
+ * For now, this is difficult, as the MenuItem type is a complex
+ * interface that requires a larger effort to untangle, and all
+ * related Sidebar components are similarly entangled.
+ * Rationale is to start with simpler slightly duplicative types here,
+ * rather than try to embark on the `MenuItem` type refactor.
+ * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+ */
+type DividerNavItem = { divider: true }
+type HeadingNavItem = { heading: string }
+type LinkNavItem = {
+	title: string
+	fullPath: string
+	theme?: ProductSlug
+}
+
+export type OpenApiNavItem = DividerNavItem | HeadingNavItem | LinkNavItem
+
+/**
  * We'll use this type to document the shape of props for the view component.
  * For now, we have a placeholder. We'll expand this as we build out the view.
  */
 export interface OpenApiDocsViewProps {
 	IS_REVISED_TEMPLATE: true
 	productData: ProductData
+	title: string
+	description: string
+	releaseStage: string
+
 	/**
 	 * Operations form the basis of OpenAPI docs.
 	 * They're grouped into sections based on operation paths.
 	 */
 	operationGroups: OperationGroup[]
+	/**
+	 * Operation nav items are rendered into the sidebar and mobile nav.
+	 */
+	navItems: OpenApiNavItem[]
 	/**
 	 * Some temporary data we'll remove for the production implementation.
 	 */

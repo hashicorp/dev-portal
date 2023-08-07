@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // Components
 import MobileMenuLevels from 'components/mobile-menu-levels'
 import { SidebarHorizontalRule } from 'components/sidebar/components'
@@ -6,17 +11,22 @@ import {
 	mobileMenuLevelMain,
 	mobileMenuLevelProduct,
 } from 'components/mobile-menu-levels/level-components'
+// Local
+import { OpenApiSidebarContents } from '../open-api-sidebar-contents'
 // Types
 import type { ProductData } from 'types/products'
+import type { OpenApiNavItem } from 'views/open-api-docs-view/types'
 
 /**
  * Placeholder for OpenApiDocsView mobile menu levels.
  */
 export function OpenApiDocsMobileMenuLevels({
 	productData,
+	navItems,
 }: {
 	// Product data, used to generate mobile menu levels.
 	productData: ProductData
+	navItems: OpenApiNavItem[]
 }) {
 	return (
 		<MobileMenuLevels
@@ -28,9 +38,7 @@ export function OpenApiDocsMobileMenuLevels({
 					content: (
 						<div>
 							{/* API docs mobile menu contents */}
-							<div style={{ border: '1px solid magenta' }}>
-								PLACEHOLDER for OpenApiDocsView mobile menu contents
-							</div>
+							<OpenApiSidebarContents navItems={navItems} />
 							{/* Common resources for this product */}
 							<SidebarHorizontalRule />
 							<ProductResourceNavItems slug={productData.slug} />
