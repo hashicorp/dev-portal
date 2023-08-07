@@ -46,7 +46,7 @@ export function formatTutorialToMenuItem(
 	return {
 		tutorialId: tutorial.id,
 		collectionId: collection.id,
-		text: tutorial.name,
+		text: tutorial.shortName,
 		href: path,
 		isActive: path === currentPathWithoutVariant,
 	}

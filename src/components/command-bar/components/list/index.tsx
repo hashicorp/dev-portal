@@ -5,8 +5,22 @@
 
 import { useId } from '@react-aria/utils'
 import Text from 'components/text'
-import { CommandBarListProps } from './types'
+
 import s from './command-bar-list.module.css'
+
+import { PropsWithChildren } from 'react'
+
+type WithLabelProps =
+	| {
+			ariaLabelledBy?: never
+			label: string
+	  }
+	| {
+			ariaLabelledBy: string
+			label?: never
+	  }
+
+type CommandBarListProps = PropsWithChildren<WithLabelProps>
 
 const CommandBarList = ({
 	ariaLabelledBy,
@@ -50,5 +64,4 @@ const CommandBarList = ({
 	)
 }
 
-export type { CommandBarListProps }
 export { CommandBarList }

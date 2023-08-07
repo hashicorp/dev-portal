@@ -12,6 +12,12 @@ import {
 } from 'views/api-docs-view/server'
 import { buildApiDocsBreadcrumbs } from 'views/api-docs-view/server/get-api-docs-static-props/utils'
 import { fetchCloudApiVersionData } from 'views/api-docs-view/utils'
+// Revised view
+import OpenApiDocsView from 'views/open-api-docs-view'
+import {
+	getStaticPaths as getOpenApiDocsStaticPaths,
+	getStaticProps as getOpenApiDocsStaticProps,
+} from 'views/open-api-docs-view/server'
 // Components
 import {
 	PathTruncationAside,
@@ -20,8 +26,19 @@ import {
 // Types
 import type { OperationObjectType } from 'components/open-api-page/types'
 import type { ApiDocsViewProps } from 'views/api-docs-view/types'
-import type { GetStaticPaths, GetStaticProps } from 'next'
+import type {
+	GetStaticPaths,
+	GetStaticProps,
+	GetStaticPropsContext,
+} from 'next'
+import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
 import { isDeployPreview } from 'lib/env-checks'
+
+/**
+ * 🚩 Flag to use the work-in-progress revised API docs view & server functions.
+ */
+const USE_REVISED_TEMPLATE =
+	__config.flags.enable_hcp_vault_secrets_api_docs_revision
 
 /**
  * The product slug is used to fetch product data for the layout.
@@ -49,7 +66,19 @@ const GITHUB_SOURCE_DIRECTORY = {
  * Render `<ApiDocsView />` with custom operation path truncation
  * for HCP Vault secrets.
  */
-function HcpVaultSecretsApiDocsView(props: ApiDocsViewProps) {
+function HcpVaultSecretsApiDocsView(
+	props: ApiDocsViewProps | OpenApiDocsViewProps
+) {
+	/**
+	 * 🚩 If the flag is enabled, use the revised template
+	 */
+	if ('IS_REVISED_TEMPLATE' in props) {
+		return <OpenApiDocsView {...props} />
+	}
+
+	/**
+	 * Otherwise, use the existing API docs view
+	 */
 	return (
 		<ApiDocsView
 			{...props}
@@ -64,7 +93,17 @@ function HcpVaultSecretsApiDocsView(props: ApiDocsViewProps) {
 /**
  * Get static paths, using `versionData` fetched from GitHub.
  */
-export const getStaticPaths: GetStaticPaths<ApiDocsParams> = async () => {
+export const getStaticPaths: GetStaticPaths<ApiDocsParams> = async (ctx) => {
+	/**
+	 * 🚩 If the flag is enabled, use the revised template
+	 */
+	if (USE_REVISED_TEMPLATE) {
+		return await getOpenApiDocsStaticPaths(ctx)
+	}
+
+	/**
+	 * Otherwise, use the existing API docs view
+	 */
 	// If we are in a deploy preview, don't pre-render any paths
 	if (isDeployPreview()) {
 		return { paths: [], fallback: 'blocking' }
@@ -81,15 +120,34 @@ export const getStaticPaths: GetStaticPaths<ApiDocsParams> = async () => {
  * and of course we need specific data for the current version.
  */
 export const getStaticProps: GetStaticProps<
-	ApiDocsViewProps,
+	ApiDocsViewProps | OpenApiDocsViewProps,
 	ApiDocsParams
-> = async ({ params }: { params: ApiDocsParams }) => {
+> = async ({ params }: GetStaticPropsContext<ApiDocsParams>) => {
 	// Fetch all version data, based on remote `stable` & `preview` subfolders
 	const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
 	// If we can't find any version data at all, render a 404 page.
 	if (!versionData) {
 		return { notFound: true }
 	}
+
+	/**
+	 * 🚩 If the flag is enabled, use the revised template
+	 */
+	if (USE_REVISED_TEMPLATE) {
+		return await getOpenApiDocsStaticProps({
+			basePath: BASE_URL,
+			context: { params },
+			productSlug: PRODUCT_SLUG,
+			// Handle rename of `targetFile` to `sourceFile` for new template
+			versionData: versionData.map(({ targetFile, ...rest }) => {
+				return { ...rest, sourceFile: targetFile }
+			}),
+		})
+	}
+
+	/**
+	 * Otherwise, use the existing API docs view
+	 */
 	// Return static props
 	const staticPropsResult = await getApiDocsStaticProps({
 		productSlug: PRODUCT_SLUG,

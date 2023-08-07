@@ -173,4 +173,3 @@ export default function ProductIntegrationComponentView({
 		</ProductIntegrationLayout>
 	)
 }
-ProductIntegrationComponentView.contentType = 'integrations'

@@ -4,12 +4,9 @@
  */
 
 import classNames from 'classnames'
-import { CommandBarDividerProps } from './types'
 import s from './command-bar-divider.module.css'
 
-const CommandBarDivider = ({ className }: CommandBarDividerProps) => {
+const CommandBarDivider = ({ className }: { className?: string }) => {
 	return <hr className={classNames(s.root, className)} />
 }
-
-export type { CommandBarDividerProps }
 export { CommandBarDivider }

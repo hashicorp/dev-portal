@@ -3,4 +3,4 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-export * from './dialog-body'
+export { UnifiedSearchCommandBarDialogBody } from './dialog-body'

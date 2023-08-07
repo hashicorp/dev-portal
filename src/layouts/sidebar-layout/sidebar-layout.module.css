@@ -1,0 +1,44 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	display: flex;
+
+	/* Grow to fill the vertical space that BaseLayout creates */
+	flex-grow: 1;
+	gap: 48px;
+
+	@media (min-width: 1440px) {
+		gap: 64px;
+	}
+}
+
+.sidebarArea {
+	/* Note that --navigation-header-height is set by BaseLayout styles */
+	background-color: var(--token-color-surface-primary);
+	box-shadow: var(--token-surface-base-box-shadow);
+	display: none;
+	flex-grow: 0;
+	flex-shrink: 0;
+
+	/* Even if content is long, area shoul dbe fully within the viewport.
+	   For shorter content, we don't need the height to be tall. */
+	max-height: calc(100vh - var(--navigation-header-height));
+	overflow: auto;
+	padding: 24px 24px 100px 24px;
+	position: sticky;
+	top: var(--navigation-header-height);
+	width: 312px;
+
+	@media (--dev-dot-hide-mobile-menu) {
+		display: block;
+	}
+}
+
+.mainArea {
+	flex-grow: 1;
+	flex-shrink: 1;
+	min-width: 0;
+}

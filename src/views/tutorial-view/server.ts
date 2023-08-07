@@ -106,7 +106,7 @@ export async function getTutorialPageProps(
 				filename: collection.filename,
 			},
 			tutorial: {
-				name: fullTutorialData.name,
+				name: fullTutorialData.shortName,
 				filename: tutorialReference.filename,
 			},
 		}),

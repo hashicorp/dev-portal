@@ -76,7 +76,5 @@ const ProductRootDocsPathLanding = ({
 	)
 }
 
-ProductRootDocsPathLanding.contentType = 'docs'
-
 export type { ProductRootDocsPathLandingProps }
 export default ProductRootDocsPathLanding

@@ -79,7 +79,6 @@
 
 			& .topRow {
 				& .key {
-					font-size: 14px;
 					color: var(--token-color-foreground-primary);
 				}
 			}
@@ -99,13 +98,18 @@
 	}
 }
 
+.nestedDivider {
+	color: var(--token-color-border-primary);
+	background-color: var(--token-color-border-primary);
+}
+
 .key {
 	composes: g-offset-scroll-margin-top from global;
+	composes: hds-typography-code-200 from global;
 	border: 1px solid var(--token-color-border-primary);
 	border-radius: 5px;
 	padding: 2px 4px 3px;
 	background: var(--token-color-palette-neutral-50);
-	font-size: 16px;
 	color: var(--token-color-foreground-strong);
 }
 

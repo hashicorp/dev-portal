@@ -7,7 +7,8 @@ import classNames from 'classnames'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import { ProductSlug } from 'types/products'
 import { productSlugsToNames } from 'lib/products'
-import BaseNewLayout from 'layouts/base-new'
+import BaseLayout from 'layouts/base-layout'
+import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import {
 	PAGE_TITLE,
 	PAGE_SUBTITLE,
@@ -98,36 +99,35 @@ const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
 	] = PRODUCT_SECTIONS_ORDER_BY_SLUG
 
 	return (
-		<div className={s.root}>
-			<div className={s.pageHero}>
-				<PageHero subtitle={PAGE_SUBTITLE} title={PAGE_TITLE} />
-			</div>
-			{renderProductSections(
-				[firstProductSlug, secondProductSlug, thirdProductSlug],
-				restPageContent
-			)}
-			<section>
-				<div className={s.contentTypesSectionWrapper}>
-					<ContentTypesSection
-						className={s.contentTypesSection}
-						items={CONTENT_TYPES_SECTION_ITEMS}
-						title={CONTENT_TYPES_SECTION_TITLE}
-					/>
+		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
+			<div className={s.root}>
+				<div className={s.pageHero}>
+					<PageHero subtitle={PAGE_SUBTITLE} title={PAGE_TITLE} />
 				</div>
-			</section>
-			{renderProductSections(remainingProductSlugs, restPageContent)}
-			<section>
-				<CrossProductSection
-					title={BETTER_TOGETHER_SECTION_TITLE}
-					collections={crossProductSectionCollections}
-					className={s.crossProductSection}
-				/>
-			</section>
-		</div>
+				{renderProductSections(
+					[firstProductSlug, secondProductSlug, thirdProductSlug],
+					restPageContent
+				)}
+				<section>
+					<div className={s.contentTypesSectionWrapper}>
+						<ContentTypesSection
+							className={s.contentTypesSection}
+							items={CONTENT_TYPES_SECTION_ITEMS}
+							title={CONTENT_TYPES_SECTION_TITLE}
+						/>
+					</div>
+				</section>
+				{renderProductSections(remainingProductSlugs, restPageContent)}
+				<section>
+					<CrossProductSection
+						title={BETTER_TOGETHER_SECTION_TITLE}
+						collections={crossProductSectionCollections}
+						className={s.crossProductSection}
+					/>
+				</section>
+			</div>
+		</BaseLayout>
 	)
 }
-
-TutorialsLandingView.contentType = 'tutorials'
-TutorialsLandingView.layout = BaseNewLayout
 
 export default TutorialsLandingView
