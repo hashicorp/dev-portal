@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Given a string, and an _optional_ domain name,
  * Return a new URL object built from the string with `new URL()`.
  *
