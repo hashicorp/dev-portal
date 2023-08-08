@@ -6,6 +6,16 @@ Welcome to HashiCorp Developer! This is the home for HashiCorp product reference
 
 - [Overview](#overview)
 - [Local Development](#local-development)
+- [Accessibility](#accessibility)
+- [Testing](#testing)
+- [Helpers](#helpers)
+- [Component Organziation](#component-organization)
+- [Configuration](#configuration)
+- [Analytics](#analytics)
+- [SEO metadata](#seo-metadata)
+- [Performance](#performance)
+- [Remote Content & Application context](#remote-content--application-context)
+- [Proxied Redirects](#proxied-redirects)
 
 > **Content Authors** Please see [this documentation](./src/content/README.md) for contributing content updates to Developer. Reach out in [#proj-dev-portal](https://hashicorp.slack.com/archives/C01KCU4HDPY) on Slack if you have any issues / questions.
 
@@ -52,27 +62,7 @@ npm start
 
 This will give you a development server running on [localhost:3000](http://localhost:3000).
 
-To preview the co-located `.io` project sites, you can run variations on the `npm start` command:
-
-```sh
-npm run start:sentinel # https://docs.hashicorp.com/sentinel
-npm run start:vault # https://www.vaultproject.io
-npm run start:waypoint # https://www.boundaryproject.io
-```
-
-> **Note**: we're currently in the process of migrating `.io` sites into [the hashicorp/web repository](https://github.com/hashicorp/web). At present the following domains are served from `hashicorp/web`:
->
-> - `boundaryproject.io`
-> - `consul.io`
-> - `nomadproject.io`
-> - `packer.io`
-> - `vagrantup.com`
-> - `vaultproject.io`
-> - `waypointproject.io`
->
-> We expect to migrate the remaining `.io` sites to serve from `hashicorp/web` by 2023-04-14.
-
-These commands set the `DEV_IO` env variable in order to simulate the environment we use to deploy the `.io` sites. Further details on the local preview processes for the `.io` sites can be found in [MKTG-040 RFC](https://docs.google.com/document/d/1iLx2jL09YkLbhSXdK9ScSedwSiujYDEa524FejOAnZM/edit) and in the [corresponding Digital RFC](https://docs.google.com/document/d/1tvEhrLF0YyRimgR-Ibd_lo7sqTvw0TFAi77jbgjROVk/edit).
+> **Note**: Historically, the `.io` sites were served from this repository. They have been migrated into [the hashicorp/web repository](https://github.com/hashicorp/web). See [this RFC](https://docs.google.com/document/d/1iLx2jL09YkLbhSXdK9ScSedwSiujYDEa524FejOAnZM/) for full context.
 
 ### Installing Recommended VS Code Extensions
 
@@ -143,7 +133,9 @@ To view the report for an end-to-end test run:
 npx playwright show-report
 ```
 
-## Reset with `clean`
+## Helpers
+
+### Reset with `clean`
 
 Auto-populated subdirectories such as `.next` and `node_modules` can sometimes become out of date. Delete all related subdirectories with the `clean` command.
 
@@ -260,7 +252,7 @@ We use the [Next.js Bundle Analysis GitHub Action](https://github.com/hashicorp/
 
 ## Remote Content & Application context
 
-This application pulls content from multiple different repositories (remote content) through our Learn API, content API, as well as directly from the GitHub API. In order to facilitate development and previewing of this content, the application can be run within the context of one of these source repositories. In this scenario, we want to read
+This application pulls content from multiple different repositories (remote content) through our[Learn API](https://github.com/hashicorp/learn-api), [content API](https://github.com/hashicorp/mktg-content-workflows), [integrations API](https://github.com/hashicorp/integrations-api), from the local filesystem, as well as directly from the GitHub API. In order to facilitate development and previewing of this content, the application can be run within the context of one of these source repositories. In this scenario, we want to read
 content from the filesystem for that specific source. This can be distilled down into three specific contexts that need to be handled for any remote content:
 
 - Running the application in this repository (`hashicorp/dev-portal`): all content is sourced remotely
