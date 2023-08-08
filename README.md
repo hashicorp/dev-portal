@@ -21,8 +21,6 @@ Welcome to HashiCorp Developer! This is the home for HashiCorp product reference
 
 ## Overview
 
-- overeall how it works
-- the related backend systems
 
 Documentation for each product is sourced from its respective product repository, and served via Digital's [content API](https://github.com/hashicorp/mktg-content-workflows/#get-apicontentproductfullpath)
 
