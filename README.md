@@ -6,7 +6,6 @@ Welcome to HashiCorp Developer! This is the home for HashiCorp product reference
 
 ## Table of contents
 
-- [Overview](#overview)
 - [Local Development](#local-development)
 - [Accessibility](#accessibility)
 - [Testing](#testing)
@@ -18,13 +17,6 @@ Welcome to HashiCorp Developer! This is the home for HashiCorp product reference
 - [Performance](#performance)
 - [Remote Content & Application context](#remote-content--application-context)
 - [Proxied Redirects](#proxied-redirects)
-
-## Overview
-
-- overeall how it works
-- the related backend systems
-
-Documentation for each product is sourced from its respective product repository, and served via Digital's [content API](https://github.com/hashicorp/mktg-content-workflows/#get-apicontentproductfullpath)
 
 ## Local Development
 
@@ -165,9 +157,6 @@ An example implementation of components laid out this way:
 // pages/some/page.tsx
 import SomePageView from 'views/some-page'
 import SomeLayout from 'layouts/some-layout'
-
-// if we need to adjust props, can wrap this to make any changes necessary
-const SomePage = SomePageView
 
 export default function SomePage(props) {
 	return (
