@@ -206,7 +206,7 @@ Configuration files should be used for any non-sensitive configuration values ne
 
 ## Search
 
-We're using [Algolia](https://www.algolia.com/) to make the repository searchable. The search index is automatically updated when content changes are pushed in the various content repositories. The scripts to update the search index live in `mktg-content-workflows`: [docs](https://github.com/hashicorp/mktg-content-workflows/tree/main/workflows/update-search-index) and [tutorials](https://github.com/hashicorp/mktg-content-workflows/tree/main/workflows/update-search-index-tutorials).
+We're using [Algolia](https://www.algolia.com/) to make the repository searchable. The search index is automatically updated when content changes are pushed in the various content repositories. The scripts to update the search index live in `mktg-content-workflows`: [docs](https://github.com/hashicorp/mktg-content-workflows/tree/main/workflows/update-search-index), [tutorials](https://github.com/hashicorp/mktg-content-workflows/tree/main/workflows/update-search-index-tutorials), and [integrations](https://github.com/hashicorp/mktg-content-workflows/tree/main/workflows/algolia-sync/sources/integrations).
 
 The `main` branch and all preview builds use the production Algolia index, `prod_DEVDOT_omni`. To use the staging index, `staging_DEVDOT_omni`, update the [algolia config value](https://github.com/hashicorp/dev-portal/blob/3d0c59d51240798f42fd3ce79b9e30a47371784f/config/base.json#L11-L15).
 
