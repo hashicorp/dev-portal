@@ -24,7 +24,9 @@ export function OperationSections({
 }) {
 	return (
 		<div className={s.root}>
-			<div className={s.examplesSlot}>{examplesSlot}</div>
+			<div className={s.examplesStickyContainer}>
+				<div className={s.examplesSlot}>{examplesSlot}</div>
+			</div>
 			<div className={s.detailsSlot}>{detailsSlot}</div>
 		</div>
 	)
