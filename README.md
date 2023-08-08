@@ -245,7 +245,7 @@ We use the [Next.js Bundle Analysis GitHub Action](https://github.com/hashicorp/
 
 ## Remote Content & Application context
 
-This application pulls content from multiple different repositories (remote content) through our[Learn API](https://github.com/hashicorp/learn-api), [content API](https://github.com/hashicorp/mktg-content-workflows), [integrations API](https://github.com/hashicorp/integrations-api), from the local filesystem, as well as directly from the GitHub API. In order to facilitate development and previewing of this content, the application can be run within the context of one of these source repositories. In this scenario, we want to read
+This application pulls content from multiple different repositories (remote content) through our [Learn API](https://github.com/hashicorp/learn-api), [content API](https://github.com/hashicorp/mktg-content-workflows), [integrations API](https://github.com/hashicorp/integrations-api), from the local filesystem, as well as directly from the GitHub API. In order to facilitate development and previewing of this content, the application can be run within the context of one of these source repositories. In this scenario, we want to read
 content from the filesystem for that specific source. This can be distilled down into three specific contexts that need to be handled for any remote content:
 
 - Running the application in this repository (`hashicorp/dev-portal`): all content is sourced remotely
