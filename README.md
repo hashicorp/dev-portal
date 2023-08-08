@@ -182,7 +182,7 @@ Per-environment configuration values are defined in JSON files in the `config/` 
 
 ```
 config/
-  base.json # Not used directly (see below)
+  base.json # May be used in any environment, including production (see below)
   development.json
   preview.json
   production.json
