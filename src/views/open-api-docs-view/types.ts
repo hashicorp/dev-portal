@@ -24,6 +24,11 @@ export interface OperationProps {
 	responseData: PropertyDetailsGroup[]
 	summary?: string
 	/**
+	 * Syntax-highlighted HTML that represents the URL path, with
+	 * word breaks to allow long URLs to wrap to multiple lines.
+	 */
+	urlPathForCodeBlock: string
+	/**
 	 * Some temporary data to mess around with during prototyping.
 	 * TODO: remove this for the production implementation.
 	 */

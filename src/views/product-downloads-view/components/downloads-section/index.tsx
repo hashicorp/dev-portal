@@ -162,7 +162,7 @@ const ChangelogSection = ({ selectedRelease }) => {
 				</div>
 				<MobileStandaloneLink
 					ariaLabel={`${name} version ${version} changelog`}
-					href={`https://github.com/hashicorp/${name}/blob/v${version}/CHANGELOG.md`}
+					href={`https://github.com/hashicorp/${name}/releases/tag/v${version}`}
 					size16Icon={<IconExternalLink16 />}
 					size24Icon={<IconExternalLink24 />}
 					iconPosition="trailing"
