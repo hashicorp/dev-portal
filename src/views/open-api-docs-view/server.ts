@@ -101,7 +101,7 @@ export async function getStaticProps({
 			: await fetchGithubFile(sourceFile)
 	const schemaData = await parseAndValidateOpenApiSchema(schemaFileString)
 	const { title } = schemaData.info
-	const operationProps = getOperationProps(schemaData)
+	const operationProps = await getOperationProps(schemaData)
 	const operationGroups = groupOperations(operationProps)
 	const navItems = getNavItems({
 		operationGroups,
@@ -116,6 +116,9 @@ export async function getStaticProps({
 	return {
 		props: {
 			productData,
+			title: schemaData.info.title,
+			releaseStage: targetVersion.releaseStage,
+			description: schemaData.info.description,
 			IS_REVISED_TEMPLATE: true,
 			_placeholder: {
 				productSlug,
