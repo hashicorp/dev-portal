@@ -219,6 +219,12 @@ console.log(__config.my_config_value)
 
 Configuration files should be used for any non-sensitive configuration values needed throughout the application which might vary by environment. Consider API endpoints, constants, and flags in scope for the configuration files. Any references to `__config` are replaced at build-time with the values from the environment's configuration file using [Webpack's DefinePlugin](https://webpack.js.org/plugins/define-plugin/).
 
+## Search
+
+We're using [Algolia](https://www.algolia.com/) to make the repository searchable. The search index is automatically updated when content changes are pushed in the various content repositories. The scripts to update the search index live in `mktg-content-workflows`: [docs](https://github.com/hashicorp/mktg-content-workflows/tree/main/workflows/update-search-index) and [tutorials](https://github.com/hashicorp/mktg-content-workflows/tree/main/workflows/update-search-index-tutorials).
+
+The `main` branch and all preview builds use the production Algolia index, `prod_DEVDOT_omni`. To use the staging index, `staging_DEVDOT_omni`, update the [algolia config value](https://github.com/hashicorp/dev-portal/blob/3d0c59d51240798f42fd3ce79b9e30a47371784f/config/base.json#L11-L15).
+
 ## Analytics
 
 Calls to `window.analytics.track()` are logged in development for easy iteration while adding analytics code. If you would prefer to reduce the noise created by these logs, start the app with `NEXT_PUBLIC_ANALYTICS_LOG_LEVEL=0`:
