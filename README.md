@@ -26,11 +26,6 @@ Welcome to HashiCorp Developer! This is the home for HashiCorp product reference
 
 Documentation for each product is sourced from its respective product repository, and served via Digital's [content API](https://github.com/hashicorp/mktg-content-workflows/#get-apicontentproductfullpath)
 
-### Historical context
-
-- learn / separate .io repos
-- web monorepo
-
 ## Local Development
 
 ### Setting Up Environment Variables
