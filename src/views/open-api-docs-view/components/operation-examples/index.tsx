@@ -5,8 +5,6 @@
 
 // react-components
 import CodeBlock from '@hashicorp/react-code-block'
-// Styles
-import s from './operation-examples.module.css'
 
 /**
  * Display the operation's full URL in an easy to copy code block,
@@ -29,7 +27,6 @@ export function OperationExamples({
 			 * Task: https://app.asana.com/0/1204678746647847/1205233741731093/f
 			 * PR: https://github.com/hashicorp/react-components/pull/991
 			 */
-			className={s.codeBlock}
 			options={{ heading, showClipboard: true }}
 			code={code}
 		/>
