@@ -39,7 +39,12 @@ export function OpenApiOperations({
 								path={operation.path.truncated}
 							/>
 							<OperationSections
-								examplesSlot={<OperationExamples operation={operation} />}
+								examplesSlot={
+									<OperationExamples
+										heading={operation.operationId}
+										code={operation.urlPathForCodeBlock}
+									/>
+								}
 								detailsSlot={
 									<OperationDetails
 										requestData={operation.requestData}
