@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.divider {
-	margin-bottom: 16px;
-	margin-top: 16px;
+.listResetStyles {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
 }

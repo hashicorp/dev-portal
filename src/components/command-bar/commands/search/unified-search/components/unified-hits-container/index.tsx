@@ -7,9 +7,8 @@
 import Tabs, { Tab } from 'components/tabs'
 import { CommandBarDivider } from 'components/command-bar/components'
 import { CommandBarList } from 'components/command-bar/components'
-// Shared search
-import { TabHeadingWithCount } from '../../../components'
 // Unified search
+import TabHeadingWithCount from '../tab-heading-with-count'
 import NoResultsMessage from '../no-results-message'
 import SuggestedPages from '../suggested-pages'
 

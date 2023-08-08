@@ -19,6 +19,11 @@ export interface InlineLinkProps extends LinkProps {
 	className?: LinkProps['className']
 
 	/**
+	 * Text style color, defaults to primary
+	 * */
+	color?: 'primary' | 'secondary'
+
+	/**
 	 * The destination of the link.
 	 */
 	href: LinkProps['href']
