@@ -158,6 +158,7 @@ An example implementation of components laid out this way:
 import SomePageView from 'views/some-page'
 import SomeLayout from 'layouts/some-layout'
 
+// if we need to adjust props, can wrap this to make any changes necessary
 export default function SomePage(props) {
 	return (
 		<SomeLayout>
@@ -173,7 +174,7 @@ Per-environment configuration values are defined in JSON files in the `config/` 
 
 ```
 config/
-  base.json # Not used directly (see below)
+  base.json # May be used in any environment, including production (see below)
   development.json
   preview.json
   production.json
@@ -197,7 +198,7 @@ Configuration files should be used for any non-sensitive configuration values ne
 
 ## Search
 
-We're using [Algolia](https://www.algolia.com/) to make the repository searchable. The search index is automatically updated when content changes are pushed in the various content repositories. The scripts to update the search index live in `mktg-content-workflows`: [docs](https://github.com/hashicorp/mktg-content-workflows/tree/main/workflows/update-search-index) and [tutorials](https://github.com/hashicorp/mktg-content-workflows/tree/main/workflows/update-search-index-tutorials).
+We're using [Algolia](https://www.algolia.com/) to make the repository searchable. The search index is automatically updated when content changes are pushed in the various content repositories. The scripts to update the search index live in `mktg-content-workflows`: [docs](https://github.com/hashicorp/mktg-content-workflows/tree/main/workflows/update-search-index), [tutorials](https://github.com/hashicorp/mktg-content-workflows/tree/main/workflows/update-search-index-tutorials), and [integrations](https://github.com/hashicorp/mktg-content-workflows/tree/main/workflows/algolia-sync/sources/integrations).
 
 The `main` branch and all preview builds use the production Algolia index, `prod_DEVDOT_omni`. To use the staging index, `staging_DEVDOT_omni`, update the [algolia config value](https://github.com/hashicorp/dev-portal/blob/3d0c59d51240798f42fd3ce79b9e30a47371784f/config/base.json#L11-L15).
 
@@ -236,7 +237,7 @@ We use the [Next.js Bundle Analysis GitHub Action](https://github.com/hashicorp/
 
 ## Remote Content & Application context
 
-This application pulls content from multiple different repositories (remote content) through our[Learn API](https://github.com/hashicorp/learn-api), [content API](https://github.com/hashicorp/mktg-content-workflows), [integrations API](https://github.com/hashicorp/integrations-api), from the local filesystem, as well as directly from the GitHub API. In order to facilitate development and previewing of this content, the application can be run within the context of one of these source repositories. In this scenario, we want to read
+This application pulls content from multiple different repositories (remote content) through our [Learn API](https://github.com/hashicorp/learn-api), [content API](https://github.com/hashicorp/mktg-content-workflows), [integrations API](https://github.com/hashicorp/integrations-api), from the local filesystem, as well as directly from the GitHub API. In order to facilitate development and previewing of this content, the application can be run within the context of one of these source repositories. In this scenario, we want to read
 content from the filesystem for that specific source. This can be distilled down into three specific contexts that need to be handled for any remote content:
 
 - Running the application in this repository (`hashicorp/dev-portal`): all content is sourced remotely
