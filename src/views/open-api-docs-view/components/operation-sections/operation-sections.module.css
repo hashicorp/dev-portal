@@ -21,7 +21,6 @@
 .examplesStickyContainer {
 	position: relative;
 	flex: 1 1 0;
-	border: 1px solid orange;
 	min-width: min(100%, 360px);
 }
 
