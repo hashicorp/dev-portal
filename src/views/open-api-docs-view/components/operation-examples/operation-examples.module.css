@@ -1,20 +1,4 @@
 .codeBlock {
 	flex: 1 1 0;
 	min-width: 0;
-
-	/* Force line wrapping in code block.
-	   TODO: move these styles to @hashicorp/react-code-block.
-		 Will introduce new options.wrapCode prop, which allows lines to wrap
-		 rather than overflow. For now, this works okay, the upstream update
-		 will be more complicated since we'll want it to support line numbers.
-		 Task: https://app.asana.com/0/1204678746647847/1205233741731093/f */
-	& [class*='style_linesWrapper'] {
-		width: 100% !important;
-	}
-
-	& [class*='style_LineOfCode'] {
-		white-space: pre-wrap;
-		overflow-wrap: break-word;
-		min-width: 0;
-	}
 }
