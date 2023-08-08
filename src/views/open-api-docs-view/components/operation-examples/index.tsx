@@ -56,7 +56,7 @@ export function OperationExamples({
 			 * implemented in the CodeBlock component itself instead.
 			 */
 			className={s.codeBlock}
-			options={{ heading, showClipboard: true, wrapCode: true }}
+			options={{ heading, showClipboard: true }}
 			code={urlCode}
 		/>
 	)
