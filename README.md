@@ -167,8 +167,6 @@ import SomePageView from 'views/some-page'
 import SomeLayout from 'layouts/some-layout'
 
 // if we need to adjust props, can wrap this to make any changes necessary
-const SomePage = SomePageView
-
 export default function SomePage(props) {
 	return (
 		<SomeLayout>
