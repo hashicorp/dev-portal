@@ -10,7 +10,7 @@
 		},
 		"algolia": {
 			"docsIndexName": "product_DEVDOT",
-			"tutorialsIndexName": "prod_LEARN",
+			"tutorialsIndexName": "prod_DEVDOT_omni",
 			"unifiedIndexName": "prod_DEVDOT_omni"
 		},
 		"analytics": {

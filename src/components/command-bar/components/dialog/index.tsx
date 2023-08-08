@@ -2,21 +2,29 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-
+import { type PropsWithChildren } from 'react'
 import Dialog from 'components/dialog'
 import useWindowSize from 'hooks/use-window-size'
-import { CommandBarDialogProps } from './types'
+import s from './command-bar-dialog.module.css'
+import { useCommandBar } from 'components/command-bar'
+
 import CommandBarDialogHeader from './header'
 import CommandBarDialogFooter from './footer'
 import CommandBarDialogBody from './body'
-import s from './command-bar-dialog.module.css'
+
+type CommandBarDialogProps = PropsWithChildren<{
+	isOpen?: boolean
+	onDismiss?: () => void
+	instructionsElementId?: string
+}>
 
 const CommandBarDialog = ({
 	isOpen = false,
 	onDismiss = () => null,
+	children,
 }: CommandBarDialogProps) => {
 	const { width } = useWindowSize()
-	const instructionsElementId = 'footer-keyboard-instructions'
+	const { instructionsElementId } = useCommandBar()
 
 	return (
 		<Dialog
@@ -27,14 +35,28 @@ const CommandBarDialog = ({
 			onDismiss={onDismiss}
 			variant={width <= 728 ? 'bottom' : null}
 		>
-			<div className={s.contentInner}>
-				<CommandBarDialogHeader />
-				<CommandBarDialogBody />
-				<CommandBarDialogFooter instructionsElementId={instructionsElementId} />
-			</div>
+			<div className={s.contentInner}>{children}</div>
 		</Dialog>
 	)
 }
 
-export type { CommandBarDialogProps }
-export { CommandBarDialog }
+/**
+ * composable export
+ *
+ * @example
+ * ```tsx
+ * <Command.Dialog>
+ *   <Command.Header/>
+ *   <Command.Body/>
+ *   <Command.Footer/>
+ * </Command.Dialog>
+ */
+export default Object.assign(
+	{},
+	{
+		Dialog: CommandBarDialog,
+		Header: CommandBarDialogHeader,
+		Body: CommandBarDialogBody,
+		Footer: CommandBarDialogFooter,
+	}
+)

@@ -17,8 +17,6 @@ import s from './open-api-operations.module.css'
 
 /**
  * Render operation items for an OpenApiView.
- *
- * TODO: implement this presentation component.
  */
 export function OpenApiOperations({
 	operationGroups,
@@ -26,23 +24,13 @@ export function OpenApiOperations({
 	operationGroups: OperationGroup[]
 }) {
 	return (
-		<div
-			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				gap: '24px',
-				border: '1px solid magenta',
-			}}
-		>
+		<div className={s.root}>
 			{operationGroups
 				.map((group) => group.items)
 				.flat()
 				.map((operation: OperationProps) => {
 					return (
-						<div
-							key={operation.operationId}
-							style={{ border: '1px solid magenta', padding: '2px' }}
-						>
+						<div key={operation.operationId}>
 							<OperationHeader
 								className={s.header}
 								slug={operation.slug}
@@ -51,8 +39,18 @@ export function OpenApiOperations({
 								path={operation.path.truncated}
 							/>
 							<OperationSections
-								examplesSlot={<OperationExamples operation={operation} />}
-								detailsSlot={<OperationDetails operation={operation} />}
+								examplesSlot={
+									<OperationExamples
+										heading={operation.operationId}
+										code={operation.urlPathForCodeBlock}
+									/>
+								}
+								detailsSlot={
+									<OperationDetails
+										requestData={operation.requestData}
+										responseData={operation.responseData}
+									/>
+								}
 							/>
 						</div>
 					)

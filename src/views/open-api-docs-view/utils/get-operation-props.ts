@@ -7,21 +7,18 @@
 import { snakeCase } from 'change-case'
 import slugify from 'slugify'
 // Local
-import {
-	getBodyParameterProps,
-	getPropertyDetailPropsFromParameter,
-	truncateHcpOperationPath,
-} from './'
+import { getRequestData, getResponseData, truncateHcpOperationPath } from './'
 // Types
-import type { OperationProps, PropertyDetailProps } from '../types'
+import type { OperationProps } from '../types'
 import type { OpenAPIV3 } from 'openapi-types'
+import getUrlPathCodeHtml from './get-url-path-code-html'
 
 /**
  * Given a schema, return a flattened list of operation prop objects.
  */
-export function getOperationProps(
+export async function getOperationProps(
 	schemaJson: OpenAPIV3.Document
-): OperationProps[] {
+): Promise<OperationProps[]> {
 	// Set up an accumulator array
 	const operationObjects: OperationProps[] = []
 	/**
@@ -38,33 +35,20 @@ export function getOperationProps(
 			if (!('operationId' in operation)) {
 				continue
 			}
-			// Get parameters, if there are any
+
+			/**
+			 * Parse request and response details for this operation
+			 */
 			const parameters = 'parameters' in operation ? operation.parameters : []
-			const pathParameters: PropertyDetailProps[] = []
-			const queryParameters: PropertyDetailProps[] = []
-			let bodyParameters: PropertyDetailProps[] = []
-			if (Array.isArray(parameters)) {
-				for (const parameter of parameters) {
-					// Skip references
-					if ('$ref' in parameter) {
-						continue
-					}
-					// Skip parameters that are not "in" the request
-					if (!('in' in parameter)) {
-						continue
-					}
-					// Parse parameters by type
-					if (parameter.in === 'path') {
-						pathParameters.push(getPropertyDetailPropsFromParameter(parameter))
-					} else if (parameter.in === 'query') {
-						queryParameters.push(getPropertyDetailPropsFromParameter(parameter))
-					} else if (parameter.in === 'body') {
-						// We expect a single body parameter
-						bodyParameters = getBodyParameterProps(parameter)
-					}
-				}
-			}
-			// Format and push the operation props
+			const requestData = await getRequestData(
+				parameters,
+				operation.requestBody
+			)
+			const responseData = await getResponseData(operation.responses)
+
+			/**
+			 * Format and push the operation props
+			 */
 			operationObjects.push({
 				operationId: operation.operationId,
 				slug: slugify(snakeCase(operation.operationId), { lower: true }),
@@ -74,9 +58,9 @@ export function getOperationProps(
 					truncated: truncateHcpOperationPath(path),
 				},
 				summary: operation.summary,
-				bodyParameters,
-				pathParameters,
-				queryParameters,
+				requestData,
+				responseData,
+				urlPathForCodeBlock: getUrlPathCodeHtml(path),
 				_placeholder: {
 					__type: type,
 					__path: path,

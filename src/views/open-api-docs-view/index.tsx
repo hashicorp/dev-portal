@@ -14,6 +14,7 @@ import {
 	OpenApiSidebarContents,
 	OpenApiOperations,
 } from './components'
+import s from './open-api-docs-view.module.css'
 // Types
 import type { OpenApiDocsViewProps } from './types'
 
@@ -22,9 +23,11 @@ import type { OpenApiDocsViewProps } from './types'
  */
 function OpenApiDocsView({
 	productData,
+	title,
+	releaseStage,
+	description,
 	operationGroups,
 	navItems,
-	_placeholder,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
@@ -41,8 +44,15 @@ function OpenApiDocsView({
 				/>
 			}
 		>
-			<OpenApiOverview _placeholder={_placeholder} />
-			<OpenApiOperations operationGroups={operationGroups} />
+			<div className={s.paddedContainer}>
+				<OpenApiOverview
+					className={s.overview}
+					title={title}
+					badgeText={releaseStage}
+					description={description}
+				/>
+				<OpenApiOperations operationGroups={operationGroups} />
+			</div>
 		</SidebarLayout>
 	)
 }

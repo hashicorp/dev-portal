@@ -4,13 +4,14 @@
  */
 
 export { findLatestStableVersion } from './find-latest-stable-version'
-export { getBodyParameterProps } from './get-body-parameter-props'
 export { getNavItems } from './get-nav-items'
 export { getOperationProps } from './get-operation-props'
 export {
 	getPropertyDetailPropsFromParameter,
 	getPropertyDetailPropsFromSchemaObject,
 } from './get-property-detail-props'
+export { getRequestData } from './get-request-data'
+export { getResponseData } from './get-response-data'
 export { groupOperations } from './group-operations'
 export { parseAndValidateOpenApiSchema } from './parse-and-validate-schema'
 export { sortDateVersionData } from './sort-date-version-data'
