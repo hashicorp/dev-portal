@@ -2,6 +2,8 @@
 
 Welcome to HashiCorp Developer! This is the home for HashiCorp product reference documentation and tutorials for our practitioners. For background information on this project, refer to [[MKTG-034]](https://docs.google.com/document/d/1ASyBOCWWP8VUahbL5c5y0qrDMgqhYdXJ2h15xzh3JtA/edit#heading=h.spiwwyows3cr).
 
+> **Content Authors** Please see [this documentation](./src/content/README.md) for contributing content updates to Developer. Reach out in [#proj-dev-portal](https://hashicorp.slack.com/archives/C01KCU4HDPY) on Slack if you have any issues / questions.
+
 ## Table of contents
 
 - [Overview](#overview)
@@ -16,8 +18,6 @@ Welcome to HashiCorp Developer! This is the home for HashiCorp product reference
 - [Performance](#performance)
 - [Remote Content & Application context](#remote-content--application-context)
 - [Proxied Redirects](#proxied-redirects)
-
-> **Content Authors** Please see [this documentation](./src/content/README.md) for contributing content updates to Developer. Reach out in [#proj-dev-portal](https://hashicorp.slack.com/archives/C01KCU4HDPY) on Slack if you have any issues / questions.
 
 ## Overview
 
