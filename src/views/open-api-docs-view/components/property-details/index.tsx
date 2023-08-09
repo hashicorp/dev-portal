@@ -52,7 +52,7 @@ export function PropertyDetails({
 			{description || hasNestedProperties ? (
 				<div>
 					{description ? (
-						<ItemWithNestingIndicator
+						<TreeContent
 							listItemStyle={!hasNestedProperties ? 'last' : null}
 							hideIndicator={!hasNestedProperties}
 						>
@@ -62,7 +62,7 @@ export function PropertyDetails({
 								})}
 								dangerouslySetInnerHTML={{ __html: description }}
 							/>
-						</ItemWithNestingIndicator>
+						</TreeContent>
 					) : null}
 					{hasNestedProperties ? (
 						<ListNestedProperties
@@ -119,7 +119,7 @@ function PropertyDetailsNested({
 	return (
 		<div>
 			{/* Meta row */}
-			<ItemWithNestingIndicator listItemStyle={isLastItem ? 'last' : 'middle'}>
+			<TreeContent listItemStyle={isLastItem ? 'last' : 'middle'}>
 				<div className={s.nestedMeta}>
 					<div className={s.nestedNameAndType}>
 						<code className={s.nestedName}>{name}</code>
@@ -129,12 +129,12 @@ function PropertyDetailsNested({
 						<Badge text="Required" color="highlight" size="small" />
 					) : null}
 				</div>
-			</ItemWithNestingIndicator>
+			</TreeContent>
 			{/* Optional description and nested properties */}
 			{description || hasNestedProperties ? (
-				<ItemWithNestingIndicator hideBorder={isLastItem}>
+				<TreeContent hideBorder={isLastItem}>
 					{description ? (
-						<ItemWithNestingIndicator
+						<TreeContent
 							listItemStyle={!hasNestedProperties ? 'last' : null}
 							hideIndicator={!hasNestedProperties}
 						>
@@ -142,7 +142,7 @@ function PropertyDetailsNested({
 								className={s.nestedDescription}
 								dangerouslySetInnerHTML={{ __html: description }}
 							/>
-						</ItemWithNestingIndicator>
+						</TreeContent>
 					) : null}
 					{hasNestedProperties ? (
 						<ListNestedProperties
@@ -150,25 +150,27 @@ function PropertyDetailsNested({
 							depth={depth}
 						/>
 					) : null}
-				</ItemWithNestingIndicator>
+				</TreeContent>
 			) : null}
 		</div>
 	)
 }
 
 /**
- * Display `children` alongside a nesting indicator element.
+ * Display `children` with structured tree styles, including tree markers.
  *
- * Accepts optional props that affect the appearance of the indicator:
- * - `hideBorder` - hide the border on the left side of the indicator
- * - `hideIndicator` - hide the indicator entirely, which shifts positioning,
- *   but still retains consistent left padding.
- * - `listItemStyle` - affects the nesting indicator style. By default,
- *    the indicator is a vertical line that extends to the bottom of the
+ * Accepts optional props that affect the appearance of the tree styles:
+ * - `hideBorder` - hide the tree marker, but retain spacing
+ * - `hideIndicator` - hide the tree marker, which shifts positioning,
+ *    but still retains a smaller amount of consistent left padding.
+ * - `listItemStyle` - affects the tree marker style. By default,
+ *    the marker is a vertical line that extends to the bottom of the
  * 	  container, creating the appearance of a continuous line for
- * 		consecutive list items.
+ * 		consecutive list items. The `middle` style adds a horizontal line,
+ *    which points to the children. The `last` style curves the vertical line
+ *    and ends it by pointing to the children.
  */
-function ItemWithNestingIndicator({
+function TreeContent({
 	children,
 	listItemStyle,
 	hideBorder,
@@ -179,18 +181,18 @@ function ItemWithNestingIndicator({
 	hideIndicator?: boolean
 }>) {
 	return (
-		<div className={s.itemWithNestingIndicator}>
-			{!hideIndicator ? (
-				<div className={s.nestingIndicatorContainer}>
+		<div className={s.treeContent}>
+			{hideIndicator ? null : (
+				<div className={s.treeIndicatorContainer}>
 					<div
-						className={classNames(s.nestingIndicator, {
+						className={classNames(s.treeIndicator, {
 							[s.isLastItem]: listItemStyle === 'last',
 							[s.isMiddleItem]: listItemStyle === 'middle',
 							[s.hideBorder]: hideBorder,
 						})}
 					/>
 				</div>
-			) : null}
+			)}
 			<div>{children}</div>
 		</div>
 	)

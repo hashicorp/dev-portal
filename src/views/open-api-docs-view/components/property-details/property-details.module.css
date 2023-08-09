@@ -40,8 +40,8 @@ Base properties, at the top level
 	flex-direction: column;
 	gap: 4px;
 
-	--nesting-line-color: var(--token-color-border-primary);
-	--nesting-line-width: 1px;
+	--tree-line-color: var(--token-color-border-primary);
+	--tree-line-width: 1px;
 }
 
 .baseMetaAndDescription {
@@ -74,7 +74,7 @@ Base properties, at the top level
 
 /*
 
-List of nested properties within a base property
+List of nested properties
 
 */
 
@@ -131,28 +131,28 @@ Nested properties
 
 /*
 
-Nesting indicators
+Tree content styling
 
 */
 
-.itemWithNestingIndicator {
+.treeContent {
 	display: flex;
 	gap: 4px;
 	padding-left: 8px;
 }
 
-.nestingIndicatorContainer {
+.treeIndicatorContainer {
 	position: relative;
 	width: 8px;
 }
 
-.nestingIndicator {
+.treeIndicator {
 	position: absolute;
 	top: 0;
 	height: 100%;
 	width: 100%;
-	border-width: var(--nesting-line-width);
-	border-color: var(--nesting-line-color);
+	border-width: var(--tree-line-width);
+	border-color: var(--tree-line-color);
 	border-left-style: solid;
 
 	&.hideBorder {
@@ -165,7 +165,7 @@ Nesting indicators
 		content: '';
 		top: 50%;
 		width: 100%;
-		border-bottom: var(--nesting-line-width) solid var(--nesting-line-color);
+		border-bottom: var(--tree-line-width) solid var(--tree-line-color);
 	}
 
 	/* Modify the "nesting line" to curve towards the item" */
