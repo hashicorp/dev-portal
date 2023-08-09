@@ -155,25 +155,23 @@ Nesting indicators
 	border-color: var(--nesting-line-color);
 	border-left-style: solid;
 
-	&.isLastItem {
-		height: 55%;
-		border-bottom-style: solid;
-		border-bottom-left-radius: 4px;
-	}
-
 	&.hideBorder {
 		border-color: transparent;
 	}
 
-	&.isMiddleItem {
-		height: 100%;
+	/* Add horizontal line leading to from the "nesting line" to the item */
+	&.isMiddleItem::after {
+		position: absolute;
+		content: '';
+		top: 50%;
+		width: 100%;
+		border-bottom: var(--nesting-line-width) solid var(--nesting-line-color);
+	}
 
-		&::after {
-			position: absolute;
-			content: '';
-			top: 50%;
-			width: 100%;
-			border-bottom: var(--nesting-line-width) solid var(--nesting-line-color);
-		}
+	/* Modify the "nesting line" to curve towards the item" */
+	&.isLastItem {
+		height: 55%;
+		border-bottom-style: solid;
+		border-bottom-left-radius: 4px;
 	}
 }

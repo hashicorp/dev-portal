@@ -158,7 +158,14 @@ function PropertyDetailsNested({
 /**
  * Display `children` alongside a nesting indicator element.
  *
- * TODO: maybe refactor this a bit to avoid the conditional classes.
+ * Accepts optional props that affect the appearance of the indicator:
+ * - `hideBorder` - hide the border on the left side of the indicator
+ * - `hideIndicator` - hide the indicator entirely, which shifts positioning,
+ *   but still retains consistent left padding.
+ * - `listItemStyle` - affects the nesting indicator style. By default,
+ *    the indicator is a vertical line that extends to the bottom of the
+ * 	  container, creating the appearance of a continuous line for
+ * 		consecutive list items.
  */
 function ItemWithNestingIndicator({
 	children,
