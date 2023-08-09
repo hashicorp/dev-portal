@@ -13,7 +13,7 @@ import Badge from 'components/badge'
 import s from './property-details.module.css'
 
 /**
- * Types are shared by the "base" and "deeper" variations of
+ * Types are shared by the "base" and "nested" variations of
  * the property details component.
  */
 export interface PropertyDetailsProps {
