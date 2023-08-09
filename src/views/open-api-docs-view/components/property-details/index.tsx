@@ -118,6 +118,7 @@ function PropertyDetailsNested({
 	const hasNestedProperties = nestedProperties?.length > 0
 	return (
 		<div>
+			{/* Meta row */}
 			<ItemWithNestingIndicator listItemStyle={isLastItem ? 'last' : 'middle'}>
 				<div className={s.nestedMeta}>
 					<div className={s.nestedNameAndType}>
@@ -129,7 +130,7 @@ function PropertyDetailsNested({
 					) : null}
 				</div>
 			</ItemWithNestingIndicator>
-
+			{/* Optional description and nested properties */}
 			{description || hasNestedProperties ? (
 				<ItemWithNestingIndicator hideBorder={isLastItem}>
 					{description ? (
