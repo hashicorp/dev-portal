@@ -29,7 +29,7 @@ function getOldPluginComponentSlug(componentType) {
 const packerPluginIntegrations = [
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'oneandone',
 		components: [
 			{
@@ -40,7 +40,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'alicloud',
 		components: [
 			{
@@ -54,8 +54,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'veertuinc',
 		slug: 'anka',
 		newSlug: 'veertu-anka',
 		components: [
@@ -75,7 +75,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'ansible',
 		components: [
 			{
@@ -90,7 +90,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'amazon',
 		indexPages: [TYPE_DATA_SOURCE, TYPE_BUILDER],
 		components: [
@@ -134,7 +134,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'azure',
 		indexPages: [TYPE_BUILDER],
 		components: [
@@ -158,7 +158,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'cloudstack',
 		components: [
 			{
@@ -168,8 +168,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'digitalocean',
 		slug: 'digitalocean',
 		components: [
 			{
@@ -188,7 +188,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'docker',
 		components: [
 			{
@@ -214,8 +214,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'joomcode',
 		slug: 'external',
 		indexPages: [TYPE_DATA_SOURCE],
 		components: [
@@ -230,8 +230,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'ethanmdavidson',
 		slug: 'git',
 		indexPages: [TYPE_DATA_SOURCE],
 		components: [
@@ -251,7 +251,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'googlecompute',
 		components: [
 			{
@@ -269,8 +269,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'gridscale',
 		slug: 'gridscale',
 		components: [
 			{
@@ -281,7 +281,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'hashicups',
 		indexPages: [
 			TYPE_POST_PROCESSOR,
@@ -314,7 +314,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'hetzner-cloud',
 		newSlug: 'hcloud',
 		components: [
@@ -326,7 +326,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'hyperone',
 		components: [
 			{
@@ -337,7 +337,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'hyperv',
 		indexPages: [TYPE_BUILDER],
 		components: [
@@ -353,7 +353,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'jdcloud',
 		components: [
 			{
@@ -363,8 +363,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'kamatera',
 		slug: 'kamatera',
 		components: [
 			{
@@ -374,8 +374,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'linode',
 		slug: 'linode',
 		components: [
 			{
@@ -385,8 +385,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'thomasklein94',
 		slug: 'libvirt',
 		components: [
 			{
@@ -397,7 +397,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'lxc',
 		components: [
 			{
@@ -408,7 +408,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'lxd',
 		components: [
 			{
@@ -418,8 +418,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'mondoohq',
 		slug: 'mondoo',
 		newSlug: 'cnspec',
 		components: [
@@ -435,7 +435,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'ncloud',
 		components: [
 			{
@@ -445,8 +445,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'nutanix-cloud-native',
 		slug: 'nutanix',
 		indexPages: [TYPE_BUILDER],
 		components: [
@@ -458,7 +458,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'openstack',
 		components: [
 			{
@@ -469,7 +469,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'oracle',
 		indexPages: [TYPE_BUILDER],
 		components: [
@@ -484,8 +484,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'outscale',
 		slug: 'outscale',
 		indexPages: [TYPE_BUILDER],
 		components: [
@@ -513,7 +513,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'parallels',
 		indexPages: [TYPE_BUILDER],
 		components: [
@@ -529,7 +529,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'profitbricks',
 		components: [
 			{
@@ -540,7 +540,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'proxmox',
 		indexPages: [TYPE_BUILDER],
 		components: [
@@ -556,7 +556,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'qemu',
 		components: [
 			{
@@ -566,8 +566,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'scaleway',
 		slug: 'scaleway',
 		components: [
 			{
@@ -577,8 +577,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'ivoronin',
 		slug: 'sshkey',
 		components: [
 			{
@@ -588,8 +588,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'cirruslabs',
 		slug: 'tart',
 		components: [
 			{
@@ -600,7 +600,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'tencentcloud',
 		components: [
 			{
@@ -611,7 +611,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'triton',
 		components: [
 			{
@@ -621,8 +621,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'ucloud',
 		slug: 'ucloud',
 		components: [
 			{
@@ -636,8 +636,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'UpCloudLtd',
 		slug: 'upcloud',
 		components: [
 			{
@@ -652,7 +652,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'vagrant',
 		components: [
 			{
@@ -671,7 +671,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'virtualbox',
 		indexPages: [TYPE_BUILDER],
 		components: [
@@ -690,8 +690,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'volcengine',
 		slug: 'volcengine',
 		components: [
 			{
@@ -702,7 +702,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'vsphere',
 		indexPages: [TYPE_BUILDER],
 		components: [
@@ -730,7 +730,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'vmware',
 		indexPages: [TYPE_BUILDER],
 		components: [
@@ -745,8 +745,8 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: true,
-		org: 'BrandonRomano',
+		enabled: false,
+		org: 'vultr',
 		slug: 'vultr',
 		components: [
 			{
@@ -757,7 +757,7 @@ const packerPluginIntegrations = [
 	},
 	{
 		enabled: true,
-		org: 'BrandonRomano',
+		org: 'hashicorp',
 		slug: 'yandex',
 		components: [
 			{
