@@ -14,7 +14,7 @@
 			"examCode": "002",
 			"productSlug": "consul",
 			"versionTested": "Consul 1.8 or higher",
-			"description": "The Consul Associate Certification is for Site Reliability Engineers, Solutions Architects, DevOps professionals, or other Cloud Engineers who know the basic concepts and skills to build, secure, and maintain open source HashiCorp Consul. This includes understanding what enterprise features exist and what can and cannot be done using the open source offering. You will be best prepared for this exam if you have professional experience using Consul in production, but performing the exam objectives in a personal demo environment may be sufficient.",
+			"description": "The Consul Associate Certification is for Site Reliability Engineers, Solutions Architects, DevOps professionals, or other Cloud Engineers who know the basic concepts and skills to build, secure, and maintain HashiCorp Consul Community. This includes understanding what enterprise features exist and what can and cannot be done using the Community offering. You will be best prepared for this exam if you have professional experience using Consul in production, but performing the exam objectives in a personal demo environment may be sufficient.",
 			"links": {
 				"prepare": "/consul/tutorials/certification",
 				"register": "https://cp.certmetrics.com/hashicorp/en/login"
