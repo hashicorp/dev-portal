@@ -28,7 +28,6 @@ function OpenApiDocsView({
 	description,
 	operationGroups,
 	navItems,
-	_placeholder,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
@@ -45,13 +44,15 @@ function OpenApiDocsView({
 				/>
 			}
 		>
-			<OpenApiOverview
-				className={s.overview}
-				title={title}
-				badgeText={releaseStage}
-				description={description}
-			/>
-			<OpenApiOperations operationGroups={operationGroups} />
+			<div className={s.paddedContainer}>
+				<OpenApiOverview
+					className={s.overview}
+					title={title}
+					badgeText={releaseStage}
+					description={description}
+				/>
+				<OpenApiOperations operationGroups={operationGroups} />
+			</div>
 		</SidebarLayout>
 	)
 }
