@@ -6,7 +6,7 @@
 	},
 	"hero": {
 		"heading": "Security<br />Automation Certification",
-		"description": "HashiCorp’s Security Automation certification program has two levels: Work up to the advanced Vault Professional Certification by starting with the foundational Vault Associate certification. The Associate certification validates your knowledge of Vault Community. Then, continue your certification journey with the Professional hands-on, lab-based exam to validate your years of production experience with both Vault and Vault Enterprise."
+		"description": "HashiCorp’s Security Automation certification program has two levels: Work up to the advanced Vault Professional Certification by starting with the foundational Vault Associate certification. The Associate certification validates your knowledge of Vault Community Edition. Then, continue your certification journey with the Professional hands-on, lab-based exam to validate your years of production experience with both Vault and Vault Enterprise."
 	},
 	"exams": [
 		{
