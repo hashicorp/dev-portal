@@ -2,11 +2,11 @@
 	"title": "Security Automation",
 	"summary": {
 		"heading": "Security<br />Automation Certifications",
-		"description": "Earn the Vault Associate to validate your knowledge of the concepts, skills, and use cases associated with open source Vault. Ready to demonstrate your advanced Vault Enterprise skills in production? Successfully complete a lab-based exam and earn the Vault Operations Professional certification."
+		"description": "Earn the Vault Associate to validate your knowledge of the concepts, skills, and use cases associated with Vault Community Edition. Ready to demonstrate your advanced Vault Enterprise skills in production? Successfully complete a lab-based exam and earn the Vault Operations Professional certification."
 	},
 	"hero": {
 		"heading": "Security<br />Automation Certification",
-		"description": "HashiCorp’s Security Automation certification program has two levels: Work up to the advanced Vault Professional Certification by starting with the foundational Vault Associate certification. The Associate certification validates your knowledge of open source Vault. Then, continue your certification journey with the Professional hands-on, lab-based exam to validate your years of production experience with both Vault and Vault Enterprise."
+		"description": "HashiCorp’s Security Automation certification program has two levels: Work up to the advanced Vault Professional Certification by starting with the foundational Vault Associate certification. The Associate certification validates your knowledge of Vault Community Edition. Then, continue your certification journey with the Professional hands-on, lab-based exam to validate your years of production experience with both Vault and Vault Enterprise."
 	},
 	"exams": [
 		{
@@ -14,7 +14,7 @@
 			"examCode": "002",
 			"productSlug": "vault",
 			"versionTested": "Vault 1.6.0 and higher",
-			"description": "The Vault Associate certification is for Cloud Engineers specializing in security, development, or operations who know the basic concepts, skills, and use cases associated with open source Vault. This includes understanding what enterprise features exist and what can and cannot be done using the open source offering. You should have professional experience using Vault in production, but performing the exam objectives in a personal demo environment may be sufficient.",
+			"description": "The Vault Associate certification is for Cloud Engineers specializing in security, development, or operations who know the basic concepts, skills, and use cases associated with Vault Community Edition. This includes understanding what enterprise features exist and what can and cannot be done using the community offering. You should have professional experience using Vault in production, but performing the exam objectives in a personal demo environment may be sufficient.",
 			"links": {
 				"prepare": "/vault/tutorials/associate-cert",
 				"register": "https://cp.certmetrics.com/hashicorp/en/login"
