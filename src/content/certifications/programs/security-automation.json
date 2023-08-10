@@ -14,7 +14,7 @@
 			"examCode": "002",
 			"productSlug": "vault",
 			"versionTested": "Vault 1.6.0 and higher",
-			"description": "The Vault Associate certification is for Cloud Engineers specializing in security, development, or operations who know the basic concepts, skills, and use cases associated with Vault Community. This includes understanding what enterprise features exist and what can and cannot be done using the community offering. You should have professional experience using Vault in production, but performing the exam objectives in a personal demo environment may be sufficient.",
+			"description": "The Vault Associate certification is for Cloud Engineers specializing in security, development, or operations who know the basic concepts, skills, and use cases associated with Vault Community Edition. This includes understanding what enterprise features exist and what can and cannot be done using the community offering. You should have professional experience using Vault in production, but performing the exam objectives in a personal demo environment may be sufficient.",
 			"links": {
 				"prepare": "/vault/tutorials/associate-cert",
 				"register": "https://cp.certmetrics.com/hashicorp/en/login"
