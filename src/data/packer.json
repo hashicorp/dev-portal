@@ -40,6 +40,11 @@
 			"iconName": "guide",
 			"name": "Guides",
 			"path": "guides"
+		},
+		{
+			"iconName": "plug",
+			"name": "Plugins",
+			"path": "plugins"
 		}
 	],
 	"integrationsConfig": {
