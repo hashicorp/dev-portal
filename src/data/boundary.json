@@ -12,7 +12,7 @@
 	"datoToken": "88b4984480dad56295a8aadae6caad",
 	"metadata": {
 		"title": "Boundary by HashiCorp",
-		"description": "Boundary is an open source solution that automates a secure identity-based user access to hosts and services across environments.",
+		"description": "Boundary automates secure identity-based user access to hosts and services across environments.",
 		"image": "https://www.boundaryproject.io/boundary-public/img/og-image.png",
 		"icon": [
 			{
