@@ -5,7 +5,7 @@
 	},
 	"overview": {
 		"heading": "What is Packer?",
-		"body": "Packer is an open source tool that lets you create identical machine images for multiple platforms from a single source template. Packer can create golden images to use in image pipelines.",
+		"body": "Packer is a tool that lets you create identical machine images for multiple platforms from a single source template. Packer can create golden images to use in image pipelines.",
 		"cta": {
 			"text": "Learn more",
 			"url": "/packer/docs/intro"
