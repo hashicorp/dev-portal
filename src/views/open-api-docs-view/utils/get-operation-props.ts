@@ -11,6 +11,7 @@ import { getRequestData, getResponseData, truncateHcpOperationPath } from './'
 // Types
 import type { OperationProps } from '../types'
 import type { OpenAPIV3 } from 'openapi-types'
+import getUrlPathCodeHtml from './get-url-path-code-html'
 
 /**
  * Given a schema, return a flattened list of operation prop objects.
@@ -59,6 +60,7 @@ export async function getOperationProps(
 				summary: operation.summary,
 				requestData,
 				responseData,
+				urlPathForCodeBlock: getUrlPathCodeHtml(path),
 				_placeholder: {
 					__type: type,
 					__path: path,
