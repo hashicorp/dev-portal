@@ -27,7 +27,7 @@ export function OperationExamples({
 			 * Task: https://app.asana.com/0/1204678746647847/1205233741731093/f
 			 * PR: https://github.com/hashicorp/react-components/pull/991
 			 */
-			options={{ heading, showClipboard: true }}
+			options={{ heading, showClipboard: true, wrapCode: true }}
 			code={code}
 		/>
 	)
