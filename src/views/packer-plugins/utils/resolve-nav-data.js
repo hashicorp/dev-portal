@@ -9,6 +9,52 @@ import { resolvePluginDocs } from '@hashicorp/platform-packer-plugins'
 import fetchGithubFile from 'lib/fetch-github-file'
 import { isDeployPreview } from 'lib/env-checks'
 
+// An array of plugins that have been migrated over from
+// the Plugin Portal to the Integrations library. Adding
+// a plugins 'path' to this array will make it so it will
+// no longer render in the Plugin portal.
+//
+// This is a little duplicative of our redirects, but really
+// we only need this to work until we migrate the remaining
+// plugins to the integrations library before we can delete
+// this entire Packer Plugin portion of the codebase.
+const migratedPlugins = [
+	'alicloud',
+	'amazon',
+	'ansible',
+	'azure',
+	'chef',
+	'cloudstack',
+	'converge',
+	'docker',
+	'googlecompute',
+	'hashicups',
+	'hetzner-cloud',
+	'hyperone',
+	'hyperv',
+	'inspec',
+	'jdcloud',
+	'lxc',
+	'lxd',
+	'ncloud',
+	'oneandone',
+	'openstack',
+	'oracle',
+	'parallels',
+	'profitbricks',
+	'proxmox',
+	'puppet',
+	'qemu',
+	'salt',
+	'tencentcloud',
+	'triton',
+	'vagrant',
+	'virtualbox',
+	'vmware',
+	'vsphere',
+	'yandex',
+]
+
 /**
  * Resolves nav-data from file with
  * resolution of remote plugin docs entries
@@ -68,7 +114,14 @@ export async function appendRemotePluginsNavData(
 		})
 	}
 
-	const pluginEntries = JSON.parse(remotePluginsContent)
+	const pluginEntries = JSON.parse(remotePluginsContent).filter((entry) => {
+		// Filter out integrations
+		if (migratedPlugins.includes(entry.path)) {
+			return false
+		}
+		return true
+	})
+
 	// Add navData for each plugin's component.
 	// Note that leaf nodes include a remoteFile property object with the full MDX fileString
 	const pluginEntriesWithFiles = await resolvePluginDocs(pluginEntries)
