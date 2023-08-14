@@ -6,7 +6,7 @@
 .root {
 	display: flex;
 	flex-direction: column;
-	gap: 48px;
+	gap: 40px;
 }
 
 .section {
@@ -24,7 +24,7 @@
 .sectionGroups {
 	display: flex;
 	flex-direction: column;
-	gap: 40px;
+	gap: 24px;
 }
 
 .group {
@@ -42,7 +42,7 @@
 .groupProperties {
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
+	gap: 16px;
 }
 
 .noGroupsMessage {
