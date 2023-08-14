@@ -127,7 +127,7 @@ function getSubHeadingText(productName: ProductName) {
 	return (
 		<Text asElement="p" size={200} className={s.subHeading}>
 			Read core {productName} documentation and tutorials, including self-hosted
-			open source docs.
+			docs.
 		</Text>
 	)
 }
