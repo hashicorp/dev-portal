@@ -45,6 +45,7 @@ function OpenApiDocsView({
 			}
 		>
 			<div className={s.paddedContainer}>
+				<div className={s.breadcrumbs}>BREADCRUMBS WILL GO HERE</div>
 				<OpenApiOverview
 					className={s.overview}
 					title={title}

@@ -4,11 +4,15 @@
  */
 
 .paddedContainer {
-	padding: 0 24px;
+	padding: 24px 32px 24px 128px;
 
 	@media (--dev-dot-hide-mobile-menu) {
 		padding-right: 48px;
 	}
+}
+
+.breadcrumbs {
+	border: 1px solid magenta;
 }
 
 .overview {
