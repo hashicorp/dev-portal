@@ -4,15 +4,15 @@
  */
 
 import classNames from 'classnames'
-import type { OperationProps } from 'views/open-api-docs-view/types'
+// Components
 import Badge from 'components/badge'
+// Local
+// TODO: move ContentWithPermalink to components/content-with-permalink ?
+import { ContentWithPermalink } from '../content-with-permalink'
+// Types
+import type { OperationProps } from 'views/open-api-docs-view/types'
+// Styles
 import s from './operation-header.module.css'
-
-/**
- * Renders a header for an operation item,
- * showing the name of the operation in a linkable heading,
- * and showing other metadata such as the request type.
- */
 
 interface OperationHeaderProps {
 	slug: OperationProps['slug']
@@ -22,6 +22,11 @@ interface OperationHeaderProps {
 	className?: string
 }
 
+/**
+ * Renders a header for an operation item,
+ * showing the name of the operation in a linkable heading,
+ * and showing other metadata such as the request type.
+ */
 export function OperationHeader({
 	slug,
 	headerText,
@@ -31,9 +36,11 @@ export function OperationHeader({
 }: OperationHeaderProps) {
 	return (
 		<div className={classNames(className, s.wrapper)}>
-			<h3 id={slug} className={s.heading}>
-				{headerText}
-			</h3>
+			<ContentWithPermalink id={slug} ariaLabel={headerText}>
+				<h3 id={slug} className={s.heading}>
+					{headerText}
+				</h3>
+			</ContentWithPermalink>
 			<div className={s.methodAndPath}>
 				<Badge className={s.method} type="outlined" text={method} />
 				<p className={s.path}>{path}</p>
