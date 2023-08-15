@@ -23,7 +23,6 @@ import type {
 	GetStaticPropsResult,
 } from 'next'
 import type { ProductSlug } from 'types/products'
-import type { BreadcrumbLink } from 'components/breadcrumb-bar'
 import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
@@ -110,16 +109,10 @@ export async function getStaticProps({
 	})
 
 	/**
-	 * Build breadcrumb links for the page
+	 * Build breadcrumb links for the page, and activate the final breadcrumb.
 	 */
-	const breadcrumbLinks: BreadcrumbLink[] = [
-		...getBreadcrumbLinks('/hcp/api-docs'),
-		{
-			title: 'Vault Secrets',
-			url: '/hcp/api-docs/vault-secrets',
-			isCurrentPage: true,
-		},
-	]
+	const breadcrumbLinks = getBreadcrumbLinks(basePath)
+	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
 
 	/**
 	 * Return props

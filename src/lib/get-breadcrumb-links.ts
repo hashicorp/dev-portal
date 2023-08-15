@@ -32,6 +32,7 @@ const KNOWN_URL_TITLE: Record<string, string> = {
  */
 const KNOWN_URL_SEGMENT_TITLE: Record<string, string> = {
 	'api-docs': 'API',
+	'vault-secrets': 'Vault Secrets',
 }
 
 /**
@@ -58,11 +59,17 @@ export function getBreadcrumbTitle(urlPath: string): string | null {
  * Return a set of breadcrumb link items representing each URL segment
  * leading to the page at `urlPath`.
  *
- * Note: if the URL does not have a known page title in `getBreadcrumbTitle`,
+ * If the URL does not have a known page title in `getBreadcrumbTitle`,
  * we fallback to using the URL segment as the breadcrumb title.
  *
- * Note: if the URL is a known 404, then the resulting breadcrumb link
+ * If the URL is a known 404, then the resulting breadcrumb link
  * will have a `url` property that is `null`.
+ *
+ * Note: this function is intended for use with individual pages that are
+ * manually set up. For Docs, Learn, and Integration pages, we can generally
+ * derive the breadcrumb data for pages within those sections from the relevant
+ * API data. This function may still be useful for the top-level URL segments
+ * that lead into specific document breadcrumbs.
  */
 export function getBreadcrumbLinks(urlPath: string): BreadcrumbLink[] {
 	const breadcrumbLinks: BreadcrumbLink[] = []
