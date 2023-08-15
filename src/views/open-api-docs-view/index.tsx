@@ -6,6 +6,7 @@
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
 // Components
+import BreadcrumbBar from 'components/breadcrumb-bar'
 import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
 // Local
 import {
@@ -17,7 +18,6 @@ import {
 import s from './open-api-docs-view.module.css'
 // Types
 import type { OpenApiDocsViewProps } from './types'
-import BreadcrumbBar from 'components/breadcrumb-bar'
 
 /**
  * Placeholder for a revised OpenAPI docs view.
