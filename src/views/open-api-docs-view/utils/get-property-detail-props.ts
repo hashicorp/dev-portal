@@ -15,9 +15,9 @@ import type { PropertyDetailsProps } from '../components/property-details'
  */
 export async function getPropertyDetailPropsFromParameter(
 	param: OpenAPIV3.ParameterObject,
-	slugPrefix: string = 'TODO'
+	parentSlug: string
 ): Promise<PropertyDetailsProps> {
-	const slug = `${slugPrefix}_${param.name}`
+	const slug = `${parentSlug}_${param.name}`
 	const paramSchemaDetails = await getPropertyDetailsFromSchema(
 		param.schema,
 		slug
