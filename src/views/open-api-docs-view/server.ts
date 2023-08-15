@@ -7,6 +7,7 @@
 import fetchGithubFile from 'lib/fetch-github-file'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { cachedGetProductData } from 'lib/get-product-data'
+import { getBreadcrumbLinks } from 'lib/get-breadcrumb-links'
 // Utilities
 import {
 	findLatestStableVersion,
@@ -21,9 +22,6 @@ import type {
 	GetStaticPropsContext,
 	GetStaticPropsResult,
 } from 'next'
-// Utilities
-
-// Types
 import type { ProductSlug } from 'types/products'
 import type {
 	OpenApiDocsParams,
@@ -111,6 +109,15 @@ export async function getStaticProps({
 	})
 
 	/**
+	 * Build breadcrumb links for the page, and activate the final breadcrumb.
+	 *
+	 * @TODO: we have a task to remove the need for `isCurrentPage`:
+	 * https://app.asana.com/0/1202097197789424/1202354347457831/f
+	 */
+	const breadcrumbLinks = getBreadcrumbLinks(basePath)
+	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
+
+	/**
 	 * Return props
 	 */
 	return {
@@ -127,6 +134,7 @@ export async function getStaticProps({
 			},
 			operationGroups: stripUndefinedProperties(operationGroups),
 			navItems,
+			breadcrumbLinks,
 		},
 	}
 }
