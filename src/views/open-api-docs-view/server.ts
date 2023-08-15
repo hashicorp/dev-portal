@@ -109,6 +109,19 @@ export async function getStaticProps({
 		productSlug: productData.slug,
 	})
 
+	/**
+	 * TODO: remove this before merging.
+	 *
+	 * This is placeholder content to demonstrate markdown support.
+	 *
+	 * We'll remove this before merging, and replace it with the
+	 * actual description from the OpenAPI schema. Right now though
+	 * that description is a single line of text, so wasn't very useful
+	 * to demo the MDX support.
+	 *
+	 * We'll replace this temporary approach with:
+	 * const descriptionMdx = await serialize(schema.info.description)
+	 */
 	const TEMP_DEMO_MDX = `
 ## Overview
 

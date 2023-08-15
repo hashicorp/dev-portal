@@ -56,13 +56,11 @@ function OpenApiDocsView({
 						badgeText={releaseStage}
 						contentSlot={
 							descriptionMdx ? (
-								// TODO: refine spacing maybe?
 								<DescriptionMdx mdxRemoteProps={descriptionMdx} />
 							) : null
 						}
 					/>
 				</div>
-				{/* TODO: make this heading actually work, like the Services heading in designs */}
 				<div className={s.operationsSection}>
 					<h2 className={s.operationsHeading}>Operations</h2>
 					<OpenApiOperations operationGroups={operationGroups} />

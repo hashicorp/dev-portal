@@ -44,7 +44,8 @@ const DEFAULT_MDX_COMPONENTS: MdxComponents = {
 }
 
 /**
- * TODO: write description
+ * Renders CommonMark-compliant markdown content using our established set
+ * of MDX custom components, via next-mdx-remote.
  */
 export function DescriptionMdx({
 	mdxRemoteProps,
