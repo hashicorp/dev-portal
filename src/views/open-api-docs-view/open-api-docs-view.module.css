@@ -23,3 +23,17 @@
 	flex-direction: column;
 	gap: 16px;
 }
+
+.operationsSection {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+}
+
+.operationsHeading {
+	composes: hds-typography-display-500 from global;
+	border-bottom: 1px solid var(--token-color-border-primary);
+	font-weight: var(--token-typography-font-weight-bold);
+	margin: 0;
+	padding-bottom: 24px;
+}

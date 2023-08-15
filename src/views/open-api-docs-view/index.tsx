@@ -63,8 +63,10 @@ function OpenApiDocsView({
 					/>
 				</div>
 				{/* TODO: make this heading actually work, like the Services heading in designs */}
-				<h2 style={{ border: '1px solid magenta', margin: 0 }}>Operations</h2>
-				<OpenApiOperations operationGroups={operationGroups} />
+				<div className={s.operationsSection}>
+					<h2 className={s.operationsHeading}>Operations</h2>
+					<OpenApiOperations operationGroups={operationGroups} />
+				</div>
 			</div>
 		</SidebarLayout>
 	)
