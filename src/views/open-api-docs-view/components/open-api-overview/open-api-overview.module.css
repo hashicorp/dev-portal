@@ -32,20 +32,5 @@
 }
 
 .content {
-	display: flex;
-	flex-direction: column;
-	gap: 32px;
-
-	@media (--dev-dot-desktop) {
-		flex-direction: row;
-		justify-content: space-between;
-	}
-
-	@media screen and (min-width: 1440px) {
-		gap: 64px;
-	}
-}
-
-.contentBlurb {
-	flex: 1;
+	border: 1px solid magenta;
 }

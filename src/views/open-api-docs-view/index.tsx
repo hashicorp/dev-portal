@@ -49,18 +49,21 @@ function OpenApiDocsView({
 			}
 		>
 			<div className={s.paddedContainer}>
-				<pre style={{ border: '1px solid magenta', whiteSpace: 'pre-wrap' }}>
-					<code>{JSON.stringify({ descriptionMdx }, null, 2)}</code>
-				</pre>
-				<DescriptionMdx mdxRemoteProps={descriptionMdx} />
 				<div className={s.spaceBreadcrumbsOverview}>
 					<BreadcrumbBar links={breadcrumbLinks} />
 					<OpenApiOverview
 						title={title}
 						badgeText={releaseStage}
-						description={description}
+						contentSlot={
+							descriptionMdx ? (
+								// TODO: refine spacing maybe?
+								<DescriptionMdx mdxRemoteProps={descriptionMdx} />
+							) : null
+						}
 					/>
 				</div>
+				{/* TODO: make this heading actually work, like the Services heading in designs */}
+				<h2 style={{ border: '1px solid magenta', margin: 0 }}>Operations</h2>
 				<OpenApiOperations operationGroups={operationGroups} />
 			</div>
 		</SidebarLayout>

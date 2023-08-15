@@ -5,4 +5,12 @@
 
 .root {
 	composes: hds-typography-body-300 from global;
+
+	& > *:first-child {
+		margin-top: 0;
+	}
+
+	& > *:last-child {
+		margin-bottom: 0;
+	}
 }

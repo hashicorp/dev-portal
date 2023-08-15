@@ -21,7 +21,9 @@ import s from './overview-blurb.module.css'
 
 export default function OverviewBlurb({
 	description,
-}: Pick<OpenApiOverviewProps, 'description'>) {
+}: {
+	description: string
+}) {
 	return (
 		<div className={s.overviewAndResources}>
 			<span>

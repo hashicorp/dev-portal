@@ -117,9 +117,10 @@ API for managing Secrets on Cloud Services.
 ## Additional resources
 
 Use the following resources to give you enough context to be successful.
-- [HCP Vault Secrets Quick Start](https://developer.hashicorp.com)
-- [Constraints and limitations](https://developer.hashicorp.com)
-- [What Is HCP Vault Secrets?](https://developer.hashicorp.com)
+
+- [HCP Vault Secrets Quick Start](/vault/tutorials/hcp-vault-secrets-get-started)
+- [Constraints and limitations](/hcp/docs/vault-secrets/constraints-and-known-issues)
+- [What Is HCP Vault Secrets?](/hcp/docs/vault-secrets)
 `
 	const descriptionMdx = await serialize(TEMP_DEMO_MDX)
 
