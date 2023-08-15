@@ -4,26 +4,22 @@
  */
 
 .paddedContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 56px;
 	padding: 24px 32px 24px 128px;
 
 	@media (--dev-dot-hide-mobile-menu) {
 		padding-right: 48px;
 	}
-}
-
-.breadcrumbs {
-	border: 1px solid magenta;
-}
-
-.overview {
-	margin-top: 16px;
-	margin-bottom: 56px;
 
 	@media (--dev-dot-desktop) {
-		margin-bottom: 64px;
+		gap: 64px;
 	}
+}
 
-	@media (min-width: 1920px) {
-		margin-bottom: 91px;
-	}
+.spaceBreadcrumbsOverview {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }

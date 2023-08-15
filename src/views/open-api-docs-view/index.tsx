@@ -17,6 +17,7 @@ import {
 import s from './open-api-docs-view.module.css'
 // Types
 import type { OpenApiDocsViewProps } from './types'
+import BreadcrumbBar from 'components/breadcrumb-bar'
 
 /**
  * Placeholder for a revised OpenAPI docs view.
@@ -28,6 +29,7 @@ function OpenApiDocsView({
 	description,
 	operationGroups,
 	navItems,
+	breadcrumbLinks,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
@@ -45,13 +47,14 @@ function OpenApiDocsView({
 			}
 		>
 			<div className={s.paddedContainer}>
-				<div className={s.breadcrumbs}>BREADCRUMBS WILL GO HERE</div>
-				<OpenApiOverview
-					className={s.overview}
-					title={title}
-					badgeText={releaseStage}
-					description={description}
-				/>
+				<div className={s.spaceBreadcrumbsOverview}>
+					<BreadcrumbBar links={breadcrumbLinks} />
+					<OpenApiOverview
+						title={title}
+						badgeText={releaseStage}
+						description={description}
+					/>
+				</div>
 				<OpenApiOperations operationGroups={operationGroups} />
 			</div>
 		</SidebarLayout>
