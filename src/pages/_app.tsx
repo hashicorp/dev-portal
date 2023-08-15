@@ -39,6 +39,7 @@ import { Toaster } from 'components/toast'
 
 // Local imports
 import './style.css'
+import useAuthentication from 'hooks/use-authentication'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
@@ -61,6 +62,30 @@ addGlobalLinkHandler((destinationUrl: string) => {
 		destination_url: destinationUrl,
 	})
 })
+
+import { toast } from 'components/toast'
+import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
+// TODO: see `make-dark-mode-notification.ts` for persistent-hiding
+function AIFeatureToast() {
+	const { session } = useAuthentication()
+	useEffect(() => {
+		// @ts-expect-error - TODO(kevinwang) type session.meta
+		if (session?.meta?.isAIEnabled) {
+			toast({
+				// @ts-expect-error - TODO(kevinwang) type this
+				color: 'highlight',
+				icon: <IconWand24 />,
+				title: 'Welcome to the Developer AI closed beta',
+				description: 'Try it out in our cmd+K menu!',
+				autoDismiss: 10000,
+			})
+		}
+	}, [
+		// @ts-expect-error - TODO(kevinwang) type session.meta
+		session?.meta?.isAIEnabled,
+	])
+	return null
+}
 
 export default function App({
 	Component,
@@ -110,6 +135,7 @@ export default function App({
 											>
 												<Component {...pageProps} />
 												<Toaster />
+												<AIFeatureToast />
 												{showProductSwitcher ? (
 													<PreviewProductSwitcher />
 												) : null}

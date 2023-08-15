@@ -107,19 +107,28 @@ export function UnifiedSearchCommandBarDialogBody() {
 			<>
 				{/*@ts-expect-error - TODO(kevinwang): fix CommandBarList.label prop type */}
 				<CommandBarList label="" ariaLabelledBy="FIXME">
-					<CommandBarButtonListItem
-						title={`Ask Developer: ${input}`}
-						icon={
-							<IconTile size="small">
-								<IconWand24 />
-							</IconTile>
-						}
-						onClick={() => {
-							setCurrentCommand('chat')
-						}}
-					/>
+					<div
+						// prettier-ignore
+						style={{
+						// override tokens for `.linkOrButton`
+						// background-color: var(--token-color-surface-strong);
+						// color: var(--token-color-foreground-strong);
+						// @ts-expect-error - TODO(kevinwang) clean this up
+						"--token-color-surface-strong": "var(--token-color-palette-purple-50)", /* #f9f2ff */
+						"--token-color-foreground-strong": "var(--token-color-palette-purple-300)", /* #911ced */
+						"--token-surface-base-box-shadow": "0 0 0 1px var(--token-color-palette-purple-100)", /* #ead2fe */
+					}}
+					>
+						<CommandBarButtonListItem
+							title={`Ask Developer`}
+							icon={<IconWand24 />}
+							onClick={() => {
+								setCurrentCommand('chat')
+							}}
+						/>
+					</div>
 				</CommandBarList>
-				<CommandBarDivider />
+				{/* <CommandBarDivider /> */}
 			</>
 		)
 	}
@@ -131,6 +140,16 @@ export function UnifiedSearchCommandBarDialogBody() {
 		return (
 			<div className={s.suggestedPagesWrapper}>
 				<ExperimentalAI input={currentInputValue} />
+				<span
+					style={{
+						display: 'block',
+						marginTop: `15px`,
+						width: 1,
+						height: 1,
+						minWidth: 1,
+						minHeight: 1,
+					}}
+				/>
 				<RecentSearches recentSearches={recentSearches} />
 				<SuggestedPages pages={suggestedPages} />
 			</div>
@@ -142,7 +161,7 @@ export function UnifiedSearchCommandBarDialogBody() {
 	 */
 	return (
 		<>
-			<div className={s.suggestedPagesWrapper}>
+			<div style={{ padding: `16px` }}>
 				<ExperimentalAI input={currentInputValue} />
 			</div>
 			<SearchResults

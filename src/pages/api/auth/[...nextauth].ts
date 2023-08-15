@@ -10,6 +10,7 @@ import { AuthErrors } from 'types/auth'
 import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
 import refreshTokenSet from 'lib/auth/refresh-token-set'
 import isJwtExpired from 'lib/auth/is-jwt-expired'
+import { get } from '@vercel/edge-config'
 
 const fetch = createFetch()
 
@@ -125,6 +126,16 @@ export default NextAuth({
 		 * ref: https://next-auth.js.org/configuration/callbacks#session-callback
 		 */
 		async session({ session, token }) {
+			const email = session.user.email
+
+			let isAIEnabled = false
+			try {
+				const allowlist = await get('allowlist')
+				isAIEnabled = !!allowlist[email]
+			} catch (e) {
+				// ignore error
+			}
+
 			return {
 				...session,
 				accessToken: token.access_token,
@@ -135,6 +146,9 @@ export default NextAuth({
 					id: token.sub,
 				},
 				error: token.error,
+				meta: {
+					isAIEnabled,
+				},
 			}
 		},
 	},
