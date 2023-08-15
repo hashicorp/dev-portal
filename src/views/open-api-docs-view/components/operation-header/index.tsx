@@ -7,7 +7,6 @@ import classNames from 'classnames'
 // Components
 import Badge from 'components/badge'
 // Local
-// TODO: move ContentWithPermalink to components/content-with-permalink ?
 import { ContentWithPermalink } from '../content-with-permalink'
 // Types
 import type { OperationProps } from 'views/open-api-docs-view/types'
