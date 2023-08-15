@@ -15,6 +15,15 @@ export interface PropertyDetailsGroup {
 	propertyDetails: PropertyDetailsProps[]
 }
 
+export interface PropertyDetailsSectionProps {
+	heading: {
+		text: string
+		slug: string
+	}
+	groups: PropertyDetailsGroup[]
+	noGroupsMessage: string
+}
+
 /**
  * Render request and response data for an operation.
  */
@@ -22,20 +31,20 @@ export function OperationDetails({
 	requestData,
 	responseData,
 }: {
-	requestData: PropertyDetailsGroup[]
-	responseData: PropertyDetailsGroup[]
+	requestData: PropertyDetailsSectionProps
+	responseData: PropertyDetailsSectionProps
 }) {
 	return (
 		<div className={s.root}>
 			<PropertyDetailsSection
-				heading={{ text: 'Request', slug: 'request' }}
-				groups={requestData}
-				noGroupsMessage="No request data."
+				heading={requestData.heading}
+				groups={requestData.groups}
+				noGroupsMessage={requestData.noGroupsMessage}
 			/>
 			<PropertyDetailsSection
-				heading={{ text: 'Response', slug: 'response' }}
-				groups={responseData}
-				noGroupsMessage="No response data."
+				heading={responseData.heading}
+				groups={responseData.groups}
+				noGroupsMessage={responseData.noGroupsMessage}
 			/>
 		</div>
 	)
@@ -50,14 +59,7 @@ function PropertyDetailsSection({
 	heading,
 	groups,
 	noGroupsMessage,
-}: {
-	heading: {
-		text: string
-		slug: string
-	}
-	groups: PropertyDetailsGroup[]
-	noGroupsMessage: string
-}) {
+}: PropertyDetailsSectionProps) {
 	return (
 		<div className={s.section}>
 			<ContentWithPermalink id={heading.slug} ariaLabel={heading.text}>

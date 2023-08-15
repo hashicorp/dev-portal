@@ -18,7 +18,8 @@ import type { OpenAPIV3 } from 'openapi-types'
  * Return response data formatted for display.
  */
 export async function getResponseData(
-	responses: OpenAPIV3.ResponsesObject
+	responses: OpenAPIV3.ResponsesObject,
+	slugPrefix: string
 ): Promise<PropertyDetailsGroup[]> {
 	// Set up an object to hold response data
 	const responseData: PropertyDetailsGroup[] = []
@@ -39,6 +40,7 @@ export async function getResponseData(
 		 * We flatten the response properties to avoid showing a redundant object.
 		 */
 		if (definition.schema.properties) {
+			const responseSlug = `${slugPrefix}_${responseCode}`
 			const propertyDetails: PropertyDetailsProps[] = []
 			const requiredProperties = definition.schema.required || []
 			for (const propertyKey of Object.keys(definition.schema.properties)) {
@@ -49,11 +51,11 @@ export async function getResponseData(
 				}
 				const isRequired = requiredProperties.includes(propertyKey)
 				propertyDetails.push(
-					// TODO: add parameter `slug`s here for anchor linking
 					await getPropertyDetailPropsFromSchemaObject(
 						propertyKey,
 						data,
-						isRequired
+						isRequired,
+						responseSlug
 					)
 				)
 			}
@@ -64,10 +66,7 @@ export async function getResponseData(
 					: `${responseCode} -  ${getReasonPhrase(responseCode)}`
 
 			responseData.push({
-				heading: {
-					text: headingText,
-					slug: responseCode, // TODO: make this unique
-				},
+				heading: { text: headingText, slug: responseSlug },
 				propertyDetails,
 			})
 		}

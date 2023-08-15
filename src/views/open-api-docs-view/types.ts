@@ -6,7 +6,10 @@
 import type { ParsedUrlQuery } from 'querystring'
 import type { ProductData, ProductSlug } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'
-import type { PropertyDetailsGroup } from './components/operation-details'
+import type {
+	PropertyDetailsGroup,
+	PropertyDetailsSectionProps,
+} from './components/operation-details'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 
 /**
@@ -21,8 +24,8 @@ export interface OperationProps {
 		full: string
 		truncated: string
 	}
-	requestData: PropertyDetailsGroup[]
-	responseData: PropertyDetailsGroup[]
+	requestData: PropertyDetailsSectionProps
+	responseData: PropertyDetailsSectionProps
 	summary?: string
 	/**
 	 * Syntax-highlighted HTML that represents the URL path, with
