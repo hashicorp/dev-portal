@@ -4,6 +4,7 @@
  */
 
 import type { ParsedUrlQuery } from 'querystring'
+import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import type { ProductData, ProductSlug } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'
 import type { PropertyDetailsGroup } from './components/operation-details'
@@ -100,6 +101,7 @@ export interface OpenApiDocsViewProps {
 	productData: ProductData
 	title: string
 	description: string
+	descriptionMdx: MDXRemoteSerializeResult
 	releaseStage: string
 
 	/**

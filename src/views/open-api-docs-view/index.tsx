@@ -27,6 +27,7 @@ function OpenApiDocsView({
 	title,
 	releaseStage,
 	description,
+	descriptionMdx,
 	operationGroups,
 	navItems,
 	breadcrumbLinks,
@@ -47,6 +48,9 @@ function OpenApiDocsView({
 			}
 		>
 			<div className={s.paddedContainer}>
+				<pre style={{ border: '1px solid magenta', whiteSpace: 'pre-wrap' }}>
+					<code>{JSON.stringify({ descriptionMdx }, null, 2)}</code>
+				</pre>
 				<div className={s.spaceBreadcrumbsOverview}>
 					<BreadcrumbBar links={breadcrumbLinks} />
 					<OpenApiOverview

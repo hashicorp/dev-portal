@@ -8,6 +8,7 @@ import fetchGithubFile from 'lib/fetch-github-file'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getBreadcrumbLinks } from 'lib/get-breadcrumb-links'
+import { serialize } from 'next-mdx-remote/serialize'
 // Utilities
 import {
 	findLatestStableVersion,
@@ -108,6 +109,20 @@ export async function getStaticProps({
 		productSlug: productData.slug,
 	})
 
+	const TEMP_DEMO_MDX = `
+## Overview
+
+API for managing Secrets on Cloud Services.
+
+## Additional resources
+
+Use the following resources to give you enough context to be successful.
+- [HCP Vault Secrets Quick Start](https://developer.hashicorp.com)
+- [Constraints and limitations](https://developer.hashicorp.com)
+- [What Is HCP Vault Secrets?](https://developer.hashicorp.com)
+`
+	const descriptionMdx = await serialize(TEMP_DEMO_MDX)
+
 	/**
 	 * Build breadcrumb links for the page, and activate the final breadcrumb.
 	 *
@@ -126,6 +141,7 @@ export async function getStaticProps({
 			title: schemaData.info.title,
 			releaseStage: targetVersion.releaseStage,
 			description: schemaData.info.description,
+			descriptionMdx,
 			IS_REVISED_TEMPLATE: true,
 			_placeholder: {
 				productSlug,
