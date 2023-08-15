@@ -7,6 +7,7 @@
 import fetchGithubFile from 'lib/fetch-github-file'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { cachedGetProductData } from 'lib/get-product-data'
+import { getBreadcrumbLinks } from 'lib/get-breadcrumb-links'
 // Utilities
 import {
 	findLatestStableVersion,
@@ -21,10 +22,8 @@ import type {
 	GetStaticPropsContext,
 	GetStaticPropsResult,
 } from 'next'
-// Utilities
-
-// Types
 import type { ProductSlug } from 'types/products'
+import type { BreadcrumbLink } from 'components/breadcrumb-bar'
 import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
@@ -112,34 +111,9 @@ export async function getStaticProps({
 
 	/**
 	 * Build breadcrumb links for the page
-	 *
-	 * TODO: potentially split this to a separate function?
-	 * Might be nice to have a centralized place where we codify the `title`
-	 * and `url` for each possible URL segment.
-	 *
-	 * We'd have a URL segment name lookup dictionary:
-	 * const URL_SEGMENT_NAMES = {
-	 *   '/': 'Developer',
-	 *   '/hcp': 'HashiCorp Cloud Platform',
-	 *   '/hcp/api-docs': 'API',
-	 * }
-	 *
-	 * As well as a list of URL segments that should not be linked:
-	 * const UNLINKED_URL_SEGMENTS = [
-	 *   '/hcp/api-docs'
-	 * ]
-	 *
-	 * On top of this, there's a process for docs pages where we look up
-	 * the `title` for a given URL segment using the corresponding `navData`.
-	 * One challenge would be how to merge these two approaches - maybe for docs,
-	 * we'd split the URL segment, generating higher-level breadcrumb links
-	 * using the approach described above, and generating the docs-specific
-	 * breadcrumb links using the `navData` approach.
 	 */
-	const breadcrumbLinks = [
-		{ title: 'Developer', url: '/' },
-		{ title: 'HashiCorp Cloud Platform', url: '/hcp' },
-		{ title: 'API' }, // Note: no URL here, as we don't yet have a page
+	const breadcrumbLinks: BreadcrumbLink[] = [
+		...getBreadcrumbLinks('/hcp/api-docs'),
 		{
 			title: 'Vault Secrets',
 			url: '/hcp/api-docs/vault-secrets',
