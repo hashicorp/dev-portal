@@ -110,6 +110,9 @@ export async function getStaticProps({
 
 	/**
 	 * Build breadcrumb links for the page, and activate the final breadcrumb.
+	 *
+	 * @TODO: we have a task to remove the need for `isCurrentPage`:
+	 * https://app.asana.com/0/1202097197789424/1202354347457831/f
 	 */
 	const breadcrumbLinks = getBreadcrumbLinks(basePath)
 	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
