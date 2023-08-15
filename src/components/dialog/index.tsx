@@ -58,7 +58,6 @@ export default function Dialog({
 						className={classNames(s.contentWrapper, s[variant])}
 					>
 						<DialogContent
-							style={{ background: 'red' }}
 							aria-describedby={ariaDescribedBy}
 							aria-label={label}
 							className={classNames(s.content, s[variant], contentClassName)}
