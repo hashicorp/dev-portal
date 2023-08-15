@@ -18,6 +18,7 @@ import {
 import s from './open-api-docs-view.module.css'
 // Types
 import type { OpenApiDocsViewProps } from './types'
+import { DescriptionMdx } from './components/open-api-overview/components/description-mdx'
 
 /**
  * Placeholder for a revised OpenAPI docs view.
@@ -51,6 +52,7 @@ function OpenApiDocsView({
 				<pre style={{ border: '1px solid magenta', whiteSpace: 'pre-wrap' }}>
 					<code>{JSON.stringify({ descriptionMdx }, null, 2)}</code>
 				</pre>
+				<DescriptionMdx mdxRemoteProps={descriptionMdx} />
 				<div className={s.spaceBreadcrumbsOverview}>
 					<BreadcrumbBar links={breadcrumbLinks} />
 					<OpenApiOverview
