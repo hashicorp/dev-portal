@@ -4,7 +4,6 @@
  */
 
 import InlineLink from 'components/inline-link'
-import { OpenApiOverviewProps } from '../../'
 import s from './overview-blurb.module.css'
 
 /**
