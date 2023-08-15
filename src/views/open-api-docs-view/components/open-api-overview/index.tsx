@@ -35,10 +35,9 @@ export function OpenApiOverview({
 	badgeText,
 	description,
 	status,
-	className,
 }: OpenApiOverviewProps) {
 	return (
-		<div className={classNames(className, s.overviewWrapper)}>
+		<div className={s.overviewWrapper}>
 			<header className={s.header}>
 				<IconTile size="medium" className={s.icon}>
 					<IconVaultColor16 />

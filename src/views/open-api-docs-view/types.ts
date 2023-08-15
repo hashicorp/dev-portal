@@ -7,6 +7,7 @@ import type { ParsedUrlQuery } from 'querystring'
 import type { ProductData, ProductSlug } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'
 import type { PropertyDetailsGroup } from './components/operation-details'
+import { BreadcrumbLink } from 'components/breadcrumb-bar'
 
 /**
  * Operations are specific request types to specific endpoints.
@@ -110,6 +111,12 @@ export interface OpenApiDocsViewProps {
 	 * Operation nav items are rendered into the sidebar and mobile nav.
 	 */
 	navItems: OpenApiNavItem[]
+
+	/**
+	 * Breadcrumb links are shown in the breadcrumb nav.
+	 */
+	breadcrumbLinks: BreadcrumbLink[]
+
 	/**
 	 * Some temporary data we'll remove for the production implementation.
 	 */
