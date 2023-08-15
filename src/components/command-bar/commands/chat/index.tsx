@@ -7,7 +7,6 @@ import { IconArrowLeft24 } from '@hashicorp/flight-icons/svg-react/arrow-left-24
 import { CommandBarCommand } from 'components/command-bar/types'
 import ChatBox from 'components/chatbox/chatbox'
 import { useCommandBar } from 'components/command-bar'
-=
 
 // An interactive Icon w/ "back" functionality
 const Icon = () => {
