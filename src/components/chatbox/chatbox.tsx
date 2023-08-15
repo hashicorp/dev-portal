@@ -231,6 +231,7 @@ const AssistantMessage = ({
 			<div className={cn(s.message_content)}>
 				<ReactMarkdown
 					components={{
+						// @ts-expect-error - TODO(kevinwang)  fix this type
 						pre: MdxPre,
 					}}
 					className={s.message_markdown}
