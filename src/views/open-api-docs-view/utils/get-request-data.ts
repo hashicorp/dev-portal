@@ -36,10 +36,12 @@ export async function getRequestData(
 			}
 			// Parse parameters by type
 			if (parameter.in === 'path') {
+				// TODO: add parameter `slug` here for anchor linking
 				pathParameters.push(
 					await getPropertyDetailPropsFromParameter(parameter)
 				)
 			} else if (parameter.in === 'query') {
+				// TODO: add parameter `slug` here for anchor linking
 				queryParameters.push(
 					await getPropertyDetailPropsFromParameter(parameter)
 				)
@@ -47,6 +49,7 @@ export async function getRequestData(
 		}
 	}
 	// Build body parameters from requestBody data, if present
+	// TODO: add parameter `slug` here for anchor linking
 	const bodyParameters =
 		requestBody && !('$ref' in requestBody)
 			? await getBodyParameterProps(requestBody)
@@ -55,19 +58,28 @@ export async function getRequestData(
 	const requestData: PropertyDetailsGroup[] = []
 	if (pathParameters.length > 0) {
 		requestData.push({
-			heading: 'Path Parameters',
+			heading: {
+				text: 'Path Parameters',
+				slug: 'path', // TODO: make this unique, `opId-request-path`?
+			},
 			propertyDetails: pathParameters,
 		})
 	}
 	if (queryParameters.length > 0) {
 		requestData.push({
-			heading: 'Query Parameters',
+			heading: {
+				text: 'Query Parameters',
+				slug: 'query', // TODO: make this unique, `opId-request-query`?
+			},
 			propertyDetails: queryParameters,
 		})
 	}
 	if (bodyParameters.length > 0) {
 		requestData.push({
-			heading: 'Body Parameters',
+			heading: {
+				text: 'Body Parameters',
+				slug: 'body', // TODO: make this unique, `opId-request-body`?
+			},
 			propertyDetails: bodyParameters,
 		})
 	}

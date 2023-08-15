@@ -9,6 +9,7 @@ import { getReasonPhrase } from 'http-status-codes'
 // Utils
 import { getPropertyDetailPropsFromSchemaObject } from './get-property-detail-props'
 // Types
+import type { PropertyDetailsGroup } from '../components/operation-details'
 import type { PropertyDetailsProps } from '../components/property-details'
 import type { OpenAPIV3 } from 'openapi-types'
 
@@ -18,12 +19,9 @@ import type { OpenAPIV3 } from 'openapi-types'
  */
 export async function getResponseData(
 	responses: OpenAPIV3.ResponsesObject
-): Promise<{ heading: string; propertyDetails: PropertyDetailsProps[] }[]> {
+): Promise<PropertyDetailsGroup[]> {
 	// Set up an object to hold response data
-	const responseData: {
-		heading: string
-		propertyDetails: PropertyDetailsProps[]
-	}[] = []
+	const responseData: PropertyDetailsGroup[] = []
 	// Populate the responseData object using incoming responses
 	for (const responseCode of Object.keys(responses)) {
 		const value = responses[responseCode]
@@ -51,6 +49,7 @@ export async function getResponseData(
 				}
 				const isRequired = requiredProperties.includes(propertyKey)
 				propertyDetails.push(
+					// TODO: add parameter `slug`s here for anchor linking
 					await getPropertyDetailPropsFromSchemaObject(
 						propertyKey,
 						data,
@@ -65,7 +64,10 @@ export async function getResponseData(
 					: `${responseCode} -  ${getReasonPhrase(responseCode)}`
 
 			responseData.push({
-				heading: headingText,
+				heading: {
+					text: headingText,
+					slug: responseCode, // TODO: make this unique
+				},
 				propertyDetails,
 			})
 		}
