@@ -1,7 +1,6 @@
 .root {
 	--permalink-opacity: 0;
 
-	/* border: 1px solid magenta; */
 	display: flex;
 	gap: 8px;
 	align-items: center;
