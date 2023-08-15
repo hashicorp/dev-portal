@@ -100,7 +100,6 @@ export interface OpenApiDocsViewProps {
 	IS_REVISED_TEMPLATE: true
 	productData: ProductData
 	title: string
-	description: string
 	descriptionMdx: MDXRemoteSerializeResult
 	releaseStage: string
 

@@ -154,7 +154,6 @@ Use the following resources to give you enough context to be successful.
 			productData,
 			title: schemaData.info.title,
 			releaseStage: targetVersion.releaseStage,
-			description: schemaData.info.description,
 			descriptionMdx,
 			IS_REVISED_TEMPLATE: true,
 			_placeholder: {

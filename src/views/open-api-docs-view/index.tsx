@@ -27,7 +27,6 @@ function OpenApiDocsView({
 	productData,
 	title,
 	releaseStage,
-	description,
 	descriptionMdx,
 	operationGroups,
 	navItems,
