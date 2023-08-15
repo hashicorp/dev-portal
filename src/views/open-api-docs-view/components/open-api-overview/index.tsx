@@ -55,9 +55,7 @@ export function OpenApiOverview({
 					size="small"
 				/>
 			</header>
-			{contentSlot ? (
-				<section className={s.content}>{contentSlot}</section>
-			) : null}
+			{contentSlot ? <section>{contentSlot}</section> : null}
 		</div>
 	)
 }
