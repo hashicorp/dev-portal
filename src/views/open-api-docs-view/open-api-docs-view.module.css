@@ -8,6 +8,7 @@
 
 	@media (--dev-dot-hide-mobile-menu) {
 		padding-right: 48px;
+		padding-left: 48px;
 	}
 }
 
