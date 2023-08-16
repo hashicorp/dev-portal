@@ -174,6 +174,7 @@ const useAI = () => {
 							try {
 								jsonData = JSON.parse(jsonString)
 							} catch (e) {
+								console.warn('[failed to parse json]:', jsonString)
 								jsonData = JSON.parse(JSON.stringify(jsonString))
 							}
 							const text = jsonData.content
