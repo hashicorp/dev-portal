@@ -27,6 +27,7 @@ import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
 	OpenApiDocsVersionData,
+	OpenApiNavItem,
 } from './types'
 
 /**
@@ -118,6 +119,30 @@ export async function getStaticProps({
 	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
 
 	/**
+	 * Build a list of resource nav items.
+	 *
+	 * @TODO: extract this out, should be set at the page level.
+	 */
+	const navResourceItems: OpenApiNavItem[] = [
+		{
+			title: 'Tutorial Library',
+			href: '/tutorials/library?product=vault&edition=hcp',
+		},
+		{
+			title: 'Certifications',
+			href: '/certifications/security-automation',
+		},
+		{
+			title: 'Community',
+			href: 'https://discuss.hashicorp.com/',
+		},
+		{
+			title: 'Support',
+			href: 'https://www.hashicorp.com/customer-success',
+		},
+	]
+
+	/**
 	 * Return props
 	 */
 	return {
@@ -134,6 +159,7 @@ export async function getStaticProps({
 			},
 			operationGroups: stripUndefinedProperties(operationGroups),
 			navItems,
+			navResourceItems,
 			breadcrumbLinks,
 		},
 	}

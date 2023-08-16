@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.root {
+.filterAndNav {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
