@@ -28,7 +28,7 @@ const Badge = ({
 	const hasLabel = !!ariaLabel
 	const isIconOnly = hasIcon && !hasText
 	const isStatusBadge =
-		color == 'success' || color == 'warning' || color == 'error'
+		color == 'success' || color == 'warning' || color == 'critical'
 
 	if (isStatusBadge && !hasIcon) {
 		throw new Error(
