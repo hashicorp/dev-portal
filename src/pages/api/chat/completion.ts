@@ -9,7 +9,9 @@ export const config = {
 import { z } from 'zod'
 
 const bodySchema = z.object({
-	task: z.string(),
+	sentiment: z.number().min(-1).max(1).optional(),
+	reason: z.string().optional(),
+	messageId: z.string(),
 })
 
 const edgeConfigSchema = z.object({
@@ -28,7 +30,6 @@ export default async function edgehandler(
 	if (!authorization) {
 		return new Response('Not found', { status: 404 })
 	}
-
 	const jwt = authorization.split(' ')[1]
 
 	let userInfo: UserInfoSchema
@@ -45,7 +46,7 @@ export default async function edgehandler(
 	}
 
 	switch (req.method) {
-		case 'POST': {
+		case 'PATCH': {
 			// read request body
 			const body = await req.json()
 			// validate request body
@@ -53,47 +54,44 @@ export default async function edgehandler(
 			if (!parsedBody.success) {
 				return new Response('Bad Request', { status: 400 })
 			}
-			const { task } = parsedBody.data
+			const { reason, sentiment, messageId } = parsedBody.data
 
-			try {
-				const res = await fetchCompletion({ task, accessToken: jwt })
+			const res = await updateCompletion(
+				{
+					messageId,
+					accessToken: jwt,
+				},
+				{ reason, sentiment }
+			)
+			const data = await res.json()
 
-				if (res.ok) {
-					const headers = res.headers
-					const completionId = headers.get('x-completion-id')
-
-					return new Response(res.body, {
-						headers: {
-							'Content-Type': 'text/html; charset=utf-8',
-							'X-Completion-Id': completionId,
-						},
-					})
-				} else {
-					return new Response(res.body, {
-						status: res.status,
-						headers: {
-							'Content-Type': 'application/json',
-						},
-					})
-				}
-			} catch (e) {
-				console.error(e)
-				return new Response('Internal Server Error', { status: 500 })
-			}
+			return new Response(data, { status: res.status })
 		}
 	}
 }
 
-async function fetchCompletion({ task, accessToken }) {
-	const url = new URL('/v1/chat', process.env.EXPERIMENTAL_CHAT_API_BASE_URL)
-	const body = JSON.stringify({ task })
+async function updateCompletion(
+	{ messageId, accessToken },
+	{ reason, sentiment }
+) {
+	const url = new URL(
+		`/v1/chat/${messageId}`,
+		process.env.EXPERIMENTAL_CHAT_API_BASE_URL
+	)
+	const body: Record<string, any> = {}
+	if (reason) {
+		body.reason = reason
+	}
+	if (sentiment) {
+		body.sentiment = sentiment
+	}
 	const headers = new Headers()
 	headers.set('Authorization', `Bearer ${accessToken}`)
 	headers.set('Content-Type', 'application/json')
 
-	return await fetch(url.toString(), {
-		body: body,
-		method: 'POST',
+	return fetch(url.toString(), {
+		body: JSON.stringify(body),
+		method: 'PATCH',
 		headers,
 	})
 }

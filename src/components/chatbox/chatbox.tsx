@@ -29,9 +29,11 @@ import Button from 'components/button'
 
 import cn from 'classnames'
 import s from './chatbox.module.css'
+import FeedbackForm from 'components/feedback-form'
 
 const useAI = () => {
 	const [streamedText, setStreamedText] = useState('')
+	const [completionId, setCompletionId] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
 
 	// leverage useMutation to make a POST request more ergonomic
@@ -92,27 +94,32 @@ const useAI = () => {
 		},
 	})
 
-	// when the mutation is successful, read the stream
+	// when the mutation / POST is successful
+	// - read the stream
+	// - grab completion id from headers for optional, subsequent updates
 	useEffect(() => {
-		async function doThing() {
+		;(async function () {
 			if (!mutation.data?.body) {
 				return
 			}
+
 			if (mutation.data.bodyUsed) {
 				return
 			}
 			if (mutation.data.status == 400) {
-				const jsonError = await mutation.data.json()
 				setStreamedText(
-					'```json\n' + JSON.stringify(jsonError, null, 2) + '\n```'
+					'Something went wrong, and we’re not quite sure how to fix it...'
 				)
 				return
 			}
 			if (mutation.data.body.locked) {
 				return
 			}
+
 			// reset streamed text
 			setStreamedText('')
+			// set the completion id
+			setCompletionId(mutation.data.headers.get('x-completion-id') || '')
 
 			// get the reader from the stream
 			const reader = mutation.data.body.getReader()
@@ -130,7 +137,6 @@ const useAI = () => {
 				}
 			) => {
 				let shouldExit = false
-
 				do {
 					const { done, value } = await rd.read()
 					// reached end of stream
@@ -142,10 +148,7 @@ const useAI = () => {
 					}
 					// value is Uint8Array
 					const data = decoder.decode(value)
-					console.log('-- data --')
-					console.log(data)
-					console.log('----------')
-					// data is a chunk of server-sent events
+					// data should be a string like: 'data: {"content":"arbitrary text\n\n"}\n\n'
 					onData(data)
 				} while (!shouldExit)
 			}
@@ -164,47 +167,25 @@ const useAI = () => {
 					const regexp = /(?!")\n\n(?!")/i
 					const messages = data.split(regexp)
 
-					console.log(messages)
 					if (!messages) {
 						return
 					}
 
 					messages.forEach((message) => {
-						// const lines = message
-						// 	.split('\n') // collect individual lines of server-sent JSON
-						// 	.filter(Boolean) // filter the last empty string
-
-						// const jsonString = lines.reduce((acc, e) => {
-						// 	acc += e.replace(/^data:\s/i, '')
-						// 	return acc
-						// }, '')
-
 						const jsonString = message.replace(/^data:\s/i, '')
 						if (jsonString.length > 0) {
-							let jsonData = null
-							try {
-								jsonData = JSON.parse(jsonString)
-							} catch (e) {
-								console.warn('[failed to parse json]:', jsonString)
-								jsonData = JSON.parse(JSON.stringify(jsonString))
-							}
-
-							// TODO(kevinwang): this property accessing requires knowledge
-							// of the server-sent events format.
-							const text = jsonData.content
-
-							// console.log(text)
-							setStreamedText((prev) => prev + text)
+							const content = JSON.parse(jsonString).content
+							setStreamedText((prev) => prev + content)
 						}
 					})
 				},
 			})
-		}
-		doThing()
+		})()
 	}, [mutation.data])
 
 	return {
 		streamedText,
+		completionId,
 		isLoading,
 		mutation,
 	}
@@ -220,6 +201,7 @@ type Message =
 			type: 'assistant'
 			image?: undefined
 			text: string
+			id: string
 	  }
 
 const UserMessage = ({
@@ -243,6 +225,7 @@ const AssistantMessage = ({
 	onLike,
 	onDislike,
 	showArrowDown,
+	messageId,
 }: PropsWithChildren<{
 	markdown: string
 	showActions: boolean
@@ -250,7 +233,43 @@ const AssistantMessage = ({
 	onLike: () => void
 	onDislike: () => void
 	showArrowDown: boolean
+	messageId: string
 }>) => {
+	const { session } = useAuthentication()
+	const accessToken = session?.accessToken
+	// Determines green/red button
+	const [sentiment, setSentiment] = useState<1 | -1 | 0>(0)
+
+	const handleSentiment = async ({ sentiment }: { sentiment: -1 | 1 }) => {
+		const response = await fetch('/api/chat/completion', {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${accessToken}`,
+			},
+			body: JSON.stringify({
+				sentiment,
+				messageId,
+			}),
+		})
+		return response
+	}
+
+	const handleReason = async ({ reason }: { reason: string }) => {
+		const response = fetch('/api/chat/completion', {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${accessToken}`,
+			},
+			body: JSON.stringify({
+				reason,
+				messageId,
+			}),
+		})
+		return response
+	}
+
 	return (
 		<div className={cn(s.message, s.message_assistant)}>
 			<IconTile className={cn(s.message_icon)}>
@@ -268,6 +287,7 @@ const AssistantMessage = ({
 				>
 					{markdown}
 				</ReactMarkdown>
+				{/* <small>{messageId}</small> */}
 				<div
 					className={cn(s.message_AssistantMessageFooter, {
 						[s.message_AssistantMessageFooterHidden]: !showActions,
@@ -285,17 +305,51 @@ const AssistantMessage = ({
 						<Button
 							size="small"
 							color="secondary"
+							className={cn({ [s.sentiment_like]: sentiment == 1 })}
 							icon={<IconThumbsUp24 height={12} width={12} />}
 							aria-label="FIXME"
-							onClick={onLike}
-						></Button>
+							onClick={async () => {
+								await handleSentiment({ sentiment: 1 })
+								setSentiment(1)
+							}}
+						/>
 						<Button
 							size="small"
 							color="secondary"
+							className={cn({ [s.sentiment_dislike]: sentiment == -1 })}
 							icon={<IconThumbsDown24 height={12} width={12} />}
 							aria-label="FIXME"
-							onClick={onDislike}
-						></Button>
+							onClick={async () => {
+								await handleSentiment({ sentiment: -1 })
+								setSentiment(-1)
+							}}
+						/>
+					</div>
+
+					<div
+						className={cn(s.message_feedbackForm, {
+							[s.message_feedbackFormVisible]: sentiment != 0,
+						})}
+					>
+						{sentiment != 0 ? (
+							<FeedbackForm
+								questions={[
+									{
+										id: 'reason',
+										type: 'text',
+										label: 'Provide additional feedback to help us improve',
+										optional: true,
+										buttonText: 'Submit answer',
+									},
+								]}
+								finishedText="Thank you! Your feedback will help us improve our websites."
+								onQuestionSubmit={async (responses) => {
+									const value = responses[0].value
+									await handleReason({ reason: value })
+									return
+								}}
+							/>
+						) : null}
 					</div>
 				</div>
 			</div>
@@ -311,7 +365,7 @@ const AssistantMessage = ({
 }
 
 const ChatBox = () => {
-	const { mutation, streamedText, isLoading } = useAI()
+	const { mutation, streamedText, completionId, isLoading } = useAI()
 	const { user, session } = useAuthentication()
 	const accessToken = session?.accessToken
 
@@ -337,20 +391,7 @@ const ChatBox = () => {
 		])
 	}
 
-	const [messageList, setMessageList] = useState<Message[]>([
-		// {
-		// 	type: 'user',
-		// 	text: 'What is boundary?',
-		// 	image: 'https://avatars.githubusercontent.com/u/26389321?v=4',
-		// },
-		// {
-		// 	type: 'assistant',
-		// 	text: 'Boundary is an identity-aware proxy that simplifies and secures least-privileged access to cloud infrastructure. It enables single sign-on to target services and applications via external identity providers, provides just-in-time network access to private resources, enables passwordless access with dynamic credentials via HashiCorp Vault, automates discovery of new target systems, records and manages privileged sessions, and standardizes access workflow with a consistent experience for any type of infrastructure across any provider. For more information, please refer to What is Boundary and Why Boundary.'.repeat(
-		// 		1
-		// 	),
-		// 	image: undefined,
-		// },
-	])
+	const [messageList, setMessageList] = useState<Message[]>([])
 
 	const throttledText = useThrottle(streamedText, 100)
 
@@ -367,7 +408,7 @@ const ChatBox = () => {
 
 	// update component state when text is streamed in from the backend
 	useEffect(() => {
-		if (!streamedText) {
+		if (!streamedText || !completionId) {
 			return
 		}
 		setMessageList((prev) => {
@@ -379,11 +420,12 @@ const ChatBox = () => {
 				next.push({
 					type: 'assistant',
 					text: streamedText,
+					id: completionId,
 				})
 			}
 			return next
 		})
-	}, [streamedText])
+	}, [streamedText, completionId])
 
 	return (
 		<div className={cn(s.chat)}>
@@ -391,11 +433,7 @@ const ChatBox = () => {
 				{messageList.length === 0 ? (
 					<div className={s.emptyArea}>
 						<div className={cn(s.col, s.left)}>
-							<IconWand24
-							// style={{
-							// 	color: 'var(--foreground-highlight-on-surface, #911ced)',
-							// }}
-							/>
+							<IconWand24 />
 							<div className={s.copy}>
 								<h3>Welcome to Developer AI</h3>
 								<p>
@@ -449,7 +487,8 @@ const ChatBox = () => {
 									return (
 										<AssistantMessage
 											markdown={e.text}
-											key={i}
+											key={e.id}
+											messageId={e.id}
 											showActions={shouldShowActions}
 											onCopy={() => alert('TODO: copy')}
 											onLike={() => alert('TODO: like')}
@@ -465,7 +504,7 @@ const ChatBox = () => {
 					</div>
 				)}
 
-				<form onSubmit={handleSubmit}>
+				<form id="chat-create" onSubmit={handleSubmit}>
 					<div className={s['search-area']}>
 						{isLoading ? (
 							<IconLoading24 className={'loadingIcon'} />

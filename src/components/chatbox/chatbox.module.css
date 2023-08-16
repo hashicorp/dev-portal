@@ -210,6 +210,12 @@
 	gap: 16px;
 }
 
+.message_feedbackForm {
+	&.message_feedbackFormVisible {
+		margin-top: 30px;
+	}
+}
+
 .search-area {
 	display: flex;
 	align-items: center;
@@ -262,4 +268,20 @@
 	vertical-align: baseline;
 	text-decoration: none;
 	-webkit-tap-highlight-color: transparent;
+}
+
+/* button styles */
+/* background-color: var(--token-color-surface-faint);*/
+/* border-color: var(--token-color-border-strong); */
+/* box-shadow: var(--token-elevation-low-box-shadow); */
+/* color: var(--token-color-foreground-primary); */
+.sentiment_like {
+	border: 1px solid var(--token-color-border-success);
+	background: var(--token-color-surface-success);
+	color: var(--token-color-foreground-success);
+}
+.sentiment_dislike {
+	border: 1px solid var(--token-color-border-critical);
+	background: var(--token-color-surface-critical);
+	color: var(--token-color-foreground-critical);
 }
