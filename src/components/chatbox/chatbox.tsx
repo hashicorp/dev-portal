@@ -142,6 +142,9 @@ const useAI = () => {
 					}
 					// value is Uint8Array
 					const data = decoder.decode(value)
+					console.log('-- data --')
+					console.log(data)
+					console.log('----------')
 					// data is a chunk of server-sent events
 					onData(data)
 				} while (!shouldExit)
@@ -154,8 +157,13 @@ const useAI = () => {
 					}
 
 					// split by double newline to collect individual messages
-					const messages = data.split('\n\n')
-					// "data: {\ndata: \"content\": \"Sure\"\ndata: }"
+					// but do explictly ignore json-serialized double newlines.
+					// TODO(kevinwang): are there more edge cases?
+					// ex: 'data: {"content":"\"\n\n"}\n\ndata: {"content":"\"\n\n"}'
+					//     - should be split into 2 messages
+					const regexp = /(?!")\n\n(?!")/i
+					const messages = data.split(regexp)
+
 					console.log(messages)
 					if (!messages) {
 						return
