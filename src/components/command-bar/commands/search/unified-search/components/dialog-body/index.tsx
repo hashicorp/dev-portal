@@ -102,6 +102,7 @@ export function UnifiedSearchCommandBarDialogBody() {
 						/>
 					</div>
 				</CommandBarList>
+			</>
 		)
 	}
 
