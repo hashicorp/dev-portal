@@ -62,11 +62,13 @@ export async function getStaticProps({
 	productSlug,
 	versionData,
 	basePath,
+	navResourceItems,
 }: {
 	context: GetStaticPropsContext<OpenApiDocsParams>
 	productSlug: ProductSlug
 	versionData: OpenApiDocsVersionData[]
 	basePath: string
+	navResourceItems?: OpenApiNavItem[]
 }): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
 	// Get the product data
 	const productData = cachedGetProductData(productSlug)
@@ -117,30 +119,6 @@ export async function getStaticProps({
 	 */
 	const breadcrumbLinks = getBreadcrumbLinks(basePath)
 	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
-
-	/**
-	 * Build a list of resource nav items.
-	 *
-	 * @TODO: extract this out, should be set at the page level.
-	 */
-	const navResourceItems: OpenApiNavItem[] = [
-		{
-			title: 'Tutorial Library',
-			href: '/tutorials/library?product=vault&edition=hcp',
-		},
-		{
-			title: 'Certifications',
-			href: '/certifications/security-automation',
-		},
-		{
-			title: 'Community',
-			href: 'https://discuss.hashicorp.com/',
-		},
-		{
-			title: 'Support',
-			href: 'https://www.hashicorp.com/customer-success',
-		},
-	]
 
 	/**
 	 * Return props
