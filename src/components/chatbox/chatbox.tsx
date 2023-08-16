@@ -148,9 +148,17 @@ const useAI = () => {
 
 			processStream(reader, {
 				onData: (data) => {
+					if (!data) {
+						return
+					}
+
 					// split by double newline to collect individual messages
 					const messages = data.split('\n\n')
 					// "data: {\ndata: \"content\": \"Sure\"\ndata: }"
+
+					if (!messages) {
+						return
+					}
 
 					messages.forEach((message) => {
 						const lines = message

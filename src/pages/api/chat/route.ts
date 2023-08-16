@@ -55,17 +55,23 @@ export default async function edgehandler(
 				return new Response('Bad Request', { status: 400 })
 			}
 			const { task } = result.data
-			const res = await fetchCompletion({ task, accessToken: jwt })
 
-			if (res.ok) {
-				return new Response(res.body, {
-					headers: { 'Content-Type': 'text/html; charset=utf-8' },
-				})
-			} else {
-				return new Response(res.body, {
-					status: res.status,
-					headers: { 'Content-Type': 'application/json' },
-				})
+			try {
+				const res = await fetchCompletion({ task, accessToken: jwt })
+
+				if (res.ok) {
+					return new Response(res.body, {
+						headers: { 'Content-Type': 'text/html; charset=utf-8' },
+					})
+				} else {
+					return new Response(res.body, {
+						status: res.status,
+						headers: { 'Content-Type': 'application/json' },
+					})
+				}
+			} catch (e) {
+				console.error(e)
+				return new Response('Internal Server Error', { status: 500 })
 			}
 		}
 	}
