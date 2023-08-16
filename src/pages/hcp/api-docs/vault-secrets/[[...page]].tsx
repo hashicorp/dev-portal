@@ -66,8 +66,9 @@ const GITHUB_SOURCE_DIRECTORY = {
  * Data to power the status page indicator in the header area.
  */
 const STATUS_INDICATOR_CONFIG = {
-	endpoint: 'https://status.hashicorp.com/api/v2/summary.json',
-	componentId: 'hk67zg2j2rkd',
+	pageUrl: 'https://status.hashicorp.com',
+	endpointUrl:
+		'https://status.hashicorp.com/api/v2/components/hk67zg2j2rkd.json',
 }
 
 /**

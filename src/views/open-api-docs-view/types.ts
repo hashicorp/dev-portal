@@ -94,8 +94,8 @@ export type OpenApiNavItem = DividerNavItem | HeadingNavItem | LinkNavItem
  *
  */
 export interface StatusIndicatorConfig {
-	endpoint: string
-	componentId: string
+	endpointUrl: string
+	pageUrl: string
 }
 
 /**

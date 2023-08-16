@@ -48,15 +48,13 @@ function OpenApiDocsView({
 			}
 		>
 			<div className={s.paddedContainer}>
-				<pre style={{ border: '1px solid magenta' }}>
-					<code>{JSON.stringify({ statusIndicatorConfig }, null, 2)}</code>
-				</pre>
 				<div className={s.spaceBreadcrumbsOverview}>
 					<BreadcrumbBar links={breadcrumbLinks} />
 					<OpenApiOverview
 						title={title}
 						badgeText={releaseStage}
 						description={description}
+						statusIndicatorConfig={statusIndicatorConfig}
 					/>
 				</div>
 				<OpenApiOperations operationGroups={operationGroups} />
