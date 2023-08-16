@@ -64,7 +64,7 @@ export default async function edgehandler(
 
 					return new Response(res.body, {
 						headers: {
-							'Content-Type': 'text/html; charset=utf-8',
+							'Content-Type': 'text/event-stream; charset=utf-8',
 							'X-Completion-Id': completionId,
 						},
 					})
