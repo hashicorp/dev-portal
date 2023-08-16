@@ -62,13 +62,13 @@ export async function getStaticProps({
 	productSlug,
 	versionData,
 	basePath,
-	navResourceItems,
+	navResourceItems = [],
 }: {
 	context: GetStaticPropsContext<OpenApiDocsParams>
 	productSlug: ProductSlug
 	versionData: OpenApiDocsVersionData[]
 	basePath: string
-	navResourceItems?: OpenApiNavItem[]
+	navResourceItems: OpenApiNavItem[]
 }): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
 	// Get the product data
 	const productData = cachedGetProductData(productSlug)
