@@ -25,6 +25,7 @@ import {
 import {
 	LinkNavItemWithMetaData,
 	MenuItem,
+	NavItemWithMetaData,
 	SidebarProps,
 	SubmenuNavItemWithMetaData,
 } from './types'
@@ -112,7 +113,8 @@ const Sidebar = ({
 			filterValue && filterValue !== ''
 				? filterNestedNavItems<
 						LinkNavItemWithMetaData,
-						SubmenuNavItemWithMetaData
+						SubmenuNavItemWithMetaData,
+						NavItemWithMetaData
 				  >(itemsWithMetadata, filterValue)
 				: itemsWithMetadata
 		sidebarContent = (

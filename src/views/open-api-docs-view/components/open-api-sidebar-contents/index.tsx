@@ -33,7 +33,7 @@ export function OpenApiSidebarContents({
 	const navItemsWithActive = useNavItemsWithActive(navItems)
 
 	// Filter navItems by `filterValue`
-	const filteredNavItems = filterFlatNavItems<LinkNavItem>(
+	const filteredNavItems = filterFlatNavItems<LinkNavItem, OpenApiNavItem>(
 		navItemsWithActive,
 		filterValue
 	)

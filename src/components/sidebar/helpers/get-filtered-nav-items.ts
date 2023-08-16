@@ -28,6 +28,8 @@
  *   For example, in many use cases we have `href` or `fullPath` properties.
  * - The `B` type argument represents the consumer's `B`ranch node types.
  *   Passing this argument allows the preservation of complex leaf node types.
+ * - The `O` type argument represents the consumer's `O`ther node types.
+ * 	 These are omitted from filtering.
  * - This function builds on the provided `L` and `B` types when filtering,
  *   augmenting them with `matchesFilter` and `hasRoutesMatchingFilter` props.
  */
@@ -46,14 +48,12 @@ type NavLeaf<L> = {
 	title: string
 } & L
 
-type NavBranch<L, B> = {
+type NavBranch<L, B, O> = {
 	title: string
-	routes: NavItem<L, B>[]
+	routes: NavItem<L, B, O>[]
 } & B
 
-type NavOther = object
-
-type NavItem<L, B> = NavLeaf<L> | NavBranch<L, B> | NavOther
+type NavItem<L, B, O> = NavLeaf<L> | NavBranch<L, B, O> | O
 
 /**
  * Type guards for incoming types
@@ -69,7 +69,7 @@ function isNavLeaf<L>(item: unknown): item is NavLeaf<L> {
 /**
  * Assert that the incoming item matches the `NavBranch` type.
  */
-function isNavBranch<L, B>(item: unknown): item is NavBranch<L, B> {
+function isNavBranch<L, B, O>(item: unknown): item is NavBranch<L, B, O> {
 	return typeof item == 'object' && 'title' in item && 'routes' in item
 }
 
@@ -108,17 +108,17 @@ type FilteredNavItem<L, B> = FilteredNavLeaf<L> | FilteredNavBranch<L, B>
  * The returned items will have additional properties related to filtering,
  * see the `FilteredNavItem` type for details.
  */
-export function filterNestedNavItems<L, B>(
-	items: NavItem<L, B>[],
+export function filterNestedNavItems<L, B, O = never>(
+	items: NavItem<L, B, O>[],
 	filterValue: string
 ): FilteredNavItem<L, B>[] {
 	// Otherwise, work through each item, and include items that match the filter
 	const filteredItems: FilteredNavItem<L, B>[] = []
 	for (const item of items) {
-		if (isNavBranch<L, B>(item)) {
+		if (isNavBranch<L, B, O>(item)) {
 			// Handle submenus, which have a `title` and nested `routes` to match
 			const matchesFilter = isTitleMatch(item.title, filterValue)
-			const routesFiltered = filterNestedNavItems<L, B>(
+			const routesFiltered = filterNestedNavItems<L, B, O>(
 				item.routes,
 				filterValue
 			)
@@ -152,7 +152,7 @@ export function filterNestedNavItems<L, B>(
  * since all returned items will be matches.
  */
 
-type NavItemFlat<L> = NavLeaf<L> | NavOther
+type NavItemFlat<L, O> = NavLeaf<L> | O
 
 /**
  * Given a flat array of nav items, without nesting,
@@ -160,15 +160,15 @@ type NavItemFlat<L> = NavLeaf<L> | NavOther
  *
  * If the provided `filterValue` is falsy, we return the items unchanged.
  */
-export function filterFlatNavItems<L = Record<string, never>>(
-	items: NavItemFlat<L>[],
+export function filterFlatNavItems<L = Record<string, never>, O = never>(
+	items: NavItemFlat<L, O>[],
 	filterValue: string
-): NavItemFlat<L>[] {
+): NavItemFlat<L, O>[] {
 	// If there's no filter value, return items unchanged
 	if (!filterValue) {
 		return items
 	} else {
-		return items.filter((item: NavItemFlat<L>) => {
+		return items.filter((item: NavItemFlat<L, O>) => {
 			return isNavLeaf<L>(item) && isTitleMatch(item.title, filterValue)
 		})
 	}
