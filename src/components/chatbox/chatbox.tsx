@@ -170,10 +170,15 @@ const useAI = () => {
 							return acc
 						}, '')
 						if (jsonString.length > 0) {
-							const jsonData = JSON.parse(jsonString)
+							let jsonData = null
+							try {
+								jsonData = JSON.parse(jsonString)
+							} catch (e) {
+								jsonData = JSON.parse(JSON.stringify(jsonString))
+							}
 							const text = jsonData.content
 
-							console.log(text)
+							// console.log(text)
 							setStreamedText((prev) => prev + text)
 						}
 					})
