@@ -27,6 +27,7 @@ import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
 	OpenApiDocsVersionData,
+	StatusIndicatorConfig,
 } from './types'
 
 /**
@@ -61,11 +62,13 @@ export async function getStaticProps({
 	productSlug,
 	versionData,
 	basePath,
+	statusIndicatorConfig,
 }: {
 	context: GetStaticPropsContext<OpenApiDocsParams>
 	productSlug: ProductSlug
 	versionData: OpenApiDocsVersionData[]
 	basePath: string
+	statusIndicatorConfig: StatusIndicatorConfig
 }): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
 	// Get the product data
 	const productData = cachedGetProductData(productSlug)
@@ -135,6 +138,7 @@ export async function getStaticProps({
 			operationGroups: stripUndefinedProperties(operationGroups),
 			navItems,
 			breadcrumbLinks,
+			statusIndicatorConfig,
 		},
 	}
 }

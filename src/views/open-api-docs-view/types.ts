@@ -88,8 +88,15 @@ type LinkNavItem = {
 	fullPath: string
 	theme?: ProductSlug
 }
-
 export type OpenApiNavItem = DividerNavItem | HeadingNavItem | LinkNavItem
+
+/**
+ *
+ */
+export interface StatusIndicatorConfig {
+	endpoint: string
+	componentId: string
+}
 
 /**
  * We'll use this type to document the shape of props for the view component.
@@ -116,6 +123,11 @@ export interface OpenApiDocsViewProps {
 	 * Breadcrumb links are shown in the breadcrumb nav.
 	 */
 	breadcrumbLinks: BreadcrumbLink[]
+
+	/**
+	 * Configuration for the status-page indicator in the header area.
+	 */
+	statusIndicatorConfig: StatusIndicatorConfig
 
 	/**
 	 * Some temporary data we'll remove for the production implementation.

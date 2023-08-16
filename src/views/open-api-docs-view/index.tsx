@@ -30,6 +30,7 @@ function OpenApiDocsView({
 	operationGroups,
 	navItems,
 	breadcrumbLinks,
+	statusIndicatorConfig,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
@@ -47,6 +48,9 @@ function OpenApiDocsView({
 			}
 		>
 			<div className={s.paddedContainer}>
+				<pre style={{ border: '1px solid magenta' }}>
+					<code>{JSON.stringify({ statusIndicatorConfig }, null, 2)}</code>
+				</pre>
 				<div className={s.spaceBreadcrumbsOverview}>
 					<BreadcrumbBar links={breadcrumbLinks} />
 					<OpenApiOverview
