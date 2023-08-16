@@ -10,6 +10,7 @@ import rehypePrism from '@mapbox/rehype-prism'
 import { MdxPre } from 'components/dev-dot-content/mdx-components/mdx-code-blocks'
 // https://helios.hashicorp.design/icons/library
 import { IconLoading24 } from '@hashicorp/flight-icons/svg-react/loading-24'
+import { IconStopCircle24 } from '@hashicorp/flight-icons/svg-react/stop-circle-24'
 import { IconSend24 } from '@hashicorp/flight-icons/svg-react/send-24'
 import { IconThumbsUp24 } from '@hashicorp/flight-icons/svg-react/thumbs-up-24'
 import { IconThumbsDown24 } from '@hashicorp/flight-icons/svg-react/thumbs-down-24'
@@ -155,20 +156,22 @@ const useAI = () => {
 					// split by double newline to collect individual messages
 					const messages = data.split('\n\n')
 					// "data: {\ndata: \"content\": \"Sure\"\ndata: }"
-
+					console.log(messages)
 					if (!messages) {
 						return
 					}
 
 					messages.forEach((message) => {
-						const lines = message
-							.split('\n') // collect individual lines of server-sent JSON
-							.filter(Boolean) // filter the last empty string
+						// const lines = message
+						// 	.split('\n') // collect individual lines of server-sent JSON
+						// 	.filter(Boolean) // filter the last empty string
 
-						const jsonString = lines.reduce((acc, e) => {
-							acc += e.replace(/^data:\s/i, '')
-							return acc
-						}, '')
+						// const jsonString = lines.reduce((acc, e) => {
+						// 	acc += e.replace(/^data:\s/i, '')
+						// 	return acc
+						// }, '')
+
+						const jsonString = message.replace(/^data:\s/i, '')
 						if (jsonString.length > 0) {
 							let jsonData = null
 							try {
@@ -177,6 +180,9 @@ const useAI = () => {
 								console.warn('[failed to parse json]:', jsonString)
 								jsonData = JSON.parse(JSON.stringify(jsonString))
 							}
+
+							// TODO(kevinwang): this property accessing requires knowledge
+							// of the server-sent events format.
 							const text = jsonData.content
 
 							// console.log(text)
@@ -301,12 +307,17 @@ const ChatBox = () => {
 	const { user, session } = useAuthentication()
 	const accessToken = session?.accessToken
 
+	const [userInput, setUserInput] = useState('')
+
+	// TODO(kevinwang) - implement "STOP GENERATING" button
 	const handleSubmit = async (e) => {
 		const task = e.currentTarget.task?.value
 
 		e.preventDefault()
 		// clear previous state
 		setMessageList([])
+		// clear previous input
+		setUserInput('')
 
 		mutation.mutate({
 			value: task,
@@ -373,9 +384,9 @@ const ChatBox = () => {
 					<div className={s.emptyArea}>
 						<div className={cn(s.col, s.left)}>
 							<IconWand24
-								style={{
-									color: 'var(--foreground-highlight-on-surface, #911ced)',
-								}}
+							// style={{
+							// 	color: 'var(--foreground-highlight-on-surface, #911ced)',
+							// }}
 							/>
 							<div className={s.copy}>
 								<h3>Welcome to Developer AI</h3>
@@ -454,17 +465,26 @@ const ChatBox = () => {
 							<IconSend24 />
 						)}
 						<textarea
+							value={userInput}
+							onChange={(e) => setUserInput(e.currentTarget.value)}
 							id="task"
 							rows={1}
 							className={cn(s.reset, s.textarea)}
 							placeholder="Send a new message"
-						></textarea>
-						<Button
-							disabled={isLoading}
-							type="submit"
-							icon={<IconSend24 height={16} width={16} />}
-							text="Send"
 						/>
+						{isLoading ? (
+							<Button
+								type={'button'}
+								icon={<IconStopCircle24 height={16} width={16} />}
+								text={'Stop generating'}
+							/>
+						) : (
+							<Button
+								type={'submit'}
+								icon={<IconSend24 height={16} width={16} />}
+								text={'Send'}
+							/>
+						)}
 					</div>
 
 					<footer className={s.bottom}>

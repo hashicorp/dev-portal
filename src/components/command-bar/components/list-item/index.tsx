@@ -109,10 +109,15 @@ const CommandBarButtonListItem = ({
 	icon,
 	title,
 	onClick,
+	// @ts-expect-error - TODO(kevinwang) expose className prop
+	className,
 }: CommandBarButtonListItemProps) => {
 	return (
 		<CommandBarListItem>
-			<button className={s.linkOrButton} onClick={onClick}>
+			<button
+				className={classNames(s.linkOrButton, className)}
+				onClick={onClick}
+			>
 				<CommandBarListItemContent
 					badges={badges}
 					description={description}

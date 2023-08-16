@@ -36,6 +36,7 @@ import type {
 } from '../../types'
 // Styles
 import s from './dialog-body.module.css'
+import c from './chat.module.css' // TODO(kevinwang): find a home for this
 import {
 	CommandBarButtonListItem,
 	CommandBarDivider,
@@ -72,7 +73,7 @@ export function UnifiedSearchCommandBarDialogBody() {
 	const currentProductTag = useCommandBarProductTag()
 	const currentProductSlug = currentProductTag?.id as ProductSlug
 	const recentSearches = useDebouncedRecentSearches(currentInputValue)
-	const { user, signIn } = useAuthentication()
+	const { user } = useAuthentication()
 
 	/**
 	 * Generate suggested pages for the current product (if any).
@@ -81,45 +82,18 @@ export function UnifiedSearchCommandBarDialogBody() {
 		return generateSuggestedPages(currentProductSlug)
 	}, [currentProductSlug])
 
-	const ExperimentalAI = ({ input }: { input: string }) => {
+	const ExperimentalAI = () => {
 		if (!user) {
-			return (
-				<>
-					{/*@ts-expect-error - TODO(kevinwang): fix CommandBarList.label prop type */}
-					<CommandBarList label="" ariaLabelledBy="FIXME">
-						<CommandBarButtonListItem
-							title={`Create an account to try out Developer AI!`}
-							icon={
-								<IconTile size="small">
-									<IconWand24 />
-								</IconTile>
-							}
-							onClick={() => {
-								signIn()
-							}}
-						/>
-					</CommandBarList>
-					<CommandBarDivider />
-				</>
-			)
+			return null
 		}
 		return (
 			<>
 				{/*@ts-expect-error - TODO(kevinwang): fix CommandBarList.label prop type */}
 				<CommandBarList label="" ariaLabelledBy="FIXME">
-					<div
-						// prettier-ignore
-						style={{
-						// override tokens for `.linkOrButton`
-						// background-color: var(--token-color-surface-strong);
-						// color: var(--token-color-foreground-strong);
-						// @ts-expect-error - TODO(kevinwang) clean this up
-						"--token-color-surface-strong": "var(--token-color-palette-purple-50)", /* #f9f2ff */
-						"--token-color-foreground-strong": "var(--token-color-palette-purple-300)", /* #911ced */
-						"--token-surface-base-box-shadow": "0 0 0 1px var(--token-color-palette-purple-100)", /* #ead2fe */
-					}}
-					>
+					<div>
 						<CommandBarButtonListItem
+							// @ts-expect-error - TODO(kevinwang) - expose className prop
+							className={c.ask}
 							title={`Ask Developer`}
 							icon={<IconWand24 />}
 							onClick={() => {
@@ -128,8 +102,6 @@ export function UnifiedSearchCommandBarDialogBody() {
 						/>
 					</div>
 				</CommandBarList>
-				{/* <CommandBarDivider /> */}
-			</>
 		)
 	}
 
@@ -139,7 +111,7 @@ export function UnifiedSearchCommandBarDialogBody() {
 	if (!currentInputValue) {
 		return (
 			<div className={s.suggestedPagesWrapper}>
-				<ExperimentalAI input={currentInputValue} />
+				<ExperimentalAI />
 				<span
 					style={{
 						display: 'block',
@@ -162,7 +134,7 @@ export function UnifiedSearchCommandBarDialogBody() {
 	return (
 		<>
 			<div style={{ padding: `16px` }}>
-				<ExperimentalAI input={currentInputValue} />
+				<ExperimentalAI />
 			</div>
 			<SearchResults
 				currentInputValue={currentInputValue}

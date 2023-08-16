@@ -4,12 +4,24 @@
 	display: flex;
 	flex-direction: column;
 	z-index: 9999;
-
 	justify-content: space-between;
 }
 
 .emptyArea {
-	background: var(--page-primary, #fff);
+	background-color: hsla(0, 0%, 98%, 1);
+	background-image: radial-gradient(
+			at 0% 22%,
+			hsla(33, 63%, 89%, 0.3) 0,
+			transparent 50%
+		),
+		radial-gradient(at 0% 16%, hsla(327, 55%, 77%, 0.3) 0, transparent 50%),
+		radial-gradient(at 0% 59%, hsla(292, 71%, 83%, 0.3) 0, transparent 50%),
+		radial-gradient(at 99% 2%, hsla(255, 85%, 77%, 0.66) 0, transparent 50%);
+
+	@nest html[data-theme='dark'] & {
+		background-color: hsla(228, 16%, 6%, 1);
+	}
+
 	height: 100%;
 	display: flex;
 	padding: 16px 120px;
@@ -38,7 +50,7 @@
 	.col.left {
 		/* background: orange; */
 		& h3 {
-			color: var(--foreground-strong, #0c0c0e);
+			color: var(--token-color-foreground-strong, #0c0c0e);
 			/* Display/400/Medium */
 			font-family: var(--token-typography-display-400-font-family);
 			font-size: 24px;
@@ -49,7 +61,7 @@
 			margin: 0;
 		}
 		& p {
-			color: var(--foreground-faint, #656a76);
+			color: var(--token-color-foreground-faint, #656a76);
 			/* Body/100/Medium */
 			font-family: var(--token-typography-body-100-font-family);
 			font-size: 13px;
@@ -74,7 +86,7 @@
 
 			& .rowText {
 				& .rowTextHeading {
-					color: var(--foreground-strong, #0c0c0e);
+					color: var(--token-color-foreground-strong, #0c0c0e);
 					/* Display/100/Medium */
 					font-family: var(--token-typography-display-100-font-family);
 					font-size: 13px;
@@ -85,7 +97,7 @@
 					margin: 0;
 				}
 				& .rowTextBody {
-					color: var(--foreground-faint, #656a76);
+					color: var(--token-color-foreground-faint, #656a76);
 					/* Body/100/Regular */
 					font-family: var(--token-typography-body-100-font-family);
 					font-size: 13px;
@@ -149,7 +161,7 @@
 }
 
 .message_user {
-	color: var(--foreground-primary, #3b3d45);
+	color: var(--token-color-foreground-primary, #3b3d45);
 	/* Body/300/Medium */
 	font-family: var(--token-typography-body-300-font-family);
 	font-size: var(--token-typography-body-300-font-size);
@@ -162,7 +174,7 @@
 }
 
 .message_assistant {
-	color: var(--foreground-primary, #3b3d45);
+	color: var(--token-color-foreground-primary, #3b3d45);
 	/* Body/200/Medium */
 	font-family: var(--token-typography-body-200-font-family);
 	font-size: var(--token-typography-body-200-font-size);
@@ -250,84 +262,4 @@
 	vertical-align: baseline;
 	text-decoration: none;
 	-webkit-tap-highlight-color: transparent;
-}
-
-.scroller {
-	position: relative;
-	overflow: auto;
-	-webkit-overflow-scrolling: touch;
-	scrollbar-width: none;
-	width: 100%;
-	height: 100%;
-}
-
-.overlayContainer {
-	position: relative;
-	overflow: hidden;
-}
-
-.overlay {
-	position: absolute;
-	pointer-events: none;
-	touch-action: none;
-	width: 100%;
-	height: 100%;
-	z-index: 2;
-	transform: scale3d(1.01, 1.01, 1);
-	overflow: hidden;
-
-	--scroller-gradient: #fff 0, hsla(0, 0%, 100%, 0.7) 8px,
-		hsla(0, 0%, 100%, 0.45) 14px, hsla(0, 0%, 100%, 0.3) 19px,
-		hsla(0, 0%, 100%, 0.26) 21px, hsla(0, 0%, 100%, 0.19) 25px,
-		hsla(0, 0%, 100%, 0.12) 29px, hsla(0, 0%, 100%, 0.06) 32px,
-		hsla(0, 0%, 100%, 0.03) 34px, hsla(0, 0%, 100%, 0.02) 36px,
-		hsla(0, 0%, 100%, 0.008) 38px, hsla(0, 0%, 100%, 0.002) 39px,
-		hsla(0, 0%, 100%, 0) 40px;
-
-	@nest :global([data-theme='dark']) & {
-		/* #0d0e12 = 13	14 18 */
-		--scroller-gradient: #0d0e12 0, rgba(13, 14, 18, 0.7) 8px,
-			rgba(13, 14, 18, 0.45) 14px, rgba(13, 14, 18, 0.3) 19px,
-			rgba(13, 14, 18, 0.26) 21px, rgba(13, 14, 18, 0.19) 25px,
-			rgba(13, 14, 18, 0.12) 29px, rgba(13, 14, 18, 0.06) 32px,
-			rgba(13, 14, 18, 0.03) 34px, rgba(13, 14, 18, 0.02) 36px,
-			rgba(13, 14, 18, 0.008) 38px, rgba(13, 14, 18, 0.002) 39px,
-			transparent 40px;
-	}
-}
-
-/* Must come before */
-.overlay::after {
-	background: linear-gradient(to top, var(--scroller-gradient)),
-		linear-gradient(to left, var(--scroller-gradient));
-	background-position-x: calc(100% + 40px);
-	background-position-y: calc(100% + 40px);
-}
-.overlay::before {
-	background: linear-gradient(to bottom, var(--scroller-gradient)),
-		linear-gradient(to right, var(--scroller-gradient));
-	background-position-x: -40px;
-	background-position-y: -40px;
-}
-
-/* Must come after, to take precedence */
-.overlay::after,
-.overlay::before {
-	content: '';
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	transform: translateZ(0);
-	will-change: background;
-	transition: background-position 0.3s ease;
-	background-repeat: no-repeat;
-	background-size: 200% 200%;
-}
-
-.overlay.overlaytop::before {
-	background-position-y: top;
-}
-
-.overlay.overlaybottom::after {
-	background-position-y: bottom;
 }
