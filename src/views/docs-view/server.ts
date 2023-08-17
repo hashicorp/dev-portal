@@ -9,6 +9,7 @@ import path from 'path'
 import { Pluggable } from 'unified'
 import rehypePrism from '@mapbox/rehype-prism'
 import slugify from 'slugify'
+import { remarkPluginLanguageAlias } from 'lib/remark-plugin-code-language-alias'
 
 // HashiCorp Imports
 import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
@@ -204,6 +205,12 @@ export function getStaticGenerationFunctions<
 							urlAdjustFn: getProductUrlAdjuster(product),
 						},
 					],
+					/**
+					 * Allow code block language aliases for convenience, and to match
+					 * the functionality in other markdown contexts, such as GitHub
+					 * and Terraform Registry.
+					 */
+					[remarkPluginLanguageAlias, { alias: { hcl: ['terraform'] } }],
 				],
 				rehypePlugins: [
 					[rehypePrism, { ignoreMissing: true }],
