@@ -7,16 +7,15 @@
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import path from 'path'
 import { Pluggable } from 'unified'
-import rehypePrism from '@mapbox/rehype-prism'
 import slugify from 'slugify'
 
 // HashiCorp Imports
-import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import RemoteContentLoader from './loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
 
 // Global imports
 import { ProductData, RootDocsPath } from 'types/products'
+import { rehypeCodePlugins } from 'lib/rehype-code-plugins'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { isDeployPreview } from 'lib/env-checks'
 import remarkPluginRemoveFirstH1 from 'lib/remark-plugins/remark-plugin-remove-first-h1'
@@ -205,10 +204,7 @@ export function getStaticGenerationFunctions<
 						},
 					],
 				],
-				rehypePlugins: [
-					[rehypePrism, { ignoreMissing: true, alias: { hcl: ['terraform'] } }],
-					rehypeSurfaceCodeNewlines,
-				],
+				rehypePlugins: rehypeCodePlugins,
 				scope: await getScope(),
 			})
 

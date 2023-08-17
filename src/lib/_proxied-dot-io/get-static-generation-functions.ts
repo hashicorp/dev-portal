@@ -13,8 +13,7 @@ import {
 	typography,
 	anchorLinks,
 } from '@hashicorp/remark-plugins'
-import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
-import rehypePrism from '@mapbox/rehype-prism'
+import { rehypeCodePlugins } from 'lib/rehype-code-plugins'
 import { getStaticGenerationFunctions as getStaticGenerationFunctionsBase } from 'views/docs-view/loaders'
 
 const MKTG_CONTENT_API_OLD = 'https://mktg-content-api-hashicorp.vercel.app'
@@ -122,10 +121,7 @@ export const getStaticGenerationFunctions: typeof getStaticGenerationFunctionsBa
 		/**
 		 * Build the set of rehype plugins to use.
 		 */
-		opts.rehypePlugins = [
-			[rehypePrism, { ignoreMissing: true }],
-			rehypeSurfaceCodeNewlines,
-		]
+		opts.rehypePlugins = rehypeCodePlugins
 
 		const { getStaticPaths: getStaticPathsBase, getStaticProps } =
 			getStaticGenerationFunctionsBase(opts)
