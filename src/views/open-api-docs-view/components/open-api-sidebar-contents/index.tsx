@@ -21,8 +21,10 @@ import s from './open-api-sidebar-contents.module.css'
  */
 export function OpenApiSidebarContents({
 	navItems,
+	navResourceItems,
 }: {
 	navItems: OpenApiNavItem[]
+	navResourceItems: OpenApiNavItem[]
 }) {
 	const [filterValue, setFilterValue] = useState('')
 
@@ -34,18 +36,39 @@ export function OpenApiSidebarContents({
 
 	// Render a generic list of `SideBarNavMenuItem`
 	return (
-		<div className={s.filterAndNav}>
-			<FilterInput
-				value={filterValue}
-				onChange={setFilterValue}
-				placeholder="Filter sidebar"
-			/>
-			<ul className={s.listResetStyles}>
-				{filteredNavItems.map((item: OpenApiNavItem, index: number) => (
-					// eslint-disable-next-line react/no-array-index-key
-					<SidebarNavMenuItem item={item} key={index} />
-				))}
-			</ul>
-		</div>
+		<>
+			<div className={s.filterAndNav}>
+				<FilterInput
+					value={filterValue}
+					onChange={setFilterValue}
+					placeholder="Filter sidebar"
+				/>
+				<SidebarNavMenuItemsList items={filteredNavItems} />
+			</div>
+			{/* Render resources, if present */}
+			{navResourceItems?.length > 0 ? (
+				<SidebarNavMenuItemsList
+					items={[
+						{ divider: true },
+						{ heading: 'Resources' },
+						...navResourceItems,
+					]}
+				/>
+			) : null}
+		</>
+	)
+}
+
+/**
+ * Renders an unordered list of nav items, with list styles reset.
+ */
+function SidebarNavMenuItemsList({ items }: { items: OpenApiNavItem[] }) {
+	return (
+		<ul className={s.listResetStyles}>
+			{items.map((item: OpenApiNavItem, index: number) => (
+				// eslint-disable-next-line react/no-array-index-key
+				<SidebarNavMenuItem item={item} key={index} />
+			))}
+		</ul>
 	)
 }
