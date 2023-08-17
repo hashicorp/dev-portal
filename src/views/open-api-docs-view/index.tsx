@@ -6,6 +6,7 @@
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
 // Components
+import BreadcrumbBar from 'components/breadcrumb-bar'
 import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
 // Local
 import {
@@ -28,6 +29,7 @@ function OpenApiDocsView({
 	description,
 	operationGroups,
 	navItems,
+	breadcrumbLinks,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
@@ -45,12 +47,14 @@ function OpenApiDocsView({
 			}
 		>
 			<div className={s.paddedContainer}>
-				<OpenApiOverview
-					className={s.overview}
-					title={title}
-					badgeText={releaseStage}
-					description={description}
-				/>
+				<div className={s.spaceBreadcrumbsOverview}>
+					<BreadcrumbBar links={breadcrumbLinks} />
+					<OpenApiOverview
+						title={title}
+						badgeText={releaseStage}
+						description={description}
+					/>
+				</div>
 				<OpenApiOperations operationGroups={operationGroups} />
 			</div>
 		</SidebarLayout>
