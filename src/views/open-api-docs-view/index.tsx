@@ -29,7 +29,6 @@ function OpenApiDocsView({
 	description,
 	operationGroups,
 	navItems,
-	navResourceItems,
 	breadcrumbLinks,
 }: OpenApiDocsViewProps) {
 	return (
@@ -37,17 +36,13 @@ function OpenApiDocsView({
 			sidebarSlot={
 				<>
 					<SidebarBackToLink text="HashiCorp Cloud Platform" href="/hcp" />
-					<OpenApiSidebarContents
-						navItems={navItems}
-						navResourceItems={navResourceItems}
-					/>
+					<OpenApiSidebarContents navItems={navItems} />
 				</>
 			}
 			mobileMenuSlot={
 				<OpenApiDocsMobileMenuLevels
 					productData={productData}
 					navItems={navItems}
-					navResourceItems={navResourceItems}
 				/>
 			}
 		>

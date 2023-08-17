@@ -118,15 +118,8 @@ export interface OpenApiDocsViewProps {
 	operationGroups: OperationGroup[]
 	/**
 	 * `navItems` appear in the main area of the sidebar and mobile nav.
-	 * They can be filtered using the sidebar filter input.
 	 */
 	navItems: OpenApiNavItem[]
-
-	/**
-	 * `navResourceItems` appear at the bottom of the sidebar and mobile nav.
-	 * They are always visible, excluded from filtering.
-	 */
-	navResourceItems: OpenApiNavItem[]
 
 	/**
 	 * Breadcrumb links are shown in the breadcrumb nav.

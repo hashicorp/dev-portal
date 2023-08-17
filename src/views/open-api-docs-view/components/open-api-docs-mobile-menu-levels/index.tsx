@@ -23,12 +23,10 @@ import type { OpenApiNavItem } from 'views/open-api-docs-view/types'
 export function OpenApiDocsMobileMenuLevels({
 	productData,
 	navItems,
-	navResourceItems,
 }: {
 	// Product data, used to generate mobile menu levels.
 	productData: ProductData
 	navItems: OpenApiNavItem[]
-	navResourceItems: OpenApiNavItem[]
 }) {
 	return (
 		<MobileMenuLevels
@@ -40,10 +38,7 @@ export function OpenApiDocsMobileMenuLevels({
 					content: (
 						<div>
 							{/* API docs mobile menu contents */}
-							<OpenApiSidebarContents
-								navItems={navItems}
-								navResourceItems={navResourceItems}
-							/>
+							<OpenApiSidebarContents navItems={navItems} />
 							{/* Common resources for this product */}
 							<SidebarHorizontalRule />
 							<ProductResourceNavItems slug={productData.slug} />
