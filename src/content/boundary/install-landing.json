@@ -48,7 +48,7 @@
 	"sidecarHcpCallout": {
 		"heading": "HCP Boundary",
 		"description": "Securely connect to clouds and remote hosts",
-		"ctaText": "Try HCP Boundary",
+		"ctaText": "Try HCP Boundary for free",
 		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
 	}
 }

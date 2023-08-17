@@ -41,7 +41,11 @@ export async function getStaticProps({
 
 	return {
 		props: stripUndefinedProperties({
-			metadata: { wafName: wafData.name, wafSlug: wafData.slug },
+			metadata: {
+				title: currentCollection.name,
+				wafName: wafData.name,
+				wafSlug: wafData.slug,
+			},
 			collection: currentCollection,
 			layoutProps: {
 				sidebarSections,
@@ -57,7 +61,10 @@ export async function getStaticPaths() {
 		params: { collectionSlug: splitProductFromFilename(c.slug) },
 	}))
 
-	return { paths, fallback: false }
+	return {
+		paths: paths.slice(0, __config.learn.max_static_paths ?? 0),
+		fallback: 'blocking',
+	}
 }
 
 export default WellArchitectedFrameworkCollectionView

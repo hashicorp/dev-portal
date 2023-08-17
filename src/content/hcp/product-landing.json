@@ -10,7 +10,10 @@
 			"text": "What is HCP?",
 			"url": "/hcp/docs/hcp"
 		},
-		"image": "https://www.datocms-assets.com/2885/1662053773-dev-dot-product-landing-what-is-hcp-diagram.png"
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1662053773-dev-dot-product-landing-what-is-hcp-diagram.png",
+			"dark": "https://www.datocms-assets.com/2885/1679096025-hcp_dm.svg"
+		}
 	},
 	"get_started": {
 		"heading": "Getting Started",
@@ -20,6 +23,11 @@
 				"icon": "vault-color",
 				"text": "HCP Vault",
 				"url": "/vault/tutorials/cloud"
+			},
+			{
+				"icon": "vault-color",
+				"text": "HCP Vault Secrets",
+				"url": "/vault/tutorials/hcp-vault-secrets-get-started"
 			},
 			{
 				"icon": "consul-color",

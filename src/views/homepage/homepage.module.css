@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.homepage {
+.root {
 	--homepage-container-padding-x: 24px;
 	--homepage-container-max-width: 1240px;
 	--homepage-container-width: min(
@@ -16,8 +16,49 @@
 	@media (--dev-dot-tablet-up) {
 		--homepage-section-padding-y: 88px;
 	}
+
+	position: relative;
 }
 
-.homepageContent {
-	z-index: 1;
+.background {
+	background-color: var(--token-color-foreground-strong);
+	background-image: url('./img/background.svg');
+	background-position-x: center;
+	background-position-y: top;
+	background-repeat: no-repeat;
+	background-size: cover;
+	content: '';
+	height: 1145px;
+	position: absolute;
+	width: 100%;
+	z-index: -1;
+
+	@media (--dev-dot-mobile) {
+		background-position-x: -550px;
+		background-position-y: -30px;
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-page-primary);
+		background-image: url('./img/background-dark.svg');
+	}
+}
+
+.limitedWidthContainer {
+	--padding-left-right: 24px;
+
+	margin: 0 auto;
+	margin-bottom: 72px;
+	max-width: calc(1232px + 2 * var(--padding-left-right));
+	padding-left: var(--padding-left-right);
+	padding-right: var(--padding-left-right);
+	padding-top: 146px;
+
+	@media (--dev-dot-tablet) {
+		padding-top: 120px;
+	}
+
+	@media (--dev-dot-mobile) {
+		padding-top: 24px;
+	}
 }

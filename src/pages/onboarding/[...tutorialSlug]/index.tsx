@@ -14,6 +14,7 @@ import onboardingData from 'data/onboarding.json'
 import { getOnboardingTutorialProps } from 'views/onboarding/tutorial-view/server'
 import OnboardingTutorialView from 'views/onboarding/tutorial-view'
 import { OnboardingTutorialViewProps } from 'views/onboarding/types'
+import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
 
 export async function getStaticProps({
 	params,
@@ -31,7 +32,7 @@ export async function getStaticProps({
 
 export async function getStaticPaths() {
 	const allCollections = await getCollectionsBySection(onboardingData.slug)
-	const paths = []
+	let paths = []
 	allCollections.forEach((c: ApiCollection) => {
 		const collectionSlug = splitProductFromFilename(c.slug)
 		c.tutorials.forEach(({ slug }: { slug: ApiTutorialLite['slug'] }) =>
@@ -43,7 +44,28 @@ export async function getStaticPaths() {
 		)
 	})
 
-	return { paths, fallback: false }
+	// For hashicorp/tutorials PR previews, skip the call to determine paths
+	// from analytics, and statically build all paths.
+	if (process.env.HASHI_ENV === 'tutorials-preview') {
+		return {
+			paths: paths,
+			fallback: false,
+		}
+	}
+
+	try {
+		paths = await getStaticPathsFromAnalytics({
+			param: 'tutorialSlug',
+			limit: __config.learn.max_static_paths ?? 0,
+			pathPrefix: `/onboarding`,
+			validPaths: paths,
+		})
+	} catch {
+		// In the case of an error, fallback to using the base list of generated paths to ensure we do _some_ form of static generation
+		paths = paths.slice(0, __config.learn.max_static_paths ?? 0)
+	}
+
+	return { paths, fallback: 'blocking' }
 }
 
 export default OnboardingTutorialView

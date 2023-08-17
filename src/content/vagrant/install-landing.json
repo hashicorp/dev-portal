@@ -40,7 +40,7 @@
 	"sidecarHcpCallout": {
 		"heading": "Vagrant Cloud",
 		"description": "Virtual boxes for Linux, Laravel and any development environment",
-		"ctaText": "Try Vagrant Cloud",
+		"ctaText": "Try Vagrant Cloud for free",
 		"ctaUrl": "https://app.vagrantup.com/boxes/search"
 	}
 }

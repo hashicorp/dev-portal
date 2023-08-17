@@ -30,24 +30,21 @@ const components = {
 	SwingsetTestIcon,
 }
 
-const SwingsetPage = createPage({ components })
+// @ts-expect-error -- the swingset type is wrong here (by extension of next-mdx-remote)
+const SwingsetContent = createPage({ components })
 
-const SwingsetLayout = ({ children }) => {
+export default function SwingsetPage(props) {
 	return (
 		// SidebarNavDataProvider is needed for the Sidebar docs to work
 		<CoreDevDotLayout>
 			<SidebarNavDataProvider navDataLevels={[]}>
-				{children}
+				<SwingsetContent {...props} />
 			</SidebarNavDataProvider>
 		</CoreDevDotLayout>
 	)
 }
 
-// @ts-expect-error - .layout is a custom concept for our application
-SwingsetPage.layout = SwingsetLayout
-
 export const getStaticPaths = createStaticPaths()
 export const getStaticProps = createStaticProps({
 	mdxOptions: { remarkPlugins: [remarkGfm] },
 })
-export default SwingsetPage

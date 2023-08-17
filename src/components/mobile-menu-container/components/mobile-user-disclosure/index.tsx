@@ -4,8 +4,10 @@
  */
 
 import { IconChevronDown24 } from '@hashicorp/flight-icons/svg-react/chevron-down-24'
+import { useRouter } from 'next/router'
 import { getUserMeta } from 'lib/auth/user'
 import isAbsoluteUrl from 'lib/is-absolute-url'
+import isThemedPath from 'lib/isThemedPath'
 import Disclosure, {
 	DisclosureActivator,
 	DisclosureContent,
@@ -13,6 +15,7 @@ import Disclosure, {
 import Link from 'components/link'
 import Text from 'components/text'
 import { UserDropdownDisclosureItem } from 'components/user-dropdown-disclosure'
+import UserDropdownDisclosureThemeSwitcher from 'components/theme-switcher/user-dropdown-switcher'
 import { MobileUserDisclosureProps } from './types'
 import s from './mobile-user-disclosure.module.css'
 
@@ -39,15 +42,15 @@ const renderItem = (
 	if (href) {
 		content = (
 			<Link href={href} className={s.link} opensInNewTab={isExternal} rel={rel}>
-				{icon}
 				{labelElement}
+				{icon}
 			</Link>
 		)
 	} else if (onClick) {
 		content = (
 			<button className={s.button} onClick={onClick}>
-				{icon}
 				{labelElement}
+				{icon}
 			</button>
 		)
 	}
@@ -62,6 +65,7 @@ const MobileUserDisclosure = ({
 	initialOpen,
 }: MobileUserDisclosureProps) => {
 	const { icon, label, description } = getUserMeta(user)
+	const { pathname } = useRouter()
 
 	return (
 		<Disclosure containerClassName={s.root} initialOpen={initialOpen}>
@@ -80,7 +84,12 @@ const MobileUserDisclosure = ({
 				<Text asElement="span" className={s.label} size={100} weight="semibold">
 					{label}
 				</Text>
-				<ul className={s.list}>{items.map(renderItem)}</ul>
+				<ul className={s.list}>
+					{items.map(renderItem)}
+					{isThemedPath(pathname) ? (
+						<UserDropdownDisclosureThemeSwitcher />
+					) : null}
+				</ul>
 			</DisclosureContent>
 		</Disclosure>
 	)

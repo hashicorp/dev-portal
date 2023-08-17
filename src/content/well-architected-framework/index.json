@@ -26,7 +26,10 @@
 		"overview": {
 			"heading": "What is Well-Architected Framework?",
 			"body": "HashiCorp Well-Architected Framework provides best practice guidance for organizations. Use it to optimize your production HashiCorp deployments while also meeting your specific architectural needs. The well-architected framework starts with the cloud operating model and moves toward cloud migration enablement.",
-			"image": "https://www.datocms-assets.com/2885/1669842777-well-architected-framework-new.png"
+			"image": {
+				"light": "https://www.datocms-assets.com/2885/1679095265-devdot-waf_lm.png",
+				"dark": "https://www.datocms-assets.com/2885/1679087810-devdot-waf_dm.png"
+			}
 		}
 	}
 }

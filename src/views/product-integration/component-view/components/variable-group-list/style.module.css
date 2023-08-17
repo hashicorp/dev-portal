@@ -25,7 +25,7 @@
 		}
 
 		& .arrowIcon {
-			color: var(--token-color-foreground-disabled);
+			color: var(--token-color-foreground-faint);
 			margin-right: 10px;
 		}
 
@@ -79,21 +79,37 @@
 
 			& .topRow {
 				& .key {
-					font-size: 14px;
 					color: var(--token-color-foreground-primary);
 				}
+			}
+		}
+
+		@nest html[data-theme='dark'] & {
+			background-color: var(--token-color-surface-faint);
+
+			/** 
+			* Need to repeat this because of the higher
+			* specificity with the html data attribute selector
+			**/
+			&.highlight {
+				background-color: var(--token-color-surface-action);
 			}
 		}
 	}
 }
 
+.nestedDivider {
+	color: var(--token-color-border-primary);
+	background-color: var(--token-color-border-primary);
+}
+
 .key {
 	composes: g-offset-scroll-margin-top from global;
+	composes: hds-typography-code-200 from global;
 	border: 1px solid var(--token-color-border-primary);
 	border-radius: 5px;
 	padding: 2px 4px 3px;
 	background: var(--token-color-palette-neutral-50);
-	font-size: 16px;
 	color: var(--token-color-foreground-strong);
 }
 

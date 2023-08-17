@@ -8,14 +8,20 @@ import DevDotContent from 'components/dev-dot-content'
 import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/components'
 import VersionAlertBanner from 'components/version-alert-banner'
 import ProductIntegrationLayout from 'layouts/product-integration-layout'
+import useUserContentAnchorLinks from 'lib/hooks/use-user-content-anchor-links'
 import { getIntegrationUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { ProductData } from 'types/products'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
+// Types
+import type { AnchorLinkItem } from 'lib/remark-plugins/remark-plugin-anchor-link-data'
+// Styles
 import s from './style.module.css'
 
 export interface ProductIntegrationReadmeViewProps {
+	anchorLinks: AnchorLinkItem[]
 	product: ProductData
 	integration: Integration
 	activeRelease: Release
@@ -29,7 +35,11 @@ export default function ProductIntegrationReadmeView({
 	activeRelease,
 	breadcrumbLinks,
 	serializedREADME,
+	anchorLinks,
 }: ProductIntegrationReadmeViewProps) {
+	// We expect user content here, so we need to handle `#user-content-` links
+	useUserContentAnchorLinks()
+
 	/**
 	 * Grab the current version string from the activeRelease.
 	 */
@@ -38,7 +48,7 @@ export default function ProductIntegrationReadmeView({
 
 	return (
 		<ProductIntegrationLayout
-			title="README"
+			title={integration.name}
 			className={s.readmeView}
 			breadcrumbLinks={breadcrumbLinks}
 			currentProduct={product}
@@ -50,7 +60,16 @@ export default function ProductIntegrationReadmeView({
 					? getIntegrationUrl(integration)
 					: getIntegrationUrl(integration, version)
 			}}
-			sidecarSlot={<TryHcpCalloutSidecarPlacement productSlug={product.slug} />}
+			sidecarSlot={
+				<div className={s.sidecarContents}>
+					<OutlineNavWithActive
+						items={anchorLinks.map(({ title, id }: AnchorLinkItem) => {
+							return { title, url: `#${id}` }
+						})}
+					/>
+					<TryHcpCalloutSidecarPlacement productSlug={product.slug} />
+				</div>
+			}
 			alertBannerSlot={
 				isLatestVersion ? null : (
 					<VersionAlertBanner
@@ -64,4 +83,3 @@ export default function ProductIntegrationReadmeView({
 		</ProductIntegrationLayout>
 	)
 }
-ProductIntegrationReadmeView.contentType = 'integrations'

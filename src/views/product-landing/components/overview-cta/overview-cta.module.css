@@ -14,7 +14,7 @@
 
 .textPart {
 	flex: 1 1 0;
-	min-width: min(100%, 300px);
+	min-width: min(100%, 260px);
 
 	@media (--dev-dot-tablet-up) {
 		max-width: 400px;
@@ -27,7 +27,7 @@
 	flex: 1 1 0;
 	justify-content: center;
 	max-width: 560px;
-	min-width: min(100%, 240px);
+	min-width: min(100%, 220px);
 
 	& img {
 		display: block;

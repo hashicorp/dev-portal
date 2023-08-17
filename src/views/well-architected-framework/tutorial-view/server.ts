@@ -13,8 +13,8 @@ import wafData from 'data/well-architected-framework.json'
 import wafContent from 'content/well-architected-framework/index.json'
 import { buildCategorizedWafSidebar } from 'views/well-architected-framework/utils/generate-sidebar-items'
 import {
-	Collection as ApiCollection,
-	TutorialLite as ApiTutorialLite,
+	Collection as ClientCollection,
+	TutorialLite as ClientTutorialLite,
 } from 'lib/learn-client/types'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import { MenuItem, SidebarProps } from 'components/sidebar'
@@ -22,22 +22,26 @@ import { EnrichedNavItem } from 'components/sidebar/types'
 import { generateWafCollectionSidebar } from 'views/well-architected-framework/utils/generate-collection-sidebar'
 import { getNextPrevious } from 'views/tutorial-view/components'
 import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
+import { getTutorialViewVariantData } from 'views/tutorial-view/utils/variants'
 import { WafTutorialViewProps } from '../types'
 
 export async function getWafTutorialViewProps(
-	tutorialSlug: [string, string]
+	fullSlug: [string, string] | [string, string, string] // Third option is a variant
 ): Promise<{ props: WafTutorialViewProps }> {
+	// Remove the variant from the slug
+	const tutorialSlug = fullSlug.slice(0, 2) as [string, string]
 	const [collectionFilename, tutorialFilename] = tutorialSlug
 	const currentPath = `/${wafData.slug}/${tutorialSlug.join('/')}`
 
 	// get all the waf collections to generate the collection level sidebar
 	const allWafCollections = await getCollectionsBySection(wafData.slug)
 	const currentCollection = allWafCollections.find(
-		(collection: ApiCollection) =>
+		(collection: ClientCollection) =>
 			collection.slug === `${wafData.slug}/${collectionFilename}`
 	)
-	const currentTutorialReference = currentCollection?.tutorials.find((t) =>
-		t.slug.endsWith(tutorialFilename)
+	const currentTutorialReference = currentCollection?.tutorials.find(
+		(t: ClientTutorialLite) =>
+			tutorialFilename === splitProductFromFilename(t.slug)
 	)
 
 	// The tutorial doesn't exist in collection - return 404
@@ -53,6 +57,12 @@ export async function getWafTutorialViewProps(
 		return null
 	}
 
+	const variantSlug = fullSlug[2]
+	const variant = getTutorialViewVariantData(
+		variantSlug,
+		fullTutorialData.variant
+	)
+
 	const { content: serializedContent, headings } = await serializeContent(
 		fullTutorialData
 	)
@@ -61,7 +71,7 @@ export async function getWafTutorialViewProps(
 		fullTutorialData.collectionCtx
 	)
 	const tutorialNavLevelMenuItems = collectionContext.current.tutorials.map(
-		(t: ApiTutorialLite) => {
+		(t: ClientTutorialLite) => {
 			const fullTutorialPath = `/${
 				collectionContext.current.slug
 			}/${splitProductFromFilename(t.slug)}`
@@ -107,6 +117,9 @@ export async function getWafTutorialViewProps(
 
 	return {
 		props: stripUndefinedProperties<WafTutorialViewProps>({
+			metadata: {
+				title: fullTutorialData.name,
+			},
 			tutorial: {
 				...fullTutorialData,
 				content: serializedContent,
@@ -121,6 +134,7 @@ export async function getWafTutorialViewProps(
 							`/${collectionSlug}/${splitProductFromFilename(tutorialSlug)}`,
 					},
 				}),
+				variant,
 			},
 			pageHeading,
 			outlineItems,

@@ -9,13 +9,19 @@
 	&:not(:last-child) {
 		margin-bottom: 25px;
 	}
+}
 
-	& .typeString {
-		color: var(--gray-2);
-		background: none;
-		padding: 0;
-		margin-left: 2px;
-	}
+.divider {
+	color: var(--token-color-border-primary);
+	background-color: var(--token-color-border-primary);
+}
+
+.typeString {
+	composes: hds-typography-code-100 from global;
+	color: var(--token-color-foreground-strong);
+	background: none;
+	padding: 0;
+	margin-left: 2px;
 }
 
 .nestedProperties {
@@ -25,7 +31,7 @@
 .descriptiveText {
 	/* Base typography */
 	composes: hds-typography-body-200 from global;
-	color: var(--gray-3);
+	color: var(--token-color-foreground-faint);
 	margin: 8px 0 0 0;
 
 	/* Remove the top margin from any first item */

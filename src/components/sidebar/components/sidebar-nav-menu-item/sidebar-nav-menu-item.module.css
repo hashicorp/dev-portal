@@ -31,12 +31,19 @@
 		background-color: var(--token-color-palette-neutral-200);
 	}
 
+	& svg {
+		/* Only enable animation if query is supported and value is no-preference */
+		@media (prefers-reduced-motion: no-preference) {
+			transition: transform 0.2s;
+		}
+	}
+
 	/* AKA open */
 	&[aria-expanded='true'] {
 		margin-bottom: 0;
 
 		& svg {
-			transform: rotate(90deg);
+			transform: rotate(-180deg);
 		}
 	}
 

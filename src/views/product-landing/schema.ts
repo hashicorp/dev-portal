@@ -4,6 +4,7 @@
  */
 
 import { CalloutCardProps } from 'components/callout-card/types'
+import { ThemedImageProps } from 'views/product-landing/components/themed-image'
 import Joi from 'joi'
 
 /**
@@ -136,7 +137,7 @@ export interface ProductLandingContent {
 			text: string
 			url: string
 		}
-		image: string
+		image: ThemedImageProps['src']
 	}
 	overviewParagraph?: string
 	get_started: {
@@ -162,7 +163,10 @@ const ProductLandingOverviewSchema = Joi.object({
 		text: Joi.string().required(),
 		url: Joi.string().required(),
 	}),
-	image: Joi.string().required(),
+	image: Joi.object({
+		light: Joi.string().required(),
+		dark: Joi.string().required(),
+	}).required(),
 })
 
 // Require either `ctas` or `iconCardLinks`

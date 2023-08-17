@@ -1,0 +1,36 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/* At the time of writing, there is no HDS helper for this style. */
+
+.root {
+	max-width: 850px;
+}
+
+.title {
+	composes: hds-font-family-sans-display from global;
+	composes: hds-font-weight-bold from global;
+	color: var(--token-color-foreground-strong);
+	font-size: 3.375rem; /* 54px */
+	line-height: 1.296; /* 70px */
+	margin: 0;
+	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		font-size: 2.25rem; /* 36px */
+		line-height: 1.3; /* 46px */
+	}
+}
+
+.subtitle {
+	composes: hds-typography-display-400 from global;
+	composes: hds-font-weight-medium from global;
+	color: var(--token-color-foreground-primary);
+	margin-top: 20px;
+
+	@media (--dev-dot-tablet-down) {
+		composes: hds-typography-display-300 from global;
+	}
+}

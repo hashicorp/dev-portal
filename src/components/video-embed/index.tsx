@@ -42,7 +42,7 @@ function VideoEmbedPlaceholder({ imageUrl }) {
 			top: '0',
 			width: '100%',
 			height: '100%',
-			backgroundImage: `url(${imageUrl})`,
+			...(imageUrl && { backgroundImage: `url(${imageUrl})` }),
 			backgroundSize: 'cover',
 			backgroundPosition: 'center',
 			cursor: 'pointer',

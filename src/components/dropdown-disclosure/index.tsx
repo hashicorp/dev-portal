@@ -35,7 +35,9 @@ const handleError = (message: string) => {
 }
 
 const DropdownDisclosure = ({
+	activatorClassName,
 	'aria-label': ariaLabel,
+	'aria-describedby': ariaDescribedBy,
 	children,
 	className,
 	closeOnRouteChangeStart,
@@ -44,6 +46,7 @@ const DropdownDisclosure = ({
 	icon,
 	listPosition = 'left',
 	text,
+	isFullWidth,
 }: DropdownDisclosureProps) => {
 	// Check if `children` are valid
 	validateDropdownDisclosureChildren(children)
@@ -84,19 +87,29 @@ const DropdownDisclosure = ({
 			containerClassName={classNames(
 				s.root,
 				s[`list-position--${listPosition}`],
+				isFullWidth && s['full-width'],
 				className
 			)}
 		>
 			<DropdownDisclosureActivator
 				aria-label={ariaLabel}
-				className={s.activator}
+				aria-describedby={ariaDescribedBy}
+				className={classNames(
+					s.activator,
+					isFullWidth && s['full-width'],
+					activatorClassName
+				)}
 				color={color}
 				hideChevron={hideChevron}
 			>
 				{icon || text}
 			</DropdownDisclosureActivator>
-			<DisclosureContent className={s.content}>
-				<ul className={s.list}>{children}</ul>
+			<DisclosureContent
+				className={classNames(s.content, isFullWidth && s['full-width'])}
+			>
+				<ul className={classNames(s.list, isFullWidth && s['full-width'])}>
+					{children}
+				</ul>
 			</DisclosureContent>
 		</Disclosure>
 	)

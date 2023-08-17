@@ -39,7 +39,7 @@ interface ApiDefaultCollection extends ApiCollectionLite {
 	tutorial_id: string
 }
 
-type ApiFeaturedCollection = ApiDefaultCollection
+export type ApiFeaturedCollection = ApiDefaultCollection
 
 export interface ApiTutorial extends ContentBaseModel, DefaultCollection {
 	content: string
@@ -53,6 +53,8 @@ export interface ApiTutorial extends ContentBaseModel, DefaultCollection {
 	hands_on_lab_id: string | null
 	hands_on_lab_provider: HandsOnLabProviderOption | null
 	products_used: ApiProductsUsed[] // Returns empty array if no products used
+	variants: ApiTutorialVariant[]
+	short_name: string
 }
 
 // Everything in base ApiTutorial, except content
@@ -138,6 +140,18 @@ export interface ApiProductPageData {
 			url: string
 		}[]
 	}
+}
+
+export interface ApiTutorialVariant extends Pick<BaseModel, 'id'> {
+	slug: string
+	name: string
+	options: ApiTutorialVariantOption[]
+}
+
+export interface ApiTutorialVariantOption extends Pick<BaseModel, 'id'> {
+	slug: string
+	name: string
+	display_order: number
 }
 
 /** Note that apart from snake_casing rather than camelCasing,

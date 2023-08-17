@@ -10,7 +10,10 @@
 			"text": "Learn more about Boundary features",
 			"url": "/boundary/docs/overview/what-is-boundary"
 		},
-		"image": "https://www.datocms-assets.com/2885/1662053765-dev-dot-product-landing-what-is-boundary-diagram.png"
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095102-devdot-boundary_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087672-devdot-boundary_dm.png"
+		}
 	},
 	"get_started": {
 		"heading": "Getting Started",

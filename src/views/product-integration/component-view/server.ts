@@ -17,26 +17,23 @@ import { ProductSlug } from 'types/products'
 
 // Integrations-related imports
 import {
-	Integration,
-	fetchIntegration,
-	IntegrationComponent,
-} from 'lib/integrations-api-client/integration'
+	fetchAllIntegrations,
+	getIntegrationComponentUrl,
+	getLatestIntegrationVersion,
+	getTargetVersion,
+	integrationComponentBreadcrumbLinks,
+} from 'lib/integrations'
+import { fetchIntegration } from 'lib/integrations-api-client/integration'
 import {
 	ReleaseComponent,
 	fetchIntegrationRelease,
 } from 'lib/integrations-api-client/release'
+import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
 import ProductIntegrationComponentView, {
 	ProductIntegrationComponentViewProps,
 } from 'views/product-integration/component-view'
-import {
-	fetchAllIntegrations,
-	getIntegrationComponentUrl,
-	getTargetVersion,
-	integrationComponentBreadcrumbLinks,
-} from 'lib/integrations'
 import { getProcessedVariablesMarkdown } from './helpers/get-processed-variables-markdown'
-import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 
 /**
  * We expect the same static param types to be returned from getStaticPaths,
@@ -47,6 +44,7 @@ type PathParams = {
 	integrationSlug: string
 	integrationVersion: string
 	organizationSlug: string
+	componentType: string
 	componentSlug: string
 }
 
@@ -59,28 +57,58 @@ type PathParams = {
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
-	const enabledProductSlugs = __config.dev_dot.product_slugs_with_integrations
+	const enabledProductSlugs = __config.dev_dot
+		.product_slugs_with_integrations as ProductSlug[]
 	// Fetch integrations for all products
 	const allIntegrations = await fetchAllIntegrations(enabledProductSlugs)
+
 	// Build a flat array of path parameters for each component view
 	// We statically render every component view for every integration,
 	// but only for the latest version of each integration.
-	const paths = allIntegrations
-		.filter((i: Integration) => !i.external_only)
-		.map((i: Integration) => {
-			return i.components.map((component: IntegrationComponent) => {
-				return {
-					productSlug: i.product.slug,
-					integrationSlug: i.slug,
-					integrationVersion: 'latest', // only statically render latest
-					organizationSlug: i.organization.slug,
-					componentSlug: component.slug,
-				}
-			})
-		})
-		.flat()
-		.map((params: PathParams) => ({ params }))
-	return { paths, fallback: 'blocking' }
+	const allPaths: Array<PathParams> = []
+	for (let i = 0; i < allIntegrations.length; i++) {
+		const currentIntegration = allIntegrations[i]
+
+		// Compute the latest version, as this is the page that we
+		// will statically build
+		const latestVersion = getLatestIntegrationVersion(
+			currentIntegration.versions
+		)
+
+		// If the integration is 'external_only' or does not have a latest
+		// version, it should not build a page
+		if (currentIntegration.external_only || latestVersion === null) {
+			continue
+		}
+
+		// Fetch the latest release, as we are going to generate the
+		// component pages from this set of components
+		const latestRelease = await fetchIntegrationRelease(
+			currentIntegration.product.slug,
+			currentIntegration.organization.slug,
+			currentIntegration.slug,
+			latestVersion
+		)
+
+		// Add a Path for each ReleaseComponent
+		latestRelease.result.components.forEach(
+			(releaseComponent: ReleaseComponent) => {
+				allPaths.push({
+					productSlug: currentIntegration.product.slug,
+					integrationSlug: currentIntegration.slug,
+					integrationVersion: 'latest',
+					organizationSlug: currentIntegration.organization.slug,
+					componentType: releaseComponent.component.slug,
+					componentSlug: releaseComponent.slug,
+				})
+			}
+		)
+	}
+
+	return {
+		paths: allPaths.map((params: PathParams) => ({ params })),
+		fallback: 'blocking',
+	}
 }
 
 /**
@@ -93,6 +121,7 @@ async function getStaticProps({
 		organizationSlug,
 		integrationVersion,
 		componentSlug,
+		componentType,
 	},
 }: GetStaticPropsContext<PathParams>): Promise<
 	GetStaticPropsResult<
@@ -126,9 +155,10 @@ async function getStaticProps({
 		}
 	}
 
+	const latestVersion = getLatestIntegrationVersion(integration.versions)
 	const [targetVersion] = getTargetVersion({
 		versionSlug: integrationVersion,
-		latestVersion: integration.versions[0],
+		latestVersion,
 	})
 
 	// if the version slug is not prefix with 'v', return 404
@@ -156,14 +186,14 @@ async function getStaticProps({
 			return rc.readme || rc.variable_groups.length
 		})
 		.find((rc: ReleaseComponent) => {
-			return rc.component.slug === componentSlug
+			return rc.component.slug === componentType && rc.slug === componentSlug
 		})
 	if (!releaseComponent) {
 		return { notFound: true }
 	}
 
 	// If the integration version is the latest version, redirect using `latest`
-	if (integrationVersion === integration.versions[0]) {
+	if (integrationVersion === 'v' + latestVersion) {
 		return {
 			redirect: {
 				destination: getIntegrationComponentUrl(
@@ -188,6 +218,14 @@ async function getStaticProps({
 		releaseComponent
 	)
 
+	/**
+	 * Serialize the README, extracting anchor links as we do
+	 */
+	const { serializeResult: serializedREADME, anchorLinks } =
+		releaseComponent.readme
+			? await serializeIntegrationMarkdown(releaseComponent.readme)
+			: { serializeResult: undefined, anchorLinks: [] }
+
 	return {
 		revalidate: __config.dev_dot.revalidate,
 		props: {
@@ -199,9 +237,8 @@ async function getStaticProps({
 			activeRelease,
 			component: releaseComponent,
 			processedVariablesMarkdown,
-			serializedREADME: releaseComponent.readme
-				? await serializeIntegrationMarkdown(releaseComponent.readme)
-				: undefined,
+			anchorLinks,
+			serializedREADME,
 			breadcrumbLinks: integrationComponentBreadcrumbLinks(
 				productData,
 				integration,

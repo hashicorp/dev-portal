@@ -96,6 +96,4 @@ function ProductTutorialsView({
 	)
 }
 
-ProductTutorialsView.contentType = 'tutorials'
-
 export default ProductTutorialsView

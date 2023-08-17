@@ -2,35 +2,24 @@
 	"title": "Infrastructure Automation",
 	"summary": {
 		"heading": "Infrastructure<br />Automation Certifications",
-		"description": "Verify your infrastructure automation skills. If you have a Terraform Associate certification, wait until the new version comes out in March 2023 to recertify. Your Terraform Associate badge’s expiration date has been extended, check Credly.com for your updated expiration date."
+		"description": "Verify your infrastructure automation skills."
 	},
 	"hero": {
 		"heading": "Infrastructure<br />Automation Certifications",
-		"description": "You will be able to use either version of the Terraform Associate certification to verify your basic infrastructure automation skills."
+		"description": "Pass the Terraform Associate certification exam to validate your infrastructure automation skills."
 	},
 	"exams": [
-		{
-			"title": "Terraform Associate",
-			"examCode": "002",
-			"productSlug": "terraform",
-			"versionTested": "Terraform 1.0 or higher",
-			"description": "The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform open source. This includes understanding which enterprise features exist and what can and cannot be done using the open source offering. You should have professional experience using Terraform in production, but performing the exam objectives in a personal demo environment may be sufficient.",
-			"links": {
-				"prepare": "/terraform/tutorials/certification",
-				"register": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049382552"
-			},
-			"faqSlug": "terraform-associate-002"
-		},
 		{
 			"title": "Terraform Associate",
 			"examCode": "003",
 			"productSlug": "terraform",
 			"versionTested": "Terraform 1.0 or higher",
-			"description": "Starting in March 2023, the Terraform Associate 003 will begin to replace the Terraform Associate 002 certification. The objective differences between the exam versions focus on reorganization and rewording of objectives to cover recent and future Terraform product growth.",
+			"description": "The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform open source. This includes understanding which enterprise features exist and what can and cannot be done using the open source offering. You should have professional experience using Terraform in production, but performing the exam objectives in a personal demo environment may be sufficient.",
 			"links": {
-				"prepare": "/terraform/tutorials/certification-003"
+				"prepare": "/terraform/tutorials/certification-003",
+				"register": "https://cp.certmetrics.com/hashicorp/en/login"
 			},
 			"faqSlug": "terraform-associate-003"
-		}
+		}	
 	]
 }

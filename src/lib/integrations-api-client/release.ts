@@ -38,6 +38,8 @@ export interface VariableGroup extends BaseModel {
 export interface ReleaseComponent extends BaseModel {
 	component_id: string
 	integration_release_id: string
+	name: string
+	slug: string
 	readme: string | null
 	component: Component
 	variable_groups: Array<VariableGroup>

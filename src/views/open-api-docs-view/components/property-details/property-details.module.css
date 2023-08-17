@@ -1,0 +1,154 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/*
+
+Common styles
+
+*/
+
+/* Split this out as it's a common pattern.
+   At some point, it might make sense to abstract it or add it
+	 at a global .css level. */
+.listResetStyles {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+/* Description styles markdown content. Note we do not use MDX in this
+   case, so specific styles we want for markdown content will need
+	 to be added here. */
+.description {
+	color: var(--token-color-foreground-faint);
+	& p {
+		margin: 0;
+	}
+}
+
+/*
+
+Base properties, at the top level
+
+*/
+
+.baseRoot {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.baseMetaAndDescription {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.baseMeta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+
+.baseType {
+	composes: hds-typography-code-200 from global;
+	color: var(--token-color-foreground-primary);
+}
+
+/* Style markdown rendered within the description */
+.baseDescription {
+	composes: hds-typography-body-200 from global;
+	composes: description;
+}
+
+.baseNestedDivider {
+	margin: 0;
+	height: 1px;
+	border: none;
+	background-color: var(--token-color-border-primary);
+}
+
+/*
+
+List of nested properties within a base property
+
+*/
+
+.listNestedProperties {
+	composes: listResetStyles;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+/*
+
+Nested properties
+
+*/
+
+.nestedRoot {
+	--nested-property-inset: 18px;
+
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	&.depth-0 {
+		--nested-property-inset: 0;
+	}
+}
+
+.nestedMetaAndDescription {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.nestedMeta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+}
+
+.nestedIcon {
+	color: var(--token-color-foreground-faint);
+	width: 12px;
+	height: 12px;
+	overflow: hidden;
+}
+
+.nestedNameAndType {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+}
+
+.nestedName {
+	composes: hds-typography-code-100 from global;
+	background: var(--token-color-surface-strong);
+	border-radius: 5px;
+	color: var(--token-color-foreground-strong);
+	padding: 2px 4px 3px 4px;
+}
+
+.nestedType {
+	composes: hds-typography-code-100 from global;
+	color: var(--token-color-foreground-primary);
+}
+
+.nestedDescription {
+	composes: hds-typography-body-100 from global;
+	composes: description;
+	padding-left: var(--nested-property-inset);
+}
+
+.nestedBody {
+	padding-left: var(--nested-property-inset);
+}

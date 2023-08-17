@@ -4,7 +4,7 @@
  */
 
 import rehypeSanitize from 'rehype-sanitize'
-import defaultSchema from 'hast-util-sanitize/lib/github.json'
+import { defaultSchema } from 'hast-util-sanitize/lib/schema'
 import { deepmerge } from 'deepmerge-ts'
 
 /**
@@ -19,20 +19,38 @@ const schema = deepmerge(defaultSchema, {
 	 * as it's typically used on plain markdown or HTML, not MDX, I think.
 	 */
 	tagNames: [...defaultSchema.tagNames, 'inlineCode'],
-	/**
-	 * We enable class names for all elements.
-	 *
-	 * This allows "paragraph custom alerts" as well as our `rehype-prism`
-	 * syntax highlighting to function as expected.
-	 * - Our paragraph custom alerts: https://github.com/hashicorp/remark-plugins/tree/main/plugins/paragraph-custom-alerts
-	 * - Our `rehype-prism` setup: https://github.com/hashicorp/web-platform-packages/tree/main/packages/code-highlighting
-	 *
-	 * Note: we could create more strictly scope rules here, instead of allowing
-	 * all class name values on all elements. However, there doesn't seem to be
-	 * any security concern here, and a stricter set of specific strings and
-	 * regex patterns for classNames would be much more difficult to maintain.
-	 */
-	attributes: { '*': ['className'] },
+	attributes: {
+		'*': [
+			/**
+			 * We enable class names for all elements.
+			 *
+			 * This allows "paragraph custom alerts" as well as our `rehype-prism`
+			 * syntax highlighting to function as expected.
+			 * - Our paragraph custom alerts: https://github.com/hashicorp/remark-plugins/tree/main/plugins/paragraph-custom-alerts
+			 * - Our `rehype-prism` setup: https://github.com/hashicorp/web-platform-packages/tree/main/packages/code-highlighting
+			 *
+			 * Note: we could create more strictly scope rules here, instead of allowing
+			 * all class name values on all elements. However, there doesn't seem to be
+			 * any security concern here, and a stricter set of specific strings and
+			 * regex patterns for classNames would be much more difficult to maintain.
+			 */
+			'className',
+			/**
+			 * `data-text-content` is used for our `remark-plugin-anchor-links-data`.
+			 * We enable data-text-content for all elements (enabling it for heading
+			 * elements only would be less clean, and no more safe).
+			 *
+			 * We use config here to ensure that only alphanumeric characters are
+			 * present. Any `data-text-content` attribute with any other characters
+			 * will be removed completely.
+			 *
+			 * In the future, we could safely expand this to 'data*' to avoid having
+			 * to maintain and reason about specific use cases.
+			 * Ref: https://github.com/syntax-tree/hast-util-sanitize#attributes
+			 */
+			['data-text-content', /[\w\-\s]+/],
+		],
+	},
 })
 
 /**

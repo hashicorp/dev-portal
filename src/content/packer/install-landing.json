@@ -42,7 +42,7 @@
 	"sidecarHcpCallout": {
 		"heading": "HCP Packer",
 		"description": "Automate build management across your cloud providers",
-		"ctaText": "Try HCP Packer",
+		"ctaText": "Try HCP Packer for free",
 		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
 	}
 }

@@ -6,10 +6,8 @@
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
 import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
-import { ProductData, RootDocsPath } from 'types/products'
-import { EnrichedNavItem, MenuItem, SidebarProps } from '../types'
-
-const IS_DEV = process.env.NODE_ENV !== 'production'
+import { ProductData } from 'types/products'
+import { EnrichedNavItem, SidebarProps } from '../types'
 
 /**
  * Generates the Sidebar menuItems for product landing pages
@@ -31,6 +29,29 @@ export const generateProductLandingSidebarMenuItems = (
 	}))
 
 	let docsItems
+	const menuItems = []
+	const introNavItem = routes.find((route) => route.fullPath.endsWith('/intro'))
+
+	/**
+	 * This order is meaningful and should align with the global nav order see
+	 * /src/components/navigation-header/components/product-page-content/utils/get-nav-items.ts
+	 *
+	 * - Install
+	 * - Intro (if exists)
+	 * - Tutorials
+	 * - Documentation and all other docs paths (e.g. API / CLI)
+	 * - Integrations
+	 *
+	 * We should refactor to drive this via global config https://app.asana.com/0/1204807665183200/1205002760871766/f
+	 */
+
+	if (product.slug !== 'hcp') {
+		menuItems.push({
+			title: 'Install',
+			fullPath: `/${product.slug}/downloads`,
+		})
+	}
+
 	if (product.slug === 'terraform') {
 		docsItems = [
 			{
@@ -40,23 +61,25 @@ export const generateProductLandingSidebarMenuItems = (
 			},
 		]
 	} else {
-		docsItems = routes
+		docsItems = introNavItem
+			? routes.filter((route) => !route.fullPath.endsWith('/intro'))
+			: routes
 	}
 
-	const menuItems = [
-		...docsItems,
-		{
-			title: 'Tutorials',
-			fullPath: `/${product.slug}/tutorials`,
-		},
-	]
-
-	if (product.slug !== 'hcp') {
-		menuItems.push({
-			title: 'Install',
-			fullPath: `/${product.slug}/downloads`,
-		})
+	if (introNavItem) {
+		menuItems.push(introNavItem)
 	}
+
+	menuItems.push(
+		...[
+			{
+				title: 'Tutorials',
+				fullPath: `/${product.slug}/tutorials`,
+			},
+			...docsItems,
+		]
+	)
+
 	if (getIsEnabledProductIntegrations(product.slug)) {
 		menuItems.push({
 			title: 'Integrations',

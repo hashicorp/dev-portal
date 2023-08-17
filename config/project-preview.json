@@ -9,8 +9,5 @@
 	},
 	"learn": {
 		"max_static_paths": 0
-	},
-	"flags": {
-		"enable_dark_mode": false
 	}
 }

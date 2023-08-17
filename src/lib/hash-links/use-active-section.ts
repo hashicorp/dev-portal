@@ -46,8 +46,24 @@ export function useActiveSection(
 			return
 		}
 
-		const findMatchingSectionIndex = (slug: string) => {
-			return slugs.findIndex((s) => s === slug)
+		/**
+		 * Given a heading `#id`, match it to an incoming `#slug` hash URL.
+		 *
+		 * Normally this would be very straightforward, `id` and `slug` would match.
+		 * However, some headings are in sanitized user content, so while our links
+		 * use the `#slug` URL, at the DOM level the heading `id`s have been
+		 * sanitized to `user-content-<slug>`.
+		 *
+		 * We need to account for this when matching observed element `id` values
+		 * to the list of `slug` strings passed to this hook.
+		 */
+		const findMatchingSectionSlug = (id: string) => {
+			return slugs.find((s) => s === id || `user-content-${s}` === id)
+		}
+
+		const findMatchingSectionIndex = (headingId: string) => {
+			const matchedSlug = findMatchingSectionSlug(headingId)
+			return slugs.findIndex((s) => s === matchedSlug)
 		}
 
 		const observer = new IntersectionObserver(
@@ -85,7 +101,8 @@ export function useActiveSection(
 							shortestDistance = distance
 						}
 					})
-					setActiveSection(closestHeading)
+					const activeSectionSlug = findMatchingSectionSlug(closestHeading)
+					setActiveSection(activeSectionSlug)
 				} else if (previousY.current && scrollTrend === 'up') {
 					// If we detect that we're scrolling up, and there are no visible
 					// headers, optimistically set the previous header as visible to make
@@ -125,9 +142,16 @@ export function useActiveSection(
 		)
 
 		slugs.forEach((s) => {
-			const el = document
-				.getElementById('main')
-				?.querySelector(`#${CSS.escape(s)}`)
+			/**
+			 * Some headings are in sanitized user content, so while our links
+			 * use the `#slug` link, at the DOM level the heading `id`s have been
+			 * sanitized to `user-content-<slug>`.
+			 *
+			 * We need to account for this when finding elements to observe by `id`.
+			 */
+			const userSlug = `user-content-${s}`
+			const el = document.getElementById(s) || document.getElementById(userSlug)
+
 			if (el) {
 				observer.observe(el)
 			}

@@ -3,21 +3,17 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import BaseLayout from 'layouts/base-new'
+import BaseLayout from 'layouts/base-layout'
+import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import proxiedLayouts from 'layouts/_proxied-dot-io/dict'
 import { getProxiedProductSlug } from 'lib/env-checks'
 import ErrorViewSwitcher from 'views/error-view-switcher'
-import fetchLayoutProps from 'lib/_proxied-dot-io/fetch-layout-props'
 // product data, needed to render top navigation
 import { productConfig } from 'lib/cms'
 import { isProductSlug } from 'lib/products'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 
-// resolve a default export
-function resolve(obj) {
-	return obj && obj.__esModule ? obj.default : obj
-}
-function Error({ statusCode, proxiedProductSlug, layoutProps }) {
+function Error({ statusCode, proxiedProductSlug }) {
 	// Unlike other pages, we can't use redirects and rewrites
 	// to display proxied .io domain 404 pages on specific hosts.
 	// Instead, we must use getServerSideProps to determine which
@@ -58,10 +54,14 @@ function Error({ statusCode, proxiedProductSlug, layoutProps }) {
 
 	const ProxiedLayout = proxiedLayouts[proxiedProductSlug]
 	const isProxiedDotIo = Boolean(ProxiedLayout)
-	const Layout = isProxiedDotIo ? ProxiedLayout : BaseLayout
+	const Layout = isProxiedDotIo
+		? ProxiedLayout
+		: (props) => (
+				<BaseLayout {...props} mobileMenuSlot={<MobileMenuLevelsGeneric />} />
+		  )
 
 	return (
-		<Layout data={{ ...layoutProps }}>
+		<Layout>
 			<ErrorViewSwitcher
 				statusCode={statusCode}
 				isProxiedDotIo={isProxiedDotIo}
@@ -72,8 +72,6 @@ function Error({ statusCode, proxiedProductSlug, layoutProps }) {
 
 export async function getServerSideProps(ctx) {
 	const { req, res, err } = ctx
-
-	console.error('[pages/_error]', err)
 
 	// Determine which layout to use, may be dev-portal's base layout,
 	// or may be a proxied product layout, depending on the URL host
@@ -93,26 +91,6 @@ export async function getServerSideProps(ctx) {
 	if (statusCode === 404) {
 		// cache 404 for one day
 		res.setHeader('Cache-Control', 's-maxage=86400')
-	}
-
-	/**
-	 * Resolve the next/dynamic component so we can access the layout component itself,
-	 * and subsequently the static .rivetParams via fetchLayoutProps
-	 */
-	let layoutProps = {}
-
-	try {
-		if (proxiedProductSlug) {
-			const layout = resolve(
-				await proxiedLayouts[proxiedProductSlug].render.preload()
-			)
-			layoutProps = await fetchLayoutProps(layout, proxiedProductSlug)
-		}
-	} catch {
-		/**
-		 * Do nothing, continue on with no layoutProps. Ensure that we don't potentially get into an
-		 * infinite error scenario if the fetching fails when attempting to render the error page
-		 */
 	}
 
 	/**
@@ -136,10 +114,8 @@ export async function getServerSideProps(ctx) {
 			statusCode,
 			proxiedProductSlug,
 			hostname: urlObj.hostname,
-			layoutProps,
 		},
 	}
 }
 
-Error.layout = ({ children }) => <>{children}</>
 export default Error

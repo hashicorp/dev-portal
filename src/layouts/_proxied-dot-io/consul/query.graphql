@@ -1,8 +1,0 @@
-query navQuery {
-	consulNav {
-		useCases {
-			text: heroHeading
-			url: slug
-		}
-	}
-}

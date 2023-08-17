@@ -16,7 +16,7 @@
 		}
 	],
 	"featuredTutorialsSlugs": [
-		"nomad/get-started-install",
+		"nomad/web-ui-access",
 		"nomad/cluster-setup-aws",
 		"nomad/jobs-configuring",
 		"nomad/job-spec-java-linux",

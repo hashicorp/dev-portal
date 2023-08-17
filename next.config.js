@@ -10,26 +10,21 @@ const withSwingset = require('swingset')
 const { redirectsConfig } = require('./build-libs/redirects')
 const rewritesConfig = require('./build-libs/rewrites')
 const HashiConfigPlugin = require('./config/plugin')
-const { loadHashiConfigForEnvironment } = require('./config')
 
 // Set api key for Happy Kit feature flags
 const happyKitKey = process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
 	? process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
 	: 'flags_pub_development_343442393171755603'
 
-const config = loadHashiConfigForEnvironment()
-
 /**
  * @type {import('next/dist/lib/load-custom-routes').Header}
  *
- * Temporary. Adds a `noindex` directive to all pages for products that are still in beta, and sentinel.
+ * Adds a `noindex` directive to all pages for sentinel.
  *
  * e.g. If terraform and consul are the only products in the beta array, only developer.hashicorp.com/(consul|terraform)/* will get noindex
  */
 const temporary_hideDocsPaths = {
-	source: `/(${[...config['dev_dot.beta_product_slugs'], 'sentinel'].join(
-		'|'
-	)})/:path*`,
+	source: `/(sentinel)/:path*`,
 	headers: [
 		{
 			key: 'X-Robots-Tag',
@@ -150,21 +145,6 @@ module.exports = withSwingset({
 		},
 		experimental: {
 			largePageDataBytes: 512 * 1000, // 512KB
-			// TODO: not using transpilePackages here until https://github.com/vercel/next.js/pull/43546 lands
-			// transpilePackages: [
-			// 	'@hashicorp/flight-icons',
-			// 	/**
-			// 	 * TODO: once Sentinel has been migrated into the dev-portal repository,
-			// 	 * we should consider localizing the sentinel-embedded component. Should
-			// 	 * first confirm with Cam Stitt that this component is not being used
-			// 	 * elsewhere.
-			// 	 */
-			// 	'@hashicorp/sentinel-embedded',
-			// 	'swingset',
-			// 	'unist-util-visit',
-			// 	'unist-util-visit-parents',
-			// 	'unist-util-is',
-			// ],
 		},
 	})
 )

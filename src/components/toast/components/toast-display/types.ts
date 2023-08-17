@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactNode } from 'react'
+import { type ReactElement, type ReactNode } from 'react'
 
 export enum ToastColor {
 	neutral = 'neutral',
@@ -33,7 +33,7 @@ export interface ToastDisplayProps {
 	/**
 	 * Optional icon to render beside the toast's content area.
 	 */
-	icon?: ReactNode
+	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>
 
 	/**
 	 * Optional render prop for actions below the toast's title and description.

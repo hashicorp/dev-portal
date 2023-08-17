@@ -1,0 +1,91 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+
+	@media (--dev-dot-mobile) {
+		gap: 32px;
+	}
+}
+
+.title {
+	composes: hds-typography-display-500 from global;
+	composes: hds-font-weight-bold from global;
+	color: var(--token-color-foreground-primary);
+
+	@media (--dev-dot-tablet-down) {
+		composes: hds-typography-display-400 from global;
+	}
+}
+
+.list {
+	align-items: flex-start;
+	display: flex;
+	gap: 64px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		gap: 40px;
+	}
+
+	@media (--dev-dot-mobile) {
+		flex-direction: column;
+	}
+}
+
+.listItem {
+	align-items: flex-start;
+	display: flex;
+	flex: 1;
+	gap: 40px;
+	flex-direction: row;
+
+	@media (--dev-dot-tablet-down) {
+		flex-direction: column;
+		gap: 24px;
+	}
+}
+
+.listItemIcon {
+	background-color: var(--token-color-surface-strong);
+	display: flex;
+	padding-bottom: 14px;
+	padding-left: 18px;
+	padding-right: 18px;
+	padding-top: 14px;
+	border-radius: 5px;
+}
+
+.listItemTextContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.listItemTitle {
+	composes: hds-typography-display-400 from global;
+	composes: hds-font-weight-semibold from global;
+	color: var(--token-color-foreground-primary);
+
+	@media (--dev-dot-mobile) {
+		composes: hds-typography-display-300 from global;
+	}
+}
+
+.listItemDescription {
+	composes: hds-typography-display-200 from global;
+	composes: hds-font-weight-semibold from global;
+	color: var(--token-color-foreground-primary);
+
+	@media (--dev-dot-mobile) {
+		composes: hds-typography-display-100 from global;
+		composes: hds-font-weight-medium from global;
+	}
+}

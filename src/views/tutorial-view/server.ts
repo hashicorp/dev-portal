@@ -30,6 +30,11 @@ import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
 import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
+import {
+	TutorialVariantOption,
+	getTutorialViewVariantData,
+	getVariantParam,
+} from './utils/variants'
 
 /**
  * Given a ProductData object (imported from src/data JSON files) and a tutorial
@@ -46,8 +51,11 @@ export async function getTutorialPageProps(
 	product: Omit<LearnProductData, 'slug'> & {
 		slug: LearnClientProduct['slug'] | 'hcp'
 	},
-	slug: [string, string]
+	fullSlug: [string, string] | [string, string, string] // Third option is a variant
 ): Promise<{ props: TutorialViewProps } | null> {
+	// Remove the variant from the slug
+	const slug = fullSlug.slice(0, 2) as [string, string]
+
 	// product.slug may be "hcp", needs to be "cloud" for Learn API use
 	const learnProductSlug = normalizeSlugForTutorials(product.slug)
 	const { collection, tutorialReference } = await getCurrentCollectionTutorial(
@@ -65,6 +73,12 @@ export async function getTutorialPageProps(
 	if (fullTutorialData === null) {
 		return null
 	}
+
+	const variantSlug = fullSlug[2]
+	const variant = getTutorialViewVariantData(
+		variantSlug,
+		fullTutorialData.variant
+	)
 
 	const { content: serializedContent, headings } = await serializeContent(
 		fullTutorialData
@@ -92,7 +106,7 @@ export async function getTutorialPageProps(
 				filename: collection.filename,
 			},
 			tutorial: {
-				name: fullTutorialData.name,
+				name: fullTutorialData.shortName,
 				filename: tutorialReference.filename,
 			},
 		}),
@@ -119,6 +133,7 @@ export async function getTutorialPageProps(
 			metadata: {
 				title: fullTutorialData.name,
 				description: fullTutorialData.description,
+				variant,
 			},
 			tutorial: {
 				...fullTutorialData,
@@ -197,9 +212,29 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 						tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
 					},
 				})
+				// If the Tutorial has variants, push a path for each one
+				if (tutorial.variant) {
+					tutorial.variant.options.forEach(
+						(variantOption: TutorialVariantOption) => {
+							const variantParam = getVariantParam(
+								tutorial.variant.slug,
+								variantOption.slug
+							)
+							paths.push({
+								params: {
+									productSlug: normalizedProductSlug,
+									tutorialSlug: [
+										collectionSlug,
+										tutorialSlug,
+										variantParam,
+									] as [string, string, string],
+								},
+							})
+						}
+					)
+				}
 			})
 		}
 	})
-
 	return paths
 }

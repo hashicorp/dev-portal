@@ -7,6 +7,7 @@ import isAbsoluteUrl from 'lib/is-absolute-url'
 import { rewriteWaypointPluginsToIntegrations } from 'lib/content-adjustments'
 import { productSlugs, productSlugsToHostNames } from 'lib/products'
 import { ProductData } from 'types/products'
+import { SectionOption } from 'lib/learn-client/types'
 
 /**
  * Given some product data,
@@ -136,6 +137,13 @@ export function rewriteDocsUrl(
 		(basePath: string) => inputUrl.startsWith(`/${basePath}`)
 	)
 	const isProductPath = new RegExp(`^/(${productSlugs.join('|')})`)
+	const isTutorialsPath = new RegExp(
+		`^/(${[
+			...productSlugs,
+			SectionOption['well-architected-framework'],
+			SectionOption.onboarding,
+		].join('|')}(/tutorials)?)`
+	)
 
 	if (isCurrentProductDocsUrl) {
 		// The vagrant vmware utility downloads page is a unique case, where we did
@@ -147,7 +155,7 @@ export function rewriteDocsUrl(
 			return `/${currentProduct.slug}/downloads/vmware`
 		}
 		return `/${currentProduct.slug}${inputUrl}`
-	} else if (!isProductPath.test(inputUrl)) {
+	} else if (!isProductPath.test(inputUrl) && !isTutorialsPath.test(inputUrl)) {
 		// if the path doesnt already start with a product slug i.e. /consul/tutorials
 		// and its not an absolute url we assume it is an internal .io link
 		// for this product context that is not a docs link, and should link to the external .io site

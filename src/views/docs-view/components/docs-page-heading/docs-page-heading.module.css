@@ -1,0 +1,29 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	align-items: flex-start;
+	display: flex;
+
+	/* DOM order is version selector, then title. On small viewports, with
+	   wrapping, we have multiple rows so row-reverse has no effect.
+		 On large viewports, where we have space to put everything in one row,
+		 we show the version selector after the landingHero (if used). */
+	flex-direction: row-reverse;
+	flex-wrap: wrap;
+	gap: 16px;
+}
+
+.pageHeadingWrapper {
+	flex-grow: 99; /* eats up all the space next to versionSwitcherWrapper */
+	min-width: min(100%, 28rem); /* 28rem, or fit container if alone in row */
+	width: 0; /* start from zero width, no arbitary breakpoint for flex-wrap */
+}
+
+.versionSwitcherWrapper {
+	flex-grow: 1; /* grows when alone, lets pageHeadingWrapper grow more */
+	min-width: max-content; /* keep the selector on one line */
+	width: 0; /* start from zero width, no arbitary breakpoint for flex-wrap */
+}

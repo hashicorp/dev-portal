@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// import Tabs, { Tab } from '@hashicorp/react-tabs'
 import Tabs, { Tab } from 'components/tabs'
+import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
+import { MdxListItem } from 'components/dev-dot-content/mdx-components'
 import { VariableGroupList } from '../variable-group-list'
 
 /**
@@ -40,10 +41,10 @@ export default function ConfigEntryReference({ keys, topLevel = true }) {
 	const kubeKeys = topLevel ? toKubeKeys(keys) : keys
 	return (
 		<Tabs>
-			<Tab heading="HCL" group="HCL">
+			<Tab heading="HCL" group="hcl">
 				{renderKeys(keys, true)}
 			</Tab>
-			<Tab heading="Kubernetes YAML" group="YAML">
+			<Tab heading="Kubernetes YAML" group="yaml">
 				{renderKeys(kubeKeys, false)}
 			</Tab>
 		</Tabs>
@@ -98,27 +99,29 @@ function renderKey(key, isHCLTab) {
 	}
 
 	return (
-		<VariableGroupList
-			key={key.name}
-			groupName={variableGroup.name}
-			children={variableGroup.children}
-		/>
-		// <li key={keyLower} className="g-type-long-body">
-		// 	<a id={keyLower} className="__target-lic" aria-hidden="" />
-		// 	<p>
-		// 		<a
-		// 			href={'#' + keyLower}
-		// 			aria-label={keyLower + ' permalink'}
-		// 			className="__permalink-lic"
-		// 		>
-		// 			<code>{keyName}</code>
-		// 		</a>{' '}
-		// 		{type}
-		// 		{enterpriseAlert}
-		// 		<span dangerouslySetInnerHTML={{ __html: htmlDescription }} />
-		// 	</p>
-		// 	{renderKeys(key.children, isHCLTab)}
-		// </li>
+		<>
+			<VariableGroupList
+				key={key.name}
+				groupName={variableGroup.name}
+				children={variableGroup.children}
+			/>
+			{/* <MdxListItem key={keyLower}>
+				<a id={keyLower} className="__target-lic" aria-hidden="" />
+				<p>
+					<a
+						href={'#' + keyLower}
+						aria-label={keyLower + ' permalink'}
+						className="__permalink-lic"
+					>
+						<code>{keyName}</code>
+					</a>{' '}
+					{type}
+					{enterpriseAlert}
+					<span dangerouslySetInnerHTML={{ __html: htmlDescription }} />
+				</p>
+				{renderKeys(key.children, isHCLTab)}
+			</MdxListItem> */}
+		</>
 	)
 }
 

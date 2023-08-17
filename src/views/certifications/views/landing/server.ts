@@ -51,7 +51,7 @@ export async function getStaticProps(): Promise<
 			pageContent,
 			programSummaries,
 			faqItems,
-			metadata: { localOgImage: 'certifications.jpg' },
+			metadata: { title: 'Certifications', localOgImage: 'certifications.jpg' },
 		},
 	}
 }

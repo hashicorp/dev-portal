@@ -89,18 +89,17 @@ export default function SearchableIntegrationsList({
 
 	const {
 		tierOptions,
-		officialChecked,
-		setOfficialChecked,
-		partnerChecked,
-		setPartnerChecked,
-		communityChecked,
-		setCommunityChecked,
+		tiersCheckedArray,
+		setTiersCheckedArray,
 		sortedComponents,
 		componentCheckedArray,
 		setComponentCheckedArray,
 		flags,
 		flagsCheckedArray,
 		setFlagsCheckedArray,
+		types,
+		typesCheckedArray,
+		setTypesCheckedArray,
 		atLeastOneFacetSelected,
 	} = useIntegrationsSearchContext()
 
@@ -109,15 +108,14 @@ export default function SearchableIntegrationsList({
 		resetPage()
 
 		setFilterQuery('')
-		setOfficialChecked(false)
-		setPartnerChecked(false)
-		setCommunityChecked(false)
 
+		setTiersCheckedArray(tiersCheckedArray.map((v, i) => false))
 		setComponentCheckedArray(componentCheckedArray.map((v, i) => false))
 		setFlagsCheckedArray(flagsCheckedArray.map((v, i) => false))
+		setTypesCheckedArray(typesCheckedArray.map((v, i) => false))
 	}
 
-	const makeToggleTierHandler = (tier: Tier) => () => {
+	const makeToggleTierHandler = (index: number, tier: Tier) => () => {
 		// reset page on filter change
 		resetPage()
 
@@ -131,26 +129,11 @@ export default function SearchableIntegrationsList({
 			}
 		}
 
-		switch (tier) {
-			case Tier.OFFICIAL: {
-				const next = !officialChecked
-				fireTierAnalytics(next)
-				setOfficialChecked(next)
-				break
-			}
-			case Tier.PARTNER: {
-				const next = !partnerChecked
-				fireTierAnalytics(next)
-				setPartnerChecked(next)
-				break
-			}
-			case Tier.COMMUNITY: {
-				const next = !communityChecked
-				fireTierAnalytics(next)
-				setCommunityChecked(next)
-				break
-			}
-		}
+		const newTierCheckedArray = [...tiersCheckedArray]
+		newTierCheckedArray[index] = !newTierCheckedArray[index]
+		setTiersCheckedArray(newTierCheckedArray)
+
+		fireTierAnalytics(newTierCheckedArray[index])
 	}
 
 	const makeToggleFlagHandler = (i: number, flagName: string) => () => {
@@ -188,6 +171,22 @@ export default function SearchableIntegrationsList({
 			setComponentCheckedArray(newComponents)
 		}
 
+	const makeToggleTypeHandler = (i: number, typeName: string) => () => {
+		// reset page on filter change
+		resetPage()
+
+		const newTypes = [...typesCheckedArray]
+		const isTypeSelectedInNext = !newTypes[i]
+		if (isTypeSelectedInNext) {
+			integrationLibraryFilterSelectedEvent({
+				filter_category: 'type',
+				filter_value: typeName,
+			})
+		}
+		newTypes[i] = isTypeSelectedInNext
+		setTypesCheckedArray(newTypes)
+	}
+
 	const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false)
 
 	const resultText = `${filteredIntegrations.length} ${
@@ -211,15 +210,12 @@ export default function SearchableIntegrationsList({
 					<div className={classNames(s.selectStack, s.tablet_up)}>
 						<MultiSelect
 							text="Tiers"
-							options={tierOptions.map((tierOption) => {
-								const selected =
-									(tierOption === Tier.OFFICIAL && officialChecked) ||
-									(tierOption === Tier.PARTNER && partnerChecked) ||
-									(tierOption === Tier.COMMUNITY && communityChecked)
+							options={tierOptions.map((tierOption, i) => {
+								const selected = tiersCheckedArray[i]
 								return {
 									id: tierOption,
 									label: capitalize(tierOption),
-									onChange: makeToggleTierHandler(tierOption),
+									onChange: makeToggleTierHandler(i, tierOption),
 									selected,
 								}
 							})}
@@ -250,6 +246,18 @@ export default function SearchableIntegrationsList({
 								}
 							})}
 						/>
+						<MultiSelect
+							text="Types"
+							options={types.map(({ id, name, plural_name }, i) => {
+								const selected = typesCheckedArray[i]
+								return {
+									id,
+									label: plural_name,
+									onChange: makeToggleTypeHandler(i, name),
+									selected,
+								}
+							})}
+						/>
 					</div>
 					{/**
 					 * Technique ARIA22: Using role=status to present status messages
@@ -273,17 +281,14 @@ export default function SearchableIntegrationsList({
 
 				<div className={s.filterInfo}>
 					{/* Render x-tags for tiers */}
-					{tierOptions.map((e) => {
-						const checked =
-							(e === Tier.OFFICIAL && officialChecked) ||
-							(e === Tier.PARTNER && partnerChecked) ||
-							(e === Tier.COMMUNITY && communityChecked)
+					{tierOptions.map((e, i) => {
+						const checked = tiersCheckedArray[i]
 						return (
 							checked && (
 								<Tag
 									key={e}
 									text={capitalize(e)}
-									onRemove={makeToggleTierHandler(e)}
+									onRemove={makeToggleTierHandler(i, e)}
 								/>
 							)
 						)
@@ -310,6 +315,19 @@ export default function SearchableIntegrationsList({
 									key={e.id}
 									text={e.name}
 									onRemove={makeToggleFlagHandler(i, e.name)}
+								/>
+							)
+						)
+					})}
+					{/* Render x-tags for Types */}
+					{types.map((e, i) => {
+						const checked = typesCheckedArray[i]
+						return (
+							checked && (
+								<Tag
+									key={e.id}
+									text={e.plural_name}
+									onRemove={makeToggleTypeHandler(i, e.name)}
 								/>
 							)
 						)
@@ -388,32 +406,23 @@ export default function SearchableIntegrationsList({
 function MobileFilters() {
 	const {
 		tierOptions,
-		officialChecked,
-		setOfficialChecked,
-		partnerChecked,
-		setPartnerChecked,
-		communityChecked,
-		setCommunityChecked,
+		tiersCheckedArray,
+		setTiersCheckedArray,
 		sortedComponents,
 		componentCheckedArray,
 		setComponentCheckedArray,
 		flags,
 		flagsCheckedArray,
 		setFlagsCheckedArray,
+		types,
+		typesCheckedArray,
+		setTypesCheckedArray,
 	} = useIntegrationsSearchContext()
 
-	const makeToggleTierHandler = (tier: Tier) => () => {
-		switch (tier) {
-			case Tier.OFFICIAL:
-				setOfficialChecked(!officialChecked)
-				break
-			case Tier.PARTNER:
-				setPartnerChecked(!partnerChecked)
-				break
-			case Tier.COMMUNITY:
-				setCommunityChecked(!communityChecked)
-				break
-		}
+	const makeToggleTierHandler = (index: number) => () => {
+		const newTierCheckedArray = [...tiersCheckedArray]
+		newTierCheckedArray[index] = !newTierCheckedArray[index]
+		setTiersCheckedArray(newTierCheckedArray)
 	}
 
 	const makeToggleComponentHandler = (index: number) => () => {
@@ -428,58 +437,85 @@ function MobileFilters() {
 		setFlagsCheckedArray(newFlagsCheckedArray)
 	}
 
+	const makeToggleTypeHandler = (index: number) => () => {
+		const newTypesCheckedArray = [...typesCheckedArray]
+		newTypesCheckedArray[index] = !newTypesCheckedArray[index]
+		setTypesCheckedArray(newTypesCheckedArray)
+	}
+
 	return (
 		<>
-			<div className={s.optionsContainer}>
-				<Legend>Tier</Legend>
-				{tierOptions.map((e) => {
-					const checked =
-						(e === Tier.OFFICIAL && officialChecked) ||
-						(e === Tier.PARTNER && partnerChecked) ||
-						(e === Tier.COMMUNITY && communityChecked)
-					return (
-						<CheckboxField
-							key={e}
-							labelFontWeight="regular"
-							label={capitalize(e)}
-							checked={checked}
-							onChange={makeToggleTierHandler(e)}
-						/>
-					)
-				})}
-			</div>
+			{tierOptions.length ? (
+				<div className={s.optionsContainer}>
+					<Legend>Tier</Legend>
+					{tierOptions.map((e, i) => {
+						const checked = tiersCheckedArray[i]
+						return (
+							<CheckboxField
+								key={e}
+								labelFontWeight="regular"
+								label={capitalize(e)}
+								checked={checked}
+								onChange={makeToggleTierHandler(i)}
+							/>
+						)
+					})}
+				</div>
+			) : null}
 
-			<div className={s.optionsContainer}>
-				<Legend>Component</Legend>
-				{sortedComponents.map((e, i) => {
-					const checked = componentCheckedArray[i]
-					return (
-						<CheckboxField
-							key={e.id}
-							labelFontWeight="regular"
-							label={capitalize(e.plural_name)}
-							checked={checked}
-							onChange={makeToggleComponentHandler(i)}
-						/>
-					)
-				})}
-			</div>
+			{sortedComponents.length ? (
+				<div className={s.optionsContainer}>
+					<Legend>Component</Legend>
+					{sortedComponents.map((e, i) => {
+						const checked = componentCheckedArray[i]
+						return (
+							<CheckboxField
+								key={e.id}
+								labelFontWeight="regular"
+								label={capitalize(e.plural_name)}
+								checked={checked}
+								onChange={makeToggleComponentHandler(i)}
+							/>
+						)
+					})}
+				</div>
+			) : null}
 
-			<div className={s.optionsContainer}>
-				<Legend>Flags</Legend>
-				{flags.map((e, i) => {
-					const checked = flagsCheckedArray[i]
-					return (
-						<CheckboxField
-							key={e.id}
-							labelFontWeight="regular"
-							label={e.name}
-							checked={checked}
-							onChange={makeToggleFlagHandler(i)}
-						/>
-					)
-				})}
-			</div>
+			{flags.length ? (
+				<div className={s.optionsContainer}>
+					<Legend>Flags</Legend>
+					{flags.map((e, i) => {
+						const checked = flagsCheckedArray[i]
+						return (
+							<CheckboxField
+								key={e.id}
+								labelFontWeight="regular"
+								label={e.name}
+								checked={checked}
+								onChange={makeToggleFlagHandler(i)}
+							/>
+						)
+					})}
+				</div>
+			) : null}
+
+			{types.length ? (
+				<div className={s.optionsContainer}>
+					<Legend>Type</Legend>
+					{types.map((e, i) => {
+						const checked = typesCheckedArray[i]
+						return (
+							<CheckboxField
+								key={e.id}
+								labelFontWeight="regular"
+								label={e.name}
+								checked={checked}
+								onChange={makeToggleTypeHandler(i)}
+							/>
+						)
+					})}
+				</div>
+			) : null}
 		</>
 	)
 }

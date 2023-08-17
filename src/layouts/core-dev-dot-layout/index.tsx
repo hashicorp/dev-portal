@@ -8,10 +8,10 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ThemeProvider } from 'next-themes'
 import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
-import { makeWelcomeToast } from 'lib/make-welcome-notification'
+import { makeDarkModeToast } from 'lib/toast/make-dark-mode-notification'
+import isThemedPath from 'lib/isThemedPath'
 import { MobileMenuProvider } from 'contexts'
 import TabProvider from 'components/tabs/provider'
-import { GlobalThemeOption } from 'styles/themes/types'
 import { CoreDevDotLayoutProps } from './types'
 import s from './core-dev-dot-layout.module.css'
 
@@ -20,11 +20,11 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 	const { asPath, pathname, isReady } = router
 
 	const isSwingset = asPath.startsWith('/swingset')
-	const isToastPath = pathname !== '/' && pathname !== '/_error' && !isSwingset
+	const isToastPath = isThemedPath(pathname) && !isSwingset
 
 	useEffect(() => {
 		if (isReady && isToastPath) {
-			makeWelcomeToast()
+			makeDarkModeToast()
 		}
 	}, [isReady, isToastPath])
 
@@ -41,13 +41,10 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 	)
 }
 
-export function CoreDevDotLayoutWithTheme(
-	props: CoreDevDotLayoutProps & { theme?: GlobalThemeOption }
-) {
-	const { theme, ...restProps } = props
+export function CoreDevDotLayoutWithTheme(props: CoreDevDotLayoutProps) {
 	return (
-		<ThemeProvider disableTransitionOnChange forcedTheme={theme || null}>
-			<CoreDevDotLayout {...restProps} />
+		<ThemeProvider disableTransitionOnChange>
+			<CoreDevDotLayout {...props} />
 		</ThemeProvider>
 	)
 }

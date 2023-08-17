@@ -84,7 +84,22 @@ export interface RawTabItem {
 	content: ReactNode
 	group?: string
 	icon?: TabProps['icon']
+	/**
+	 * The `label` is plain text used with `<select />`-based tab controls.
+	 * It is always required, as we must use `<select />`-based tab controls on
+	 * certain smaller viewport sizes.
+	 */
 	label: string
+
+	/**
+	 * The optional `labelSlot` is used with `<button />`-based tab controls.
+	 * It allows rendering arbitrary content, and generally appears only
+	 * at larger viewport sizes.
+	 *
+	 * If `labelSlot` is not provided, the `label` string will be used with
+	 * both the `<select />` and `<button />` based tab controls.
+	 */
+	labelSlot?: TabProps['headingSlot']
 }
 
 /**

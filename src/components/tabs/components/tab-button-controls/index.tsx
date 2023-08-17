@@ -78,7 +78,7 @@ function TabButtonControls({
 			role="tablist"
 		>
 			{tabItems.map((tabItem: TabItem, index: number) => {
-				const { icon, isActive, label, tabId, panelId } = tabItem
+				const { icon, isActive, label, tabId, panelId, labelSlot } = tabItem
 				return (
 					<button
 						className={classNames(
@@ -106,7 +106,7 @@ function TabButtonControls({
 					>
 						<span className={s.label}>
 							{icon}
-							{label}
+							{labelSlot || label}
 						</span>
 					</button>
 				)

@@ -1,0 +1,162 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	background-color: var(--token-color-surface-faint);
+	color: var(--token-color-foreground-strong);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	padding: 0;
+}
+
+.content {
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: space-between;
+	gap: 24px;
+	padding: 24px;
+
+	@media screen and (min-width: 1440px) {
+		padding: 32px 32px 24px 32px;
+		gap: 32px;
+	}
+
+	&.hasHeaderImage {
+		padding-top: 0;
+	}
+
+	&.hasLightBackgroundImage {
+		color: var(--token-color-foreground-strong);
+
+		& .description {
+			color: inherit;
+		}
+
+		@nest html[data-theme='dark'] & {
+			color: var(--token-color-foreground-high-contrast);
+		}
+	}
+
+	&.hasDarkBackgroundImage {
+		color: var(--token-color-foreground-high-contrast);
+
+		& .description {
+			color: inherit;
+		}
+
+		@nest html[data-theme='dark'] & {
+			color: var(--token-color-foreground-strong);
+		}
+	}
+}
+
+.headerImage {
+	background-position: right center;
+	background-repeat: no-repeat;
+	height: 86px;
+	width: 100%;
+	margin-bottom: 12px;
+}
+
+.eyebrow {
+	margin-bottom: 8px;
+
+	@media screen and (min-width: 1440px) {
+		margin-bottom: 12px;
+	}
+}
+
+.eyebrowPart {
+	composes: hds-typography-display-100 from global;
+	composes: hds-font-weight-medium from global;
+	color: var(--token-color-foreground-faint);
+	display: inline;
+
+	&:not(:first-child)::before {
+		content: '\2022';
+		margin-left: 6px;
+		margin-right: 6px;
+	}
+
+	/** Awkward tablet size where cards are very narrow */
+	@media only screen and (min-width: 1000px) and (max-width: 1100px) {
+		display: none;
+	}
+}
+
+.title {
+	composes: hds-typography-display-300 from global;
+	composes: hds-font-weight-bold from global;
+
+	/* 
+	* Cant use 'composes' in a mediaquery since both classes will be added
+	* this overrides to hds-typography-display-400 and semibold weight
+	*/
+	@media screen and (min-width: 1440px) {
+		font-family: var(--token-typography-display-400-font-family);
+		font-size: var(--token-typography-display-400-font-size);
+		line-height: var(--token-typography-display-400-line-height);
+		font-weight: 600;
+	}
+}
+
+.description {
+	composes: hds-typography-body-100 from global;
+	composes: hds-font-weight-medium from global;
+	color: var(--token-color-foreground-primary);
+	margin-top: 16px;
+
+	@media screen and (min-width: 1440px) {
+		margin-top: 20px;
+	}
+}
+
+.footer {
+	align-items: flex-end;
+	display: flex;
+	justify-content: space-between;
+}
+
+.badgeList {
+	align-items: center;
+	display: flex;
+	gap: 6px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.badgeListItem {
+	z-index: 1;
+}
+
+.icon {
+	composes: g-hide-on-mobile from global;
+	align-items: center;
+	border-color: inherit;
+	border-radius: 20px;
+	border-style: solid;
+	border-width: 1.5px;
+	display: flex;
+	height: 40px;
+	justify-content: center;
+	margin-left: auto;
+	margin-right: 0;
+	width: 40px;
+
+	/** Awkward tablet size where cards are very narrow */
+	@media only screen and (min-width: 1000px) and (max-width: 1100px) {
+		display: none;
+	}
+
+	@media screen and (min-width: 1440px) {
+		margin-right: -8px;
+	}
+}

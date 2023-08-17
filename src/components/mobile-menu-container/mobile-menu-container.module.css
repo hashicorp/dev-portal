@@ -25,14 +25,35 @@
 	z-index: 2;
 }
 
-.mobileAuthenticationControls {
+.mobileAuthenticationControlsWrap {
+	margin-bottom: 24px;
+}
+
+.unauthenticatedControls {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.unauthenticatedControlButtons {
 	align-items: center;
 	display: flex;
-	gap: 24px;
+	gap: 12px;
 	justify-content: space-between;
-	margin-bottom: 24px;
 
 	& > * {
 		width: 100%;
 	}
+}
+
+.themeSwitcher {
+	composes: hds-font-weight-medium from global;
+	display: flex;
+	justify-content: space-between;
+	color: var(--token-color-foreground-primary);
+	gap: 12px;
+	align-items: center;
+	padding: 12px;
+	border: 1px solid var(--token-color-border-primary);
+	border-radius: 6px;
 }

@@ -6,12 +6,13 @@
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
+import BadgeList from 'components/badge-list'
 import Button from 'components/button'
 import CardLink from 'components/card-link'
 import CardsGridList from 'components/cards-grid-list'
+import { getIntegrationBadges } from 'lib/get-integration-badges'
 import { getIntegrationUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
-import TagList, { GetIntegrationTags } from '../tag-list'
 import s from './style.module.css'
 
 interface IntegrationsListProps {
@@ -40,6 +41,12 @@ interface IntegrationCardProps {
 	integration: Integration
 }
 
+/**
+ * TODO: refactor the 'view details' cta to use
+ * StandaloneLinkContents when lifted to a global component
+ * https://app.asana.com/0/1202097197789424/1204167616054151
+ */
+
 function IntegrationCard({ integration }: IntegrationCardProps) {
 	const url = getIntegrationUrl(integration)
 	const isExternalLink = !url.startsWith('/')
@@ -67,9 +74,9 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 					<p className={s.body}>{integration.description}</p>
 				</div>
 				<div className={s.right}>
-					<TagList
-						className={s.tagList}
-						tags={GetIntegrationTags(integration, false)}
+					<BadgeList
+						className={s.badgeList}
+						badges={getIntegrationBadges(integration, false)}
 						size="medium"
 					/>
 					<span className={s.viewDetails}>
@@ -84,14 +91,19 @@ function IntegrationCard({ integration }: IntegrationCardProps) {
 
 interface NoResultsMessageProps {
 	onClearFiltersClicked: () => void
+	description?: string
 }
 
-function NoResultsMessage({ onClearFiltersClicked }: NoResultsMessageProps) {
+export function NoResultsMessage({
+	onClearFiltersClicked,
+	description,
+}: NoResultsMessageProps) {
 	return (
 		<div className={s.noResultsWrapper}>
 			<p className={s.noResultsTitle}>No Results</p>
 			<p className={s.noResultsDescription}>
-				Try adjusting your selected filters or using different keywords.
+				{description ||
+					'Try adjusting your selected filters or using different keywords.'}
 			</p>
 			<div className={s.noResultsButtonWrapper}>
 				<Button

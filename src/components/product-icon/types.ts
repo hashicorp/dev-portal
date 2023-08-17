@@ -9,4 +9,5 @@ type SvgElementProps = JSX.IntrinsicElements['svg']
 
 export interface ProductIconProps extends SvgElementProps {
 	productSlug: ProductSlug
+	size?: 16 | 24
 }

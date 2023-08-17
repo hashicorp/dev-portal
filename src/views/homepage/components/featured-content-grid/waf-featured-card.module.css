@@ -1,0 +1,38 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.wafCard {
+	border: none;
+	padding-top: 0;
+	gap: 40px;
+}
+
+/* TODO replace magic numbers with variables */
+.wafCardContent {
+	padding-top: calc(179px - 25px + 30px);
+}
+
+.wafGraphic svg {
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: -25px;
+	width: 100%;
+}
+
+.title {
+	composes: hds-font-weight-bold from global;
+	font-family: var(--token-typography-display-400-font-family);
+	font-size: var(--token-typography-display-400-font-size);
+	line-height: var(--token-typography-display-400-line-height);
+	margin: 0;
+	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		font-family: var(--token-typography-display-300-font-family);
+		font-size: var(--token-typography-display-300-font-size);
+		line-height: var(--token-typography-display-300-line-height);
+	}
+}

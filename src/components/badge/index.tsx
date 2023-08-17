@@ -16,7 +16,13 @@ const Badge = ({
 	text,
 	type = 'filled',
 }: BadgeProps) => {
-	const classes = classNames(s.root, s[size], s[`${type}-${color}`], className)
+	const classes = classNames(
+		s.root,
+		s[size],
+		s[`${type}-${color}`],
+		type === 'base' && s.base,
+		className
+	)
 	const hasIcon = !!icon
 	const hasText = !!text
 	const hasLabel = !!ariaLabel

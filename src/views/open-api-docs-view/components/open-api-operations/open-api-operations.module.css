@@ -1,0 +1,9 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 60px;
+}
+
+.header {
+	margin-bottom: 24px;
+}

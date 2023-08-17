@@ -40,7 +40,7 @@
 			min-width: unset;
 		}
 
-		& .tagList {
+		& .badgeList {
 			justify-content: flex-end;
 			margin-bottom: 14px;
 
@@ -51,6 +51,7 @@
 		}
 
 		& .viewDetails {
+			color: var(--token-color-foreground-strong);
 			flex-shrink: 0;
 			font-size: 14px;
 			display: flex;

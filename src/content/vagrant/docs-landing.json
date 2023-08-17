@@ -6,14 +6,14 @@
 			"path": "docs/cli"
 		},
 		{
-			"iconName": "docs",
-			"name": "Vagrantfile",
-			"path": "docs/vagrantfile"
-		},
-		{
 			"iconName": "cloud",
 			"name": "Vagrant Cloud",
 			"path": "vagrant-cloud"
+		},
+		{
+			"iconName": "docs",
+			"name": "Vagrantfile",
+			"path": "docs/vagrantfile"
 		}
 	],
 	"pageSubtitle": "Vagrant is the command line utility for managing the lifecycle of virtual machines.",

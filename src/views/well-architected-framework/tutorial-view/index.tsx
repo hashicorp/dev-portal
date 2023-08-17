@@ -13,6 +13,8 @@ import DevDotContent from 'components/dev-dot-content'
 import { OutlineNavWithActive } from 'components/outline-nav/components'
 import MDX_COMPONENTS from 'views/tutorial-view/utils/mdx-components'
 import { FeaturedInCollections } from 'views/tutorial-view/components'
+import VariantProvider from 'views/tutorial-view/utils/variants/context'
+import { VariantDropdownDisclosure } from 'views/tutorial-view/components'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { NextPrevious } from 'views/tutorial-view/components'
 import { generateCanonicalUrl } from 'views/tutorial-view/utils'
@@ -36,6 +38,7 @@ export default function WellArchitectedFrameworkTutorialView({
 		content,
 		collectionCtx,
 		nextPreviousData,
+		variant,
 	} = tutorial
 	const hasVideo = Boolean(video)
 	const isInteractive = Boolean(handsOnLab)
@@ -55,43 +58,48 @@ export default function WellArchitectedFrameworkTutorialView({
 				key={slug}
 				{...(isInteractive && { labId: handsOnLab.id })}
 			>
-				<SidebarSidecarLayout
-					sidecarSlot={<OutlineNavWithActive items={outlineItems.slice()} />}
-					breadcrumbLinks={layoutProps.breadcrumbLinks}
-					sidebarNavDataLevels={layoutProps.navLevels}
-					mainWidth="narrow"
-				>
-					<TutorialMeta
-						heading={pageHeading}
-						meta={{
-							readTime,
-							edition,
-							productsUsed,
-							isInteractive,
-							hasVideo,
-						}}
-						tutorialId={id}
-					/>
-					{video?.id && !video.videoInline && (
-						<VideoEmbed
-							url={getVideoUrl({
-								videoId: video.id,
-								videoHost: video.videoHost,
-							})}
+				<VariantProvider variant={variant}>
+					<SidebarSidecarLayout
+						sidecarSlot={<OutlineNavWithActive items={outlineItems.slice()} />}
+						breadcrumbLinks={layoutProps.breadcrumbLinks}
+						sidebarNavDataLevels={layoutProps.navLevels}
+						mainWidth="narrow"
+						sidecarTopSlot={
+							variant ? (
+								<VariantDropdownDisclosure variant={variant} isFullWidth />
+							) : null
+						}
+					>
+						<TutorialMeta
+							heading={pageHeading}
+							meta={{
+								readTime,
+								edition,
+								productsUsed,
+								isInteractive,
+								hasVideo,
+							}}
+							tutorialId={id}
 						/>
-					)}
-					<DevDotContent
-						mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
-					/>
-					<NextPrevious {...nextPreviousData} />
-					<FeaturedInCollections
-						className={s.featuredInCollections}
-						collections={featuredInWithoutCurrent}
-					/>
-				</SidebarSidecarLayout>
+						{video?.id && !video.videoInline && (
+							<VideoEmbed
+								url={getVideoUrl({
+									videoId: video.id,
+									videoHost: video.videoHost,
+								})}
+							/>
+						)}
+						<DevDotContent
+							mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+						/>
+						<NextPrevious {...nextPreviousData} />
+						<FeaturedInCollections
+							className={s.featuredInCollections}
+							collections={featuredInWithoutCurrent}
+						/>
+					</SidebarSidecarLayout>
+				</VariantProvider>
 			</InteractiveLabWrapper>
 		</>
 	)
 }
-
-WellArchitectedFrameworkTutorialView.contentType = 'tutorials'

@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { type ReactElement } from 'react'
 import { IconBookmarkAdd24 } from '@hashicorp/flight-icons/svg-react/bookmark-add-24'
 import { IconBookmarkRemove24 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-24'
 import { toast } from 'components/toast'
@@ -14,7 +15,7 @@ type ToastActionConfig = Record<
 	{
 		title: string
 		descriptionSuffix: string
-		icon: JSX.IntrinsicElements['svg']
+		icon: ReactElement<React.JSX.IntrinsicElements['svg']>
 	}
 >
 

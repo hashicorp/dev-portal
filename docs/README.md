@@ -63,12 +63,22 @@ This will give you a development server running on [localhost:3000](http://local
 To preview the co-located `.io` project sites, you can run variations on the `npm start` command:
 
 ```sh
-npm run start:boundary # https://www.boundaryproject.io
-npm run start:nomad # https://www.nomadproject.io
 npm run start:sentinel # https://docs.hashicorp.com/sentinel
 npm run start:vault # https://www.vaultproject.io
 npm run start:waypoint # https://www.boundaryproject.io
 ```
+
+> **Note**: we're currently in the process of migrating `.io` sites into [the hashicorp/web repository](https://github.com/hashicorp/web). At present the following domains are served from `hashicorp/web`:
+>
+> - `boundaryproject.io`
+> - `consul.io`
+> - `nomadproject.io`
+> - `packer.io`
+> - `vagrantup.com`
+> - `vaultproject.io`
+> - `waypointproject.io`
+>
+> We expect to migrate the remaining `.io` sites to serve from `hashicorp/web` by 2023-04-14.
 
 These commands set the `DEV_IO` env variable in order to simulate the environment we use to deploy the `.io` sites. Further details on the local preview processes for the `.io` sites can be found in [MKTG-040 RFC](https://docs.google.com/document/d/1iLx2jL09YkLbhSXdK9ScSedwSiujYDEa524FejOAnZM/edit) and in the [corresponding Digital RFC](https://docs.google.com/document/d/1tvEhrLF0YyRimgR-Ibd_lo7sqTvw0TFAi77jbgjROVk/edit).
 
@@ -131,6 +141,7 @@ src/
 - **`components`** - Shareable, smaller components for use across any number of other components
 - **`views`** - Componentry which represents a full site "view." This is a way to abstract out page components and easily co-locate related code. Not necessarily intended for re-use, unless one needs to render the same view on multiple pages. This also allows us to co-locate sub-components and test files with page components, which is otherwise difficult with file-based routing
 - **`layouts`** - Layout components which are generic and possibly used across different pages (see [Next.js docs](https://nextjs.org/docs/basic-features/layouts#per-page-layouts))
+  - **Note**: In support of future app-router adoption, we are no longer using the `.layout` or `.getLayout` pattern, which is not supported in the app directory.
 - **`hooks`** - Shared hooks which are applicable for use across a variety of other components. Hooks which access shared contexts should live in `contexts/` (see below)
 - **`contexts`** - Shared [contexts](https://reactjs.org/docs/context.html) and utilities for accessing / interacting with the context values
 
@@ -143,14 +154,19 @@ import SomeLayout from 'layouts/some-layout'
 
 // if we need to adjust props, can wrap this to make any changes necessary
 const SomePage = SomePageView
-SomePage.layout = SomeLayout
 
-export default SomePage
+export default function SomePage(props) {
+	return (
+		<SomeLayout>
+			<SomePageView {...props} />
+		</SomeLayout>
+	)
+}
 ```
 
 ## Configuration
 
-Per-environment configuration values are defined in JSON files in the `config/` folder. Each environment has its own config file, currently:
+Per-environment configuration values are defined in JSON files in the `config/` folder. Each environment has its own config file, controlled by the `HASHI_ENV` environment variable, currently:
 
 ```
 config/
@@ -174,7 +190,7 @@ The configuration values are available globally within the application. They can
 console.log(__config.my_config_value)
 ```
 
-Configuration files should be used for any non-sensitive configuration values needed throughout the application which might vary by environment. Consider API endpoints, constants, and flags in scope for the configuration files.
+Configuration files should be used for any non-sensitive configuration values needed throughout the application which might vary by environment. Consider API endpoints, constants, and flags in scope for the configuration files. Any references to `__config` are replaced at build-time with the values from the environment's configuration file using [Webpack's DefinePlugin](https://webpack.js.org/plugins/define-plugin/).
 
 ## Analytics
 

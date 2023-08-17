@@ -14,6 +14,8 @@ import s from './style.module.css'
 import { OperationObjectType } from '../../types'
 import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 import Card from 'components/card'
+import Badge from 'components/badge'
+import Text from 'components/text'
 
 function Parameters({ title, params }) {
 	return (
@@ -67,7 +69,16 @@ function OperationObject({
 	return (
 		<div className={classNames(s.root)}>
 			<AccordionDisclosure
-				title={title}
+				title={
+					<>
+						<Text className={s.title} asElement="span" weight="semibold">
+							{title}
+						</Text>
+						{data['x-beta-feature'] ? (
+							<Badge className={s.titleBadge} text="Beta" color="neutral" />
+						) : null}
+					</>
+				}
 				description={
 					<span className={s.meta}>
 						<span className={s.endpoint}>
@@ -81,7 +92,7 @@ function OperationObject({
 					</span>
 				}
 			>
-				<hr />
+				<hr className={s.divider} />
 				<div>
 					{renderOperationIntro ? renderOperationIntro({ data }) : null}
 					<div

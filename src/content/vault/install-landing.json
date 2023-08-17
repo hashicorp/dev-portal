@@ -44,7 +44,7 @@
 	"sidecarHcpCallout": {
 		"heading": "HCP Vault",
 		"description": "Secure your applications and protect sensitive data",
-		"ctaText": "Try HCP Vault",
+		"ctaText": "Try HCP Vault for free",
 		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
 	}
 }

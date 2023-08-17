@@ -71,6 +71,20 @@
 	&.foreground-light {
 		--color: var(--token-color-foreground-high-contrast);
 	}
+
+	/** 
+	* Need to 'flip' these for dark mode since the token values 
+	* for text color swap but the backgrounds remain the same
+	**/
+	@nest html[data-theme='dark'] & {
+		&.foreground-light {
+			--color: var(--token-color-foreground-strong);
+		}
+
+		&.foreground-dark {
+			--color: var(--token-color-foreground-high-contrast);
+		}
+	}
 }
 
 .textHeading {

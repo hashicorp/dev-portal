@@ -19,17 +19,25 @@ import s from './version-alert-banner.module.css'
  */
 export default function VersionAlertBanner({
 	currentVersion,
+	releaseStage,
 	latestVersionUrl,
 }: {
 	currentVersion: string
+	releaseStage?: string
 	latestVersionUrl: string
 }) {
+	let versionMessage = 'You are viewing documentation for version'
+
+	if (typeof releaseStage !== 'undefined' && releaseStage !== 'stable') {
+		versionMessage = `You are viewing documentation for pre-release version`
+	}
+
 	return (
 		<PageAlert
 			className={s.root}
 			description={
 				<>
-					You are viewing documentation for version {currentVersion}.{' '}
+					{versionMessage} {currentVersion}.{' '}
 					<InlineLink
 						className={s.versionAlertLink}
 						href={latestVersionUrl}

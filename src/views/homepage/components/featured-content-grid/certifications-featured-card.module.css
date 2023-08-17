@@ -1,0 +1,78 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.certificationsCard {
+	--graphic-position-top: -44px;
+	--graphic-max-height: 286px;
+
+	border: none;
+	padding-top: 0;
+	gap: 70px;
+
+	@media (--dev-dot-mobile) {
+		--graphic-max-height: 38vh;
+	}
+}
+
+.certificationsCardContent {
+	padding-top: calc(var(--graphic-max-height));
+}
+
+.graphicContainer {
+	left: 0;
+	max-height: var(--graphic-max-height);
+	position: absolute;
+	right: 0;
+	top: var(--graphic-position-top);
+	overflow: hidden;
+	width: fit-content;
+	margin: 0 auto;
+}
+
+.certificationsGraphic {
+	height: 100%;
+	max-width: 400px;
+	width: 100%;
+}
+
+.certificationsCardContentText {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.title {
+	composes: hds-font-weight-bold from global;
+	font-family: var(--token-typography-display-400-font-family);
+	font-size: var(--token-typography-display-400-font-size);
+	line-height: var(--token-typography-display-400-line-height);
+	margin: 0;
+	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		font-family: var(--token-typography-display-300-font-family);
+		font-size: var(--token-typography-display-300-font-size);
+		line-height: var(--token-typography-display-300-line-height);
+	}
+}
+
+.body {
+	composes: hds-font-weight-regular from global;
+	font-family: var(--token-typography-body-300-font-family);
+	font-size: var(--token-typography-body-300-font-size);
+	line-height: var(--token-typography-body-300-line-height);
+	margin: 0;
+	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		font-family: var(--token-typography-body-200-font-family);
+		font-size: var(--token-typography-body-200-font-size);
+		line-height: var(--token-typography-body-200-line-height);
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-primary);
+	}
+}

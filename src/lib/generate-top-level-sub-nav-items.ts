@@ -33,6 +33,11 @@ export const generateTopLevelSubNavItems = () => {
 			title: 'HashiCorp Developer',
 			href: '/',
 		},
+		{
+			leadingIconName: 'guide',
+			title: 'Tutorials',
+			href: '/tutorials',
+		},
 		{ divider: true },
 		{ heading: 'Products' },
 		...productItems,

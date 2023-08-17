@@ -67,5 +67,3 @@ export default function OnboardingCollectionView({
 		</>
 	)
 }
-
-OnboardingCollectionView.contentType = 'tutorials'

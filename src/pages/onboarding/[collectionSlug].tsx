@@ -52,6 +52,7 @@ export async function getStaticProps({
 			collection: currentCollection,
 			layoutProps: { breadcrumbLinks, sidebarSections },
 			metadata: {
+				title: currentCollection.name,
 				onboardingName: onboardingData.name,
 				onboardingSlug: onboardingData.slug,
 			},
@@ -67,7 +68,10 @@ export async function getStaticPaths() {
 		}
 	})
 
-	return { paths, fallback: false }
+	return {
+		paths: paths.slice(0, __config.learn.max_static_paths ?? 0),
+		fallback: 'blocking',
+	}
 }
 
 export default OnboardingCollectionView

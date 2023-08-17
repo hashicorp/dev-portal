@@ -15,42 +15,21 @@ const {
 } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
 const loadProxiedSiteRedirects = require('./load-proxied-site-redirects')
-const { loadHashiConfigForEnvironment } = require('../config')
 const { getTutorialRedirects } = require('./tutorial-redirects')
+const {
+	integrationMultipleComponentRedirects,
+} = require('./integration-multiple-component-redirects')
 
 require('isomorphic-unfetch')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 
-const config = loadHashiConfigForEnvironment()
-
 const PROXIED_PRODUCT = getProxiedProductSlug()
 
 // copied from src/constants/hostname-map.ts so it's usable at build-time in the next config
 const HOSTNAME_MAP = {
-	'www.boundaryproject.io': 'boundary',
-	'test-bd.hashi-mktg.com': 'boundary',
-
-	'www.consul.io': 'consul',
-	'test-cs.hashi-mktg.com': 'consul',
-
-	'www.nomadproject.io': 'nomad',
-	'test-nm.hashi-mktg.com': 'nomad',
-
-	'www.packer.io': 'packer',
-	'test-pk.hashi-mktg.com': 'packer',
-
 	'docs.hashicorp.com': 'sentinel',
 	'test-st.hashi-mktg.com': 'sentinel',
-
-	'www.vagrantup.com': 'vagrant',
-	'test-vg.hashi-mktg.com': 'vagrant',
-
-	'www.vaultproject.io': 'vault',
-	'test-vt.hashi-mktg.com': 'vault',
-
-	'www.waypointproject.io': 'waypoint',
-	'test-wp.hashi-mktg.com': 'waypoint',
 }
 
 // Redirect all proxied product pages
@@ -85,10 +64,9 @@ const devPortalToDotIoRedirects = isPreview()
  *
  * @param {Redirect[]} redirects
  * @param {string} productSlug
- * @param {string[]} betaSlugs
  * @returns {Redirect[]}
  */
-function addHostCondition(redirects, productSlug, betaSlugs) {
+function addHostCondition(redirects, productSlug) {
 	const host = proxySettings[productSlug]?.host
 	return redirects.map((redirect) => {
 		if (productSlug == PROXIED_PRODUCT) {
@@ -96,7 +74,7 @@ function addHostCondition(redirects, productSlug, betaSlugs) {
 		}
 
 		// If the productSlug is NOT a beta product, it is GA, so handle the redirect appropriately (exclude sentinel)
-		if (!betaSlugs.includes(productSlug) && productSlug !== 'sentinel') {
+		if (productSlug !== 'sentinel') {
 			// The redirect should always apply in lower environments
 			if (process.env.HASHI_ENV !== 'production') {
 				return redirect
@@ -212,11 +190,7 @@ async function getRedirectsForProduct(
 	// Filter invalid redirects, such as those without a `/{productSlug}` prefix.
 	const validRedirects = filterInvalidRedirects(parsedRedirects, product)
 
-	return addHostCondition(
-		validRedirects,
-		product,
-		config['dev_dot.beta_product_slugs']
-	)
+	return addHostCondition(validRedirects, product)
 }
 
 async function buildProductRedirects() {
@@ -257,9 +231,8 @@ async function buildProductRedirects() {
 			getRedirectsForProduct('vagrant'),
 			getRedirectsForProduct('packer'),
 			getRedirectsForProduct('consul'),
-			getRedirectsForProduct('terraform-website', {
-				ref: 'master',
-				redirectsPath: '/redirects.js',
+			getRedirectsForProduct('terraform-docs-common', {
+				ref: 'main',
 			}),
 		])
 	).flat()
@@ -287,11 +260,7 @@ async function buildProductRedirects() {
 	return [
 		...devPortalToDotIoRedirects,
 		...productRedirects,
-		...addHostCondition(
-			sentinelIoRedirects,
-			'sentinel',
-			config['dev_dot.beta_product_slugs']
-		),
+		...addHostCondition(sentinelIoRedirects, 'sentinel'),
 	]
 }
 
@@ -323,6 +292,11 @@ async function buildDevPortalRedirects() {
 			destination: '/waypoint/integrations/hashicorp/:slug',
 			permanent: true,
 		},
+		/**
+		 * Redirect for Integration Component rework.
+		 * Further details in the file this is imported from.
+		 */
+		...integrationMultipleComponentRedirects,
 	]
 }
 
@@ -375,7 +349,9 @@ function filterInvalidRedirects(redirects, repoSlug) {
 	 * Normalize the repoSlug into a productSlug.
 	 */
 	const productSlugsByRepo = {
+		/** @deprecated - terraform-website is now archived and redirects have been moved to `terraform-docs-common` */
 		'terraform-website': 'terraform',
+		'terraform-docs-common': 'terraform',
 		'cloud.hashicorp.com': 'hcp',
 		'hcp-docs': 'hcp',
 	}

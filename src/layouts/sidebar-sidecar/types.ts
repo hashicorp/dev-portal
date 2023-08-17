@@ -4,7 +4,7 @@
  */
 
 import { ReactElement, ReactNode } from 'react'
-import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
+import { VersionSelectItem } from 'views/docs-view/loaders/remote-content'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { SidebarProps } from 'components/sidebar'
 
@@ -24,7 +24,12 @@ export interface SidebarSidecarLayoutProps {
 	 */
 	sidecarSlot?: ReactNode
 	/**
+	 * Optionally render content above the scrollable sidecar area.
+	 * If omitted, blank space will be shown above the scrollable sidecar area.
+	 */
+	sidecarTopSlot?: ReactNode
+	/**
 	 * Optionally render an alert banner before the main content area.
 	 */
-	alertBannerSlot?: React.ReactNode
+	alertBannerSlot?: ReactNode
 }

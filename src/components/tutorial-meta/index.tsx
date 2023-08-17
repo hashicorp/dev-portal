@@ -8,10 +8,10 @@ import { TutorialData } from 'views/tutorial-view'
 import Heading from 'components/heading'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
-import { Badges, getIsBeta } from './components'
+import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
+import { Badges, getIsBeta, VariantList } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
-import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
@@ -67,16 +67,17 @@ export default function TutorialMeta({
 						tutorial={{ id: tutorialId, name: heading.text }}
 					/>
 				</span>
-				{showCreateAccountCta ? (
-					<Text className={s.createAccountCta} size={200}>
-						Reference this often?{' '}
-						<InlineLink href="/sign-up" textSize={200}>
-							Create an account
-						</InlineLink>{' '}
-						to bookmark tutorials.
-					</Text>
-				) : null}
 			</div>
+			{showCreateAccountCta ? (
+				<Text className={s.createAccountCta} size={100}>
+					Reference this often?{' '}
+					<InlineLink href="/sign-up" textSize={100}>
+						Create an account
+					</InlineLink>{' '}
+					to bookmark tutorials.
+				</Text>
+			) : null}
+			<VariantList />
 		</header>
 	)
 }

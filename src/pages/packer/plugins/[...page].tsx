@@ -9,7 +9,7 @@ import { cachedGetProductData } from 'lib/get-product-data'
 import {
 	generateStaticPaths,
 	generateStaticProps,
-} from 'components/_proxied-dot-io/packer/remote-plugin-docs/server'
+} from 'views/packer-plugins/server'
 import { getPathBreadcrumbs } from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import {

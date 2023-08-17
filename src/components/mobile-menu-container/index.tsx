@@ -9,18 +9,16 @@ import classNames from 'classnames'
 import { m, useReducedMotion } from 'framer-motion'
 import { useRouter } from 'next/router'
 
-// HashiCorp imports
-import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
-import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
-
 // Global imports
 import { getUserMenuItems } from 'lib/auth/user'
+import isThemedPath from 'lib/isThemedPath'
 import { useMobileMenu } from 'contexts'
 import useAuthentication from 'hooks/use-authentication'
 import Button from 'components/button'
 import ButtonLink from 'components/button-link'
 
 // Local imports
+import { ThemeSwitcherWithLabel } from 'components/theme-switcher'
 import { MobileMenuContainerProps } from './types'
 import { MobileUserDisclosure } from './components'
 import s from './mobile-menu-container.module.css'
@@ -48,6 +46,8 @@ const MobileAuthenticationControls = () => {
 	const { isAuthenticated, isLoading, signIn, signOut, user } =
 		useAuthentication()
 	const showUnauthenticatedUI = !isLoading && !isAuthenticated
+	const { pathname } = useRouter()
+	const shouldRenderThemeSwitcher = isThemedPath(pathname)
 
 	if (!isAuthenticated && !showUnauthenticatedUI) {
 		return null
@@ -56,23 +56,22 @@ const MobileAuthenticationControls = () => {
 	let content
 	if (showUnauthenticatedUI) {
 		content = (
-			<>
-				<Button
-					icon={<IconSignIn16 />}
-					iconPosition="trailing"
-					onClick={() => signIn()}
-					size="medium"
-					text="Sign In"
-				/>
-				<ButtonLink
-					color="secondary"
-					href="/sign-up"
-					icon={<IconUserPlus16 />}
-					iconPosition="trailing"
-					size="medium"
-					text="Sign Up"
-				/>
-			</>
+			<div className={s.unauthenticatedControls}>
+				<div className={s.unauthenticatedControlButtons}>
+					<Button onClick={() => signIn()} size="medium" text="Sign In" />
+					<ButtonLink
+						color="secondary"
+						href="/sign-up"
+						size="medium"
+						text="Sign Up"
+					/>
+				</div>
+				{shouldRenderThemeSwitcher ? (
+					<div className={s.themeSwitcher}>
+						<ThemeSwitcherWithLabel />
+					</div>
+				) : null}
+			</div>
 		)
 	} else if (isAuthenticated) {
 		content = (
@@ -85,8 +84,13 @@ const MobileAuthenticationControls = () => {
 	}
 
 	return (
-		<div className="g-show-with-mobile-menu">
-			<div className={s.mobileAuthenticationControls}>{content}</div>
+		<div
+			className={classNames(
+				'g-show-with-mobile-menu',
+				s.mobileAuthenticationControlsWrap
+			)}
+		>
+			{content}
 		</div>
 	)
 }

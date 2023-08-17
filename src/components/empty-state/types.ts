@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactElement } from 'react'
+import { ReactElement, ReactNode } from 'react'
 
 export interface EmptyStateProps {
 	/**
 	 * An icon from `@hashicorp/flight-icons` to render.
 	 */
-	icon?: JSX.IntrinsicElements['svg']
+	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>
 
 	/**
 	 * Heading to render

@@ -6,29 +6,17 @@
 import { ReactElement } from 'react'
 import { LinkProps } from 'components/link'
 
-type InheritedLinkProps = Pick<
-	LinkProps,
-	'className' | 'download' | 'href' | 'onClick' | 'opensInNewTab'
->
-
-export interface StandaloneLinkProps extends InheritedLinkProps {
+interface SharedBaseProps {
 	/**
-	 * A non-visible label presented by screen readers. Passed directly to the
-	 * internal link element as the `aria-label` prop.
-	 *
-	 * ref: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label
+	 * A string of one or more classnames. Is appended to list of classnames
+	 * passed to the container element.
 	 */
-	ariaLabel?: LinkProps['aria-label']
+	className?: string
 
 	/**
 	 * Determines the set of colors to use for various states of the component.
 	 */
 	color?: 'primary' | 'secondary'
-
-	/**
-	 * A data-heap-track string to add to the <a /> element.
-	 */
-	'data-heap-track'?: string
 
 	/**
 	 * An icon from `@hashicorp/flight-icons` to render.
@@ -73,3 +61,36 @@ export interface StandaloneLinkProps extends InheritedLinkProps {
 	 */
 	textClassName?: string
 }
+
+type InheritedLinkProps = Pick<
+	LinkProps,
+	'className' | 'download' | 'href' | 'onClick' | 'opensInNewTab'
+>
+
+interface StandaloneLinkProps extends SharedBaseProps, InheritedLinkProps {
+	/**
+	 * A non-visible label presented by screen readers. Passed directly to the
+	 * internal link element as the `aria-label` prop.
+	 *
+	 * ref: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label
+	 */
+	ariaLabel?: LinkProps['aria-label']
+
+	/**
+	 * A data-heap-track string to add to the <a /> element.
+	 */
+	'data-heap-track'?: string
+}
+
+interface StandaloneLinkContentsProps extends SharedBaseProps {
+	/**
+	 * Optional boolean for specifying if `StandaloneLinkContents` should inherit
+	 * its container's color properties. When `true`, does not apply the helper
+	 * classes associated with the `color` prop.
+	 *
+	 * Default: `false`.
+	 */
+	inheritColor?: boolean
+}
+
+export type { StandaloneLinkContentsProps, StandaloneLinkProps }

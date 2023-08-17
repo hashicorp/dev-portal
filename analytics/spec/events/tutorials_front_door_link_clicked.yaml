@@ -1,0 +1,32 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
+name: Tutorials Front Door Link Clicked
+description: User has clicked a link within the Tutorial Front Door page content
+rules:
+  ‘$schema’: http://json-schema.org/draft-04/schema#
+  type: object
+  properties:
+    context:
+      $ref: ../meta/context.yaml
+    properties:
+      type: object
+      properties:
+        link_category:
+          description: The category of the clicked link.
+          type: string
+          enum:
+            - certification-card
+            - collection-card
+            - featured-use-case
+            - product-tutorials-landing
+            - tutorial-library
+        link_path:
+          description: The page path of the clicked link.
+          type: string
+        product_slug:
+          $ref: ../global/types/hashicorp_product.yaml
+      required:
+        - link_category
+        - link_path
+        - product_slug

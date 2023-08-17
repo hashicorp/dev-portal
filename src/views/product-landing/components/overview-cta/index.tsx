@@ -10,6 +10,7 @@ import StandaloneLink from 'components/standalone-link'
 
 import { OverviewCtaProps } from './types'
 import s from './overview-cta.module.css'
+import ThemedImage from 'views/product-landing/components/themed-image'
 
 function OverviewCta({
 	heading,
@@ -43,7 +44,7 @@ function OverviewCta({
 				) : null}
 			</div>
 			<div className={s.imagePart}>
-				<img src={image} alt="" />
+				<ThemedImage src={image} alt="" />
 			</div>
 		</div>
 	)

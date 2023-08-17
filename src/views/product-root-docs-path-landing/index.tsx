@@ -7,7 +7,6 @@ import { ReactElement } from 'react'
 import classNames from 'classnames'
 import DocsViewLayout from 'layouts/docs-view-layout'
 import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
-import ProductDocsSearch from 'views/docs-view/components/product-docs-search'
 import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
 import { ProductRootDocsPathLandingProps } from './types'
@@ -28,9 +27,6 @@ const ProductRootDocsPathLanding = ({
 	outlineItems,
 }: ProductRootDocsPathLandingProps) => {
 	const { pageSubtitle, marketingContentBlocks } = pageContent
-	const showProductDocsSearch =
-		!__config.flags.enable_global_search &&
-		__config.flags.enable_product_docs_search
 
 	let mdxSlot: ReactElement
 	if (mdxSource) {
@@ -65,21 +61,11 @@ const ProductRootDocsPathLanding = ({
 	return (
 		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
 			<div className={versions ? s.docsLandingWithVersions : null}>
-				{showProductDocsSearch && <ProductDocsSearch />}
-				{versions ? (
-					<div
-						className={classNames(
-							s.versionSwitcherWrapper,
-							showProductDocsSearch && s.hasSearch
-						)}
-					>
-						<DocsVersionSwitcher options={versions} />
-					</div>
-				) : null}
 				<ProductRootDocsPathLandingHero
 					pageHeading={pageHeading}
 					pageSubtitle={pageSubtitle}
 					iconCardGridItems={pageContent.iconCardGridItems}
+					versions={versions}
 				/>
 				<ProductRootDocsPathLandingMarketingContent
 					blocks={marketingContentBlocks}
@@ -89,8 +75,6 @@ const ProductRootDocsPathLanding = ({
 		</DocsViewLayout>
 	)
 }
-
-ProductRootDocsPathLanding.contentType = 'docs'
 
 export type { ProductRootDocsPathLandingProps }
 export default ProductRootDocsPathLanding

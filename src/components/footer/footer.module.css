@@ -6,22 +6,31 @@
 @custom-media --list-horizontally (min-width: 1280px);
 
 .root {
-	--padding: 24px;
-	--logo-button-margin-bottom: 8px;
-
-	align-items: center;
 	color: var(--token-color-palette-neutral-600);
+	gap: 24px;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
-	padding: var(--padding);
+	padding: 24px;
 	position: relative;
+	flex-direction: column;
+
+	&.row {
+		flex-direction: row;
+	}
+}
+
+.logoAndSwitcher {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 24px;
 }
 
 .logo {
 	composes: g-focus-ring-from-box-shadow from global;
 	border-radius: 6px;
-	margin: 0 24px var(--logo-button-margin-bottom) 0;
+	margin: 0 24px 0 0;
 	position: relative;
 
 	& svg {
@@ -31,40 +40,20 @@
 		display: block;
 		height: 28px;
 		width: auto;
-	}
 
-	@media (--list-horizontally) {
-		margin-right: 40px;
-		margin-bottom: 0;
+		& path {
+			fill: var(--token-color-hashicorp-brand);
+		}
 	}
 }
 
-.feedbackButton {
-	margin-bottom: var(--logo-button-margin-bottom);
-
-	/**
-	* We render two different buttons depending on the view so that the 
-	* focus order can remain aligned with the visual presentation of the 
-	* footer links
-	*/
-
-	&.mobile {
-		@media (--list-horizontally) {
-			display: none;
-		}
-	}
-
-	&.desktop {
-		display: none;
-
-		@media (--list-horizontally) {
-			display: flex;
-		}
-	}
-
-	@media (--list-horizontally) {
-		margin-bottom: 0;
-	}
+.themeSwitcher {
+	/* label font weight */
+	composes: hds-font-weight-regular from global;
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	color: var(--token-color-foreground-faint);
 }
 
 .links {
@@ -75,25 +64,12 @@
 	padding: 0;
 	position: relative;
 	width: 100%;
+	gap: 24px;
 
 	@media (--list-horizontally) {
 		margin-top: 0;
 		width: auto;
 		align-items: center;
-	}
-}
-
-.linkListItem {
-	margin-top: 16px;
-	line-height: 0;
-
-	&:not(:last-child) {
-		margin-right: var(--padding);
-	}
-
-	@media (--list-horizontally) {
-		width: auto;
-		margin-top: 0;
 	}
 }
 
@@ -103,6 +79,9 @@
 	background: none;
 	border: none;
 	color: var(--token-color-foreground-faint);
+	display: flex;
+	align-items: center;
+	gap: 7px;
 
 	&:hover {
 		color: var(--token-color-foreground-strong);

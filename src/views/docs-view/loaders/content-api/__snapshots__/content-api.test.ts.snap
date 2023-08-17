@@ -1,0 +1,425 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`contentApi fetchDocument should return the requested document 1`] = `
+Object {
+  "created_at": "Sat Oct 02 2021 23:52:13 GMT+0000 (Coordinated Universal Time)",
+  "fullPath": "doc/v0.5.x/commands",
+  "githubFile": "website/content/commands/index.mdx",
+  "markdownSource": "# Waypoint Commands (CLI)
+
+Waypoint is controlled via a very easy to use command-line interface (CLI). Waypoint
+is only a single command-line application: \`waypoint\`. This application then takes a
+subcommand such as \`artifact\` or \`deployment\`. The complete list of subcommands is in
+the navigation to the left.
+
+The waypoint CLI is a well-behaved command line application. In erroneous cases, a
+non-zero exit status will be returned. It also responds to -h and --help as you'd most
+likely expect.
+
+To view a list of the available commands at any time, just run waypoint with no arguments:
+
+\`\`\`shell-session
+$ waypoint
+Usage: waypoint [-version] [-help] [-autocomplete-(un)install] <command> [args]
+
+Common commands:
+    build        Build a new versioned artifact from source
+    deploy       Deploy a pushed artifact
+    release      Release a deployment
+    up           Perform the build, deploy, and release steps for the app
+
+Other commands:
+    artifact        Artifact and build management
+    auth-method     Auth method management
+    config          Application configuration management
+    context         Server access configurations
+    deployment      Deployment creation and management
+    destroy         Delete all the resources created for an app
+    docs            Show documentation for components
+    exec            Execute a command in the context of a running application instance
+    fmt             Rewrite waypoint.hcl configuration to a canonical format
+    hostname        Application URLs
+    init            Initialize and validate a project
+    install         Install the Waypoint server to Kubernetes, Nomad, or Docker
+    logs            Show log output from the current application deployment
+    project         Project management
+    runner          Runner management
+    server          Server management
+    ui              Open the web UI
+    user            User information and management
+    version         Prints the version of this Waypoint CLI
+\`\`\`
+
+To get help for any specific command, pass the -h flag to the relevant subcommand.
+For example, to see help about the up subcommand:
+
+\`\`\`shell-session
+$ waypoint up -h
+Usage: waypoint up [options]
+
+  Perform the build, deploy, and release steps for the app.
+
+Global Options:
+
+  -workspace=<string>
+      Workspace to operate in. Defaults to 'default'. The default is default.
+
+Operation Options:
+
+  -label=<key=value>
+      Labels to set for this operation. Can be specified multiple times.
+
+  -remote
+      True to use a remote runner to execute. This defaults to false unless
+      'runner.default' is set in your configuration. The default is false.
+
+  -remote-source=<key=value>
+      Override configurations for how remote runners source data. This is
+      specified to the data source type being used in your configuration. This
+      is used for example to set a specific Git ref to run against.
+\`\`\`
+
+Running \`waypoint -autocomplete-install\` will add the waypoint autocomplete capability
+so you can do \`waypoint <tab>\` on commands. Running \`waypoint -autocomplete-uninstall\`
+will remove it. Please note that this will modify your shell init script, so you will
+need to reload your shell.
+",
+  "mdxTransforms": Array [
+    "extract-frontmatter",
+    "include-partials",
+    "paragraph-custom-alerts",
+  ],
+  "metadata": Object {
+    "layout": "commands",
+    "page_title": "Waypoint Commands (CLI)",
+  },
+  "product": "waypoint",
+  "sha": "f441834f6a78b94c9108f1bf348c793b3bba08a6",
+  "subpath": "commands",
+  "version": "v0.5.x",
+}
+`;
+
+exports[`contentApi fetchDocument should throw if a document is not found 1`] = `"Failed to fetch: https://content.hashicorp.com/api/content/waypoint/doc/latest/commands/k8s-bootstrap"`;
+
+exports[`contentApi fetchNavData should return the requested navdata 1`] = `
+Object {
+  "created_at": "Sat Oct 02 2021 23:52:11 GMT+0000 (Coordinated Universal Time)",
+  "fullPath": "nav-data/v0.5.x/commands",
+  "githubFile": "website/content/commands-nav-data.json",
+  "navData": Array [
+    Object {
+      "path": "build",
+      "title": "build",
+    },
+    Object {
+      "path": "deploy",
+      "title": "deploy",
+    },
+    Object {
+      "path": "context",
+      "title": "context",
+    },
+    Object {
+      "path": "context-inspect",
+      "title": "context-inspect",
+    },
+    Object {
+      "path": "destroy",
+      "title": "destroy",
+    },
+    Object {
+      "path": "exec",
+      "title": "exec",
+    },
+    Object {
+      "path": "init",
+      "title": "init",
+    },
+    Object {
+      "path": "install",
+      "title": "install",
+    },
+    Object {
+      "path": "login",
+      "title": "login",
+    },
+    Object {
+      "path": "logs",
+      "title": "logs",
+    },
+    Object {
+      "path": "project-apply",
+      "title": "project apply",
+    },
+    Object {
+      "path": "release",
+      "title": "release",
+    },
+    Object {
+      "path": "ui",
+      "title": "ui",
+    },
+    Object {
+      "path": "up",
+      "title": "up",
+    },
+    Object {
+      "divider": true,
+    },
+    Object {
+      "path": "artifact-build",
+      "title": "artifact build",
+    },
+    Object {
+      "path": "artifact-list-builds",
+      "title": "artifact list-builds",
+    },
+    Object {
+      "path": "artifact-list",
+      "title": "artifact list",
+    },
+    Object {
+      "path": "artifact-push",
+      "title": "artifact push",
+    },
+    Object {
+      "path": "auth-method-list",
+      "title": "auth-method list",
+    },
+    Object {
+      "path": "auth-method-inspect",
+      "title": "auth-method inspect",
+    },
+    Object {
+      "path": "auth-method-set-oidc",
+      "title": "auth-method set oidc",
+    },
+    Object {
+      "path": "auth-method-delete",
+      "title": "auth-method delete",
+    },
+    Object {
+      "path": "config-get",
+      "title": "config get",
+    },
+    Object {
+      "path": "config-set",
+      "title": "config set",
+    },
+    Object {
+      "path": "config-source-get",
+      "title": "config source-get",
+    },
+    Object {
+      "path": "config-source-set",
+      "title": "config source-set",
+    },
+    Object {
+      "path": "config-sync",
+      "title": "config sync",
+    },
+    Object {
+      "path": "context-clear",
+      "title": "context clear",
+    },
+    Object {
+      "path": "context-create",
+      "title": "context create",
+    },
+    Object {
+      "path": "context-delete",
+      "title": "context delete",
+    },
+    Object {
+      "path": "context-list",
+      "title": "context list",
+    },
+    Object {
+      "path": "context-rename",
+      "title": "context rename",
+    },
+    Object {
+      "path": "context-use",
+      "title": "context use",
+    },
+    Object {
+      "path": "context-verify",
+      "title": "context verify",
+    },
+    Object {
+      "path": "deployment-deploy",
+      "title": "deployment deploy",
+    },
+    Object {
+      "path": "deployment-destroy",
+      "title": "deployment destroy",
+    },
+    Object {
+      "path": "deployment-list",
+      "title": "deployment list",
+    },
+    Object {
+      "path": "docs",
+      "title": "docs",
+    },
+    Object {
+      "path": "fmt",
+      "title": "fmt",
+    },
+    Object {
+      "path": "hostname-delete",
+      "title": "hostname delete",
+    },
+    Object {
+      "path": "hostname-list",
+      "title": "hostname list",
+    },
+    Object {
+      "path": "hostname-register",
+      "title": "hostname register",
+    },
+    Object {
+      "path": "plugin",
+      "title": "plugin",
+    },
+    Object {
+      "path": "project-inspect",
+      "title": "project inspect",
+    },
+    Object {
+      "path": "project-list",
+      "title": "project list",
+    },
+    Object {
+      "path": "release-list",
+      "title": "release list",
+    },
+    Object {
+      "path": "runner-agent",
+      "title": "runner agent",
+    },
+    Object {
+      "path": "server-bootstrap",
+      "title": "server bootstrap",
+    },
+    Object {
+      "path": "server-config-set",
+      "title": "server config-set",
+    },
+    Object {
+      "path": "server-install",
+      "title": "server install",
+    },
+    Object {
+      "path": "server-restore",
+      "title": "server restore",
+    },
+    Object {
+      "path": "server-run",
+      "title": "server run",
+    },
+    Object {
+      "path": "server-snapshot",
+      "title": "server snapshot",
+    },
+    Object {
+      "path": "server-uninstall",
+      "title": "server uninstall",
+    },
+    Object {
+      "path": "server-upgrade",
+      "title": "server upgrade",
+    },
+    Object {
+      "path": "status",
+      "title": "status",
+    },
+    Object {
+      "path": "token-exchange",
+      "title": "token exchange",
+    },
+    Object {
+      "path": "token-invite",
+      "title": "token invite",
+    },
+    Object {
+      "path": "token-new",
+      "title": "token new",
+    },
+    Object {
+      "path": "user-inspect",
+      "title": "user inspect",
+    },
+    Object {
+      "path": "user-invite",
+      "title": "user invite",
+    },
+    Object {
+      "path": "user-modify",
+      "title": "user modify",
+    },
+    Object {
+      "path": "user-token",
+      "title": "user token",
+    },
+    Object {
+      "path": "version",
+      "title": "version",
+    },
+  ],
+  "product": "waypoint",
+  "sha": "f441834f6a78b94c9108f1bf348c793b3bba08a6",
+  "subpath": "commands",
+  "version": "v0.5.x",
+}
+`;
+
+exports[`contentApi fetchNavData should throw if a navData is not found 1`] = `"Failed to fetch: https://content.hashicorp.com/api/content/waypoint/nav-data/v0.9000.x/commands"`;
+
+exports[`contentApi fetchVersionMetadataList should return an empty list for invalid product name 1`] = `Array []`;
+
+exports[`contentApi fetchVersionMetadataList should return the requested version metadata list 1`] = `
+Array [
+  Object {
+    "created_at": "Fri Sep 24 2021 07:56:45 GMT+0000 (Coordinated Universal Time)",
+    "display": "v0.6.2",
+    "fullPath": "version-metadata/v0.6.x",
+    "isLatest": false,
+    "product": "waypoint",
+    "ref": "kevin/versioned-docs",
+    "releaseStage": "alpha",
+    "sha": "e14900057317f9fd63eae31f3414a0ba383faa8e",
+    "version": "v0.6.x",
+  },
+  Object {
+    "created_at": "Thu Sep 23 2021 07:56:45 GMT+0000 (Coordinated Universal Time)",
+    "display": "v0.5.2",
+    "fullPath": "version-metadata/v0.5.x",
+    "isLatest": true,
+    "product": "waypoint",
+    "ref": "kevin/versioned-docs",
+    "releaseStage": "stable",
+    "sha": "214900057317f9fd63eae31f3414a0ba383faa9e",
+    "version": "v0.5.x",
+  },
+  Object {
+    "created_at": "Tue Sep 21 2021 21:05:43 GMT+0000 (Coordinated Universal Time)",
+    "fullPath": "version-metadata/v0.4.x",
+    "product": "waypoint",
+    "ref": "release/0.4.x",
+    "releaseStage": "stable",
+    "sha": "c6cd81e10f30d339c113772b5f978d2f96cd1a2e",
+    "version": "v0.4.x",
+  },
+  Object {
+    "created_at": "Wed Sep 22 2021 17:40:36 GMT+0000 (Coordinated Universal Time)",
+    "fullPath": "version-metadata/v0.3.x",
+    "product": "waypoint",
+    "ref": "refs/heads/release/0.3.x",
+    "releaseStage": "stable",
+    "sha": "61a1d140146321a8d03859ba8b336bd5baa55f67",
+    "version": "v0.3.x",
+  },
+]
+`;

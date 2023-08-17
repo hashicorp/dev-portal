@@ -1,0 +1,99 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/* Note: The `hds-` classNames are translated directly from HDS SCSS.
+   This is duplicative of HDS, but necessary for now because we don't have
+	 things set up to be able to import this SCSS directly. */
+
+.hds-badge-count {
+	--border-width: 1px;
+
+	display: inline-flex;
+	align-items: center;
+	max-width: 100%;
+	font-weight: var(--token-typography-font-weight-medium);
+	font-family: var(--token-typography-font-stack-text);
+	border: var(--border-width) solid transparent;
+
+	/* Size props, set by `hds-badge-count--size-<size>` classes */
+	min-height: var(--height);
+	padding: calc(var(--padding-vertical) - var(--border-width))
+		calc(var(--padding-horizontal) - var(--border-width));
+	font-size: var(--font-size);
+	line-height: var(--line-height);
+	border-radius: calc(var(--height) / 2);
+}
+
+/* SIZE ($size-props) */
+
+.hds-badge-count--size-small {
+	--font-size: 0.8125rem; /* 13px */
+	--height: 1.25rem;
+	--line-height: 1.2308; /* 16px */
+	--padding-vertical: 0.125rem;
+	--padding-horizontal: 0.5rem;
+}
+
+.hds-badge-count--size-medium {
+	--font-size: 0.8125rem; /* 13px */
+	--height: 1.5rem;
+	--line-height: 1.2308; /* 16px */
+	--padding-vertical: 0.25rem;
+	--padding-horizontal: 0.75rem;
+}
+
+.hds-badge-count--size-large {
+	--font-size: 1rem; /* 16px */
+	--height: 2rem;
+	--line-height: 1.5; /* 24px */
+	--padding-vertical: 0.25rem;
+	--padding-horizontal: 0.875rem;
+}
+
+/* COLOR + TYPE COMBINATIONS */
+
+/* NEUTRAL */
+.hds-badge-count--color-neutral {
+	/* Neutral - Filled */
+	&.hds-badge-count--type-filled {
+		color: var(--token-color-foreground-primary);
+		background-color: var(--token-color-surface-strong);
+	}
+
+	/* Neutral - Inverted */
+	&.hds-badge-count--type-inverted {
+		color: var(--token-color-foreground-high-contrast);
+		background-color: var(--token-color-foreground-faint);
+	}
+
+	/* Neutral - Outlined */
+	&.hds-badge-count--type-outlined {
+		color: var(--token-color-foreground-primary);
+		background-color: transparent;
+		border-color: var(--token-color-foreground-faint);
+	}
+}
+
+/* NEUTRAL DARK */
+.hds-badge-count--color-neutral-dark {
+	/* Neutral Dark - Filled */
+	&.hds-badge-count--type-filled {
+		color: var(--token-color-foreground-high-contrast);
+		background-color: var(--token-color-foreground-faint);
+	}
+
+	/* Neutral Dark - Inverted */
+	&.hds-badge-count--type-inverted {
+		color: var(--token-color-foreground-primary);
+		background-color: var(--token-color-surface-faint);
+	}
+
+	/* Neutral Dark - Outlined */
+	&.hds-badge-count--type-outlined {
+		color: var(--token-color-foreground-high-contrast);
+		background-color: transparent;
+		border-color: var(--token-color-palette-neutral-100);
+	}
+}

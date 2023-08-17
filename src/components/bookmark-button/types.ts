@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { type ReactElement } from 'react'
 import { Tutorial as ClientTutorial } from 'lib/learn-client/types'
 
 export interface BookmarkButtonProps {
@@ -16,8 +17,8 @@ export type BookmarkButtonConfigType = Record<
 	BookmarkAction,
 	{
 		text: string
-		baseIcon: JSX.IntrinsicElements['svg']
-		iconWithHover: JSX.IntrinsicElements['svg']
+		baseIcon: ReactElement<React.JSX.IntrinsicElements['svg']>
+		iconWithHover: ReactElement<React.JSX.IntrinsicElements['svg']>
 	}
 >
 

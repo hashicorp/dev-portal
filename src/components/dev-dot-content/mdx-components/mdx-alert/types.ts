@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { type ReactElement } from 'react'
 import { InlineAlertProps } from 'components/inline-alert'
 
 export interface MdxInlineAlertProps {
@@ -15,7 +16,7 @@ export type MdxInlineAlertData = Record<
 	MdxInlineAlertProps['type'],
 	{
 		title: string
-		icon: JSX.IntrinsicElements['svg']
+		icon: ReactElement<React.JSX.IntrinsicElements['svg']>
 		color: InlineAlertProps['color']
 	}
 >

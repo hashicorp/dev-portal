@@ -80,6 +80,8 @@ export function VariableGroupList({
 
 				keyName = parent ? `${parent}.${keyName}` : keyName
 
+				const hasChildren = variable.children?.length > 0
+
 				/**
 				 * Construct a permalink slug for this specific variable
 				 */
@@ -114,7 +116,7 @@ export function VariableGroupList({
 						<div className={s.indentedContent}>
 							<div className={s.topRow}>
 								<span className={s.left}>
-									<code id={permalinkId} className={s.name}>
+									<code id={permalinkId} className={s.key}>
 										{keyName}
 									</code>
 									{variable.enterprise && <EnterpriseAlert inline />}
@@ -132,9 +134,9 @@ export function VariableGroupList({
 											)}
 										</span>
 									)}
-									{/* {variable.enterprise && <EnterpriseAlert inline />} */}
 									<MdxHeadingPermalink
 										className={s.permalink}
+										ariaLabel={`${keyName} permalink`}
 										level={4}
 										href={`#${permalinkId}`}
 									/>
@@ -156,11 +158,24 @@ export function VariableGroupList({
 
 							<div className={s.description}>
 								{variable.description ? (
-									<span dangerouslySetInnerHTML={{ __html: markdownToHtml(description) }} />
+									// <DevDotContent
+									// 	mdxRemoteProps={{
+									// 		compiledSource: markdownToHtml(description),
+									// 		scope: {},
+									// 		components: smallDescriptionMdxComponents,
+									// 	}}
+									// />
+									<DevDotContent>
+										<span
+											dangerouslySetInnerHTML={{
+												__html: markdownToHtml(description),
+											}}
+										/>
+									</DevDotContent>
 								) : null}
 							</div>
 
-							{variable.children?.length > 0 && (
+							{hasChildren && (
 								<VariableGroupList
 									unflatten={false}
 									parent={keyName}

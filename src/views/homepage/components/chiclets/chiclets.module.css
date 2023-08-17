@@ -1,0 +1,151 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	margin-top: 122px;
+
+	@media only screen and (max-width: 1440px) {
+		margin-top: 72px;
+	}
+
+	@media (--dev-dot-tablet) {
+		margin-top: 80px;
+	}
+
+	@media (--dev-dot-mobile) {
+		margin-top: 32px;
+	}
+}
+
+.label {
+	composes: hds-font-weight-bold from global;
+	color: var(--token-color-foreground-high-contrast);
+	font-family: var(--token-typography-display-400-font-family);
+	font-size: var(--token-typography-display-400-font-size);
+	line-height: var(--token-typography-display-400-line-height);
+	margin: 0;
+	margin-bottom: 24px;
+	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		font-family: var(--token-typography-display-300-font-family);
+		font-size: var(--token-typography-display-300-font-size);
+		line-height: var(--token-typography-display-300-line-height);
+		margin-bottom: 20px;
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-strong);
+	}
+}
+
+.navList {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+
+	@media (--dev-dot-tablet-down) {
+		gap: 8px;
+	}
+}
+
+.navListLink {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* properties */
+	background: var(--token-color-border-strong);
+	border-radius: 10px;
+	display: block;
+	padding: 1px;
+
+	&:hover {
+		/* this is --token-surface-high-box-shadow in dark mode */
+		box-shadow: 0 0 0 1px #b2b6bd40, 0 2px 3px 0 #61687526,
+			0 16px 16px -10px #61687533;
+		background: var(--hover-background);
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-border-primary);
+	}
+}
+
+.navListLinkContent {
+	align-items: center;
+	background-color: var(--token-color-foreground-strong);
+	border-radius: inherit;
+	color: var(--token-color-foreground-high-contrast);
+	display: flex;
+	gap: 10px;
+	padding: 12px 15px;
+
+	@media (--dev-dot-tablet-down) {
+		gap: 6px;
+		padding: 9px;
+
+		& svg {
+			height: 22px;
+			width: 22px;
+		}
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-foreground-high-contrast);
+		color: var(--token-color-foreground-strong);
+	}
+}
+
+.chicletText {
+	composes: hds-font-weight-semibold from global;
+	font-family: var(--token-typography-display-200-font-family);
+	font-size: var(--token-typography-display-200-font-size);
+	line-height: var(--token-typography-display-200-line-height);
+	margin: 0;
+	padding: 0;
+
+	@media (--dev-dot-tablet-down) {
+		font-family: var(--token-typography-body-200-font-family);
+		font-size: var(--token-typography-body-200-font-size);
+		line-height: var(--token-typography-body-200-line-height);
+	}
+}
+
+/*
+***
+* Variables unique to each SolutionType.
+*
+* @TODO in VQA: check with Kelly on HEX color values vs. HDS tokens
+***
+*/
+
+.solutionType--notSpecified {
+	--hover-background: linear-gradient(to right, #b5d9fa80, #1a5ee580);
+}
+
+.solutionType--infrastructure {
+	--hover-background: linear-gradient(to right, #8cdeff80, #8763d980);
+}
+
+.solutionType--networking {
+	--hover-background: linear-gradient(to right, #ffb2b880, #c74fb880);
+}
+
+.solutionType--security {
+	--hover-background: linear-gradient(to right, #ffe58c80, #f26b6380);
+}
+
+.solutionType--application {
+	--hover-background: linear-gradient(
+		to right,
+		#a3f7d680,
+		#5ed2d980,
+		#5494e380
+	);
+}

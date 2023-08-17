@@ -37,6 +37,10 @@
 	& .subHeading {
 		margin: 6px 0 16px;
 	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-surface-faint);
+	}
 }
 
 .ctaWrapper {
@@ -44,10 +48,11 @@
 	align-items: center;
 	display: flex;
 	gap: 6px;
-	color: var(--white) !important;
+	color: var(--white);
 
 	& .ctaIcon {
 		transition: 0.2s ease-in;
+		color: var(--white);
 	}
 }
 
