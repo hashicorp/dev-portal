@@ -4,20 +4,17 @@
  */
 
 // Third-party
-import { PropsWithChildren, useState } from 'react'
+import { useState } from 'react'
 // Components
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 // Utils
 import { useNavItemsWithActive } from './utils/use-nav-items-with-active'
+import { filterByTitle } from './utils/filter-by-title'
 // Types
-import type {
-	OpenApiNavItem,
-	LinkNavItem,
-} from 'views/open-api-docs-view/types'
+import type { OpenApiNavItem } from 'views/open-api-docs-view/types'
 // Styles
 import s from './open-api-sidebar-contents.module.css'
 import FilterInput from 'components/filter-input'
-import { filterFlatNavItems } from 'components/sidebar/helpers/get-filtered-nav-items'
 
 /**
  * Renders sidebar contents for OpenApiDocsView.
@@ -35,10 +32,7 @@ export function OpenApiSidebarContents({
 	const navItemsWithActive = useNavItemsWithActive(navItems)
 
 	// Filter navItems by `filterValue`
-	const filteredNavItems = filterFlatNavItems<LinkNavItem, OpenApiNavItem>(
-		navItemsWithActive,
-		filterValue
-	)
+	const filteredNavItems = filterByTitle(navItemsWithActive, filterValue)
 
 	// Render a generic list of `SideBarNavMenuItem`
 	return (
