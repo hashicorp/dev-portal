@@ -91,10 +91,17 @@ type LinkNavItem = {
 export type OpenApiNavItem = DividerNavItem | HeadingNavItem | LinkNavItem
 
 /**
- *
+ * Configure a status indicator for a status-page service.
  */
 export interface StatusIndicatorConfig {
+	/**
+	 * A status-page component URL we can GET JSON data from, in the format
+	 * `https://status.hashicorp.com/api/v2/components/{componentId}.json`.
+	 */
 	endpointUrl: string
+	/**
+	 * A browser-friendly status page URL, like `https://status.hashicorp.com`
+	 */
 	pageUrl: string
 }
 
