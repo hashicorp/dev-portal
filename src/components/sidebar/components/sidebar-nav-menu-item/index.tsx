@@ -207,7 +207,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 	const [isOpen, setIsOpen] = useState(
 		item.isOpen ||
 			item.hasActiveChild ||
-			item.hasRoutesMatchingFilter ||
+			item.hasChildrenMatchingFilter ||
 			item.matchesFilter
 	)
 	const hasBadge = !!(item as $TSFixMe).badge
@@ -221,13 +221,13 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 		setIsOpen(
 			item.isOpen ||
 				item.hasActiveChild ||
-				item.hasRoutesMatchingFilter ||
+				item.hasChildrenMatchingFilter ||
 				item.matchesFilter
 		)
 	}, [
 		item.isOpen,
 		item.hasActiveChild,
-		item.hasRoutesMatchingFilter,
+		item.hasChildrenMatchingFilter,
 		item.matchesFilter,
 	])
 

@@ -8,7 +8,7 @@ import { generateInstallViewNavItems } from './generate-install-view-nav-items'
 import { generateProductLandingSidebarNavData } from './generate-product-landing-nav-items'
 import { generateResourcesNavItems } from './generate-resources-nav-items'
 import { generateTopLevelSidebarNavData } from './generate-top-level-sidebar-nav-data'
-import { filterNestedNavItems } from './get-filtered-nav-items'
+import { getFilteredNavItems } from './get-filtered-nav-items'
 
 export {
 	addNavItemMetaData,
@@ -16,5 +16,5 @@ export {
 	generateProductLandingSidebarNavData,
 	generateResourcesNavItems,
 	generateTopLevelSidebarNavData,
-	filterNestedNavItems,
+	getFilteredNavItems,
 }

@@ -94,6 +94,20 @@ type NavItemWithMetaData =
 	| SubmenuNavItemWithMetaData
 	| LinkNavItemWithMetaData
 
+/**
+ * Interfaces for nav items that have been filtered via the filter input
+ */
+interface FilteredSubmenuNavItem extends EnrichedSubmenuNavItem {
+	hasChildrenMatchingFilter: boolean
+	routes: FilteredNavItem[]
+}
+
+interface FilteredLinkNavItem extends EnrichedLinkNavItem {
+	matchesFilter: boolean
+}
+
+type FilteredNavItem = FilteredSubmenuNavItem | FilteredLinkNavItem
+
 export interface NavHighlightItem {
 	theme: ProductSlug | 'generic'
 	title: string
@@ -114,7 +128,7 @@ interface MenuItem {
 	divider?: boolean
 	fullPath?: string
 	hasActiveChild?: boolean
-	hasRoutesMatchingFilter?: boolean
+	hasChildrenMatchingFilter?: boolean
 	href?: string
 	id?: string
 	isActive?: boolean
@@ -203,6 +217,7 @@ export type {
 	EnrichedLinkNavItem,
 	EnrichedNavItem,
 	EnrichedSubmenuNavItem,
+	FilteredNavItem,
 	LinkNavItemWithMetaData,
 	MenuItem,
 	NavItemWithMetaData,
