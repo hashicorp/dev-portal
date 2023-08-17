@@ -22,10 +22,16 @@ import {
 } from 'components/sidebar/components'
 
 // Local imports
-import { FilteredNavItem, MenuItem, SidebarProps } from './types'
+import {
+	LinkNavItemWithMetaData,
+	MenuItem,
+	NavItemWithMetaData,
+	SidebarProps,
+	SubmenuNavItemWithMetaData,
+} from './types'
 import {
 	addNavItemMetaData,
-	getFilteredNavItems,
+	filterNestedNavItems,
 	generateResourcesNavItems,
 } from './helpers'
 import SidebarNavList from './components/sidebar-nav-list'
@@ -103,14 +109,25 @@ const Sidebar = ({
 	if (children) {
 		sidebarContent = children
 	} else {
-		const filteredMenuItems = getFilteredNavItems(
-			itemsWithMetadata,
-			filterValue
-		)
+		const filteredMenuItems =
+			filterValue && filterValue !== ''
+				? filterNestedNavItems<
+						LinkNavItemWithMetaData,
+						SubmenuNavItemWithMetaData,
+						NavItemWithMetaData
+				  >(itemsWithMetadata, filterValue)
+				: itemsWithMetadata
 		sidebarContent = (
 			<SidebarNavList>
-				{filteredMenuItems.map((item: FilteredNavItem, i) => {
-					const key = `${item.id}-${i}`
+				{filteredMenuItems.map((item, i) => {
+					/**
+					 * TODO: these IDs were never guaranteed unique, it doesn't
+					 * exactly matter because the interactivity is filtering and
+					 * all filtered items do have `id` values, but this would be
+					 * nice to fix and clarify as part of `MenuItem` cleanup.
+					 */
+					const itemId = 'id' in item ? item.id : 'divider-or-heading'
+					const key = `${itemId}-${i}`
 					return <SidebarNavMenuItem item={item} key={key} />
 				})}
 			</SidebarNavList>
