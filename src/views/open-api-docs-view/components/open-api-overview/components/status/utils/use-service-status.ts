@@ -40,7 +40,7 @@ async function fetchServiceStatus(url: string): Promise<ServiceStatus> {
 }
 
 /**
- * Fetch JSOn data from a provided URL.
+ * Fetch JSON data from a provided URL.
  */
 async function fetchJson(url: string) {
 	const response = await fetch(url)
