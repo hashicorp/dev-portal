@@ -83,7 +83,7 @@ export interface OpenApiDocsParams extends ParsedUrlQuery {
  */
 type DividerNavItem = { divider: true }
 type HeadingNavItem = { heading: string }
-export type LinkNavItem = {
+type LinkNavItem = {
 	title: string
 	fullPath: string
 	theme?: ProductSlug
