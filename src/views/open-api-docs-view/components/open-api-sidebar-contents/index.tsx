@@ -27,7 +27,7 @@ export function OpenApiSidebarContents({
 	const [filterValue, setFilterValue] = useState('')
 
 	// Highlight active navItems, including `#hash` links via `useActiveSection`.
-	const navItemsWithActive = useNavItemsWithActive(navItems)
+	const navItemsWithActive = useNavItemsWithActive(navItems, filterValue === '')
 
 	// Filter navItems by `filterValue`
 	const filteredNavItems = filterByTitle(navItemsWithActive, filterValue)

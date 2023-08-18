@@ -79,7 +79,8 @@ function sectionSlugsFromNavItems(navItems: OpenApiNavItem[]): string[] {
  * of standard link matches will still function as expected.
  */
 export function useNavItemsWithActive(
-	navItems: OpenApiNavItem[]
+	navItems: OpenApiNavItem[],
+	enable: boolean = true
 ): OpenApiNavItem[] {
 	// Transform the incoming nav items into section slugs
 	const sectionSlugs = useMemo(
@@ -99,6 +100,16 @@ export function useNavItemsWithActive(
 			getNavItemWithActive(item, activeSection, urlPathname)
 		)
 	}, [navItems, activeSection, urlPathname])
+
+	/**
+	 * Allow a dynamic escape hatch, to avoid  highlighting items.
+	 * For context, there are cases such as during sidebar filtering where
+	 * we want to avoid highlighting items. Note that due to React's rules
+	 * around hooks, this conditional has to happen after the hooks above.
+	 */
+	if (!enable) {
+		return navItems
+	}
 
 	// Return nav items with `isActive` properties
 	return navItemsWithActive
