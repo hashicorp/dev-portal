@@ -113,7 +113,6 @@
 }
 
 .chatbody {
-	background: red;
 	overflow-y: auto;
 	max-height: 100%;
 }
@@ -276,12 +275,12 @@
 /* box-shadow: var(--token-elevation-low-box-shadow); */
 /* color: var(--token-color-foreground-primary); */
 .sentiment_like {
-	border: 1px solid var(--token-color-border-success);
-	background: var(--token-color-surface-success);
-	color: var(--token-color-foreground-success);
+	border: 1px solid var(--token-color-border-success) !important;
+	background: var(--token-color-surface-success) !important;
+	color: var(--token-color-foreground-success) !important;
 }
 .sentiment_dislike {
-	border: 1px solid var(--token-color-border-critical);
-	background: var(--token-color-surface-critical);
-	color: var(--token-color-foreground-critical);
+	border: 1px solid var(--token-color-border-critical) !important;
+	background: var(--token-color-surface-critical) !important;
+	color: var(--token-color-foreground-critical) !important;
 }

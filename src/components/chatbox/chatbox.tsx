@@ -32,30 +32,28 @@ import s from './chatbox.module.css'
 import FeedbackForm from 'components/feedback-form'
 
 const useAI = () => {
-	const [streamedText, setStreamedText] = useState('')
+	// The backend id of an AI response
 	const [completionId, setCompletionId] = useState('')
-	const [isLoading, setIsLoading] = useState(false)
 
-	// leverage useMutation to make a POST request more ergonomic
-	// this returns a `ReadableStream<Uint8Array>`
+	// Is the stream being read?
+	const [isReading, setIsReading] = useState(false)
+	const [streamedText, setStreamedText] = useState('')
+
+	// Use useMutation to make a POST request more ergonomic
 	const mutation = useMutation({
-		onMutate: async (variables: any) => {
-			// console.log('mutation started', variables)
+		onMutate: async () => {
 			// clear previous response
 			setStreamedText('...')
-			setIsLoading(true)
+			setCompletionId('')
 		},
-		onError: async (error, variables, context) => {
+		onError: async (error) => {
 			// console.log('mutation error', error)
 			const response = error as Response
-			setIsLoading(false)
 			switch (response.status) {
 				case 400: {
 					// @ts-expect-error - error is unknown
 					const jsonError = await mutation.error.json()
-					setStreamedText(
-						'```json\n' + JSON.stringify(jsonError, null, 2) + '\n```'
-					)
+					setStreamedText(JSON.stringify(jsonError, null, 2))
 					break
 				}
 				case 401:
@@ -73,120 +71,126 @@ const useAI = () => {
 					break
 			}
 		},
-		mutationFn: async ({ value: task, accessToken: token }) => {
+		mutationFn: async ({ value: task, accessToken: token }: any) => {
 			const response = await fetch('/api/chat/route', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${token}`,
 				},
-				body: JSON.stringify({
-					task: task,
-				}),
+				body: JSON.stringify({ task }),
 			})
 
-			// if the response is not ok, throw it. It's likely JSON
+			// if the response is not ok, throw it to be handled by onError
 			if (!response.ok) {
 				throw response
+			} else {
+				// grab the completion id from the headers
+				const completionId = response.headers.get('x-completion-id')
+				setCompletionId(completionId)
+
+				return response
 			}
-			// if the response is ok, it'll be a readable stream
-			return response
 		},
 	})
 
+	const [reader, setReader] =
+		useState<ReadableStreamDefaultReader<Uint8Array> | null>(null)
+
 	// when the mutation / POST is successful
-	// - read the stream
-	// - grab completion id from headers for optional, subsequent updates
+	// - assign the reader to state
 	useEffect(() => {
-		;(async function () {
-			if (!mutation.data?.body) {
-				return
-			}
+		if (!mutation.data) {
+			return
+		}
 
-			if (mutation.data.bodyUsed) {
-				return
-			}
-			if (mutation.data.status == 400) {
-				setStreamedText(
-					'Something went wrong, and we’re not quite sure how to fix it...'
-				)
-				return
-			}
-			if (mutation.data.body.locked) {
-				return
-			}
+		if (!mutation.data.body) {
+			return
+		}
 
-			// reset streamed text
-			setStreamedText('')
-			// set the completion id
-			setCompletionId(mutation.data.headers.get('x-completion-id') || '')
+		if (mutation.data.bodyUsed) {
+			return
+		}
+		if (mutation.data.body.locked) {
+			return
+		}
+		// get the reader from the stream
+		const reader = mutation.data.body.getReader()
+		setReader(reader)
+	}, [mutation.data])
 
-			// get the reader from the stream
-			const reader = mutation.data.body.getReader()
+	// perform stream reading
+	useEffect(() => {
+		// if there's no reader, exit
+		if (!reader) {
+			return
+		}
 
+		// Async function to update state if the reader is closed
+		reader.closed.then(() => {
+			setIsReading(false)
+		})
+
+		// Reset streamed text
+		setStreamedText('')
+
+		// Read the stream
+		;(async () => {
 			// decoder converts the Uint8Array to a human-readable string
 			const decoder = new TextDecoder()
 
-			// lift out an async function for easy calling within useEffect
-			const processStream = async (
-				rd: ReadableStreamDefaultReader<Uint8Array>,
-				{
-					onData,
-				}: {
-					onData: (data: string) => void
+			let shouldExit = false
+			do {
+				setIsReading(true)
+				const { done, value } = await reader.read()
+				// reached end of stream
+				if (done) {
+					console.log('reached end of stream')
+					reader.releaseLock()
+					// clear the reader
+					setReader(null)
+					// set reading state to false
+					setIsReading(false)
+
+					shouldExit = true
+					break
 				}
-			) => {
-				let shouldExit = false
-				do {
-					const { done, value } = await rd.read()
-					// reached end of stream
-					if (done) {
-						rd.releaseLock()
-						setIsLoading(false)
-						shouldExit = true
-						break
-					}
-					// value is Uint8Array
+
+				// read the value
+				if (!done) {
+					// convert `Uint8Array` to `string`
 					const data = decoder.decode(value)
 					// data should be a string like: 'data: {"content":"arbitrary text\n\n"}\n\n'
-					onData(data)
-				} while (!shouldExit)
-			}
-
-			processStream(reader, {
-				onData: (data) => {
 					if (!data) {
-						return
+						continue
 					}
 
-					// split by double newline to collect individual messages
-					// but do explictly ignore json-serialized double newlines.
+					// split by double newline to collect individual SSE messages
+					// but leave json-serialized double newlines as is.
 					// TODO(kevinwang): are there more edge cases?
-					// ex: 'data: {"content":"\"\n\n"}\n\ndata: {"content":"\"\n\n"}'
-					//     - should be split into 2 messages
-					const regexp = /(?!")\n\n(?!")/i
+
+					const regexp = /(?!")\n\n(?!")/gi
 					const messages = data.split(regexp)
 
-					if (!messages) {
-						return
-					}
-
-					messages.forEach((message) => {
+					messages?.forEach((message) => {
+						// trim the leading `data: ` from the message
 						const jsonString = message.replace(/^data:\s/i, '')
+						// parse the json
 						if (jsonString.length > 0) {
 							const content = JSON.parse(jsonString).content
 							setStreamedText((prev) => prev + content)
 						}
 					})
-				},
-			})
+				}
+			} while (!shouldExit)
 		})()
-	}, [mutation.data])
+	}, [reader])
 
 	return {
+		reader,
 		streamedText,
 		completionId,
-		isLoading,
+		isLoading: mutation.isLoading || isReading,
 		mutation,
 	}
 }
@@ -199,15 +203,11 @@ type Message =
 	  }
 	| {
 			type: 'assistant'
-			image?: undefined
 			text: string
 			id: string
 	  }
 
-const UserMessage = ({
-	text,
-	image,
-}: PropsWithChildren<{ image?: string; text: string }>) => {
+const UserMessage = ({ text, image }: { image?: string; text: string }) => {
 	return (
 		<div className={cn(s.message, s.message_user)}>
 			<div className={cn(s.message_avatar)}>
@@ -221,20 +221,14 @@ const UserMessage = ({
 const AssistantMessage = ({
 	markdown,
 	showActions,
-	onCopy,
-	onLike,
-	onDislike,
 	showArrowDown,
 	messageId,
-}: PropsWithChildren<{
+}: {
 	markdown: string
 	showActions: boolean
-	onCopy: () => void
-	onLike: () => void
-	onDislike: () => void
 	showArrowDown: boolean
 	messageId: string
-}>) => {
+}) => {
 	const { session } = useAuthentication()
 	const accessToken = session?.accessToken
 	// Determines green/red button
@@ -270,6 +264,10 @@ const AssistantMessage = ({
 		return response
 	}
 
+	const handleCopy = () => {
+		navigator.clipboard.writeText(markdown)
+	}
+
 	return (
 		<div className={cn(s.message, s.message_assistant)}>
 			<IconTile className={cn(s.message_icon)}>
@@ -287,38 +285,43 @@ const AssistantMessage = ({
 				>
 					{markdown}
 				</ReactMarkdown>
-				{/* <small>{messageId}</small> */}
+
 				<div
 					className={cn(s.message_AssistantMessageFooter, {
 						[s.message_AssistantMessageFooterHidden]: !showActions,
 					})}
 				>
 					<span className={s.message_divider} />
+
 					<div className={s.message_actionButtons}>
 						<Button
 							size="small"
 							color="secondary"
 							icon={<IconClipboard24 height={12} width={12} />}
-							aria-label="FIXME"
-							onClick={onCopy}
-						></Button>
+							aria-label="Copy to clipboard"
+							onClick={handleCopy}
+						/>
+
 						<Button
 							size="small"
 							color="secondary"
 							className={cn({ [s.sentiment_like]: sentiment == 1 })}
+							disabled={sentiment == 1}
 							icon={<IconThumbsUp24 height={12} width={12} />}
-							aria-label="FIXME"
+							aria-label="Like this response"
 							onClick={async () => {
 								await handleSentiment({ sentiment: 1 })
 								setSentiment(1)
 							}}
 						/>
+
 						<Button
 							size="small"
 							color="secondary"
 							className={cn({ [s.sentiment_dislike]: sentiment == -1 })}
+							disabled={sentiment == -1}
 							icon={<IconThumbsDown24 height={12} width={12} />}
-							aria-label="FIXME"
+							aria-label="Dislike this response"
 							onClick={async () => {
 								await handleSentiment({ sentiment: -1 })
 								setSentiment(-1)
@@ -338,11 +341,19 @@ const AssistantMessage = ({
 										id: 'reason',
 										type: 'text',
 										label: 'Provide additional feedback to help us improve',
+										placeholder:
+											sentiment == 1
+												? 'What did you like about the response?'
+												: 'What was the issue with the response? How could it be improved?',
 										optional: true,
 										buttonText: 'Submit answer',
 									},
 								]}
-								finishedText="Thank you! Your feedback will help us improve our websites."
+								finishedText={
+									<div>
+										Thank you! Your feedback will help us improve our websites.
+									</div>
+								}
 								onQuestionSubmit={async (responses) => {
 									const value = responses[0].value
 									await handleReason({ reason: value })
@@ -353,6 +364,7 @@ const AssistantMessage = ({
 					</div>
 				</div>
 			</div>
+
 			<div className={cn(s.message_gutter)}>
 				{showArrowDown ? (
 					<IconTile size="small">
@@ -365,7 +377,8 @@ const AssistantMessage = ({
 }
 
 const ChatBox = () => {
-	const { mutation, streamedText, completionId, isLoading } = useAI()
+	const { mutation, streamedText, completionId, isLoading, isReading, reader } =
+		useAI()
 	const { user, session } = useAuthentication()
 	const accessToken = session?.accessToken
 
@@ -490,9 +503,6 @@ const ChatBox = () => {
 											key={e.id}
 											messageId={e.id}
 											showActions={shouldShowActions}
-											onCopy={() => alert('TODO: copy')}
-											onLike={() => alert('TODO: like')}
-											onDislike={() => alert('TODO: dislike')}
 											showArrowDown={textContentScrollBarIsVisible}
 										/>
 									)
@@ -518,15 +528,22 @@ const ChatBox = () => {
 							rows={1}
 							className={cn(s.reset, s.textarea)}
 							placeholder="Send a new message"
+							disabled={isLoading}
 						/>
 						{isLoading ? (
 							<Button
 								type={'button'}
 								icon={<IconStopCircle24 height={16} width={16} />}
 								text={'Stop generating'}
+								color={'critical'}
+								onClick={() => {
+									reader?.cancel()
+									mutation.reset()
+								}}
 							/>
 						) : (
 							<Button
+								disabled={userInput.length < 1}
 								type={'submit'}
 								icon={<IconSend24 height={16} width={16} />}
 								text={'Send'}
