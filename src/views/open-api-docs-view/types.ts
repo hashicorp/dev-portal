@@ -105,6 +105,21 @@ export type OpenApiNavItem =
 	| ExternalLinkNavItem
 
 /**
+ * Configure a status indicator for a status-page service.
+ */
+export interface StatusIndicatorConfig {
+	/**
+	 * A status-page component URL we can GET JSON data from, in the format
+	 * `https://status.hashicorp.com/api/v2/components/{componentId}.json`.
+	 */
+	endpointUrl: string
+	/**
+	 * A browser-friendly status page URL, like `https://status.hashicorp.com`
+	 */
+	pageUrl: string
+}
+
+/**
  * We'll use this type to document the shape of props for the view component.
  * For now, we have a placeholder. We'll expand this as we build out the view.
  */
@@ -134,6 +149,11 @@ export interface OpenApiDocsViewProps {
 	 * Breadcrumb links are shown in the breadcrumb nav.
 	 */
 	breadcrumbLinks: BreadcrumbLink[]
+
+	/**
+	 * Configuration for the status-page indicator in the header area.
+	 */
+	statusIndicatorConfig: StatusIndicatorConfig
 
 	/**
 	 * Some temporary data we'll remove for the production implementation.

@@ -24,7 +24,7 @@ export interface BadgeProps {
 	 * "neutral".
 	 */
 	color?:
-		| 'error'
+		| 'critical'
 		| 'highlight'
 		| 'neutral-dark-mode'
 		| 'neutral'
