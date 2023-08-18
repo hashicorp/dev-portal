@@ -11,6 +11,7 @@
 
 	@media (--dev-dot-hide-mobile-menu) {
 		padding-right: 48px;
+		padding-left: 48px;
 	}
 
 	@media (--dev-dot-desktop) {
@@ -22,4 +23,16 @@
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
+}
+
+.operationsSection {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+}
+
+.operationsHeading {
+	composes: hds-typography-display-500 from global;
+	font-weight: var(--token-typography-font-weight-bold);
+	margin: 0;
 }
