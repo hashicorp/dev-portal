@@ -89,6 +89,15 @@ const GITHUB_SOURCE_DIRECTORY = {
 }
 
 /**
+ * Data to power the status page indicator in the header area.
+ */
+const STATUS_INDICATOR_CONFIG = {
+	pageUrl: 'https://status.hashicorp.com',
+	endpointUrl:
+		'https://status.hashicorp.com/api/v2/components/hk67zg2j2rkd.json',
+}
+
+/**
  * Render `<ApiDocsView />` with custom operation path truncation
  * for HCP Vault secrets.
  */
@@ -164,6 +173,7 @@ export const getStaticProps: GetStaticProps<
 			basePath: BASE_URL,
 			context: { params },
 			productSlug: PRODUCT_SLUG,
+			statusIndicatorConfig: STATUS_INDICATOR_CONFIG,
 			navResourceItems: NAV_RESOURCE_ITEMS,
 			// Handle rename of `targetFile` to `sourceFile` for new template
 			versionData: versionData.map(({ targetFile, ...rest }) => {

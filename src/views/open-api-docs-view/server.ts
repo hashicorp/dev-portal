@@ -29,6 +29,7 @@ import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
 	OpenApiDocsVersionData,
+	StatusIndicatorConfig,
 	OpenApiNavItem,
 } from './types'
 
@@ -64,6 +65,7 @@ export async function getStaticProps({
 	productSlug,
 	versionData,
 	basePath,
+	statusIndicatorConfig,
 	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
 	navResourceItems = [],
 }: {
@@ -71,6 +73,7 @@ export async function getStaticProps({
 	productSlug: ProductSlug
 	versionData: OpenApiDocsVersionData[]
 	basePath: string
+	statusIndicatorConfig: StatusIndicatorConfig
 	massageSchemaForClient?: (
 		schemaData: OpenAPIV3.Document
 	) => OpenAPIV3.Document
@@ -150,6 +153,7 @@ export async function getStaticProps({
 			navItems,
 			navResourceItems,
 			breadcrumbLinks,
+			statusIndicatorConfig,
 		},
 	}
 }

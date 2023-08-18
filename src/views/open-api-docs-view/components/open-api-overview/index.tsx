@@ -3,11 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import classNames from 'classnames'
+// Third-party
 import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
+// Components
 import Badge from 'components/badge'
 import IconTile from 'components/icon-tile'
+// Local
 import { Status } from './components/status'
+// Types
+import type { StatusIndicatorConfig } from 'views/open-api-docs-view/types'
 // Types
 import type { ReactNode } from 'react'
 // Styles
@@ -24,19 +28,16 @@ import s from './open-api-overview.module.css'
 export interface OpenApiOverviewProps {
 	title: string
 	badgeText: string
+	statusIndicatorConfig?: StatusIndicatorConfig
 	contentSlot?: ReactNode
-	status?: {
-		text: string
-		href: string
-	}
 	className?: string
 }
 
 export function OpenApiOverview({
 	title,
 	badgeText,
+	statusIndicatorConfig,
 	contentSlot,
-	status,
 }: OpenApiOverviewProps) {
 	return (
 		<div className={s.overviewWrapper}>
@@ -46,7 +47,12 @@ export function OpenApiOverview({
 				</IconTile>
 				<span>
 					<h1 className={s.heading}>{title}</h1>
-					{status ? <Status text={status.text} href={status.href} /> : null}
+					{statusIndicatorConfig ? (
+						<Status
+							endpointUrl={statusIndicatorConfig.endpointUrl}
+							pageUrl={statusIndicatorConfig.pageUrl}
+						/>
+					) : null}
 				</span>
 				<Badge
 					className={s.releaseStageBadge}
