@@ -84,14 +84,22 @@ export interface OpenApiDocsParams extends ParsedUrlQuery {
  */
 type DividerNavItem = { divider: true }
 type HeadingNavItem = { heading: string }
-type LinkNavItem = {
+type ExternalLinkNavItem = {
+	title: string
+	href: string
+}
+export type LinkNavItem = {
 	title: string
 	fullPath: string
 	theme?: ProductSlug
 	isActive?: boolean
 }
 
-export type OpenApiNavItem = DividerNavItem | HeadingNavItem | LinkNavItem
+export type OpenApiNavItem =
+	| DividerNavItem
+	| HeadingNavItem
+	| LinkNavItem
+	| ExternalLinkNavItem
 
 /**
  * We'll use this type to document the shape of props for the view component.
@@ -110,9 +118,14 @@ export interface OpenApiDocsViewProps {
 	 */
 	operationGroups: OperationGroup[]
 	/**
-	 * Operation nav items are rendered into the sidebar and mobile nav.
+	 * `navItems` appear in the main area of the sidebar and mobile nav.
 	 */
 	navItems: OpenApiNavItem[]
+
+	/**
+	 * `navResourceItems` appear at the bottom of the sidebar and mobile nav.
+	 */
+	navResourceItems: OpenApiNavItem[]
 
 	/**
 	 * Breadcrumb links are shown in the breadcrumb nav.
