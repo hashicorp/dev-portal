@@ -13,10 +13,11 @@
 	display: flex;
 	align-items: flex-start;
 	flex-direction: column-reverse;
-	gap: 16px;
+	gap: 8px;
 
 	@media (--dev-dot-tablet-up) {
 		flex-direction: row;
+		gap: 16px;
 	}
 }
 
