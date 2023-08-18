@@ -16,6 +16,7 @@
 }
 
 .sectionHeading {
+	composes: g-offset-scroll-margin-top from global;
 	composes: hds-typography-display-300 from global;
 	font-weight: var(--token-typography-font-weight-bold);
 	color: var(--token-color-foreground-strong);
@@ -34,6 +35,7 @@
 }
 
 .groupHeading {
+	composes: g-offset-scroll-margin-top from global;
 	composes: hds-typography-display-200 from global;
 	font-weight: var(--token-typography-font-weight-semibold);
 	color: var(--token-color-foreground-primary);
