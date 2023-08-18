@@ -36,6 +36,7 @@ Base properties, at the top level
 */
 
 .baseRoot {
+	composes: g-offset-scroll-margin-top from global;
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
@@ -87,6 +88,10 @@ List of nested properties
 Nested properties
 
 */
+
+.nestedRoot {
+	composes: g-offset-scroll-margin-top from global;
+}
 
 .nestedMetaAndDescription {
 	display: flex;

@@ -19,8 +19,13 @@ import type { OpenAPIV3 } from 'openapi-types'
  */
 export async function getRequestData(
 	parameters: (OpenAPIV3.ParameterObject | OpenAPIV3.ReferenceObject)[],
-	requestBody?: OpenAPIV3.RequestBodyObject | OpenAPIV3.ReferenceObject
+	requestBody: OpenAPIV3.RequestBodyObject | OpenAPIV3.ReferenceObject,
+	slugPrefix: string
 ): Promise<PropertyDetailsGroup[]> {
+	// Set up some slugs, we'll need these for headings and for unique prefixes
+	const pathParamsSlug = `${slugPrefix}_path-parameters`
+	const queryParamsSlug = `${slugPrefix}_query-parameters`
+	const bodyParamsSlug = `${slugPrefix}_body-parameters`
 	// Build arrays of path, query, and body parameters
 	const pathParameters: PropertyDetailsProps[] = []
 	const queryParameters: PropertyDetailsProps[] = []
@@ -37,11 +42,11 @@ export async function getRequestData(
 			// Parse parameters by type
 			if (parameter.in === 'path') {
 				pathParameters.push(
-					await getPropertyDetailPropsFromParameter(parameter)
+					await getPropertyDetailPropsFromParameter(parameter, pathParamsSlug)
 				)
 			} else if (parameter.in === 'query') {
 				queryParameters.push(
-					await getPropertyDetailPropsFromParameter(parameter)
+					await getPropertyDetailPropsFromParameter(parameter, queryParamsSlug)
 				)
 			}
 		}
@@ -49,25 +54,25 @@ export async function getRequestData(
 	// Build body parameters from requestBody data, if present
 	const bodyParameters =
 		requestBody && !('$ref' in requestBody)
-			? await getBodyParameterProps(requestBody)
+			? await getBodyParameterProps(requestBody, bodyParamsSlug)
 			: []
 	// Build an array of request data, using any parameters present
 	const requestData: PropertyDetailsGroup[] = []
 	if (pathParameters.length > 0) {
 		requestData.push({
-			heading: 'Path Parameters',
+			heading: { text: 'Path Parameters', slug: pathParamsSlug },
 			propertyDetails: pathParameters,
 		})
 	}
 	if (queryParameters.length > 0) {
 		requestData.push({
-			heading: 'Query Parameters',
+			heading: { text: 'Query Parameters', slug: queryParamsSlug },
 			propertyDetails: queryParameters,
 		})
 	}
 	if (bodyParameters.length > 0) {
 		requestData.push({
-			heading: 'Body Parameters',
+			heading: { text: 'Body Parameters', slug: bodyParamsSlug },
 			propertyDetails: bodyParameters,
 		})
 	}
@@ -82,7 +87,8 @@ export async function getRequestData(
  * Return property detail data.
  */
 export async function getBodyParameterProps(
-	requestBody: OpenAPIV3.RequestBodyObject
+	requestBody: OpenAPIV3.RequestBodyObject,
+	parentSlug: string
 ): Promise<PropertyDetailsProps[]> {
 	const schema = requestBody.content['application/json'].schema
 	// If we don't find the expected schema, return an empty array
@@ -112,7 +118,12 @@ export async function getBodyParameterProps(
 		const isRequired = requiredProperties.includes(key)
 		// Push props
 		bodyProps.push(
-			await getPropertyDetailPropsFromSchemaObject(key, value, isRequired)
+			await getPropertyDetailPropsFromSchemaObject(
+				key,
+				value,
+				isRequired,
+				parentSlug
+			)
 		)
 	}
 	return bodyProps
