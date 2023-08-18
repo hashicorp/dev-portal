@@ -13,9 +13,10 @@ export function useServiceStatus(endpointUrl: string) {
 	const [status, setStatus] = useState<ServiceStatus>('loading')
 
 	useEffect(() => {
-		(async function updateStatusData() {
+		const asyncEffect = async () => {
 			setStatus(await fetchServiceStatus(endpointUrl))
-		})();
+		}
+		asyncEffect()
 	}, [endpointUrl])
 
 	return status
