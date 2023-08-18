@@ -12,6 +12,7 @@ import {
 } from 'views/api-docs-view/server'
 import { buildApiDocsBreadcrumbs } from 'views/api-docs-view/server/get-api-docs-static-props/utils'
 import { fetchCloudApiVersionData } from 'views/api-docs-view/utils'
+import { isDeployPreview } from 'lib/env-checks'
 // Revised view
 import OpenApiDocsView from 'views/open-api-docs-view'
 import {
@@ -31,11 +32,11 @@ import type {
 	GetStaticProps,
 	GetStaticPropsContext,
 } from 'next'
+import type { OpenAPIV3 } from 'openapi-types'
 import type {
 	OpenApiDocsViewProps,
 	OpenApiNavItem,
 } from 'views/open-api-docs-view/types'
-import { isDeployPreview } from 'lib/env-checks'
 
 /**
  * 🚩 Flag to use the work-in-progress revised API docs view & server functions.
@@ -168,6 +169,20 @@ export const getStaticProps: GetStaticProps<
 			versionData: versionData.map(({ targetFile, ...rest }) => {
 				return { ...rest, sourceFile: targetFile }
 			}),
+			/**
+			 * Massage the schema data a little bit, replacing
+			 * "HashiCorp Cloud Platform" in the title with "HCP".
+			 */
+			massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
+				// Replace "HashiCorp Cloud Platform" with "HCP" in the title
+				const massagedTitle = schemaData.info.title.replace(
+					'HashiCorp Cloud Platform',
+					'HCP'
+				)
+				// Return the schema data with the revised title
+				const massagedInfo = { ...schemaData.info, title: massagedTitle }
+				return { ...schemaData, info: massagedInfo }
+			},
 		})
 	}
 

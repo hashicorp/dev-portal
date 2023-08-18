@@ -23,6 +23,7 @@ import type {
 	GetStaticPropsContext,
 	GetStaticPropsResult,
 } from 'next'
+import type { OpenAPIV3 } from 'openapi-types'
 import type { ProductSlug } from 'types/products'
 import type {
 	OpenApiDocsParams,
@@ -63,12 +64,16 @@ export async function getStaticProps({
 	productSlug,
 	versionData,
 	basePath,
+	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
 	navResourceItems = [],
 }: {
 	context: GetStaticPropsContext<OpenApiDocsParams>
 	productSlug: ProductSlug
 	versionData: OpenApiDocsVersionData[]
 	basePath: string
+	massageSchemaForClient?: (
+		schemaData: OpenAPIV3.Document
+	) => OpenAPIV3.Document
 	navResourceItems: OpenApiNavItem[]
 }): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
 	// Get the product data
@@ -101,7 +106,8 @@ export async function getStaticProps({
 		typeof sourceFile === 'string'
 			? sourceFile
 			: await fetchGithubFile(sourceFile)
-	const schemaData = await parseAndValidateOpenApiSchema(schemaFileString)
+	const rawSchemaData = await parseAndValidateOpenApiSchema(schemaFileString)
+	const schemaData = massageSchemaForClient(rawSchemaData)
 	const operationProps = await getOperationProps(schemaData)
 	const operationGroups = groupOperations(operationProps)
 	const navItems = getNavItems({
