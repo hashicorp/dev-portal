@@ -7,8 +7,10 @@ import classNames from 'classnames'
 import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
 import Badge from 'components/badge'
 import IconTile from 'components/icon-tile'
-import OverviewBlurb from './components/overview-blurb'
 import { Status } from './components/status'
+// Types
+import type { ReactNode } from 'react'
+// Styles
 import s from './open-api-overview.module.css'
 
 /**
@@ -22,7 +24,7 @@ import s from './open-api-overview.module.css'
 export interface OpenApiOverviewProps {
 	title: string
 	badgeText: string
-	description: string
+	contentSlot?: ReactNode
 	status?: {
 		text: string
 		href: string
@@ -33,7 +35,7 @@ export interface OpenApiOverviewProps {
 export function OpenApiOverview({
 	title,
 	badgeText,
-	description,
+	contentSlot,
 	status,
 }: OpenApiOverviewProps) {
 	return (
@@ -53,11 +55,7 @@ export function OpenApiOverview({
 					size="small"
 				/>
 			</header>
-			<section className={s.content}>
-				<span className={s.contentBlurb}>
-					<OverviewBlurb description={description} />
-				</span>
-			</section>
+			{contentSlot ? <section>{contentSlot}</section> : null}
 		</div>
 	)
 }

@@ -11,6 +11,7 @@ import { MdxInlineCode } from 'components/dev-dot-content/mdx-components'
 import Badge from 'components/badge'
 // Styles
 import s from './property-details.module.css'
+import { ContentWithPermalink } from '../content-with-permalink'
 
 /**
  * Types are shared by the "base" and "nested" variations of
@@ -18,6 +19,7 @@ import s from './property-details.module.css'
  */
 export interface PropertyDetailsProps {
 	name: string
+	slug: string
 	type: string
 	isRequired?: boolean
 	description?: string // Plain text or HTML
@@ -33,6 +35,7 @@ export interface PropertyDetailsProps {
  */
 export function PropertyDetails({
 	name,
+	slug,
 	type,
 	isRequired,
 	description,
@@ -41,13 +44,15 @@ export function PropertyDetails({
 }: PropertyDetailsProps) {
 	const hasNestedProperties = nestedProperties?.length > 0
 	return (
-		<div className={s.baseRoot}>
+		<div id={slug} className={s.baseRoot}>
 			<div className={s.baseMetaAndDescription}>
-				<div className={s.baseMeta}>
-					<MdxInlineCode>{name}</MdxInlineCode>
-					<span className={s.baseType}>{type}</span>
-					{isRequired ? <Badge text="Required" color="highlight" /> : null}
-				</div>
+				<ContentWithPermalink id={slug} ariaLabel={name}>
+					<div className={s.baseMeta}>
+						<MdxInlineCode>{name}</MdxInlineCode>
+						<span className={s.baseType}>{type}</span>
+						{isRequired ? <Badge text="Required" color="highlight" /> : null}
+					</div>
+				</ContentWithPermalink>
 			</div>
 			{description || hasNestedProperties ? (
 				<div>
@@ -108,6 +113,7 @@ function ListNestedProperties({
  */
 function PropertyDetailsNested({
 	name,
+	slug,
 	type,
 	isRequired,
 	description,
@@ -117,18 +123,20 @@ function PropertyDetailsNested({
 }: PropertyDetailsProps) {
 	const hasNestedProperties = nestedProperties?.length > 0
 	return (
-		<div>
+		<div id={slug} className={s.nestedRoot}>
 			{/* Meta row */}
 			<TreeContent listItemStyle={isLastItem ? 'last' : 'middle'}>
-				<div className={s.nestedMeta}>
-					<div className={s.nestedNameAndType}>
-						<code className={s.nestedName}>{name}</code>
-						<span className={s.nestedType}>{type}</span>
+				<ContentWithPermalink id={slug} ariaLabel={name}>
+					<div className={s.nestedMeta}>
+						<div className={s.nestedNameAndType}>
+							<code className={s.nestedName}>{name}</code>
+							<span className={s.nestedType}>{type}</span>
+						</div>
+						{isRequired ? (
+							<Badge text="Required" color="highlight" size="small" />
+						) : null}
 					</div>
-					{isRequired ? (
-						<Badge text="Required" color="highlight" size="small" />
-					) : null}
-				</div>
+				</ContentWithPermalink>
 			</TreeContent>
 			{/* Optional description and nested properties */}
 			{description || hasNestedProperties ? (
