@@ -35,7 +35,11 @@ const useAI = () => {
 	const [streamedText, setStreamedText] = useState('')
 
 	// Use useMutation to make a POST request more ergonomic
-	const mutation = useMutation({
+	const mutation = useMutation<
+		Response,
+		Response,
+		{ value: string; accessToken: string }
+	>({
 		onMutate: async () => {
 			// clear previous response
 			setStreamedText('...')
