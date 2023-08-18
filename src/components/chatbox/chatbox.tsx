@@ -429,35 +429,47 @@ const ChatBox = () => {
 
 	// update component state when text is streamed in from the backend
 	useEffect(() => {
-		if (mutation.error) {
-			setMessageList((prev) => [
-				...prev,
-				{ type: 'system', text: mutation.error.statusText },
-			])
-			return
-		}
-
-		if (!streamedText || !completionId) {
-			return
-		}
-
-		setMessageList((prev) => {
-			const next = [...prev]
-			const assistantMessage = next.find(
-				(e) => e.type == 'assistant' && e.id === completionId
-			)
-
-			if (assistantMessage) {
-				assistantMessage.text = streamedText
-			} else {
-				next.push({
-					type: 'assistant',
-					text: streamedText,
-					id: completionId,
-				})
+		;(async () => {
+			if (mutation.error) {
+				if (mutation.error.bodyUsed) {
+					return
+				}
+				const errorJson = await mutation.error.json()
+				const errorMessage =
+					errorJson.meta.status_text ||
+					`${mutation.error.status} ${mutation.error.statusText}`
+				setMessageList((prev) => [
+					...prev,
+					{
+						type: 'system',
+						text: errorMessage,
+					},
+				])
+				return
 			}
-			return next
-		})
+
+			if (!streamedText || !completionId) {
+				return
+			}
+
+			setMessageList((prev) => {
+				const next = [...prev]
+				const assistantMessage = next.find(
+					(e) => e.type == 'assistant' && e.id === completionId
+				)
+
+				if (assistantMessage) {
+					assistantMessage.text = streamedText
+				} else {
+					next.push({
+						type: 'assistant',
+						text: streamedText,
+						id: completionId,
+					})
+				}
+				return next
+			})
+		})()
 	}, [streamedText, completionId, mutation.error])
 
 	return (
@@ -473,7 +485,13 @@ const ChatBox = () => {
 						{messageList.map((e, i) => {
 							switch (e.type) {
 								case 'user': {
-									return <UserMessage key={i} image={e.image} text={e.text} />
+									return (
+										<UserMessage
+											key={`${e.type}-${i}`}
+											image={e.image}
+											text={e.text}
+										/>
+									)
 								}
 								case 'assistant': {
 									const shouldShowActions = e.text?.length > 20 && !isLoading
@@ -488,7 +506,7 @@ const ChatBox = () => {
 									)
 								}
 								case 'system': {
-									return <SystemMessage key={i} text={e.text} />
+									return <SystemMessage key={`${e.type}-${i}`} text={e.text} />
 								}
 							}
 						})}
