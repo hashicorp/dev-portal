@@ -12,7 +12,13 @@
 .header {
 	display: flex;
 	align-items: flex-start;
-	gap: 16px;
+	flex-direction: column-reverse;
+	gap: 8px;
+
+	@media (--dev-dot-tablet-up) {
+		flex-direction: row;
+		gap: 16px;
+	}
 }
 
 .heading {
@@ -23,10 +29,18 @@
 }
 
 .icon {
-	margin-top: 3px;
+	display: none;
+
+	@media (--dev-dot-tablet-up) {
+		display: block;
+		margin-top: 3px;
+	}
 }
 
 .releaseStageBadge {
-	margin-top: 13px;
 	text-transform: capitalize;
+
+	@media (--dev-dot-tablet-up) {
+		margin-top: 13px;
+	}
 }
