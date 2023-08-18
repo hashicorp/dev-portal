@@ -6,6 +6,7 @@
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
 // Components
+import BreadcrumbBar from 'components/breadcrumb-bar'
 import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
 // Local
 import {
@@ -17,6 +18,7 @@ import {
 import s from './open-api-docs-view.module.css'
 // Types
 import type { OpenApiDocsViewProps } from './types'
+import { DescriptionMdx } from './components/open-api-overview/components/description-mdx'
 
 /**
  * Placeholder for a revised OpenAPI docs view.
@@ -25,33 +27,48 @@ function OpenApiDocsView({
 	productData,
 	title,
 	releaseStage,
-	description,
+	descriptionMdx,
 	operationGroups,
 	navItems,
+	navResourceItems,
+	breadcrumbLinks,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
 			sidebarSlot={
 				<>
 					<SidebarBackToLink text="HashiCorp Cloud Platform" href="/hcp" />
-					<OpenApiSidebarContents navItems={navItems} />
+					<OpenApiSidebarContents
+						navItems={navItems}
+						navResourceItems={navResourceItems}
+					/>
 				</>
 			}
 			mobileMenuSlot={
 				<OpenApiDocsMobileMenuLevels
 					productData={productData}
 					navItems={navItems}
+					navResourceItems={navResourceItems}
 				/>
 			}
 		>
 			<div className={s.paddedContainer}>
-				<OpenApiOverview
-					className={s.overview}
-					title={title}
-					badgeText={releaseStage}
-					description={description}
-				/>
-				<OpenApiOperations operationGroups={operationGroups} />
+				<div className={s.spaceBreadcrumbsOverview}>
+					<BreadcrumbBar links={breadcrumbLinks} />
+					<OpenApiOverview
+						title={title}
+						badgeText={releaseStage}
+						contentSlot={
+							descriptionMdx ? (
+								<DescriptionMdx mdxRemoteProps={descriptionMdx} />
+							) : null
+						}
+					/>
+				</div>
+				<div className={s.operationsSection}>
+					<h2 className={s.operationsHeading}>Operations</h2>
+					<OpenApiOperations operationGroups={operationGroups} />
+				</div>
 			</div>
 		</SidebarLayout>
 	)

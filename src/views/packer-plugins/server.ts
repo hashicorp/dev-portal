@@ -26,8 +26,7 @@ import {
 	anchorLinks,
 } from '@hashicorp/remark-plugins'
 // rehype plugins
-import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
-import rehypePrism from '@mapbox/rehype-prism'
+import { rehypeCodePlugins } from 'lib/rehype-code-plugins'
 // alternative to the includeMarkdown plugin,
 // which we need to shim cause of how we're fetching remote content here
 import shimRemoteIncludes from 'lib/shim-remote-includes'
@@ -205,10 +204,7 @@ async function generateStaticProps({
 					},
 				],
 			],
-			rehypePlugins: [
-				[rehypePrism, { ignoreMissing: true }],
-				rehypeSurfaceCodeNewlines,
-			],
+			rehypePlugins: rehypeCodePlugins,
 		}
 	const { mdxSource } = await renderPageMdx(content, mdxOptions)
 
