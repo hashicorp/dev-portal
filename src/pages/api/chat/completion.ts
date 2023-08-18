@@ -13,8 +13,8 @@ const bodySchema = z.object({
 	sentiment: z.number().min(-1).max(1).optional(),
 	reason: z
 		.string()
-		.optional()
-		.transform((e) => e.trim()),
+		.transform((e) => e.trim())
+		.optional(),
 	messageId: z.string(),
 })
 

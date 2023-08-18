@@ -377,46 +377,49 @@ const AssistantMessage = ({
 }
 
 const ChatBox = () => {
-	const { mutation, streamedText, completionId, isLoading, isReading, reader } =
-		useAI()
+	const { mutation, streamedText, completionId, isLoading, reader } = useAI()
 	const { user, session } = useAuthentication()
 	const accessToken = session?.accessToken
 
+	// Text area
 	const [userInput, setUserInput] = useState('')
+	// List of user and assistant messages
+	const [messageList, setMessageList] = useState<Message[]>([])
 
-	// TODO(kevinwang) - implement "STOP GENERATING" button
 	const handleSubmit = async (e) => {
 		const task = e.currentTarget.task?.value
-
 		e.preventDefault()
-		// clear previous state
+
+		// Reset previous messages?
 		setMessageList([])
-		// clear previous input
+
+		// Clear textarea
 		setUserInput('')
 
 		mutation.mutate({
 			value: task,
 			accessToken,
 		})
+
+		// append user message to list
 		setMessageList((prev) => [
 			...prev,
 			{ type: 'user', text: task, image: user.image },
 		])
 	}
 
-	const [messageList, setMessageList] = useState<Message[]>([])
-
+	// Throttle this value to enable uninterrupted smooth scrolling
 	const throttledText = useThrottle(streamedText, 100)
 
-	// side-effect to scroll text response to bottom as text streams in from the backend
+	// scroll text response to bottom as text streams in from the backend
 	const textContentRef = useRef<HTMLDivElement>(null)
 	useEffect(() => {
-		// scroll to bottom
 		textContentRef.current?.scrollTo({
 			top: textContentRef.current.scrollHeight,
 			behavior: 'smooth',
 		})
 	}, [throttledText])
+
 	const [textContentRef2, textContentScrollBarIsVisible] = useScrollBarVisible()
 
 	// update component state when text is streamed in from the backend
@@ -424,9 +427,13 @@ const ChatBox = () => {
 		if (!streamedText || !completionId) {
 			return
 		}
+
 		setMessageList((prev) => {
 			const next = [...prev]
-			const assistantMessage = next.find((e) => e.type === 'assistant')
+			const assistantMessage = next.find(
+				(e) => e.type == 'assistant' && e.id === completionId
+			)
+
 			if (assistantMessage) {
 				assistantMessage.text = streamedText
 			} else {
@@ -444,50 +451,10 @@ const ChatBox = () => {
 		<div className={cn(s.chat)}>
 			<>
 				{messageList.length === 0 ? (
-					<div className={s.emptyArea}>
-						<div className={cn(s.col, s.left)}>
-							<IconWand24 />
-							<div className={s.copy}>
-								<h3>Welcome to Developer AI</h3>
-								<p>
-									Your personal AI-powered assistant, we’re ready to help you
-									get the most out of Developer. Let’s get started on this
-									journey together...
-								</p>
-							</div>
-						</div>
-						<div className={cn(s.col, s.right)}>
-							<div className={s.row}>
-								<IconUser16 />
-								<div className={s.rowText}>
-									<h4 className={s.rowTextHeading}>
-										Personalized recommendations
-									</h4>
-									<p className={s.rowTextBody}>Coming soon...</p>
-								</div>
-							</div>
-							<div className={s.row}>
-								<IconDiscussionCircle16 />
-								<div className={s.rowText}>
-									<h4 className={s.rowTextHeading}>
-										Natural language conversations
-									</h4>
-									<p className={s.rowTextBody}>Coming soon...</p>
-								</div>
-							</div>
-							<div className={s.row}>
-								<IconBulb16 />
-								<div className={s.rowText}>
-									<h4 className={s.rowTextHeading}>Knowledge base</h4>
-									<p className={s.rowTextBody}>Yes</p>
-								</div>
-							</div>
-						</div>
-					</div>
+					<EmptyState />
 				) : (
 					<div
 						ref={mergeRefs([textContentRef, textContentRef2])}
-						// ref={textContentRef}
 						className={s.chatbody}
 					>
 						{messageList.map((e, i) => {
@@ -507,8 +474,6 @@ const ChatBox = () => {
 										/>
 									)
 								}
-								default:
-									null
 							}
 						})}
 					</div>
@@ -563,6 +528,46 @@ const ChatBox = () => {
 	)
 }
 
+const EmptyState = () => {
+	return (
+		<div className={s.emptyArea}>
+			<div className={cn(s.col, s.left)}>
+				<IconWand24 />
+				<div className={s.copy}>
+					<h3>Welcome to Developer AI</h3>
+					<p>
+						Your personal AI-powered assistant, we’re ready to help you get the
+						most out of Developer. Let’s get started on this journey together...
+					</p>
+				</div>
+			</div>
+			<div className={cn(s.col, s.right)}>
+				<div className={s.row}>
+					<IconUser16 />
+					<div className={s.rowText}>
+						<h4 className={s.rowTextHeading}>Personalized recommendations</h4>
+						<p className={s.rowTextBody}>Coming soon...</p>
+					</div>
+				</div>
+				<div className={s.row}>
+					<IconDiscussionCircle16 />
+					<div className={s.rowText}>
+						<h4 className={s.rowTextHeading}>Natural language conversations</h4>
+						<p className={s.rowTextBody}>Coming soon...</p>
+					</div>
+				</div>
+				<div className={s.row}>
+					<IconBulb16 />
+					<div className={s.rowText}>
+						<h4 className={s.rowTextHeading}>Knowledge base</h4>
+						<p className={s.rowTextBody}>Yes</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	)
+}
+
 export default ChatBox
 
 function useScrollBarVisible() {
@@ -611,7 +616,7 @@ export function mergeRefs<T = any>(
 	}
 }
 
-function useThrottle<T extends any>(value: T, limit: number) {
+function useThrottle<T = any>(value: T, limit: number) {
 	const [throttledValue, setThrottledValue] = useState(value)
 	const lastRan = useRef(Date.now())
 
