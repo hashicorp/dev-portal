@@ -88,6 +88,7 @@ type LinkNavItem = {
 	title: string
 	fullPath: string
 	theme?: ProductSlug
+	isActive?: boolean
 }
 
 export type OpenApiNavItem = DividerNavItem | HeadingNavItem | LinkNavItem

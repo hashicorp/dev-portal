@@ -28,6 +28,7 @@ import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
 	OpenApiDocsVersionData,
+	OpenApiNavItem,
 } from './types'
 
 /**
