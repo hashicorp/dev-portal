@@ -8,6 +8,7 @@ import fetchGithubFile from 'lib/fetch-github-file'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getBreadcrumbLinks } from 'lib/get-breadcrumb-links'
+import { serialize } from 'next-mdx-remote/serialize'
 // Utilities
 import {
 	findLatestStableVersion,
@@ -28,6 +29,7 @@ import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
 	OpenApiDocsVersionData,
+	OpenApiNavItem,
 } from './types'
 
 /**
@@ -63,6 +65,7 @@ export async function getStaticProps({
 	versionData,
 	basePath,
 	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
+	navResourceItems = [],
 }: {
 	context: GetStaticPropsContext<OpenApiDocsParams>
 	productSlug: ProductSlug
@@ -71,6 +74,7 @@ export async function getStaticProps({
 	massageSchemaForClient?: (
 		schemaData: OpenAPIV3.Document
 	) => OpenAPIV3.Document
+	navResourceItems: OpenApiNavItem[]
 }): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
 	// Get the product data
 	const productData = cachedGetProductData(productSlug)
@@ -104,15 +108,19 @@ export async function getStaticProps({
 			: await fetchGithubFile(sourceFile)
 	const rawSchemaData = await parseAndValidateOpenApiSchema(schemaFileString)
 	const schemaData = massageSchemaForClient(rawSchemaData)
-	const { title } = schemaData.info
 	const operationProps = await getOperationProps(schemaData)
 	const operationGroups = groupOperations(operationProps)
 	const navItems = getNavItems({
 		operationGroups,
 		basePath,
-		title,
+		title: schemaData.info.title,
 		productSlug: productData.slug,
 	})
+
+	/**
+	 * Serialize description MDX for rendering in our DevDotContent component.
+	 */
+	const descriptionMdx = await serialize(schemaData.info.description)
 
 	/**
 	 * Build breadcrumb links for the page, and activate the final breadcrumb.
@@ -131,7 +139,7 @@ export async function getStaticProps({
 			productData,
 			title: schemaData.info.title,
 			releaseStage: targetVersion.releaseStage,
-			description: schemaData.info.description,
+			descriptionMdx,
 			IS_REVISED_TEMPLATE: true,
 			_placeholder: {
 				productSlug,
@@ -140,6 +148,7 @@ export async function getStaticProps({
 			},
 			operationGroups: stripUndefinedProperties(operationGroups),
 			navItems,
+			navResourceItems,
 			breadcrumbLinks,
 		},
 	}
