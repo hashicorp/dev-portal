@@ -3,12 +3,25 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { ContentWithPermalink } from '../content-with-permalink'
 import { PropertyDetails, PropertyDetailsProps } from '../property-details'
 import s from './operation-details.module.css'
 
 export interface PropertyDetailsGroup {
-	heading: string
+	heading: {
+		text: string
+		slug: string
+	}
 	propertyDetails: PropertyDetailsProps[]
+}
+
+export interface PropertyDetailsSectionProps {
+	heading: {
+		text: string
+		slug: string
+	}
+	groups: PropertyDetailsGroup[]
+	noGroupsMessage: string
 }
 
 /**
@@ -18,20 +31,20 @@ export function OperationDetails({
 	requestData,
 	responseData,
 }: {
-	requestData: PropertyDetailsGroup[]
-	responseData: PropertyDetailsGroup[]
+	requestData: PropertyDetailsSectionProps
+	responseData: PropertyDetailsSectionProps
 }) {
 	return (
 		<div className={s.root}>
 			<PropertyDetailsSection
-				heading="Request"
-				groups={requestData}
-				noGroupsMessage="No request data."
+				heading={requestData.heading}
+				groups={requestData.groups}
+				noGroupsMessage={requestData.noGroupsMessage}
 			/>
 			<PropertyDetailsSection
-				heading="Response"
-				groups={responseData}
-				noGroupsMessage="No response data."
+				heading={responseData.heading}
+				groups={responseData.groups}
+				noGroupsMessage={responseData.noGroupsMessage}
 			/>
 		</div>
 	)
@@ -46,20 +59,27 @@ function PropertyDetailsSection({
 	heading,
 	groups,
 	noGroupsMessage,
-}: {
-	heading: string
-	groups: PropertyDetailsGroup[]
-	noGroupsMessage: string
-}) {
+}: PropertyDetailsSectionProps) {
 	return (
 		<div className={s.section}>
-			<div className={s.sectionHeading}>{heading}</div>
+			<ContentWithPermalink id={heading.slug} ariaLabel={heading.text}>
+				<h4 id={heading.slug} className={s.sectionHeading}>
+					{heading.text}
+				</h4>
+			</ContentWithPermalink>
 			{groups.length > 0 ? (
 				<div className={s.sectionGroups}>
 					{groups.map((group) => {
 						return (
-							<div className={s.group} key={group.heading}>
-								<div className={s.groupHeading}>{group.heading}</div>
+							<div className={s.group} key={group.heading.slug}>
+								<ContentWithPermalink
+									id={group.heading.slug}
+									ariaLabel={group.heading.text}
+								>
+									<h5 id={group.heading.slug} className={s.groupHeading}>
+										{group.heading.text}
+									</h5>
+								</ContentWithPermalink>
 								<div className={s.groupProperties}>
 									{group.propertyDetails.map((property) => {
 										return <PropertyDetails key={property.name} {...property} />
