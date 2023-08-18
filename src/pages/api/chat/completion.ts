@@ -1,4 +1,6 @@
+import { type NextRequest, type NextFetchEvent } from 'next/server'
 import { get } from '@vercel/edge-config'
+import { z } from 'zod'
 
 import { fetchUserInfo, type UserInfoSchema } from 'lib/auth/fetch-user-info'
 
@@ -6,20 +8,21 @@ export const config = {
 	runtime: 'experimental-edge',
 }
 
-import { z } from 'zod'
-
+// PATCH body payload
 const bodySchema = z.object({
 	sentiment: z.number().min(-1).max(1).optional(),
-	reason: z.string().optional(),
+	reason: z
+		.string()
+		.optional()
+		.transform((e) => e.trim()),
 	messageId: z.string(),
 })
 
 const edgeConfigSchema = z.object({
-	allowlist: z.record(z.boolean()),
+	allowlist: z.record(z.string()),
 })
 type EdgeConfigSchema = z.infer<typeof edgeConfigSchema>
 
-import { type NextRequest, type NextFetchEvent } from 'next/server'
 export default async function edgehandler(
 	req: NextRequest,
 	evt: NextFetchEvent
@@ -34,7 +37,6 @@ export default async function edgehandler(
 
 	let userInfo: UserInfoSchema
 	try {
-		// fetchUserInfo internally validates the JWT
 		userInfo = await fetchUserInfo(jwt)
 	} catch (e) {
 		return new Response('Forbidden', { status: 401 })
@@ -70,10 +72,15 @@ export default async function edgehandler(
 	}
 }
 
+// PATCH /v1/chat/:completion_id
 async function updateCompletion(
 	{ messageId, accessToken },
 	{ reason, sentiment }
 ) {
+	const headers = new Headers()
+	headers.set('Authorization', `Bearer ${accessToken}`)
+	headers.set('Content-Type', 'application/json')
+
 	const url = new URL(
 		`/v1/chat/${messageId}`,
 		process.env.EXPERIMENTAL_CHAT_API_BASE_URL
@@ -85,9 +92,6 @@ async function updateCompletion(
 	if (sentiment) {
 		body.sentiment = sentiment
 	}
-	const headers = new Headers()
-	headers.set('Authorization', `Bearer ${accessToken}`)
-	headers.set('Content-Type', 'application/json')
 
 	return fetch(url.toString(), {
 		body: JSON.stringify(body),
