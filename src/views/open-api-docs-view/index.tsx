@@ -18,6 +18,7 @@ import {
 import s from './open-api-docs-view.module.css'
 // Types
 import type { OpenApiDocsViewProps } from './types'
+import { DescriptionMdx } from './components/open-api-overview/components/description-mdx'
 
 /**
  * Placeholder for a revised OpenAPI docs view.
@@ -26,7 +27,7 @@ function OpenApiDocsView({
 	productData,
 	title,
 	releaseStage,
-	description,
+	descriptionMdx,
 	operationGroups,
 	navItems,
 	navResourceItems,
@@ -57,10 +58,17 @@ function OpenApiDocsView({
 					<OpenApiOverview
 						title={title}
 						badgeText={releaseStage}
-						description={description}
+						contentSlot={
+							descriptionMdx ? (
+								<DescriptionMdx mdxRemoteProps={descriptionMdx} />
+							) : null
+						}
 					/>
 				</div>
-				<OpenApiOperations operationGroups={operationGroups} />
+				<div className={s.operationsSection}>
+					<h2 className={s.operationsHeading}>Operations</h2>
+					<OpenApiOperations operationGroups={operationGroups} />
+				</div>
 			</div>
 		</SidebarLayout>
 	)
