@@ -33,7 +33,9 @@ export default function SidebarNavHighlightItem({
 			className={classNames(s.root, s[`theme-${theme}`])}
 			href={href}
 		>
-			{isProductSlug(theme) ? <ProductIcon productSlug={theme} /> : null}
+			{isProductSlug(theme) ? (
+				<ProductIcon className={s.icon} productSlug={theme} />
+			) : null}
 			<span className={s.text}>{text}</span>
 		</Link>
 	)

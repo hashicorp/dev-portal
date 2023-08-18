@@ -3,22 +3,25 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { ReactElement, PropsWithChildren } from 'react'
 import classNames from 'classnames'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import Badge, { BadgeProps } from 'components/badge'
 import Link from 'components/link'
 import Text from 'components/text'
 import { developmentToast, ToastColor } from 'components/toast'
-import {
-	CommandBarButtonListItemProps,
-	CommandBarLinkListItemProps,
-	CommandBarListItemContentProps,
-	CommandBarListItemProps,
-} from './types'
 import s from './command-bar-list-item.module.css'
 
-const CommandBarListItem = ({ children }: CommandBarListItemProps) => {
+const CommandBarListItem = ({ children }: PropsWithChildren) => {
 	return <li className={s.listItem}>{children}</li>
+}
+
+interface CommandBarListItemContentProps {
+	badges?: BadgeProps['text'][]
+	description?: string
+	icon?: ReactElement
+	title: string
+	trailingIcon?: ReactElement
 }
 
 const CommandBarListItemContent = ({
@@ -96,6 +99,10 @@ const CommandBarListItemContent = ({
 	)
 }
 
+interface CommandBarButtonListItemProps extends CommandBarListItemContentProps {
+	onClick: () => void
+}
+
 const CommandBarButtonListItem = ({
 	badges,
 	description,
@@ -115,6 +122,10 @@ const CommandBarButtonListItem = ({
 			</button>
 		</CommandBarListItem>
 	)
+}
+
+interface CommandBarLinkListItemProps extends CommandBarListItemContentProps {
+	url: string
 }
 
 /**
@@ -145,5 +156,4 @@ const CommandBarLinkListItem = ({
 	)
 }
 
-export type { CommandBarLinkListItemProps, CommandBarButtonListItemProps }
 export { CommandBarButtonListItem, CommandBarLinkListItem }

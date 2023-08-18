@@ -1,13 +1,13 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .root {
 	display: flex;
 
 	/* Grow to fill the vertical space that BaseLayout creates */
 	flex-grow: 1;
-	gap: 48px;
-
-	@media (min-width: 1440px) {
-		gap: 64px;
-	}
 }
 
 .sidebarArea {
@@ -36,5 +36,4 @@
 	flex-grow: 1;
 	flex-shrink: 1;
 	min-width: 0;
-	overflow: hidden;
 }
