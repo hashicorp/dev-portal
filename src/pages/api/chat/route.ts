@@ -73,9 +73,27 @@ export default async function edgehandler(
 						},
 					})
 				} else {
+					// additional Headers
+					const addl = {}
+
+					if (res.status == 429) {
+						// forward rate limit headers
+						const X_RATELIMIT_LIMIT = 'x-ratelimit-limit'
+						const X_RATELIMIT_REMAINING = 'x-ratelimit-remaining'
+						const X_RATELIMIT_RESET = 'x-ratelimit-reset' // timestamp in seconds, like 1691509833
+						const X_RATELIMIT_RESOURCE = 'x-ratelimit-resource'
+						const X_RATELIMIT_USED = 'x-ratelimit-used'
+						addl[X_RATELIMIT_LIMIT] = res.headers.get(X_RATELIMIT_LIMIT)
+						addl[X_RATELIMIT_REMAINING] = res.headers.get(X_RATELIMIT_REMAINING)
+						addl[X_RATELIMIT_RESET] = res.headers.get(X_RATELIMIT_RESET)
+						addl[X_RATELIMIT_RESOURCE] = res.headers.get(X_RATELIMIT_RESOURCE)
+						addl[X_RATELIMIT_USED] = res.headers.get(X_RATELIMIT_USED)
+					}
+
 					return new Response(res.body, {
 						status: res.status,
 						headers: {
+							...addl,
 							'Content-Type': 'application/json',
 						},
 					})

@@ -15,6 +15,8 @@ import { IconArrowDownCircle16 } from '@hashicorp/flight-icons/svg-react/arrow-d
 import { IconDiscussionCircle16 } from '@hashicorp/flight-icons/svg-react/discussion-circle-16'
 import { IconUser16 } from '@hashicorp/flight-icons/svg-react/user-16'
 import { IconBulb16 } from '@hashicorp/flight-icons/svg-react/bulb-16'
+// ms is a transient dep
+import ms from 'ms'
 
 import { useMutation } from '@tanstack/react-query'
 
@@ -434,10 +436,21 @@ const ChatBox = () => {
 				if (mutation.error.bodyUsed) {
 					return
 				}
+
 				const errorJson = await mutation.error.json()
-				const errorMessage =
+				let errorMessage =
 					errorJson.meta.status_text ||
 					`${mutation.error.status} ${mutation.error.statusText}`
+
+				if (mutation.error.status == 429) {
+					const resetAtSec = mutation.error.headers.get('x-ratelimit-reset')
+					const resetAtMs = Number(resetAtSec) * 1000
+					const diffMs = resetAtMs - Date.now()
+
+					errorMessage = `Too many requests. Please try again in ${ms(diffMs, {
+						long: true,
+					})}.`
+				}
 				setMessageList((prev) => [
 					...prev,
 					{
