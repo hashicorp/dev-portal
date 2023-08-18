@@ -31,7 +31,10 @@ import type {
 	GetStaticProps,
 	GetStaticPropsContext,
 } from 'next'
-import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
+import type {
+	OpenApiDocsViewProps,
+	OpenApiNavItem,
+} from 'views/open-api-docs-view/types'
 import { isDeployPreview } from 'lib/env-checks'
 
 /**
@@ -50,6 +53,28 @@ const PRODUCT_SLUG = 'hcp'
  * breadcrumb links, sidebar nav levels, and version switcher links.
  */
 const BASE_URL = '/hcp/api-docs/vault-secrets'
+
+/**
+ * Resource items are shown in the sidebar
+ */
+const NAV_RESOURCE_ITEMS: OpenApiNavItem[] = [
+	{
+		title: 'Tutorial Library',
+		href: '/tutorials/library?product=vault&edition=hcp',
+	},
+	{
+		title: 'Certifications',
+		href: '/certifications/security-automation',
+	},
+	{
+		title: 'Community',
+		href: 'https://discuss.hashicorp.com/',
+	},
+	{
+		title: 'Support',
+		href: 'https://www.hashicorp.com/customer-success',
+	},
+]
 
 /**
  * We source version data from a directory in the `hcp-specs` repo.
@@ -148,6 +173,7 @@ export const getStaticProps: GetStaticProps<
 			context: { params },
 			productSlug: PRODUCT_SLUG,
 			statusIndicatorConfig: STATUS_INDICATOR_CONFIG,
+			navResourceItems: NAV_RESOURCE_ITEMS,
 			// Handle rename of `targetFile` to `sourceFile` for new template
 			versionData: versionData.map(({ targetFile, ...rest }) => {
 				return { ...rest, sourceFile: targetFile }
