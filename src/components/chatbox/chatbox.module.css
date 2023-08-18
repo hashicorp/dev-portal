@@ -193,7 +193,10 @@
 }
 
 .message_icon {
-	--icon-color: var(--foreground-highlight-on-surface, #911ced);
+	--icon-color: var(--token-color-foreground-highlight-on-surface, #911ced);
+}
+.message_icon_error {
+	--icon-color: var(--token-color-foreground-critical);
 }
 
 .message_divider {

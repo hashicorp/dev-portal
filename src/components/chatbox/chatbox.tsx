@@ -1,9 +1,4 @@
-import React, {
-	useEffect,
-	useState,
-	useRef,
-	type PropsWithChildren,
-} from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypePrism from '@mapbox/rehype-prism'
@@ -50,24 +45,11 @@ const useAI = () => {
 			// console.log('mutation error', error)
 			const response = error as Response
 			switch (response.status) {
-				case 400: {
-					// @ts-expect-error - error is unknown
-					const jsonError = await mutation.error.json()
-					setStreamedText(JSON.stringify(jsonError, null, 2))
-					break
-				}
+				case 400:
 				case 401:
 				case 403:
 				case 404:
-				case 429: {
-					const statusText = response.statusText
-					setStreamedText(statusText)
-					break
-				}
-				default:
-					setStreamedText(
-						'Something went wrong, and we’re not quite sure how to fix it...'
-					)
+				case 429:
 					break
 			}
 		},
@@ -101,6 +83,9 @@ const useAI = () => {
 	// - assign the reader to state
 	useEffect(() => {
 		if (!mutation.data) {
+			return
+		}
+		if (mutation.error) {
 			return
 		}
 
@@ -205,6 +190,10 @@ type Message =
 			type: 'assistant'
 			text: string
 			id: string
+	  }
+	| {
+			type: 'system'
+			text: string
 	  }
 
 const UserMessage = ({ text, image }: { image?: string; text: string }) => {
@@ -376,6 +365,18 @@ const AssistantMessage = ({
 	)
 }
 
+// TODO(kevinwang): error styling.
+const SystemMessage = ({ text }: { text: string }) => {
+	return (
+		<div className={cn(s.message, s.message_assistant)}>
+			<IconTile className={cn(s.message_icon_error)}>
+				<IconWand24 style={{ width: 24, height: 24 }} />
+			</IconTile>
+			<div className={cn(s.message_content)}>{text}</div>
+		</div>
+	)
+}
+
 const ChatBox = () => {
 	const { mutation, streamedText, completionId, isLoading, reader } = useAI()
 	const { user, session } = useAuthentication()
@@ -424,6 +425,14 @@ const ChatBox = () => {
 
 	// update component state when text is streamed in from the backend
 	useEffect(() => {
+		if (mutation.error) {
+			setMessageList((prev) => [
+				...prev,
+				{ type: 'system', text: mutation.error.statusText },
+			])
+			return
+		}
+
 		if (!streamedText || !completionId) {
 			return
 		}
@@ -445,7 +454,7 @@ const ChatBox = () => {
 			}
 			return next
 		})
-	}, [streamedText, completionId])
+	}, [streamedText, completionId, mutation.error])
 
 	return (
 		<div className={cn(s.chat)}>
@@ -473,6 +482,9 @@ const ChatBox = () => {
 											showArrowDown={textContentScrollBarIsVisible}
 										/>
 									)
+								}
+								case 'system': {
+									return <SystemMessage key={i} text={e.text} />
 								}
 							}
 						})}
