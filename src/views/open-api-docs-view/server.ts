@@ -99,43 +99,19 @@ export async function getStaticProps({
 			? sourceFile
 			: await fetchGithubFile(sourceFile)
 	const schemaData = await parseAndValidateOpenApiSchema(schemaFileString)
-	const { title } = schemaData.info
 	const operationProps = await getOperationProps(schemaData)
 	const operationGroups = groupOperations(operationProps)
 	const navItems = getNavItems({
 		operationGroups,
 		basePath,
-		title,
+		title: schemaData.info.title,
 		productSlug: productData.slug,
 	})
 
 	/**
-	 * TODO: remove this before merging.
-	 *
-	 * This is placeholder content to demonstrate markdown support.
-	 *
-	 * We'll remove this before merging, and replace it with the
-	 * actual description from the OpenAPI schema. Right now though
-	 * that description is a single line of text, so wasn't very useful
-	 * to demo the MDX support.
-	 *
-	 * We'll replace this temporary approach with:
-	 * const descriptionMdx = await serialize(schema.info.description)
+	 * Serialize description MDX for rendering in our DevDotContent component.
 	 */
-	const TEMP_DEMO_MDX = `
-## Overview
-
-API for managing Secrets on Cloud Services.
-
-## Additional resources
-
-Use the following resources to give you enough context to be successful.
-
-- [HCP Vault Secrets Quick Start](/vault/tutorials/hcp-vault-secrets-get-started)
-- [Constraints and limitations](/hcp/docs/vault-secrets/constraints-and-known-issues)
-- [What Is HCP Vault Secrets?](/hcp/docs/vault-secrets)
-`
-	const descriptionMdx = await serialize(TEMP_DEMO_MDX)
+	const descriptionMdx = await serialize(schemaData.info.description)
 
 	/**
 	 * Build breadcrumb links for the page, and activate the final breadcrumb.
