@@ -12,6 +12,7 @@ import {
 } from 'views/api-docs-view/server'
 import { buildApiDocsBreadcrumbs } from 'views/api-docs-view/server/get-api-docs-static-props/utils'
 import { fetchCloudApiVersionData } from 'views/api-docs-view/utils'
+import { isDeployPreview } from 'lib/env-checks'
 // Revised view
 import OpenApiDocsView from 'views/open-api-docs-view'
 import {
@@ -31,11 +32,11 @@ import type {
 	GetStaticProps,
 	GetStaticPropsContext,
 } from 'next'
+import type { OpenAPIV3 } from 'openapi-types'
 import type {
 	OpenApiDocsViewProps,
 	OpenApiNavItem,
 } from 'views/open-api-docs-view/types'
-import { isDeployPreview } from 'lib/env-checks'
 
 /**
  * 🚩 Flag to use the work-in-progress revised API docs view & server functions.
@@ -85,6 +86,15 @@ const GITHUB_SOURCE_DIRECTORY = {
 	repo: 'hcp-specs',
 	path: 'specs/cloud-vault-secrets',
 	ref: 'main',
+}
+
+/**
+ * Data to power the status page indicator in the header area.
+ */
+const STATUS_INDICATOR_CONFIG = {
+	pageUrl: 'https://status.hashicorp.com',
+	endpointUrl:
+		'https://status.hashicorp.com/api/v2/components/hk67zg2j2rkd.json',
 }
 
 /**
@@ -163,11 +173,26 @@ export const getStaticProps: GetStaticProps<
 			basePath: BASE_URL,
 			context: { params },
 			productSlug: PRODUCT_SLUG,
+			statusIndicatorConfig: STATUS_INDICATOR_CONFIG,
 			navResourceItems: NAV_RESOURCE_ITEMS,
 			// Handle rename of `targetFile` to `sourceFile` for new template
 			versionData: versionData.map(({ targetFile, ...rest }) => {
 				return { ...rest, sourceFile: targetFile }
 			}),
+			/**
+			 * Massage the schema data a little bit, replacing
+			 * "HashiCorp Cloud Platform" in the title with "HCP".
+			 */
+			massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
+				// Replace "HashiCorp Cloud Platform" with "HCP" in the title
+				const massagedTitle = schemaData.info.title.replace(
+					'HashiCorp Cloud Platform',
+					'HCP'
+				)
+				// Return the schema data with the revised title
+				const massagedInfo = { ...schemaData.info, title: massagedTitle }
+				return { ...schemaData, info: massagedInfo }
+			},
 		})
 	}
 

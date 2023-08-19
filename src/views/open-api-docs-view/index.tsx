@@ -32,6 +32,7 @@ function OpenApiDocsView({
 	navItems,
 	navResourceItems,
 	breadcrumbLinks,
+	statusIndicatorConfig,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
@@ -58,6 +59,7 @@ function OpenApiDocsView({
 					<OpenApiOverview
 						title={title}
 						badgeText={releaseStage}
+						statusIndicatorConfig={statusIndicatorConfig}
 						contentSlot={
 							descriptionMdx ? (
 								<DescriptionMdx mdxRemoteProps={descriptionMdx} />
