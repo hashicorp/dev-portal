@@ -14,8 +14,7 @@ import type {
 	OperationProps,
 } from 'views/open-api-docs-view/types'
 // Utils
-import { splitOnCapitalLetters } from './utils/split-on-capital-letters'
-import { addWordBreaks } from './utils/add-word-breaks'
+import { addWordBreaks } from '../../utils/add-word-breaks'
 // Styles
 import s from './open-api-operations.module.css'
 
@@ -33,10 +32,6 @@ export function OpenApiOperations({
 				.map((group) => group.items)
 				.flat()
 				.map((operation: OperationProps) => {
-					const operationIdWithBreaks = addWordBreaks(
-						splitOnCapitalLetters(operation.operationId)
-					)
-
 					return (
 						<div key={operation.operationId}>
 							<OperationSections
@@ -44,19 +39,14 @@ export function OpenApiOperations({
 									<OperationHeader
 										className={s.header}
 										slug={operation.slug}
-										headingText={operationIdWithBreaks}
+										headingText={operation.summary}
 										method={operation.type}
-										path={addWordBreaks(
-											operation.path.truncated
-												.split('/')
-												.map((v, idx) => (idx === 0 ? [v] : ['/', v]))
-												.flat()
-										)}
+										path={operation.path.truncated}
 									/>
 								}
 								examplesSlot={
 									<OperationExamples
-										heading={operationIdWithBreaks}
+										heading={operation.summary}
 										code={operation.urlPathForCodeBlock}
 									/>
 								}
