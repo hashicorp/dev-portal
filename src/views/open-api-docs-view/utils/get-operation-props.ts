@@ -4,7 +4,7 @@
  */
 
 // Third-party
-import { snakeCase } from 'change-case'
+import { paramCase } from 'change-case'
 import slugify from 'slugify'
 // Local
 import { getRequestData, getResponseData, truncateHcpOperationPath } from './'
@@ -36,22 +36,38 @@ export async function getOperationProps(
 				continue
 			}
 
+			// Create a slug for this operation
+			const operationSlug = slugify(paramCase(operation.operationId), {
+				lower: true,
+			})
+
 			/**
 			 * Parse request and response details for this operation
 			 */
 			const parameters = 'parameters' in operation ? operation.parameters : []
-			const requestData = await getRequestData(
-				parameters,
-				operation.requestBody
-			)
-			const responseData = await getResponseData(operation.responses)
+			const requestDataSlug = `${operationSlug}_request`
+			const requestData = {
+				heading: { text: 'Request', slug: requestDataSlug },
+				noGroupsMessage: 'No request data.',
+				groups: await getRequestData(
+					parameters,
+					operation.requestBody,
+					requestDataSlug
+				),
+			}
+			const responseDataSlug = `${operationSlug}_response`
+			const responseData = {
+				heading: { text: 'Response', slug: responseDataSlug },
+				noGroupsMessage: 'No response data.',
+				groups: await getResponseData(operation.responses, responseDataSlug),
+			}
 
 			/**
 			 * Format and push the operation props
 			 */
 			operationObjects.push({
 				operationId: operation.operationId,
-				slug: slugify(snakeCase(operation.operationId), { lower: true }),
+				slug: operationSlug,
 				type,
 				path: {
 					full: path,

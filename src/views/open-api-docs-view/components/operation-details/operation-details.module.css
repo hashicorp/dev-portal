@@ -6,7 +6,7 @@
 .root {
 	display: flex;
 	flex-direction: column;
-	gap: 48px;
+	gap: 40px;
 }
 
 .section {
@@ -16,6 +16,7 @@
 }
 
 .sectionHeading {
+	composes: g-offset-scroll-margin-top from global;
 	composes: hds-typography-display-300 from global;
 	font-weight: var(--token-typography-font-weight-bold);
 	color: var(--token-color-foreground-strong);
@@ -24,7 +25,7 @@
 .sectionGroups {
 	display: flex;
 	flex-direction: column;
-	gap: 40px;
+	gap: 24px;
 }
 
 .group {
@@ -34,6 +35,7 @@
 }
 
 .groupHeading {
+	composes: g-offset-scroll-margin-top from global;
 	composes: hds-typography-display-200 from global;
 	font-weight: var(--token-typography-font-weight-semibold);
 	color: var(--token-color-foreground-primary);
@@ -42,7 +44,7 @@
 .groupProperties {
 	display: flex;
 	flex-direction: column;
-	gap: 24px;
+	gap: 16px;
 }
 
 .noGroupsMessage {
