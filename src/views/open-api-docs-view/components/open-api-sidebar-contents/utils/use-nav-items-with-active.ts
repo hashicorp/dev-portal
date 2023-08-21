@@ -211,7 +211,7 @@ export function useNavItemsWithActive(
 	// Determine which of the navItem sectionsSlugs is the active section slug
 	const activeSection = useActiveSection(sectionSlugs, true, defaultSection)
 
-	// When the active section changes, update the URL with next/router
+	// When the active section changes, update the URL with the current #hash
 	useSyncedUrlHash(activeSection, defaultSection)
 
 	// Get the URL pathname (without the `#hash`) needed for full path matching
