@@ -80,6 +80,17 @@ function useSyncedUrlHash(
 ) {
 	/**
 	 * TODO: split out `useRouteChangeState` hook.
+	 *
+	 * In some cases, we may want to manipulate `window.location` outside of
+	 * the flow of `next/router`. In those cases, we want to ensure our
+	 * manipulation does not conflict with `next/router`.
+	 *
+	 * This hook helps avoid conflicts by providing state that indicates
+	 * whether `next/router` is in the middle of changing the route.
+	 *
+	 * It also indicates whether the `#hash` was just changed, which is intended
+	 * to allow consumers to avoid changing the `#hash` if it has just
+	 * been updated by an intentional link click.
 	 */
 	const router = useRouter()
 
@@ -124,6 +135,13 @@ function useSyncedUrlHash(
 		}
 	}, [router])
 
+	/**
+	 * When the page is scrolled, we'll update `wasHashJustChanged` to `false`.
+	 *
+	 * Without this effect, after a hash change, consumers of this effect would
+	 * receive inaccurate data that implies a hash change was _just_ completed,
+	 * when in fact the user has taken subsequent action.
+	 */
 	useEffect(() => {
 		function scrollEventHandler() {
 			if (!routeState.isChanging && routeState.wasHashJustChanged) {
