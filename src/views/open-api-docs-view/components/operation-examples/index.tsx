@@ -19,11 +19,7 @@ export function OperationExamples({
 }) {
 	return (
 		<CodeBlock
-			options={{
-				heading: heading as string,
-				showClipboard: true,
-				wrapCode: true,
-			}}
+			options={{ heading, showClipboard: true, wrapCode: true }}
 			code={code}
 		/>
 	)
