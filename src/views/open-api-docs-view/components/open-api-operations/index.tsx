@@ -33,6 +33,10 @@ export function OpenApiOperations({
 				.map((group) => group.items)
 				.flat()
 				.map((operation: OperationProps) => {
+					const operationIdWithBreaks = addWordBreaks(
+						splitOnCapitalLetters(operation.operationId)
+					)
+
 					return (
 						<div key={operation.operationId}>
 							<OperationSections
@@ -41,9 +45,7 @@ export function OpenApiOperations({
 										className={s.header}
 										slug={operation.slug}
 										headingAriaLabel={operation.operationId}
-										headingSlot={addWordBreaks(
-											splitOnCapitalLetters(operation.operationId)
-										)}
+										headingSlot={operationIdWithBreaks}
 										method={operation.type}
 										path={addWordBreaks(
 											operation.path.truncated
@@ -55,7 +57,7 @@ export function OpenApiOperations({
 								}
 								examplesSlot={
 									<OperationExamples
-										heading={operation.operationId}
+										heading={operationIdWithBreaks}
 										code={operation.urlPathForCodeBlock}
 									/>
 								}

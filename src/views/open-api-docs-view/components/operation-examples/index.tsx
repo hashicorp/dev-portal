@@ -5,6 +5,8 @@
 
 // react-components
 import CodeBlock from '@hashicorp/react-code-block'
+// types
+import type { ReactNode } from 'react'
 
 /**
  * Display the operation's full URL in an easy to copy code block,
@@ -14,20 +16,25 @@ export function OperationExamples({
 	heading,
 	code,
 }: {
-	heading: string
+	heading: ReactNode
 	code: string
 }) {
 	return (
 		<CodeBlock
 			/**
-			 * TODO: this s.codeBlock should wrap, but it's not yet supported.
-			 * `options.wrapCode` prop should be implemented in the CodeBlock
-			 * component itself instead.
+			 * TODO: `heading` can be a ReactNode as it is in this case,
+			 * but CodeBlock types don't explicitly allow this yet.
 			 *
-			 * Task: https://app.asana.com/0/1204678746647847/1205233741731093/f
-			 * PR: https://github.com/hashicorp/react-components/pull/991
+			 * Should make a patch update to CodeBlock that clarifies that
+			 * `options.heading` can accept a `ReactNode`, not just `string`.
+			 *
+			 * Task: https://app.asana.com/0/1202097197789424/1205316467934572/f
 			 */
-			options={{ heading, showClipboard: true, wrapCode: true }}
+			options={{
+				heading: heading as string,
+				showClipboard: true,
+				wrapCode: true,
+			}}
 			code={code}
 		/>
 	)
