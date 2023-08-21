@@ -4,7 +4,6 @@
  */
 
 // Third-party
-import { ReactNode } from 'react'
 import classNames from 'classnames'
 // Components
 import Badge from 'components/badge'
@@ -19,7 +18,7 @@ interface OperationHeaderProps {
 	slug: OperationProps['slug']
 	headingText: string
 	method: OperationProps['type']
-	path: ReactNode
+	path: string
 	className?: string
 }
 
