@@ -44,8 +44,7 @@ export function OpenApiOperations({
 									<OperationHeader
 										className={s.header}
 										slug={operation.slug}
-										headingAriaLabel={operation.operationId}
-										headingSlot={operationIdWithBreaks}
+										headingText={operationIdWithBreaks}
 										method={operation.type}
 										path={addWordBreaks(
 											operation.path.truncated

@@ -17,8 +17,7 @@ import s from './operation-header.module.css'
 
 interface OperationHeaderProps {
 	slug: OperationProps['slug']
-	headingSlot: ReactNode
-	headingAriaLabel: string
+	headingText: string
 	method: OperationProps['type']
 	path: ReactNode
 	className?: string
@@ -31,17 +30,16 @@ interface OperationHeaderProps {
  */
 export function OperationHeader({
 	slug,
-	headingSlot,
-	headingAriaLabel,
+	headingText,
 	method,
 	path,
 	className,
 }: OperationHeaderProps) {
 	return (
 		<div className={classNames(className, s.wrapper)}>
-			<ContentWithPermalink id={slug} ariaLabel={headingAriaLabel}>
+			<ContentWithPermalink id={slug} ariaLabel={headingText}>
 				<h3 id={slug} className={s.heading}>
-					{headingSlot}
+					{headingText}
 				</h3>
 			</ContentWithPermalink>
 			<div className={s.methodAndPath}>

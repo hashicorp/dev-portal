@@ -1,14 +1,13 @@
-import { ReactNode } from 'react'
-
 /**
  * Given an array of strings,
- * Return the array with `<wbr />` elements inserted between each string.
+ * Return the array with zero-width-space elements inserted between each string.
+ *
+ * This allows the browser to break the string at any of the zero-width-spaces,
+ * which is useful for long strings that would otherwise overflow.
+ *
+ * More information on zero-width spaces:
+ * https://en.wikipedia.org/wiki/Zero-width_space
  */
-export function addWordBreaks(stringArray: string[]): ReactNode[] {
-	return stringArray
-		.map((v: string, idx: number) => {
-			// eslint-disable-next-line react/no-array-index-key
-			return idx === 0 ? [v] : [<wbr key={idx} />, v]
-		})
-		.flat()
+export function addWordBreaks(stringArray: string[]): string {
+	return stringArray.join('\u200B')
 }
