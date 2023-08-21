@@ -79,10 +79,7 @@ export function OpenApiOperations({
 				.flat()
 				.map((operation: OperationProps) => {
 					return (
-						<div
-							key={operation.operationId}
-							style={{ border: '1px solid magenta', padding: '2px' }}
-						>
+						<div key={operation.operationId}>
 							<OperationSections
 								headerSlot={
 									<OperationHeader
