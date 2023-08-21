@@ -1,6 +1,6 @@
 // Third-party
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 // Lib
 import { useActiveSection } from 'lib/hash-links/use-active-section'
 import newUrl from 'lib/new-url'
@@ -70,6 +70,55 @@ function sectionSlugsFromNavItems(navItems: OpenApiNavItem[]): string[] {
 }
 
 /**
+ * When `activeSection` changes, update the URL hash.
+ */
+function useSyncedUrlHash(
+	activeSection: string | undefined,
+	topOfPageSlug?: string
+) {
+	// const router = useRouter()
+
+	// const [isHashChanging, setIsHashChanging] = useState(false)
+
+	useEffect(() => {
+		// Only run this effect on the client
+		if (typeof window === 'undefined') {
+			return
+		}
+
+		// If active section is undefined, skip this
+		if (typeof activeSection === 'undefined') {
+			return
+		}
+
+		// Get the current URL and hash
+		const currentUrl = new URL(window.location.href)
+		const currentHash = currentUrl.hash
+
+		/**
+		 * If a top-of-page slug was provided and matches,
+		 * clear the hash rather than update it.
+		 */
+		const isFirstSection = activeSection === topOfPageSlug
+		const targetSlug = isFirstSection ? '' : activeSection
+
+		/**
+		 * If needed, update the hash.
+		 *
+		 * Note we use `window.history.replaceState` instead of `router.replace`, as
+		 * `router.replace` seemed to jump the page even with `{ scroll: false }`.
+		 * Ref: https://github.com/vercel/next.js/discussions/35072
+		 */
+		const needsHashUpdate = currentHash !== `#${targetSlug}`
+		if (needsHashUpdate) {
+			const updatedUrl = new URL(currentUrl)
+			updatedUrl.hash = targetSlug
+			window.history.replaceState(null, '', updatedUrl)
+		}
+	}, [activeSection, topOfPageSlug])
+}
+
+/**
  * Highlight any active matched sidenav items.
  * These could match `#activeSection` or the full pathname.
  *
@@ -90,6 +139,9 @@ export function useNavItemsWithActive(
 
 	// Determine which of the navItem sectionsSlugs is the active section slug
 	const activeSection = useActiveSection(sectionSlugs)
+
+	// When the active section changes, update the URL with next/router
+	useSyncedUrlHash(activeSection)
 
 	// Get the URL pathname (without the `#hash`) needed for full path matching
 	const urlPathname = usePathname()
