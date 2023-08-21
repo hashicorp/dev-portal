@@ -73,7 +73,7 @@ export function UnifiedSearchCommandBarDialogBody() {
 	const currentProductTag = useCommandBarProductTag()
 	const currentProductSlug = currentProductTag?.id as ProductSlug
 	const recentSearches = useDebouncedRecentSearches(currentInputValue)
-	const { user } = useAuthentication()
+	const { session } = useAuthentication()
 
 	/**
 	 * Generate suggested pages for the current product (if any).
@@ -83,7 +83,8 @@ export function UnifiedSearchCommandBarDialogBody() {
 	}, [currentProductSlug])
 
 	const ExperimentalAI = () => {
-		if (!user) {
+		// @ts-expect-error - TODO(kevinwang) type session.meta
+		if (!session?.meta?.isAIEnabled) {
 			return null
 		}
 		return (
@@ -134,9 +135,14 @@ export function UnifiedSearchCommandBarDialogBody() {
 	 */
 	return (
 		<>
-			<div style={{ padding: `16px` }}>
-				<ExperimentalAI />
-			</div>
+			{
+				/*@ts-expect-error - TODO(kevinwang): fix CommandBarList.label prop type */
+				session?.meta?.isAIEnabled ? (
+					<div style={{ padding: `16px` }}>
+						<ExperimentalAI />
+					</div>
+				) : null
+			}
 			<SearchResults
 				currentInputValue={currentInputValue}
 				currentProductSlug={currentProductSlug}
