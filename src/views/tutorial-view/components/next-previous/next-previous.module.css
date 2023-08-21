@@ -9,10 +9,10 @@
 
 	border-top: 1px solid var(--token-color-border-primary);
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: column;
 	gap: var(--gap);
 	margin-top: 48px;
-	padding-top: 48px;
+	padding-top: 56px;
 
 	& > * {
 		/* Items should grow and shrink, but should ideally take up their
@@ -28,6 +28,6 @@
 	}
 
 	@media (--dev-dot-tablet-up) {
-		flex-wrap: nowrap;
+		flex-direction: row;
 	}
 }

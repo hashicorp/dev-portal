@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Given a URL path,
  * Return HTML that represents the URL path, with `{parameters}` syntax
  * highlighted and with `<wbr/>` tags inserted before forward slashes

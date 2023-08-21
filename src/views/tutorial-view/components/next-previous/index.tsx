@@ -36,6 +36,7 @@ export function NextPrevious({
 			return (
 				<DirectionalLinkBox
 					label="Previous"
+					name={tutorial.previous.name}
 					href={tutorial.previous.path}
 					direction={'previous'}
 					ariaLabel={`Go to previous tutorial: ${tutorial.previous.name}`}
@@ -50,9 +51,10 @@ export function NextPrevious({
 		return (
 			<DirectionalLinkBox
 				href={collection.current.path}
-				label="Back to Collection"
+				label="Collection Overview"
+				name={collection.current.name}
 				direction={'previous'}
-				ariaLabel={`Go back to collection: ${collection.current.name}`}
+				ariaLabel={`Go back to collection overview: ${collection.current.name}`}
 			/>
 		)
 	}
@@ -63,6 +65,7 @@ export function NextPrevious({
 			return (
 				<DirectionalLinkBox
 					label="Next"
+					name={tutorial.next.name}
 					href={tutorial.next.path}
 					direction="next"
 					ariaLabel={`Go to next tutorial: ${tutorial.next.name}`}
@@ -86,7 +89,8 @@ export function NextPrevious({
 			return (
 				<DirectionalLinkBox
 					href={finalLink}
-					label="Browse Tutorials"
+					label="Next"
+					name="Explore tutorial library"
 					direction="final"
 					ariaLabel="Browse Tutorials"
 				/>
@@ -101,6 +105,7 @@ export function NextPrevious({
 			<DirectionalLinkBox
 				href={collection.next.path}
 				label="Next Collection"
+				name={collection.next.name}
 				direction="next"
 				ariaLabel={`Go to next collection: ${collection.next.name}`}
 			/>
