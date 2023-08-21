@@ -113,9 +113,15 @@ export async function getStaticProps({
 	const schemaData = massageSchemaForClient(rawSchemaData)
 	const operationProps = await getOperationProps(schemaData)
 	const operationGroups = groupOperations(operationProps)
+
+	/**
+	 * TODO: pass this to the client as well
+	 */
+	const OVERVIEW_SLUG = 'overview'
+
 	const navItems = getNavItems({
 		operationGroups,
-		basePath,
+		topOfPageSlug: OVERVIEW_SLUG,
 		title: schemaData.info.title,
 		productSlug: productData.slug,
 	})

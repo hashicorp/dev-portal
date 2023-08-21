@@ -71,14 +71,68 @@ function sectionSlugsFromNavItems(navItems: OpenApiNavItem[]): string[] {
 
 /**
  * When `activeSection` changes, update the URL hash.
+ *
+ * TODO: split this out.
  */
 function useSyncedUrlHash(
 	activeSection: string | undefined,
 	topOfPageSlug?: string
 ) {
-	// const router = useRouter()
+	/**
+	 * TODO: split out `useRouteChangeState` hook.
+	 */
+	const router = useRouter()
 
-	// const [isHashChanging, setIsHashChanging] = useState(false)
+	const [routeState, setRouteState] = useState<{
+		isChanging: boolean
+		wasHashJustChanged?: boolean
+	}>({
+		isChanging: true,
+		wasHashJustChanged: false,
+	})
+
+	useEffect(() => {
+		// On mount, consider the initial route change completed
+		setRouteState((p) => ({ ...p, isChanging: false }))
+
+		const handleRouteChangeStart = () =>
+			setRouteState({ isChanging: true, wasHashJustChanged: false })
+		const handleRouteChangeComplete = () =>
+			setRouteState({ isChanging: false, wasHashJustChanged: false })
+
+		const handleHashChangeStart = () =>
+			setRouteState({ isChanging: true, wasHashJustChanged: true })
+		const handleHashChangeComplete = () =>
+			setRouteState({ isChanging: false, wasHashJustChanged: true })
+
+		router.events.on('routeChangeStart', handleRouteChangeStart)
+		router.events.on('routeChangeComplete', handleRouteChangeComplete)
+		router.events.on('routeChangeError', handleRouteChangeComplete)
+
+		router.events.on('hashChangeStart', handleHashChangeStart)
+		router.events.on('hashChangeComplete', handleHashChangeComplete)
+
+		// If the component is unmounted, unsubscribe
+		// from the event with the `off` method:
+		return () => {
+			router.events.off('routeChangeStart', handleRouteChangeStart)
+			router.events.off('routeChangeComplete', handleRouteChangeComplete)
+			router.events.off('routeChangeError', handleRouteChangeComplete)
+
+			router.events.off('hashChangeStart', handleHashChangeStart)
+			router.events.off('hashChangeComplete', handleHashChangeComplete)
+		}
+	}, [router])
+
+	useEffect(() => {
+		function scrollEventHandler() {
+			if (!routeState.isChanging && routeState.wasHashJustChanged) {
+				setRouteState((p) => ({ ...p, wasHashJustChanged: false }))
+			}
+		}
+		window.addEventListener('scroll', scrollEventHandler, { passive: true })
+		return () => window.removeEventListener('scroll', scrollEventHandler)
+	}, [routeState])
 
 	useEffect(() => {
 		// Only run this effect on the client
@@ -88,6 +142,22 @@ function useSyncedUrlHash(
 
 		// If active section is undefined, skip this
 		if (typeof activeSection === 'undefined') {
+			return
+		}
+
+		// If next/router is in the middle of a change, skip this effect for now
+		if (routeState.isChanging) {
+			return
+		}
+
+		/**
+		 * If we just finished a hash change, trust that, don't try to update it
+		 * One use case is where a hash change for a minor element, such as a
+		 * specific property, triggers a scroll into the area of a new active
+		 * section. Updating the hash to the new active section would erase the
+		 * hash for the minor element.
+		 */
+		if (routeState.wasHashJustChanged) {
 			return
 		}
 
@@ -115,7 +185,7 @@ function useSyncedUrlHash(
 			updatedUrl.hash = targetSlug
 			window.history.replaceState(null, '', updatedUrl)
 		}
-	}, [activeSection, topOfPageSlug])
+	}, [activeSection, topOfPageSlug, routeState])
 }
 
 /**
@@ -129,7 +199,8 @@ function useSyncedUrlHash(
  */
 export function useNavItemsWithActive(
 	navItems: OpenApiNavItem[],
-	enable: boolean = true
+	enable: boolean = true,
+	defaultSection?: string
 ): OpenApiNavItem[] {
 	// Transform the incoming nav items into section slugs
 	const sectionSlugs = useMemo(
@@ -138,10 +209,10 @@ export function useNavItemsWithActive(
 	)
 
 	// Determine which of the navItem sectionsSlugs is the active section slug
-	const activeSection = useActiveSection(sectionSlugs)
+	const activeSection = useActiveSection(sectionSlugs, true, defaultSection)
 
 	// When the active section changes, update the URL with next/router
-	useSyncedUrlHash(activeSection)
+	useSyncedUrlHash(activeSection, defaultSection)
 
 	// Get the URL pathname (without the `#hash`) needed for full path matching
 	const urlPathname = usePathname()

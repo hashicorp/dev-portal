@@ -16,6 +16,8 @@ import type { OpenApiNavItem } from 'views/open-api-docs-view/types'
 // Styles
 import s from './open-api-sidebar-contents.module.css'
 
+const OVERVIEW_SLUG = 'overview'
+
 /**
  * Renders sidebar contents for OpenApiDocsView.
  */
@@ -29,7 +31,11 @@ export function OpenApiSidebarContents({
 	const [filterValue, setFilterValue] = useState('')
 
 	// Highlight active navItems, including `#hash` links via `useActiveSection`.
-	const navItemsWithActive = useNavItemsWithActive(navItems, filterValue === '')
+	const navItemsWithActive = useNavItemsWithActive(
+		navItems,
+		filterValue === '',
+		OVERVIEW_SLUG
+	)
 
 	// Filter navItems by `filterValue`
 	const filteredNavItems = filterByTitle(navItemsWithActive, filterValue)
