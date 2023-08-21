@@ -13,9 +13,6 @@ import type {
 	OperationGroup,
 	OperationProps,
 } from 'views/open-api-docs-view/types'
-// Utils
-import { addWordBreaks } from '../../utils/add-word-breaks'
-// Styles
 import s from './open-api-operations.module.css'
 
 /**
