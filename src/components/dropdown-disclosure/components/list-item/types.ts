@@ -80,6 +80,11 @@ interface DropdownDisclosureLinkItemProps {
 	href: NativeAnchorProps['href']
 
 	/**
+	 * An alias to display when navigating to the href.
+	 */
+	as?: LinkProps['as']
+
+	/**
 	 * An optional icon to render to the left of the text content.
 	 */
 	icon?: ReactElement

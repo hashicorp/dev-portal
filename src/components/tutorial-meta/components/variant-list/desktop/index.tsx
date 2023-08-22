@@ -10,6 +10,7 @@ import { safeAnalyticsTrack } from 'lib/analytics'
 import {
 	TutorialVariant,
 	TutorialVariantOption,
+	getVariantHref,
 	getVariantParam,
 	getVariantPath,
 	handleVariantCookie,
@@ -43,7 +44,8 @@ export function DesktopVariantList({
 								<li key={option.slug}>
 									<Link
 										className={classNames(s.link)}
-										href={getVariantPath(tutorialBasePath, variantParam)}
+										href={getVariantHref(tutorialBasePath, variantParam)}
+										as={getVariantPath(asPath, variantParam)}
 										aria-current={isActiveOption ? 'page' : undefined}
 										onClick={() => {
 											handleVariantCookie(variant.slug, option.slug)

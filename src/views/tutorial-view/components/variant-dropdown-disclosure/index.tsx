@@ -49,6 +49,10 @@ export function VariantDropdownDisclosure({
 						return (
 							<DropdownDisclosureLinkItem
 								key={option.slug}
+								as={getVariantPath(
+									asPath,
+									getVariantParam(variant.slug, option.slug)
+								)}
 								href={getVariantPath(
 									tutorialBasePath,
 									getVariantParam(variant.slug, option.slug)

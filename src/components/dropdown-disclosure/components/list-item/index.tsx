@@ -112,6 +112,7 @@ const DropdownDisclosureButtonItem = ({
 const DropdownDisclosureLinkItem = ({
 	children,
 	href,
+	as,
 	icon,
 	rel,
 	target,
@@ -122,6 +123,7 @@ const DropdownDisclosureLinkItem = ({
 			<Link
 				className={s.link}
 				href={href}
+				as={as}
 				rel={rel}
 				target={target}
 				onClick={onClick}
