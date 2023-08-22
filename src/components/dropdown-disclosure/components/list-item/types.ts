@@ -80,7 +80,9 @@ interface DropdownDisclosureLinkItemProps {
 	href: NativeAnchorProps['href']
 
 	/**
-	 * An alias to display when navigating to the href.
+	 * An optional URL to display instead of the provided `href`.
+	 * The `href` will still be navigated to, but the URL will appear to
+	 * be the value passed to `as`.
 	 */
 	as?: LinkProps['as']
 
