@@ -51,10 +51,7 @@ export default function WellArchitectedFrameworkTutorialView({
 	const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
 
 	/**
-	 * We use the tutorialsBasePath to construct variant URLs.
-	 *
-	 * TODO: write up more details on this, feels like this approach
-	 * could have other implications on tutorial variant context
+	 * We use the tutorialsBasePath to construct variant URLs as paths.
 	 */
 	const tutorialBasePath = getTutorialSlug(slug, canonicalCollectionSlug)
 

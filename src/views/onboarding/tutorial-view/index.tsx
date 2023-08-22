@@ -42,10 +42,7 @@ export default function OnboardingTutorialView({
 	const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
 
 	/**
-	 * We use the tutorialsBasePath to construct variant URLs.
-	 *
-	 * TODO: write up more details on this, feels like this approach
-	 * could have other implications on tutorial variant context
+	 * We use the tutorialsBasePath to construct variant URLs as paths.
 	 */
 	const tutorialBasePath = getTutorialSlug(
 		tutorial.slug,
