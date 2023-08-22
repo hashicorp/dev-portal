@@ -27,14 +27,6 @@ const Badge = ({
 	const hasText = !!text
 	const hasLabel = !!ariaLabel
 	const isIconOnly = hasIcon && !hasText
-	const isStatusBadge =
-		color == 'success' || color == 'warning' || color == 'critical'
-
-	if (isStatusBadge && !hasIcon) {
-		throw new Error(
-			'`Badge`s used for communicating status must have an icon to avoid relying on color alone.'
-		)
-	}
 
 	if (!hasIcon && !hasText) {
 		throw new Error(
