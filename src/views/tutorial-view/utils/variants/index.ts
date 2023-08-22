@@ -11,14 +11,21 @@ import {
 import { TutorialVariant, TutorialVariantOption } from './types'
 
 /**
- * Get the variant href for a given path and variant type.
- * This is the link that we need for `getStaticProps` to return the
- * correct variant data.
+ * Get the variant href for a given tutorial path and variant type.
+ *
+ * This is the URL with a path format, like `/variant:option`, that we need for
+ * `getStaticProps` to return the correct variant data.
  */
 export function getVariantHref(path: string, variantType: string) {
 	return `${path}/${variantType}`.replace(':', '%3A')
 }
 
+/**
+ * Get the variant path for a given current path and variant type.
+ *
+ * This is the URL with a search param format, like `?varaints=variant:option`.
+ * This is the URL that we want users to see.
+ */
 export function getVariantPath(path: string, variantType: string) {
 	const url = new URL(path, 'https://developer.hashicorp.com')
 
