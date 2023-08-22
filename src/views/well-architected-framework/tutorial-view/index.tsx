@@ -20,6 +20,7 @@ import { NextPrevious } from 'views/tutorial-view/components'
 import { generateCanonicalUrl } from 'views/tutorial-view/utils'
 import s from 'views/tutorial-view/tutorial-view.module.css'
 import { WafTutorialViewProps } from '../types'
+import { getTutorialSlug } from 'views/collection-view/helpers'
 
 export default function WellArchitectedFrameworkTutorialView({
 	tutorial,
@@ -49,6 +50,14 @@ export default function WellArchitectedFrameworkTutorialView({
 	const canonicalCollectionSlug = tutorial.collectionCtx.default.slug
 	const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
 
+	/**
+	 * We use the tutorialsBasePath to construct variant URLs.
+	 *
+	 * TODO: write up more details on this, feels like this approach
+	 * could have other implications on tutorial variant context
+	 */
+	const tutorialBasePath = getTutorialSlug(slug, canonicalCollectionSlug)
+
 	return (
 		<>
 			<HashiHead>
@@ -66,11 +75,16 @@ export default function WellArchitectedFrameworkTutorialView({
 						mainWidth="narrow"
 						sidecarTopSlot={
 							variant ? (
-								<VariantDropdownDisclosure variant={variant} isFullWidth />
+								<VariantDropdownDisclosure
+									variant={variant}
+									isFullWidth
+									tutorialBasePath={tutorialBasePath}
+								/>
 							) : null
 						}
 					>
 						<TutorialMeta
+							tutorialBasePath={tutorialBasePath}
 							heading={pageHeading}
 							meta={{
 								readTime,

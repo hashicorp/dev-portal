@@ -17,7 +17,13 @@ import {
 } from 'views/tutorial-view/utils/variants'
 import s from './desktop-variant-list.module.css'
 
-export function DesktopVariantList({ variant }: { variant: TutorialVariant }) {
+export function DesktopVariantList({
+	variant,
+	tutorialBasePath,
+}: {
+	variant: TutorialVariant
+	tutorialBasePath: string
+}) {
 	const VARIANT_LIST_ID = 'variant-list-label'
 	const { asPath } = useRouter()
 
@@ -37,7 +43,7 @@ export function DesktopVariantList({ variant }: { variant: TutorialVariant }) {
 								<li key={option.slug}>
 									<Link
 										className={classNames(s.link)}
-										href={getVariantPath(asPath, variantParam)}
+										href={getVariantPath(tutorialBasePath, variantParam)}
 										aria-current={isActiveOption ? 'page' : undefined}
 										onClick={() => {
 											handleVariantCookie(variant.slug, option.slug)

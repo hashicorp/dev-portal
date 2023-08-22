@@ -17,6 +17,7 @@ import { NextPrevious } from 'views/tutorial-view/components'
 import VariantProvider from 'views/tutorial-view/utils/variants/context'
 import { VariantDropdownDisclosure } from 'views/tutorial-view/components'
 import { OnboardingTutorialViewProps } from '../types'
+import { getTutorialSlug } from 'views/collection-view/helpers'
 
 export default function OnboardingTutorialView({
 	tutorial,
@@ -40,6 +41,17 @@ export default function OnboardingTutorialView({
 	const isInteractive = Boolean(handsOnLab)
 	const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
 
+	/**
+	 * We use the tutorialsBasePath to construct variant URLs.
+	 *
+	 * TODO: write up more details on this, feels like this approach
+	 * could have other implications on tutorial variant context
+	 */
+	const tutorialBasePath = getTutorialSlug(
+		tutorial.slug,
+		tutorial.collectionCtx.current.slug
+	)
+
 	return (
 		<>
 			<HashiHead>
@@ -56,11 +68,16 @@ export default function OnboardingTutorialView({
 						sidebarNavDataLevels={layoutProps.navLevels}
 						sidecarTopSlot={
 							variant ? (
-								<VariantDropdownDisclosure variant={variant} isFullWidth />
+								<VariantDropdownDisclosure
+									variant={variant}
+									isFullWidth
+									tutorialBasePath={tutorialBasePath}
+								/>
 							) : null
 						}
 					>
 						<TutorialMeta
+							tutorialBasePath={tutorialBasePath}
 							heading={pageHeading}
 							meta={{
 								readTime,

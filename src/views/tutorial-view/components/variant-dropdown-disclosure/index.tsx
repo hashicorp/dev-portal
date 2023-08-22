@@ -23,6 +23,7 @@ import s from './variant-dropdown-disclosure.module.css'
 export function VariantDropdownDisclosure({
 	variant,
 	isFullWidth,
+	tutorialBasePath,
 }: VariantDropdownDisclosureProps) {
 	const labelId = useId()
 	const { asPath } = useRouter()
@@ -49,7 +50,7 @@ export function VariantDropdownDisclosure({
 							<DropdownDisclosureLinkItem
 								key={option.slug}
 								href={getVariantPath(
-									asPath,
+									tutorialBasePath,
 									getVariantParam(variant.slug, option.slug)
 								)}
 								onClick={() => {

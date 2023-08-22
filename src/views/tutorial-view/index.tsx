@@ -226,6 +226,17 @@ function TutorialView({
 		collectionTutorialIds,
 	})
 
+	/**
+	 * We use the tutorialsBasePath to construct variant URLs.
+	 *
+	 * TODO: write up more details on this, feels like this approach
+	 * could have other implications on tutorial variant context
+	 */
+	const tutorialBasePath = getTutorialSlug(
+		tutorial.slug,
+		collectionCtx.current.slug
+	)
+
 	return (
 		<>
 			<Head>
@@ -255,6 +266,7 @@ function TutorialView({
 						sidecarTopSlot={
 							metadata.variant ? (
 								<VariantDropdownDisclosure
+									tutorialBasePath={tutorialBasePath}
 									variant={metadata.variant}
 									isFullWidth
 								/>
@@ -271,6 +283,7 @@ function TutorialView({
 							}
 						>
 							<TutorialMeta
+								tutorialBasePath={tutorialBasePath}
 								heading={pageHeading}
 								meta={{
 									readTime,

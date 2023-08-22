@@ -8,7 +8,11 @@ import { useVariant } from 'views/tutorial-view/utils/variants/context'
 import { DesktopVariantList } from './desktop'
 import s from './variant-list.module.css'
 
-export function VariantList() {
+export function VariantList({
+	tutorialBasePath,
+}: {
+	tutorialBasePath: string
+}) {
 	const { currentVariant } = useVariant()
 
 	if (!currentVariant) {
@@ -18,10 +22,17 @@ export function VariantList() {
 	return (
 		<>
 			<div className={s.desktopVariantList} data-heap-track="variant-list">
-				<DesktopVariantList variant={currentVariant} />
+				<DesktopVariantList
+					variant={currentVariant}
+					tutorialBasePath={tutorialBasePath}
+				/>
 			</div>
 			<div className={s.mobileVariantDropdownDisclosure}>
-				<VariantDropdownDisclosure isFullWidth variant={currentVariant} />
+				<VariantDropdownDisclosure
+					isFullWidth
+					variant={currentVariant}
+					tutorialBasePath={tutorialBasePath}
+				/>
 			</div>
 		</>
 	)

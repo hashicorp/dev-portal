@@ -20,12 +20,14 @@ interface TutorialMetaProps {
 		hasVideo: boolean
 	}
 	tutorialId: TutorialData['id']
+	tutorialBasePath: string
 }
 
 export default function TutorialMeta({
 	heading,
 	meta,
 	tutorialId,
+	tutorialBasePath,
 }: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 
@@ -77,7 +79,7 @@ export default function TutorialMeta({
 					to bookmark tutorials.
 				</Text>
 			) : null}
-			<VariantList />
+			<VariantList tutorialBasePath={tutorialBasePath} />
 		</header>
 	)
 }
