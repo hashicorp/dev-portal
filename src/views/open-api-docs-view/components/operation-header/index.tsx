@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Third-party
 import classNames from 'classnames'
 // Components
 import Badge from 'components/badge'
@@ -15,9 +16,9 @@ import s from './operation-header.module.css'
 
 interface OperationHeaderProps {
 	slug: OperationProps['slug']
-	headerText: OperationProps['operationId']
+	headingText: string
 	method: OperationProps['type']
-	path: OperationProps['path']['truncated']
+	path: string
 	className?: string
 }
 
@@ -28,16 +29,16 @@ interface OperationHeaderProps {
  */
 export function OperationHeader({
 	slug,
-	headerText,
+	headingText,
 	method,
 	path,
 	className,
 }: OperationHeaderProps) {
 	return (
 		<div className={classNames(className, s.wrapper)}>
-			<ContentWithPermalink id={slug} ariaLabel={headerText}>
+			<ContentWithPermalink id={slug} ariaLabel={headingText}>
 				<h3 id={slug} className={s.heading}>
-					{headerText}
+					{headingText}
 				</h3>
 			</ContentWithPermalink>
 			<div className={s.methodAndPath}>

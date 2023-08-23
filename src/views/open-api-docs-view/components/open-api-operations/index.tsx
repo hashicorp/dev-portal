@@ -36,14 +36,14 @@ export function OpenApiOperations({
 									<OperationHeader
 										className={s.header}
 										slug={operation.slug}
-										headerText={operation.operationId}
+										headingText={operation.summary}
 										method={operation.type}
 										path={operation.path.truncated}
 									/>
 								}
 								examplesSlot={
 									<OperationExamples
-										heading={operation.operationId}
+										heading={operation.summary}
 										code={operation.urlPathForCodeBlock}
 									/>
 								}
