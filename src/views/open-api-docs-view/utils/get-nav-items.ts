@@ -45,8 +45,8 @@ function getOperationGroupItems(
 		navItems.push({ divider: true })
 		navItems.push({ heading })
 		// Then include each group's items
-		for (const { slug, operationId } of items) {
-			navItems.push({ title: operationId, fullPath: `#${slug}` })
+		for (const { slug, summary } of items) {
+			navItems.push({ title: summary, fullPath: `#${slug}` })
 		}
 	}
 	return navItems
