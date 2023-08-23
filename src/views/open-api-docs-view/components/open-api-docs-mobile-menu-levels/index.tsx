@@ -24,11 +24,13 @@ export function OpenApiDocsMobileMenuLevels({
 	productData,
 	navItems,
 	navResourceItems,
+	topOfPageSlug,
 }: {
 	// Product data, used to generate mobile menu levels.
 	productData: ProductData
 	navItems: OpenApiNavItem[]
 	navResourceItems: OpenApiNavItem[]
+	topOfPageSlug: string
 }) {
 	return (
 		<MobileMenuLevels
@@ -43,6 +45,7 @@ export function OpenApiDocsMobileMenuLevels({
 							<OpenApiSidebarContents
 								navItems={navItems}
 								navResourceItems={navResourceItems}
+								topOfPageSlug={topOfPageSlug}
 							/>
 							{/* Common resources for this product */}
 							<SidebarHorizontalRule />

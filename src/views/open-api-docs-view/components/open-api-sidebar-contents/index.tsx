@@ -16,17 +16,17 @@ import type { OpenApiNavItem } from 'views/open-api-docs-view/types'
 // Styles
 import s from './open-api-sidebar-contents.module.css'
 
-const OVERVIEW_SLUG = 'overview'
-
 /**
  * Renders sidebar contents for OpenApiDocsView.
  */
 export function OpenApiSidebarContents({
 	navItems,
 	navResourceItems,
+	topOfPageSlug,
 }: {
 	navItems: OpenApiNavItem[]
 	navResourceItems: OpenApiNavItem[]
+	topOfPageSlug: string
 }) {
 	const [filterValue, setFilterValue] = useState('')
 
@@ -34,7 +34,7 @@ export function OpenApiSidebarContents({
 	const navItemsWithActive = useNavItemsWithActive(
 		navItems,
 		filterValue === '',
-		OVERVIEW_SLUG
+		topOfPageSlug
 	)
 
 	// Filter navItems by `filterValue`

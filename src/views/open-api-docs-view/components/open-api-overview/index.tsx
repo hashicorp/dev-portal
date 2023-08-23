@@ -18,11 +18,6 @@ import type { ReactNode } from 'react'
 import s from './open-api-overview.module.css'
 
 /**
- * TODO: get this passed in for consistency.
- */
-const OVERVIEW_SLUG = 'overview'
-
-/**
  * Render an overview section for an OpenApiView.
  *
  * Status is also optional right now as it is a skateboard
@@ -31,7 +26,10 @@ const OVERVIEW_SLUG = 'overview'
  */
 
 export interface OpenApiOverviewProps {
-	title: string
+	heading: {
+		text: string
+		slug: string
+	}
 	badgeText: string
 	statusIndicatorConfig?: StatusIndicatorConfig
 	contentSlot?: ReactNode
@@ -39,7 +37,7 @@ export interface OpenApiOverviewProps {
 }
 
 export function OpenApiOverview({
-	title,
+	heading,
 	badgeText,
 	statusIndicatorConfig,
 	contentSlot,
@@ -51,8 +49,8 @@ export function OpenApiOverview({
 					<IconVaultColor16 />
 				</IconTile>
 				<span>
-					<h1 id={OVERVIEW_SLUG} className={s.heading}>
-						{title}
+					<h1 id={heading.slug} className={s.heading}>
+						{heading.text}
 					</h1>
 					{statusIndicatorConfig ? (
 						<Status
