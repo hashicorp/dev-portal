@@ -19,14 +19,6 @@ export function OperationExamples({
 }) {
 	return (
 		<CodeBlock
-			/**
-			 * TODO: this s.codeBlock should wrap, but it's not yet supported.
-			 * `options.wrapCode` prop should be implemented in the CodeBlock
-			 * component itself instead.
-			 *
-			 * Task: https://app.asana.com/0/1204678746647847/1205233741731093/f
-			 * PR: https://github.com/hashicorp/react-components/pull/991
-			 */
 			options={{ heading, showClipboard: true, wrapCode: true }}
 			code={code}
 		/>

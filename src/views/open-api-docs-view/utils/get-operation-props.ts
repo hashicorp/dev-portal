@@ -8,10 +8,14 @@ import { paramCase } from 'change-case'
 import slugify from 'slugify'
 // Local
 import { getRequestData, getResponseData, truncateHcpOperationPath } from './'
+// Utils
+import { addWordBreaks } from './add-word-breaks'
+import { addWordBreaksToUrl } from './add-word-breaks-to-url'
+import { splitOnCapitalLetters } from './split-on-capital-letters'
+import getUrlPathCodeHtml from './get-url-path-code-html'
 // Types
 import type { OperationProps } from '../types'
 import type { OpenAPIV3 } from 'openapi-types'
-import getUrlPathCodeHtml from './get-url-path-code-html'
 
 /**
  * Given a schema, return a flattened list of operation prop objects.
@@ -63,6 +67,14 @@ export async function getOperationProps(
 			}
 
 			/**
+			 * Build a fallback summary for the operation, which is just
+			 * the operationId with some formatting for better line-breaks.
+			 */
+			const summary =
+				operation.summary ||
+				addWordBreaks(splitOnCapitalLetters(operation.operationId))
+
+			/**
 			 * Format and push the operation props
 			 */
 			operationObjects.push({
@@ -71,9 +83,9 @@ export async function getOperationProps(
 				type,
 				path: {
 					full: path,
-					truncated: truncateHcpOperationPath(path),
+					truncated: addWordBreaksToUrl(truncateHcpOperationPath(path)),
 				},
-				summary: operation.summary,
+				summary,
 				requestData,
 				responseData,
 				urlPathForCodeBlock: getUrlPathCodeHtml(path),
