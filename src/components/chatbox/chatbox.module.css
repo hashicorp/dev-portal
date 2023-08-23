@@ -142,6 +142,10 @@
 	flex-direction: column;
 	justify-content: flex-end;
 }
+.message_arrowdown {
+	position: sticky;
+	bottom: 24px;
+}
 
 .message_AssistantMessageFooter {
 	width: 100%;
@@ -270,6 +274,7 @@
 	vertical-align: baseline;
 	text-decoration: none;
 	-webkit-tap-highlight-color: transparent;
+	outline: none;
 }
 
 /* button styles */
@@ -277,12 +282,12 @@
 /* border-color: var(--token-color-border-strong); */
 /* box-shadow: var(--token-elevation-low-box-shadow); */
 /* color: var(--token-color-foreground-primary); */
-.sentiment_like {
+.rating_like {
 	border: 1px solid var(--token-color-border-success) !important;
 	background: var(--token-color-surface-success) !important;
 	color: var(--token-color-foreground-success) !important;
 }
-.sentiment_dislike {
+.rating_dislike {
 	border: 1px solid var(--token-color-border-critical) !important;
 	background: var(--token-color-surface-critical) !important;
 	color: var(--token-color-foreground-critical) !important;

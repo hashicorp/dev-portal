@@ -29,8 +29,10 @@ import s from './chatbox.module.css'
 import FeedbackForm from 'components/feedback-form'
 
 const useAI = () => {
-	// The backend id of an AI response
-	const [completionId, setCompletionId] = useState('')
+	// The backend id of a conversation
+	const [conversationId, setConversationId] = useState('')
+	// The backend id of the most recently returned message
+	const [messageId, setMessageId] = useState('')
 
 	// Is the stream being read?
 	const [isReading, setIsReading] = useState(false)
@@ -40,12 +42,17 @@ const useAI = () => {
 	const mutation = useMutation<
 		Response,
 		Response,
-		{ value: string; accessToken: string }
+		{
+			value: string
+			accessToken: string
+			conversationId?: string
+			parentMessageId?: string
+		}
 	>({
 		onMutate: async () => {
 			// clear previous response
 			setStreamedText('...')
-			setCompletionId('')
+			setMessageId('')
 		},
 		onError: async (error) => {
 			// console.log('mutation error', error)
@@ -59,24 +66,27 @@ const useAI = () => {
 					break
 			}
 		},
-		mutationFn: async ({ value: task, accessToken: token }: any) => {
+		mutationFn: async ({
+			value: task,
+			accessToken: token,
+			conversationId,
+			parentMessageId,
+		}: any) => {
 			const response = await fetch('/api/chat/route', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${token}`,
 				},
-				body: JSON.stringify({ task }),
+				body: JSON.stringify({ task, conversationId, parentMessageId }),
 			})
 
 			// if the response is not ok, throw it to be handled by onError
 			if (!response.ok) {
 				throw response
 			} else {
-				// grab the completion id from the headers
-				const completionId = response.headers.get('x-completion-id')
-				setCompletionId(completionId)
-
+				setConversationId(response.headers.get('x-conversation-id'))
+				setMessageId(response.headers.get('x-message-id'))
 				return response
 			}
 		},
@@ -180,7 +190,8 @@ const useAI = () => {
 	return {
 		reader,
 		streamedText,
-		completionId,
+		conversationId,
+		messageId,
 		isLoading: mutation.isLoading || isReading,
 		mutation,
 	}
@@ -198,7 +209,7 @@ type Message =
 			id: string
 	  }
 	| {
-			type: 'system'
+			type: 'application'
 			text: string
 	  }
 
@@ -217,19 +228,23 @@ const AssistantMessage = ({
 	markdown,
 	showActions,
 	showArrowDown,
+	handleArrowDownClick,
 	messageId,
 }: {
 	markdown: string
 	showActions: boolean
 	showArrowDown: boolean
+	handleArrowDownClick: () => void
 	messageId: string
 }) => {
 	const { session } = useAuthentication()
 	const accessToken = session?.accessToken
 	// Determines green/red button
-	const [sentiment, setSentiment] = useState<1 | -1 | 0>(0)
+	const [rating, setRating] = useState<1 | -1 | 0>(0)
 
-	const handleSentiment = async ({ sentiment }: { sentiment: -1 | 1 }) => {
+	const handleRating = async ({ rating }: { rating: -1 | 1 }) => {
+		alert('TODO')
+		return
 		const response = await fetch('/api/chat/completion', {
 			method: 'PATCH',
 			headers: {
@@ -237,7 +252,7 @@ const AssistantMessage = ({
 				Authorization: `Bearer ${accessToken}`,
 			},
 			body: JSON.stringify({
-				sentiment,
+				rating,
 				messageId,
 			}),
 		})
@@ -245,6 +260,8 @@ const AssistantMessage = ({
 	}
 
 	const handleReason = async ({ reason }: { reason: string }) => {
+		alert('TODO')
+		return
 		const response = fetch('/api/chat/completion', {
 			method: 'PATCH',
 			headers: {
@@ -287,7 +304,6 @@ const AssistantMessage = ({
 					})}
 				>
 					<span className={s.message_divider} />
-
 					<div className={s.message_actionButtons}>
 						<Button
 							size="small"
@@ -300,36 +316,36 @@ const AssistantMessage = ({
 						<Button
 							size="small"
 							color="secondary"
-							className={cn({ [s.sentiment_like]: sentiment == 1 })}
-							disabled={sentiment == 1}
+							className={cn({ [s.rating_like]: rating == 1 })}
+							disabled={rating == 1}
 							icon={<IconThumbsUp24 height={12} width={12} />}
 							aria-label="Like this response"
 							onClick={async () => {
-								await handleSentiment({ sentiment: 1 })
-								setSentiment(1)
+								setRating(1) // do an optimistic UI update
+								await handleRating({ rating: 1 })
 							}}
 						/>
 
 						<Button
 							size="small"
 							color="secondary"
-							className={cn({ [s.sentiment_dislike]: sentiment == -1 })}
-							disabled={sentiment == -1}
+							className={cn({ [s.rating_dislike]: rating == -1 })}
+							disabled={rating == -1}
 							icon={<IconThumbsDown24 height={12} width={12} />}
 							aria-label="Dislike this response"
 							onClick={async () => {
-								await handleSentiment({ sentiment: -1 })
-								setSentiment(-1)
+								setRating(-1) // do an optimistic UI update
+								await handleRating({ rating: -1 })
 							}}
 						/>
 					</div>
 
 					<div
 						className={cn(s.message_feedbackForm, {
-							[s.message_feedbackFormVisible]: sentiment != 0,
+							[s.message_feedbackFormVisible]: rating != 0,
 						})}
 					>
-						{sentiment != 0 ? (
+						{rating != 0 ? (
 							<FeedbackForm
 								questions={[
 									{
@@ -337,7 +353,7 @@ const AssistantMessage = ({
 										type: 'text',
 										label: 'Provide additional feedback to help us improve',
 										placeholder:
-											sentiment == 1
+											rating == 1
 												? 'What did you like about the response?'
 												: 'What was the issue with the response? How could it be improved?',
 										optional: true,
@@ -362,9 +378,11 @@ const AssistantMessage = ({
 
 			<div className={cn(s.message_gutter)}>
 				{showArrowDown ? (
-					<IconTile size="small">
-						<IconArrowDownCircle16 />
-					</IconTile>
+					<div className={s.message_arrowdown} onClick={handleArrowDownClick}>
+						<IconTile size="small">
+							<IconArrowDownCircle16 />
+						</IconTile>
+					</div>
 				) : null}
 			</div>
 		</div>
@@ -372,7 +390,7 @@ const AssistantMessage = ({
 }
 
 // TODO(kevinwang): error styling.
-const SystemMessage = ({ text }: { text: string }) => {
+const ApplicationMessage = ({ text }: { text: string }) => {
 	return (
 		<div className={cn(s.message, s.message_assistant)}>
 			<IconTile className={cn(s.message_icon_error)}>
@@ -384,7 +402,14 @@ const SystemMessage = ({ text }: { text: string }) => {
 }
 
 const ChatBox = () => {
-	const { mutation, streamedText, completionId, isLoading, reader } = useAI()
+	const {
+		mutation,
+		streamedText,
+		messageId,
+		conversationId,
+		isLoading,
+		reader,
+	} = useAI()
 	const { user, session } = useAuthentication()
 	const accessToken = session?.accessToken
 
@@ -397,7 +422,8 @@ const ChatBox = () => {
 		const task = e.currentTarget.task?.value
 		e.preventDefault()
 
-		// Reset previous messages?
+		// Reset previous messages
+		// -- Revisit this when we're ready for multi-message conversations
 		setMessageList([])
 
 		// Clear textarea
@@ -406,6 +432,9 @@ const ChatBox = () => {
 		mutation.mutate({
 			value: task,
 			accessToken,
+			// -- uncomment these parameters when we are ready for multi-message conversations
+			// conversationId,
+			// parentMessageId: messageId,
 		})
 
 		// append user message to list
@@ -427,6 +456,10 @@ const ChatBox = () => {
 		})
 	}, [throttledText])
 
+	// for imperatively submitting the form via textarea-enter-key
+	const formRef = useRef<HTMLFormElement>(null)
+
+	// for conditionally rendering a down arrow
 	const [textContentRef2, textContentScrollBarIsVisible] = useScrollBarVisible()
 
 	// update component state when text is streamed in from the backend
@@ -454,21 +487,21 @@ const ChatBox = () => {
 				setMessageList((prev) => [
 					...prev,
 					{
-						type: 'system',
+						type: 'application',
 						text: errorMessage,
 					},
 				])
 				return
 			}
 
-			if (!streamedText || !completionId) {
+			if (!streamedText || !messageId) {
 				return
 			}
 
 			setMessageList((prev) => {
 				const next = [...prev]
 				const assistantMessage = next.find(
-					(e) => e.type == 'assistant' && e.id === completionId
+					(e) => e.type == 'assistant' && e.id === messageId
 				)
 
 				if (assistantMessage) {
@@ -477,19 +510,19 @@ const ChatBox = () => {
 					next.push({
 						type: 'assistant',
 						text: streamedText,
-						id: completionId,
+						id: messageId,
 					})
 				}
 				return next
 			})
 		})()
-	}, [streamedText, completionId, mutation.error])
+	}, [streamedText, messageId, mutation.error])
 
 	return (
 		<div className={cn(s.chat)}>
 			<>
 				{messageList.length === 0 ? (
-					<EmptyState />
+					<WelcomeMessage />
 				) : (
 					<div
 						ref={mergeRefs([textContentRef, textContentRef2])}
@@ -497,6 +530,7 @@ const ChatBox = () => {
 					>
 						{messageList.map((e, i) => {
 							switch (e.type) {
+								// User input
 								case 'user': {
 									return (
 										<UserMessage
@@ -506,6 +540,7 @@ const ChatBox = () => {
 										/>
 									)
 								}
+								// Backend AI response
 								case 'assistant': {
 									const shouldShowActions = e.text?.length > 20 && !isLoading
 									return (
@@ -515,18 +550,27 @@ const ChatBox = () => {
 											messageId={e.id}
 											showActions={shouldShowActions}
 											showArrowDown={textContentScrollBarIsVisible}
+											handleArrowDownClick={() => {
+												textContentRef.current?.scrollTo({
+													top: textContentRef.current.scrollHeight,
+													behavior: 'smooth',
+												})
+											}}
 										/>
 									)
 								}
-								case 'system': {
-									return <SystemMessage key={`${e.type}-${i}`} text={e.text} />
+								// Application message; likely an error
+								case 'application': {
+									return (
+										<ApplicationMessage key={`${e.type}-${i}`} text={e.text} />
+									)
 								}
 							}
 						})}
 					</div>
 				)}
 
-				<form id="chat-create" onSubmit={handleSubmit}>
+				<form id="chat-create" onSubmit={handleSubmit} ref={formRef}>
 					<div className={s['search-area']}>
 						{isLoading ? (
 							<IconLoading24 className={'loadingIcon'} />
@@ -536,8 +580,17 @@ const ChatBox = () => {
 						<textarea
 							value={userInput}
 							onChange={(e) => setUserInput(e.currentTarget.value)}
+							onKeyDown={(e) => {
+								// enter submits form; // shift+enter adds a newline
+								if (e.key == 'Enter' && e.shiftKey == false) {
+									if (userInput) {
+										e.preventDefault()
+										formRef.current.requestSubmit()
+									}
+								}
+							}}
 							id="task"
-							rows={1}
+							rows={userInput.split('\n').length}
 							className={cn(s.reset, s.textarea)}
 							placeholder="Send a new message"
 							disabled={isLoading}
@@ -575,7 +628,7 @@ const ChatBox = () => {
 	)
 }
 
-const EmptyState = () => {
+const WelcomeMessage = () => {
 	return (
 		<div className={s.emptyArea}>
 			<div className={cn(s.col, s.left)}>
@@ -617,6 +670,7 @@ const EmptyState = () => {
 
 export default ChatBox
 
+// use a ref to check if an element's scrollbar is visible
 function useScrollBarVisible() {
 	const elementRef = useRef(null)
 	const [isScrollbarVisible, setIsScrollbarVisible] = useState(false)
@@ -643,11 +697,12 @@ function useScrollBarVisible() {
 			window.removeEventListener('resize', checkScrollbarVisibility)
 			element.removeEventListener('scroll', checkScrollbarVisibility)
 		}
-	}, [])
+	}, [elementRef.current])
 
 	return [elementRef, isScrollbarVisible] as const
 }
 
+// support passing multiple refs to an element
 // https://github.com/gregberge/react-merge-refs/blob/main/src/index.tsx
 export function mergeRefs<T = any>(
 	refs: Array<React.MutableRefObject<T> | React.LegacyRef<T>>
@@ -663,6 +718,7 @@ export function mergeRefs<T = any>(
 	}
 }
 
+// throttle a value
 function useThrottle<T = any>(value: T, limit: number) {
 	const [throttledValue, setThrottledValue] = useState(value)
 	const lastRan = useRef(Date.now())
