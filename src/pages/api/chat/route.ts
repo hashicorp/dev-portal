@@ -11,6 +11,8 @@ export const config = {
 // POST body payload
 const bodySchema = z.object({
 	task: z.string().transform((e) => e.trim()),
+	conversationId: z.string().optional(), // noop until we're ready for multi-message conversations
+	parentMessageId: z.string().optional(), // noop until we're ready for multi-message conversations
 })
 
 const edgeConfigSchema = z.object({
@@ -51,25 +53,46 @@ export default async function edgehandler(
 			if (!parsedBody.success) {
 				return new Response('Bad Request', { status: 400 })
 			}
-			const { task } = parsedBody.data
+			const { task, conversationId, parentMessageId } = parsedBody.data
 
 			try {
-				const res = await createCompletion({ task, accessToken: jwt })
-
-				if (res.ok) {
-					const headers = res.headers
-					const relatedIds = Array.from({ length: 10 }, (_, i) => i).reduce(
-						(acc, cur) => {
-							acc[`X-Related-Id-${cur}`] = headers.get(`x-related-id-${cur}`)
-							return acc
-						},
-						{}
+				let res: Response
+				if (conversationId && parentMessageId) {
+					console.log(
+						'continue conversation: %s - %s',
+						conversationId,
+						parentMessageId
 					)
+					res = await continueConversation({
+						conversationId,
+						parentMessageId,
+						task,
+						accessToken: jwt,
+					})
+				} else {
+					console.log('create conversation')
+					res = await createConversation({ task, accessToken: jwt })
+				}
+
+				const headers = res.headers
+				if (res.ok) {
+					const conversationId = headers.get('x-conversation-id')
+					const messageId = headers.get('x-message-id')
+					if (!messageId) {
+						console.warn(
+							'[/api/chat/route] x-message-id header is missing from the server'
+						)
+					}
+					if (!conversationId) {
+						console.warn(
+							'[/api/chat/route] x-conversation-id header is missing from the server'
+						)
+					}
 					return new Response(res.body, {
 						headers: {
 							'Content-Type': 'text/event-stream; charset=utf-8',
-							'X-Completion-Id': headers.get('x-completion-id'),
-							...relatedIds,
+							'x-message-id': messageId,
+							'x-conversation-id': conversationId,
 						},
 					})
 				} else {
@@ -106,14 +129,41 @@ export default async function edgehandler(
 	}
 }
 
-// POST /v1/chat
-async function createCompletion({ task, accessToken }) {
+// POST /v1/conversations
+async function createConversation({ task, accessToken }) {
 	const headers = new Headers()
 	headers.set('Authorization', `Bearer ${accessToken}`)
 	headers.set('Content-Type', 'application/json')
 
-	const url = new URL('/v1/chat', process.env.EXPERIMENTAL_CHAT_API_BASE_URL)
+	const url = new URL(
+		'/v1/conversations',
+		process.env.EXPERIMENTAL_CHAT_API_BASE_URL
+	)
 	const body = JSON.stringify({ task })
+
+	return await fetch(url.toString(), {
+		body: body,
+		method: 'POST',
+		headers,
+	})
+}
+
+// POST /v1/conversations/:conversation_id
+async function continueConversation({
+	conversationId,
+	parentMessageId,
+	task,
+	accessToken,
+}) {
+	const headers = new Headers()
+	headers.set('Authorization', `Bearer ${accessToken}`)
+	headers.set('Content-Type', 'application/json')
+
+	const url = new URL(
+		`/v1/conversations/${conversationId}`,
+		process.env.EXPERIMENTAL_CHAT_API_BASE_URL
+	)
+	const body = JSON.stringify({ task, parentMessageId })
 
 	return await fetch(url.toString(), {
 		body: body,
