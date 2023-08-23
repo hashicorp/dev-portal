@@ -92,7 +92,7 @@ export function useNavItemsWithActive(
 	)
 
 	// Determine which of the navItem sectionsSlugs is the active section slug
-	const activeSection = useActiveSection(sectionSlugs, true, defaultSection)
+	const activeSection = useActiveSection(sectionSlugs, true)
 
 	// When the active section changes, update the URL with the current #hash
 	useSyncedUrlHash(activeSection, defaultSection)

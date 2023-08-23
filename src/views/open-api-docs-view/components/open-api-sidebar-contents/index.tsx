@@ -22,20 +22,14 @@ import s from './open-api-sidebar-contents.module.css'
 export function OpenApiSidebarContents({
 	navItems,
 	navResourceItems,
-	topOfPageSlug,
 }: {
 	navItems: OpenApiNavItem[]
 	navResourceItems: OpenApiNavItem[]
-	topOfPageSlug: string
 }) {
 	const [filterValue, setFilterValue] = useState('')
 
 	// Highlight active navItems, including `#hash` links via `useActiveSection`.
-	const navItemsWithActive = useNavItemsWithActive(
-		navItems,
-		filterValue === '',
-		topOfPageSlug
-	)
+	const navItemsWithActive = useNavItemsWithActive(navItems, filterValue === '')
 
 	// Filter navItems by `filterValue`
 	const filteredNavItems = filterByTitle(navItemsWithActive, filterValue)

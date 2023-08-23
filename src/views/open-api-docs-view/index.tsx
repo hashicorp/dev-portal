@@ -42,7 +42,6 @@ function OpenApiDocsView({
 					<OpenApiSidebarContents
 						navItems={navItems}
 						navResourceItems={navResourceItems}
-						topOfPageSlug={topOfPageHeading.slug}
 					/>
 				</>
 			}
@@ -51,7 +50,6 @@ function OpenApiDocsView({
 					productData={productData}
 					navItems={navItems}
 					navResourceItems={navResourceItems}
-					topOfPageSlug={topOfPageHeading.slug}
 				/>
 			}
 		>

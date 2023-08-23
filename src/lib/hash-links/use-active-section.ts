@@ -15,11 +15,10 @@ import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
  */
 export function useActiveSection(
 	slugs: string[],
-	isEnabled: boolean = true,
-	defaultSection?: string
+	isEnabled: boolean = true
 ): string {
 	const visibleHeadings = useRef<Set<string>>(new Set())
-	const [activeSection, setActiveSection] = useState<string>(defaultSection)
+	const [activeSection, setActiveSection] = useState<string>()
 	const previousY = useRef<number>()
 
 	/**
