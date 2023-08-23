@@ -62,11 +62,12 @@ export async function getResponseData(
 			// Determine the heading text to show
 			const headingText =
 				responseCode === 'default'
-					? `Default Response`
+					? `Default Error Response`
 					: `${responseCode} -  ${getReasonPhrase(responseCode)}`
+			const headingTheme = responseCode.startsWith('2') ? 'success' : 'critical'
 
 			responseData.push({
-				heading: { text: headingText, slug: responseSlug },
+				heading: { text: headingText, slug: responseSlug, theme: headingTheme },
 				propertyDetails,
 			})
 		}

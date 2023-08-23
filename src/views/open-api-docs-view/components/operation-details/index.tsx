@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import Badge from 'components/badge'
 import { ContentWithPermalink } from '../content-with-permalink'
 import { PropertyDetails, PropertyDetailsProps } from '../property-details'
 import s from './operation-details.module.css'
@@ -11,6 +12,10 @@ export interface PropertyDetailsGroup {
 	heading: {
 		text: string
 		slug: string
+		/**
+		 * If `theme` is provided, we render a badge with that theme.
+		 */
+		theme?: 'success' | 'neutral' | 'critical'
 	}
 	propertyDetails: PropertyDetailsProps[]
 }
@@ -77,7 +82,15 @@ function PropertyDetailsSection({
 									ariaLabel={group.heading.text}
 								>
 									<h5 id={group.heading.slug} className={s.groupHeading}>
-										{group.heading.text}
+										{group.heading.theme ? (
+											<Badge
+												type="outlined"
+												text={group.heading.text}
+												color={group.heading.theme}
+											/>
+										) : (
+											group.heading.text
+										)}
 									</h5>
 								</ContentWithPermalink>
 								<div className={s.groupProperties}>
