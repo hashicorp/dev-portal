@@ -120,7 +120,6 @@ export function OpenApiPreviewInputs({
 						<FileStringInput
 							label="OpenAPI File"
 							accept=".json"
-							value={inputData.openApiJsonString}
 							setValue={(v) => setInputValue('openApiJsonString', v)}
 						/>
 						<Button

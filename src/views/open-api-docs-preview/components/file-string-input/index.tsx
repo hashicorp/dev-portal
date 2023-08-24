@@ -1,15 +1,19 @@
 import { useId, type ChangeEvent } from 'react'
-import s from './file-string-input.module.css'
 
+/**
+ * Render an input that's kind of a knock-off version of HDS's FileInput.
+ * This is a temporary solution until we have a React version of FileInput
+ * set up, which we'd likely do in the `web` monorepo.
+ *
+ * For now, this felt sufficient for an internal preview tool for OpenAPI specs.
+ */
 export function FileStringInput({
 	label,
 	accept,
-	value,
 	setValue,
 }: {
 	label: string
 	accept: string
-	value: string
 	setValue: (fileString: string) => void
 }) {
 	const id = useId()

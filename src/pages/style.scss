@@ -7,3 +7,8 @@
 .hds-form-field--layout-vertical {
 	grid-template-columns: minmax(0, 1fr);
 }
+
+// TODO: consider localizing these styles for now so that they're not
+// loaded globally. We just need them for an internal preview tool,
+// it feels wrong to have them be loaded into the global style sheet for every
+// single page on the site.

@@ -1,11 +1,17 @@
 import CodeMirror from '@uiw/react-codemirror'
-import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
+// Languages
 import { json } from '@codemirror/lang-json'
+import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
 import { languages } from '@codemirror/language-data'
+// Theme
 import { githubDark as codeMirrorTheme } from '@uiw/codemirror-theme-github'
-
+// Styles
 import s from './code-mirror-input.module.css'
 
+/**
+ * Render a CodeMirror input that supports either `json` or `markdown` syntax
+ * highlighting.
+ */
 export function CodeMirrorInput({
 	value,
 	setValue,
