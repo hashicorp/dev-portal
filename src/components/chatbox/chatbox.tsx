@@ -27,6 +27,12 @@ import Button from 'components/button'
 import cn from 'classnames'
 import s from './chatbox.module.css'
 import FeedbackForm from 'components/feedback-form'
+import {
+	streamToAsyncIterable,
+	mergeRefs,
+	useScrollBarVisible,
+	useThrottle,
+} from './utils'
 
 const useAI = () => {
 	// The backend id of a conversation
@@ -36,34 +42,53 @@ const useAI = () => {
 
 	// Is the stream being read?
 	const [isReading, setIsReading] = useState(false)
+	// The streamed-in text
 	const [streamedText, setStreamedText] = useState('')
+	// Error text
+	const [errorText, setErrorText] = useState('')
+
+	type MutationParams = {
+		value: string
+		accessToken: string
+		conversationId?: string
+		parentMessageId?: string
+	}
 
 	// Use useMutation to make a POST request more ergonomic
-	const mutation = useMutation<
-		Response,
-		Response,
-		{
-			value: string
-			accessToken: string
-			conversationId?: string
-			parentMessageId?: string
-		}
-	>({
+	const mutation = useMutation<Response, Response, MutationParams>({
 		onMutate: async () => {
 			// clear previous response
 			setStreamedText('...')
+			setErrorText('')
 			setMessageId('')
 		},
 		onError: async (error) => {
-			// console.log('mutation error', error)
-			const response = error as Response
-			switch (response.status) {
+			console.log('onError', error)
+			switch (error.status) {
 				case 400:
 				case 401:
-				case 403:
-				case 404:
-				case 429:
+				case 403: {
+					setErrorText(`${error.status} ${error.statusText}`)
 					break
+				}
+				case 429: {
+					const resetAtSec = mutation.error.headers.get('x-ratelimit-reset')
+					const resetAtMs = Number(resetAtSec) * 1000
+					const diffMs = resetAtMs - Date.now()
+
+					const errorMessage = `Too many requests. Please try again in ${ms(
+						diffMs,
+						{
+							long: true,
+						}
+					)}.`
+					setErrorText(errorMessage)
+					break
+				}
+				default: {
+					setErrorText(`${error.status} ${error.statusText}`)
+					break
+				}
 			}
 		},
 		mutationFn: async ({
@@ -71,7 +96,8 @@ const useAI = () => {
 			accessToken: token,
 			conversationId,
 			parentMessageId,
-		}: any) => {
+		}) => {
+			// call our edge function which is capable of streaming
 			const response = await fetch('/api/chat/route', {
 				method: 'POST',
 				headers: {
@@ -85,6 +111,7 @@ const useAI = () => {
 			if (!response.ok) {
 				throw response
 			} else {
+				// messageId and conversationId are noops until we are ready for multi-message conversations
 				setConversationId(response.headers.get('x-conversation-id'))
 				setMessageId(response.headers.get('x-message-id'))
 				return response
@@ -92,108 +119,52 @@ const useAI = () => {
 		},
 	})
 
+	// A stream reader
 	const [reader, setReader] =
 		useState<ReadableStreamDefaultReader<Uint8Array> | null>(null)
+	// Function to stop the stream
+	const stopStream = () => {
+		reader?.cancel()
+		mutation.reset()
+	}
 
 	// when the mutation / POST is successful
-	// - assign the reader to state
 	useEffect(() => {
-		if (!mutation.data) {
-			return
-		}
-		if (mutation.error) {
-			return
-		}
+		if (mutation.data?.ok) {
+			const stream = mutation.data.body
+			const _reader = stream.getReader()
+			setReader(_reader)
 
-		if (!mutation.data.body) {
-			return
-		}
+			const iter = streamToAsyncIterable(_reader)
 
-		if (mutation.data.bodyUsed) {
-			return
+			// Self-invoking async function to read the stream
+			;(async () => {
+				// if there's no iterator, exit
+				if (!iter) {
+					return
+				}
+				// Reset streamed text
+				setStreamedText('')
+				setIsReading(true)
+				// decoder converts the Uint8Array to a human-readable string
+				for await (const { event, data, raw } of iter) {
+					const content = JSON.parse(data).content
+					setStreamedText((prev) => prev + content)
+				}
+				// cleanup
+				setIsReading(false)
+			})()
 		}
-		if (mutation.data.body.locked) {
-			return
-		}
-		// get the reader from the stream
-		const reader = mutation.data.body.getReader()
-		setReader(reader)
 	}, [mutation.data])
 
-	// perform stream reading
-	useEffect(() => {
-		// if there's no reader, exit
-		if (!reader) {
-			return
-		}
-
-		// Async function to update state if the reader is closed
-		reader.closed.then(() => {
-			setIsReading(false)
-		})
-
-		// Reset streamed text
-		setStreamedText('')
-
-		// Read the stream
-		;(async () => {
-			// decoder converts the Uint8Array to a human-readable string
-			const decoder = new TextDecoder()
-
-			let shouldExit = false
-			do {
-				setIsReading(true)
-				const { done, value } = await reader.read()
-				// reached end of stream
-				if (done) {
-					console.log('reached end of stream')
-					reader.releaseLock()
-					// clear the reader
-					setReader(null)
-					// set reading state to false
-					setIsReading(false)
-
-					shouldExit = true
-					break
-				}
-
-				// read the value
-				if (!done) {
-					// convert `Uint8Array` to `string`
-					const data = decoder.decode(value)
-					// data should be a string like: 'data: {"content":"arbitrary text\n\n"}\n\n'
-					if (!data) {
-						continue
-					}
-
-					// split by double newline to collect individual SSE messages
-					// but leave json-serialized double newlines as is.
-					// TODO(kevinwang): are there more edge cases?
-
-					const regexp = /(?!")\n\n(?!")/gi
-					const messages = data.split(regexp)
-
-					messages?.forEach((message) => {
-						// trim the leading `data: ` from the message
-						const jsonString = message.replace(/^data:\s/i, '')
-						// parse the json
-						if (jsonString.length > 0) {
-							const content = JSON.parse(jsonString).content
-							setStreamedText((prev) => prev + content)
-						}
-					})
-				}
-			} while (!shouldExit)
-		})()
-	}, [reader])
-
 	return {
-		reader,
+		stopStream,
 		streamedText,
+		errorText,
 		conversationId,
 		messageId,
 		isLoading: mutation.isLoading || isReading,
-		mutation,
+		sendMessage: mutation.mutate,
 	}
 }
 
@@ -403,12 +374,13 @@ const ApplicationMessage = ({ text }: { text: string }) => {
 
 const ChatBox = () => {
 	const {
-		mutation,
+		errorText,
 		streamedText,
 		messageId,
 		conversationId,
 		isLoading,
-		reader,
+		stopStream,
+		sendMessage,
 	} = useAI()
 	const { user, session } = useAuthentication()
 	const accessToken = session?.accessToken
@@ -429,7 +401,7 @@ const ChatBox = () => {
 		// Clear textarea
 		setUserInput('')
 
-		mutation.mutate({
+		sendMessage({
 			value: task,
 			accessToken,
 			// -- uncomment these parameters when we are ready for multi-message conversations
@@ -464,59 +436,41 @@ const ChatBox = () => {
 
 	// update component state when text is streamed in from the backend
 	useEffect(() => {
-		;(async () => {
-			if (mutation.error) {
-				if (mutation.error.bodyUsed) {
-					return
-				}
+		if (!streamedText || !messageId) {
+			return
+		}
 
-				const errorJson = await mutation.error.json()
-				let errorMessage =
-					errorJson.meta.status_text ||
-					`${mutation.error.status} ${mutation.error.statusText}`
+		setMessageList((prev) => {
+			const next = [...prev]
+			const assistantMessage = next.find(
+				(e) => e.type == 'assistant' && e.id === messageId
+			)
 
-				if (mutation.error.status == 429) {
-					const resetAtSec = mutation.error.headers.get('x-ratelimit-reset')
-					const resetAtMs = Number(resetAtSec) * 1000
-					const diffMs = resetAtMs - Date.now()
-
-					errorMessage = `Too many requests. Please try again in ${ms(diffMs, {
-						long: true,
-					})}.`
-				}
-				setMessageList((prev) => [
-					...prev,
-					{
-						type: 'application',
-						text: errorMessage,
-					},
-				])
-				return
+			if (assistantMessage) {
+				assistantMessage.text = streamedText
+			} else {
+				next.push({
+					type: 'assistant',
+					text: streamedText,
+					id: messageId,
+				})
 			}
+			return next
+		})
+	}, [streamedText, messageId])
 
-			if (!streamedText || !messageId) {
-				return
-			}
-
-			setMessageList((prev) => {
-				const next = [...prev]
-				const assistantMessage = next.find(
-					(e) => e.type == 'assistant' && e.id === messageId
-				)
-
-				if (assistantMessage) {
-					assistantMessage.text = streamedText
-				} else {
-					next.push({
-						type: 'assistant',
-						text: streamedText,
-						id: messageId,
-					})
-				}
-				return next
-			})
-		})()
-	}, [streamedText, messageId, mutation.error])
+	// update component state when the mutation fails
+	useEffect(() => {
+		if (errorText) {
+			setMessageList((prev) => [
+				...prev,
+				{
+					type: 'application',
+					text: errorText,
+				},
+			])
+		}
+	}, [errorText])
 
 	return (
 		<div className={cn(s.chat)}>
@@ -601,10 +555,7 @@ const ChatBox = () => {
 								icon={<IconStopCircle24 height={16} width={16} />}
 								text={'Stop generating'}
 								color={'critical'}
-								onClick={() => {
-									reader?.cancel()
-									mutation.reset()
-								}}
+								onClick={stopStream}
 							/>
 						) : (
 							<Button
@@ -669,72 +620,3 @@ const WelcomeMessage = () => {
 }
 
 export default ChatBox
-
-// use a ref to check if an element's scrollbar is visible
-function useScrollBarVisible() {
-	const elementRef = useRef(null)
-	const [isScrollbarVisible, setIsScrollbarVisible] = useState(false)
-
-	useEffect(() => {
-		const element = elementRef.current
-		if (!element) {
-			return
-		}
-
-		function checkScrollbarVisibility() {
-			setIsScrollbarVisible(
-				element.scrollHeight > element.clientHeight ||
-					element.scrollWidth > element.clientWidth
-			)
-		}
-
-		element.addEventListener('scroll', checkScrollbarVisibility)
-		window.addEventListener('resize', checkScrollbarVisibility)
-
-		checkScrollbarVisibility()
-
-		return () => {
-			window.removeEventListener('resize', checkScrollbarVisibility)
-			element.removeEventListener('scroll', checkScrollbarVisibility)
-		}
-	}, [elementRef.current])
-
-	return [elementRef, isScrollbarVisible] as const
-}
-
-// support passing multiple refs to an element
-// https://github.com/gregberge/react-merge-refs/blob/main/src/index.tsx
-export function mergeRefs<T = any>(
-	refs: Array<React.MutableRefObject<T> | React.LegacyRef<T>>
-): React.RefCallback<T> {
-	return (value) => {
-		refs.forEach((ref) => {
-			if (typeof ref === 'function') {
-				ref(value)
-			} else if (ref != null) {
-				;(ref as React.MutableRefObject<T | null>).current = value
-			}
-		})
-	}
-}
-
-// throttle a value
-function useThrottle<T = any>(value: T, limit: number) {
-	const [throttledValue, setThrottledValue] = useState(value)
-	const lastRan = useRef(Date.now())
-
-	useEffect(() => {
-		const handler = setTimeout(function () {
-			if (Date.now() - lastRan.current >= limit) {
-				setThrottledValue(value)
-				lastRan.current = Date.now()
-			}
-		}, limit - (Date.now() - lastRan.current))
-
-		return () => {
-			clearTimeout(handler)
-		}
-	}, [value, limit])
-
-	return throttledValue
-}
