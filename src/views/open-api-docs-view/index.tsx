@@ -25,6 +25,7 @@ import { DescriptionMdx } from './components/open-api-overview/components/descri
  */
 function OpenApiDocsView({
 	productData,
+	schemaIconSlug,
 	title,
 	releaseStage,
 	descriptionMdx,
@@ -33,12 +34,18 @@ function OpenApiDocsView({
 	navResourceItems,
 	breadcrumbLinks,
 	statusIndicatorConfig,
+	hideBackToProductLink,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
 			sidebarSlot={
 				<>
-					<SidebarBackToLink text="HashiCorp Cloud Platform" href="/hcp" />
+					{hideBackToProductLink ? null : (
+						<SidebarBackToLink
+							text={productData.name}
+							href={`/${productData.slug}`}
+						/>
+					)}
 					<OpenApiSidebarContents
 						navItems={navItems}
 						navResourceItems={navResourceItems}
@@ -58,6 +65,7 @@ function OpenApiDocsView({
 					<BreadcrumbBar links={breadcrumbLinks} />
 					<OpenApiOverview
 						title={title}
+						schemaIconSlug={schemaIconSlug || productData.slug}
 						badgeText={releaseStage}
 						statusIndicatorConfig={statusIndicatorConfig}
 						contentSlot={

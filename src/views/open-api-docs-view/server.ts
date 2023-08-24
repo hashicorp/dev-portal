@@ -52,6 +52,20 @@ export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
 	}
 }
 
+export interface OpenApiPageConfig {
+	context: GetStaticPropsContext<OpenApiDocsParams>
+	productSlug: ProductSlug
+	schemaIconSlug?: ProductSlug
+	versionData: OpenApiDocsVersionData[]
+	basePath: string
+	statusIndicatorConfig?: StatusIndicatorConfig
+	massageSchemaForClient?: (
+		schemaData: OpenAPIV3.Document
+	) => OpenAPIV3.Document
+	navResourceItems: OpenApiNavItem[]
+	hideBackToProductLink?: boolean
+}
+
 /**
  * Get static props for the view.
  *
@@ -63,22 +77,14 @@ export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
 export async function getStaticProps({
 	context,
 	productSlug,
+	schemaIconSlug = productSlug,
 	versionData,
 	basePath,
 	statusIndicatorConfig,
 	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
 	navResourceItems = [],
-}: {
-	context: GetStaticPropsContext<OpenApiDocsParams>
-	productSlug: ProductSlug
-	versionData: OpenApiDocsVersionData[]
-	basePath: string
-	statusIndicatorConfig: StatusIndicatorConfig
-	massageSchemaForClient?: (
-		schemaData: OpenAPIV3.Document
-	) => OpenAPIV3.Document
-	navResourceItems: OpenApiNavItem[]
-}): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
+	hideBackToProductLink = false,
+}: OpenApiPageConfig): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
 	// Get the product data
 	const productData = cachedGetProductData(productSlug)
 
@@ -140,20 +146,17 @@ export async function getStaticProps({
 	return {
 		props: {
 			productData,
+			schemaIconSlug,
 			title: schemaData.info.title,
 			releaseStage: targetVersion.releaseStage,
 			descriptionMdx,
 			IS_REVISED_TEMPLATE: true,
-			_placeholder: {
-				productSlug,
-				targetVersion,
-				schemaData,
-			},
 			operationGroups: stripUndefinedProperties(operationGroups),
 			navItems,
 			navResourceItems,
 			breadcrumbLinks,
 			statusIndicatorConfig,
+			hideBackToProductLink,
 		},
 	}
 }

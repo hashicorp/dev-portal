@@ -50,6 +50,11 @@ const USE_REVISED_TEMPLATE =
 const PRODUCT_SLUG = 'hcp'
 
 /**
+ * Product slug used for the schema's icon
+ */
+const SCHEMA_ICON_SLUG = 'vault'
+
+/**
  * The baseUrl is used to generate
  * breadcrumb links, sidebar nav levels, and version switcher links.
  */
@@ -173,6 +178,7 @@ export const getStaticProps: GetStaticProps<
 			basePath: BASE_URL,
 			context: { params },
 			productSlug: PRODUCT_SLUG,
+			schemaIconSlug: SCHEMA_ICON_SLUG,
 			statusIndicatorConfig: STATUS_INDICATOR_CONFIG,
 			navResourceItems: NAV_RESOURCE_ITEMS,
 			// Handle rename of `targetFile` to `sourceFile` for new template

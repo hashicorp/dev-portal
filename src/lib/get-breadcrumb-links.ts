@@ -33,6 +33,7 @@ const KNOWN_URL_TITLE: Record<string, string> = {
 const KNOWN_URL_SEGMENT_TITLE: Record<string, string> = {
 	'api-docs': 'API',
 	'vault-secrets': 'Vault Secrets',
+	'openapi-docs-preview': 'OpenAPI Docs Preview Tool',
 }
 
 /**

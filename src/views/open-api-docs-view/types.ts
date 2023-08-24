@@ -126,6 +126,7 @@ export interface StatusIndicatorConfig {
 export interface OpenApiDocsViewProps {
 	IS_REVISED_TEMPLATE: true
 	productData: ProductData
+	schemaIconSlug?: ProductSlug
 	title: string
 	descriptionMdx: MDXRemoteSerializeResult
 	releaseStage: string
@@ -156,7 +157,9 @@ export interface OpenApiDocsViewProps {
 	statusIndicatorConfig: StatusIndicatorConfig
 
 	/**
-	 * Some temporary data we'll remove for the production implementation.
+	 * Optionally pass `true` to hide the "back to" link normally shown
+	 * in the sidebar, which links to the parent product page.
+	 * This option is in place to reduce noise in the OpenAPI preview tool.
 	 */
-	_placeholder: $TSFixMe
+	hideBackToProductLink?: boolean
 }
