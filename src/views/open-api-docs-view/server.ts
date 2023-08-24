@@ -153,7 +153,7 @@ export async function getStaticProps({
 			navResourceItems,
 			breadcrumbLinks,
 			statusIndicatorConfig,
-			hideBackToProductLink,
+			hideBackToProductLink: hideBackToProductLink ?? false,
 		},
 	}
 }
