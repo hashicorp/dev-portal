@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// Third-party
-import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
 // Components
 import Badge from 'components/badge'
 import IconTile from 'components/icon-tile'

@@ -1,23 +1,25 @@
+// Third-party
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { FileStringInput } from '../file-string-input'
-import s from './open-api-preview-inputs.module.css'
-import { CodeMirrorInput } from '../code-mirror-input'
+// Components
 import Button from 'components/button'
 import InlineAlert from 'components/inline-alert'
+// Inputs
+import { FileStringInput } from '../file-string-input'
+import { CodeMirrorInput } from '../code-mirror-input'
+// Types
+import type { OpenApiPageConfig } from 'views/open-api-docs-view/server'
+import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
+// Styles
+import s from './open-api-preview-inputs.module.css'
 
-const GENERIC_PAGE_CONFIG = {
+const GENERIC_PAGE_CONFIG: Omit<OpenApiPageConfig, 'versionData'> = {
 	// basePath same no matter what, I think, preview tool is on static route
 	basePath: '/openapi-docs-preview',
 	// context is the same no matter what, no versioning, static route
 	context: { params: { page: [] } },
 	hideBackToProductLink: true,
 	productSlug: 'hcp',
-	releaseStage: 'preview',
-	statusIndicatorConfig: {
-		pageUrl: 'https://status.hashicorp.com',
-		endpointUrl: 'https://status.hashicorp.com/api/v2/status.json',
-	},
 	navResourceItems: [
 		{
 			title: 'Tutorial Library',
@@ -38,11 +40,6 @@ const GENERIC_PAGE_CONFIG = {
 	],
 }
 
-const DEFAULT_VALUES = {
-	openApiJsonString: '',
-	openApiDescription: '',
-}
-
 /**
  * TODO: write description
  */
@@ -60,12 +57,20 @@ function fakeVersionDataFromSourceFile(
 }
 
 export function OpenApiPreviewInputs({
-	staticProps,
 	setStaticProps,
-}: $TSFixMe) {
+}: {
+	setStaticProps: (v: OpenApiDocsViewProps) => void
+}) {
+	const [error, setError] = useState<{ title: string; description: string }>()
 	const [isCollapsed, setIsCollapsed] = useState(false)
-	const [inputData, setInputData] = useState(DEFAULT_VALUES)
+	const [inputData, setInputData] = useState({
+		openApiJsonString: '',
+		openApiDescription: '',
+	})
 
+	/**
+	 * Helper to set a specific input data value.
+	 */
 	function setInputValue(key: string, value: string) {
 		setInputData((p) => ({ ...p, [key]: value }))
 	}
@@ -97,8 +102,7 @@ export function OpenApiPreviewInputs({
 	async function fetchStaticProps() {
 		console.log('fetching static props...')
 		const versionData = fakeVersionDataFromSourceFile(
-			inputData.openApiJsonString,
-			GENERIC_PAGE_CONFIG.releaseStage
+			inputData.openApiJsonString
 		)
 		try {
 			const result = await fetch('/api/get-openapi-view-props', {
@@ -110,14 +114,12 @@ export function OpenApiPreviewInputs({
 				}),
 			})
 			const resultData = await result.json()
-			setStaticProps(resultData)
+			setStaticProps(resultData.props as OpenApiDocsViewProps)
 		} catch (e) {
-			setStaticProps({
-				error: {
-					title: 'Failed to generate page data',
-					description:
-						'Failed to generate page data from the provided inputs. Please ensure the provided schema is valid JSON. Please also ensure the provided description is valid markdown.',
-				},
+			setError({
+				title: 'Failed to generate page data',
+				description:
+					'Failed to generate page data from the provided inputs. Please ensure the provided schema is valid JSON. Please also ensure the provided description is valid markdown.',
 			})
 		}
 	}
@@ -141,11 +143,11 @@ export function OpenApiPreviewInputs({
 							onClick={() => fetchStaticProps()}
 						/>
 					</div>
-					{staticProps && 'error' in staticProps ? (
+					{error ? (
 						<InlineAlert
 							color="critical"
-							title={staticProps.error.title}
-							description={staticProps.error.description}
+							title={error.title}
+							description={error.description}
 						/>
 					) : null}
 					<div className="hds-form-field--layout-vertical">
