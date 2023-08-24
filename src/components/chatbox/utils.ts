@@ -120,6 +120,7 @@ class SSEDecoder {
 			return null
 		}
 
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars, prefer-const
 		let [fieldname, _, value] = partition(line, ':')
 
 		if (value.startsWith(' ')) {
