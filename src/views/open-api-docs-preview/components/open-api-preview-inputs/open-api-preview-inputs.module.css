@@ -1,0 +1,38 @@
+.root {
+	background: black;
+	border: 1px solid magenta;
+	padding: 1rem;
+	position: fixed;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	transition: transform 0.3s;
+	width: 320px;
+
+	&.isCollapsed {
+		transform: translateX(100%);
+	}
+}
+
+.inputs {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.collapseButtonLayout {
+	position: absolute;
+	top: 50%;
+	right: 100%;
+	transform: translateY(-50%);
+}
+
+.collapseButton {
+	padding: 2rem;
+	border-top-left-radius: 50%;
+	border-bottom-left-radius: 50%;
+	border: none;
+	background: magenta;
+	color: black;
+	cursor: pointer;
+}
