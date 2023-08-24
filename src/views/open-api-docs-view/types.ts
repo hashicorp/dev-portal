@@ -154,9 +154,4 @@ export interface OpenApiDocsViewProps {
 	 * Configuration for the status-page indicator in the header area.
 	 */
 	statusIndicatorConfig: StatusIndicatorConfig
-
-	/**
-	 * Some temporary data we'll remove for the production implementation.
-	 */
-	_placeholder: $TSFixMe
 }

@@ -16,6 +16,8 @@ import type { StatusIndicatorConfig } from 'views/open-api-docs-view/types'
 import type { ReactNode } from 'react'
 // Styles
 import s from './open-api-overview.module.css'
+import ProductIcon from 'components/product-icon'
+import { ProductSlug } from 'types/products'
 
 /**
  * Render an overview section for an OpenApiView.
@@ -27,6 +29,7 @@ import s from './open-api-overview.module.css'
 
 export interface OpenApiOverviewProps {
 	title: string
+	specProductSlug: ProductSlug
 	badgeText: string
 	statusIndicatorConfig?: StatusIndicatorConfig
 	contentSlot?: ReactNode
@@ -35,6 +38,7 @@ export interface OpenApiOverviewProps {
 
 export function OpenApiOverview({
 	title,
+	specProductSlug,
 	badgeText,
 	statusIndicatorConfig,
 	contentSlot,
@@ -43,7 +47,7 @@ export function OpenApiOverview({
 		<div className={s.overviewWrapper}>
 			<header className={s.header}>
 				<IconTile size="medium" className={s.icon}>
-					<IconVaultColor16 />
+					<ProductIcon productSlug={specProductSlug} />
 				</IconTile>
 				<span>
 					<h1 className={s.heading}>{title}</h1>
@@ -54,12 +58,14 @@ export function OpenApiOverview({
 						/>
 					) : null}
 				</span>
-				<Badge
-					className={s.releaseStageBadge}
-					text={badgeText}
-					type="outlined"
-					size="small"
-				/>
+				{badgeText ? (
+					<Badge
+						className={s.releaseStageBadge}
+						text={badgeText}
+						type="outlined"
+						size="small"
+					/>
+				) : null}
 			</header>
 			{contentSlot ? <section>{contentSlot}</section> : null}
 		</div>

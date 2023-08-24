@@ -38,7 +38,10 @@ function OpenApiDocsView({
 		<SidebarLayout
 			sidebarSlot={
 				<>
-					<SidebarBackToLink text="HashiCorp Cloud Platform" href="/hcp" />
+					<SidebarBackToLink
+						text={productData.name}
+						href={`/${productData.slug}`}
+					/>
 					<OpenApiSidebarContents
 						navItems={navItems}
 						navResourceItems={navResourceItems}
@@ -58,6 +61,7 @@ function OpenApiDocsView({
 					<BreadcrumbBar links={breadcrumbLinks} />
 					<OpenApiOverview
 						title={title}
+						specProductSlug={productData.slug}
 						badgeText={releaseStage}
 						statusIndicatorConfig={statusIndicatorConfig}
 						contentSlot={
