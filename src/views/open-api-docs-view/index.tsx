@@ -33,15 +33,18 @@ function OpenApiDocsView({
 	navResourceItems,
 	breadcrumbLinks,
 	statusIndicatorConfig,
+	hideBackToProductLink,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
 			sidebarSlot={
 				<>
-					<SidebarBackToLink
-						text={productData.name}
-						href={`/${productData.slug}`}
-					/>
+					{hideBackToProductLink ? null : (
+						<SidebarBackToLink
+							text={productData.name}
+							href={`/${productData.slug}`}
+						/>
+					)}
 					<OpenApiSidebarContents
 						navItems={navItems}
 						navResourceItems={navResourceItems}

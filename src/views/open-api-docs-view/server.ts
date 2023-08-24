@@ -68,6 +68,7 @@ export async function getStaticProps({
 	statusIndicatorConfig,
 	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
 	navResourceItems = [],
+	hideBackToProductLink,
 }: {
 	context: GetStaticPropsContext<OpenApiDocsParams>
 	productSlug: ProductSlug
@@ -78,6 +79,7 @@ export async function getStaticProps({
 		schemaData: OpenAPIV3.Document
 	) => OpenAPIV3.Document
 	navResourceItems: OpenApiNavItem[]
+	hideBackToProductLink?: boolean
 }): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
 	// Get the product data
 	const productData = cachedGetProductData(productSlug)
@@ -149,6 +151,7 @@ export async function getStaticProps({
 			navResourceItems,
 			breadcrumbLinks,
 			statusIndicatorConfig,
+			hideBackToProductLink,
 		},
 	}
 }

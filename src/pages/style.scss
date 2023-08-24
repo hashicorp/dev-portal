@@ -1,0 +1,9 @@
+// Import file-input and other form elements for `/openapi-docs-preview`
+@import '@hashicorp/design-system-components/app/styles/components/form/field.scss';
+@import '@hashicorp/design-system-components/app/styles/components/form/file-input.scss';
+@import '@hashicorp/design-system-components/app/styles/components/form/label.scss';
+
+// Addresses an issue where fields overflow the containing `grid` layout
+.hds-form-field--layout-vertical {
+	grid-template-columns: minmax(0, 1fr);
+}

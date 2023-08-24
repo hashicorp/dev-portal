@@ -1,0 +1,10 @@
+.root {
+	width: 100%;
+	composes: hds-typography-code-100 from global;
+	overflow: hidden;
+	border-radius: 5px;
+
+	& :global(.cm-scroller) {
+		font-family: var(--token-typography-code-100-font-family);
+	}
+}

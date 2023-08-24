@@ -12,8 +12,7 @@ export function FileStringInput({
 	value: string
 	setValue: (fileString: string) => void
 }) {
-	const fileInputId = useId()
-	const textareaId = useId()
+	const id = useId()
 
 	function handleFileInputChange(e: ChangeEvent<HTMLInputElement>) {
 		const fileReader = new FileReader()
@@ -22,23 +21,22 @@ export function FileStringInput({
 	}
 
 	return (
-		<div className={s.root}>
-			<label htmlFor={fileInputId}>{label}</label>
-			<input
-				id={fileInputId}
-				type="file"
-				accept={accept}
-				onChange={handleFileInputChange}
-			/>
-			<label className="g-screen-reader-only" htmlFor={textareaId}>
-				{label} File String
+		<div className="hds-form-field--layout-vertical">
+			<label
+				className="hds-form-label hds-form-field__label hds-typography-body-200 hds-font-weight-semibold"
+				htmlFor={id}
+			>
+				{label}
 			</label>
-			<textarea
-				style={{ width: '100%', height: '200px', resize: 'vertical' }}
-				id={textareaId}
-				onChange={(e) => setValue(e.target.value)}
-				value={value}
-			/>
+			<div className="hds-form-field__control">
+				<input
+					id={id}
+					type="file"
+					className="hds-form-file-input hds-typography-body-200"
+					accept={accept}
+					onChange={handleFileInputChange}
+				/>
+			</div>
 		</div>
 	)
 }

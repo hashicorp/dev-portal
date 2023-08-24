@@ -1,16 +1,18 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 import { FileStringInput } from '../file-string-input'
-import { TextInput } from '../text-input'
 import s from './open-api-preview-inputs.module.css'
-import { ObjectInput } from '../object-input'
-import ArrayInput from '../array-input'
-import { TextareaInput } from '../textarea-input'
+import { CodeMirrorInput } from '../code-mirror-input'
+import Button from 'components/button'
+import InlineAlert from 'components/inline-alert'
 
-const DEFAULT_INPUT_VALUES = {
+const GENERIC_PAGE_CONFIG = {
+	// basePath same no matter what, I think, preview tool is on static route
+	basePath: '/openapi-docs-preview',
+	// context is the same no matter what, no versioning, static route
+	context: { params: { page: [] } },
+	hideBackToProductLink: true,
 	productSlug: 'hcp',
-	openApiJsonString: '',
-	openApiDescription: '',
 	releaseStage: 'preview',
 	statusIndicatorConfig: {
 		pageUrl: 'https://status.hashicorp.com',
@@ -36,6 +38,11 @@ const DEFAULT_INPUT_VALUES = {
 	],
 }
 
+const DEFAULT_VALUES = {
+	openApiJsonString: '',
+	openApiDescription: '',
+}
+
 /**
  * TODO: write description
  */
@@ -52,94 +59,119 @@ function fakeVersionDataFromSourceFile(
 	]
 }
 
-export function OpenApiPreviewInputs({ setStaticProps }: $TSFixMe) {
+export function OpenApiPreviewInputs({
+	staticProps,
+	setStaticProps,
+}: $TSFixMe) {
 	const [isCollapsed, setIsCollapsed] = useState(false)
-	const [inputData, setInputData] = useState(DEFAULT_INPUT_VALUES)
+	const [inputData, setInputData] = useState(DEFAULT_VALUES)
 
 	function setInputValue(key: string, value: string) {
 		setInputData((p) => ({ ...p, [key]: value }))
 	}
 
+	/**
+	 * When the inputData.openApiJsonString value changes, in a try-catch,
+	 * attempt to parse the JSON `schema` from the string, grab the
+	 * `schema.info.description`, and set `inputData.openApiDescription`
+	 * based on that value.
+	 */
+	useEffect(() => {
+		if (inputData.openApiDescription !== '') {
+			return
+		}
+		try {
+			const parsed = JSON.parse(inputData.openApiJsonString)
+			const parsedValue = parsed?.info?.description
+			if (parsedValue && inputData.openApiDescription !== parsedValue) {
+				setInputValue('openApiDescription', parsedValue)
+			}
+		} catch (e) {
+			// do nothing
+		}
+	}, [inputData.openApiJsonString, inputData.openApiDescription])
+
+	/**
+	 * TODO: add description
+	 */
 	async function fetchStaticProps() {
 		console.log('fetching static props...')
 		const versionData = fakeVersionDataFromSourceFile(
 			inputData.openApiJsonString,
-			inputData.releaseStage
+			GENERIC_PAGE_CONFIG.releaseStage
 		)
-		const result = await fetch('/api/get-openapi-view-props', {
-			method: 'POST',
-			body: JSON.stringify({
-				// basePath same no matter what, I think, preview tool is on static route
-				basePath: '/openapi-docs-preview',
-				// context is the same no matter what, no versioning, static route
-				context: { params: { page: [] } },
-				productSlug: inputData.productSlug,
-				openApiDescription: inputData.openApiDescription,
-				statusIndicatorConfig: inputData.statusIndicatorConfig,
-				navResourceItems: inputData.navResourceItems,
-				versionData,
-			}),
-		})
-		const resultData = await result.json()
-		setStaticProps(resultData)
+		try {
+			const result = await fetch('/api/get-openapi-view-props', {
+				method: 'POST',
+				body: JSON.stringify({
+					...GENERIC_PAGE_CONFIG,
+					openApiDescription: inputData.openApiDescription,
+					versionData,
+				}),
+			})
+			const resultData = await result.json()
+			setStaticProps(resultData)
+		} catch (e) {
+			setStaticProps({
+				error: {
+					title: 'Failed to generate page data',
+					description:
+						'Failed to generate page data from the provided inputs. Please ensure the provided schema is valid JSON. Please also ensure the provided description is valid markdown.',
+				},
+			})
+		}
 	}
 
 	return (
 		<div className={classNames(s.root, { [s.isCollapsed]: isCollapsed })}>
 			<div className={s.scrollableContent}>
 				<div className={s.inputs}>
-					<FileStringInput
-						label="openApiJson"
-						accept=".json"
-						value={inputData.openApiJsonString}
-						setValue={(v) => setInputValue('openApiJsonString', v)}
-					/>
-					<TextareaInput
-						label="schema.info.description"
-						value={inputData.openApiDescription}
-						setValue={(v) => setInputValue('openApiDescription', v)}
-					/>
-					<TextInput
-						label="productSlug"
-						value={inputData.productSlug}
-						setValue={(v) => setInputValue('productSlug', v)}
-					/>
-					{/* releaseStage can just be "preview", simplifies input */}
-					{/* <TextInput
-						label="releaseStage"
-						value={inputData.releaseStage}
-						setValue={(v) => setInputValue('releaseStage', v)}
-					/> */}
-					{/* statusIndicatorConfig can use top-level status page data */}
-					{/* <ObjectInput
-						label="statusIndicatorConfig"
-						value={inputData.statusIndicatorConfig}
-						setValue={(v) => setInputValue('statusIndicatorConfig', v)}
-						properties={{
-							pageUrl: { type: 'text' },
-							endpointUrl: { type: 'text' },
-						}}
-					/> */}
-					{/* navResourceItems can be generic, to simplify input */}
-					{/* <ArrayInput
-						label="navResourceItems"
-						value={inputData.navResourceItems}
-						setValue={(v) => setInputValue('navResourceItems', v)}
-						arrayOf={{
-							label: 'navResourceItem',
-							type: 'object',
-							properties: {
-								title: { type: 'text' },
-								href: { type: 'text' },
-							},
-						}}
-					/> */}
-					<button
-						className={s.generateButton}
-						onClick={() => fetchStaticProps()}
-					>
-						Generate preview
-					</button>
+					<div className={s.topRow}>
+						<FileStringInput
+							label="OpenAPI File"
+							accept=".json"
+							value={inputData.openApiJsonString}
+							setValue={(v) => setInputValue('openApiJsonString', v)}
+						/>
+						<Button
+							className={s.generateButton}
+							text="Generate preview"
+							size="large"
+							color="secondary"
+							onClick={() => fetchStaticProps()}
+						/>
+					</div>
+					{staticProps && 'error' in staticProps ? (
+						<InlineAlert
+							color="critical"
+							title={staticProps.error.title}
+							description={staticProps.error.description}
+						/>
+					) : null}
+					<div className="hds-form-field--layout-vertical">
+						<label className="hds-form-label hds-form-field__label hds-typography-body-200 hds-font-weight-semibold">
+							Schema Source
+						</label>
+						<div className="hds-form-field__control">
+							<CodeMirrorInput
+								language="json"
+								value={inputData.openApiJsonString}
+								setValue={(v) => setInputValue('openApiJsonString', v)}
+							/>
+						</div>
+					</div>
+					<div className="hds-form-field--layout-vertical">
+						<label className="hds-form-label hds-form-field__label hds-typography-body-200 hds-font-weight-semibold">
+							Description Markdown
+						</label>
+						<div className="hds-form-field__control">
+							<CodeMirrorInput
+								language="markdown"
+								value={inputData.openApiDescription}
+								setValue={(v) => setInputValue('openApiDescription', v)}
+							/>
+						</div>
+					</div>
 				</div>
 				<div className={s.collapseButtonLayout}>
 					<button

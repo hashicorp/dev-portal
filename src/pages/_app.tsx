@@ -39,6 +39,7 @@ import { Toaster } from 'components/toast'
 
 // Local imports
 import './style.css'
+import './style.scss'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 

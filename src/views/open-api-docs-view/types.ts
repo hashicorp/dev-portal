@@ -154,4 +154,11 @@ export interface OpenApiDocsViewProps {
 	 * Configuration for the status-page indicator in the header area.
 	 */
 	statusIndicatorConfig: StatusIndicatorConfig
+
+	/**
+	 * Optionally pass `true` to hide the "back to" link normally shown
+	 * in the sidebar, which links to the parent product page.
+	 * This option is in place to reduce noise in the OpenAPI preview tool.
+	 */
+	hideBackToProductLink?: boolean
 }
