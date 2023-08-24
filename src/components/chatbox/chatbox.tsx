@@ -17,6 +17,7 @@ import { IconUser16 } from '@hashicorp/flight-icons/svg-react/user-16'
 import { IconBulb16 } from '@hashicorp/flight-icons/svg-react/bulb-16'
 // ms is a transient dep
 import ms from 'ms'
+import { z } from 'zod'
 
 import { useMutation } from '@tanstack/react-query'
 
@@ -135,21 +136,30 @@ const useAI = () => {
 			const _reader = stream.getReader()
 			setReader(_reader)
 
+			// transform stream to async iterable;
+			// each chunk is transformed into a SSE object
 			const iter = streamToAsyncIterable(_reader)
 
 			// Self-invoking async function to read the stream
 			;(async () => {
-				// if there's no iterator, exit
-				if (!iter) {
-					return
-				}
 				// Reset streamed text
 				setStreamedText('')
 				setIsReading(true)
-				// decoder converts the Uint8Array to a human-readable string
+
+				// This is our contract with the backend
+				const messageFormat = z.object({
+					content: z.string(),
+				})
+
 				for await (const { event, data, raw } of iter) {
-					const content = JSON.parse(data).content
-					setStreamedText((prev) => prev + content)
+					const parseResult = messageFormat.safeParse(JSON.parse(data))
+					if (!parseResult.success) {
+						// malformatted message
+						continue
+					} else {
+						const { content } = parseResult.data
+						setStreamedText((prev) => prev + content)
+					}
 				}
 				// cleanup
 				setIsReading(false)
