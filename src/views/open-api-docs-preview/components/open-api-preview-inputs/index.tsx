@@ -128,6 +128,7 @@ export function OpenApiPreviewInputs({ setStaticProps }: $TSFixMe) {
 				background: 'black',
 				padding: '1rem',
 				transform: isCollapsed ? 'translateX(100%)' : 'none',
+				transition: 'transform 0.3s',
 			}}
 		>
 			<div>
@@ -176,13 +177,22 @@ export function OpenApiPreviewInputs({ setStaticProps }: $TSFixMe) {
 			<div
 				style={{
 					position: 'absolute',
-					bottom: '1rem',
-					right: 'calc(100% + 1rem)',
+					top: '50%',
+					right: '100%',
+					transform: 'translateY(-50%)',
 				}}
 			>
 				<button
 					onClick={() => setIsCollapsed((p) => !p)}
-					style={{ padding: '2rem', borderRadius: '50%', border: 'none' }}
+					style={{
+						padding: '2rem',
+						borderTopLeftRadius: '50%',
+						borderBottomLeftRadius: '50%',
+						border: 'none',
+						background: 'magenta',
+						color: 'black',
+						cursor: 'pointer',
+					}}
 				>
 					{isCollapsed ? 'Show' : 'Hide'} preview inputs
 				</button>
