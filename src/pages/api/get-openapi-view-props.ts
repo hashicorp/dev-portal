@@ -1,7 +1,19 @@
-import { getStaticProps } from 'views/open-api-docs-view/server'
+import {
+	OpenApiPageConfig,
+	getStaticProps,
+} from 'views/open-api-docs-view/server'
 // Types
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { OpenAPIV3 } from 'openapi-types'
+
+/**
+ * We expected posted data to be nearly ready to pass to `getStaticProps`
+ * for the view, which requires `OpenApiPageConfig` data.
+ */
+type ExpectedBody = Omit<OpenApiPageConfig, 'versionData'> & {
+	openApiJsonString: string
+	openApiDescription: string
+}
 
 export default async function handler(
 	req: NextApiRequest,
@@ -17,9 +29,29 @@ export default async function handler(
 	 * Build the static props from the POST'ed page configuration data,
 	 * which includes the full OpenAPI spec as a string.
 	 */
-	const { openApiDescription, ...pageConfiguration } = JSON.parse(req.body)
+	const { openApiDescription, openApiJsonString, ...restPageConfig } =
+		JSON.parse(req.body) as ExpectedBody
+
+	/**
+	 * Construct some preview data just to match the expected `getStaticProps`
+	 * signature. The `versionId` and `releaseStage` don't really matter here.
+	 */
+	const versionData = [
+		{
+			versionId: 'preview',
+			releaseStage: 'preview',
+			sourceFile: openApiJsonString,
+		},
+	]
+
+	/**
+	 * Build static props for the page
+	 */
 	const staticProps = await getStaticProps({
-		...pageConfiguration,
+		// Pass the bulk of the page config
+		...restPageConfig,
+		// Pass the constructed version data
+		versionData,
 		/**
 		 * Massage the schema data a little bit, replacing
 		 * "HashiCorp Cloud Platform" in the title with "HCP".

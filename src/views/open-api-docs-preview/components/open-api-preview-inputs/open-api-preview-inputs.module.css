@@ -9,7 +9,7 @@
 	top: 0;
 	bottom: 0;
 	transition: transform 0.3s;
-	width: 800px;
+	width: min(80vw, 800px);
 
 	&.isCollapsed {
 		transform: translateX(100%);

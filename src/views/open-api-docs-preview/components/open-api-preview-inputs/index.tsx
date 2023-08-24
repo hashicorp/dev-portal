@@ -13,13 +13,23 @@ import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
 // Styles
 import s from './open-api-preview-inputs.module.css'
 
+/**
+ * Boilerplate page configuration, we could in theory expose this so visitors
+ * to the preview tool could manipulate it, but we intentionally just
+ * hard-code here to keep the focus of the preview tool on OpenAPI spec
+ * contents.
+ */
 const GENERIC_PAGE_CONFIG: Omit<OpenApiPageConfig, 'versionData'> = {
-	// basePath same no matter what, I think, preview tool is on static route
+	// basePath same no matter what, preview tool is on static route
 	basePath: '/openapi-docs-preview',
-	// context is the same no matter what, no versioning, static route
+	// No versioning in the preview tool, focus on one spec file at a time
 	context: { params: { page: [] } },
+	// Hide the product context for now, preview tool focus is on spec content
 	hideBackToProductLink: true,
+	// Product slug, using HCP to just show a generic HashiCorp logo,
+	// so that the preview tool's focus can remain on the spec file contents
 	productSlug: 'hcp',
+	// Generic resource items, we can set more specific ones closer to launch
 	navResourceItems: [
 		{
 			title: 'Tutorial Library',
@@ -38,22 +48,6 @@ const GENERIC_PAGE_CONFIG: Omit<OpenApiPageConfig, 'versionData'> = {
 			href: 'https://www.hashicorp.com/customer-success',
 		},
 	],
-}
-
-/**
- * TODO: write description
- */
-function fakeVersionDataFromSourceFile(
-	openApiJsonString: string,
-	releaseStage: string = 'preview'
-) {
-	return [
-		{
-			versionId: 'preview-version-this-string-shouldnt-matter',
-			releaseStage,
-			sourceFile: openApiJsonString,
-		},
-	]
 }
 
 export function OpenApiPreviewInputs({
@@ -76,10 +70,7 @@ export function OpenApiPreviewInputs({
 	}
 
 	/**
-	 * When the inputData.openApiJsonString value changes, in a try-catch,
-	 * attempt to parse the JSON `schema` from the string, grab the
-	 * `schema.info.description`, and set `inputData.openApiDescription`
-	 * based on that value.
+	 * Pre-fill the description markdown from an input OpenAPI JSON string.
 	 */
 	useEffect(() => {
 		if (inputData.openApiDescription !== '') {
@@ -97,20 +88,17 @@ export function OpenApiPreviewInputs({
 	}, [inputData.openApiJsonString, inputData.openApiDescription])
 
 	/**
-	 * TODO: add description
+	 * Fetch static props for the page and update state when
+	 * the provided `inputData` is submitted via a button activation.
 	 */
 	async function fetchStaticProps() {
-		console.log('fetching static props...')
-		const versionData = fakeVersionDataFromSourceFile(
-			inputData.openApiJsonString
-		)
 		try {
 			const result = await fetch('/api/get-openapi-view-props', {
 				method: 'POST',
 				body: JSON.stringify({
 					...GENERIC_PAGE_CONFIG,
 					openApiDescription: inputData.openApiDescription,
-					versionData,
+					openApiJsonString: inputData.openApiJsonString,
 				}),
 			})
 			const resultData = await result.json()
