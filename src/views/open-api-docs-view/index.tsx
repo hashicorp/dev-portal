@@ -25,6 +25,7 @@ import { DescriptionMdx } from './components/open-api-overview/components/descri
  */
 function OpenApiDocsView({
 	productData,
+	schemaIconSlug,
 	title,
 	releaseStage,
 	descriptionMdx,
@@ -64,7 +65,7 @@ function OpenApiDocsView({
 					<BreadcrumbBar links={breadcrumbLinks} />
 					<OpenApiOverview
 						title={title}
-						specProductSlug={productData.slug}
+						schemaIconSlug={schemaIconSlug || productData.slug}
 						badgeText={releaseStage}
 						statusIndicatorConfig={statusIndicatorConfig}
 						contentSlot={

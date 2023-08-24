@@ -27,7 +27,7 @@ import { ProductSlug } from 'types/products'
 
 export interface OpenApiOverviewProps {
 	title: string
-	specProductSlug: ProductSlug
+	schemaIconSlug: ProductSlug
 	badgeText: string
 	statusIndicatorConfig?: StatusIndicatorConfig
 	contentSlot?: ReactNode
@@ -36,7 +36,7 @@ export interface OpenApiOverviewProps {
 
 export function OpenApiOverview({
 	title,
-	specProductSlug,
+	schemaIconSlug,
 	badgeText,
 	statusIndicatorConfig,
 	contentSlot,
@@ -45,7 +45,7 @@ export function OpenApiOverview({
 		<div className={s.overviewWrapper}>
 			<header className={s.header}>
 				<IconTile size="medium" className={s.icon}>
-					<ProductIcon productSlug={specProductSlug} />
+					<ProductIcon productSlug={schemaIconSlug} />
 				</IconTile>
 				<span>
 					<h1 className={s.heading}>{title}</h1>
