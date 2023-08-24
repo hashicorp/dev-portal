@@ -17,7 +17,7 @@ export default async function handler(
 	 * Build the static props from the POST'ed page configuration data,
 	 * which includes the full OpenAPI spec as a string.
 	 */
-	const pageConfiguration = JSON.parse(req.body)
+	const { openApiDescription, ...pageConfiguration } = JSON.parse(req.body)
 	const staticProps = await getStaticProps({
 		...pageConfiguration,
 		/**
@@ -25,6 +25,10 @@ export default async function handler(
 		 * "HashiCorp Cloud Platform" in the title with "HCP".
 		 */
 		massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
+			// Replace the schema description with the POST'ed description, if present
+			if (openApiDescription) {
+				schemaData.info.description = openApiDescription
+			}
 			// Replace "HashiCorp Cloud Platform" with "HCP" in the title
 			const massagedTitle = schemaData.info.title.replace(
 				'HashiCorp Cloud Platform',
