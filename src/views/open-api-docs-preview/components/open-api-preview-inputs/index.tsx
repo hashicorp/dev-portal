@@ -48,11 +48,11 @@ const PLACEHOLDER_INPUT_DATA = {
 	 *
 	 * TODO: add control for source file string via `versionData`.
 	 */
-	// Handle rename of `targetFile` to `sourceFile` for new template
+	// Handle rename of `targetFile` to `openApiJsonString` for new template
 	// versionData: [
 	// 	{
 	// 		versionId: 'latest',
-	// 		sourceFile: JSON.stringify(HCP_VAULT_SECRETS_OPENAPI),
+	// 		openApiJsonString: JSON.stringify(HCP_VAULT_SECRETS_OPENAPI),
 	// 	},
 	// ],
 	/**
@@ -78,30 +78,32 @@ const PLACEHOLDER_INPUT_DATA = {
  * TODO: write description
  */
 function fakeVersionDataFromSourceFile(
-	sourceFile: string,
+	openApiJsonString: string,
 	releaseStage: string = 'preview'
 ) {
 	return [
 		{
 			versionId: 'preview-version-this-string-shouldnt-matter',
 			releaseStage,
-			sourceFile,
+			sourceFile: openApiJsonString,
 		},
 	]
 }
 
-export function OpenApiPreviewInputs({
-	staticProps,
-	setStaticProps,
-}: $TSFixMe) {
+export function OpenApiPreviewInputs({ setStaticProps }: $TSFixMe) {
+	const [isCollapsed, setIsCollapsed] = useState(false)
 	const [inputData, setInputData] = useState({
 		productSlug: 'hcp',
-		sourceFile: '',
+		openApiJsonString: '',
+		releaseStage: 'preview',
 	})
 
 	async function fetchStaticProps() {
 		console.log('fetching static props...')
-		const versionData = fakeVersionDataFromSourceFile(inputData.sourceFile)
+		const versionData = fakeVersionDataFromSourceFile(
+			inputData.openApiJsonString,
+			inputData.releaseStage
+		)
 		const result = await fetch('/api/get-openapi-view-props', {
 			method: 'POST',
 			body: JSON.stringify({
@@ -117,14 +119,17 @@ export function OpenApiPreviewInputs({
 	return (
 		<div
 			style={{
+				position: 'fixed',
+				right: 0,
+				top: 0,
+				width: '320px',
 				border: '1px solid magenta',
-				minHeight: staticProps !== null ? '0' : '100vh',
+				minHeight: '100vh',
+				background: 'black',
+				padding: '1rem',
+				transform: isCollapsed ? 'translateX(100%)' : 'none',
 			}}
 		>
-			<p>
-				TODO: lots more inputs to add, still lots of HCP Vault Secrets
-				placeholder here.
-			</p>
 			<div>
 				<label htmlFor="productSlug">productSlug</label>
 				<br />
@@ -138,20 +143,50 @@ export function OpenApiPreviewInputs({
 				/>
 			</div>
 			<div>
-				<label htmlFor="sourceFile">sourceFile</label>
+				<label htmlFor="releaseStage">releaseStage</label>
+				<br />
+				<input
+					id="releaseStage"
+					type="text"
+					onChange={(e) =>
+						setInputData((p) => ({ ...p, releaseStage: e.target.value }))
+					}
+					value={inputData.releaseStage}
+				/>
+			</div>
+			<div>
+				<label htmlFor="openApiJsonString">openApiJsonString</label>
 				<br />
 				<textarea
 					style={{ width: '100%', height: '200px', resize: 'vertical' }}
-					id="sourceFile"
+					id="openApiJsonString"
 					onChange={(e) =>
-						setInputData((p) => ({ ...p, sourceFile: e.target.value }))
+						setInputData((p) => ({ ...p, openApiJsonString: e.target.value }))
 					}
-					value={inputData.sourceFile}
+					value={inputData.openApiJsonString}
 				/>
 			</div>
 			<p>
 				<button onClick={() => fetchStaticProps()}>Generate preview</button>
 			</p>
+			<p>
+				TODO: lots more inputs to add, still lots of HCP Vault Secrets
+				placeholder here.
+			</p>
+			<div
+				style={{
+					position: 'absolute',
+					bottom: '1rem',
+					right: 'calc(100% + 1rem)',
+				}}
+			>
+				<button
+					onClick={() => setIsCollapsed((p) => !p)}
+					style={{ padding: '2rem', borderRadius: '50%', border: 'none' }}
+				>
+					{isCollapsed ? 'Show' : 'Hide'} preview inputs
+				</button>
+			</div>
 		</div>
 	)
 }

@@ -8,16 +8,13 @@ import { useState } from 'react'
 // View
 import OpenApiDocsView from 'views/open-api-docs-view'
 // Types
-import type {
-	OpenApiDocsViewProps,
-	OpenApiNavItem,
-} from 'views/open-api-docs-view/types'
-import { ProductSlug } from 'types/products'
+import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
 /**
  * TODO: live preview components, find a way to clean up this page file
  * to better differentiate things.
  */
 import { OpenApiPreviewInputs } from 'views/open-api-docs-preview/components/open-api-preview-inputs'
+import SidebarLayout from 'layouts/sidebar-layout'
 
 /**
  * TODO: write description for this type,
@@ -49,10 +46,6 @@ function OpenApiDocsPreviewView() {
 
 	return (
 		<>
-			<OpenApiPreviewInputs
-				staticProps={staticProps}
-				setStaticProps={setStaticProps}
-			/>
 			{/* <pre
 				style={{
 					maxHeight: '200px',
@@ -62,9 +55,19 @@ function OpenApiDocsPreviewView() {
 			>
 				<code>{JSON.stringify(staticProps, null, 2)}</code>
 			</pre> */}
-			{staticProps && 'props' in staticProps ? (
-				<OpenApiDocsView {...staticProps.props} />
-			) : null}
+			<div style={{ isolation: 'isolate' }}>
+				{staticProps && 'props' in staticProps ? (
+					<OpenApiDocsView {...staticProps.props} />
+				) : (
+					<SidebarLayout sidebarSlot="" mobileMenuSlot={null}>
+						<div style={{ padding: '24px' }} />
+					</SidebarLayout>
+				)}
+			</div>
+			<OpenApiPreviewInputs
+				staticProps={staticProps}
+				setStaticProps={setStaticProps}
+			/>
 		</>
 	)
 }
