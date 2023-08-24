@@ -33,10 +33,7 @@ async function fetchServiceStatus(url: string): Promise<ServiceStatus> {
 	let status: ServiceStatus
 	try {
 		const data = (await fetchJson(url)) as ExpectedStatusPageData
-		status =
-			'component' in data
-				? data.component?.status
-				: mapPageStatus[data.status?.indicator]
+		status = data.component?.status
 		if (typeof status !== 'string') {
 			throw new Error(
 				`In the "useServiceStatus" hook, the status data did not match expected shape. Please ensure GET requests to the endpoint ${url} yield data with a string at "responseData.component.status".`
@@ -54,24 +51,11 @@ async function fetchServiceStatus(url: string): Promise<ServiceStatus> {
 /**
  * The shape of data we expect to receive from a provided `endpointUrl`.
  */
-interface ExpectedComponentPageData {
+interface ExpectedStatusPageData {
 	component: {
 		status: ServiceStatus
 	}
 }
-type RootPageStatusIndicator = 'none' | 'minor' | 'major' | 'critical'
-interface ExpectedRootPageData {
-	status: {
-		indicator: RootPageStatusIndicator
-	}
-}
-const mapPageStatus: Record<RootPageStatusIndicator, ServiceStatus> = {
-	none: 'operational',
-	minor: 'degraded_performance',
-	major: 'major_outage',
-	critical: 'major_outage',
-}
-type ExpectedStatusPageData = ExpectedComponentPageData | ExpectedRootPageData
 
 /**
  * Fetch JSON data from a provided URL.
