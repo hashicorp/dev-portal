@@ -535,54 +535,62 @@ const ChatBox = () => {
 				)}
 
 				<form id="chat-create" onSubmit={handleSubmit} ref={formRef}>
-					<div className={s['search-area']}>
-						{isLoading ? (
-							<IconLoading24 className={'loadingIcon'} />
-						) : (
-							<IconSend24 />
-						)}
-						<textarea
-							value={userInput}
-							onChange={(e) => setUserInput(e.currentTarget.value)}
-							onKeyDown={(e) => {
-								// enter submits form; // shift+enter adds a newline
-								if (e.key == 'Enter' && e.shiftKey == false) {
-									if (userInput) {
-										e.preventDefault()
-										formRef.current.requestSubmit()
+					<div className={s.bottom}>
+						<div className={s.question}>
+							<div className={s.question_icon}>
+								{isLoading ? (
+									<IconLoading24 className={'loadingIcon'} />
+								) : (
+									<IconWand24
+										style={{
+											color:
+												'var(--token-color-foreground-highlight-on-surface)',
+										}}
+									/>
+								)}
+							</div>
+							<textarea
+								spellCheck={false}
+								value={userInput}
+								onChange={(e) => setUserInput(e.currentTarget.value)}
+								onKeyDown={(e) => {
+									// enter submits form; // shift+enter adds a newline
+									if (e.key == 'Enter' && e.shiftKey == false) {
+										if (userInput) {
+											e.preventDefault()
+											formRef.current.requestSubmit()
+										}
 									}
-								}
-							}}
-							id="task"
-							rows={userInput.split('\n').length}
-							className={cn(s.reset, s.textarea)}
-							placeholder="Send a new message"
-							disabled={isLoading}
-						/>
-						{isLoading ? (
-							<Button
-								type={'button'}
-								icon={<IconStopCircle24 height={16} width={16} />}
-								text={'Stop generating'}
-								color={'critical'}
-								onClick={stopStream}
+								}}
+								id="task"
+								rows={userInput.split('\n').length}
+								className={cn(s.reset, s.textarea)}
+								placeholder="Send a new message"
+								disabled={isLoading}
 							/>
-						) : (
-							<Button
-								disabled={userInput.length < 1}
-								type={'submit'}
-								icon={<IconSend24 height={16} width={16} />}
-								text={'Send'}
-							/>
-						)}
-					</div>
+							{isLoading ? (
+								<Button
+									type={'button'}
+									icon={<IconStopCircle24 height={16} width={16} />}
+									text={'Stop generating'}
+									color={'critical'}
+									onClick={stopStream}
+								/>
+							) : (
+								<Button
+									disabled={userInput.length < 1}
+									type={'submit'}
+									icon={<IconSend24 height={16} width={16} />}
+									text={'Send'}
+								/>
+							)}
+						</div>
 
-					<footer className={s.bottom}>
 						<span className={s.disclaimer}>
 							AI Disclaimer: HashiCorp AI may produce inaccurate information and
 							cause your computer to implode. Use at your own risk.
 						</span>
-					</footer>
+					</div>
 				</form>
 			</>
 		</div>
