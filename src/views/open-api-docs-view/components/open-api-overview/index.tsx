@@ -5,17 +5,16 @@
 
 // Components
 import Badge from 'components/badge'
+import ProductIcon from 'components/product-icon'
 import IconTile from 'components/icon-tile'
 // Local
 import { Status } from './components/status'
 // Types
-import type { StatusIndicatorConfig } from 'views/open-api-docs-view/types'
-// Types
 import type { ReactNode } from 'react'
+import type { ProductSlug } from 'types/products'
+import type { StatusIndicatorConfig } from 'views/open-api-docs-view/types'
 // Styles
 import s from './open-api-overview.module.css'
-import ProductIcon from 'components/product-icon'
-import { ProductSlug } from 'types/products'
 
 /**
  * Render an overview section for an OpenApiView.
