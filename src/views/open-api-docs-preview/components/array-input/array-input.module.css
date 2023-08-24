@@ -1,0 +1,45 @@
+.root {
+	border: 1px solid magenta;
+	display: flex;
+	flex-direction: column;
+}
+
+.items {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	& > div:not(:first-child) {
+		margin-top: -1px;
+	}
+}
+
+.item {
+	position: relative;
+	display: flex;
+	align-items: center;
+
+	& > :nth-child(2) {
+		flex-grow: 1;
+	}
+}
+
+.sortButtons {
+	display: flex;
+	flex-wrap: wrap;
+	flex-shrink: 0;
+	height: 64px;
+	width: 32px;
+	margin-right: -1px;
+
+	& > button {
+		width: 100%;
+		cursor: pointer;
+	}
+}
+
+.removeButton {
+	height: 32px;
+	width: 32px;
+	flex-shrink: 0;
+	cursor: pointer;
+}

@@ -4,7 +4,7 @@ import s from './object-input.module.css'
 export function ObjectInput({ label, value, setValue, properties }) {
 	return (
 		<div className={s.root}>
-			<label>{label}</label>
+			{label ? <label>{label}</label> : null}
 			<KnobsForm
 				knobs={properties}
 				values={value}

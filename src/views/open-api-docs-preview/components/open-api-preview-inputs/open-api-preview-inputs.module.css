@@ -36,3 +36,11 @@
 	color: black;
 	cursor: pointer;
 }
+
+.generateButton {
+	border: none;
+	padding: 1rem;
+	background: magenta;
+	color: black;
+	cursor: pointer;
+}
