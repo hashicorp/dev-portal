@@ -11,7 +11,7 @@
 .gridLayout {
 	display: grid;
 	gap: 24px;
-	grid-template-areas: 'header' 'examples' 'details';
+	grid-template-areas: 'header' 'details';
 	grid-template-columns: minmax(0, 1fr);
 
 	/* Note: 744px = 360px per column, plus 24px grid gap.
@@ -36,9 +36,15 @@
 }
 
 .examplesStickyContainer {
-	grid-area: examples;
-	height: 100%;
-	position: relative;
+	display: none;
+
+	/* stylelint-disable-next-line at-rule-no-unknown */
+	@container (min-width: 744px) {
+		display: block;
+		grid-area: examples;
+		height: 100%;
+		position: relative;
+	}
 }
 
 .examplesSlot {
