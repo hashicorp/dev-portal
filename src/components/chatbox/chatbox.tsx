@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { fl } from 'react-dom'
 
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
