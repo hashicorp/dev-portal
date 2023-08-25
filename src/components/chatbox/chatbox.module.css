@@ -72,6 +72,8 @@
 			margin: 0;
 		}
 		& .copy {
+			display: flex;
+			flex-direction: column;
 			gap: 8px;
 		}
 	}
@@ -249,6 +251,18 @@
 	height: 40px;
 	width: 40px;
 	padding: 8px;
+
+	/* See prior art: https://hashicorp-mktg.sourcegraph.com/github.com/hashicorp/web/-/blob/apps/www/views/state-of-the-cloud/2021/components/hero/style.module.css?L18-19 */
+	& :global(.loading) {
+		animation: hds-flight-icon-animation-rotation 9s linear infinite;
+		animation-duration: 0.7s;
+	}
+}
+
+@keyframes hds-flight-icon-animation-rotation {
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 .textarea {
