@@ -1,8 +1,5 @@
 import { type NextRequest, type NextFetchEvent } from 'next/server'
-import { get } from '@vercel/edge-config'
 import { z } from 'zod'
-
-import { fetchUserInfo, type UserInfoSchema } from 'lib/auth/fetch-user-info'
 
 export const config = {
 	runtime: 'experimental-edge',
@@ -15,11 +12,6 @@ const bodySchema = z.object({
 	parentMessageId: z.string().optional(), // noop until we're ready for multi-message conversations
 })
 
-const edgeConfigSchema = z.object({
-	allowlist: z.record(z.string()),
-})
-type EdgeConfigSchema = z.infer<typeof edgeConfigSchema>
-
 export default async function edgehandler(
 	req: NextRequest,
 	evt: NextFetchEvent
@@ -31,18 +23,6 @@ export default async function edgehandler(
 	}
 
 	const jwt = authorization.split(' ')[1]
-
-	let userInfo: UserInfoSchema
-	try {
-		userInfo = await fetchUserInfo(jwt)
-	} catch (e) {
-		return new Response('Forbidden', { status: 401 })
-	}
-
-	const allowlist: EdgeConfigSchema['allowlist'] = await get('allowlist')
-	if (!allowlist[userInfo.email]) {
-		return new Response('403 Feature not enabled', { status: 403 })
-	}
 
 	switch (req.method) {
 		case 'POST': {
