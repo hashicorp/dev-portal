@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
+import { fl } from 'react-dom'
+
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypePrism from '@mapbox/rehype-prism'
@@ -150,7 +152,7 @@ const useAI = () => {
 				const messageFormat = z.object({
 					content: z.string(),
 				})
-
+				const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 				for await (const { event, data, raw } of iter) {
 					const parseResult = messageFormat.safeParse(JSON.parse(data))
 					if (!parseResult.success) {
@@ -158,9 +160,18 @@ const useAI = () => {
 						continue
 					} else {
 						const { content } = parseResult.data
+
+						// - wait an arbitrary amount to opt out of React's automatic batching
+						// - This makes the UI appear to streaming in small chunks of text
+						//   rather than a large chunk of text all at once
+						// - Use a random number to make it feel more natural
+						const floor = 20
+						const ceil = 70
+						await sleep(Math.max(floor, Math.random() * ceil))
 						setStreamedText((prev) => prev + content)
 					}
 				}
+
 				// cleanup
 				setIsReading(false)
 			})()
@@ -460,7 +471,7 @@ const ChatBox = () => {
 	}
 
 	// Throttle this value to enable uninterrupted smooth scrolling
-	const throttledText = useThrottle(streamedText, 100)
+	const throttledText = useThrottle(streamedText, 400)
 
 	// scroll text response to bottom as text streams in from the backend
 	const textContentRef = useRef<HTMLDivElement>(null)
@@ -480,13 +491,7 @@ const ChatBox = () => {
 	// update component state when the mutation fails
 	useEffect(() => {
 		if (errorText) {
-			setMessageList((prev) => [
-				...prev,
-				{
-					type: 'application',
-					text: errorText,
-				},
-			])
+			appendMessage({ type: 'application', text: errorText })
 		}
 	}, [errorText])
 
@@ -499,120 +504,114 @@ const ChatBox = () => {
 
 	return (
 		<div className={cn(s.chat)}>
-			<>
-				{messageList.length === 0 ? (
-					<WelcomeMessage />
-				) : (
-					<div
-						ref={mergeRefs([textContentRef, textContentRef2])}
-						className={s.chatbody}
-					>
-						{textContentScrollBarIsVisible ? (
-							<div
-								className={s.message_arrowdown}
-								onClick={handleArrowDownClick}
-							>
-								<IconTile size="small">
-									<IconArrowDownCircle16 />
-								</IconTile>
-							</div>
-						) : null}
-
-						{messageList.map((e, i) => {
-							switch (e.type) {
-								// User input
-								case 'user': {
-									return (
-										<UserMessage
-											key={`${e.type}-${i}`}
-											image={e.image}
-											text={e.text}
-										/>
-									)
-								}
-								// Backend AI response
-								case 'assistant': {
-									const shouldShowActions = e.text?.length > 20 && !isLoading
-									return (
-										<AssistantMessage
-											markdown={e.text}
-											key={e.messageId}
-											conversationId={e.conversationId}
-											messageId={e.messageId}
-											showActions={shouldShowActions}
-										/>
-									)
-								}
-								// Application message; likely an error
-								case 'application': {
-									return (
-										<ApplicationMessage key={`${e.type}-${i}`} text={e.text} />
-									)
-								}
-							}
-						})}
-					</div>
-				)}
-
-				<form id="chat-create" onSubmit={handleSubmit} ref={formRef}>
-					<div className={s.bottom}>
-						<div className={s.question}>
-							<div className={s.question_icon}>
-								{isLoading ? (
-									<IconLoading24 className={'loadingIcon'} />
-								) : (
-									<IconWand24
-										style={{
-											color:
-												'var(--token-color-foreground-highlight-on-surface)',
-										}}
+			{messageList.length === 0 ? (
+				<WelcomeMessage />
+			) : (
+				<div
+					ref={mergeRefs([textContentRef, textContentRef2])}
+					className={s.chatbody}
+				>
+					{messageList.map((e, i) => {
+						switch (e.type) {
+							// User input
+							case 'user': {
+								return (
+									<UserMessage
+										key={`${e.type}-${i}`}
+										image={e.image}
+										text={e.text}
 									/>
-								)}
-							</div>
-							<textarea
-								spellCheck={false}
-								value={userInput}
-								onChange={(e) => setUserInput(e.currentTarget.value)}
-								onKeyDown={(e) => {
-									// enter submits form; // shift+enter adds a newline
-									if (e.key == 'Enter' && e.shiftKey == false) {
-										if (userInput) {
-											e.preventDefault()
-											formRef.current.requestSubmit()
-										}
-									}
-								}}
-								id="task"
-								rows={userInput.split('\n').length}
-								className={cn(s.reset, s.textarea)}
-								placeholder="Send a new message"
-								disabled={isLoading}
-							/>
+								)
+							}
+							// Backend AI response
+							case 'assistant': {
+								const shouldShowActions = e.text?.length > 20 && !isLoading
+								return (
+									<AssistantMessage
+										markdown={e.text}
+										key={e.messageId}
+										conversationId={e.conversationId}
+										messageId={e.messageId}
+										showActions={shouldShowActions}
+									/>
+								)
+							}
+							// Application message; likely an error
+							case 'application': {
+								return (
+									<ApplicationMessage key={`${e.type}-${i}`} text={e.text} />
+								)
+							}
+						}
+					})}
+				</div>
+			)}
+
+			<form id="chat-create" onSubmit={handleSubmit} ref={formRef}>
+				<div className={s.bottom}>
+					{textContentScrollBarIsVisible ? (
+						<div className={s.arrowdown} onClick={handleArrowDownClick}>
+							<IconTile size="small">
+								<IconArrowDownCircle16 />
+							</IconTile>
+						</div>
+					) : null}
+
+					<div className={s.question}>
+						<div className={s.question_icon}>
 							{isLoading ? (
-								<Button
-									type={'button'}
-									icon={<IconStopCircle24 height={16} width={16} />}
-									text={'Stop generating'}
-									color={'critical'}
-									onClick={stopStream}
-								/>
+								<IconLoading24 className={'loading'} />
 							) : (
-								<Button
-									disabled={userInput.length < 1}
-									type={'submit'}
-									icon={<IconSend24 height={16} width={16} />}
-									text={'Send'}
+								<IconWand24
+									style={{
+										color: 'var(--token-color-foreground-highlight-on-surface)',
+									}}
 								/>
 							)}
 						</div>
-
-						<span className={s.disclaimer}>
-							AI Disclaimer: HashiCorp AI may produce inaccurate information and
-							cause your computer to implode. Use at your own risk.
-						</span>
+						<textarea
+							spellCheck={false}
+							value={userInput}
+							onChange={(e) => setUserInput(e.currentTarget.value)}
+							onKeyDown={(e) => {
+								// enter submits form; // shift+enter adds a newline
+								if (e.key == 'Enter' && e.shiftKey == false) {
+									if (userInput) {
+										e.preventDefault()
+										formRef.current.requestSubmit()
+									}
+								}
+							}}
+							id="task"
+							rows={userInput.split('\n').length}
+							className={cn(s.reset, s.textarea)}
+							placeholder="Send a new message"
+							disabled={isLoading}
+						/>
+						{isLoading ? (
+							<Button
+								type={'button'}
+								icon={<IconStopCircle24 height={16} width={16} />}
+								text={'Stop generating'}
+								color={'critical'}
+								onClick={stopStream}
+							/>
+						) : (
+							<Button
+								disabled={userInput.length < 1}
+								type={'submit'}
+								icon={<IconSend24 height={16} width={16} />}
+								text={'Send'}
+							/>
+						)}
 					</div>
-				</form>
-			</>
+
+					<span className={s.disclaimer}>
+						AI Disclaimer: HashiCorp AI may produce inaccurate information and
+						cause your computer to implode. Use at your own risk.
+					</span>
+				</div>
+			</form>
 		</div>
 	)
 }

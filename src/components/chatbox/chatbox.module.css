@@ -117,7 +117,6 @@
 .chatbody {
 	overflow-y: auto;
 	max-height: 100%;
-	position: relative; /* for absolute-positioned arrow */
 	display: flex;
 	flex-direction: column;
 	flex: 1;
@@ -150,9 +149,9 @@
 .message_gutter {
 	min-width: 40px;
 }
-.message_arrowdown {
+.arrowdown {
 	position: absolute;
-	bottom: 24px;
+	top: -52px;
 	right: 20px;
 }
 
@@ -231,6 +230,7 @@
 }
 
 .bottom {
+	position: relative; /* for absolute positioned */
 	padding: 16px 20px;
 	display: flex;
 	flex-direction: column;
