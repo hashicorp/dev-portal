@@ -187,7 +187,8 @@ type Message =
 	| {
 			type: 'assistant'
 			text: string
-			id: string
+			messageId: string
+			conversationId: string
 	  }
 	| {
 			type: 'application'
@@ -200,7 +201,8 @@ const UserMessage = ({ text, image }: { image?: string; text: string }) => {
 			<div className={cn(s.message_avatar)}>
 				{image ? <img src={image} alt="user avatar" /> : null}
 			</div>
-			<div>{text}</div>
+			<div className={cn(s.message_content, s.message_user_input)}>{text}</div>
+			<div className={cn(s.message_gutter)}></div>
 		</div>
 	)
 }
@@ -208,14 +210,12 @@ const UserMessage = ({ text, image }: { image?: string; text: string }) => {
 const AssistantMessage = ({
 	markdown,
 	showActions,
-	showArrowDown,
-	handleArrowDownClick,
+	conversationId,
 	messageId,
 }: {
 	markdown: string
 	showActions: boolean
-	showArrowDown: boolean
-	handleArrowDownClick: () => void
+	conversationId: string
 	messageId: string
 }) => {
 	const { session } = useAuthentication()
@@ -223,35 +223,24 @@ const AssistantMessage = ({
 	// Determines green/red button
 	const [rating, setRating] = useState<1 | -1 | 0>(0)
 
-	const handleRating = async ({ rating }: { rating: -1 | 1 }) => {
-		alert('TODO')
-		return
-		const response = await fetch('/api/chat/completion', {
-			method: 'PATCH',
+	const handleFeedback = async ({
+		rating,
+		text,
+	}: {
+		rating?: -1 | 1
+		text?: string
+	}) => {
+		const response = await fetch('/api/chat/feedback', {
+			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${accessToken}`,
 			},
 			body: JSON.stringify({
+				messageId,
+				conversationId,
 				rating,
-				messageId,
-			}),
-		})
-		return response
-	}
-
-	const handleReason = async ({ reason }: { reason: string }) => {
-		alert('TODO')
-		return
-		const response = fetch('/api/chat/completion', {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${accessToken}`,
-			},
-			body: JSON.stringify({
-				reason,
-				messageId,
+				text,
 			}),
 		})
 		return response
@@ -303,7 +292,7 @@ const AssistantMessage = ({
 							aria-label="Like this response"
 							onClick={async () => {
 								setRating(1) // do an optimistic UI update
-								await handleRating({ rating: 1 })
+								await handleFeedback({ rating: 1 })
 							}}
 						/>
 
@@ -316,7 +305,7 @@ const AssistantMessage = ({
 							aria-label="Dislike this response"
 							onClick={async () => {
 								setRating(-1) // do an optimistic UI update
-								await handleRating({ rating: -1 })
+								await handleFeedback({ rating: -1 })
 							}}
 						/>
 					</div>
@@ -348,7 +337,7 @@ const AssistantMessage = ({
 								}
 								onQuestionSubmit={async (responses) => {
 									const value = responses[0].value
-									await handleReason({ reason: value })
+									await handleFeedback({ rating, text: value })
 									return
 								}}
 							/>
@@ -357,15 +346,7 @@ const AssistantMessage = ({
 				</div>
 			</div>
 
-			<div className={cn(s.message_gutter)}>
-				{showArrowDown ? (
-					<div className={s.message_arrowdown} onClick={handleArrowDownClick}>
-						<IconTile size="small">
-							<IconArrowDownCircle16 />
-						</IconTile>
-					</div>
-				) : null}
-			</div>
+			<div className={cn(s.message_gutter)}></div>
 		</div>
 	)
 }
@@ -378,6 +359,8 @@ const ApplicationMessage = ({ text }: { text: string }) => {
 				<IconWand24 style={{ width: 24, height: 24 }} />
 			</IconTile>
 			<div className={cn(s.message_content)}>{text}</div>
+
+			<div className={cn(s.message_gutter)}></div>
 		</div>
 	)
 }
@@ -397,8 +380,61 @@ const ChatBox = () => {
 
 	// Text area
 	const [userInput, setUserInput] = useState('')
+
 	// List of user and assistant messages
 	const [messageList, setMessageList] = useState<Message[]>([])
+	const appendMessage = (message: Message) => {
+		setMessageList((prev) => [...prev, message])
+	}
+	const resetMessageList = () => {
+		setMessageList([])
+	}
+
+	// stream text into our message list
+	const updateAssistantMessageByIds = ({
+		conversationId,
+		messageId,
+		text,
+	}: {
+		conversationId: string
+		messageId: string
+		text: string
+	}) => {
+		setMessageList((prev) => {
+			const next = [...prev]
+			const assistantMessage = next.find(
+				(e) =>
+					e.type == 'assistant' &&
+					e.messageId === messageId &&
+					e.conversationId === conversationId
+			)
+
+			// update or create
+			if (assistantMessage) {
+				assistantMessage.text = text
+			} else {
+				next.push({
+					type: 'assistant',
+					text: text,
+					messageId: messageId,
+					conversationId: conversationId,
+				})
+			}
+			return next
+		})
+	}
+
+	// update component state when text is streamed in from the backend
+	useEffect(() => {
+		if (!streamedText || !messageId || !conversationId) {
+			return
+		}
+		updateAssistantMessageByIds({
+			conversationId,
+			messageId,
+			text: streamedText,
+		})
+	}, [streamedText, messageId, conversationId])
 
 	const handleSubmit = async (e) => {
 		const task = e.currentTarget.task?.value
@@ -406,7 +442,7 @@ const ChatBox = () => {
 
 		// Reset previous messages
 		// -- Revisit this when we're ready for multi-message conversations
-		setMessageList([])
+		resetMessageList()
 
 		// Clear textarea
 		setUserInput('')
@@ -420,10 +456,7 @@ const ChatBox = () => {
 		})
 
 		// append user message to list
-		setMessageList((prev) => [
-			...prev,
-			{ type: 'user', text: task, image: user.image },
-		])
+		appendMessage({ type: 'user', text: task, image: user.image })
 	}
 
 	// Throttle this value to enable uninterrupted smooth scrolling
@@ -444,31 +477,6 @@ const ChatBox = () => {
 	// for conditionally rendering a down arrow
 	const [textContentRef2, textContentScrollBarIsVisible] = useScrollBarVisible()
 
-	// update component state when text is streamed in from the backend
-	useEffect(() => {
-		if (!streamedText || !messageId) {
-			return
-		}
-
-		setMessageList((prev) => {
-			const next = [...prev]
-			const assistantMessage = next.find(
-				(e) => e.type == 'assistant' && e.id === messageId
-			)
-
-			if (assistantMessage) {
-				assistantMessage.text = streamedText
-			} else {
-				next.push({
-					type: 'assistant',
-					text: streamedText,
-					id: messageId,
-				})
-			}
-			return next
-		})
-	}, [streamedText, messageId])
-
 	// update component state when the mutation fails
 	useEffect(() => {
 		if (errorText) {
@@ -482,6 +490,13 @@ const ChatBox = () => {
 		}
 	}, [errorText])
 
+	const handleArrowDownClick = () => {
+		textContentRef.current?.scrollTo({
+			top: textContentRef.current.scrollHeight,
+			behavior: 'smooth',
+		})
+	}
+
 	return (
 		<div className={cn(s.chat)}>
 			<>
@@ -492,6 +507,17 @@ const ChatBox = () => {
 						ref={mergeRefs([textContentRef, textContentRef2])}
 						className={s.chatbody}
 					>
+						{textContentScrollBarIsVisible ? (
+							<div
+								className={s.message_arrowdown}
+								onClick={handleArrowDownClick}
+							>
+								<IconTile size="small">
+									<IconArrowDownCircle16 />
+								</IconTile>
+							</div>
+						) : null}
+
 						{messageList.map((e, i) => {
 							switch (e.type) {
 								// User input
@@ -510,16 +536,10 @@ const ChatBox = () => {
 									return (
 										<AssistantMessage
 											markdown={e.text}
-											key={e.id}
-											messageId={e.id}
+											key={e.messageId}
+											conversationId={e.conversationId}
+											messageId={e.messageId}
 											showActions={shouldShowActions}
-											showArrowDown={textContentScrollBarIsVisible}
-											handleArrowDownClick={() => {
-												textContentRef.current?.scrollTo({
-													top: textContentRef.current.scrollHeight,
-													behavior: 'smooth',
-												})
-											}}
 										/>
 									)
 								}

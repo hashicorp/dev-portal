@@ -8,14 +8,15 @@ export const config = {
 	runtime: 'experimental-edge',
 }
 
-// PATCH body payload
+// POST body payload
 const bodySchema = z.object({
-	sentiment: z.number().min(-1).max(1).optional(),
-	reason: z
+	conversationId: z.string(),
+	messageId: z.string(),
+	text: z
 		.string()
 		.transform((e) => e.trim())
 		.optional(),
-	messageId: z.string(),
+	rating: z.number().min(-1).max(1).optional(),
 })
 
 const edgeConfigSchema = z.object({
@@ -48,7 +49,7 @@ export default async function edgehandler(
 	}
 
 	switch (req.method) {
-		case 'PATCH': {
+		case 'POST': {
 			// read request body
 			const body = await req.json()
 			// validate request body
@@ -56,14 +57,15 @@ export default async function edgehandler(
 			if (!parsedBody.success) {
 				return new Response('Bad Request', { status: 400 })
 			}
-			const { reason, sentiment, messageId } = parsedBody.data
+			const { conversationId, messageId, rating, text } = parsedBody.data
 
-			const res = await updateCompletion(
+			const res = await createMessageFeedback(
 				{
+					conversationId,
 					messageId,
 					accessToken: jwt,
 				},
-				{ reason, sentiment }
+				{ rating, text }
 			)
 			const data = await res.json()
 
@@ -72,30 +74,23 @@ export default async function edgehandler(
 	}
 }
 
-// PATCH /v1/chat/:completion_id
-async function updateCompletion(
-	{ messageId, accessToken },
-	{ reason, sentiment }
+// POST /v1/conversations/:conversation_id/messages/:message_id/feedback
+async function createMessageFeedback(
+	{ conversationId, messageId, accessToken },
+	{ rating, text }
 ) {
 	const headers = new Headers()
 	headers.set('Authorization', `Bearer ${accessToken}`)
 	headers.set('Content-Type', 'application/json')
 
 	const url = new URL(
-		`/v1/chat/${messageId}`,
+		`/v1/conversations/${conversationId}/messages/${messageId}/feedback`,
 		process.env.EXPERIMENTAL_CHAT_API_BASE_URL
 	)
-	const body: Record<string, any> = {}
-	if (reason) {
-		body.reason = reason
-	}
-	if (sentiment) {
-		body.sentiment = sentiment
-	}
 
 	return fetch(url.toString(), {
-		body: JSON.stringify(body),
-		method: 'PATCH',
+		body: JSON.stringify({ rating, text }),
+		method: 'POST',
 		headers,
 	})
 }

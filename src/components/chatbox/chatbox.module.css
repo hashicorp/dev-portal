@@ -115,12 +115,20 @@
 .chatbody {
 	overflow-y: auto;
 	max-height: 100%;
+	position: relative; /* for absolute-positioned arrow */
+	display: flex;
+	flex-direction: column;
+	flex: 1;
 }
 
 .message_content {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
+	justify-content: center;
+}
+.message_user_input {
+	white-space: pre-line; /* visually respect user-inputted line breaks */
 }
 .message_markdown {
 	& p {
@@ -136,15 +144,14 @@
 		word-wrap: break-word;
 	}
 }
+
 .message_gutter {
-	margin-right: 44px;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
+	min-width: 40px;
 }
 .message_arrowdown {
-	position: sticky;
+	position: absolute;
 	bottom: 24px;
+	right: 20px;
 }
 
 .message_AssistantMessageFooter {
@@ -159,7 +166,8 @@
 .message {
 	display: flex;
 	flex-direction: row;
-	gap: 1.5rem;
+	gap: 12px;
+	padding: 16px 20px;
 	background: var(--token-color-palette-neutral-0);
 }
 
@@ -172,7 +180,6 @@
 	font-weight: 500;
 	line-height: var(--token-typography-body-300-line-height);
 
-	padding: 24px 0 24px 24px;
 	border-bottom: 1px solid var(--token-color-palette-neutral-300);
 }
 
@@ -185,7 +192,6 @@
 	font-weight: 500;
 	line-height: var(--token-typography-body-200-line-height);
 
-	padding: 24px 0 24px 24px;
 	background: var(--token-color-surface-strong); /* #f1f2f3 */
 }
 
