@@ -11,6 +11,7 @@ import { IconSend24 } from '@hashicorp/flight-icons/svg-react/send-24'
 import { IconThumbsUp24 } from '@hashicorp/flight-icons/svg-react/thumbs-up-24'
 import { IconThumbsDown24 } from '@hashicorp/flight-icons/svg-react/thumbs-down-24'
 import { IconClipboard24 } from '@hashicorp/flight-icons/svg-react/clipboard-24'
+import { IconCheckSquare24 } from '@hashicorp/flight-icons/svg-react/check-square-24'
 import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
 import { IconArrowDownCircle16 } from '@hashicorp/flight-icons/svg-react/arrow-down-circle-16'
 import { IconDiscussionCircle16 } from '@hashicorp/flight-icons/svg-react/discussion-circle-16'
@@ -35,6 +36,7 @@ import {
 	useScrollBarVisible,
 	useThrottle,
 } from './utils'
+import { useCommandBar } from 'components/command-bar'
 
 const useAI = () => {
 	// The backend id of a conversation
@@ -256,8 +258,36 @@ const AssistantMessage = ({
 		return response
 	}
 
+	const [isCopied, setIsCopied] = useState(false)
+	useEffect(() => {
+		let id: ReturnType<typeof setTimeout>
+		if (isCopied) {
+			id = setTimeout(() => {
+				setIsCopied(false)
+			}, 4000)
+		}
+		return () => {
+			clearTimeout(id)
+		}
+	}, [isCopied])
+
+	/** copy rich text; not raw markdown */
 	const handleCopy = () => {
-		navigator.clipboard.writeText(markdown)
+		// CSS Module classname is a reasonable "hook" to grab the element
+		// rendered by ReactMarkdown.
+		const el = document.getElementsByClassName(s.message_markdown)?.[0]
+
+		if (el) {
+			// https://www.nikouusitalo.com/blog/why-isnt-clipboard-write-copying-my-richtext-html/
+			const clipboardItem = new ClipboardItem({
+				// @ts-expect-error - innerText is available
+				'text/plain': new Blob([el.innerText], { type: 'text/plain' }),
+				'text/html': new Blob([el.outerHTML], { type: 'text/html' }),
+			})
+
+			navigator.clipboard.write([clipboardItem])
+			setIsCopied(true)
+		}
 	}
 
 	return (
@@ -288,8 +318,15 @@ const AssistantMessage = ({
 						<Button
 							size="small"
 							color="secondary"
-							icon={<IconClipboard24 height={12} width={12} />}
+							icon={
+								isCopied ? (
+									<IconCheckSquare24 height={12} width={12} />
+								) : (
+									<IconClipboard24 height={12} width={12} />
+								)
+							}
 							aria-label="Copy to clipboard"
+							text={isCopied ? 'Copied' : 'Copy'}
 							onClick={handleCopy}
 						/>
 
@@ -389,7 +426,21 @@ const ChatBox = () => {
 	const accessToken = session?.accessToken
 
 	// Text area
-	const [userInput, setUserInput] = useState('')
+	// const [userInput, setUserInput] = useState('')
+	// TODO(kevinwang): do we want isolate state (useState)
+	// or shared input state (useCommandBar)?
+	const commandBarState = useCommandBar()
+	const {
+		currentInputValue: userInput,
+		inputRef,
+		setCurrentInputValue: setUserInput,
+	} = commandBarState
+
+	// a hack to imperatively override the top inputArea.
+	useEffect(() => {
+		inputRef.current.disabled = true
+		inputRef.current.value = 'Return to search'
+	})
 
 	// List of user and assistant messages
 	const [messageList, setMessageList] = useState<Message[]>([])
@@ -569,6 +620,8 @@ const ChatBox = () => {
 							)}
 						</div>
 						<textarea
+							autoFocus
+							className={cn(s.reset, s.textarea)}
 							spellCheck={false}
 							value={userInput}
 							onChange={(e) => setUserInput(e.currentTarget.value)}
@@ -583,7 +636,6 @@ const ChatBox = () => {
 							}}
 							id="task"
 							rows={userInput.split('\n').length}
-							className={cn(s.reset, s.textarea)}
 							placeholder="Send a new message"
 							disabled={isLoading}
 						/>
