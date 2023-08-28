@@ -144,6 +144,10 @@ Tree content styling
 	display: flex;
 	gap: 4px;
 	padding-left: 8px;
+
+	&.hideIndicator {
+		padding-left: 0;
+	}
 }
 
 .treeIndicatorContainer {
