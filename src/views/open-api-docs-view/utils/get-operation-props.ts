@@ -4,7 +4,6 @@
  */
 
 // Third-party
-import { paramCase } from 'change-case'
 import slugify from 'slugify'
 // Local
 import { getRequestData, getResponseData, truncateHcpOperationPath } from './'
@@ -41,9 +40,7 @@ export async function getOperationProps(
 			}
 
 			// Create a slug for this operation
-			const operationSlug = slugify(paramCase(operation.operationId), {
-				lower: true,
-			})
+			const operationSlug = slugify(operation.operationId)
 
 			/**
 			 * Parse request and response details for this operation
