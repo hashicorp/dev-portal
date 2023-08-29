@@ -438,8 +438,10 @@ const ChatBox = () => {
 
 	// a hack to imperatively override the top inputArea.
 	useEffect(() => {
-		inputRef.current.disabled = true
-		inputRef.current.value = 'Return to search'
+		if (inputRef.current) {
+			inputRef.current.disabled = true
+			inputRef.current.value = 'Return to search'
+		}
 	})
 
 	// List of user and assistant messages
