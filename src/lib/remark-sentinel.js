@@ -21,7 +21,7 @@ const remarkSentinel = () => (tree) => {
 		if (node.lang === 'json' && node.meta && node.meta.includes('sentinel')) {
 			example = JSON.parse(node.value)
 		}
-		let apiProp
+		let apiProp = ''
 		if (api) {
 			apiProp = `api={"${api}"}`
 		}
