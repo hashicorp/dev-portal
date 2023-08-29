@@ -17,9 +17,9 @@ import type { OutlineLinkItem } from 'components/outline-nav/types'
 function OutlineListItems({ items }: { items: OutlineLinkItem[] }) {
 	return (
 		<>
-			{items.map((item: OutlineLinkItem) => {
+			{items.map((item: OutlineLinkItem, index: number) => {
 				return (
-					<li key={item.url}>
+					<li key={`${index}-${item.url}`}>
 						{'items' in item ? (
 							<OutlineLinkWithNesting {...item} />
 						) : (
