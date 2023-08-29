@@ -36,7 +36,6 @@ import {
 	useScrollBarVisible,
 	useThrottle,
 } from './utils'
-import { useCommandBar } from 'components/command-bar'
 
 const useAI = () => {
 	// The backend id of a conversation
@@ -426,23 +425,9 @@ const ChatBox = () => {
 	const accessToken = session?.accessToken
 
 	// Text area
-	// const [userInput, setUserInput] = useState('')
-	// TODO(kevinwang): do we want isolate state (useState)
-	// or shared input state (useCommandBar)?
-	const commandBarState = useCommandBar()
-	const {
-		currentInputValue: userInput,
-		inputRef,
-		setCurrentInputValue: setUserInput,
-	} = commandBarState
-
-	// a hack to imperatively override the top inputArea.
-	useEffect(() => {
-		if (inputRef.current) {
-			inputRef.current.disabled = true
-			inputRef.current.value = 'Return to search'
-		}
-	})
+	// Note: We are not re-using the command bar's input state as we intentionally
+	// want the "search" & "AI" UX to be separate.
+	const [userInput, setUserInput] = useState('')
 
 	// List of user and assistant messages
 	const [messageList, setMessageList] = useState<Message[]>([])

@@ -46,17 +46,24 @@ const CommandBarDialogHeader = () => {
 				</div>
 			) : null}
 			<div className={s.inputWrapper}>
-				<input
-					disabled={disabled}
-					aria-label={inputPlaceholder}
-					className={s.input}
-					onChange={(e: ChangeEvent<HTMLInputElement>) =>
-						setCurrentInputValue(e.target.value)
-					}
-					placeholder={inputPlaceholder}
-					ref={inputRef}
-					value={currentInputValue}
-				/>
+				{currentCommand.name == 'chat' ? (
+					// This is a dummy element to display text
+					// TODO(kevinwang): make this less hacky
+					<div className={s.input}>Return to search</div>
+				) : (
+					<input
+						disabled={disabled}
+						aria-label={inputPlaceholder}
+						className={s.input}
+						onChange={(e: ChangeEvent<HTMLInputElement>) =>
+							setCurrentInputValue(e.target.value)
+						}
+						placeholder={inputPlaceholder}
+						ref={inputRef}
+						value={currentInputValue}
+					/>
+				)}
+
 				{currentInputValue ? (
 					<div className={s.clearButtonWrapper}>
 						<button
