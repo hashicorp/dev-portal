@@ -139,6 +139,7 @@ module.exports = withSwingset({
 				'www.datocms-assets.com',
 				'mktg-content-api-hashicorp.vercel.app',
 				'content.hashicorp.com',
+				'place-hold.it',
 			],
 			dangerouslyAllowSVG: true,
 			contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
