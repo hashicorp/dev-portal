@@ -656,7 +656,7 @@ const ChatBox = () => {
 
 const WelcomeMessage = () => {
 	return (
-		<div className={s.emptyArea}>
+		<div className={s.welcome}>
 			<div className={cn(s.col, s.left)}>
 				<IconWand24 />
 				<div className={s.copy}>
