@@ -4,7 +4,6 @@
  */
 
 // Third-party
-import { paramCase } from 'change-case'
 import slugify from 'slugify'
 // Local
 import { getRequestData, getResponseData, truncateHcpOperationPath } from './'
@@ -41,9 +40,7 @@ export async function getOperationProps(
 			}
 
 			// Create a slug for this operation
-			const operationSlug = slugify(paramCase(operation.operationId), {
-				lower: true,
-			})
+			const operationSlug = slugify(operation.operationId)
 
 			/**
 			 * Parse request and response details for this operation
@@ -69,10 +66,15 @@ export async function getOperationProps(
 			/**
 			 * Build a fallback summary for the operation, which is just
 			 * the operationId with some formatting for better line-breaks.
+			 *
+			 * TODO: update to actually use `summary`, for now we only use
+			 * `operationId` as `summary` values are not yet reliably present
+			 * & accurate. Task:
+			 * https://app.asana.com/0/1204678746647847/1205338583217309/f
 			 */
-			const summary =
-				operation.summary ||
-				addWordBreaks(splitOnCapitalLetters(operation.operationId))
+			const summary = addWordBreaks(
+				splitOnCapitalLetters(operation.operationId)
+			)
 
 			/**
 			 * Format and push the operation props

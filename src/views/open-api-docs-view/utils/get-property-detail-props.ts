@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Third party
+import slugify from 'slugify'
 // Utilities
 import markdownToHtml from '@hashicorp/platform-markdown-utils/markdown-to-html'
 // Types
@@ -17,7 +19,7 @@ export async function getPropertyDetailPropsFromParameter(
 	param: OpenAPIV3.ParameterObject,
 	parentSlug: string
 ): Promise<PropertyDetailsProps> {
-	const slug = `${parentSlug}_${param.name}`
+	const slug = `${parentSlug}_${slugify(param.name)}`
 	const paramSchemaDetails = await getPropertyDetailsFromSchema(
 		param.schema,
 		slug
@@ -44,7 +46,7 @@ export async function getPropertyDetailPropsFromSchemaObject(
 	isRequired: boolean,
 	parentSlug: string
 ): Promise<PropertyDetailsProps> {
-	const slug = `${parentSlug}_${key}`
+	const slug = `${parentSlug}_${slugify(key)}`
 	const schemaDetails = await getPropertyDetailsFromSchema(schema, slug, 0)
 	return {
 		name: key,
@@ -108,7 +110,7 @@ async function getPropertyDetailsFromSchema(
 		// and recursing into the schema for each property as necessary.
 		for (const propertyKey of Object.keys(schema.properties)) {
 			const property = schema.properties[propertyKey]
-			const propertySlug = `${parentSlug}.${propertyKey}`
+			const propertySlug = `${parentSlug}.${slugify(propertyKey)}`
 			const propertyDetails = await getPropertyDetailsFromSchema(
 				property,
 				propertySlug
