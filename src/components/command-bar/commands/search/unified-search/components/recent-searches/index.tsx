@@ -29,7 +29,7 @@ export const RecentSearches = ({ recentSearches }: RecentSearchesProps) => {
 							icon={<IconHistory16 />}
 							onClick={() => {
 								setCurrentInputValue(recentSearch)
-								inputRef.current.focus()
+								inputRef?.current?.focus()
 							}}
 							title={recentSearch}
 						/>

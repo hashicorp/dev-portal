@@ -70,7 +70,7 @@ const CommandBarDialogHeader = () => {
 							className={s.clearButton}
 							onClick={() => {
 								setCurrentInputValue('')
-								inputRef.current.focus()
+								inputRef?.current?.focus()
 							}}
 						>
 							<IconX24 />

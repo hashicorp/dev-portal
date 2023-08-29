@@ -123,10 +123,10 @@
 }
 
 .message_content {
+	padding-top: 10px; /* simulate vertically centering the first line with avatar/icon */
 	display: flex;
 	flex: 1;
 	flex-direction: column;
-	justify-content: center;
 }
 .message_user_input {
 	white-space: pre-line; /* visually respect user-inputted line breaks */
