@@ -20,7 +20,8 @@ const getFilteredIntegrations = ({
 				.includes(filterQuery.toLowerCase()) ||
 			integration.organization.slug
 				.toLowerCase()
-				.includes(filterQuery.toLowerCase())
+				.includes(filterQuery.toLowerCase()) ||
+			integration.slug.toLowerCase().includes(filterQuery.toLowerCase())
 		)
 	})
 }
