@@ -47,6 +47,37 @@ const HCPCallout = dynamic(
 	() => import('components/dev-dot-content/mdx-components/mdx-hcp-callout')
 )
 
+function SentinelEmbeddedPlaceholder(props) {
+	return (
+		<>
+			<div
+				style={{
+					position: 'relative',
+					padding: '8px',
+					border: '3px solid magenta',
+				}}
+			>
+				<span
+					style={{
+						position: 'absolute',
+						top: '-3px',
+						right: 'calc(100%)',
+						border: '3px solid magenta',
+						background: 'rgba(255, 0, 255, 0.5)',
+						padding: '8px 16px',
+					}}
+					role="img"
+					aria-label="Work in progress"
+				>
+					🚧
+				</span>{' '}
+				Need to get the Edit and Run buttons working here.
+			</div>
+			<SentinelEmbedded {...props} />
+		</>
+	)
+}
+
 const productsToPrimitives: Record<
 	ProductSlug,
 	Record<string, ComponentType>
@@ -56,7 +87,7 @@ const productsToPrimitives: Record<
 	hcp: { HCPCallout },
 	nomad: { Placement },
 	packer: { Badge, BadgesHeader, Checklist, PluginBadge },
-	sentinel: { SentinelEmbedded },
+	sentinel: { SentinelEmbedded: SentinelEmbeddedPlaceholder },
 	terraform: { ProviderTable },
 	vagrant: { Button },
 	vault: { Columns, Tag: InlineTag },
