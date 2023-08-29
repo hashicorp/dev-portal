@@ -18,8 +18,8 @@ export interface ProductLandingViewProps {
 	content: {
 		hero: HeroHeadingVisualProps
 		overview: OverviewCtaProps
-		get_started: CalloutCardProps
-		blocks: ProductLandingBlock[]
+		get_started?: CalloutCardProps
+		blocks?: ProductLandingBlock[]
 		overviewParagraph?: string
 	}
 }

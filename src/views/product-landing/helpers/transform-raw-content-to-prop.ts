@@ -20,7 +20,7 @@ export async function transformRawContentToProp(
 		overview,
 		overviewParagraph,
 		get_started,
-		blocks,
+		blocks = [],
 	}: ProductLandingContent,
 	product: ProductData
 ): Promise<ProductLandingViewProps['content']> {
@@ -45,10 +45,12 @@ export async function transformRawContentToProp(
 	/**
 	 * Build GetStartedCardProps
 	 */
-	const getStartedProps = {
-		...get_started,
-		headingSlug: makeHeadingSlug(get_started.heading),
-	}
+	const getStartedProps = get_started
+		? {
+				...get_started,
+				headingSlug: makeHeadingSlug(get_started.heading),
+		  }
+		: null
 
 	/**
 	 * Build ProductLandingBlock[]

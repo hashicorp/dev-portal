@@ -140,7 +140,7 @@ export interface ProductLandingContent {
 		image: ThemedImageProps['src']
 	}
 	overviewParagraph?: string
-	get_started: {
+	get_started?: {
 		heading: string
 		body: string
 		ctas: {
@@ -148,7 +148,7 @@ export interface ProductLandingContent {
 			url: string
 		}[]
 	}
-	blocks: ProductLandingContentBlock[]
+	blocks?: ProductLandingContentBlock[]
 }
 
 const ProductLandingHeroSchema = Joi.object({
@@ -235,6 +235,6 @@ export const ProductLandingContentSchema = Joi.object({
 	hero: ProductLandingHeroSchema,
 	overview: ProductLandingOverviewSchema,
 	overviewParagraph: Joi.string(),
-	get_started: ProductLandingGetStartedSchema,
-	blocks: Joi.array().items(ProductLandingContentBlockSchema),
+	get_started: ProductLandingGetStartedSchema.optional(),
+	blocks: Joi.array().items(ProductLandingContentBlockSchema).optional(),
 })

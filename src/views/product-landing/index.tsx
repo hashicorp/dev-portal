@@ -65,22 +65,24 @@ function ProductLandingView({
 					<p className={s.overviewParagraph}>{overviewParagraph}</p>
 				) : null}
 			</div>
-			<div className={s.getStartedMargin}>
-				<CalloutCard
-					heading={get_started.heading}
-					headingSlug={get_started.headingSlug}
-					body={get_started.body}
-					ctas={get_started.ctas}
-					iconCardLinks={get_started.iconCardLinks}
-					fixedColumns={get_started.fixedColumns}
-				/>
-			</div>
+			{get_started ? (
+				<div className={s.getStartedMargin}>
+					<CalloutCard
+						heading={get_started.heading}
+						headingSlug={get_started.headingSlug}
+						body={get_started.body}
+						ctas={get_started.ctas}
+						iconCardLinks={get_started.iconCardLinks}
+						fixedColumns={get_started.fixedColumns}
+					/>
+				</div>
+			) : null}
 			{hasHcpCalloutContent(product.slug) ? (
 				<div className={s.tryHcpCalloutMargin}>
 					<TryHcpCalloutPrebuilt productSlug={product.slug} />
 				</div>
 			) : null}
-			<ProductLandingBlocks blocks={blocks} />
+			{blocks?.length > 0 ? <ProductLandingBlocks blocks={blocks} /> : null}
 		</SidebarSidecarLayout>
 	)
 }

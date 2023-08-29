@@ -20,30 +20,31 @@ import { ProductLandingBlock } from '../components/product-landing-blocks/types'
 export function extractHeadings(
 	content: ProductLandingViewProps['content']
 ): TableOfContentsHeading[] {
-	const headings: TableOfContentsHeading[] = [
-		{
-			title: content.overview.heading,
-			slug: content.overview.headingSlug,
-			level: 2,
-		},
-		{
+	const headings: TableOfContentsHeading[] = []
+	// Overview heading
+	headings.push({
+		title: content.overview.heading,
+		slug: content.overview.headingSlug,
+		level: 2,
+	})
+	// Get started heading, if applicable
+	if (content.get_started) {
+		headings.push({
 			title: content.get_started.heading,
 			slug: content.get_started.headingSlug,
 			level: 2,
-		},
-		...content.blocks.reduce(
-			(acc: TableOfContentsHeading[], b: ProductLandingBlock) => {
-				if (b.type === 'heading') {
-					acc.push({
-						title: b.heading,
-						slug: b.headingSlug,
-						level: 2,
-					})
-				}
-				return acc
-			},
-			[]
-		),
-	]
+		})
+	}
+	// Blocks headings, where applicable
+	for (const block of content.blocks) {
+		if (block.type === 'heading') {
+			headings.push({
+				title: block.heading,
+				slug: block.headingSlug,
+				level: 2,
+			})
+		}
+	}
+	// Return collected headings
 	return headings
 }
