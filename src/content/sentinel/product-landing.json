@@ -17,19 +17,11 @@
 	},
 	"get_started": {
 		"heading": "Getting Started",
-		"body": "Use Sentinel to enforce policies for HashiCorp products.",
+		"body": "Write and run your first example Sentinel policies.",
 		"ctas": [
 			{
-				"text": "Terraform Quick Start",
-				"url": "/terraform/tutorials/policy/sentinel-install"
-			},
-			{
-				"text": "Vault Quick Start",
-				"url": "/vault/tutorials/policies/sentinel"
-			},
-			{
-				"text": "Nomad Quick Start",
-				"url": "/nomad/tutorials/governance-and-policy/governance-and-policy"
+				"text": "Quick Start",
+				"url": "/sentinel/docs/writing/basic"
 			}
 		]
 	},
@@ -42,7 +34,11 @@
 		},
 		{
 			"type": "tutorial_cards",
-			"tutorialSlugs": ["vault/transform", "vault/static-secrets"]
+			"tutorialSlugs": [
+				"terraform/sentinel-install",
+				"vault/sentinel",
+				"nomad/sentinel"
+			]
 		},
 		{
 			"type": "linked_cards",
