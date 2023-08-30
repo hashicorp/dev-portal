@@ -26,7 +26,10 @@ import s from './open-api-overview.module.css'
  */
 
 export interface OpenApiOverviewProps {
-	title: string
+	heading: {
+		text: string
+		id: string
+	}
 	badgeText: string
 	statusIndicatorConfig?: StatusIndicatorConfig
 	contentSlot?: ReactNode
@@ -34,7 +37,7 @@ export interface OpenApiOverviewProps {
 }
 
 export function OpenApiOverview({
-	title,
+	heading,
 	badgeText,
 	statusIndicatorConfig,
 	contentSlot,
@@ -46,7 +49,9 @@ export function OpenApiOverview({
 					<IconVaultColor16 />
 				</IconTile>
 				<span>
-					<h1 className={s.heading}>{title}</h1>
+					<h1 id={heading.id} className={s.heading}>
+						{heading.text}
+					</h1>
 					{statusIndicatorConfig ? (
 						<Status
 							endpointUrl={statusIndicatorConfig.endpointUrl}
