@@ -15,7 +15,7 @@ import {
 import { Session } from 'next-auth'
 import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
 import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
-import { AuthErrors, SessionStatus, ValidAuthProviderId } from 'types/auth'
+import { AuthErrors, ValidAuthProviderId } from 'types/auth'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
 import { canAnalyzeUser, safeGetSegmentId } from 'lib/analytics'
 
@@ -46,6 +46,7 @@ interface UseAuthenticationResult {
 	signOut: (options?: SignOutParams) => ReturnType<typeof signOut>
 	signUp: typeof signUp
 	user: null | Session['user']
+	update: (data?: any) => Promise<Session | null>
 }
 
 /**
@@ -73,11 +74,11 @@ const useAuthentication = (
 	// Get option properties from `options` parameter
 	const { isRequired = false, onUnauthenticated = () => signIn() } = options
 
-	// Pull data and status from next-auth's hook, and pass options
-	const { data, status } = useSession({
+	// Pass options to `useSession` hook and use values
+	const { data, status, update } = useSession({
 		required: isRequired,
 		onUnauthenticated,
-	}) as { data: Session; status: SessionStatus }
+	})
 
 	// Deriving booleans about auth state
 	const isLoading = status === 'loading'
@@ -133,6 +134,7 @@ const useAuthentication = (
 		signOut,
 		signUp,
 		user,
+		update,
 	}
 }
 
