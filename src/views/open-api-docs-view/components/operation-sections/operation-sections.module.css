@@ -14,6 +14,11 @@
 	grid-template-areas: 'header' 'details';
 	grid-template-columns: minmax(0, 1fr);
 
+	/* We show 'examples' in a one-column if the viewport size is large enough */
+	@media (min-width: 420px) {
+		grid-template-areas: 'header' 'examples' 'details';
+	}
+
 	/* Note: 744px = 360px per column, plus 24px grid gap.
 	   Calc & CSS vars are not supported in container queries. */
 
@@ -38,8 +43,7 @@
 .examplesStickyContainer {
 	display: none;
 
-	/* stylelint-disable-next-line at-rule-no-unknown */
-	@container (min-width: 744px) {
+	@media (min-width: 420px) {
 		display: block;
 		grid-area: examples;
 		height: 100%;
