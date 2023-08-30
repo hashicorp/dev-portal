@@ -23,6 +23,9 @@
 
 .heading {
 	composes: hds-typography-display-600 from global;
+
+	/* Ensure we jump to the very top of the page when linking to this item */
+	scroll-margin-top: calc(var(--total-scroll-offset) + 999vh);
 	font-weight: var(--token-typography-font-weight-bold);
 	color: var(--token-color-foreground-strong);
 	margin: 0 0 9px 0;
