@@ -3,18 +3,50 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
+import {
+	signIn,
+	SignInOptions,
+	signOut,
+	SignOutParams,
+	useSession,
+} from 'next-auth/react'
 import { Session } from 'next-auth'
 import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
 import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
 import { AuthErrors, SessionStatus, ValidAuthProviderId } from 'types/auth'
-import { UseAuthenticationOptions, UseAuthenticationResult } from './types'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
 import { canAnalyzeUser, safeGetSegmentId } from 'lib/analytics'
 
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
+
+interface UseAuthenticationOptions {
+	/**
+	 * Optional boolean. If true, `onUnauthenticated` is invoked if the user is
+	 * not been authenticated.
+	 */
+	isRequired?: boolean
+
+	/**
+	 * Optional callback function. Invoked by next-auth when `isRequired` is true.
+	 * By default, we invoke our custom `signIn` callback with no parameters.
+	 */
+	onUnauthenticated?: () => void
+}
+
+interface UseAuthenticationResult {
+	isAuthenticated: boolean
+	isLoading: boolean
+	session?: Omit<Session, 'user'>
+	signIn: (
+		provider?: ValidAuthProviderId,
+		options?: SignInOptions
+	) => ReturnType<typeof signIn>
+	signOut: (options?: SignOutParams) => ReturnType<typeof signOut>
+	signUp: typeof signUp
+	user: null | Session['user']
+}
 
 /**
  * Hook for consuming user, session, and authentication state. Sources all data
