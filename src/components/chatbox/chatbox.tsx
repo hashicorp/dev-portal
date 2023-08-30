@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
+import { flushSync } from 'react-dom'
 
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -38,6 +39,11 @@ import {
 } from './utils'
 
 const useAI = () => {
+	// We'll call `update` to retrieve a new access token if the current one is expired
+	// and we receive a 401 from the backend.
+	const { update, session } = useAuthentication()
+	const token = session?.accessToken
+
 	// The backend id of a conversation
 	const [conversationId, setConversationId] = useState('')
 	// The backend id of the most recently returned message
@@ -52,7 +58,6 @@ const useAI = () => {
 
 	type MutationParams = {
 		value: string
-		accessToken: string
 		conversationId?: string
 		parentMessageId?: string
 	}
@@ -94,30 +99,39 @@ const useAI = () => {
 				}
 			}
 		},
-		mutationFn: async ({
-			value: task,
-			accessToken: token,
-			conversationId,
-			parentMessageId,
-		}) => {
+		mutationFn: async ({ value: task, conversationId, parentMessageId }) => {
 			// call our edge function which is capable of streaming
-			const response = await fetch('/api/chat/route', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify({ task, conversationId, parentMessageId }),
-			})
+			const request = async (jwt: string) => {
+				const res = await fetch('/api/chat/route', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${token}`,
+					},
+					body: JSON.stringify({ task, conversationId, parentMessageId }),
+				})
+				return res
+			}
 
-			// if the response is not ok, throw it to be handled by onError
-			if (!response.ok) {
-				throw response
-			} else {
+			let response = await request(token)
+
+			if (response.ok) {
 				// messageId and conversationId are noops until we are ready for multi-message conversations
 				setConversationId(response.headers.get('x-conversation-id'))
 				setMessageId(response.headers.get('x-message-id'))
 				return response
+			} else {
+				// if the response is not ok
+				// if the response is a 401, we need to refresh the access token and retry once.
+				// otherwise, throw the response
+				if (response.status == 401) {
+					const { accessToken } = await update()
+					response = await request(accessToken)
+					if (response.ok) {
+						return response
+					}
+				}
+				throw response
 			}
 		},
 	})
@@ -161,13 +175,9 @@ const useAI = () => {
 					} else {
 						const { content } = parseResult.data
 
-						// - wait an arbitrary amount to opt out of React's automatic batching
-						// - This makes the UI appear to streaming in small chunks of text
-						//   rather than a large chunk of text all at once
-						// - Use a random number to make it feel more natural
-						const floor = 20
-						const ceil = 70
-						await sleep(Math.max(floor, Math.random() * ceil))
+						// call sleep(0) to opt out of react's state update batching
+						// this allows the text to appear to stream-in smoothly
+						await sleep(0)
 						setStreamedText((prev) => prev + content)
 					}
 				}
@@ -411,6 +421,15 @@ const ApplicationMessage = ({ text }: { text: string }) => {
 	)
 }
 
+const Message = Object.assign(
+	{},
+	{
+		User: UserMessage,
+		Assistant: AssistantMessage,
+		Application: ApplicationMessage,
+	}
+)
+
 const ChatBox = () => {
 	const {
 		errorText,
@@ -421,8 +440,7 @@ const ChatBox = () => {
 		stopStream,
 		sendMessage,
 	} = useAI()
-	const { user, session } = useAuthentication()
-	const accessToken = session?.accessToken
+	const { user } = useAuthentication()
 
 	// Text area
 	// Note: We are not re-using the command bar's input state as we intentionally
@@ -497,7 +515,6 @@ const ChatBox = () => {
 
 		sendMessage({
 			value: task,
-			accessToken,
 			// -- uncomment these parameters when we are ready for multi-message conversations
 			// conversationId,
 			// parentMessageId: messageId,
@@ -546,14 +563,14 @@ const ChatBox = () => {
 			) : (
 				<div
 					ref={mergeRefs([textContentRef, textContentRef2])}
-					className={s.chatbody}
+					className={s.message_list}
 				>
 					{messageList.map((e, i) => {
 						switch (e.type) {
 							// User input
 							case 'user': {
 								return (
-									<UserMessage
+									<Message.User
 										key={`${e.type}-${i}`}
 										image={e.image}
 										text={e.text}
@@ -564,7 +581,7 @@ const ChatBox = () => {
 							case 'assistant': {
 								const shouldShowActions = e.text?.length > 20 && !isLoading
 								return (
-									<AssistantMessage
+									<Message.Assistant
 										markdown={e.text}
 										key={e.messageId}
 										conversationId={e.conversationId}
@@ -576,7 +593,7 @@ const ChatBox = () => {
 							// Application message; likely an error
 							case 'application': {
 								return (
-									<ApplicationMessage key={`${e.type}-${i}`} text={e.text} />
+									<Message.Application key={`${e.type}-${i}`} text={e.text} />
 								)
 							}
 						}
@@ -584,7 +601,7 @@ const ChatBox = () => {
 				</div>
 			)}
 
-			<form id="chat-create" onSubmit={handleSubmit} ref={formRef}>
+			<form onSubmit={handleSubmit} ref={formRef}>
 				<div className={s.bottom}>
 					{textContentScrollBarIsVisible ? (
 						<div className={s.arrowdown} onClick={handleArrowDownClick}>

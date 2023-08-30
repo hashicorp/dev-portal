@@ -130,7 +130,7 @@
 	}
 }
 
-.chatbody {
+.message_list {
 	overflow-y: auto;
 	max-height: 100%;
 	display: flex;

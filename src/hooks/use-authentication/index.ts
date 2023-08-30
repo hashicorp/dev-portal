@@ -130,11 +130,11 @@ const useAuthentication = (
 		isAuthenticated,
 		isLoading,
 		session,
+		update,
 		signIn,
 		signOut,
 		signUp,
 		user,
-		update,
 	}
 }
 
