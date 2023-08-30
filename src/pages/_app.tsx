@@ -67,8 +67,13 @@ import { toast } from 'components/toast'
 import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
 // TODO: see `make-dark-mode-notification.ts` for persistent-hiding
 function AIFeatureToast() {
+	const [shown, setShown] = useState(false)
 	const { session } = useAuthentication()
 	useEffect(() => {
+		if (shown) {
+			return
+		}
+
 		// @ts-expect-error - TODO(kevinwang) type session.meta
 		if (session?.meta?.isAIEnabled) {
 			toast({
@@ -79,10 +84,12 @@ function AIFeatureToast() {
 				description: 'Try it out in our cmd+K menu!',
 				autoDismiss: 10000,
 			})
+			setShown(true)
 		}
 	}, [
 		// @ts-expect-error - TODO(kevinwang) type session.meta
 		session?.meta?.isAIEnabled,
+		shown,
 	])
 	return null
 }
