@@ -170,7 +170,7 @@ function PropertyDetailsNested({
  * Accepts optional props that affect the appearance of the tree styles:
  * - `hideBorder` - hide the tree marker, but retain spacing
  * - `hideIndicator` - hide the tree marker, which shifts positioning,
- *    but still retains a smaller amount of consistent left padding.
+ *    and removes the consistent left padding.
  * - `listItemStyle` - affects the tree marker style. By default,
  *    the marker is a vertical line that extends to the bottom of the
  * 	  container, creating the appearance of a continuous line for
@@ -189,7 +189,11 @@ function TreeContent({
 	hideIndicator?: boolean
 }>) {
 	return (
-		<div className={s.treeContent}>
+		<div
+			className={classNames(s.treeContent, {
+				[s.hideIndicator]: hideIndicator,
+			})}
+		>
 			{hideIndicator ? null : (
 				<div className={s.treeIndicatorContainer}>
 					<div
