@@ -128,7 +128,7 @@ export interface OpenApiDocsViewProps {
 	productData: ProductData
 	topOfPageHeading: {
 		text: string
-		slug: string
+		id: string
 	}
 	descriptionMdx: MDXRemoteSerializeResult
 	releaseStage: string

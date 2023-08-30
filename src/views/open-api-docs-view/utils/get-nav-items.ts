@@ -10,12 +10,12 @@ import { OperationGroup, OpenApiNavItem } from '../types'
  * Build nav items for each operation, group-by-group.
  */
 export function getNavItems({
-	topOfPageSlug,
+	topOfPageId,
 	operationGroups,
 	productSlug,
 	title,
 }: {
-	topOfPageSlug: string
+	topOfPageId: string
 	operationGroups: OperationGroup[]
 	productSlug: ProductSlug
 	title: string
@@ -23,7 +23,7 @@ export function getNavItems({
 	// Build the top-level page nav item
 	const pageNavItem = {
 		title,
-		fullPath: `#${topOfPageSlug}`,
+		fullPath: `#${topOfPageId}`,
 		theme: productSlug,
 	}
 	// Include grouped operation items

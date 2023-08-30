@@ -28,7 +28,7 @@ import s from './open-api-overview.module.css'
 export interface OpenApiOverviewProps {
 	heading: {
 		text: string
-		slug: string
+		id: string
 	}
 	badgeText: string
 	statusIndicatorConfig?: StatusIndicatorConfig
@@ -49,7 +49,7 @@ export function OpenApiOverview({
 					<IconVaultColor16 />
 				</IconTile>
 				<span>
-					<h1 id={heading.slug} className={s.heading}>
+					<h1 id={heading.id} className={s.heading}>
 						{heading.text}
 					</h1>
 					{statusIndicatorConfig ? (

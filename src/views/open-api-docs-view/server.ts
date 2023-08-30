@@ -66,7 +66,7 @@ export async function getStaticProps({
 	versionData,
 	basePath,
 	statusIndicatorConfig,
-	topOfPageSlug = 'overview',
+	topOfPageId = 'overview',
 	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
 	navResourceItems = [],
 }: {
@@ -75,7 +75,7 @@ export async function getStaticProps({
 	versionData: OpenApiDocsVersionData[]
 	basePath: string
 	statusIndicatorConfig: StatusIndicatorConfig
-	topOfPageSlug?: string
+	topOfPageId?: string
 	massageSchemaForClient?: (
 		schemaData: OpenAPIV3.Document
 	) => OpenAPIV3.Document
@@ -117,7 +117,7 @@ export async function getStaticProps({
 	const operationGroups = groupOperations(operationProps)
 	const navItems = getNavItems({
 		operationGroups,
-		topOfPageSlug,
+		topOfPageId,
 		title: schemaData.info.title,
 		productSlug: productData.slug,
 	})
@@ -144,7 +144,7 @@ export async function getStaticProps({
 			productData,
 			topOfPageHeading: {
 				text: schemaData.info.title,
-				slug: topOfPageSlug,
+				id: topOfPageId,
 			},
 			releaseStage: targetVersion.releaseStage,
 			descriptionMdx,
