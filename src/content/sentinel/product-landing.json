@@ -1,14 +1,14 @@
 {
 	"hero": {
-		"heading": "Sentinel Placeholder Duplicate Of Vault Content",
+		"heading": "Enforce policy as code for HashiCorp products",
 		"image": "https://place-hold.it/600x320"
 	},
 	"overview": {
 		"heading": "What is Sentinel?",
-		"body": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
+		"body": "Sentinel is a policy as code tool that lets you control what users of HashiCorp tools are allowed to do. It enforces policies proactively, preventing end users from deploying changes that aren't allowed.",
 		"cta": {
-			"text": "Learn more about Sentinel features",
-			"url": "/vault/docs/what-is-vault"
+			"text": "Learn more",
+			"url": "/sentinel/intro/what"
 		},
 		"image": {
 			"light": "https://place-hold.it/680x250",
@@ -17,15 +17,19 @@
 	},
 	"get_started": {
 		"heading": "Getting Started",
-		"body": "Use Sentinel to securely store, access, and manage secrets and other sensitive data.",
+		"body": "Use Sentinel to enforce policies for HashiCorp products.",
 		"ctas": [
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/getting-started"
+				"text": "Terraform Quick Start",
+				"url": "/terraform/tutorials/policy/sentinel-install"
 			},
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/cloud"
+				"text": "Vault Quick Start",
+				"url": "/vault/tutorials/policies/sentinel"
+			},
+			{
+				"text": "Nomad Quick Start",
+				"url": "/nomad/tutorials/governance-and-policy/governance-and-policy"
 			}
 		]
 	},
