@@ -22,6 +22,18 @@ import type { OpenAPIV3 } from 'openapi-types'
 export async function getOperationProps(
 	schemaJson: OpenAPIV3.Document
 ): Promise<OperationProps[]> {
+	// Grab the server URL, we'll use this to build URL paths for each operation
+	let serverUrl = ''
+	if (schemaJson.servers?.length > 0) {
+		const rawServerUrl = schemaJson.servers[0].url
+		/**
+		 * If we up-converted from an older OpenAPI version, then the spec would
+		 * have defined a `host` rather than explicit server URL, and the resulting
+		 * server URL will start with `//` rather than a valid protocol.
+		 * In this case we assume HTTPs, and update the serverUrl accordingly.
+		 */
+		serverUrl = rawServerUrl.replace(/^\/\//, 'https://')
+	}
 	// Set up an accumulator array
 	const operationObjects: OperationProps[] = []
 	/**
@@ -90,7 +102,7 @@ export async function getOperationProps(
 				summary,
 				requestData,
 				responseData,
-				urlPathForCodeBlock: getUrlPathCodeHtml(path),
+				urlPathForCodeBlock: getUrlPathCodeHtml(serverUrl + path),
 				_placeholder: {
 					__type: type,
 					__path: path,

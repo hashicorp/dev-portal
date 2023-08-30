@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { addWordBreaksToUrl } from './add-word-breaks-to-url'
-
 /**
  * Given a URL path,
  * Return HTML that represents the URL path, with `{parameters}` syntax
@@ -12,8 +10,13 @@ import { addWordBreaksToUrl } from './add-word-breaks-to-url'
  * to allow long URLs to wrap to multiple lines.
  */
 export default function getUrlPathCodeHtml(urlPath: string): string {
-	// Insert word breaks before forward slashes for more logical line breaks
-	const urlWithWordBreaks = addWordBreaksToUrl(urlPath)
+	/**
+	 * Insert <wbr/> before forward slashes for more logical line breaks
+	 *
+	 * Note: we can't use zero-width spaces here as in other use cases,
+	 * as they show up when the code block contents are copied.
+	 */
+	const urlWithWordBreaks = urlPath.replace(/\//g, '/<wbr/>')
 	// Add syntax highlighting around any {parameters} in the path
 	const parameterRegex = /{([^}]+)}/g
 	const urlPathForCodeBlock = urlWithWordBreaks.replace(
