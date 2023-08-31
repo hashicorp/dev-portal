@@ -4,7 +4,7 @@
  */
 
 import { ApiDocsVersionData } from '../../../types'
-import { findLatestStableVersion } from '../../../utils'
+import { findLatestStableVersion } from 'lib/api-docs'
 
 /**
  * Construct a label and options for an API docs version switcher.
