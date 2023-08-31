@@ -25,6 +25,7 @@ function getOldPluginComponentSlug(componentType) {
  * Packer Plugin library that are now in the Integrations library.
  *
  * Redirects are generated from this array.
+ * https://whimsical.com/migrating-packer-plugins-F5foVbcDMsaTXJSaWV35ZV
  */
 const packerPluginIntegrations = [
 	{
