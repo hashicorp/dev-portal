@@ -3,15 +3,17 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Third-party
+import type { OpenAPIV3 } from 'openapi-types'
 import type { ParsedUrlQuery } from 'querystring'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
+// Global
 import type { ProductData, ProductSlug } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'
-import type {
-	PropertyDetailsGroup,
-	PropertyDetailsSectionProps,
-} from './components/operation-details'
-import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import type { GithubDir } from 'lib/fetch-github-file-tree'
+import type { BreadcrumbLink } from 'components/breadcrumb-bar'
+// Local
+import type { PropertyDetailsSectionProps } from './components/operation-details'
 
 /**
  * Operations are specific request types to specific endpoints.
@@ -162,4 +164,40 @@ export interface OpenApiDocsViewProps {
 	 * Some temporary data we'll remove for the production implementation.
 	 */
 	_placeholder: $TSFixMe
+}
+
+/**
+ * Type definition for OpenApiDocsView server-side page configuration
+ */
+export interface OpenApiDocsPageConfig {
+	/**
+	 * The product slug is used to fetch product data for the layout.
+	 */
+	productSlug: ProductSlug
+	/**
+	 * The baseUrl is used to generate
+	 * breadcrumb links, sidebar nav levels, and version switcher links.
+	 */
+	basePath: string
+	/**
+	 * Resource items are shown in the sidebar
+	 */
+	navResourceItems: OpenApiNavItem[]
+	/**
+	 * We source version data from a directory in the `hcp-specs` repo.
+	 * See `fetchCloudApiVersionData` for details.
+	 */
+	githubSourceDirectory: GithubDir
+	/**
+	 * Optional config to power the status page indicator in the header area.
+	 */
+	statusIndicatorConfig?: {
+		pageUrl: string
+		endpointUrl: string
+	}
+	/**
+	 * Optional transform hook to run just after the OpenAPI schema is parsed,
+	 * but before we translate the schema into page props.
+	 */
+	massageSchemaForClient?: (schema: OpenAPIV3.Document) => OpenAPIV3.Document
 }
