@@ -37,7 +37,6 @@
 	},
 	"flags": {
 		"enable_datadog": true,
-		"enable_io_beta_cta": true,
-		"enable_hcp_vault_secrets_api_docs_revision": false
+		"enable_io_beta_cta": true
 	}
 }

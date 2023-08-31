@@ -62,15 +62,14 @@ export interface OpenApiDocsVersionData {
 
 /**
  * Params type for `getStaticPaths` and `getStaticProps`.
- * Encodes our assumption that a `[[page]].tsx` file is being used.
+ * Encodes our assumption that a `[[...page]].tsx` file is being used.
  *
  * Note: this is only needed for compatibility with the previous API docs,
  * which could potentially render multiple pages, one for each service.
  * In this revised template, we only render a single page.
  *
  * We will still need a dynamic route for versioning, but will need a refactor.
- * TODO: revise this type once we've fully activated and then removed the
- * `enable_hcp_vault_secrets_api_docs_revision` flag.
+ * Versioning task: https://app.asana.com/0/1204678746647847/1205062681720537/f
  */
 export interface OpenApiDocsParams extends ParsedUrlQuery {
 	page: string[]
