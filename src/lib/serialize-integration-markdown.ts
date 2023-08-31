@@ -4,11 +4,10 @@
  */
 
 import { Plugin } from 'unified'
-import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
 import { paragraphCustomAlerts, typography } from '@hashicorp/remark-plugins'
-import rehypePrism from '@mapbox/rehype-prism'
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
+import { rehypeCodePlugins } from 'lib/rehype-code-plugins'
 import rehypeSanitize, { schema } from 'lib/remark-plugins/rehype-sanitize'
 import remarkPluginAnchorLinkData from 'lib/remark-plugins/remark-plugin-anchor-link-data'
 // Types
@@ -31,8 +30,7 @@ export default async function serializeIntegrationMarkdown(
 				typography,
 			],
 			rehypePlugins: [
-				[rehypePrism, { ignoreMissing: true }],
-				rehypeSurfaceCodeNewlines,
+				...rehypeCodePlugins,
 				/**
 				 * Note: The VFile type definition varies between the newer version of
 				 * `rehype-sanitize` we use and the `unified` version used by

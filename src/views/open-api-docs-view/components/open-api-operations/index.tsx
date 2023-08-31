@@ -31,17 +31,19 @@ export function OpenApiOperations({
 				.map((operation: OperationProps) => {
 					return (
 						<div key={operation.operationId}>
-							<OperationHeader
-								className={s.header}
-								slug={operation.slug}
-								headerText={operation.operationId}
-								method={operation.type}
-								path={operation.path.truncated}
-							/>
 							<OperationSections
+								headerSlot={
+									<OperationHeader
+										className={s.header}
+										slug={operation.slug}
+										headingText={operation.summary}
+										method={operation.type}
+										path={operation.path.truncated}
+									/>
+								}
 								examplesSlot={
 									<OperationExamples
-										heading={operation.operationId}
+										heading={operation.summary}
 										code={operation.urlPathForCodeBlock}
 									/>
 								}

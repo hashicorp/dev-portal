@@ -4,9 +4,14 @@
  */
 
 import type { ParsedUrlQuery } from 'querystring'
+import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import type { ProductData, ProductSlug } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'
-import type { PropertyDetailsGroup } from './components/operation-details'
+import type {
+	PropertyDetailsGroup,
+	PropertyDetailsSectionProps,
+} from './components/operation-details'
+import { BreadcrumbLink } from 'components/breadcrumb-bar'
 
 /**
  * Operations are specific request types to specific endpoints.
@@ -20,8 +25,8 @@ export interface OperationProps {
 		full: string
 		truncated: string
 	}
-	requestData: PropertyDetailsGroup[]
-	responseData: PropertyDetailsGroup[]
+	requestData: PropertyDetailsSectionProps
+	responseData: PropertyDetailsSectionProps
 	summary?: string
 	/**
 	 * Syntax-highlighted HTML that represents the URL path, with
@@ -82,13 +87,37 @@ export interface OpenApiDocsParams extends ParsedUrlQuery {
  */
 type DividerNavItem = { divider: true }
 type HeadingNavItem = { heading: string }
-type LinkNavItem = {
+type ExternalLinkNavItem = {
+	title: string
+	href: string
+}
+export type LinkNavItem = {
 	title: string
 	fullPath: string
 	theme?: ProductSlug
+	isActive?: boolean
 }
 
-export type OpenApiNavItem = DividerNavItem | HeadingNavItem | LinkNavItem
+export type OpenApiNavItem =
+	| DividerNavItem
+	| HeadingNavItem
+	| LinkNavItem
+	| ExternalLinkNavItem
+
+/**
+ * Configure a status indicator for a status-page service.
+ */
+export interface StatusIndicatorConfig {
+	/**
+	 * A status-page component URL we can GET JSON data from, in the format
+	 * `https://status.hashicorp.com/api/v2/components/{componentId}.json`.
+	 */
+	endpointUrl: string
+	/**
+	 * A browser-friendly status page URL, like `https://status.hashicorp.com`
+	 */
+	pageUrl: string
+}
 
 /**
  * We'll use this type to document the shape of props for the view component.
@@ -97,8 +126,11 @@ export type OpenApiNavItem = DividerNavItem | HeadingNavItem | LinkNavItem
 export interface OpenApiDocsViewProps {
 	IS_REVISED_TEMPLATE: true
 	productData: ProductData
-	title: string
-	description: string
+	topOfPageHeading: {
+		text: string
+		id: string
+	}
+	descriptionMdx: MDXRemoteSerializeResult
 	releaseStage: string
 
 	/**
@@ -107,9 +139,25 @@ export interface OpenApiDocsViewProps {
 	 */
 	operationGroups: OperationGroup[]
 	/**
-	 * Operation nav items are rendered into the sidebar and mobile nav.
+	 * `navItems` appear in the main area of the sidebar and mobile nav.
 	 */
 	navItems: OpenApiNavItem[]
+
+	/**
+	 * `navResourceItems` appear at the bottom of the sidebar and mobile nav.
+	 */
+	navResourceItems: OpenApiNavItem[]
+
+	/**
+	 * Breadcrumb links are shown in the breadcrumb nav.
+	 */
+	breadcrumbLinks: BreadcrumbLink[]
+
+	/**
+	 * Configuration for the status-page indicator in the header area.
+	 */
+	statusIndicatorConfig: StatusIndicatorConfig
+
 	/**
 	 * Some temporary data we'll remove for the production implementation.
 	 */

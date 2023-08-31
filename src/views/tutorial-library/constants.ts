@@ -30,7 +30,7 @@ export const RESOURCES = [
  * Controls the editions filters, values map to those specified on the indexed tutorial object in Algolia
  */
 export const EDITIONS = [
-	{ value: 'open_source', label: 'Open Source' },
+	{ value: 'open_source', label: 'Community' },
 	{ value: 'enterprise', label: 'Enterprise' },
 	{ value: 'tfc', label: 'Terraform Cloud' },
 	{ value: 'hcp', label: 'HashiCorp Cloud Platform (HCP)' },

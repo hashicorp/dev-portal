@@ -113,9 +113,9 @@
 }
 
 .label {
-	font-family: var(--token-typography-display-100-font-family);
-	font-size: var(--token-typography-display-100-font-size);
-	line-height: var(--token-typography-display-100-line-height);
+	font-family: var(--token-typography-body-100-font-family);
+	font-size: var(--token-typography-body-100-font-size);
+	line-height: var(--token-typography-body-100-line-height);
 	color: var(--token-color-foreground-strong);
 	min-height: 100%;
 	margin: 0;
@@ -123,9 +123,9 @@
 	vertical-align: middle;
 
 	@media (--dev-dot-tablet-up) {
-		font-family: var(--token-typography-display-200-font-family);
-		font-size: var(--token-typography-display-200-font-size);
-		line-height: var(--token-typography-display-200-line-height);
+		font-family: var(--token-typography-body-300-font-family);
+		font-size: var(--token-typography-body-300-font-size);
+		line-height: var(--token-typography-body-300-line-height);
 	}
 
 	& strong {

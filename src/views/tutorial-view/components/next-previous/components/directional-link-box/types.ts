@@ -10,6 +10,7 @@ export type DirectionOption = 'next' | 'previous' | 'final'
 export interface DirectionalLinkBoxProps {
 	href: CardLinkProps['href']
 	label: string
+	name: string
 	ariaLabel: CardLinkProps['ariaLabel']
 	direction: DirectionOption
 }

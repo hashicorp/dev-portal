@@ -1,0 +1,30 @@
+---
+componentName: ServiceStatusBadge
+---
+
+## Overview
+
+The `ServiceStatusBadge` component displays a badge with preset colors and iconography that represent service status values.
+
+## Examples
+
+`ServiceStatusBadge` accepts a single `status` prop. All `status` values accepted by the component are shown below. If an unrecognized `status` string is provided, the component will display the `unknown` status badge.
+
+| `status`                 | Result                                               |
+| :----------------------- | :--------------------------------------------------- |
+| `"loading"`              | <ServiceStatusBadge status="loading" />              |
+| `"operational"`          | <ServiceStatusBadge status="operational" />          |
+| `"degraded_performance"` | <ServiceStatusBadge status="degraded_performance" /> |
+| `"partial_outage"`       | <ServiceStatusBadge status="partial_outage" />       |
+| `"major_outage"`         | <ServiceStatusBadge status="major_outage" />         |
+| `"under_maintenance"`    | <ServiceStatusBadge status="under_maintenance" />    |
+| `"unknown"`              | <ServiceStatusBadge status="unknown" />              |
+
+## Fetching Status Data
+
+HashiCorp's service status can be see on [https://status.hashicorp.com](https://status.hashicorp.com). Status data can be accesssed programmatically through the following endpoints:
+
+- `https://status.hashicorp.com/api/v2/summary.json` - returns a summary of all components
+  - As a demo, [summary.json](https://status.hashicorp.com/api/v2/summary.json) returns a summary of all components
+- `https://status.hashicorp.com/api/v2/components/{componentId}.json` - returns a summary of an individual component
+  - For example, [hk67zg2j2rkd.json](https://status.hashicorp.com/api/v2/components/hk67zg2j2rkd.json) returns the status of the HCP Vault Secrets API
