@@ -20,6 +20,17 @@
 				"register": "https://cp.certmetrics.com/hashicorp/en/login"
 			},
 			"faqSlug": "consul-associate-002"
+		},
+		{
+			"title": "Consul New Exam",
+			"examCode": "NEW",
+			"productSlug": "consul",
+			"versionTested": "Consul 1.8 or higher",
+			"description": "This is a placeholder description for a new Consul certification offering. This is a placeholder description for a new Consul certification offering.",
+			"links": {
+				"prepare": "/consul/tutorials/certification"
+			},
+			"faqSlug": "consul-new-exam"
 		}
 	]
 }
