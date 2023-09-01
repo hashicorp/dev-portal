@@ -29,7 +29,7 @@
 		"expirationDate": ""
 	},
 	"version": "1.7.10",
-	"basePaths": ["docs", "guides", "intro", "plugins", "downloads"],
+	"basePaths": ["docs", "guides", "intro", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -46,5 +46,8 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"description": "A curated collection of official, partner, and community Packer Integrations."
+	}
 }

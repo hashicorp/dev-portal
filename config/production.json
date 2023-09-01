@@ -13,9 +13,9 @@
 		"auth": {
 			"idp_url": "https://auth.idp.hashicorp.com"
 		},
-		"product_slugs_with_integrations": ["vault", "waypoint", "nomad"]
+		"product_slugs_with_integrations": ["vault", "waypoint", "nomad", "packer"]
 	},
 	"flags": {
-		"enable_hcp_vault_secrets_api_docs_revision": false
+		"enable_hcp_vault_secrets_api_docs_revision": true
 	}
 }

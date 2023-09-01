@@ -126,7 +126,10 @@ export interface StatusIndicatorConfig {
 export interface OpenApiDocsViewProps {
 	IS_REVISED_TEMPLATE: true
 	productData: ProductData
-	title: string
+	topOfPageHeading: {
+		text: string
+		id: string
+	}
 	descriptionMdx: MDXRemoteSerializeResult
 	releaseStage: string
 
