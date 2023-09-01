@@ -6,7 +6,7 @@
 import { GetStaticPropsResult } from 'next'
 import OpenApiDocsPreviewView from 'views/open-api-docs-preview'
 
-const IS_PRODUCTION = process.env.VERCEL_ENV === 'production'
+const IS_PRODUCTION = process.env.HASHI_ENV === 'production'
 
 /**
  * We don't actually need static props for this page,
