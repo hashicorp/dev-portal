@@ -12,7 +12,7 @@ import type { ProductSlug } from 'types/products'
  */
 const GENERIC_PAGE_CONFIG = {
 	// basePath same no matter what, preview tool is on static route
-	basePath: '/openapi-docs-preview',
+	basePath: '/open-api-docs-preview',
 	// No versioning in the preview tool, focus on one spec file at a time
 	context: { params: { page: [] } },
 	// Product slug, using HCP to just show a generic HashiCorp logo,
