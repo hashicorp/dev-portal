@@ -184,7 +184,16 @@ export default function ProductIntegrationLayout({
 					{
 						text: 'GitHub',
 						href: integration.subdirectory
-							? `${integration.repo_url}/tree/main${integration.subdirectory}`
+							? `${
+									integration.repo_url
+							  }/tree/main${integration.subdirectory.replace(
+									// Some Packer Plugins have an exception where we compile their
+									// `docs` folder to `.web-docs` to be integrations-format-compliant.
+									// The directory in which we want to redirect users here is actually
+									// simply just `docs`, as that's where users would go to make edits.
+									'.web-docs',
+									'docs'
+							  )}`
 							: integration.repo_url,
 						icon: <IconGithub16 />,
 					},

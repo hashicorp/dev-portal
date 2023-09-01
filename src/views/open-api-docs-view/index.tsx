@@ -25,7 +25,7 @@ import { DescriptionMdx } from './components/open-api-overview/components/descri
  */
 function OpenApiDocsView({
 	productData,
-	title,
+	topOfPageHeading,
 	releaseStage,
 	descriptionMdx,
 	operationGroups,
@@ -57,7 +57,7 @@ function OpenApiDocsView({
 				<div className={s.spaceBreadcrumbsOverview}>
 					<BreadcrumbBar links={breadcrumbLinks} />
 					<OpenApiOverview
-						title={title}
+						heading={topOfPageHeading}
 						badgeText={releaseStage}
 						statusIndicatorConfig={statusIndicatorConfig}
 						contentSlot={
