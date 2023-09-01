@@ -3,7 +3,7 @@
 	"doesNotHavePackageManagers": true,
 	"sidecarMarketingCard": {
 		"title": "About Sentinel",
-		"subtitle": "Sentinel is a policy as code tool that lets you control what users of HashiCorp products are allowed to do. It enforces policies proactively, preventing end users from deploying changes that aren't allowed.",
+		"subtitle": "Sentinel is a policy as code tool that lets you control what users of HashiCorp products are allowed to do. It enforces policies proactively, preventing end users from deploying changes that are not allowed.",
 		"featuredDocsLinks": [
 			{
 				"href": "/sentinel/intro/why",
