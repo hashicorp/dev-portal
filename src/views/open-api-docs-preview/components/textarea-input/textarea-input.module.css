@@ -1,0 +1,11 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.textarea {
+	width: 100%;
+	resize: vertical;
+	min-height: 200px;
+}
