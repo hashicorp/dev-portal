@@ -7,15 +7,25 @@ import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-item
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 import Sidebar from 'components/sidebar'
 import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
+import { IconUser16 } from '@hashicorp/flight-icons/svg-react/user-16'
 import { IconBookmark16 } from '@hashicorp/flight-icons/svg-react/bookmark-16'
 import { SidebarNavMenuButton } from 'components/sidebar/components/sidebar-nav-menu-item'
 import useAuthentication from 'hooks/use-authentication'
 import { useDeviceSize } from 'contexts'
 import SidebarNavList from 'components/sidebar/components/sidebar-nav-list'
+import { useRouter } from 'next/router'
 
-export function ProfileBookmarksSidebar() {
+/**
+ * shared left side bar for /profile pages
+ */
+export function ProfileSidebar() {
 	const { signOut } = useAuthentication()
 	const { isDesktop } = useDeviceSize()
+	const { asPath } = useRouter()
+
+	const isActive = (path: string) => {
+		return asPath === path
+	}
 
 	return (
 		<Sidebar
@@ -27,9 +37,17 @@ export function ProfileBookmarksSidebar() {
 					<>
 						<SidebarNavMenuItem
 							item={{
+								title: 'Account',
+								fullPath: '/profile/account',
+								isActive: isActive('/profile/account'),
+								trailingIcon: <IconUser16 />,
+							}}
+						/>
+						<SidebarNavMenuItem
+							item={{
 								title: 'Bookmarks',
 								fullPath: '/profile/bookmarks',
-								isActive: true,
+								isActive: isActive('/profile/bookmarks'),
 								trailingIcon: <IconBookmark16 />,
 							}}
 						/>

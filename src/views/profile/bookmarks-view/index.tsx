@@ -20,7 +20,7 @@ import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-ad
 import ButtonLink from 'components/button-link'
 import EmptyState from 'components/empty-state'
 import { BookmarkButtonWithRemoveDialog } from './components/bookmark-button-with-remove-dialog'
-import { ProfileBookmarksSidebar } from './components/sidebar'
+import { ProfileSidebar } from '../sidebar'
 import { SortData } from './helpers/card-sort-data'
 import s from './bookmarks-view.module.css'
 
@@ -40,7 +40,7 @@ const ProfileBookmarksView = () => {
 						isCurrentPage: true,
 					},
 				]}
-				AlternateSidebar={ProfileBookmarksSidebar}
+				AlternateSidebar={ProfileSidebar}
 				sidebarNavDataLevels={[]}
 			>
 				<ProfileBookmarksViewContent />

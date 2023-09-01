@@ -52,16 +52,19 @@ const getUserMenuItems = ({
 }
 
 const getUserMeta = (user: Session['user']) => {
+	console.log('getUserMeta', user)
 	const icon = getIcon(user)
 	const isSignedInWithGitHub = getIsSignedInWithGitHub(user)
 	const label = getLabel(isSignedInWithGitHub)
 	const description = getDescription(user, isSignedInWithGitHub)
+	const id = user.id
 
 	return {
 		icon,
 		isSignedInWithGitHub,
 		label,
 		description,
+		id,
 	}
 }
 
