@@ -17,11 +17,11 @@
 	},
 	"get_started": {
 		"heading": "Getting Started",
-		"body": "Write and run your first example Sentinel policies.",
+		"body": "Install the Sentinel CLI. Then write and run your first example Sentinel policies.",
 		"ctas": [
 			{
 				"text": "Quick Start",
-				"url": "/sentinel/docs/writing/basic"
+				"url": "/sentinel/intro/getting-started"
 			},
 			{
 				"text": "Language Documentation",
@@ -57,14 +57,6 @@
 			]
 		},
 		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": [
-				"terraform/sentinel-install",
-				"vault/sentinel",
-				"nomad/sentinel"
-			]
-		},
-		{
 			"type": "heading",
 			"heading": "Playground",
 			"level": 2,
@@ -74,8 +66,13 @@
 			"type": "linked_cards",
 			"cards": [
 				{
+					"heading": "Guided quick start",
+					"body": "Read through guided language examples with an embedded, runnable policy snippets.",
+					"url": "/sentinel/docs/writing/basic"
+				},
+				{
 					"heading": "Sentinel playground",
-					"body": "Write and test your own Sentinel policies in a free, hosted sandbox. Upload your own mock data to write policies against, or customize the provided example, which checks that an S3 bucket has a private ACL.",
+					"body": "Write and test policies in a free, hosted sandbox. Upload mock data to write policies against, or customize the provided example, which checks that an S3 bucket has a private ACL.",
 					"url": "https://docs.hashicorp.com/sentinel"
 				}
 			]
