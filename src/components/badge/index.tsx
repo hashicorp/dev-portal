@@ -4,6 +4,7 @@
  */
 
 import classNames from 'classnames'
+import HDSBadge from '@hashicorp/react-design-system-components/src/components/badge'
 import { BadgeProps } from './types'
 import s from './badge.module.css'
 
@@ -40,14 +41,25 @@ const Badge = ({
 		)
 	}
 
+	// return (
+	// 	<>
+	// 		<span className="g-screen-reader-only">{ariaLabel ?? text}</span>
+	// 		<span aria-hidden className={classes}>
+	// 			{icon}
+	// 			{text && <span>{text}</span>}
+	// 		</span>
+	// 	</>
+	// )
+
 	return (
-		<>
-			<span className="g-screen-reader-only">{ariaLabel ?? text}</span>
-			<span aria-hidden className={classes}>
-				{icon}
-				{text && <span>{text}</span>}
-			</span>
-		</>
+		<HDSBadge
+			text={text}
+			icon={icon}
+			size={size}
+			type={type === 'base' ? 'filled' : type}
+			iconOnly={isIconOnly}
+			className={className}
+		/>
 	)
 }
 

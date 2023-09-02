@@ -5,6 +5,7 @@
 
 import { ForwardedRef, forwardRef } from 'react'
 import classNames from 'classnames'
+import HDSButton from '@hashicorp/react-design-system-components/src/components/button'
 import { ButtonProps } from './types'
 import s from './button.module.css'
 
@@ -68,27 +69,40 @@ const Button = forwardRef(
 			)
 		}
 
+		// return (
+		// 	<button
+		// 		aria-controls={ariaControls}
+		// 		aria-describedby={ariaDescribedBy}
+		// 		aria-expanded={ariaExpanded}
+		// 		aria-label={ariaLabel}
+		// 		aria-labelledby={ariaLabelledBy}
+		// 		className={classes}
+		// 		data-heap-track={`button ${dataHeapTrack ?? ''}`}
+		// 		disabled={disabled}
+		// 		form={form}
+		// 		id={id}
+		// 		name={name}
+		// 		onClick={onClick}
+		// 		ref={ref}
+		// 		type={type}
+		// 	>
+		// 		{hasLeadingIcon && icon}
+		// 		{hasText && <span className={s.text}>{text}</span>}
+		// 		{hasTrailingIcon && icon}
+		// 	</button>
+		// )
+
 		return (
-			<button
-				aria-controls={ariaControls}
-				aria-describedby={ariaDescribedBy}
-				aria-expanded={ariaExpanded}
-				aria-label={ariaLabel}
-				aria-labelledby={ariaLabelledBy}
-				className={classes}
-				data-heap-track={`button ${dataHeapTrack ?? ''}`}
-				disabled={disabled}
-				form={form}
-				id={id}
-				name={name}
-				onClick={onClick}
-				ref={ref}
-				type={type}
-			>
-				{hasLeadingIcon && icon}
-				{hasText && <span className={s.text}>{text}</span>}
-				{hasTrailingIcon && icon}
-			</button>
+			<HDSButton
+				size={size}
+				isFullWidth={isFullWidth}
+				className={className}
+				color={color}
+				text={text}
+				onClick={onClick as any}
+				icon={icon}
+				iconPosition={iconPosition}
+			/>
 		)
 	}
 )

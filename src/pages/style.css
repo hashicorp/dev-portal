@@ -17,7 +17,10 @@
 
 /* Theme files */
 @import 'styles/themes/global.css';
-@import 'styles/themes/dark.css';
+
+/* @import 'styles/themes/dark.css'; */
+@import '~@hashicorp/react-design-system-tokens/dist/css/tokens.css';
+@import '~@hashicorp/react-design-system-tokens/dist/css/dark/tokens.css';
 
 /* Display 600 type style. HDS candidate, only in Dev Dot for now */
 @import 'styles/hds-typography-display-600.css';
