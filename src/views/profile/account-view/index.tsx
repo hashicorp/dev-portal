@@ -6,14 +6,12 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import AuthenticatedView from 'views/authenticated-view'
 import Text from 'components/text'
 import Heading from 'components/heading'
-import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
-import ButtonLink from 'components/button-link'
-import EmptyState from 'components/empty-state'
-import { ProfileSidebar } from '../sidebar'
 
+import { ProfileSidebar } from '../sidebar'
 import s from './account-view.module.css'
 import useAuthentication from 'hooks/use-authentication'
-import ContentHeaderCard from 'components/content-header-card'
+import CopySnippet from 'components/hds-copy-snippet'
+import Card from 'components/card'
 
 export default function ProfileAccountView() {
 	return (
@@ -21,7 +19,6 @@ export default function ProfileAccountView() {
 			<SidebarSidecarLayout
 				breadcrumbLinks={[
 					{ title: 'Developer', url: '/' },
-					{ title: 'Profile' },
 					{
 						title: 'Account',
 						url: '/profile/account',
@@ -46,44 +43,29 @@ const ProfileAccountViewContent = () => {
 				Account
 			</Heading>
 			<Text className={s.subheading}>
-				A read-only view of personal account info
+				A read-only view of personal account info from&nbsp;
+				<a href="https://portal.cloud.hashicorp.com/account-settings">
+					HCP Account settings
+				</a>
 			</Text>
 
-			{/* <Heading level={2} weight="bold" size={300}>
-				Your ID
-			</Heading> */}
-			{/* <Text>{user?.id}</Text> */}
-			<ContentHeaderCard
-				description={user?.name}
-				title="Your Name"
-				note="Hello there!"
-				buttons={[
-					{
-						text: 'Copy',
-						isPrimary: true,
-						onClick: () => {
-							navigator.clipboard.writeText(user?.name)
-						},
-					},
-				]}
-			/>
+			<Card className={s.section}>
+				<Heading level={2} weight="bold" size={300}>
+					Name
+				</Heading>
+				<Text className={s.description}>Your name</Text>
+				<CopySnippet textToCopy={user?.name} />
+			</Card>
+
+			<Card className={s.section}>
+				<Heading level={2} weight="bold" size={300}>
+					HashiCorp ID
+				</Heading>
+				<Text className={s.description}>Your ID within HashiCorp</Text>
+				<CopySnippet textToCopy={user?.id} />
+			</Card>
 
 			<div style={{ height: 24 }} />
-
-			<ContentHeaderCard
-				description={<code>{user?.id}</code>}
-				title="Your ID"
-				note="Your ID within HashiCorp"
-				buttons={[
-					{
-						text: 'Copy',
-						isPrimary: true,
-						onClick: () => {
-							navigator.clipboard.writeText(user?.id)
-						},
-					},
-				]}
-			/>
 		</div>
 	)
 }

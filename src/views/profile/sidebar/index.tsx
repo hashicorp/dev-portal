@@ -51,12 +51,6 @@ export function ProfileSidebar() {
 								trailingIcon: <IconBookmark16 />,
 							}}
 						/>
-						<SidebarNavMenuItem
-							item={{
-								title: 'Account Settings',
-								href: 'https://portal.cloud.hashicorp.com/account-settings',
-							}}
-						/>
 						<li>
 							<SidebarNavMenuButton
 								item={{

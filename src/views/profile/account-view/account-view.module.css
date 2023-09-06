@@ -11,3 +11,12 @@
 		margin-bottom: 32px;
 	}
 }
+
+.section {
+	margin-bottom: 16px;
+}
+
+.description {
+	composes: hds-typography-body-200 from global;
+	color: var(--token-color-foreground-faint);
+}
