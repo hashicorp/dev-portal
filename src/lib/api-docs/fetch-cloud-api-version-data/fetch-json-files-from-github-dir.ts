@@ -4,8 +4,8 @@
  */
 
 import path from 'path'
-import { fetchFileTreeFromGithub } from './fetch-file-tree-from-github'
-import type { FileTreeEntry, GithubDir } from './fetch-file-tree-from-github'
+import { fetchGithubFileTree } from 'lib/fetch-github-file-tree'
+import type { FileTreeEntry, GithubDir } from 'lib/fetch-github-file-tree'
 
 /**
  * Given the details of a remote directory on GitHub,
@@ -20,7 +20,7 @@ import type { FileTreeEntry, GithubDir } from './fetch-file-tree-from-github'
 export async function getJsonFilesFromGithubDir(
 	githubDir: GithubDir
 ): Promise<FileTreeEntry[]> {
-	const gitTree = await fetchFileTreeFromGithub(githubDir, { recursive: true })
+	const gitTree = await fetchGithubFileTree(githubDir, { recursive: true })
 	// Filter the data.tree for .json files
 	const jsonFiles = gitTree.filter((entry: FileTreeEntry) => {
 		// .json files will be blobs, filter out non-blobs

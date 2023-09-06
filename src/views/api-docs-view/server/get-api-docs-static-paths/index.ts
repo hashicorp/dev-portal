@@ -6,7 +6,7 @@
 // Global
 import { isDeployPreview } from 'lib/env-checks'
 // Local
-import { findLatestStableVersion } from '../../utils'
+import { findLatestStableVersion } from 'lib/api-docs'
 import { fetchApiDocsPaths } from './fetch-api-docs-paths'
 // Types
 import type { GetStaticPathsResult } from 'next'
