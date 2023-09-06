@@ -35,11 +35,11 @@ const CurrentProductProvider = ({
 
 const useCurrentProduct = (): ProductData => {
 	const context = useContext(CurrentProductContext)
-	// if (context === undefined) {
-	// 	throw new Error(
-	// 		'useCurrentProduct must be used within a CurrentProductProvider'
-	// 	)
-	// }
+	if (context === undefined) {
+		throw new Error(
+			'useCurrentProduct must be used within a CurrentProductProvider'
+		)
+	}
 
 	return context
 }
