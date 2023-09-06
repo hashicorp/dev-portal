@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Global
+import { fetchCloudApiVersionData } from 'lib/api-docs'
 // View
 import ApiDocsView from 'views/api-docs-view'
 import {
@@ -11,7 +13,6 @@ import {
 	ApiDocsParams,
 } from 'views/api-docs-view/server'
 import { buildApiDocsBreadcrumbs } from 'views/api-docs-view/server/get-api-docs-static-props/utils'
-import { fetchCloudApiVersionData } from 'views/api-docs-view/utils'
 // Components
 import {
 	PathTruncationAside,

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ApiDocsVersionData } from '../types'
+import { ApiDocsVersionData } from './types'
 import { sortDateVersionData } from './sort-date-version-data'
 
 /**

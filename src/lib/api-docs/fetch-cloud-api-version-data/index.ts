@@ -5,10 +5,10 @@
 
 import path from 'path'
 import { getJsonFilesFromGithubDir } from './fetch-json-files-from-github-dir'
-// Types
-import type { FileTreeEntry, GithubDir } from './fetch-file-tree-from-github'
-import type { ApiDocsVersionData } from '../../types'
 import { sortDateVersionData } from '../sort-date-version-data'
+// Types
+import type { FileTreeEntry, GithubDir } from '../../fetch-github-file-tree'
+import type { ApiDocsVersionData } from '../types'
 
 /**
  * Extract a `versionId` from a cloud API docs spec file path.
