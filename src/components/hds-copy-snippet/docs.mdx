@@ -1,0 +1,60 @@
+---
+componentName: CopySnippet
+---
+
+https://helios.hashicorp.design/components/copy/snippet
+
+## Overview
+
+A button that enables users to copy a snippet of code
+
+### Basic Usage
+
+<LiveComponent>
+	{`<div
+	style={{
+		marginTop: 20,
+		padding: 20,
+		background: '#eee',
+	}}>
+	<CopySnippet
+		textToCopy={"user_04f349fb-b868-4399-a210-1a407099dfdc"}
+	/>
+</div>`}
+</LiveComponent>
+
+### Other props
+
+<LiveComponent>
+	{`<div
+	style={{
+		marginTop: 20,
+		padding: 20,
+		background: '#eee',
+	}}>
+	<CopySnippet
+		textToCopy={"user_04f349fb-b868-4399-a210-1a407099dfdc"}
+		color="secondary"
+		isFullWidth
+	/>
+</div>`}
+</LiveComponent>
+
+<LiveComponent>
+	{`<div
+	style={{
+		marginTop: 20,
+		padding: 20,
+		background: '#eee',
+	}}>
+	<div
+		style={{maxWidth: '10em'}}
+	>
+		<CopySnippet
+			textToCopy={"user_04f349fb-b868-4399-a210-1a407099dfdc"}
+			color="secondary"
+			isTruncated
+		/>
+	</div>
+</div>`}
+</LiveComponent>
