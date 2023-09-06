@@ -4,6 +4,7 @@
  */
 
 // Library
+import { isDeployPreview } from 'lib/env-checks'
 import fetchGithubFile from 'lib/fetch-github-file'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { cachedGetProductData } from 'lib/get-product-data'
@@ -44,8 +45,11 @@ import type {
  * for each version of the OpenAPI documents that we detect.
  */
 export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
-	// For the new template, regardless of whether we're in a deploy preview
-	// or production, statically render the single view.
+	// If we are in a product repo deploy preview, don't pre-render any paths
+	if (isDeployPreview()) {
+		return { paths: [], fallback: 'blocking' }
+	}
+	// If we're in production, statically render the single view.
 	return {
 		paths: [{ params: { page: [] } }],
 		fallback: false,
