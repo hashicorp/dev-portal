@@ -126,12 +126,14 @@ export default NextAuth({
 		 * ref: https://next-auth.js.org/configuration/callbacks#session-callback
 		 */
 		async session({ session, token }) {
-			const email = session.user.email
+			// token.access_token -> `sub` is the user's `cloud_idp_id` we store in learn-api
+			// token.sub is the same value as above
+			const hashiCorpId = token.sub
 
 			let isAIEnabled = false
 			try {
 				const allowlist = await get('allowlist')
-				isAIEnabled = !!allowlist[email]
+				isAIEnabled = !!allowlist[hashiCorpId]
 			} catch (e) {
 				// ignore error
 			}
