@@ -258,8 +258,8 @@
 .question {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
-	padding: 8px 0px;
+	align-items: flex-end;
+	padding: 8px 0;
 	gap: 12px;
 	background: var(--token-color-surface-primary, #ffffff);
 }
