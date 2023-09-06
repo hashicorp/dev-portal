@@ -45,7 +45,7 @@ import type {
  * for each version of the OpenAPI documents that we detect.
  */
 export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
-	// If we are in a deploy preview, don't pre-render any paths
+	// If we are in a product repo deploy preview, don't pre-render any paths
 	if (isDeployPreview()) {
 		return { paths: [], fallback: 'blocking' }
 	}
