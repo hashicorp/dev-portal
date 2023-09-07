@@ -11,10 +11,12 @@ import s from './file-string-input.module.css'
  */
 export function FileStringInput({
 	label,
+	helperText,
 	accept,
 	setValue,
 }: {
 	label: string
+	helperText?: string
 	accept: string
 	setValue: (fileString: string) => void
 }) {
@@ -29,7 +31,10 @@ export function FileStringInput({
 
 	return (
 		<div className={s.root}>
-			<label htmlFor={id}>{label}</label>
+			<div>
+				<label htmlFor={id}>{label}</label>
+				{helperText ? <div className={s.helperText}>{helperText}</div> : null}
+			</div>
 			<input
 				id={id}
 				type="file"

@@ -4,6 +4,10 @@
 	gap: 8px;
 }
 
+.helperText {
+	color: var(--token-form-helper-text-color);
+}
+
 .textarea {
 	width: 100%;
 	resize: vertical;
