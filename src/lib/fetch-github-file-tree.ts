@@ -4,7 +4,7 @@
  */
 
 import { Octokit } from '@octokit/core'
-import { buildQueryStringSuffix } from './build-query-string-suffix'
+import { buildQueryStringSuffix } from './api-docs/fetch-cloud-api-version-data/build-query-string-suffix'
 
 /**
  * Initialize octokit.
@@ -40,7 +40,7 @@ export interface FileTreeEntry {
  * If the remote directory cannot be successfully fetched, or the resulting
  * response does not contain a file tree, this function throws an error.
  */
-export async function fetchFileTreeFromGithub(
+export async function fetchGithubFileTree(
 	githubDir: GithubDir,
 	options: { recursive?: boolean } = {}
 ): Promise<FileTreeEntry[]> {

@@ -3,15 +3,17 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Third-party
+import type { OpenAPIV3 } from 'openapi-types'
 import type { ParsedUrlQuery } from 'querystring'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
+// Global
 import type { ProductData, ProductSlug } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'
-import type {
-	PropertyDetailsGroup,
-	PropertyDetailsSectionProps,
-} from './components/operation-details'
-import { BreadcrumbLink } from 'components/breadcrumb-bar'
+import type { GithubDir } from 'lib/fetch-github-file-tree'
+import type { BreadcrumbLink } from 'components/breadcrumb-bar'
+// Local
+import type { PropertyDetailsSectionProps } from './components/operation-details'
 
 /**
  * Operations are specific request types to specific endpoints.
@@ -60,15 +62,14 @@ export interface OpenApiDocsVersionData {
 
 /**
  * Params type for `getStaticPaths` and `getStaticProps`.
- * Encodes our assumption that a `[[page]].tsx` file is being used.
+ * Encodes our assumption that a `[[...page]].tsx` file is being used.
  *
  * Note: this is only needed for compatibility with the previous API docs,
  * which could potentially render multiple pages, one for each service.
  * In this revised template, we only render a single page.
  *
  * We will still need a dynamic route for versioning, but will need a refactor.
- * TODO: revise this type once we've fully activated and then removed the
- * `enable_hcp_vault_secrets_api_docs_revision` flag.
+ * Versioning task: https://app.asana.com/0/1204678746647847/1205062681720537/f
  */
 export interface OpenApiDocsParams extends ParsedUrlQuery {
 	page: string[]
@@ -162,4 +163,40 @@ export interface OpenApiDocsViewProps {
 	 * Some temporary data we'll remove for the production implementation.
 	 */
 	_placeholder: $TSFixMe
+}
+
+/**
+ * Type definition for OpenApiDocsView server-side page configuration
+ */
+export interface OpenApiDocsPageConfig {
+	/**
+	 * The product slug is used to fetch product data for the layout.
+	 */
+	productSlug: ProductSlug
+	/**
+	 * The baseUrl is used to generate
+	 * breadcrumb links, sidebar nav levels, and version switcher links.
+	 */
+	basePath: string
+	/**
+	 * Resource items are shown in the sidebar
+	 */
+	navResourceItems: OpenApiNavItem[]
+	/**
+	 * We source version data from a directory in the `hcp-specs` repo.
+	 * See `fetchCloudApiVersionData` for details.
+	 */
+	githubSourceDirectory: GithubDir
+	/**
+	 * Optional config to power the status page indicator in the header area.
+	 */
+	statusIndicatorConfig?: {
+		pageUrl: string
+		endpointUrl: string
+	}
+	/**
+	 * Optional transform hook to run just after the OpenAPI schema is parsed,
+	 * but before we translate the schema into page props.
+	 */
+	massageSchemaForClient?: (schema: OpenAPIV3.Document) => OpenAPIV3.Document
 }
