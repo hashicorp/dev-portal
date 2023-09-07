@@ -125,8 +125,6 @@ export default NextAuth({
 		 * ref: https://next-auth.js.org/configuration/callbacks#session-callback
 		 */
 		async session({ session, token }) {
-			// token.access_token -> `sub` is the user's `cloud_idp_id` we store in learn-api
-			// token.sub is the same value as above
 			return {
 				...session,
 				accessToken: token.access_token,
