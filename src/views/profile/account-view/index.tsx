@@ -25,7 +25,7 @@ export default function ProfileAccountView() {
 				breadcrumbLinks={[
 					{ title: 'Developer', url: '/' },
 					{
-						title: 'Account',
+						title: 'Basic info',
 						url: '/profile/account',
 						isCurrentPage: true,
 					},
@@ -43,20 +43,20 @@ const ProfileAccountViewContent = () => {
 	return (
 		<div>
 			<Heading level={1} weight="bold" size={500}>
-				Account
+				Basic info
 			</Heading>
 			<Text className={s.subheading}>
-				A read-only view of personal account info from&nbsp;
+				A read-only view of your profile details from&nbsp;
 				<a href="https://portal.cloud.hashicorp.com/account-settings">
 					HCP Account settings
 				</a>
 			</Text>
 
 			<Heading level={2} weight="bold" size={200} className={s.sectionTitle}>
-				Email
+				Primary email
 			</Heading>
 
-			<Card className={s.section} elevation="mid">
+			<Card className={s.section} elevation="base">
 				<Text className={s.description}>
 					Email address associated with your profile name
 				</Text>
@@ -69,7 +69,7 @@ const ProfileAccountViewContent = () => {
 				HashiCorp ID
 			</Heading>
 
-			<Card className={s.section} elevation="mid">
+			<Card className={s.section} elevation="base">
 				<Text className={s.description}>Your ID within HashiCorp</Text>
 				<div className={s.copySnippetWrapper}>
 					<CopySnippet textToCopy={user.id} />

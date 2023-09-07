@@ -37,7 +37,7 @@ export function ProfileSidebar() {
 					<>
 						<SidebarNavMenuItem
 							item={{
-								title: 'Account',
+								title: 'Basic info',
 								fullPath: '/profile/account',
 								isActive: isActive('/profile/account'),
 								trailingIcon: <IconUser16 />,

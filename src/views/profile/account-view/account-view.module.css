@@ -17,14 +17,12 @@
 }
 
 .section {
-	/* override Card box-shadow */
-	box-shadow: var(--token-elevation-mid-box-shadow);
-	background: var(--token-color-surface-faint);
-	display: flex;
+	/* override card dark theme background-color specificity */
+	background-color: var(--token-color-surface-primary) !important;
 	margin-bottom: 24px;
-	gap: 16px;
-	flex-direction: row;
-	align-items: center;
+	gap: 12px;
+	display: flex;
+	flex-direction: column;
 	border: none;
 
 	&:last-of-type {
@@ -39,6 +37,7 @@
 }
 
 .copySnippetWrapper {
+	width: max-content;
 	border-radius: 5px;
 	border: 1px solid var(--token-color-border-strong);
 }

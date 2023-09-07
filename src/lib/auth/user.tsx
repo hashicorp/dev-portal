@@ -35,7 +35,7 @@ const getUserMenuItems = ({
 }): UserDropdownDisclosureProps['items'] => {
 	return [
 		{
-			label: 'Account',
+			label: 'Basic info',
 			href: '/profile/account',
 		},
 		{
