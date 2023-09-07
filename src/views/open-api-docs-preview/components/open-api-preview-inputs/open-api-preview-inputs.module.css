@@ -2,7 +2,7 @@
 	--highlight-color: var(--token-color-foreground-highlight);
 	--border-width: 4px;
 
-	background: black;
+	background: var(--token-color-surface-primary);
 	border-left: var(--border-width) solid var(--highlight-color);
 	bottom: 0;
 	position: fixed;
