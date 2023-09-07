@@ -12,11 +12,33 @@
 	}
 }
 
+.sectionTitle {
+	margin-bottom: 8px;
+}
+
 .section {
-	margin-bottom: 16px;
+	/* override Card box-shadow */
+	box-shadow: var(--token-elevation-mid-box-shadow);
+	background: var(--token-color-surface-faint);
+	display: flex;
+	margin-bottom: 24px;
+	gap: 16px;
+	flex-direction: row;
+	align-items: center;
+	border: none;
+
+	&:last-of-type {
+		margin-bottom: 40px;
+	}
 }
 
 .description {
 	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-faint);
+	flex: 1;
+}
+
+.copySnippetWrapper {
+	border-radius: 5px;
+	border: 1px solid var(--token-color-border-strong);
 }

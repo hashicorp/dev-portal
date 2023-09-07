@@ -2,6 +2,8 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import AuthenticatedView from 'views/authenticated-view'
 import Text from 'components/text'
@@ -12,19 +14,12 @@ import s from './account-view.module.css'
 import useAuthentication from 'hooks/use-authentication'
 import CopySnippet from 'components/hds-copy-snippet'
 import Card from 'components/card'
+import StandaloneLink from 'components/standalone-link'
 
 export default function ProfileAccountView() {
 	return (
 		<AuthenticatedView>
 			<SidebarSidecarLayout
-				breadcrumbLinks={[
-					{ title: 'Developer', url: '/' },
-					{
-						title: 'Account',
-						url: '/profile/account',
-						isCurrentPage: true,
-					},
-				]}
 				AlternateSidebar={ProfileSidebar}
 				sidebarNavDataLevels={[]}
 			>
@@ -49,23 +44,36 @@ const ProfileAccountViewContent = () => {
 				</a>
 			</Text>
 
-			<Card className={s.section}>
-				<Heading level={2} weight="bold" size={300}>
-					Name
-				</Heading>
-				<Text className={s.description}>Your name</Text>
-				<CopySnippet textToCopy={user?.name} />
+			<Heading level={2} weight="bold" size={200} className={s.sectionTitle}>
+				Email
+			</Heading>
+
+			<Card className={s.section} elevation="mid">
+				<Text className={s.description}>
+					Email address associated with your profile name
+				</Text>
+				<div className={s.copySnippetWrapper}>
+					<CopySnippet textToCopy={user?.email} />
+				</div>
 			</Card>
 
-			<Card className={s.section}>
-				<Heading level={2} weight="bold" size={300}>
-					HashiCorp ID
-				</Heading>
+			<Heading level={2} weight="bold" size={200} className={s.sectionTitle}>
+				HashiCorp ID
+			</Heading>
+
+			<Card className={s.section} elevation="mid">
 				<Text className={s.description}>Your ID within HashiCorp</Text>
-				<CopySnippet textToCopy={user?.id} />
+				<div className={s.copySnippetWrapper}>
+					<CopySnippet textToCopy={user?.id} />
+				</div>
 			</Card>
 
-			<div style={{ height: 24 }} />
+			<StandaloneLink
+				href={'https://portal.cloud.hashicorp.com/account-settings'}
+				text={'Manage account settings'}
+				icon={<IconExternalLink16 />}
+				iconPosition="trailing"
+			/>
 		</div>
 	)
 }
