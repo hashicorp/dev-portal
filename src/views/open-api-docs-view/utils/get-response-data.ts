@@ -31,6 +31,12 @@ export async function getResponseData(
 			continue
 		}
 		const definition = value.content['application/json']
+
+		// If we don't have a definition or schema, skip it
+		if (!definition || !definition.schema) {
+			continue
+		}
+
 		// If this schema is a reference, skip it
 		if ('$ref' in definition.schema) {
 			continue
