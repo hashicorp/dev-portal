@@ -22,6 +22,14 @@ export default function ProfileAccountView() {
 			<SidebarSidecarLayout
 				AlternateSidebar={ProfileSidebar}
 				sidebarNavDataLevels={[]}
+				breadcrumbLinks={[
+					{ title: 'Developer', url: '/' },
+					{
+						title: 'Account',
+						url: '/profile/account',
+						isCurrentPage: true,
+					},
+				]}
 			>
 				<ProfileAccountViewContent />
 			</SidebarSidecarLayout>
