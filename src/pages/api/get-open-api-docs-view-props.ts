@@ -83,31 +83,34 @@ export default async function handler(
 	/**
 	 * Build static props for the page
 	 */
-	const staticProps = await getStaticProps({
-		// Pass the bulk of the page config
-		...GENERIC_PAGE_CONFIG,
-		// Pass the constructed version data
-		versionData,
-		/**
-		 * Massage the schema data a little bit, replacing
-		 * "HashiCorp Cloud Platform" in the title with "HCP".
-		 */
-		massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
-			// Replace the schema description with the POST'ed description, if present
-			if (openApiDescription) {
-				schemaData.info.description = openApiDescription
-			}
-			// Replace "HashiCorp Cloud Platform" with "HCP" in the title
-			const massagedTitle = schemaData.info.title.replace(
-				'HashiCorp Cloud Platform',
-				'HCP'
-			)
-			// Return the schema data with the revised title
-			const massagedInfo = { ...schemaData.info, title: massagedTitle }
-			return { ...schemaData, info: massagedInfo }
-		},
-	})
-
-	// Return the static props as JSON, these can be passed to OpenApiDocsView
-	res.status(200).json(staticProps)
+	try {
+		const staticProps = await getStaticProps({
+			// Pass the bulk of the page config
+			...GENERIC_PAGE_CONFIG,
+			// Pass the constructed version data
+			versionData,
+			/**
+			 * Massage the schema data a little bit, replacing
+			 * "HashiCorp Cloud Platform" in the title with "HCP".
+			 */
+			massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
+				// Replace the schema description with the POST'ed description, if present
+				if (openApiDescription) {
+					schemaData.info.description = openApiDescription
+				}
+				// Replace "HashiCorp Cloud Platform" with "HCP" in the title
+				const massagedTitle = schemaData.info.title.replace(
+					'HashiCorp Cloud Platform',
+					'HCP'
+				)
+				// Return the schema data with the revised title
+				const massagedInfo = { ...schemaData.info, title: massagedTitle }
+				return { ...schemaData, info: massagedInfo }
+			},
+		})
+		// Return the static props as JSON, these can be passed to OpenApiDocsView
+		res.status(200).json(staticProps)
+	} catch (error) {
+		res.status(200).json({ error: error.toString() })
+	}
 }

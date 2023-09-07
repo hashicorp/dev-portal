@@ -28,7 +28,11 @@ export function OpenApiPreviewInputs({
 }: {
 	setStaticProps: (v: OpenApiDocsViewProps) => void
 }) {
-	const [error, setError] = useState<{ title: string; description: string }>()
+	const [error, setError] = useState<{
+		title: string
+		description: string
+		error: string
+	}>()
 	const [isCollapsed, setIsCollapsed] = useState(false)
 	const [inputValues, setInputValues] = useState<InputValues>({
 		openApiJsonString: '',
@@ -94,7 +98,14 @@ export function OpenApiPreviewInputs({
 						<InlineAlert
 							color="critical"
 							title={error.title}
-							description={error.description}
+							description={
+								<>
+									<div>{error.description}</div>
+									<pre style={{ whiteSpace: 'pre-wrap' }}>
+										<code>{error.error}</code>
+									</pre>
+								</>
+							}
 						/>
 					) : null}
 					<TextareaInput
