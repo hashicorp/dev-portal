@@ -80,6 +80,7 @@ export function OpenApiPreviewInputs({
 				<div className={s.inputs}>
 					<FileStringInput
 						label="OpenAPI File"
+						helperText='Upload your OpenAPI specification file, in ".json" format.'
 						accept=".json"
 						setValue={(v: string) => setInputValue('openApiJsonString', v)}
 					/>
@@ -98,11 +99,13 @@ export function OpenApiPreviewInputs({
 					) : null}
 					<TextareaInput
 						label="Schema source"
+						helperText="Test out edits to the uploaded OpenAPI specification file."
 						value={inputValues.openApiJsonString}
 						setValue={(v: string) => setInputValue('openApiJsonString', v)}
 					/>
 					<TextareaInput
 						label="Description Markdown"
+						helperText='Enter markdown here to override the "schema.info.description" field of your schema.'
 						value={inputValues.openApiDescription}
 						setValue={(v: string) => setInputValue('openApiDescription', v)}
 					/>
