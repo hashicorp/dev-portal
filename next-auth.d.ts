@@ -25,9 +25,9 @@ declare module 'next-auth' {
 		/**
 		 * Object representing an authenticated user.
 		 */
-		user: {
+		user?: {
 			/** The user's HashiCorp ID */
-			id?: string
+			id: string
 			/** The user's nickname. */
 			nickname?: string | null
 		} & DefaultSession['user']

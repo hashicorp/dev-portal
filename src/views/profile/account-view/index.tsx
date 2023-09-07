@@ -61,7 +61,7 @@ const ProfileAccountViewContent = () => {
 					Email address associated with your profile name
 				</Text>
 				<div className={s.copySnippetWrapper}>
-					<CopySnippet textToCopy={user?.email} />
+					<CopySnippet textToCopy={user.email} />
 				</div>
 			</Card>
 
@@ -72,7 +72,7 @@ const ProfileAccountViewContent = () => {
 			<Card className={s.section} elevation="mid">
 				<Text className={s.description}>Your ID within HashiCorp</Text>
 				<div className={s.copySnippetWrapper}>
-					<CopySnippet textToCopy={user?.id} />
+					<CopySnippet textToCopy={user.id} />
 				</div>
 			</Card>
 
