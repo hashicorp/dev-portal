@@ -33,6 +33,7 @@ export function OpenApiPreviewInputs({
 		description: string
 		error: string
 	}>()
+	const [isLoading, setIsLoading] = useState(false)
 	const [isCollapsed, setIsCollapsed] = useState(false)
 	const [inputValues, setInputValues] = useState<InputValues>({
 		openApiJsonString: '',
@@ -45,6 +46,17 @@ export function OpenApiPreviewInputs({
 	function setInputValue(key: keyof InputValues, value: string) {
 		setInputValues((p: InputValues) => ({ ...p, [key]: value }))
 	}
+
+	/**
+	 * Whenever an input value changes, reset the error
+	 */
+	useEffect(() => {
+		if (error) {
+			setError(undefined)
+		}
+		// Note: intentionally not using exhaustive deps, reset based on input only
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [inputValues])
 
 	/**
 	 * Pre-fill the description markdown when a new OpenAPI JSON string is set.
@@ -71,8 +83,10 @@ export function OpenApiPreviewInputs({
 	 * the provided `inputValues` is submitted via a button activation.
 	 */
 	async function updateStaticProps() {
+		setIsLoading(true)
 		const [err, result] = await fetchOpenApiStaticProps(inputValues)
 		err ? setError(err) : setStaticProps(result)
+		setIsLoading(false)
 	}
 
 	/**
@@ -90,7 +104,7 @@ export function OpenApiPreviewInputs({
 					/>
 					<Button
 						className={s.generateButton}
-						text="Generate preview"
+						text={isLoading ? 'Loading...' : 'Generate preview'}
 						size="large"
 						onClick={() => updateStaticProps()}
 					/>
