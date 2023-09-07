@@ -129,7 +129,11 @@ export default NextAuth({
 				...session,
 				accessToken: token.access_token,
 				id: token.sub,
-				user: { ...session.user, nickname: token.nickname },
+				user: {
+					...session.user,
+					nickname: token.nickname,
+					id: token.sub,
+				},
 				error: token.error,
 			}
 		},
