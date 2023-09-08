@@ -156,7 +156,7 @@ async function getLatestContentRefForProduct(product) {
  * redirects and return early with an empty array.
  *
  * @param {string} repoName The name of the repo, owner is always `hashicorp`.
- * @param {string?} redirectsPath Optionally specify a custom path to the redirects file.
+ * @param {string?} redirectsPath Optional, custom path to the redirects file.
  * @returns {Promise<Redirect[]>}
  */
 async function getRedirectsFromContentRepo(
@@ -194,8 +194,8 @@ async function getRedirectsFromContentRepo(
 	 * Evaluate the redirects file string, filter invalid redirects, and add
 	 * a host condition for proxied sites.
 	 *
-	 * TODO(zachshilton): remove `addHostCondition` once Sentinel is migrated (ie once
-	 * `docs.hashicorp.com/sentinel` redirects to `developer.hashicorp.com`).
+	 * TODO(zachshilton): remove `addHostCondition` once Sentinel is migrated
+	 * (once `docs.hashicorp.com/sentinel` redirects to `developer.hashicorp.com`)
 	 */
 	/** @type {Redirect[]} */
 	const parsedRedirects = eval(redirectsFileString) ?? []
@@ -250,10 +250,11 @@ async function buildProductRedirects() {
 			 * expect any attempt to fetch the redirects to 404. To account for this,
 			 * we've added a temporary try-catch block here.
 			 *
-			 * TODO(zachshilton): remove this try-catch block, once `hashicorp/ptfe-releases` has
-			 * cut a release with a `redirect.js` file and that release has been
-			 * extracted by our content workflows. At that point, we'll expect the
-			 * redirects.js file to exist, and only then should 404s break the build.
+			 * TODO(zachshilton): remove this try-catch block,
+			 * once `hashicorp/ptfe-releases` has cut a release with a `redirect.js`
+			 * file and that release has been extracted by our content workflows. At
+			 * that point, we'll expect the redirects.js file to exist, and only then
+			 * should 404s break the build.
 			 * Task: https://app.asana.com/0/1202097197789424/1205453036684673/f
 			 */
 			(async function getPtfeRedirects() {
