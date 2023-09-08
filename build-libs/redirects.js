@@ -244,8 +244,7 @@ async function buildProductRedirects() {
 			getRedirectsFromContentRepo('terraform-docs-common'),
 			getRedirectsFromContentRepo('hcp-docs', '/redirects.js'),
 			/**
-			 * Note: HashiCorp Cloud Platform docs were recently in the process of
-			 * being cut over ` is in the process of adding a
+			 * Note: `hashicorp/ptfe-releases` is in the process of adding a
 			 * `redirects.js` file. Until a release is cut and our content API
 			 * has a `latestRef` corresponding to a commit with that file, we
 			 * expect any attempt to fetch the redirects to 404. To account for this,
