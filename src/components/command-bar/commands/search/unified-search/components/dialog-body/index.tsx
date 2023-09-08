@@ -39,11 +39,9 @@ import s from './dialog-body.module.css'
 import c from './chat.module.css' // TODO(kevinwang): find a home for this
 import {
 	CommandBarButtonListItem,
-	CommandBarDivider,
 	CommandBarList,
 } from 'components/command-bar/components'
 import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
-import IconTile from 'components/icon-tile'
 import useAuthentication from 'hooks/use-authentication'
 
 const ALGOLIA_INDEX_NAME = __config.dev_dot.algolia.unifiedIndexName
@@ -82,28 +80,30 @@ export function UnifiedSearchCommandBarDialogBody() {
 		return generateSuggestedPages(currentProductSlug)
 	}, [currentProductSlug])
 
-	const ExperimentalAI = () => {
-		// @ts-expect-error - TODO(kevinwang) type session.meta
-		if (!session?.meta?.isAIEnabled) {
+	// Render "Ask Developer" button if user is opted into AI feature
+	const ExperimentalAI = ({
+		wrapperClassName,
+	}: {
+		wrapperClassName?: string
+	}) => {
+		if (!session?.meta.isAIEnabled) {
 			return null
 		}
+		const id = 'ask-developer'
 		return (
-			<>
-				{/*@ts-expect-error - TODO(kevinwang): fix CommandBarList.label prop type */}
-				<CommandBarList label="" ariaLabelledBy="FIXME">
-					<div>
-						<CommandBarButtonListItem
-							// @ts-expect-error - TODO(kevinwang) - expose className prop
-							className={c.ask}
-							title={`Ask Developer`}
-							icon={<IconWand24 />}
-							onClick={() => {
-								setCurrentCommand('chat')
-							}}
-						/>
-					</div>
+			<div className={wrapperClassName}>
+				<CommandBarList ariaLabelledBy={id}>
+					<CommandBarButtonListItem
+						buttonId={id}
+						buttonClassName={c.ask}
+						title={`Ask Developer`}
+						icon={<IconWand24 />}
+						onClick={() => {
+							setCurrentCommand('chat')
+						}}
+					/>
 				</CommandBarList>
-			</>
+			</div>
 		)
 	}
 
@@ -112,21 +112,13 @@ export function UnifiedSearchCommandBarDialogBody() {
 	 */
 	if (!currentInputValue) {
 		return (
-			<div className={s.suggestedPagesWrapper}>
-				<ExperimentalAI />
-				<span
-					style={{
-						display: 'block',
-						marginTop: `15px`,
-						width: 1,
-						height: 1,
-						minWidth: 1,
-						minHeight: 1,
-					}}
-				/>
-				<RecentSearches recentSearches={recentSearches} />
-				<SuggestedPages pages={suggestedPages} />
-			</div>
+			<>
+				<div className={s.suggestedPagesWrapper}>
+					<ExperimentalAI wrapperClassName={c.wrapperPadBottom} />
+					<RecentSearches recentSearches={recentSearches} />
+					<SuggestedPages pages={suggestedPages} />
+				</div>
+			</>
 		)
 	}
 
@@ -135,14 +127,7 @@ export function UnifiedSearchCommandBarDialogBody() {
 	 */
 	return (
 		<>
-			{
-				/*@ts-expect-error - TODO(kevinwang): fix CommandBarList.label prop type */
-				session?.meta?.isAIEnabled ? (
-					<div style={{ padding: `16px` }}>
-						<ExperimentalAI />
-					</div>
-				) : null
-			}
+			<ExperimentalAI wrapperClassName={c.wrapperPad} />
 			<SearchResults
 				currentInputValue={currentInputValue}
 				currentProductSlug={currentProductSlug}

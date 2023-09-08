@@ -100,6 +100,7 @@ const CommandBarListItemContent = ({
 }
 
 interface CommandBarButtonListItemProps extends CommandBarListItemContentProps {
+	className?: string
 	onClick: () => void
 }
 
@@ -109,7 +110,6 @@ const CommandBarButtonListItem = ({
 	icon,
 	title,
 	onClick,
-	// @ts-expect-error - TODO(kevinwang) expose className prop
 	className,
 }: CommandBarButtonListItemProps) => {
 	return (

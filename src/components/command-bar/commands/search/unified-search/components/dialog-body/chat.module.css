@@ -14,3 +14,10 @@
 	color: var(--token-color-foreground-strong);
 	box-shadow: var(--token-surface-base-box-shadow);
 }
+
+.wrapperPad {
+	padding: 16px 16px 8px;
+}
+.wrapperPadBottom {
+	padding-bottom: 16px;
+}

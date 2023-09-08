@@ -63,9 +63,10 @@ addGlobalLinkHandler((destinationUrl: string) => {
 	})
 })
 
-import { toast } from 'components/toast'
+import { toast, ToastColor } from 'components/toast'
 import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
 // TODO: see `make-dark-mode-notification.ts` for persistent-hiding
+
 function AIFeatureToast() {
 	const [shown, setShown] = useState(false)
 	const { session } = useAuthentication()
@@ -74,11 +75,9 @@ function AIFeatureToast() {
 			return
 		}
 
-		// @ts-expect-error - TODO(kevinwang) type session.meta
-		if (session?.meta?.isAIEnabled) {
+		if (session?.meta.isAIEnabled) {
 			toast({
-				// @ts-expect-error - TODO(kevinwang) type this
-				color: 'highlight',
+				color: ToastColor.highlight,
 				icon: <IconWand24 />,
 				title: 'Welcome to the Developer AI closed beta',
 				description: 'Try it out in our cmd+K menu!',
@@ -86,11 +85,7 @@ function AIFeatureToast() {
 			})
 			setShown(true)
 		}
-	}, [
-		// @ts-expect-error - TODO(kevinwang) type session.meta
-		session?.meta?.isAIEnabled,
-		shown,
-	])
+	}, [session?.meta.isAIEnabled, shown])
 	return null
 }
 

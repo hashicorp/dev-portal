@@ -34,8 +34,6 @@ const chatCommand: CommandBarCommand = {
 	icon: <Icon />,
 	inputProps: {
 		placeholder: () => 'Return to search',
-		// @ts-expect-error - TODO(kevinwang): pass through props & update type
-		disabled: true,
 	},
 	DialogBody: ChatBox,
 }
