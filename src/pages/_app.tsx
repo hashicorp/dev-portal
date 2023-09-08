@@ -36,10 +36,10 @@ import { makeDevAnalyticsLogger } from 'lib/analytics'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
+import { AIFeatureToast } from 'components/chatbox/ai-feature-toast'
 
 // Local imports
 import './style.css'
-import useAuthentication from 'hooks/use-authentication'
 
 const showProductSwitcher = isPreview() && !isDeployPreview()
 
@@ -62,32 +62,6 @@ addGlobalLinkHandler((destinationUrl: string) => {
 		destination_url: destinationUrl,
 	})
 })
-
-import { toast, ToastColor } from 'components/toast'
-import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
-// TODO: see `make-dark-mode-notification.ts` for persistent-hiding
-
-function AIFeatureToast() {
-	const [shown, setShown] = useState(false)
-	const { session } = useAuthentication()
-	useEffect(() => {
-		if (shown) {
-			return
-		}
-
-		if (session?.meta.isAIEnabled) {
-			toast({
-				color: ToastColor.highlight,
-				icon: <IconWand24 />,
-				title: 'Welcome to the Developer AI closed beta',
-				description: 'Try it out in our cmd+K menu!',
-				autoDismiss: 10000,
-			})
-			setShown(true)
-		}
-	}, [session?.meta.isAIEnabled, shown])
-	return null
-}
 
 export default function App({
 	Component,
