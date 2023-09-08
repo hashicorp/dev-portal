@@ -1,23 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { flushSync } from 'react-dom'
 
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import rehypePrism from '@mapbox/rehype-prism'
-import { MdxPre } from 'components/dev-dot-content/mdx-components/mdx-code-blocks'
 // https://helios.hashicorp.design/icons/library
-import { IconLoading24 } from '@hashicorp/flight-icons/svg-react/loading-24'
-import { IconStopCircle24 } from '@hashicorp/flight-icons/svg-react/stop-circle-24'
-import { IconSend24 } from '@hashicorp/flight-icons/svg-react/send-24'
-import { IconThumbsUp24 } from '@hashicorp/flight-icons/svg-react/thumbs-up-24'
-import { IconThumbsDown24 } from '@hashicorp/flight-icons/svg-react/thumbs-down-24'
-import { IconClipboard24 } from '@hashicorp/flight-icons/svg-react/clipboard-24'
-import { IconCheckSquare24 } from '@hashicorp/flight-icons/svg-react/check-square-24'
-import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
 import { IconArrowDownCircle16 } from '@hashicorp/flight-icons/svg-react/arrow-down-circle-16'
-import { IconDiscussionCircle16 } from '@hashicorp/flight-icons/svg-react/discussion-circle-16'
-import { IconUser16 } from '@hashicorp/flight-icons/svg-react/user-16'
 import { IconBulb16 } from '@hashicorp/flight-icons/svg-react/bulb-16'
+import { IconDiscussionCircle16 } from '@hashicorp/flight-icons/svg-react/discussion-circle-16'
+import { IconLoading24 } from '@hashicorp/flight-icons/svg-react/loading-24'
+import { IconSend24 } from '@hashicorp/flight-icons/svg-react/send-24'
+import { IconStopCircle24 } from '@hashicorp/flight-icons/svg-react/stop-circle-24'
+import { IconUser16 } from '@hashicorp/flight-icons/svg-react/user-16'
+import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
 // ms is a transient dep
 import ms from 'ms'
 import { z } from 'zod'
@@ -27,10 +18,13 @@ import { useMutation } from '@tanstack/react-query'
 import useAuthentication from 'hooks/use-authentication'
 import IconTile from 'components/icon-tile'
 import Button from 'components/button'
+import Heading from 'components/heading'
+import Text from 'components/text'
 
 import cn from 'classnames'
 import s from './chatbox.module.css'
-import FeedbackForm from 'components/feedback-form'
+import { ApplicationMessage, AssistantMessage, UserMessage } from './message'
+
 import {
 	streamToAsyncIterable,
 	mergeRefs,
@@ -199,7 +193,7 @@ const useAI = () => {
 	}
 }
 
-type Message =
+type MessageType =
 	| {
 			type: 'user'
 			image?: string
@@ -215,219 +209,6 @@ type Message =
 			type: 'application'
 			text: string
 	  }
-
-const UserMessage = ({ text, image }: { image?: string; text: string }) => {
-	return (
-		<div className={cn(s.message, s.message_user)}>
-			<div className={cn(s.message_avatar)}>
-				{image ? <img src={image} alt="user avatar" /> : null}
-			</div>
-			<div className={cn(s.message_content, s.message_user_input)}>{text}</div>
-			<div className={cn(s.message_gutter)}></div>
-		</div>
-	)
-}
-
-const AssistantMessage = ({
-	markdown,
-	showActions,
-	conversationId,
-	messageId,
-}: {
-	markdown: string
-	showActions: boolean
-	conversationId: string
-	messageId: string
-}) => {
-	const { session } = useAuthentication()
-	const accessToken = session?.accessToken
-	// Determines green/red button
-	const [rating, setRating] = useState<1 | -1 | 0>(0)
-
-	const handleFeedback = async ({
-		rating,
-		text,
-	}: {
-		rating?: -1 | 1
-		text?: string
-	}) => {
-		const response = await fetch('/api/chat/feedback', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${accessToken}`,
-			},
-			body: JSON.stringify({
-				messageId,
-				conversationId,
-				rating,
-				text,
-			}),
-		})
-		return response
-	}
-
-	const [isCopied, setIsCopied] = useState(false)
-	useEffect(() => {
-		let id: ReturnType<typeof setTimeout>
-		if (isCopied) {
-			id = setTimeout(() => {
-				setIsCopied(false)
-			}, 4000)
-		}
-		return () => {
-			clearTimeout(id)
-		}
-	}, [isCopied])
-
-	/** copy rich text; not raw markdown */
-	const handleCopy = () => {
-		// CSS Module classname is a reasonable "hook" to grab the element
-		// rendered by ReactMarkdown.
-		const el = document.getElementsByClassName(s.message_markdown)?.[0]
-
-		if (el) {
-			// https://www.nikouusitalo.com/blog/why-isnt-clipboard-write-copying-my-richtext-html/
-			const clipboardItem = new ClipboardItem({
-				// @ts-expect-error - innerText is available
-				'text/plain': new Blob([el.innerText], { type: 'text/plain' }),
-				'text/html': new Blob([el.outerHTML], { type: 'text/html' }),
-			})
-
-			navigator.clipboard.write([clipboardItem])
-			setIsCopied(true)
-		}
-	}
-
-	return (
-		<div className={cn(s.message, s.message_assistant)}>
-			<IconTile className={cn(s.message_icon)}>
-				<IconWand24 style={{ width: 24, height: 24 }} />
-			</IconTile>
-			<div className={cn(s.message_content)}>
-				<ReactMarkdown
-					components={{
-						pre: MdxPre,
-					}}
-					className={s.message_markdown}
-					remarkPlugins={[remarkGfm]}
-					rehypePlugins={[[rehypePrism, { ignoreMissing: true }]]}
-				>
-					{markdown}
-				</ReactMarkdown>
-
-				<div
-					className={cn(s.message_AssistantMessageFooter, {
-						[s.message_AssistantMessageFooterHidden]: !showActions,
-					})}
-				>
-					<span className={s.message_divider} />
-					<div className={s.message_actionButtons}>
-						<Button
-							size="small"
-							color="secondary"
-							icon={
-								isCopied ? (
-									<IconCheckSquare24 height={12} width={12} />
-								) : (
-									<IconClipboard24 height={12} width={12} />
-								)
-							}
-							aria-label="Copy to clipboard"
-							text={isCopied ? 'Copied' : 'Copy'}
-							onClick={handleCopy}
-						/>
-
-						<Button
-							size="small"
-							color="secondary"
-							className={cn({ [s.rating_like]: rating == 1 })}
-							disabled={rating == 1}
-							icon={<IconThumbsUp24 height={12} width={12} />}
-							aria-label="Like this response"
-							onClick={async () => {
-								setRating(1) // do an optimistic UI update
-								await handleFeedback({ rating: 1 })
-							}}
-						/>
-
-						<Button
-							size="small"
-							color="secondary"
-							className={cn({ [s.rating_dislike]: rating == -1 })}
-							disabled={rating == -1}
-							icon={<IconThumbsDown24 height={12} width={12} />}
-							aria-label="Dislike this response"
-							onClick={async () => {
-								setRating(-1) // do an optimistic UI update
-								await handleFeedback({ rating: -1 })
-							}}
-						/>
-					</div>
-
-					<div
-						className={cn(s.message_feedbackForm, {
-							[s.message_feedbackFormVisible]: rating != 0,
-						})}
-					>
-						{rating != 0 ? (
-							<FeedbackForm
-								questions={[
-									{
-										id: 'reason',
-										type: 'text',
-										label: 'Provide additional feedback to help us improve',
-										placeholder:
-											rating == 1
-												? 'What did you like about the response?'
-												: 'What was the issue with the response? How could it be improved?',
-										optional: true,
-										buttonText: 'Submit answer',
-									},
-								]}
-								finishedText={
-									<div>
-										Thank you! Your feedback will help us improve our websites.
-									</div>
-								}
-								onQuestionSubmit={async (responses) => {
-									const value = responses[0].value
-									await handleFeedback({ rating, text: value })
-									return
-								}}
-							/>
-						) : null}
-					</div>
-				</div>
-			</div>
-
-			<div className={cn(s.message_gutter)}></div>
-		</div>
-	)
-}
-
-// TODO(kevinwang): error styling.
-const ApplicationMessage = ({ text }: { text: string }) => {
-	return (
-		<div className={cn(s.message, s.message_assistant)}>
-			<IconTile className={cn(s.message_icon_error)}>
-				<IconWand24 style={{ width: 24, height: 24 }} />
-			</IconTile>
-			<div className={cn(s.message_content)}>{text}</div>
-
-			<div className={cn(s.message_gutter)}></div>
-		</div>
-	)
-}
-
-const Message = Object.assign(
-	{},
-	{
-		User: UserMessage,
-		Assistant: AssistantMessage,
-		Application: ApplicationMessage,
-	}
-)
 
 const ChatBox = () => {
 	const {
@@ -447,8 +228,8 @@ const ChatBox = () => {
 	const [userInput, setUserInput] = useState('')
 
 	// List of user and assistant messages
-	const [messageList, setMessageList] = useState<Message[]>([])
-	const appendMessage = (message: Message) => {
+	const [messageList, setMessageList] = useState<MessageType[]>([])
+	const appendMessage = (message: MessageType) => {
 		setMessageList((prev) => [...prev, message])
 	}
 	const resetMessageList = () => {
@@ -569,7 +350,7 @@ const ChatBox = () => {
 							// User input
 							case 'user': {
 								return (
-									<Message.User
+									<UserMessage
 										key={`${e.type}-${i}`}
 										image={e.image}
 										text={e.text}
@@ -580,7 +361,7 @@ const ChatBox = () => {
 							case 'assistant': {
 								const shouldShowActions = e.text?.length > 20 && !isLoading
 								return (
-									<Message.Assistant
+									<AssistantMessage
 										markdown={e.text}
 										key={e.messageId}
 										conversationId={e.conversationId}
@@ -592,7 +373,7 @@ const ChatBox = () => {
 							// Application message; likely an error
 							case 'application': {
 								return (
-									<Message.Application key={`${e.type}-${i}`} text={e.text} />
+									<ApplicationMessage key={`${e.type}-${i}`} text={e.text} />
 								)
 							}
 						}
@@ -660,10 +441,16 @@ const ChatBox = () => {
 						)}
 					</div>
 
-					<span className={s.disclaimer}>
+					<Text
+						asElement="span"
+						className={s.disclaimer}
+						/* Display/100/Regular */
+						size={100}
+						weight="regular"
+					>
 						AI Disclaimer: HashiCorp AI may produce inaccurate information and
 						cause your computer to implode. Use at your own risk.
-					</span>
+					</Text>
 				</div>
 			</form>
 		</div>
@@ -676,33 +463,83 @@ const WelcomeMessage = () => {
 			<div className={cn(s.col, s.left)}>
 				<IconWand24 />
 				<div className={s.copy}>
-					<h3>Welcome to Developer AI</h3>
-					<p>
+					<Heading
+						/* Display/400/Medium */
+						level={3}
+						weight="medium"
+						size={400}
+					>
+						Welcome to Developer AI
+					</Heading>
+					<Text
+						/* Body/100/Medium */
+						size={100}
+						weight="medium"
+					>
 						Your personal AI-powered assistant, we’re ready to help you get the
 						most out of Developer. Let’s get started on this journey together...
-					</p>
+					</Text>
 				</div>
 			</div>
 			<div className={cn(s.col, s.right)}>
 				<div className={s.row}>
 					<IconUser16 />
 					<div className={s.rowText}>
-						<h4 className={s.rowTextHeading}>Personalized recommendations</h4>
-						<p className={s.rowTextBody}>Coming soon...</p>
+						<Heading /* Display/100/Medium */
+							level={4}
+							weight="medium"
+							size={100}
+							className={s.rowTextHeading}
+						>
+							Personalized recommendations
+						</Heading>
+						<Text /* Body/100/Regular */
+							size={100}
+							weight="regular"
+							className={s.rowTextBody}
+						>
+							Coming soon...
+						</Text>
 					</div>
 				</div>
 				<div className={s.row}>
 					<IconDiscussionCircle16 />
 					<div className={s.rowText}>
-						<h4 className={s.rowTextHeading}>Natural language conversations</h4>
-						<p className={s.rowTextBody}>Coming soon...</p>
+						<Heading /* Display/100/Medium */
+							level={4}
+							weight="medium"
+							size={100}
+							className={s.rowTextHeading}
+						>
+							Natural language conversations
+						</Heading>
+						<Text /* Body/100/Regular */
+							size={100}
+							weight="regular"
+							className={s.rowTextBody}
+						>
+							Coming soon...
+						</Text>
 					</div>
 				</div>
 				<div className={s.row}>
 					<IconBulb16 />
 					<div className={s.rowText}>
-						<h4 className={s.rowTextHeading}>Knowledge base</h4>
-						<p className={s.rowTextBody}>Yes</p>
+						<Heading /* Display/100/Medium */
+							level={4}
+							weight="medium"
+							size={100}
+							className={s.rowTextHeading}
+						>
+							Knowledge base
+						</Heading>
+						<Text /* Body/100/Regular */
+							size={100}
+							weight="regular"
+							className={s.rowTextBody}
+						>
+							Yes
+						</Text>
 					</div>
 				</div>
 			</div>
