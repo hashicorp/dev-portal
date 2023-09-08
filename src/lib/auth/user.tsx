@@ -5,7 +5,6 @@
 
 import { Session } from 'next-auth'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
-import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import useAuthentication from 'hooks/use-authentication'
 import { UserDropdownDisclosureProps } from 'components/user-dropdown-disclosure'
 
@@ -36,13 +35,12 @@ const getUserMenuItems = ({
 }): UserDropdownDisclosureProps['items'] => {
 	return [
 		{
-			label: 'Bookmarks',
-			href: '/profile/bookmarks',
+			label: 'Basic info',
+			href: '/profile/account',
 		},
 		{
-			label: 'Account settings',
-			href: 'https://portal.cloud.hashicorp.com/account-settings',
-			icon: <IconExternalLink16 />,
+			label: 'Bookmarks',
+			href: '/profile/bookmarks',
 		},
 		{
 			label: 'Sign out',
@@ -56,12 +54,14 @@ const getUserMeta = (user: Session['user']) => {
 	const isSignedInWithGitHub = getIsSignedInWithGitHub(user)
 	const label = getLabel(isSignedInWithGitHub)
 	const description = getDescription(user, isSignedInWithGitHub)
+	const id = user.id
 
 	return {
 		icon,
 		isSignedInWithGitHub,
 		label,
 		description,
+		id,
 	}
 }
 
