@@ -259,7 +259,7 @@ async function buildProductRedirects() {
 			 */
 			(async function getPtfeRedirects() {
 				try {
-					await getRedirectsFromContentRepo('ptfe-releases')
+					return await getRedirectsFromContentRepo('ptfe-releases')
 				} catch (e) {
 					if (e.toString() === 'HttpError: Not Found') {
 						console.warn(
