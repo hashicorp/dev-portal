@@ -18,13 +18,14 @@ import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
  * dynamic, client-side updating of the props used to render the view.
  */
 function OpenApiDocsPreviewView() {
-	const [staticProps, setStaticProps] = useState<OpenApiDocsViewProps>()
+	const [apiDocsViewProps, setApiDocsViewProps] =
+		useState<OpenApiDocsViewProps>()
 
 	return (
 		<>
 			<div style={{ isolation: 'isolate' }}>
-				{staticProps ? (
-					<OpenApiDocsView {...staticProps} />
+				{apiDocsViewProps ? (
+					<OpenApiDocsView {...apiDocsViewProps} />
 				) : (
 					// Render an empty sidebar layout if we don't have valid props yet
 					<SidebarLayout sidebarSlot="" mobileMenuSlot={null}>
@@ -32,7 +33,7 @@ function OpenApiDocsPreviewView() {
 					</SidebarLayout>
 				)}
 			</div>
-			<OpenApiPreviewInputs setStaticProps={setStaticProps} />
+			<OpenApiPreviewInputs setStaticProps={setApiDocsViewProps} />
 		</>
 	)
 }
