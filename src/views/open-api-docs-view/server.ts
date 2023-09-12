@@ -78,7 +78,7 @@ export async function getStaticProps({
 	productSlug: ProductSlug
 	versionData: OpenApiDocsVersionData[]
 	basePath: string
-	statusIndicatorConfig: StatusIndicatorConfig
+	statusIndicatorConfig?: StatusIndicatorConfig
 	topOfPageId?: string
 	massageSchemaForClient?: (
 		schemaData: OpenAPIV3.Document

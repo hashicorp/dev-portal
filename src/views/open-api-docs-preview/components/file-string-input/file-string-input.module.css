@@ -1,0 +1,9 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.helperText {
+	color: var(--token-form-helper-text-color);
+}
