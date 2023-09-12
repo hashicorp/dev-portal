@@ -1,0 +1,55 @@
+.root {
+	--highlight-color: var(--token-color-foreground-highlight);
+	--border-width: 4px;
+
+	background: var(--token-color-surface-primary);
+	border-left: var(--border-width) solid var(--highlight-color);
+	bottom: 0;
+	position: fixed;
+	right: var(--border-width);
+	top: 0;
+	transition: transform 0.3s;
+	width: min(80vw, 800px);
+
+	&.isCollapsed {
+		transform: translateX(100%);
+	}
+}
+
+.scrollableContent {
+	overflow: auto;
+	padding: 1rem;
+	max-height: 100%;
+}
+
+.inputs {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.collapseButtonLayout {
+	position: absolute;
+	top: 50%;
+	right: 100%;
+	transform: translateY(-50%);
+}
+
+.collapseButton {
+	padding: 2rem;
+	border-top-left-radius: 50%;
+	border-bottom-left-radius: 50%;
+	border: none;
+	background: var(--highlight-color);
+	color: black;
+	cursor: pointer;
+}
+
+.generateButton {
+	flex-shrink: 0;
+
+	/* Swap blue and purple to match the --highlight-color */
+	--token-color-palette-blue-200: var(--token-color-foreground-highlight);
+	--token-color-palette-blue-300: var(--token-color-palette-purple-300);
+	--token-color-palette-blue-400: var(--token-color-palette-purple-400);
+}
