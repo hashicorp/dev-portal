@@ -48,8 +48,8 @@
 		]
 	},
 	"engines": {
-		"npm": ">=7.0.0",
-		"node": ">=16.x <=18.x"
+		"npm": ">=8.0.0",
+		"node": ">=16.x <=19.x"
 	},
 	"devDependencies": {
 		"@axe-core/react": "^4.3.1",
