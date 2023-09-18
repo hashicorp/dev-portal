@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // The Slugs of the Integration Component Types
 const TYPE_BUILDER = 'builder'
 const TYPE_PROVISIONER = 'provisioner'

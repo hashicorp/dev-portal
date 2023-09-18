@@ -1,4 +1,9 @@
 /**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
  * Split a string on capital letters, returning an array of strings.
  *
  * Works kind of like `string.split()`, but splits on capital letters only.
