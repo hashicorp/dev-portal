@@ -30,8 +30,20 @@ export async function getResponseData(
 		if ('$ref' in value) {
 			continue
 		}
-		const definition = value.content['application/json']
-		// If this schema is a reference, skip it
+		const contentTypeKeys = Object.keys(value.content)
+
+		// If we don't have any content type keys, skip this response
+		if (!contentTypeKeys.length) {
+			continue
+		}
+
+		// If we don't have a definition or schema, skip this response
+		const definition = value.content[contentTypeKeys[0]]
+		if (!definition || !definition.schema) {
+			continue
+		}
+
+		// If this schema is a reference, skip this response
 		if ('$ref' in definition.schema) {
 			continue
 		}
