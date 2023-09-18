@@ -46,13 +46,11 @@
 			"items": [
 				{
 					"name": "Quickstart",
-					"collectionSlug": "boundary/hcp-getting-started",
-					"isBeta": true
+					"collectionSlug": "boundary/hcp-getting-started"
 				},
 				{
 					"name": "Administration",
-					"collectionSlug": "boundary/hcp-administration",
-					"isBeta": true
+					"collectionSlug": "boundary/hcp-administration"
 				}
 			]
 		},
