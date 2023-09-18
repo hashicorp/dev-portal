@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { getStaticProps } from 'views/open-api-docs-view/server'
 // Types
 import type { NextApiRequest, NextApiResponse } from 'next'

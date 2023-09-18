@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useId, type ChangeEvent } from 'react'
 import s from './file-string-input.module.css'
 
