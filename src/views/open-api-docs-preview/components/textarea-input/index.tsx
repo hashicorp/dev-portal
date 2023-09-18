@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { ChangeEvent, useId } from 'react'
 import s from './textarea-input.module.css'
 

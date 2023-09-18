@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
 
 const API_ROUTE = '/api/get-open-api-docs-view-props'
