@@ -1,8 +1,14 @@
+# This workflow enables HashiCorp Oauth on Vercel preview deployments.
 name: Register Preview URL with CloudIDP
 
 on:
   deployment_status:
-
+  # workflow_dispatch is here for supporting manual iteration
+  workflow_dispatch:
+    inputs:
+      preview_url:
+        description: 'A Vercel preview url. Only used during manual runs'
+        required: true
 jobs:
   on-deploy:
     runs-on: ubuntu-latest
@@ -26,8 +32,10 @@ jobs:
       - name: Add Preview URL to CloudIDP
         run: npx hc-tools ./scripts/add-preview-url-to-cloud-idp.ts
         env:
+          # parameters
+          PREVIEW_URL: ${{ inputs.preview_url || github.event.deployment_status.target_url }}
+          # secrets
           CLOUD_IDP_DEPLOYMENT_PREVIEW_PRIVATE_KEY: ${{ secrets.CLOUD_IDP_DEPLOYMENT_PREVIEW_PRIVATE_KEY }}
-          PREVIEW_URL: ${{ github.event.deployment_status.target_url }}
           FLOW_IDP_DEPLOYMENT_READY_URL: ${{ secrets.FLOW_IDP_DEPLOYMENT_READY_URL }}
           VERCEL_API_TOKEN: ${{ secrets.VERCEL_API_TOKEN }}
           VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}
