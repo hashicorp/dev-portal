@@ -11,8 +11,13 @@ const fetch = createFetch()
 const vercelApiToken = process.env.VERCEL_API_TOKEN
 const vercelTeamId = process.env.VERCEL_TEAM_ID
 
+// For Vercel API docs
+// see https://vercel.com/docs/rest-api/endpoints#get-a-deployment-by-id-or-url
+
 /** A helper to fetch Vercel Deployment Aliases from Vercel Deploy Preview URLs */
 async function fetchDeploymentAlias(previewUrl: string): Promise<string[]> {
+	console.log('fetchDeploymentAlias', previewUrl)
+
 	const previewHostname = new URL(previewUrl).hostname
 	const url = new URL(
 		`v13/deployments/${previewHostname}`,
@@ -20,12 +25,12 @@ async function fetchDeploymentAlias(previewUrl: string): Promise<string[]> {
 	)
 
 	url.searchParams.set('teamId', vercelTeamId)
-	url.searchParams.set('withAutomaticAliases', '1')
 
 	const headers = { Authorization: `Bearer ${vercelApiToken}` }
 
 	const res = await fetch(url.toString(), { headers })
 	const data = await res.json()
+	console.log(data)
 
 	// NOTE: returned aliases only contain hostname, and no scheme
 	// Scheme will need to be prepended before being passed in the
