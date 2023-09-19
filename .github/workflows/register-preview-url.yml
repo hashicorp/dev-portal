@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       preview_url:
-        description: 'A Vercel preview url. If not provided, the target_url from the deployment_status event will be used.'
+        description: 'A Vercel preview url. Only used during manual runs'
         required: true
 jobs:
   on-deploy:
