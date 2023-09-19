@@ -29,9 +29,8 @@ async function fetchDeploymentAlias(previewUrl: string): Promise<string[]> {
 	const headers = { Authorization: `Bearer ${vercelApiToken}` }
 
 	const res = await fetch(url.toString(), { headers })
-	const data = await res.json()
-	console.log(data)
 
+	const data = await res.json()
 	// Potential error:
 	// { error: { code: 'not_found', message: 'Deployment not found' } }
 	if (data?.error) {
