@@ -9,7 +9,6 @@ import { IconSend24 } from '@hashicorp/flight-icons/svg-react/send-24'
 import { IconStopCircle24 } from '@hashicorp/flight-icons/svg-react/stop-circle-24'
 import { IconUser16 } from '@hashicorp/flight-icons/svg-react/user-16'
 import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
-// ms is a transient dep
 import ms from 'ms'
 import { z } from 'zod'
 
