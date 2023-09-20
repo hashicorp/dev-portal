@@ -20,7 +20,7 @@ const SPECIFIC_SERVICE_PATTERN =
  *
  * We remove the version prefix from the path for better grouping.
  */
-const GLOBAL_SERVICE_PATTERN = /\/\d\d\d\d-\d\d-\d\d\//
+const GLOBAL_SERVICE_PATTERN = /\/\d\d\d\d-\d\d-\d\d/
 
 /**
  * Truncates HCP operation paths for clarity.
