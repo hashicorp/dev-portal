@@ -21,6 +21,7 @@ import type { PropertyDetailsSectionProps } from './components/operation-details
  */
 export interface OperationProps {
 	operationId: string
+	tags: string[]
 	slug: string
 	type: string
 	path: {

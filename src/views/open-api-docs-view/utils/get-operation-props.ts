@@ -95,6 +95,7 @@ export async function getOperationProps(
 				operationId: operation.operationId,
 				slug: operationSlug,
 				type,
+				tags: operation.tags ?? [],
 				path: {
 					full: path,
 					truncated: addWordBreaksToUrl(truncateHcpOperationPath(path)),

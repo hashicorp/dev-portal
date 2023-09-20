@@ -4,7 +4,6 @@
  */
 
 import { OperationProps, OperationGroup } from '../types'
-import { truncateHcpOperationPath } from '../utils'
 import { addWordBreaksToUrl } from './add-word-breaks-to-url'
 
 /**
@@ -53,15 +52,28 @@ import { addWordBreaksToUrl } from './add-word-breaks-to-url'
 export function groupOperations(
 	operationObjects: OperationProps[]
 ): OperationGroup[] {
+	// Determine if this set of operations has meaningful tags.
+	// If there's only a single tag, it won't be meaningful to group by it.
+	const allTags = operationObjects.map((o) => o.tags).flat()
+	const uniqueTags = Array.from(new Set(allTags))
+	const hasMeaningfulTags = uniqueTags.length > 1
+	// Group operations by meaningful tags if present,
+	// or by their paths otherwise.
 	const operationGroupsMap = operationObjects.reduce(
 		(
 			acc: Record<string, { heading: string; items: OperationProps[] }>,
 			o: OperationProps
 		) => {
-			// Truncate the common HCP-related prefix from the path, if applicable
-			const truncatedPath = truncateHcpOperationPath(o._placeholder.__path)
-			// Grab the first two path segments, to use as a group slug
-			const groupSlug = truncatedPath.split('/').slice(0, 3).join('/')
+			/**
+			 * If this operation has a tag, and we have meaningful tags to group by,
+			 * then use the first tag as the group. Otherwise, fallback to path-based
+			 * grouping.
+			 *
+			 * Note: we could potentially end up with a mix of tag- and path-based
+			 * grouping. It's up to spec authors to control their groupings!
+			 */
+			const groupSlug =
+				o.tags.length && hasMeaningfulTags ? o.tags[0] : o.path.truncated
 			if (!acc[groupSlug]) {
 				acc[groupSlug] = {
 					heading: addWordBreaksToUrl(groupSlug),
