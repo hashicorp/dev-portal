@@ -78,14 +78,17 @@ export async function getOperationProps(
 			/**
 			 * Build a fallback summary for the operation, which is just
 			 * the operationId with some formatting for better line-breaks.
+			 * We also apply logic to remove the first part of the operationId,
+			 * which by convention will be formatted `ServiceName_OperationName`.
 			 *
 			 * TODO: update to actually use `summary`, for now we only use
 			 * `operationId` as `summary` values are not yet reliably present
 			 * & accurate. Task:
 			 * https://app.asana.com/0/1204678746647847/1205338583217309/f
 			 */
+			const operationIdParts = operation.operationId.split('_')
 			const summary = addWordBreaks(
-				splitOnCapitalLetters(operation.operationId)
+				splitOnCapitalLetters(operationIdParts.slice(1).join('_'))
 			)
 
 			/**
