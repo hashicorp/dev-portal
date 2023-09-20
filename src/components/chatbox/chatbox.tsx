@@ -31,6 +31,8 @@ import {
 	useThrottle,
 } from './utils'
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
 const useAI = () => {
 	// We'll call `update` to retrieve a new access token if the current one is expired
 	// and we receive a 401 from the backend.
@@ -159,7 +161,7 @@ const useAI = () => {
 				const messageFormat = z.object({
 					content: z.string(),
 				})
-				const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+
 				for await (const { event, data, raw } of iter) {
 					const parseResult = messageFormat.safeParse(JSON.parse(data))
 					if (!parseResult.success) {
