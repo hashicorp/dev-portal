@@ -428,7 +428,7 @@ const ChatBox = () => {
 								type={'button'}
 								icon={<IconStopCircle24 height={16} width={16} />}
 								text={'Stop generating'}
-								color={'critical'}
+								color={'secondary'}
 								onClick={stopStream}
 							/>
 						) : (
