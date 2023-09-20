@@ -3,12 +3,18 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import classNames from 'classnames'
+// Third-party
 import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
+// Components
 import Badge from 'components/badge'
 import IconTile from 'components/icon-tile'
-import OverviewBlurb from './components/overview-blurb'
+// Local
 import { Status } from './components/status'
+// Types
+import type { StatusIndicatorConfig } from 'views/open-api-docs-view/types'
+// Types
+import type { ReactNode } from 'react'
+// Styles
 import s from './open-api-overview.module.css'
 
 /**
@@ -20,32 +26,38 @@ import s from './open-api-overview.module.css'
  */
 
 export interface OpenApiOverviewProps {
-	title: string
-	badgeText: string
-	description: string
-	status?: {
+	heading: {
 		text: string
-		href: string
+		id: string
 	}
+	badgeText: string
+	statusIndicatorConfig?: StatusIndicatorConfig
+	contentSlot?: ReactNode
 	className?: string
 }
 
 export function OpenApiOverview({
-	title,
+	heading,
 	badgeText,
-	description,
-	status,
-	className,
+	statusIndicatorConfig,
+	contentSlot,
 }: OpenApiOverviewProps) {
 	return (
-		<div className={classNames(className, s.overviewWrapper)}>
+		<div className={s.overviewWrapper}>
 			<header className={s.header}>
 				<IconTile size="medium" className={s.icon}>
 					<IconVaultColor16 />
 				</IconTile>
 				<span>
-					<h1 className={s.heading}>{title}</h1>
-					{status ? <Status text={status.text} href={status.href} /> : null}
+					<h1 id={heading.id} className={s.heading}>
+						{heading.text}
+					</h1>
+					{statusIndicatorConfig ? (
+						<Status
+							endpointUrl={statusIndicatorConfig.endpointUrl}
+							pageUrl={statusIndicatorConfig.pageUrl}
+						/>
+					) : null}
 				</span>
 				<Badge
 					className={s.releaseStageBadge}
@@ -54,11 +66,7 @@ export function OpenApiOverview({
 					size="small"
 				/>
 			</header>
-			<section className={s.content}>
-				<span className={s.contentBlurb}>
-					<OverviewBlurb description={description} />
-				</span>
-			</section>
+			{contentSlot ? <section>{contentSlot}</section> : null}
 		</div>
 	)
 }

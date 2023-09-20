@@ -12,7 +12,7 @@
 	"datoToken": "88b4984480dad56295a8aadae6caad",
 	"metadata": {
 		"title": "Packer by HashiCorp",
-		"description": "Packer is a free and open source tool for creating golden images for multiple platforms from a single source configuration.",
+		"description": "Packer helps you create golden images for multiple platforms from a single source configuration.",
 		"image": "https://www.packer.io/packer-public/img/og-image.png",
 		"icon": [
 			{
@@ -29,7 +29,7 @@
 		"expirationDate": ""
 	},
 	"version": "1.7.10",
-	"basePaths": ["docs", "guides", "intro", "plugins", "downloads"],
+	"basePaths": ["docs", "guides", "intro", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -46,5 +46,8 @@
 			"name": "Plugins",
 			"path": "plugins"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"description": "A curated collection of official, partner, and community Packer Integrations."
+	}
 }

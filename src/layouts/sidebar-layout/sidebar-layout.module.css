@@ -8,11 +8,6 @@
 
 	/* Grow to fill the vertical space that BaseLayout creates */
 	flex-grow: 1;
-	gap: 48px;
-
-	@media (min-width: 1440px) {
-		gap: 64px;
-	}
 }
 
 .sidebarArea {

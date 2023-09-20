@@ -6,7 +6,7 @@
 // Libraries
 import { sentenceCase } from 'change-case'
 // Local
-import { findLatestStableVersion } from '../../utils'
+import { findLatestStableVersion } from 'lib/api-docs'
 import {
 	buildApiDocsBreadcrumbs,
 	buildSchemaProps,

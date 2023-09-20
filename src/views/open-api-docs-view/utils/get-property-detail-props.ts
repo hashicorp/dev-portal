@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Third party
+import slugify from 'slugify'
 // Utilities
 import markdownToHtml from '@hashicorp/platform-markdown-utils/markdown-to-html'
 // Types
@@ -14,11 +16,17 @@ import type { PropertyDetailsProps } from '../components/property-details'
  * Return property detail props.
  */
 export async function getPropertyDetailPropsFromParameter(
-	param: OpenAPIV3.ParameterObject
+	param: OpenAPIV3.ParameterObject,
+	parentSlug: string
 ): Promise<PropertyDetailsProps> {
-	const paramSchemaDetails = await getPropertyDetailsFromSchema(param.schema)
+	const slug = `${parentSlug}_${slugify(param.name)}`
+	const paramSchemaDetails = await getPropertyDetailsFromSchema(
+		param.schema,
+		slug
+	)
 	return {
 		name: param.name,
+		slug,
 		type: paramSchemaDetails.typeString,
 		// Note that we use the description from the parameter itself,
 		// rather than from the parameter's schema.
@@ -35,11 +43,14 @@ export async function getPropertyDetailPropsFromParameter(
 export async function getPropertyDetailPropsFromSchemaObject(
 	key: string,
 	schema: OpenAPIV3.SchemaObject,
-	isRequired?: boolean
+	isRequired: boolean,
+	parentSlug: string
 ): Promise<PropertyDetailsProps> {
-	const schemaDetails = await getPropertyDetailsFromSchema(schema)
+	const slug = `${parentSlug}_${slugify(key)}`
+	const schemaDetails = await getPropertyDetailsFromSchema(schema, slug, 0)
 	return {
 		name: key,
+		slug,
 		type: schemaDetails.typeString,
 		description: schemaDetails.description,
 		isRequired,
@@ -55,6 +66,7 @@ export async function getPropertyDetailPropsFromSchemaObject(
  */
 async function getPropertyDetailsFromSchema(
 	schema: OpenAPIV3.SchemaObject | OpenAPIV3.ReferenceObject,
+	parentSlug: string,
 	arrayDepth: number = 0
 ): Promise<{
 	typeString: string
@@ -73,7 +85,11 @@ async function getPropertyDetailsFromSchema(
 	 * We'll increase the arrayDepth, this will affect the type string we show.
 	 */
 	if (schema.type === 'array' && schema.items) {
-		return await getPropertyDetailsFromSchema(schema.items, arrayDepth + 1)
+		return await getPropertyDetailsFromSchema(
+			schema.items,
+			parentSlug + '-array',
+			arrayDepth + 1
+		)
 	}
 	/**
 	 * For non-array types, we can build out our data.
@@ -94,9 +110,14 @@ async function getPropertyDetailsFromSchema(
 		// and recursing into the schema for each property as necessary.
 		for (const propertyKey of Object.keys(schema.properties)) {
 			const property = schema.properties[propertyKey]
-			const propertyDetails = await getPropertyDetailsFromSchema(property)
+			const propertySlug = `${parentSlug}.${slugify(propertyKey)}`
+			const propertyDetails = await getPropertyDetailsFromSchema(
+				property,
+				propertySlug
+			)
 			nestedProperties.push({
 				name: propertyKey,
+				slug: propertySlug,
 				type: propertyDetails.typeString,
 				description: propertyDetails.description,
 				isRequired: requiredProperties.includes(propertyKey),

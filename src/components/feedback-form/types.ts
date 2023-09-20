@@ -29,6 +29,7 @@ interface FeedbackQuestionText extends FeedbackQuestionBase {
 	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>
 	buttonText: string
 	nextQuestion?: string
+	placeholder?: string
 	optional?: boolean
 }
 

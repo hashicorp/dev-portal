@@ -19,6 +19,7 @@ const { getTutorialRedirects } = require('./tutorial-redirects')
 const {
 	integrationMultipleComponentRedirects,
 } = require('./integration-multiple-component-redirects')
+const { packerPluginRedirects } = require('./integration-packer-redirects')
 
 require('isomorphic-unfetch')
 
@@ -134,63 +135,72 @@ async function getLatestContentRefForProduct(product) {
 }
 
 /**
- * Fetches a redirects file for a given product from the given ref and evaluates the contents
- * as JS.
+ * Load redirects from a content repository.
+ *
+ * Redirects are loaded differently depending on the build context.
+ *
+ * `isDeveloperBuild`:
+ * For builds from `hashicorp/dev-portal`, which includes production builds
+ * as well as local development and deploy previews in that repo, determine
+ * the latest ref from our content API, and fetch redirects from that ref.
+ * Using the ref from the content API helps to ensure that not-yet-released
+ * content changes are not prematurely redirected.
+ *
+ * `isLocalContentBuild`:
+ * For builds from the same content repository from which we're aiming to
+ * fetch the redirects, we load the redirects from the local filesystem.
+ * This allows authors to preview changes to redirects.
+ *
+ * In all other cases, we're building from a content repository that does not
+ * relate to the redirects we're trying to fetch. So, we can safely ignore the
+ * redirects and return early with an empty array.
+ *
+ * @param {string} repoName The name of the repo, owner is always `hashicorp`.
+ * @param {string?} redirectsPath Optional, custom path to the redirects file.
+ * @returns {Promise<Redirect[]>}
  */
-async function getRedirectsForProduct(
-	/** @type {string} The product slug. Corresponds to a repository name. */
-	product,
-	{ ref = 'stable-website', redirectsPath = 'website/redirects.js' } = {}
+async function getRedirectsFromContentRepo(
+	repoName,
+	redirectsPath = 'website/redirects.js'
 ) {
-	let latestRef = ref
-	try {
-		latestRef = await getLatestContentRefForProduct(product)
-	} catch (error) {
-		// do nothing
-		console.warn(
-			'[redirects] failed to fetch latestRef for:',
-			product,
-			error.message
-		)
-	}
-
-	let repo = product
-
-	/** @type {string} A raw redirects file string to evaluate */
-	let rawRedirects
-
 	/**
-	 * Load the raw redirects
+	 * Note: These constants are declared for clarity in build context intent.
 	 */
-	if (isDeployPreview(product)) {
-		// For deploy previews of this product, load redirects locally,
-		// as authors may be modifying redirects as part of their work.
-		rawRedirects = fs.readFileSync(
-			path.join(process.cwd(), '../redirects.js'),
-			'utf-8'
-		)
-	} else if (isDeployPreview()) {
-		// For deploy previews in "other products", return an empty array,
-		// since we'll be removing the content for this product anyways.
-		rawRedirects = '[]'
-	} else {
-		// Otherwise, such as for production deploys,
-		// load redirects from the product repository.
-		rawRedirects = await fetchGithubFile({
+	const isDeveloperBuild = !process.env.IS_CONTENT_PREVIEW
+	const isLocalContentBuild = isDeployPreview(repoName)
+	/**
+	 * Load redirects from the target repo (or return early for non-target repos).
+	 */
+	/** @type {string} */
+	let redirectsFileString
+	if (isDeveloperBuild) {
+		// For `hashicorp/dev-portal` builds, load redirects remotely
+		const latestContentRef = await getLatestContentRefForProduct(repoName)
+		redirectsFileString = await fetchGithubFile({
 			owner: 'hashicorp',
-			repo,
+			repo: repoName,
 			path: redirectsPath,
-			ref: latestRef ?? ref,
+			ref: latestContentRef,
 		})
+	} else if (isLocalContentBuild) {
+		// Load redirects from the filesystem, so that authors can see their changes
+		const redirectsFilePath = path.join(process.cwd(), '../redirects.js')
+		redirectsFileString = fs.readFileSync(redirectsFilePath, 'utf-8')
+	} else {
+		// Return early, in this build we can ignore repoName's redirects.
+		return []
 	}
-
+	/**
+	 * Evaluate the redirects file string, filter invalid redirects, and add
+	 * a host condition for proxied sites.
+	 *
+	 * TODO(zachshilton): remove `addHostCondition` once Sentinel is migrated
+	 * (once `docs.hashicorp.com/sentinel` redirects to `developer.hashicorp.com`)
+	 */
 	/** @type {Redirect[]} */
-	const parsedRedirects = eval(rawRedirects) ?? []
-
-	// Filter invalid redirects, such as those without a `/{productSlug}` prefix.
-	const validRedirects = filterInvalidRedirects(parsedRedirects, product)
-
-	return addHostCondition(validRedirects, product)
+	const parsedRedirects = eval(redirectsFileString) ?? []
+	const validRedirects = filterInvalidRedirects(parsedRedirects, repoName)
+	return addHostCondition(validRedirects, repoName)
 }
 
 async function buildProductRedirects() {
@@ -224,38 +234,45 @@ async function buildProductRedirects() {
 
 	const productRedirects = (
 		await Promise.all([
-			getRedirectsForProduct('boundary'),
-			getRedirectsForProduct('nomad'),
-			getRedirectsForProduct('vault'),
-			getRedirectsForProduct('waypoint'),
-			getRedirectsForProduct('vagrant'),
-			getRedirectsForProduct('packer'),
-			getRedirectsForProduct('consul'),
-			getRedirectsForProduct('terraform-docs-common', {
-				ref: 'main',
-			}),
+			getRedirectsFromContentRepo('boundary'),
+			getRedirectsFromContentRepo('nomad'),
+			getRedirectsFromContentRepo('vault'),
+			getRedirectsFromContentRepo('waypoint'),
+			getRedirectsFromContentRepo('vagrant'),
+			getRedirectsFromContentRepo('packer'),
+			getRedirectsFromContentRepo('consul'),
+			getRedirectsFromContentRepo('terraform-docs-common'),
+			getRedirectsFromContentRepo('hcp-docs', '/redirects.js'),
+			/**
+			 * Note: `hashicorp/ptfe-releases` is in the process of adding a
+			 * `redirects.js` file. Until a release is cut and our content API
+			 * has a `latestRef` corresponding to a commit with that file, we
+			 * expect any attempt to fetch the redirects to 404. To account for this,
+			 * we've added a temporary try-catch block here.
+			 *
+			 * TODO(zachshilton): remove this try-catch block,
+			 * once `hashicorp/ptfe-releases` has cut a release with a `redirect.js`
+			 * file and that release has been extracted by our content workflows. At
+			 * that point, we'll expect the redirects.js file to exist, and only then
+			 * should 404s break the build.
+			 * Task: https://app.asana.com/0/1202097197789424/1205453036684673/f
+			 */
+			(async function getPtfeRedirects() {
+				try {
+					return await getRedirectsFromContentRepo('ptfe-releases')
+				} catch (e) {
+					if (e.toString() === 'HttpError: Not Found') {
+						console.warn(
+							'Redirects for "hashicorp/ptfe-releases" were not found in the latest set of content extracted by our content API. Skipping for now.'
+						)
+						return []
+					} else {
+						throw e
+					}
+				}
+			})(),
 		])
 	).flat()
-
-	try {
-		productRedirects.push(
-			...(await getRedirectsForProduct('hcp-docs', {
-				ref: 'main',
-				redirectsPath: '/redirects.js',
-			}))
-		)
-	} catch (err) {
-		console.warn(
-			'[redirects] failed to fetch redirects for hcp-docs. Falling back to cloud.hashicorp.com',
-			err.message
-		)
-		productRedirects.push(
-			...(await getRedirectsForProduct('cloud.hashicorp.com', {
-				ref: 'main',
-				redirectsPath: '/redirects.js',
-			}))
-		)
-	}
 
 	return [
 		...devPortalToDotIoRedirects,
@@ -297,6 +314,11 @@ async function buildDevPortalRedirects() {
 		 * Further details in the file this is imported from.
 		 */
 		...integrationMultipleComponentRedirects,
+		/**
+		 * Redirects from our former Packer Plugin library to our
+		 * new integrations library for Packer,
+		 */
+		...packerPluginRedirects,
 	]
 }
 
@@ -352,6 +374,8 @@ function filterInvalidRedirects(redirects, repoSlug) {
 		/** @deprecated - terraform-website is now archived and redirects have been moved to `terraform-docs-common` */
 		'terraform-website': 'terraform',
 		'terraform-docs-common': 'terraform',
+		// Note: `ptfe-releases` docs are rendered under `terraform/enterprise` URLs
+		'ptfe-releases': 'terraform/enterprise',
 		'cloud.hashicorp.com': 'hcp',
 		'hcp-docs': 'hcp',
 	}

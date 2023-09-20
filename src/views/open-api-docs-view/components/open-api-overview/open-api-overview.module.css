@@ -12,40 +12,38 @@
 .header {
 	display: flex;
 	align-items: flex-start;
-	gap: 16px;
+	flex-direction: column-reverse;
+	gap: 8px;
+
+	@media (--dev-dot-tablet-up) {
+		flex-direction: row;
+		gap: 16px;
+	}
 }
 
 .heading {
 	composes: hds-typography-display-600 from global;
+
+	/* Ensure we jump to the very top of the page when linking to this item */
+	scroll-margin-top: calc(var(--total-scroll-offset) + 999vh);
 	font-weight: var(--token-typography-font-weight-bold);
 	color: var(--token-color-foreground-strong);
 	margin: 0 0 9px 0;
 }
 
 .icon {
-	margin-top: 3px;
+	display: none;
+
+	@media (--dev-dot-tablet-up) {
+		display: block;
+		margin-top: 3px;
+	}
 }
 
 .releaseStageBadge {
-	margin-top: 13px;
 	text-transform: capitalize;
-}
 
-.content {
-	display: flex;
-	flex-direction: column;
-	gap: 32px;
-
-	@media (--dev-dot-desktop) {
-		flex-direction: row;
-		justify-content: space-between;
+	@media (--dev-dot-tablet-up) {
+		margin-top: 13px;
 	}
-
-	@media screen and (min-width: 1440px) {
-		gap: 64px;
-	}
-}
-
-.contentBlurb {
-	flex: 1;
 }

@@ -36,9 +36,13 @@ Base properties, at the top level
 */
 
 .baseRoot {
+	composes: g-offset-scroll-margin-top from global;
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 4px;
+
+	--tree-line-color: var(--token-color-border-primary);
+	--tree-line-width: 1px;
 }
 
 .baseMetaAndDescription {
@@ -51,7 +55,7 @@ Base properties, at the top level
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	gap: 8px;
+	gap: 6px;
 }
 
 .baseType {
@@ -63,26 +67,20 @@ Base properties, at the top level
 .baseDescription {
 	composes: hds-typography-body-200 from global;
 	composes: description;
-}
 
-.baseNestedDivider {
-	margin: 0;
-	height: 1px;
-	border: none;
-	background-color: var(--token-color-border-primary);
+	&.hasNestedProperties {
+		padding-bottom: 4px;
+	}
 }
 
 /*
 
-List of nested properties within a base property
+List of nested properties
 
 */
 
 .listNestedProperties {
 	composes: listResetStyles;
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
 }
 
 /*
@@ -92,15 +90,7 @@ Nested properties
 */
 
 .nestedRoot {
-	--nested-property-inset: 18px;
-
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-
-	&.depth-0 {
-		--nested-property-inset: 0;
-	}
+	composes: g-offset-scroll-margin-top from global;
 }
 
 .nestedMetaAndDescription {
@@ -114,13 +104,7 @@ Nested properties
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 6px;
-}
-
-.nestedIcon {
-	color: var(--token-color-foreground-faint);
-	width: 12px;
-	height: 12px;
-	overflow: hidden;
+	padding: 8px 0;
 }
 
 .nestedNameAndType {
@@ -146,9 +130,57 @@ Nested properties
 .nestedDescription {
 	composes: hds-typography-body-100 from global;
 	composes: description;
-	padding-left: var(--nested-property-inset);
+	position: relative;
+	top: -4px;
 }
 
-.nestedBody {
-	padding-left: var(--nested-property-inset);
+/*
+
+Tree content styling
+
+*/
+
+.treeContent {
+	display: flex;
+	gap: 4px;
+	padding-left: 8px;
+
+	&.hideIndicator {
+		padding-left: 0;
+	}
+}
+
+.treeIndicatorContainer {
+	position: relative;
+	width: 8px;
+}
+
+.treeIndicator {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	border-width: var(--tree-line-width);
+	border-color: var(--tree-line-color);
+	border-left-style: solid;
+
+	&.hideBorder {
+		border-color: transparent;
+	}
+
+	/* Add horizontal line leading to from the "nesting line" to the item */
+	&.isMiddleItem::after {
+		position: absolute;
+		content: '';
+		top: 50%;
+		width: 100%;
+		border-bottom: var(--tree-line-width) solid var(--tree-line-color);
+	}
+
+	/* Modify the "nesting line" to curve towards the item" */
+	&.isLastItem {
+		height: 55%;
+		border-bottom-style: solid;
+		border-bottom-left-radius: 4px;
+	}
 }

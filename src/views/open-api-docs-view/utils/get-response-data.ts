@@ -9,6 +9,7 @@ import { getReasonPhrase } from 'http-status-codes'
 // Utils
 import { getPropertyDetailPropsFromSchemaObject } from './get-property-detail-props'
 // Types
+import type { PropertyDetailsGroup } from '../components/operation-details'
 import type { PropertyDetailsProps } from '../components/property-details'
 import type { OpenAPIV3 } from 'openapi-types'
 
@@ -17,13 +18,11 @@ import type { OpenAPIV3 } from 'openapi-types'
  * Return response data formatted for display.
  */
 export async function getResponseData(
-	responses: OpenAPIV3.ResponsesObject
-): Promise<{ heading: string; propertyDetails: PropertyDetailsProps[] }[]> {
+	responses: OpenAPIV3.ResponsesObject,
+	slugPrefix: string
+): Promise<PropertyDetailsGroup[]> {
 	// Set up an object to hold response data
-	const responseData: {
-		heading: string
-		propertyDetails: PropertyDetailsProps[]
-	}[] = []
+	const responseData: PropertyDetailsGroup[] = []
 	// Populate the responseData object using incoming responses
 	for (const responseCode of Object.keys(responses)) {
 		const value = responses[responseCode]
@@ -31,8 +30,20 @@ export async function getResponseData(
 		if ('$ref' in value) {
 			continue
 		}
-		const definition = value.content['application/json']
-		// If this schema is a reference, skip it
+		const contentTypeKeys = Object.keys(value.content)
+
+		// If we don't have any content type keys, skip this response
+		if (!contentTypeKeys.length) {
+			continue
+		}
+
+		// If we don't have a definition or schema, skip this response
+		const definition = value.content[contentTypeKeys[0]]
+		if (!definition || !definition.schema) {
+			continue
+		}
+
+		// If this schema is a reference, skip this response
 		if ('$ref' in definition.schema) {
 			continue
 		}
@@ -41,6 +52,7 @@ export async function getResponseData(
 		 * We flatten the response properties to avoid showing a redundant object.
 		 */
 		if (definition.schema.properties) {
+			const responseSlug = `${slugPrefix}_${responseCode}`
 			const propertyDetails: PropertyDetailsProps[] = []
 			const requiredProperties = definition.schema.required || []
 			for (const propertyKey of Object.keys(definition.schema.properties)) {
@@ -54,18 +66,20 @@ export async function getResponseData(
 					await getPropertyDetailPropsFromSchemaObject(
 						propertyKey,
 						data,
-						isRequired
+						isRequired,
+						responseSlug
 					)
 				)
 			}
 			// Determine the heading text to show
 			const headingText =
 				responseCode === 'default'
-					? `Default Response`
+					? `Default Error Response`
 					: `${responseCode} -  ${getReasonPhrase(responseCode)}`
+			const headingTheme = responseCode.startsWith('2') ? 'success' : 'critical'
 
 			responseData.push({
-				heading: headingText,
+				heading: { text: headingText, slug: responseSlug, theme: headingTheme },
 				propertyDetails,
 			})
 		}

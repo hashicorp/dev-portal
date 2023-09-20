@@ -30,14 +30,13 @@
 			"clientToken": "pubd5cf774aa1cbbd001accd50cb463925b",
 			"service": "non-prod.developer.hashicorp.com"
 		},
-		"product_slugs_with_integrations": ["vault", "waypoint", "nomad"]
+		"product_slugs_with_integrations": ["vault", "waypoint", "nomad", "packer"]
 	},
 	"learn": {
 		"max_static_paths": 10
 	},
 	"flags": {
 		"enable_datadog": true,
-		"enable_io_beta_cta": true,
-		"enable_hcp_vault_secrets_api_docs_revision": false
+		"enable_io_beta_cta": true
 	}
 }
