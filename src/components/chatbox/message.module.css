@@ -25,7 +25,7 @@
 }
 
 .message_user_input {
-	color: var(--token-color-foreground-primary, #3b3d45);
+	color: var(--token-color-foreground-primary);
 	white-space: pre-line; /* visually respect user-inputted line breaks */
 }
 
@@ -34,15 +34,15 @@
 }
 
 .message_assistant {
-	background: var(--token-color-surface-strong); /* #f1f2f3 */
+	background: var(--token-color-surface-strong);
 }
 
 .message_icon {
-	--icon-color: var(--token-color-foreground-highlight-on-surface, #911ced);
+	--icon-color: var(--token-color-foreground-highlight-on-surface);
 }
 
 .message_markdown {
-	color: var(--token-color-foreground-primary, #3b3d45);
+	color: var(--token-color-foreground-primary);
 	& pre {
 		overflow-x: auto;
 		white-space: pre-wrap;
