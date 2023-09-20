@@ -87,9 +87,11 @@ export async function getOperationProps(
 			 * https://app.asana.com/0/1204678746647847/1205338583217309/f
 			 */
 			const operationIdParts = operation.operationId.split('_')
-			const summary = addWordBreaks(
-				splitOnCapitalLetters(operationIdParts.slice(1).join('_'))
-			)
+			const hasServicePart = operationIdParts.length > 1
+			const idForSummary = hasServicePart
+				? operationIdParts.slice(1).join('_')
+				: operation.operationId
+			const summary = addWordBreaks(splitOnCapitalLetters(idForSummary))
 
 			/**
 			 * Format and push the operation props
