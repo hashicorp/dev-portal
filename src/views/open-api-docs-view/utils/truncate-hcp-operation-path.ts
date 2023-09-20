@@ -10,6 +10,10 @@
  *
  * We remove all of this prefix from the path for better grouping
  * of operations within the specific spec.
+ *
+ * @example `/secrets/2023-06-13/organizations/{organization_id}/projects/{project_id}/apps`
+ * Or more generically:
+ * `/<service>/<version>/organizations/{organization_id}/projects/{project_id}`
  */
 const SPECIFIC_SERVICE_PATTERN =
 	/(\/[a-z]*\/\d\d\d\d-\d\d-\d\d\/organizations\/\{[a-z_.]*\}\/projects\/\{[a-z_.]*\})/
@@ -19,6 +23,10 @@ const SPECIFIC_SERVICE_PATTERN =
  * and always include "organization" and "project" parameters.
  *
  * We remove the version prefix from the path for better grouping.
+ *
+ * @example "/2022-02-15/some-global-service/{parameter}/etc"
+ * Or more generically:
+ * `/<version>/...(anything)`
  */
 const GLOBAL_SERVICE_PATTERN = /\/\d\d\d\d-\d\d-\d\d/
 
