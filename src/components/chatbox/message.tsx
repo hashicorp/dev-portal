@@ -92,7 +92,7 @@ const AssistantMessage = ({
 	}, [isCopied])
 
 	/** copy rich text; not raw markdown */
-	const handleCopy = () => {
+	const handleCopy = async () => {
 		// CSS Module classname is a reasonable "hook" to grab the element
 		// rendered by ReactMarkdown.
 		const el = document.getElementsByClassName(s.message_markdown)?.[0]
@@ -105,8 +105,12 @@ const AssistantMessage = ({
 				'text/html': new Blob([el.outerHTML], { type: 'text/html' }),
 			})
 
-			navigator.clipboard.write([clipboardItem])
-			setIsCopied(true)
+			try {
+				await navigator.clipboard.write([clipboardItem])
+				setIsCopied(true)
+			} catch (err) {
+				// noop
+			}
 		}
 	}
 
