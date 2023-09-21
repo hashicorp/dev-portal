@@ -77,7 +77,7 @@ export default async function edgehandler(
 					})
 				} else {
 					// additional Headers
-					const addl = {}
+					const additionalHeaders = {}
 
 					if (res.status == 429) {
 						// forward rate limit headers
