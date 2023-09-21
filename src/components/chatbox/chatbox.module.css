@@ -7,7 +7,7 @@
 	justify-content: space-between;
 }
 
-.message_list {
+.messageList {
 	overflow-y: auto;
 	max-height: 100%;
 	display: flex;
@@ -39,7 +39,7 @@
 	gap: 12px;
 	background: var(--token-color-surface-primary);
 }
-.question_icon {
+.questionIcon {
 	height: 40px;
 	width: 40px;
 	padding: 8px;

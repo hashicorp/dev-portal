@@ -331,7 +331,7 @@ const ChatBox = () => {
 			) : (
 				<div
 					ref={mergeRefs([textContentRef, textContentRef2])}
-					className={s.message_list}
+					className={s.messageList}
 				>
 					<MessageList messages={messageList} />
 				</div>
@@ -348,7 +348,7 @@ const ChatBox = () => {
 					) : null}
 
 					<div className={s.question}>
-						<div className={s.question_icon}>
+						<div className={s.questionIcon}>
 							{isLoading ? (
 								<IconLoading24 className={'loading'} />
 							) : (

@@ -6,42 +6,42 @@
 	background: var(--token-color-palette-neutral-0);
 }
 
-.message_user {
+.user {
 	border-bottom: 1px solid var(--token-color-palette-neutral-300);
 }
 
-.message_avatar,
-.message_avatar img {
+.avatar,
+.avatar img {
 	width: 40px;
 	height: 40px;
 	border-radius: 6px;
 }
 
-.message_content {
+.content {
 	padding-top: 10px; /* simulate vertically centering the first line with avatar/icon */
 	display: flex;
 	flex: 1;
 	flex-direction: column;
 }
 
-.message_user_input {
+.userInput {
 	color: var(--token-color-foreground-primary);
 	white-space: pre-line; /* visually respect user-inputted line breaks */
 }
 
-.message_gutter {
+.gutter {
 	min-width: 40px;
 }
 
-.message_assistant {
+.assistant {
 	background: var(--token-color-surface-strong);
 }
 
-.message_icon {
+.icon {
 	--icon-color: var(--token-color-foreground-highlight-on-surface);
 }
 
-.message_markdown {
+.markdown {
 	color: var(--token-color-foreground-primary);
 	& pre {
 		overflow-x: auto;
@@ -50,45 +50,45 @@
 	}
 }
 
-.message_AssistantMessageFooter {
+.assistantMessageFooter {
 	width: 100%;
 	padding: 24px 0 0;
 }
 
-.message_AssistantMessageFooterHidden {
+.assistantMessageFooterHidden {
 	display: none;
 }
 
-.message_divider {
+.divider {
 	display: block;
 	width: 100%;
 	border-bottom: 1px solid var(--token-color-palette-neutral-300);
 	margin-bottom: 24px;
 }
 
-.message_actionButtons {
+.actionButtons {
 	display: flex;
 	flex-direction: row;
 	gap: 16px;
 }
 
-.rating_like {
+.ratingLike {
 	border: 1px solid var(--token-color-border-success) !important;
 	background: var(--token-color-surface-success) !important;
 	color: var(--token-color-foreground-success) !important;
 }
-.rating_dislike {
+.ratingDislike {
 	border: 1px solid var(--token-color-border-critical) !important;
 	background: var(--token-color-surface-critical) !important;
 	color: var(--token-color-foreground-critical) !important;
 }
 
-.message_feedbackForm {
-	&.message_feedbackFormVisible {
+.feedbackForm {
+	&.feedbackFormVisible {
 		margin-top: 30px;
 	}
 }
 
-.message_icon_error {
+.iconError {
 	--icon-color: var(--token-color-foreground-critical);
 }

@@ -23,18 +23,18 @@ import s from './message.module.css'
 
 const UserMessage = ({ text, image }: { text: string; image?: string }) => {
 	return (
-		<div className={classNames(s.message, s.message_user)}>
-			<div className={classNames(s.message_avatar)}>
+		<div className={classNames(s.message, s.messageUser)}>
+			<div className={classNames(s.avatar)}>
 				{image ? <img src={image} alt="user avatar" /> : null}
 			</div>
 			<Text /* Body/200/Medium */
 				size={200}
 				weight="medium"
-				className={classNames(s.message_content, s.message_user_input)}
+				className={classNames(s.content, s.userInput)}
 			>
 				{text}
 			</Text>
-			<div className={classNames(s.message_gutter)}></div>
+			<div className={classNames(s.gutter)}></div>
 		</div>
 	)
 }
@@ -95,7 +95,7 @@ const AssistantMessage = ({
 	const handleCopy = async () => {
 		// CSS Module classname is a reasonable "hook" to grab the element
 		// rendered by ReactMarkdown.
-		const el = document.getElementsByClassName(s.message_markdown)?.[0]
+		const el = document.getElementsByClassName(s.markdown)?.[0]
 
 		if (el) {
 			// https://www.nikouusitalo.com/blog/why-isnt-clipboard-write-copying-my-richtext-html/
@@ -115,13 +115,13 @@ const AssistantMessage = ({
 	}
 
 	return (
-		<div className={classNames(s.message, s.message_assistant)}>
-			<IconTile className={classNames(s.message_icon)}>
+		<div className={classNames(s.message, s.assistant)}>
+			<IconTile className={classNames(s.icon)}>
 				<IconWand24 style={{ width: 24, height: 24 }} />
 			</IconTile>
-			<div className={classNames(s.message_content)}>
+			<div className={classNames(s.content)}>
 				<ReactMarkdown
-					className={s.message_markdown}
+					className={s.markdown}
 					components={{
 						// @ts-expect-error - ignore this type incompatibility
 						pre: MdxPre,
@@ -140,12 +140,12 @@ const AssistantMessage = ({
 				</ReactMarkdown>
 
 				<div
-					className={classNames(s.message_AssistantMessageFooter, {
-						[s.message_AssistantMessageFooterHidden]: !showActions,
+					className={classNames(s.assistantMessageFooter, {
+						[s.assistantMessageFooterHidden]: !showActions,
 					})}
 				>
-					<span className={s.message_divider} />
-					<div className={s.message_actionButtons}>
+					<span className={s.divider} />
+					<div className={s.actionButtons}>
 						<Button
 							size="small"
 							color="secondary"
@@ -164,7 +164,7 @@ const AssistantMessage = ({
 						<Button
 							size="small"
 							color="secondary"
-							className={classNames({ [s.rating_like]: rating == 1 })}
+							className={classNames({ [s.ratingLike]: rating == 1 })}
 							disabled={rating == 1}
 							icon={<IconThumbsUp24 height={12} width={12} />}
 							aria-label="Like this response"
@@ -177,7 +177,7 @@ const AssistantMessage = ({
 						<Button
 							size="small"
 							color="secondary"
-							className={classNames({ [s.rating_dislike]: rating == -1 })}
+							className={classNames({ [s.ratingDislike]: rating == -1 })}
 							disabled={rating == -1}
 							icon={<IconThumbsDown24 height={12} width={12} />}
 							aria-label="Dislike this response"
@@ -189,8 +189,8 @@ const AssistantMessage = ({
 					</div>
 
 					<div
-						className={classNames(s.message_feedbackForm, {
-							[s.message_feedbackFormVisible]: rating != 0,
+						className={classNames(s.feedbackForm, {
+							[s.feedbackFormVisible]: rating != 0,
 						})}
 					>
 						{rating != 0 ? (
@@ -224,7 +224,7 @@ const AssistantMessage = ({
 				</div>
 			</div>
 
-			<div className={classNames(s.message_gutter)}></div>
+			<div className={classNames(s.gutter)}></div>
 		</div>
 	)
 }
@@ -232,18 +232,18 @@ const AssistantMessage = ({
 // TODO(kevinwang): error styling.
 const ApplicationMessage = ({ text }: { text: string }) => {
 	return (
-		<div className={classNames(s.message, s.message_assistant)}>
-			<IconTile className={classNames(s.message_icon_error)}>
+		<div className={classNames(s.message, s.assistant)}>
+			<IconTile className={classNames(s.iconError)}>
 				<IconWand24 style={{ width: 24, height: 24 }} />
 			</IconTile>
 			<Text /* Body/200/Medium */
 				size={200}
 				weight="medium"
-				className={classNames(s.message_content)}
+				className={classNames(s.content)}
 			>
 				{text}
 			</Text>
-			<div className={classNames(s.message_gutter)}></div>
+			<div className={classNames(s.gutter)}></div>
 		</div>
 	)
 }
