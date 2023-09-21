@@ -354,11 +354,7 @@ const ChatBox = () => {
 							{isLoading ? (
 								<IconLoading24 className={'loading'} />
 							) : (
-								<IconWand24
-									style={{
-										color: 'var(--token-color-foreground-highlight-on-surface)',
-									}}
-								/>
+								<IconWand24 className={s.purple} />
 							)}
 						</div>
 						<textarea

@@ -133,6 +133,10 @@
 	}
 }
 
+.purple {
+	color: var(--token-color-foreground-highlight-on-surface);
+}
+
 @keyframes hds-flight-icon-animation-rotation {
 	100% {
 		transform: rotate(360deg);
