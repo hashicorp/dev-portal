@@ -9,6 +9,7 @@ import { IconSend24 } from '@hashicorp/flight-icons/svg-react/send-24'
 import { IconStopCircle24 } from '@hashicorp/flight-icons/svg-react/stop-circle-24'
 import { IconUser16 } from '@hashicorp/flight-icons/svg-react/user-16'
 import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
+import classNames from 'classnames'
 import ms from 'ms'
 import { z } from 'zod'
 
@@ -20,7 +21,6 @@ import Button from 'components/button'
 import Heading from 'components/heading'
 import Text from 'components/text'
 
-import cn from 'classnames'
 import s from './chatbox.module.css'
 import { MessageList, type MessageType } from './message'
 
@@ -327,7 +327,7 @@ const ChatBox = () => {
 	}
 
 	return (
-		<div className={cn(s.chat)}>
+		<div className={classNames(s.chat)}>
 			{messageList.length === 0 ? (
 				<WelcomeMessage />
 			) : (
@@ -363,7 +363,7 @@ const ChatBox = () => {
 						</div>
 						<textarea
 							autoFocus
-							className={cn(s.reset, s.textarea)}
+							className={classNames(s.reset, s.textarea)}
 							spellCheck={false}
 							value={userInput}
 							onChange={(e) => setUserInput(e.currentTarget.value)}
@@ -418,7 +418,7 @@ const ChatBox = () => {
 const WelcomeMessage = () => {
 	return (
 		<div className={s.welcome}>
-			<div className={cn(s.col, s.left)}>
+			<div className={classNames(s.col, s.left)}>
 				<IconWand24 />
 				<div className={s.copy}>
 					<Heading /* Display/400/Medium */
@@ -439,7 +439,7 @@ const WelcomeMessage = () => {
 					</Text>
 				</div>
 			</div>
-			<div className={cn(s.col, s.right)}>
+			<div className={classNames(s.col, s.right)}>
 				<div className={s.row}>
 					<IconUser16 />
 					<div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import cn from 'classnames'
+import classNames from 'classnames'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypePrism from '@mapbox/rehype-prism'
@@ -23,18 +23,18 @@ import s from './message.module.css'
 
 const UserMessage = ({ text, image }: { text: string; image?: string }) => {
 	return (
-		<div className={cn(s.message, s.message_user)}>
-			<div className={cn(s.message_avatar)}>
+		<div className={classNames(s.message, s.message_user)}>
+			<div className={classNames(s.message_avatar)}>
 				{image ? <img src={image} alt="user avatar" /> : null}
 			</div>
 			<Text /* Body/200/Medium */
 				size={200}
 				weight="medium"
-				className={cn(s.message_content, s.message_user_input)}
+				className={classNames(s.message_content, s.message_user_input)}
 			>
 				{text}
 			</Text>
-			<div className={cn(s.message_gutter)}></div>
+			<div className={classNames(s.message_gutter)}></div>
 		</div>
 	)
 }
@@ -115,11 +115,11 @@ const AssistantMessage = ({
 	}
 
 	return (
-		<div className={cn(s.message, s.message_assistant)}>
-			<IconTile className={cn(s.message_icon)}>
+		<div className={classNames(s.message, s.message_assistant)}>
+			<IconTile className={classNames(s.message_icon)}>
 				<IconWand24 style={{ width: 24, height: 24 }} />
 			</IconTile>
-			<div className={cn(s.message_content)}>
+			<div className={classNames(s.message_content)}>
 				<ReactMarkdown
 					className={s.message_markdown}
 					components={{
@@ -140,7 +140,7 @@ const AssistantMessage = ({
 				</ReactMarkdown>
 
 				<div
-					className={cn(s.message_AssistantMessageFooter, {
+					className={classNames(s.message_AssistantMessageFooter, {
 						[s.message_AssistantMessageFooterHidden]: !showActions,
 					})}
 				>
@@ -164,7 +164,7 @@ const AssistantMessage = ({
 						<Button
 							size="small"
 							color="secondary"
-							className={cn({ [s.rating_like]: rating == 1 })}
+							className={classNames({ [s.rating_like]: rating == 1 })}
 							disabled={rating == 1}
 							icon={<IconThumbsUp24 height={12} width={12} />}
 							aria-label="Like this response"
@@ -177,7 +177,7 @@ const AssistantMessage = ({
 						<Button
 							size="small"
 							color="secondary"
-							className={cn({ [s.rating_dislike]: rating == -1 })}
+							className={classNames({ [s.rating_dislike]: rating == -1 })}
 							disabled={rating == -1}
 							icon={<IconThumbsDown24 height={12} width={12} />}
 							aria-label="Dislike this response"
@@ -189,7 +189,7 @@ const AssistantMessage = ({
 					</div>
 
 					<div
-						className={cn(s.message_feedbackForm, {
+						className={classNames(s.message_feedbackForm, {
 							[s.message_feedbackFormVisible]: rating != 0,
 						})}
 					>
@@ -224,7 +224,7 @@ const AssistantMessage = ({
 				</div>
 			</div>
 
-			<div className={cn(s.message_gutter)}></div>
+			<div className={classNames(s.message_gutter)}></div>
 		</div>
 	)
 }
@@ -232,18 +232,18 @@ const AssistantMessage = ({
 // TODO(kevinwang): error styling.
 const ApplicationMessage = ({ text }: { text: string }) => {
 	return (
-		<div className={cn(s.message, s.message_assistant)}>
-			<IconTile className={cn(s.message_icon_error)}>
+		<div className={classNames(s.message, s.message_assistant)}>
+			<IconTile className={classNames(s.message_icon_error)}>
 				<IconWand24 style={{ width: 24, height: 24 }} />
 			</IconTile>
 			<Text /* Body/200/Medium */
 				size={200}
 				weight="medium"
-				className={cn(s.message_content)}
+				className={classNames(s.message_content)}
 			>
 				{text}
 			</Text>
-			<div className={cn(s.message_gutter)}></div>
+			<div className={classNames(s.message_gutter)}></div>
 		</div>
 	)
 }
