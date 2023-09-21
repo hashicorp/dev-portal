@@ -7,6 +7,13 @@
 	justify-content: space-between;
 }
 
+.strong {
+	color: var(--token-color-foreground-strong);
+}
+.faint {
+	color: var(--token-color-foreground-faint);
+}
+
 .welcome {
 	background-color: hsla(228, 0%, 98%, 1);
 	background-image: radial-gradient(
@@ -63,12 +70,6 @@
 		justify-content: center;
 
 		&.left {
-			& h3 {
-				color: var(--token-color-foreground-strong);
-			}
-			& p {
-				color: var(--token-color-foreground-faint);
-			}
 			& .copy {
 				display: flex;
 				flex-direction: column;
@@ -83,15 +84,6 @@
 				display: flex;
 				align-items: flex-start;
 				gap: 12px;
-
-				& .rowText {
-					& .rowTextHeading {
-						color: var(--token-color-foreground-strong);
-					}
-					& .rowTextBody {
-						color: var(--token-color-foreground-faint);
-					}
-				}
 			}
 		}
 	}

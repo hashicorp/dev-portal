@@ -421,16 +421,16 @@ const WelcomeMessage = () => {
 			<div className={cn(s.col, s.left)}>
 				<IconWand24 />
 				<div className={s.copy}>
-					<Heading
-						/* Display/400/Medium */
+					<Heading /* Display/400/Medium */
+						className={s.strong}
 						level={3}
 						weight="medium"
 						size={400}
 					>
 						Welcome to Developer AI
 					</Heading>
-					<Text
-						/* Body/100/Medium */
+					<Text /* Body/100/Medium */
+						className={s.faint}
 						size={100}
 						weight="medium"
 					>
@@ -442,19 +442,19 @@ const WelcomeMessage = () => {
 			<div className={cn(s.col, s.right)}>
 				<div className={s.row}>
 					<IconUser16 />
-					<div className={s.rowText}>
+					<div>
 						<Heading /* Display/100/Medium */
+							className={s.strong}
 							level={4}
 							weight="medium"
 							size={100}
-							className={s.rowTextHeading}
 						>
 							Personalized recommendations
 						</Heading>
 						<Text /* Body/100/Regular */
 							size={100}
 							weight="regular"
-							className={s.rowTextBody}
+							className={s.faint}
 						>
 							Coming soon...
 						</Text>
@@ -462,19 +462,19 @@ const WelcomeMessage = () => {
 				</div>
 				<div className={s.row}>
 					<IconDiscussionCircle16 />
-					<div className={s.rowText}>
+					<div>
 						<Heading /* Display/100/Medium */
+							className={s.strong}
 							level={4}
 							weight="medium"
 							size={100}
-							className={s.rowTextHeading}
 						>
 							Natural language conversations
 						</Heading>
 						<Text /* Body/100/Regular */
+							className={s.faint}
 							size={100}
 							weight="regular"
-							className={s.rowTextBody}
 						>
 							Coming soon...
 						</Text>
@@ -482,19 +482,19 @@ const WelcomeMessage = () => {
 				</div>
 				<div className={s.row}>
 					<IconBulb16 />
-					<div className={s.rowText}>
+					<div>
 						<Heading /* Display/100/Medium */
+							className={s.strong}
 							level={4}
 							weight="medium"
 							size={100}
-							className={s.rowTextHeading}
 						>
 							Knowledge base
 						</Heading>
 						<Text /* Body/100/Regular */
+							className={s.faint}
 							size={100}
 							weight="regular"
-							className={s.rowTextBody}
 						>
 							Yes
 						</Text>
