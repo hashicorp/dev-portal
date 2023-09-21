@@ -5,6 +5,10 @@ import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
 import { toast, ToastColor } from 'components/toast'
 import useAuthentication from 'hooks/use-authentication'
 
+import { CmdCtrlIcon } from 'components/command-bar/components/cmd-ctrl-icon'
+import { KIcon } from 'components/command-bar/components/k-icon'
+import Badge from 'components/badge'
+
 const COOKIE_IGNORE_AI_TOAST = 'dev-dot-ignore-ai-toast'
 const COOKIE_HAS_SEEN_AI_TOAST = 'dev-dot-has-seen-ai-toast'
 const COOKIE_EXPIRES_AT = new Date('12/25/2024') // arbitrary date
@@ -17,17 +21,17 @@ export function AIFeatureToast() {
 	useEffect(() => {
 		// skip toast if we're past the expiration date
 		if (new Date() > COOKIE_EXPIRES_AT) {
-			return
+			// return
 		}
 
 		// skip toast if user has previously dismissed it
 		if (Cookies.get(COOKIE_IGNORE_AI_TOAST)) {
-			return
+			// return
 		}
 
 		// skip toast if it's already been seen
 		if (Cookies.get(COOKIE_HAS_SEEN_AI_TOAST)) {
-			return
+			// return
 		}
 
 		if (session?.meta.isAIEnabled) {
@@ -35,7 +39,24 @@ export function AIFeatureToast() {
 				color: ToastColor.highlight,
 				icon: <IconWand24 />,
 				title: 'Welcome to the Developer AI closed beta',
-				description: 'Try it out in our cmd+K menu!',
+				description: (
+					<>
+						Try it out in our{' '}
+						<Badge
+							ariaLabel="Command or control key"
+							color="neutral-dark-mode"
+							icon={<CmdCtrlIcon />}
+							size="small"
+						/>{' '}
+						<Badge
+							ariaLabel="K key"
+							color="neutral-dark-mode"
+							icon={<KIcon />}
+							size="small"
+						/>{' '}
+						menu!
+					</>
+				),
 				autoDismiss: TOAST_AUTO_DISMISS_MS,
 				onDismissCallback: () => {
 					// when user dismisses the toast, we should ignore it going forwards
