@@ -21,13 +21,7 @@ import useAuthentication from 'hooks/use-authentication'
 
 import s from './message.module.css'
 
-export const UserMessage = ({
-	text,
-	image,
-}: {
-	image?: string
-	text: string
-}) => {
+const UserMessage = ({ text, image }: { text: string; image?: string }) => {
 	return (
 		<div className={cn(s.message, s.message_user)}>
 			<div className={cn(s.message_avatar)}>
@@ -45,7 +39,7 @@ export const UserMessage = ({
 	)
 }
 
-export const AssistantMessage = ({
+const AssistantMessage = ({
 	markdown,
 	showActions,
 	conversationId,
@@ -232,7 +226,7 @@ export const AssistantMessage = ({
 }
 
 // TODO(kevinwang): error styling.
-export const ApplicationMessage = ({ text }: { text: string }) => {
+const ApplicationMessage = ({ text }: { text: string }) => {
 	return (
 		<div className={cn(s.message, s.message_assistant)}>
 			<IconTile className={cn(s.message_icon_error)}>
@@ -247,5 +241,73 @@ export const ApplicationMessage = ({ text }: { text: string }) => {
 			</Text>
 			<div className={cn(s.message_gutter)}></div>
 		</div>
+	)
+}
+
+interface UserMessageData {
+	type: 'user'
+	image?: string
+	text: string
+}
+
+interface AssistantMessageData {
+	type: 'assistant'
+	text: string
+	messageId: string
+	conversationId: string
+	isLoading: boolean
+}
+
+interface ApplicationMessageData {
+	type: 'application'
+	text: string
+}
+
+export type MessageType =
+	| UserMessageData
+	| AssistantMessageData
+	| ApplicationMessageData
+
+// A pure, helper component that renders a list of messages, switching based on their type.
+export const MessageList = ({ messages }: { messages: MessageType[] }) => {
+	return (
+		<>
+			{messages.map((message, i) => {
+				switch (message.type) {
+					// User input
+					case 'user': {
+						return (
+							<UserMessage
+								key={`${message.type}-${i}`}
+								image={message.image}
+								text={message.text}
+							/>
+						)
+					}
+					// Backend AI response
+					case 'assistant': {
+						const shouldShowActions = !message.isLoading
+						return (
+							<AssistantMessage
+								markdown={message.text}
+								key={message.messageId}
+								conversationId={message.conversationId}
+								messageId={message.messageId}
+								showActions={shouldShowActions}
+							/>
+						)
+					}
+					// Application message; likely an error
+					case 'application': {
+						return (
+							<ApplicationMessage
+								key={`${message.type}-${i}`}
+								text={message.text}
+							/>
+						)
+					}
+				}
+			})}
+		</>
 	)
 }

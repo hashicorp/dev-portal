@@ -22,7 +22,7 @@ import Text from 'components/text'
 
 import cn from 'classnames'
 import s from './chatbox.module.css'
-import { ApplicationMessage, AssistantMessage, UserMessage } from './message'
+import { MessageList, type MessageType } from './message'
 
 import {
 	streamToAsyncIterable,
@@ -194,23 +194,6 @@ const useAI = () => {
 	}
 }
 
-type MessageType =
-	| {
-			type: 'user'
-			image?: string
-			text: string
-	  }
-	| {
-			type: 'assistant'
-			text: string
-			messageId: string
-			conversationId: string
-	  }
-	| {
-			type: 'application'
-			text: string
-	  }
-
 const ChatBox = () => {
 	const {
 		errorText,
@@ -242,10 +225,12 @@ const ChatBox = () => {
 		conversationId,
 		messageId,
 		text,
+		isLoading,
 	}: {
 		conversationId: string
 		messageId: string
 		text: string
+		isLoading: boolean
 	}) => {
 		setMessageList((prev) => {
 			const next = [...prev]
@@ -259,12 +244,15 @@ const ChatBox = () => {
 			// update or create
 			if (assistantMessage) {
 				assistantMessage.text = text
+				// @ts-expect-error - Ignore TS not being able to narrow down here
+				assistantMessage.isLoading = isLoading
 			} else {
 				next.push({
 					type: 'assistant',
 					text: text,
 					messageId: messageId,
 					conversationId: conversationId,
+					isLoading: true,
 				})
 			}
 			return next
@@ -280,8 +268,9 @@ const ChatBox = () => {
 			conversationId,
 			messageId,
 			text: streamedText,
+			isLoading,
 		})
-	}, [streamedText, messageId, conversationId])
+	}, [streamedText, messageId, conversationId, isLoading])
 
 	const handleSubmit = async (e) => {
 		const task = e.currentTarget.task?.value
@@ -346,39 +335,7 @@ const ChatBox = () => {
 					ref={mergeRefs([textContentRef, textContentRef2])}
 					className={s.message_list}
 				>
-					{messageList.map((e, i) => {
-						switch (e.type) {
-							// User input
-							case 'user': {
-								return (
-									<UserMessage
-										key={`${e.type}-${i}`}
-										image={e.image}
-										text={e.text}
-									/>
-								)
-							}
-							// Backend AI response
-							case 'assistant': {
-								const shouldShowActions = e.text?.length > 20 && !isLoading
-								return (
-									<AssistantMessage
-										markdown={e.text}
-										key={e.messageId}
-										conversationId={e.conversationId}
-										messageId={e.messageId}
-										showActions={shouldShowActions}
-									/>
-								)
-							}
-							// Application message; likely an error
-							case 'application': {
-								return (
-									<ApplicationMessage key={`${e.type}-${i}`} text={e.text} />
-								)
-							}
-						}
-					})}
+					<MessageList messages={messageList} />
 				</div>
 			)}
 
