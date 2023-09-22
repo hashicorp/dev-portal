@@ -50,7 +50,6 @@ const AssistantMessage = ({
 }) => {
 	const { session } = useAuthentication()
 	const accessToken = session?.accessToken
-	// Determines green/red button
 	const [rating, setRating] = useState<1 | -1 | 0>(0)
 
 	const handleFeedback = async ({
