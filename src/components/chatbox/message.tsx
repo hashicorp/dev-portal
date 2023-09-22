@@ -123,7 +123,6 @@ const AssistantMessage = ({
 				<ReactMarkdown
 					className={s.markdown}
 					components={{
-						// @ts-expect-error - ignore this type incompatibility
 						pre: MdxPre,
 						p: (props) => (
 							<Text /* Body/200/Medium */
