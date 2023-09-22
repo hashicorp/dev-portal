@@ -153,11 +153,6 @@ export async function getStaticProps({
 			releaseStage: targetVersion.releaseStage,
 			descriptionMdx,
 			IS_REVISED_TEMPLATE: true,
-			_placeholder: {
-				productSlug,
-				targetVersion,
-				schemaData,
-			},
 			operationGroups: stripUndefinedProperties(operationGroups),
 			navItems,
 			navResourceItems,

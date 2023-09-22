@@ -109,11 +109,6 @@ export async function getOperationProps(
 				requestData,
 				responseData,
 				urlPathForCodeBlock: getUrlPathCodeHtml(serverUrl + path),
-				_placeholder: {
-					__type: type,
-					__path: path,
-					...operation,
-				},
 			})
 		}
 	}

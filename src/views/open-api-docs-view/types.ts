@@ -36,11 +36,6 @@ export interface OperationProps {
 	 * word breaks to allow long URLs to wrap to multiple lines.
 	 */
 	urlPathForCodeBlock: string
-	/**
-	 * Some temporary data to mess around with during prototyping.
-	 * TODO: remove this for the production implementation.
-	 */
-	_placeholder: $TSFixMe
 }
 
 /**
@@ -159,11 +154,6 @@ export interface OpenApiDocsViewProps {
 	 * Configuration for the status-page indicator in the header area.
 	 */
 	statusIndicatorConfig: StatusIndicatorConfig
-
-	/**
-	 * Some temporary data we'll remove for the production implementation.
-	 */
-	_placeholder: $TSFixMe
 }
 
 /**
