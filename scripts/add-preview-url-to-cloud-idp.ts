@@ -29,8 +29,18 @@ async function fetchDeploymentAlias(previewUrl: string): Promise<string[]> {
 	const headers = { Authorization: `Bearer ${vercelApiToken}` }
 
 	const res = await fetch(url.toString(), { headers })
+
 	const data = await res.json()
-	console.log(data)
+	// Potential error:
+	// { error: { code: 'not_found', message: 'Deployment not found' } }
+	if (data?.error) {
+		console.log(data.error)
+		console.log(
+			`If the error.message is "Deployment not found", it is possible that the VERCEL_API_TOKEN GitHub repo secret is invalid.
+Try rotating the value and re-running the action.`
+		)
+		throw new Error(data.error.message)
+	}
 
 	// NOTE: returned aliases only contain hostname, and no scheme
 	// Scheme will need to be prepended before being passed in the
