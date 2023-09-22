@@ -21,17 +21,17 @@ export function AIFeatureToast() {
 	useEffect(() => {
 		// skip toast if we're past the expiration date
 		if (new Date() > COOKIE_EXPIRES_AT) {
-			// return
+			return
 		}
 
 		// skip toast if user has previously dismissed it
 		if (Cookies.get(COOKIE_IGNORE_AI_TOAST)) {
-			// return
+			return
 		}
 
 		// skip toast if it's already been seen
 		if (Cookies.get(COOKIE_HAS_SEEN_AI_TOAST)) {
-			// return
+			return
 		}
 
 		if (session?.meta.isAIEnabled) {
