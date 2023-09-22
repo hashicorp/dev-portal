@@ -31,6 +31,8 @@ declare module 'next-auth' {
 			/** The user's nickname. */
 			nickname?: string | null
 		} & DefaultSession['user']
+		/* Key-value store of additional session data */
+		meta: Record<string, unknown>
 	}
 
 	/** The OAuth profile returned from your provider */

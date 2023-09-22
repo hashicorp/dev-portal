@@ -36,6 +36,13 @@ import type {
 } from '../../types'
 // Styles
 import s from './dialog-body.module.css'
+import c from './chat.module.css' // TODO(kevinwang): find a home for this
+import {
+	CommandBarButtonListItem,
+	CommandBarList,
+} from 'components/command-bar/components'
+import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
+import useAuthentication from 'hooks/use-authentication'
 
 const ALGOLIA_INDEX_NAME = __config.dev_dot.algolia.unifiedIndexName
 
@@ -60,10 +67,11 @@ const searchClient = algoliasearch(appId, apiKey)
  * This component also tracks recent searches through `useRecentSearches`.
  */
 export function UnifiedSearchCommandBarDialogBody() {
-	const { currentInputValue } = useCommandBar()
+	const { currentInputValue, setCurrentCommand } = useCommandBar()
 	const currentProductTag = useCommandBarProductTag()
 	const currentProductSlug = currentProductTag?.id as ProductSlug
 	const recentSearches = useDebouncedRecentSearches(currentInputValue)
+	const { session } = useAuthentication()
 
 	/**
 	 * Generate suggested pages for the current product (if any).
@@ -72,15 +80,45 @@ export function UnifiedSearchCommandBarDialogBody() {
 		return generateSuggestedPages(currentProductSlug)
 	}, [currentProductSlug])
 
+	// Render "Ask Developer" button if user is opted into AI feature
+	const ExperimentalAI = ({
+		wrapperClassName,
+	}: {
+		wrapperClassName?: string
+	}) => {
+		if (!session?.meta.isAIEnabled) {
+			return null
+		}
+		const id = 'ask-developer'
+		return (
+			<div className={wrapperClassName}>
+				<CommandBarList ariaLabelledBy={id}>
+					<CommandBarButtonListItem
+						buttonId={id}
+						buttonClassName={c.ask}
+						title={`Ask Developer`}
+						icon={<IconWand24 />}
+						onClick={() => {
+							setCurrentCommand('chat')
+						}}
+					/>
+				</CommandBarList>
+			</div>
+		)
+	}
+
 	/**
 	 * If there's no searchQuery yet, show suggested pages.
 	 */
 	if (!currentInputValue) {
 		return (
-			<div className={s.suggestedPagesWrapper}>
-				<RecentSearches recentSearches={recentSearches} />
-				<SuggestedPages pages={suggestedPages} />
-			</div>
+			<>
+				<div className={s.suggestedPagesWrapper}>
+					<ExperimentalAI wrapperClassName={c.wrapperPadBottom} />
+					<RecentSearches recentSearches={recentSearches} />
+					<SuggestedPages pages={suggestedPages} />
+				</div>
+			</>
 		)
 	}
 
@@ -88,11 +126,14 @@ export function UnifiedSearchCommandBarDialogBody() {
 	 * Render search results
 	 */
 	return (
-		<SearchResults
-			currentInputValue={currentInputValue}
-			currentProductSlug={currentProductSlug}
-			suggestedPages={suggestedPages}
-		/>
+		<>
+			<ExperimentalAI wrapperClassName={c.wrapperPad} />
+			<SearchResults
+				currentInputValue={currentInputValue}
+				currentProductSlug={currentProductSlug}
+				suggestedPages={suggestedPages}
+			/>
+		</>
 	)
 }
 

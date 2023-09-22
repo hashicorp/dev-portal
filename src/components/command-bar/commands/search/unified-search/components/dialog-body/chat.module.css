@@ -1,0 +1,23 @@
+.ask {
+	/* override .linkOrButton tokens */
+	--token-color-surface-strong: var(
+		--token-color-palette-purple-50
+	); /* #f9f2ff */
+
+	--token-color-foreground-strong: var(
+		--token-color-palette-purple-300
+	); /* #911ced */
+
+	--token-surface-base-box-shadow: 0 0 0 1px
+		var(--token-color-palette-purple-100); /* #ead2fe */
+
+	color: var(--token-color-foreground-strong);
+	box-shadow: var(--token-surface-base-box-shadow);
+}
+
+.wrapperPad {
+	padding: 16px 16px 8px;
+}
+.wrapperPadBottom {
+	padding-bottom: 16px;
+}

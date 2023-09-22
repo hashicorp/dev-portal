@@ -100,6 +100,8 @@ const CommandBarListItemContent = ({
 }
 
 interface CommandBarButtonListItemProps extends CommandBarListItemContentProps {
+	buttonId?: string
+	buttonClassName?: string
 	onClick: () => void
 }
 
@@ -109,10 +111,16 @@ const CommandBarButtonListItem = ({
 	icon,
 	title,
 	onClick,
+	buttonId,
+	buttonClassName,
 }: CommandBarButtonListItemProps) => {
 	return (
 		<CommandBarListItem>
-			<button className={s.linkOrButton} onClick={onClick}>
+			<button
+				id={buttonId}
+				className={classNames(s.linkOrButton, buttonClassName)}
+				onClick={onClick}
+			>
 				<CommandBarListItemContent
 					badges={badges}
 					description={description}

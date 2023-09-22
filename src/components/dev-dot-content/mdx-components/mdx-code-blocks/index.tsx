@@ -6,6 +6,7 @@
 import codeBlockPrimitives from '@hashicorp/react-code-block/mdx'
 import { CodeTabsProps } from '@hashicorp/react-code-block/partials/code-tabs'
 import classNames from 'classnames'
+import { PropsWithChildren } from 'react'
 import s from './mdx-code-blocks.module.css'
 
 /**
@@ -37,6 +38,12 @@ export function MdxCodeTabs({ className, ...restProps }: CodeTabsProps) {
 	)
 }
 
+interface MdxPreProps extends PropsWithChildren {
+	className?: string
+	hasBarAbove?: boolean
+	theme?: 'light' | 'dark'
+}
+
 /**
  * Adds spacing specific to Dev Dot to the react-code-block <pre> MDX component.
  *
@@ -45,13 +52,20 @@ export function MdxCodeTabs({ className, ...restProps }: CodeTabsProps) {
  * <CodeBlockConfig /> adds a filename or title to a code block, the <pre>
  * element appears below a bar of content, so margin should not be applied.
  */
-export function MdxPre({ className, ...restProps }) {
+export function MdxPre({ children, className, ...restProps }: MdxPreProps) {
 	return (
 		<ReactPre
 			{...restProps}
 			className={classNames(className, {
 				[s.codeBlockMargin]: !restProps.hasBarAbove,
 			})}
+			// NOTE: this ts-expect-error can be removed once @hashicorp/react-code-block'
+			// PreProps.children type is replaced with React 18's `extends PropsWithChildren`.
+			// The children prop can also be moved away from the disallowed `children` prop.
+			//
+			// @ts-expect-error - see note
+			// eslint-disable-next-line react/no-children-prop
+			children={children}
 		/>
 	)
 }

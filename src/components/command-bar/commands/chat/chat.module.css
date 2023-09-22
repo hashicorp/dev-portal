@@ -1,0 +1,5 @@
+.backArrow {
+	composes: g-focus-ring-from-box-shadow from global;
+	cursor: pointer;
+	border-radius: 5px;
+}

@@ -6,10 +6,7 @@
 import { MutableRefObject, ReactElement, ReactNode } from 'react'
 import { ProductData } from 'types/products'
 
-enum SupportedCommand {
-	search = 'search',
-	settings = 'settings',
-}
+export type SupportedCommand = 'search' | 'settings' | 'chat'
 
 interface CommandBarCommand {
 	name: SupportedCommand
@@ -69,7 +66,7 @@ interface RemoveTagAction {
 
 interface SetCurrentCommandAction {
 	type: 'SET_CURRENT_COMMAND'
-	value: keyof typeof SupportedCommand
+	value: SupportedCommand
 }
 
 interface SetCurrentInputValueAction {
@@ -96,4 +93,3 @@ export type {
 	CommandBarReducerAction,
 	CommandBarTag,
 }
-export { SupportedCommand }
