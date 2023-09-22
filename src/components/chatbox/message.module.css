@@ -72,23 +72,6 @@
 	gap: 16px;
 }
 
-.ratingLike {
-	border: 1px solid var(--token-color-border-success) !important;
-	background: var(--token-color-surface-success) !important;
-	color: var(--token-color-foreground-success) !important;
-}
-.ratingDislike {
-	border: 1px solid var(--token-color-border-critical) !important;
-	background: var(--token-color-surface-critical) !important;
-	color: var(--token-color-foreground-critical) !important;
-}
-
-.feedbackForm {
-	&.feedbackFormVisible {
-		margin-top: 30px;
-	}
-}
-
 .iconError {
 	--icon-color: var(--token-color-foreground-critical);
 }

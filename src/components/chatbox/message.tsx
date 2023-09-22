@@ -11,7 +11,6 @@ import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
 
 import Button from 'components/button'
 import Text from 'components/text'
-import FeedbackForm from 'components/feedback-form'
 import IconTile from 'components/icon-tile'
 import useAuthentication from 'hooks/use-authentication'
 
@@ -146,7 +145,6 @@ const AssistantMessage = ({
 						<Button
 							size="small"
 							color="secondary"
-							className={classNames({ [s.ratingLike]: rating == 1 })}
 							disabled={rating == 1}
 							icon={<IconThumbsUp24 height={12} width={12} />}
 							aria-label="Like this response"
@@ -159,7 +157,6 @@ const AssistantMessage = ({
 						<Button
 							size="small"
 							color="secondary"
-							className={classNames({ [s.ratingDislike]: rating == -1 })}
 							disabled={rating == -1}
 							icon={<IconThumbsDown24 height={12} width={12} />}
 							aria-label="Dislike this response"
@@ -168,40 +165,6 @@ const AssistantMessage = ({
 								await handleFeedback({ rating: -1 })
 							}}
 						/>
-					</div>
-
-					<div
-						className={classNames(s.feedbackForm, {
-							[s.feedbackFormVisible]: rating != 0,
-						})}
-					>
-						{rating != 0 ? (
-							<FeedbackForm
-								questions={[
-									{
-										id: 'reason',
-										type: 'text',
-										label: 'Provide additional feedback to help us improve',
-										placeholder:
-											rating == 1
-												? 'What did you like about the response?'
-												: 'What was the issue with the response? How could it be improved?',
-										optional: true,
-										buttonText: 'Submit answer',
-									},
-								]}
-								finishedText={
-									<div>
-										Thank you! Your feedback will help us improve our websites.
-									</div>
-								}
-								onQuestionSubmit={async (responses) => {
-									const value = responses[0].value
-									await handleFeedback({ rating, text: value })
-									return
-								}}
-							/>
-						) : null}
 					</div>
 				</div>
 			</div>
