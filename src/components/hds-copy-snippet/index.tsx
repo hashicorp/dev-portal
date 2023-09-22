@@ -4,11 +4,11 @@
  */
 
 import { useState, useEffect } from 'react'
+import classNames from 'classnames'
 import { IconClipboardCopy16 } from '@hashicorp/flight-icons/svg-react/clipboard-copy-16'
 import { IconClipboardChecked16 } from '@hashicorp/flight-icons/svg-react/clipboard-checked-16'
 import { IconClipboardX16 } from '@hashicorp/flight-icons/svg-react/clipboard-x-16'
 
-import cn from 'classnames'
 import s from './copy-snippet.module.css'
 
 interface CopySnippetProps {
@@ -65,7 +65,7 @@ export default function CopySnippet({
 
 	return (
 		<button
-			className={cn(s['hds-copy-snippet'], {
+			className={classNames(s['hds-copy-snippet'], {
 				[s['hds-copy-snippet--color-primary']]: color === 'primary',
 				[s['hds-copy-snippet--color-secondary']]: color === 'secondary',
 				[s['hds-copy-snippet--width-full']]: isFullWidth,
@@ -76,7 +76,7 @@ export default function CopySnippet({
 			onClick={handleClick}
 		>
 			<span
-				className={cn(
+				className={classNames(
 					s['hds-copy-snippet__text'],
 					'hds-typography-code-100', // global
 					{

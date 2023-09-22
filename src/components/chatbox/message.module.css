@@ -1,0 +1,94 @@
+.message {
+	display: flex;
+	flex-direction: row;
+	gap: 12px;
+	padding: 20px 16px;
+	background: var(--token-color-palette-neutral-0);
+}
+
+.user {
+	border-bottom: 1px solid var(--token-color-palette-neutral-300);
+}
+
+.avatar,
+.avatar img {
+	width: 40px;
+	height: 40px;
+	border-radius: 6px;
+}
+
+.content {
+	padding-top: 10px; /* simulate vertically centering the first line with avatar/icon */
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+}
+
+.userInput {
+	color: var(--token-color-foreground-primary);
+	white-space: pre-line; /* visually respect user-inputted line breaks */
+}
+
+.gutter {
+	min-width: 40px;
+}
+
+.assistant {
+	background: var(--token-color-surface-strong);
+}
+
+.icon {
+	--icon-color: var(--token-color-foreground-highlight-on-surface);
+}
+
+.markdown {
+	color: var(--token-color-foreground-primary);
+	& pre {
+		overflow-x: auto;
+		white-space: pre-wrap;
+		word-wrap: break-word;
+	}
+}
+
+.assistantMessageFooter {
+	width: 100%;
+	padding: 24px 0 0;
+}
+
+.assistantMessageFooterHidden {
+	display: none;
+}
+
+.divider {
+	display: block;
+	width: 100%;
+	border-bottom: 1px solid var(--token-color-palette-neutral-300);
+	margin-bottom: 24px;
+}
+
+.actionButtons {
+	display: flex;
+	flex-direction: row;
+	gap: 16px;
+}
+
+.ratingLike {
+	border: 1px solid var(--token-color-border-success) !important;
+	background: var(--token-color-surface-success) !important;
+	color: var(--token-color-foreground-success) !important;
+}
+.ratingDislike {
+	border: 1px solid var(--token-color-border-critical) !important;
+	background: var(--token-color-surface-critical) !important;
+	color: var(--token-color-foreground-critical) !important;
+}
+
+.feedbackForm {
+	&.feedbackFormVisible {
+		margin-top: 30px;
+	}
+}
+
+.iconError {
+	--icon-color: var(--token-color-foreground-critical);
+}
