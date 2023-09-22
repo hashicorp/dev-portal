@@ -190,4 +190,16 @@ export interface OpenApiDocsPageConfig {
 	 * but before we translate the schema into page props.
 	 */
 	massageSchemaForClient?: (schema: OpenAPIV3.Document) => OpenAPIV3.Document
+	/**
+	 * The top-of-page heading optionally have an id other than "overview".
+	 * This heading ID is used to jump to the top of the page
+	 */
+	topOfPageId?: string
+	/**
+	 * Optionally group operations by their URL path. By default, operations are
+	 * grouped by their first `tag`, which is expected to correspond to a service.
+	 * In some cases, a spec may only have a single service, rendering this
+	 * tag-based grouping less useful.
+	 */
+	groupOperationsByPath?: boolean
 }

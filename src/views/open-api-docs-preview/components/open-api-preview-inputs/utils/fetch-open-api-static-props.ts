@@ -20,6 +20,7 @@ type Error = {
 export async function fetchOpenApiStaticProps(inputValues: {
 	openApiJsonString: string
 	openApiDescription?: string
+	groupOperationsByPath?: boolean
 }): Promise<[Error | null, OpenApiDocsViewProps | null]> {
 	try {
 		const result = await fetch(API_ROUTE, {

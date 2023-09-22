@@ -50,14 +50,10 @@ import { addWordBreaksToUrl } from './add-word-breaks-to-url'
  * }
  */
 export function groupOperations(
-	operationObjects: OperationProps[]
+	operationObjects: OperationProps[],
+	groupOperationsByPath: boolean
 ): OperationGroup[] {
-	// Determine if this set of operations has meaningful tags.
-	// If there's only a single tag, it won't be meaningful to group by it.
-	const allTags = operationObjects.map((o) => o.tags).flat()
-	const uniqueTags = Array.from(new Set(allTags))
-	const hasMeaningfulTags = uniqueTags.length > 1
-	// Group operations by meaningful tags if present,
+	// Group operations, either by tags where specified, or automatically by paths
 	// or by their paths otherwise.
 	const operationGroupsMap = operationObjects.reduce(
 		(
@@ -65,15 +61,20 @@ export function groupOperations(
 			o: OperationProps
 		) => {
 			/**
-			 * If this operation has a tag, and we have meaningful tags to group by,
-			 * then use the first tag as the group. Otherwise, fallback to path-based
-			 * grouping.
+			 * Determine the grouping slug for this operation.
 			 *
-			 * Note: we could potentially end up with a mix of tag- and path-based
-			 * grouping. It's up to spec authors to control their groupings!
+			 * If path-based grouping has been specified, we ignore tags and group
+			 * based on the operation URL paths (truncated to remove common parts).
+			 *
+			 * If tag-based grouping is used, note that we may need to fall back
+			 * to an "Other" tag for potentially untagged operations.
 			 */
-			const groupSlug =
-				o.tags.length && hasMeaningfulTags ? o.tags[0] : o.path.truncated
+			let groupSlug: string
+			if (groupOperationsByPath) {
+				groupSlug = o.path.truncated.split('/').slice(0, 3).join('/')
+			} else {
+				groupSlug = (o.tags.length && o.tags[0]) ?? 'Other'
+			}
 			if (!acc[groupSlug]) {
 				acc[groupSlug] = {
 					heading: addWordBreaksToUrl(groupSlug),

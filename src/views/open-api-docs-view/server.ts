@@ -32,6 +32,7 @@ import type {
 	OpenApiDocsVersionData,
 	StatusIndicatorConfig,
 	OpenApiNavItem,
+	OpenApiDocsPageConfig,
 } from './types'
 
 /**
@@ -71,19 +72,12 @@ export async function getStaticProps({
 	basePath,
 	statusIndicatorConfig,
 	topOfPageId = 'overview',
+	groupOperationsByPath = false,
 	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
 	navResourceItems = [],
-}: {
+}: Omit<OpenApiDocsPageConfig, 'githubSourceDirectory'> & {
 	context: GetStaticPropsContext<OpenApiDocsParams>
-	productSlug: ProductSlug
 	versionData: OpenApiDocsVersionData[]
-	basePath: string
-	statusIndicatorConfig?: StatusIndicatorConfig
-	topOfPageId?: string
-	massageSchemaForClient?: (
-		schemaData: OpenAPIV3.Document
-	) => OpenAPIV3.Document
-	navResourceItems: OpenApiNavItem[]
 }): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
 	// Get the product data
 	const productData = cachedGetProductData(productSlug)
@@ -118,7 +112,7 @@ export async function getStaticProps({
 	const rawSchemaData = await parseAndValidateOpenApiSchema(schemaFileString)
 	const schemaData = massageSchemaForClient(rawSchemaData)
 	const operationProps = await getOperationProps(schemaData)
-	const operationGroups = groupOperations(operationProps)
+	const operationGroups = groupOperations(operationProps, groupOperationsByPath)
 	const navItems = getNavItems({
 		operationGroups,
 		topOfPageId,
