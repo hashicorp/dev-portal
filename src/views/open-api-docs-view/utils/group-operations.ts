@@ -5,6 +5,7 @@
 
 import { OperationProps, OperationGroup } from '../types'
 import { truncateHcpOperationPath } from '../utils'
+import { addWordBreaksToUrl } from './add-word-breaks-to-url'
 
 /**
  * Given a flat array of operation prop objects,
@@ -63,7 +64,7 @@ export function groupOperations(
 			const groupSlug = truncatedPath.split('/').slice(0, 3).join('/')
 			if (!acc[groupSlug]) {
 				acc[groupSlug] = {
-					heading: groupSlug,
+					heading: addWordBreaksToUrl(groupSlug),
 					items: [],
 				}
 			}
