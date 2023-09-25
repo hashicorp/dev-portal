@@ -17,13 +17,13 @@ export function getVersionSwitcherProps({
 	projectName,
 	versionData,
 	targetVersion,
-	latestStableVersion,
+	defaultVersion,
 	basePath,
 }: {
 	projectName: string
 	versionData: OpenApiDocsVersionData[]
 	targetVersion: OpenApiDocsVersionData
-	latestStableVersion: OpenApiDocsVersionData
+	defaultVersion: OpenApiDocsVersionData
 	basePath: string
 }): VersionSwitcherProps | null {
 	// Return null early if we only have one version
@@ -40,10 +40,11 @@ export function getVersionSwitcherProps({
 			/**
 			 * Determine the version label suffix to show.
 			 * - Default case is to show the version only, no (suffix)
-			 * - If this is the latest version, show 'latest'
+			 * - If this is the default version, show 'latest'. For information on
+			 *   what "default version" means, see `findDefaultVersion`.
 			 * - If we have a defined releaseStage that isn't 'stable', show it
 			 */
-			const isLatest = versionId === latestStableVersion.versionId
+			const isLatest = versionId === defaultVersion.versionId
 			let versionLabelSuffix = ''
 			if (isLatest) {
 				versionLabelSuffix = ' (latest)'

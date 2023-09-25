@@ -17,6 +17,7 @@ import {
 	getOperationProps,
 	groupOperations,
 	parseAndValidateOpenApiSchema,
+	getVersionSwitcherProps,
 } from './utils'
 // Types
 import type {
@@ -47,10 +48,11 @@ export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
 	if (isDeployPreview()) {
 		return { paths: [], fallback: 'blocking' }
 	}
-	// If we're in production, statically render the single view.
+	// If we're in production, statically render the single view,
+	// and use `fallback: blocking` for versioned views.
 	return {
 		paths: [{ params: { page: [] } }],
-		fallback: false,
+		fallback: 'blocking',
 	}
 }
 
@@ -84,14 +86,15 @@ export async function getStaticProps({
 	 * Parse the version to render, or 404 if a non-existent version is requested.
 	 */
 	const pathParts = context.params?.page
-	const versionId = pathParts?.length > 1 ? pathParts[0] : null
+	const versionId = pathParts?.length > 0 ? pathParts[0] : null
 	const isVersionedUrl = typeof versionId === 'string'
+	const defaultVersion = findDefaultVersion(versionData)
 	// Resolve the current version
 	let targetVersion: ApiDocsVersionData | undefined
 	if (isVersionedUrl) {
 		targetVersion = versionData.find((v) => v.versionId === versionId)
 	} else {
-		targetVersion = findDefaultVersion(versionData)
+		targetVersion = defaultVersion
 	}
 	// If we can't resolve the current version, render a 404 page
 	if (!targetVersion) {
@@ -147,6 +150,13 @@ export async function getStaticProps({
 			},
 			releaseStage: targetVersion.releaseStage,
 			descriptionMdx,
+			versionSwitcherData: getVersionSwitcherProps({
+				projectName: schemaData.info.title,
+				versionData,
+				targetVersion,
+				defaultVersion,
+				basePath,
+			}),
 			operationGroups: stripUndefinedProperties(operationGroups),
 			navItems,
 			navResourceItems,

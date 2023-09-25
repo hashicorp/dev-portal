@@ -8,6 +8,7 @@ import SidebarLayout from 'layouts/sidebar-layout'
 // Components
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
+import VersionSwitcher from 'components/version-switcher'
 // Local
 import {
 	OpenApiDocsMobileMenuLevels,
@@ -34,6 +35,7 @@ function OpenApiDocsView({
 	breadcrumbLinks,
 	statusIndicatorConfig,
 	serviceProductSlug,
+	versionSwitcherData,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
@@ -62,6 +64,14 @@ function OpenApiDocsView({
 						badgeText={releaseStage}
 						serviceProductSlug={serviceProductSlug}
 						statusIndicatorConfig={statusIndicatorConfig}
+						versionSwitcherSlot={
+							versionSwitcherData ? (
+								<VersionSwitcher
+									label={versionSwitcherData.label}
+									options={versionSwitcherData.options}
+								/>
+							) : null
+						}
 						contentSlot={
 							descriptionMdx ? (
 								<DescriptionMdx mdxRemoteProps={descriptionMdx} />

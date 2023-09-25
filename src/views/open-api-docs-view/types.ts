@@ -12,6 +12,7 @@ import type { ProductData, ProductSlug } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'
 import type { GithubDir } from 'lib/fetch-github-file-tree'
 import type { BreadcrumbLink } from 'components/breadcrumb-bar'
+import type { VersionSwitcherProps } from 'components/version-switcher'
 // Local
 import type { PropertyDetailsSectionProps } from './components/operation-details'
 
@@ -158,6 +159,12 @@ export interface OpenApiDocsViewProps {
 	 * `productData` for `hcp`, and a different `serviceProductSlug` here.
 	 */
 	serviceProductSlug: ProductSlug
+
+	/**
+	 * Optional version data. Use this for API docs with multiple versions, the
+	 * `label` and `options` here will be passed directly to `VersionSwitcher`.
+	 */
+	versionSwitcherData?: VersionSwitcherProps
 }
 
 /**
