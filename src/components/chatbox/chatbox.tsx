@@ -13,7 +13,6 @@ import { z } from 'zod'
 import { useMutation } from '@tanstack/react-query'
 
 import useAuthentication from 'hooks/use-authentication'
-import IconTile from 'components/icon-tile'
 import Button from 'components/button'
 
 import Text from 'components/text'
@@ -339,11 +338,13 @@ const ChatBox = () => {
 			<form onSubmit={handleSubmit} ref={formRef}>
 				<div className={s.bottom}>
 					{textContentScrollBarIsVisible ? (
-						<div className={s.arrowdown} onClick={handleArrowDownClick}>
-							<IconTile size="small">
-								<IconArrowDownCircle16 />
-							</IconTile>
-						</div>
+						<Button
+							className={s.arrowdown}
+							icon={<IconArrowDownCircle16 />}
+							onClick={handleArrowDownClick}
+							aria-label="Scroll to bottom"
+							color="secondary"
+						/>
 					) : null}
 
 					<div className={s.question}>

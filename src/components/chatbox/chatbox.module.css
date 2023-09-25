@@ -16,6 +16,13 @@
 }
 
 .arrowdown {
+	/* button overrides - start */
+	height: 28px;
+	width: 28px;
+	padding: unset;
+
+	/* button overrides - end */
+
 	position: absolute;
 	top: -52px;
 	right: 20px;
