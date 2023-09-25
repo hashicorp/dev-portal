@@ -163,6 +163,14 @@ export interface OpenApiDocsViewProps {
 	 * Some temporary data we'll remove for the production implementation.
 	 */
 	_placeholder: $TSFixMe
+
+	/**
+	 * Product slug to use for the theming of the service itself.
+	 * For example, many product-themed services exist within the broader
+	 * HCP product context. In those cases, the API docs pages would have
+	 * `productData` for `hcp`, and a different `serviceProductSlug` here.
+	 */
+	serviceProductSlug: ProductSlug
 }
 
 /**
@@ -173,6 +181,15 @@ export interface OpenApiDocsPageConfig {
 	 * The product slug is used to fetch product data for the layout.
 	 */
 	productSlug: ProductSlug
+
+	/**
+	 * Optional slug used to theme smaller elements within the service API docs.
+	 * For example, HCP consul will have a `productSlug` of `hcp`,
+	 * but a `serviceProductSlug` of `consul`. If omitted, the `productSlug`
+	 * will be used.
+	 */
+	serviceProductSlug?: ProductSlug
+
 	/**
 	 * The baseUrl is used to generate
 	 * breadcrumb links, sidebar nav levels, and version switcher links.

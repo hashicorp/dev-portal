@@ -33,6 +33,7 @@ function OpenApiDocsView({
 	navResourceItems,
 	breadcrumbLinks,
 	statusIndicatorConfig,
+	serviceProductSlug,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
@@ -59,6 +60,7 @@ function OpenApiDocsView({
 					<OpenApiOverview
 						heading={topOfPageHeading}
 						badgeText={releaseStage}
+						serviceProductSlug={serviceProductSlug}
 						statusIndicatorConfig={statusIndicatorConfig}
 						contentSlot={
 							descriptionMdx ? (

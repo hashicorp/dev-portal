@@ -67,6 +67,7 @@ export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
 export async function getStaticProps({
 	context,
 	productSlug,
+	serviceProductSlug = productSlug,
 	versionData,
 	basePath,
 	statusIndicatorConfig,
@@ -76,6 +77,7 @@ export async function getStaticProps({
 }: {
 	context: GetStaticPropsContext<OpenApiDocsParams>
 	productSlug: ProductSlug
+	serviceProductSlug?: ProductSlug
 	versionData: OpenApiDocsVersionData[]
 	basePath: string
 	statusIndicatorConfig?: StatusIndicatorConfig
@@ -146,6 +148,7 @@ export async function getStaticProps({
 	return {
 		props: {
 			productData,
+			serviceProductSlug,
 			topOfPageHeading: {
 				text: schemaData.info.title,
 				id: topOfPageId,
