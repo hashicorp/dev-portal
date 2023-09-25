@@ -64,7 +64,6 @@ const useAI = () => {
 			setMessageId('')
 		},
 		onError: async (error) => {
-			console.log('onError', error)
 			switch (error.status) {
 				case 400:
 				case 401:
@@ -375,22 +374,24 @@ const ChatBox = () => {
 							placeholder="Send a new message"
 							disabled={isLoading}
 						/>
-						{isLoading ? (
-							<Button
-								type={'button'}
-								icon={<IconStopCircle24 height={16} width={16} />}
-								text={'Stop generating'}
-								color={'secondary'}
-								onClick={stopStream}
-							/>
-						) : (
-							<Button
-								disabled={userInput.length < 1}
-								type={'submit'}
-								icon={<IconSend24 height={16} width={16} />}
-								text={'Send'}
-							/>
-						)}
+						<div className={s.buttonContainer}>
+							{isLoading ? (
+								<Button
+									type={'button'}
+									icon={<IconStopCircle24 height={16} width={16} />}
+									text={'Stop generating'}
+									color={'secondary'}
+									onClick={stopStream}
+								/>
+							) : (
+								<Button
+									disabled={userInput.length < 1}
+									type={'submit'}
+									icon={<IconSend24 height={16} width={16} />}
+									text={'Send'}
+								/>
+							)}
+						</div>
 					</div>
 
 					<Text
