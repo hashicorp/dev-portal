@@ -125,7 +125,15 @@ export interface StatusIndicatorConfig {
  * For now, we have a placeholder. We'll expand this as we build out the view.
  */
 export interface OpenApiDocsViewProps {
-	IS_REVISED_TEMPLATE: true
+	/**
+	 * Metadata is used to set the page title and description.
+	 * Note this is not used by the view itself, instead we have some magic
+	 * happening at the `_app.tsx` level, where we render `<HeadMetadata />`.
+	 */
+	metadata: {
+		title: string
+	}
+
 	productData: ProductData
 	topOfPageHeading: {
 		text: string
