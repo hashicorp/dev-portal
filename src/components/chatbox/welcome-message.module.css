@@ -1,0 +1,81 @@
+.strong {
+	color: var(--token-color-foreground-strong);
+}
+.faint {
+	color: var(--token-color-foreground-faint);
+}
+
+.welcome {
+	background-color: hsla(228, 0%, 98%, 1);
+	background-image: radial-gradient(
+			at 99% 9%,
+			hsla(255, 64%, 63%, 0.07) 0,
+			transparent 50%
+		),
+		radial-gradient(at 0% 99%, hsla(240, 93%, 63%, 0.08) 0, transparent 50%),
+		radial-gradient(at 99% 29%, hsla(283, 52%, 87%, 0.43) 0, transparent 50%),
+		radial-gradient(at 63% 54%, hsla(239, 67%, 96%, 0.66) 0, transparent 50%),
+		radial-gradient(at 0% 8%, hsla(30, 92%, 80%, 0.31) 0, transparent 50%),
+		radial-gradient(at 0% 54%, hsla(0, 76%, 79%, 0.22) 0, transparent 50%),
+		radial-gradient(at 0% 81%, hsla(331, 93%, 67%, 0.11) 0, transparent 50%);
+
+	@nest html[data-theme='dark'] & {
+		background-color: hsla(228, 15%, 6%, 1);
+		background-image: radial-gradient(
+				at 49% 1%,
+				hsla(240, 87%, 4%, 0.64) 0,
+				transparent 50%
+			),
+			radial-gradient(at 99% 0%, hsla(255, 64%, 63%, 0.14) 0, transparent 50%),
+			radial-gradient(at 0% 99%, hsla(240, 93%, 63%, 0.14) 0, transparent 50%),
+			radial-gradient(at 98% 3%, hsla(283, 28%, 11%, 0.24) 0, transparent 50%),
+			radial-gradient(at 0% 71%, hsla(239, 87%, 3%, 0.66) 0, transparent 50%),
+			radial-gradient(at 94% 98%, hsla(233, 76%, 4%, 1) 0, transparent 50%),
+			radial-gradient(at 0% 0%, hsla(30, 92%, 80%, 0.61) 0, transparent 50%),
+			radial-gradient(at 0% 54%, hsla(0, 76%, 79%, 0.22) 0, transparent 50%),
+			radial-gradient(at 0% 81%, hsla(331, 93%, 67%, 0.11) 0, transparent 50%);
+	}
+
+	height: 100%;
+	display: flex;
+	padding: 16px 120px;
+	align-items: center;
+	gap: 84px;
+	flex: 1 0 0;
+	flex-direction: row;
+
+	@media (--dev-dot-mobile) {
+		flex-direction: column;
+		padding: 24px 24px;
+		align-items: stretch;
+
+		.col {
+			justify-content: start;
+		}
+	}
+
+	.col {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		justify-content: center;
+
+		&.left {
+			& .copy {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+			}
+		}
+
+		&.right {
+			min-width: 53%;
+
+			& .row {
+				display: flex;
+				align-items: flex-start;
+				gap: 12px;
+			}
+		}
+	}
+}

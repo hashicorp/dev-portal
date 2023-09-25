@@ -25,6 +25,7 @@ import type {
  */
 const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	productSlug: 'hcp',
+	serviceProductSlug: 'vault',
 	basePath: '/hcp/api-docs/vault-secrets',
 	githubSourceDirectory: {
 		owner: 'hashicorp',
@@ -99,6 +100,7 @@ export const getStaticProps: GetStaticProps<
 	return await getOpenApiDocsStaticProps({
 		basePath: PAGE_CONFIG.basePath,
 		productSlug: PAGE_CONFIG.productSlug,
+		serviceProductSlug: PAGE_CONFIG.serviceProductSlug,
 		statusIndicatorConfig: PAGE_CONFIG.statusIndicatorConfig,
 		navResourceItems: PAGE_CONFIG.navResourceItems,
 		groupOperationsByPath: PAGE_CONFIG.groupOperationsByPath,

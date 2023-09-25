@@ -68,6 +68,7 @@ export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
 export async function getStaticProps({
 	context,
 	productSlug,
+	serviceProductSlug = productSlug,
 	versionData,
 	basePath,
 	statusIndicatorConfig,
@@ -139,14 +140,17 @@ export async function getStaticProps({
 	 */
 	return {
 		props: {
+			metadata: {
+				title: schemaData.info.title,
+			},
 			productData,
+			serviceProductSlug,
 			topOfPageHeading: {
 				text: schemaData.info.title,
 				id: topOfPageId,
 			},
 			releaseStage: targetVersion.releaseStage,
 			descriptionMdx,
-			IS_REVISED_TEMPLATE: true,
 			operationGroups: stripUndefinedProperties(operationGroups),
 			navItems,
 			navResourceItems,
