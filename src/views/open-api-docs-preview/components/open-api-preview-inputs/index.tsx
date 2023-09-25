@@ -9,6 +9,7 @@ import classNames from 'classnames'
 // Components
 import Button from 'components/button'
 import InlineAlert from 'components/inline-alert'
+import { CheckboxField } from 'components/form/field-controls'
 // Inputs
 import { FileStringInput } from '../file-string-input'
 import { TextareaInput } from '../textarea-input'
@@ -22,6 +23,7 @@ import s from './open-api-preview-inputs.module.css'
 interface InputValues {
 	openApiJsonString: string
 	openApiDescription: string
+	groupOperationsByPath: boolean
 }
 
 /**
@@ -43,12 +45,13 @@ export function OpenApiPreviewInputs({
 	const [inputValues, setInputValues] = useState<InputValues>({
 		openApiJsonString: '',
 		openApiDescription: '',
+		groupOperationsByPath: false,
 	})
 
 	/**
 	 * Helper to set a specific input data value.
 	 */
-	function setInputValue(key: keyof InputValues, value: string) {
+	function setInputValue(key: keyof InputValues, value: unknown) {
 		setInputValues((p: InputValues) => ({ ...p, [key]: value }))
 	}
 
@@ -127,6 +130,17 @@ export function OpenApiPreviewInputs({
 							}
 						/>
 					) : null}
+					<CheckboxField
+						label="Group operations by path"
+						helperText="By default, operations are organized by their first tag, which is expected to correspond to a service name. In some cases, spec files may have only a single tag, in which case this option can be used to group operations by their paths instead."
+						checked={inputValues.groupOperationsByPath}
+						onChange={() =>
+							setInputValue(
+								'groupOperationsByPath',
+								!inputValues.groupOperationsByPath
+							)
+						}
+					/>
 					<TextareaInput
 						label="Schema source"
 						helperText="Test out edits to the uploaded OpenAPI specification file."

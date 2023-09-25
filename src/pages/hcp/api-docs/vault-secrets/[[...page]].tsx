@@ -33,6 +33,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		path: 'specs/cloud-vault-secrets',
 		ref: 'main',
 	},
+	groupOperationsByPath: true,
 	statusIndicatorConfig: {
 		pageUrl: 'https://status.hashicorp.com',
 		endpointUrl:
@@ -102,6 +103,7 @@ export const getStaticProps: GetStaticProps<
 		serviceProductSlug: PAGE_CONFIG.serviceProductSlug,
 		statusIndicatorConfig: PAGE_CONFIG.statusIndicatorConfig,
 		navResourceItems: PAGE_CONFIG.navResourceItems,
+		groupOperationsByPath: PAGE_CONFIG.groupOperationsByPath,
 		massageSchemaForClient: PAGE_CONFIG.massageSchemaForClient,
 		// Pass params to getStaticProps, this is used for versioning
 		context: { params },
