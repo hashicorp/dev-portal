@@ -72,7 +72,3 @@
 	flex-direction: row;
 	gap: 16px;
 }
-
-.iconError {
-	--icon-color: var(--token-color-foreground-critical);
-}

@@ -173,11 +173,10 @@ const AssistantMessage = ({
 	)
 }
 
-// TODO(kevinwang): error styling.
 const ApplicationMessage = ({ text }: { text: string }) => {
 	return (
 		<div className={classNames(s.message, s.assistant)}>
-			<IconTile className={classNames(s.iconError)}>
+			<IconTile>
 				<IconWand24 style={{ width: 24, height: 24 }} />
 			</IconTile>
 			<Text /* Body/200/Medium */
