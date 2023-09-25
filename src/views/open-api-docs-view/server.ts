@@ -145,6 +145,9 @@ export async function getStaticProps({
 	 */
 	return {
 		props: {
+			metadata: {
+				title: schemaData.info.title,
+			},
 			productData,
 			topOfPageHeading: {
 				text: schemaData.info.title,
@@ -152,7 +155,6 @@ export async function getStaticProps({
 			},
 			releaseStage: targetVersion.releaseStage,
 			descriptionMdx,
-			IS_REVISED_TEMPLATE: true,
 			_placeholder: {
 				productSlug,
 				targetVersion,
