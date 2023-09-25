@@ -181,6 +181,9 @@ export async function getApiDocsStaticProps({
 	 */
 	return {
 		props: {
+			metadata: {
+				title: schema.info.title,
+			},
 			product: productData,
 			pageHeading,
 			layoutProps: {
