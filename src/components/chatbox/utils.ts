@@ -11,11 +11,16 @@ export function useScrollBarVisible() {
 			return
 		}
 
+		// extra: if scrolling has reached the end,
+		// then set isScrollbarVisible to false
 		function checkScrollbarVisibility() {
-			setIsScrollbarVisible(
+			const hasScrollbar =
 				element.scrollHeight > element.clientHeight ||
-					element.scrollWidth > element.clientWidth
-			)
+				element.scrollWidth > element.clientWidth
+			const atEnd =
+				element.scrollHeight - element.scrollTop === element.clientHeight
+
+			setIsScrollbarVisible(hasScrollbar && !atEnd)
 		}
 
 		element.addEventListener('scroll', checkScrollbarVisibility)

@@ -337,7 +337,7 @@ const ChatBox = () => {
 
 			<form onSubmit={handleSubmit} ref={formRef}>
 				<div className={s.bottom}>
-					{textContentScrollBarIsVisible ? (
+					{textContentScrollBarIsVisible && !isLoading ? (
 						<Button
 							className={s.arrowdown}
 							icon={<IconArrowDownCircle16 />}
