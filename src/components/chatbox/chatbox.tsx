@@ -372,7 +372,7 @@ const ChatBox = () => {
 							}}
 							id="task"
 							rows={userInput.split('\n').length}
-							placeholder="Send a new message"
+							placeholder="Ask a question"
 							disabled={isLoading}
 						/>
 						<div className={s.buttonContainer}>
