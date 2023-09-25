@@ -8,6 +8,7 @@ import { IconClipboard24 } from '@hashicorp/flight-icons/svg-react/clipboard-24'
 import { IconThumbsDown24 } from '@hashicorp/flight-icons/svg-react/thumbs-down-24'
 import { IconThumbsUp24 } from '@hashicorp/flight-icons/svg-react/thumbs-up-24'
 import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
+import { IconAlertDiamondFill24 } from '@hashicorp/flight-icons/svg-react/alert-diamond-fill-24'
 
 import Button from 'components/button'
 import Text from 'components/text'
@@ -113,7 +114,7 @@ const AssistantMessage = ({
 
 	return (
 		<div className={classNames(s.message, s.assistant)}>
-			<IconTile className={classNames(s.icon)}>
+			<IconTile className={classNames(s.purple)}>
 				<IconWand24 style={{ width: 24, height: 24 }} />
 			</IconTile>
 			<div className={classNames(s.content)}>
@@ -176,16 +177,18 @@ const AssistantMessage = ({
 const ApplicationMessage = ({ text }: { text: string }) => {
 	return (
 		<div className={classNames(s.message, s.assistant)}>
-			<IconTile>
+			<IconTile className={s.strong}>
 				<IconWand24 style={{ width: 24, height: 24 }} />
 			</IconTile>
-			<Text /* Body/200/Medium */
-				size={200}
-				weight="medium"
-				className={classNames(s.content)}
-			>
-				{text}
-			</Text>
+			<div className={s.applicationMessage}>
+				<IconAlertDiamondFill24
+					className={s.critical}
+					style={{ width: 14, height: 14, marginTop: 2, marginBottom: 2 }}
+				/>
+				<Text /* Body/100/Regular */ size={100} weight="regular">
+					{text}
+				</Text>
+			</div>
 			<div className={classNames(s.gutter)}></div>
 		</div>
 	)
