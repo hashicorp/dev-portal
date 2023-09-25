@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy } from 'react'
 import classNames from 'classnames'
-import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypePrism from '@mapbox/rehype-prism'
 import { MdxPre } from 'components/dev-dot-content/mdx-components/mdx-code-blocks'
@@ -20,6 +19,8 @@ import IconTile from 'components/icon-tile'
 import useAuthentication from 'hooks/use-authentication'
 
 import s from './message.module.css'
+
+const ReactMarkdown = lazy(() => import('react-markdown'))
 
 const UserMessage = ({ text, image }: { text: string; image?: string }) => {
 	return (
