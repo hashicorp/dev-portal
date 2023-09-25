@@ -164,7 +164,7 @@ export interface OpenApiDocsViewProps {
 	 * Optional version data. Use this for API docs with multiple versions, the
 	 * `label` and `options` here will be passed directly to `VersionSwitcher`.
 	 */
-	versionSwitcherData?: VersionSwitcherProps
+	versionSwitcherProps?: VersionSwitcherProps
 }
 
 /**

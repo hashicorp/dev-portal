@@ -150,7 +150,7 @@ export async function getStaticProps({
 			},
 			releaseStage: targetVersion.releaseStage,
 			descriptionMdx,
-			versionSwitcherData: getVersionSwitcherProps({
+			versionSwitcherProps: getVersionSwitcherProps({
 				projectName: schemaData.info.title,
 				versionData,
 				targetVersion,

@@ -35,7 +35,7 @@ function OpenApiDocsView({
 	breadcrumbLinks,
 	statusIndicatorConfig,
 	serviceProductSlug,
-	versionSwitcherData,
+	versionSwitcherProps,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
@@ -65,10 +65,10 @@ function OpenApiDocsView({
 						serviceProductSlug={serviceProductSlug}
 						statusIndicatorConfig={statusIndicatorConfig}
 						versionSwitcherSlot={
-							versionSwitcherData ? (
+							versionSwitcherProps ? (
 								<VersionSwitcher
-									label={versionSwitcherData.label}
-									options={versionSwitcherData.options}
+									label={versionSwitcherProps.label}
+									options={versionSwitcherProps.options}
 								/>
 							) : null
 						}
