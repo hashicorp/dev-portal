@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-export { findLatestStableVersion } from './find-latest-stable-version'
+export { findDefaultVersion } from './find-default-version'
 export { getNavItems } from './get-nav-items'
 export { getOperationProps } from './get-operation-props'
 export {

@@ -12,7 +12,7 @@ import { getBreadcrumbLinks } from 'lib/get-breadcrumb-links'
 import { serialize } from 'next-mdx-remote/serialize'
 // Utilities
 import {
-	findLatestStableVersion,
+	findDefaultVersion,
 	getNavItems,
 	getOperationProps,
 	groupOperations,
@@ -25,13 +25,10 @@ import type {
 	GetStaticPropsResult,
 } from 'next'
 import type { OpenAPIV3 } from 'openapi-types'
-import type { ProductSlug } from 'types/products'
 import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
 	OpenApiDocsVersionData,
-	StatusIndicatorConfig,
-	OpenApiNavItem,
 	OpenApiDocsPageConfig,
 } from './types'
 
@@ -71,7 +68,7 @@ export async function getStaticProps({
 	serviceProductSlug = productSlug,
 	versionData,
 	basePath,
-	statusIndicatorConfig,
+	statusIndicatorConfig = null, // must be JSON-serializable
 	topOfPageId = 'overview',
 	groupOperationsByPath = false,
 	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
@@ -89,13 +86,12 @@ export async function getStaticProps({
 	const pathParts = context.params?.page
 	const versionId = pathParts?.length > 1 ? pathParts[0] : null
 	const isVersionedUrl = typeof versionId === 'string'
-	const latestStableVersion = findLatestStableVersion(versionData)
 	// Resolve the current version
 	let targetVersion: OpenApiDocsVersionData | undefined
 	if (isVersionedUrl) {
 		targetVersion = versionData.find((v) => v.versionId === versionId)
 	} else {
-		targetVersion = latestStableVersion
+		targetVersion = findDefaultVersion(versionData)
 	}
 	// If we can't resolve the current version, render a 404 page
 	if (!targetVersion) {
