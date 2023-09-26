@@ -116,6 +116,8 @@ export const getStaticProps: GetStaticProps<
 		 * `ApiDocsVersionData`, we could then replace all uses of the
 		 * `OpenApiDocsVersionData` type with `ApiDocsVersionData`, and then we
 		 * could remove the need for this mapping.
+		 *
+		 * This is in progress at: https://github.com/hashicorp/dev-portal/pull/2182
 		 */
 		versionData: versionData.map(({ targetFile, ...rest }) => {
 			return { ...rest, sourceFile: targetFile }
