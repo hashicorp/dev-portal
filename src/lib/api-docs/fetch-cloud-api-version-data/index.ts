@@ -53,13 +53,13 @@ async function fetchCloudApiVersionData(
 		// Construct the version metadata needed to fetch static props
 		const versionId = versionIdFromPath(filePathFromRepoRoot)
 		const releaseStage = releaseStageFromPath(filePathFromRepoRoot)
-		const targetFile = {
+		const sourceFile = {
 			owner: githubDir.owner,
 			repo: githubDir.repo,
 			path: filePathFromRepoRoot,
 			ref: githubDir.ref,
 		}
-		return { versionId, releaseStage, targetFile }
+		return { versionId, releaseStage, sourceFile }
 	})
 	// Return the version data, sorted in descending order
 	return sortDateVersionData(versionData)

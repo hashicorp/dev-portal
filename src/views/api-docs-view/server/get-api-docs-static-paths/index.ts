@@ -10,7 +10,8 @@ import { findLatestStableVersion } from 'lib/api-docs'
 import { fetchApiDocsPaths } from './fetch-api-docs-paths'
 // Types
 import type { GetStaticPathsResult } from 'next'
-import type { ApiDocsVersionData, ApiDocsParams } from '../../types'
+import type { ApiDocsVersionData } from 'lib/api-docs/types'
+import type { ApiDocsParams } from '../../types'
 import type { ProductSlug } from 'types/products'
 
 /**
@@ -71,7 +72,7 @@ export async function getApiDocsStaticPaths({
 	}
 	// Parse the path parts for all API docs pages we need to statically render.
 	const apiDocsPaths = await fetchApiDocsPaths({
-		targetFile: latestStableVersion.targetFile,
+		targetFile: latestStableVersion.sourceFile,
 		mayHaveCircularReferences,
 	})
 
