@@ -112,9 +112,9 @@ export default function App({
 												<Component {...pageProps} />
 												<Toaster />
 												<AIFeatureToast />
-												{showProductSwitcher ? (
+												{/* {showProductSwitcher ? (
 													<PreviewProductSwitcher />
-												) : null}
+												) : null} */}
 												{/* <ReactQueryDevtools /> */}
 											</LazyMotion>
 										</CodeTabsProvider>
