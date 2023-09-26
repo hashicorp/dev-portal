@@ -53,6 +53,7 @@ const GENERIC_PAGE_CONFIG = {
 type ExpectedBody = {
 	openApiJsonString: string
 	openApiDescription: string
+	groupOperationsByPath: boolean
 }
 
 export default async function handler(
@@ -69,9 +70,8 @@ export default async function handler(
 	 * Build the static props from the POST'ed page configuration data,
 	 * which includes the full OpenAPI spec as a string.
 	 */
-	const { openApiDescription, openApiJsonString } = JSON.parse(
-		req.body
-	) as ExpectedBody
+	const { openApiDescription, openApiJsonString, groupOperationsByPath } =
+		JSON.parse(req.body) as ExpectedBody
 
 	/**
 	 * Construct some preview data just to match the expected `getStaticProps`
@@ -94,6 +94,8 @@ export default async function handler(
 			...GENERIC_PAGE_CONFIG,
 			// Pass the constructed version data
 			versionData,
+			// Pass options
+			groupOperationsByPath,
 			/**
 			 * Massage the schema data a little bit, replacing
 			 * "HashiCorp Cloud Platform" in the title with "HCP".

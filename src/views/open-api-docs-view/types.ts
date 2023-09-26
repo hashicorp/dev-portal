@@ -21,6 +21,7 @@ import type { PropertyDetailsSectionProps } from './components/operation-details
  */
 export interface OperationProps {
 	operationId: string
+	tags: string[]
 	slug: string
 	type: string
 	path: {
@@ -35,11 +36,6 @@ export interface OperationProps {
 	 * word breaks to allow long URLs to wrap to multiple lines.
 	 */
 	urlPathForCodeBlock: string
-	/**
-	 * Some temporary data to mess around with during prototyping.
-	 * TODO: remove this for the production implementation.
-	 */
-	_placeholder: $TSFixMe
 }
 
 /**
@@ -168,11 +164,6 @@ export interface OpenApiDocsViewProps {
 	statusIndicatorConfig: StatusIndicatorConfig
 
 	/**
-	 * Some temporary data we'll remove for the production implementation.
-	 */
-	_placeholder: $TSFixMe
-
-	/**
 	 * Product slug to use for the theming of the service itself.
 	 * For example, many product-themed services exist within the broader
 	 * HCP product context. In those cases, the API docs pages would have
@@ -224,4 +215,16 @@ export interface OpenApiDocsPageConfig {
 	 * but before we translate the schema into page props.
 	 */
 	massageSchemaForClient?: (schema: OpenAPIV3.Document) => OpenAPIV3.Document
+	/**
+	 * The top-of-page heading optionally have an id other than "overview".
+	 * This heading ID is used to jump to the top of the page
+	 */
+	topOfPageId?: string
+	/**
+	 * Optionally group operations by their URL path. By default, operations are
+	 * grouped by their first `tag`, which is expected to correspond to a service.
+	 * In some cases, a spec may only have a single service, rendering this
+	 * tag-based grouping less useful.
+	 */
+	groupOperationsByPath?: boolean
 }
