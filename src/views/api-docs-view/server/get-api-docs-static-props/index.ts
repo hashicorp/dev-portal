@@ -112,7 +112,7 @@ export async function getApiDocsStaticProps({
 	 * using the current version's Swagger file.
 	 */
 	const schemaProps = await buildSchemaProps({
-		targetFile: currentVersion.targetFile,
+		sourceFile: currentVersion.sourceFile,
 		serviceId,
 		mayHaveCircularReferences,
 	})

@@ -72,7 +72,7 @@ export async function getApiDocsStaticPaths({
 	}
 	// Parse the path parts for all API docs pages we need to statically render.
 	const apiDocsPaths = await fetchApiDocsPaths({
-		targetFile: latestStableVersion.sourceFile,
+		sourceFile: latestStableVersion.sourceFile,
 		mayHaveCircularReferences,
 	})
 

@@ -17,10 +17,10 @@ import {
 import type { GithubFile } from 'lib/fetch-github-file'
 
 /**
- * Given a `targetFile` pointing to a valid OpenAPI Swagger `.json` file,
+ * Given a `sourceFile` pointing to a valid OpenAPI Swagger `.json` file,
  *
  * Return an array of path parts representing partial URLs on which
- * we'll want to render OpenAPI documentation for the `targetFile`.
+ * we'll want to render OpenAPI documentation for the `sourceFile`.
  *
  * Note: path parts will differ based on whether a `versionId` is provided,
  * and will differ if there is only a single "service".
@@ -34,7 +34,7 @@ import type { GithubFile } from 'lib/fetch-github-file'
  * - ['<versionId>', '<serviceId>'] - when there are multiple services
  */
 async function fetchApiDocsPaths({
-	targetFile,
+	sourceFile,
 	versionId,
 	mayHaveCircularReferences,
 }: {
@@ -45,7 +45,7 @@ async function fetchApiDocsPaths({
 	 * - Provide a `string` file path, relative to the current working directory
 	 *   from which the website is run, to load a local file.
 	 */
-	targetFile: GithubFile | string
+	sourceFile: GithubFile | string
 	versionId?: string
 	/**
 	 * The Waypoint API docs have circular references.
@@ -61,17 +61,17 @@ async function fetchApiDocsPaths({
 	/**
 	 * Grab the schema.
 	 *
-	 * If the provided `targetFile` is a string, we'll load from the filesystem.
+	 * If the provided `sourceFile` is a string, we'll load from the filesystem.
 	 * Else, we assume a remote GitHub file, and load using the GitHub API.
 	 *
 	 * TODO: would be ideal to validate & properly type the schema, eg with `zod`.
 	 * For now, we cast it to the good-enough ApiDocsSwaggerSchema.
 	 */
 	let schema
-	if (typeof targetFile === 'string') {
-		schema = await processSchemaFile(targetFile)
+	if (typeof sourceFile === 'string') {
+		schema = await processSchemaFile(sourceFile)
 	} else {
-		const swaggerFile = await fetchGithubFile(targetFile)
+		const swaggerFile = await fetchGithubFile(sourceFile)
 		schema = await processSchemaString(swaggerFile)
 	}
 
