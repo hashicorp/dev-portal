@@ -22,7 +22,11 @@ export const RecentSearches = ({ recentSearches }: RecentSearchesProps) => {
 	return (
 		<>
 			<CommandBarList label="Recent Searches">
-				{recentSearches.map((recentSearch: RecentSearch) => {
+				{[
+					'Cats vs. AI in battle for world domination',
+					'service mesh',
+					'HCP Boundary',
+				].map((recentSearch: RecentSearch) => {
 					return (
 						<CommandBarButtonListItem
 							key={recentSearch}

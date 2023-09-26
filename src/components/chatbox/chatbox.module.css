@@ -113,7 +113,12 @@
 }
 
 .disclaimer {
-	color: var(--token-color-foreground-faint); /* #656a76 */
-	display: block;
+	/* START hashiconf video */
+	display: none;
+
+	/* display: block; */
+
+	/* END hashiconf video */
+	color: var(--token-color-foreground-faint);
 	padding: 8px 0 0 10px;
 }

@@ -115,7 +115,7 @@ export default function App({
 												{showProductSwitcher ? (
 													<PreviewProductSwitcher />
 												) : null}
-												<ReactQueryDevtools />
+												{/* <ReactQueryDevtools /> */}
 											</LazyMotion>
 										</CodeTabsProvider>
 									</CurrentProductProvider>

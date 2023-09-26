@@ -142,9 +142,9 @@ const SearchFeaturedCard = () => {
 		// If auto scroll is enabeld, set up the animation interval
 		let interval: NodeJS.Timer
 		if (isAutoScrollEnabled) {
-			interval = setInterval(() => {
-				incrementIndex()
-			}, 4000)
+			// interval = setInterval(() => {
+			// 	incrementIndex()
+			// }, 4000)
 		}
 
 		// Clean up the listeners and interval

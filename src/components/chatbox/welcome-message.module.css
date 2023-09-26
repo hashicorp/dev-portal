@@ -74,6 +74,12 @@
 		justify-content: center;
 
 		&.left {
+			/* START hashiconf video */
+			width: 300px;
+			margin-left: auto;
+			margin-right: auto;
+
+			/* END hashiconf video */
 			& .copy {
 				display: flex;
 				flex-direction: column;
@@ -82,6 +88,10 @@
 		}
 
 		&.right {
+			/* START hashiconf video */
+			display: none;
+
+			/* END hashiconf video */
 			min-width: 53%;
 
 			& .row {

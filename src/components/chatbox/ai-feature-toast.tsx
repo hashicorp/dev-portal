@@ -26,53 +26,55 @@ export function AIFeatureToast() {
 	useEffect(() => {
 		// skip toast if we're past the expiration date
 		if (new Date() > COOKIE_EXPIRES_AT) {
-			return
+			// return
 		}
 
 		// skip toast if user has previously dismissed it
 		if (Cookies.get(COOKIE_IGNORE_AI_TOAST)) {
-			return
+			// return
 		}
 
 		// skip toast if it's already been seen
 		if (Cookies.get(COOKIE_HAS_SEEN_AI_TOAST)) {
-			return
+			// return
 		}
 
 		if (session?.meta.isAIEnabled) {
-			toast({
-				color: ToastColor.highlight,
-				icon: <IconWand24 />,
-				title: 'Welcome to the Developer AI closed beta',
-				description: (
-					<>
-						Try it out in our{' '}
-						<Badge
-							ariaLabel="Command or control key"
-							color="neutral-dark-mode"
-							icon={<CmdCtrlIcon />}
-							size="small"
-						/>{' '}
-						<Badge
-							ariaLabel="K key"
-							color="neutral-dark-mode"
-							icon={<KIcon />}
-							size="small"
-						/>{' '}
-						menu!
-					</>
-				),
-				autoDismiss: TOAST_AUTO_DISMISS_MS,
-				onDismissCallback: () => {
-					// when user dismisses the toast, we should ignore it going forwards
-					Cookies.set(COOKIE_IGNORE_AI_TOAST, true, {
-						expires: COOKIE_EXPIRES_AT,
-					})
-					// remove extra cookie
-					Cookies.remove(COOKIE_HAS_SEEN_AI_TOAST)
-				},
-				dismissOnRouteChange: false,
-			})
+			setTimeout(() => {
+				toast({
+					color: ToastColor.highlight,
+					icon: <IconWand24 />,
+					title: 'Welcome to the Developer AI closed beta',
+					description: (
+						<>
+							Try it out in our{' '}
+							<Badge
+								ariaLabel="Command or control key"
+								color="neutral-dark-mode"
+								icon={<CmdCtrlIcon />}
+								size="small"
+							/>{' '}
+							<Badge
+								ariaLabel="K key"
+								color="neutral-dark-mode"
+								icon={<KIcon />}
+								size="small"
+							/>{' '}
+							menu!
+						</>
+					),
+					autoDismiss: TOAST_AUTO_DISMISS_MS,
+					onDismissCallback: () => {
+						// when user dismisses the toast, we should ignore it going forwards
+						Cookies.set(COOKIE_IGNORE_AI_TOAST, true, {
+							expires: COOKIE_EXPIRES_AT,
+						})
+						// remove extra cookie
+						Cookies.remove(COOKIE_HAS_SEEN_AI_TOAST)
+					},
+					dismissOnRouteChange: false,
+				})
+			}, 2000)
 
 			// if the user didn't explicitly dismiss the toast, show it again in 24 hours
 			// this is a simple means to boost discoverability / awareness
