@@ -29,7 +29,7 @@ export const WelcomeMessage = () => {
 						weight="medium"
 					>
 						Your personal AI-powered assistant, we’re ready to help you get the
-						most out of Developer. Let’s get started on this journey together...
+						most out of Developer. Let’s get started on this journey together.
 					</Text>
 				</div>
 				<div className={s.spacer} />
