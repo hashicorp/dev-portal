@@ -68,7 +68,7 @@ export async function getStaticProps({
 	serviceProductSlug = productSlug,
 	versionData,
 	basePath,
-	statusIndicatorConfig,
+	statusIndicatorConfig = null, // returned in getStaticProps, avoid undefined
 	topOfPageId = 'overview',
 	groupOperationsByPath = false,
 	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
