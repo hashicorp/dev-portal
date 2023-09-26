@@ -21,7 +21,7 @@ import type {
 } from 'views/open-api-docs-view/types'
 
 /**
- * OpenApiDocsView server-side page configuration
+ * Configure `OpenApiDocsView` to render the spec file we want at this route.
  */
 const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	productSlug: 'hcp',
@@ -31,12 +31,12 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		owner: 'hashicorp',
 		repo: 'hcp-specs',
 		/**
-		 * TODO: confirm this is the correct spec path, Tu mentioned it might change:
+		 * TODO(@zchsh): confirm this is the path, Tu mentioned it might change:
 		 * https://hashicorp.slack.com/archives/C059X7QKWAV/p1695671344421569?thread_ts=1695670284.652479&cid=C059X7QKWAV
 		 */
 		path: 'specs/cloud-global-network-manager-service',
 		/**
-		 * TODO: ensure spec exists on `main`, then update this to `ref: 'main'`.
+		 * TODO(@zchsh): ensure spec exists on `main`, then update to `ref: 'main'`
 		 * For now, we point to a specific commit SHA where the spec exists,
 		 * a commit from this PR: https://github.com/hashicorp/hcp-specs/pull/6
 		 */
@@ -77,7 +77,11 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 }
 
 /**
- * Get static paths, using `versionData` fetched from GitHub.
+ * Get static paths. Note that versioned paths are not statically rendered.
+ * For versioned API docs, we use `fallback: blocking` within `getStaticPaths`.
+ *
+ * TODO(@zchsh): At time of writing versioned OpenAPI docs functionality is not
+ * yet merged to main. See https://github.com/hashicorp/dev-portal/pull/2177.
  */
 export { getStaticPaths }
 
@@ -102,14 +106,17 @@ export const getStaticProps: GetStaticProps<
 	}
 
 	return await getOpenApiDocsStaticProps({
-		basePath: PAGE_CONFIG.basePath,
-		productSlug: PAGE_CONFIG.productSlug,
-		serviceProductSlug: PAGE_CONFIG.serviceProductSlug,
-		navResourceItems: PAGE_CONFIG.navResourceItems,
-		massageSchemaForClient: PAGE_CONFIG.massageSchemaForClient,
+		...PAGE_CONFIG,
 		// Pass params to getStaticProps, this is used for versioning
 		context: { params },
-		// Handle rename of `targetFile` to `sourceFile` for new template
+		/**
+		 * Handle rename of `targetFile` to `sourceFile` for the new template type.
+		 *
+		 * TODO(@zchsh): if we rename `targetFile` to `sourceFile` in the type
+		 * `ApiDocsVersionData`, we could then replace all uses of the
+		 * `OpenApiDocsVersionData` type with `ApiDocsVersionData`, and then we
+		 * could remove the need for this mapping.
+		 */
 		versionData: versionData.map(({ targetFile, ...rest }) => {
 			return { ...rest, sourceFile: targetFile }
 		}),
