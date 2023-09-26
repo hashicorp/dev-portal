@@ -25,13 +25,10 @@ import type {
 	GetStaticPropsResult,
 } from 'next'
 import type { OpenAPIV3 } from 'openapi-types'
-import type { ProductSlug } from 'types/products'
 import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
 	OpenApiDocsVersionData,
-	StatusIndicatorConfig,
-	OpenApiNavItem,
 	OpenApiDocsPageConfig,
 } from './types'
 
