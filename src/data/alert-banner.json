@@ -2,10 +2,10 @@
 	"enabled": true,
 	"data": {
 		"product": "hashicorp",
-		"tag": "HCP Vault Secrets",
-		"url": "/hcp/docs/vault-secrets",
-		"text": "Centralized secrets lifecycle management for developers.",
-		"linkText": "Learn More",
-		"expirationDate": "2023-08-01T00:00:00-08:00"
+		"tag": "HashiConf",
+		"url": "https://hashiconf.com/2023",
+		"text": "Last chance to register for our community conference October 10-12.",
+		"linkText": "Sign up now",
+		"expirationDate": "2023-10-10T00:00:00-08:00"
 	}
 }
