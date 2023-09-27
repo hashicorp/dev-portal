@@ -14,5 +14,5 @@ export interface ApiDocsVersionData {
 	// The release stage of this version of the API docs
 	releaseStage?: string // typically 'stable' | 'preview'
 	// The schema file we'll load and render into the page for this version
-	targetFile: GithubFile | string
+	sourceFile: GithubFile | string
 }

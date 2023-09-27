@@ -23,7 +23,7 @@ import type { OperationObjectType } from 'components/open-api-page/types'
 import type { ApiDocsSwaggerSchema, ApiDocsServiceData } from '../../../types'
 
 /**
- * Given a targetFile, and optional target `serviceId`,
+ * Given a sourceFile, and optional target `serviceId`,
  * fetch the target swagger `.json` file, parse schema information, and
  * Return the `schema`, `serviceData` for the target `serviceId`,
  * `operationObjects`, and a list of all `serviceId`s.
@@ -35,11 +35,11 @@ import type { ApiDocsSwaggerSchema, ApiDocsServiceData } from '../../../types'
  * returns `{ notFound: true }`, which signals that a 404 page should be shown.
  */
 async function buildSchemaProps({
-	targetFile,
+	sourceFile,
 	serviceId,
 	mayHaveCircularReferences,
 }: {
-	targetFile: GithubFile
+	sourceFile: GithubFile
 	serviceId?: string
 	/**
 	 * The Waypoint API docs have circular references.
@@ -63,17 +63,17 @@ async function buildSchemaProps({
 	/**
 	 * Grab the schema.
 	 *
-	 * If the provided `targetFile` is a string, we'll load from the filesystem.
+	 * If the provided `sourceFile` is a string, we'll load from the filesystem.
 	 * Else, we assume a remote GitHub file, and load using the GitHub API.
 	 *
 	 * TODO: would be ideal to validate & properly type the schema, eg with `zod`.
 	 * For now, we cast it to the good-enough ApiDocsSwaggerSchema.
 	 */
 	let schema
-	if (typeof targetFile === 'string') {
-		schema = await processSchemaFile(targetFile)
+	if (typeof sourceFile === 'string') {
+		schema = await processSchemaFile(sourceFile)
 	} else {
-		const swaggerFile = await fetchGithubFile(targetFile)
+		const swaggerFile = await fetchGithubFile(sourceFile)
 		schema = await processSchemaString(swaggerFile)
 	}
 

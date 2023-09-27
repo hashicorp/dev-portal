@@ -16,11 +16,8 @@ import {
 } from './utils'
 // Types
 import type { GetStaticPropsResult } from 'next'
-import type {
-	ApiDocsServiceData,
-	ApiDocsVersionData,
-	ApiDocsViewProps,
-} from '../../types'
+import type { ApiDocsVersionData } from 'lib/api-docs/types'
+import type { ApiDocsServiceData, ApiDocsViewProps } from '../../types'
 import type { ProductData, ProductSlug } from 'types/products'
 import type { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { cachedGetProductData } from 'lib/get-product-data'
@@ -115,7 +112,7 @@ export async function getApiDocsStaticProps({
 	 * using the current version's Swagger file.
 	 */
 	const schemaProps = await buildSchemaProps({
-		targetFile: currentVersion.targetFile,
+		sourceFile: currentVersion.sourceFile,
 		serviceId,
 		mayHaveCircularReferences,
 	})

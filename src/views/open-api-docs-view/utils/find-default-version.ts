@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { OpenApiDocsVersionData } from '../types'
+import { ApiDocsVersionData } from 'lib/api-docs/types'
 import { sortDateVersionData } from './sort-date-version-data'
 
 /**
@@ -20,8 +20,8 @@ import { sortDateVersionData } from './sort-date-version-data'
  * We'd need to update the sort logic in order to support other formats.
  */
 export function findDefaultVersion(
-	versionData: OpenApiDocsVersionData[]
-): OpenApiDocsVersionData {
+	versionData: ApiDocsVersionData[]
+): ApiDocsVersionData {
 	// If we have exactly one version, we'll show that as the default.
 	if (versionData.length === 1) {
 		return versionData[0]

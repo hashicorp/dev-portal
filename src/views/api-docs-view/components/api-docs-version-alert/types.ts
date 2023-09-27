@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import type { ApiDocsVersionData } from 'views/api-docs-view/types'
+import type { ApiDocsVersionData } from 'lib/api-docs/types'
 
 export interface ApiDocsVersionAlertProps {
 	isVersionedUrl: boolean

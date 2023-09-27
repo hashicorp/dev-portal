@@ -45,18 +45,6 @@ export interface OperationProps {
 export type OperationGroup = { heading: string; items: OperationProps[] }
 
 /**
- * A type to describe versioned API docs source files.
- */
-export interface OpenApiDocsVersionData {
-	// A unique id for this version, used to construct URL paths for example
-	versionId: string
-	// The release stage of this version of the API docs
-	releaseStage?: string // typically 'stable' | 'preview'
-	// The schema file we'll load and render into the page for this version
-	sourceFile: GithubFile | string
-}
-
-/**
  * Params type for `getStaticPaths` and `getStaticProps`.
  * Encodes our assumption that a `[[...page]].tsx` file is being used.
  *

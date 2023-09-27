@@ -98,19 +98,11 @@ export const getStaticProps: GetStaticProps<
 	}
 
 	return await getOpenApiDocsStaticProps({
-		basePath: PAGE_CONFIG.basePath,
-		productSlug: PAGE_CONFIG.productSlug,
-		serviceProductSlug: PAGE_CONFIG.serviceProductSlug,
-		statusIndicatorConfig: PAGE_CONFIG.statusIndicatorConfig,
-		navResourceItems: PAGE_CONFIG.navResourceItems,
-		groupOperationsByPath: PAGE_CONFIG.groupOperationsByPath,
-		massageSchemaForClient: PAGE_CONFIG.massageSchemaForClient,
-		// Pass params to getStaticProps, this is used for versioning
+		// Pass page configuration
+		...PAGE_CONFIG,
+		// Pass context and versionData to getStaticProps, needed for versioning
 		context: { params },
-		// Handle rename of `targetFile` to `sourceFile` for new template
-		versionData: versionData.map(({ targetFile, ...rest }) => {
-			return { ...rest, sourceFile: targetFile }
-		}),
+		versionData,
 	})
 }
 
