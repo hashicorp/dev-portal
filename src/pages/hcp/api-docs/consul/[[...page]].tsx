@@ -108,4 +108,5 @@ export const getStaticProps: GetStaticProps<
 		versionData,
 	})
 }
+
 export default OpenApiDocsView
