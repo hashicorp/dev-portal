@@ -33,6 +33,7 @@ export interface OpenApiOverviewProps {
 	serviceProductSlug: ProductSlug
 	statusIndicatorConfig?: StatusIndicatorConfig
 	contentSlot?: ReactNode
+	versionSwitcherSlot?: ReactNode
 	className?: string
 }
 
@@ -42,31 +43,37 @@ export function OpenApiOverview({
 	serviceProductSlug,
 	statusIndicatorConfig,
 	contentSlot,
+	versionSwitcherSlot,
 }: OpenApiOverviewProps) {
 	return (
 		<div className={s.overviewWrapper}>
-			<header className={s.header}>
-				<IconTile size="medium" className={s.icon}>
-					<ProductIcon productSlug={serviceProductSlug} />
-				</IconTile>
-				<span>
-					<h1 id={heading.id} className={s.heading}>
-						{heading.text}
-					</h1>
-					{statusIndicatorConfig ? (
-						<Status
-							endpointUrl={statusIndicatorConfig.endpointUrl}
-							pageUrl={statusIndicatorConfig.pageUrl}
-						/>
-					) : null}
-				</span>
-				<Badge
-					className={s.releaseStageBadge}
-					text={badgeText}
-					type="outlined"
-					size="small"
-				/>
-			</header>
+			<div className={s.headerAndVersionSwitcher}>
+				<header className={s.header}>
+					<IconTile size="medium" className={s.icon}>
+						<ProductIcon productSlug={serviceProductSlug} />
+					</IconTile>
+					<span>
+						<h1 id={heading.id} className={s.heading}>
+							{heading.text}
+						</h1>
+						{statusIndicatorConfig ? (
+							<Status
+								endpointUrl={statusIndicatorConfig.endpointUrl}
+								pageUrl={statusIndicatorConfig.pageUrl}
+							/>
+						) : null}
+					</span>
+					<Badge
+						className={s.releaseStageBadge}
+						text={badgeText}
+						type="outlined"
+						size="small"
+					/>
+				</header>
+				{versionSwitcherSlot ? (
+					<div className={s.versionSwitcherSlot}>{versionSwitcherSlot}</div>
+				) : null}
+			</div>
 			{contentSlot ? <section>{contentSlot}</section> : null}
 		</div>
 	)

@@ -92,15 +92,9 @@ export const getStaticProps: GetStaticProps<
 	const versionData = await fetchCloudApiVersionData(
 		PAGE_CONFIG.githubSourceDirectory
 	)
-	// If we can't find any version data at all, render a 404 page.
-	if (!versionData) {
-		return { notFound: true }
-	}
-
+	// Generate static props based on page configuration, params, and versionData
 	return await getOpenApiDocsStaticProps({
-		// Pass page configuration
 		...PAGE_CONFIG,
-		// Pass context and versionData to getStaticProps, needed for versioning
 		context: { params },
 		versionData,
 	})
