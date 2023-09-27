@@ -21,12 +21,13 @@ import type {
 } from 'views/open-api-docs-view/types'
 
 /**
- * Configure `OpenApiDocsView` to render the spec file we want at this route.
+ * Configure the specific spec file we want to fetch,
+ * as well as some other minor content details and bells & whistles.
  */
 const PAGE_CONFIG: OpenApiDocsPageConfig = {
+	basePath: '/hcp/api-docs/consul',
 	productSlug: 'hcp',
 	serviceProductSlug: 'consul',
-	basePath: '/hcp/api-docs/consul',
 	githubSourceDirectory: {
 		owner: 'hashicorp',
 		repo: 'hcp-specs',
@@ -41,6 +42,11 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		 * a commit from this PR: https://github.com/hashicorp/hcp-specs/pull/6
 		 */
 		ref: '0767e89aef156667df605ab52f18917039dfde65',
+	},
+	statusIndicatorConfig: {
+		pageUrl: 'https://status.hashicorp.com',
+		endpointUrl:
+			'https://status.hashicorp.com/api/v2/components/sxffkgfb4fhb.json',
 	},
 	navResourceItems: [
 		{
@@ -77,19 +83,15 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 }
 
 /**
- * Get static paths. Note that versioned paths are not statically rendered.
- * For versioned API docs, we use `fallback: blocking` within `getStaticPaths`.
- *
- * TODO(@zchsh): At time of writing versioned OpenAPI docs functionality is not
- * yet merged to main. See https://github.com/hashicorp/dev-portal/pull/2177.
+ * Get static paths, using `versionData` fetched from GitHub.
  */
 export { getStaticPaths }
 
 /**
  * Get static props, using `versionData` fetched from GitHub.
  *
- * We need all version data for the version selector,
- * and of course we need specific data for the current version.
+ * Note that only a single version may be returned, in which case the
+ * version switcher will not be rendered.
  */
 export const getStaticProps: GetStaticProps<
 	OpenApiDocsViewProps,
@@ -99,30 +101,11 @@ export const getStaticProps: GetStaticProps<
 	const versionData = await fetchCloudApiVersionData(
 		PAGE_CONFIG.githubSourceDirectory
 	)
-
-	// If we can't find any version data at all, render a 404 page.
-	if (!versionData) {
-		return { notFound: true }
-	}
-
+	// Generate static props based on page configuration, params, and versionData
 	return await getOpenApiDocsStaticProps({
 		...PAGE_CONFIG,
-		// Pass params to getStaticProps, this is used for versioning
 		context: { params },
-		/**
-		 * Handle rename of `targetFile` to `sourceFile` for the new template type.
-		 *
-		 * TODO(@zchsh): if we rename `targetFile` to `sourceFile` in the type
-		 * `ApiDocsVersionData`, we could then replace all uses of the
-		 * `OpenApiDocsVersionData` type with `ApiDocsVersionData`, and then we
-		 * could remove the need for this mapping.
-		 *
-		 * This is in progress at: https://github.com/hashicorp/dev-portal/pull/2182
-		 */
-		versionData: versionData.map(({ targetFile, ...rest }) => {
-			return { ...rest, sourceFile: targetFile }
-		}),
+		versionData,
 	})
 }
-
 export default OpenApiDocsView
