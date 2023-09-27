@@ -22,6 +22,7 @@ const CommandBarDialogHeader = () => {
 		inputRef,
 		removeTag,
 		setCurrentInputValue,
+		setCurrentCommand,
 	} = commandBarState
 
 	const inputPlaceholder = currentCommand.inputProps.placeholder({
@@ -47,7 +48,16 @@ const CommandBarDialogHeader = () => {
 				{currentCommand.name == 'chat' ? (
 					// This is a dummy element to display text
 					// TODO(kevinwang): make this less hacky
-					<div className={s.input}>Return to search</div>
+					<div className={s.input}>
+						<label
+							className={s.label}
+							onClick={() => {
+								setCurrentCommand('search')
+							}}
+						>
+							Return to search
+						</label>
+					</div>
 				) : (
 					<input
 						aria-label={inputPlaceholder}
