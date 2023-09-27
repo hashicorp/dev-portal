@@ -7,6 +7,22 @@
 	display: flex;
 	flex-direction: column;
 	gap: 24px;
+
+	/* stylelint-disable-next-line property-no-unknown */
+	container-type: inline-size;
+}
+
+.headerAndVersionSwitcher {
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 24px;
+
+	/* stylelint-disable-next-line at-rule-no-unknown */
+	@container (min-width: 640px) {
+		flex-direction: row;
+		justify-content: space-between;
+		gap: 16px;
+	}
 }
 
 .header {
@@ -15,7 +31,8 @@
 	flex-direction: column-reverse;
 	gap: 8px;
 
-	@media (--dev-dot-tablet-up) {
+	/* stylelint-disable-next-line at-rule-no-unknown */
+	@container (min-width: 640px) {
 		flex-direction: row;
 		gap: 16px;
 	}
@@ -34,7 +51,8 @@
 .icon {
 	display: none;
 
-	@media (--dev-dot-tablet-up) {
+	/* stylelint-disable-next-line at-rule-no-unknown */
+	@container (min-width: 640px) {
 		display: block;
 		margin-top: 3px;
 	}
@@ -43,7 +61,12 @@
 .releaseStageBadge {
 	text-transform: capitalize;
 
-	@media (--dev-dot-tablet-up) {
+	/* stylelint-disable-next-line at-rule-no-unknown */
+	@container (min-width: 640px) {
 		margin-top: 13px;
 	}
+}
+
+.versionSwitcherSlot {
+	flex-shrink: 0;
 }
