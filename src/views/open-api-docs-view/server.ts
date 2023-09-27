@@ -25,10 +25,10 @@ import type {
 	GetStaticPropsResult,
 } from 'next'
 import type { OpenAPIV3 } from 'openapi-types'
+import type { ApiDocsVersionData } from 'lib/api-docs/types'
 import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
-	OpenApiDocsVersionData,
 	OpenApiDocsPageConfig,
 } from './types'
 
@@ -75,7 +75,7 @@ export async function getStaticProps({
 	navResourceItems = [],
 }: Omit<OpenApiDocsPageConfig, 'githubSourceDirectory'> & {
 	context: GetStaticPropsContext<OpenApiDocsParams>
-	versionData: OpenApiDocsVersionData[]
+	versionData: ApiDocsVersionData[]
 }): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
 	// Get the product data
 	const productData = cachedGetProductData(productSlug)
@@ -87,7 +87,7 @@ export async function getStaticProps({
 	const versionId = pathParts?.length > 1 ? pathParts[0] : null
 	const isVersionedUrl = typeof versionId === 'string'
 	// Resolve the current version
-	let targetVersion: OpenApiDocsVersionData | undefined
+	let targetVersion: ApiDocsVersionData | undefined
 	if (isVersionedUrl) {
 		targetVersion = versionData.find((v) => v.versionId === versionId)
 	} else {
