@@ -5,7 +5,7 @@
 
 // Types
 import type { VersionSwitcherProps } from 'components/version-switcher'
-import type { OpenApiDocsVersionData } from '../types'
+import type { ApiDocsVersionData } from 'lib/api-docs/types'
 
 /**
  * Given version data and other OpenAPI docs details,
@@ -21,9 +21,9 @@ export function getVersionSwitcherProps({
 	basePath,
 }: {
 	projectName: string
-	versionData: OpenApiDocsVersionData[]
-	targetVersion: OpenApiDocsVersionData
-	defaultVersion: OpenApiDocsVersionData
+	versionData: ApiDocsVersionData[]
+	targetVersion: ApiDocsVersionData
+	defaultVersion: ApiDocsVersionData
 	basePath: string
 }): VersionSwitcherProps | null {
 	// Return null early if we only have one version
@@ -36,7 +36,7 @@ export function getVersionSwitcherProps({
 
 	// Each version becomes an option in the dropdown
 	const options = versionData.map(
-		({ versionId, releaseStage }: OpenApiDocsVersionData) => {
+		({ versionId, releaseStage }: ApiDocsVersionData) => {
 			/**
 			 * Determine the version label suffix to show.
 			 * - Default case is to show the version only, no (suffix)
