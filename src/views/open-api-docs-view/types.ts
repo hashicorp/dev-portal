@@ -161,6 +161,12 @@ export interface OpenApiDocsViewProps {
 	serviceProductSlug: ProductSlug
 
 	/**
+	 * Boolean to indicate whether the URL being rendered is a versioned URL,
+	 * in which case we want to no-index the page.
+	 */
+	isVersionedUrl: boolean
+
+	/**
 	 * Optional version data. Use this for API docs with multiple versions, the
 	 * `label` and `options` here will be passed directly to `VersionSwitcher`.
 	 */

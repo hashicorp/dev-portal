@@ -7,6 +7,7 @@
 import SidebarLayout from 'layouts/sidebar-layout'
 // Components
 import BreadcrumbBar from 'components/breadcrumb-bar'
+import NoIndexTagIfVersioned from 'components/no-index-tag-if-versioned'
 import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
 import VersionSwitcher from 'components/version-switcher'
 // Local
@@ -36,6 +37,7 @@ function OpenApiDocsView({
 	statusIndicatorConfig,
 	serviceProductSlug,
 	versionSwitcherProps,
+	isVersionedUrl,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
@@ -59,6 +61,7 @@ function OpenApiDocsView({
 			<div className={s.paddedContainer}>
 				<div className={s.spaceBreadcrumbsOverview}>
 					<BreadcrumbBar links={breadcrumbLinks} />
+					<NoIndexTagIfVersioned isVersioned={isVersionedUrl} />
 					<OpenApiOverview
 						heading={topOfPageHeading}
 						badgeText={releaseStage}
