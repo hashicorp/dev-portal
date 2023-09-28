@@ -13,7 +13,7 @@ export const WelcomeMessage = () => {
 	return (
 		<div className={s.welcome}>
 			<div className={classNames(s.col, s.left)}>
-				<IconWand24 className={s.purple} />
+				<IconWand24 />
 				<div className={s.copy}>
 					<Heading /* Display/400/Medium */
 						className={s.strong}

@@ -5,10 +5,6 @@
 	color: var(--token-color-foreground-faint);
 }
 
-.purple {
-	color: var(--token-color-foreground-highlight-on-surface);
-}
-
 .spacer {
 	height: 24px;
 
