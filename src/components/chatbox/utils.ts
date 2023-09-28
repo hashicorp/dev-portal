@@ -3,10 +3,9 @@ import { useEffect, useState, useRef } from 'react'
 /**
  * use a ref to check if an element's Y-scrollbar is visible
  *
- * Note: this hook is intentionally opinionated, but is not far from more generic
+ * Note: this hook is intentionally opinionated, but is not far from being more generic
  * - it is only concerned with Y axis
  * - it assumes top-to-bottom scrolling
- * - the returned value is a computed boolean
  */
 export function useScrollBarVisible() {
 	const elementRef = useRef(null)
@@ -19,8 +18,6 @@ export function useScrollBarVisible() {
 			return
 		}
 
-		// extra: if scrolling has reached the end,
-		// then set isScrollbarVisible to false
 		function checkScrollbarVisibility() {
 			// is the element scrollable?
 			const hasScrollbarY = element.scrollHeight > element.clientHeight
