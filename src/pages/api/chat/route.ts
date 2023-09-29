@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { type NextRequest, type NextFetchEvent } from 'next/server'
 import { z } from 'zod'
 

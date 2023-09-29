@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import React, { useEffect, useState, useRef } from 'react'
 
 // https://helios.hashicorp.design/icons/library

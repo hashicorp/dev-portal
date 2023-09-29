@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .chat {
 	height: 100%;
 	background: var(--token-color-palette-neutral-100);

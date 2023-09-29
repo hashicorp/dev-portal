@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { IconBulb16 } from '@hashicorp/flight-icons/svg-react/bulb-16'
 import { IconDiscussionCircle16 } from '@hashicorp/flight-icons/svg-react/discussion-circle-16'
 import { IconUser16 } from '@hashicorp/flight-icons/svg-react/user-16'
