@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useEffect, useState, useRef } from 'react'
 
 // use a ref to check if an element's scrollbar is visible
