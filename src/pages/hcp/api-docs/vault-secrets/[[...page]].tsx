@@ -25,6 +25,7 @@ import type {
  */
 const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	productSlug: 'hcp',
+	serviceProductSlug: 'vault',
 	basePath: '/hcp/api-docs/vault-secrets',
 	githubSourceDirectory: {
 		owner: 'hashicorp',
@@ -32,6 +33,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		path: 'specs/cloud-vault-secrets',
 		ref: 'main',
 	},
+	groupOperationsByPath: true,
 	statusIndicatorConfig: {
 		pageUrl: 'https://status.hashicorp.com',
 		endpointUrl:
@@ -90,23 +92,11 @@ export const getStaticProps: GetStaticProps<
 	const versionData = await fetchCloudApiVersionData(
 		PAGE_CONFIG.githubSourceDirectory
 	)
-	// If we can't find any version data at all, render a 404 page.
-	if (!versionData) {
-		return { notFound: true }
-	}
-
+	// Generate static props based on page configuration, params, and versionData
 	return await getOpenApiDocsStaticProps({
-		basePath: PAGE_CONFIG.basePath,
-		productSlug: PAGE_CONFIG.productSlug,
-		statusIndicatorConfig: PAGE_CONFIG.statusIndicatorConfig,
-		navResourceItems: PAGE_CONFIG.navResourceItems,
-		massageSchemaForClient: PAGE_CONFIG.massageSchemaForClient,
-		// Pass params to getStaticProps, this is used for versioning
+		...PAGE_CONFIG,
 		context: { params },
-		// Handle rename of `targetFile` to `sourceFile` for new template
-		versionData: versionData.map(({ targetFile, ...rest }) => {
-			return { ...rest, sourceFile: targetFile }
-		}),
+		versionData,
 	})
 }
 

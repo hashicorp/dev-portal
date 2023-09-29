@@ -3,12 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy } from 'react'
 import classNames from 'classnames'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import rehypePrism from '@mapbox/rehype-prism'
-import { MdxPre } from 'components/dev-dot-content/mdx-components/mdx-code-blocks'
 
 // https://helios.hashicorp.design/icons/library
 
@@ -25,6 +21,9 @@ import IconTile from 'components/icon-tile'
 import useAuthentication from 'hooks/use-authentication'
 
 import s from './message.module.css'
+
+// lazily loaded due to chonky dependencies for markdown and syntax highlighting
+const Markdown = lazy(() => import('./Markdown'))
 
 const UserMessage = ({ text, image }: { text: string; image?: string }) => {
 	return (
@@ -125,23 +124,7 @@ const AssistantMessage = ({
 				<IconWand24 style={{ width: 24, height: 24 }} />
 			</IconTile>
 			<div className={classNames(s.content)}>
-				<ReactMarkdown
-					className={s.markdown}
-					components={{
-						pre: MdxPre,
-						p: (props) => (
-							<Text /* Body/200/Medium */
-								size={200}
-								weight="medium"
-								{...props}
-							/>
-						),
-					}}
-					remarkPlugins={[remarkGfm]}
-					rehypePlugins={[[rehypePrism, { ignoreMissing: true }]]}
-				>
-					{markdown}
-				</ReactMarkdown>
+				<Markdown className={s.markdown} markdown={markdown} />
 
 				<div
 					className={classNames(s.assistantMessageFooter, {
