@@ -75,7 +75,7 @@
 
 		&.left {
 			/* START hashiconf video */
-			width: 300px;
+			max-width: 443px;
 			margin-left: auto;
 			margin-right: auto;
 

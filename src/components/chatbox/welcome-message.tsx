@@ -20,17 +20,17 @@ export const WelcomeMessage = () => {
 			<div className={classNames(s.col, s.left)}>
 				<IconWand24 />
 				<div className={s.copy}>
-					<Heading /* Display/400/Medium */
+					<Heading /* Display/500/Bold */
 						className={s.strong}
 						level={3}
-						weight="medium"
-						size={400}
+						weight="bold"
+						size={500}
 					>
 						Developer AI
 					</Heading>
-					<Text /* Body/100/Medium */
+					<Text /* Body/300/Medium */
 						className={s.faint}
-						size={100}
+						size={300}
 						weight="medium"
 					>
 						Your AI-powered companion for finding reference materials,
