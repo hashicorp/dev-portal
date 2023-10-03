@@ -14,6 +14,26 @@ import Text from 'components/text'
 
 import s from './welcome-message.module.css'
 
+// this is an arbitrary, light abstraction to separate
+// the content/copy from the component
+const rightColumn = [
+	{
+		icon: <IconUser16 />,
+		heading: 'Personalized recommendations',
+		text: 'FIX ME', // TODO(kevinwang): fix before launch
+	},
+	{
+		icon: <IconDiscussionCircle16 />,
+		heading: 'Natural language conversations',
+		text: 'FIX ME', // TODO(kevinwang): fix before launch
+	},
+	{
+		icon: <IconBulb16 />,
+		heading: 'Knowledge base',
+		text: 'FIX ME', // TODO(kevinwang): fix before launch
+	},
+]
+
 export const WelcomeMessage = () => {
 	return (
 		<div className={s.welcome}>
@@ -41,66 +61,28 @@ export const WelcomeMessage = () => {
 				<div className={s.spacer} />
 			</div>
 			<div className={classNames(s.col, s.right)}>
-				<div className={s.row}>
-					<IconUser16 />
-					<div>
-						<Heading /* Display/100/Medium */
-							className={s.strong}
-							level={4}
-							weight="medium"
-							size={100}
-						>
-							Personalized recommendations
-						</Heading>
-						<Text /* Body/100/Regular */
-							size={100}
-							weight="regular"
-							className={s.faint}
-						>
-							Coming soon...
-						</Text>
+				{rightColumn.map(({ icon, heading, text }, i) => (
+					<div className={s.row} key={i}>
+						{icon}
+						<div>
+							<Heading /* Display/100/Medium */
+								className={s.strong}
+								level={4}
+								weight="medium"
+								size={100}
+							>
+								{heading}
+							</Heading>
+							<Text /* Body/100/Regular */
+								size={100}
+								weight="regular"
+								className={s.faint}
+							>
+								{text}
+							</Text>
+						</div>
 					</div>
-				</div>
-				<div className={s.row}>
-					<IconDiscussionCircle16 />
-					<div>
-						<Heading /* Display/100/Medium */
-							className={s.strong}
-							level={4}
-							weight="medium"
-							size={100}
-						>
-							Natural language conversations
-						</Heading>
-						<Text /* Body/100/Regular */
-							className={s.faint}
-							size={100}
-							weight="regular"
-						>
-							Coming soon...
-						</Text>
-					</div>
-				</div>
-				<div className={s.row}>
-					<IconBulb16 />
-					<div>
-						<Heading /* Display/100/Medium */
-							className={s.strong}
-							level={4}
-							weight="medium"
-							size={100}
-						>
-							Knowledge base
-						</Heading>
-						<Text /* Body/100/Regular */
-							className={s.faint}
-							size={100}
-							weight="regular"
-						>
-							Yes
-						</Text>
-					</div>
-				</div>
+				))}
 			</div>
 		</div>
 	)
