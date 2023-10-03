@@ -21,10 +21,14 @@ import IconTile from 'components/icon-tile'
 import useAuthentication from 'hooks/use-authentication'
 
 import s from './message.module.css'
-import { Finished } from 'components/feedback-form/components/finished'
 
 // lazily loaded due to chonky dependencies for markdown and syntax highlighting
 const Markdown = lazy(() => import('./Markdown'))
+
+// lazy load to avoid (+352 B) bundle size increase
+const Finished = lazy(
+	() => import('components/feedback-form/components/finished')
+)
 
 const UserMessage = ({ text, image }: { text: string; image?: string }) => {
 	return (
