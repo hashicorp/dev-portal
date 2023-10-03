@@ -26,15 +26,16 @@ export const WelcomeMessage = () => {
 						weight="medium"
 						size={400}
 					>
-						Welcome to Developer AI
+						Developer AI
 					</Heading>
 					<Text /* Body/100/Medium */
 						className={s.faint}
 						size={100}
 						weight="medium"
 					>
-						Your personal AI-powered assistant, we’re ready to help you get the
-						most out of Developer. Let’s get started on this journey together.
+						Your AI-powered companion for finding reference materials,
+						architectural guidance, and product examples from HashiCorp. Ask me
+						anything to get started.
 					</Text>
 				</div>
 				<div className={s.spacer} />
