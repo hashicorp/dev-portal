@@ -22,7 +22,6 @@ const CommandBarDialogHeader = () => {
 		inputRef,
 		removeTag,
 		setCurrentInputValue,
-		setCurrentCommand,
 	} = commandBarState
 
 	const inputPlaceholder = currentCommand.inputProps.placeholder({
