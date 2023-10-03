@@ -5,10 +5,17 @@
 
 import { useEffect, useState, useRef } from 'react'
 
-// use a ref to check if an element's scrollbar is visible
+/**
+ * use a ref to check if an element's Y-scrollbar is visible
+ *
+ * Note: this hook is intentionally opinionated, but is not far from being more generic
+ * - it is only concerned with Y axis
+ * - it assumes top-to-bottom scrolling
+ */
 export function useScrollBarVisible() {
 	const elementRef = useRef(null)
-	const [isScrollbarVisible, setIsScrollbarVisible] = useState(false)
+	const [isScrollbarYVisible, setIsScrollbarYVisible] = useState(false)
+	const [reachedYEnd, setReachedYEnd] = useState(false)
 
 	useEffect(() => {
 		const element = elementRef.current
@@ -17,10 +24,19 @@ export function useScrollBarVisible() {
 		}
 
 		function checkScrollbarVisibility() {
-			setIsScrollbarVisible(
-				element.scrollHeight > element.clientHeight ||
-					element.scrollWidth > element.clientWidth
-			)
+			// is the element scrollable?
+			const hasScrollbarY = element.scrollHeight > element.clientHeight
+			setIsScrollbarYVisible(hasScrollbarY)
+
+			// has scrolling reached the end?
+
+			const atEnd =
+				/* total elem height - current scroll position */
+				element.scrollHeight - element.scrollTop <=
+				/* visible elem height + 5px buffer */
+				element.clientHeight + 5
+
+			setReachedYEnd(atEnd)
 		}
 
 		element.addEventListener('scroll', checkScrollbarVisibility)
@@ -34,7 +50,7 @@ export function useScrollBarVisible() {
 		}
 	}, [elementRef.current])
 
-	return [elementRef, isScrollbarVisible] as const
+	return [elementRef, isScrollbarYVisible && !reachedYEnd] as const
 }
 
 // support passing multiple refs to an element

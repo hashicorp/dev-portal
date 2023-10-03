@@ -10,6 +10,14 @@
 	color: var(--token-color-foreground-faint);
 }
 
+.spacer {
+	height: 24px;
+
+	@media (--dev-dot-mobile) {
+		display: none;
+	}
+}
+
 .welcome {
 	background-color: hsla(228, 0%, 98%, 1);
 	background-image: radial-gradient(

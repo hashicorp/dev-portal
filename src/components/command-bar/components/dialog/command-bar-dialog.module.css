@@ -52,6 +52,11 @@
 	width: 100%;
 }
 
+.label {
+	cursor: pointer;
+	user-select: none;
+}
+
 .input {
 	/* composition */
 	composes: g-focus-ring-from-box-shadow from global;
