@@ -13,10 +13,10 @@ import { IconClipboard24 } from '@hashicorp/flight-icons/svg-react/clipboard-24'
 import { IconThumbsDown24 } from '@hashicorp/flight-icons/svg-react/thumbs-down-24'
 import { IconThumbsUp24 } from '@hashicorp/flight-icons/svg-react/thumbs-up-24'
 import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
+import { IconAlertDiamondFill24 } from '@hashicorp/flight-icons/svg-react/alert-diamond-fill-24'
 
 import Button from 'components/button'
 import Text from 'components/text'
-import FeedbackForm from 'components/feedback-form'
 import IconTile from 'components/icon-tile'
 import useAuthentication from 'hooks/use-authentication'
 
@@ -56,7 +56,6 @@ const AssistantMessage = ({
 }) => {
 	const { session } = useAuthentication()
 	const accessToken = session?.accessToken
-	// Determines green/red button
 	const [rating, setRating] = useState<1 | -1 | 0>(0)
 
 	const handleFeedback = async ({
@@ -120,7 +119,7 @@ const AssistantMessage = ({
 
 	return (
 		<div className={classNames(s.message, s.assistant)}>
-			<IconTile className={classNames(s.icon)}>
+			<IconTile className={classNames(s.purple)}>
 				<IconWand24 style={{ width: 24, height: 24 }} />
 			</IconTile>
 			<div className={classNames(s.content)}>
@@ -151,7 +150,6 @@ const AssistantMessage = ({
 						<Button
 							size="small"
 							color="secondary"
-							className={classNames({ [s.ratingLike]: rating == 1 })}
 							disabled={rating == 1}
 							icon={<IconThumbsUp24 height={12} width={12} />}
 							aria-label="Like this response"
@@ -164,7 +162,6 @@ const AssistantMessage = ({
 						<Button
 							size="small"
 							color="secondary"
-							className={classNames({ [s.ratingDislike]: rating == -1 })}
 							disabled={rating == -1}
 							icon={<IconThumbsDown24 height={12} width={12} />}
 							aria-label="Dislike this response"
@@ -174,40 +171,6 @@ const AssistantMessage = ({
 							}}
 						/>
 					</div>
-
-					<div
-						className={classNames(s.feedbackForm, {
-							[s.feedbackFormVisible]: rating != 0,
-						})}
-					>
-						{rating != 0 ? (
-							<FeedbackForm
-								questions={[
-									{
-										id: 'reason',
-										type: 'text',
-										label: 'Provide additional feedback to help us improve',
-										placeholder:
-											rating == 1
-												? 'What did you like about the response?'
-												: 'What was the issue with the response? How could it be improved?',
-										optional: true,
-										buttonText: 'Submit answer',
-									},
-								]}
-								finishedText={
-									<div>
-										Thank you! Your feedback will help us improve our websites.
-									</div>
-								}
-								onQuestionSubmit={async (responses) => {
-									const value = responses[0].value
-									await handleFeedback({ rating, text: value })
-									return
-								}}
-							/>
-						) : null}
-					</div>
 				</div>
 			</div>
 
@@ -216,20 +179,21 @@ const AssistantMessage = ({
 	)
 }
 
-// TODO(kevinwang): error styling.
 const ApplicationMessage = ({ text }: { text: string }) => {
 	return (
 		<div className={classNames(s.message, s.assistant)}>
-			<IconTile className={classNames(s.iconError)}>
+			<IconTile className={s.strong}>
 				<IconWand24 style={{ width: 24, height: 24 }} />
 			</IconTile>
-			<Text /* Body/200/Medium */
-				size={200}
-				weight="medium"
-				className={classNames(s.content)}
-			>
-				{text}
-			</Text>
+			<div className={s.applicationMessage}>
+				<IconAlertDiamondFill24
+					className={s.critical}
+					style={{ width: 14, height: 14, marginTop: 2, marginBottom: 2 }}
+				/>
+				<Text /* Body/100/Regular */ size={100} weight="regular">
+					{text}
+				</Text>
+			</div>
 			<div className={classNames(s.gutter)}></div>
 		</div>
 	)

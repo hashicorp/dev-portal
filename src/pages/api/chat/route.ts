@@ -40,6 +40,17 @@ export default async function edgehandler(
 			}
 			const { task, conversationId, parentMessageId } = parsedBody.data
 
+			// - cheat codes to simulate errors
+			//   helpful for state-reproduction for visual debugging
+			const regexp = /^simulate (\d{3}) (.*)$/i
+			if (task.match(regexp)) {
+				const [, status, message] = task.match(regexp)
+				return new Response(message, {
+					status: Number(status),
+					statusText: message,
+				})
+			}
+
 			try {
 				let res: Response
 				if (conversationId && parentMessageId) {

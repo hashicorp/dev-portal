@@ -21,6 +21,13 @@
 }
 
 .arrowdown {
+	/* button overrides - start */
+	height: 28px;
+	width: 28px;
+	padding: unset;
+
+	/* button overrides - end */
+
 	position: absolute;
 	top: -52px;
 	right: 20px;
@@ -45,8 +52,11 @@
 	background: var(--token-color-surface-primary);
 }
 .questionIcon {
-	height: 40px;
 	width: 40px;
+	height: 42px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	padding: 8px;
 
 	/* See prior art: https://hashicorp-mktg.sourcegraph.com/github.com/hashicorp/web/-/blob/apps/www/views/state-of-the-cloud/2021/components/hero/style.module.css?L18-19 */
@@ -94,13 +104,12 @@
 	resize: none;
 	background: transparent;
 }
-.button {
-	height: 24px;
-	width: 24px;
-	background: transparent;
-	&:focus {
-		outline: auto;
-	}
+
+.buttonContainer {
+	height: 42px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .disclaimer {
