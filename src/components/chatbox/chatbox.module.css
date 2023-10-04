@@ -21,19 +21,6 @@
 }
 
 .arrowdown {
-	/* TODO(kevinwang): 
-	 * 1. consider passing size="small" to <Button/>;
-	 * 2. figure out compromise between the design spec (square button)
-	 * and HDS, where a perfectly square button is not yet supported
-	 * (https://helios.hashicorp.design/components/button?tab=code#icon-only-button) */
-
-	/* button overrides - start */
-	height: 28px;
-	width: 28px;
-	padding: unset;
-
-	/* button overrides - end */
-
 	position: absolute;
 	top: -52px;
 	right: 20px;

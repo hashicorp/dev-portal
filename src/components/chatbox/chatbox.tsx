@@ -344,7 +344,7 @@ const ChatBox = () => {
 				<div className={s.bottom}>
 					{textContentScrollBarIsVisible && !isLoading ? (
 						<Button
-							className={s.arrowdown}
+							size="small"
 							icon={<IconArrowDownCircle16 />}
 							onClick={handleArrowDownClick}
 							aria-label="Scroll to bottom"
