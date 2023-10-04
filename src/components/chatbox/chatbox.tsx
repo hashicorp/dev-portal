@@ -69,10 +69,37 @@ const useAI = () => {
 		},
 		onError: async (error) => {
 			switch (error.status) {
-				case 400:
+				// TODO(kevinwang) - Better error handling logic.
+				// Please adjust the backend validation messages first.
+				case 400: {
+					const { meta, errors } = await error.json()
+					// 	{
+					// 		"meta": {
+					// 				"status_code": 400,
+					// 				"status_text": "Bad Request"
+					// 		},
+					// 		"errors": [
+					// 				{
+					// 						"location": "Body",
+					// 						"msg": "Task should not exceed 200 characters. We may raise this limit in the future.",
+					// 						"param": "task"
+					// 				}
+					// 		]
+					// }
+					const { status_code, status_text } = meta
+					setErrorText(
+						`${status_code} ${status_text} - ${errors[0].msg.replace(
+							'Task ',
+							''
+						)}`
+					)
+					break
+				}
 				case 401:
 				case 403: {
-					setErrorText(`${error.status} ${error.statusText}`)
+					const { meta, errors } = await error.json()
+					const { status_code, status_text } = meta
+					setErrorText(`${status_code} ${status_text}`)
 					break
 				}
 				case 429: {
