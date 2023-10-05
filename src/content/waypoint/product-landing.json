@@ -4,11 +4,11 @@
 		"image": "https://www.datocms-assets.com/2885/1662767806-dev-dot-waypoint-landing-hero-2x.png"
 	},
 	"overview": {
-		"heading": "What is Waypoint?",
-		"body": "Waypoint allows developers to deploy, manage, and observe their applications through a consistent abstraction of underlying infrastructure. Waypoint works with Kubernetes, ECS and many other platforms.",
+		"heading": "What is HCP Waypoint?",
+		"body": "HCP Waypoint lets platform teams define golden patterns and workflows for developers to manage applications at scale.",
 		"cta": {
-			"text": "Learn more about Waypoint features",
-			"url": "/waypoint/docs/intro"
+			"text": "Learn more about HCP Waypoint",
+			"url": "/hcp/docs/waypoint"
 		},
 		"image": {
 			"light": "https://www.datocms-assets.com/2885/1679095382-devdot-waypoint_lm.png",
@@ -17,46 +17,18 @@
 	},
 	"get_started": {
 		"heading": "Getting Started",
-		"body": "It only takes a few minutes to get started with Waypoint on your local development environment.",
+		"body": "Learn how to get started with HCP Waypoint.",
 		"ctas": [
 			{
-				"text": "CLI Quick Start",
-				"url": "/waypoint/tutorials/get-started-docker/get-started-intro"
+				"text": "HCP Waypoint Quick Start",
+				"url": "/waypoint/tutorials/hcp-waypoint/get-started-hcp"
 			}
 		]
 	},
 	"blocks": [
 		{
 			"type": "heading",
-			"heading": "Featured Collections",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "collection_cards",
-			"collectionSlugs": [
-				"waypoint/get-started-docker",
-				"waypoint/get-started-kubernetes",
-				"waypoint/get-started-nomad"
-			]
-		},
-		{
-			"type": "heading",
-			"heading": "Featured Tutorials",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": [
-				"waypoint/aws-ecs",
-				"waypoint/azure-container-instance",
-				"waypoint/google-cloud-run"
-			]
-		},
-		{
-			"type": "heading",
-			"heading": "How Waypoint Works",
+			"heading": "HCP Waypoint Concepts",
 			"level": 2,
 			"size": 400
 		},
@@ -64,25 +36,25 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Application Lifecycle",
-					"body": "Learn about the build, deploy, and release stages of the Waypoint lifecycle.",
-					"url": "/waypoint/docs/lifecycle"
+					"heading": "Templates",
+					"body": "Learn about templates and how to use them to create projects from a reusable configuration.",
+					"url": "/hcp/docs/waypoint/concepts/application-templates"
 				},
 				{
-					"heading": "URL Service",
-					"body": "Get a publicly accessible URL for your application with the Waypoint URL Service.",
-					"url": "/waypoint/docs/url"
+					"heading": "Add-ons",
+					"body": "Learn about add-ons and how to use them to add additional functionality to your applications.",
+					"url": "/hcp/docs/waypoint/concepts/add-ons"
 				},
 				{
-					"heading": "Dynamic Application Configuration",
-					"body": "Dynamically load configuration values from Kubernetes ConfigMaps, Vault, and more.",
-					"url": "/waypoint/docs/app-config/dynamic"
+					"heading": "Role-based access control",
+					"body": "Learn how to control access to HCP Waypoint functionality with user roles.",
+					"url": "/hcp/docs/waypoint/concepts/rbac"
 				}
 			]
 		},
 		{
 			"type": "heading",
-			"heading": "Additional Features",
+			"heading": "Templates",
 			"level": 2,
 			"size": 400
 		},
@@ -90,25 +62,20 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Runners",
-					"body": "Learn more about the different runners available include remote runners.",
-					"url": "/waypoint/docs/runner"
+					"heading": "Managing templates",
+					"body": "Learn how to create and manage templates in HCP Waypoint.",
+					"url": "/hcp/docs/waypoint/template-create"
 				},
 				{
-					"heading": "Triggers",
-					"body": "Trigger different Waypoint operations without the Waypoint CLI.",
-					"url": "/waypoint/docs/triggers"
-				},
-				{
-					"heading": "CI Automation",
-					"body": "Integrate Waypoint with your Git repository and automatically run workflows on repository changes.",
-					"url": "/waypoint/docs/automating-execution"
+					"heading": "Using templates",
+					"body": "Learn how to create projects from templates.",
+					"url": "/hcp/docs/waypoint/template-use"
 				}
 			]
 		},
 		{
 			"type": "heading",
-			"heading": "Available Plugins",
+			"heading": "Add-ons",
 			"level": 2,
 			"size": 400
 		},
@@ -116,34 +83,14 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "AWS Lambda",
-					"body": "Deploy your application as an AWS Lambda function.",
-					"url": "/waypoint/plugins/aws-lambda"
+					"heading": "Managing add-ons",
+					"body": "Learn how to create and manage add-ons in HCP Waypoint.",
+					"url": "/hcp/docs/waypoint/addon-definition-create"
 				},
 				{
-					"heading": "Exec",
-					"body": "Execute any command to perform a deploy.",
-					"url": "/waypoint/plugins/exec"
-				},
-				{
-					"heading": "Helm",
-					"body": "Deploy your Helm-ified application.",
-					"url": "/waypoint/plugins/helm"
-				},
-				{
-					"heading": "Pack",
-					"body": "Build your application using CloudNative Buildpacks.",
-					"url": "/waypoint/plugins/pack"
-				},
-				{
-					"heading": "Terraform Cloud",
-					"body": "Read Terraform state outputs from Terraform Cloud.",
-					"url": "/waypoint/plugins/terraform-cloud"
-				},
-				{
-					"heading": "Vault",
-					"body": "Read configuration values from Vault.",
-					"url": "/waypoint/plugins/vault"
+					"heading": "Using add-ons",
+					"body": "Learn how to install add-ons to HCP Waypoint projects.",
+					"url": "/hcp/docs/waypoint/addon-use"
 				}
 			]
 		}
