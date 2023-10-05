@@ -1,38 +1,30 @@
 <!-- Each "## Heading Two" section in this document will be used to populate an FAQ item -->
 
-## Exam Availability Dates
-- **April 5:** Terraform Associate **003** is available to schedule. Both versions are available.
-- **May 5:** Last day to schedule or reschedule an appointment to take the Terraform Associate 002 exam.
-    - Scheduling subject to appointment availability until May 19.
+## Exam Availability
+
+Coming soon!
 
 ## Which Exam to Take
 
-The Terraform Associate 002 certification is still relevant and will be accepted as a validation of Terraform knowledge until each individual badge’s expiration date. Receiving a Terraform Associate 003 certification will not impact any existing Terraform Associate 002 credentials, and a single candidate can hold both at the same time. However, either certification alone can be used to validate Terraform knowledge at the associate level.
+The [Consul Associate 002 certification](https://developer.hashicorp.com/certifications/networking-automation#consul-associate-002) is still relevant and will be accepted as validation of Consul knowledge until each individual badge’s expiration date. Receiving a Consul Associate 003 certification will not impact any existing Consul Associate 002 credentials, and a single candidate can hold both at the same time. However, either certification alone can be used to validate Consul knowledge at the associate level.
 
-- **If you have passed the Terraform Associate 002 exam**, wait until the new version comes out to recertify. We have extended all current badge expirations dates so you have time to wait for the new exam.
-- **If you have never passed the Terraform Associate exam**, the choice is up to you and your timeline.
+**If you have studied for the Consul Associate 002 and are prepared to take it now,** schedule and take your 002 exam at your earliest convenience.
 
-**Content Differences Between Exams**
+**If you are not ready to schedule and take your exam until early 2024,** we advise studying for the 003 exam and taking that version of the exam after it launches in early 2024.
 
-We've updated the Terraform Associate 003 exam to account for how Terraform has grown, and to accommodate future growth. The changes are primarily a reorganization and rewording of the 002 exam objectives. More significant changes are listed below.
+### Content Differences Between Exams
 
-| #  | Objective Description                                                                      | Status in Terraform Associate 003                                           |
-|----|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| 3e | ~~Explain when to use and not use provisioners and when to use local-exec or remote-exec~~ | Removed                                                                     |
-| 4  | Use Terraform outside of core workflow                                                     | `terraform taint` removed, other topics reorganized                         |
-| 6b | Initialize a Terraform working directory (`terraform init`)                                | Includes questions about `terraform.lock.hcl`                               |
-| 7  | Implement and maintain state                                                               | Cloud integration authentication, and cloud backends added                  |
-| 8a | Demonstrate use of variables and outputs                                                   | Covers sensitive variables and outputs' relationship to exposure on the CLI |
-| 8g | ~~Configure~~ resource using a `dynamic` block                                             | Use cases for `dynamic` block are still tested in objective 8               |
-| 9  | Understand Terraform Cloud capabilities                                                    | Restructured to accommodate the current and future state of Terraform Cloud |
+Coming soon! 
 
 ## Prerequisites
 
-- Containerization knowledge
-- Basic terminal skills
-- Networking skills including load balancing and distributed systems
-- Understand the purpose of ACLs
-- Experience with TLS certificate lifecycle
+* Containerization 
+* Basic terminal skills
+* Load balancing architecture
+* Distributed systems knowledge
+* Basic security practices knowledge 
+* OSI Model familiarity
+* Cloud & Platform awareness (AWS, Google, Azure, Kubernetes, VMs)
 
 ## Exam Details
 
@@ -47,28 +39,26 @@ We've updated the Terraform Associate 003 exam to account for how Terraform has 
 
 ## Exam Objectives
 
-| 1   | Explain Consul architecture                                                                |
-| --- | ------------------------------------------------------------------------------------------ |
-| 1a  | Identify the components of Consul datacenter, including agents and communication protocols |
-| 1b  | Prepare Consul for high availability and performance                                       |
-| 1c  | Identify Consul's core functionality                                                       |
-| 1d  | Differentiate agent roles                                                                  |
+| 1  | Understand the pillars of service networking                                 |
+|----|------------------------------------------------------------------------------|
+| 1a | Understand how Consul discovers, tracks, and monitors the health of services |
+| 1b | Explain how Consul secures service to service communication                  |
+| 1c | Summarize how Consul controls access to services at point of entry           |
+| 1d | Discuss how Consul automates networking tasks                                |
 
-| 2   | Deploy a single datacenter                            |
-| --- | ----------------------------------------------------- |
-| 2a  | Start and manage the Consul process                   |
-| 2b  | Interpret a Consul agent configuration                |
-| 2c  | Configure Consul network addresses and ports          |
-| 2d  | Describe and configure agent join and leave behaviors |
+| 2  | Describe Consul architecture                                                                       |
+|----|----------------------------------------------------------------------------------------------------|
+| 2a | Identify Consul datacenter components including agents and communication protocols                 |
+| 2b | Review Consul server high availability & scalability options                                       |
+| 2c | Differentiate between server agents and data plane components (client agents and Consul Dataplane) |
+| 2d | Understand that Consul can run on multiple platforms                                               |
 
-| 3   | Register services and use service discovery                                                    |
-| --- | ---------------------------------------------------------------------------------------------- |
-| 3a  | Interpret a service registration                                                               |
-| 3b  | Differentiate ways to register a single service                                                |
-| 3c  | Interpret a service configuration with health check                                            |
-| 3d  | Check the service catalog status from the output of the DNS/API interface or via the Consul UI |
-| 3e  | Interpret a prepared query                                                                     |
-| 3f  | Use a prepared query                                                                           |
+| 3  | Deploy a single datacenter                           |
+|----|------------------------------------------------------|
+| 3a | Configure, bootstrap, and start Consul server agents |
+| 3b | Configure and start Consul client agents             |
+| 3c | Configure and start Consul on Kubernetes             |
+| 3d | Explain Consul agent join methods and behavior       |
 
 | 4   | Access the Consul key/value (KV)                            |
 | --- | ----------------------------------------------------------- |
@@ -77,18 +67,18 @@ We've updated the Terraform Associate 003 exam to account for how Terraform has 
 | 4c  | Monitor KV changes using `watch`                            |
 | 4d  | Monitor KV changes using `envconsul` and `consul-template`  |
 
-| 5   | Back up and restore                                             |
-| --- | --------------------------------------------------------------- |
-| 5a  | Describe the content of a snapshot                              |
-| 5b  | Back up and restore the datacenter                              |
-| 5c  | \[Enterprise\] Describe the benefits of snapshot agent features |
+| 5  | Use Consul service mesh                                                |
+|----|------------------------------------------------------------------------|
+| 5a | Consider high level architecture & key benefits of Consul service mesh |
+| 5b | Understand Consul service mesh intentions & when to use them           |
+| 5c | Apply proxy configuration options within Consul service mesh           |
 
-| 6   | Use Consul service mesh                                        |
-| --- | -------------------------------------------------------------- |
-| 6a  | Understand Consul Connect service mesh high level architecture |
-| 6b  | Describe configuration for registering a service proxy         |
-| 6c  | Describe intentions for Consul Connect service mesh            |
-| 6d  | Check intentions in both the Consul CLI and UI                 |
+| 6  | Secure agent communication                                |
+|----|-----------------------------------------------------------|
+| 6a | Understand Consul security/threat model                   |
+| 6b | Differentiate certificate types needed for TLS encryption |
+| 6c | Interpret TLS encryption settings & intended use          |
+| 6d | Configure gossip encryption                               |
 
 | 7   | Secure agent communication                                                     |
 | --- | ------------------------------------------------------------------------------ |
@@ -96,19 +86,22 @@ We've updated the Terraform Associate 003 exam to account for how Terraform has 
 | 7b  | Differentiate certificate types needed for TLS encryption                      |
 | 7c  | Understand the different TLS encryption settings for a fully secure datacenter |
 
-| 8   | Secure services with basic access control lists (ACL)                                    |
-| --- | ---------------------------------------------------------------------------------------- |
-| 8a  | Set up and configure a basic ACL system                                                  |
-| 8b  | Create policies                                                                          |
-| 8c  | Manage token lifecycle: multiple policies, token revoking, ACL roles, service identities |
-| 8d  | Perform a CLI request using a token                                                      |
-| 8e  | Perform an API request using a token                                                     |
+| 8  | Secure and connect service mesh applications                                                          |
+|----|-------------------------------------------------------------------------------------------------------|
+| 8a | Use Consul gateways to securely connect and access services into, out of, and within the service mesh |
+| 8b | Understand how to enable communication between multiple Consul datacenters                            |
 
-| 9   | Use gossip encryption                                    |
-| --- | -------------------------------------------------------- |
-| 9a  | Understanding the Consul security/threat model           |
-| 9b  | Configure gossip encryption for the existing data center |
-| 9c  | Manage the lifecycle of encryption keys                  |
+| 9  | Monitor Consul                             |
+|----|--------------------------------------------|
+| 9a | Describe Consul service mesh observability |
+| 9b | Review Consul datacenter observability     |
+
+| 10  | Operate and maintain Consul                          |
+|-----|------------------------------------------------------|
+| 10a | Manage Consul servers                                |
+| 10b | Maintain Consul communications security              |
+| 10c | Backup and restore Consul cluster state              |
+| 10d | Understand Consul datacenter troubleshooting options |
 
 ## Requirements for Attending an Exam
 
