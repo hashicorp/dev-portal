@@ -17,7 +17,7 @@ const Icon = () => {
 		<IconArrowLeft24
 			tabIndex={0}
 			className={s.backArrow}
-			aria-label="Back to search"
+			aria-label="Return to search"
 			onKeyDown={(e) => {
 				if (e.key === 'Enter') {
 					setCurrentCommand('search')
