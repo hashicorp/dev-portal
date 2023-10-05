@@ -16,7 +16,7 @@
 			"versionTested": "Consul WHATTTT or higher",
 			"description": "The Terraform Associate 003 is an upcoming certification for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with HashiCorp Terraform. This person understands the difference in functionality between Terraform Cloud, Terraform Enterprise, and open source Terraform.\n\nThe draft Terraform Associate 003 exam’s objectives are listed below, and dedicated study materials are coming soon. The objective differences between the (existing 002 exam and the upcoming 003 exam) versions are a reorganization and rewording of objectives to comfortably cover recent and future Terraform product growth.",
 			"faqSlug": "consul-associate-002"
-		}
+		},
 		{
 			"title": "Consul Associate",
 			"examCode": "002",
