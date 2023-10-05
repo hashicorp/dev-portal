@@ -1,0 +1,123 @@
+<!-- Each "## Heading Two" section in this document will be used to populate an FAQ item -->
+
+## Exam Availability Dates
+- **April 5:** Terraform Associate **003** is available to schedule. Both versions are available.
+- **May 5:** Last day to schedule or reschedule an appointment to take the Terraform Associate 002 exam.
+    - Scheduling subject to appointment availability until May 19.
+
+## Which Exam to Take
+
+The Terraform Associate 002 certification is still relevant and will be accepted as a validation of Terraform knowledge until each individual badge’s expiration date. Receiving a Terraform Associate 003 certification will not impact any existing Terraform Associate 002 credentials, and a single candidate can hold both at the same time. However, either certification alone can be used to validate Terraform knowledge at the associate level.
+
+- **If you have passed the Terraform Associate 002 exam**, wait until the new version comes out to recertify. We have extended all current badge expirations dates so you have time to wait for the new exam.
+- **If you have never passed the Terraform Associate exam**, the choice is up to you and your timeline.
+
+**Content Differences Between Exams**
+
+We've updated the Terraform Associate 003 exam to account for how Terraform has grown, and to accommodate future growth. The changes are primarily a reorganization and rewording of the 002 exam objectives. More significant changes are listed below.
+
+| #  | Objective Description                                                                      | Status in Terraform Associate 003                                           |
+|----|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| 3e | ~~Explain when to use and not use provisioners and when to use local-exec or remote-exec~~ | Removed                                                                     |
+| 4  | Use Terraform outside of core workflow                                                     | `terraform taint` removed, other topics reorganized                         |
+| 6b | Initialize a Terraform working directory (`terraform init`)                                | Includes questions about `terraform.lock.hcl`                               |
+| 7  | Implement and maintain state                                                               | Cloud integration authentication, and cloud backends added                  |
+| 8a | Demonstrate use of variables and outputs                                                   | Covers sensitive variables and outputs' relationship to exposure on the CLI |
+| 8g | ~~Configure~~ resource using a `dynamic` block                                             | Use cases for `dynamic` block are still tested in objective 8               |
+| 9  | Understand Terraform Cloud capabilities                                                    | Restructured to accommodate the current and future state of Terraform Cloud |
+
+## Prerequisites
+
+- Containerization knowledge
+- Basic terminal skills
+- Networking skills including load balancing and distributed systems
+- Understand the purpose of ACLs
+- Experience with TLS certificate lifecycle
+
+## Exam Details
+
+|                     |                                                                                   |
+| ------------------- | --------------------------------------------------------------------------------- |
+| **Assessment Type** | Multiple choice                                                                   |
+| **Format**          | Online proctored                                                                  |
+| **Duration**        | 1 hour                                                                            |
+| **Price**           | $70.50 USD, plus locally applicable taxes and fees. Free retake **not included**. |
+| **Language**        | English                                                                           |
+| **Expiration**      | 2 years                                                                           |
+
+## Exam Objectives
+
+| 1   | Explain Consul architecture                                                                |
+| --- | ------------------------------------------------------------------------------------------ |
+| 1a  | Identify the components of Consul datacenter, including agents and communication protocols |
+| 1b  | Prepare Consul for high availability and performance                                       |
+| 1c  | Identify Consul's core functionality                                                       |
+| 1d  | Differentiate agent roles                                                                  |
+
+| 2   | Deploy a single datacenter                            |
+| --- | ----------------------------------------------------- |
+| 2a  | Start and manage the Consul process                   |
+| 2b  | Interpret a Consul agent configuration                |
+| 2c  | Configure Consul network addresses and ports          |
+| 2d  | Describe and configure agent join and leave behaviors |
+
+| 3   | Register services and use service discovery                                                    |
+| --- | ---------------------------------------------------------------------------------------------- |
+| 3a  | Interpret a service registration                                                               |
+| 3b  | Differentiate ways to register a single service                                                |
+| 3c  | Interpret a service configuration with health check                                            |
+| 3d  | Check the service catalog status from the output of the DNS/API interface or via the Consul UI |
+| 3e  | Interpret a prepared query                                                                     |
+| 3f  | Use a prepared query                                                                           |
+
+| 4   | Access the Consul key/value (KV)                            |
+| --- | ----------------------------------------------------------- |
+| 4a  | Understand the capabilities and limitations of the KV store |
+| 4b  | Interact with the KV store using both the Consul CLI and UI |
+| 4c  | Monitor KV changes using `watch`                            |
+| 4d  | Monitor KV changes using `envconsul` and `consul-template`  |
+
+| 5   | Back up and restore                                             |
+| --- | --------------------------------------------------------------- |
+| 5a  | Describe the content of a snapshot                              |
+| 5b  | Back up and restore the datacenter                              |
+| 5c  | \[Enterprise\] Describe the benefits of snapshot agent features |
+
+| 6   | Use Consul service mesh                                        |
+| --- | -------------------------------------------------------------- |
+| 6a  | Understand Consul Connect service mesh high level architecture |
+| 6b  | Describe configuration for registering a service proxy         |
+| 6c  | Describe intentions for Consul Connect service mesh            |
+| 6d  | Check intentions in both the Consul CLI and UI                 |
+
+| 7   | Secure agent communication                                                     |
+| --- | ------------------------------------------------------------------------------ |
+| 7a  | Understanding Consul security/threat model                                     |
+| 7b  | Differentiate certificate types needed for TLS encryption                      |
+| 7c  | Understand the different TLS encryption settings for a fully secure datacenter |
+
+| 8   | Secure services with basic access control lists (ACL)                                    |
+| --- | ---------------------------------------------------------------------------------------- |
+| 8a  | Set up and configure a basic ACL system                                                  |
+| 8b  | Create policies                                                                          |
+| 8c  | Manage token lifecycle: multiple policies, token revoking, ACL roles, service identities |
+| 8d  | Perform a CLI request using a token                                                      |
+| 8e  | Perform an API request using a token                                                     |
+
+| 9   | Use gossip encryption                                    |
+| --- | -------------------------------------------------------- |
+| 9a  | Understanding the Consul security/threat model           |
+| 9b  | Configure gossip encryption for the existing data center |
+| 9c  | Manage the lifecycle of encryption keys                  |
+
+## Requirements for Attending an Exam
+
+Visit the [Exam-taker Handbook](https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360048211571) to learn about the requirements and policies for taking exams.
+
+## Renewing Your Certification
+
+To renew your Consul Associate certification, you will need to take and pass the Consul Associate exam.
+
+**If you hold an *unexpired* Consul Associate certification:** You can take the exam again starting 18 months after your previous exam date. When you pass the exam, the expiration date on your credentials will be extended.
+
+**If you hold an *expired* Consul Associate certification:** You are eligible to recertify at any time. When you pass the exam again, you will receive a new, separate set of credentials with a new expiration date.

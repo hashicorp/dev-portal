@@ -11,14 +11,10 @@
 	"exams": [
 		{
 			"title": "Consul Associate",
-			"examCode": "002",
+			"examCode": "003",
 			"productSlug": "consul",
-			"versionTested": "Consul 1.8 or higher",
-			"description": "The Consul Associate Certification is for Site Reliability Engineers, Solutions Architects, DevOps professionals, or other Cloud Engineers who know the basic concepts and skills to build, secure, and maintain HashiCorp Consul Community. This includes understanding what enterprise features exist and what can and cannot be done using the community offering. You will be best prepared for this exam if you have professional experience using Consul in production, but performing the exam objectives in a personal demo environment may be sufficient.",
-			"links": {
-				"prepare": "/consul/tutorials/certification",
-				"register": "https://cp.certmetrics.com/hashicorp/en/login"
-			},
+			"versionTested": "Consul WHATTTT or higher",
+			"description": "The Terraform Associate 003 is an upcoming certification for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with HashiCorp Terraform. This person understands the difference in functionality between Terraform Cloud, Terraform Enterprise, and open source Terraform.\n\nThe draft Terraform Associate 003 exam’s objectives are listed below, and dedicated study materials are coming soon. The objective differences between the (existing 002 exam and the upcoming 003 exam) versions are a reorganization and rewording of objectives to comfortably cover recent and future Terraform product growth.",
 			"faqSlug": "consul-associate-002"
 		}
 		{
