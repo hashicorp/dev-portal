@@ -27,9 +27,11 @@ const Markdown = lazy(() => import('./Markdown'))
 
 const UserMessage = ({ text, image }: { text: string; image?: string }) => {
 	return (
-		<div className={classNames(s.message, s.messageUser)}>
+		// We want aria-live here so that when results are loaded, the user with a screen reader will hear "your question" + their query repeated back to them.
+		<div className={classNames(s.message, s.messageUser)} aria-live="polite">
 			<div className={classNames(s.avatar)}>
-				{image ? <img src={image} alt="user avatar" /> : null}
+				{/* This avatar is presentation only */}
+				{image ? <img src={image} alt="Your question:" /> : null}
 			</div>
 			<Text /* Body/200/Medium */
 				size={200}
@@ -142,7 +144,7 @@ const AssistantMessage = ({
 									<IconClipboard24 height={12} width={12} />
 								)
 							}
-							aria-label="Copy to clipboard"
+							aria-label="Copy results to clipboard"
 							text={isCopied ? 'Copied' : 'Copy'}
 							onClick={handleCopy}
 						/>
@@ -249,6 +251,7 @@ export const MessageList = ({ messages }: { messages: MessageType[] }) => {
 								conversationId={message.conversationId}
 								messageId={message.messageId}
 								showActions={shouldShowActions}
+								aria-live="polite"
 							/>
 						)
 					}
