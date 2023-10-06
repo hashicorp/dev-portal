@@ -1,0 +1,12 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.backButton {
+	.buttonIcon {
+		& svg {
+			color: var(--token-color-foreground-action) !important;
+		}
+	}
+}

@@ -9,15 +9,17 @@ import ChatBox from 'components/chatbox/chatbox'
 import { useCommandBar } from 'components/command-bar'
 import Button from 'components/button'
 
+import s from './chat.module.css'
+
 // A button with an icon and text w/ "back" functionality
 const BackButton = () => {
 	const { setCurrentCommand } = useCommandBar()
 	return (
 		<Button
-			// className={s.backButton}
+			className={s.backButton}
 			color="tertiary"
 			size="large"
-			icon={<IconArrowLeft24 />}
+			icon={<IconArrowLeft24 className="buttonIcon" />}
 			iconPosition="leading"
 			text="Return to Search"
 			type="button"
@@ -25,13 +27,6 @@ const BackButton = () => {
 				setCurrentCommand('search')
 			}}
 		/>
-		// 	<span className={s.leadingIcon}>
-		// 		<IconArrowLeft24 />
-		// 	</span>
-		// 	<Text asElement="span" className={s.text} size={300} weight="regular">
-		// 		Return to search
-		// 	</Text>
-		// </button>
 	)
 }
 const chatCommand: CommandBarCommand = {
