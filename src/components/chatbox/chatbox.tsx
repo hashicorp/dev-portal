@@ -383,7 +383,7 @@ const ChatBox = () => {
 							disabled={isLoading}
 						/>
 						<div id="user-instructions" className={s.userInstructions}>
-							The question can be 120 characters long.
+							The question can be 200 characters long.
 						</div>
 						<div className={s.buttonContainer}>
 							{isLoading ? (
