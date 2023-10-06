@@ -19,7 +19,7 @@ const BackButton = () => {
 			className={s.backButton}
 			color="tertiary"
 			size="large"
-			icon={<IconArrowLeft24 className="buttonIcon" />}
+			icon={<IconArrowLeft24 style={{ color: 'currentColor' }} />}
 			iconPosition="leading"
 			text="Return to Search"
 			type="button"
