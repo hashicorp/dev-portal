@@ -4,7 +4,7 @@
  */
 
 import { GetStaticPropsContext, GetStaticPathsResult } from 'next'
-import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { fetchAllProductIntegrations } from 'lib/integrations-api-client/integration'
 import ProductIntegrationReadmeView from 'views/product-integration/readme-view'
 import {
@@ -67,7 +67,7 @@ function WaypointIntegrationReadmeView(props) {
 							opensInNewTab
 							text="Read the blog"
 							color="secondary"
-							icon={<IconArrowRight16 />}
+							icon={<IconExternalLink16 />}
 							iconPosition="trailing"
 						/>
 					}

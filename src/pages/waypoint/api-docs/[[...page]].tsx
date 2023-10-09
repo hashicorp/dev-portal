@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 // Shared
 import { isDeployPreview } from 'lib/env-checks'
 // View
@@ -169,7 +169,7 @@ function WaypointApiDocsPage(props) {
 							opensInNewTab
 							text="Read the blog"
 							color="secondary"
-							icon={<IconArrowRight16 />}
+							icon={<IconExternalLink16 />}
 							iconPosition="trailing"
 						/>
 					}
