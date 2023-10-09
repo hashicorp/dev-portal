@@ -17,9 +17,10 @@ import StandaloneLink from 'components/standalone-link'
 import { ProductSlug } from 'types/products'
 import s from './integration-readme.module.css'
 
-const PRODUCT_SLUG = __config.dev_dot.product_slugs_with_integrations.find(
-	(slug: ProductSlug) => slug === 'waypoint'
-) as ProductSlug
+export const PRODUCT_SLUG =
+	__config.dev_dot.product_slugs_with_integrations.find(
+		(slug: ProductSlug) => slug === 'waypoint'
+	) as ProductSlug
 
 /**
  * Build an array of { productSlug, integrationSlug }

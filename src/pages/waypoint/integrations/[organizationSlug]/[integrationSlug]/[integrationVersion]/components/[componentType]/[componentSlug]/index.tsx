@@ -16,12 +16,13 @@ import { fetchIntegrationRelease } from 'lib/integrations-api-client/release'
 import { ReleaseComponent } from 'lib/integrations-api-client/release'
 import InlineAlert from 'components/inline-alert'
 import StandaloneLink from 'components/standalone-link'
+import { PRODUCT_SLUG } from '../../../..'
 
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
 
 	// Fetch integrations for all products
-	const allIntegrations = await fetchAllProductIntegrations('waypoint')
+	const allIntegrations = await fetchAllProductIntegrations(PRODUCT_SLUG)
 
 	// Build a flat array of path parameters for each component view
 	// We statically render every component view for every integration,
@@ -76,7 +77,7 @@ async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 const getStaticProps = ({
 	params,
 }: GetStaticPropsContext<Omit<PathParams, 'productSlug'>>) => {
-	return _getStaticProps({ params: { productSlug: 'waypoint', ...params } })
+	return _getStaticProps({ params: { productSlug: PRODUCT_SLUG, ...params } })
 }
 
 function WaypointIntegrationComponentView(props) {
