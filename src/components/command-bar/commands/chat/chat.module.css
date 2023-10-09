@@ -1,0 +1,16 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.backButton {
+	& svg {
+		/* 
+			This overrides the default svg color set in
+			command-bar-dialog.module.css, which allows the button's svg 
+			element to correctly inherit the currentColor.
+			TODO: refactor command icons to always rely on currentColor
+		*/
+		color: unset;
+	}
+}

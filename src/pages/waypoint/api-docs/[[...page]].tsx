@@ -13,10 +13,8 @@ import {
 	ApiDocsParams,
 } from 'views/api-docs-view/server'
 // Components
-import type {
-	ApiDocsVersionData,
-	ApiDocsViewProps,
-} from 'views/api-docs-view/types'
+import type { ApiDocsVersionData } from 'lib/api-docs/types'
+import type { ApiDocsViewProps } from 'views/api-docs-view/types'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { buildApiDocsBreadcrumbs } from 'views/api-docs-view/server/get-api-docs-static-props/utils'
 import {
@@ -57,7 +55,7 @@ const MAY_HAVE_CIRCULAR_REFERENCES = true
  * version data from elsewhere, as we do for `/hcp/api-docs/packer`.
  */
 function getVersionData(): ApiDocsVersionData[] {
-	const targetFile = isDeployPreview(PRODUCT_SLUG)
+	const sourceFile = isDeployPreview(PRODUCT_SLUG)
 		? TARGET_LOCAL_FILE
 		: {
 				owner: 'hashicorp',
@@ -75,7 +73,7 @@ function getVersionData(): ApiDocsVersionData[] {
 			 * That might better align with versioned API docs for Waypoint.
 			 */
 			versionId: 'latest',
-			targetFile,
+			sourceFile,
 		},
 	]
 }

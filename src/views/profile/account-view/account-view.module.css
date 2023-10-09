@@ -38,6 +38,4 @@
 
 .copySnippetWrapper {
 	width: max-content;
-	border-radius: 5px;
-	border: 1px solid var(--token-color-border-strong);
 }

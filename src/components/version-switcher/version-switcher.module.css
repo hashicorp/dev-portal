@@ -28,7 +28,8 @@ https://app.asana.com/0/1202097197789424/1204412156894162/f
 
 	/* Make dropdown list fill container */
 	& > div {
-		width: 100%;
+		min-width: 100%;
+		width: max-content;
 	}
 
 	/* Make dropdown list fill container */

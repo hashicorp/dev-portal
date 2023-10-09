@@ -4,7 +4,7 @@
  */
 
 import { OperationProps, OperationGroup } from '../types'
-import { truncateHcpOperationPath } from '../utils'
+import { addWordBreaksToUrl } from './add-word-breaks-to-url'
 
 /**
  * Given a flat array of operation prop objects,
@@ -50,20 +50,34 @@ import { truncateHcpOperationPath } from '../utils'
  * }
  */
 export function groupOperations(
-	operationObjects: OperationProps[]
+	operationObjects: OperationProps[],
+	groupOperationsByPath: boolean
 ): OperationGroup[] {
+	// Group operations, either by tags where specified, or automatically by paths
+	// or by their paths otherwise.
 	const operationGroupsMap = operationObjects.reduce(
 		(
 			acc: Record<string, { heading: string; items: OperationProps[] }>,
 			o: OperationProps
 		) => {
-			// Truncate the common HCP-related prefix from the path, if applicable
-			const truncatedPath = truncateHcpOperationPath(o._placeholder.__path)
-			// Grab the first two path segments, to use as a group slug
-			const groupSlug = truncatedPath.split('/').slice(0, 3).join('/')
+			/**
+			 * Determine the grouping slug for this operation.
+			 *
+			 * If path-based grouping has been specified, we ignore tags and group
+			 * based on the operation URL paths (truncated to remove common parts).
+			 *
+			 * If tag-based grouping is used, note that we may need to fall back
+			 * to an "Other" tag for potentially untagged operations.
+			 */
+			let groupSlug: string
+			if (groupOperationsByPath) {
+				groupSlug = o.path.truncated.split('/').slice(0, 3).join('/')
+			} else {
+				groupSlug = (o.tags.length && o.tags[0]) ?? 'Other'
+			}
 			if (!acc[groupSlug]) {
 				acc[groupSlug] = {
-					heading: groupSlug,
+					heading: addWordBreaksToUrl(groupSlug),
 					items: [],
 				}
 			}

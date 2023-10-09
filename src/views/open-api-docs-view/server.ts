@@ -12,11 +12,12 @@ import { getBreadcrumbLinks } from 'lib/get-breadcrumb-links'
 import { serialize } from 'next-mdx-remote/serialize'
 // Utilities
 import {
-	findLatestStableVersion,
+	findDefaultVersion,
 	getNavItems,
 	getOperationProps,
 	groupOperations,
 	parseAndValidateOpenApiSchema,
+	getVersionSwitcherProps,
 } from './utils'
 // Types
 import type {
@@ -25,13 +26,11 @@ import type {
 	GetStaticPropsResult,
 } from 'next'
 import type { OpenAPIV3 } from 'openapi-types'
-import type { ProductSlug } from 'types/products'
+import type { ApiDocsVersionData } from 'lib/api-docs/types'
 import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
-	OpenApiDocsVersionData,
-	StatusIndicatorConfig,
-	OpenApiNavItem,
+	OpenApiDocsPageConfig,
 } from './types'
 
 /**
@@ -49,10 +48,11 @@ export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
 	if (isDeployPreview()) {
 		return { paths: [], fallback: 'blocking' }
 	}
-	// If we're in production, statically render the single view.
+	// If we're in production, statically render the single view,
+	// and use `fallback: blocking` for versioned views.
 	return {
 		paths: [{ params: { page: [] } }],
-		fallback: false,
+		fallback: 'blocking',
 	}
 }
 
@@ -67,23 +67,17 @@ export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
 export async function getStaticProps({
 	context,
 	productSlug,
+	serviceProductSlug = productSlug,
 	versionData,
 	basePath,
-	statusIndicatorConfig,
+	statusIndicatorConfig = null, // must be JSON-serializable
 	topOfPageId = 'overview',
+	groupOperationsByPath = false,
 	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
 	navResourceItems = [],
-}: {
+}: Omit<OpenApiDocsPageConfig, 'githubSourceDirectory'> & {
 	context: GetStaticPropsContext<OpenApiDocsParams>
-	productSlug: ProductSlug
-	versionData: OpenApiDocsVersionData[]
-	basePath: string
-	statusIndicatorConfig?: StatusIndicatorConfig
-	topOfPageId?: string
-	massageSchemaForClient?: (
-		schemaData: OpenAPIV3.Document
-	) => OpenAPIV3.Document
-	navResourceItems: OpenApiNavItem[]
+	versionData: ApiDocsVersionData[]
 }): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
 	// Get the product data
 	const productData = cachedGetProductData(productSlug)
@@ -92,15 +86,15 @@ export async function getStaticProps({
 	 * Parse the version to render, or 404 if a non-existent version is requested.
 	 */
 	const pathParts = context.params?.page
-	const versionId = pathParts?.length > 1 ? pathParts[0] : null
+	const versionId = pathParts?.length > 0 ? pathParts[0] : null
 	const isVersionedUrl = typeof versionId === 'string'
-	const latestStableVersion = findLatestStableVersion(versionData)
+	const defaultVersion = findDefaultVersion(versionData)
 	// Resolve the current version
-	let targetVersion: OpenApiDocsVersionData | undefined
+	let targetVersion: ApiDocsVersionData | undefined
 	if (isVersionedUrl) {
 		targetVersion = versionData.find((v) => v.versionId === versionId)
 	} else {
-		targetVersion = latestStableVersion
+		targetVersion = defaultVersion
 	}
 	// If we can't resolve the current version, render a 404 page
 	if (!targetVersion) {
@@ -118,7 +112,7 @@ export async function getStaticProps({
 	const rawSchemaData = await parseAndValidateOpenApiSchema(schemaFileString)
 	const schemaData = massageSchemaForClient(rawSchemaData)
 	const operationProps = await getOperationProps(schemaData)
-	const operationGroups = groupOperations(operationProps)
+	const operationGroups = groupOperations(operationProps, groupOperationsByPath)
 	const navItems = getNavItems({
 		operationGroups,
 		topOfPageId,
@@ -145,19 +139,25 @@ export async function getStaticProps({
 	 */
 	return {
 		props: {
+			metadata: {
+				title: schemaData.info.title,
+			},
 			productData,
+			serviceProductSlug,
 			topOfPageHeading: {
 				text: schemaData.info.title,
 				id: topOfPageId,
 			},
 			releaseStage: targetVersion.releaseStage,
 			descriptionMdx,
-			IS_REVISED_TEMPLATE: true,
-			_placeholder: {
-				productSlug,
+			isVersionedUrl,
+			versionSwitcherProps: getVersionSwitcherProps({
+				projectName: schemaData.info.title,
+				versionData,
 				targetVersion,
-				schemaData,
-			},
+				defaultVersion,
+				basePath,
+			}),
 			operationGroups: stripUndefinedProperties(operationGroups),
 			navItems,
 			navResourceItems,
