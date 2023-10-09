@@ -27,10 +27,15 @@ const Markdown = lazy(() => import('./Markdown'))
 
 const UserMessage = ({ text, image }: { text: string; image?: string }) => {
 	return (
-		// We want aria-live here so that when results are loaded, the user with a screen reader will hear "your question" + their query repeated back to them.
+		// We want aria-live here so that when results are loaded, the user
+		// with a screen reader will hear "your question" + their query
+		// repeated back to them.
 		<div className={classNames(s.message, s.messageUser)} aria-live="polite">
 			<div className={classNames(s.avatar)}>
-				{/* This avatar is presentation only */}
+				{/*
+					This avatar is presentation only, but the alt text here
+					results in a better screen reader experience.
+				*/}
 				{image ? <img src={image} alt="Your question:" /> : null}
 			</div>
 			<Text /* Body/200/Medium */

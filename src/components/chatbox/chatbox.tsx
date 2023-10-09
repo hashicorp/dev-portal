@@ -382,9 +382,9 @@ const ChatBox = () => {
 							placeholder="Ask a question"
 							disabled={isLoading}
 						/>
-						<div id="user-instructions" className={s.userInstructions}>
+						<span id="user-instructions" className="g-screen-reader-only">
 							The question can be 200 characters long.
-						</div>
+						</span>
 						<div className={s.buttonContainer}>
 							{isLoading ? (
 								<Button
