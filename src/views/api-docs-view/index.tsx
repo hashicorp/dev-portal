@@ -24,6 +24,7 @@ import s from './api-docs-view.module.css'
  * Otherwise, a prompt to select an operation from the sidebar is shown.
  */
 function ApiDocsView({
+	alertSlot,
 	pageHeading,
 	layoutProps,
 	serviceData,
@@ -55,6 +56,7 @@ function ApiDocsView({
 			alertBannerSlot={<ApiDocsVersionAlert {...versionAlert} />}
 		>
 			<NoIndexTagIfVersioned isVersioned={isVersionedUrl} />
+			{alertSlot ? alertSlot : null}
 			<DocsPageHeading
 				headingSlot={
 					<HeadingWithBadge

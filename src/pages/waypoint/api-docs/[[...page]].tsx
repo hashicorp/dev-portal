@@ -21,6 +21,8 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
+import InlineAlert from 'components/inline-alert'
+import s from './api-docs.module.css'
 
 /**
  * The product slug is used to fetch product data for the layout.
@@ -149,4 +151,28 @@ export const getStaticProps: GetStaticProps<
 	})
 }
 
-export default ApiDocsView
+function WaypointApiDocsPage(props) {
+	return (
+		<ApiDocsView
+			{...props}
+			alertSlot={
+				<InlineAlert
+					title="Archive Notice"
+					description="These API docs are from of a legacy version of Waypoint and are no longer actively maintained."
+					color="highlight"
+					className={s.alert}
+					ctaSlot={
+						<a
+							href="https://www.hashicorp.com/blog/a-new-vision-for-hcp-waypoint"
+							target="_blank"
+						>
+							For more information, read this blog post
+						</a>
+					}
+				/>
+			}
+		/>
+	)
+}
+
+export default WaypointApiDocsPage
