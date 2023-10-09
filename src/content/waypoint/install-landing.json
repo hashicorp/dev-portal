@@ -13,7 +13,7 @@
 	],
 	"sidecarMarketingCard": {
 		"title": "About HCP Waypoint",
-		"subtitle": "Use HCP Waypoint to create reusable infrastructure configurations that enable developers to create their applications from Waypoint templates and enhance them with additional functionality with Waypoint add-ons.",
+		"subtitle": "Use HCP Waypoint to create reusable infrastructure configurations that let developers create their applications from Waypoint templates, and add infrastructure to them with Waypoint add-ons.",
 		"featuredDocsLinks": [
 			{
 				"href": "/hcp/docs/waypoint/concepts/application-templates",

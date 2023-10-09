@@ -1,6 +1,6 @@
 {
 	"hero": {
-		"heading": "Easy Application Deployment for Kubernetes and Amazon ECS",
+		"heading": "Internal developer platform made easy",
 		"image": "https://www.datocms-assets.com/2885/1662767806-dev-dot-waypoint-landing-hero-2x.png"
 	},
 	"overview": {
@@ -54,7 +54,7 @@
 		},
 		{
 			"type": "heading",
-			"heading": "Templates",
+			"heading": "Platform Team",
 			"level": 2,
 			"size": 400
 		},
@@ -67,15 +67,15 @@
 					"url": "/hcp/docs/waypoint/template-create"
 				},
 				{
-					"heading": "Using templates",
-					"body": "Learn how to create projects from templates.",
-					"url": "/hcp/docs/waypoint/template-use"
+					"heading": "Managing add-ons",
+					"body": "Learn how to create and manage add-ons in HCP Waypoint.",
+					"url": "/hcp/docs/waypoint/addon-definition-create"
 				}
 			]
 		},
 		{
 			"type": "heading",
-			"heading": "Add-ons",
+			"heading": "Application Developers",
 			"level": 2,
 			"size": 400
 		},
@@ -83,9 +83,9 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Managing add-ons",
-					"body": "Learn how to create and manage add-ons in HCP Waypoint.",
-					"url": "/hcp/docs/waypoint/addon-definition-create"
+					"heading": "Using templates",
+					"body": "Learn how to create projects from templates.",
+					"url": "/hcp/docs/waypoint/template-use"
 				},
 				{
 					"heading": "Using add-ons",

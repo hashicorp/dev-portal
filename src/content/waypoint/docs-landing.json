@@ -7,17 +7,17 @@
 			"cards": [
 				{
 					"title": "What is HCP Waypoint?",
-					"description": "HCP Waypoint lets platform teams define golden patterns and workflows for developers to manage applications at scale.",
+					"description": "HCP Waypoint lets platform teams define patterns to let developers deploy application infrastructure.",
 					"url": "/hcp/docs/waypoint"
 				},
 				{
 					"title": "Templates",
-					"description": "Templates allows platform engineers to pre-define infrastructure in a configuration for developers to use to create projects.",
+					"description": "Templates define the infrastructure and configurations that developers need to create new projects.",
 					"url": "/hcp/docs/waypoint/concepts/application-templates"
 				},
 				{
 					"title": "Add-ons",
-					"description": "Add-ons are pre-defined configurations that developers can use to add additional infrastructure to their Waypoint project.",
+					"description": "Add-ons define infrastructure that developers can add to existing projects.",
 					"url": "/hcp/docs/waypoint/concepts/add-ons"
 				}
 			]
@@ -56,7 +56,7 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Configuration",
+			"title": "Administration",
 			"cards": [
 				{
 					"title": "Role-based access control",
