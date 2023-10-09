@@ -4,6 +4,7 @@
  */
 
 import { GetStaticPropsContext, GetStaticPathsResult } from 'next'
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import ProductIntegrationComponentView from 'views/product-integration/component-view'
 import {
 	getStaticProps as _getStaticProps,
@@ -14,6 +15,7 @@ import { getLatestIntegrationVersion } from 'lib/integrations'
 import { fetchIntegrationRelease } from 'lib/integrations-api-client/release'
 import { ReleaseComponent } from 'lib/integrations-api-client/release'
 import InlineAlert from 'components/inline-alert'
+import StandaloneLink from 'components/standalone-link'
 
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
@@ -87,12 +89,14 @@ function WaypointIntegrationComponentView(props) {
 					description="This integration relates to a legacy version of Waypoint and is no longer actively maintained."
 					color="highlight"
 					ctaSlot={
-						<a
+						<StandaloneLink
 							href="https://www.hashicorp.com/blog/a-new-vision-for-hcp-waypoint"
-							target="_blank"
-						>
-							For more information, read this blog post
-						</a>
+							opensInNewTab
+							text="Read the blog"
+							color="secondary"
+							icon={<IconArrowRight16 />}
+							iconPosition="trailing"
+						/>
 					}
 				/>
 			}

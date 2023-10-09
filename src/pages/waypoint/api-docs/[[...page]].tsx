@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 // Shared
 import { isDeployPreview } from 'lib/env-checks'
 // View
@@ -13,6 +14,7 @@ import {
 	ApiDocsParams,
 } from 'views/api-docs-view/server'
 // Components
+import StandaloneLink from 'components/standalone-link'
 import type { ApiDocsVersionData } from 'lib/api-docs/types'
 import type { ApiDocsViewProps } from 'views/api-docs-view/types'
 import type { GetStaticPaths, GetStaticProps } from 'next'
@@ -162,12 +164,14 @@ function WaypointApiDocsPage(props) {
 					color="highlight"
 					className={s.alert}
 					ctaSlot={
-						<a
+						<StandaloneLink
 							href="https://www.hashicorp.com/blog/a-new-vision-for-hcp-waypoint"
-							target="_blank"
-						>
-							For more information, read this blog post
-						</a>
+							opensInNewTab
+							text="Read the blog"
+							color="secondary"
+							icon={<IconArrowRight16 />}
+							iconPosition="trailing"
+						/>
 					}
 				/>
 			}

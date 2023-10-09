@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import StandaloneLink from 'components/standalone-link'
 import InlineAlert from 'components/inline-alert'
 import waypointData from 'data/waypoint.json'
 import { ProductData } from 'types/products'
@@ -19,12 +21,14 @@ const WaypointDownloadsPage = (props) => {
 					description="This download is part of the legacy version of Waypoint that is no longer actively maintained."
 					color="highlight"
 					ctaSlot={
-						<a
+						<StandaloneLink
 							href="https://www.hashicorp.com/blog/a-new-vision-for-hcp-waypoint"
-							target="_blank"
-						>
-							For more information, read this blog post
-						</a>
+							opensInNewTab
+							text="Read the blog"
+							color="secondary"
+							icon={<IconArrowRight16 />}
+							iconPosition="trailing"
+						/>
 					}
 				/>
 			}

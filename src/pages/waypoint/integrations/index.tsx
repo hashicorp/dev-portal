@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import ProductIntegrationsLanding from 'views/product-integrations-landing'
 import { getStaticProps as _getStaticProps } from 'views/product-integrations-landing/server'
 import InlineAlert from 'components/inline-alert'
+import StandaloneLink from 'components/standalone-link'
 import { HeadMetadataProps } from 'components/head-metadata/types'
 import { ViewProps as IntegrationsLandingViewProps } from 'views/product-integrations-landing'
 import s from './integrations.module.css'
@@ -23,12 +25,14 @@ function WaypointIntegrationsLanding(
 					color="highlight"
 					className={s.alert}
 					ctaSlot={
-						<a
+						<StandaloneLink
 							href="https://www.hashicorp.com/blog/a-new-vision-for-hcp-waypoint"
-							target="_blank"
-						>
-							For more information, read this blog post
-						</a>
+							opensInNewTab
+							text="Read the blog"
+							color="secondary"
+							icon={<IconArrowRight16 />}
+							iconPosition="trailing"
+						/>
 					}
 				/>
 			}
