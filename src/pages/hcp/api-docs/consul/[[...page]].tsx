@@ -41,7 +41,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		 * For now, we point to a specific commit SHA where the spec exists,
 		 * a commit from this PR: https://github.com/hashicorp/hcp-specs/pull/6
 		 */
-		ref: '0767e89aef156667df605ab52f18917039dfde65',
+		ref: 'main',
 	},
 	statusIndicatorConfig: {
 		pageUrl: 'https://status.hashicorp.com',
