@@ -45,20 +45,7 @@ const CommandBarDialogHeader = () => {
 				</div>
 			) : null}
 			<div className={s.inputWrapper}>
-				{currentCommand.name == 'chat' ? (
-					// This is a dummy element to display text
-					// TODO(kevinwang): make this less hacky
-					<div className={s.input}>
-						<label
-							className={s.label}
-							onClick={() => {
-								setCurrentCommand('search')
-							}}
-						>
-							Return to search
-						</label>
-					</div>
-				) : (
+				{currentCommand.name !== 'chat' && (
 					<input
 						aria-label={inputPlaceholder}
 						className={s.input}
