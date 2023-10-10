@@ -160,7 +160,7 @@ function WaypointApiDocsPage(props) {
 			alertSlot={
 				<InlineAlert
 					title="Archive Notice"
-					description="These API docs are from of a legacy version of Waypoint and are no longer actively maintained."
+					description="These API docs are from a legacy version of Waypoint and are no longer actively maintained."
 					color="highlight"
 					className={s.alert}
 					ctaSlot={

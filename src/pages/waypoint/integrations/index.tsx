@@ -21,7 +21,7 @@ function WaypointIntegrationsLanding(
 			alertSlot={
 				<InlineAlert
 					title="Archive Notice"
-					description="These integrations are from of a legacy version of Waypoint and are no longer actively maintained."
+					description="These integrations are from a legacy version of Waypoint and are no longer actively maintained."
 					color="highlight"
 					className={s.alert}
 					ctaSlot={
