@@ -31,16 +31,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	githubSourceDirectory: {
 		owner: 'hashicorp',
 		repo: 'hcp-specs',
-		/**
-		 * TODO(@zchsh): confirm this is the path, Tu mentioned it might change:
-		 * https://hashicorp.slack.com/archives/C059X7QKWAV/p1695671344421569?thread_ts=1695670284.652479&cid=C059X7QKWAV
-		 */
 		path: 'specs/cloud-global-network-manager-service',
-		/**
-		 * TODO(@zchsh): ensure spec exists on `main`, then update to `ref: 'main'`
-		 * For now, we point to a specific commit SHA where the spec exists,
-		 * a commit from this PR: https://github.com/hashicorp/hcp-specs/pull/6
-		 */
 		ref: 'main',
 	},
 	statusIndicatorConfig: {
