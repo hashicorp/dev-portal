@@ -57,8 +57,8 @@
 			"name": "HCP Waypoint",
 			"items": [
 				{
-					"name": "Runners",
-					"collectionSlug": "waypoint/runners",
+					"name": "Quickstart",
+					"collectionSlug": "waypoint/hcp-waypoint",
 					"isBeta": true
 				}
 			]
