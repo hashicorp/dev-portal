@@ -13,8 +13,7 @@
 			"items": [
 				{
 					"name": "Quickstart",
-					"collectionSlug": "vault/hcp-vault-secrets-get-started",
-					"isBeta": true
+					"collectionSlug": "vault/hcp-vault-secrets-get-started"
 				}
 			]
 		},
