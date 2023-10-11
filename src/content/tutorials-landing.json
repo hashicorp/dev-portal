@@ -160,6 +160,23 @@
 				"vagrant/getting-started",
 				"vagrant/networking-provisioning-operations"
 			]
+		},
+		"waypoint": {
+			"featuredUseCases": [
+				{
+					"href": "/waypoint/tutorials/hcp-waypoint/get-started-hcp",
+					"text": "Activate Waypoint in your HCP project"
+				},
+				{
+					"href": "/waypoint/tutorials/hcp-waypoint/create-template",
+					"text": "Pre-approve project infrastructure for app teams"
+				},
+				{
+					"href": "/waypoint/tutorials/hcp-waypoint/use-template",
+					"text": "Start a new application project from a template"
+				}
+			],
+			"featuredCollectionSlugs": ["waypoint/hcp-waypoint"]
 		}
 	},
 	"crossProductSection": {
