@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { ReactNode } from 'react'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import DevDotContent from 'components/dev-dot-content'
 import { TryHcpCalloutSidecarPlacement } from 'components/try-hcp-callout/components'
@@ -27,6 +28,7 @@ export interface ProductIntegrationReadmeViewProps {
 	activeRelease: Release
 	serializedREADME: MDXRemoteSerializeResult
 	breadcrumbLinks: BreadcrumbLink[]
+	preContentSlot?: ReactNode
 }
 
 export default function ProductIntegrationReadmeView({
@@ -36,6 +38,7 @@ export default function ProductIntegrationReadmeView({
 	breadcrumbLinks,
 	serializedREADME,
 	anchorLinks,
+	preContentSlot,
 }: ProductIntegrationReadmeViewProps) {
 	// We expect user content here, so we need to handle `#user-content-` links
 	useUserContentAnchorLinks()
@@ -79,6 +82,7 @@ export default function ProductIntegrationReadmeView({
 				)
 			}
 		>
+			{preContentSlot ? preContentSlot : null}
 			<DevDotContent mdxRemoteProps={serializedREADME} />
 		</ProductIntegrationLayout>
 	)
