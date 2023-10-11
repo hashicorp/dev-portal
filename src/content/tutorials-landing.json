@@ -176,11 +176,7 @@
 					"text": "Start a new application project from a template"
 				}
 			],
-			"featuredCollectionSlugs": [
-				"boundary/hcp-getting-started",
-				"boundary/oss-getting-started",
-				"boundary/hcp-administration"
-			]
+			"featuredCollectionSlugs": ["waypoint/hcp-waypoint"]
 		}
 	},
 	"crossProductSection": {
