@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import type { ReactElement } from 'react'
+import type { ReactElement, ReactNode } from 'react'
 import type { ParsedUrlQuery } from 'querystring'
 import type { GithubFile } from 'lib/fetch-github-file'
 import type { BreadcrumbLink } from 'components/breadcrumb-bar'
@@ -48,6 +48,11 @@ export interface ApiDocsServiceData {
  * Props needed to render `ApiDocsView`.
  */
 export interface ApiDocsViewProps {
+	/**
+	 * A slot to render an alert banner or notification
+	 * */
+	alertSlot?: ReactNode
+
 	/**
 	 * Metadata is used to set the page title and description.
 	 * Note this is not used by the view itself, instead we have some magic
