@@ -165,15 +165,15 @@
 			"featuredUseCases": [
 				{
 					"href": "/waypoint/tutorials/get-started-hcp",
-					"text": "Deploy an application onto AWS services"
+					"text": "Activate Waypoint in your HCP project"
 				},
 				{
 					"href": "/waypoint/tutorials/create-template",
-					"text": "Deploy an Azure Container Instance application"
+					"text": "Pre-approve project infrastructure for app teams"
 				},
 				{
 					"href": "/waypoint/tutorials/use-template",
-					"text": "Deploy an application to Google Cloud Run"
+					"text": "Start a new application project from a template"
 				}
 			],
 			"featuredCollectionSlugs": [
