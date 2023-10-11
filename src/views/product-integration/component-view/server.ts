@@ -39,7 +39,7 @@ import { getProcessedVariablesMarkdown } from './helpers/get-processed-variables
  * We expect the same static param types to be returned from getStaticPaths,
  * and provided to getStaticProps context.
  */
-type PathParams = {
+export type PathParams = {
 	productSlug: ProductSlug
 	integrationSlug: string
 	integrationVersion: string
@@ -57,8 +57,10 @@ type PathParams = {
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
-	const enabledProductSlugs = __config.dev_dot
-		.product_slugs_with_integrations as ProductSlug[]
+	const enabledProductSlugs =
+		__config.dev_dot.product_slugs_with_integrations.filter(
+			(slug) => slug !== 'waypoint'
+		) as Omit<ProductSlug, 'waypoint'>[]
 	// Fetch integrations for all products
 	const allIntegrations = await fetchAllIntegrations(enabledProductSlugs)
 

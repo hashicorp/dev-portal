@@ -1,0 +1,11 @@
+.readmeView {
+	& > :first-child {
+		margin-top: 0;
+	}
+}
+
+.sidecarContents {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
