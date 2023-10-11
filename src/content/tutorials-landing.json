@@ -164,15 +164,15 @@
 		"waypoint": {
 			"featuredUseCases": [
 				{
-					"href": "/waypoint/tutorials/get-started-hcp",
+					"href": "/waypoint/tutorials/hcp-waypoint/get-started-hcp",
 					"text": "Activate Waypoint in your HCP project"
 				},
 				{
-					"href": "/waypoint/tutorials/create-template",
+					"href": "/waypoint/tutorials/hcp-waypoint/create-template",
 					"text": "Pre-approve project infrastructure for app teams"
 				},
 				{
-					"href": "/waypoint/tutorials/use-template",
+					"href": "/waypoint/tutorials/hcp-waypoint/use-template",
 					"text": "Start a new application project from a template"
 				}
 			],
