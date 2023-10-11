@@ -84,11 +84,6 @@
 					"heading": "Integrate Vault",
 					"body": "Configure the Nomad secrets engine in Vault and use Vault to obtain secrets for workloads.",
 					"url": "nomad/tutorials/integrate-vault"
-				},
-				{
-					"heading": "Integrate Waypoint",
-					"body": "Use Waypoint to build, deploy, and release your applications to Nomad.",
-					"url": "waypoint/tutorials/get-started-nomad"
 				}
 			]
 		},

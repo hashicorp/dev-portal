@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 // Shared
 import { isDeployPreview } from 'lib/env-checks'
 // View
@@ -13,6 +14,7 @@ import {
 	ApiDocsParams,
 } from 'views/api-docs-view/server'
 // Components
+import StandaloneLink from 'components/standalone-link'
 import type { ApiDocsVersionData } from 'lib/api-docs/types'
 import type { ApiDocsViewProps } from 'views/api-docs-view/types'
 import type { GetStaticPaths, GetStaticProps } from 'next'
@@ -21,6 +23,8 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
+import InlineAlert from 'components/inline-alert'
+import s from './api-docs.module.css'
 
 /**
  * The product slug is used to fetch product data for the layout.
@@ -149,4 +153,30 @@ export const getStaticProps: GetStaticProps<
 	})
 }
 
-export default ApiDocsView
+function WaypointApiDocsPage(props) {
+	return (
+		<ApiDocsView
+			{...props}
+			alertSlot={
+				<InlineAlert
+					title="Archive Notice"
+					description="These API docs are from a legacy version of Waypoint and are no longer actively maintained."
+					color="highlight"
+					className={s.alert}
+					ctaSlot={
+						<StandaloneLink
+							href="https://www.hashicorp.com/blog/a-new-vision-for-hcp-waypoint"
+							opensInNewTab
+							text="Read the blog"
+							color="secondary"
+							icon={<IconExternalLink16 />}
+							iconPosition="trailing"
+						/>
+					}
+				/>
+			}
+		/>
+	)
+}
+
+export default WaypointApiDocsPage
