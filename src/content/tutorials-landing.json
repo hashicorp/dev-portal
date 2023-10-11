@@ -160,6 +160,27 @@
 				"vagrant/getting-started",
 				"vagrant/networking-provisioning-operations"
 			]
+		},
+		"waypoint": {
+			"featuredUseCases": [
+				{
+					"href": "/waypoint/tutorials/get-started-hcp",
+					"text": "Deploy an application onto AWS services"
+				},
+				{
+					"href": "/waypoint/tutorials/create-template",
+					"text": "Deploy an Azure Container Instance application"
+				},
+				{
+					"href": "/waypoint/tutorials/use-template",
+					"text": "Deploy an application to Google Cloud Run"
+				}
+			],
+			"featuredCollectionSlugs": [
+				"boundary/hcp-getting-started",
+				"boundary/oss-getting-started",
+				"boundary/hcp-administration"
+			]
 		}
 	},
 	"crossProductSection": {
