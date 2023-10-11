@@ -25,16 +25,7 @@ const PAGE_SUBTITLE =
 const PRODUCT_SECTIONS_ORDER_BY_SLUG: Exclude<
 	ProductSlug,
 	'hcp' | 'sentinel'
->[] = [
-	'terraform',
-	'vault',
-	'consul',
-	'nomad',
-	'packer',
-	'boundary',
-	'vagrant',
-	'waypoint',
-]
+>[] = ['terraform', 'vault', 'consul', 'nomad', 'packer', 'boundary', 'vagrant']
 
 const PRODUCT_DESCRIPTIONS = {
 	terraform:
