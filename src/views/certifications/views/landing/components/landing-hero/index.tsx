@@ -30,7 +30,7 @@ function LandingHero({
 			}
 			endSlot={
 				<div className={s.heroImage}>
-					<Image alt="" src={svgHeroImage} width={447} height={515} />
+					<Image alt="" src={svgHeroImage} width={447} height={516} />
 				</div>
 			}
 		/>
