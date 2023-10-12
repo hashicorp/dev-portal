@@ -38,8 +38,8 @@ export async function getResponseData(
 		// Process the parameters etc. for each of the response types (contentType)
 		// for the current response code (responseCode)
 
-		for (const contentType in codeResponses.content) {
-			const definition = codeResponses.content[contentType]
+		for (const contentType in codeResponses["content"]) {
+			const definition = codeResponses["content"][contentType]
 
 			/**
 			 * Skip the current object if:
