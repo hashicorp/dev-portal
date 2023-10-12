@@ -25,65 +25,85 @@ export async function getResponseData(
 	const responseData: PropertyDetailsGroup[] = []
 	// Populate the responseData object using incoming responses
 	for (const responseCode of Object.keys(responses)) {
-		const value = responses[responseCode]
-		// If this value is a reference, skip it
-		if ('$ref' in value) {
-			continue
-		}
-		const contentTypeKeys = Object.keys(value.content)
-
-		// If we don't have any content type keys, skip this response
-		if (!contentTypeKeys.length) {
-			continue
-		}
-
-		// If we don't have a definition or schema, skip this response
-		const definition = value.content[contentTypeKeys[0]]
-		if (!definition || !definition.schema) {
-			continue
-		}
-
-		// If this schema is a reference, skip this response
-		if ('$ref' in definition.schema) {
-			continue
-		}
 		/**
-		 * Note: we expect response schemas to always be objects at their root.
-		 * We flatten the response properties to avoid showing a redundant object.
-		 */
-		if (definition.schema.properties) {
-			const responseSlug = `${slugPrefix}_${responseCode}`
-			const propertyDetails: PropertyDetailsProps[] = []
-			const requiredProperties = definition.schema.required || []
-			for (const propertyKey of Object.keys(definition.schema.properties)) {
-				const data = definition.schema.properties[propertyKey]
-				// If this schema is a reference, skip it
-				if ('$ref' in data) {
-					continue
-				}
-				const isRequired = requiredProperties.includes(propertyKey)
-				propertyDetails.push(
-					await getPropertyDetailPropsFromSchemaObject(
-						propertyKey,
-						data,
-						isRequired,
-						responseSlug
-					)
-				)
-			}
-			// Determine the heading text to show
-			const headingText =
-				responseCode === 'default'
-					? `Default Error Response`
-					: `${responseCode} -  ${getReasonPhrase(responseCode)}`
-			const headingTheme = responseCode.startsWith('2') ? 'success' : 'critical'
+		 * OAS files may have multiple response definitions for each response code.
+		 * For example, an API that accepts JSON and XML requests will have two
+		 * definitions for a 200 response: a valid JSON response and a valid XML
+		 * response.
+		 **/
 
-			responseData.push({
-				heading: { text: headingText, slug: responseSlug, theme: headingTheme },
-				propertyDetails,
-			})
-		}
-	}
-	//
+		// Grab all the response messages for the current response code
+		const codeResponses = responses[responseCode]
+
+		// Process the parameters etc. for each of the response types (contentType)
+		// for the current response code (responseCode)
+
+		for (const contentType in codeResponses.content) {
+			const definition = codeResponses.content[contentType]
+
+			/**
+			 * Skip the current object if:
+			 *   - The response object is not JSON (for now)
+			 *   - The response object definition is a reference
+			 *	 - The response object does not include a definition or schema
+			 *	 - The response schema is a reference
+			 **/
+			const skipEntry =
+				contentType !== 'application/json' ||
+				contentType.includes('$ref') ||
+				!definition ||
+				!definition.schema ||
+				'$ref' in definition.schema
+
+			if (skipEntry) {
+				continue
+			}
+
+			/**
+			 * Note: we expect response schemas to always be objects at their root.
+			 * We flatten the response properties to avoid showing a redundant object.
+			 */
+			if (definition.schema.properties) {
+				const responseSlug = `${slugPrefix}_${responseCode}`
+				const propertyDetails: PropertyDetailsProps[] = []
+				const requiredProperties = definition.schema.required || []
+
+				for (const propertyKey of Object.keys(definition.schema.properties)) {
+					const data = definition.schema.properties[propertyKey]
+					// If this schema is a reference, skip it
+					if ('$ref' in data) {
+						continue
+					}
+					const isRequired = requiredProperties.includes(propertyKey)
+					propertyDetails.push(
+						await getPropertyDetailPropsFromSchemaObject(
+							propertyKey,
+							data,
+							isRequired,
+							responseSlug
+						)
+					)
+				}
+
+				// Determine the heading text to show
+				const headingText =
+					responseCode === 'default'
+						? `Default Error Response`
+						: `${responseCode} -  ${getReasonPhrase(responseCode)}`
+				const headingTheme = responseCode.startsWith('2')
+					? 'success'
+					: 'critical'
+
+				responseData.push({
+					heading: {
+						text: headingText,
+						slug: responseSlug,
+						theme: headingTheme,
+					},
+					propertyDetails,
+				})
+			} // if: definition.schema.properties
+		} // for: contentType
+	} // for: responseCode
 	return responseData
 }
