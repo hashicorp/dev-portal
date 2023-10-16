@@ -1,12 +1,4 @@
 {
-	"featuredTutorialsSlugs": [
-		"waypoint/get-started-intro",
-		"waypoint/get-started-kubernetes/get-started-install",
-		"waypoint/get-started-nomad",
-		"waypoint/aws-ecs",
-		"waypoint/azure-container-instance",
-		"waypoint/google-cloud-run"
-	],
 	"sidebarMenuItems": [
 		{
 			"divider": true
@@ -15,33 +7,21 @@
 			"heading": "Getting Started"
 		},
 		{
-			"title": "Introduction to Waypoint",
-			"fullPath": "/waypoint/docs/intro"
-		},
-		{
-			"title": "Getting Started with Waypoint",
-			"fullPath": "/waypoint/docs/getting-started"
+			"title": "Getting Started with HCP Waypoint",
+			"fullPath": "/waypoint/tutorials/hcp-waypoint/get-started-hcp"
 		}
 	],
 	"sidecarMarketingCard": {
-		"title": "About Waypoint",
-		"subtitle": "Deploy, manage, and observe your applications through a consistent abstraction of underlying infrastructure. Waypoint works with Kubernetes, ECS and many other platforms.",
+		"title": "About HCP Waypoint",
+		"subtitle": "Use HCP Waypoint to create reusable infrastructure configurations that let developers create their applications from Waypoint templates, and add infrastructure to them with Waypoint add-ons.",
 		"featuredDocsLinks": [
 			{
-				"href": "/waypoint/docs/projects",
-				"text": "Projects"
+				"href": "/hcp/docs/waypoint/concepts/application-templates",
+				"text": "Templates"
 			},
 			{
-				"href": "/waypoint/docs/plugins",
-				"text": "Plugins"
-			},
-			{
-				"href": "/waypoint/docs/lifecycle/build",
-				"text": "Build"
-			},
-			{
-				"href": "/waypoint/docs/lifecycle/deploy",
-				"text": "Deploy"
+				"href": "/hcp/docs/waypoint/concepts/add-ons",
+				"text": "Add-ons"
 			}
 		]
 	},
