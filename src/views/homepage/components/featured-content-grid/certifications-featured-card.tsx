@@ -4,7 +4,7 @@
  */
 
 import Image from 'next/image'
-import certificationsGraphic from '../../img/certifications-graphic.svg'
+import certificationsGraphic from '../../img/certification-hero-image.svg'
 import FeaturedCard from './featured-card'
 import s from './certifications-featured-card.module.css'
 

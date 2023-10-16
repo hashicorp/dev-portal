@@ -8,7 +8,7 @@ import {
 	CertificationsHeroText,
 } from 'views/certifications/components'
 import Image from 'next/image'
-import svgHeroImage from './assets/certification-hero-image.svg'
+import svgHeroImage from './assets/cert-landing.svg'
 import s from './landing-hero.module.css'
 
 function LandingHero({
