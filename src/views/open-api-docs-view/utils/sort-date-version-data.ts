@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { OpenApiDocsVersionData } from '../types'
+import type { ApiDocsVersionData } from 'lib/api-docs/types'
 
 /**
  * Sort version data in descending order.
@@ -11,8 +11,8 @@ import { OpenApiDocsVersionData } from '../types'
  * Note: only works with `YYYY-MM-DD` version formats.
  */
 export function sortDateVersionData(
-	versionData: OpenApiDocsVersionData[]
-): OpenApiDocsVersionData[] {
+	versionData: ApiDocsVersionData[]
+): ApiDocsVersionData[] {
 	return versionData.sort((a, b) => {
 		// We expect consistent YYYY-MM-DD formatting, so string compare works fine
 		const aBeforeB = a.versionId > b.versionId

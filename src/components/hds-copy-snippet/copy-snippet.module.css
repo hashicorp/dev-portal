@@ -21,84 +21,84 @@
 	border-radius: 5px;
 	cursor: pointer;
 
-&::before {
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: -1;
-	border-radius: 5px;
-	content: '';
-}
+	&::before {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: -1;
+		border-radius: 5px;
+		content: '';
+	}
 
-&.mock-focus::before,
-&:focus::before {
-	box-shadow: var(--token-focus-ring-action-box-shadow);
-}
+	&.mock-focus::before,
+	&:focus::before {
+		box-shadow: var(--token-focus-ring-action-box-shadow);
+	}
 
-&:focus:not(:focus-visible)::before {
-	box-shadow: none;
-}
+	&:focus:not(:focus-visible)::before {
+		box-shadow: none;
+	}
 
-&:focus-visible::before {
-	box-shadow: var(--token-focus-ring-action-box-shadow);
-}
+	&:focus-visible::before {
+		box-shadow: var(--token-focus-ring-action-box-shadow);
+	}
 
-&.mock-focus.mock-active::before,
-&:focus:active::before {
-	box-shadow: none;
-}
+	&.mock-focus.mock-active::before,
+	&:focus:active::before {
+		box-shadow: none;
+	}
 }
 
 .hds-copy-snippet--color-primary {
 	color: var(--token-color-foreground-action);
 	background-color: var(--token-color-surface-interactive);
 
-&.mock-hover,
-&:hover {
-	color: var(--token-color-foreground-action-hover);
-	border-color: var(--token-color-border-strong);
-}
+	&.mock-hover,
+	&:hover {
+		color: var(--token-color-foreground-action-hover);
+		border-color: var(--token-color-border-strong);
+	}
 
-&.mock-active,
-&:active {
-	color: var(--token-color-foreground-action-active);
-	background-color: var(--token-color-surface-interactive-active);
-	border-color: var(--token-color-border-strong);
-}
+	&.mock-active,
+	&:active {
+		color: var(--token-color-foreground-action-active);
+		background-color: var(--token-color-surface-interactive-active);
+		border-color: var(--token-color-border-strong);
+	}
 }
 
 .hds-copy-snippet--color-secondary {
 	color: var(--token-color-foreground-primary);
 	background-color: var(--token-color-surface-interactive);
 
-&.mock-hover,
-&:hover {
-	border-color: var(--token-color-border-strong);
-}
+	&.mock-hover,
+	&:hover {
+		border-color: var(--token-color-border-strong);
+	}
 
-&.mock-active,
-&:active {
-	background-color: var(--token-color-surface-interactive-active);
-	border-color: var(--token-color-border-strong);
-}
+	&.mock-active,
+	&:active {
+		background-color: var(--token-color-surface-interactive-active);
+		border-color: var(--token-color-border-strong);
+	}
 
-& .hds-copy-snippet__icon {
-	color: var(--token-color-foreground-action);
+	& .hds-copy-snippet__icon {
+		color: var(--token-color-foreground-action);
 
-&:hover {
-	color: var(--token-color-foreground-action-hover);
-}
+		&:hover {
+			color: var(--token-color-foreground-action-hover);
+		}
 
-&:active {
-	color: var(--token-color-foreground-action-active);
-}
+		&:active {
+			color: var(--token-color-foreground-action-active);
+		}
 
-&:focus {
-	color: var(--token-color-foreground-action);
-}
-}
+		&:focus {
+			color: var(--token-color-foreground-action);
+		}
+	}
 }
 
 .hds-copy-snippet--status-success .hds-copy-snippet__icon {
@@ -111,7 +111,6 @@
 
 .hds-copy-snippet__text {
 	flex: 1 0 0;
-	max-width: calc(100% - 24px);
 }
 
 .hds-copy-snippet__icon {
@@ -121,9 +120,9 @@
 .hds-copy-snippet--width-full {
 	justify-content: center;
 
-& .hds-copy-snippet__text {
-	flex: 0 0 auto;
-}
+	& .hds-copy-snippet__text {
+		flex: 0 0 auto;
+	}
 }
 
 .hds-copy-snippet__text--truncated {

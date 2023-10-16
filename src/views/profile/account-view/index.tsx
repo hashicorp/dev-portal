@@ -4,17 +4,18 @@
  */
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 
+import useAuthentication from 'hooks/use-authentication'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import AuthenticatedView from 'views/authenticated-view'
 import Text from 'components/text'
 import Heading from 'components/heading'
-
-import { ProfileSidebar } from '../sidebar'
-import s from './account-view.module.css'
-import useAuthentication from 'hooks/use-authentication'
 import CopySnippet from 'components/hds-copy-snippet'
 import Card from 'components/card'
 import StandaloneLink from 'components/standalone-link'
+import InlineLink from 'components/inline-link'
+
+import { ProfileSidebar } from '../sidebar'
+import s from './account-view.module.css'
 
 export default function ProfileAccountView() {
 	return (
@@ -47,9 +48,9 @@ const ProfileAccountViewContent = () => {
 			</Heading>
 			<Text className={s.subheading}>
 				A read-only view of your profile details from&nbsp;
-				<a href="https://portal.cloud.hashicorp.com/account-settings">
+				<InlineLink href="https://portal.cloud.hashicorp.com/account-settings">
 					HCP Account settings
-				</a>
+				</InlineLink>
 			</Text>
 
 			<Heading level={2} weight="bold" size={200} className={s.sectionTitle}>

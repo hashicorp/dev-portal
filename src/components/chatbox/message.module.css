@@ -1,0 +1,102 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.message {
+	display: flex;
+	flex-direction: row;
+	gap: 12px;
+	padding: 20px 16px;
+	background: var(--token-color-palette-neutral-0);
+}
+
+.user {
+	border-bottom: 1px solid var(--token-color-palette-neutral-300);
+}
+
+.avatar,
+.avatar img {
+	width: 40px;
+	height: 40px;
+	border-radius: 6px;
+}
+
+.content {
+	padding-top: 8px; /* simulate vertically centering the first line with avatar/icon */
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	max-width: 680px;
+}
+
+.userInput {
+	color: var(--token-color-foreground-primary);
+	white-space: pre-line; /* visually respect user-inputted line breaks */
+}
+
+.gutter {
+	min-width: 40px;
+}
+
+.assistant {
+	background: var(--token-color-surface-strong);
+}
+
+.purple {
+	--icon-color: var(--token-color-foreground-highlight-on-surface);
+}
+.strong {
+	--icon-color: var(--token-color-foreground-strong);
+}
+.critical {
+	--icon-color: var(--token-color-foreground-critical);
+
+	color: var(--token-color-foreground-critical);
+}
+
+.markdown {
+	color: var(--token-color-foreground-primary);
+	& pre {
+		overflow-x: auto;
+		white-space: pre-wrap;
+		word-wrap: break-word;
+	}
+
+	& p {
+		line-height: 1.6875;
+		margin: 16px 0;
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+}
+
+.assistantMessageFooter {
+	width: 100%;
+	padding: 24px 0 0;
+}
+
+.assistantMessageFooterHidden {
+	display: none;
+}
+
+.divider {
+	display: block;
+	width: 100%;
+	border-bottom: 1px solid var(--token-color-palette-neutral-300);
+	margin-bottom: 24px;
+}
+
+.actionButtons {
+	display: flex;
+	flex-direction: row;
+	gap: 16px;
+}
+
+.applicationMessage {
+	padding-top: 12px;
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+}

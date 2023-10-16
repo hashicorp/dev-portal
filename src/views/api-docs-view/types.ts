@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import type { ReactElement } from 'react'
+import type { ReactElement, ReactNode } from 'react'
 import type { ParsedUrlQuery } from 'querystring'
 import type { GithubFile } from 'lib/fetch-github-file'
 import type { BreadcrumbLink } from 'components/breadcrumb-bar'
@@ -45,21 +45,23 @@ export interface ApiDocsServiceData {
 }
 
 /**
- * A type to describe versioned API docs source files.
- */
-export interface ApiDocsVersionData {
-	// A unique id for this version, used to construct URL paths for example
-	versionId: string
-	// The release stage of this version of the API docs
-	releaseStage?: string // typically 'stable' | 'preview'
-	// The schema file we'll load and render into the page for this version
-	targetFile: GithubFile | string
-}
-
-/**
  * Props needed to render `ApiDocsView`.
  */
 export interface ApiDocsViewProps {
+	/**
+	 * A slot to render an alert banner or notification
+	 * */
+	alertSlot?: ReactNode
+
+	/**
+	 * Metadata is used to set the page title and description.
+	 * Note this is not used by the view itself, instead we have some magic
+	 * happening at the `_app.tsx` level, where we render `<HeadMetadata />`.
+	 */
+	metadata: {
+		title: string
+	}
+
 	/**
 	 * Layout props drive the breadcrumbs and sidebar in the
 	 * SidebarSidecarLayout we use to render API docs.

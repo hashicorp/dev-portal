@@ -50,7 +50,7 @@ const PRODUCT_DESCRIPTIONS = {
 	nomad:
 		'Deploy and manage containers and other applications on-premises and in the cloud at scale',
 	waypoint:
-		'Let teams without infrastructure knowledge ship applications using a PaaS-like interface',
+		'Build a developer platform with a PaaS-like interface for infrastructure self-service',
 	vagrant:
 		'Build, manage, and share virtual machine environments with a single workflow',
 }

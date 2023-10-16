@@ -124,13 +124,14 @@ const ProductDownloadsViewContent = ({
 					slug: currentProduct.slug,
 				}}
 			/>
+			{merchandisingSlot?.position === 'above' ? merchandisingSlot.slot : null}
 			<DownloadsSection
 				isEnterpriseMode={isEnterpriseMode}
 				packageManagers={packageManagers}
 				selectedRelease={releases.versions[currentVersion]}
 				versionSwitcherOptions={versionSwitcherOptions}
 			/>
-			{merchandisingSlot}
+			{merchandisingSlot?.position === 'below' ? merchandisingSlot.slot : null}
 			<OfficialReleasesSection />
 			<FeaturedLearnCardsSection
 				cards={featuredCollectionCards}

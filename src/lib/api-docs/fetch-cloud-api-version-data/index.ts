@@ -53,14 +53,33 @@ async function fetchCloudApiVersionData(
 		// Construct the version metadata needed to fetch static props
 		const versionId = versionIdFromPath(filePathFromRepoRoot)
 		const releaseStage = releaseStageFromPath(filePathFromRepoRoot)
-		const targetFile = {
+		const sourceFile = {
 			owner: githubDir.owner,
 			repo: githubDir.repo,
 			path: filePathFromRepoRoot,
 			ref: githubDir.ref,
 		}
-		return { versionId, releaseStage, targetFile }
+		return { versionId, releaseStage, sourceFile }
 	})
+
+	/**
+	 * If we can't find _any version data at all_, this is unexpected. It means
+	 * that while the target directory may exist in `hcp-specs` (since Octokit
+	 * itself didn't 404 during the call to `getJsonFilesFromGithubDir), the
+	 * `.json` OpenAPI files we need weren't found.
+	 *
+	 * If this is the case, we throw an error! We want to know when this route is
+	 * completely failing to fetch the expected OpenAPI spec data.
+	 *
+	 * Note that within `getOpenApiDocsStaticProps`, we handle the subtler case
+	 * of _specific version data_ not existing, and 404 rather than error.
+	 */
+	if (!versionData || versionData.length === 0) {
+		throw new Error(
+			`Unexpected error fetching HCP OpenAPI spec data from "${githubDir.path}" in the "${githubDir.owner}${githubDir.repo}" repo, at ref "${githubDir.ref}". The configured "githubDir" did not seem to return any OpenAPI "*.json" specs in the expected location or folder structure. Please ensure the "githubDir" points to the correct owner, repo, path, and ref. Under the target path, specs should be found in folders structured like "<releaseStage>/<versionId>/*.json".`
+		)
+	}
+
 	// Return the version data, sorted in descending order
 	return sortDateVersionData(versionData)
 }

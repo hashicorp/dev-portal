@@ -12,6 +12,7 @@ import type { ProductData, ProductSlug } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'
 import type { GithubDir } from 'lib/fetch-github-file-tree'
 import type { BreadcrumbLink } from 'components/breadcrumb-bar'
+import type { VersionSwitcherProps } from 'components/version-switcher'
 // Local
 import type { PropertyDetailsSectionProps } from './components/operation-details'
 
@@ -21,6 +22,7 @@ import type { PropertyDetailsSectionProps } from './components/operation-details
  */
 export interface OperationProps {
 	operationId: string
+	tags: string[]
 	slug: string
 	type: string
 	path: {
@@ -35,11 +37,6 @@ export interface OperationProps {
 	 * word breaks to allow long URLs to wrap to multiple lines.
 	 */
 	urlPathForCodeBlock: string
-	/**
-	 * Some temporary data to mess around with during prototyping.
-	 * TODO: remove this for the production implementation.
-	 */
-	_placeholder: $TSFixMe
 }
 
 /**
@@ -47,18 +44,6 @@ export interface OperationProps {
  * on the operation paths.
  */
 export type OperationGroup = { heading: string; items: OperationProps[] }
-
-/**
- * A type to describe versioned API docs source files.
- */
-export interface OpenApiDocsVersionData {
-	// A unique id for this version, used to construct URL paths for example
-	versionId: string
-	// The release stage of this version of the API docs
-	releaseStage?: string // typically 'stable' | 'preview'
-	// The schema file we'll load and render into the page for this version
-	sourceFile: GithubFile | string
-}
 
 /**
  * Params type for `getStaticPaths` and `getStaticProps`.
@@ -125,7 +110,15 @@ export interface StatusIndicatorConfig {
  * For now, we have a placeholder. We'll expand this as we build out the view.
  */
 export interface OpenApiDocsViewProps {
-	IS_REVISED_TEMPLATE: true
+	/**
+	 * Metadata is used to set the page title and description.
+	 * Note this is not used by the view itself, instead we have some magic
+	 * happening at the `_app.tsx` level, where we render `<HeadMetadata />`.
+	 */
+	metadata: {
+		title: string
+	}
+
 	productData: ProductData
 	topOfPageHeading: {
 		text: string
@@ -160,9 +153,24 @@ export interface OpenApiDocsViewProps {
 	statusIndicatorConfig: StatusIndicatorConfig
 
 	/**
-	 * Some temporary data we'll remove for the production implementation.
+	 * Product slug to use for the theming of the service itself.
+	 * For example, many product-themed services exist within the broader
+	 * HCP product context. In those cases, the API docs pages would have
+	 * `productData` for `hcp`, and a different `serviceProductSlug` here.
 	 */
-	_placeholder: $TSFixMe
+	serviceProductSlug: ProductSlug
+
+	/**
+	 * Boolean to indicate whether the URL being rendered is a versioned URL,
+	 * in which case we want to no-index the page.
+	 */
+	isVersionedUrl: boolean
+
+	/**
+	 * Optional version data. Use this for API docs with multiple versions, the
+	 * `label` and `options` here will be passed directly to `VersionSwitcher`.
+	 */
+	versionSwitcherProps?: VersionSwitcherProps
 }
 
 /**
@@ -173,6 +181,15 @@ export interface OpenApiDocsPageConfig {
 	 * The product slug is used to fetch product data for the layout.
 	 */
 	productSlug: ProductSlug
+
+	/**
+	 * Optional slug used to theme smaller elements within the service API docs.
+	 * For example, HCP consul will have a `productSlug` of `hcp`,
+	 * but a `serviceProductSlug` of `consul`. If omitted, the `productSlug`
+	 * will be used.
+	 */
+	serviceProductSlug?: ProductSlug
+
 	/**
 	 * The baseUrl is used to generate
 	 * breadcrumb links, sidebar nav levels, and version switcher links.
@@ -199,4 +216,16 @@ export interface OpenApiDocsPageConfig {
 	 * but before we translate the schema into page props.
 	 */
 	massageSchemaForClient?: (schema: OpenAPIV3.Document) => OpenAPIV3.Document
+	/**
+	 * The top-of-page heading optionally have an id other than "overview".
+	 * This heading ID is used to jump to the top of the page
+	 */
+	topOfPageId?: string
+	/**
+	 * Optionally group operations by their URL path. By default, operations are
+	 * grouped by their first `tag`, which is expected to correspond to a service.
+	 * In some cases, a spec may only have a single service, rendering this
+	 * tag-based grouping less useful.
+	 */
+	groupOperationsByPath?: boolean
 }
