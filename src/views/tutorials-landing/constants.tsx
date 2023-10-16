@@ -25,7 +25,16 @@ const PAGE_SUBTITLE =
 const PRODUCT_SECTIONS_ORDER_BY_SLUG: Exclude<
 	ProductSlug,
 	'hcp' | 'sentinel'
->[] = ['terraform', 'vault', 'consul', 'nomad', 'packer', 'boundary', 'vagrant']
+>[] = [
+	'terraform',
+	'vault',
+	'consul',
+	'nomad',
+	'packer',
+	'boundary',
+	'vagrant',
+	'waypoint',
+]
 
 const PRODUCT_DESCRIPTIONS = {
 	terraform:
@@ -41,7 +50,7 @@ const PRODUCT_DESCRIPTIONS = {
 	nomad:
 		'Deploy and manage containers and other applications on-premises and in the cloud at scale',
 	waypoint:
-		'Let teams without infrastructure knowledge ship applications using a PaaS-like interface',
+		'Build a developer platform with a PaaS-like interface for infrastructure self-service',
 	vagrant:
 		'Build, manage, and share virtual machine environments with a single workflow',
 }
