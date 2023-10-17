@@ -33,7 +33,7 @@ const chatCommand: CommandBarCommand = {
 	name: 'chat',
 	icon: <BackButton />,
 	inputProps: {
-		placeholder: () => 'Hide me',
+		placeholder: () => 'Return to search',
 	},
 	DialogBody: ChatBox,
 }
