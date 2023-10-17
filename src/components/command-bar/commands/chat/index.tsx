@@ -12,6 +12,7 @@ import Button from 'components/button'
 import ButtonLink from 'components/button-link'
 
 import s from './chat.module.css'
+import { AI_FEEDBACK_FORM } from 'constants/ai-feedback-form'
 
 // A button with an icon and text w/ "back" functionality
 const BackButton = () => {
@@ -40,7 +41,7 @@ const FeedbackButton = () => {
 			icon={<IconExternalLink16 />}
 			iconPosition="trailing"
 			text="Share Beta Feedback"
-			href="https://google.com" // TODO update to real form link
+			href={AI_FEEDBACK_FORM}
 			opensInNewTab
 		/>
 	)
