@@ -29,7 +29,7 @@ const rightColumn = [
 	},
 	{
 		icon: <IconBulb16 />,
-		heading: 'Knowledge base',
+		heading: 'Tap into the HashiCorp knowledge base',
 		text: 'FIX ME', // TODO(kevinwang): fix before launch
 	},
 ]
