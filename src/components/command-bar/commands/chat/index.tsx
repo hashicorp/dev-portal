@@ -20,7 +20,7 @@ const BackButton = () => {
 		<Button
 			className={s.backButton}
 			color="tertiary"
-			size="large"
+			size="medium"
 			icon={<IconArrowLeft24 />}
 			iconPosition="leading"
 			text="Return to Search"
