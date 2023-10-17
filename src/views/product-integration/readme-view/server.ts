@@ -35,7 +35,7 @@ import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled
  * We expect the same static param types to be returned from getStaticPaths,
  * and provided to getStaticProps context.
  */
-type PathParams = {
+export type PathParams = {
 	productSlug: ProductSlug
 	integrationSlug: string
 	organizationSlug: string
@@ -71,11 +71,16 @@ async function getStaticPathsWithVersion(): Promise<
 /**
  * Build an array of { productSlug, integrationSlug }
  * path parameters for all integrations across all enabled products.
+ *
+ * Builds paths dynamically for all products except waypoint.
+ * See /pages/waypoint/integrations/... for more context
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
-	const enabledProductSlugs = __config.dev_dot
-		.product_slugs_with_integrations as ProductSlug[]
+	const enabledProductSlugs =
+		__config.dev_dot.product_slugs_with_integrations.filter(
+			(slug: ProductSlug) => slug !== 'waypoint'
+		) as Omit<ProductSlug, 'waypoint'>[]
 	// Fetch integrations for all products
 	const allIntegrations = await fetchAllIntegrations(enabledProductSlugs)
 	// Build a flat array of path parameters for each integration

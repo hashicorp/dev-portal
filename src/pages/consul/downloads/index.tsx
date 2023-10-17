@@ -97,7 +97,10 @@ const ConsulDownloadsPage = (props) => {
 	return (
 		<ProductDownloadsView
 			{...props}
-			merchandisingSlot={<ConsulDownloadsMerchandisingSlot />}
+			merchandisingSlot={{
+				position: 'below',
+				slot: <ConsulDownloadsMerchandisingSlot />,
+			}}
 		/>
 	)
 }

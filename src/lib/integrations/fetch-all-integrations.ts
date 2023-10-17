@@ -18,7 +18,7 @@ type FetchAllIntegrationsResult = Integration[]
  * integration slugs, component slugs, and version data.
  */
 export async function fetchAllIntegrations(
-	productSlugs: ProductSlug[]
+	productSlugs: Omit<ProductSlug, 'waypoint'>[]
 ): Promise<FetchAllIntegrationsResult> {
 	return (
 		await Promise.all(productSlugs.map(fetchAllProductIntegrations))

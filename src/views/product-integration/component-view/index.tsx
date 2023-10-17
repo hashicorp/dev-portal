@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { ReactNode } from 'react'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import DevDotContent from 'components/dev-dot-content'
 import type { OutlineNavProps } from 'components/outline-nav'
@@ -42,6 +43,7 @@ export interface ProductIntegrationComponentViewProps {
 	serializedREADME?: MDXRemoteSerializeResult
 	breadcrumbLinks: BreadcrumbLink[]
 	processedVariablesMarkdown: ProcessedVariablesMarkdown
+	preContentSlot?: ReactNode
 }
 
 export default function ProductIntegrationComponentView({
@@ -53,6 +55,7 @@ export default function ProductIntegrationComponentView({
 	breadcrumbLinks,
 	processedVariablesMarkdown,
 	anchorLinks,
+	preContentSlot,
 }: ProductIntegrationComponentViewProps) {
 	// We expect user content here, so we need to handle `#user-content-` links
 	useUserContentAnchorLinks()
@@ -128,6 +131,7 @@ export default function ProductIntegrationComponentView({
 				)
 			}
 		>
+			{preContentSlot ? preContentSlot : null}
 			{serializedREADME ? (
 				<div className={s.mdxWrapper}>
 					<DevDotContent mdxRemoteProps={serializedREADME} />

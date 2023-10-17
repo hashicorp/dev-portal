@@ -164,23 +164,19 @@
 		"waypoint": {
 			"featuredUseCases": [
 				{
-					"href": "/waypoint/tutorials/deploy-aws",
-					"text": "Deploy an application onto AWS services"
+					"href": "/waypoint/tutorials/hcp-waypoint/get-started-hcp",
+					"text": "Activate Waypoint in your HCP project"
 				},
 				{
-					"href": "/waypoint/tutorials/deploy-azure",
-					"text": "Deploy an Azure Container Instance application"
+					"href": "/waypoint/tutorials/hcp-waypoint/create-template",
+					"text": "Pre-approve project infrastructure for app teams"
 				},
 				{
-					"href": "/waypoint/tutorials/deploy-google-cloud",
-					"text": "Deploy an application to Google Cloud Run"
+					"href": "/waypoint/tutorials/hcp-waypoint/use-template",
+					"text": "Start a new application project from a template"
 				}
 			],
-			"featuredCollectionSlugs": [
-				"waypoint/get-started-docker",
-				"waypoint/get-started-kubernetes",
-				"waypoint/get-started-nomad"
-			]
+			"featuredCollectionSlugs": ["waypoint/hcp-waypoint"]
 		}
 	},
 	"crossProductSection": {
