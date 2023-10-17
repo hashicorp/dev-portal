@@ -3,11 +3,13 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconArrowLeft24 } from '@hashicorp/flight-icons/svg-react/arrow-left-24'
 import { CommandBarCommand } from 'components/command-bar/types'
 import ChatBox from 'components/chatbox/chatbox'
 import { useCommandBar } from 'components/command-bar'
 import Button from 'components/button'
+import ButtonLink from 'components/button-link'
 
 import s from './chat.module.css'
 
@@ -29,6 +31,21 @@ const BackButton = () => {
 		/>
 	)
 }
+
+const FeedbackButton = () => {
+	return (
+		<ButtonLink
+			color="tertiary"
+			size="medium"
+			icon={<IconExternalLink16 />}
+			iconPosition="trailing"
+			text="Share Beta Feedback"
+			href="https://google.com" // TODO update to real form link
+			opensInNewTab
+		/>
+	)
+}
+
 const chatCommand: CommandBarCommand = {
 	name: 'chat',
 	icon: <BackButton />,
@@ -36,6 +53,7 @@ const chatCommand: CommandBarCommand = {
 		placeholder: () => 'Return to search',
 	},
 	DialogBody: ChatBox,
+	headerRightSlot: <FeedbackButton />,
 }
 
 export default chatCommand

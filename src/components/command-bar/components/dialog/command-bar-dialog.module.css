@@ -116,7 +116,7 @@
 	}
 }
 
-.badges {
+.headerRightSlotWrap {
 	/* composition */
 	composes: g-hide-on-mobile from global;
 
