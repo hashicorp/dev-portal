@@ -20,17 +20,14 @@ const rightColumn = [
 	{
 		icon: <IconUser16 />,
 		heading: 'Personalized recommendations',
-		text: 'FIX ME', // TODO(kevinwang): fix before launch
 	},
 	{
 		icon: <IconDiscussionCircle16 />,
 		heading: 'Natural language conversations',
-		text: 'FIX ME', // TODO(kevinwang): fix before launch
 	},
 	{
 		icon: <IconBulb16 />,
 		heading: 'Tap into the HashiCorp knowledge base',
-		text: 'FIX ME', // TODO(kevinwang): fix before launch
 	},
 ]
 
@@ -61,7 +58,7 @@ export const WelcomeMessage = () => {
 				<div className={s.spacer} />
 			</div>
 			<div className={classNames(s.col, s.right)}>
-				{rightColumn.map(({ icon, heading, text }, i) => (
+				{rightColumn.map(({ icon, heading }, i) => (
 					<div className={s.row} key={i}>
 						{icon}
 						<div>
@@ -73,13 +70,6 @@ export const WelcomeMessage = () => {
 							>
 								{heading}
 							</Heading>
-							<Text /* Body/100/Regular */
-								size={100}
-								weight="regular"
-								className={s.faint}
-							>
-								{text}
-							</Text>
 						</div>
 					</div>
 				))}
