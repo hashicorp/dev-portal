@@ -19,6 +19,4 @@ const Finished: React.FC<{ text: FeedbackFormProps['finishedText'] }> = ({
 	</div>
 )
 
-// To support importing via `React.lazy()` (default import only)
-export default Finished
 export { Finished }
