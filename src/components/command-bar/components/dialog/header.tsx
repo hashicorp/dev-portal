@@ -56,7 +56,6 @@ const CommandBarDialogHeader = () => {
 						value={currentInputValue}
 					/>
 				)}
-
 				{currentInputValue ? (
 					<div className={s.clearButtonWrapper}>
 						<button
@@ -71,21 +70,27 @@ const CommandBarDialogHeader = () => {
 					</div>
 				) : null}
 			</div>
-			<div className={s.badges}>
-				<Badge
-					ariaLabel="Command key"
-					color="neutral"
-					icon={<CmdCtrlIcon />}
-					size="small"
-					type="outlined"
-				/>
-				<Badge
-					ariaLabel="K key"
-					color="neutral"
-					icon={<KIcon />}
-					size="small"
-					type="outlined"
-				/>
+			<div className={s.headerRightSlotWrap}>
+				{currentCommand.headerRightSlot ? (
+					currentCommand.headerRightSlot
+				) : (
+					<div className={s.badges}>
+						<Badge
+							ariaLabel="Command key"
+							color="neutral"
+							icon={<CmdCtrlIcon />}
+							size="small"
+							type="outlined"
+						/>
+						<Badge
+							ariaLabel="K key"
+							color="neutral"
+							icon={<KIcon />}
+							size="small"
+							type="outlined"
+						/>
+					</div>
+				)}
 			</div>
 		</div>
 	)

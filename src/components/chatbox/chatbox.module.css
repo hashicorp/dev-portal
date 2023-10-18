@@ -110,3 +110,8 @@
 	display: block;
 	padding: 8px 0 0 10px;
 }
+
+.externalLink {
+	composes: root from '/src/components/inline-link/inline-link.module.css';
+	composes: primary from '/src/components/inline-link/inline-link.module.css';
+}

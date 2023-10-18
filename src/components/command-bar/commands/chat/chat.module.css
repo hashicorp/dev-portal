@@ -4,6 +4,9 @@
  */
 
 .backButton {
-	padding: 2px 0;
 	color: var(--token-color-foreground-primary);
+
+	& svg {
+		color: inherit;
+	}
 }
