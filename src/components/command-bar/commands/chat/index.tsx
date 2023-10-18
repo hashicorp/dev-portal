@@ -4,7 +4,7 @@
  */
 
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
-import { IconArrowLeft24 } from '@hashicorp/flight-icons/svg-react/arrow-left-24'
+import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16'
 import { CommandBarCommand } from 'components/command-bar/types'
 import ChatBox from 'components/chatbox/chatbox'
 import { useCommandBar } from 'components/command-bar'
@@ -22,7 +22,7 @@ const BackButton = () => {
 			className={s.backButton}
 			color="tertiary"
 			size="medium"
-			icon={<IconArrowLeft24 />}
+			icon={<IconArrowLeft16 />}
 			iconPosition="leading"
 			text="Return to search"
 			type="button"
