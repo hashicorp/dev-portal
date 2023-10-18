@@ -23,9 +23,10 @@ function BoundaryDownloadsView({
 	return (
 		<ProductDownloadsView
 			{...baseProps}
-			merchandisingSlot={
-				<DesktopClientCallout desktopClientProps={desktopClientProps} />
-			}
+			merchandisingSlot={{
+				position: 'below',
+				slot: <DesktopClientCallout desktopClientProps={desktopClientProps} />,
+			}}
 		/>
 	)
 }
