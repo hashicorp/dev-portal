@@ -27,7 +27,6 @@ import type {
 const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	basePath: '/hcp/api-docs/webhook',
 	productSlug: 'hcp',
-	serviceProductSlug: 'webhook',
 	githubSourceDirectory: {
 		owner: 'hashicorp',
 		repo: 'hcp-specs-internal',
