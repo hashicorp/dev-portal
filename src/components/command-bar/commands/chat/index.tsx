@@ -24,7 +24,7 @@ const BackButton = () => {
 			size="medium"
 			icon={<IconArrowLeft24 />}
 			iconPosition="leading"
-			text="Return to Search"
+			text="Return to search"
 			type="button"
 			onClick={() => {
 				setCurrentCommand('search')
@@ -40,7 +40,7 @@ const FeedbackButton = () => {
 			size="medium"
 			icon={<IconExternalLink16 />}
 			iconPosition="trailing"
-			text="Share Beta Feedback"
+			text="Share feedback"
 			href={AI_FEEDBACK_FORM}
 			opensInNewTab
 		/>
