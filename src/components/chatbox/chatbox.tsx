@@ -420,6 +420,7 @@ const ChatBox = () => {
 						<a
 							href="https://www.hashicorp.com/ai-integration-policy"
 							className={s.externalLink}
+							target="_blank"
 						>
 							HashiCorp’s AI Policy
 						</a>
