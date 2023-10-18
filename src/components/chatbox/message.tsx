@@ -15,6 +15,7 @@ import { IconThumbsUp24 } from '@hashicorp/flight-icons/svg-react/thumbs-up-24'
 import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
 import { IconAlertDiamondFill24 } from '@hashicorp/flight-icons/svg-react/alert-diamond-fill-24'
 
+import { Finished } from 'components/feedback-form/components/finished'
 import Button from 'components/button'
 import Text from 'components/text'
 import IconTile from 'components/icon-tile'
@@ -24,11 +25,6 @@ import s from './message.module.css'
 
 // lazily loaded due to chonky dependencies for markdown and syntax highlighting
 const Markdown = lazy(() => import('./Markdown'))
-
-// lazy load to avoid (+352 B) bundle size increase
-const Finished = lazy(
-	() => import('components/feedback-form/components/finished')
-)
 
 const UserMessage = ({ text, image }: { text: string; image?: string }) => {
 	return (
@@ -145,7 +141,7 @@ const AssistantMessage = ({
 					<span className={s.divider} />
 					{
 						/* if a rating has been selected, show Finished element */
-						rating != 0 ? (
+						rating !== 0 ? (
 							<Finished
 								text={
 									'Thank you! Your feedback will help us improve our AI experience.'
