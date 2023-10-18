@@ -69,10 +69,24 @@ const useAI = () => {
 		},
 		onError: async (error) => {
 			switch (error.status) {
-				case 400:
+				// Check the backend for full validation messages
+				// https://github.com/hashicorp/experimental-chat-api/blob/main/apps/api/controllers/conversations.controller.ts
+				case 400: {
+					const { meta, errors } = await error.json()
+					const { status_code, status_text } = meta
+					setErrorText(
+						`${status_code} ${status_text} - ${errors[0].msg.replace(
+							'Task ',
+							''
+						)}`
+					)
+					break
+				}
 				case 401:
 				case 403: {
-					setErrorText(`${error.status} ${error.statusText}`)
+					const { meta, errors } = await error.json()
+					const { status_code, status_text } = meta
+					setErrorText(`${status_code} ${status_text}`)
 					break
 				}
 				case 429: {
@@ -260,6 +274,8 @@ const ChatBox = () => {
 		})
 	}
 
+	console.log({ userInput }, userInput.trim())
+
 	// update component state when text is streamed in from the backend
 	useEffect(() => {
 		if (!streamedText || !messageId || !conversationId) {
@@ -371,7 +387,7 @@ const ChatBox = () => {
 							onKeyDown={(e) => {
 								// enter submits form; // shift+enter adds a newline
 								if (e.key == 'Enter' && e.shiftKey == false) {
-									if (userInput) {
+									if (userInput.trim().length > 0) {
 										e.preventDefault()
 										formRef.current.requestSubmit()
 									}
@@ -396,7 +412,7 @@ const ChatBox = () => {
 								/>
 							) : (
 								<Button
-									disabled={userInput.length < 1}
+									disabled={userInput.trim().length < 1}
 									type={'submit'}
 									icon={<IconSend24 height={16} width={16} />}
 									text={'Send'}
