@@ -274,6 +274,8 @@ const ChatBox = () => {
 		})
 	}
 
+	console.log({ userInput }, userInput.trim())
+
 	// update component state when text is streamed in from the backend
 	useEffect(() => {
 		if (!streamedText || !messageId || !conversationId) {
@@ -383,7 +385,7 @@ const ChatBox = () => {
 							onKeyDown={(e) => {
 								// enter submits form; // shift+enter adds a newline
 								if (e.key == 'Enter' && e.shiftKey == false) {
-									if (userInput) {
+									if (userInput.trim().length > 0) {
 										e.preventDefault()
 										formRef.current.requestSubmit()
 									}
@@ -405,7 +407,7 @@ const ChatBox = () => {
 								/>
 							) : (
 								<Button
-									disabled={userInput.length < 1}
+									disabled={userInput.trim().length < 1}
 									type={'submit'}
 									icon={<IconSend24 height={16} width={16} />}
 									text={'Send'}
