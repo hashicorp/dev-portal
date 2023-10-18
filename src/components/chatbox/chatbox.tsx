@@ -69,23 +69,10 @@ const useAI = () => {
 		},
 		onError: async (error) => {
 			switch (error.status) {
-				// TODO(kevinwang) - Better error handling logic.
-				// Please adjust the backend validation messages first.
+				// Check the backend for full validation messages
+				// https://github.com/hashicorp/experimental-chat-api/blob/main/apps/api/controllers/conversations.controller.ts
 				case 400: {
 					const { meta, errors } = await error.json()
-					// 	{
-					// 		"meta": {
-					// 				"status_code": 400,
-					// 				"status_text": "Bad Request"
-					// 		},
-					// 		"errors": [
-					// 				{
-					// 						"location": "Body",
-					// 						"msg": "Task should not exceed 200 characters. We may raise this limit in the future.",
-					// 						"param": "task"
-					// 				}
-					// 		]
-					// }
 					const { status_code, status_text } = meta
 					setErrorText(
 						`${status_code} ${status_text} - ${errors[0].msg.replace(
