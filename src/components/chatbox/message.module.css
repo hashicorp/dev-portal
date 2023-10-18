@@ -74,7 +74,7 @@
 
 .assistantMessageFooter {
 	width: 100%;
-	padding: 24px 0 0;
+	padding: 24px 0;
 }
 
 .assistantMessageFooterHidden {
@@ -85,7 +85,7 @@
 	display: block;
 	width: 100%;
 	border-bottom: 1px solid var(--token-color-palette-neutral-300);
-	margin-bottom: 24px;
+	margin-bottom: 40px;
 }
 
 .actionButtons {

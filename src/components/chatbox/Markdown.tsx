@@ -10,7 +10,7 @@ import { rehypeCodePlugins } from 'lib/rehype-code-plugins'
 
 import { MdxPre } from 'components/dev-dot-content/mdx-components/mdx-code-blocks'
 import Text from 'components/text'
-import { MdxA } from 'components/dev-dot-content/mdx-components'
+import InlineLink from 'components/inline-link'
 
 interface MarkdownProps {
 	markdown: string
@@ -27,7 +27,7 @@ export default function Markdown({ markdown, className }: MarkdownProps) {
 					<Text /* Body/200/Medium */ size={200} weight="medium" {...props} />
 				),
 				// @ts-expect-error - ignore type mismatch
-				a: MdxA,
+				a: InlineLink,
 			}}
 			remarkPlugins={[remarkGfm]}
 			// @ts-expect-error - ignore type mismatch

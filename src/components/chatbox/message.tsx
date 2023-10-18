@@ -15,6 +15,7 @@ import { IconThumbsUp24 } from '@hashicorp/flight-icons/svg-react/thumbs-up-24'
 import { IconWand24 } from '@hashicorp/flight-icons/svg-react/wand-24'
 import { IconAlertDiamondFill24 } from '@hashicorp/flight-icons/svg-react/alert-diamond-fill-24'
 
+import { Finished } from 'components/feedback-form/components/finished'
 import Button from 'components/button'
 import Text from 'components/text'
 import IconTile from 'components/icon-tile'
@@ -138,46 +139,55 @@ const AssistantMessage = ({
 					})}
 				>
 					<span className={s.divider} />
-					<div className={s.actionButtons}>
-						<Button
-							size="small"
-							color="secondary"
-							icon={
-								isCopied ? (
-									<IconCheckSquare24 height={12} width={12} />
-								) : (
-									<IconClipboard24 height={12} width={12} />
-								)
-							}
-							aria-label="Copy results to clipboard"
-							text={isCopied ? 'Copied' : 'Copy'}
-							onClick={handleCopy}
-						/>
+					{
+						/* if a rating has been selected, show Finished element */
+						rating !== 0 ? (
+							<Finished
+								text={
+									'Thank you! Your feedback will help us improve our AI experience.'
+								}
+							/>
+						) : (
+							<div className={s.actionButtons}>
+								<Button
+									size="small"
+									color="secondary"
+									icon={
+										isCopied ? (
+											<IconCheckSquare24 height={12} width={12} />
+										) : (
+											<IconClipboard24 height={12} width={12} />
+										)
+									}
+									aria-label="Copy results to clipboard"
+									text={isCopied ? 'Copied' : 'Copy'}
+									onClick={handleCopy}
+								/>
 
-						<Button
-							size="small"
-							color="secondary"
-							disabled={rating == 1}
-							icon={<IconThumbsUp24 height={12} width={12} />}
-							aria-label="Like this response"
-							onClick={async () => {
-								setRating(1) // do an optimistic UI update
-								await handleFeedback({ rating: 1 })
-							}}
-						/>
+								<Button
+									size="small"
+									color="secondary"
+									icon={<IconThumbsUp24 height={12} width={12} />}
+									aria-label="Like this response"
+									onClick={async () => {
+										setRating(1) // do an optimistic UI update
+										await handleFeedback({ rating: 1 })
+									}}
+								/>
 
-						<Button
-							size="small"
-							color="secondary"
-							disabled={rating == -1}
-							icon={<IconThumbsDown24 height={12} width={12} />}
-							aria-label="Dislike this response"
-							onClick={async () => {
-								setRating(-1) // do an optimistic UI update
-								await handleFeedback({ rating: -1 })
-							}}
-						/>
-					</div>
+								<Button
+									size="small"
+									color="secondary"
+									icon={<IconThumbsDown24 height={12} width={12} />}
+									aria-label="Dislike this response"
+									onClick={async () => {
+										setRating(-1) // do an optimistic UI update
+										await handleFeedback({ rating: -1 })
+									}}
+								/>
+							</div>
+						)
+					}
 				</div>
 			</div>
 
