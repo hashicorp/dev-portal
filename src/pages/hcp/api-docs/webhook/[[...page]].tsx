@@ -36,7 +36,8 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	statusIndicatorConfig: {
 		pageUrl: 'https://status.hashicorp.com',
 		endpointUrl:
-			'https://status.hashicorp.com/api/v2/components/0q55nwmxngkc.json', /* HCP API status */
+			/* HCP API status */
+			'https://status.hashicorp.com/api/v2/components/0q55nwmxngkc.json', 
 	},
 	navResourceItems: [
 		{
