@@ -55,7 +55,6 @@ export const WelcomeMessage = () => {
 						anything to get started.
 					</Text>
 				</div>
-				<div className={s.spacer} />
 			</div>
 			<div className={classNames(s.col, s.right)}>
 				{rightColumn.map(({ icon, heading }, i) => (
