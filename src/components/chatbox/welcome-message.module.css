@@ -45,7 +45,7 @@
 	display: flex;
 	padding: 16px 120px;
 	align-items: center;
-	gap: 84px;
+	gap: 57px;
 	flex: 1 0 0;
 	flex-direction: row;
 
@@ -53,6 +53,7 @@
 		flex-direction: column;
 		padding: 24px 24px;
 		align-items: stretch;
+		gap: 40px;
 
 		.col {
 			justify-content: start;
@@ -70,10 +71,6 @@
 				display: flex;
 				flex-direction: column;
 				gap: 8px;
-			}
-
-			@media (--dev-dot-mobile) {
-				margin-bottom: 40px;
 			}
 		}
 
