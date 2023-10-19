@@ -3,13 +3,16 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { IconArrowLeft24 } from '@hashicorp/flight-icons/svg-react/arrow-left-24'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16'
 import { CommandBarCommand } from 'components/command-bar/types'
 import ChatBox from 'components/chatbox/chatbox'
 import { useCommandBar } from 'components/command-bar'
 import Button from 'components/button'
+import ButtonLink from 'components/button-link'
 
 import s from './chat.module.css'
+import { AI_FEEDBACK_FORM } from 'constants/ai-feedback-form'
 
 // A button with an icon and text w/ "back" functionality
 const BackButton = () => {
@@ -18,10 +21,10 @@ const BackButton = () => {
 		<Button
 			className={s.backButton}
 			color="tertiary"
-			size="large"
-			icon={<IconArrowLeft24 />}
+			size="medium"
+			icon={<IconArrowLeft16 />}
 			iconPosition="leading"
-			text="Return to Search"
+			text="Return to search"
 			type="button"
 			onClick={() => {
 				setCurrentCommand('search')
@@ -29,13 +32,29 @@ const BackButton = () => {
 		/>
 	)
 }
+
+const FeedbackButton = () => {
+	return (
+		<ButtonLink
+			color="tertiary"
+			size="medium"
+			icon={<IconExternalLink16 />}
+			iconPosition="trailing"
+			text="Share feedback"
+			href={AI_FEEDBACK_FORM}
+			opensInNewTab
+		/>
+	)
+}
+
 const chatCommand: CommandBarCommand = {
 	name: 'chat',
 	icon: <BackButton />,
 	inputProps: {
-		placeholder: () => 'Hide me',
+		placeholder: () => 'Return to search',
 	},
 	DialogBody: ChatBox,
+	headerRightSlot: <FeedbackButton />,
 }
 
 export default chatCommand

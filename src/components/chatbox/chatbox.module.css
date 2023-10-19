@@ -21,13 +21,6 @@
 }
 
 .arrowdown {
-	/* button overrides - start */
-	height: 28px;
-	width: 28px;
-	padding: unset;
-
-	/* button overrides - end */
-
 	position: absolute;
 	top: -52px;
 	right: 20px;
@@ -116,4 +109,9 @@
 	color: var(--token-color-foreground-faint); /* #656a76 */
 	display: block;
 	padding: 8px 0 0 10px;
+}
+
+.externalLink {
+	composes: root from '/src/components/inline-link/inline-link.module.css';
+	composes: primary from '/src/components/inline-link/inline-link.module.css';
 }
