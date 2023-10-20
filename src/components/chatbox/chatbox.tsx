@@ -274,8 +274,6 @@ const ChatBox = () => {
 		})
 	}
 
-	console.log({ userInput }, userInput.trim())
-
 	// update component state when text is streamed in from the backend
 	useEffect(() => {
 		if (!streamedText || !messageId || !conversationId) {
