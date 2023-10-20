@@ -42,13 +42,17 @@
 	}
 
 	height: 100%;
-	padding: 16px 106px;
+	padding: 16px 105px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 
+	@media (--dev-dot-tablet) {
+		padding: 16px 80px;
+	}
+
 	@media (--dev-dot-mobile) {
-		padding: 24px 24px;
+		padding: 24px;
 	}
 }
 
