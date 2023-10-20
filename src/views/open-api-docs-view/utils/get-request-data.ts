@@ -119,9 +119,8 @@ export async function getBodyParameterProps(
 		const hasProps = schema.properties
 
 		if (!hasProps) {
-
 			// Body parameters without properties typically do not have a name since
-			// they are things like data streams, so use the content type as the name 
+			// they are things like data streams, so use the content type as the name
 			bodyProps.push({
 				name: contentType,
 				slug: parentSlug,
