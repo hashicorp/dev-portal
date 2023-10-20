@@ -67,6 +67,7 @@
 
 .icon {
 	margin-bottom: 15px;
+	height: 24px;
 }
 
 .col {
@@ -79,6 +80,10 @@
 	@media (--dev-dot-mobile) {
 		justify-content: start;
 	}
+}
+
+.right {
+	padding-top: 3px;
 }
 
 .copy {

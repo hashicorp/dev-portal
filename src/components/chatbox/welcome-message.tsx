@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import classNames from 'classnames'
 import { IconBulb16 } from '@hashicorp/flight-icons/svg-react/bulb-16'
 import { IconDiscussionCircle16 } from '@hashicorp/flight-icons/svg-react/discussion-circle-16'
 import { IconUser16 } from '@hashicorp/flight-icons/svg-react/user-16'
@@ -58,7 +59,7 @@ export const WelcomeMessage = () => {
 						</Text>
 					</div>
 				</div>
-				<div className={s.col}>
+				<div className={classNames(s.col, s.right)}>
 					{rightColumn.map(({ icon, heading }, i) => (
 						<div className={s.bulletRow} key={i}>
 							{icon}
