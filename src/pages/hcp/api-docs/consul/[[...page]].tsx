@@ -99,7 +99,7 @@ export const getStaticProps: GetStaticProps<
 	 * https://hashicorp.slack.com/archives/C5FSPUGDS/p1698178472462449
 	 */
 	const filteredVersionData = versionData.filter(
-		(version: ApiDocsVersionData) => version.versionId === '2022-02-15'
+		(version: ApiDocsVersionData) => version.versionId !== '2022-02-15'
 	)
 
 	// Generate static props based on page configuration, params, and versionData
