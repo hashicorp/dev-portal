@@ -5,6 +5,7 @@
 
 // Lib
 import { fetchCloudApiVersionData } from 'lib/api-docs/fetch-cloud-api-version-data'
+import { ApiDocsVersionData } from 'lib/api-docs/types'
 // View
 import OpenApiDocsView from 'views/open-api-docs-view'
 import {
@@ -92,11 +93,20 @@ export const getStaticProps: GetStaticProps<
 	const versionData = await fetchCloudApiVersionData(
 		PAGE_CONFIG.githubSourceDirectory
 	)
+	/**
+	 * TODO: add in support for conditionally publishing specs in hcp-specs repo
+	 * For now just manually filtering out this spec as per request in slack.
+	 * https://hashicorp.slack.com/archives/C5FSPUGDS/p1698178472462449
+	 */
+	const filteredVersionData = versionData.filter(
+		(version: ApiDocsVersionData) => version.versionId !== '2022-02-15'
+	)
+
 	// Generate static props based on page configuration, params, and versionData
 	return await getOpenApiDocsStaticProps({
 		...PAGE_CONFIG,
 		context: { params },
-		versionData,
+		versionData: filteredVersionData,
 	})
 }
 
