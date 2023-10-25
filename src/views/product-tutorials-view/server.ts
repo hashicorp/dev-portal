@@ -64,8 +64,6 @@ export async function getCloudTutorialsViewProps(): Promise<{
 	const hcpCollections = await getCollectionsBySection('cloud')
 	const sidebarSections = buildCategorizedHcpSidebar(hcpCollections)
 
-	console.dir({ hcpCollections, sidebarSections })
-
 	/**
 	 * Build sitemap collections, if we're using them.
 	 */
