@@ -20,7 +20,10 @@ const isRunningInEsmMode = !!process.env.TEST_ESM
  *
  * TODO: determine this from "type": "module" in package.json
  */
-const ESM_TEST_DIRS = ['src/lib/remark-plugins/rehype-sanitize']
+const ESM_TEST_DIRS = [
+	'src/lib/remark-plugins/rehype-sanitize',
+	'src/views/open-api-docs-view/utils',
+]
 
 /**
  * Override the base next jest-transformer to force it into ESM mode

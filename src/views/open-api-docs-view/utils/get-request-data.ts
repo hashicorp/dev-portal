@@ -90,41 +90,67 @@ export async function getBodyParameterProps(
 	requestBody: OpenAPIV3.RequestBodyObject,
 	parentSlug: string
 ): Promise<PropertyDetailsProps[]> {
-	const schema = requestBody.content['application/json'].schema
-	// If we don't find the expected schema, return an empty array
-	if (!schema) {
-		return []
-	}
-	// We don't expect references, but for typing purposes we handle them.
-	if ('$ref' in schema) {
-		return []
-	}
-	/**
-	 * Note: we expect body schemas to always be objects at their root.
-	 * We flatten the body properties to avoid showing a redundant object.
-	 */
 	const bodyProps = []
-	const requiredProperties = schema.required || []
-	for (const [key, value] of Object.entries(schema.properties)) {
-		// Skip reference objects, we expect these to be de-referenced
-		// before this function is called
-		if ('$ref' in value) {
+
+	// OAS definitions may have body parameters with schemas for things other than
+	// 'application/json'. For example, 'application/octet-stream' for file upload
+	for (const [contentType, { schema }] of Object.entries(requestBody.content)) {
+		// If we don't find the expected schema, skip the object
+		if (!schema) {
 			continue
 		}
-		// Skip read-only properties
-		if (value.readOnly) {
+
+		// We don't expect references, but for typing purposes we handle them.
+		if ('$ref' in schema) {
 			continue
 		}
-		const isRequired = requiredProperties.includes(key)
-		// Push props
-		bodyProps.push(
-			await getPropertyDetailPropsFromSchemaObject(
-				key,
-				value,
-				isRequired,
-				parentSlug
-			)
-		)
+
+		/**
+		 * Note: we expect body schemas to always be objects at their root.
+		 * We flatten the body properties to avoid showing a redundant object.
+		 */
+
+		const requiredProperties = schema.required || []
+
+		// Non-JSON request messages elements will not have properties information,
+		// so we need to look for explicit type/format information instead
+		const hasProps = schema.properties
+
+		if (!hasProps) {
+			// Body parameters without properties typically do not have a name since
+			// they are things like data streams, so use the content type as the name
+			bodyProps.push({
+				name: contentType,
+				slug: parentSlug,
+				type: schema.type,
+				description: schema.format,
+				isRequired:
+					typeof schema.required != 'undefined' ? schema.required : 'false',
+				nestedProperties: [],
+			})
+		} else {
+			for (const [key, value] of Object.entries(schema.properties)) {
+				// Skip reference objects, we expect these to be de-referenced
+				// before this function is called
+				if ('$ref' in value) {
+					continue
+				}
+				// Skip read-only properties
+				if (value.readOnly) {
+					continue
+				}
+				const isRequired = requiredProperties.includes(key)
+				// Push props
+				bodyProps.push(
+					await getPropertyDetailPropsFromSchemaObject(
+						key,
+						value,
+						isRequired,
+						parentSlug
+					)
+				)
+			}
+		}
 	}
 	return bodyProps
 }
