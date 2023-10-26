@@ -21,6 +21,7 @@ interface CommandBarCommand {
 		}) => string
 	}
 	DialogBody?: () => ReactElement
+	headerRightSlot?: ReactElement
 }
 
 type CommandBarTag = {

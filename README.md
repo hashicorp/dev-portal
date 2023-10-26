@@ -36,7 +36,9 @@ There are a few things you need to set up before you can begin developing in thi
 
    This command will pull the development environment variables from the linked Vercel project and write them to a new file called `.env.local`.
 
-Additionally, you can add a GitHub [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) to prevent running into GitHub's API rate limit for unauthenticated requests by adding `GITHUB_TOKEN` to your `.env.local`.
+4. Remove the line containing `VERCEL="1"` from `.env.local`.
+
+   This step is required to prevent the login flow from using HTTPS URLs.
 
 ### Running The Project
 

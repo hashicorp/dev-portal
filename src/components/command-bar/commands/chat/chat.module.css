@@ -4,13 +4,9 @@
  */
 
 .backButton {
+	color: var(--token-color-foreground-primary);
+
 	& svg {
-		/* 
-			This overrides the default svg color set in
-			command-bar-dialog.module.css, which allows the button's svg 
-			element to correctly inherit the currentColor.
-			TODO: refactor command icons to always rely on currentColor
-		*/
-		color: unset;
+		color: inherit;
 	}
 }
