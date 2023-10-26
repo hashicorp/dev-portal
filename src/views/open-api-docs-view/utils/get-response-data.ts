@@ -35,12 +35,21 @@ export async function getResponseData(
 		// Grab all the response messages for the current response code
 		const codeResponses = responses[responseCode]
 
+		// Skip instances where codeResponses is a $ref
+		if ('$ref' in codeResponses) {
+			continue
+		}
+
+		// Skip instances where codeResponse does not have content
+		if (!codeResponses.content) {
+			continue
+		}
+
 		// Process the parameters etc. for each of the response types (contentType)
 		// for the current response code (responseCode)
-
-		for (const contentType in codeResponses['content']) {
-			const definition = codeResponses['content'][contentType]
-
+		for (const [contentType, definition] of Object.entries(
+			codeResponses.content
+		)) {
 			/**
 			 * Skip the current object if:
 			 *   - The response object is not JSON (for now)
@@ -48,14 +57,13 @@ export async function getResponseData(
 			 *	 - The response object does not include a definition or schema
 			 *	 - The response schema is a reference
 			 **/
-			const skipEntry =
+			if (
 				contentType !== 'application/json' ||
 				contentType.includes('$ref') ||
 				!definition ||
 				!definition.schema ||
 				'$ref' in definition.schema
-
-			if (skipEntry) {
+			) {
 				continue
 			}
 

@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getRequestData parses non-json request bodies 1`] = `
+Array [
+  Object {
+    "heading": Object {
+      "slug": "test-prefix_path-parameters",
+      "text": "Path Parameters",
+    },
+    "propertyDetails": Array [
+      Object {
+        "description": "<p>ID of pet to update</p>",
+        "isRequired": true,
+        "name": "petId",
+        "nestedProperties": Array [],
+        "slug": "test-prefix_path-parameters_petId",
+        "type": "integer",
+      },
+    ],
+  },
+  Object {
+    "heading": Object {
+      "slug": "test-prefix_query-parameters",
+      "text": "Query Parameters",
+    },
+    "propertyDetails": Array [
+      Object {
+        "description": "<p>Additional Metadata</p>",
+        "isRequired": false,
+        "name": "additionalMetadata",
+        "nestedProperties": Array [],
+        "slug": "test-prefix_query-parameters_additionalMetadata",
+        "type": "string",
+      },
+    ],
+  },
+  Object {
+    "heading": Object {
+      "slug": "test-prefix_body-parameters",
+      "text": "Body Parameters",
+    },
+    "propertyDetails": Array [
+      Object {
+        "description": "binary",
+        "isRequired": "false",
+        "name": "application/octet-stream",
+        "nestedProperties": Array [],
+        "slug": "test-prefix_body-parameters",
+        "type": "string",
+      },
+    ],
+  },
+]
+`;

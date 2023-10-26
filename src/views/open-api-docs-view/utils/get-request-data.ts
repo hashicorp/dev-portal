@@ -94,9 +94,7 @@ export async function getBodyParameterProps(
 
 	// OAS definitions may have body parameters with schemas for things other than
 	// 'application/json'. For example, 'application/octet-stream' for file upload
-	for (const contentType in requestBody.content) {
-		const schema = requestBody.content[contentType].schema
-
+	for (const [contentType, { schema }] of Object.entries(requestBody.content)) {
 		// If we don't find the expected schema, skip the object
 		if (!schema) {
 			continue
@@ -119,16 +117,15 @@ export async function getBodyParameterProps(
 		const hasProps = schema.properties
 
 		if (!hasProps) {
-
 			// Body parameters without properties typically do not have a name since
-			// they are things like data streams, so use the content type as the name 
+			// they are things like data streams, so use the content type as the name
 			bodyProps.push({
 				name: contentType,
 				slug: parentSlug,
 				type: schema.type,
 				description: schema.format,
 				isRequired:
-					typeof schema.required != 'undefined' ? schema.required : `false`,
+					typeof schema.required != 'undefined' ? schema.required : 'false',
 				nestedProperties: [],
 			})
 		} else {
