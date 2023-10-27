@@ -145,7 +145,8 @@ function TutorialView({
 	const nextPreviousData = getNextPrevious({
 		currentCollection: collectionCtx.current,
 		currentTutorialSlug: slug,
-		nextCollectionInSidebar: tutorial.nextCollectionInSidebar,
+		nextCollectionInSidebar:
+			collectionCtx.current.nextCollection ?? tutorial.nextCollectionInSidebar,
 		formatting: {
 			getTutorialSlug,
 			getCollectionSlug,

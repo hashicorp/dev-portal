@@ -30,6 +30,7 @@ export function formatCollection(collection: ApiCollection): Collection {
 		level,
 		category,
 		tutorials,
+		next_collection,
 	} = collection
 
 	return {
@@ -44,6 +45,9 @@ export function formatCollection(collection: ApiCollection): Collection {
 		level,
 		category: category || undefined,
 		tutorials: tutorials.map(formatToTutorialLite),
+		...(next_collection
+			? { nextCollection: formatToCollectionLite(next_collection) }
+			: {}),
 	}
 }
 
