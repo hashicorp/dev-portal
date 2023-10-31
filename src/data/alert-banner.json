@@ -2,10 +2,10 @@
 	"enabled": true,
 	"data": {
 		"product": "hashicorp",
-		"tag": "HashiConf",
-		"url": "https://live.hashiconf.com",
-		"text": "All virtual session recordings now available.",
-		"linkText": "Watch now",
-		"expirationDate": "2023-10-20T00:00:00-08:00"
+		"tag": "HashiCorp Developer AI",
+		"url": "https://hashi.co/dev-ai-signup",
+		"text": "Private beta now available",
+		"linkText": "Sign up today",
+		"expirationDate": "2023-11-17T00:00:00-08:00"
 	}
 }
