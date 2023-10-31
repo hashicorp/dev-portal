@@ -29,7 +29,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	productSlug: 'hcp',
 	githubSourceDirectory: {
 		owner: 'hashicorp',
-		repo: 'hcp-specs-internal',
+		repo: 'hcp-specs',
 		path: 'specs/cloud-webhook',
 		ref: 'main',
 	},
