@@ -163,7 +163,6 @@ export const getPageSubtitle = ({
 
 export const initializeBreadcrumbLinks = (
 	currentProduct: Pick<ProductData, 'name' | 'slug'>,
-	selectedVersion: string,
 	isEnterpriseMode: boolean
 ): BreadcrumbLink[] => {
 	return [
@@ -179,7 +178,7 @@ export const initializeBreadcrumbLinks = (
 			isCurrentPage: true,
 			title: isEnterpriseMode
 				? `Install ${currentProduct.name} Enterprise`
-				: `Install v${selectedVersion}`,
+				: `Install`,
 			url: isEnterpriseMode
 				? `/${currentProduct.slug}/downloads/enterprise`
 				: `/${currentProduct.slug}/downloads`,

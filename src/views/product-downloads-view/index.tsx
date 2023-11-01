@@ -62,13 +62,8 @@ const ProductDownloadsViewContent = ({
 	const currentProduct = useCurrentProduct()
 	const { currentVersion } = useCurrentVersion()
 	const breadcrumbLinks = useMemo(
-		() =>
-			initializeBreadcrumbLinks(
-				currentProduct,
-				currentVersion,
-				isEnterpriseMode
-			),
-		[currentProduct, currentVersion, isEnterpriseMode]
+		() => initializeBreadcrumbLinks(currentProduct, isEnterpriseMode),
+		[currentProduct, isEnterpriseMode]
 	)
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
