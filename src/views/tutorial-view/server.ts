@@ -139,7 +139,8 @@ export async function getTutorialPageProps(
 				...fullTutorialData,
 				content: serializedContent,
 				collectionCtx: collectionContext,
-				nextCollectionInSidebar: nextCollection,
+				nextCollectionInSidebar:
+					collectionContext.current.nextCollection ?? nextCollection,
 			},
 			pageHeading: {
 				slug: headings[0].slug,
