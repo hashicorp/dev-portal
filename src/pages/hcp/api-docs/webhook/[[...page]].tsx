@@ -40,6 +40,10 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	},
 	navResourceItems: [
 		{
+			title: 'Community',
+			href: 'https://discuss.hashicorp.com/',
+		},
+		{
 			title: 'Support',
 			href: 'https://www.hashicorp.com/customer-success',
 		},
