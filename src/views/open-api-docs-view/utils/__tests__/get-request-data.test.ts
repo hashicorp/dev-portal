@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { getRequestData } from '../get-request-data'
 import petstore3 from '../__fixtures__/petstore3.openapi'
 
