@@ -1,7 +1,7 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 
-FROM docker.mirror.hashicorp.services/node:18-alpine AS deps
+FROM docker.mirror.hashicorp.services/node:18.18.2-alpine AS deps
 
 RUN apk add --update --no-cache \
 	autoconf \
@@ -18,7 +18,7 @@ RUN apk add --update --no-cache \
 
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install -g npm@latest
+RUN npm install -g npm@9.8.1
 
 # While imagemin/optipng-bin doesn't support arm64, set this env var as a workaround
 # - `npm ls imagemin`
@@ -27,7 +27,7 @@ RUN CPPFLAGS="-DPNG_ARM_NEON_OPT=0" npm install
 
 FROM docker.mirror.hashicorp.services/node:18-alpine AS builder
 
-RUN npm install -g npm@latest
+RUN npm install -g npm@9.8.1
 
 WORKDIR /app
 COPY . ./website-preview
