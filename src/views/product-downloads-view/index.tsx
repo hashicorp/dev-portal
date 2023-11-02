@@ -37,7 +37,7 @@ import {
 	SidecarMarketingCard,
 } from './components'
 import s from './product-downloads-view.module.css'
-
+import { useRouter } from 'next/router'
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
  * hook in this view. `ProductDownloadsView` renders `CurrentVersionProvider`
@@ -61,9 +61,11 @@ const ProductDownloadsViewContent = ({
 	} = pageContent
 	const currentProduct = useCurrentProduct()
 	const { currentVersion } = useCurrentVersion()
+	const { pathname } = useRouter()
+
 	const breadcrumbLinks = useMemo(
-		() => initializeBreadcrumbLinks(currentProduct, isEnterpriseMode),
-		[currentProduct, isEnterpriseMode]
+		() => initializeBreadcrumbLinks(currentProduct, isEnterpriseMode, pathname),
+		[currentProduct, isEnterpriseMode, pathname]
 	)
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
