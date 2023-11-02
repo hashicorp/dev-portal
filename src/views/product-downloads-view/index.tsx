@@ -5,6 +5,7 @@
 
 // Third-party imports
 import { ReactElement, useMemo } from 'react'
+import { useRouter } from 'next/router'
 
 // HashiCorp imports
 import HashiHead from '@hashicorp/react-head'
@@ -37,7 +38,7 @@ import {
 	SidecarMarketingCard,
 } from './components'
 import s from './product-downloads-view.module.css'
-import { useRouter } from 'next/router'
+
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
  * hook in this view. `ProductDownloadsView` renders `CurrentVersionProvider`
