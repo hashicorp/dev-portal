@@ -182,7 +182,6 @@ export const initializeBreadcrumbLinks = (
 		{
 			isCurrentPage: true,
 			title: isEnterpriseMode ? `Install Enterprise` : `${nonEnterpriseTitle}`,
-			url: `${pathname}`,
 		},
 	]
 }
