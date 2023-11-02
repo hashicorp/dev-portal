@@ -68,6 +68,7 @@ export interface ApiCollectionLite extends ContentBaseModel {
 	ordered: boolean
 	level: CollectionLevelOption
 	category: CollectionCategoryOption
+	next_collection: ApiCollectionLite
 }
 
 // Collection interface that is enriched with tutorials

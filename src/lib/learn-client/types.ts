@@ -104,6 +104,7 @@ export interface Collection {
 	ordered: boolean
 	tutorials: TutorialLite[]
 	category?: CollectionCategoryOption
+	nextCollection?: CollectionLite
 }
 
 export interface Product {
