@@ -26,7 +26,6 @@ const VersionContextSwitcher = ({
 	onChange,
 	options,
 }: VersionContextSwitcherProps): ReactElement => {
-	console.log({ options })
 	const currentProduct = useCurrentProduct()
 	const [selectedVersion, setSelectedVersion] =
 		useState<ContextSwitcherOption['value']>(initialValue)
