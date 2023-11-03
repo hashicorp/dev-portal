@@ -46,7 +46,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	&[aria-current='page'] {
+	&.current {
 		color: var(--token-color-foreground-strong);
 	}
 	&[href] {

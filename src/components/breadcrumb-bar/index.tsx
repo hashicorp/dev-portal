@@ -9,6 +9,7 @@ import Link, { LinkProps } from 'components/link'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Text from 'components/text'
 import s from './breadcrumb-bar.module.css'
+import classNames from 'classnames'
 
 interface BreadcrumbLink {
 	/** Text to be shown for the link */
@@ -82,9 +83,11 @@ function BreadcrumbBar({
 							weight="medium"
 						>
 							<Elem
-								className={s.breadcrumbText}
+								className={classNames(
+									s.breadcrumbText,
+									isCurrentPage ? s.current : undefined
+								)}
 								href={!isCurrentPage ? url : undefined}
-								aria-current={isCurrentPage ? 'page' : undefined}
 								data-heap-track="breadcrumb-bar-item"
 							>
 								{cleanTitle}
