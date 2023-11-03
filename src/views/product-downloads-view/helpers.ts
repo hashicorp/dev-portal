@@ -163,9 +163,13 @@ export const getPageSubtitle = ({
 
 export const initializeBreadcrumbLinks = (
 	currentProduct: Pick<ProductData, 'name' | 'slug'>,
-	selectedVersion: string,
-	isEnterpriseMode: boolean
+	isEnterpriseMode: boolean,
+	pathname: string
 ): BreadcrumbLink[] => {
+	const nonEnterpriseTitle =
+		pathname === '/vagrant/downloads/vmware'
+			? `Install VMware Utility`
+			: `Install`
 	return [
 		{
 			title: 'Developer',
@@ -177,12 +181,7 @@ export const initializeBreadcrumbLinks = (
 		},
 		{
 			isCurrentPage: true,
-			title: isEnterpriseMode
-				? `Install ${currentProduct.name} Enterprise`
-				: `Install v${selectedVersion}`,
-			url: isEnterpriseMode
-				? `/${currentProduct.slug}/downloads/enterprise`
-				: `/${currentProduct.slug}/downloads`,
+			title: isEnterpriseMode ? `Install Enterprise` : `${nonEnterpriseTitle}`,
 		},
 	]
 }

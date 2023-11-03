@@ -46,7 +46,9 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-
+	&[aria-current='page'] {
+		color: var(--token-color-foreground-strong);
+	}
 	&[href] {
 		&:hover {
 			text-decoration: underline;
@@ -61,10 +63,6 @@
 			text-decoration: none;
 			margin: -5px;
 			padding: 5px;
-		}
-
-		&[aria-current='page'] {
-			color: var(--token-color-foreground-strong);
 		}
 	}
 }
