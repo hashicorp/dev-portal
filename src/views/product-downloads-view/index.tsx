@@ -5,6 +5,7 @@
 
 // Third-party imports
 import { ReactElement, useMemo } from 'react'
+import { useRouter } from 'next/router'
 
 // HashiCorp imports
 import HashiHead from '@hashicorp/react-head'
@@ -61,14 +62,11 @@ const ProductDownloadsViewContent = ({
 	} = pageContent
 	const currentProduct = useCurrentProduct()
 	const { currentVersion } = useCurrentVersion()
+	const { pathname } = useRouter()
+
 	const breadcrumbLinks = useMemo(
-		() =>
-			initializeBreadcrumbLinks(
-				currentProduct,
-				currentVersion,
-				isEnterpriseMode
-			),
-		[currentProduct, currentVersion, isEnterpriseMode]
+		() => initializeBreadcrumbLinks(currentProduct, isEnterpriseMode, pathname),
+		[currentProduct, isEnterpriseMode, pathname]
 	)
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
