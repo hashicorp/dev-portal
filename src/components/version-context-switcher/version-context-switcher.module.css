@@ -8,23 +8,11 @@
 	width: 100%;
 }
 
-.productIcon,
-.trailingIcon {
-	align-items: center;
-	bottom: 0;
-	display: flex;
-	pointer-events: none;
-	position: absolute;
-	top: 0;
-}
-
-.productIcon {
-	left: 12px;
-}
-
 .trailingIcon {
 	color: var(--token-color-palette-neutral-600);
-	right: 12px;
+	position: absolute;
+	right: 8px;
+	top: 10px;
 }
 
 .select {
@@ -38,10 +26,7 @@
 	border-radius: 5px;
 	border: none;
 	cursor: pointer;
-	padding-bottom: 8px;
-	padding-left: 34px;
-	padding-right: 40px;
-	padding-top: 8px;
+	padding: 10px 24px 10px 10px;
 	width: 100%;
 }
 
