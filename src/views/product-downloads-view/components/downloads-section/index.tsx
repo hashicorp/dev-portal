@@ -26,7 +26,6 @@ import InlineLink from 'components/inline-link'
 import MobileStandaloneLink from 'components/mobile-standalone-link'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
-import VersionContextSwitcher from 'components/version-context-switcher'
 
 // Local imports
 import { DownloadsSectionProps } from './types'

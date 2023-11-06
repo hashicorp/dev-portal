@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ChangeEvent, ReactElement, SyntheticEvent } from 'react'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
-import { useCurrentVersion } from 'views/product-downloads-view/contexts'
-import s from './page-header.module.css'
-import { ProductSlug } from 'types/products'
 import VersionContextSwitcher, {
 	VersionContextSwitcherProps,
 } from 'components/version-context-switcher'
+import { ChangeEvent, ReactElement } from 'react'
+import { ProductSlug } from 'types/products'
+import { useCurrentVersion } from 'views/product-downloads-view/contexts'
+import s from './page-header.module.css'
 
 interface PageHeaderProps {
 	isEnterpriseMode: boolean
@@ -49,8 +49,8 @@ const PageHeader = ({
 				</Heading>
 			</div>
 			<VersionContextSwitcher
-				onChange={(e: SyntheticEvent) =>
-					setCurrentVersion(String(e.currentTarget))
+				onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+					setCurrentVersion(e.target.value)
 				}
 				options={versionSwitcherOptions}
 			/>

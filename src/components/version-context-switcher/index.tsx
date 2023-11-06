@@ -4,12 +4,10 @@
  */
 
 import { ChangeEventHandler, ReactElement, useState } from 'react'
-import { IconCaret16 } from '@hashicorp/flight-icons/svg-react/caret-16'
+import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { useCurrentProduct } from 'contexts'
 import { ContextSwitcherOption, VersionContextSwitcherProps } from './types'
 import s from './version-context-switcher.module.css'
-import { ReleaseVersion } from 'lib/fetch-release-data'
-import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 
 /**
  * To be used as control that changes the content of a page or as form control.
@@ -61,7 +59,7 @@ const VersionContextSwitcher = ({
 					</option>
 				))}
 			</select>
-			<IconChevronDown16 className={s.trailingIcon} tab-index="-1" />
+			<IconChevronDown16 className={s.trailingIcon} />
 		</div>
 	)
 }
