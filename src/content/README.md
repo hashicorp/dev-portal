@@ -505,7 +505,7 @@ The following configuration:
 
 Outputs the following:
 
-![Dark, bold "Featured Collections" heading above a 3-column by 2-row grid of 6 Collection cards.](/docs/images/ProductInstallView-featuredCollectionsSlugs.png)
+![Dark, bold "Featured Collections" heading above a 3-column by 2-row grid of 6 Collection cards.](/docs/images/ProductDownloadsView-featuredCollectionsSlugs.png)
 
 </details>
 
@@ -540,7 +540,7 @@ The following configuration:
 
 Outputs the following:
 
-![Dark, bold "Featured Tutorials" heading above a 3-column by 2-row grid of 6 Tutorial cards.](/docs/images/ProductInstallView-featuredTutorialsSlugs.png)
+![Dark, bold "Featured Tutorials" heading above a 3-column by 2-row grid of 6 Tutorial cards.](/docs/images/ProductDownloadsView-featuredTutorialsSlugs.png)
 
 </details>
 
@@ -599,7 +599,7 @@ The following configuration:
 
 Will output the following Sidebar between the auto-generated content in the header & footer:
 
-![Vertical list of Sidebar navigation items: "Terraform Home" back-to link, "Install Terraform" heading, horizontal divider, "Getting Started" heading, "Introduction to Terraform" link item, "Get Started with Terraform Cloud" link item.](/docs/images/ProductInstallView-sidebarMenuItems.png)
+![Vertical list of Sidebar navigation items: "Terraform Home" back-to link, "Install Terraform" heading, horizontal divider, "Getting Started" heading, "Introduction to Terraform" link item, "Get Started with Terraform Cloud" link item.](/docs/images/ProductDownloadsView-sidebarMenuItems.png)
 
 </details>
 
