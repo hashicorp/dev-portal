@@ -21,12 +21,6 @@
 	padding-bottom: 12px;
 }
 
-.versionSwitcherWrapper {
-	/* Flex-grow to fill space when in separate row */
-	flex-grow: 1;
-	width: max-content;
-}
-
 .operatingSystemTitle {
 	color: var(--token-color-foreground-strong);
 

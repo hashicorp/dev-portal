@@ -148,19 +148,6 @@ export function generateEnterprisePackageManagers(
 	]
 }
 
-export const getPageSubtitle = ({
-	productName,
-	version,
-	isLatestVersion,
-}: {
-	productName: string
-	version: string
-	isLatestVersion: boolean
-}): string => {
-	const versionText = `v${version}${isLatestVersion ? ' (latest version)' : ''}`
-	return `Install or update to ${versionText} of ${productName} to get started.`
-}
-
 export const initializeBreadcrumbLinks = (
 	currentProduct: Pick<ProductData, 'name' | 'slug'>,
 	isEnterpriseMode: boolean,

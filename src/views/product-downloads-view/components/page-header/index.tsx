@@ -3,37 +3,32 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactElement } from 'react'
 import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
-import Text from 'components/text'
-import { useCurrentVersion } from 'views/product-downloads-view/contexts'
-import { getPageSubtitle } from 'views/product-downloads-view/helpers'
-import s from './page-header.module.css'
+import VersionContextSwitcher, {
+	VersionContextSwitcherProps,
+} from 'components/version-context-switcher'
+import { ChangeEvent, ReactElement } from 'react'
 import { ProductSlug } from 'types/products'
+import { useCurrentVersion } from 'views/product-downloads-view/contexts'
+import s from './page-header.module.css'
 
 interface PageHeaderProps {
 	isEnterpriseMode: boolean
 	product: { name: string; slug: ProductSlug }
+	versionSwitcherOptions: VersionContextSwitcherProps['options']
 }
 
 const PageHeader = ({
 	isEnterpriseMode = false,
 	product,
+	versionSwitcherOptions,
 }: PageHeaderProps): ReactElement => {
-	const { currentVersion, isLatestVersion } = useCurrentVersion()
+	const { setCurrentVersion } = useCurrentVersion()
 
 	const pageTitle = isEnterpriseMode
 		? `${product.name} Enterprise Installation`
 		: `Install ${product.name}`
-
-	const pageSubtitle = isEnterpriseMode
-		? ''
-		: getPageSubtitle({
-				productName: product.name,
-				version: currentVersion,
-				isLatestVersion,
-		  })
 
 	const productSlug = (
 		product.slug === 'sentinel' ? 'hcp' : product.slug
@@ -41,8 +36,8 @@ const PageHeader = ({
 
 	return (
 		<div className={s.root}>
-			<IconTileLogo className={s.iconTileLogo} productSlug={productSlug} />
-			<div>
+			<div className={s.headingWrapper}>
+				<IconTileLogo className={s.iconTileLogo} productSlug={productSlug} />
 				<Heading
 					className={s.pageHeaderTitle}
 					level={1}
@@ -52,10 +47,13 @@ const PageHeader = ({
 				>
 					{pageTitle}
 				</Heading>
-				<Text className={s.pageHeaderSubtitle} size={300} weight="regular">
-					{pageSubtitle}
-				</Text>
 			</div>
+			<VersionContextSwitcher
+				onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+					setCurrentVersion(e.target.value)
+				}
+				options={versionSwitcherOptions}
+			/>
 		</div>
 	)
 }
