@@ -10,7 +10,7 @@ import waypointData from 'data/waypoint.json'
 import { ProductData } from 'types/products'
 import ProductInstallView from 'views/product-install-view'
 import { generateGetStaticProps } from 'views/product-install-view/server'
-import s from './downloads.module.css'
+import s from './install.module.css'
 
 const WaypointInstallPage = (props) => {
 	return (
