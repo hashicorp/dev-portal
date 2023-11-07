@@ -505,7 +505,7 @@ The following configuration:
 
 Outputs the following:
 
-![Dark, bold "Featured Collections" heading above a 3-column by 2-row grid of 6 Collection cards.](/docs/images/ProductDownloadsView-featuredCollectionsSlugs.png)
+![Dark, bold "Featured Collections" heading above a 3-column by 2-row grid of 6 Collection cards.](/docs/images/ProductInstallView-featuredCollectionsSlugs.png)
 
 </details>
 
@@ -540,7 +540,7 @@ The following configuration:
 
 Outputs the following:
 
-![Dark, bold "Featured Tutorials" heading above a 3-column by 2-row grid of 6 Tutorial cards.](/docs/images/ProductDownloadsView-featuredTutorialsSlugs.png)
+![Dark, bold "Featured Tutorials" heading above a 3-column by 2-row grid of 6 Tutorial cards.](/docs/images/ProductInstallView-featuredTutorialsSlugs.png)
 
 </details>
 
@@ -549,7 +549,7 @@ Outputs the following:
 <details>
 <summary><code>packageManagerOverrides</code></summary>
 
-This is an array of objects. There is a default list of package managers that is shown for every product (see the `generateDefaultPackageManagers` helper in [`ProductDownloadsView`](../views/product-downloads-view/helpers.ts)). This property can be used to override any of the default package managers based on the `os` and `label` properties provided.
+This is an array of objects. There is a default list of package managers that is shown for every product (see the `generateDefaultPackageManagers` helper in [`ProductInstallView`](../views/product-downloads-view/helpers.ts)). This property can be used to override any of the default package managers based on the `os` and `label` properties provided.
 
 Example usage showing an override for macOS Homebrew:
 
@@ -599,7 +599,7 @@ The following configuration:
 
 Will output the following Sidebar between the auto-generated content in the header & footer:
 
-![Vertical list of Sidebar navigation items: "Terraform Home" back-to link, "Install Terraform" heading, horizontal divider, "Getting Started" heading, "Introduction to Terraform" link item, "Get Started with Terraform Cloud" link item.](/docs/images/ProductDownloadsView-sidebarMenuItems.png)
+![Vertical list of Sidebar navigation items: "Terraform Home" back-to link, "Install Terraform" heading, horizontal divider, "Getting Started" heading, "Introduction to Terraform" link item, "Get Started with Terraform Cloud" link item.](/docs/images/ProductInstallView-sidebarMenuItems.png)
 
 </details>
 

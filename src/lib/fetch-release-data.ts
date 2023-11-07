@@ -8,7 +8,7 @@ import semverParse from 'semver/functions/parse'
 import semverValid from 'semver/functions/valid'
 import { Products as HashiCorpProduct } from '@hashicorp/platform-product-meta'
 import { ProductData } from 'types/products'
-import { getIsEnterpriseVersion } from 'views/product-downloads-view/helpers'
+import { getIsEnterpriseVersion } from 'views/product-install-view/helpers'
 import { makeFetchWithRetry } from './fetch-with-retry'
 
 export type OperatingSystem =
