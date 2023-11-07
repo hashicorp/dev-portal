@@ -26,7 +26,6 @@ import InlineLink from 'components/inline-link'
 import MobileStandaloneLink from 'components/mobile-standalone-link'
 import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
-import VersionContextSwitcher from 'components/version-context-switcher'
 
 // Local imports
 import { DownloadsSectionProps } from './types'
@@ -255,9 +254,8 @@ const DownloadsSection = ({
 	isEnterpriseMode = false,
 	packageManagers,
 	selectedRelease,
-	versionSwitcherOptions,
 }: DownloadsSectionProps): ReactElement => {
-	const { isLatestVersion, setCurrentVersion } = useCurrentVersion()
+	const { isLatestVersion } = useCurrentVersion()
 	const downloadsByOS = useMemo(
 		() => groupDownloadsByOS(selectedRelease),
 		[selectedRelease]
@@ -271,12 +269,6 @@ const DownloadsSection = ({
 		<div className={s.root}>
 			<Card elevation="base">
 				<div className={s.cardHeader}>
-					<div className={s.versionSwitcherWrapper}>
-						<VersionContextSwitcher
-							onChange={(e) => setCurrentVersion(e.target.value)}
-							options={versionSwitcherOptions}
-						/>
-					</div>
 					<Heading
 						className={s.operatingSystemTitle}
 						level={2}
