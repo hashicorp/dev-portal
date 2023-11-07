@@ -37,7 +37,7 @@ import {
 	PageHeader,
 	SidecarMarketingCard,
 } from './components'
-import s from './product-downloads-view.module.css'
+import s from './product-install-view.module.css'
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`

@@ -549,7 +549,7 @@ Outputs the following:
 <details>
 <summary><code>packageManagerOverrides</code></summary>
 
-This is an array of objects. There is a default list of package managers that is shown for every product (see the `generateDefaultPackageManagers` helper in [`ProductInstallView`](../views/product-downloads-view/helpers.ts)). This property can be used to override any of the default package managers based on the `os` and `label` properties provided.
+This is an array of objects. There is a default list of package managers that is shown for every product (see the `generateDefaultPackageManagers` helper in [`ProductInstallView`](../views/product-install-view/helpers.ts)). This property can be used to override any of the default package managers based on the `os` and `label` properties provided.
 
 Example usage showing an override for macOS Homebrew:
 

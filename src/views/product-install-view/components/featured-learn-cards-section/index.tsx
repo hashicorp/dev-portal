@@ -8,7 +8,7 @@ import {
 	FeaturedCollectionCard,
 	FeaturedTutorialCard,
 } from 'views/product-install-view/types'
-import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
+import viewStyles from 'views/product-install-view/product-install-view.module.css'
 import CardsGridList, {
 	TutorialCardsGridList,
 } from 'components/cards-grid-list'

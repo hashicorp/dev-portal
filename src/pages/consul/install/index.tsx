@@ -10,7 +10,7 @@ import consulData from 'data/consul.json'
 import { ProductData } from 'types/products'
 import ProductInstallView from 'views/product-install-view'
 import { generateGetStaticProps } from 'views/product-install-view/server'
-import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
+import viewStyles from 'views/product-install-view/product-install-view.module.css'
 import s from './consul-downloads.module.css'
 
 const notesListItems = [

@@ -7,7 +7,7 @@ import { ReactElement } from 'react'
 import CardLink from 'components/card-link'
 import Heading from 'components/heading'
 import Text from 'components/text'
-import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
+import viewStyles from 'views/product-install-view/product-install-view.module.css'
 import s from './official-releases-section.module.css'
 
 const OfficialReleasesSection = (): ReactElement => {
