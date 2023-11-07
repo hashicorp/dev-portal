@@ -17,7 +17,7 @@ export const generateCodeSnippetFromCommands = (
 	return commands.map((command: string) => `$ ${command}`).join('\n')
 }
 
-export const groupDownloadsByOS = (
+export const groupInstallsByOS = (
 	selectedRelease: ReleaseVersion
 ): SortedReleases => {
 	return sortPlatforms(selectedRelease)

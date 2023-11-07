@@ -28,9 +28,9 @@ import Tabs, { Tab } from 'components/tabs'
 import Text from 'components/text'
 
 // Local imports
-import { DownloadsSectionProps } from './types'
-import { groupDownloadsByOS, groupPackageManagersByOS } from './helpers'
-import s from './downloads-section.module.css'
+import { InstallSectionProps } from './types'
+import { groupInstallsByOS, groupPackageManagersByOS } from './helpers'
+import s from './install-section.module.css'
 import { PackageManager } from 'views/product-install-view/types'
 
 const SHARED_HEADING_LEVEL_3_PROPS = {
@@ -88,7 +88,7 @@ const PackageManagerSection = ({
 	)
 }
 
-const BinaryDownloadsSection = ({
+const BinaryInstallSection = ({
 	downloadsByOS,
 	os,
 	prettyOSName,
@@ -250,14 +250,14 @@ const EnterpriseLegalNotice = () => {
 	)
 }
 
-const DownloadsSection = ({
+const InstallSection = ({
 	isEnterpriseMode = false,
 	packageManagers,
 	selectedRelease,
-}: DownloadsSectionProps): ReactElement => {
+}: InstallSectionProps): ReactElement => {
 	const { isLatestVersion } = useCurrentVersion()
 	const downloadsByOS = useMemo(
-		() => groupDownloadsByOS(selectedRelease),
+		() => groupInstallsByOS(selectedRelease),
 		[selectedRelease]
 	)
 	const packageManagersByOS = useMemo(
@@ -299,7 +299,7 @@ const DownloadsSection = ({
 											prettyOSName={prettyOSName}
 										/>
 									)}
-									<BinaryDownloadsSection
+									<BinaryInstallSection
 										downloadsByOS={downloadsByOS}
 										os={os}
 										prettyOSName={prettyOSName}
@@ -318,4 +318,4 @@ const DownloadsSection = ({
 	)
 }
 
-export default DownloadsSection
+export default InstallSection

@@ -6,7 +6,7 @@
 import { ReleaseVersion } from 'lib/fetch-release-data'
 import { PackageManager } from 'views/product-install-view/types'
 
-export interface DownloadsSectionProps {
+export interface InstallSectionProps {
 	isEnterpriseMode: boolean
 	packageManagers: PackageManager[]
 	selectedRelease: ReleaseVersion

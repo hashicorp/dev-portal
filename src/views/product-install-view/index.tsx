@@ -31,7 +31,7 @@ import {
 } from './helpers'
 import { CurrentVersionProvider, useCurrentVersion } from './contexts'
 import {
-	DownloadsSection,
+	InstallSection,
 	FeaturedLearnCardsSection,
 	OfficialReleasesSection,
 	PageHeader,
@@ -124,7 +124,7 @@ const ProductInstallViewContent = ({
 				versionSwitcherOptions={versionSwitcherOptions}
 			/>
 			{merchandisingSlot?.position === 'above' ? merchandisingSlot.slot : null}
-			<DownloadsSection
+			<InstallSection
 				isEnterpriseMode={isEnterpriseMode}
 				packageManagers={packageManagers}
 				selectedRelease={releases.versions[currentVersion]}
