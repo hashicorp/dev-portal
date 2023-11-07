@@ -12,7 +12,7 @@ import ProductInstallView from 'views/product-install-view'
 import { generateGetStaticProps } from 'views/product-install-view/server'
 import s from './downloads.module.css'
 
-const WaypointDownloadsPage = (props) => {
+const WaypointInstallPage = (props) => {
 	return (
 		<ProductInstallView
 			{...props}
@@ -44,4 +44,4 @@ const WaypointDownloadsPage = (props) => {
 const getStaticProps = generateGetStaticProps(waypointData as ProductData)
 
 export { getStaticProps }
-export default WaypointDownloadsPage
+export default WaypointInstallPage

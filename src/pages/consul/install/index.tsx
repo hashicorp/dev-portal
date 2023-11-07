@@ -11,7 +11,7 @@ import { ProductData } from 'types/products'
 import ProductInstallView from 'views/product-install-view'
 import { generateGetStaticProps } from 'views/product-install-view/server'
 import viewStyles from 'views/product-install-view/product-install-view.module.css'
-import s from './consul-downloads.module.css'
+import s from './consul-install.module.css'
 
 const notesListItems = [
 	'Use Armelv5 for all 32-bit armel systems',
@@ -19,7 +19,7 @@ const notesListItems = [
 	'Use Arm64 for all v8 64-bit architectures',
 ]
 
-const ConsulDownloadsMerchandisingSlot = () => {
+const ConsulInstallMerchandisingSlot = () => {
 	return (
 		<div>
 			<Heading
@@ -93,13 +93,13 @@ const ConsulDownloadsMerchandisingSlot = () => {
 	)
 }
 
-const ConsulDownloadsPage = (props) => {
+const ConsulInstallPage = (props) => {
 	return (
 		<ProductInstallView
 			{...props}
 			merchandisingSlot={{
 				position: 'below',
-				slot: <ConsulDownloadsMerchandisingSlot />,
+				slot: <ConsulInstallMerchandisingSlot />,
 			}}
 		/>
 	)
@@ -108,5 +108,5 @@ const ConsulDownloadsPage = (props) => {
 const getStaticProps = generateGetStaticProps(consulData as ProductData)
 
 export { getStaticProps }
-export { ConsulDownloadsMerchandisingSlot }
-export default ConsulDownloadsPage
+export { ConsulInstallMerchandisingSlot }
+export default ConsulInstallPage

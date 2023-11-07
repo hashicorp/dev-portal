@@ -10,7 +10,7 @@ import ProductInstallView from 'views/product-install-view'
 import { generateGetStaticProps } from 'views/product-install-view/server'
 import { ProductInstallViewProps } from 'views/product-install-view/types'
 
-function VagrantDownloadsPage(props: ProductInstallViewProps) {
+function VagrantInstallPage(props: ProductInstallViewProps) {
 	return (
 		<ProductInstallView
 			{...props}
@@ -32,4 +32,4 @@ function VagrantDownloadsPage(props: ProductInstallViewProps) {
 const getStaticProps = generateGetStaticProps(vagrantData as ProductData)
 
 export { getStaticProps }
-export default VagrantDownloadsPage
+export default VagrantInstallPage

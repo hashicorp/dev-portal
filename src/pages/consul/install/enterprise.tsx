@@ -7,15 +7,15 @@ import consulData from 'data/consul.json'
 import { ProductData } from 'types/products'
 import ProductInstallView from 'views/product-install-view'
 import { generateGetStaticProps } from 'views/product-install-view/server'
-import { ConsulDownloadsMerchandisingSlot } from '.'
+import { ConsulInstallMerchandisingSlot } from '.'
 
-const ConsulEnterpriseDownloadsPage = (props) => {
+const ConsulEnterpriseInstallPage = (props) => {
 	return (
 		<ProductInstallView
 			{...props}
 			merchandisingSlot={{
 				position: 'below',
-				slot: <ConsulDownloadsMerchandisingSlot />,
+				slot: <ConsulInstallMerchandisingSlot />,
 			}}
 		/>
 	)
@@ -26,4 +26,4 @@ const getStaticProps = generateGetStaticProps(consulData as ProductData, {
 })
 
 export { getStaticProps }
-export default ConsulEnterpriseDownloadsPage
+export default ConsulEnterpriseInstallPage

@@ -23,14 +23,14 @@ const DESKTOP_CLIENT_RELEASE_SLUG = 'boundary-desktop'
  * Boundary downloads static props extend the base product downloads view props,
  * with props for the desktop client CTA.
  */
-interface BoundaryDownloadsPageProps extends ProductInstallViewStaticProps {
+interface BoundaryInstallPageProps extends ProductInstallViewStaticProps {
 	desktopClientProps: DesktopClientProps
 }
 
 /**
  * Get static props for the Boundary downloads page.
  */
-const getStaticProps: GetStaticProps<BoundaryDownloadsPageProps> = async () => {
+const getStaticProps: GetStaticProps<BoundaryInstallPageProps> = async () => {
 	/**
 	 * Get the base static props for the view,
 	 * which fetches the `boundary` release data.
