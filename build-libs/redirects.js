@@ -309,6 +309,16 @@ async function buildDevPortalRedirects() {
 			destination: '/waypoint/integrations/hashicorp/:slug',
 			permanent: true,
 		},
+		{
+			source: '/:path/downloads',
+			destination: '/:path/install',
+			permanent: true,
+		},
+		{
+			source: '/:path/downloads/:slug',
+			destination: '/:path/install/:slug',
+			permanent: true,
+		},
 		/**
 		 * Redirect for Integration Component rework.
 		 * Further details in the file this is imported from.
