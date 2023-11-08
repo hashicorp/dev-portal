@@ -152,7 +152,7 @@ export function rewriteDocsUrl(
 			currentProduct.slug === 'vagrant' &&
 			inputUrl.startsWith('/vmware/downloads')
 		) {
-			return `/${currentProduct.slug}/downloads/vmware`
+			return `/${currentProduct.slug}/install/vmware`
 		}
 		return `/${currentProduct.slug}${inputUrl}`
 	} else if (!isProductPath.test(inputUrl) && !isTutorialsPath.test(inputUrl)) {

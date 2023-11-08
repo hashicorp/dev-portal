@@ -99,7 +99,7 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	if (currentProduct.slug !== 'hcp') {
 		items.push({
 			label: 'Install',
-			url: `/${currentProduct.slug}/downloads`,
+			url: `/${currentProduct.slug}/install`,
 		})
 	}
 
