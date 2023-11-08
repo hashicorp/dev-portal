@@ -310,13 +310,19 @@ async function buildDevPortalRedirects() {
 			permanent: true,
 		},
 		{
-			source: '/:path/downloads',
+			source:
+				'/:path\\(boundary|consul|nomad|packer|terraform|vagrant|vault|waypoint\\)/downloads',
 			destination: '/:path/install',
 			permanent: true,
 		},
 		{
-			source: '/:path/downloads/:slug',
-			destination: '/:path/install/:slug',
+			source: '/:path\\(consul|nomad|vault\\)/downloads/enterprise',
+			destination: '/:path/install/enterprise',
+			permanent: true,
+		},
+		{
+			source: '/vagrant/downloads/vmware',
+			destination: '/vagrant/install/vmware',
 			permanent: true,
 		},
 		/**
