@@ -48,7 +48,7 @@ export const generateProductLandingSidebarMenuItems = (
 	if (product.slug !== 'hcp') {
 		menuItems.push({
 			title: 'Install',
-			fullPath: `/${product.slug}/downloads`,
+			fullPath: `/${product.slug}/install`,
 		})
 	}
 

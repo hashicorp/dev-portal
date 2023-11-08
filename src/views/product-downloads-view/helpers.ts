@@ -154,7 +154,7 @@ export const initializeBreadcrumbLinks = (
 	pathname: string
 ): BreadcrumbLink[] => {
 	const nonEnterpriseTitle =
-		pathname === '/vagrant/downloads/vmware'
+		pathname === '/vagrant/install/vmware'
 			? `Install VMware Utility`
 			: `Install`
 	return [
