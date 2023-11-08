@@ -22,7 +22,7 @@ export function getIconCards(product: ProductData) {
 		iconCards.push({
 			icon: <IconDownload16 />,
 			text: 'Install',
-			url: `/${product.slug}/downloads`,
+			url: `/${product.slug}/install`,
 		})
 	}
 

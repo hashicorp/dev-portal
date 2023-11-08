@@ -29,7 +29,7 @@ describe('getNavItems', () => {
 		Array [
 		  Object {
 		    "label": "Install",
-		    "url": "/waypoint/downloads",
+		    "url": "/waypoint/install",
 		  },
 		  Object {
 		    "label": "Tutorials",
@@ -177,7 +177,7 @@ describe('getNavItems', () => {
 		Array [
 		  Object {
 		    "label": "Install",
-		    "url": "/terraform/downloads",
+		    "url": "/terraform/install",
 		  },
 		  Object {
 		    "label": "Tutorials",

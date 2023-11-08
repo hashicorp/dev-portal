@@ -121,13 +121,13 @@ const ProductDownloadsViewContent = ({
 					name: installName || currentProduct.name,
 					slug: currentProduct.slug,
 				}}
+				versionSwitcherOptions={versionSwitcherOptions}
 			/>
 			{merchandisingSlot?.position === 'above' ? merchandisingSlot.slot : null}
 			<DownloadsSection
 				isEnterpriseMode={isEnterpriseMode}
 				packageManagers={packageManagers}
 				selectedRelease={releases.versions[currentVersion]}
-				versionSwitcherOptions={versionSwitcherOptions}
 			/>
 			{merchandisingSlot?.position === 'below' ? merchandisingSlot.slot : null}
 			<OfficialReleasesSection />
