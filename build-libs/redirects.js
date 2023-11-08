@@ -311,12 +311,12 @@ async function buildDevPortalRedirects() {
 		},
 		{
 			source:
-				'/:path\\(boundary|consul|nomad|packer|terraform|vagrant|vault|waypoint\\)/downloads',
+				'/:path(boundary|consul|nomad|packer|terraform|vagrant|vault|waypoint)/downloads',
 			destination: '/:path/install',
 			permanent: true,
 		},
 		{
-			source: '/:path\\(consul|nomad|vault\\)/downloads/enterprise',
+			source: '/:path(consul|nomad|vault)/downloads/enterprise',
 			destination: '/:path/install/enterprise',
 			permanent: true,
 		},
