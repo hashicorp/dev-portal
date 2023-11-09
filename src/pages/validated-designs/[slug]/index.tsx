@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 		paths: [
 			{
 				params: {
-					name: 'test',
+					slug: 'test',
 				},
 			},
 		],
