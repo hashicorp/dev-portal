@@ -12,7 +12,16 @@ export default function ValidatedDesignPageTemplate() {
 }
 
 export async function getStaticPaths() {
-	return { paths: [], fallback: false }
+	return {
+		paths: [
+			{
+				params: {
+					name: 'test',
+				},
+			},
+		],
+		fallback: false,
+	}
 }
 
 export async function getStaticProps() {
