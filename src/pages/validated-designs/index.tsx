@@ -10,3 +10,14 @@ export default function ValidatedDesignsLanding() {
 		</>
 	)
 }
+
+export async function getStaticProps() {
+	if (__config.flags.enable_hvd === false) {
+		return {
+			notFound: true,
+		}
+	}
+	return {
+		props: {},
+	}
+}

@@ -10,3 +10,14 @@ export default function ValidatedDesignPageTemplate() {
 		</>
 	)
 }
+
+export async function getStaticProps() {
+	if (__config.flags.enable_hvd === false) {
+		return {
+			notFound: true,
+		}
+	}
+	return {
+		props: {},
+	}
+}

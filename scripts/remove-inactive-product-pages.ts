@@ -17,12 +17,12 @@ async function main() {
 	}
 
 	/**
-	 * We're selectively not rendering pages for that are hidden
+	 * To improve build times, We're selectively not building pages for that are hidden
 	 * behind the HVD feature flag. This is accomplished by checking the products defined in
 	 * config.flags.enable_hvd and removing page folders which could be associated with that content.
 	 */
 	const config = loadHashiConfigForEnvironment()
-	const shouldBuildHVDPaths = config.flags.enable_hvd === true
+	const shouldNotBuildHvdPaths = config.flags.enable_hvd === true
 	const pagesDir = path.join(process.cwd(), 'src', 'pages')
 
 	const rootPagesDirs = (
@@ -36,7 +36,7 @@ async function main() {
 	for (const dir of rootPagesDirs) {
 		if (
 			dir.name === 'sentinel' ||
-			(dir.name === 'validated-designs' && !shouldBuildHVDPaths)
+			(dir.name === 'validated-designs' && shouldNotBuildHvdPaths)
 		) {
 			console.log(`🧹 removing pages at /${dir.name}`)
 			if (!process.env.DRY_RUN) {
