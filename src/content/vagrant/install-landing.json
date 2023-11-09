@@ -3,7 +3,10 @@
 	"packageManagerOverrides": [
 		{
 			"label": "Homebrew",
-			"commands": ["brew install hashicorp/tap/hashicorp-vagrant"],
+			"commands": [
+				"brew tap hashicorp/tap",
+				"brew install hashicorp/tap/hashicorp-vagrant"
+			],
 			"os": "darwin"
 		}
 	],
