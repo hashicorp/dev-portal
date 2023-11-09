@@ -6,6 +6,11 @@
 import path from 'path'
 import fs from 'fs'
 
+/**
+ * In order to optimize builds, we're selectively not rendering pages for products which are
+ * not included in our public beta. This is accomplished by checking the products defined in
+ * config.dev_dot.beta_product_slugs and removing page folders which aren't included in the array.
+ */
 async function main() {
 	if (
 		!process.env.CI ||
