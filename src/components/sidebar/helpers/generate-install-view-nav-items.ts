@@ -39,7 +39,7 @@ export const generateInstallViewNavItems = (
 		: `Install ${product.name}`
 	const titleItem = {
 		title,
-		fullPath: `/${product.slug}/downloads`,
+		fullPath: `/${product.slug}/install`,
 		theme: product.slug,
 	}
 

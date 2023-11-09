@@ -20,8 +20,8 @@ function VagrantDownloadsPage(props: ProductDownloadsViewProps) {
 					<CalloutCard
 						heading="VMware Utility"
 						headingSlug="vmware-utility"
-						body="From this page you can download the VMware utility, review lease information and much more. These tools are maintained by HashiCorp and the Vagrant Community."
-						ctas={[{ text: 'Download', url: '/vagrant/downloads/vmware' }]}
+						body="From this page you can install the VMware utility, review lease information and much more. These tools are maintained by HashiCorp and the Vagrant Community."
+						ctas={[{ text: 'Install', url: '/vagrant/install/vmware' }]}
 					/>
 				),
 			}}
