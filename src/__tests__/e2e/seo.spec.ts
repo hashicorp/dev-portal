@@ -76,7 +76,7 @@ test('install page should render the expected metadata', async ({
 	context,
 	baseURL,
 }) => {
-	await page.goto('/waypoint/downloads')
+	await page.goto('/waypoint/install')
 	await expect(page).toHaveTitle(
 		`Install | Waypoint | ${__config.dev_dot.meta.title}`
 	)
