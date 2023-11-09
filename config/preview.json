@@ -4,6 +4,6 @@
 		"max_static_paths": 10
 	},
 	"flags": {
-		"enable_hvd": true
+		"enable_hvd": false
 	}
 }
