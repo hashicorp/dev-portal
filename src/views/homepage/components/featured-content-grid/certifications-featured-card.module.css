@@ -5,27 +5,19 @@
 
 .certificationsCard {
 	--graphic-position-top: -44px;
-	--graphic-max-height: 286px;
 
 	border: none;
 	padding-top: 0;
 	gap: 70px;
-
-	@media (--dev-dot-mobile) {
-		--graphic-max-height: 38vh;
-	}
 }
 
 .certificationsCardContent {
-	padding-top: calc(var(--graphic-max-height));
+	margin-top: var(--graphic-position-top);
 }
 
 .graphicContainer {
-	left: 0;
 	max-height: var(--graphic-max-height);
-	position: absolute;
-	right: 0;
-	top: var(--graphic-position-top);
+	padding-bottom: var(--graphic-position-top);
 	overflow: hidden;
 	width: fit-content;
 	margin: 0 auto;
