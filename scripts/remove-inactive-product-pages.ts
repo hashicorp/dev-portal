@@ -7,11 +7,6 @@ import path from 'path'
 import fs from 'fs'
 import { loadHashiConfigForEnvironment } from '../config'
 
-/**
- * In order to optimize builds, we're selectively not rendering pages for products which are
- * not included in our public beta. This is accomplished by checking the products defined in
- * config.dev_dot.beta_product_slugs and removing page folders which aren't included in the array.
- */
 async function main() {
 	if (
 		!process.env.CI ||
@@ -21,6 +16,11 @@ async function main() {
 		return
 	}
 
+	/**
+	 * We're selectively not rendering pages for that are hidden
+	 * behind the HVD feature flag. This is accomplished by checking the products defined in
+	 * config.flags.enable_hvd and removing page folders which could be associated with that content.
+	 */
 	const config = loadHashiConfigForEnvironment()
 	const shouldBuildHVDPaths = config.flags.enable_hvd === true
 	const pagesDir = path.join(process.cwd(), 'src', 'pages')
