@@ -1,0 +1,1748 @@
+{
+	"0.1.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.1.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.1.0_SHA256SUMS.sig",
+		"version": "0.1.0"
+	},
+	"0.1.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.1.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.1.1_SHA256SUMS.sig",
+		"version": "0.1.1"
+	},
+	"0.10.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.10.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.10.0_SHA256SUMS.sig",
+		"version": "0.10.0"
+	},
+	"0.10.0-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_0.10.0-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_0.10.0-beta1_SHA256SUMS.sig",
+		"version": "0.10.0-beta1"
+	},
+	"0.10.0-beta2": {
+		"name": "terraform",
+		"shasums": "terraform_0.10.0-beta2_SHA256SUMS",
+		"shasums_signature": "terraform_0.10.0-beta2_SHA256SUMS.sig",
+		"version": "0.10.0-beta2"
+	},
+	"0.10.0-rc1": {
+		"name": "terraform",
+		"shasums": "terraform_0.10.0-rc1_SHA256SUMS",
+		"shasums_signature": "terraform_0.10.0-rc1_SHA256SUMS.sig",
+		"version": "0.10.0-rc1"
+	},
+	"0.10.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.10.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.10.1_SHA256SUMS.sig",
+		"version": "0.10.1"
+	},
+	"0.10.2": {
+		"name": "terraform",
+		"shasums": "terraform_0.10.2_SHA256SUMS",
+		"shasums_signature": "terraform_0.10.2_SHA256SUMS.sig",
+		"version": "0.10.2"
+	},
+	"0.10.3": {
+		"name": "terraform",
+		"shasums": "terraform_0.10.3_SHA256SUMS",
+		"shasums_signature": "terraform_0.10.3_SHA256SUMS.sig",
+		"version": "0.10.3"
+	},
+	"0.10.4": {
+		"name": "terraform",
+		"shasums": "terraform_0.10.4_SHA256SUMS",
+		"shasums_signature": "terraform_0.10.4_SHA256SUMS.sig",
+		"version": "0.10.4"
+	},
+	"0.10.5": {
+		"name": "terraform",
+		"shasums": "terraform_0.10.5_SHA256SUMS",
+		"shasums_signature": "terraform_0.10.5_SHA256SUMS.sig",
+		"version": "0.10.5"
+	},
+	"0.10.6": {
+		"name": "terraform",
+		"shasums": "terraform_0.10.6_SHA256SUMS",
+		"shasums_signature": "terraform_0.10.6_SHA256SUMS.sig",
+		"version": "0.10.6"
+	},
+	"0.10.7": {
+		"name": "terraform",
+		"shasums": "terraform_0.10.7_SHA256SUMS",
+		"shasums_signature": "terraform_0.10.7_SHA256SUMS.sig",
+		"version": "0.10.7"
+	},
+	"0.10.8": {
+		"name": "terraform",
+		"shasums": "terraform_0.10.8_SHA256SUMS",
+		"shasums_signature": "terraform_0.10.8_SHA256SUMS.sig",
+		"version": "0.10.8"
+	},
+	"0.11.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.0_SHA256SUMS.sig",
+		"version": "0.11.0"
+	},
+	"0.11.0-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.0-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.0-beta1_SHA256SUMS.sig",
+		"version": "0.11.0-beta1"
+	},
+	"0.11.0-rc1": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.0-rc1_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.0-rc1_SHA256SUMS.sig",
+		"version": "0.11.0-rc1"
+	},
+	"0.11.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.1_SHA256SUMS.sig",
+		"version": "0.11.1"
+	},
+	"0.11.10": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.10_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.10_SHA256SUMS.sig",
+		"version": "0.11.10"
+	},
+	"0.11.11": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.11_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.11_SHA256SUMS.sig",
+		"version": "0.11.11"
+	},
+	"0.11.12": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.12_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.12_SHA256SUMS.sig",
+		"version": "0.11.12"
+	},
+	"0.11.12-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.12-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.12-beta1_SHA256SUMS.sig",
+		"version": "0.11.12-beta1"
+	},
+	"0.11.13": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.13_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.13_SHA256SUMS.sig",
+		"version": "0.11.13"
+	},
+	"0.11.14": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.14_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.14_SHA256SUMS.sig",
+		"version": "0.11.14"
+	},
+	"0.11.15": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.15_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.15_SHA256SUMS.sig",
+		"version": "0.11.15"
+	},
+	"0.11.15-oci": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.15-oci_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.15-oci_SHA256SUMS.sig",
+		"version": "0.11.15-oci"
+	},
+	"0.11.2": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.2_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.2_SHA256SUMS.sig",
+		"version": "0.11.2"
+	},
+	"0.11.3": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.3_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.3_SHA256SUMS.sig",
+		"version": "0.11.3"
+	},
+	"0.11.4": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.4_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.4_SHA256SUMS.sig",
+		"version": "0.11.4"
+	},
+	"0.11.5": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.5_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.5_SHA256SUMS.sig",
+		"version": "0.11.5"
+	},
+	"0.11.6": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.6_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.6_SHA256SUMS.sig",
+		"version": "0.11.6"
+	},
+	"0.11.7": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.7_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.7_SHA256SUMS.sig",
+		"version": "0.11.7"
+	},
+	"0.11.8": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.8_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.8_SHA256SUMS.sig",
+		"version": "0.11.8"
+	},
+	"0.11.9": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.9_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.9_SHA256SUMS.sig",
+		"version": "0.11.9"
+	},
+	"0.11.9-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_0.11.9-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_0.11.9-beta1_SHA256SUMS.sig",
+		"version": "0.11.9-beta1"
+	},
+	"0.12.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.0_SHA256SUMS.sig",
+		"version": "0.12.0"
+	},
+	"0.12.0-alpha1": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.0-alpha1_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.0-alpha1_SHA256SUMS.sig",
+		"version": "0.12.0-alpha1"
+	},
+	"0.12.0-alpha2": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.0-alpha2_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.0-alpha2_SHA256SUMS.sig",
+		"version": "0.12.0-alpha2"
+	},
+	"0.12.0-alpha3": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.0-alpha3_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.0-alpha3_SHA256SUMS.sig",
+		"version": "0.12.0-alpha3"
+	},
+	"0.12.0-alpha4": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.0-alpha4_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.0-alpha4_SHA256SUMS.sig",
+		"version": "0.12.0-alpha4"
+	},
+	"0.12.0-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.0-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.0-beta1_SHA256SUMS.sig",
+		"version": "0.12.0-beta1"
+	},
+	"0.12.0-beta2": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.0-beta2_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.0-beta2_SHA256SUMS.sig",
+		"version": "0.12.0-beta2"
+	},
+	"0.12.0-rc1": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.0-rc1_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.0-rc1_SHA256SUMS.sig",
+		"version": "0.12.0-rc1"
+	},
+	"0.12.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.1_SHA256SUMS.sig",
+		"version": "0.12.1"
+	},
+	"0.12.10": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.10_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.10_SHA256SUMS.sig",
+		"version": "0.12.10"
+	},
+	"0.12.11": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.11_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.11_SHA256SUMS.sig",
+		"version": "0.12.11"
+	},
+	"0.12.12": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.12_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.12_SHA256SUMS.sig",
+		"version": "0.12.12"
+	},
+	"0.12.13": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.13_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.13_SHA256SUMS.sig",
+		"version": "0.12.13"
+	},
+	"0.12.14": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.14_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.14_SHA256SUMS.sig",
+		"version": "0.12.14"
+	},
+	"0.12.15": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.15_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.15_SHA256SUMS.sig",
+		"version": "0.12.15"
+	},
+	"0.12.16": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.16_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.16_SHA256SUMS.sig",
+		"version": "0.12.16"
+	},
+	"0.12.17": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.17_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.17_SHA256SUMS.sig",
+		"version": "0.12.17"
+	},
+	"0.12.18": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.18_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.18_SHA256SUMS.sig",
+		"version": "0.12.18"
+	},
+	"0.12.19": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.19_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.19_SHA256SUMS.sig",
+		"version": "0.12.19"
+	},
+	"0.12.2": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.2_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.2_SHA256SUMS.sig",
+		"version": "0.12.2"
+	},
+	"0.12.20": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.20_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.20_SHA256SUMS.sig",
+		"version": "0.12.20"
+	},
+	"0.12.21": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.21_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.21_SHA256SUMS.sig",
+		"version": "0.12.21"
+	},
+	"0.12.22": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.22_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.22_SHA256SUMS.sig",
+		"version": "0.12.22"
+	},
+	"0.12.23": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.23_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.23_SHA256SUMS.sig",
+		"version": "0.12.23"
+	},
+	"0.12.24": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.24_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.24_SHA256SUMS.sig",
+		"version": "0.12.24"
+	},
+	"0.12.25": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.25_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.25_SHA256SUMS.sig",
+		"version": "0.12.25"
+	},
+	"0.12.26": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.26_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.26_SHA256SUMS.sig",
+		"version": "0.12.26"
+	},
+	"0.12.27": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.27_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.27_SHA256SUMS.sig",
+		"version": "0.12.27"
+	},
+	"0.12.28": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.28_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.28_SHA256SUMS.sig",
+		"version": "0.12.28"
+	},
+	"0.12.29": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.29_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.29_SHA256SUMS.sig",
+		"version": "0.12.29"
+	},
+	"0.12.3": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.3_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.3_SHA256SUMS.sig",
+		"version": "0.12.3"
+	},
+	"0.12.30": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.30_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.30_SHA256SUMS.sig",
+		"version": "0.12.30"
+	},
+	"0.12.31": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.31_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.31_SHA256SUMS.sig",
+		"version": "0.12.31"
+	},
+	"0.12.4": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.4_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.4_SHA256SUMS.sig",
+		"version": "0.12.4"
+	},
+	"0.12.5": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.5_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.5_SHA256SUMS.sig",
+		"version": "0.12.5"
+	},
+	"0.12.6": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.6_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.6_SHA256SUMS.sig",
+		"version": "0.12.6"
+	},
+	"0.12.7": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.7_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.7_SHA256SUMS.sig",
+		"version": "0.12.7"
+	},
+	"0.12.8": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.8_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.8_SHA256SUMS.sig",
+		"version": "0.12.8"
+	},
+	"0.12.9": {
+		"name": "terraform",
+		"shasums": "terraform_0.12.9_SHA256SUMS",
+		"shasums_signature": "terraform_0.12.9_SHA256SUMS.sig",
+		"version": "0.12.9"
+	},
+	"0.13.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.13.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.13.0_SHA256SUMS.sig",
+		"version": "0.13.0"
+	},
+	"0.13.0-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_0.13.0-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_0.13.0-beta1_SHA256SUMS.sig",
+		"version": "0.13.0-beta1"
+	},
+	"0.13.0-beta2": {
+		"name": "terraform",
+		"shasums": "terraform_0.13.0-beta2_SHA256SUMS",
+		"shasums_signature": "terraform_0.13.0-beta2_SHA256SUMS.sig",
+		"version": "0.13.0-beta2"
+	},
+	"0.13.0-beta3": {
+		"name": "terraform",
+		"shasums": "terraform_0.13.0-beta3_SHA256SUMS",
+		"shasums_signature": "terraform_0.13.0-beta3_SHA256SUMS.sig",
+		"version": "0.13.0-beta3"
+	},
+	"0.13.0-rc1": {
+		"name": "terraform",
+		"shasums": "terraform_0.13.0-rc1_SHA256SUMS",
+		"shasums_signature": "terraform_0.13.0-rc1_SHA256SUMS.sig",
+		"version": "0.13.0-rc1"
+	},
+	"0.13.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.13.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.13.1_SHA256SUMS.sig",
+		"version": "0.13.1"
+	},
+	"0.13.2": {
+		"name": "terraform",
+		"shasums": "terraform_0.13.2_SHA256SUMS",
+		"shasums_signature": "terraform_0.13.2_SHA256SUMS.sig",
+		"version": "0.13.2"
+	},
+	"0.13.3": {
+		"name": "terraform",
+		"shasums": "terraform_0.13.3_SHA256SUMS",
+		"shasums_signature": "terraform_0.13.3_SHA256SUMS.sig",
+		"version": "0.13.3"
+	},
+	"0.13.4": {
+		"name": "terraform",
+		"shasums": "terraform_0.13.4_SHA256SUMS",
+		"shasums_signature": "terraform_0.13.4_SHA256SUMS.sig",
+		"version": "0.13.4"
+	},
+	"0.13.5": {
+		"name": "terraform",
+		"shasums": "terraform_0.13.5_SHA256SUMS",
+		"shasums_signature": "terraform_0.13.5_SHA256SUMS.sig",
+		"version": "0.13.5"
+	},
+	"0.13.6": {
+		"name": "terraform",
+		"shasums": "terraform_0.13.6_SHA256SUMS",
+		"shasums_signature": "terraform_0.13.6_SHA256SUMS.sig",
+		"version": "0.13.6"
+	},
+	"0.13.7": {
+		"name": "terraform",
+		"shasums": "terraform_0.13.7_SHA256SUMS",
+		"shasums_signature": "terraform_0.13.7_SHA256SUMS.sig",
+		"version": "0.13.7"
+	},
+	"0.14.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.0_SHA256SUMS.sig",
+		"version": "0.14.0"
+	},
+	"0.14.0-alpha20200910": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.0-alpha20200910_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.0-alpha20200910_SHA256SUMS.sig",
+		"version": "0.14.0-alpha20200910"
+	},
+	"0.14.0-alpha20200923": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.0-alpha20200923_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.0-alpha20200923_SHA256SUMS.sig",
+		"version": "0.14.0-alpha20200923"
+	},
+	"0.14.0-alpha20201007": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.0-alpha20201007_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.0-alpha20201007_SHA256SUMS.sig",
+		"version": "0.14.0-alpha20201007"
+	},
+	"0.14.0-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.0-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.0-beta1_SHA256SUMS.sig",
+		"version": "0.14.0-beta1"
+	},
+	"0.14.0-beta2": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.0-beta2_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.0-beta2_SHA256SUMS.sig",
+		"version": "0.14.0-beta2"
+	},
+	"0.14.0-rc1": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.0-rc1_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.0-rc1_SHA256SUMS.sig",
+		"version": "0.14.0-rc1"
+	},
+	"0.14.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.1_SHA256SUMS.sig",
+		"version": "0.14.1"
+	},
+	"0.14.10": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.10_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.10_SHA256SUMS.sig",
+		"version": "0.14.10"
+	},
+	"0.14.11": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.11_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.11_SHA256SUMS.sig",
+		"version": "0.14.11"
+	},
+	"0.14.2": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.2_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.2_SHA256SUMS.sig",
+		"version": "0.14.2"
+	},
+	"0.14.3": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.3_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.3_SHA256SUMS.sig",
+		"version": "0.14.3"
+	},
+	"0.14.4": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.4_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.4_SHA256SUMS.sig",
+		"version": "0.14.4"
+	},
+	"0.14.5": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.5_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.5_SHA256SUMS.sig",
+		"version": "0.14.5"
+	},
+	"0.14.6": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.6_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.6_SHA256SUMS.sig",
+		"version": "0.14.6"
+	},
+	"0.14.7": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.7_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.7_SHA256SUMS.sig",
+		"version": "0.14.7"
+	},
+	"0.14.8": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.8_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.8_SHA256SUMS.sig",
+		"version": "0.14.8"
+	},
+	"0.14.9": {
+		"name": "terraform",
+		"shasums": "terraform_0.14.9_SHA256SUMS",
+		"shasums_signature": "terraform_0.14.9_SHA256SUMS.sig",
+		"version": "0.14.9"
+	},
+	"0.15.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.15.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.15.0_SHA256SUMS.sig",
+		"version": "0.15.0"
+	},
+	"0.15.0-alpha20210107": {
+		"name": "terraform",
+		"shasums": "terraform_0.15.0-alpha20210107_SHA256SUMS",
+		"shasums_signature": "terraform_0.15.0-alpha20210107_SHA256SUMS.sig",
+		"version": "0.15.0-alpha20210107"
+	},
+	"0.15.0-alpha20210127": {
+		"name": "terraform",
+		"shasums": "terraform_0.15.0-alpha20210127_SHA256SUMS",
+		"shasums_signature": "terraform_0.15.0-alpha20210127_SHA256SUMS.sig",
+		"version": "0.15.0-alpha20210127"
+	},
+	"0.15.0-alpha20210210": {
+		"name": "terraform",
+		"shasums": "terraform_0.15.0-alpha20210210_SHA256SUMS",
+		"shasums_signature": "terraform_0.15.0-alpha20210210_SHA256SUMS.sig",
+		"version": "0.15.0-alpha20210210"
+	},
+	"0.15.0-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_0.15.0-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_0.15.0-beta1_SHA256SUMS.sig",
+		"version": "0.15.0-beta1"
+	},
+	"0.15.0-beta2": {
+		"name": "terraform",
+		"shasums": "terraform_0.15.0-beta2_SHA256SUMS",
+		"shasums_signature": "terraform_0.15.0-beta2_SHA256SUMS.sig",
+		"version": "0.15.0-beta2"
+	},
+	"0.15.0-rc1": {
+		"name": "terraform",
+		"shasums": "terraform_0.15.0-rc1_SHA256SUMS",
+		"shasums_signature": "terraform_0.15.0-rc1_SHA256SUMS.sig",
+		"version": "0.15.0-rc1"
+	},
+	"0.15.0-rc2": {
+		"name": "terraform",
+		"shasums": "terraform_0.15.0-rc2_SHA256SUMS",
+		"shasums_signature": "terraform_0.15.0-rc2_SHA256SUMS.sig",
+		"version": "0.15.0-rc2"
+	},
+	"0.15.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.15.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.15.1_SHA256SUMS.sig",
+		"version": "0.15.1"
+	},
+	"0.15.2": {
+		"name": "terraform",
+		"shasums": "terraform_0.15.2_SHA256SUMS",
+		"shasums_signature": "terraform_0.15.2_SHA256SUMS.sig",
+		"version": "0.15.2"
+	},
+	"0.15.3": {
+		"name": "terraform",
+		"shasums": "terraform_0.15.3_SHA256SUMS",
+		"shasums_signature": "terraform_0.15.3_SHA256SUMS.sig",
+		"version": "0.15.3"
+	},
+	"0.15.4": {
+		"name": "terraform",
+		"shasums": "terraform_0.15.4_SHA256SUMS",
+		"shasums_signature": "terraform_0.15.4_SHA256SUMS.sig",
+		"version": "0.15.4"
+	},
+	"0.15.5": {
+		"name": "terraform",
+		"shasums": "terraform_0.15.5_SHA256SUMS",
+		"shasums_signature": "terraform_0.15.5_SHA256SUMS.sig",
+		"version": "0.15.5"
+	},
+	"0.2.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.2.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.2.0_SHA256SUMS.sig",
+		"version": "0.2.0"
+	},
+	"0.2.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.2.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.2.1_SHA256SUMS.sig",
+		"version": "0.2.1"
+	},
+	"0.2.2": {
+		"name": "terraform",
+		"shasums": "terraform_0.2.2_SHA256SUMS",
+		"shasums_signature": "terraform_0.2.2_SHA256SUMS.sig",
+		"version": "0.2.2"
+	},
+	"0.3.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.3.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.3.0_SHA256SUMS.sig",
+		"version": "0.3.0"
+	},
+	"0.3.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.3.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.3.1_SHA256SUMS.sig",
+		"version": "0.3.1"
+	},
+	"0.3.5": {
+		"name": "terraform",
+		"shasums": "terraform_0.3.5_SHA256SUMS",
+		"shasums_signature": "terraform_0.3.5_SHA256SUMS.sig",
+		"version": "0.3.5"
+	},
+	"0.3.6": {
+		"name": "terraform",
+		"shasums": "terraform_0.3.6_SHA256SUMS",
+		"shasums_signature": "terraform_0.3.6_SHA256SUMS.sig",
+		"version": "0.3.6"
+	},
+	"0.3.7": {
+		"name": "terraform",
+		"shasums": "terraform_0.3.7_SHA256SUMS",
+		"shasums_signature": "terraform_0.3.7_SHA256SUMS.sig",
+		"version": "0.3.7"
+	},
+	"0.4.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.4.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.4.0_SHA256SUMS.sig",
+		"version": "0.4.0"
+	},
+	"0.4.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.4.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.4.1_SHA256SUMS.sig",
+		"version": "0.4.1"
+	},
+	"0.4.2": {
+		"name": "terraform",
+		"shasums": "terraform_0.4.2_SHA256SUMS",
+		"shasums_signature": "terraform_0.4.2_SHA256SUMS.sig",
+		"version": "0.4.2"
+	},
+	"0.5.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.5.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.5.0_SHA256SUMS.sig",
+		"version": "0.5.0"
+	},
+	"0.5.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.5.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.5.1_SHA256SUMS.sig",
+		"version": "0.5.1"
+	},
+	"0.5.3": {
+		"name": "terraform",
+		"shasums": "terraform_0.5.3_SHA256SUMS",
+		"shasums_signature": "terraform_0.5.3_SHA256SUMS.sig",
+		"version": "0.5.3"
+	},
+	"0.6.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.0_SHA256SUMS.sig",
+		"version": "0.6.0"
+	},
+	"0.6.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.1_SHA256SUMS.sig",
+		"version": "0.6.1"
+	},
+	"0.6.10": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.10_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.10_SHA256SUMS.sig",
+		"version": "0.6.10"
+	},
+	"0.6.11": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.11_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.11_SHA256SUMS.sig",
+		"version": "0.6.11"
+	},
+	"0.6.12": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.12_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.12_SHA256SUMS.sig",
+		"version": "0.6.12"
+	},
+	"0.6.13": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.13_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.13_SHA256SUMS.sig",
+		"version": "0.6.13"
+	},
+	"0.6.14": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.14_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.14_SHA256SUMS.sig",
+		"version": "0.6.14"
+	},
+	"0.6.15": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.15_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.15_SHA256SUMS.sig",
+		"version": "0.6.15"
+	},
+	"0.6.16": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.16_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.16_SHA256SUMS.sig",
+		"version": "0.6.16"
+	},
+	"0.6.2": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.2_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.2_SHA256SUMS.sig",
+		"version": "0.6.2"
+	},
+	"0.6.3": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.3_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.3_SHA256SUMS.sig",
+		"version": "0.6.3"
+	},
+	"0.6.4": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.4_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.4_SHA256SUMS.sig",
+		"version": "0.6.4"
+	},
+	"0.6.5": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.5_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.5_SHA256SUMS.sig",
+		"version": "0.6.5"
+	},
+	"0.6.6": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.6_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.6_SHA256SUMS.sig",
+		"version": "0.6.6"
+	},
+	"0.6.7": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.7_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.7_SHA256SUMS.sig",
+		"version": "0.6.7"
+	},
+	"0.6.8": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.8_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.8_SHA256SUMS.sig",
+		"version": "0.6.8"
+	},
+	"0.6.9": {
+		"name": "terraform",
+		"shasums": "terraform_0.6.9_SHA256SUMS",
+		"shasums_signature": "terraform_0.6.9_SHA256SUMS.sig",
+		"version": "0.6.9"
+	},
+	"0.7.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.0_SHA256SUMS.sig",
+		"version": "0.7.0"
+	},
+	"0.7.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.1_SHA256SUMS.sig",
+		"version": "0.7.1"
+	},
+	"0.7.10": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.10_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.10_SHA256SUMS.sig",
+		"version": "0.7.10"
+	},
+	"0.7.11": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.11_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.11_SHA256SUMS.sig",
+		"version": "0.7.11"
+	},
+	"0.7.12": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.12_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.12_SHA256SUMS.sig",
+		"version": "0.7.12"
+	},
+	"0.7.13": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.13_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.13_SHA256SUMS.sig",
+		"version": "0.7.13"
+	},
+	"0.7.2": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.2_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.2_SHA256SUMS.sig",
+		"version": "0.7.2"
+	},
+	"0.7.3": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.3_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.3_SHA256SUMS.sig",
+		"version": "0.7.3"
+	},
+	"0.7.4": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.4_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.4_SHA256SUMS.sig",
+		"version": "0.7.4"
+	},
+	"0.7.5": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.5_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.5_SHA256SUMS.sig",
+		"version": "0.7.5"
+	},
+	"0.7.6": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.6_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.6_SHA256SUMS.sig",
+		"version": "0.7.6"
+	},
+	"0.7.7": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.7_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.7_SHA256SUMS.sig",
+		"version": "0.7.7"
+	},
+	"0.7.8": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.8_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.8_SHA256SUMS.sig",
+		"version": "0.7.8"
+	},
+	"0.7.9": {
+		"name": "terraform",
+		"shasums": "terraform_0.7.9_SHA256SUMS",
+		"shasums_signature": "terraform_0.7.9_SHA256SUMS.sig",
+		"version": "0.7.9"
+	},
+	"0.8.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.8.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.8.0_SHA256SUMS.sig",
+		"version": "0.8.0"
+	},
+	"0.8.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.8.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.8.1_SHA256SUMS.sig",
+		"version": "0.8.1"
+	},
+	"0.8.2": {
+		"name": "terraform",
+		"shasums": "terraform_0.8.2_SHA256SUMS",
+		"shasums_signature": "terraform_0.8.2_SHA256SUMS.sig",
+		"version": "0.8.2"
+	},
+	"0.8.3": {
+		"name": "terraform",
+		"shasums": "terraform_0.8.3_SHA256SUMS",
+		"shasums_signature": "terraform_0.8.3_SHA256SUMS.sig",
+		"version": "0.8.3"
+	},
+	"0.8.4": {
+		"name": "terraform",
+		"shasums": "terraform_0.8.4_SHA256SUMS",
+		"shasums_signature": "terraform_0.8.4_SHA256SUMS.sig",
+		"version": "0.8.4"
+	},
+	"0.8.5": {
+		"name": "terraform",
+		"shasums": "terraform_0.8.5_SHA256SUMS",
+		"shasums_signature": "terraform_0.8.5_SHA256SUMS.sig",
+		"version": "0.8.5"
+	},
+	"0.8.6": {
+		"name": "terraform",
+		"shasums": "terraform_0.8.6_SHA256SUMS",
+		"shasums_signature": "terraform_0.8.6_SHA256SUMS.sig",
+		"version": "0.8.6"
+	},
+	"0.8.7": {
+		"name": "terraform",
+		"shasums": "terraform_0.8.7_SHA256SUMS",
+		"shasums_signature": "terraform_0.8.7_SHA256SUMS.sig",
+		"version": "0.8.7"
+	},
+	"0.8.8": {
+		"name": "terraform",
+		"shasums": "terraform_0.8.8_SHA256SUMS",
+		"shasums_signature": "terraform_0.8.8_SHA256SUMS.sig",
+		"version": "0.8.8"
+	},
+	"0.9.0": {
+		"name": "terraform",
+		"shasums": "terraform_0.9.0_SHA256SUMS",
+		"shasums_signature": "terraform_0.9.0_SHA256SUMS.sig",
+		"version": "0.9.0"
+	},
+	"0.9.1": {
+		"name": "terraform",
+		"shasums": "terraform_0.9.1_SHA256SUMS",
+		"shasums_signature": "terraform_0.9.1_SHA256SUMS.sig",
+		"version": "0.9.1"
+	},
+	"0.9.10": {
+		"name": "terraform",
+		"shasums": "terraform_0.9.10_SHA256SUMS",
+		"shasums_signature": "terraform_0.9.10_SHA256SUMS.sig",
+		"version": "0.9.10"
+	},
+	"0.9.11": {
+		"name": "terraform",
+		"shasums": "terraform_0.9.11_SHA256SUMS",
+		"shasums_signature": "terraform_0.9.11_SHA256SUMS.sig",
+		"version": "0.9.11"
+	},
+	"0.9.2": {
+		"name": "terraform",
+		"shasums": "terraform_0.9.2_SHA256SUMS",
+		"shasums_signature": "terraform_0.9.2_SHA256SUMS.sig",
+		"version": "0.9.2"
+	},
+	"0.9.3": {
+		"name": "terraform",
+		"shasums": "terraform_0.9.3_SHA256SUMS",
+		"shasums_signature": "terraform_0.9.3_SHA256SUMS.sig",
+		"version": "0.9.3"
+	},
+	"0.9.4": {
+		"name": "terraform",
+		"shasums": "terraform_0.9.4_SHA256SUMS",
+		"shasums_signature": "terraform_0.9.4_SHA256SUMS.sig",
+		"version": "0.9.4"
+	},
+	"0.9.5": {
+		"name": "terraform",
+		"shasums": "terraform_0.9.5_SHA256SUMS",
+		"shasums_signature": "terraform_0.9.5_SHA256SUMS.sig",
+		"version": "0.9.5"
+	},
+	"0.9.6": {
+		"name": "terraform",
+		"shasums": "terraform_0.9.6_SHA256SUMS",
+		"shasums_signature": "terraform_0.9.6_SHA256SUMS.sig",
+		"version": "0.9.6"
+	},
+	"0.9.7": {
+		"name": "terraform",
+		"shasums": "terraform_0.9.7_SHA256SUMS",
+		"shasums_signature": "terraform_0.9.7_SHA256SUMS.sig",
+		"version": "0.9.7"
+	},
+	"0.9.8": {
+		"name": "terraform",
+		"shasums": "terraform_0.9.8_SHA256SUMS",
+		"shasums_signature": "terraform_0.9.8_SHA256SUMS.sig",
+		"version": "0.9.8"
+	},
+	"0.9.9": {
+		"name": "terraform",
+		"shasums": "terraform_0.9.9_SHA256SUMS",
+		"shasums_signature": "terraform_0.9.9_SHA256SUMS.sig",
+		"version": "0.9.9"
+	},
+	"1.0.0": {
+		"name": "terraform",
+		"shasums": "terraform_1.0.0_SHA256SUMS",
+		"shasums_signature": "terraform_1.0.0_SHA256SUMS.sig",
+		"version": "1.0.0"
+	},
+	"1.0.1": {
+		"name": "terraform",
+		"shasums": "terraform_1.0.1_SHA256SUMS",
+		"shasums_signature": "terraform_1.0.1_SHA256SUMS.sig",
+		"version": "1.0.1"
+	},
+	"1.0.10": {
+		"name": "terraform",
+		"shasums": "terraform_1.0.10_SHA256SUMS",
+		"shasums_signature": "terraform_1.0.10_SHA256SUMS.sig",
+		"version": "1.0.10"
+	},
+	"1.0.11": {
+		"name": "terraform",
+		"shasums": "terraform_1.0.11_SHA256SUMS",
+		"shasums_signature": "terraform_1.0.11_SHA256SUMS.sig",
+		"version": "1.0.11"
+	},
+	"1.0.2": {
+		"name": "terraform",
+		"shasums": "terraform_1.0.2_SHA256SUMS",
+		"shasums_signature": "terraform_1.0.2_SHA256SUMS.sig",
+		"version": "1.0.2"
+	},
+	"1.0.3": {
+		"name": "terraform",
+		"shasums": "terraform_1.0.3_SHA256SUMS",
+		"shasums_signature": "terraform_1.0.3_SHA256SUMS.sig",
+		"version": "1.0.3"
+	},
+	"1.0.4": {
+		"name": "terraform",
+		"shasums": "terraform_1.0.4_SHA256SUMS",
+		"shasums_signature": "terraform_1.0.4_SHA256SUMS.sig",
+		"version": "1.0.4"
+	},
+	"1.0.5": {
+		"name": "terraform",
+		"shasums": "terraform_1.0.5_SHA256SUMS",
+		"shasums_signature": "terraform_1.0.5_SHA256SUMS.sig",
+		"version": "1.0.5"
+	},
+	"1.0.6": {
+		"name": "terraform",
+		"shasums": "terraform_1.0.6_SHA256SUMS",
+		"shasums_signature": "terraform_1.0.6_SHA256SUMS.sig",
+		"version": "1.0.6"
+	},
+	"1.0.7": {
+		"name": "terraform",
+		"shasums": "terraform_1.0.7_SHA256SUMS",
+		"shasums_signature": "terraform_1.0.7_SHA256SUMS.sig",
+		"version": "1.0.7"
+	},
+	"1.0.8": {
+		"name": "terraform",
+		"shasums": "terraform_1.0.8_SHA256SUMS",
+		"shasums_signature": "terraform_1.0.8_SHA256SUMS.sig",
+		"version": "1.0.8"
+	},
+	"1.0.9": {
+		"name": "terraform",
+		"shasums": "terraform_1.0.9_SHA256SUMS",
+		"shasums_signature": "terraform_1.0.9_SHA256SUMS.sig",
+		"version": "1.0.9"
+	},
+	"1.1.0": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0_SHA256SUMS.sig",
+		"version": "1.1.0"
+	},
+	"1.1.0-alpha20210616": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0-alpha20210616_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0-alpha20210616_SHA256SUMS.sig",
+		"version": "1.1.0-alpha20210616"
+	},
+	"1.1.0-alpha20210630": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0-alpha20210630_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0-alpha20210630_SHA256SUMS.sig",
+		"version": "1.1.0-alpha20210630"
+	},
+	"1.1.0-alpha20210714": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0-alpha20210714_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0-alpha20210714_SHA256SUMS.sig",
+		"version": "1.1.0-alpha20210714"
+	},
+	"1.1.0-alpha20210728": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0-alpha20210728_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0-alpha20210728_SHA256SUMS.sig",
+		"version": "1.1.0-alpha20210728"
+	},
+	"1.1.0-alpha20210811": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0-alpha20210811_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0-alpha20210811_SHA256SUMS.sig",
+		"version": "1.1.0-alpha20210811"
+	},
+	"1.1.0-alpha20210908": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0-alpha20210908_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0-alpha20210908_SHA256SUMS.sig",
+		"version": "1.1.0-alpha20210908"
+	},
+	"1.1.0-alpha20210922": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0-alpha20210922_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0-alpha20210922_SHA256SUMS.sig",
+		"version": "1.1.0-alpha20210922"
+	},
+	"1.1.0-alpha20211006": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0-alpha20211006_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0-alpha20211006_SHA256SUMS.sig",
+		"version": "1.1.0-alpha20211006"
+	},
+	"1.1.0-alpha20211020": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0-alpha20211020_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0-alpha20211020_SHA256SUMS.sig",
+		"version": "1.1.0-alpha20211020"
+	},
+	"1.1.0-alpha20211029": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0-alpha20211029_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0-alpha20211029_SHA256SUMS.sig",
+		"version": "1.1.0-alpha20211029"
+	},
+	"1.1.0-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0-beta1_SHA256SUMS.sig",
+		"version": "1.1.0-beta1"
+	},
+	"1.1.0-beta2": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0-beta2_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0-beta2_SHA256SUMS.sig",
+		"version": "1.1.0-beta2"
+	},
+	"1.1.0-rc1": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.0-rc1_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.0-rc1_SHA256SUMS.sig",
+		"version": "1.1.0-rc1"
+	},
+	"1.1.1": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.1_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.1_SHA256SUMS.sig",
+		"version": "1.1.1"
+	},
+	"1.1.2": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.2_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.2_SHA256SUMS.sig",
+		"version": "1.1.2"
+	},
+	"1.1.3": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.3_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.3_SHA256SUMS.sig",
+		"version": "1.1.3"
+	},
+	"1.1.4": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.4_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.4_SHA256SUMS.sig",
+		"version": "1.1.4"
+	},
+	"1.1.5": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.5_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.5_SHA256SUMS.sig",
+		"version": "1.1.5"
+	},
+	"1.1.6": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.6_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.6_SHA256SUMS.sig",
+		"version": "1.1.6"
+	},
+	"1.1.7": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.7_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.7_SHA256SUMS.sig",
+		"version": "1.1.7"
+	},
+	"1.1.8": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.8_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.8_SHA256SUMS.sig",
+		"version": "1.1.8"
+	},
+	"1.1.9": {
+		"name": "terraform",
+		"shasums": "terraform_1.1.9_SHA256SUMS",
+		"shasums_signature": "terraform_1.1.9_SHA256SUMS.sig",
+		"version": "1.1.9"
+	},
+	"1.2.0": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.0_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.0_SHA256SUMS.sig",
+		"version": "1.2.0"
+	},
+	"1.2.0-alpha-20220328": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.0-alpha-20220328_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.0-alpha-20220328_SHA256SUMS.sig",
+		"version": "1.2.0-alpha-20220328"
+	},
+	"1.2.0-alpha20220413": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.0-alpha20220413_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.0-alpha20220413_SHA256SUMS.sig",
+		"version": "1.2.0-alpha20220413"
+	},
+	"1.2.0-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.0-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.0-beta1_SHA256SUMS.sig",
+		"version": "1.2.0-beta1"
+	},
+	"1.2.0-rc1": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.0-rc1_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.0-rc1_SHA256SUMS.sig",
+		"version": "1.2.0-rc1"
+	},
+	"1.2.0-rc2": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.0-rc2_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.0-rc2_SHA256SUMS.sig",
+		"version": "1.2.0-rc2"
+	},
+	"1.2.1": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.1_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.1_SHA256SUMS.sig",
+		"version": "1.2.1"
+	},
+	"1.2.2": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.2_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.2_SHA256SUMS.sig",
+		"version": "1.2.2"
+	},
+	"1.2.3": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.3_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.3_SHA256SUMS.sig",
+		"version": "1.2.3"
+	},
+	"1.2.4": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.4_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.4_SHA256SUMS.sig",
+		"version": "1.2.4"
+	},
+	"1.2.5": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.5_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.5_SHA256SUMS.sig",
+		"version": "1.2.5"
+	},
+	"1.2.6": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.6_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.6_SHA256SUMS.sig",
+		"version": "1.2.6"
+	},
+	"1.2.7": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.7_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.7_SHA256SUMS.sig",
+		"version": "1.2.7"
+	},
+	"1.2.8": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.8_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.8_SHA256SUMS.sig",
+		"version": "1.2.8"
+	},
+	"1.2.9": {
+		"name": "terraform",
+		"shasums": "terraform_1.2.9_SHA256SUMS",
+		"shasums_signature": "terraform_1.2.9_SHA256SUMS.sig",
+		"version": "1.2.9"
+	},
+	"1.3.0": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.0_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.0_SHA256SUMS.sig",
+		"version": "1.3.0"
+	},
+	"1.3.0-alpha20220608": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.0-alpha20220608_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.0-alpha20220608_SHA256SUMS.sig",
+		"version": "1.3.0-alpha20220608"
+	},
+	"1.3.0-alpha20220622": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.0-alpha20220622_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.0-alpha20220622_SHA256SUMS.sig",
+		"version": "1.3.0-alpha20220622"
+	},
+	"1.3.0-alpha20220706": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.0-alpha20220706_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.0-alpha20220706_SHA256SUMS.sig",
+		"version": "1.3.0-alpha20220706"
+	},
+	"1.3.0-alpha20220803": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.0-alpha20220803_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.0-alpha20220803_SHA256SUMS.sig",
+		"version": "1.3.0-alpha20220803"
+	},
+	"1.3.0-alpha20220817": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.0-alpha20220817_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.0-alpha20220817_SHA256SUMS.sig",
+		"version": "1.3.0-alpha20220817"
+	},
+	"1.3.0-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.0-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.0-beta1_SHA256SUMS.sig",
+		"version": "1.3.0-beta1"
+	},
+	"1.3.0-rc1": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.0-rc1_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.0-rc1_SHA256SUMS.sig",
+		"version": "1.3.0-rc1"
+	},
+	"1.3.1": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.1_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.1_SHA256SUMS.sig",
+		"version": "1.3.1"
+	},
+	"1.3.10": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.10_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.10_SHA256SUMS.sig",
+		"version": "1.3.10"
+	},
+	"1.3.2": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.2_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.2_SHA256SUMS.sig",
+		"version": "1.3.2"
+	},
+	"1.3.3": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.3_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.3_SHA256SUMS.sig",
+		"version": "1.3.3"
+	},
+	"1.3.4": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.4_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.4_SHA256SUMS.sig",
+		"version": "1.3.4"
+	},
+	"1.3.5": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.5_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.5_SHA256SUMS.sig",
+		"version": "1.3.5"
+	},
+	"1.3.6": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.6_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.6_SHA256SUMS.sig",
+		"version": "1.3.6"
+	},
+	"1.3.7": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.7_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.7_SHA256SUMS.sig",
+		"version": "1.3.7"
+	},
+	"1.3.8": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.8_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.8_SHA256SUMS.sig",
+		"version": "1.3.8"
+	},
+	"1.3.9": {
+		"name": "terraform",
+		"shasums": "terraform_1.3.9_SHA256SUMS",
+		"shasums_signature": "terraform_1.3.9_SHA256SUMS.sig",
+		"version": "1.3.9"
+	},
+	"1.4.0": {
+		"name": "terraform",
+		"shasums": "terraform_1.4.0_SHA256SUMS",
+		"shasums_signature": "terraform_1.4.0_SHA256SUMS.sig",
+		"version": "1.4.0"
+	},
+	"1.4.0-alpha20221109": {
+		"name": "terraform",
+		"shasums": "terraform_1.4.0-alpha20221109_SHA256SUMS",
+		"shasums_signature": "terraform_1.4.0-alpha20221109_SHA256SUMS.sig",
+		"version": "1.4.0-alpha20221109"
+	},
+	"1.4.0-alpha20221207": {
+		"name": "terraform",
+		"shasums": "terraform_1.4.0-alpha20221207_SHA256SUMS",
+		"shasums_signature": "terraform_1.4.0-alpha20221207_SHA256SUMS.sig",
+		"version": "1.4.0-alpha20221207"
+	},
+	"1.4.0-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_1.4.0-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_1.4.0-beta1_SHA256SUMS.sig",
+		"version": "1.4.0-beta1"
+	},
+	"1.4.0-beta2": {
+		"name": "terraform",
+		"shasums": "terraform_1.4.0-beta2_SHA256SUMS",
+		"shasums_signature": "terraform_1.4.0-beta2_SHA256SUMS.sig",
+		"version": "1.4.0-beta2"
+	},
+	"1.4.0-rc1": {
+		"name": "terraform",
+		"shasums": "terraform_1.4.0-rc1_SHA256SUMS",
+		"shasums_signature": "terraform_1.4.0-rc1_SHA256SUMS.sig",
+		"version": "1.4.0-rc1"
+	},
+	"1.4.1": {
+		"name": "terraform",
+		"shasums": "terraform_1.4.1_SHA256SUMS",
+		"shasums_signature": "terraform_1.4.1_SHA256SUMS.sig",
+		"version": "1.4.1"
+	},
+	"1.4.2": {
+		"name": "terraform",
+		"shasums": "terraform_1.4.2_SHA256SUMS",
+		"shasums_signature": "terraform_1.4.2_SHA256SUMS.sig",
+		"version": "1.4.2"
+	},
+	"1.4.3": {
+		"name": "terraform",
+		"shasums": "terraform_1.4.3_SHA256SUMS",
+		"shasums_signature": "terraform_1.4.3_SHA256SUMS.sig",
+		"version": "1.4.3"
+	},
+	"1.4.4": {
+		"name": "terraform",
+		"shasums": "terraform_1.4.4_SHA256SUMS",
+		"shasums_signature": "terraform_1.4.4_SHA256SUMS.sig",
+		"version": "1.4.4"
+	},
+	"1.4.5": {
+		"name": "terraform",
+		"shasums": "terraform_1.4.5_SHA256SUMS",
+		"shasums_signature": "terraform_1.4.5_SHA256SUMS.sig",
+		"version": "1.4.5"
+	},
+	"1.4.6": {
+		"name": "terraform",
+		"shasums": "terraform_1.4.6_SHA256SUMS",
+		"shasums_signature": "terraform_1.4.6_SHA256SUMS.sig",
+		"version": "1.4.6"
+	},
+	"1.4.7": {
+		"name": "terraform",
+		"shasums": "terraform_1.4.7_SHA256SUMS",
+		"shasums_signature": "terraform_1.4.7_SHA256SUMS.sig",
+		"version": "1.4.7"
+	},
+	"1.5.0": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.0_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.0_SHA256SUMS.sig",
+		"version": "1.5.0"
+	},
+	"1.5.0-alpha20230405": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.0-alpha20230405_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.0-alpha20230405_SHA256SUMS.sig",
+		"version": "1.5.0-alpha20230405"
+	},
+	"1.5.0-alpha20230504": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.0-alpha20230504_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.0-alpha20230504_SHA256SUMS.sig",
+		"version": "1.5.0-alpha20230504"
+	},
+	"1.5.0-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.0-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.0-beta1_SHA256SUMS.sig",
+		"version": "1.5.0-beta1"
+	},
+	"1.5.0-beta2": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.0-beta2_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.0-beta2_SHA256SUMS.sig",
+		"version": "1.5.0-beta2"
+	},
+	"1.5.0-rc1": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.0-rc1_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.0-rc1_SHA256SUMS.sig",
+		"version": "1.5.0-rc1"
+	},
+	"1.5.0-rc2": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.0-rc2_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.0-rc2_SHA256SUMS.sig",
+		"version": "1.5.0-rc2"
+	},
+	"1.5.1": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.1_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.1_SHA256SUMS.sig",
+		"version": "1.5.1"
+	},
+	"1.5.2": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.2_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.2_SHA256SUMS.sig",
+		"version": "1.5.2"
+	},
+	"1.5.3": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.3_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.3_SHA256SUMS.sig",
+		"version": "1.5.3"
+	},
+	"1.5.4": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.4_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.4_SHA256SUMS.sig",
+		"version": "1.5.4"
+	},
+	"1.5.5": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.5_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.5_SHA256SUMS.sig",
+		"version": "1.5.5"
+	},
+	"1.5.6": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.6_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.6_SHA256SUMS.sig",
+		"version": "1.5.6"
+	},
+	"1.5.7": {
+		"name": "terraform",
+		"shasums": "terraform_1.5.7_SHA256SUMS",
+		"shasums_signature": "terraform_1.5.7_SHA256SUMS.sig",
+		"version": "1.5.7"
+	},
+	"1.6.0": {
+		"name": "terraform",
+		"shasums": "terraform_1.6.0_SHA256SUMS",
+		"shasums_signature": "terraform_1.6.0_SHA256SUMS.sig",
+		"version": "1.6.0"
+	},
+	"1.6.0-alpha20230719": {
+		"name": "terraform",
+		"shasums": "terraform_1.6.0-alpha20230719_SHA256SUMS",
+		"shasums_signature": "terraform_1.6.0-alpha20230719_SHA256SUMS.sig",
+		"version": "1.6.0-alpha20230719"
+	},
+	"1.6.0-alpha20230802": {
+		"name": "terraform",
+		"shasums": "terraform_1.6.0-alpha20230802_SHA256SUMS",
+		"shasums_signature": "terraform_1.6.0-alpha20230802_SHA256SUMS.sig",
+		"version": "1.6.0-alpha20230802"
+	},
+	"1.6.0-alpha20230816": {
+		"name": "terraform",
+		"shasums": "terraform_1.6.0-alpha20230816_SHA256SUMS",
+		"shasums_signature": "terraform_1.6.0-alpha20230816_SHA256SUMS.sig",
+		"version": "1.6.0-alpha20230816"
+	},
+	"1.6.0-beta1": {
+		"name": "terraform",
+		"shasums": "terraform_1.6.0-beta1_SHA256SUMS",
+		"shasums_signature": "terraform_1.6.0-beta1_SHA256SUMS.sig",
+		"version": "1.6.0-beta1"
+	},
+	"1.6.0-beta2": {
+		"name": "terraform",
+		"shasums": "terraform_1.6.0-beta2_SHA256SUMS",
+		"shasums_signature": "terraform_1.6.0-beta2_SHA256SUMS.sig",
+		"version": "1.6.0-beta2"
+	},
+	"1.6.0-beta3": {
+		"name": "terraform",
+		"shasums": "terraform_1.6.0-beta3_SHA256SUMS",
+		"shasums_signature": "terraform_1.6.0-beta3_SHA256SUMS.sig",
+		"version": "1.6.0-beta3"
+	},
+	"1.6.0-rc1": {
+		"name": "terraform",
+		"shasums": "terraform_1.6.0-rc1_SHA256SUMS",
+		"shasums_signature": "terraform_1.6.0-rc1_SHA256SUMS.sig",
+		"version": "1.6.0-rc1"
+	},
+	"1.6.1": {
+		"name": "terraform",
+		"shasums": "terraform_1.6.1_SHA256SUMS",
+		"shasums_signature": "terraform_1.6.1_SHA256SUMS.sig",
+		"version": "1.6.1"
+	},
+	"1.6.2": {
+		"name": "terraform",
+		"shasums": "terraform_1.6.2_SHA256SUMS",
+		"shasums_signature": "terraform_1.6.2_SHA256SUMS.sig",
+		"version": "1.6.2"
+	},
+	"1.6.3": {
+		"name": "terraform",
+		"shasums": "terraform_1.6.3_SHA256SUMS",
+		"shasums_signature": "terraform_1.6.3_SHA256SUMS.sig",
+		"version": "1.6.3"
+	},
+	"1.7.0-alpha20231025": {
+		"name": "terraform",
+		"shasums": "terraform_1.7.0-alpha20231025_SHA256SUMS",
+		"shasums_signature": "terraform_1.7.0-alpha20231025_SHA256SUMS.sig",
+		"version": "1.7.0-alpha20231025"
+	},
+	"1.7.0-alpha20231108": {
+		"name": "terraform",
+		"shasums": "terraform_1.7.0-alpha20231108_SHA256SUMS",
+		"shasums_signature": "terraform_1.7.0-alpha20231108_SHA256SUMS.sig",
+		"version": "1.7.0-alpha20231108"
+	}
+}
