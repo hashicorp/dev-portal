@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { GetStaticProps } from 'next'
 import terraformData from 'data/terraform.json'
+import filterVersions from 'lib/filter-versions'
+import { GetStaticProps } from 'next'
 import { ProductData } from 'types/products'
 import ProductDownloadsView from 'views/product-downloads-view'
 import { generateGetStaticProps } from 'views/product-downloads-view/server'
-import filterVersions from 'lib/filter-versions'
 
 const VERSION_DOWNLOAD_CUTOFF = '>=1.0.11'
 

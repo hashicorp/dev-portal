@@ -1,8 +1,13 @@
-import semverSatisfies from 'semver/functions/satisfies'
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+import { ReleasesAPIResponse } from 'lib/fetch-release-data'
 import semverMajor from 'semver/functions/major'
 import semverMinor from 'semver/functions/minor'
 import semverPatch from 'semver/functions/patch'
-import { ReleasesAPIResponse } from 'lib/fetch-release-data'
+import semverSatisfies from 'semver/functions/satisfies'
 
 /**
  * Pulled from terraform-website/pages/downloads/index.jsx on 2022-03-09:
@@ -15,7 +20,6 @@ function filterVersions(
 	versions: ReleasesAPIResponse['versions'],
 	versionRange: string
 ): ReleasesAPIResponse['versions'] {
-	// console.log('args: ', { versions, versionRange })
 	// Filter by arbitrary & reasonable version cutoff
 	const filteredVersions = Object.keys(versions).filter(
 		(versionNumber: string) => {

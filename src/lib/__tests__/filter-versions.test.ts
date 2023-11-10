@@ -4,8 +4,9 @@
  */
 
 import '@testing-library/jest-dom/extend-expect'
-import terraformVersionsFixture from './__fixtures__/terraform-versions.json'
+import { ReleasesAPIResponse } from 'lib/fetch-release-data'
 import filterVersions from '../filter-versions'
+import terraformVersionsFixture from './__fixtures__/terraform-versions.json'
 
 describe('Filter versions', () => {
 	const correctResultKeys = [
@@ -18,8 +19,12 @@ describe('Filter versions', () => {
 		'1.0.11',
 	]
 	const versionRange = '>=1.0.11'
+
 	test('terraform versions are in the correct order', () => {
-		const results = filterVersions(terraformVersionsFixture, versionRange)
+		const results = filterVersions(
+			terraformVersionsFixture as ReleasesAPIResponse['versions'],
+			versionRange
+		)
 		const resultsKeys = Object.keys(results)
 		expect(resultsKeys).toEqual(correctResultKeys)
 	})
