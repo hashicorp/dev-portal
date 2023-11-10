@@ -80,7 +80,7 @@
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
 				"consul/kubernetes-api-gateway",
-				"consul/consul-terraform-sync-intro",
+				"consul/consul-terraform-sync",
 				"consul/serverless-consul-with-lambda"
 			]
 		},
