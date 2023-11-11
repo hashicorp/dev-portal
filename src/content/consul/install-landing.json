@@ -6,7 +6,7 @@
 	],
 	"featuredTutorialsSlugs": [
 		"consul/kubernetes-api-gateway",
-		"consul/consul-terraform-sync-module",
+		"consul/consul-terraform-sync",
 		"consul/serverless-consul-with-lambda"
 	],
 	"sidebarMenuItems": [
