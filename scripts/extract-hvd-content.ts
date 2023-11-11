@@ -20,18 +20,18 @@ export const HVD_IMAGES_DIR = path.join(
 )
 
 /**
- * For now, we extract content from `hvd-terraform` only.
+ * For now, we extract content from `hvd-docs` only.
  *
  * TODO: provide a solution for local development of HVD content.
  *
  * One option might be, if we detect we're in local development using
  * the `hashicorp/dev-portal` repo directly, we could attempt to load in
- * `hvd-terraform` content from the local filesystem in an adjacent directory
+ * `hvd-docs` content from the local filesystem in an adjacent directory
  * one level up from the current working directory. In other words, we'd assume:
  * - `dev-portal` is the current working directory (i.e. `process.cwd()`
- * - `dev-portal/../hvd-terraform` has local content being developed
+ * - `dev-portal/../hvd-docs` has local content being developed
  */
-extractHvdContent(['hvd-terraform'], HVD_CONTENT_DIR)
+extractHvdContent(['hvd-docs'], HVD_CONTENT_DIR)
 
 /**
  * This script extracts HVD content from the `hashicorp-validated-designs`
@@ -54,7 +54,7 @@ async function extractHvdContent(repoNames: string[], contentDir: string) {
 		try {
 			// Fetch a zip archive of the repo contents
 			const contentZip = await fetchGithubArchiveZip({
-				owner: 'hashicorp-validated-designs',
+				owner: 'hashicorp',
 				repo: repoName,
 				ref: 'main',
 			})
