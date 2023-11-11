@@ -12,6 +12,8 @@ playwright-report/
 tsconfig.tsbuildinfo
 src/.generated/
 scripts/docs-content-link-rewrites/.generated
+src/.extracted/
+public/.extracted/
 
 # sitemap
 sitemap-0.xml
