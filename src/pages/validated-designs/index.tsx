@@ -4,6 +4,8 @@
  */
 
 import Head from 'next/head'
+import path from 'path'
+import { HVD_CONTENT_DIR } from '../../../scripts/extract-hvd-content'
 
 export default function ValidatedDesignsLanding() {
 	return (
@@ -22,6 +24,12 @@ export async function getStaticProps() {
 			notFound: true,
 		}
 	}
+
+	/**
+	 * Get the data from /.extracted/*
+	 * Walk the products
+	 * Get the hvds
+	 */
 	return {
 		props: {},
 	}
