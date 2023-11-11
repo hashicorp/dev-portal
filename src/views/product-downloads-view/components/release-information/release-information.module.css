@@ -1,0 +1,22 @@
+/* *
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.cardLink {
+	color: var(--token-color-foreground-action);
+	display: grid;
+	align-items: center;
+	grid-template-columns: max-content 16px;
+	column-gap: 6px;
+	margin-left: 16px;
+	@media (--medium-up) {
+		margin-left: 0;
+	}
+}
+
+.cardIcon {
+	margin-top: 3px;
+	flex-shrink: 0;
+	margin-right: 12px;
+}
