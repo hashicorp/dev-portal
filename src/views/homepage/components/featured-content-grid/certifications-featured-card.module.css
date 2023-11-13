@@ -29,6 +29,7 @@
 	overflow: hidden;
 	width: fit-content;
 	margin: 0 auto;
+	pointer-events: none;
 }
 
 .certificationsGraphic {
