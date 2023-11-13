@@ -1,6 +1,26 @@
 import Head from 'next/head'
 import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
+import { ProductSlug } from 'types/products'
+
+interface ValidatedDesignsLandingProps {
+	title: string
+	description: string
+	categoryGroups: HvdCategoryGroup[]
+}
+
+interface HvdCategoryGroup {
+	product: ProductSlug
+	title: string
+	description: string
+	guides: HvdGuide[]
+}
+
+interface HvdGuide {
+	title: string
+	description: string
+	href: string
+}
 
 export default function ValidatedDesignsLandingView({
 	data,
