@@ -5,17 +5,53 @@
 
 import Head from 'next/head'
 import path from 'path'
+import fs from 'fs'
+
+// TODO create an alias for root dir
 import { HVD_CONTENT_DIR } from '../../../scripts/extract-hvd-content'
 
-export default function ValidatedDesignsLanding() {
+const tmp_HVD_CONTENT_DIR_TF = `${HVD_CONTENT_DIR}/hvd-docs/terraform`
+
+export default function ValidatedDesignsLanding({ data }: { data: $TSFixMe }) {
+	console.log({ data })
 	return (
 		<>
 			<Head>
 				<meta name="robots" content="noindex, nofollow" />
 			</Head>
 			<h1>HashiCorp Validated Designs</h1>
+			<ul>
+				{data.map((file, i) => (
+					<li key={i}>
+						<a href={file.path}>{file.path} </a>
+					</li>
+				))}
+			</ul>
 		</>
 	)
+}
+
+function getHvdData() {
+	// @ts-ignore -- recursive is a valid option
+	const terraformHvdDir = fs.readdirSync(
+		`${HVD_CONTENT_DIR}/hvd-docs/terraform`,
+		{
+			recursive: true,
+		}
+	)
+	console.log({ terraformHvdDir })
+	const files = []
+	terraformHvdDir.map((_path) => {
+		if (_path.endsWith('.mdx')) {
+			const fileData = fs.readFileSync(
+				path.join(tmp_HVD_CONTENT_DIR_TF, _path),
+				{ encoding: 'utf-8' }
+			)
+			files.push({ path: _path, data: JSON.stringify(fileData) })
+		}
+	})
+
+	return files
 }
 
 export async function getStaticProps() {
@@ -30,7 +66,9 @@ export async function getStaticProps() {
 	 * Walk the products
 	 * Get the hvds
 	 */
+	const data = getHvdData()
+
 	return {
-		props: {},
+		props: { data },
 	}
 }
