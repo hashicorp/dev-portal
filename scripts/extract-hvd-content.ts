@@ -19,6 +19,11 @@ export const HVD_IMAGES_DIR = path.join(
 	'public/.extracted/hashicorp-validated-designs'
 )
 
+const BASE_REPO_CONFIG = {
+	owner: 'hashicorp',
+	ref: 'main',
+}
+
 /**
  * For now, we extract content from `hvd-docs` only.
  *
@@ -47,6 +52,7 @@ async function extractHvdContent(repoNames: string[], contentDir: string) {
 		)
 		return
 	}
+
 	// Ensure an enclosing content directory exists for HVD content
 	fs.mkdirSync(contentDir, { recursive: true })
 	// Extract HVD repo contents into the `src/content` directory
@@ -54,9 +60,8 @@ async function extractHvdContent(repoNames: string[], contentDir: string) {
 		try {
 			// Fetch a zip archive of the repo contents
 			const contentZip = await fetchGithubArchiveZip({
-				owner: 'hashicorp',
 				repo: repoName,
-				ref: 'main',
+				...BASE_REPO_CONFIG,
 			})
 			/**
 			 * Write out the content.
