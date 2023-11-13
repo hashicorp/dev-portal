@@ -16,7 +16,7 @@ export default function ValidatedDesignPageTemplate() {
 	)
 }
 
-// @TODO set it up so that the base `hvdSlug` path redirects to the first section page
+// @TODO make sure to set it up so that the base `hvdSlug` path redirects to the first section page
 // for example /validated-designs/terraform-operation-guides-adoption would render the content for
 // /validated-designs/terraform-operation-guides-adoption/0000-introduction
 export async function getStaticPaths() {
