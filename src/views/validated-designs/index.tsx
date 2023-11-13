@@ -1,13 +1,14 @@
 import Head from 'next/head'
+import BaseLayout from 'layouts/base-layout'
+import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 
 export default function ValidatedDesignsLandingView({
 	data,
 }: {
 	data: $TSFixMe
 }) {
-	console.log({ data })
 	return (
-		<>
+		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<Head>
 				<meta name="robots" content="noindex, nofollow" />
 			</Head>
@@ -19,6 +20,6 @@ export default function ValidatedDesignsLandingView({
 					</li>
 				))}
 			</ul>
-		</>
+		</BaseLayout>
 	)
 }
