@@ -32,7 +32,7 @@ export default function ValidatedDesignsLanding({ data }: { data: $TSFixMe }) {
 }
 
 function getHvdData() {
-	// @ts-ignore -- recursive is a valid option
+	// @TODO refactor to support all products based on Products type src/types/products.ts
 	const terraformHvdDir = fs.readdirSync(
 		`${HVD_CONTENT_DIR}/hvd-docs/terraform`,
 		{
@@ -47,7 +47,11 @@ function getHvdData() {
 				path.join(tmp_HVD_CONTENT_DIR_TF, _path),
 				{ encoding: 'utf-8' }
 			)
-			files.push({ path: _path, data: JSON.stringify(fileData) })
+			// @TODO swap with the product dir
+			const product = 'terraform'
+			const [category, hvdName, hvdSectionFile] = _path.split('/')
+			const hvdSectionPath = `/validated-designs/${product}-${category}-${hvdName}/${hvdSectionFile}`
+			files.push({ path: hvdSectionPath, data: JSON.stringify(fileData) })
 		}
 	})
 

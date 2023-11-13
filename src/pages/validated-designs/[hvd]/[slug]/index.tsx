@@ -17,11 +17,13 @@ export default function ValidatedDesignPageTemplate() {
 }
 
 export async function getStaticPaths() {
+	// @TODO build up static paths here for all products/hvds/and hvd section pages
 	return {
 		paths: [
 			{
 				params: {
-					slug: 'test',
+					hvd: 'terraform-operation-guides-adoption',
+					slug: '0000-introduction.mdx',
 				},
 			},
 		],
