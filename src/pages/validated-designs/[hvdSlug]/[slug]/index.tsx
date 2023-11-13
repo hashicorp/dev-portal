@@ -17,7 +17,7 @@ export default function ValidatedDesignPageTemplate() {
 }
 
 export async function getStaticPaths() {
-	// @TODO refactoer to dynamically build up static paths here for all
+	// @TODO refactor to dynamically build up static paths here for all
 	// products/hvds/and hvd section pages based on contents of hvd-docs filesystem
 	return {
 		paths: [

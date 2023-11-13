@@ -14,6 +14,7 @@ export const HVD_CONTENT_DIR = path.join(
 const BASE_REPO_CONFIG = {
 	owner: 'hashicorp',
 	ref: 'main',
+	repo: 'hvd-docs',
 }
 
 /**
@@ -28,15 +29,13 @@ const BASE_REPO_CONFIG = {
  * - `dev-portal` is the current working directory (i.e. `process.cwd()`
  * - `dev-portal/../hvd-docs` has local content being developed
  */
-extractHvdContent(['hvd-docs'], HVD_CONTENT_DIR)
+extractHvdContent(BASE_REPO_CONFIG.repo, HVD_CONTENT_DIR)
 
 /**
  * This script extracts HVD content from the `hashicorp-validated-designs`
  * GitHub organization into the local filesystem that `dev-portal` can access.
- *
- * Note that we
  */
-async function extractHvdContent(repoNames: string[], contentDir: string) {
+async function extractHvdContent(repoName: string, contentDir: string) {
 	// Skip extraction in deploy previews
 	if (isDeployPreview()) {
 		console.log(
@@ -48,49 +47,45 @@ async function extractHvdContent(repoNames: string[], contentDir: string) {
 	// Ensure an enclosing content directory exists for HVD content
 	fs.mkdirSync(contentDir, { recursive: true })
 	// Extract HVD repo contents into the `src/content` directory
-	for (const repoName of repoNames) {
-		try {
-			// Fetch a zip archive of the repo contents
-			const contentZip = await fetchGithubArchiveZip({
-				repo: repoName,
-				...BASE_REPO_CONFIG,
-			})
-			/**
-			 * Write out the content.
-			 *
-			 * Note that initially, we expect the extracted content to be nested in a
-			 * directory with a convoluted name including the repo org, name, and sha.
-			 * We shift some content to avoid this convolution.
-			 */
-			// Establish our target directory
-			const finalDestination = path.join(contentDir, repoName)
-			// Clear out the target directory, may be present from previous runs
-			fs.rmSync(finalDestination, { recursive: true, force: true })
-			// Extract into a temporary directory initially, we'll clean this up
-			const tempDestination = finalDestination + '_temp'
-			contentZip.extractAllTo(tempDestination, true)
-			// Move the convolutedly named folder out of temp, rename it predictably
-			const convolutedName = fs.readdirSync(tempDestination)[0]
-			const convolutedDir = path.join(tempDestination, convolutedName)
-			fs.renameSync(convolutedDir, finalDestination)
-			// Clean up the temporary directory
-			fs.rmSync(tempDestination, { recursive: true })
-		} catch (error) {
-			/**
-			 * When authors are running locally from content repos,
-			 * we want to ignore errors.
-			 *
-			 * In all other scenarios, we want errors related to HVD content to
-			 * surface. This does mean that anyone running `hashicorp/dev-portal`
-			 * locally will need to have a valid `GITHUB_TOKEN`.
-			 */
-			if (process.env.IS_CONTENT_PREVIEW) {
-				console.log(
-					`Note: HVD content was not extracted, and will not be built. If you need to work on HVD content, please ensure a valid GITHUB_TOKEN is present in your environment variables. Error: ${error}`
-				)
-			} else {
-				throw error
-			}
+
+	try {
+		// Fetch a zip archive of the repo contents
+		const contentZip = await fetchGithubArchiveZip(BASE_REPO_CONFIG)
+		/**
+		 * Write out the content.
+		 *
+		 * Note that initially, we expect the extracted content to be nested in a
+		 * directory with a convoluted name including the repo org, name, and sha.
+		 * We shift some content to avoid this convolution.
+		 */
+		// Establish our target directory
+		const finalDestination = path.join(contentDir, repoName)
+		// Clear out the target directory, may be present from previous runs
+		fs.rmSync(finalDestination, { recursive: true, force: true })
+		// Extract into a temporary directory initially, we'll clean this up
+		const tempDestination = finalDestination + '_temp'
+		contentZip.extractAllTo(tempDestination, true)
+		// Move the convolutedly named folder out of temp, rename it predictably
+		const convolutedName = fs.readdirSync(tempDestination)[0]
+		const convolutedDir = path.join(tempDestination, convolutedName)
+		fs.renameSync(convolutedDir, finalDestination)
+		// Clean up the temporary directory
+		fs.rmSync(tempDestination, { recursive: true })
+	} catch (error) {
+		/**
+		 * When authors are running locally from content repos,
+		 * we want to ignore errors.
+		 *
+		 * In all other scenarios, we want errors related to HVD content to
+		 * surface. This does mean that anyone running `hashicorp/dev-portal`
+		 * locally will need to have a valid `GITHUB_TOKEN`.
+		 */
+		if (process.env.IS_CONTENT_PREVIEW) {
+			console.log(
+				`Note: HVD content was not extracted, and will not be built. If you need to work on HVD content, please ensure a valid GITHUB_TOKEN is present in your environment variables. Error: ${error}`
+			)
+		} else {
+			throw error
 		}
 	}
 }

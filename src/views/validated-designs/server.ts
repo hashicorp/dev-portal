@@ -7,12 +7,9 @@ const tmp_HVD_CONTENT_DIR_TF = `${HVD_CONTENT_DIR}/hvd-docs/terraform`
 
 export function getHvdLandingProps() {
 	// @TODO refactor to support all products based on Products type src/types/products.ts
-	const terraformHvdDir = fs.readdirSync(
-		`${HVD_CONTENT_DIR}/hvd-docs/terraform`,
-		{
-			recursive: true,
-		}
-	)
+	const terraformHvdDir = fs.readdirSync(tmp_HVD_CONTENT_DIR_TF, {
+		recursive: true,
+	})
 	console.log({ terraformHvdDir })
 	const files = []
 	terraformHvdDir.map((_path) => {
