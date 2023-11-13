@@ -11,14 +11,6 @@ export const HVD_CONTENT_DIR = path.join(
 	'src/.extracted/hashicorp-validated-designs'
 )
 
-/**
- * Set the location in the local filesystem where we'll put HVD images.
- */
-export const HVD_IMAGES_DIR = path.join(
-	process.cwd(),
-	'public/.extracted/hashicorp-validated-designs'
-)
-
 const BASE_REPO_CONFIG = {
 	owner: 'hashicorp',
 	ref: 'main',
@@ -83,17 +75,6 @@ async function extractHvdContent(repoNames: string[], contentDir: string) {
 			fs.renameSync(convolutedDir, finalDestination)
 			// Clean up the temporary directory
 			fs.rmSync(tempDestination, { recursive: true })
-			/**
-			 * Copy all image files into the `public` directory,
-			 * preserving the directory structure.
-			 *
-			 * TODO: for now just copying the entire repo, ideally would also:
-			 * - Remove all but the image files
-			 * - Then remove all empty directories
-			 */
-			const imageDestination = path.join(HVD_IMAGES_DIR, repoName)
-			fs.mkdirSync(imageDestination, { recursive: true })
-			fs.cpSync(finalDestination, imageDestination, { recursive: true })
 		} catch (error) {
 			/**
 			 * When authors are running locally from content repos,
