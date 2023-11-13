@@ -3,16 +3,20 @@ import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import { ProductSlug } from 'types/products'
 
+/**
+ * Stub interfaces for how we may model the data for this view
+ * Can be updated and adjusted as anyone sees fit based on the needs of the view
+ */
 export interface ValidatedDesignsLandingProps {
 	title: string
-	description?: string
-	categoryGroups?: HvdCategoryGroup[]
-	_tmp: any // TODO remove once data scaffold is complete
+	description: string
+	categoryGroups?: HvdCategoryGroup[] // TODO make required once filled in
+	_tmp?: any // TODO remove once data scaffold is complete
 }
 
 interface HvdCategoryGroup {
 	product: ProductSlug
-	title?: string
+	title: string
 	slug: string
 	description: string
 	guides: HvdGuide[]
@@ -36,6 +40,7 @@ export default function ValidatedDesignsLandingView({
 				<meta name="robots" content="noindex, nofollow" />
 			</Head>
 			<h1>{title}</h1>
+			<p>{description}</p>
 			<ul>
 				{_tmp.map((file, i) => (
 					<li key={i}>

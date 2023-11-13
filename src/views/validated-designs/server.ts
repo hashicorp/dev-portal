@@ -1,50 +1,33 @@
-import path from 'path'
 import fs from 'fs'
 
 // TODO create an alias for root dir
 import { HVD_CONTENT_DIR } from '../../../scripts/extract-hvd-content'
 import { ValidatedDesignsLandingProps } from '.'
-import { isProductSlug, products } from 'lib/products'
-
-const gatherAllFilesWithSuffixFromDirectory = ({
-	directory,
-	fileSuffix,
-	allFiles = [],
-}: {
-	directory: string
-	fileSuffix: string
-	allFiles: string[]
-}) => {
-	fs.readdirSync(directory).forEach((item: string) => {
-		const itemPath = path.join(directory, item)
-		if (fs.lstatSync(itemPath).isDirectory()) {
-			gatherAllFilesWithSuffixFromDirectory({
-				directory: itemPath,
-				fileSuffix,
-				allFiles,
-			})
-		} else if (item.endsWith(fileSuffix)) {
-			allFiles.push(itemPath)
-		}
-	})
-}
 
 /**
- * We want these props to return an array of category data, with the hvds associated with a particular category within
+ * TODO reorganize data structure to return an array of
+ * category groups to match ValidatedDesignsLandingProps
  */
 
-// TODO this should return `ValidatedDesignsLandingProps`
-export function getHvdLandingProps() {
+export function getHvdLandingProps(): ValidatedDesignsLandingProps {
 	// @TODO refactor to support all products based on Products type src/types/products.ts
-	const hvdRepoContents = fs.readdirSync(HVD_CONTENT_DIR, { recursive: true })
+	const hvdRepoContents = fs.readdirSync(HVD_CONTENT_DIR, {
+		recursive: true,
+		encoding: 'utf-8',
+	})
+
 	const files = []
-	hvdRepoContents.map((_path) => {
-		if (_path.endsWith('.mdx')) {
-			const [product, category, hvdName, hvdSectionFile] = _path.split('/')
+	hvdRepoContents.forEach((path: string) => {
+		if (path.endsWith('.mdx')) {
+			const [product, category, hvdName, hvdSectionFile] = path.split('/')
 			const hvdSectionPath = `/validated-designs/${product}-${category}-${hvdName}/${hvdSectionFile}`
 			files.push({ path: hvdSectionPath })
 		}
 	})
 
-	return files
+	return {
+		title: 'HashiCorp Validated Designs',
+		description: 'TODO lorem ipsum the rain stay mainly in Spain.',
+		_tmp: files,
+	}
 }
