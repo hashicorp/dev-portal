@@ -22,18 +22,21 @@ import { ValidatedDesignsLandingProps } from '.'
  */
 
 export function getHvdLandingProps(): ValidatedDesignsLandingProps {
-	// @TODO refactor to support all products based on Products type src/types/products.ts
 	const hvdRepoContents = fs.readdirSync(HVD_CONTENT_DIR, {
 		recursive: true,
 		encoding: 'utf-8',
 	})
-
 	const configFiles = hvdRepoContents.filter((item: string) =>
 		item.endsWith('.yaml')
 	)
-
 	const categoryGroups = {}
 
+	/**
+	 * We need to find the category and hvd guides within a category
+	 * We'll target the index.yaml files in the root of both category and hvd guide directories
+	 *
+	 * Then we'll organize the category groups based on the contents of the metadata files
+	 */
 	configFiles.forEach((item: string) => {
 		// we assume category config files have 3 path parts, and hvd guide configs have 4 parts
 		// based on fs structure /<product>/<category>/<hvdGuide>
@@ -75,24 +78,19 @@ export function getHvdLandingProps(): ValidatedDesignsLandingProps {
 			const { title, description } = yaml.load(
 				fs.readFileSync(path.join(HVD_CONTENT_DIR, item), { encoding: 'utf-8' })
 			) as { title: string; description: string }
-			const hvdSlug = pathParts.slice(0, -1).join('-')
+			const hvdSlug = `/validated-designs/${pathParts.slice(0, -1).join('-')}`
 			console.log('in hvd meta', categoryGroups[categorySlug], categorySlug)
 
 			// this assumes the category is already created, TODO harden this
-			categoryGroups[categorySlug].guides = {
-				title,
-				description,
-				href: hvdSlug,
-			}
-		}
-	})
-
-	const files = []
-	hvdRepoContents.forEach((path: string) => {
-		if (path.endsWith('.mdx')) {
-			const [product, category, hvdName, hvdSectionFile] = path.split('/')
-			const hvdSectionPath = `/validated-designs/${product}-${category}-${hvdName}/${hvdSectionFile}`
-			files.push({ path: hvdSectionPath })
+			categoryGroups[categorySlug].guides = [
+				{
+					slug: hvdSlug,
+					title,
+					description,
+					href: hvdSlug,
+				},
+				...categoryGroups[categorySlug].guides,
+			]
 		}
 	})
 
@@ -101,6 +99,5 @@ export function getHvdLandingProps(): ValidatedDesignsLandingProps {
 		description:
 			'TODO lorem ipsum the rain in Spain stays mainly in the plains.',
 		categoryGroups: Object.values(categoryGroups),
-		_tmp: files,
 	}
 }

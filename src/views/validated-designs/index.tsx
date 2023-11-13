@@ -10,19 +10,19 @@ import { ProductSlug } from 'types/products'
 export interface ValidatedDesignsLandingProps {
 	title: string
 	description: string
-	categoryGroups?: HvdCategoryGroup[] // TODO make required once filled in
-	_tmp?: any // TODO remove once data scaffold is complete
+	categoryGroups: HvdCategoryGroup[]
 }
 
 interface HvdCategoryGroup {
-	product: ProductSlug
-	title: string
 	slug: string
+	title: string
 	description: string
+	product: ProductSlug
 	guides: HvdGuide[]
 }
 
 interface HvdGuide {
+	slug: string
 	title: string
 	description: string
 	href: string
@@ -32,8 +32,8 @@ export default function ValidatedDesignsLandingView({
 	title,
 	description,
 	categoryGroups,
-	_tmp,
 }: ValidatedDesignsLandingProps) {
+	console.log(categoryGroups)
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<Head>
@@ -42,9 +42,17 @@ export default function ValidatedDesignsLandingView({
 			<h1>{title}</h1>
 			<p>{description}</p>
 			<ul>
-				{_tmp.map((file, i) => (
-					<li key={i}>
-						<a href={file.path}>{file.path} </a>
+				{categoryGroups.map((category: HvdCategoryGroup) => (
+					<li key={category.slug}>
+						<h2>{category.title}</h2>
+						<p>{category.description}</p>
+						<ul>
+							{category.guides.map((guide: HvdGuide) => (
+								<li key={guide.slug}>
+									<a href={guide.href}>{guide.title}</a>
+								</li>
+							))}
+						</ul>
 					</li>
 				))}
 			</ul>
