@@ -58,17 +58,15 @@ async function extractHvdContent(repoName: string, contentDir: string) {
 		 * directory with a convoluted name including the repo org, name, and sha.
 		 * We shift some content to avoid this convolution.
 		 */
-		// Establish our target directory
-		const finalDestination = path.join(contentDir, repoName)
 		// Clear out the target directory, may be present from previous runs
-		fs.rmSync(finalDestination, { recursive: true, force: true })
+		fs.rmSync(contentDir, { recursive: true, force: true })
 		// Extract into a temporary directory initially, we'll clean this up
-		const tempDestination = finalDestination + '_temp'
+		const tempDestination = contentDir + '_temp'
 		contentZip.extractAllTo(tempDestination, true)
 		// Move the convolutedly named folder out of temp, rename it predictably
 		const convolutedName = fs.readdirSync(tempDestination)[0]
 		const convolutedDir = path.join(tempDestination, convolutedName)
-		fs.renameSync(convolutedDir, finalDestination)
+		fs.renameSync(convolutedDir, contentDir)
 		// Clean up the temporary directory
 		fs.rmSync(tempDestination, { recursive: true })
 	} catch (error) {

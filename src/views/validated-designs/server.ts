@@ -3,28 +3,47 @@ import fs from 'fs'
 
 // TODO create an alias for root dir
 import { HVD_CONTENT_DIR } from '../../../scripts/extract-hvd-content'
-const tmp_HVD_CONTENT_DIR_TF = `${HVD_CONTENT_DIR}/hvd-docs/terraform`
+import { ValidatedDesignsLandingProps } from '.'
+import { isProductSlug, products } from 'lib/products'
 
+const gatherAllFilesWithSuffixFromDirectory = ({
+	directory,
+	fileSuffix,
+	allFiles = [],
+}: {
+	directory: string
+	fileSuffix: string
+	allFiles: string[]
+}) => {
+	fs.readdirSync(directory).forEach((item: string) => {
+		const itemPath = path.join(directory, item)
+		if (fs.lstatSync(itemPath).isDirectory()) {
+			gatherAllFilesWithSuffixFromDirectory({
+				directory: itemPath,
+				fileSuffix,
+				allFiles,
+			})
+		} else if (item.endsWith(fileSuffix)) {
+			allFiles.push(itemPath)
+		}
+	})
+}
+
+// TODO this should return `ValidatedDesignsLandingProps`
 export function getHvdLandingProps() {
 	// @TODO refactor to support all products based on Products type src/types/products.ts
-	const terraformHvdDir = fs.readdirSync(tmp_HVD_CONTENT_DIR_TF, {
-		recursive: true,
-	})
-	console.log({ terraformHvdDir })
-	const files = []
-	terraformHvdDir.map((_path) => {
-		if (_path.endsWith('.mdx')) {
-			const fileData = fs.readFileSync(
-				path.join(tmp_HVD_CONTENT_DIR_TF, _path),
-				{ encoding: 'utf-8' }
-			)
-			// @TODO swap with the product dir
-			const product = 'terraform'
-			const [category, hvdName, hvdSectionFile] = _path.split('/')
-			const hvdSectionPath = `/validated-designs/${product}-${category}-${hvdName}/${hvdSectionFile}`
-			files.push({ path: hvdSectionPath, data: JSON.stringify(fileData) })
+	const hvdRepoContents = fs.readdirSync(HVD_CONTENT_DIR, { recursive: true })
+	const mdxFiles = []
+	hvdRepoContents.forEach((item) => {
+		const itemPath = path.join(HVD_CONTENT_DIR, item)
+		if (fs.lstatSync(itemPath).isDirectory() && isProductSlug(item)) {
+			gatherAllFilesWithSuffixFromDirectory({
+				directory: itemPath,
+				fileSuffix: '.mdx',
+				allFiles: mdxFiles,
+			})
 		}
 	})
 
-	return files
+	return mdxFiles
 }

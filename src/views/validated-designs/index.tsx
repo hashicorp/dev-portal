@@ -3,10 +3,11 @@ import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import { ProductSlug } from 'types/products'
 
-interface ValidatedDesignsLandingProps {
+export interface ValidatedDesignsLandingProps {
 	title: string
-	description: string
-	categoryGroups: HvdCategoryGroup[]
+	description?: string
+	categoryGroups?: HvdCategoryGroup[]
+	_tmp: any // TODO remove once data scaffold is complete
 }
 
 interface HvdCategoryGroup {
@@ -23,20 +24,21 @@ interface HvdGuide {
 }
 
 export default function ValidatedDesignsLandingView({
-	data,
-}: {
-	data: $TSFixMe
-}) {
+	title,
+	description,
+	categoryGroups,
+	_tmp,
+}: ValidatedDesignsLandingProps) {
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<Head>
 				<meta name="robots" content="noindex, nofollow" />
 			</Head>
-			<h1>HashiCorp Validated Designs</h1>
+			<h1>{title}</h1>
 			<ul>
-				{data.map((file, i) => (
+				{_tmp.map((filePath, i) => (
 					<li key={i}>
-						<a href={file.path}>{file.path} </a>
+						<a href={filePath}>{filePath} </a>
 					</li>
 				))}
 			</ul>

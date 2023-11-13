@@ -17,7 +17,7 @@ export async function getStaticProps() {
 	const data = getHvdLandingProps()
 
 	return {
-		props: { data },
+		props: { title: 'HVD', _tmp: data },
 	}
 }
 
