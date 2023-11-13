@@ -12,7 +12,8 @@ export interface ValidatedDesignsLandingProps {
 
 interface HvdCategoryGroup {
 	product: ProductSlug
-	title: string
+	title?: string
+	slug: string
 	description: string
 	guides: HvdGuide[]
 }
@@ -36,9 +37,9 @@ export default function ValidatedDesignsLandingView({
 			</Head>
 			<h1>{title}</h1>
 			<ul>
-				{_tmp.map((filePath, i) => (
+				{_tmp.map((file, i) => (
 					<li key={i}>
-						<a href={filePath}>{filePath} </a>
+						<a href={file.path}>{file.path} </a>
 					</li>
 				))}
 			</ul>

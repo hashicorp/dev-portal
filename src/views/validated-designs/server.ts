@@ -29,21 +29,22 @@ const gatherAllFilesWithSuffixFromDirectory = ({
 	})
 }
 
+/**
+ * We want these props to return an array of category data, with the hvds associated with a particular category within
+ */
+
 // TODO this should return `ValidatedDesignsLandingProps`
 export function getHvdLandingProps() {
 	// @TODO refactor to support all products based on Products type src/types/products.ts
 	const hvdRepoContents = fs.readdirSync(HVD_CONTENT_DIR, { recursive: true })
-	const mdxFiles = []
-	hvdRepoContents.forEach((item) => {
-		const itemPath = path.join(HVD_CONTENT_DIR, item)
-		if (fs.lstatSync(itemPath).isDirectory() && isProductSlug(item)) {
-			gatherAllFilesWithSuffixFromDirectory({
-				directory: itemPath,
-				fileSuffix: '.mdx',
-				allFiles: mdxFiles,
-			})
+	const files = []
+	hvdRepoContents.map((_path) => {
+		if (_path.endsWith('.mdx')) {
+			const [product, category, hvdName, hvdSectionFile] = _path.split('/')
+			const hvdSectionPath = `/validated-designs/${product}-${category}-${hvdName}/${hvdSectionFile}`
+			files.push({ path: hvdSectionPath })
 		}
 	})
 
-	return mdxFiles
+	return files
 }
