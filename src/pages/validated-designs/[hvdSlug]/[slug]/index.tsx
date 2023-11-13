@@ -17,13 +17,26 @@ export default function ValidatedDesignPageTemplate() {
 }
 
 export async function getStaticPaths() {
-	// @TODO build up static paths here for all products/hvds/and hvd section pages
+	// @TODO refactoer to dynamically build up static paths here for all
+	// products/hvds/and hvd section pages based on contents of hvd-docs filesystem
 	return {
 		paths: [
 			{
 				params: {
-					hvd: 'terraform-operation-guides-adoption',
+					hvdSlug: 'terraform-operation-guides-adoption',
 					slug: '0000-introduction.mdx',
+				},
+			},
+			{
+				params: {
+					hvdSlug: 'terraform-operation-guides-adoption',
+					slug: '0010-people-and-process.mdx',
+				},
+			},
+			{
+				params: {
+					hvdSlug: 'terraform-operation-guides-adoption',
+					slug: '0020-consumption-models.mdx',
 				},
 			},
 		],
@@ -32,6 +45,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps() {
+	/** TODO remove this conditional after release */
 	if (__config.flags.enable_hvd === false) {
 		return {
 			notFound: true,
