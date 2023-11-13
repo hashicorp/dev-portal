@@ -24,10 +24,6 @@
 	margin: 0;
 }
 
-.pageHeaderSubtitle {
-	color: var(--token-color-foreground-primary);
-}
-
 .headingWrapper {
 	align-items: center;
 	display: flex;
