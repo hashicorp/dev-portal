@@ -29,13 +29,12 @@ const BASE_REPO_CONFIG = {
  * - `dev-portal` is the current working directory (i.e. `process.cwd()`
  * - `dev-portal/../hvd-docs` has local content being developed
  */
-extractHvdContent(BASE_REPO_CONFIG.repo, HVD_CONTENT_DIR)
 
 /**
  * This script extracts HVD content from the `hashicorp-validated-designs`
  * GitHub organization into the local filesystem that `dev-portal` can access.
  */
-async function extractHvdContent(repoName: string, contentDir: string) {
+;(async function extractHvdContent() {
 	// Skip extraction in deploy previews
 	if (isDeployPreview()) {
 		console.log(
@@ -45,7 +44,7 @@ async function extractHvdContent(repoName: string, contentDir: string) {
 	}
 
 	// Ensure an enclosing content directory exists for HVD content
-	fs.mkdirSync(contentDir, { recursive: true })
+	fs.mkdirSync(HVD_CONTENT_DIR, { recursive: true })
 	// Extract HVD repo contents into the `src/content` directory
 
 	try {
@@ -59,14 +58,14 @@ async function extractHvdContent(repoName: string, contentDir: string) {
 		 * We shift some content to avoid this convolution.
 		 */
 		// Clear out the target directory, may be present from previous runs
-		fs.rmSync(contentDir, { recursive: true, force: true })
+		fs.rmSync(HVD_CONTENT_DIR, { recursive: true, force: true })
 		// Extract into a temporary directory initially, we'll clean this up
-		const tempDestination = contentDir + '_temp'
+		const tempDestination = HVD_CONTENT_DIR + '_temp'
 		contentZip.extractAllTo(tempDestination, true)
 		// Move the convolutedly named folder out of temp, rename it predictably
 		const convolutedName = fs.readdirSync(tempDestination)[0]
 		const convolutedDir = path.join(tempDestination, convolutedName)
-		fs.renameSync(convolutedDir, contentDir)
+		fs.renameSync(convolutedDir, HVD_CONTENT_DIR)
 		// Clean up the temporary directory
 		fs.rmSync(tempDestination, { recursive: true })
 	} catch (error) {
@@ -86,4 +85,4 @@ async function extractHvdContent(repoName: string, contentDir: string) {
 			throw error
 		}
 	}
-}
+})()
