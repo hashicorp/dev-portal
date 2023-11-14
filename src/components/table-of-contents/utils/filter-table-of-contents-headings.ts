@@ -40,6 +40,12 @@ export function filterTableOfContentsHeadings(
 			return false
 		}
 
+		// Level 1 headings are used for the page title and should not appear in
+		// the TOC
+		if (level == 1) {
+			return false
+		}
+
 		/**
 		 * Only include headings that are *outside* of <Tabs />.
 		 *
