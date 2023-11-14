@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import Head from 'next/head'
 import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
