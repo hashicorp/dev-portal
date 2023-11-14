@@ -40,12 +40,6 @@ export function filterTableOfContentsHeadings(
 			return false
 		}
 
-		// Level 1 headings are used for the page title and should not appear in
-		// the TOC
-		if (level == 1) {
-			return false
-		}
-
 		/**
 		 * Only include headings that are *outside* of <Tabs />.
 		 *
@@ -55,6 +49,13 @@ export function filterTableOfContentsHeadings(
 		if (typeof tabbedSectionDepth === 'number' && tabbedSectionDepth !== 0) {
 			return false
 		}
+
+		// Exclude level 1 headings, which are used for the page title and should
+		// not appear in the TOC
+		if (level == 1) {
+			return false
+		}
+
 
 		/**
 		 * Return true for headings that have not been filtered out
