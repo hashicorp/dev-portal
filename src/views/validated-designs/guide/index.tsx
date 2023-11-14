@@ -6,6 +6,7 @@
 import Head from 'next/head'
 import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
+import InlineLink from 'components/inline-link'
 
 export default function ValidatedDesignGuideView() {
 	return (
@@ -14,6 +15,9 @@ export default function ValidatedDesignGuideView() {
 				<meta name="robots" content="noindex, nofollow" />
 			</Head>
 			<h1>HashiCorp Validated Design Page Template</h1>
+			<InlineLink href="/validated-designs">
+				Back to Validated Designs landing
+			</InlineLink>
 		</BaseLayout>
 	)
 }
