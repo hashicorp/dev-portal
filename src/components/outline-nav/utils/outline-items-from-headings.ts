@@ -12,7 +12,7 @@ import { filterTableOfContentsHeadings } from 'components/table-of-contents/util
 export interface AnchorLinksPluginHeading {
 	title: string
 	slug: string
-	level: 1 | 2 | 3 | 4 | 5 | 6
+	level: 2 | 3 | 4 | 5 | 6
 }
 
 /**
