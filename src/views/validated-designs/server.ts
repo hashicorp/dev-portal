@@ -72,15 +72,15 @@ export function getHvdLandingProps(): ValidatedDesignsLandingProps {
 			const { title, description } = loadMetadata(
 				path.join(HVD_CONTENT_DIR, item)
 			)
-			const hvdSlug = `/validated-designs/${pathParts.slice(0, -1).join('-')}`
+			const guideSlug = `/validated-designs/${pathParts.slice(0, -1).join('-')}`
 
 			// This assumes the property is already set, @TODO harden this
 			categoryGroups[categorySlug].guides = [
 				{
-					slug: hvdSlug,
+					slug: guideSlug,
 					title,
 					description,
-					href: hvdSlug,
+					href: guideSlug,
 				},
 				...categoryGroups[categorySlug].guides,
 			]

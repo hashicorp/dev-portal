@@ -33,7 +33,6 @@ export default function ValidatedDesignsLandingView({
 	description,
 	categoryGroups,
 }: ValidatedDesignsLandingProps) {
-	console.log(categoryGroups)
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<Head>

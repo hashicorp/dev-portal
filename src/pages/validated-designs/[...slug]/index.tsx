@@ -3,20 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Head from 'next/head'
+import ValidatedDesignGuideView from 'views/validated-designs/guide'
 
-export default function ValidatedDesignPageTemplate() {
-	return (
-		<>
-			<Head>
-				<meta name="robots" content="noindex, nofollow" />
-			</Head>
-			<h1>HashiCorp Validated Design Page Template</h1>
-		</>
-	)
-}
-
-// @TODO make sure to set it up so that the base `hvdSlug` path redirects to the first section page
+// @TODO make sure to set it up so that the base `guideSlug` path redirects to the first section page
 // for example /validated-designs/terraform-operation-guides-adoption would render the content for
 // /validated-designs/terraform-operation-guides-adoption/0000-introduction
 export async function getStaticPaths() {
@@ -69,3 +58,5 @@ export async function getStaticProps() {
 		props: {},
 	}
 }
+
+export default ValidatedDesignGuideView
