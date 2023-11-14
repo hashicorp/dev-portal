@@ -5,6 +5,7 @@
 
 import { OutlineLinkItem } from 'components/outline-nav/types'
 import { filterTableOfContentsHeadings } from 'components/table-of-contents/utils/filter-table-of-contents-headings'
+import { pruneHeadingsByLevel } from 'components/table-of-contents/utils/prune-headings-by-level'
 
 /**
  * Heading type coming from our remark anchor-links plugin.
@@ -22,7 +23,9 @@ export interface AnchorLinksPluginHeading {
 function outlineItemsFromHeadings(
 	headings: AnchorLinksPluginHeading[]
 ): OutlineLinkItem[] {
-	const filteredHeadings = filterTableOfContentsHeadings(headings)
+	const filteredHeadings = pruneHeadingsByLevel(
+		filterTableOfContentsHeadings(headings), 2
+	)
 	return filteredHeadings.map(
 		(heading: AnchorLinksPluginHeading, index: number) => {
 			const titleWithoutBackticks = heading.title.replace(/`/g, '')

@@ -14,7 +14,7 @@ const TABLE_OF_CONTENTS_LABEL_ID = 'table-of-contents-label'
 
 const TableOfContents = ({ headings }: TableOfContentsProps): ReactElement => {
 	const { isDesktop } = useDeviceSize()
-	const hasManyHeadings = headings.length > 1
+	const hasManyHeadings = headings.length >= 1
 	const enableActiveSection = hasManyHeadings && isDesktop
 
 	/**

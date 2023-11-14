@@ -8,37 +8,21 @@ import { TableOfContentsHeading } from '../types'
 /**
  * Filter headings for display in table of contents.
  *
- * - Retain headings that are <h1> or <h2>
- * 	- Headings <h3> through <h6> are filtered out.
- * - Retain headings that are not nested in <Tabs />
- * 	- Headings with `tabbedSectionDepth !== 0` are filtered out.
+ * - Retain headings with the requested heading level
+ * - Retain headings that are not nested in <Tabs /> (tabbedSectionDepth == 0)
  *
  * Note that to filter based on `tabbedSectionDepth`, we rely on functionality
  * in our `anchor-links` `remark-plugin` to add that property. For details, see
  * the `tabbedSectionDepth` logic here:
  * https://github.com/hashicorp/remark-plugins/blob/0f2d21516ab3c7120a24456838d83390e3ab179d/plugins/anchor-links/index.js#L29
  *
- * TODO: given the above dependency on anchor-links remark plugin,
- * this utility might make sense to move closer to the server-side code where
- * the anchor-links plugin is invoked - maybe move this into `getStaticProps`?
- *
  */
-export function filterTableOfContentsHeadings(
-	headings: TableOfContentsHeading[]
+export function pruneHeadingsByLevel(
+	headings: TableOfContentsHeading[],
+  targetLevel: 1 | 2 | 3 | 4 | 5 | 6
 ): TableOfContentsHeading[] {
 	return headings.filter((heading: TableOfContentsHeading) => {
 		const { level, tabbedSectionDepth } = heading
-
-		/**
-		 * Only include <h2> in the table of contents.
-		 *
-		 * Note that <h1> are also included, this is as a stopgap
-		 * while we implement content conformance that ensures there is
-		 * exactly one <h1> per page (which we would likely not include here).
-		 */
-		if (level > 2) {
-			return false
-		}
 
 		/**
 		 * Only include headings that are *outside* of <Tabs />.
@@ -51,9 +35,15 @@ export function filterTableOfContentsHeadings(
 		}
 
 		/**
-		 * Return true for headings that have not been filtered out
-		 * by previous criteria.
+		 * Return true if the heading level matches the requested header level
 		 */
-		return true
+		if (level == targetLevel) {
+			return true
+		}
+
+		/**
+		 * Return false for all other headings
+		 */
+		return false
 	})
 }

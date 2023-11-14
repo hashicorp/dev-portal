@@ -27,10 +27,10 @@ function OutlineNavWithActive({
 
 	/**
 	 * Determine the active section. Note we only enable this when the sidecar
-	 * is both visible and contains more than one item.
+	 * is both visible and contains at least one item.
 	 */
 	const itemSlugs = useMemo(() => getItemSlugs(items), [items])
-	const hasMultipleItems = itemSlugs.length > 1
+	const hasMultipleItems = itemSlugs.length >= 1
 	const enableActiveSection = isInView && hasMultipleItems
 	const activeSection = useActiveSection(itemSlugs, enableActiveSection)
 
