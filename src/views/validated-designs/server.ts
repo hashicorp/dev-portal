@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
 import { isProductSlug } from 'lib/products'
-// TODO create an alias for root dir
+// @TODO create an alias for root dir
 import { HVD_CONTENT_DIR } from '../../../scripts/extract-hvd-content'
 import { ValidatedDesignsLandingProps } from '.'
 
@@ -74,7 +74,7 @@ export function getHvdLandingProps(): ValidatedDesignsLandingProps {
 			)
 			const hvdSlug = `/validated-designs/${pathParts.slice(0, -1).join('-')}`
 
-			// This assumes the property is already set, TODO harden this
+			// This assumes the property is already set, @TODO harden this
 			categoryGroups[categorySlug].guides = [
 				{
 					slug: hvdSlug,
@@ -87,11 +87,11 @@ export function getHvdLandingProps(): ValidatedDesignsLandingProps {
 		}
 	})
 
-	// TODO — the title and description should be sourced from the content repo
+	// @TODO — the title and description should be sourced from the content repo
 	return {
 		title: 'HashiCorp Validated Designs',
 		description:
-			'TODO lorem ipsum the rain in Spain stays mainly in the plains.',
+			'@TODO lorem ipsum the rain in Spain stays mainly in the plains.',
 		categoryGroups: Object.values(categoryGroups),
 	}
 }

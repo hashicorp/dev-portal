@@ -59,7 +59,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps() {
-	/** TODO remove this conditional after release */
+	/** @TODO remove this conditional after release */
 	if (__config.flags.enable_hvd === false) {
 		return {
 			notFound: true,
