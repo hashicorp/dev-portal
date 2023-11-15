@@ -8,9 +8,6 @@
 	padding: 16px;
 	margin-bottom: 24px;
 	justify-content: space-between;
-	&.info {
-		background-color: var(--token-color-surface-faint);
-	}
 }
 
 .contentHeading {

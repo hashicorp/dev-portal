@@ -8,6 +8,8 @@ import { ReactElement } from 'react'
 
 // HashiCorp imports
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { IconExternalLink24 } from '@hashicorp/flight-icons/svg-react/external-link-24'
+import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 
 // Global imports
 import Heading from 'components/heading'
@@ -16,21 +18,22 @@ import Text from 'components/text'
 import { useCurrentProduct } from 'contexts'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 
-import Link from 'components/link'
+import InlineAlert from 'components/inline-alert'
+import MobileStandaloneLink from 'components/mobile-standalone-link'
 import { ReleaseVersion } from 'lib/fetch-release-data'
-import s from './release-information.module.css'
 import CardWithLink from '../card-with-link'
-import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
+import s from './release-information.module.css'
 
 const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
 	const { name, shasums, shasums_signature, version } = selectedRelease
 
 	return (
-		<CardWithLink
-			type="info"
-			heading="Note"
-			subheading={
+		<InlineAlert
+			className={s.alert}
+			color="neutral"
+			title="Note"
+			description={
 				<>
 					You can find the{' '}
 					<InlineLink
@@ -68,17 +71,15 @@ const ChangelogNote = ({ selectedRelease }) => {
 				heading="Changelog"
 				subheading={`${capitalizedName} Version: ${version}`}
 				link={
-					<Link
-						className={s.cardLink}
-						aria-label={`${name} version ${version} changelog`}
+					<MobileStandaloneLink
+						ariaLabel={`${name} version ${version} changelog`}
 						href={`https://github.com/hashicorp/${name}/releases/tag/v${version}`}
-						opensInNewTab={true}
-					>
-						<Text asElement="span" weight="medium" size={200}>
-							GitHub
-						</Text>
-						<IconExternalLink16 />
-					</Link>
+						size16Icon={<IconExternalLink16 />}
+						size24Icon={<IconExternalLink24 />}
+						iconPosition="trailing"
+						opensInNewTab
+						text="GitHub"
+					/>
 				}
 			/>
 		</>
@@ -87,10 +88,21 @@ const ChangelogNote = ({ selectedRelease }) => {
 
 const EnterpriseLegalNote = () => {
 	return (
-		<CardWithLink
-			type="info"
-			heading="Terms of use"
-			subheading="The following shall apply unless your organization has a separately signed Enterprise License Agreement or Evaluation Agreement governing your use of the package: Enterprise packages in this repository are subject to the license terms located in the package. Please read the license terms prior to using the package. Your installation and use of the package constitutes your acceptance of these terms. If you do not accept the terms, do not use the package."
+		<InlineAlert
+			className={s.alert}
+			title="Terms of use"
+			description={
+				<Text className={s.contentSubheading} size={200} weight="regular">
+					The following shall apply unless your organization has a separately
+					signed Enterprise License Agreement or Evaluation Agreement governing
+					your use of the package: Enterprise packages in this repository are
+					subject to the license terms located in the package. Please read the
+					license terms prior to using the package. Your installation and use of
+					the package constitutes your acceptance of these terms. If you do not
+					accept the terms, do not use the package.
+				</Text>
+			}
+			color="highlight"
 			icon={<IconInfo16 className={s.cardIcon} />}
 		/>
 	)
@@ -102,17 +114,15 @@ const OfficialReleasesCard = () => {
 			heading="Official releases"
 			subheading="All officially supported HashiCorp release channels and their security guarantees."
 			link={
-				<Link
-					className={s.cardLink}
-					aria-label="Official releases"
+				<MobileStandaloneLink
+					ariaLabel="View all official releases"
 					href="https://www.hashicorp.com/official-release-channels"
-					opensInNewTab={true}
-				>
-					<Text asElement="span" weight="medium" size={200}>
-						View all
-					</Text>
-					<IconExternalLink16 />
-				</Link>
+					size16Icon={<IconExternalLink16 />}
+					size24Icon={<IconExternalLink24 />}
+					iconPosition="trailing"
+					opensInNewTab
+					text="View all"
+				/>
 			}
 		/>
 	)
