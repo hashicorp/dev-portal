@@ -27,34 +27,83 @@ const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
 	const { name, shasums, shasums_signature, version } = selectedRelease
 	return (
-		<InlineAlert
-			color="neutral"
-			title="Note"
-			description={
+		<>
+			<InlineAlert
+				className={s.alert}
+				color="neutral"
+				title="Note"
+				description={
+					<>
+						You can find the{' '}
+						<InlineLink
+							href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
+							textSize={200}
+						>
+							SHA256 checksums for {currentProduct.name} {version}
+						</InlineLink>{' '}
+						online and you can{' '}
+						<InlineLink
+							href={`https://releases.hashicorp.com/${name}/${version}/${shasums_signature}`}
+							textSize={200}
+						>
+							verify the checksums signature file
+						</InlineLink>{' '}
+						which has been signed using{' '}
+						<InlineLink
+							href="https://www.hashicorp.com/security"
+							textSize={200}
+						>
+							{"HashiCorp's GPG key"}
+						</InlineLink>
+						.
+						{currentProduct.name === 'Consul' && (
+							<>
+								<Text
+									className={s.notesSubheading}
+									size={200}
+									weight="semibold"
+								>
+									ARM users
+								</Text>
+								<ul className={s.notesList}>
+									{armNotes.map((item, index) => (
+										<Text
+											asElement="li"
+											// eslint-disable-next-line react/no-array-index-key
+											key={index}
+											size={200}
+											weight="regular"
+										>
+											{item}
+										</Text>
+									))}
+								</ul>
+							</>
+						)}
+					</>
+				}
+				icon={<IconInfo16 className={s.cardIcon} />}
+			/>
+			{currentProduct.name === 'Consul' && (
 				<>
-					You can find the{' '}
-					<InlineLink
-						href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
-						textSize={200}
+					<Text
+						className={s.codePrompt}
+						asElement="p"
+						size={100}
+						weight="regular"
 					>
-						SHA256 checksums for {currentProduct.name} {version}
-					</InlineLink>{' '}
-					online and you can{' '}
-					<InlineLink
-						href={`https://releases.hashicorp.com/${name}/${version}/${shasums_signature}`}
-						textSize={200}
-					>
-						verify the checksums signature file
-					</InlineLink>{' '}
-					which has been signed using{' '}
-					<InlineLink href="https://www.hashicorp.com/security" textSize={200}>
-						{"HashiCorp's GPG key"}
-					</InlineLink>
-					.
+						The following commands can help determine the right version for your
+						system:
+					</Text>
+					<CodeBlock
+						code={`$ uname -m
+$ readelf -a /proc/self/exe | grep -q -c Tag_ABI_VFP_args && echo "armhf" || echo "armel"`}
+						language="shell-session"
+						options={{ showClipboard: true, wrapCode: true }}
+					/>
 				</>
-			}
-			icon={<IconInfo16 className={s.cardIcon} />}
-		/>
+			)}
+		</>
 	)
 }
 
