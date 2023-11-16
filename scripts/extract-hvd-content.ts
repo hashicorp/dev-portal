@@ -18,10 +18,9 @@ const HVD_REPO_DIR = path.join(
 	'src/.extracted/hashicorp-validated-designs'
 )
 
-export const HVD_CONTENT_DIR = path.join(
-	HVD_REPO_DIR,
-	BASE_REPO_CONFIG.contentPath
-)
+export const HVD_CONTENT_DIR =
+	path.join(process.cwd(), process.env.LOCAL_CONTENT_DIR) ||
+	path.join(HVD_REPO_DIR, BASE_REPO_CONFIG.contentPath)
 
 /**
  * For now, we extract content from `hvd-docs` only.
@@ -41,10 +40,8 @@ export const HVD_CONTENT_DIR = path.join(
  * GitHub organization into the local filesystem that `dev-portal` can access.
  */
 ;(async function extractHvdContent() {
-	const isHvdRepoPreview =
-		process.env.PREVIEW_FROM_REPO === BASE_REPO_CONFIG.repo
 	// Skip extraction in deploy previews
-	if (!isHvdRepoPreview && isDeployPreview()) {
+	if (isDeployPreview()) {
 		console.log(
 			'Note: Docs content repo deploy preview detected. Skipping HVD content.'
 		)
@@ -85,7 +82,7 @@ export const HVD_CONTENT_DIR = path.join(
 		 * surface. This does mean that anyone running `hashicorp/dev-portal`
 		 * locally will need to have a valid `GITHUB_TOKEN`.
 		 */
-		if (!isHvdRepoPreview && process.env.IS_CONTENT_PREVIEW) {
+		if (process.env.IS_CONTENT_PREVIEW) {
 			console.log(
 				`Note: HVD content was not extracted, and will not be built. If you need to work on HVD content, please ensure a valid GITHUB_TOKEN is present in your environment variables. Error: ${error}`
 			)
