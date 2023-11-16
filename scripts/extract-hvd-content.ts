@@ -3,18 +3,25 @@ import path from 'path'
 import { fetchGithubArchiveZip } from 'lib/fetch-github-archive-zip'
 import { isDeployPreview } from 'lib/env-checks'
 
-/**
- * Set the location in the local filesystem where we'll extract HVD content.
- */
-export const HVD_CONTENT_DIR =
-	process.env.CONTENT_DIR ||
-	path.join(process.cwd(), 'src/.extracted/hashicorp-validated-designs')
-
-const BASE_REPO_CONFIG = {
+export const BASE_REPO_CONFIG = {
 	owner: 'hashicorp',
 	ref: process.env.CURRENT_GIT_BRANCH || 'main',
 	repo: 'hvd-docs',
+	contentPath: '/content',
 }
+
+/**
+ * Set the location in the local filesystem where we'll extract HVD content.
+ */
+const HVD_REPO_DIR = path.join(
+	process.cwd(),
+	'src/.extracted/hashicorp-validated-designs'
+)
+
+export const HVD_CONTENT_DIR = path.join(
+	HVD_REPO_DIR,
+	BASE_REPO_CONFIG.contentPath
+)
 
 /**
  * For now, we extract content from `hvd-docs` only.
@@ -34,11 +41,10 @@ const BASE_REPO_CONFIG = {
  * GitHub organization into the local filesystem that `dev-portal` can access.
  */
 ;(async function extractHvdContent() {
+	const isHvdRepoPreview =
+		process.env.PREVIEW_FROM_REPO === BASE_REPO_CONFIG.repo
 	// Skip extraction in deploy previews
-	if (
-		process.env.PREVIEW_FROM_REPO !== BASE_REPO_CONFIG.repo &&
-		isDeployPreview()
-	) {
+	if (!isHvdRepoPreview && isDeployPreview()) {
 		console.log(
 			'Note: Docs content repo deploy preview detected. Skipping HVD content.'
 		)
@@ -46,7 +52,7 @@ const BASE_REPO_CONFIG = {
 	}
 
 	// Ensure an enclosing content directory exists for HVD content
-	fs.mkdirSync(HVD_CONTENT_DIR, { recursive: true })
+	fs.mkdirSync(HVD_REPO_DIR, { recursive: true })
 	// Extract HVD repo contents into the `src/content` directory
 
 	try {
@@ -60,14 +66,14 @@ const BASE_REPO_CONFIG = {
 		 * We shift some content to avoid this convolution.
 		 */
 		// Clear out the target directory, may be present from previous runs
-		fs.rmSync(HVD_CONTENT_DIR, { recursive: true, force: true })
+		fs.rmSync(HVD_REPO_DIR, { recursive: true, force: true })
 		// Extract into a temporary directory initially, we'll clean this up
-		const tempDestination = HVD_CONTENT_DIR + '_temp'
+		const tempDestination = HVD_REPO_DIR + '_temp'
 		contentZip.extractAllTo(tempDestination, true)
 		// Move the convolutedly named folder out of temp, rename it predictably
 		const convolutedName = fs.readdirSync(tempDestination)[0]
 		const convolutedDir = path.join(tempDestination, convolutedName)
-		fs.renameSync(convolutedDir, HVD_CONTENT_DIR)
+		fs.renameSync(convolutedDir, HVD_REPO_DIR)
 		// Clean up the temporary directory
 		fs.rmSync(tempDestination, { recursive: true })
 	} catch (error) {
@@ -79,7 +85,7 @@ const BASE_REPO_CONFIG = {
 		 * surface. This does mean that anyone running `hashicorp/dev-portal`
 		 * locally will need to have a valid `GITHUB_TOKEN`.
 		 */
-		if (process.env.IS_CONTENT_PREVIEW) {
+		if (!isHvdRepoPreview && process.env.IS_CONTENT_PREVIEW) {
 			console.log(
 				`Note: HVD content was not extracted, and will not be built. If you need to work on HVD content, please ensure a valid GITHUB_TOKEN is present in your environment variables. Error: ${error}`
 			)
