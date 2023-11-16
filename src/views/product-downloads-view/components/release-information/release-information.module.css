@@ -14,7 +14,7 @@
 }
 
 .notesSubheading {
-	margin-top: 16px;
+	margin-top: 20px;
 }
 
 .codePrompt {
@@ -24,4 +24,8 @@
 .notesList {
 	padding-left: 5px;
 	list-style-position: inside;
+}
+
+.codeBlock {
+	margin-bottom: 40px;
 }
