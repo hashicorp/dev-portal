@@ -13,14 +13,14 @@
 
 import DownloadsSection from './downloads-section'
 import FeaturedLearnCardsSection from './featured-learn-cards-section'
-import OfficialReleasesSection from './official-releases-section'
 import PageHeader from './page-header'
+import ReleaseInformationSection from './release-information'
 import SidecarMarketingCard from './sidecar-marketing-card'
 
 export {
 	DownloadsSection,
 	FeaturedLearnCardsSection,
-	OfficialReleasesSection,
 	PageHeader,
+	ReleaseInformationSection,
 	SidecarMarketingCard,
 }
