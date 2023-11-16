@@ -13,7 +13,7 @@ export const HVD_CONTENT_DIR = path.join(
 
 const BASE_REPO_CONFIG = {
 	owner: 'hashicorp',
-	ref: 'main',
+	ref: process.env.HVD_DOCS_BRANCH || 'main',
 	repo: 'hvd-docs',
 }
 
