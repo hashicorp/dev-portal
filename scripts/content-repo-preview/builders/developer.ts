@@ -47,6 +47,7 @@ export function DeveloperPreviewBuilder(product) {
 			 * - /src/pages/swingset
 			 * - /src/pages/well-architected-framework
 			 * - /src/pages/onboarding
+			 * - /src/pages/validated-designs
 			 */
 			const pagesDir = path.join(cwd, 'src', 'pages')
 			const pagesDirsToRemove = [
@@ -54,6 +55,7 @@ export function DeveloperPreviewBuilder(product) {
 				'swingset',
 				'well-architected-framework',
 				'onboarding',
+				'validated-designs',
 			]
 
 			const rootPagesDirs = (
