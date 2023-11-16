@@ -6,14 +6,13 @@ import { isDeployPreview } from 'lib/env-checks'
 /**
  * Set the location in the local filesystem where we'll extract HVD content.
  */
-export const HVD_CONTENT_DIR = path.join(
-	process.cwd(),
-	'src/.extracted/hashicorp-validated-designs'
-)
+export const HVD_CONTENT_DIR =
+	process.env.CONTENT_DIR ||
+	path.join(process.cwd(), 'src/.extracted/hashicorp-validated-designs')
 
 const BASE_REPO_CONFIG = {
 	owner: 'hashicorp',
-	ref: process.env.CURRENT_HVD_GIT_BRANCH || 'main',
+	ref: process.env.CURRENT_GIT_BRANCH || 'main',
 	repo: 'hvd-docs',
 }
 
@@ -36,9 +35,12 @@ const BASE_REPO_CONFIG = {
  */
 ;(async function extractHvdContent() {
 	// Skip extraction in deploy previews
-	if (isDeployPreview()) {
+	if (
+		process.env.PREVIEW_FROM_REPO !== BASE_REPO_CONFIG.repo &&
+		isDeployPreview()
+	) {
 		console.log(
-			'Note: Content repo deploy preview detected. Skipping HVD content.'
+			'Note: Docs content repo deploy preview detected. Skipping HVD content.'
 		)
 		return
 	}
