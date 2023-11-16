@@ -12,3 +12,16 @@
 	max-height: 16px;
 	max-width: 16px;
 }
+
+.notesSubheading {
+	margin-top: 16px;
+}
+
+.codePrompt {
+	margin-bottom: 8px;
+}
+
+.notesList {
+	padding-left: 5px;
+	list-style-position: inside;
+}

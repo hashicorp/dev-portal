@@ -10,6 +10,7 @@ import { ReactElement } from 'react'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconExternalLink24 } from '@hashicorp/flight-icons/svg-react/external-link-24'
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
+import CodeBlock from '@hashicorp/react-code-block'
 
 // Global imports
 import Heading from 'components/heading'
@@ -17,7 +18,6 @@ import InlineLink from 'components/inline-link'
 import Text from 'components/text'
 import { useCurrentProduct } from 'contexts'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
-
 import InlineAlert from 'components/inline-alert'
 import MobileStandaloneLink from 'components/mobile-standalone-link'
 import { ReleaseVersion } from 'lib/fetch-release-data'
@@ -27,37 +27,89 @@ import s from './release-information.module.css'
 const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
 	const { name, shasums, shasums_signature, version } = selectedRelease
-
+	const armNotes = [
+		'Use Armelv5 for all 32-bit armel systems',
+		'Use Armhfv6 for all armhf systems with v6+ architecture',
+		'Use Arm64 for all v8 64-bit architectures',
+	]
 	return (
-		<InlineAlert
-			className={s.alert}
-			color="neutral"
-			title="Note"
-			description={
+		<>
+			<InlineAlert
+				className={s.alert}
+				color="neutral"
+				title="Note"
+				description={
+					<>
+						You can find the{' '}
+						<InlineLink
+							href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
+							textSize={200}
+						>
+							SHA256 checksums for {currentProduct.name} {version}
+						</InlineLink>{' '}
+						online and you can{' '}
+						<InlineLink
+							href={`https://releases.hashicorp.com/${name}/${version}/${shasums_signature}`}
+							textSize={200}
+						>
+							verify the checksums signature file
+						</InlineLink>{' '}
+						which has been signed using{' '}
+						<InlineLink
+							href="https://www.hashicorp.com/security"
+							textSize={200}
+						>
+							{"HashiCorp's GPG key"}
+						</InlineLink>
+						.
+						{currentProduct.name === 'Consul' && (
+							<>
+								<Text
+									className={s.notesSubheading}
+									size={200}
+									weight="semibold"
+								>
+									ARM users
+								</Text>
+								<ul className={s.notesList}>
+									{armNotes.map((item, index) => (
+										<Text
+											asElement="li"
+											// eslint-disable-next-line react/no-array-index-key
+											key={index}
+											size={200}
+											weight="regular"
+										>
+											{item}
+										</Text>
+									))}
+								</ul>
+							</>
+						)}
+					</>
+				}
+				icon={<IconInfo16 className={s.cardIcon} />}
+			/>
+			{currentProduct.name === 'Consul' && (
 				<>
-					You can find the{' '}
-					<InlineLink
-						href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
-						textSize={200}
+					<Text
+						className={s.codePrompt}
+						asElement="p"
+						size={100}
+						weight="regular"
 					>
-						SHA256 checksums for {currentProduct.name} {version}
-					</InlineLink>{' '}
-					online and you can{' '}
-					<InlineLink
-						href={`https://releases.hashicorp.com/${name}/${version}/${shasums_signature}`}
-						textSize={200}
-					>
-						verify the checksums signature file
-					</InlineLink>{' '}
-					which has been signed using{' '}
-					<InlineLink href="https://www.hashicorp.com/security" textSize={200}>
-						{"HashiCorp's GPG key"}
-					</InlineLink>
-					.
+						The following commands can help determine the right version for your
+						system:
+					</Text>
+					<CodeBlock
+						code={`$ uname -m
+$ readelf -a /proc/self/exe | grep -q -c Tag_ABI_VFP_args && echo "armhf" || echo "armel"`}
+						language="shell-session"
+						options={{ showClipboard: true, wrapCode: true }}
+					/>
 				</>
-			}
-			icon={<IconInfo16 className={s.cardIcon} />}
-		/>
+			)}
+		</>
 	)
 }
 

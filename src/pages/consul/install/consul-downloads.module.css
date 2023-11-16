@@ -3,33 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.notesList {
-	margin: 0;
-	padding: 0;
-	padding-left: 24px;
-}
-
-.notesListItem {
-	color: var(--token-color-foreground-primary);
-	margin-top: 8px;
-}
-
-.codeDescription {
-	color: var(--token-color-foreground-primary);
-	margin-bottom: 16px;
-	margin-top: 16px;
-}
-
-.inlineCode {
-	/* composition */
-	composes: hds-typography-code-100 from global;
-
-	/* properties */
-	color: var(--token-color-foreground-primary);
-	display: block;
-	margin-top: 16px;
-}
-
 .downloadToolsCardTitle {
 	color: var(--token-color-foreground-strong);
 	margin-bottom: 4px;
