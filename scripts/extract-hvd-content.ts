@@ -19,8 +19,9 @@ const HVD_REPO_DIR = path.join(
 )
 
 export const HVD_CONTENT_DIR =
-	path.join(process.cwd(), process.env.LOCAL_CONTENT_DIR) ||
-	path.join(HVD_REPO_DIR, BASE_REPO_CONFIG.contentPath)
+	process.env.LOCAL_CONTENT_DIR ??
+	(path.join(process.cwd(), process.env.LOCAL_CONTENT_DIR) ||
+		path.join(HVD_REPO_DIR, BASE_REPO_CONFIG.contentPath))
 
 /**
  * For now, we extract content from `hvd-docs` only.
