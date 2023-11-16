@@ -96,6 +96,7 @@ const NoteCard = ({ selectedRelease }) => {
 						system:
 					</Text>
 					<CodeBlock
+						className={s.codeBlock}
 						code={`$ uname -m
 $ readelf -a /proc/self/exe | grep -q -c Tag_ABI_VFP_args && echo "armhf" || echo "armel"`}
 						language="shell-session"
