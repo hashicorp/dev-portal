@@ -6,7 +6,6 @@
 import path from 'path'
 import fs from 'fs'
 import { execFileSync } from 'child_process'
-import { loadHashiConfigForEnvironment } from '../../../config'
 
 // our CWD
 const cwd = process.cwd()
@@ -56,16 +55,6 @@ export function DeveloperPreviewBuilder(product) {
 				'well-architected-framework',
 				'onboarding',
 			]
-
-			/**
-			 * Remove hvd routes from all content repo previews
-			 * unless explicitly enabled
-			 */
-			const config = loadHashiConfigForEnvironment()
-
-			if (config['flags.enable_hvd'] === false) {
-				pagesDirsToRemove.push('validated-designs')
-			}
 
 			const rootPagesDirs = (
 				await fs.promises.readdir(pagesDir, { withFileTypes: true })
