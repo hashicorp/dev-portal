@@ -38,10 +38,6 @@
 	margin-top: 24px;
 }
 
-.specialSubHeading {
-	margin-bottom: 8px;
-}
-
 .textAndLinkCard {
 	align-items: center;
 	display: flex;
@@ -63,32 +59,4 @@
 
 .textAndLinkCardVersionLabel {
 	color: var(--token-color-foreground-faint);
-}
-
-.enterpriseLegalNotice {
-	background-color: var(--token-color-surface-faint);
-	border-radius: 6px;
-	border: 1px solid var(--token-color-border-strong);
-	display: flex;
-	gap: 12px;
-	margin-top: 24px;
-	padding: 16px;
-}
-
-.enterpriseLegalNoticeIcon {
-	color: var(--token-color-foreground-primary);
-	display: flex;
-	flex-grow: 0;
-	flex-shrink: 0;
-	height: 20px;
-	width: 20px;
-}
-
-.enterpriseLegalNoticeTitle {
-	color: var(--token-color-foreground-primary);
-}
-
-.enterpriseLegalNoticeText {
-	color: var(--token-color-foreground-primary);
-	margin-top: 4px;
 }

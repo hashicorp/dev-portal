@@ -33,7 +33,6 @@ import { CurrentVersionProvider, useCurrentVersion } from './contexts'
 import {
 	DownloadsSection,
 	FeaturedLearnCardsSection,
-	OfficialReleasesSection,
 	PageHeader,
 	SidecarMarketingCard,
 } from './components'
@@ -130,7 +129,7 @@ const ProductDownloadsViewContent = ({
 				selectedRelease={releases.versions[currentVersion]}
 			/>
 			{merchandisingSlot?.position === 'below' ? merchandisingSlot.slot : null}
-			<OfficialReleasesSection />
+
 			<FeaturedLearnCardsSection
 				cards={featuredCollectionCards}
 				cardType="collection"
