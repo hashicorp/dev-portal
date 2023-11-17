@@ -28,9 +28,8 @@ const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
 	const { name, shasums, shasums_signature, version } = selectedRelease
 	const armNotes = [
-		'Use Armelv5 for all 32-bit armel systems',
-		'Use Armhfv6 for all armhf systems with v6+ architecture',
-		'Use Arm64 for all v8 64-bit architectures',
+		'Use Arm for all 32-bit armel systems',
+		'Use Arm64 for all 64-bit architectures',
 	]
 	return (
 		<>
