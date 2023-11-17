@@ -14,16 +14,13 @@ export async function getStaticProps() {
 		}
 	}
 
-	// Adding this catch here to workaround content migration
-	// and dependent builds between the content repo. This should be reworked
-	let data
+	const data = getHvdLandingProps()
 
-	try {
-		data = getHvdLandingProps()
-	} catch (e) {
-		console.log('Could not fetch HVD data ', e)
-	}
-
+	/**
+	 * If we are in content repos and the GITHUB_TOKEN is not wired up
+	 * we don't want to render these pages because we don't have access to
+	 * the hvd data
+	 */
 	if (!data) {
 		return {
 			notFound: true,

@@ -36,7 +36,7 @@ export const HVD_CONTENT_DIR =
 	// Skip extraction in deploy previews
 	if (isDeployPreview()) {
 		console.log(
-			'Note: Docs content repo deploy preview detected. Skipping HVD content.'
+			'Note: content repo deploy preview detected. Skipping HVD content.'
 		)
 		return
 	}
