@@ -56,6 +56,14 @@ export function DeveloperPreviewBuilder(product) {
 				'onboarding',
 			]
 
+			/**
+			 * Remove validated designs paths from docs previews
+			 * unless we are in the hvd-docs repo
+			 */
+			if (process.env.REPO !== 'hvd-docs') {
+				pagesDirsToRemove.push('/validated-designs')
+			}
+
 			const rootPagesDirs = (
 				await fs.promises.readdir(pagesDir, { withFileTypes: true })
 			).filter((ent) => ent.isDirectory())
