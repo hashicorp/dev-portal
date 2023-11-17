@@ -45,12 +45,16 @@ export function getHvdLandingProps(): ValidatedDesignsLandingProps | null {
 		 * surface. This does mean that anyone running `hashicorp/dev-portal`
 		 * locally will need to have a valid `GITHUB_TOKEN`.
 		 */
+		console.error(e, e.status, '!!!!!!!!!!!!!!!!!!!!!!')
 		if (process.env.IS_CONTENT_PREVIEW) {
-			console.log(
+			console.error(
 				`[Error]: HVD content was not found, and will not be built. If you need to work on HVD content, please ensure a valid GITHUB_TOKEN is present in your environment variables. Error: ${e}`
 			)
 		} else {
-			throw e
+			// TODO uncomment this to throw once the content migration is done in
+			// https://github.com/hashicorp/hvd-docs/pull/2/
+			// throw e
+			console.error(e)
 		}
 	}
 	if (!hvdRepoContents) {
