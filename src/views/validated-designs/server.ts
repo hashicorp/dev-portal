@@ -27,11 +27,39 @@ function loadMetadata(path: string): { title: string; description: string } {
 	}
 }
 
-export function getHvdLandingProps(): ValidatedDesignsLandingProps {
-	const hvdRepoContents = fs.readdirSync(HVD_CONTENT_DIR, {
-		recursive: true,
-		encoding: 'utf-8',
-	})
+export function getHvdLandingProps(): ValidatedDesignsLandingProps | null {
+	let hvdRepoContents
+
+	try {
+		console.info('[HVD]: reading from content directory ', HVD_CONTENT_DIR)
+		hvdRepoContents = fs.readdirSync(HVD_CONTENT_DIR, {
+			recursive: true,
+			encoding: 'utf-8',
+		})
+	} catch (e) {
+		/**
+		 * When authors are running locally from content repos,
+		 * we want to ignore errors.
+		 *
+		 * In all other scenarios, we want errors related to HVD content to
+		 * surface. This does mean that anyone running `hashicorp/dev-portal`
+		 * locally will need to have a valid `GITHUB_TOKEN`.
+		 */
+		if (process.env.IS_CONTENT_PREVIEW) {
+			console.error(
+				`[Error]: HVD content was not found, and will not be built. If you need to work on HVD content, please ensure a valid GITHUB_TOKEN is present in your environment variables. Error: ${e}`
+			)
+		} else {
+			// TODO uncomment this to throw once the content migration is done in
+			// https://github.com/hashicorp/hvd-docs/pull/2/
+			// throw e
+			console.error(e)
+		}
+	}
+	if (!hvdRepoContents) {
+		return null
+	}
+
 	const configFiles = hvdRepoContents.filter((item: string) =>
 		item.endsWith('.yaml')
 	)
