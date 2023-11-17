@@ -3,32 +3,30 @@ import path from 'path'
 import { fetchGithubArchiveZip } from 'lib/fetch-github-archive-zip'
 import { isDeployPreview } from 'lib/env-checks'
 
+export const BASE_REPO_CONFIG = {
+	owner: 'hashicorp',
+	ref: process.env.CURRENT_GIT_BRANCH || 'main',
+	repo: 'hvd-docs',
+	contentPath: '/content',
+}
+
 /**
  * Set the location in the local filesystem where we'll extract HVD content.
  */
-export const HVD_CONTENT_DIR = path.join(
+const HVD_REPO_DIR = path.join(
 	process.cwd(),
 	'src/.extracted/hashicorp-validated-designs'
 )
 
-const BASE_REPO_CONFIG = {
-	owner: 'hashicorp',
-	ref: 'main',
-	repo: 'hvd-docs',
-}
-
 /**
- * For now, we extract content from `hvd-docs` only.
+ * Detect whether we are in the hashicorp/hvd-docs repo directly
+ * and if so use the local path defined in the build or start script.
  *
- * TODO: provide a solution for local development of HVD content.
- *
- * One option might be, if we detect we're in local development using
- * the `hashicorp/dev-portal` repo directly, we could attempt to load in
- * `hvd-docs` content from the local filesystem in an adjacent directory
- * one level up from the current working directory. In other words, we'd assume:
- * - `dev-portal` is the current working directory (i.e. `process.cwd()`
- * - `dev-portal/../hvd-docs` has local content being developed
+ * Otherwise, use the path generated from the `extractHvdContent` script
  */
+export const HVD_CONTENT_DIR =
+	process.env.LOCAL_CONTENT_DIR ||
+	path.join(HVD_REPO_DIR, BASE_REPO_CONFIG.contentPath)
 
 /**
  * This script extracts HVD content from the `hashicorp-validated-designs`
@@ -38,13 +36,13 @@ const BASE_REPO_CONFIG = {
 	// Skip extraction in deploy previews
 	if (isDeployPreview()) {
 		console.log(
-			'Note: Content repo deploy preview detected. Skipping HVD content.'
+			'Note: content repo deploy preview detected. Skipping HVD content.'
 		)
 		return
 	}
 
 	// Ensure an enclosing content directory exists for HVD content
-	fs.mkdirSync(HVD_CONTENT_DIR, { recursive: true })
+	fs.mkdirSync(HVD_REPO_DIR, { recursive: true })
 	// Extract HVD repo contents into the `src/content` directory
 
 	try {
@@ -58,14 +56,14 @@ const BASE_REPO_CONFIG = {
 		 * We shift some content to avoid this convolution.
 		 */
 		// Clear out the target directory, may be present from previous runs
-		fs.rmSync(HVD_CONTENT_DIR, { recursive: true, force: true })
+		fs.rmSync(HVD_REPO_DIR, { recursive: true, force: true })
 		// Extract into a temporary directory initially, we'll clean this up
-		const tempDestination = HVD_CONTENT_DIR + '_temp'
+		const tempDestination = HVD_REPO_DIR + '_temp'
 		contentZip.extractAllTo(tempDestination, true)
 		// Move the convolutedly named folder out of temp, rename it predictably
 		const convolutedName = fs.readdirSync(tempDestination)[0]
 		const convolutedDir = path.join(tempDestination, convolutedName)
-		fs.renameSync(convolutedDir, HVD_CONTENT_DIR)
+		fs.renameSync(convolutedDir, HVD_REPO_DIR)
 		// Clean up the temporary directory
 		fs.rmSync(tempDestination, { recursive: true })
 	} catch (error) {
