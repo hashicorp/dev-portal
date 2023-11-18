@@ -25,6 +25,7 @@ import s from './downloads-section.module.css'
 import { groupDownloadsByOS, groupPackageManagersByOS } from './helpers'
 import { DownloadsSectionProps } from './types'
 import CardWithLink from '../card-with-link'
+import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
 
 const SHARED_HEADING_LEVEL_3_PROPS = {
 	className: s.subHeading,
@@ -156,15 +157,17 @@ const DownloadsSection = ({
 					 */
 					return (
 						<Card className={s.card} elevation="base" key={os}>
-							<Heading
-								className={s.operatingSystemTitle}
-								level={2}
-								size={400}
-								id="operating-system"
-								weight="bold"
-							>
-								{prettyOSName}
-							</Heading>
+							<ContentWithPermalink id={prettyOSName} ariaLabel={prettyOSName}>
+								<Heading
+									id={prettyOSName}
+									className={s.operatingSystemTitle}
+									level={2}
+									size={400}
+									weight="bold"
+								>
+									{prettyOSName}
+								</Heading>
+							</ContentWithPermalink>
 							<div className={s.tabContent}>
 								{isLatestVersion && (
 									<PackageManagerSection
