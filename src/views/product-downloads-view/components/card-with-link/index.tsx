@@ -12,8 +12,10 @@ import Text from 'components/text'
 
 // Local imports
 import s from './card-with-link.module.css'
+import classNames from 'classnames'
 
 interface CardWithLinkProps {
+	className?: string
 	heading: string
 	subheading: string | ReactNode
 	icon?: ReactNode
@@ -21,13 +23,14 @@ interface CardWithLinkProps {
 }
 
 const CardWithLink = ({
+	className,
 	heading,
 	subheading,
 	icon,
 	link,
 }: CardWithLinkProps) => {
 	return (
-		<Card className={s.root} elevation="base">
+		<Card className={classNames(s.root, className)} elevation="base">
 			{typeof icon !== undefined ? icon : null}
 			<div className={s.contentContainer}>
 				<Text className={s.contentHeading} size={200} weight="semibold">

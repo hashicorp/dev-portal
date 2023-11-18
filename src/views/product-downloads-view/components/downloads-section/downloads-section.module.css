@@ -7,25 +7,14 @@
 	margin-bottom: 48px;
 }
 
-.cardHeader {
-	align-items: center;
-	display: flex;
-
-	/* Note: logical order is Vault version, then OS.
-     But in flex layout, we want Vault version after OS heading,
-     so that it appears in the top left of the downloads section box */
-	flex-direction: row-reverse;
-	flex-wrap: wrap;
-	gap: 12px;
-	justify-content: space-between;
-	padding-bottom: 12px;
+.card {
+	margin-bottom: 32px;
+	padding: 16px;
 }
 
 .operatingSystemTitle {
 	color: var(--token-color-foreground-strong);
-
-	/* Flex-grow as much as possible to keep .versionSwitcherWrapper small */
-	flex-grow: 100;
+	margin-bottom: 16px;
 }
 
 .tabContent {
@@ -35,28 +24,31 @@
 .subHeading {
 	color: var(--token-color-foreground-strong);
 	margin-bottom: 16px;
-	margin-top: 24px;
 }
 
-.textAndLinkCard {
-	align-items: center;
-	display: flex;
-	justify-content: space-between;
-
-	&:not(:last-child) {
-		margin-bottom: 16px;
+.binaryDownloadContainer {
+	@media (--medium-up) {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 24px;
 	}
 }
 
-.textAndLinkCardTextContainer {
-	margin-right: 16px;
+.binaryCard {
+	&:last-child {
+		margin: 0;
+	}
+	@media (--medium-up) {
+		flex: 1 1 auto;
+		width: calc(50% - 12px);
+		margin: 0;
+	}
 }
 
-.textAndLinkCardLabel {
-	color: var(--token-color-foreground-strong);
-	margin-bottom: 4px;
+.codeBlock {
+	margin-bottom: 32px;
 }
 
-.textAndLinkCardVersionLabel {
-	color: var(--token-color-foreground-faint);
+.codeBlocks {
+	margin-bottom: 24px;
 }
