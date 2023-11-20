@@ -67,17 +67,12 @@ const NoteCard = ({ selectedRelease }) => {
 									ARM users
 								</Text>
 								<ul className={s.notesList}>
-									{armNotes.map((item, index) => (
-										<Text
-											asElement="li"
-											// eslint-disable-next-line react/no-array-index-key
-											key={index}
-											size={200}
-											weight="regular"
-										>
-											{item}
-										</Text>
-									))}
+									<Text asElement="li" size={200} weight="regular">
+										Use Arm for all 32-bit systems
+									</Text>
+									<Text asElement="li" size={200} weight="regular">
+										Use Arm64 for all 64-bit architectures
+									</Text>
 								</ul>
 							</>
 						)}
