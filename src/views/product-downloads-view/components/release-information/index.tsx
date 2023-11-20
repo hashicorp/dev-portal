@@ -95,7 +95,7 @@ const NoteCard = ({ selectedRelease }) => {
 						code={`$ uname -m
 $ readelf -a /proc/self/exe | grep -q -c Tag_ABI_VFP_args && echo "armhf" || echo "armel"`}
 						language="shell-session"
-						options={{ showClipboard: true, wrapCode: true }}
+						options={{ showClipboard: true }}
 					/>
 				</>
 			)}
