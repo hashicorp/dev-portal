@@ -20,14 +20,13 @@ import { prettyOs } from 'views/product-downloads-view/helpers'
 
 // Local imports
 import { PackageManager } from 'views/product-downloads-view/types'
-import ReleaseInformationSection from '../release-information'
 import s from './downloads-section.module.css'
 import { groupDownloadsByOS, groupPackageManagersByOS } from './helpers'
 import { DownloadsSectionProps } from './types'
 import CardWithLink from '../card-with-link'
 
 const SHARED_HEADING_LEVEL_3_PROPS = {
-	className: s.subHeading,
+	className: s.heading,
 	level: 3 as HeadingProps['level'],
 	size: 200 as HeadingProps['size'],
 	weight: 'semibold' as HeadingProps['weight'],
@@ -50,12 +49,7 @@ const PackageManagerSection = ({
 
 	return (
 		<>
-			<Heading
-				{...SHARED_HEADING_LEVEL_3_PROPS}
-				id={`package-manager-for-${prettyOSName}`}
-			>
-				Package manager
-			</Heading>
+			<Heading {...SHARED_HEADING_LEVEL_3_PROPS}>Package manager</Heading>
 			{hasOnePackageManager && (
 				<CodeBlock
 					className={s.codeBlock}
@@ -73,7 +67,7 @@ const PackageManagerSection = ({
 								key={label}
 								code={installCodeHtml}
 								language="shell-session"
-								options={{ showClipboard: true, wrapCode: true }}
+								options={{ showClipboard: true }}
 							/>
 						)
 					})}
@@ -92,16 +86,11 @@ const BinaryDownloadsSection = ({
 	const { name, version } = selectedRelease
 	return (
 		<>
-			<Heading
-				{...SHARED_HEADING_LEVEL_3_PROPS}
-				id={`binary-download-for-${prettyOSName}`}
-			>
-				Binary download
-			</Heading>
-			<div className={s.binaryDownloadContainer}>
+			<Heading {...SHARED_HEADING_LEVEL_3_PROPS}>Binary download</Heading>
+			<div className={s.downloadContainer}>
 				{Object.keys(downloadsByOS[os]).map((arch) => (
 					<CardWithLink
-						className={s.binaryCard}
+						className={s.downloadCard}
 						key={arch}
 						heading={arch.toUpperCase()}
 						subheading={`Version: ${version}`}
@@ -127,7 +116,6 @@ const BinaryDownloadsSection = ({
 }
 
 const DownloadsSection = ({
-	isEnterpriseMode = false,
 	packageManagers,
 	selectedRelease,
 }: DownloadsSectionProps): ReactElement => {
@@ -143,7 +131,7 @@ const DownloadsSection = ({
 
 	return (
 		<>
-			<div className={s.root}>
+			<>
 				{Object.keys(downloadsByOS).map((os) => {
 					const packageManagers = packageManagersByOS[os]
 					const prettyOSName = prettyOs(os)
@@ -157,10 +145,10 @@ const DownloadsSection = ({
 					return (
 						<Card className={s.card} elevation="base" key={os}>
 							<Heading
-								className={s.operatingSystemTitle}
+								className={s.heading}
 								level={2}
 								size={400}
-								id="operating-system"
+								id={`operating-system-${prettyOSName}`}
 								weight="bold"
 							>
 								{prettyOSName}
@@ -182,11 +170,7 @@ const DownloadsSection = ({
 						</Card>
 					)
 				})}
-			</div>
-			<ReleaseInformationSection
-				selectedRelease={selectedRelease}
-				isEnterpriseMode={isEnterpriseMode}
-			/>
+			</>
 		</>
 	)
 }

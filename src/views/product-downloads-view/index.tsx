@@ -34,6 +34,7 @@ import {
 	DownloadsSection,
 	FeaturedLearnCardsSection,
 	PageHeader,
+	ReleaseInformationSection,
 	SidecarMarketingCard,
 } from './components'
 import s from './product-downloads-view.module.css'
@@ -124,12 +125,14 @@ const ProductDownloadsViewContent = ({
 			/>
 			{merchandisingSlot?.position === 'above' ? merchandisingSlot.slot : null}
 			<DownloadsSection
-				isEnterpriseMode={isEnterpriseMode}
 				packageManagers={packageManagers}
 				selectedRelease={releases.versions[currentVersion]}
 			/>
 			{merchandisingSlot?.position === 'below' ? merchandisingSlot.slot : null}
-
+			<ReleaseInformationSection
+				selectedRelease={releases.versions[currentVersion]}
+				isEnterpriseMode={isEnterpriseMode}
+			/>
 			<FeaturedLearnCardsSection
 				cards={featuredCollectionCards}
 				cardType="collection"

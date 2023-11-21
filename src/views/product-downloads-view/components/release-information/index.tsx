@@ -231,11 +231,11 @@ const ReleaseInformationSection = ({
 }: ReleaseInformationSectionProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	return (
-		<>
+		<div className={s.root}>
 			<Heading
-				className={viewStyles.heading2}
+				className={s.heading}
 				level={2}
-				size={300}
+				size={400}
 				id="looking-for-more"
 				weight="bold"
 			>
@@ -246,7 +246,7 @@ const ReleaseInformationSection = ({
 			<NoteCard selectedRelease={selectedRelease} />
 			{currentProduct.name === 'Consul' && <ConsulNoteCard />}
 			{isEnterpriseMode ? <EnterpriseLegalNote /> : null}
-		</>
+		</div>
 	)
 }
 

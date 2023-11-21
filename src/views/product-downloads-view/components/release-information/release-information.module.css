@@ -3,6 +3,18 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+.root {
+	& > * {
+		margin-bottom: 24px;
+	}
+}
+
+.heading {
+	color: var(--token-color-foreground-strong);
+	margin-bottom: 16px;
+	margin-top: 56px;
+}
+
 .alert,
 .armUserNote {
 	margin-bottom: 24px;
