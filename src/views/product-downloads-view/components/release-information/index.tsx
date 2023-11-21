@@ -28,7 +28,6 @@ const NoteCard = ({ selectedRelease }) => {
 	const { name, shasums, shasums_signature, version } = selectedRelease
 	return (
 		<InlineAlert
-			className={s.alert}
 			color="neutral"
 			title="Note"
 			description={
