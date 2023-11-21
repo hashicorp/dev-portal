@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.alert {
+.alert,
+.armUserNote {
 	margin-bottom: 24px;
 }
 
@@ -13,12 +14,12 @@
 	max-width: 16px;
 }
 
-.notesSubheading {
-	margin-top: 20px;
+.armUserNote {
+	padding: 16px 30px 37px 16px;
 }
 
 .codePrompt {
-	margin-bottom: 8px;
+	margin: 25px 0 11px 0;
 }
 
 .notesList {
@@ -27,5 +28,5 @@
 }
 
 .codeBlock {
-	margin-bottom: 40px;
+	margin: 20px 0 37px 0;
 }

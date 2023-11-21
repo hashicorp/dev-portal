@@ -28,60 +28,54 @@ const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
 	const { name, shasums, shasums_signature, version } = selectedRelease
 	return (
-		<>
-			<InlineAlert
-				className={s.alert}
-				color="neutral"
-				title="Note"
-				description={
-					<>
-						You can find the{' '}
-						<InlineLink
-							href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
-							textSize={200}
-						>
-							SHA256 checksums for {currentProduct.name} {version}
-						</InlineLink>{' '}
-						online and you can{' '}
-						<InlineLink
-							href={`https://releases.hashicorp.com/${name}/${version}/${shasums_signature}`}
-							textSize={200}
-						>
-							verify the checksums signature file
-						</InlineLink>{' '}
-						which has been signed using{' '}
-						<InlineLink
-							href="https://www.hashicorp.com/security"
-							textSize={200}
-						>
-							{"HashiCorp's GPG key"}
-						</InlineLink>
-						.
-						{currentProduct.name === 'Consul' && (
-							<>
-								<Text
-									className={s.notesSubheading}
-									size={200}
-									weight="semibold"
-								>
-									ARM users
-								</Text>
-								<ul className={s.notesList}>
-									<Text asElement="li" size={200} weight="regular">
-										Use Arm for all 32-bit systems
-									</Text>
-									<Text asElement="li" size={200} weight="regular">
-										Use Arm64 for all 64-bit architectures
-									</Text>
-								</ul>
-							</>
-						)}
-					</>
-				}
-				icon={<IconInfo16 className={s.cardIcon} />}
-			/>
-			{currentProduct.name === 'Consul' && (
+		<InlineAlert
+			className={s.alert}
+			color="neutral"
+			title="Note"
+			description={
 				<>
+					You can find the{' '}
+					<InlineLink
+						href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
+						textSize={200}
+					>
+						SHA256 checksums for {currentProduct.name} {version}
+					</InlineLink>{' '}
+					online and you can{' '}
+					<InlineLink
+						href={`https://releases.hashicorp.com/${name}/${version}/${shasums_signature}`}
+						textSize={200}
+					>
+						verify the checksums signature file
+					</InlineLink>{' '}
+					which has been signed using{' '}
+					<InlineLink href="https://www.hashicorp.com/security" textSize={200}>
+						{"HashiCorp's GPG key"}
+					</InlineLink>
+					.
+				</>
+			}
+			icon={<IconInfo16 className={s.cardIcon} />}
+		/>
+	)
+}
+
+const ConsulNoteCard = (): ReactElement => {
+	return (
+		<InlineAlert
+			className={s.armUserNote}
+			color="neutral"
+			title="Note for ARM users"
+			description={
+				<>
+					<ul className={s.notesList}>
+						<Text asElement="li" size={200} weight="regular">
+							Use Arm for all 32-bit systems
+						</Text>
+						<Text asElement="li" size={200} weight="regular">
+							Use Arm64 for all 64-bit architectures
+						</Text>
+					</ul>
 					<Text
 						className={s.codePrompt}
 						asElement="p"
@@ -92,15 +86,26 @@ const NoteCard = ({ selectedRelease }) => {
 						system:
 					</Text>
 					<CodeBlock
-						className={s.codeBlock}
-						code={`$ uname -m
-$ readelf -a /proc/self/exe | grep -q -c Tag_ABI_VFP_args && echo "armhf" || echo "armel"`}
+						code="$ uname -m"
 						language="shell-session"
-						options={{ showClipboard: true, wrapCode: true }}
+						options={{
+							wrapCode: true,
+							showClipboard: true,
+						}}
+					/>
+					<CodeBlock
+						className={s.codeBlock}
+						code={`$ readelf -a /proc/self/exe | grep -q -c Tag_ABI_VFP_args && echo "armhf" || echo "armel"`}
+						language="shell-session"
+						options={{
+							wrapCode: true,
+							showClipboard: true,
+						}}
 					/>
 				</>
-			)}
-		</>
+			}
+			icon={<IconInfo16 className={s.cardIcon} />}
+		/>
 	)
 }
 
@@ -180,6 +185,7 @@ const ReleaseInformationSection = ({
 	selectedRelease,
 	isEnterpriseMode,
 }: ReleaseInformationSectionProps): ReactElement => {
+	const currentProduct = useCurrentProduct()
 	return (
 		<>
 			<Heading
@@ -194,6 +200,7 @@ const ReleaseInformationSection = ({
 			<ChangelogNote selectedRelease={selectedRelease} />
 			<OfficialReleasesCard />
 			<NoteCard selectedRelease={selectedRelease} />
+			{currentProduct.name === 'Consul' && <ConsulNoteCard />}
 			{isEnterpriseMode ? <EnterpriseLegalNote /> : null}
 		</>
 	)
