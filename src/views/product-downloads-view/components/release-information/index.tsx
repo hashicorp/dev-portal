@@ -10,6 +10,7 @@ import { ReactElement } from 'react'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconExternalLink24 } from '@hashicorp/flight-icons/svg-react/external-link-24'
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
+import CodeBlock from '@hashicorp/react-code-block'
 
 // Global imports
 import Heading from 'components/heading'
@@ -17,7 +18,6 @@ import InlineLink from 'components/inline-link'
 import Text from 'components/text'
 import { useCurrentProduct } from 'contexts'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
-
 import InlineAlert from 'components/inline-alert'
 import MobileStandaloneLink from 'components/mobile-standalone-link'
 import { ReleaseVersion } from 'lib/fetch-release-data'
@@ -27,7 +27,6 @@ import s from './release-information.module.css'
 const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
 	const { name, shasums, shasums_signature, version } = selectedRelease
-
 	return (
 		<InlineAlert
 			className={s.alert}
@@ -54,6 +53,55 @@ const NoteCard = ({ selectedRelease }) => {
 						{"HashiCorp's GPG key"}
 					</InlineLink>
 					.
+				</>
+			}
+			icon={<IconInfo16 className={s.cardIcon} />}
+		/>
+	)
+}
+
+const ConsulNoteCard = (): ReactElement => {
+	return (
+		<InlineAlert
+			className={s.armUserNote}
+			color="neutral"
+			title="Note for ARM users"
+			description={
+				<>
+					<ul className={s.notesList}>
+						<Text asElement="li" size={200} weight="regular">
+							Use Arm for all 32-bit systems
+						</Text>
+						<Text asElement="li" size={200} weight="regular">
+							Use Arm64 for all 64-bit architectures
+						</Text>
+					</ul>
+					<Text
+						className={s.codePrompt}
+						asElement="p"
+						size={100}
+						weight="regular"
+					>
+						The following commands can help determine the right version for your
+						system:
+					</Text>
+					<CodeBlock
+						code="$ uname -m"
+						language="shell-session"
+						options={{
+							wrapCode: true,
+							showClipboard: true,
+						}}
+					/>
+					<CodeBlock
+						className={s.codeBlock}
+						code={`$ readelf -a /proc/self/exe | grep -q -c Tag_ABI_VFP_args && echo "armhf" || echo "armel"`}
+						language="shell-session"
+						options={{
+							wrapCode: true,
+							showClipboard: true,
+						}}
+					/>
 				</>
 			}
 			icon={<IconInfo16 className={s.cardIcon} />}
@@ -137,6 +185,7 @@ const ReleaseInformationSection = ({
 	selectedRelease,
 	isEnterpriseMode,
 }: ReleaseInformationSectionProps): ReactElement => {
+	const currentProduct = useCurrentProduct()
 	return (
 		<>
 			<Heading
@@ -151,6 +200,7 @@ const ReleaseInformationSection = ({
 			<ChangelogNote selectedRelease={selectedRelease} />
 			<OfficialReleasesCard />
 			<NoteCard selectedRelease={selectedRelease} />
+			{currentProduct.name === 'Consul' && <ConsulNoteCard />}
 			{isEnterpriseMode ? <EnterpriseLegalNote /> : null}
 		</>
 	)
