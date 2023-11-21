@@ -128,11 +128,12 @@ const ProductDownloadsViewContent = ({
 				packageManagers={packageManagers}
 				selectedRelease={releases.versions[currentVersion]}
 			/>
-			{merchandisingSlot?.position === 'below' ? merchandisingSlot.slot : null}
+			{merchandisingSlot?.position === 'middle' ? merchandisingSlot.slot : null}
 			<ReleaseInformationSection
 				selectedRelease={releases.versions[currentVersion]}
 				isEnterpriseMode={isEnterpriseMode}
 			/>
+			{merchandisingSlot?.position === 'below' ? merchandisingSlot.slot : null}
 			<FeaturedLearnCardsSection
 				cards={featuredCollectionCards}
 				cardType="collection"
