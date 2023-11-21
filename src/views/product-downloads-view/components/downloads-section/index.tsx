@@ -131,46 +131,38 @@ const DownloadsSection = ({
 
 	return (
 		<>
-			<>
-				{Object.keys(downloadsByOS).map((os) => {
-					const packageManagers = packageManagersByOS[os]
-					const prettyOSName = prettyOs(os)
+			{Object.keys(downloadsByOS).map((os) => {
+				const packageManagers = packageManagersByOS[os]
+				const prettyOSName = prettyOs(os)
 
-					/**
-					 * TODO: it might be nice to introduce a local Context here with all
-					 * the information needed so that these helper components don't have
-					 * APIs that could potentially require changes with every visual
-					 * change.
-					 */
-					return (
-						<Card className={s.card} elevation="base" key={os}>
-							<Heading
-								className={s.heading}
-								level={2}
-								size={400}
-								id={`operating-system-${prettyOSName}`}
-								weight="bold"
-							>
-								{prettyOSName}
-							</Heading>
-							<div className={s.tabContent}>
-								{isLatestVersion && (
-									<PackageManagerSection
-										packageManagers={packageManagers}
-										prettyOSName={prettyOSName}
-									/>
-								)}
-								<BinaryDownloadsSection
-									downloadsByOS={downloadsByOS}
-									os={os}
+				return (
+					<Card className={s.card} elevation="base" key={os}>
+						<Heading
+							className={s.heading}
+							level={2}
+							size={400}
+							id={`operating-system-${prettyOSName}`}
+							weight="bold"
+						>
+							{prettyOSName}
+						</Heading>
+						<div className={s.tabContent}>
+							{isLatestVersion && (
+								<PackageManagerSection
+									packageManagers={packageManagers}
 									prettyOSName={prettyOSName}
-									selectedRelease={selectedRelease}
 								/>
-							</div>
-						</Card>
-					)
-				})}
-			</>
+							)}
+							<BinaryDownloadsSection
+								downloadsByOS={downloadsByOS}
+								os={os}
+								prettyOSName={prettyOSName}
+								selectedRelease={selectedRelease}
+							/>
+						</div>
+					</Card>
+				)
+			})}
 		</>
 	)
 }

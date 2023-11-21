@@ -17,7 +17,6 @@ import Heading from 'components/heading'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
 import { useCurrentProduct } from 'contexts'
-import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 import InlineAlert from 'components/inline-alert'
 import MobileStandaloneLink from 'components/mobile-standalone-link'
 import { ReleaseVersion } from 'lib/fetch-release-data'
@@ -28,40 +27,35 @@ const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
 	const { name, shasums, shasums_signature, version } = selectedRelease
 	return (
-		<>
-			<InlineAlert
-				className={s.alert}
-				color="neutral"
-				title="Note"
-				description={
-					<>
-						You can find the{' '}
-						<InlineLink
-							href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
-							textSize={200}
-						>
-							SHA256 checksums for {currentProduct.name} {version}
-						</InlineLink>{' '}
-						online and you can{' '}
-						<InlineLink
-							href={`https://releases.hashicorp.com/${name}/${version}/${shasums_signature}`}
-							textSize={200}
-						>
-							verify the checksums signature file
-						</InlineLink>{' '}
-						which has been signed using{' '}
-						<InlineLink
-							href="https://www.hashicorp.com/security"
-							textSize={200}
-						>
-							{"HashiCorp's GPG key"}
-						</InlineLink>
-						.
-					</>
-				}
-				icon={<IconInfo16 className={s.cardIcon} />}
-			/>
-		</>
+		<InlineAlert
+			className={s.alert}
+			color="neutral"
+			title="Note"
+			description={
+				<>
+					You can find the{' '}
+					<InlineLink
+						href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
+						textSize={200}
+					>
+						SHA256 checksums for {currentProduct.name} {version}
+					</InlineLink>{' '}
+					online and you can{' '}
+					<InlineLink
+						href={`https://releases.hashicorp.com/${name}/${version}/${shasums_signature}`}
+						textSize={200}
+					>
+						verify the checksums signature file
+					</InlineLink>{' '}
+					which has been signed using{' '}
+					<InlineLink href="https://www.hashicorp.com/security" textSize={200}>
+						{"HashiCorp's GPG key"}
+					</InlineLink>
+					.
+				</>
+			}
+			icon={<IconInfo16 className={s.cardIcon} />}
+		/>
 	)
 }
 
@@ -192,7 +186,7 @@ const ReleaseInformationSection = ({
 }: ReleaseInformationSectionProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	return (
-		<div className={s.root}>
+		<>
 			<Heading
 				className={s.heading}
 				level={2}
@@ -200,14 +194,16 @@ const ReleaseInformationSection = ({
 				id="looking-for-more"
 				weight="bold"
 			>
-				Release Information
+				Release information
 			</Heading>
-			<ChangelogNote selectedRelease={selectedRelease} />
-			<OfficialReleasesCard />
-			<NoteCard selectedRelease={selectedRelease} />
-			{currentProduct.name === 'Consul' && <ConsulNoteCard />}
-			{isEnterpriseMode ? <EnterpriseLegalNote /> : null}
-		</div>
+			<div className={s.notesContainer}>
+				<ChangelogNote selectedRelease={selectedRelease} />
+				<OfficialReleasesCard />
+				<NoteCard selectedRelease={selectedRelease} />
+				{currentProduct.name === 'Consul' && <ConsulNoteCard />}
+				{isEnterpriseMode ? <EnterpriseLegalNote /> : null}
+			</div>
+		</>
 	)
 }
 
