@@ -56,49 +56,10 @@ const NoteCard = ({ selectedRelease }) => {
 							{"HashiCorp's GPG key"}
 						</InlineLink>
 						.
-						{currentProduct.name === 'Consul' && (
-							<>
-								<Text
-									className={s.notesSubheading}
-									size={200}
-									weight="semibold"
-								>
-									ARM users
-								</Text>
-								<ul className={s.notesList}>
-									<Text asElement="li" size={200} weight="regular">
-										Use Arm for all 32-bit systems
-									</Text>
-									<Text asElement="li" size={200} weight="regular">
-										Use Arm64 for all 64-bit architectures
-									</Text>
-								</ul>
-							</>
-						)}
 					</>
 				}
 				icon={<IconInfo16 className={s.cardIcon} />}
 			/>
-			{currentProduct.name === 'Consul' && (
-				<>
-					<Text
-						className={s.codePrompt}
-						asElement="p"
-						size={100}
-						weight="regular"
-					>
-						The following commands can help determine the right version for your
-						system:
-					</Text>
-					<CodeBlock
-						className={s.codeBlock}
-						code={`$ uname -m
-$ readelf -a /proc/self/exe | grep -q -c Tag_ABI_VFP_args && echo "armhf" || echo "armel"`}
-						language="shell-session"
-						options={{ showClipboard: true }}
-					/>
-				</>
-			)}
 		</>
 	)
 }
