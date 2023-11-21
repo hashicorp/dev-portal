@@ -135,7 +135,6 @@ const ChangelogNote = ({ selectedRelease }) => {
 const EnterpriseLegalNote = () => {
 	return (
 		<InlineAlert
-			className={s.alert}
 			title="Terms of use"
 			description={
 				<Text className={s.contentSubheading} size={200} weight="regular">
