@@ -4,58 +4,42 @@
  */
 
 import ValidatedDesignGuideView from 'views/validated-designs/guide'
+import {
+	getHvdCategoryGroupsPaths,
+	getHvdGuidePropsFromSlugs,
+} from 'views/validated-designs/server'
 
 // @TODO make sure to set it up so that the base `guideSlug` path redirects to the first section page
 // for example /validated-designs/terraform-operation-guides-adoption would render the content for
 // /validated-designs/terraform-operation-guides-adoption/0000-introduction
 export async function getStaticPaths() {
-	// @TODO refactor to dynamically build up static paths here for all
-	// products/hvds/and hvd section pages based on contents of hvd-docs filesystem
+	const pagePaths = getHvdCategoryGroupsPaths()
+
 	return {
 		paths: [
-			{
+			...pagePaths.map((path: string[]) => ({
 				params: {
-					slug: ['terraform-operation-guides-adoption'],
+					slug: path,
 				},
-			},
-			{
-				params: {
-					slug: [
-						'terraform-operation-guides-adoption',
-						'0000-introduction.mdx',
-					],
-				},
-			},
-			{
-				params: {
-					slug: [
-						'terraform-operation-guides-adoption',
-						'0010-people-and-process.mdx',
-					],
-				},
-			},
-			{
-				params: {
-					slug: [
-						'terraform-operation-guides-adoption',
-						'0020-consumption-models.mdx',
-					],
-				},
-			},
+			})),
 		],
 		fallback: false,
 	}
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
 	/** @TODO remove this conditional after release */
 	if (__config.flags.enable_hvd === false) {
 		return {
 			notFound: true,
 		}
 	}
+
+	const slugs = context.params.slug
+	const props = getHvdGuidePropsFromSlugs(slugs)
+
 	return {
-		props: {},
+		props,
 	}
 }
 
