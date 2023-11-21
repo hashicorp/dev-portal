@@ -66,7 +66,7 @@ const PackageManagerSection = ({
 								key={label}
 								code={installCodeHtml}
 								language="shell-session"
-								options={{ showClipboard: true, wrapCode: true }}
+								options={{ showClipboard: true }}
 							/>
 						)
 					})}
