@@ -184,7 +184,7 @@ const ReleaseInformationSection = ({
 }: ReleaseInformationSectionProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	return (
-		<>
+		<div className={s.root}>
 			<Heading
 				className={s.heading}
 				level={2}
@@ -201,7 +201,7 @@ const ReleaseInformationSection = ({
 				{currentProduct.name === 'Consul' && <ConsulNoteCard />}
 				{isEnterpriseMode ? <EnterpriseLegalNote /> : null}
 			</div>
-		</>
+		</div>
 	)
 }
 

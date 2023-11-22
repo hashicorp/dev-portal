@@ -14,7 +14,7 @@ const ConsulEnterpriseDownloadsPage = (props) => {
 		<ProductDownloadsView
 			{...props}
 			merchandisingSlot={{
-				position: 'middle',
+				position: 'below',
 				slot: <ConsulDownloadsMerchandisingSlot />,
 			}}
 		/>

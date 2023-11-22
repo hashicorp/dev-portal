@@ -34,7 +34,6 @@ const SHARED_HEADING_LEVEL_3_PROPS = {
 
 const PackageManagerSection = ({
 	packageManagers,
-	prettyOSName,
 }: {
 	packageManagers: PackageManager[]
 	prettyOSName: string
