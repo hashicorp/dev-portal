@@ -23,11 +23,7 @@ import { ReleaseVersion } from 'lib/fetch-release-data'
 import CardWithLink from '../card-with-link'
 import s from './release-information.module.css'
 
-interface NoteProps {
-	selectedRelease: ReleaseVersion
-}
-
-const NoteCard = ({ selectedRelease }: NoteProps) => {
+const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
 	const { name, shasums, shasums_signature, version } = selectedRelease
 	return (
@@ -117,7 +113,7 @@ const ConsulNoteCard = (): ReactElement => {
 	)
 }
 
-const ChangelogNote = ({ selectedRelease }: NoteProps) => {
+const ChangelogNote = ({ selectedRelease }) => {
 	const { name, version } = selectedRelease
 	const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
 
