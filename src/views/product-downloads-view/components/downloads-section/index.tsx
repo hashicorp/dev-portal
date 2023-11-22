@@ -14,21 +14,19 @@ import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 import Card from 'components/card'
 import Heading, { HeadingProps } from 'components/heading'
 import MobileDownloadStandaloneLink from 'components/mobile-download-standalone-link'
-import Tabs, { Tab } from 'components/tabs'
-import Text from 'components/text'
 import { trackProductDownload } from 'lib/analytics'
 import { useCurrentVersion } from 'views/product-downloads-view/contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
 
 // Local imports
 import { PackageManager } from 'views/product-downloads-view/types'
-import ReleaseInformationSection from '../release-information'
 import s from './downloads-section.module.css'
 import { groupDownloadsByOS, groupPackageManagersByOS } from './helpers'
 import { DownloadsSectionProps } from './types'
+import CardWithLink from '../card-with-link'
 
 const SHARED_HEADING_LEVEL_3_PROPS = {
-	className: s.subHeading,
+	className: s.heading,
 	level: 3 as HeadingProps['level'],
 	size: 200 as HeadingProps['size'],
 	weight: 'semibold' as HeadingProps['weight'],
@@ -36,7 +34,6 @@ const SHARED_HEADING_LEVEL_3_PROPS = {
 
 const PackageManagerSection = ({
 	packageManagers,
-	prettyOSName,
 }: {
 	packageManagers: PackageManager[]
 	prettyOSName: string
@@ -51,14 +48,10 @@ const PackageManagerSection = ({
 
 	return (
 		<>
-			<Heading
-				{...SHARED_HEADING_LEVEL_3_PROPS}
-				id={`package-manager-for-${prettyOSName}`}
-			>
-				Package manager for {prettyOSName}
-			</Heading>
+			<Heading {...SHARED_HEADING_LEVEL_3_PROPS}>Package manager</Heading>
 			{hasOnePackageManager && (
 				<CodeBlock
+					className={s.codeBlock}
 					code={packageManagers[0].installCodeHtml}
 					language="shell-session"
 					options={{ showClipboard: true }}
@@ -69,6 +62,7 @@ const PackageManagerSection = ({
 					{packageManagers.map(({ label, installCodeHtml }) => {
 						return (
 							<CodeBlock
+								className={s.codeBlocks}
 								key={label}
 								code={installCodeHtml}
 								language="shell-session"
@@ -91,50 +85,36 @@ const BinaryDownloadsSection = ({
 	const { name, version } = selectedRelease
 	return (
 		<>
-			<Heading
-				{...SHARED_HEADING_LEVEL_3_PROPS}
-				id={`binary-download-for-${prettyOSName}`}
-			>
-				Binary download for {prettyOSName}
-			</Heading>
-			{Object.keys(downloadsByOS[os]).map((arch) => (
-				<Card className={s.textAndLinkCard} elevation="base" key={arch}>
-					<div className={s.textAndLinkCardTextContainer}>
-						<Text
-							className={s.textAndLinkCardLabel}
-							size={200}
-							weight="semibold"
-						>
-							{arch.toUpperCase()}
-						</Text>
-						<Text
-							className={s.textAndLinkCardVersionLabel}
-							size={200}
-							weight="regular"
-						>
-							Version: {version}
-						</Text>
-					</div>
-					<MobileDownloadStandaloneLink
-						ariaLabel={`download ${name} version ${version} for ${prettyOSName}, architecture ${arch}`}
-						href={downloadsByOS[os][arch]}
-						onClick={() => {
-							trackProductDownload({
-								productSlug: name,
-								version,
-								prettyOSName,
-								architecture: arch,
-							})
-						}}
+			<Heading {...SHARED_HEADING_LEVEL_3_PROPS}>Binary download</Heading>
+			<div className={s.downloadContainer}>
+				{Object.keys(downloadsByOS[os]).map((arch) => (
+					<CardWithLink
+						className={s.downloadCard}
+						key={arch}
+						heading={arch.toUpperCase()}
+						subheading={`Version: ${version}`}
+						link={
+							<MobileDownloadStandaloneLink
+								ariaLabel={`download ${name} version ${version} for ${prettyOSName}, architecture ${arch}`}
+								href={downloadsByOS[os][arch]}
+								onClick={() => {
+									trackProductDownload({
+										productSlug: name,
+										version,
+										prettyOSName,
+										architecture: arch,
+									})
+								}}
+							/>
+						}
 					/>
-				</Card>
-			))}
+				))}
+			</div>
 		</>
 	)
 }
 
 const DownloadsSection = ({
-	isEnterpriseMode = false,
 	packageManagers,
 	selectedRelease,
 }: DownloadsSectionProps): ReactElement => {
@@ -150,56 +130,38 @@ const DownloadsSection = ({
 
 	return (
 		<>
-			<div className={s.root}>
-				<Card elevation="base">
-					<div className={s.cardHeader}>
+			{Object.keys(downloadsByOS).map((os) => {
+				const packageManagers = packageManagersByOS[os]
+				const prettyOSName = prettyOs(os)
+
+				return (
+					<Card className={s.card} elevation="base" key={os}>
 						<Heading
-							className={s.operatingSystemTitle}
+							className={s.heading}
 							level={2}
-							size={300}
-							id="operating-system"
+							size={400}
+							id={`operating-system-${prettyOSName}`}
 							weight="bold"
 						>
-							Operating System
+							{prettyOSName}
 						</Heading>
-					</div>
-					<Tabs showAnchorLine>
-						{Object.keys(downloadsByOS).map((os) => {
-							const packageManagers = packageManagersByOS[os]
-							const prettyOSName = prettyOs(os)
-
-							/**
-							 * TODO: it might be nice to introduce a local Context here with all
-							 * the information needed so that these helper components don't have
-							 * APIs that could potentially require changes with every visual
-							 * change.
-							 */
-							return (
-								<Tab heading={prettyOSName} key={os}>
-									<div className={s.tabContent}>
-										{isLatestVersion && (
-											<PackageManagerSection
-												packageManagers={packageManagers}
-												prettyOSName={prettyOSName}
-											/>
-										)}
-										<BinaryDownloadsSection
-											downloadsByOS={downloadsByOS}
-											os={os}
-											prettyOSName={prettyOSName}
-											selectedRelease={selectedRelease}
-										/>
-									</div>
-								</Tab>
-							)
-						})}
-					</Tabs>
-				</Card>
-			</div>
-			<ReleaseInformationSection
-				selectedRelease={selectedRelease}
-				isEnterpriseMode={isEnterpriseMode}
-			/>
+						<div className={s.tabContent}>
+							{isLatestVersion && (
+								<PackageManagerSection
+									packageManagers={packageManagers}
+									prettyOSName={prettyOSName}
+								/>
+							)}
+							<BinaryDownloadsSection
+								downloadsByOS={downloadsByOS}
+								os={os}
+								prettyOSName={prettyOSName}
+								selectedRelease={selectedRelease}
+							/>
+						</div>
+					</Card>
+				)
+			})}
 		</>
 	)
 }
