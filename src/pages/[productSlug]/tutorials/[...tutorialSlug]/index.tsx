@@ -81,7 +81,16 @@ async function getStaticProps({
 	const { productSlug, tutorialSlug } = params
 
 	const productData = cachedGetProductData(productSlug) as LearnProductData
+	console.log(`calling getTutorialPageProps with`, {
+		productSlug,
+		tutorialSlug,
+	})
 	const props = await getTutorialPageProps(productData, tutorialSlug)
+	console.log(
+		`metadata props for`,
+		{ productSlug, tutorialSlug },
+		props.props.metadata
+	)
 	// If the tutorial doesn't exist, hit the 404
 	if (!props) {
 		return { notFound: true }
