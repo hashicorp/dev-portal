@@ -200,7 +200,6 @@
 		"semver": "^7.3.5",
 		"shortid": "^2.2.16",
 		"slugify": "^1.6.4",
-		"swingset": "^0.17.0",
 		"unified": "^9.2.0",
 		"unist-util-is": "^5.1.1",
 		"unist-util-visit": "^4.1.0",
