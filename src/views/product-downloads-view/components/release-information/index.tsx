@@ -17,7 +17,6 @@ import Heading from 'components/heading'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
 import { useCurrentProduct } from 'contexts'
-import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 import InlineAlert from 'components/inline-alert'
 import MobileStandaloneLink from 'components/mobile-standalone-link'
 import { ReleaseVersion } from 'lib/fetch-release-data'
@@ -29,7 +28,6 @@ const NoteCard = ({ selectedRelease }) => {
 	const { name, shasums, shasums_signature, version } = selectedRelease
 	return (
 		<InlineAlert
-			className={s.alert}
 			color="neutral"
 			title="Note"
 			description={
@@ -137,7 +135,6 @@ const ChangelogNote = ({ selectedRelease }) => {
 const EnterpriseLegalNote = () => {
 	return (
 		<InlineAlert
-			className={s.alert}
 			title="Terms of use"
 			description={
 				<Text className={s.contentSubheading} size={200} weight="regular">
@@ -187,22 +184,24 @@ const ReleaseInformationSection = ({
 }: ReleaseInformationSectionProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	return (
-		<>
+		<div className={s.root}>
 			<Heading
-				className={viewStyles.heading2}
+				className={s.heading}
 				level={2}
-				size={300}
+				size={400}
 				id="looking-for-more"
 				weight="bold"
 			>
-				Release Information
+				Release information
 			</Heading>
-			<ChangelogNote selectedRelease={selectedRelease} />
-			<OfficialReleasesCard />
-			<NoteCard selectedRelease={selectedRelease} />
-			{currentProduct.name === 'Consul' && <ConsulNoteCard />}
-			{isEnterpriseMode ? <EnterpriseLegalNote /> : null}
-		</>
+			<div className={s.notesContainer}>
+				<ChangelogNote selectedRelease={selectedRelease} />
+				<OfficialReleasesCard />
+				<NoteCard selectedRelease={selectedRelease} />
+				{currentProduct.name === 'Consul' && <ConsulNoteCard />}
+				{isEnterpriseMode ? <EnterpriseLegalNote /> : null}
+			</div>
+		</div>
 	)
 }
 
