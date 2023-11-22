@@ -27,40 +27,34 @@ const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
 	const { name, shasums, shasums_signature, version } = selectedRelease
 	return (
-		<>
-			<InlineAlert
-				className={s.alert}
-				color="neutral"
-				title="Note"
-				description={
-					<>
-						You can find the{' '}
-						<InlineLink
-							href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
-							textSize={200}
-						>
-							SHA256 checksums for {currentProduct.name} {version}
-						</InlineLink>{' '}
-						online and you can{' '}
-						<InlineLink
-							href={`https://releases.hashicorp.com/${name}/${version}/${shasums_signature}`}
-							textSize={200}
-						>
-							verify the checksums signature file
-						</InlineLink>{' '}
-						which has been signed using{' '}
-						<InlineLink
-							href="https://www.hashicorp.com/security"
-							textSize={200}
-						>
-							{"HashiCorp's GPG key"}
-						</InlineLink>
-						.
-					</>
-				}
-				icon={<IconInfo16 className={s.cardIcon} />}
-			/>
-		</>
+		<InlineAlert
+			color="neutral"
+			title="Note"
+			description={
+				<>
+					You can find the{' '}
+					<InlineLink
+						href={`https://releases.hashicorp.com/${name}/${version}/${shasums}`}
+						textSize={200}
+					>
+						SHA256 checksums for {currentProduct.name} {version}
+					</InlineLink>{' '}
+					online and you can{' '}
+					<InlineLink
+						href={`https://releases.hashicorp.com/${name}/${version}/${shasums_signature}`}
+						textSize={200}
+					>
+						verify the checksums signature file
+					</InlineLink>{' '}
+					which has been signed using{' '}
+					<InlineLink href="https://www.hashicorp.com/security" textSize={200}>
+						{"HashiCorp's GPG key"}
+					</InlineLink>
+					.
+				</>
+			}
+			icon={<IconInfo16 className={s.cardIcon} />}
+		/>
 	)
 }
 
@@ -138,7 +132,7 @@ const ChangelogNote = ({ selectedRelease }) => {
 	)
 }
 
-const EnterpriseLegalNote = (): ReactElement => {
+const EnterpriseLegalNote = () => {
 	return (
 		<InlineAlert
 			title="Terms of use"
@@ -159,7 +153,7 @@ const EnterpriseLegalNote = (): ReactElement => {
 	)
 }
 
-const OfficialReleasesCard = (): ReactElement => {
+const OfficialReleasesCard = () => {
 	return (
 		<CardWithLink
 			heading="Official releases"
