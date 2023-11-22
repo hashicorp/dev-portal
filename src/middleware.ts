@@ -52,7 +52,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const { ua } = userAgent(req)
 	const regexp = /(bytespider|bytedance)/i
 	if (regexp.test(ua)) {
-		return NextResponse.json(null, { status: 404 })
+		return Response.json(null, { status: 404 })
 	}
 	// ----------------------
 

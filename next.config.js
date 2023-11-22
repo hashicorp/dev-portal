@@ -68,7 +68,8 @@ module.exports = withSwingset({
 	withHashicorp({
 		nextOptimizedImages: true,
 		css: false,
-		transpileModules: [
+	})({
+		transpilePackages: [
 			'@hashicorp/flight-icons',
 			/**
 			 * TODO: once Sentinel has been migrated into the dev-portal repository,
@@ -80,7 +81,6 @@ module.exports = withSwingset({
 			'swingset',
 			'unist-util-visit',
 		],
-	})({
 		webpack(config) {
 			config.plugins.push(HashiConfigPlugin())
 			return config
