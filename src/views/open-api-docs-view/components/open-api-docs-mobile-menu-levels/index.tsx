@@ -43,6 +43,7 @@ export function OpenApiDocsMobileMenuLevels({
 							<OpenApiSidebarContents
 								navItems={navItems}
 								navResourceItems={navResourceItems}
+								showFilterInput={true}
 							/>
 							{/* Common resources for this product */}
 							<SidebarHorizontalRule />

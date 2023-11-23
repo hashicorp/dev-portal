@@ -22,9 +22,11 @@ import s from './open-api-sidebar-contents.module.css'
 export function OpenApiSidebarContents({
 	navItems,
 	navResourceItems,
+	showFilterInput = true,
 }: {
 	navItems: OpenApiNavItem[]
 	navResourceItems: OpenApiNavItem[]
+	showFilterInput: boolean
 }) {
 	const [filterValue, setFilterValue] = useState('')
 
@@ -38,11 +40,13 @@ export function OpenApiSidebarContents({
 	return (
 		<>
 			<div className={s.filterAndNav}>
-				<FilterInput
-					value={filterValue}
-					onChange={setFilterValue}
-					placeholder="Filter sidebar"
-				/>
+				{showFilterInput ? (
+					<FilterInput
+						value={filterValue}
+						onChange={setFilterValue}
+						placeholder="Filter sidebar"
+					/>
+				) : null}
 				<SidebarNavMenuItemsList items={filteredNavItems} />
 			</div>
 			{/* Render resources, if present */}

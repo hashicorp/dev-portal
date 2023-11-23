@@ -47,6 +47,7 @@ function OpenApiDocsView({
 					<OpenApiSidebarContents
 						navItems={navItems}
 						navResourceItems={navResourceItems}
+						showFilterInput={true}
 					/>
 				</>
 			}

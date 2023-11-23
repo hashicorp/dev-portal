@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-import { ReactElement, useMemo } from 'react'
+import { ReactElement, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // HashiCorp imports
@@ -28,6 +28,7 @@ import {
 import {
 	initializeBreadcrumbLinks,
 	initializeVersionSwitcherOptions,
+	generateSideMenuItemsByVersion,
 } from './helpers'
 import { CurrentVersionProvider, useCurrentVersion } from './contexts'
 import {
@@ -37,8 +38,11 @@ import {
 	ReleaseInformationSection,
 	SidecarMarketingCard,
 } from './components'
+import { MenuItem } from 'components/sidebar'
 import s from './product-downloads-view.module.css'
+import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
 import Heading from 'components/heading'
+import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
@@ -64,7 +68,10 @@ const ProductDownloadsViewContent = ({
 	const currentProduct = useCurrentProduct()
 	const { currentVersion } = useCurrentVersion()
 	const { pathname } = useRouter()
-
+	const dynamicSidebarMenuItems = generateSideMenuItemsByVersion(
+		releases,
+		currentVersion
+	)
 	const breadcrumbLinks = useMemo(
 		() => initializeBreadcrumbLinks(currentProduct, isEnterpriseMode, pathname),
 		[currentProduct, isEnterpriseMode, pathname]
@@ -74,7 +81,7 @@ const ProductDownloadsViewContent = ({
 		generateProductLandingSidebarNavData(currentProduct),
 		generateInstallViewNavItems(
 			currentProduct,
-			sidebarMenuItems,
+			[...(dynamicSidebarMenuItems as MenuItem[]), ...sidebarMenuItems],
 			isEnterpriseMode
 		),
 	]
@@ -136,15 +143,21 @@ const ProductDownloadsViewContent = ({
 			/>
 			{merchandisingSlot?.position === 'below' ? merchandisingSlot.slot : null}
 			{featuredCollectionCards?.length || featuredTutorialCards?.length ? (
-				<Heading
+				<ContentWithPermalink
 					className={s.nextStepsHeading}
 					id="next-steps"
-					level={2}
-					size={500}
-					weight="bold"
+					ariaLabel="Next steps"
 				>
-					Next steps
-				</Heading>
+					<Heading
+						className={viewStyles.scrollHeading}
+						id="next-steps"
+						level={2}
+						size={500}
+						weight="bold"
+					>
+						Next steps
+					</Heading>
+				</ContentWithPermalink>
 			) : null}
 			<FeaturedLearnCardsSection
 				cards={featuredCollectionCards}

@@ -25,6 +25,7 @@ const PLATFORM_MAP = {
 	Win: 'windows',
 	Linux: 'linux',
 }
+import { groupDownloadsByOS } from './components/downloads-section/helpers'
 
 export const generateDefaultPackageManagers = (
 	product: Pick<ProductData, 'slug'>
@@ -431,4 +432,35 @@ export const generateFeaturedTutorialsCards = async (
 			...formattedTutorialCard,
 		}
 	})
+}
+
+export function generateSideMenuItemsByVersion(releases, releaseVersion) {
+	const downloadsByOS = groupDownloadsByOS(releases.versions[releaseVersion])
+	const osMenuItems = Object.keys(downloadsByOS).map((os) => {
+		const prettyOSName = prettyOs(os)
+		return {
+			title: `${prettyOSName}`,
+			fullPath: `#${prettyOSName}`,
+		}
+	})
+	return [
+		{
+			divider: 'true',
+		},
+		{
+			heading: 'Operating Systems',
+		},
+		...osMenuItems,
+		{
+			divider: 'true',
+		},
+		{
+			title: 'Release information',
+			fullPath: '#release-information',
+		},
+		{
+			title: 'Next Steps',
+			fullPath: '#next-steps',
+		},
+	]
 }

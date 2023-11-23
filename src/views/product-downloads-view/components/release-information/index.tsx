@@ -22,6 +22,9 @@ import MobileStandaloneLink from 'components/mobile-standalone-link'
 import { ReleaseVersion } from 'lib/fetch-release-data'
 import CardWithLink from '../card-with-link'
 import s from './release-information.module.css'
+import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
+import classNames from 'classnames'
+import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 
 const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
@@ -185,15 +188,22 @@ const ReleaseInformationSection = ({
 	const currentProduct = useCurrentProduct()
 	return (
 		<div className={s.root}>
-			<Heading
-				className={s.heading}
-				level={2}
-				size={400}
-				id="looking-for-more"
-				weight="bold"
+			<ContentWithPermalink
+				className={s.headingContainer}
+				id="release-information"
+				ariaLabel="Release information"
 			>
-				Release information
-			</Heading>
+				<Heading
+					className={classNames(s.heading, viewStyles.scrollHeading)}
+					level={2}
+					size={400}
+					id="release-information"
+					weight="bold"
+				>
+					Release information
+				</Heading>
+			</ContentWithPermalink>
+
 			<div className={s.notesContainer}>
 				<ChangelogNote selectedRelease={selectedRelease} />
 				<OfficialReleasesCard />

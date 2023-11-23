@@ -32,6 +32,9 @@ import SidebarNavList from './components/sidebar-nav-list'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
+import { OpenApiSidebarContents } from 'views/open-api-docs-view/components'
+import { useRouter } from 'next/router'
+import { OpenApiNavItem } from 'views/open-api-docs-view/types'
 
 const Sidebar = ({
 	backToLinkProps,
@@ -51,6 +54,10 @@ const Sidebar = ({
 		() => addNavItemMetaData(currentPath, menuItems),
 		[currentPath, menuItems]
 	)
+	const router = useRouter()
+	const installPath =
+		/(?:boundary|consul|nomad|packer|terraform|vagrant|vault|waypoint)\/install/g
+	const isInstallPage = installPath.test(router.pathname)
 
 	let backToElement
 	if (shouldRenderMobileControls && levelButtonProps) {
@@ -100,20 +107,37 @@ const Sidebar = ({
 	}
 
 	let sidebarContent
+	const filteredMenuItems = getFilteredNavItems(itemsWithMetadata, filterValue)
+	const navResourceItems = generateResourcesNavItems(currentProduct?.slug).map(
+		(item) => item
+	)
 	if (children) {
 		sidebarContent = children
-	} else {
-		const filteredMenuItems = getFilteredNavItems(
-			itemsWithMetadata,
-			filterValue
-		)
+	} else if (isInstallPage) {
 		sidebarContent = (
-			<SidebarNavList>
-				{filteredMenuItems.map((item: FilteredNavItem, i) => {
-					const key = `${item.id}-${i}`
-					return <SidebarNavMenuItem item={item} key={key} />
-				})}
-			</SidebarNavList>
+			<OpenApiSidebarContents
+				navItems={filteredMenuItems as unknown as OpenApiNavItem[]}
+				navResourceItems={navResourceItems.splice(1)}
+				showFilterInput={false}
+			/>
+		)
+	} else {
+		sidebarContent = (
+			<>
+				<SidebarNavList>
+					{filteredMenuItems.map((item: FilteredNavItem, i) => {
+						const key = `${item.id}-${i}`
+						return <SidebarNavMenuItem item={item} key={key} />
+					})}
+				</SidebarNavList>
+				<SidebarHorizontalRule />
+				<SidebarNavList>
+					{navResourceItems.map((item, index) => (
+						// eslint-disable-next-line react/no-array-index-key
+						<SidebarNavMenuItem item={item} key={index} />
+					))}
+				</SidebarNavList>
+			</>
 		)
 	}
 
@@ -132,15 +156,6 @@ const Sidebar = ({
 				<SidebarSkipToMainContent />
 				{overviewItem}
 				{sidebarContent}
-				<SidebarHorizontalRule />
-				<SidebarNavList>
-					{generateResourcesNavItems(currentProduct?.slug).map(
-						(item, index) => (
-							// eslint-disable-next-line react/no-array-index-key
-							<SidebarNavMenuItem item={item} key={index} />
-						)
-					)}
-				</SidebarNavList>
 			</nav>
 		</div>
 	)

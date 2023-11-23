@@ -19,14 +19,17 @@ import { useCurrentVersion } from 'views/product-downloads-view/contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
 
 // Local imports
+import classNames from 'classnames'
+import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
+import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 import { PackageManager } from 'views/product-downloads-view/types'
+import CardWithLink from '../card-with-link'
 import s from './downloads-section.module.css'
 import { groupDownloadsByOS, groupPackageManagersByOS } from './helpers'
 import { DownloadsSectionProps } from './types'
-import CardWithLink from '../card-with-link'
 
 const SHARED_HEADING_LEVEL_3_PROPS = {
-	className: s.heading,
+	className: s.subheading,
 	level: 3 as HeadingProps['level'],
 	size: 200 as HeadingProps['size'],
 	weight: 'semibold' as HeadingProps['weight'],
@@ -136,15 +139,21 @@ const DownloadsSection = ({
 
 				return (
 					<Card className={s.card} elevation="base" key={os}>
-						<Heading
-							className={s.heading}
-							level={2}
-							size={400}
-							id={`operating-system-${prettyOSName}`}
-							weight="bold"
+						<ContentWithPermalink
+							className={s.headingContainer}
+							id={prettyOSName}
+							ariaLabel={prettyOSName}
 						>
-							{prettyOSName}
-						</Heading>
+							<Heading
+								className={classNames(s.heading, viewStyles.scrollHeading)}
+								level={2}
+								size={400}
+								id={prettyOSName}
+								weight="bold"
+							>
+								{prettyOSName}
+							</Heading>
+						</ContentWithPermalink>
 						<div className={s.tabContent}>
 							{isLatestVersion && (
 								<PackageManagerSection
