@@ -4,7 +4,7 @@
  */
 
 .heading {
-	color: var(--token-color-consul-brand);
+	color: var(--token-color-consul-foreground);
 	margin-bottom: 4px;
 }
 
