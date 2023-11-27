@@ -4,7 +4,7 @@
  */
 
 .heading {
-	color: var(--token-color-vagrant-brand);
+	color: var(--token-color-vagrant-foreground);
 	margin-bottom: 4px;
 }
 
