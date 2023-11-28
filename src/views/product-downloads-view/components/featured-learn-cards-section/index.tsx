@@ -11,7 +11,6 @@ import {
 import CardsGridList, {
 	TutorialCardsGridList,
 } from 'components/cards-grid-list'
-import Heading from 'components/heading'
 import { CollectionCardWithAuthElements } from 'components/collection-card'
 import s from './featured-learn-cards-section.module.css'
 
@@ -29,16 +28,7 @@ const FeaturedLearnCardsSection = ({
 	}
 
 	return (
-		<>
-			<Heading
-				id="featured-tutorials"
-				className={s.heading}
-				level={2}
-				size={500}
-				weight="bold"
-			>
-				Next steps
-			</Heading>
+		<div className={s.root}>
 			{cardType === 'tutorial' ? (
 				<TutorialCardsGridList tutorials={cards} />
 			) : (
@@ -55,7 +45,7 @@ const FeaturedLearnCardsSection = ({
 					)}
 				</CardsGridList>
 			)}
-		</>
+		</div>
 	)
 }
 

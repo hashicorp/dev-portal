@@ -38,6 +38,7 @@ import {
 	SidecarMarketingCard,
 } from './components'
 import s from './product-downloads-view.module.css'
+import Heading from 'components/heading'
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
@@ -134,6 +135,17 @@ const ProductDownloadsViewContent = ({
 				isEnterpriseMode={isEnterpriseMode}
 			/>
 			{merchandisingSlot?.position === 'below' ? merchandisingSlot.slot : null}
+			{featuredCollectionCards?.length || featuredTutorialCards?.length ? (
+				<Heading
+					className={s.nextStepsHeading}
+					id="next-steps"
+					level={2}
+					size={500}
+					weight="bold"
+				>
+					Next steps
+				</Heading>
+			) : null}
 			<FeaturedLearnCardsSection
 				cards={featuredCollectionCards}
 				cardType="collection"
