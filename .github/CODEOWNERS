@@ -11,22 +11,3 @@
 
 # Certifications
 /src/content/certifications/**/* @lszpunar
-
-
-# Engineering
-# TODO: Add @hashicorp/web-platform ownership where appropriate
-
-/.github @hashicorp/dev-portal
-/src/**/* @hashicorp/dev-portal
-
-*.css @hashicorp/dev-portal
-*.js @hashicorp/dev-portal
-*.jsx @hashicorp/dev-portal
-*.graphql @hashicorp/dev-portal
-*.ts @hashicorp/dev-portal
-*.tsx @hashicorp/dev-portal
-
-.* @hashicorp/dev-portal
-Dockerfile @hashicorp/dev-portal
-Makefile @hashicorp/dev-portal
-next* @hashicorp/dev-portal
