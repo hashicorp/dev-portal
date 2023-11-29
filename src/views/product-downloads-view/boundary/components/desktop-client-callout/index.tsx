@@ -16,6 +16,8 @@ import { operatingSystemIcons } from '../'
 import { getFileExtension, humanArch } from './helpers'
 // Styles
 import s from './desktop-client-callout.module.css'
+import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
+import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 
 /**
  * Render a callout to download the Boundary Desktop Client.
@@ -27,16 +29,23 @@ function DesktopClientCallout({
 }) {
 	const { latestVersion, builds } = desktopClientProps
 	return (
-		<Card elevation="low">
-			<Heading
-				className={s.heading}
-				level={2}
-				size={400}
-				id="operating-system-desktop"
-				weight="bold"
+		<Card elevation="base">
+			<ContentWithPermalink
+				className={s.headingContainer}
+				id="Desktop-client"
+				ariaLabel={`Desktop Client v${latestVersion}`}
 			>
-				{`Desktop Client v${latestVersion}`}
-			</Heading>
+				<Heading
+					data-menu-item
+					className={viewStyles.scrollHeading}
+					level={2}
+					size={400}
+					id="Desktop-client"
+					weight="bold"
+				>
+					{`Desktop Client v${latestVersion}`}
+				</Heading>
+			</ContentWithPermalink>
 			<div className={s.downloadContainer}>
 				{builds.map(({ os, url, filename, arch }: ReleaseBuild) => (
 					<CardWithLink

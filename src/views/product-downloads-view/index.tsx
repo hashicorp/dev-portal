@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-import { ReactElement, useEffect, useMemo, useState } from 'react'
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // HashiCorp imports
@@ -28,7 +28,7 @@ import {
 import {
 	initializeBreadcrumbLinks,
 	initializeVersionSwitcherOptions,
-	generateSideMenuItemsByVersion,
+	generateSidebarMenuItems,
 } from './helpers'
 import { CurrentVersionProvider, useCurrentVersion } from './contexts'
 import {
@@ -68,23 +68,44 @@ const ProductDownloadsViewContent = ({
 	const currentProduct = useCurrentProduct()
 	const { currentVersion } = useCurrentVersion()
 	const { pathname } = useRouter()
-	const dynamicSidebarMenuItems = generateSideMenuItemsByVersion(
-		releases,
-		currentVersion
-	)
-	const breadcrumbLinks = useMemo(
-		() => initializeBreadcrumbLinks(currentProduct, isEnterpriseMode, pathname),
-		[currentProduct, isEnterpriseMode, pathname]
-	)
-	const sidebarNavDataLevels = [
+	const [sidebarNavDataLevels, setSidebarNavDataLevels] = useState([
 		generateTopLevelSidebarNavData(currentProduct.name),
 		generateProductLandingSidebarNavData(currentProduct),
 		generateInstallViewNavItems(
 			currentProduct,
-			[...(dynamicSidebarMenuItems as MenuItem[]), ...sidebarMenuItems],
+			sidebarMenuItems,
 			isEnterpriseMode
 		),
-	]
+	])
+
+	const breadcrumbLinks = useMemo(
+		() => initializeBreadcrumbLinks(currentProduct, isEnterpriseMode, pathname),
+		[currentProduct, isEnterpriseMode, pathname]
+	)
+
+	const updateSidebarMenu = useCallback(() => {
+		const updatedHeadings = generateSidebarMenuItems(
+			document.querySelectorAll('#main [data-menu-item]')
+		)
+
+		setSidebarNavDataLevels([
+			generateTopLevelSidebarNavData(currentProduct.name),
+			generateProductLandingSidebarNavData(currentProduct),
+			generateInstallViewNavItems(
+				currentProduct,
+				[...(updatedHeadings as unknown as MenuItem[]), ...sidebarMenuItems],
+				isEnterpriseMode
+			),
+		])
+	}, [currentProduct, isEnterpriseMode, sidebarMenuItems])
+
+	useEffect(() => {
+		updateSidebarMenu()
+	}, [currentVersion, updateSidebarMenu])
+
+	useEffect(() => {
+		updateSidebarMenu()
+	}, [])
 
 	return (
 		<SidebarSidecarLayout
@@ -145,12 +166,13 @@ const ProductDownloadsViewContent = ({
 			{featuredCollectionCards?.length || featuredTutorialCards?.length ? (
 				<ContentWithPermalink
 					className={s.nextStepsHeading}
-					id="next-steps"
+					id="Next-steps"
 					ariaLabel="Next steps"
 				>
 					<Heading
+						data-menu-item
 						className={viewStyles.scrollHeading}
-						id="next-steps"
+						id="Next-steps"
 						level={2}
 						size={500}
 						weight="bold"

@@ -3,29 +3,30 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import semverRSort from 'semver/functions/rsort'
-import semverPrerelease from 'semver/functions/prerelease'
-import semverValid from 'semver/functions/valid'
-import semverParse from 'semver/functions/parse'
-import { ProductData } from 'types/products'
-import { ReleaseVersion } from 'lib/fetch-release-data'
-import {
-	getInlineCollections,
-	getInlineTutorials,
-} from 'views/product-tutorials-view/helpers/get-inline-content'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { formatCollectionCard } from 'components/collection-card/helpers'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
-import { PackageManager, SortedReleases } from './types'
+import { ReleaseVersion } from 'lib/fetch-release-data'
 import { CollectionLite } from 'lib/learn-client/types'
+import semverParse from 'semver/functions/parse'
+import semverPrerelease from 'semver/functions/prerelease'
+import semverRSort from 'semver/functions/rsort'
+import semverValid from 'semver/functions/valid'
+import { ProductData } from 'types/products'
+import {
+	getInlineCollections,
+	getInlineTutorials,
+} from 'views/product-tutorials-view/helpers/get-inline-content'
+import { PackageManager, SortedReleases } from './types'
+import capitalize from '@hashicorp/platform-util/text/capitalize'
+import { MenuItem } from 'components/sidebar'
 
 const PLATFORM_MAP = {
 	Mac: 'darwin',
 	Win: 'windows',
 	Linux: 'linux',
 }
-import { groupDownloadsByOS } from './components/downloads-section/helpers'
 
 export const generateDefaultPackageManagers = (
 	product: Pick<ProductData, 'slug'>
@@ -245,7 +246,7 @@ export function prettyOs(os: string): string {
 		case 'windows':
 			return 'Windows'
 		default:
-			return os.charAt(0).toUpperCase() + os.slice(1)
+			return capitalize(os)
 	}
 }
 
@@ -433,34 +434,33 @@ export const generateFeaturedTutorialsCards = async (
 		}
 	})
 }
-
-export function generateSideMenuItemsByVersion(releases, releaseVersion) {
-	const downloadsByOS = groupDownloadsByOS(releases.versions[releaseVersion])
-	const osMenuItems = Object.keys(downloadsByOS).map((os) => {
-		const prettyOSName = prettyOs(os)
-		return {
-			title: `${prettyOSName}`,
-			fullPath: `#${prettyOSName}`,
-		}
-	})
-	return [
-		{
-			divider: 'true',
-		},
-		{
-			heading: 'Operating Systems',
-		},
-		...osMenuItems,
-		{
-			divider: 'true',
-		},
-		{
-			title: 'Release information',
-			fullPath: '#release-information',
-		},
-		{
-			title: 'Next Steps',
-			fullPath: '#next-steps',
-		},
-	]
+/**
+ *
+ * This function uses the HTML structure of the page
+ * to dynamically construct the SidebarContent
+ * every element to populate the menu must have a data-menu-item attribute
+ * divider element has data-menu-divider="true"
+ * heading element has data-menu-heading="Menu-Heading"
+ * any capitalization of menu item must be done in the id (link)
+ * or data-menu-heading (heading)
+ */
+export function generateSidebarMenuItems(
+	items: NodeListOf<HTMLElement>
+): MenuItem[] {
+	if (!items.length) {
+		return
+	}
+	const nodes = Array.from(items)
+	return nodes.map((node: HTMLElement) => ({
+		...(node.dataset?.menuHeading?.length
+			? { heading: `${node.dataset.menuHeading.split('-').join(' ')}` } // creates { heading: "Operating Systems"} from data-menu-heading="Operating-Systems"
+			: {}),
+		...(node.dataset?.menuDivider?.length
+			? { divider: node.dataset.menuDivider } // creates { divider: "true" } from data-menu-divider="true"
+			: {}),
+		...(node.id?.length
+			? { title: `${node.id.split('-').join(' ')}` } // use id of node as menu item text. id="Release-information" becomes Release information
+			: {}),
+		...(node.id?.length ? { fullPath: `#${node.id}` } : {}),
+	})) as unknown as MenuItem[]
 }

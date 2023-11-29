@@ -25,6 +25,7 @@ import s from './release-information.module.css'
 import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
 import classNames from 'classnames'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
+import capitalize from '@hashicorp/platform-util/text/capitalize'
 
 const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
@@ -112,7 +113,7 @@ const ConsulNoteCard = (): ReactElement => {
 
 const ChangelogNote = ({ selectedRelease }) => {
 	const { name, version } = selectedRelease
-	const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
+	const capitalizedName = capitalize(name)
 
 	return (
 		<>
@@ -187,17 +188,18 @@ const ReleaseInformationSection = ({
 }: ReleaseInformationSectionProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	return (
-		<div className={s.root}>
+		<div className={s.root} data-menu-item data-menu-divider="true">
 			<ContentWithPermalink
 				className={s.headingContainer}
-				id="release-information"
+				id="Release-information"
 				ariaLabel="Release information"
 			>
 				<Heading
+					data-menu-item
 					className={classNames(s.heading, viewStyles.scrollHeading)}
 					level={2}
 					size={400}
-					id="release-information"
+					id="Release-information"
 					weight="bold"
 				>
 					Release information

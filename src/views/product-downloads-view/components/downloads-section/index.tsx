@@ -133,44 +133,48 @@ const DownloadsSection = ({
 
 	return (
 		<>
-			{Object.keys(downloadsByOS).map((os) => {
-				const packageManagers = packageManagersByOS[os]
-				const prettyOSName = prettyOs(os)
+			<div data-menu-item data-menu-divider="true" />
+			<div data-menu-item data-menu-heading="Operating-Systems">
+				{Object.keys(downloadsByOS).map((os) => {
+					const packageManagers = packageManagersByOS[os]
+					const prettyOSName = prettyOs(os)
 
-				return (
-					<Card className={s.card} elevation="base" key={os}>
-						<ContentWithPermalink
-							className={s.headingContainer}
-							id={prettyOSName}
-							ariaLabel={prettyOSName}
-						>
-							<Heading
-								className={classNames(s.heading, viewStyles.scrollHeading)}
-								level={2}
-								size={400}
+					return (
+						<Card className={s.card} elevation="base" key={os}>
+							<ContentWithPermalink
+								className={s.headingContainer}
 								id={prettyOSName}
-								weight="bold"
+								ariaLabel={prettyOSName}
 							>
-								{prettyOSName}
-							</Heading>
-						</ContentWithPermalink>
-						<div className={s.tabContent}>
-							{isLatestVersion && (
-								<PackageManagerSection
-									packageManagers={packageManagers}
+								<Heading
+									data-menu-item
+									className={classNames(s.heading, viewStyles.scrollHeading)}
+									level={2}
+									size={400}
+									id={prettyOSName}
+									weight="bold"
+								>
+									{prettyOSName}
+								</Heading>
+							</ContentWithPermalink>
+							<div className={s.tabContent}>
+								{isLatestVersion && (
+									<PackageManagerSection
+										packageManagers={packageManagers}
+										prettyOSName={prettyOSName}
+									/>
+								)}
+								<BinaryDownloadsSection
+									downloadsByOS={downloadsByOS}
+									os={os}
 									prettyOSName={prettyOSName}
+									selectedRelease={selectedRelease}
 								/>
-							)}
-							<BinaryDownloadsSection
-								downloadsByOS={downloadsByOS}
-								os={os}
-								prettyOSName={prettyOSName}
-								selectedRelease={selectedRelease}
-							/>
-						</div>
-					</Card>
-				)
-			})}
+							</div>
+						</Card>
+					)
+				})}
+			</div>
 		</>
 	)
 }
