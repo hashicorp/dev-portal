@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
+import { ReactElement, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // HashiCorp imports
@@ -28,7 +28,7 @@ import {
 import {
 	initializeBreadcrumbLinks,
 	initializeVersionSwitcherOptions,
-	generateSidebarMenuItems,
+	generateTableOfContentsSidebar,
 } from './helpers'
 import { CurrentVersionProvider, useCurrentVersion } from './contexts'
 import {
@@ -43,6 +43,7 @@ import s from './product-downloads-view.module.css'
 import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
 import Heading from 'components/heading'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
+import { SidebarProps } from 'components/sidebar/types'
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
@@ -68,55 +69,39 @@ const ProductDownloadsViewContent = ({
 	const currentProduct = useCurrentProduct()
 	const { currentVersion } = useCurrentVersion()
 	const { pathname } = useRouter()
-	const [sidebarNavDataLevels, setSidebarNavDataLevels] = useState([
-		generateTopLevelSidebarNavData(currentProduct.name),
-		generateProductLandingSidebarNavData(currentProduct),
-		generateInstallViewNavItems(
-			currentProduct,
-			sidebarMenuItems,
-			isEnterpriseMode
-		),
-	])
 
 	const breadcrumbLinks = useMemo(
 		() => initializeBreadcrumbLinks(currentProduct, isEnterpriseMode, pathname),
 		[currentProduct, isEnterpriseMode, pathname]
 	)
 
-	const updateSidebarMenu = useCallback(() => {
-		const updatedHeadings = generateSidebarMenuItems(
-			document.querySelectorAll('#main [data-menu-item]')
+	const [installViewNavItems, setInstallViewNavItems] =
+		useState(sidebarMenuItems)
+
+	const sidebarNavDataLevels = [
+		generateTopLevelSidebarNavData(currentProduct.name),
+		generateProductLandingSidebarNavData(currentProduct),
+		generateInstallViewNavItems(
+			currentProduct,
+			installViewNavItems as MenuItem[],
+			isEnterpriseMode
+		),
+	]
+
+	useEffect(() => {
+		const updatedHeadings = generateTableOfContentsSidebar(
+			document?.querySelectorAll('#main [data-sidebar-item]')
 		)
 
-		setSidebarNavDataLevels([
-			generateTopLevelSidebarNavData(currentProduct.name),
-			generateProductLandingSidebarNavData(currentProduct),
-			generateInstallViewNavItems(
-				currentProduct,
-				[...(updatedHeadings as unknown as MenuItem[]), ...sidebarMenuItems],
-				isEnterpriseMode
-			),
-		])
-	}, [currentProduct, isEnterpriseMode, sidebarMenuItems])
-
-	useEffect(() => {
-		updateSidebarMenu()
-	}, [currentVersion, updateSidebarMenu])
-
-	useEffect(() => {
-		updateSidebarMenu()
-	}, [])
+		setInstallViewNavItems([
+			...updatedHeadings,
+			...sidebarMenuItems,
+		] as MenuItem[])
+	}, [currentVersion, sidebarMenuItems])
 
 	return (
 		<SidebarSidecarLayout
-			/**
-			 * @TODO remove casting to `any`. Will require refactoring both
-			 * `generateTopLevelSidebarNavData` and
-			 * `generateInstallViewNavItems` to set up `menuItems` with the
-			 * correct types. This will require chaning many files, so deferring for
-			 * a follow-up PR since this is functional for the time being.
-			 */
-			sidebarNavDataLevels={sidebarNavDataLevels as any}
+			sidebarNavDataLevels={sidebarNavDataLevels as SidebarProps[]}
 			breadcrumbLinks={breadcrumbLinks}
 			sidecarSlot={
 				<>
@@ -170,7 +155,7 @@ const ProductDownloadsViewContent = ({
 					ariaLabel="Next steps"
 				>
 					<Heading
-						data-menu-item
+						data-sidebar-item
 						className={viewStyles.scrollHeading}
 						id="Next-steps"
 						level={2}

@@ -434,33 +434,34 @@ export const generateFeaturedTutorialsCards = async (
 		}
 	})
 }
+
 /**
  *
- * This function uses the HTML structure of the page
+ * This function uses the HTML structure of the page (a NodeList converted to array)
  * to dynamically construct the SidebarContent
- * every element to populate the menu must have a data-menu-item attribute
- * divider element has data-menu-divider="true"
- * heading element has data-menu-heading="Menu-Heading"
- * any capitalization of menu item must be done in the id (link)
- * or data-menu-heading (heading)
+ * every element to populate the menu must have a data-sidebar-item attribute
+ * divider element has data-sidebar-divider="true"
+ * heading element has data-sidebar-heading attribute with its value used for the heading
+ * any capitalization of menu item must be done in the id or data-sidebar-heading attributes
+ *
+ * The object destructuring in the return functions only adds the property if it is valid,
+ * otherwise the property is not returned
+ *
  */
-export function generateSidebarMenuItems(
-	items: NodeListOf<HTMLElement>
-): MenuItem[] {
+export function generateTableOfContentsSidebar(items: NodeListOf<HTMLElement>) {
 	if (!items.length) {
 		return
 	}
 	const nodes = Array.from(items)
 	return nodes.map((node: HTMLElement) => ({
-		...(node.dataset?.menuHeading?.length
-			? { heading: `${node.dataset.menuHeading.split('-').join(' ')}` } // creates { heading: "Operating Systems"} from data-menu-heading="Operating-Systems"
+		...(node.dataset?.sidebarHeading?.length
+			? { heading: `${node.dataset.sidebarHeading.split('-').join(' ')}` } // creates { heading: "Operating Systems"} from data-sidebar-heading="Operating-Systems"
 			: {}),
-		...(node.dataset?.menuDivider?.length
-			? { divider: node.dataset.menuDivider } // creates { divider: "true" } from data-menu-divider="true"
+		...(node.dataset?.sidebarDivider?.length
+			? { divider: node.dataset.sidebarDivider } // creates { divider: "true" } from data-sidebar-divider="true"
 			: {}),
-		...(node.id?.length
-			? { title: `${node.id.split('-').join(' ')}` } // use id of node as menu item text. id="Release-information" becomes Release information
-			: {}),
+		...(node.id?.length ? { title: `${node.id.split('-').join(' ')}` } : {}),
 		...(node.id?.length ? { fullPath: `#${node.id}` } : {}),
-	})) as unknown as MenuItem[]
+		// use id of node as menu item title and fullPath. id="Release-information" becomes { title: "Release information", fullPath: "#Release-information" }
+	}))
 }

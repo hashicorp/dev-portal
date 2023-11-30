@@ -36,7 +36,7 @@ function DesktopClientCallout({
 				ariaLabel={`Desktop Client v${latestVersion}`}
 			>
 				<Heading
-					data-menu-item
+					data-sidebar-item
 					className={viewStyles.scrollHeading}
 					level={2}
 					size={400}

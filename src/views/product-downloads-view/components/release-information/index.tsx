@@ -188,14 +188,14 @@ const ReleaseInformationSection = ({
 }: ReleaseInformationSectionProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	return (
-		<div className={s.root} data-menu-item data-menu-divider="true">
+		<div className={s.root} data-sidebar-item data-sidebar-divider="true">
 			<ContentWithPermalink
 				className={s.headingContainer}
 				id="Release-information"
 				ariaLabel="Release information"
 			>
 				<Heading
-					data-menu-item
+					data-sidebar-item
 					className={classNames(s.heading, viewStyles.scrollHeading)}
 					level={2}
 					size={400}

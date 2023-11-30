@@ -133,8 +133,8 @@ const DownloadsSection = ({
 
 	return (
 		<>
-			<div data-menu-item data-menu-divider="true" />
-			<div data-menu-item data-menu-heading="Operating-Systems">
+			<div data-sidebar-item data-sidebar-divider="true" />
+			<div data-sidebar-item data-sidebar-heading="Operating-Systems">
 				{Object.keys(downloadsByOS).map((os) => {
 					const packageManagers = packageManagersByOS[os]
 					const prettyOSName = prettyOs(os)
@@ -147,7 +147,7 @@ const DownloadsSection = ({
 								ariaLabel={prettyOSName}
 							>
 								<Heading
-									data-menu-item
+									data-sidebar-item
 									className={classNames(s.heading, viewStyles.scrollHeading)}
 									level={2}
 									size={400}

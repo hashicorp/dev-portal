@@ -26,7 +26,7 @@ export function OpenApiSidebarContents({
 }: {
 	navItems: OpenApiNavItem[]
 	navResourceItems: OpenApiNavItem[]
-	showFilterInput: boolean
+	showFilterInput?: boolean
 }) {
 	const [filterValue, setFilterValue] = useState('')
 
