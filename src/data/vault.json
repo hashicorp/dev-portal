@@ -87,6 +87,14 @@
 			"url": "/api-docs"
 		},
 		{
+			"text": "CLI",
+			"url": "/cli"
+		},
+		{
+			"text": "Tools",
+			"url": "/tools"
+		},
+		{
 			"text": "Community",
 			"url": "/community"
 		}
@@ -145,7 +153,15 @@
 			"os": "linux"
 		}
 	],
-	"basePaths": ["docs", "api-docs", "intro", "tutorials", "downloads"],
+	"basePaths": [
+		"docs",
+		"api-docs",
+		"cli",
+		"tools",
+		"intro",
+		"tutorials",
+		"downloads"
+	],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -156,6 +172,16 @@
 			"iconName": "api",
 			"name": "API",
 			"path": "api-docs"
+		},
+		{
+			"iconName": "terminal",
+			"name": "CLI",
+			"path": "cli"
+		},
+		{
+			"iconName": "docs",
+			"name": "Tools",
+			"path": "tools"
 		}
 	],
 	"integrationsConfig": {
