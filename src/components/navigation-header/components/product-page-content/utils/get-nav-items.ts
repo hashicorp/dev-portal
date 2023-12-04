@@ -95,8 +95,10 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 
 	/**
 	 * Install
+	 *
+	 * Note that  HCP and Sentinel do not have "Install" pages
 	 */
-	if (currentProduct.slug !== 'hcp') {
+	if (currentProduct.slug !== 'hcp' && currentProduct.slug !== 'sentinel') {
 		items.push({
 			label: 'Install',
 			url: `/${currentProduct.slug}/install`,

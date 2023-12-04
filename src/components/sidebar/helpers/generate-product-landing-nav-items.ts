@@ -45,7 +45,8 @@ export const generateProductLandingSidebarMenuItems = (
 	 * We should refactor to drive this via global config https://app.asana.com/0/1204807665183200/1205002760871766/f
 	 */
 
-	if (product.slug !== 'hcp') {
+	// Note that  HCP and Sentinel do not have "Install" pages
+	if (product.slug !== 'hcp' && product.slug !== 'sentinel') {
 		menuItems.push({
 			title: 'Install',
 			fullPath: `/${product.slug}/install`,
