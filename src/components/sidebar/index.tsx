@@ -32,8 +32,7 @@ import SidebarNavList from './components/sidebar-nav-list'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
-import { OpenApiSidebarContents } from 'views/open-api-docs-view/components'
-import { useRouter } from 'next/router'
+import OpenApiSidebarContents from 'components/open-api-sidebar-contents'
 import { OpenApiNavItem } from 'views/open-api-docs-view/types'
 
 const Sidebar = ({
@@ -45,6 +44,7 @@ const Sidebar = ({
 	showFilterInput = true,
 	title,
 	visuallyHideTitle = false,
+	isInstallPage,
 }: SidebarProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	const { shouldRenderMobileControls } = useSidebarNavData()
@@ -54,10 +54,6 @@ const Sidebar = ({
 		() => addNavItemMetaData(currentPath, menuItems),
 		[currentPath, menuItems]
 	)
-	const router = useRouter()
-	const installPath =
-		/(?:boundary|consul|nomad|packer|terraform|vagrant|vault|waypoint)\/install/g
-	const isInstallPage = installPath.test(router.pathname)
 
 	let backToElement
 	if (shouldRenderMobileControls && levelButtonProps) {

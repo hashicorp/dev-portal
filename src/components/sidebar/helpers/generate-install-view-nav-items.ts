@@ -53,9 +53,8 @@ export const generateInstallViewNavItems = (
 			"highlight" item that would make showing the title redundant. */
 		visuallyHideTitle: true,
 		/**
-		 * the sidebar component will renders <OpenApiSidebarContents> table of contents style nav
-		 * isInstallPage controls the value of the showFilterInput prop passed to <OpenApiSidebarContents>
-		 * to hide the component's search input in the nav
+		 * controls the assignation of <OpenApiSidebarContents>
+		 * as sidebarContent value in the Sidebar component
 		 */
 		isInstallPage: true,
 	}
