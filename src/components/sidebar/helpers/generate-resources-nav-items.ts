@@ -128,40 +128,36 @@ function generateResourcesNavItems(
 ): ResourceNavItem[] {
 	const additionalResources = generateAdditionalResources(productSlug)
 
-	const resourceNavItems: ResourceNavItem[] = [{ heading: 'Resources' }]
-
-	// Add a "Tutorials" link for all products except Sentinel
-	if (productSlug !== 'sentinel') {
-		resourceNavItems.push({
-			title: 'Tutorial Library',
-			href: getTutorialLibraryUrl(productSlug),
-		})
-	}
-
-	resourceNavItems.push(
-		...[
-			...getCertificationsLink(productSlug),
-			{
-				title: 'Community Forum',
-				href: productSlug
-					? COMMUNITY_LINKS_BY_PRODUCT[productSlug]
-					: DEFAULT_COMMUNITY_FORUM_LINK,
-			},
-			{
-				title: 'Support',
-				href: DEFAULT_SUPPORT_LINK,
-			},
-			{
-				title: 'GitHub',
-				href: productSlug
-					? GITHUB_LINKS_BY_PRODUCT_SLUG[productSlug]
-					: DEFAULT_GITHUB_LINK,
-			},
-			...additionalResources,
-		]
-	)
-
-	return resourceNavItems
+	return [
+		{ heading: 'Resources' },
+		...(productSlug !== 'sentinel'
+			? [
+					{
+						// Add a "Tutorials" link for all products except Sentinel
+						title: 'Tutorial Library',
+						href: getTutorialLibraryUrl(productSlug),
+					},
+			  ]
+			: []),
+		...getCertificationsLink(productSlug),
+		{
+			title: 'Community Forum',
+			href: productSlug
+				? COMMUNITY_LINKS_BY_PRODUCT[productSlug]
+				: DEFAULT_COMMUNITY_FORUM_LINK,
+		},
+		{
+			title: 'Support',
+			href: DEFAULT_SUPPORT_LINK,
+		},
+		{
+			title: 'GitHub',
+			href: productSlug
+				? GITHUB_LINKS_BY_PRODUCT_SLUG[productSlug]
+				: DEFAULT_GITHUB_LINK,
+		},
+		...additionalResources,
+	]
 }
 
 export { generateResourcesNavItems }
