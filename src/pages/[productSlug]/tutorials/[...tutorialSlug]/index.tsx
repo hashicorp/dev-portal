@@ -11,7 +11,7 @@ import {
 import { LearnProductData, LearnProductSlug } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
-import { TutorialViewProps } from 'views/tutorial-view'
+import TutorialView, { TutorialViewProps } from 'views/tutorial-view'
 import {
 	TutorialPagePaths,
 	getTutorialPagePaths,
@@ -81,16 +81,7 @@ async function getStaticProps({
 	const { productSlug, tutorialSlug } = params
 
 	const productData = cachedGetProductData(productSlug) as LearnProductData
-	console.log(`calling getTutorialPageProps with`, {
-		productSlug,
-		tutorialSlug,
-	})
 	const props = await getTutorialPageProps(productData, tutorialSlug)
-	console.log(
-		`metadata props for`,
-		{ productSlug, tutorialSlug },
-		props.props.metadata
-	)
 	// If the tutorial doesn't exist, hit the 404
 	if (!props) {
 		return { notFound: true }
@@ -99,10 +90,4 @@ async function getStaticProps({
 }
 
 export { getStaticPaths, getStaticProps }
-export default function TutorialView(props) {
-	return (
-		<pre>
-			<code>{JSON.stringify(props.metadata, null, 2)}</code>
-		</pre>
-	)
-}
+export default TutorialView
