@@ -11,7 +11,7 @@ import {
 } from 'views/tutorial-library/constants'
 
 /**
- * Note: these types could probably be abstracted up or lifted out,
+ * Note: these ResourceNav types could probably be abstracted up or lifted out,
  * but for now, since the functions here had very little type information,
  * felt pragmatic to declare them just for this file.
  */
