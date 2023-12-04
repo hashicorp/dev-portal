@@ -1,8 +1,20 @@
 {
-	"extends": "@hashicorp/platform-configs/tsconfig/next.json",
 	"compilerOptions": {
 		"baseUrl": "src",
-		"strict": false
+		"strict": false,
+		"target": "es5",
+		"incremental": true,
+		"module": "esnext",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"jsx": "preserve",
+		"allowJs": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"isolatedModules": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"noEmit": true
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules", "scripts/migrate-io/templates"]
