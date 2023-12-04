@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "Enforce policy as code for HashiCorp products",
-		"image": "https://place-hold.it/600x320"
+		"image": "https://www.datocms-assets.com/2885/1701706791-sentinel-landing-placeholder.png"
 	},
 	"overview": {
 		"heading": "What is Sentinel?",
@@ -11,8 +11,8 @@
 			"url": "/sentinel/intro/what"
 		},
 		"image": {
-			"light": "https://place-hold.it/680x250",
-			"dark": "https://place-hold.it/680x250"
+			"light": "https://www.datocms-assets.com/2885/1701706795-what-is-sentinel-placeholder.png",
+			"dark": "https://www.datocms-assets.com/2885/1701706795-what-is-sentinel-placeholder.png"
 		}
 	},
 	"get_started": {
