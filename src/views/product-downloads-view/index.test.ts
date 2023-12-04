@@ -14,7 +14,7 @@ describe('generateTableOfContentsSidebar helper function', () => {
 
 	it('returns a heading if the node has dataset.sidebarHeading', () => {
 		const headingNode = [
-			{ dataset: { sidebarHeading: 'Operating-Systems' } },
+			{ dataset: { sidebarItem: 'true', sidebarHeading: 'Operating-Systems' } },
 		] as unknown as NodeListOf<HTMLElement>
 		const formattedHeading = { heading: 'Operating Systems' }
 		const tableOfContents = generateTableOfContentsSidebar(headingNode)
@@ -23,7 +23,7 @@ describe('generateTableOfContentsSidebar helper function', () => {
 
 	it('returns a divider if the node has dataset.sidebarDivider', () => {
 		const dividerNode = [
-			{ dataset: { sidebarDivider: 'true' } },
+			{ dataset: { sidebarItem: 'true', sidebarDivider: 'true' } },
 		] as unknown as NodeListOf<HTMLElement>
 		const formattedDivider = { divider: 'true' }
 		const tableOfContents = generateTableOfContentsSidebar(dividerNode)
@@ -34,6 +34,7 @@ describe('generateTableOfContentsSidebar helper function', () => {
 		const anchorNode = [
 			{
 				id: 'macOS',
+				dataset: { sidebarItem: 'true' },
 				nextSibling: { href: 'http://localhost:3000/product/install#macOS' },
 			},
 		] as unknown as NodeListOf<HTMLElement>
@@ -49,6 +50,7 @@ describe('generateTableOfContentsSidebar helper function', () => {
 		const anchorNode = [
 			{
 				id: 'macOS',
+				dataset: { sidebarItem: 'true' },
 			},
 		] as unknown as NodeListOf<HTMLElement>
 		const tableOfContents = generateTableOfContentsSidebar(anchorNode)
