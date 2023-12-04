@@ -438,30 +438,42 @@ export const generateFeaturedTutorialsCards = async (
 /**
  *
  * This function uses the HTML structure of the page (a NodeList converted to array)
- * to dynamically construct the SidebarContent
+ * to dynamically construct the Table of Contents section of SidebarContent
  * every element to populate the menu must have a data-sidebar-item attribute
  * divider element has data-sidebar-divider="true"
  * heading element has data-sidebar-heading attribute with its value used for the heading
  * any capitalization of menu item must be done in the id or data-sidebar-heading attributes
  *
- * The object destructuring in the return functions only adds the property if it is valid,
- * otherwise the property is not returned
  *
  */
-export function generateTableOfContentsSidebar(items: NodeListOf<HTMLElement>) {
+export function generateTableOfContentsSidebar(
+	items: NodeListOf<Element>
+): MenuItem[] | [] {
 	if (!items.length) {
-		return
+		return []
 	}
-	const nodes = Array.from(items)
-	return nodes.map((node: HTMLElement) => ({
-		...(node.dataset?.sidebarHeading?.length
-			? { heading: `${node.dataset.sidebarHeading.split('-').join(' ')}` } // creates { heading: "Operating Systems"} from data-sidebar-heading="Operating-Systems"
-			: {}),
-		...(node.dataset?.sidebarDivider?.length
-			? { divider: node.dataset.sidebarDivider } // creates { divider: "true" } from data-sidebar-divider="true"
-			: {}),
-		...(node.id?.length ? { title: `${node.id.split('-').join(' ')}` } : {}),
-		...(node.id?.length ? { fullPath: `#${node.id}` } : {}),
-		// use id of node as menu item title and fullPath. id="Release-information" becomes { title: "Release information", fullPath: "#Release-information" }
-	}))
+
+	return Array.from(items)
+		.filter((node: HTMLElement) => node.dataset.sidebarItem)
+		.map((node: HTMLElement) => {
+			if (node.dataset?.sidebarDivider) {
+				return {
+					divider: node.dataset.sidebarDivider,
+				}
+			} else if (node.dataset?.sidebarHeading) {
+				return {
+					heading: `${node.dataset.sidebarHeading.split('-').join(' ')}`,
+				}
+			} else if (node.id) {
+				const nextElement = node.nextSibling as HTMLAnchorElement
+				if (nextElement.href?.split('#')[1] === node.id) {
+					return {
+						title: `${node.id.split('-').join(' ')}`,
+						fullPath: `#${node.id}`,
+					}
+				} else {
+					return {}
+				}
+			}
+		}) as unknown as MenuItem[]
 }

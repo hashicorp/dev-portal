@@ -90,7 +90,7 @@ const ProductDownloadsViewContent = ({
 
 	useEffect(() => {
 		const updatedHeadings = generateTableOfContentsSidebar(
-			document?.querySelectorAll('#main [data-sidebar-item]')
+			document?.querySelectorAll(`#main [data-sidebar-item]`)
 		)
 
 		setInstallViewNavItems([
