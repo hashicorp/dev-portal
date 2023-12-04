@@ -16,7 +16,7 @@ describe('generateTableOfContentsSidebar helper function', () => {
 		const headingNode = [
 			{ dataset: { sidebarItem: 'true', sidebarHeading: 'Operating-Systems' } },
 		] as unknown as NodeListOf<HTMLElement>
-		const formattedHeading = { heading: 'Operating Systems' }
+		const formattedHeading = [{ heading: 'Operating Systems' }]
 		const tableOfContents = generateTableOfContentsSidebar(headingNode)
 		expect(tableOfContents).toMatchObject(formattedHeading)
 	})
@@ -25,7 +25,7 @@ describe('generateTableOfContentsSidebar helper function', () => {
 		const dividerNode = [
 			{ dataset: { sidebarItem: 'true', sidebarDivider: 'true' } },
 		] as unknown as NodeListOf<HTMLElement>
-		const formattedDivider = { divider: 'true' }
+		const formattedDivider = [{ divider: 'true' }]
 		const tableOfContents = generateTableOfContentsSidebar(dividerNode)
 		expect(tableOfContents).toMatchObject(formattedDivider)
 	})
@@ -38,10 +38,12 @@ describe('generateTableOfContentsSidebar helper function', () => {
 				nextSibling: { href: 'http://localhost:3000/product/install#macOS' },
 			},
 		] as unknown as NodeListOf<HTMLElement>
-		const formattedAnchor = {
-			title: 'macOS',
-			fullPath: `#macOs`,
-		}
+		const formattedAnchor = [
+			{
+				title: 'macOS',
+				fullPath: `#macOS`,
+			},
+		]
 		const tableOfContents = generateTableOfContentsSidebar(anchorNode)
 		expect(tableOfContents).toMatchObject(formattedAnchor)
 	})
@@ -51,9 +53,10 @@ describe('generateTableOfContentsSidebar helper function', () => {
 			{
 				id: 'macOS',
 				dataset: { sidebarItem: 'true' },
+				nextSibling: {},
 			},
 		] as unknown as NodeListOf<HTMLElement>
 		const tableOfContents = generateTableOfContentsSidebar(anchorNode)
-		expect(tableOfContents).toMatchObject({})
+		expect(tableOfContents).toMatchObject([{}])
 	})
 })
