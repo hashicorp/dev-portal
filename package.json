@@ -8,7 +8,7 @@
 		"clean": "rimraf .next node_modules",
 		"lint": "next-hashicorp lint",
 		"lint:stylelint": "npx stylelint '**/*.css'",
-		"prebuild": "hc-tools ./scripts/remove-inactive-product-pages.ts && hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts",
+		"prebuild": "hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts",
 		"prepare": "simple-git-hooks",
 		"prestart": "hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts",
 		"prettier:check": "prettier --check .",
