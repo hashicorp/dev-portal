@@ -8,7 +8,7 @@ import { productSlugsToNames } from 'lib/products'
 /**
  * The Algolia index we are searching against for tutorials
  */
-export const INDEX_NAME = __config.dev_dot.algolia.tutorialsIndexName
+export const INDEX_NAME = __config.dev_dot.algolia.unifiedIndexName
 
 /**
  * Duration used to throttle search requests to avoid excessive network calls
