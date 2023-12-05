@@ -32,7 +32,6 @@ export default function ValidatedDesignGuideView({
 	pages,
 }: ValidatedDesignsGuideProps) {
 	return (
-		// <meta name="robots" content="noindex, nofollow" />
 		<SidebarSidecarLayout
 			AlternateSidebar={() => (
 				<>
