@@ -9,7 +9,6 @@
 			"description": "Explore {product} product documentation, tutorials, and examples."
 		},
 		"algolia": {
-			"docsIndexName": "product_DEVDOT",
 			"unifiedIndexName": "prod_DEVDOT_omni"
 		},
 		"analytics": {
