@@ -15,6 +15,13 @@ import {
 export async function getStaticPaths() {
 	const pagePaths = getHvdCategoryGroupsPaths()
 
+	if (!pagePaths) {
+		return {
+			paths: [],
+			fallback: false,
+		}
+	}
+
 	return {
 		paths: [
 			...pagePaths.map((path: string[]) => ({
@@ -37,6 +44,12 @@ export async function getStaticProps(context) {
 
 	const slugs = context.params.slug
 	const props = await getHvdGuidePropsFromSlugs(slugs)
+
+	if (!props) {
+		return {
+			notFound: true,
+		}
+	}
 
 	return {
 		props,

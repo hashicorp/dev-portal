@@ -33,7 +33,7 @@ function loadMetadata(path: string): { title: string; description: string } {
 	}
 }
 
-export function getHvdCategoryGroups(): HvdCategoryGroup[] {
+export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 	let hvdRepoContents
 
 	try {
@@ -61,7 +61,10 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] {
 			// throw e
 			console.error(e)
 		}
+
+		return null
 	}
+
 	if (!hvdRepoContents) {
 		return null
 	}
@@ -157,8 +160,12 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] {
 	return hvdCategoryGroups
 }
 
-export function getHvdCategoryGroupsPaths(): string[][] {
+export function getHvdCategoryGroupsPaths(): string[][] | null {
 	const categoryGroups = getHvdCategoryGroups()
+
+	if (!categoryGroups) {
+		return null
+	}
 	// [[guide-slug], [guide-slug, page-slug]]
 	// e.g. [[terraform-operation-guide-adoption], [terraform-operation-guide-adoption, page-slug]]
 	const paths = []
@@ -191,9 +198,14 @@ function getMarkdownHeaders(markdown: string) {
 }
 
 export async function getHvdGuidePropsFromSlugs(
-	slugs: string[]
+	slugs: string[] | null
 ): Promise<ValidatedDesignsGuideProps> {
 	const categoryGroups = getHvdCategoryGroups()
+
+	if (!categoryGroups) {
+		return null
+	}
+
 	const [guideSlug, pageSlug] = slugs
 
 	const validatedDesignsGuideProps = {
@@ -246,6 +258,12 @@ export async function getHvdGuidePropsFromSlugs(
 
 export function getHvdLandingProps(): ValidatedDesignsLandingProps | null {
 	// @TODO — the title and description should be sourced from the content repo
+	const categoryGroups = getHvdCategoryGroups()
+
+	if (!categoryGroups) {
+		return null
+	}
+
 	return {
 		title: 'HashiCorp Validated Designs',
 		description:
