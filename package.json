@@ -20,7 +20,6 @@
 		"start:local-preview": "./scripts/content-repo-preview/start.sh",
 		"start:nomad": "cross-env DEV_IO=nomad npm run start",
 		"start:packer": "cross-env DEV_IO=packer npm run start",
-		"start:sentinel": "cross-env DEV_IO=sentinel npm run start",
 		"start:vagrant": "cross-env DEV_IO=vagrant npm run start",
 		"start:vault": "cross-env DEV_IO=vault npm run start",
 		"start:waypoint": "cross-env DEV_IO=waypoint npm run start",
