@@ -53,7 +53,10 @@ export type FeaturedTutorialCard = TutorialCardPropsWithId
 export interface ProductDownloadsViewProps {
 	isEnterpriseMode: boolean
 	latestVersion: string
-	merchandisingSlot?: { position: 'above' | 'below'; slot: ReactElement }
+	merchandisingSlot?: {
+		position: 'above' | 'middle' | 'below'
+		slot: ReactElement
+	}
 	pageContent: {
 		featuredCollectionCards?: FeaturedCollectionCard[]
 		featuredTutorialCards?: FeaturedTutorialCard[]

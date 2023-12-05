@@ -3,12 +3,40 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.alert {
+.root {
 	margin-bottom: 24px;
+}
+
+.heading {
+	color: var(--token-color-foreground-strong);
+	margin-bottom: 16px;
+	margin-top: 56px;
+}
+
+.notesContainer {
+	display: grid;
+	gap: 24px 0;
 }
 
 .cardIcon {
 	margin-top: 3px;
 	max-height: 16px;
 	max-width: 16px;
+}
+
+.armUserNote {
+	padding: 16px;
+}
+
+.codePrompt {
+	margin: 25px 0 11px 0;
+}
+
+.notesList {
+	padding-left: 8px;
+	list-style-position: inside;
+}
+
+.codeBlock {
+	margin: 20px 0 37px 0;
 }

@@ -4,15 +4,16 @@
  */
 
 .heading {
-	color: var(--token-color-consul-foreground);
+	color: var(--token-color-vagrant-foreground);
+	margin-bottom: 4px;
+}
+
+.description {
+	color: var(--token-color-foreground-faint);
 	margin-bottom: 4px;
 }
 
 .cta {
 	margin-top: 16px;
 	width: fit-content;
-}
-
-.downloadToolsCardDescription {
-	color: var(--token-color-foreground-faint);
 }

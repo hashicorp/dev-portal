@@ -5,8 +5,9 @@
 
 // Components
 import Card from 'components/card'
+import CardWithLink from 'views/product-downloads-view/components/card-with-link'
+import MobileDownloadStandaloneLink from 'components/mobile-download-standalone-link'
 import Heading from 'components/heading'
-import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
 // Types
 import { DesktopClientProps, ReleaseBuild } from './types'
@@ -25,21 +26,35 @@ function DesktopClientCallout({
 	desktopClientProps: DesktopClientProps
 }) {
 	const { latestVersion, builds } = desktopClientProps
-
 	return (
 		<Card elevation="low">
-			<Heading className={s.heading} level={2} size={200} weight="semibold">
+			<Heading
+				className={s.heading}
+				level={2}
+				size={400}
+				id="operating-system-desktop"
+				weight="bold"
+			>
 				{`Desktop Client v${latestVersion}`}
 			</Heading>
-			<IconCardLinkGridList
-				fixedColumns={3}
-				gridGap="16px"
-				cards={builds.map(({ os, url, filename, arch }: ReleaseBuild) => {
-					const icon = operatingSystemIcons[os] || <IconDownload16 />
-					const text = `.${getFileExtension(filename)} (${humanArch(arch)})`
-					return { icon, url, text }
-				})}
-			/>
+			<div className={s.downloadContainer}>
+				{builds.map(({ os, url, filename, arch }: ReleaseBuild) => (
+					<CardWithLink
+						className={s.downloadCard}
+						key={filename}
+						icon={operatingSystemIcons[os] || <IconDownload16 />}
+						heading={`.${getFileExtension(filename)} (${humanArch(arch)})`}
+						link={
+							<MobileDownloadStandaloneLink
+								ariaLabel={`download .${getFileExtension(
+									filename
+								)}, architecture ${arch}`}
+								href={url}
+							/>
+						}
+					/>
+				))}
+			</div>
 		</Card>
 	)
 }
