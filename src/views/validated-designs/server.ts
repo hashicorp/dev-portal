@@ -114,7 +114,7 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] {
 			)
 
 			// find the existing HvdCategoryGroup, because we traverse the files in order the HvdCategoryGroup YAML will always come before the HvdGuide YAML
-			const categoryGroup = HvdCategoryGroups.find(
+			const categoryGroup = hvdCategoryGroups.find(
 				(categoryGroup: HvdCategoryGroup) => {
 					return categoryGroup.slug === slug
 				}
@@ -154,7 +154,7 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] {
 		}
 	})
 
-	return HvdCategoryGroups
+	return hvdCategoryGroups
 }
 
 export function getHvdCategoryGroupsPaths(): string[][] {
