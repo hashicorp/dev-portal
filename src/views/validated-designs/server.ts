@@ -80,7 +80,7 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] {
 	 *
 	 * Note, is a spike and the code could be cleaned up / reformatted as per the needs of the view!
 	 */
-	const HvdCategoryGroups: HvdCategoryGroup[] = []
+	const hvdCategoryGroups: HvdCategoryGroup[] = []
 	configFiles.forEach((item: string) => {
 		// Expected fs structure /<product>/<category>/<hvdGuide>
 		// e.g. terraform/operation-guides/adoption
