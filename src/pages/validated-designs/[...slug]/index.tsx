@@ -36,7 +36,7 @@ export async function getStaticProps(context) {
 	}
 
 	const slugs = context.params.slug
-	const props = getHvdGuidePropsFromSlugs(slugs)
+	const props = await getHvdGuidePropsFromSlugs(slugs)
 
 	return {
 		props,

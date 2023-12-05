@@ -13,6 +13,8 @@ import { HvdCategoryGroup } from './types'
 import { ValidatedDesignsGuideProps } from './guide'
 import { ValidatedDesignsLandingProps } from '.'
 
+import { serialize } from 'next-mdx-remote/serialize'
+
 const basePath = '/validated-designs'
 
 function loadMetadata(path: string): { title: string; description: string } {
@@ -172,16 +174,33 @@ export function getHvdCategoryGroupsPaths(): string[][] {
 	return paths
 }
 
-export function getHvdGuidePropsFromSlugs(
+// @TODO: calculate the actual url from the headers
+function getMarkdownHeaders(markdown: string) {
+	const headerRegex = /^(#{1,6})\s*(.+)/gm
+	let match
+	const headers = []
+
+	while ((match = headerRegex.exec(markdown)) !== null) {
+		headers.push({
+			title: match[2].trim(),
+			url: '#test',
+		})
+	}
+
+	return headers
+}
+
+export async function getHvdGuidePropsFromSlugs(
 	slugs: string[]
-): ValidatedDesignsGuideProps {
+): Promise<ValidatedDesignsGuideProps> {
 	const categoryGroups = getHvdCategoryGroups()
 	const [guideSlug, pageSlug] = slugs
 
 	const validatedDesignsGuideProps = {
 		title: '',
-		filePath: '',
+		mdxSource: null,
 		categorySlug: '',
+		headers: [],
 		currentPageIndex: 0,
 		basePath,
 		pages: [],
@@ -199,7 +218,14 @@ export function getHvdGuidePropsFromSlugs(
 					// If no pageSlug is provided, default to the first page
 					if (page.slug === pageSlug || (!pageSlug && index === 0)) {
 						validatedDesignsGuideProps.title = page.title
-						validatedDesignsGuideProps.filePath = page.filePath
+						const content = fs.readFileSync(page.filePath, 'utf8')
+
+						const headers = getMarkdownHeaders(content)
+						// @TODO: this does not add IDs to the headers, figure out why
+						const mdxSource = await serialize(content)
+
+						validatedDesignsGuideProps.headers = headers
+						validatedDesignsGuideProps.mdxSource = mdxSource
 						validatedDesignsGuideProps.currentPageIndex = index
 					}
 
