@@ -101,7 +101,7 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] {
 				path.join(HVD_CONTENT_DIR, item)
 			)
 
-			HvdCategoryGroups.push({
+			hvdCategoryGroups.push({
 				slug,
 				title,
 				description,
