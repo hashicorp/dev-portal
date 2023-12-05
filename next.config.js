@@ -73,7 +73,9 @@ module.exports = withHashicorp({
 		 * elsewhere.
 		 */
 		'@hashicorp/sentinel-embedded',
+		'unist-util-is',
 		'unist-util-visit',
+		'unist-util-visit-parents',
 	],
 	webpack(config) {
 		config.plugins.push(HashiConfigPlugin())
