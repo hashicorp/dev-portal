@@ -6,7 +6,7 @@
 import Head from 'next/head'
 import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
-import { ProductSlug } from 'types/products'
+import { HvdCategoryGroup, HvdGuide } from './types'
 
 /**
  * Stub interfaces for how we may model the data for this view
@@ -16,21 +16,6 @@ export interface ValidatedDesignsLandingProps {
 	title: string
 	description: string
 	categoryGroups: HvdCategoryGroup[]
-}
-
-interface HvdCategoryGroup {
-	slug: string
-	title: string
-	description: string
-	product: ProductSlug
-	guides: HvdGuide[]
-}
-
-interface HvdGuide {
-	slug: string
-	title: string
-	description: string
-	href: string
 }
 
 export default function ValidatedDesignsLandingView({
