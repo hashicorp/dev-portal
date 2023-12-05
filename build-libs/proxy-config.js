@@ -16,12 +16,6 @@
  * @type {Record<string, SiteProxyConfig>}
  */
 const proxyConfig = {
-	sentinel: {
-		// actually https://docs.hashicorp.com, but using test-st.hashi-mktg.com as a test
-		domain: 'https://docs.hashicorp.com',
-		host: '(docs\\.hashicorp\\.com|test-st\\.hashi-mktg\\.com)',
-		assets: [],
-	},
 	// terraform: {
 	//   domain: 'https://test-tf.hashi-mktg.com',
 	//   host: 'test-tf.hashi-mktg.com',
