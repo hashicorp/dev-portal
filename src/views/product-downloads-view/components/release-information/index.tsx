@@ -22,6 +22,10 @@ import MobileStandaloneLink from 'components/mobile-standalone-link'
 import { ReleaseVersion } from 'lib/fetch-release-data'
 import CardWithLink from '../card-with-link'
 import s from './release-information.module.css'
+import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
+import classNames from 'classnames'
+import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
+import capitalize from '@hashicorp/platform-util/text/capitalize'
 
 const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
@@ -109,7 +113,7 @@ const ConsulNoteCard = (): ReactElement => {
 
 const ChangelogNote = ({ selectedRelease }) => {
 	const { name, version } = selectedRelease
-	const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
+	const capitalizedName = capitalize(name)
 
 	return (
 		<>
@@ -184,16 +188,24 @@ const ReleaseInformationSection = ({
 }: ReleaseInformationSectionProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	return (
-		<div className={s.root}>
-			<Heading
-				className={s.heading}
-				level={2}
-				size={400}
-				id="looking-for-more"
-				weight="bold"
+		<div className={s.root} data-sidebar-item data-sidebar-divider="true">
+			<ContentWithPermalink
+				className={s.headingContainer}
+				id="Release-information"
+				ariaLabel="Release information"
 			>
-				Release information
-			</Heading>
+				<Heading
+					data-sidebar-item
+					className={classNames(s.heading, viewStyles.scrollHeading)}
+					level={2}
+					size={400}
+					id="Release-information"
+					weight="bold"
+				>
+					Release information
+				</Heading>
+			</ContentWithPermalink>
+
 			<div className={s.notesContainer}>
 				<ChangelogNote selectedRelease={selectedRelease} />
 				<OfficialReleasesCard />
