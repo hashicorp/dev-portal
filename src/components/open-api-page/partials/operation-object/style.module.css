@@ -38,6 +38,8 @@
 		padding-right: 0;
 		margin-right: 8px;
 		word-break: break-all;
+		user-select: text;
+		cursor: text;
 	}
 }
 
