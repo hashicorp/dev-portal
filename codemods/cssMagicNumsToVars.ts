@@ -3,7 +3,7 @@
 import { Transform } from 'css-codemod'
 
 // IMPORTANT: Set tsconfig compiler option "target" to "ESNext" in order to run this in npx
-// usage: npx css-codemod "./src/components/*.css" -t ./codemods/cssMagicNumsToVars.ts
+// usage: npx css-codemod "./src/components/**/*.module.css" -t ./codemods/cssMagicNumsToVars.ts
 
 const transformMap = {
 	'4px': '--hdsplus-spacing-01', // 0.25rem
