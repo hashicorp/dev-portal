@@ -7,8 +7,12 @@
 	padding: 16px;
 }
 
-.heading {
+.heading,
+.subheading {
 	color: var(--token-color-foreground-strong);
+}
+
+.subheading {
 	margin-bottom: 16px;
 }
 
