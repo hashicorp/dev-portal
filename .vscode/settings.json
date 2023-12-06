@@ -3,6 +3,9 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": true
 	},
+	"css.validate": false,
+	"stylelint.validate": ["css", "postcss"],
+	"stylelint.config": null,
 	"cssVariables.lookupFiles": [
 		"**/*.css",
 		"node_modules/@hashicorp/mktg-global-styles/style.css",
