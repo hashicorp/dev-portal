@@ -28,7 +28,10 @@
 }
 
 .endpoint {
-	display: block;
+	cursor: text;
+	display: inline-block;
+	user-select: text;
+	width: fit-content;
 
 	& .endpointInlineCode {
 		color: var(--header-text-color);
@@ -38,8 +41,6 @@
 		padding-right: 0;
 		margin-right: 8px;
 		word-break: break-all;
-		user-select: text;
-		cursor: text;
 	}
 }
 

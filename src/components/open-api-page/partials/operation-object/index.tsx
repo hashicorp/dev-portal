@@ -81,7 +81,7 @@ function OperationObject({
 				}
 				description={
 					<span className={s.meta}>
-						<span className={s.endpoint}>
+						<span className={s.endpoint} onClick={(e) => e.stopPropagation()}>
 							<MdxInlineCode className={s.endpointInlineCode}>
 								{type.toUpperCase()}
 							</MdxInlineCode>
