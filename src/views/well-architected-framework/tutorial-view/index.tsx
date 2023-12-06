@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import HashiHead from '@hashicorp/react-head'
+import Head from 'next/head'
 import { Fragment } from 'react'
 import InstruqtProvider from 'contexts/instruqt-lab'
 import TutorialMeta from 'components/tutorial-meta'
@@ -51,9 +51,9 @@ export default function WellArchitectedFrameworkTutorialView({
 
 	return (
 		<>
-			<HashiHead>
+			<Head>
 				<link rel="canonical" href={canonicalUrl.toString()} key="canonical" />
-			</HashiHead>
+			</Head>
 			<InteractiveLabWrapper
 				key={slug}
 				{...(isInteractive && { labId: handsOnLab.id })}
