@@ -186,6 +186,10 @@ interface SidebarBaseProps {
 	 * the `.g-screen-reader-only` global CSS helper class.
 	 */
 	visuallyHideTitle?: boolean
+	/**
+	 * Optional. If true, the sidebar will use the API docs table of contents style nav.
+	 */
+	isInstallPage?: boolean
 }
 
 /**
