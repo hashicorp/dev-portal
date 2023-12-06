@@ -16,10 +16,11 @@
 	border-radius: 5px;
 	color: var(--token-color-foreground-primary);
 	display: flex;
-	gap: 8px;
+	gap: var(--hdsplus-spacing-03);
 	width: 100%;
 	border: none;
-	padding: 8px 10px 8px 16px;
+	padding: var(--hdsplus-spacing-03) 10px var(--hdsplus-spacing-03)
+		var(--hdsplus-spacing-05);
 	position: relative;
 	text-decoration: none;
 	justify-content: space-between;
@@ -31,11 +32,11 @@
 	&::before {
 		background-color: transparent;
 		border-radius: 2px;
-		bottom: 6px;
+		bottom: var(--hdsplus-spacing-02);
 		content: '';
-		left: 4px;
+		left: var(--hdsplus-spacing-01);
 		position: absolute;
-		top: 6px;
+		top: var(--hdsplus-spacing-02);
 		width: 2px;
 	}
 
@@ -57,19 +58,19 @@
 	color: var(--token-color-border-primary);
 	background-color: var(--token-color-border-primary);
 	margin-bottom: 0;
-	margin-left: 6px;
-	margin-right: 6px;
+	margin-left: var(--hdsplus-spacing-02);
+	margin-right: var(--hdsplus-spacing-02);
 	margin-top: 3px;
 }
 
 .description {
 	color: var(--token-color-foreground-faint);
 	display: block;
-	padding: 2px 16px 4px;
+	padding: 2px var(--hdsplus-spacing-05) var(--hdsplus-spacing-01);
 }
 
 .label {
 	color: var(--token-color-foreground-strong);
 	display: block;
-	padding: 10px 16px 4px;
+	padding: 10px var(--hdsplus-spacing-05) var(--hdsplus-spacing-01);
 }

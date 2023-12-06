@@ -34,7 +34,7 @@
 .standaloneLinkContents {
 	align-items: center;
 	display: flex;
-	gap: 6px;
+	gap: var(--hdsplus-spacing-02);
 	width: fit-content;
 
 	& svg {

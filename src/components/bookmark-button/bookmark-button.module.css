@@ -4,7 +4,7 @@
  */
 
 .button {
-	--buttonSize: 16px;
+	--buttonSize: var(--hdsplus-spacing-05);
 	--hoverIconOpacity: 0;
 	--baseIconOpacity: 1;
 

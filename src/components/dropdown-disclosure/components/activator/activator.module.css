@@ -19,7 +19,7 @@
 	border-radius: 5px;
 	border: 1px solid transparent;
 	display: flex;
-	gap: 4px;
+	gap: var(--hdsplus-spacing-01);
 	padding: 1px;
 	width: fit-content;
 

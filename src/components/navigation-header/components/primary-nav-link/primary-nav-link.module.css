@@ -9,14 +9,14 @@
 
 	/* CSS properties */
 	align-items: center;
-	gap: 6px;
+	gap: var(--hdsplus-spacing-02);
 	border-radius: 5px;
 	color: var(--token-color-surface-strong);
 	display: flex;
-	padding-bottom: 8px;
+	padding-bottom: var(--hdsplus-spacing-03);
 	padding-left: var(--header-menu-item-padding-left-right);
 	padding-right: var(--header-menu-item-padding-left-right);
-	padding-top: 8px;
+	padding-top: var(--hdsplus-spacing-03);
 
 	&:hover {
 		color: var(--token-color-surface-primary);

@@ -5,7 +5,7 @@
 
 .root {
 	background-color: var(--token-color-surface-primary);
-	border-radius: 6px;
+	border-radius: var(--hdsplus-spacing-02);
 	box-shadow: var(--token-surface-mid-box-shadow);
 	width: 100%;
 
@@ -64,7 +64,7 @@
 	cursor: pointer;
 	display: flex;
 	isolation: var(--isolation);
-	padding: 16px;
+	padding: var(--hdsplus-spacing-05);
 	position: relative;
 	text-align: left;
 	width: 100%;
@@ -95,7 +95,7 @@
 	}
 
 	&:focus-visible::before {
-		border-radius: 6px;
+		border-radius: var(--hdsplus-spacing-02);
 		bottom: 0;
 		box-shadow: var(--token-focus-ring-action-box-shadow);
 		content: '';
@@ -108,7 +108,7 @@
 }
 
 .labelContainer {
-	margin-right: 16px;
+	margin-right: var(--hdsplus-spacing-05);
 	width: 100%;
 }
 
@@ -120,10 +120,10 @@
 .description {
 	color: var(--token-color-foreground-faint);
 	display: block;
-	margin-top: 4px;
+	margin-top: var(--hdsplus-spacing-01);
 }
 
 .content {
-	padding: 16px;
+	padding: var(--hdsplus-spacing-05);
 	padding-top: 0;
 }

@@ -62,7 +62,8 @@ Styles for each tab button.
 		background-color: transparent;
 		border: none;
 		border-bottom: 2px solid transparent;
-		padding: 8px 12px 6px 12px;
+		padding: var(--hdsplus-spacing-03) var(--hdsplus-spacing-04)
+			var(--hdsplus-spacing-02) var(--hdsplus-spacing-04);
 
 		&[aria-selected='true'] {
 			border-bottom-color: var(--token-color-foreground-action);
@@ -76,10 +77,10 @@ Styles for each tab button.
 	&.variant--compact {
 		background-color: transparent;
 		border: none;
-		padding-bottom: 12px;
-		padding-left: 12px;
-		padding-right: 12px;
-		padding-top: 8px;
+		padding-bottom: var(--hdsplus-spacing-04);
+		padding-left: var(--hdsplus-spacing-04);
+		padding-right: var(--hdsplus-spacing-04);
+		padding-top: var(--hdsplus-spacing-03);
 		position: relative;
 
 		&[aria-selected='true'] {
@@ -121,6 +122,6 @@ Styles for each tab button.
 	composes: hds-typography-body-200 from global;
 	align-items: center;
 	display: flex;
-	gap: 6px;
+	gap: var(--hdsplus-spacing-02);
 	position: relative;
 }

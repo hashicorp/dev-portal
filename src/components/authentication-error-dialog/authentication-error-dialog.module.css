@@ -19,14 +19,14 @@
 	cursor: pointer;
 	display: flex;
 	height: fit-content;
-	padding: 8px;
+	padding: var(--hdsplus-spacing-03);
 	position: absolute;
-	right: 16px;
-	top: 16px;
+	right: var(--hdsplus-spacing-05);
+	top: var(--hdsplus-spacing-05);
 	width: fit-content;
 }
 
 .body {
-	margin-bottom: 24px;
-	margin-top: 4px;
+	margin-bottom: var(--hdsplus-spacing-07);
+	margin-top: var(--hdsplus-spacing-01);
 }

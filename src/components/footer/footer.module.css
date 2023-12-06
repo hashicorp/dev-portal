@@ -7,10 +7,10 @@
 
 .root {
 	color: var(--token-color-palette-neutral-600);
-	gap: 24px;
+	gap: var(--hdsplus-spacing-07);
 	display: flex;
 	flex-wrap: wrap;
-	padding: 24px;
+	padding: var(--hdsplus-spacing-07);
 	position: relative;
 	flex-direction: column;
 
@@ -24,13 +24,13 @@
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: wrap;
-	gap: 24px;
+	gap: var(--hdsplus-spacing-07);
 }
 
 .logo {
 	composes: g-focus-ring-from-box-shadow from global;
-	border-radius: 6px;
-	margin: 0 24px 0 0;
+	border-radius: var(--hdsplus-spacing-02);
+	margin: 0 var(--hdsplus-spacing-07) 0 0;
 	position: relative;
 
 	& svg {
@@ -51,7 +51,7 @@
 	/* label font weight */
 	composes: hds-font-weight-regular from global;
 	display: flex;
-	gap: 12px;
+	gap: var(--hdsplus-spacing-04);
 	align-items: center;
 	color: var(--token-color-foreground-faint);
 }
@@ -64,7 +64,7 @@
 	padding: 0;
 	position: relative;
 	width: 100%;
-	gap: 24px;
+	gap: var(--hdsplus-spacing-07);
 
 	@media (--list-horizontally) {
 		margin-top: 0;
@@ -75,7 +75,7 @@
 
 .linkAction {
 	composes: g-focus-ring-from-box-shadow from global;
-	border-radius: 6px;
+	border-radius: var(--hdsplus-spacing-02);
 	background: none;
 	border: none;
 	color: var(--token-color-foreground-faint);

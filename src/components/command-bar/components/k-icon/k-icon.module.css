@@ -8,7 +8,7 @@
 
 	& svg {
 		height: 10px;
-		width: 8px;
+		width: var(--hdsplus-spacing-03);
 
 		& path {
 			fill: currentColor;

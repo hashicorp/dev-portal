@@ -21,8 +21,9 @@
 }
 
 .wrapperPad {
-	padding: 16px 16px 8px;
+	padding: var(--hdsplus-spacing-05) var(--hdsplus-spacing-05)
+		var(--hdsplus-spacing-03);
 }
 .wrapperPadBottom {
-	padding-bottom: 16px;
+	padding-bottom: var(--hdsplus-spacing-05);
 }

@@ -12,7 +12,7 @@
 	position: relative;
 	overflow: hidden;
 	box-shadow: var(--token-elevation-mid-box-shadow);
-	margin: 32px 0;
+	margin: var(--hdsplus-spacing-08) 0;
 
 	&:hover {
 		box-shadow: var(--token-elevation-high-box-shadow);
@@ -23,7 +23,7 @@
 	}
 
 	& .textContainer {
-		padding: 16px 22px;
+		padding: var(--hdsplus-spacing-05) 22px;
 
 		@media (--dev-dot-tablet-up) {
 			margin-right: 25%;
@@ -35,7 +35,7 @@
 	}
 
 	& .subHeading {
-		margin: 6px 0 16px;
+		margin: var(--hdsplus-spacing-02) 0 var(--hdsplus-spacing-05);
 	}
 
 	@nest html[data-theme='dark'] & {
@@ -47,7 +47,7 @@
 	composes: g-focus-ring-from-box-shadow from global;
 	align-items: center;
 	display: flex;
-	gap: 6px;
+	gap: var(--hdsplus-spacing-02);
 	color: var(--white);
 
 	& .ctaIcon {

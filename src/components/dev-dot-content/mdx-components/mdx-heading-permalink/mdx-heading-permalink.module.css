@@ -5,12 +5,12 @@
 
 .root {
 	composes: g-focus-ring-from-box-shadow from global;
-	border-radius: 6px;
+	border-radius: var(--hdsplus-spacing-02);
 	display: flex;
 	float: right;
-	margin-left: 8px;
+	margin-left: var(--hdsplus-spacing-03);
 	opacity: 0;
-	padding: 4px;
+	padding: var(--hdsplus-spacing-01);
 
 	@media (prefers-reduced-motion: no-preference) {
 		transition: opacity 0.2s ease;

@@ -7,7 +7,7 @@
 	composes: hds-typography-body-200 from global;
 	composes: hds-font-weight-semibold from global;
 	color: var(--token-color-foreground-strong);
-	margin-bottom: 8px;
+	margin-bottom: var(--hdsplus-spacing-03);
 	display: block;
 }
 
@@ -16,10 +16,10 @@
 	margin: 0;
 	background: var(--token-color-surface-faint);
 	border: 1px solid var(--token-color-border-faint);
-	border-radius: 6px;
-	padding: 8px;
+	border-radius: var(--hdsplus-spacing-02);
+	padding: var(--hdsplus-spacing-03);
 	display: flex;
-	gap: 8px;
+	gap: var(--hdsplus-spacing-03);
 	flex-wrap: wrap;
 }
 
@@ -35,7 +35,7 @@
 	display: flex;
 	border-radius: 5px;
 	border: 1px solid;
-	padding: 6px 12px;
+	padding: var(--hdsplus-spacing-02) var(--hdsplus-spacing-04);
 	box-shadow: var(--token-elevation-low-box-shadow);
 
 	/* Link styles for the 'current' or active link based on `aria-current` */
@@ -55,7 +55,7 @@
 		&:focus-visible {
 			box-shadow: inset 0 0 0 1px var(--token-color-palette-blue-300),
 				0 0 0 1px var(--token-color-surface-primary),
-				0 0 0 4px var(--token-color-focus-action-external);
+				0 0 0 var(--hdsplus-spacing-01) var(--token-color-focus-action-external);
 		}
 	}
 

@@ -4,7 +4,7 @@
  */
 
 .root {
-	column-gap: 8px;
+	column-gap: var(--hdsplus-spacing-03);
 	display: grid;
 	grid-auto-flow: row;
 	grid-template-areas: 'input label' '. helperText' '. errors';

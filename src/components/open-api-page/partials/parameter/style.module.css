@@ -25,14 +25,14 @@
 }
 
 .nestedProperties {
-	padding-left: 4px;
+	padding-left: var(--hdsplus-spacing-01);
 }
 
 .descriptiveText {
 	/* Base typography */
 	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-faint);
-	margin: 8px 0 0 0;
+	margin: var(--hdsplus-spacing-03) 0 0 0;
 
 	/* Remove the top margin from any first item */
 	& > *:first-child {

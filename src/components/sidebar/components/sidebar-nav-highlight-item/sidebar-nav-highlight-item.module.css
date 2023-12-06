@@ -23,9 +23,9 @@
 	border-radius: 5px;
 	color: var(--token-color-foreground-primary);
 	display: flex;
-	gap: 8px;
+	gap: var(--hdsplus-spacing-03);
 	margin-bottom: 2px;
-	padding: 8px;
+	padding: var(--hdsplus-spacing-03);
 	position: relative;
 	width: 100%;
 	z-index: 0;

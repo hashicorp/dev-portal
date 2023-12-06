@@ -9,11 +9,11 @@
 	outline-color: transparent;
 	isolation: isolate;
 	display: flex;
-	gap: 8px;
+	gap: var(--hdsplus-spacing-03);
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	padding: 6px 4px;
+	padding: var(--hdsplus-spacing-02) var(--hdsplus-spacing-01);
 	white-space: normal;
 	text-align: left;
 	overflow-wrap: anywhere;

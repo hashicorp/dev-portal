@@ -4,8 +4,8 @@
  */
 
 .listRoot {
-	margin: 20px 0;
-	padding-left: 24px;
+	margin: var(--hdsplus-spacing-06) 0;
+	padding-left: var(--hdsplus-spacing-07);
 }
 
 .listItem {
@@ -19,11 +19,11 @@
 	}
 
 	&:not(:last-child) {
-		margin-bottom: 16px;
+		margin-bottom: var(--hdsplus-spacing-05);
 	}
 
 	& ul,
 	& ol {
-		margin: 16px 0;
+		margin: var(--hdsplus-spacing-05) 0;
 	}
 }

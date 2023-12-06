@@ -6,7 +6,7 @@
 .twoColumnLayout {
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-gap: 32px;
+	grid-gap: var(--hdsplus-spacing-08);
 
 	@media (--large) {
 		grid-template-columns: 1fr 1fr;

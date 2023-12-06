@@ -23,10 +23,10 @@
 		& .alert {
 			background-color: var(--themed-bg);
 			border: 1px solid var(--themed-border);
-			border-radius: 6px;
+			border-radius: var(--hdsplus-spacing-02);
 			color: var(--token-color-palette-neutral-600);
-			padding: 16px;
-			margin: 20px 0;
+			padding: var(--hdsplus-spacing-05);
+			margin: var(--hdsplus-spacing-06) 0;
 
 			/* Alert override:  letter-spacing, which in global styles is tracked out */
 			&.g-type-body {

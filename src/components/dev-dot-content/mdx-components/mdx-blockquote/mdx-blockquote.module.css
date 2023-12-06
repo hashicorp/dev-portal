@@ -4,7 +4,7 @@
  */
 
 .blockquote {
-	margin: 32px 0;
+	margin: var(--hdsplus-spacing-08) 0;
 	padding-left: 14px;
 	border-top-left-radius: 2px;
 	border-bottom-left-radius: 2px;

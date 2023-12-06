@@ -4,14 +4,14 @@
  */
 
 .playerWrapper {
-	margin-bottom: 24px;
+	margin-bottom: var(--hdsplus-spacing-07);
 	padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
 	position: relative;
 }
 
 .reactPlayer {
 	background-color: var(--token-color-surface-primary);
-	border-radius: 6px;
+	border-radius: var(--hdsplus-spacing-02);
 	box-shadow: var(--token-surface-base-box-shadow);
 	left: 0;
 	overflow: hidden;
@@ -23,7 +23,7 @@
 	position: relative;
 	border: 1px solid gray;
 	width: 100%;
-	height: 16px;
+	height: var(--hdsplus-spacing-05);
 
 	& span {
 		background: dodgerblue;

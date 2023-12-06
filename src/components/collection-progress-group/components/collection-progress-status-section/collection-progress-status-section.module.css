@@ -8,7 +8,7 @@
 	align-self: stretch;
 	border-radius: 5px;
 	display: flex;
-	gap: 8px;
+	gap: var(--hdsplus-spacing-03);
 	width: 100%;
 }
 
@@ -16,7 +16,7 @@
 	composes: hds-surface-base from global;
 	composes: statusSectionElements;
 	background: var(--token-color-surface-faint);
-	padding: 4px 12px;
+	padding: var(--hdsplus-spacing-01) var(--hdsplus-spacing-04);
 
 	&.isAuthenticated {
 		background: var(--token-color-surface-primary);
@@ -29,7 +29,7 @@ Incomplete elements
 .countIconAndLabel {
 	display: flex;
 	align-items: center;
-	gap: 6px;
+	gap: var(--hdsplus-spacing-02);
 	flex-shrink: 0;
 }
 
@@ -46,7 +46,7 @@ Complete elements
 .completeIconAndLabel {
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: var(--hdsplus-spacing-03);
 	flex-shrink: 0;
 }
 

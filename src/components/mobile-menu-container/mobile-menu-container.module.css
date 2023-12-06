@@ -26,19 +26,19 @@
 }
 
 .mobileAuthenticationControlsWrap {
-	margin-bottom: 24px;
+	margin-bottom: var(--hdsplus-spacing-07);
 }
 
 .unauthenticatedControls {
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
+	gap: var(--hdsplus-spacing-04);
 }
 
 .unauthenticatedControlButtons {
 	align-items: center;
 	display: flex;
-	gap: 12px;
+	gap: var(--hdsplus-spacing-04);
 	justify-content: space-between;
 
 	& > * {
@@ -51,9 +51,9 @@
 	display: flex;
 	justify-content: space-between;
 	color: var(--token-color-foreground-primary);
-	gap: 12px;
+	gap: var(--hdsplus-spacing-04);
 	align-items: center;
-	padding: 12px;
+	padding: var(--hdsplus-spacing-04);
 	border: 1px solid var(--token-color-border-primary);
-	border-radius: 6px;
+	border-radius: var(--hdsplus-spacing-02);
 }

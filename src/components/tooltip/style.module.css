@@ -92,7 +92,7 @@ as .arrowContainer is rendered into a Portal.
 	font-size: var(--token-typography-body-200-font-size);
 	line-height: var(--token-typography-body-200-line-height);
 	max-width: min(75vw, 20em);
-	padding: 8px 12px;
+	padding: var(--hdsplus-spacing-03) var(--hdsplus-spacing-04);
 	pointer-events: none;
 	position: absolute;
 	z-index: 1;

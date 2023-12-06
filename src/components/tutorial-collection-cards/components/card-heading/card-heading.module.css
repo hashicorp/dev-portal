@@ -7,9 +7,9 @@
 	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-strong);
 	font-weight: var(--token-typography-font-weight-semibold);
-	margin: 0 0 4px 0;
+	margin: 0 0 var(--hdsplus-spacing-01) 0;
 
 	&:not(:first-child) {
-		margin-top: 8px;
+		margin-top: var(--hdsplus-spacing-03);
 	}
 }

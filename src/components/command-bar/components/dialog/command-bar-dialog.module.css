@@ -28,8 +28,8 @@
 	display: flex;
 	flex-grow: 0;
 	flex-shrink: 0;
-	gap: 8px;
-	padding: 16px 20px;
+	gap: var(--hdsplus-spacing-03);
+	padding: var(--hdsplus-spacing-05) var(--hdsplus-spacing-06);
 }
 
 .icon {
@@ -44,7 +44,7 @@
 .headerTags {
 	display: flex;
 	align-items: center;
-	gap: 4px;
+	gap: var(--hdsplus-spacing-01);
 }
 
 .inputWrapper {
@@ -71,9 +71,9 @@
 	font-size: var(--token-typography-body-300-font-size);
 	font-weight: var(--token-typography-font-weight-regular);
 	line-height: var(--token-typography-body-300-line-height);
-	padding-left: 8px;
-	padding-top: 4px;
-	padding-bottom: 4px;
+	padding-left: var(--hdsplus-spacing-03);
+	padding-top: var(--hdsplus-spacing-01);
+	padding-bottom: var(--hdsplus-spacing-01);
 	padding-right: 36px;
 	width: 100%;
 
@@ -104,7 +104,7 @@
 	background-color: transparent;
 	border: none;
 	display: flex;
-	padding: 4px;
+	padding: var(--hdsplus-spacing-01);
 	border-radius: 5px;
 
 	& svg {
@@ -124,7 +124,7 @@
 	align-items: center;
 	display: flex;
 	flex-shrink: 0;
-	gap: 4px;
+	gap: var(--hdsplus-spacing-01);
 }
 
 .body {
@@ -141,10 +141,10 @@
 	display: flex;
 	flex-grow: 0;
 	flex-shrink: 0;
-	gap: 16px;
+	gap: var(--hdsplus-spacing-05);
 	justify-content: space-between;
 	min-height: 52px;
-	padding: 16px;
+	padding: var(--hdsplus-spacing-05);
 
 	@media (--dev-dot-mobile) {
 		justify-content: flex-end;
@@ -155,7 +155,7 @@
 	align-items: center;
 	display: flex;
 	flex-shrink: 0;
-	gap: 8px;
+	gap: var(--hdsplus-spacing-03);
 
 	@media (--dev-dot-mobile) {
 		display: none;
@@ -164,5 +164,5 @@
 
 .footerLeftArrowKeys {
 	display: flex;
-	gap: 4px;
+	gap: var(--hdsplus-spacing-01);
 }

@@ -28,7 +28,7 @@
 	display: flex;
 	line-height: 1.5rem;
 	padding-bottom: 0;
-	padding-left: 8px;
+	padding-left: var(--hdsplus-spacing-03);
 	padding-right: 2px;
 	padding-top: 0;
 	width: fit-content;
@@ -46,8 +46,8 @@
 .removeIcon {
 	color: var(--token-color-foreground-primary);
 	display: flex;
-	height: 12px;
-	width: 12px;
+	height: var(--hdsplus-spacing-04);
+	width: var(--hdsplus-spacing-04);
 }
 
 .text {
@@ -64,7 +64,7 @@
 	font-size: var(--token-typography-body-100-font-size);
 	line-height: calc(1.5rem - 1px);
 	padding-bottom: 1px;
-	padding-left: 6px;
-	padding-right: 8px;
+	padding-left: var(--hdsplus-spacing-02);
+	padding-right: var(--hdsplus-spacing-03);
 	white-space: nowrap;
 }

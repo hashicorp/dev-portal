@@ -28,13 +28,13 @@
    * keeping the ::after element for slash dividers working as well.
    */
 	display: flex;
-	padding-top: 4px;
-	padding-bottom: 4px;
+	padding-top: var(--hdsplus-spacing-01);
+	padding-bottom: var(--hdsplus-spacing-01);
 
 	&:not(:last-child)::after {
 		color: var(--token-color-palette-neutral-400);
 		content: '/';
-		padding: 0 8px;
+		padding: 0 var(--hdsplus-spacing-03);
 	}
 }
 

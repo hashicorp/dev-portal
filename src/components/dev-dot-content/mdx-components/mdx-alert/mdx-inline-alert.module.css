@@ -4,7 +4,7 @@
  */
 
 .spacing {
-	margin: 16px 0;
+	margin: var(--hdsplus-spacing-05) 0;
 }
 
 /** 

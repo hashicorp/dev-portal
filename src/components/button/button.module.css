@@ -26,7 +26,7 @@
 	position: relative;
 
 	&::before {
-		border-radius: 8px;
+		border-radius: var(--hdsplus-spacing-03);
 		border: 3px solid transparent;
 		bottom: -4px;
 		box-sizing: border-box;
@@ -59,12 +59,12 @@
 	& svg {
 		/* leading icon */
 		&:first-child {
-			margin-right: 6px;
+			margin-right: var(--hdsplus-spacing-02);
 		}
 
 		/* trailing icon */
 		&:last-child {
-			margin-left: 6px;
+			margin-left: var(--hdsplus-spacing-02);
 		}
 
 		/* when no `text` prop is given */
@@ -87,21 +87,21 @@
 
 .small {
 	--padding-top-bottom: calc(7px - var(--border-width));
-	--padding-left-right: calc(12px - var(--border-width));
+	--padding-left-right: calc(var(--hdsplus-spacing-04) - var(--border-width));
 	--font-size: 0.8125rem;
 	--line-height: 0.875rem;
 }
 
 .medium {
 	--padding-top-bottom: calc(10px - var(--border-width));
-	--padding-left-right: calc(16px - var(--border-width));
+	--padding-left-right: calc(var(--hdsplus-spacing-05) - var(--border-width));
 	--font-size: 0.875rem;
 	--line-height: 1rem;
 }
 
 .large {
-	--padding-top-bottom: calc(12px - var(--border-width));
-	--padding-left-right: calc(20px - var(--border-width));
+	--padding-top-bottom: calc(var(--hdsplus-spacing-04) - var(--border-width));
+	--padding-left-right: calc(var(--hdsplus-spacing-06) - var(--border-width));
 	--font-size: 1rem;
 	--line-height: 1.5rem;
 }

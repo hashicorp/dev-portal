@@ -4,8 +4,8 @@
  */
 
 .root {
-	padding-left: 24px;
-	padding-right: 24px;
+	padding-left: var(--hdsplus-spacing-07);
+	padding-right: var(--hdsplus-spacing-07);
 }
 
 .versionAlertLink {

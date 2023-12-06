@@ -23,15 +23,15 @@
 .arrowdown {
 	position: absolute;
 	top: -52px;
-	right: 20px;
+	right: var(--hdsplus-spacing-06);
 }
 
 .bottom {
 	position: relative; /* for absolute positioned arrow down button */
-	padding: 16px 20px;
+	padding: var(--hdsplus-spacing-05) var(--hdsplus-spacing-06);
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
+	gap: var(--hdsplus-spacing-04);
 	background: var(--token-color-surface-primary);
 	border-top: 1px solid var(--token-color-border-primary);
 }
@@ -40,17 +40,17 @@
 	display: flex;
 	flex-direction: row;
 	align-items: flex-end;
-	padding: 8px 0;
-	gap: 12px;
+	padding: var(--hdsplus-spacing-03) 0;
+	gap: var(--hdsplus-spacing-04);
 	background: var(--token-color-surface-primary);
 }
 .questionIcon {
-	width: 40px;
+	width: var(--hdsplus-spacing-09);
 	height: 42px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	padding: 8px;
+	padding: var(--hdsplus-spacing-03);
 
 	/* See prior art: https://hashicorp-mktg.sourcegraph.com/github.com/hashicorp/web/-/blob/apps/www/views/state-of-the-cloud/2021/components/hero/style.module.css?L18-19 */
 	& :global(.loading) {
@@ -90,7 +90,7 @@
 	composes: hds-font-weight-medium from global;
 	appearance: none;
 	border-radius: 5px;
-	padding: 8px 4px;
+	padding: var(--hdsplus-spacing-03) var(--hdsplus-spacing-01);
 	display: flex;
 	flex: 1;
 	height: 100%;
@@ -108,7 +108,7 @@
 .disclaimer {
 	color: var(--token-color-foreground-faint); /* #656a76 */
 	display: block;
-	padding: 8px 0 0 10px;
+	padding: var(--hdsplus-spacing-03) 0 0 10px;
 }
 
 .externalLink {

@@ -11,5 +11,5 @@
 	/* properties */
 	color: var(--token-form-helper-text-color);
 	display: block;
-	margin-top: 4px;
+	margin-top: var(--hdsplus-spacing-01);
 }

@@ -13,16 +13,16 @@
 }
 
 .heading {
-	margin-bottom: 4px;
+	margin-bottom: var(--hdsplus-spacing-01);
 }
 
 .subheading {
-	margin-right: 56px;
+	margin-right: var(--hdsplus-spacing-11);
 }
 
 .exitIcon {
 	color: var(--token-color-foreground-faint);
-	margin: 4px 2px;
+	margin: var(--hdsplus-spacing-01) 2px;
 	appearance: none;
 	background: unset;
 	border: unset;
@@ -35,9 +35,9 @@
 }
 
 .buttonGroup {
-	margin-top: 24px;
+	margin-top: var(--hdsplus-spacing-07);
 	flex-direction: column;
-	gap: 16px;
+	gap: var(--hdsplus-spacing-05);
 
 	@media (--medium-up) {
 		flex-direction: row;

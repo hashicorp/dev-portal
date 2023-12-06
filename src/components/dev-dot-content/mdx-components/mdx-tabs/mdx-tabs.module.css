@@ -4,5 +4,5 @@
  */
 
 .tabsWrapper {
-	margin: 24px 0 32px 0;
+	margin: var(--hdsplus-spacing-07) 0 var(--hdsplus-spacing-08) 0;
 }

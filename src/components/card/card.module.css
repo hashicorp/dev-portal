@@ -5,11 +5,11 @@
 
 .root {
 	/* used by components like CardLink */
-	--card-border-radius: 6px;
+	--card-border-radius: var(--hdsplus-spacing-02);
 
 	background-color: var(--token-color-surface-primary);
 	border-radius: var(--card-border-radius);
-	padding: 16px;
+	padding: var(--hdsplus-spacing-05);
 	width: 100%;
 
 	@nest html[data-theme='dark'] & {

@@ -4,7 +4,7 @@
  */
 
 .card {
-	padding: 24px;
+	padding: var(--hdsplus-spacing-07);
 }
 
 .heading {
@@ -17,25 +17,25 @@
 .body {
 	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-faint);
-	margin: 8px 0 0 0;
+	margin: var(--hdsplus-spacing-03) 0 0 0;
 }
 
 .ctas {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 16px;
+	gap: var(--hdsplus-spacing-05);
 	align-items: center;
-	margin: 16px 0 0 0;
+	margin: var(--hdsplus-spacing-05) 0 0 0;
 }
 
 .iconCardLinks {
 	display: grid;
-	grid-gap: 16px;
+	grid-gap: var(--hdsplus-spacing-05);
 	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	margin-top: 16px;
+	margin-top: var(--hdsplus-spacing-05);
 }
 
 .fixedColumnsMode {

@@ -38,7 +38,6 @@ export const transform: Transform = (fileInfo, api) => {
 
 		result.walk((value) => {
 			if (value.type === 'word' && transformMapKeys.includes(value.value)) {
-				// console.log(value)
 				value.value = `var(${transformMap[value.value]})`
 			}
 		})

@@ -8,8 +8,8 @@
 	background-color: var(--background-color);
 	border-bottom: 1px solid var(--border-color);
 	display: flex;
-	gap: 12px;
-	padding: 16px;
+	gap: var(--hdsplus-spacing-04);
+	padding: var(--hdsplus-spacing-05);
 }
 
 .icon {
@@ -26,7 +26,7 @@
 
 .title {
 	color: var(--title-color);
-	margin-bottom: 4px;
+	margin-bottom: var(--hdsplus-spacing-01);
 	margin-top: 0;
 }
 

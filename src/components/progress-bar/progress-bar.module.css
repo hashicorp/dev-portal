@@ -10,7 +10,7 @@
 	border-radius: var(--border-radius);
 	background: var(--token-color-palette-neutral-200);
 	display: block;
-	height: 4px;
+	height: var(--hdsplus-spacing-01);
 	overflow: hidden;
 	position: relative;
 	width: 100%;

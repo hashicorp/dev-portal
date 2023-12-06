@@ -7,16 +7,16 @@
 	--background-color: var(--token-color-surface-faint);
 	--accent-color: var(--token-color-foreground-primary);
 	--border-color: var(--token-color-border-strong);
-	--padding: 16px;
+	--padding: var(--hdsplus-spacing-05);
 
 	background: var(--background-color);
 	border: 1px solid var(--border-color);
-	border-radius: 6px;
+	border-radius: var(--hdsplus-spacing-02);
 	color: var(--token-color-foreground-primary);
 	padding: var(--padding);
 	composes: hds-typography-body-200 from global;
 	display: flex;
-	gap: 12px;
+	gap: var(--hdsplus-spacing-04);
 }
 
 .icon {
@@ -24,8 +24,8 @@
 	flex-shrink: 0;
 
 	& svg {
-		height: 20px;
-		width: 20px;
+		height: var(--hdsplus-spacing-06);
+		width: var(--hdsplus-spacing-06);
 	}
 }
 
@@ -36,7 +36,7 @@
 
 .title {
 	color: var(--accent-color);
-	margin: 0 0 4px 0;
+	margin: 0 0 var(--hdsplus-spacing-01) 0;
 	font-weight: var(--token-typography-font-weight-semibold);
 }
 
@@ -52,7 +52,7 @@
 
 .ctaSlot {
 	width: fit-content;
-	margin-top: 16px;
+	margin-top: var(--hdsplus-spacing-05);
 }
 
 .highlight {

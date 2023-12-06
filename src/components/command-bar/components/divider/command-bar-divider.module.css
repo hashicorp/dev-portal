@@ -5,10 +5,10 @@
 
 .root {
 	height: 1px;
-	margin-bottom: 20px;
-	margin-left: 8px;
-	margin-right: 8px;
-	margin-top: 12px;
+	margin-bottom: var(--hdsplus-spacing-06);
+	margin-left: var(--hdsplus-spacing-03);
+	margin-right: var(--hdsplus-spacing-03);
+	margin-top: var(--hdsplus-spacing-04);
 	color: var(--token-color-border-primary);
 	background-color: var(--token-color-border-primary);
 }

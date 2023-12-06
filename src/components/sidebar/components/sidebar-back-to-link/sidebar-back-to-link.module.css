@@ -4,6 +4,6 @@
  */
 
 .root {
-	margin-bottom: 20px;
-	padding-left: 4px;
+	margin-bottom: var(--hdsplus-spacing-06);
+	padding-left: var(--hdsplus-spacing-01);
 }

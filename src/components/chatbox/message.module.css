@@ -6,8 +6,8 @@
 .message {
 	display: flex;
 	flex-direction: row;
-	gap: 12px;
-	padding: 20px 16px;
+	gap: var(--hdsplus-spacing-04);
+	padding: var(--hdsplus-spacing-06) var(--hdsplus-spacing-05);
 	background: var(--token-color-palette-neutral-0);
 }
 
@@ -17,13 +17,16 @@
 
 .avatar,
 .avatar img {
-	width: 40px;
-	height: 40px;
-	border-radius: 6px;
+	width: var(--hdsplus-spacing-09);
+	height: var(--hdsplus-spacing-09);
+	border-radius: var(--hdsplus-spacing-02);
 }
 
 .content {
-	padding-top: 8px; /* simulate vertically centering the first line with avatar/icon */
+	padding-top: var(
+		--hdsplus-spacing-03
+	); /* simulate vertically centering the first line with avatar/icon */
+
 	display: flex;
 	flex: 1;
 	flex-direction: column;
@@ -36,7 +39,7 @@
 }
 
 .gutter {
-	min-width: 40px;
+	min-width: var(--hdsplus-spacing-09);
 }
 
 .assistant {
@@ -65,7 +68,7 @@
 
 	& p {
 		line-height: 1.6875;
-		margin: 16px 0;
+		margin: var(--hdsplus-spacing-05) 0;
 		&:first-child {
 			margin-top: 0;
 		}
@@ -74,7 +77,7 @@
 
 .assistantMessageFooter {
 	width: 100%;
-	padding: 24px 0;
+	padding: var(--hdsplus-spacing-07) 0;
 }
 
 .assistantMessageFooterHidden {
@@ -85,18 +88,18 @@
 	display: block;
 	width: 100%;
 	border-bottom: 1px solid var(--token-color-palette-neutral-300);
-	margin-bottom: 40px;
+	margin-bottom: var(--hdsplus-spacing-09);
 }
 
 .actionButtons {
 	display: flex;
 	flex-direction: row;
-	gap: 16px;
+	gap: var(--hdsplus-spacing-05);
 }
 
 .applicationMessage {
-	padding-top: 12px;
+	padding-top: var(--hdsplus-spacing-04);
 	display: flex;
 	flex-direction: row;
-	gap: 8px;
+	gap: var(--hdsplus-spacing-03);
 }

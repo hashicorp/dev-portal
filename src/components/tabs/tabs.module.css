@@ -21,7 +21,7 @@ the correct elements, roles, states, and properties are being set in the markup.
   */
 	&.showAnchorLine {
 		border-bottom: 1px solid var(--token-color-palette-neutral-200);
-		padding-bottom: 16px;
+		padding-bottom: var(--hdsplus-spacing-05);
 
 		/* No border if allowNestedStyles for all tabs (whether nested or not) */
 		&.allowNestedStyles {
@@ -62,7 +62,7 @@ ref: https://twitter.com/heydonworks/status/408263890284191745
 ref: https://twitter.com/MarcoInEnglish/status/363284092806119424
 */
 .tabPanel[role='tabpanel'] {
-	border-radius: 6px;
+	border-radius: var(--hdsplus-spacing-02);
 
 	&[aria-hidden='true'] {
 		display: none;
@@ -71,7 +71,7 @@ ref: https://twitter.com/MarcoInEnglish/status/363284092806119424
 
 	&.allowNestedStyles:not(.isNested) {
 		box-shadow: var(--token-surface-base-box-shadow);
-		padding: 16px;
+		padding: var(--hdsplus-spacing-05);
 	}
 
 	/* Note: !important necessary to override dev-dot-content styles.

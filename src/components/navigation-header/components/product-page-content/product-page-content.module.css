@@ -15,8 +15,8 @@
 .productsDropdownIcon {
 	color: var(--token-color-surface-primary);
 	display: block;
-	height: 32px;
-	width: 32px;
+	height: var(--hdsplus-spacing-08);
+	width: var(--hdsplus-spacing-08);
 
 	@nest html[data-theme='dark'] & {
 		color: var(--token-color-foreground-strong);
@@ -41,5 +41,5 @@
 .productLinkAndNav {
 	align-items: center;
 	display: flex;
-	gap: 24px;
+	gap: var(--hdsplus-spacing-07);
 }

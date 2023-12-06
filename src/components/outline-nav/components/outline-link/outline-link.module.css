@@ -6,13 +6,13 @@
 .root {
 	composes: hds-typography-body-200 from global;
 	composes: g-focus-ring-from-box-shadow from global;
-	border-radius: 4px;
+	border-radius: var(--hdsplus-spacing-01);
 	color: var(--token-color-foreground-faint);
 	display: block;
 	font-weight: var(--token-typography-font-weight-regular);
 	max-width: 100%;
 	overflow: hidden;
-	padding: 4px 0;
+	padding: var(--hdsplus-spacing-01) 0;
 	text-overflow: ellipsis;
 	white-space: nowrap; /* necessary for text-overflow to work */
 	width: fit-content;

@@ -4,7 +4,7 @@
  */
 
 .root {
-	margin-top: 48px;
+	margin-top: var(--hdsplus-spacing-10);
 
 	&:first-child {
 		margin-top: 0;

@@ -8,6 +8,6 @@
 	align-items: center;
 	color: var(--token-color-foreground-faint);
 	display: flex;
-	gap: 6px;
+	gap: var(--hdsplus-spacing-02);
 	font-weight: var(--token-typography-font-weight-medium);
 }

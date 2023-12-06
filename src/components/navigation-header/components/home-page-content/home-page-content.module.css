@@ -14,14 +14,14 @@
 
 	/* Note: min-height necessary to match height of .productLogo
      in navigation-header.module.css */
-	min-height: 32px;
+	min-height: var(--hdsplus-spacing-08);
 
 	& svg {
 		height: 22px;
 		width: auto;
 
 		@media (--dev-dot-tablet-up) {
-			height: 24px;
+			height: var(--hdsplus-spacing-07);
 		}
 	}
 }

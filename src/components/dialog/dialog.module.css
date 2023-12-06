@@ -20,7 +20,7 @@
 	flex-direction: column;
 	height: 100vh;
 	justify-content: center;
-	padding: 24px;
+	padding: var(--hdsplus-spacing-07);
 	width: 100vw;
 
 	&.bottom {
@@ -37,12 +37,12 @@
 	--font-body: var(--token-typography-font-stack-text);
 
 	background-color: var(--token-color-surface-primary);
-	border-radius: 6px;
+	border-radius: var(--hdsplus-spacing-02);
 	box-shadow: var(--token-surface-overlay-box-shadow);
 	margin: 0;
 	max-width: 600px;
 	min-width: 300px;
-	padding: 24px;
+	padding: var(--hdsplus-spacing-07);
 	width: 100%;
 
 	&.bottom {

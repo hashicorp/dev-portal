@@ -8,10 +8,10 @@
 	color: var(--token-color-foreground-strong);
 	display: flex;
 	font-weight: var(--token-typography-font-weight-medium);
-	gap: 6px;
+	gap: var(--hdsplus-spacing-02);
 	line-height: var(--line-height);
 	margin-bottom: 0;
-	margin-top: 24px;
+	margin-top: var(--hdsplus-spacing-07);
 
 	& svg {
 		flex-shrink: 0;

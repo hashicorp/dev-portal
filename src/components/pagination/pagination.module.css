@@ -4,10 +4,10 @@
  */
 
 .pagination {
-	--token-pagination-control-height: 24px;
+	--token-pagination-control-height: var(--hdsplus-spacing-07);
 	--token-pagination-control-padding-horizontal: 7px;
 	--token-pagination-indicator-height: 2px;
-	--token-pagination-nav-control-focus-inset: 4px;
+	--token-pagination-nav-control-focus-inset: var(--hdsplus-spacing-01);
 
 	composes: hds-typography-body-100 from global;
 	font-weight: var(--token-typography-font-weight-medium);
@@ -57,9 +57,9 @@
 	/* small underline */
 	&::before {
 		position: absolute;
-		right: 6px;
+		right: var(--hdsplus-spacing-02);
 		bottom: -4.5px;
-		left: 6px;
+		left: var(--hdsplus-spacing-02);
 		height: var(--token-pagination-indicator-height);
 		background-color: currentColor;
 		border-radius: 2px;
@@ -138,10 +138,10 @@
 .label {
 	white-space: nowrap;
 	&.prev {
-		margin-left: 6px;
+		margin-left: var(--hdsplus-spacing-02);
 	}
 	&.next {
-		margin-right: 6px;
+		margin-right: var(--hdsplus-spacing-02);
 	}
 }
 
@@ -168,8 +168,8 @@
 		box-shadow: var(--token-elevation-low-box-shadow);
 		appearance: none;
 		height: 28px;
-		margin-left: 12px;
-		padding: 0 24px 0 8px;
+		margin-left: var(--hdsplus-spacing-04);
+		padding: 0 var(--hdsplus-spacing-07) 0 var(--hdsplus-spacing-03);
 		font-size: var(--token-typography-body-100-font-size);
 		font-family: var(--token-typography-body-100-font-family);
 		line-height: var(--token-typography-body-100-line-height);

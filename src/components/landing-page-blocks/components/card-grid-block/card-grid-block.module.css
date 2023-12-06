@@ -4,12 +4,12 @@
  */
 
 .root {
-	margin-bottom: 48px;
+	margin-bottom: var(--hdsplus-spacing-10);
 }
 
 .description {
 	color: var(--token-color-foreground-primary);
-	margin-bottom: 16px;
+	margin-bottom: var(--hdsplus-spacing-05);
 }
 
 .cardsGridListCardLink {

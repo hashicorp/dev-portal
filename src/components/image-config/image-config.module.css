@@ -4,11 +4,11 @@
  */
 
 .figure {
-	margin: 16px 0;
+	margin: var(--hdsplus-spacing-05) 0;
 }
 
 .caption {
 	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-primary);
-	margin-top: 16px;
+	margin-top: var(--hdsplus-spacing-05);
 }

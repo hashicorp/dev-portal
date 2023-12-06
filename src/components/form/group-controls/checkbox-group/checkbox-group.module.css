@@ -20,24 +20,24 @@
 }
 
 .helperText {
-	margin-bottom: 8px;
+	margin-bottom: var(--hdsplus-spacing-03);
 	margin-top: 0;
 }
 
 .options--horizontal {
-	column-gap: 16px;
+	column-gap: var(--hdsplus-spacing-05);
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	row-gap: 4px;
+	row-gap: var(--hdsplus-spacing-01);
 }
 
 .options--vertical {
 	display: flex;
 	flex-direction: column;
-	row-gap: 12px;
+	row-gap: var(--hdsplus-spacing-04);
 }
 
 .errors {
-	margin-top: 8px;
+	margin-top: var(--hdsplus-spacing-03);
 }

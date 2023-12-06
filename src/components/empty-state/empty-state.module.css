@@ -9,20 +9,20 @@
 	justify-content: center;
 	align-items: center;
 	border: 1px dashed var(--token-color-border-strong);
-	padding: 24px;
+	padding: var(--hdsplus-spacing-07);
 	text-align: center;
-	border-radius: 6px;
+	border-radius: var(--hdsplus-spacing-02);
 }
 
 .heading {
-	margin-top: 8px;
+	margin-top: var(--hdsplus-spacing-03);
 }
 
 .subheading {
 	color: var(--token-color-foreground-primary);
-	margin-top: 4px;
+	margin-top: var(--hdsplus-spacing-01);
 }
 
 .callToAction {
-	margin-top: 16px;
+	margin-top: var(--hdsplus-spacing-05);
 }

@@ -5,12 +5,12 @@
 
 .root {
 	color: var(--token-color-foreground-primary);
-	margin-top: 8px;
-	padding: 12px;
+	margin-top: var(--hdsplus-spacing-03);
+	padding: var(--hdsplus-spacing-04);
 }
 
 .checkOtherTabs {
-	margin-top: 8px;
+	margin-top: var(--hdsplus-spacing-03);
 }
 
 .otherTabBadge {

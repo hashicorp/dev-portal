@@ -6,7 +6,7 @@
 .root {
 	align-items: center;
 	display: flex;
-	margin-bottom: 8px;
+	margin-bottom: var(--hdsplus-spacing-03);
 }
 
 .text {

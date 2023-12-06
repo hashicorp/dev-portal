@@ -12,8 +12,8 @@
 	align-items: center;
 	color: var(--token-form-legend-color);
 	display: flex;
-	gap: 4px;
+	gap: var(--hdsplus-spacing-01);
 	margin: 0;
-	margin-bottom: 4px;
+	margin-bottom: var(--hdsplus-spacing-01);
 	padding: 0;
 }

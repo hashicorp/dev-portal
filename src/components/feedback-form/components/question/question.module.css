@@ -5,7 +5,7 @@
 
 .buttonWrapper {
 	display: flex;
-	gap: 16px;
+	gap: var(--hdsplus-spacing-05);
 
 	@media (--dev-dot-tablet-up) {
 		margin-top: 0;
@@ -13,7 +13,7 @@
 }
 
 .submitButton {
-	margin-top: 4px;
+	margin-top: var(--hdsplus-spacing-01);
 
 	&:not(:disabled) {
 		background-color: var(--token-color-focus-action-internal);
@@ -27,14 +27,14 @@
 	gap: var(--gap);
 
 	&.choice {
-		--gap: 20px;
+		--gap: var(--hdsplus-spacing-06);
 	}
 
 	&.text {
-		--gap: 24px;
+		--gap: var(--hdsplus-spacing-07);
 
 		@media (--dev-dot-tablet-up) {
-			--gap: 12px;
+			--gap: var(--hdsplus-spacing-04);
 		}
 	}
 }
@@ -50,8 +50,8 @@
 .optionalText {
 	composes: hds-typography-body-100 from global;
 	position: absolute;
-	top: 12px;
-	right: 12px;
+	top: var(--hdsplus-spacing-04);
+	right: var(--hdsplus-spacing-04);
 	color: var(--token-color-foreground-faint);
 }
 
@@ -60,12 +60,12 @@
 	background-color: var(--token-form-control-base-surface-color-default);
 	box-shadow: var(--token-surface-base-box-shadow);
 	composes: hds-typography-body-200 from global;
-	border-radius: 6px;
+	border-radius: var(--hdsplus-spacing-02);
 	color: var(--token-color-foreground-faint);
 	width: 100%;
 	resize: none;
 	height: 100px;
-	padding: 12px;
+	padding: var(--hdsplus-spacing-04);
 
 	&.visited {
 		box-shadow: var(--token-surface-inset-box-shadow);
@@ -79,11 +79,11 @@
 
 .labelWrapper {
 	display: flex;
-	gap: 12px;
+	gap: var(--hdsplus-spacing-04);
 	align-items: center;
 
 	@media (--dev-dot-tablet-up) {
-		gap: 8px;
+		gap: var(--hdsplus-spacing-03);
 	}
 }
 
@@ -103,11 +103,11 @@
 	min-height: var(--size);
 
 	@media (--dev-dot-mobile) {
-		--size: 40px;
+		--size: var(--hdsplus-spacing-09);
 
 		& svg {
-			height: 24px;
-			width: 24px;
+			height: var(--hdsplus-spacing-07);
+			width: var(--hdsplus-spacing-07);
 		}
 	}
 }

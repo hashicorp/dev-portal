@@ -9,11 +9,11 @@
 
 .placementHead {
 	font-weight: bold;
-	padding: 8px 20px;
+	padding: var(--hdsplus-spacing-03) var(--hdsplus-spacing-06);
 	border-right: 1px solid #ddd;
 }
 
 .placementGroup {
-	padding: 8px 20px;
+	padding: var(--hdsplus-spacing-03) var(--hdsplus-spacing-06);
 	border-right: 1px solid #ddd;
 }

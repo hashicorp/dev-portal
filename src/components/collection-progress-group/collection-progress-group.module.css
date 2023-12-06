@@ -6,5 +6,5 @@
 .root {
 	align-items: center;
 	display: flex;
-	gap: 16px;
+	gap: var(--hdsplus-spacing-05);
 }

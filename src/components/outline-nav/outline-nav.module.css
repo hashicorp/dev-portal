@@ -7,7 +7,7 @@
 	composes: hds-typography-body-100 from global;
 	font-weight: var(--token-typography-font-weight-semibold);
 	color: var(--token-color-foreground-primary);
-	padding-bottom: 8px;
+	padding-bottom: var(--hdsplus-spacing-03);
 }
 
 .listRoot {

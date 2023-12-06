@@ -8,8 +8,8 @@ Horizontal rule
 Note: overrides top and bottom margin of HorizontalRule from components/sidebar
 */
 hr.hr {
-	margin-top: 8px;
-	margin-bottom: 8px;
+	margin-top: var(--hdsplus-spacing-03);
+	margin-bottom: var(--hdsplus-spacing-03);
 }
 
 /*

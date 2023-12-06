@@ -19,13 +19,13 @@
 	border: 1px solid var(--token-color-border-strong);
 	color: var(--token-color-foreground-primary);
 	cursor: pointer;
-	padding: 4px 30px 4px 28px;
+	padding: var(--hdsplus-spacing-01) 30px var(--hdsplus-spacing-01) 28px;
 	width: 100%;
 }
 
 .themeIcon,
 .trailingIcon {
-	width: 12px;
+	width: var(--hdsplus-spacing-04);
 	align-items: center;
 	bottom: 0;
 	display: flex;
@@ -35,7 +35,7 @@
 }
 
 .themeIcon {
-	left: 12px;
+	left: var(--hdsplus-spacing-04);
 }
 
 .trailingIcon {

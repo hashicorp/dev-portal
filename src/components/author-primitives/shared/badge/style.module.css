@@ -37,7 +37,7 @@
 	border-radius: 3px;
 	display: inline-flex;
 	margin: 0;
-	padding: 1px 8px 2px 8px;
+	padding: 1px var(--hdsplus-spacing-03) 2px var(--hdsplus-spacing-03);
 	position: relative;
 	top: -1px;
 	vertical-align: bottom;
@@ -53,7 +53,7 @@
 }
 
 .icon {
-	margin-right: 4px;
+	margin-right: var(--hdsplus-spacing-01);
 	margin-bottom: -5px;
 	color: var(--text-color);
 }

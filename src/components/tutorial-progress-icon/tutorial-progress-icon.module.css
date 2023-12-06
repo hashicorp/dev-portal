@@ -39,7 +39,7 @@
 	}
 
 	&.size_12 {
-		--size: 12px;
+		--size: var(--hdsplus-spacing-04);
 	}
 
 	&.size_14 {

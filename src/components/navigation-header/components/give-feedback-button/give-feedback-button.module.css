@@ -36,8 +36,8 @@ which results in a flash of incorrect layout.
 .iconButton {
 	/* variables */
 	--border-width: 1px;
-	--padding-top-bottom: calc(6px - var(--border-width));
-	--padding-left-right: calc(6px - var(--border-width));
+	--padding-top-bottom: calc(var(--hdsplus-spacing-02) - var(--border-width));
+	--padding-left-right: calc(var(--hdsplus-spacing-02) - var(--border-width));
 	--line-height: 1rem;
 
 	/* composition */
@@ -50,7 +50,7 @@ which results in a flash of incorrect layout.
 	border-width: var(--border-width);
 	display: flex;
 	font-size: var(--font-size);
-	gap: 6px;
+	gap: var(--hdsplus-spacing-02);
 	isolation: isolate;
 	justify-content: center;
 	line-height: var(--line-height);
@@ -60,7 +60,7 @@ which results in a flash of incorrect layout.
 	text-decoration: underline;
 
 	&::before {
-		border-radius: 8px;
+		border-radius: var(--hdsplus-spacing-03);
 		border: 3px solid transparent;
 		bottom: -4px;
 		box-sizing: border-box;

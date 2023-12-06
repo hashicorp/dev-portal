@@ -7,7 +7,7 @@
 	--border-radius: 5px;
 
 	border-radius: var(--border-radius);
-	padding: 8px;
+	padding: var(--hdsplus-spacing-03);
 
 	&:hover {
 		background: var(--token-color-surface-strong);
@@ -19,7 +19,7 @@
 .content {
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: var(--hdsplus-spacing-03);
 }
 
 .icon {

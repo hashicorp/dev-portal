@@ -22,7 +22,7 @@
 .titleAndBadgeWrapper {
 	align-items: center;
 	display: flex;
-	gap: 8px;
+	gap: var(--hdsplus-spacing-03);
 	max-width: 100%;
 }
 
@@ -52,8 +52,8 @@
 }
 
 .linkOrButton {
-	--gap: 8px;
-	--trailing-icon-size: 16px;
+	--gap: var(--hdsplus-spacing-03);
+	--trailing-icon-size: var(--hdsplus-spacing-05);
 
 	align-items: center;
 	background-color: transparent;
@@ -63,7 +63,7 @@
 	color: var(--token-color-foreground-primary);
 	display: flex;
 	gap: var(--gap);
-	padding: 8px;
+	padding: var(--hdsplus-spacing-03);
 	width: 100%;
 
 	& .hasTrailingIcon {

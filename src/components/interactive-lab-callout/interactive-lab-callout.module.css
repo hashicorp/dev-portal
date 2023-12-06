@@ -9,7 +9,7 @@
 
 	@media (--dev-dot-tablet-up) {
 		display: flex;
-		gap: 32px;
+		gap: var(--hdsplus-spacing-08);
 	}
 
 	@nest html[data-theme='dark'] & {
@@ -38,12 +38,12 @@
    */
 	line-height: 1.125rem;
 	color: var(--token-color-surface-faint);
-	margin-top: 4px;
+	margin-top: var(--hdsplus-spacing-01);
 	max-width: 45em;
 }
 
 .ctaButton {
-	margin-top: 12px;
+	margin-top: var(--hdsplus-spacing-04);
 }
 
 .image {

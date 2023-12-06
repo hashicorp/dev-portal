@@ -15,9 +15,9 @@
 	--border-radius: 5px;
 
 	border-radius: var(--border-radius);
-	padding: 8px;
+	padding: var(--hdsplus-spacing-03);
 	display: flex;
-	gap: 12px;
+	gap: var(--hdsplus-spacing-04);
 
 	&:hover {
 		background: var(--token-color-surface-strong);
@@ -29,7 +29,7 @@
 .icon {
 	flex-shrink: 0;
 	position: relative;
-	top: 4px;
+	top: var(--hdsplus-spacing-01);
 
 	@media (--dev-dot-mobile) {
 		display: none;
@@ -58,27 +58,27 @@
 }
 
 .meta {
-	margin-top: 6px;
+	margin-top: var(--hdsplus-spacing-02);
 	display: flex;
 	align-items: center;
-	gap: 6px;
+	gap: var(--hdsplus-spacing-02);
 }
 
 .metaDotSeparator {
 	color: var(--token-color-foreground-faint);
 	display: block;
 	flex-shrink: 0;
-	height: 6px;
+	height: var(--hdsplus-spacing-02);
 	position: relative;
 	top: 1px;
-	width: 6px;
+	width: var(--hdsplus-spacing-02);
 }
 
 /* Product icon breadcrumb */
 
 .productBreadcrumb {
 	display: flex;
-	gap: 4px;
+	gap: var(--hdsplus-spacing-01);
 	align-items: center;
 }
 

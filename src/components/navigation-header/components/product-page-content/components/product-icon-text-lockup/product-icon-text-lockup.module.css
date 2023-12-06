@@ -6,7 +6,7 @@
 .root {
 	display: flex;
 	align-items: center;
-	gap: 6px;
+	gap: var(--hdsplus-spacing-02);
 }
 
 .text {
@@ -19,6 +19,6 @@
 	 of product icons are identical, so seemed more efficient to only load
 	 in the 16px version, and scale it up when we need the 24px size. */
 .icon {
-	width: 24px;
-	height: 24px;
+	width: var(--hdsplus-spacing-07);
+	height: var(--hdsplus-spacing-07);
 }

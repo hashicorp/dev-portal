@@ -15,6 +15,6 @@
 	font-size: var(--token-typography-display-100-font-size);
 	font-weight: var(--token-typography-font-weight-semibold);
 	line-height: var(--token-typography-display-100-line-height);
-	padding: 0 8px;
-	margin: 0 0 12px 0;
+	padding: 0 var(--hdsplus-spacing-03);
+	margin: 0 0 var(--hdsplus-spacing-04) 0;
 }

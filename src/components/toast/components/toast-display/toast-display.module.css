@@ -4,11 +4,11 @@
  */
 
 .root {
-	border-radius: 6px;
+	border-radius: var(--hdsplus-spacing-02);
 	border: 1px solid;
 	box-shadow: var(--token-elevation-higher-box-shadow);
 	display: flex;
-	padding: 16px;
+	padding: var(--hdsplus-spacing-05);
 	width: 100%;
 
 	&.color-neutral {
@@ -50,7 +50,7 @@
 .iconArea {
 	color: var(--title-and-icon-color);
 	flex-shrink: 0;
-	margin-right: 12px;
+	margin-right: var(--hdsplus-spacing-04);
 
 	& svg {
 		display: block;
@@ -72,18 +72,18 @@
 	color: var(--token-color-foreground-primary);
 
 	&:not(:first-child) {
-		margin-top: 4px;
+		margin-top: var(--hdsplus-spacing-01);
 	}
 }
 
 .actions {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 8px;
-	margin-top: 16px;
+	gap: var(--hdsplus-spacing-03);
+	margin-top: var(--hdsplus-spacing-05);
 }
 
 .closeArea {
 	flex-shrink: 0;
-	margin-left: 16px;
+	margin-left: var(--hdsplus-spacing-05);
 }

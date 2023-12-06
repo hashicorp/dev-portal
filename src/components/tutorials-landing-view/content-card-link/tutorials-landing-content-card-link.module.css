@@ -20,12 +20,13 @@
 	flex-direction: column;
 	flex-grow: 1;
 	justify-content: space-between;
-	gap: 24px;
-	padding: 24px;
+	gap: var(--hdsplus-spacing-07);
+	padding: var(--hdsplus-spacing-07);
 
 	@media screen and (min-width: 1440px) {
-		padding: 32px 32px 24px 32px;
-		gap: 32px;
+		padding: var(--hdsplus-spacing-08) var(--hdsplus-spacing-08)
+			var(--hdsplus-spacing-07) var(--hdsplus-spacing-08);
+		gap: var(--hdsplus-spacing-08);
 	}
 
 	&.hasHeaderImage {
@@ -62,14 +63,14 @@
 	background-repeat: no-repeat;
 	height: 86px;
 	width: 100%;
-	margin-bottom: 12px;
+	margin-bottom: var(--hdsplus-spacing-04);
 }
 
 .eyebrow {
-	margin-bottom: 8px;
+	margin-bottom: var(--hdsplus-spacing-03);
 
 	@media screen and (min-width: 1440px) {
-		margin-bottom: 12px;
+		margin-bottom: var(--hdsplus-spacing-04);
 	}
 }
 
@@ -81,8 +82,8 @@
 
 	&:not(:first-child)::before {
 		content: '\2022';
-		margin-left: 6px;
-		margin-right: 6px;
+		margin-left: var(--hdsplus-spacing-02);
+		margin-right: var(--hdsplus-spacing-02);
 	}
 
 	/** Awkward tablet size where cards are very narrow */
@@ -111,10 +112,10 @@
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-medium from global;
 	color: var(--token-color-foreground-primary);
-	margin-top: 16px;
+	margin-top: var(--hdsplus-spacing-05);
 
 	@media screen and (min-width: 1440px) {
-		margin-top: 20px;
+		margin-top: var(--hdsplus-spacing-06);
 	}
 }
 
@@ -127,7 +128,7 @@
 .badgeList {
 	align-items: center;
 	display: flex;
-	gap: 6px;
+	gap: var(--hdsplus-spacing-02);
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -141,15 +142,15 @@
 	composes: g-hide-on-mobile from global;
 	align-items: center;
 	border-color: inherit;
-	border-radius: 20px;
+	border-radius: var(--hdsplus-spacing-06);
 	border-style: solid;
 	border-width: 1.5px;
 	display: flex;
-	height: 40px;
+	height: var(--hdsplus-spacing-09);
 	justify-content: center;
 	margin-left: auto;
 	margin-right: 0;
-	width: 40px;
+	width: var(--hdsplus-spacing-09);
 
 	/** Awkward tablet size where cards are very narrow */
 	@media only screen and (min-width: 1000px) and (max-width: 1100px) {

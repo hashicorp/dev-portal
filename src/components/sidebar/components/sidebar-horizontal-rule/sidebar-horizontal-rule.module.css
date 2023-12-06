@@ -6,6 +6,6 @@
 .root {
 	background-color: var(--token-color-border-primary);
 	color: var(--token-color-border-primary);
-	margin-bottom: 20px;
-	margin-top: 20px;
+	margin-bottom: var(--hdsplus-spacing-06);
+	margin-top: var(--hdsplus-spacing-06);
 }

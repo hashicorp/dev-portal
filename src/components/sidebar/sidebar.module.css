@@ -20,7 +20,7 @@
   rendered above it.
   */
 	&:first-child {
-		margin-top: 8px;
+		margin-top: var(--hdsplus-spacing-03);
 	}
 }
 
@@ -38,14 +38,14 @@
 */
 
 .backToLinkWrapper {
-	margin-top: 8px;
+	margin-top: var(--hdsplus-spacing-03);
 }
 
 .filterInputWrapper {
-	margin-bottom: 16px;
-	margin-top: 16px;
+	margin-bottom: var(--hdsplus-spacing-05);
+	margin-top: var(--hdsplus-spacing-05);
 }
 
 .filterInputWrapper--mobile {
-	margin-top: 12px;
+	margin-top: var(--hdsplus-spacing-04);
 }

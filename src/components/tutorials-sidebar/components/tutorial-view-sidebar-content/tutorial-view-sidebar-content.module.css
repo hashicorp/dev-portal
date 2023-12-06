@@ -6,5 +6,5 @@
 .collectionProgressContainer {
 	display: flex;
 	min-height: 36px;
-	margin-bottom: 16px;
+	margin-bottom: var(--hdsplus-spacing-05);
 }

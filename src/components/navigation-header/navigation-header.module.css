@@ -15,8 +15,8 @@
 ***
 */
 .root {
-	--header-padding-left-right: 24px;
-	--header-menu-item-padding-left-right: 12px;
+	--header-padding-left-right: var(--hdsplus-spacing-07);
+	--header-menu-item-padding-left-right: var(--hdsplus-spacing-04);
 
 	background-color: var(--token-color-palette-neutral-700);
 	display: flex;
@@ -43,14 +43,14 @@
 	align-items: center;
 	display: flex;
 	justify-content: left;
-	gap: 24px;
+	gap: var(--hdsplus-spacing-07);
 }
 
 .rightSide {
 	align-items: center;
 	display: flex;
 	justify-content: right;
-	gap: 12px;
+	gap: var(--hdsplus-spacing-04);
 }
 
 .mobileMenuButton {
@@ -84,7 +84,7 @@
 	/* properties */
 	align-items: center;
 	display: flex;
-	gap: 16px;
+	gap: var(--hdsplus-spacing-05);
 
 	@media (--dev-dot-show-mobile-menu) {
 		display: none;

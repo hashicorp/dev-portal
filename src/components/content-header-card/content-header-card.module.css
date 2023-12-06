@@ -7,11 +7,11 @@
 	padding: 0;
 
 	& .cardTop {
-		padding: 16px;
+		padding: var(--hdsplus-spacing-05);
 		display: flex;
 
 		& .icon {
-			margin-right: 12px;
+			margin-right: var(--hdsplus-spacing-04);
 			display: none;
 
 			@media (--dev-dot-tablet-up) {
@@ -24,7 +24,7 @@
 
 			& .upper {
 				display: flex;
-				gap: 16px;
+				gap: var(--hdsplus-spacing-05);
 				flex-direction: column;
 				@media (--dev-dot-tablet-up) {
 					flex-direction: row;
@@ -47,7 +47,7 @@
 
 						& .attribution {
 							color: var(--token-color-foreground-faint);
-							margin-left: 4px;
+							margin-left: var(--hdsplus-spacing-01);
 						}
 					}
 
@@ -84,33 +84,33 @@
 			}
 
 			& .badgeList {
-				margin-top: 16px;
+				margin-top: var(--hdsplus-spacing-05);
 			}
 
 			& .note {
 				color: var(--token-color-foreground-faint);
 				flex-grow: 1;
 				text-align: right;
-				margin-top: 12px;
+				margin-top: var(--hdsplus-spacing-04);
 				@media (--dev-dot-tablet-up) {
-					margin-top: 6px;
+					margin-top: var(--hdsplus-spacing-02);
 				}
 			}
 		}
 	}
 
 	& .cardBottom {
-		padding: 12px 16px;
+		padding: var(--hdsplus-spacing-04) var(--hdsplus-spacing-05);
 		background: var(--token-color-surface-faint);
 
 		/* This is the color from --token-surface-base-box-shadow,
 		which the color value from it is not in a variable alone */
 		border-top: 1px solid var(--token-color-border-primary);
-		border-radius: 0 0 6px 6px;
+		border-radius: 0 0 var(--hdsplus-spacing-02) var(--hdsplus-spacing-02);
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		gap: 16px;
+		gap: var(--hdsplus-spacing-05);
 
 		@media (--dev-dot-tablet-up) {
 			flex-direction: row;
@@ -125,7 +125,7 @@
 			margin: 0;
 			& .link {
 				&:not(:first-of-type) {
-					margin-left: 12px;
+					margin-left: var(--hdsplus-spacing-04);
 				}
 			}
 		}
@@ -137,7 +137,7 @@
 			display: flex;
 			flex-grow: 1;
 			flex-direction: row;
-			gap: 12px;
+			gap: var(--hdsplus-spacing-04);
 
 			&:not(.reversed) {
 				display: flex;

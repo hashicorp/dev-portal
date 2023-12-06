@@ -6,7 +6,7 @@
 .root {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 6px;
+	gap: var(--hdsplus-spacing-02);
 	list-style: none;
 	padding: 0;
 	margin: 0;

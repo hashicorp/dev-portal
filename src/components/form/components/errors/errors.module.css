@@ -7,8 +7,8 @@
 	align-items: flex-start;
 	color: var(--token-form-error-color);
 	display: flex;
-	gap: 8px;
-	margin-top: 4px;
+	gap: var(--hdsplus-spacing-03);
+	margin-top: var(--hdsplus-spacing-01);
 }
 
 .icon {

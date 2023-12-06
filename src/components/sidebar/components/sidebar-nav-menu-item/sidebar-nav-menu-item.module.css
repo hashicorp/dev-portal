@@ -13,7 +13,7 @@
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 2px;
-	padding: 8px;
+	padding: var(--hdsplus-spacing-03);
 	position: relative;
 	text-align: left;
 	width: 100%;
@@ -88,20 +88,20 @@
 }
 
 .navMenuItemLabel {
-	margin-right: 8px;
+	margin-right: var(--hdsplus-spacing-03);
 	width: 100%;
 }
 
 .leadingIcon {
 	display: flex;
-	margin-right: 8px;
+	margin-right: var(--hdsplus-spacing-03);
 }
 
 .rightIconsContainer {
 	align-items: center;
 	display: flex;
 	flex-shrink: 0; /* to prevent wrapping */
-	gap: 8px;
+	gap: var(--hdsplus-spacing-03);
 
 	/* prevent the immediate children from shrinking */
 	& > * {

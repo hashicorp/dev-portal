@@ -5,7 +5,7 @@
 
 .root {
 	display: flex;
-	gap: 8px;
+	gap: var(--hdsplus-spacing-03);
 	align-items: center;
 }
 
@@ -14,11 +14,11 @@
 	height: var(--size);
 
 	&.small {
-		--size: 20px;
+		--size: var(--hdsplus-spacing-06);
 	}
 
 	&.medium {
-		--size: 24px;
+		--size: var(--hdsplus-spacing-07);
 	}
 }
 

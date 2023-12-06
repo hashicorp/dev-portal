@@ -4,5 +4,5 @@
  */
 
 .suggestedPagesWrapper {
-	padding: 16px;
+	padding: var(--hdsplus-spacing-05);
 }

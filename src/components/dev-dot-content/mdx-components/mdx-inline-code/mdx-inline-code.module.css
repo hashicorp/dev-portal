@@ -8,7 +8,7 @@
 	border-radius: 5px;
 	border: 1px solid var(--token-color-border-primary);
 	line-height: 1;
-	padding: 2px 4px 3px 4px;
+	padding: 2px var(--hdsplus-spacing-01) 3px var(--hdsplus-spacing-01);
 
 	@nest html[data-theme='dark'] & {
 		background-color: var(--token-color-surface-strong);

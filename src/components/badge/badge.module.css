@@ -6,7 +6,7 @@
 .root {
 	align-items: center;
 	border-color: transparent;
-	border-radius: 4px;
+	border-radius: var(--hdsplus-spacing-01);
 	border-style: solid;
 	border-width: 1px;
 	display: inline-flex;
@@ -39,8 +39,8 @@
 
 .small {
 	--font-size: 0.8125rem;
-	--icon-margin: 4px;
-	--icon-size: 12px;
+	--icon-margin: var(--hdsplus-spacing-01);
+	--icon-size: var(--hdsplus-spacing-04);
 	--line-height: 1.23077;
 	--min-height: 1.25rem;
 	--padding-left-right: 5px;
@@ -49,8 +49,8 @@
 
 .medium {
 	--font-size: 0.8125rem;
-	--icon-margin: 4px;
-	--icon-size: 16px;
+	--icon-margin: var(--hdsplus-spacing-01);
+	--icon-size: var(--hdsplus-spacing-05);
 	--line-height: 1.23077;
 	--min-height: 1.5rem;
 	--padding-left-right: 7px;
@@ -59,8 +59,8 @@
 
 .large {
 	--font-size: 1rem;
-	--icon-margin: 6px;
-	--icon-size: 16px;
+	--icon-margin: var(--hdsplus-spacing-02);
+	--icon-size: var(--hdsplus-spacing-05);
 	--line-height: 1.5;
 	--min-height: 2rem;
 	--padding-left-right: 7px;

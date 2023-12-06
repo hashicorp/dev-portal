@@ -6,7 +6,7 @@
 .root {
 	& ul {
 		list-style: none;
-		margin-left: 8px;
+		margin-left: var(--hdsplus-spacing-03);
 
 		& li {
 			color: var(--token-color-foreground-primary);
@@ -19,7 +19,7 @@
 				width: 18px;
 				margin-left: calc(-1 * 1.6rem);
 				height: 18px;
-				top: 4px;
+				top: var(--hdsplus-spacing-01);
 				background: url('./check-circle-filled.svg');
 			}
 		}

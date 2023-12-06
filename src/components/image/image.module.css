@@ -5,14 +5,14 @@
 
 .root {
 	background-color: var(--token-color-surface-strong);
-	padding: 12px;
-	border-radius: 6px;
+	padding: var(--hdsplus-spacing-04);
+	border-radius: var(--hdsplus-spacing-02);
 	display: flex;
 	flex-wrap: wrap;
 	overflow: hidden;
 	text-align: center;
 	justify-content: center;
-	margin: 16px auto;
+	margin: var(--hdsplus-spacing-05) auto;
 
 	&.noMargin {
 		margin: 0;

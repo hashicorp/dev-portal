@@ -5,8 +5,8 @@
 
 .productSwitcher {
 	position: fixed;
-	bottom: 16px;
-	left: 16px;
+	bottom: var(--hdsplus-spacing-05);
+	left: var(--hdsplus-spacing-05);
 	z-index: 999;
 }
 
@@ -21,7 +21,7 @@
 	color: #f1f2f3;
 	display: flex;
 	justify-content: space-between;
-	padding: 8px;
+	padding: var(--hdsplus-spacing-03);
 	position: relative;
 
 	&:hover {
@@ -35,7 +35,7 @@
 
 .switcherCaret {
 	color: #dedfe3;
-	margin-right: 4px;
+	margin-right: var(--hdsplus-spacing-01);
 }
 
 .switcherOptionList {
@@ -43,15 +43,15 @@
 	border-radius: 5px;
 	box-shadow: 0 0 0 1px rgba(194, 197, 203, 0.15),
 		0 2px 3px rgba(194, 197, 203, 0.1),
-		0 8px 16px -10px rgba(194, 197, 203, 0.2);
+		0 var(--hdsplus-spacing-03) var(--hdsplus-spacing-05) -10px rgba(194, 197, 203, 0.2);
 	list-style: none;
 	padding: 2px 0;
 	margin: 0;
-	margin-top: 4px;
+	margin-top: var(--hdsplus-spacing-01);
 	width: 264px;
 	z-index: 100;
 	padding-left: 0;
-	margin-bottom: 8px;
+	margin-bottom: var(--hdsplus-spacing-03);
 
 	& ul {
 		list-style: none;
@@ -63,7 +63,7 @@
 	height: 1px;
 	background-color: rgba(255, 255, 255, 0.3);
 	color: rgba(255, 255, 255, 0.3);
-	margin: 4px 12px;
+	margin: var(--hdsplus-spacing-01) var(--hdsplus-spacing-04);
 }
 
 .switcherOption {
@@ -110,7 +110,7 @@ Two items to note:
 	border: 1px solid transparent;
 	border-radius: 5px;
 	display: flex;
-	padding: 4px 8px;
+	padding: var(--hdsplus-spacing-01) var(--hdsplus-spacing-03);
 	width: 100%;
 }
 
@@ -119,16 +119,16 @@ Two items to note:
 	align-items: center;
 	border: 0;
 	background: transparent;
-	padding-right: 8px;
+	padding-right: var(--hdsplus-spacing-03);
 
 	& svg {
-		margin-right: 6px;
+		margin-right: var(--hdsplus-spacing-02);
 	}
 
 	& span {
 		font-size: 14px;
 		font-weight: 400;
-		line-height: 20px;
+		line-height: var(--hdsplus-spacing-06);
 	}
 }
 

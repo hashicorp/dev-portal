@@ -7,7 +7,7 @@
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 12px;
+	margin-bottom: var(--hdsplus-spacing-04);
 }
 
 .rightAlign {

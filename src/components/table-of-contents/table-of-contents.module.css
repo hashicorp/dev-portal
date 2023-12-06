@@ -7,8 +7,8 @@
 	color: var(--token-color-palette-neutral-600);
 	font-size: 14px;
 	font-weight: 600;
-	line-height: 20px;
-	margin-bottom: 16px;
+	line-height: var(--hdsplus-spacing-06);
+	margin-bottom: var(--hdsplus-spacing-05);
 	margin-top: 0;
 	text-align: right;
 }
@@ -24,12 +24,12 @@
 	color: var(--token-color-palette-neutral-500);
 	font-size: 14px;
 	font-weight: 400;
-	line-height: 20px;
+	line-height: var(--hdsplus-spacing-06);
 	position: relative;
 	text-align: right;
 
 	&:not(:last-child) {
-		margin-bottom: 12px;
+		margin-bottom: var(--hdsplus-spacing-04);
 	}
 }
 

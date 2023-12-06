@@ -13,7 +13,7 @@
   */
 	& + ul,
 	& + ol {
-		margin-top: 12px;
+		margin-top: var(--hdsplus-spacing-04);
 	}
 
 	/*
@@ -45,25 +45,25 @@
 
 	/* Note that spacing between the h1 and breadcrumb is handled at the
 	   SidecarSidecar layout level, with margin-bottom on the breadcrumb group. */
-	margin-bottom: 20px;
+	margin-bottom: var(--hdsplus-spacing-06);
 }
 
 .h2 {
 	color: var(--token-color-foreground-strong);
-	margin-bottom: 16px;
-	margin-top: 48px;
+	margin-bottom: var(--hdsplus-spacing-05);
+	margin-top: var(--hdsplus-spacing-10);
 }
 
 .h3 {
 	color: var(--token-color-foreground-strong);
-	margin-bottom: 12px;
-	margin-top: 32px;
+	margin-bottom: var(--hdsplus-spacing-04);
+	margin-top: var(--hdsplus-spacing-08);
 }
 
 .h4,
 .h5,
 .h6 {
 	color: var(--token-color-foreground-primary);
-	margin-bottom: 8px;
-	margin-top: 24px;
+	margin-bottom: var(--hdsplus-spacing-03);
+	margin-top: var(--hdsplus-spacing-07);
 }

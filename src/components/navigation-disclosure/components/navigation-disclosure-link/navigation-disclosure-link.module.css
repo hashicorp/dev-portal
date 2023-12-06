@@ -10,7 +10,7 @@
 	/* CSS Properties */
 	border-radius: 5px;
 	display: block;
-	padding: 8px;
+	padding: var(--hdsplus-spacing-03);
 	text-decoration: none;
 	width: 100%;
 

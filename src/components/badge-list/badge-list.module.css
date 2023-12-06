@@ -9,7 +9,7 @@
 	margin: 0;
 	display: flex;
 	flex-wrap: wrap;
-	gap: 8px;
+	gap: var(--hdsplus-spacing-03);
 }
 
 .badge {

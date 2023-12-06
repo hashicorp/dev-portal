@@ -4,9 +4,9 @@
  */
 
 .codeBlockMargin {
-	margin: 16px 0;
+	margin: var(--hdsplus-spacing-05) 0;
 }
 
 .codeTabsMargin {
-	margin: 24px 0;
+	margin: var(--hdsplus-spacing-07) 0;
 }

@@ -4,13 +4,13 @@
  */
 
 .mobileMenuContainer {
-	padding: 24px;
+	padding: var(--hdsplus-spacing-07);
 	z-index: 4;
 }
 
 .levelButtons {
 	display: flex;
-	margin-bottom: 12px;
+	margin-bottom: var(--hdsplus-spacing-04);
 }
 
 .levelUpButton {

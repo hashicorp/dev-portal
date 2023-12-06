@@ -30,7 +30,7 @@
 }
 
 .content {
-	padding-top: 4px;
+	padding-top: var(--hdsplus-spacing-01);
 	position: absolute;
 	width: fit-content;
 	z-index: 2;
@@ -38,13 +38,13 @@
 
 .list {
 	background-color: var(--token-color-surface-primary);
-	border-radius: 6px;
+	border-radius: var(--hdsplus-spacing-02);
 	box-shadow: var(--token-surface-high-box-shadow);
 	list-style: none;
 	margin: 0;
 	max-width: 400px;
 	min-width: 200px;
-	padding: 4px 0;
+	padding: var(--hdsplus-spacing-01) 0;
 	width: max-content;
 
 	&.full-width {

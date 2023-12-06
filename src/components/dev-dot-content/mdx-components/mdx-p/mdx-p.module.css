@@ -6,5 +6,5 @@
 .p {
 	color: var(--token-color-foreground-primary);
 	line-height: 1.6875;
-	margin: 16px 0;
+	margin: var(--hdsplus-spacing-05) 0;
 }

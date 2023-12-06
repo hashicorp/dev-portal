@@ -6,13 +6,13 @@
 .root {
 	--bg: var(--token-color-palette-neutral-50);
 	--border: var(--token-color-palette-alpha-200);
-	--radius: 6px;
+	--radius: var(--hdsplus-spacing-02);
 
 	position: relative;
 }
 
 .tableWrapper {
-	margin: 24px 0;
+	margin: var(--hdsplus-spacing-07) 0;
 	overflow-x: auto;
 
 	/**
@@ -40,7 +40,7 @@
 
 		& thead {
 			& th {
-				padding: 8px 12px;
+				padding: var(--hdsplus-spacing-03) var(--hdsplus-spacing-04);
 				background: var(--bg);
 				border-bottom: 1px solid var(--border);
 				border-top: 1px solid var(--border);
@@ -64,7 +64,7 @@
 		& tbody {
 			& tr {
 				& td {
-					padding: 8px 12px;
+					padding: var(--hdsplus-spacing-03) var(--hdsplus-spacing-04);
 					border-bottom: 1px solid var(--border);
 					border-right: 1px solid var(--border);
 					vertical-align: top;

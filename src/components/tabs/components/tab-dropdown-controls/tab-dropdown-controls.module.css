@@ -9,7 +9,7 @@
 
 	/* In nested tabs, include an underline-ish style under the select */
 	&.isNested {
-		margin-bottom: 4px;
+		margin-bottom: var(--hdsplus-spacing-01);
 
 		/* Note: ::after + margin is used here to match design spec,
        as border is spaced 4px from the bottom of the select...
@@ -39,13 +39,13 @@
 .leadingIcon {
 	composes: icons;
 	color: var(--token-color-foreground-action);
-	left: 12px;
+	left: var(--hdsplus-spacing-04);
 }
 
 .selectTrailingIcon {
 	composes: icons;
 	color: var(--token-color-palette-neutral-600);
-	right: 12px;
+	right: var(--hdsplus-spacing-04);
 }
 
 .select {
@@ -61,18 +61,21 @@
 	color: var(--token-color-foreground-action);
 	cursor: pointer;
 	font-weight: var(--token-typography-font-weight-medium);
-	padding: 7px 40px 7px 12px;
+	padding: 7px var(--hdsplus-spacing-09) 7px var(--hdsplus-spacing-04);
 	width: 100%;
 
 	/* In nested tabs, no background, no border */
 	&.isNested {
 		border-color: transparent;
 		background-color: var(--token-color-surface-primary);
-		padding-left: 8px;
+		padding-left: var(--hdsplus-spacing-03);
 	}
 
 	&.hasIcon {
-		padding-left: calc(12px + 16px + 6px);
+		padding-left: calc(
+			var(--hdsplus-spacing-04) + var(--hdsplus-spacing-05) +
+				var(--hdsplus-spacing-02)
+		);
 	}
 }
 

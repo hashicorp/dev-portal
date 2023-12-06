@@ -6,7 +6,7 @@
 .root {
 	align-items: center;
 	display: flex;
-	gap: 16px;
+	gap: var(--hdsplus-spacing-05);
 
 	&.hasSubtitle {
 		align-items: flex-start;
@@ -25,7 +25,7 @@
 	composes: g-offset-scroll-margin-top from global;
 	color: var(--token-color-foreground-strong);
 	margin-top: 0;
-	margin-bottom: 8px;
+	margin-bottom: var(--hdsplus-spacing-03);
 	width: 100%;
 }
 

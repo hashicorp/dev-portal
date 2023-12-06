@@ -12,7 +12,7 @@
 	font-family: inherit;
 	font-size: 14px;
 	font-weight: 500;
-	margin-top: 24px;
+	margin-top: var(--hdsplus-spacing-07);
 	transition: color 0.2s;
 
 	&:hover {
@@ -22,5 +22,5 @@
 
 .editLinkIcon {
 	display: block;
-	margin-right: 8px;
+	margin-right: var(--hdsplus-spacing-03);
 }

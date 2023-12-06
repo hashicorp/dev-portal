@@ -9,7 +9,7 @@
 	--background-color: transparent;
 	--border-color: transparent;
 	--color: var(--token-color-foreground-faint);
-	--size: 24px;
+	--size: var(--hdsplus-spacing-07);
 
 	appearance: none;
 	background: none;

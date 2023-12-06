@@ -11,12 +11,12 @@
 	flex-direction: column;
 	flex: 1 0 auto;
 	position: relative;
-	margin-bottom: 128px;
+	margin-bottom: var(--hdsplus-spacing-16);
 	width: 100%;
 
 	@media (--with-sidenav) {
 		flex-direction: row;
-		margin-top: 72px;
+		margin-top: var(--hdsplus-spacing-13);
 	}
 }
 
@@ -27,7 +27,7 @@
 
 .categoryHeading {
 	composes: g-type-display-4 from global;
-	margin: 32px 0 16px 0;
+	margin: var(--hdsplus-spacing-08) 0 var(--hdsplus-spacing-05) 0;
 }
 
 .sidebarPrompt {
@@ -37,7 +37,7 @@
 .contentContainer {
 	padding-left: 0;
 	padding-right: 0;
-	margin: 64px 0 0 0;
+	margin: var(--hdsplus-spacing-12) 0 0 0;
 
 	@media (--with-sidenav) {
 		padding-left: 0;

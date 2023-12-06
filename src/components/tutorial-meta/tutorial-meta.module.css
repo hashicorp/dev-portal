@@ -4,10 +4,10 @@
  */
 
 .header {
-	--spacing-sml: 16px;
-	--spacing-med: 20px;
-	--spacing-lrg: 24px;
-	--spacing-xl: 32px;
+	--spacing-sml: var(--hdsplus-spacing-05);
+	--spacing-med: var(--hdsplus-spacing-06);
+	--spacing-lrg: var(--hdsplus-spacing-07);
+	--spacing-xl: var(--hdsplus-spacing-08);
 
 	margin-bottom: var(--spacing-xl);
 }
@@ -24,7 +24,7 @@
 	flex-direction: column;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	gap: 16px 8px;
+	gap: var(--hdsplus-spacing-05) var(--hdsplus-spacing-03);
 	margin-bottom: var(--spacing-sml);
 
 	@media (--dev-dot-tablet-up) {
@@ -39,6 +39,6 @@
 .buttonGroup {
 	display: flex;
 	flex-direction: row;
-	gap: 12px;
+	gap: var(--hdsplus-spacing-04);
 	align-items: center;
 }
