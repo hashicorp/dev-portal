@@ -6,7 +6,7 @@
 import { ReactElement } from 'react'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import Badge, { BadgeProps } from 'components/badge'
-import { MenuItem } from 'components/sidebar'
+import { MenuItemOptionalProperties } from 'components/sidebar'
 import { ProductSlug } from 'types/products'
 
 interface RightIconsContainerProps {
@@ -23,12 +23,8 @@ interface SidebarNavMenuItemBadgeProps {
 	type?: BadgeProps['type']
 }
 
-interface SidebarNavMenuItemProps {
-	item: MenuItem
-}
-
 type SupportedIconName = 'home' & 'guide' & ProductSlug
-interface SidebarNavLinkItem extends MenuItem {
+interface SidebarNavLinkItem extends MenuItemOptionalProperties {
 	leadingIconName?: SupportedIconName
 }
 
@@ -45,6 +41,5 @@ export type {
 	SidebarNavMenuButtonProps,
 	SidebarNavLinkItemProps,
 	SidebarNavMenuItemBadgeProps,
-	SidebarNavMenuItemProps,
 	SupportedIconName,
 }

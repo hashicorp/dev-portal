@@ -22,7 +22,12 @@ import {
 } from 'components/sidebar/components'
 
 // Local imports
-import { FilteredNavItem, MenuItem, SidebarProps } from './types'
+import {
+	FilteredNavItem,
+	MenuItem,
+	MenuItemOptionalProperties,
+	SidebarProps,
+} from './types'
 import {
 	addNavItemMetaData,
 	getFilteredNavItems,
@@ -157,5 +162,5 @@ const Sidebar = ({
 	)
 }
 
-export type { MenuItem, SidebarProps }
+export type { MenuItem, MenuItemOptionalProperties, SidebarProps }
 export default Sidebar
