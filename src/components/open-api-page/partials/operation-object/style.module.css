@@ -28,19 +28,24 @@
 }
 
 .endpoint {
-	cursor: text;
 	display: inline-block;
-	user-select: text;
 	width: fit-content;
 
 	& .endpointInlineCode {
 		color: var(--header-text-color);
+		cursor: text;
 		background: none;
 		border: none;
 		padding-left: 0;
 		padding-right: 0;
 		margin-right: 8px;
+		user-select: text;
 		word-break: break-all;
+	}
+
+	& .path {
+		margin-right: 0;
+		padding-right: 10px;
 	}
 }
 

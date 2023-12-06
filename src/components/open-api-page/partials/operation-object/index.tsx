@@ -85,7 +85,9 @@ function OperationObject({
 							<MdxInlineCode className={s.endpointInlineCode}>
 								{type.toUpperCase()}
 							</MdxInlineCode>
-							<MdxInlineCode className={s.endpointInlineCode}>
+							<MdxInlineCode
+								className={classNames(s.endpointInlineCode, s.path)}
+							>
 								{path}
 							</MdxInlineCode>
 						</span>
