@@ -68,20 +68,39 @@ const devPortalToDotIoRedirects = isPreview()
  * @returns {Redirect[]}
  */
 function addHostCondition(redirects, productSlug) {
+	const isProxiedProduct = proxySettings[productSlug] !== undefined
 	const host = proxySettings[productSlug]?.host
 	return redirects.map((redirect) => {
+		/**
+		 * If we've explicitly set the DEV_IO env variable, or meet a specific
+		 * (but rarely used) commit message trigger (see `getProxiedProductSlug`),
+		 * then we know we're trying to preview the proxied domain, even without
+		 * any kind of host or other condition. In this case, we return the redirect
+		 * with no additional conditions.
+		 */
 		if (productSlug == PROXIED_PRODUCT) {
 			return redirect
 		}
 
-		// If the productSlug is NOT a beta product, it is GA, so handle the redirect appropriately (exclude sentinel)
-		if (productSlug !== 'sentinel') {
+		/**
+		 * If the productSlug is NOT a beta product, ie has been migrated to Dev Dot
+		 * and does not have its docs hosted on a proxied domain, handle it as such.
+		 * Note we'll have validated these author-controlled redirects
+		 * in `filterInvalidRedirects`, to ensure they start with `/<productSlug>`.
+		 */
+		if (!isProxiedProduct) {
 			// The redirect should always apply in lower environments
 			if (process.env.HASHI_ENV !== 'production') {
 				return redirect
 			}
 
-			// for production, only apply the redirect for the developer domain
+			/**
+			 * For production, only apply the redirect for the developer domain, as
+			 * other proxied domains still exist, and we don't want to affect those.
+			 * TODO: remove this once Sentinel is migrated, as we'll no longer
+			 * have proxied domains. Asana task:
+			 * https://app.asana.com/0/1203706321379360/1205838575366383/f
+			 */
 			return {
 				...redirect,
 				has: [
@@ -91,10 +110,9 @@ function addHostCondition(redirects, productSlug) {
 					},
 				],
 			}
-		}
-
-		// To enable previewing of .io sites, we accept an hc_dd_proxied_site cookie which must have a value matching a product slug
-		if (isPreview()) {
+		} else if (isPreview()) {
+			// To enable previewing of .io sites, we accept an hc_dd_proxied_site
+			// cookie which must have a value matching a product slug.
 			return {
 				...redirect,
 				has: [
@@ -105,16 +123,20 @@ function addHostCondition(redirects, productSlug) {
 					},
 				],
 			}
-		}
-
-		return {
-			...redirect,
-			has: [
-				{
-					type: 'host',
-					value: host,
-				},
-			],
+		} else {
+			/**
+			 * This default case captures !isPreview() && isProxiedProduct,
+			 * that is, this is a redirect for a proxied product in production.
+			 */
+			return {
+				...redirect,
+				has: [
+					{
+						type: 'host',
+						value: host,
+					},
+				],
+			}
 		}
 	})
 }
@@ -192,10 +214,11 @@ async function getRedirectsFromContentRepo(
 	}
 	/**
 	 * Evaluate the redirects file string, filter invalid redirects, and add
-	 * a host condition for proxied sites.
+	 * a host condition for any sites that have `proxySettings` defined.
 	 *
-	 * TODO(zachshilton): remove `addHostCondition` once Sentinel is migrated
+	 * TODO(zachshilton): can remove `addHostCondition` once Sentinel is migrated
 	 * (once `docs.hashicorp.com/sentinel` redirects to `developer.hashicorp.com`)
+	 * Task: https://app.asana.com/0/1203706321379360/1205838575366383/f
 	 */
 	/** @type {Redirect[]} */
 	const parsedRedirects = eval(redirectsFileString) ?? []
@@ -211,27 +234,6 @@ async function buildProductRedirects() {
 		return []
 	}
 
-	/**
-	 * TODO
-	 * Figure out solution to load Sentinel redirects from the Sentinel repo:
-	 * https://app.asana.com/0/1202097197789424/1202532915796679/f
-	 */
-	const sentinelIoRedirects = [
-		{
-			source: '/',
-			destination: '/sentinel',
-			permanent: true,
-		},
-		{
-			source: '/sentinel/commands/config',
-			destination: '/sentinel/configuration',
-			permanent: true,
-		},
-		// disallow '.html' or '/index.html' in favor of cleaner, simpler paths
-		{ source: '/:path*/index', destination: '/:path*', permanent: true },
-		{ source: '/:path*.html', destination: '/:path*', permanent: true },
-	]
-
 	const productRedirects = (
 		await Promise.all([
 			getRedirectsFromContentRepo('boundary'),
@@ -244,14 +246,11 @@ async function buildProductRedirects() {
 			getRedirectsFromContentRepo('terraform-docs-common'),
 			getRedirectsFromContentRepo('hcp-docs', '/redirects.js'),
 			getRedirectsFromContentRepo('ptfe-releases'),
+			getRedirectsFromContentRepo('sentinel'),
 		])
 	).flat()
 
-	return [
-		...devPortalToDotIoRedirects,
-		...productRedirects,
-		...addHostCondition(sentinelIoRedirects, 'sentinel'),
-	]
+	return [...devPortalToDotIoRedirects, ...productRedirects]
 }
 
 /**
@@ -377,13 +376,21 @@ function filterInvalidRedirects(redirects, repoSlug) {
 	 * Filter out any redirects not prefixed with the `product` slug.
 	 */
 	const validRedirects = redirects.filter((entry) => {
-		// Redirects must be prefixed with the product slug.
+		/**
+		 * Proxied product redirects are assumed to be valid.
+		 * TODO: we can remove this once Sentinel is migrated, as it's the
+		 * last proxied product. Asana task:
+		 * https://app.asana.com/0/1203706321379360/1205838575366383/f
+		 */
+		const isProxiedProduct = Boolean(proxySettings[repoSlug])
+		// Redirects for non-proxied must be prefixed with the product slug.
 		const isPrefixed = entry.source.startsWith(`/${productSlug}`)
-		// Keep track of non-prefixed redirects, we want to warn about these
-		if (!isPrefixed) {
+		// Keep track of invalid redirects, we want to warn about these
+		const isValidRedirect = isProxiedProduct || isPrefixed
+		if (!isValidRedirect) {
 			invalidRedirects.push(entry)
 		}
-		return isPrefixed
+		return isValidRedirect
 	})
 
 	/**
