@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.heading {
-	color: var(--token-color-foreground-strong);
+.headingContainer {
 	margin-bottom: 16px;
 }
 
