@@ -63,7 +63,7 @@ const ProductDownloadsViewContent = ({
 		featuredTutorialCards,
 		sidecarMarketingCard,
 		sidecarHcpCallout,
-		sidebarMenuItems,
+		sidebarMenuItems = [],
 		installName,
 	} = pageContent
 	const currentProduct = useCurrentProduct()
