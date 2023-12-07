@@ -16,7 +16,9 @@ import { serialize } from 'next-mdx-remote/serialize'
 
 const basePath = '/validated-designs'
 
-function loadMetadata(path: string): { title: string; description: string } {
+function loadMetadata(
+	path: string
+): { title: string; description: string } | null {
 	try {
 		const data = yaml.load(
 			fs.readFileSync(path, {
@@ -29,6 +31,7 @@ function loadMetadata(path: string): { title: string; description: string } {
 			'[Error: HVD template] Unable to parse yaml metadata file ',
 			e
 		)
+		return null
 	}
 }
 
@@ -93,28 +96,25 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 			return
 		}
 
+		const metadata = loadMetadata(path.join(HVD_CONTENT_DIR, item))
+		if (!metadata) {
+			return
+		}
+
 		// We assume category config files have 3 path parts, and hvd guide configs have 4 parts
 		const isCategoryMetadata = pathParts.length === 3
 		const isHvdMetadata = pathParts.length === 4
 
 		const slug = `${product}-${category}`
 		if (isCategoryMetadata) {
-			const { title, description } = loadMetadata(
-				path.join(HVD_CONTENT_DIR, item)
-			)
-
 			hvdCategoryGroups.push({
 				slug,
-				title,
-				description,
+				title: metadata.title,
+				description: metadata.description,
 				product,
 				guides: [],
 			})
 		} else if (isHvdMetadata) {
-			const { title, description } = loadMetadata(
-				path.join(HVD_CONTENT_DIR, item)
-			)
-
 			// find the existing HvdCategoryGroup, because we traverse the files in order the HvdCategoryGroup YAML will always come before the HvdGuide YAML
 			const categoryGroup = hvdCategoryGroups.find(
 				(categoryGroup: HvdCategoryGroup) => {
@@ -148,8 +148,8 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 
 			categoryGroup.guides.push({
 				slug: categorySlug,
-				title,
-				description,
+				title: metadata.title,
+				description: metadata.description,
 				href: `${basePath}/${categorySlug}`,
 				pages,
 			})
