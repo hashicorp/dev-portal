@@ -5,6 +5,7 @@
 
 import ValidatedDesignGuideView from 'views/validated-designs/guide'
 import {
+	getHvdCategoryGroups,
 	getHvdCategoryGroupsPaths,
 	getHvdGuidePropsFromSlugs,
 } from 'views/validated-designs/server'
@@ -13,14 +14,16 @@ import {
 // for example /validated-designs/terraform-operation-guides-adoption would render the content for
 // /validated-designs/terraform-operation-guides-adoption/0000-introduction
 export async function getStaticPaths() {
-	const pagePaths = getHvdCategoryGroupsPaths()
+	const categoryGroups = getHvdCategoryGroups()
 
-	if (!pagePaths) {
+	if (!categoryGroups) {
 		return {
 			paths: [],
 			fallback: false,
 		}
 	}
+
+	const pagePaths = getHvdCategoryGroupsPaths(categoryGroups)
 
 	return {
 		paths: [

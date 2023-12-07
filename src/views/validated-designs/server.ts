@@ -9,7 +9,7 @@ import yaml from 'js-yaml'
 import { isProductSlug } from 'lib/products'
 // @TODO create an alias for root dir
 import { HVD_CONTENT_DIR } from '../../../scripts/extract-hvd-content'
-import { HvdCategoryGroup } from './types'
+import { HvdCategoryGroup, HvdGuide, HvdPage } from './types'
 import { ValidatedDesignsGuideProps } from './guide'
 import { ValidatedDesignsLandingProps } from '.'
 
@@ -135,15 +135,15 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 				const pagePathParts = pagePath.split('/')
 				const pageFile = pagePathParts[pagePathParts.length - 1]
 
-				const slug = pageFile
+				const pageSlug = pageFile
 					.replace('.mdx', '')
 					.substring(pageFile.indexOf('-') + 1)
 
 				return {
-					slug,
-					title: slug.replaceAll('-', ' '),
+					slug: pageSlug,
+					title: pageSlug.replaceAll('-', ' '),
 					filePath: path.join(HVD_CONTENT_DIR, pagePath),
-					href: `${basePath}/${categorySlug}/${slug}`,
+					href: `${basePath}/${categorySlug}/${pageSlug}`,
 				}
 			})
 
@@ -160,25 +160,17 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 	return hvdCategoryGroups
 }
 
-export function getHvdCategoryGroupsPaths(): string[][] | null {
-	const categoryGroups = getHvdCategoryGroups()
-
-	if (!categoryGroups) {
-		return null
-	}
+export function getHvdCategoryGroupsPaths(
+	categoryGroups: HvdCategoryGroup[]
+): string[][] | null {
 	// [[guide-slug], [guide-slug, page-slug]]
 	// e.g. [[terraform-operation-guide-adoption], [terraform-operation-guide-adoption, page-slug]]
-	const paths = []
-	for (const categoryGroup of categoryGroups) {
-		for (const guide of categoryGroup.guides) {
-			paths.push([guide.slug])
-			for (const page of guide.pages) {
-				paths.push([guide.slug, page.slug])
-			}
-		}
-	}
-
-	return paths
+	return categoryGroups.flatMap((categoryGroup: HvdCategoryGroup) =>
+		categoryGroup.guides.flatMap((guide: HvdGuide) => [
+			[guide.slug],
+			...guide.pages.map((page: HvdPage) => [guide.slug, page.slug]),
+		])
+	)
 }
 
 // @TODO: calculate the actual url from the headers
@@ -257,7 +249,6 @@ export async function getHvdGuidePropsFromSlugs(
 }
 
 export function getHvdLandingProps(): ValidatedDesignsLandingProps | null {
-	// @TODO — the title and description should be sourced from the content repo
 	const categoryGroups = getHvdCategoryGroups()
 
 	if (!categoryGroups) {
