@@ -13,14 +13,10 @@ import { HvdCategoryGroup, HvdGuide } from './types'
  * Can be updated and adjusted as anyone sees fit based on the needs of the view
  */
 export interface ValidatedDesignsLandingProps {
-	title: string
-	description: string
 	categoryGroups: HvdCategoryGroup[]
 }
 
 export default function ValidatedDesignsLandingView({
-	title,
-	description,
 	categoryGroups,
 }: ValidatedDesignsLandingProps) {
 	return (
@@ -28,8 +24,7 @@ export default function ValidatedDesignsLandingView({
 			<Head>
 				<meta name="robots" content="noindex, nofollow" />
 			</Head>
-			<h1>{title}</h1>
-			<p>{description}</p>
+			<h1>{'HashiCorp Validated Designs'}</h1>
 			<ul>
 				{categoryGroups.map((category: HvdCategoryGroup) => (
 					<li key={category.slug}>

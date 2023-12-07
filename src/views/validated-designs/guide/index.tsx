@@ -21,7 +21,6 @@ export interface ValidatedDesignsGuideProps {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	headers: any // @TODO: fix type
 	currentPageIndex: number
-	categorySlug: string
 	basePath: string
 	pages: HvdPage[]
 }

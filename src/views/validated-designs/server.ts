@@ -11,7 +11,6 @@ import { isProductSlug } from 'lib/products'
 import { HVD_CONTENT_DIR } from '../../../scripts/extract-hvd-content'
 import { HvdCategoryGroup, HvdGuide, HvdPage } from './types'
 import { ValidatedDesignsGuideProps } from './guide'
-import { ValidatedDesignsLandingProps } from '.'
 
 import { serialize } from 'next-mdx-remote/serialize'
 
@@ -248,19 +247,4 @@ export async function getHvdGuidePropsFromSlug(
 	}
 
 	return validatedDesignsGuideProps
-}
-
-export function getHvdLandingProps(): ValidatedDesignsLandingProps | null {
-	const categoryGroups = getHvdCategoryGroups()
-
-	if (!categoryGroups) {
-		return null
-	}
-
-	return {
-		title: 'HashiCorp Validated Designs',
-		description:
-			'@TODO lorem ipsum the rain in Spain stays mainly in the plains.',
-		categoryGroups: getHvdCategoryGroups(),
-	}
 }
