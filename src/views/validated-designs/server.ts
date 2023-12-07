@@ -52,7 +52,7 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 		 * locally will need to have a valid `GITHUB_TOKEN`.
 		 */
 		if (process.env.IS_CONTENT_PREVIEW) {
-			console.error(
+			console.warn(
 				`[Error]: HVD content was not found, and will not be built. If you need to work on HVD content, please ensure a valid GITHUB_TOKEN is present in your environment variables. Error: ${e}`
 			)
 		} else {
@@ -162,7 +162,7 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 
 export function getHvdCategoryGroupsPaths(
 	categoryGroups: HvdCategoryGroup[]
-): string[][] | null {
+): string[][] {
 	// [[guide-slug], [guide-slug, page-slug]]
 	// e.g. [[terraform-operation-guide-adoption], [terraform-operation-guide-adoption, page-slug]]
 	return categoryGroups.flatMap((categoryGroup: HvdCategoryGroup) =>
@@ -189,16 +189,11 @@ function getMarkdownHeaders(markdown: string) {
 	return headers
 }
 
-export async function getHvdGuidePropsFromSlugs(
-	slugs: string[] | null
-): Promise<ValidatedDesignsGuideProps> {
-	const categoryGroups = getHvdCategoryGroups()
-
-	if (!categoryGroups) {
-		return null
-	}
-
-	const [guideSlug, pageSlug] = slugs
+export async function getHvdGuidePropsFromSlug(
+	categoryGroups: HvdCategoryGroup[],
+	slug: string[]
+): Promise<ValidatedDesignsGuideProps | null> {
+	const [guideSlug, pageSlug] = slug
 
 	const validatedDesignsGuideProps = {
 		title: '',
@@ -222,7 +217,14 @@ export async function getHvdGuidePropsFromSlugs(
 					// If no pageSlug is provided, default to the first page
 					if (page.slug === pageSlug || (!pageSlug && index === 0)) {
 						validatedDesignsGuideProps.title = page.title
-						const content = fs.readFileSync(page.filePath, 'utf8')
+
+						let content: string
+						try {
+							content = fs.readFileSync(page.filePath, 'utf8')
+						} catch (err) {
+							console.error(err)
+							return null
+						}
 
 						const headers = getMarkdownHeaders(content)
 						// @TODO: this does not add IDs to the headers, figure out why
