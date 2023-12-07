@@ -10,6 +10,9 @@ import OutlineNav from 'components/outline-nav'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 
 import { HvdPage } from '../types'
+import DirectionalLinkBox from 'views/tutorial-view/components/next-previous/components/directional-link-box'
+
+import s from './detail-view.module.css'
 
 export interface ValidatedDesignsGuideProps {
 	title: string
@@ -31,6 +34,38 @@ export default function ValidatedDesignGuideView({
 	basePath,
 	pages,
 }: ValidatedDesignsGuideProps) {
+	function renderPreviousLink() {
+		if (currentPageIndex !== 0 && pages[currentPageIndex - 1]) {
+			const page = pages[currentPageIndex - 1]
+
+			return (
+				<DirectionalLinkBox
+					label="Previous"
+					name={page.title}
+					href={page.href}
+					direction={'previous'}
+					ariaLabel={`Go to previous page: ${page.title}`}
+				/>
+			)
+		}
+	}
+
+	function renderNextLink() {
+		if (currentPageIndex !== pages.length - 1 && pages[currentPageIndex + 1]) {
+			const page = pages[currentPageIndex + 1]
+
+			return (
+				<DirectionalLinkBox
+					label="Next"
+					name={page.title}
+					href={page.href}
+					direction={'next'}
+					ariaLabel={`Go to next page: ${page.title}`}
+				/>
+			)
+		}
+	}
+
 	return (
 		<SidebarSidecarLayout
 			AlternateSidebar={() => (
@@ -54,6 +89,10 @@ export default function ValidatedDesignGuideView({
 				<meta name="robots" content="noindex, nofollow" />
 			</Head>
 			<DevDotContent mdxRemoteProps={{ ...mdxSource }} />
+			<div className={s.linkBoxWrapper}>
+				{renderPreviousLink()}
+				{renderNextLink()}
+			</div>
 		</SidebarSidecarLayout>
 	)
 }

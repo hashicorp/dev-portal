@@ -1,0 +1,33 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.linkBoxWrapper {
+	--gap: 24px;
+	--item-count: 2;
+
+	border-top: 1px solid var(--token-color-border-primary);
+	display: flex;
+	flex-direction: column;
+	gap: var(--gap);
+	margin-top: 48px;
+	padding-top: 56px;
+
+	& > * {
+		/* Items should grow and shrink, but should ideally take up their
+       "auto" width, which is their size without text wrapping. */
+		flex: 1 1 auto;
+
+		/* With flex-basis: auto on both items, the one with longer text
+       will take up more space by default. Setting min-width to the
+       width of half the available space (minus gap) ensures that
+       each item takes up an equal amount of space. This comes at the
+       cost of going to a single-column layout slightly earlier */
+		min-width: calc(50% - (var(--gap) / var(--item-count)));
+	}
+
+	@media (--dev-dot-tablet-up) {
+		flex-direction: row;
+	}
+}
