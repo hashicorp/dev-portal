@@ -245,35 +245,8 @@ async function buildProductRedirects() {
 			getRedirectsFromContentRepo('consul'),
 			getRedirectsFromContentRepo('terraform-docs-common'),
 			getRedirectsFromContentRepo('hcp-docs', '/redirects.js'),
+			getRedirectsFromContentRepo('ptfe-releases'),
 			getRedirectsFromContentRepo('sentinel'),
-			/**
-			 * Note: `hashicorp/ptfe-releases` is in the process of adding a
-			 * `redirects.js` file. Until a release is cut and our content API
-			 * has a `latestRef` corresponding to a commit with that file, we
-			 * expect any attempt to fetch the redirects to 404. To account for this,
-			 * we've added a temporary try-catch block here.
-			 *
-			 * TODO(zachshilton): remove this try-catch block,
-			 * once `hashicorp/ptfe-releases` has cut a release with a `redirect.js`
-			 * file and that release has been extracted by our content workflows. At
-			 * that point, we'll expect the redirects.js file to exist, and only then
-			 * should 404s break the build.
-			 * Task: https://app.asana.com/0/1202097197789424/1205453036684673/f
-			 */
-			(async function getPtfeRedirects() {
-				try {
-					return await getRedirectsFromContentRepo('ptfe-releases')
-				} catch (e) {
-					if (e.toString() === 'HttpError: Not Found') {
-						console.warn(
-							'Redirects for "hashicorp/ptfe-releases" were not found in the latest set of content extracted by our content API. Skipping for now.'
-						)
-						return []
-					} else {
-						throw e
-					}
-				}
-			})(),
 		])
 	).flat()
 
