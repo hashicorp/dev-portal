@@ -13,6 +13,9 @@ import { HvdCategoryGroup, HvdGuide, HvdPage } from './types'
 import { ValidatedDesignsGuideProps } from './guide'
 
 import { serialize } from 'next-mdx-remote/serialize'
+import remarkPluginAnchorLinkData, {
+	AnchorLinkItem,
+} from 'lib/remark-plugins/remark-plugin-anchor-link-data'
 
 const basePath = '/validated-designs'
 
@@ -172,32 +175,15 @@ export function getHvdCategoryGroupsPaths(
 	)
 }
 
-// @TODO: calculate the actual url from the headers
-function getMarkdownHeaders(markdown: string) {
-	const headerRegex = /^(#{1,6})\s*(.+)/gm
-	let match
-	const headers = []
-
-	while ((match = headerRegex.exec(markdown)) !== null) {
-		headers.push({
-			title: match[2].trim(),
-			url: '#test',
-		})
-	}
-
-	return headers
-}
-
 export async function getHvdGuidePropsFromSlug(
 	categoryGroups: HvdCategoryGroup[],
 	slug: string[]
 ): Promise<ValidatedDesignsGuideProps | null> {
 	const [guideSlug, pageSlug] = slug
 
-	const validatedDesignsGuideProps = {
+	const validatedDesignsGuideProps: ValidatedDesignsGuideProps = {
 		title: '',
 		mdxSource: null,
-		categorySlug: '',
 		headers: [],
 		currentPageIndex: 0,
 		basePath,
@@ -208,8 +194,6 @@ export async function getHvdGuidePropsFromSlug(
 	for (const categoryGroup of categoryGroups) {
 		for (const guide of categoryGroup.guides) {
 			if (guide.slug === guideSlug) {
-				validatedDesignsGuideProps.categorySlug = categoryGroup.slug
-
 				for (let index = 0; index < guide.pages.length; index++) {
 					const page = guide.pages[index]
 
@@ -225,9 +209,17 @@ export async function getHvdGuidePropsFromSlug(
 							return null
 						}
 
-						const headers = getMarkdownHeaders(content)
-						// @TODO: this does not add IDs to the headers, figure out why
-						const mdxSource = await serialize(content)
+						const anchorLinks: AnchorLinkItem[] = []
+						const mdxSource = await serialize(content, {
+							mdxOptions: {
+								remarkPlugins: [[remarkPluginAnchorLinkData, { anchorLinks }]],
+							},
+						})
+
+						const headers = anchorLinks.map((anchorLink: AnchorLinkItem) => ({
+							title: anchorLink.title,
+							url: `#${anchorLink.id}`,
+						}))
 
 						validatedDesignsGuideProps.headers = headers
 						validatedDesignsGuideProps.mdxSource = mdxSource

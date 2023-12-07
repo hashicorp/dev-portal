@@ -6,7 +6,7 @@
 import Head from 'next/head'
 import InlineLink from 'components/inline-link'
 import DevDotContent from 'components/dev-dot-content'
-import OutlineNav from 'components/outline-nav'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 
 import { HvdPage } from '../types'
@@ -14,12 +14,13 @@ import DirectionalLinkBox from 'views/tutorial-view/components/next-previous/com
 
 import s from './detail-view.module.css'
 
+import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { OutlineLinkItem } from 'components/outline-nav/types'
+
 export interface ValidatedDesignsGuideProps {
 	title: string
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	mdxSource: any // @TODO: fix type
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	headers: any // @TODO: fix type
+	mdxSource: MDXRemoteSerializeResult
+	headers: OutlineLinkItem[]
 	currentPageIndex: number
 	basePath: string
 	pages: HvdPage[]
@@ -81,8 +82,7 @@ export default function ValidatedDesignGuideView({
 				</>
 			)}
 			sidebarNavDataLevels={[]}
-			// @TODO: move to using OutlineNavWithActiveLink
-			sidecarSlot={<OutlineNav items={headers} />}
+			sidecarSlot={<OutlineNavWithActive items={headers} />}
 		>
 			<Head>
 				<meta name="robots" content="noindex, nofollow" />
