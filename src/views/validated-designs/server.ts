@@ -199,7 +199,7 @@ export async function getHvdGuidePropsFromSlug(
 
 					// If no pageSlug is provided, default to the first page
 					if (page.slug === pageSlug || (!pageSlug && index === 0)) {
-						validatedDesignsGuideProps.title = page.title
+						validatedDesignsGuideProps.title = guide.title
 
 						let content: string
 						try {

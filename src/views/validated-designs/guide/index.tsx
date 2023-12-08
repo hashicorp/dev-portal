@@ -4,7 +4,6 @@
  */
 
 import Head from 'next/head'
-import InlineLink from 'components/inline-link'
 import DevDotContent from 'components/dev-dot-content'
 import { OutlineNavWithActive } from 'components/outline-nav/components'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
@@ -12,10 +11,15 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { HvdPage } from '../types'
 import DirectionalLinkBox from 'views/tutorial-view/components/next-previous/components/directional-link-box'
 
-import s from './detail-view.module.css'
-
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { OutlineLinkItem } from 'components/outline-nav/types'
+import {
+	SidebarNavHighlightItem,
+	SidebarSectionBrandedHeading,
+} from 'components/sidebar/components'
+import SidebarNavList from 'components/sidebar/components/sidebar-nav-list'
+
+import s from './detail-view.module.css'
 
 export interface ValidatedDesignsGuideProps {
 	title: string
@@ -39,6 +43,7 @@ export default function ValidatedDesignGuideView({
 			const page = pages[currentPageIndex - 1]
 
 			return (
+				// @TODO: spin this out into a component
 				<DirectionalLinkBox
 					label="Previous"
 					name={page.title}
@@ -68,20 +73,36 @@ export default function ValidatedDesignGuideView({
 
 	return (
 		<SidebarSidecarLayout
-			AlternateSidebar={() => (
-				<>
-					<InlineLink href={`${basePath}`}>
-						Back to Validated Designs landing
-					</InlineLink>
-					{pages.map((page: HvdPage, index: number) => (
-						<li key={page.slug}>
-							<InlineLink href={page.href}>{page.title}</InlineLink>
-							{index === currentPageIndex && <span> {'<- current'}</span>}
-						</li>
-					))}
-				</>
-			)}
-			sidebarNavDataLevels={[]}
+			sidebarNavDataLevels={[
+				{
+					backToLinkProps: {
+						text: `HVD`,
+						href: `${basePath}`,
+					},
+					title,
+					visuallyHideTitle: true,
+					showFilterInput: false,
+					showResourcesList: false,
+					children: (
+						<>
+							<SidebarSectionBrandedHeading text={title} theme={'hcp'} />
+							<SidebarNavList>
+								{pages.map((page: HvdPage, index: number) => {
+									return (
+										<SidebarNavHighlightItem
+											key={page.slug}
+											text={page.title}
+											theme={'generic'}
+											href={page.href}
+											isActive={index === currentPageIndex}
+										/>
+									)
+								})}
+							</SidebarNavList>
+						</>
+					),
+				},
+			]}
 			sidecarSlot={<OutlineNavWithActive items={headers} />}
 		>
 			<Head>
