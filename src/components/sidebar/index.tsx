@@ -45,6 +45,7 @@ const Sidebar = ({
 	title,
 	visuallyHideTitle = false,
 	isInstallPage,
+	showResourcesList = true,
 }: SidebarProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	const { shouldRenderMobileControls } = useSidebarNavData()
@@ -118,6 +119,21 @@ const Sidebar = ({
 			/>
 		)
 	} else {
+		let resourcesList
+		if (showResourcesList) {
+			resourcesList = (
+				<>
+					<SidebarHorizontalRule />
+					<SidebarNavList>
+						{navResourceItems.map((item, index) => (
+							// eslint-disable-next-line react/no-array-index-key
+							<SidebarNavMenuItem item={item} key={index} />
+						))}
+					</SidebarNavList>
+				</>
+			)
+		}
+
 		sidebarContent = (
 			<>
 				<SidebarNavList>
@@ -126,13 +142,7 @@ const Sidebar = ({
 						return <SidebarNavMenuItem item={item} key={key} />
 					})}
 				</SidebarNavList>
-				<SidebarHorizontalRule />
-				<SidebarNavList>
-					{navResourceItems.map((item, index) => (
-						// eslint-disable-next-line react/no-array-index-key
-						<SidebarNavMenuItem item={item} key={index} />
-					))}
-				</SidebarNavList>
+				{resourcesList}
 			</>
 		)
 	}
