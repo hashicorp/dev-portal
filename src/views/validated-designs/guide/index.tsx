@@ -9,7 +9,7 @@ import { OutlineNavWithActive } from 'components/outline-nav/components'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 
 import { HvdPage } from '../types'
-import DirectionalLinkBox from 'views/tutorial-view/components/next-previous/components/directional-link-box'
+import DirectionalLinkBox from 'components/directional-link-box'
 
 import { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { OutlineLinkItem } from 'components/outline-nav/types'
@@ -43,7 +43,6 @@ export default function ValidatedDesignGuideView({
 			const page = pages[currentPageIndex - 1]
 
 			return (
-				// @TODO: spin this out into a component
 				<DirectionalLinkBox
 					label="Previous"
 					name={page.title}
