@@ -20,6 +20,7 @@ import {
 import SidebarNavList from 'components/sidebar/components/sidebar-nav-list'
 
 import s from './detail-view.module.css'
+import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
 
 export interface ValidatedDesignsGuideProps {
 	title: string
@@ -38,6 +39,8 @@ export default function ValidatedDesignGuideView({
 	basePath,
 	pages,
 }: ValidatedDesignsGuideProps) {
+	const docsMdxComponents = getDocsMdxComponents('hcp')
+
 	function renderPreviousLink() {
 		if (currentPageIndex !== 0 && pages[currentPageIndex - 1]) {
 			const page = pages[currentPageIndex - 1]
@@ -107,7 +110,14 @@ export default function ValidatedDesignGuideView({
 			<Head>
 				<meta name="robots" content="noindex, nofollow" />
 			</Head>
-			<DevDotContent mdxRemoteProps={{ ...mdxSource }} />
+			<DevDotContent
+				mdxRemoteProps={{
+					...mdxSource,
+					components: {
+						...docsMdxComponents,
+					},
+				}}
+			/>
 			<div className={s.linkBoxWrapper}>
 				{renderPreviousLink()}
 				{renderNextLink()}

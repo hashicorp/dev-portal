@@ -16,6 +16,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import remarkPluginAnchorLinkData, {
 	AnchorLinkItem,
 } from 'lib/remark-plugins/remark-plugin-anchor-link-data'
+import { rewriteStaticHVDAssetsPlugin } from 'lib/remark-plugins/rewrite-static-hvd-assets'
 
 const basePath = '/validated-designs'
 
@@ -212,7 +213,10 @@ export async function getHvdGuidePropsFromSlug(
 						const anchorLinks: AnchorLinkItem[] = []
 						const mdxSource = await serialize(content, {
 							mdxOptions: {
-								remarkPlugins: [[remarkPluginAnchorLinkData, { anchorLinks }]],
+								remarkPlugins: [
+									[remarkPluginAnchorLinkData, { anchorLinks }],
+									rewriteStaticHVDAssetsPlugin,
+								],
 							},
 						})
 
