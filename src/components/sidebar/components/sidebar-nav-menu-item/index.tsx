@@ -293,19 +293,19 @@ const SidebarNavMenuItem = ({ item }: SidebarNavMenuItemProps) => {
 	let itemContent
 	if (item.divider) {
 		itemContent = <SidebarHorizontalRule />
-	} else if (item.heading) {
-		itemContent = <SidebarSectionHeading text={item.heading} />
 	} else if (item.routes) {
 		itemContent = <SidebarNavSubmenuItem item={item} />
 	} else if (item.theme) {
 		itemContent = (
 			<SidebarNavHighlightItem
 				theme={item.theme}
-				text={item.title}
+				text={item.title ?? item.heading}
 				href={item.fullPath}
 				isActive={item.isActive}
 			/>
 		)
+	} else if (item.heading) {
+		itemContent = <SidebarSectionHeading text={item.heading} />
 	} else {
 		itemContent = <SidebarNavLinkItem item={item} />
 	}
