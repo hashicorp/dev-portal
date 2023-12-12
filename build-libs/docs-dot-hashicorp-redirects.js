@@ -90,13 +90,19 @@ function getDocsDotHashiCorpRedirects() {
 	 * so we need to add a `host` condition to each redirect. Note that for now,
 	 * we target both `docs.hashicorp.com` (the production domain) and
 	 * `sentinel-launch-redirects-test.hashicorp.vercel.app` (a test domain).
-	 *
-	 * TODO: actually target both, not just one, with regex.
 	 */
-	const targetHost = 'sentinel-launch-redirects-test.hashicorp.vercel.app'
+	const targetHosts = [
+		'docs.hashicorp.com',
+		'sentinel-launch-redirects-test.hashicorp.vercel.app',
+	]
+	/**
+	 * Build a regex-like string that matches any of the target hosts.
+	 * Ref: https://nextjs.org/docs/app/api-reference/next-config-js/redirects
+	 */
+	const hostsValue = targetHosts.map((h) => h.replace(/\./g, '\\.')).join('|')
 	return redirects.map((redirect) => ({
 		...redirect,
-		has: [{ type: 'host', value: targetHost }],
+		has: [{ type: 'host', value: hostsValue }],
 	}))
 }
 
