@@ -7,22 +7,6 @@
 		"boundary/oidc-idp-groups",
 		"boundary/prometheus-metrics"
 	],
-	"sidebarMenuItems": [
-		{
-			"divider": true
-		},
-		{
-			"heading": "Getting Started"
-		},
-		{
-			"title": "What is Boundary?",
-			"fullPath": "/boundary/docs/overview/what-is-boundary"
-		},
-		{
-			"title": "Quick Start",
-			"fullPath": "/boundary/docs/getting-started"
-		}
-	],
 	"sidecarMarketingCard": {
 		"title": "About Boundary",
 		"subtitle": "Boundary is an intelligent proxy that creates granular, identity-based access controls for dynamic infrastructure.",
