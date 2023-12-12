@@ -16,16 +16,6 @@ export function filterByTitle<T = unknown>(
 	items: T[],
 	filterValue: string
 ): T[] {
-	// If we're in dev, and none of the items have a `title` property,
-	// throw an error cause there's probably something unintentional happening.
-	if (IS_DEV) {
-		if (!items.some(isObjectWithTitle)) {
-			throw new Error(
-				'Error: None of the items passed to filterByTitle were found to have a `title` attribute. Please ensure at least one of the items being passed has a `title` attribute.'
-			)
-		}
-	}
-
 	if (!filterValue) {
 		// If there's no filter value, return items unchanged
 		return items
