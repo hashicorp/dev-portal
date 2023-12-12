@@ -25,7 +25,8 @@ import viewStyles from 'views/product-downloads-view/product-downloads-view.modu
 import { PackageManager } from 'views/product-downloads-view/types'
 import CardWithLink from '../card-with-link'
 import s from './downloads-section.module.css'
-import { groupDownloadsByOS, groupPackageManagersByOS } from './helpers'
+import { groupPackageManagersByOS } from './helpers'
+import { groupDownloadsByOS } from '../../helpers'
 import { DownloadsSectionProps } from './types'
 
 const SHARED_HEADING_LEVEL_3_PROPS = {
@@ -133,48 +134,44 @@ const DownloadsSection = ({
 
 	return (
 		<>
-			<div data-sidebar-item data-sidebar-divider="true" />
-			<div data-sidebar-item data-sidebar-heading="Operating-Systems">
-				{Object.keys(downloadsByOS).map((os) => {
-					const packageManagers = packageManagersByOS[os]
-					const prettyOSName = prettyOs(os)
+			{Object.keys(downloadsByOS).map((os) => {
+				const packageManagers = packageManagersByOS[os]
+				const prettyOSName = prettyOs(os)
 
-					return (
-						<Card className={s.card} elevation="base" key={os}>
-							<ContentWithPermalink
-								className={s.headingContainer}
+				return (
+					<Card className={s.card} elevation="base" key={os}>
+						<ContentWithPermalink
+							className={s.headingContainer}
+							id={prettyOSName}
+							ariaLabel={prettyOSName}
+						>
+							<Heading
+								className={classNames(s.heading, viewStyles.scrollHeading)}
+								level={2}
+								size={400}
 								id={prettyOSName}
-								ariaLabel={prettyOSName}
+								weight="bold"
 							>
-								<Heading
-									data-sidebar-item
-									className={classNames(s.heading, viewStyles.scrollHeading)}
-									level={2}
-									size={400}
-									id={prettyOSName}
-									weight="bold"
-								>
-									{prettyOSName}
-								</Heading>
-							</ContentWithPermalink>
-							<div className={s.tabContent}>
-								{isLatestVersion && (
-									<PackageManagerSection
-										packageManagers={packageManagers}
-										prettyOSName={prettyOSName}
-									/>
-								)}
-								<BinaryDownloadsSection
-									downloadsByOS={downloadsByOS}
-									os={os}
+								{prettyOSName}
+							</Heading>
+						</ContentWithPermalink>
+						<div className={s.tabContent}>
+							{isLatestVersion && (
+								<PackageManagerSection
+									packageManagers={packageManagers}
 									prettyOSName={prettyOSName}
-									selectedRelease={selectedRelease}
 								/>
-							</div>
-						</Card>
-					)
-				})}
-			</div>
+							)}
+							<BinaryDownloadsSection
+								downloadsByOS={downloadsByOS}
+								os={os}
+								prettyOSName={prettyOSName}
+								selectedRelease={selectedRelease}
+							/>
+						</div>
+					</Card>
+				)
+			})}
 		</>
 	)
 }

@@ -18,6 +18,7 @@ import { getFileExtension, humanArch } from './helpers'
 import s from './desktop-client-callout.module.css'
 import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
+import { BoundaryDesktopClient } from 'views/product-downloads-view/components/downloads-section/types'
 
 /**
  * Render a callout to download the Boundary Desktop Client.
@@ -32,15 +33,14 @@ function DesktopClientCallout({
 		<Card elevation="base">
 			<ContentWithPermalink
 				className={s.headingContainer}
-				id="Desktop-client"
+				id={'Desktop-client' as BoundaryDesktopClient}
 				ariaLabel={`Desktop Client v${latestVersion}`}
 			>
 				<Heading
-					data-sidebar-item
 					className={viewStyles.scrollHeading}
 					level={2}
 					size={400}
-					id="Desktop-client"
+					id={'Desktop-client' as BoundaryDesktopClient}
 					weight="bold"
 				>
 					{`Desktop Client v${latestVersion}`}

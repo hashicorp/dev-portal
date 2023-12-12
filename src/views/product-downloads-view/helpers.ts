@@ -13,14 +13,25 @@ import semverParse from 'semver/functions/parse'
 import semverPrerelease from 'semver/functions/prerelease'
 import semverRSort from 'semver/functions/rsort'
 import semverValid from 'semver/functions/valid'
-import { ProductData } from 'types/products'
+import { ProductData, ProductSlug } from 'types/products'
 import {
 	getInlineCollections,
 	getInlineTutorials,
 } from 'views/product-tutorials-view/helpers/get-inline-content'
-import { PackageManager, SortedReleases } from './types'
+import {
+	FeaturedCollectionCard,
+	FeaturedTutorialCard,
+	PackageManager,
+	SortedReleases,
+} from './types'
 import capitalize from '@hashicorp/platform-util/text/capitalize'
 import { MenuItem } from 'components/sidebar'
+import {
+	BoundaryDesktopClient,
+	InstallPageAnchorHeading,
+} from './components/downloads-section/types'
+import { ReleasesAPIResponse } from '@hashicorp/react-product-downloads-page'
+import { Products } from '@hashicorp/platform-product-meta'
 
 const PLATFORM_MAP = {
 	Mac: 'darwin',
@@ -435,45 +446,63 @@ export const generateFeaturedTutorialsCards = async (
 	})
 }
 
-/**
- *
- * This function uses the HTML structure of the page (a NodeList converted to array)
- * to dynamically construct the Table of Contents section of SidebarContent
- * every element to populate the menu must have a data-sidebar-item attribute
- * divider element has data-sidebar-divider="true"
- * heading element has data-sidebar-heading attribute with its value used for the heading
- * any capitalization of menu item must be done in the id or data-sidebar-heading attributes
- *
- *
- */
-export function generateTableOfContentsSidebar(
-	items: NodeListOf<Element>
-): MenuItem[] | [] {
-	if (!items.length) {
+export const groupDownloadsByOS = (
+	selectedRelease: ReleaseVersion
+): SortedReleases => {
+	return sortPlatforms(selectedRelease)
+}
+
+export const setTableOfContents = (
+	releases: ReleasesAPIResponse,
+	version: string,
+	featuredCollections: FeaturedCollectionCard[] = [],
+	featuredTutorials: FeaturedTutorialCard[] = [],
+	productSlug: ProductSlug
+) => {
+	if (typeof releases === 'undefined') {
 		return []
 	}
+	const downloadsByOS = groupDownloadsByOS(releases.versions[version])
+	const osMenuItems = Object.keys(downloadsByOS).map((os) => {
+		const formattedOS = prettyOs(os)
+		return {
+			title: formattedOS,
+			fullPath: `#${formattedOS}`,
+		}
+	})
+	const desktopClient =
+		productSlug === 'boundary'
+			? [
+					{
+						title: 'Desktop client',
+						fullPath: `#${'Desktop-client' as BoundaryDesktopClient}`,
+					},
+			  ]
+			: []
 
-	return Array.from(items)
-		.filter((node: HTMLElement) => node.dataset.sidebarItem)
-		.map((node: HTMLElement) => {
-			if (node.dataset?.sidebarDivider) {
-				return {
-					divider: node.dataset.sidebarDivider,
-				}
-			} else if (node.dataset?.sidebarHeading) {
-				return {
-					heading: `${node.dataset.sidebarHeading.split('-').join(' ')}`,
-				}
-			} else if (node.id) {
-				const nextElement = node.nextSibling as HTMLAnchorElement
-				if (nextElement.href?.split('#')[1] === node.id) {
-					return {
-						title: `${node.id.split('-').join(' ')}`,
-						fullPath: `#${node.id}`,
-					}
-				} else {
-					return {}
-				}
-			}
-		}) as unknown as MenuItem[]
+	const nextStepsHeading =
+		(Array.isArray(featuredCollections) && featuredCollections.length) ||
+		(Array.isArray(featuredTutorials) && featuredTutorials.length)
+			? [
+					{
+						title: 'Next steps',
+						fullPath: `#${'Next-steps' as InstallPageAnchorHeading}`,
+					},
+			  ]
+			: []
+
+	const tableOfContents = [
+		{ divider: 'true' },
+		{ heading: 'Operating Systems' },
+		...osMenuItems,
+		...desktopClient,
+		{ divider: 'true' },
+		{
+			title: 'Release information',
+			fullPath: `#${'Release-information' as InstallPageAnchorHeading}`,
+		},
+		...nextStepsHeading,
+	] as MenuItem[]
+
+	return tableOfContents
 }
