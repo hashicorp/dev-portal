@@ -17,6 +17,9 @@ const fetchGithubFile = require('./fetch-github-file')
 const loadProxiedSiteRedirects = require('./load-proxied-site-redirects')
 const { getTutorialRedirects } = require('./tutorial-redirects')
 const {
+	getDocsDotHashiCorpRedirects,
+} = require('./docs-dot-hashicorp-redirects')
+const {
 	integrationMultipleComponentRedirects,
 } = require('./integration-multiple-component-redirects')
 const { packerPluginRedirects } = require('./integration-packer-redirects')
@@ -486,12 +489,14 @@ async function redirectsConfig() {
 	const devPortalRedirects = await buildDevPortalRedirects()
 	const proxiedSiteRedirects = await loadProxiedSiteRedirects()
 	const tutorialRedirects = await getTutorialRedirects()
+	const docsDotHashiCorpRedirects = getDocsDotHashiCorpRedirects()
 
 	const { simpleRedirects, complexRedirects } = splitRedirectsByType([
 		...proxiedSiteRedirects,
 		...productRedirects,
 		...devPortalRedirects,
 		...tutorialRedirects,
+		...docsDotHashiCorpRedirects,
 	])
 	const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
 	if (process.env.DEBUG_REDIRECTS) {
