@@ -38,6 +38,10 @@ function convertToHVDPathUrl(nodeUrl: string): string {
 		return nodeUrl
 	}
 
+	if (process.env.IS_CONTENT_PREVIEW) {
+		return nodeUrl
+	}
+
 	return `/${HVD_FINAL_IMAGE_ROOT_DIR}${nodeUrl}`
 }
 
