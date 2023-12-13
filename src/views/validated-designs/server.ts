@@ -17,6 +17,7 @@ import remarkPluginAnchorLinkData, {
 	AnchorLinkItem,
 } from 'lib/remark-plugins/remark-plugin-anchor-link-data'
 import { rewriteStaticHVDAssetsPlugin } from 'lib/remark-plugins/rewrite-static-hvd-assets'
+import grayMatter from 'gray-matter'
 
 const basePath = '/validated-designs'
 
@@ -185,7 +186,11 @@ export async function getHvdGuidePropsFromSlug(
 
 	const validatedDesignsGuideProps: ValidatedDesignsGuideProps = {
 		title: '',
-		mdxSource: null,
+		markdown: {
+			description: '',
+			title: '',
+			mdxSource: null,
+		},
 		headers: [],
 		currentPageIndex: 0,
 		basePath,
@@ -203,15 +208,17 @@ export async function getHvdGuidePropsFromSlug(
 					if (page.slug === pageSlug || (!pageSlug && index === 0)) {
 						validatedDesignsGuideProps.title = guide.title
 
-						let content: string
+						let mdxFileString: string
 						try {
-							content = fs.readFileSync(page.filePath, 'utf8')
+							mdxFileString = fs.readFileSync(page.filePath, 'utf8')
 						} catch (err) {
 							console.error(err)
 							return null
 						}
 
 						const anchorLinks: AnchorLinkItem[] = []
+						const { data: frontMatter, content } = grayMatter(mdxFileString)
+
 						const mdxSource = await serialize(content, {
 							mdxOptions: {
 								remarkPlugins: [
@@ -227,7 +234,11 @@ export async function getHvdGuidePropsFromSlug(
 						}))
 
 						validatedDesignsGuideProps.headers = headers
-						validatedDesignsGuideProps.mdxSource = mdxSource
+						validatedDesignsGuideProps.markdown = {
+							description: frontMatter.description,
+							title: frontMatter.title,
+							mdxSource,
+						}
 						validatedDesignsGuideProps.currentPageIndex = index
 					}
 

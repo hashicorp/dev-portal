@@ -24,7 +24,11 @@ import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
 
 export interface ValidatedDesignsGuideProps {
 	title: string
-	mdxSource: MDXRemoteSerializeResult
+	markdown: {
+		mdxSource: MDXRemoteSerializeResult
+		title: string
+		description: string
+	}
 	headers: OutlineLinkItem[]
 	currentPageIndex: number
 	basePath: string
@@ -33,7 +37,7 @@ export interface ValidatedDesignsGuideProps {
 
 export default function ValidatedDesignGuideView({
 	title,
-	mdxSource,
+	markdown,
 	headers,
 	currentPageIndex,
 	basePath,
@@ -108,11 +112,13 @@ export default function ValidatedDesignGuideView({
 			sidecarSlot={<OutlineNavWithActive items={headers} />}
 		>
 			<Head>
+				<title>{markdown.title}</title>
 				<meta name="robots" content="noindex, nofollow" />
+				<meta name="description" content={markdown.description} />
 			</Head>
 			<DevDotContent
 				mdxRemoteProps={{
-					...mdxSource,
+					...markdown.mdxSource,
 					components: {
 						...docsMdxComponents,
 					},
