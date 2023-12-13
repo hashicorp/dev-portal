@@ -141,6 +141,7 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 				const pageSlug = pageFile
 					.replace('.mdx', '')
 					.substring(pageFile.indexOf('-') + 1)
+					.toLocaleLowerCase()
 
 				return {
 					slug: pageSlug,
