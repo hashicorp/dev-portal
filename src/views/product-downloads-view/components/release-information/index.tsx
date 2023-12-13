@@ -180,29 +180,33 @@ const OfficialReleasesCard = () => {
 interface ReleaseInformationSectionProps {
 	selectedRelease: ReleaseVersion
 	isEnterpriseMode: boolean
+	releaseHeading: {
+		id: string
+		text: string
+	}
 }
 
 const ReleaseInformationSection = ({
 	selectedRelease,
+	releaseHeading,
 	isEnterpriseMode,
 }: ReleaseInformationSectionProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	return (
-		<div className={s.root} data-sidebar-item data-sidebar-divider="true">
+		<div className={s.root}>
 			<ContentWithPermalink
 				className={s.headingContainer}
-				id="Release-information"
-				ariaLabel="Release information"
+				id={releaseHeading.id}
+				ariaLabel={releaseHeading.text}
 			>
 				<Heading
-					data-sidebar-item
+					id={releaseHeading.id}
 					className={classNames(s.heading, viewStyles.scrollHeading)}
 					level={2}
 					size={400}
-					id="Release-information"
 					weight="bold"
 				>
-					Release information
+					{releaseHeading.text}
 				</Heading>
 			</ContentWithPermalink>
 

@@ -25,7 +25,7 @@ import viewStyles from 'views/product-downloads-view/product-downloads-view.modu
 import { PackageManager } from 'views/product-downloads-view/types'
 import CardWithLink from '../card-with-link'
 import s from './downloads-section.module.css'
-import { groupDownloadsByOS, groupPackageManagersByOS } from './helpers'
+import { groupPackageManagersByOS } from './helpers'
 import { DownloadsSectionProps } from './types'
 
 const SHARED_HEADING_LEVEL_3_PROPS = {
@@ -120,12 +120,9 @@ const BinaryDownloadsSection = ({
 const DownloadsSection = ({
 	packageManagers,
 	selectedRelease,
+	downloadsByOS,
 }: DownloadsSectionProps): ReactElement => {
 	const { isLatestVersion } = useCurrentVersion()
-	const downloadsByOS = useMemo(
-		() => groupDownloadsByOS(selectedRelease),
-		[selectedRelease]
-	)
 	const packageManagersByOS = useMemo(
 		() => groupPackageManagersByOS(packageManagers),
 		[packageManagers]
@@ -133,25 +130,23 @@ const DownloadsSection = ({
 
 	return (
 		<>
-			<div data-sidebar-item data-sidebar-divider="true" />
-			<div data-sidebar-item data-sidebar-heading="Operating-Systems">
-				{Object.keys(downloadsByOS).map((os) => {
-					const packageManagers = packageManagersByOS[os]
-					const prettyOSName = prettyOs(os)
+			<div>
+				{Object.keys(downloadsByOS).map((osKey) => {
+					const packageManagers = packageManagersByOS[osKey]
+					const prettyOSName = prettyOs(osKey)
 
 					return (
-						<Card className={s.card} elevation="base" key={os}>
+						<Card className={s.card} elevation="base" key={osKey}>
 							<ContentWithPermalink
 								className={s.headingContainer}
-								id={prettyOSName}
+								id={osKey}
 								ariaLabel={prettyOSName}
 							>
 								<Heading
-									data-sidebar-item
+									id={osKey}
 									className={classNames(s.heading, viewStyles.scrollHeading)}
 									level={2}
 									size={400}
-									id={prettyOSName}
 									weight="bold"
 								>
 									{prettyOSName}
@@ -166,7 +161,7 @@ const DownloadsSection = ({
 								)}
 								<BinaryDownloadsSection
 									downloadsByOS={downloadsByOS}
-									os={os}
+									os={osKey}
 									prettyOSName={prettyOSName}
 									selectedRelease={selectedRelease}
 								/>

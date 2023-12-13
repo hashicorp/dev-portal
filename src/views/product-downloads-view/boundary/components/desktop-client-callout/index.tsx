@@ -24,26 +24,30 @@ import viewStyles from 'views/product-downloads-view/product-downloads-view.modu
  */
 function DesktopClientCallout({
 	desktopClientProps,
+	headingData,
 }: {
 	desktopClientProps: DesktopClientProps
+	headingData: {
+		id: string
+		text: string
+	}
 }) {
 	const { latestVersion, builds } = desktopClientProps
 	return (
 		<Card elevation="base">
 			<ContentWithPermalink
 				className={s.headingContainer}
-				id="Desktop-client"
-				ariaLabel={`Desktop Client v${latestVersion}`}
+				id={headingData.id}
+				ariaLabel={`${headingData.text} v${latestVersion}`}
 			>
 				<Heading
-					data-sidebar-item
 					className={viewStyles.scrollHeading}
 					level={2}
 					size={400}
-					id="Desktop-client"
+					id={headingData.id}
 					weight="bold"
 				>
-					{`Desktop Client v${latestVersion}`}
+					{`${headingData.text} v${latestVersion}`}
 				</Heading>
 			</ContentWithPermalink>
 			<div className={s.downloadContainer}>
