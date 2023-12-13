@@ -27,6 +27,7 @@ function DesktopClientCallout({
 	headingData,
 }: {
 	desktopClientProps: DesktopClientProps
+	/** We link to this heading from the side nav, so we've lifted up its data */
 	headingData: {
 		id: string
 		text: string

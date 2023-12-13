@@ -180,6 +180,7 @@ const OfficialReleasesCard = () => {
 interface ReleaseInformationSectionProps {
 	selectedRelease: ReleaseVersion
 	isEnterpriseMode: boolean
+	/** We link to this heading from the side nav, so we've lifted up its data */
 	releaseHeading: {
 		id: string
 		text: string
