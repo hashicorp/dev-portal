@@ -3,22 +3,24 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import semverRSort from 'semver/functions/rsort'
-import semverPrerelease from 'semver/functions/prerelease'
-import semverValid from 'semver/functions/valid'
-import semverParse from 'semver/functions/parse'
-import { ProductData } from 'types/products'
-import { ReleaseVersion } from 'lib/fetch-release-data'
-import {
-	getInlineCollections,
-	getInlineTutorials,
-} from 'views/product-tutorials-view/helpers/get-inline-content'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { formatCollectionCard } from 'components/collection-card/helpers'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
-import { PackageManager, SortedReleases } from './types'
+import { ReleaseVersion } from 'lib/fetch-release-data'
 import { CollectionLite } from 'lib/learn-client/types'
+import semverParse from 'semver/functions/parse'
+import semverPrerelease from 'semver/functions/prerelease'
+import semverRSort from 'semver/functions/rsort'
+import semverValid from 'semver/functions/valid'
+import { ProductData } from 'types/products'
+import {
+	getInlineCollections,
+	getInlineTutorials,
+} from 'views/product-tutorials-view/helpers/get-inline-content'
+import { PackageManager, SortedReleases } from './types'
+import capitalize from '@hashicorp/platform-util/text/capitalize'
+import { MenuItem } from 'components/sidebar'
 
 const PLATFORM_MAP = {
 	Mac: 'darwin',
@@ -244,7 +246,7 @@ export function prettyOs(os: string): string {
 		case 'windows':
 			return 'Windows'
 		default:
-			return os.charAt(0).toUpperCase() + os.slice(1)
+			return capitalize(os)
 	}
 }
 
@@ -431,4 +433,47 @@ export const generateFeaturedTutorialsCards = async (
 			...formattedTutorialCard,
 		}
 	})
+}
+
+/**
+ *
+ * This function uses the HTML structure of the page (a NodeList converted to array)
+ * to dynamically construct the Table of Contents section of SidebarContent
+ * every element to populate the menu must have a data-sidebar-item attribute
+ * divider element has data-sidebar-divider="true"
+ * heading element has data-sidebar-heading attribute with its value used for the heading
+ * any capitalization of menu item must be done in the id or data-sidebar-heading attributes
+ *
+ *
+ */
+export function generateTableOfContentsSidebar(
+	items: NodeListOf<Element>
+): MenuItem[] | [] {
+	if (!items.length) {
+		return []
+	}
+
+	return Array.from(items)
+		.filter((node: HTMLElement) => node.dataset.sidebarItem)
+		.map((node: HTMLElement) => {
+			if (node.dataset?.sidebarDivider) {
+				return {
+					divider: node.dataset.sidebarDivider,
+				}
+			} else if (node.dataset?.sidebarHeading) {
+				return {
+					heading: `${node.dataset.sidebarHeading.split('-').join(' ')}`,
+				}
+			} else if (node.id) {
+				const nextElement = node.nextSibling as HTMLAnchorElement
+				if (nextElement.href?.split('#')[1] === node.id) {
+					return {
+						title: `${node.id.split('-').join(' ')}`,
+						fullPath: `#${node.id}`,
+					}
+				} else {
+					return {}
+				}
+			}
+		}) as unknown as MenuItem[]
 }

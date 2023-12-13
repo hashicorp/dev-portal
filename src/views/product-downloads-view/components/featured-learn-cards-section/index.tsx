@@ -8,12 +8,11 @@ import {
 	FeaturedCollectionCard,
 	FeaturedTutorialCard,
 } from 'views/product-downloads-view/types'
-import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 import CardsGridList, {
 	TutorialCardsGridList,
 } from 'components/cards-grid-list'
-import Heading from 'components/heading'
 import { CollectionCardWithAuthElements } from 'components/collection-card'
+import s from './featured-learn-cards-section.module.css'
 
 interface FeaturedTutorialsSectionProps {
 	cards: FeaturedTutorialCard[] | FeaturedCollectionCard[]
@@ -29,18 +28,7 @@ const FeaturedLearnCardsSection = ({
 	}
 
 	return (
-		<>
-			<Heading
-				className={viewStyles.heading2}
-				id="featured-tutorials"
-				level={2}
-				size={300}
-				weight="bold"
-			>
-				{cardType === 'tutorial'
-					? 'Featured Tutorials'
-					: 'Featured Collections'}
-			</Heading>
+		<div className={s.root}>
 			{cardType === 'tutorial' ? (
 				<TutorialCardsGridList tutorials={cards} />
 			) : (
@@ -57,7 +45,7 @@ const FeaturedLearnCardsSection = ({
 					)}
 				</CardsGridList>
 			)}
-		</>
+		</div>
 	)
 }
 

@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-import { ReactElement, useMemo } from 'react'
+import { ReactElement, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // HashiCorp imports
@@ -28,6 +28,7 @@ import {
 import {
 	initializeBreadcrumbLinks,
 	initializeVersionSwitcherOptions,
+	generateTableOfContentsSidebar,
 } from './helpers'
 import { CurrentVersionProvider, useCurrentVersion } from './contexts'
 import {
@@ -37,7 +38,12 @@ import {
 	ReleaseInformationSection,
 	SidecarMarketingCard,
 } from './components'
+import { MenuItem } from 'components/sidebar'
 import s from './product-downloads-view.module.css'
+import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
+import Heading from 'components/heading'
+import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
+import { SidebarProps } from 'components/sidebar/types'
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
@@ -57,7 +63,7 @@ const ProductDownloadsViewContent = ({
 		featuredTutorialCards,
 		sidecarMarketingCard,
 		sidecarHcpCallout,
-		sidebarMenuItems,
+		sidebarMenuItems = [],
 		installName,
 	} = pageContent
 	const currentProduct = useCurrentProduct()
@@ -68,26 +74,34 @@ const ProductDownloadsViewContent = ({
 		() => initializeBreadcrumbLinks(currentProduct, isEnterpriseMode, pathname),
 		[currentProduct, isEnterpriseMode, pathname]
 	)
+
+	const [installViewNavItems, setInstallViewNavItems] =
+		useState(sidebarMenuItems)
+
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
 		generateProductLandingSidebarNavData(currentProduct),
 		generateInstallViewNavItems(
 			currentProduct,
-			sidebarMenuItems,
+			installViewNavItems as MenuItem[],
 			isEnterpriseMode
 		),
 	]
 
+	useEffect(() => {
+		const updatedHeadings = generateTableOfContentsSidebar(
+			document?.querySelectorAll(`#main [data-sidebar-item]`)
+		)
+
+		setInstallViewNavItems([
+			...updatedHeadings,
+			...sidebarMenuItems,
+		] as MenuItem[])
+	}, [currentVersion, sidebarMenuItems])
+
 	return (
 		<SidebarSidecarLayout
-			/**
-			 * @TODO remove casting to `any`. Will require refactoring both
-			 * `generateTopLevelSidebarNavData` and
-			 * `generateInstallViewNavItems` to set up `menuItems` with the
-			 * correct types. This will require chaning many files, so deferring for
-			 * a follow-up PR since this is functional for the time being.
-			 */
-			sidebarNavDataLevels={sidebarNavDataLevels as any}
+			sidebarNavDataLevels={sidebarNavDataLevels as SidebarProps[]}
 			breadcrumbLinks={breadcrumbLinks}
 			sidecarSlot={
 				<>
@@ -134,6 +148,24 @@ const ProductDownloadsViewContent = ({
 				isEnterpriseMode={isEnterpriseMode}
 			/>
 			{merchandisingSlot?.position === 'below' ? merchandisingSlot.slot : null}
+			{featuredCollectionCards?.length || featuredTutorialCards?.length ? (
+				<ContentWithPermalink
+					className={s.nextStepsHeading}
+					id="Next-steps"
+					ariaLabel="Next steps"
+				>
+					<Heading
+						data-sidebar-item
+						className={viewStyles.scrollHeading}
+						id="Next-steps"
+						level={2}
+						size={500}
+						weight="bold"
+					>
+						Next steps
+					</Heading>
+				</ContentWithPermalink>
+			) : null}
 			<FeaturedLearnCardsSection
 				cards={featuredCollectionCards}
 				cardType="collection"

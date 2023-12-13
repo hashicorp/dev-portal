@@ -11,8 +11,7 @@ import {
 	mobileMenuLevelMain,
 	mobileMenuLevelProduct,
 } from 'components/mobile-menu-levels/level-components'
-// Local
-import { OpenApiSidebarContents } from '../open-api-sidebar-contents'
+import OpenApiSidebarContents from 'components/open-api-sidebar-contents'
 // Types
 import type { ProductData } from 'types/products'
 import type { OpenApiNavItem } from 'views/open-api-docs-view/types'

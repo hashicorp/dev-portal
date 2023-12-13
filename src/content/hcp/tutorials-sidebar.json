@@ -4,7 +4,6 @@
 			"name": "HCP Vault",
 			"items": [
 				{ "name": "Quickstart", "collectionSlug": "vault/cloud" },
-				{ "name": "Monitoring", "collectionSlug": "vault/cloud-monitoring" },
 				{ "name": "Operations", "collectionSlug": "vault/cloud-ops" }
 			]
 		},
