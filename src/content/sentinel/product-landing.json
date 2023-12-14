@@ -9,10 +9,6 @@
 		"cta": {
 			"text": "Learn more",
 			"url": "/sentinel/intro/what"
-		},
-		"image": {
-			"light": "https://www.datocms-assets.com/2885/1701706795-what-is-sentinel-placeholder.png",
-			"dark": "https://www.datocms-assets.com/2885/1701706795-what-is-sentinel-placeholder.png"
 		}
 	},
 	"get_started": {
