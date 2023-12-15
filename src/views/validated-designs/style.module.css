@@ -1,0 +1,15 @@
+.mobileIcon {
+	align-items: center;
+	display: flex;
+
+	@media (--dev-dot-tablet-up) {
+		display: none;
+	}
+}
+
+.guideCardText {
+	display: none;
+	@media (--dev-dot-tablet-up) {
+		display: initial;
+	}
+}
