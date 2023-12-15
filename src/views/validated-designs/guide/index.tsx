@@ -82,7 +82,7 @@ export default function ValidatedDesignGuideView({
 			sidebarNavDataLevels={[
 				{
 					backToLinkProps: {
-						text: `HVD`,
+						text: `HVD Home`,
 						href: `${basePath}`,
 					},
 					title,
