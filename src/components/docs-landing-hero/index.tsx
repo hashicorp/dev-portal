@@ -8,7 +8,7 @@ import Heading from 'components/heading'
 import IconTileLogo from 'components/icon-tile-logo'
 import Text from 'components/text'
 import { useCurrentProduct } from 'contexts'
-import s from './landing-hero.module.css'
+import s from './docs-landing-hero.module.css'
 import { DocsLandingHeroProps } from './types'
 
 const DocsLandingHero = ({
