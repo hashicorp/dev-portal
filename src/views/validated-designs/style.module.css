@@ -1,4 +1,50 @@
-.mobileIcon {
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	background-color: var(--token-color-page-faint);
+}
+
+.hero {
+	@media (--dev-dot-tablet-up) {
+		margin-left: 100px;
+		padding-left: 0;
+	}
+}
+.categoryGroupsContainer {
+	display: grid;
+	gap: 40px;
+	margin: -150px 12px 50px 12px;
+	@media (--dev-dot-tablet-up) {
+		margin: -116px 100px 50px 100px;
+	}
+}
+
+.categoryGroupContainer {
+	padding: 24px;
+	@media (--dev-dot-tablet-up) {
+		padding: 48px 24px 24px 24px;
+	}
+}
+
+.categoryGuidesContainer {
+	display: grid;
+	gap: 40px;
+	margin-top: 40px;
+	@media (--dev-dot-tablet-up) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+.guideCard {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.mobileOnly {
 	align-items: center;
 	display: flex;
 
@@ -7,9 +53,24 @@
 	}
 }
 
-.guideCardText {
-	display: none;
+.categoryGroupHeader {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	gap: 11px;
 	@media (--dev-dot-tablet-up) {
-		display: initial;
+		flex-wrap: wrap;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		& > *:last-child {
+			display: flex;
+		}
 	}
+}
+
+.standaloneLinkContents {
+	display: flex;
+	align-items: center;
 }

@@ -37,6 +37,16 @@
 /**
  * Slot layout
  */
+
+.rootContainer {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1240px;
+	padding-left: 24px;
+	padding-right: 24px;
+	width: 100%;
+}
+
 .rootLayout {
 	display: flex;
 	flex-wrap: wrap;

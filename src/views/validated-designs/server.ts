@@ -17,6 +17,7 @@ import remarkPluginAnchorLinkData, {
 } from 'lib/remark-plugins/remark-plugin-anchor-link-data'
 import { rewriteStaticHVDAssetsPlugin } from 'lib/remark-plugins/rewrite-static-hvd-assets'
 import grayMatter from 'gray-matter'
+import { ProductSlug } from 'types/products'
 
 const basePath = '/validated-designs'
 
@@ -113,7 +114,7 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 				slug,
 				title: metadata.title,
 				description: metadata.description,
-				product,
+				product: product as Exclude<ProductSlug, 'sentinel'>,
 				guides: [],
 			})
 		} else if (isHvdMetadata) {

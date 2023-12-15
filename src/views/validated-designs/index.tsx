@@ -7,6 +7,45 @@ import Head from 'next/head'
 import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import { HvdCategoryGroup, HvdGuide } from './types'
+import LandingHero from 'components/landing-hero'
+import Card from 'components/card'
+import CardLink from 'components/card-link'
+import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { IconArrowRight24 } from '@hashicorp/flight-icons/svg-react/arrow-right-24'
+import { StandaloneLinkContents } from 'components/standalone-link'
+import { MobileView, BrowserView, isMobile } from 'react-device-detect'
+import s from './style.module.css'
+
+import Heading from 'components/heading'
+import Text from 'components/text'
+import IconTileLogo from 'components/icon-tile-logo'
+
+const LinkTextAndIcon = () => {
+	return (
+		<>
+			<MobileView>
+				<StandaloneLinkContents
+					className={s.standaloneLinkContents}
+					icon={<IconArrowRight24 />}
+					iconPosition="trailing"
+					inheritColor
+					size="medium"
+					text=""
+				/>
+			</MobileView>
+			<BrowserView>
+				<StandaloneLinkContents
+					className={s.standaloneLinkContents}
+					icon={<IconArrowRight16 />}
+					iconPosition="trailing"
+					inheritColor
+					size="medium"
+					text="View"
+				/>
+			</BrowserView>
+		</>
+	)
+}
 
 /**
  * Stub interfaces for how we may model the data for this view
@@ -20,26 +59,59 @@ export default function ValidatedDesignsLandingView({
 	categoryGroups,
 }: ValidatedDesignsLandingProps) {
 	return (
-		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
+		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />} className={s.root}>
 			<Head>
 				<meta name="robots" content="noindex, nofollow" />
 			</Head>
-			<h1>{'HashiCorp Validated Designs'}</h1>
-			<ul>
-				{categoryGroups.map((category: HvdCategoryGroup) => (
-					<li key={category.slug}>
-						<h2>{category.title}</h2>
-						<p>{category.description}</p>
-						<ul>
-							{category.guides.map((guide: HvdGuide) => (
-								<li key={guide.slug}>
-									<a href={guide.href}>{guide.title}</a>
-								</li>
-							))}
-						</ul>
-					</li>
-				))}
-			</ul>
+			{/* Hero */}
+			<div className={s.container}>
+				<LandingHero
+					heading="HashiCorp Validated Design"
+					isHvd={true}
+					className={s.hero}
+				/>
+				<div className={s.categoryGroupsContainer}>
+					{categoryGroups.map((category: HvdCategoryGroup) => (
+						<Card
+							elevation="base"
+							key={category.slug}
+							className={s.categoryGroupContainer}
+						>
+							<div className={s.categoryGroupHeader}>
+								<IconTileLogo size="large" productSlug={category.product} />
+								<Heading level={2} size={isMobile ? 400 : 500} weight="bold">
+									{category.title}
+								</Heading>
+								<Text asElement="p" size={isMobile ? 200 : 300} weight="medium">
+									{category.description}
+									Brief intro- short but enough to help users feel confident in
+									the proposed journey. Suggestion is a max of 2 lines of
+									content. Brief and easy to scan.
+								</Text>
+							</div>
+							<div className={s.categoryGuidesContainer}>
+								{category.guides.map((guide: HvdGuide) => (
+									<CardLink
+										key={guide.slug}
+										href={guide.href}
+										ariaLabel={guide.title}
+										className={s.guideCard}
+									>
+										<Heading
+											level={3}
+											size={isMobile ? 200 : 300}
+											weight="bold"
+										>
+											{guide.title}
+										</Heading>
+										<LinkTextAndIcon />
+									</CardLink>
+								))}
+							</div>
+						</Card>
+					))}
+				</div>
+			</div>
 		</BaseLayout>
 	)
 }

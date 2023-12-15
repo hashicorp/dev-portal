@@ -13,7 +13,7 @@ import { DocsViewProps } from './types'
 import DocsPageHeading from './components/docs-page-heading'
 import getDocsMdxComponents from './utils/get-docs-mdx-components'
 import s from './docs-view.module.css'
-import LandingHero from 'views/docs-view/components/landing-hero'
+import LandingHero from 'components/docs-landing-hero'
 import DocsPlainPageHeading from './components/docs-plain-page-heading'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
 

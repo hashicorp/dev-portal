@@ -4,14 +4,17 @@
  */
 
 import classNames from 'classnames'
-import { useCurrentProduct } from 'contexts'
-import IconTileLogo from 'components/icon-tile-logo'
 import Heading from 'components/heading'
+import IconTileLogo from 'components/icon-tile-logo'
 import Text from 'components/text'
-import { LandingHeroProps } from './types'
+import { useCurrentProduct } from 'contexts'
 import s from './landing-hero.module.css'
+import { DocsLandingHeroProps } from './types'
 
-const LandingHero = ({ pageHeading, pageSubtitle }: LandingHeroProps) => {
+const DocsLandingHero = ({
+	pageHeading,
+	pageSubtitle,
+}: DocsLandingHeroProps) => {
 	const currentProduct = useCurrentProduct()
 
 	const hasSubtitle = !!pageSubtitle
@@ -42,4 +45,4 @@ const LandingHero = ({ pageHeading, pageSubtitle }: LandingHeroProps) => {
 	)
 }
 
-export default LandingHero
+export default DocsLandingHero

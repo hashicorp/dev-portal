@@ -3,35 +3,41 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import {
-	CertificationsHero,
-	CertificationsHeroText,
-} from 'views/certifications/components'
 import Image from 'next/image'
 import svgHeroImage from './assets/certification-hero-image.svg'
 import s from './landing-hero.module.css'
+import { type HTMLAttributes } from 'react'
+import { Hero, HeroText } from './components/hero'
+
+interface LandingHeroProps extends HTMLAttributes<HTMLDivElement> {
+	heading: string
+	description?: string
+	isHvd?: boolean
+}
 
 function LandingHero({
 	heading,
 	description,
-}: {
-	heading: string
-	description?: string
-}) {
+	isHvd = false,
+	className,
+}: LandingHeroProps) {
 	return (
-		<CertificationsHero
+		<Hero
 			backgroundClassName={s.heroBackground}
+			className={className}
 			startSlot={
-				<CertificationsHeroText
+				<HeroText
 					heading={heading}
 					description={description?.length ? description : ''}
 					foreground="light"
 				/>
 			}
 			endSlot={
-				<div className={s.heroImage}>
-					<Image alt="" src={svgHeroImage} width={447} height={515} />
-				</div>
+				isHvd ? null : (
+					<div className={s.heroImage}>
+						<Image alt="" src={svgHeroImage} width={447} height={515} />
+					</div>
+				)
 			}
 		/>
 	)
