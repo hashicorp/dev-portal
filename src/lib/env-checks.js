@@ -5,6 +5,10 @@
 
 //@ts-check
 
+/**
+ * TODO: clean this up, proxyConfig was previously a non-empty import
+ * Task: https://app.asana.com/0/1204759533834554/1206183781878379/f
+ */
 const proxyConfig = {}
 
 // NOTE: this module uses CommonJS exports,
