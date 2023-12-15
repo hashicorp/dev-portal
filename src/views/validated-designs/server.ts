@@ -235,8 +235,9 @@ export async function getHvdGuidePropsFromSlug(
 
 						validatedDesignsGuideProps.headers = headers
 						validatedDesignsGuideProps.markdown = {
-							description: frontMatter.description,
-							title: frontMatter.title,
+							// this is temporary as we should always have these fields in the markdown
+							description: frontMatter?.description || null,
+							title: frontMatter?.title || null,
 							mdxSource,
 						}
 						validatedDesignsGuideProps.currentPageIndex = index
