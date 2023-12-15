@@ -5,7 +5,7 @@
 
 //@ts-check
 
-const proxySettings = require('./proxy-settings')
+const proxySettings = {}
 const { getProxiedProductSlug, isPreview } = require('../src/lib/env-checks')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */

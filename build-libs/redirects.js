@@ -7,7 +7,7 @@
 
 const fs = require('fs')
 const path = require('path')
-const proxySettings = require('./proxy-settings')
+const proxySettings = {}
 const {
 	getProxiedProductSlug,
 	isPreview,
