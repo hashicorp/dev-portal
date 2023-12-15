@@ -9,7 +9,7 @@ export interface OverviewCtaProps {
 	heading: string
 	headingSlug: string
 	body: string
-	image: ThemedImageProps['src']
+	image?: ThemedImageProps['src']
 	cta?: {
 		text: string
 		url: string
