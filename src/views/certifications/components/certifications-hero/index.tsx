@@ -54,7 +54,7 @@ function CertificationsHeroText({
 	foreground,
 }: {
 	heading: string
-	description: string
+	description?: string
 	foreground: 'light' | 'dark'
 }) {
 	return (
@@ -63,12 +63,14 @@ function CertificationsHeroText({
 				className={s.textHeading}
 				dangerouslySetInnerHTML={{ __html: heading }}
 			/>
-			<p
-				className={s.textDescription}
-				dangerouslySetInnerHTML={{
-					__html: mitigateWidows(description, 18),
-				}}
-			/>
+			{description?.length ? (
+				<p
+					className={s.textDescription}
+					dangerouslySetInnerHTML={{
+						__html: mitigateWidows(description, 18),
+					}}
+				/>
+			) : null}
 		</div>
 	)
 }
