@@ -6,7 +6,7 @@
 import Image from 'next/image'
 import svgHeroImage from './assets/certification-hero-image.svg'
 import s from './landing-hero.module.css'
-import { type HTMLAttributes } from 'react'
+import { HTMLAttributes } from 'react'
 import { Hero, HeroText } from './components/hero'
 
 interface LandingHeroProps extends HTMLAttributes<HTMLDivElement> {
@@ -28,7 +28,7 @@ function LandingHero({
 			startSlot={
 				<HeroText
 					heading={heading}
-					description={description?.length ? description : ''}
+					description={description ?? ''}
 					foreground="light"
 				/>
 			}

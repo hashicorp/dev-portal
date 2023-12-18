@@ -38,7 +38,7 @@ function Hero({
 			<div className={classNames(s.backgroundBase, backgroundClassName)} />
 			<div className={classNames(s.rootContainer, className)}>
 				<div className={s.rootLayout}>
-					<div className={s.startSlot}>{startSlot}</div>
+					<div className={classNames(s.startSlot, className)}>{startSlot}</div>
 					{endSlot ? <div className={s.endSlot}>{endSlot}</div> : null}
 				</div>
 			</div>
@@ -55,7 +55,7 @@ function HeroText({
 	foreground,
 }: {
 	heading: string
-	description: string
+	description?: string
 	foreground: 'light' | 'dark'
 }) {
 	return (
@@ -64,12 +64,14 @@ function HeroText({
 				className={s.textHeading}
 				dangerouslySetInnerHTML={{ __html: heading }}
 			/>
-			<p
-				className={s.textDescription}
-				dangerouslySetInnerHTML={{
-					__html: mitigateWidows(description, 18),
-				}}
-			/>
+			{description?.length ? (
+				<p
+					className={s.textDescription}
+					dangerouslySetInnerHTML={{
+						__html: mitigateWidows(description, 18),
+					}}
+				/>
+			) : null}
 		</div>
 	)
 }

@@ -7,18 +7,22 @@
 	background-color: var(--token-color-page-faint);
 }
 
-.hero {
+.hvdHero {
 	@media (--dev-dot-tablet-up) {
-		margin-left: 100px;
+		max-width: 1240px;
 		padding-left: 0;
 	}
 }
+
 .categoryGroupsContainer {
 	display: grid;
 	gap: 40px;
 	margin: -150px 12px 50px 12px;
 	@media (--dev-dot-tablet-up) {
-		margin: -116px 100px 50px 100px;
+		margin: -116px auto 50px auto;
+		max-width: 1240px;
+		min-width: min-content;
+		width: calc(100% - 24px);
 	}
 }
 
@@ -39,9 +43,10 @@
 }
 
 .guideCard {
+	align-items: center;
+	color: var(--token-color-foreground-strong);
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
 }
 
 .mobileOnly {
@@ -59,18 +64,28 @@
 	justify-content: center;
 	align-items: flex-start;
 	gap: 11px;
+	margin-bottom: 11px;
 	@media (--dev-dot-tablet-up) {
 		flex-wrap: wrap;
 		flex-direction: row;
 		justify-content: flex-start;
 		align-items: center;
-		& > *:last-child {
-			display: flex;
-		}
+		gap: 11px;
+		margin-bottom: 20px;
+	}
+}
+
+.categoryGroupDescription {
+	color: var(--token-color-foreground-faint);
+	@media (--dev-dot-tablet-up) {
+		max-width: 665px;
 	}
 }
 
 .standaloneLinkContents {
 	display: flex;
 	align-items: center;
+	@media (--dev-dot-tablet-up) {
+		margin-left: 20px;
+	}
 }

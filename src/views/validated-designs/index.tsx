@@ -63,54 +63,49 @@ export default function ValidatedDesignsLandingView({
 			<Head>
 				<meta name="robots" content="noindex, nofollow" />
 			</Head>
-			{/* Hero */}
-			<div className={s.container}>
-				<LandingHero
-					heading="HashiCorp Validated Design"
-					isHvd={true}
-					className={s.hero}
-				/>
-				<div className={s.categoryGroupsContainer}>
-					{categoryGroups.map((category: HvdCategoryGroup) => (
-						<Card
-							elevation="base"
-							key={category.slug}
-							className={s.categoryGroupContainer}
+			<LandingHero
+				heading="HashiCorp Validated Design"
+				isHvd={true}
+				className={s.hvdHero}
+			/>
+			<div className={s.categoryGroupsContainer}>
+				{categoryGroups.map((category: HvdCategoryGroup) => (
+					<Card
+						elevation="base"
+						key={category.slug}
+						className={s.categoryGroupContainer}
+					>
+						<div className={s.categoryGroupHeader}>
+							<IconTileLogo size="large" productSlug={category.product} />
+							<Heading level={2} size={isMobile ? 400 : 500} weight="bold">
+								{category.title}
+							</Heading>
+						</div>
+						<Text
+							asElement="p"
+							size={isMobile ? 200 : 300}
+							weight="medium"
+							className={s.categoryGroupDescription}
 						>
-							<div className={s.categoryGroupHeader}>
-								<IconTileLogo size="large" productSlug={category.product} />
-								<Heading level={2} size={isMobile ? 400 : 500} weight="bold">
-									{category.title}
-								</Heading>
-								<Text asElement="p" size={isMobile ? 200 : 300} weight="medium">
-									{category.description}
-									Brief intro- short but enough to help users feel confident in
-									the proposed journey. Suggestion is a max of 2 lines of
-									content. Brief and easy to scan.
-								</Text>
-							</div>
-							<div className={s.categoryGuidesContainer}>
-								{category.guides.map((guide: HvdGuide) => (
-									<CardLink
-										key={guide.slug}
-										href={guide.href}
-										ariaLabel={guide.title}
-										className={s.guideCard}
-									>
-										<Heading
-											level={3}
-											size={isMobile ? 200 : 300}
-											weight="bold"
-										>
-											{guide.title}
-										</Heading>
-										<LinkTextAndIcon />
-									</CardLink>
-								))}
-							</div>
-						</Card>
-					))}
-				</div>
+							{category.description}
+						</Text>
+						<div className={s.categoryGuidesContainer}>
+							{category.guides.map((guide: HvdGuide) => (
+								<CardLink
+									key={guide.slug}
+									href={guide.href}
+									ariaLabel={guide.title}
+									className={s.guideCard}
+								>
+									<Heading level={3} size={isMobile ? 200 : 300} weight="bold">
+										{guide.title}
+									</Heading>
+									<LinkTextAndIcon />
+								</CardLink>
+							))}
+						</div>
+					</Card>
+				))}
 			</div>
 		</BaseLayout>
 	)

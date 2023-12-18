@@ -57,6 +57,9 @@
 	flex: 25em 2 1;
 	max-width: 660px;
 	min-width: 0;
+	&.hvdHero {
+		max-width: fit-content;
+	}
 }
 
 .endSlot {
