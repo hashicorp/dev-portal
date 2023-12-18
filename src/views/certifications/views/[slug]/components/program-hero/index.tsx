@@ -7,12 +7,13 @@ import classNames from 'classnames'
 // Shared under certifications
 import { ProgramSlug } from 'views/certifications/types'
 // Local
-import { ProgramHeroProps, HeroProps } from './types'
+import { ProgramHeroProps } from './types'
 // Styles
 import s from './program-hero.module.css'
 import StandaloneLink from 'components/standalone-link'
 import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16'
 import { Hero, HeroText } from 'components/landing-hero/components/hero'
+import { HeroProps } from 'components/landing-hero/components/hero/types'
 
 /**
  * Note: foreground and background are both set based on the program `slug`.

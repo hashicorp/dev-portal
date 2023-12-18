@@ -21,18 +21,17 @@ import s from './hero.module.css'
  * plain white background. An empty string can be passed if a plain
  * white background is desired.
  */
-interface HeroProps extends HTMLAttributes<HTMLDivElement> {
-	backgroundClassName: string
-	startSlot: ReactNode
-	endSlot?: ReactNode
-}
 
 function Hero({
 	backgroundClassName,
 	startSlot,
 	endSlot,
 	className,
-}: HeroProps) {
+}: {
+	backgroundClassName: string
+	startSlot: ReactNode
+	endSlot?: ReactNode
+} & HTMLAttributes<HTMLDivElement>) {
 	return (
 		<div className={s.root}>
 			<div className={classNames(s.backgroundBase, backgroundClassName)} />
@@ -48,6 +47,8 @@ function Hero({
 
 /**
  * Render a heading and descriptive text within a Hero.
+ * @todo: Once HVD landing page has a description,
+ * remove the optional description logic
  */
 function HeroText({
 	heading,
