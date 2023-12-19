@@ -16,8 +16,10 @@
 	flex: 1 1 0;
 	min-width: min(100%, 260px);
 
-	@media (--dev-dot-tablet-up) {
-		max-width: 400px;
+	&.hasImage {
+		@media (--dev-dot-tablet-up) {
+			max-width: 400px;
+		}
 	}
 }
 
