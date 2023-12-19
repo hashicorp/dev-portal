@@ -42,13 +42,6 @@
 	}
 }
 
-.guideCard {
-	align-items: center;
-	color: var(--token-color-foreground-strong);
-	display: flex;
-	justify-content: space-between;
-}
-
 .mobileOnly {
 	align-items: center;
 	display: flex;
@@ -58,6 +51,21 @@
 	}
 }
 
+.categoryGroupDescription {
+	color: var(--token-color-foreground-faint);
+	@media (--dev-dot-tablet-up) {
+		max-width: 630px;
+	}
+}
+
+.guideCard {
+	align-items: center;
+	color: var(--token-color-foreground-strong);
+	display: flex;
+	justify-content: space-between;
+	max-width: 560px;
+}
+
 .categoryGroupHeader {
 	display: flex;
 	flex-direction: column;
@@ -65,6 +73,7 @@
 	align-items: flex-start;
 	gap: 11px;
 	margin-bottom: 11px;
+	max-width: 630px;
 	@media (--dev-dot-tablet-up) {
 		flex-wrap: wrap;
 		flex-direction: row;
@@ -72,13 +81,6 @@
 		align-items: center;
 		gap: 11px;
 		margin-bottom: 20px;
-	}
-}
-
-.categoryGroupDescription {
-	color: var(--token-color-foreground-faint);
-	@media (--dev-dot-tablet-up) {
-		max-width: 665px;
 	}
 }
 
