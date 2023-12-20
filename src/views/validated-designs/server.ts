@@ -87,8 +87,6 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 	 * Then we build the category groups based on the contents of the metadata files.
 	 * Each category should have an array of guides associated with it.
 	 * There should be one category metadata file, but many guide metadata files.
-	 *
-	 * Note, is a spike and the code could be cleaned up / reformatted as per the needs of the view!
 	 */
 	const hvdCategoryGroups: HvdCategoryGroup[] = []
 	configFiles.forEach((item: string) => {

@@ -10,9 +10,6 @@ import {
 	getHvdGuidePropsFromSlug,
 } from 'views/validated-designs/server'
 
-// @TODO make sure to set it up so that the base `guideSlug` path redirects to the first section page
-// for example /validated-designs/terraform-operation-guides-adoption would render the content for
-// /validated-designs/terraform-operation-guides-adoption/0000-introduction
 export async function getStaticPaths() {
 	const categoryGroups = getHvdCategoryGroups()
 	if (!categoryGroups) {
