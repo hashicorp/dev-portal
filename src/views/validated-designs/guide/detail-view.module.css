@@ -33,13 +33,10 @@
 }
 
 .mobileBackButton {
-	display: block;
 	margin-top: -16px;
-}
 
-/* same css var that SidebarSidecarLayout uses to hide the mobile menu, but we are using it here to hide the back button, that we add on mobile, on desktop */
-@media (--dev-dot-hide-mobile-menu) {
-	.mobileBackButton {
+	/* same css var that SidebarSidecarLayout uses to hide the mobile menu, but we are using it here to hide the back button, that we add on mobile, on desktop */
+	@media (--dev-dot-hide-mobile-menu) {
 		display: none;
 	}
 }
