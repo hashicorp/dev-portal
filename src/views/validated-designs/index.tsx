@@ -75,12 +75,12 @@ export default function ValidatedDesignsLandingView({
 						key={category.slug}
 						className={s.categoryGroupContainer}
 					>
-						<div className={s.categoryGroupHeader}>
+						<section className={s.categoryGroupHeader}>
 							<IconTileLogo size="large" productSlug={category.product} />
 							<Heading level={2} size={isMobile ? 400 : 500} weight="bold">
 								{category.title}
 							</Heading>
-						</div>
+						</section>
 						<Text
 							asElement="p"
 							size={isMobile ? 200 : 300}
