@@ -7,8 +7,7 @@ import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
 import { isProductSlug } from 'lib/products'
-// @TODO create an alias for root dir
-import { HVD_CONTENT_DIR } from '../../../scripts/extract-hvd-content'
+import { HVD_CONTENT_DIR } from '@scripts/extract-hvd-content'
 import { HvdCategoryGroup, HvdGuide, HvdPage } from './types'
 import { ValidatedDesignsGuideProps } from './guide'
 
