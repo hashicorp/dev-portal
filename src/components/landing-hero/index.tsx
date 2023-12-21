@@ -27,6 +27,7 @@ function LandingHero({
 			className={className}
 			startSlot={
 				<HeroText
+					className={className}
 					heading={heading}
 					description={description ?? ''}
 					foreground="light"

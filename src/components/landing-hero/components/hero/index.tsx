@@ -54,15 +54,16 @@ function HeroText({
 	heading,
 	description,
 	foreground,
+	className,
 }: {
 	heading: string
 	description?: string
 	foreground: 'light' | 'dark'
-}) {
+} & HTMLAttributes<HTMLDivElement>) {
 	return (
 		<div className={classNames(s.textRoot, s[`foreground-${foreground}`])}>
 			<h1
-				className={s.textHeading}
+				className={classNames(s.textHeading, className)}
 				dangerouslySetInnerHTML={{ __html: heading }}
 			/>
 			{description?.length ? (
