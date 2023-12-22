@@ -69,6 +69,9 @@ const config: Config.InitialOptions = {
 	],
 	testEnvironment: 'jsdom',
 	...(isRunningInEsmMode && esmConfig),
+	moduleNameMapper: {
+		'^@scripts/(.*)$': '../../../scripts/$1',
+	},
 }
 
 export default makeConfig({ nextDir: './', ...config })
