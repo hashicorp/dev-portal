@@ -117,7 +117,7 @@
 		"@hashicorp/react-button": "^6.3.1",
 		"@hashicorp/react-code-block": "^6.4.0",
 		"@hashicorp/react-consent-manager": "^9.2.0",
-		"@hashicorp/react-docs-page": "^17.9.0",
+		"@hashicorp/react-docs-page": "^17.9.1",
 		"@hashicorp/react-docs-sidenav": "^9.1.0",
 		"@hashicorp/react-enterprise-alert": "^7.0.1",
 		"@hashicorp/react-error-view": "^0.2.0",
