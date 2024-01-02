@@ -3,12 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactNode } from 'react'
+import { HTMLAttributes, ReactNode } from 'react'
 import classNames from 'classnames'
 import mitigateWidows from '@hashicorp/platform-util/text/mitigate-widows'
-import { CertificationsMaxWidth } from 'views/certifications/components'
-import { CertificationsHeroProps } from './types'
-import s from './certifications-hero.module.css'
+import s from './hero.module.css'
 
 /**
  * Render a certifications hero with a consistent layout.
@@ -23,55 +21,61 @@ import s from './certifications-hero.module.css'
  * plain white background. An empty string can be passed if a plain
  * white background is desired.
  */
-function CertificationsHero({
+
+function Hero({
 	backgroundClassName,
 	startSlot,
 	endSlot,
+	className,
 }: {
 	backgroundClassName: string
 	startSlot: ReactNode
 	endSlot?: ReactNode
-}) {
+} & HTMLAttributes<HTMLDivElement>) {
 	return (
 		<div className={s.root}>
 			<div className={classNames(s.backgroundBase, backgroundClassName)} />
-			<CertificationsMaxWidth>
+			<div className={classNames(s.rootContainer, className)}>
 				<div className={s.rootLayout}>
-					<div className={s.startSlot}>{startSlot}</div>
+					<div className={classNames(s.startSlot, className)}>{startSlot}</div>
 					{endSlot ? <div className={s.endSlot}>{endSlot}</div> : null}
 				</div>
-			</CertificationsMaxWidth>
+			</div>
 		</div>
 	)
 }
 
 /**
- * Render a heading and descriptive text within a CertificationsHero.
+ * Render a heading and descriptive text within a Hero.
+ * @todo: Once HVD landing page has a description,
+ * remove the optional description logic
  */
-function CertificationsHeroText({
+function HeroText({
 	heading,
 	description,
 	foreground,
+	className,
 }: {
 	heading: string
-	description: string
+	description?: string
 	foreground: 'light' | 'dark'
-}) {
+} & HTMLAttributes<HTMLDivElement>) {
 	return (
 		<div className={classNames(s.textRoot, s[`foreground-${foreground}`])}>
 			<h1
-				className={s.textHeading}
+				className={classNames(s.textHeading, className)}
 				dangerouslySetInnerHTML={{ __html: heading }}
 			/>
-			<p
-				className={s.textDescription}
-				dangerouslySetInnerHTML={{
-					__html: mitigateWidows(description, 18),
-				}}
-			/>
+			{description?.length ? (
+				<p
+					className={s.textDescription}
+					dangerouslySetInnerHTML={{
+						__html: mitigateWidows(description, 18),
+					}}
+				/>
+			) : null}
 		</div>
 	)
 }
 
-export type { CertificationsHeroProps }
-export { CertificationsHero, CertificationsHeroText }
+export { Hero, HeroText }
