@@ -105,11 +105,25 @@ const Sidebar = ({
 
 	let sidebarContent
 	const filteredMenuItems = getFilteredNavItems(itemsWithMetadata, filterValue)
-	const navResourceItems = generateResourcesNavItems(currentProduct?.slug).map(
-		(item) => item
+	const navResourceItems = generateResourcesNavItems(currentProduct?.slug)
+	const resourcesComponent = (
+		<>
+			<SidebarHorizontalRule />
+			<SidebarNavList>
+				{navResourceItems.map((item, index) => (
+					// eslint-disable-next-line react/no-array-index-key
+					<SidebarNavMenuItem item={item} key={index} />
+				))}
+			</SidebarNavList>
+		</>
 	)
 	if (children) {
-		sidebarContent = children
+		sidebarContent = (
+			<>
+				{children}
+				{showResourcesList && resourcesComponent}
+			</>
+		)
 	} else if (isInstallPage) {
 		sidebarContent = (
 			<OpenApiSidebarContents
@@ -119,21 +133,6 @@ const Sidebar = ({
 			/>
 		)
 	} else {
-		let resourcesList
-		if (showResourcesList) {
-			resourcesList = (
-				<>
-					<SidebarHorizontalRule />
-					<SidebarNavList>
-						{navResourceItems.map((item, index) => (
-							// eslint-disable-next-line react/no-array-index-key
-							<SidebarNavMenuItem item={item} key={index} />
-						))}
-					</SidebarNavList>
-				</>
-			)
-		}
-
 		sidebarContent = (
 			<>
 				<SidebarNavList>
@@ -142,11 +141,10 @@ const Sidebar = ({
 						return <SidebarNavMenuItem item={item} key={key} />
 					})}
 				</SidebarNavList>
-				{resourcesList}
+				{showResourcesList && resourcesComponent}
 			</>
 		)
 	}
-
 	return (
 		<div className={s.sidebar}>
 			{backToElement}
