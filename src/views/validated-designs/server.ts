@@ -135,17 +135,22 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 			})
 			const pages = pagesFiles.map((pagePath: string) => {
 				const pagePathParts = pagePath.split('/')
-				const pageFile = pagePathParts[pagePathParts.length - 1]
+				const pageFileName = pagePathParts[pagePathParts.length - 1]
+				const filePath = path.join(HVD_CONTENT_DIR, pagePath)
 
-				const pageSlug = pageFile
+				const pageSlug = pageFileName
 					.replace('.mdx', '')
-					.substring(pageFile.indexOf('-') + 1)
+					.substring(pageFileName.indexOf('-') + 1)
 					.toLocaleLowerCase()
+
+				const pageMDXString = fs.readFileSync(filePath, 'utf8')
+				const { data: frontMatter } = grayMatter(pageMDXString)
 
 				return {
 					slug: pageSlug,
-					title: pageSlug.replaceAll('-', ' '),
-					filePath: path.join(HVD_CONTENT_DIR, pagePath),
+					// this is temporary as we should always have these fields in the markdown
+					title: frontMatter?.title || null,
+					filePath,
 					href: `${basePath}/${categorySlug}/${pageSlug}`,
 				}
 			})
