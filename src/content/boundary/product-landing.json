@@ -42,11 +42,6 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Identity-based Access",
-					"body": "Enable privileged sessions for users and applications based on user identity and role.",
-					"url": "/boundary/tutorials/access-management/oidc-auth"
-				},
-				{
 					"heading": "Service Discovery",
 					"body": "Service discovery focuses on automating the process of onboarding new or changed infrastructure resources to Boundary as hosts.",
 					"url": "/boundary/docs/concepts/service-discovery"
@@ -72,7 +67,6 @@
 		{
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
-				"boundary/oidc-auth",
 				"boundary/oss-vault-cred-brokering-quickstart",
 				"boundary/hcp-manage-workers",
 				"boundary/hcp-ssh-cred-injection",
