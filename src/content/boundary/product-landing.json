@@ -54,7 +54,7 @@
 				{
 					"heading": "Session Visibility and Audit Logs",
 					"body": "Visibility into session metrics, events, logs, and traces with the ability to export data to business intelligence and event monitoring tools",
-					"url": "/boundary/tutorials/oss-configuration/event-logging"
+					"url": "/boundary/tutorials/self-managed-deployment/event-logging"
 				}
 			]
 		},
