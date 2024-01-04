@@ -22,6 +22,7 @@ import alertBannerData from 'data/alert-banner.json'
 // Local imports
 import { BaseLayoutProps, AlertBannerProps } from './types'
 import s from './base-layout.module.css'
+import { HTMLAttributes } from 'react'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	preset: 'oss',
@@ -39,11 +40,13 @@ const { ConsentManager, openConsentManager } = createConsentManager({
  * If you need a layout with a built-in generic global mobile menu,
  * use `BaseLayoutGenericMobileMenu`.
  */
+
 const BaseLayout = ({
 	children,
 	showFooterTopBorder = false,
 	mobileMenuSlot,
-}: BaseLayoutProps) => {
+	className,
+}: BaseLayoutProps & HTMLAttributes<HTMLDivElement>) => {
 	usePageviewAnalytics({
 		siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
 		includedDomains: __config.dev_dot.analytics.included_domains,
@@ -59,7 +62,7 @@ const BaseLayout = ({
 				/>
 			)}
 			<CoreDevDotLayoutWithTheme>
-				<div className={s.root} data-layout="base-new">
+				<div className={classNames(s.root, className)} data-layout="base-new">
 					<div className={s.header}>
 						<NavigationHeader />
 					</div>

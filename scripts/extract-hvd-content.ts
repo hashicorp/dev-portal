@@ -33,6 +33,8 @@ export const HVD_CONTENT_DIR =
 	process.env.LOCAL_CONTENT_DIR ||
 	path.join(HVD_REPO_DIR, BASE_REPO_CONFIG.contentPath)
 
+export const HVD_FINAL_IMAGE_ROOT_DIR = '.extracted/hvd'
+
 /**
  * This script extracts HVD content from the `hashicorp-validated-designs`
  * GitHub organization into the local filesystem that `dev-portal` can access.
@@ -71,6 +73,18 @@ export const HVD_CONTENT_DIR =
 		fs.renameSync(convolutedDir, HVD_REPO_DIR)
 		// Clean up the temporary directory
 		fs.rmSync(tempDestination, { recursive: true })
+
+		/**
+		 * Copy all image files into the `public` directory,
+		 * preserving the directory structure.
+		 */
+		const imageLocation = path.join(HVD_REPO_DIR, 'public')
+		const imageDestination = path.join(
+			process.cwd(),
+			'public/',
+			HVD_FINAL_IMAGE_ROOT_DIR
+		)
+		fs.cpSync(imageLocation, imageDestination, { recursive: true })
 	} catch (error) {
 		/**
 		 * When authors are running locally from content repos,

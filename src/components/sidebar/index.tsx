@@ -45,6 +45,7 @@ const Sidebar = ({
 	title,
 	visuallyHideTitle = false,
 	isInstallPage,
+	showResourcesList = true,
 }: SidebarProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	const { shouldRenderMobileControls } = useSidebarNavData()
@@ -120,7 +121,7 @@ const Sidebar = ({
 		sidebarContent = (
 			<>
 				{children}
-				{resourcesComponent}
+				{showResourcesList && resourcesComponent}
 			</>
 		)
 	} else if (isInstallPage) {
@@ -140,7 +141,7 @@ const Sidebar = ({
 						return <SidebarNavMenuItem item={item} key={key} />
 					})}
 				</SidebarNavList>
-				{resourcesComponent}
+				{showResourcesList && resourcesComponent}
 			</>
 		)
 	}
