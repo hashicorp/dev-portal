@@ -4,7 +4,6 @@
  */
 
 .linkBoxWrapper {
-
 	border-top: 1px solid var(--token-color-border-primary);
 	display: flex;
 	flex-direction: column;
@@ -23,6 +22,7 @@
        each item takes up an equal amount of space. This comes at the
        cost of going to a single-column layout slightly earlier */
 		min-width: calc(50% - 12px);
+		max-width: 50%;
 	}
 
 	@media (--dev-dot-tablet-up) {

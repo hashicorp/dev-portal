@@ -52,34 +52,40 @@ export default function ValidatedDesignGuideView({
 	const backBtnUrl = basePath
 
 	function renderPreviousLink() {
-		if (currentPageIndex !== 0 && pages[currentPageIndex - 1]) {
-			const page = pages[currentPageIndex - 1]
+		const prevPage = pages[currentPageIndex - 1]
 
+		if (currentPageIndex !== 0 && prevPage) {
 			return (
 				<DirectionalLinkBox
 					label="Previous"
-					name={page.title}
-					href={page.href}
+					name={prevPage.title}
+					href={prevPage.href}
 					direction={'previous'}
-					ariaLabel={`Go to previous page: ${page.title}`}
+					ariaLabel={`Go to previous page: ${prevPage.title}`}
 				/>
 			)
+		} else {
+			// We add this empty div here so that even when only one "paging buttons" is rendered, they always only take up 50%
+			return <div />
 		}
 	}
 
 	function renderNextLink() {
-		if (currentPageIndex !== pages.length - 1 && pages[currentPageIndex + 1]) {
-			const page = pages[currentPageIndex + 1]
+		const nextPage = pages[currentPageIndex + 1]
 
+		if (currentPageIndex !== pages.length - 1 && nextPage) {
 			return (
 				<DirectionalLinkBox
 					label="Next"
-					name={page.title}
-					href={page.href}
+					name={nextPage.title}
+					href={nextPage.href}
 					direction={'next'}
-					ariaLabel={`Go to next page: ${page.title}`}
+					ariaLabel={`Go to next page: ${nextPage.title}`}
 				/>
 			)
+		} else {
+			// We add this empty div here so that even when only one "paging buttons" is rendered, they always only take up 50%
+			return <div />
 		}
 	}
 
