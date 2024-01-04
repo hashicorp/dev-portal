@@ -63,10 +63,9 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 				`[Error]: HVD content was not found, and will not be built. If you need to work on HVD content, please ensure a valid GITHUB_TOKEN is present in your environment variables. Error: ${e}`
 			)
 		} else {
-			// TODO uncomment this to throw once the content migration is done in
-			// https://github.com/hashicorp/hvd-docs/pull/2/
-			// throw e
-			console.error(e)
+			console.error(
+				`[Error]: HVD content was not found, and will not be built. If you need to work on HVD content, please ensure a valid GITHUB_TOKEN is present in your environment variables. Error: ${e}`
+			)
 		}
 
 		return null
@@ -143,6 +142,7 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 					.substring(pageFileName.indexOf('-') + 1)
 					.toLocaleLowerCase()
 
+				// TODO: this should be guarded with a try catch
 				const pageMDXString = fs.readFileSync(filePath, 'utf8')
 				const { data: frontMatter } = grayMatter(pageMDXString)
 
@@ -213,6 +213,7 @@ export async function getHvdGuidePropsFromSlug(
 
 						let mdxFileString: string
 						try {
+							// TODO: this should be guarded with a try catch
 							mdxFileString = fs.readFileSync(page.filePath, 'utf8')
 						} catch (err) {
 							console.error(err)
