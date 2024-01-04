@@ -27,7 +27,7 @@ type ResourceNavItem = ResourceNavLink | ResourceNavHeading
 
 const DEFAULT_COMMUNITY_FORUM_LINK = 'https://discuss.hashicorp.com/'
 const DEFAULT_GITHUB_LINK = 'https://github.com/hashicorp'
-const DEFAULT_SUPPORT_LINK = 'https://www.hashicorp.com/customer-success'
+const DEFAULT_SUPPORT_LINK = 'https://support.hashicorp.com/hc'
 
 const COMMUNITY_LINKS_BY_PRODUCT: { [key in ProductSlug]: string } = {
 	boundary: 'https://discuss.hashicorp.com/c/boundary/50',
