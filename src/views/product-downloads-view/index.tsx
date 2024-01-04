@@ -28,7 +28,7 @@ import {
 import {
 	initializeBreadcrumbLinks,
 	initializeVersionSwitcherOptions,
-	generateTableOfContentsSidebar,
+	setTableOfContents,
 } from './helpers'
 import { CurrentVersionProvider, useCurrentVersion } from './contexts'
 import {
@@ -44,6 +44,8 @@ import { ContentWithPermalink } from 'views/open-api-docs-view/components/conten
 import Heading from 'components/heading'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 import { SidebarProps } from 'components/sidebar/types'
+import { InstallPageAnchorHeading } from './components/downloads-section/types'
+import { Products } from '@hashicorp/platform-product-meta'
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
@@ -64,19 +66,21 @@ const ProductDownloadsViewContent = ({
 		sidecarMarketingCard,
 		sidecarHcpCallout,
 		sidebarMenuItems = [],
+		tableOfContents,
 		installName,
 	} = pageContent
 	const currentProduct = useCurrentProduct()
 	const { currentVersion } = useCurrentVersion()
 	const { pathname } = useRouter()
-
 	const breadcrumbLinks = useMemo(
 		() => initializeBreadcrumbLinks(currentProduct, isEnterpriseMode, pathname),
 		[currentProduct, isEnterpriseMode, pathname]
 	)
 
-	const [installViewNavItems, setInstallViewNavItems] =
-		useState(sidebarMenuItems)
+	const [installViewNavItems, setInstallViewNavItems] = useState([
+		...tableOfContents,
+		...sidebarMenuItems,
+	])
 
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
@@ -89,15 +93,25 @@ const ProductDownloadsViewContent = ({
 	]
 
 	useEffect(() => {
-		const updatedHeadings = generateTableOfContentsSidebar(
-			document?.querySelectorAll(`#main [data-sidebar-item]`)
+		const updatedTableOfContents = setTableOfContents(
+			releases,
+			currentVersion,
+			featuredCollectionCards,
+			featuredTutorialCards,
+			currentProduct.slug
 		)
-
 		setInstallViewNavItems([
-			...updatedHeadings,
+			...updatedTableOfContents,
 			...sidebarMenuItems,
 		] as MenuItem[])
-	}, [currentVersion, sidebarMenuItems])
+	}, [
+		releases,
+		currentVersion,
+		featuredCollectionCards,
+		featuredTutorialCards,
+		currentProduct.slug,
+		sidebarMenuItems,
+	])
 
 	return (
 		<SidebarSidecarLayout
@@ -151,13 +165,12 @@ const ProductDownloadsViewContent = ({
 			{featuredCollectionCards?.length || featuredTutorialCards?.length ? (
 				<ContentWithPermalink
 					className={s.nextStepsHeading}
-					id="Next-steps"
+					id={'Next-steps' as InstallPageAnchorHeading}
 					ariaLabel="Next steps"
 				>
 					<Heading
-						data-sidebar-item
 						className={viewStyles.scrollHeading}
-						id="Next-steps"
+						id={'Next-steps' as InstallPageAnchorHeading}
 						level={2}
 						size={500}
 						weight="bold"
