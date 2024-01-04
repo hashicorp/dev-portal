@@ -22,7 +22,7 @@
        width of half the available space (minus gap) ensures that
        each item takes up an equal amount of space. This comes at the
        cost of going to a single-column layout slightly earlier */
-		min-width: calc(50% - (var(--gap) / var(--item-count)));
+		min-width: calc(50% - 12px);
 	}
 
 	@media (--dev-dot-tablet-up) {
