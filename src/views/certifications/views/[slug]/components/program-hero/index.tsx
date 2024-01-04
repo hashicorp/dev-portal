@@ -5,11 +5,6 @@
 
 import classNames from 'classnames'
 // Shared under certifications
-import {
-	CertificationsHero,
-	CertificationsHeroText,
-	CertificationsHeroProps,
-} from 'views/certifications/components'
 import { ProgramSlug } from 'views/certifications/types'
 // Local
 import { ProgramHeroProps } from './types'
@@ -17,6 +12,8 @@ import { ProgramHeroProps } from './types'
 import s from './program-hero.module.css'
 import StandaloneLink from 'components/standalone-link'
 import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16'
+import { Hero, HeroText } from 'components/landing-hero/components/hero'
+import { HeroProps } from 'components/landing-hero/components/hero/types'
 
 /**
  * Note: foreground and background are both set based on the program `slug`.
@@ -26,10 +23,7 @@ import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16
  * If a slug is not explicitly supported, the CertificationsHero will default
  * to dark foreground text, and a plain white background.
  */
-const programHeroForeground: Record<
-	ProgramSlug,
-	CertificationsHeroProps['foreground']
-> = {
+const programHeroForeground: Record<ProgramSlug, HeroProps['foreground']> = {
 	'security-automation': 'dark',
 	'infrastructure-automation': 'light',
 	'networking-automation': 'light',
@@ -41,7 +35,7 @@ const programHeroForeground: Record<
 function ProgramHero({ heading, description, slug }: ProgramHeroProps) {
 	const foreground = programHeroForeground[slug]
 	return (
-		<CertificationsHero
+		<Hero
 			backgroundClassName={classNames(s.heroBackground, s[`theme-${slug}`])}
 			startSlot={
 				<>
@@ -56,7 +50,7 @@ function ProgramHero({ heading, description, slug }: ProgramHeroProps) {
 						iconPosition={'leading'}
 						color="secondary"
 					/>
-					<CertificationsHeroText
+					<HeroText
 						heading={heading}
 						description={description}
 						foreground={foreground}
