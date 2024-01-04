@@ -4,8 +4,6 @@
  */
 
 .linkBoxWrapper {
-	--gap: 24px;
-	--item-count: 2;
 
 	border-top: 1px solid var(--token-color-border-primary);
 	display: flex;
