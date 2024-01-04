@@ -137,19 +137,20 @@ const DownloadsSection = ({
 			{Object.keys(downloadsByOS).map((os) => {
 				const packageManagers = packageManagersByOS[os]
 				const prettyOSName = prettyOs(os)
+				const prettyOsId = prettyOSName.replace(' ', '-')
 
 				return (
 					<Card className={s.card} elevation="base" key={os}>
 						<ContentWithPermalink
 							className={s.headingContainer}
-							id={prettyOSName}
+							id={prettyOsId}
 							ariaLabel={prettyOSName}
 						>
 							<Heading
 								className={classNames(s.heading, viewStyles.scrollHeading)}
 								level={2}
 								size={400}
-								id={prettyOSName}
+								id={prettyOsId}
 								weight="bold"
 							>
 								{prettyOSName}

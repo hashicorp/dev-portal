@@ -467,7 +467,7 @@ export const setTableOfContents = (
 		const formattedOS = prettyOs(os)
 		return {
 			title: formattedOS,
-			fullPath: `#${formattedOS}`,
+			fullPath: `#${formattedOS.replace(' ', '-')}`,
 		}
 	})
 	const desktopClient =
