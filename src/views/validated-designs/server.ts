@@ -7,17 +7,23 @@ import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
 import { isProductSlug } from 'lib/products'
-// @TODO create an alias for root dir
 import { HVD_CONTENT_DIR } from '../../../scripts/extract-hvd-content'
-import { HvdCategoryGroup } from './types'
+import { HvdCategoryGroup, HvdGuide, HvdPage } from './types'
 import { ValidatedDesignsGuideProps } from './guide'
-import { ValidatedDesignsLandingProps } from '.'
 
 import { serialize } from 'next-mdx-remote/serialize'
+import remarkPluginAnchorLinkData, {
+	AnchorLinkItem,
+} from 'lib/remark-plugins/remark-plugin-anchor-link-data'
+import { rewriteStaticHVDAssetsPlugin } from 'lib/remark-plugins/rewrite-static-hvd-assets'
+import grayMatter from 'gray-matter'
+import { ProductSlug } from 'types/products'
 
 const basePath = '/validated-designs'
 
-function loadMetadata(path: string): { title: string; description: string } {
+function loadMetadata(
+	path: string
+): { title: string; description: string } | null {
 	try {
 		const data = yaml.load(
 			fs.readFileSync(path, {
@@ -30,6 +36,7 @@ function loadMetadata(path: string): { title: string; description: string } {
 			'[Error: HVD template] Unable to parse yaml metadata file ',
 			e
 		)
+		return null
 	}
 }
 
@@ -52,14 +59,13 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 		 * locally will need to have a valid `GITHUB_TOKEN`.
 		 */
 		if (process.env.IS_CONTENT_PREVIEW) {
-			console.error(
+			console.warn(
 				`[Error]: HVD content was not found, and will not be built. If you need to work on HVD content, please ensure a valid GITHUB_TOKEN is present in your environment variables. Error: ${e}`
 			)
 		} else {
-			// TODO uncomment this to throw once the content migration is done in
-			// https://github.com/hashicorp/hvd-docs/pull/2/
-			// throw e
-			console.error(e)
+			console.error(
+				`[Error]: HVD content was not found, and will not be built. If you need to work on HVD content, please ensure a valid GITHUB_TOKEN is present in your environment variables. Error: ${e}`
+			)
 		}
 
 		return null
@@ -80,8 +86,6 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 	 * Then we build the category groups based on the contents of the metadata files.
 	 * Each category should have an array of guides associated with it.
 	 * There should be one category metadata file, but many guide metadata files.
-	 *
-	 * Note, is a spike and the code could be cleaned up / reformatted as per the needs of the view!
 	 */
 	const hvdCategoryGroups: HvdCategoryGroup[] = []
 	configFiles.forEach((item: string) => {
@@ -94,28 +98,25 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 			return
 		}
 
+		const metadata = loadMetadata(path.join(HVD_CONTENT_DIR, item))
+		if (!metadata) {
+			return
+		}
+
 		// We assume category config files have 3 path parts, and hvd guide configs have 4 parts
 		const isCategoryMetadata = pathParts.length === 3
 		const isHvdMetadata = pathParts.length === 4
 
 		const slug = `${product}-${category}`
 		if (isCategoryMetadata) {
-			const { title, description } = loadMetadata(
-				path.join(HVD_CONTENT_DIR, item)
-			)
-
 			hvdCategoryGroups.push({
 				slug,
-				title,
-				description,
-				product,
+				title: metadata.title,
+				description: metadata.description,
+				product: product as Exclude<ProductSlug, 'sentinel'>,
 				guides: [],
 			})
 		} else if (isHvdMetadata) {
-			const { title, description } = loadMetadata(
-				path.join(HVD_CONTENT_DIR, item)
-			)
-
 			// find the existing HvdCategoryGroup, because we traverse the files in order the HvdCategoryGroup YAML will always come before the HvdGuide YAML
 			const categoryGroup = hvdCategoryGroups.find(
 				(categoryGroup: HvdCategoryGroup) => {
@@ -133,24 +134,31 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 			})
 			const pages = pagesFiles.map((pagePath: string) => {
 				const pagePathParts = pagePath.split('/')
-				const pageFile = pagePathParts[pagePathParts.length - 1]
+				const pageFileName = pagePathParts[pagePathParts.length - 1]
+				const filePath = path.join(HVD_CONTENT_DIR, pagePath)
 
-				const slug = pageFile
+				const pageSlug = pageFileName
 					.replace('.mdx', '')
-					.substring(pageFile.indexOf('-') + 1)
+					.substring(pageFileName.indexOf('-') + 1)
+					.toLocaleLowerCase()
+
+				// TODO: this should be guarded with a try catch
+				const pageMDXString = fs.readFileSync(filePath, 'utf8')
+				const { data: frontMatter } = grayMatter(pageMDXString)
 
 				return {
-					slug,
-					title: slug.replaceAll('-', ' '),
-					filePath: path.join(HVD_CONTENT_DIR, pagePath),
-					href: `${basePath}/${categorySlug}/${slug}`,
+					slug: pageSlug,
+					// this is temporary as we should always have these fields in the markdown
+					title: frontMatter?.title || '⛔ ERROR NO MARKDOWN TITLE ⛔',
+					filePath,
+					href: `${basePath}/${categorySlug}/${pageSlug}`,
 				}
 			})
 
 			categoryGroup.guides.push({
 				slug: categorySlug,
-				title,
-				description,
+				title: metadata.title,
+				description: metadata.description,
 				href: `${basePath}/${categorySlug}`,
 				pages,
 			})
@@ -160,114 +168,92 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 	return hvdCategoryGroups
 }
 
-export function getHvdCategoryGroupsPaths(): string[][] | null {
-	const categoryGroups = getHvdCategoryGroups()
-
-	if (!categoryGroups) {
-		return null
-	}
+export function getHvdCategoryGroupsPaths(
+	categoryGroups: HvdCategoryGroup[]
+): string[][] {
 	// [[guide-slug], [guide-slug, page-slug]]
 	// e.g. [[terraform-operation-guide-adoption], [terraform-operation-guide-adoption, page-slug]]
-	const paths = []
-	for (const categoryGroup of categoryGroups) {
-		for (const guide of categoryGroup.guides) {
-			paths.push([guide.slug])
-			for (const page of guide.pages) {
-				paths.push([guide.slug, page.slug])
-			}
-		}
-	}
-
-	return paths
+	return categoryGroups.flatMap((categoryGroup: HvdCategoryGroup) =>
+		categoryGroup.guides.flatMap((guide: HvdGuide) => [
+			[guide.slug],
+			...guide.pages.map((page: HvdPage) => [guide.slug, page.slug]),
+		])
+	)
 }
 
-// @TODO: calculate the actual url from the headers
-function getMarkdownHeaders(markdown: string) {
-	const headerRegex = /^(#{1,6})\s*(.+)/gm
-	let match
-	const headers = []
+export async function getHvdGuidePropsFromSlug(
+	categoryGroups: HvdCategoryGroup[],
+	slug: string[]
+): Promise<ValidatedDesignsGuideProps | null> {
+	const [guideSlug, pageSlug] = slug
 
-	while ((match = headerRegex.exec(markdown)) !== null) {
-		headers.push({
-			title: match[2].trim(),
-			url: '#test',
-		})
-	}
-
-	return headers
-}
-
-export async function getHvdGuidePropsFromSlugs(
-	slugs: string[] | null
-): Promise<ValidatedDesignsGuideProps> {
-	const categoryGroups = getHvdCategoryGroups()
-
-	if (!categoryGroups) {
-		return null
-	}
-
-	const [guideSlug, pageSlug] = slugs
-
-	const validatedDesignsGuideProps = {
+	const validatedDesignsGuideProps: ValidatedDesignsGuideProps = {
 		title: '',
-		mdxSource: null,
-		categorySlug: '',
+		markdown: {
+			description: '',
+			title: '',
+			mdxSource: null,
+		},
 		headers: [],
 		currentPageIndex: 0,
 		basePath,
 		pages: [],
 	}
 
-	let foundGuide = false
 	for (const categoryGroup of categoryGroups) {
 		for (const guide of categoryGroup.guides) {
 			if (guide.slug === guideSlug) {
-				validatedDesignsGuideProps.categorySlug = categoryGroup.slug
-
 				for (let index = 0; index < guide.pages.length; index++) {
 					const page = guide.pages[index]
 
 					// If no pageSlug is provided, default to the first page
 					if (page.slug === pageSlug || (!pageSlug && index === 0)) {
-						validatedDesignsGuideProps.title = page.title
-						const content = fs.readFileSync(page.filePath, 'utf8')
+						validatedDesignsGuideProps.title = guide.title
 
-						const headers = getMarkdownHeaders(content)
-						// @TODO: this does not add IDs to the headers, figure out why
-						const mdxSource = await serialize(content)
+						let mdxFileString: string
+						try {
+							// TODO: this should be guarded with a try catch
+							mdxFileString = fs.readFileSync(page.filePath, 'utf8')
+						} catch (err) {
+							console.error(err)
+							return null
+						}
 
+						const anchorLinks: AnchorLinkItem[] = []
+						const { data: frontMatter, content } = grayMatter(mdxFileString)
+
+						const mdxSource = await serialize(content, {
+							mdxOptions: {
+								remarkPlugins: [
+									[remarkPluginAnchorLinkData, { anchorLinks }],
+									rewriteStaticHVDAssetsPlugin,
+								],
+							},
+						})
+
+						const headers = anchorLinks.map((anchorLink: AnchorLinkItem) => ({
+							title: anchorLink.title,
+							url: `#${anchorLink.id}`,
+						}))
 						validatedDesignsGuideProps.headers = headers
-						validatedDesignsGuideProps.mdxSource = mdxSource
+						validatedDesignsGuideProps.markdown = {
+							// this is temporary as we should always have these fields in the markdown
+							description:
+								frontMatter?.description ||
+								'⛔ ERROR NO MARKDOWN DESCRIPTION ⛔',
+							title: frontMatter?.title || '⛔ ERROR NO MARKDOWN TITLE ⛔',
+							mdxSource,
+						}
 						validatedDesignsGuideProps.currentPageIndex = index
 					}
 
 					validatedDesignsGuideProps.pages.push(page)
 				}
 
-				foundGuide = true
-				break
-			}
-			if (foundGuide) {
-				break
+				return validatedDesignsGuideProps
 			}
 		}
 	}
 
-	return validatedDesignsGuideProps
-}
-
-export function getHvdLandingProps(): ValidatedDesignsLandingProps | null {
-	// @TODO — the title and description should be sourced from the content repo
-	const categoryGroups = getHvdCategoryGroups()
-
-	if (!categoryGroups) {
-		return null
-	}
-
-	return {
-		title: 'HashiCorp Validated Designs',
-		description:
-			'@TODO lorem ipsum the rain in Spain stays mainly in the plains.',
-		categoryGroups: getHvdCategoryGroups(),
-	}
+	return null
 }

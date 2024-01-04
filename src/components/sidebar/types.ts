@@ -190,6 +190,10 @@ interface SidebarBaseProps {
 	 * Optional. If true, the sidebar will use the API docs table of contents style nav.
 	 */
 	isInstallPage?: boolean
+	/**
+	 * Optional. If true, the sidebar will show the Resources list.
+	 */
+	showResourcesList?: boolean
 }
 
 /**

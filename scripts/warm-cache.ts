@@ -3,10 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { URL, URLSearchParams } from 'url'
+import { URL } from 'url'
 import createFetch from '@vercel/fetch'
 import pMap from 'p-map'
-import proxyConfig from '../build-libs/proxy-config'
 import { Collection, ProductOption, TutorialLite } from 'lib/learn-client/types'
 import {
 	getAllCollections,
@@ -17,66 +16,10 @@ import config from '../config/base.json'
 import { activeProductSlugs } from 'lib/products'
 import { ProductSlug } from 'types/products'
 
-interface StaticPathsResponse {
-	meta: {
-		status_code: number
-		status_text: string
-	}
-	result: {
-		paths: {
-			params: {
-				page: string[]
-			}
-		}[]
-	}
-}
-
 const DEV_PORTAL_URL = config.dev_dot.canonical_base_url
 
 // the socket timeout here matches Vercel's serverless function execution timeout (900s) as defined here: https://vercel.com/docs/concepts/limits/overview#general-limits
 const fetch = createFetch(null, { timeout: 900 * 1000 })
-
-/**
- * Returns a string representing a date that's `daysAgo` in the past, truncated
- * to midnight to improve cache hit rates.
- * Format: YYYY-MM-DD HH:MM:SS
- */
-function getDateRange(daysAgo: number): string {
-	const d = new Date()
-	d.setTime(d.getTime() - 24 * 60 * 60 * 1000 * daysAgo)
-	return `${d.toISOString().substring(0, 10)} 00:00:00`
-}
-
-/**
- * Uses the Marketing Content API to fetch the top 200 most viewed pages in the
- * past 28 days according to Fathom analytics.
- */
-async function getUrlsToCache(product: string): Promise<string[]> {
-	const url = new URL('https://content.hashicorp.com/api/static_paths')
-	const params = {
-		product,
-		limit: '200',
-		date_from: getDateRange(28),
-		path_prefix: '/',
-		param: 'page',
-	}
-
-	const formattedParams = new URLSearchParams(params)
-	url.search = formattedParams.toString()
-
-	const res = await fetch(url.toString())
-	const data = (await res.json()) as StaticPathsResponse
-
-	if (data.meta.status_code !== 200) {
-		throw new Error(`Unexpected status: ${data.meta.status_code}`)
-	}
-
-	const baseUrl = proxyConfig[product].domain
-
-	return data.result.paths.map((p) => {
-		return [baseUrl, p.params.page.join('/')].join('/')
-	})
-}
 
 /**
  * Uses the /api/revalidate endpoint to statically generate all docs pages for each product
@@ -148,12 +91,6 @@ async function getTutorialUrlsToCache(product: ProductSlug): Promise<string[]> {
 
 ;(async () => {
 	try {
-		const docsUrls = (
-			await Promise.all(
-				Object.keys(proxyConfig).map((product) => getUrlsToCache(product))
-			)
-		).flat(1)
-
 		const tutorialUrls = (
 			await Promise.all(
 				activeProductSlugs.map((product: ProductSlug) =>
@@ -165,7 +102,7 @@ async function getTutorialUrlsToCache(product: ProductSlug): Promise<string[]> {
 		console.log('Triggering revalidate for documentation pages')
 		const developerDocsCachePromise = warmDeveloperDocsCache()
 
-		const urls = [...docsUrls, ...tutorialUrls]
+		const urls = [...tutorialUrls]
 		console.log(`number of urls to cache: ${urls.length}`)
 
 		try {

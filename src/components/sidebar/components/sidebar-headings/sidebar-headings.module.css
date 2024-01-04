@@ -13,3 +13,91 @@
 	padding-left: 8px;
 	padding-right: 8px;
 }
+
+.brandedRoot {
+	/* Generic default theme, eg. for HCP and Sentinel */
+	--gradient-start: var(--token-color-palette-neutral-100);
+	--gradient-stop: var(--token-color-palette-neutral-50);
+	--inset-border-color: var(--token-color-palette-neutral-200);
+
+	/* Set up themed property helpers */
+	--inset-border-shadow: inset 0 0 0 1px var(--inset-border-color);
+	--gradient-background: linear-gradient(
+		315deg,
+		var(--gradient-start) 0%,
+		var(--gradient-stop) 100%
+	);
+
+	align-items: center;
+	background: var(--gradient-background);
+	border-radius: 5px;
+	box-shadow: var(--inset-border-shadow);
+	color: var(--token-color-foreground-primary);
+	display: flex;
+	gap: 8px;
+	margin-bottom: 2px;
+	padding: 8px;
+	position: relative;
+	width: 100%;
+	z-index: 0;
+}
+
+.text {
+	composes: hds-typography-body-200 from global;
+}
+
+.icon {
+	flex-shrink: 0;
+}
+
+/*
+ * Theming
+ */
+
+.theme-terraform {
+	--gradient-start: var(--token-color-terraform-gradient-faint-stop);
+	--gradient-stop: var(--token-color-terraform-gradient-faint-start);
+	--inset-border-color: var(--token-color-terraform-border);
+}
+
+.theme-packer {
+	--gradient-start: var(--token-color-packer-gradient-faint-stop);
+	--gradient-stop: var(--token-color-packer-gradient-faint-start);
+	--inset-border-color: var(--token-color-packer-border);
+}
+
+.theme-consul {
+	--gradient-start: var(--token-color-consul-gradient-faint-stop);
+	--gradient-stop: var(--token-color-consul-gradient-faint-start);
+	--inset-border-color: var(--token-color-consul-border);
+}
+
+.theme-vault {
+	--gradient-start: var(--token-color-vault-gradient-faint-stop);
+	--gradient-stop: var(--token-color-vault-gradient-faint-start);
+	--inset-border-color: var(--token-color-vault-border);
+}
+
+.theme-boundary {
+	--gradient-start: var(--token-color-boundary-gradient-faint-stop);
+	--gradient-stop: var(--token-color-boundary-gradient-faint-start);
+	--inset-border-color: var(--token-color-boundary-border);
+}
+
+.theme-nomad {
+	--gradient-start: var(--token-color-nomad-gradient-faint-stop);
+	--gradient-stop: var(--token-color-nomad-gradient-faint-start);
+	--inset-border-color: var(--token-color-nomad-border);
+}
+
+.theme-waypoint {
+	--gradient-start: var(--token-color-waypoint-gradient-faint-stop);
+	--gradient-stop: var(--token-color-waypoint-gradient-faint-start);
+	--inset-border-color: var(--token-color-waypoint-border);
+}
+
+.theme-vagrant {
+	--gradient-start: var(--token-color-vagrant-gradient-faint-stop);
+	--gradient-stop: var(--token-color-vagrant-gradient-faint-start);
+	--inset-border-color: var(--token-color-vagrant-border);
+}
