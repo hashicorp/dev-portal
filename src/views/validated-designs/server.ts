@@ -149,7 +149,7 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 				return {
 					slug: pageSlug,
 					// this is temporary as we should always have these fields in the markdown
-					title: frontMatter?.title || null,
+					title: frontMatter?.title || '⛔ ERROR NO MARKDOWN TITLE ⛔',
 					filePath,
 					href: `${basePath}/${categorySlug}/${pageSlug}`,
 				}
@@ -235,12 +235,13 @@ export async function getHvdGuidePropsFromSlug(
 							title: anchorLink.title,
 							url: `#${anchorLink.id}`,
 						}))
-
 						validatedDesignsGuideProps.headers = headers
 						validatedDesignsGuideProps.markdown = {
 							// this is temporary as we should always have these fields in the markdown
-							description: frontMatter?.description || null,
-							title: frontMatter?.title || null,
+							description:
+								frontMatter?.description ||
+								'⛔ ERROR NO MARKDOWN DESCRIPTION ⛔',
+							title: frontMatter?.title || '⛔ ERROR NO MARKDOWN TITLE ⛔',
 							mdxSource,
 						}
 						validatedDesignsGuideProps.currentPageIndex = index
