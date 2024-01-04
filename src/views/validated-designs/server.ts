@@ -200,7 +200,6 @@ export async function getHvdGuidePropsFromSlug(
 		pages: [],
 	}
 
-	let foundGuide = false
 	for (const categoryGroup of categoryGroups) {
 		for (const guide of categoryGroup.guides) {
 			if (guide.slug === guideSlug) {
@@ -251,14 +250,10 @@ export async function getHvdGuidePropsFromSlug(
 					validatedDesignsGuideProps.pages.push(page)
 				}
 
-				foundGuide = true
-				break
-			}
-			if (foundGuide) {
-				break
+				return validatedDesignsGuideProps
 			}
 		}
 	}
 
-	return validatedDesignsGuideProps
+	return null
 }
