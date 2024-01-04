@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import DirectionalLinkBox from './components/directional-link-box'
+import DirectionalLinkBox from '../../../../components/directional-link-box'
 import s from './next-previous.module.css'
 
 export interface NextPreviousProps {

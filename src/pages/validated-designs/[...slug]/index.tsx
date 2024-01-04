@@ -5,22 +5,21 @@
 
 import ValidatedDesignGuideView from 'views/validated-designs/guide'
 import {
+	getHvdCategoryGroups,
 	getHvdCategoryGroupsPaths,
-	getHvdGuidePropsFromSlugs,
+	getHvdGuidePropsFromSlug,
 } from 'views/validated-designs/server'
 
-// @TODO make sure to set it up so that the base `guideSlug` path redirects to the first section page
-// for example /validated-designs/terraform-operation-guides-adoption would render the content for
-// /validated-designs/terraform-operation-guides-adoption/0000-introduction
 export async function getStaticPaths() {
-	const pagePaths = getHvdCategoryGroupsPaths()
-
-	if (!pagePaths) {
+	const categoryGroups = getHvdCategoryGroups()
+	if (!categoryGroups) {
 		return {
 			paths: [],
 			fallback: false,
 		}
 	}
+
+	const pagePaths = getHvdCategoryGroupsPaths(categoryGroups)
 
 	return {
 		paths: [
@@ -42,9 +41,15 @@ export async function getStaticProps(context) {
 		}
 	}
 
-	const slugs = context.params.slug
-	const props = await getHvdGuidePropsFromSlugs(slugs)
+	const categoryGroups = getHvdCategoryGroups()
+	if (!categoryGroups) {
+		return {
+			notFound: true,
+		}
+	}
 
+	const slug = context.params.slug
+	const props = await getHvdGuidePropsFromSlug(categoryGroups, slug)
 	if (!props) {
 		return {
 			notFound: true,

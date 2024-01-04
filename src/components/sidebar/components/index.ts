@@ -10,7 +10,11 @@ import SidebarNavMenuItem, {
 } from './sidebar-nav-menu-item'
 import SidebarNavHighlightItem from './sidebar-nav-highlight-item'
 import SidebarSkipToMainContent from './sidebar-skip-to-main-content'
-import { SidebarSectionHeading, SidebarTitleHeading } from './sidebar-headings'
+import {
+	SidebarSectionHeading,
+	SidebarTitleHeading,
+	SidebarSectionBrandedHeading,
+} from './sidebar-headings'
 
 export {
 	SidebarNavHighlightItem,
@@ -21,4 +25,5 @@ export {
 	SidebarSectionHeading,
 	SidebarSkipToMainContent,
 	SidebarTitleHeading,
+	SidebarSectionBrandedHeading,
 }
