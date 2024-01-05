@@ -42,6 +42,11 @@
 			"type": "linked_cards",
 			"cards": [
 				{
+					"heading": "Identity-based Access",
+					"body": "Enable privileged sessions for users and applications based on user identity and role.",
+					"url": "/boundary/tutorials/identity-management"
+				},
+				{
 					"heading": "Service Discovery",
 					"body": "Service discovery focuses on automating the process of onboarding new or changed infrastructure resources to Boundary as hosts.",
 					"url": "/boundary/docs/concepts/service-discovery"
