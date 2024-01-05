@@ -17,6 +17,9 @@ const fetchGithubFile = require('./fetch-github-file')
 const loadProxiedSiteRedirects = require('./load-proxied-site-redirects')
 const { getTutorialRedirects } = require('./tutorial-redirects')
 const {
+	getDocsDotHashiCorpRedirects,
+} = require('./docs-dot-hashicorp-redirects')
+const {
 	integrationMultipleComponentRedirects,
 } = require('./integration-multiple-component-redirects')
 const { packerPluginRedirects } = require('./integration-packer-redirects')
@@ -312,32 +315,37 @@ async function buildDevPortalRedirects() {
 
 /**
  * Splits an array of redirects into simple (one-to-one path matches without
- * regex matching) and glob-based (with regex matching). Enables processing
- * redirects via middleware instead of the built-in redirects handling.
+ * regex matching) and complex (with glob-based regex matching or conditions).
+ *
+ * This enables processing simple redirects via middleware, instead of the
+ * built-in redirects handling. Using middleware was previously a necessity
+ * as we handled a VERY large volume of redirects for the proxied `io` domains,
+ * which exceeded Vercel's limits for built-in redirects handling.
+ * For further details see: https://vercel.com/guides/how-can-i-increase-the-limit-of-redirects-or-use-dynamic-redirects-on-vercel
+ *
  * @param {Redirect[]} redirects
- * @returns {{ simpleRedirects: Redirect[], globRedirects: Redirect[] }}
+ * @returns {{ simpleRedirects: Redirect[], complexRedirects: Redirect[] }}
  */
 function splitRedirectsByType(redirects) {
 	/** @type {Redirect[]} */
 	const simpleRedirects = []
 
 	/** @type {Redirect[]} */
-	const globRedirects = []
+	const complexRedirects = []
 
 	redirects.forEach((redirect) => {
-		if (
-			['(', ')', '{', '}', ':', '*', '+', '?'].some((char) =>
-				redirect.source.includes(char)
-			) ||
-			(redirect.has && redirect.has.some((has) => has.type !== 'host'))
-		) {
-			globRedirects.push(redirect)
+		const isGlobRedirect = ['(', ')', '{', '}', ':', '*', '+', '?'].some(
+			(char) => redirect.source.includes(char)
+		)
+		const hasCondition = redirect.has?.length > 0
+		if (isGlobRedirect || hasCondition) {
+			complexRedirects.push(redirect)
 		} else {
 			simpleRedirects.push(redirect)
 		}
 	})
 
-	return { simpleRedirects, globRedirects }
+	return { simpleRedirects, complexRedirects }
 }
 
 /**
@@ -481,23 +489,29 @@ async function redirectsConfig() {
 	const devPortalRedirects = await buildDevPortalRedirects()
 	const proxiedSiteRedirects = await loadProxiedSiteRedirects()
 	const tutorialRedirects = await getTutorialRedirects()
+	const docsDotHashiCorpRedirects = getDocsDotHashiCorpRedirects()
 
-	const { simpleRedirects, globRedirects } = splitRedirectsByType([
+	const { simpleRedirects, complexRedirects } = splitRedirectsByType([
 		...proxiedSiteRedirects,
 		...productRedirects,
 		...devPortalRedirects,
 		...tutorialRedirects,
+		...docsDotHashiCorpRedirects,
 	])
 	const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
 	if (process.env.DEBUG_REDIRECTS) {
 		console.log(
 			'[DEBUG_REDIRECTS]',
-			JSON.stringify({ simpleRedirects, groupedSimpleRedirects, globRedirects })
+			JSON.stringify({
+				simpleRedirects,
+				groupedSimpleRedirects,
+				complexRedirects,
+			})
 		)
 	}
 	return {
 		simpleRedirects: groupedSimpleRedirects,
-		globRedirects,
+		complexRedirects,
 	}
 }
 
