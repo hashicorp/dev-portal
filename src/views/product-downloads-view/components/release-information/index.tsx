@@ -26,6 +26,7 @@ import { ContentWithPermalink } from 'views/open-api-docs-view/components/conten
 import classNames from 'classnames'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 import capitalize from '@hashicorp/platform-util/text/capitalize'
+import { InstallPageAnchorHeading } from '../downloads-section/types'
 
 const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
@@ -188,18 +189,17 @@ const ReleaseInformationSection = ({
 }: ReleaseInformationSectionProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	return (
-		<div className={s.root} data-sidebar-item data-sidebar-divider="true">
+		<div className={s.root}>
 			<ContentWithPermalink
 				className={s.headingContainer}
-				id="Release-information"
+				id={'Release-information' as InstallPageAnchorHeading}
 				ariaLabel="Release information"
 			>
 				<Heading
-					data-sidebar-item
 					className={classNames(s.heading, viewStyles.scrollHeading)}
 					level={2}
 					size={400}
-					id="Release-information"
+					id={'Release-information' as InstallPageAnchorHeading}
 					weight="bold"
 				>
 					Release information
