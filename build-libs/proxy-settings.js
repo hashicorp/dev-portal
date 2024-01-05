@@ -21,7 +21,6 @@ const proxyConfig = require('./proxy-config')
  * @type {Record<string, SiteProxySettings>}
  */
 const proxySettings = {
-	/** TODO: uncomment proxySettings.sentinel before merging dev-portal#2271 */
 	sentinel: {
 		domain: proxyConfig.sentinel.domain,
 		host: proxyConfig.sentinel.host,
