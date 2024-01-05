@@ -10,3 +10,7 @@ export interface DownloadsSectionProps {
 	packageManagers: PackageManager[]
 	selectedRelease: ReleaseVersion
 }
+
+export type InstallPageAnchorHeading = 'Next-steps' | 'Release-information'
+
+export type BoundaryDesktopClient = 'Desktop-client'
