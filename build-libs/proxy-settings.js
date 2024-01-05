@@ -5,9 +5,6 @@
 
 //@ts-check
 
-/** TODO: remove the following line before merging dev-portal#2271 */
-/* eslint-disable no-unused-vars */
-
 const fs = require('fs')
 const path = require('path')
 const klawSync = require('klaw-sync')
@@ -25,18 +22,18 @@ const proxyConfig = require('./proxy-config')
  */
 const proxySettings = {
 	/** TODO: uncomment proxySettings.sentinel before merging dev-portal#2271 */
-	// sentinel: {
-	// 	domain: proxyConfig.sentinel.domain,
-	// 	host: proxyConfig.sentinel.host,
-	// 	routesToProxy: [
-	// 		...gatherRoutesToProxy('/_proxied-dot-io/sentinel'),
-	// 		...buildAssetRoutesToProxy(
-	// 			proxyConfig.sentinel.assets,
-	// 			'/sentinel-public'
-	// 		),
-	// 		...getDevPortalRoutesToProxy('sentinel'),
-	// 	],
-	// },
+	sentinel: {
+		domain: proxyConfig.sentinel.domain,
+		host: proxyConfig.sentinel.host,
+		routesToProxy: [
+			...gatherRoutesToProxy('/_proxied-dot-io/sentinel'),
+			...buildAssetRoutesToProxy(
+				proxyConfig.sentinel.assets,
+				'/sentinel-public'
+			),
+			...getDevPortalRoutesToProxy('sentinel'),
+		],
+	},
 }
 module.exports = proxySettings
 
