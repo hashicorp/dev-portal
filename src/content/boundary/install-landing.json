@@ -1,5 +1,6 @@
 {
 	"featuredTutorialsSlugs": [
+		"boundary/oidc-auth0",
 		"boundary/oss-vault-cred-brokering-quickstart",
 		"boundary/hcp-manage-workers",
 		"boundary/hcp-ssh-cred-injection",
