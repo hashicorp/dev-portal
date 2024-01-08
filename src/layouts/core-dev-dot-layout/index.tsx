@@ -19,8 +19,7 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 	const router = useRouter()
 	const { asPath, pathname, isReady } = router
 
-	const isSwingset = asPath.startsWith('/swingset')
-	const isToastPath = isThemedPath(pathname) && !isSwingset
+	const isToastPath = isThemedPath(pathname)
 
 	useEffect(() => {
 		if (isReady && isToastPath) {
@@ -35,7 +34,7 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 					<DatadogHeadTag />
 				</Head>
 				<div className={s.root}>{children}</div>
-				{isSwingset ? null : <DatadogScriptTag />}
+				<DatadogScriptTag />
 			</TabProvider>
 		</MobileMenuProvider>
 	)

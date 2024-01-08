@@ -22,7 +22,7 @@ function withHashiEnv(value, fn) {
 
 describe('splitRedirectsByType', () => {
 	test('splits simple and glob redirects', () => {
-		const { simpleRedirects, globRedirects } = splitRedirectsByType([
+		const { simpleRedirects, complexRedirects } = splitRedirectsByType([
 			{
 				source: '/:path',
 				destination: '/',
@@ -73,19 +73,8 @@ describe('splitRedirectsByType', () => {
 				destination: '',
 				permanent: true,
 			},
-			{
-				source: '/has-host',
-				destination: '/host',
-				permanent: true,
-				has: [
-					{
-						type: 'host',
-						value: 'www.host.com',
-					},
-				],
-			},
 		])
-		expect(globRedirects).toStrictEqual([
+		expect(complexRedirects).toStrictEqual([
 			{
 				source: '/:path',
 				destination: '/',
@@ -112,6 +101,17 @@ describe('splitRedirectsByType', () => {
 					{
 						type: 'cookie',
 						key: 'cookie',
+					},
+				],
+			},
+			{
+				source: '/has-host',
+				destination: '/host',
+				permanent: true,
+				has: [
+					{
+						type: 'host',
+						value: 'www.host.com',
 					},
 				],
 			},

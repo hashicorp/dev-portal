@@ -20,6 +20,7 @@ import {
 	generateDefaultPackageManagers,
 	generateEnterprisePackageManagers,
 	sortAndFilterReleaseVersions,
+	setTableOfContents,
 } from './helpers'
 import { generatePackageManagers } from './server-helpers'
 import { hasHcpCalloutContent } from 'components/try-hcp-callout/content'
@@ -69,7 +70,6 @@ const generateGetStaticProps = (
 			sidecarMarketingCard,
 			sidecarHcpCallout: rawSidecarHcpCallout,
 		} = CONTENT
-
 		/**
 		 * Fetch the release data static props
 		 */
@@ -134,6 +134,18 @@ const generateGetStaticProps = (
 		}
 
 		/**
+		 * Fetch the OS versions to combine with section headings
+		 * to create table of contents in sidebar
+		 */
+		const tableOfContents = setTableOfContents(
+			releases,
+			latestVersion,
+			featuredCollectionCards,
+			featuredTutorialCards,
+			product.slug // req for Boundary Desktop Client in OS section
+		)
+
+		/**
 		 * Combine release data and page content
 		 */
 		const props = stripUndefinedProperties({
@@ -147,6 +159,7 @@ const generateGetStaticProps = (
 				featuredTutorialCards,
 				installName: options.installName,
 				sidebarMenuItems,
+				tableOfContents,
 				sidecarMarketingCard,
 				sidecarHcpCallout,
 			},
