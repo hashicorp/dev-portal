@@ -9,13 +9,6 @@
 /** @typedef { import("next/dist/lib/load-custom-routes").RouteHas } RouteHas */
 
 /**
- * Note: Proxy settings are how we determine whether the Sentinel migration
- * has been launched. Once the Sentinel migration to Dev Dot is complete,
- * there's a lot here we could clean up - we'd no longer need a conditional.
- */
-const proxySettings = require('./proxy-settings')
-
-/**
  * Builds redirects for the `docs.hashicorp.com` domain.
  *
  * Returns an empty array if the Sentinel product docs are still being served
@@ -28,16 +21,7 @@ const proxySettings = require('./proxy-settings')
  */
 function getDocsDotHashiCorpRedirects() {
 	/**
-	 * If Sentinel is still being proxied, then don't add any redirects.
-	 * Redirects for `docs.hashicorp.com` will be handled by the `redirects.js`
-	 * file in the Sentinel repo until Sentinel is migrated.
-	 */
-	if (typeof proxySettings['sentinel'] !== 'undefined') {
-		return []
-	}
-
-	/**
-	 * Otherwise, we want to redirect content formerly hosted on
+	 * We want to redirect content formerly hosted on
 	 * `docs.hashicorp.com` to `developer.hashicorp.com`.
 	 */
 	/** @type {Redirect[]} */
