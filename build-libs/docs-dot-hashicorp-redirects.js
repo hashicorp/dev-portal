@@ -37,6 +37,12 @@ function getDocsDotHashiCorpRedirects() {
 			destination: 'https://developer.hashicorp.com/sentinel',
 			permanent: true,
 		},
+		// Redirect the `/sentinel` landing page
+		{
+			source: '/sentinel',
+			destination: 'https://developer.hashicorp.com/sentinel',
+			permanent: true,
+		},
 		// Redirect `/intro` content
 		{
 			source: '/sentinel/intro',
@@ -52,6 +58,13 @@ function getDocsDotHashiCorpRedirects() {
 		{
 			source: '/sentinel/downloads',
 			destination: 'https://developer.hashicorp.com/sentinel/install',
+			permanent: true,
+		},
+		// Redirect the docs landing page (previously 404'd, but this redirect
+		// avoids redirecting `/sentinel/docs` to `/sentinel/docs/docs`)
+		{
+			source: '/sentinel/docs',
+			destination: 'https://developer.hashicorp.com/sentinel/docs',
 			permanent: true,
 		},
 		/**
