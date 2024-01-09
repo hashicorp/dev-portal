@@ -18,29 +18,6 @@ const happyKitKey = process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
 /**
  * @type {import('next/dist/lib/load-custom-routes').Header}
  *
- * Adds a `noindex` directive to all pages for sentinel.
- *
- * e.g. If terraform and consul are the only products in the beta array, only developer.hashicorp.com/(consul|terraform)/* will get noindex
- */
-const temporary_hideDocsPaths = {
-	source: `/(sentinel)/:path*`,
-	headers: [
-		{
-			key: 'X-Robots-Tag',
-			value: 'noindex',
-		},
-	],
-	has: [
-		{
-			type: 'host',
-			value: 'developer.hashicorp.com',
-		},
-	],
-}
-
-/**
- * @type {import('next/dist/lib/load-custom-routes').Header}
- *
  * Adds a `noindex` directive to all pages on `tip.waypointproject.io`.
  * We don't want content on that domain to be indexed.
  */
@@ -82,7 +59,7 @@ module.exports = withHashicorp({
 		return config
 	},
 	async headers() {
-		return [temporary_hideDocsPaths, hideWaypointTipContent]
+		return [hideWaypointTipContent]
 	},
 	async redirects() {
 		const { simpleRedirects, complexRedirects } = await redirectsConfig()
