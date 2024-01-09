@@ -5,7 +5,11 @@
 
 //@ts-check
 
-const proxySettings = require('./proxy-settings')
+/**
+ * TODO: clean this up, proxySettings was previously a non-empty import
+ * Task: https://app.asana.com/0/1204759533834554/1206183781878379/f
+ */
+const proxySettings = {}
 const { getProxiedProductSlug, isPreview } = require('../src/lib/env-checks')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
