@@ -60,6 +60,12 @@ function getDocsDotHashiCorpRedirects() {
 			destination: 'https://developer.hashicorp.com/sentinel/install',
 			permanent: true,
 		},
+		// Redirect the docs landing page
+		{
+			source: '/sentinel/docs',
+			destination: 'https://developer.hashicorp.com/sentinel/docs',
+			permanent: true,
+		},
 		/**
 		 * Redirect `/docs` content.
 		 *
