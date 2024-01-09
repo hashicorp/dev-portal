@@ -37,6 +37,12 @@ function getDocsDotHashiCorpRedirects() {
 			destination: 'https://developer.hashicorp.com/sentinel',
 			permanent: true,
 		},
+		// Redirect the `/sentinel` landing page
+		{
+			source: '/sentinel',
+			destination: 'https://developer.hashicorp.com/sentinel',
+			permanent: true,
+		},
 		// Redirect `/intro` content
 		{
 			source: '/sentinel/intro',
