@@ -13,31 +13,14 @@
 		{
 			"divider": true
 		},
+		{ "heading": "Kubernetes Installs" },
 		{
-			"heading": "Get Started"
-		},
-		{
-			"title": "What is Consul?",
-			"fullPath": "/consul/docs/intro"
-		},
-		{
-			"title": "Consul with Kubernetes",
-			"fullPath": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy"
-		},
-		{
-			"title": "Consul with Virtual Machines",
-			"fullPath": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
-		},
-		{
-			"title": "HCP Consul",
-			"fullPath": "/consul/tutorials/get-started-hcp/hcp-gs-deploy"
-		},
-		{
-			"divider": true
-		},
-		{
-			"title": "Install Consul K8s CLI",
+			"title": "Consul K8s CLI",
 			"fullPath": "/consul/docs/k8s/installation/install-cli"
+		},
+		{
+			"title": "Helm Chart",
+			"fullPath": "/consul/docs/k8s/installation/install"
 		}
 	],
 	"sidecarMarketingCard": {

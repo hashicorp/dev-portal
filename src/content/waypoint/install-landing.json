@@ -1,16 +1,4 @@
 {
-	"sidebarMenuItems": [
-		{
-			"divider": true
-		},
-		{
-			"heading": "Getting Started"
-		},
-		{
-			"title": "Getting Started with HCP Waypoint",
-			"fullPath": "/waypoint/tutorials/hcp-waypoint/get-started-hcp"
-		}
-	],
 	"sidecarMarketingCard": {
 		"title": "About HCP Waypoint",
 		"subtitle": "Use HCP Waypoint to create reusable infrastructure configurations that let developers create their applications from Waypoint templates, and add infrastructure to them with Waypoint add-ons.",
