@@ -38,6 +38,7 @@ import { IconVault16 } from '@hashicorp/flight-icons/svg-react/vault-16'
 import { IconVmware16 } from '@hashicorp/flight-icons/svg-react/vmware-16'
 import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
 import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
+import { IconVaultSecrets24 } from '@hashicorp/flight-icons/svg-react/vault-secrets-24'
 import ThemedAwsIcon from './themed-icons/aws-color'
 
 /**
@@ -81,7 +82,11 @@ export const SUPPORTED_ICONS = {
 	terminal: <IconTerminal16 />,
 	'terraform-color': <IconTerraformColor16 />,
 	tools: <IconTools16 />,
-	'vault-color': <IconVault16 color={`var(--token-color-vault-brand)`} />, // vault's brand color changes between light and dark mode
+	// vault's brand color changes between light and dark mode
+	'vault-color': <IconVault16 color={`var(--token-color-vault-brand)`} />,
+	'vault-secrets-color': (
+		<IconVaultSecrets24 color={`var(--token-color-vault-brand)`} />
+	),
 	vmware: <IconVmware16 />,
 	'waypoint-color': <IconWaypointColor16 />,
 	wrench: <IconWrench16 />,
