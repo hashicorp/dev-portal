@@ -82,7 +82,7 @@ const ProductDownloadsViewContent = ({
 		sidecarHcpCallout,
 		sidebarMenuItems = [],
 		installName,
-		additionalDownloadItems = [],
+		additionalDownloadItems = [], // Used for the Boundary Desktop client
 	} = pageContent
 	const currentProduct = useCurrentProduct()
 	const { currentVersion } = useCurrentVersion()
@@ -131,7 +131,7 @@ const ProductDownloadsViewContent = ({
 				{ divider: true },
 				{ heading: 'Operating Systems' },
 				...downloadMenuItems,
-				...additionalDownloadItems, // Used for the Boundary Desktop client
+				...additionalDownloadItems,
 				{ divider: true },
 				{
 					title: SHARED_HEADINGS.releaseInfo.text,
