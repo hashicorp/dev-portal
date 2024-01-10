@@ -25,25 +25,31 @@ import { BoundaryDesktopClient } from 'views/product-downloads-view/components/d
  */
 function DesktopClientCallout({
 	desktopClientProps,
+	headingData,
 }: {
 	desktopClientProps: DesktopClientProps
+	/** We link to this heading from the side nav, so we've lifted up its data */
+	headingData: {
+		id: string
+		text: string
+	}
 }) {
 	const { latestVersion, builds } = desktopClientProps
 	return (
 		<Card elevation="base">
 			<ContentWithPermalink
 				className={s.headingContainer}
-				id={'Desktop-client' as BoundaryDesktopClient}
-				ariaLabel={`Desktop Client v${latestVersion}`}
+				id={headingData.id}
+				ariaLabel={`${headingData.text} v${latestVersion}`}
 			>
 				<Heading
 					className={viewStyles.scrollHeading}
 					level={2}
 					size={400}
-					id={'Desktop-client' as BoundaryDesktopClient}
+					id={headingData.id}
 					weight="bold"
 				>
-					{`Desktop Client v${latestVersion}`}
+					{`${headingData.text} v${latestVersion}`}
 				</Heading>
 			</ContentWithPermalink>
 			<div className={s.downloadContainer}>

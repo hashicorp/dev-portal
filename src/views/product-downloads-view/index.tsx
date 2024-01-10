@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-import { ReactElement, useEffect, useMemo, useState } from 'react'
+import { ReactElement, useMemo } from 'react'
 import { useRouter } from 'next/router'
 
 // HashiCorp imports
@@ -28,7 +28,8 @@ import {
 import {
 	initializeBreadcrumbLinks,
 	initializeVersionSwitcherOptions,
-	setTableOfContents,
+	prettyOs,
+	sortPlatforms,
 } from './helpers'
 import { CurrentVersionProvider, useCurrentVersion } from './contexts'
 import {
@@ -38,14 +39,28 @@ import {
 	ReleaseInformationSection,
 	SidecarMarketingCard,
 } from './components'
-import { MenuItem } from 'components/sidebar'
 import s from './product-downloads-view.module.css'
 import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
 import Heading from 'components/heading'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
-import { SidebarProps } from 'components/sidebar/types'
-import { InstallPageAnchorHeading } from './components/downloads-section/types'
-import { Products } from '@hashicorp/platform-product-meta'
+import { MenuItem, SidebarProps } from 'components/sidebar/types'
+
+/**
+ * We need certain heading data, such as "Release information" & "Next Steps",
+ * to be consistent between the headings themselves and the sidebar links
+ * that point to them. This content could be lifted out to an authorable
+ * interface at some point, if there's demand, but for now, we hard-code it.
+ */
+const SHARED_HEADINGS = {
+	releaseInfo: {
+		id: 'release-information',
+		text: 'Release information',
+	},
+	featured: {
+		id: 'next-steps',
+		text: 'Next steps',
+	},
+}
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
@@ -66,8 +81,8 @@ const ProductDownloadsViewContent = ({
 		sidecarMarketingCard,
 		sidecarHcpCallout,
 		sidebarMenuItems = [],
-		tableOfContents,
 		installName,
+		additionalDownloadItems = [],
 	} = pageContent
 	const currentProduct = useCurrentProduct()
 	const { currentVersion } = useCurrentVersion()
@@ -77,41 +92,57 @@ const ProductDownloadsViewContent = ({
 		[currentProduct, isEnterpriseMode, pathname]
 	)
 
-	const [installViewNavItems, setInstallViewNavItems] = useState([
-		...tableOfContents,
-		...sidebarMenuItems,
-	])
+	// Group the selected release downloads by OS, for use in multiple places
+	const selectedRelease = releases.versions[currentVersion]
+	const downloadsByOS = useMemo(
+		() => sortPlatforms(selectedRelease),
+		[selectedRelease]
+	)
+
+	// Build download sidebar menu items, which vary with the selected release.
+	const downloadMenuItems = Object.keys(downloadsByOS).map(
+		(osKey: string): MenuItem => ({
+			title: prettyOs(osKey),
+			fullPath: `#${osKey}`,
+		})
+	)
+	/**
+	 * If we have featured content, we'll conditionally render that content,
+	 * and add a heading to our sidebar as well.
+	 */
+	const hasCollectionCards = featuredCollectionCards?.length > 0
+	const hasTutorialCards = featuredTutorialCards?.length > 0
+	const hasFeaturedContent = hasCollectionCards || hasTutorialCards
+	const featuredItems = hasFeaturedContent
+		? [
+				{
+					title: SHARED_HEADINGS.featured.text,
+					fullPath: `#${SHARED_HEADINGS.featured.id}`,
+				},
+		  ]
+		: []
 
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
 		generateProductLandingSidebarNavData(currentProduct),
 		generateInstallViewNavItems(
 			currentProduct,
-			installViewNavItems as MenuItem[],
+			[
+				{ divider: true },
+				{ heading: 'Operating Systems' },
+				...downloadMenuItems,
+				...additionalDownloadItems, // Used for the Boundary Desktop client
+				{ divider: true },
+				{
+					title: SHARED_HEADINGS.releaseInfo.text,
+					fullPath: `#${SHARED_HEADINGS.releaseInfo.id}`,
+				},
+				...featuredItems,
+				...sidebarMenuItems,
+			],
 			isEnterpriseMode
 		),
 	]
-
-	useEffect(() => {
-		const updatedTableOfContents = setTableOfContents(
-			releases,
-			currentVersion,
-			featuredCollectionCards,
-			featuredTutorialCards,
-			currentProduct.slug
-		)
-		setInstallViewNavItems([
-			...updatedTableOfContents,
-			...sidebarMenuItems,
-		] as MenuItem[])
-	}, [
-		releases,
-		currentVersion,
-		featuredCollectionCards,
-		featuredTutorialCards,
-		currentProduct.slug,
-		sidebarMenuItems,
-	])
 
 	return (
 		<SidebarSidecarLayout
@@ -154,28 +185,30 @@ const ProductDownloadsViewContent = ({
 			{merchandisingSlot?.position === 'above' ? merchandisingSlot.slot : null}
 			<DownloadsSection
 				packageManagers={packageManagers}
-				selectedRelease={releases.versions[currentVersion]}
+				selectedRelease={selectedRelease}
+				downloadsByOS={downloadsByOS}
 			/>
 			{merchandisingSlot?.position === 'middle' ? merchandisingSlot.slot : null}
 			<ReleaseInformationSection
-				selectedRelease={releases.versions[currentVersion]}
+				releaseHeading={SHARED_HEADINGS.releaseInfo}
+				selectedRelease={selectedRelease}
 				isEnterpriseMode={isEnterpriseMode}
 			/>
 			{merchandisingSlot?.position === 'below' ? merchandisingSlot.slot : null}
-			{featuredCollectionCards?.length || featuredTutorialCards?.length ? (
+			{hasFeaturedContent ? (
 				<ContentWithPermalink
 					className={s.nextStepsHeading}
-					id={'Next-steps' as InstallPageAnchorHeading}
-					ariaLabel="Next steps"
+					id={SHARED_HEADINGS.featured.id}
+					ariaLabel={SHARED_HEADINGS.featured.text}
 				>
 					<Heading
 						className={viewStyles.scrollHeading}
-						id={'Next-steps' as InstallPageAnchorHeading}
 						level={2}
+						id={SHARED_HEADINGS.featured.id}
 						size={500}
 						weight="bold"
 					>
-						Next steps
+						{SHARED_HEADINGS.featured.text}
 					</Heading>
 				</ContentWithPermalink>
 			) : null}
