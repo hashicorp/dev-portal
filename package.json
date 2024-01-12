@@ -113,7 +113,7 @@
 		"@hashicorp/platform-packer-plugins": "^0.3.0",
 		"@hashicorp/platform-product-meta": "^0.1.1",
 		"@hashicorp/platform-util": "^0.2.0",
-		"@hashicorp/react-alert-banner": "^7.1.0",
+		"@hashicorp/react-alert-banner": "^7.2.0",
 		"@hashicorp/react-button": "^6.3.1",
 		"@hashicorp/react-code-block": "^6.6.0",
 		"@hashicorp/react-consent-manager": "^9.2.0",
