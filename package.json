@@ -130,7 +130,7 @@
 		"@hashicorp/react-search": "^6.5.0",
 		"@hashicorp/react-sentinel-embedded": "^2.0.0",
 		"@hashicorp/react-subnav": "^9.6.0",
-		"@hashicorp/react-tabs": "^8.0.0",
+		"@hashicorp/react-tabs": "^8.1.0",
 		"@hashicorp/remark-plugins": "^4.1.1",
 		"@hashicorp/sentinel-embedded": "^0.0.14",
 		"@mapbox/rehype-prism": "^0.8.0",
