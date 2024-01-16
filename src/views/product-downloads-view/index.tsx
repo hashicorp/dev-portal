@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-import { ReactElement, useEffect, useMemo, useState } from 'react'
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // HashiCorp imports
@@ -45,7 +45,6 @@ import Heading from 'components/heading'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 import { SidebarProps } from 'components/sidebar/types'
 import { InstallPageAnchorHeading } from './components/downloads-section/types'
-import { Products } from '@hashicorp/platform-product-meta'
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
@@ -92,7 +91,7 @@ const ProductDownloadsViewContent = ({
 		),
 	]
 
-	useEffect(() => {
+	const updateInstallViewNavItems = useCallback(() => {
 		const updatedTableOfContents = setTableOfContents(
 			releases,
 			currentVersion,
@@ -100,18 +99,18 @@ const ProductDownloadsViewContent = ({
 			featuredTutorialCards,
 			currentProduct.slug
 		)
-		setInstallViewNavItems([
-			...updatedTableOfContents,
-			...sidebarMenuItems,
-		] as MenuItem[])
+		setInstallViewNavItems([...updatedTableOfContents, ...sidebarMenuItems])
 	}, [
 		releases,
 		currentVersion,
 		featuredCollectionCards,
 		featuredTutorialCards,
 		currentProduct.slug,
-		sidebarMenuItems,
 	])
+
+	useEffect(() => {
+		updateInstallViewNavItems()
+	}, [currentVersion, updateInstallViewNavItems])
 
 	return (
 		<SidebarSidecarLayout
