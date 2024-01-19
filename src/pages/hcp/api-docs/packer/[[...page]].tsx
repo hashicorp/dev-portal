@@ -3,109 +3,97 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// Global
-import { fetchCloudApiVersionData } from 'lib/api-docs'
+// Lib
+import { fetchCloudApiVersionData } from 'lib/api-docs/fetch-cloud-api-version-data'
 // View
-import ApiDocsView from 'views/api-docs-view'
+import OpenApiDocsView from 'views/open-api-docs-view'
 import {
-	getApiDocsStaticProps,
-	getApiDocsStaticPaths,
-	ApiDocsParams,
-} from 'views/api-docs-view/server'
-import { buildApiDocsBreadcrumbs } from 'views/api-docs-view/server/get-api-docs-static-props/utils'
-// Components
-import {
-	PathTruncationAside,
-	truncatePackerOperationPath,
-} from 'views/api-docs-view/components'
+	getStaticPaths,
+	getStaticProps as getOpenApiDocsStaticProps,
+} from 'views/open-api-docs-view/server'
 // Types
-import type { OperationObjectType } from 'components/open-api-page/types'
-import type { ApiDocsViewProps } from 'views/api-docs-view/types'
-import type { GetStaticPaths, GetStaticProps } from 'next'
-import { isDeployPreview } from 'lib/env-checks'
+import type { GetStaticProps, GetStaticPropsContext } from 'next'
+import type { OpenAPIV3 } from 'openapi-types'
+import type {
+	OpenApiDocsParams,
+	OpenApiDocsViewProps,
+	OpenApiDocsPageConfig,
+} from 'views/open-api-docs-view/types'
 
 /**
- * The product slug is used to fetch product data for the layout.
+ * Configure the specific spec file we want to fetch,
+ * as well as some other minor content details and bells & whistles.
  */
-const PRODUCT_SLUG = 'hcp'
-
-/**
- * The baseUrl is used to generate
- * breadcrumb links, sidebar nav levels, and version switcher links.
- */
-const BASE_URL = '/hcp/api-docs/packer'
-
-/**
- * We source version data from a directory in the `hcp-specs` repo.
- * See `fetchCloudApiVersionData` for details.
- */
-const GITHUB_SOURCE_DIRECTORY = {
-	owner: 'hashicorp',
-	repo: 'hcp-specs',
-	path: 'specs/cloud-packer-service',
-	ref: 'main',
-}
-
-/**
- * Render `<ApiDocsView />` with custom operation path truncation.
- */
-function HcpPackerApiDocsView(props: ApiDocsViewProps) {
-	return (
-		<ApiDocsView
-			{...props}
-			massagePathFn={truncatePackerOperationPath}
-			renderOperationIntro={({ data }: { data: OperationObjectType }) => (
-				<PathTruncationAside path={data.__path} />
-			)}
-		/>
-	)
+const PAGE_CONFIG: OpenApiDocsPageConfig = {
+	basePath: '/hcp/api-docs/packer',
+	productSlug: 'hcp',
+	serviceProductSlug: 'packer',
+	githubSourceDirectory: {
+		owner: 'hashicorp',
+		repo: 'hcp-specs',
+		path: 'specs/cloud-packer-service',
+		ref: 'main',
+	},
+	statusIndicatorConfig: {
+		pageUrl: 'https://status.hashicorp.com',
+		endpointUrl:
+			'https://status.hashicorp.com/api/v2/components/0mbkqnrzg33w.json',
+	},
+	navResourceItems: [
+		{
+			title: 'Tutorial Library',
+			href: '/tutorials/library?product=packer&edition=hcp',
+		},
+		{
+			title: 'Community',
+			href: 'https://discuss.hashicorp.com/',
+		},
+		{
+			title: 'Support',
+			href: 'https://www.hashicorp.com/customer-success',
+		},
+	],
+	/**
+	 * Massage the schema data a little bit, replacing
+	 * "HashiCorp Cloud Platform" in the title with "HCP".
+	 */
+	massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
+		// Replace "HashiCorp Cloud Platform" with "HCP" in the title
+		const massagedTitle = schemaData.info.title.replace(
+			'HashiCorp Cloud Platform',
+			'HCP'
+		)
+		// Return the schema data with the revised title
+		const massagedInfo = { ...schemaData.info, title: massagedTitle }
+		return { ...schemaData, info: massagedInfo }
+	},
 }
 
 /**
  * Get static paths, using `versionData` fetched from GitHub.
  */
-export const getStaticPaths: GetStaticPaths<ApiDocsParams> = async () => {
-	// If we are in a deploy preview, don't pre-render any paths
-	if (isDeployPreview()) {
-		return { paths: [], fallback: 'blocking' }
-	}
-	// Otherwise, fetch version data, and use that to generate paths
-	const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
-	return await getApiDocsStaticPaths({ productSlug: PRODUCT_SLUG, versionData })
-}
+export { getStaticPaths }
 
 /**
  * Get static props, using `versionData` fetched from GitHub.
  *
- * We need all version data for the version selector,
- * and of course we need specific data for the current version.
+ * Note that only a single version may be returned, in which case the
+ * version switcher will not be rendered.
  */
 export const getStaticProps: GetStaticProps<
-	ApiDocsViewProps,
-	ApiDocsParams
-> = async ({ params }: { params: ApiDocsParams }) => {
+	OpenApiDocsViewProps,
+	OpenApiDocsParams
+> = async ({ params }: GetStaticPropsContext<OpenApiDocsParams>) => {
 	// Fetch all version data, based on remote `stable` & `preview` subfolders
-	const versionData = await fetchCloudApiVersionData(GITHUB_SOURCE_DIRECTORY)
-	// If we can't find any version data at all, render a 404 page.
-	if (!versionData) {
-		return { notFound: true }
-	}
-	// Return static props
-	return await getApiDocsStaticProps({
-		productSlug: PRODUCT_SLUG,
-		baseUrl: BASE_URL,
-		pathParts: params.page,
+	const versionData = await fetchCloudApiVersionData(
+		PAGE_CONFIG.githubSourceDirectory
+	)
+	// Generate static props based on page configuration, params, and versionData
+	return await getOpenApiDocsStaticProps({
+		...PAGE_CONFIG,
+		context: { params },
 		versionData,
-		buildCustomBreadcrumbs: ({ productData, serviceData, versionId }) => {
-			return buildApiDocsBreadcrumbs({
-				productData,
-				// HCP API docs at `/api-docs` are not linkable, so we pass url=null
-				apiDocs: { name: 'API', url: null },
-				serviceData,
-				versionId,
-			})
-		},
 	})
 }
 
-export default HcpPackerApiDocsView
+export default OpenApiDocsView
