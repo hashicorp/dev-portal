@@ -25,9 +25,11 @@ import s from './detail-view.module.css'
 import type { HvdPage, HvdPageMenuItem } from '../types'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import type { OutlineLinkItem } from 'components/outline-nav/types'
+import { ProductSlug } from 'types/products'
 
 export interface ValidatedDesignsGuideProps {
 	title: string
+	productSlug: Exclude<ProductSlug, 'sentinel'>
 	markdown: {
 		mdxSource: MDXRemoteSerializeResult
 		title: string
@@ -41,6 +43,7 @@ export interface ValidatedDesignsGuideProps {
 
 export default function ValidatedDesignGuideView({
 	title,
+	productSlug,
 	markdown,
 	headers,
 	currentPageIndex,
@@ -103,7 +106,7 @@ export default function ValidatedDesignGuideView({
 					showResourcesList: false,
 					children: (
 						<>
-							<SidebarSectionBrandedHeading text={title} theme={'hcp'} />
+							<SidebarSectionBrandedHeading text={title} theme={productSlug} />
 							<SidebarHorizontalRule />
 							<SidebarNavList>
 								{pages.map((page: HvdPageMenuItem, index: number) => (
