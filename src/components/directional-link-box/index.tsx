@@ -31,7 +31,7 @@ function DirectionalLinkBox({
 
 	return (
 		<Link
-			// Next.js's Link will attempt to refocus itself after a page transition, in order to keep the user focused on what it believes to be the same content. (https://github.com/vercel/next.js/issues/49386) This makes sense for a menu buttons/links, but not for content buttons/links.
+			// Next.js's Link will attempt to refocus itself after a page transition, in order to keep the user focused on what it believes to be the same content. (https://github.com/vercel/next.js/issues/49386) This makes sense for a menu buttons/links, but not for content buttons/links. Setting unique ids & keys convince's Next that this is now a new element
 			id={id || undefined}
 			key={id || undefined}
 			className={classNames(s.linkbox, s[`direction-${direction}`])}
