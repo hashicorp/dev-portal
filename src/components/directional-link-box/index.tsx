@@ -20,6 +20,7 @@ const IconDict: { [k in DirectionOption]: typeof IconArrowRight16 } = {
 }
 
 function DirectionalLinkBox({
+	id,
 	href,
 	label,
 	name,
@@ -30,6 +31,9 @@ function DirectionalLinkBox({
 
 	return (
 		<Link
+			// Next.js's Link will attempt to refocus itself after a page transition, in order to keep the user focused on what it believes to be the same content. (https://github.com/vercel/next.js/issues/49386) This makes sense for a menu buttons/links, but not for content buttons/links.
+			id={id || undefined}
+			key={id || undefined}
 			className={classNames(s.linkbox, s[`direction-${direction}`])}
 			href={href}
 			aria-label={ariaLabel}
