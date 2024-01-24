@@ -60,6 +60,7 @@ export default function ValidatedDesignGuideView({
 		if (currentPageIndex !== 0 && prevPage) {
 			return (
 				<DirectionalLinkBox
+					id={prevPage.href}
 					label="Previous"
 					name={prevPage.title}
 					href={prevPage.href}
@@ -79,6 +80,7 @@ export default function ValidatedDesignGuideView({
 		if (currentPageIndex !== pages.length - 1 && nextPage) {
 			return (
 				<DirectionalLinkBox
+					id={nextPage.href}
 					label="Next"
 					name={nextPage.title}
 					href={nextPage.href}
