@@ -48,11 +48,20 @@ function setHappyKitCookie(
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const { geo } = req
 
-	// 07/07/2023 — Simple UA check
+	// UA checks to prevent misuse
 	const { ua } = userAgent(req)
-	const regexp = /(bytespider|bytedance)/i
-	if (regexp.test(ua)) {
+	if (/(bytespider|bytedance)/i.test(ua)) {
 		return Response.json(null, { status: 404 })
+	}
+
+	if (/curl/i.test(ua) && req.nextUrl.pathname === '/terraform/cdktf') {
+		return Response.json(
+			{
+				error:
+					'Please reach out to support@hashicorp.com so we can learn more about your use case.',
+			},
+			{ status: 429 }
+		)
 	}
 	// ----------------------
 
