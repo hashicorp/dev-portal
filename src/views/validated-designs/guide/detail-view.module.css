@@ -22,7 +22,10 @@
        each item takes up an equal amount of space. This comes at the
        cost of going to a single-column layout slightly earlier */
 		min-width: calc(50% - 12px);
-		max-width: 50%;
+
+		@media (--dev-dot-tablet-up) {
+			max-width: 50%;
+		}
 	}
 
 	@media (--dev-dot-tablet-up) {
@@ -36,5 +39,11 @@
 	/* same css var that SidebarSidecarLayout uses to hide the mobile menu, but we are using it here to hide the back button, that we add on mobile, on desktop */
 	@media (--dev-dot-hide-mobile-menu) {
 		display: none;
+	}
+}
+
+.hideOnMobile {
+	@media (--dev-dot-mobile) {
+		composes: g-hide-on-mobile from global;
 	}
 }
