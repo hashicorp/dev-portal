@@ -70,7 +70,7 @@ export default function ValidatedDesignGuideView({
 			)
 		} else {
 			// We add this empty div here so that even when only one "paging buttons" is rendered, they always only take up 50%
-			return <div />
+			return <div className={s.hideOnMobile} />
 		}
 	}
 
@@ -90,7 +90,7 @@ export default function ValidatedDesignGuideView({
 			)
 		} else {
 			// We add this empty div here so that even when only one "paging buttons" is rendered, they always only take up 50%
-			return <div />
+			return <div className={s.hideOnMobile} />
 		}
 	}
 
