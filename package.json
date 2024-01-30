@@ -8,7 +8,7 @@
 		"clean": "rimraf .next node_modules",
 		"lint": "next-hashicorp lint",
 		"lint:stylelint": "npx stylelint '**/*.css'",
-		"prebuild": "hc-tools ./scripts/remove-inactive-product-pages.ts && hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts",
+		"prebuild": "hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts",
 		"prepare": "simple-git-hooks",
 		"prestart": "hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts",
 		"prettier:check": "prettier --check .",
@@ -49,14 +49,14 @@
 	},
 	"engines": {
 		"npm": ">=8.0.0",
-		"node": ">=16.x <=18.x"
+		"node": ">=18.17.0"
 	},
 	"devDependencies": {
 		"@axe-core/react": "^4.3.1",
 		"@datadog/datadog-api-client": "^1.0.0-beta.7",
 		"@hashicorp/platform-cli": "^2.7.2",
 		"@hashicorp/platform-configs": "^0.2.0",
-		"@hashicorp/platform-nextjs-plugin": "^4.2.0",
+		"@hashicorp/platform-nextjs-plugin": "^5.1.0",
 		"@hashicorp/platform-postcss-config": "^0.2.0",
 		"@hashicorp/platform-tools": "^0.10.0",
 		"@hashicorp/platform-types": "^0.4.0",
@@ -92,7 +92,7 @@
 		"rimraf": "^3.0.2",
 		"simple-git-hooks": "^2.7.0",
 		"stylelint": "^13.8.0",
-		"typescript": "^4.5.5",
+		"typescript": "^5.3.2",
 		"yargs": "^17.6.2"
 	},
 	"dependencies": {
@@ -115,9 +115,9 @@
 		"@hashicorp/platform-util": "^0.2.0",
 		"@hashicorp/react-alert-banner": "^7.1.0",
 		"@hashicorp/react-button": "^6.3.1",
-		"@hashicorp/react-code-block": "^6.4.0",
+		"@hashicorp/react-code-block": "^6.6.0",
 		"@hashicorp/react-consent-manager": "^9.2.0",
-		"@hashicorp/react-docs-page": "^17.9.0",
+		"@hashicorp/react-docs-page": "^17.9.1",
 		"@hashicorp/react-docs-sidenav": "^9.1.0",
 		"@hashicorp/react-enterprise-alert": "^7.0.1",
 		"@hashicorp/react-error-view": "^0.2.0",
@@ -174,7 +174,7 @@
 		"mdast-util-to-string": "^2.0.0",
 		"moize": "^6.1.0",
 		"ms": "^2.1.3",
-		"next": "^13.0.5",
+		"next": "^14.0.4",
 		"next-auth": "^4.23.1",
 		"next-mdx-remote": "^3.0.8",
 		"next-query-params": "^4.1.0",
@@ -191,7 +191,7 @@
 		"react-dom": "^18.2.0",
 		"react-error-boundary": "^3.1.4",
 		"react-hot-toast": "^2.2.0",
-		"react-instantsearch-hooks-web": "^6.33.0",
+		"react-instantsearch-hooks-web": "^6.47.3",
 		"react-intersection-observer": "^8.33.1",
 		"react-markdown": "^8.0.7",
 		"react-player": "^2.9.0",
@@ -200,7 +200,6 @@
 		"semver": "^7.3.5",
 		"shortid": "^2.2.16",
 		"slugify": "^1.6.4",
-		"swingset": "^0.17.0",
 		"unified": "^9.2.0",
 		"unist-util-is": "^5.1.1",
 		"unist-util-visit": "^4.1.0",
@@ -209,6 +208,7 @@
 		"zod": "^3.20.2"
 	},
 	"overrides": {
+		"next": "$next",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0"
 	},

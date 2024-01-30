@@ -1,26 +1,11 @@
 {
 	"featuredTutorialsSlugs": [
+		"boundary/oidc-auth0",
 		"boundary/oss-vault-cred-brokering-quickstart",
 		"boundary/hcp-manage-workers",
 		"boundary/hcp-ssh-cred-injection",
 		"boundary/oidc-idp-groups",
 		"boundary/prometheus-metrics"
-	],
-	"sidebarMenuItems": [
-		{
-			"divider": true
-		},
-		{
-			"heading": "Getting Started"
-		},
-		{
-			"title": "What is Boundary?",
-			"fullPath": "/boundary/docs/overview/what-is-boundary"
-		},
-		{
-			"title": "Quick Start",
-			"fullPath": "/boundary/docs/getting-started"
-		}
 	],
 	"sidecarMarketingCard": {
 		"title": "About Boundary",

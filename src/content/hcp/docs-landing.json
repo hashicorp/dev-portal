@@ -17,9 +17,14 @@
 			"path": "docs/vault"
 		},
 		{
-			"iconName": "vault-color",
+			"iconName": "vault-secrets-color",
 			"name": "HCP Vault Secrets",
 			"path": "docs/vault-secrets"
+		},
+		{
+			"iconName": "vault-color",
+			"name": "HCP Vault Radar",
+			"path": "docs/vault-radar"
 		},
 		{
 			"iconName": "packer-color",

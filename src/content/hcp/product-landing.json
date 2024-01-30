@@ -25,7 +25,7 @@
 				"url": "/vault/tutorials/cloud"
 			},
 			{
-				"icon": "vault-color",
+				"icon": "vault-secrets-color",
 				"text": "HCP Vault Secrets",
 				"url": "/vault/tutorials/hcp-vault-secrets-get-started"
 			},
@@ -47,7 +47,7 @@
 			{
 				"icon": "waypoint-color",
 				"text": "HCP Waypoint",
-				"url": "/waypoint/tutorials/runners/hcp-runners-on-your-infra"
+				"url": "/waypoint/tutorials/hcp-waypoint"
 			}
 		],
 		"fixedColumns": 2

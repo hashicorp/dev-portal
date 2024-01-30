@@ -5,22 +5,6 @@
 		"packer/hcp-get-started",
 		"packer/configuration-language"
 	],
-	"sidebarMenuItems": [
-		{
-			"divider": true
-		},
-		{
-			"heading": "Getting Started"
-		},
-		{
-			"title": "Packer Tutorials",
-			"href": "/packer/tutorials#get-started"
-		},
-		{
-			"title": "HCP Packer Tutorials",
-			"fullPath": "/packer/tutorials/hcp"
-		}
-	],
 	"sidecarMarketingCard": {
 		"title": "About Packer",
 		"subtitle": "Packer lets you create identical machine images for multiple platforms from a single source configuration.",

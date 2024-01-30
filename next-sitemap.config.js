@@ -22,7 +22,6 @@ module.exports = {
 	 * Sitemap Improvements Asana https://app.asana.com/0/1203590180322427/overview
 	 */
 	exclude: [
-		'/swingset*',
 		'/onboarding/*',
 		'/profile*',
 		'sitemap.xml',
