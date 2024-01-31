@@ -4,7 +4,33 @@
  */
 
 import { Config } from '@jest/types'
+
 import makeConfig from '@hashicorp/platform-configs/jest/config.js'
+import { compilerOptions } from './tsconfig.json'
+
+const tsPathsToModuleNameMapper = (mapping, baseUrl) => {
+	const jestMap = {}
+	for (const fromPath of Object.keys(mapping)) {
+		// we assume only one path, which I feel like is 99% the correct assumption
+		const toPath = mapping[fromPath][0]
+
+		// '@scripts/*' -> '^@scripts/(.*)$'
+		const jestFromPath = `^${fromPath.replace('*', '(.*)$')}`
+
+		let jestToPath
+		if (toPath.includes('../')) {
+			// ['../src/*'] -> "<rootDir>/src/$1"
+			jestToPath = `<rootDir>/${toPath.replace('../', '').replace('*', '$1')}`
+		} else {
+			// ['./src/*'] -> "<rootDir>/${baseUrl}/src/$1"
+			jestToPath = `<rootDir>/${baseUrl}/${toPath.replace('*', '$1')}`
+		}
+
+		jestMap[jestFromPath] = jestToPath
+	}
+
+	return jestMap
+}
 
 /**
  * We use a dynamic jest config in order to be able to run both
@@ -69,6 +95,10 @@ const config: Config.InitialOptions = {
 	],
 	testEnvironment: 'jsdom',
 	...(isRunningInEsmMode && esmConfig),
+	moduleNameMapper: tsPathsToModuleNameMapper(
+		compilerOptions.paths,
+		compilerOptions.baseUrl
+	),
 }
 
 export default makeConfig({ nextDir: './', ...config })

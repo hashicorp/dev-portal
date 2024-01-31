@@ -2,7 +2,7 @@ import { getHvdCategoryGroupsPaths } from '../server'
 import { HvdCategoryGroup } from '../types'
 
 // mock the extract-hvd-content file because importing from it cause it's self-invoking function to perform a side effect
-jest.mock('../../../../scripts/extract-hvd-content', () => ({
+jest.mock('@scripts/extract-hvd-content', () => ({
 	__esModule: true, // this property makes it work
 	HVD_CONTENT_DIR: '',
 }))

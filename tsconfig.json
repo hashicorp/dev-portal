@@ -1,6 +1,5 @@
 {
 	"compilerOptions": {
-		"baseUrl": "src",
 		"strict": false,
 		"target": "es5",
 		"incremental": true,
@@ -14,7 +13,11 @@
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
-		"noEmit": true
+		"noEmit": true,
+		"baseUrl": "src",
+		"paths": {
+			"@scripts/*": ["../scripts/*"]
+		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules", "scripts/migrate-io/templates"]
