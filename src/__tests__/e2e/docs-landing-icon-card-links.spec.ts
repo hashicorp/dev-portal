@@ -4,7 +4,7 @@
  */
 
 import { expect, test } from '@playwright/test'
-import waypointData from 'data/waypoint.json'
+import waypointData from '../../data/waypoint.json'
 
 // Run all the tests generated in this file in parallel
 test.describe.configure({ mode: 'parallel' })
