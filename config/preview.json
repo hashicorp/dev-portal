@@ -8,7 +8,5 @@
 			"unifiedIndexName": "staging_DEVDOT_omni"
 		}
 	},
-	"flags": {
-		"enable_hvd": true
-	}
+	"flags": {}
 }
