@@ -16,7 +16,8 @@
 		"noEmit": true,
 		"baseUrl": "src",
 		"paths": {
-			"@scripts/*": ["../scripts/*"]
+			"@scripts/*": ["../scripts/*"],
+			"@components/*": ["components/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
