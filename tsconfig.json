@@ -17,6 +17,8 @@
 		"baseUrl": "src",
 		"paths": {
 			"@scripts/*": ["../scripts/*"],
+			"@test/*": ["../.test/*"],
+			"@build-libs/*": ["../build-libs/*"],
 			"@components/*": ["components/*"]
 		}
 	},
