@@ -12,6 +12,14 @@ const tsPathsToModuleNameMapper = (mapping, baseUrl) => {
 	const jestMap = {}
 	for (const fromPath of Object.keys(mapping)) {
 		// we assume only one path, which I feel like is 99% the correct assumption
+		if (mapping[fromPath].length > 1) {
+			throw new Error(
+				`\n\n⚠️  Current typescript to jest path aliasing is limited to one path per alias.  ⚠️\n\nOffending ts path aliases:\n- [${fromPath}]: [${mapping[
+					fromPath
+				].join(',')}]\n`
+			)
+		}
+
 		const toPath = mapping[fromPath][0]
 
 		// '@scripts/*' -> '^@scripts/(.*)$'
