@@ -8,19 +8,22 @@ import { Config } from '@jest/types'
 import makeConfig from '@hashicorp/platform-configs/jest/config.js'
 import { compilerOptions } from './tsconfig.json'
 
-const tsPathsToModuleNameMapper = (mapping, baseUrl) => {
+const tsPathsToModuleNameMapper = (
+	mapping: { [key: string]: string[] },
+	baseUrl
+) => {
 	const jestMap = {}
-	for (const fromPath of Object.keys(mapping)) {
+	for (const [fromPath, paths] of Object.entries(mapping)) {
 		// we assume only one path, which I feel like is 99% the correct assumption
 		if (mapping[fromPath].length > 1) {
 			throw new Error(
-				`\n\n⚠️  Current typescript to jest path aliasing is limited to one path per alias.  ⚠️\n\nOffending ts path aliases:\n- [${fromPath}]: [${mapping[
-					fromPath
-				].join(',')}]\n`
+				`\n\n⚠️  Current typescript to jest path aliasing is limited to one path per alias.  ⚠️\n\nOffending ts path aliases:\n- [${fromPath}]: [${paths.join(
+					','
+				)}]\n`
 			)
 		}
 
-		const toPath = mapping[fromPath][0]
+		const toPath = paths[0]
 
 		// '@scripts/*' -> '^@scripts/(.*)$'
 		const jestFromPath = `^${fromPath.replace('*', '(.*)$')}`
