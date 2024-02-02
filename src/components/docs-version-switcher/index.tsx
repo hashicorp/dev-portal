@@ -64,7 +64,9 @@ const DocsVersionSwitcher = ({
 		projectNameForLabel = projectName
 	} else {
 		const docsName = currentRootDocsPath.shortName || currentRootDocsPath.name
-		projectNameForLabel = `${currentProduct.name} ${docsName}`
+		projectNameForLabel = docsName.includes(currentProduct.name)
+			? docsName
+			: `${currentProduct.name} ${docsName}`
 	}
 
 	/**
