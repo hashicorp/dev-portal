@@ -7,7 +7,7 @@ import { Plugin } from 'unified'
 import { Image } from 'mdast'
 import { isAbsoluteUrl } from 'next/dist/shared/lib/utils'
 import { visit } from 'unist-util-visit'
-import { HVD_FINAL_IMAGE_ROOT_DIR } from '../../../../scripts/extract-hvd-content'
+import { HVD_FINAL_IMAGE_ROOT_DIR } from '@scripts/extract-hvd-content'
 
 function convertToHVDPathUrl(nodeUrl: string): string {
 	if (isAbsoluteUrl(nodeUrl)) {
