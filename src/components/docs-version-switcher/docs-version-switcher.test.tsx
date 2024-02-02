@@ -198,7 +198,7 @@ describe('setProjectForAriaLabel', () => {
 		expect(result).toBe(`Terraform Enterprise`)
 	})
 
-	it('Terraform - Docs', () => {
+	it('Terraform - Intro', () => {
 		const result = setProjectForAriaLabel(
 			cases[3].projectName,
 			cases[3].currentRootDocsPath,
