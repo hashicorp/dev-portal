@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import fetchGithubFile from '../../../build-libs/fetch-github-file'
+import fetchGithubFile from '@build-libs/fetch-github-file'
 
 const fetchNavDataForBasePathAndRepo = async ({
 	filePath,

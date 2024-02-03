@@ -47,7 +47,7 @@
 			{
 				"icon": "waypoint-color",
 				"text": "HCP Waypoint",
-				"url": "/waypoint/tutorials/runners/hcp-runners-on-your-infra"
+				"url": "/waypoint/tutorials/hcp-waypoint"
 			}
 		],
 		"fixedColumns": 2
