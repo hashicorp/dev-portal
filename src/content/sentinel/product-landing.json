@@ -69,7 +69,7 @@
 				{
 					"heading": "Sentinel playground",
 					"body": "Write and test policies in a free, hosted sandbox. Upload mock data to write policies against, or customize the provided example, which checks that an S3 bucket has a private ACL.",
-					"url": "https://docs.hashicorp.com/sentinel"
+					"url": "https://play.sentinelproject.io"
 				}
 			]
 		}
