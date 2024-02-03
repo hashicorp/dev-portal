@@ -14,20 +14,22 @@ import DirectionalLinkBox from 'components/directional-link-box'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	SidebarHorizontalRule,
-	SidebarNavHighlightItem,
 	SidebarSectionBrandedHeading,
+	SidebarNavMenuItem,
 } from 'components/sidebar/components'
 import SidebarNavList from 'components/sidebar/components/sidebar-nav-list'
 import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
 
 import s from './detail-view.module.css'
 
-import type { HvdPage } from '../types'
+import type { HvdPage, HvdPageMenuItem } from '../types'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import type { OutlineLinkItem } from 'components/outline-nav/types'
+import { ProductSlug } from 'types/products'
 
 export interface ValidatedDesignsGuideProps {
 	title: string
+	productSlug: Exclude<ProductSlug, 'sentinel'>
 	markdown: {
 		mdxSource: MDXRemoteSerializeResult
 		title: string
@@ -41,6 +43,7 @@ export interface ValidatedDesignsGuideProps {
 
 export default function ValidatedDesignGuideView({
 	title,
+	productSlug,
 	markdown,
 	headers,
 	currentPageIndex,
@@ -57,6 +60,7 @@ export default function ValidatedDesignGuideView({
 		if (currentPageIndex !== 0 && prevPage) {
 			return (
 				<DirectionalLinkBox
+					id={prevPage.href}
 					label="Previous"
 					name={prevPage.title}
 					href={prevPage.href}
@@ -66,7 +70,7 @@ export default function ValidatedDesignGuideView({
 			)
 		} else {
 			// We add this empty div here so that even when only one "paging buttons" is rendered, they always only take up 50%
-			return <div />
+			return <div className={s.hideOnMobile} />
 		}
 	}
 
@@ -76,6 +80,7 @@ export default function ValidatedDesignGuideView({
 		if (currentPageIndex !== pages.length - 1 && nextPage) {
 			return (
 				<DirectionalLinkBox
+					id={nextPage.href}
 					label="Next"
 					name={nextPage.title}
 					href={nextPage.href}
@@ -85,7 +90,7 @@ export default function ValidatedDesignGuideView({
 			)
 		} else {
 			// We add this empty div here so that even when only one "paging buttons" is rendered, they always only take up 50%
-			return <div />
+			return <div className={s.hideOnMobile} />
 		}
 	}
 
@@ -103,20 +108,18 @@ export default function ValidatedDesignGuideView({
 					showResourcesList: false,
 					children: (
 						<>
-							<SidebarSectionBrandedHeading text={title} theme={'hcp'} />
+							<SidebarSectionBrandedHeading text={title} theme={productSlug} />
 							<SidebarHorizontalRule />
 							<SidebarNavList>
-								{pages.map((page: HvdPage, index: number) => {
-									return (
-										<SidebarNavHighlightItem
-											key={page.slug}
-											text={page.title}
-											theme={'generic'}
-											href={page.href}
-											isActive={index === currentPageIndex}
-										/>
-									)
-								})}
+								{pages.map((page: HvdPageMenuItem, index: number) => (
+									<SidebarNavMenuItem
+										key={page.slug}
+										item={{
+											...page,
+											isActive: index === currentPageIndex,
+										}}
+									/>
+								))}
 							</SidebarNavList>
 						</>
 					),

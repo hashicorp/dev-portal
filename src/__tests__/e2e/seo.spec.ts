@@ -4,7 +4,7 @@
  */
 
 import { test, expect } from '@playwright/test'
-import { __config } from '../../../.test/app-config'
+import { __config } from '@test/app-config'
 
 test('should render the proper page title and description', async ({
 	page,
