@@ -20,6 +20,7 @@
 	left: -150vw;
 	overflow-y: auto;
 	position: fixed;
+	top: var(--sticky-bars-height);
 	width: 100%;
 	z-index: 2;
 }
