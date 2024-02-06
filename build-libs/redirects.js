@@ -290,7 +290,7 @@ async function buildDevPortalRedirects() {
 		},
 		{
 			source:
-				'/:path(boundary|consul|nomad|packer|terraform|vagrant|vault|waypoint)/downloads',
+				'/:path(boundary|consul|nomad|packer|terraform|vagrant|vault|waypoint|sentinel)/downloads',
 			destination: '/:path/install',
 			permanent: true,
 		},
