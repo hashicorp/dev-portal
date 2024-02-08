@@ -55,18 +55,18 @@ describe('getTargetPath', () => {
 		[
 			{
 				basePath: 'terraform/enterprise',
-				asPath: '/terraform/enterprise/v202208-3/releases/2022/v202208-2',
+				asPath: '/terraform/enterprise/releases/2024/v202401-1',
 				version: 'v202208-2',
 			},
-			'/terraform/enterprise/v202208-2/releases/2022/v202208-2',
+			'/terraform/enterprise/releases/2022/v202208-2',
 		],
 		[
 			{
 				basePath: 'terraform/enterprise',
 				asPath: '/terraform/enterprise/releases/2022/v202208-2',
-				version: 'v202208-2',
+				version: 'v202208-1',
 			},
-			'/terraform/enterprise/v202208-2/releases/2022/v202208-2',
+			'/terraform/enterprise/releases/2022/v202208-1',
 		],
 	])(
 		'should handle additional TFE versions in release notes URLs',
@@ -75,4 +75,26 @@ describe('getTargetPath', () => {
 			expect(target).toEqual(expected)
 		}
 	)
+
+	it('should update the year to match the version on tfe release path', () => {
+		const input = {
+			basePath: 'terraform/enterprise',
+			asPath: '/terraform/enterprise/releases/2023/v202312-1',
+			version: 'v202207-1',
+		}
+		const target = getTargetPath(input)
+		expect(target).toEqual('/terraform/enterprise/releases/2022/v202207-1')
+	})
+
+	it('should not change other path segments when the version is changed', () => {
+		const input = {
+			basePath: 'terraform/enterprise',
+			asPath: '/terraform/enterprise/v202207-1/registry/publish-modules',
+			version: 'v202312-1',
+		}
+		const target = getTargetPath(input)
+		expect(target).toEqual(
+			'/terraform/enterprise/v202312-1/registry/publish-modules'
+		)
+	})
 })

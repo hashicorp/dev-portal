@@ -8,8 +8,6 @@ import {
 	VERSION_IN_PATH_REGEX,
 } from 'constants/version-path'
 
-const LEADING_TRAILING_SLASHES_REGEXP = /^\/+|\/+$/g
-
 interface GetTargetPathArgs {
 	basePath: string
 	asPath: string
@@ -24,31 +22,41 @@ export function getTargetPath({
 	asPath,
 	version,
 }: GetTargetPathArgs): string {
+	// Remove the basePath and a following slash if it exists from the asPath
+	asPath = asPath.replace(new RegExp(`${basePath}/?`), '')
+
 	const pathSegments = asPath
-		// `path` should never contain the scheme/domain/port, but just in case...
-		.replace(/^https?:\/\/[a-z-:0-9.]+/i, '')
-		// Strip leading slash
-		.replace(/^\//i, '')
+		.replace(/^https?:\/\/[a-z-:0-9.]+|^\//i, '') // remove scheme/domain/port and leading slash
 		.split('/')
 
-	let rest = asPath
-		.replace(basePath, '') // strip basePath
-		.replace(LEADING_TRAILING_SLASHES_REGEXP, '') // strip leading and trailing slashes
-
 	// version is only expected to be at index 2, or 3 in the case of TF-Plugins
-	// - "product" will be at index 0, and "basePath" at index 1
 	const indexOfVersion = pathSegments.findIndex(
 		(el) =>
 			TFE_VERSION_IN_PATH_REGEXP.test(el) || VERSION_IN_PATH_REGEX.test(el)
 	)
 
-	// if a version is in an expected position, strip it so we can replace it
-	if (indexOfVersion <= 3) {
-		rest = rest
-			.replace(TFE_VERSION_IN_PATH_REGEXP, '')
-			.replace(VERSION_IN_PATH_REGEX, '')
-			.replace(LEADING_TRAILING_SLASHES_REGEXP, '')
+	// if a version is in the path, strip it and its preceding path segment so we can replace it
+	if (indexOfVersion !== -1) {
+		if (pathSegments[indexOfVersion - 2] === 'releases') {
+			// Extract the year from the version
+			const year = version.slice(1, 5)
+			pathSegments.splice(indexOfVersion - 2, 3, 'releases', year, version)
+		} else {
+			pathSegments.splice(indexOfVersion, 1, version)
+		}
+	} else {
+		// If version is not in the path, insert it at the beginning
+		pathSegments.unshift(version)
 	}
 
-	return '/' + basePath + '/' + version + (rest ? `/${rest}` : '')
+	// Ensure that basePath does not end with a slash
+	basePath = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath
+	let pathSegmentsString = pathSegments.join('/')
+
+	let finalPath = '/' + basePath + '/' + pathSegmentsString
+
+	// Remove trailing slash if it exists
+	finalPath = finalPath.replace(/\/$/, '')
+
+	return finalPath
 }
