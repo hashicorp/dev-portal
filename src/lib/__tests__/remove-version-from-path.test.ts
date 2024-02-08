@@ -17,13 +17,30 @@ describe('removeVersionFromPath', () => {
 		}
 
 		{
-			/** future case w/ TFE */
 			const path =
 				'https://developer.hashicorp.com/terraform/enterprise/v202205-1/reference-architecture'
 
 			const cleanedPath = removeVersionFromPath(path)
 			expect(cleanedPath).toEqual(
 				'https://developer.hashicorp.com/terraform/enterprise/reference-architecture'
+			)
+		}
+
+		{
+			const path =
+				'https://developer.hashicorp.com/terraform/enterprise/releases/2024/v202401-1'
+			const cleanedPath = removeVersionFromPath(path)
+			expect(cleanedPath).toEqual(
+				'https://developer.hashicorp.com/terraform/enterprise/releases'
+			)
+		}
+
+		{
+			const path =
+				'https://developer.hashicorp.com/terraform/enterprise/v202309-1/flexible-deployments'
+			const cleanedPath = removeVersionFromPath(path)
+			expect(cleanedPath).toEqual(
+				'https://developer.hashicorp.com/terraform/enterprise/flexible-deployments'
 			)
 		}
 	})

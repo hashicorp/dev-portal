@@ -15,12 +15,43 @@ describe('getVersionFromPath', () => {
 		}
 
 		{
-			/** future case w/ TFE */
 			const path =
 				'https://developer.hashicorp.com/terraform/enterprise/v202205-1/reference-architecture'
 
 			const version = getVersionFromPath(path)
 			expect(version).toEqual('v202205-1')
+		}
+
+		{
+			const path =
+				'https://developer.hashicorp.com/terraform/enterprise/reference-architecture/2022/v202205-1'
+
+			const version = getVersionFromPath(path)
+			expect(version).toEqual('v202205-1')
+		}
+
+		{
+			const path =
+				'https://developer.hashicorp.com/terraform/enterprise/v202205-1/reference-architecture'
+
+			const version = getVersionFromPath(path)
+			expect(version).toEqual('v202205-1')
+		}
+
+		{
+			const path =
+				'http://localhost:3000/terraform/enterprise/v202301-1/releases/2021/v202112-2'
+
+			const version = getVersionFromPath(path)
+			expect(version).toEqual('v202301-1')
+		}
+
+		{
+			const path =
+				'http://localhost:3000/terraform/enterprise/v202301-1/releases/2023/v202301-1'
+
+			const version = getVersionFromPath(path)
+			expect(version).toEqual('v202301-1')
 		}
 	})
 

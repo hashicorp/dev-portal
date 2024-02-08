@@ -13,6 +13,10 @@ import {
  * Returns the original string if no version is present.
  */
 export function removeVersionFromPath(path: string): string {
+	const YEAR_AND_TFE_VERSION_IN_PATH_REGEXP = /\/[0-9]{4}\/v[0-9]{6}-\d+/i
+	if (YEAR_AND_TFE_VERSION_IN_PATH_REGEXP.test(path)) {
+		return path.replace(YEAR_AND_TFE_VERSION_IN_PATH_REGEXP, '')
+	}
 	const pathSegments = path.split('/')
 
 	const i = pathSegments.findIndex((el) => {

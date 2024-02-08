@@ -9,7 +9,10 @@ import {
 } from 'constants/version-path'
 
 /**
- * Extract the version from a path string, or an array of path segments
+ * Extracts the version from a given path.
+ *
+ * @param path - The path from which to extract the version.
+ * @returns The extracted version or undefined if no version is found.
  */
 export function getVersionFromPath(path: string): string | undefined {
 	const pathSegments = path
@@ -23,7 +26,7 @@ export function getVersionFromPath(path: string): string | undefined {
 	// or 4 with Integrations versioned routes.
 	// - "product" will be at index 0, and "basePath" at index 1
 	const version = pathSegments.find((el, i) => {
-		if (i === 2 && TFE_VERSION_IN_PATH_REGEXP.test(el)) {
+		if (TFE_VERSION_IN_PATH_REGEXP.test(el)) {
 			return true
 		}
 		if ((i === 2 || i === 3 || i === 4) && VERSION_IN_PATH_REGEX.test(el)) {
