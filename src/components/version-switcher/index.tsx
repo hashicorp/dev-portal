@@ -40,6 +40,8 @@ function VersionSwitcher({ options, label }: VersionSwitcherProps) {
 			>
 				<DropdownDisclosureLabelItem>{label}</DropdownDisclosureLabelItem>
 				{options
+					// Hide currently selected version from dropdown list
+					.filter((option: VersionSwitcherOption) => !option.isSelected)
 					// Render an anchor item for each option
 					.map((option: VersionSwitcherOption) => {
 						return (
