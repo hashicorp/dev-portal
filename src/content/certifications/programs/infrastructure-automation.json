@@ -31,6 +31,6 @@
 				"prepare": "/terraform/tutorials/pro-cert"
 			},
 			"faqSlug": "terraform-authoring-operations-professional"
-		}
+		},
 	]
 }
