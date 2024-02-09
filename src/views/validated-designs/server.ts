@@ -7,7 +7,7 @@ import fs from 'fs'
 import path from 'path'
 import yaml from 'js-yaml'
 import { isProductSlug } from 'lib/products'
-import { HVD_CONTENT_DIR } from '../../../scripts/extract-hvd-content'
+import { HVD_CONTENT_DIR } from '@scripts/extract-hvd-content'
 import { HvdCategoryGroup, HvdGuide, HvdPage } from './types'
 import { ValidatedDesignsGuideProps } from './guide'
 
@@ -18,6 +18,7 @@ import remarkPluginAnchorLinkData, {
 import { rewriteStaticHVDAssetsPlugin } from 'lib/remark-plugins/rewrite-static-hvd-assets'
 import grayMatter from 'gray-matter'
 import { ProductSlug } from 'types/products'
+import { OutlineLinkItem } from 'components/outline-nav/types'
 
 const basePath = '/validated-designs'
 
@@ -189,6 +190,7 @@ export async function getHvdGuidePropsFromSlug(
 
 	const validatedDesignsGuideProps: ValidatedDesignsGuideProps = {
 		title: '',
+		productSlug: 'hcp', // default to hcp
 		markdown: {
 			description: '',
 			title: '',
@@ -203,6 +205,8 @@ export async function getHvdGuidePropsFromSlug(
 	for (const categoryGroup of categoryGroups) {
 		for (const guide of categoryGroup.guides) {
 			if (guide.slug === guideSlug) {
+				validatedDesignsGuideProps.productSlug = categoryGroup.product
+
 				for (let index = 0; index < guide.pages.length; index++) {
 					const page = guide.pages[index]
 
@@ -212,7 +216,6 @@ export async function getHvdGuidePropsFromSlug(
 
 						let mdxFileString: string
 						try {
-							// TODO: this should be guarded with a try catch
 							mdxFileString = fs.readFileSync(page.filePath, 'utf8')
 						} catch (err) {
 							console.error(err)
@@ -231,10 +234,21 @@ export async function getHvdGuidePropsFromSlug(
 							},
 						})
 
-						const headers = anchorLinks.map((anchorLink: AnchorLinkItem) => ({
-							title: anchorLink.title,
-							url: `#${anchorLink.id}`,
-						}))
+						// only show heading level 1 & 2
+						const headers = anchorLinks.reduce(
+							(acc: OutlineLinkItem[], anchorLink: AnchorLinkItem) => {
+								if (anchorLink.level < 3) {
+									acc.push({
+										title: anchorLink.title,
+										url: `#${anchorLink.id}`,
+									})
+								}
+
+								return acc
+							},
+							[]
+						)
+
 						validatedDesignsGuideProps.headers = headers
 						validatedDesignsGuideProps.markdown = {
 							// this is temporary as we should always have these fields in the markdown

@@ -22,3 +22,7 @@ export interface HvdPage {
 	href: string // e.g. /validated-designs/terraform-operation-guides-adoption/people-and-process
 	filePath: string // full path to the file e.g. /content/terraform/operation-guides/adoption/0000-people-and-process.mdx
 }
+
+export interface HvdPageMenuItem extends HvdPage {
+	isActive: boolean
+}

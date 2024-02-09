@@ -48,7 +48,10 @@ function OutlineNavWithActive({
 	 * if we don't have multiple items, then we render null
 	 */
 	if (!hasMultipleItems) {
-		return null
+		// Next is caching refs so we need to hold on to this ref. Otherwise Next will lose this reference and break this component if we:
+		// 1. visit a page with 0 or 1 items
+		// 2. then visit a page with items
+		return <div ref={rootRef}></div>
 	}
 
 	return (

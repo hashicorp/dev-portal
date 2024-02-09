@@ -34,13 +34,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-	/** @TODO remove this conditional after release */
-	if (__config.flags.enable_hvd === false) {
-		return {
-			notFound: true,
-		}
-	}
-
 	const categoryGroups = getHvdCategoryGroups()
 	if (!categoryGroups) {
 		return {

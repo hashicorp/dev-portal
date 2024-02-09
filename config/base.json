@@ -35,7 +35,6 @@
 	},
 	"flags": {
 		"enable_datadog": true,
-		"enable_io_beta_cta": true,
-		"enable_hvd": false
+		"enable_io_beta_cta": true
 	}
 }

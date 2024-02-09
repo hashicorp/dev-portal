@@ -20,6 +20,7 @@ const IconDict: { [k in DirectionOption]: typeof IconArrowRight16 } = {
 }
 
 function DirectionalLinkBox({
+	id,
 	href,
 	label,
 	name,
@@ -28,8 +29,11 @@ function DirectionalLinkBox({
 }: DirectionalLinkBoxProps) {
 	const Icon = IconDict[direction]
 
+	// Next.js's Link component will maintain a focus state even after a page transition (with static regeneration) (https://github.com/vercel/next.js/issues/49386). Adding a key attribute breaks that behaviour.
 	return (
 		<Link
+			id={id}
+			key={id}
 			className={classNames(s.linkbox, s[`direction-${direction}`])}
 			href={href}
 			aria-label={ariaLabel}
