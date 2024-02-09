@@ -288,6 +288,7 @@ describe('TFE Releases - DocsVersionSwitcher', () => {
 		const dropdown = queryByRole('list')
 		expect(dropdown).not.toHaveTextContent(exclude)
 
+		// assert that the currently selected version is shown as the trigger button for the dropdown
 		const currentVersion = screen.getByText(exclude)
 		expect(currentVersion).toBeInTheDocument()
 	})
