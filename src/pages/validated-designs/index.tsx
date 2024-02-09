@@ -16,6 +16,10 @@ export async function getStaticProps() {
 
 	return {
 		props: {
+			metadata: {
+				title: 'HashiCorp Validated Designs',
+				description: 'HashiCorp Validated Designs',
+			},
 			categoryGroups,
 		},
 	}

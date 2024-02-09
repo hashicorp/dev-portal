@@ -8,6 +8,7 @@ import { VersionSelectItem } from 'views/docs-view/loaders/remote-content'
 import { render } from '@testing-library/react'
 import { CurrentProductProvider } from 'contexts'
 import DocsVersionSwitcher from '.'
+import { setProjectForAriaLabel } from '.'
 
 const mockUserRouter = jest.fn()
 jest.mock('next/router', () => ({
@@ -113,5 +114,97 @@ describe('DocsVersionSwitcher', () => {
 
 		// link to an older version
 		expect(links[2]).toHaveAttribute('rel', 'nofollow')
+	})
+})
+
+const cases = [
+	{
+		projectName: null,
+		currentRootDocsPath: {
+			iconName: 'file-source',
+			name: 'Configuration Language',
+			path: 'language',
+		},
+		currentProduct: {
+			slug: 'terraform',
+			name: 'Terraform',
+		},
+	},
+	{
+		projectName: null,
+		currentRootDocsPath: {
+			iconName: 'terminal-screen',
+			name: 'Terraform CLI',
+			path: 'cli',
+		},
+		currentProduct: {
+			slug: 'terraform',
+			name: 'Terraform',
+		},
+	},
+	{
+		projectName: 'Terraform Enterprise',
+		currentRootDocsPath: {
+			iconName: 'org',
+			name: 'Terraform Enterprise',
+			path: 'enterprise',
+			productSlugForLoader: 'ptfe-releases',
+		},
+		currentProduct: {
+			slug: 'terraform',
+			name: 'Terraform',
+		},
+	},
+	{
+		projectName: null,
+		currentRootDocsPath: {
+			iconName: 'docs',
+			name: 'Intro',
+			path: 'intro',
+		},
+		currentProduct: {
+			slug: 'terraform',
+			name: 'Terraform',
+		},
+	},
+]
+
+describe('setProjectForAriaLabel', () => {
+	it('Terraform - Configuration Language', () => {
+		const result = setProjectForAriaLabel(
+			cases[0].projectName,
+			cases[0].currentRootDocsPath,
+			cases[0].currentProduct
+		)
+
+		expect(result).toBe(`Terraform Configuration Language`)
+	})
+	it('Terraform - Terraform CLI', () => {
+		const result = setProjectForAriaLabel(
+			cases[1].projectName,
+			cases[1].currentRootDocsPath,
+			cases[1].currentProduct
+		)
+
+		expect(result).toBe(`Terraform CLI`)
+	})
+	it('Terraform - Terraform Enterprise', () => {
+		const result = setProjectForAriaLabel(
+			cases[2].projectName,
+			cases[2].currentRootDocsPath,
+			cases[2].currentProduct
+		)
+
+		expect(result).toBe(`Terraform Enterprise`)
+	})
+
+	it('Terraform - Intro', () => {
+		const result = setProjectForAriaLabel(
+			cases[3].projectName,
+			cases[3].currentRootDocsPath,
+			cases[3].currentProduct
+		)
+
+		expect(result).toBe(`Terraform Intro`)
 	})
 })
