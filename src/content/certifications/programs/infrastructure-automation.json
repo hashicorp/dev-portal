@@ -22,7 +22,7 @@
 			"faqSlug": "terraform-associate-003"
 		},	
 		{
-			"title": "Terraform Authoring and Operations Professional (Coming soon)",
+			"title": "Terraform Authoring and Operations Professional (coming soon)",
 			"examTier": "pro",
 			"productSlug": "terraform",
 			"versionTested": "Terraform 1.6",
