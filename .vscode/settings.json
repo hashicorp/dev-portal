@@ -1,7 +1,7 @@
 {
 	"eslint.codeActionsOnSave.rules": ["curly"],
 	"editor.codeActionsOnSave": {
-		"source.fixAll.eslint": "true"
+		"source.fixAll.eslint": true
 	},
 	"cssVariables.lookupFiles": [
 		"**/*.css",
