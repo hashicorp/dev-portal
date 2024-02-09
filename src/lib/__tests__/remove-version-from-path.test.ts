@@ -43,6 +43,15 @@ describe('removeVersionFromPath', () => {
 				'https://developer.hashicorp.com/terraform/enterprise/flexible-deployments'
 			)
 		}
+
+		{
+			const path =
+				'https://developer.hashicorp.com/terraform/enterprise/v202309-1/releases/2023/v202309-1'
+			const cleanedPath = removeVersionFromPath(path)
+			expect(cleanedPath).toEqual(
+				'https://developer.hashicorp.com/terraform/enterprise/releases'
+			)
+		}
 	})
 
 	it('should return the original path if no version is present', () => {

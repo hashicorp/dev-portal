@@ -270,7 +270,7 @@ describe('TFE Releases - DocsVersionSwitcher', () => {
 	it.each([
 		['/terraform/enterprise/releases/2023/v202310-1', 'v202310-1'],
 		['/terraform/enterprise/releases/2024/v202401-1', 'v202401-1 (latest)'],
-	])('given path "%s", hides "%s" from the dropdown', (asPath, exclude) => {
+	])('given path "%s", hides "%s" from the dropdown', (asPath, version) => {
 		mockUserRouter.mockImplementation(() => ({
 			asPath: asPath,
 		}))
@@ -286,10 +286,10 @@ describe('TFE Releases - DocsVersionSwitcher', () => {
 
 		// assert that the currently selected version is not shown in the dropdown
 		const dropdown = queryByRole('list')
-		expect(dropdown).not.toHaveTextContent(exclude)
+		expect(dropdown).not.toHaveTextContent(version)
 
 		// assert that the currently selected version is shown as the trigger button for the dropdown
-		const currentVersion = screen.getByText(exclude)
+		const currentVersion = screen.getByText(version)
 		expect(currentVersion).toBeInTheDocument()
 	})
 
