@@ -28,47 +28,54 @@ export function getTargetPath({
 		.replace(/^https?:\/\/[a-z-:0-9.]+|^\//i, '') // remove scheme/domain/port and leading slash
 		.split('/')
 
-	if (
-		pathSegments.filter((segment) => TFE_VERSION_IN_PATH_REGEXP.test(segment))
-			.length > 1
-	) {
-		const index = pathSegments.findIndex((segment) =>
-			TFE_VERSION_IN_PATH_REGEXP.test(segment)
-		)
-
-		if (index !== -1) {
-			pathSegments.splice(index, 1)
+	// Find the indices of all segments that match TFE_VERSION_IN_PATH_REGEXP
+	const matchingIndices = pathSegments.reduce((indices, segment, index) => {
+		if (TFE_VERSION_IN_PATH_REGEXP.test(segment)) {
+			indices.push(index)
 		}
+		return indices
+	}, [])
+
+	// If there's more than one matching segment, remove the first one
+	if (matchingIndices.length > 1) {
+		pathSegments.splice(matchingIndices[0], 1)
 	}
 
-	// version is only expected to be at index 2, or 3 in the case of TF-Plugins
+	// Find the index of the version segment
 	const indexOfVersion = pathSegments.findIndex(
 		(el) =>
 			TFE_VERSION_IN_PATH_REGEXP.test(el) || VERSION_IN_PATH_REGEX.test(el)
 	)
 
-	// if a version is in the path, strip it and its preceding path segment so we can replace it
+	// If a version is in the path, replace it; otherwise, insert it at the beginning
 	if (indexOfVersion !== -1) {
+		let spliceArgs:
+			| [number, number, string]
+			| [number, number, string, string, string]
+
 		if (pathSegments[indexOfVersion - 2] === 'releases') {
-			// Extract the year from the version
-			const year = version.slice(1, 5)
-			pathSegments.splice(indexOfVersion - 2, 3, 'releases', year, version)
+			spliceArgs = [
+				indexOfVersion - 2,
+				3,
+				'releases',
+				version.slice(1, 5),
+				version,
+			]
+			pathSegments.splice(
+				...(spliceArgs as [number, number, string, string, string])
+			)
 		} else {
-			pathSegments.splice(indexOfVersion, 1, version)
+			spliceArgs = [indexOfVersion, 1, version]
+			pathSegments.splice(...(spliceArgs as [number, number, string]))
 		}
 	} else {
-		// If version is not in the path, insert it at the beginning
 		pathSegments.unshift(version)
 	}
 
-	// Ensure that basePath does not end with a slash
-	basePath = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath
-	let pathSegmentsString = pathSegments.join('/')
-
-	let finalPath = '/' + basePath + '/' + pathSegmentsString
-
-	// Remove trailing slash if it exists
-	finalPath = finalPath.replace(/\/$/, '')
+	// Construct the final path
+	let finalPath = `/${basePath.replace(/\/$/, '')}/${pathSegments.join(
+		'/'
+	)}`.replace(/\/$/, '')
 
 	return finalPath
 }
