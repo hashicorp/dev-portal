@@ -68,13 +68,30 @@ describe('getTargetPath', () => {
 			},
 			'/terraform/enterprise/releases/2022/v202208-1',
 		],
-	])(
-		'should handle additional TFE versions in release notes URLs',
-		(arg, expected) => {
-			const target = getTargetPath(arg)
-			expect(target).toEqual(expected)
+	])('should handle TFE versions in release notes URLs', (arg, expected) => {
+		const target = getTargetPath(arg)
+		expect(target).toEqual(expected)
+	})
+
+	it('should handle additional TFE versions in release notes URLs', () => {
+		const input = {
+			basePath: 'terraform/enterprise',
+			asPath: '/terraform/enterprise/v202308-2/releases/2022/v202208-2',
+			version: 'v202301-1',
 		}
-	)
+		const target = getTargetPath(input)
+		expect(target).toEqual('/terraform/enterprise/releases/2023/v202301-1')
+	})
+
+	it('should handle additional TFE versions in release notes URLs when versions do not match', () => {
+		const input = {
+			basePath: 'terraform/enterprise',
+			asPath: '/terraform/enterprise/v202208-2/releases/2022/v202208-2',
+			version: 'v202401-1',
+		}
+		const target = getTargetPath(input)
+		expect(target).toEqual('/terraform/enterprise/releases/2024/v202401-1')
+	})
 
 	it('should update the year to match the version on tfe release path', () => {
 		const input = {

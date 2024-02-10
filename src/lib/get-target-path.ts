@@ -23,11 +23,23 @@ export function getTargetPath({
 	version,
 }: GetTargetPathArgs): string {
 	// Remove the basePath and a following slash if it exists from the asPath
-	asPath = asPath.replace(new RegExp(`${basePath}/?`), '')
-
 	const pathSegments = asPath
+		.replace(new RegExp(`${basePath}/?`), '')
 		.replace(/^https?:\/\/[a-z-:0-9.]+|^\//i, '') // remove scheme/domain/port and leading slash
 		.split('/')
+
+	if (
+		pathSegments.filter((segment) => TFE_VERSION_IN_PATH_REGEXP.test(segment))
+			.length > 1
+	) {
+		const index = pathSegments.findIndex((segment) =>
+			TFE_VERSION_IN_PATH_REGEXP.test(segment)
+		)
+
+		if (index !== -1) {
+			pathSegments.splice(index, 1)
+		}
+	}
 
 	// version is only expected to be at index 2, or 3 in the case of TF-Plugins
 	const indexOfVersion = pathSegments.findIndex(
