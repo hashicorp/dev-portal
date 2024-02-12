@@ -10,11 +10,9 @@
  * Task: https://app.asana.com/0/1204759533834554/1206183781878379/f
  */
 const proxySettings = {}
-const { getProxiedProductSlug, isPreview } = require('../src/lib/env-checks')
+const { isPreview } = require('../src/lib/env-checks')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
-
-const PROXIED_PRODUCT = getProxiedProductSlug()
 
 /**
  * # Some notes on rewrites
@@ -60,14 +58,13 @@ const dotIoRewrites = productsToProxy.reduce((acc, slug) => {
 			source: proxiedRoute,
 			destination: localRoute,
 		}
-		if (slug !== PROXIED_PRODUCT) {
-			rewrite.has = [
-				{
-					type: 'host',
-					value: proxySettings[slug].host,
-				},
-			]
-		}
+
+		rewrite.has = [
+			{
+				type: 'host',
+				value: proxySettings[slug].host,
+			},
+		]
 
 		// To enable previewing of .io sites, we accept an hc_dd_proxied_site cookie which must have a value matching a product slug
 		if (isPreview()) {
