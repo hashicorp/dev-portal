@@ -7,9 +7,6 @@
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 
-// HashiCorp imports
-import HashiHead from '@hashicorp/react-head'
-
 // Global imports
 import { useCurrentProduct } from 'contexts'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
@@ -45,6 +42,7 @@ import Heading from 'components/heading'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 import { SidebarProps } from 'components/sidebar/types'
 import { InstallPageAnchorHeading } from './components/downloads-section/types'
+import Head from 'next/head'
 
 /**
  * This component is used to make it possible to consume the `useCurrentVersion`
@@ -138,9 +136,9 @@ const ProductDownloadsViewContent = ({
 			 * but not search engine indexable
 			 */}
 			{isEnterpriseMode ? (
-				<HashiHead>
-					<meta name="robots" key="robots" content="noindex, nofollow" />
-				</HashiHead>
+				<Head>
+					<meta name="robots" content="noindex, nofollow" key="robots" />
+				</Head>
 			) : null}
 			<PageHeader
 				isEnterpriseMode={isEnterpriseMode}

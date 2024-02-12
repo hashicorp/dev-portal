@@ -134,7 +134,7 @@ export default function ValidatedDesignGuideView({
 			sidecarSlot={<OutlineNavWithActive items={headers} />}
 		>
 			<Head>
-				<meta name="robots" content="noindex, nofollow" />
+				<meta name="robots" content="noindex, nofollow" key="robots" />
 			</Head>
 			<div className={s.mobileBackButton}>
 				<SidebarBackToLink text={backBtnTitle} href={backBtnUrl} />
