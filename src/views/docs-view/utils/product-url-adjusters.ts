@@ -213,6 +213,12 @@ function rewriteSentinelDocsUrls(
 	 * - Any other "/sentinel/:slug" URL is expected to be a "/docs" URL
 	 *   - We need to adjust these urls to be "/sentinel/docs/:slug"
 	 */
+
+	// Redirect /sentinel/downloads to /sentinel/install
+	if (inputUrl == '/sentinel/downloads' || inputUrl == '/sentinel/install') {
+		return '/sentinel/install'
+	}
+
 	const isBasePathExceptDocs = sentinelData.basePaths
 		.filter((p: string) => p !== 'docs')
 		.some(

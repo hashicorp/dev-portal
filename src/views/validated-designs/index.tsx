@@ -24,6 +24,10 @@ import IconTileLogo from 'components/icon-tile-logo'
  * Can be updated and adjusted as anyone sees fit based on the needs of the view
  */
 export interface ValidatedDesignsLandingProps {
+	meta: {
+		title: string
+		description: string
+	}
 	categoryGroups: HvdCategoryGroup[]
 }
 
@@ -34,8 +38,6 @@ export default function ValidatedDesignsLandingView({
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />} className={s.root}>
 			<Head>
 				<meta name="robots" content="noindex, nofollow" />
-				<title>HashiCorp Validated Designs</title>
-				<meta name="description" content="HashiCorp Validated Designs" />
 			</Head>
 			<LandingHero
 				heading="HashiCorp Validated Designs"
