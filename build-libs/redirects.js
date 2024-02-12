@@ -7,18 +7,9 @@
 
 const fs = require('fs')
 const path = require('path')
-/**
- * TODO: clean this up, proxySettings was previously a non-empty import
- * Task: https://app.asana.com/0/1204759533834554/1206183781878379/f
- */
-const proxySettings = {}
-const {
-	getProxiedProductSlug,
-	isPreview,
-	isDeployPreview,
-} = require('../src/lib/env-checks')
+
+const { isDeployPreview } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
-const loadProxiedSiteRedirects = require('./load-proxied-site-redirects')
 const { getTutorialRedirects } = require('./tutorial-redirects')
 const {
 	getDocsDotHashiCorpRedirects,
@@ -32,120 +23,10 @@ require('isomorphic-unfetch')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 
-const PROXIED_PRODUCT = getProxiedProductSlug()
-
 // copied from src/constants/hostname-map.ts so it's usable at build-time in the next config
 const HOSTNAME_MAP = {
 	'docs.hashicorp.com': 'sentinel',
 	'test-st.hashi-mktg.com': 'sentinel',
-}
-
-// Redirect all proxied product pages
-// to the appropriate product domain
-//
-// Note: we do this for ALL domains, as we never want visitors to
-// see the original "proxied" routes, no matter what domain they're on.
-const productsToProxy = Object.keys(proxySettings)
-// In preview environments, it's actually nice to NOT have these redirects,
-// as they prevent us from seeing the content we build for the preview URL
-/** @type {Redirect[]} */
-const devPortalToDotIoRedirects = isPreview()
-	? []
-	: productsToProxy.reduce((acc, slug) => {
-			const routesToProxy = proxySettings[slug].routesToProxy
-			// If we're trying to test this product's redirects in dev,
-			// then we'll set the domain to an empty string for absolute URLs
-			const domain = slug == PROXIED_PRODUCT ? '' : proxySettings[slug].domain
-			const toDotIoRedirects = routesToProxy
-				.filter(({ skipRedirect }) => !skipRedirect)
-				.map(({ proxiedRoute, localRoute }) => {
-					return {
-						source: localRoute,
-						destination: domain + proxiedRoute,
-						permanent: false,
-					}
-				})
-			return acc.concat(toDotIoRedirects)
-	  }, [])
-
-/**
- *
- * @param {Redirect[]} redirects
- * @param {string} productSlug
- * @returns {Redirect[]}
- */
-function addHostCondition(redirects, productSlug) {
-	const isProxiedProduct = proxySettings[productSlug] !== undefined
-	const host = proxySettings[productSlug]?.host
-	return redirects.map((redirect) => {
-		/**
-		 * If we've explicitly set the DEV_IO env variable, or meet a specific
-		 * (but rarely used) commit message trigger (see `getProxiedProductSlug`),
-		 * then we know we're trying to preview the proxied domain, even without
-		 * any kind of host or other condition. In this case, we return the redirect
-		 * with no additional conditions.
-		 */
-		if (productSlug == PROXIED_PRODUCT) {
-			return redirect
-		}
-
-		/**
-		 * If the productSlug is NOT a beta product, ie has been migrated to Dev Dot
-		 * and does not have its docs hosted on a proxied domain, handle it as such.
-		 * Note we'll have validated these author-controlled redirects
-		 * in `filterInvalidRedirects`, to ensure they start with `/<productSlug>`.
-		 */
-		if (!isProxiedProduct) {
-			// The redirect should always apply in lower environments
-			if (process.env.HASHI_ENV !== 'production') {
-				return redirect
-			}
-
-			/**
-			 * For production, only apply the redirect for the developer domain, as
-			 * other proxied domains still exist, and we don't want to affect those.
-			 * TODO: remove this once Sentinel is migrated, as we'll no longer
-			 * have proxied domains. Asana task:
-			 * https://app.asana.com/0/1203706321379360/1205838575366383/f
-			 */
-			return {
-				...redirect,
-				has: [
-					{
-						type: 'host',
-						value: 'developer.hashicorp.com',
-					},
-				],
-			}
-		} else if (isPreview()) {
-			// To enable previewing of .io sites, we accept an hc_dd_proxied_site
-			// cookie which must have a value matching a product slug.
-			return {
-				...redirect,
-				has: [
-					{
-						type: 'cookie',
-						key: 'hc_dd_proxied_site',
-						value: host,
-					},
-				],
-			}
-		} else {
-			/**
-			 * This default case captures !isPreview() && isProxiedProduct,
-			 * that is, this is a redirect for a proxied product in production.
-			 */
-			return {
-				...redirect,
-				has: [
-					{
-						type: 'host',
-						value: host,
-					},
-				],
-			}
-		}
-	})
 }
 
 /**
@@ -222,15 +103,11 @@ async function getRedirectsFromContentRepo(
 	/**
 	 * Evaluate the redirects file string, filter invalid redirects, and add
 	 * a host condition for any sites that have `proxySettings` defined.
-	 *
-	 * TODO(zachshilton): can remove `addHostCondition` once Sentinel is migrated
-	 * (once `docs.hashicorp.com/sentinel` redirects to `developer.hashicorp.com`)
-	 * Task: https://app.asana.com/0/1203706321379360/1205838575366383/f
 	 */
 	/** @type {Redirect[]} */
 	const parsedRedirects = eval(redirectsFileString) ?? []
 	const validRedirects = filterInvalidRedirects(parsedRedirects, repoName)
-	return addHostCondition(validRedirects, repoName)
+	return validRedirects
 }
 
 async function buildProductRedirects() {
@@ -257,7 +134,7 @@ async function buildProductRedirects() {
 		])
 	).flat()
 
-	return [...devPortalToDotIoRedirects, ...productRedirects]
+	return productRedirects
 }
 
 /**
@@ -388,17 +265,10 @@ function filterInvalidRedirects(redirects, repoSlug) {
 	 * Filter out any redirects not prefixed with the `product` slug.
 	 */
 	const validRedirects = redirects.filter((entry) => {
-		/**
-		 * Proxied product redirects are assumed to be valid.
-		 * TODO: we can remove this once Sentinel is migrated, as it's the
-		 * last proxied product. Asana task:
-		 * https://app.asana.com/0/1203706321379360/1205838575366383/f
-		 */
-		const isProxiedProduct = Boolean(proxySettings[repoSlug])
 		// Redirects for non-proxied must be prefixed with the product slug.
 		const isPrefixed = entry.source.startsWith(`/${productSlug}`)
 		// Keep track of invalid redirects, we want to warn about these
-		const isValidRedirect = isProxiedProduct || isPrefixed
+		const isValidRedirect = isPrefixed
 		if (!isValidRedirect) {
 			invalidRedirects.push(entry)
 		}
@@ -429,15 +299,6 @@ function filterInvalidRedirects(redirects, repoSlug) {
  * @param {Redirect[]} redirects
  */
 function groupSimpleRedirects(redirects) {
-	/** @type {Record<string, string>} */
-	const hostMatching = Object.entries(proxySettings).reduce(
-		(acc, [productSlug, productProxySettings]) => {
-			acc[productProxySettings.host] = productSlug
-			return acc
-		},
-		{}
-	)
-
 	/** @type {Record<string, Record<string, { destination: string, permanent?: boolean }>>} */
 	const groupedRedirects = {}
 	redirects.forEach((redirect) => {
@@ -447,7 +308,7 @@ function groupSimpleRedirects(redirects) {
 				const hasHostValue = redirect.has[0].value
 
 				// this handles the scenario where redirects are built through our proxy config and have the host value matching what is defined in build-libs/proxy-config.js
-				product = hostMatching[hasHostValue] ?? HOSTNAME_MAP[hasHostValue]
+				product = HOSTNAME_MAP[hasHostValue]
 			} else {
 				// this handles the `hc_dd_proxied_site` cookie
 				product = HOSTNAME_MAP[redirect.has[0].value]
@@ -491,12 +352,10 @@ function groupSimpleRedirects(redirects) {
 async function redirectsConfig() {
 	const productRedirects = await buildProductRedirects()
 	const devPortalRedirects = await buildDevPortalRedirects()
-	const proxiedSiteRedirects = await loadProxiedSiteRedirects()
 	const tutorialRedirects = await getTutorialRedirects()
 	const docsDotHashiCorpRedirects = getDocsDotHashiCorpRedirects()
 
 	const { simpleRedirects, complexRedirects } = splitRedirectsByType([
-		...proxiedSiteRedirects,
 		...productRedirects,
 		...devPortalRedirects,
 		...tutorialRedirects,
@@ -523,6 +382,5 @@ module.exports = {
 	redirectsConfig,
 	splitRedirectsByType,
 	groupSimpleRedirects,
-	addHostCondition,
 	filterInvalidRedirects,
 }
