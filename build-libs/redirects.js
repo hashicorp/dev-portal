@@ -137,10 +137,6 @@ async function buildProductRedirects() {
 	return productRedirects
 }
 
-/**
- * @TODO these redirects will eventually be defined in /proxied-redirects/
- * @returns {Promise<Redirect[]>}
- */
 async function buildDevPortalRedirects() {
 	return [
 		{
