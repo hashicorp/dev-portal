@@ -189,11 +189,13 @@ export async function getHvdGuidePropsFromSlug(
 	const [guideSlug, pageSlug] = slug
 
 	const validatedDesignsGuideProps: ValidatedDesignsGuideProps = {
-		title: '',
+		metadata: {
+			title: '',
+			description: '',
+		},
+		guideTitle: '',
 		productSlug: 'hcp', // default to hcp
 		markdown: {
-			description: '',
-			title: '',
 			mdxSource: null,
 		},
 		headers: [],
@@ -212,7 +214,7 @@ export async function getHvdGuidePropsFromSlug(
 
 					// If no pageSlug is provided, default to the first page
 					if (page.slug === pageSlug || (!pageSlug && index === 0)) {
-						validatedDesignsGuideProps.title = guide.title
+						validatedDesignsGuideProps.guideTitle = guide.title
 
 						let mdxFileString: string
 						try {
@@ -250,12 +252,16 @@ export async function getHvdGuidePropsFromSlug(
 						)
 
 						validatedDesignsGuideProps.headers = headers
-						validatedDesignsGuideProps.markdown = {
+						validatedDesignsGuideProps.metadata = {
 							// this is temporary as we should always have these fields in the markdown
 							description:
 								frontMatter?.description ||
 								'⛔ ERROR NO MARKDOWN DESCRIPTION ⛔',
-							title: frontMatter?.title || '⛔ ERROR NO MARKDOWN TITLE ⛔',
+							title: frontMatter?.title
+								? `${guide.title} | ${frontMatter?.title}`
+								: '⛔ ERROR NO MARKDOWN TITLE ⛔',
+						}
+						validatedDesignsGuideProps.markdown = {
 							mdxSource,
 						}
 						validatedDesignsGuideProps.currentPageIndex = index
