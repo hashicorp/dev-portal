@@ -75,7 +75,7 @@ describe('getTargetPath', () => {
 		)
 	})
 
-	it('should handle adding the version for the TFE versions when it is missing', () => {
+	it('should handle adding the version when it is missing from the release page path', () => {
 		const input = {
 			basePath: 'terraform/enterprise',
 			asPath: '/terraform/enterprise/releases/2022/v202208-2',

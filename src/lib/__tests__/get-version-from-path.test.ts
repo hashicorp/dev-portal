@@ -40,10 +40,10 @@ describe('getVersionFromPath', () => {
 
 		{
 			const path =
-				'http://localhost:3000/terraform/enterprise/v202301-1/releases/2021/v202112-2'
+				'http://localhost:3000/terraform/enterprise/releases/2024/v202401-1'
 
 			const version = getVersionFromPath(path)
-			expect(version).toEqual('v202301-1')
+			expect(version).toEqual('v202401-1')
 		}
 
 		{

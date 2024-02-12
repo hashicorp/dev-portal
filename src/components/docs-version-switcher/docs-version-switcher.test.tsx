@@ -270,6 +270,11 @@ describe('TFE Releases - DocsVersionSwitcher', () => {
 	it.each([
 		['/terraform/enterprise/releases/2023/v202310-1', 'v202310-1'],
 		['/terraform/enterprise/releases/2024/v202401-1', 'v202401-1 (latest)'],
+		['/terraform/enterprise/v202310-1/releases/2023/v202310-1', 'v202310-1'],
+		[
+			'/terraform/enterprise/v202401-1/releases/2024/v202401-1',
+			'v202401-1 (latest)',
+		],
 	])('given path "%s", hides "%s" from the dropdown', (asPath, version) => {
 		mockUserRouter.mockImplementation(() => ({
 			asPath: asPath,
