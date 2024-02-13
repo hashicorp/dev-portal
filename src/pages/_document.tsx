@@ -4,7 +4,6 @@
  */
 
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import HashiHead from '@hashicorp/react-head'
 import { SegmentPreloadScript } from '@hashicorp/react-consent-manager/scripts/segment'
 
 export default class MyDocument extends Document {
@@ -16,9 +15,7 @@ export default class MyDocument extends Document {
 	render() {
 		return (
 			<Html lang="en">
-				<Head>
-					<HashiHead />
-				</Head>
+				<Head></Head>
 				<body>
 					<SegmentPreloadScript />
 					<Main />

@@ -4,7 +4,6 @@
  */
 
 import { Fragment } from 'react'
-import HashiHead from '@hashicorp/react-head'
 import InstruqtProvider from 'contexts/instruqt-lab'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
@@ -17,6 +16,7 @@ import { NextPrevious } from 'views/tutorial-view/components'
 import VariantProvider from 'views/tutorial-view/utils/variants/context'
 import { VariantDropdownDisclosure } from 'views/tutorial-view/components'
 import { OnboardingTutorialViewProps } from '../types'
+import Head from 'next/head'
 
 export default function OnboardingTutorialView({
 	tutorial,
@@ -42,9 +42,9 @@ export default function OnboardingTutorialView({
 
 	return (
 		<>
-			<HashiHead>
-				<meta name="robots" content="noindex, nofollow" />
-			</HashiHead>
+			<Head>
+				<meta name="robots" content="noindex, nofollow" key="robots" />
+			</Head>
 			<InteractiveLabWrapper
 				key={slug}
 				{...(isInteractive && { labId: handsOnLab.id })}
