@@ -232,7 +232,7 @@ function TutorialView({
 				<link rel="canonical" href={canonicalUrl.toString()} key="canonical" />
 				{/** Don't index non canonical tutorials */}
 				{canonicalUrl.pathname !== currentPath ? (
-					<meta name="robots" content="noindex, nofollow" />
+					<meta name="robots" content="noindex, nofollow" key="robots" />
 				) : null}
 			</Head>
 			<InteractiveLabWrapper
