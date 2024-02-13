@@ -172,8 +172,8 @@ const DownloadsSection = ({
 										tutorial
 									</Link>{' '}
 									to learn how to install and verify HashiCorp tools on any
-									Linux distribution, and create an Alpine container image with
-									verified HashiCorp tools.
+									Linux distribution, and create an custom Linux container image
+									with verified HashiCorp tools.
 								</Text>
 							)}
 							<BinaryDownloadsSection
