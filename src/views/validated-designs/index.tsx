@@ -37,7 +37,7 @@ export default function ValidatedDesignsLandingView({
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />} className={s.root}>
 			<Head>
-				<meta name="robots" content="noindex, nofollow" />
+				<meta name="robots" content="noindex, nofollow" key="robots" />
 			</Head>
 			<LandingHero
 				heading="HashiCorp Validated Designs"
