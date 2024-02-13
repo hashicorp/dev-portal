@@ -5,14 +5,13 @@
 
 import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
-import proxiedLayouts from 'layouts/_proxied-dot-io/dict'
 import ErrorViewSwitcher from 'views/error-view-switcher'
 // product data, needed to render top navigation
 import { productConfig } from 'lib/cms'
 import { isProductSlug } from 'lib/products'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 
-function Error({ statusCode, proxiedProductSlug }) {
+function Error({ statusCode }) {
 	// Unlike other pages, we can't use redirects and rewrites
 	// to display proxied .io domain 404 pages on specific hosts.
 	// Instead, we must use getServerSideProps to determine which
@@ -51,20 +50,13 @@ function Error({ statusCode, proxiedProductSlug }) {
 	// we would instead generate specific sets of redirects based on the
 	// whether the current branch is a specific `proxied-{product}` branch.
 
-	const ProxiedLayout = proxiedLayouts[proxiedProductSlug]
-	const isProxiedDotIo = Boolean(ProxiedLayout)
-	const Layout = isProxiedDotIo
-		? ProxiedLayout
-		: (props) => (
-				<BaseLayout {...props} mobileMenuSlot={<MobileMenuLevelsGeneric />} />
-		  )
+	const Layout = (props) => (
+		<BaseLayout {...props} mobileMenuSlot={<MobileMenuLevelsGeneric />} />
+	)
 
 	return (
 		<Layout>
-			<ErrorViewSwitcher
-				statusCode={statusCode}
-				isProxiedDotIo={isProxiedDotIo}
-			/>
+			<ErrorViewSwitcher statusCode={statusCode} />
 		</Layout>
 	)
 }
