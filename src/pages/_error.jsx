@@ -6,7 +6,6 @@
 import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import proxiedLayouts from 'layouts/_proxied-dot-io/dict'
-import { getProxiedProductSlug } from 'lib/env-checks'
 import ErrorViewSwitcher from 'views/error-view-switcher'
 // product data, needed to render top navigation
 import { productConfig } from 'lib/cms'
@@ -82,8 +81,7 @@ export async function getServerSideProps(ctx) {
 			? HOSTNAME_MAP[req.cookies['hc_dd_proxied_site']]
 			: null
 
-	const proxiedProductSlug =
-		ioPreviewProduct ?? getProxiedProductSlug(urlObj.hostname)
+	const proxiedProductSlug = ioPreviewProduct
 
 	// Determine which statusCode to show
 	const statusCode = res ? res.statusCode : err ? err.statusCode : 404
