@@ -105,6 +105,12 @@ export async function getServerSideProps(ctx) {
 	}
 	// We need the whole product data (eg for top nav), not just the slug
 	const product = productConfig[productSlug] || null
+	console.log({
+		product,
+		statusCode,
+		proxiedProductSlug,
+		hostname: urlObj.hostname,
+	})
 
 	return {
 		props: {
