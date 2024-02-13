@@ -29,7 +29,7 @@ jobs:
         run: npm install --global npm@latest
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@c5482d70ec8706408996e31ac94075030694993f # v1.8.32
+        uses: bahmutov/npm-install@5653d39101a041a30cc58572d6bd566b90a6de20 # v1.8.38
 
       - name: Restore next build
         uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4.0.0
