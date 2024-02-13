@@ -101,7 +101,7 @@ async function getRedirectsFromContentRepo(
 		return []
 	}
 	/**
-	 * Evaluate the redirects file string, filter invalid redirects
+	 * Evaluate the redirects file string, filter invalid redirects.
 	 */
 	/** @type {Redirect[]} */
 	const parsedRedirects = eval(redirectsFileString) ?? []
