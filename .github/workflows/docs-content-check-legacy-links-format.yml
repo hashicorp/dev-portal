@@ -30,7 +30,7 @@ jobs:
     steps:
       - name: Get PR number
         id: get-pr-number
-        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           script: |
             const { data } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
@@ -48,7 +48,7 @@ jobs:
       - name: Get list of PR files
         if: ${{ steps.get-pr-number.outputs.result != 'false' }}
         id: get-lists-of-pr-files
-        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         env:
           PR_NUMBER: ${{ steps.get-pr-number.outputs.result }}
           MDX_DIRECTORY: ${{ inputs.mdx-directory }}
@@ -105,7 +105,7 @@ jobs:
 
       - name: Checkout dev-portal
         if: ${{ steps.get-pr-number.outputs.result != 'false' }}
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           repository: 'hashicorp/dev-portal'
 
@@ -115,7 +115,7 @@ jobs:
 
       - name: Check out branch with content changes
         if: ${{ steps.get-pr-number.outputs.result != 'false' }}
-        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           path: 'content-repo'
           repository: '${{ inputs.repo-owner }}/${{ inputs.repo-name }}'
