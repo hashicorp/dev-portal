@@ -16,7 +16,6 @@ Welcome to HashiCorp Developer! This is the home for HashiCorp product reference
 - [SEO metadata](#seo-metadata)
 - [Performance](#performance)
 - [Remote Content & Application context](#remote-content--application-context)
-- [Proxied Redirects](#proxied-redirects)
 
 ## Local Development
 
