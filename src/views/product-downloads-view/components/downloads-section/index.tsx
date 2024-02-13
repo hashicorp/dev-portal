@@ -14,6 +14,8 @@ import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 import Card from 'components/card'
 import Heading, { HeadingProps } from 'components/heading'
 import MobileDownloadStandaloneLink from 'components/mobile-download-standalone-link'
+import Text from 'components/text'
+import Link from 'components/link'
 import { trackProductDownload } from 'lib/analytics'
 import { useCurrentVersion } from 'views/product-downloads-view/contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
@@ -162,6 +164,17 @@ const DownloadsSection = ({
 									packageManagers={packageManagers}
 									prettyOSName={prettyOSName}
 								/>
+							)}
+							{os === 'linux' && (
+								<Text className={s.root} size={200} weight="regular">
+									Complete this{' '}
+									<Link href="/well-architected-framework/operational-excellence/verify-hashicorp-binary">
+										tutorial
+									</Link>{' '}
+									to learn how to install and verify HashiCorp tools on any
+									Linux distribution, and create an Alpine container image with
+									verified HashiCorp tools.
+								</Text>
 							)}
 							<BinaryDownloadsSection
 								downloadsByOS={downloadsByOS}
