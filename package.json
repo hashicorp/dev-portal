@@ -41,7 +41,7 @@
 		]
 	},
 	"engines": {
-		"npm": ">=8.0.0",
+		"npm": ">=9.6.7",
 		"node": ">=18.17.0"
 	},
 	"devDependencies": {
