@@ -174,7 +174,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false,
+		enabled: true,
 		org: 'digitalocean',
 		slug: 'digitalocean',
 		components: [
