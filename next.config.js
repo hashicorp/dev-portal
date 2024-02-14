@@ -7,7 +7,6 @@ const fs = require('fs')
 const path = require('path')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const { redirectsConfig } = require('./build-libs/redirects')
-const rewritesConfig = require('./build-libs/rewrites')
 const HashiConfigPlugin = require('./config/plugin')
 
 // Set api key for Happy Kit feature flags
@@ -69,19 +68,6 @@ module.exports = withHashicorp({
 			'utf-8'
 		)
 		return complexRedirects
-	},
-	async rewrites() {
-		const rewrites = await rewritesConfig()
-
-		if (process.env.DEBUG_REWRITES) {
-			await fs.promises.writeFile(
-				path.join('src', 'data', '_rewrites.generated.json'),
-				JSON.stringify(rewrites, null, 2),
-				'utf-8'
-			)
-		}
-
-		return rewrites
 	},
 	env: {
 		ASSET_API_ENDPOINT: process.env.ASSET_API_ENDPOINT,
