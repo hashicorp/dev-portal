@@ -7,9 +7,7 @@
 
 import { ReactElement, useMemo } from 'react'
 import { useRouter } from 'next/router'
-
-// HashiCorp imports
-import HashiHead from '@hashicorp/react-head'
+import Head from 'next/head'
 
 // Global imports
 import { useCurrentProduct } from 'contexts'
@@ -171,9 +169,9 @@ const ProductDownloadsViewContent = ({
 			 * but not search engine indexable
 			 */}
 			{isEnterpriseMode ? (
-				<HashiHead>
-					<meta name="robots" key="robots" content="noindex, nofollow" />
-				</HashiHead>
+				<Head>
+					<meta name="robots" content="noindex, nofollow" key="robots" />
+				</Head>
 			) : null}
 			<PageHeader
 				isEnterpriseMode={isEnterpriseMode}

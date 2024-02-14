@@ -101,8 +101,7 @@ async function getRedirectsFromContentRepo(
 		return []
 	}
 	/**
-	 * Evaluate the redirects file string, filter invalid redirects, and add
-	 * a host condition for any sites that have `proxySettings` defined.
+	 * Evaluate the redirects file string, filter invalid redirects.
 	 */
 	/** @type {Redirect[]} */
 	const parsedRedirects = eval(redirectsFileString) ?? []
@@ -137,10 +136,6 @@ async function buildProductRedirects() {
 	return productRedirects
 }
 
-/**
- * @TODO these redirects will eventually be defined in /proxied-redirects/
- * @returns {Promise<Redirect[]>}
- */
 async function buildDevPortalRedirects() {
 	return [
 		{
