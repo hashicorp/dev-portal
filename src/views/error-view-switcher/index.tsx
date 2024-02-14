@@ -5,10 +5,8 @@
 
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import DotIoFallBackError from '@hashicorp/react-error-view'
 import { ErrorPageProps } from './types'
 import { DevDot404, DevDotFallback, DevDotVersioned404 } from '../error-views'
-import DotIoVersionedError from '../_proxied-dot-io/versioned-error'
 
 const VERSION_PATTERN = /\/(?<version>v\d+[.]\d+[.](\d+|x))/
 
@@ -23,10 +21,7 @@ const VERSION_PATTERN = /\/(?<version>v\d+[.]\d+[.](\d+|x))/
  * This component also handles auto-selecting versioned 404 views,
  * by matching VERSION_PATTERN in the page URL.
  */
-function ErrorView({
-	statusCode,
-	isProxiedDotIo,
-}: ErrorPageProps): React.ReactElement {
+function ErrorView({ statusCode }: ErrorPageProps): React.ReactElement {
 	/**
 	 * Note: DotIoFallbackError calls useErrorPageAnalytics internally.
 	 * If it didn't, we could call useErrorPageAnalytics once here, or in
@@ -71,25 +66,16 @@ function ErrorView({
 	 * Determine the error page type
 	 */
 	let type:
-		| 'dot-io-versioned-404'
-		| 'dot-io-fallback'
 		| 'dev-dot-versioned-404'
 		| 'dev-dot-standard-404'
 		| 'dev-dot-fallback'
-	if (isProxiedDotIo) {
-		if (isVersioned404) {
-			type = 'dot-io-versioned-404'
-		} else {
-			type = 'dot-io-fallback'
-		}
+
+	if (isVersioned404) {
+		type = 'dev-dot-versioned-404'
+	} else if (is404) {
+		type = 'dev-dot-standard-404'
 	} else {
-		if (isVersioned404) {
-			type = 'dev-dot-versioned-404'
-		} else if (is404) {
-			type = 'dev-dot-standard-404'
-		} else {
-			type = 'dev-dot-fallback'
-		}
+		type = 'dev-dot-fallback'
 	}
 
 	/**
@@ -110,19 +96,6 @@ function ErrorView({
 			return <DevDot404 />
 		case 'dev-dot-fallback':
 			return <DevDotFallback statusCode={statusCode} />
-		/* Dot-io */
-		case 'dot-io-versioned-404':
-			return (
-				<DotIoVersionedError
-					key={String(isMounted)}
-					pathBeforeVersion={pathBeforeVersion}
-					pathWithoutVersion={pathWithoutVersion}
-					version={versionInPath}
-				/>
-			)
-		case 'dot-io-fallback':
-		default:
-			return <DotIoFallBackError statusCode={statusCode} />
 	}
 }
 
