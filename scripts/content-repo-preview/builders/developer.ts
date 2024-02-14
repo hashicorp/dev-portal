@@ -27,19 +27,8 @@ export function DeveloperPreviewBuilder(product) {
 				'utf-8'
 			)
 
-			const newContents = globalCSSFileContents
-				.split('\n')
-				.map((line) => {
-					// comment out lines which references paths we will be removing
-					if (!line.startsWith('/*') && line.includes('_proxied-dot-io')) {
-						return `/* ${line} */`
-					}
-					return line
-				})
-				.join('\n')
-
 			console.log(`🧹 removing global CSS references for other products`)
-			await fs.promises.writeFile(globalCSSFile, newContents)
+			await fs.promises.writeFile(globalCSSFile, globalCSSFileContents)
 
 			/**
 			 * Remove specific page files to speed up preview builds:
