@@ -11,11 +11,6 @@ type FindReplace = {
 /**
  * Fixes up Packer plugin links that use a redirected format
  * in the "old" URL format, before plugins were moved to `/plugins`.
- *
- * Note: previously, on packer.io, we used redirects to make this correction.
- * See `proxied-redirects/www.packer.io.redirects.js` at the root of this
- * repository for those redirects. These redirects still apply to packer.io,
- * but do not work for developer.hashicorp.com.
  */
 export function fixupRedirectedPackerPlugins(url: string): string {
 	// Run through find-and-replaces that represent former redirects
