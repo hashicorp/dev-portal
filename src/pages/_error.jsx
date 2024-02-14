@@ -9,6 +9,7 @@ import ErrorViewSwitcher from 'views/error-view-switcher'
 // product data, needed to render top navigation
 import { productConfig } from 'lib/cms'
 import { isProductSlug } from 'lib/products'
+import { HOSTNAME_MAP } from 'constants/hostname-map'
 
 function Error({ statusCode }) {
 	const Layout = (props) => (
@@ -27,6 +28,12 @@ export async function getServerSideProps(ctx) {
 
 	// Determine which layout to use, may be dev-portal's base layout.
 	const urlObj = new URL(req.url, `http://${req.headers.host}`)
+	// In preview environments, we can force the app into a certain .io mode with the hc_dd_proxied_site cookie
+	const ioPreviewProduct =
+		process.env.HASHI_ENV === 'preview'
+			? HOSTNAME_MAP[req.cookies['hc_dd_proxied_site']]
+			: null
+	const proxiedProductSlug = ioPreviewProduct
 
 	// Determine which statusCode to show
 	const statusCode = res ? res.statusCode : err ? err.statusCode : 404
@@ -52,6 +59,7 @@ export async function getServerSideProps(ctx) {
 		props: {
 			product,
 			statusCode,
+			proxiedProductSlug,
 			hostname: urlObj.hostname,
 		},
 	}

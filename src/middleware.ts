@@ -13,14 +13,6 @@ import { getEdgeFlags } from 'flags/edge'
 import { getVariantParam } from 'views/tutorial-view/utils/variants'
 
 function determineProductSlug(req: NextRequest): string {
-	// .io preview on dev portal
-	const proxiedSiteCookie = req.cookies.get('hc_dd_proxied_site')?.value
-	const proxiedProduct = HOSTNAME_MAP[proxiedSiteCookie]
-
-	if (proxiedProduct) {
-		return proxiedProduct
-	}
-
 	// .io production deploy
 	if (req.nextUrl.hostname in HOSTNAME_MAP) {
 		return HOSTNAME_MAP[req.nextUrl.hostname]

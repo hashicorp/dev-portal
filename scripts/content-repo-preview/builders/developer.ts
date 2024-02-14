@@ -19,9 +19,6 @@ export function DeveloperPreviewBuilder(product) {
 		async prebuild() {
 			process.env.PREVIEW_FROM_REPO = product
 
-			/**
-			 * exclude any imports in the global CSS file which referenced the proxied io paths
-			 */
 			const globalCSSFileContents = await fs.promises.readFile(
 				globalCSSFile,
 				'utf-8'
