@@ -209,7 +209,7 @@ function rewriteSentinelDocsUrls(
 	 *   - This excludes the case where "basePath" is "docs"
 	 *   - This really just applies to "/sentinel/intro", but in theory could
 	 *     apply to other Sentinel "basePaths" if they get added
-	 * - The "/sentinel/downloads" URL should be "/sentinel/install"
+	 * - The "/sentinel/downloads" URL does not need to be modified
 	 * - Any other "/sentinel/:slug" URL is expected to be a "/docs" URL
 	 *   - We need to adjust these urls to be "/sentinel/docs/:slug"
 	 */
@@ -226,12 +226,14 @@ function rewriteSentinelDocsUrls(
 				inputUrl == `/sentinel/${basePath}` ||
 				inputUrl.startsWith(`/sentinel/${basePath}/`)
 		)
+	const isDownloadsUrl = inputUrl == '/sentinel/downloads'
 	/**
 	 * We assume all other "/sentinel/*" URLs are intended to be docs routes,
 	 * which on the previous site were rendered to "/sentinel/:slug".
 	 * We need to correct these URLs to be "/sentinel/docs/:slug".
 	 */
-	const isDocsUrl = !isBasePathExceptDocs && inputUrl.startsWith('/sentinel')
+	const isKnownUrl = isBasePathExceptDocs || isDownloadsUrl
+	const isDocsUrl = !isKnownUrl && inputUrl.startsWith('/sentinel')
 	if (isDocsUrl) {
 		return `/sentinel/docs${inputUrl.replace('/sentinel', '')}`
 	}
