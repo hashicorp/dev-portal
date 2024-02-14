@@ -34,13 +34,6 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 	// Use the fully qualified current page URL as the canonical URL
 	const canonicalUrl = useFullUrl()
 
-	const router = useRouter()
-
-	// do not render any meta tags if serving an io page
-	if (router.pathname.includes('_proxied-dot-io')) {
-		return null
-	}
-
 	const titleParts = [__config.dev_dot.meta.title]
 	const description = props.description ?? __config.dev_dot.meta.description
 
