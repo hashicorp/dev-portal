@@ -12,7 +12,6 @@ const VERSION_PATTERN = /\/(?<version>v\d+[.]\d+[.](\d+|x))/
 
 /**
  * A display component that switches between:
- * - Dot-io error views, if `isProxiedDotIo` prop is `true`
  * - Dev-dot error views otherwise
  *
  * This switching isn't ideal; but feels somewhat logical since we are
@@ -78,9 +77,6 @@ function ErrorView({ statusCode }: ErrorPageProps): React.ReactElement {
 		type = 'dev-dot-fallback'
 	}
 
-	/**
-	 * Switch between proxied dot-io and dev-dot error views
-	 */
 	switch (type) {
 		/* Dev-dot */
 		case 'dev-dot-versioned-404':
