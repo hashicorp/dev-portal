@@ -2,7 +2,7 @@
 	"name": "dev-portal",
 	"private": "true",
 	"scripts": {
-		"build:deploy-preview": "npx --package @hashicorp/platform-tools@0.5.0 hc-tools --resolve-paths false ./scripts/content-repo-preview/build.ts",
+		"build:deploy-preview": "npx --package @hashicorp/platform-tools hc-tools --resolve-paths false ./scripts/content-repo-preview/build.ts",
 		"build:webpack-only": "npm run prebuild && hc-tools next-build-webpack-only",
 		"build": "next build",
 		"clean": "rimraf .next node_modules",
@@ -41,8 +41,8 @@
 		]
 	},
 	"engines": {
-		"npm": ">=9.6.7",
-		"node": ">=18.17.0"
+		"npm": ">=9.6.4 <=10.x",
+		"node": ">=18.x <= 21.x"
 	},
 	"devDependencies": {
 		"@axe-core/react": "^4.3.1",
