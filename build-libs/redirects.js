@@ -356,7 +356,6 @@ async function redirectsConfig() {
 		...tutorialRedirects,
 		...docsDotHashiCorpRedirects,
 	])
-
 	const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
 	if (process.env.DEBUG_REDIRECTS) {
 		console.log(
