@@ -76,7 +76,7 @@ function getDocsDotHashiCorpRedirects() {
 		 * and with the `downloads` page above, we use a negative look-ahead.
 		 */
 		{
-			source: '/sentinel/:path((?!intro|downloads).*)',
+			source: '/sentinel/:path((?!intro|downloads$).*)',
 			destination: 'https://developer.hashicorp.com/sentinel/docs/:path*',
 			permanent: true,
 		},
