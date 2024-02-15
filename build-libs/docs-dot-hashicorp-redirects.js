@@ -91,7 +91,6 @@ function getDocsDotHashiCorpRedirects() {
 	const targetHosts = [
 		'docs.hashicorp.com',
 		'sentinel-launch-redirects-test.hashicorp.vercel.app',
-		'dev-portal-git-check-sentinel-docs-downloads-redirect-hashicorp.vercel.app',
 	]
 	/**
 	 * Build a regex-like string that matches any of the target hosts.
