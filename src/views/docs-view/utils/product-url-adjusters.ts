@@ -216,7 +216,11 @@ function rewriteSentinelDocsUrls(
 
 	// Redirect /sentinel/downloads to /sentinel/install
 
-	if (inputUrl == '/sentinel/downloads' || inputUrl == '/sentinel/install') {
+	if (
+		inputUrl == '/sentinel/downloads' ||
+		inputUrl == '/sentinel/install' ||
+		inputUrl == '/sentinel/docs/install'
+	) {
 		return '/sentinel/install'
 	}
 
