@@ -39,7 +39,7 @@ import { IconVmware16 } from '@hashicorp/flight-icons/svg-react/vmware-16'
 import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
 import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
 import { IconVaultSecrets24 } from '@hashicorp/flight-icons/svg-react/vault-secrets-24'
-import { IconVaultRadar16 } from '@hashicorp/flight-icons/svg-react/vault-radar-16'
+import { IconVaultRadarColor16 } from '@hashicorp/flight-icons/svg-react/vault-radar-color-16'
 import ThemedAwsIcon from './themed-icons/aws-color'
 
 /**
@@ -88,9 +88,7 @@ export const SUPPORTED_ICONS = {
 	'vault-secrets-color': (
 		<IconVaultSecrets24 color={`var(--token-color-vault-brand)`} />
 	),
-	'vault-radar-color': (
-		<IconVaultRadar16 color={`var(--token-color-vault-brand)`} />
-	),
+	'vault-radar-color': <IconVaultRadarColor16 />,
 	vmware: <IconVmware16 />,
 	'waypoint-color': <IconWaypointColor16 />,
 	wrench: <IconWrench16 />,
