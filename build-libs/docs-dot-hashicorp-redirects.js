@@ -76,7 +76,7 @@ function getDocsDotHashiCorpRedirects() {
 		 * and with the `downloads` page above, we use a negative look-ahead.
 		 */
 		{
-			source: '/sentinel/:path((?!intro|downloads$).*)',
+			source: '/sentinel/:path((?!intro|downloads|install).*)',
 			destination: 'https://developer.hashicorp.com/sentinel/docs/:path*',
 			permanent: true,
 		},
@@ -91,6 +91,7 @@ function getDocsDotHashiCorpRedirects() {
 	const targetHosts = [
 		'docs.hashicorp.com',
 		'sentinel-launch-redirects-test.hashicorp.vercel.app',
+		'dev-portal-git-check-sentinel-docs-downloads-redirect-hashicorp.vercel.app',
 	]
 	/**
 	 * Build a regex-like string that matches any of the target hosts.
