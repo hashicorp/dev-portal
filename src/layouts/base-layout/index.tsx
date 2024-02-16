@@ -56,10 +56,7 @@ const BaseLayout = ({
 	return (
 		<CommandBarProvider>
 			{alertBannerData.enabled && (
-				<AlertBanner
-					{...(alertBannerData.data as AlertBannerProps)}
-					hideOnMobile
-				/>
+				<AlertBanner {...(alertBannerData.data as AlertBannerProps)} />
 			)}
 			<CoreDevDotLayoutWithTheme>
 				<div className={classNames(s.root, className)} data-layout="base-new">
