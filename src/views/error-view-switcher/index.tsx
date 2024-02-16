@@ -8,8 +8,8 @@ import { useRouter } from 'next/router'
 import { ErrorPageProps } from './types'
 import { DevDot404, DevDotFallback, DevDotVersioned404 } from '../error-views'
 
-const VERSION_PATTERN = /\/(?<version>v\d+[.]\d+[.](\d+|x))/
-
+const VERSION_PATTERN = /\/(?<version>v\d+([.]|_)\d+([.]|_)(\d+|x))/ // matches semver with . and _ separators
+const TFE_VERSION_PATTERN = /\/(?<version>v[0-9]{6}-\d+)/
 /**
  * A display component that switches between:
  * - Dev-dot error views otherwise
@@ -54,7 +54,8 @@ function ErrorView({ statusCode }: ErrorPageProps): React.ReactElement {
 	 * Determine if this is a 404 or versioned 404 view.
 	 * For versioned views, determine the  path without version (aka latest)
 	 */
-	const versionMatches = VERSION_PATTERN.exec(asPath)
+	const versionMatches =
+		VERSION_PATTERN.exec(asPath) || TFE_VERSION_PATTERN.exec(asPath)
 	const versionInPath = versionMatches?.groups?.version
 	const pathWithoutVersion = asPath.replace(VERSION_PATTERN, '')
 	const pathBeforeVersion = asPath.substring(0, asPath.indexOf(versionInPath))

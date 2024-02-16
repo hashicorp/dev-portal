@@ -168,6 +168,11 @@ export function getStaticGenerationFunctions<
 				pathParts.join('/')
 			)}`
 			const headings: AnchorLinksPluginHeading[] = [] // populated by anchorLinks plugin below
+			// Hide the version selector on release notes page, e.g. /terraform/enterprise/<year>/<version>
+			const RELEASES_URL_REGEX = /(\/releases\/|release-notes)/i
+			if (RELEASES_URL_REGEX.test(currentPathUnderProduct)) {
+				options.hideVersionSelector = true
+			}
 
 			const loader = getLoader({
 				mainBranch,
@@ -301,7 +306,7 @@ export function getStaticGenerationFunctions<
 				})
 
 			/**
-			 * Figure out of a specific docs version is being viewed
+			 * Figure out if a specific docs version is being viewed
 			 */
 			let indexOfVersionPathPart
 			let versionPathPart
