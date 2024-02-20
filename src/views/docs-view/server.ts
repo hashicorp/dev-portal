@@ -168,10 +168,21 @@ export function getStaticGenerationFunctions<
 				pathParts.join('/')
 			)}`
 			const headings: AnchorLinksPluginHeading[] = [] // populated by anchorLinks plugin below
-			// Hide the version selector on release notes page, e.g. /terraform/enterprise/<year>/<version>
-			const RELEASES_URL_REGEX = /(\/releases\/|release-notes)/i
-			if (RELEASES_URL_REGEX.test(currentPathUnderProduct)) {
+			// Hide the version selector on TFE release notes page, e.g. /terraform/enterprise/<year>/<version> or /vault/docs/release-notes/1.13.0
+			const isReleaseNotesPage = (path) => {
+				return /(\/releases\/[0-9]{4}\/(v[0-9]{6}-\d+))/i.test(path) ||
+					/\/release-notes\/\d+[.]\d+[.](\d+|x)/i.test(path)
+					? true
+					: false
+			}
+			if (isReleaseNotesPage(currentPathUnderProduct)) {
 				options.hideVersionSelector = true
+			} else if (
+				!isReleaseNotesPage(currentPathUnderProduct) &&
+				options.hideVersionSelector === true
+			) {
+				// toggle version dropdown to visible when not on release notes page
+				options.hideVersionSelector = false
 			}
 
 			const loader = getLoader({
