@@ -137,7 +137,7 @@ const DownloadsSection = ({
 
 	return (
 		<>
-			{Object.keys(downloadsByOS).map((os) => {
+			{Object.keys(downloadsByOS).map((os: string) => {
 				const packageManagers = packageManagersByOS[os]
 				const prettyOSName = prettyOs(os)
 				const prettyOsId = prettyOSName.replace(' ', '-')
