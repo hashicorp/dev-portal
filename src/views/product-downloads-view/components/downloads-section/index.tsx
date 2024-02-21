@@ -174,6 +174,7 @@ const DownloadsSection = ({
 							/>
 							{os === 'linux' && (
 								<InlineAlert
+									className={s.alert}
 									color="neutral"
 									title="Note"
 									description={
