@@ -9,13 +9,14 @@ import { ReactElement, useMemo } from 'react'
 // HashiCorp imports
 import CodeBlock from '@hashicorp/react-code-block'
 import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
+import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 
 // Global imports
 import Card from 'components/card'
 import Heading, { HeadingProps } from 'components/heading'
 import MobileDownloadStandaloneLink from 'components/mobile-download-standalone-link'
-import Text from 'components/text'
-import Link from 'components/link'
+import InlineAlert from 'components/inline-alert'
+import InlineLink from 'components/inline-link'
 import { trackProductDownload } from 'lib/analytics'
 import { useCurrentVersion } from 'views/product-downloads-view/contexts'
 import { prettyOs } from 'views/product-downloads-view/helpers'
@@ -166,15 +167,25 @@ const DownloadsSection = ({
 								/>
 							)}
 							{os === 'linux' && (
-								<Text className={s.root} size={200} weight="regular">
-									Complete this{' '}
-									<Link href="/well-architected-framework/operational-excellence/verify-hashicorp-binary">
-										tutorial
-									</Link>{' '}
-									to learn how to install and verify HashiCorp tools on any
-									Linux distribution, and create an custom Linux container image
-									with verified HashiCorp tools.
-								</Text>
+								<InlineAlert
+									color="neutral"
+									title="Note"
+									description={
+										<>
+											Complete this{' '}
+											<InlineLink
+												href="/well-architected-framework/operational-excellence/verify-hashicorp-binary"
+												textSize={200}
+											>
+												tutorial
+											</InlineLink>{' '}
+											to learn how to install and verify HashiCorp tools on any
+											Linux distribution, and create an custom Linux container
+											with verified HashiCorp tools..
+										</>
+									}
+									icon={<IconInfo16 className={s.cardIcon} />}
+								/>
 							)}
 							<BinaryDownloadsSection
 								downloadsByOS={downloadsByOS}
