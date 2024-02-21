@@ -166,6 +166,12 @@ const DownloadsSection = ({
 									prettyOSName={prettyOSName}
 								/>
 							)}
+							<BinaryDownloadsSection
+								downloadsByOS={downloadsByOS}
+								os={os}
+								prettyOSName={prettyOSName}
+								selectedRelease={selectedRelease}
+							/>
 							{os === 'linux' && (
 								<InlineAlert
 									color="neutral"
@@ -187,12 +193,6 @@ const DownloadsSection = ({
 									icon={<IconInfo16 className={s.cardIcon} />}
 								/>
 							)}
-							<BinaryDownloadsSection
-								downloadsByOS={downloadsByOS}
-								os={os}
-								prettyOSName={prettyOSName}
-								selectedRelease={selectedRelease}
-							/>
 						</div>
 					</Card>
 				)

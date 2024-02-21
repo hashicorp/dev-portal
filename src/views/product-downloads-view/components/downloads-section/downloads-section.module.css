@@ -24,6 +24,7 @@
 	display: flex;
 	gap: 24px;
 	flex-direction: column;
+	margin-bottom: 24px;
 	@media (--dev-dot-tablet-up) {
 		flex-wrap: wrap;
 		flex-direction: row;
