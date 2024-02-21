@@ -41,6 +41,7 @@ import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { DocsViewProps } from './types'
+import { isReleaseNotesPage } from 'lib/docs/is-release-notes-page'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -168,13 +169,7 @@ export function getStaticGenerationFunctions<
 				pathParts.join('/')
 			)}`
 			const headings: AnchorLinksPluginHeading[] = [] // populated by anchorLinks plugin below
-			// Hide the version selector on TFE release notes page, e.g. /terraform/enterprise/<year>/<version> or /vault/docs/release-notes/1.13.0
-			const isReleaseNotesPage = (path) => {
-				return /(\/releases\/[0-9]{4}\/(v[0-9]{6}-\d+))/i.test(path) ||
-					/\/release-notes\/\d+[.]\d+[.](\d+|x)/i.test(path)
-					? true
-					: false
-			}
+
 			if (isReleaseNotesPage(currentPathUnderProduct)) {
 				options.hideVersionSelector = true
 			} else if (
