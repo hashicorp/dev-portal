@@ -6,7 +6,7 @@
 import path from 'path'
 import fs from 'fs'
 import { GetStaticPropsContext } from 'next'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import { Pluggable } from 'unified'
 import renderPageMdx from '../render-page-mdx'
 import {
