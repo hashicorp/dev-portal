@@ -18,6 +18,8 @@ const requireResolve =
 	typeof __non_webpack_require__ === 'function'
 		? // @ts-expect-error -- __non_webpack_require__ === require at this point
 		  __non_webpack_require__.resolve
+		: process.env.TEST_ESM === 'true'
+		? null
 		: require.resolve
 
 /**
@@ -28,7 +30,10 @@ const requireResolve =
  * Related: https://nextjs.org/docs/basic-features/data-fetching#reading-files-use-processcwd
  */
 function setEsbuildBinaryPath() {
-	const esbuildDir = pkgDir.sync(requireResolve('esbuild'))
+	const esbuildDir =
+		process.env.TEST_ESM === 'true'
+			? pkgDir.sync('node_modules/esbuild/lib/main.js')
+			: pkgDir.sync(requireResolve('esbuild'))
 
 	if (!esbuildDir)
 		throw new Error(
