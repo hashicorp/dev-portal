@@ -106,6 +106,28 @@ describe('serialize', () => {
 		expect(result).toMatchInlineSnapshot(`"<p>Hello world</p>"`)
 	})
 
+	test('strips imports & exports', async () => {
+		const result = await renderStatic(`import foo from 'bar'
+
+foo **bar**
+
+export const foo = 'bar'`)
+		expect(result).toMatchInlineSnapshot(`"<p>foo <strong>bar</strong></p>"`)
+	})
+
+	test('supports target', async () => {
+		const mdx = `import foo from 'bar'
+
+foo **bar**
+
+export const foo = 'bar'`
+
+		const resultA = await serialize(mdx, { target: 'esnext' })
+		const resultB = await serialize(mdx)
+
+		expect(resultA).not.toEqual(resultB)
+	})
+
 	test('fragments', async () => {
 		const components = {
 			Test: ({ content }) => content,
