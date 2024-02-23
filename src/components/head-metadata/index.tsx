@@ -69,9 +69,9 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 			<link
 				rel="icon"
 				href={
-					process.env.NODE_ENV === 'production'
-						? '/favicon.ico'
-						: '/favicon-dev.ico'
+					process.env.NODE_ENV !== 'production'
+						? '/favicon-dev.ico'
+						: '/favicon.ico'
 				}
 				sizes="any"
 			/>
