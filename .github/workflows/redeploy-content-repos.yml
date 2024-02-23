@@ -49,3 +49,6 @@ jobs:
 
       - name: Trigger "waypoint" deploy
         run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_WAYPOINT }}
+
+      - name: Trigger "HVD" deploy
+				run: curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_HVD }}
