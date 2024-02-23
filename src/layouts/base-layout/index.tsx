@@ -58,11 +58,11 @@ const BaseLayout = ({
 
 	return (
 		<CommandBarProvider>
-			{alertBannerData.enabled && (
-				<AlertBanner {...(alertBannerData.data as AlertBannerProps)} />
-			)}
 			<SkipLinkContext.Provider value={{ showSkipLink, setShowSkipLink }}>
 				<SkipToMainContent />
+				{alertBannerData.enabled && (
+					<AlertBanner {...(alertBannerData.data as AlertBannerProps)} />
+				)}
 				<CoreDevDotLayoutWithTheme>
 					<div className={classNames(s.root, className)} data-layout="base-new">
 						<div className={s.header}>
@@ -81,8 +81,8 @@ const BaseLayout = ({
 						</div>
 					</div>
 				</CoreDevDotLayoutWithTheme>
+				<ConsentManager />
 			</SkipLinkContext.Provider>
-			<ConsentManager />
 		</CommandBarProvider>
 	)
 }
