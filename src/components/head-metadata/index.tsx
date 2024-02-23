@@ -66,7 +66,15 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 			image={ogImageUrl}
 			canonicalUrl={canonicalUrl}
 		>
-			<link rel="icon" href="/favicon.ico" sizes="any" />
+			<link
+				rel="icon"
+				href={
+					process.env.NODE_ENV === 'production'
+						? '/favicon.ico'
+						: '/favicon-dev.ico'
+				}
+				sizes="any"
+			/>
 			<link rel="icon" href="/icon.svg" type="image/svg+xml" />
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			<meta
