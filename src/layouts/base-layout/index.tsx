@@ -6,6 +6,7 @@
 // Third-party imports
 import classNames from 'classnames'
 import AlertBanner from '@hashicorp/react-alert-banner'
+import { HTMLAttributes, useState } from 'react'
 
 // HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
@@ -18,11 +19,12 @@ import { CommandBarProvider } from 'components/command-bar'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
 import alertBannerData from 'data/alert-banner.json'
+import { SkipLinkContext } from 'contexts'
+import SkipToMainContent from 'components/skip-to-main-content'
 
 // Local imports
 import { BaseLayoutProps, AlertBannerProps } from './types'
 import s from './base-layout.module.css'
-import { HTMLAttributes } from 'react'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	preset: 'oss',
@@ -52,30 +54,34 @@ const BaseLayout = ({
 		includedDomains: __config.dev_dot.analytics.included_domains,
 	})
 	useScrollPercentageAnalytics()
+	const [showSkipLink, setShowSkipLink] = useState(false)
 
 	return (
 		<CommandBarProvider>
 			{alertBannerData.enabled && (
 				<AlertBanner {...(alertBannerData.data as AlertBannerProps)} />
 			)}
-			<CoreDevDotLayoutWithTheme>
-				<div className={classNames(s.root, className)} data-layout="base-new">
-					<div className={s.header}>
-						<NavigationHeader />
+			<SkipLinkContext.Provider value={{ showSkipLink, setShowSkipLink }}>
+				<SkipToMainContent />
+				<CoreDevDotLayoutWithTheme>
+					<div className={classNames(s.root, className)} data-layout="base-new">
+						<div className={s.header}>
+							<NavigationHeader />
+						</div>
+						<div className={s.contentArea}>
+							{mobileMenuSlot}
+							{children}
+						</div>
+						<div
+							className={classNames(s.footer, {
+								[s.showFooterTopBorder]: showFooterTopBorder,
+							})}
+						>
+							<Footer openConsentManager={openConsentManager} />
+						</div>
 					</div>
-					<div className={s.contentArea}>
-						{mobileMenuSlot}
-						{children}
-					</div>
-					<div
-						className={classNames(s.footer, {
-							[s.showFooterTopBorder]: showFooterTopBorder,
-						})}
-					>
-						<Footer openConsentManager={openConsentManager} />
-					</div>
-				</div>
-			</CoreDevDotLayoutWithTheme>
+				</CoreDevDotLayoutWithTheme>
+			</SkipLinkContext.Provider>
 			<ConsentManager />
 		</CommandBarProvider>
 	)
