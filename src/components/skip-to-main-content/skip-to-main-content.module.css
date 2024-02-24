@@ -8,7 +8,7 @@
 	background-color: white;
 	border-radius: 5px;
 	box-shadow: 0 0 0 3px var(--token-color-focus-action-external),
-		0 1px 1px rgba(101, 106, 118, 0.05), 0 3px 3px rgba(101, 106, 118, 0.05);
+		0 1px 1px rgba(101, 106, 118, 0.05), 0 2px 2px rgba(101, 106, 118, 0.05);
 	color: var(--token-color-palette-blue-100);
 	font-size: 14px;
 	font-weight: 500;
