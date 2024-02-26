@@ -17,7 +17,6 @@ import {
 	SidebarHorizontalRule,
 	SidebarNavLinkItem,
 	SidebarNavMenuItem,
-	SidebarSkipToMainContent,
 	SidebarTitleHeading,
 } from 'components/sidebar/components'
 
@@ -157,7 +156,6 @@ const Sidebar = ({
 				<div className={visuallyHideTitle ? 'g-screen-reader-only' : undefined}>
 					<SidebarTitleHeading text={title} id={SIDEBAR_LABEL_ID} />
 				</div>
-				<SidebarSkipToMainContent />
 				{overviewItem}
 				{sidebarContent}
 			</nav>
