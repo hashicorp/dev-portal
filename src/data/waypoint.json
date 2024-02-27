@@ -68,11 +68,6 @@
 			"includeMDXSource": true
 		},
 		{
-			"iconName": "api",
-			"name": "API",
-			"path": "api-docs"
-		},
-		{
 			"iconName": "terminal-screen",
 			"name": "CLI",
 			"path": "commands"
