@@ -54,7 +54,15 @@ const NoteCard = ({ selectedRelease }) => {
 					<InlineLink href="https://www.hashicorp.com/security" textSize={200}>
 						{"HashiCorp's GPG key"}
 					</InlineLink>
-					.
+					. Complete this{' '}
+					<InlineLink
+						href="/well-architected-framework/operational-excellence/verify-hashicorp-binary"
+						textSize={200}
+					>
+						tutorial
+					</InlineLink>{' '}
+					to learn how to install and verify HashiCorp tools on any Linux
+					distribution.
 				</>
 			}
 			icon={<IconInfo16 className={s.cardIcon} />}
