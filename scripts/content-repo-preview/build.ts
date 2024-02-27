@@ -6,7 +6,6 @@
 import { execFileSync } from 'child_process'
 import path from 'path'
 import fs from 'fs'
-import { IoPreviewBuilder } from './builders/io-sites'
 import { DeveloperPreviewBuilder } from './builders/developer'
 
 /**
@@ -45,10 +44,7 @@ async function main() {
 
 	const repo = process.env.REPO
 
-	const builder =
-		previewMode === 'developer'
-			? DeveloperPreviewBuilder(repo)
-			: IoPreviewBuilder(repo)
+	const builder = DeveloperPreviewBuilder(repo)
 
 	console.log(`🏗 building deploy preview with mode: ${previewMode}`)
 

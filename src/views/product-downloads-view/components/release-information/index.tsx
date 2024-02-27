@@ -26,7 +26,6 @@ import { ContentWithPermalink } from 'views/open-api-docs-view/components/conten
 import classNames from 'classnames'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 import capitalize from '@hashicorp/platform-util/text/capitalize'
-import { InstallPageAnchorHeading } from '../downloads-section/types'
 
 const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
@@ -189,10 +188,16 @@ const OfficialReleasesCard = () => {
 interface ReleaseInformationSectionProps {
 	selectedRelease: ReleaseVersion
 	isEnterpriseMode: boolean
+	/** We link to this heading from the side nav, so we've lifted up its data */
+	releaseHeading: {
+		id: string
+		text: string
+	}
 }
 
 const ReleaseInformationSection = ({
 	selectedRelease,
+	releaseHeading,
 	isEnterpriseMode,
 }: ReleaseInformationSectionProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
@@ -200,17 +205,17 @@ const ReleaseInformationSection = ({
 		<div className={s.root}>
 			<ContentWithPermalink
 				className={s.headingContainer}
-				id={'Release-information' as InstallPageAnchorHeading}
-				ariaLabel="Release information"
+				id={releaseHeading.id}
+				ariaLabel={releaseHeading.text}
 			>
 				<Heading
+					id={releaseHeading.id}
 					className={classNames(s.heading, viewStyles.scrollHeading)}
 					level={2}
 					size={400}
-					id={'Release-information' as InstallPageAnchorHeading}
 					weight="bold"
 				>
-					Release information
+					{releaseHeading.text}
 				</Heading>
 			</ContentWithPermalink>
 

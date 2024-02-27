@@ -19,40 +19,21 @@ export function DeveloperPreviewBuilder(product) {
 		async prebuild() {
 			process.env.PREVIEW_FROM_REPO = product
 
-			/**
-			 * exclude any imports in the global CSS file which referenced the proxied io paths
-			 */
 			const globalCSSFileContents = await fs.promises.readFile(
 				globalCSSFile,
 				'utf-8'
 			)
 
-			const newContents = globalCSSFileContents
-				.split('\n')
-				.map((line) => {
-					// comment out lines which references paths we will be removing
-					if (!line.startsWith('/*') && line.includes('_proxied-dot-io')) {
-						return `/* ${line} */`
-					}
-					return line
-				})
-				.join('\n')
-
 			console.log(`🧹 removing global CSS references for other products`)
-			await fs.promises.writeFile(globalCSSFile, newContents)
+			await fs.promises.writeFile(globalCSSFile, globalCSSFileContents)
 
 			/**
 			 * Remove specific page files to speed up preview builds:
-			 * - /src/pages/_proxied-dot-io
 			 * - /src/pages/well-architected-framework
 			 * - /src/pages/onboarding
 			 */
 			const pagesDir = path.join(cwd, 'src', 'pages')
-			const pagesDirsToRemove = [
-				'_proxied-dot-io',
-				'well-architected-framework',
-				'onboarding',
-			]
+			const pagesDirsToRemove = ['well-architected-framework', 'onboarding']
 
 			/**
 			 * Remove validated designs paths from docs previews
