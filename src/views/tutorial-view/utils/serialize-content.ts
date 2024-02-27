@@ -13,7 +13,6 @@ import { TableOfContentsHeading } from 'components/table-of-contents'
 import { splitProductFromFilename } from '.'
 import { rehypeCodePlugins } from 'lib/rehype-code-plugins'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
-import { rewriteWaypointPluginsToIntegrations } from 'lib/content-adjustments'
 import { remarkPluginInjectImageDimensions } from 'lib/remark-plugins/remark-image-dimensions'
 
 export async function serializeContent(tutorial: ClientTutorial): Promise<{
@@ -51,12 +50,7 @@ export async function serializeContent(tutorial: ClientTutorial): Promise<{
 				 */
 				rewriteStaticAssetsPlugin,
 				remarkPluginInjectImageDimensions,
-				[
-					remarkPluginAdjustLinkUrls,
-					{
-						urlAdjustFn: rewriteWaypointPluginsToIntegrations,
-					},
-				],
+				[remarkPluginAdjustLinkUrls],
 			],
 			rehypePlugins: rehypeCodePlugins,
 		},

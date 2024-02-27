@@ -44,17 +44,12 @@
 			"type": "inbound"
 		},
 		{
-			"text": "Integrations",
-			"url": "https://developer.hashicorp.com/waypoint/integrations",
-			"type": "inbound"
-		},
-		{
 			"text": "Community",
 			"url": "/community",
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["docs", "plugins", "tutorials"],
+	"basePaths": ["docs", "tutorials"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",

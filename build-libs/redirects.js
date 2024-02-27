@@ -14,9 +14,6 @@ const { getTutorialRedirects } = require('./tutorial-redirects')
 const {
 	getDocsDotHashiCorpRedirects,
 } = require('./docs-dot-hashicorp-redirects')
-const {
-	integrationMultipleComponentRedirects,
-} = require('./integration-multiple-component-redirects')
 const { packerPluginRedirects } = require('./integration-packer-redirects')
 
 require('isomorphic-unfetch')
@@ -143,13 +140,6 @@ async function buildDevPortalRedirects() {
 			destination: '/hcp',
 			permanent: true,
 		},
-		/**
-		 * Redirect Waypoint Plugins to Waypoint Integrations
-		 *
-		 * Note: canonical list of plugin pages that require redirects can be
-		 * derived from the plugins nav-data.json file:
-		 * https://github.com/hashicorp/waypoint/blob/main/website/data/plugins-nav-data.json
-		 */
 		{
 			source: '/waypoint/plugins',
 			destination: '/waypoint/integrations',
@@ -193,11 +183,16 @@ async function buildDevPortalRedirects() {
 				'https://github.com/hashicorp/waypoint/tree/main/website/content/commands',
 			permanent: true,
 		},
-		/**
-		 * Redirect for Integration Component rework.
-		 * Further details in the file this is imported from.
-		 */
-		...integrationMultipleComponentRedirects,
+		{
+			source: '/waypoint/integrations',
+			destination: '/waypoint',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/integrations/hashicorp/:slug',
+			destination: '/waypoint',
+			permanent: true,
+		},
 		/**
 		 * Redirects from our former Packer Plugin library to our
 		 * new integrations library for Packer,
