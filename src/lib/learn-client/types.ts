@@ -260,6 +260,8 @@ export enum CollectionCategoryOption {
 	integrations = 'Integrations',
 	kubernetes = 'Kubernetes',
 	operations = 'Operations',
+	runtimes = 'Runtimes',
+	devops_roles = 'DevOps Roles',
 }
 
 export type CollectionLevelOption =
