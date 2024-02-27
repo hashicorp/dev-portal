@@ -182,6 +182,11 @@ async function buildDevPortalRedirects() {
 				'https://github.com/hashicorp/waypoint/blob/main/pkg/server/gen/server.swagger.json',
 			permanent: true,
 		},
+		{
+			source: '/waypoint/install',
+			destination: '/waypoint/tutorials/hcp-waypoint',
+			permanent: true,
+		},
 		/**
 		 * Redirect for Integration Component rework.
 		 * Further details in the file this is imported from.
