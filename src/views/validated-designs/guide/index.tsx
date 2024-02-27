@@ -28,12 +28,14 @@ import type { OutlineLinkItem } from 'components/outline-nav/types'
 import { ProductSlug } from 'types/products'
 
 export interface ValidatedDesignsGuideProps {
-	title: string
+	metadata: {
+		title: string
+		description: string
+	}
+	guideTitle: string
 	productSlug: Exclude<ProductSlug, 'sentinel'>
 	markdown: {
 		mdxSource: MDXRemoteSerializeResult
-		title: string
-		description: string
 	}
 	headers: OutlineLinkItem[]
 	currentPageIndex: number
@@ -42,7 +44,8 @@ export interface ValidatedDesignsGuideProps {
 }
 
 export default function ValidatedDesignGuideView({
-	title,
+	metadata,
+	guideTitle,
 	productSlug,
 	markdown,
 	headers,
@@ -102,13 +105,16 @@ export default function ValidatedDesignGuideView({
 						text: backBtnTitle,
 						href: backBtnUrl,
 					},
-					title,
+					title: guideTitle,
 					visuallyHideTitle: true,
 					showFilterInput: false,
 					showResourcesList: false,
 					children: (
 						<>
-							<SidebarSectionBrandedHeading text={title} theme={productSlug} />
+							<SidebarSectionBrandedHeading
+								text={guideTitle}
+								theme={productSlug}
+							/>
 							<SidebarHorizontalRule />
 							<SidebarNavList>
 								{pages.map((page: HvdPageMenuItem, index: number) => (
@@ -128,9 +134,7 @@ export default function ValidatedDesignGuideView({
 			sidecarSlot={<OutlineNavWithActive items={headers} />}
 		>
 			<Head>
-				<title>{markdown.title}</title>
-				<meta name="robots" content="noindex, nofollow" />
-				<meta name="description" content={markdown.description} />
+				<meta name="robots" content="noindex, nofollow" key="robots" />
 			</Head>
 			<div className={s.mobileBackButton}>
 				<SidebarBackToLink text={backBtnTitle} href={backBtnUrl} />

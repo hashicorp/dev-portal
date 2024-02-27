@@ -12,6 +12,17 @@ import { DesktopClientProps } from './components/desktop-client-callout/types'
 import { ProductDownloadsViewProps } from 'views/product-downloads-view/types'
 
 /**
+ * Matching heading data is needed between the sidebar nav links and the
+ * heading `id` itself. We declare it here so we can share it.
+ */
+const SHARED_HEADINGS = {
+	desktopClient: {
+		id: 'desktop-client',
+		text: 'Desktop Client',
+	},
+}
+
+/**
  * Render the Boundary downloads page.
  */
 function BoundaryDownloadsView({
@@ -20,12 +31,26 @@ function BoundaryDownloadsView({
 }: ProductDownloadsViewProps & {
 	desktopClientProps: DesktopClientProps
 }) {
+	const { pageContent, ...restBaseProps } = baseProps
+	const additionalDownloadItems = [
+		{
+			title: SHARED_HEADINGS.desktopClient.text,
+			fullPath: `#${SHARED_HEADINGS.desktopClient.id}`,
+		},
+	]
+
 	return (
 		<ProductDownloadsView
-			{...baseProps}
+			{...restBaseProps}
+			pageContent={{ ...pageContent, additionalDownloadItems }}
 			merchandisingSlot={{
 				position: 'middle',
-				slot: <DesktopClientCallout desktopClientProps={desktopClientProps} />,
+				slot: (
+					<DesktopClientCallout
+						headingData={SHARED_HEADINGS.desktopClient}
+						desktopClientProps={desktopClientProps}
+					/>
+				),
 			}}
 		/>
 	)

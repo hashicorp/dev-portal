@@ -22,7 +22,7 @@
 			"path": "docs/vault-secrets"
 		},
 		{
-			"iconName": "vault-color",
+			"iconName": "vault-radar-color",
 			"name": "HCP Vault Radar",
 			"path": "docs/vault-radar"
 		},

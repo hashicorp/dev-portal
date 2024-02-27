@@ -5,7 +5,6 @@
 
 // Third-party imports
 import React, { useEffect, useState } from 'react'
-import dynamic from 'next/dynamic'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
 import { LazyMotion } from 'framer-motion'
@@ -31,7 +30,6 @@ import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 
 // Global imports
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
-import { isDeployPreview, isPreview } from 'lib/env-checks'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
@@ -40,13 +38,6 @@ import { AIFeatureToast } from 'components/chatbox/ai-feature-toast'
 
 // Local imports
 import './style.css'
-
-const showProductSwitcher = isPreview() && !isDeployPreview()
-
-const PreviewProductSwitcher = dynamic(
-	() => import('components/_proxied-dot-io/common/preview-product-select'),
-	{ ssr: false }
-)
 
 if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 	// eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -112,9 +103,6 @@ export default function App({
 												<Component {...pageProps} />
 												<Toaster />
 												<AIFeatureToast />
-												{showProductSwitcher ? (
-													<PreviewProductSwitcher />
-												) : null}
 												<ReactQueryDevtools />
 											</LazyMotion>
 										</CodeTabsProvider>

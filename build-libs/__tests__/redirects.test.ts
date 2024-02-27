@@ -6,7 +6,6 @@
 import {
 	splitRedirectsByType,
 	groupSimpleRedirects,
-	addHostCondition,
 	filterInvalidRedirects,
 } from '../redirects'
 
@@ -162,62 +161,6 @@ describe('groupSimpleRedirects', () => {
 				},
 			},
 		})
-	})
-})
-
-describe('addHostCondition', () => {
-	test('adds developer host condition for GA products in production', () => {
-		const redirect = {
-			source: '/vault/docs/foo',
-			destination: '/vault/docs/bar',
-			permanent: true,
-		}
-
-		let result
-
-		withHashiEnv('production', () => {
-			result = addHostCondition([redirect], 'vault')
-		})
-
-		expect(result).toMatchInlineSnapshot(`
-		Array [
-		  Object {
-		    "destination": "/vault/docs/bar",
-		    "has": Array [
-		      Object {
-		        "type": "host",
-		        "value": "developer.hashicorp.com",
-		      },
-		    ],
-		    "permanent": true,
-		    "source": "/vault/docs/foo",
-		  },
-		]
-	`)
-	})
-
-	test('does not add developer host condition for GA products in non-production', () => {
-		const redirect = {
-			source: '/vault/docs/foo',
-			destination: '/vault/docs/bar',
-			permanent: true,
-		}
-
-		let result
-
-		withHashiEnv('preview', () => {
-			result = addHostCondition([redirect], 'vault')
-		})
-
-		expect(result).toMatchInlineSnapshot(`
-		Array [
-		  Object {
-		    "destination": "/vault/docs/bar",
-		    "permanent": true,
-		    "source": "/vault/docs/foo",
-		  },
-		]
-	`)
 	})
 })
 
