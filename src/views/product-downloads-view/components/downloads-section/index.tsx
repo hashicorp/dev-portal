@@ -167,7 +167,7 @@ const DownloadsSection = ({
 								prettyOSName={prettyOSName}
 								selectedRelease={selectedRelease}
 							/>
-							{os === 'linux' && (
+							{osKey === 'linux' && (
 								<InlineAlert
 									className={s.alert}
 									color="neutral"
