@@ -61,11 +61,6 @@
 			"name": "Documentation",
 			"path": "docs",
 			"includeMDXSource": true
-		},
-		{
-			"iconName": "terminal-screen",
-			"name": "CLI",
-			"path": "commands"
 		}
 	],
 	"integrationsConfig": {
