@@ -10,3 +10,10 @@ test('should use dev portal redirects', async ({ page, context, baseURL }) => {
 	const { pathname } = new URL(page.url())
 	expect(pathname).toBe('/hcp')
 })
+
+test('check redirect', async ({ page }) => {
+	await page.goto('/waypoint/commands')
+	expect(page.url()).toBe(
+		'https://github.com/hashicorp/waypoint/blob/main/website/content/commands/index.mdx'
+	)
+})

@@ -143,23 +143,6 @@ async function buildDevPortalRedirects() {
 			destination: '/hcp',
 			permanent: true,
 		},
-		/**
-		 * Redirect Waypoint Plugins to Waypoint Integrations
-		 *
-		 * Note: canonical list of plugin pages that require redirects can be
-		 * derived from the plugins nav-data.json file:
-		 * https://github.com/hashicorp/waypoint/blob/main/website/data/plugins-nav-data.json
-		 */
-		{
-			source: '/waypoint/plugins',
-			destination: '/waypoint/integrations',
-			permanent: true,
-		},
-		{
-			source: '/waypoint/plugins/:slug',
-			destination: '/waypoint/integrations/hashicorp/:slug',
-			permanent: true,
-		},
 		{
 			source:
 				'/:path(boundary|consul|nomad|packer|terraform|vagrant|vault|waypoint|sentinel)/downloads',
@@ -174,6 +157,32 @@ async function buildDevPortalRedirects() {
 		{
 			source: '/vagrant/downloads/vmware',
 			destination: '/vagrant/install/vmware',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/plugins', // Integrations
+			destination: '/waypoint',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/integrations', // Integrations
+			destination: '/waypoint',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/plugins/:slug', // Integrations
+			destination: '/waypoint',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/commands', // CLI
+			destination:
+				'https://github.com/hashicorp/waypoint/blob/main/website/content/commands/index.mdx',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/install', // Install
+			destination: '/waypoint/tutorials/hcp-waypoint',
 			permanent: true,
 		},
 		/**

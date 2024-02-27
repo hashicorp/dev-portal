@@ -18,19 +18,10 @@ describe('getNavItems', () => {
 					shortName: 'Docs',
 					includeMDXSource: true,
 				},
-				{
-					iconName: 'terminal-screen',
-					name: 'CLI',
-					path: 'commands',
-				},
 			],
 		} as ProductData
 		expect(getNavItems(testWaypointData)).toMatchInlineSnapshot(`
 		Array [
-		  Object {
-		    "label": "Install",
-		    "url": "/waypoint/install",
-		  },
 		  Object {
 		    "label": "Tutorials",
 		    "url": "/waypoint/tutorials",
@@ -38,14 +29,6 @@ describe('getNavItems', () => {
 		  Object {
 		    "label": "Documentation",
 		    "url": "/waypoint/docs",
-		  },
-		  Object {
-		    "label": "CLI",
-		    "url": "/waypoint/commands",
-		  },
-		  Object {
-		    "label": "Integrations",
-		    "url": "/waypoint/integrations",
 		  },
 		  Object {
 		    "label": "Try Cloud",
