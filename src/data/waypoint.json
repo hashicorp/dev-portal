@@ -44,11 +44,6 @@
 			"type": "inbound"
 		},
 		{
-			"text": "CLI",
-			"url": "https://developer.hashicorp.com/waypoint/commands",
-			"type": "inbound"
-		},
-		{
 			"text": "Integrations",
 			"url": "https://developer.hashicorp.com/waypoint/integrations",
 			"type": "inbound"
@@ -59,7 +54,7 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["commands", "docs", "plugins", "tutorials"],
+	"basePaths": ["docs", "plugins", "tutorials"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
