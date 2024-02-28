@@ -64,9 +64,9 @@ interface LearnProductData extends ProductData {
  * section of documentation for a product.
  *
  * Examples of root docs paths:
- *  - /waypoint/commands
- *  - /waypoint/docs
- *  - /waypoint/plugins
+ *  - /consul/commands
+ *  - /consul/docs
+ *  - /consul/plugins
  */
 interface RootDocsPath {
 	/**
