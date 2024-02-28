@@ -6,9 +6,9 @@
 import getDocsBreadcrumbs, {
 	getPathBreadcrumbs,
 } from '../utils/get-docs-breadcrumbs'
-import waypointData from 'data/waypoint.json'
+import packerData from 'data/packer.json'
 import terraformData from 'data/terraform.json'
-import waypointNavData from '../__fixtures__/waypoint-nav-data.json'
+import packerNavData from '../__fixtures__/packer-nav-data.json'
 import terraformPluginSDKv2NavData from '../__fixtures__/terraform-plugin-sdkv2-nav-data.json'
 import { ProductData } from 'types/products'
 import { NavData } from '@hashicorp/react-docs-sidenav/types'
@@ -18,9 +18,9 @@ describe('getDocsBreadcrumbs', () => {
 		const args = {
 			basePath: 'docs',
 			baseName: 'Docs',
-			product: waypointData as ProductData,
+			product: packerData as ProductData,
 			pathParts: ['getting-started'],
-			navData: waypointNavData as NavData,
+			navData: packerNavData as NavData,
 		}
 		const expected = [
 			{
@@ -28,17 +28,17 @@ describe('getDocsBreadcrumbs', () => {
 				url: '/',
 			},
 			{
-				title: 'Waypoint',
-				url: '/waypoint',
+				title: 'Packer',
+				url: '/packer',
 			},
 			{
 				title: 'Docs',
-				url: '/waypoint/docs',
+				url: '/packer/docs',
 				isCurrentPage: false,
 			},
 			{
 				title: 'Getting Started',
-				url: '/waypoint/docs/getting-started',
+				url: '/packer/docs/getting-started',
 				isCurrentPage: true,
 			},
 		]
@@ -86,7 +86,7 @@ describe('getPathBreadcrumbs', () => {
 		const args = {
 			basePath: 'docs',
 			pathParts: ['getting-started'],
-			navData: waypointNavData as NavData,
+			navData: packerNavData as NavData,
 		}
 		const expected = [
 			{
@@ -102,7 +102,7 @@ describe('getPathBreadcrumbs', () => {
 		const args = {
 			basePath: 'docs',
 			pathParts: ['intro', 'vs'],
-			navData: waypointNavData as NavData,
+			navData: packerNavData as NavData,
 		}
 		const expected = [
 			{
@@ -110,7 +110,7 @@ describe('getPathBreadcrumbs', () => {
 				url: '/docs/intro',
 			},
 			{
-				title: 'Waypoint vs. Other Software',
+				title: 'Packer vs. Other Software',
 				url: '/docs/intro/vs',
 				isCurrentPage: true,
 			},
@@ -122,7 +122,7 @@ describe('getPathBreadcrumbs', () => {
 		const args = {
 			basePath: 'docs',
 			pathParts: ['kubernetes', 'install'],
-			navData: waypointNavData as NavData,
+			navData: packerNavData as NavData,
 		}
 		const expected = [
 			{
