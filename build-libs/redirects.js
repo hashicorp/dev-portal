@@ -142,12 +142,12 @@ async function buildDevPortalRedirects() {
 		},
 		{
 			source: '/waypoint/plugins',
-			destination: '/waypoint/integrations',
+			destination: '/waypoint',
 			permanent: true,
 		},
 		{
 			source: '/waypoint/plugins/:slug',
-			destination: '/waypoint/integrations/hashicorp/:slug',
+			destination: '/waypoint',
 			permanent: true,
 		},
 		{

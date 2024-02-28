@@ -51,7 +51,7 @@ const TEST_MD_LINKS = {
 	errorLink: '[incorrect link](/tutorials/vault/does-not-exist)',
 	searchPage: '[link to search page on Learn](/search)',
 	productPluginsLink:
-		'[link to waypoint docs](https://www.waypointproject.io/plugins/aws-ecs)',
+		'[link to nomad docs](https://www.nomadproject.io/plugins/aws-asg)',
 	productDocsLink:
 		'[link to waypoint docs](https://www.vaultproject.io/docs/secrets/databases/mssql)',
 	productDocsApiLink:
