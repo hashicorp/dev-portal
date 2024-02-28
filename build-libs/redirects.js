@@ -187,6 +187,12 @@ async function buildDevPortalRedirects() {
 			destination: '/waypoint/tutorials/hcp-waypoint',
 			permanent: true,
 		},
+		{
+			source: '/waypoint/commands',
+			destination:
+				'https://github.com/hashicorp/waypoint/tree/main/website/content/commands',
+			permanent: true,
+		},
 		/**
 		 * Redirect for Integration Component rework.
 		 * Further details in the file this is imported from.
