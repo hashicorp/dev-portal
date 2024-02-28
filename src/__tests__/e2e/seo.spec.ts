@@ -40,35 +40,35 @@ test('product landing page should render the metadata', async ({
 	context,
 	baseURL,
 }) => {
-	await page.goto('/waypoint')
-	await expect(page).toHaveTitle(`Waypoint | ${__config.dev_dot.meta.title}`)
+	await page.goto('/nomad')
+	await expect(page).toHaveTitle(`Nomad | ${__config.dev_dot.meta.title}`)
 	expect(
 		await page.locator('head meta[name="description"]').getAttribute('content')
-	).toEqual(__config.dev_dot.meta.description.replace('{product}', 'Waypoint'))
+	).toEqual(__config.dev_dot.meta.description.replace('{product}', 'Nomad'))
 
 	expect(
 		await page
 			.locator('head meta[name="twitter:description"]')
 			.getAttribute('content')
-	).toEqual(__config.dev_dot.meta.description.replace('{product}', 'Waypoint'))
+	).toEqual(__config.dev_dot.meta.description.replace('{product}', 'Nomad'))
 
 	expect(
 		await page.locator('head meta[property="og:image"]').getAttribute('content')
-	).toContain('/og-image/waypoint.jpg')
+	).toContain('/og-image/nomad.jpg')
 	expect(
 		await page
 			.locator('head meta[name="twitter:image"]')
 			.getAttribute('content')
-	).toContain('/og-image/waypoint.jpg')
+	).toContain('/og-image/nomad.jpg')
 
 	// canonical
-	await page.goto('/waypoint?random=query')
+	await page.goto('/nomad?random=query')
 
 	expect(await page.locator('head link[rel="canonical"]').count()).toEqual(1)
 
 	expect(
 		await page.locator('head link[rel="canonical"]').getAttribute('href')
-	).toStrictEqual(`${__config.dev_dot.canonical_base_url}/waypoint`)
+	).toStrictEqual(`${__config.dev_dot.canonical_base_url}/nomad`)
 })
 
 test('install page should render the expected metadata', async ({
@@ -76,9 +76,9 @@ test('install page should render the expected metadata', async ({
 	context,
 	baseURL,
 }) => {
-	await page.goto('/waypoint/install')
+	await page.goto('/nomad/install')
 	await expect(page).toHaveTitle(
-		`Install | Waypoint | ${__config.dev_dot.meta.title}`
+		`Install | Nomad | ${__config.dev_dot.meta.title}`
 	)
 })
 
@@ -87,8 +87,8 @@ test('tutorials page should render the expected metadata', async ({
 	context,
 	baseURL,
 }) => {
-	await page.goto('/waypoint/tutorials')
+	await page.goto('/nomad/tutorials')
 	await expect(page).toHaveTitle(
-		`Tutorials | Waypoint | ${__config.dev_dot.meta.title}`
+		`Tutorials | Nomad | ${__config.dev_dot.meta.title}`
 	)
 })
