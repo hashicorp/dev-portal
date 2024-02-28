@@ -18,7 +18,7 @@ import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled
 export function getIconCards(product: ProductData) {
 	const iconCards = []
 
-	if (product.slug !== 'hcp') {
+	if (product.slug !== 'hcp' && product.slug !== 'waypoint') {
 		iconCards.push({
 			icon: <IconDownload16 />,
 			text: 'Install',

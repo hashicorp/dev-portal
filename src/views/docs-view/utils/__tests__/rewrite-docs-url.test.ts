@@ -11,7 +11,9 @@ import { rewriteDocsUrl } from '../product-url-adjusters'
 describe('rewriteDocsUrl', () => {
 	describe('/downloads links', () => {
 		// there is no downloads link for hcp
-		const productsToTest = productSlugs.filter((slug) => slug !== 'hcp')
+		const productsToTest = productSlugs.filter(
+			(slug) => slug !== 'hcp' && slug !== 'waypoint'
+		)
 
 		test.each(productsToTest)(
 			'when currentProduct is %p',
