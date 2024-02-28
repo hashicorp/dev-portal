@@ -19,7 +19,7 @@ import { getIsRewriteableDocsLink } from './get-is-rewriteable-docs-link'
  *
  *   https://vaultproject.io/												--> https://vaultproject.io/
  *   https://vaultproject.io/api										--> /vault/api-docs
- *   https://vaultproject.io/api/index.html					--> /waypoint/api-docs
+ *   https://vaultproject.io/api/index.html					--> /vault/api-docs
  *   https://waypointproject.io/community						--> undefined
  *   https://waypointproject.io/										-->	https://waypointproject.io/
  *   https://waypointproject.io/docs								-->	/waypoint/docs

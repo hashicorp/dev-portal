@@ -176,6 +176,12 @@ async function buildDevPortalRedirects() {
 			destination: '/vagrant/install/vmware',
 			permanent: true,
 		},
+		{
+			source: '/waypoint/api-docs',
+			destination:
+				'https://github.com/hashicorp/waypoint/blob/main/pkg/server/gen/server.swagger.json',
+			permanent: true,
+		},
 		/**
 		 * Redirect for Integration Component rework.
 		 * Further details in the file this is imported from.
