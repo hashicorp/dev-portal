@@ -53,7 +53,7 @@ const TEST_MD_LINKS = {
 	productPluginsLink:
 		'[link to nomad docs](https://www.nomadproject.io/plugins/aws-asg)',
 	productDocsLink:
-		'[link to waypoint docs](https://www.vaultproject.io/docs/secrets/databases/mssql)',
+		'[link to vault docs](https://www.vaultproject.io/docs/secrets/databases/mssql)',
 	productDocsApiLink:
 		'[link to vault api docs](https://www.vaultproject.io/api/auth/approle)',
 	productDocsApiLinkWithHtml:

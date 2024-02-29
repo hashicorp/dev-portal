@@ -4,6 +4,7 @@
  */
 
 import isAbsoluteUrl from 'lib/is-absolute-url'
+import { rewriteWaypointPluginsToIntegrations } from 'lib/content-adjustments'
 import { productSlugs, productSlugsToHostNames } from 'lib/products'
 import { ProductData } from 'types/products'
 import { SectionOption } from 'lib/learn-client/types'
@@ -57,6 +58,8 @@ export function getProductUrlAdjuster(
 	return (url: string) => {
 		// Do the base docs adjustment
 		let adjustedUrl = rewriteDocsUrl(url, productData)
+		// We also have some product-specific, post-adjustment rewrites to apply
+		adjustedUrl = rewriteWaypointPluginsToIntegrations(adjustedUrl)
 		// Return the final URL
 		return adjustedUrl
 	}
