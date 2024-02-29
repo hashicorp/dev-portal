@@ -193,6 +193,17 @@ async function buildDevPortalRedirects() {
 				'https://github.com/hashicorp/waypoint/tree/main/website/content/commands',
 			permanent: true,
 		},
+		{
+			source: '/waypoint/integrations',
+			destination: '/waypoint',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/integrations/hashicorp/:slug',
+			destination: '/waypoint',
+			permanent: true,
+		},
+		/**
 		/**
 		 * Redirect for Integration Component rework.
 		 * Further details in the file this is imported from.
