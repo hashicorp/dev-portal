@@ -57,8 +57,5 @@
 			"path": "docs",
 			"includeMDXSource": true
 		}
-	],
-	"integrationsConfig": {
-		"description": "A curated collection of official, partner, and community Waypoint Integrations."
-	}
+	]
 }

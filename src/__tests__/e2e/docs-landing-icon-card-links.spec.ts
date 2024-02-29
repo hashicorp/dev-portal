@@ -4,26 +4,26 @@
  */
 
 import { expect, test } from '@playwright/test'
-import packerData from '../../data/packer.json'
+import waypointData from '../../data/waypoint.json'
 
 // Run all the tests generated in this file in parallel
 test.describe.configure({ mode: 'parallel' })
 
 // Generate a test for each root docs path other than `docs`
-packerData.rootDocsPaths.forEach(({ path, name }) => {
+waypointData.rootDocsPaths.forEach(({ path, name }) => {
 	// There is no IconCardLink for the docs root path, ignore it
 	if (path === 'docs') {
 		return
 	}
 
 	// Create a test for this product + path
-	const testName = `[/packer/docs] ${name} \`IconCardLink\` goes to /packer/${path}`
+	const testName = `[/waypoint/docs] ${name} \`IconCardLink\` goes to /waypoint/${path}`
 	test(testName, async ({ baseURL, page }) => {
 		// Build expected page url from baseURL, product slug, and path
-		const expectedPageUrl = `${baseURL}/packer/${path}`
+		const expectedPageUrl = `${baseURL}/waypoint/${path}`
 
-		// Load the /packer/docs landing page before each test
-		await page.goto(`${baseURL}/packer/docs`)
+		// Load the /waypoint/docs landing page before each test
+		await page.goto(`${baseURL}/waypoint/docs`)
 
 		// Click the `IconCardLink`'s list item element
 		await page.locator('main header li', { hasText: name }).click()
