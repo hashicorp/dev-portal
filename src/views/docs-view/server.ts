@@ -437,7 +437,6 @@ export function getStaticGenerationFunctions<
 				versions:
 					!hideVersionSelector &&
 					!isReleaseNotesPage(currentPathUnderProduct) && // toggle version dropdown
-					product.slug !== 'waypoint' && // remove version dropdown for Waypoint
 					hasMeaningfulVersions
 						? versions
 						: null,
