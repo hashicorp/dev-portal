@@ -24,7 +24,7 @@ export function generateProductIntegrationLibrarySidebarNavData(
 		},
 	]
 	// Add Config SidebarLinks if they're provided
-	if (product.integrationsConfig.sidebarLinks) {
+	if (product.integrationsConfig && product.integrationsConfig.sidebarLinks) {
 		menuItems.push({ divider: true })
 		menuItems.push({ heading: 'Integration Resources' })
 		product.integrationsConfig.sidebarLinks.forEach((s) => {
