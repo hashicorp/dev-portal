@@ -19,7 +19,7 @@ const {
 } = require('./integration-multiple-component-redirects')
 const { packerPluginRedirects } = require('./integration-packer-redirects')
 
-require('isomorphic-unfetch')
+// require('isomorphic-unfetch')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 

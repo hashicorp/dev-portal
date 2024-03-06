@@ -25,13 +25,6 @@ import {
 	SortedReleases,
 } from './types'
 import capitalize from '@hashicorp/platform-util/text/capitalize'
-import { MenuItem } from 'components/sidebar'
-import {
-	BoundaryDesktopClient,
-	InstallPageAnchorHeading,
-} from './components/downloads-section/types'
-import { ReleasesAPIResponse } from '@hashicorp/react-product-downloads-page'
-import { Products } from '@hashicorp/platform-product-meta'
 
 const PLATFORM_MAP = {
 	Mac: 'darwin',
