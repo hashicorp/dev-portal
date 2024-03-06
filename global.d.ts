@@ -7,7 +7,6 @@
 
 declare module '@hashicorp/platform-configs/jest/config.js'
 
-declare module '@hashicorp/react-search'
 declare module '@hashicorp/react-content'
 
 /**

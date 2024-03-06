@@ -4,7 +4,7 @@
  */
 
 import { createContext, useMemo, useState, useRef, MouseEvent } from 'react'
-import shortid from 'shortid'
+import { nanoid } from 'nanoid'
 import {
 	type FeedbackFormContext as FeedbackFormContextType,
 	type FeedbackQuestion,
@@ -46,7 +46,7 @@ export default function FeedbackForm({
 
 	const getSessionId = () => {
 		if (!sessionId.current) {
-			sessionId.current = shortid.generate() as string
+			sessionId.current = nanoid()
 		}
 		return sessionId.current
 	}
