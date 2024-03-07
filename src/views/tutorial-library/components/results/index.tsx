@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useHits, useInstantSearch } from 'react-instantsearch-hooks-web'
+import { useHits, useInstantSearch } from 'react-instantsearch'
 
 import CardsGridList from 'components/cards-grid-list'
 import { TutorialCardWithAuthElements } from 'components/tutorial-card'
