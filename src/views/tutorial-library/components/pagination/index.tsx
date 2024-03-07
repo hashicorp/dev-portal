@@ -5,7 +5,7 @@
 
 import { IconArrowLeft16 } from '@hashicorp/flight-icons/svg-react/arrow-left-16'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
-import { usePagination } from 'react-instantsearch-hooks-web'
+import { usePagination } from 'react-instantsearch'
 import ButtonLink from 'components/button-link'
 import Button from 'components/button'
 import { ButtonLinkProps } from 'components/button-link/types'
