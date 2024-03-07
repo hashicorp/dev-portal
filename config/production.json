@@ -13,6 +13,6 @@
 		"auth": {
 			"idp_url": "https://auth.idp.hashicorp.com"
 		},
-		"product_slugs_with_integrations": ["vault", "waypoint", "nomad", "packer"]
+		"product_slugs_with_integrations": ["vault", "nomad", "packer"]
 	}
 }
