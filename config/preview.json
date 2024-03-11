@@ -9,6 +9,6 @@
 		}
 	},
 	"flags": {
-		"enable_hvd_on_hvd_preview_branch": true
+		"enable_hvd_on_preview_branch": true
 	}
 }

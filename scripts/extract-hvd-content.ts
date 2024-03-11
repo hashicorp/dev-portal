@@ -19,7 +19,7 @@ const __config = unflatten(getHashiConfig(envConfigPath))
 export const BASE_REPO_CONFIG = {
 	owner: 'hashicorp',
 	ref:
-		__config.flags.enable_hvd_on_hvd_preview_branch === true
+		__config.flags.enable_hvd_on_preview_branch === true
 			? 'hvd-preview'
 			: process.env.CURRENT_GIT_BRANCH || 'main',
 	repo: 'hvd-docs',
