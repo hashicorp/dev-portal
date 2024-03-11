@@ -17,6 +17,15 @@
 			]
 		},
 		{
+			"name": "HCP Vault Radar",
+			"items": [
+				{
+					"name": "Foundations",
+					"collectionSlug": "vault/radar-foundations"
+				}
+			]
+		},
+		{
 			"name": "HCP Consul",
 			"items": [
 				{ "name": "Quickstart", "collectionSlug": "consul/get-started-hcp" },
