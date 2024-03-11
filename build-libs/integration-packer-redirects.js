@@ -369,6 +369,17 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
+		enabled: true,
+		org: 'torarnv',
+		slug: 'ipsw',
+		components: [
+			{
+				type: TYPE_DATA_SOURCE,
+				newSlug: 'ipsw',
+			},
+		],
+	},
+	{
 		enabled: false,
 		org: 'kamatera',
 		slug: 'kamatera',
