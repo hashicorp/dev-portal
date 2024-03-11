@@ -30,11 +30,6 @@
 				"url": "/vault/tutorials/hcp-vault-secrets-get-started"
 			},
 			{
-				"icon": "consul-color",
-				"text": "HCP Consul",
-				"url": "/consul/tutorials/get-started-hcp"
-			},
-			{
 				"icon": "packer-color",
 				"text": "HCP Packer",
 				"url": "/packer/tutorials/hcp-get-started"
@@ -61,7 +56,7 @@
 		},
 		{
 			"type": "collection_cards",
-			"collectionSlugs": ["cloud/networking"]
+			"collectionSlugs": ["vault/hcp-vault-secrets-get-started"]
 		},
 		{
 			"type": "linked_cards",
@@ -89,8 +84,7 @@
 			"tutorialSlugs": [
 				"cloud/vault-oidc-okta",
 				"boundary/hcp-manage-scopes",
-				"packer/golden-image-with-hcp-packer",
-				"consul/kubernetes-api-gateway"
+				"packer/golden-image-with-hcp-packer"
 			]
 		}
 	]

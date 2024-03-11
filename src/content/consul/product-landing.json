@@ -22,12 +22,12 @@
 			{
 				"icon": "kubernetes-color",
 				"text": "Consul with Kubernetes",
-				"url": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy"
+				"url": "/consul/tutorials/01-get-started-kubernetes/kubernetes-gs-deploy"
 			},
 			{
 				"icon": "server",
 				"text": "Consul with Virtual Machines",
-				"url": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
+				"url": "/consul/tutorials/02-get-started-vms/virtual-machine-gs-deploy"
 			}
 		]
 	},

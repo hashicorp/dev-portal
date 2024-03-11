@@ -55,20 +55,19 @@
 		"consul": {
 			"featuredUseCases": [
 				{
-					"href": "/consul/tutorials/developer-discovery",
+					"href": "/consul/tutorials/06-connect-register-services",
 					"text": "Service discovery and health monitoring"
 				},
 				{
-					"href": "/consul/tutorials/kubernetes",
-					"text": "Service mesh on Kubernetes"
+					"href": "/consul/tutorials/08-connect-manage-services",
+					"text": "Control service mesh traffic patterns"
 				},
 				{
-					"href": "/consul/tutorials/developer-mesh",
-					"text": "Service mesh and gateways"
+					"href": "/consul/tutorials/14-monitor-service-mesh",
+					"text": "Service mesh observability"
 				}
 			],
 			"featuredCollectionSlugs": [
-				"consul/get-started-hcp",
 				"consul/get-started-kubernetes",
 				"consul/get-started-vms"
 			],
