@@ -203,12 +203,6 @@ async function buildDevPortalRedirects() {
 			destination: '/waypoint',
 			permanent: true,
 		},
-		{
-			source: '/waypoint/docs/:slug',
-			destination:
-				'https://github.com/hashicorp/waypoint/tree/main/website/content/docs',
-			permanent: true,
-		},
 		/**
 		/**
 		 * Redirect for Integration Component rework.
