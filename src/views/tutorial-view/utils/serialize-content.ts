@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { serialize } from 'next-mdx-remote/serialize'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { serialize } from 'lib/next-mdx-remote/serialize'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import { anchorLinks, paragraphCustomAlerts } from '@hashicorp/remark-plugins'
 import getVideoUrl from './get-video-url'
 import { Tutorial as ClientTutorial } from 'lib/learn-client/types'

@@ -4,8 +4,8 @@
  */
 
 import { render } from '@testing-library/react'
-import { MDXRemote } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote } from 'lib/next-mdx-remote'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 import Image from 'components/image'
 import { remarkPluginInjectImageDimensions, getUrlWithDimensions } from '..'
 

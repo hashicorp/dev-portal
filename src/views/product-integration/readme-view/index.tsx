@@ -13,7 +13,7 @@ import useUserContentAnchorLinks from 'lib/hooks/use-user-content-anchor-links'
 import { getIntegrationUrl } from 'lib/integrations'
 import { Integration } from 'lib/integrations-api-client/integration'
 import { Release } from 'lib/integrations-api-client/release'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import { ProductData } from 'types/products'
 import { OutlineNavWithActive } from 'components/outline-nav/components'
 // Types

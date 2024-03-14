@@ -22,7 +22,7 @@ import {
 	ReleaseComponent,
 	VariableGroup,
 } from 'lib/integrations-api-client/release'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import { ProductData } from 'types/products'
 import { MdxHeadingOutsideMdx } from './components/mdx-heading-outside-mdx'
 import SearchableVariableGroupList from './components/searchable-variable-group-list'
