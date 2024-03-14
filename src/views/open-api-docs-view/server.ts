@@ -9,7 +9,7 @@ import fetchGithubFile from 'lib/fetch-github-file'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getBreadcrumbLinks } from 'lib/get-breadcrumb-links'
-import { serialize } from 'next-mdx-remote/serialize'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 // Utilities
 import {
 	findDefaultVersion,

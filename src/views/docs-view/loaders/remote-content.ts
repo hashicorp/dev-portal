@@ -6,7 +6,7 @@
 import { Pluggable } from 'unified'
 import moize, { Options } from 'moize'
 import { GetStaticPropsContext } from 'next'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import {
 	fetchNavData,
 	fetchVersionMetadataList,
