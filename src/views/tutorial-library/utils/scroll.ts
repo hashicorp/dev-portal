@@ -4,7 +4,7 @@
  */
 
 import { useRef, useEffect } from 'react'
-import { useInstantSearch } from 'react-instantsearch-hooks-web'
+import { useInstantSearch } from 'react-instantsearch'
 
 /**
  * Scrolls to the top of the page when results have meaningfully changed from user action.

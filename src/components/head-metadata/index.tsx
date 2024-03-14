@@ -56,6 +56,22 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 	const ogImagePath = props.localOgImage || `${productSlug ?? 'base'}.jpg`
 	const ogImageUrl = `${getDeployedUrl()}/og-image/${ogImagePath}`
 
+	let favIconHref
+	if (
+		(process.env.HASHI_ENV === 'preview' ||
+			process.env.HASHI_ENV === 'development') &&
+		process.env.NODE_ENV === 'development'
+	) {
+		favIconHref = `/favicon-dev.ico`
+	} else if (
+		process.env.HASHI_ENV === 'preview' &&
+		process.env.NODE_ENV === 'production'
+	) {
+		favIconHref = `/favicon-preview.ico`
+	} else {
+		favIconHref = '/favicon.ico'
+	}
+
 	return (
 		// TODO: OpenGraph image to be passed as the image prop here
 		<HashiHead
@@ -66,7 +82,7 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 			image={ogImageUrl}
 			canonicalUrl={canonicalUrl}
 		>
-			<link rel="icon" href="/favicon.ico" sizes="any" />
+			<link rel="icon" href={favIconHref} sizes="any" />
 			<link rel="icon" href="/icon.svg" type="image/svg+xml" />
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			<meta
