@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 
 export interface AccordionMdxItem {
 	title: string

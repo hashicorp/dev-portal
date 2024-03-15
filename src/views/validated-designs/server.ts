@@ -11,7 +11,7 @@ import { HVD_CONTENT_DIR } from '@scripts/extract-hvd-content'
 import { HvdCategoryGroup, HvdGuide, HvdPage } from './types'
 import { ValidatedDesignsGuideProps } from './guide'
 
-import { serialize } from 'next-mdx-remote/serialize'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 import remarkPluginAnchorLinkData, {
 	AnchorLinkItem,
 } from 'lib/remark-plugins/remark-plugin-anchor-link-data'
