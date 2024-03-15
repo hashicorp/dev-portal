@@ -17,6 +17,7 @@ import { QueryParamProvider } from 'use-query-params'
 import type { AppProps } from 'next/app'
 import { useFlags } from 'flags/client'
 import { FlagBagProvider } from 'flags/client'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 // HashiCorp imports
 import {
@@ -104,6 +105,7 @@ export default function App({
 												<Toaster />
 												<AIFeatureToast />
 												<ReactQueryDevtools />
+												<SpeedInsights sampleRate={0.2} />
 											</LazyMotion>
 										</CodeTabsProvider>
 									</CurrentProductProvider>
