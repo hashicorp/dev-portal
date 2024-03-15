@@ -146,6 +146,7 @@
 		"@types/google-spreadsheet": "^3.2.2",
 		"@vercel/edge-config": "^0.2.1",
 		"@vercel/fetch": "^6.2.0",
+		"@vercel/speed-insights": "^1.0.10",
 		"adm-zip": "^0.5.9",
 		"algoliasearch": "^4.13.0",
 		"bowser": "^2.11.0",
