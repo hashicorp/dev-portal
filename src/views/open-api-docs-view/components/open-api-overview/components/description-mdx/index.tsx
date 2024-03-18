@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemote, MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import {
 	MdxA,
 	MdxOrderedList,
@@ -54,13 +54,7 @@ export function DescriptionMdx({
 }) {
 	return (
 		<div className={s.root}>
-			<MDXRemote
-				{...mdxRemoteProps}
-				/* The next-mdx-remote types are off here, we're providing a set
-				   of functional components that render JSX.Elements, and this works.
-					@ts-expect-error */
-				components={DEFAULT_MDX_COMPONENTS}
-			/>
+			<MDXRemote {...mdxRemoteProps} components={DEFAULT_MDX_COMPONENTS} />
 		</div>
 	)
 }

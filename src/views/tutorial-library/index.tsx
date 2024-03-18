@@ -8,7 +8,7 @@ import {
 	useConfigure,
 	useSearchBox,
 	UseSearchBoxProps,
-} from 'react-instantsearch-hooks-web'
+} from 'react-instantsearch'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 
 import FilterInput from 'components/filter-input'

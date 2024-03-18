@@ -5,8 +5,8 @@
 
 import { Plugin } from 'unified'
 import { paragraphCustomAlerts, typography } from '@hashicorp/remark-plugins'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 import { rehypeCodePlugins } from 'lib/rehype-code-plugins'
 import rehypeSanitize, { schema } from 'lib/remark-plugins/rehype-sanitize'
 import remarkPluginAnchorLinkData from 'lib/remark-plugins/remark-plugin-anchor-link-data'
