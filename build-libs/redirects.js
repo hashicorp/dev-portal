@@ -198,11 +198,6 @@ async function buildDevPortalRedirects() {
 				'https://github.com/hashicorp/waypoint/tree/main/website/content/docs',
 			permanent: true,
 		},
-		// /**
-		//  * Redirect for Integration Component rework.
-		//  * Further details in the file this is imported from.
-		//  */
-		// ...integrationMultipleComponentRedirects,
 		/**
 		 * Redirects from our former Packer Plugin library to our
 		 * new integrations library for Packer,
