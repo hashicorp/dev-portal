@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
+import type { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 import { Pluggable } from 'unified'
 import grayMatter from 'gray-matter'
 interface Options {
