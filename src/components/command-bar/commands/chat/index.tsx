@@ -36,7 +36,7 @@ const BackButton = () => {
 const FeedbackButton = () => {
 	return (
 		<ButtonLink
-			color="tertiary"
+			color="primary"
 			size="medium"
 			icon={<IconExternalLink16 />}
 			iconPosition="trailing"
