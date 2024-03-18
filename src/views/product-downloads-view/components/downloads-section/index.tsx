@@ -183,7 +183,7 @@ const DownloadsSection = ({
 											</InlineLink>{' '}
 											to learn how to install and verify HashiCorp tools on any
 											Linux distribution, and create an custom Linux container
-											with verified HashiCorp tools..
+											with verified HashiCorp tools.
 										</>
 									}
 									icon={<IconInfo16 className={s.cardIcon} />}
