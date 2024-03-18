@@ -22,12 +22,12 @@
 			{
 				"icon": "kubernetes-color",
 				"text": "Consul with Kubernetes",
-				"url": "/consul/tutorials/01-get-started-kubernetes/kubernetes-gs-deploy"
+				"url": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy"
 			},
 			{
 				"icon": "server",
 				"text": "Consul with Virtual Machines",
-				"url": "/consul/tutorials/02-get-started-vms/virtual-machine-gs-deploy"
+				"url": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
 			}
 		]
 	},
@@ -67,8 +67,8 @@
 		{
 			"type": "collection_cards",
 			"collectionSlugs": [
-				"consul/10-secure-intentions",
-				"consul/07-connect-extend-services"
+				"consul/control-network-traffic",
+				"consul/connect-services"
 			]
 		},
 		{
@@ -88,8 +88,8 @@
 		{
 			"type": "collection_cards",
 			"collectionSlugs": [
-				"consul/17-certification-prep-002",
-				"consul/18-certification-prep-003"
+				"consul/certification-prep-002",
+				"consul/certification-prep-003"
 			]
 		}
 	]

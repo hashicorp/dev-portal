@@ -55,15 +55,15 @@
 		"consul": {
 			"featuredUseCases": [
 				{
-					"href": "/consul/tutorials/06-connect-register-services",
+					"href": "/consul/tutorials/connect-services",
 					"text": "Service discovery and health monitoring"
 				},
 				{
-					"href": "/consul/tutorials/08-connect-manage-services",
+					"href": "/consul/tutorials/control-network-traffic",
 					"text": "Control service mesh traffic patterns"
 				},
 				{
-					"href": "/consul/tutorials/14-monitor-service-mesh",
+					"href": "/consul/tutorials/observe-your-network",
 					"text": "Service mesh observability"
 				}
 			],
@@ -181,7 +181,7 @@
 	"crossProductSection": {
 		"collectionSlugs": [
 			"well-architected-framework/com",
-			"consul/network-infrastructure-automation",
+			"consul/automate-your-network",
 			"cloud/networking"
 		]
 	}

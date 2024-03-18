@@ -1,7 +1,7 @@
 {
 	"featuredCollectionsSlugs": [
-		"consul/01-get-started-kubernetes",
-		"consul/02-get-started-vms"
+		"consul/get-started-kubernetes",
+		"consul/get-started-vms"
 	],
 	"featuredTutorialsSlugs": [
 		"consul/kubernetes-api-gateway",
