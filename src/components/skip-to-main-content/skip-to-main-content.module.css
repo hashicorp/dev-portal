@@ -9,19 +9,20 @@
 	border-radius: 5px;
 	box-shadow: 0 0 0 3px var(--token-color-focus-action-external),
 		0 1px 1px rgba(101, 106, 118, 0.05), 0 2px 2px rgba(101, 106, 118, 0.05);
-	color: var(--token-color-palette-blue-200);
+	color: var(--token-color-palette-blue-100);
 	font-size: 14px;
 	font-weight: 500;
 	line-height: 18px;
 	padding: 8px;
 	position: absolute;
-	right: 10000px;
-	top: 0;
+	left: -10000px;
+	top: 3px;
 	width: fit-content;
-	z-index: 1;
+	z-index: 4;
+	transition: all 0.5 ease-in;
 
 	&:focus {
-		right: 0;
+		left: 3px;
 	}
 
 	&:hover {

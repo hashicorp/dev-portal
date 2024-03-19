@@ -42,7 +42,9 @@ const COMMUNITY_LINKS_BY_PRODUCT: { [key in ProductSlug]: string } = {
 	waypoint: 'https://discuss.hashicorp.com/c/waypoint/51',
 }
 
-const GITHUB_LINKS_BY_PRODUCT_SLUG: { [key in ProductSlug]: string } = {
+const GITHUB_LINKS_BY_PRODUCT_SLUG: {
+	[key in Exclude<ProductSlug, 'waypoint'>]: string
+} = {
 	boundary: 'https://github.com/hashicorp/boundary',
 	consul: 'https://github.com/hashicorp/consul',
 	hcp: DEFAULT_GITHUB_LINK,
@@ -52,7 +54,6 @@ const GITHUB_LINKS_BY_PRODUCT_SLUG: { [key in ProductSlug]: string } = {
 	terraform: 'https://github.com/hashicorp/terraform',
 	vagrant: 'https://github.com/hashicorp/vagrant',
 	vault: 'https://github.com/hashicorp/vault',
-	waypoint: 'https://github.com/hashicorp/waypoint',
 }
 
 /**
@@ -150,12 +151,16 @@ function generateResourcesNavItems(
 			title: 'Support',
 			href: DEFAULT_SUPPORT_LINK,
 		},
-		{
-			title: 'GitHub',
-			href: productSlug
-				? GITHUB_LINKS_BY_PRODUCT_SLUG[productSlug]
-				: DEFAULT_GITHUB_LINK,
-		},
+		...(productSlug !== 'waypoint'
+			? [
+					{
+						title: 'GitHub',
+						href: productSlug
+							? GITHUB_LINKS_BY_PRODUCT_SLUG[productSlug]
+							: DEFAULT_GITHUB_LINK,
+					},
+			  ]
+			: []),
 		...additionalResources,
 	]
 }

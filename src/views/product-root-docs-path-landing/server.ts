@@ -146,6 +146,22 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 	}
 
 	/**
+	 * TODO: Remove this when (HCP) Waypoint IA is updated
+	 */
+	if (product.slug === 'waypoint') {
+		getStaticPropsResult.props.layoutProps['sidebarNavDataLevels'] =
+			getStaticPropsResult.props.layoutProps.sidebarNavDataLevels.map(
+				(navLevel) => {
+					delete navLevel.menuItems
+					return {
+						...navLevel,
+						showFilterInput: false,
+					}
+				}
+			)
+	}
+
+	/**
 	 * Grab the outline from the MDX content, if applicable.
 	 *
 	 * Note we slice off the first outline item, we expect it to be an <h1 />,

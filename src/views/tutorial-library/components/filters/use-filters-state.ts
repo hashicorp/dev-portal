@@ -8,7 +8,7 @@ import {
 	useMenu,
 	useRefinementList,
 	useToggleRefinement,
-} from 'react-instantsearch-hooks-web'
+} from 'react-instantsearch'
 import { RESOURCES } from '../../constants'
 
 export function useFiltersState() {

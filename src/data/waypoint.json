@@ -44,38 +44,18 @@
 			"type": "inbound"
 		},
 		{
-			"text": "CLI",
-			"url": "https://developer.hashicorp.com/waypoint/commands",
-			"type": "inbound"
-		},
-		{
-			"text": "Integrations",
-			"url": "https://developer.hashicorp.com/waypoint/integrations",
-			"type": "inbound"
-		},
-		{
 			"text": "Community",
 			"url": "/community",
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["commands", "docs", "plugins", "tutorials", "downloads"],
+	"basePaths": ["docs", "tutorials"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
 			"name": "Documentation",
 			"path": "docs",
 			"includeMDXSource": true
-		},
-		{
-			"iconName": "api",
-			"name": "API",
-			"path": "api-docs"
-		},
-		{
-			"iconName": "terminal-screen",
-			"name": "CLI",
-			"path": "commands"
 		}
 	],
 	"integrationsConfig": {

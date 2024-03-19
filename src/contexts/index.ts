@@ -6,3 +6,4 @@
 export * from './current-product'
 export * from './device-size'
 export * from './mobile-menu'
+export * from './skip-link'

@@ -8,7 +8,7 @@ import path from 'path'
 import { Plugin } from 'unified'
 import type { Root, RootContent, Node } from 'hast'
 import hastUtilToHtml from 'hast-util-to-html'
-import { serialize } from 'next-mdx-remote/serialize'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 import rehypeSanitize, { schema } from '..'
 
 /**

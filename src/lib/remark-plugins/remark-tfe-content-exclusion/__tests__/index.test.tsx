@@ -7,8 +7,8 @@ import { render } from '@testing-library/react'
 
 import { remarkTfeContentExclusion } from '../index'
 
-import { MDXRemote } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote } from 'lib/next-mdx-remote'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 
 describe('remark-tfe-content-exclusion', () => {
 	it('should render helper elements', async () => {

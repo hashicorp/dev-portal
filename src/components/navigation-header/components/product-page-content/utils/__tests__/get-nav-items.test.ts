@@ -8,8 +8,8 @@ import { ProductData } from 'types/products'
 
 describe('getNavItems', () => {
 	it('for most products, returns the standard set of items', () => {
-		const testWaypointData = {
-			slug: 'waypoint',
+		const testNomadData = {
+			slug: 'nomad',
 			rootDocsPaths: [
 				{
 					iconName: 'docs',
@@ -25,32 +25,27 @@ describe('getNavItems', () => {
 				},
 			],
 		} as ProductData
-		expect(getNavItems(testWaypointData)).toMatchInlineSnapshot(`
+		expect(getNavItems(testNomadData)).toMatchInlineSnapshot(`
 		Array [
 		  Object {
 		    "label": "Install",
-		    "url": "/waypoint/install",
+		    "url": "/nomad/install",
 		  },
 		  Object {
 		    "label": "Tutorials",
-		    "url": "/waypoint/tutorials",
+		    "url": "/nomad/tutorials",
 		  },
 		  Object {
 		    "label": "Documentation",
-		    "url": "/waypoint/docs",
+		    "url": "/nomad/docs",
 		  },
 		  Object {
 		    "label": "CLI",
-		    "url": "/waypoint/commands",
+		    "url": "/nomad/commands",
 		  },
 		  Object {
 		    "label": "Integrations",
-		    "url": "/waypoint/integrations",
-		  },
-		  Object {
-		    "label": "Try Cloud",
-		    "opensInNewTab": true,
-		    "url": "https://portal.cloud.hashicorp.com/sign-up",
+		    "url": "/nomad/integrations",
 		  },
 		]
 	`)

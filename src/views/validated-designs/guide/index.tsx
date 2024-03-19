@@ -23,7 +23,7 @@ import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-lin
 import s from './detail-view.module.css'
 
 import type { HvdPage, HvdPageMenuItem } from '../types'
-import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import type { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import type { OutlineLinkItem } from 'components/outline-nav/types'
 import { ProductSlug } from 'types/products'
 

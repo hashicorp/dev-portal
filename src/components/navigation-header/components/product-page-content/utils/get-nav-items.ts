@@ -96,7 +96,7 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	/**
 	 * Install
 	 */
-	if (currentProduct.slug !== 'hcp') {
+	if (currentProduct.slug !== 'hcp' && currentProduct.slug !== 'waypoint') {
 		items.push({
 			label: 'Install',
 			url: `/${currentProduct.slug}/install`,
