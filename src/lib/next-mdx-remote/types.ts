@@ -1,4 +1,6 @@
 import { Pluggable, Compiler } from 'unified'
+import type { JscTarget } from '@swc/core'
+
 export interface SerializeOptions {
 	/**
 	 * Pass-through variables for use in the MDX content
@@ -17,9 +19,9 @@ export interface SerializeOptions {
 	}
 	/**
 	 * Specify the target environment for the generated code.
-	 * See the [esbuild docs](https://esbuild.github.io/api/#target) for additional information on possible values.
+	 * See the [swc docs](https://swc.rs/docs/configuration/compilation#jsctarget) for additional information on possible values.
 	 */
-	target?: string | string[]
+	target?: JscTarget
 }
 
 /**
