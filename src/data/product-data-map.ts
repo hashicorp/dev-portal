@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { ProductData } from 'types/products'
 import boundaryData from 'data/boundary.json'
 import consulData from 'data/consul.json'

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { Pluggable, Compiler } from 'unified'
 export interface SerializeOptions {
 	/**
