@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import '@testing-library/jest-dom/extend-expect'
 import { ReleasesAPIResponse } from 'lib/fetch-release-data'
 import filterVersions from '../filter-versions'
 import terraformVersionsFixture from './__fixtures__/terraform-versions.json'

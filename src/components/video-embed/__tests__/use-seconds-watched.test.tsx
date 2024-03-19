@@ -12,10 +12,10 @@ describe('use-seconds-watched', () => {
 		// and we don't want to have to wait for real time to advance during tests
 		const realDateNow = Date.now.bind(global.Date)
 		let globalNowAdjust = 0
-		global.Date.now = jest.fn(() => realDateNow() + globalNowAdjust)
+		global.Date.now = vi.fn(() => realDateNow() + globalNowAdjust)
 		// Set up our test component
 		const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-		const secondsWatchedCallback = jest.fn()
+		const secondsWatchedCallback = vi.fn()
 		render(
 			<VideoHooksTestComponent
 				url={url}
