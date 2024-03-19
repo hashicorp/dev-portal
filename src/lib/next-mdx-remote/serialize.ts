@@ -43,7 +43,6 @@ export async function serialize(
 			transform: {
 				react: {
 					pragma: 'mdx',
-					pragmaFrag: 'Fragment',
 				},
 			},
 			target,
