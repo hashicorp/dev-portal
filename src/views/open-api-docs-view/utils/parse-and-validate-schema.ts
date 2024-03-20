@@ -15,9 +15,6 @@ import { OpenAPIV3 } from 'openapi-types'
  * convert the input to the latest version, and then dereference the
  * schema to resolve any `$ref` references.
  *
- * TODO: not sure if we're actually handling circular references here.
- * This is something we'll likely need to look into for Waypoint API docs.
- * Task: https://app.asana.com/0/1202097197789424/1203989531295664/f
  *
  * The input OpenAPI specification can be in any of the following versions:
  * - OpenAPI 2.0 (formerly known as Swagger)
