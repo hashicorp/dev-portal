@@ -119,7 +119,6 @@ async function buildProductRedirects() {
 			getRedirectsFromContentRepo('boundary'),
 			getRedirectsFromContentRepo('nomad'),
 			getRedirectsFromContentRepo('vault'),
-			getRedirectsFromContentRepo('waypoint'),
 			getRedirectsFromContentRepo('vagrant'),
 			getRedirectsFromContentRepo('packer'),
 			getRedirectsFromContentRepo('consul'),
