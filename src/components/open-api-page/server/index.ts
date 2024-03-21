@@ -32,23 +32,10 @@ function getPropsForPage(
 	/**
 	 * Parameters from getStaticProps.
 	 */
-	params,
-	/**
-	 * The Waypoint API docs have circular references.
-	 * We manually try to deal with those. This is a band-aid solution,
-	 * it seems to have unintended side-effects when applied to other
-	 * products' API docs, and almost certainly merits further investigation.
-	 *
-	 * Asana task:
-	 * https://app.asana.com/0/1202097197789424/1203989531295664/f
-	 */
-	mayHaveCircularReferences: boolean = false
+	params
 ) {
 	// parse the data we'll show to the user from the schema
-	const operationObjects = getOperationObjects(
-		schema,
-		mayHaveCircularReferences
-	)
+	const operationObjects = getOperationObjects(schema)
 	const serviceIds = getServiceIds(operationObjects)
 	// info and sidenav data are needed on all pages
 	const info = schema.info
@@ -100,19 +87,9 @@ function getPropsForPage(
  * @param {*} schema
  * @returns
  */
-function getPathsFromSchema(
-	schema,
-	/**
-	 * Band-aid solution for circular references in Waypoint API docs. Task:
-	 * https://app.asana.com/0/1202097197789424/1203989531295664/f
-	 */
-	mayHaveCircularReferences: boolean = false
-) {
+function getPathsFromSchema(schema) {
 	// Assign each operation category to a URL using its slug-ified ID
-	const operationObjects = getOperationObjects(
-		schema,
-		mayHaveCircularReferences
-	)
+	const operationObjects = getOperationObjects(schema)
 	const slugs = getServiceIds(operationObjects).map(getServicePathSlug)
 	// If this is a single service, just return an index page
 	const isSingleService = slugs.length === 1
