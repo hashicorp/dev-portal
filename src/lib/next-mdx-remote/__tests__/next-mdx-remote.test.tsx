@@ -122,7 +122,7 @@ foo **bar**
 
 export const foo = 'bar'`
 
-		const resultA = await serialize(mdx, { target: 'esnext' })
+		const resultA = await serialize(mdx, { target: 'es5' })
 		const resultB = await serialize(mdx)
 
 		expect(resultA).not.toEqual(resultB)
