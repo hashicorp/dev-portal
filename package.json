@@ -4,7 +4,7 @@
 	"scripts": {
 		"build:deploy-preview": "npx --package @hashicorp/platform-tools@0.5.0 hc-tools --resolve-paths false ./scripts/content-repo-preview/build.ts",
 		"build:webpack-only": "npm run prebuild && hc-tools next-build-webpack-only",
-		"build": "next build",
+		"build": "next build --experimental-build-mode=compile",
 		"clean": "rimraf .next node_modules",
 		"lint": "next-hashicorp lint",
 		"lint:stylelint": "npx stylelint '**/*.css'",
