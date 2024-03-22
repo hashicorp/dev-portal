@@ -7,9 +7,10 @@ import { ApiBookmark } from 'lib/learn-client/api/api-types'
 import * as learnApi from 'lib/learn-client'
 import { getBookmarksByTutorialIds } from '../get-bookmarks-by-tutorial-ids'
 import { BOOKMARK_API_ROUTE } from '..'
+import type { Mock } from 'vitest'
 
-jest.mock('lib/learn-client', () => ({
-	get: jest.fn(),
+vi.mock('lib/learn-client', () => ({
+	get: vi.fn(),
 }))
 
 const mockBookmarks: ApiBookmark[] = [
@@ -32,14 +33,14 @@ const mockBookmarks: ApiBookmark[] = [
 ]
 
 describe('getBookmarksByTutorialIds', () => {
-	jest.spyOn(learnApi, 'get')
+	vi.spyOn(learnApi, 'get')
 
-	const mockedGet = learnApi.get as jest.Mock
+	const mockedGet = learnApi.get as Mock
 	const testAccessToken = 'test-token'
 	const testTutorialIds = ['1', '2', '3']
 
 	afterAll(() => {
-		jest.restoreAllMocks()
+		vi.restoreAllMocks()
 	})
 
 	test('returns array of all bookmark objects if `ok`', async () => {

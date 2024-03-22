@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import mdx from '@mdx-js/mdx'
 import { transform } from '@swc/core'
 import remove from 'unist-util-remove'

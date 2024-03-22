@@ -4,7 +4,8 @@
  */
 
 import { productSlugsToHostNames } from 'lib/products'
-import { ProductData, ProductSlug } from 'types/products'
+import type { ProductSlug } from 'types/products'
+import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 
 /**
  * Determine whether the given `link` is a URL referencing product docs sites
@@ -46,7 +47,7 @@ const getIsRewriteableDocsLink = (link: string): boolean => {
 		 * as one of the product's accepted base paths if `api-docs` is accepted.
 		 */
 		// eslint-disable-next-line @typescript-eslint/no-var-requires
-		const productData = require(`data/${productSlug}.json`) as ProductData
+		const productData = PRODUCT_DATA_MAP[productSlug]
 		const acceptedBasePaths = productData.basePaths
 		if (acceptedBasePaths.includes('api-docs')) {
 			acceptedBasePaths.push('api')
