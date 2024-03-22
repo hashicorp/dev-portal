@@ -167,7 +167,9 @@ describe('groupSimpleRedirects', () => {
 describe('filterInvalidRedirects', () => {
 	it('filters out redirects that are not prefixed with the product slug', () => {
 		//  Spy on and suppress console.warn for this test, we expect a warning
-		const consoleWarnMock = jest.spyOn(console, 'warn').mockImplementation()
+		const consoleWarnMock = vi
+			.spyOn(console, 'warn')
+			.mockImplementation(() => {})
 		// Input
 		const redirects = [
 			{

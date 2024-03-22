@@ -6,6 +6,7 @@
 import { ProductSlug } from 'types/products'
 import { productSlugsToHostNames } from 'lib/products'
 import { getIsRewriteableDocsLink } from '../utils'
+import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 
 const testEachCase = (testCases: [string, boolean][]) => {
 	test.each(testCases)(
@@ -21,7 +22,7 @@ describe('getIsRewriteableDocsLink', () => {
 
 	Object.keys(productSlugsToHostNames).forEach((slug: ProductSlug) => {
 		// eslint-disable-next-line @typescript-eslint/no-var-requires
-		const basePaths = require(`data/${slug}.json`).basePaths
+		const basePaths = PRODUCT_DATA_MAP[slug].basePaths
 		const hostname = productSlugsToHostNames[slug]
 		const origin = `https://${hostname}`
 

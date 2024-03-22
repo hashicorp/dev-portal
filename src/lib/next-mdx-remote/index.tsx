@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import './idle-callback-polyfill'
 import React, { useEffect, useState, useMemo } from 'react'
 import * as MDX from '@mdx-js/react'

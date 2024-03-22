@@ -7,10 +7,10 @@ import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 // mock svgs to reduce snapshot noise
-jest.mock('@hashicorp/flight-icons/svg-react/chevron-left-16', () => ({
+vi.mock('@hashicorp/flight-icons/svg-react/chevron-left-16', () => ({
 	IconChevronLeft16: () => <svg>IconChevronLeft16</svg>,
 }))
-jest.mock('@hashicorp/flight-icons/svg-react/chevron-right-16', () => ({
+vi.mock('@hashicorp/flight-icons/svg-react/chevron-right-16', () => ({
 	IconChevronRight16: () => <svg>IconChevronRight16</svg>,
 }))
 
@@ -20,10 +20,10 @@ import { generateTruncatedList } from './helpers'
 describe('Pagination', () => {
 	// Silence console.error
 	beforeEach(() => {
-		jest.spyOn(console, 'error').mockImplementation(() => void 1)
+		vi.spyOn(console, 'error').mockImplementation(() => void 1)
 	})
 	afterEach(() => {
-		jest.clearAllMocks()
+		vi.clearAllMocks()
 	})
 
 	describe('props validation', () => {
@@ -31,7 +31,7 @@ describe('Pagination', () => {
 			expect(() => {
 				render(<Pagination totalItems={103} pageSize={-10} />)
 			}).toThrowErrorMatchingInlineSnapshot(
-				`"Pagination: pageSize is required, but was not specified. Please try passing a non-zero, positive value such as \`10\`."`
+				`[Error: Pagination: pageSize is required, but was not specified. Please try passing a non-zero, positive value such as \`10\`.]`
 			)
 		})
 
@@ -39,7 +39,7 @@ describe('Pagination', () => {
 			expect(() => {
 				render(<Pagination totalItems={-1} pageSize={10} />)
 			}).toThrowErrorMatchingInlineSnapshot(
-				`"Pagination: totalItems is required, but was not specified. Please try passing a positive value such as \`103\`."`
+				`[Error: Pagination: totalItems is required, but was not specified. Please try passing a positive value such as \`103\`.]`
 			)
 		})
 
@@ -47,7 +47,7 @@ describe('Pagination', () => {
 			expect(() => {
 				render(<Pagination totalItems={100} pageSize={10} page={0} />)
 			}).toThrowErrorMatchingInlineSnapshot(
-				`"Pagination: page must be a non-zero, positive number. Please try passing a value such as \`1\`."`
+				`[Error: Pagination: page must be a non-zero, positive number. Please try passing a value such as \`1\`.]`
 			)
 		})
 	})
@@ -64,10 +64,10 @@ describe('Pagination', () => {
 		expect(container).toMatchInlineSnapshot(`
 		<div>
 		  <div
-		    class="pagination"
+		    class="_pagination_0c87fd"
 		  >
 		    <div
-		      class="info"
+		      class="_info_0c87fd"
 		    >
 		      1
 		       - 
@@ -76,45 +76,45 @@ describe('Pagination', () => {
 		    </div>
 		    <nav
 		      aria-label="Pagination navigation"
-		      class="nav"
+		      class="_nav_0c87fd"
 		    >
 		      <button
 		        aria-label="Previous"
-		        class="arrow control prev"
+		        class="_arrow_0c87fd _control_0c87fd _prev_0c87fd"
 		        disabled=""
 		      >
 		        <svg>
 		          IconChevronLeft16
 		        </svg>
 		        <span
-		          class="label"
+		          class="_label_0c87fd"
 		        >
 		          Previous
 		        </span>
 		      </button>
 		      <button
 		        aria-label="Next"
-		        class="arrow control next"
+		        class="_arrow_0c87fd _control_0c87fd _next_0c87fd"
 		      >
 		        <svg>
 		          IconChevronRight16
 		        </svg>
 		        <span
-		          class="label"
+		          class="_label_0c87fd"
 		        >
 		          Next
 		        </span>
 		      </button>
 		    </nav>
 		    <div
-		      class="size-selector"
+		      class="_size-selector_0c87fd"
 		    >
 		      <label
-		        class="label"
+		        class="_label_0c87fd"
 		      >
 		        Items per page
 		        <select
-		          class="select"
+		          class="_select_0c87fd"
 		        >
 		          <option
 		            selected=""
@@ -159,7 +159,7 @@ describe('Pagination', () => {
 
 	describe('compact nav', () => {
 		it('onPageChange is called with the correct index', async () => {
-			const onPageChange = jest.fn()
+			const onPageChange = vi.fn()
 			const { queryAllByRole } = render(
 				<Pagination totalItems={103} pageSize={10} onPageChange={onPageChange}>
 					<Pagination.Info />
@@ -179,11 +179,11 @@ describe('Pagination', () => {
 			// mimic a consumer's useState()
 
 			// eslint-disable-next-line prefer-const
-			let [page, setPage] = [3, jest.fn((newPage) => (page = newPage))]
+			let [page, setPage] = [3, vi.fn((newPage) => (page = newPage))]
 			// eslint-disable-next-line prefer-const
 			let [pageSize, setPageSize] = [
 				10,
-				jest.fn((newPageSize) => (pageSize = newPageSize)),
+				vi.fn((newPageSize) => (pageSize = newPageSize)),
 			]
 
 			const { queryAllByRole } = render(
