@@ -18,11 +18,11 @@ let loader: RemoteContentLoader
 let scope: nock.Scope
 
 import * as nextMdxRemote from 'lib/next-mdx-remote/serialize'
-jest.mock('lib/next-mdx-remote/serialize', () => ({
+vi.mock('lib/next-mdx-remote/serialize', async () => ({
 	__esModule: true,
-	...(jest.requireActual('lib/next-mdx-remote/serialize') as any),
+	...((await vi.importActual('lib/next-mdx-remote/serialize')) as any),
 }))
-const serializeSpy = jest.spyOn(nextMdxRemote, 'serialize').mockReturnValue(
+const serializeSpy = vi.spyOn(nextMdxRemote, 'serialize').mockReturnValue(
 	Promise.resolve({
 		compiledSource: '',
 		scope: {
@@ -30,7 +30,7 @@ const serializeSpy = jest.spyOn(nextMdxRemote, 'serialize').mockReturnValue(
 		},
 	})
 )
-const mockMdxContentHook = jest.fn()
+const mockMdxContentHook = vi.fn()
 
 describe('RemoteContentLoader', () => {
 	beforeAll(() => {
@@ -164,43 +164,43 @@ describe('RemoteContentLoader', () => {
 				navData: expect.any(Array),
 			},
 			`
-      Object {
+      {
         "currentPath": "",
-        "frontMatter": Object {
+        "frontMatter": {
           "layout": "commands",
           "page_title": "Waypoint Commands (CLI)",
         },
         "githubFileUrl": "https://github.com/hashicorp/waypoint/blob/main/website/content/commands/index.mdx",
-        "mdxSource": Object {
+        "mdxSource": {
           "compiledSource": Any<String>,
-          "scope": Object {
+          "scope": {
             "version": "latest",
           },
         },
         "navData": Any<Array>,
-        "versions": Array [
-          Object {
+        "versions": [
+          {
             "isLatest": false,
             "label": "v0.6.2 (alpha)",
             "name": "v0.6.x",
             "releaseStage": "alpha",
             "version": "v0.6.x",
           },
-          Object {
+          {
             "isLatest": true,
             "label": "v0.5.2 (latest)",
             "name": "latest",
             "releaseStage": "stable",
             "version": "v0.5.x",
           },
-          Object {
+          {
             "isLatest": false,
             "label": "v0.4.x",
             "name": "v0.4.x",
             "releaseStage": "stable",
             "version": "v0.4.x",
           },
-          Object {
+          {
             "isLatest": false,
             "label": "v0.3.x",
             "name": "v0.3.x",
@@ -300,29 +300,29 @@ describe('mapVersionList', () => {
 
 	test('should map a list of version-metadata to a format for <VersionSelect/>', () => {
 		expect(versionList).toMatchInlineSnapshot(`
-      Array [
-        Object {
+      [
+        {
           "isLatest": false,
           "label": "v0.6.2 (alpha)",
           "name": "v0.6.x",
           "releaseStage": "alpha",
           "version": "v0.6.x",
         },
-        Object {
+        {
           "isLatest": true,
           "label": "v0.5.2 (latest)",
           "name": "latest",
           "releaseStage": "stable",
           "version": "v0.5.x",
         },
-        Object {
+        {
           "isLatest": false,
           "label": "v0.4.x",
           "name": "v0.4.x",
           "releaseStage": "stable",
           "version": "v0.4.x",
         },
-        Object {
+        {
           "isLatest": false,
           "label": "v0.3.x",
           "name": "v0.3.x",

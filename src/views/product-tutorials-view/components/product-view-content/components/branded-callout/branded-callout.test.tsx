@@ -8,7 +8,7 @@ import { ProductOption } from 'lib/learn-client/types'
 import { BrandedCallout } from './index'
 
 // Mock next/image since `src` is stubbed with an invalid path
-jest.mock('next/image', () => {
+vi.mock('next/image', () => {
 	return {
 		__esModule: true,
 		default: ({ src, alt }) => {
@@ -24,6 +24,7 @@ describe('BrandedCallout', () => {
 		['http://localhost', null, null],
 		['/some/local/path', null, null],
 	])('should handle external & internal links', (url, target, rel) => {
+		vi.stubGlobal('location', { origin: 'http://localhost' })
 		const { getByRole } = render(
 			<BrandedCallout
 				heading="Heading"

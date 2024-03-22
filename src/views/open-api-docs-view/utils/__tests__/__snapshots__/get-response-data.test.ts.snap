@@ -1,48 +1,48 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`getResponseData parses multiple response definitions for single response code 1`] = `
-Array [
-  Object {
-    "heading": Object {
+exports[`getResponseData > parses multiple response definitions for single response code 1`] = `
+[
+  {
+    "heading": {
       "slug": "test-prefix_200",
       "text": "200 -  OK",
       "theme": "success",
     },
-    "propertyDetails": Array [
-      Object {
+    "propertyDetails": [
+      {
         "description": "",
         "isRequired": false,
         "name": "id",
-        "nestedProperties": Array [],
+        "nestedProperties": [],
         "slug": "test-prefix_200_id",
         "type": "integer",
       },
-      Object {
+      {
         "description": "",
         "isRequired": true,
         "name": "name",
-        "nestedProperties": Array [],
+        "nestedProperties": [],
         "slug": "test-prefix_200_name",
         "type": "string",
       },
-      Object {
+      {
         "description": "",
         "isRequired": false,
         "name": "category",
-        "nestedProperties": Array [
-          Object {
+        "nestedProperties": [
+          {
             "description": "",
             "isRequired": false,
             "name": "id",
-            "nestedProperties": Array [],
+            "nestedProperties": [],
             "slug": "test-prefix_200_category.id",
             "type": "integer",
           },
-          Object {
+          {
             "description": "",
             "isRequired": false,
             "name": "name",
-            "nestedProperties": Array [],
+            "nestedProperties": [],
             "slug": "test-prefix_200_category.name",
             "type": "string",
           },
@@ -50,32 +50,32 @@ Array [
         "slug": "test-prefix_200_category",
         "type": "object",
       },
-      Object {
+      {
         "description": "",
         "isRequired": true,
         "name": "photoUrls",
-        "nestedProperties": Array [],
+        "nestedProperties": [],
         "slug": "test-prefix_200_photoUrls",
         "type": "string[]",
       },
-      Object {
+      {
         "description": "",
         "isRequired": false,
         "name": "tags",
-        "nestedProperties": Array [
-          Object {
+        "nestedProperties": [
+          {
             "description": "",
             "isRequired": false,
             "name": "id",
-            "nestedProperties": Array [],
+            "nestedProperties": [],
             "slug": "test-prefix_200_tags-array.id",
             "type": "integer",
           },
-          Object {
+          {
             "description": "",
             "isRequired": false,
             "name": "name",
-            "nestedProperties": Array [],
+            "nestedProperties": [],
             "slug": "test-prefix_200_tags-array.name",
             "type": "string",
           },
@@ -83,11 +83,11 @@ Array [
         "slug": "test-prefix_200_tags",
         "type": "object[]",
       },
-      Object {
+      {
         "description": "<p>pet status in the store</p>",
         "isRequired": false,
         "name": "status",
-        "nestedProperties": Array [],
+        "nestedProperties": [],
         "slug": "test-prefix_200_status",
         "type": "string",
       },

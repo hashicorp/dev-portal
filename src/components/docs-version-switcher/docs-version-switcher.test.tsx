@@ -10,8 +10,8 @@ import { CurrentProductProvider } from 'contexts'
 import DocsVersionSwitcher from '.'
 import { setProjectForAriaLabel } from '.'
 
-const mockUserRouter = jest.fn()
-jest.mock('next/router', () => ({
+const mockUserRouter = vi.fn()
+vi.mock('next/router', () => ({
 	useRouter: () => mockUserRouter(),
 }))
 
