@@ -2,10 +2,10 @@
 	"enabled": true,
 	"data": {
 		"product": "hashicorp",
-		"tag": "HashiCorp Developer AI",
-		"url": "https://hashi.co/dev-ai-signup",
-		"text": "Private beta now available",
-		"linkText": "Sign up today",
-		"expirationDate": "2024-03-01T00:00:00-08:00"
+		"tag": "HashiDays",
+		"url": "https://hashicorp.com/conferences/hashidays",
+		"text": "One conference. Three cities.",
+		"linkText": "Find a city near you",
+		"expirationDate": ""
 	}
 }

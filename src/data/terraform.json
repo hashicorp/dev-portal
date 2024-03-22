@@ -4,6 +4,14 @@
 	"algoliaConfig": {
 		"indexName": "product_TERRAFORM"
 	},
+	"alertBannerActive": true,
+	"alertBanner": {
+		"tag": "HashiDays",
+		"url": "https://hashicorp.com/conferences/hashidays",
+		"text": "One conference. Three cities.",
+		"linkText": "Find a city near you",
+		"expirationDate": ""
+	},
 	"basePaths": [
 		"cdktf",
 		"cli",
