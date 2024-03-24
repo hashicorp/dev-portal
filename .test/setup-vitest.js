@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import '@testing-library/jest-dom/extend-expect'
+import '@testing-library/jest-dom/vitest'
 import path from 'path'
 import { unflatten } from 'flat'
 import { getHashiConfig } from '../config'
-import 'isomorphic-unfetch'
 
 const env = process.env.HASHI_ENV || 'development'
 const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)

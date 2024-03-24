@@ -36,12 +36,9 @@ describe('<Tabs />', () => {
 		})
 
 		describe('without interaction', () => {
-			test('has no violations identified by axe-core', (done) => {
-				axe.run(container, {}, (err, { violations }) => {
-					expect(err).toBeNull()
-					expect(violations).toHaveLength(0)
-					done()
-				})
+			test('has no violations identified by axe-core', async () => {
+				const { violations } = await axe.run(container)
+				expect(violations).toHaveLength(0)
 			})
 
 			test('has a role="tablist" with the correct properties', () => {
@@ -325,11 +322,11 @@ describe('<Tabs />', () => {
 		)
 
 		const targetElement = screen.queryByRole('tablist').parentElement
-		expect(targetElement).toHaveClass('showAnchorLine')
+		expect(targetElement).toHaveClass(/showAnchorLine/)
 	})
 
 	test('the `onChange` callback is called with the new tabIndex', async () => {
-		const onChange = jest.fn()
+		const onChange = vi.fn()
 
 		render(
 			<TabProvider>

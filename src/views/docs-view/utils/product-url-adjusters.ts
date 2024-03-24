@@ -4,7 +4,6 @@
  */
 
 import isAbsoluteUrl from 'lib/is-absolute-url'
-import { rewriteWaypointPluginsToIntegrations } from 'lib/content-adjustments'
 import { productSlugs, productSlugsToHostNames } from 'lib/products'
 import { ProductData } from 'types/products'
 import { SectionOption } from 'lib/learn-client/types'
@@ -51,18 +50,8 @@ export function getProductUrlAdjuster(
 	/**
 	 * All other products need their docs routes prefixed, as within docs
 	 * content, authors write links as if URLs are on the dot-io sites.
-	 * For example, in Waypoint content, authors write URLs like
-	 * "/docs/some-waypoint-page", which need to be adjusted to be
-	 * "/waypoint/docs/some-waypoint-page".
 	 */
-	return (url: string) => {
-		// Do the base docs adjustment
-		let adjustedUrl = rewriteDocsUrl(url, productData)
-		// We also have some product-specific, post-adjustment rewrites to apply
-		adjustedUrl = rewriteWaypointPluginsToIntegrations(adjustedUrl)
-		// Return the final URL
-		return adjustedUrl
-	}
+	return (url: string) => rewriteDocsUrl(url, productData)
 }
 
 /**

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import * as MDX from '@mdx-js/react'
@@ -32,7 +37,7 @@ describe('serialize', () => {
 		}
 		const result = await renderStatic('~> hello', options)
 		expect(result).toMatchInlineSnapshot(
-			`"<div class=\\"alert alert-warning g-type-body\\"><p>hello</p></div>"`
+			`"<div class=\"alert alert-warning g-type-body\"><p>hello</p></div>"`
 		)
 		expect(options.mdxOptions.remarkPlugins.length).toBe(1)
 	})
@@ -122,7 +127,7 @@ foo **bar**
 
 export const foo = 'bar'`
 
-		const resultA = await serialize(mdx, { target: 'esnext' })
+		const resultA = await serialize(mdx, { target: 'es5' })
 		const resultB = await serialize(mdx)
 
 		expect(resultA).not.toEqual(resultB)

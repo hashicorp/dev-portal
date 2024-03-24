@@ -12,10 +12,12 @@ import { remarkPluginInjectImageDimensions, getUrlWithDimensions } from '..'
 const probeDimensions = { width: '500', height: '300' }
 
 // Mock the external call to get dimensions
-jest.mock('probe-image-size', () => {
-	return jest.fn(() => {
-		return probeDimensions
-	})
+vi.mock('probe-image-size', () => {
+	return {
+		default: vi.fn(() => {
+			return probeDimensions
+		}),
+	}
 })
 
 describe('remarkPluginInjectImageDimensions', () => {
