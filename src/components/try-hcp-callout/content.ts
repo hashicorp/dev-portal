@@ -23,7 +23,7 @@ export const tryHcpCalloutContent: Record<
 	HcpCalloutContent
 > = {
 	terraform: {
-		heading: 'Terraform Cloud',
+		heading: 'HCP Terraform',
 		description: 'Automate your infrastructure provisioning at any scale',
 		ctaText: 'Try HCP Terraform for free',
 		ctaUrl: 'https://app.terraform.io/public/signup/account',
