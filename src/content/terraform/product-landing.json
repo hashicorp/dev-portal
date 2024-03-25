@@ -31,7 +31,7 @@
 			},
 			{
 				"icon": "terraform-color",
-				"text": "Terraform Cloud",
+				"text": "HCP Terraform",
 				"url": "/terraform/tutorials/cloud-get-started"
 			},
 			{
@@ -72,7 +72,7 @@
 					"url": "/terraform/cli"
 				},
 				{
-					"heading": "Terraform Cloud",
+					"heading": "HCP Terraform",
 					"body": "Collaborate with your team to provision infrastructure.",
 					"url": "/terraform/cloud-docs"
 				}
