@@ -5,7 +5,7 @@
 			"label": "Homebrew",
 			"commands": [
 				"brew tap hashicorp/tap",
-				"brew install hashicorp/tap/hashicorp-vagrant"
+				"brew install hashicorp/tap/vagrant"
 			],
 			"os": "darwin"
 		}
