@@ -47,9 +47,9 @@ export const tryHcpCalloutContent: Record<
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 	},
 	vault: {
-		heading: 'HCP Vault',
+		heading: 'HCP Vault Dedicated',
 		description: 'Secure your applications and protect sensitive data',
-		ctaText: 'Try HCP Vault for free',
+		ctaText: 'Try HCP Vault Dedicated for free',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 	},
 	waypoint: {
