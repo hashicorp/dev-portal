@@ -32,7 +32,7 @@ export const RESOURCES = [
 export const EDITIONS = [
 	{ value: 'open_source', label: 'Community' },
 	{ value: 'enterprise', label: 'Enterprise' },
-	{ value: 'tfc', label: 'Terraform Cloud' },
+	{ value: 'tfc', label: 'HCP Terraform' },
 	{ value: 'hcp', label: 'HashiCorp Cloud Platform (HCP)' },
 ]
 
