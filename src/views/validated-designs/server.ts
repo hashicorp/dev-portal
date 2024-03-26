@@ -246,9 +246,7 @@ export async function getHvdGuidePropsFromSlug(
 
 						const anchorLinks: AnchorLinkItem[] = []
 
-						let pageTitle
-						let pageDescription
-						let mdxSource
+						let pageTitle, pageDescription, mdxSource
 						try {
 							const { data: frontMatter, content } = grayMatter(mdxFileString)
 							pageTitle = frontMatter?.title
