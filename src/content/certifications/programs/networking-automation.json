@@ -13,9 +13,11 @@
 			"title": "Consul Associate",
 			"examCode": "003",
 			"productSlug": "consul",
-			"versionTested": "Consul 1.11 or higher",
+			"versionTested": "Product version tested: Consul 1.15 or higher",
 			"description": "The Consul Associate 003 is an upcoming certification for site reliability engineers (SREs), solutions architects (SAs), DevOps professionals, or other cloud engineers who know HashiCorp Consul fundamentals and have the skills to build, secure, and maintain Consul. Candidates will be best prepared for this exam if they have professional experience using Consul in production, but performing the exam objectives in a personal demo environment may also be sufficient. This person understands available Consul Enterprise features and can differentiate between Enterprise and Community Edition.",
 			"faqSlug": "consul-associate-003"
+			"links": {
+				"prepare": "/consul/tutorials/certification-003"
 		},
 		{
 			"title": "Consul Associate",
