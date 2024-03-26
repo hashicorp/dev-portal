@@ -5,8 +5,16 @@
 
 import { getHvdCategoryGroups } from 'views/validated-designs/server'
 import ValidatedDesignsLandingView from 'views/validated-designs'
+import { extractingHvdContent } from '@scripts/extract-hvd-content'
 
 export async function getStaticProps() {
+	const extractionResults = await extractingHvdContent
+	if (extractionResults.status === 'failure') {
+		return {
+			notFound: true,
+		}
+	}
+
 	const categoryGroups = getHvdCategoryGroups()
 	if (!categoryGroups) {
 		return {
