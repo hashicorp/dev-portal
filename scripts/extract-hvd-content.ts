@@ -37,7 +37,7 @@ const HVD_REPO_DIR = path.join(
  * Detect whether we are in the hashicorp/hvd-docs repo directly
  * and if so use the local path defined in the build or start script.
  *
- * Otherwise, use the path generated from the `extractHvdContent` script
+ * Otherwise, use the path generated from the `extractingHvdContent` script
  */
 export const HVD_CONTENT_DIR =
 	process.env.LOCAL_CONTENT_DIR ||
