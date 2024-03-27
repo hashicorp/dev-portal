@@ -5,10 +5,10 @@
 
 import { getHvdCategoryGroups } from 'views/validated-designs/server'
 import ValidatedDesignsLandingView from 'views/validated-designs'
-import { extractingHvdContent } from '@scripts/extract-hvd-content'
+import { getHvdExtractionStatus } from '@scripts/extract-hvd-content'
 
 export async function getStaticProps() {
-	const extractionResults = await extractingHvdContent
+	const extractionResults = await getHvdExtractionStatus()
 	if (extractionResults.status === 'failure') {
 		return {
 			notFound: true,
