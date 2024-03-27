@@ -57,9 +57,12 @@ function getHvdExtractionStatus() {
 		return hvdExtractionStatus
 	}
 
+	console.warn('getHvdExtractionStatus singleton')
+
 	hvdExtractionStatus = new Promise<{
 		status: 'success' | 'failure'
 	}>(async (resolve, _) => {
+		console.warn('hvdExtractionStatus promise started')
 		// Skip extraction if content has already been loaded in development.
 		// This is unique to development, because in development SSR is rerun on every request
 		if (
