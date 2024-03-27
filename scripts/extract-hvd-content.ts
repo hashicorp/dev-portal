@@ -59,6 +59,13 @@ export const HVD_FINAL_IMAGE_ROOT_DIR = '.extracted/hvd'
 		return
 	}
 
+	if (fs.existsSync(HVD_REPO_DIR)) {
+		console.log(
+			`Note: HVD content already exists at ${HVD_REPO_DIR}. Skipping extraction.`
+		)
+		return
+	}
+
 	// Ensure an enclosing content directory exists for HVD content
 	fs.mkdirSync(HVD_REPO_DIR, { recursive: true })
 	// Extract HVD repo contents into the `src/content` directory
