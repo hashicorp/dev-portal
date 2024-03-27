@@ -21,8 +21,14 @@
 			"@build-libs/*": ["../build-libs/*"],
 			"@components/*": ["components/*"]
 		},
-		"types": ["vitest/globals", "@testing-library/jest-dom"]
+		"types": ["vitest/globals", "@testing-library/jest-dom"],
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"strictNullChecks": false
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
 	"exclude": ["node_modules", "scripts/migrate-io/templates"]
 }

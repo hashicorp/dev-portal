@@ -85,6 +85,7 @@ export default function App({
 	return (
 		<QueryClientProvider client={queryClient}>
 			<SSRProvider>
+				{/* @ts-expect-error These are external packages */}
 				<QueryParamProvider adapter={NextAdapter}>
 					<ErrorBoundary FallbackComponent={DevDotClient}>
 						<FlagBagProvider value={flagBag}>

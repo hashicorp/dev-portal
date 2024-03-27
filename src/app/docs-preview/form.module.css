@@ -1,0 +1,33 @@
+.formContainer {
+	display: grid;
+	grid-template-columns: 1fr 680px;
+	gap: 32px;
+	padding: 32px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+
+	& textarea {
+		margin-top: 16px;
+		flex: 1;
+		padding: var(--token-form-control-padding);
+		color: var(--token-form-control-base-foreground-value-color);
+		background-color: var(--token-form-control-base-surface-color-default);
+		border: var(--token-form-control-border-width) solid
+			var(--token-form-control-base-border-color-default);
+		border-radius: var(--token-form-control-border-radius);
+		box-shadow: var(--token-elevation-inset-box-shadow);
+
+		&:focus {
+			border-color: var(--token-color-focus-action-internal);
+			outline: 3px solid var(--token-color-focus-action-external);
+			outline-offset: 0;
+		}
+	}
+}
+
+.content {
+	margin-bottom: 64px !important;
+}

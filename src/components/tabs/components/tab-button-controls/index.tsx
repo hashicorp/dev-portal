@@ -96,9 +96,9 @@ function TabButtonControls({
 						onClick={() => setActiveTabIndex(index)}
 						onKeyDown={handleKeyDown}
 						onKeyUp={handleKeyUp}
-						ref={(element: HTMLButtonElement) =>
-							(buttonElements.current[index] = element)
-						}
+						ref={(element: HTMLButtonElement) => {
+							buttonElements.current[index] = element
+						}}
 						role="tab"
 						tabIndex={isActive ? 0 : -1}
 						type="button"
