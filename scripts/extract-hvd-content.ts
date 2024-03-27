@@ -71,7 +71,7 @@ function getHvdExtractionStatus() {
 		}
 
 		// Skip extraction in deploy previews
-		if (isDeployPreview()) {
+		if (isDeployPreview('hvd-docs')) {
 			resolve({ status: 'success' })
 			return
 		}
@@ -89,8 +89,6 @@ function getHvdExtractionStatus() {
 
 		// Extract HVD repo contents into the `src/content` directory
 		try {
-			throw new Error('Not implemented')
-
 			// Fetch a zip archive of the repo contents
 			const contentZip = await fetchGithubArchiveZip(BASE_REPO_CONFIG)
 			/**
@@ -139,8 +137,6 @@ function getHvdExtractionStatus() {
 
 			resolve({ status: 'success' })
 		} catch (error) {
-			resolve({ status: 'failure' })
-
 			/**
 			 * When authors are running locally from content repos,
 			 * we want to ignore errors.
@@ -153,10 +149,9 @@ function getHvdExtractionStatus() {
 				console.log(
 					`Note: HVD content was not extracted, and will not be built. If you need to work on HVD content, please ensure a valid GITHUB_TOKEN is present in your environment variables. Error: ${error}`
 				)
-				return
 			}
 
-			throw error
+			resolve({ status: 'failure' })
 		}
 	})
 

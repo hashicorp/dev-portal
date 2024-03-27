@@ -10,7 +10,10 @@ import { getHvdExtractionStatus } from '@scripts/extract-hvd-content'
 export async function getStaticProps() {
 	const extractionResults = await getHvdExtractionStatus()
 	if (extractionResults.status === 'failure') {
-		throw new Error('Failed to extract HVD content')
+		if (!process.env.IS_CONTENT_PREVIEW) {
+			// We need to throw an error here because next.js does not fail to build when modules, such as getHvdExtractionStatus, error out
+			throw new Error('Failed to extract HVD content')
+		}
 
 		return {
 			notFound: true,
