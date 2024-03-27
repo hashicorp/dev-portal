@@ -13,6 +13,7 @@ import { getHashiConfig } from '../config'
 
 const env = process.env.HASHI_ENV || 'development'
 const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
+
 const __config = unflatten(getHashiConfig(envConfigPath))
 
 export const BASE_REPO_CONFIG = {
@@ -37,7 +38,7 @@ const HVD_REPO_DIR = path.join(
  * Detect whether we are in the hashicorp/hvd-docs repo directly
  * and if so use the local path defined in the build or start script.
  *
- * Otherwise, use the path generated from the `extractingHvdContent` script
+ * Otherwise, use the path generated from the `extractHvdContent` script
  */
 export const HVD_CONTENT_DIR =
 	process.env.LOCAL_CONTENT_DIR ||
@@ -45,24 +46,23 @@ export const HVD_CONTENT_DIR =
 
 export const HVD_FINAL_IMAGE_ROOT_DIR = '.extracted/hvd'
 
-const alreadyLoadedDevEnvKey = 'ALREADY_LOADED_HVD_IN_DEV'
-
 /**
- * This script extracts HVD content from the `hvd-docs` repo into the local filesystem that `dev-portal` can access.
+ * This script extracts HVD content from the `hashicorp-validated-designs`
+ * GitHub organization into the local filesystem that `dev-portal` can access.
  */
-export const extractingHvdContent = new Promise<{
-	status: 'success' | 'failure'
-}>(async (resolve, _) => {
-	// Skip extraction if content has already been loaded in development.
-	// This is unique to development, because in development SSR is rerun on every request
-	if (env === 'development' && process.env[alreadyLoadedDevEnvKey] === 'true') {
-		resolve({ status: 'success' })
+;(async function extractHvdContent() {
+	// Skip extraction in deploy previews
+	if (isDeployPreview()) {
+		console.log(
+			'Note: content repo deploy preview detected. Skipping HVD content.'
+		)
 		return
 	}
 
-	// Skip extraction in deploy previews
-	if (isDeployPreview()) {
-		resolve({ status: 'success' })
+	if (fs.existsSync(HVD_REPO_DIR)) {
+		console.log(
+			`Note: HVD content already exists at ${HVD_REPO_DIR}. Skipping extraction.`
+		)
 		return
 	}
 
@@ -80,9 +80,6 @@ export const extractingHvdContent = new Promise<{
 		 * directory with a convoluted name including the repo org, name, and sha.
 		 * We shift some content to avoid this convolution.
 		 */
-
-		// Clear out the target directory, may be present from previous runs
-		fs.rmSync(HVD_REPO_DIR, { recursive: true, force: true })
 		// Extract into a temporary directory initially, we'll clean this up
 		const tempDestination = HVD_REPO_DIR + '_temp'
 		contentZip.extractAllTo(tempDestination, true)
@@ -104,20 +101,7 @@ export const extractingHvdContent = new Promise<{
 			HVD_FINAL_IMAGE_ROOT_DIR
 		)
 		fs.cpSync(imageLocation, imageDestination, { recursive: true })
-
-		if (env === 'development') {
-			console.log(
-				'Loaded HVD content. Note this content will not be updated until "npm run start" is run again.'
-			)
-
-			// This is a hack to preserve some state between server restarts, as we cannot rely on JS variables persisting across restarts
-			process.env[alreadyLoadedDevEnvKey] = 'true'
-		}
-
-		resolve({ status: 'success' })
 	} catch (error) {
-		resolve({ status: 'failure' })
-
 		/**
 		 * When authors are running locally from content repos,
 		 * we want to ignore errors.
@@ -130,9 +114,8 @@ export const extractingHvdContent = new Promise<{
 			console.log(
 				`Note: HVD content was not extracted, and will not be built. If you need to work on HVD content, please ensure a valid GITHUB_TOKEN is present in your environment variables. Error: ${error}`
 			)
-			return
+		} else {
+			throw error
 		}
-
-		throw error
 	}
-})
+})()
