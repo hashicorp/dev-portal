@@ -46,6 +46,8 @@ export const HVD_CONTENT_DIR =
 
 export const HVD_FINAL_IMAGE_ROOT_DIR = '.extracted/hvd'
 
+const alreadyLoadedDevEnvKey = 'ALREADY_LOADED_HVD_IN_DEV'
+
 /**
  * This script extracts HVD content from the `hashicorp-validated-designs`
  * GitHub organization into the local filesystem that `dev-portal` can access.
@@ -55,6 +57,13 @@ export const HVD_FINAL_IMAGE_ROOT_DIR = '.extracted/hvd'
 	if (isDeployPreview()) {
 		console.log(
 			'Note: content repo deploy preview detected. Skipping HVD content.'
+		)
+		return
+	}
+
+	if (process.env[alreadyLoadedDevEnvKey]) {
+		console.log(
+			'skipping HVD content extraction, already loaded in dev environment.'
 		)
 		return
 	}
@@ -96,6 +105,8 @@ export const HVD_FINAL_IMAGE_ROOT_DIR = '.extracted/hvd'
 			HVD_FINAL_IMAGE_ROOT_DIR
 		)
 		fs.cpSync(imageLocation, imageDestination, { recursive: true })
+
+		process.env[alreadyLoadedDevEnvKey] = 'true'
 	} catch (error) {
 		/**
 		 * When authors are running locally from content repos,
