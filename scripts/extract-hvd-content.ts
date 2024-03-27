@@ -89,6 +89,8 @@ function getHvdExtractionStatus() {
 
 		// Extract HVD repo contents into the `src/content` directory
 		try {
+			throw new Error('Not implemented')
+
 			// Fetch a zip archive of the repo contents
 			const contentZip = await fetchGithubArchiveZip(BASE_REPO_CONFIG)
 			/**
