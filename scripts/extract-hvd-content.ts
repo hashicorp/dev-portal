@@ -78,6 +78,8 @@ function getHvdExtractionStatus() {
 
 		// Extract HVD repo contents into the `src/content` directory
 		try {
+			throw new Error('HVD content extraction is disabled')
+
 			// Clear out the target directory, may be present from previous runs
 			if (fs.existsSync(HVD_REPO_DIR)) {
 				fs.rmSync(HVD_REPO_DIR, {
