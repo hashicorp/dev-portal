@@ -20,7 +20,7 @@ import grayMatter from 'gray-matter'
 import { ProductSlug } from 'types/products'
 import { OutlineLinkItem } from 'components/outline-nav/types'
 
-const BASE_PATH = '/validated-designs'
+const basePath = '/validated-designs'
 
 function loadMetadata(
 	path: string
@@ -37,7 +37,6 @@ function loadMetadata(
 			'[Error: HVD template] Unable to parse yaml metadata file ',
 			e
 		)
-
 		return null
 	}
 }
@@ -46,6 +45,7 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 	let hvdRepoContents
 
 	try {
+		console.info('[HVD]: reading from content directory ', HVD_CONTENT_DIR)
 		hvdRepoContents = fs.readdirSync(HVD_CONTENT_DIR, {
 			recursive: true,
 			encoding: 'utf-8',
@@ -143,35 +143,16 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 					.substring(pageFileName.indexOf('-') + 1)
 					.toLocaleLowerCase()
 
-				let pageTitle
-				try {
-					const pageMDXString = fs.readFileSync(filePath, 'utf8')
-					const { data: frontMatter } = grayMatter(pageMDXString)
-					pageTitle = frontMatter?.title
-
-					if (process.env.HASHI_ENV !== 'production' && !pageTitle) {
-						pageTitle = '⛔ ERROR NO MARKDOWN TITLE ⛔'
-
-						console.error(
-							`No title or description found in markdown frontmatter: ${pageFileName}`
-						)
-					} else if (!pageTitle) {
-						throw new Error('No title found in markdown frontmatter')
-					}
-				} catch (e) {
-					console.error(
-						`[Error: HVD template] Unable to parse markdown file: ${pageFileName}`,
-						e
-					)
-
-					return null
-				}
+				// TODO: this should be guarded with a try catch
+				const pageMDXString = fs.readFileSync(filePath, 'utf8')
+				const { data: frontMatter } = grayMatter(pageMDXString)
 
 				return {
 					slug: pageSlug,
-					title: pageTitle,
+					// this is temporary as we should always have these fields in the markdown
+					title: frontMatter?.title || '⛔ ERROR NO MARKDOWN TITLE ⛔',
 					filePath,
-					href: `${BASE_PATH}/${categorySlug}/${pageSlug}`,
+					href: `${basePath}/${categorySlug}/${pageSlug}`,
 				}
 			})
 
@@ -179,7 +160,7 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 				slug: categorySlug,
 				title: metadata.title,
 				description: metadata.description,
-				href: `${BASE_PATH}/${categorySlug}`,
+				href: `${basePath}/${categorySlug}`,
 				pages,
 			})
 		}
@@ -219,7 +200,7 @@ export async function getHvdGuidePropsFromSlug(
 		},
 		headers: [],
 		currentPageIndex: 0,
-		basePath: BASE_PATH,
+		basePath,
 		pages: [],
 	}
 
@@ -240,52 +221,20 @@ export async function getHvdGuidePropsFromSlug(
 							mdxFileString = fs.readFileSync(page.filePath, 'utf8')
 						} catch (err) {
 							console.error(err)
-
 							return null
 						}
 
 						const anchorLinks: AnchorLinkItem[] = []
+						const { data: frontMatter, content } = grayMatter(mdxFileString)
 
-						let pageTitle, pageDescription, mdxSource
-						try {
-							const { data: frontMatter, content } = grayMatter(mdxFileString)
-							pageTitle = frontMatter?.title
-							pageDescription = frontMatter?.description
-
-							if (
-								process.env.HASHI_ENV !== 'production' &&
-								(!pageTitle || !pageDescription)
-							) {
-								pageTitle = pageTitle ?? '⛔ ERROR NO MARKDOWN TITLE ⛔'
-								pageDescription =
-									pageDescription ?? '⛔ ERROR NO MARKDOWN DESCRIPTION ⛔'
-
-								console.error(
-									`No title or description found in markdown frontmatter: ${page.filePath}`
-								)
-							} else if (!pageTitle || !pageDescription) {
-								throw new Error(
-									'No title or description found in markdown frontmatter'
-								)
-							}
-
-							mdxSource = await serialize(content, {
-								mdxOptions: {
-									remarkPlugins: [
-										[remarkPluginAnchorLinkData, { anchorLinks }],
-										rewriteStaticHVDAssetsPlugin,
-									],
-								},
-							})
-						} catch (e) {
-							const fileName = page.filePath.split('/').pop()
-							console.error(
-								`[Error: HVD template] Unable to parse markdown file: ${fileName}`,
-								e
-							)
-
-							return null
-						}
+						const mdxSource = await serialize(content, {
+							mdxOptions: {
+								remarkPlugins: [
+									[remarkPluginAnchorLinkData, { anchorLinks }],
+									rewriteStaticHVDAssetsPlugin,
+								],
+							},
+						})
 
 						// only show heading level 1 & 2
 						const headers = anchorLinks.reduce(
@@ -304,8 +253,13 @@ export async function getHvdGuidePropsFromSlug(
 
 						validatedDesignsGuideProps.headers = headers
 						validatedDesignsGuideProps.metadata = {
-							description: pageDescription,
-							title: pageTitle,
+							// this is temporary as we should always have these fields in the markdown
+							description:
+								frontMatter?.description ||
+								'⛔ ERROR NO MARKDOWN DESCRIPTION ⛔',
+							title: frontMatter?.title
+								? `${guide.title} | ${frontMatter?.title}`
+								: '⛔ ERROR NO MARKDOWN TITLE ⛔',
 						}
 						validatedDesignsGuideProps.markdown = {
 							mdxSource,

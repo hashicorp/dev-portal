@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { extractingHvdContent } from '@scripts/extract-hvd-content'
 import ValidatedDesignGuideView from 'views/validated-designs/guide'
 import {
 	getHvdCategoryGroups,
@@ -12,19 +11,12 @@ import {
 } from 'views/validated-designs/server'
 
 export async function getStaticPaths() {
-	const failureState = {
-		paths: [],
-		fallback: false,
-	}
-
-	const extractionResults = await extractingHvdContent
-	if (extractionResults.status === 'failure') {
-		return failureState
-	}
-
 	const categoryGroups = getHvdCategoryGroups()
 	if (!categoryGroups) {
-		return failureState
+		return {
+			paths: [],
+			fallback: false,
+		}
 	}
 
 	const pagePaths = getHvdCategoryGroupsPaths(categoryGroups)
@@ -42,24 +34,19 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-	const failureState = {
-		notFound: true,
-	}
-
-	const extractionResults = await extractingHvdContent
-	if (extractionResults.status === 'failure') {
-		return failureState
-	}
-
 	const categoryGroups = getHvdCategoryGroups()
 	if (!categoryGroups) {
-		return failureState
+		return {
+			notFound: true,
+		}
 	}
 
 	const slug = context.params.slug
 	const props = await getHvdGuidePropsFromSlug(categoryGroups, slug)
 	if (!props) {
-		return failureState
+		return {
+			notFound: true,
+		}
 	}
 
 	return {
