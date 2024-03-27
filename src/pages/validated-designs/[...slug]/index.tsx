@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { extractingHvdContent } from '@scripts/extract-hvd-content'
+import { getHvdExtractionStatus } from '@scripts/extract-hvd-content'
 import ValidatedDesignGuideView from 'views/validated-designs/guide'
 import {
 	getHvdCategoryGroups,
@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 		fallback: false,
 	}
 
-	const extractionResults = await extractingHvdContent
+	const extractionResults = await getHvdExtractionStatus()
 	if (extractionResults.status === 'failure') {
 		return failureState
 	}
@@ -46,7 +46,7 @@ export async function getStaticProps(context) {
 		notFound: true,
 	}
 
-	const extractionResults = await extractingHvdContent
+	const extractionResults = await getHvdExtractionStatus()
 	if (extractionResults.status === 'failure') {
 		return failureState
 	}
