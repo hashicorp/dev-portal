@@ -98,7 +98,7 @@ export const extractingHvdContent = new Promise<{
 		// Move the convolutedly named folder out of temp, rename it predictably
 		const convolutedName = fs.readdirSync(tempDestination)[0]
 		const convolutedDir = path.join(tempDestination, convolutedName)
-		fs.renameSync(convolutedDir, HVD_REPO_DIR)
+		fs.cpSync(convolutedDir, HVD_REPO_DIR, { recursive: true, force: true })
 
 		// Clean up the temporary directory
 		fs.rmSync(tempDestination, { recursive: true, force: true })
