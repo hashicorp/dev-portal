@@ -76,19 +76,19 @@ function getHvdExtractionStatus() {
 			return
 		}
 
-		// Clear out the target directory, may be present from previous runs
-		if (fs.existsSync(HVD_REPO_DIR)) {
-			fs.rmSync(HVD_REPO_DIR, {
-				recursive: true,
-				force: true,
-			})
-		}
-
-		// Ensure an enclosing content directory exists for HVD content
-		fs.mkdirSync(HVD_REPO_DIR, { recursive: true })
-
 		// Extract HVD repo contents into the `src/content` directory
 		try {
+			// Clear out the target directory, may be present from previous runs
+			if (fs.existsSync(HVD_REPO_DIR)) {
+				fs.rmSync(HVD_REPO_DIR, {
+					recursive: true,
+					force: true,
+				})
+			}
+
+			// Ensure an enclosing content directory exists for HVD content
+			fs.mkdirSync(HVD_REPO_DIR, { recursive: true })
+
 			// Fetch a zip archive of the repo contents
 			const contentZip = await fetchGithubArchiveZip(BASE_REPO_CONFIG)
 			/**
