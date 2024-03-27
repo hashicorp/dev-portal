@@ -312,8 +312,8 @@ export const sortAndFilterReleaseVersions = ({
 	releaseVersions: Record<string, ReleaseVersion>
 	isEnterpriseMode: boolean
 }): ReleaseVersion[] => {
-	const filteredVersionStrings = Object.keys(releaseVersions).filter(
-		(version: string) => {
+	const filteredVersionStrings = Object.values(releaseVersions)
+		.filter(({ version, builds }) => {
 			// Filter out invalid semver
 			const isInvalidSemver = semverValid(version) == null
 			if (isInvalidSemver) {
@@ -323,6 +323,12 @@ export const sortAndFilterReleaseVersions = ({
 			// Filter out prereleases
 			const isPrerelease = semverPrerelease(version) !== null
 			if (isPrerelease) {
+				return false
+			}
+
+			// Filter out releases without builds
+			const hasBuilds = builds && builds.length > 0
+			if (!hasBuilds) {
 				return false
 			}
 
@@ -337,8 +343,9 @@ export const sortAndFilterReleaseVersions = ({
 				const { build } = semverParse(version)
 				return build.length === 0
 			}
-		}
-	)
+		})
+		.map(({ version }) => version)
+
 	const sortedVersionStrings = semverRSort(filteredVersionStrings)
 	const sortedAndFilteredVersions = sortedVersionStrings.map(
 		(version: string) => releaseVersions[version]
