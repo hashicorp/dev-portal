@@ -33,6 +33,8 @@ const HVD_REPO_DIR = path.join(
 	'src/.extracted/hashicorp-validated-designs'
 )
 
+const ALREADY_LOADED_HVD_IN_DEV = 'ALREADY_LOADED_HVD_IN_DEV'
+
 /**
  * Detect whether we are in the hashicorp/hvd-docs repo directly
  * and if so use the local path defined in the build or start script.
@@ -45,15 +47,12 @@ export const HVD_CONTENT_DIR =
 
 export const HVD_FINAL_IMAGE_ROOT_DIR = '.extracted/hvd'
 
-const alreadyLoadedDevEnvKey = 'ALREADY_LOADED_HVD_IN_DEV'
-
+// wrap HVD extraction in a singleton to avoid multiple extractions
 let hvdExtractionStatus: null | Promise<{
 	status: 'success' | 'failure'
 }>
 
-// wrap HVD extraction in a singleton to avoid multiple extractions
 function getHvdExtractionStatus() {
-	console.warn('getHvdExtractionStatus singleton')
 	if (hvdExtractionStatus) {
 		return hvdExtractionStatus
 	}
@@ -61,13 +60,11 @@ function getHvdExtractionStatus() {
 	hvdExtractionStatus = new Promise<{
 		status: 'success' | 'failure'
 	}>(async (resolve, _) => {
-		console.warn('getHvdExtractionStatus promise creation')
-
 		// Skip extraction if content has already been loaded in development.
 		// This is unique to development, because in development SSR is rerun on every request
 		if (
 			env === 'development' &&
-			process.env[alreadyLoadedDevEnvKey] === 'true'
+			process.env[ALREADY_LOADED_HVD_IN_DEV] === 'true'
 		) {
 			resolve({ status: 'success' })
 			return
@@ -135,7 +132,7 @@ function getHvdExtractionStatus() {
 				)
 
 				// This is a hack to preserve some state between server restarts, as we cannot rely on JS variables persisting across restarts
-				process.env[alreadyLoadedDevEnvKey] = 'true'
+				process.env[ALREADY_LOADED_HVD_IN_DEV] = 'true'
 			}
 
 			resolve({ status: 'success' })
