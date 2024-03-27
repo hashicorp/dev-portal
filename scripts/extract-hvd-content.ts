@@ -53,6 +53,8 @@ const alreadyLoadedDevEnvKey = 'ALREADY_LOADED_HVD_IN_DEV'
 export const extractingHvdContent = new Promise<{
 	status: 'success' | 'failure'
 }>(async (resolve, _) => {
+	console.warn('extractingHvdContent promise fired')
+
 	// Skip extraction if content has already been loaded in development.
 	// This is unique to development, because in development SSR is rerun on every request
 	if (env === 'development' && process.env[alreadyLoadedDevEnvKey] === 'true') {
@@ -66,10 +68,18 @@ export const extractingHvdContent = new Promise<{
 		return
 	}
 
+	// Clear out the target directory, may be present from previous runs
+	if (fs.existsSync(HVD_REPO_DIR)) {
+		fs.rmSync(HVD_REPO_DIR, {
+			recursive: true,
+			force: true,
+		})
+	}
+
 	// Ensure an enclosing content directory exists for HVD content
 	fs.mkdirSync(HVD_REPO_DIR, { recursive: true })
-	// Extract HVD repo contents into the `src/content` directory
 
+	// Extract HVD repo contents into the `src/content` directory
 	try {
 		// Fetch a zip archive of the repo contents
 		const contentZip = await fetchGithubArchiveZip(BASE_REPO_CONFIG)
@@ -81,17 +91,17 @@ export const extractingHvdContent = new Promise<{
 		 * We shift some content to avoid this convolution.
 		 */
 
-		// Clear out the target directory, may be present from previous runs
-		fs.rmSync(HVD_REPO_DIR, { recursive: true, force: true })
 		// Extract into a temporary directory initially, we'll clean this up
 		const tempDestination = HVD_REPO_DIR + '_temp'
 		contentZip.extractAllTo(tempDestination, true)
+
 		// Move the convolutedly named folder out of temp, rename it predictably
 		const convolutedName = fs.readdirSync(tempDestination)[0]
 		const convolutedDir = path.join(tempDestination, convolutedName)
 		fs.renameSync(convolutedDir, HVD_REPO_DIR)
+
 		// Clean up the temporary directory
-		fs.rmSync(tempDestination, { recursive: true })
+		fs.rmSync(tempDestination, { recursive: true, force: true })
 
 		/**
 		 * Copy all image files into the `public` directory,
@@ -103,7 +113,7 @@ export const extractingHvdContent = new Promise<{
 			'public/',
 			HVD_FINAL_IMAGE_ROOT_DIR
 		)
-		fs.cpSync(imageLocation, imageDestination, { recursive: true })
+		fs.cpSync(imageLocation, imageDestination, { recursive: true, force: true })
 
 		if (env === 'development') {
 			console.log(
