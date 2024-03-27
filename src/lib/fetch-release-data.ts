@@ -27,14 +27,16 @@ export interface ReleaseVersion {
 	version: Version
 	shasums: string
 	shasums_signature: string
-	builds: {
-		name: HashiCorpProduct
-		version: Version
-		os: OperatingSystem
-		arch: string
-		filename: string
-		url: string
-	}[]
+	builds:
+		| {
+				name: HashiCorpProduct
+				version: Version
+				os: OperatingSystem
+				arch: string
+				filename: string
+				url: string
+		  }[]
+		| null
 }
 export interface ReleasesAPIResponse {
 	name: HashiCorpProduct
@@ -61,34 +63,41 @@ const fetchWithRetry = makeFetchWithRetry(fetch, { retries: 3, delay: 1000 })
 // exclude pre-releases and such
 const validSemverRegex = /^\d+\.\d+\.\d+$/
 
-export function getLatestVersionFromVersions(versions: string[]): string {
+export function getLatestVersionFromVersions(
+	versions: ReleaseVersion[]
+): string {
 	// exclude pre-releases and/or versions with tags or extra metadata
-	const validVersions = versions.filter((version) =>
+	const validVersions = versions.filter(({ version }) =>
 		version.match(validSemverRegex)
 	)
 
 	// using the reverse sort here to get the latest version first
-	const [latestVersion] = semverSort(validVersions)
+	const [latestVersion] = semverSort(
+		validVersions.map(({ version }) => version)
+	)
 
 	return latestVersion
 }
 
 /**
- * Given an array of version strings,
- * Return the latest non-pre-release version string that represents
- * and enterprise version.
+ * Given an array of versions, return the latest non-pre-release version string
+ * that represents an enterprise version.
  */
 export function getLatestEnterpriseVersionFromVersions(
-	versions: string[]
+	versions: ReleaseVersion[]
 ): string {
 	/**
 	 * We want the latest valid enterprise versions,
 	 * and we want to exclude pre-releases.
 	 */
-	const relevantVersions = versions.filter((version: string) => {
+	const relevantVersions = versions.filter(({ version, builds }) => {
 		// First check if we're semver valid, if not, return early
 		const isValid = typeof semverValid(version) === 'string'
 		if (!isValid) {
+			return false
+		}
+		// Then check if we have builds, if not, return early
+		if (!Array.isArray(builds) || builds.length === 0) {
 			return false
 		}
 		// Next check that we have a stable enterprise release
@@ -100,7 +109,9 @@ export function getLatestEnterpriseVersionFromVersions(
 	/**
 	 * Return the first array item after reverse sorting to get the latest version
 	 */
-	const [latestVersion] = semverSort(relevantVersions)
+	const [latestVersion] = semverSort(
+		relevantVersions.map(({ version }) => version)
+	)
 	return latestVersion
 }
 
@@ -130,10 +141,10 @@ export function generateStaticProps(
 		}
 	)
 		.then((res) => res.json())
-		.then((result) => {
+		.then((result: ReleasesAPIResponse) => {
 			const latestVersion = isEnterpriseMode
-				? getLatestEnterpriseVersionFromVersions(Object.keys(result.versions))
-				: getLatestVersionFromVersions(Object.keys(result.versions))
+				? getLatestEnterpriseVersionFromVersions(Object.values(result.versions))
+				: getLatestVersionFromVersions(Object.values(result.versions))
 
 			return {
 				// 5 minutes

@@ -3,7 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { getLatestVersionFromVersions } from 'lib/fetch-release-data'
+import {
+	getLatestVersionFromVersions,
+	type ReleasesAPIResponse,
+} from 'lib/fetch-release-data'
 import { makeFetchWithRetry } from 'lib/fetch-with-retry'
 
 /**
@@ -27,7 +30,7 @@ export async function getLatestVagrantVmwareVersion(): Promise<string> {
 		},
 	})
 		.then((res) => res.json())
-		.then((result) => {
-			return getLatestVersionFromVersions(Object.keys(result.versions))
+		.then((result: ReleasesAPIResponse) => {
+			return getLatestVersionFromVersions(Object.values(result.versions))
 		})
 }
