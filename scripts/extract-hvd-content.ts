@@ -46,8 +46,6 @@ export const HVD_CONTENT_DIR =
 
 export const HVD_FINAL_IMAGE_ROOT_DIR = '.extracted/hvd'
 
-const alreadyLoadedDevEnvKey = 'ALREADY_LOADED_HVD_IN_DEV'
-
 /**
  * This script extracts HVD content from the `hashicorp-validated-designs`
  * GitHub organization into the local filesystem that `dev-portal` can access.
@@ -57,13 +55,6 @@ const alreadyLoadedDevEnvKey = 'ALREADY_LOADED_HVD_IN_DEV'
 	if (isDeployPreview()) {
 		console.log(
 			'Note: content repo deploy preview detected. Skipping HVD content.'
-		)
-		return
-	}
-
-	if (process.env[alreadyLoadedDevEnvKey]) {
-		console.log(
-			'skipping HVD content extraction, already loaded in dev environment.'
 		)
 		return
 	}
@@ -82,8 +73,6 @@ const alreadyLoadedDevEnvKey = 'ALREADY_LOADED_HVD_IN_DEV'
 		 * directory with a convoluted name including the repo org, name, and sha.
 		 * We shift some content to avoid this convolution.
 		 */
-		// Clear out the target directory, may be present from previous runs
-		fs.rmSync(HVD_REPO_DIR, { recursive: true, force: true })
 		// Extract into a temporary directory initially, we'll clean this up
 		const tempDestination = HVD_REPO_DIR + '_temp'
 		contentZip.extractAllTo(tempDestination, true)
@@ -105,8 +94,6 @@ const alreadyLoadedDevEnvKey = 'ALREADY_LOADED_HVD_IN_DEV'
 			HVD_FINAL_IMAGE_ROOT_DIR
 		)
 		fs.cpSync(imageLocation, imageDestination, { recursive: true })
-
-		process.env[alreadyLoadedDevEnvKey] = 'true'
 	} catch (error) {
 		/**
 		 * When authors are running locally from content repos,
