@@ -10,6 +10,8 @@ import { getHvdExtractionStatus } from '@scripts/extract-hvd-content'
 export async function getStaticProps() {
 	const extractionResults = await getHvdExtractionStatus()
 	if (extractionResults.status === 'failure') {
+		throw new Error('Failed to extract HVD content')
+
 		return {
 			notFound: true,
 		}
