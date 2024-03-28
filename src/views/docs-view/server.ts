@@ -164,10 +164,6 @@ export function getStaticGenerationFunctions<
 		getStaticProps: async (
 			ctx
 		): Promise<GetStaticPropsResult<DocsViewProps>> => {
-			const res = await fetch(
-				'https://content.hashicorp.com/api/content/consul/version-metadata?partial=true&file=server'
-			)
-			const data = await res.json()
 			const pathParts = (ctx.params.page || []) as string[]
 			const currentPathUnderProduct = `/${path.join(
 				basePathForLoader,

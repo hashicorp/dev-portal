@@ -76,10 +76,6 @@ export function getRootDocsPathGenerationFunctions(
 			context
 		): Promise<GetStaticPropsResult<DocsViewProps>> => {
 			// Generate getStaticPaths for this rootDocsPath
-			const res = await fetch(
-				'https://content.hashicorp.com/api/content/consul/version-metadata?partial=true&file=get-root-docs'
-			)
-			const data = await res.json()
 			const { getStaticProps } =
 				getStaticGenerationFunctions(staticFunctionConfig)
 			return await getStaticProps(context)
