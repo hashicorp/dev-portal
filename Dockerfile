@@ -1,19 +1,18 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 
-FROM docker.mirror.hashicorp.services/node:18.18.2-alpine AS deps
+FROM docker.mirror.hashicorp.services/node:18-buster AS deps
 
-RUN apk add --update --no-cache \
+RUN apt-get update
+
+RUN apt-get install -y -q \
 	autoconf \
 	automake \
-	bash \
-	git \
 	g++ \
 	libtool \
-	libc6-compat \
-	libjpeg-turbo-dev \
+	musl \
+	libjpeg62-turbo-dev \
 	libpng-dev \
-	make \
 	nasm
 
 WORKDIR /app
@@ -25,7 +24,7 @@ RUN npm install -g npm@9.8.1
 # - see https://github.com/imagemin/optipng-bin/issues/118
 RUN CPPFLAGS="-DPNG_ARM_NEON_OPT=0" npm install
 
-FROM docker.mirror.hashicorp.services/node:18-alpine AS builder
+FROM docker.mirror.hashicorp.services/node:18-buster AS builder
 
 RUN npm install -g npm@9.8.1
 
