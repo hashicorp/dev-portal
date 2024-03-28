@@ -188,7 +188,7 @@ const EXTRA_PAGES: Record<
 	terraform: [
 		{
 			icon: <IconDocs16 />,
-			text: 'Terraform Cloud',
+			text: 'HCP Terraform',
 			url: '/terraform/cloud-docs',
 		},
 		{
