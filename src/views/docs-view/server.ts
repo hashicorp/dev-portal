@@ -173,7 +173,8 @@ export function getStaticGenerationFunctions<
 
 			// Generate tutorial map once and then share it across all
 			// utilities that need it for the duration of this function.
-			const tutorialMap = await generateTutorialMap()
+			// const tutorialMap = await generateTutorialMap()
+			const tutorialMap = {}
 
 			const loader = getLoader({
 				mainBranch,
