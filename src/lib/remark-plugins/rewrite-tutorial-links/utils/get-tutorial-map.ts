@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import fetch from 'node-fetch'
 import moize, { Options } from 'moize'
 import { generateTutorialMap } from 'pages/api/tutorials-map'
 
