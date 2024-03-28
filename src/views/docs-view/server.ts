@@ -33,6 +33,7 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
+import { generateTutorialMap } from 'pages/api/tutorials-map'
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
@@ -170,6 +171,10 @@ export function getStaticGenerationFunctions<
 			)}`
 			const headings: AnchorLinksPluginHeading[] = [] // populated by anchorLinks plugin below
 
+			// Generate tutorial map once and then share it across all
+			// utilities that need it for the duration of this function.
+			const tutorialMap = await generateTutorialMap()
+
 			const loader = getLoader({
 				mainBranch,
 				remarkPlugins: [
@@ -191,7 +196,7 @@ export function getStaticGenerationFunctions<
 					 * `rewriteTutorialLinksPlugin` does not rewrite links like
 					 * `/waypoint` to `/waypoint/tutorials`.
 					 */
-					[rewriteTutorialLinksPlugin, { contentType: 'docs' }],
+					[rewriteTutorialLinksPlugin, { contentType: 'docs', tutorialMap }],
 					/**
 					 * Rewrite docs content links, which are authored without prefix.
 					 * For example, in Waypoint docs authors write "/docs/some-thing",
@@ -299,8 +304,8 @@ export function getStaticGenerationFunctions<
 				await prepareNavDataForClient({
 					basePaths: [product.slug, basePath],
 					nodes: navData,
+					tutorialMap,
 				})
-
 			/**
 			 * Figure out if a specific docs version is being viewed
 			 */
