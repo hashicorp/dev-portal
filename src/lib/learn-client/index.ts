@@ -2,6 +2,19 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
+function getFetch() {
+	// Note: purposely doing a conditional require here so that `@vercel/fetch` is not included in the client bundle
+	if (typeof window === 'undefined') {
+		// eslint-disable-next-line @typescript-eslint/no-var-requires
+		const createFetch = require('@vercel/fetch')
+		return createFetch()
+	}
+	return window.fetch
+}
+
+// some of our reqs occur in a node env where fetch
+// isn't defined e.g. algolia search script
+const fetch = getFetch()
 
 export function get(path: string, token?: string) {
 	const options: RequestInit = {
