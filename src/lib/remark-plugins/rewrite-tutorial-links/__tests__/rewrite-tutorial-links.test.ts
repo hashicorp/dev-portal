@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import nock from 'nock'
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { productSlugs, productSlugsToHostNames } from 'lib/products'
@@ -73,7 +72,6 @@ const TEST_MD_LINKS = {
 }
 
 /**
- * Mocks return value from 'api/tutorials-map' endpoint
  * When adding new MD_LINK tests, make sure the path is accounted for below
  *
  * [key: database tutorial slug]: value — dev dot absolute path
@@ -93,21 +91,13 @@ const MOCK_TUTORIALS_MAP = {
 // TESTS -----------------------------------------------------------------
 
 describe('rewriteTutorialLinks remark plugin', () => {
-	beforeEach(async () => {
-		// the api base url defaults to localhost when no VERCEL_URL is provided
-		const scope = nock('http://localhost:3000/api/tutorials-map')
-			.persist()
-			.get(/.*/)
-			.reply(200, MOCK_TUTORIALS_MAP)
-	})
-
 	test('Only internal Learn links are rewritten', async () => {
 		const contentsWithoutPlugin = await remark().process(
 			TEST_MD_LINKS.nonLearnLink
 		)
 
 		const contentsWithPlugin = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.nonLearnLink)
 
 		expect(String(contentsWithPlugin)).toEqual(String(contentsWithoutPlugin))
@@ -118,7 +108,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		const contentsWithoutPlugin = await remark().process(input)
 
 		const contentsWithPlugin = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(input)
 
 		expect(String(contentsWithPlugin)).toEqual(String(contentsWithoutPlugin))
@@ -133,7 +123,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		test.each(testInputs)('%s', async (testInput: string) => {
 			const contentsWithoutPlugin = await remark().process(testInput)
 			const contentsWithPlugin = await remark()
-				.use(rewriteTutorialLinksPlugin)
+				.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 				.process(testInput)
 			expect(String(contentsWithPlugin)).toEqual(String(contentsWithoutPlugin))
 		})
@@ -141,7 +131,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test("Local anchor links aren't rewritten", async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.plainAnchor)
 
 		const path = isolatePathFromMarkdown(String(contents))
@@ -150,7 +140,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Product tutorial links are rewritten to dev portal paths', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productTutorial)
 
 		const result = String(contents)
@@ -161,7 +151,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Product collection links are rewritten to dev portal paths', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productCollection)
 
 		const result = String(contents)
@@ -171,7 +161,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Product external collection links are rewritten to relative dev portal paths', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productExternalCollection)
 
 		const result = String(contents)
@@ -181,11 +171,11 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Anchor links are rewritten properly', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productTutorialAnchorLink)
 
 		const externalLinkContents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.externalAnchorLink)
 
 		const path = isolatePathFromMarkdown(String(contents))
@@ -203,7 +193,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Query params are rewritten properly', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productTutorialQueryParam)
 
 		const queryParamCollectionSlug = /get-started-kubernetes/
@@ -213,7 +203,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Query params with an anchor link are rewritten properly', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productTutorialQueryParamWithAnchor)
 
 		const queryParamSlugWithAnchor = new RegExp(`get-started-nomad/${slug}#`)
@@ -224,14 +214,14 @@ describe('rewriteTutorialLinks remark plugin', () => {
 	test('Incorrect link does not throw, only logs the error message', async () => {
 		const getContents = async () =>
 			await remark()
-				.use(rewriteTutorialLinksPlugin)
+				.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 				.process(TEST_MD_LINKS.errorLink)
 		expect(getContents).not.toThrowError()
 	})
 
 	test('Definition link is rewritten', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productDefintionLink)
 
 		const path = String(contents).split(':')[1].trim()
@@ -240,7 +230,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Search page on learn is made external', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.searchPage)
 
 		expect(String(contents)).toMatch(/(learn.hashicorp.com)?\/search/)
@@ -248,11 +238,11 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Product hub pages should be rewritten to dev portal', async () => {
 		const interalLinkContents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productHubLink)
 		const internalPath = isolatePathFromMarkdown(String(interalLinkContents))
 		const externalLinkContents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productHubExternalLink)
 		const externalPath = isolatePathFromMarkdown(String(externalLinkContents))
 		const productHub = /^\/vault\/tutorials$/
@@ -263,10 +253,10 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Product docs links are rewritten to dev portal', async () => {
 		const docsLinkContents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productDocsLink)
 		const pluginLinkContents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productPluginsLink)
 
 		const pluginLinkPath = isolatePathFromMarkdown(String(pluginLinkContents))
@@ -278,7 +268,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Product api links are rewritten to api-docs', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productDocsApiLink)
 
 		const path = isolatePathFromMarkdown(String(contents))
@@ -287,7 +277,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Product docs link .html reference should be removed', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productDocsApiLinkWithHtml)
 
 		const path = isolatePathFromMarkdown(String(contents))
@@ -298,11 +288,11 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Product docs link with anchor are rewritten properly', async () => {
 		const basicAnchorContents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productDocsAnchorLink)
 
 		const anchorWithHtmlContents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productDocsLinkAnchorWithHtml)
 
 		const basicAnchorPath = isolatePathFromMarkdown(String(basicAnchorContents))
@@ -318,14 +308,14 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Product /trial path is not rewritten', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productDocsLinkNonDoc)
 		expect(String(contents)).toMatch(TEST_MD_LINKS.productDocsLinkNonDoc)
 	})
 
 	test('Product usecase path is not rewritten', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.productDocsLinkUseCases)
 
 		expect(String(contents)).toMatch(TEST_MD_LINKS.productDocsLinkUseCases)
@@ -333,7 +323,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Waf link should be rewritten properly', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.wafTutorialLink)
 		const newPath = isolatePathFromMarkdown(String(contents))
 
@@ -344,7 +334,7 @@ describe('rewriteTutorialLinks remark plugin', () => {
 
 	test('Onboarding link should be rewritten properly', async () => {
 		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin)
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 			.process(TEST_MD_LINKS.onboardingCollectionLink)
 		const newPath = isolatePathFromMarkdown(String(contents))
 

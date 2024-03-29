@@ -8,14 +8,12 @@ import { Plugin } from 'unified'
 import visit from 'unist-util-visit'
 import { processDocsLinkNode } from 'lib/remark-plugins/remark-plugin-adjust-link-urls/helpers'
 import { rewriteTutorialsLink } from 'lib/remark-plugins/rewrite-tutorial-links/utils/rewrite-tutorials-link'
-import { getTutorialMap } from 'lib/remark-plugins/rewrite-tutorial-links/utils'
-
-let TUTORIAL_MAP
 
 const rewriteLinksPlugin: Plugin = ({
 	urlAdjustFn,
 	currentPath,
 	statistics = { linksToRewrite: {}, unrewriteableLinks: [] },
+	tutorialMap,
 }: {
 	currentPath: string
 	statistics?: {
@@ -23,11 +21,9 @@ const rewriteLinksPlugin: Plugin = ({
 		unrewriteableLinks: string[]
 	}
 	urlAdjustFn: (url: string) => string
+	tutorialMap: Record<string, string>
 }) => {
 	return async function transformer(tree) {
-		if (!TUTORIAL_MAP) {
-			TUTORIAL_MAP = await getTutorialMap()
-		}
 		return visit(tree, ['link', 'definition'], (node: Link | Definition) => {
 			const originalUrl = `${node.url}`
 
@@ -43,7 +39,7 @@ const rewriteLinksPlugin: Plugin = ({
 				// Then apply changes on top of that with the tutorials link rewriter
 				node.url = rewriteTutorialsLink(
 					processedAdDocsLink,
-					TUTORIAL_MAP,
+					tutorialMap,
 					'docs'
 				)
 			}
