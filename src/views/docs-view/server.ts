@@ -33,6 +33,7 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
+import tutorialMap from 'data/_tutorial-map.generated.json'
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
@@ -191,7 +192,7 @@ export function getStaticGenerationFunctions<
 					 * `rewriteTutorialLinksPlugin` does not rewrite links like
 					 * `/waypoint` to `/waypoint/tutorials`.
 					 */
-					[rewriteTutorialLinksPlugin, { contentType: 'docs' }],
+					[rewriteTutorialLinksPlugin, { contentType: 'docs', tutorialMap }],
 					/**
 					 * Rewrite docs content links, which are authored without prefix.
 					 * For example, in Waypoint docs authors write "/docs/some-thing",
@@ -299,6 +300,7 @@ export function getStaticGenerationFunctions<
 				await prepareNavDataForClient({
 					basePaths: [product.slug, basePath],
 					nodes: navData,
+					tutorialMap,
 				})
 
 			/**
