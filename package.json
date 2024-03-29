@@ -6,6 +6,7 @@
 		"build:webpack-only": "npm run prebuild && hc-tools next-build-webpack-only",
 		"build": "next build",
 		"clean": "rimraf .next node_modules",
+		"generate:tutorial-map": "hc-tools ./scripts/generate-tutorial-map.ts",
 		"lint": "next-hashicorp lint",
 		"lint:stylelint": "npx stylelint '**/*.css'",
 		"prebuild": "hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts",
