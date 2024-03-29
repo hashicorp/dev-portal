@@ -129,6 +129,7 @@
 		"@mdx-js/react": "^1.6.22",
 		"@octokit/core": "^3.5.1",
 		"@octokit/openapi-types": "^11.2.0",
+		"@opentelemetry/api": "^1.7.0",
 		"@reach/dialog": "^0.16.2",
 		"@reach/popover": "^0.16.2",
 		"@reach/portal": "^0.16.2",
