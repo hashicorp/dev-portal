@@ -41,7 +41,7 @@ export default async function tutorialsMapHandler(
 /**
  * This function creates a map of 'database-slug': 'dev-dot/path'
  */
-export async function generateTutorialMap(): Promise<Record<string, string>> {
+export async function generateTutorialMap() {
 	const allTutorials = await getAllTutorials({
 		fullContent: false,
 		slugsOnly: true,

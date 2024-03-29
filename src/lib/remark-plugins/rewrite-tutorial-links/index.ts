@@ -27,22 +27,22 @@ import { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import { RewriteTutorialLinksPluginOptions } from './types'
 import { DEFAULT_CONTENT_TYPE } from './constants'
+import { getTutorialMap } from './utils'
 import { rewriteTutorialsLink } from './utils/rewrite-tutorials-link'
+
+let TUTORIAL_MAP
 
 export const rewriteTutorialLinksPlugin: Plugin = (
 	options: RewriteTutorialLinksPluginOptions = {}
 ) => {
 	const { contentType = DEFAULT_CONTENT_TYPE, tutorialMap } = options
 	return async function transformer(tree) {
-		// Throw an error if the tutorial map is not provided. Due to how
-		// Remark plugins are typed, we can't have required parameters.
-		if (!tutorialMap) {
-			throw new Error('[rewriteTutorialLinksPlugin] tutorialMap is required')
-		}
+		// Load the tutorial map if it's not provided
+		TUTORIAL_MAP = tutorialMap ?? (await getTutorialMap())
 
 		// Visit link and defintion node types
 		visit(tree, ['link', 'definition'], (node: Link | Definition) => {
-			node.url = rewriteTutorialsLink(node.url, tutorialMap, contentType)
+			node.url = rewriteTutorialsLink(node.url, TUTORIAL_MAP, contentType)
 		})
 	}
 }

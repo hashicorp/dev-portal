@@ -10,6 +10,7 @@ import path from 'path'
 import {
 	getIsExternalLearnLink,
 	getIsRewriteableDocsLink,
+	getTutorialMap,
 	rewriteExternalDocsLink,
 	rewriteExternalLearnLink,
 } from 'lib/remark-plugins/rewrite-tutorial-links/utils'
@@ -58,6 +59,8 @@ function isNavDirectLink(value: NavNode): value is NavDirectLink {
 	return value.hasOwnProperty('href')
 }
 
+let TUTORIAL_MAP
+
 /**
  * Prepares all sidebar nav items for client-side rendering. Keeps track of the
  * index of each node using `startingIndex` and the `traversedNodes` property
@@ -67,15 +70,15 @@ function isNavDirectLink(value: NavNode): value is NavDirectLink {
 async function prepareNavDataForClient({
 	basePaths,
 	nodes,
-	tutorialMap,
 	startingIndex = 0,
 }: {
 	basePaths: string[]
 	nodes: NavNode[]
-	tutorialMap: Record<string, string>
 	startingIndex?: number
 }): Promise<{ preparedItems: MenuItem[]; traversedNodes: number }> {
 	const preparedNodes = []
+
+	TUTORIAL_MAP = TUTORIAL_MAP ?? (await getTutorialMap())
 
 	let count = 0
 	for (let i = 0; i < nodes.length; i++) {
@@ -83,7 +86,6 @@ async function prepareNavDataForClient({
 		const result = await prepareNavNodeForClient({
 			basePaths,
 			node,
-			tutorialMap,
 			nodeIndex: startingIndex + count,
 		})
 		if (result) {
@@ -116,12 +118,10 @@ async function prepareNavDataForClient({
 async function prepareNavNodeForClient({
 	basePaths,
 	node,
-	tutorialMap,
 	nodeIndex,
 }: {
 	node: NavNode
 	basePaths: string[]
-	tutorialMap: Record<string, string>
 	nodeIndex: number
 }): Promise<{ preparedItem: MenuItem; traversedNodes: number }> {
 	/**
@@ -142,7 +142,6 @@ async function prepareNavNodeForClient({
 		const { preparedItems, traversedNodes } = await prepareNavDataForClient({
 			basePaths,
 			nodes: node.routes,
-			tutorialMap,
 			startingIndex: nodeIndex + 1,
 		})
 		const preparedItem = {
@@ -211,7 +210,7 @@ async function prepareNavNodeForClient({
 				let newHref
 				const urlObject = new URL(node.href)
 				if (getIsExternalLearnLink(node.href)) {
-					newHref = rewriteExternalLearnLink(urlObject, tutorialMap)
+					newHref = rewriteExternalLearnLink(urlObject, TUTORIAL_MAP)
 				} else if (getIsRewriteableDocsLink(node.href)) {
 					newHref = rewriteExternalDocsLink(urlObject)
 				}
