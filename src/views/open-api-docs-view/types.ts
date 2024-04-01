@@ -6,7 +6,7 @@
 // Third-party
 import type { OpenAPIV3 } from 'openapi-types'
 import type { ParsedUrlQuery } from 'querystring'
-import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import type { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 // Global
 import type { ProductData, ProductSlug } from 'types/products'
 import type { GithubFile } from 'lib/fetch-github-file'

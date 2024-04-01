@@ -30,6 +30,11 @@
 				"url": "/vault/tutorials/hcp-vault-secrets-get-started"
 			},
 			{
+				"icon": "vault-radar-color",
+				"text": "HCP Vault Radar",
+				"url": "/vault/tutorials/radar-foundations"
+			},
+			{
 				"icon": "packer-color",
 				"text": "HCP Packer",
 				"url": "/packer/tutorials/hcp-get-started"

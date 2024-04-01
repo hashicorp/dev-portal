@@ -8,7 +8,7 @@ import path from 'path'
 import { Plugin } from 'unified'
 import type { Root, RootContent, Node } from 'hast'
 import hastUtilToHtml from 'hast-util-to-html'
-import { serialize } from 'next-mdx-remote/serialize'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 import rehypeSanitize, { schema } from '..'
 
 /**
@@ -136,13 +136,15 @@ describe('rehypeSanitize', () => {
 		const root = await getProcessedHast(mdxString)
 		// Assert that the AST we'll render does not have any JSX nodes
 		const paragraphNode = root.children[0]
-		if (!('children' in paragraphNode)) {
-			fail('Paragraph node is expected to have a link element as a child.')
-		}
-		const linkNode = paragraphNode.children[0]
-		if (!('properties' in linkNode)) {
-			fail('Link node is expected to have properties.')
-		}
+		expect(
+			paragraphNode,
+			'Paragraph node is expected to have a link element as a child.'
+		).toHaveProperty('children')
+		const linkNode = (paragraphNode as any).children[0]
+		expect(
+			linkNode,
+			'Link node is expected to have properties.'
+		).toHaveProperty('properties')
 		expect(linkNode.properties.href).toBe(undefined)
 	})
 

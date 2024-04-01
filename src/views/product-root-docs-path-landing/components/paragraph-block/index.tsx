@@ -4,7 +4,7 @@
  */
 
 import DevDotContent from 'components/dev-dot-content'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 
 interface ParagraphBlockProps {
 	mdxSource: MDXRemoteSerializeResult

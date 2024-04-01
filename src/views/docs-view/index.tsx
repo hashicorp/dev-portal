@@ -2,7 +2,7 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import { useCurrentProduct } from 'contexts'
 import classNames from 'classnames'
 import { getVersionFromPath } from 'lib/get-version-from-path'
@@ -46,7 +46,7 @@ const DocsView = ({
 	outlineItems,
 	pageHeading,
 }: DocsViewProps) => {
-	const { asPath } = useRouter()
+	const pathname = usePathname()
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
 	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
@@ -107,7 +107,7 @@ const DocsView = ({
 					headingSlot={headingSlot}
 				/>
 			) : null}
-			<NoIndexTagIfVersioned isVersioned={!!getVersionFromPath(asPath)} />
+			<NoIndexTagIfVersioned isVersioned={!!getVersionFromPath(pathname)} />
 			<DevDotContent
 				mdxRemoteProps={{
 					compiledSource,

@@ -8,8 +8,8 @@ import { ProductData } from 'types/products'
 
 describe('getNavItems', () => {
 	it('for most products, returns the standard set of items', () => {
-		const testWaypointData = {
-			slug: 'waypoint',
+		const testNomadData = {
+			slug: 'nomad',
 			rootDocsPaths: [
 				{
 					iconName: 'docs',
@@ -25,35 +25,30 @@ describe('getNavItems', () => {
 				},
 			],
 		} as ProductData
-		expect(getNavItems(testWaypointData)).toMatchInlineSnapshot(`
-		Array [
-		  Object {
-		    "label": "Install",
-		    "url": "/waypoint/install",
-		  },
-		  Object {
-		    "label": "Tutorials",
-		    "url": "/waypoint/tutorials",
-		  },
-		  Object {
-		    "label": "Documentation",
-		    "url": "/waypoint/docs",
-		  },
-		  Object {
-		    "label": "CLI",
-		    "url": "/waypoint/commands",
-		  },
-		  Object {
-		    "label": "Integrations",
-		    "url": "/waypoint/integrations",
-		  },
-		  Object {
-		    "label": "Try Cloud",
-		    "opensInNewTab": true,
-		    "url": "https://portal.cloud.hashicorp.com/sign-up",
-		  },
-		]
-	`)
+		expect(getNavItems(testNomadData)).toMatchInlineSnapshot(`
+			[
+			  {
+			    "label": "Install",
+			    "url": "/nomad/install",
+			  },
+			  {
+			    "label": "Tutorials",
+			    "url": "/nomad/tutorials",
+			  },
+			  {
+			    "label": "Documentation",
+			    "url": "/nomad/docs",
+			  },
+			  {
+			    "label": "CLI",
+			    "url": "/nomad/commands",
+			  },
+			  {
+			    "label": "Integrations",
+			    "url": "/nomad/integrations",
+			  },
+			]
+		`)
 	})
 
 	it('for Terraform, returns the standard set of items plus a link to the Registry', () => {
@@ -174,83 +169,83 @@ describe('getNavItems', () => {
 			],
 		} as ProductData
 		expect(getNavItems(testTerraformData)).toMatchInlineSnapshot(`
-		Array [
-		  Object {
-		    "label": "Install",
-		    "url": "/terraform/install",
-		  },
-		  Object {
-		    "label": "Tutorials",
-		    "url": "/terraform/tutorials",
-		  },
-		  Object {
-		    "iconColorTheme": "terraform",
-		    "items": Array [
-		      Object {
-		        "icon": "docs",
-		        "label": "Documentation",
-		        "path": "/terraform/docs",
-		      },
-		      Object {
-		        "icon": "file-source",
-		        "label": "Configuration Language",
-		        "path": "/terraform/language",
-		      },
-		      Object {
-		        "icon": "tools",
-		        "label": "CDK for Terraform",
-		        "path": "/terraform/cdktf",
-		      },
-		      Object {
-		        "icon": "terminal-screen",
-		        "label": "Terraform CLI",
-		        "path": "/terraform/cli",
-		      },
-		      Object {
-		        "icon": "cloud",
-		        "label": "Terraform Cloud",
-		        "path": "/terraform/cloud-docs",
-		      },
-		      Object {
-		        "icon": "enterprise",
-		        "label": "Terraform Enterprise",
-		        "path": "/terraform/enterprise",
-		      },
-		      Object {
-		        "icon": "provider",
-		        "label": "Provider Use",
-		        "path": "/terraform/language/providers",
-		      },
-		      Object {
-		        "icon": "plug",
-		        "label": "Plugin Development",
-		        "path": "/terraform/plugin",
-		      },
-		      Object {
-		        "icon": "database",
-		        "label": "Registry Publishing",
-		        "path": "/terraform/registry",
-		      },
-		      Object {
-		        "icon": "plus-circle",
-		        "label": "Integration Program",
-		        "path": "/terraform/docs/partnerships",
-		      },
-		    ],
-		    "label": "Documentation",
-		  },
-		  Object {
-		    "label": "Registry",
-		    "opensInNewTab": true,
-		    "url": "https://registry.terraform.io/",
-		  },
-		  Object {
-		    "label": "Try Cloud",
-		    "opensInNewTab": true,
-		    "url": "https://app.terraform.io/public/signup/account",
-		  },
-		]
-	`)
+			[
+			  {
+			    "label": "Install",
+			    "url": "/terraform/install",
+			  },
+			  {
+			    "label": "Tutorials",
+			    "url": "/terraform/tutorials",
+			  },
+			  {
+			    "iconColorTheme": "terraform",
+			    "items": [
+			      {
+			        "icon": "docs",
+			        "label": "Documentation",
+			        "path": "/terraform/docs",
+			      },
+			      {
+			        "icon": "file-source",
+			        "label": "Configuration Language",
+			        "path": "/terraform/language",
+			      },
+			      {
+			        "icon": "tools",
+			        "label": "CDK for Terraform",
+			        "path": "/terraform/cdktf",
+			      },
+			      {
+			        "icon": "terminal-screen",
+			        "label": "Terraform CLI",
+			        "path": "/terraform/cli",
+			      },
+			      {
+			        "icon": "cloud",
+			        "label": "Terraform Cloud",
+			        "path": "/terraform/cloud-docs",
+			      },
+			      {
+			        "icon": "enterprise",
+			        "label": "Terraform Enterprise",
+			        "path": "/terraform/enterprise",
+			      },
+			      {
+			        "icon": "provider",
+			        "label": "Provider Use",
+			        "path": "/terraform/language/providers",
+			      },
+			      {
+			        "icon": "plug",
+			        "label": "Plugin Development",
+			        "path": "/terraform/plugin",
+			      },
+			      {
+			        "icon": "database",
+			        "label": "Registry Publishing",
+			        "path": "/terraform/registry",
+			      },
+			      {
+			        "icon": "plus-circle",
+			        "label": "Integration Program",
+			        "path": "/terraform/docs/partnerships",
+			      },
+			    ],
+			    "label": "Documentation",
+			  },
+			  {
+			    "label": "Registry",
+			    "opensInNewTab": true,
+			    "url": "https://registry.terraform.io/",
+			  },
+			  {
+			    "label": "Try Cloud",
+			    "opensInNewTab": true,
+			    "url": "https://app.terraform.io/public/signup/account",
+			  },
+			]
+		`)
 	})
 
 	it('for HCP, returns documentation nav link without dropdown', () => {
@@ -267,21 +262,21 @@ describe('getNavItems', () => {
 			],
 		} as ProductData
 		expect(getNavItems(testHCPData)).toMatchInlineSnapshot(`
-		Array [
-		  Object {
-		    "label": "Tutorials",
-		    "url": "/hcp/tutorials",
-		  },
-		  Object {
-		    "label": "Documentation",
-		    "url": "/hcp/docs",
-		  },
-		  Object {
-		    "label": "Try Cloud",
-		    "opensInNewTab": true,
-		    "url": "https://portal.cloud.hashicorp.com/sign-up",
-		  },
-		]
-	`)
+			[
+			  {
+			    "label": "Tutorials",
+			    "url": "/hcp/tutorials",
+			  },
+			  {
+			    "label": "Documentation",
+			    "url": "/hcp/docs",
+			  },
+			  {
+			    "label": "Try Cloud",
+			    "opensInNewTab": true,
+			    "url": "https://portal.cloud.hashicorp.com/sign-up",
+			  },
+			]
+		`)
 	})
 })

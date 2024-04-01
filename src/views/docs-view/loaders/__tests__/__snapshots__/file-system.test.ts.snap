@@ -1,180 +1,180 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`FileSystemLoader generates path from nav data 1`] = `
-Array [
-  Object {
-    "params": Object {
-      "page": Array [],
+exports[`FileSystemLoader > generates path from nav data 1`] = `
+[
+  {
+    "params": {
+      "page": [],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "creating-plugins",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "creating-plugins",
         "main",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "creating-plugins",
         "configuration",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "creating-plugins",
         "build-interface",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "creating-plugins",
         "compiling",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "creating-plugins",
         "example-application",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "creating-plugins",
         "testing",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "main-func",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "passing-values",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "plugin-interfaces",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "plugin-interfaces",
         "authenticator",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "plugin-interfaces",
         "configurable",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "plugin-interfaces",
         "configurable-notify",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "plugin-interfaces",
         "builder",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "plugin-interfaces",
         "registry",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "plugin-interfaces",
         "platform",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "plugin-interfaces",
         "release-manager",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "plugin-interfaces",
         "destroy",
       ],
     },
   },
-  Object {
-    "params": Object {
-      "page": Array [
+  {
+    "params": {
+      "page": [
         "extending-waypoint",
         "plugin-interfaces",
         "default-parameters",

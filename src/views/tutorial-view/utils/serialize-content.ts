@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { serialize } from 'next-mdx-remote/serialize'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { serialize } from 'lib/next-mdx-remote/serialize'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import { anchorLinks, paragraphCustomAlerts } from '@hashicorp/remark-plugins'
 import getVideoUrl from './get-video-url'
 import { Tutorial as ClientTutorial } from 'lib/learn-client/types'
@@ -12,8 +12,6 @@ import { rewriteStaticAssetsPlugin } from 'lib/remark-plugins/rewrite-static-tut
 import { TableOfContentsHeading } from 'components/table-of-contents'
 import { splitProductFromFilename } from '.'
 import { rehypeCodePlugins } from 'lib/rehype-code-plugins'
-import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
-import { rewriteWaypointPluginsToIntegrations } from 'lib/content-adjustments'
 import { remarkPluginInjectImageDimensions } from 'lib/remark-plugins/remark-image-dimensions'
 
 export async function serializeContent(tutorial: ClientTutorial): Promise<{
@@ -51,12 +49,6 @@ export async function serializeContent(tutorial: ClientTutorial): Promise<{
 				 */
 				rewriteStaticAssetsPlugin,
 				remarkPluginInjectImageDimensions,
-				[
-					remarkPluginAdjustLinkUrls,
-					{
-						urlAdjustFn: rewriteWaypointPluginsToIntegrations,
-					},
-				],
 			],
 			rehypePlugins: rehypeCodePlugins,
 		},

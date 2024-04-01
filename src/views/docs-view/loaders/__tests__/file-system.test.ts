@@ -3,21 +3,33 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { mocked } from 'jest-mock'
 import FileSystemLoader from '../file-system'
-import { resolveNavData } from '../utils'
 import navData from '../__fixtures__/navData.json'
 
-jest.mock('../utils/resolve-nav-data')
-const mockedResolveNavData = mocked(resolveNavData)
+vi.mock('../utils/resolve-nav-data', () => {
+	return {
+		resolveNavData: async () => navData,
+	}
+})
 
 const CONTENT_DIR = 'src/views/docs-view/loaders/__fixtures__'
 
 let loader: FileSystemLoader
 
-import * as nextMdxRemote from 'next-mdx-remote/serialize'
-const serializeSpy = jest.spyOn(nextMdxRemote, 'serialize')
-const mockMdxContentHook = jest.fn()
+import * as nextMdxRemote from 'lib/next-mdx-remote/serialize'
+vi.mock('lib/next-mdx-remote/serialize', async () => ({
+	__esModule: true,
+	...((await vi.importActual('lib/next-mdx-remote/serialize')) as any),
+}))
+const serializeSpy = vi.spyOn(nextMdxRemote, 'serialize').mockReturnValue(
+	Promise.resolve({
+		compiledSource: '',
+		scope: {
+			version: 'latest',
+		},
+	})
+)
+const mockMdxContentHook = vi.fn()
 
 describe('FileSystemLoader', () => {
 	beforeAll(() => {
@@ -29,12 +41,10 @@ describe('FileSystemLoader', () => {
 	})
 
 	beforeEach(() => {
-		jest.clearAllMocks()
+		vi.clearAllMocks()
 	})
 
 	test('generates path from nav data', async () => {
-		mockedResolveNavData.mockImplementation(async () => navData)
-
 		const paths = await loader.loadStaticPaths()
 
 		expect(paths).toMatchSnapshot()
@@ -49,21 +59,21 @@ describe('FileSystemLoader', () => {
 				navData: expect.any(Array),
 			},
 			`
-		Object {
+		{
 		  "currentPath": "",
-		  "frontMatter": Object {
+		  "frontMatter": {
 		    "description": "Welcome to the intro guide to Vault! This guide is the best place to start with Vault. We cover what Vault is, what problems it can solve, how it compares to existing software, and contains a quick start for using Vault.",
 		    "page_title": "Introduction",
 		  },
 		  "githubFileUrl": "https://github.com/hashicorp/waypoint/blob/main/website/src/views/docs-view/loaders/__fixtures__/index.mdx",
-		  "mdxSource": Object {
+		  "mdxSource": {
 		    "compiledSource": Any<String>,
-		    "scope": Object {
+		    "scope": {
 		      "version": "latest",
 		    },
 		  },
 		  "navData": Any<Array>,
-		  "versions": Array [],
+		  "versions": [],
 		}
 	`
 		)
@@ -86,21 +96,21 @@ describe('FileSystemLoader', () => {
 				navData: expect.any(Array),
 			},
 			`
-		Object {
+		{
 		  "currentPath": "",
-		  "frontMatter": Object {
+		  "frontMatter": {
 		    "description": "Welcome to the intro guide to Vault! This guide is the best place to start with Vault. We cover what Vault is, what problems it can solve, how it compares to existing software, and contains a quick start for using Vault.",
 		    "page_title": "Introduction",
 		  },
 		  "githubFileUrl": "https://hashicorp.com/src/views/docs-view/loaders/__fixtures__/index.mdx",
-		  "mdxSource": Object {
+		  "mdxSource": {
 		    "compiledSource": Any<String>,
-		    "scope": Object {
+		    "scope": {
 		      "version": "latest",
 		    },
 		  },
 		  "navData": Any<Array>,
-		  "versions": Array [],
+		  "versions": [],
 		}
 	`
 		)

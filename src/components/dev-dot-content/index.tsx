@@ -5,7 +5,7 @@
 
 import { ReactElement } from 'react'
 import classNames from 'classnames'
-import { MDXRemote } from 'next-mdx-remote'
+import { MDXRemote } from 'lib/next-mdx-remote'
 import ImageConfig from 'components/image-config'
 import { DevDotContentProps } from './types'
 import {
@@ -88,7 +88,6 @@ const DevDotContent = ({
 		content = (
 			<MDXRemote
 				{...mdxRemoteProps}
-				// @ts-expect-error -- The next-mdx-remote types are wrong here, we don't want a record of ReactNode
 				components={{
 					...DEFAULT_MDX_COMPONENTS,
 					...mdxRemoteProps?.components,

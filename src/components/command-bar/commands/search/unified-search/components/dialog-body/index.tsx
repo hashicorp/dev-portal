@@ -6,12 +6,7 @@
 import { useEffect, useMemo, useState } from 'react'
 // Libraries
 import algoliasearch from 'algoliasearch'
-import {
-	Configure,
-	InstantSearch,
-	Index,
-	useHits,
-} from 'react-instantsearch-hooks-web'
+import { Configure, InstantSearch, Index, useHits } from 'react-instantsearch'
 // Command bar
 import { useCommandBar } from 'components/command-bar'
 // Shared search
