@@ -18,6 +18,7 @@
 			"faqSlug": "consul-associate-003"
 			"links": {
 				"prepare": "/consul/tutorials/certification-003"
+				}
 		},
 		{
 			"title": "Consul Associate",
