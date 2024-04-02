@@ -184,7 +184,7 @@ const DownloadsSection = ({
 												tutorial
 											</InlineLink>{' '}
 											to learn how to install and verify HashiCorp tools on any
-											Linux distribution, and create an custom Linux container
+											Linux distribution, and create a custom Linux container
 											with verified HashiCorp tools..
 										</>
 									}
