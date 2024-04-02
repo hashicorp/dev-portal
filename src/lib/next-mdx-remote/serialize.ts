@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { trace } from '@opentelemetry/api'
 import mdx from '@mdx-js/mdx'
 import { transform } from '@swc/core'
 import remove from 'unist-util-remove'
@@ -37,22 +38,40 @@ export async function serialize(
 		remarkPlugins,
 	}
 
-	const compiledMdx = await mdx(source, { ...mdxOptions, skipExport: true })
-	const transformResult = await transform(compiledMdx, {
-		minify: true,
-		jsc: {
-			parser: {
-				syntax: 'ecmascript',
-				jsx: true,
-			},
-			transform: {
-				react: {
-					pragma: 'mdx',
-				},
-			},
-			target,
-		},
+	const tracer = trace.getTracer('lib/next-mdx-remote')
+
+	const compiledMdx = await tracer.startActiveSpan('mdx', async (span) => {
+		try {
+			return await mdx(source, { ...mdxOptions, skipExport: true })
+		} finally {
+			span.end()
+		}
 	})
+
+	const transformResult = await tracer.startActiveSpan(
+		'transform',
+		async (span) => {
+			try {
+				return await transform(compiledMdx, {
+					minify: true,
+					jsc: {
+						parser: {
+							syntax: 'ecmascript',
+							jsx: true,
+						},
+						transform: {
+							react: {
+								pragma: 'mdx',
+							},
+						},
+						target,
+					},
+				})
+			} finally {
+				span.end()
+			}
+		}
+	)
 
 	return {
 		compiledSource: transformResult.code,
