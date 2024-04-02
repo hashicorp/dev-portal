@@ -61,7 +61,7 @@
 		},
 		{
 			"type": "collection_cards",
-			"collectionSlugs": ["vault/hcp-vault-secrets-get-started"]
+			"collectionSlugs": ["cloud/networking"]
 		},
 		{
 			"type": "linked_cards",
@@ -89,7 +89,8 @@
 			"tutorialSlugs": [
 				"cloud/vault-oidc-okta",
 				"boundary/hcp-manage-scopes",
-				"packer/golden-image-with-hcp-packer"
+				"packer/golden-image-with-hcp-packer",
+				"consul/kubernetes-api-gateway"
 			]
 		}
 	]

@@ -59,12 +59,12 @@
 					"text": "Service discovery and health monitoring"
 				},
 				{
-					"href": "/consul/tutorials/control-network-traffic",
-					"text": "Control service mesh traffic patterns"
+					"href": "/consul/tutorials/production-kubernetes",
+					"text": "Service mesh on Kubernetes"
 				},
 				{
-					"href": "/consul/tutorials/observe-your-network",
-					"text": "Service mesh observability"
+					"href": "/consul/tutorials/control-network-traffic",
+					"text": "Control service traffic patterns"
 				}
 			],
 			"featuredCollectionSlugs": [
@@ -181,7 +181,7 @@
 	"crossProductSection": {
 		"collectionSlugs": [
 			"well-architected-framework/com",
-			"consul/automate-your-network",
+			"consul/network-automation",
 			"cloud/networking"
 		]
 	}

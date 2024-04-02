@@ -67,8 +67,8 @@
 		{
 			"type": "collection_cards",
 			"collectionSlugs": [
-				"consul/control-network-traffic",
-				"consul/connect-services"
+				"consul/connect-services",
+				"consul/service-mesh-traffic-management"
 			]
 		},
 		{
@@ -88,8 +88,8 @@
 		{
 			"type": "collection_cards",
 			"collectionSlugs": [
-				"consul/certification-prep-002",
-				"consul/certification-prep-003"
+				"consul/certification",
+				"consul/certification-003"
 			]
 		}
 	]
