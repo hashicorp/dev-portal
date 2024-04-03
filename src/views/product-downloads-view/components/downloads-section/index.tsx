@@ -8,12 +8,12 @@ import { ReactElement, useMemo } from 'react'
 
 // HashiCorp imports
 import CodeBlock from '@hashicorp/react-code-block'
-import CodeTabs from '@hashicorp/react-code-block/partials/code-tabs'
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 
 // Global imports
 import Card from 'components/card'
 import Heading, { HeadingProps } from 'components/heading'
+import Tabs, { Tab } from 'components/tabs'
 import MobileDownloadStandaloneLink from 'components/mobile-download-standalone-link'
 import InlineAlert from 'components/inline-alert'
 import InlineLink from 'components/inline-link'
@@ -64,19 +64,21 @@ const PackageManagerSection = ({
 				/>
 			)}
 			{hasManyPackageManagers && (
-				<CodeTabs tabs={packageManagers.map(({ label }) => label)}>
-					{packageManagers.map(({ label, installCodeHtml }) => {
-						return (
-							<CodeBlock
-								className={s.codeBlocks}
-								key={label}
-								code={installCodeHtml}
-								language="shell-session"
-								options={{ showClipboard: true }}
-							/>
-						)
-					})}
-				</CodeTabs>
+				<div className={s.codeBlocks}>
+					<Tabs>
+						{packageManagers.map(({ label, installCodeHtml }) => {
+							return (
+								<Tab key={label} heading={label}>
+									<CodeBlock
+										code={installCodeHtml}
+										language="shell-session"
+										options={{ showClipboard: true }}
+									/>
+								</Tab>
+							)
+						})}
+					</Tabs>
+				</div>
 			)}
 		</>
 	)
