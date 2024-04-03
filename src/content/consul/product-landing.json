@@ -31,7 +31,7 @@
 			},
 			{
 				"icon": "hcp",
-				"text": "HCP Consul Quick Start",
+				"text": "HCP Consul Dedicated Quick Start",
 				"url": "/consul/tutorials/get-started-hcp/hcp-gs-deploy"
 			}
 		]
@@ -57,8 +57,8 @@
 					"url": "/consul/docs/k8s"
 				},
 				{
-					"heading": "HCP Consul",
-					"body": "Deploy a managed HCP Consul cluster to quickly get started with Consul's full capabilities.",
+					"heading": "HCP Consul Dedicated",
+					"body": "Deploy a managed HCP Consul Dedicated cluster to quickly get started with Consul's full capabilities.",
 					"url": "/hcp/docs/consul"
 				}
 			]
