@@ -65,7 +65,7 @@
 		},
 		{
 			"iconName": "cloud",
-			"name": "Terraform Cloud",
+			"name": "HCP Terraform",
 			"path": "cloud-docs",
 			"productSlugForLoader": "terraform-docs-common"
 		},
