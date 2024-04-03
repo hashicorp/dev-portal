@@ -41,7 +41,7 @@
 			"cards": [
 				{
 					"heading": "Infrastructure",
-					"body": "Use Terraform Cloud with Sentinel to check that infrastructure will comply with policies.",
+					"body": "Use HCP Terraform with Sentinel to check that infrastructure will comply with policies.",
 					"url": "https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-install"
 				},
 				{
