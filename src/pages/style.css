@@ -48,15 +48,6 @@
 	scroll-margin-top: calc(64px + 0.5em);
 }
 
-/* Custom web font, deprecated */
-@font-face {
-	font-family: 'klavika-web';
-	src: url('/fonts/klavika/medium.woff2') format('woff2'),
-		url('/fonts/klavika/medium.woff') format('woff');
-	font-weight: 700;
-	font-style: normal;
-}
-
 /* VAULT */
 
 /*
