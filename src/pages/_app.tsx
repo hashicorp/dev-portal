@@ -105,7 +105,7 @@ export default function App({
 												<Toaster />
 												<AIFeatureToast />
 												<ReactQueryDevtools />
-												<SpeedInsights sampleRate={0.2} />
+												<SpeedInsights sampleRate={0.05} />
 											</LazyMotion>
 										</CodeTabsProvider>
 									</CurrentProductProvider>
