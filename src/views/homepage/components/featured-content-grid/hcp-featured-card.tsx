@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import hcpLogo from '@hashicorp/mktg-logos/product/hcp/primary/white.svg?include'
+import hcpLogo from 'lib/mktg-logos/hcp-horizontal_on-dark.svg?include'
 import InlineSvg from '@hashicorp/react-inline-svg'
 import FeaturedCard from './featured-card'
 import s from './hcp-featured-card.module.css'
