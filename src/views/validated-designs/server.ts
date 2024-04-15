@@ -19,6 +19,7 @@ import { rewriteStaticHVDAssetsPlugin } from 'lib/remark-plugins/rewrite-static-
 import grayMatter from 'gray-matter'
 import { ProductSlug } from 'types/products'
 import { OutlineLinkItem } from 'components/outline-nav/types'
+import { rehypeCodePlugins } from 'lib/rehype-code-plugins'
 
 const basePath = '/validated-designs'
 
@@ -233,6 +234,7 @@ export async function getHvdGuidePropsFromSlug(
 									[remarkPluginAnchorLinkData, { anchorLinks }],
 									rewriteStaticHVDAssetsPlugin,
 								],
+								rehypePlugins: [...rehypeCodePlugins],
 							},
 						})
 
