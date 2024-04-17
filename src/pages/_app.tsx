@@ -41,11 +41,11 @@ import { AIFeatureToast } from 'components/chatbox/ai-feature-toast'
 import './style.css'
 
 if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	const ReactDOM = require('react-dom')
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	const axe = require('@axe-core/react')
-	axe(React, ReactDOM, 1000)
+	import('react-dom').then((ReactDOM) => {
+		import('@axe-core/react').then((axe) => {
+			axe.default(React, ReactDOM, 1000)
+		})
+	})
 }
 
 initializeUTMParamsCapture()
