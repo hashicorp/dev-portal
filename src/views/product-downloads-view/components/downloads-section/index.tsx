@@ -57,7 +57,7 @@ const PackageManagerSection = ({
 			<Heading {...SHARED_HEADING_LEVEL_3_PROPS}>Package manager</Heading>
 			{hasOnePackageManager && (
 				<CodeBlock
-					// className={s.codeBlock}
+					className={s.codeBlock}
 					value={packageManagers[0].installCodeHtml}
 					language="shell-session"
 					hasCopyButton
