@@ -102,5 +102,6 @@ module.exports = withHashicorp({
 	},
 	experimental: {
 		largePageDataBytes: 512 * 1000, // 512KB
+		instrumentationHook: true,
 	},
 })
