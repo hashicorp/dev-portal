@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"strict": false,
-		"target": "es5",
+		"target": "es2015",
 		"incremental": true,
 		"module": "esnext",
 		"lib": ["dom", "dom.iterable", "esnext"],

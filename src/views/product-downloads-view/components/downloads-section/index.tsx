@@ -7,7 +7,7 @@
 import { ReactElement, useMemo } from 'react'
 
 // HashiCorp imports
-import CodeBlock from '@hashicorp/react-code-block'
+import CodeBlock from '@hashicorp/react-design-system-components/src/components/code-block'
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 
 // Global imports
@@ -58,9 +58,10 @@ const PackageManagerSection = ({
 			{hasOnePackageManager && (
 				<CodeBlock
 					className={s.codeBlock}
-					code={packageManagers[0].installCodeHtml}
+					value={packageManagers[0].installCodeHtml}
 					language="shell-session"
-					options={{ showClipboard: true }}
+					hasCopyButton
+					hasLineNumbers={false}
 				/>
 			)}
 			{hasManyPackageManagers && (
@@ -70,9 +71,10 @@ const PackageManagerSection = ({
 							return (
 								<Tab key={label} heading={label}>
 									<CodeBlock
-										code={installCodeHtml}
+										value={installCodeHtml}
 										language="shell-session"
-										options={{ showClipboard: true }}
+										hasCopyButton
+										hasLineNumbers={false}
 									/>
 								</Tab>
 							)

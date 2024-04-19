@@ -37,7 +37,6 @@ const hideWaypointTipContent = {
 }
 
 module.exports = withHashicorp({
-	nextOptimizedImages: true,
 	css: false,
 })({
 	transpilePackages: [

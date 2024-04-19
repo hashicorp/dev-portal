@@ -39,6 +39,7 @@ import { AIFeatureToast } from 'components/chatbox/ai-feature-toast'
 
 // Local imports
 import './style.css'
+import '@hashicorp/react-design-system-components/src/design-system-components.scss'
 
 if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 	import('react-dom').then((ReactDOM) => {
