@@ -35,11 +35,6 @@
 				"url": "/vault/tutorials/radar-foundations"
 			},
 			{
-				"icon": "consul-color",
-				"text": "HCP Consul",
-				"url": "/consul/tutorials/get-started-hcp"
-			},
-			{
 				"icon": "packer-color",
 				"text": "HCP Packer",
 				"url": "/packer/tutorials/hcp-get-started"

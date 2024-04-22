@@ -26,21 +26,6 @@
 			]
 		},
 		{
-			"name": "HCP Consul",
-			"items": [
-				{ "name": "Quickstart", "collectionSlug": "consul/get-started-hcp" },
-				{
-					"name": "Production",
-					"collectionSlug": "consul/cloud-production"
-				},
-				{
-					"name": "Deploy Automation",
-					"collectionSlug": "consul/cloud-deploy-automation"
-				}
-			]
-		},
-
-		{
 			"name": "HCP Packer",
 			"items": [
 				{ "name": "Quickstart", "collectionSlug": "packer/hcp-get-started" },

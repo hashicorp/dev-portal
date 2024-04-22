@@ -1,6 +1,5 @@
 {
 	"featuredCollectionsSlugs": [
-		"consul/get-started-hcp",
 		"consul/get-started-kubernetes",
 		"consul/get-started-vms"
 	],
