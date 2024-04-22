@@ -11,7 +11,7 @@ import {
 export const generateCodeSnippetFromCommands = (
 	commands: PackageManager['commands']
 ): string => {
-	return commands.map((command: string) => `$ ${command}`).join('\n')
+	return commands.join('\n')
 }
 
 export const groupPackageManagersByOS = (

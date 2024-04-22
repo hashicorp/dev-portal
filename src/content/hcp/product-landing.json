@@ -21,7 +21,7 @@
 		"iconCardLinks": [
 			{
 				"icon": "vault-color",
-				"text": "HCP Vault",
+				"text": "HCP Vault Dedicated",
 				"url": "/vault/tutorials/cloud"
 			},
 			{
@@ -33,11 +33,6 @@
 				"icon": "vault-radar-color",
 				"text": "HCP Vault Radar",
 				"url": "/vault/tutorials/radar-foundations"
-			},
-			{
-				"icon": "consul-color",
-				"text": "HCP Consul",
-				"url": "/consul/tutorials/get-started-hcp"
 			},
 			{
 				"icon": "packer-color",

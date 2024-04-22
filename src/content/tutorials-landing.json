@@ -55,20 +55,19 @@
 		"consul": {
 			"featuredUseCases": [
 				{
-					"href": "/consul/tutorials/developer-discovery",
+					"href": "/consul/tutorials/connect-services",
 					"text": "Service discovery and health monitoring"
 				},
 				{
-					"href": "/consul/tutorials/kubernetes",
+					"href": "/consul/tutorials/production-kubernetes",
 					"text": "Service mesh on Kubernetes"
 				},
 				{
-					"href": "/consul/tutorials/developer-mesh",
-					"text": "Service mesh and gateways"
+					"href": "/consul/tutorials/control-network-traffic",
+					"text": "Control service traffic patterns"
 				}
 			],
 			"featuredCollectionSlugs": [
-				"consul/get-started-hcp",
 				"consul/get-started-kubernetes",
 				"consul/get-started-vms"
 			],
@@ -182,7 +181,7 @@
 	"crossProductSection": {
 		"collectionSlugs": [
 			"well-architected-framework/com",
-			"consul/network-infrastructure-automation",
+			"consul/network-automation",
 			"cloud/networking"
 		]
 	}

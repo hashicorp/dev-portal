@@ -1,11 +1,11 @@
 {
 	"enabled": true,
 	"data": {
-		"product": "hashicorp",
-		"tag": "HashiDays",
-		"url": "https://hashicorp.com/conferences/hashidays",
-		"text": "One conference. Three cities.",
-		"linkText": "Find a city near you",
-		"expirationDate": "2024-06-14T00:00:00-08:00"
+		"product": "terraform",
+		"tag": "New",
+		"url": "https://www.hashicorp.com/blog/introducing-the-infrastructure-cloud",
+		"text": "Terraform Cloud is now HCP Terraform",
+		"linkText": "Read more →",
+		"expirationDate": "2024-04-29T00:00:00-08:00"
 	}
 }
