@@ -23,9 +23,9 @@ export const tryHcpCalloutContent: Record<
 	HcpCalloutContent
 > = {
 	terraform: {
-		heading: 'Terraform Cloud',
+		heading: 'HCP Terraform',
 		description: 'Automate your infrastructure provisioning at any scale',
-		ctaText: 'Try Terraform Cloud for free',
+		ctaText: 'Try HCP Terraform for free',
 		ctaUrl: 'https://app.terraform.io/public/signup/account',
 	},
 	boundary: {
@@ -47,9 +47,9 @@ export const tryHcpCalloutContent: Record<
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 	},
 	vault: {
-		heading: 'HCP Vault',
+		heading: 'HCP Vault Dedicated',
 		description: 'Secure your applications and protect sensitive data',
-		ctaText: 'Try HCP Vault for free',
+		ctaText: 'Try HCP Vault Dedicated for free',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 	},
 	waypoint: {
