@@ -21,7 +21,7 @@
 		"iconCardLinks": [
 			{
 				"icon": "vault-color",
-				"text": "HCP Vault",
+				"text": "HCP Vault Dedicated",
 				"url": "/vault/tutorials/cloud"
 			},
 			{
