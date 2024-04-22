@@ -34,6 +34,10 @@
 }
 
 .logo {
+	& svg {
+		height: 25px;
+	}
+
 	margin-bottom: 16px;
 }
 

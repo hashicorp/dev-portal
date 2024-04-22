@@ -127,7 +127,7 @@ const EXTRA_PAGES: Record<
 	hcp: [
 		{
 			icon: <IconDocs16 />,
-			text: 'HCP Vault',
+			text: 'HCP Vault Dedicated',
 			url: '/hcp/docs/vault',
 		},
 		{
@@ -188,7 +188,7 @@ const EXTRA_PAGES: Record<
 	terraform: [
 		{
 			icon: <IconDocs16 />,
-			text: 'Terraform Cloud',
+			text: 'HCP Terraform',
 			url: '/terraform/cloud-docs',
 		},
 		{

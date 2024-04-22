@@ -16,14 +16,8 @@ export default function CompanyLogo({ name }: CompanyLogoProps): JSX.Element {
 	}
 
 	const src = {
-		light:
-			name === 'terraform-cloud'
-				? require('@hashicorp/mktg-logos/product/terraform-cloud/primary/color.svg?url')
-				: require(`./img/${name}.png?url`),
-		dark:
-			name === 'terraform-cloud'
-				? require('@hashicorp/mktg-logos/product/terraform-cloud/primary/colorwhite.svg?url')
-				: require(`./img/${name}-dark-mode.png?url`),
+		light: require(`./img/${name}.png?url`),
+		dark: require(`./img/${name}-dark-mode.png?url`),
 	}
 
 	return (

@@ -1,7 +1,7 @@
 {
 	"sidebarCategories": [
 		{
-			"name": "HCP Vault",
+			"name": "HCP Vault Dedicated",
 			"items": [
 				{ "name": "Quickstart", "collectionSlug": "vault/cloud" },
 				{ "name": "Operations", "collectionSlug": "vault/cloud-ops" }

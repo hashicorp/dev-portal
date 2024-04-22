@@ -96,7 +96,6 @@
 		"@hashicorp/flight-icons": "^3.0.0",
 		"@hashicorp/localstorage-polyfill": "^1.0.14",
 		"@hashicorp/mktg-global-styles": "^4.5.0",
-		"@hashicorp/mktg-logos": "^1.3.5",
 		"@hashicorp/platform-analytics": "^0.12.0",
 		"@hashicorp/platform-cms": "^0.4.0",
 		"@hashicorp/platform-code-highlighting": "^0.2.0",
