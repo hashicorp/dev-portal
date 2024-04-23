@@ -52,7 +52,7 @@ export default function ValidatedDesignsLandingView({
 						className={s.categoryGroupContainer}
 					>
 						<section className={s.categoryGroupHeader}>
-							<IconTileLogo size="large" productSlug={category.product} />
+							<IconTileLogo size="large" productSlug={category.productSlug} />
 							<Heading
 								level={2}
 								size={400}
