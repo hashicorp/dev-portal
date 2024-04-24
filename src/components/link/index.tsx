@@ -37,12 +37,13 @@ const Link = ({ children, href, opensInNewTab, ...restProps }: LinkProps) => {
 	/**
 	 * Generate the final link's `aria-describedby` prop.
 	 */
-	let ariaDescribedBy: LinkProps['aria-describedby']
+	let ariaDescribedBy: LinkProps['aria-describedby'] = ''
 	if (shouldRenderScreenReaderOnlyMessage) {
-		ariaDescribedBy = opensInNewTabLabelId
+		ariaDescribedBy += opensInNewTabLabelId
 	}
+
 	if (restProps['aria-describedby']?.length > 0) {
-		ariaDescribedBy = ` ${restProps['aria-describedby']}`
+		ariaDescribedBy += ` ${restProps['aria-describedby']}`
 	}
 
 	return (
