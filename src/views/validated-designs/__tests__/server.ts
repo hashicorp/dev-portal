@@ -17,7 +17,7 @@ const mockedHvdCategoryGroups: HvdCategoryGroup[] = [
 		slug: 'terraform-operation-guides',
 		title: 'terraform operation guides',
 		description: 'description',
-		product: 'terraform',
+		productSlug: 'terraform',
 		guides: [
 			{
 				slug: 'terraform-operation-guides-adoption',
@@ -47,7 +47,7 @@ const mockedHvdCategoryGroups: HvdCategoryGroup[] = [
 		slug: 'terraform-integration-guides',
 		title: 'terraform integration guides',
 		description: 'description',
-		product: 'terraform',
+		productSlug: 'terraform',
 		guides: [
 			{
 				slug: 'terraform-integration-guides-run-task-prisma-cloud-by-palo-alto',
