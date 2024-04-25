@@ -96,10 +96,6 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 		const pathParts = item.split('/')
 		const [product, category] = pathParts
 
-		if (!isProductSlug(product)) {
-			return
-		}
-
 		const metadata = loadMetadata(path.join(HVD_CONTENT_DIR, item))
 		if (!metadata) {
 			return
@@ -115,7 +111,10 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 				slug,
 				title: metadata.title,
 				description: metadata.description,
-				product: product as Exclude<ProductSlug, 'sentinel'>,
+				productSlug: (isProductSlug(product) ? product : 'hcp') as Exclude<
+					ProductSlug,
+					'sentinel'
+				>,
 				guides: [],
 			})
 		} else if (isHvdMetadata) {
@@ -208,7 +207,7 @@ export async function getHvdGuidePropsFromSlug(
 	for (const categoryGroup of categoryGroups) {
 		for (const guide of categoryGroup.guides) {
 			if (guide.slug === guideSlug) {
-				validatedDesignsGuideProps.productSlug = categoryGroup.product
+				validatedDesignsGuideProps.productSlug = categoryGroup.productSlug
 
 				for (let index = 0; index < guide.pages.length; index++) {
 					const page = guide.pages[index]
