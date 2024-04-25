@@ -16,6 +16,7 @@ import {
 	SidebarHorizontalRule,
 	SidebarSectionBrandedHeading,
 	SidebarNavMenuItem,
+	SidebarNavLinkItem,
 } from 'components/sidebar/components'
 import SidebarNavList from 'components/sidebar/components/sidebar-nav-list'
 import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
@@ -26,6 +27,11 @@ import type { HvdPage, HvdPageMenuItem } from '../types'
 import type { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import type { OutlineLinkItem } from 'components/outline-nav/types'
 import { ProductSlug } from 'types/products'
+
+// Keep in sync HVD PDF location
+const PDF_BASE_URL = 'https://d2cn2jw7bw0rn4.cloudfront.net/'
+const downloadFileTitle = (guideTitle) =>
+	`${guideTitle.replaceAll(':', '').replaceAll(' ', '-')}.pdf`
 
 export interface ValidatedDesignsGuideProps {
 	metadata: {
@@ -127,6 +133,21 @@ export default function ValidatedDesignGuideView({
 									/>
 								))}
 							</SidebarNavList>
+							<SidebarHorizontalRule />
+							<SidebarNavLinkItem
+								item={{
+									href: `${PDF_BASE_URL}/${downloadFileTitle(guideTitle)}`,
+									title: 'Download as PDF',
+								}}
+							/>
+							{process.env.NODE_ENV === 'development' && (
+								<SidebarNavLinkItem
+									item={{
+										title:
+											'Download as PDF only downloads the most recent PDF generated on the main branch, it will not update the PDF for PR branches.',
+									}}
+								/>
+							)}
 						</>
 					),
 				},
