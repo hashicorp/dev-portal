@@ -1,6 +1,40 @@
 {
 	"sidebarCategories": [
 		{
+			"name": "HCP Boundary",
+			"items": [
+				{
+					"name": "Quickstart",
+					"collectionSlug": "boundary/hcp-getting-started"
+				},
+				{
+					"name": "Administration",
+					"collectionSlug": "boundary/hcp-administration"
+				}
+			]
+		},
+		{
+			"name": "HCP Consul",
+			"items": [
+				{
+					"name": "Quickstart",
+					"collectionSlug": "consul/get-started-hcp"
+				},
+				{
+					"name": "Connect services",
+					"collectionSlug": "consul/hcp-connect-services"
+				}
+			]
+		},
+		{
+			"name": "HCP Packer",
+			"items": [
+				{ "name": "Quickstart", "collectionSlug": "packer/hcp-get-started" },
+				{ "name": "Fundamentals", "collectionSlug": "packer/hcp" },
+				{ "name": "Use Cases", "collectionSlug": "packer/cloud-production" }
+			]
+		},
+		{
 			"name": "HCP Vault Dedicated",
 			"items": [
 				{ "name": "Quickstart", "collectionSlug": "vault/cloud" },
@@ -22,27 +56,6 @@
 				{
 					"name": "Foundations",
 					"collectionSlug": "vault/radar-foundations"
-				}
-			]
-		},
-		{
-			"name": "HCP Packer",
-			"items": [
-				{ "name": "Quickstart", "collectionSlug": "packer/hcp-get-started" },
-				{ "name": "Fundamentals", "collectionSlug": "packer/hcp" },
-				{ "name": "Use Cases", "collectionSlug": "packer/cloud-production" }
-			]
-		},
-		{
-			"name": "HCP Boundary",
-			"items": [
-				{
-					"name": "Quickstart",
-					"collectionSlug": "boundary/hcp-getting-started"
-				},
-				{
-					"name": "Administration",
-					"collectionSlug": "boundary/hcp-administration"
 				}
 			]
 		},
