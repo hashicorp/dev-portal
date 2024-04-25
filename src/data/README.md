@@ -1,6 +1,6 @@
 # Product Data
 
-The `src/data/` directory contains all of the product data needed for various views in the app. The `<product slug>.json` files (e.g. `boundary.json`, `consul.json`) contain metadata for each product that is used across multiple views. The metadata for .io sites is in the web monorepo. For example, Terraform metadata is in [terraform-io/src/data/terraform.ts](https://github.com/hashicorp/web/blob/main/apps/terraform-io/src/data/terraform.ts)
+The `src/data/` directory contains all of the product data needed for various views in the app. The `<product slug>.json` files (e.g. `boundary.json`, `consul.json`) contain metadata for each product that is used across multiple views.
 
 ## .io properties
 
