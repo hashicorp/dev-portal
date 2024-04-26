@@ -47,12 +47,24 @@ export const rehypeCodePlugins: Pluggable[] = [
 							options.lang = 'shellsession'
 						}
 
+						if (options.lang === 'shell-script') {
+							options.lang = 'sh'
+						}
+
 						if (options.lang === 'patch') {
 							options.lang = 'diff'
 						}
 
 						if (options.lang === 'golang') {
 							options.lang = 'go'
+						}
+
+						if (options.lang === 'log') {
+							options.lang = 'text'
+						}
+
+						if (options.lang === 'plain-text') {
+							options.lang = 'text'
 						}
 					},
 				},
