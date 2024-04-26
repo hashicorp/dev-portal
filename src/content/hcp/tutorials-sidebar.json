@@ -1,27 +1,28 @@
 {
 	"sidebarCategories": [
 		{
-			"name": "HCP Vault Dedicated",
-			"items": [
-				{ "name": "Quickstart", "collectionSlug": "vault/cloud" },
-				{ "name": "Operations", "collectionSlug": "vault/cloud-ops" }
-			]
-		},
-		{
-			"name": "HCP Vault Secrets",
+			"name": "HCP Boundary",
 			"items": [
 				{
 					"name": "Quickstart",
-					"collectionSlug": "vault/hcp-vault-secrets-get-started"
+					"collectionSlug": "boundary/hcp-getting-started"
+				},
+				{
+					"name": "Administration",
+					"collectionSlug": "boundary/hcp-administration"
 				}
 			]
 		},
 		{
-			"name": "HCP Vault Radar",
+			"name": "HCP Consul",
 			"items": [
 				{
-					"name": "Foundations",
-					"collectionSlug": "vault/radar-foundations"
+					"name": "Quickstart",
+					"collectionSlug": "consul/get-started-hcp"
+				},
+				{
+					"name": "Connect services",
+					"collectionSlug": "consul/hcp-connect-services"
 				}
 			]
 		},
@@ -34,16 +35,10 @@
 			]
 		},
 		{
-			"name": "HCP Boundary",
+			"name": "HCP Vault Dedicated",
 			"items": [
-				{
-					"name": "Quickstart",
-					"collectionSlug": "boundary/hcp-getting-started"
-				},
-				{
-					"name": "Administration",
-					"collectionSlug": "boundary/hcp-administration"
-				}
+				{ "name": "Quickstart", "collectionSlug": "vault/cloud" },
+				{ "name": "Operations", "collectionSlug": "vault/cloud-ops" }
 			]
 		},
 		{
