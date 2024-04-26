@@ -66,6 +66,10 @@ export const rehypeCodePlugins: Pluggable[] = [
 						if (options.lang === 'plain-text') {
 							options.lang = 'text'
 						}
+
+						if (options.lang === 'ebnf') {
+							options.lang = 'text'
+						}
 					},
 				},
 			],
