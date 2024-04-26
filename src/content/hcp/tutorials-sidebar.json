@@ -42,24 +42,6 @@
 			]
 		},
 		{
-			"name": "HCP Vault Secrets",
-			"items": [
-				{
-					"name": "Quickstart",
-					"collectionSlug": "vault/hcp-vault-secrets-get-started"
-				}
-			]
-		},
-		{
-			"name": "HCP Vault Radar",
-			"items": [
-				{
-					"name": "Foundations",
-					"collectionSlug": "vault/radar-foundations"
-				}
-			]
-		},
-		{
 			"name": "HCP Waypoint",
 			"items": [
 				{
