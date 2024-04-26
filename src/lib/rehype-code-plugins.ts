@@ -36,39 +36,42 @@ export const rehypeCodePlugins: Pluggable[] = [
 						}
 					},
 					preprocess(code, options) {
-						if (options.lang === 'HCL' || options.lang === 'hcl2') {
-							options.lang = 'hcl'
-						}
-
-						if (
-							options.lang === 'shell-session' ||
-							options.lang === 'sell-session'
-						) {
-							options.lang = 'shellsession'
-						}
-
-						if (options.lang === 'shell-script') {
-							options.lang = 'sh'
-						}
-
-						if (options.lang === 'patch') {
-							options.lang = 'diff'
-						}
-
-						if (options.lang === 'golang') {
-							options.lang = 'go'
-						}
-
-						if (options.lang === 'log') {
-							options.lang = 'text'
-						}
-
-						if (options.lang === 'plain-text') {
-							options.lang = 'text'
-						}
-
-						if (options.lang === 'ebnf') {
-							options.lang = 'text'
+						// Some of our docs reference language codes that Shiki
+						// doesn't recognize, and we're unable to modify the
+						// highlighter instance given that this plugin is
+						// loaded outside of an async context. So instead we
+						// manually modify the language code to a known
+						// good value.
+						switch (options.lang) {
+							case 'HCL':
+							case 'hcl2':
+								options.lang = 'hcl'
+								break
+							case 'shell-session':
+							case 'sell-session':
+							case 'terminal':
+								options.lang = 'shellsession'
+								break
+							case 'shell-script':
+								options.lang = 'sh'
+								break
+							case 'patch':
+								options.lang = 'diff'
+								break
+							case 'golang':
+								options.lang = 'go'
+								break
+							case 'Dockerfile':
+								options.lang = 'dockerfile'
+								break
+							case 'PowerShell':
+								options.lang = 'powershell'
+								break
+							case 'log':
+							case 'plain-text':
+							case 'ebnf':
+								options.lang = 'text'
+								break
 						}
 					},
 				},
