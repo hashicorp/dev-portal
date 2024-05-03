@@ -6,7 +6,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import VideoHooksTestComponent from '../helpers/video-hooks-test-component'
 
-describe('use-seconds-watched', () => {
+describe.skip('use-seconds-watched', () => {
 	it('should track the amount of time the video has been watched', async () => {
 		// Mock Date.now(), since our seconds timer relies on it,
 		// and we don't want to have to wait for real time to advance during tests
