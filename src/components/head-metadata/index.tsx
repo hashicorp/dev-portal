@@ -82,8 +82,15 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 			image={ogImageUrl}
 			canonicalUrl={canonicalUrl}
 		>
+			{/**
+			 * Note: favicon approach taken from:
+			 * https://dev.to/masakudamatsu/favicon-nightmare-how-to-maintain-sanity-3al7
+			 * We've omitted the app icons & web manifest for now, as we're not yet
+			 * trying to support installing the app on a home screen.
+			 */}
 			<link rel="icon" href={favIconHref} sizes="any" />
-			<link rel="icon" href="/icon.svg" type="image/svg+xml" />
+			<link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
+
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			<meta
 				name="google-site-verification"
