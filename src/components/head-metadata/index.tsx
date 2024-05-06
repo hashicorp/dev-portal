@@ -88,7 +88,7 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 			 * We've omitted the app icons & web manifest for now, as we're not yet
 			 * trying to support installing the app on a home screen.
 			 */}
-			<link rel="icon" href={favIconHref} sizes="any" />
+			<link rel="icon" href={favIconHref} sizes="48x48" />
 			<link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
 
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
