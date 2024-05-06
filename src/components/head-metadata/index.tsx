@@ -94,6 +94,11 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 			 *
 			 * We've omitted the app icons & web manifest for now, as we're not yet
 			 * trying to support installing the app on a home screen.
+			 *
+			 * If we wanted to simplify our approach here, we could consider using a
+			 * favicon with a background color (say, black hashicorp icon on white
+			 * background), which would remove the need for media queries in the
+			 * SVG icon.
 			 */}
 			<link rel="icon" href={favIconHref} sizes="48x48" />
 			<link rel="icon" href={favIconSvgHref} sizes="any" type="image/svg+xml" />
