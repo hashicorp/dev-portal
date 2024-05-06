@@ -94,7 +94,7 @@ describe('getNavItems', () => {
 				},
 				{
 					iconName: 'cloud',
-					name: 'Cloud Docs Agents',
+					name: 'HCP Terraform Agents',
 					navDataPrefix: 'cloud-docs-agents',
 					path: 'cloud-docs/agents',
 					productSlugForLoader: 'terraform-docs-agents',
