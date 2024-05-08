@@ -46,7 +46,7 @@
 	"devDependencies": {
 		"@axe-core/react": "^4.3.1",
 		"@datadog/datadog-api-client": "^1.0.0-beta.7",
-		"@hashicorp/platform-cli": "^2.7.2",
+		"@hashicorp/platform-cli": "^2.8.0",
 		"@hashicorp/platform-configs": "^0.2.0",
 		"@hashicorp/platform-nextjs-plugin": "^5.1.0",
 		"@hashicorp/platform-postcss-config": "^0.2.0",
@@ -111,7 +111,7 @@
 		"@hashicorp/react-consent-manager": "^9.2.0",
 		"@hashicorp/react-content": "^8.3.0",
 		"@hashicorp/react-design-system-components": "^0.0.0-nightly.0c364f3",
-		"@hashicorp/react-design-system-tokens": "^0.0.0-nightly.0c364f3",
+		"@hashicorp/react-design-system-tokens": "^0.0.0-nightly.8920560",
 		"@hashicorp/react-docs-sidenav": "^9.1.0",
 		"@hashicorp/react-enterprise-alert": "^7.0.1",
 		"@hashicorp/react-error-view": "^0.2.0",

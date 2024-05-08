@@ -1,6 +1,6 @@
 # Product Data
 
-The `src/data/` directory contains all of the product data needed for various views in the app. The `<product slug>.json` files (e.g. `boundary.json`, `consul.json`) contain metadata for each product that is used across multiple views, including their .io site and Dev Portal pages.
+The `src/data/` directory contains all of the product data needed for various views in the app. The `<product slug>.json` files (e.g. `boundary.json`, `consul.json`) contain metadata for each product that is used across multiple views.
 
 ## .io properties
 

@@ -245,7 +245,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 	return (
 		<>
 			<button
-				aria-controls={listId}
+				aria-controls={isOpen ? listId : null}
 				aria-expanded={isOpen}
 				className={s.sidebarNavMenuItem}
 				id={buttonId}
