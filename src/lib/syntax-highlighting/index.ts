@@ -10,6 +10,7 @@ import sentinelGrammar from './languages/sentinel.tmGrammar.json'
 // Shiki's TypeScript types are broken, so we silence the error with `any`.
 const sentinel = { ...sentinelGrammar, name: 'sentinel' } as any
 
+// This function is used to highlight code blocks on the product install pages.
 export async function highlightString(
 	code: string,
 	lang: string
@@ -38,5 +39,5 @@ export async function highlightString(
 
 export const defaultShikiOptions = {
 	themes: { light: theme },
-	langs: [...Object.keys(bundledLanguages), sentinel /*hcl2, shellSession*/],
+	langs: [...Object.keys(bundledLanguages), sentinel],
 }

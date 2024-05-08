@@ -11,28 +11,50 @@ import { getLanguageName } from './utils'
 import type { PropsWithChildren, ReactNode } from 'react'
 import s from './mdx-code-blocks.module.css'
 
-interface CodeBlockOptions {
-	showChrome?: boolean
-	highlight?: string
-	lineNumbers?: boolean
-	showClipboard?: boolean
-	showWindowBar?: boolean
-	filename?: string
-	heading?: string
-	wrapCode?: boolean
-}
-
-interface CodeBlockProps {
+interface CodeBlockConfigProps {
+	/**
+	 * A className string which will be added to the outer element of
+	 * this component.
+	 * */
 	className?: string
-	code: ReactNode
-	language?: string
-	theme?: 'light' | 'dark'
-	hasBarAbove?: boolean
-	options?: CodeBlockOptions
-}
 
-interface CodeBlockConfigProps extends CodeBlockProps, CodeBlockOptions {
+	/**
+	 * The code to be displayed in the code block as an output of Shiki.
+	 */
 	children?: ReactNode
+
+	/**
+	 * Set to `true` to remove border rounding.
+	 */
+	hasBarAbove?: boolean
+
+	/**
+	 * The heading to be displayed above the code block. Used if `filename` is
+	 * not provided.
+	 */
+	heading?: string
+
+	/**
+	 * The filename to be displayed above the code block. Will override `heading`
+	 * if both are provided.
+	 */
+	filename?: string
+
+	/**
+	 * Accepts a list or range of line numbers to highlight. (Examples: `2, 4`,
+	 * `6-10`)
+	 */
+	highlight?: string
+
+	/**
+	 * Used to control display of line numbers. Defaults to `true`.
+	 */
+	lineNumbers?: boolean
+
+	/**
+	 * Used to control whether a copy button for copying the code/text content
+	 * will be displayed. Defaults to `false`.
+	 */
 	hideClipboard?: boolean
 }
 
@@ -60,26 +82,44 @@ function CodeBlockConfig({
 }
 
 /**
- * Re-exports react-code-block <CodeBlockConfig />, for naming consistency.
+ * Re-exports <CodeBlockConfig />, for naming consistency.
  */
 export const MdxCodeBlockConfig = CodeBlockConfig
 
-/**
- * Adds spacing specific to Dev Dot to react-code-block <CodeTabs/>.
- */
 export function MdxCodeTabs({ children }: { children: ReactNode }) {
+	// `children` is a ReactNode containing multiple code blocks, either as
+	// raw <pre> elements or as <CodeBlockConfig> components. Since we need to
+	// iterate over these children to extract the language of each code block,
+	// we first convert the ReactNode to an array of elements.
 	const childCodeBlocks = Children.toArray(children)
 
 	return (
 		<Tabs>
 			{childCodeBlocks.map((child) => {
+				// If the child is not an object with props, it's not a
+				// code block, so we can skip over it. This also narrows the
+				// type for `child`.
 				if (!(typeof child === 'object' && 'props' in child)) return null
+
+				// If the child comes from MDX, it will have an `mdxType` prop.
+				// We can check the value of this prop to determine if it's
+				// safe to expect the single child to have the language class
+				// as a prop.
 				const { mdxType, ...restprops } = child.props
-				const languageClass =
-					mdxType === 'pre' || mdxType === 'CodeBlockConfig'
-						? restprops.children.props.className
-						: `language-${restprops.language}`
+				const isCodeBlock = ['pre', 'CodeBlockConfig'].includes(mdxType)
+
+				// If the child is an MDX code block, we can extract the language
+				// class from the child's props. Otherwise, we rely on the
+				// child having a language prop.
+				const languageClass = isCodeBlock
+					? restprops.children.props.className
+					: `language-${restprops.language}`
 				const slugFromClass = languageClass.split('-')[1]
+
+				// Tabs require a heading prop, which is the name of the
+				// language. Since the language class is an identifier, we try
+				// to get the pretty language name from the slug. If we can't
+				// find a pretty name, we use the slug as the heading.
 				const heading = getLanguageName(slugFromClass) ?? slugFromClass
 
 				return (
