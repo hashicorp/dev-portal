@@ -23,6 +23,11 @@
 				"icon": "hcp",
 				"text": "HCP Boundary Quick Start",
 				"url": "/boundary/tutorials/hcp-getting-started"
+			},
+			{
+				"icon": "boundary-color",
+				"text": "Boundary Community Edition Quick Start",
+				"url": "/boundary/tutorials/get-started-community"
 			}
 		]
 	},
@@ -68,8 +73,10 @@
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
 				"boundary/oidc-auth0",
+				"boundary/community-vault-cred-brokering-quickstart",
 				"boundary/hcp-manage-workers",
 				"boundary/hcp-ssh-cred-injection",
+				"boundary/aws-session-rec-vault",
 				"boundary/oidc-idp-groups"
 			]
 		}
