@@ -137,7 +137,6 @@ jobs:
             console.log('Checking for merge conflicts')
             if (pull.mergeable_state === 'dirty') {
               console.log('Pull request has a conflict', pull.html_url)
-              await closePullRequest(pull_number)
               throw new Error('Pull request has a conflict, please resolve manually')
             }
             console.log('No detected merge conflicts')
