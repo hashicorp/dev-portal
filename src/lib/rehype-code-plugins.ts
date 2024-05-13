@@ -76,6 +76,15 @@ export const rehypeCodePlugins: Pluggable[] = [
 								options.lang = 'text'
 								break
 						}
+
+						// Finally, if the language is still unknown, default
+						// to plaintext.
+						if (!defaultShikiOptions.langs.includes(options.lang)) {
+							console.error(
+								`ShikiError: Language \`${options.lang}\` not found, you may need to load it first`
+							)
+							options.lang = 'text'
+						}
 					},
 				} satisfies ShikiTransformer,
 			],
