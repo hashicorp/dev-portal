@@ -54,6 +54,7 @@ export const rehypeCodePlugins: Pluggable[] = [
 								options.lang = 'hcl'
 								break
 							case 'shell-session':
+							case 'shell-session#':
 							case 'sell-session':
 							case 'terminal':
 								options.lang = 'shellsession'
