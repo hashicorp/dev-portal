@@ -9,7 +9,7 @@ export interface HvdCategoryGroup {
 	slug: string // start of slug e.g. terraform-operation-guides-adoption, used to add to it's guides after the category group is created
 	title: string // from YAML
 	description: string // from YAML
-	product: Exclude<ProductSlug, 'sentinel'>
+	productSlug: Exclude<ProductSlug, 'sentinel'>
 	guides: HvdGuide[]
 }
 

@@ -28,11 +28,6 @@
 				"icon": "server",
 				"text": "Consul with Virtual Machines",
 				"url": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
-			},
-			{
-				"icon": "hcp",
-				"text": "HCP Consul Dedicated Quick Start",
-				"url": "/consul/tutorials/get-started-hcp/hcp-gs-deploy"
 			}
 		]
 	},
@@ -72,7 +67,7 @@
 		{
 			"type": "collection_cards",
 			"collectionSlugs": [
-				"consul/service-mesh-security",
+				"consul/connect-services",
 				"consul/service-mesh-traffic-management"
 			]
 		},
@@ -92,10 +87,7 @@
 		},
 		{
 			"type": "collection_cards",
-			"collectionSlugs": [
-				"consul/certification",
-				"consul/certification-associate-tutorials"
-			]
+			"collectionSlugs": ["consul/certification", "consul/certification-003"]
 		}
 	]
 }

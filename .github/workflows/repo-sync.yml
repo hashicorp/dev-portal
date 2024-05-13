@@ -4,7 +4,7 @@
 
 on:
   schedule:
-    - cron: "0 */2 * * *" # https://crontab.guru/every-2-hours
+    - cron: '0 */2 * * *' # https://crontab.guru/every-2-hours
   workflow_dispatch:
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
     if: ${{ !(github.event_name == 'schedule' && github.repository == 'hashicorp/dev-portal') }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
         with:
           persist-credentials: false
       - name: repo-sync
@@ -32,7 +32,7 @@ jobs:
         with:
           source_branch: repo-sync
           destination_branch: main
-          pr_title: "repo sync"
+          pr_title: 'repo sync'
           pr_body: |
             This is an automated pull request to sync changes between the public and private repos.
             This pull request should be **merged** (not squashed) to preserve continuity across repos.
@@ -56,7 +56,7 @@ jobs:
       # Ensure the PR is up-to-date with main
       - name: Update branch
         if: ${{ steps.find-pull-request.outputs.number }}
-        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           github-token: ${{ secrets.PAT_WITH_REPO_AND_WORKFLOW_SCOPE }}
           script: |
@@ -103,7 +103,7 @@ jobs:
 
       - name: Check pull request file count after updating
         if: ${{ steps.find-pull-request.outputs.number }}
-        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         id: pr-files
         env:
           PR_NUMBER: ${{ steps.find-pull-request.outputs.number }}
