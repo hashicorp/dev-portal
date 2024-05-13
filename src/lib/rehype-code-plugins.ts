@@ -54,11 +54,13 @@ export const rehypeCodePlugins: Pluggable[] = [
 								options.lang = 'hcl'
 								break
 							case 'shell-session':
+							case 'shell-session#':
 							case 'sell-session':
 							case 'terminal':
 								options.lang = 'shellsession'
 								break
 							case 'shell-script':
+							case 'env':
 								options.lang = 'sh'
 								break
 							case 'patch':
@@ -70,8 +72,18 @@ export const rehypeCodePlugins: Pluggable[] = [
 							case 'log':
 							case 'plain-text':
 							case 'ebnf':
+							case 'rego':
 								options.lang = 'text'
 								break
+						}
+
+						// Finally, if the language is still unknown, default
+						// to plaintext.
+						if (!defaultShikiOptions.langs.includes(options.lang)) {
+							console.error(
+								`ShikiError: Language \`${options.lang}\` not found, you may need to load it first`
+							)
+							options.lang = 'text'
 						}
 					},
 				} satisfies ShikiTransformer,
