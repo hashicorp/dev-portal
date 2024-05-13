@@ -60,6 +60,7 @@ export const rehypeCodePlugins: Pluggable[] = [
 								options.lang = 'shellsession'
 								break
 							case 'shell-script':
+							case 'env':
 								options.lang = 'sh'
 								break
 							case 'patch':
