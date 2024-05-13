@@ -70,6 +70,7 @@ export const rehypeCodePlugins: Pluggable[] = [
 							case 'log':
 							case 'plain-text':
 							case 'ebnf':
+							case 'rego':
 								options.lang = 'text'
 								break
 						}
