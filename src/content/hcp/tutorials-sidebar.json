@@ -4,10 +4,6 @@
 			"name": "HCP Boundary",
 			"items": [
 				{
-					"name": "Quickstart",
-					"collectionSlug": "boundary/hcp-getting-started"
-				},
-				{
 					"name": "Administration",
 					"collectionSlug": "boundary/hcp-administration"
 				}
