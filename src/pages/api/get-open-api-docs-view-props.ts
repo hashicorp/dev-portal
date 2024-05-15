@@ -108,7 +108,7 @@ export default async function handler(
 				// Replace the schema description with the POST'ed description, if present
 				const withCustomDescription = schemaModDescription(
 					schemaData,
-					(title) => openApiDescription || title
+					(description) => openApiDescription || description
 				)
 				// Replace "HashiCorp Cloud Platform" with "HCP" in the title
 				const withShortTitle = schemaModShortenHcp(withCustomDescription)
