@@ -7,13 +7,13 @@
 import { fetchCloudApiVersionData } from 'lib/api-docs/fetch-cloud-api-version-data'
 // View
 import OpenApiDocsView from 'views/open-api-docs-view'
+import shortenToHcpInTitle from 'views/open-api-docs-view/utils/shorten-to-hcp-in-title'
 import {
 	getStaticPaths,
 	getStaticProps as getOpenApiDocsStaticProps,
 } from 'views/open-api-docs-view/server'
 // Types
 import type { GetStaticProps, GetStaticPropsContext } from 'next'
-import type { OpenAPIV3 } from 'openapi-types'
 import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
@@ -57,23 +57,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	 * Massage the schema data a little bit, replacing
 	 * "HashiCorp Cloud Platform" in the title with "HCP".
 	 */
-	massageRawSchema: (schemaData: unknown) => {
-		// Replace "HashiCorp Cloud Platform" with "HCP" in the title, if present
-		if (
-			typeof schemaData === 'object' &&
-			'info' in schemaData &&
-			typeof schemaData.info === 'object' &&
-			'title' in schemaData.info &&
-			typeof schemaData.info.title === 'string'
-		) {
-			schemaData.info.title = schemaData.info.title.replace(
-				'HashiCorp Cloud Platform',
-				'HCP'
-			)
-		}
-		// Return the schema data with the revised title
-		return schemaData
-	},
+	massageRawJson: shortenToHcpInTitle,
 }
 
 /**

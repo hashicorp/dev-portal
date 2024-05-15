@@ -19,6 +19,7 @@ import type {
 	OpenApiDocsViewProps,
 	OpenApiDocsPageConfig,
 } from 'views/open-api-docs-view/types'
+import shortenToHcpInTitle from 'views/open-api-docs-view/utils/shorten-to-hcp-in-title'
 
 /**
  * OpenApiDocsView server-side page configuration
@@ -72,37 +73,26 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	 * and modify the schema data instead... but this is temporary, so taking
 	 * this more hacky and potential-side-effect-y approach for now.
 	 */
-	massageRawSchema: (schemaData: OpenAPIV3.Document) => {
-		// Replace "HashiCorp Cloud Platform" with "HCP" in the title, if present
-		if (
-			typeof schemaData === 'object' &&
-			'info' in schemaData &&
-			typeof schemaData.info === 'object' &&
-			'title' in schemaData.info &&
-			typeof schemaData.info.title === 'string'
-		) {
-			schemaData.info.title = schemaData.info.title.replace(
-				'HashiCorp Cloud Platform',
-				'HCP'
-			)
-		}
+	massageRawJson: (schemaData: unknown) => {
+		const clonedSchemaData = shortenToHcpInTitle(schemaData)
 		/**
 		 * Check to see if we have the protobufAny definition we intend to modify,
 		 * if not then bail early.
 		 */
 		if (
-			!('definitions' in schemaData) ||
-			typeof schemaData.definitions !== 'object'
+			typeof clonedSchemaData !== 'object' ||
+			!('definitions' in clonedSchemaData) ||
+			typeof clonedSchemaData.definitions !== 'object'
 		) {
-			return schemaData
+			return clonedSchemaData
 		}
 		if (
-			!('protobufAny' in schemaData.definitions) ||
-			typeof schemaData.definitions.protobufAny !== 'object'
+			!('protobufAny' in clonedSchemaData.definitions) ||
+			typeof clonedSchemaData.definitions.protobufAny !== 'object'
 		) {
-			return schemaData
+			return clonedSchemaData
 		}
-		const { protobufAny } = schemaData.definitions
+		const { protobufAny } = clonedSchemaData.definitions
 		/**
 		 * Modify the description for the `protobufAny` schema (otherwise it's
 		 * very very long)
@@ -121,7 +111,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 			}
 		}
 		// Return the schema data (modifications were made in place)
-		return schemaData
+		return clonedSchemaData
 	},
 }
 

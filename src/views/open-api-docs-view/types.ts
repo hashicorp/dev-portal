@@ -215,7 +215,7 @@ export interface OpenApiDocsPageConfig {
 	 * Optional transform hook to run just after the OpenAPI schema is
 	 * fetched, but before we validate and de-reference the schema.
 	 */
-	massageRawSchema?: (schema: unknown) => unknown
+	massageRawJson?: (schema: unknown) => unknown
 
 	/**
 	 * The top-of-page heading optionally have an id other than "overview".
