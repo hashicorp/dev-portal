@@ -8,7 +8,10 @@ import { getStaticProps } from 'views/open-api-docs-view/server'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { OpenAPIV3 } from 'openapi-types'
 import type { ProductSlug } from 'types/products'
-import shortenToHcpInTitle from 'views/open-api-docs-view/utils/shorten-to-hcp-in-title'
+import {
+	schemaModDescription,
+	schemaModShortenHcp,
+} from 'views/open-api-docs-view/utils/massage-schema-utilities'
 
 /**
  * Boilerplate page configuration, we could in theory expose this so visitors
@@ -101,22 +104,16 @@ export default async function handler(
 			 * Massage the schema data a little bit, replacing
 			 * "HashiCorp Cloud Platform" in the title with "HCP".
 			 */
-			massageRawJson: (schemaData: unknown) => {
-				// Replace the schema description with the POST'ed description
-				if (
-					openApiDescription &&
-					typeof schemaData === 'object' &&
-					'info' in schemaData &&
-					typeof schemaData.info === 'object' &&
-					'description' in schemaData.info &&
-					typeof schemaData.info.description === 'string'
-				) {
-					schemaData.info.description = openApiDescription
-				}
+			massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
+				// Replace the schema description with the POST'ed description, if present
+				const withCustomDescription = schemaModDescription(
+					schemaData,
+					(title) => openApiDescription || title
+				)
 				// Replace "HashiCorp Cloud Platform" with "HCP" in the title
-				const withShortenedTitle = shortenToHcpInTitle(schemaData)
-				// Return the modified schema data
-				return withShortenedTitle
+				const withShortTitle = schemaModShortenHcp(withCustomDescription)
+				// Return the schema data with modifications
+				return withShortTitle
 			},
 		})
 		// Return the static props as JSON, these can be passed to OpenApiDocsView

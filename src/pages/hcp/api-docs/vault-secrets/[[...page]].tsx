@@ -19,7 +19,10 @@ import type {
 	OpenApiDocsViewProps,
 	OpenApiDocsPageConfig,
 } from 'views/open-api-docs-view/types'
-import shortenToHcpInTitle from 'views/open-api-docs-view/utils/shorten-to-hcp-in-title'
+import {
+	schemaModShortenHcp,
+	schemaModProtobufAny,
+} from 'views/open-api-docs-view/utils/massage-schema-utilities'
 
 /**
  * OpenApiDocsView server-side page configuration
@@ -62,56 +65,14 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	/**
 	 * Massage the schema data a little bit, replacing
 	 * "HashiCorp Cloud Platform" in the title with "HCP".
-	 *
-	 * ALSO, TEMPORARY FIX FOR LONG PROTOBUFANY DESCRIPTION:
-	 * Ideally this content update would be made when the OpenAPI spec file is
-	 * generated, rather than hacked in here. This is intended to quickly
-	 * demo the type of change we might make in the original schema file.
-	 *
-	 * NOTE: this also modifies the incoming `schemaData` in place... would
-	 * generally prefer to take a more "immutable" kind of approach, and deep copy
-	 * and modify the schema data instead... but this is temporary, so taking
-	 * this more hacky and potential-side-effect-y approach for now.
 	 */
-	massageRawJson: (schemaData: unknown) => {
-		const clonedSchemaData = shortenToHcpInTitle(schemaData)
-		/**
-		 * Check to see if we have the protobufAny definition we intend to modify,
-		 * if not then bail early.
-		 */
-		if (
-			typeof clonedSchemaData !== 'object' ||
-			!('definitions' in clonedSchemaData) ||
-			typeof clonedSchemaData.definitions !== 'object'
-		) {
-			return clonedSchemaData
-		}
-		if (
-			!('protobufAny' in clonedSchemaData.definitions) ||
-			typeof clonedSchemaData.definitions.protobufAny !== 'object'
-		) {
-			return clonedSchemaData
-		}
-		const { protobufAny } = clonedSchemaData.definitions
-		/**
-		 * Modify the description for the `protobufAny` schema (otherwise it's
-		 * very very long)
-		 */
-		if ('description' in protobufAny) {
-			protobufAny.description =
-				'An arbitrary serialized protocol buffer message. See the [protobufAny documentation](https://protobuf.dev/reference/protobuf/google.protobuf/#any) for more information.'
-		}
-		/**
-		 * Modify the description for protobufAny's @type property
-		 */
-		if ('properties' in protobufAny) {
-			if ('description' in protobufAny.properties['@type']) {
-				protobufAny.properties['@type'].description =
-					'A URL that describes the type of the serialized protocol buffer message.'
-			}
-		}
-		// Return the schema data (modifications were made in place)
-		return clonedSchemaData
+	massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
+		//  Replace "HashiCorp Cloud Platform" with "HCP" in the title
+		const withShortTitle = schemaModShortenHcp(schemaData)
+		// Shorten the description of the protobufAny schema
+		const withShortProtobufDocs = schemaModProtobufAny(withShortTitle)
+		// Return the schema data with modifications
+		return withShortProtobufDocs
 	},
 }
 

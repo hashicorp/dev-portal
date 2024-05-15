@@ -211,11 +211,12 @@ export interface OpenApiDocsPageConfig {
 		pageUrl: string
 		endpointUrl: string
 	}
+
 	/**
 	 * Optional transform hook to run just after the OpenAPI schema is
-	 * fetched, but before we validate and de-reference the schema.
+	 * parsed and validated, but before we de-reference the schema.
 	 */
-	massageRawJson?: (schema: unknown) => unknown
+	massageSchemaForClient?: (schema: OpenAPIV3.Document) => OpenAPIV3.Document
 
 	/**
 	 * The top-of-page heading optionally have an id other than "overview".

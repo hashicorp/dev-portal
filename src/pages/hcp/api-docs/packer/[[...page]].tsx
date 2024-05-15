@@ -7,7 +7,7 @@
 import { fetchCloudApiVersionData } from 'lib/api-docs/fetch-cloud-api-version-data'
 // View
 import OpenApiDocsView from 'views/open-api-docs-view'
-import shortenToHcpInTitle from 'views/open-api-docs-view/utils/shorten-to-hcp-in-title'
+import { schemaModShortenHcp } from 'views/open-api-docs-view/utils/massage-schema-utilities'
 import {
 	getStaticPaths,
 	getStaticProps as getOpenApiDocsStaticProps,
@@ -57,7 +57,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	 * Massage the schema data a little bit, replacing
 	 * "HashiCorp Cloud Platform" in the title with "HCP".
 	 */
-	massageRawJson: shortenToHcpInTitle,
+	massageSchemaForClient: schemaModShortenHcp,
 }
 
 /**
