@@ -74,6 +74,7 @@ export async function getStaticProps({
 	topOfPageId = 'overview',
 	groupOperationsByPath = false,
 	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
+	massageRawSchema = (s: OpenAPIV3.Document) => s,
 	navResourceItems = [],
 }: Omit<OpenApiDocsPageConfig, 'githubSourceDirectory'> & {
 	context: GetStaticPropsContext<OpenApiDocsParams>
@@ -109,7 +110,10 @@ export async function getStaticProps({
 		typeof sourceFile === 'string'
 			? sourceFile
 			: await fetchGithubFile(sourceFile)
-	const rawSchemaData = await parseAndValidateOpenApiSchema(schemaFileString)
+	const rawSchemaData = await parseAndValidateOpenApiSchema(
+		schemaFileString,
+		massageRawSchema
+	)
 	const schemaData = massageSchemaForClient(rawSchemaData)
 	const operationProps = await getOperationProps(schemaData)
 	const operationGroups = groupOperations(operationProps, groupOperationsByPath)
