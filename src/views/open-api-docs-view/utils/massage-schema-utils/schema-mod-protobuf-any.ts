@@ -18,7 +18,7 @@ function shortenProtobufAnyDescription(
 	 */
 	if ('description' in clonedProtobufAny) {
 		clonedProtobufAny.description =
-			'An arbitrary serialized protocol buffer message. See the [protobufAny documentation](https://protobuf.dev/reference/protobuf/google.protobuf/#any) for more information.'
+			'An arbitrary serialized message. See the [protobufAny documentation](https://protobuf.dev/reference/protobuf/google.protobuf/#any) for more information.'
 	}
 	/**
 	 * Modify the description for protobufAny's type property
@@ -32,7 +32,7 @@ function shortenProtobufAnyDescription(
 		}
 		if ('description' in clonedProtobufAnyType) {
 			clonedProtobufAnyType.description =
-				'A URL that describes the type of the serialized protocol buffer message.'
+				'A URL that describes the type of the serialized message.'
 			clonedProtobufAny.properties = {
 				...clonedProtobufAny.properties,
 				...{ ['@type']: clonedProtobufAnyType },
