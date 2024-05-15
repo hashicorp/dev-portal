@@ -7,6 +7,7 @@ import { Children } from 'react'
 import classNames from 'classnames'
 import CodeBlock from '@hashicorp/react-design-system-components/src/components/code-block'
 import Tabs, { Tab } from 'components/tabs'
+import Text from 'components/text'
 import { getLanguageName } from './utils'
 import type { PropsWithChildren, ReactNode } from 'react'
 import s from './mdx-code-blocks.module.css'
@@ -86,7 +87,15 @@ function CodeBlockConfig({
  */
 export const MdxCodeBlockConfig = CodeBlockConfig
 
-export function MdxCodeTabs({ children }: { children: ReactNode }) {
+export function MdxCodeTabs({
+	children,
+	heading,
+	tabs,
+}: {
+	children: ReactNode
+	heading?: string
+	tabs?: string[]
+}) {
 	// `children` is a ReactNode containing multiple code blocks, either as
 	// raw <pre> elements or as <CodeBlockConfig> components. Since we need to
 	// iterate over these children to extract the language of each code block,
@@ -94,41 +103,52 @@ export function MdxCodeTabs({ children }: { children: ReactNode }) {
 	const childCodeBlocks = Children.toArray(children)
 
 	return (
-		<Tabs>
-			{childCodeBlocks.map((child) => {
-				// If the child is not an object with props, it's not a
-				// code block, so we can skip over it. This also narrows the
-				// type for `child`.
-				if (!(typeof child === 'object' && 'props' in child)) return null
+		<div>
+			{heading && (
+				<Text weight="medium" className={s.codeBlockMargin}>
+					{heading}
+				</Text>
+			)}
+			<Tabs>
+				{childCodeBlocks.map((child, index) => {
+					// If the child is not an object with props, it's not a
+					// code block, so we can skip over it. This also narrows the
+					// type for `child`.
+					if (!(typeof child === 'object' && 'props' in child)) return null
 
-				// If the child comes from MDX, it will have an `mdxType` prop.
-				// We can check the value of this prop to determine if it's
-				// safe to expect the single child to have the language class
-				// as a prop.
-				const { mdxType, ...restprops } = child.props
-				const isCodeBlock = ['pre', 'CodeBlockConfig'].includes(mdxType)
+					// If the child comes from MDX, it will have an `mdxType` prop.
+					// We can check the value of this prop to determine if it's
+					// safe to expect the single child to have the language class
+					// as a prop.
+					const { mdxType, ...restprops } = child.props
+					const isCodeBlock = ['pre', 'CodeBlockConfig'].includes(mdxType)
 
-				// If the child is an MDX code block, we can extract the language
-				// class from the child's props. Otherwise, we rely on the
-				// child having a language prop.
-				const languageClass = isCodeBlock
-					? restprops.children.props.className
-					: `language-${restprops.language}`
-				const slugFromClass = languageClass.split('-')[1]
+					// If the child is an MDX code block, we can extract the language
+					// class from the child's props. Otherwise, we rely on the
+					// child having a language prop.
+					const languageClass = isCodeBlock
+						? restprops.children.props.className
+						: `language-${restprops.language}`
+					const slugFromClass = languageClass.split('-')[1]
 
-				// Tabs require a heading prop, which is the name of the
-				// language. Since the language class is an identifier, we try
-				// to get the pretty language name from the slug. If we can't
-				// find a pretty name, we use the slug as the heading.
-				const heading = getLanguageName(slugFromClass) ?? slugFromClass
+					// Tabs require a heading prop, which can be statically defined
+					// or dynamically generated from the language class of the code
+					// block. If tabs are provided, we use the tab at the current
+					// index as the heading. Otherwise, we attempt to generate a
+					// heading from the language class. Finally, we fallback to the
+					// language class if no heading can be generated.
+					const heading = tabs
+						? tabs[index]
+						: getLanguageName(slugFromClass) ?? slugFromClass
 
-				return (
-					<Tab key={slugFromClass} heading={heading} group={slugFromClass}>
-						{child}
-					</Tab>
-				)
-			})}
-		</Tabs>
+					return (
+						<Tab key={slugFromClass} heading={heading} group={slugFromClass}>
+							{child}
+						</Tab>
+					)
+				})}
+			</Tabs>
+		</div>
 	)
 }
 
