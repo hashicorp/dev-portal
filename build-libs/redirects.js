@@ -183,6 +183,12 @@ async function buildDevPortalRedirects() {
 			permanent: true,
 		},
 		{
+			source: '/waypoint/commands/:slug',
+			destination:
+				'https://github.com/hashicorp/waypoint/tree/main/website/content/commands',
+			permanent: true,
+		},
+		{
 			source: '/waypoint/integrations',
 			destination: '/waypoint',
 			permanent: true,
