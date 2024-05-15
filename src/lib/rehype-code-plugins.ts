@@ -18,6 +18,9 @@ export const rehypeCodePlugins: Pluggable[] = [
 			...defaultShikiOptions,
 			transformers: [
 				{
+					pre(node) {
+						node.properties.class = [`language-${this.options.lang}`]
+					},
 					code(node) {
 						// Remove the last line if it's just whitespace
 						const lastChild = node.children[node.children.length - 1]
