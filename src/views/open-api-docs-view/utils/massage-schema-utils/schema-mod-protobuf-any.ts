@@ -18,7 +18,7 @@ function shortenProtobufAnyDescription(
 	 */
 	if ('description' in clonedProtobufAny) {
 		clonedProtobufAny.description =
-			'An arbitrary serialized message. See the [protobufAny documentation](https://protobuf.dev/reference/protobuf/google.protobuf/#any) for more information.'
+			'An arbitrary serialized message. Visit the [protobufAny documentation](https://protobuf.dev/reference/protobuf/google.protobuf/#any) for more information.'
 	}
 	/**
 	 * Modify the description for protobufAny's type property
