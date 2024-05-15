@@ -22,7 +22,7 @@ import type {
 import {
 	schemaModShortenHcp,
 	schemaModProtobufAny,
-} from 'views/open-api-docs-view/utils/massage-schema-utilities'
+} from 'views/open-api-docs-view/utils/massage-schema-utils'
 
 /**
  * OpenApiDocsView server-side page configuration

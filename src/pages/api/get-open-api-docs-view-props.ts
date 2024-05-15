@@ -11,7 +11,7 @@ import type { ProductSlug } from 'types/products'
 import {
 	schemaModDescription,
 	schemaModShortenHcp,
-} from 'views/open-api-docs-view/utils/massage-schema-utilities'
+} from 'views/open-api-docs-view/utils/massage-schema-utils'
 
 /**
  * Boilerplate page configuration, we could in theory expose this so visitors

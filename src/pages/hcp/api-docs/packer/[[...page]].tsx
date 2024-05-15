@@ -7,7 +7,7 @@
 import { fetchCloudApiVersionData } from 'lib/api-docs/fetch-cloud-api-version-data'
 // View
 import OpenApiDocsView from 'views/open-api-docs-view'
-import { schemaModShortenHcp } from 'views/open-api-docs-view/utils/massage-schema-utilities'
+import { schemaModShortenHcp } from 'views/open-api-docs-view/utils/massage-schema-utils'
 import {
 	getStaticPaths,
 	getStaticProps as getOpenApiDocsStaticProps,
