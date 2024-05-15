@@ -34,8 +34,7 @@ export async function parseAndValidateOpenApiSchema(
 ): Promise<OpenAPIV3.Document> {
 	// Parse the fileString into raw JSON
 	const rawSchemaJson = JSON.parse(fileString)
-
-	// Hook to allow for additional schema manipulation before de-referencing
+	// Hook to allow  additional schema manipulation before de-referencing
 	const hasMassageRawSchema = typeof massageRawSchema === 'function'
 	const massagedRawSchema = hasMassageRawSchema
 		? massageRawSchema(rawSchemaJson)

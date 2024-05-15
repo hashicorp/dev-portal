@@ -52,15 +52,22 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	 * Massage the schema data a little bit, replacing
 	 * "HashiCorp Cloud Platform" in the title with "HCP".
 	 */
-	massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
-		// Replace "HashiCorp Cloud Platform" with "HCP" in the title
-		const massagedTitle = schemaData.info.title.replace(
-			'HashiCorp Cloud Platform',
-			'HCP'
-		)
+	massageRawSchema: (schemaData: unknown) => {
+		// Replace "HashiCorp Cloud Platform" with "HCP" in the title, if present
+		if (
+			typeof schemaData === 'object' &&
+			'info' in schemaData &&
+			typeof schemaData.info === 'object' &&
+			'title' in schemaData.info &&
+			typeof schemaData.info.title === 'string'
+		) {
+			schemaData.info.title = schemaData.info.title.replace(
+				'HashiCorp Cloud Platform',
+				'HCP'
+			)
+		}
 		// Return the schema data with the revised title
-		const massagedInfo = { ...schemaData.info, title: massagedTitle }
-		return { ...schemaData, info: massagedInfo }
+		return schemaData
 	},
 }
 

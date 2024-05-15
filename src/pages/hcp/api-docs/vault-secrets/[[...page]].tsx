@@ -59,7 +59,10 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	],
 
 	/**
-	 * TEMPORARY FIX:
+	 * Massage the schema data a little bit, replacing
+	 * "HashiCorp Cloud Platform" in the title with "HCP".
+	 *
+	 * ALSO, TEMPORARY FIX FOR LONG PROTOBUFANY DESCRIPTION:
 	 * Ideally this content update would be made when the OpenAPI spec file is
 	 * generated, rather than hacked in here. This is intended to quickly
 	 * demo the type of change we might make in the original schema file.
@@ -70,7 +73,19 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	 * this more hacky and potential-side-effect-y approach for now.
 	 */
 	massageRawSchema: (schemaData: OpenAPIV3.Document) => {
-		console.log(Object.keys(schemaData))
+		// Replace "HashiCorp Cloud Platform" with "HCP" in the title, if present
+		if (
+			typeof schemaData === 'object' &&
+			'info' in schemaData &&
+			typeof schemaData.info === 'object' &&
+			'title' in schemaData.info &&
+			typeof schemaData.info.title === 'string'
+		) {
+			schemaData.info.title = schemaData.info.title.replace(
+				'HashiCorp Cloud Platform',
+				'HCP'
+			)
+		}
 		/**
 		 * Check to see if we have the protobufAny definition we intend to modify,
 		 * if not then bail early.
@@ -107,21 +122,6 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		}
 		// Return the schema data (modifications were made in place)
 		return schemaData
-	},
-
-	/**
-	 * Massage the schema data a little bit, replacing
-	 * "HashiCorp Cloud Platform" in the title with "HCP".
-	 */
-	massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
-		// Replace "HashiCorp Cloud Platform" with "HCP" in the title
-		const massagedTitle = schemaData.info.title.replace(
-			'HashiCorp Cloud Platform',
-			'HCP'
-		)
-		// Return the schema data with the revised title
-		const massagedInfo = { ...schemaData.info, title: massagedTitle }
-		return { ...schemaData, info: massagedInfo }
 	},
 }
 
