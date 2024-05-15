@@ -220,6 +220,10 @@ export interface OpenApiDocsPageConfig {
 	/**
 	 * Optional transform hook to run just after the OpenAPI schema is parsed,
 	 * but before we translate the schema into page props.
+	 *
+	 * TODO: deprecate. All existing uses could use `massageRawSchema` instead...
+	 * maybe more intuitive, and reflects that the transformations we're making
+	 * would _ideally_ be done at the content source, rather than on consumption.
 	 */
 	massageSchemaForClient?: (schema: OpenAPIV3.Document) => OpenAPIV3.Document
 
