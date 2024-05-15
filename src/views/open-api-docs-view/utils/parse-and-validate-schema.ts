@@ -30,7 +30,7 @@ import { OpenAPIV3 } from 'openapi-types'
  */
 export async function parseAndValidateOpenApiSchema(
 	fileString: string,
-	massageRawSchema?: (schema: OpenAPIV3.Document) => OpenAPIV3.Document
+	massageRawSchema?: (schema: unknown) => unknown
 ): Promise<OpenAPIV3.Document> {
 	// Parse the fileString into raw JSON
 	const rawSchemaJson = JSON.parse(fileString)

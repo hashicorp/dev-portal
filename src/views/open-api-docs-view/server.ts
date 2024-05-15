@@ -74,7 +74,7 @@ export async function getStaticProps({
 	topOfPageId = 'overview',
 	groupOperationsByPath = false,
 	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
-	massageRawSchema = (s: OpenAPIV3.Document) => s,
+	massageRawSchema = (s: unknown) => s,
 	navResourceItems = [],
 }: Omit<OpenApiDocsPageConfig, 'githubSourceDirectory'> & {
 	context: GetStaticPropsContext<OpenApiDocsParams>

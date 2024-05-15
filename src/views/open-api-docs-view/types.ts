@@ -213,9 +213,9 @@ export interface OpenApiDocsPageConfig {
 	}
 	/**
 	 * Optional transform hook to run just after the OpenAPI schema is
-	 * parsed and validated, but before we de-reference the schema.
+	 * fetched, but before we validate and de-reference the schema.
 	 */
-	massageRawSchema?: (schema: OpenAPIV3.Document) => OpenAPIV3.Document
+	massageRawSchema?: (schema: unknown) => unknown
 
 	/**
 	 * Optional transform hook to run just after the OpenAPI schema is parsed,
