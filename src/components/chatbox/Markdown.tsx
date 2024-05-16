@@ -30,8 +30,9 @@ export default function Markdown({ markdown, className }: MarkdownProps) {
 				a: InlineLink,
 			}}
 			remarkPlugins={[remarkGfm]}
-			// @ts-expect-error - ignore type mismatch
-			rehypePlugins={[...rehypeCodePlugins]}
+			//// @ts-expect-error - ignore type mismatch
+			// TODO: Serialize and return markdown from the server
+			// rehypePlugins={[...rehypeCodePlugins]}
 		>
 			{markdown}
 		</ReactMarkdown>

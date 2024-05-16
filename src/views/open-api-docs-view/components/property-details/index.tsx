@@ -205,7 +205,7 @@ function TreeContent({
 					/>
 				</div>
 			)}
-			<div>{children}</div>
+			<div className={s.treeChildren}>{children}</div>
 		</div>
 	)
 }
