@@ -135,6 +135,7 @@
 				}
 			],
 			"featuredCollectionSlugs": [
+				"boundary/get-started-hcp",
 				"boundary/get-started-community",
 				"boundary/hcp-administration"
 			]
