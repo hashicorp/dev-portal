@@ -81,8 +81,13 @@ export const rehypeCodePlugins: Pluggable[] = [
 						}
 
 						// Finally, if the language is still unknown, default
-						// to plaintext.
-						if (!defaultShikiOptions.langs.includes(options.lang)) {
+						// to plaintext, unless the language is explicitly set
+						// to `sentinel`, which is in `langs` as an object.
+						if (
+							!defaultShikiOptions.langs.includes(options.lang) &&
+							options.lang !== 'sentinel' &&
+							options.lang !== 'text'
+						) {
 							console.error(
 								`ShikiError: Language \`${options.lang}\` not found, you may need to load it first`
 							)
