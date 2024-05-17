@@ -4,6 +4,10 @@
 			"name": "HCP Boundary",
 			"items": [
 				{
+					"name": "Quickstart",
+					"collectionSlug": "boundary/get-started-hcp"
+				},
+				{
 					"name": "Administration",
 					"collectionSlug": "boundary/hcp-administration"
 				}
