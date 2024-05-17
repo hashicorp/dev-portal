@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import createFetch from '@vercel/fetch'
 import path from 'path'
 import fs from 'fs'
 import {
@@ -11,8 +10,6 @@ import {
 	ApiTutorialLite,
 	ApiTutorialVariantOption,
 } from 'lib/learn-client/api/api-types'
-
-const fetch = createFetch()
 
 async function fetchTutorialsWithVariants() {
 	const params = new URLSearchParams({ hasVariants: '1' })
