@@ -40,6 +40,7 @@ import { AIFeatureToast } from 'components/chatbox/ai-feature-toast'
 // Local imports
 import './style.css'
 import '@hashicorp/react-design-system-components/src/design-system-components.scss'
+import RouteAnnouncer from '@components/route-announcer'
 
 if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 	import('react-dom').then((ReactDOM) => {
@@ -94,6 +95,7 @@ export default function App({
 									<CurrentProductProvider currentProduct={currentProduct}>
 										<CodeTabsProvider>
 											<HeadMetadata {...pageProps.metadata} />
+											<RouteAnnouncer />
 											<LazyMotion
 												features={() =>
 													import('lib/framer-motion-features').then(
