@@ -74,7 +74,7 @@ export const RouteAnnouncer = () => {
 
 	return (
 		<p
-			aria-live="assertive"
+			aria-live="polite"
 			id="__next-route-announcer_debug__"
 			role="alert"
 			style={nextjsRouteAnnouncerStyles}
