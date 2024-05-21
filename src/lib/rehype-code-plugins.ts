@@ -27,9 +27,7 @@ export const rehypeCodePlugins: Pluggable[] = [
 						if (
 							lastChild.type === 'element' &&
 							lastChild.tagName === 'span' &&
-							lastChild.children.length === 1 &&
-							lastChild.children[0].type === 'text' &&
-							lastChild.children[0].value === '\xa0'
+							lastChild.children.length === 0
 						) {
 							node.children.pop()
 						}
@@ -37,9 +35,10 @@ export const rehypeCodePlugins: Pluggable[] = [
 						this.addClassToHast(node, `language-${this.options.lang}`)
 					},
 					line(node, line) {
-						// If the line is empty, add a non-breaking space
+						// If the line is empty, add a class so we can target
+						// it with CSS.
 						if (node.tagName === 'span' && node.children.length === 0) {
-							node.children.push({ type: 'text', value: '\xa0' })
+							this.addClassToHast(node, 'empty-line')
 						}
 					},
 					preprocess(code, options) {
