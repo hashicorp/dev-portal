@@ -28,12 +28,12 @@ async function main() {
 	const withNewProtobufDef = cloneAndModify(
 		openApiSpec,
 		['definitions', 'protobufAny', 'description'],
-		'A shorter description for protobufAny.'
+		'An arbitrary serialized message. Visit the [protobufAny documentation](https://protobuf.dev/reference/protobuf/google.protobuf/#any) for more information.'
 	)
 	const withNewProtobufTypeDef = cloneAndModify(
 		withNewProtobufDef,
 		['definitions', 'protobufAny', 'properties', '@type', 'description'],
-		'A shorter description for protobufAny type.'
+		'A URL that describes the type of the serialized message.'
 	)
 	// Write out the modified OpenAPI file
 	const jsonString = JSON.stringify(withNewProtobufTypeDef, null, 2)
