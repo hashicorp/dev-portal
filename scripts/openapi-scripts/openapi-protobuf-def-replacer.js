@@ -57,10 +57,9 @@ function cloneAndModify(object, keyPath, newValue, prevKeys = []) {
 	if (keyPath.length === 0) {
 		return newValue
 	}
-	// Recursive case: clone the object and modify the next key, if it exists
+	// Recursive case: clone the object and modify the value at the next key
 	const [firstKey, ...restKeys] = keyPath
-	// If the property we expect to access with this key doesn't exist,
-	// throw an error
+	// If the property we expect to access with this key doesn't exist, bail out
 	if (!(firstKey in object)) {
 		throw new Error(
 			`Error: attempting to clone and modify object, but could not find value at key path ${[
@@ -69,7 +68,7 @@ function cloneAndModify(object, keyPath, newValue, prevKeys = []) {
 			].join('.')}. Exiting.`
 		)
 	}
-	// Otherwise, update the object, and return it
+	// Otherwise, property at key does exist. Recurse to modify it.
 	return {
 		...object,
 		[firstKey]: cloneAndModify(object[firstKey], restKeys, newValue, [
