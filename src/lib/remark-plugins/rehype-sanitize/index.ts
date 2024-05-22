@@ -49,6 +49,12 @@ const schema = deepmerge(defaultSchema, {
 			 * Ref: https://github.com/syntax-tree/hast-util-sanitize#attributes
 			 */
 			['data-text-content', /[\w\-\s]+/],
+			/**
+			 * We enable `style` attributes for all elements so that syntax
+			 * highlighting can be applied via Shiki. We limit them just to the
+			 * format emitted by Shiki.
+			 */
+			['style', /^color:var\(--hds-code-block-color-[a-z\-]*\)$/],
 		],
 	},
 })
