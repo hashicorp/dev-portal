@@ -37,7 +37,7 @@
 		{
 			"name": "HCP Vault Dedicated",
 			"items": [
-				{ "name": "Quickstart", "collectionSlug": "vault/cloud" },
+				{ "name": "Quickstart", "collectionSlug": "vault/get-started-hcp-vault-dedicated" },
 				{ "name": "Operations", "collectionSlug": "vault/cloud-ops" }
 			]
 		},
