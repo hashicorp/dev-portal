@@ -14,14 +14,18 @@ function shortenProtobufAnyDescription(
 	const clonedProtobufAny = { ...protobufAnySchema }
 	/**
 	 * Modify the description for the `protobufAny` schema
-	 * (otherwise it's very very long)
+	 * if it's over 400 characters.
 	 */
 	if ('description' in clonedProtobufAny) {
-		clonedProtobufAny.description =
+		clonedProtobufAny.description = changeIfExceedsCharacterLimit(
+			clonedProtobufAny.description,
+			400,
 			'An arbitrary serialized message. Visit the [protobufAny documentation](https://protobuf.dev/reference/protobuf/google.protobuf/#any) for more information.'
+		)
 	}
 	/**
 	 * Modify the description for protobufAny's type property
+	 * if it's over 400 characters.
 	 */
 	if (
 		'properties' in clonedProtobufAny &&
@@ -31,8 +35,11 @@ function shortenProtobufAnyDescription(
 			...clonedProtobufAny.properties['@type'],
 		}
 		if ('description' in clonedProtobufAnyType) {
-			clonedProtobufAnyType.description =
+			clonedProtobufAnyType.description = changeIfExceedsCharacterLimit(
+				clonedProtobufAnyType.description,
+				400,
 				'A URL that describes the type of the serialized message.'
+			)
 			clonedProtobufAny.properties = {
 				...clonedProtobufAny.properties,
 				...{ ['@type']: clonedProtobufAnyType },
@@ -41,6 +48,23 @@ function shortenProtobufAnyDescription(
 	}
 	// Return the cloned and modified protobufAny schema
 	return clonedProtobufAny
+}
+
+/**
+ * Given an original string, a character length limit
+ * and an alternate string,
+ *
+ * If the original string exceeds the character length limit,
+ * return the alternate string.
+ * If the original string does not exceed the character length limit,
+ * return the original string.
+ */
+function changeIfExceedsCharacterLimit(
+	original: string,
+	characterLimit: number,
+	alternate: string
+): string {
+	return original.length > characterLimit ? alternate : original
 }
 
 /**
