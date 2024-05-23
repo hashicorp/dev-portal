@@ -211,11 +211,13 @@ export interface OpenApiDocsPageConfig {
 		pageUrl: string
 		endpointUrl: string
 	}
+
 	/**
-	 * Optional transform hook to run just after the OpenAPI schema is parsed,
-	 * but before we translate the schema into page props.
+	 * Optional transform hook to run just after the OpenAPI schema is
+	 * parsed and validated, but before we de-reference the schema.
 	 */
 	massageSchemaForClient?: (schema: OpenAPIV3.Document) => OpenAPIV3.Document
+
 	/**
 	 * The top-of-page heading optionally have an id other than "overview".
 	 * This heading ID is used to jump to the top of the page

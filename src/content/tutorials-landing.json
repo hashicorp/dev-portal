@@ -44,7 +44,7 @@
 			"featuredCollectionSlugs": [
 				"vault/getting-started",
 				"vault/getting-started-ui",
-				"vault/cloud"
+				"vault/get-started-hcp-vault-dedicated"
 			],
 			"certificationProgram": {
 				"slug": "security-automation",
