@@ -63,8 +63,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	],
 
 	/**
-	 * Massage the schema data a little bit, replacing
-	 * "HashiCorp Cloud Platform" in the title with "HCP".
+	 * Massage the schema data a little bit
 	 */
 	massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
 		//  Replace "HashiCorp Cloud Platform" with "HCP" in the title
