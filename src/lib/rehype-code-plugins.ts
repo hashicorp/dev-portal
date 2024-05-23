@@ -18,15 +18,16 @@ export const rehypeCodePlugins: Pluggable[] = [
 			...defaultShikiOptions,
 			transformers: [
 				{
+					pre(node) {
+						node.properties.class = [`language-${this.options.lang}`]
+					},
 					code(node) {
 						// Remove the last line if it's just whitespace
 						const lastChild = node.children[node.children.length - 1]
 						if (
 							lastChild.type === 'element' &&
 							lastChild.tagName === 'span' &&
-							lastChild.children.length === 1 &&
-							lastChild.children[0].type === 'text' &&
-							lastChild.children[0].value === '\xa0'
+							lastChild.children.length === 0
 						) {
 							node.children.pop()
 						}
@@ -34,9 +35,10 @@ export const rehypeCodePlugins: Pluggable[] = [
 						this.addClassToHast(node, `language-${this.options.lang}`)
 					},
 					line(node, line) {
-						// If the line is empty, add a non-breaking space
+						// If the line is empty, add a class so we can target
+						// it with CSS.
 						if (node.tagName === 'span' && node.children.length === 0) {
-							node.children.push({ type: 'text', value: '\xa0' })
+							this.addClassToHast(node, 'empty-line')
 						}
 					},
 					preprocess(code, options) {
@@ -78,8 +80,13 @@ export const rehypeCodePlugins: Pluggable[] = [
 						}
 
 						// Finally, if the language is still unknown, default
-						// to plaintext.
-						if (!defaultShikiOptions.langs.includes(options.lang)) {
+						// to plaintext, unless the language is explicitly set
+						// to `sentinel`, which is in `langs` as an object.
+						if (
+							!defaultShikiOptions.langs.includes(options.lang) &&
+							options.lang !== 'sentinel' &&
+							options.lang !== 'text'
+						) {
 							console.error(
 								`ShikiError: Language \`${options.lang}\` not found, you may need to load it first`
 							)

@@ -87,7 +87,7 @@
 		},
 		{
 			"type": "collection_cards",
-			"collectionSlugs": ["consul/certification", "consul/certification-003"]
+			"collectionSlugs": ["consul/certification-003"]
 		}
 	]
 }

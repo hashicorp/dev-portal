@@ -112,6 +112,10 @@ export const theme: ThemeRegistrationResolved = {
 			settings: { foreground: 'var(--hds-code-block-color-punctuation)' },
 		},
 		{
+			scope: ['punctuation.separator.prompt.shell-session'],
+			settings: { foreground: 'var(--hds-code-block-color-cyan)' },
+		},
+		{
 			scope: [
 				'markup.underline.link',
 				'punctuation.definition.metadata.markdown',

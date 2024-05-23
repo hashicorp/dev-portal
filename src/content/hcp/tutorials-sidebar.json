@@ -4,6 +4,10 @@
 			"name": "HCP Boundary",
 			"items": [
 				{
+					"name": "Quickstart",
+					"collectionSlug": "boundary/get-started-hcp"
+				},
+				{
 					"name": "Administration",
 					"collectionSlug": "boundary/hcp-administration"
 				}
@@ -33,7 +37,7 @@
 		{
 			"name": "HCP Vault Dedicated",
 			"items": [
-				{ "name": "Quickstart", "collectionSlug": "vault/cloud" },
+				{ "name": "Quickstart", "collectionSlug": "vault/get-started-hcp-vault-dedicated" },
 				{ "name": "Operations", "collectionSlug": "vault/cloud-ops" }
 			]
 		},

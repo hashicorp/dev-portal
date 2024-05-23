@@ -1,11 +1,11 @@
 {
 	"enabled": true,
 	"data": {
-		"product": "vagrant",
-		"tag": "News",
-		"url": "https://www.hashicorp.com/blog/hashicorp-joins-ibm",
-		"text": "HashiCorp to join IBM to accelerate multi-cloud automation.",
-		"linkText": "Read the blog →",
-		"expirationDate": "2024-05-29T00:00:00-08:00"
+		"product": "hashicorp",
+		"tag": "HashiDays",
+		"url": "https://hashicorp.com/conferences/hashidays",
+		"text": "One conference. Three cities.",
+		"linkText": "Find a city near you",
+		"expirationDate": "2024-06-14T00:00:00-08:00"
 	}
 }
