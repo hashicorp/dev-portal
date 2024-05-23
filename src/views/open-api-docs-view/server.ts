@@ -42,6 +42,9 @@ import type {
  * Later, when we implement versioned API docs for the new template,
  * we'll likely need to retain `getStaticPaths`, using separate paths
  * for each version of the OpenAPI documents that we detect.
+ *
+ * TODO: noticed that previous versions of HCP Vault Secrets don't
+ * seem to be rendering in production as expected. Need to investigate.
  */
 export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
 	// If we are in a product repo deploy preview, don't pre-render any paths
