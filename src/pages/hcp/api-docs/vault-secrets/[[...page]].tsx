@@ -69,7 +69,19 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
 		//  Replace "HashiCorp Cloud Platform" with "HCP" in the title
 		const withShortTitle = schemaModShortenHcp(schemaData)
-		// Shorten the description of the protobufAny schema
+		/**
+		 * Shorten the description of the protobufAny schema
+		 *
+		 * Note: ideally this would be done at the content source,
+		 * but until we've got that work done, this shortening
+		 * seems necessary to ensure incremental static regeneration works
+		 * for past versions of the API docs. Without this shortening,
+		 * it seems the response size ends up crossing a threshold that
+		 * causes the serverless function that renders the page to fail.
+		 *
+		 * Related task:
+		 * https://app.asana.com/0/1207339219333499/1207339701271604/f
+		 */
 		const withShortProtobufDocs = schemaModProtobufAny(withShortTitle)
 		// Return the schema data with modifications
 		return withShortProtobufDocs
