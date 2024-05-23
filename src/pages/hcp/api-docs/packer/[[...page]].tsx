@@ -8,8 +8,9 @@ import { fetchCloudApiVersionData } from 'lib/api-docs/fetch-cloud-api-version-d
 // View
 import OpenApiDocsView from 'views/open-api-docs-view'
 import {
-	schemaModProtobufAny,
+	schemaModComponent,
 	schemaModShortenHcp,
+	shortenProtobufAnyDescription,
 } from 'views/open-api-docs-view/utils/massage-schema-utils'
 import {
 	getStaticPaths,
@@ -76,7 +77,11 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		 * Related task:
 		 * https://app.asana.com/0/1207339219333499/1207339701271604/f
 		 */
-		const withShortProtobufDocs = schemaModProtobufAny(withShortTitle)
+		const withShortProtobufDocs = schemaModComponent(
+			withShortTitle,
+			'google.protobuf.Any',
+			shortenProtobufAnyDescription
+		)
 		// Return the schema data with modifications
 		return withShortProtobufDocs
 	},
