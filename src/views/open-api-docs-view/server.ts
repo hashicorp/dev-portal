@@ -109,8 +109,10 @@ export async function getStaticProps({
 		typeof sourceFile === 'string'
 			? sourceFile
 			: await fetchGithubFile(sourceFile)
-	const rawSchemaData = await parseAndValidateOpenApiSchema(schemaFileString)
-	const schemaData = massageSchemaForClient(rawSchemaData)
+	const schemaData = await parseAndValidateOpenApiSchema(
+		schemaFileString,
+		massageSchemaForClient
+	)
 	const operationProps = await getOperationProps(schemaData)
 	const operationGroups = groupOperations(operationProps, groupOperationsByPath)
 	const navItems = getNavItems({
