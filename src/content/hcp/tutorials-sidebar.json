@@ -38,7 +38,8 @@
 			"name": "HCP Vault Dedicated",
 			"items": [
 				{ "name": "Quickstart", "collectionSlug": "vault/get-started-hcp-vault-dedicated" },
-				{ "name": "Operations", "collectionSlug": "vault/cloud-ops" }
+				{ "name": "Operations", "collectionSlug": "vault/manage-hcp-vault-dedicated" },
+				{ "name": "Kubernetes", "collectionSlug": "vault/integrate-kubernetes-hcp-vault-dedicated" }
 			]
 		},
 		{
