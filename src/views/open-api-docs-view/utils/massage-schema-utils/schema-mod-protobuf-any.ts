@@ -8,7 +8,7 @@ import { schemaModComponent } from './schema-mod-component'
  * This is done as we don't want to display the full descriptions of
  * `protobufAny`, since they were too long in the context of the UI.
  */
-function shortenProtobufAnyDescription(
+export function shortenProtobufAnyDescription(
 	protobufAnySchema: OpenAPIV3.SchemaObject
 ): OpenAPIV3.SchemaObject {
 	const clonedProtobufAny = { ...protobufAnySchema }
@@ -65,18 +65,4 @@ function changeIfExceedsCharacterLimit(
 	alternate: string
 ): string {
 	return original.length > characterLimit ? alternate : original
-}
-
-/**
- * Modifies an incoming `schemaData`, which is expected to be a valid OpenAPI
- * schema, in order to shorten descriptions in the `protobufAny` schema.
- */
-export function schemaModProtobufAny(
-	schemaData: OpenAPIV3.Document
-): OpenAPIV3.Document {
-	return schemaModComponent(
-		schemaData,
-		'protobufAny',
-		shortenProtobufAnyDescription
-	)
 }
