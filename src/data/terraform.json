@@ -79,7 +79,7 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "Documentation Overview",
+			"name": "Docs Overview",
 			"path": "docs",
 			"productSlugForLoader": "terraform-docs-common"
 		},
@@ -96,7 +96,7 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "Intro",
+			"name": "Intro to Terraform",
 			"path": "intro"
 		},
 		{
