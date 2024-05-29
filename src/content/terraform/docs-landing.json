@@ -19,6 +19,11 @@
 					"description": "Learn how Terraform compares to other tools and services.",
 					"title": "Terraform vs. Alternatives",
 					"url": "/terraform/intro/vs"
+				},
+				{
+					"description": "Evolve your Terraform strategy as your adoption grows.",
+					"title": "Phases of Terraform adoption",
+					"url": "/terraform/intro/phases"
 				}
 			]
 		},
