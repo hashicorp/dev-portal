@@ -32,6 +32,18 @@
 				"register": "https://cp.certmetrics.com/hashicorp/en/login"
 			},
 			"faqSlug": "vault-operations-professional"
+		},
+		{
+			"title": "Consul Associate",
+			"examCode": "003",
+			"productSlug": "consul",
+			"versionTested": "Consul 1.15",
+			"description": "The Consul Associate Certification is for site reliability engineers (SREs), solutions architects (SAs), DevOps professionals, or other cloud engineers who know the basic concepts and skills to build, secure, and maintain Consul. You understand what Enterprise features exist and can differentiate between Consul Enterprise and Community Edition. You will be best prepared for this exam if you have professional experience using Consul in production, but performing the exam objectives in a personal demo environment may be sufficient.",
+			"links": {
+				"prepare": "/consul/tutorials/certification-003",
+				"register": "https://cp.certmetrics.com/hashicorp/en/login"
+			},
+			"faqSlug": "consul-associate-003"
 		}
 	]
 }
