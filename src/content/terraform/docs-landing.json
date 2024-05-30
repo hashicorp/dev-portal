@@ -21,7 +21,7 @@
 					"url": "/terraform/intro/vs"
 				},
 				{
-					"description": "Evolve your Terraform strategy as your adoption grows.",
+					"description": "Design your Terraform workflows for scale.",
 					"title": "Phases of Terraform adoption",
 					"url": "/terraform/intro/phases"
 				}

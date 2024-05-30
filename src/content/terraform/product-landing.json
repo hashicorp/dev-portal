@@ -62,13 +62,13 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Terraform Style guide",
+					"heading": "Terraform style guide",
 					"body": "Learn recommended style conventions for Terraform configuration and workflows.",
 					"url": "/terraform/language/style"
 				},
 				{
 					"heading": "Phases of Terraform adoption",
-					"body": "Evolve your Terraform strategy as your adoption grows.",
+					"body": "Design your Terraform workflows for scale.",
 					"url": "/terraform/intro/phases"
 				}
 			]
