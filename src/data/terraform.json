@@ -33,7 +33,6 @@
 	],
 	"docsNavItems": [
 		"docs",
-		"intro",
 		"language",
 		"cli",
 		"cloud-docs",
@@ -93,6 +92,11 @@
 			"iconName": "docs",
 			"name": "Internals",
 			"path": "internals"
+		},
+		{
+			"iconName": "docs",
+			"name": "Intro to Terraform",
+			"path": "intro"
 		},
 		{
 			"iconName": "file-source",
