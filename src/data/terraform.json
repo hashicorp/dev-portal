@@ -95,11 +95,6 @@
 			"path": "internals"
 		},
 		{
-			"iconName": "docs",
-			"name": "Intro to Terraform",
-			"path": "intro"
-		},
-		{
 			"iconName": "file-source",
 			"name": "Configuration Language",
 			"path": "language"
