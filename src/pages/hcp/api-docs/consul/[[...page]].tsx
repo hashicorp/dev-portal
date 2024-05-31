@@ -52,7 +52,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		},
 		{
 			title: 'Certifications',
-			href: '/certifications/networking-automation',
+			href: '/certifications/security-automation',
 		},
 		{
 			title: 'Community',
