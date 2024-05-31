@@ -204,6 +204,11 @@ async function buildDevPortalRedirects() {
 				'https://github.com/hashicorp/waypoint/tree/main/website/content/docs',
 			permanent: true,
 		},
+		{
+			source: '/certifications/networking-automation',
+			destination: '/certifications/security-automation',
+			permanent: true,
+		},
 		/**
 		 * Redirects from our former Packer Plugin library to our
 		 * new integrations library for Packer,
