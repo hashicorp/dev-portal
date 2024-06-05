@@ -33,6 +33,7 @@
 	],
 	"docsNavItems": [
 		"docs",
+		"intro",
 		"language",
 		"cli",
 		"cloud-docs",
@@ -78,7 +79,7 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "About the Docs",
+			"name": "Docs Overview",
 			"path": "docs",
 			"productSlugForLoader": "terraform-docs-common"
 		},
@@ -95,7 +96,7 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "Intro",
+			"name": "Intro to Terraform",
 			"path": "intro"
 		},
 		{
