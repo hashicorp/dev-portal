@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { OpenAPIV3 } from 'openapi-types'
 import { schemaModTitle } from './schema-mod-title'
 
