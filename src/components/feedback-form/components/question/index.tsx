@@ -66,7 +66,12 @@ const Question: React.FC<QuestionProps> = ({
 			break
 		}
 		case 'text': {
-			const { optional, buttonText, nextQuestion } = question
+			const {
+				optional,
+				buttonText,
+				nextQuestion,
+				placeholder = 'Your feedback...',
+			} = question
 			const isButtonDisabled =
 				!optional && (inputValue === '' || feedbackContext.isTransitioning)
 			const inputHasEntry = inputValue.length
@@ -82,7 +87,7 @@ const Question: React.FC<QuestionProps> = ({
 								s.textArea,
 								inputHasEntry ? s.visited : null
 							)}
-							placeholder="Your feedback..."
+							placeholder={placeholder}
 						/>
 						{optional && !inputHasEntry ? (
 							<span className={s.optionalText}>(optional)</span>

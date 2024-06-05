@@ -4,11 +4,7 @@
  */
 
 import moize, { Options } from 'moize'
-import {
-	LearnProductData,
-	LearnProductName,
-	LearnProductSlug,
-} from 'types/products'
+import { LearnProductData } from 'types/products'
 
 import {
 	getAllCollections,
@@ -16,15 +12,15 @@ import {
 } from 'lib/learn-client/api/collection'
 import { getTutorial } from 'lib/learn-client/api/tutorial'
 import {
-	CollectionLite as ClientCollectionLite,
 	Collection as ClientCollection,
 	ProductOption,
 	TutorialLite as ClientTutorialLite,
+	Product as LearnClientProduct,
 } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { splitProductFromFilename } from './utils'
 import { serializeContent } from './utils/serialize-content'
-import { TutorialSidebarSidecarProps, TutorialData } from '.'
+import { TutorialViewProps } from '.'
 import {
 	getCollectionContext,
 	getCurrentCollectionTutorial,
@@ -33,13 +29,12 @@ import { getTutorialsBreadcrumb } from './utils/get-tutorials-breadcrumb'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
 import { normalizeSlugForTutorials } from 'lib/tutorials/normalize-product-like-slug'
 import { normalizeSlugForDevDot } from 'lib/tutorials/normalize-product-like-slug'
-
-export interface TutorialPageProps {
-	tutorial: TutorialData
-	product: LearnProductData
-	layoutProps: TutorialSidebarSidecarProps
-	nextCollection?: ClientCollectionLite | null // if null, it is the last collection in the sidebar order
-}
+import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
+import {
+	TutorialVariantOption,
+	getTutorialViewVariantData,
+	getVariantParam,
+} from './utils/variants'
 
 /**
  * Given a ProductData object (imported from src/data JSON files) and a tutorial
@@ -50,12 +45,17 @@ export interface TutorialPageProps {
  * which is needed for other areas of the app to function.
  */
 export async function getTutorialPageProps(
-	product: {
-		name: LearnProductName
-		slug: LearnProductSlug | 'hcp'
+	/**
+	 * @TODO clean up the hcp / learn product slug types https://app.asana.com/0/1202097197789424/1202946807363608
+	 */
+	product: Omit<LearnProductData, 'slug'> & {
+		slug: LearnClientProduct['slug'] | 'hcp'
 	},
-	slug: [string, string]
-): Promise<{ props: TutorialPageProps } | null> {
+	fullSlug: [string, string] | [string, string, string] // Third option is a variant
+): Promise<{ props: TutorialViewProps } | null> {
+	// Remove the variant from the slug
+	const slug = fullSlug.slice(0, 2) as [string, string]
+
 	// product.slug may be "hcp", needs to be "cloud" for Learn API use
 	const learnProductSlug = normalizeSlugForTutorials(product.slug)
 	const { collection, tutorialReference } = await getCurrentCollectionTutorial(
@@ -73,6 +73,12 @@ export async function getTutorialPageProps(
 	if (fullTutorialData === null) {
 		return null
 	}
+
+	const variantSlug = fullSlug[2]
+	const variant = getTutorialViewVariantData(
+		variantSlug,
+		fullTutorialData.variant
+	)
 
 	const { content: serializedContent, headings } = await serializeContent(
 		fullTutorialData
@@ -93,7 +99,6 @@ export async function getTutorialPageProps(
 		collection.data
 	)
 	const layoutProps = {
-		headings,
 		breadcrumbLinks: getTutorialsBreadcrumb({
 			product: { name: product.name, filename: product.slug },
 			collection: {
@@ -101,13 +106,13 @@ export async function getTutorialPageProps(
 				filename: collection.filename,
 			},
 			tutorial: {
-				name: fullTutorialData.name,
+				name: fullTutorialData.shortName,
 				filename: tutorialReference.filename,
 			},
 		}),
 		sidebarSections,
 		/* Long-form content pages use a narrower main area width */
-		mainWidth: 'narrow',
+		mainWidth: 'narrow' as const,
 	}
 	const lastTutorialIndex = collectionContext.current.tutorials.length - 1
 	const isLastTutorial =
@@ -124,18 +129,24 @@ export async function getTutorialPageProps(
 	}
 
 	return {
-		props: stripUndefinedProperties<$TSFixMe>({
+		props: stripUndefinedProperties<TutorialViewProps>({
 			metadata: {
 				title: fullTutorialData.name,
 				description: fullTutorialData.description,
+				variant,
 			},
 			tutorial: {
 				...fullTutorialData,
 				content: serializedContent,
 				collectionCtx: collectionContext,
-				headings,
-				nextCollectionInSidebar: nextCollection,
+				nextCollectionInSidebar:
+					collectionContext.current.nextCollection ?? nextCollection,
 			},
+			pageHeading: {
+				slug: headings[0].slug,
+				text: fullTutorialData.name,
+			},
+			outlineItems: outlineItemsFromHeadings(headings),
 			product,
 			layoutProps,
 			nextCollection,
@@ -202,9 +213,29 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 						tutorialSlug: [collectionSlug, tutorialSlug] as [string, string],
 					},
 				})
+				// If the Tutorial has variants, push a path for each one
+				if (tutorial.variant) {
+					tutorial.variant.options.forEach(
+						(variantOption: TutorialVariantOption) => {
+							const variantParam = getVariantParam(
+								tutorial.variant.slug,
+								variantOption.slug
+							)
+							paths.push({
+								params: {
+									productSlug: normalizedProductSlug,
+									tutorialSlug: [
+										collectionSlug,
+										tutorialSlug,
+										variantParam,
+									] as [string, string, string],
+								},
+							})
+						}
+					)
+				}
 			})
 		}
 	})
-
 	return paths
 }

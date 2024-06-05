@@ -11,6 +11,12 @@
 		display: flex;
 		gap: 32px;
 	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(
+			--token-color-foreground-strong
+		); /** Needed to supercede the dark mode card .root dark mode background  */
+	}
 }
 
 .title {

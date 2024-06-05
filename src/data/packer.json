@@ -12,7 +12,7 @@
 	"datoToken": "88b4984480dad56295a8aadae6caad",
 	"metadata": {
 		"title": "Packer by HashiCorp",
-		"description": "Packer is a free and open source tool for creating golden images for multiple platforms from a single source configuration.",
+		"description": "Packer helps you create golden images for multiple platforms from a single source configuration.",
 		"image": "https://www.packer.io/packer-public/img/og-image.png",
 		"icon": [
 			{
@@ -20,16 +20,16 @@
 			}
 		]
 	},
-	"alertBannerActive": false,
+	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "October 5-6",
-		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
-		"text": "HashiConf Global is live. Join us virtually for keynotes, sessions, and more.",
-		"linkText": "Join now",
-		"expirationDate": ""
+		"tag": "HashiDays",
+		"url": "https://hashicorp.com/conferences/hashidays",
+		"text": "One conference. Three cities.",
+		"linkText": "Find a city near you",
+		"expirationDate": "2024-06-14T00:00:00-08:00"
 	},
 	"version": "1.7.10",
-	"basePaths": ["docs", "guides", "intro", "plugins", "downloads"],
+	"basePaths": ["docs", "guides", "intro", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -40,11 +40,9 @@
 			"iconName": "guide",
 			"name": "Guides",
 			"path": "guides"
-		},
-		{
-			"iconName": "plug",
-			"name": "Plugins",
-			"path": "plugins"
 		}
-	]
+	],
+	"integrationsConfig": {
+		"description": "A curated collection of official, partner, and community Packer Integrations."
+	}
 }

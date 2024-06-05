@@ -53,13 +53,17 @@ export type FeaturedTutorialCard = TutorialCardPropsWithId
 export interface ProductDownloadsViewProps {
 	isEnterpriseMode: boolean
 	latestVersion: string
-	merchandisingSlot?: ReactElement
+	merchandisingSlot?: {
+		position: 'above' | 'middle' | 'below'
+		slot: ReactElement
+	}
 	pageContent: {
 		featuredCollectionCards?: FeaturedCollectionCard[]
 		featuredTutorialCards?: FeaturedTutorialCard[]
 		sidecarMarketingCard: SidecarMarketingCardProps
 		sidecarHcpCallout?: TryHcpCalloutCompactProps
 		sidebarMenuItems?: MenuItem[]
+		additionalDownloadItems?: MenuItem[]
 		installName?: string
 	}
 	releases: ReleasesAPIResponse

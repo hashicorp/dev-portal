@@ -4,7 +4,10 @@
  */
 
 import { ReactElement } from 'react'
-import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
+import { TryHcpCalloutPrebuilt } from 'components/try-hcp-callout'
+import { hasHcpCalloutContent } from 'components/try-hcp-callout/content'
 import CalloutCard from 'components/callout-card'
 import IconCardLinkGridList from 'components/icon-card-link-grid-list'
 import { developmentToast, ToastColor } from 'components/toast'
@@ -14,12 +17,12 @@ import HeroHeadingVisual from './components/hero-heading-visual'
 import OverviewCta from './components/overview-cta'
 import ProductLandingBlocks from './components/product-landing-blocks'
 import s from './product-landing.module.css'
-import { TryHcpCalloutPrebuilt } from 'components/try-hcp-callout'
-import { hasHcpCalloutContent } from 'components/try-hcp-callout/content'
 
 function ProductLandingView({
 	content,
 	product,
+	layoutProps,
+	outlineItems,
 }: ProductLandingViewProps): ReactElement {
 	const { hero, overview, overviewParagraph, get_started, blocks } = content
 	const iconCards = getIconCards(product)
@@ -34,7 +37,10 @@ function ProductLandingView({
 	}
 
 	return (
-		<>
+		<SidebarSidecarLayout
+			{...layoutProps}
+			sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
+		>
 			<div className={s.heroMargin}>
 				<HeroHeadingVisual
 					heading={hero.heading}
@@ -75,9 +81,8 @@ function ProductLandingView({
 				</div>
 			) : null}
 			<ProductLandingBlocks blocks={blocks} />
-		</>
+		</SidebarSidecarLayout>
 	)
 }
 
-ProductLandingView.layout = SidebarSidecarWithToc
 export default ProductLandingView

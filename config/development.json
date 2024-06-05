@@ -4,15 +4,10 @@
 		"max_static_paths": 1
 	},
 	"dev_dot": {
-		"max_static_paths": 1,
-		"algolia": {
-			"tutorialsIndexName": "staging_LEARN"
-		}
+		"max_static_paths": 1
 	},
 	"learn": {
 		"max_static_paths": 1
 	},
-	"flags": {
-		"enable_global_search": true
-	}
+	"flags": {}
 }

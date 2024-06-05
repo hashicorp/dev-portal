@@ -22,6 +22,7 @@
 	padding: 8px 10px 8px 16px;
 	position: relative;
 	text-decoration: none;
+	justify-content: space-between;
 
 	& span {
 		display: block;
@@ -54,6 +55,7 @@
 
 .separator {
 	color: var(--token-color-border-primary);
+	background-color: var(--token-color-border-primary);
 	margin-bottom: 0;
 	margin-left: 6px;
 	margin-right: 6px;

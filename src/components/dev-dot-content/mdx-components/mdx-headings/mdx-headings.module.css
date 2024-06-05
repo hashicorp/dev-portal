@@ -34,10 +34,9 @@
 		font-weight: 500;
 	}
 
-	&:hover {
-		& :global(.__permalink-h) {
-			opacity: 1;
-		}
+	/* Reveal nested permalinks on hover */
+	&:hover a {
+		opacity: 1;
 	}
 }
 

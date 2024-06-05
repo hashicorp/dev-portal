@@ -3,21 +3,35 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import semverRSort from 'semver/functions/rsort'
-import semverPrerelease from 'semver/functions/prerelease'
-import semverValid from 'semver/functions/valid'
-import { ProductData } from 'types/products'
-import { ReleaseVersion } from 'lib/fetch-release-data'
-import {
-	getInlineCollections,
-	getInlineTutorials,
-} from 'views/product-tutorials-view/helpers/get-inline-content'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { formatCollectionCard } from 'components/collection-card/helpers'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
-import { PackageManager, SortedReleases } from './types'
+import { ReleaseVersion } from 'lib/fetch-release-data'
 import { CollectionLite } from 'lib/learn-client/types'
+import semverParse from 'semver/functions/parse'
+import semverPrerelease from 'semver/functions/prerelease'
+import semverRSort from 'semver/functions/rsort'
+import semverValid from 'semver/functions/valid'
+import { ProductData, ProductSlug } from 'types/products'
+import {
+	getInlineCollections,
+	getInlineTutorials,
+} from 'views/product-tutorials-view/helpers/get-inline-content'
+import {
+	FeaturedCollectionCard,
+	FeaturedTutorialCard,
+	PackageManager,
+	SortedReleases,
+} from './types'
+import capitalize from '@hashicorp/platform-util/text/capitalize'
+import { MenuItem } from 'components/sidebar'
+import {
+	BoundaryDesktopClient,
+	InstallPageAnchorHeading,
+} from './components/downloads-section/types'
+import { ReleasesAPIResponse } from '@hashicorp/react-product-downloads-page'
+import { Products } from '@hashicorp/platform-product-meta'
 
 const PLATFORM_MAP = {
 	Mac: 'darwin',
@@ -42,7 +56,7 @@ export const generateDefaultPackageManagers = (
 		{
 			label: 'Ubuntu/Debian',
 			commands: [
-				`wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg`,
+				`wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg`,
 				`echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list`,
 				`sudo apt update && sudo apt install ${productSlug}`,
 			],
@@ -103,7 +117,7 @@ export function generateEnterprisePackageManagers(
 		{
 			label: 'Ubuntu/Debian',
 			commands: [
-				`wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg`,
+				`wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg`,
 				`echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list`,
 				`sudo apt update && sudo apt install ${productSlug}-enterprise`,
 			],
@@ -147,24 +161,15 @@ export function generateEnterprisePackageManagers(
 	]
 }
 
-export const getPageSubtitle = ({
-	productName,
-	version,
-	isLatestVersion,
-}: {
-	productName: string
-	version: string
-	isLatestVersion: boolean
-}): string => {
-	const versionText = `v${version}${isLatestVersion ? ' (latest version)' : ''}`
-	return `Install or update to ${versionText} of ${productName} to get started.`
-}
-
 export const initializeBreadcrumbLinks = (
 	currentProduct: Pick<ProductData, 'name' | 'slug'>,
-	selectedVersion: string,
-	isEnterpriseMode: boolean
+	isEnterpriseMode: boolean,
+	pathname: string
 ): BreadcrumbLink[] => {
+	const nonEnterpriseTitle =
+		pathname === '/vagrant/install/vmware'
+			? `Install VMware Utility`
+			: `Install`
 	return [
 		{
 			title: 'Developer',
@@ -176,12 +181,7 @@ export const initializeBreadcrumbLinks = (
 		},
 		{
 			isCurrentPage: true,
-			title: isEnterpriseMode
-				? `Install ${currentProduct.name} Enterprise`
-				: `Install v${selectedVersion}`,
-			url: isEnterpriseMode
-				? `/${currentProduct.slug}/downloads/enterprise`
-				: `/${currentProduct.slug}/downloads`,
+			title: isEnterpriseMode ? `Install Enterprise` : `${nonEnterpriseTitle}`,
 		},
 	]
 }
@@ -257,8 +257,52 @@ export function prettyOs(os: string): string {
 		case 'windows':
 			return 'Windows'
 		default:
-			return os.charAt(0).toUpperCase() + os.slice(1)
+			return capitalize(os)
 	}
+}
+
+/**
+ * Given a version string,
+ * Return `true` if the string is a valid version with the build ID `"ent"`,
+ * or `false` if the string is a valid version not identified as enterprise,
+ * or `null` if the string could not be parsed with `semverParse`.
+ * or `false` otherwise.
+ *
+ * Note: returns `null` for invalid semver versions.
+ *
+ * Warning: some of our version numbers might not follow semver in the way
+ * we'd expect. As an example, our Consul version data seems to contain varying
+ * formats for "enterprise" version numbers, and certain pre-release formats
+ * will not be recognized as "ent" builds due to their formatting.
+ *
+ * Here are some specific examples from Consul releases:
+ * - `1.12.0-beta1+ent` will be parsed, as we might expect, as:
+ *   build: [ "ent" ]
+ *   prerelease: [ "beta1" ]
+ * - `1.10.0+ent-alpha` will be parsed, perhaps unexpectedly, as:
+ *   build: [ "ent-alpha" ]
+ *   prerelease: []
+ *
+ * The latter example is a valid version according to semver, but might not match our
+ * expectations. The build ID is being included before the pre-release ID,
+ * which Semver sees as a build ID with a dash in it. While we could in theory
+ * try to parse out [ "alpha" ] pre-release and [ "ent" ] build IDs, this
+ * could be brittle if we ever want a build ID that does contain dashes.
+ *
+ * A more robust path forward would be to fix the versioning format at the
+ * source to match the semver spec, which specifies that the build ID should
+ * always be after the pre-release ID.
+ *
+ * Spec: https://semver.org/#backusnaur-form-grammar-for-valid-semver-versions
+ * List of Consul releases: https://releases.hashicorp.com/consul/index.json
+ */
+export function getIsEnterpriseVersion(version: string): boolean | null {
+	const parsed = semverParse(version)
+	if (parsed === null) {
+		return null
+	}
+	const { build } = parsed
+	return build.length === 1 && build[0] === 'ent'
 }
 
 export const sortAndFilterReleaseVersions = ({
@@ -268,8 +312,8 @@ export const sortAndFilterReleaseVersions = ({
 	releaseVersions: Record<string, ReleaseVersion>
 	isEnterpriseMode: boolean
 }): ReleaseVersion[] => {
-	const filteredVersionStrings = Object.keys(releaseVersions).filter(
-		(version: string) => {
+	const filteredVersionStrings = Object.values(releaseVersions)
+		.filter(({ version, builds }) => {
 			// Filter out invalid semver
 			const isInvalidSemver = semverValid(version) == null
 			if (isInvalidSemver) {
@@ -277,21 +321,31 @@ export const sortAndFilterReleaseVersions = ({
 			}
 
 			// Filter out prereleases
-			const isPrelease = semverPrerelease(version) !== null
-			if (isPrelease) {
+			const isPrerelease = semverPrerelease(version) !== null
+			if (isPrerelease) {
 				return false
 			}
 
-			// Filter in enterprise versions if enterprise mode
-			const isEnterpriseVersion = !!version.match(/\+ent(?:.*?)*$/)
-			if (isEnterpriseMode) {
-				return isEnterpriseVersion
+			// Filter out releases without builds
+			const hasBuilds = builds && builds.length > 0
+			if (!hasBuilds) {
+				return false
 			}
 
-			// Filter out enterprise versions if not enterprise mode
-			return !isEnterpriseVersion
-		}
-	)
+			/**
+			 * Filter in enterprise versions if enterprise mode (build === "ent"),
+			 * or filter out any custom "build" values otherwise.
+			 */
+			if (isEnterpriseMode) {
+				const isEnterpriseVersion = getIsEnterpriseVersion(version)
+				return isEnterpriseVersion
+			} else {
+				const { build } = semverParse(version)
+				return build.length === 0
+			}
+		})
+		.map(({ version }) => version)
+
 	const sortedVersionStrings = semverRSort(filteredVersionStrings)
 	const sortedAndFilteredVersions = sortedVersionStrings.map(
 		(version: string) => releaseVersions[version]

@@ -4,7 +4,6 @@
  */
 
 import { IconApi16 } from '@hashicorp/flight-icons/svg-react/api-16'
-import { IconAwsColor16 } from '@hashicorp/flight-icons/svg-react/aws-color-16'
 import { IconBoundaryColor16 } from '@hashicorp/flight-icons/svg-react/boundary-color-16'
 import { IconCloud16 } from '@hashicorp/flight-icons/svg-react/cloud-16'
 import { IconCode16 } from '@hashicorp/flight-icons/svg-react/code-16'
@@ -35,14 +34,25 @@ import { IconTerminal16 } from '@hashicorp/flight-icons/svg-react/terminal-16'
 import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
 import { IconTerraformColor16 } from '@hashicorp/flight-icons/svg-react/terraform-color-16'
 import { IconTools16 } from '@hashicorp/flight-icons/svg-react/tools-16'
-import { IconVaultColor16 } from '@hashicorp/flight-icons/svg-react/vault-color-16'
+import { IconVault16 } from '@hashicorp/flight-icons/svg-react/vault-16'
 import { IconVmware16 } from '@hashicorp/flight-icons/svg-react/vmware-16'
 import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
 import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
+import { IconVaultSecretsSquareColor16 } from '@hashicorp/flight-icons/svg-react/vault-secrets-square-color-16'
+import { IconVaultRadarSquareColor16 } from '@hashicorp/flight-icons/svg-react/vault-radar-square-color-16'
+import ThemedAwsIcon from './themed-icons/aws-color'
+
+/**
+ * @TODO refactor to remove the HashiCorp product logos from this list
+ * when product logos are needed, component should use `ProductIcon`
+ *
+ * With the introduction of theming, when adding new icons to this list,
+ * consider both dark and light states.
+ */
 
 export const SUPPORTED_ICONS = {
 	api: <IconApi16 />,
-	'aws-color': <IconAwsColor16 />,
+	aws: <ThemedAwsIcon />,
 	'boundary-color': <IconBoundaryColor16 />,
 	cloud: <IconCloud16 />,
 	code: <IconCode16 />,
@@ -73,7 +83,10 @@ export const SUPPORTED_ICONS = {
 	terminal: <IconTerminal16 />,
 	'terraform-color': <IconTerraformColor16 />,
 	tools: <IconTools16 />,
-	'vault-color': <IconVaultColor16 />,
+	// vault's brand color changes between light and dark mode
+	'vault-color': <IconVault16 color={`var(--token-color-vault-brand)`} />,
+	'vault-secrets-color': <IconVaultSecretsSquareColor16 />,
+	'vault-radar-color': <IconVaultRadarSquareColor16 />,
 	vmware: <IconVmware16 />,
 	'waypoint-color': <IconWaypointColor16 />,
 	wrench: <IconWrench16 />,

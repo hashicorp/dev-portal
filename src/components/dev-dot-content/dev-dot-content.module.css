@@ -34,9 +34,13 @@
 			}
 
 			& :not(pre) > code {
-				background-color: var(--token-color-palette-neutral-0);
+				background-color: var(--token-color-surface-faint);
 				border-radius: 5px;
-				border: var(--themed-border);
+				border: 1px solid var(--token-color-border-primary);
+
+				@nest html[data-theme='dark'] & {
+					background-color: var(--token-color-surface-strong);
+				}
 			}
 
 			&.alert-info {

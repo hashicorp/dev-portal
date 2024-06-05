@@ -42,7 +42,6 @@
 
 .filterInput {
 	composes: g-focus-ring-from-box-shadow from global;
-	composes: hds-typography-body-200 from global;
 	appearance: none;
 	background-color: transparent;
 	border: var(--token-form-control-border-width) solid

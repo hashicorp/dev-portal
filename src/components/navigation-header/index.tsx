@@ -9,8 +9,6 @@ import { useRouter } from 'next/router'
 // HashiCorp imports
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
 import { IconSearch16 } from '@hashicorp/flight-icons/svg-react/search-16'
-import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
-import { IconUserPlus16 } from '@hashicorp/flight-icons/svg-react/user-plus-16'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
 
 // Global imports
@@ -24,8 +22,6 @@ import UserDropdownDisclosure from 'components/user-dropdown-disclosure'
 import { NavigationHeaderItem } from './types'
 import { HomePageHeaderContent, ProductPageHeaderContent } from './components'
 import s from './navigation-header.module.css'
-
-const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
 
 /**
  * The header content displayed to the far right of the window. This content is
@@ -58,20 +54,18 @@ const AuthenticationControls = () => {
 	return (
 		<div className={s.authenticationControls}>
 			<UserDropdownDisclosure
-				className={s.userDropdownDisclosure}
+				activatorClassName={s.userDropdownDisclosureActivator}
 				listPosition="right"
 				items={
 					user
 						? getUserMenuItems({ signOut })
 						: [
 								{
-									icon: <IconSignIn16 />,
 									label: 'Sign in',
 									onClick: () => signIn(),
 								},
 								{
 									href: '/sign-up',
-									icon: <IconUserPlus16 />,
 									label: 'Sign up',
 								},
 						  ]
@@ -90,6 +84,11 @@ const AuthenticationControls = () => {
 const NavigationHeader = () => {
 	const router = useRouter()
 	const currentProduct = useCurrentProduct()
+	const { session } = useAuthentication()
+
+	const commandBarActivatorLabel = session?.meta?.isAIEnabled
+		? 'Find or ask anything...'
+		: 'Search'
 
 	const shouldRenderGenericHeaderContent =
 		!currentProduct || router.route === '/_error'
@@ -103,12 +102,10 @@ const NavigationHeader = () => {
 				<LeftSideHeaderContent />
 			</div>
 			<div className={s.rightSide}>
-				{GLOBAL_SEARCH_ENABLED ? (
-					<CommandBarActivator
-						leadingIcon={<IconSearch16 />}
-						visualLabel="Search"
-					/>
-				) : null}
+				<CommandBarActivator
+					leadingIcon={<IconSearch16 />}
+					visualLabel={commandBarActivatorLabel}
+				/>
 				<AuthenticationControls />
 				<MobileMenuButton />
 			</div>

@@ -11,6 +11,7 @@ import {
 	CurrentProductProvider,
 	useCurrentProduct,
 } from 'contexts/current-product'
+import type { MockInstance } from 'vitest'
 
 /**
  * Handles rendering both `CurrentProductProvider` and `useCurrentProduct` using
@@ -37,14 +38,14 @@ const setup = (currentProduct: Product) => {
 }
 
 describe('CurrentProductContext', () => {
-	let useRouter: jest.SpyInstance
+	let useRouter: MockInstance
 	beforeAll(() => {
 		// eslint-disable-next-line @typescript-eslint/no-var-requires
-		useRouter = jest.spyOn(require('next/router'), 'useRouter')
+		useRouter = vi.spyOn(require('next/router'), 'useRouter')
 		useRouter.mockReturnValue({
 			events: {
-				off: jest.fn(),
-				on: jest.fn(),
+				off: vi.fn(),
+				on: vi.fn(),
 			},
 		})
 	})
@@ -54,11 +55,11 @@ describe('CurrentProductContext', () => {
 	})
 
 	test('useCurrentProduct throws an error if not used within CurrentProductProvider', () => {
-		const spy = jest.spyOn(console, 'error').mockImplementation(() => void 0)
+		const spy = vi.spyOn(console, 'error').mockImplementation(() => void 0)
 
 		let error
 		renderHook(() => useCurrentProduct(), {
-			wrapper: class Wrapper extends Component {
+			wrapper: class Wrapper extends Component<{ children: ReactNode }> {
 				state = { error: false }
 
 				static getDerivedStateFromError() {
@@ -98,8 +99,8 @@ describe('CurrentProductContext', () => {
 			useRouter.mockReturnValueOnce({
 				asPath: '/',
 				events: {
-					off: jest.fn(),
-					on: jest.fn(),
+					off: vi.fn(),
+					on: vi.fn(),
 				},
 			})
 			const { result } = setup({ slug: 'waypoint', name: 'Waypoint' })

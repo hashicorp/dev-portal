@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import rivet from 'rivet-graphql'
 import boundary from 'data/boundary.json'
 import consul from 'data/consul.json'
 import nomad from 'data/nomad.json'
@@ -13,21 +12,20 @@ import vagrant from 'data/vagrant.json'
 import vault from 'data/vault.json'
 import waypoint from 'data/waypoint.json'
 
-let url = process.env.HASHI_DATO_ENVIRONMENT
-	? `https://graphql.datocms.com/environments/${process.env.HASHI_DATO_ENVIRONMENT}`
-	: 'https://graphql.datocms.com'
-
-if (process.env.HASHI_ENV === 'preview') {
-	url += '/preview'
-}
-
-const token = process.env.HASHI_DATO_TOKEN || '2f7896a6b4f1948af64900319aed60'
-
-const globalConfig = {
-	url,
-	headers: { Authorization: token },
-}
-
+/**
+ * NOTE: this file previously contained `rivet` client configuration
+ * that allowed us to fetch data from Dato for dot-io sites.
+ * Dot-io sites have since been migrated to the `hashicorp/web` monorepo,
+ * so the Dato CMS related code was removed from this file.
+ *
+ * The typed `productConfig` in this file is still used in one place,
+ * in our `_error` page.
+ *
+ * TODO: clean up use of `{ productConfig }` named export from this file,
+ * maybe renaming this file (`product-config-dictionary`?) or doing something
+ * like an `fs` read of the `.json` data (maybe even validating with `zod`)
+ * rather than exporting a heavy-ish dictionary with *all* product data?
+ */
 const productConfig = [
 	boundary,
 	consul,
@@ -42,39 +40,8 @@ const productConfig = [
 	return a
 }, {} as { [key in ProductSlug]: ProductData })
 
-function rivetClient(config: {
-	url?: string
-	headers?: Record<string, unknown>
-}) {
-	const clientConfig = {
-		...globalConfig,
-		headers: {
-			...globalConfig.headers,
-			...config.headers,
-		},
-	}
-
-	return rivet(clientConfig.url, {
-		headers: clientConfig.headers,
-		cors: true,
-		retryCount: 3,
-	})
-}
-
-const instance = rivetClient({})
-const client = instance.client
-
-function proxiedRivetClient(productSlug: ProductSlug) {
-	const product = productConfig[productSlug]
-	if (product.datoToken) {
-		return rivetClient({ headers: { Authorization: product.datoToken } })
-	}
-
-	return instance
-}
-
-export default instance
-export { productConfig, client, proxiedRivetClient }
+// export default instance
+export { productConfig }
 
 /**
  *

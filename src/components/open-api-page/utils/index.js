@@ -5,7 +5,6 @@
 
 import { capitalCase } from 'change-case'
 import slugify from '@hashicorp/remark-plugins/generate_slug'
-import { removeCircularReferences } from './remove-circular-references'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 
 /* Given an array of values, return an array without duplicate items */
@@ -70,13 +69,12 @@ function getOperationObjects(schema) {
 			if (!pathItemObject[type]) {
 				return acc
 			}
+
 			// If the request type is supported, push the associated operation
 			acc.push({
 				__type: type,
 				__path: pathItemObject.__path,
-				...stripUndefinedProperties(
-					removeCircularReferences(pathItemObject[type])
-				),
+				...stripUndefinedProperties(pathItemObject[type]),
 			})
 			return acc
 		}, [])

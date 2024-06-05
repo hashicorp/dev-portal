@@ -14,20 +14,22 @@ import useCurrentPath from 'hooks/use-current-path'
 import { useMobileMenu } from 'contexts'
 import InstruqtProvider from 'contexts/instruqt-lab'
 import { TutorialLite } from 'lib/learn-client/types'
-import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
 	CollectionCategorySidebarSection,
 	getCollectionSlug,
 	getTutorialSlug,
 } from 'views/collection-view/helpers'
+import { generateCollectionSidebarNavData } from 'views/collection-view/helpers/generate-collection-sidebar-nav-data'
 import { getCollectionViewSidebarSections } from 'views/collection-view/server'
+
 import DevDotContent from 'components/dev-dot-content'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
 import TutorialsSidebar, {
-	CollectionViewSidebarContent,
 	TutorialViewSidebarContent,
 } from 'components/tutorials-sidebar'
 import TutorialMeta from 'components/tutorial-meta'
@@ -44,15 +46,16 @@ import {
 import MDX_COMPONENTS from './utils/mdx-components'
 import { formatTutorialToMenuItem, generateCanonicalUrl } from './utils'
 import getVideoUrl from './utils/get-video-url'
+import VariantProvider from './utils/variants/context'
+import { useProgressToast } from './utils/use-progress-toast'
 import {
 	FeaturedInCollections,
 	NextPrevious,
 	getNextPrevious,
 	FeedbackPanel,
+	VariantDropdownDisclosure,
 } from './components'
 import s from './tutorial-view.module.css'
-import { useProgressToast } from './utils/use-progress-toast'
-import { generateCollectionSidebarNavData } from 'views/collection-view/helpers/generate-collection-sidebar-nav-data'
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -112,6 +115,9 @@ function TutorialView({
 	layoutProps,
 	product,
 	tutorial,
+	outlineItems,
+	pageHeading,
+	metadata,
 }: TutorialViewProps): React.ReactElement {
 	// hooks
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
@@ -121,7 +127,6 @@ function TutorialView({
 	// variables
 	const {
 		id,
-		name,
 		slug,
 		content,
 		readTime,
@@ -227,71 +232,81 @@ function TutorialView({
 				<link rel="canonical" href={canonicalUrl.toString()} key="canonical" />
 				{/** Don't index non canonical tutorials */}
 				{canonicalUrl.pathname !== currentPath ? (
-					<meta name="robots" content="noindex, nofollow" />
+					<meta name="robots" content="noindex, nofollow" key="robots" />
 				) : null}
 			</Head>
 			<InteractiveLabWrapper
 				key={slug}
 				{...(isInteractive && { labId: handsOnLab.id })}
 			>
-				<SidebarSidecarWithToc
-					breadcrumbLinks={layoutProps.breadcrumbLinks}
-					/**
-					 * @TODO remove casting to `any`. Will require refactoring both
-					 * `generateTopLevelSidebarNavData` and
-					 * `generateProductLandingSidebarNavData` to set up `menuItems` with
-					 * the correct types. This will require chaning many files, so
-					 * deferring for a follow-up PR since this is functional for the time being.
-					 */
-					sidebarNavDataLevels={sidebarNavDataLevels as any}
-					showScrollProgress={true}
-					AlternateSidebar={TutorialsSidebar}
-					headings={layoutProps.headings}
-					mainWidth={layoutProps.mainWidth}
-				>
-					<LayoutContentWrapper
-						collectionCtx={collectionCtx}
-						product={product}
-						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
+				<VariantProvider variant={metadata.variant}>
+					<SidebarSidecarLayout
+						breadcrumbLinks={layoutProps.breadcrumbLinks}
+						/**
+						 * @TODO remove casting to `any`. Will require refactoring both
+						 * `generateTopLevelSidebarNavData` and
+						 * `generateProductLandingSidebarNavData` to set up `menuItems` with
+						 * the correct types. This will require chaning many files, so
+						 * deferring for a follow-up PR since this is functional for the time being.
+						 */
+						sidebarNavDataLevels={sidebarNavDataLevels as any}
+						showScrollProgress={true}
+						AlternateSidebar={TutorialsSidebar}
+						sidecarTopSlot={
+							metadata.variant ? (
+								<VariantDropdownDisclosure
+									variant={metadata.variant}
+									isFullWidth
+								/>
+							) : null
+						}
+						sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
+						mainWidth={layoutProps.mainWidth}
 					>
-						<TutorialMeta
-							heading={{ slug: layoutProps.headings[0].slug, text: name }}
-							meta={{
-								readTime,
-								edition,
-								productsUsed,
-								isInteractive,
-								hasVideo,
-							}}
-							tutorialId={id}
-						/>
-						<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
-						{hasVideo && video.id && !video.videoInline && (
-							<VideoEmbed
-								url={getVideoUrl({
-									videoId: video.id,
-									videoHost: video.videoHost,
-								})}
+						<LayoutContentWrapper
+							collectionCtx={collectionCtx}
+							product={product}
+							setCollectionViewSidebarSections={
+								setCollectionViewSidebarSections
+							}
+						>
+							<TutorialMeta
+								heading={pageHeading}
+								meta={{
+									readTime,
+									edition,
+									productsUsed,
+									isInteractive,
+									hasVideo,
+								}}
+								tutorialId={id}
 							/>
-						)}
-						<DevDotContent
-							mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
-						/>
-						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
-						<FeedbackPanel />
-						<NextPrevious {...nextPreviousData} />
-						<FeaturedInCollections
-							className={s.featuredInCollections}
-							collections={featuredInWithoutCurrent}
-						/>
-					</LayoutContentWrapper>
-				</SidebarSidecarWithToc>
+							<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
+							{hasVideo && video.id && !video.videoInline && (
+								<VideoEmbed
+									url={getVideoUrl({
+										videoId: video.id,
+										videoHost: video.videoHost,
+									})}
+								/>
+							)}
+							<DevDotContent
+								mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+							/>
+							<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
+							<FeedbackPanel />
+							<NextPrevious {...nextPreviousData} />
+							<FeaturedInCollections
+								className={s.featuredInCollections}
+								collections={featuredInWithoutCurrent}
+							/>
+						</LayoutContentWrapper>
+					</SidebarSidecarLayout>
+				</VariantProvider>
 			</InteractiveLabWrapper>
 		</>
 	)
 }
-
-TutorialView.contentType = 'tutorials'
 
 export type {
 	TutorialViewProps,

@@ -3,7 +3,28 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.heading {
-	color: var(--token-color-foreground-strong);
+.headingContainer {
 	margin-bottom: 16px;
+}
+
+.downloadContainer {
+	display: grid;
+	gap: 24px;
+	@media (--dev-dot-tablet-up) {
+		grid-template-columns: 1fr 1fr;
+		gap: 28px 24px;
+	}
+}
+
+.downloadCard {
+	display: grid;
+	grid-template-columns: 16px 1fr 24px;
+	align-items: center;
+	column-gap: 8px;
+	&:last-child {
+		margin-bottom: 0;
+	}
+	@media (--dev-dot-tablet-up) {
+		grid-template-columns: 16px 1fr 90px;
+	}
 }

@@ -1,11 +1,11 @@
 {
-	"enabled": false,
+	"enabled": true,
 	"data": {
 		"product": "hashicorp",
-		"tag": "Research",
-		"url": "https://hashicorp.sjc1.qualtrics.com/jfe/form/SV_6X0gNDxFry0QOBo",
-		"text": "Help improve navigation and content organization by answering a short survey.",
-		"linkText": "Start Survey",
-		"expirationDate": "2023-04-22T00:00:00-08:00"
+		"tag": "HashiDays",
+		"url": "https://hashicorp.com/conferences/hashidays",
+		"text": "One conference. Three cities.",
+		"linkText": "Find a city near you",
+		"expirationDate": "2024-06-14T00:00:00-08:00"
 	}
 }

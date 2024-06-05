@@ -1,0 +1,56 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	position: relative;
+}
+
+.anchor {
+	/** 
+	* Safari will only focus on links
+	* that have content. These styles, along with 
+	* the empty child `span` allow focus 
+	* to behave as expected while retaining the desired
+	* sibling 'empty link' structure
+	**/
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	user-select: none;
+
+	/* makes the whole region clickable */
+	&::before {
+		background-color: transparent;
+
+		/* --border-radius can be set by the incoming `className`
+		   passed to this component */
+		border-radius: var(--border-radius, 0);
+		bottom: 0;
+		content: '';
+		display: block;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: 0;
+	}
+
+	&:focus {
+		outline: transparent;
+	}
+
+	/* only styling the ::before element on focus */
+	&:focus::before {
+		outline: transparent;
+	}
+
+	/* only styling the ::before element on focus-visible */
+	&:focus-visible::before {
+		box-shadow: var(--token-focus-ring-action-box-shadow);
+		outline: transparent;
+	}
+}

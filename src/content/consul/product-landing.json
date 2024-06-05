@@ -10,7 +10,10 @@
 			"text": "Learn more about Consul features",
 			"url": "/consul/docs/intro"
 		},
-		"image": "https://www.datocms-assets.com/2885/1662053770-dev-dot-product-landing-what-is-consul-diagram.png"
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095130-devdot-consul_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087694-devdot-consul_dm.png"
+		}
 	},
 	"get_started": {
 		"heading": "Get Started",
@@ -25,11 +28,6 @@
 				"icon": "server",
 				"text": "Consul with Virtual Machines",
 				"url": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
-			},
-			{
-				"icon": "hcp",
-				"text": "HCP Consul Quick Start",
-				"url": "/consul/tutorials/get-started-hcp/hcp-gs-deploy"
 			}
 		]
 	},
@@ -54,8 +52,8 @@
 					"url": "/consul/docs/k8s"
 				},
 				{
-					"heading": "HCP Consul",
-					"body": "Deploy a managed HCP Consul cluster to quickly get started with Consul's full capabilities.",
+					"heading": "HCP Consul Dedicated",
+					"body": "Deploy a managed HCP Consul Dedicated cluster to quickly get started with Consul's full capabilities.",
 					"url": "/hcp/docs/consul"
 				}
 			]
@@ -69,7 +67,7 @@
 		{
 			"type": "collection_cards",
 			"collectionSlugs": [
-				"consul/service-mesh-security",
+				"consul/connect-services",
 				"consul/service-mesh-traffic-management"
 			]
 		},
@@ -77,7 +75,7 @@
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
 				"consul/kubernetes-api-gateway",
-				"consul/consul-terraform-sync-intro",
+				"consul/consul-terraform-sync",
 				"consul/serverless-consul-with-lambda"
 			]
 		},
@@ -89,10 +87,7 @@
 		},
 		{
 			"type": "collection_cards",
-			"collectionSlugs": [
-				"consul/certification",
-				"consul/certification-associate-tutorials"
-			]
+			"collectionSlugs": ["consul/certification-003"]
 		}
 	]
 }

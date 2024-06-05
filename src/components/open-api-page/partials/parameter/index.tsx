@@ -28,9 +28,12 @@ function Parameter({ name, data, isFirstItem, isLastItem, arrayDepth = 0 }) {
 
 	const title = (
 		<>
-			<MdxInlineCode className={s.name}>{name}</MdxInlineCode>{' '}
+			<MdxInlineCode className={s.name} size={100}>
+				{name}
+			</MdxInlineCode>{' '}
 			<code className={`${s.typeString} g-type-code`}>{typeString}</code>{' '}
 			{data.required && <Badge text="Required" color="highlight" />}
+			{data['x-beta-feature'] ? <Badge text="Beta" color="neutral" /> : null}
 			{data.title && (
 				<div
 					className={s.descriptiveText}
@@ -65,7 +68,7 @@ function Parameter({ name, data, isFirstItem, isLastItem, arrayDepth = 0 }) {
 		<div className={s.root}>
 			<AccordionDisclosure title={title} description={description}>
 				<div className={s.nestedProperties}>
-					<hr />
+					<hr className={s.divider} />
 					{Object.keys(data.properties).map((propertyKey, idx) => {
 						return (
 							<Parameter

@@ -36,7 +36,7 @@ export default function InteractiveLabCallout() {
 			</div>
 			<div className={s.image}>
 				<Image
-					src={require('./img/interactive-callout-visual.png')}
+					src={require('./img/interactive-callout-visual.svg')}
 					width={133}
 					height={100}
 					alt=""

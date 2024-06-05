@@ -4,12 +4,9 @@
  */
 
 import { IconSearch24 } from '@hashicorp/flight-icons/svg-react/search-24'
-import {
-	CommandBarCommand,
-	SupportedCommand,
-} from 'components/command-bar/types'
+import { CommandBarCommand } from 'components/command-bar/types'
 import { getCurrentProductTag } from './helpers'
-import SearchCommandBarDialogBody from './components/dialog-body'
+import { UnifiedSearchCommandBarDialogBody } from './unified-search/components'
 
 type Options = Parameters<CommandBarCommand['inputProps']['placeholder']>[0]
 
@@ -34,12 +31,12 @@ const generatePlaceholder = (options: Options) => {
 }
 
 const searchCommand: CommandBarCommand = {
-	name: SupportedCommand.search,
+	name: 'search',
 	icon: <IconSearch24 />,
 	inputProps: {
 		placeholder: generatePlaceholder,
 	},
-	DialogBody: SearchCommandBarDialogBody,
+	DialogBody: UnifiedSearchCommandBarDialogBody,
 }
 
 export default searchCommand

@@ -10,7 +10,10 @@
 			"text": "Learn more about Nomad features",
 			"url": "/nomad/intro"
 		},
-		"image": "https://www.datocms-assets.com/58478/1649878860-nomad-kubernetes-2.png"
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095153-devdot-nomad_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087719-devdot-nomad_dm.png"
+		}
 	},
 	"get_started": {
 		"heading": "Getting Started",
@@ -81,11 +84,6 @@
 					"heading": "Integrate Vault",
 					"body": "Configure the Nomad secrets engine in Vault and use Vault to obtain secrets for workloads.",
 					"url": "nomad/tutorials/integrate-vault"
-				},
-				{
-					"heading": "Integrate Waypoint",
-					"body": "Use Waypoint to build, deploy, and release your applications to Nomad.",
-					"url": "waypoint/tutorials/get-started-nomad"
 				}
 			]
 		},

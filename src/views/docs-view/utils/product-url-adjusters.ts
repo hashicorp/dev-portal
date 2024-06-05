@@ -4,9 +4,9 @@
  */
 
 import isAbsoluteUrl from 'lib/is-absolute-url'
-import { rewriteWaypointPluginsToIntegrations } from 'lib/content-adjustments'
 import { productSlugs, productSlugsToHostNames } from 'lib/products'
 import { ProductData } from 'types/products'
+import { SectionOption } from 'lib/learn-client/types'
 
 /**
  * Given some product data,
@@ -50,18 +50,8 @@ export function getProductUrlAdjuster(
 	/**
 	 * All other products need their docs routes prefixed, as within docs
 	 * content, authors write links as if URLs are on the dot-io sites.
-	 * For example, in Waypoint content, authors write URLs like
-	 * "/docs/some-waypoint-page", which need to be adjusted to be
-	 * "/waypoint/docs/some-waypoint-page".
 	 */
-	return (url: string) => {
-		// Do the base docs adjustment
-		let adjustedUrl = rewriteDocsUrl(url, productData)
-		// We also have some product-specific, post-adjustment rewrites to apply
-		adjustedUrl = rewriteWaypointPluginsToIntegrations(adjustedUrl)
-		// Return the final URL
-		return adjustedUrl
-	}
+	return (url: string) => rewriteDocsUrl(url, productData)
 }
 
 /**
@@ -136,6 +126,13 @@ export function rewriteDocsUrl(
 		(basePath: string) => inputUrl.startsWith(`/${basePath}`)
 	)
 	const isProductPath = new RegExp(`^/(${productSlugs.join('|')})`)
+	const isTutorialsPath = new RegExp(
+		`^/(${[
+			...productSlugs,
+			SectionOption['well-architected-framework'],
+			SectionOption.onboarding,
+		].join('|')}(/tutorials)?)`
+	)
 
 	if (isCurrentProductDocsUrl) {
 		// The vagrant vmware utility downloads page is a unique case, where we did
@@ -144,10 +141,10 @@ export function rewriteDocsUrl(
 			currentProduct.slug === 'vagrant' &&
 			inputUrl.startsWith('/vmware/downloads')
 		) {
-			return `/${currentProduct.slug}/downloads/vmware`
+			return `/${currentProduct.slug}/install/vmware`
 		}
 		return `/${currentProduct.slug}${inputUrl}`
-	} else if (!isProductPath.test(inputUrl)) {
+	} else if (!isProductPath.test(inputUrl) && !isTutorialsPath.test(inputUrl)) {
 		// if the path doesnt already start with a product slug i.e. /consul/tutorials
 		// and its not an absolute url we assume it is an internal .io link
 		// for this product context that is not a docs link, and should link to the external .io site
@@ -205,6 +202,12 @@ function rewriteSentinelDocsUrls(
 	 * - Any other "/sentinel/:slug" URL is expected to be a "/docs" URL
 	 *   - We need to adjust these urls to be "/sentinel/docs/:slug"
 	 */
+
+	// Redirect /sentinel/downloads to /sentinel/install
+	if (inputUrl == '/sentinel/downloads' || inputUrl == '/sentinel/install') {
+		return '/sentinel/install'
+	}
+
 	const isBasePathExceptDocs = sentinelData.basePaths
 		.filter((p: string) => p !== 'docs')
 		.some(

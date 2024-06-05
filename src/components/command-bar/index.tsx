@@ -14,7 +14,8 @@ import {
 } from 'react'
 import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import commands from './commands'
-import { CommandBarActivator, CommandBarDialog } from './components'
+import { CommandBarActivator, Command } from './components'
+import SearchHitsProvider from './commands/search/helpers/hit-counts-provider'
 import {
 	CommandBarCommand,
 	CommandBarContextState,
@@ -24,8 +25,6 @@ import {
 	CommandBarTag,
 	SupportedCommand,
 } from './types'
-
-const GLOBAL_SEARCH_ENABLED = __config.flags.enable_global_search
 
 const DEFAULT_CONTEXT_STATE: CommandBarContextState = {
 	currentCommand: commands.search,
@@ -104,12 +103,9 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 		dispatch({ type: 'TOGGLE_IS_OPEN' })
 	}, [])
 
-	const setCurrentCommand = useCallback(
-		(commandName: keyof typeof SupportedCommand) => {
-			dispatch({ type: 'SET_CURRENT_COMMAND', value: commandName })
-		},
-		[]
-	)
+	const setCurrentCommand = useCallback((commandName: SupportedCommand) => {
+		dispatch({ type: 'SET_CURRENT_COMMAND', value: commandName })
+	}, [])
 
 	const addTag = useCallback((newTag: CommandBarTag) => {
 		dispatch({ type: 'ADD_TAG', value: newTag })
@@ -127,10 +123,6 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	 * Set up the cmd/ctrl + k keydown listener.
 	 */
 	useEffect(() => {
-		if (!GLOBAL_SEARCH_ENABLED) {
-			return
-		}
-
 		const handleKeyDown = (e: KeyboardEvent) => {
 			const { ctrlKey, metaKey, key } = e
 			if (key === 'k' && (ctrlKey || metaKey)) {
@@ -162,6 +154,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 			setCurrentCommand,
 			setCurrentInputValue,
 			toggleIsOpen,
+			instructionsElementId: 'footer-keyboard-instructions',
 		}
 	}, [
 		addTag,
@@ -173,10 +166,19 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 	])
 
 	return (
-		<CommandBarContext.Provider value={contextValue}>
-			{children}
-			<CommandBarDialog isOpen={state.isOpen} onDismiss={toggleIsOpen} />
-		</CommandBarContext.Provider>
+		<SearchHitsProvider>
+			<CommandBarContext.Provider value={contextValue}>
+				{children}
+				<Command.Dialog isOpen={state.isOpen} onDismiss={toggleIsOpen}>
+					<Command.Header />
+					<Command.Body />
+					{
+						// TODO(kevinwang): This conditional needs an abstraction
+						state.currentCommand.name == 'chat' ? null : <Command.Footer />
+					}
+				</Command.Dialog>
+			</CommandBarContext.Provider>
+		</SearchHitsProvider>
 	)
 }
 
@@ -189,10 +191,5 @@ const useCommandBar = (): CommandBarContextValue => {
 	return context
 }
 
-export type { CommandBarCommand, CommandBarTag }
-export {
-	CommandBarActivator,
-	CommandBarProvider,
-	SupportedCommand,
-	useCommandBar,
-}
+export type { CommandBarCommand, CommandBarTag, SupportedCommand }
+export { CommandBarActivator, CommandBarProvider, useCommandBar }

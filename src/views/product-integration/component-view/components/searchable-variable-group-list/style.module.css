@@ -19,10 +19,9 @@
 }
 
 .results {
-	color: var(--gray-3);
+	composes: hds-typography-body-200 from global;
+	color: var(--token-color-foreground-faint);
 	font-size: 12px;
-	text-transform: uppercase;
-	font-weight: 600;
 	margin-top: 24px;
 	margin-bottom: 12px;
 }

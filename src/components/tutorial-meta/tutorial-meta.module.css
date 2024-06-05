@@ -4,44 +4,41 @@
  */
 
 .header {
-	--spacing-sml: 18px;
+	--spacing-sml: 16px;
 	--spacing-med: 20px;
 	--spacing-lrg: 24px;
 	--spacing-xl: 32px;
+
+	margin-bottom: var(--spacing-xl);
 }
 
 .heading {
 	composes: g-offset-scroll-margin-top from global;
-	margin-bottom: var(--spacing-med);
-
-	@media (--dev-dot-tablet-up) {
-		margin-bottom: var(--spacing-sml);
-	}
-
-	@media (--dev-dot-desktop) {
-		margin-bottom: var(--spacing-lrg);
-	}
+	margin-top: 0;
+	margin-bottom: var(--spacing-sml);
+	color: var(--token-color-foreground-strong);
 }
 
 .meta {
-	margin-bottom: var(--spacing-lrg);
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 16px 8px;
+	margin-bottom: var(--spacing-sml);
 
 	@media (--dev-dot-tablet-up) {
-		margin-bottom: var(--spacing-xl);
+		flex-direction: row;
 	}
 }
 
 .createAccountCta {
 	color: var(--token-color-foreground-primary);
-	margin-top: 32px;
 }
 
 .buttonGroup {
 	display: flex;
-	flex-direction: column;
-	gap: 16px;
-
-	@media (--medium-up) {
-		flex-direction: row;
-	}
+	flex-direction: row;
+	gap: 12px;
+	align-items: center;
 }

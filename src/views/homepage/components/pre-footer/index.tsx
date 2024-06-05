@@ -14,7 +14,7 @@ import StandaloneLink from 'components/standalone-link'
 import { PreFooterIconSlug, PreFooterAction, PreFooterProps } from './types'
 import s from './pre-footer.module.css'
 
-export function PreFooterIcon({ slug }: { slug: PreFooterIconSlug }) {
+function PreFooterIcon({ slug }: { slug: PreFooterIconSlug }) {
 	switch (slug) {
 		case 'support':
 			return <IconSupport24 color="var(--token-color-foreground-highlight)" />
@@ -26,11 +26,7 @@ export function PreFooterIcon({ slug }: { slug: PreFooterIconSlug }) {
 	}
 }
 
-export default function PreFooter({
-	heading,
-	description,
-	actions,
-}: PreFooterProps) {
+function PreFooter({ heading, description, actions }: PreFooterProps) {
 	return (
 		<section className={s.preFooter}>
 			<div className={s.container}>
@@ -58,6 +54,7 @@ export default function PreFooter({
 											{action.heading}
 										</Heading>
 										<StandaloneLink
+											className={s.actionsDescription}
 											color="secondary"
 											href={action.link}
 											icon={<IconExternalLink16 />}
@@ -75,3 +72,5 @@ export default function PreFooter({
 		</section>
 	)
 }
+
+export { PreFooter, PreFooterIcon }

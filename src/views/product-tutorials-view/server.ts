@@ -4,7 +4,7 @@
  */
 
 import { LearnProductData, LearnProductName } from 'types/products'
-import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import {
 	getAllCollections,
 	getCollectionsBySection,
@@ -25,6 +25,8 @@ import { ThemeOption } from 'lib/learn-client/types'
 import { cachedGetProductData } from 'lib/get-product-data'
 import getProcessedPageData from './helpers/page-data'
 import { ProductPageData } from './helpers/page-data/types'
+import { OutlineLinkItem } from 'components/outline-nav/types'
+import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 
 export interface ProductTutorialsViewProps {
 	metadata: {
@@ -33,11 +35,11 @@ export interface ProductTutorialsViewProps {
 	data: ProductPageData
 	layoutProps: ProductTutorialsLayout
 	product: LearnProductData
+	outlineItems: OutlineLinkItem[]
 }
 
 interface ProductTutorialsLayout {
-	breadcrumbLinks: SidebarSidecarWithTocProps['breadcrumbLinks']
-	headings: SidebarSidecarWithTocProps['headings']
+	breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
 	sidebarSections: CollectionCategorySidebarSection[]
 }
 
@@ -82,8 +84,8 @@ export async function getCloudTutorialsViewProps(): Promise<{
 				pageData,
 				sitemapCollections,
 			},
+			outlineItems: outlineItemsFromHeadings(headings),
 			layoutProps: {
-				headings,
 				breadcrumbLinks: getTutorialsBreadcrumb({
 					product: { name: productData.name, filename: productData.slug },
 				}),
@@ -129,10 +131,9 @@ export async function getProductTutorialsViewProps(
 	)
 
 	/**
-	 * Build & return layout props to pass to SidebarSidecarWithToc
+	 * Build & return layout props to pass to SidebarSidecarLayout
 	 */
 	const layoutProps: ProductTutorialsLayout = {
-		headings,
 		breadcrumbLinks: getTutorialsBreadcrumb({
 			product: { name: product.name, filename: product.slug },
 		}),
@@ -172,6 +173,7 @@ export async function getProductTutorialsViewProps(
 				sitemapCollections,
 			},
 			layoutProps,
+			outlineItems: outlineItemsFromHeadings(headings),
 			product: {
 				...productData,
 				description,

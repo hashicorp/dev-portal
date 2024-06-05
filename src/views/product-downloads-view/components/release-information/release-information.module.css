@@ -1,0 +1,45 @@
+/* *
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	margin-top: 16px;
+	margin-bottom: 24px;
+}
+
+.headingContainer {
+	margin: 56px 0 16px 0;
+}
+
+.heading {
+	color: var(--token-color-foreground-strong);
+}
+
+.notesContainer {
+	display: grid;
+	gap: 24px 0;
+}
+
+.cardIcon {
+	margin-top: 3px;
+	max-height: 16px;
+	max-width: 16px;
+}
+
+.armUserNote {
+	padding: 16px;
+}
+
+.codePrompt {
+	margin: 25px 0 11px 0;
+}
+
+.notesList {
+	padding-left: 8px;
+	list-style-position: inside;
+}
+
+.codeBlock {
+	margin: 20px 0 37px 0;
+}

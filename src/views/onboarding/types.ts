@@ -3,32 +3,49 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { Collection as ApiCollection } from 'lib/learn-client/types'
+import {
+	Collection as ApiCollection,
+	TutorialFullCollectionCtx,
+} from 'lib/learn-client/types'
 import { EnrichedNavItem } from 'components/sidebar/types'
-import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import { SidebarProps } from 'components/sidebar/types'
+import { CollectionContext, TutorialViewProps } from 'views/tutorial-view'
 import { NextPreviousProps } from 'views/tutorial-view/components'
-import { TutorialData } from 'views/tutorial-view'
+import { OutlineLinkItem } from 'components/outline-nav/types'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
+import { HeadMetadataProps } from 'components/head-metadata/types'
 
 export interface OnboardingCollectionViewProps {
-	metadata: {
+	metadata: HeadMetadataProps & {
 		onboardingName: string
 		onboardingSlug: string
 	}
 	collection: ApiCollection
 	layoutProps: {
-		breadcrumbLinks: SidebarSidecarWithTocProps['breadcrumbLinks']
+		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
 		sidebarSections: EnrichedNavItem[]
 	}
 }
 
 export interface OnboardingTutorialViewProps {
-	tutorial: TutorialData & {
+	metadata: HeadMetadataProps
+	tutorial: Omit<
+		TutorialFullCollectionCtx,
+		'content' | 'collectionCtx' | 'variant'
+	> & {
+		content: MDXRemoteSerializeResult
+		collectionCtx: CollectionContext
 		nextPreviousData: NextPreviousProps
+		variant?: TutorialViewProps['metadata']['variant']
 	}
+	pageHeading: {
+		slug: string
+		text: string
+	}
+	outlineItems: OutlineLinkItem[]
 	layoutProps: {
-		headings: SidebarSidecarWithTocProps['headings']
-		breadcrumbLinks: SidebarSidecarWithTocProps['breadcrumbLinks']
+		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
 		navLevels: SidebarProps[]
 	}
 }

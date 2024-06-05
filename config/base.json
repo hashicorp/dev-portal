@@ -9,8 +9,7 @@
 			"description": "Explore {product} product documentation, tutorials, and examples."
 		},
 		"algolia": {
-			"docsIndexName": "product_DEVDOT",
-			"tutorialsIndexName": "prod_LEARN"
+			"unifiedIndexName": "prod_DEVDOT_omni"
 		},
 		"analytics": {
 			"included_domains": "developer.hashi-mktg.com developer.hashicorp.com"
@@ -22,20 +21,14 @@
 		"canonical_base_url": "https://developer.hashicorp.com",
 		"max_static_paths": 10,
 		"revalidate": 360,
-		"beta_product_slugs": [],
-		"non_product_mobile_menu_routes": [
-			"/",
-			"/_error",
-			"/certifications",
-			"/certifications/[slug]"
-		],
+		"non_themed_paths": ["/sign-up"],
 		"datadog_config": {
 			"scriptUrl": "https://www.datadoghq-browser-agent.com/datadog-rum-v4.js",
 			"applicationId": "40a2019f-88ad-4076-ab52-ffd074064eed",
 			"clientToken": "pubd5cf774aa1cbbd001accd50cb463925b",
 			"service": "non-prod.developer.hashicorp.com"
 		},
-		"product_slugs_with_integrations": ["vault", "waypoint"]
+		"product_slugs_with_integrations": ["vault", "nomad", "packer"]
 	},
 	"learn": {
 		"max_static_paths": 10
@@ -43,7 +36,6 @@
 	"flags": {
 		"enable_datadog": true,
 		"enable_io_beta_cta": true,
-		"enable_product_docs_search": true,
-		"enable_global_search": true
+		"enable_hvd_on_preview_branch": false
 	}
 }

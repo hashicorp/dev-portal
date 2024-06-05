@@ -4,8 +4,9 @@
  */
 
 import slugify from 'slugify'
-import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
 import ProductViewContent from 'views/product-tutorials-view/components/product-view-content'
 import HeroHeadingVisual from 'views/product-landing/components/hero-heading-visual'
 import { SidebarProps } from 'components/sidebar'
@@ -17,13 +18,13 @@ import { generateWafCollectionSidebar } from './utils/generate-collection-sideba
 export default function WellArchitectedFrameworkLandingView(
 	props: WellArchitectedFrameworkLandingProps
 ) {
-	const { data, layoutProps, metadata } = props
+	const { data, outlineItems, layoutProps, metadata } = props
 	const { blocks } = data.pageData
 	const { hero, overview } = data.wafContent
 
 	return (
-		<SidebarSidecarWithToc
-			headings={layoutProps.headings}
+		<SidebarSidecarLayout
+			sidecarSlot={<OutlineNavWithActive items={outlineItems.slice()} />}
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
 			sidebarNavDataLevels={[
 				generateTopLevelSidebarNavData(metadata.name) as SidebarProps,
@@ -40,8 +41,6 @@ export default function WellArchitectedFrameworkLandingView(
 				/>
 			</div>
 			<ProductViewContent blocks={blocks} />
-		</SidebarSidecarWithToc>
+		</SidebarSidecarLayout>
 	)
 }
-
-WellArchitectedFrameworkLandingView.contentType = 'tutorials'

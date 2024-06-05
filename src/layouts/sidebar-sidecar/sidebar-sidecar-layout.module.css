@@ -6,7 +6,7 @@
 /*
 NOTE:
 Relies on `--sticky-bars-height` being set,
-this is currently being done in `BaseNewLayout`.
+this is currently being done in `BaseLayout`.
 See comment in src/layouts/base-new/base-new-layout.module.css
 for further details.
 */
@@ -107,7 +107,7 @@ for further details.
 .breadcrumbContainer {
 	display: flex;
 	justify-content: flex-start;
-	margin-bottom: 32px;
+	margin-bottom: 24px;
 	max-width: calc(
 		var(--main-element-max-width) + var(--sidecar-spacing) +
 			var(--sidecar-width)
@@ -138,7 +138,8 @@ for further details.
 	width: 100%;
 }
 
-/* .sidecarPosition handles the positioning of the sidecar slot.
+/* .sidecarPosition handles the sticky positioning and max-height of all the
+   sidecar contents. It contains sidecarTopSlot and sidecarSlot.
    Scroll styles are handled in sidecar-scroll-container. */
 .sidecarPosition {
 	--sidecar-position-top: calc(
@@ -157,10 +158,31 @@ for further details.
 		flex-shrink: 0;
 		height: min-content;
 		margin-left: var(--sidecar-spacing);
+		max-height: var(--max-sidecar-height);
 		position: sticky;
 		top: var(--sidecar-position-top);
 		width: var(--sidecar-width);
 	}
+}
+
+/* .sidecarTopSlot contains content shown in a separate top area of the sidecar.
+   Currently, we use this for our variants dropdown selector. This dropdown
+	 is meant to be outside the sidecar scrollable content container, as placing
+	 it within the scrollable container causes issues with interations with the
+	 absolutely positioned dropdown pane. */
+.sidecarTopSlot {
+	flex-shrink: 0;
+
+	/* Note: we don't ever want the top slot to be very tall, and we don't
+	   really want this container to ever have to scroll. However, we also
+		 need overflow: visible here to allow things like the variant dropdown
+		 to visually overflow the .sidecarTopSlot rather than cause it to
+		 turn into a scrollable container or increase in height.
+		 There is still a potential edge case here where .sidecarTopSlot
+		 content is too tall even in its default state, but this is
+		 not expected to be an edge case we'll run into. */
+	max-height: calc(var(--max-sidecar-height) / 2);
+	overflow: visible;
 }
 
 /* .editOnGithubLink is an element within the `.main` area.

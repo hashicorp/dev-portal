@@ -24,7 +24,7 @@ export interface BadgeProps {
 	 * "neutral".
 	 */
 	color?:
-		| 'error'
+		| 'critical'
 		| 'highlight'
 		| 'neutral-dark-mode'
 		| 'neutral'
@@ -68,5 +68,5 @@ export interface BadgeProps {
 	 * The kind of style to apply to the badge, which mainly affects background
 	 * color and border.
 	 */
-	type?: 'filled' | 'inverted' | 'outlined'
+	type?: 'filled' | 'inverted' | 'outlined' | 'base'
 }

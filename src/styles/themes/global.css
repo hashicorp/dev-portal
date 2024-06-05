@@ -1,0 +1,18 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/** 
+* Currently used to hide images based on theme
+* see components/themed-image
+ */
+[data-theme='dark'] [data-hide-on-theme='dark'],
+[data-theme='light'] [data-hide-on-theme='light'] {
+	display: none;
+}
+
+[data-theme='dark'] [data-show-on-theme='light'],
+[data-theme='light'] [data-show-on-theme='dark'] {
+	display: none;
+}

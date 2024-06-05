@@ -1,0 +1,459 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`RemoteContentLoader > generates paths from remote nav data 1`] = `
+[
+  {
+    "params": {
+      "page": [],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "build",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "deploy",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "context",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "context-inspect",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "destroy",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "exec",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "init",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "install",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "login",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "logs",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "project-apply",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "release",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "ui",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "up",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "artifact-build",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "artifact-list-builds",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "artifact-list",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "artifact-push",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "auth-method-list",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "auth-method-inspect",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "auth-method-set-oidc",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "auth-method-delete",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "config-get",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "config-set",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "config-source-get",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "config-source-set",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "config-sync",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "context-clear",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "context-create",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "context-delete",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "context-list",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "context-rename",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "context-use",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "context-verify",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "deployment-deploy",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "deployment-destroy",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "deployment-list",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "docs",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "fmt",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "hostname-delete",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "hostname-list",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "hostname-register",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "plugin",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "project-inspect",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "project-list",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "release-list",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "runner-agent",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "server-bootstrap",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "server-config-set",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "server-install",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "server-restore",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "server-run",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "server-snapshot",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "server-uninstall",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "server-upgrade",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "status",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "token-exchange",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "token-invite",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "token-new",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "user-inspect",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "user-invite",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "user-modify",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "user-token",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "version",
+      ],
+    },
+  },
+]
+`;

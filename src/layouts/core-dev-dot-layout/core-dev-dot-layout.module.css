@@ -32,6 +32,7 @@
   font-family: var(--font-body) we set on our `body` element needs to be
   re-declared here, so that our "system-ui" font stack cascades as expected. */
 	font-family: var(--font-body);
+	background-color: var(--token-color-page-primary);
 
 	& input {
 		font-family: var(--font-body);

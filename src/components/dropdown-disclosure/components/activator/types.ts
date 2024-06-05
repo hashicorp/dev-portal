@@ -11,7 +11,11 @@ import { ButtonProps } from 'components/button'
  */
 type PickedButtonProps = Pick<
 	ButtonProps,
-	'aria-controls' | 'aria-expanded' | 'aria-label' | 'className'
+	| 'aria-controls'
+	| 'aria-expanded'
+	| 'aria-label'
+	| 'aria-describedby'
+	| 'className'
 >
 
 /**

@@ -1,28 +1,31 @@
 {
 	"sidebarCategories": [
 		{
-			"name": "HCP Vault",
+			"name": "HCP Boundary",
 			"items": [
-				{ "name": "Quickstart", "collectionSlug": "vault/cloud" },
-				{ "name": "Monitoring", "collectionSlug": "vault/cloud-monitoring" },
-				{ "name": "Operations", "collectionSlug": "vault/cloud-ops" }
-			]
-		},
-		{
-			"name": "HCP Consul",
-			"items": [
-				{ "name": "Quickstart", "collectionSlug": "consul/get-started-hcp" },
 				{
-					"name": "Production",
-					"collectionSlug": "consul/cloud-production"
+					"name": "Quickstart",
+					"collectionSlug": "boundary/get-started-hcp"
 				},
 				{
-					"name": "Deploy Automation",
-					"collectionSlug": "consul/cloud-deploy-automation"
+					"name": "Administration",
+					"collectionSlug": "boundary/hcp-administration"
 				}
 			]
 		},
-
+		{
+			"name": "HCP Consul Dedicated",
+			"items": [
+				{
+					"name": "Quickstart",
+					"collectionSlug": "consul/get-started-hcp"
+				},
+				{
+					"name": "Connect services",
+					"collectionSlug": "consul/hcp-connect-services"
+				}
+			]
+		},
 		{
 			"name": "HCP Packer",
 			"items": [
@@ -32,26 +35,19 @@
 			]
 		},
 		{
-			"name": "HCP Boundary",
+			"name": "HCP Vault Dedicated",
 			"items": [
-				{
-					"name": "Quickstart",
-					"collectionSlug": "boundary/hcp-getting-started",
-					"isBeta": true
-				},
-				{
-					"name": "Administration",
-					"collectionSlug": "boundary/hcp-administration",
-					"isBeta": true
-				}
+				{ "name": "Quickstart", "collectionSlug": "vault/get-started-hcp-vault-dedicated" },
+				{ "name": "Operations", "collectionSlug": "vault/manage-hcp-vault-dedicated" },
+				{ "name": "Kubernetes", "collectionSlug": "vault/integrate-kubernetes-hcp-vault-dedicated" }
 			]
 		},
 		{
 			"name": "HCP Waypoint",
 			"items": [
 				{
-					"name": "Runners",
-					"collectionSlug": "waypoint/runners",
+					"name": "Quickstart",
+					"collectionSlug": "waypoint/hcp-waypoint",
 					"isBeta": true
 				}
 			]

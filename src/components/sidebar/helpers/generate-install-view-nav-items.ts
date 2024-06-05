@@ -38,9 +38,9 @@ export const generateInstallViewNavItems = (
 		? `Install ${product.name} Enterprise`
 		: `Install ${product.name}`
 	const titleItem = {
-		title,
-		fullPath: `/${product.slug}/downloads`,
+		heading: title,
 		theme: product.slug,
+		isActive: true,
 	}
 
 	return {
@@ -52,5 +52,10 @@ export const generateInstallViewNavItems = (
 		/* We always visually hide the title, as we've added in a
 			"highlight" item that would make showing the title redundant. */
 		visuallyHideTitle: true,
+		/**
+		 * controls the assignation of <OpenApiSidebarContents>
+		 * as sidebarContent value in the Sidebar component
+		 */
+		isInstallPage: true,
 	}
 }

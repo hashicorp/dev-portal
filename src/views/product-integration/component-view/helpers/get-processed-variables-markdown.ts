@@ -5,7 +5,7 @@
 
 import { ReleaseComponent } from 'lib/integrations-api-client/release'
 import serializeIntegrationMarkdown from 'lib/serialize-integration-markdown'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 
 type ProcessedVariableMarkdown = { description?: MDXRemoteSerializeResult }
 export type ProcessedVariablesMarkdown = Record<
@@ -31,7 +31,8 @@ export async function getProcessedVariablesMarkdown(
 			const uniqueKey = `${variable_group_id}.${key}`
 			processedVariablesMarkdown[uniqueKey] = {}
 			if (description !== null) {
-				const mdxSource = await serializeIntegrationMarkdown(description)
+				const { serializeResult: mdxSource } =
+					await serializeIntegrationMarkdown(description)
 				processedVariablesMarkdown[uniqueKey] = { description: mdxSource }
 			}
 		}

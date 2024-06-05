@@ -1,0 +1,185 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`FileSystemLoader > generates path from nav data 1`] = `
+[
+  {
+    "params": {
+      "page": [],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "creating-plugins",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "creating-plugins",
+        "main",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "creating-plugins",
+        "configuration",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "creating-plugins",
+        "build-interface",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "creating-plugins",
+        "compiling",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "creating-plugins",
+        "example-application",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "creating-plugins",
+        "testing",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "main-func",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "passing-values",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "plugin-interfaces",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "plugin-interfaces",
+        "authenticator",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "plugin-interfaces",
+        "configurable",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "plugin-interfaces",
+        "configurable-notify",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "plugin-interfaces",
+        "builder",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "plugin-interfaces",
+        "registry",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "plugin-interfaces",
+        "platform",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "plugin-interfaces",
+        "release-manager",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "plugin-interfaces",
+        "destroy",
+      ],
+    },
+  },
+  {
+    "params": {
+      "page": [
+        "extending-waypoint",
+        "plugin-interfaces",
+        "default-parameters",
+      ],
+    },
+  },
+]
+`;

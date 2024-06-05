@@ -1,12 +1,18 @@
+# This workflow enables HashiCorp Oauth on Vercel preview deployments.
 name: Register Preview URL with CloudIDP
 
 on:
   deployment_status:
-
+  # workflow_dispatch is here for supporting manual iteration
+  workflow_dispatch:
+    inputs:
+      preview_url:
+        description: 'A Vercel preview url. Only used during manual runs'
+        required: true
 jobs:
   on-deploy:
     runs-on: ubuntu-latest
-    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview'
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview' || github.event_name == 'workflow_dispatch'
     steps:
       - name: summary
         run: |
@@ -15,10 +21,10 @@ jobs:
           echo "Deployed State: ${{ github.event.deployment_status.state }}" >> $GITHUB_STEP_SUMMARY
           echo "target_url: ${{ github.event.deployment_status.target_url }}" >> $GITHUB_STEP_SUMMARY
 
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+      - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
-          node-version-file: '.nvmrc'
+          node-version: 20
       - name: Install npm@8
         run: npm install --global npm@8
       - name: Install dependencies
@@ -26,8 +32,10 @@ jobs:
       - name: Add Preview URL to CloudIDP
         run: npx hc-tools ./scripts/add-preview-url-to-cloud-idp.ts
         env:
+          # parameters
+          PREVIEW_URL: ${{ inputs.preview_url || github.event.deployment_status.target_url }}
+          # secrets
           CLOUD_IDP_DEPLOYMENT_PREVIEW_PRIVATE_KEY: ${{ secrets.CLOUD_IDP_DEPLOYMENT_PREVIEW_PRIVATE_KEY }}
-          PREVIEW_URL: ${{ github.event.deployment_status.target_url }}
           FLOW_IDP_DEPLOYMENT_READY_URL: ${{ secrets.FLOW_IDP_DEPLOYMENT_READY_URL }}
           VERCEL_API_TOKEN: ${{ secrets.VERCEL_API_TOKEN }}
           VERCEL_TEAM_ID: ${{ secrets.VERCEL_TEAM_ID }}

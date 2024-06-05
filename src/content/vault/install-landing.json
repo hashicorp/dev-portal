@@ -7,22 +7,6 @@
 		"vault/raft-reference-architecture",
 		"vault/raft-deployment-guide"
 	],
-	"sidebarMenuItems": [
-		{
-			"divider": true
-		},
-		{
-			"heading": "Getting Started"
-		},
-		{
-			"title": "What is Vault?",
-			"fullPath": "/vault/docs/what-is-vault"
-		},
-		{
-			"title": "Quick Start",
-			"fullPath": "/vault/docs/get-started/developer-qs"
-		}
-	],
 	"sidecarMarketingCard": {
 		"title": "About Vault",
 		"subtitle": "Secure, store and tightly control access to tokens, passwords, certificates, encryption keys for protecting secrets and other sensitive data using a UI, CLI, or HTTP API.",
@@ -42,9 +26,9 @@
 		]
 	},
 	"sidecarHcpCallout": {
-		"heading": "HCP Vault",
+		"heading": "HCP Vault Dedicated",
 		"description": "Secure your applications and protect sensitive data",
-		"ctaText": "Try HCP Vault",
+		"ctaText": "Try HCP Vault Dedicated for free",
 		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
 	}
 }

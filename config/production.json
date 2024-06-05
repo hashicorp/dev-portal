@@ -4,8 +4,7 @@
 		"max_static_paths": 9999
 	},
 	"dev_dot": {
-		"max_static_paths": 50,
-		"beta_product_slugs": [],
+		"max_static_paths": 15,
 		"datadog_config": {
 			"applicationId": "4486817b-44b8-4e6c-b6a4-cef83e48cf46",
 			"clientToken": "pub750ceadc5a9c79a6d3da59b534eb5108",
@@ -14,9 +13,6 @@
 		"auth": {
 			"idp_url": "https://auth.idp.hashicorp.com"
 		},
-		"product_slugs_with_integrations": ["vault", "waypoint"]
-	},
-	"flags": {
-		"enable_product_docs_search": true
+		"product_slugs_with_integrations": ["vault", "nomad", "packer"]
 	}
 }

@@ -10,6 +10,8 @@ import StandaloneLink from 'components/standalone-link'
 
 import { OverviewCtaProps } from './types'
 import s from './overview-cta.module.css'
+import ThemedImage from 'views/product-landing/components/themed-image'
+import classNames from 'classnames'
 
 function OverviewCta({
 	heading,
@@ -18,9 +20,10 @@ function OverviewCta({
 	cta,
 	image,
 }: OverviewCtaProps) {
+	const hasImage = Boolean(image)
 	return (
 		<div className={s.root}>
-			<div className={s.textPart}>
+			<div className={classNames(s.textPart, { [s.hasImage]: hasImage })}>
 				<h2 id={headingSlug} className={s.heading}>
 					{heading}
 				</h2>
@@ -42,9 +45,11 @@ function OverviewCta({
 					/>
 				) : null}
 			</div>
-			<div className={s.imagePart}>
-				<img src={image} alt="" />
-			</div>
+			{hasImage ? (
+				<div className={s.imagePart}>
+					<ThemedImage src={image} alt="" />
+				</div>
+			) : null}
 		</div>
 	)
 }

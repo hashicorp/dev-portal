@@ -1,0 +1,86 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/*
+
+NOTE:
+
+--navigation-header-height is currently a magicky numbers.
+These are necessary for correct positioning in SidebarSidecarLayout.
+
+These values could change based on user preferences for font-size or zoom,
+but we won't know, and our design will break.
+
+We may be able to mitigate this by refactoring --navigation-header-height
+to be in `rem`, and then setting that value as the explicit CSS height
+in the navigation bar component (with overflow visible perhaps).
+
+Asana task: https://app.asana.com/0/1202114367927919/1202316169578550/f
+*/
+.root {
+	--sticky-bars-height: var(--navigation-header-height);
+
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.header {
+	position: sticky;
+	top: 0;
+
+	/* The contentArea comes later in the DOM, and
+    may have sticky elements, eg sidebars. We need
+    the header to stay above other sticky elements,
+    and to stay above the footer. */
+	z-index: 3;
+}
+
+.mobileMenuContainer {
+	padding: 24px;
+	z-index: 4;
+}
+
+.mobileMenuNavList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+.contentArea {
+	/* flex column gives consumers 
+  flexibility in making their content either
+  grow to fill all available space on short pages,
+  (by adding flex-grow: 1), or stay at an
+  automatic height (by doing nothing) */
+	display: flex;
+	flex-direction: column;
+
+	/* Stretch the content area to ensure the page is at
+  least 100vh. The SidebarSidecar layout
+  requires this stretching to avoid having
+  its sidebar cut off early if page
+  content is short. */
+	flex-grow: 1;
+	position: relative;
+	z-index: 1;
+}
+
+.footer {
+	background: var(--token-color-palette-neutral-0);
+	margin-top: auto;
+	overflow: hidden;
+	position: relative;
+
+	&.showFooterTopBorder {
+		border-top: 1px solid var(--token-color-border-primary);
+	}
+
+	/* On Desktop, footer should layer above sidebar */
+	@media (--dev-dot-desktop) {
+		z-index: 2;
+	}
+}

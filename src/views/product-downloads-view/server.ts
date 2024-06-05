@@ -69,12 +69,14 @@ const generateGetStaticProps = (
 			sidecarMarketingCard,
 			sidecarHcpCallout: rawSidecarHcpCallout,
 		} = CONTENT
-
 		/**
 		 * Fetch the release data static props
 		 */
 		const { props: releaseProps, revalidate } =
-			await generateReleaseStaticProps(options.releaseSlug || product)
+			await generateReleaseStaticProps(
+				options.releaseSlug || product,
+				isEnterpriseMode
+			)
 		const { releases, latestVersion } = releaseProps
 		const sortedAndFilteredVersions = sortAndFilterReleaseVersions({
 			releaseVersions: releases.versions,
@@ -135,7 +137,7 @@ const generateGetStaticProps = (
 		 */
 		const props = stripUndefinedProperties({
 			isEnterpriseMode,
-			latestVersion: isEnterpriseMode ? `${latestVersion}+ent` : latestVersion,
+			latestVersion,
 			metadata: {
 				title: 'Install',
 			},

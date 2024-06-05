@@ -4,22 +4,15 @@
  */
 
 import { NextResponse } from 'next/server'
-import type { NextFetchEvent, NextRequest } from 'next/server'
+import { type NextFetchEvent, type NextRequest, userAgent } from 'next/server'
 import redirects from 'data/_redirects.generated.json'
+import variantRewrites from '.generated/tutorial-variant-map.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
 import { getEdgeFlags } from 'flags/edge'
-import optInRedirectChecks from '.generated/opt-in-redirect-checks'
+import { getVariantParam } from 'views/tutorial-view/utils/variants'
 
 function determineProductSlug(req: NextRequest): string {
-	// .io preview on dev portal
-	const proxiedSiteCookie = req.cookies.get('hc_dd_proxied_site')?.value
-	const proxiedProduct = HOSTNAME_MAP[proxiedSiteCookie]
-
-	if (proxiedProduct) {
-		return proxiedProduct
-	}
-
 	// .io production deploy
 	if (req.nextUrl.hostname in HOSTNAME_MAP) {
 		return HOSTNAME_MAP[req.nextUrl.hostname]
@@ -47,8 +40,22 @@ function setHappyKitCookie(
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const { geo } = req
 
-	const label = `[middleware] ${req.nextUrl.pathname}`
-	console.time(label)
+	// UA checks to prevent misuse
+	const { ua } = userAgent(req)
+	if (/(bytespider|bytedance)/i.test(ua)) {
+		return Response.json(null, { status: 404 })
+	}
+
+	if (/curl/i.test(ua) && req.nextUrl.pathname === '/terraform/cdktf') {
+		return Response.json(
+			{
+				error:
+					'Please reach out to support@hashicorp.com so we can learn more about your use case.',
+			},
+			{ status: 429 }
+		)
+	}
+	// ----------------------
 
 	let response: NextResponse
 
@@ -66,7 +73,6 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			)
 		}
 		if (destination.startsWith('http')) {
-			console.timeEnd(label)
 			return NextResponse.redirect(destination, permanent ? 308 : 307)
 		}
 
@@ -81,29 +87,7 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 			url.hash = hash
 		}
 
-		console.timeEnd(label)
 		return NextResponse.redirect(url, permanent ? 308 : 307)
-	}
-
-	/**
-	 * DO NOT REMOVE THIS BLOCK
-	 *
-	 * Redirect product site docs paths to the relevant developer paths in production.
-	 */
-	if (process.env.HASHI_ENV === 'production') {
-		const url = req.nextUrl.clone()
-
-		if (optInRedirectChecks[product]?.test(url.pathname)) {
-			const redirectUrl = new URL(__config.dev_dot.canonical_base_url)
-			redirectUrl.pathname = `${product}${url.pathname}`
-			redirectUrl.search = url.search
-
-			// The GA redirects should be permanent
-			const response = NextResponse.redirect(redirectUrl, 308)
-
-			console.timeEnd(label)
-			return response
-		}
 	}
 
 	/**
@@ -122,11 +106,68 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	// 	}
 	// }
 
+	// Check if this path is associated with a tutorial variant
+	if (variantRewrites[req.nextUrl.pathname]) {
+		// check for query param first
+		const url = req.nextUrl.clone()
+		const tutorialVariant = variantRewrites[req.nextUrl.pathname]
+
+		if (req.nextUrl.searchParams.has('variants')) {
+			/**
+			 * Detect the variants query param and rewrite to the correct path.
+			 * Note: We only support one variant, this is handled in tutorial-view/server
+			 *
+			 * Request path: /{product}/tutorials/{collection}/{tutorial}?variants={slug:optionSlug}
+			 * Rendered path: /{product}/tutorials/{collection}/{tutorial}/{variant}
+			 */
+			const variantParam = url.searchParams.get('variants')
+			const isValidVariantOption = tutorialVariant.options.find(
+				(option: string) => variantParam.endsWith(option)
+			)
+
+			if (isValidVariantOption) {
+				url.searchParams.delete('variants')
+				url.pathname = `${url.pathname}/${variantParam}`
+			}
+		} else if (req.cookies.has('variants')) {
+			/**
+			 * Otherwise, check for the 'variants' cookie, validate that the path
+			 * has an active cookie for the associated variant / option. If so, rewrite
+			 * to the variant url.
+			 *
+			 * Request path: /{product}/tutorials/{collection}/{tutorial}
+			 * Rendered path: /{product}/tutorials/{collection}/{tutorial}/{variant}
+			 * */
+			let variantOptionValue
+
+			try {
+				const cookie = req.cookies.get('variants')
+				// all variant cookie options are stored in a single object
+				const allVariantsCookie = JSON.parse(cookie.value)
+				// grab the specific variant slug from the cookie object
+				variantOptionValue = allVariantsCookie[tutorialVariant.slug]
+			} catch (e) {
+				console.log('[middleware] Variant cookie could not be parsed.', e)
+			}
+
+			// If the cookie is set with a non-default variant option preference, rewrite
+			if (
+				variantOptionValue &&
+				variantOptionValue !== tutorialVariant.defaultOption
+			) {
+				url.pathname = `${url.pathname}/${getVariantParam(
+					tutorialVariant.slug,
+					variantOptionValue
+				)}`
+			}
+		}
+
+		response = NextResponse.rewrite(url)
+	}
+
 	if (!response) {
 		response = NextResponse.next()
 	}
-
-	console.timeEnd(label)
 
 	// Continue request processing
 	return setGeoCookie(req, response)

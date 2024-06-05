@@ -4,7 +4,7 @@
  */
 
 import algoliasearch from 'algoliasearch/lite'
-import { InstantSearch } from 'react-instantsearch-hooks-web'
+import { InstantSearch } from 'react-instantsearch'
 import { history } from 'instantsearch.js/es/lib/routers'
 import { useRouter } from 'next/router'
 
@@ -38,7 +38,8 @@ const DEFAULT_SLUGS = [
 ]
 
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
-const searchClient = algoliasearch(appId, 'bf27a047ba263cba01ee9b4081965a1a')
+const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
+const searchClient = algoliasearch(appId, apiKey)
 
 interface TutorialsLibraryPageProps {
 	layoutProps: SidebarSidecarLayoutProps

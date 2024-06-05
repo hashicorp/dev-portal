@@ -25,10 +25,14 @@ declare module 'next-auth' {
 		/**
 		 * Object representing an authenticated user.
 		 */
-		user: {
+		user?: {
+			/** The user's HashiCorp ID */
+			id: string
 			/** The user's nickname. */
 			nickname?: string | null
 		} & DefaultSession['user']
+		/* Key-value store of additional session data */
+		meta: Record<string, unknown>
 	}
 
 	/** The OAuth profile returned from your provider */

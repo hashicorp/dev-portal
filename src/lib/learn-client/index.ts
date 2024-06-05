@@ -3,30 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { withTiming } from 'lib/with-timing'
-
-function getFetch() {
-	// Note: purposely doing a conditional require here so that `@vercel/fetch` is not included in the client bundle
-	if (typeof window === 'undefined') {
-		// eslint-disable-next-line @typescript-eslint/no-var-requires
-		const createFetch = require('@vercel/fetch')
-		return createFetch()
-	}
-	return window.fetch
-}
-
-// some of our reqs occur in a node env where fetch
-// isn't defined e.g. algolia search script
-const fetch = (...params) => {
-	const url = params[0]
-	const method = params[1]?.method || 'GET'
-	return withTiming(
-		`[lib/learn-client] (${method} ${url})`,
-		() => getFetch()(...params),
-		false
-	)
-}
-
 export function get(path: string, token?: string) {
 	const options: RequestInit = {
 		method: 'GET',

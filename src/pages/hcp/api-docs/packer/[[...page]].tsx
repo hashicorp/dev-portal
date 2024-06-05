@@ -3,159 +3,115 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import type { InferGetStaticPropsType } from 'next'
-import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
-import { OpenApiPageContents } from 'components/open-api-page'
-import DevDotContent from 'components/dev-dot-content'
-import CodeBlock from '@hashicorp/react-code-block'
-/* Used server-side only */
-import { cachedGetProductData } from 'lib/get-product-data'
-import fetchGithubFile from 'lib/fetch-github-file'
+// Lib
+import { fetchCloudApiVersionData } from 'lib/api-docs/fetch-cloud-api-version-data'
+// View
+import OpenApiDocsView from 'views/open-api-docs-view'
 import {
-	getPathsFromSchema,
-	getPropsForPage,
-	processSchemaString,
-} from 'components/open-api-page/server'
+	schemaModComponent,
+	schemaModShortenHcp,
+	shortenProtobufAnyDescription,
+} from 'views/open-api-docs-view/utils/massage-schema-utils'
 import {
-	generateProductLandingSidebarNavData,
-	generateTopLevelSidebarNavData,
-} from 'components/sidebar/helpers'
+	getStaticPaths,
+	getStaticProps as getOpenApiDocsStaticProps,
+} from 'views/open-api-docs-view/server'
+// Types
+import type { GetStaticProps, GetStaticPropsContext } from 'next'
+import type { OpenAPIV3 } from 'openapi-types'
+import type {
+	OpenApiDocsParams,
+	OpenApiDocsViewProps,
+	OpenApiDocsPageConfig,
+} from 'views/open-api-docs-view/types'
 
-import { CustomPageComponent } from 'types/_app'
-import { isDeployPreview } from 'lib/env-checks'
-
-const productSlug = 'hcp'
-const targetFile = {
-	owner: 'hashicorp',
-	repo: 'hcp-specs-internal',
-	path: 'specs/cloud-packer-service/stable/2021-04-30/hcp.swagger.json',
-}
-
-type ApiDocsPageProps = InferGetStaticPropsType<typeof getStaticProps>
-const ApiDocsPage: CustomPageComponent<ApiDocsPageProps> = ({
-	apiPageProps,
-}) => {
-	return (
-		<OpenApiPageContents
-			info={apiPageProps.info}
-			operationCategory={apiPageProps.operationCategory}
-			// Truncate operation paths,
-			// as they are otherwise very difficult to read
-			massageOperationPathFn={(path) =>
-				path.replace(
-					'/packer/2021-04-30/organizations/{location.organization_id}/projects/{location.project_id}',
-					''
-				)
-			}
-			// Add an introductory warning text to each operation
-			// to make a note that the paths have been truncated
-			renderOperationIntro={function PathAside({ data }) {
-				return (
-					<>
-						{/*
-              @TODO replace DevDotContent & <div> with a base UI component
-              https://app.asana.com/0/1202097197789424/1203820006759167/f
-            */}
-						<DevDotContent>
-							<div className="alert alert-info">
-								<strong>Note:</strong> Operation paths have been truncated for
-								clarity. The full path to this operation is:
-							</div>
-						</DevDotContent>
-						<CodeBlock
-							code={data.__path}
-							theme="dark"
-							options={{ showClipboard: true }}
-						/>
-					</>
-				)
-			}}
-		/>
-	)
-}
-
-export async function getStaticPaths() {
-	let paths = []
-
-	if (!isDeployPreview() || isDeployPreview(productSlug)) {
-		const swaggerFile = await fetchGithubFile(targetFile)
-		const schema = await processSchemaString(swaggerFile)
-
-		if (schema) {
-			paths = getPathsFromSchema(schema)
-		}
-	}
-
-	return { paths, fallback: false }
-}
-
-export async function getStaticProps({ params }) {
-	const swaggerFile = await fetchGithubFile(targetFile)
-	const schema = await processSchemaString(swaggerFile)
-
-	// API page data
-	const apiPageProps = getPropsForPage(schema, params)
-
-	// Product data
-	const productData = cachedGetProductData(productSlug)
-
-	// Breadcrumbs
-	const breadcrumbLinks = [
-		{ title: 'Developer', url: '/' },
-		{ title: 'HashiCorp Cloud Platform', url: `/hcp` },
-	]
-
-	// Breadcrumbs - Render conditional category
-	if ('operationCategory' in apiPageProps) {
-		breadcrumbLinks.push({
-			title: apiPageProps.operationCategory.name,
-			url: `/hcp/api-docs/packer/`,
-		})
-	}
-
-	// Breadcrumbs - Make final element dark-text
-	// @ts-expect-error `isCurrentPage` is an expected optional field
-	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
-
-	// Menu items for the sidebar, from the existing dot-io-oriented navData
-	const apiSidebarMenuItems = apiPageProps.navData.map((menuItem) => {
-		if (menuItem.hasOwnProperty('path')) {
-			// Path differs on dev-dot, so all nodes with `path` must be adjusted
-			return {
-				...menuItem,
-				fullPath: `/hcp/api-docs/packer/${menuItem.path}`,
-			}
-		} else {
-			return menuItem
-		}
-	})
-
-	// Construct sidebar nav data levels
-	const sidebarNavDataLevels = [
-		generateTopLevelSidebarNavData(productData.name),
-		generateProductLandingSidebarNavData(productData),
+/**
+ * Configure the specific spec file we want to fetch,
+ * as well as some other minor content details and bells & whistles.
+ */
+const PAGE_CONFIG: OpenApiDocsPageConfig = {
+	basePath: '/hcp/api-docs/packer',
+	productSlug: 'hcp',
+	serviceProductSlug: 'packer',
+	githubSourceDirectory: {
+		owner: 'hashicorp',
+		repo: 'hcp-specs',
+		path: 'specs/cloud-packer-service',
+		ref: 'main',
+	},
+	statusIndicatorConfig: {
+		pageUrl: 'https://status.hashicorp.com',
+		endpointUrl:
+			'https://status.hashicorp.com/api/v2/components/0mbkqnrzg33w.json',
+	},
+	navResourceItems: [
 		{
-			backToLinkProps: { text: 'HashiCorp Cloud Platform Home', href: '/hcp' },
-			title: 'API',
-			levelButtonProps: {
-				levelUpButtonText: `${productData.name} Home`,
-			},
-			menuItems: [...apiSidebarMenuItems],
+			title: 'Tutorial Library',
+			href: '/tutorials/library?product=packer&edition=hcp',
 		},
-	]
-
-	// Return props for the page
-	return {
-		props: {
-			apiPageProps,
-			layoutProps: {
-				breadcrumbLinks,
-				sidebarNavDataLevels,
-			},
-			product: productData,
+		{
+			title: 'Community',
+			href: 'https://discuss.hashicorp.com/',
 		},
-	}
+		{
+			title: 'Support',
+			href: 'https://www.hashicorp.com/customer-success',
+		},
+	],
+	/**
+	 * Massage the schema data a little bit
+	 */
+	massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
+		//  Replace "HashiCorp Cloud Platform" with "HCP" in the title
+		const withShortTitle = schemaModShortenHcp(schemaData)
+		/**
+		 * Shorten the description of the protobufAny schema
+		 *
+		 * Note: ideally this would be done at the content source,
+		 * but until we've got that work done, this shortening
+		 * seems necessary to ensure incremental static regeneration works
+		 * for past versions of the API docs. Without this shortening,
+		 * it seems the response size ends up crossing a threshold that
+		 * causes the serverless function that renders the page to fail.
+		 *
+		 * Related task:
+		 * https://app.asana.com/0/1207339219333499/1207339701271604/f
+		 */
+		const withShortProtobufDocs = schemaModComponent(
+			withShortTitle,
+			'google.protobuf.Any',
+			shortenProtobufAnyDescription
+		)
+		// Return the schema data with modifications
+		return withShortProtobufDocs
+	},
 }
 
-ApiDocsPage.layout = SidebarSidecarLayout
-export default ApiDocsPage
+/**
+ * Get static paths, using `versionData` fetched from GitHub.
+ */
+export { getStaticPaths }
+
+/**
+ * Get static props, using `versionData` fetched from GitHub.
+ *
+ * Note that only a single version may be returned, in which case the
+ * version switcher will not be rendered.
+ */
+export const getStaticProps: GetStaticProps<
+	OpenApiDocsViewProps,
+	OpenApiDocsParams
+> = async ({ params }: GetStaticPropsContext<OpenApiDocsParams>) => {
+	// Fetch all version data, based on remote `stable` & `preview` subfolders
+	const versionData = await fetchCloudApiVersionData(
+		PAGE_CONFIG.githubSourceDirectory
+	)
+	// Generate static props based on page configuration, params, and versionData
+	return await getOpenApiDocsStaticProps({
+		...PAGE_CONFIG,
+		context: { params },
+		versionData,
+	})
+}
+
+export default OpenApiDocsView

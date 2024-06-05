@@ -7,9 +7,10 @@ import { ApiBookmark } from 'lib/learn-client/api/api-types'
 import * as learnApi from 'lib/learn-client'
 import { createBookmark } from '../create-bookmark'
 import { BOOKMARK_API_ROUTE } from '..'
+import type { Mock } from 'vitest'
 
-jest.mock('lib/learn-client', () => ({
-	post: jest.fn(),
+vi.mock('lib/learn-client', () => ({
+	post: vi.fn(),
 }))
 
 const mockBookmark: ApiBookmark = {
@@ -22,12 +23,12 @@ const mockBookmark: ApiBookmark = {
 }
 
 describe('createBookmark', () => {
-	const mockedPost = learnApi.post as jest.Mock
+	const mockedPost = learnApi.post as Mock
 	const testAccessToken = 'test-token'
 	const testTutorialId = mockBookmark.tutorial_id
 
 	afterAll(async () => {
-		jest.restoreAllMocks()
+		vi.restoreAllMocks()
 	})
 
 	test('returns new bookmark object if `ok`', async () => {

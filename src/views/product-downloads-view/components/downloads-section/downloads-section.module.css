@@ -2,99 +2,55 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-
-.root {
-	margin-bottom: 48px;
+.card {
+	margin-bottom: 32px;
+	padding: 16px;
 }
 
-.cardHeader {
-	align-items: center;
-	display: flex;
-
-	/* Note: logical order is Vault version, then OS.
-     But in flex layout, we want Vault version after OS heading,
-     so that it appears in the top left of the downloads section box */
-	flex-direction: row-reverse;
-	flex-wrap: wrap;
-	gap: 12px;
-	justify-content: space-between;
-	padding-bottom: 12px;
-}
-
-.versionSwitcherWrapper {
-	/* Flex-grow to fill space when in separate row */
-	flex-grow: 1;
-	width: max-content;
-}
-
-.operatingSystemTitle {
+.heading,
+.subheading {
 	color: var(--token-color-foreground-strong);
+}
 
-	/* Flex-grow as much as possible to keep .versionSwitcherWrapper small */
-	flex-grow: 100;
+.subheading {
+	margin-bottom: 16px;
 }
 
 .tabContent {
 	margin-top: 16px;
 }
 
-.subHeading {
-	color: var(--token-color-foreground-strong);
-	margin-bottom: 16px;
-	margin-top: 24px;
-}
-
-.specialSubHeading {
-	margin-bottom: 8px;
-}
-
-.textAndLinkCard {
-	align-items: center;
+.downloadContainer {
 	display: flex;
-	justify-content: space-between;
-
-	&:not(:last-child) {
-		margin-bottom: 16px;
+	gap: 24px;
+	flex-direction: column;
+	@media (--dev-dot-tablet-up) {
+		flex-wrap: wrap;
+		flex-direction: row;
 	}
 }
 
-.textAndLinkCardTextContainer {
-	margin-right: 16px;
+.downloadCard {
+	&:last-child {
+		margin-bottom: 0;
+	}
+	@media (--dev-dot-tablet-up) {
+		flex: 1 1 auto;
+		width: calc(50% - 12px);
+		&:last-child {
+			margin-bottom: auto;
+		}
+	}
 }
 
-.textAndLinkCardLabel {
-	color: var(--token-color-foreground-strong);
-	margin-bottom: 4px;
+.codeBlock {
+	margin-bottom: 32px;
 }
 
-.textAndLinkCardVersionLabel {
-	color: var(--token-color-foreground-faint);
+.codeBlocks {
+	margin-bottom: 24px;
 }
 
-.enterpriseLegalNotice {
-	background-color: var(--token-color-surface-faint);
-	border-radius: 6px;
-	border: 1px solid var(--token-color-border-strong);
-	display: flex;
-	gap: 12px;
+.alert {
 	margin-top: 24px;
-	padding: 16px;
-}
-
-.enterpriseLegalNoticeIcon {
-	color: var(--token-color-foreground-primary);
-	display: flex;
-	flex-grow: 0;
-	flex-shrink: 0;
-	height: 20px;
-	width: 20px;
-}
-
-.enterpriseLegalNoticeTitle {
-	color: var(--token-color-foreground-primary);
-}
-
-.enterpriseLegalNoticeText {
-	color: var(--token-color-foreground-primary);
-	margin-top: 4px;
 }

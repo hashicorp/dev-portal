@@ -1,0 +1,18 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.heading {
+	color: var(--token-color-consul-foreground);
+	margin-bottom: 4px;
+}
+
+.cta {
+	margin-top: 16px;
+	width: fit-content;
+}
+
+.downloadToolsCardDescription {
+	color: var(--token-color-foreground-faint);
+}

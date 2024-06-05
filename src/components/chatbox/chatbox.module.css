@@ -1,0 +1,117 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.chat {
+	height: 100%;
+	background: var(--token-color-palette-neutral-100);
+	display: flex;
+	flex-direction: column;
+	z-index: 9999;
+	justify-content: space-between;
+}
+
+.messageList {
+	overflow-y: auto;
+	max-height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+.arrowdown {
+	position: absolute;
+	top: -52px;
+	right: 20px;
+}
+
+.bottom {
+	position: relative; /* for absolute positioned arrow down button */
+	padding: 16px 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	background: var(--token-color-surface-primary);
+	border-top: 1px solid var(--token-color-border-primary);
+}
+
+.question {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	padding: 8px 0;
+	gap: 12px;
+	background: var(--token-color-surface-primary);
+}
+.questionIcon {
+	width: 40px;
+	height: 42px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 8px;
+
+	/* See prior art: https://hashicorp-mktg.sourcegraph.com/github.com/hashicorp/web/-/blob/apps/www/views/state-of-the-cloud/2021/components/hero/style.module.css?L18-19 */
+	& :global(.loading) {
+		animation: hds-flight-icon-animation-rotation 9s linear infinite;
+		animation-duration: 0.7s;
+	}
+}
+
+.purple {
+	color: var(--token-color-foreground-highlight-on-surface);
+}
+
+@keyframes hds-flight-icon-animation-rotation {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.reset {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+	font: inherit;
+	font-size: 100%;
+	vertical-align: baseline;
+	text-decoration: none;
+	-webkit-tap-highlight-color: transparent;
+	outline: transparent;
+}
+
+.textarea {
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* Body/300/Medium */
+	composes: hds-typography-body-300 from global;
+	composes: hds-font-weight-medium from global;
+	appearance: none;
+	border-radius: 5px;
+	padding: 8px 4px;
+	display: flex;
+	flex: 1;
+	height: 100%;
+	resize: none;
+	background: transparent;
+}
+
+.buttonContainer {
+	height: 42px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.disclaimer {
+	color: var(--token-color-foreground-faint); /* #656a76 */
+	display: block;
+	padding: 8px 0 0 10px;
+}
+
+.externalLink {
+	composes: root from '/src/components/inline-link/inline-link.module.css';
+	composes: primary from '/src/components/inline-link/inline-link.module.css';
+}

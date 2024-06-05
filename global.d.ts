@@ -5,14 +5,13 @@
 
 /// <reference types="@hashicorp/platform-types" />
 
-declare module '@hashicorp/platform-configs/jest/config.js'
-
 declare module '@hashicorp/react-search'
+declare module '@hashicorp/react-content'
 
 /**
  * Application config, defined in environment-specific JSON files in `config/`
  */
-declare const __config: Record<string, any>
+declare const __config: typeof import('./config/base.json')
 
 declare module '*.png'
 

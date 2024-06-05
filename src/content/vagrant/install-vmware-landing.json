@@ -5,25 +5,6 @@
 		"vagrant/getting-started-networking"
 	],
 	"doesNotHavePackageManagers": true,
-	"sidebarMenuItems": [
-		{
-			"divider": true
-		},
-		{
-			"heading": "Vagrant VMWare Utility"
-		},
-		{
-			"title": "Install Instructions",
-			"fullPath": "/vagrant/docs/providers/vmware/installation"
-		},
-		{
-			"divider": true
-		},
-		{
-			"title": "Community Resources",
-			"fullPath": "https://www.vagrantup.com/community"
-		}
-	],
 	"sidecarMarketingCard": {
 		"title": "About Vagrant",
 		"subtitle": "Vagrant is the command line utility for managing the lifecycle of virtual machines.",
@@ -57,7 +38,7 @@
 	"sidecarHcpCallout": {
 		"heading": "Vagrant Cloud",
 		"description": "Virtual boxes for Linux, Laravel and any development environment",
-		"ctaText": "Try Vagrant Cloud",
+		"ctaText": "Try Vagrant Cloud for free",
 		"ctaUrl": "https://app.vagrantup.com/boxes/search"
 	}
 }

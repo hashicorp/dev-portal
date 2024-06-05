@@ -4,7 +4,7 @@
  */
 
 .root {
-	--header-text-color: var(--gray-3);
+	--header-text-color: var(--token-color-foreground-faint);
 
 	margin: 0;
 	position: relative;
@@ -19,18 +19,39 @@
 	width: 100%;
 }
 
+.title {
+	color: var(--token-color-foreground-strong);
+}
+
+.titleBadge {
+	margin-left: 8px;
+}
+
 .endpoint {
-	display: block;
+	display: inline-block;
+	width: fit-content;
 
 	& .endpointInlineCode {
 		color: var(--header-text-color);
+		cursor: text;
 		background: none;
 		border: none;
 		padding-left: 0;
 		padding-right: 0;
 		margin-right: 8px;
+		user-select: text;
 		word-break: break-all;
 	}
+
+	& .path {
+		margin-right: 0;
+		padding-right: 10px;
+	}
+}
+
+.divider {
+	color: var(--token-color-border-primary);
+	background-color: var(--token-color-border-primary);
 }
 
 .spacer {
@@ -39,11 +60,11 @@
 }
 
 .columnSectionHeading {
-	composes: hds-typography-display-100 from global;
-	font-weight: var(--token-typography-font-weight-bold);
+	composes: hds-typography-display-200 from global;
+	font-weight: var(--token-typography-font-weight-semibold);
 	margin: 0 0 8px 0;
 	padding-bottom: 8px;
-	color: var(--gray-3);
+	color: var(--token-color-foreground-strong);
 
 	&:nth-child(2) {
 		margin-top: 0;
@@ -52,7 +73,8 @@
 
 .summary {
 	/* Base typography */
-	composes: g-type-body from global;
+	composes: hds-typography-body-200 from global;
+	color: var(--token-color-foreground-primary);
 
 	/* Remove the top margin from any first item */
 	& > *:first-child {

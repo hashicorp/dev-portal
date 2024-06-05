@@ -3,11 +3,10 @@
 This folder contains the authorable, marketing-style content for various landing pages in HashiCorp Developer:
 
 - [Sidebar "Resources" section](#1-additional-sidebar-resources-section-navigation-items)
-- [Home Page](#2-home-page)
-- [Product landing pages](#3-product-landing-pages)
-- [Product Docs landing pages](#4-product-docs-landing-pages)
-- [Product Install landing pages](#5-product-install-landing-pages)
-- [Certifications pages](#6-certifications-pages)
+- [Product landing pages](#2-product-landing-pages)
+- [Product Docs landing pages](#3-product-docs-landing-pages)
+- [Product Install landing pages](#4-product-install-landing-pages)
+- [Certifications pages](#5-certifications-pages)
 
 ## 1. Additional Sidebar "Resources" section navigation items
 
@@ -24,18 +23,7 @@ The `additional-sidebar-resources.json` file should contain a single array. Each
 1. `title` (string): This is the text shown for the navigation item.
 2. `href` (string): This is the destination of the navigation item. If it is an external link, the Sidebar will automatically render an external link icon to the right of the `title` text.
 
-## 2. Home Page
-
-To change the content for [the Home page](https://developer.hashicorp.com/):
-
-1. Open the `home-page.json` file
-2. Reference the next subsection for deatils on what is authorable
-
-### Editing Home Page content
-
-TODO
-
-## 3. Product landing pages
+## 2. Product landing pages
 
 To change the content for Product landing pages (e.g. [/vault](https://developer.hashicorp.com/vault), [/waypoint](https://developer.hashicorp.com/waypoint)):
 
@@ -263,7 +251,7 @@ Example: 3-column cards with tags
 
 </details>
 
-## 4. Product Docs landing pages
+## 3. Product Docs landing pages
 
 To change the content for Product Tutorials landing pages (e.g. [/vault/docs](https://developer.hashicorp.com/vault/docs), [/waypoint/docs](https://developer.hashicorp.com/waypoint/docs)):
 
@@ -455,9 +443,9 @@ Example usage:
 
 </details>
 
-## 5. Product Install landing pages
+## 4. Product Install landing pages
 
-To change the content for Product Install landing pages (e.g. [/vault/downloads](https://developer.hashicorp.com/vault/downloads), [/waypoint/downloads](https://developer.hashicorp.com/waypoint/downloads)):
+To change the content for Product Install landing pages (e.g. [/vault/install](https://developer.hashicorp.com/vault/install)
 
 1. Open the folder of the Product you'd like to make changes for
 2. Open the `install-landing.json` file
@@ -481,7 +469,7 @@ Each property is described in each following expandable section.
 <details>
 <summary><code>doesNotHavePackageManagers</code></summary>
 
-This is an optional `boolean` property used for specifying if a product's downloads page should show package managers for each operating system. It only needs to be specified if no package managers need to be shown.
+This is an optional `boolean` property used for specifying if a product's install page should show package managers for each operating system. It only needs to be specified if no package managers need to be shown.
 
 Example usage:
 
@@ -620,7 +608,7 @@ Will output the following Sidebar between the auto-generated content in the head
 <details>
 <summary><code>sidecarMarketingCard</code></summary>
 
-This is an object for the marketing content located in a `Card` in the Sidecar of the downloads view.
+This is an object for the marketing content located in a `Card` in the Sidecar of the install view.
 
 - `title`: The title of the card, shown in a heavier weight font
 - `subtitle`: The subtitle of the card, shown in a normal weight font
@@ -630,6 +618,6 @@ This is an object for the marketing content located in a `Card` in the Sidecar o
 
 </details>
 
-## 6. Certifications Pages
+## 5. Certifications Pages
 
 For details on editing the content on `/certifications` pages, see [the README in `src/content/certifications`](src/content/certifications/README.md).

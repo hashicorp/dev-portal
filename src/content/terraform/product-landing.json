@@ -10,14 +10,17 @@
 			"text": "Learn more",
 			"url": "/terraform/intro"
 		},
-		"image": "https://www.datocms-assets.com/2885/1662746959-terraform-dev-dot-visual.png"
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095195-devdot-terraform_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087761-devdot-terraform_dm.png"
+		}
 	},
 	"get_started": {
 		"heading": "Get Started",
 		"body": "Follow a code-complete, hands-on tutorial to learn the Terraform basics with your favorite infrastructure provider.",
 		"iconCardLinks": [
 			{
-				"icon": "aws-color",
+				"icon": "aws",
 				"text": "Amazon Web Services",
 				"url": "/terraform/tutorials/aws-get-started"
 			},
@@ -28,7 +31,7 @@
 			},
 			{
 				"icon": "terraform-color",
-				"text": "Terraform Cloud",
+				"text": "HCP Terraform",
 				"url": "/terraform/tutorials/cloud-get-started"
 			},
 			{
@@ -51,6 +54,27 @@
 	"blocks": [
 		{
 			"type": "heading",
+			"heading": "Best Practices",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Terraform style guide",
+					"body": "Learn recommended style conventions for Terraform configuration and workflows.",
+					"url": "/terraform/language/style"
+				},
+				{
+					"heading": "Phases of Terraform adoption",
+					"body": "Design your Terraform workflows for scale.",
+					"url": "/terraform/intro/phases"
+				}
+			]
+		},
+		{
+			"type": "heading",
 			"heading": "Featured Documentation",
 			"level": 2,
 			"size": 400
@@ -69,7 +93,7 @@
 					"url": "/terraform/cli"
 				},
 				{
-					"heading": "Terraform Cloud",
+					"heading": "HCP Terraform",
 					"body": "Collaborate with your team to provision infrastructure.",
 					"url": "/terraform/cloud-docs"
 				}
@@ -99,8 +123,8 @@
 		{
 			"type": "collection_cards",
 			"collectionSlugs": [
-				"terraform/certification",
-				"terraform/certification-associate-tutorials"
+				"terraform/certification-003",
+				"terraform/certification-associate-tutorials-003"
 			]
 		}
 	]

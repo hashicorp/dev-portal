@@ -44,23 +44,25 @@ const CommandBarDialogHeader = () => {
 				</div>
 			) : null}
 			<div className={s.inputWrapper}>
-				<input
-					aria-label={inputPlaceholder}
-					className={s.input}
-					onChange={(e: ChangeEvent<HTMLInputElement>) =>
-						setCurrentInputValue(e.target.value)
-					}
-					placeholder={inputPlaceholder}
-					ref={inputRef}
-					value={currentInputValue}
-				/>
+				{currentCommand.name !== 'chat' && (
+					<input
+						aria-label={inputPlaceholder}
+						className={s.input}
+						onChange={(e: ChangeEvent<HTMLInputElement>) =>
+							setCurrentInputValue(e.target.value)
+						}
+						placeholder={inputPlaceholder}
+						ref={inputRef}
+						value={currentInputValue}
+					/>
+				)}
 				{currentInputValue ? (
 					<div className={s.clearButtonWrapper}>
 						<button
 							className={s.clearButton}
 							onClick={() => {
 								setCurrentInputValue('')
-								inputRef.current.focus()
+								inputRef?.current?.focus()
 							}}
 						>
 							<IconX24 />
@@ -68,21 +70,27 @@ const CommandBarDialogHeader = () => {
 					</div>
 				) : null}
 			</div>
-			<div className={s.badges}>
-				<Badge
-					ariaLabel="Command key"
-					color="neutral"
-					icon={<CmdCtrlIcon />}
-					size="small"
-					type="outlined"
-				/>
-				<Badge
-					ariaLabel="K key"
-					color="neutral"
-					icon={<KIcon />}
-					size="small"
-					type="outlined"
-				/>
+			<div className={s.headerRightSlotWrap}>
+				{currentCommand.headerRightSlot ? (
+					currentCommand.headerRightSlot
+				) : (
+					<div className={s.badges}>
+						<Badge
+							ariaLabel="Command key"
+							color="neutral"
+							icon={<CmdCtrlIcon />}
+							size="small"
+							type="outlined"
+						/>
+						<Badge
+							ariaLabel="K key"
+							color="neutral"
+							icon={<KIcon />}
+							size="small"
+							type="outlined"
+						/>
+					</div>
+				)}
 			</div>
 		</div>
 	)

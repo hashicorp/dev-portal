@@ -9,18 +9,19 @@ import slugify from 'slugify'
 import { GetStaticPropsContext } from 'next'
 import { ProductSlug, RootDocsPath } from 'types/products'
 import { cachedGetProductData } from 'lib/get-product-data'
+import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from 'views/docs-view/server'
 import {
 	GETTING_STARTED_CARD_HEADING,
 	GETTING_STARTED_CARD_HEADING_SLUG,
 } from './components/marketing-content'
 import { prepareMarketingBlocks } from './utils/prepare-marketing-blocks'
+import { ProductRootDocsPathLandingProps } from './types'
 
 /**
  * @TODO add TS to function signature & document function purpose
  */
 const generateHeadingLevelsAndSidecarHeadings = ({
-	layoutHeadings,
 	marketingContentBlocks,
 	pageTitle,
 }) => {
@@ -90,11 +91,7 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 	}
 
 	// piece together the different headings
-	const sidecarHeadings = [
-		titleHeading,
-		...marketingContentHeadings,
-		...layoutHeadings.filter((heading) => heading.level !== 1),
-	]
+	const sidecarHeadings = [titleHeading, ...marketingContentHeadings]
 
 	return { sidecarHeadings, marketingContentBlocksWithHeadingLevels }
 }
@@ -134,19 +131,51 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 			basePath,
 			baseName,
 		})
-
-	// TODO: replace any with accurate type
-	const generatedProps = (await generatedGetStaticProps({
+	const getStaticPropsResult = await generatedGetStaticProps({
 		...context,
 		params: { page: [] },
-	})) as $TSFixMe
+	})
 
-	// Append headings found in marketing content
+	/**
+	 * Our base `generatedGetStaticProps` could technically return
+	 * a redirect or not-found. We should account for these cases.
+	 * This also serves as a type guard.
+	 */
+	if (!('props' in getStaticPropsResult)) {
+		return getStaticPropsResult
+	}
+
+	/**
+	 * TODO: Remove this when (HCP) Waypoint IA is updated
+	 */
+	if (product.slug === 'waypoint') {
+		getStaticPropsResult.props.layoutProps['sidebarNavDataLevels'] =
+			getStaticPropsResult.props.layoutProps.sidebarNavDataLevels.map(
+				(navLevel) => {
+					delete navLevel.menuItems
+					return {
+						...navLevel,
+						showFilterInput: false,
+					}
+				}
+			)
+	}
+
+	/**
+	 * Grab the outline from the MDX content, if applicable.
+	 *
+	 * Note we slice off the first outline item, we expect it to be an <h1 />,
+	 * which would be duplicative in this context.
+	 */
+	const mdxOutline = includeMDXSource
+		? getStaticPropsResult.props.outlineItems.slice(1)
+		: []
+
+	/**
+	 * Append headings found in marketing content.
+	 */
 	const { sidecarHeadings, marketingContentBlocksWithHeadingLevels } =
 		generateHeadingLevelsAndSidecarHeadings({
-			layoutHeadings: includeMDXSource
-				? generatedProps.props.layoutProps.headings
-				: [],
 			marketingContentBlocks: pageContent.marketingContentBlocks,
 			pageTitle: `${product.name} ${baseName}`,
 		})
@@ -158,27 +187,45 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 		marketingContentBlocksWithHeadingLevels
 	)
 
+	/**
+	 * Transform sidecarHeadings into outlineItems, and pageHeading
+	 */
+	const firstHeading = sidecarHeadings[0]
+	const pageHeading = { id: firstHeading.id, title: firstHeading.title }
+	const outlineItems = [
+		...outlineItemsFromHeadings(sidecarHeadings),
+		...mdxOutline,
+	]
+
+	/**
+	 * Declare props with type for type safety
+	 *
+	 * TODO: ideally we'd declare this typing as part of the return type
+	 * of this function. For now, this is a step in that direction.
+	 */
+	const props: ProductRootDocsPathLandingProps = {
+		...getStaticPropsResult.props,
+		mdxSource: includeMDXSource ? getStaticPropsResult.props.mdxSource : null,
+		layoutProps: {
+			...getStaticPropsResult.props.layoutProps,
+			githubFileUrl: null,
+		},
+		pageContent: {
+			...pageContent,
+			marketingContentBlocks: preparedMarketingBlocks,
+		},
+		pageHeading,
+		outlineItems,
+		product: {
+			...getStaticPropsResult.props.product,
+			currentRootDocsPath,
+		},
+	}
+
 	// TODO clean this up so it's easier to understand
 	return {
-		...generatedProps,
-		props: {
-			...generatedProps.props,
-			mdxSource: includeMDXSource ? generatedProps.props.mdxSource : null,
-			layoutProps: {
-				...generatedProps.props.layoutProps,
-				githubFileUrl: null,
-				headings: sidecarHeadings,
-			},
-			pageContent: {
-				...pageContent,
-				marketingContentBlocks: preparedMarketingBlocks,
-			},
-			pageHeading: sidecarHeadings[0],
-			product: {
-				...generatedProps.props.product,
-				currentRootDocsPath,
-			},
-		},
+		...getStaticPropsResult,
+		props,
 	}
 }
 

@@ -1,0 +1,48 @@
+{
+	"meta": {
+		"status_code": 200,
+		"status_text": "OK"
+	},
+	"result": [
+		{
+			"product": "waypoint",
+			"ref": "kevin/versioned-docs",
+			"version": "v0.6.x",
+			"created_at": "Fri Sep 24 2021 07:56:45 GMT+0000 (Coordinated Universal Time)",
+			"display": "v0.6.2",
+			"sha": "e14900057317f9fd63eae31f3414a0ba383faa8e",
+			"isLatest": false,
+			"releaseStage": "alpha",
+			"fullPath": "version-metadata/v0.6.x"
+		},
+		{
+			"product": "waypoint",
+			"ref": "kevin/versioned-docs",
+			"version": "v0.5.x",
+			"created_at": "Thu Sep 23 2021 07:56:45 GMT+0000 (Coordinated Universal Time)",
+			"display": "v0.5.2",
+			"sha": "214900057317f9fd63eae31f3414a0ba383faa9e",
+			"isLatest": true,
+			"releaseStage": "stable",
+			"fullPath": "version-metadata/v0.5.x"
+		},
+		{
+			"product": "waypoint",
+			"ref": "release/0.4.x",
+			"version": "v0.4.x",
+			"created_at": "Tue Sep 21 2021 21:05:43 GMT+0000 (Coordinated Universal Time)",
+			"sha": "c6cd81e10f30d339c113772b5f978d2f96cd1a2e",
+			"releaseStage": "stable",
+			"fullPath": "version-metadata/v0.4.x"
+		},
+		{
+			"product": "waypoint",
+			"ref": "refs/heads/release/0.3.x",
+			"version": "v0.3.x",
+			"created_at": "Wed Sep 22 2021 17:40:36 GMT+0000 (Coordinated Universal Time)",
+			"sha": "61a1d140146321a8d03859ba8b336bd5baa55f67",
+			"releaseStage": "stable",
+			"fullPath": "version-metadata/v0.3.x"
+		}
+	]
+}

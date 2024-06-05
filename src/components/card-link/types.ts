@@ -7,7 +7,7 @@ import { CardProps } from 'components/card'
 import { LinkProps } from 'components/link'
 
 type InheritedCardProps = Pick<CardProps, 'children' | 'className'>
-type InheritedLinkProps = Pick<LinkProps, 'href' | 'opensInNewTab'>
+type InheritedLinkProps = Pick<LinkProps, 'href' | 'onClick' | 'opensInNewTab'>
 
 export interface CardLinkProps extends InheritedCardProps, InheritedLinkProps {
 	/**

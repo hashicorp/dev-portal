@@ -11,4 +11,8 @@
 	&:hover {
 		color: var(--token-color-surface-primary);
 	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-primary);
+	}
 }

@@ -20,13 +20,13 @@
 			}
 		]
 	},
-	"alertBannerActive": false,
+	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "HashiTalks 2023",
-		"url": "https://hashi.co/hashitalks-2023",
-		"text": "Join us for the fifth annual HashiTalks, a 24-hour virtual knowledge sharing event on February 16",
-		"linkText": "Register now",
-		"expirationDate": ""
+		"tag": "HashiDays",
+		"url": "https://hashicorp.com/conferences/hashidays",
+		"text": "One conference. Three cities.",
+		"linkText": "Find a city near you",
+		"expirationDate": "2024-06-14T00:00:00-08:00"
 	},
 	"version": "1.11.3",
 	"subnavItems": [],

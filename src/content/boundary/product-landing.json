@@ -10,7 +10,10 @@
 			"text": "Learn more about Boundary features",
 			"url": "/boundary/docs/overview/what-is-boundary"
 		},
-		"image": "https://www.datocms-assets.com/2885/1662053765-dev-dot-product-landing-what-is-boundary-diagram.png"
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095102-devdot-boundary_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087672-devdot-boundary_dm.png"
+		}
 	},
 	"get_started": {
 		"heading": "Getting Started",
@@ -22,9 +25,9 @@
 				"url": "/boundary/tutorials/hcp-getting-started"
 			},
 			{
-				"icon": "hcp",
-				"text": "Boundary OSS Quick Start",
-				"url": "/boundary/tutorials/oss-getting-started"
+				"icon": "boundary-color",
+				"text": "Boundary Community Edition Quick Start",
+				"url": "/boundary/tutorials/get-started-community"
 			}
 		]
 	},
@@ -41,7 +44,7 @@
 				{
 					"heading": "Identity-based Access",
 					"body": "Enable privileged sessions for users and applications based on user identity and role.",
-					"url": "/boundary/tutorials/access-management/oidc-auth"
+					"url": "/boundary/tutorials/identity-management"
 				},
 				{
 					"heading": "Service Discovery",
@@ -56,7 +59,7 @@
 				{
 					"heading": "Session Visibility and Audit Logs",
 					"body": "Visibility into session metrics, events, logs, and traces with the ability to export data to business intelligence and event monitoring tools",
-					"url": "/boundary/tutorials/oss-configuration/event-logging"
+					"url": "/boundary/tutorials/self-managed-deployment/event-logging"
 				}
 			]
 		},
@@ -69,11 +72,11 @@
 		{
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
-				"boundary/oidc-auth",
-				"boundary/oss-vault-cred-brokering-quickstart",
+				"boundary/oidc-auth0",
+				"boundary/community-vault-cred-brokering-quickstart",
 				"boundary/hcp-manage-workers",
 				"boundary/hcp-ssh-cred-injection",
-				"boundary/oss-manage-targets",
+				"boundary/aws-session-rec-vault",
 				"boundary/oidc-idp-groups"
 			]
 		}

@@ -3,17 +3,17 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactNode, MouseEvent } from 'react'
+import { ReactNode, MouseEvent, type ReactElement } from 'react'
 
 interface FeedbackQuestionBase {
 	id: string
-	labelIcon?: JSX.IntrinsicElements['svg']
+	labelIcon?: ReactElement<React.JSX.IntrinsicElements['svg']>
 	label: string
 	labelSecondary?: string
 }
 
 export interface FeedbackQuestionChoiceAnswer {
-	icon?: JSX.IntrinsicElements['svg']
+	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>
 	display: string
 	value: string
 	nextQuestion?: string
@@ -26,9 +26,10 @@ interface FeedbackQuestionChoice extends FeedbackQuestionBase {
 
 interface FeedbackQuestionText extends FeedbackQuestionBase {
 	type: 'text'
-	icon?: ReactNode
+	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>
 	buttonText: string
 	nextQuestion?: string
+	placeholder?: string
 	optional?: boolean
 }
 

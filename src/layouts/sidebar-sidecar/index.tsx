@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-import { useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import classNames from 'classnames'
 
 // Global imports
@@ -12,8 +12,8 @@ import { MAIN_ELEMENT_ID } from 'constants/element-ids'
 import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import { useScroll } from 'framer-motion'
-import { useMobileMenu } from 'contexts'
-import BaseLayout from 'layouts/base-new'
+import { SkipLinkContext, useMobileMenu } from 'contexts'
+import BaseLayout from 'layouts/base-layout'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
 import MobileMenuContainer, {
@@ -48,6 +48,7 @@ const SidebarSidecarLayoutContent = ({
 	AlternateSidebar,
 	showScrollProgress,
 	sidecarSlot,
+	sidecarTopSlot,
 	sidebarNavDataLevels,
 	mainWidth = 'wide',
 	alertBannerSlot,
@@ -59,7 +60,7 @@ const SidebarSidecarLayoutContent = ({
 	const sidebarProps = sidebarNavDataLevels[currentLevel]
 	const sidebarIsVisible = !isMobileMenuRendered || mobileMenuIsOpen
 	const contentRef = useRef(null)
-
+	const { setShowSkipLink } = useContext(SkipLinkContext)
 	const stickyNavHeaderHeight = getFullNavHeaderHeight()
 	const { scrollYProgress } = useScroll({
 		target: contentRef,
@@ -69,6 +70,14 @@ const SidebarSidecarLayoutContent = ({
 		 */
 		offset: [`${stickyNavHeaderHeight * -1}px start`, `end end`],
 	})
+
+	useEffect(() => {
+		setShowSkipLink(true)
+
+		return () => {
+			setShowSkipLink(false)
+		}
+	}, [])
 
 	// Handles closing the sidebar if focus moves outside of it and it is open.
 	useOnFocusOutside(
@@ -114,6 +123,7 @@ const SidebarSidecarLayoutContent = ({
 							) : null}
 						</main>
 						<div className={s.sidecarPosition}>
+							<div className={s.sidecarTopSlot}>{sidecarTopSlot}</div>
 							<SidecarScrollContainer>{sidecarSlot}</SidecarScrollContainer>
 						</div>
 					</div>

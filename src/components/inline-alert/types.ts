@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactChild } from 'react'
+import { type ReactNode, type ReactElement } from 'react'
 
 export interface InlineAlertProps {
 	className?: string
+	ctaSlot?: ReactNode
 	color?: 'neutral' | 'highlight' | 'warning' | 'critical'
-	description: ReactChild | ReactChild[]
-	icon?: JSX.IntrinsicElements['svg']
+	description: ReactNode
+	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>
 	title: string
 }

@@ -5,19 +5,22 @@
 	},
 	"overview": {
 		"heading": "What is Packer?",
-		"body": "Packer is an open source tool that lets you create identical machine images for multiple platforms from a single source template. Packer can create golden images to use in image pipelines.",
+		"body": "Packer is a tool that lets you create identical machine images for multiple platforms from a single source template. Packer can create golden images to use in image pipelines.",
 		"cta": {
 			"text": "Learn more",
 			"url": "/packer/docs/intro"
 		},
-		"image": "https://www.datocms-assets.com/2885/1662053782-dev-dot-product-landing-what-is-packer-diagram.png"
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095176-devdot-packer_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087738-devdot-packer_dm.png"
+		}
 	},
 	"get_started": {
 		"heading": "Get Started",
 		"body": "Follow a code-complete, hands-on tutorial to learn the Packer basics.",
 		"iconCardLinks": [
 			{
-				"icon": "aws-color",
+				"icon": "aws",
 				"text": "Amazon Web Services",
 				"url": "/packer/tutorials/aws-get-started"
 			},

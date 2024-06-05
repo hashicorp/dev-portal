@@ -17,3 +17,12 @@
 .sidecarTryHcpCallout {
 	margin-top: 24px;
 }
+
+.nextStepsHeading {
+	margin: 66px 0 20px;
+}
+
+.scrollHeading,
+.scrollHeading:target {
+	scroll-margin-top: 80px;
+}

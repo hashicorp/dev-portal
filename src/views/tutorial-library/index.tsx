@@ -8,7 +8,7 @@ import {
 	useConfigure,
 	useSearchBox,
 	UseSearchBoxProps,
-} from 'react-instantsearch-hooks-web'
+} from 'react-instantsearch'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 
 import FilterInput from 'components/filter-input'
@@ -52,7 +52,7 @@ export default function TutorialLibraryView({
 	const filtersState = useFiltersState()
 
 	// configure our search client with custom settings
-	useConfigure({ hitsPerPage: 24 })
+	useConfigure({ hitsPerPage: 24, filters: 'type:tutorial' })
 
 	const handleDialogDismiss = () => setShowMobileFilters(false)
 

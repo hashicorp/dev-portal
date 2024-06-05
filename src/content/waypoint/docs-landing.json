@@ -6,92 +6,67 @@
 			"title": "Fundamentals",
 			"cards": [
 				{
-					"title": "Quick Start",
-					"description": "It only takes a few minutes to get started with Waypoint on your local development environment.",
-					"url": "/waypoint/docs/getting-started"
+					"title": "What is HCP Waypoint?",
+					"description": "HCP Waypoint lets platform teams define patterns to let developers deploy application infrastructure.",
+					"url": "/hcp/docs/waypoint"
 				},
 				{
-					"title": "App Lifecycle",
-					"description": "Waypoint has an opinionated view on the minimum application lifecycle: build, deploy, and release.",
-					"url": "/waypoint/docs/lifecycle"
+					"title": "Templates",
+					"description": "Templates define the infrastructure and configurations that developers need to create new projects.",
+					"url": "/hcp/docs/waypoint/concepts/application-templates"
 				},
 				{
-					"title": "Projects",
-					"description": "A project contains one or more applications and each one in a project represents a single deployable object.",
-					"url": "/waypoint/docs/projects"
-				},
-			  	{
-					"title": "Runners",
-					"description": "Waypoint utilizes \"runners\" to execute jobs. Runners are programs running `waypoint runner agent`.",
-					"url": "/waypoint/docs/runner"
-				},
-				{
-					"title": "waypoint.hcl",
-					"description": "The waypoint.hcl file configures each Waypoint project and defines how Waypoint builds, deploys, and releases it.",
-					"url": "/waypoint/docs/waypoint-hcl"
+					"title": "Add-ons",
+					"description": "Add-ons define infrastructure that developers can add to existing projects.",
+					"url": "/hcp/docs/waypoint/concepts/add-ons"
 				}
 			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Application Configuration",
+			"title": "Templates",
 			"cards": [
 				{
-					"title": "Overview",
-					"description": "Waypoint can configure your application by setting environment variables and writing files.",
-					"url": "/waypoint/docs/app-config"
+					"title": "Managing templates",
+					"description": "Templates consist of a published no-code module in HCP Terraform and a template definition in HCP Waypoint.",
+					"url": "/hcp/docs/waypoint/template-create"
 				},
 				{
-					"title": "Dynamic Values",
-					"description": "Waypoint can sync app config values with external systems like Kubernetes ConfigMaps, HashiCorp Vault, and more.",
-					"url": "/waypoint/docs/app-config/dynamic"
-				},
-				{
-					"title": "Files",
-					"description": "Waypoint can write configs to files for apps that expect configurations at a certain path or in a certain format.",
-					"url": "/waypoint/docs/waypoint-hcl"
+					"title": "Using templates",
+					"description": "Developers create HCP Waypoint projects from templates and get pre-configured infrastructure for their applications.",
+					"url": "/hcp/docs/waypoint/template-use"
 				}
 			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Debugging",
+			"title": "Add-ons",
 			"cards": [
 				{
-					"title": "Tips and Troubleshooting",
-					"description": "Common tips and troubleshooting methods.",
-					"url": "/waypoint/docs/troubleshooting"
+					"title": "Managing add-ons",
+					"description": "Add-ons consist of a published no-code module in HCP Terraform and an add-on definition in HCP Waypoint.",
+					"url": "/hcp/docs/waypoint/addon-definition-create"
 				},
 				{
-					"title": "Logs",
-					"description": "Waypoint app logs are aggregated and available to view via the CLI and UI.",
-					"url": "/waypoint/docs/logs"
-				},
-				{
-					"title": "Exec",
-					"description": "Waypoint enables you to execute commands in the context of a deployed application.",
-					"url": "/waypoint/docs/exec"
+					"title": "Using add-ons",
+					"description": "Developers can install add-ons to their HCP Waypoint projects to gain additional application functionality by way of pre-configured infrastructure.",
+					"url": "/hcp/docs/waypoint/addon-use"
 				}
 			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Highlighted Features",
+			"title": "Administration",
 			"cards": [
 				{
-					"title": "Waypoint URL Service",
-					"description": "The Waypoint URL service is a free, public service hosted by HashiCorp to view your deployed app.",
-					"url": "/waypoint/docs/url"
+					"title": "Role-based access control",
+					"description": "Role-based access control lets you restrict access to specific HCP Waypoint functionality based on user roles.",
+					"url": "/hcp/docs/waypoint/concepts/rbac"
 				},
 				{
-					"title": "Waypoint Runners",
-					"description": "Waypoint has three types of runners to execute every operation: CLI, remote, and on-demand.",
-					"url": "/waypoint/docs/runner"
-				},
-				{
-					"title": "Waypoint Triggers",
-					"description": "Trigger URLs are pre-configured Waypoint lifecycle operations for execution inside CI environments.",
-					"url": "/waypoint/docs/triggers"
+					"title": "HCP Terraform integration",
+					"description": "HCP Waypoint templates and add-on definitions leverage HCP Terraform no-code modules to deploy their underlying infrastructure.",
+					"url": "/hcp/docs/waypoint/configure-tfc-integration"
 				}
 			]
 		}

@@ -67,7 +67,7 @@
 	/* In nested tabs, no background, no border */
 	&.isNested {
 		border-color: transparent;
-		background-color: white;
+		background-color: var(--token-color-surface-primary);
 		padding-left: 8px;
 	}
 

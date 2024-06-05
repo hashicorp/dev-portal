@@ -1,0 +1,74 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.linkbox {
+	border-radius: 6px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	text-align: center;
+	justify-content: center;
+	height: 100%;
+	padding: 12px;
+	background-color: var(--token-color-page-faint);
+
+	&.direction-previous {
+		text-align: left;
+		align-items: flex-start;
+	}
+
+	&.direction-next,
+	&.direction-final {
+		text-align: right;
+		align-items: flex-end;
+	}
+
+	&:hover,
+	&:active,
+	&:focus {
+		background-color: var(--token-color-surface-interactive-hover);
+	}
+
+	@media (--dev-dot-tablet-up) {
+		background-color: unset;
+	}
+}
+
+.icon {
+	display: block;
+
+	&.direction-previous {
+		margin-right: 8px;
+	}
+
+	&.direction-next,
+	&.direction-final {
+		order: 1;
+		margin-left: 8px;
+	}
+}
+
+.directionLabel {
+	color: var(--token-color-foreground-faint);
+	display: flex;
+	align-items: center;
+	margin-bottom: 12px;
+
+	/** this references standalone link / small type styles */
+	font-family: var(--token-typography-font-stack-text);
+	font-size: var(--token-typography-body-100-font-size);
+	font-weight: var(--token-typography-font-weight-medium);
+	line-height: 1rem;
+}
+
+.labelText {
+	color: var(--token-color-foreground-faint);
+}
+
+.name {
+	composes: --token-typography-body-200 from global;
+	font-weight: var(--token-typography-font-weight-semibold);
+	color: var(--token-color-foreground-strong);
+}

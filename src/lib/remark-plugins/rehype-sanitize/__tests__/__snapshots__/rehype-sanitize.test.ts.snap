@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`rehypeSanitize handles DOM purify test cases as expected: rehype-sanitize-dom-purify-examples 1`] = `
+exports[`rehypeSanitize > handles DOM purify test cases as expected > rehype-sanitize-dom-purify-examples 1`] = `
 "
 
 
@@ -95,7 +95,7 @@ exports[`rehypeSanitize handles DOM purify test cases as expected: rehype-saniti
 
 
 
-<p>&#x3C;![>&#x3C;img src=\\"]>&#x3C;img src=x onerror=alert(39)//\\"></p>
+<p>&#x3C;![>&#x3C;img src="]>&#x3C;img src=x onerror=alert(39)//"></p>
 
 
 
@@ -205,7 +205,7 @@ ed/</em>)} /<em> IE 6-7 Standards mode </em>/</p>
 <p>XXX</p>
 
 <p>-->{}
-*{color:red}//[\\"'\`-->]]>]</p>
+*{color:red}//["'\`-->]]>]</p>
 
 
 
@@ -232,7 +232,7 @@ ed/</em>)} /<em> IE 6-7 Standards mode </em>/</p>
 
 
 
-<p>a&#x3C;/noscript>&#x3C;/desc>&#x3C;s>&#x3C;/s>&#x3C;style>&#x3C;a title=\\"&#x3C;/style>&#x3C;img src onerror=alert(1)>\\"></p>
+<p>a&#x3C;/noscript>&#x3C;/desc>&#x3C;s>&#x3C;/s>&#x3C;style>&#x3C;a title="&#x3C;/style>&#x3C;img src onerror=alert(1)>"></p>
 
 
 

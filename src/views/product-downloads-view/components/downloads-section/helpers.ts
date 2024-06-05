@@ -3,24 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReleaseVersion } from 'lib/fetch-release-data'
 import {
 	GroupedPackageManagers,
 	PackageManager,
-	SortedReleases,
 } from 'views/product-downloads-view/types'
-import { sortPlatforms } from 'views/product-downloads-view/helpers'
 
 export const generateCodeSnippetFromCommands = (
 	commands: PackageManager['commands']
 ): string => {
-	return commands.map((command: string) => `$ ${command}`).join('\n')
-}
-
-export const groupDownloadsByOS = (
-	selectedRelease: ReleaseVersion
-): SortedReleases => {
-	return sortPlatforms(selectedRelease)
+	return commands.join('\n')
 }
 
 export const groupPackageManagersByOS = (

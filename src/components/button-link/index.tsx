@@ -57,9 +57,11 @@ const ButtonLink = ({
 			opensInNewTab={opensInNewTab}
 			rel={opensInNewTab ? 'noreferrer noopener' : undefined}
 		>
-			{hasLeadingIcon && icon}
-			{hasText ? text : null}
-			{hasTrailingIcon && icon}
+			<>
+				{hasLeadingIcon && icon}
+				{hasText ? text : null}
+				{hasTrailingIcon && icon}
+			</>
 		</Link>
 	)
 }

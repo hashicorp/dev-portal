@@ -16,19 +16,17 @@ const Badge = ({
 	text,
 	type = 'filled',
 }: BadgeProps) => {
-	const classes = classNames(s.root, s[size], s[`${type}-${color}`], className)
+	const classes = classNames(
+		s.root,
+		s[size],
+		s[`${type}-${color}`],
+		type === 'base' && s.base,
+		className
+	)
 	const hasIcon = !!icon
 	const hasText = !!text
 	const hasLabel = !!ariaLabel
 	const isIconOnly = hasIcon && !hasText
-	const isStatusBadge =
-		color == 'success' || color == 'warning' || color == 'error'
-
-	if (isStatusBadge && !hasIcon) {
-		throw new Error(
-			'`Badge`s used for communicating status must have an icon to avoid relying on color alone.'
-		)
-	}
 
 	if (!hasIcon && !hasText) {
 		throw new Error(

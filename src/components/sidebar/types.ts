@@ -18,7 +18,7 @@ import { SidebarNavMenuItemBadgeProps } from './components/sidebar-nav-menu-item
  */
 
 interface DividerNavItem {
-	divider: boolean
+	divider: true
 }
 
 interface HeadingNavItem {
@@ -186,6 +186,14 @@ interface SidebarBaseProps {
 	 * the `.g-screen-reader-only` global CSS helper class.
 	 */
 	visuallyHideTitle?: boolean
+	/**
+	 * Optional. If true, the sidebar will use the API docs table of contents style nav.
+	 */
+	isInstallPage?: boolean
+	/**
+	 * Optional. If true, the sidebar will show the Resources list.
+	 */
+	showResourcesList?: boolean
 }
 
 /**

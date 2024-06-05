@@ -12,12 +12,12 @@ jobs:
     name: 'Run Tests 🧪'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
-          node-version-file: '.nvmrc'
+          node-version: 20
 
       - run: npm ci
       - run: npm run test:ci
@@ -26,12 +26,12 @@ jobs:
     name: 'Lint'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
-          node-version-file: '.nvmrc'
+          node-version: 20
 
       - name: Install Dependencies
         run: npm ci

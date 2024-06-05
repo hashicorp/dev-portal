@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { serialize } from 'next-mdx-remote/serialize'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 import { FaqItem } from 'views/certifications/types'
 import {
 	collectMdContentByHeading,

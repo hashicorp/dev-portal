@@ -1,36 +1,8 @@
 <!-- Each "## Heading Two" section in this document will be used to populate an FAQ item -->
-
-## Exam Availability Dates
-- **Today:** Terraform Associate **002** certification is available to schedule
-- **April 5:** Terraform Associate **003** becomes available to schedule. Both versions will be available
-- **May 5:** Last day to schedule or reschedule an appointment to take the Terraform Associate 002 exam
-    - Scheduling subject to appointment availability until May 19
-
-## Which Exam to Take
-
-The Terraform Associate 002 certification is still relevant and will be accepted as a validation of Terraform knowledge until each individual badge’s expiration date. Receiving a Terraform Associate 003 certification will not impact any existing Terraform Associate 002 credentials, and a single candidate can hold both at the same time. However, either certification alone can be used to validate Terraform knowledge at the associate level.
-
-- **If you have passed the Terraform Associate 002 exam**, wait until the new version comes out to recertify. We have extended all current badge expirations dates so you have time to wait for the new exam.
-- **If you have never passed the Terraform Associate exam**, the choice is up to you and your timeline.
-
-**Content Differences Between Exams**
-
-We've updated the Terraform Associate 003 exam to account for how Terraform has grown, and to accommodate future growth. The changes are primarily a reorganization and rewording of the 002 exam objectives. More significant changes are listed below.
-
-| #  | Objective Description                                                                      | Status in Terraform Associate 003                                           |
-|----|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| 3e | ~~Explain when to use and not use provisioners and when to use local-exec or remote-exec~~ | Removed                                                                     |
-| 4  | Use Terraform outside of core workflow                                                     | `terraform taint` removed, other topics reorganized                         |
-| 6b | Initialize a Terraform working directory (`terraform init`)                                | Includes questions about `terraform.lock.hcl`                               |
-| 7  | Implement and maintain state                                                               | Cloud integration authentication, and cloud backends added                  |
-| 8a | Demonstrate use of variables and outputs                                                   | Covers sensitive variables and outputs' relationship to exposure on the CLI |
-| 8g | ~~Configure~~ resource using a `dynamic` block                                             | Use cases for `dynamic` block are still tested in objective 8               |
-| 9  | Understand Terraform Cloud capabilities                                                    | Restructured to accommodate the current and future state of Terraform Cloud |
-
 ## Prerequisites
 
 - Basic terminal skills
-- Basic understanding of on premises and cloud architecture;
+- Basic understanding of on premises and cloud architecture
 
 ## Exam Details
 
@@ -91,10 +63,34 @@ We've updated the Terraform Associate 003 exam to account for how Terraform has 
 | 8e    | Use resource addressing and resource parameters to connect resources together                       |
 | 8f    | Use HCL and Terraform functions to write configuration                                              |
 | 8g    | Describe built-in dependency management (order of execution based)                                  |
-| **9** | **Understand Terraform Cloud capabilities**                                                         |
-| 9a    | Explain how Terraform Cloud helps to manage infrastructure                                          |
-| 9b    | Describe how Terraform Cloud enables collaboration and governance                                   |
+| **9** | **Understand HCP Terraform capabilities**                                                         |
+| 9a    | Explain how HCP Terraform helps to manage infrastructure                                          |
+| 9b    | Describe how HCP Terraform enables collaboration and governance                                   |
 
 ## Requirements for Attending an Exam
 
 Visit the [Exam-taker Handbook](https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360048211571) to learn about the requirements and policies for taking exams.
+
+## Renewing Your Certification
+
+To renew any Terraform Associate certification, you will need to take and pass the new Terraform Associate 003 exam.
+
+**If you hold an *unexpired* Terraform Associate 002 certification:** You can take the new (003) exam starting 18 months after your previous exam date. When you pass the Terraform Associate 003 exam to recertify, you will receive a new, separate set of credentials (badge and corresponding certificate) that will reflect your recertification date. The date of your credentials related to your Terraform Associate 002 certification will not be updated.
+
+**If you hold an *unexpired* Terraform Associate 003 certification:** You can take the new exam starting 18 months after your previous exam date. When you pass the new exam, the expiration date on your credentials will be extended.
+
+**If you hold any *expired* Terraform Associate certification:** You are eligible to recertify at any time. When you pass the new exam, you will receive a new, separate set of credentials with a new expiration date.
+
+### Content Differences Between the 002 and 003 exams
+
+We updated the Terraform Associate 003 exam to account for how Terraform has grown, and to accommodate future growth. The changes are primarily a reorganization and rewording of the 002 exam objectives. More significant changes are listed below.
+
+| #  | Objective Description                                                                      | Status in Terraform Associate 003                                           |
+|----|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| 3e | Explain when to use and not use provisioners and when to use local-exec or remote-exec | REMOVED                                                                     |
+| 4  | Use Terraform outside of core workflow                                                     | `terraform taint` removed, other topics reorganized                         |
+| 6b | Initialize a Terraform working directory (`terraform init`)                                | Includes questions about `terraform.lock.hcl`                               |
+| 7  | Implement and maintain state                                                               | Cloud integration authentication, and cloud backends added                  |
+| 8a | Demonstrate use of variables and outputs                                                   | Covers sensitive variables and outputs' relationship to exposure on the CLI |
+| 8g | ~~Configure~~ resource using a `dynamic` block                                             | Use cases for `dynamic` block are still tested in objective 8               |
+| 9  | Understand HCP Terraform capabilities                                                    | Restructured to accommodate the current and future state of HCP Terraform |

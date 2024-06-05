@@ -6,14 +6,15 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames'
 import DocsViewLayout from 'layouts/docs-view-layout'
-import DocsView from 'views/docs-view'
-import ProductDocsSearch from 'views/docs-view/components/product-docs-search'
+import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
+import DevDotContent from 'components/dev-dot-content'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
 import { ProductRootDocsPathLandingProps } from './types'
 import {
 	ProductRootDocsPathLandingHero,
 	ProductRootDocsPathLandingMarketingContent,
 } from './components'
+import docsViewStyles from 'views/docs-view/docs-view.module.css'
 import s from './product-root-docs-path-landing.module.css'
 
 const ProductRootDocsPathLanding = ({
@@ -22,50 +23,58 @@ const ProductRootDocsPathLanding = ({
 	pageHeading,
 	product,
 	versions,
+	layoutProps,
+	outlineItems,
 }: ProductRootDocsPathLandingProps) => {
 	const { pageSubtitle, marketingContentBlocks } = pageContent
-	const showProductDocsSearch =
-		!__config.flags.enable_global_search &&
-		__config.flags.enable_product_docs_search
 
 	let mdxSlot: ReactElement
 	if (mdxSource) {
-		const classes = classNames(s[`${product.slug}MDXWrapper`], s.mdxSlotWrapper)
+		const docsMdxComponents = getDocsMdxComponents(product.slug)
+		const classes = classNames(
+			s[`${product.slug}MDXWrapper`],
+			s.mdxSlotWrapper,
+			/**
+			 * TODO: docsViewStyles.mdxContent might make sense to apply to
+			 * DevDotContent, since the related concerns (iframe overflow, and
+			 * removing the margin off the first item) seem to come up everywhere
+			 * that DevDotContent is used.
+			 * Task:
+			 * https://app.asana.com/0/1202097197789424/1204107433878314/f
+			 */
+			docsViewStyles.mdxContent
+		)
 		mdxSlot = (
 			<div className={classes}>
-				<DocsView mdxSource={mdxSource} hideSearch />
+				<DevDotContent
+					mdxRemoteProps={{
+						...mdxSource,
+						components: {
+							...docsMdxComponents,
+						},
+					}}
+				/>
 			</div>
 		)
 	}
 
 	return (
-		<div className={versions ? s.docsLandingWithVersions : null}>
-			{showProductDocsSearch && <ProductDocsSearch />}
-			{versions ? (
-				<div
-					className={classNames(
-						s.versionSwitcherWrapper,
-						showProductDocsSearch && s.hasSearch
-					)}
-				>
-					<DocsVersionSwitcher options={versions} />
-				</div>
-			) : null}
-			<ProductRootDocsPathLandingHero
-				pageHeading={pageHeading}
-				pageSubtitle={pageSubtitle}
-				iconCardGridItems={pageContent.iconCardGridItems}
-			/>
-			<ProductRootDocsPathLandingMarketingContent
-				blocks={marketingContentBlocks}
-			/>
-			{mdxSlot}
-		</div>
+		<DocsViewLayout {...layoutProps} outlineItems={outlineItems}>
+			<div className={versions ? s.docsLandingWithVersions : null}>
+				<ProductRootDocsPathLandingHero
+					pageHeading={pageHeading}
+					pageSubtitle={pageSubtitle}
+					iconCardGridItems={pageContent.iconCardGridItems}
+					versions={versions}
+				/>
+				<ProductRootDocsPathLandingMarketingContent
+					blocks={marketingContentBlocks}
+				/>
+				{mdxSlot}
+			</div>
+		</DocsViewLayout>
 	)
 }
-
-ProductRootDocsPathLanding.contentType = 'docs'
-ProductRootDocsPathLanding.layout = DocsViewLayout
 
 export type { ProductRootDocsPathLandingProps }
 export default ProductRootDocsPathLanding

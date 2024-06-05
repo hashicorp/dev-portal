@@ -1,0 +1,263 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	--auto-scroll-transition-length: 400ms;
+
+	background-color: var(--token-color-foreground-strong);
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius: 10px;
+	padding-bottom: 18px;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 20px;
+
+	/* 500px with 16px base font */
+	@media (min-width: 31.25rem) {
+		background-image: url('../../img/search-card-graphic.svg');
+		background-position-x: 1rem;
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-foreground-high-contrast);
+		color: var(--token-color-foreground-strong);
+	}
+}
+
+.heading {
+	composes: hds-font-weight-bold from global;
+	color: var(--token-color-foreground-high-contrast);
+	font-family: var(--token-typography-display-400-font-family);
+	font-size: var(--token-typography-display-400-font-size);
+	line-height: var(--token-typography-display-400-line-height);
+	margin: 0;
+	margin-bottom: 8px;
+	padding: 0;
+
+	@media (--dev-dot-mobile) {
+		margin-bottom: 4px;
+	}
+
+	@media (--dev-dot-tablet-down) {
+		font-family: var(--token-typography-display-300-font-family);
+		font-size: var(--token-typography-display-300-font-size);
+		line-height: var(--token-typography-display-300-line-height);
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-strong);
+	}
+}
+
+.description {
+	margin-bottom: 20px;
+
+	/* to break up lines without using a <br /> */
+	& span {
+		display: block;
+	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-primary);
+	}
+}
+
+.carousel {
+	border-radius: 10px;
+	overflow: hidden;
+	position: relative;
+}
+
+.blurredBackground {
+	backdrop-filter: blur(5px);
+	background: linear-gradient(
+			90deg,
+			rgba(13, 13, 21, 0) -0.96%,
+			rgba(13, 13, 21, 0.42) 20.63%,
+			rgba(13, 13, 21, 0.4) 79.73%,
+			rgba(13, 13, 21, 0) 104.43%
+		),
+		#2a283a40;
+	border-radius: 10px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 1;
+}
+
+.fadedBackground {
+	background: linear-gradient(
+		to right,
+		#2a283a40 10%,
+		transparent 40%,
+		transparent 60%,
+		#2a283a40 90%
+	);
+	border-radius: 10px;
+	bottom: 0;
+	left: 0;
+	pointer-events: none; /* allow clicks to pass through this element */
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 3;
+
+	/* 500px with 16px base font */
+	@media (max-width: 31.25rem) {
+		/* hide on mobile because it decreases contrast too much */
+		display: none;
+	}
+}
+
+.buttonsContainer {
+	align-items: center;
+	display: flex;
+	padding-bottom: 38px;
+	padding-top: 38px;
+	position: relative;
+	transform: translateX(100vw);
+	z-index: 2;
+
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: transform var(--auto-scroll-transition-length) ease-in-out;
+	}
+}
+
+.buttonContainer {
+	padding-left: 12px;
+	padding-right: 12px;
+	z-index: 1;
+
+	/* 500px with 16px base font */
+	@media screen and (max-width: 31.25rem) {
+		padding-left: 6px;
+		padding-right: 6px;
+	}
+}
+
+.button {
+	/* composition */
+	composes: g-focus-ring-from-box-shadow-dark from global;
+
+	/* properties */
+	background: linear-gradient(
+		to right,
+		#19182259,
+		#7b42bc59,
+		#63d0ff59,
+		#dc477d59,
+		#ffd81459,
+		#ec585d59,
+		#60dea959,
+		#14c6cb59,
+		#0850c559,
+		#45416100
+	); /* TODO - are these tokens? */
+
+	border-radius: 10px;
+	border: none;
+	color: var(--token-color-palette-neutral-0);
+	opacity: 0.5;
+	padding: 1px 0;
+
+	/* 500px with 16px base font */
+	@media screen and (max-width: 31.25rem) {
+		/**
+    * @TODO replace magic numbers with variables
+    *   - 44px is ideal touch target for next/previous button
+    *   - 12px is the gap between buttons
+    */
+		min-width: calc(100% - 2 * 44px - 2 * 12px);
+	}
+
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: opacity var(--auto-scroll-transition-length) ease-in-out;
+	}
+
+	&:focus,
+	&:focus-visible,
+	&.currentButton {
+		opacity: 1;
+		z-index: 4;
+	}
+}
+
+.buttonContent {
+	align-items: center;
+	background-color: var(--token-color-foreground-strong);
+	border-radius: inherit;
+	display: flex;
+	gap: 16px;
+	padding-bottom: 16px;
+	padding-left: 24px;
+	padding-right: 24px;
+	padding-top: 16px;
+
+	/* 700px with 16px base font */
+	@media screen and (max-width: 43.75rem) {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-foreground-high-contrast);
+		color: var(--token-color-foreground-strong);
+	}
+}
+
+.buttonText {
+	text-align: left;
+	white-space: nowrap;
+
+	/* 500px with 16px base font */
+	@media screen and (max-width: 31.25rem) {
+		white-space: unset;
+		word-break: break-word;
+	}
+}
+
+.positionIndicatorBar {
+	align-items: center;
+	bottom: 12px;
+	display: flex;
+	justify-content: center;
+	left: 0;
+	position: absolute;
+	right: 0;
+	z-index: 3;
+}
+
+/* Purpose of this element is to increase the touch target */
+.positionIndicatorContainer {
+	padding: 5px;
+}
+
+.positionIndicator {
+	background-color: #8a8ea0; /* TODO - a token? */
+	border-radius: 5px;
+	height: 6px;
+	width: 10px;
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: width var(--auto-scroll-transition-length) ease-in-out,
+			color var(--auto-scroll-transition-length) ease-in-out;
+	}
+
+	&.currentPositionIndicator {
+		background-color: #d2d5e2; /* TODO - a token? */
+		width: 26px;
+	}
+}

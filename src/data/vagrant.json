@@ -7,7 +7,7 @@
 	},
 	"analyticsConfig": {
 		"includedDomains": "vagrantup.com www.vagrantup.com",
-		"segmentWriteKey": "qW11yxgipKMsKFKQUCpTVgQUYftYsJj0"
+		"segmentWriteKey": "wFMyBE4PJCZttWfu0pNhYdWr7ygW0io4"
 	},
 	"datoToken": "88b4984480dad56295a8aadae6caad",
 	"metadata": {
@@ -20,13 +20,13 @@
 			}
 		]
 	},
-	"alertBannerActive": false,
+	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "October 5-6",
-		"url": "https://hashiconf.com/global/?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
-		"text": "HashiConf Global is live. Join us virtually for keynotes, sessions, and more.",
-		"linkText": "Join now",
-		"expirationDate": ""
+		"tag": "HashiDays",
+		"url": "https://hashicorp.com/conferences/hashidays",
+		"text": "One conference. Three cities.",
+		"linkText": "Find a city near you",
+		"expirationDate": "2024-06-14T00:00:00-08:00"
 	},
 	"version": "2.2.19",
 	"vmwareUtilityVersion": "1.0.21",

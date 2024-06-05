@@ -112,10 +112,12 @@ const MobileMenuProvider = ({ children }: MobileMenuProviderProps) => {
 
 		router.events.on('routeChangeComplete', handleRouteChange)
 		router.events.on('routeChangeError', handleRouteChange)
+		router.events.on('hashChangeComplete', handleRouteChange)
 
 		return () => {
 			router.events.off('routeChangeComplete', handleRouteChange)
 			router.events.off('routeChangeError', handleRouteChange)
+			router.events.off('hashChangeComplete', handleRouteChange)
 		}
 	}, [isMobileMenuRendered, mobileMenuIsOpen, router.events])
 

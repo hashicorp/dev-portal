@@ -22,6 +22,14 @@
 		color: var(--token-color-surface-primary);
 		cursor: pointer;
 	}
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-primary);
+
+		&:hover {
+			color: var(--token-color-foreground-strong);
+		}
+	}
 }
 
 .linkText {

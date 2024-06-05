@@ -11,8 +11,9 @@ import {
 	useState,
 } from 'react'
 import { IconHome16 } from '@hashicorp/flight-icons/svg-react/home-16'
-import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
+import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
+import { IconGuide16 } from '@hashicorp/flight-icons/svg-react/guide-16'
 import { ProductSlug } from 'types/products'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 import Badge from 'components/badge'
@@ -42,6 +43,7 @@ const SUPPORTED_LEADING_ICONS: {
 	[key in SupportedIconName]: ReactElement
 } = {
 	home: <IconHome16 name="home" />,
+	guide: <IconGuide16 />,
 }
 
 /**
@@ -100,9 +102,24 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 
 	// Determine the trailing icon to use, if any
 	const trailingIcon = isExternal ? <IconExternalLink16 /> : item.trailingIcon
-
-	// Conditionally determining props for the <a>
 	const ariaCurrent = !isExternal && item.isActive ? 'page' : undefined
+	const [isMounted, setIsMounted] = useState(false)
+
+	/**
+	 * Note on this useEffect:
+	 *
+	 * Due to how we are rewriting routes for tutorial variants, the URLs rendered in
+	 * this component are incorrect during SSR, and for some reason are NOT
+	 * getting reconciled on the client even though all of the props and state
+	 * values internal to Link are correct. So the ariaCurrent value wasn't being
+	 * set properly and the active item wouldn't render. We think its due to a hydration
+	 * mismatch error. This set state ensures that after the component mounts, it gets resolved
+	 * by forcing a rerender.
+	 */
+	useEffect(() => {
+		setIsMounted(true)
+	}, [])
+
 	const ariaLabel = isExternal
 		? `${item.title}. Opens in a new tab.`
 		: undefined
@@ -134,6 +151,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		// link is not "disabled"
 		return (
 			<Link
+				key={String(isMounted)}
 				aria-current={ariaCurrent}
 				aria-label={ariaLabel}
 				className={className}
@@ -227,7 +245,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 	return (
 		<>
 			<button
-				aria-controls={listId}
+				aria-controls={isOpen ? listId : null}
 				aria-expanded={isOpen}
 				className={s.sidebarNavMenuItem}
 				id={buttonId}
@@ -248,7 +266,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 							<SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
 						) : undefined
 					}
-					icon={<IconChevronRight16 />}
+					icon={<IconChevronDown16 />}
 				/>
 			</button>
 			{isOpen && (
@@ -275,19 +293,19 @@ const SidebarNavMenuItem = ({ item }: SidebarNavMenuItemProps) => {
 	let itemContent
 	if (item.divider) {
 		itemContent = <SidebarHorizontalRule />
-	} else if (item.heading) {
-		itemContent = <SidebarSectionHeading text={item.heading} />
 	} else if (item.routes) {
 		itemContent = <SidebarNavSubmenuItem item={item} />
 	} else if (item.theme) {
 		itemContent = (
 			<SidebarNavHighlightItem
 				theme={item.theme}
-				text={item.title}
+				text={item.title ?? item.heading}
 				href={item.fullPath}
 				isActive={item.isActive}
 			/>
 		)
+	} else if (item.heading) {
+		itemContent = <SidebarSectionHeading text={item.heading} />
 	} else {
 		itemContent = <SidebarNavLinkItem item={item} />
 	}

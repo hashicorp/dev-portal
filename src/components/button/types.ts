@@ -2,6 +2,7 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
+import { type ReactElement } from 'react'
 
 /**
  * All props the native <button> HTML element accepts
@@ -55,7 +56,7 @@ interface ButtonProps extends PickedNativeButtonProps {
 	 * }
 	 * ```
 	 */
-	icon?: JSX.IntrinsicElements['svg']
+	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>
 
 	/**
 	 * Where the icon should be rendered within the button. 'leading' will render

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useHits, useInstantSearch } from 'react-instantsearch-hooks-web'
+import { useHits, useInstantSearch } from 'react-instantsearch'
 
 import CardsGridList from 'components/cards-grid-list'
 import { TutorialCardWithAuthElements } from 'components/tutorial-card'
@@ -14,7 +14,7 @@ import { Pagination } from '../pagination'
 import { searchStateToRouteState } from 'views/tutorial-library/utils/router-state'
 import { Tutorial } from 'lib/learn-client/types'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
-import { TutorialHitObject } from 'components/command-bar/commands/search/components'
+import { TutorialHitObject } from 'components/command-bar/commands/search/unified-search/types'
 
 interface TutorialLibraryResultsProps {
 	defaultTutorials: Omit<Tutorial, 'content'>[]

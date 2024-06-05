@@ -1,0 +1,61 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+/**
+ * Since there are no HDS tokens or typography helper classes that produce these
+ * font styles, we're manually setting a few properties manually based on the
+ * Figma designs. If these styles become reused in other upcoming landing page
+ * work, we should abstract a global helper class into `src/pages/style.css`.
+ */
+.root {
+	font-size: 4.375rem;
+	line-height: 1.2;
+	margin: 0;
+	padding: 0;
+
+	@media (--dev-dot-mobile) {
+		font-size: 2.5rem;
+	}
+}
+
+/**
+ * The first line of the title text is a gradient color. This is accomplished
+ * using 2 backgrounds because the colors in the gradient include some
+ * transparency. To make the gradient "vibrant", we place a white background
+ * behind the gradient one using.
+ *
+ * https://stackoverflow.com/a/28592238
+ */
+.line1 {
+	--bg-gradient-base: var(--token-color-foreground-high-contrast);
+
+	background: linear-gradient(
+			90deg,
+			rgba(136, 143, 255, 0.46) 9.03%,
+			rgba(223, 255, 199, 0.57) 41.12%,
+			rgba(255, 177, 80, 0.31) 61.68%
+		),
+		linear-gradient(var(--bg-gradient-base), var(--bg-gradient-base));
+	background-clip: text;
+	color: transparent;
+	display: block;
+	font-weight: var(--token-typography-font-weight-bold);
+	width: fit-content;
+
+	@nest html[data-theme='dark'] & {
+		--bg-gradient-base: var(--token-color-foreground-strong);
+	}
+}
+
+.line2 {
+	color: var(--token-color-foreground-high-contrast);
+	display: block;
+	font-weight: var(--token-typography-font-weight-semibold);
+	width: fit-content;
+
+	@nest html[data-theme='dark'] & {
+		color: var(--token-color-foreground-strong);
+	}
+}

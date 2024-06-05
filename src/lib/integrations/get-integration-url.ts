@@ -43,5 +43,5 @@ export function getIntegrationComponentUrl(
 	version: string = 'latest'
 ): string {
 	const integrationUrl = getIntegrationUrl(integration, version)
-	return `${integrationUrl}/components/${releaseComponent.component.slug}`
+	return `${integrationUrl}/components/${releaseComponent.component.slug}/${releaseComponent.slug}`
 }

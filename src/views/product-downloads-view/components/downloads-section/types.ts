@@ -3,13 +3,18 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { VersionContextSwitcherProps } from 'components/version-context-switcher'
 import { ReleaseVersion } from 'lib/fetch-release-data'
-import { PackageManager } from 'views/product-downloads-view/types'
+import {
+	PackageManager,
+	SortedReleases,
+} from 'views/product-downloads-view/types'
 
 export interface DownloadsSectionProps {
-	isEnterpriseMode: boolean
 	packageManagers: PackageManager[]
 	selectedRelease: ReleaseVersion
-	versionSwitcherOptions: VersionContextSwitcherProps['options']
+	downloadsByOS: SortedReleases
 }
+
+export type InstallPageAnchorHeading = 'Next-steps' | 'Release-information'
+
+export type BoundaryDesktopClient = 'Desktop-client'

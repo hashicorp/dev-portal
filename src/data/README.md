@@ -1,6 +1,6 @@
 # Product Data
 
-The `src/data/` directory contains all of the product data needed for various views in the app. The `<product slug>.json` files (e.g. `boundary.json`, `consul.json`) contain metadata for each product that is used across multiple views, including their .io site and Dev Portal pages.
+The `src/data/` directory contains all of the product data needed for various views in the app. The `<product slug>.json` files (e.g. `boundary.json`, `consul.json`) contain metadata for each product that is used across multiple views.
 
 ## .io properties
 
@@ -44,7 +44,7 @@ See the `ProductSlug` type defined in [`types/products.ts`](/src/types/products.
 <details>
 <summary><code>rootDocsPaths</code></summary>
 
-This is an array of objects. Each object represents a "root docs path", or a section of documentation for a product. For example, Waypoint has 3 root docs paths: `/waypoint/commands`, `/waypoint/docs`, and `/waypoint/plugins`. Each object stores metadata for a root docs path.
+This is an array of objects. Each object represents a "root docs path", or a section of documentation for a product. For example, Consul has 3 root docs paths: `/consul/commands`, `/consul/docs`, and `/consul/api-docs`. Each object stores metadata for a root docs path.
 
 See the `RootDocsPath` interface for this property defined in [`types/products.ts`](/src/types/products.ts).
 

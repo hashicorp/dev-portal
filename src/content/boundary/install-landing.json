@@ -1,27 +1,11 @@
 {
 	"featuredTutorialsSlugs": [
-		"boundary/oidc-auth",
-		"boundary/oss-vault-cred-brokering-quickstart",
+		"boundary/oidc-auth0",
+		"boundary/community-vault-cred-brokering-quickstart",
 		"boundary/hcp-manage-workers",
 		"boundary/hcp-ssh-cred-injection",
 		"boundary/oidc-idp-groups",
 		"boundary/prometheus-metrics"
-	],
-	"sidebarMenuItems": [
-		{
-			"divider": true
-		},
-		{
-			"heading": "Getting Started"
-		},
-		{
-			"title": "What is Boundary?",
-			"fullPath": "/boundary/docs/overview/what-is-boundary"
-		},
-		{
-			"title": "Quick Start",
-			"fullPath": "/boundary/docs/getting-started"
-		}
 	],
 	"sidecarMarketingCard": {
 		"title": "About Boundary",
@@ -48,7 +32,7 @@
 	"sidecarHcpCallout": {
 		"heading": "HCP Boundary",
 		"description": "Securely connect to clouds and remote hosts",
-		"ctaText": "Try HCP Boundary",
+		"ctaText": "Try HCP Boundary for free",
 		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
 	}
 }

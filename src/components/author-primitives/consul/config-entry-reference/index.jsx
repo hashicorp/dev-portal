@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import Tabs, { Tab } from '@hashicorp/react-tabs'
+import Tabs, { Tab } from 'components/tabs'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
+import { MdxListItem } from 'components/dev-dot-content/mdx-components'
 
 /**
  * ConfigEntryReference renders the reference docs for a config entry.
@@ -39,8 +40,12 @@ export default function ConfigEntryReference({ keys, topLevel = true }) {
 	const kubeKeys = topLevel ? toKubeKeys(keys) : keys
 	return (
 		<Tabs>
-			<Tab heading="HCL">{renderKeys(keys, true)}</Tab>
-			<Tab heading="Kubernetes YAML">{renderKeys(kubeKeys, false)}</Tab>
+			<Tab heading="HCL" group="hcl">
+				{renderKeys(keys, true)}
+			</Tab>
+			<Tab heading="Kubernetes YAML" group="yaml">
+				{renderKeys(kubeKeys, false)}
+			</Tab>
 		</Tabs>
 	)
 }
@@ -98,7 +103,7 @@ function renderKey(key, isHCLTab) {
 	// to ensure the styling of each bullet is correct. The two locations should be kept
 	// in sync.
 	return (
-		<li key={keyLower} className="g-type-long-body">
+		<MdxListItem key={keyLower}>
 			<a id={keyLower} className="__target-lic" aria-hidden="" />
 			<p>
 				<a
@@ -113,7 +118,7 @@ function renderKey(key, isHCLTab) {
 				<span dangerouslySetInnerHTML={{ __html: htmlDescription }} />
 			</p>
 			{renderKeys(key.children, isHCLTab)}
-		</li>
+		</MdxListItem>
 	)
 }
 

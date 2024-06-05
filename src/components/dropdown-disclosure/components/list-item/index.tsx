@@ -4,6 +4,7 @@
  */
 
 import { MouseEvent } from 'react'
+import classNames from 'classnames'
 import { useDisclosureState } from 'components/disclosure'
 import Link from 'components/link'
 import Text from 'components/text'
@@ -20,9 +21,10 @@ import s from './list-item.module.css'
  * Wraps its content in an <li> element and applies the necessary styles.
  */
 const DropdownDisclosureListItem = ({
+	className,
 	children,
 }: DropdownDisclosureListItemProps) => {
-	return <li className={s.root}>{children}</li>
+	return <li className={classNames(s.root, className)}>{children}</li>
 }
 
 /**
@@ -95,10 +97,10 @@ const DropdownDisclosureButtonItem = ({
 					toggleDisclosure()
 				}}
 			>
-				{icon}
 				<Text asElement="span" size={200} weight="medium">
 					{children}
 				</Text>
+				{icon}
 			</button>
 		</DropdownDisclosureListItem>
 	)
@@ -113,14 +115,21 @@ const DropdownDisclosureLinkItem = ({
 	icon,
 	rel,
 	target,
+	onClick,
 }: DropdownDisclosureLinkItemProps) => {
 	return (
 		<DropdownDisclosureListItem>
-			<Link className={s.link} href={href} rel={rel} target={target}>
-				{icon}
+			<Link
+				className={s.link}
+				href={href}
+				rel={rel}
+				target={target}
+				onClick={onClick}
+			>
 				<Text asElement="span" size={200} weight="medium">
 					{children}
 				</Text>
+				{icon}
 			</Link>
 		</DropdownDisclosureListItem>
 	)

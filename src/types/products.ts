@@ -5,8 +5,6 @@
 
 import { ProductMeta, Products } from '@hashicorp/platform-product-meta'
 import { Product as LearnProduct } from 'lib/learn-client/types'
-import { NavigationHeaderItem as NavHeaderItem } from 'components/navigation-header'
-import { MenuItem } from 'components/sidebar'
 
 type ProductName =
 	| 'Boundary'
@@ -19,6 +17,7 @@ type ProductName =
 	| 'Vagrant'
 	| 'Vault'
 	| 'Waypoint'
+	| 'HCP Vault Secrets'
 
 type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
 
@@ -65,9 +64,9 @@ interface LearnProductData extends ProductData {
  * section of documentation for a product.
  *
  * Examples of root docs paths:
- *  - /waypoint/commands
- *  - /waypoint/docs
- *  - /waypoint/plugins
+ *  - /consul/commands
+ *  - /consul/docs
+ *  - /consul/plugins
  */
 interface RootDocsPath {
 	/**
@@ -95,7 +94,7 @@ interface RootDocsPath {
 	/**
 	 * Optional product slug for our content API. For some products, this differs
 	 * from the product slug used on the client. For example, "hcp" is
-	 * "cloud.hashicorp.com" in the content API.
+	 * "hcp-docs" in the content API.
 	 */
 	productSlugForLoader?: string
 

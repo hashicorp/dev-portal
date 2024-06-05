@@ -4,7 +4,7 @@
  */
 
 import { ParsedUrlQuery } from 'querystring'
-import { InstantSearchProps } from 'react-instantsearch-hooks-web'
+import { InstantSearchProps } from 'react-instantsearch'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { INDEX_NAME } from '../constants'
 

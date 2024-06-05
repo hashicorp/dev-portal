@@ -1,0 +1,49 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.linkBoxWrapper {
+	border-top: 1px solid var(--token-color-border-primary);
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	margin-top: 48px;
+	padding-top: 56px;
+
+	& > * {
+		/* Items should grow and shrink, but should ideally take up their
+       "auto" width, which is their size without text wrapping. */
+		flex: 1 1 auto;
+
+		/* With flex-basis: auto on both items, the one with longer text
+       will take up more space by default. Setting min-width to the
+       width of half the available space (minus gap) ensures that
+       each item takes up an equal amount of space. This comes at the
+       cost of going to a single-column layout slightly earlier */
+		min-width: calc(50% - 12px);
+
+		@media (--dev-dot-tablet-up) {
+			max-width: 50%;
+		}
+	}
+
+	@media (--dev-dot-tablet-up) {
+		flex-direction: row;
+	}
+}
+
+.mobileBackButton {
+	margin-top: -16px;
+
+	/* same css var that SidebarSidecarLayout uses to hide the mobile menu, but we are using it here to hide the back button, that we add on mobile, on desktop */
+	@media (--dev-dot-hide-mobile-menu) {
+		display: none;
+	}
+}
+
+.hideOnMobile {
+	@media (--dev-dot-mobile) {
+		composes: g-hide-on-mobile from global;
+	}
+}

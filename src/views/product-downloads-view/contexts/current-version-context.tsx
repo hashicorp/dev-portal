@@ -4,9 +4,9 @@
  */
 
 import {
+	type ReactNode,
+	type Dispatch,
 	createContext,
-	Dispatch,
-	FC,
 	SetStateAction,
 	useContext,
 	useState,
@@ -30,10 +30,15 @@ CurrentVersionContext.displayName = 'CurrentVersionContext'
  * `isLatestVersion` based on the data stored, and additionally returns a setter
  * function for updating the version stored.
  */
-const CurrentVersionProvider: FC<{
+const CurrentVersionProvider = ({
+	children,
+	initialValue,
+	latestVersion,
+}: {
+	children: ReactNode
 	initialValue: Version
 	latestVersion: Version
-}> = ({ children, initialValue, latestVersion }) => {
+}) => {
 	const [currentVersion, setCurrentVersion] = useState<Version>(initialValue)
 	const isLatestVersion = currentVersion === latestVersion
 	const value = {

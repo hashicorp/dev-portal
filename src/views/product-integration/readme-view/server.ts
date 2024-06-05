@@ -35,7 +35,7 @@ import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled
  * We expect the same static param types to be returned from getStaticPaths,
  * and provided to getStaticProps context.
  */
-type PathParams = {
+export type PathParams = {
 	productSlug: ProductSlug
 	integrationSlug: string
 	organizationSlug: string
@@ -71,6 +71,9 @@ async function getStaticPathsWithVersion(): Promise<
 /**
  * Build an array of { productSlug, integrationSlug }
  * path parameters for all integrations across all enabled products.
+ *
+ * Builds paths dynamically for all products except waypoint.
+ * See /pages/waypoint/integrations/... for more context
  */
 async function getStaticPaths(): Promise<GetStaticPathsResult<PathParams>> {
 	// Get products slug where integrations is enabled
@@ -168,6 +171,13 @@ async function getStaticProps({
 				activeRelease,
 				true
 		  )
+
+	/**
+	 * Serialize the README, extracting anchor links as we do
+	 */
+	const { serializeResult: serializedREADME, anchorLinks } =
+		await serializeIntegrationMarkdown(activeRelease.readme)
+
 	// Return static props
 	return {
 		revalidate: __config.dev_dot.revalidate,
@@ -180,9 +190,8 @@ async function getStaticProps({
 			integration,
 			activeRelease,
 			breadcrumbLinks,
-			serializedREADME: await serializeIntegrationMarkdown(
-				activeRelease.readme
-			),
+			anchorLinks,
+			serializedREADME,
 		},
 	}
 }

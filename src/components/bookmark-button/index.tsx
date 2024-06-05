@@ -4,7 +4,7 @@
  */
 
 import { IconBookmarkAdd16 } from '@hashicorp/flight-icons/svg-react/bookmark-add-16'
-import { IconBookmarkRemove16 } from '@hashicorp/flight-icons/svg-react/bookmark-remove-16'
+import { IconBookmarkFill16 } from '@hashicorp/flight-icons/svg-react/bookmark-fill-16'
 import Button from 'components/button'
 import { Connected } from './helpers/connected-bookmark-button'
 import { RemoveBookmarkIcon, AddBookmarkIcon } from './icons'
@@ -19,7 +19,7 @@ const bookmarkButtonConfig: BookmarkButtonConfigType = {
 	},
 	remove: {
 		text: 'Remove bookmark',
-		baseIcon: <IconBookmarkRemove16 />,
+		baseIcon: <IconBookmarkFill16 />,
 		iconWithHover: <RemoveBookmarkIcon />,
 	},
 }
@@ -52,18 +52,30 @@ export function BookmarkButtonIconOnly({
 /**
  * This component is a regular button, currently used
  * only in the tutorial meta component.
+ *
+ * 05-16-23 - we removed the label associated with this button to clean up the metadata area.
+ * This comes with the tradeoff of this button being more difficult for voice recognition users to interact with it
+ * as they need to guess the associated aria label to do so. See all the tradeoffs documented here:
+ *  https://www.figma.com/file/NAFjIPkbwjyY8jPl6T9nlP/Tutorial-Variants?type=design&node-id=357-36771&t=R7V6tJoa5Omj5Fe4-0
  */
 
-function BookmarkButtonTextAndIcon({
+function BookmarkButtonSecondaryIcon({
 	handleOnClick,
 	isBookmarked,
 }: BookmarkButtonProps) {
 	const { add, remove } = bookmarkButtonConfig
 	const buttonProps = isBookmarked
-		? { text: remove.text, icon: remove.baseIcon }
-		: { text: add.text, icon: add.baseIcon }
+		? { ['aria-label']: remove.text, icon: remove.baseIcon }
+		: { ['aria-label']: add.text, icon: add.baseIcon }
 
-	return <Button color="secondary" onClick={handleOnClick} {...buttonProps} />
+	return (
+		<Button
+			color="secondary"
+			size="small"
+			onClick={handleOnClick}
+			{...buttonProps}
+		/>
+	)
 }
 
 /**
@@ -76,4 +88,4 @@ function BookmarkButtonTextAndIcon({
  * upon user interaction, if authenticated.
  */
 export const TutorialCardBookmarkButton = Connected(BookmarkButtonIconOnly)
-export const TutorialMetaBookmarkButton = Connected(BookmarkButtonTextAndIcon)
+export const TutorialMetaBookmarkButton = Connected(BookmarkButtonSecondaryIcon)

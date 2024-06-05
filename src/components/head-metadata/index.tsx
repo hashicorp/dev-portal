@@ -34,13 +34,6 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 	// Use the fully qualified current page URL as the canonical URL
 	const canonicalUrl = useFullUrl()
 
-	const router = useRouter()
-
-	// do not render any meta tags if serving an io page
-	if (router.pathname.includes('_proxied-dot-io')) {
-		return null
-	}
-
 	const titleParts = [__config.dev_dot.meta.title]
 	const description = props.description ?? __config.dev_dot.meta.description
 
@@ -61,30 +54,125 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 	)
 
 	const ogImagePath = props.localOgImage || `${productSlug ?? 'base'}.jpg`
-	const ogImageUrl = `${getDeployedUrl(props.host)}/og-image/${ogImagePath}`
+	const ogImageUrl = `${getDeployedUrl()}/og-image/${ogImagePath}`
+
+	/**
+	 * Set a custom favicon based on the environment.
+	 */
+	const isDev =
+		(process.env.HASHI_ENV === 'preview' ||
+			process.env.HASHI_ENV === 'development') &&
+		process.env.NODE_ENV === 'development'
+	const isPreview =
+		process.env.HASHI_ENV === 'preview' && process.env.NODE_ENV === 'production'
+	let favIconHref: string
+	let favIconSvgHref: string
+	if (isDev) {
+		favIconHref = '/favicon-dev.ico'
+		favIconSvgHref = '/favicon-dev.svg'
+	} else if (isPreview) {
+		favIconHref = '/favicon-preview.ico'
+		favIconSvgHref = '/favicon-preview.svg'
+	} else {
+		favIconHref = '/favicon.ico'
+		favIconSvgHref = '/favicon.svg'
+	}
 
 	return (
 		// TODO: OpenGraph image to be passed as the image prop here
-		<>
-			<HashiHead
-				title={title}
-				siteName={title}
-				pageName={title}
-				description={finalDescription}
-				image={ogImageUrl}
-				canonicalUrl={canonicalUrl}
-			>
-				<link rel="icon" href="/favicon.ico" sizes="any" />
-				<link rel="icon" href="/icon.svg" type="image/svg+xml" />
-				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				<meta
-					name="google-site-verification"
-					content="zRQZqfAsOX-ypXfU0mzAIzb5rUvj5fA4Zw2jWJRN-JI"
-				/>
+		<HashiHead
+			title={title}
+			siteName={title}
+			pageName={title}
+			description={finalDescription}
+			image={ogImageUrl}
+			canonicalUrl={canonicalUrl}
+		>
+			{/**
+			 * Note: favicon approach taken from:
+			 * https://dev.to/masakudamatsu/favicon-nightmare-how-to-maintain-sanity-3al7
+			 *
+			 * We've omitted the app icons & web manifest for now, as we're not yet
+			 * trying to support installing the app on a home screen.
+			 *
+			 * If we wanted to simplify our approach here, we could consider using a
+			 * favicon with a background color (say, black hashicorp icon on white
+			 * background), which would remove the need for media queries in the
+			 * SVG icon.
+			 */}
+			<link rel="icon" href={favIconHref} sizes="48x48" />
+			<link rel="icon" href={favIconSvgHref} sizes="any" type="image/svg+xml" />
 
-				{/* Some og tags do not get picked up for twitter's share cards, so we need these tags as well */}
-				<meta name="twitter:image" key="twitter:image" content={ogImageUrl} />
-			</HashiHead>
-		</>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta
+				name="google-site-verification"
+				content="zRQZqfAsOX-ypXfU0mzAIzb5rUvj5fA4Zw2jWJRN-JI"
+			/>
+			{/**
+			 * Note that `key` values here are necessary, as NextJS de-dupes
+			 * `meta` tags based on `name`.
+			 * Ref: https://github.com/vercel/next.js/pull/17099
+			 *
+			 * We have one zd crawler for each product
+			 */}
+
+			<meta
+				name="zd-site-verification"
+				key="xnvnvv1i0wl4tf0pzaymb"
+				content="xnvnvv1i0wl4tf0pzaymb"
+				data-product="hcp"
+			/>
+			<meta
+				name="zd-site-verification"
+				key="36fp2i1pj67d8cjtzf4fi9"
+				content="36fp2i1pj67d8cjtzf4fi9"
+				data-product="terraform"
+			/>
+			<meta
+				name="zd-site-verification"
+				key="nbe87kfyp1sck7b13vj1i"
+				content="nbe87kfyp1sck7b13vj1i"
+				data-product="packer"
+			/>
+			<meta
+				name="zd-site-verification"
+				key="wvsmmqa1cfb9am9zlwfj"
+				content="wvsmmqa1cfb9am9zlwfj"
+				data-product="consul"
+			/>
+			<meta
+				name="zd-site-verification"
+				key="cw22oopfwr68ujj0n5pn9i"
+				content="cw22oopfwr68ujj0n5pn9i"
+				data-product="boundary"
+			/>
+			<meta
+				name="zd-site-verification"
+				key="lkslvganwfgfqfwpdeicgh"
+				content="lkslvganwfgfqfwpdeicgh"
+				data-product="vault"
+			/>
+			<meta
+				name="zd-site-verification"
+				key="jl2wp2hoej9rz6c8rmqdns"
+				content="jl2wp2hoej9rz6c8rmqdns"
+				data-product="nomad"
+			/>
+			<meta
+				name="zd-site-verification"
+				key="2eb0cu6xceo73t0038m0tb"
+				content="2eb0cu6xceo73t0038m0tb"
+				data-product="waypoint"
+			/>
+			<meta
+				name="zd-site-verification"
+				key="n52xisxdf3higs2q9kuogd"
+				content="n52xisxdf3higs2q9kuogd"
+				data-product="vagrant"
+			/>
+
+			{/* Some og tags do not get picked up for twitter's share cards, so we need these tags as well */}
+			<meta name="twitter:image" key="twitter:image" content={ogImageUrl} />
+		</HashiHead>
 	)
 }

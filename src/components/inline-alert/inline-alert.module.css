@@ -50,6 +50,11 @@
 	}
 }
 
+.ctaSlot {
+	width: fit-content;
+	margin-top: 16px;
+}
+
 .highlight {
 	--background-color: var(--token-color-palette-purple-50);
 	--accent-color: var(--token-color-foreground-highlight-on-surface);

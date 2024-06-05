@@ -25,6 +25,12 @@ interface DropdownDisclosureProps
 	extends PickedDropdownDisclosureActivatorProps,
 		PickedDisclosureProps {
 	/**
+	 * An optional `className` that is passed to the internally rendered
+	 * `DropdownDisclosureActivator`.
+	 */
+	activatorClassName?: string
+
+	/**
 	 * Text that should be announced by a screen reader when the activator
 	 * `<button>` comes into focus. Should only be provided in two cases:
 	 *
@@ -32,6 +38,8 @@ interface DropdownDisclosureProps
 	 *   2. The visual `label` prop is not descriptive without visual affordances
 	 */
 	'aria-label'?: DropdownDisclosureActivatorProps['aria-label']
+
+	'aria-describedby'?: DropdownDisclosureActivatorProps['aria-describedby']
 
 	/**
 	 * Elements to render within the dropdown portion of the component. Expected
@@ -62,6 +70,8 @@ interface DropdownDisclosureProps
 	 * container. The default is "left".
 	 */
 	listPosition?: 'left' | 'right'
+
+	isFullWidth?: boolean
 }
 
 export type { DropdownDisclosureProps }

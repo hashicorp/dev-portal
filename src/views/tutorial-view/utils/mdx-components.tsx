@@ -4,26 +4,18 @@
  */
 
 // Global imports
-import AccordionDisclosure from 'components/accordion-disclosure'
+import { MdxAccordion } from 'components/dev-dot-content/mdx-components'
 import Image from 'components/image'
 import InteractiveLabCallout from 'components/interactive-lab-callout'
 import VideoEmbed from 'components/video-embed'
-
-/**
- * @TODO
- *   - deprecate string option for collapse
- *   - warn that collapse is `true` by default now?
- *   - pass classname with a margin-top setting for when there are multiple?
- */
-const AccordionWrapper = ({ children, collapse, heading }) => {
-	return <AccordionDisclosure title={heading}>{children}</AccordionDisclosure>
-}
+import { MdxVariant } from './variants/mdx-variant'
 
 //  these components are automatically imported into scope within MDX content
 const MDX_COMPONENTS = {
-	Accordion: AccordionWrapper,
+	Accordion: MdxAccordion,
 	InteractiveLabCallout,
 	img: Image,
+	Variant: MdxVariant,
 	VideoEmbed,
 }
 

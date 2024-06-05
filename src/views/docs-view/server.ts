@@ -4,40 +4,45 @@
  */
 
 // Third-party imports
+import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
 import path from 'path'
 import { Pluggable } from 'unified'
-import rehypePrism from '@mapbox/rehype-prism'
+import slugify from 'slugify'
 
 // HashiCorp Imports
-import rehypeSurfaceCodeNewlines from '@hashicorp/platform-code-highlighting/rehype-surface-code-newlines'
-import { getStaticGenerationFunctions as _getStaticGenerationFunctions } from '@hashicorp/react-docs-page/server'
-import RemoteContentLoader from '@hashicorp/react-docs-page/server/loaders/remote-content'
+import RemoteContentLoader from './loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
 
 // Global imports
 import { ProductData, RootDocsPath } from 'types/products'
+import { rehypeCodePlugins } from 'lib/rehype-code-plugins'
 import remarkPluginAdjustLinkUrls from 'lib/remark-plugins/remark-plugin-adjust-link-urls'
 import { isDeployPreview } from 'lib/env-checks'
+import remarkPluginRemoveFirstH1 from 'lib/remark-plugins/remark-plugin-remove-first-h1'
+import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
+import outlineItemsFromHeadings, {
+	AnchorLinksPluginHeading,
+} from 'components/outline-nav/utils/outline-items-from-headings'
 import addBrandedOverviewSidebarItem from 'lib/docs/add-branded-overview-sidebar-item'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
-import { SidebarSidecarWithTocProps } from 'layouts/sidebar-sidecar-with-toc'
+import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
 import prepareNavDataForClient from 'layouts/sidebar-sidecar/utils/prepare-nav-data-for-client'
 import getDocsBreadcrumbs from 'components/breadcrumb-bar/utils/get-docs-breadcrumbs'
+import { SidebarProps } from 'components/sidebar'
 import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
+import tutorialMap from 'data/_tutorial-map.generated.json'
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
-import { SidebarProps } from 'components/sidebar'
-import { EnrichedNavItem } from 'components/sidebar/types'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
-import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics'
-import { withTiming } from 'lib/with-timing'
+import { DocsViewProps } from './types'
+import { isReleaseNotesPage } from 'lib/docs/is-release-notes-page'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -77,7 +82,10 @@ export function getStaticGenerationFunctions<
 	mainBranch?: string
 	navDataPrefix?: string
 	options?: DocsViewPropOptions
-}): ReturnType<typeof _getStaticGenerationFunctions> {
+}): {
+	getStaticPaths: GetStaticPaths
+	getStaticProps: GetStaticProps<DocsViewProps>
+} {
 	/**
 	 * Get the current `rootDocsPaths` object.
 	 *
@@ -153,13 +161,15 @@ export function getStaticGenerationFunctions<
 				paths,
 			}
 		},
-		getStaticProps: async (ctx) => {
+		getStaticProps: async (
+			ctx
+		): Promise<GetStaticPropsResult<DocsViewProps>> => {
 			const pathParts = (ctx.params.page || []) as string[]
 			const currentPathUnderProduct = `/${path.join(
 				basePathForLoader,
 				pathParts.join('/')
 			)}`
-			const headings = [] // populated by anchorLinks plugin below
+			const headings: AnchorLinksPluginHeading[] = [] // populated by anchorLinks plugin below
 
 			const loader = getLoader({
 				mainBranch,
@@ -172,11 +182,17 @@ export function getStaticGenerationFunctions<
 					 */
 					[anchorLinks, { headings }],
 					/**
+					 * Remove the `<h1 />` from MDX, we'll render this outside
+					 * the MDX content area, integrating it into our layout
+					 * in various ways depending on the specific docs view used.
+					 */
+					remarkPluginRemoveFirstH1,
+					/**
 					 * The `contentType` configuration is necessary so that the
 					 * `rewriteTutorialLinksPlugin` does not rewrite links like
 					 * `/waypoint` to `/waypoint/tutorials`.
 					 */
-					[rewriteTutorialLinksPlugin, { contentType: 'docs' }],
+					[rewriteTutorialLinksPlugin, { contentType: 'docs', tutorialMap }],
 					/**
 					 * Rewrite docs content links, which are authored without prefix.
 					 * For example, in Waypoint docs authors write "/docs/some-thing",
@@ -190,10 +206,7 @@ export function getStaticGenerationFunctions<
 						},
 					],
 				],
-				rehypePlugins: [
-					[rehypePrism, { ignoreMissing: true }],
-					rehypeSurfaceCodeNewlines,
-				],
+				rehypePlugins: rehypeCodePlugins,
 				scope: await getScope(),
 			})
 
@@ -204,10 +217,7 @@ export function getStaticGenerationFunctions<
 			 */
 			let loadStaticPropsResult
 			try {
-				loadStaticPropsResult = await withTiming(
-					'[docs-view/server::loadStaticProps]',
-					() => loader.loadStaticProps(ctx)
-				)
+				loadStaticPropsResult = await loader.loadStaticProps(ctx)
 			} catch (error) {
 				console.error('[docs-view/server] error loading static props', error)
 
@@ -222,6 +232,40 @@ export function getStaticGenerationFunctions<
 
 			const { navData, mdxSource, githubFileUrl, versions, frontMatter } =
 				loadStaticPropsResult
+
+			/**
+			 * Construct a page heading object from outline data.
+			 * We'll render this to replace the `<h1 />` we're removed from MDX.
+			 *
+			 * This gives us flexibility in how we lay out the `<h1 />`,
+			 * such as placing it in the same flex container as the version select,
+			 * or constructing the "Landing Hero" on docs landing pages.
+			 *
+			 * Note: we expect a few document properties as
+			 * asserted by our content conformance work:
+			 * - We expect there to be an `<h1 />` in every docs `.mdx` document
+			 * - We expect the `<h1 />` to be the first heading in the document
+			 *
+			 * However, we cannot guarantee these assumptions. If there is no `h1`
+			 * in the MDX, we'll render without a page heading - this is something
+			 * that should be fixed at the content level.
+			 */
+			let pageHeading: { id: string; title: string }
+			const h1Match = headings.find(
+				(h: AnchorLinksPluginHeading) => h.level === 1
+			)
+			if (h1Match) {
+				pageHeading = {
+					id: h1Match.slug,
+					title: h1Match.title,
+				}
+			} else {
+				const fallbackHeading = pathParts[pathParts.length - 1]
+				pageHeading = {
+					id: slugify(fallbackHeading, { lower: true }),
+					title: fallbackHeading,
+				}
+			}
 
 			/**
 			 * NOTE: we've encountered empty headings on at least one page:
@@ -247,21 +291,20 @@ export function getStaticGenerationFunctions<
 					)
 				}
 			})
+			const outlineItems = outlineItemsFromHeadings(nonEmptyHeadings)
 
 			/**
 			 * Add fullPaths and auto-generated ids to navData
 			 */
-			const { preparedItems: navDataWithFullPaths } = await withTiming(
-				'[docs-view/server::prepareNavDataForClient]',
-				() =>
-					prepareNavDataForClient({
-						basePaths: [product.slug, basePath],
-						nodes: navData,
-					})
-			)
+			const { preparedItems: navDataWithFullPaths } =
+				await prepareNavDataForClient({
+					basePaths: [product.slug, basePath],
+					nodes: navData,
+					tutorialMap,
+				})
 
 			/**
-			 * Figure out of a specific docs version is being viewed
+			 * Figure out if a specific docs version is being viewed
 			 */
 			let indexOfVersionPathPart
 			let versionPathPart
@@ -333,9 +376,8 @@ export function getStaticGenerationFunctions<
 			 */
 			const isRootPath = pathParts.length === 0 || pathParts[0] === ''
 			const isDocsLanding = isRootPath && basePath === 'docs'
-			const layoutProps: Omit<SidebarSidecarWithTocProps, 'children'> = {
+			const layoutProps: Omit<SidebarSidecarLayoutProps, 'children'> = {
 				breadcrumbLinks,
-				headings: nonEmptyHeadings,
 				// TODO: need to adjust type for sidebarNavDataLevels here
 				sidebarNavDataLevels: sidebarNavDataLevels as $TSFixMe,
 				/* Long-form content pages use a narrower main area width */
@@ -369,7 +411,12 @@ export function getStaticGenerationFunctions<
 
 			const { hideVersionSelector, projectName } = options
 
-			const finalProps = {
+			/**
+			 * TODO: the DocsViewProps type should likely be set at the
+			 * function return value level, rather than only here.
+			 * Setting here for now to keep things in scope for current work.
+			 */
+			const finalProps: DocsViewProps = {
 				layoutProps,
 				metadata: {
 					title: frontMatter.page_title ?? null,
@@ -380,6 +427,8 @@ export function getStaticGenerationFunctions<
 						pathParts,
 					}),
 				},
+				outlineItems,
+				pageHeading,
 				mdxSource,
 				product: {
 					...product,
@@ -388,7 +437,11 @@ export function getStaticGenerationFunctions<
 				},
 				projectName: projectName || null,
 				versions:
-					!hideVersionSelector && hasMeaningfulVersions ? versions : null,
+					!hideVersionSelector &&
+					!isReleaseNotesPage(currentPathUnderProduct) && // toggle version dropdown
+					hasMeaningfulVersions
+						? versions
+						: null,
 			}
 
 			return {

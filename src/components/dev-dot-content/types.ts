@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactNode } from 'react'
-import { MDXRemote } from 'next-mdx-remote'
+import { type ReactNode, type ElementType } from 'react'
+import { type MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 
-type MDXRemoteProps = Parameters<typeof MDXRemote>[0]
+type MDXRemoteProps = MDXRemoteSerializeResult & {
+	components?: Record<string, ElementType>
+}
 
 interface BaseProps {
 	className?: string

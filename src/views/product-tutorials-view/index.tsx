@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import SidebarSidecarWithToc from 'layouts/sidebar-sidecar-with-toc'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import Heading from 'components/heading'
 import {
 	generateProductLandingSidebarNavData,
@@ -12,6 +12,7 @@ import {
 import TutorialsSidebar, {
 	CollectionViewSidebarContent,
 } from 'components/tutorials-sidebar'
+import { OutlineNavWithActive } from 'components/outline-nav/components'
 import { ProductTutorialsSitemap } from './components'
 import { ProductTutorialsViewProps } from './server'
 import ProductViewContent from './components/product-view-content'
@@ -22,6 +23,7 @@ function ProductTutorialsView({
 	data,
 	layoutProps,
 	product,
+	outlineItems,
 }: ProductTutorialsViewProps): React.ReactElement {
 	const { pageData, sitemapCollections } = data
 	const { showProductSitemap, blocks } = pageData
@@ -67,9 +69,9 @@ function ProductTutorialsView({
 	}
 
 	return (
-		<SidebarSidecarWithToc
+		<SidebarSidecarLayout
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
-			headings={layoutProps.headings}
+			sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
 			AlternateSidebar={TutorialsSidebar}
 			/**
 			 * @TODO remove casting to `any`. Will require refactoring both
@@ -90,10 +92,8 @@ function ProductTutorialsView({
 					/>
 				</div>
 			) : null}
-		</SidebarSidecarWithToc>
+		</SidebarSidecarLayout>
 	)
 }
-
-ProductTutorialsView.contentType = 'tutorials'
 
 export default ProductTutorialsView

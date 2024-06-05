@@ -2,11 +2,11 @@
 	"title": "Security Automation",
 	"summary": {
 		"heading": "Security<br />Automation Certifications",
-		"description": "Earn the Vault Associate to validate your knowledge of the concepts, skills, and use cases associated with open source Vault. Ready to demonstrate your advanced Vault Enterprise skills in production? Successfully complete a lab-based exam and earn the Vault Operations Professional certification."
+		"description": "Earn the Vault Associate to validate your knowledge of the concepts, skills, and use cases associated with Vault Community Edition. Ready to demonstrate your advanced Vault Enterprise skills in production? Successfully complete a lab-based exam and earn the Vault Operations Professional certification."
 	},
 	"hero": {
 		"heading": "Security<br />Automation Certification",
-		"description": "HashiCorp’s Security Automation certification program has two levels: Work up to the advanced Vault Professional Certification by starting with the foundational Vault Associate certification. The Associate certification validates your knowledge of open source Vault. Then, continue your certification journey with the Professional hands-on, lab-based exam to validate your years of production experience with both Vault and Vault Enterprise."
+		"description": "HashiCorp offers certifications to validate your Security Automation skills with Vault and Consul. There are two levels of Vault exams. Start with the Vault Associate certification, which validates your foundational knowledge of Vault. Continue your journey with the Professional lab-based exam to prove your extensive production experience. For Consul, take the Associate certification to showcase your skills in building, securing, and maintaining Consul."
 	},
 	"exams": [
 		{
@@ -14,10 +14,10 @@
 			"examCode": "002",
 			"productSlug": "vault",
 			"versionTested": "Vault 1.6.0 and higher",
-			"description": "The Vault Associate certification is for Cloud Engineers specializing in security, development, or operations who know the basic concepts, skills, and use cases associated with open source Vault. This includes understanding what enterprise features exist and what can and cannot be done using the open source offering. You should have professional experience using Vault in production, but performing the exam objectives in a personal demo environment may be sufficient.",
+			"description": "The Vault Associate certification is for Cloud Engineers specializing in security, development, or operations who know the basic concepts, skills, and use cases associated with Vault. You understand what Vault Enterprise features exist and can differentiate between Enterprise and Community Edition. You will be best prepared for this exam if you have professional experience using Vault in production, but performing the exam objectives in a personal demo environment may be sufficient.",
 			"links": {
 				"prepare": "/vault/tutorials/associate-cert",
-				"register": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049382552"
+				"register": "https://cp.certmetrics.com/hashicorp/en/login"
 			},
 			"faqSlug": "vault-associate-002"
 		},
@@ -25,13 +25,25 @@
 			"title": "Vault Operations Professional",
 			"examTier": "pro",
 			"productSlug": "vault",
-			"versionTested": "Vault 1.8.0 and higher",
-			"description": "The Vault Operations Professional exam is a lab-based exam for Cloud Engineers focused on deploying, configuring, managing, and monitoring HashiCorp Vault. You are well-qualified to take this exam if you hold the Vault Associate Certification (or equivalent knowledge), have experience operating Vault in production, and can evaluate Vault Enterprise functionality and use cases.",
+			"versionTested": "Vault 1.13.0 and higher",
+			"description": "The Vault Operations Professional exam is a lab-based exam for Cloud Engineers focused on deploying, configuring, managing, and monitoring HashiCorp Vault. You are well-qualified to take this exam if you hold the Vault Associate Certification (or equivalent knowledge, have experience operating Vault in production, and can evaluate Vault Enterprise functionality and use cases",
 			"links": {
 				"prepare": "/vault/tutorials/ops-pro-cert",
-				"register": "https://hashicorp-certifications.zendesk.com/hc/en-us/articles/360049382552"
+				"register": "https://cp.certmetrics.com/hashicorp/en/login"
 			},
 			"faqSlug": "vault-operations-professional"
+		},
+		{
+			"title": "Consul Associate",
+			"examCode": "003",
+			"productSlug": "consul",
+			"versionTested": "Consul 1.15",
+			"description": "The Consul Associate Certification is for site reliability engineers (SREs), solutions architects (SAs), DevOps professionals, or other cloud engineers who know the basic concepts and skills to build, secure, and maintain Consul. You understand what Enterprise features exist and can differentiate between Consul Enterprise and Community Edition. You will be best prepared for this exam if you have professional experience using Consul in production, but performing the exam objectives in a personal demo environment may be sufficient.",
+			"links": {
+				"prepare": "/consul/tutorials/certification-003",
+				"register": "https://cp.certmetrics.com/hashicorp/en/login"
+			},
+			"faqSlug": "consul-associate-003"
 		}
 	]
 }

@@ -24,7 +24,16 @@ import {
  * @param {*} params
  * @returns
  */
-function getPropsForPage(schema, params) {
+function getPropsForPage(
+	/**
+	 * Open API schema object
+	 */
+	schema,
+	/**
+	 * Parameters from getStaticProps.
+	 */
+	params
+) {
 	// parse the data we'll show to the user from the schema
 	const operationObjects = getOperationObjects(schema)
 	const serviceIds = getServiceIds(operationObjects)
