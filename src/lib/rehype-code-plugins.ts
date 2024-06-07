@@ -19,7 +19,9 @@ export const rehypeCodePlugins: Pluggable[] = [
 			transformers: [
 				{
 					pre(node) {
+						// stripped out during the render phase, as our current CodeBlock component has it's own pre tag
 						node.properties.class = [`language-${this.options.lang}`]
+						node.properties.language = this.options.lang
 					},
 					code(node) {
 						// Remove the last line if it's just whitespace
