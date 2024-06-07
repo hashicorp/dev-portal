@@ -22,7 +22,7 @@
 			{
 				"icon": "vault-color",
 				"text": "HCP Vault Dedicated",
-				"url": "/vault/tutorials/cloud"
+				"url": "/vault/tutorials/get-started-hcp-vault-dedicated"
 			},
 			{
 				"icon": "vault-secrets-color",
