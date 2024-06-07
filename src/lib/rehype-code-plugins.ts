@@ -43,6 +43,16 @@ export const rehypeCodePlugins: Pluggable[] = [
 							this.addClassToHast(node, 'empty-line')
 						}
 					},
+					span(node, _line: number, col: number) {
+						// prevent user-select on the start +/- in diff lines
+						if (this.options.lang === 'diff' && col === 0) {
+							const firstChild = node.children[0] as any
+
+							if (['-', '+'].includes(firstChild?.value)) {
+								node.properties.style += '; user-select: none;'
+							}
+						}
+					},
 					preprocess(code, options) {
 						// Shiki language codes are all lowercase.
 						options.lang = options.lang.toLowerCase()
