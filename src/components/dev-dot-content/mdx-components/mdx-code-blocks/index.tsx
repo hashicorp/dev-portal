@@ -69,9 +69,13 @@ function CodeBlockConfig({
 	lineNumbers,
 	hideClipboard,
 }: CodeBlockConfigProps) {
+	// This is only used for debugging purposes as we use shiki to assign the language tokens and styles
+	const propsOfFristChild = propsOfFirstChild(children)
+
 	return (
 		<CodeBlock
 			className={className}
+			language={propsOfFristChild?.language as string}
 			value={childrenOfFirstChild(childrenOfFirstChild(children))}
 			isStandalone={!hasBarAbove}
 			title={heading ?? filename ?? ''}
@@ -216,6 +220,19 @@ function childrenOfFirstChild(children: ReactNode): ReactNode {
 		'props' in firstElement
 	) {
 		return firstElement.props.children
+	}
+
+	throw new Error('First element of children is not an object with props')
+}
+
+function propsOfFirstChild(children: ReactNode): Record<string, unknown> {
+	const firstElement = Children.toArray(children)[0]
+	if (
+		firstElement &&
+		typeof firstElement === 'object' &&
+		'props' in firstElement
+	) {
+		return firstElement.props
 	}
 
 	throw new Error('First element of children is not an object with props')
