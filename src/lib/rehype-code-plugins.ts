@@ -19,7 +19,9 @@ export const rehypeCodePlugins: Pluggable[] = [
 			transformers: [
 				{
 					pre(node) {
+						// stripped out during the render phase, as our current CodeBlock component has it's own pre tag
 						node.properties.class = [`language-${this.options.lang}`]
+						node.properties.language = this.options.lang
 					},
 					code(node) {
 						// Remove the last line if it's just whitespace
@@ -39,6 +41,16 @@ export const rehypeCodePlugins: Pluggable[] = [
 						// it with CSS.
 						if (node.tagName === 'span' && node.children.length === 0) {
 							this.addClassToHast(node, 'empty-line')
+						}
+					},
+					span(node, _line: number, col: number) {
+						// prevent user-select on the start +/- in diff lines
+						if (this.options.lang === 'diff' && col === 0) {
+							const firstChild = node.children[0] as any
+
+							if (['-', '+'].includes(firstChild?.value)) {
+								node.properties.style += '; user-select: none;'
+							}
 						}
 					},
 					preprocess(code, options) {

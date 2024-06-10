@@ -135,5 +135,23 @@ export const theme: ThemeRegistrationResolved = {
 			],
 			settings: { foreground: 'var(--hds-code-block-color-keyword)' },
 		},
+		// Diff
+		{
+			scope: ['markup.deleted'],
+			settings: { foreground: 'var(--hds-code-block-color-deleted)' },
+		},
+		{
+			scope: ['markup.inserted'],
+			settings: { foreground: 'var(--hds-code-block-color-green)' },
+		},
+		{
+			scope: [
+				'punctuation.definition.deleted.diff',
+				'punctuation.definition.inserted.diff',
+			],
+			settings: { foreground: 'var(--hds-code-block-color-token)' },
+		},
+		// TODO: We should map our code block colors to the correct scope:
+		// https://github.com/hashicorp/design-system/blob/2c3c9a6a317255c3c8e22d72aa327eeaa7ccc7f3/packages/components/src/styles/components/code-block/theme.scss#L8
 	],
 }
