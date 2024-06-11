@@ -10,6 +10,12 @@ import type { ShikiTransformer } from 'shiki/core'
 
 /**
  * Rehype plugins we use across MDX use cases for code syntax highlighting.
+ *
+ * TODO: would be great to move this into the `web` monorepo, specifically
+ * into `packages/syntax-highlighting`... However, doing so would create an
+ * extended feedback loop when making changes (would require publishing a new
+ * canary version of that package just to test changes). So, keeping this
+ * file here for now.
  */
 export const rehypeCodePlugins: Pluggable[] = [
 	[
