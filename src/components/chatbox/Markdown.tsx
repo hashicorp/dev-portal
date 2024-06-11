@@ -6,8 +6,6 @@
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
-import { rehypeCodePlugins } from 'lib/rehype-code-plugins'
-
 import { MdxPre } from 'components/dev-dot-content/mdx-components/mdx-code-blocks'
 import Text from 'components/text'
 import InlineLink from 'components/inline-link'
