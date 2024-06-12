@@ -10,6 +10,12 @@ import type { ShikiTransformer } from 'shiki/core'
 
 /**
  * Rehype plugins we use across MDX use cases for code syntax highlighting.
+ *
+ * TODO: would be great to move this into the `web` monorepo, specifically
+ * into `packages/syntax-highlighting`... However, doing so would create an
+ * extended feedback loop when making changes (would require publishing a new
+ * canary version of that package just to test changes). So, keeping this
+ * file here for now.
  */
 export const rehypeCodePlugins: Pluggable[] = [
 	[
@@ -24,24 +30,9 @@ export const rehypeCodePlugins: Pluggable[] = [
 						node.properties.language = this.options.lang
 					},
 					code(node) {
-						// Remove the last line if it's just whitespace
-						const lastChild = node.children[node.children.length - 1]
-						if (
-							lastChild.type === 'element' &&
-							lastChild.tagName === 'span' &&
-							lastChild.children.length === 0
-						) {
-							node.children.pop()
-						}
-
+						// Remove empty tokens, these make it hard to render newlines
+						node.children = node.children.filter((child) => !isEmptyLine(child))
 						this.addClassToHast(node, `language-${this.options.lang}`)
-					},
-					line(node, line) {
-						// If the line is empty, add a class so we can target
-						// it with CSS.
-						if (node.tagName === 'span' && node.children.length === 0) {
-							this.addClassToHast(node, 'empty-line')
-						}
 					},
 					span(node, _line: number, col: number) {
 						// prevent user-select on the start +/- in diff lines
@@ -112,3 +103,27 @@ export const rehypeCodePlugins: Pluggable[] = [
 		// the correct declaration for the plugin, so we assert it as any.
 	] as any,
 ]
+
+/**
+ * Given a node,
+ * Return true if the node is empty of text content,
+ * or false otherwise.
+ */
+function isEmptyLine(node): boolean {
+	// Base case, our node is empty text
+	const isEmptyText = node.type === 'text' && node.value === ''
+	if (isEmptyText) {
+		return true
+	}
+	// Base case, our node is a span with zero children
+	if (node.tagName === 'span' && node.children.length === 0) {
+		return true
+	}
+	// Recursive case, our node is a span with exactly one child.
+	// We return true if this child is an empty node, or false otherwise.
+	if (node.tagName === 'span' && node.children.length === 1) {
+		return isEmptyLine(node.children[0])
+	}
+	// Otherwise, our node is not empty
+	return false
+}
