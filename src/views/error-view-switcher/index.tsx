@@ -8,8 +8,6 @@ import { useRouter } from 'next/router'
 import { ErrorPageProps } from './types'
 import { DevDot404, DevDotFallback, DevDotVersioned404 } from '../error-views'
 
-const VERSION_PATTERN = /\/(?<version>v\d+([.]|_)\d+([.]|_)(\d+|x))/ // matches semver with . and _ separators
-const TFE_VERSION_PATTERN = /\/(?<version>v[0-9]{6}-\d+)/
 const VERSION_COMBO_PATTERN =
 	/\/(?<version>(v\d+([.]|_)\d+([.]|_)(\d+|x))|(v[0-9]{6}-\d+))/
 /**
@@ -20,7 +18,7 @@ const VERSION_COMBO_PATTERN =
  * limited to having a single pages/_error.jsx page file in the project.
  *
  * This component also handles auto-selecting versioned 404 views,
- * by matching VERSION_PATTERN in the page URL.
+ * by matching version pattern in the page URL.
  */
 function ErrorView({ statusCode }: ErrorPageProps): React.ReactElement {
 	/**
