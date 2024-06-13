@@ -70,12 +70,12 @@ function CodeBlockConfig({
 	hideClipboard,
 }: CodeBlockConfigProps) {
 	// This is only used for debugging purposes as we use shiki to assign the language tokens and styles
-	const propsOfFristChild = propsOfFirstChild(children)
+	const propsOfFirstChild = getPropsOfFirstChild(children)
 
 	return (
 		<CodeBlock
 			className={className}
-			language={propsOfFristChild?.language as string}
+			language={propsOfFirstChild?.language as string}
 			value={childrenOfFirstChild(childrenOfFirstChild(children))}
 			isStandalone={!hasBarAbove}
 			title={heading ?? filename ?? ''}
@@ -205,7 +205,7 @@ export function MdxPre({ children, className, ...restProps }: MdxPreProps) {
 			className={classNames(className, {
 				[s.codeBlockMargin]: !restProps.hasBarAbove,
 			})}
-			value={normalizePlainCode(childrenOfFirstChild(children))}
+			value={normalizePlainCode(childrenOfFirstChild(children) || children)}
 			hasLineNumbers={false}
 			hasCopyButton
 		/>
@@ -220,12 +220,14 @@ function childrenOfFirstChild(children: ReactNode): ReactNode {
 		'props' in firstElement
 	) {
 		return firstElement.props.children
+	} else {
+		return null
 	}
-
-	throw new Error('First element of children is not an object with props')
 }
 
-function propsOfFirstChild(children: ReactNode): Record<string, unknown> {
+function getPropsOfFirstChild(
+	children: ReactNode
+): Record<string, unknown> | null {
 	const firstElement = Children.toArray(children)[0]
 	if (
 		firstElement &&
@@ -233,7 +235,7 @@ function propsOfFirstChild(children: ReactNode): Record<string, unknown> {
 		'props' in firstElement
 	) {
 		return firstElement.props
+	} else {
+		return null
 	}
-
-	throw new Error('First element of children is not an object with props')
 }
