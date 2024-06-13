@@ -288,8 +288,3 @@ and negative margin.
 	font-size: 12px;
 	background: white;
 }
-
-/* Used to render blank lines in code blocks, but prevent them from being copied. */
-.hds-code-block__code .empty-line::after {
-	content: ' ';
-}
