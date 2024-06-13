@@ -6,15 +6,10 @@
 import { trackCertificationCardLinkClicked } from 'views/tutorials-landing/analytics'
 import { type CertificationContentCardLinkProps } from '../types'
 import ContentCardLink from '../content-card-link'
-import networkingAutomationGraphic from './img/consul.svg'
 import infrastructionAutomationGraphic from './img/terraform.svg'
 import securityAutomationGraphic from './img/vault.svg'
 
 const CERTIFICATION_PROGRAM_SLUGS_TO_BACKGROUND_IMAGES = {
-	'networking-automation': {
-		url: networkingAutomationGraphic,
-		lightOrDark: 'dark',
-	},
 	'infrastructure-automation': {
 		url: infrastructionAutomationGraphic,
 		lightOrDark: 'dark',
