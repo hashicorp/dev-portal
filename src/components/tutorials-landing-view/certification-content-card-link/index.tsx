@@ -32,10 +32,11 @@ const CertificationContentCardLink = ({
 	 * Special case for the consul certification to link to it's specfic header
 	 * {@link https://developer.hashicorp.com/certifications/security-automation#consul-associate-(003)-details}
 	 */
+	const baseHref = `/certifications/${certification.slug}`
 	const href =
 		product.name === 'Consul'
-			? `/certifications/${certification.slug}#consul-associate-(003)-details`
-			: `/certifications/${certification.slug}`
+			? `${baseHref}#consul-associate-(003)-details`
+			: baseHref
 
 	const handleClick = () => {
 		trackCertificationCardLinkClicked({
