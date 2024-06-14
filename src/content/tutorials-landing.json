@@ -72,7 +72,7 @@
 				"consul/get-started-vms"
 			],
 			"certificationProgram": {
-				"slug": "security-automation",
+				"slug": "security-automation#consul-associate-(003)-details",
 				"title": "Get certified: Security automation",
 				"description": "Validate your service networking skills by studying for and passing the Consul Associate certification exam."
 			}
