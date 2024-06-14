@@ -70,7 +70,7 @@ function CodeBlockConfig({
 	hideClipboard,
 }: CodeBlockConfigProps) {
 	// This is only used for debugging purposes as we use shiki to assign the language tokens and styles
-	const propsOfFirstChild = getPropsOfFirstChild(children)
+	const propsOfFirstChild = getFirstChildProps(children)
 
 	return (
 		<CodeBlock
@@ -225,7 +225,7 @@ function childrenOfFirstChild(children: ReactNode): ReactNode {
 	}
 }
 
-function getPropsOfFirstChild(
+function getFirstChildProps(
 	children: ReactNode
 ): Record<string, unknown> | null {
 	const firstElement = Children.toArray(children)[0]
