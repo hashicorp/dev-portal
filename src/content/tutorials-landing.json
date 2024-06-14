@@ -74,7 +74,7 @@
 			"certificationProgram": {
 				"slug": "security-automation",
 				"title": "Get certified: Security automation",
-				"description": "Validate your cloud security skills by studying for and passing the Consul Associate certification exam."
+				"description": "Validate your service networking skills by studying for and passing the Consul Associate certification exam."
 			}
 		},
 		"nomad": {
