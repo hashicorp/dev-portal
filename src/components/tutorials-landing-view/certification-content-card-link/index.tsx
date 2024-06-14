@@ -40,7 +40,7 @@ const CertificationContentCardLink = ({
 
 	const handleClick = () => {
 		trackCertificationCardLinkClicked({
-			linkPath: href,
+			linkPath: baseHref,
 			productSlug: product.slug,
 		})
 	}
