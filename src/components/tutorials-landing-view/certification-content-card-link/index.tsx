@@ -28,7 +28,14 @@ const CertificationContentCardLink = ({
 		CERTIFICATION_PROGRAM_SLUGS_TO_BACKGROUND_IMAGES[certification.slug]
 	const title = certification.title
 	const description = certification.description
-	const href = `/certifications/${certification.slug}`
+	/**
+	 * Special case for the consul certification to link to it's specfic header
+	 * {@link https://developer.hashicorp.com/certifications/security-automation#consul-associate-(003)-details}
+	 */
+	const href =
+		product.name === 'Consul'
+			? `/certifications/${certification.slug}#consul-associate-(003)-details`
+			: `/certifications/${certification.slug}`
 
 	const handleClick = () => {
 		trackCertificationCardLinkClicked({
