@@ -4,7 +4,7 @@
  */
 
 import OpenApiDocsPreviewViewV2 from 'views/open-api-docs-preview-v2'
-import { getStaticProps } from 'views/open-api-docs-preview-v2/server'
+import { getServerSideProps } from 'views/open-api-docs-preview-v2/server'
 
-export { getStaticProps }
+export { getServerSideProps }
 export default OpenApiDocsPreviewViewV2
