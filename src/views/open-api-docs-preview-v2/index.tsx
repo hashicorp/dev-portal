@@ -17,11 +17,15 @@ import type { OpenApiDocsViewProps } from 'views/open-api-docs-view-v2/types'
  * Render an OpenApi docs view alongside preview inputs that allow
  * dynamic, client-side updating of the props used to render the view.
  */
-function OpenApiDocsPreviewViewV2(props: {
+function OpenApiDocsPreviewViewV2({
+	staticProps,
+	operationSlug,
+	sidebarItemGroups,
+}: {
 	staticProps: OpenApiDocsViewProps
 	operationSlug: string
+	sidebarItemGroups?: $TSFixMe
 }) {
-	const { staticProps, operationSlug } = props
 	const [apiDocsViewProps, setApiDocsViewProps] =
 		useState<OpenApiDocsViewProps>()
 
@@ -34,6 +38,7 @@ function OpenApiDocsPreviewViewV2(props: {
 					<OpenApiDocsViewV2
 						staticProps={usableProps}
 						operationSlug={operationSlug}
+						sidebarItemGroups={sidebarItemGroups}
 					/>
 				) : (
 					// Render an empty sidebar layout if we don't have valid props yet

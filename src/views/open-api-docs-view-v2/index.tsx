@@ -54,23 +54,11 @@ import s from './open-api-docs-view-v2.module.css'
  * @param props
  * @returns
  */
-function OpenApiDocsViewV2({ staticProps, operationSlug }: $TSFixMe) {
-	const { operationGroups } = staticProps
-	const sidebarItemGroups =
-		operationGroups?.map((group) => {
-			const items = group.items.map((item) => {
-				return {
-					title: item.slug,
-					url: `/open-api-docs-preview-v2/${item.operationId}`,
-				}
-			})
-			return {
-				title: group.heading,
-				items,
-			}
-		}) || []
-
-	const debug = { sidebarItemGroups, opGroups: operationGroups }
+function OpenApiDocsViewV2({
+	staticProps,
+	operationSlug,
+	sidebarItemGroups,
+}: $TSFixMe) {
 	return (
 		<SidebarLayout
 			sidebarSlot={
@@ -104,9 +92,6 @@ function OpenApiDocsViewV2({ staticProps, operationSlug }: $TSFixMe) {
 			<div className={s.paddedContainer}>
 				<pre>
 					<code>{JSON.stringify({ operationSlug }, null, 2)}</code>
-				</pre>
-				<pre>
-					<code>{JSON.stringify(debug, null, 2)}</code>
 				</pre>
 				<pre>
 					<code>{JSON.stringify(staticProps, null, 2)}</code>

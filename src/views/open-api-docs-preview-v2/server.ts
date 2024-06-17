@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// Utils
-import { readProps, TMP_PROPS_FILE } from 'pages/api/open-api-preview-v2'
 // Types
 import type { GetServerSidePropsResult } from 'next'
 import type { OpenApiDocsViewProps } from 'views/open-api-docs-view-v2/types'
@@ -19,20 +17,40 @@ export async function getServerSideProps({ params }): Promise<
 	GetServerSidePropsResult<{
 		staticProps: OpenApiDocsViewProps | null
 		operationSlug: string
+		sidebarItemGroups?: $TSFixMe
 	}>
 > {
 	// In production, return a 404 not found for this page.
-	if (IS_PRODUCTION) {
-		return { notFound: true }
-	}
+	// In other environments (local, preview, and staging), show the page.
+	// if (IS_PRODUCTION) {
+	// 	return { notFound: true }
+	// }
+	// Determine which operation we're trying to render, if any
+	const operationSlug = params?.page?.length ? params.page[0] : ''
 	// Fetch the static props from our API route, which will read in a tmp
 	// file if it exists, or return null if it does not.
 	const response = await fetch(`${BASE_URL}/api/open-api-preview-v2`)
 	const rawStaticProps = response.status === 200 ? await response.json() : null
 	const staticProps = rawStaticProps ? rawStaticProps.props : null
-	// In other environments (local, preview, and staging), show the page.
+	if (!staticProps) {
+		return { props: { staticProps, operationSlug } }
+	}
+	//
+	const { operationGroups } = staticProps
+	const sidebarItemGroups =
+		operationGroups?.map((group) => {
+			const items = group.items.map((item) => {
+				return {
+					title: item.slug,
+					url: `/open-api-docs-preview-v2/${item.operationId}`,
+				}
+			})
+			return {
+				title: group.heading,
+				items,
+			}
+		}) || []
 	// Note that `staticProps` may be `null`, if the user has not yet provided
 	// an OpenAPI spec file to preview
-	const operationSlug = params?.page?.length ? params.page[0] : ''
-	return { props: { staticProps, operationSlug } }
+	return { props: { staticProps, operationSlug, sidebarItemGroups } }
 }
