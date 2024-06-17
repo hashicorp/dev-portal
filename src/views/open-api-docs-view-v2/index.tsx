@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Third-party
+import { paramCase } from 'change-case'
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
 // Styles
@@ -53,12 +55,42 @@ import s from './open-api-docs-view-v2.module.css'
  * @returns
  */
 function OpenApiDocsViewV2(props: $TSFixMe) {
+	const { operationGroups } = props
+	const sidebarItemGroups = operationGroups.map((group) => {
+		const items = group.items.map((item) => {
+			return {
+				title: item.slug,
+				url: `/open-api-docs-preview-v2/${paramCase(item.operationId)}`,
+			}
+		})
+		return {
+			title: group.heading,
+			items,
+		}
+	})
+
+	const debug = { sidebarItemGroups, opGroup: operationGroups[0] }
 	return (
 		<SidebarLayout
 			sidebarSlot={
-				<p style={{ border: '1px solid magenta' }}>
-					TODO: populate sidebarSlot with meaningful content
-				</p>
+				<>
+					{sidebarItemGroups.map((group: $TSFixMe) => {
+						return (
+							<div key={group.title}>
+								<p>{group.title}</p>
+								<ul>
+									{group.items.map((item) => {
+										return (
+											<li key={item.title}>
+												<a href={item.url}>{item.title}</a>
+											</li>
+										)
+									})}
+								</ul>
+							</div>
+						)
+					})}
+				</>
 			}
 			mobileMenuSlot={
 				<>
@@ -69,6 +101,9 @@ function OpenApiDocsViewV2(props: $TSFixMe) {
 			}
 		>
 			<div className={s.paddedContainer}>
+				<pre>
+					<code>{JSON.stringify(debug, null, 2)}</code>
+				</pre>
 				<pre>
 					<code>{JSON.stringify(props, null, 2)}</code>
 				</pre>
