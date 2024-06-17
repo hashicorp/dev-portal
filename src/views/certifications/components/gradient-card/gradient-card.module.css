@@ -106,17 +106,6 @@
 		);
 	}
 
-	&.theme-networking-automation {
-		--shadow-background: linear-gradient(90deg, #ffb2b8 0%, #c74fb8 100%);
-		--gradient-border-background: radial-gradient(
-			36.05% 120.87% at 3.06% 4.48%,
-			#e33d82 0%,
-			#eb98a1 16.29%,
-			#94337b 44.27%,
-			rgba(250, 250, 250, 0) 100%
-		);
-	}
-
 	&.theme-security-automation {
 		--shadow-background: linear-gradient(90deg, #ffe58c 0%, #f26b63 100%);
 		--gradient-border-background: radial-gradient(
