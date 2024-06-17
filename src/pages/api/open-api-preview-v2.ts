@@ -22,7 +22,8 @@ const IS_VERCEL_DEPLOY = process.env.VERCEL_ENV !== 'development'
  */
 export const TMP_PROPS_FILE = IS_VERCEL_DEPLOY
 	? '/tmp/open-api-docs-view-props.json'
-	: path.join(process.cwd(), 'tmp-open-api-docs-view-props.json')
+	: // TODO: probably better to establish a `tmp` dir or something, but meh for now
+	  path.join(process.cwd(), 'src/.generated/tmp-open-api-docs-view-props.json')
 
 /**
  * Boilerplate page configuration, we could in theory expose this so visitors
@@ -32,7 +33,7 @@ export const TMP_PROPS_FILE = IS_VERCEL_DEPLOY
  */
 const GENERIC_PAGE_CONFIG = {
 	// basePath same no matter what, preview tool is on static route
-	basePath: '/open-api-docs-preview',
+	basePath: '/open-api-docs-preview-v2',
 	// No versioning in the preview tool, focus on one spec file at a time
 	context: { params: { page: [] } },
 	// Product slug, using HCP to just show a generic HashiCorp logo,
@@ -83,6 +84,7 @@ export default async function handler(
 		} else {
 			res.status(404).json({ error: 'No props found' })
 		}
+		// Early return
 		return
 	}
 

@@ -26,17 +26,17 @@ function OpenApiDocsPreviewViewV2({
 	operationSlug: string
 	sidebarItemGroups?: $TSFixMe
 }) {
-	const [apiDocsViewProps, setApiDocsViewProps] =
-		useState<OpenApiDocsViewProps>()
-
-	const usableProps = apiDocsViewProps || staticProps
+	const [shouldReload, setShouldReload] = useState<Boolean>(false)
 
 	return (
 		<>
 			<div style={{ isolation: 'isolate' }}>
-				{usableProps ? (
+				{shouldReload
+					? 'Reload page to see changes based on uploaded file'
+					: ''}
+				{staticProps ? (
 					<OpenApiDocsViewV2
-						staticProps={usableProps}
+						staticProps={staticProps}
 						operationSlug={operationSlug}
 						sidebarItemGroups={sidebarItemGroups}
 					/>
@@ -45,15 +45,13 @@ function OpenApiDocsPreviewViewV2({
 					<SidebarLayout sidebarSlot="" mobileMenuSlot={null}>
 						<div style={{ padding: '24px' }}>
 							<pre>
-								<code>
-									{JSON.stringify({ usableProps, staticProps }, null, 2)}
-								</code>
+								<code>{JSON.stringify({ staticProps }, null, 2)}</code>
 							</pre>
 						</div>
 					</SidebarLayout>
 				)}
 			</div>
-			<OpenApiPreviewInputs setStaticProps={setApiDocsViewProps} />
+			<OpenApiPreviewInputs setStaticProps={() => setShouldReload(true)} />
 		</>
 	)
 }

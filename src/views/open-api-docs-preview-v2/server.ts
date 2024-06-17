@@ -29,13 +29,22 @@ export async function getServerSideProps({ params }): Promise<
 	const operationSlug = params?.page?.length ? params.page[0] : ''
 	// Fetch the static props from our API route, which will read in a tmp
 	// file if it exists, or return null if it does not.
-	const response = await fetch(`${BASE_URL}/api/open-api-preview-v2`)
-	const rawStaticProps = response.status === 200 ? await response.json() : null
-	const staticProps = rawStaticProps ? rawStaticProps.props : null
-	if (!staticProps) {
-		return { props: { staticProps, operationSlug } }
+	let staticProps: OpenApiDocsViewProps | null = null
+	try {
+		const response = await fetch(`${BASE_URL}/api/open-api-preview-v2`)
+		const rawStaticProps =
+			response.status === 200 ? await response.json() : null
+		staticProps = rawStaticProps ? rawStaticProps.props : null
+	} catch (e) {
+		console.log(`Ran into error fetching static props: ${e}`)
 	}
-	//
+
+	// If we didn't manage to fetch static props, return early
+	if (!staticProps) {
+		return { props: { staticProps: null, operationSlug } }
+	}
+
+	// Otherwise, we have static props, so we can process them
 	const { operationGroups } = staticProps
 	const sidebarItemGroups =
 		operationGroups?.map((group) => {
