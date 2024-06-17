@@ -8,7 +8,10 @@ import type { GetServerSidePropsResult } from 'next'
 import type { OpenApiDocsViewProps } from 'views/open-api-docs-view-v2/types'
 
 const IS_PRODUCTION = process.env.HASHI_ENV === 'production'
-const BASE_URL = process.env.VERCEL_URL
+const IS_VERCEL_DEPLOY = process.env.VERCEL_ENV !== 'development'
+const BASE_URL = IS_VERCEL_DEPLOY
+	? `https://${process.env.VERCEL_URL}`
+	: 'http://localhost:3000'
 
 /**
  * TODO: add description
