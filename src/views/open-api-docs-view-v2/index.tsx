@@ -56,20 +56,21 @@ import s from './open-api-docs-view-v2.module.css'
  */
 function OpenApiDocsViewV2(props: $TSFixMe) {
 	const { operationGroups } = props
-	const sidebarItemGroups = operationGroups.map((group) => {
-		const items = group.items.map((item) => {
+	const sidebarItemGroups =
+		operationGroups?.map((group) => {
+			const items = group.items.map((item) => {
+				return {
+					title: item.slug,
+					url: `/open-api-docs-preview-v2/${paramCase(item.operationId)}`,
+				}
+			})
 			return {
-				title: item.slug,
-				url: `/open-api-docs-preview-v2/${paramCase(item.operationId)}`,
+				title: group.heading,
+				items,
 			}
-		})
-		return {
-			title: group.heading,
-			items,
-		}
-	})
+		}) || []
 
-	const debug = { sidebarItemGroups, opGroup: operationGroups[0] }
+	const debug = { sidebarItemGroups, opGroups: operationGroups }
 	return (
 		<SidebarLayout
 			sidebarSlot={

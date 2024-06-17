@@ -5,7 +5,7 @@
 
 import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
 
-const API_ROUTE = '/api/get-open-api-docs-view-props'
+const API_ROUTE = '/api/open-api-preview-v2'
 
 type Error = {
 	title: string

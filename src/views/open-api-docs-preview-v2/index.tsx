@@ -17,19 +17,28 @@ import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
  * Render an OpenApi docs view alongside preview inputs that allow
  * dynamic, client-side updating of the props used to render the view.
  */
-function OpenApiDocsPreviewViewV2() {
+function OpenApiDocsPreviewViewV2(props: $TSFixMe) {
+	const { staticProps } = props
 	const [apiDocsViewProps, setApiDocsViewProps] =
 		useState<OpenApiDocsViewProps>()
+
+	const usableProps = apiDocsViewProps || staticProps
 
 	return (
 		<>
 			<div style={{ isolation: 'isolate' }}>
-				{apiDocsViewProps ? (
-					<OpenApiDocsViewV2 {...apiDocsViewProps} />
+				{usableProps ? (
+					<OpenApiDocsViewV2 {...usableProps} />
 				) : (
 					// Render an empty sidebar layout if we don't have valid props yet
 					<SidebarLayout sidebarSlot="" mobileMenuSlot={null}>
-						<div style={{ padding: '24px' }} />
+						<div style={{ padding: '24px' }}>
+							<pre>
+								<code>
+									{JSON.stringify({ usableProps, staticProps }, null, 2)}
+								</code>
+							</pre>
+						</div>
 					</SidebarLayout>
 				)}
 			</div>
