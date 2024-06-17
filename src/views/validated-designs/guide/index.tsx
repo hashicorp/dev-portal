@@ -29,7 +29,7 @@ import type { OutlineLinkItem } from 'components/outline-nav/types'
 import { ProductSlug } from 'types/products'
 
 // Keep in sync HVD PDF location
-const PDF_BASE_URL = 'https://d2cn2jw7bw0rn4.cloudfront.net/'
+const PDF_BASE_URL = 'https://d2cn2jw7bw0rn4.cloudfront.net'
 const downloadFileTitle = (guideTitle) =>
 	`${guideTitle.replaceAll(':', '').replaceAll(' ', '-')}.pdf`
 
