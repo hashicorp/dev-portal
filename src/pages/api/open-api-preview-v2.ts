@@ -83,6 +83,7 @@ export default async function handler(
 		} else {
 			res.status(404).json({ error: 'No props found' })
 		}
+		return
 	}
 
 	// If not GET, reject non-POST requests, only GET or POST is allowed
