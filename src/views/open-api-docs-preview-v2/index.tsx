@@ -9,9 +9,9 @@ import { useState } from 'react'
 import OpenApiDocsViewV2 from 'views/open-api-docs-view-v2'
 // Components
 import SidebarLayout from 'layouts/sidebar-layout'
-import { OpenApiPreviewInputs } from 'views/open-api-docs-preview/components/open-api-preview-inputs'
+import { OpenApiPreviewInputs } from 'views/open-api-docs-preview-v2/components/open-api-preview-inputs'
 // Types
-import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
+import type { OpenApiDocsViewProps } from 'views/open-api-docs-view-v2/types'
 
 /**
  * Render an OpenApi docs view alongside preview inputs that allow

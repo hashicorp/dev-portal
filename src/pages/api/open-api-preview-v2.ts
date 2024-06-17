@@ -4,6 +4,7 @@
  */
 
 import fs from 'fs'
+import path from 'path'
 import { getStaticProps } from 'views/open-api-docs-view/server'
 // Types
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -21,7 +22,7 @@ const IS_VERCEL_DEPLOY = process.env.VERCEL_ENV !== 'development'
  */
 export const TMP_PROPS_FILE = IS_VERCEL_DEPLOY
 	? '/tmp/open-api-docs-view-props.json'
-	: '/Users/zachshilton/tmp-open-api-docs-view-props.json'
+	: path.join(process.cwd(), 'tmp-open-api-docs-view-props.json')
 
 /**
  * Boilerplate page configuration, we could in theory expose this so visitors
@@ -113,6 +114,7 @@ export default async function handler(
 	 * Build static props for the page
 	 */
 	try {
+		console.log('Attempting to getStaticProps...')
 		const staticProps = await getStaticProps({
 			// Pass the bulk of the page config
 			...GENERIC_PAGE_CONFIG,
@@ -138,6 +140,8 @@ export default async function handler(
 		})
 		// Write out the static props to a file in the `tmp` folder,
 		// compatible with Vercel deployment
+		console.log(`Writing file to ${TMP_PROPS_FILE}...`)
+
 		fs.writeFileSync(TMP_PROPS_FILE, JSON.stringify(staticProps, null, 2))
 		console.log(`Wrote out file to ${TMP_PROPS_FILE}`)
 		// Return the static props as JSON, these can be passed to OpenApiDocsView
