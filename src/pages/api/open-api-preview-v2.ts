@@ -14,11 +14,14 @@ import {
 	schemaModShortenHcp,
 } from 'views/open-api-docs-view/utils/massage-schema-utils'
 
+const IS_VERCEL_DEPLOY = process.env.VERCEL_ENV !== 'development'
+
 /**
  * TODO: figure out file location that will work in Vercel deploys
  */
-export const TMP_PROPS_FILE =
-	'/Users/zachshilton/tmp-open-api-docs-view-props.json'
+export const TMP_PROPS_FILE = IS_VERCEL_DEPLOY
+	? '/tmp/open-api-docs-view-props.json'
+	: '/Users/zachshilton/tmp-open-api-docs-view-props.json'
 
 /**
  * Boilerplate page configuration, we could in theory expose this so visitors
