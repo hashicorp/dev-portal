@@ -26,16 +26,14 @@ function OpenApiDocsPreviewViewV2({
 	operationProps: $TSFixMe
 	sidebarItemGroups?: $TSFixMe
 }) {
-	const [shouldReload, setShouldReload] = useState<Boolean>(false)
+	const [shouldReload, setShouldReload] = useState<boolean>(false)
 
 	return (
 		<>
 			<div style={{ isolation: 'isolate' }}>
-				{shouldReload
-					? 'Reload page to see changes based on uploaded file'
-					: ''}
-				{operationProps && sidebarItemGroups ? (
+				{sidebarItemGroups ? (
 					<OpenApiDocsViewV2
+						_devProps={staticProps}
 						operationProps={operationProps}
 						sidebarItemGroups={sidebarItemGroups}
 					/>
@@ -43,14 +41,17 @@ function OpenApiDocsPreviewViewV2({
 					// Render an empty sidebar layout if we don't have valid props yet
 					<SidebarLayout sidebarSlot="" mobileMenuSlot={null}>
 						<div style={{ padding: '24px' }}>
-							<pre>
-								<code>{JSON.stringify({ staticProps }, null, 2)}</code>
-							</pre>
+							<p
+								style={{ border: '1px solid magenta' }}
+							>{`No OpenAPI spec loaded. Use the input form on this page, which manifests visually as a purple tray at right edge of screen, to upload an OpenAPI spec, then reload the page.`}</p>
 						</div>
 					</SidebarLayout>
 				)}
 			</div>
-			<OpenApiPreviewInputs setStaticProps={() => setShouldReload(true)} />
+			<OpenApiPreviewInputs
+				shouldReload={shouldReload}
+				setStaticProps={() => setShouldReload(true)}
+			/>
 		</>
 	)
 }

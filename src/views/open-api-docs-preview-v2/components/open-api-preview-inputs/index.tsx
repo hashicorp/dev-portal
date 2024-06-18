@@ -31,8 +31,10 @@ interface InputValues {
  * static props for `OpenApiDocsView`.
  */
 export function OpenApiPreviewInputs({
+	shouldReload,
 	setStaticProps,
 }: {
+	shouldReload?: boolean
 	setStaticProps: (v: OpenApiDocsViewProps) => void
 }) {
 	const [error, setError] = useState<{
@@ -125,6 +127,21 @@ export function OpenApiPreviewInputs({
 						size="large"
 						onClick={() => updateStaticProps()}
 					/>
+					{shouldReload ? (
+						<InlineAlert
+							color="warning"
+							title={'Reload'}
+							description={
+								<>
+									<div>
+										{
+											'Reload the page to see changes based on uploaded preview data.'
+										}
+									</div>
+								</>
+							}
+						/>
+					) : null}
 					{error ? (
 						<InlineAlert
 							color="critical"

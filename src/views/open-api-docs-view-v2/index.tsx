@@ -59,11 +59,20 @@ import s from './open-api-docs-view-v2.module.css'
  * @param props
  * @returns
  */
-function OpenApiDocsViewV2({ operationProps, sidebarItemGroups }: $TSFixMe) {
+function OpenApiDocsViewV2({
+	_devProps,
+	operationProps,
+	sidebarItemGroups,
+}: {
+	_devProps: $TSFixMe
+	operationProps?: $TSFixMe
+	sidebarItemGroups: $TSFixMe
+}) {
 	return (
 		<SidebarLayout
 			sidebarSlot={
 				<div style={{ border: '1px solid magenta' }}>
+					<a href="/open-api-docs-preview-v2">{_devProps.metadata.title} API</a>
 					{sidebarItemGroups.map((group: $TSFixMe) => {
 						return (
 							<div key={group.title}>
@@ -95,7 +104,17 @@ function OpenApiDocsViewV2({ operationProps, sidebarItemGroups }: $TSFixMe) {
 			<div className={s.paddedContainer}>
 				{operationProps ? (
 					<OperationContents operationProps={operationProps} />
-				) : null}
+				) : (
+					<>
+						<h1>{_devProps.metadata.title} API</h1>
+						<p style={{ border: '1px solid magenta' }}>
+							TODO: add some OpenAPI overview content here
+						</p>
+						<pre>
+							<code>{JSON.stringify({ _devProps }, null, 2)}</code>
+						</pre>
+					</>
+				)}
 				{/* <pre>
 					<code>
 						{JSON.stringify({ operationSlug, operationProps }, null, 2)}
