@@ -115,7 +115,7 @@ export default async function handler(
 		}
 		// If we have a unique file ID, attempt to read the props from the file
 		const tempFile = getTempFilePath(TMP_DIR, uniqueFileId)
-		const props = readProps(tempFile)
+		const props = readJsonFile(tempFile)
 		// If we don't have props return a 404
 		if (props === null) {
 			res
@@ -197,9 +197,11 @@ export default async function handler(
 }
 
 /**
- * TODO: clean up once you've actually figured out what you're doing
+ * Given a file path to a JSON file, attempt to read in the file.
+ * If the file does not exist, log a neutral message and return null.
+ * If the file cannot be parsed as JSON, log and error and return null.
  */
-export function readProps(filePath) {
+export function readJsonFile(filePath) {
 	if (!fs.existsSync(filePath)) {
 		console.log(`File does not exist at ${filePath}. Returning null.`)
 		return null
@@ -209,7 +211,7 @@ export function readProps(filePath) {
 		return JSON.parse(fileString)
 	} catch (error) {
 		console.error(
-			`Error: readProps failed unexpectedly, even though file "${filePath}" exists. Details: ${error}`
+			`Error: readJsonFile failed unexpectedly, even though file "${filePath}" exists. Details: ${error}`
 		)
 		return null
 	}
