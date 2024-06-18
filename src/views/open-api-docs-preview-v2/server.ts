@@ -50,6 +50,7 @@ export async function getServerSideProps({
 	}
 	// Determine which operation we're trying to render, if any
 	const operationSlug = params?.page?.length ? params.page[0] : ''
+
 	/**
 	 * We store uploaded OpenAPI spec files with a unique file ID. On the initial
 	 * load of this page, we expect this cookie to be empty... but once a user
@@ -76,12 +77,13 @@ export async function getServerSideProps({
 		console.log(`Ran into error fetching static props: ${e}`)
 	}
 
-	// If we didn't manage to fetch static props, return early
+	/**
+	 * If we didn't manage to fetch static props, return early.
+	 * Otherwise, we have static props, we'll process them below.
+	 */
 	if (!staticProps) {
 		return { props: { staticProps: null, operationSlug } }
 	}
-
-	// Otherwise, we have static props, so we can process them
 
 	/**
 	 * First we set up `sidebarItemGroups`, which are used to render the sidebar.
