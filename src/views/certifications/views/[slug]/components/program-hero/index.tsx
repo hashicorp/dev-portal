@@ -26,7 +26,6 @@ import { HeroProps } from 'components/landing-hero/components/hero/types'
 const programHeroForeground: Record<ProgramSlug, HeroProps['foreground']> = {
 	'security-automation': 'dark',
 	'infrastructure-automation': 'light',
-	'networking-automation': 'light',
 }
 
 /**

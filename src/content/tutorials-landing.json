@@ -72,9 +72,9 @@
 				"consul/get-started-vms"
 			],
 			"certificationProgram": {
-				"slug": "networking-automation",
-				"title": "Get certified: Networking automation",
-				"description": "Validate your networking automation skills by studying for and passing the Consul Associate certification exam."
+				"slug": "security-automation",
+				"title": "Get certified: Network automation",
+				"description": "Validate your service networking skills by studying for and passing the Consul Associate certification exam."
 			}
 		},
 		"nomad": {
