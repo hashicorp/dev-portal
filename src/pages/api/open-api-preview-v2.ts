@@ -90,12 +90,22 @@ export default async function handler(
 ) {
 	/**
 	 * Handle GET requests, attempting to read stored props from `/tmp`
+	 *
+	 * TODO: on GET requests, could also traverse the `/tmp` directory,
+	 * and delete any files older than a certain age. Would first have to
+	 * include a time stamp in the file name...
+	 *
+	 * TODO: could support DELETE requests, to delete a specific file.
+	 * This could allow authors working with sensitive data to have more
+	 * immediate reassurance (on top of the unique file ID) that their file
+	 * will not be randomly accessible to the public.
 	 */
 	if (req.method === 'GET') {
 		/**
 		 * Extract a unique file ID from the request query, if possible.
 		 * This allows multiple authors to work with different files, and provides
-		 * some level of protection against random public access of these files.
+		 * some level of protection against random public access of these files
+		 * (not guaranteed, but better than nothing).
 		 */
 		const uniqueFileId = req.query.uniqueFileId as string | undefined
 		// We require a unique file ID in order to read a previously stored file
@@ -173,14 +183,12 @@ export default async function handler(
 		})
 		const staticProps =
 			'props' in getStaticPropsResult ? getStaticPropsResult.props : null
-		// Write out the static props to a file in the `tmp` folder,
-		// compatible with Vercel deployment
+		// Write out the static props to a file in the `tmp` folder
 		const uniqueFileId = randomUUID()
 		const newTempFile = getTempFilePath(TMP_DIR, uniqueFileId)
 		console.log(`Writing file to ${newTempFile}...`)
 		fs.writeFileSync(newTempFile, JSON.stringify(staticProps, null, 2))
 		console.log(`Wrote out file to ${newTempFile}`)
-
 		// Return the static props as JSON, these can be passed to OpenApiDocsView
 		res.status(200).json({ staticProps, uniqueFileId })
 	} catch (error) {
@@ -198,10 +206,11 @@ export function readProps(filePath) {
 	}
 	try {
 		const fileString = fs.readFileSync(filePath, 'utf8')
-		const props = JSON.parse(fileString)
-		return props
+		return JSON.parse(fileString)
 	} catch (error) {
-		console.error(error)
+		console.error(
+			`Error: readProps failed unexpectedly, even though file "${filePath}" exists. Details: ${error}`
+		)
 		return null
 	}
 }
