@@ -21,7 +21,9 @@ export async function fetchOpenApiStaticProps(inputValues: {
 	openApiJsonString: string
 	openApiDescription?: string
 	groupOperationsByPath?: boolean
-}): Promise<[Error | null, OpenApiDocsViewProps | null]> {
+}): Promise<
+	[Error | null, { staticProps: OpenApiDocsViewProps; uniqueFileId } | null]
+> {
 	try {
 		const result = await fetch(API_ROUTE, {
 			method: 'POST',
@@ -39,7 +41,10 @@ export async function fetchOpenApiStaticProps(inputValues: {
 				null,
 			]
 		} else {
-			return [null, resultData.props as OpenApiDocsViewProps]
+			return [
+				null,
+				resultData as { staticProps: OpenApiDocsViewProps; uniqueFileId },
+			]
 		}
 	} catch (error) {
 		return [

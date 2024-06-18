@@ -4,7 +4,7 @@
  */
 
 // Types
-import type { GetServerSidePropsResult } from 'next'
+import type { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import type { OpenApiDocsViewProps } from 'views/open-api-docs-view-v2/types'
 
 const IS_PRODUCTION = process.env.HASHI_ENV === 'production'
@@ -16,7 +16,10 @@ const BASE_URL = IS_VERCEL_DEPLOY
 /**
  * TODO: add description
  */
-export async function getServerSideProps({ params }): Promise<
+export async function getServerSideProps({
+	params,
+	req,
+}: GetServerSidePropsContext): Promise<
 	GetServerSidePropsResult<{
 		staticProps: OpenApiDocsViewProps | null
 		operationSlug: string
@@ -30,14 +33,25 @@ export async function getServerSideProps({ params }): Promise<
 	// }
 	// Determine which operation we're trying to render, if any
 	const operationSlug = params?.page?.length ? params.page[0] : ''
+	/**
+	 * We store uploaded OpenAPI spec files with a unique file ID. On the initial
+	 * load of this page, we expect this cookie to be empty... but once a user
+	 * uploads an OpenAPI spec, we expect the unique file ID to be set in their
+	 * browser cookies. This allows us to fetch the correct file from the server
+	 * on subsequent visits to OpenAPI docs pages, handling page refreshes
+	 * and visits to different operation URLs.
+	 */
+	const uniqueFileId = req.cookies['open-api-docs-preview-v2_unique-file-id']
+
 	// Fetch the static props from our API route, which will read in a tmp
 	// file if it exists, or return null if it does not.
 	let staticProps: OpenApiDocsViewProps | null = null
 	try {
-		const response = await fetch(`${BASE_URL}/api/open-api-preview-v2`)
-		const rawStaticProps =
-			response.status === 200 ? await response.json() : null
-		staticProps = rawStaticProps ? rawStaticProps.props : null
+		const response = await fetch(
+			`${BASE_URL}/api/open-api-preview-v2?uniqueFileId=${uniqueFileId}`
+		)
+		const responseData = response.status === 200 ? await response.json() : null
+		staticProps = responseData ? responseData.staticProps : null
 	} catch (e) {
 		console.log(`Ran into error fetching static props: ${e}`)
 	}

@@ -5,6 +5,8 @@
 
 import fs from 'fs'
 import path from 'path'
+import { randomUUID } from 'crypto'
+//
 import { getStaticProps } from 'views/open-api-docs-view/server'
 // Types
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -15,15 +17,25 @@ import {
 	schemaModShortenHcp,
 } from 'views/open-api-docs-view/utils/massage-schema-utils'
 
+/**
+ * Setup
+ */
+
+// Determine if we're deploying to Vercel
 const IS_VERCEL_DEPLOY = process.env.VERCEL_ENV !== 'development'
+// Determine the temporary directory to use, based on Vercel deploy or not
+const TMP_DIR = IS_VERCEL_DEPLOY ? '/tmp' : path.join(process.cwd(), '.tmp')
+// Ensure the temporary directory exists, so we can stash files
+if (!fs.existsSync(TMP_DIR)) {
+	fs.mkdirSync(TMP_DIR)
+}
 
 /**
- * TODO: figure out file location that will work in Vercel deploys
+ * Given a temporary directory and a unique file ID, return a standard file path
  */
-export const TMP_PROPS_FILE = IS_VERCEL_DEPLOY
-	? '/tmp/open-api-docs-view-props.json'
-	: // TODO: probably better to establish a `tmp` dir or something, but meh for now
-	  path.join(process.cwd(), 'src/.generated/tmp-open-api-docs-view-props.json')
+function getTempFilePath(tempDir, uniqueFileId) {
+	return `${tempDir}/open-api-docs-view-props_${uniqueFileId}.json`
+}
 
 /**
  * Boilerplate page configuration, we could in theory expose this so visitors
@@ -76,15 +88,33 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	// Handle GET requests, attempting to read stored props from `/tmp`
+	/**
+	 * Handle GET requests, attempting to read stored props from `/tmp`
+	 */
 	if (req.method === 'GET') {
-		const props = readProps(TMP_PROPS_FILE)
-		if (props !== null) {
-			res.status(200).json(props)
-		} else {
-			res.status(404).json({ error: 'No props found' })
+		/**
+		 * Extract a unique file ID from the request query, if possible.
+		 * This allows multiple authors to work with different files, and provides
+		 * some level of protection against random public access of these files.
+		 */
+		const uniqueFileId = req.query.uniqueFileId as string | undefined
+		// We require a unique file ID in order to read a previously stored file
+		if (!uniqueFileId) {
+			res.status(404).json({ error: 'No unique file ID provided' })
+			return
 		}
-		// Early return
+		// If we have a unique file ID, attempt to read the props from the file
+		const tempFile = getTempFilePath(TMP_DIR, uniqueFileId)
+		const props = readProps(tempFile)
+		// If we don't have props return a 404
+		if (props === null) {
+			res
+				.status(404)
+				.json({ error: 'No props found for provided uniqueFileId.' })
+			return
+		}
+		// Otherwise, we have successfully read in props, return them
+		res.status(200).json({ staticProps: props, uniqueFileId })
 		return
 	}
 
@@ -118,7 +148,7 @@ export default async function handler(
 	 */
 	try {
 		console.log('Attempting to getStaticProps...')
-		const staticProps = await getStaticProps({
+		const getStaticPropsResult = await getStaticProps({
 			// Pass the bulk of the page config
 			...GENERIC_PAGE_CONFIG,
 			// Pass the constructed version data
@@ -141,14 +171,18 @@ export default async function handler(
 				return withShortTitle
 			},
 		})
+		const staticProps =
+			'props' in getStaticPropsResult ? getStaticPropsResult.props : null
 		// Write out the static props to a file in the `tmp` folder,
 		// compatible with Vercel deployment
-		console.log(`Writing file to ${TMP_PROPS_FILE}...`)
+		const uniqueFileId = randomUUID()
+		const newTempFile = getTempFilePath(TMP_DIR, uniqueFileId)
+		console.log(`Writing file to ${newTempFile}...`)
+		fs.writeFileSync(newTempFile, JSON.stringify(staticProps, null, 2))
+		console.log(`Wrote out file to ${newTempFile}`)
 
-		fs.writeFileSync(TMP_PROPS_FILE, JSON.stringify(staticProps, null, 2))
-		console.log(`Wrote out file to ${TMP_PROPS_FILE}`)
 		// Return the static props as JSON, these can be passed to OpenApiDocsView
-		res.status(200).json(staticProps)
+		res.status(200).json({ staticProps, uniqueFileId })
 	} catch (error) {
 		res.status(200).json({ error: error.toString() })
 	}

@@ -93,7 +93,16 @@ export function OpenApiPreviewInputs({
 	async function updateStaticProps() {
 		setIsLoading(true)
 		const [err, result] = await fetchOpenApiStaticProps(inputValues)
-		err ? setError(err) : setStaticProps(result)
+		if (err) {
+			setError(err)
+		} else {
+			// Set a cookie with the unique file id
+			document.cookie = `open-api-docs-preview-v2_unique-file-id=${result.uniqueFileId}`
+			// Update the static props
+			// TODO: really only using this to signal that the page needs a reload!
+			// Could _maybe_ update it to actually populate the page... but meh?
+			setStaticProps(result.staticProps)
+		}
 		setIsLoading(false)
 	}
 
