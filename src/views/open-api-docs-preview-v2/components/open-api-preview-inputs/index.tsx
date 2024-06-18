@@ -41,7 +41,7 @@ export function OpenApiPreviewInputs({
 		error: string
 	}>()
 	const [isLoading, setIsLoading] = useState(false)
-	const [isCollapsed, setIsCollapsed] = useState(false)
+	const [isCollapsed, setIsCollapsed] = useState(true)
 	const [inputValues, setInputValues] = useState<InputValues>({
 		openApiJsonString: '',
 		openApiDescription: '',

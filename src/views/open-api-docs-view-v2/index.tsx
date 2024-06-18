@@ -3,10 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// Third-party
-import { paramCase } from 'change-case'
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
+// Components
+import {
+	OperationDetails,
+	OperationExamples,
+	OperationHeader,
+	OperationSections,
+} from 'views/open-api-docs-view/components'
 // Styles
 import s from './open-api-docs-view-v2.module.css'
 
@@ -54,15 +59,11 @@ import s from './open-api-docs-view-v2.module.css'
  * @param props
  * @returns
  */
-function OpenApiDocsViewV2({
-	staticProps,
-	operationSlug,
-	sidebarItemGroups,
-}: $TSFixMe) {
+function OpenApiDocsViewV2({ operationProps, sidebarItemGroups }: $TSFixMe) {
 	return (
 		<SidebarLayout
 			sidebarSlot={
-				<>
+				<div style={{ border: '1px solid magenta' }}>
 					{sidebarItemGroups.map((group: $TSFixMe) => {
 						return (
 							<div key={group.title}>
@@ -71,7 +72,9 @@ function OpenApiDocsViewV2({
 									{group.items.map((item) => {
 										return (
 											<li key={item.title}>
-												<a href={item.url}>{item.title}</a>
+												<a href={item.url}>
+													{item.title.replace(/([a-z])([A-Z])/g, '$1\u200B$2')}
+												</a>
 											</li>
 										)
 									})}
@@ -79,7 +82,7 @@ function OpenApiDocsViewV2({
 							</div>
 						)
 					})}
-				</>
+				</div>
 			}
 			mobileMenuSlot={
 				<>
@@ -90,15 +93,50 @@ function OpenApiDocsViewV2({
 			}
 		>
 			<div className={s.paddedContainer}>
-				<pre>
-					<code>{JSON.stringify({ operationSlug }, null, 2)}</code>
+				{operationProps ? (
+					<OperationContents operationProps={operationProps} />
+				) : null}
+				{/* <pre>
+					<code>
+						{JSON.stringify({ operationSlug, operationProps }, null, 2)}
+					</code>
 				</pre>
 				<pre>
-					<code>{JSON.stringify(staticProps, null, 2)}</code>
-				</pre>
+					<code>{JSON.stringify({ staticProps }, null, 2)}</code>
+				</pre> */}
 			</div>
 		</SidebarLayout>
 	)
 }
 
 export default OpenApiDocsViewV2
+
+function OperationContents({ operationProps }: $TSFixMe) {
+	return (
+		<div style={{ border: '1px solid magenta' }}>
+			<OperationSections
+				headerSlot={
+					<OperationHeader
+						className={s.header}
+						slug={operationProps.slug}
+						headingText={operationProps.summary}
+						method={operationProps.type}
+						path={operationProps.path.truncated}
+					/>
+				}
+				examplesSlot={
+					<OperationExamples
+						heading={operationProps.summary}
+						code={operationProps.urlPathForCodeBlock}
+					/>
+				}
+				detailsSlot={
+					<OperationDetails
+						requestData={operationProps.requestData}
+						responseData={operationProps.responseData}
+					/>
+				}
+			/>
+		</div>
+	)
+}

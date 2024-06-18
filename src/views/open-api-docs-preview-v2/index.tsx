@@ -19,11 +19,11 @@ import type { OpenApiDocsViewProps } from 'views/open-api-docs-view-v2/types'
  */
 function OpenApiDocsPreviewViewV2({
 	staticProps,
-	operationSlug,
+	operationProps,
 	sidebarItemGroups,
 }: {
 	staticProps: OpenApiDocsViewProps
-	operationSlug: string
+	operationProps: $TSFixMe
 	sidebarItemGroups?: $TSFixMe
 }) {
 	const [shouldReload, setShouldReload] = useState<Boolean>(false)
@@ -34,10 +34,9 @@ function OpenApiDocsPreviewViewV2({
 				{shouldReload
 					? 'Reload page to see changes based on uploaded file'
 					: ''}
-				{staticProps ? (
+				{operationProps && sidebarItemGroups ? (
 					<OpenApiDocsViewV2
-						staticProps={staticProps}
-						operationSlug={operationSlug}
+						operationProps={operationProps}
 						sidebarItemGroups={sidebarItemGroups}
 					/>
 				) : (

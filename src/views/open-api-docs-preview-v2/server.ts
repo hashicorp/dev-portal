@@ -23,6 +23,7 @@ export async function getServerSideProps({
 	GetServerSidePropsResult<{
 		staticProps: OpenApiDocsViewProps | null
 		operationSlug: string
+		operationProps?: $TSFixMe
 		sidebarItemGroups?: $TSFixMe
 	}>
 > {
@@ -76,7 +77,20 @@ export async function getServerSideProps({
 				items,
 			}
 		}) || []
+	// If we have an operationSlug, try to get the associated operationProps
+	let operationProps = null
+	if (operationSlug) {
+		operationProps = operationGroups
+			.map((g) => g.items)
+			.flat()
+			.find((item) => {
+				console.log({ opId: item.operationId })
+				return item.operationId === operationSlug
+			})
+	}
 	// Note that `staticProps` may be `null`, if the user has not yet provided
 	// an OpenAPI spec file to preview
-	return { props: { staticProps, operationSlug, sidebarItemGroups } }
+	return {
+		props: { staticProps, operationSlug, operationProps, sidebarItemGroups },
+	}
 }
