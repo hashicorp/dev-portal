@@ -13,7 +13,6 @@ import { z } from 'zod'
  */
 const ProgramSlugSchema = z.enum([
 	'infrastructure-automation',
-	'networking-automation',
 	'security-automation',
 ])
 
