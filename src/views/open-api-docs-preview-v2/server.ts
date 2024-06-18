@@ -67,8 +67,12 @@ export async function getServerSideProps({
 	const sidebarItemGroups =
 		operationGroups?.map((group) => {
 			const items = group.items.map((item) => {
+				const slugWithWordBreaks = item.slug.replace(
+					/([a-z])([A-Z])/g,
+					'$1\u200B$2'
+				)
 				return {
-					title: item.slug,
+					title: slugWithWordBreaks,
 					url: `/open-api-docs-preview-v2/${item.operationId}`,
 				}
 			})
@@ -83,10 +87,7 @@ export async function getServerSideProps({
 		operationProps = operationGroups
 			.map((g) => g.items)
 			.flat()
-			.find((item) => {
-				console.log({ opId: item.operationId })
-				return item.operationId === operationSlug
-			})
+			.find((item) => item.operationId === operationSlug)
 	}
 	// Note that `staticProps` may be `null`, if the user has not yet provided
 	// an OpenAPI spec file to preview
