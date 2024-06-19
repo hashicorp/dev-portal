@@ -21,8 +21,10 @@ function OpenApiDocsPreviewViewV2({
 	staticProps,
 	operationProps,
 	sidebarItemGroups,
+	hasViewProps,
 }: {
 	staticProps: OpenApiDocsViewProps
+	hasViewProps?: boolean
 	operationProps: $TSFixMe
 	sidebarItemGroups?: $TSFixMe
 }) {
@@ -31,7 +33,7 @@ function OpenApiDocsPreviewViewV2({
 	return (
 		<>
 			<div style={{ isolation: 'isolate' }}>
-				{sidebarItemGroups ? (
+				{hasViewProps ? (
 					<OpenApiDocsViewV2
 						_devProps={staticProps}
 						operationProps={operationProps}

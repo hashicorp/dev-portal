@@ -39,6 +39,7 @@ export async function getServerSideProps({
 		operationSlug: string
 		operationProps?: $TSFixMe
 		sidebarItemGroups?: $TSFixMe
+		hasViewProps: boolean
 	}>
 > {
 	/**
@@ -77,12 +78,14 @@ export async function getServerSideProps({
 		console.log(`Ran into error fetching static props: ${e}`)
 	}
 
+	const hasViewProps = !!staticProps
+
 	/**
 	 * If we didn't manage to fetch static props, return early.
 	 * Otherwise, we have static props, we'll process them below.
 	 */
-	if (!staticProps) {
-		return { props: { staticProps: null, operationSlug } }
+	if (!hasViewProps) {
+		return { props: { hasViewProps, staticProps: null, operationSlug } }
 	}
 
 	/**
@@ -122,6 +125,12 @@ export async function getServerSideProps({
 
 	// Return our bundle of props
 	return {
-		props: { staticProps, operationSlug, operationProps, sidebarItemGroups },
+		props: {
+			hasViewProps,
+			staticProps,
+			operationSlug,
+			operationProps,
+			sidebarItemGroups,
+		},
 	}
 }
