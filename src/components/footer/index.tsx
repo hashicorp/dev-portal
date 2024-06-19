@@ -39,7 +39,7 @@ const FOOTER_ITEMS: FooterItem[] = [
 	},
 	{
 		type: 'link',
-		href: 'https://www.hashicorp.com/security',
+		href: 'https://www.hashicorp.com/trust/security',
 		text: 'Security',
 	},
 	{
@@ -56,6 +56,11 @@ const FOOTER_ITEMS: FooterItem[] = [
 		type: 'link',
 		href: 'https://www.hashicorp.com/trade-controls',
 		text: 'Trade Controls',
+	},
+	{
+		type: 'link',
+		href: 'https://www.hashicorp.com/trust/accessibility',
+		text: 'Accessibility',
 	},
 	{
 		type: 'link',
