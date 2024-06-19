@@ -6,35 +6,44 @@
 import fs from 'fs'
 import path from 'path'
 import { randomUUID } from 'crypto'
-//
+// Utilities
 import { getStaticProps } from 'views/open-api-docs-view/server'
-// Types
-import type { NextApiRequest, NextApiResponse } from 'next'
-import type { OpenAPIV3 } from 'openapi-types'
-import type { ProductSlug } from 'types/products'
 import {
 	schemaModDescription,
 	schemaModShortenHcp,
 } from 'views/open-api-docs-view/utils/massage-schema-utils'
+// Types
+import type { NextApiRequest, NextApiResponse } from 'next'
+import type { OpenAPIV3 } from 'openapi-types'
+import type { ProductSlug } from 'types/products'
+
+/**
+ * This API route is meant to be used in conjunction with the OpenAPI preview
+ * tool, which allows authors to preview OpenAPI specs in a multi-page format.
+ * The preview tool is _not_ deployed in production, and is meant to be
+ * accessed from: https://develop.hashicorp.services/open-api-docs-preview-v2
+ *
+ * This API route:
+ * - Allows `POST` requests with OpenAPI specs and related configuration data.
+ *   The provided data is transformed into static props for `OpenApiDocsView`,
+ *   and then written out to a temporary file. The unique file ID is returned.
+ *   The unique file ID can be used in subsequent requests to retrieve props.
+ * - Allows `GET` requests with a unique file ID. These requests allow pages
+ *   to retrieve previously stored static props, which can be used to render
+ *   a multi-page preview of the OpenAPI documentation.
+ */
 
 /**
  * Setup
  */
 
-// Determine if we're deploying to Vercel
+// Determine if we're deploying to Vercel, this affects the temporary directory
 const IS_VERCEL_DEPLOY = process.env.VERCEL_ENV !== 'development'
 // Determine the temporary directory to use, based on Vercel deploy or not
 const TMP_DIR = IS_VERCEL_DEPLOY ? '/tmp' : path.join(process.cwd(), '.tmp')
 // Ensure the temporary directory exists, so we can stash files
 if (!fs.existsSync(TMP_DIR)) {
 	fs.mkdirSync(TMP_DIR)
-}
-
-/**
- * Given a temporary directory and a unique file ID, return a standard file path
- */
-function getTempFilePath(tempDir, uniqueFileId) {
-	return `${tempDir}/open-api-docs-view-props_${uniqueFileId}.json`
 }
 
 /**
@@ -215,4 +224,11 @@ export function readJsonFile(filePath) {
 		)
 		return null
 	}
+}
+
+/**
+ * Given a temporary directory and a unique file ID, return a standard file path
+ */
+function getTempFilePath(tempDir, uniqueFileId) {
+	return `${tempDir}/open-api-docs-view-props_${uniqueFileId}.json`
 }
