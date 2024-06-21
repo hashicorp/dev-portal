@@ -26,15 +26,20 @@ const VagrantDownloadsMerchandisingSlot = (): ReactElement => {
 				From this page you can download, review lease information and much more.
 				These tools are maintained by HashiCorp and the Vagrant community
 			</Text>
-			<ButtonLink
-				className={s.cta}
-				color="primary"
-				size="small"
-				href="/vagrant/install/vmware"
-				icon={<IconArrowRight16 />}
-				iconPosition="trailing"
-				text="Explore"
-			/>
+
+			<a className={s.cta} color="primary" href="/vagrant/install/vmware">
+				<>
+					<Text
+						asElement="span"
+						className={s.description}
+						size={200}
+						weight="regular"
+					>
+						Explore
+					</Text>
+					<IconArrowRight16 />
+				</>
+			</a>
 		</Card>
 	)
 }
