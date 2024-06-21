@@ -41,6 +41,7 @@ const generateGetStaticProps = (
 		props: ProductDownloadsViewStaticProps
 		revalidate: number
 	}> => {
+		console.log({ path: process.cwd() })
 		/**
 		 * Fetch page content
 		 *
