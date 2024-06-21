@@ -29,7 +29,6 @@ function outlineItemsFromHeadings(
 			return {
 				title: titleWithoutBackticks,
 				url: `#${heading.slug}`,
-				dataHeapTrack: `toc-list-item-index-${index}`,
 			}
 		}
 	)

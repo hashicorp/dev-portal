@@ -11,9 +11,6 @@ import {
 import { FeaturedStack } from '../featured-stack'
 import { CollectionsStackProps } from './types'
 
-// Reminder:  make sure heap stuff is carried forward
-// const HEAP_ID = 'CollectionCard'
-
 function CollectionsStack({
 	collectionCards,
 	heading,

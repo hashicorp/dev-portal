@@ -10,11 +10,9 @@ import {
 	ReactNode,
 	Dispatch,
 	SetStateAction,
-	useEffect,
 } from 'react'
 import EmbedElement from 'components/lab-embed/embed-element'
 import Resizable from 'components/lab-embed/resizable'
-import { trackInstruqtEvent } from './track-instruqt-event'
 
 interface InstruqtContextProps {
 	labId: string
@@ -38,18 +36,6 @@ export default function InstruqtProvider({
 	children,
 }: InstruqtProviderProps): JSX.Element {
 	const [active, setActive] = useState(false)
-
-	useEffect(() => {
-		const handler = (e) => trackInstruqtEvent(e, { labId })
-
-		if (active) {
-			// If active, listen for & track events from Instruqt
-			window.addEventListener('message', handler, true)
-		}
-		return () => {
-			window.removeEventListener('message', handler as EventListener)
-		}
-	}, [active, labId])
 
 	return (
 		<InstruqtContext.Provider value={{ labId, active, setActive }}>

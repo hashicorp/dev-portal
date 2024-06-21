@@ -30,7 +30,6 @@ function GiveFeedbackButton({
 						className={classNames(s.iconButton, s.primary)}
 						target="_blank"
 						rel="noreferrer"
-						data-heap-track="give-feedback-button-icon-only"
 					>
 						<Image
 							alt=""
@@ -49,7 +48,6 @@ function GiveFeedbackButton({
 					iconPosition="trailing"
 					opensInNewTab
 					text={LINK_TEXT}
-					data-heap-track="give-feedback-button"
 				/>
 			</span>
 		</div>
