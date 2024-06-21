@@ -41,7 +41,6 @@ const generateGetStaticProps = (
 		props: ProductDownloadsViewStaticProps
 		revalidate: number
 	}> => {
-		console.log({ path: process.cwd() })
 		/**
 		 * Fetch page content
 		 *
@@ -52,14 +51,12 @@ const generateGetStaticProps = (
 			? options.jsonFilePath
 			: `src/content/${product.slug}/install-landing.json`
 
-		const jsonFilePath = path.join(process.cwd(), filePath)
 		let CONTENT
 		try {
-			if (!fs.existsSync(filePath)) {
-				throw new Error(
-					`File ${filePath} does not exist at path ${jsonFilePath}`
-				)
+			if (fs.existsSync(filePath)) {
+				throw new Error(`File not found: ${filePath}`)
 			}
+			const jsonFilePath = path.join(process.cwd(), filePath)
 			const fileContent = fs.readFileSync(jsonFilePath, 'utf8')
 			CONTENT = JSON.parse(fileContent)
 		} catch (error) {
