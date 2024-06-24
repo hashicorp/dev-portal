@@ -26,7 +26,6 @@ export default function InteractiveLabCallout() {
 				</p>
 				<div className={s.ctaButton}>
 					<Button
-						data-heap-track="interactive-lab-callout"
 						color="secondary"
 						text="Start interactive lab"
 						onClick={() => ctx.setActive(true)}

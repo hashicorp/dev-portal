@@ -194,7 +194,6 @@ const NavigationHeaderDropdownMenu = ({
 					onKeyDown={handleKeyDown}
 					onMouseEnter={handleMouseEnter}
 					ref={activatorButtonRef}
-					data-heap-track="navigation-header-dropdown-menu-activator"
 				>
 					<ActivatorButtonContent />
 					<IconChevronDown16 className={s.activatorTrailingIcon} />
@@ -280,7 +279,6 @@ const NavigationHeaderDropdownMenu = ({
 															aria-current={isCurrentPage ? 'page' : undefined}
 															aria-label={item.ariaLabel}
 															className={s.itemLink}
-															data-heap-track="navigation-header-dropdown-menu-link"
 															href={linkHref}
 															onKeyDown={handleKeyDown}
 														>
