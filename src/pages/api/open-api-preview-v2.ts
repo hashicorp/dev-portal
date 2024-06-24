@@ -6,18 +6,8 @@
 import fs from 'fs'
 import path from 'path'
 import { randomUUID } from 'crypto'
-// Utilities
-import { getStaticProps } from 'views/open-api-docs-view-v2/server'
-import {
-	schemaModComponent,
-	schemaModDescription,
-	schemaModShortenHcp,
-	shortenProtobufAnyDescription,
-} from 'views/open-api-docs-view/utils/massage-schema-utils'
 // Types
 import type { NextApiRequest, NextApiResponse } from 'next'
-import type { OpenAPIV3 } from 'openapi-types'
-import type { ProductSlug } from 'types/products'
 
 /**
  * Setup for temporary file storage
@@ -69,42 +59,6 @@ export default async function handler(
 }
 
 /**
- * Boilerplate page configuration.
- *
- * We could in theory expose this so visitors to the preview tool could edit it,
- * but we intentionally hard-code it here instead, in order to keep the focus
- * of the preview tool on OpenAPI spec contents.
- */
-const GENERIC_PAGE_CONFIG = {
-	// basePath is the same no matter what, preview tool is on static route
-	basePath: '/open-api-docs-preview-v2',
-	// No versioning in the preview tool, focus on one spec file at a time
-	context: { params: { page: [] } },
-	// Product slug, using HCP to just show a generic HashiCorp logo,
-	// so that the preview tool's focus can remain on the spec file contents
-	productSlug: 'hcp' as ProductSlug,
-	// Generic resource items, we can set more specific ones closer to launch
-	navResourceItems: [
-		{
-			title: 'Tutorial Library',
-			href: '/tutorials/library',
-		},
-		{
-			title: 'Certifications',
-			href: '/certifications',
-		},
-		{
-			title: 'Community',
-			href: 'https://discuss.hashicorp.com/',
-		},
-		{
-			title: 'Support',
-			href: 'https://www.hashicorp.com/customer-success',
-		},
-	],
-}
-
-/**
  * We expected posted data to be an OpenAPI spec in JSON format.
  * We also allow an optional schema `info.description`, which normally would be
  * included in the spec content, so that authors can more easily develop
@@ -113,6 +67,7 @@ const GENERIC_PAGE_CONFIG = {
 type ExpectedBody = {
 	openApiJsonString: string
 	openApiDescription: string
+	groupOperationsByPath: boolean
 }
 
 /**
@@ -123,69 +78,33 @@ type ExpectedBody = {
  * - Building static props for the page
  * - Writing the static props to a temporary file
  * - Returning the unique file ID to the client
+ *
+ * TODO: should write the spec to a temporary file, rather than static props.
+ * Static props will differ depending on the requested route.
  */
 async function handlePost(req, res) {
 	/**
 	 * Build the static props from the POST'ed page configuration data,
 	 * which includes the full OpenAPI spec as a string.
 	 */
-	const { openApiDescription, openApiJsonString } = JSON.parse(
-		req.body
-	) as ExpectedBody
+	const { openApiDescription, openApiJsonString, groupOperationsByPath } =
+		JSON.parse(req.body) as ExpectedBody
 
-	/**
-	 * Construct some preview data just to match the expected `getStaticProps`
-	 * signature. The `versionId` and `releaseStage` don't really matter here.
-	 */
-	const versionData = [
-		{
-			versionId: 'preview',
-			releaseStage: 'preview',
-			sourceFile: openApiJsonString,
-		},
-	]
+	const dataToWrite = {
+		openApiDescription,
+		openApiJsonString,
+		groupOperationsByPath,
+	}
 
 	/**
 	 * Build static props for the page
 	 */
 	try {
-		console.log('Attempting to getStaticProps...')
-		const getStaticPropsResult = await getStaticProps({
-			// Pass the bulk of the page config
-			...GENERIC_PAGE_CONFIG,
-			// Pass the constructed version data
-			versionData,
-			/**
-			 * Massage the schema data a little bit, replacing
-			 * "HashiCorp Cloud Platform" in the title with "HCP".
-			 */
-			massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
-				// Replace the schema description with the POST'ed description, if present
-				const withCustomDescription = schemaModDescription(
-					schemaData,
-					(description) => openApiDescription || description
-				)
-				// Replace "HashiCorp Cloud Platform" with "HCP" in the title
-				const withShortTitle = schemaModShortenHcp(withCustomDescription)
-				// Short protobufAny descriptions
-				const withShortProtobufAny = schemaModComponent(
-					withShortTitle,
-					'protobufAny',
-					shortenProtobufAnyDescription
-				)
-				// Return the schema data with modifications
-				return withShortProtobufAny
-			},
-		})
-		if (!('props' in getStaticPropsResult)) {
-			throw new Error('getStaticProps did not return props.')
-		}
-		const staticProps = getStaticPropsResult.props
 		// Write out the static props to a new file in the `tmp` folder
 		const timestamp = Date.now()
 		const uniqueFileId = `ts${timestamp}_${randomUUID()}`
 		const newTempFile = getTempFilePath(TMP_DIR, uniqueFileId)
-		fs.writeFileSync(newTempFile, JSON.stringify(staticProps, null, 2))
+		fs.writeFileSync(newTempFile, JSON.stringify(dataToWrite, null, 2))
 		/**
 		 * Return the uniqueFileId. We expect the client to store this in a cookie,
 		 * such that it can be retrieved in subsequent requests in
@@ -193,9 +112,9 @@ async function handlePost(req, res) {
 		 * request to this API route in order to retrieve the props we've just
 		 * saved.
 		 */
-		res.status(200).json({ staticProps, uniqueFileId })
+		res.status(200).json({ uniqueFileId })
 	} catch (error) {
-		res.status(200).json({ error: error.toString() })
+		res.status(500).json({ error: error.toString() })
 	}
 }
 
@@ -229,14 +148,14 @@ async function handleGet(req, res) {
 		return
 	}
 	// Otherwise, attempt to read the file
-	const [err, staticProps] = readJsonFile(tempFile)
+	const [err, data] = readJsonFile(tempFile)
 	// If we failed to read props, return an error
 	if (err !== null) {
 		res.status(500).json({ error: `Failed to read JSON file "${tempFile}".` })
 		return
 	}
 	// Otherwise, we have successfully read in props, return them
-	res.status(200).json({ staticProps, uniqueFileId })
+	res.status(200).json({ data, uniqueFileId })
 	return
 }
 

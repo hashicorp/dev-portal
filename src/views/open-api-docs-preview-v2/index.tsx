@@ -11,7 +11,7 @@ import OpenApiDocsViewV2 from 'views/open-api-docs-view-v2'
 import SidebarLayout from 'layouts/sidebar-layout'
 import { OpenApiPreviewInputs } from 'views/open-api-docs-preview-v2/components/open-api-preview-inputs'
 // Types
-import type { OpenApiDocsViewProps } from 'views/open-api-docs-view-v2/types'
+import type { OpenApiDocsViewV2Props } from 'views/open-api-docs-view-v2/types'
 import { BreadcrumbLink } from '@components/breadcrumb-bar'
 
 /**
@@ -20,28 +20,24 @@ import { BreadcrumbLink } from '@components/breadcrumb-bar'
  */
 function OpenApiDocsPreviewViewV2({
 	staticProps,
-	operationProps,
-	sidebarItemGroups,
-	hasViewProps,
-	breadcrumbLinks,
+	submittedData,
+	hasPreviewProps,
 }: {
-	staticProps: OpenApiDocsViewProps
-	hasViewProps?: boolean
-	operationProps: $TSFixMe
-	sidebarItemGroups?: $TSFixMe
-	breadcrumbLinks: BreadcrumbLink[]
+	staticProps: OpenApiDocsViewV2Props
+	submittedData: $TSFixMe // TODO: add type here, same as submitted data
+	hasPreviewProps?: boolean
 }) {
 	const [shouldReload, setShouldReload] = useState<boolean>(false)
 
 	return (
 		<>
 			<div style={{ isolation: 'isolate' }}>
-				{hasViewProps ? (
+				{hasPreviewProps ? (
 					<OpenApiDocsViewV2
 						_devProps={staticProps}
-						operationProps={operationProps}
-						sidebarItemGroups={sidebarItemGroups}
-						breadcrumbLinks={breadcrumbLinks}
+						operationProps={staticProps.operationProps}
+						sidebarItemGroups={staticProps.sidebarItemGroups}
+						breadcrumbLinks={staticProps.breadcrumbLinks}
 					/>
 				) : (
 					// Render an empty sidebar layout if we don't have valid props yet
@@ -55,6 +51,7 @@ function OpenApiDocsPreviewViewV2({
 				)}
 			</div>
 			<OpenApiPreviewInputs
+				defaultValues={submittedData}
 				shouldReload={shouldReload}
 				setStaticProps={() => setShouldReload(true)}
 			/>

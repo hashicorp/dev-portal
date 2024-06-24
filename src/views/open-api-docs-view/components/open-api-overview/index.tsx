@@ -63,12 +63,14 @@ export function OpenApiOverview({
 							/>
 						) : null}
 					</span>
-					<Badge
-						className={s.releaseStageBadge}
-						text={badgeText}
-						type="outlined"
-						size="small"
-					/>
+					{badgeText ? (
+						<Badge
+							className={s.releaseStageBadge}
+							text={badgeText}
+							type="outlined"
+							size="small"
+						/>
+					) : null}
 				</header>
 				{versionSwitcherSlot ? (
 					<div className={s.versionSwitcherSlot}>{versionSwitcherSlot}</div>

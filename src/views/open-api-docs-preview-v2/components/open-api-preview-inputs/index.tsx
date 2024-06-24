@@ -32,9 +32,11 @@ interface InputValues {
  */
 export function OpenApiPreviewInputs({
 	shouldReload,
+	defaultValues,
 	setStaticProps,
 }: {
 	shouldReload?: boolean
+	defaultValues?: $TSFixMe
 	setStaticProps: (v: OpenApiDocsViewProps) => void
 }) {
 	const [error, setError] = useState<{
@@ -48,6 +50,7 @@ export function OpenApiPreviewInputs({
 		openApiJsonString: '',
 		openApiDescription: '',
 		groupOperationsByPath: false,
+		...defaultValues,
 	})
 
 	/**

@@ -4,57 +4,29 @@
  */
 
 // Library
-import { isDeployPreview } from 'lib/env-checks'
 import fetchGithubFile from 'lib/fetch-github-file'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { cachedGetProductData } from 'lib/get-product-data'
-import { getBreadcrumbLinks } from 'lib/get-breadcrumb-links'
 import { serialize } from 'lib/next-mdx-remote/serialize'
 // Utilities
 import {
-	findDefaultVersion,
 	getNavItems,
 	getOperationProps,
 	groupOperations,
 	parseAndValidateOpenApiSchema,
 	getVersionSwitcherProps,
 } from 'views/open-api-docs-view/utils'
+import parseVersionData from './utils/parse-version-data'
 // Types
-import type {
-	GetStaticPaths,
-	GetStaticPropsContext,
-	GetStaticPropsResult,
-} from 'next'
+import type { BreadcrumbLink } from '@components/breadcrumb-bar'
+import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import type { OpenAPIV3 } from 'openapi-types'
 import type { ApiDocsVersionData } from 'lib/api-docs/types'
 import type {
 	OpenApiDocsParams,
-	OpenApiDocsViewProps,
-	OpenApiDocsPageConfig,
+	OpenApiDocsViewV2Props,
+	OpenApiDocsV2PageConfig,
 } from './types'
-
-/**
- * Get static paths for the view.
- *
- * Initially, without versioning, we expect a single page. We use
- * `getStaticPaths` for flag-based compatibility with the previous template.
- *
- * Later, when we implement versioned API docs for the new template,
- * we'll likely need to retain `getStaticPaths`, using separate paths
- * for each version of the OpenAPI documents that we detect.
- */
-export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
-	// If we are in a product repo deploy preview, don't pre-render any paths
-	if (isDeployPreview()) {
-		return { paths: [], fallback: 'blocking' }
-	}
-	// If we're in production, statically render the single view,
-	// and use `fallback: blocking` for versioned views.
-	return {
-		paths: [{ params: { page: [] } }],
-		fallback: 'blocking',
-	}
-}
 
 /**
  * Get static props for the view.
@@ -70,32 +42,25 @@ export async function getStaticProps({
 	serviceProductSlug = productSlug,
 	versionData,
 	basePath,
+	operationSlug,
 	statusIndicatorConfig = null, // must be JSON-serializable
 	topOfPageId = 'overview',
 	groupOperationsByPath = false,
 	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
 	navResourceItems = [],
-}: Omit<OpenApiDocsPageConfig, 'githubSourceDirectory'> & {
+}: Omit<OpenApiDocsV2PageConfig, 'githubSourceDirectory'> & {
+	operationSlug: string | null
 	context: GetStaticPropsContext<OpenApiDocsParams>
 	versionData: ApiDocsVersionData[]
-}): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
+}): Promise<GetStaticPropsResult<OpenApiDocsViewV2Props>> {
 	// Get the product data
 	const productData = cachedGetProductData(productSlug)
 
-	/**
-	 * Parse the version to render, or 404 if a non-existent version is requested.
-	 */
-	const pathParts = context.params?.page
-	const versionId = pathParts?.length > 0 ? pathParts[0] : null
-	const isVersionedUrl = typeof versionId === 'string'
-	const defaultVersion = findDefaultVersion(versionData)
-	// Resolve the current version
-	let targetVersion: ApiDocsVersionData | undefined
-	if (isVersionedUrl) {
-		targetVersion = versionData.find((v) => v.versionId === versionId)
-	} else {
-		targetVersion = defaultVersion
-	}
+	// Parse the version to render, or 404 if a non-existent version is requested
+	const { isVersionedUrl, defaultVersion, targetVersion } = parseVersionData(
+		context.params?.page || [],
+		versionData
+	)
 	// If we can't resolve the current version, render a 404 page
 	if (!targetVersion) {
 		return { notFound: true }
@@ -133,8 +98,55 @@ export async function getStaticProps({
 	 * @TODO: we have a task to remove the need for `isCurrentPage`:
 	 * https://app.asana.com/0/1202097197789424/1202354347457831/f
 	 */
-	const breadcrumbLinks = getBreadcrumbLinks(basePath)
+	// Breadcrumb links
+	const breadcrumbLinks: BreadcrumbLink[] = [
+		{
+			title: schemaData.info.title + ' API',
+			url: '/open-api-docs-preview-v2',
+		},
+	]
+	if (operationSlug) {
+		breadcrumbLinks.push({
+			title: operationSlug,
+			url: `/open-api-docs-preview-v2/${operationSlug}`,
+		})
+	}
+	// Activate the last breadcrumb link
 	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
+
+	/**
+	 * First we set up `sidebarItemGroups`, which are used to render the sidebar.
+	 * These props are needed on the overview page, as well as on each individual
+	 * operation page.
+	 */
+	const sidebarItemGroups =
+		operationGroups?.map((group) => {
+			const items = group.items.map((item) => {
+				const slugWithWordBreaks = item.slug.replace(
+					/([a-z])([A-Z])/g,
+					'$1\u200B$2'
+				)
+				return {
+					title: slugWithWordBreaks,
+					url: `/open-api-docs-preview-v2/${item.operationId}`,
+				}
+			})
+			return {
+				title: group.heading,
+				items,
+			}
+		}) || []
+
+	/**
+	 * If we have an operationSlug, try to get the associated operationProps
+	 */
+	let targetOperationProps = null
+	if (operationSlug) {
+		const allOperations = operationGroups.flatMap((g) => g.items)
+		targetOperationProps = allOperations.find(
+			(item) => item.operationId === operationSlug
+		)
+	}
 
 	/**
 	 * Return props
@@ -142,12 +154,13 @@ export async function getStaticProps({
 	return {
 		props: {
 			metadata: {
-				title: schemaData.info.title,
+				// TODO: should vary based on current operation
+				title: schemaData.info.title + ' API',
 			},
 			productData,
 			serviceProductSlug,
 			topOfPageHeading: {
-				text: schemaData.info.title,
+				text: schemaData.info.title + ' API',
 				id: topOfPageId,
 			},
 			releaseStage: targetVersion.releaseStage,
@@ -165,6 +178,9 @@ export async function getStaticProps({
 			navResourceItems,
 			breadcrumbLinks,
 			statusIndicatorConfig,
+			// new WIP stuff below
+			operationProps: targetOperationProps,
+			sidebarItemGroups,
 		},
 	}
 }

@@ -109,7 +109,7 @@ export interface StatusIndicatorConfig {
  * We'll use this type to document the shape of props for the view component.
  * For now, we have a placeholder. We'll expand this as we build out the view.
  */
-export interface OpenApiDocsViewProps {
+export interface OpenApiDocsViewV2Props {
 	/**
 	 * Metadata is used to set the page title and description.
 	 * Note this is not used by the view itself, instead we have some magic
@@ -171,12 +171,22 @@ export interface OpenApiDocsViewProps {
 	 * `label` and `options` here will be passed directly to `VersionSwitcher`.
 	 */
 	versionSwitcherProps?: VersionSwitcherProps
+
+	/**
+	 * TODO
+	 */
+	sidebarItemGroups?: $TSFixMe
+
+	/**
+	 * TODO
+	 */
+	operationProps?: $TSFixMe
 }
 
 /**
  * Type definition for OpenApiDocsView server-side page configuration
  */
-export interface OpenApiDocsPageConfig {
+export interface OpenApiDocsV2PageConfig {
 	/**
 	 * The product slug is used to fetch product data for the layout.
 	 */

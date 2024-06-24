@@ -4,9 +4,9 @@
  */
 
 // Types
-import { BreadcrumbLink } from '@components/breadcrumb-bar'
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
-import type { OpenApiDocsViewProps } from 'views/open-api-docs-view-v2/types'
+import type { OpenApiDocsViewV2Props } from 'views/open-api-docs-view-v2/types'
+import staticPropsFromTmpData from './utils/static-props-from-tmp-data'
 
 /**
  * We expect the `HASHI_ENV` environment variable to be set to `production`
@@ -36,12 +36,9 @@ export async function getServerSideProps({
 	req,
 }: GetServerSidePropsContext): Promise<
 	GetServerSidePropsResult<{
-		staticProps: OpenApiDocsViewProps | null
-		operationSlug: string
-		operationProps?: $TSFixMe
-		sidebarItemGroups?: $TSFixMe
-		hasViewProps: boolean
-		breadcrumbLinks?: BreadcrumbLink[]
+		staticProps: OpenApiDocsViewV2Props | null
+		submittedData: $TSFixMe
+		hasPreviewProps: boolean
 	}>
 > {
 	/**
@@ -69,85 +66,25 @@ export async function getServerSideProps({
 	 * file based on the provided `uniqueFileId`. If this file does not
 	 * exist, we return `null` (and the user must re-upload an OpenAPI spec).
 	 */
-	let staticProps: OpenApiDocsViewProps | null = null
+	let submittedData: $TSFixMe = null
+	let staticProps: OpenApiDocsViewV2Props | null = null
 	try {
 		const response = await fetch(
 			`${BASE_URL}/api/open-api-preview-v2?uniqueFileId=${uniqueFileId}`
 		)
-		const responseData = response.status === 200 ? await response.json() : null
-		staticProps = responseData ? responseData.staticProps : null
+		const responseJson = response.status === 200 ? await response.json() : null
+		submittedData = responseJson.data
+		staticProps = await staticPropsFromTmpData(submittedData, operationSlug)
 	} catch (e) {
 		console.log(`Ran into error fetching static props: ${e}`)
 	}
 
-	const hasViewProps = !!staticProps
-
-	/**
-	 * If we didn't manage to fetch static props, return early.
-	 * Otherwise, we have static props, we'll process them below.
-	 */
-	if (!hasViewProps) {
-		return { props: { hasViewProps, staticProps: null, operationSlug } }
-	}
-
-	/**
-	 * First we set up `sidebarItemGroups`, which are used to render the sidebar.
-	 * These props are needed on the overview page, as well as on each individual
-	 * operation page.
-	 */
-	const { operationGroups } = staticProps
-	const sidebarItemGroups =
-		operationGroups?.map((group) => {
-			const items = group.items.map((item) => {
-				const slugWithWordBreaks = item.slug.replace(
-					/([a-z])([A-Z])/g,
-					'$1\u200B$2'
-				)
-				return {
-					title: slugWithWordBreaks,
-					url: `/open-api-docs-preview-v2/${item.operationId}`,
-				}
-			})
-			return {
-				title: group.heading,
-				items,
-			}
-		}) || []
-
-	/**
-	 * If we have an operationSlug, try to get the associated operationProps
-	 */
-	let operationProps = null
-	if (operationSlug) {
-		operationProps = operationGroups
-			.map((g) => g.items)
-			.flat()
-			.find((item) => item.operationId === operationSlug)
-	}
-
-	// Breadcrumb links
-	const breadcrumbLinks = [
-		{
-			title: staticProps.metadata.title + ' API',
-			url: '/open-api-docs-preview-v2',
-		},
-	]
-	if (operationSlug) {
-		breadcrumbLinks.push({
-			title: operationSlug,
-			url: `/open-api-docs-preview-v2/${operationSlug}`,
-		})
-	}
-
-	// Return our bundle of props
+	// Return, note that `staticProps` may be `null`
 	return {
 		props: {
-			hasViewProps,
+			hasPreviewProps: !!staticProps,
+			submittedData,
 			staticProps,
-			operationSlug,
-			operationProps,
-			sidebarItemGroups,
-			breadcrumbLinks,
 		},
 	}
 }

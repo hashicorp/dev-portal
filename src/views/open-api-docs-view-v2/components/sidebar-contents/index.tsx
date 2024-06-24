@@ -20,7 +20,7 @@ export default function SidebarContents({
 }) {
 	return (
 		<div className={s.root}>
-			<a href="/open-api-docs-preview-v2">{_devProps.metadata.title} API</a>
+			<a href="/open-api-docs-preview-v2">{_devProps.topOfPageHeading.text}</a>
 			{sidebarItemGroups.map((group: $TSFixMe) => {
 				return (
 					<div key={group.title}>
