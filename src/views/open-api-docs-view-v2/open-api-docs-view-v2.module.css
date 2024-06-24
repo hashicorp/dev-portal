@@ -18,3 +18,9 @@
 		gap: 64px;
 	}
 }
+
+.spaceBreadcrumbsOverview {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}

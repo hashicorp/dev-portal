@@ -11,6 +11,7 @@ import OverviewContents from './components/overview-contents'
 import SidebarContents from './components/sidebar-contents'
 // Styles
 import s from './open-api-docs-view-v2.module.css'
+import BreadcrumbBar from '@components/breadcrumb-bar'
 
 /**
  * A revised version of OpenApiDocsView, that splits each operation
@@ -48,11 +49,24 @@ function OpenApiDocsViewV2({
 			mobileMenuSlot={null} // TODO: populate mobileMenuSlot
 		>
 			<div className={s.paddedContainer}>
-				{operationProps ? (
-					<OperationContents operationProps={operationProps} />
-				) : (
-					<OverviewContents _devProps={_devProps} />
-				)}
+				<div className={s.spaceBreadcrumbsOverview}>
+					<div style={{ border: '1px solid magenta' }}>
+						<BreadcrumbBar
+							links={[
+								{
+									title: 'HCP Vault Secrets API',
+									url: '/open-api-docs-preview-v2',
+								},
+								{ title: 'SetTier', url: '/open-api-docs-preview-v2/SetTier' },
+							]}
+						/>
+					</div>
+					{operationProps ? (
+						<OperationContents operationProps={operationProps} />
+					) : (
+						<OverviewContents _devProps={_devProps} />
+					)}
+				</div>
 			</div>
 		</SidebarLayout>
 	)
