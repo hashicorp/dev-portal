@@ -12,6 +12,7 @@ import SidebarLayout from 'layouts/sidebar-layout'
 import { OpenApiPreviewInputs } from 'views/open-api-docs-preview-v2/components/open-api-preview-inputs'
 // Types
 import type { OpenApiDocsViewProps } from 'views/open-api-docs-view-v2/types'
+import { BreadcrumbLink } from '@components/breadcrumb-bar'
 
 /**
  * Render an OpenApi docs view alongside preview inputs that allow
@@ -22,11 +23,13 @@ function OpenApiDocsPreviewViewV2({
 	operationProps,
 	sidebarItemGroups,
 	hasViewProps,
+	breadcrumbLinks,
 }: {
 	staticProps: OpenApiDocsViewProps
 	hasViewProps?: boolean
 	operationProps: $TSFixMe
 	sidebarItemGroups?: $TSFixMe
+	breadcrumbLinks: BreadcrumbLink[]
 }) {
 	const [shouldReload, setShouldReload] = useState<boolean>(false)
 
@@ -38,6 +41,7 @@ function OpenApiDocsPreviewViewV2({
 						_devProps={staticProps}
 						operationProps={operationProps}
 						sidebarItemGroups={sidebarItemGroups}
+						breadcrumbLinks={breadcrumbLinks}
 					/>
 				) : (
 					// Render an empty sidebar layout if we don't have valid props yet

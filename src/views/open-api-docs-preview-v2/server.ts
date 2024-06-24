@@ -4,6 +4,7 @@
  */
 
 // Types
+import { BreadcrumbLink } from '@components/breadcrumb-bar'
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import type { OpenApiDocsViewProps } from 'views/open-api-docs-view-v2/types'
 
@@ -40,6 +41,7 @@ export async function getServerSideProps({
 		operationProps?: $TSFixMe
 		sidebarItemGroups?: $TSFixMe
 		hasViewProps: boolean
+		breadcrumbLinks?: BreadcrumbLink[]
 	}>
 > {
 	/**
@@ -123,6 +125,20 @@ export async function getServerSideProps({
 			.find((item) => item.operationId === operationSlug)
 	}
 
+	// Breadcrumb links
+	const breadcrumbLinks = [
+		{
+			title: staticProps.metadata.title + ' API',
+			url: '/open-api-docs-preview-v2',
+		},
+	]
+	if (operationSlug) {
+		breadcrumbLinks.push({
+			title: operationSlug,
+			url: `/open-api-docs-preview-v2/${operationSlug}`,
+		})
+	}
+
 	// Return our bundle of props
 	return {
 		props: {
@@ -131,6 +147,7 @@ export async function getServerSideProps({
 			operationSlug,
 			operationProps,
 			sidebarItemGroups,
+			breadcrumbLinks,
 		},
 	}
 }

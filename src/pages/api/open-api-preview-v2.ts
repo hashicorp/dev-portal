@@ -7,10 +7,12 @@ import fs from 'fs'
 import path from 'path'
 import { randomUUID } from 'crypto'
 // Utilities
-import { getStaticProps } from 'views/open-api-docs-view/server'
+import { getStaticProps } from 'views/open-api-docs-view-v2/server'
 import {
+	schemaModComponent,
 	schemaModDescription,
 	schemaModShortenHcp,
+	shortenProtobufAnyDescription,
 } from 'views/open-api-docs-view/utils/massage-schema-utils'
 // Types
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -165,8 +167,14 @@ async function handlePost(req, res) {
 				)
 				// Replace "HashiCorp Cloud Platform" with "HCP" in the title
 				const withShortTitle = schemaModShortenHcp(withCustomDescription)
+				// Short protobufAny descriptions
+				const withShortProtobufAny = schemaModComponent(
+					withShortTitle,
+					'protobufAny',
+					shortenProtobufAnyDescription
+				)
 				// Return the schema data with modifications
-				return withShortTitle
+				return withShortProtobufAny
 			},
 		})
 		if (!('props' in getStaticPropsResult)) {
@@ -176,7 +184,6 @@ async function handlePost(req, res) {
 		// Write out the static props to a new file in the `tmp` folder
 		const timestamp = Date.now()
 		const uniqueFileId = `ts${timestamp}_${randomUUID()}`
-		console.log({ uniqueFileId })
 		const newTempFile = getTempFilePath(TMP_DIR, uniqueFileId)
 		fs.writeFileSync(newTempFile, JSON.stringify(staticProps, null, 2))
 		/**
