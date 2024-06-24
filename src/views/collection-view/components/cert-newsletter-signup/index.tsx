@@ -7,7 +7,6 @@ import { SignupFormArea } from 'views/certifications/components'
 import s from './cert-newsletter-signup.module.css'
 
 function CertNewsletterSignup() {
-	console.log(s)
 	return (
 		<div className={s.root}>
 			<SignupFormArea />
