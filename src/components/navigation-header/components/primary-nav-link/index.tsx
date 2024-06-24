@@ -28,7 +28,6 @@ const PrimaryNavLink = ({ ariaLabel, navItem }: PrimaryNavLinkProps) => {
 			aria-current={isCurrentPage ? 'page' : undefined}
 			aria-label={ariaLabel}
 			className={s.root}
-			data-heap-track="navigation-header-primary-nav-link"
 			href={url}
 			opensInNewTab={opensInNewTab}
 		>

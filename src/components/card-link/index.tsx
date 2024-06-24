@@ -18,7 +18,6 @@ const CardLink = ({
 	href,
 	onClick,
 	opensInNewTab,
-	'data-heap-track': dataHeapTrack,
 }: CardLinkProps): ReactElement => {
 	const classes = classNames(s.root, className)
 	const target = opensInNewTab ? '_blank' : undefined
@@ -48,7 +47,6 @@ const CardLink = ({
 			<Link
 				aria-label={ariaLabel}
 				className={s.anchor}
-				data-heap-track={`card-link ${dataHeapTrack ?? ''}`}
 				href={href}
 				target={target}
 				onClick={onClick}
