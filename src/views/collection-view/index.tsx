@@ -15,6 +15,8 @@ import CollectionMeta from './components/collection-meta'
 import CollectionTutorialList from './components/collection-tutorial-list'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { generateCollectionSidebarNavData } from './helpers/generate-collection-sidebar-nav-data'
+import { isCertSlug } from './helpers/is-cert-slug'
+import CertNewsletterSignup from './components/cert-newsletter-signup'
 
 function CollectionView({
 	collection,
@@ -55,6 +57,7 @@ function CollectionView({
 					formatTutorialCard(t, collection)
 				)}
 			/>
+			{isCertSlug(collection.slug) && <CertNewsletterSignup />}
 		</SidebarSidecarLayout>
 	)
 }
