@@ -97,8 +97,15 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 					// remove any trailing slash
 					.replace(/\/$/, '')
 
-				console.log('[revalidate]', pathToRevalidate)
-				revalidatePromises.push(response.revalidate(pathToRevalidate))
+				revalidatePromises.push(
+					new Promise<string>((resolve, reject) => {
+						// revalidate() returns Promise<void>, so we wrap it in another promise to resolve with the path that it is revalidating
+						response
+							.revalidate(pathToRevalidate)
+							.then(() => resolve(pathToRevalidate))
+							.catch(() => reject(pathToRevalidate))
+					})
+				)
 			}
 		})
 	}
@@ -110,9 +117,9 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 
 	// TODO(brkalow): Add resiliency here, this has the potential to send off hundreds of calls depending on the product, so we should think about how we want to handle network hiccups or partial failure.
 	// wait for everything to get revalidated
-	await Promise.allSettled(revalidatePromises)
+	const validatedResults = await Promise.allSettled(revalidatePromises)
 
-	response.status(200).end()
+	response.status(200).json(validatedResults)
 }
 
 export default validateToken(handler, {
