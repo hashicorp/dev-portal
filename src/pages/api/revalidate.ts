@@ -7,6 +7,24 @@ import type { NextApiRequest, NextApiResponse } from 'next/types'
 import { StatusCodes } from 'http-status-codes'
 import { validateToken } from 'lib/api-validate-token'
 import { cachedGetProductData } from 'lib/get-product-data'
+import { ProductSlug } from 'types/products'
+
+/**
+ * Resolves the product slug based on the given product name.
+ *
+ * @param product - The name of the product.
+ * @returns The corresponding product slug.
+ */
+export function resolveProduct(product: string): ProductSlug {
+	// Handle TF's sub-projects
+	if (product.startsWith('terraform-') || product === 'ptfe-releases') {
+		return 'terraform'
+	} else if (product === 'hcp-docs') {
+		return 'hcp'
+	} else {
+		return product as ProductSlug
+	}
+}
 
 /**
  * @TODO move this into the /api/revalidate dir and update the filename to something like 'docs'
@@ -31,15 +49,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 		return
 	}
 
-	// Handle TF's sub-projects
-	let resolvedProduct = product
-	if (
-		resolvedProduct.startsWith('terraform-') ||
-		resolvedProduct === 'ptfe-releases'
-	) {
-		resolvedProduct = 'terraform'
-	}
-
+	const resolvedProduct = resolveProduct(product)
 	const productData = cachedGetProductData(resolvedProduct)
 
 	const navDataPrefixes = productData.rootDocsPaths.map(
