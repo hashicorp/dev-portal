@@ -1,0 +1,7 @@
+.newsletterSignupArea {
+	margin-top: 48px;
+
+	@media (--dev-dot-tablet-up) {
+		margin-top: 72px;
+	}
+}
