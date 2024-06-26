@@ -56,7 +56,7 @@ function CollectionView({
 					formatTutorialCard(t, collection)
 				)}
 			/>
-			{layoutProps.isCertificationPage && <CertNewsletterSignup />}
+			{layoutProps.isCertificationPrep && <CertNewsletterSignup />}
 		</SidebarSidecarLayout>
 	)
 }

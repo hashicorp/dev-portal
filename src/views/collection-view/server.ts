@@ -30,7 +30,7 @@ import {
 	buildCategorizedHcpSidebar,
 } from './helpers'
 import { filterCollections } from '../product-tutorials-view/helpers'
-import { isCertSlug } from './helpers/is-cert-slug'
+import { isCertificationSlug } from 'lib/utils'
 
 export interface CollectionPageProps {
 	collection: ClientCollection
@@ -44,7 +44,7 @@ export type CollectionLayout = Pick<
 	'breadcrumbLinks'
 > & {
 	sidebarSections: CollectionCategorySidebarSection[]
-	isCertificationPage: boolean
+	isCertificationPrep: boolean
 }
 
 export interface CollectionPagePath {
@@ -130,7 +130,7 @@ export async function getCollectionPageProps(
 			product.slug,
 			collection
 		),
-		isCertificationPage: isCertSlug(collection.slug),
+		isCertificationPrep: isCertificationSlug(collection.slug),
 	}
 
 	return {
