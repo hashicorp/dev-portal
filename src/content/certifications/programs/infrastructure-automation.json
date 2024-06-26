@@ -26,7 +26,7 @@
 			"examTier": "pro",
 			"productSlug": "terraform",
 			"versionTested": "Terraform 1.6",
-			"description": "The Terraform Authoring and Operations Professional exam is a lab-based exam for Cloud Engineers focused on developing Terraform configuration and using it to manage infrastructure over time. You are well-qualified to take this exam if you hold the Terraform Associate Certification (or equivalent knowledge), have extensive production experience with Terraform Community Edition, Terraform Enterprise, or HCP Terraform, develop modules and organization standards to enable other users, and use Terraform to manage your own infrastructure resources, as well as enable others with varying levels of Terraform expertise to use Terraform effectively.",
+			"description": "The Terraform Authoring and Operations Professional exam is a lab-based exam for Cloud Engineers focused on developing Terraform configuration and using it to manage infrastructure over time. You are well-qualified to take this exam if you hold the Terraform Associate Certification (or equivalent knowledge), have extensive production experience with Terraform Community Edition, Terraform Enterprise, or HCP Terraform, develop modules and organization standards to enable other users, and use Terraform to manage your own infrastructure resources, as well as enable others with varying levels of Terraform expertise to use Terraform effectively. This exam assesses both advanced configuration authoring and a deep understanding of Terraform workflows. Earning this credential reflects that the  practitioner has professional-level expertise in both domains.",
 			"links": {
 				"prepare": "/terraform/tutorials/pro-cert"
 			},
