@@ -22,7 +22,6 @@ export function ProductIconTextLink({ slug, name }: ProductIconTextLinkProps) {
 			aria-current={currentPath === url ? 'page' : undefined}
 			aria-label={`${name} home`}
 			className={s.root}
-			data-heap-track="navigation-header-product-logo-link"
 			href={url}
 		>
 			<ProductIconTextLockup slug={slug} name={name} />

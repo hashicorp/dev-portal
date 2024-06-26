@@ -7,12 +7,10 @@ import { useCallback, useEffect, useRef } from 'react'
 import { IconSignIn16 } from '@hashicorp/flight-icons/svg-react/sign-in-16'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import { AuthErrors } from 'types/auth'
-import { safeAnalyticsTrack } from 'lib/analytics'
 import useAuthentication from 'hooks/use-authentication'
 import Button from 'components/button'
 import Dialog from 'components/dialog'
 import Text from 'components/text'
-import { guessMethodOfDismissal } from './helpers'
 import s from './authentication-error-dialog.module.css'
 
 /**

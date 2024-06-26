@@ -37,7 +37,6 @@ function DirectionalLinkBox({
 			className={classNames(s.linkbox, s[`direction-${direction}`])}
 			href={href}
 			aria-label={ariaLabel}
-			data-heap-track={`directional-link-box-${direction}`}
 		>
 			<span className={s.directionLabel}>
 				{' '}

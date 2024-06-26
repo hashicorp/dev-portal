@@ -16,16 +16,10 @@ function OutlineLinkWithNesting({
 	url,
 	isActive,
 	items,
-	dataHeapTrack,
 }: OutlineLinkWithNestingProps) {
 	return (
 		<>
-			<OutlineLink
-				title={title}
-				url={url}
-				isActive={isActive}
-				dataHeapTrack={dataHeapTrack}
-			/>
+			<OutlineLink title={title} url={url} isActive={isActive} />
 			<ol className={s.nested} aria-label={title}>
 				<OutlineListItems items={items} />
 			</ol>
