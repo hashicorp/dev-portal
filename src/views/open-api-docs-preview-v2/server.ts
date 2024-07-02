@@ -17,7 +17,7 @@ import { OpenApiDocsPreviewV2Props } from '.'
  * We expect the `HASHI_ENV` environment variable to be set to `production`
  * only if we're actually in production.
  */
-const IS_PRODUCTION = process.env.HASHI_ENV === 'production'
+const IS_PRODUCTION = process.env.VERCEL_ENV === 'production'
 
 /**
  * For reference on Vercel system environment variables, see:
