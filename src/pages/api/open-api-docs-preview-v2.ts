@@ -93,7 +93,7 @@ async function handlePost(req, res) {
  */
 async function handleGet(req, res) {
 	// Delete old files in the temporary directory, to keep it clean.
-	deleteOldFiles(TMP_DIR, MAX_FILE_AGE_MS)
+	await deleteOldFiles(TMP_DIR, MAX_FILE_AGE_MS)
 
 	/**
 	 * Extract a unique file ID from the request query, if possible.
@@ -127,27 +127,30 @@ async function handleGet(req, res) {
 }
 
 /**
- * Given the path to a directory,
- * read in the filenames of all files in that directory.
+ * Given the path to a directory, delete old files
+ * based on timestamps in each file name.
  *
+ * First we read in the filenames in the directory.
  * If the filename contains the pattern `ts(\d+)_`, then parse the digits
  * as a timestamp, representing the milliseconds since the Unix epoch.
  * If the file is older than the provided maxAgeMs, delete the file.
  */
-function deleteOldFiles(directoryPath: string, maxAgeMs: number) {
+async function deleteOldFiles(directoryPath: string, maxAgeMs: number) {
 	const files = fs.readdirSync(directoryPath)
-	files.forEach((file) => {
-		const match = file.match(/ts(\d+)_/)
-		if (match === null) {
-			return
-		}
-		const timestamp = parseInt(match[1], 10)
-		const fileAgeMs = Date.now() - timestamp
-		if (fileAgeMs > maxAgeMs) {
-			console.log(`Deleting old file: ${file}`)
-			fs.unlinkSync(`${directoryPath}/${file}`)
-		}
-	})
+	await Promise.all(
+		files.map(async (file) => {
+			const match = file.match(/ts(\d+)_/)
+			if (match === null) {
+				return
+			}
+			const timestamp = parseInt(match[1], 10)
+			const fileAgeMs = Date.now() - timestamp
+			if (fileAgeMs > maxAgeMs) {
+				// console.log(`Deleting old file: ${file}`)
+				fs.promises.unlink(`${directoryPath}/${file}`)
+			}
+		})
+	)
 }
 
 /**
