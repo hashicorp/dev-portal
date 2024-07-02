@@ -46,18 +46,21 @@ const MAX_FILE_AGE_MS = 1000 * 60 * 60 * MAX_FILE_AGE_HOURS
  *   trying to render a multi-page preview, with operations on separate URLs.
  */
 const reqHandlers = {
-  POST: handlePost,
-  GET: handleGet,
-};
+	POST: handlePost,
+	GET: handleGet,
+}
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const handle = reqHandlers[req.method];
-  if (handle) {
-    return handle(req, res);
-  } else {
-    res.setHeader('Allow', Object.keys(reqHandlers));
-    res.status(405).json({ error: 'Method not allowed' });
-  }
+export default async function handler(
+	req: NextApiRequest,
+	res: NextApiResponse
+) {
+	const handle = reqHandlers[req.method]
+	if (handle) {
+		return handle(req, res)
+	} else {
+		res.setHeader('Allow', Object.keys(reqHandlers))
+		res.status(405).json({ error: 'Method not allowed' })
+	}
 }
 
 /**
@@ -66,22 +69,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
  * This function is responsible for:
  * - Writing the POST'ed data to a temporary file
  * - Returning the unique file ID to the client
+ *
+ * We try parsing the POST'ed data, then writing out the file to a tmp dir.
+ * If successful, we respond with a newly generated unique file ID.
+ * If unsuccessful, we respond with an error message.
  */
 async function handlePost(req, res) {
-	// Parse the request body, which we expect to be preview data
-	const previewData = JSON.parse(req.body)
-
-	/**
-	 * Try writing out the static props to a new file in the `tmp` folder.
-	 *
-	 * If successful, we return a newly generated unique file ID to the client.
-	 * If unsuccessful, we return an error message.
-	 */
 	try {
-		const timestamp = Date.now()
-		const uniqueFileId = `ts${timestamp}_${randomUUID()}`
-		const newTempFile = getTempFilePath(TMP_DIR, uniqueFileId)
-		fs.writeFileSync(newTempFile, JSON.stringify(previewData, null, 2))
+		const previewData = JSON.parse(req.body)
+		const uniqueFileId = writeDataToTmpFile(TMP_DIR, previewData)
 		res.status(200).json({ uniqueFileId })
 	} catch (error) {
 		res.status(500).json({ error: error.toString() })
@@ -152,6 +148,20 @@ function deleteOldFiles(directoryPath: string, maxAgeMs: number) {
 			fs.unlinkSync(`${directoryPath}/${file}`)
 		}
 	})
+}
+
+/**
+ * Given a temporary directory, and some JSON data to write,
+ * grab a random UUID and combine with the current timestamp to create a
+ * unique file ID, then write to that file, and
+ * Return the unique file ID
+ */
+function writeDataToTmpFile(tmpDir: string, jsonData: any): string {
+	const timestamp = Date.now()
+	const uniqueFileId = `ts${timestamp}_${randomUUID()}`
+	const newTempFile = getTempFilePath(tmpDir, uniqueFileId)
+	fs.writeFileSync(newTempFile, JSON.stringify(jsonData, null, 2))
+	return uniqueFileId
 }
 
 /**
