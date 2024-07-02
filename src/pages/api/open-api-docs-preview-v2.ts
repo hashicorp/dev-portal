@@ -45,18 +45,19 @@ const MAX_FILE_AGE_MS = 1000 * 60 * 60 * MAX_FILE_AGE_HOURS
  *   the page or navigates to a new URL. This is particularly necessary as we're
  *   trying to render a multi-page preview, with operations on separate URLs.
  */
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse
-) {
-	if (req.method === 'POST') {
-		return handlePost(req, res)
-	} else if (req.method === 'GET') {
-		return handleGet(req, res)
-	} else {
-		res.setHeader('Allow', ['POST', 'GET'])
-		res.status(405).json({ error: 'Method not allowed' })
-	}
+const reqHandlers = {
+  POST: handlePost,
+  GET: handleGet,
+};
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const handle = reqHandlers[req.method];
+  if (handle) {
+    return handle(req, res);
+  } else {
+    res.setHeader('Allow', Object.keys(reqHandlers));
+    res.status(405).json({ error: 'Method not allowed' });
+  }
 }
 
 /**
