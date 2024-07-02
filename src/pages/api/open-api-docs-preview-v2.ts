@@ -108,7 +108,7 @@ async function handleGet(req, res) {
 	const uniqueFileId = req.query.uniqueFileId as string | undefined
 	// We require a unique file ID in order to read a previously stored file
 	if (!uniqueFileId) {
-		res.status(404).json({ error: 'No unique file ID provided.' })
+		res.status(422).json({ error: 'No unique file ID provided.' })
 		return
 	}
 	// If we have a unique file ID, attempt to read the props from the file
