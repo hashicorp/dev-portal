@@ -15,6 +15,8 @@ import CollectionMeta from './components/collection-meta'
 import CollectionTutorialList from './components/collection-tutorial-list'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { generateCollectionSidebarNavData } from './helpers/generate-collection-sidebar-nav-data'
+import { SignupFormArea } from 'views/certifications/components'
+import s from './style.module.css'
 
 function CollectionView({
 	collection,
@@ -55,6 +57,9 @@ function CollectionView({
 					formatTutorialCard(t, collection)
 				)}
 			/>
+			{layoutProps.isCertificationPrep && (
+				<SignupFormArea className={s.newsletterSignupArea} />
+			)}
 		</SidebarSidecarLayout>
 	)
 }

@@ -13,3 +13,7 @@ export const chunk = <T>(arr: T[], chunkSize = 1, cache: T[][] = []): T[][] => {
 	}
 	return cache
 }
+
+export const isCertificationSlug = (slug: string): boolean => {
+	return /certifications|cert/.test(slug)
+}

@@ -35,6 +35,7 @@ import {
 	getTutorialViewVariantData,
 	getVariantParam,
 } from './utils/variants'
+import { isCertificationSlug } from 'lib/utils'
 
 /**
  * Given a ProductData object (imported from src/data JSON files) and a tutorial
@@ -113,6 +114,7 @@ export async function getTutorialPageProps(
 		sidebarSections,
 		/* Long-form content pages use a narrower main area width */
 		mainWidth: 'narrow' as const,
+		isCertificationPrep: isCertificationSlug(collection.data.slug),
 	}
 	const lastTutorialIndex = collectionContext.current.tutorials.length - 1
 	const isLastTutorial =

@@ -14,9 +14,13 @@ import s from './signup-form-area.module.css'
 
 const APPEARANCE_SLUG = 'dark'
 
-export function SignupFormArea() {
+interface SignupFormAreaProps {
+	className?: string
+}
+
+export function SignupFormArea({ className = '' }: SignupFormAreaProps) {
 	return (
-		<div className={s.root}>
+		<div className={`${s.root} ${className}`}>
 			<div className={s.form}>
 				<SignupHeader />
 				<ErrorBoundary

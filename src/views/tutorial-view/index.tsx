@@ -34,6 +34,7 @@ import TutorialsSidebar, {
 } from 'components/tutorials-sidebar'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
+import { SignupFormArea } from 'views/certifications/components'
 
 // Local imports
 import {
@@ -300,6 +301,9 @@ function TutorialView({
 								className={s.featuredInCollections}
 								collections={featuredInWithoutCurrent}
 							/>
+							{layoutProps.isCertificationPrep && (
+								<SignupFormArea className={s.newsletterSignupArea} />
+							)}
 						</LayoutContentWrapper>
 					</SidebarSidecarLayout>
 				</VariantProvider>
