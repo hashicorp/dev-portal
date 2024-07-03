@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ProductSlug } from 'types/products'
 import { OperationContentProps } from './components/operation-content'
 import { LandingContentProps } from './components/landing-content'
 
