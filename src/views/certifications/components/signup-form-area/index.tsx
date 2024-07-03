@@ -11,16 +11,16 @@ import {
 	SubmitMessage,
 } from './components/newsletter-signup-form'
 import s from './signup-form-area.module.css'
+import { HTMLAttributes } from 'react'
+import classNames from 'classnames'
 
 const APPEARANCE_SLUG = 'dark'
 
-interface SignupFormAreaProps {
-	className?: string
-}
-
-export function SignupFormArea({ className = '' }: SignupFormAreaProps) {
+export function SignupFormArea({
+	className = '',
+}: HTMLAttributes<HTMLDivElement>) {
 	return (
-		<div className={`${s.root} ${className}`}>
+		<div className={classNames(s.root, className)}>
 			<div className={s.form}>
 				<SignupHeader />
 				<ErrorBoundary
