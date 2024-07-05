@@ -6,7 +6,13 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { ErrorPageProps } from './types'
-import { DevDot404, DevDotFallback, DevDotVersioned404 } from '../error-views'
+import {
+	DevDot404,
+	DevDotFallback,
+	DevDotVersioned404,
+	DevDotVersioned404BasePath,
+	DevDotVersioned404SubPath,
+} from '../error-views'
 
 const VERSION_COMBO_PATTERN =
 	/\/(?<version>(v\d+([.]|_)\d+([.]|_)(\d+|x))|(v[0-9]{6}-\d+))/
@@ -60,6 +66,7 @@ function ErrorView({ statusCode }: ErrorPageProps): React.ReactElement {
 	const pathBeforeVersion = asPath.substring(0, asPath.indexOf(versionInPath))
 	const is404 = statusCode == 404
 	const isVersioned404 = versionInPath && is404
+	const isBasePath = pathWithoutVersion + '/' === pathBeforeVersion
 
 	/**
 	 * Determine the error page type
@@ -75,6 +82,57 @@ function ErrorView({ statusCode }: ErrorPageProps): React.ReactElement {
 		type = 'dev-dot-standard-404'
 	} else {
 		type = 'dev-dot-fallback'
+	}
+
+	/**
+	 * TEMPORARY code to demo different approaches
+	 */
+	const isVault = pathBeforeVersion.includes('vault')
+	const isConsul = pathBeforeVersion.includes('consul')
+
+	if (isVault) {
+		if (isBasePath) {
+			return (
+				<DevDotVersioned404BasePath
+					key={String(isMounted)}
+					pathBeforeVersion={pathBeforeVersion}
+					pathWithoutVersion={pathWithoutVersion}
+					version={versionInPath}
+				/>
+			)
+		} else {
+			// TODO: redirect here?
+			return (
+				<DevDotVersioned404SubPath
+					key={String(isMounted)}
+					pathBeforeVersion={pathBeforeVersion}
+					pathWithoutVersion={pathWithoutVersion}
+					version={versionInPath}
+				/>
+			)
+		}
+	}
+
+	if (isConsul) {
+		if (isBasePath) {
+			return (
+				<DevDotVersioned404BasePath
+					key={String(isMounted)}
+					pathBeforeVersion={pathBeforeVersion}
+					pathWithoutVersion={pathWithoutVersion}
+					version={versionInPath}
+				/>
+			)
+		} else {
+			return (
+				<DevDotVersioned404SubPath
+					key={String(isMounted)}
+					pathBeforeVersion={pathBeforeVersion}
+					pathWithoutVersion={pathWithoutVersion}
+					version={versionInPath}
+				/>
+			)
+		}
 	}
 
 	switch (type) {

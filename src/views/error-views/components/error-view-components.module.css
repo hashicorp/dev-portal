@@ -29,5 +29,17 @@
 .paragraph {
 	composes: hds-typography-body-300 from global;
 	color: var(--token-color-foreground-primary);
-	margin-top: 12px;
+
+	/* Extra specificity needed, as hds-typography-body-300 has margin: 0 */
+	&.paragraph {
+		margin-top: 12px;
+	}
+}
+
+.ctas {
+	display: flex;
+	justify-content: center;
+	margin-top: 32px;
+	flex-wrap: wrap;
+	gap: 8px;
 }

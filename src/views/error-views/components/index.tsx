@@ -15,6 +15,13 @@ function ErrorViewContainer({ children }: { children: ReactNode }) {
 }
 
 /**
+ * A container for <ButtonLink /> ctas in dev-dot error views.
+ */
+function ErrorViewCtas({ children }: { children: ReactNode }) {
+	return <div className={s.ctas}>{children}</div>
+}
+
+/**
  * An <h1> element for use in dev-dot error views.
  */
 function ErrorViewH1({ children }: { children: ReactNode }) {
@@ -28,4 +35,4 @@ function ErrorViewParagraph({ children }: { children: ReactNode }) {
 	return <p className={s.paragraph}>{children}</p>
 }
 
-export { ErrorViewContainer, ErrorViewH1, ErrorViewParagraph }
+export { ErrorViewContainer, ErrorViewH1, ErrorViewCtas, ErrorViewParagraph }

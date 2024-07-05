@@ -45,6 +45,13 @@ import { DocsViewProps } from './types'
 import { isReleaseNotesPage } from 'lib/docs/is-release-notes-page'
 
 /**
+ * TODO: copied in from `error-view-switcher` for now,
+ * should be shared if we want to go the redirect route
+ */
+const VERSION_COMBO_PATTERN =
+	/\/(?<version>(v\d+([.]|_)\d+([.]|_)(\d+|x))|(v[0-9]{6}-\d+))/
+
+/**
  * Returns static generation functions which can be exported from a page to fetch docs data
  *
  * Example usage:
@@ -221,8 +228,33 @@ export function getStaticGenerationFunctions<
 			} catch (error) {
 				console.error('[docs-view/server] error loading static props', error)
 
-				// Catch 404 errors, return a 404 status page
+				// Catch 404 errors return a 404 status page
 				if (error.status === 404) {
+					/**
+					 * TEMPORARY test code...
+					 *
+					 * If Vault, and it's a versioned 404, and we're NOT at the base path,
+					 * then redirect to the base path at the specified version.
+					 */
+					const isVault = product.slug === 'vault'
+					const asPath = `/${product.slug}${currentPathUnderProduct}`
+					const versionMatches = VERSION_COMBO_PATTERN.exec(asPath)
+					const versionInPath = versionMatches?.groups?.version
+					const pathWithoutVersion = asPath.replace(VERSION_COMBO_PATTERN, '')
+					const pathBeforeVersion = asPath.substring(
+						0,
+						asPath.indexOf(versionInPath)
+					)
+					const isBasePath = pathWithoutVersion + '/' === pathBeforeVersion
+					if (isVault && versionInPath && !isBasePath) {
+						return {
+							redirect: {
+								destination: pathBeforeVersion + versionInPath,
+								permanent: false,
+							},
+						}
+					}
+					// Otherwise, return a 404 status page
 					return { notFound: true }
 				}
 
