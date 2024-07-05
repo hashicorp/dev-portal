@@ -48,6 +48,14 @@ const DocsView = ({
 }: DocsViewProps) => {
 	const pathname = usePathname()
 	const currentProduct = useCurrentProduct()
+	/**
+	 * TODO: navigating "back" to a versioned docs 404 page seems to result
+	 * in an error related to destructuring compiledSource from `undefined`...
+	 * is this next line the source of that?
+	 *
+	 * Do we need to handle the possibility of missing mdxSource here,
+	 * and switch to an error view?
+	 */
 	const { compiledSource, scope } = mdxSource
 	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
 
