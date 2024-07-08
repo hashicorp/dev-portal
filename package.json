@@ -121,7 +121,7 @@
 		"@hashicorp/react-marketo-form": "^0.9.0",
 		"@hashicorp/react-min-100-layout": "^2.0.1",
 		"@hashicorp/react-product-downloads-page": "^2.9.1",
-		"@hashicorp/react-search": "^6.5.0",
+		"@hashicorp/react-search": "^6.6.0",
 		"@hashicorp/react-sentinel-embedded": "^2.0.0",
 		"@hashicorp/react-subnav": "^9.6.0",
 		"@hashicorp/react-tabs": "^8.0.0",
