@@ -18,6 +18,25 @@ import { DocsVersionSwitcherOption, DocsVersionSwitcherProps } from './types'
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
 /**
+ * Construct a project name to be used in ariaLabels for each option.
+ */
+export function setProjectForAriaLabel(
+	projectName,
+	currentRootDocsPath,
+	currentProduct
+) {
+	let projectNameForLabel: string
+	if (projectName) {
+		projectNameForLabel = projectName
+	} else {
+		const docsName = currentRootDocsPath.shortName ?? currentRootDocsPath.name
+		projectNameForLabel = docsName.includes(currentProduct.name)
+			? docsName
+			: `${currentProduct.name} ${docsName}`
+	}
+	return projectNameForLabel
+}
+/**
  * Render a docs version switcher directly from loaded `VersionSelectItem`s,
  * wrapping a generic `VersionSwitcher` in docs-related logic.
  */
@@ -56,16 +75,11 @@ const DocsVersionSwitcher = ({
 		)
 	}
 
-	/**
-	 * Construct a project name to be used in ariaLabels for each option.
-	 */
-	let projectNameForLabel: string
-	if (projectName) {
-		projectNameForLabel = projectName
-	} else {
-		const docsName = currentRootDocsPath.shortName || currentRootDocsPath.name
-		projectNameForLabel = `${currentProduct.name} ${docsName}`
-	}
+	const projectNameForLabel = setProjectForAriaLabel(
+		projectName,
+		currentRootDocsPath,
+		currentProduct
+	)
 
 	/**
 	 * Encode docs concerns into the `options` to pass to `VersionSwitcher`.

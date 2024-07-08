@@ -5,6 +5,21 @@
 
 const platformPostcssConfig = require('@hashicorp/platform-postcss-config')
 
+// Next.js allows for plugins to be specified as an array of arrays, but this
+// isn't supported by Vitest, so use a helper function to convert the array of
+// arrays to an object.
+function standardSyntax(plugins) {
+	const _plugins = {}
+	plugins.forEach((p) => {
+		if (Array.isArray(p)) {
+			_plugins[p[0]] = p[1]
+		} else {
+			_plugins[p] = {}
+		}
+	})
+	return _plugins
+}
+
 /**
  * TODO: this is a spike to show that this configuration may resolve
  * the issues we're having in dev-dot when using @custom-media.
@@ -38,7 +53,7 @@ function alsoImportDevDotCustomMedia(postcssConfig) {
 		return [presetEnvName, newPresetEnvSettings]
 	})
 	// return the modified config
-	return { ...postcssConfig, plugins: newPlugins }
+	return { ...postcssConfig, plugins: standardSyntax(newPlugins) }
 }
 
 module.exports = {

@@ -17,7 +17,6 @@ import s from './button-link.module.css'
  **/
 const ButtonLink = ({
 	'aria-label': ariaLabel,
-	'data-heap-track': dataHeapTrack,
 	color = 'primary',
 	href,
 	icon,
@@ -51,7 +50,6 @@ const ButtonLink = ({
 		<Link
 			aria-label={ariaLabel}
 			className={classNames(s.root, s[size], s[color], className)}
-			data-heap-track={`button-link ${dataHeapTrack ?? ''}`}
 			href={href}
 			onClick={onClick}
 			opensInNewTab={opensInNewTab}

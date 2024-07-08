@@ -11,7 +11,7 @@ const PERCENT_MILESTONES = [1, 25, 50, 75, 90]
 describe('use-segments-played', () => {
 	it('should track the percentage of the video content that has been played', async () => {
 		const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-		const percentPlayedCallback = jest.fn()
+		const percentPlayedCallback = vi.fn()
 		render(
 			<VideoHooksTestComponent
 				url={url}

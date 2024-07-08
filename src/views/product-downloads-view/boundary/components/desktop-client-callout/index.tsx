@@ -16,27 +16,42 @@ import { operatingSystemIcons } from '../'
 import { getFileExtension, humanArch } from './helpers'
 // Styles
 import s from './desktop-client-callout.module.css'
+import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
+import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
+import { BoundaryDesktopClient } from 'views/product-downloads-view/components/downloads-section/types'
 
 /**
  * Render a callout to download the Boundary Desktop Client.
  */
 function DesktopClientCallout({
 	desktopClientProps,
+	headingData,
 }: {
 	desktopClientProps: DesktopClientProps
+	/** We link to this heading from the side nav, so we've lifted up its data */
+	headingData: {
+		id: string
+		text: string
+	}
 }) {
 	const { latestVersion, builds } = desktopClientProps
 	return (
-		<Card elevation="low">
-			<Heading
-				className={s.heading}
-				level={2}
-				size={400}
-				id="operating-system-desktop"
-				weight="bold"
+		<Card elevation="base">
+			<ContentWithPermalink
+				className={s.headingContainer}
+				id={headingData.id}
+				ariaLabel={`${headingData.text} v${latestVersion}`}
 			>
-				{`Desktop Client v${latestVersion}`}
-			</Heading>
+				<Heading
+					className={viewStyles.scrollHeading}
+					level={2}
+					size={400}
+					id={headingData.id}
+					weight="bold"
+				>
+					{`${headingData.text} v${latestVersion}`}
+				</Heading>
+			</ContentWithPermalink>
 			<div className={s.downloadContainer}>
 				{builds.map(({ os, url, filename, arch }: ReleaseBuild) => (
 					<CardWithLink

@@ -4,18 +4,20 @@
  */
 
 import { render } from '@testing-library/react'
-import { MDXRemote } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote } from 'lib/next-mdx-remote'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 import Image from 'components/image'
 import { remarkPluginInjectImageDimensions, getUrlWithDimensions } from '..'
 
 const probeDimensions = { width: '500', height: '300' }
 
 // Mock the external call to get dimensions
-jest.mock('probe-image-size', () => {
-	return jest.fn(() => {
-		return probeDimensions
-	})
+vi.mock('probe-image-size', () => {
+	return {
+		default: vi.fn(() => {
+			return probeDimensions
+		}),
+	}
 })
 
 describe('remarkPluginInjectImageDimensions', () => {

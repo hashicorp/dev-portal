@@ -4,7 +4,6 @@
  */
 
 import { render, screen } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
 
 import ImageConfig from '.'
 
@@ -29,9 +28,13 @@ const renderBasicMock = () =>
 
 describe('basic functionality', () => {
 	//  silence console.warn
-	const mockConsoleWarn = jest.spyOn(console, 'warn')
-	beforeAll(() => mockConsoleWarn.mockImplementation(() => null))
-	afterAll(() => mockConsoleWarn.mockRestore())
+	const mockConsoleWarn = vi.spyOn(console, 'warn')
+	beforeAll(() => {
+		mockConsoleWarn.mockImplementation(() => null)
+	})
+	afterAll(() => {
+		mockConsoleWarn.mockRestore()
+	})
 
 	it('should render children', () => {
 		render(<ImageConfig>{testImage}</ImageConfig>)
@@ -42,15 +45,19 @@ describe('basic functionality', () => {
 	it('should apply `noBorder` styling if `hideBorder` is provided', () => {
 		renderBasicMock()
 		const mdxImgContainer = screen.getByAltText('hashicorp logo').parentNode
-		expect(mdxImgContainer).toHaveClass('noBorder')
+		expect(mdxImgContainer).toHaveClass(/noBorder/)
 	})
 })
 
 describe('errors', () => {
 	//  silence console.error, otherwise the test will fail
-	const mockConsoleError = jest.spyOn(console, 'error')
-	beforeAll(() => mockConsoleError.mockImplementation(() => null))
-	afterAll(() => mockConsoleError.mockRestore())
+	const mockConsoleError = vi.spyOn(console, 'error')
+	beforeAll(() => {
+		mockConsoleError.mockImplementation(() => null)
+	})
+	afterAll(() => {
+		mockConsoleError.mockRestore()
+	})
 
 	it('should error with invalid children', () => {
 		expect(() => render(<ImageConfig> </ImageConfig>)).toThrowError()

@@ -4,6 +4,14 @@
 	"algoliaConfig": {
 		"indexName": "product_TERRAFORM"
 	},
+	"alertBannerActive": true,
+	"alertBanner": {
+		"tag": "New",
+		"url": "https://www.hashicorp.com/blog/introducing-the-infrastructure-cloud",
+		"text": "Terraform Cloud is now HCP Terraform",
+		"linkText": "Read more →",
+		"expirationDate": "2024-04-29T00:00:00-08:00"
+	},
 	"basePaths": [
 		"cdktf",
 		"cli",
@@ -25,6 +33,7 @@
 	],
 	"docsNavItems": [
 		"docs",
+		"intro",
 		"language",
 		"cli",
 		"cloud-docs",
@@ -57,20 +66,20 @@
 		},
 		{
 			"iconName": "cloud",
-			"name": "Terraform Cloud",
+			"name": "HCP Terraform",
 			"path": "cloud-docs",
 			"productSlugForLoader": "terraform-docs-common"
 		},
 		{
 			"iconName": "cloud",
-			"name": "Cloud Docs Agents",
+			"name": "HCP Terraform Agents",
 			"navDataPrefix": "cloud-docs-agents",
 			"path": "cloud-docs/agents",
 			"productSlugForLoader": "terraform-docs-agents"
 		},
 		{
 			"iconName": "docs",
-			"name": "About the Docs",
+			"name": "Docs Overview",
 			"path": "docs",
 			"productSlugForLoader": "terraform-docs-common"
 		},
@@ -87,7 +96,7 @@
 		},
 		{
 			"iconName": "docs",
-			"name": "Intro",
+			"name": "Intro to Terraform",
 			"path": "intro"
 		},
 		{

@@ -8,18 +8,23 @@
 		},
 		{
 			"iconName": "consul-color",
-			"name": "HCP Consul",
+			"name": "HCP Consul Dedicated",
 			"path": "docs/consul"
 		},
 		{
 			"iconName": "vault-color",
-			"name": "HCP Vault",
+			"name": "HCP Vault Dedicated",
 			"path": "docs/vault"
 		},
 		{
-			"iconName": "vault-color",
+			"iconName": "vault-secrets-color",
 			"name": "HCP Vault Secrets",
 			"path": "docs/vault-secrets"
+		},
+		{
+			"iconName": "vault-radar-color",
+			"name": "HCP Vault Radar",
+			"path": "docs/vault-radar"
 		},
 		{
 			"iconName": "packer-color",

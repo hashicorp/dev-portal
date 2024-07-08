@@ -1,0 +1,108 @@
+{
+	"scopeName": "source.sentinel",
+	"name": "HashiCorp Sentinel",
+	"uuid": "B6448CA1-0D29-4C4F-B1F3-5A0B0E875453",
+	"fileTypes": ["sentinel"],
+	"patterns": [
+		{
+			"name": "comment.line.double-slash.sentinel",
+			"match": "\\/\\/.*$"
+		},
+		{
+			"name": "comment.line.number-sign.sentinel",
+			"match": "#.*$"
+		},
+		{
+			"begin": "/\\*",
+			"end": "\\*/",
+			"name": "comment.line.block.sentinel"
+		},
+		{
+			"name": "constant.numeric.hex.sentinel",
+			"match": "\\b0[xX][a-fA-F0-9]+\\b"
+		},
+		{
+			"name": "constant.numeric.oct.sentinel",
+			"match": "\\b0[0-7]+\\b"
+		},
+		{
+			"name": "constant.numeric.number.sentinel",
+			"match": "\\b(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))([eE][-+]?[0-9]+)?\\b"
+		},
+		{
+			"name": "constant.language.sentinel",
+			"match": "\\b(true|false|null|undefined)\\b"
+		},
+		{
+			"captures": {
+				"1": {
+					"name": "keyword.control.when.sentinel"
+				}
+			},
+			"match": "\\b(when)\\b\\s+.*:"
+		},
+		{
+			"captures": {
+				"1": {
+					"name": "keyword.control.else.sentinel"
+				}
+			},
+			"match": "\\b(else)\\b:"
+		},
+		{
+			"name": "keyword.control.declaration.sentinel",
+			"match": "\\b(import|param)\\b"
+		},
+		{
+			"name": "keyword.control.sentinel",
+			"match": "\\b(if|case|for|any|all|filter|map|break|continue|return)\\b"
+		},
+		{
+			"name": "keyword.operator.symbol.sentinel",
+			"match": "[-+*/%=<>!]"
+		},
+		{
+			"name": "keyword.control.sentinel",
+			"match": "\\b(and|or|contains|in|is|matches|not|xor|else)\\b"
+		},
+		{
+			"name": "keyword.other.sentinel",
+			"match": "\\b(func|rule)\\b"
+		},
+		{
+			"name": "keyword.other.sentinel",
+			"match": "\\b(as|default|when)\\b"
+		},
+		{
+			"patterns": [
+				{
+					"name": "constant.character.escape.single.sentinel",
+					"match": "\\\\[abfnrtv\\\\\"]"
+				},
+				{
+					"name": "constant.character.escape.hex.sentinel",
+					"match": "\\\\x[a-fA-F0-9]+"
+				},
+				{
+					"name": "constant.character.escape.oct.sentinel",
+					"match": "\\\\[0-7]{3}"
+				},
+				{
+					"name": "constant.character.escape.unicode32.sentinel",
+					"match": "\\\\u[a-fA-F0-9]{4}"
+				},
+				{
+					"name": "constant.character.escape.unicode64.sentinel",
+					"match": "\\\\U[a-fA-F0-9]{8}"
+				}
+			],
+			"begin": "\"",
+			"end": "\"",
+			"name": "string.quoted.double.untitled"
+		},
+		{
+			"name": "support.function.builtin.sentinel",
+			"match": "\\b(append|delete|error|keys|length|print|range|values|int|float|string|bool)\\b"
+		}
+	]
+}

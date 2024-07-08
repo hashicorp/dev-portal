@@ -13,9 +13,10 @@ import {
 	SignupFormArea,
 } from 'views/certifications/components'
 // Local view
-import { CertificationProgramSummaryCard, LandingHero } from './components'
+import { CertificationProgramSummaryCard } from './components'
 import { CertificationLandingProps, CertificationProgramSummary } from './types'
 import s from './landing.module.css'
+import LandingHero from 'components/landing-hero'
 
 function CertificationsLandingView({
 	pageContent,

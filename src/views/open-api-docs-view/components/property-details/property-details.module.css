@@ -24,8 +24,15 @@ Common styles
 	 to be added here. */
 .description {
 	color: var(--token-color-foreground-faint);
+	width: 100%;
+	overflow-wrap: break-word;
+
 	& p {
 		margin: 0;
+	}
+
+	& pre {
+		white-space: pre-wrap;
 	}
 }
 
@@ -183,4 +190,9 @@ Tree content styling
 		border-bottom-style: solid;
 		border-bottom-left-radius: 4px;
 	}
+}
+
+.treeChildren {
+	width: 0;
+	flex-grow: 1;
 }

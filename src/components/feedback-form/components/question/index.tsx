@@ -56,7 +56,6 @@ const Question: React.FC<QuestionProps> = ({
 									feedbackContext.submitQuestion(e, { id, value, nextQuestion })
 								}
 								icon={icon}
-								data-heap-track={`feedback-form-button-${id}-${value}`}
 							/>
 						)
 					)}

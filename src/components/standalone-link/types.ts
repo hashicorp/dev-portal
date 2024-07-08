@@ -75,11 +75,6 @@ interface StandaloneLinkProps extends SharedBaseProps, InheritedLinkProps {
 	 * ref: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label
 	 */
 	ariaLabel?: LinkProps['aria-label']
-
-	/**
-	 * A data-heap-track string to add to the <a /> element.
-	 */
-	'data-heap-track'?: string
 }
 
 interface StandaloneLinkContentsProps extends SharedBaseProps {

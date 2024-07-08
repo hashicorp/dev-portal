@@ -4,7 +4,6 @@
  */
 
 import { IconGithub16 } from '@hashicorp/flight-icons/svg-react/github-16'
-import HashiHead from '@hashicorp/react-head'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import ContentHeaderCard from 'components/content-header-card'
 import {
@@ -25,6 +24,7 @@ import { Release, ReleaseComponent } from 'lib/integrations-api-client/release'
 import { ProductData } from 'types/products'
 import s from './style.module.css'
 import { lastUpdatedString, versionString } from './utils'
+import Head from 'next/head'
 
 interface ProductIntegrationLayoutProps {
 	title: string
@@ -149,9 +149,9 @@ export default function ProductIntegrationLayout({
 			alertBannerSlot={alertBannerSlot}
 		>
 			{!onLatestVersion && (
-				<HashiHead>
-					<meta name="robots" content="noindex, nofollow" />
-				</HashiHead>
+				<Head>
+					<meta name="robots" content="noindex, nofollow" key="robots" />
+				</Head>
 			)}
 
 			<ContentHeaderCard

@@ -7,26 +7,6 @@
 		"terraform/oci-get-started",
 		"terraform/cloud-get-started"
 	],
-	"sidebarMenuItems": [
-		{
-			"divider": true
-		},
-		{
-			"heading": "Getting Started"
-		},
-		{
-			"title": "What is Terraform?",
-			"fullPath": "/terraform/intro"
-		},
-		{
-			"title": "Terraform Tutorials",
-			"href": "/terraform/tutorials#get-started"
-		},
-		{
-			"title": "Terraform Cloud Tutorials",
-			"fullPath": "/terraform/tutorials/cloud-get-started/cloud-sign-up"
-		}
-	],
 	"sidecarMarketingCard": {
 		"title": "About Terraform",
 		"subtitle": "Define cloud and on-prem resources in human-readable configuration files that you can version, reuse, and share.",
@@ -45,7 +25,7 @@
 			},
 			{
 				"href": "/terraform/cloud-docs",
-				"text": "Terraform Cloud"
+				"text": "HCP Terraform"
 			},
 			{
 				"href": "/terraform/language/providers",
@@ -54,9 +34,9 @@
 		]
 	},
 	"sidecarHcpCallout": {
-		"heading": "Terraform Cloud",
+		"heading": "HCP Terraform",
 		"description": "Automate your infrastructure provisioning at any scale",
-		"ctaText": "Try Terraform Cloud for free",
+		"ctaText": "Try HCP Terraform for free",
 		"ctaUrl": "https://app.terraform.io/public/signup/account"
 	}
 }

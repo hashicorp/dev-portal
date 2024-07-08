@@ -7,8 +7,12 @@
 	padding: 16px;
 }
 
-.heading {
+.heading,
+.subheading {
 	color: var(--token-color-foreground-strong);
+}
+
+.subheading {
 	margin-bottom: 16px;
 }
 
@@ -45,4 +49,8 @@
 
 .codeBlocks {
 	margin-bottom: 24px;
+}
+
+.alert {
+	margin-top: 24px;
 }

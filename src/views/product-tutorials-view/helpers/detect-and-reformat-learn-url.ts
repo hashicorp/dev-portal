@@ -3,10 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { getTutorialMap } from 'lib/remark-plugins/rewrite-tutorial-links/utils'
+import tutorialMap from 'data/_tutorial-map.generated.json'
 import { rewriteTutorialsLink } from 'lib/remark-plugins/rewrite-tutorial-links/utils/rewrite-tutorials-link'
-
-let TUTORIAL_MAP
 
 /**
  * Given a URL string, if it is a Learn URL that can be rewritten, reformat the
@@ -14,9 +12,7 @@ let TUTORIAL_MAP
  * unmodified.
  */
 async function detectAndReformatLearnUrl(url: string): Promise<string> {
-	TUTORIAL_MAP = await getTutorialMap()
-
-	return rewriteTutorialsLink(url, TUTORIAL_MAP) ?? url
+	return rewriteTutorialsLink(url, tutorialMap) ?? url
 }
 
 export default detectAndReformatLearnUrl

@@ -3,31 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useEffect } from 'react'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { ThemeProvider } from 'next-themes'
 import { DatadogHeadTag, DatadogScriptTag } from 'lib/datadog'
-import { makeDarkModeToast } from 'lib/toast/make-dark-mode-notification'
-import isThemedPath from 'lib/isThemedPath'
 import { MobileMenuProvider } from 'contexts'
 import TabProvider from 'components/tabs/provider'
 import { CoreDevDotLayoutProps } from './types'
 import s from './core-dev-dot-layout.module.css'
 
 const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
-	const router = useRouter()
-	const { asPath, pathname, isReady } = router
-
-	const isSwingset = asPath.startsWith('/swingset')
-	const isToastPath = isThemedPath(pathname) && !isSwingset
-
-	useEffect(() => {
-		if (isReady && isToastPath) {
-			makeDarkModeToast()
-		}
-	}, [isReady, isToastPath])
-
 	return (
 		<MobileMenuProvider>
 			<TabProvider>
@@ -35,7 +19,7 @@ const CoreDevDotLayout = ({ children }: CoreDevDotLayoutProps) => {
 					<DatadogHeadTag />
 				</Head>
 				<div className={s.root}>{children}</div>
-				{isSwingset ? null : <DatadogScriptTag />}
+				<DatadogScriptTag />
 			</TabProvider>
 		</MobileMenuProvider>
 	)

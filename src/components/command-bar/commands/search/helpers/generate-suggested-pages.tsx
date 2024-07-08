@@ -110,7 +110,7 @@ const EXTRA_PAGES: Record<
 	consul: [
 		{
 			icon: <IconDocs16 />,
-			text: 'HCP Consul',
+			text: 'HCP Consul Dedicated',
 			url: '/hcp/docs/consul',
 		},
 		{
@@ -127,7 +127,7 @@ const EXTRA_PAGES: Record<
 	hcp: [
 		{
 			icon: <IconDocs16 />,
-			text: 'HCP Vault',
+			text: 'HCP Vault Dedicated',
 			url: '/hcp/docs/vault',
 		},
 		{
@@ -142,7 +142,7 @@ const EXTRA_PAGES: Record<
 		},
 		{
 			icon: <IconDocs16 />,
-			text: 'HCP Consul',
+			text: 'HCP Consul Dedicated',
 			url: '/hcp/docs/consul',
 		},
 		{
@@ -188,7 +188,7 @@ const EXTRA_PAGES: Record<
 	terraform: [
 		{
 			icon: <IconDocs16 />,
-			text: 'Terraform Cloud',
+			text: 'HCP Terraform',
 			url: '/terraform/cloud-docs',
 		},
 		{

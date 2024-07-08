@@ -28,7 +28,7 @@
 			"cards": [
 				{
 					"title": "Managing templates",
-					"description": "Templates consist of a published no-code module in Terraform Cloud and a template definition in HCP Waypoint.",
+					"description": "Templates consist of a published no-code module in HCP Terraform and a template definition in HCP Waypoint.",
 					"url": "/hcp/docs/waypoint/template-create"
 				},
 				{
@@ -44,7 +44,7 @@
 			"cards": [
 				{
 					"title": "Managing add-ons",
-					"description": "Add-ons consist of a published no-code module in Terraform Cloud and an add-on definition in HCP Waypoint.",
+					"description": "Add-ons consist of a published no-code module in HCP Terraform and an add-on definition in HCP Waypoint.",
 					"url": "/hcp/docs/waypoint/addon-definition-create"
 				},
 				{
@@ -64,8 +64,8 @@
 					"url": "/hcp/docs/waypoint/concepts/rbac"
 				},
 				{
-					"title": "Terraform Cloud integration",
-					"description": "HCP Waypoint templates and add-on definitions leverage Terraform Cloud no-code modules to deploy their underlying infrastructure.",
+					"title": "HCP Terraform integration",
+					"description": "HCP Waypoint templates and add-on definitions leverage HCP Terraform no-code modules to deploy their underlying infrastructure.",
 					"url": "/hcp/docs/waypoint/configure-tfc-integration"
 				}
 			]

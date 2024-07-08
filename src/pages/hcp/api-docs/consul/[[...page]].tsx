@@ -9,6 +9,11 @@ import { ApiDocsVersionData } from 'lib/api-docs/types'
 // View
 import OpenApiDocsView from 'views/open-api-docs-view'
 import {
+	schemaModShortenHcp,
+	schemaModComponent,
+	shortenProtobufAnyDescription,
+} from 'views/open-api-docs-view/utils/massage-schema-utils'
+import {
 	getStaticPaths,
 	getStaticProps as getOpenApiDocsStaticProps,
 } from 'views/open-api-docs-view/server'
@@ -47,7 +52,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		},
 		{
 			title: 'Certifications',
-			href: '/certifications/networking-automation',
+			href: '/certifications/security-automation',
 		},
 		{
 			title: 'Community',
@@ -59,18 +64,31 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		},
 	],
 	/**
-	 * Massage the schema data a little bit, replacing
-	 * "HashiCorp Cloud Platform" in the title with "HCP".
+	 * Massage the schema data a little bit
 	 */
 	massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
-		// Replace "HashiCorp Cloud Platform" with "HCP" in the title
-		const massagedTitle = schemaData.info.title.replace(
-			'HashiCorp Cloud Platform',
-			'HCP'
+		//  Replace "HashiCorp Cloud Platform" with "HCP" in the title
+		const withShortTitle = schemaModShortenHcp(schemaData)
+		/**
+		 * Shorten the description of the protobufAny schema
+		 *
+		 * Note: ideally this would be done at the content source,
+		 * but until we've got that work done, this shortening
+		 * seems necessary to ensure incremental static regeneration works
+		 * for past versions of the API docs. Without this shortening,
+		 * it seems the response size ends up crossing a threshold that
+		 * causes the serverless function that renders the page to fail.
+		 *
+		 * Related task:
+		 * https://app.asana.com/0/1207339219333499/1207339701271604/f
+		 */
+		const withShortProtobufDocs = schemaModComponent(
+			withShortTitle,
+			'google.protobuf.Any',
+			shortenProtobufAnyDescription
 		)
-		// Return the schema data with the revised title
-		const massagedInfo = { ...schemaData.info, title: massagedTitle }
-		return { ...schemaData, info: massagedInfo }
+		// Return the schema data with modifications
+		return withShortProtobufDocs
 	},
 }
 

@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`contentApi fetchDocument should return the requested document 1`] = `
-Object {
+exports[`contentApi > fetchDocument > should return the requested document 1`] = `
+{
   "created_at": "Sat Oct 02 2021 23:52:13 GMT+0000 (Coordinated Universal Time)",
   "fullPath": "doc/v0.5.x/commands",
   "githubFile": "website/content/commands/index.mdx",
@@ -84,12 +84,12 @@ so you can do \`waypoint <tab>\` on commands. Running \`waypoint -autocomplete-u
 will remove it. Please note that this will modify your shell init script, so you will
 need to reload your shell.
 ",
-  "mdxTransforms": Array [
+  "mdxTransforms": [
     "extract-frontmatter",
     "include-partials",
     "paragraph-custom-alerts",
   ],
-  "metadata": Object {
+  "metadata": {
     "layout": "commands",
     "page_title": "Waypoint Commands (CLI)",
   },
@@ -100,270 +100,270 @@ need to reload your shell.
 }
 `;
 
-exports[`contentApi fetchDocument should throw if a document is not found 1`] = `"Failed to fetch: https://content.hashicorp.com/api/content/waypoint/doc/latest/commands/k8s-bootstrap"`;
+exports[`contentApi > fetchDocument > should throw if a document is not found 1`] = `[ContentApiError: Failed to fetch: https://content.hashicorp.com/api/content/waypoint/doc/latest/commands/k8s-bootstrap]`;
 
-exports[`contentApi fetchNavData should return the requested navdata 1`] = `
-Object {
+exports[`contentApi > fetchNavData > should return the requested navdata 1`] = `
+{
   "created_at": "Sat Oct 02 2021 23:52:11 GMT+0000 (Coordinated Universal Time)",
   "fullPath": "nav-data/v0.5.x/commands",
   "githubFile": "website/content/commands-nav-data.json",
-  "navData": Array [
-    Object {
+  "navData": [
+    {
       "path": "build",
       "title": "build",
     },
-    Object {
+    {
       "path": "deploy",
       "title": "deploy",
     },
-    Object {
+    {
       "path": "context",
       "title": "context",
     },
-    Object {
+    {
       "path": "context-inspect",
       "title": "context-inspect",
     },
-    Object {
+    {
       "path": "destroy",
       "title": "destroy",
     },
-    Object {
+    {
       "path": "exec",
       "title": "exec",
     },
-    Object {
+    {
       "path": "init",
       "title": "init",
     },
-    Object {
+    {
       "path": "install",
       "title": "install",
     },
-    Object {
+    {
       "path": "login",
       "title": "login",
     },
-    Object {
+    {
       "path": "logs",
       "title": "logs",
     },
-    Object {
+    {
       "path": "project-apply",
       "title": "project apply",
     },
-    Object {
+    {
       "path": "release",
       "title": "release",
     },
-    Object {
+    {
       "path": "ui",
       "title": "ui",
     },
-    Object {
+    {
       "path": "up",
       "title": "up",
     },
-    Object {
+    {
       "divider": true,
     },
-    Object {
+    {
       "path": "artifact-build",
       "title": "artifact build",
     },
-    Object {
+    {
       "path": "artifact-list-builds",
       "title": "artifact list-builds",
     },
-    Object {
+    {
       "path": "artifact-list",
       "title": "artifact list",
     },
-    Object {
+    {
       "path": "artifact-push",
       "title": "artifact push",
     },
-    Object {
+    {
       "path": "auth-method-list",
       "title": "auth-method list",
     },
-    Object {
+    {
       "path": "auth-method-inspect",
       "title": "auth-method inspect",
     },
-    Object {
+    {
       "path": "auth-method-set-oidc",
       "title": "auth-method set oidc",
     },
-    Object {
+    {
       "path": "auth-method-delete",
       "title": "auth-method delete",
     },
-    Object {
+    {
       "path": "config-get",
       "title": "config get",
     },
-    Object {
+    {
       "path": "config-set",
       "title": "config set",
     },
-    Object {
+    {
       "path": "config-source-get",
       "title": "config source-get",
     },
-    Object {
+    {
       "path": "config-source-set",
       "title": "config source-set",
     },
-    Object {
+    {
       "path": "config-sync",
       "title": "config sync",
     },
-    Object {
+    {
       "path": "context-clear",
       "title": "context clear",
     },
-    Object {
+    {
       "path": "context-create",
       "title": "context create",
     },
-    Object {
+    {
       "path": "context-delete",
       "title": "context delete",
     },
-    Object {
+    {
       "path": "context-list",
       "title": "context list",
     },
-    Object {
+    {
       "path": "context-rename",
       "title": "context rename",
     },
-    Object {
+    {
       "path": "context-use",
       "title": "context use",
     },
-    Object {
+    {
       "path": "context-verify",
       "title": "context verify",
     },
-    Object {
+    {
       "path": "deployment-deploy",
       "title": "deployment deploy",
     },
-    Object {
+    {
       "path": "deployment-destroy",
       "title": "deployment destroy",
     },
-    Object {
+    {
       "path": "deployment-list",
       "title": "deployment list",
     },
-    Object {
+    {
       "path": "docs",
       "title": "docs",
     },
-    Object {
+    {
       "path": "fmt",
       "title": "fmt",
     },
-    Object {
+    {
       "path": "hostname-delete",
       "title": "hostname delete",
     },
-    Object {
+    {
       "path": "hostname-list",
       "title": "hostname list",
     },
-    Object {
+    {
       "path": "hostname-register",
       "title": "hostname register",
     },
-    Object {
+    {
       "path": "plugin",
       "title": "plugin",
     },
-    Object {
+    {
       "path": "project-inspect",
       "title": "project inspect",
     },
-    Object {
+    {
       "path": "project-list",
       "title": "project list",
     },
-    Object {
+    {
       "path": "release-list",
       "title": "release list",
     },
-    Object {
+    {
       "path": "runner-agent",
       "title": "runner agent",
     },
-    Object {
+    {
       "path": "server-bootstrap",
       "title": "server bootstrap",
     },
-    Object {
+    {
       "path": "server-config-set",
       "title": "server config-set",
     },
-    Object {
+    {
       "path": "server-install",
       "title": "server install",
     },
-    Object {
+    {
       "path": "server-restore",
       "title": "server restore",
     },
-    Object {
+    {
       "path": "server-run",
       "title": "server run",
     },
-    Object {
+    {
       "path": "server-snapshot",
       "title": "server snapshot",
     },
-    Object {
+    {
       "path": "server-uninstall",
       "title": "server uninstall",
     },
-    Object {
+    {
       "path": "server-upgrade",
       "title": "server upgrade",
     },
-    Object {
+    {
       "path": "status",
       "title": "status",
     },
-    Object {
+    {
       "path": "token-exchange",
       "title": "token exchange",
     },
-    Object {
+    {
       "path": "token-invite",
       "title": "token invite",
     },
-    Object {
+    {
       "path": "token-new",
       "title": "token new",
     },
-    Object {
+    {
       "path": "user-inspect",
       "title": "user inspect",
     },
-    Object {
+    {
       "path": "user-invite",
       "title": "user invite",
     },
-    Object {
+    {
       "path": "user-modify",
       "title": "user modify",
     },
-    Object {
+    {
       "path": "user-token",
       "title": "user token",
     },
-    Object {
+    {
       "path": "version",
       "title": "version",
     },
@@ -375,13 +375,13 @@ Object {
 }
 `;
 
-exports[`contentApi fetchNavData should throw if a navData is not found 1`] = `"Failed to fetch: https://content.hashicorp.com/api/content/waypoint/nav-data/v0.9000.x/commands"`;
+exports[`contentApi > fetchNavData > should throw if a navData is not found 1`] = `[ContentApiError: Failed to fetch: https://content.hashicorp.com/api/content/waypoint/nav-data/v0.9000.x/commands]`;
 
-exports[`contentApi fetchVersionMetadataList should return an empty list for invalid product name 1`] = `Array []`;
+exports[`contentApi > fetchVersionMetadataList > should return an empty list for invalid product name 1`] = `[]`;
 
-exports[`contentApi fetchVersionMetadataList should return the requested version metadata list 1`] = `
-Array [
-  Object {
+exports[`contentApi > fetchVersionMetadataList > should return the requested version metadata list 1`] = `
+[
+  {
     "created_at": "Fri Sep 24 2021 07:56:45 GMT+0000 (Coordinated Universal Time)",
     "display": "v0.6.2",
     "fullPath": "version-metadata/v0.6.x",
@@ -392,7 +392,7 @@ Array [
     "sha": "e14900057317f9fd63eae31f3414a0ba383faa8e",
     "version": "v0.6.x",
   },
-  Object {
+  {
     "created_at": "Thu Sep 23 2021 07:56:45 GMT+0000 (Coordinated Universal Time)",
     "display": "v0.5.2",
     "fullPath": "version-metadata/v0.5.x",
@@ -403,7 +403,7 @@ Array [
     "sha": "214900057317f9fd63eae31f3414a0ba383faa9e",
     "version": "v0.5.x",
   },
-  Object {
+  {
     "created_at": "Tue Sep 21 2021 21:05:43 GMT+0000 (Coordinated Universal Time)",
     "fullPath": "version-metadata/v0.4.x",
     "product": "waypoint",
@@ -412,7 +412,7 @@ Array [
     "sha": "c6cd81e10f30d339c113772b5f978d2f96cd1a2e",
     "version": "v0.4.x",
   },
-  Object {
+  {
     "created_at": "Wed Sep 22 2021 17:40:36 GMT+0000 (Coordinated Universal Time)",
     "fullPath": "version-metadata/v0.3.x",
     "product": "waypoint",

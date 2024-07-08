@@ -36,7 +36,6 @@ import type { GithubFile } from 'lib/fetch-github-file'
 async function fetchApiDocsPaths({
 	sourceFile,
 	versionId,
-	mayHaveCircularReferences,
 }: {
 	/**
 	 * Specify the target file.
@@ -47,16 +46,6 @@ async function fetchApiDocsPaths({
 	 */
 	sourceFile: GithubFile | string
 	versionId?: string
-	/**
-	 * The Waypoint API docs have circular references.
-	 * We manually try to deal with those. This is a band-aid solution,
-	 * it seems to have unintended side-effects when applied to other
-	 * products' API docs, and almost certainly merits further investigation.
-	 *
-	 * Asana task:
-	 * https://app.asana.com/0/1202097197789424/1203989531295664/f
-	 */
-	mayHaveCircularReferences?: boolean
 }): Promise<string[][]> {
 	/**
 	 * Grab the schema.
@@ -81,10 +70,7 @@ async function fetchApiDocsPaths({
 	 * Each operation object is associated with an operation category, also known
 	 * as a "service", and these services are what drive our URL structure.
 	 */
-	const operationObjects = getOperationObjects(
-		schema,
-		mayHaveCircularReferences
-	)
+	const operationObjects = getOperationObjects(schema)
 	const serviceSlugs = getServiceIds(operationObjects).map(getServicePathSlug)
 
 	/**

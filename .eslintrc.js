@@ -11,6 +11,10 @@ module.exports = {
 		curly: 'error',
 	},
 
+	globals: {
+		vi: 'readonly',
+	},
+
 	overrides: [
 		{
 			files: ['**/*.ts?(x)'],

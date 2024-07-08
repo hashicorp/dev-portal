@@ -17,7 +17,6 @@ import {
 	SidebarHorizontalRule,
 	SidebarNavLinkItem,
 	SidebarNavMenuItem,
-	SidebarSkipToMainContent,
 	SidebarTitleHeading,
 } from 'components/sidebar/components'
 
@@ -32,6 +31,8 @@ import SidebarNavList from './components/sidebar-nav-list'
 import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
+import OpenApiSidebarContents from 'components/open-api-sidebar-contents'
+import { OpenApiNavItem } from 'views/open-api-docs-view/types'
 
 const Sidebar = ({
 	backToLinkProps,
@@ -42,6 +43,8 @@ const Sidebar = ({
 	showFilterInput = true,
 	title,
 	visuallyHideTitle = false,
+	isInstallPage,
+	showResourcesList = true,
 }: SidebarProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	const { shouldRenderMobileControls } = useSidebarNavData()
@@ -100,23 +103,47 @@ const Sidebar = ({
 	}
 
 	let sidebarContent
-	if (children) {
-		sidebarContent = children
-	} else {
-		const filteredMenuItems = getFilteredNavItems(
-			itemsWithMetadata,
-			filterValue
-		)
-		sidebarContent = (
+	const filteredMenuItems = getFilteredNavItems(itemsWithMetadata, filterValue)
+	const navResourceItems = generateResourcesNavItems(currentProduct?.slug)
+	const resourcesComponent = (
+		<>
+			<SidebarHorizontalRule />
 			<SidebarNavList>
-				{filteredMenuItems.map((item: FilteredNavItem, i) => {
-					const key = `${item.id}-${i}`
-					return <SidebarNavMenuItem item={item} key={key} />
-				})}
+				{navResourceItems.map((item, index) => (
+					// eslint-disable-next-line react/no-array-index-key
+					<SidebarNavMenuItem item={item} key={index} />
+				))}
 			</SidebarNavList>
+		</>
+	)
+	if (children) {
+		sidebarContent = (
+			<>
+				{children}
+				{showResourcesList && resourcesComponent}
+			</>
+		)
+	} else if (isInstallPage) {
+		sidebarContent = (
+			<OpenApiSidebarContents
+				navItems={filteredMenuItems as unknown as OpenApiNavItem[]}
+				navResourceItems={navResourceItems.splice(1)}
+				showFilterInput={false}
+			/>
+		)
+	} else {
+		sidebarContent = (
+			<>
+				<SidebarNavList>
+					{filteredMenuItems.map((item: FilteredNavItem, i) => {
+						const key = `${item.id}-${i}`
+						return <SidebarNavMenuItem item={item} key={key} />
+					})}
+				</SidebarNavList>
+				{showResourcesList && resourcesComponent}
+			</>
 		)
 	}
-
 	return (
 		<div className={s.sidebar}>
 			{backToElement}
@@ -129,18 +156,8 @@ const Sidebar = ({
 				<div className={visuallyHideTitle ? 'g-screen-reader-only' : undefined}>
 					<SidebarTitleHeading text={title} id={SIDEBAR_LABEL_ID} />
 				</div>
-				<SidebarSkipToMainContent />
 				{overviewItem}
 				{sidebarContent}
-				<SidebarHorizontalRule />
-				<SidebarNavList>
-					{generateResourcesNavItems(currentProduct?.slug).map(
-						(item, index) => (
-							// eslint-disable-next-line react/no-array-index-key
-							<SidebarNavMenuItem item={item} key={index} />
-						)
-					)}
-				</SidebarNavList>
 			</nav>
 		</div>
 	)

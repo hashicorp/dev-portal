@@ -1,7 +1,7 @@
 {
 	"hero": {
 		"heading": "Enforce policy as code for HashiCorp products",
-		"image": "https://place-hold.it/600x320"
+		"image": "https://www.datocms-assets.com/2885/1702568388-sentinel-illi.png"
 	},
 	"overview": {
 		"heading": "What is Sentinel?",
@@ -11,8 +11,8 @@
 			"url": "/sentinel/intro/what"
 		},
 		"image": {
-			"light": "https://place-hold.it/680x250",
-			"dark": "https://place-hold.it/680x250"
+			"light": "https://www.datocms-assets.com/2885/1707422837-devdot-sentinel_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1707422896-devdot-sentinel_dm.png"
 		}
 	},
 	"get_started": {
@@ -41,7 +41,7 @@
 			"cards": [
 				{
 					"heading": "Infrastructure",
-					"body": "Use Terraform Cloud with Sentinel to check that infrastructure will comply with policies.",
+					"body": "Use HCP Terraform with Sentinel to check that infrastructure will comply with policies.",
 					"url": "https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-install"
 				},
 				{
@@ -73,7 +73,7 @@
 				{
 					"heading": "Sentinel playground",
 					"body": "Write and test policies in a free, hosted sandbox. Upload mock data to write policies against, or customize the provided example, which checks that an S3 bucket has a private ACL.",
-					"url": "https://docs.hashicorp.com/sentinel"
+					"url": "https://play.sentinelproject.io"
 				}
 			]
 		}

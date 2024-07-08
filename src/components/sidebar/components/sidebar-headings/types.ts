@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { ProductSlug } from 'types/products'
+
 interface SidebarSectionHeadingProps {
 	text: string
 }
@@ -12,4 +14,13 @@ interface SidebarTitleHeadingProps {
 	text: string
 }
 
-export type { SidebarSectionHeadingProps, SidebarTitleHeadingProps }
+interface SidebarSectionBrandedHeadingProps {
+	text: string
+	theme?: ProductSlug
+}
+
+export type {
+	SidebarSectionHeadingProps,
+	SidebarTitleHeadingProps,
+	SidebarSectionBrandedHeadingProps,
+}

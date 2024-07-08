@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ProductSlug } from 'types/products'
+import { ProductName, ProductSlug } from 'types/products'
 import { Collection } from 'lib/learn-client/types'
 import { type BadgeProps } from 'components/badge'
 import { CardLinkProps } from 'components/card-link'
@@ -40,6 +40,7 @@ interface CertificationContentCardLinkProps {
 		description: string
 	}
 	product: {
+		name: ProductName
 		slug: ProductSlug
 	}
 }

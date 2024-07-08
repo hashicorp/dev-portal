@@ -22,6 +22,10 @@ import MobileStandaloneLink from 'components/mobile-standalone-link'
 import { ReleaseVersion } from 'lib/fetch-release-data'
 import CardWithLink from '../card-with-link'
 import s from './release-information.module.css'
+import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
+import classNames from 'classnames'
+import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
+import capitalize from '@hashicorp/platform-util/text/capitalize'
 
 const NoteCard = ({ selectedRelease }) => {
 	const currentProduct = useCurrentProduct()
@@ -50,7 +54,15 @@ const NoteCard = ({ selectedRelease }) => {
 					<InlineLink href="https://www.hashicorp.com/security" textSize={200}>
 						{"HashiCorp's GPG key"}
 					</InlineLink>
-					.
+					. Complete this{' '}
+					<InlineLink
+						href="/well-architected-framework/operational-excellence/verify-hashicorp-binary"
+						textSize={200}
+					>
+						tutorial
+					</InlineLink>{' '}
+					to learn how to install and verify HashiCorp tools on any Linux
+					distribution.
 				</>
 			}
 			icon={<IconInfo16 className={s.cardIcon} />}
@@ -109,7 +121,7 @@ const ConsulNoteCard = (): ReactElement => {
 
 const ChangelogNote = ({ selectedRelease }) => {
 	const { name, version } = selectedRelease
-	const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
+	const capitalizedName = capitalize(name)
 
 	return (
 		<>
@@ -176,24 +188,37 @@ const OfficialReleasesCard = () => {
 interface ReleaseInformationSectionProps {
 	selectedRelease: ReleaseVersion
 	isEnterpriseMode: boolean
+	/** We link to this heading from the side nav, so we've lifted up its data */
+	releaseHeading: {
+		id: string
+		text: string
+	}
 }
 
 const ReleaseInformationSection = ({
 	selectedRelease,
+	releaseHeading,
 	isEnterpriseMode,
 }: ReleaseInformationSectionProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	return (
 		<div className={s.root}>
-			<Heading
-				className={s.heading}
-				level={2}
-				size={400}
-				id="looking-for-more"
-				weight="bold"
+			<ContentWithPermalink
+				className={s.headingContainer}
+				id={releaseHeading.id}
+				ariaLabel={releaseHeading.text}
 			>
-				Release information
-			</Heading>
+				<Heading
+					id={releaseHeading.id}
+					className={classNames(s.heading, viewStyles.scrollHeading)}
+					level={2}
+					size={400}
+					weight="bold"
+				>
+					{releaseHeading.text}
+				</Heading>
+			</ContentWithPermalink>
+
 			<div className={s.notesContainer}>
 				<ChangelogNote selectedRelease={selectedRelease} />
 				<OfficialReleasesCard />

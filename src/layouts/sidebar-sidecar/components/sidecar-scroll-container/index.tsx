@@ -4,7 +4,7 @@
  */
 
 import { ReactNode, useEffect, useRef, useState } from 'react'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import classNames from 'classnames'
 import useWindowSize from 'hooks/use-window-size'
 import { getScrollData, ScrollData } from './utils/get-scroll-data'
@@ -20,7 +20,7 @@ import s from './sidecar-scroll-container.module.css'
  * - If we're not yet 100% scrolled, a gradient scrim at the bottom is shown
  */
 function SidecarScrollContainer({ children }: { children: ReactNode }) {
-	const router = useRouter()
+	const pathname = usePathname()
 	const windowSize = useWindowSize()
 	const scrollRef = useRef<HTMLDivElement>()
 	const [{ isScrollable, isAtStart, isAtEnd }, setScrollData] =
@@ -49,7 +49,7 @@ function SidecarScrollContainer({ children }: { children: ReactNode }) {
 	 */
 	useEffect(() => {
 		setScrollData(getScrollData(scrollRef.current))
-	}, [router.asPath])
+	}, [pathname])
 
 	return (
 		<div

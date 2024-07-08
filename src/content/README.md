@@ -445,7 +445,7 @@ Example usage:
 
 ## 4. Product Install landing pages
 
-To change the content for Product Install landing pages (e.g. [/vault/downloads](https://developer.hashicorp.com/vault/downloads), [/waypoint/downloads](https://developer.hashicorp.com/waypoint/downloads)):
+To change the content for Product Install landing pages (e.g. [/vault/install](https://developer.hashicorp.com/vault/install)
 
 1. Open the folder of the Product you'd like to make changes for
 2. Open the `install-landing.json` file
@@ -469,7 +469,7 @@ Each property is described in each following expandable section.
 <details>
 <summary><code>doesNotHavePackageManagers</code></summary>
 
-This is an optional `boolean` property used for specifying if a product's downloads page should show package managers for each operating system. It only needs to be specified if no package managers need to be shown.
+This is an optional `boolean` property used for specifying if a product's install page should show package managers for each operating system. It only needs to be specified if no package managers need to be shown.
 
 Example usage:
 
@@ -608,7 +608,7 @@ Will output the following Sidebar between the auto-generated content in the head
 <details>
 <summary><code>sidecarMarketingCard</code></summary>
 
-This is an object for the marketing content located in a `Card` in the Sidecar of the downloads view.
+This is an object for the marketing content located in a `Card` in the Sidecar of the install view.
 
 - `title`: The title of the card, shown in a heavier weight font
 - `subtitle`: The subtitle of the card, shown in a normal weight font

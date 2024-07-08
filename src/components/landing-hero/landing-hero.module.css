@@ -3,32 +3,36 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.root {
-	align-items: center;
+.heroBackground {
+	background: url('./assets/certifications-hero-gradient.svg'),
+		var(--token-color-foreground-strong);
+	background-size: cover;
+	background-position: top center;
+	background-repeat: no-repeat;
+
+	@nest html[data-theme='dark'] & {
+		background-color: var(--token-color-page-faint);
+	}
+}
+
+.heroImage {
 	display: flex;
-	gap: 16px;
+	height: 200px;
+	overflow: visible;
+	position: relative;
 
-	&.hasSubtitle {
-		align-items: flex-start;
+	& > img {
+		position: absolute;
+		top: -40px;
+		left: 50%;
+		transform: translateX(-50%);
+
+		@media only screen and (min-width: 481px) {
+			position: relative;
+			top: -40px;
+			left: auto;
+			margin-left: auto;
+			transform: none;
+		}
 	}
-}
-
-.icon {
-	display: none;
-
-	@media (--dev-dot-tablet-up) {
-		display: block;
-	}
-}
-
-.pageTitle {
-	composes: g-offset-scroll-margin-top from global;
-	color: var(--token-color-foreground-strong);
-	margin-top: 0;
-	margin-bottom: 8px;
-	width: 100%;
-}
-
-.pageSubtitle {
-	color: var(--token-color-foreground-primary);
 }

@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import HashiHead from '@hashicorp/react-head'
 import { TutorialLite as ClientTutorialLite } from 'lib/learn-client/types'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import getReadableTime from 'components/tutorial-meta/components/badges/helpers'
@@ -13,6 +12,7 @@ import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { generateTopLevelSidebarNavData } from 'components/sidebar/helpers'
 import { SidebarProps } from 'components/sidebar'
 import { OnboardingCollectionViewProps } from '../types'
+import Head from 'next/head'
 
 export default function OnboardingCollectionView({
 	collection,
@@ -23,9 +23,9 @@ export default function OnboardingCollectionView({
 
 	return (
 		<>
-			<HashiHead>
-				<meta name="robots" content="noindex, nofollow" />
-			</HashiHead>
+			<Head>
+				<meta name="robots" content="noindex, nofollow" key="robots" />
+			</Head>
 			<SidebarSidecarLayout
 				breadcrumbLinks={layoutProps.breadcrumbLinks}
 				sidebarNavDataLevels={[

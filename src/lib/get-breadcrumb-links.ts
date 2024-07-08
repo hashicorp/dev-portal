@@ -30,7 +30,6 @@ const KNOWN_URL_TITLE: Record<string, string> = {
  * specify a single entry for a common URL segment.
  *
  * For example:
- * - `/waypoint/api-docs` breadcrumb title should be `API`
  * - `/boundary/api-docs` breadcrumb title should be `API`
  * - `/hcp/api-docs` breadcrumb title should be `API`
  * - ...etc

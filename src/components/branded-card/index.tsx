@@ -4,7 +4,7 @@
  */
 
 import { CSSProperties } from 'react'
-import Image from 'next/legacy/image'
+import Image, { type StaticImageData } from 'next/legacy/image'
 import { BrandedCardProps } from './types'
 import { ProductSlug } from 'types/products'
 // Note: images are static imports, seems to be a requirement of next/image
@@ -20,7 +20,7 @@ import patternVault from './img/vault.png'
 import patternWaypoint from './img/waypoint.png'
 import s from './branded-card.module.css'
 
-const PATTERN_IMG_MAP: Record<ProductSlug, string> = {
+const PATTERN_IMG_MAP: Record<ProductSlug, StaticImageData> = {
 	boundary: patternBoundary,
 	consul: patternConsul,
 	nomad: patternNomad,

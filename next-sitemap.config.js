@@ -15,6 +15,10 @@ module.exports = {
 			// sitemap generated from ./pages/server-sitemap.xml/index.tsx
 			`${siteUrl}/server-sitemap.xml`,
 		],
+		policies: [
+			{ userAgent: 'GPTBot', disallow: '/validated-designs' },
+			{ userAgent: '*', allow: '/' }, // default policy
+		],
 	},
 	/*
 	 * Exhaustive exclude list to remove duplicate sitemap paths.
@@ -22,7 +26,6 @@ module.exports = {
 	 * Sitemap Improvements Asana https://app.asana.com/0/1203590180322427/overview
 	 */
 	exclude: [
-		'/swingset*',
 		'/onboarding/*',
 		'/profile*',
 		'sitemap.xml',

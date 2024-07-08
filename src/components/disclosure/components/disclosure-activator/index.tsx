@@ -25,12 +25,7 @@ import {
 // eslint-disable-next-line react/display-name
 const DisclosureActivator = forwardRef(
 	(
-		{
-			ariaLabel,
-			children,
-			className,
-			'data-heap-track': dataHeapTrack,
-		}: DisclosureActivatorProps,
+		{ ariaLabel, children, className }: DisclosureActivatorProps,
 		ref: DisclosureActivatorForwardedRef
 	) => {
 		const { contentContainerId, isOpen, toggleDisclosure } =
@@ -44,7 +39,6 @@ const DisclosureActivator = forwardRef(
 				className={classNames(disclosureStyles.activator, className)}
 				onClick={toggleDisclosure}
 				ref={ref}
-				data-heap-track={dataHeapTrack}
 			>
 				{children}
 			</button>

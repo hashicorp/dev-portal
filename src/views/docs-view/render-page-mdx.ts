@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
+import { trace } from '@opentelemetry/api'
+import type { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 import { Pluggable } from 'unified'
 import grayMatter from 'gray-matter'
 interface Options {
@@ -26,16 +27,25 @@ async function renderPageMdx(
 	mdxSource: MDXRemoteSerializeResult
 	frontMatter: Record<string, unknown>
 }> {
-	const { data: frontMatter, content: rawContent } = grayMatter(mdxFileString)
-	const content = mdxContentHook(rawContent, scope)
-	const mdxSource = await serialize(content, {
-		mdxOptions: {
-			remarkPlugins,
-			rehypePlugins,
-		},
-		scope,
-	})
-	return { mdxSource, frontMatter }
+	return await trace
+		.getTracer('docs-view')
+		.startActiveSpan('renderPageMdx', async (span) => {
+			try {
+				const { data: frontMatter, content: rawContent } =
+					grayMatter(mdxFileString)
+				const content = mdxContentHook(rawContent, scope)
+				const mdxSource = await serialize(content, {
+					mdxOptions: {
+						remarkPlugins,
+						rehypePlugins,
+					},
+					scope,
+				})
+				return { mdxSource, frontMatter }
+			} finally {
+				span.end()
+			}
+		})
 }
 
 export default renderPageMdx

@@ -29,11 +29,6 @@ module.exports = {
 						type: 'boolean',
 						description: 'If `true`, the link will be styled as active.',
 					},
-					dataHeapTrack: {
-						type: 'string',
-						description:
-							"If provided, added as `data-heap-track` on this item's `<a />` tag.",
-					},
 					items: {
 						type: 'object',
 						description:

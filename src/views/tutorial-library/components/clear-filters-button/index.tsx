@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useClearRefinements } from 'react-instantsearch-hooks-web'
+import { useClearRefinements } from 'react-instantsearch'
 import { IconX16 } from '@hashicorp/flight-icons/svg-react/x-16'
 import Button, { ButtonProps } from 'components/button'
 

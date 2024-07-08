@@ -5,7 +5,6 @@
 
 // Third-party imports
 import React, { useEffect, useState } from 'react'
-import dynamic from 'next/dynamic'
 import { SSRProvider } from '@react-aria/ssr'
 import { ErrorBoundary } from 'react-error-boundary'
 import { LazyMotion } from 'framer-motion'
@@ -18,6 +17,7 @@ import { QueryParamProvider } from 'use-query-params'
 import type { AppProps } from 'next/app'
 import { useFlags } from 'flags/client'
 import { FlagBagProvider } from 'flags/client'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 // HashiCorp imports
 import {
@@ -31,7 +31,6 @@ import CodeTabsProvider from '@hashicorp/react-code-block/provider'
 
 // Global imports
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
-import { isDeployPreview, isPreview } from 'lib/env-checks'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
@@ -40,20 +39,14 @@ import { AIFeatureToast } from 'components/chatbox/ai-feature-toast'
 
 // Local imports
 import './style.css'
-
-const showProductSwitcher = isPreview() && !isDeployPreview()
-
-const PreviewProductSwitcher = dynamic(
-	() => import('components/_proxied-dot-io/common/preview-product-select'),
-	{ ssr: false }
-)
+import '@hashicorp/react-design-system-components/src/design-system-components.scss'
 
 if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	const ReactDOM = require('react-dom')
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	const axe = require('@axe-core/react')
-	axe(React, ReactDOM, 1000)
+	import('react-dom').then((ReactDOM) => {
+		import('@axe-core/react').then((axe) => {
+			axe.default(React, ReactDOM, 1000)
+		})
+	})
 }
 
 initializeUTMParamsCapture()
@@ -112,10 +105,8 @@ export default function App({
 												<Component {...pageProps} />
 												<Toaster />
 												<AIFeatureToast />
-												{showProductSwitcher ? (
-													<PreviewProductSwitcher />
-												) : null}
 												<ReactQueryDevtools />
+												<SpeedInsights sampleRate={0.05} />
 											</LazyMotion>
 										</CodeTabsProvider>
 									</CurrentProductProvider>

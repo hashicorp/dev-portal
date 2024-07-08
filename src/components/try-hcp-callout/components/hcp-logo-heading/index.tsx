@@ -5,7 +5,7 @@
 
 import InlineSvg from '@hashicorp/react-inline-svg'
 import { useId } from '@react-aria/utils'
-import hcpLogo from '@hashicorp/mktg-logos/product/hcp/primary/black.svg?include'
+import hcpLogo from 'lib/mktg-logos/hcp-horizontal_on-light.svg?include'
 import s from './hcp-logo-heading.module.css'
 
 export interface HcpLogoHeadingProps {

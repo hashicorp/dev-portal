@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { VersionSelectItem } from '@hashicorp/react-docs-page/server/loaders/remote-content'
+import type { VersionSelectItem } from 'views/docs-view/loaders/remote-content'
 import {
 	IconCardGridItem,
 	ProductRootDocsPathLandingProps,

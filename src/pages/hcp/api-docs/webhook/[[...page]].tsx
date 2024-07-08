@@ -7,13 +7,13 @@
 import { fetchCloudApiVersionData } from 'lib/api-docs/fetch-cloud-api-version-data'
 // View
 import OpenApiDocsView from 'views/open-api-docs-view'
+import { schemaModShortenHcp } from 'views/open-api-docs-view/utils/massage-schema-utils'
 import {
 	getStaticPaths,
 	getStaticProps as getOpenApiDocsStaticProps,
 } from 'views/open-api-docs-view/server'
 // Types
 import type { GetStaticProps, GetStaticPropsContext } from 'next'
-import type { OpenAPIV3 } from 'openapi-types'
 import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
@@ -52,16 +52,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	 * Massage the schema data a little bit, replacing
 	 * "HashiCorp Cloud Platform" in the title with "HCP".
 	 */
-	massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
-		// Replace "HashiCorp Cloud Platform" with "HCP" in the title
-		const massagedTitle = schemaData.info.title.replace(
-			'HashiCorp Cloud Platform',
-			'HCP'
-		)
-		// Return the schema data with the revised title
-		const massagedInfo = { ...schemaData.info, title: massagedTitle }
-		return { ...schemaData, info: massagedInfo }
-	},
+	massageSchemaForClient: schemaModShortenHcp,
 }
 
 /**

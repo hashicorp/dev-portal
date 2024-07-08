@@ -6,7 +6,7 @@
 import { VersionSelectItem } from '../docs-view/loaders/remote-content'
 import { OutlineLinkItem } from 'components/outline-nav/types'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
-import { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import {
 	ProductData,
 	ProductWithCurrentRootDocsPath,

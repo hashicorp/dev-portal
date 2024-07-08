@@ -69,7 +69,6 @@ const AccordionDisclosure = ({
 			>
 				<DisclosureActivator
 					className={classNames(s.button, className)}
-					data-heap-track="accordion-disclosure-activator"
 					ref={hoverRef}
 				>
 					<span className={s.labelContainer}>

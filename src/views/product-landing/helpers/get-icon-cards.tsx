@@ -18,7 +18,7 @@ import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled
 export function getIconCards(product: ProductData) {
 	const iconCards = []
 
-	if (product.slug !== 'hcp') {
+	if (product.slug !== 'hcp' && product.slug !== 'waypoint') {
 		iconCards.push({
 			icon: <IconDownload16 />,
 			text: 'Install',
@@ -26,20 +26,21 @@ export function getIconCards(product: ProductData) {
 		})
 	}
 
-	iconCards.push(
-		...[
-			{
-				icon: <IconLearn16 />,
-				text: 'Tutorials',
-				url: `/${product.slug}/tutorials`,
-			},
-			{
-				icon: <IconDocs16 />,
-				text: 'Documentation',
-				url: `/${product.slug}/docs`,
-			},
-		]
-	)
+	// Add a "Tutorials" link for all products except sentinel
+	if (product.slug !== 'sentinel') {
+		iconCards.push({
+			icon: <IconLearn16 />,
+			text: 'Tutorials',
+			url: `/${product.slug}/tutorials`,
+		})
+	}
+
+	// Add a "Documentation" link for all products
+	iconCards.push({
+		icon: <IconDocs16 />,
+		text: 'Documentation',
+		url: `/${product.slug}/docs`,
+	})
 
 	// Add Integrations card if it's enabled for this product
 	if (getIsEnabledProductIntegrations(product.slug)) {

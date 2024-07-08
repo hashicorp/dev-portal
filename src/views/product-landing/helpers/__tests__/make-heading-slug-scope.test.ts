@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { makeHeadingSlugScope } from '../'
+import { makeHeadingSlugScope } from '../make-heading-slug-scope'
 
 describe('makeHeadingSlugScope', () => {
 	test('returns already-unique headings unmodified', () => {

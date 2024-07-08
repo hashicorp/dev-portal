@@ -41,7 +41,7 @@ export const generatePackageManagers = async ({
 			const { commands } = packageManager
 			const installCodeHtml = await highlightString(
 				generateCodeSnippetFromCommands(commands),
-				'shell-session'
+				'bash'
 			)
 			return { ...packageManager, installCodeHtml }
 		})

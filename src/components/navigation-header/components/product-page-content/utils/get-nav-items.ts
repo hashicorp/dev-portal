@@ -96,7 +96,7 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	/**
 	 * Install
 	 */
-	if (currentProduct.slug !== 'hcp') {
+	if (currentProduct.slug !== 'hcp' && currentProduct.slug !== 'waypoint') {
 		items.push({
 			label: 'Install',
 			url: `/${currentProduct.slug}/install`,
@@ -121,11 +121,15 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 
 	/**
 	 * Tutorials
+	 *
+	 * Note: we exclude Sentinel, as it does not have tutorials yet.
 	 */
-	items.push({
-		label: 'Tutorials',
-		url: `/${currentProduct.slug}/tutorials`,
-	})
+	if (currentProduct.slug !== 'sentinel') {
+		items.push({
+			label: 'Tutorials',
+			url: `/${currentProduct.slug}/tutorials`,
+		})
+	}
 
 	/**
 	 * Documentation categories

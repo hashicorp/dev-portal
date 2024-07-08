@@ -9,7 +9,7 @@ import fetchGithubFile from 'lib/fetch-github-file'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getBreadcrumbLinks } from 'lib/get-breadcrumb-links'
-import { serialize } from 'next-mdx-remote/serialize'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 // Utilities
 import {
 	findDefaultVersion,
@@ -109,8 +109,10 @@ export async function getStaticProps({
 		typeof sourceFile === 'string'
 			? sourceFile
 			: await fetchGithubFile(sourceFile)
-	const rawSchemaData = await parseAndValidateOpenApiSchema(schemaFileString)
-	const schemaData = massageSchemaForClient(rawSchemaData)
+	const schemaData = await parseAndValidateOpenApiSchema(
+		schemaFileString,
+		massageSchemaForClient
+	)
 	const operationProps = await getOperationProps(schemaData)
 	const operationGroups = groupOperations(operationProps, groupOperationsByPath)
 	const navItems = getNavItems({

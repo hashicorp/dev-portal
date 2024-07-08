@@ -4,7 +4,6 @@
  */
 
 export * from './accordion-with-mdx-content'
-export * from './certifications-hero'
 export * from './certifications-max-width'
 export * from './cta-group'
 export * from './exam-badge'

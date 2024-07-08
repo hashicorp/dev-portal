@@ -13,7 +13,7 @@ export const certificationProgramSlugMap: Record<
 	CertificationProductSlug,
 	ProgramSlug
 > = {
-	consul: 'networking-automation',
+	consul: 'security-automation',
 	terraform: 'infrastructure-automation',
 	vault: 'security-automation',
 }

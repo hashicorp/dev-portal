@@ -50,8 +50,19 @@ function MdxA({ children, className, href, ...restProps }) {
 	 */
 	const hrefWithFallback = href || '#'
 
+	/**
+	 * The targets for the anchor links have the aria-hidden attribute added
+	 * from the `anchor-links` remark plugin. Since they should be hidden
+	 * from screen readers, the tabIndex needs to be set to -1 to prevent
+	 * focus from being captured during keyboard navigation.
+	 */
 	return (
-		<InlineLink {...restProps} className={className} href={hrefWithFallback}>
+		<InlineLink
+			{...restProps}
+			className={className}
+			href={hrefWithFallback}
+			tabIndex={className === '__target-lic' ? -1 : undefined}
+		>
 			{children}
 		</InlineLink>
 	)

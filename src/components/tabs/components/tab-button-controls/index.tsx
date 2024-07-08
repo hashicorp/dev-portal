@@ -102,7 +102,6 @@ function TabButtonControls({
 						role="tab"
 						tabIndex={isActive ? 0 : -1}
 						type="button"
-						data-heap-track="tab-button-control"
 					>
 						<span className={s.label}>
 							{icon}

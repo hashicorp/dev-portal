@@ -6,7 +6,6 @@
 import {
 	splitRedirectsByType,
 	groupSimpleRedirects,
-	addHostCondition,
 	filterInvalidRedirects,
 } from '../redirects'
 
@@ -22,7 +21,7 @@ function withHashiEnv(value, fn) {
 
 describe('splitRedirectsByType', () => {
 	test('splits simple and glob redirects', () => {
-		const { simpleRedirects, globRedirects } = splitRedirectsByType([
+		const { simpleRedirects, complexRedirects } = splitRedirectsByType([
 			{
 				source: '/:path',
 				destination: '/',
@@ -73,19 +72,8 @@ describe('splitRedirectsByType', () => {
 				destination: '',
 				permanent: true,
 			},
-			{
-				source: '/has-host',
-				destination: '/host',
-				permanent: true,
-				has: [
-					{
-						type: 'host',
-						value: 'www.host.com',
-					},
-				],
-			},
 		])
-		expect(globRedirects).toStrictEqual([
+		expect(complexRedirects).toStrictEqual([
 			{
 				source: '/:path',
 				destination: '/',
@@ -112,6 +100,17 @@ describe('splitRedirectsByType', () => {
 					{
 						type: 'cookie',
 						key: 'cookie',
+					},
+				],
+			},
+			{
+				source: '/has-host',
+				destination: '/host',
+				permanent: true,
+				has: [
+					{
+						type: 'host',
+						value: 'www.host.com',
 					},
 				],
 			},
@@ -165,66 +164,12 @@ describe('groupSimpleRedirects', () => {
 	})
 })
 
-describe('addHostCondition', () => {
-	test('adds developer host condition for GA products in production', () => {
-		const redirect = {
-			source: '/vault/docs/foo',
-			destination: '/vault/docs/bar',
-			permanent: true,
-		}
-
-		let result
-
-		withHashiEnv('production', () => {
-			result = addHostCondition([redirect], 'vault')
-		})
-
-		expect(result).toMatchInlineSnapshot(`
-		Array [
-		  Object {
-		    "destination": "/vault/docs/bar",
-		    "has": Array [
-		      Object {
-		        "type": "host",
-		        "value": "developer.hashicorp.com",
-		      },
-		    ],
-		    "permanent": true,
-		    "source": "/vault/docs/foo",
-		  },
-		]
-	`)
-	})
-
-	test('does not add developer host condition for GA products in non-production', () => {
-		const redirect = {
-			source: '/vault/docs/foo',
-			destination: '/vault/docs/bar',
-			permanent: true,
-		}
-
-		let result
-
-		withHashiEnv('preview', () => {
-			result = addHostCondition([redirect], 'vault')
-		})
-
-		expect(result).toMatchInlineSnapshot(`
-		Array [
-		  Object {
-		    "destination": "/vault/docs/bar",
-		    "permanent": true,
-		    "source": "/vault/docs/foo",
-		  },
-		]
-	`)
-	})
-})
-
 describe('filterInvalidRedirects', () => {
 	it('filters out redirects that are not prefixed with the product slug', () => {
 		//  Spy on and suppress console.warn for this test, we expect a warning
-		const consoleWarnMock = jest.spyOn(console, 'warn').mockImplementation()
+		const consoleWarnMock = vi
+			.spyOn(console, 'warn')
+			.mockImplementation(() => {})
 		// Input
 		const redirects = [
 			{

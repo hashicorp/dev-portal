@@ -34,6 +34,7 @@ import TutorialsSidebar, {
 } from 'components/tutorials-sidebar'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
+import { SignupFormArea } from 'views/certifications/components'
 
 // Local imports
 import {
@@ -232,7 +233,7 @@ function TutorialView({
 				<link rel="canonical" href={canonicalUrl.toString()} key="canonical" />
 				{/** Don't index non canonical tutorials */}
 				{canonicalUrl.pathname !== currentPath ? (
-					<meta name="robots" content="noindex, nofollow" />
+					<meta name="robots" content="noindex, nofollow" key="robots" />
 				) : null}
 			</Head>
 			<InteractiveLabWrapper
@@ -300,6 +301,9 @@ function TutorialView({
 								className={s.featuredInCollections}
 								collections={featuredInWithoutCurrent}
 							/>
+							{layoutProps.isCertificationPrep && (
+								<SignupFormArea className={s.newsletterSignupArea} />
+							)}
 						</LayoutContentWrapper>
 					</SidebarSidecarLayout>
 				</VariantProvider>

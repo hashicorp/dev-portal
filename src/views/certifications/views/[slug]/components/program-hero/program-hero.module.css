@@ -57,8 +57,4 @@
 	&.theme-security-automation {
 		--background-image: url('./assets/security-hero.svg');
 	}
-
-	&.theme-networking-automation {
-		--background-image: url('./assets/networking-hero.svg');
-	}
 }

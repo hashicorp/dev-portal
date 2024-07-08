@@ -174,7 +174,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false,
+		enabled: true,
 		org: 'digitalocean',
 		slug: 'digitalocean',
 		components: [
@@ -369,6 +369,17 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
+		enabled: true,
+		org: 'torarnv',
+		slug: 'ipsw',
+		components: [
+			{
+				type: TYPE_DATA_SOURCE,
+				newSlug: 'ipsw',
+			},
+		],
+	},
+	{
 		enabled: false,
 		org: 'kamatera',
 		slug: 'kamatera',
@@ -380,7 +391,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false,
+		enabled: true,
 		org: 'linode',
 		slug: 'linode',
 		components: [
@@ -424,7 +435,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false,
+		enabled: true,
 		org: 'mondoohq',
 		slug: 'mondoo',
 		newSlug: 'cnspec',
@@ -451,7 +462,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false,
+		enabled: true,
 		org: 'nutanix-cloud-native',
 		slug: 'nutanix',
 		indexPages: [TYPE_BUILDER],
@@ -490,7 +501,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false,
+		enabled: true,
 		org: 'outscale',
 		slug: 'outscale',
 		indexPages: [TYPE_BUILDER],
@@ -572,7 +583,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false,
+		enabled: true,
 		org: 'scaleway',
 		slug: 'scaleway',
 		components: [
@@ -583,7 +594,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false,
+		enabled: true,
 		org: 'ivoronin',
 		slug: 'sshkey',
 		components: [
@@ -594,7 +605,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false,
+		enabled: true,
 		org: 'cirruslabs',
 		slug: 'tart',
 		components: [
@@ -642,7 +653,7 @@ const packerPluginIntegrations = [
 		],
 	},
 	{
-		enabled: false,
+		enabled: true,
 		org: 'UpCloudLtd',
 		slug: 'upcloud',
 		components: [

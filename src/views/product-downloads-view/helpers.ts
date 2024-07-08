@@ -3,22 +3,35 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import semverRSort from 'semver/functions/rsort'
-import semverPrerelease from 'semver/functions/prerelease'
-import semverValid from 'semver/functions/valid'
-import semverParse from 'semver/functions/parse'
-import { ProductData } from 'types/products'
-import { ReleaseVersion } from 'lib/fetch-release-data'
-import {
-	getInlineCollections,
-	getInlineTutorials,
-} from 'views/product-tutorials-view/helpers/get-inline-content'
 import { BreadcrumbLink } from 'components/breadcrumb-bar'
 import { formatCollectionCard } from 'components/collection-card/helpers'
 import { formatTutorialCard } from 'components/tutorial-card/helpers'
 import { VersionContextSwitcherProps } from 'components/version-context-switcher'
-import { PackageManager, SortedReleases } from './types'
+import { ReleaseVersion } from 'lib/fetch-release-data'
 import { CollectionLite } from 'lib/learn-client/types'
+import semverParse from 'semver/functions/parse'
+import semverPrerelease from 'semver/functions/prerelease'
+import semverRSort from 'semver/functions/rsort'
+import semverValid from 'semver/functions/valid'
+import { ProductData, ProductSlug } from 'types/products'
+import {
+	getInlineCollections,
+	getInlineTutorials,
+} from 'views/product-tutorials-view/helpers/get-inline-content'
+import {
+	FeaturedCollectionCard,
+	FeaturedTutorialCard,
+	PackageManager,
+	SortedReleases,
+} from './types'
+import capitalize from '@hashicorp/platform-util/text/capitalize'
+import { MenuItem } from 'components/sidebar'
+import {
+	BoundaryDesktopClient,
+	InstallPageAnchorHeading,
+} from './components/downloads-section/types'
+import { ReleasesAPIResponse } from '@hashicorp/react-product-downloads-page'
+import { Products } from '@hashicorp/platform-product-meta'
 
 const PLATFORM_MAP = {
 	Mac: 'darwin',
@@ -244,7 +257,7 @@ export function prettyOs(os: string): string {
 		case 'windows':
 			return 'Windows'
 		default:
-			return os.charAt(0).toUpperCase() + os.slice(1)
+			return capitalize(os)
 	}
 }
 
@@ -299,8 +312,8 @@ export const sortAndFilterReleaseVersions = ({
 	releaseVersions: Record<string, ReleaseVersion>
 	isEnterpriseMode: boolean
 }): ReleaseVersion[] => {
-	const filteredVersionStrings = Object.keys(releaseVersions).filter(
-		(version: string) => {
+	const filteredVersionStrings = Object.values(releaseVersions)
+		.filter(({ version, builds }) => {
 			// Filter out invalid semver
 			const isInvalidSemver = semverValid(version) == null
 			if (isInvalidSemver) {
@@ -310,6 +323,12 @@ export const sortAndFilterReleaseVersions = ({
 			// Filter out prereleases
 			const isPrerelease = semverPrerelease(version) !== null
 			if (isPrerelease) {
+				return false
+			}
+
+			// Filter out releases without builds
+			const hasBuilds = builds && builds.length > 0
+			if (!hasBuilds) {
 				return false
 			}
 
@@ -324,8 +343,9 @@ export const sortAndFilterReleaseVersions = ({
 				const { build } = semverParse(version)
 				return build.length === 0
 			}
-		}
-	)
+		})
+		.map(({ version }) => version)
+
 	const sortedVersionStrings = semverRSort(filteredVersionStrings)
 	const sortedAndFilteredVersions = sortedVersionStrings.map(
 		(version: string) => releaseVersions[version]

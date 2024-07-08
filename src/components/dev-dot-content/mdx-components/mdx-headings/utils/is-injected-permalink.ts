@@ -3,7 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactChild, ReactFragment, ReactPortal } from 'react'
+import {
+	ReactChild,
+	ReactFragment,
+	ReactPortal,
+	PromiseLikeOfReactNode,
+} from 'react'
 
 /**
  * Given a React child, determine if it a permalink element injected by our
@@ -16,7 +21,7 @@ import { ReactChild, ReactFragment, ReactPortal } from 'react'
  * Ref: https://github.com/hashicorp/remark-plugins/blob/d7869b253b3ae07116f280f95fe2b414145594f1/plugins/anchor-links/index.js#L155
  */
 export function isInjectedPermalink(
-	child: ReactChild | ReactFragment | ReactPortal
+	child: ReactChild | ReactFragment | ReactPortal | PromiseLikeOfReactNode
 ): boolean {
 	const isLiteral = typeof child === 'string' || typeof child === 'number'
 	if (isLiteral) {

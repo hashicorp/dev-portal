@@ -9,6 +9,7 @@ import { IconLink16 } from '@hashicorp/flight-icons/svg-react/link-16'
 import type { PropsWithChildren } from 'react'
 // Styles
 import s from './content-with-permalink.module.css'
+import classNames from 'classnames'
 
 /**
  * Renders the provided `children` alongside a permalink `<a />` element.
@@ -27,9 +28,10 @@ export function ContentWithPermalink({
 	id,
 	ariaLabel,
 	children,
+	className,
 }: PropsWithChildren<{ id: string; className?: string; ariaLabel: string }>) {
 	return (
-		<div className={s.root}>
+		<div className={classNames(s.root, className)}>
 			{children}
 			<Link className={s.permalink} aria-label={ariaLabel} href={`#${id}`}>
 				<IconLink16 className={s.permalinkIcon} />

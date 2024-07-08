@@ -38,10 +38,7 @@ export async function getStaticPaths(): Promise<
 	GetStaticPathsResult<StaticParams>
 > {
 	// Filter for products with integrations enabled
-	const enabledProductSlugs =
-		__config.dev_dot.product_slugs_with_integrations.filter(
-			(slug) => slug !== 'waypoint'
-		)
+	const enabledProductSlugs = __config.dev_dot.product_slugs_with_integrations
 	// Transform slugs into path params
 	const paths = enabledProductSlugs.map((productSlug: ProductSlug) => ({
 		params: { productSlug },

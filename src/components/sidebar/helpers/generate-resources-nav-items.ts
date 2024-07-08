@@ -10,6 +10,21 @@ import {
 	VALID_PRODUCT_SLUGS_FOR_FILTERING,
 } from 'views/tutorial-library/constants'
 
+/**
+ * Note: these ResourceNav types could probably be abstracted up or lifted out,
+ * but for now, since the functions here had very little type information,
+ * felt pragmatic to declare them just for this file.
+ */
+
+type ResourceNavLink = {
+	title: string
+	href: string
+}
+type ResourceNavHeading = {
+	heading: string
+}
+type ResourceNavItem = ResourceNavLink | ResourceNavHeading
+
 const DEFAULT_COMMUNITY_FORUM_LINK = 'https://discuss.hashicorp.com/'
 const DEFAULT_GITHUB_LINK = 'https://github.com/hashicorp'
 const DEFAULT_SUPPORT_LINK = 'https://www.hashicorp.com/customer-success'
@@ -27,7 +42,9 @@ const COMMUNITY_LINKS_BY_PRODUCT: { [key in ProductSlug]: string } = {
 	waypoint: 'https://discuss.hashicorp.com/c/waypoint/51',
 }
 
-const GITHUB_LINKS_BY_PRODUCT_SLUG: { [key in ProductSlug]: string } = {
+const GITHUB_LINKS_BY_PRODUCT_SLUG: {
+	[key in Exclude<ProductSlug, 'waypoint'>]: string
+} = {
 	boundary: 'https://github.com/hashicorp/boundary',
 	consul: 'https://github.com/hashicorp/consul',
 	hcp: DEFAULT_GITHUB_LINK,
@@ -37,7 +54,6 @@ const GITHUB_LINKS_BY_PRODUCT_SLUG: { [key in ProductSlug]: string } = {
 	terraform: 'https://github.com/hashicorp/terraform',
 	vagrant: 'https://github.com/hashicorp/vagrant',
 	vault: 'https://github.com/hashicorp/vault',
-	waypoint: 'https://github.com/hashicorp/waypoint',
 }
 
 /**
@@ -46,7 +62,9 @@ const GITHUB_LINKS_BY_PRODUCT_SLUG: { [key in ProductSlug]: string } = {
  * `src/content` directory, and it has the correct data structure, the specified
  * nav items will be appended to the Resources section.
  */
-const generateAdditionalResources = (productSlug?: ProductSlug) => {
+function generateAdditionalResources(
+	productSlug?: ProductSlug
+): ResourceNavItem[] {
 	if (productSlug) {
 		try {
 			// eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -64,7 +82,7 @@ const generateAdditionalResources = (productSlug?: ProductSlug) => {
  * Return a link to the Tutorials Library with filters applied
  * that correspond to that product.
  */
-function getTutorialLibraryUrl(productSlug?: ProductSlug) {
+function getTutorialLibraryUrl(productSlug?: ProductSlug): string {
 	const baseUrl = '/tutorials/library'
 	if (!productSlug) {
 		return baseUrl
@@ -88,10 +106,7 @@ function getTutorialLibraryUrl(productSlug?: ProductSlug) {
  * If the given product does not have a certifications page,
  * we return an empty array.
  */
-function getCertificationsLink(productSlug?: ProductSlug): {
-	title: string
-	href: string
-}[] {
+function getCertificationsLink(productSlug?: ProductSlug): ResourceNavLink[] {
 	// If this product does not have a certifications link, return an empty array
 	const programSlug = certificationProgramSlugMap[productSlug]
 	if (!programSlug) {
@@ -109,15 +124,22 @@ function getCertificationsLink(productSlug?: ProductSlug): {
  * Generates the sidebar nav items for the Resources section of the sidebar.
  * Optionally accepts a Product slug for customization of links.
  */
-const generateResourcesNavItems = (productSlug?: ProductSlug) => {
+function generateResourcesNavItems(
+	productSlug?: ProductSlug
+): ResourceNavItem[] {
 	const additionalResources = generateAdditionalResources(productSlug)
 
 	return [
 		{ heading: 'Resources' },
-		{
-			title: 'Tutorial Library',
-			href: getTutorialLibraryUrl(productSlug),
-		},
+		...(productSlug !== 'sentinel'
+			? [
+					{
+						// Add a "Tutorials" link for all products except Sentinel
+						title: 'Tutorial Library',
+						href: getTutorialLibraryUrl(productSlug),
+					},
+			  ]
+			: []),
 		...getCertificationsLink(productSlug),
 		{
 			title: 'Community Forum',
@@ -129,12 +151,16 @@ const generateResourcesNavItems = (productSlug?: ProductSlug) => {
 			title: 'Support',
 			href: DEFAULT_SUPPORT_LINK,
 		},
-		{
-			title: 'GitHub',
-			href: productSlug
-				? GITHUB_LINKS_BY_PRODUCT_SLUG[productSlug]
-				: DEFAULT_GITHUB_LINK,
-		},
+		...(productSlug !== 'waypoint'
+			? [
+					{
+						title: 'GitHub',
+						href: productSlug
+							? GITHUB_LINKS_BY_PRODUCT_SLUG[productSlug]
+							: DEFAULT_GITHUB_LINK,
+					},
+			  ]
+			: []),
 		...additionalResources,
 	]
 }

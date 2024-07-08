@@ -4,8 +4,7 @@
  */
 
 import { render } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
-import TutorialCard from '.'
+import { TutorialCard } from './tutorial-card'
 
 const mockTutorialCardData = {
 	description: 'This is a great tutorial, you must read',

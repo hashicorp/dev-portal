@@ -83,11 +83,7 @@ function TableOfContentsListItem({
 
 	return (
 		<li className={className} key={slug}>
-			<a
-				className={s.tableOfContentsListItemAnchor}
-				href={`#${slug}`}
-				data-heap-track={`toc-list-item-index-${index}`}
-			>
+			<a className={s.tableOfContentsListItemAnchor} href={`#${slug}`}>
 				{generatedTitle}
 			</a>
 			{isActive && <span aria-hidden className={s.activeIndicator} />}

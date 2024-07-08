@@ -21,11 +21,11 @@
 	},
 	"alertBannerActive": true,
 	"alertBanner": {
-		"tag": "HashiConf",
-		"url": "https://hashiconf.com/2023?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
-		"text": "Our community conference is taking place in San Francisco and online October 10-12.",
-		"linkText": "Register now",
-		"expirationDate": ""
+		"tag": "HashiDays",
+		"url": "https://hashicorp.com/conferences/hashidays",
+		"text": "One conference. Three cities.",
+		"linkText": "Find a city near you",
+		"expirationDate": "2024-06-14T00:00:00-08:00"
 	},
 	"subnavItems": [
 		{
@@ -44,38 +44,18 @@
 			"type": "inbound"
 		},
 		{
-			"text": "CLI",
-			"url": "https://developer.hashicorp.com/waypoint/commands",
-			"type": "inbound"
-		},
-		{
-			"text": "Integrations",
-			"url": "https://developer.hashicorp.com/waypoint/integrations",
-			"type": "inbound"
-		},
-		{
 			"text": "Community",
 			"url": "/community",
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["commands", "docs", "plugins", "tutorials", "downloads"],
+	"basePaths": ["docs", "tutorials"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
 			"name": "Documentation",
 			"path": "docs",
 			"includeMDXSource": true
-		},
-		{
-			"iconName": "api",
-			"name": "API",
-			"path": "api-docs"
-		},
-		{
-			"iconName": "terminal-screen",
-			"name": "CLI",
-			"path": "commands"
 		}
 	],
 	"integrationsConfig": {

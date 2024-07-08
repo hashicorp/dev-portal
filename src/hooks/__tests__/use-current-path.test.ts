@@ -5,16 +5,17 @@
 
 import { renderHook } from '@testing-library/react'
 import useCurrentPath from '../use-current-path'
+import type { MockInstance } from 'vitest'
 
 describe('useCurrentPath', () => {
 	const testPath = '/test-path'
 	const testHash = '#test'
 	const testSearch = '?foo=bar'
 
-	let useRouter: jest.SpyInstance
+	let useRouter: MockInstance
 	beforeAll(() => {
 		// eslint-disable-next-line @typescript-eslint/no-var-requires
-		useRouter = jest.spyOn(require('next/router'), 'useRouter')
+		useRouter = vi.spyOn(require('next/router'), 'useRouter')
 	})
 
 	afterAll(() => {

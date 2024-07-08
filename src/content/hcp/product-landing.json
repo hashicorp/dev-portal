@@ -21,18 +21,18 @@
 		"iconCardLinks": [
 			{
 				"icon": "vault-color",
-				"text": "HCP Vault",
-				"url": "/vault/tutorials/cloud"
+				"text": "HCP Vault Dedicated",
+				"url": "/vault/tutorials/get-started-hcp-vault-dedicated"
 			},
 			{
-				"icon": "vault-color",
+				"icon": "vault-secrets-color",
 				"text": "HCP Vault Secrets",
 				"url": "/vault/tutorials/hcp-vault-secrets-get-started"
 			},
 			{
-				"icon": "consul-color",
-				"text": "HCP Consul",
-				"url": "/consul/tutorials/get-started-hcp"
+				"icon": "vault-radar-color",
+				"text": "HCP Vault Radar",
+				"url": "/vault/tutorials/radar-foundations"
 			},
 			{
 				"icon": "packer-color",
@@ -47,7 +47,7 @@
 			{
 				"icon": "waypoint-color",
 				"text": "HCP Waypoint",
-				"url": "/waypoint/tutorials/runners/hcp-runners-on-your-infra"
+				"url": "/waypoint/tutorials/hcp-waypoint"
 			}
 		],
 		"fixedColumns": 2

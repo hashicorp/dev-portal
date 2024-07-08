@@ -8,6 +8,10 @@ import { getStaticProps } from 'views/open-api-docs-view/server'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { OpenAPIV3 } from 'openapi-types'
 import type { ProductSlug } from 'types/products'
+import {
+	schemaModDescription,
+	schemaModShortenHcp,
+} from 'views/open-api-docs-view/utils/massage-schema-utils'
 
 /**
  * Boilerplate page configuration, we could in theory expose this so visitors
@@ -102,17 +106,14 @@ export default async function handler(
 			 */
 			massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
 				// Replace the schema description with the POST'ed description, if present
-				if (openApiDescription) {
-					schemaData.info.description = openApiDescription
-				}
-				// Replace "HashiCorp Cloud Platform" with "HCP" in the title
-				const massagedTitle = schemaData.info.title.replace(
-					'HashiCorp Cloud Platform',
-					'HCP'
+				const withCustomDescription = schemaModDescription(
+					schemaData,
+					(description) => openApiDescription || description
 				)
-				// Return the schema data with the revised title
-				const massagedInfo = { ...schemaData.info, title: massagedTitle }
-				return { ...schemaData, info: massagedInfo }
+				// Replace "HashiCorp Cloud Platform" with "HCP" in the title
+				const withShortTitle = schemaModShortenHcp(withCustomDescription)
+				// Return the schema data with modifications
+				return withShortTitle
 			},
 		})
 		// Return the static props as JSON, these can be passed to OpenApiDocsView

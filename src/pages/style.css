@@ -12,12 +12,13 @@
 ***
 */
 @import '~@hashicorp/design-system-tokens/dist/devdot/css/tokens.css';
+@import '~@hashicorp/react-design-system-tokens/dist/css/tokens.css';
+@import '~@hashicorp/react-design-system-tokens/dist/css/dark/tokens.css';
 @import '~@hashicorp/design-system-tokens/dist/devdot/css/helpers/elevation.css';
 @import '~@hashicorp/design-system-tokens/dist/devdot/css/helpers/typography.css';
 
 /* Theme files */
 @import 'styles/themes/global.css';
-@import 'styles/themes/dark.css';
 
 /* Display 600 type style. HDS candidate, only in Dev Dot for now */
 @import 'styles/hds-typography-display-600.css';
@@ -27,9 +28,6 @@
 
 /* Product color styles */
 @import 'styles/products.css';
-
-/* Proxied Sentinel page styles */
-@import '../components/_proxied-dot-io/sentinel/Footer/style.css';
 
 /* Print Styles */
 @import './print.css';
@@ -49,15 +47,6 @@
  */
 .g-subnav ~ * :target {
 	scroll-margin-top: calc(64px + 0.5em);
-}
-
-/* Custom web font, deprecated */
-@font-face {
-	font-family: 'klavika-web';
-	src: url('/fonts/klavika/medium.woff2') format('woff2'),
-		url('/fonts/klavika/medium.woff') format('woff');
-	font-weight: 700;
-	font-style: normal;
 }
 
 /* VAULT */

@@ -7,116 +7,23 @@
 
 const fs = require('fs')
 const path = require('path')
-const proxySettings = require('./proxy-settings')
-const {
-	getProxiedProductSlug,
-	isPreview,
-	isDeployPreview,
-} = require('../src/lib/env-checks')
+
+const { isDeployPreview } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
-const loadProxiedSiteRedirects = require('./load-proxied-site-redirects')
 const { getTutorialRedirects } = require('./tutorial-redirects')
 const {
-	integrationMultipleComponentRedirects,
-} = require('./integration-multiple-component-redirects')
+	getDocsDotHashiCorpRedirects,
+} = require('./docs-dot-hashicorp-redirects')
 const { packerPluginRedirects } = require('./integration-packer-redirects')
 
 require('isomorphic-unfetch')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 
-const PROXIED_PRODUCT = getProxiedProductSlug()
-
 // copied from src/constants/hostname-map.ts so it's usable at build-time in the next config
 const HOSTNAME_MAP = {
 	'docs.hashicorp.com': 'sentinel',
 	'test-st.hashi-mktg.com': 'sentinel',
-}
-
-// Redirect all proxied product pages
-// to the appropriate product domain
-//
-// Note: we do this for ALL domains, as we never want visitors to
-// see the original "proxied" routes, no matter what domain they're on.
-const productsToProxy = Object.keys(proxySettings)
-// In preview environments, it's actually nice to NOT have these redirects,
-// as they prevent us from seeing the content we build for the preview URL
-/** @type {Redirect[]} */
-const devPortalToDotIoRedirects = isPreview()
-	? []
-	: productsToProxy.reduce((acc, slug) => {
-			const routesToProxy = proxySettings[slug].routesToProxy
-			// If we're trying to test this product's redirects in dev,
-			// then we'll set the domain to an empty string for absolute URLs
-			const domain = slug == PROXIED_PRODUCT ? '' : proxySettings[slug].domain
-			const toDotIoRedirects = routesToProxy
-				.filter(({ skipRedirect }) => !skipRedirect)
-				.map(({ proxiedRoute, localRoute }) => {
-					return {
-						source: localRoute,
-						destination: domain + proxiedRoute,
-						permanent: false,
-					}
-				})
-			return acc.concat(toDotIoRedirects)
-	  }, [])
-
-/**
- *
- * @param {Redirect[]} redirects
- * @param {string} productSlug
- * @returns {Redirect[]}
- */
-function addHostCondition(redirects, productSlug) {
-	const host = proxySettings[productSlug]?.host
-	return redirects.map((redirect) => {
-		if (productSlug == PROXIED_PRODUCT) {
-			return redirect
-		}
-
-		// If the productSlug is NOT a beta product, it is GA, so handle the redirect appropriately (exclude sentinel)
-		if (productSlug !== 'sentinel') {
-			// The redirect should always apply in lower environments
-			if (process.env.HASHI_ENV !== 'production') {
-				return redirect
-			}
-
-			// for production, only apply the redirect for the developer domain
-			return {
-				...redirect,
-				has: [
-					{
-						type: 'host',
-						value: 'developer.hashicorp.com',
-					},
-				],
-			}
-		}
-
-		// To enable previewing of .io sites, we accept an hc_dd_proxied_site cookie which must have a value matching a product slug
-		if (isPreview()) {
-			return {
-				...redirect,
-				has: [
-					{
-						type: 'cookie',
-						key: 'hc_dd_proxied_site',
-						value: host,
-					},
-				],
-			}
-		}
-
-		return {
-			...redirect,
-			has: [
-				{
-					type: 'host',
-					value: host,
-				},
-			],
-		}
-	})
 }
 
 /**
@@ -191,16 +98,12 @@ async function getRedirectsFromContentRepo(
 		return []
 	}
 	/**
-	 * Evaluate the redirects file string, filter invalid redirects, and add
-	 * a host condition for proxied sites.
-	 *
-	 * TODO(zachshilton): remove `addHostCondition` once Sentinel is migrated
-	 * (once `docs.hashicorp.com/sentinel` redirects to `developer.hashicorp.com`)
+	 * Evaluate the redirects file string, filter invalid redirects.
 	 */
 	/** @type {Redirect[]} */
 	const parsedRedirects = eval(redirectsFileString) ?? []
 	const validRedirects = filterInvalidRedirects(parsedRedirects, repoName)
-	return addHostCondition(validRedirects, repoName)
+	return validRedirects
 }
 
 async function buildProductRedirects() {
@@ -211,80 +114,24 @@ async function buildProductRedirects() {
 		return []
 	}
 
-	/**
-	 * TODO
-	 * Figure out solution to load Sentinel redirects from the Sentinel repo:
-	 * https://app.asana.com/0/1202097197789424/1202532915796679/f
-	 */
-	const sentinelIoRedirects = [
-		{
-			source: '/',
-			destination: '/sentinel',
-			permanent: true,
-		},
-		{
-			source: '/sentinel/commands/config',
-			destination: '/sentinel/configuration',
-			permanent: true,
-		},
-		// disallow '.html' or '/index.html' in favor of cleaner, simpler paths
-		{ source: '/:path*/index', destination: '/:path*', permanent: true },
-		{ source: '/:path*.html', destination: '/:path*', permanent: true },
-	]
-
 	const productRedirects = (
 		await Promise.all([
 			getRedirectsFromContentRepo('boundary'),
 			getRedirectsFromContentRepo('nomad'),
 			getRedirectsFromContentRepo('vault'),
-			getRedirectsFromContentRepo('waypoint'),
 			getRedirectsFromContentRepo('vagrant'),
 			getRedirectsFromContentRepo('packer'),
 			getRedirectsFromContentRepo('consul'),
 			getRedirectsFromContentRepo('terraform-docs-common'),
 			getRedirectsFromContentRepo('hcp-docs', '/redirects.js'),
-			/**
-			 * Note: `hashicorp/ptfe-releases` is in the process of adding a
-			 * `redirects.js` file. Until a release is cut and our content API
-			 * has a `latestRef` corresponding to a commit with that file, we
-			 * expect any attempt to fetch the redirects to 404. To account for this,
-			 * we've added a temporary try-catch block here.
-			 *
-			 * TODO(zachshilton): remove this try-catch block,
-			 * once `hashicorp/ptfe-releases` has cut a release with a `redirect.js`
-			 * file and that release has been extracted by our content workflows. At
-			 * that point, we'll expect the redirects.js file to exist, and only then
-			 * should 404s break the build.
-			 * Task: https://app.asana.com/0/1202097197789424/1205453036684673/f
-			 */
-			(async function getPtfeRedirects() {
-				try {
-					return await getRedirectsFromContentRepo('ptfe-releases')
-				} catch (e) {
-					if (e.toString() === 'HttpError: Not Found') {
-						console.warn(
-							'Redirects for "hashicorp/ptfe-releases" were not found in the latest set of content extracted by our content API. Skipping for now.'
-						)
-						return []
-					} else {
-						throw e
-					}
-				}
-			})(),
+			getRedirectsFromContentRepo('ptfe-releases'),
+			getRedirectsFromContentRepo('sentinel'),
 		])
 	).flat()
 
-	return [
-		...devPortalToDotIoRedirects,
-		...productRedirects,
-		...addHostCondition(sentinelIoRedirects, 'sentinel'),
-	]
+	return productRedirects
 }
 
-/**
- * @TODO these redirects will eventually be defined in /proxied-redirects/
- * @returns {Promise<Redirect[]>}
- */
 async function buildDevPortalRedirects() {
 	return [
 		{
@@ -292,13 +139,6 @@ async function buildDevPortalRedirects() {
 			destination: '/hcp',
 			permanent: true,
 		},
-		/**
-		 * Redirect Waypoint Plugins to Waypoint Integrations
-		 *
-		 * Note: canonical list of plugin pages that require redirects can be
-		 * derived from the plugins nav-data.json file:
-		 * https://github.com/hashicorp/waypoint/blob/main/website/data/plugins-nav-data.json
-		 */
 		{
 			source: '/waypoint/plugins',
 			destination: '/waypoint/integrations',
@@ -311,7 +151,7 @@ async function buildDevPortalRedirects() {
 		},
 		{
 			source:
-				'/:path(boundary|consul|nomad|packer|terraform|vagrant|vault|waypoint)/downloads',
+				'/:path(boundary|consul|nomad|packer|terraform|vagrant|vault|waypoint|sentinel)/downloads',
 			destination: '/:path/install',
 			permanent: true,
 		},
@@ -325,11 +165,50 @@ async function buildDevPortalRedirects() {
 			destination: '/vagrant/install/vmware',
 			permanent: true,
 		},
-		/**
-		 * Redirect for Integration Component rework.
-		 * Further details in the file this is imported from.
-		 */
-		...integrationMultipleComponentRedirects,
+		{
+			source: '/waypoint/api-docs',
+			destination:
+				'https://github.com/hashicorp/waypoint/blob/main/pkg/server/gen/server.swagger.json',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/install',
+			destination: '/waypoint/tutorials/hcp-waypoint',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/commands',
+			destination:
+				'https://github.com/hashicorp/waypoint/tree/main/website/content/commands',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/commands/:slug',
+			destination:
+				'https://github.com/hashicorp/waypoint/tree/main/website/content/commands',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/integrations',
+			destination: '/waypoint',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/integrations/hashicorp/:slug',
+			destination: '/waypoint',
+			permanent: true,
+		},
+		{
+			source: '/waypoint/docs/(.+$)',
+			destination:
+				'https://github.com/hashicorp/waypoint/tree/main/website/content/docs',
+			permanent: true,
+		},
+		{
+			source: '/certifications/networking-automation',
+			destination: '/certifications/security-automation',
+			permanent: true,
+		},
 		/**
 		 * Redirects from our former Packer Plugin library to our
 		 * new integrations library for Packer,
@@ -340,32 +219,37 @@ async function buildDevPortalRedirects() {
 
 /**
  * Splits an array of redirects into simple (one-to-one path matches without
- * regex matching) and glob-based (with regex matching). Enables processing
- * redirects via middleware instead of the built-in redirects handling.
+ * regex matching) and complex (with glob-based regex matching or conditions).
+ *
+ * This enables processing simple redirects via middleware, instead of the
+ * built-in redirects handling. Using middleware was previously a necessity
+ * as we handled a VERY large volume of redirects for the proxied `io` domains,
+ * which exceeded Vercel's limits for built-in redirects handling.
+ * For further details see: https://vercel.com/guides/how-can-i-increase-the-limit-of-redirects-or-use-dynamic-redirects-on-vercel
+ *
  * @param {Redirect[]} redirects
- * @returns {{ simpleRedirects: Redirect[], globRedirects: Redirect[] }}
+ * @returns {{ simpleRedirects: Redirect[], complexRedirects: Redirect[] }}
  */
 function splitRedirectsByType(redirects) {
 	/** @type {Redirect[]} */
 	const simpleRedirects = []
 
 	/** @type {Redirect[]} */
-	const globRedirects = []
+	const complexRedirects = []
 
 	redirects.forEach((redirect) => {
-		if (
-			['(', ')', '{', '}', ':', '*', '+', '?'].some((char) =>
-				redirect.source.includes(char)
-			) ||
-			(redirect.has && redirect.has.some((has) => has.type !== 'host'))
-		) {
-			globRedirects.push(redirect)
+		const isGlobRedirect = ['(', ')', '{', '}', ':', '*', '+', '?'].some(
+			(char) => redirect.source.includes(char)
+		)
+		const hasCondition = redirect.has?.length > 0
+		if (isGlobRedirect || hasCondition) {
+			complexRedirects.push(redirect)
 		} else {
 			simpleRedirects.push(redirect)
 		}
 	})
 
-	return { simpleRedirects, globRedirects }
+	return { simpleRedirects, complexRedirects }
 }
 
 /**
@@ -404,13 +288,14 @@ function filterInvalidRedirects(redirects, repoSlug) {
 	 * Filter out any redirects not prefixed with the `product` slug.
 	 */
 	const validRedirects = redirects.filter((entry) => {
-		// Redirects must be prefixed with the product slug.
+		// Redirects for non-proxied must be prefixed with the product slug.
 		const isPrefixed = entry.source.startsWith(`/${productSlug}`)
-		// Keep track of non-prefixed redirects, we want to warn about these
-		if (!isPrefixed) {
+		// Keep track of invalid redirects, we want to warn about these
+		const isValidRedirect = isPrefixed
+		if (!isValidRedirect) {
 			invalidRedirects.push(entry)
 		}
-		return isPrefixed
+		return isValidRedirect
 	})
 
 	/**
@@ -437,15 +322,6 @@ function filterInvalidRedirects(redirects, repoSlug) {
  * @param {Redirect[]} redirects
  */
 function groupSimpleRedirects(redirects) {
-	/** @type {Record<string, string>} */
-	const hostMatching = Object.entries(proxySettings).reduce(
-		(acc, [productSlug, productProxySettings]) => {
-			acc[productProxySettings.host] = productSlug
-			return acc
-		},
-		{}
-	)
-
 	/** @type {Record<string, Record<string, { destination: string, permanent?: boolean }>>} */
 	const groupedRedirects = {}
 	redirects.forEach((redirect) => {
@@ -455,7 +331,7 @@ function groupSimpleRedirects(redirects) {
 				const hasHostValue = redirect.has[0].value
 
 				// this handles the scenario where redirects are built through our proxy config and have the host value matching what is defined in build-libs/proxy-config.js
-				product = hostMatching[hasHostValue] ?? HOSTNAME_MAP[hasHostValue]
+				product = HOSTNAME_MAP[hasHostValue]
 			} else {
 				// this handles the `hc_dd_proxied_site` cookie
 				product = HOSTNAME_MAP[redirect.has[0].value]
@@ -499,25 +375,29 @@ function groupSimpleRedirects(redirects) {
 async function redirectsConfig() {
 	const productRedirects = await buildProductRedirects()
 	const devPortalRedirects = await buildDevPortalRedirects()
-	const proxiedSiteRedirects = await loadProxiedSiteRedirects()
 	const tutorialRedirects = await getTutorialRedirects()
+	const docsDotHashiCorpRedirects = getDocsDotHashiCorpRedirects()
 
-	const { simpleRedirects, globRedirects } = splitRedirectsByType([
-		...proxiedSiteRedirects,
+	const { simpleRedirects, complexRedirects } = splitRedirectsByType([
 		...productRedirects,
 		...devPortalRedirects,
 		...tutorialRedirects,
+		...docsDotHashiCorpRedirects,
 	])
 	const groupedSimpleRedirects = groupSimpleRedirects(simpleRedirects)
 	if (process.env.DEBUG_REDIRECTS) {
 		console.log(
 			'[DEBUG_REDIRECTS]',
-			JSON.stringify({ simpleRedirects, groupedSimpleRedirects, globRedirects })
+			JSON.stringify({
+				simpleRedirects,
+				groupedSimpleRedirects,
+				complexRedirects,
+			})
 		)
 	}
 	return {
 		simpleRedirects: groupedSimpleRedirects,
-		globRedirects,
+		complexRedirects,
 	}
 }
 
@@ -525,6 +405,5 @@ module.exports = {
 	redirectsConfig,
 	splitRedirectsByType,
 	groupSimpleRedirects,
-	addHostCondition,
 	filterInvalidRedirects,
 }

@@ -33,6 +33,7 @@ import {
 	generateProductLandingSidebarNavData,
 	generateTopLevelSidebarNavData,
 } from 'components/sidebar/helpers'
+import tutorialMap from 'data/_tutorial-map.generated.json'
 
 // Local imports
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
@@ -41,6 +42,7 @@ import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { DocsViewProps } from './types'
+import { isReleaseNotesPage } from 'lib/docs/is-release-notes-page'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -190,7 +192,7 @@ export function getStaticGenerationFunctions<
 					 * `rewriteTutorialLinksPlugin` does not rewrite links like
 					 * `/waypoint` to `/waypoint/tutorials`.
 					 */
-					[rewriteTutorialLinksPlugin, { contentType: 'docs' }],
+					[rewriteTutorialLinksPlugin, { contentType: 'docs', tutorialMap }],
 					/**
 					 * Rewrite docs content links, which are authored without prefix.
 					 * For example, in Waypoint docs authors write "/docs/some-thing",
@@ -298,10 +300,11 @@ export function getStaticGenerationFunctions<
 				await prepareNavDataForClient({
 					basePaths: [product.slug, basePath],
 					nodes: navData,
+					tutorialMap,
 				})
 
 			/**
-			 * Figure out of a specific docs version is being viewed
+			 * Figure out if a specific docs version is being viewed
 			 */
 			let indexOfVersionPathPart
 			let versionPathPart
@@ -434,7 +437,11 @@ export function getStaticGenerationFunctions<
 				},
 				projectName: projectName || null,
 				versions:
-					!hideVersionSelector && hasMeaningfulVersions ? versions : null,
+					!hideVersionSelector &&
+					!isReleaseNotesPage(currentPathUnderProduct) && // toggle version dropdown
+					hasMeaningfulVersions
+						? versions
+						: null,
 			}
 
 			return {

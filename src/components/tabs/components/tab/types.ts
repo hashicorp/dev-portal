@@ -32,4 +32,6 @@ export interface TabProps {
 	 * An optional icon to render before the text of a Tab.
 	 */
 	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>
+
+	group?: string
 }

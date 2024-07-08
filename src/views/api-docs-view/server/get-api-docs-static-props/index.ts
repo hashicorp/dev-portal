@@ -29,7 +29,7 @@ import { cachedGetProductData } from 'lib/get-product-data'
  * this function returns `false`.
  *
  * Note: this function does _not_ handle loading OpenAPI `.json` spec files
- * from local content repo previews, as used for Boundary and Waypoint API docs.
+ * from local content repo previews, as used for Boundary API docs.
  * In the future, if we're at the latest version URL and `isDeployPreview`
  * from `lib/env-checks` return `true`, we could load the schema a local
  * file instead in order to better support content repo previews.
@@ -39,9 +39,7 @@ export async function getApiDocsStaticProps({
 	baseUrl,
 	pathParts,
 	versionData,
-	buildCustomSidebarNavDataLevels,
 	buildCustomBreadcrumbs,
-	mayHaveCircularReferences,
 }: {
 	productSlug: ProductSlug
 	baseUrl: string
@@ -61,29 +59,6 @@ export async function getApiDocsStaticProps({
 		productData: ProductData
 		versionId?: string
 	}) => BreadcrumbLink[]
-	/**
-	 * Optional. Override the default method for building breadcrumbs.
-	 * Used by Waypoint API docs, as they
-	 */
-	buildCustomSidebarNavDataLevels?: ({
-		productData,
-		serviceIds,
-		versionId,
-	}: {
-		productData: ProductData
-		serviceIds: string[]
-		versionId?: string
-	}) => $TSFixMe
-	/**
-	 * The Waypoint API docs have circular references.
-	 * We manually try to deal with those. This is a band-aid solution,
-	 * it seems to have unintended side-effects when applied to other
-	 * products' API docs, and almost certainly merits further investigation.
-	 *
-	 * Asana task:
-	 * https://app.asana.com/0/1202097197789424/1203989531295664/f
-	 */
-	mayHaveCircularReferences?: boolean
 }): Promise<GetStaticPropsResult<ApiDocsViewProps>> {
 	/**
 	 * Parse out URL params
@@ -114,7 +89,6 @@ export async function getApiDocsStaticProps({
 	const schemaProps = await buildSchemaProps({
 		sourceFile: currentVersion.sourceFile,
 		serviceId,
-		mayHaveCircularReferences,
 	})
 	// If page props were not found, render a 404 page
 	if ('notFound' in schemaProps) {
@@ -144,14 +118,12 @@ export async function getApiDocsStaticProps({
 	/**
 	 * Build sidebar nav data levels
 	 */
-	const sidebarNavDataLevels = buildCustomSidebarNavDataLevels
-		? buildCustomSidebarNavDataLevels({ productData, serviceIds, versionId })
-		: buildSidebarNavDataLevels({
-				productData,
-				serviceIds,
-				versionId,
-				baseUrl,
-		  })
+	const sidebarNavDataLevels = buildSidebarNavDataLevels({
+		productData,
+		serviceIds,
+		versionId,
+		baseUrl,
+	})
 
 	/**
 	 * Build a heading for versioned pages, showing a `releaseStage` badge

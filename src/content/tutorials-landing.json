@@ -44,7 +44,7 @@
 			"featuredCollectionSlugs": [
 				"vault/getting-started",
 				"vault/getting-started-ui",
-				"vault/cloud"
+				"vault/get-started-hcp-vault-dedicated"
 			],
 			"certificationProgram": {
 				"slug": "security-automation",
@@ -55,27 +55,26 @@
 		"consul": {
 			"featuredUseCases": [
 				{
-					"href": "/consul/tutorials/developer-discovery",
+					"href": "/consul/tutorials/connect-services",
 					"text": "Service discovery and health monitoring"
 				},
 				{
-					"href": "/consul/tutorials/kubernetes",
+					"href": "/consul/tutorials/production-kubernetes",
 					"text": "Service mesh on Kubernetes"
 				},
 				{
-					"href": "/consul/tutorials/developer-mesh",
-					"text": "Service mesh and gateways"
+					"href": "/consul/tutorials/control-network-traffic",
+					"text": "Control service traffic patterns"
 				}
 			],
 			"featuredCollectionSlugs": [
-				"consul/get-started-hcp",
 				"consul/get-started-kubernetes",
 				"consul/get-started-vms"
 			],
 			"certificationProgram": {
-				"slug": "networking-automation",
-				"title": "Get certified: Networking automation",
-				"description": "Validate your networking automation skills by studying for and passing the Consul Associate certification exam."
+				"slug": "security-automation",
+				"title": "Get certified: Network automation",
+				"description": "Validate your service networking skills by studying for and passing the Consul Associate certification exam."
 			}
 		},
 		"nomad": {
@@ -136,8 +135,8 @@
 				}
 			],
 			"featuredCollectionSlugs": [
-				"boundary/hcp-getting-started",
-				"boundary/oss-getting-started",
+				"boundary/get-started-hcp",
+				"boundary/get-started-community",
 				"boundary/hcp-administration"
 			]
 		},
@@ -182,7 +181,7 @@
 	"crossProductSection": {
 		"collectionSlugs": [
 			"well-architected-framework/com",
-			"consul/network-infrastructure-automation",
+			"consul/network-automation",
 			"cloud/networking"
 		]
 	}

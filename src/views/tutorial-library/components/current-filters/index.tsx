@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useCurrentRefinements } from 'react-instantsearch-hooks-web'
+import { useCurrentRefinements } from 'react-instantsearch'
 import Text from 'components/text'
 import Tag from 'components/tag'
 import { productSlugsToNames } from 'lib/products'

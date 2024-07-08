@@ -4,13 +4,16 @@
  */
 
 .root {
+	margin-top: 16px;
 	margin-bottom: 24px;
+}
+
+.headingContainer {
+	margin: 56px 0 16px 0;
 }
 
 .heading {
 	color: var(--token-color-foreground-strong);
-	margin-bottom: 16px;
-	margin-top: 56px;
 }
 
 .notesContainer {

@@ -21,8 +21,6 @@ type InheritedLinkProps = Pick<
 /**
  * The additional custom props for ButtonLink.
  */
-interface ButtonLinkProps extends InheritedButtonProps, InheritedLinkProps {
-	'data-heap-track'?: string
-}
+interface ButtonLinkProps extends InheritedButtonProps, InheritedLinkProps {}
 
 export type { ButtonLinkProps }

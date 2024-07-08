@@ -6,7 +6,7 @@
 import path from 'path'
 import { test, expect, Page, Locator } from '@playwright/test'
 import { SIDEBAR_NAV_ELEMENT_ID, MAIN_ELEMENT_ID } from 'constants/element-ids'
-import { ALL_PAGE_PATHS_OUTPUT_FILE_PATH } from '../../../scripts/docs-content-link-rewrites/constants'
+import { ALL_PAGE_PATHS_OUTPUT_FILE_PATH } from '@scripts/docs-content-link-rewrites/constants'
 
 const SIDEBAR_NAV_ANCHOR_SELECTOR = `${SIDEBAR_NAV_ELEMENT_ID} a`
 const CONTENT_AREA_ANCHOR_SELECTOR = `${MAIN_ELEMENT_ID} a`

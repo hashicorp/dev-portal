@@ -53,15 +53,15 @@ describe('getStaticPathsFromAnalytics', () => {
 		expect(result.length).toEqual(1)
 
 		expect(result).toMatchInlineSnapshot(`
-		Array [
-		  Object {
-		    "params": Object {
-		      "page": Array [
-		        "getting-started",
-		      ],
-		    },
-		  },
-		]
-	`)
+			[
+			  {
+			    "params": {
+			      "page": [
+			        "getting-started",
+			      ],
+			    },
+			  },
+			]
+		`)
 	})
 })

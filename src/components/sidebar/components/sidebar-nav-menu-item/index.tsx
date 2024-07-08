@@ -155,7 +155,6 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 				aria-current={ariaCurrent}
 				aria-label={ariaLabel}
 				className={className}
-				data-heap-track="sidebar-nav-link-item"
 				href={href}
 				opensInNewTab={isExternal}
 				rel={rel}
@@ -245,13 +244,12 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 	return (
 		<>
 			<button
-				aria-controls={listId}
+				aria-controls={isOpen ? listId : null}
 				aria-expanded={isOpen}
 				className={s.sidebarNavMenuItem}
 				id={buttonId}
 				onClick={() => setIsOpen((prevState: boolean) => !prevState)}
 				ref={buttonRef}
-				data-heap-track="sidebar-nav-submenu-button"
 			>
 				<Text
 					asElement="span"
@@ -293,19 +291,19 @@ const SidebarNavMenuItem = ({ item }: SidebarNavMenuItemProps) => {
 	let itemContent
 	if (item.divider) {
 		itemContent = <SidebarHorizontalRule />
-	} else if (item.heading) {
-		itemContent = <SidebarSectionHeading text={item.heading} />
 	} else if (item.routes) {
 		itemContent = <SidebarNavSubmenuItem item={item} />
 	} else if (item.theme) {
 		itemContent = (
 			<SidebarNavHighlightItem
 				theme={item.theme}
-				text={item.title}
+				text={item.title ?? item.heading}
 				href={item.fullPath}
 				isActive={item.isActive}
 			/>
 		)
+	} else if (item.heading) {
+		itemContent = <SidebarSectionHeading text={item.heading} />
 	} else {
 		itemContent = <SidebarNavLinkItem item={item} />
 	}

@@ -55,7 +55,6 @@ const StandaloneLink = ({
 	ariaLabel,
 	className,
 	color = DEFAULT_COLOR_VARIANT,
-	'data-heap-track': dataHeapTrack,
 	download,
 	href,
 	icon,
@@ -73,7 +72,6 @@ const StandaloneLink = ({
 		<Link
 			aria-label={ariaLabel}
 			className={classes}
-			data-heap-track={`standalone-link ${dataHeapTrack ?? ''}`}
 			download={download}
 			href={href}
 			onClick={onClick}

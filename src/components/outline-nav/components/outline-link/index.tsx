@@ -11,18 +11,9 @@ import s from './outline-link.module.css'
 /**
  * Renders an individual outline nav link.
  */
-function OutlineLink({
-	title,
-	url,
-	isActive,
-	dataHeapTrack,
-}: OutlineLinkProps) {
+function OutlineLink({ title, url, isActive }: OutlineLinkProps) {
 	return (
-		<Link
-			className={classNames(s.root, { [s.isActive]: isActive })}
-			href={url}
-			data-heap-track={dataHeapTrack}
-		>
+		<Link className={classNames(s.root, { [s.isActive]: isActive })} href={url}>
 			{title}
 		</Link>
 	)

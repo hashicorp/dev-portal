@@ -3,34 +3,30 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import nock from 'nock'
 import detectAndReformatLearnUrl from '../detect-and-reformat-learn-url'
 
 /**
- * Mocks return value from 'api/tutorials-map' endpoint.
+ * Mocks return value from generated map JSON file.
  * Maps tutorial slugs to tutorial URLs which include the default collection.
  * When adding new test cases, make sure the path is accounted for below
  *
  * [key: database tutorial slug]: value — dev dot absolute path
  */
-const MOCK_TUTORIALS_MAP = {
-	'consul/gossip-encryption-secure':
-		'/consul/tutorials/gossip-encryption-secure',
-	'waypoint/aws-ecs': '/waypoint/tutorials/deploy-aws/aws-ecs',
-	'vault/getting-started-install':
-		'/vault/tutorials/getting-started/getting-started-install',
-	'cloud/amazon-peering-hcp': '/hcp/tutorials/networking/amazon-peering-hcp',
-}
+vi.mock('data/_tutorial-map.generated.json', async () => {
+	return {
+		default: {
+			'consul/gossip-encryption-secure':
+				'/consul/tutorials/gossip-encryption-secure',
+			'waypoint/aws-ecs': '/waypoint/tutorials/deploy-aws/aws-ecs',
+			'vault/getting-started-install':
+				'/vault/tutorials/getting-started/getting-started-install',
+			'cloud/amazon-peering-hcp':
+				'/hcp/tutorials/networking/amazon-peering-hcp',
+		},
+	}
+})
 
 describe('detectAndReformatLearnUrl', () => {
-	beforeEach(async () => {
-		// the api base url defaults to localhost when no VERCEL_URL is provided
-		const scope = nock('http://localhost:3000/api/tutorials-map')
-			.persist()
-			.get(/.*/)
-			.reply(200, MOCK_TUTORIALS_MAP)
-	})
-
 	it('returns .io URLs with unsupported base paths unmodified', async () => {
 		const nonDocsIoUrls: string[] = [
 			'https://cloud.hashicorp.com/pricing',

@@ -6,24 +6,22 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import * as utils from '../utils'
 import { rewriteTutorialsLink } from '../utils/rewrite-tutorials-link'
+import type { Mock } from 'vitest'
 
-jest.mock('../utils')
+vi.mock('../utils')
 
 describe('rewriteTutorialsLink', () => {
-	jest.spyOn(console, 'error').mockImplementation(jest.fn())
-	jest.spyOn(utils, 'getIsRewriteableDocsLink').mockImplementation(jest.fn())
-	jest.spyOn(utils, 'getIsExternalLearnLink').mockImplementation(jest.fn())
-	jest.spyOn(utils, 'rewriteExternalDocsLink').mockImplementation(jest.fn())
-	jest.spyOn(utils, 'rewriteExternalLearnLink').mockImplementation(jest.fn())
+	vi.spyOn(console, 'error').mockImplementation(vi.fn())
+	vi.spyOn(utils, 'getIsRewriteableDocsLink').mockImplementation(vi.fn())
+	vi.spyOn(utils, 'getIsExternalLearnLink').mockImplementation(vi.fn())
+	vi.spyOn(utils, 'rewriteExternalDocsLink').mockImplementation(vi.fn())
+	vi.spyOn(utils, 'rewriteExternalLearnLink').mockImplementation(vi.fn())
 
-	const mockConsoleError = console.error as jest.Mock
-	const mockGetIsRewriteableDocsLink =
-		utils.getIsRewriteableDocsLink as jest.Mock
-	const mockGetIsRewriteableLearnLink =
-		utils.getIsExternalLearnLink as jest.Mock
-	const mockRewriteExternalLearnLink =
-		utils.rewriteExternalLearnLink as jest.Mock
-	const mockRewriteExternalDocsLink = utils.rewriteExternalDocsLink as jest.Mock
+	const mockConsoleError = console.error as Mock
+	const mockGetIsRewriteableDocsLink = utils.getIsRewriteableDocsLink as Mock
+	const mockGetIsRewriteableLearnLink = utils.getIsExternalLearnLink as Mock
+	const mockRewriteExternalLearnLink = utils.rewriteExternalLearnLink as Mock
+	const mockRewriteExternalDocsLink = utils.rewriteExternalDocsLink as Mock
 
 	afterEach(() => {
 		mockConsoleError.mockClear()
@@ -34,7 +32,7 @@ describe('rewriteTutorialsLink', () => {
 	})
 
 	afterAll(() => {
-		jest.restoreAllMocks()
+		vi.restoreAllMocks()
 	})
 
 	test('when link is neither learn nor docs link', () => {

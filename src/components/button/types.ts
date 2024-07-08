@@ -82,11 +82,6 @@ interface ButtonProps extends PickedNativeButtonProps {
 	 * buttons.
 	 */
 	text?: string
-
-	/**
-	 * A data-heap-track string to add to the <button /> element.
-	 */
-	'data-heap-track'?: string
 }
 
 export type { ButtonProps }

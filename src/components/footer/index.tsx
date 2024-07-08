@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import InlineSvg from '@hashicorp/react-inline-svg'
-import svgHashicorpLogo from '@hashicorp/mktg-logos/corporate/hashicorp/primary/black.svg?include'
+import svgHashicorpLogo from 'lib/mktg-logos/hashicorp-horizontal_on-light.svg?include'
 import Text from 'components/text'
 import { FEEDBACK_FORM_URL } from 'constants/feedback-form'
 import { ThemeSwitcherWithLabel } from 'components/theme-switcher'
@@ -39,7 +39,7 @@ const FOOTER_ITEMS: FooterItem[] = [
 	},
 	{
 		type: 'link',
-		href: 'https://www.hashicorp.com/security',
+		href: 'https://www.hashicorp.com/trust/security',
 		text: 'Security',
 	},
 	{
@@ -56,6 +56,11 @@ const FOOTER_ITEMS: FooterItem[] = [
 		type: 'link',
 		href: 'https://www.hashicorp.com/trade-controls',
 		text: 'Trade Controls',
+	},
+	{
+		type: 'link',
+		href: 'https://www.hashicorp.com/trust/accessibility',
+		text: 'Accessibility',
 	},
 	{
 		type: 'link',

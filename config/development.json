@@ -9,7 +9,5 @@
 	"learn": {
 		"max_static_paths": 1
 	},
-	"flags": {
-		"enable_hvd": true
-	}
+	"flags": {}
 }

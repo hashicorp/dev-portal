@@ -19,7 +19,6 @@ const HomePageHeaderContent = () => {
 			<Link
 				href="/"
 				aria-label="HashiCorp Developer Home"
-				data-heap-track="navigation-header-home-logo-link"
 				className={s.siteLogoLink}
 			>
 				<InlineSvg

@@ -6,15 +6,10 @@
 import { trackCertificationCardLinkClicked } from 'views/tutorials-landing/analytics'
 import { type CertificationContentCardLinkProps } from '../types'
 import ContentCardLink from '../content-card-link'
-import networkingAutomationGraphic from './img/consul.svg'
 import infrastructionAutomationGraphic from './img/terraform.svg'
 import securityAutomationGraphic from './img/vault.svg'
 
 const CERTIFICATION_PROGRAM_SLUGS_TO_BACKGROUND_IMAGES = {
-	'networking-automation': {
-		url: networkingAutomationGraphic,
-		lightOrDark: 'dark',
-	},
 	'infrastructure-automation': {
 		url: infrastructionAutomationGraphic,
 		lightOrDark: 'dark',
@@ -33,11 +28,19 @@ const CertificationContentCardLink = ({
 		CERTIFICATION_PROGRAM_SLUGS_TO_BACKGROUND_IMAGES[certification.slug]
 	const title = certification.title
 	const description = certification.description
-	const href = `/certifications/${certification.slug}`
+	/**
+	 * Special case for the consul certification to link to it's specfic header
+	 * {@link https://developer.hashicorp.com/certifications/security-automation#consul-associate-(003)-details}
+	 */
+	const baseHref = `/certifications/${certification.slug}`
+	const href =
+		product.name === 'Consul'
+			? `${baseHref}#consul-associate-(003)-details`
+			: baseHref
 
 	const handleClick = () => {
 		trackCertificationCardLinkClicked({
-			linkPath: href,
+			linkPath: baseHref,
 			productSlug: product.slug,
 		})
 	}

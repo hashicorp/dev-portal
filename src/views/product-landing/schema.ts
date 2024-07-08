@@ -137,7 +137,6 @@ export interface ProductLandingContent {
 			text: string
 			url: string
 		}
-		image: ThemedImageProps['src']
 	}
 	overviewParagraph?: string
 	get_started: {
@@ -147,6 +146,7 @@ export interface ProductLandingContent {
 			text: string
 			url: string
 		}[]
+		image?: ThemedImageProps['src']
 	}
 	blocks: ProductLandingContentBlock[]
 }
@@ -166,7 +166,7 @@ const ProductLandingOverviewSchema = Joi.object({
 	image: Joi.object({
 		light: Joi.string().required(),
 		dark: Joi.string().required(),
-	}).required(),
+	}),
 })
 
 // Require either `ctas` or `iconCardLinks`

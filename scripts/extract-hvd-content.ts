@@ -8,9 +8,20 @@ import path from 'path'
 import { fetchGithubArchiveZip } from 'lib/fetch-github-archive-zip'
 import { isDeployPreview } from 'lib/env-checks'
 
+import { unflatten } from 'flat'
+import { getHashiConfig } from '../config'
+
+const env = process.env.HASHI_ENV || 'development'
+const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
+
+const __config = unflatten(getHashiConfig(envConfigPath))
+
 export const BASE_REPO_CONFIG = {
 	owner: 'hashicorp',
-	ref: process.env.CURRENT_GIT_BRANCH || 'main',
+	ref:
+		__config.flags.enable_hvd_on_preview_branch === true
+			? 'hvd-preview'
+			: process.env.CURRENT_GIT_BRANCH || 'main',
 	repo: 'hvd-docs',
 	contentPath: '/content',
 }
@@ -33,6 +44,8 @@ export const HVD_CONTENT_DIR =
 	process.env.LOCAL_CONTENT_DIR ||
 	path.join(HVD_REPO_DIR, BASE_REPO_CONFIG.contentPath)
 
+export const HVD_FINAL_IMAGE_ROOT_DIR = '.extracted/hvd'
+
 /**
  * This script extracts HVD content from the `hashicorp-validated-designs`
  * GitHub organization into the local filesystem that `dev-portal` can access.
@@ -42,6 +55,13 @@ export const HVD_CONTENT_DIR =
 	if (isDeployPreview()) {
 		console.log(
 			'Note: content repo deploy preview detected. Skipping HVD content.'
+		)
+		return
+	}
+
+	if (fs.existsSync(HVD_REPO_DIR)) {
+		console.log(
+			`Note: HVD content already exists at ${HVD_REPO_DIR}. Skipping extraction.`
 		)
 		return
 	}
@@ -60,8 +80,6 @@ export const HVD_CONTENT_DIR =
 		 * directory with a convoluted name including the repo org, name, and sha.
 		 * We shift some content to avoid this convolution.
 		 */
-		// Clear out the target directory, may be present from previous runs
-		fs.rmSync(HVD_REPO_DIR, { recursive: true, force: true })
 		// Extract into a temporary directory initially, we'll clean this up
 		const tempDestination = HVD_REPO_DIR + '_temp'
 		contentZip.extractAllTo(tempDestination, true)
@@ -71,6 +89,18 @@ export const HVD_CONTENT_DIR =
 		fs.renameSync(convolutedDir, HVD_REPO_DIR)
 		// Clean up the temporary directory
 		fs.rmSync(tempDestination, { recursive: true })
+
+		/**
+		 * Copy all image files into the `public` directory,
+		 * preserving the directory structure.
+		 */
+		const imageLocation = path.join(HVD_REPO_DIR, 'public')
+		const imageDestination = path.join(
+			process.cwd(),
+			'public/',
+			HVD_FINAL_IMAGE_ROOT_DIR
+		)
+		fs.cpSync(imageLocation, imageDestination, { recursive: true })
 	} catch (error) {
 		/**
 		 * When authors are running locally from content repos,

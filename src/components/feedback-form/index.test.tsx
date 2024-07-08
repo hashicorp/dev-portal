@@ -44,7 +44,7 @@ const multipleQuestions: FeedbackQuestion[] = [
 
 describe('FeedbackForm', () => {
 	test('basic question', async () => {
-		const onQuestionSubmit = jest.fn()
+		const onQuestionSubmit = vi.fn()
 		render(
 			<FeedbackForm
 				questions={basicQuestion}
@@ -108,7 +108,7 @@ describe('FeedbackForm', () => {
 	})
 
 	test('onQuestionSubmit callback', async () => {
-		const onQuestionSubmit = jest.fn()
+		const onQuestionSubmit = vi.fn()
 		render(
 			<FeedbackForm
 				questions={multipleQuestions}
@@ -131,24 +131,24 @@ describe('FeedbackForm', () => {
 
 		expect(onQuestionSubmit.mock.calls.map(([firstArg]) => firstArg))
 			.toMatchInlineSnapshot(`
-      Array [
-        Array [
-          Object {
-            "id": "myChoice",
-            "value": "yes",
-          },
-        ],
-        Array [
-          Object {
-            "id": "myChoice",
-            "value": "yes",
-          },
-          Object {
-            "id": "myQuestion",
-            "value": "answer",
-          },
-        ],
-      ]
-    `)
+				[
+				  [
+				    {
+				      "id": "myChoice",
+				      "value": "yes",
+				    },
+				  ],
+				  [
+				    {
+				      "id": "myChoice",
+				      "value": "yes",
+				    },
+				    {
+				      "id": "myQuestion",
+				      "value": "answer",
+				    },
+				  ],
+				]
+			`)
 	})
 })

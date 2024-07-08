@@ -8,7 +8,7 @@ import { productSlugsToNames } from 'lib/products'
 /**
  * The Algolia index we are searching against for tutorials
  */
-export const INDEX_NAME = __config.dev_dot.algolia.tutorialsIndexName
+export const INDEX_NAME = __config.dev_dot.algolia.unifiedIndexName
 
 /**
  * Duration used to throttle search requests to avoid excessive network calls
@@ -32,7 +32,7 @@ export const RESOURCES = [
 export const EDITIONS = [
 	{ value: 'open_source', label: 'Community' },
 	{ value: 'enterprise', label: 'Enterprise' },
-	{ value: 'tfc', label: 'Terraform Cloud' },
+	{ value: 'tfc', label: 'HCP Terraform' },
 	{ value: 'hcp', label: 'HashiCorp Cloud Platform (HCP)' },
 ]
 

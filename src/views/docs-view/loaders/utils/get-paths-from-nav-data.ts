@@ -33,7 +33,7 @@ export function getPathsFromNavData(
 	const pagePathArrays = getPathArraysFromNodes(navDataResolved)
 	// Ensure we include an empty array for the "/" index page path
 	// (may be included in nav-data, eg for Terraform, or may not, eg for all other sites)
-	const hasIndexPage = pagePathArrays.filter((p) => p == []).length > 0
+	const hasIndexPage = pagePathArrays.filter((p) => p.length === 0).length > 0
 	if (!hasIndexPage) {
 		pagePathArrays.unshift([])
 	}

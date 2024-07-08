@@ -5,6 +5,7 @@
 
 import fs from 'fs'
 import path from 'path'
+import tutorialMap from 'data/_tutorial-map.generated.json'
 import { normalizeRemoteLoaderSlug } from 'lib/docs-content-link-rewrites/normalize-remote-loader-slug'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getProductUrlAdjuster } from 'views/docs-view/utils/product-url-adjusters'
@@ -52,6 +53,7 @@ const main = async () => {
 			filePaths: changedMdxFiles,
 			urlAdjustFn,
 			repo,
+			tutorialMap,
 		})
 
 	// Handle files that contain links that need to be rewritten.

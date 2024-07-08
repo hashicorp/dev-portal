@@ -22,7 +22,7 @@ import type { ProductSlug } from 'types/products'
  * to be rendered on demand.
  *
  * Note: this function does _not_ handle loading OpenAPI `.json` spec files
- * from local content repo previews, as used for Boundary and Waypoint API docs.
+ * from local content repo previews, as used for Boundary API docs.
  * In the future, if we're at the latest version URL and `isDeployPreview`
  * from `lib/env-checks` return `true`, we could load the schema a local
  * file instead in order to better support content repo previews.
@@ -30,20 +30,9 @@ import type { ProductSlug } from 'types/products'
 export async function getApiDocsStaticPaths({
 	productSlug,
 	versionData,
-	mayHaveCircularReferences,
 }: {
 	productSlug: ProductSlug
 	versionData: ApiDocsVersionData[]
-	/**
-	 * The Waypoint API docs have circular references.
-	 * We manually try to deal with those. This is a band-aid solution,
-	 * it seems to have unintended side-effects when applied to other
-	 * products' API docs, and almost certainly merits further investigation.
-	 *
-	 * Asana task:
-	 * https://app.asana.com/0/1202097197789424/1203989531295664/f
-	 */
-	mayHaveCircularReferences?: boolean
 }): Promise<GetStaticPathsResult<ApiDocsParams>> {
 	/**
 	 * Determine if we want to skip building static content.
@@ -73,7 +62,6 @@ export async function getApiDocsStaticPaths({
 	// Parse the path parts for all API docs pages we need to statically render.
 	const apiDocsPaths = await fetchApiDocsPaths({
 		sourceFile: latestStableVersion.sourceFile,
-		mayHaveCircularReferences,
 	})
 
 	/**

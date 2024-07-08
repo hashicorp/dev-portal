@@ -63,6 +63,7 @@ export interface ProductDownloadsViewProps {
 		sidecarMarketingCard: SidecarMarketingCardProps
 		sidecarHcpCallout?: TryHcpCalloutCompactProps
 		sidebarMenuItems?: MenuItem[]
+		additionalDownloadItems?: MenuItem[]
 		installName?: string
 	}
 	releases: ReleasesAPIResponse

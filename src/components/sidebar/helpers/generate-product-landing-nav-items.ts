@@ -45,7 +45,7 @@ export const generateProductLandingSidebarMenuItems = (
 	 * We should refactor to drive this via global config https://app.asana.com/0/1204807665183200/1205002760871766/f
 	 */
 
-	if (product.slug !== 'hcp') {
+	if (product.slug !== 'hcp' && product.slug !== 'waypoint') {
 		menuItems.push({
 			title: 'Install',
 			fullPath: `/${product.slug}/install`,
@@ -57,7 +57,9 @@ export const generateProductLandingSidebarMenuItems = (
 			{
 				title: 'Documentation',
 				isOpen: true,
-				routes,
+				routes: introNavItem
+					? routes.filter((route) => !route.fullPath.endsWith('/intro'))
+					: routes,
 			},
 		]
 	} else {
@@ -70,15 +72,16 @@ export const generateProductLandingSidebarMenuItems = (
 		menuItems.push(introNavItem)
 	}
 
-	menuItems.push(
-		...[
-			{
-				title: 'Tutorials',
-				fullPath: `/${product.slug}/tutorials`,
-			},
-			...docsItems,
-		]
-	)
+	// Add a "Tutorials" link for all products except sentinel
+	if (product.slug !== 'sentinel') {
+		menuItems.push({
+			title: 'Tutorials',
+			fullPath: `/${product.slug}/tutorials`,
+		})
+	}
+
+	// Add "Documentation" item links for all products
+	menuItems.push(...docsItems)
 
 	if (getIsEnabledProductIntegrations(product.slug)) {
 		menuItems.push({

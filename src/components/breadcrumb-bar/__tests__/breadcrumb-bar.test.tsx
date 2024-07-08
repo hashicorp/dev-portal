@@ -8,7 +8,7 @@ import { render } from '@testing-library/react'
 import React from 'react'
 
 // Mock next/head so that we can see its children
-jest.mock('next/head', () => {
+vi.mock('next/head', () => {
 	return {
 		__esModule: true,
 		default: ({ children }: React.PropsWithChildren<any>) => {
@@ -44,38 +44,38 @@ describe('BreadcrumbBar', () => {
 		expect(structuredData[0].itemListElement).toHaveLength(4)
 
 		expect(structuredData).toMatchInlineSnapshot(`
-		Array [
-		  Object {
-		    "@context": "https://schema.org",
-		    "@type": "BreadcrumbList",
-		    "itemListElement": Array [
-		      Object {
-		        "@type": "ListItem",
-		        "item": "https://developer.hashicorp.com/",
-		        "name": "Developer",
-		        "position": 1,
-		      },
-		      Object {
-		        "@type": "ListItem",
-		        "item": "https://developer.hashicorp.com/consul",
-		        "name": "Consul",
-		        "position": 2,
-		      },
-		      Object {
-		        "@type": "ListItem",
-		        "item": "https://developer.hashicorp.com/consul/docs",
-		        "name": "Documentation",
-		        "position": 3,
-		      },
-		      Object {
-		        "@type": "ListItem",
-		        "item": "https://developer.hashicorp.com/consul/docs/dynamic-app-config/sessions",
-		        "name": "Sessions",
-		        "position": 4,
-		      },
-		    ],
-		  },
-		]
-	`)
+			[
+			  {
+			    "@context": "https://schema.org",
+			    "@type": "BreadcrumbList",
+			    "itemListElement": [
+			      {
+			        "@type": "ListItem",
+			        "item": "https://developer.hashicorp.com/",
+			        "name": "Developer",
+			        "position": 1,
+			      },
+			      {
+			        "@type": "ListItem",
+			        "item": "https://developer.hashicorp.com/consul",
+			        "name": "Consul",
+			        "position": 2,
+			      },
+			      {
+			        "@type": "ListItem",
+			        "item": "https://developer.hashicorp.com/consul/docs",
+			        "name": "Documentation",
+			        "position": 3,
+			      },
+			      {
+			        "@type": "ListItem",
+			        "item": "https://developer.hashicorp.com/consul/docs/dynamic-app-config/sessions",
+			        "name": "Sessions",
+			        "position": 4,
+			      },
+			    ],
+			  },
+			]
+		`)
 	})
 })

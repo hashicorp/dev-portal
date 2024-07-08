@@ -13,14 +13,6 @@ import { getEdgeFlags } from 'flags/edge'
 import { getVariantParam } from 'views/tutorial-view/utils/variants'
 
 function determineProductSlug(req: NextRequest): string {
-	// .io preview on dev portal
-	const proxiedSiteCookie = req.cookies.get('hc_dd_proxied_site')?.value
-	const proxiedProduct = HOSTNAME_MAP[proxiedSiteCookie]
-
-	if (proxiedProduct) {
-		return proxiedProduct
-	}
-
 	// .io production deploy
 	if (req.nextUrl.hostname in HOSTNAME_MAP) {
 		return HOSTNAME_MAP[req.nextUrl.hostname]
@@ -48,11 +40,20 @@ function setHappyKitCookie(
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 	const { geo } = req
 
-	// 07/07/2023 — Simple UA check
+	// UA checks to prevent misuse
 	const { ua } = userAgent(req)
-	const regexp = /(bytespider|bytedance)/i
-	if (regexp.test(ua)) {
-		return NextResponse.json(null, { status: 404 })
+	if (/(bytespider|bytedance)/i.test(ua)) {
+		return Response.json(null, { status: 404 })
+	}
+
+	if (/curl/i.test(ua) && req.nextUrl.pathname === '/terraform/cdktf') {
+		return Response.json(
+			{
+				error:
+					'Please reach out to support@hashicorp.com so we can learn more about your use case.',
+			},
+			{ status: 429 }
+		)
 	}
 	// ----------------------
 

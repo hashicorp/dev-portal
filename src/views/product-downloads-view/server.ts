@@ -69,7 +69,6 @@ const generateGetStaticProps = (
 			sidecarMarketingCard,
 			sidecarHcpCallout: rawSidecarHcpCallout,
 		} = CONTENT
-
 		/**
 		 * Fetch the release data static props
 		 */

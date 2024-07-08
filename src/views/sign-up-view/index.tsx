@@ -107,11 +107,7 @@ const SignUpView = () => {
 					<div className={s.asideGraphicContainer}>
 						<InlineSvg
 							className={s.asideGraphic}
-							/**
-							 * Replace with real graphic when it's available
-							 * ref: https://app.asana.com/0/1202097197789424/1202683836858983/f
-							 */
-							src={require('./img/aside-graphic.svg?include')}
+							src={require('./img/devdot_signup_v1.svg?include')}
 						/>
 					</div>
 				</aside>
