@@ -16,7 +16,8 @@ const {
 } = require('./docs-dot-hashicorp-redirects')
 const { packerPluginRedirects } = require('./integration-packer-redirects')
 
-require('isomorphic-unfetch')
+//require('isomorphic-unfetch')
+const fetch = require('node-fetch')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */
 
@@ -31,6 +32,7 @@ const HOSTNAME_MAP = {
  *
  * @TODO save the redirects to the content database and expose them directly via the API
  */
+/*
 async function getLatestContentRefForProduct(product) {
 	const contentUrl = new URL('https://content.hashicorp.com')
 	contentUrl.pathname = `/api/content/${product}/version-metadata/latest`
@@ -39,6 +41,20 @@ async function getLatestContentRefForProduct(product) {
 		.then((json) => json.result.ref)
 
 	return latestRef
+}
+*/
+
+async function getLatestContentRefForProduct(product) {
+	try {
+			const contentUrl = new URL('https://content.hashicorp.com');
+			contentUrl.pathname = `/api/content/${product}/version-metadata/latest`;
+			const response = await fetch(contentUrl.toString());
+			const json = await response.json();
+			return json.result.ref;
+	} catch (error) {
+			console.error(`Error fetching latest content ref for product ${product}:`, error);
+			throw error;
+	}
 }
 
 /**
