@@ -155,7 +155,7 @@
 	],
 	"basePaths": [
 		"docs",
-		"api-docs",
+		"api",
 		"cli",
 		"tools",
 		"intro",
@@ -171,17 +171,7 @@
 		{
 			"iconName": "api",
 			"name": "API",
-			"path": "api-docs"
-		},
-		{
-			"iconName": "terminal",
-			"name": "CLI",
-			"path": "cli"
-		},
-		{
-			"iconName": "docs",
-			"name": "Tools",
-			"path": "tools"
+			"path": "api"
 		}
 	],
 	"integrationsConfig": {

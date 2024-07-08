@@ -16,6 +16,7 @@ const {
 } = require('./docs-dot-hashicorp-redirects')
 const { packerPluginRedirects } = require('./integration-packer-redirects')
 
+//require('node-fetch')
 //require('isomorphic-unfetch')
 const fetch = require('node-fetch')
 
@@ -46,14 +47,17 @@ async function getLatestContentRefForProduct(product) {
 
 async function getLatestContentRefForProduct(product) {
 	try {
-			const contentUrl = new URL('https://content.hashicorp.com');
-			contentUrl.pathname = `/api/content/${product}/version-metadata/latest`;
-			const response = await fetch(contentUrl.toString());
-			const json = await response.json();
-			return json.result.ref;
+		const contentUrl = new URL('https://content.hashicorp.com')
+		contentUrl.pathname = `/api/content/${product}/version-metadata/latest`
+		const response = await fetch(contentUrl.toString())
+		const json = await response.json()
+		return json.result.ref
 	} catch (error) {
-			console.error(`Error fetching latest content ref for product ${product}:`, error);
-			throw error;
+		console.error(
+			`Error fetching latest content ref for product ${product}:`,
+			error
+		)
+		throw error
 	}
 }
 
