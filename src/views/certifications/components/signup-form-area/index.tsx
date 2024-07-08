@@ -17,7 +17,7 @@ import classNames from 'classnames'
 const APPEARANCE_SLUG = 'dark'
 
 export function SignupFormArea({
-	className = '',
+	className
 }: HTMLAttributes<HTMLDivElement>) {
 	return (
 		<div className={classNames(s.root, className)}>
