@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { getStaticProps } from 'views/open-api-docs-view-v2/server'
 // Types
 import type { OpenApiDocsViewV2Props } from 'views/open-api-docs-view-v2/types'
 import type { OpenApiPreviewV2InputValues } from '../components/open-api-preview-inputs'
@@ -14,17 +15,23 @@ import type { OpenApiPreviewV2InputValues } from '../components/open-api-preview
  *
  * Return static props for the appropriate OpenAPI docs view.
  *
- * TODO: this is just a placeholder for now.
+ * TODO: this is largely a placeholder for now.
+ * Will likely require a few more args to pass to getStaticProps, eg productData
+ * for example, but those types of details are not yet needed by the underlying
+ * view.
  */
-export default function getPropsFromPreviewData(
+export default async function getPropsFromPreviewData(
 	previewData: OpenApiPreviewV2InputValues | null,
 	operationSlug: string | null
-): OpenApiDocsViewV2Props | null {
+): Promise<OpenApiDocsViewV2Props | null> {
 	// If we don't have any preview data, we can't expect to generate valid props
 	if (!previewData) {
 		return null
 	}
 	// Use the incoming preview data to generate static props for the view
-	// TODO: this is just a placeholder for now.
-	return { _dev: { serverSideProps: { operationSlug, previewData } } }
+	return await getStaticProps({
+		basePath: '/open-api-docs-preview-v2',
+		operationSlug,
+		openApiJsonString: previewData.openApiJsonString,
+	})
 }

@@ -5,9 +5,11 @@
 
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
+// Components
+import LandingContent from './components/landing-content'
+import OperationContent from './components/operation-content'
 // Types
 import type { OpenApiDocsViewV2Props } from './types'
-import Link from 'next/link'
 
 /**
  * Placeholder view component for a new OpenAPI docs setup.
@@ -15,40 +17,60 @@ import Link from 'next/link'
  * This new setup will split each operation into its own URL,
  * and render an overview page at the base URL.
  */
-export default function OpenApiDocsViewV2({ _dev }: OpenApiDocsViewV2Props) {
+export default function OpenApiDocsViewV2({
+	basePath,
+	navItems,
+	...restProps
+}: OpenApiDocsViewV2Props) {
 	return (
-		<SidebarLayout sidebarSlot="" mobileMenuSlot={null}>
-			<div style={{ padding: '24px', border: '1px solid magenta' }}>
-				<p>
-					{`This is a placeholder view for a new OpenAPI docs setup. It will split each operation into its own URL, and render an overview page at the base URL.`}
-				</p>
-				<p>
-					{`Later we'll transform the submitted OpenAPI JSON and other preview inputs into props for this page. For now, we're just reflecting them back, as shown below.`}
-				</p>
-				<p>{`Example operation links, to demo how "operationSlug" will be used in getServerSideProps to allow previewing of many pages:`}</p>
-				<ul>
-					<li>
-						<a href="/open-api-docs-preview-v2">Base URL</a>
-					</li>
-					<li>
-						<a href="/open-api-docs-preview-v2/ExampleOperationOne">
-							ExampleOperationOne
-						</a>
-					</li>
-					<li>
-						<a href="/open-api-docs-preview-v2/ExampleOperationTwo">
-							ExampleOperationTwo
-						</a>
-					</li>
-					<li>
-						<a href="/open-api-docs-preview-v2/ExampleOperationThree">
-							ExampleOperationThree
-						</a>
-					</li>
+		<SidebarLayout
+			sidebarSlot={
+				/**
+				 * TODO: refine generation of nav items, and then render them properly,
+				 * for now just messily rendering some links to enable navigation.
+				 *
+				 * Note: `next/link` will work in prod, since we'll be doing
+				 * `getStaticProps`... but in the preview tool, `next/link` seems to
+				 * make the preview experience janky, seemingly requiring reloads after
+				 * each navigation, maybe related to use of getServerSideProps? Not yet
+				 * sure how to resolve this, there's probably some clever solution that
+				 * might be possible...
+				 */
+				<ul style={{ margin: 0, border: '1px solid magenta' }}>
+					{navItems.map((navItem) => {
+						if (!('fullPath' in navItem)) {
+							return null
+						}
+						return (
+							<li key={navItem.fullPath}>
+								<a
+									href={navItem.fullPath}
+									style={{ color: navItem.isActive ? 'white' : undefined }}
+								>
+									{navItem.title}
+								</a>
+							</li>
+						)
+					})}
 				</ul>
-				<pre style={{ whiteSpace: 'pre-wrap' }}>
-					<code>{JSON.stringify(_dev, null, 2)}</code>
-				</pre>
+			}
+			/**
+			 * TODO: implement mobile menu. May be tempting to try to re-use the data
+			 * that feeds the sidebar, and this MAY be the right call, or MAY make
+			 * sense to have them a bit more separate (more flexibility in how we
+			 * present the sidebar, without having to disentangle all the complexity
+			 * of the mobile menu quite yet).
+			 */
+			mobileMenuSlot={null}
+		>
+			<div style={{ padding: '24px' }}>
+				<div style={{ border: '1px solid magenta' }}>
+					{'operationContentProps' in restProps ? (
+						<OperationContent {...restProps.operationContentProps} />
+					) : 'landingContentProps' in restProps ? (
+						<LandingContent {...restProps.landingContentProps} />
+					) : null}
+				</div>
 			</div>
 		</SidebarLayout>
 	)
