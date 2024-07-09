@@ -49,4 +49,4 @@ export const VALID_EDITION_SLUGS_FOR_FILTERING = EDITIONS.map(
  */
 export const VALID_PRODUCT_SLUGS_FOR_FILTERING = Object.keys(
 	productSlugsToNames
-).filter((slug) => !['hcp', 'sentinel'].includes(slug))
+).filter((slug) => !['hcp'].includes(slug))

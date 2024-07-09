@@ -131,15 +131,11 @@ function generateResourcesNavItems(
 
 	return [
 		{ heading: 'Resources' },
-		...(productSlug !== 'sentinel'
-			? [
-					{
-						// Add a "Tutorials" link for all products except Sentinel
-						title: 'Tutorial Library',
-						href: getTutorialLibraryUrl(productSlug),
-					},
-			  ]
-			: []),
+		{
+			// Add a "Tutorials" link for all products except Sentinel
+			title: 'Tutorial Library',
+			href: getTutorialLibraryUrl(productSlug),
+		},
 		...getCertificationsLink(productSlug),
 		{
 			title: 'Community Forum',
