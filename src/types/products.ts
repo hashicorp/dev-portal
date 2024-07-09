@@ -26,7 +26,7 @@ interface Product extends ProductMeta {
 	slug: ProductSlug
 }
 
-type LearnProductSlug = Exclude<ProductSlug, 'hcp' | 'sentinel'>
+type LearnProductSlug = Exclude<ProductSlug, 'hcp'>
 
 /**
  * This is needed so that `LearnProductData` can extend both `ProductData` and
@@ -34,10 +34,7 @@ type LearnProductSlug = Exclude<ProductSlug, 'hcp' | 'sentinel'>
  *
  * "Types of property 'name' are incompatible"
  */
-type LearnProductName = Exclude<
-	ProductName,
-	'HashiCorp Cloud Platform' | 'Sentinel'
->
+type LearnProductName = Exclude<ProductName, 'HashiCorp Cloud Platform'>
 
 type HcpProductName = Exclude<
 	ProductName,
