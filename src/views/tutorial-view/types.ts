@@ -49,7 +49,9 @@ interface TutorialData
 	nextCollectionInSidebar?: ClientCollectionLite
 }
 interface TutorialViewProps {
-	layoutProps: Omit<TutorialSidebarSidecarProps, 'children'>
+	layoutProps: Omit<TutorialSidebarSidecarProps, 'children'> & {
+		isCertificationPrep: boolean
+	}
 	product: Omit<LearnProductData, 'slug'> & {
 		slug: LearnClientProduct['slug'] | 'hcp'
 	} // @TODO clean up the hcp / learn product slug types https://app.asana.com/0/1202097197789424/1202946807363608

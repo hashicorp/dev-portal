@@ -30,6 +30,7 @@ import {
 	buildCategorizedHcpSidebar,
 } from './helpers'
 import { filterCollections } from '../product-tutorials-view/helpers'
+import { isCertificationSlug } from 'lib/utils'
 
 export interface CollectionPageProps {
 	collection: ClientCollection
@@ -41,7 +42,10 @@ export interface CollectionPageProps {
 export type CollectionLayout = Pick<
 	SidebarSidecarLayoutProps,
 	'breadcrumbLinks'
-> & { sidebarSections: CollectionCategorySidebarSection[] }
+> & {
+	sidebarSections: CollectionCategorySidebarSection[]
+	isCertificationPrep: boolean
+}
 
 export interface CollectionPagePath {
 	params: {
@@ -114,7 +118,7 @@ export async function getCollectionPageProps(
 		return null
 	}
 
-	const layoutProps = {
+	const layoutProps: CollectionLayout = {
 		breadcrumbLinks: getTutorialsBreadcrumb({
 			product: { name: product.name, filename: product.slug },
 			collection: {
@@ -126,6 +130,7 @@ export async function getCollectionPageProps(
 			product.slug,
 			collection
 		),
+		isCertificationPrep: isCertificationSlug(collection.slug),
 	}
 
 	return {
