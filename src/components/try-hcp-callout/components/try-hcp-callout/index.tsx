@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import classNames from 'classnames'
 import CardLink from 'components/card-link'
 import {
 	Description,
@@ -13,6 +12,7 @@ import {
 import { TryHcpCalloutProps } from 'components/try-hcp-callout/types'
 import { HcpLogoHeading } from '../hcp-logo-heading'
 import s from './try-hcp-callout.module.css'
+import InlineSvg from '@hashicorp/react-inline-svg'
 
 /**
  * Renders an HCP themed callout card,
@@ -25,6 +25,7 @@ export function TryHcpCallout({
 	description,
 	ctaText,
 	ctaUrl,
+	image,
 }: TryHcpCalloutProps) {
 	return (
 		<CardLink className={s.root} ariaLabel={ctaText} href={ctaUrl}>
@@ -40,7 +41,7 @@ export function TryHcpCallout({
 			</div>
 			<div className={s.imageContainer}>
 				<div className={s.imageWrapper}>
-					<div className={classNames(s.image, s[productSlug])} />
+					<InlineSvg src={image} className={s.image} />
 				</div>
 			</div>
 		</CardLink>
