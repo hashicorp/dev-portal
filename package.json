@@ -48,7 +48,7 @@
 		"@datadog/datadog-api-client": "^1.0.0-beta.7",
 		"@hashicorp/platform-cli": "^2.8.0",
 		"@hashicorp/platform-configs": "^0.2.0",
-		"@hashicorp/platform-nextjs-plugin": "^5.1.1-canary-202469151130",
+		"@hashicorp/platform-nextjs-plugin": "^5.1.1-canary-202469155816",
 		"@hashicorp/platform-postcss-config": "^0.2.0",
 		"@hashicorp/platform-tools": "^0.10.0",
 		"@hashicorp/platform-types": "^0.4.0",
