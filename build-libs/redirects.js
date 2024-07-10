@@ -16,8 +16,7 @@ const {
 } = require('./docs-dot-hashicorp-redirects')
 const { packerPluginRedirects } = require('./integration-packer-redirects')
 
-//require('node-fetch')
-//require('isomorphic-unfetch')
+//SCC// require('isomorphic-unfetch')
 const fetch = require('node-fetch')
 
 /** @typedef { import("next/dist/lib/load-custom-routes").Redirect } Redirect  */

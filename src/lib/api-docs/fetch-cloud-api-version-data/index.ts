@@ -76,7 +76,7 @@ async function fetchCloudApiVersionData(
 	 */
 	if (!versionData || versionData.length === 0) {
 		throw new Error(
-			`Unexpected error fetching HCP OpenAPI spec data from "${githubDir.path}" in the "${githubDir.owner}${githubDir.repo}" repo, at ref "${githubDir.ref}". The configured "githubDir" did not seem to return any OpenAPI "*.json" specs in the expected location or folder structure. Please ensure the "githubDir" points to the correct owner, repo, path, and ref. Under the target path, specs should be found in folders structured like "<releaseStage>/<versionId>/*.json".`
+			`Unexpected error fetching OpenAPI spec data from "${githubDir.path}" in the "${githubDir.owner}${githubDir.repo}" repo, at ref "${githubDir.ref}". The configured "githubDir" did not seem to return any OpenAPI "*.json" specs in the expected location or folder structure. Please ensure the "githubDir" points to the correct owner, repo, path, and ref. Under the target path, specs should be found in folders structured like "<releaseStage>/<versionId>/*.json".`
 		)
 	}
 

@@ -6,11 +6,11 @@
 // Lib
 import { fetchCloudApiVersionData } from 'lib/api-docs/fetch-cloud-api-version-data'
 // View
-import OpenApiDocsView from 'views/open-api-docs-view'
+import OpenApiDocsView from 'views/open-api-docs-view-scc'
 import {
 	getStaticPaths,
 	getStaticProps as getOpenApiDocsStaticProps,
-} from 'views/open-api-docs-view/server'
+} from 'views/open-api-docs-view-scc/server'
 // Types
 import type { GetStaticProps, GetStaticPropsContext } from 'next'
 import type { OpenAPIV3 } from 'openapi-types'
@@ -18,12 +18,12 @@ import type {
 	OpenApiDocsParams,
 	OpenApiDocsViewProps,
 	OpenApiDocsPageConfig,
-} from 'views/open-api-docs-view-v2/types'
+} from 'views/open-api-docs-view-scc/types'
 import {
 	schemaModShortenHcp,
 	schemaModComponent,
 	shortenProtobufAnyDescription,
-} from 'views/open-api-docs-view/utils/massage-schema-utils'
+} from 'views/open-api-docs-view-scc/utils/massage-schema-utils'
 
 /**
  * OpenApiDocsView server-side page configuration
@@ -33,10 +33,10 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	serviceProductSlug: 'vault',
 	basePath: '/vault/api',
 	githubSourceDirectory: {
-		owner: 'hashicorp',
-		repo: 'vault',
-		path: 'website/data/swagger',
-		ref: 'docs/oas-testing',
+		owner: 'schavis',
+		repo: 'dummydata',
+		path: 'vault-yml',
+		ref: 'main',
 	},
 	groupOperationsByPath: true,
 	statusIndicatorConfig: {

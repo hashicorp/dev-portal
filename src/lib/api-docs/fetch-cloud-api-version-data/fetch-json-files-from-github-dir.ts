@@ -21,7 +21,7 @@ export async function getJsonFilesFromGithubDir(
 	githubDir: GithubDir
 ): Promise<FileTreeEntry[]> {
 	const gitTree = await fetchGithubFileTree(githubDir, { recursive: true })
-	// Filter the data.tree for .json files
+	// Filter the data.tree for .json or yaml files
 	const jsonFiles = gitTree.filter((entry: FileTreeEntry) => {
 		// .json files will be blobs, filter out non-blobs
 		const isBlob = entry.type === 'blob'
@@ -29,8 +29,11 @@ export async function getJsonFilesFromGithubDir(
 			return false
 		}
 		// .json files will have a .json path extension
+		//SCC// Valid OAS files will have a .json, .yml, or .yaml path extension
+		const validExtensions = ['.json', '.yml', '.yaml']
 		const extension = path.extname(entry.path)
-		return extension === '.json'
+		//SCC// return extension === '.json'
+		return validExtensions.includes(extension)
 	})
 	// Return the array of json files
 	return jsonFiles
