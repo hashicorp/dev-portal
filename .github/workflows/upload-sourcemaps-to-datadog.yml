@@ -12,10 +12,9 @@
 name: Create and Upload Sourcemaps to Datadog
 
 on:
-  pull_request: #TODO: remove this before merging
-  # push: # TODO: uncomment this before merging
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
 
 jobs:
   build-and-upload:
