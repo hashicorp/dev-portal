@@ -17,7 +17,6 @@ export interface TryHcpCalloutProps {
 	description: string
 	ctaText: string
 	ctaUrl: string
-	image: SVGElement
 }
 
 export interface TryHcpCalloutCompactProps {

@@ -19,7 +19,7 @@ export function TryHcpCalloutPrebuilt({
 }: {
 	productSlug: ProductSlugWithContent
 }) {
-	const { ctaText, ctaUrl, description, heading, image } =
+	const { ctaText, ctaUrl, description, heading } =
 		tryHcpCalloutContent[productSlug]
 	return (
 		<TryHcpCallout
@@ -28,7 +28,6 @@ export function TryHcpCalloutPrebuilt({
 			description={description}
 			heading={heading}
 			productSlug={productSlug}
-			image={image}
 		/>
 	)
 }
