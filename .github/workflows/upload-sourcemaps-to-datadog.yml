@@ -1,0 +1,57 @@
+# This GitHub Actions workflow is responsible for creating and uploading sourcemaps to Datadog to unminify Real User Monitoring (RUM) error logs. It runs on the `main` branch whenever a push event occurs.
+
+# This job runs on an `ubuntu-latest` runner and consists of the following steps:
+
+# 1. **Checkout code**: Checks out the code from the repository using the `actions/checkout` action.
+# 2. **Set up Node.js**: Sets up Node.js using the `actions/setup-node` action with Node.js version 20.
+# 3. **Install Dependencies**: Installs the project dependencies using the `npm ci` command.
+# 4. **Build sourcemaps**: Builds the sourcemaps using the `npm run build` command.
+# 5. **Upload sourcemaps to Datadog**: Uploads the sourcemaps to Datadog using the `datadog-ci` command. It sets the necessary environment variables (`DATADOG_API_KEY` and `LATEST_SHA`) and specifies the required options (`--service`, `--dry-run`, `--release-version`, `--minified-path-prefix`).
+# Note: The values for `DATADOG_API_KEY` and `LATEST_SHA` are retrieved from the repository secrets and the current commit SHA, respectively.
+# 6. **Clean up build**: Cleans up the build by removing the `.next` directory.
+name: Create and Upload Sourcemaps to Datadog
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build sourcemaps
+        env:
+          GENERATE_SOURCEMAPS: true
+          GITHUB_TOKEN: ${{ secrets.CI_GH_TOKEN }}
+        run: |
+          npm run build
+
+      - name: Upload sourcemaps to Datadog
+        env:
+          DATADOG_API_KEY: '${{ secrets.DATADOG_API_KEY }}'
+          LATEST_SHA: ${{ github.sha }}
+        run: |
+          output=$(npx @datadog/datadog-ci sourcemaps upload .next/static/ --service=developer.hashicorp.com --release-version=$LATEST_SHA --minified-path-prefix=https://developer.hashicorp.com/_next/static/ 2>&1)
+          echo "$output"
+          echo "$output" >> $GITHUB_STEP_SUMMARY
+          if [[ "$output" == *"No sourcemaps detected. Did you specify the correct directory?"* ]]; then
+            echo "Failure: No sourcemaps detected" | tee -a $GITHUB_STEP_SUMMARY
+            exit 1
+          else
+            echo "Success: Sourcemaps were uploaded." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Clean up build
+        run: rm -rf .next
