@@ -8,6 +8,7 @@ const path = require('path')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const { redirectsConfig } = require('./build-libs/redirects')
 const HashiConfigPlugin = require('./config/plugin')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 // Set api key for Happy Kit feature flags
 const happyKitKey = process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
@@ -52,8 +53,15 @@ module.exports = withHashicorp({
 		'unist-util-visit',
 		'unist-util-visit-parents',
 	],
-	webpack(config) {
+	webpack(config, { isServer }) {
 		config.plugins.push(HashiConfigPlugin())
+		config.plugins.push(
+			new BundleAnalyzerPlugin({
+				analyzerMode: 'static',
+				reportFilename: `dist/${isServer ? 'server' : 'client'}.html`,
+				openAnalyzer: false,
+			})
+		)
 		return config
 	},
 	async headers() {
