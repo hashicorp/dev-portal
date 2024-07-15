@@ -86,8 +86,6 @@
 		"typescript": "^5.4.5",
 		"vite-tsconfig-paths": "^4.3.2",
 		"vitest": "^1.4.0",
-		"webpack-bundle-analyzer": "^4.10.2",
-		"webpack-cli": "^5.1.4",
 		"yargs": "^17.6.2"
 	},
 	"dependencies": {
@@ -132,7 +130,6 @@
 		"@mapbox/rehype-prism": "^0.8.0",
 		"@mdx-js/mdx": "^1.6.22",
 		"@mdx-js/react": "^1.6.22",
-		"@next/bundle-analyzer": "^14.2.5",
 		"@octokit/core": "^3.5.1",
 		"@octokit/openapi-types": "^11.2.0",
 		"@opentelemetry/api": "^1.7.0",
