@@ -54,10 +54,6 @@ module.exports = withHashicorp({
 	],
 	webpack(config) {
 		config.plugins.push(HashiConfigPlugin())
-		if (process.env.GENERATE_SOURCEMAPS === 'true') {
-			// only generate source maps in GHA .github/workflows/upload-sourcemaps-to-datadog.yml
-			config.devtool = 'source-map'
-		}
 		return config
 	},
 	async headers() {
