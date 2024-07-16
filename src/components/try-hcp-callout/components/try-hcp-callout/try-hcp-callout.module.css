@@ -73,44 +73,6 @@
 
 /* Positions the image */
 .image {
-	/* Default image is Vault, this gets used with generic HCP callouts too */
-	--background-src: url('./img/try-hcp-callout-ui-mock-vault.svg');
-
-	background-image: var(--background-src);
-	background-position: 0 0;
-	background-repeat: no-repeat;
-	background-size: auto;
-	height: var(--image-height);
-	left: 0;
 	position: absolute;
 	top: var(--image-top-offset);
-	width: var(--image-width);
-
-	&.boundary {
-		--background-src: url('./img/try-hcp-callout-ui-mock-boundary.svg');
-	}
-
-	&.consul {
-		--background-src: url('./img/try-hcp-callout-ui-mock-consul.svg');
-	}
-
-	&.packer {
-		--background-src: url('./img/try-hcp-callout-ui-mock-packer.svg');
-	}
-
-	&.terraform {
-		--background-src: url('./img/try-hcp-callout-ui-mock-terraform.svg');
-	}
-
-	&.vagrant {
-		--background-src: url('./img/try-hcp-callout-ui-mock-vagrant.svg');
-	}
-
-	&.vault {
-		--background-src: url('./img/try-hcp-callout-ui-mock-vault.svg');
-	}
-
-	&.waypoint {
-		--background-src: url('./img/try-hcp-callout-ui-mock-waypoint.svg');
-	}
 }
