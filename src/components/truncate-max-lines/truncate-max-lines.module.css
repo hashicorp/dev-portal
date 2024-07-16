@@ -6,14 +6,11 @@
 .root {
 	/**
    *
-   * Expects properties to be set in JS (or in parent CSS):
+   * Expects property to be set in JS (or in parent CSS):
    *
-   * var(--line-height): a unitless expression of line height
    * var(--max-lines): a number of lines to show before truncating
   */
 
-	/** Both variables are unitless, so we multiply by 1em for "x lines high" */
-	max-height: calc(var(--line-height) * var(--max-lines) * 1em);
 	overflow: hidden;
 	text-overflow: ellipsis;
 
