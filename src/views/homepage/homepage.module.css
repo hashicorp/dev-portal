@@ -39,7 +39,6 @@
 
 	@nest html[data-theme='dark'] & {
 		background-color: var(--token-color-page-primary);
-		background-image: url('./img/background-dark.svg');
 	}
 }
 
