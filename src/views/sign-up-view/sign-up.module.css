@@ -120,7 +120,7 @@
 
 .asideGraphicContainer {
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: center;
 	display: flex;
 	height: 100%;
 	width: 100%;
@@ -128,19 +128,15 @@
 
 .asideGraphic {
 	overflow: hidden;
-	padding-top: 60px;
+	padding-top: 25%;
 
 	& svg {
-		height: 421px;
+		height: 512px;
 		width: auto;
-	}
 
 	@media (--dev-dot-desktop) {
-		padding: 0;
-
-		& svg {
 			height: auto;
-			width: auto;
-		}
+			width: auto
+	}
 	}
 }

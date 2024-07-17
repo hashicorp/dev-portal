@@ -56,20 +56,26 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 	const ogImagePath = props.localOgImage || `${productSlug ?? 'base'}.jpg`
 	const ogImageUrl = `${getDeployedUrl()}/og-image/${ogImagePath}`
 
-	let favIconHref
-	if (
+	/**
+	 * Set a custom favicon based on the environment.
+	 */
+	const isDev =
 		(process.env.HASHI_ENV === 'preview' ||
 			process.env.HASHI_ENV === 'development') &&
 		process.env.NODE_ENV === 'development'
-	) {
-		favIconHref = `/favicon-dev.ico`
-	} else if (
-		process.env.HASHI_ENV === 'preview' &&
-		process.env.NODE_ENV === 'production'
-	) {
-		favIconHref = `/favicon-preview.ico`
+	const isPreview =
+		process.env.HASHI_ENV === 'preview' && process.env.NODE_ENV === 'production'
+	let favIconHref: string
+	let favIconSvgHref: string
+	if (isDev) {
+		favIconHref = '/favicon-dev.ico'
+		favIconSvgHref = '/favicon-dev.svg'
+	} else if (isPreview) {
+		favIconHref = '/favicon-preview.ico'
+		favIconSvgHref = '/favicon-preview.svg'
 	} else {
 		favIconHref = '/favicon.ico'
+		favIconSvgHref = '/favicon.svg'
 	}
 
 	return (
@@ -82,8 +88,21 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 			image={ogImageUrl}
 			canonicalUrl={canonicalUrl}
 		>
-			<link rel="icon" href={favIconHref} sizes="any" />
-			<link rel="icon" href="/icon.svg" type="image/svg+xml" />
+			{/**
+			 * Note: favicon approach taken from:
+			 * https://dev.to/masakudamatsu/favicon-nightmare-how-to-maintain-sanity-3al7
+			 *
+			 * We've omitted the app icons & web manifest for now, as we're not yet
+			 * trying to support installing the app on a home screen.
+			 *
+			 * If we wanted to simplify our approach here, we could consider using a
+			 * favicon with a background color (say, black hashicorp icon on white
+			 * background), which would remove the need for media queries in the
+			 * SVG icon.
+			 */}
+			<link rel="icon" href={favIconHref} sizes="48x48" />
+			<link rel="icon" href={favIconSvgHref} sizes="any" type="image/svg+xml" />
+
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			<meta
 				name="google-site-verification"

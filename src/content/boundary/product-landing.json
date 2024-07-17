@@ -25,9 +25,9 @@
 				"url": "/boundary/tutorials/hcp-getting-started"
 			},
 			{
-				"icon": "hcp",
-				"text": "Boundary OSS Quick Start",
-				"url": "/boundary/tutorials/oss-getting-started"
+				"icon": "boundary-color",
+				"text": "Boundary Community Edition Quick Start",
+				"url": "/boundary/tutorials/get-started-community"
 			}
 		]
 	},
@@ -73,10 +73,10 @@
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
 				"boundary/oidc-auth0",
-				"boundary/oss-vault-cred-brokering-quickstart",
+				"boundary/community-vault-cred-brokering-quickstart",
 				"boundary/hcp-manage-workers",
 				"boundary/hcp-ssh-cred-injection",
-				"boundary/oss-manage-targets",
+				"boundary/aws-session-rec-vault",
 				"boundary/oidc-idp-groups"
 			]
 		}

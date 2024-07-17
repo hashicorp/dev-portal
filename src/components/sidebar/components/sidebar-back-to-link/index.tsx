@@ -20,7 +20,6 @@ const SidebarBackToLink = ({
 				icon={<IconChevronLeft16 className={s.icon} />}
 				iconPosition="leading"
 				text={text}
-				data-heap-track="sidebar-back-to-link"
 			/>
 		</div>
 	)

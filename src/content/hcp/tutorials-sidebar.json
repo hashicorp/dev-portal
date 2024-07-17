@@ -5,7 +5,7 @@
 			"items": [
 				{
 					"name": "Quickstart",
-					"collectionSlug": "boundary/hcp-getting-started"
+					"collectionSlug": "boundary/get-started-hcp"
 				},
 				{
 					"name": "Administration",
@@ -14,7 +14,7 @@
 			]
 		},
 		{
-			"name": "HCP Consul",
+			"name": "HCP Consul Dedicated",
 			"items": [
 				{
 					"name": "Quickstart",
@@ -37,26 +37,9 @@
 		{
 			"name": "HCP Vault Dedicated",
 			"items": [
-				{ "name": "Quickstart", "collectionSlug": "vault/cloud" },
-				{ "name": "Operations", "collectionSlug": "vault/cloud-ops" }
-			]
-		},
-		{
-			"name": "HCP Vault Secrets",
-			"items": [
-				{
-					"name": "Quickstart",
-					"collectionSlug": "vault/hcp-vault-secrets-get-started"
-				}
-			]
-		},
-		{
-			"name": "HCP Vault Radar",
-			"items": [
-				{
-					"name": "Foundations",
-					"collectionSlug": "vault/radar-foundations"
-				}
+				{ "name": "Quickstart", "collectionSlug": "vault/get-started-hcp-vault-dedicated" },
+				{ "name": "Operations", "collectionSlug": "vault/manage-hcp-vault-dedicated" },
+				{ "name": "Kubernetes", "collectionSlug": "vault/integrate-kubernetes-hcp-vault-dedicated" }
 			]
 		},
 		{

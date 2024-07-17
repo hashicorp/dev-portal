@@ -155,7 +155,6 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 				aria-current={ariaCurrent}
 				aria-label={ariaLabel}
 				className={className}
-				data-heap-track="sidebar-nav-link-item"
 				href={href}
 				opensInNewTab={isExternal}
 				rel={rel}
@@ -245,13 +244,12 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 	return (
 		<>
 			<button
-				aria-controls={listId}
+				aria-controls={isOpen ? listId : null}
 				aria-expanded={isOpen}
 				className={s.sidebarNavMenuItem}
 				id={buttonId}
 				onClick={() => setIsOpen((prevState: boolean) => !prevState)}
 				ref={buttonRef}
-				data-heap-track="sidebar-nav-submenu-button"
 			>
 				<Text
 					asElement="span"

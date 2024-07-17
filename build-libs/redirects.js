@@ -183,6 +183,12 @@ async function buildDevPortalRedirects() {
 			permanent: true,
 		},
 		{
+			source: '/waypoint/commands/:slug',
+			destination:
+				'https://github.com/hashicorp/waypoint/tree/main/website/content/commands',
+			permanent: true,
+		},
+		{
 			source: '/waypoint/integrations',
 			destination: '/waypoint',
 			permanent: true,
@@ -196,6 +202,11 @@ async function buildDevPortalRedirects() {
 			source: '/waypoint/docs/(.+$)',
 			destination:
 				'https://github.com/hashicorp/waypoint/tree/main/website/content/docs',
+			permanent: true,
+		},
+		{
+			source: '/certifications/networking-automation',
+			destination: '/certifications/security-automation',
 			permanent: true,
 		},
 		/**

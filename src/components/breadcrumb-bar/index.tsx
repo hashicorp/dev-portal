@@ -27,17 +27,16 @@ function BreadcrumbBar({
 	// For now, we want to strictly require that all
 	// breadcrumb link URLs, if present, are relative rather
 	// than absolute links
-	links
-		.filter((l) => Boolean(l.url))
-		.forEach((l) => {
-			if (isAbsoluteUrl(l.url)) {
-				throw new Error(
-					`Absolute URL passed to BreadcrumbBar: "${JSON.stringify(
-						l
-					)}". Please ensure all "link.url" values are relative links.`
-				)
-			}
-		})
+	const filteredLinks = links.filter((l) => Boolean(l.url))
+	filteredLinks.forEach((l) => {
+		if (isAbsoluteUrl(l.url)) {
+			throw new Error(
+				`Absolute URL passed to BreadcrumbBar: "${JSON.stringify(
+					l
+				)}". Please ensure all "link.url" values are relative links.`
+			)
+		}
+	})
 	// Now that we're sure all links are relative,
 	// we can render the breadcrumb links
 
@@ -47,7 +46,7 @@ function BreadcrumbBar({
 		{
 			'@context': 'https://schema.org',
 			'@type': 'BreadcrumbList',
-			itemListElement: links
+			itemListElement: filteredLinks
 				// remove items without a url
 				.filter((e) => !!e.url)
 				.map((link, index) => ({
@@ -69,7 +68,7 @@ function BreadcrumbBar({
 				/>
 			</Head>
 			<ol className={s.listRoot}>
-				{links.map(({ title, url, isCurrentPage }) => {
+				{filteredLinks.map(({ title, url, isCurrentPage }) => {
 					const cleanTitle = title.replace(/<[^>]+>/g, '')
 					const Elem = url && !isCurrentPage ? InternalLink : 'span'
 
@@ -85,7 +84,6 @@ function BreadcrumbBar({
 								className={s.breadcrumbText}
 								href={!isCurrentPage ? url : undefined}
 								aria-current={isCurrentPage ? 'page' : undefined}
-								data-heap-track="breadcrumb-bar-item"
 							>
 								{cleanTitle}
 							</Elem>
