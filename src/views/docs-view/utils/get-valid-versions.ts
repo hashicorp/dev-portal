@@ -5,6 +5,7 @@
 
 // Types
 import type { VersionSelectItem } from '../loaders/remote-content'
+import { semverToTfeVersion } from './semver-to-tfe-version'
 
 const CONTENT_API_URL = process.env.MKTG_CONTENT_API
 const VERSIONS_ENDPOINT = '/api/content-versions'
@@ -52,8 +53,22 @@ export async function getValidVersions(
 		// Fetch known versions of this document
 		const response = await fetch(validVersionsUrl.toString())
 		const { versions: knownVersions } = await response.json()
+		// For content from the `ptfe-releases` repo (Terraform Enteprise), version
+		// numbers in the incoming `versions` array are expected to be formatted
+		// like `vYYYYMM-N`, where `YYYY` is the year, `MM` is the month, and `N`
+		// is a patch version. But in DynamoDB, and therefore in the `knownVersions`
+		// returned from our content API, the versions are formatted
+		// as `vYYYY.MM.N`. In this case, we need to convert the versions from our
+		// fetched `knownVersions` so that they can be accurately compared against
+		// the incoming `versions`.
+		let normalizedKnownVersions = knownVersions
+		if (productSlugForLoader === 'ptfe-releases') {
+			normalizedKnownVersions = knownVersions.map(semverToTfeVersion)
+		}
 		// Apply the filter, and return the valid versions
-		return versions.filter((option) => knownVersions.includes(option.version))
+		return versions.filter((option) =>
+			normalizedKnownVersions.includes(option.version)
+		)
 	} catch (error) {
 		console.error(
 			`[docs-view/server] error fetching known versions for "${productSlugForLoader}" document "${fullPath}". Falling back to showing all versions.`,
