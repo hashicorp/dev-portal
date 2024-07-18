@@ -73,6 +73,12 @@ const DocsVersionSwitcher = ({
 		selectedOption = options.find(
 			(option: VersionSelectItem) => option.isLatest === true
 		)
+		// In some edge cases, there may be no latest version, such as for
+		// versioned docs that no longer exist in the latest version. For these
+		// cases, fallback to selecting the first option.
+		if (!selectedOption) {
+			selectedOption = options[0]
+		}
 	}
 
 	const projectNameForLabel = setProjectForAriaLabel(
