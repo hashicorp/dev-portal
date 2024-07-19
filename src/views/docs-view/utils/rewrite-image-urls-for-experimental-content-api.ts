@@ -35,7 +35,6 @@ export function rewriteImageUrlsForExperimentalContentApi(
 	 */
 	if (url.startsWith('/')) {
 		// Rewrite absolute URLs
-		console.log({ assetPrefix, url })
 		return `${assetPrefix}${url}`
 	} else if (url.startsWith('./')) {
 		// Rewrite relative URLs
