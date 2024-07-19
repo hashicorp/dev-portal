@@ -49,6 +49,9 @@ export async function getValidVersions(
 		const validVersionsUrl = new URL(VERSIONS_ENDPOINT, CONTENT_API_URL)
 		validVersionsUrl.searchParams.set('product', productSlugForLoader)
 		validVersionsUrl.searchParams.set('fullPath', fullPath)
+		console.log(
+			`Fetching from MKTG_CONTENT_API "${validVersionsUrl.toString()}"...`
+		)
 		// Fetch known versions of this document
 		const response = await fetch(validVersionsUrl.toString())
 		const { versions: knownVersions } = await response.json()

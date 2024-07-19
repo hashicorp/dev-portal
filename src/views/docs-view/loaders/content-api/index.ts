@@ -35,6 +35,7 @@ export async function fetchNavData(
 
 	const fullPath = `nav-data/${version}/${basePath}`
 	const url = `${MKTG_CONTENT_API}/api/content/${product}/${fullPath}`
+	console.log(`Fetching from MKTG_CONTENT_API "${url}"...`)
 
 	const response = await fetch(url)
 
@@ -53,6 +54,7 @@ export async function fetchDocument(
 	checkEnvVarsInDev()
 
 	const url = `${MKTG_CONTENT_API}/api/content/${product}/${fullPath}`
+	console.log(`Fetching from MKTG_CONTENT_API "${url}"...`)
 	const response = await fetch(url)
 
 	if (response.status !== 200) {
@@ -67,6 +69,7 @@ export async function fetchVersionMetadataList(product: string) {
 	checkEnvVarsInDev()
 
 	const url = `${MKTG_CONTENT_API}/api/content/${product}/version-metadata?partial=true`
+	console.log(`Fetching from MKTG_CONTENT_API "${url}"...`)
 	const response = await fetch(url)
 
 	if (response.status !== 200) {
