@@ -80,7 +80,23 @@ async function getRedirectsFromContentRepo(
 	 */
 	/** @type {string} */
 	let redirectsFileString
-	if (isDeveloperBuild) {
+	/**
+	 * TODO: replace this with a feature flag or something,
+	 * for now intent is to messily prototype and "make it work", so hard-coding
+	 * to test with all products makes sense at this stage, I think.
+	 */
+	const IS_CONTENT_API_PROTOTYPE = true
+	if (IS_CONTENT_API_PROTOTYPE) {
+		/**
+		 * TODO: fetch redirects from the new content API, which lives in
+		 * hashicorp/web-presence-experimental-docs.
+		 *
+		 * For now, ignoring authored redirects, as loading them from GitHub results
+		 * in mismatched versioning (since web-presence-experimental-docs has a
+		 * slightly old snapshot of all docs content).'
+		 */
+		return []
+	} else if (isDeveloperBuild) {
 		// For `hashicorp/dev-portal` builds, load redirects remotely
 		const latestContentRef = await getLatestContentRefForProduct(repoName)
 		redirectsFileString = await fetchGithubFile({
