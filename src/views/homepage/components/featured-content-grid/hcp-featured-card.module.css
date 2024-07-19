@@ -6,9 +6,7 @@
 .hcpCard {
 	background-color: var(--token-color-foreground-strong);
 	background-image: url('../../img/hcp-graphic.svg');
-	background-position: center top;
 	background-repeat: no-repeat;
-	background-size: cover;
 	border: none;
 	gap: 50px;
 	padding-top: 88px;
