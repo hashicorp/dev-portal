@@ -6,6 +6,10 @@
 import { makeSitemapField } from './helpers'
 
 export async function allDocsFields() {
+	/**
+	 * TODO: Update experimental content monorepo backed API to implement
+	 * an `all-docs-paths` endpoint.
+	 */
 	const getDocsPaths = await fetch(
 		`${process.env.MKTG_CONTENT_API}/api/all-docs-paths`
 	)
