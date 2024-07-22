@@ -32,12 +32,15 @@
 	--bg-gradient-base: var(--token-color-foreground-high-contrast);
 
 	background: linear-gradient(
-			90deg,
-			rgba(136, 143, 255, 0.46) 9.03%,
-			rgba(223, 255, 199, 0.57) 41.12%,
-			rgba(255, 177, 80, 0.31) 61.68%
-		),
-		linear-gradient(var(--bg-gradient-base), var(--bg-gradient-base));
+		78.87deg,
+		#b0ffff 2.19%,
+		#8fd0ff 16.24%,
+		#ddbfff 31.62%,
+		#ffaed0 53.79%,
+		#ffbeaf 67.39%,
+		#fff8c9 79.68%,
+		#fff 91.59%
+	);
 	background-clip: text;
 	color: transparent;
 	display: block;
