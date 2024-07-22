@@ -108,6 +108,10 @@ export default function HeadMetadata(props: HeadMetadataProps) {
 				name="google-site-verification"
 				content="zRQZqfAsOX-ypXfU0mzAIzb5rUvj5fA4Zw2jWJRN-JI"
 			/>
+			<meta
+				name="ahrefs-site-verification"
+				content="9d739b21c466a84dae91df1c79396081a9072152e64f765c9390fed6f249fb84"
+			/>
 			{/**
 			 * Note that `key` values here are necessary, as NextJS de-dupes
 			 * `meta` tags based on `name`.
