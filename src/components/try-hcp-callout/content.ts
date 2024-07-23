@@ -73,7 +73,7 @@ export const tryHcpCalloutContent: Record<
 	hcp: {
 		heading: 'HashiCorp Cloud Platform',
 		description: 'The fastest way to get up and running with HashiCorp tools',
-		ctaText: 'Try cloud for free',
+		ctaText: 'Try HCP Terraform for free',
 		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
 		image:
 			'https://www.datocms-assets.com/2885/1721073685-devdot-try-hcp-callout-ui-mock-vault.svg',

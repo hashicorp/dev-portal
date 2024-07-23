@@ -80,13 +80,13 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	 * 2. Intro (a docs content category, used by Nomad & Vagrant)
 	 * 3. Tutorials
 	 * 4. Documentation content categories (except "/intro")
-	 * 	  - Desired order: Docs, API, CLI, Tools, Plugins, Cloud, ...rest
+	 * 	  - Desired order: Docs, API, CLI, Tools, Plugins, HCP, ...rest
 	 *    - Note that for Terraform, we render a dropdown, rather than
 	 *      individual items.
 	 *    - The ordering of docs categories is defined in src/data/<product>.json
 	 *      for each product. (Except /intro, which is manually inserted earlier)
 	 * 5. ...any other custom links, such as Terraform Registry
-	 * 6. "Try cloud"
+	 * 6. "Try HCP"
 	 *
 	 * Note: most products only have a few of these links.
 	 * Consistent ordering is applied regardless of which links are present.
@@ -162,11 +162,11 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	}
 
 	/**
-	 * For cloud products, add a "Try Cloud" item
+	 * For HashiCorp Cloud Platform products, add a "Try HCP" item
 	 */
 	if (TRY_CLOUD_ITEM_PRODUCT_SLUGS.includes(currentProduct.slug)) {
 		items.push({
-			label: 'Try Cloud',
+			label: 'Try HCP',
 			url:
 				TRY_CLOUD_PRODUCT_LINKS[currentProduct.slug] ??
 				TRY_CLOUD_PRODUCT_LINKS['default'],

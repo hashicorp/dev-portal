@@ -240,7 +240,7 @@ describe('getNavItems', () => {
 			    "url": "https://registry.terraform.io/",
 			  },
 			  {
-			    "label": "Try Cloud",
+			    "label": "Try HCP",
 			    "opensInNewTab": true,
 			    "url": "https://app.terraform.io/public/signup/account",
 			  },
@@ -272,7 +272,7 @@ describe('getNavItems', () => {
 			    "url": "/hcp/docs",
 			  },
 			  {
-			    "label": "Try Cloud",
+			    "label": "Try HCP",
 			    "opensInNewTab": true,
 			    "url": "https://portal.cloud.hashicorp.com/sign-up",
 			  },
