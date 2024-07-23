@@ -56,11 +56,7 @@
 }
 
 .text {
-	color: var(--token-color-foreground-high-contrast);
-
-	@nest html[data-theme='dark'] & {
-		color: var(--token-color-foreground-strong);
-	}
+	color: var(--token-color-foreground-strong);
 }
 
 .right {
