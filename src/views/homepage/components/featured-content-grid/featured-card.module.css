@@ -4,7 +4,7 @@
  */
 
 .card {
-	background-color: var(--token-color-palette-neutral-50);
+	background-color: var(--token-color-foreground-strong);
 	color: var(--token-color-foreground-high-contrast);
 	display: flex;
 	flex-direction: column;
@@ -19,7 +19,7 @@
 	}
 
 	@nest html[data-theme='dark'] & {
-		background-color: var(--token-color-palette-neutral-50);
+		background-color: var(--token-color-foreground-high-contrast);
 		color: var(--token-color-foreground-strong);
 	}
 }
