@@ -30,35 +30,19 @@
 
 	&[aria-expanded='true'] {
 		& .activatorText {
-			color: var(--token-color-surface-primary);
+			color: var(--token-color-foreground-primary);
 		}
 
 		& .activatorTrailingIcon {
-			color: var(--token-color-surface-primary);
+			color: var(--token-color-foreground-primary);
 			transform: rotate(-180deg);
-		}
-	}
-
-	@nest html[data-theme='dark'] & {
-		&[aria-expanded='true'] {
-			& .activatorText {
-				color: var(--token-color-foreground-strong);
-			}
-
-			& .activatorTrailingIcon {
-				color: var(--token-color-foreground-strong);
-			}
 		}
 	}
 }
 
 .activatorText {
-	color: var(--token-color-surface-strong);
+	color: var(--token-color-foreground-primary);
 	margin-right: 6px;
-
-	@nest html[data-theme='dark'] & {
-		color: var(--token-color-foreground-primary);
-	}
 }
 
 .activatorLeadingIcon {
@@ -66,15 +50,11 @@
 }
 
 .activatorTrailingIcon {
-	color: var(--token-color-surface-strong);
+	color: var(--token-color-foreground-strong);
 
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
 		transition: transform 0.2s ease-in-out;
-	}
-
-	@nest html[data-theme='dark'] & {
-		color: var(--token-color-foreground-strong);
 	}
 }
 
