@@ -14,7 +14,7 @@
 		"prestart": "hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts",
 		"prettier:check": "prettier --check .",
 		"prettier:write": "prettier --write .",
-		"postbuild": "hc-tools ./scripts/capture-build-metrics.ts dev-portal && next-sitemap",
+		"postbuild": "hc-tools ./scripts/capture-build-metrics.ts dev-portal && next-sitemap && hc-tools ./scripts/upload-source-maps.ts",
 		"rewrite-docs-content-links": "hc-tools ./scripts/docs-content-link-rewrites/rewrite-links.ts",
 		"sitemap": "next-sitemap",
 		"start:local-preview": "./scripts/content-repo-preview/start.sh",
