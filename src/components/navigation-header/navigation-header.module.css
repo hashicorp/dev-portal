@@ -99,18 +99,4 @@
 	&[aria-expanded='true'] {
 		border-color: var(--token-color-border-strong);
 	}
-
-	/* @nest html[data-theme='light'] & {
-		&:active {
-			background-color: var(--token-color-foreground-primary);
-		}
-	} */
-
-	/* @nest html[data-theme='dark'] & {
-		color: var(--token-color-foreground-strong);
-
-		&:hover, &[aria-expanded='true'] {
-			border-color: var(--token-color-border-strong);
-		}
-	} */
 }
