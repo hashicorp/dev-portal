@@ -14,8 +14,6 @@ import { Pluggable } from 'unified'
 import remarkSentinel from 'lib/remark-sentinel'
 import { getLatestVagrantVmwareVersion } from './get-latest-vagrant-vmware-version'
 import { DocsViewProps } from '../types'
-import { remarkRewriteImageUrls } from 'lib/remark-plugins/remark-rewrite-image-urls'
-import { rewriteImageUrlsForExperimentalContentApi } from './rewrite-image-urls-for-experimental-content-api'
 
 export interface DocsViewPropOptions {
 	hideVersionSelector?: boolean
@@ -48,6 +46,10 @@ export function getRootDocsPathGenerationFunctions(
 		product: productData,
 		productSlugForLoader: rootDocsPath.productSlugForLoader,
 		basePathForLoader: rootDocsPath.basePathForLoader,
+		additionalRemarkPlugins: getAdditionalRemarkPlugins(
+			productData,
+			rootDocsPath
+		),
 		mainBranch: rootDocsPath.mainBranch,
 		getScope: generateGetScope(productData, rootDocsPath),
 		options,
@@ -74,15 +76,8 @@ export function getRootDocsPathGenerationFunctions(
 			context
 		): Promise<GetStaticPropsResult<DocsViewProps>> => {
 			// Generate getStaticPaths for this rootDocsPath
-			const pathParts = (context.params.page || []) as string[]
-			const { getStaticProps } = getStaticGenerationFunctions({
-				...staticFunctionConfig,
-				additionalRemarkPlugins: getAdditionalRemarkPlugins(
-					productData,
-					rootDocsPath,
-					pathParts.join('/')
-				),
-			})
+			const { getStaticProps } =
+				getStaticGenerationFunctions(staticFunctionConfig)
 			return await getStaticProps(context)
 		},
 	}
@@ -93,34 +88,15 @@ export function getRootDocsPathGenerationFunctions(
  */
 function getAdditionalRemarkPlugins(
 	productData: ProductData,
-	rootDocsPath: RootDocsPath,
-	currentPath: string
+	rootDocsPath: RootDocsPath
 ): Pluggable[] {
 	//
-	const productSlugForLoader =
-		rootDocsPath.productSlugForLoader || productData.slug
-	//
 	let additionalRemarkPlugins = []
+	//
 	if (productData.slug == 'sentinel' && rootDocsPath.path == 'docs') {
 		additionalRemarkPlugins.push(remarkSentinel)
 	}
-	/**
-	 * TODO: should only add asset rewriting for new content monorepo API
-	 * if the product has opted-in... so need a feature flag or something here...
-	 * but for prototyping purposes, trying this out for all products.
-	 */
-	additionalRemarkPlugins.push(
-		remarkRewriteImageUrls({
-			urlRewriteFn: (url) =>
-				rewriteImageUrlsForExperimentalContentApi(
-					url,
-					currentPath,
-					productSlugForLoader,
-					rootDocsPath.path
-				),
-		})
-	)
-
+	//
 	return additionalRemarkPlugins
 }
 

@@ -23,11 +23,13 @@ const REPO_CONFIG_CONTENT_DIR: Record<string, string> = {
 export function rewriteImageUrlsForExperimentalContentApi(
 	url,
 	currentPath,
+	currentVersion,
 	productSlugForLoader,
 	docsBasePath
 ) {
 	// Rewrite all URLs to use the content API for assets
-	let assetPrefix = `${process.env.MKTG_CONTENT_API}/assets/${productSlugForLoader}`
+	let assetPrefix = `${process.env.MKTG_CONTENT_API}/assets/${productSlugForLoader}/${currentVersion}`
+	console.log({ assetPrefix })
 	/**
 	 * TODO: we have some messy shims to handle asset organization.
 	 * Probably ideal to standardize this in the content monorepo instead,
@@ -35,9 +37,11 @@ export function rewriteImageUrlsForExperimentalContentApi(
 	 */
 	if (url.startsWith('/')) {
 		// Rewrite absolute URLs
+		// TODO: maybe this should be done during content migration?
 		return `${assetPrefix}${url}`
 	} else if (url.startsWith('./')) {
 		// Rewrite relative URLs
+		// TODO: maybe this should be done during content migration?
 		const currentPathRelative = currentPath.split('/').slice(0, -1).join('/')
 		const contentDir = REPO_CONFIG_CONTENT_DIR[productSlugForLoader]
 		const contentDirPrefix = `/img/${contentDir}/${docsBasePath}` // rootDocsPath.path

@@ -83,7 +83,7 @@ interface LoadStaticPropsReturn {
 
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
 const cachedFetchNavData = moize(fetchNavData, moizeOpts)
-const cachedFetchVersionMetadataList = moize(
+export const cachedFetchVersionMetadataList = moize(
 	fetchVersionMetadataList,
 	moizeOpts
 )

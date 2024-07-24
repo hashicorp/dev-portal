@@ -10,7 +10,9 @@ import { Pluggable } from 'unified'
 import slugify from 'slugify'
 
 // HashiCorp Imports
-import RemoteContentLoader from './loaders/remote-content'
+import RemoteContentLoader, {
+	cachedFetchVersionMetadataList,
+} from './loaders/remote-content'
 import { anchorLinks } from '@hashicorp/remark-plugins'
 
 // Global imports
@@ -44,6 +46,9 @@ import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { DocsViewProps } from './types'
 import { isReleaseNotesPage } from 'lib/docs/is-release-notes-page'
+import { stripVersionFromPathParams } from './loaders/utils'
+import { rewriteImageUrlsForExperimentalContentApi } from './utils/rewrite-image-urls-for-experimental-content-api'
+import { remarkRewriteImageUrls } from 'lib/remark-plugins/remark-rewrite-image-urls'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -172,10 +177,41 @@ export function getStaticGenerationFunctions<
 			)}`
 			const headings: AnchorLinksPluginHeading[] = [] // populated by anchorLinks plugin below
 
+			const [versionFromPath, paramsNoVersion] =
+				stripVersionFromPathParams(pathParts)
+
+			let versionForAssetLoader = versionFromPath
+			if (versionForAssetLoader === 'latest') {
+				const versionMetadata = await cachedFetchVersionMetadataList(
+					productSlugForLoader
+				)
+				versionForAssetLoader = versionMetadata.find((e) => e.isLatest)?.version
+			}
+
 			const loader = getLoader({
 				mainBranch,
 				remarkPlugins: [
 					...additionalRemarkPlugins,
+					/**
+					 * TODO: should only add asset rewriting for new content monorepo API
+					 * if the product has opted-in... so need a feature flag or something here...
+					 * but for prototyping purposes, trying this out for all products.
+					 *
+					 * TODO: maybe this URL rewriting should be done during content
+					 * migration? This would remove the need for changes to the dev-dot
+					 * front-end. It seems somewhat reasonable to have the content API
+					 * return an MDX document with image URLs that are already correct.
+					 */
+					remarkRewriteImageUrls({
+						urlRewriteFn: (url) =>
+							rewriteImageUrlsForExperimentalContentApi(
+								url,
+								paramsNoVersion.join('/'),
+								versionForAssetLoader,
+								productSlugForLoader,
+								basePathForLoader
+							),
+					}),
 					/**
 					 * Note on remark plugins for local vs remote loading:
 					 * includeMarkdown and paragraphCustomAlerts are already
