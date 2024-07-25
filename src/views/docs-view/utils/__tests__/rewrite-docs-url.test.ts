@@ -50,10 +50,6 @@ describe('rewriteDocsUrl', () => {
 				expected: 'https://aws.amazon.com/architecture/well-architected/',
 			},
 			{
-				input: '/onboarding/tfcb-week-5/module-use',
-				expected: '/onboarding/tfcb-week-5/module-use',
-			},
-			{
 				input:
 					'/boundary/tutorials/hcp-getting-started/hcp-getting-started-intro',
 				expected:

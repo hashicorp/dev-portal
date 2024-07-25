@@ -127,11 +127,9 @@ export function rewriteDocsUrl(
 	)
 	const isProductPath = new RegExp(`^/(${productSlugs.join('|')})`)
 	const isTutorialsPath = new RegExp(
-		`^/(${[
-			...productSlugs,
-			SectionOption['well-architected-framework'],
-			SectionOption.onboarding,
-		].join('|')}(/tutorials)?)`
+		`^/(${[...productSlugs, SectionOption['well-architected-framework']].join(
+			'|'
+		)}(/tutorials)?)`
 	)
 
 	if (isCurrentProductDocsUrl) {
