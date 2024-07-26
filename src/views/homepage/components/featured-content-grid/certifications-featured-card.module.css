@@ -41,7 +41,7 @@
 	height: 100%;
 	max-width: 400px;
 	width: 100%;
-	mask-image: linear-gradient(rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 70%);
+	mask-image: linear-gradient(rgba(0, 0, 0, 1) 88%, rgba(0, 0, 0, 0) 100%);
 }
 
 .certificationsCardContentText {
