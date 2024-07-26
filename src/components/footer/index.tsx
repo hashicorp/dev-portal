@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import classNames from 'classnames'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
@@ -70,12 +70,20 @@ const FOOTER_ITEMS: FooterItem[] = [
 	},
 ]
 
-function Footer({
-	openConsentManager,
-	className,
-}: FooterProps): React.ReactElement {
+function Footer({ openConsentManager, className }: FooterProps): ReactElement {
 	const { pathname } = useRouter()
 	const shouldRenderThemeSwitcher = isThemedPath(pathname)
+
+	/**
+	 * TODO: this is an error used to test source maps.
+	 * It should be removed before source maps work ends up on main.
+	 */
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			throw new Error('This is a test error thrown after 3 seconds')
+		}, 3000)
+		return () => clearTimeout(timer) // Cleanup the timer on component unmount
+	}, [])
 
 	return (
 		<footer
