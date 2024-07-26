@@ -64,27 +64,6 @@ const main = () => {
 
 		console.log('Failed to delete source maps from pages dir')
 	}
-	// https://github.com/DataDog/datadog-ci/tree/79c0edce658c54001327e8bbb3f1030e8f4ccc93/src/commands/deployment
-	// https://app.datadoghq.com/source-code/setup/apm?env=preview&service=developer.hashicorp.com&version=
-	// try {
-	// 	const DD_GIT_COMMIT_SHA = process.env.DD_GIT_COMMIT_SHA
-	// 	const DD_GIT_REPOSITORY_URL = process.env.DD_GIT_REPOSITORY_URL
-
-	// 	const gitInfo = `--source-control-provider=git --source-control-repository-url=${DD_GIT_REPOSITORY_URL} --source-control-revision=${DD_GIT_COMMIT_SHA}`
-
-	// 	const deployStatus = execSync(
-	// 		`DATADOG_API_KEY=${DATADOG_API_KEY} npx @datadog/datadog-ci deployments create ${gitInfo} --service=${SERVICE} --env=${process.env.VERCEL_ENV}`
-	// 	)
-
-	// 	deployStatus
-	// 		.toString()
-	// 		.split('\n')
-	// 		.forEach((line) => {
-	// 			console.log(line)
-	// 		})
-
-	// 	console.log('Deployment created successfully')
-	// }
 }
 
 main()
