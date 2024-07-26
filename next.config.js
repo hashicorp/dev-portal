@@ -47,6 +47,7 @@ module.exports = withHashicorp({
 		'unist-util-visit',
 		'unist-util-visit-parents',
 	],
+	productionBrowserSourceMaps: true,
 	webpack(config) {
 		config.plugins.push(HashiConfigPlugin())
 
