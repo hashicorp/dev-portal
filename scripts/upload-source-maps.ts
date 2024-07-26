@@ -3,16 +3,23 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 import { execSync } from 'child_process'
-import { readdirSync, unlinkSync } from 'fs'
-import { join } from 'path'
 
+/**
+ * Uploads source maps to Datadog and then deletes source maps to prevent bundle size increase and leaking of source code.
+ */
 const main = () => {
-	if (process.env.VERCEL_ENV === 'development') {
+	if (
+		typeof process.env.VERCEL_ENV === 'undefined' ||
+		process.env.VERCEL_ENV === 'development'
+	) {
 		return
 	}
 
 	const LATEST_SHA = process.env.VERCEL_GIT_COMMIT_SHA
-	const PATH_PREFIX = `https://${process.env.VERCEL_BRANCH_URL}/_next/static/`
+	const PATH_PREFIX =
+		process.env.VERCEL_ENV === 'production'
+			? 'https://developer.hashicorp.com/_next/static/'
+			: `https://${process.env.VERCEL_BRANCH_URL}/_next/static/`
 	const SERVICE =
 		process.env.VERCEL_ENV === 'production'
 			? 'developer.hashicorp.com'
@@ -30,39 +37,16 @@ const main = () => {
 	} catch (error) {
 		console.error(error)
 
-		console.log('Failed to upload source maps')
+		console.log('Failed to upload sourcemaps')
 	}
 
-	// delete sourcemaps from chunks dir
+	// delete sourcemaps
 	try {
-		// Read the directory and delete all *.js.map files
-		const dirPath = `.next/static/chunks`
-		const files = readdirSync(dirPath)
-		files.forEach((file) => {
-			if (file.endsWith('.js.map')) {
-				unlinkSync(join(dirPath, file))
-			}
-		})
+		execSync(`rm -f .next/static/**/*.js.map`)
 	} catch (error) {
 		console.error(error)
 
-		console.log('Failed to delete source maps from chunks dir')
-	}
-
-	// delete sourcemaps from pages dir
-	try {
-		// Read the directory and delete all *.js.map files
-		const dirPath = `.next/static/chunks/pages`
-		const files = readdirSync(dirPath)
-		files.forEach((file) => {
-			if (file.endsWith('.js.map')) {
-				unlinkSync(join(dirPath, file))
-			}
-		})
-	} catch (error) {
-		console.error(error)
-
-		console.log('Failed to delete source maps from pages dir')
+		console.log('Failed to delete sourcemaps')
 	}
 }
 
