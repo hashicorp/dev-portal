@@ -13,14 +13,10 @@
 }
 
 .productsDropdownIcon {
-	color: var(--token-color-surface-primary);
+	color: var(--token-color-foreground-strong);
 	display: block;
 	height: 32px;
 	width: 32px;
-
-	@nest html[data-theme='dark'] & {
-		color: var(--token-color-foreground-strong);
-	}
 }
 
 .productsDropdownButton {
