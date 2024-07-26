@@ -16,7 +16,7 @@ const main = () => {
 	// const SERVICE = 'developer.hashicorp.com'
 	const PATH_PREFIX =
 		'https://dev-portal-git-rn-featbuild-source-maps-during-deploy-hashicorp.vercel.app/_next/static/'
-	const SERVICE = 'non-prod.developer.hashicorp.com'
+	const SERVICE = process.env.VERCEL_ENV === 'production' ? 'developer.hashicorp.com' : 'non-prod.developer.hashicorp.com'
 
 	const DATADOG_API_KEY = process.env.DD_API_KEY
 
