@@ -54,6 +54,11 @@ module.exports = withHashicorp({
 	],
 	webpack(config) {
 		config.plugins.push(HashiConfigPlugin())
+
+		if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'development') {
+			config.devtool = 'source-map'
+		}
+
 		return config
 	},
 	async headers() {
