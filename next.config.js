@@ -56,7 +56,7 @@ module.exports = withHashicorp({
 		config.plugins.push(HashiConfigPlugin())
 
 		if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'development') {
-			config.devtool = 'source-map'
+			config.devtool = 'hidden-source-map'
 		}
 
 		return config
