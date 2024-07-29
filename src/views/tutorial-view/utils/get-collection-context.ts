@@ -85,11 +85,7 @@ export function getCollectionContext(
 	currentCollection: ClientCollection,
 	collectionCtx: ClientTutorialFullCollectionCtx['collectionCtx']
 ): CollectionContext {
-	const featuredIn = collectionCtx.featuredIn
-		.filter(
-			(c) => !c.slug.includes('onboarding') // filter out onboarding content for CS team
-		)
-		.map(formatCollectionCard)
+	const featuredIn = collectionCtx.featuredIn.map(formatCollectionCard)
 
 	return {
 		default: {
