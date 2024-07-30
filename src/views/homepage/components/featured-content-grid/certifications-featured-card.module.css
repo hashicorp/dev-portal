@@ -10,6 +10,12 @@
 	border: none;
 	padding-top: 0;
 	gap: 70px;
+	background: linear-gradient(
+			185deg,
+			rgba(118, 160, 243, 0.2) -18.65%,
+			rgba(82, 42, 194, 0) 54.49%
+		),
+		#15181e;
 
 	@media (--dev-dot-mobile) {
 		--graphic-max-height: 38vh;
@@ -35,6 +41,7 @@
 	height: 100%;
 	max-width: 400px;
 	width: 100%;
+	mask-image: linear-gradient(rgba(0, 0, 0, 1) 88%, rgba(0, 0, 0, 0) 100%);
 }
 
 .certificationsCardContentText {
