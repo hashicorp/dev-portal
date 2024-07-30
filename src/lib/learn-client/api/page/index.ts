@@ -80,7 +80,7 @@ export async function getPage(
 }
 
 /**
- * Given the learn content API is accessible at NEXT_PUBLIC_LEARN_API_BASE_URL,
+ * Given the learn content API is accessible at LEARN_API_BASE_URL,
  * Return data from a GET request to the "/pages" API route.
  *
  * @returns Array of Page objects

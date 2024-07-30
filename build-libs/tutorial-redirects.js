@@ -4,10 +4,7 @@
  */
 
 async function getTutorialRedirects() {
-	const url = new URL(
-		'/pages/redirects',
-		process.env.NEXT_PUBLIC_LEARN_API_BASE_URL
-	)
+	const url = new URL('/pages/redirects', process.env.LEARN_API_BASE_URL)
 	const res = await fetch(url, {
 		method: 'GET',
 	})

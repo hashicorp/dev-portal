@@ -14,11 +14,11 @@ export function get(path: string, token?: string) {
 		}
 	}
 
-	return fetch(`${process.env.NEXT_PUBLIC_LEARN_API_BASE_URL}${path}`, options)
+	return fetch(`${process.env.LEARN_API_BASE_URL}${path}`, options)
 }
 
 export function put(path, token, bodyJson) {
-	return fetch(`${process.env.NEXT_PUBLIC_LEARN_API_BASE_URL}${path}`, {
+	return fetch(`${process.env.LEARN_API_BASE_URL}${path}`, {
 		method: 'PUT',
 		headers: {
 			Authorization: `Bearer ${token}`,
@@ -29,7 +29,7 @@ export function put(path, token, bodyJson) {
 }
 
 export function post(path, token, bodyJson = {}) {
-	return fetch(`${process.env.NEXT_PUBLIC_LEARN_API_BASE_URL}${path}`, {
+	return fetch(`${process.env.LEARN_API_BASE_URL}${path}`, {
 		method: 'POST',
 		headers: {
 			Authorization: `Bearer ${token}`,
@@ -40,7 +40,7 @@ export function post(path, token, bodyJson = {}) {
 }
 
 export function destroy(path, token) {
-	return fetch(`${process.env.NEXT_PUBLIC_LEARN_API_BASE_URL}${path}`, {
+	return fetch(`${process.env.LEARN_API_BASE_URL}${path}`, {
 		method: 'DELETE',
 		headers: {
 			Authorization: `Bearer ${token}`,

@@ -15,12 +15,9 @@ async function fetchTutorialsWithVariants() {
 	const params = new URLSearchParams({ hasVariants: '1' })
 	const queryStr = `?${params.toString()}`
 	const route = '/tutorials' + queryStr
-	const response = await fetch(
-		`${process.env.NEXT_PUBLIC_LEARN_API_BASE_URL}${route}`,
-		{
-			method: 'GET',
-		}
-	)
+	const response = await fetch(`${process.env.LEARN_API_BASE_URL}${route}`, {
+		method: 'GET',
+	})
 
 	if (response.ok) {
 		const data = await response.json()
