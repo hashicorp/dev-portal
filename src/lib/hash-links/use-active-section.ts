@@ -91,16 +91,26 @@ export function useActiveSection(
 
 				if (visibleHeadings.current.size > 0) {
 					// Find the heading closest to the top of the viewport
-					let shortestDistance
-					let closestHeading
+					let shortestDistance = null
+					let closestHeading = null
 					visibleHeadings.current.forEach((headingId) => {
 						const targetElement = document.getElementById(headingId)
+
+						if (targetElement == null) {
+							return
+						}
+
 						const distance = targetElement.getBoundingClientRect().bottom
 						if (!closestHeading || distance < shortestDistance) {
 							closestHeading = headingId
 							shortestDistance = distance
 						}
 					})
+
+					if (!closestHeading) {
+						return
+					}
+
 					const activeSectionSlug = findMatchingSectionSlug(closestHeading)
 					setActiveSection(activeSectionSlug)
 				} else if (previousY.current && scrollTrend === 'up') {
