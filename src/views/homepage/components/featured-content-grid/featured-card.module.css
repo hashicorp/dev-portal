@@ -19,7 +19,6 @@
 	}
 
 	@nest html[data-theme='dark'] & {
-		background-color: var(--token-color-foreground-high-contrast);
 		color: var(--token-color-foreground-strong);
 	}
 }
