@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-import { ReactElement, useEffect } from 'react'
+import { ReactElement } from 'react'
 
 // Global imports
 import BaseLayout from 'layouts/base-layout'
@@ -20,13 +20,6 @@ import {
 import s from './homepage.module.css'
 
 function HomePageView(): ReactElement {
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			throw new Error('This is a new test error thrown after 5 seconds')
-		}, 5000)
-
-		return () => clearTimeout(timer) // Cleanup the timer on component unmount
-	}, [])
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			<div className={s.root}>
