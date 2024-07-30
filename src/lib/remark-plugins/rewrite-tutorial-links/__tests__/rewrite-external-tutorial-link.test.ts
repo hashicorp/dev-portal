@@ -10,7 +10,6 @@ const TEST_TUTORIAL_SLUG = 'vault/tutorial'
 const MOCK_TUTORIAL_MAP = {
 	'vault/tutorial': '/vault/tutorials/collection/tutorial',
 	'cloud/amazon-peering-hcp': '/hcp/tutorials/networking/amazon-peering-hcp',
-	'onboarding/tutorial': '/onboarding/collection/tutorial',
 	'well-architected-framework/tutorial':
 		'/well-architected-framework/collection/tutorial',
 }
@@ -55,10 +54,6 @@ describe('rewriteExternalTutorialLink', () => {
 		testEachCase([
 			['/tutorials/vault/tutorial', `${MOCK_TUTORIAL_MAP['vault/tutorial']}`],
 			[
-				'/tutorials/onboarding/tutorial',
-				MOCK_TUTORIAL_MAP['onboarding/tutorial'],
-			],
-			[
 				'/tutorials/well-architected-framework/tutorial',
 				MOCK_TUTORIAL_MAP['well-architected-framework/tutorial'],
 			],
@@ -88,18 +83,6 @@ describe('rewriteExternalTutorialLink', () => {
 			[
 				'/tutorials/waypoint/tutorial?paramA=valueA&in=vault/collection&paramB=valueB',
 				'/vault/tutorials/collection/tutorial?paramA=valueA&paramB=valueB',
-			],
-			[
-				`/tutorials/vault/tutorial?in=${SectionOption.onboarding}/collection`,
-				`/${SectionOption.onboarding}/collection/tutorial`,
-			],
-			[
-				`/tutorials/vault/tutorial?paramA=valueA&in=${SectionOption.onboarding}/collection`,
-				`/${SectionOption.onboarding}/collection/tutorial?paramA=valueA`,
-			],
-			[
-				`/tutorials/vault/tutorial?paramA=valueA&in=${SectionOption.onboarding}/collection&paramB=valueB`,
-				`/${SectionOption.onboarding}/collection/tutorial?paramA=valueA&paramB=valueB`,
 			],
 			[
 				'/tutorials/cloud/amazon-peering-hcp?in=cloud/consul-cloud&paramA=valueA',

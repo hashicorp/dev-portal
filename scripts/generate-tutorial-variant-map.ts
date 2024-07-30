@@ -64,10 +64,7 @@ async function getVariantRewrites() {
 			const [product, collectionFilename] = collection.slug.split('/')
 			let path = `/${product}/tutorials/${collectionFilename}/${tutorialFilename}`
 
-			if (
-				product === 'onboarding' ||
-				product === 'well-architected-framework'
-			) {
+			if (product === 'well-architected-framework') {
 				path = `/${product}/${collectionFilename}/${tutorialFilename}`
 			}
 

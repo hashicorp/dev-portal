@@ -67,9 +67,7 @@ const getIsExternalLearnPath = (link: string): boolean => {
 	 * for a product hub page.
 	 */
 	if (numPathnameParts === 1) {
-		return (
-			basePath !== 'onboarding' && productAndSectionOptions.includes(basePath)
-		)
+		return productAndSectionOptions.includes(basePath)
 	}
 
 	/**
