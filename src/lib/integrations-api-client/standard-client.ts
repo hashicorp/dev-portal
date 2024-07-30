@@ -32,10 +32,7 @@ export async function request<ResponseObject>(
 		query?: any
 	}
 ): Promise<ApiResponse<ResponseObject>> {
-	const requestURL = new URL(
-		url,
-		process.env.NEXT_PUBLIC_INTEGRATIONS_API_BASE_URL
-	)
+	const requestURL = new URL(url, process.env.INTEGRATIONS_API_BASE_URL)
 	if (opts?.query) {
 		// Sanitize the URL of any undefined values
 		Object.keys(opts.query).forEach((key) => {

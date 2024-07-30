@@ -169,6 +169,7 @@ function SearchResults({
 	 * to show a helpful "No Results" message.
 	 */
 	const tabsData = useMemo(() => {
+		console.log({ unifiedSearchResults, currentProductSlug })
 		return gatherSearchTabsData(unifiedSearchResults, currentProductSlug)
 	}, [unifiedSearchResults, currentProductSlug])
 
