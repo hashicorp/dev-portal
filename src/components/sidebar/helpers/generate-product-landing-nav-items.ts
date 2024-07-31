@@ -45,7 +45,11 @@ export const generateProductLandingSidebarMenuItems = (
 	 * We should refactor to drive this via global config https://app.asana.com/0/1204807665183200/1205002760871766/f
 	 */
 
-	if (product.slug !== 'hcp' && product.slug !== 'waypoint') {
+	if (
+		product.slug !== 'hcp' &&
+		product.slug !== 'waypoint' &&
+		product.slug !== 'well-architected-framework'
+	) {
 		menuItems.push({
 			title: 'Install',
 			fullPath: `/${product.slug}/install`,
@@ -73,7 +77,10 @@ export const generateProductLandingSidebarMenuItems = (
 	}
 
 	// Add a "Tutorials" link for all products except sentinel
-	if (product.slug !== 'sentinel') {
+	if (
+		product.slug !== 'sentinel' &&
+		product.slug !== 'well-architected-framework'
+	) {
 		menuItems.push({
 			title: 'Tutorials',
 			fullPath: `/${product.slug}/tutorials`,

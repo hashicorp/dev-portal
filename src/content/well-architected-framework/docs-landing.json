@@ -1,0 +1,68 @@
+{
+	"pageSubtitle": "Learn and develop your knowledge of HashiCorp Cloud Platform with these reference docs.",
+	"iconCardGridItems": [
+		{
+			"iconName": "boundary-color",
+			"name": "HCP Boundary",
+			"path": "docs/boundary"
+		},
+		{
+			"iconName": "consul-color",
+			"name": "HCP Consul Dedicated",
+			"path": "docs/consul"
+		},
+		{
+			"iconName": "vault-color",
+			"name": "HCP Vault Dedicated",
+			"path": "docs/vault"
+		},
+		{
+			"iconName": "vault-secrets-color",
+			"name": "HCP Vault Secrets",
+			"path": "docs/vault-secrets"
+		},
+		{
+			"iconName": "vault-radar-color",
+			"name": "HCP Vault Radar",
+			"path": "docs/vault-radar"
+		},
+		{
+			"iconName": "packer-color",
+			"name": "HCP Packer",
+			"path": "docs/packer"
+		},
+		{
+			"iconName": "waypoint-color",
+			"name": "HCP Waypoint",
+			"path": "docs/waypoint"
+		}
+	],
+	"marketingContentBlocks": [
+		{
+			"type": "card-grid",
+			"title": "Fundamentals",
+			"cards": [
+				{
+					"title": "What is HCP?",
+					"description": "How the control plane, data plane, and services work on HCP.",
+					"url": "/hcp/docs/hcp"
+				},
+				{
+					"title": "Supported AWS Environments",
+					"description": "Regions in which HCP is accessible.",
+					"url": "/hcp/docs/hcp/supported-env/aws"
+				},
+				{
+					"title": "Supported Azure Environments",
+					"description": "Regions in which HCP is accessible.",
+					"url": "/hcp/docs/hcp/supported-env/azure"
+				},
+				{
+					"title": "Administration",
+					"description": "How to set up organizations, users, service principals, and MFA.",
+					"url": "/hcp/docs/hcp/admin/orgs"
+				}
+			]
+		}
+	]
+}

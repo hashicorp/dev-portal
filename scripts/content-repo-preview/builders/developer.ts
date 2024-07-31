@@ -29,11 +29,10 @@ export function DeveloperPreviewBuilder(product) {
 
 			/**
 			 * Remove specific page files to speed up preview builds:
-			 * - /src/pages/well-architected-framework
 			 * - /src/pages/onboarding
 			 */
 			const pagesDir = path.join(cwd, 'src', 'pages')
-			const pagesDirsToRemove = ['well-architected-framework', 'onboarding']
+			const pagesDirsToRemove = ['onboarding']
 
 			/**
 			 * Remove validated designs paths from docs previews

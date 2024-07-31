@@ -62,9 +62,10 @@ export function getNextPrevious({
 	let finalLink = getTutorialLibraryLink(currentCollection.theme)
 	const currentCollectionSection = currentCollection.slug.split('/')[0]
 
-	if (currentCollectionSection === 'well-architected-framework') {
-		finalLink = '/well-architected-framework'
-	} else if (currentCollectionSection === 'onboarding') {
+	// if (currentCollectionSection === 'well-architected-framework') {
+	// 	finalLink = '/well-architected-framework'
+	// } else
+	if (currentCollectionSection === 'onboarding') {
 		finalLink = '/tutorials/library'
 	}
 

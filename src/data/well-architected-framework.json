@@ -1,4 +1,16 @@
 {
 	"slug": "well-architected-framework",
-	"name": "Well-Architected Framework"
+	"name": "Well-Architected Framework",
+	"algoliaConfig": {
+		"indexName": "product_WAF",
+		"searchOnlyApiKey": "PLACEHOLDER"
+	},
+	"basePaths": ["docs"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "Documentation",
+			"path": "docs"
+		}
+	]
 }

@@ -16,6 +16,10 @@ const getStaticPaths = async () => {
 		params: { productSlug },
 	}))
 
+	paths.push({
+		params: { productSlug: 'well-architected-framework' },
+	})
+
 	return {
 		paths,
 		fallback: false,

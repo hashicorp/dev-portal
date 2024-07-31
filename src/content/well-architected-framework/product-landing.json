@@ -1,0 +1,52 @@
+{
+	"hero": {
+		"heading": "Well-Architected Framework",
+		"image": "/img/well-architected-framework/landing-hero-graphic.png"
+	},
+	"overview": {
+		"heading": "What is Well-Architected Framework?",
+		"body": "HashiCorp Well-Architected Framework provides best practice guidance for organizations. Use it to optimize your production HashiCorp deployments while also meeting your specific architectural needs. The well-architected framework starts with the cloud operating model and moves toward cloud migration enablement.",
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095265-devdot-waf_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087810-devdot-waf_dm.png"
+		}
+	},
+	"get_started": {
+		"heading": "Getting Started",
+		"body": "Learn how to get started with Well-Architected Framework.",
+		"ctas": [
+			{
+				"text": "HCP Waypoint Quick Start",
+				"url": "/waypoint/tutorials/hcp-waypoint/get-started-hcp"
+			}
+		]
+	},
+	"blocks": [
+		{
+			"type": "heading",
+			"heading": "Well-Architected Framework Concepts",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Templates",
+					"body": "Learn about templates and how to use them to create projects from a reusable configuration.",
+					"url": "/hcp/docs/waypoint/concepts/application-templates"
+				},
+				{
+					"heading": "Add-ons",
+					"body": "Learn about add-ons and how to use them to add additional functionality to your applications.",
+					"url": "/hcp/docs/waypoint/concepts/add-ons"
+				},
+				{
+					"heading": "Role-based access control",
+					"body": "Learn how to control access to HCP Waypoint functionality with user roles.",
+					"url": "/hcp/docs/waypoint/concepts/rbac"
+				}
+			]
+		}
+	]
+}

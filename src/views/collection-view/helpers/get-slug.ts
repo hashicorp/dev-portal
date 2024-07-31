@@ -24,7 +24,7 @@ export function getTutorialSlug(
 
 	// @TODO genericize this to use 'topic' or 'section' instead of 'product'
 	if (
-		rawProductSlug === 'well-architected-framework' ||
+		// rawProductSlug === 'well-architected-framework' ||
 		rawProductSlug === 'onboarding'
 	) {
 		return `/${collectionDbSlug}/${tutorialFilename}`
@@ -40,7 +40,7 @@ export function getCollectionSlug(collectionDbSlug: string): string {
 
 	// @TODO genericize this to use 'topic' or 'section' instead of 'product'
 	if (
-		rawProductSlug === 'well-architected-framework' ||
+		// rawProductSlug === 'well-architected-framework' ||
 		rawProductSlug === 'onboarding'
 	) {
 		return `/${collectionDbSlug}`
