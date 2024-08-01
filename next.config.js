@@ -55,7 +55,11 @@ module.exports = withHashicorp({
 	webpack(config) {
 		config.plugins.push(HashiConfigPlugin())
 
-		if (process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'development') {
+		if (
+			typeof process.env.DATADOG_API_KEY !== 'undefined' &&
+			process.env.VERCEL_ENV &&
+			process.env.VERCEL_ENV !== 'development'
+		) {
 			config.devtool = 'hidden-source-map'
 		}
 
