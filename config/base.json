@@ -19,7 +19,7 @@
 			"session_max_age": 3600
 		},
 		"canonical_base_url": "https://developer.hashicorp.com",
-		"max_static_paths": 10,
+		"max_static_paths": 1,
 		"revalidate": 360,
 		"non_themed_paths": ["/sign-up"],
 		"datadog_config": {
