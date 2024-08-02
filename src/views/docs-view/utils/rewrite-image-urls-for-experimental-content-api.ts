@@ -23,13 +23,26 @@ const REPO_CONFIG_CONTENT_DIR: Record<string, string> = {
 export function rewriteImageUrlsForExperimentalContentApi(
 	url,
 	currentPath,
-	currentVersion,
+	_currentVersion,
 	productSlugForLoader,
 	docsBasePath
 ) {
-	// Rewrite all URLs to use the content API for assets
-	let assetPrefix = `${process.env.MKTG_CONTENT_API}/assets/${productSlugForLoader}/${currentVersion}`
-	console.log({ assetPrefix })
+	/**
+	 * Rewrite all URLs to use the content API for assets
+	 *
+	 * TODO: versioned assets are a work in progress.
+	 *
+	 * One option might be handle `currentVersion` here... but so far, in the
+	 * unified docs repo `web-presence-experimental-docs`, we don't have a clear
+	 * approach to versioned assets. Instead, all assets are currently in
+	 * a single not-versioned directory.
+	 *
+	 * No matter what URL adjustment we do, we'll probably _not_ want to do it
+	 * here, and instead we'll probably want to make `.mdx` image URL adjustments
+	 * at *build time*, as part of our build time MDX transforms, over in
+	 * `web-presence-experimental-docs`.
+	 */
+	let assetPrefix = `${process.env.MKTG_CONTENT_API}/assets/${productSlugForLoader}`
 	/**
 	 * TODO: we have some messy shims to handle asset organization.
 	 * Probably ideal to standardize this in the content monorepo instead,
