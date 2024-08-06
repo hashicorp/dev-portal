@@ -108,12 +108,17 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 					.replace(/\/$/, '')
 
 				revalidatePromises.push(
-					new Promise<string>((resolve, reject) => {
+					new Promise<{}>((resolve, reject) => {
 						// revalidate() returns Promise<void>, so we wrap it in another promise to resolve with the path that it is revalidating
 						response
 							.revalidate(pathToRevalidate)
-							.then(() => resolve(pathToRevalidate))
-							.catch(() => reject(pathToRevalidate))
+							.then(() => resolve({ path: pathToRevalidate }))
+							.catch((error) =>
+								reject({
+									error: error?.toString(),
+									path: pathToRevalidate,
+								})
+							)
 					})
 				)
 			}
@@ -129,7 +134,39 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	// wait for everything to get revalidated
 	const validatedResults = await Promise.allSettled(revalidatePromises)
 
-	response.status(200).json(validatedResults)
+	let foundIndexs = {}
+	const formattedResults = []
+	validatedResults.forEach((result) => {
+		let foundIndex
+		const prevFoundIndex = foundIndexs[result.status]
+
+		if (!prevFoundIndex || prevFoundIndex === -1) {
+			foundIndex = formattedResults.findIndex((o) => o.status === result.status)
+		} else {
+			foundIndex = prevFoundIndex
+		}
+
+		if (foundIndex === -1) {
+			foundIndex =
+				formattedResults.push({
+					status: result.status,
+					paths: [],
+				}) - 1 // push returns the new length, length - 1 is the index
+
+			foundIndexs[result.status] = foundIndex
+		}
+
+		formattedResults[foundIndex].paths.push(
+			result.status === 'fulfilled'
+				? result.value.path
+				: {
+						path: result.reason.path,
+						error: result.reason.error,
+				  }
+		)
+	})
+
+	response.status(200).json(formattedResults)
 }
 
 export default validateToken(handler, {

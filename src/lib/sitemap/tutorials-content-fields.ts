@@ -13,17 +13,9 @@ import { makeSitemapField } from './helpers'
 import { Collection as ClientCollection } from 'lib/learn-client/types'
 
 function getTutorialLandingPaths(): string[] {
-	const activeSlugs = activeProductSlugs.map(
+	return activeProductSlugs.map(
 		(productSlug: ProductSlug) => `${productSlug}/tutorials`
 	)
-	const sectionOptionsWithLandingPage = Object.values(SectionOption).filter(
-		(option: SectionOption) => option !== SectionOption.onboarding
-	)
-	const sectionOptions = sectionOptionsWithLandingPage.map(
-		(slug: SectionOption) => `${slug}`
-	)
-
-	return [...activeSlugs, ...sectionOptions]
 }
 
 async function getCollectionPaths() {

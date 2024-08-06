@@ -36,6 +36,7 @@ import {
 import tutorialMap from 'data/_tutorial-map.generated.json'
 
 // Local imports
+import { getValidVersions } from './utils/get-valid-versions'
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
@@ -385,6 +386,21 @@ export function getStaticGenerationFunctions<
 			}
 
 			/**
+			 * Filter versions to include only those where this document exists
+			 */
+			// Construct a document path that the content API will recognize
+			const pathWithoutVersion = pathParts
+				.filter((part) => part !== versionPathPart)
+				.join('/')
+			const fullPath = `doc#${path.join(basePathForLoader, pathWithoutVersion)}`
+			// Filter for valid versions, fetching from the content API under the hood
+			const validVersions = await getValidVersions(
+				versions,
+				fullPath,
+				productSlugForLoader
+			)
+
+			/**
 			 * Determine whether to show the version selector
 			 *
 			 * In most docs categories, we want to show the version selector if there
@@ -392,8 +408,8 @@ export function getStaticGenerationFunctions<
 			 * (We use `v0.0.x` as a placeholder version for un-versioned documentation)
 			 */
 			const hasMeaningfulVersions =
-				versions.length > 0 &&
-				(versions.length > 1 || versions[0].version !== 'v0.0.x')
+				validVersions.length > 0 &&
+				(validVersions.length > 1 || validVersions[0].version !== 'v0.0.x')
 
 			/**
 			 * We want to show "Edit on GitHub" links for public content repos only.
@@ -440,7 +456,7 @@ export function getStaticGenerationFunctions<
 					!hideVersionSelector &&
 					!isReleaseNotesPage(currentPathUnderProduct) && // toggle version dropdown
 					hasMeaningfulVersions
-						? versions
+						? validVersions
 						: null,
 			}
 

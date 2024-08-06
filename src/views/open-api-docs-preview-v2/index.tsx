@@ -44,7 +44,7 @@ function OpenApiDocsPreviewViewV2({
 		<>
 			<div style={{ isolation: 'isolate' }}>
 				{hasStaticProps ? (
-					<OpenApiDocsViewV2 _dev={staticProps._dev} />
+					<OpenApiDocsViewV2 {...staticProps} />
 				) : (
 					<>
 						<Head>

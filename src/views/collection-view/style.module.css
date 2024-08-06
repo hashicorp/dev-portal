@@ -1,0 +1,12 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.newsletterSignupArea {
+	margin-top: 48px;
+
+	@media (--dev-dot-tablet-up) {
+		margin-top: 72px;
+	}
+}

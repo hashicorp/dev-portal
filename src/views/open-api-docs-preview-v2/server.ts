@@ -79,7 +79,7 @@ export async function getServerSideProps({
 			`${BASE_URL}${API_ROUTE}?uniqueFileId=${uniqueFileId}`
 		)
 		previewData = response.status === 200 ? await response.json() : null
-		staticProps = getPropsFromPreviewData(previewData, operationSlug)
+		staticProps = await getPropsFromPreviewData(previewData, operationSlug)
 	} catch (e) {
 		console.log(`Ran into error fetching server-side props: ${e}`)
 	}

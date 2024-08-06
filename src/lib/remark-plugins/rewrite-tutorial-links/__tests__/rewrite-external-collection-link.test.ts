@@ -52,10 +52,6 @@ describe('rewriteExternalCollectionLink', () => {
 				'/consul/tutorials/cloud-get-started',
 			],
 			[
-				'/collections/onboarding/hcp-vault-week-1',
-				'/onboarding/hcp-vault-week-1',
-			],
-			[
 				'/collections/well-architected-framework/com',
 				'/well-architected-framework/com',
 			],
@@ -77,10 +73,6 @@ describe('rewriteExternalCollectionLink', () => {
 			[
 				'/collections/consul/cloud-get-started?paramA=valueA',
 				'/consul/tutorials/cloud-get-started?paramA=valueA',
-			],
-			[
-				'/collections/onboarding/hcp-vault-week-1?paramA=valueA',
-				'/onboarding/hcp-vault-week-1?paramA=valueA',
 			],
 			[
 				'/collections/well-architected-framework/com?paramA=valueA',
@@ -112,10 +104,6 @@ describe('rewriteExternalCollectionLink', () => {
 				'/consul/tutorials/cloud-get-started#test-hash',
 			],
 			[
-				'/collections/onboarding/hcp-vault-week-1#test-hash',
-				'/onboarding/hcp-vault-week-1#test-hash',
-			],
-			[
 				'/collections/well-architected-framework/com#test-hash',
 				'/well-architected-framework/com#test-hash',
 			],
@@ -143,10 +131,6 @@ describe('rewriteExternalCollectionLink', () => {
 			[
 				'/collections/consul/cloud-get-started?paramA=valueA#test-hash',
 				'/consul/tutorials/cloud-get-started?paramA=valueA#test-hash',
-			],
-			[
-				'/collections/onboarding/hcp-vault-week-1?paramA=valueA#test-hash',
-				'/onboarding/hcp-vault-week-1?paramA=valueA#test-hash',
 			],
 			[
 				'/collections/well-architected-framework/com?paramA=valueA#test-hash',

@@ -67,8 +67,6 @@ const TEST_MD_LINKS = {
 		'[link to vault use cases](https://www.vaultproject.io/use-cases)',
 	wafTutorialLink:
 		'[waf link](/tutorials/well-architected-framework/cloud-operating-model)',
-	onboardingCollectionLink:
-		'[onboarding link](/collections/onboarding/hcp-vault-week-1)',
 }
 
 /**
@@ -330,14 +328,5 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		expect(newPath).toBe(
 			'/well-architected-framework/com/cloud-operating-model'
 		)
-	})
-
-	test('Onboarding link should be rewritten properly', async () => {
-		const contents = await remark()
-			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
-			.process(TEST_MD_LINKS.onboardingCollectionLink)
-		const newPath = isolatePathFromMarkdown(String(contents))
-
-		expect(newPath).toBe('/onboarding/hcp-vault-week-1')
 	})
 })
