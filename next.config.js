@@ -56,7 +56,7 @@ module.exports = withHashicorp({
 		config.plugins.push(HashiConfigPlugin())
 
 		if (
-			typeof process.env.DATADOG_API_KEY !== 'undefined' &&
+			typeof process.env.DD_API_KEY !== 'undefined' &&
 			process.env.VERCEL_ENV &&
 			process.env.VERCEL_ENV !== 'development'
 		) {
