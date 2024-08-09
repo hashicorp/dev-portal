@@ -418,9 +418,7 @@ export function getStaticGenerationFunctions<
 			 * Note: If we need more granularity here, we could change this to be
 			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
 			 */
-			const isHcp = product.slug == 'hcp'
-			const isSentinel = product.slug == 'sentinel'
-			const isPublicContentRepo = !isHcp && !isSentinel
+			const isPublicContentRepo = !['hcp', 'sentinel'].includes(product.slug)
 			if (isPublicContentRepo) {
 				layoutProps.githubFileUrl = githubFileUrl
 			}
