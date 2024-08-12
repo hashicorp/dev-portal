@@ -162,7 +162,7 @@ async function prepareNavNodeForClient({
 		 * we could add a warning or error here, or resolve this
 		 * through content conformance efforts.
 		 */
-		const pathWithIndexFix = node.path == 'index' ? '' : node.path
+		const pathWithIndexFix = node.path.endsWith('/index') ? '' : node.path
 		const preparedItem = {
 			...node,
 			path: pathWithIndexFix,
