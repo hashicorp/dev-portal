@@ -84,11 +84,6 @@ const AuthenticationControls = () => {
 const NavigationHeader = () => {
 	const router = useRouter()
 	const currentProduct = useCurrentProduct()
-	const { session } = useAuthentication()
-
-	const commandBarActivatorLabel = session?.meta?.isAIEnabled
-		? 'Find or ask anything...'
-		: 'Search'
 
 	const shouldRenderGenericHeaderContent =
 		!currentProduct || router.route === '/_error'
@@ -104,7 +99,7 @@ const NavigationHeader = () => {
 			<div className={s.rightSide}>
 				<CommandBarActivator
 					leadingIcon={<IconSearch16 />}
-					visualLabel={commandBarActivatorLabel}
+					visualLabel={'Search'}
 				/>
 				<AuthenticationControls />
 				<MobileMenuButton />
