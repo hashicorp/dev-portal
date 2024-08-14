@@ -35,7 +35,6 @@ import { makeDevAnalyticsLogger } from 'lib/analytics'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
-import { AIFeatureToast } from 'components/chatbox/ai-feature-toast'
 
 // Local imports
 import './style.css'
@@ -104,7 +103,6 @@ export default function App({
 											>
 												<Component {...pageProps} />
 												<Toaster />
-												<AIFeatureToast />
 												<ReactQueryDevtools />
 												<SpeedInsights sampleRate={0.05} />
 											</LazyMotion>
