@@ -9,11 +9,6 @@ const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const { redirectsConfig } = require('./build-libs/redirects')
 const HashiConfigPlugin = require('./config/plugin')
 
-// Set api key for Happy Kit feature flags
-const happyKitKey = process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
-	? process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
-	: 'flags_pub_development_343442393171755603'
-
 /**
  * @type {import('next/dist/lib/load-custom-routes').Header}
  *

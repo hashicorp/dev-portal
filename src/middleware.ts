@@ -9,7 +9,6 @@ import redirects from 'data/_redirects.generated.json'
 import variantRewrites from '.generated/tutorial-variant-map.json'
 import setGeoCookie from '@hashicorp/platform-edge-utils/lib/set-geo-cookie'
 import { HOSTNAME_MAP } from 'constants/hostname-map'
-import { getEdgeFlags } from 'flags/edge'
 import { getVariantParam } from 'views/tutorial-view/utils/variants'
 
 function determineProductSlug(req: NextRequest): string {
@@ -22,24 +21,12 @@ function determineProductSlug(req: NextRequest): string {
 	return '*'
 }
 
-function setHappyKitCookie(
-	cookie: { args: Parameters<NextResponse['cookies']['set']> },
-	response: NextResponse
-): NextResponse {
-	if (cookie) {
-		response.cookies.set(...cookie.args)
-	}
-	return response
-}
-
 /**
  * Root-level middleware that will process all middleware-capable requests.
  * Currently used to support:
  * - Handling simple one-to-one redirects for .io routes
  */
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
-	const { geo } = req
-
 	// UA checks to prevent misuse
 	const { ua } = userAgent(req)
 	if (/(bytespider|bytedance)/i.test(ua)) {
@@ -89,22 +76,6 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
 
 		return NextResponse.redirect(url, permanent ? 308 : 307)
 	}
-
-	/**
-	 * We are running A/B tests on a subset of routes, so we are limiting the call to resolve flags from HappyKit to only those routes. This limits the impact of any additional latency to the routes which need the data.
-	 */
-	// if (
-	// 	geo?.country === 'US' &&
-	// 	['vault', 'consul'].includes(product) &&
-	// 	['/'].includes(req.nextUrl.pathname)
-	// ) {
-	// 	try {
-	// 		const edgeFlags = await getEdgeFlags({ request: req })
-	// 		const { flags, cookie } = edgeFlags
-	// 	} catch {
-	// 		// Fallback to default URLs
-	// 	}
-	// }
 
 	// Check if this path is associated with a tutorial variant
 	if (variantRewrites[req.nextUrl.pathname]) {
