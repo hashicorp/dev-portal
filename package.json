@@ -148,7 +148,6 @@
 		"@types/adm-zip": "^0.5.4",
 		"@types/cors": "^2.8.12",
 		"@types/google-spreadsheet": "^3.2.2",
-		"@vercel/edge-config": "^0.2.1",
 		"@vercel/fetch": "^6.2.0",
 		"@vercel/otel": "^1.8.1",
 		"@vercel/speed-insights": "^1.0.10",

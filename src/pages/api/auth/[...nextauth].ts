@@ -10,7 +10,6 @@ import { AuthErrors } from 'types/auth'
 import CloudIdpProvider from 'lib/auth/cloud-idp-provider'
 import refreshTokenSet from 'lib/auth/refresh-token-set'
 import isJwtExpired from 'lib/auth/is-jwt-expired'
-import { get } from '@vercel/edge-config'
 
 const fetch = createFetch()
 
@@ -126,18 +125,6 @@ export default NextAuth({
 		 * ref: https://next-auth.js.org/configuration/callbacks#session-callback
 		 */
 		async session({ session, token }) {
-			// token.access_token -> `sub` is the user's `cloud_idp_id` we store in learn-api
-			// token.sub is the same value as above
-			const hashiCorpId = token.sub
-
-			let isAIEnabled = false
-			try {
-				const allowlist = await get('allowlist')
-				isAIEnabled = !!allowlist[hashiCorpId]
-			} catch (e) {
-				// ignore error
-			}
-
 			return {
 				...session,
 				accessToken: token.access_token,
@@ -148,9 +135,6 @@ export default NextAuth({
 					id: token.sub,
 				},
 				error: token.error,
-				meta: {
-					isAIEnabled,
-				},
 			}
 		},
 	},
