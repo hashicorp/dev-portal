@@ -27,8 +27,6 @@ function determineProductSlug(req: NextRequest): string {
  * - Handling simple one-to-one redirects for .io routes
  */
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
-	const { geo } = req
-
 	// UA checks to prevent misuse
 	const { ua } = userAgent(req)
 	if (/(bytespider|bytedance)/i.test(ua)) {
