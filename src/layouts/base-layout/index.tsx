@@ -22,11 +22,11 @@ import NavigationHeader from 'components/navigation-header'
 import alertBannerData from 'data/alert-banner.json'
 import { SkipLinkContext } from 'contexts'
 import SkipToMainContent from 'components/skip-to-main-content'
+import usePostHogPageAnalytics from 'hooks/use-posthog-analytics'
 
 // Local imports
 import { BaseLayoutProps, AlertBannerProps } from './types'
 import s from './base-layout.module.css'
-import usePostHogPageAnalytics from './posthog-analytics'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	preset: 'oss',
