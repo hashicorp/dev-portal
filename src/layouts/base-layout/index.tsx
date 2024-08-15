@@ -16,6 +16,7 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import { CoreDevDotLayoutWithTheme } from 'layouts/core-dev-dot-layout'
 import { CommandBarProvider } from 'components/command-bar'
+import developerConsentManagerServices from 'lib/consent-manager-services/developer'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
 import alertBannerData from 'data/alert-banner.json'
@@ -28,6 +29,7 @@ import s from './base-layout.module.css'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	preset: 'oss',
+	otherServices: [...developerConsentManagerServices],
 })
 
 /**
