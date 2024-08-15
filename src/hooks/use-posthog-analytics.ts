@@ -15,7 +15,7 @@ function onRouteChangeComplete() {
 }
 
 /**
- * Sets up PostHog analytics calls on route changes to track page view analytics.
+ * Enables PostHog page view tracking on route changes
  */
 export default function usePostHogPageAnalytics(): void {
 	const router = useRouter()
