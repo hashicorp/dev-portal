@@ -91,8 +91,8 @@ module.exports = withHashicorp({
 		HAPPY_KIT_KEY: happyKitKey,
 		POSTHOG_PROJECT_API_KEY:
 			process.env.VERCEL_ENV !== 'production'
-				? 'phc_zgx5UGrM4xdmtZForWc9V3fIY3q2Q36JjmiWwwsQInf'
-				: 'phc_J7Puc6GGEuhCrpeMdRqRKP1lIVJxFJ2pfo9far4rFo',
+				? process.env.POSTHOG_PROJECT_API_KEY_DEV
+				: process.env.POSTHOG_PROJECT_API_KEY_PROD,
 	},
 	svgo: {
 		plugins: [
