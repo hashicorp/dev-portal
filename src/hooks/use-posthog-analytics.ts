@@ -20,7 +20,7 @@ export default function usePostHogPageAnalytics(): void {
 
 	useEffect(() => {
 		// Ensures code only runs if PostHog has been initialized
-		if (window?.posthog?.capture === undefined) return
+		if (!window?.posthog?.capture) return
 
 		// Record a pageview when route changes
 		router.events.on('routeChangeComplete', onRouteChangeComplete)
