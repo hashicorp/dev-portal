@@ -8,6 +8,8 @@ declare global {
 }
 
 function onRouteChangeComplete() {
+	// PostHog documentation for capturing pageviews in SPA with the JS web installation:
+	// https://posthog.com/docs/libraries/js#single-page-apps-and-pageviews
 	if (window?.posthog?.capture === undefined) return
 	window.posthog.capture('$pageview')
 }
