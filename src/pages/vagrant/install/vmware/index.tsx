@@ -11,7 +11,7 @@ import { generateGetStaticProps } from 'views/product-downloads-view/server'
 const getStaticProps = generateGetStaticProps(vagrantData as ProductData, {
 	installName: 'Vagrant VMware Utility',
 	releaseSlug: 'vagrant-vmware-utility',
-	jsonFilePath: `src/content/${vagrantData.slug}/install-vmware-landing.json`,
+	jsonFilePath: 'src/content/vagrant/install-vmware-landing.json',
 })
 
 export { getStaticProps }
