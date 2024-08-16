@@ -162,7 +162,7 @@ async function prepareNavNodeForClient({
 		 * we could add a warning or error here, or resolve this
 		 * through content conformance efforts.
 		 */
-		const pathWithIndexFix = node.path.endsWith('/index') ? '' : node.path
+		const pathWithIndexFix = node.path.endsWith('/index') ? '' : node.path // TODO: Remove this stopgap once this task is complete https://app.asana.com/0/1207947026228781/1208077887539354/f
 		const preparedItem = {
 			...node,
 			path: pathWithIndexFix,
