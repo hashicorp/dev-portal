@@ -16,11 +16,13 @@ import createConsentManager from '@hashicorp/react-consent-manager/loader'
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import { CoreDevDotLayoutWithTheme } from 'layouts/core-dev-dot-layout'
 import { CommandBarProvider } from 'components/command-bar'
+import developerConsentManagerServices from 'lib/consent-manager-services/developer'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
 import alertBannerData from 'data/alert-banner.json'
 import { SkipLinkContext } from 'contexts'
 import SkipToMainContent from 'components/skip-to-main-content'
+import usePostHogPageAnalytics from 'hooks/use-posthog-analytics'
 
 // Local imports
 import { BaseLayoutProps, AlertBannerProps } from './types'
@@ -28,6 +30,7 @@ import s from './base-layout.module.css'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
 	preset: 'oss',
+	otherServices: [...developerConsentManagerServices],
 })
 
 /**
@@ -53,6 +56,7 @@ const BaseLayout = ({
 		siteId: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
 		includedDomains: __config.dev_dot.analytics.included_domains,
 	})
+	usePostHogPageAnalytics()
 	useScrollPercentageAnalytics()
 	const [showSkipLink, setShowSkipLink] = useState(false)
 
