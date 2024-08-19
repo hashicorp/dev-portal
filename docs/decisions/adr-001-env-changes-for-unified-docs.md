@@ -20,13 +20,13 @@ In addition, the new implementation we're proposing will handle `1.` (docs con
 
 ## Decision
 
-We will update the`env` variables used in `dev-portal`. We will retain the existing `MKTG_CONTENT_API` variable, and will add `MKTG_CONTENT_DOCS_API` and `UNIFIED_DOCS_API` environment variables. These variables are intended to serve the following purposes
+We will update the`env` variables used in `dev-portal`. We will remove the existing `MKTG_CONTENT_API` variable. We will set up three new variables: `DOCS_STATIC_PATHS_API`, `MKTG_CONTENT_DOCS_API`, and `UNIFIED_DOCS_API` environment variables. These variables are intended to serve the following purposes:
 
-- `MKTG_CONTENT_API` - we'll retain this environment variable. We will keep it pointed at `[content.hashicorp.com](http://content.hashicorp.com/)`. Even after initial migration to our new unified docs service, we may continue using the env variable for all *non-docs* endpoints, namely for "static paths from analytics". Or we may choose to refactor such endpoints, in which case this environment variable may change in other ways.
-- `MKTG_CONTENT_DOCS_API` - we'll introduce this new env variable. We'll refactor some code so that any endpoints that we *intend* to replace with the new unified docs API will now use this env variable. Before and during migration, we'll keep this pointed at `[content.hashicorp.com](http://content.hashicorp.com/)`. This env variable will be used for any products that are not yet on-boarded to the new API. When the migration to the unified docs API is fully complete, we'll no longer be using this env variable, and we'll be able to get rid of it.
+- `DOCS_STATIC_PATHS_API` - we'll use this environment variable for our "static paths from analytics" functionality. It will be set to `[content.hashicorp.com](http://content.hashicorp.com/)`. Even after initial migration to our new unified docs service, we may continue using this env variable. Or we may choose to refactor the "static paths from analytics" work, in which case this environment variable may change in other ways.
+- `MKTG_CONTENT_DOCS_API` - we'll introduce this new env variable. We'll refactor some code so that any endpoints other than the "static paths from analytics" will now use this env variable. Before and during migration, we'll keep this pointed at `[content.hashicorp.com](http://content.hashicorp.com/)`. This env variable will be used for any content sources and endpoints that are not yet on-boarded to the new API. When the migration to the unified docs API is fully complete, we'll no longer be using this env variable, and we'll be able to get rid of it.
 - `UNIFIED_DOCS_API` - we'll introduce this new env variable, but it won't be used yet. When we're ready to migrate a specific docs section to the new unified docs API, we'll conditionally use this env variable instead of `MKTG_CONTENT_DOCS_API`. We may choose to use feature flags or a similar mechanism as part of the conditional use of this new env variable.
 
-Note that these environment variables are all non-sensitive. The `MKTG_CONTENT_API` already exists in a version-tracked `.env` file. We will add `MKTG_CONTENT_DOCS_API` and `UNIFIED_DOCS_API` environment variables to this same `.env` file.
+Note that these environment variables are all non-sensitive. The `MKTG_CONTENT_API` already exists in a version-tracked `.env` file. We will add `DOCS_STATIC_PATHS_API`, `MKTG_CONTENT_DOCS_API`, k and `UNIFIED_DOCS_API` environment variables to this same `.env` file.
 
 ## Consequences
 
