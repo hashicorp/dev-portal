@@ -6,7 +6,7 @@
 // Types
 import type { VersionSelectItem } from '../loaders/remote-content'
 
-const CONTENT_API_URL = process.env.MKTG_CONTENT_API
+const CONTENT_API_URL = process.env.MKTG_CONTENT_DOCS_API
 const VERSIONS_ENDPOINT = '/api/content-versions'
 
 /**

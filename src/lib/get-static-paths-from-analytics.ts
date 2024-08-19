@@ -46,7 +46,7 @@ export async function getStaticPathsFromAnalytics<Params = BaseParams>({
 }: GetStaticPathsFromAnalyticsOptions<Params>): Promise<StaticPaths<Params>> {
 	const endpoint = new URL(
 		`/api/static_paths?product=developer&param=${param}&limit=${limit}&path_prefix=${pathPrefix}`,
-		process.env.MKTG_CONTENT_API
+		process.env.DOCS_STATIC_PATHS_API
 	)
 
 	const { result } = await fetch(endpoint.toString()).then((res) => res.json())
