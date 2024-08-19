@@ -21,7 +21,8 @@ import { Node } from 'unist'
 import { Image, Definition } from 'mdast'
 
 // This env is set for local docker previews by a custom asset server,
-// otherwise we use the content api for previews / prod
+// otherwise we use the content api for previews / prod.
+// This is used for local and deploy preview modes from the `tutorials` repo.
 const ASSET_API_ENDPOINT =
 	process.env.ASSET_API_ENDPOINT ||
 	`${process.env.MKTG_CONTENT_DOCS_API}/api/assets`
