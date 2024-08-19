@@ -58,7 +58,10 @@ function getTheme(
 ): GlobalThemeOption.dark | GlobalThemeOption.light | undefined {
 	let theme
 	// The second arg, the dev-portal url, is arbitrary to satisfy the URL constructor
-	const url = new URL(src, 'https://developer.hashicorp.com')
+	const url = new URL(
+		decodeURIComponent(src),
+		'https://developer.hashicorp.com'
+	)
 	const themedImageSuffix = new RegExp(/#(dark|light)-theme-only/)
 
 	if (themedImageSuffix.test(url.hash)) {
