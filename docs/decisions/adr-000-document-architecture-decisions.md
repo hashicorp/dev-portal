@@ -8,7 +8,7 @@ Proposed
 
 It can be difficult to keep track of why software has been architected in a particular way.
 
-We aim to document as many decisions as possible through [our RFC process](https://works.hashicorp.com/articles/rfc-template), but it's difficult, if not impossible, to anticipate all the decisions that will need to be made through the entire course of a project. This leaves many of our projects with documentation that may have been up-to-date and thorough at the time an RFC was written, but quickly becomes incomplete or inaccurate as implementation progresses.
+We aim to document as many decisions as possible through [our RFC process](https://works.hashicorp.com/articles/rfc-template), but it's difficult to anticipate all the decisions that will need to be made through the entire course of a project. This leaves many of our projects with documentation that may have been up-to-date and thorough at the time an RFC was written, but quickly becomes incomplete or inaccurate as implementation progresses.
 
 ## Decision
 
