@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { existsSync, readFileSync } from 'node:fs'
+import fs from 'node:fs/promises'
 import { join } from 'node:path'
 import { ProductData } from 'types/products'
 import { generateStaticProps as generateReleaseStaticProps } from 'lib/fetch-release-data'
@@ -47,15 +47,12 @@ const generateGetStaticProps = (
 		)
 
 		if (options.jsonFilePath) {
-			const staticPath = join(process.cwd(), options.jsonFilePath)
-			if (existsSync(staticPath)) {
-				jsonFilePath = staticPath
-			}
+			jsonFilePath = join(process.cwd(), options.jsonFilePath)
 		}
 
-		const CONTENT: RawProductDownloadsViewContent = JSON.parse(
-			readFileSync(jsonFilePath, 'utf8')
-		)
+		const file = await fs.readFile(jsonFilePath, 'utf8')
+
+		const CONTENT: RawProductDownloadsViewContent = JSON.parse(file)
 
 		const {
 			doesNotHavePackageManagers,
