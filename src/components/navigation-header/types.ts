@@ -5,7 +5,11 @@
 
 import { BadgeProps } from 'components/badge'
 import { ReactElement } from 'react'
-import { ProductSlug } from 'types/products'
+import type {
+	ProductSlug,
+	ProductNavData,
+	ProductNavPromo,
+} from 'types/products'
 
 type SupportedIcon =
 	| 'api'
@@ -56,7 +60,11 @@ interface NavigationHeaderDropdownMenuProps {
 	buttonClassName?: string
 	dropdownClassName?: string
 	iconClassName?: string
-	itemGroups: NavigationHeaderItemGroup[]
+	itemGroups?: NavigationHeaderItemGroup[]
+	productPanelData?: {
+		navigationData: ProductNavData
+		navPromo: ProductNavPromo
+	}
 	label?: string
 	leadingIcon?: ReactElement
 }
