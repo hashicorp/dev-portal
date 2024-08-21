@@ -13,4 +13,22 @@
 	margin: 0;
 	padding: 0;
 	width: 100%;
+
+	/* HACK: Remove product-panel margin on mobile */
+	@media (--dev-dot-show-mobile-menu) {
+		& div > * {
+			margin: 0;
+		}
+	}
+
+	/* HACK: Preserve styles for --large size dropdown panel */
+	@media (--dev-dot-hide-mobile-menu) {
+		& div ul > ul {
+			grid-auto-flow: row;
+			grid-template-columns: repeat(2, 300px);
+			grid-template-rows: repeat(2, max-content);
+			grid-gap: 0;
+			gap: 0;
+		}
+	}
 }

@@ -63,7 +63,7 @@
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
 	box-shadow: var(--token-elevation-higher-box-shadow);
-	min-width: 252px;
+	min-width: max-content;
 	padding: 16px;
 	position: absolute;
 }
