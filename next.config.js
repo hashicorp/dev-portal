@@ -83,6 +83,10 @@ module.exports = withHashicorp({
 		MKTG_CONTENT_API: process.env.MKTG_CONTENT_API,
 		// TODO: determine if DevDot needs this or not
 		SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
+		POSTHOG_PROJECT_API_KEY:
+			process.env.VERCEL_ENV !== 'production'
+				? process.env.POSTHOG_PROJECT_API_KEY_DEV
+				: process.env.POSTHOG_PROJECT_API_KEY_PROD,
 	},
 	svgo: {
 		plugins: [
