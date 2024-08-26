@@ -119,24 +119,24 @@ const navPromo: ProductNavPromo = {
 }
 
 const sidePanelContent: ProductSidePanel = {
-	title: 'Learn',
-	content: [
+	label: 'Learn',
+	navItems: [
 		{
 			title: 'Certifications',
 			description: 'Get HashiCorp certified',
-			link: '/certifications',
+			url: '/certifications',
 			icon: 'award',
 		},
 		{
 			title: 'Tutorials',
 			description: 'Learn HashiCorp products',
-			link: '/tutorials',
+			url: '/tutorials',
 			icon: 'learn',
 		},
 		{
 			title: 'Well-Architected Framework',
 			description: 'Adopt HashiCorp best practices',
-			link: '/well-architected-framework',
+			url: '/well-architected-framework',
 			icon: 'layers',
 		},
 	],

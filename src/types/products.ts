@@ -197,11 +197,11 @@ type ProductNavPromo = {
 }
 
 type ProductSidePanel = {
-	title: string
-	content: {
+	label: string
+	navItems: {
 		title: string
 		description: string
-		link: string
+		url: string
 		icon: string
 	}[]
 }
