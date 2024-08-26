@@ -64,8 +64,11 @@
 	border-bottom-right-radius: 6px;
 	box-shadow: var(--token-elevation-higher-box-shadow);
 	min-width: max-content;
-	padding: 16px;
 	position: absolute;
+}
+
+.dropdownContainerInner {
+	padding: 16px;
 }
 
 .itemGroupDivider {

@@ -211,7 +211,7 @@ const NavigationHeaderDropdownMenu = ({
 						promo={productPanelData.navPromo}
 					/>
 				) : (
-					<>
+					<div className={s.dropdownContainerInner}>
 						{itemGroups.map(
 							(itemGroup: NavigationHeaderItemGroup, groupIndex: number) => {
 								const numberOfItemGroups = itemGroups.length
@@ -317,7 +317,7 @@ const NavigationHeaderDropdownMenu = ({
 								)
 							}
 						)}
-					</>
+					</div>
 				)}
 			</div>
 		</div>
