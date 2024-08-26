@@ -9,6 +9,7 @@ import type {
 	ProductSlug,
 	ProductNavData,
 	ProductNavPromo,
+	ProductSidePanel,
 } from 'types/products'
 
 type SupportedIcon =
@@ -64,6 +65,7 @@ interface NavigationHeaderDropdownMenuProps {
 	productPanelData?: {
 		navigationData: ProductNavData
 		navPromo: ProductNavPromo
+		sidePanelContent?: ProductSidePanel
 	}
 	label?: string
 	leadingIcon?: ReactElement

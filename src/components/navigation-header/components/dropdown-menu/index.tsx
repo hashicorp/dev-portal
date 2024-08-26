@@ -209,6 +209,7 @@ const NavigationHeaderDropdownMenu = ({
 					<ProductPanel
 						productCategories={productPanelData.navigationData}
 						promo={productPanelData.navPromo}
+						sidePanel={productPanelData.sidePanelContent}
 					/>
 				) : (
 					<div className={s.dropdownContainerInner}>
