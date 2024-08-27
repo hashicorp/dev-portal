@@ -10,7 +10,7 @@ import {
 	NavigationHeaderDropdownMenu,
 	PrimaryNavLink,
 } from '..'
-import { navigationData, navPromo } from 'lib/products'
+import { navigationData, navPromo, sidePanelContent } from 'lib/products'
 import s from './home-page-content.module.css'
 
 const HomePageHeaderContent = () => {
@@ -32,6 +32,7 @@ const HomePageHeaderContent = () => {
 						productPanelData={{
 							navigationData,
 							navPromo,
+							sidePanelContent,
 						}}
 						label="Products"
 					/>
