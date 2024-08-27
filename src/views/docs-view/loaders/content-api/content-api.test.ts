@@ -19,7 +19,7 @@ describe('contentApi', () => {
 
 	beforeEach(() => {
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		scope = nock(process.env.MKTG_CONTENT_API!)
+		scope = nock(process.env.MKTG_CONTENT_DOCS_API!)
 	})
 
 	describe('fetchDocument', () => {
