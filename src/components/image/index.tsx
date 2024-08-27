@@ -37,7 +37,7 @@ function getContentApiDimensions(
 	url: string
 ): { width: number; height: number } | null {
 	// We only care about Content API urls
-	if (!url.startsWith(process.env.MKTG_CONTENT_API)) {
+	if (!url.startsWith(process.env.MKTG_CONTENT_DOCS_API)) {
 		return null
 	}
 	const urlParams = new URL(url).searchParams

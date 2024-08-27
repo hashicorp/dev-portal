@@ -9,11 +9,11 @@ import { getStaticPathsFromAnalytics } from 'lib/get-static-paths-from-analytics
 
 import staticPathsResultFixture from './__fixtures__/static_paths_waypoint_docs.json'
 
-process.env.MKTG_CONTENT_API = 'https://content.hashicorp.com'
+process.env.DOCS_STATIC_PATHS_API = 'https://content.hashicorp.com'
 
 describe('getStaticPathsFromAnalytics', () => {
 	test('fetches static paths from the analytics endpoint - no valid paths', async () => {
-		nock(process.env.MKTG_CONTENT_API)
+		nock(process.env.DOCS_STATIC_PATHS_API)
 			.get('/api/static_paths')
 			.query({
 				product: 'developer',
@@ -33,7 +33,7 @@ describe('getStaticPathsFromAnalytics', () => {
 	})
 
 	test('fetches static paths from the analytics endpoint - filters with valid paths', async () => {
-		nock(process.env.MKTG_CONTENT_API)
+		nock(process.env.DOCS_STATIC_PATHS_API)
 			.get('/api/static_paths')
 			.query({
 				product: 'developer',

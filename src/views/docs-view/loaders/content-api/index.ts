@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-const MKTG_CONTENT_API = process.env.MKTG_CONTENT_API
+const MKTG_CONTENT_DOCS_API = process.env.MKTG_CONTENT_DOCS_API
 
 // Courtesy helper for warning about missing env vars during development
 const checkEnvVarsInDev = () => {
 	if (process.env.NODE_ENV === 'development') {
-		if (!MKTG_CONTENT_API) {
+		if (!MKTG_CONTENT_DOCS_API) {
 			const message = [
 				'Missing environment variable required to fetch remote content:',
-				'  - `MKTG_CONTENT_API`',
+				'  - `MKTG_CONTENT_DOCS_API`',
 				'Reach out to #team-web-platform to get the proper value.',
 			].join('\n')
 			throw new Error(message)
@@ -34,7 +34,7 @@ export async function fetchNavData(
 	checkEnvVarsInDev()
 
 	const fullPath = `nav-data/${version}/${basePath}`
-	const url = `${MKTG_CONTENT_API}/api/content/${product}/${fullPath}`
+	const url = `${MKTG_CONTENT_DOCS_API}/api/content/${product}/${fullPath}`
 
 	const response = await fetch(url)
 
@@ -52,7 +52,7 @@ export async function fetchDocument(
 ): Promise<any> {
 	checkEnvVarsInDev()
 
-	const url = `${MKTG_CONTENT_API}/api/content/${product}/${fullPath}`
+	const url = `${MKTG_CONTENT_DOCS_API}/api/content/${product}/${fullPath}`
 	const response = await fetch(url)
 
 	if (response.status !== 200) {
@@ -66,7 +66,7 @@ export async function fetchDocument(
 export async function fetchVersionMetadataList(product: string) {
 	checkEnvVarsInDev()
 
-	const url = `${MKTG_CONTENT_API}/api/content/${product}/version-metadata?partial=true`
+	const url = `${MKTG_CONTENT_DOCS_API}/api/content/${product}/version-metadata?partial=true`
 	const response = await fetch(url)
 
 	if (response.status !== 200) {
