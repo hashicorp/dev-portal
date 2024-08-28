@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { useEffect, useState } from 'react'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import '@reach/dialog/styles.css'
 import {
@@ -13,7 +14,6 @@ import {
 import classNames from 'classnames'
 import { DialogProps } from './types'
 import s from './dialog.module.css'
-import { useEffect, useState } from 'react'
 
 const AnimatedDialogOverlay = slimMotion(DialogOverlay)
 
@@ -70,11 +70,7 @@ export default function Dialog({
 					<div
 						key="contentWrapper"
 						className={classNames(s.contentWrapper, s[variant])}
-						style={
-							variant === 'bottom'
-								? { paddingBottom: padding }
-								: { paddingBottom: '0px' }
-						}
+						style={variant === 'bottom' ? { paddingBottom: padding } : null}
 					>
 						<DialogContent
 							aria-describedby={ariaDescribedBy}
