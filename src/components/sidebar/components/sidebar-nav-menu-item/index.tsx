@@ -88,7 +88,9 @@ const SidebarNavMenuItemBadge = ({
  */
 const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	const href = item.fullPath || item.href
-	const isExternal = isAbsoluteUrl(href)
+	const isAbsolute = isAbsoluteUrl(href)
+	const isDevDot =
+		isAbsolute && new URL(href).hostname.includes('hashicorp.com')
 	const hasBadge = !!(item as $TSFixMe).badge
 
 	// Determine the leading icon to use, if any
@@ -101,8 +103,8 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	}
 
 	// Determine the trailing icon to use, if any
-	const trailingIcon = isExternal ? <IconExternalLink16 /> : item.trailingIcon
-	const ariaCurrent = !isExternal && item.isActive ? 'page' : undefined
+	const trailingIcon = isAbsolute ? <IconExternalLink16 /> : item.trailingIcon
+	const ariaCurrent = !isAbsolute && item.isActive ? 'page' : undefined
 	const [isMounted, setIsMounted] = useState(false)
 
 	/**
@@ -120,11 +122,11 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		setIsMounted(true)
 	}, [])
 
-	const ariaLabel = isExternal
+	const ariaLabel = isAbsolute
 		? `${item.title}. Opens in a new tab.`
 		: undefined
 	const className = s.sidebarNavMenuItem
-	const rel = isExternal ? 'noreferrer noopener' : undefined
+	const rel = isAbsolute ? 'noreferrer noopener' : undefined
 
 	const anchorContent = (
 		<>
@@ -156,7 +158,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 				aria-label={ariaLabel}
 				className={className}
 				href={href}
-				opensInNewTab={isExternal}
+				opensInNewTab={!isDevDot}
 				rel={rel}
 			>
 				{anchorContent}
