@@ -18,16 +18,14 @@
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	/* stylelint-disable-next-line unit-no-unknown */
-	height: 100dvh;
+	height: 100vh;
 	justify-content: center;
 	padding: 24px;
 	width: 100vw;
 
 	&.bottom {
 		padding: 0;
-		/* stylelint-disable-next-line unit-no-unknown */
-		height: 80dvh;
+		height: 80vh;
 		width: 100%;
 		position: fixed;
 		bottom: 0;
