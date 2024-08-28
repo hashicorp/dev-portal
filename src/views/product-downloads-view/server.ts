@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import fs from 'fs'
-import path from 'path'
+import { existsSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { ProductData } from 'types/products'
 import { generateStaticProps as generateReleaseStaticProps } from 'lib/fetch-release-data'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
@@ -41,23 +41,20 @@ const generateGetStaticProps = (
 		props: ProductDownloadsViewStaticProps
 		revalidate: number
 	}> => {
-		/**
-		 * Fetch page content
-		 *
-		 * Note: could consider other content sources. For now, JSON.
-		 * Asana task: https://app.asana.com/0/1100423001970639/1201631159784193/f
-		 */
-		let jsonFilePath = path.join(
+		let jsonFilePath = join(
 			process.cwd(),
 			`src/content/${product.slug}/install-landing.json`
 		)
 
 		if (options.jsonFilePath) {
-			jsonFilePath = path.join(process.cwd(), options.jsonFilePath)
+			const staticPath = join(process.cwd(), options.jsonFilePath)
+			if (existsSync(staticPath)) {
+				jsonFilePath = staticPath
+			}
 		}
 
 		const CONTENT: RawProductDownloadsViewContent = JSON.parse(
-			fs.readFileSync(jsonFilePath, 'utf8')
+			readFileSync(jsonFilePath, 'utf8')
 		)
 
 		const {

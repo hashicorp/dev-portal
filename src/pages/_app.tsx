@@ -15,8 +15,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { NextAdapter } from 'next-query-params'
 import { QueryParamProvider } from 'use-query-params'
 import type { AppProps } from 'next/app'
-import { useFlags } from 'flags/client'
-import { FlagBagProvider } from 'flags/client'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
 // HashiCorp imports
@@ -35,7 +33,6 @@ import { makeDevAnalyticsLogger } from 'lib/analytics'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
-import { AIFeatureToast } from 'components/chatbox/ai-feature-toast'
 
 // Local imports
 import './style.css'
@@ -60,7 +57,6 @@ export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
 }: AppProps<{ session?: Session } & Record<string, any>>) {
-	const flagBag = useFlags()
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
@@ -88,31 +84,28 @@ export default function App({
 			<SSRProvider>
 				<QueryParamProvider adapter={NextAdapter}>
 					<ErrorBoundary FallbackComponent={DevDotClient}>
-						<FlagBagProvider value={flagBag}>
-							<SessionProvider session={session}>
-								<DeviceSizeProvider>
-									<CurrentProductProvider currentProduct={currentProduct}>
-										<CodeTabsProvider>
-											<HeadMetadata {...pageProps.metadata} />
-											<LazyMotion
-												features={() =>
-													import('lib/framer-motion-features').then(
-														(mod) => mod.default
-													)
-												}
-												strict={process.env.NODE_ENV === 'development'}
-											>
-												<Component {...pageProps} />
-												<Toaster />
-												<AIFeatureToast />
-												<ReactQueryDevtools />
-												<SpeedInsights sampleRate={0.05} />
-											</LazyMotion>
-										</CodeTabsProvider>
-									</CurrentProductProvider>
-								</DeviceSizeProvider>
-							</SessionProvider>
-						</FlagBagProvider>
+						<SessionProvider session={session}>
+							<DeviceSizeProvider>
+								<CurrentProductProvider currentProduct={currentProduct}>
+									<CodeTabsProvider>
+										<HeadMetadata {...pageProps.metadata} />
+										<LazyMotion
+											features={() =>
+												import('lib/framer-motion-features').then(
+													(mod) => mod.default
+												)
+											}
+											strict={process.env.NODE_ENV === 'development'}
+										>
+											<Component {...pageProps} />
+											<Toaster />
+											<ReactQueryDevtools />
+											<SpeedInsights sampleRate={0.05} />
+										</LazyMotion>
+									</CodeTabsProvider>
+								</CurrentProductProvider>
+							</DeviceSizeProvider>
+						</SessionProvider>
 					</ErrorBoundary>
 				</QueryParamProvider>
 			</SSRProvider>

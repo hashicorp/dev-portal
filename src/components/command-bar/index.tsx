@@ -172,10 +172,7 @@ const CommandBarProvider = ({ children }: CommandBarProviderProps) => {
 				<Command.Dialog isOpen={state.isOpen} onDismiss={toggleIsOpen}>
 					<Command.Header />
 					<Command.Body />
-					{
-						// TODO(kevinwang): This conditional needs an abstraction
-						state.currentCommand.name == 'chat' ? null : <Command.Footer />
-					}
+					<Command.Footer />
 				</Command.Dialog>
 			</CommandBarContext.Provider>
 		</SearchHitsProvider>

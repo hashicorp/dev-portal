@@ -9,7 +9,7 @@ import { execSync } from 'child_process'
  */
 const main = () => {
 	if (
-		typeof process.env.DATADOG_API_KEY === 'undefined' ||
+		typeof process.env.DD_API_KEY === 'undefined' ||
 		typeof process.env.VERCEL_ENV === 'undefined' ||
 		process.env.VERCEL_ENV === 'development'
 	) {

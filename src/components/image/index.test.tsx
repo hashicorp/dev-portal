@@ -18,6 +18,17 @@ describe('image component', () => {
 		expect(image.parentElement).toHaveAttribute('data-show-on-theme', 'light')
 	})
 
+	it('adds a `data-hide-on-theme` attribute when encoded hash is passed', async () => {
+		const { getByAltText } = render(
+			<Image
+				src="/img/themed/dark-test.png%23light-theme-only"
+				alt="dark theme test"
+			/>
+		)
+		const image = getByAltText('dark theme test')
+		expect(image.parentElement).toHaveAttribute('data-show-on-theme', 'light')
+	})
+
 	it('only matches the `{dark|light}-theme-only` hash pattern', async () => {
 		const { getByAltText } = render(
 			<Image src="/img/themed/dark-test.png#koba-theme-only" alt="test" />

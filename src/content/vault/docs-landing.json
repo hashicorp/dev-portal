@@ -17,11 +17,6 @@
 					"iconName": "vault-secrets-color",
 					"text": "HCP Vault Secrets",
 					"url": "/hcp/docs/vault-secrets"
-				},
-				{
-					"iconName": "vault-radar-color",
-					"text": "HCP Vault Radar",
-					"url": "/hcp/docs/vault-radar"
 				}
 			]
 		},
