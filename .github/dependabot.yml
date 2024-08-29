@@ -9,4 +9,4 @@ updates:
       # Allow updates for HashiCorp packages
       - dependency-name: '@hashicorp/*'
     reviewers:
-      - 'hashicorp/web-platform'
+      - 'hashicorp/web-presence'
