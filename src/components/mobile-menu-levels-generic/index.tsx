@@ -28,7 +28,10 @@ import s from './mobile-menu-levels-generic.module.css'
 function MobileMenuLevelsGeneric() {
 	return (
 		<MobileMenuContainer className={s.mobileMenuContainer}>
-			<MobileAuthenticationControls />
+			<div className={s.mobileMenuAuthContainer}>
+				<MobileAuthenticationControls />
+			</div>
+
 			<NavigationMenu.Root className={s.mobileMenuNavList}>
 				<ProductPanel
 					productCategories={navigationData}

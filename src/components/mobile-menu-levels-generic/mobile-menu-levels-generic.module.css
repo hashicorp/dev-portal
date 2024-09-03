@@ -4,8 +4,11 @@
  */
 
 .mobileMenuContainer {
-	padding: 24px;
 	z-index: 4;
+}
+
+.mobileMenuAuthContainer {
+	padding: 16px;
 }
 
 .mobileMenuNavList {
