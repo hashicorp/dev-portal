@@ -127,6 +127,7 @@
 		"@hashicorp/react-tabs": "^8.2.0",
 		"@hashicorp/remark-plugins": "^4.1.1",
 		"@hashicorp/sentinel-embedded": "^0.0.14",
+		"@hashicorp/web-mktg-logos": "0.0.0-nightly.7a813d9",
 		"@mapbox/rehype-prism": "^0.8.0",
 		"@mdx-js/mdx": "^1.6.22",
 		"@mdx-js/react": "^1.6.22",
