@@ -19,7 +19,10 @@ import ButtonLink from 'components/button-link'
 
 // Local imports
 import { ThemeSwitcherWithLabel } from 'components/theme-switcher'
-import { MobileMenuContainerProps } from './types'
+import type {
+	MobileAuthenticationControlsProps,
+	MobileMenuContainerProps,
+} from './types'
 import { MobileUserDisclosure } from './components'
 import s from './mobile-menu-container.module.css'
 
@@ -41,7 +44,10 @@ const MOBILE_MENU_MOTION = {
  * Handles rendering the Sign In and Sign Up UI elements in mobile viewports.
  * Intended to be used alongside `MobileMenuContainer`.
  */
-const MobileAuthenticationControls = () => {
+
+const MobileAuthenticationControls = ({
+	className,
+}: MobileAuthenticationControlsProps) => {
 	const { asPath } = useRouter()
 	const { isAuthenticated, isLoading, signIn, signOut, user } =
 		useAuthentication()
@@ -87,7 +93,8 @@ const MobileAuthenticationControls = () => {
 		<div
 			className={classNames(
 				'g-show-with-mobile-menu',
-				s.mobileAuthenticationControlsWrap
+				s.mobileAuthenticationControlsWrap,
+				className
 			)}
 		>
 			{content}
