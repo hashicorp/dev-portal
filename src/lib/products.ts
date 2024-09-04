@@ -86,24 +86,24 @@ const navigationData: ProductNavData = [
 				description: 'Centrally manage secrets',
 			},
 			{
-				product: 'Boundary',
-				url: '/boundary',
-				description: 'Secure remote access',
-			},
-			{
 				product: 'HCP Vault Secrets',
 				url: '/hcp/docs/vault-secrets',
 				description: 'Manage secrets as a service',
 			},
 			{
-				product: 'Consul',
-				url: '/consul',
-				description: 'Secure network services',
-			},
-			{
 				product: 'HCP Vault Radar',
 				url: '/hcp/docs/vault-radar',
 				description: 'Scan for embedded secrets',
+			},
+			{
+				product: 'Boundary',
+				url: '/boundary',
+				description: 'Secure remote access',
+			},
+			{
+				product: 'Consul',
+				url: '/consul',
+				description: 'Secure network services',
 			},
 		],
 	},
