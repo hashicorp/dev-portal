@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-import { ForwardedRef, forwardRef } from 'react'
+import { ForwardedRef, forwardRef, HTMLAttributes } from 'react'
 import classNames from 'classnames'
 import { m, useReducedMotion } from 'framer-motion'
 import { useRouter } from 'next/router'
@@ -19,10 +19,7 @@ import ButtonLink from 'components/button-link'
 
 // Local imports
 import { ThemeSwitcherWithLabel } from 'components/theme-switcher'
-import type {
-	MobileAuthenticationControlsProps,
-	MobileMenuContainerProps,
-} from './types'
+import type { MobileMenuContainerProps } from './types'
 import { MobileUserDisclosure } from './components'
 import s from './mobile-menu-container.module.css'
 
@@ -47,7 +44,7 @@ const MOBILE_MENU_MOTION = {
 
 const MobileAuthenticationControls = ({
 	className,
-}: MobileAuthenticationControlsProps) => {
+}: HTMLAttributes<HTMLDivElement>) => {
 	const { asPath } = useRouter()
 	const { isAuthenticated, isLoading, signIn, signOut, user } =
 		useAuthentication()
