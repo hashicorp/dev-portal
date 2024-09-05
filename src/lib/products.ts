@@ -86,6 +86,69 @@ const navigationData: ProductNavData = [
 				description: 'Centrally manage secrets',
 			},
 			{
+				product: 'Boundary',
+				url: '/boundary',
+				description: 'Secure remote access',
+			},
+			{
+				product: 'HCP Vault Secrets',
+				url: '/hcp/docs/vault-secrets',
+				description: 'Manage secrets as a service',
+			},
+			{
+				product: 'Consul',
+				url: '/consul',
+				description: 'Secure network services',
+			},
+			{
+				product: 'HCP Vault Radar',
+				url: '/hcp/docs/vault-radar',
+				description: 'Scan for embedded secrets',
+			},
+		],
+	},
+]
+
+const mobileNavigationData: ProductNavData = [
+	{
+		title: 'Infrastructure Lifecycle Management',
+		products: [
+			{
+				product: 'Terraform',
+				url: '/terraform',
+				description: 'Manage infrastructure as code',
+			},
+			{
+				product: 'Packer',
+				url: '/packer',
+				description: 'Build machine images',
+			},
+			{
+				product: 'Nomad',
+				url: '/nomad',
+				description: 'Orchestrate workloads',
+			},
+			{
+				product: 'Waypoint',
+				url: '/waypoint',
+				description: 'Standardize application patterns',
+			},
+			{
+				product: 'Vagrant',
+				url: '/vagrant',
+				description: 'Build developer environments',
+			},
+		],
+	},
+	{
+		title: 'Security Lifecycle Management',
+		products: [
+			{
+				product: 'Vault',
+				url: '/vault',
+				description: 'Centrally manage secrets',
+			},
+			{
 				product: 'HCP Vault Secrets',
 				url: '/hcp/docs/vault-secrets',
 				description: 'Manage secrets as a service',
@@ -177,6 +240,7 @@ export {
 	productSlugsToHostNames,
 	productSlugsToNames,
 	navigationData,
+	mobileNavigationData,
 	navPromo,
 	sidePanelContent,
 }

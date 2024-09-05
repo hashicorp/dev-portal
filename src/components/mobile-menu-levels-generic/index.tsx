@@ -10,7 +10,7 @@ import MobileMenuContainer, {
 import ProductPanel from '@hashicorp/react-components/src/components/nav-panel/product-panel'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 // Data
-import { navigationData, navPromo, sidePanelContent } from 'lib/products'
+import { mobileNavigationData, navPromo, sidePanelContent } from 'lib/products'
 // Styles
 import s from './mobile-menu-levels-generic.module.css'
 
@@ -32,7 +32,7 @@ function MobileMenuLevelsGeneric() {
 
 			<NavigationMenu.Root className={s.mobileMenuNavList}>
 				<ProductPanel
-					productCategories={navigationData}
+					productCategories={mobileNavigationData}
 					promo={navPromo}
 					sidePanel={sidePanelContent}
 				/>
