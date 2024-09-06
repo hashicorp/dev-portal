@@ -24,7 +24,7 @@ export default function NavBarListContainer({
 }) {
 	return (
 		<NavigationMenu.Root className={s.nav}>
-			<ul className={s.ul}>{children}</ul>
+			<NavigationMenu.List className={s.ul}>{children}</NavigationMenu.List>
 		</NavigationMenu.Root>
 	)
 }
