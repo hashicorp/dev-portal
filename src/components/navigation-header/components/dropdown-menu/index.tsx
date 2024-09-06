@@ -17,6 +17,7 @@ import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { ProductSlug } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
 import useOnClickOutside from 'hooks/use-on-click-outside'
+import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import deriveKeyEventState from 'lib/derive-key-event-state'
@@ -62,6 +63,9 @@ const NavigationHeaderDropdownMenu = ({
 
 	// Handles closing the menu if focus moves outside of it and it is open.
 	useOnFocusOutside([menuRef], () => setIsOpen(false), isOpen)
+
+	// Handles closing the menu if Esc is pressed while navigating with a keyboard and the menu is focused.
+	useOnEscapeKeyDown([menuRef], () => setIsOpen(false), isOpen)
 
 	// Check for a visible icon or label
 	if (!label && !hasLeadingIcon) {
