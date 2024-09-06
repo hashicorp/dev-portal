@@ -65,7 +65,14 @@ const NavigationHeaderDropdownMenu = ({
 	useOnFocusOutside([menuRef], () => setIsOpen(false), isOpen)
 
 	// Handles closing the menu if Esc is pressed while navigating with a keyboard and the menu is focused.
-	useOnEscapeKeyDown([menuRef], () => setIsOpen(false), isOpen)
+	useOnEscapeKeyDown(
+		[menuRef],
+		() => {
+			setIsOpen(false)
+			activatorButtonRef.current.focus()
+		},
+		isOpen
+	)
 
 	// Check for a visible icon or label
 	if (!label && !hasLeadingIcon) {
