@@ -10,6 +10,7 @@ const path = require('path')
 
 const { isDeployPreview } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
+const getLatestContentRefForProduct = require('./get-latest-content-ref-for-product')
 const { getTutorialRedirects } = require('./tutorial-redirects')
 const {
 	getDocsDotHashiCorpRedirects,
@@ -24,21 +25,6 @@ require('isomorphic-unfetch')
 const HOSTNAME_MAP = {
 	'docs.hashicorp.com': 'sentinel',
 	'test-st.hashi-mktg.com': 'sentinel',
-}
-
-/**
- * Fetch the latest ref from the content API to ensure the redirects are accurate.
- *
- * @TODO save the redirects to the content database and expose them directly via the API
- */
-async function getLatestContentRefForProduct(product) {
-	const contentUrl = new URL('https://content.hashicorp.com')
-	contentUrl.pathname = `/api/content/${product}/version-metadata/latest`
-	const latestRef = await fetch(contentUrl.toString())
-		.then((resp) => resp.json())
-		.then((json) => json.result.ref)
-
-	return latestRef
 }
 
 /**
