@@ -107,7 +107,7 @@
 		"@hashicorp/react-alert-banner": "^7.1.0",
 		"@hashicorp/react-button": "^6.3.1",
 		"@hashicorp/react-code-block": "^6.7.0",
-		"@hashicorp/react-components": "^0.0.0-canary.baf4bbe",
+		"@hashicorp/react-components": "^1.1.10",
 		"@hashicorp/react-consent-manager": "^9.3.0",
 		"@hashicorp/react-content": "^8.3.0",
 		"@hashicorp/react-design-system-components": "0.0.0-nightly.05f1ad1",
