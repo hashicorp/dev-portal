@@ -64,7 +64,8 @@
 	border-bottom-right-radius: 6px;
 	box-shadow: var(--token-elevation-higher-box-shadow);
 	min-width: max-content;
-	position: absolute;
+	position: fixed;
+	left: 24px;
 }
 
 .dropdownContainerInner {
