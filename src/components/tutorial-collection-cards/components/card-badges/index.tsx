@@ -24,7 +24,6 @@ const PRODUCT_ICON_MAP: Record<ProductOption, JSX.Element> = {
 	vault: <ProductIcon productSlug="vault" />,
 	vagrant: <ProductIcon productSlug="vagrant" />,
 	waypoint: <ProductIcon productSlug="waypoint" />,
-	sentinel: <ProductIcon productSlug="sentinel" />,
 }
 /**
  * Map all card badge options to icons
