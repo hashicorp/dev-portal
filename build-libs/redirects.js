@@ -10,7 +10,7 @@ const path = require('path')
 
 const { isDeployPreview } = require('../src/lib/env-checks')
 const fetchGithubFile = require('./fetch-github-file')
-const getLatestContentRefForProduct = require('./get-latest-content-ref-for-product')
+const getLatestContentShaForProduct = require('./get-latest-content-sha-for-product')
 const { getTutorialRedirects } = require('./tutorial-redirects')
 const {
 	getDocsDotHashiCorpRedirects,
@@ -49,13 +49,10 @@ const HOSTNAME_MAP = {
  * redirects and return early with an empty array.
  *
  * @param {string} repoName The name of the repo, owner is always `hashicorp`.
- * @param {string?} redirectsPath Optional, custom path to the redirects file.
+ * @param {string} redirectsPath Path within the repo to the redirects file.
  * @returns {Promise<Redirect[]>}
  */
-async function getRedirectsFromContentRepo(
-	repoName,
-	redirectsPath = 'website/redirects.js'
-) {
+async function getRedirectsFromContentRepo(repoName, redirectsPath) {
 	/**
 	 * Note: These constants are declared for clarity in build context intent.
 	 */
@@ -68,12 +65,12 @@ async function getRedirectsFromContentRepo(
 	let redirectsFileString
 	if (isDeveloperBuild) {
 		// For `hashicorp/dev-portal` builds, load redirects remotely
-		const latestContentRef = await getLatestContentRefForProduct(repoName)
+		const latestContentSha = await getLatestContentShaForProduct(repoName)
 		redirectsFileString = await fetchGithubFile({
 			owner: 'hashicorp',
 			repo: repoName,
 			path: redirectsPath,
-			ref: latestContentRef,
+			ref: latestContentSha,
 		})
 	} else if (isLocalContentBuild) {
 		// Load redirects from the filesystem, so that authors can see their changes
@@ -92,6 +89,24 @@ async function getRedirectsFromContentRepo(
 	return validRedirects
 }
 
+/**
+ * @type {{ repo: string, path: string}[]} An array of redirect
+ * entries. Each entry specifies a repo and the path within that repo to the
+ * redirects file.
+ */
+const PRODUCT_REDIRECT_ENTRIES = [
+	{ repo: 'boundary', path: 'website/redirects.js' },
+	{ repo: 'nomad', path: 'website/redirects.js' },
+	{ repo: 'vault', path: 'website/redirects.js' },
+	{ repo: 'vagrant', path: 'website/redirects.js' },
+	{ repo: 'packer', path: 'website/redirects.js' },
+	{ repo: 'consul', path: 'website/redirects.js' },
+	{ repo: 'terraform-docs-common', path: 'website/redirects.js' },
+	{ repo: 'hcp-docs', path: '/redirects.js' },
+	{ repo: 'ptfe-releases', path: 'website/redirects.js' },
+	{ repo: 'sentinel', path: 'website/redirects.js' },
+]
+
 async function buildProductRedirects() {
 	// Fetch author-oriented redirects from product repos,
 	// and merge those with dev-oriented redirects from
@@ -101,18 +116,11 @@ async function buildProductRedirects() {
 	}
 
 	const productRedirects = (
-		await Promise.all([
-			getRedirectsFromContentRepo('boundary'),
-			getRedirectsFromContentRepo('nomad'),
-			getRedirectsFromContentRepo('vault'),
-			getRedirectsFromContentRepo('vagrant'),
-			getRedirectsFromContentRepo('packer'),
-			getRedirectsFromContentRepo('consul'),
-			getRedirectsFromContentRepo('terraform-docs-common'),
-			getRedirectsFromContentRepo('hcp-docs', '/redirects.js'),
-			getRedirectsFromContentRepo('ptfe-releases'),
-			getRedirectsFromContentRepo('sentinel'),
-		])
+		await Promise.all(
+			PRODUCT_REDIRECT_ENTRIES.map((entry) =>
+				getRedirectsFromContentRepo(entry.repo, entry.path)
+			)
+		)
 	).flat()
 
 	return productRedirects
@@ -393,6 +401,7 @@ async function redirectsConfig() {
 }
 
 module.exports = {
+	PRODUCT_REDIRECT_ENTRIES,
 	redirectsConfig,
 	splitRedirectsByType,
 	groupSimpleRedirects,
