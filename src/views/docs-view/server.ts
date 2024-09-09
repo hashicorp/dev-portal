@@ -419,9 +419,7 @@ export function getStaticGenerationFunctions<
 			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
 			 */
 			const isPublicContentRepo =
-				product.slug !== 'hcp' &&
-				product.slug !== 'sentinel' &&
-				product.slug + currentPathUnderProduct !== 'terraform/enterprise'
+				product.slug !== 'hcp' && product.slug !== 'sentinel'
 			if (isPublicContentRepo) {
 				layoutProps.githubFileUrl = githubFileUrl
 			}

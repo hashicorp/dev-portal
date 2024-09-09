@@ -264,7 +264,13 @@ export default class RemoteContentLoader implements DataLoader {
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				versionMetadataList.find((e) => e.version === document.version)!
 					.isLatest
-			if (isLatest) {
+
+			// We shouldn't be showing "Edit on GitHub" links for PTFE because
+			// it takes people to a 404 on GitHub if they're not members of the
+			// GitHub org
+			const isPtfe = document.product === 'ptfe-releases'
+
+			if (isLatest && !isPtfe) {
 				// GitHub only allows you to modify a file if you are on a branch, not a commit
 				githubFileUrl = `https://github.com/hashicorp/${this.opts.product}/blob/${this.opts.mainBranch}/${document.githubFile}`
 			}
