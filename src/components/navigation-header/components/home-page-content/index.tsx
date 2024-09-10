@@ -5,12 +5,8 @@
 
 import InlineSvg from '@hashicorp/react-inline-svg'
 import Link from 'components/link'
-import {
-	NavBarListContainer,
-	NavigationHeaderDropdownMenu,
-	PrimaryNavLink,
-} from '..'
-import { getAllProductsNavItems } from 'components/navigation-header/helpers'
+import { NavBarListContainer, NavigationHeaderDropdownMenu } from '..'
+import { navigationData, navPromo, sidePanelContent } from 'lib/products'
 import s from './home-page-content.module.css'
 
 const HomePageHeaderContent = () => {
@@ -29,14 +25,12 @@ const HomePageHeaderContent = () => {
 			<NavBarListContainer>
 				<li>
 					<NavigationHeaderDropdownMenu
-						itemGroups={[{ items: getAllProductsNavItems() }]}
+						productPanelData={{
+							navigationData,
+							navPromo,
+							sidePanelContent,
+						}}
 						label="Products"
-					/>
-				</li>
-				<li>
-					<PrimaryNavLink
-						ariaLabel="Tutorials"
-						navItem={{ label: 'Tutorials', url: '/tutorials' }}
 					/>
 				</li>
 			</NavBarListContainer>
