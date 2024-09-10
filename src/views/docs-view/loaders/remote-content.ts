@@ -265,12 +265,21 @@ export default class RemoteContentLoader implements DataLoader {
 				versionMetadataList.find((e) => e.version === document.version)!
 					.isLatest
 
-			// We shouldn't be showing "Edit on GitHub" links for PTFE because
-			// it takes people to a 404 on GitHub if they're not members of the
-			// GitHub org
-			const isPtfe = document.product === 'ptfe-releases'
+			/**
+			 * We want to show "Edit on GitHub" links for public content repos only.
+			 * Currently, HCP, PTFE and Sentinel docs are stored in private
+			 * repositories.
+			 *
+			 * Note: If we need more granularity here, we could change this to be
+			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
+			 */
+			const isPrivateContentRepo = [
+				'hcp-docs',
+				'sentinel',
+				'ptfe-releases',
+			].includes(this.opts.product)
 
-			if (isLatest && !isPtfe) {
+			if (isLatest && !isPrivateContentRepo) {
 				// GitHub only allows you to modify a file if you are on a branch, not a commit
 				githubFileUrl = `https://github.com/hashicorp/${this.opts.product}/blob/${this.opts.mainBranch}/${document.githubFile}`
 			}
