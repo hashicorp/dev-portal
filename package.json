@@ -212,7 +212,10 @@
 	"overrides": {
 		"next": "$next",
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"@hashicorp/react-components": {
+			"next": "^14.2.1"
+		}
 	},
 	"nextBundleAnalysis": {
 		"budget": null,
