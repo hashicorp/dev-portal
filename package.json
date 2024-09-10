@@ -213,7 +213,7 @@
 		"next": "$next",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"@hashicorp/react-components@1.1.10": {
+		"@hashicorp/react-components": {
 			"next": "^14.2.1"
 		}
 	},
