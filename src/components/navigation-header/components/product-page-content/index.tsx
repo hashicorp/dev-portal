@@ -8,6 +8,7 @@ import { IconHashicorp24 } from '@hashicorp/flight-icons/svg-react/hashicorp-24'
 
 // Global imports
 import { useCurrentProduct } from 'contexts'
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 
 // Local imports
 import {
@@ -29,7 +30,7 @@ const ProductPageHeaderContent = () => {
 	return (
 		<>
 			<div className={s.productsDropdown}>
-				<NavBarListContainer>
+				<NavigationMenu.Root className={s.mobileMenuNavList}>
 					<NavigationHeaderDropdownMenu
 						ariaLabel="Main menu"
 						buttonClassName={s.productsDropdownButton}
@@ -42,7 +43,7 @@ const ProductPageHeaderContent = () => {
 							sidePanelContent,
 						}}
 					/>
-				</NavBarListContainer>
+				</NavigationMenu.Root>
 			</div>
 
 			<div className={s.productLinkAndNav}>
