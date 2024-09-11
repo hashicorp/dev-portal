@@ -97,9 +97,7 @@ const SidebarSidecarLayoutContent = ({
 		<div className={classNames(s.root, s[`mainWidth-${mainWidth}`])}>
 			<MobileMenuContainer className={s.sidebarContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
-					<MobileAuthenticationControls
-						className={s.mobileAuthControlsContainer}
-					/>
+					<MobileAuthenticationControls />
 					{sidebarContent}
 				</div>
 			</MobileMenuContainer>
