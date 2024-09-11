@@ -6,6 +6,8 @@
 // Third-party imports
 import { ReactElement, useMemo, useState } from 'react'
 import classNames from 'classnames'
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import ProductPanel from '@hashicorp/react-components/src/components/nav-panel/product-panel'
 
 // Global imports
 import { SIDEBAR_LABEL_ID, SIDEBAR_NAV_ELEMENT_ID } from 'constants/element-ids'
@@ -19,6 +21,7 @@ import {
 	SidebarNavMenuItem,
 	SidebarTitleHeading,
 } from 'components/sidebar/components'
+import { mobileNavigationData, navPromo, sidePanelContent } from 'lib/products'
 
 // Local imports
 import { FilteredNavItem, MenuItem, SidebarProps } from './types'
@@ -132,6 +135,17 @@ const Sidebar = ({
 				showFilterInput={false}
 			/>
 		)
+	} else if (shouldRenderMobileControls && title === 'Main Menu') {
+		sidebarContent = (
+			<NavigationMenu.Root>
+				<ProductPanel
+					productCategories={mobileNavigationData}
+					promo={navPromo}
+					sidePanel={sidePanelContent}
+				/>
+			</NavigationMenu.Root>
+		)
+		visuallyHideTitle = true
 	} else {
 		sidebarContent = (
 			<>
