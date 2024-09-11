@@ -61,11 +61,19 @@ for further details.
 	flex-shrink: 1;
 	flex-grow: 1;
 	overflow-y: auto;
-	padding-bottom: 48px;
+	position: relative;
+
+	@media (--dev-dot-hide-mobile-menu) {
+		padding-left: 16px;
+		padding-right: 16px;
+		padding-top: 24px;
+	}
+}
+
+.mobileAuthControlsContainer {
 	padding-left: 16px;
 	padding-right: 16px;
 	padding-top: 24px;
-	position: relative;
 }
 
 /**
