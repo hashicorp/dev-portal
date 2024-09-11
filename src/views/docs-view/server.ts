@@ -304,7 +304,7 @@ export function getStaticGenerationFunctions<
 				})
 
 			/**
-			 * Figure out of a specific docs version is being viewed
+			 * Figure out if a specific docs version is being viewed
 			 */
 			let indexOfVersionPathPart
 			let versionPathPart
