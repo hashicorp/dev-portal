@@ -43,7 +43,6 @@ import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { DocsViewProps } from './types'
-import { isReleaseNotesPage } from 'lib/docs/is-release-notes-page'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -305,7 +304,7 @@ export function getStaticGenerationFunctions<
 				})
 
 			/**
-			 * Figure out if a specific docs version is being viewed
+			 * Figure out of a specific docs version is being viewed
 			 */
 			let indexOfVersionPathPart
 			let versionPathPart
@@ -453,11 +452,7 @@ export function getStaticGenerationFunctions<
 				},
 				projectName: projectName || null,
 				versions:
-					!hideVersionSelector &&
-					!isReleaseNotesPage(currentPathUnderProduct) && // toggle version dropdown
-					hasMeaningfulVersions
-						? validVersions
-						: null,
+					!hideVersionSelector && hasMeaningfulVersions ? validVersions : null,
 			}
 
 			return {
