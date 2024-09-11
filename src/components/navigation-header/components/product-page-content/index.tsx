@@ -18,6 +18,7 @@ import {
 } from '..'
 import { ProductIconTextLink } from './components'
 import { getNavItems, getProductsDropdownItems, NavItem } from './utils'
+import { navigationData, navPromo, sidePanelContent } from 'lib/products'
 import s from './product-page-content.module.css'
 
 const ProductPageHeaderContent = () => {
@@ -28,14 +29,22 @@ const ProductPageHeaderContent = () => {
 	return (
 		<>
 			<div className={s.productsDropdown}>
-				<NavigationHeaderDropdownMenu
-					ariaLabel="Main menu"
-					buttonClassName={s.productsDropdownButton}
-					dropdownClassName={s.productsDropdownPane}
-					itemGroups={allProductsItems}
-					leadingIcon={<IconHashicorp24 className={s.productsDropdownIcon} />}
-				/>
+				<NavBarListContainer>
+					<NavigationHeaderDropdownMenu
+						ariaLabel="Main menu"
+						buttonClassName={s.productsDropdownButton}
+						dropdownClassName={s.productsDropdownPane}
+						itemGroups={allProductsItems}
+						leadingIcon={<IconHashicorp24 className={s.productsDropdownIcon} />}
+						productPanelData={{
+							navigationData,
+							navPromo,
+							sidePanelContent,
+						}}
+					/>
+				</NavBarListContainer>
 			</div>
+
 			<div className={s.productLinkAndNav}>
 				<ProductIconTextLink
 					name={currentProduct.name}
