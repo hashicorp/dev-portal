@@ -52,7 +52,9 @@
 /**
  * Colors
  */
-.color-neutral {
+.color-neutral,
+.color-sentinel,
+.color-hcp {
 	--icon-color: var(--token-color-foreground-faint);
 	--border-color: var(--token-color-border-primary);
 	--background: var(--token-color-surface-faint);
