@@ -62,10 +62,10 @@ for further details.
 	flex-grow: 1;
 	overflow-y: auto;
 	position: relative;
+	padding-left: 16px;
+	padding-right: 16px;
 
 	@media (--dev-dot-hide-mobile-menu) {
-		padding-left: 16px;
-		padding-right: 16px;
 		padding-top: 24px;
 	}
 }
