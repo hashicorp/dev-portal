@@ -34,7 +34,6 @@ const ProductPageHeaderContent = () => {
 					<NavigationHeaderDropdownMenu
 						ariaLabel="Main menu"
 						buttonClassName={s.productsDropdownButton}
-						dropdownClassName={s.productsDropdownPane}
 						itemGroups={allProductsItems}
 						leadingIcon={<IconHashicorp24 className={s.productsDropdownIcon} />}
 						productPanelData={{
