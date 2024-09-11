@@ -153,6 +153,9 @@
 	min-height: 52px;
 	padding: 16px;
 
+	/* Accounts for extra feedback link padding */
+	padding-left: 24px;
+
 	@media (--dev-dot-mobile) {
 		justify-content: flex-end;
 	}
@@ -172,4 +175,8 @@
 .footerLeftArrowKeys {
 	display: flex;
 	gap: 4px;
+}
+
+.feedbackLink {
+	padding: 8px;
 }

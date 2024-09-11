@@ -50,6 +50,7 @@ const CommandBarDialogFooter = () => {
 			</div>
 			<div>
 				<StandaloneLink
+					className={s.feedbackLink}
 					color="secondary"
 					href={FEEDBACK_FORM_URL}
 					icon={<IconExternalLink16 />}
