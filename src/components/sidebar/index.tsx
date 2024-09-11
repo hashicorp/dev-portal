@@ -45,6 +45,7 @@ const Sidebar = ({
 	visuallyHideTitle = false,
 	isInstallPage,
 	showResourcesList = true,
+	className,
 }: SidebarProps): ReactElement => {
 	const currentProduct = useCurrentProduct()
 	const { shouldRenderMobileControls } = useSidebarNavData()
@@ -145,7 +146,7 @@ const Sidebar = ({
 		)
 	}
 	return (
-		<div className={s.sidebar}>
+		<div className={classNames(s.sidebar, className)}>
 			{backToElement}
 			{sidebarFilterInput}
 			<nav

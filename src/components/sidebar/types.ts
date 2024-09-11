@@ -194,6 +194,10 @@ interface SidebarBaseProps {
 	 * Optional. If true, the sidebar will show the Resources list.
 	 */
 	showResourcesList?: boolean
+	/**
+	 * Optional. Used to add styling to the sidebar component.
+	 */
+	className?: string
 }
 
 /**
