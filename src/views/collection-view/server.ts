@@ -164,8 +164,8 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 			collectionProductSlug === 'cloud' ? 'hcp' : collectionProductSlug
 		/**
 		 * Only build collections where the `productSlug` is a valid beta product.
-		 * As well, for all non-HCP products, only build collections where
-		 * `theme` matches the `productSlug`.
+		 * As well, for all non-HCP products except Sentinel, only build collections
+		 * where `theme` matches the `productSlug`.
 		 *
 		 * Once all products are 'onboarded' we can remove this filtering layer
 		 * for the beta products.
@@ -174,8 +174,9 @@ export async function getCollectionPagePaths(): Promise<CollectionPagePath[]> {
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
 		const isCloud = collectionProductSlug == 'cloud'
+		const isSentinel = collectionProductSlug === 'sentinel'
 		const themeMatches = collectionProductSlug === collection.theme
-		const shouldBuildCollectionPath = isCloud || themeMatches
+		const shouldBuildCollectionPath = isCloud || isSentinel || themeMatches
 
 		if (shouldBuildCollectionPath) {
 			paths.push({
