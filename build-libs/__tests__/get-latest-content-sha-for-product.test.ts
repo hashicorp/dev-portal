@@ -15,7 +15,7 @@ describe('getLatestContentShaForProduct', () => {
 		})
 
 		if (['hcp-docs', 'sentinel', 'ptfe-releases'].includes(repo)) {
-			console.log(`Skipping test for "${repo}" repo, as it's a private repo.`)
+			console.log(`Skipping test for private repo "${repo}"`)
 		} else {
 			it(`fetches the latest SHA for the "${repo}" repo, then validates the SHA by fetching redirects`, async () => {
 				const latestSha = await getLatestContentShaForProduct(repo)
