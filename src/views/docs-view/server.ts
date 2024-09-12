@@ -43,7 +43,6 @@ import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { DocsViewProps } from './types'
-import { isReleaseNotesPage } from 'lib/docs/is-release-notes-page'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -441,11 +440,7 @@ export function getStaticGenerationFunctions<
 				},
 				projectName: projectName || null,
 				versions:
-					!hideVersionSelector &&
-					!isReleaseNotesPage(currentPathUnderProduct) && // toggle version dropdown
-					hasMeaningfulVersions
-						? validVersions
-						: null,
+					!hideVersionSelector && hasMeaningfulVersions ? versions : null,
 			}
 
 			return {
