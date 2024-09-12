@@ -11,7 +11,6 @@ module.exports = {
 	generateRobotsTxt: true,
 	robotsTxtOptions: {
 		additionalSitemaps: [
-			`${siteUrl}/hcp-sitemap.xml`,
 			// sitemap generated from ./pages/server-sitemap.xml/index.tsx
 			`${siteUrl}/server-sitemap.xml`,
 		],
@@ -63,8 +62,14 @@ module.exports = {
 		'/vault/docs*',
 		'/vault/api-docs*',
 		'/vault/tutorials*',
-		'/well-architected-framework/*',
+		'/well-architected-framework*',
 		'/hcp/tutorials*',
 		'/hcp/docs',
+		'/terraform-website*',
+		'/terraform-plugin-testing*',
+		'/terraform-cdk*',
+		'/terraform/cloud-docs*',
+		'/consul/tutorials/kubernetes-features/service-mesh-traffic-management',
+		'/well-architected-framework/reliability/reliability-consul-capacity-planning',
 	],
 }
