@@ -12,9 +12,6 @@ type NativeDivElement = JSX.IntrinsicElements['div']
 export default function SidebarNavList({
 	className,
 	children,
-}: {
-	className?: NativeDivElement['className']
-	children: ReactNode
-}) {
+}: NativeDivElement & { children: ReactNode }) {
 	return <ul className={classNames(s.navList, className)}>{children}</ul>
 }
