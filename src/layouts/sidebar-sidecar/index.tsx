@@ -110,7 +110,8 @@ const SidebarSidecarLayoutContent = ({
 					/>
 					<div
 						className={classNames({
-							[s.sidePadding]: !shouldNotHaveSidePadding,
+							[s.sidePadding]:
+								!shouldNotHaveSidePadding || !isMobileMenuRendered,
 						})}
 					>
 						{sidebarContent}
