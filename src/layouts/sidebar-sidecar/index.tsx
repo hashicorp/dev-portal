@@ -96,10 +96,12 @@ const SidebarSidecarLayoutContent = ({
 	return (
 		<div className={classNames(s.root, s[`mainWidth-${mainWidth}`])}>
 			<MobileMenuContainer className={s.sidebarContainer} ref={sidebarRef}>
-				<MobileAuthenticationControls
-					className={s.mobileAuthControlsContainer}
-				/>
-				<div className={s.sidebarContentWrapper}>{sidebarContent}</div>
+				<div className={s.sidebarContentWrapper}>
+					<MobileAuthenticationControls
+						className={s.mobileAuthControlsContainer}
+					/>
+					{sidebarContent}
+				</div>
 			</MobileMenuContainer>
 			<div className={s.contentWrapper} ref={contentRef}>
 				{alertBannerSlot}
