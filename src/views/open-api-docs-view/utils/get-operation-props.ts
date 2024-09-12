@@ -51,6 +51,10 @@ export async function getOperationProps(
 				continue
 			}
 
+			if (operation.tags?.includes('hidden')) {
+				continue
+			}
+
 			// Create a slug for this operation
 			const operationSlug = slugify(operation.operationId)
 
