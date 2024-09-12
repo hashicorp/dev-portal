@@ -43,7 +43,6 @@ import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { DocsViewProps } from './types'
-import { isReleaseNotesPage } from 'lib/docs/is-release-notes-page'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -411,19 +410,7 @@ export function getStaticGenerationFunctions<
 				validVersions.length > 0 &&
 				(validVersions.length > 1 || validVersions[0].version !== 'v0.0.x')
 
-			/**
-			 * We want to show "Edit on GitHub" links for public content repos only.
-			 * Currently, HCP and Sentinel docs are stored in private repositories.
-			 *
-			 * Note: If we need more granularity here, we could change this to be
-			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
-			 */
-			const isHcp = product.slug == 'hcp'
-			const isSentinel = product.slug == 'sentinel'
-			const isPublicContentRepo = !isHcp && !isSentinel
-			if (isPublicContentRepo) {
-				layoutProps.githubFileUrl = githubFileUrl
-			}
+			layoutProps.githubFileUrl = githubFileUrl
 
 			const { hideVersionSelector, projectName } = options
 
@@ -453,11 +440,7 @@ export function getStaticGenerationFunctions<
 				},
 				projectName: projectName || null,
 				versions:
-					!hideVersionSelector &&
-					!isReleaseNotesPage(currentPathUnderProduct) && // toggle version dropdown
-					hasMeaningfulVersions
-						? validVersions
-						: null,
+					!hideVersionSelector && hasMeaningfulVersions ? versions : null,
 			}
 
 			return {
