@@ -10,12 +10,14 @@ import classNames from 'classnames'
 
 // HashiCorp imports
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
+import ProductPanel from '@hashicorp/react-components/src/components/nav-panel/product-panel'
 
 // Global imports
 import { SUPPORTED_ICONS } from 'content/supported-icons'
 import { ProductSlug } from 'types/products'
 import useCurrentPath from 'hooks/use-current-path'
 import useOnClickOutside from 'hooks/use-on-click-outside'
+import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import deriveKeyEventState from 'lib/derive-key-event-state'
@@ -23,7 +25,7 @@ import Badge from 'components/badge'
 import Link from 'components/link'
 import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
-import {
+import type {
 	NavigationHeaderItem,
 	NavigationHeaderDropdownMenuProps,
 	NavigationHeaderItemGroup,
@@ -44,6 +46,7 @@ const NavigationHeaderDropdownMenu = ({
 	dropdownClassName,
 	iconClassName,
 	itemGroups,
+	productPanelData,
 	label,
 	leadingIcon,
 }: NavigationHeaderDropdownMenuProps) => {
@@ -52,7 +55,6 @@ const NavigationHeaderDropdownMenu = ({
 	const menuRef = useRef<HTMLDivElement>()
 	const activatorButtonRef = useRef<HTMLButtonElement>()
 	const [isOpen, setIsOpen] = useState(false)
-	const numberOfItemGroups = itemGroups.length
 	const menuId = `navigation-header-menu-${uniqueId}`
 	const hasLeadingIcon = !!leadingIcon
 
@@ -61,6 +63,16 @@ const NavigationHeaderDropdownMenu = ({
 
 	// Handles closing the menu if focus moves outside of it and it is open.
 	useOnFocusOutside([menuRef], () => setIsOpen(false), isOpen)
+
+	// Handles closing the menu if Esc is pressed while navigating with a keyboard and the menu is focused.
+	useOnEscapeKeyDown(
+		[menuRef],
+		() => {
+			setIsOpen(false)
+			activatorButtonRef.current.focus()
+		},
+		isOpen
+	)
 
 	// Check for a visible icon or label
 	if (!label && !hasLeadingIcon) {
@@ -204,105 +216,120 @@ const NavigationHeaderDropdownMenu = ({
 				id={menuId}
 				style={{ display: isOpen ? 'block' : 'none' }}
 			>
-				{itemGroups.map(
-					(itemGroup: NavigationHeaderItemGroup, groupIndex: number) => {
-						const { items, label } = itemGroup
-						const groupId = generateItemGroupId(groupIndex)
-						const isLastItemGroup = groupIndex === numberOfItemGroups - 1
-						const showDivider = numberOfItemGroups > 1 && !isLastItemGroup
-						const hasLabel = !!label
-						const itemGroupLabelId = hasLabel
-							? `${groupId}-itemGroupLabel`
-							: undefined
-						return (
-							<Fragment key={groupId}>
-								{hasLabel && (
-									<Text
-										asElement="p"
-										className={s.itemGroupLabel}
-										id={itemGroupLabelId}
-										size={100}
-										weight="semibold"
-									>
-										{label}
-									</Text>
-								)}
-								<ul
-									aria-labelledby={itemGroupLabelId}
-									className={classNames(s.itemGroup, {
-										[s.twoColumns]: items.length >= 10,
-									})}
-								>
-									{items.map(
-										(item: NavigationHeaderItem, itemIndex: number) => {
-											const icon = SUPPORTED_ICONS[item.icon] || (
-												<ProductIcon productSlug={item.icon as ProductSlug} />
-											)
-											const itemId = generateItemId(groupId, itemIndex)
-											const linkHref = item.path
-											const isCurrentPage = linkHref === currentPath
-											const hasBadge = !!item.badge
-											const anchorContent = (
-												<div className={s.itemLinkContent}>
-													<div className={s.leftAlignedItemLinkContent}>
-														<span
-															className={classNames(
-																s.leftAlignedItemLinkContentIcon,
-																iconClassName
-															)}
-														>
-															{icon}
-														</span>
-														<Text
-															asElement="span"
-															className={s.itemText}
-															size={100}
-															weight="regular"
-														>
-															{item.label}
-														</Text>
-													</div>
-													{hasBadge && (
-														<Badge
-															color={item.badge.color}
-															size="small"
-															text={item.badge.text}
+				{productPanelData ? (
+					<ProductPanel
+						productCategories={productPanelData.navigationData}
+						promo={productPanelData.navPromo}
+						sidePanel={productPanelData.sidePanelContent}
+					/>
+				) : (
+					<div className={s.dropdownContainerInner}>
+						{itemGroups.map(
+							(itemGroup: NavigationHeaderItemGroup, groupIndex: number) => {
+								const numberOfItemGroups = itemGroups.length
+								const { items, label } = itemGroup
+								const groupId = generateItemGroupId(groupIndex)
+								const isLastItemGroup = groupIndex === numberOfItemGroups - 1
+								const showDivider = numberOfItemGroups > 1 && !isLastItemGroup
+								const hasLabel = !!label
+								const itemGroupLabelId = hasLabel
+									? `${groupId}-itemGroupLabel`
+									: undefined
+								return (
+									<Fragment key={groupId}>
+										{hasLabel && (
+											<Text
+												asElement="p"
+												className={s.itemGroupLabel}
+												id={itemGroupLabelId}
+												size={100}
+												weight="semibold"
+											>
+												{label}
+											</Text>
+										)}
+										<ul
+											aria-labelledby={itemGroupLabelId}
+											className={classNames(s.itemGroup, {
+												[s.twoColumns]: items.length >= 10,
+											})}
+										>
+											{items.map(
+												(item: NavigationHeaderItem, itemIndex: number) => {
+													const icon = SUPPORTED_ICONS[item.icon] || (
+														<ProductIcon
+															productSlug={item.icon as ProductSlug}
 														/>
-													)}
-												</div>
-											)
+													)
+													const itemId = generateItemId(groupId, itemIndex)
+													const linkHref = item.path
+													const isCurrentPage = linkHref === currentPath
+													const hasBadge = !!item.badge
+													const anchorContent = (
+														<div className={s.itemLinkContent}>
+															<div className={s.leftAlignedItemLinkContent}>
+																<span
+																	className={classNames(
+																		s.leftAlignedItemLinkContentIcon,
+																		iconClassName
+																	)}
+																>
+																	{icon}
+																</span>
+																<Text
+																	asElement="span"
+																	className={s.itemText}
+																	size={100}
+																	weight="regular"
+																>
+																	{item.label}
+																</Text>
+															</div>
+															{hasBadge && (
+																<Badge
+																	color={item.badge.color}
+																	size="small"
+																	text={item.badge.text}
+																/>
+															)}
+														</div>
+													)
 
-											return (
-												<li className={s.itemContainer} key={itemId}>
-													{linkHref ? (
-														<Link
-															aria-current={isCurrentPage ? 'page' : undefined}
-															aria-label={item.ariaLabel}
-															className={s.itemLink}
-															href={linkHref}
-															onKeyDown={handleKeyDown}
-														>
-															{anchorContent}
-														</Link>
-													) : (
-														<a
-															aria-disabled
-															aria-label={item.ariaLabel}
-															className={s.itemLink}
-															tabIndex={0}
-														>
-															{anchorContent}
-														</a>
-													)}
-												</li>
-											)
-										}
-									)}
-								</ul>
-								{showDivider && <hr className={s.itemGroupDivider} />}
-							</Fragment>
-						)
-					}
+													return (
+														<li className={s.itemContainer} key={itemId}>
+															{linkHref ? (
+																<Link
+																	aria-current={
+																		isCurrentPage ? 'page' : undefined
+																	}
+																	aria-label={item.ariaLabel}
+																	className={s.itemLink}
+																	href={linkHref}
+																	onKeyDown={handleKeyDown}
+																>
+																	{anchorContent}
+																</Link>
+															) : (
+																<a
+																	aria-disabled
+																	aria-label={item.ariaLabel}
+																	className={s.itemLink}
+																	tabIndex={0}
+																>
+																	{anchorContent}
+																</a>
+															)}
+														</li>
+													)
+												}
+											)}
+										</ul>
+										{showDivider && <hr className={s.itemGroupDivider} />}
+									</Fragment>
+								)
+							}
+						)}
+					</div>
 				)}
 			</div>
 		</div>

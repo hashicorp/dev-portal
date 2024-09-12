@@ -109,6 +109,69 @@ const navigationData: ProductNavData = [
 	},
 ]
 
+const mobileNavigationData: ProductNavData = [
+	{
+		title: 'Infrastructure Lifecycle Management',
+		products: [
+			{
+				product: 'Terraform',
+				url: '/terraform',
+				description: 'Manage infrastructure as code',
+			},
+			{
+				product: 'Packer',
+				url: '/packer',
+				description: 'Build machine images',
+			},
+			{
+				product: 'Nomad',
+				url: '/nomad',
+				description: 'Orchestrate workloads',
+			},
+			{
+				product: 'Waypoint',
+				url: '/waypoint',
+				description: 'Standardize application patterns',
+			},
+			{
+				product: 'Vagrant',
+				url: '/vagrant',
+				description: 'Build developer environments',
+			},
+		],
+	},
+	{
+		title: 'Security Lifecycle Management',
+		products: [
+			{
+				product: 'Vault',
+				url: '/vault',
+				description: 'Centrally manage secrets',
+			},
+			{
+				product: 'HCP Vault Secrets',
+				url: '/hcp/docs/vault-secrets',
+				description: 'Manage secrets as a service',
+			},
+			{
+				product: 'HCP Vault Radar',
+				url: '/hcp/docs/vault-radar',
+				description: 'Scan for embedded secrets',
+			},
+			{
+				product: 'Boundary',
+				url: '/boundary',
+				description: 'Secure remote access',
+			},
+			{
+				product: 'Consul',
+				url: '/consul',
+				description: 'Secure network services',
+			},
+		],
+	},
+]
+
 const navPromo: ProductNavPromo = {
 	title: 'HashiCorp Cloud Platform',
 	description: 'Get started in minutes with our cloud products',
@@ -119,24 +182,24 @@ const navPromo: ProductNavPromo = {
 }
 
 const sidePanelContent: ProductSidePanel = {
-	title: 'Learn',
-	content: [
+	label: 'Learn',
+	navItems: [
 		{
 			title: 'Certifications',
 			description: 'Get HashiCorp certified',
-			link: '/certifications',
+			url: '/certifications',
 			icon: 'award',
 		},
 		{
 			title: 'Tutorials',
 			description: 'Learn HashiCorp products',
-			link: '/tutorials',
+			url: '/tutorials',
 			icon: 'learn',
 		},
 		{
 			title: 'Well-Architected Framework',
 			description: 'Adopt HashiCorp best practices',
-			link: '/well-architected-framework',
+			url: '/well-architected-framework',
 			icon: 'layers',
 		},
 	],
@@ -177,6 +240,7 @@ export {
 	productSlugsToHostNames,
 	productSlugsToNames,
 	navigationData,
+	mobileNavigationData,
 	navPromo,
 	sidePanelContent,
 }
