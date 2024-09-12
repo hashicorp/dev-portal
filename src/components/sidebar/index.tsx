@@ -58,6 +58,7 @@ const Sidebar = ({
 		() => addNavItemMetaData(currentPath, menuItems),
 		[currentPath, menuItems]
 	)
+	const isProductPanel = shouldRenderMobileControls && title === 'Main Menu'
 
 	let backToElement
 	if (shouldRenderMobileControls && levelButtonProps) {
@@ -135,7 +136,7 @@ const Sidebar = ({
 				showFilterInput={false}
 			/>
 		)
-	} else if (shouldRenderMobileControls && title === 'Main Menu') {
+	} else if (isProductPanel) {
 		sidebarContent = (
 			<>
 				<NavigationMenu.Root>
@@ -170,7 +171,11 @@ const Sidebar = ({
 		)
 	}
 	return (
-		<div className={classNames(s.sidebar, className)}>
+		<div
+			className={classNames(className, {
+				[s.sidebar]: !isProductPanel,
+			})}
+		>
 			{backToElement}
 			{sidebarFilterInput}
 			<nav

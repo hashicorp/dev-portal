@@ -70,6 +70,10 @@ for further details.
 
 .mobileAuthControlsContainer {
 	padding-top: 24px;
+
+	&.noMargin {
+		margin-bottom: 0;
+	}
 }
 
 /**

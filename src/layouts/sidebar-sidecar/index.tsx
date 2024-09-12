@@ -102,7 +102,11 @@ const SidebarSidecarLayoutContent = ({
 			<MobileMenuContainer className={s.sidebarContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
 					<MobileAuthenticationControls
-						className={classNames(s.mobileAuthControlsContainer, s.sidePadding)}
+						className={classNames(
+							s.mobileAuthControlsContainer,
+							s.sidePadding,
+							{ [s.noMargin]: AlternateSidebar && !sidebarProps?.menuItems }
+						)}
 					/>
 					<div
 						className={classNames({
