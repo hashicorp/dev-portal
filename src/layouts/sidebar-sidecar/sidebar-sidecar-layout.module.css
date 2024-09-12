@@ -62,8 +62,6 @@ for further details.
 	flex-grow: 1;
 	overflow-y: auto;
 	position: relative;
-	padding-left: 16px;
-	padding-right: 16px;
 
 	@media (--dev-dot-hide-mobile-menu) {
 		padding-top: 24px;
@@ -196,4 +194,9 @@ for further details.
 	 SidebarSidecarLayout and rendered as part of `children` instead. */
 .editOnGithubLink {
 	margin-top: 64px;
+}
+
+.sidePadding {
+	padding-left: 16px;
+	padding-right: 16px;
 }

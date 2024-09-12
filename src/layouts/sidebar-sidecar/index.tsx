@@ -93,14 +93,24 @@ const SidebarSidecarLayoutContent = ({
 		sidebarContent = <Sidebar {...sidebarProps} />
 	}
 
+	const shouldNotHaveSidePadding =
+		sidebarContent.props.title === 'Main Menu' ||
+		(AlternateSidebar && !sidebarProps?.menuItems)
+
 	return (
 		<div className={classNames(s.root, s[`mainWidth-${mainWidth}`])}>
 			<MobileMenuContainer className={s.sidebarContainer} ref={sidebarRef}>
 				<div className={s.sidebarContentWrapper}>
 					<MobileAuthenticationControls
-						className={s.mobileAuthControlsContainer}
+						className={classNames(s.mobileAuthControlsContainer, s.sidePadding)}
 					/>
-					{sidebarContent}
+					<div
+						className={classNames({
+							[s.sidePadding]: !shouldNotHaveSidePadding,
+						})}
+					>
+						{sidebarContent}
+					</div>
 				</div>
 			</MobileMenuContainer>
 			<div className={s.contentWrapper} ref={contentRef}>
