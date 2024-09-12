@@ -4,8 +4,17 @@
  */
 
 import { ReactNode } from 'react'
+import classNames from 'classnames'
 import s from '../../sidebar.module.css'
 
-export default function SidebarNavList({ children }: { children: ReactNode }) {
-	return <ul className={s.navList}>{children}</ul>
+type NativeDivElement = JSX.IntrinsicElements['div']
+
+export default function SidebarNavList({
+	className,
+	children,
+}: {
+	className?: NativeDivElement['className']
+	children: ReactNode
+}) {
+	return <ul className={classNames(s.navList, className)}>{children}</ul>
 }

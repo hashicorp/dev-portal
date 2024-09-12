@@ -137,13 +137,23 @@ const Sidebar = ({
 		)
 	} else if (shouldRenderMobileControls && title === 'Main Menu') {
 		sidebarContent = (
-			<NavigationMenu.Root>
-				<ProductPanel
-					productCategories={mobileNavigationData}
-					promo={navPromo}
-					sidePanel={sidePanelContent}
-				/>
-			</NavigationMenu.Root>
+			<>
+				<NavigationMenu.Root>
+					<ProductPanel
+						productCategories={mobileNavigationData}
+						promo={navPromo}
+						sidePanel={sidePanelContent}
+					/>
+				</NavigationMenu.Root>
+				{showResourcesList && (
+					<SidebarNavList className={s.mainMenuResources}>
+						{navResourceItems.map((item, index) => (
+							// eslint-disable-next-line react/no-array-index-key
+							<SidebarNavMenuItem item={item} key={index} />
+						))}
+					</SidebarNavList>
+				)}
+			</>
 		)
 		visuallyHideTitle = true
 	} else {
