@@ -17,27 +17,55 @@ import {
  *
  * 🚨 NOTE: the order of the keys in this object matters. It determines
  * the order in which products are displayed in certain locations.
- * Specifically, with iterate over the `Object.keys()` of this object
+ * The inclusion of product slugs in this map also has many side effects.
+ * Specifically, we iterate over the `Object.keys()` of this object
  * in the following places:
- * 
- * - generate-top-level-sub-nav-items (for the main nav)
- * - getStaticPaths (for /<product>/docs landing pages)
+ *
+ * LANDING PAGE RELATED USES (assumes link to `/<product>`)
+ * - generate-top-level-sub-nav-items.ts (all "mobile" menus)
+ * - getAllProductsNavItems (home page and old products dropdown)
+ * - PRODUCT_LINK_CARDS (for 404 pages)
+ * - <Chiclets /> (used on the home page)
+ *
+ * DOCS-RELATED USES (assumes link to `/<product>/docs`)
+ * - getStaticPaths (for `/<product>/docs` landing pages)
+ * - warm-cache.ts - warmDeveloperDocsCache (relates to /<product>/docs)
+ * - normalizeRemoteLoaderSlug (relates to /<product>/docs)
+ * - rewrite-tutorial-links.test.ts (devDotDocsPath)
+ * - getProductUrlAdjuster - this was intended for use during migration, after
+ *   which MDX content would be updated to avoid having to rewrite links. The
+ *   MDX content rewrite never happened, i think cause versioned docs made it
+ *   seem impossible to execute in a reasonable way. So, authors still write
+ *   links as if the content exists on dot-io domains. The root issue here is
+ *   something that'll hopefully be much easier to fix once we've migrated
+ *   content to `hashicorp/web-unified-docs`. In the meantime, it'd probably
+ *   still be worth it to use a more specific dot-io-targeted variable.
+ * - rewrite-docs-url.test.ts (tests getProductUrlAdjuster)
+ *
+ * TUTORIAL-RELATED USES (assumes link to `/<product>/tutorials`)
+ * - warm-cache.ts - anonymous function (relates to tutorialUrls)
  * - VALID_PRODUCT_SLUGS_FOR_FILTERING (for Tutorials Library sidebar filter)
+ *    - via productSlugsToNames, really only uses slugs
  * - getTutorialLandingPaths (for tutorials included in the sitemap)
- * - getStaticPaths (for individual tutorials pages)
+ * - getStaticPaths (for individual [...tutorialSlug] pages)
  * - generateProductTutorialHomePaths (for /<product>/tutorials landing pages)
- 
- * 
+ * - rewrite-tutorial-links.test.ts (devDotTutorialsPath)
+ *
+ * TYPE ASSERTION USES
+ * - isProductSlug (generic assertion across content types? need to investigate)
+ *
+ * LEGACY DOT-IO MIGRATION USES
+ * - getIsRewriteableDocsLink (and related tests)
+ * - rewrite-tutorial-links tests ("Links to .io home pages are not rewritten")
+ *
  * We already have at least one instance (for HCP Vault secrets) where we've
  * avoided adding to this constant because of how it's intertwined with other
- * purposes. It might make sense for us to refactor some code so that we're
+ * purposes. It probably makes sense for us to refactor some code so that we're
  * only ever using this constant as a way to get the product name from a given
- * product slug. Specifically:
- * 
- * - In Tutorials instances, maybe we could fetch from the Tutorials API
- *   to determine which products are available for filtering or appropriate
- *   to include in the sitemap, rather that using a hard-coded constant?
- * - In 
+ * product slug. For all other uses cases, it might feel duplicative, but
+ * explicitly declaring new constants (not filtered from some "main" const)
+ * will likely make our codebase easier to understand and work with as we
+ * add new "products" such as HCP Vault Secrets, etc.
  */
 const productSlugsToNames: { [slug in ProductSlug]: ProductName } = {
 	hcp: 'HashiCorp Cloud Platform',
