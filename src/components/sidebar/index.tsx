@@ -49,7 +49,7 @@ const Sidebar = ({
 	isInstallPage,
 	showResourcesList = true,
 	className,
-}: SidebarProps): ReactElement => {
+}: SidebarProps & JSX.IntrinsicElements['div']) => {
 	const currentProduct = useCurrentProduct()
 	const { shouldRenderMobileControls } = useSidebarNavData()
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
