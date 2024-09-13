@@ -6,6 +6,8 @@
 // Third-party imports
 import { ReactElement, useMemo, useState } from 'react'
 import classNames from 'classnames'
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+import ProductPanel from '@hashicorp/react-components/src/components/nav-panel/product-panel'
 
 // Global imports
 import { SIDEBAR_LABEL_ID, SIDEBAR_NAV_ELEMENT_ID } from 'constants/element-ids'
@@ -19,6 +21,7 @@ import {
 	SidebarNavMenuItem,
 	SidebarTitleHeading,
 } from 'components/sidebar/components'
+import { mobileNavigationData, navPromo, sidePanelContent } from 'lib/products'
 
 // Local imports
 import { FilteredNavItem, MenuItem, SidebarProps } from './types'
@@ -45,7 +48,8 @@ const Sidebar = ({
 	visuallyHideTitle = false,
 	isInstallPage,
 	showResourcesList = true,
-}: SidebarProps): ReactElement => {
+	className,
+}: SidebarProps & JSX.IntrinsicElements['div']) => {
 	const currentProduct = useCurrentProduct()
 	const { shouldRenderMobileControls } = useSidebarNavData()
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
@@ -54,6 +58,7 @@ const Sidebar = ({
 		() => addNavItemMetaData(currentPath, menuItems),
 		[currentPath, menuItems]
 	)
+	const isProductPanel = shouldRenderMobileControls && title === 'Main Menu'
 
 	let backToElement
 	if (shouldRenderMobileControls && levelButtonProps) {
@@ -131,6 +136,27 @@ const Sidebar = ({
 				showFilterInput={false}
 			/>
 		)
+	} else if (isProductPanel) {
+		sidebarContent = (
+			<>
+				<NavigationMenu.Root>
+					<ProductPanel
+						productCategories={mobileNavigationData}
+						promo={navPromo}
+						sidePanel={sidePanelContent}
+					/>
+				</NavigationMenu.Root>
+				{showResourcesList && (
+					<SidebarNavList className={s.mainMenuResources}>
+						{navResourceItems.map((item, index) => (
+							// eslint-disable-next-line react/no-array-index-key
+							<SidebarNavMenuItem item={item} key={index} />
+						))}
+					</SidebarNavList>
+				)}
+			</>
+		)
+		visuallyHideTitle = true
 	} else {
 		sidebarContent = (
 			<>
@@ -145,7 +171,11 @@ const Sidebar = ({
 		)
 	}
 	return (
-		<div className={s.sidebar}>
+		<div
+			className={classNames(className, {
+				[s.sidebar]: !isProductPanel,
+			})}
+		>
 			{backToElement}
 			{sidebarFilterInput}
 			<nav

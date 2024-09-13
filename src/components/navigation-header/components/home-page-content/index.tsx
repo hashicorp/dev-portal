@@ -25,6 +25,7 @@ const HomePageHeaderContent = () => {
 			<NavBarListContainer>
 				<li>
 					<NavigationHeaderDropdownMenu
+						dropdownClassName={s.homepageDropdownPane}
 						productPanelData={{
 							navigationData,
 							navPromo,
