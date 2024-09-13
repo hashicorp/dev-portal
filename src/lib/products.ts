@@ -221,6 +221,11 @@ const productSlugs = Object.keys(productSlugsToNames) as ProductSlug[]
 
 /**
  * An array of product slugs which are "active" on the site. Currently all products.
+ *
+ * TODO: deprecate this, replace all uses of `activeProductSlugs` with
+ * `productSlugs`, then remove this constant. This was used to migrate off
+ * of the dot-io sites and onto developer.hashicorp.com, that migration
+ * is fully complete, so we no longer need this extra layer.
  */
 const activeProductSlugs = productSlugs
 
