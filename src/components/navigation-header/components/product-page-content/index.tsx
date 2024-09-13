@@ -8,6 +8,7 @@ import { IconHashicorp24 } from '@hashicorp/flight-icons/svg-react/hashicorp-24'
 
 // Global imports
 import { useCurrentProduct } from 'contexts'
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 
 // Local imports
 import {
@@ -18,6 +19,7 @@ import {
 } from '..'
 import { ProductIconTextLink } from './components'
 import { getNavItems, getProductsDropdownItems, NavItem } from './utils'
+import { navigationData, navPromo, sidePanelContent } from 'lib/products'
 import s from './product-page-content.module.css'
 
 const ProductPageHeaderContent = () => {
@@ -28,14 +30,21 @@ const ProductPageHeaderContent = () => {
 	return (
 		<>
 			<div className={s.productsDropdown}>
-				<NavigationHeaderDropdownMenu
-					ariaLabel="Main menu"
-					buttonClassName={s.productsDropdownButton}
-					dropdownClassName={s.productsDropdownPane}
-					itemGroups={allProductsItems}
-					leadingIcon={<IconHashicorp24 className={s.productsDropdownIcon} />}
-				/>
+				<NavigationMenu.Root className={s.mobileMenuNavList}>
+					<NavigationHeaderDropdownMenu
+						ariaLabel="Main menu"
+						buttonClassName={s.productsDropdownButton}
+						itemGroups={allProductsItems}
+						leadingIcon={<IconHashicorp24 className={s.productsDropdownIcon} />}
+						productPanelData={{
+							navigationData,
+							navPromo,
+							sidePanelContent,
+						}}
+					/>
+				</NavigationMenu.Root>
 			</div>
+
 			<div className={s.productLinkAndNav}>
 				<ProductIconTextLink
 					name={currentProduct.name}

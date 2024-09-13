@@ -7,6 +7,8 @@ import algoliasearch from 'algoliasearch/lite'
 import { InstantSearch } from 'react-instantsearch'
 import { history } from 'instantsearch.js/es/lib/routers'
 import { useRouter } from 'next/router'
+import ProductPanel from '@hashicorp/react-components/src/components/nav-panel/product-panel'
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 
 import SidebarSidecarLayout, {
 	SidebarSidecarLayoutProps,
@@ -19,8 +21,11 @@ import {
 	searchStateToRouteState,
 } from 'views/tutorial-library/utils/router-state'
 import SidebarNavList from 'components/sidebar/components/sidebar-nav-list'
-import { SidebarNavMenuItem } from 'components/sidebar/components'
-import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
+import {
+	mobileNavigationData as productPanelMobileNavigationData,
+	navPromo as productPanelNavPromo,
+	sidePanelContent as productPanelSidePanelContent,
+} from 'lib/products'
 import { getTutorials } from 'lib/learn-client/api/tutorial'
 import { Tutorial } from 'lib/learn-client/types'
 import { stripUndefinedProperties } from 'lib/strip-undefined-props'
@@ -55,14 +60,13 @@ function TutorialLibrarySidebar() {
 			</div>
 			<div className="g-show-with-mobile-menu">
 				<SidebarNavList>
-					{/* copied from: src/layouts/base-new/index.tsx */}
-					<SidebarNavMenuItem item={{ heading: 'Main Menu' }} />
-					{generateTopLevelSubNavItems().map(
-						(item: $TSFixMe, index: number) => (
-							// eslint-disable-next-line react/no-array-index-key
-							<SidebarNavMenuItem item={item} key={index} />
-						)
-					)}
+					<NavigationMenu.Root>
+						<ProductPanel
+							productCategories={productPanelMobileNavigationData}
+							promo={productPanelNavPromo}
+							sidePanel={productPanelSidePanelContent}
+						/>
+					</NavigationMenu.Root>
 				</SidebarNavList>
 			</div>
 		</>

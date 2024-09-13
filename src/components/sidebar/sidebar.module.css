@@ -30,6 +30,10 @@
 	padding: 0;
 }
 
+.mainMenuResources {
+	padding: 0 12px;
+}
+
 /*
 ***
 * The values set in the following classes are specific so that Sidebar content
