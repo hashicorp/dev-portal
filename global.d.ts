@@ -5,7 +5,6 @@
 
 /// <reference types="@hashicorp/platform-types" />
 
-declare module '@hashicorp/react-search'
 declare module '@hashicorp/react-content'
 
 /**
