@@ -18,7 +18,6 @@ import {
  * 🚨 NOTE: the order of this object matters for the Home page.
  */
 const productSlugsToNames: { [slug in ProductSlug]: ProductName } = {
-	sentinel: 'Sentinel',
 	hcp: 'HashiCorp Cloud Platform',
 	terraform: 'Terraform',
 	packer: 'Packer',
@@ -28,6 +27,7 @@ const productSlugsToNames: { [slug in ProductSlug]: ProductName } = {
 	nomad: 'Nomad',
 	waypoint: 'Waypoint',
 	vagrant: 'Vagrant',
+	sentinel: 'Sentinel',
 }
 
 /**
