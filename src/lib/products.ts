@@ -15,7 +15,29 @@ import {
 /**
  * A map of product slugs to their proper noun names.
  *
- * 🚨 NOTE: the order of this object matters for the Home page.
+ * 🚨 NOTE: the order of the keys in this object matters. It determines
+ * the order in which products are displayed in certain locations.
+ * Specifically, with iterate over the `Object.keys()` of this object
+ * in the following places:
+ * 
+ * - generate-top-level-sub-nav-items (for the main nav)
+ * - getStaticPaths (for /<product>/docs landing pages)
+ * - VALID_PRODUCT_SLUGS_FOR_FILTERING (for Tutorials Library sidebar filter)
+ * - getTutorialLandingPaths (for tutorials included in the sitemap)
+ * - getStaticPaths (for individual tutorials pages)
+ * - generateProductTutorialHomePaths (for /<product>/tutorials landing pages)
+ 
+ * 
+ * We already have at least one instance (for HCP Vault secrets) where we've
+ * avoided adding to this constant because of how it's intertwined with other
+ * purposes. It might make sense for us to refactor some code so that we're
+ * only ever using this constant as a way to get the product name from a given
+ * product slug. Specifically:
+ * 
+ * - In Tutorials instances, maybe we could fetch from the Tutorials API
+ *   to determine which products are available for filtering or appropriate
+ *   to include in the sitemap, rather that using a hard-coded constant?
+ * - In 
  */
 const productSlugsToNames: { [slug in ProductSlug]: ProductName } = {
 	hcp: 'HashiCorp Cloud Platform',
@@ -220,16 +242,6 @@ function isProductSlug(string: string): string is ProductSlug {
 const productSlugs = Object.keys(productSlugsToNames) as ProductSlug[]
 
 /**
- * An array of product slugs which are "active" on the site. Currently all products.
- *
- * TODO: deprecate this, replace all uses of `activeProductSlugs` with
- * `productSlugs`, then remove this constant. This was used to migrate off
- * of the dot-io sites and onto developer.hashicorp.com, that migration
- * is fully complete, so we no longer need this extra layer.
- */
-const activeProductSlugs = productSlugs
-
-/**
  * Generates an array of Product objects from `productSlugs`.
  */
 const products: Product[] = productSlugs.map((slug: ProductSlug) => {
@@ -238,7 +250,6 @@ const products: Product[] = productSlugs.map((slug: ProductSlug) => {
 })
 
 export {
-	activeProductSlugs,
 	isProductSlug,
 	products,
 	productSlugs,

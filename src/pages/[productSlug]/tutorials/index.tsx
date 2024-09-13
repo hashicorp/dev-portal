@@ -12,7 +12,7 @@ import {
 } from 'views/product-tutorials-view/server'
 import ProductTutorialsView from 'views/product-tutorials-view'
 import { cachedGetProductData } from 'lib/get-product-data'
-import { activeProductSlugs } from 'lib/products'
+import { productSlugs } from 'lib/products'
 
 /**
  * Based on the array of beta product slugs,
@@ -20,7 +20,7 @@ import { activeProductSlugs } from 'lib/products'
  * i.e. /vault/tutorials
  */
 function generateProductTutorialHomePaths() {
-	const paths = activeProductSlugs.map((productSlug: ProductSlug) => ({
+	const paths = productSlugs.map((productSlug: ProductSlug) => ({
 		params: { productSlug },
 	}))
 	return paths
