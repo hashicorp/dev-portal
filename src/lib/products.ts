@@ -52,9 +52,13 @@ import {
  * - rewrite-tutorial-links.test.ts (devDotTutorialsPath)
  *
  * TYPE ASSERTION USES
- * - isProductSlug (generic assertion across content types? need to investigate)
+ * - isProductSlug - this feels like it might be used as generic assertion
+ *   across content types. It might be helpful to create more specific type
+ *   guards, eg `isProductSlugWithLogo`, `isProductSlugWithDocs`,
+ *   `isProductSlugWithLandingPage`, `isProductSlugWithTutorials`,
+ *   `isProductSlugWithIntegrations`, etc.
  *
- * LEGACY DOT-IO MIGRATION USES
+ * LEGACY DOT-IO MIGRATION USES (assumes a dot-io site existed for the product)
  * - getIsRewriteableDocsLink (and related tests)
  * - rewrite-tutorial-links tests ("Links to .io home pages are not rewritten")
  *
@@ -62,10 +66,16 @@ import {
  * avoided adding to this constant because of how it's intertwined with other
  * purposes. It probably makes sense for us to refactor some code so that we're
  * only ever using this constant as a way to get the product name from a given
- * product slug. For all other uses cases, it might feel duplicative, but
- * explicitly declaring new constants (not filtered from some "main" const)
- * will likely make our codebase easier to understand and work with as we
- * add new "products" such as HCP Vault Secrets, etc.
+ * product slug (where "product slug" is any valid product slug across any
+ * use case).
+ *
+ * For all other uses cases, it might feel duplicative, but one approach might
+ * be to explicitly declare new constants for each use case. Or maybe, since
+ * much of these use cases rely on data that could be encoded in our existing
+ * `src/data/<product>.json` files, we'd could gather everything related to
+ * each product in those files, and derive the maps we need from the already
+ * exported `PRODUCT_DATA_MAP`. Or maybe there's some other approach that we
+ * could use to simplify our setup... It feels a bit convoluted right now.
  */
 const productSlugsToNames: { [slug in ProductSlug]: ProductName } = {
 	hcp: 'HashiCorp Cloud Platform',
