@@ -43,7 +43,7 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	navResourceItems: [
 		{
 			title: 'Tutorials',
-			href: '/waypoint/tutorials/hcp-waypoint
+			href: '/waypoint/tutorials/hcp-waypoint',
 		},
 		{
 			title: 'Community',
