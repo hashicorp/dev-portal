@@ -16,7 +16,7 @@
 	display: none;
 	flex-direction: column;
 	flex-shrink: 0;
-	height: calc(100% - var(--sticky-bars-height));
+	height: calc(100vh - var(--sticky-bars-height));
 	left: -150vw;
 	overflow-y: auto;
 	position: fixed;
@@ -24,6 +24,7 @@
 	z-index: 2;
 	@media (--dev-dot-show-mobile-menu) {
 		top: auto;
+		height: calc(100% - var(--sticky-bars-height));
 	}
 	@media (--dev-dot-hide-mobile-menu) {
 		top: var(--sticky-bars-height);
