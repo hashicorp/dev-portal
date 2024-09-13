@@ -410,19 +410,7 @@ export function getStaticGenerationFunctions<
 				validVersions.length > 0 &&
 				(validVersions.length > 1 || validVersions[0].version !== 'v0.0.x')
 
-			/**
-			 * We want to show "Edit on GitHub" links for public content repos only.
-			 * Currently, HCP and Sentinel docs are stored in private repositories.
-			 *
-			 * Note: If we need more granularity here, we could change this to be
-			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
-			 */
-			const isHcp = product.slug == 'hcp'
-			const isSentinel = product.slug == 'sentinel'
-			const isPublicContentRepo = !isHcp && !isSentinel
-			if (isPublicContentRepo) {
-				layoutProps.githubFileUrl = githubFileUrl
-			}
+			layoutProps.githubFileUrl = githubFileUrl
 
 			const { hideVersionSelector, projectName } = options
 
