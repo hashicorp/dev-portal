@@ -440,7 +440,7 @@ export function getStaticGenerationFunctions<
 				},
 				projectName: projectName || null,
 				versions:
-					!hideVersionSelector && hasMeaningfulVersions ? versions : null,
+					!hideVersionSelector && hasMeaningfulVersions ? validVersions : null,
 			}
 
 			return {
