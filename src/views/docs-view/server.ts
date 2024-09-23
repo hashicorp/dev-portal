@@ -36,13 +36,13 @@ import {
 import tutorialMap from 'data/_tutorial-map.generated.json'
 
 // Local imports
-import { getValidVersions } from './utils/get-valid-versions'
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { DocsViewProps } from './types'
+import { fetchValidVersions } from './utils/set-document-path'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -387,15 +387,11 @@ export function getStaticGenerationFunctions<
 			/**
 			 * Filter versions to include only those where this document exists
 			 */
-			// Construct a document path that the content API will recognize
-			const pathWithoutVersion = pathParts
-				.filter((part) => part !== versionPathPart)
-				.join('/')
-			const fullPath = `doc#${path.join(basePathForLoader, pathWithoutVersion)}`
-			// Filter for valid versions, fetching from the content API under the hood
-			const validVersions = await getValidVersions(
+			const validVersions = await fetchValidVersions(
+				pathParts,
+				versionPathPart,
+				basePathForLoader,
 				versions,
-				fullPath,
 				productSlugForLoader
 			)
 
