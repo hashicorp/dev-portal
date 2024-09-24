@@ -28,8 +28,7 @@
 			"versionTested": "Vault 1.16",
 			"description": "The Vault Associate certification is for Cloud Engineers specializing in security, development, or operations who know the basic concepts, skills, and use cases associated with Vault. You understand what Vault Enterprise features exist and can differentiate between Enterprise and Community Edition. You will be best prepared for this exam if you have professional experience using Vault in production, but performing the exam objectives in a personal demo environment may be sufficient.",
 			"links": {
-				"prepare": "/vault/tutorials/associate-cert-003",
-				"register": "https://cp.certmetrics.com/hashicorp/en/login"
+				"prepare": "/vault/tutorials/associate-cert-003"
 			},
 			"faqSlug": "vault-associate-003"
 		},
