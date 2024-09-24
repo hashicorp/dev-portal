@@ -16,7 +16,10 @@
  * @param path - The path to be checked.
  * @returns `true` if the path matches the release notes pattern, otherwise `false`.
  */
-export const isReleaseNotesPage = (path: string) =>
-	/(\/?releases\/\d{4}\/(v\d{6}-\d{1}))$|\/?release-notes\/(v\d+[.|_]|(\d+[.|_]))\d+[.|_]([0-9]|x)$/i.test(
-		path
-	)
+export const isReleaseNotesPage = (path: string) => {
+	const regexPatterns = [
+		/(\/?releases\/\d{4}\/(v\d{6}-\d{1}))$/i,
+		/\/?release-notes\/(v\d+[.|_]|(\d+[.|_]))\d+[.|_]([0-9]|x)$/i,
+	]
+	return regexPatterns.some((pattern) => pattern.test(path))
+}
