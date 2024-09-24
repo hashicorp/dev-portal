@@ -4,10 +4,10 @@
  */
 
 import { describe, it, expect, vi } from 'vitest'
-import { fetchValidVersions } from '../set-document-path'
 import { isReleaseNotesPage } from 'lib/docs/is-release-notes-page'
 import { getValidVersions } from '../get-valid-versions'
 import { VersionSelectItem } from '../../loaders/remote-content'
+import { fetchValidVersions } from 'views/docs-view/server'
 
 vi.mock('lib/docs/is-release-notes-page')
 vi.mock('../get-valid-versions')

@@ -5,7 +5,7 @@
 
 // Third-party imports
 import { GetStaticPaths, GetStaticProps, GetStaticPropsResult } from 'next'
-import path from 'path'
+import path from 'node:path'
 import { Pluggable } from 'unified'
 import slugify from 'slugify'
 
@@ -42,7 +42,73 @@ import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { DocsViewProps } from './types'
-import { fetchValidVersions } from './utils/set-document-path'
+import { isReleaseNotesPage } from 'lib/docs/is-release-notes-page'
+import { getValidVersions } from './utils/get-valid-versions'
+import { VersionSelectItem } from './loaders/remote-content'
+
+/**
+ * Fetches valid versions of a document based on the provided path parts and version information.
+ *
+ * @param pathParts - An array of strings representing parts of the document path.
+ * @param versionPathPart - A string representing the version part of the path.
+ * @param basePathForLoader - The base path used for loading the document.
+ * @param versions - An array of `VersionSelectItem` objects representing available versions.
+ * @param productSlugForLoader - A string representing the product slug used for loading the document.
+ * @returns A promise that resolves to an array of `VersionSelectItem` objects representing valid versions.
+ *
+ * This function filters the provided versions to include only those where the document exists.
+ * It handles special cases for release notes pages, ensuring the correct version is used in the path.
+ * For other pages, it constructs a document path that the content API will recognize and fetches valid versions.
+ */
+export async function fetchValidVersions(
+	pathParts: string[],
+	versionPathPart: string,
+	basePathForLoader: string,
+	versions: VersionSelectItem[],
+	productSlugForLoader: string
+): Promise<VersionSelectItem[]> {
+	/**
+	 * Filter versions to include only those where this document exists
+	 */
+	let pathToFetchValidVersions = pathParts.join('/')
+
+	if (isReleaseNotesPage(pathToFetchValidVersions)) {
+		/**
+		 * Check specific to PTFE releases notes page, which may have a version in the path twice
+		 * e.g. v202409-2/releases/2024/v202407-1
+		 * Remove the first version instance, which is the docs version
+		 * e.g. releases/2024/v202407-1
+		 * the mdx file this page pulls from has a version in the title (e.g. 202407-1mdx)
+		 * the second version is the path should not be removed for this reason.
+		 * This block is here because the default (else statement below)
+		 * removes all versions from the path, which is not desired for release notes.
+		 */
+		if (/(v\d{6}-\d{1})\/releases/i.test(pathToFetchValidVersions)) {
+			pathToFetchValidVersions = pathToFetchValidVersions.replace(
+				versionPathPart,
+				''
+			)
+		}
+	} else {
+		// Construct a document path that the content API will recognize
+		pathToFetchValidVersions = pathParts
+			.filter((part) => part !== versionPathPart)
+			.join('/')
+	}
+	const fullPath = `doc#${path.join(
+		basePathForLoader,
+		pathToFetchValidVersions
+	)}`
+
+	// Filter for valid versions, fetching from the content API under the hood
+	const validVersions = await getValidVersions(
+		versions,
+		fullPath,
+		productSlugForLoader
+	)
+
+	return validVersions
+}
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
