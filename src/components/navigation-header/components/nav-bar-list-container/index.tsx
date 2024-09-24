@@ -4,6 +4,7 @@
  */
 
 import { ReactNode } from 'react'
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import s from './nav-bar-list-container.module.css'
 
 /**
@@ -22,8 +23,8 @@ export default function NavBarListContainer({
 	children: ReactNode
 }) {
 	return (
-		<nav className={s.nav}>
-			<ul className={s.ul}>{children}</ul>
-		</nav>
+		<NavigationMenu.Root className={s.nav}>
+			<NavigationMenu.List className={s.ul}>{children}</NavigationMenu.List>
+		</NavigationMenu.Root>
 	)
 }

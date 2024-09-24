@@ -12,6 +12,11 @@
 .text {
 	composes: hds-typography-body-200 from global;
 	font-weight: var(--token-typography-font-weight-medium);
+	color: var(--token-color-foreground-primary);
+
+	&:hover {
+		color: var(--token-color-foreground-strong);
+	}
 }
 
 /* Note: rather than setting size here, we could create a separate

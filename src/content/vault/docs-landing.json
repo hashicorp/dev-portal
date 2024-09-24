@@ -3,6 +3,25 @@
 	"marketingContentBlocks": [
 		{
 			"type": "section-heading",
+			"title": "HCP Vault products"
+		},
+		{
+			"type": "icon-card-grid",
+			"cards": [
+				{
+					"iconName": "vault-color",
+					"text": "HCP Vault Dedicated",
+					"url": "/hcp/docs/vault/what-is-hcp-vault"
+				},
+				{
+					"iconName": "vault-secrets-color",
+					"text": "HCP Vault Secrets",
+					"url": "/hcp/docs/vault-secrets"
+				}
+			]
+		},
+		{
+			"type": "section-heading",
 			"title": "Use Cases"
 		},
 		{

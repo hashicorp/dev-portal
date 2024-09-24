@@ -23,10 +23,9 @@
 .background {
 	background-color: var(--token-color-foreground-strong);
 	background-image: url('./img/background.svg');
-	background-position-x: center;
+	background-position-x: right;
 	background-position-y: top;
 	background-repeat: no-repeat;
-	background-size: cover;
 	content: '';
 	height: 1145px;
 	position: absolute;
@@ -40,7 +39,6 @@
 
 	@nest html[data-theme='dark'] & {
 		background-color: var(--token-color-page-primary);
-		background-image: url('./img/background-dark.svg');
 	}
 }
 

@@ -8,10 +8,15 @@
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 12px;
+
+	&.rightAlign {
+		margin-bottom: 0;
+	}
 }
 
 .rightAlign {
 	justify-content: flex-end;
+	padding-right: 16px;
 }
 
 .levelUpButton {

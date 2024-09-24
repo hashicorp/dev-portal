@@ -6,6 +6,7 @@
 		"module": "esnext",
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"jsx": "preserve",
+		"sourceMap": true,
 		"allowJs": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,

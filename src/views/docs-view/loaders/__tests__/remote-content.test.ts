@@ -41,7 +41,7 @@ describe('RemoteContentLoader', () => {
 
 		nock.disableNetConnect()
 
-		scope = nock(process.env.MKTG_CONTENT_API)
+		scope = nock(process.env.MKTG_CONTENT_DOCS_API)
 	})
 
 	afterAll(() => {

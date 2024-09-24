@@ -19,7 +19,7 @@ import type { ProductSlug } from 'types/products'
  * Tutorials may have many products, so we use the default collection
  * context for a tutorial to determine the "default product slug".
  *
- * Tutorials may also have no products (for WAF and onboarding), in which
+ * Tutorials may also have no products (for WAF), in which
  * case we return `null`.
  */
 export function parseDefaultProductSlug(hit: Hit): ProductSlug | null {

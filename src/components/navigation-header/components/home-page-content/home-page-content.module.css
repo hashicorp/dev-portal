@@ -23,5 +23,13 @@
 		@media (--dev-dot-tablet-up) {
 			height: 24px;
 		}
+
+		& path {
+			fill: var(--token-color-foreground-strong);
+		}
 	}
+}
+
+.homepageDropdownPane {
+	left: -216px;
 }

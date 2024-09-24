@@ -6,7 +6,7 @@
 import { MutableRefObject, ReactElement, ReactNode } from 'react'
 import { ProductData } from 'types/products'
 
-export type SupportedCommand = 'search' | 'settings' | 'chat'
+export type SupportedCommand = 'search' | 'settings'
 
 interface CommandBarCommand {
 	name: SupportedCommand

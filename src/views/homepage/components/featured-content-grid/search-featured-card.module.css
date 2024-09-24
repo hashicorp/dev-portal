@@ -9,7 +9,6 @@
 	background-color: var(--token-color-foreground-strong);
 	background-position: center top;
 	background-repeat: no-repeat;
-	background-size: cover;
 	border-radius: 10px;
 	padding-bottom: 18px;
 	padding-left: 24px;
@@ -19,7 +18,6 @@
 	/* 500px with 16px base font */
 	@media (min-width: 31.25rem) {
 		background-image: url('../../img/search-card-graphic.svg');
-		background-position-x: 1rem;
 	}
 
 	@nest html[data-theme='dark'] & {
