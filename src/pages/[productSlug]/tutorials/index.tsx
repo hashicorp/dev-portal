@@ -39,7 +39,7 @@ export async function getStaticProps({
 	 */
 	let props
 	try {
-		const props =
+		props =
 			productData.slug == 'hcp'
 				? await getCloudTutorialsViewProps()
 				: await getProductTutorialsViewProps(productData as LearnProductData)
