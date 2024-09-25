@@ -78,7 +78,6 @@ export const generateProductLandingSidebarMenuItems = (
 		fullPath: `/${product.slug}/tutorials`,
 	})
 
-
 	// Add "Documentation" item links for all products
 	menuItems.push(...docsItems)
 
