@@ -8,7 +8,7 @@
 		"body": "Sentinel is a policy as code tool that lets you control what users of HashiCorp products are allowed to do. It enforces policies proactively, preventing end users from deploying changes that are not allowed.",
 		"cta": {
 			"text": "Learn more",
-			"url": "/sentinel/intro/what"
+			"url": "/sentinel/docs/what"
 		},
 		"image": {
 			"light": "https://www.datocms-assets.com/2885/1707422837-devdot-sentinel_lm.png",
@@ -21,7 +21,7 @@
 		"ctas": [
 			{
 				"text": "Quick Start",
-				"url": "/sentinel/intro/getting-started"
+				"url": "/sentinel/tutorials/get-started"
 			},
 			{
 				"text": "Language Documentation",
@@ -42,17 +42,17 @@
 				{
 					"heading": "Infrastructure",
 					"body": "Use HCP Terraform with Sentinel to check that infrastructure will comply with policies.",
-					"url": "https://developer.hashicorp.com/terraform/tutorials/policy/sentinel-install"
+					"url": "/terraform/tutorials/policy/sentinel-install"
 				},
 				{
 					"heading": "Security",
 					"body": "Use Vault with Sentinel to control who can access secrets based on their role or the endpoint.",
-					"url": "https://developer.hashicorp.com/vault/tutorials/policies/sentinel"
+					"url": "/vault/tutorials/policies/sentinel"
 				},
 				{
 					"heading": "Applications",
 					"body": "Use Nomad with Sentinel to control jobs based on driver or other attributes of the job object.",
-					"url": "https://developer.hashicorp.com/nomad/tutorials/governance-and-policy/sentinel"
+					"url": "/nomad/tutorials/governance-and-policy/sentinel"
 				}
 			]
 		},

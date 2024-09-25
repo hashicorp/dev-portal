@@ -48,19 +48,19 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["docs", "intro", "downloads"],
+	"basePaths": ["docs", "install", "tutorials"],
 	"rootDocsPaths": [
+		{
+			"basePathForLoader": "tutorials",
+			"iconName": "tutorials",
+			"name": "Tutorials",
+			"path": "tutorials"
+		},
 		{
 			"basePathForLoader": "sentinel",
 			"iconName": "docs",
-			"name": "Docs",
+			"name": "Documentation",
 			"path": "docs"
-		},
-		{
-			"basePathForLoader": "sentinel/intro",
-			"iconName": "docs",
-			"name": "Intro",
-			"path": "intro"
 		}
 	]
 }
