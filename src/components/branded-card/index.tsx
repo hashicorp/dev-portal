@@ -31,6 +31,7 @@ const PATTERN_IMG_MAP: Record<ProductSlug, StaticImageData> = {
 	waypoint: patternWaypoint,
 	hcp: patternGeneric,
 	sentinel: patternGeneric,
+	'well-architected-framework': patternGeneric,
 }
 
 /**

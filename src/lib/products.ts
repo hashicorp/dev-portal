@@ -77,7 +77,9 @@ import {
  * exported `PRODUCT_DATA_MAP`. Or maybe there's some other approach that we
  * could use to simplify our setup... It feels a bit convoluted right now.
  */
-const productSlugsToNames: { [slug in ProductSlug]: ProductName } = {
+const productSlugsToNames: {
+	[slug in Exclude<ProductSlug, 'well-architected-framework'>]: ProductName
+} = {
 	hcp: 'HashiCorp Cloud Platform',
 	terraform: 'Terraform',
 	packer: 'Packer',
@@ -93,7 +95,9 @@ const productSlugsToNames: { [slug in ProductSlug]: ProductName } = {
 /**
  * A map of product slugs to their "dot io" site hostname.
  */
-const productSlugsToHostNames: { [slug in ProductSlug]: string } = {
+const productSlugsToHostNames: {
+	[slug in Exclude<ProductSlug, 'well-architected-framework'>]: string
+} = {
 	boundary: 'boundaryproject.io',
 	consul: 'consul.io',
 	hcp: 'cloud.hashicorp.com',
