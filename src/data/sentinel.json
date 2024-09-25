@@ -48,19 +48,13 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["docs", "intro", "downloads"],
+	"basePaths": ["docs", "install"],
 	"rootDocsPaths": [
 		{
 			"basePathForLoader": "sentinel",
 			"iconName": "docs",
 			"name": "Docs",
 			"path": "docs"
-		},
-		{
-			"basePathForLoader": "sentinel/intro",
-			"iconName": "docs",
-			"name": "Intro",
-			"path": "intro"
 		}
 	]
 }

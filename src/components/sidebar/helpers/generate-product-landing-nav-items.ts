@@ -72,20 +72,12 @@ export const generateProductLandingSidebarMenuItems = (
 		menuItems.push(introNavItem)
 	}
 
-	/**
-	 * Add a "Tutorials" link for all products.
-	 *
-	 * Note: we exclude Sentinel, as it does not have tutorials yet.
-	 * Once Sentinel tutorials are published, we can remove this exclusion.
-	 * PR to publish Sentinel tutorials:
-	 * https://github.com/hashicorp/tutorials/pull/2169
-	 */
-	if (product.slug !== 'sentinel') {
-		menuItems.push({
-			title: 'Tutorials',
-			fullPath: `/${product.slug}/tutorials`,
-		})
-	}
+	// Add a "Tutorials" link for all products
+	menuItems.push({
+		title: 'Tutorials',
+		fullPath: `/${product.slug}/tutorials`,
+	})
+
 
 	// Add "Documentation" item links for all products
 	menuItems.push(...docsItems)
