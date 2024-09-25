@@ -55,6 +55,12 @@
 			"iconName": "docs",
 			"name": "Docs",
 			"path": "docs"
+		},
+		{
+			"basePathForLoader": "sentinel/intro",
+			"iconName": "docs",
+			"name": "Intro",
+			"path": "intro"
 		}
 	]
 }
