@@ -36,13 +36,13 @@ import {
 import tutorialMap from 'data/_tutorial-map.generated.json'
 
 // Local imports
+import { getValidVersions } from './utils/get-valid-versions'
 import { getProductUrlAdjuster } from './utils/product-url-adjusters'
 import { getBackToLink } from './utils/get-back-to-link'
 import { getDeployPreviewLoader } from './utils/get-deploy-preview-loader'
 import { getCustomLayout } from './utils/get-custom-layout'
 import type { DocsViewPropOptions } from './utils/get-root-docs-path-generation-functions'
 import { DocsViewProps } from './types'
-import { isReleaseNotesPage } from 'lib/docs/is-release-notes-page'
 
 /**
  * Returns static generation functions which can be exported from a page to fetch docs data
@@ -385,6 +385,21 @@ export function getStaticGenerationFunctions<
 			}
 
 			/**
+			 * Filter versions to include only those where this document exists
+			 */
+			// Construct a document path that the content API will recognize
+			const pathWithoutVersion = pathParts
+				.filter((part) => part !== versionPathPart)
+				.join('/')
+			const fullPath = `doc#${path.join(basePathForLoader, pathWithoutVersion)}`
+			// Filter for valid versions, fetching from the content API under the hood
+			const validVersions = await getValidVersions(
+				versions,
+				fullPath,
+				productSlugForLoader
+			)
+
+			/**
 			 * Determine whether to show the version selector
 			 *
 			 * In most docs categories, we want to show the version selector if there
@@ -392,22 +407,10 @@ export function getStaticGenerationFunctions<
 			 * (We use `v0.0.x` as a placeholder version for un-versioned documentation)
 			 */
 			const hasMeaningfulVersions =
-				versions.length > 0 &&
-				(versions.length > 1 || versions[0].version !== 'v0.0.x')
+				validVersions.length > 0 &&
+				(validVersions.length > 1 || validVersions[0].version !== 'v0.0.x')
 
-			/**
-			 * We want to show "Edit on GitHub" links for public content repos only.
-			 * Currently, HCP and Sentinel docs are stored in private repositories.
-			 *
-			 * Note: If we need more granularity here, we could change this to be
-			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
-			 */
-			const isHcp = product.slug == 'hcp'
-			const isSentinel = product.slug == 'sentinel'
-			const isPublicContentRepo = !isHcp && !isSentinel
-			if (isPublicContentRepo) {
-				layoutProps.githubFileUrl = githubFileUrl
-			}
+			layoutProps.githubFileUrl = githubFileUrl
 
 			const { hideVersionSelector, projectName } = options
 
@@ -437,11 +440,7 @@ export function getStaticGenerationFunctions<
 				},
 				projectName: projectName || null,
 				versions:
-					!hideVersionSelector &&
-					!isReleaseNotesPage(currentPathUnderProduct) && // toggle version dropdown
-					hasMeaningfulVersions
-						? versions
-						: null,
+					!hideVersionSelector && hasMeaningfulVersions ? validVersions : null,
 			}
 
 			return {

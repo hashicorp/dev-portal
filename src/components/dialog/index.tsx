@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { useEffect, useState } from 'react'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import '@reach/dialog/styles.css'
 import {
@@ -33,6 +34,7 @@ export default function Dialog({
 	variant = 'modal',
 }: DialogProps) {
 	const shouldReduceMotion = useReducedMotion()
+	const [padding, setPadding] = useState('0px')
 
 	const overlayMotionProps = {
 		variants: overlayVariants,
@@ -41,6 +43,19 @@ export default function Dialog({
 		exit: 'hidden',
 		transition: { duration: shouldReduceMotion ? 0 : 0.3 },
 	}
+
+	useEffect(() => {
+		const handleResize = () => {
+			setPadding(
+				(window.innerHeight - window.visualViewport.height).toString() + 'px'
+			)
+		}
+
+		window.visualViewport.addEventListener('resize', handleResize)
+
+		return () =>
+			window.visualViewport.removeEventListener('resize', handleResize)
+	}, [])
 
 	return (
 		<AnimatePresence>
@@ -55,6 +70,7 @@ export default function Dialog({
 					<div
 						key="contentWrapper"
 						className={classNames(s.contentWrapper, s[variant])}
+						style={variant === 'bottom' ? { paddingBottom: padding } : null}
 					>
 						<DialogContent
 							aria-describedby={ariaDescribedBy}

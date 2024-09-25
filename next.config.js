@@ -9,11 +9,6 @@ const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const { redirectsConfig } = require('./build-libs/redirects')
 const HashiConfigPlugin = require('./config/plugin')
 
-// Set api key for Happy Kit feature flags
-const happyKitKey = process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
-	? process.env.NEXT_PUBLIC_FLAGS_ENV_KEY
-	: 'flags_pub_development_343442393171755603'
-
 /**
  * @type {import('next/dist/lib/load-custom-routes').Header}
  *
@@ -54,6 +49,15 @@ module.exports = withHashicorp({
 	],
 	webpack(config) {
 		config.plugins.push(HashiConfigPlugin())
+
+		if (
+			typeof process.env.DD_API_KEY !== 'undefined' &&
+			process.env.VERCEL_ENV &&
+			process.env.VERCEL_ENV !== 'development'
+		) {
+			config.devtool = 'hidden-source-map'
+		}
+
 		return config
 	},
 	async headers() {
@@ -76,10 +80,13 @@ module.exports = withHashicorp({
 		ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
 		HASHI_ENV: process.env.HASHI_ENV || 'development',
 		IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
-		MKTG_CONTENT_API: process.env.MKTG_CONTENT_API,
+		MKTG_CONTENT_DOCS_API: process.env.MKTG_CONTENT_DOCS_API,
 		// TODO: determine if DevDot needs this or not
 		SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
-		HAPPY_KIT_KEY: happyKitKey,
+		POSTHOG_PROJECT_API_KEY:
+			process.env.VERCEL_ENV !== 'production'
+				? process.env.POSTHOG_PROJECT_API_KEY_DEV
+				: process.env.POSTHOG_PROJECT_API_KEY_PROD,
 	},
 	svgo: {
 		plugins: [

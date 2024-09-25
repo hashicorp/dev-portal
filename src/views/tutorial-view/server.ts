@@ -35,6 +35,7 @@ import {
 	getTutorialViewVariantData,
 	getVariantParam,
 } from './utils/variants'
+import { isCertificationSlug } from 'lib/utils'
 
 /**
  * Given a ProductData object (imported from src/data JSON files) and a tutorial
@@ -113,6 +114,7 @@ export async function getTutorialPageProps(
 		sidebarSections,
 		/* Long-form content pages use a narrower main area width */
 		mainWidth: 'narrow' as const,
+		isCertificationPrep: isCertificationSlug(collection.data.slug),
 	}
 	const lastTutorialIndex = collectionContext.current.tutorials.length - 1
 	const isLastTutorial =
@@ -193,6 +195,10 @@ export async function getTutorialPagePaths(): Promise<TutorialPagePaths[]> {
 		 * for the beta products.
 		 *
 		 * @TODO once we implement the `theme` query option, remove the theme filtering
+		 * Addendum 2024-09-13: the `theme` query option is already implemented
+		 * for the learn-api route `/product/<identifier>/collections`... but maybe
+		 * we intend to use the `/collections` learn-api route instead, which
+		 * doesn't yet have the `theme` query option implemented.
 		 * https://app.asana.com/0/1201903760348480/1201932088801131/f
 		 */
 		const isCloud = productSlugFromCollection == 'cloud'

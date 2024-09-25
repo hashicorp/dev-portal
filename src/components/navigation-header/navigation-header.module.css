@@ -18,7 +18,7 @@
 	--header-padding-left-right: 24px;
 	--header-menu-item-padding-left-right: 12px;
 
-	background-color: var(--token-color-palette-neutral-700);
+	background-color: var(--token-color-surface-faint);
 	display: flex;
 	padding-top: 0;
 	padding-bottom: 0;
@@ -32,10 +32,6 @@
 	@media (--dev-dot-show-mobile-menu) {
 		padding-bottom: 14px;
 		padding-top: 14px;
-	}
-
-	@nest html[data-theme='dark'] & {
-		background-color: var(--token-color-surface-faint);
 	}
 }
 
@@ -58,25 +54,17 @@
 	background-color: transparent;
 	border-radius: 5px;
 	border: 1px solid transparent;
-	color: var(--token-color-foreground-high-contrast);
+	color: var(--token-color-foreground-strong);
 	display: flex;
 	justify-content: center;
 	padding: 5px;
 
 	&:hover {
-		border: 1px solid var(--token-color-palette-neutral-200);
+		border: 1px solid var(--token-color-border-strong);
 	}
 
 	@media (--dev-dot-hide-mobile-menu) {
 		display: none;
-	}
-
-	@nest html[data-theme='dark'] & {
-		color: var(--token-color-foreground-strong);
-
-		&:hover {
-			border: 1px solid var(--token-color-border-strong);
-		}
 	}
 }
 
@@ -105,24 +93,10 @@
 
 	/* properties */
 	background-color: transparent;
-	color: var(--token-color-foreground-high-contrast);
+	color: var(--token-color-foreground-strong);
 
 	&:hover,
 	&[aria-expanded='true'] {
-		border-color: var(--token-color-palette-neutral-200);
-	}
-
-	@nest html[data-theme='light'] & {
-		&:active {
-			background-color: var(--token-color-foreground-primary);
-		}
-	}
-
-	@nest html[data-theme='dark'] & {
-		color: var(--token-color-foreground-strong);
-
-		&:hover, &[aria-expanded='true'] {
-			border-color: var(--token-color-border-strong);
-		}
+		border-color: var(--token-color-border-strong);
 	}
 }

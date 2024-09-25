@@ -13,14 +13,10 @@
 }
 
 .productsDropdownIcon {
-	color: var(--token-color-surface-primary);
+	color: var(--token-color-foreground-strong);
 	display: block;
 	height: 32px;
 	width: 32px;
-
-	@nest html[data-theme='dark'] & {
-		color: var(--token-color-foreground-strong);
-	}
 }
 
 .productsDropdownButton {
@@ -28,11 +24,6 @@
 	padding-left: 0;
 	padding-right: 0;
 	padding-top: 2px;
-}
-
-.productsDropdownPane {
-	border-bottom-left-radius: 0;
-	left: calc(-1 * var(--header-padding-left-right));
 }
 
 /*

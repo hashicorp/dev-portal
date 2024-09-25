@@ -11,11 +11,7 @@ import s from './card-description.module.css'
 const CardDescription = ({ className, text }: CardDescriptionProps) => {
 	return (
 		<div className={classNames(s.root, className)}>
-			<TruncateMaxLines
-				className={s.text}
-				lineHeight="var(--token-typography-body-200-line-height)"
-				maxLines={3}
-			>
+			<TruncateMaxLines className={s.text} maxLines={3}>
 				{text}
 			</TruncateMaxLines>
 		</div>

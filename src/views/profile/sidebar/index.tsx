@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { generateTopLevelSubNavItems } from 'lib/generate-top-level-sub-nav-items'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 import Sidebar from 'components/sidebar'
 import { IconSignOut16 } from '@hashicorp/flight-icons/svg-react/sign-out-16'
@@ -11,16 +10,17 @@ import { IconUser16 } from '@hashicorp/flight-icons/svg-react/user-16'
 import { IconBookmark16 } from '@hashicorp/flight-icons/svg-react/bookmark-16'
 import { SidebarNavMenuButton } from 'components/sidebar/components/sidebar-nav-menu-item'
 import useAuthentication from 'hooks/use-authentication'
-import { useDeviceSize } from 'contexts'
 import SidebarNavList from 'components/sidebar/components/sidebar-nav-list'
 import { useRouter } from 'next/router'
+import ProductPanel from '@hashicorp/react-components/src/components/nav-panel/product-panel'
+import { mobileNavigationData, navPromo, sidePanelContent } from 'lib/products'
+import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 
 /**
  * shared left side bar for /profile pages
  */
 export function ProfileSidebar() {
 	const { signOut } = useAuthentication()
-	const { isDesktop } = useDeviceSize()
 	const { asPath } = useRouter()
 
 	const isActive = (path: string) => {
@@ -28,12 +28,13 @@ export function ProfileSidebar() {
 	}
 
 	return (
-		<Sidebar
-			title={isDesktop ? 'Profile' : 'Main Menu'}
-			showFilterInput={false}
-		>
-			<SidebarNavList>
-				{isDesktop ? (
+		<>
+			<Sidebar
+				title="Profile"
+				showFilterInput={false}
+				className="g-hide-with-mobile-menu"
+			>
+				<SidebarNavList>
 					<>
 						<SidebarNavMenuItem
 							item={{
@@ -61,12 +62,15 @@ export function ProfileSidebar() {
 							/>
 						</li>
 					</>
-				) : (
-					generateTopLevelSubNavItems().map((item, index) => (
-						<SidebarNavMenuItem item={item} key={index} />
-					))
-				)}
-			</SidebarNavList>
-		</Sidebar>
+				</SidebarNavList>
+			</Sidebar>
+			<NavigationMenu.Root className="g-show-with-mobile-menu">
+				<ProductPanel
+					productCategories={mobileNavigationData}
+					promo={navPromo}
+					sidePanel={sidePanelContent}
+				/>
+			</NavigationMenu.Root>
+		</>
 	)
 }

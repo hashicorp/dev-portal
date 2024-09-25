@@ -127,6 +127,13 @@
 	gap: 4px;
 }
 
+.badges {
+	align-items: center;
+	display: flex;
+	flex-shrink: 0;
+	gap: 4px;
+}
+
 .body {
 	background-color: var(--token-color-surface-faint);
 	flex-grow: 1;
@@ -145,6 +152,9 @@
 	justify-content: space-between;
 	min-height: 52px;
 	padding: 16px;
+
+	/* Accounts for extra feedback link padding */
+	padding-left: 24px;
 
 	@media (--dev-dot-mobile) {
 		justify-content: flex-end;
@@ -165,4 +175,8 @@
 .footerLeftArrowKeys {
 	display: flex;
 	gap: 4px;
+}
+
+.feedbackLink {
+	padding: 8px;
 }

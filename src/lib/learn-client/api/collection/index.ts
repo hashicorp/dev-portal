@@ -144,7 +144,7 @@ export async function getNextCollectionInSidebar({
  * The sections map from the parent folder in the
  * tutorials repository. `/content/collections/waypoint/some-collection`
  * would have a section of 'waypoint'. This allows us to fetch non-product
- * associated content such as 'onboarding' and 'well-architected-framework'
+ * associated content such as 'well-architected-framework'
  */
 export async function getCollectionsBySection(
 	section: string

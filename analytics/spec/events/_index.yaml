@@ -8,5 +8,3 @@
 - $ref: ./video_played.yaml
 - $ref: ./product_downloaded.yaml
 - $ref: ./error_page_loaded.yaml
-- $ref: ./ab_test_result.yaml
-- $ref: ./ab_test_served.yaml

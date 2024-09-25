@@ -23,13 +23,13 @@
 
 	& > img {
 		position: absolute;
-		top: -40px;
+		top: -130px;
 		left: 50%;
 		transform: translateX(-50%);
 
 		@media only screen and (min-width: 481px) {
 			position: relative;
-			top: -40px;
+			top: -130px;
 			left: auto;
 			margin-left: auto;
 			transform: none;

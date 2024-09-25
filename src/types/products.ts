@@ -175,6 +175,34 @@ interface ProductWithCurrentRootDocsPath extends ProductData {
 
 type ProductGroup = Product[]
 
+type ProductNavData = {
+	title: string
+	products: {
+		product: string
+		url: string
+		description: string
+	}[]
+}[]
+
+type ProductNavPromo = {
+	title: string
+	description: string
+	linkUrl: string
+	linkTitle: string
+	icon: string
+	theme: string
+}
+
+type ProductSidePanel = {
+	label: string
+	navItems: {
+		title: string
+		description: string
+		url: string
+		icon: string
+	}[]
+}
+
 export type {
 	LearnProductData,
 	LearnProductName,
@@ -188,4 +216,7 @@ export type {
 	ProductSlug,
 	ProductWithCurrentRootDocsPath,
 	RootDocsPath,
+	ProductNavData,
+	ProductNavPromo,
+	ProductSidePanel,
 }
