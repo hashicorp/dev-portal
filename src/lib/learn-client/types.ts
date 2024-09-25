@@ -226,6 +226,7 @@ export enum ProductOption {
 	vagrant = 'vagrant',
 	vault = 'vault',
 	waypoint = 'waypoint',
+	sentinel = 'sentinel',
 }
 
 export enum SectionOption {

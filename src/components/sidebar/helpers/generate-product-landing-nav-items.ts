@@ -72,7 +72,7 @@ export const generateProductLandingSidebarMenuItems = (
 		menuItems.push(introNavItem)
 	}
 
-	// Add a "Tutorials" link for all products except sentinel
+	// Add a "Tutorials" link for all products
 	if (product.slug !== 'sentinel') {
 		menuItems.push({
 			title: 'Tutorials',
