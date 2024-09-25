@@ -5,7 +5,7 @@
 
 import { getAllCollections } from 'lib/learn-client/api/collection'
 import { SectionOption } from 'lib/learn-client/types'
-import { activeProductSlugs } from 'lib/products'
+import { productSlugs } from 'lib/products'
 import tutorialMap from 'data/_tutorial-map.generated.json'
 import { ProductSlug } from 'types/products'
 import { getCollectionSlug } from 'views/collection-view/helpers'
@@ -13,7 +13,7 @@ import { makeSitemapField } from './helpers'
 import { Collection as ClientCollection } from 'lib/learn-client/types'
 
 function getTutorialLandingPaths(): string[] {
-	return activeProductSlugs.map(
+	return productSlugs.map(
 		(productSlug: ProductSlug) => `${productSlug}/tutorials`
 	)
 }

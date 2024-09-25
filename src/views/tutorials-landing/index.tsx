@@ -59,34 +59,44 @@ const ProductSectionBackgroundSvg = ({ productSlug, side }) => {
 }
 
 const renderProductSections = (productSlugs, pageContent) => {
-	return productSlugs.map((productSlug: ProductSlug, index: number) => {
-		const productName = productSlugsToNames[productSlug]
-		const { certification, featuredUseCases, featuredCollections } =
-			pageContent[productSlug]
+	return productSlugs
+		.filter((slug) => {
+			/**
+			 * Some products may not have page content defined. For example,
+			 * after we enable Sentinel tutorials, but before content is added,
+			 * we expect that Sentinel will not have page content.
+			 */
+			const hasPageContent = slug in pageContent
+			return hasPageContent
+		})
+		.map((productSlug: ProductSlug, index: number) => {
+			const productName = productSlugsToNames[productSlug]
+			const { certification, featuredUseCases, featuredCollections } =
+				pageContent[productSlug]
 
-		return (
-			<section
-				className={s.productSectionWrapper}
-				key={`product-section-${productSlug}`}
-			>
-				<ProductSectionBackgroundSvg
-					productSlug={productSlug}
-					side={index % 2 === 0 ? 'right' : 'left'}
-				/>
-				<ProductSection
-					certification={certification}
-					className={s.productSection}
-					featuredUseCases={featuredUseCases}
-					featuredCollections={featuredCollections}
-					product={{
-						slug: productSlug,
-						name: productName,
-						description: PRODUCT_DESCRIPTIONS[productSlug],
-					}}
-				/>
-			</section>
-		)
-	})
+			return (
+				<section
+					className={s.productSectionWrapper}
+					key={`product-section-${productSlug}`}
+				>
+					<ProductSectionBackgroundSvg
+						productSlug={productSlug}
+						side={index % 2 === 0 ? 'right' : 'left'}
+					/>
+					<ProductSection
+						certification={certification}
+						className={s.productSection}
+						featuredUseCases={featuredUseCases}
+						featuredCollections={featuredCollections}
+						product={{
+							slug: productSlug,
+							name: productName,
+							description: PRODUCT_DESCRIPTIONS[productSlug],
+						}}
+					/>
+				</section>
+			)
+		})
 }
 
 const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {

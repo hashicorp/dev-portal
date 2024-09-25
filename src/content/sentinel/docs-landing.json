@@ -1,0 +1,48 @@
+{
+	"pageSubtitle": "Sentinel is a policy as code tool that lets you control what users of HashiCorp products are allowed to do. It enforces policies proactively, preventing end users from deploying changes that are not allowed.",
+	"marketingContentBlocks": [
+		{
+			"type": "card-grid",
+			"title": "Fundamentals",
+			"cards": [
+				{
+					"title": "Policy as Code",
+					"description": "Understand how policy-as-code can help your organization",
+					"url": "/sentinel/docs/concepts/policy-as-code"
+				},
+				{
+					"title": "Write Sentinel policy",
+					"description": "Learn the fundamentals to writing Sentinel policies",
+					"url": "/sentinel/docs/writing"
+				},
+				{
+					"description": "Test Sentinel policy",
+					"title": "Learn how to test your Sentinel policies",
+					"url": "/sentinel/docs/writing/testing"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Integrations",
+			"description": "Sentinel integrates with HashiCorp products.",
+			"cards": [
+				{
+					"title": "Terraform",
+					"description": "Enforce infrastructure compliance policies with Terraform",
+					"url": "/sentinel/docs/terraform"
+				},
+				{
+					"title": "Vault",
+					"description": "Implement advanced access control policies within Vault",
+					"url": "/sentinel/docs/terraform"
+				},
+				{
+					"title": "Consul",
+					"description": "Create service mesh governance rules within Consul",
+					"url": "/sentinel/docs/terraform"
+				}
+			]
+		}
+	]
+}

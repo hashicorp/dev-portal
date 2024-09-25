@@ -80,8 +80,19 @@ export async function getAllCollections(
 
 	// check if the product option is valid, i.e. not 'cloud' or 'hashicorp'
 	if (options?.product && themeIsProduct(options.product.slug)) {
-		const allCollections = await fetchAllCollectionsByProduct(options.product)
-
+		/**
+		 * Sentinel cannot use "theme", as the `learn-api` doesn't support a
+		 * `sentinel` theme value. We expect authors to use `theme: hashicorp`
+		 * on Sentinel collections. We could provide "hashicorp" here instead
+		 * of `null`, but that might result in unexpected filtering out if
+		 * authors use a different `theme` for any Sentinel collection.
+		 */
+		const theme =
+			options.product.slug === 'sentinel' ? null : options.product.slug
+		const allCollections = await fetchAllCollectionsByProduct(
+			options.product,
+			theme
+		)
 		collections = [...allCollections]
 	} else {
 		const limit = options?.limit?.toString()

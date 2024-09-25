@@ -8,6 +8,7 @@ import {
 	uuid,
 	ProductOption,
 	AllCollectionsProductOptions,
+	ThemeOption,
 } from 'lib/learn-client/types'
 import { get, toError } from '../../index'
 
@@ -27,18 +28,29 @@ export const PRODUCT_COLLECTION_API_ROUTE = (
  * includes filtering for theme
  */
 export async function fetchAllCollectionsByProduct(
-	product: AllCollectionsProductOptions
+	product: AllCollectionsProductOptions,
+	/**
+	 * All `ProductOption` values except `sentinel` can be used as "theme" options.
+	 * Theme is mainly used to add a product logo to various UI elements, and
+	 * since Sentinel doesn't have a logo, it's not a valid theme option.
+	 *
+	 * Note: an alternative here might be to implement a `theme` option for
+	 * Sentinel, and for now, set it to render a HashiCorp logo. This might
+	 * be a more future-proof approach. This would require updates to `learn-api`:
+	 * https://github.com/hashicorp/learn-api/blob/main/src/models/collection.ts#L17
+	 */
+	theme?: Exclude<ProductOption, 'sentinel'> | ThemeOption
 ): Promise<Collection[]> {
 	const baseUrl = PRODUCT_COLLECTION_API_ROUTE(product.slug)
 	let route = baseUrl
 
 	if (product.sidebarSort) {
-		const params = new URLSearchParams([
-			['topLevelCategorySort', 'true'],
-			['theme', product.slug],
-		])
-
-		route = baseUrl + `?${params.toString()}`
+		const params = []
+		params.push(['topLevelCategorySort', 'true'])
+		if (theme) {
+			params.push(['theme', theme])
+		}
+		route = baseUrl + `?${new URLSearchParams(params).toString()}`
 	}
 
 	const getProductCollectionsRes = await get(route)
