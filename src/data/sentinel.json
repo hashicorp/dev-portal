@@ -33,13 +33,6 @@
 		]
 	},
 	"alertBannerActive": true,
-	"alertBanner": {
-		"tag": "HashiConf",
-		"url": "https://hashiconf.com/2023?utm_source=direct&utm_medium=banner&utm_campaign=23Q3_HASHICONFGLOBAL_EVENT&utm_content=&utm_offer=event",
-		"text": "Our community conference is taking place in San Francisco and online October 10-12.",
-		"linkText": "Register now",
-		"expirationDate": ""
-	},
 	"version": "0.18.6",
 	"subnavItems": [
 		{
@@ -48,19 +41,13 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["docs", "intro", "downloads"],
+	"basePaths": ["docs", "downloads"],
 	"rootDocsPaths": [
 		{
 			"basePathForLoader": "sentinel",
 			"iconName": "docs",
-			"name": "Docs",
+			"name": "Documentation",
 			"path": "docs"
-		},
-		{
-			"basePathForLoader": "sentinel/intro",
-			"iconName": "docs",
-			"name": "Intro",
-			"path": "intro"
 		}
 	]
 }

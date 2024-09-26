@@ -120,16 +120,16 @@ The `"get_started"` block renders a heading, descriptive text, and a single link
 
 Example: Waypoint `"get_started"` block
 
-```json5
+```json
 {
-	type: 'get_started',
-	product: 'waypoint',
-	heading: 'Introduction to Waypoint',
-	text: 'Welcome to Waypoint! This introduction section covers what Waypoint is, the problem Waypoint aims to solve, and how Waypoint compares to other software.',
-	link: {
-		text: 'Get Started',
-		url: '/waypoint/docs/intro',
-	},
+	"type": "get_started",
+	"product": "waypoint",
+	"heading": "Introduction to Waypoint",
+	"text": "Welcome to Waypoint! This introduction section covers what Waypoint is, the problem Waypoint aims to solve, and how Waypoint compares to other software.",
+	"link": {
+		"text": "Get Started",
+		"url": "/waypoint/docs/intro"
+	}
 }
 ```
 

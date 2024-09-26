@@ -6,16 +6,16 @@
 		"subtitle": "Sentinel is a policy as code tool that lets you control what users of HashiCorp products are allowed to do. It enforces policies proactively, preventing end users from deploying changes that are not allowed.",
 		"featuredDocsLinks": [
 			{
-				"href": "/sentinel/intro/why",
+				"href": "/sentinel/docs/why",
 				"text": "Why Sentinel?"
 			},
 			{
-				"href": "/sentinel/intro/getting-started",
-				"text": "Getting Started"
+				"href": "/sentinel/tutorials/get-started",
+				"text": "Get started"
 			},
 			{
 				"href": "/sentinel/docs/commands",
-				"text": "CLI Commands"
+				"text": "CLI commands"
 			}
 		]
 	}
