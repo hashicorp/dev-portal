@@ -41,7 +41,7 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["docs", "install", "tutorials"],
+	"basePaths": ["docs", "install", "tutorials", "intro"],
 	"rootDocsPaths": [
 		{
 			"basePathForLoader": "sentinel",
