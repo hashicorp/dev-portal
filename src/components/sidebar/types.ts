@@ -28,6 +28,7 @@ interface HeadingNavItem {
 interface BaseNavItem {
 	badge?: SidebarNavMenuItemBadgeProps
 	hidden?: boolean
+	alias?: string
 	title: string
 }
 
