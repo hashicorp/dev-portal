@@ -23,8 +23,6 @@ export const getFilteredNavItems = (
 		return items as NavItemWithMetaData[]
 	}
 
-	console.log(items)
-
 	const filteredItems = []
 
 	items.forEach((item: EnrichedNavItem) => {
