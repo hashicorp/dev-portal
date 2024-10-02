@@ -17,6 +17,11 @@ function Error({ statusCode }) {
 
 	return (
 		<Layout>
+			<p>
+				{statusCode
+					? `An error ${statusCode} occurred on server`
+					: 'An error occurred on client'}
+			</p>
 			<ErrorViewSwitcher statusCode={statusCode} />
 		</Layout>
 	)
