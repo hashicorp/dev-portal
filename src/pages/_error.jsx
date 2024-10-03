@@ -17,11 +17,6 @@ function Error({ statusCode }) {
 
 	return (
 		<Layout>
-			<p>
-				{statusCode
-					? `An error ${statusCode} occurred on server`
-					: 'An error occurred on client'}
-			</p>
 			<ErrorViewSwitcher statusCode={statusCode} />
 		</Layout>
 	)
@@ -32,8 +27,6 @@ export async function getServerSideProps(ctx) {
 
 	// Determine which layout to use, may be dev-portal's base layout.
 	const urlObj = new URL(req.url, `http://${req.headers.host}`)
-
-	console.log('### statusCode', res?.statusCode, err?.statusCode)
 
 	// Determine which statusCode to show
 	const statusCode = res ? res.statusCode : err ? err.statusCode : 404

@@ -61,15 +61,6 @@ function ErrorView({ statusCode }: ErrorPageProps): React.ReactElement {
 	const is404 = statusCode == 404
 	const isVersioned404 = versionInPath && is404
 
-	console.log(
-		'### error info',
-		statusCode,
-		versionMatches,
-		versionInPath,
-		pathWithoutVersion,
-		pathBeforeVersion
-	)
-
 	/**
 	 * Determine the error page type
 	 */
