@@ -13,7 +13,7 @@ import {
 } from 'lib/learn-client/api/collection'
 import { splitProductFromFilename } from 'views/tutorial-view/utils'
 import config from '../config/base.json'
-import { activeProductSlugs } from 'lib/products'
+import { productSlugs } from 'lib/products'
 import { ProductSlug } from 'types/products'
 
 const DEV_PORTAL_URL = config.dev_dot.canonical_base_url
@@ -27,7 +27,7 @@ const fetch = createFetch(null, { timeout: 900 * 1000 })
 async function warmDeveloperDocsCache() {
 	const url = new URL('/api/revalidate', DEV_PORTAL_URL)
 
-	for (const productSlug of activeProductSlugs) {
+	for (const productSlug of productSlugs) {
 		const body = JSON.stringify({ product: productSlug })
 
 		try {
@@ -93,7 +93,7 @@ async function getTutorialUrlsToCache(product: ProductSlug): Promise<string[]> {
 	try {
 		const tutorialUrls = (
 			await Promise.all(
-				activeProductSlugs.map((product: ProductSlug) =>
+				productSlugs.map((product: ProductSlug) =>
 					getTutorialUrlsToCache(product)
 				)
 			)

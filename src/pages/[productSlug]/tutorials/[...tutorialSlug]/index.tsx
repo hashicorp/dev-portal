@@ -17,7 +17,7 @@ import {
 	getTutorialPagePaths,
 	getTutorialPageProps,
 } from 'views/tutorial-view/server'
-import { activeProductSlugs } from 'lib/products'
+import { productSlugs } from 'lib/products'
 
 async function getStaticPaths(): Promise<
 	GetStaticPathsResult<TutorialPagePaths['params']>
@@ -38,7 +38,7 @@ async function getStaticPaths(): Promise<
 	try {
 		paths = (
 			await Promise.all(
-				activeProductSlugs.map(async (productSlug) => {
+				productSlugs.map(async (productSlug) => {
 					// fetch paths from analytics for each product
 					const analyticsPaths = await getStaticPathsFromAnalytics<
 						TutorialPagePaths['params']

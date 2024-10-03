@@ -29,7 +29,9 @@ const DEFAULT_COMMUNITY_FORUM_LINK = 'https://discuss.hashicorp.com/'
 const DEFAULT_GITHUB_LINK = 'https://github.com/hashicorp'
 const DEFAULT_SUPPORT_LINK = 'https://www.hashicorp.com/customer-success'
 
-const COMMUNITY_LINKS_BY_PRODUCT: { [key in ProductSlug]: string } = {
+const COMMUNITY_LINKS_BY_PRODUCT: {
+	[key in Exclude<ProductSlug, 'well-architected-framework'>]: string
+} = {
 	boundary: 'https://discuss.hashicorp.com/c/boundary/50',
 	consul: 'https://discuss.hashicorp.com/c/consul/29',
 	hcp: 'https://discuss.hashicorp.com/c/hcp/54',
@@ -43,7 +45,10 @@ const COMMUNITY_LINKS_BY_PRODUCT: { [key in ProductSlug]: string } = {
 }
 
 const GITHUB_LINKS_BY_PRODUCT_SLUG: {
-	[key in Exclude<ProductSlug, 'waypoint'>]: string
+	[key in Exclude<
+		ProductSlug,
+		'waypoint' | 'well-architected-framework'
+	>]: string
 } = {
 	boundary: 'https://github.com/hashicorp/boundary',
 	consul: 'https://github.com/hashicorp/consul',
@@ -131,15 +136,11 @@ function generateResourcesNavItems(
 
 	return [
 		{ heading: 'Resources' },
-		...(productSlug !== 'sentinel'
-			? [
-					{
-						// Add a "Tutorials" link for all products except Sentinel
-						title: 'Tutorial Library',
-						href: getTutorialLibraryUrl(productSlug),
-					},
-			  ]
-			: []),
+		{
+			// Add a "Tutorials" link for all products except Sentinel
+			title: 'Tutorial Library',
+			href: getTutorialLibraryUrl(productSlug),
+		},
 		...getCertificationsLink(productSlug),
 		{
 			title: 'Community Forum',

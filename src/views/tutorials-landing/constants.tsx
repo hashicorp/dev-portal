@@ -22,10 +22,7 @@ const PAGE_SUBTITLE =
  * ProductSection constants
  */
 
-const PRODUCT_SECTIONS_ORDER_BY_SLUG: Exclude<
-	ProductSlug,
-	'hcp' | 'sentinel'
->[] = [
+const PRODUCT_SECTIONS_ORDER_BY_SLUG: Exclude<ProductSlug, 'hcp'>[] = [
 	'terraform',
 	'vault',
 	'consul',
@@ -34,6 +31,7 @@ const PRODUCT_SECTIONS_ORDER_BY_SLUG: Exclude<
 	'boundary',
 	'vagrant',
 	'waypoint',
+	'sentinel',
 ]
 
 const PRODUCT_DESCRIPTIONS = {
@@ -53,6 +51,7 @@ const PRODUCT_DESCRIPTIONS = {
 		'Build a developer platform with a PaaS-like interface for infrastructure self-service',
 	vagrant:
 		'Build, manage, and share virtual machine environments with a single workflow',
+	sentinel: 'Enforce policy as code for HashiCorp products',
 }
 
 /**

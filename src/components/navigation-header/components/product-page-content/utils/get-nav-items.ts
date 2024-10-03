@@ -123,13 +123,14 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	 * Tutorials
 	 *
 	 * Note: we exclude Sentinel, as it does not have tutorials yet.
+	 * Once Sentinel tutorials are published, we can remove this exclusion.
+	 * PR to publish Sentinel tutorials:
+	 * https://github.com/hashicorp/tutorials/pull/2169
 	 */
-	if (currentProduct.slug !== 'sentinel') {
-		items.push({
-			label: 'Tutorials',
-			url: `/${currentProduct.slug}/tutorials`,
-		})
-	}
+	items.push({
+		label: 'Tutorials',
+		url: `/${currentProduct.slug}/tutorials`,
+	})
 
 	/**
 	 * Documentation categories
