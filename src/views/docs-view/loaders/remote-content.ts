@@ -243,10 +243,12 @@ export default class RemoteContentLoader implements DataLoader {
 			versionToFetch
 		)
 
+		// Look into this
 		const [document, navData] = await Promise.all([
 			documentPromise,
 			navDataPromise,
 		])
+		console.log('### document', document, documentPromise)
 
 		const { mdxSource } = await mdxRenderer(document.markdownSource)
 		const frontMatter = document.metadata
