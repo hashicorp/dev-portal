@@ -248,7 +248,6 @@ export default class RemoteContentLoader implements DataLoader {
 			documentPromise,
 			navDataPromise,
 		])
-		console.log('### document', document, documentPromise)
 
 		const { mdxSource } = await mdxRenderer(document.markdownSource)
 		const frontMatter = document.metadata
