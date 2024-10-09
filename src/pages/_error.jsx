@@ -28,6 +28,7 @@ Error.getInitialProps = async ({ req, res, err }) => {
 		'### info',
 		res?.statusCode,
 		res?.statusMessage,
+		res,
 		err,
 		req?.statusCode,
 		req?.statusMessage
