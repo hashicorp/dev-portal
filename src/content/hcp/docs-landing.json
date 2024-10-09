@@ -35,6 +35,11 @@
 			"iconName": "waypoint-color",
 			"name": "HCP Waypoint",
 			"path": "docs/waypoint"
+		},
+		{
+			"iconName": "vagrant-color",
+			"name": "HCP Vagrant",
+			"path": "docs/vagrant"
 		}
 	],
 	"marketingContentBlocks": [
@@ -48,12 +53,12 @@
 					"url": "/hcp/docs/hcp"
 				},
 				{
-					"title": "Supported AWS Environments",
+					"title": "Supported AWS environments",
 					"description": "Regions in which HCP is accessible.",
 					"url": "/hcp/docs/hcp/supported-env/aws"
 				},
 				{
-					"title": "Supported Azure Environments",
+					"title": "Supported Azure environments",
 					"description": "Regions in which HCP is accessible.",
 					"url": "/hcp/docs/hcp/supported-env/azure"
 				},

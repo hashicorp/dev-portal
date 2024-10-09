@@ -37,6 +37,7 @@ import { IconTools16 } from '@hashicorp/flight-icons/svg-react/tools-16'
 import { IconVault16 } from '@hashicorp/flight-icons/svg-react/vault-16'
 import { IconVmware16 } from '@hashicorp/flight-icons/svg-react/vmware-16'
 import { IconWaypointColor16 } from '@hashicorp/flight-icons/svg-react/waypoint-color-16'
+import { IconVagrantColor16 } from '@hashicorp/flight-icons/svg-react/vagrant-color-16'
 import { IconWrench16 } from '@hashicorp/flight-icons/svg-react/wrench-16'
 import { IconVaultSecretsSquareColor16 } from '@hashicorp/flight-icons/svg-react/vault-secrets-square-color-16'
 import { IconVaultRadarSquareColor16 } from '@hashicorp/flight-icons/svg-react/vault-radar-square-color-16'
@@ -89,5 +90,6 @@ export const SUPPORTED_ICONS = {
 	'vault-radar-color': <IconVaultRadarSquareColor16 />,
 	vmware: <IconVmware16 />,
 	'waypoint-color': <IconWaypointColor16 />,
+	'vagrant-color': <IconVagrantColor16 />,
 	wrench: <IconWrench16 />,
 }
