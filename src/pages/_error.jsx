@@ -23,6 +23,19 @@ function Error({ statusCode }) {
 	)
 }
 
+Error.getInitialProps = async ({ req, res, err }) => {
+	console.log(
+		'### info',
+		res?.statusCode,
+		res?.statusMessage,
+		err,
+		req?.statusCode,
+		req?.statusMessage
+	)
+	const statusCode = res ? res.statusCode : err ? err.statusCode : 404
+
+	return { statusCode }
+}
 // export async function getServerSideProps(ctx) {
 // 	const { req, res, err } = ctx
 
