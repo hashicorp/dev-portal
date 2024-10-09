@@ -285,6 +285,7 @@ export function getStaticGenerationFunctions<
 			try {
 				loadStaticPropsResult = await loader.loadStaticProps(ctx)
 			} catch (error) {
+				console.log('### server error', error)
 				console.error('[docs-view/server] error loading static props', error)
 
 				// Catch 404 errors, return a 404 status page

@@ -55,6 +55,8 @@ export async function fetchDocument(
 	const url = `${MKTG_CONTENT_DOCS_API}/api/content/${product}/${fullPath}`
 	const response = await fetch(url)
 
+	console.log('### fetch doc info', response?.status)
+
 	if (response.status !== 200) {
 		throw new ContentApiError(`Failed to fetch: ${url}`, response.status)
 	}
