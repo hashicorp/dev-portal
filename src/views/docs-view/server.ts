@@ -284,6 +284,7 @@ export function getStaticGenerationFunctions<
 			let loadStaticPropsResult
 			try {
 				loadStaticPropsResult = await loader.loadStaticProps(ctx)
+				console.log('### loadStaticPropsResult', loadStaticPropsResult)
 			} catch (error) {
 				console.log('### server error', error)
 				console.error('[docs-view/server] error loading static props', error)
