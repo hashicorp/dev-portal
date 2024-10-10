@@ -85,6 +85,8 @@ const NavigationHeader = () => {
 	const router = useRouter()
 	const currentProduct = useCurrentProduct()
 
+	console.log('### router', router)
+
 	const shouldRenderGenericHeaderContent =
 		!currentProduct || router.route === '/_error'
 	const LeftSideHeaderContent = shouldRenderGenericHeaderContent

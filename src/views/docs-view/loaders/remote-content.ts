@@ -243,7 +243,6 @@ export default class RemoteContentLoader implements DataLoader {
 			versionToFetch
 		)
 
-		// Look into this
 		const [document, navData] = await Promise.all([
 			documentPromise,
 			navDataPromise,

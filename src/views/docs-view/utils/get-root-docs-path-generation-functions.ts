@@ -78,10 +78,7 @@ export function getRootDocsPathGenerationFunctions(
 			// Generate getStaticPaths for this rootDocsPath
 			const { getStaticProps } =
 				getStaticGenerationFunctions(staticFunctionConfig)
-			const info = await getStaticProps(context)
-
-			console.log('### info', info)
-			return info
+			return await getStaticProps(context)
 		},
 	}
 }
