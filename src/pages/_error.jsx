@@ -23,15 +23,8 @@ function Error({ statusCode }) {
 	)
 }
 
-Error.getInitialProps = async ({ req, res, err }) => {
-	console.log(
-		'### info',
-		res?.statusCode,
-		res?.statusMessage,
-		err,
-		req?.statusCode,
-		req?.statusMessage
-	)
+Error.getInitialProps = async ({ res, err }) => {
+	console.log('### info', res?.statusCode, err)
 	const statusCode = res ? res.statusCode : err ? err.statusCode : 404
 
 	return { statusCode }
