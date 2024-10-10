@@ -4,6 +4,7 @@
  */
 
 export function get(path: string, token?: string) {
+	console.log('### get method', path)
 	const options: RequestInit = {
 		method: 'GET',
 	}
@@ -55,6 +56,7 @@ export async function toError(errorResponse) {
 	} catch (err) {
 		// Do nothing if the response is not json
 	}
+	console.log('### toError', errorResponse, json)
 
 	return new Error(
 		`${errorResponse.status} ${errorResponse.statusText}${
