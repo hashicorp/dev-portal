@@ -6,7 +6,7 @@
 // Third-party imports
 import classNames from 'classnames'
 import AlertBanner from '@hashicorp/react-alert-banner'
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes, useEffect, useState } from 'react'
 
 // HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
@@ -60,11 +60,42 @@ const BaseLayout = ({
 	useScrollPercentageAnalytics()
 	const [showSkipLink, setShowSkipLink] = useState(false)
 
+	// TODO: remove after HashiConf 2024
+	// start of code to remove
+	const [isDuringHashiConf, setIsDuringHashiConf] = useState(false)
+
+	useEffect(() => {
+		const now = new Date().getTime() // current date & time
+		const firstHashiConfDayStart = new Date(
+			'2024-10-15T04:30:00-08:00'
+		).getTime() // 8:30 AM EDT on October 15, 2024
+		const firstHashiConfDayEnd = new Date('2024-10-15T08:31:00-08:00').getTime() // 12:30 PM EDT on October 15, 2024
+
+		const secondHashiConfDayStart = new Date(
+			'2024-10-16T04:30:00-08:00'
+		).getTime() // 8:30 AM EDT on October 16, 2024
+		const secondHashiConfDayEnd = new Date(
+			'2024-10-16T08:31:00-08:00'
+		).getTime() // 12:30 PM EDT on October 16, 2024
+
+		const isFirstHashiConfDay =
+			now >= firstHashiConfDayStart && now <= firstHashiConfDayEnd
+		const isSecondHashiConfDay =
+			now >= secondHashiConfDayStart && now <= secondHashiConfDayEnd
+
+		setIsDuringHashiConf(isFirstHashiConfDay || isSecondHashiConfDay)
+
+		return () => {
+			setIsDuringHashiConf(false)
+		}
+	}, [])
+	// end of code to remove
+
 	return (
 		<CommandBarProvider>
 			<SkipLinkContext.Provider value={{ showSkipLink, setShowSkipLink }}>
 				<SkipToMainContent />
-				{alertBannerData.enabled && (
+				{isDuringHashiConf && ( // TODO: revert this line back to `alertBannerData.enabled` after HashiConf 2024
 					<AlertBanner {...(alertBannerData.data as AlertBannerProps)} />
 				)}
 				<CoreDevDotLayoutWithTheme>

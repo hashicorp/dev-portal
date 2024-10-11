@@ -2,10 +2,10 @@
 	"enabled": true,
 	"data": {
 		"product": "hashicorp",
-		"tag": "HashiDays",
-		"url": "https://hashicorp.com/conferences/hashidays",
-		"text": "One conference. Three cities.",
-		"linkText": "Find a city near you",
-		"expirationDate": "2024-06-14T00:00:00-08:00"
+		"tag": "HashiConf 2024",
+		"url": "https://live.hashiconf.com",
+		"text": "Now streaming live from Boston!",
+		"linkText": "Attend for free",
+		"expirationDate": "2024-10-16T08:31:00-08:00"
 	}
 }
