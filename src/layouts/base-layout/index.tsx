@@ -67,15 +67,18 @@ const BaseLayout = ({
 	useEffect(() => {
 		const now = new Date(new Date().toUTCString()).getTime() // current date & time
 		const firstHashiConfDayStart = new Date(
-			'2024-10-15T04:30:00-08:00'
+			Date.UTC(2024, 9, 15, 12, 30, 0, 0)
 		).getTime() // 8:30 AM EDT on October 15, 2024
-		const firstHashiConfDayEnd = new Date('2024-10-15T08:31:00-08:00').getTime() // 12:30 PM EDT on October 15, 2024
+
+		const firstHashiConfDayEnd = new Date(
+			Date.UTC(2024, 9, 15, 16, 31, 0, 0)
+		).getTime() // 12:30 PM EDT on October 15, 2024
 
 		const secondHashiConfDayStart = new Date(
-			'2024-10-16T04:30:00-08:00'
+			Date.UTC(2024, 9, 16, 12, 30, 0, 0)
 		).getTime() // 8:30 AM EDT on October 16, 2024
 		const secondHashiConfDayEnd = new Date(
-			'2024-10-16T08:31:00-08:00'
+			Date.UTC(2024, 9, 16, 16, 31, 0, 0)
 		).getTime() // 12:30 PM EDT on October 16, 2024
 
 		const isFirstHashiConfDay =
