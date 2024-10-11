@@ -6,6 +6,7 @@
 import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import ErrorViewSwitcher from 'views/error-view-switcher'
+import NextErrorComponent from 'next/error'
 // product data, needed to render top navigation
 // import { productConfig } from 'lib/cms'
 // import { isProductSlug } from 'lib/products'
@@ -23,8 +24,11 @@ function Error({ statusCode }) {
 	)
 }
 
-Error.getInitialProps = async ({ res, err }) => {
-	console.log('### info', res?.statusCode, err)
+Error.getInitialProps = async (context) => {
+	const { res, err, asPath } = context
+
+	const errorInitialProps = await NextErrorComponent.getInitialProps(context)
+	console.log('### info', res?.statusCode, err, asPath, errorInitialProps)
 	const statusCode = res ? res.statusCode : err ? err.statusCode : 404
 
 	return { statusCode }
