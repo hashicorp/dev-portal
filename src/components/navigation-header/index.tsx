@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 // HashiCorp imports
 import { IconMenu24 } from '@hashicorp/flight-icons/svg-react/menu-24'
@@ -82,12 +82,11 @@ const AuthenticationControls = () => {
  * `/{productSlug}.`
  */
 const NavigationHeader = () => {
-	// const router = useRouter()
+	const router = useRouter()
 	const currentProduct = useCurrentProduct()
 
-	// console.log('### router', router)
-
-	const shouldRenderGenericHeaderContent = !currentProduct
+	const shouldRenderGenericHeaderContent =
+		!currentProduct || router.route === '/_error'
 	const LeftSideHeaderContent = shouldRenderGenericHeaderContent
 		? HomePageHeaderContent
 		: ProductPageHeaderContent
