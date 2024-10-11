@@ -65,7 +65,7 @@ const BaseLayout = ({
 	const [isDuringHashiConf, setIsDuringHashiConf] = useState(false)
 
 	useEffect(() => {
-		const now = new Date().getTime() // current date & time
+		const now = new Date(new Date().toUTCString()).getTime() // current date & time
 		const firstHashiConfDayStart = new Date(
 			'2024-10-15T04:30:00-08:00'
 		).getTime() // 8:30 AM EDT on October 15, 2024
