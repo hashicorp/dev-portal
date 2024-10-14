@@ -76,9 +76,14 @@ export function getRootDocsPathGenerationFunctions(
 			context
 		): Promise<GetStaticPropsResult<DocsViewProps>> => {
 			// Generate getStaticPaths for this rootDocsPath
-			const { getStaticProps } =
-				getStaticGenerationFunctions(staticFunctionConfig)
-			return await getStaticProps(context)
+			try {
+				console.log('### try get props')
+				const { getStaticProps } =
+					getStaticGenerationFunctions(staticFunctionConfig)
+				return await getStaticProps(context)
+			} catch (err) {
+				console.log('### props error')
+			}
 		},
 	}
 }
