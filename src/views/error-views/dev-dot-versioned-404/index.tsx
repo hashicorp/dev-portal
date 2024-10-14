@@ -27,7 +27,7 @@ export function DevDotVersioned404({
 	pathWithoutVersion: string
 	pathBeforeVersion: string
 }): React.ReactElement {
-	// useErrorPageAnalytics(404)
+	useErrorPageAnalytics(404)
 
 	return (
 		<ErrorViewContainer>

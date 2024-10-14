@@ -284,9 +284,7 @@ export function getStaticGenerationFunctions<
 			let loadStaticPropsResult
 			try {
 				loadStaticPropsResult = await loader.loadStaticProps(ctx)
-				console.log('### loadStaticPropsResult', loadStaticPropsResult)
 			} catch (error) {
-				console.log('### server error', error)
 				console.error('[docs-view/server] error loading static props', error)
 
 				// Catch 404 errors, return a 404 status page
@@ -506,8 +504,6 @@ export function getStaticGenerationFunctions<
 				versions:
 					!hideVersionSelector && hasMeaningfulVersions ? validVersions : null,
 			}
-
-			console.log('### finalProps', finalProps)
 
 			return {
 				revalidate: __config.dev_dot.revalidate,

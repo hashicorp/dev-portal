@@ -6,10 +6,9 @@
 import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import ErrorViewSwitcher from 'views/error-view-switcher'
-import NextErrorComponent from 'next/error'
 // product data, needed to render top navigation
-// import { productConfig } from 'lib/cms'
-// import { isProductSlug } from 'lib/products'
+import { productConfig } from 'lib/cms'
+import { isProductSlug } from 'lib/products'
 
 function Error({ statusCode }) {
 	console.log('### statusCode', statusCode)
@@ -24,48 +23,41 @@ function Error({ statusCode }) {
 	)
 }
 
-Error.getInitialProps = async (context) => {
-	const { res, err, asPath } = context
+export async function getServerSideProps(ctx) {
+	const { req, res, err } = ctx
 
-	const errorInitialProps = await NextErrorComponent.getInitialProps(context)
-	console.log('### info', res?.statusCode, err, asPath, errorInitialProps)
+	console.log('### server info', res.statusCode, err, req)
+
+	// Determine which layout to use, may be dev-portal's base layout.
+	const urlObj = new URL(req.url, `http://${req.headers.host}`)
+
+	// Determine which statusCode to show
 	const statusCode = res ? res.statusCode : err ? err.statusCode : 404
 
-	return { statusCode }
+	if (statusCode === 404) {
+		// cache 404 for one day
+		res.setHeader('Cache-Control', 's-maxage=86400')
+	}
+
+	/**
+	 * Determine the product context, in order to render the correct
+	 * navigation header on the dev-dot 404 page.
+	 */
+
+	const pathParts = urlObj.pathname.split('/')
+	const maybeProductSlug = pathParts.length > 1 && pathParts[1]
+	const productSlug = isProductSlug(maybeProductSlug) ? maybeProductSlug : null
+
+	// We need the whole product data (eg for top nav), not just the slug
+	const product = productConfig[productSlug] || null
+
+	return {
+		props: {
+			product,
+			statusCode,
+			hostname: urlObj.hostname,
+		},
+	}
 }
-// export async function getServerSideProps(ctx) {
-// 	const { req, res, err } = ctx
-
-// 	// Determine which layout to use, may be dev-portal's base layout.
-// 	const urlObj = new URL(req.url, `http://${req.headers.host}`)
-
-// 	// Determine which statusCode to show
-// 	const statusCode = res ? res.statusCode : err ? err.statusCode : 404
-
-// 	if (statusCode === 404) {
-// 		// cache 404 for one day
-// 		res.setHeader('Cache-Control', 's-maxage=86400')
-// 	}
-
-// 	/**
-// 	 * Determine the product context, in order to render the correct
-// 	 * navigation header on the dev-dot 404 page.
-// 	 */
-
-// 	const pathParts = urlObj.pathname.split('/')
-// 	const maybeProductSlug = pathParts.length > 1 && pathParts[1]
-// 	const productSlug = isProductSlug(maybeProductSlug) ? maybeProductSlug : null
-
-// 	// We need the whole product data (eg for top nav), not just the slug
-// 	const product = productConfig[productSlug] || null
-
-// 	return {
-// 		props: {
-// 			product,
-// 			statusCode,
-// 			hostname: urlObj.hostname,
-// 		},
-// 	}
-// }
 
 export default Error
