@@ -11,7 +11,6 @@ import { productConfig } from 'lib/cms'
 import { isProductSlug } from 'lib/products'
 
 function Error({ statusCode }) {
-	console.log('### statusCode', statusCode)
 	const Layout = (props) => (
 		<BaseLayout {...props} mobileMenuSlot={<MobileMenuLevelsGeneric />} />
 	)
@@ -25,8 +24,6 @@ function Error({ statusCode }) {
 
 export async function getServerSideProps(ctx) {
 	const { req, res, err } = ctx
-
-	console.log('### server info', res.statusCode, err, req)
 
 	// Determine which layout to use, may be dev-portal's base layout.
 	const urlObj = new URL(req.url, `http://${req.headers.host}`)

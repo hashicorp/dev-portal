@@ -243,59 +243,55 @@ export default class RemoteContentLoader implements DataLoader {
 			versionToFetch
 		)
 
-		const [navData] = await Promise.all([navDataPromise])
+		const [document, navData] = await Promise.all([
+			documentPromise,
+			navDataPromise,
+		])
 
-		try {
-			const [document] = await Promise.all([documentPromise])
+		const { mdxSource } = await mdxRenderer(document.markdownSource)
+		const frontMatter = document.metadata
 
-			const { mdxSource } = await mdxRenderer(document.markdownSource)
-			const frontMatter = document.metadata
+		// Construct the githubFileUrl, used for "Edit this page" link
 
-			// Construct the githubFileUrl, used for "Edit this page" link
+		// Must be serializeable
+		let githubFileUrl: string | null = null
 
-			// Must be serializeable
-			let githubFileUrl: string | null = null
+		if (document.githubFile) {
+			// Link latest version to `main`
+			// Hide link on older versions
+			const isLatest =
+				(versionFromPath === 'latest' && Boolean(this.opts.latestVersionRef)) ||
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				versionMetadataList.find((e) => e.version === document.version)!
+					.isLatest
 
-			if (document.githubFile) {
-				// Link latest version to `main`
-				// Hide link on older versions
-				const isLatest =
-					(versionFromPath === 'latest' &&
-						Boolean(this.opts.latestVersionRef)) ||
-					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					versionMetadataList.find((e) => e.version === document.version)!
-						.isLatest
+			/**
+			 * We want to show "Edit on GitHub" links for public content repos only.
+			 * Currently, HCP, PTFE and Sentinel docs are stored in private
+			 * repositories.
+			 *
+			 * Note: If we need more granularity here, we could change this to be
+			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
+			 */
+			const isPrivateContentRepo = [
+				'hcp-docs',
+				'sentinel',
+				'ptfe-releases',
+			].includes(this.opts.product)
 
-				/**
-				 * We want to show "Edit on GitHub" links for public content repos only.
-				 * Currently, HCP, PTFE and Sentinel docs are stored in private
-				 * repositories.
-				 *
-				 * Note: If we need more granularity here, we could change this to be
-				 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
-				 */
-				const isPrivateContentRepo = [
-					'hcp-docs',
-					'sentinel',
-					'ptfe-releases',
-				].includes(this.opts.product)
-
-				if (isLatest && !isPrivateContentRepo) {
-					// GitHub only allows you to modify a file if you are on a branch, not a commit
-					githubFileUrl = `https://github.com/hashicorp/${this.opts.product}/blob/${this.opts.mainBranch}/${document.githubFile}`
-				}
+			if (isLatest && !isPrivateContentRepo) {
+				// GitHub only allows you to modify a file if you are on a branch, not a commit
+				githubFileUrl = `https://github.com/hashicorp/${this.opts.product}/blob/${this.opts.mainBranch}/${document.githubFile}`
 			}
+		}
 
-			return {
-				versions: mapVersionList(versionMetadataList),
-				currentPath,
-				frontMatter,
-				githubFileUrl,
-				mdxSource,
-				navData: navData.navData,
-			}
-		} catch (err) {
-			console.log('### loader error')
+		return {
+			versions: mapVersionList(versionMetadataList),
+			currentPath,
+			frontMatter,
+			githubFileUrl,
+			mdxSource,
+			navData: navData.navData,
 		}
 	}
 }
