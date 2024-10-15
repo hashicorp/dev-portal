@@ -230,6 +230,7 @@ export function getStaticGenerationFunctions<
 		getStaticProps: async (
 			ctx
 		): Promise<GetStaticPropsResult<DocsViewProps>> => {
+			let errorCode = null
 			const pathParts = (ctx.params.page || []) as string[]
 			const currentPathUnderProduct = `/${path.join(
 				basePathForLoader,
@@ -289,11 +290,14 @@ export function getStaticGenerationFunctions<
 
 				// Catch 404 errors, return a 404 status page
 				if (error.status === 404) {
-					return { notFound: true }
+					// return { notFound: true }
+					errorCode = 404
+				} else if (error.status !== 404) {
+					errorCode = 500
 				}
 
 				// Throw non-404 errors
-				throw error
+				// throw error
 			}
 
 			const { navData, mdxSource, githubFileUrl, versions, frontMatter } =
@@ -507,7 +511,7 @@ export function getStaticGenerationFunctions<
 
 			return {
 				revalidate: __config.dev_dot.revalidate,
-				props: finalProps,
+				props: errorCode ? errorCode : finalProps,
 			}
 		},
 	}
