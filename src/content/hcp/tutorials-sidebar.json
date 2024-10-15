@@ -37,9 +37,18 @@
 		{
 			"name": "HCP Vault Dedicated",
 			"items": [
-				{ "name": "Quickstart", "collectionSlug": "vault/get-started-hcp-vault-dedicated" },
-				{ "name": "Operations", "collectionSlug": "vault/manage-hcp-vault-dedicated" },
-				{ "name": "Kubernetes", "collectionSlug": "vault/integrate-kubernetes-hcp-vault-dedicated" }
+				{
+					"name": "Quickstart",
+					"collectionSlug": "vault/get-started-hcp-vault-dedicated"
+				},
+				{
+					"name": "Operations",
+					"collectionSlug": "vault/manage-hcp-vault-dedicated"
+				},
+				{
+					"name": "Kubernetes",
+					"collectionSlug": "vault/integrate-kubernetes-hcp-vault-dedicated"
+				}
 			]
 		},
 		{
@@ -47,8 +56,7 @@
 			"items": [
 				{
 					"name": "Quickstart",
-					"collectionSlug": "waypoint/hcp-waypoint",
-					"isBeta": true
+					"collectionSlug": "waypoint/hcp-waypoint"
 				}
 			]
 		}
