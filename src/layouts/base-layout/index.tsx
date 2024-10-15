@@ -60,45 +60,11 @@ const BaseLayout = ({
 	useScrollPercentageAnalytics()
 	const [showSkipLink, setShowSkipLink] = useState(false)
 
-	// TODO: remove after HashiConf 2024
-	// start of code to remove
-	const [isDuringHashiConf, setIsDuringHashiConf] = useState(false)
-
-	useEffect(() => {
-		const now = new Date(new Date().toUTCString()).getTime() // current date & time
-		const firstHashiConfDayStart = new Date(
-			Date.UTC(2024, 9, 15, 12, 30, 0, 0)
-		).getTime() // 8:30 AM EDT on October 15, 2024
-
-		const firstHashiConfDayEnd = new Date(
-			Date.UTC(2024, 9, 15, 16, 31, 0, 0)
-		).getTime() // 12:30 PM EDT on October 15, 2024
-
-		const secondHashiConfDayStart = new Date(
-			Date.UTC(2024, 9, 16, 12, 30, 0, 0)
-		).getTime() // 8:30 AM EDT on October 16, 2024
-		const secondHashiConfDayEnd = new Date(
-			Date.UTC(2024, 9, 16, 16, 31, 0, 0)
-		).getTime() // 12:30 PM EDT on October 16, 2024
-
-		const isFirstHashiConfDay =
-			now >= firstHashiConfDayStart && now <= firstHashiConfDayEnd
-		const isSecondHashiConfDay =
-			now >= secondHashiConfDayStart && now <= secondHashiConfDayEnd
-
-		setIsDuringHashiConf(isFirstHashiConfDay || isSecondHashiConfDay)
-
-		return () => {
-			setIsDuringHashiConf(false)
-		}
-	}, [])
-	// end of code to remove
-
 	return (
 		<CommandBarProvider>
 			<SkipLinkContext.Provider value={{ showSkipLink, setShowSkipLink }}>
 				<SkipToMainContent />
-				{isDuringHashiConf && ( // TODO: revert this line back to `alertBannerData.enabled` after HashiConf 2024
+				{alertBannerData.enabled && (
 					<AlertBanner {...(alertBannerData.data as AlertBannerProps)} />
 				)}
 				<CoreDevDotLayoutWithTheme>
