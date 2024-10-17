@@ -20,7 +20,6 @@ import type {
 	OpenApiDocsPageConfig,
 } from 'views/open-api-docs-view/types'
 import {
-	schemaModShortenHcp,
 	schemaModComponent,
 	shortenProtobufAnyDescription,
 } from 'views/open-api-docs-view/utils/massage-schema-utils'
@@ -58,9 +57,6 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	 * Massage the schema data a little bit
 	 */
 	massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
-		return schemaData
-		//  Replace "HashiCorp Cloud Platform" with "HCP" in the title
-		// const withShortTitle = schemaModShortenHcp(schemaData)
 		/**
 		 * Shorten the description of the protobufAny schema
 		 *
@@ -74,13 +70,13 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		 * Related task:
 		 * https://app.asana.com/0/1207339219333499/1207339701271604/f
 		 */
-		// const withShortProtobufDocs = schemaModComponent(
-		// 	withShortTitle,
-		// 	'protobufAny',
-		// 	shortenProtobufAnyDescription
-		// )
+		const withShortProtobufDocs = schemaModComponent(
+			schemaData,
+			'google.protobuf.Any',
+			shortenProtobufAnyDescription
+		)
 		// Return the schema data with modifications
-		// return withShortProtobufDocs
+		return withShortProtobufDocs
 	},
 }
 
