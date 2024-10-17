@@ -4,12 +4,10 @@
  */
 
 // Utils
-import checkIsMigratedToUnifiedDocs from 'lib/check-is-migrated-to-unified-docs'
+import { getContentApiBaseUrl } from 'lib/unified-docs-migration-utils'
 // Types
 import type { VersionSelectItem } from '../loaders/remote-content'
 
-const MKTG_CONTENT_DOCS_API = process.env.MKTG_CONTENT_DOCS_API
-const UNIFIED_DOCS_API = process.env.UNIFIED_DOCS_API
 const VERSIONS_ENDPOINT = '/api/content-versions'
 
 /**
@@ -53,12 +51,10 @@ export async function getValidVersions(
 	 * `productSlugForLoader` has been flagged as migrated to unified docs, then
 	 * we use the new unified docs API to fetch known versions.
 	 */
-	const contentApiUrl = checkIsMigratedToUnifiedDocs(productSlugForLoader)
-		? UNIFIED_DOCS_API
-		: MKTG_CONTENT_DOCS_API
+	const contentApiBaseUrl = getContentApiBaseUrl(productSlugForLoader)
 	try {
 		// Build the URL to fetch known versions of this document
-		const validVersionsUrl = new URL(VERSIONS_ENDPOINT, contentApiUrl)
+		const validVersionsUrl = new URL(VERSIONS_ENDPOINT, contentApiBaseUrl)
 		validVersionsUrl.searchParams.set('product', productSlugForLoader)
 		validVersionsUrl.searchParams.set('fullPath', fullPath)
 		// Fetch known versions of this document

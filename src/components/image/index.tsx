@@ -9,6 +9,7 @@ import { GlobalThemeOption } from 'styles/themes/types'
 import { ImageProps } from './types'
 import classNames from 'classnames'
 import s from './image.module.css'
+import { checkIsContentApiUrl } from 'lib/unified-docs-migration-utils'
 
 /**
  * Create an object to be passed as a style prop to the underlying img element
@@ -37,17 +38,13 @@ function getContentApiDimensions(
 	url: string
 ): { width: number; height: number } | null {
 	/**
-	 * We only care about Content API urls. Note that as we're in the process
-	 * of migrating to the unified docs API, Content API urls could either use our
-	 * old base URL (MKTG_CONTENT_DOCS_API) or the new one (UNIFIED_DOCS_API).
+	 * We only care about Content API urls.
 	 *
-	 * NOTE: this hasn't yet been tested with our new UNIFIED_DOCS_API, as
-	 * image handling hasn't yet been implemented in that API. Asana task:
+	 * NOTE: images haven't yet been fully tested with our new UNIFIED_DOCS_API,
+	 * as image handling hasn't yet been implemented. Asana task:
 	 * https://app.asana.com/0/1207899860738460/1207910088307871/f
 	 */
-	const isContentApiUrl =
-		url.startsWith(process.env.MKTG_CONTENT_DOCS_API) ||
-		url.startsWith(process.env.UNIFIED_DOCS_API)
+	const isContentApiUrl = checkIsContentApiUrl(url)
 	if (!isContentApiUrl) {
 		return null
 	}

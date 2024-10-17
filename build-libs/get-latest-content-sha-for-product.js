@@ -6,6 +6,10 @@
 /**
  * We're using the docs endpoints to fetch the latest SHA, so we use
  * the env var for the docs API.
+ *
+ * NOTE: we expect this function to be used to fetch redirects. We hope to
+ * migrate redirects into our unified documentation repository. Asana task:
+ * https://app.asana.com/0/1207899860738460/1208307126937882/f
  */
 const MKTG_CONTENT_DOCS_API = process.env.MKTG_CONTENT_DOCS_API
 

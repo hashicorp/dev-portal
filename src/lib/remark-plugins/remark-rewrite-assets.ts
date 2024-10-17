@@ -8,6 +8,7 @@ import { visit } from 'unist-util-visit'
 
 import type { Plugin } from 'unified'
 import type { Image } from 'mdast'
+import { getContentApiBaseUrl } from 'lib/unified-docs-migration-utils'
 
 /**
  * This is a generator function that returns a remark plugin
@@ -20,6 +21,8 @@ export function remarkRewriteAssets(args: {
 }): Plugin {
 	const { product, version, getAssetPathParts = (nodeUrl) => [nodeUrl] } = args
 
+	const contentApiBaseUrl = getContentApiBaseUrl(product)
+
 	return function plugin() {
 		return function transform(tree) {
 			// @ts-expect-error Types Should be correct here
@@ -27,7 +30,7 @@ export function remarkRewriteAssets(args: {
 				const originalUrl = node.url
 				const asset = path.posix.join(...getAssetPathParts(originalUrl))
 
-				const url = new URL(`${process.env.MKTG_CONTENT_DOCS_API}/api/assets`)
+				const url = new URL(`${contentApiBaseUrl}/api/assets`)
 				url.searchParams.append('asset', asset)
 				url.searchParams.append('version', version)
 				url.searchParams.append('product', product)

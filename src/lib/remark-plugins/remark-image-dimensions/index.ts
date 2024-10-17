@@ -7,6 +7,7 @@ import type { Image, Root } from 'mdast'
 import { Plugin, Transformer } from 'unified'
 import { visit } from 'unist-util-visit'
 import probe from 'probe-image-size'
+import { checkIsContentApiUrl } from 'lib/unified-docs-migration-utils'
 
 /**
  * This plugin injects image dimensions for images whose src references the mktg-content-api.
@@ -23,7 +24,8 @@ export const remarkPluginInjectImageDimensions: Plugin = (): Transformer => {
 			 * to transform the src URLs from local file paths to mktg-content-api urls
 			 * See: src/lib/remark-plugins/rewrite-static-tutorials-assets/index.ts
 			 */
-			if (node.url.startsWith(process.env.MKTG_CONTENT_DOCS_API)) {
+			const isContentApiUrl = checkIsContentApiUrl(node.url)
+			if (isContentApiUrl) {
 				imageNodesForDimensions.push(node)
 			}
 		})
