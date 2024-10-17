@@ -51,7 +51,7 @@ const UNIFIED_DOCS_API = process.env.UNIFIED_DOCS_API
  *
  */
 function checkIsMigratedToUnifiedDocs(repoName: string): boolean {
-	const migratedRepos = __config.flags.unified_docs_migrated_repos
+	const migratedRepos = __config.flags?.unified_docs_migrated_repos || []
 	return migratedRepos.indexOf(repoName) !== -1
 }
 
