@@ -36,8 +36,19 @@ function generateStyleProp(
 function getContentApiDimensions(
 	url: string
 ): { width: number; height: number } | null {
-	// We only care about Content API urls
-	if (!url.startsWith(process.env.MKTG_CONTENT_DOCS_API)) {
+	/**
+	 * We only care about Content API urls. Note that as we're in the process
+	 * of migrating to the unified docs API, Content API urls could either use our
+	 * old base URL (MKTG_CONTENT_DOCS_API) or the new one (UNIFIED_DOCS_API).
+	 *
+	 * NOTE: this hasn't yet been tested with our new UNIFIED_DOCS_API, as
+	 * image handling hasn't yet been implemented in that API. Asana task:
+	 * https://app.asana.com/0/1207899860738460/1207910088307871/f
+	 */
+	const isContentApiUrl =
+		url.startsWith(process.env.MKTG_CONTENT_DOCS_API) ||
+		url.startsWith(process.env.UNIFIED_DOCS_API)
+	if (!isContentApiUrl) {
 		return null
 	}
 	const urlParams = new URL(url).searchParams
