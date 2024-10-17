@@ -64,9 +64,10 @@ function checkIsMigratedToUnifiedDocs(repoName: string): boolean {
  */
 function getContentApiBaseUrl(repoName: string): string {
 	checkEnvVarsInDev()
-	return checkIsMigratedToUnifiedDocs(repoName)
+	const contentApiBaseUrl = checkIsMigratedToUnifiedDocs(repoName)
 		? UNIFIED_DOCS_API
 		: MKTG_CONTENT_DOCS_API
+	return contentApiBaseUrl
 }
 
 /**
