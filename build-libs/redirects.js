@@ -28,6 +28,33 @@ const HOSTNAME_MAP = {
 }
 
 /**
+ * TODO: Figure out how we'll handle redirects.
+ *
+ * Seems to make the most sense to put them in the unified docs repo, as
+ * authors will likely want to edit redirects alongside the content those
+ * redirects refer to.
+ *
+ * We could in theory use the same `config` flags set up for the unified docs
+ * migration in general, `__config.flags.unified_docs_migrated_repos`...
+ * however, those flags are only available in Webpack'd files, and I don't think
+ * this `redirects.js` file goes through Webpack, seems to be used directly
+ * in the build process?
+ *
+ * Therefore we may need some other way to figure out which content source
+ * repos have been flagged to have their redirects managed in unified docs.
+ * Maybe we could import our config JSON directly, and resolve it that way?
+ * Or maybe hard-coding things here would be fine. I've taken this latter
+ * approach for now as we haven't started much on migrating redirects anyways.
+ *
+ * Asana task:
+ * https://app.asana.com/0/1207899860738460/1208307126937882/f
+ */
+function checkAreRedirectsMigratedToUnifiedDocs(repoName) {
+	const migratedRepos = []
+	return migratedRepos.indexOf(repoName) !== -1
+}
+
+/**
  * Load redirects from a content repository.
  *
  * Redirects are loaded differently depending on the build context.
@@ -57,13 +84,24 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath) {
 	 * Note: These constants are declared for clarity in build context intent.
 	 */
 	const isDeveloperBuild = !process.env.IS_CONTENT_PREVIEW
+	const isUnifiedDocsBuild = checkAreRedirectsMigratedToUnifiedDocs(repoName)
 	const isLocalContentBuild = isDeployPreview(repoName)
+
 	/**
 	 * Load redirects from the target repo (or return early for non-target repos).
 	 */
 	/** @type {string} */
 	let redirectsFileString
-	if (isDeveloperBuild) {
+	if (isUnifiedDocsBuild) {
+		/**
+		 * TODO: we need to come up with a way to source redirects from the unified
+		 * docs repository. Asana task:
+		 * https://app.asana.com/0/1207899860738460/1208307126937882/f
+		 */
+		throw new Error(
+			'ERROR: redirects are not yet implemented in our unified docs API.'
+		)
+	} else if (isDeveloperBuild) {
 		// For `hashicorp/dev-portal` builds, load redirects remotely
 		const latestContentSha = await getLatestContentShaForProduct(repoName)
 		redirectsFileString = await fetchGithubFile({
