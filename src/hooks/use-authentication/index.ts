@@ -13,8 +13,6 @@ import {
 	useSession,
 } from 'next-auth/react'
 import { Session } from 'next-auth'
-import { saveAndLoadAnalytics } from '@hashicorp/react-consent-manager'
-import { preferencesSavedAndLoaded } from '@hashicorp/react-consent-manager/util/cookies'
 import { AuthErrors, ValidAuthProviderId } from 'types/auth'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
 import { canAnalyzeUser, safeGetSegmentId } from 'lib/analytics'
@@ -85,7 +83,6 @@ const useAuthentication = (
 	const isAuthenticated =
 		status === 'authenticated' &&
 		data?.error !== AuthErrors.RefreshAccessTokenError // if we are in an errored state, treat as unauthenticated
-	const preferencesLoaded = preferencesSavedAndLoaded()
 
 	/**
 	 * Force sign out to hopefully resolve the error. The user is signed out
@@ -98,15 +95,6 @@ const useAuthentication = (
 			signOut()
 		}
 	}, [data?.error, signOut])
-
-	// We accept consent manager on the user's behalf. As per Legal & Compliance,
-	// signing-in means a user is accepting our privacy policy and so we can
-	// enable tracking. Should only be ran if not already set & loaded.
-	useEffect(() => {
-		if (isAuthenticated && !preferencesLoaded) {
-			saveAndLoadAnalytics({ loadAll: true })
-		}
-	}, [isAuthenticated, preferencesLoaded])
 
 	// Separating user and session data
 	let session: Session, user: Session['user']
