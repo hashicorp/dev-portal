@@ -8,11 +8,90 @@ import { parseAndValidateOpenApiSchema } from 'lib/api-docs/parse-and-validate-o
 // Utils
 import getOperationContentProps from './components/operation-content/server'
 import getLandingContentProps from './components/landing-content/server'
+import { getOperationObjects } from './utils/get-operation-objects'
+import { buildOperationGroups } from './utils/build-operation-groups'
+import { wordBreakCamelCase } from './utils/word-break-camel-case'
 // Types
 import type {
 	OpenApiDocsViewV2Props,
+	OpenApiNavItem,
 	SharedProps,
 } from 'views/open-api-docs-view-v2/types'
+// import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+
+/**
+ * TODO: lift this content up so it can vary page-to-page
+ *
+ * THOUGHT: rather than require custom YAML, maybe we should use a second layer
+ * of "tags" to group operations further? Maybe the custom YAML could be used
+ * at the "spec hook" stage... to add that second layer of tags. And then our
+ * operation grouping logic could be based on tags. This would open the door
+ * to have these changes made at the content source in the near future (at
+ * which point we'd remove the "spec hook" stage).
+ *
+ * Reference doc:
+ * https://swagger.io/docs/specification/v3_0/grouping-operations-with-tags/
+ */
+const SHIM_CONTENT = {
+	operationGroupings: [
+		{
+			title: 'Apps',
+			operationIds: [
+				'CreateApp',
+				'ListApps',
+				'GetApp',
+				'UpdateApp',
+				'DeleteApp',
+			],
+		},
+		{
+			title: 'Secrets',
+			operationIds: [
+				'CreateAppKVSecret',
+				'OpenAppSecrets',
+				'OpenAppSecret',
+				'ListAppSecrets',
+				'GetAppSecret',
+				'DeleteAppSecret',
+			],
+		},
+		{
+			title: 'Secret Versions',
+			operationIds: [
+				'ListAppSecretVersions',
+				'ListOpenAppSecretVersions',
+				'OpenAppSecretVersion',
+				'GetAppSecretVersion',
+				'DeleteAppSecretVersion',
+			],
+		},
+		{
+			title: 'Sync Integrations',
+			operationIds: [
+				'CreateAwsSmSyncIntegration',
+				'CreateAzureKvSyncIntegration',
+			],
+		},
+		{
+			title: 'Sync Integrations',
+			operationIds: [
+				'CreateGcpSmSyncIntegration',
+				'CreateGhOrgSyncIntegration',
+				'CreateGhRepoSyncIntegration',
+			],
+		},
+		{
+			title: 'GitHub Installations',
+			operationIds: [
+				'ListGitHubInstallations',
+				'ConnectGitHubInstallation',
+				'GetGitHubInstallLinks',
+			],
+		},
+		// ForceSync
+		// SetTier
+	],
+}
 
 export async function getStaticProps({
 	basePath,
@@ -47,8 +126,31 @@ export async function getStaticProps({
 	 * complex version may end up meaning significant differences in the logic
 	 * to generate the version selector depending on landing vs operation view.
 	 */
-	const navItems = getNavItems(basePath, operationSlug, schemaData)
-	const sharedProps: SharedProps = { basePath, navItems }
+	const operationObjects = getOperationObjects(schemaData)
+	const operationGroups = buildOperationGroups(
+		SHIM_CONTENT.operationGroupings,
+		operationObjects
+	)
+	const navItemLanding: OpenApiNavItem = {
+		title: 'Landing',
+		fullPath: basePath,
+		isActive: !operationSlug,
+	}
+	const navItemGroups = operationGroups.map((group) => ({
+		title: group.title,
+		items: group.operationObjects.map(({ type, operationId }) => {
+			return {
+				title: wordBreakCamelCase(operationId),
+				fullPath: `${basePath}/${operationId}`,
+				isActive: operationSlug === operationId,
+			}
+		}),
+	}))
+	const sharedProps: SharedProps = {
+		basePath,
+		navItemLanding,
+		navItemGroups,
+	}
 
 	/**
 	 * If we have an operation slug, build and return operation view props.
