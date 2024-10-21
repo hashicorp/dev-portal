@@ -24,7 +24,8 @@ export type OpenApiNavItem = {
  */
 export interface SharedProps {
 	basePath: string
-	navItems: OpenApiNavItem[]
+	navItemLanding: OpenApiNavItem
+	navItemGroups: { title: string; items: OpenApiNavItem[] }[]
 }
 
 /**
