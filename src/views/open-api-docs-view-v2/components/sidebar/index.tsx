@@ -21,18 +21,27 @@ const SHIM_CONTENT = {
 	},
 }
 
+/**
+ * TODO: refine generation of nav items, and then render them properly,
+ * for now just messily rendering some links to enable navigation.
+ *
+ * Note: `next/link` will work in prod, since we'll be doing
+ * `getStaticProps`... but in the preview tool, `next/link` seems to
+ * make the preview experience janky, seemingly requiring reloads after
+ * each navigation, maybe related to use of getServerSideProps? Not yet
+ * sure how to resolve this, there's probably some clever solution that
+ * might be possible...
+ *
+ * TODO: expanding on the above, may make sense to move away from the
+ * current `SidebarNavMenuItem` component, and the underlying
+ * `SidebarNavLinkItem` component. It's rarely feasible to iterate on those
+ * components since they're used in so many places. We likely want to improve
+ * our OpenAPI docs in ways that involve changing how the sidebar looks and
+ * feels, and we want to move towards patterns that favour composition
+ * over patterns that require complex conditionals and switch statements
+ * to handle all the different ways we might want to render a sidebar item.
+ */
 export function OpenApiV2SidebarContents({ navItemLanding, navItemGroups }) {
-	/**
-	 * TODO: refine generation of nav items, and then render them properly,
-	 * for now just messily rendering some links to enable navigation.
-	 *
-	 * Note: `next/link` will work in prod, since we'll be doing
-	 * `getStaticProps`... but in the preview tool, `next/link` seems to
-	 * make the preview experience janky, seemingly requiring reloads after
-	 * each navigation, maybe related to use of getServerSideProps? Not yet
-	 * sure how to resolve this, there's probably some clever solution that
-	 * might be possible...
-	 */
 	return (
 		<>
 			<SidebarBackToLink
