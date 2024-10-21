@@ -10,7 +10,7 @@ import { ReactElement } from 'react'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconExternalLink24 } from '@hashicorp/flight-icons/svg-react/external-link-24'
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
-import CodeBlock from '@hashicorp/react-code-block'
+import CodeBlock from '@hashicorp/react-design-system-components/src/components/code-block'
 
 // Global imports
 import Heading from 'components/heading'
@@ -96,21 +96,17 @@ const ConsulNoteCard = (): ReactElement => {
 						system:
 					</Text>
 					<CodeBlock
-						code="$ uname -m"
+						value="$ uname -m"
 						language="shell-session"
-						options={{
-							wrapCode: true,
-							showClipboard: true,
-						}}
+						hasCopyButton
+						hasLineNumbers={false}
 					/>
 					<CodeBlock
 						className={s.codeBlock}
-						code={`$ readelf -a /proc/self/exe | grep -q -c Tag_ABI_VFP_args && echo "armhf" || echo "armel"`}
+						value={`$ readelf -a /proc/self/exe | grep -q -c Tag_ABI_VFP_args && echo "armhf" || echo "armel"`}
 						language="shell-session"
-						options={{
-							wrapCode: true,
-							showClipboard: true,
-						}}
+						hasCopyButton
+						hasLineNumbers={false}
 					/>
 				</>
 			}
