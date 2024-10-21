@@ -48,7 +48,7 @@ const HCPCallout = dynamic(
 )
 
 const productsToPrimitives: Record<
-	ProductSlug,
+	Exclude<ProductSlug, 'well-architected-framework'>,
 	Record<string, ComponentType>
 > = {
 	boundary: null,

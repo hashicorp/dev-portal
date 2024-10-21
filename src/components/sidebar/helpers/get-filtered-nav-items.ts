@@ -40,6 +40,21 @@ export const getFilteredNavItems = (
 			?.toLowerCase()
 			.includes(filterValue.toLowerCase())
 
+		// Check and filter alias
+		const hasAlias = item.hasOwnProperty('alias')
+		if (hasAlias) {
+			const doesAliasMatchFilter = (
+				item as SubmenuNavItemWithMetaData | LinkNavItemWithMetaData
+			).alias
+				?.toLowerCase()
+				.includes(filterValue.toLowerCase())
+
+			// Add to filtered items if filter value is in alias
+			if (doesAliasMatchFilter) {
+				filteredItems.push({ ...item, matchesFilter: true })
+			}
+		}
+
 		/**
 		 * If an item's title matches the filter, we want to include it and its
 		 * children in the filter results. `matchesFilter` is added to all items

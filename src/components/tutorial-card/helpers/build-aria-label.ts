@@ -15,6 +15,7 @@ const PRODUCT_LABEL_MAP: Record<ProductOption, string> = {
 	vault: 'Vault',
 	vagrant: 'Vagrant',
 	waypoint: 'Waypoint',
+	sentinel: 'Sentinel',
 }
 
 export function getSpeakableDuration(duration: TutorialCardProps['duration']) {
