@@ -61,6 +61,7 @@ export const HVD_FINAL_IMAGE_ROOT_DIR = '.extracted/hvd'
 	}
 
 	// Ensure an enclosing content directory exists for HVD content
+	fs.rmSync(HVD_REPO_DIR, { recursive: true, force: true })
 	fs.mkdirSync(HVD_REPO_DIR, { recursive: true })
 	// Extract HVD repo contents into the `src/content` directory
 
