@@ -55,7 +55,10 @@ export async function fetchDocument(
 ): Promise<any> {
 	checkEnvVarsInDev()
 
-	const url = `${MKTG_CONTENT_DOCS_API}/api/content/${product}/${fullPath}`
+	let url = `${MKTG_CONTENT_DOCS_API}/api/content/${product}/${fullPath}`
+	if (product === 'sentinel') {
+		url = `${MKTG_CONTENT_DOCS_API}/api/content/sentinel/doc/v0.28.x/sentinel`
+	}
 	const response = await fetch(url)
 
 	if (response.status !== 200) {
