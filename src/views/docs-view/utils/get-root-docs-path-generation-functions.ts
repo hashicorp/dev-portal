@@ -39,7 +39,6 @@ export function getRootDocsPathGenerationFunctions(
 	const rootDocsPath = productData.rootDocsPaths.find((rootDocsPath) => {
 		return rootDocsPath.path == targetRootDocsPath
 	})
-
 	const staticFunctionConfig = {
 		baseName: rootDocsPath.shortName || rootDocsPath.name,
 		basePath: rootDocsPath.path,
