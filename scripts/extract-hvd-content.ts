@@ -8,20 +8,11 @@ import path from 'path'
 import { fetchGithubArchiveZip } from 'lib/fetch-github-archive-zip'
 import { isDeployPreview } from 'lib/env-checks'
 
-import { unflatten } from 'flat'
-import { getHashiConfig } from '../config'
-
 const env = process.env.HASHI_ENV || 'development'
-const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
-
-const __config = unflatten(getHashiConfig(envConfigPath))
 
 export const BASE_REPO_CONFIG = {
 	owner: 'hashicorp',
-	ref:
-		__config.flags.enable_hvd_on_preview_branch === true
-			? 'hvd-preview'
-			: process.env.CURRENT_GIT_BRANCH || 'main',
+	ref: process.env.CURRENT_GIT_BRANCH || 'main',
 	repo: 'hvd-docs',
 	contentPath: '/content',
 }
@@ -59,9 +50,9 @@ export const HVD_FINAL_IMAGE_ROOT_DIR = '.extracted/hvd'
 		return
 	}
 
-	if (fs.existsSync(HVD_REPO_DIR)) {
+	if (fs.existsSync(HVD_REPO_DIR) && env === 'development') {
 		console.log(
-			`Note: HVD content already exists at ${HVD_REPO_DIR}. Skipping extraction.`
+			`\nNote: HVD content already exists at ${HVD_REPO_DIR}. Skipping download.\n`
 		)
 		return
 	}
