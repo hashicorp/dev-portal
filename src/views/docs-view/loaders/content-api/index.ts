@@ -34,7 +34,10 @@ export async function fetchNavData(
 	checkEnvVarsInDev()
 
 	const fullPath = `nav-data/${version}/${basePath}`
-	const url = `${MKTG_CONTENT_DOCS_API}/api/content/${product}/${fullPath}`
+	let url = `${MKTG_CONTENT_DOCS_API}/api/content/${product}/${fullPath}`
+	if (product === 'sentinel') {
+		url = `${MKTG_CONTENT_DOCS_API}/api/content/sentinel/nav-data/v0.28.x/sentinel`
+	}
 
 	const response = await fetch(url)
 
