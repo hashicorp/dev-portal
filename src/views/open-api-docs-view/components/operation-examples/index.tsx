@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// react-components
-import CodeBlock from '@hashicorp/react-code-block'
+// react-design-system-components
+import CodeBlock from '@hashicorp/react-design-system-components/src/components/code-block'
 
 /**
  * Display the operation's full URL in an easy to copy code block,
@@ -19,8 +19,10 @@ export function OperationExamples({
 }) {
 	return (
 		<CodeBlock
-			options={{ heading, showClipboard: true, wrapCode: true }}
-			code={code}
+			title={heading}
+			hasCopyButton
+			hasLineNumbers={false}
+			value={code}
 		/>
 	)
 }

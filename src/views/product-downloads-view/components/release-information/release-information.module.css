@@ -29,6 +29,10 @@
 
 .armUserNote {
 	padding: 16px;
+
+	& span:last-of-type {
+		width: 100%;
+	}
 }
 
 .codePrompt {
