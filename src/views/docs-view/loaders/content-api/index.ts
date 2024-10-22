@@ -33,15 +33,21 @@ export async function fetchNavData(
 ): Promise<any> {
 	checkEnvVarsInDev()
 
-	const fullPath = `nav-data/${version}/${basePath}`
-	const url = `${MKTG_CONTENT_DOCS_API}/api/content/${product}/${fullPath}`
+	let newBasePath = basePath
+	if (product === 'sentinel' && basePath === 'docs') {
+		newBasePath = 'sentinel'
+	}
 
-	console.log({ url, basePath })
+	const fullPath = `nav-data/${version}/${newBasePath}`
+	const url = `${MKTG_CONTENT_DOCS_API}/api/content/${product}/${fullPath}`
 
 	const response = await fetch(url)
 
 	if (response.status !== 200) {
-		throw new ContentApiError(`Failed to fetch: ${url}`, response.status)
+		throw new ContentApiError(
+			`Failed to fetch navData: ${url}`,
+			response.status
+		)
 	}
 
 	const { result } = await response.json()
@@ -58,7 +64,7 @@ export async function fetchDocument(
 	const response = await fetch(url)
 
 	if (response.status !== 200) {
-		throw new ContentApiError(`Failed to fetch: ${url}`, response.status)
+		throw new ContentApiError(`Failed to fetch docs: ${url}`, response.status)
 	}
 
 	const { result } = await response.json()
@@ -72,7 +78,10 @@ export async function fetchVersionMetadataList(product: string) {
 	const response = await fetch(url)
 
 	if (response.status !== 200) {
-		throw new ContentApiError(`Failed to fetch: ${url}`, response.status)
+		throw new ContentApiError(
+			`Failed to fetch metadata: ${url}`,
+			response.status
+		)
 	}
 
 	const { result } = await response.json()
