@@ -6,14 +6,21 @@
 import fs from 'fs'
 import path from 'path'
 import { fetchGithubArchiveZip } from 'lib/fetch-github-archive-zip'
+import { isDeployPreview } from 'lib/env-checks'
+
+import { unflatten } from 'flat'
+import { getHashiConfig } from '../config'
 
 const env = process.env.HASHI_ENV || 'development'
+const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
+
+const __config = unflatten(getHashiConfig(envConfigPath))
 
 export const BASE_REPO_CONFIG = {
 	owner: 'hashicorp',
 	ref:
-		process.env.REPO !== 'hvd-docs'
-			? 'main'
+		__config.flags.enable_hvd_on_preview_branch === true
+			? 'hvd-preview'
 			: process.env.CURRENT_GIT_BRANCH || 'main',
 	repo: 'hvd-docs',
 	contentPath: '/content',
@@ -45,22 +52,21 @@ export const HVD_FINAL_IMAGE_ROOT_DIR = '.extracted/hvd'
  */
 ;(async function extractHvdContent() {
 	// Skip extraction in deploy previews
-	if (process.env.IS_CONTENT_PREVIEW && process.env.REPO !== 'hvd-docs') {
+	if (isDeployPreview()) {
 		console.log(
 			'Note: content repo deploy preview detected. Skipping HVD content.'
 		)
 		return
 	}
 
-	if (fs.existsSync(HVD_REPO_DIR) && env === 'development') {
+	if (fs.existsSync(HVD_REPO_DIR)) {
 		console.log(
-			`\nNote: HVD content already exists at ${HVD_REPO_DIR}. Skipping download.\n`
+			`Note: HVD content already exists at ${HVD_REPO_DIR}. Skipping extraction.`
 		)
 		return
 	}
 
 	// Ensure an enclosing content directory exists for HVD content
-	fs.rmSync(HVD_REPO_DIR, { recursive: true, force: true })
 	fs.mkdirSync(HVD_REPO_DIR, { recursive: true })
 	// Extract HVD repo contents into the `src/content` directory
 
