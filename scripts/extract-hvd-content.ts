@@ -6,7 +6,6 @@
 import fs from 'fs'
 import path from 'path'
 import { fetchGithubArchiveZip } from 'lib/fetch-github-archive-zip'
-import { isDeployPreview } from 'lib/env-checks'
 
 const env = process.env.HASHI_ENV || 'development'
 
@@ -46,7 +45,7 @@ export const HVD_FINAL_IMAGE_ROOT_DIR = '.extracted/hvd'
  */
 ;(async function extractHvdContent() {
 	// Skip extraction in deploy previews
-	if (isDeployPreview()) {
+	if (process.env.IS_CONTENT_PREVIEW && process.env.REPO !== 'hvd-docs') {
 		console.log(
 			'Note: content repo deploy preview detected. Skipping HVD content.'
 		)
