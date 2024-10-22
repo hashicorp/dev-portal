@@ -67,7 +67,9 @@ export function getRootDocsPathGenerationFunctions(
 			 * (currently this is only "docs", approach to custom docs landing pages
 			 * may change this in the future.)
 			 */
-			const hasCustomLandingPage = rootDocsPath.path == 'docs'
+			const hasCustomLandingPage =
+				rootDocsPath.path == 'docs' &&
+				staticFunctionConfig.productSlugForLoader !== 'sentinel'
 			const paths = hasCustomLandingPage ? removeIndexPath(rawPaths) : rawPaths
 			// Return all generated paths
 			return { paths, ...restStaticPathsResult }
