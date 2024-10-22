@@ -109,6 +109,10 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
 	)
 
+	// Handle cases where basePathForLoader differs from basePath.
+	// I think this only comes up for Sentinel, at least so far, but
+	// until we completely eliminate the possibility of this happening,
+	// feels rational to handle it.
 	const basePathForLoader =
 		currentRootDocsPath.basePathForLoader || currentRootDocsPath.path
 
