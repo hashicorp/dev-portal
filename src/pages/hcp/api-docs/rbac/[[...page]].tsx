@@ -19,10 +19,9 @@ import type {
 	OpenApiDocsViewProps,
 	OpenApiDocsPageConfig,
 } from 'views/open-api-docs-view/types'
-import {
-	schemaModComponent,
-	shortenProtobufAnyDescription,
-} from 'views/open-api-docs-view/utils/massage-schema-utils'
+import { schemaRemoveOperation } from 'views/open-api-docs-view/utils/massage-schema-utils/schema-remove-operation'
+import { schemaModComponent } from 'views/open-api-docs-view/utils/massage-schema-utils/schema-mod-component'
+import { shortenProtobufAnyDescription } from 'views/open-api-docs-view/utils/massage-schema-utils/schema-mod-protobuf-any'
 
 /**
  * OpenApiDocsView server-side page configuration
@@ -75,8 +74,21 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 			'google.protobuf.Any',
 			shortenProtobufAnyDescription
 		)
+		/**
+		 * Hide the org-create API endpoint. Ideally we'd find a way to do
+		 * this in the content source, but for now, we're making this change
+		 * in order to ship these docs. Note that this is not guaranteed to work
+		 * for future versions of this same API, eg if the date-based version
+		 * in the path changes. This is one reason why making finding a way to
+		 * hide operations using flags at the content source would be preferable.
+		 */
+		const withoutOrgCreateEndpoint = schemaRemoveOperation(
+			withShortProtobufDocs,
+			'/resource-manager/2019-12-10/projects',
+			'post'
+		)
 		// Return the schema data with modifications
-		return withShortProtobufDocs
+		return withoutOrgCreateEndpoint
 	},
 }
 
