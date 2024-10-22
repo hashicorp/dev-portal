@@ -3,9 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-const MKTG_CONTENT_DOCS_API = process.env.MKTG_CONTENT_DOCS_API
-const UNIFIED_DOCS_API = process.env.UNIFIED_DOCS_API
-
 /**
  * Given a repository name,
  *
@@ -52,6 +49,7 @@ const UNIFIED_DOCS_API = process.env.UNIFIED_DOCS_API
  */
 function checkIsMigratedToUnifiedDocs(repoName: string): boolean {
 	const migratedRepos = __config.flags?.unified_docs_migrated_repos || []
+	console.log({ migratedRepos })
 	return migratedRepos.indexOf(repoName) !== -1
 }
 
@@ -65,8 +63,8 @@ function checkIsMigratedToUnifiedDocs(repoName: string): boolean {
 function getContentApiBaseUrl(repoName: string): string {
 	checkEnvVarsInDev()
 	const contentApiBaseUrl = checkIsMigratedToUnifiedDocs(repoName)
-		? UNIFIED_DOCS_API
-		: MKTG_CONTENT_DOCS_API
+		? process.env.UNIFIED_DOCS_API
+		: process.env.MKTG_CONTENT_DOCS_API
 	return contentApiBaseUrl
 }
 
@@ -81,8 +79,9 @@ function getContentApiBaseUrl(repoName: string): string {
 function checkEnvVarsInDev() {
 	if (process.env.NODE_ENV === 'development') {
 		const missingEnvVars = []
-		if (!MKTG_CONTENT_DOCS_API) missingEnvVars.push('MKTG_CONTENT_DOCS_API')
-		if (!UNIFIED_DOCS_API) missingEnvVars.push('UNIFIED_DOCS_API')
+		if (!process.env.MKTG_CONTENT_DOCS_API)
+			missingEnvVars.push('MKTG_CONTENT_DOCS_API')
+		if (!process.env.UNIFIED_DOCS_API) missingEnvVars.push('UNIFIED_DOCS_API')
 		if (missingEnvVars.length > 0) {
 			const message = [
 				'Missing environment variable required to fetch remote content:',
