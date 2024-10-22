@@ -14,6 +14,7 @@ import type {
 	OperationProps,
 } from 'views/open-api-docs-view/types'
 import s from './open-api-operations.module.css'
+import { addWordBreaksToUrl } from 'views/open-api-docs-view/utils/add-word-breaks-to-url'
 
 /**
  * Render operation items for an OpenApiView.
@@ -38,7 +39,7 @@ export function OpenApiOperations({
 										slug={operation.slug}
 										headingText={operation.summary}
 										method={operation.type}
-										path={operation.path.truncated}
+										path={addWordBreaksToUrl(operation.path.truncated)}
 									/>
 								}
 								examplesSlot={
