@@ -83,7 +83,7 @@ function checkEnvVarsInDev() {
 			const message = [
 				'Missing environment variable required to fetch remote content:',
 				missingEnvVars.map((v) => `  - \`${v}\``).join('\n'),
-				'Reach out to #team-web-platform to get the proper value(s).',
+				'Reach out to #team-web-support to get the proper value(s).',
 			].join('\n')
 			throw new Error(message)
 		}
