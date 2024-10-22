@@ -73,6 +73,10 @@ function getContentApiBaseUrl(repoName: string): string {
 /**
  * Courtesy helper, warn about any missing content API related
  * environment vars during development
+ *
+ * Note: we expect this to be pretty unlikely as the version-controlled `.env`
+ * file has both of these values in place, as they're non-sensitive. We could
+ * remove this check if it never comes up.
  */
 function checkEnvVarsInDev() {
 	if (process.env.NODE_ENV === 'development') {
