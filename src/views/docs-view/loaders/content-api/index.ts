@@ -36,6 +36,8 @@ export async function fetchNavData(
 	const fullPath = `nav-data/${version}/${basePath}`
 	const url = `${MKTG_CONTENT_DOCS_API}/api/content/${product}/${fullPath}`
 
+	console.log({ url, basePath })
+
 	const response = await fetch(url)
 
 	if (response.status !== 200) {
