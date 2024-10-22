@@ -12,9 +12,15 @@ import { productSlugs } from 'lib/products'
  * Generates the paths for all /:productSlug/docs routes.
  */
 const getStaticPaths = async () => {
-	const paths = productSlugs.map((productSlug: ProductSlug) => ({
-		params: { productSlug },
-	}))
+	const paths = productSlugs
+		.filter((productSlug: ProductSlug) => {
+			// Exclude Sentinel, we want to load the MDX-based landing page
+			const isSentinel = productSlug === 'sentinel'
+			return !isSentinel
+		})
+		.map((productSlug: ProductSlug) => ({
+			params: { productSlug },
+		}))
 
 	return {
 		paths,
