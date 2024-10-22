@@ -12,7 +12,10 @@ const env = process.env.HASHI_ENV || 'development'
 
 export const BASE_REPO_CONFIG = {
 	owner: 'hashicorp',
-	ref: process.env.CURRENT_GIT_BRANCH || 'main',
+	ref:
+		process.env.REPO !== 'hvd-docs'
+			? 'main'
+			: process.env.CURRENT_GIT_BRANCH || 'main',
 	repo: 'hvd-docs',
 	contentPath: '/content',
 }
