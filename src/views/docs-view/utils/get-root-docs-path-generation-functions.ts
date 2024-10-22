@@ -40,8 +40,6 @@ export function getRootDocsPathGenerationFunctions(
 		return rootDocsPath.path == targetRootDocsPath
 	})
 
-	console.log({ rootDocsPath })
-
 	const staticFunctionConfig = {
 		baseName: rootDocsPath.shortName || rootDocsPath.name,
 		basePath: rootDocsPath.path,
