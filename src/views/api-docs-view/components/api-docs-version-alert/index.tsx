@@ -16,6 +16,7 @@ function ApiDocsVersionAlert({
 	isVersionedUrl,
 	currentVersion,
 	latestStableVersion,
+	basePath,
 }: ApiDocsVersionAlertProps) {
 	/**
 	 * If this isn't a versioned URL, we won't show a version alert.
@@ -35,7 +36,6 @@ function ApiDocsVersionAlert({
 	/**
 	 * Otherwise, build a message and link, and show the version alert.
 	 */
-	const latestLinkUrl = '/hcp/api-docs/packer'
 	const latestLinkText = 'View latest version'
 	let versionMessage: string
 	if (currentVersion.releaseStage === 'preview') {
@@ -49,7 +49,7 @@ function ApiDocsVersionAlert({
 	return (
 		<VersionAlert
 			message={versionMessage}
-			latestLinkUrl={latestLinkUrl}
+			latestLinkUrl={basePath}
 			latestLinkText={latestLinkText}
 		/>
 	)
