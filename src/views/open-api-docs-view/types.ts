@@ -9,10 +9,10 @@ import type { ParsedUrlQuery } from 'querystring'
 import type { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 // Global
 import type { ProductData, ProductSlug } from 'types/products'
-import type { GithubFile } from 'lib/fetch-github-file'
 import type { GithubDir } from 'lib/fetch-github-file-tree'
 import type { BreadcrumbLink } from 'components/breadcrumb-bar'
 import type { VersionSwitcherProps } from 'components/version-switcher'
+import type { ApiDocsVersionAlertProps } from 'views/api-docs-view/components/api-docs-version-alert/types'
 // Local
 import type { PropertyDetailsSectionProps } from './components/operation-details'
 
@@ -171,6 +171,11 @@ export interface OpenApiDocsViewProps {
 	 * `label` and `options` here will be passed directly to `VersionSwitcher`.
 	 */
 	versionSwitcherProps?: VersionSwitcherProps
+
+	/**
+	 * Optional. If provided, a version alert will be shown.
+	 */
+	versionAlert?: ApiDocsVersionAlertProps
 }
 
 /**

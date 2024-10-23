@@ -10,13 +10,12 @@ import { HTMLAttributes, useState } from 'react'
 
 // HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
-import createConsentManager from '@hashicorp/react-consent-manager/loader'
 
 // Global imports
 import useScrollPercentageAnalytics from 'hooks/use-scroll-percentage-analytics'
 import { CoreDevDotLayoutWithTheme } from 'layouts/core-dev-dot-layout'
 import { CommandBarProvider } from 'components/command-bar'
-import developerConsentManagerServices from 'lib/consent-manager-services/developer'
+import { createConsentManager } from 'lib/consent-manager'
 import Footer from 'components/footer'
 import NavigationHeader from 'components/navigation-header'
 import alertBannerData from 'data/alert-banner.json'
@@ -29,8 +28,7 @@ import { BaseLayoutProps, AlertBannerProps } from './types'
 import s from './base-layout.module.css'
 
 const { ConsentManager, openConsentManager } = createConsentManager({
-	preset: 'oss',
-	otherServices: [...developerConsentManagerServices],
+	gtmId: process.env.NEXT_PUBLIC_GTM_CONTAINER_ID,
 })
 
 /**

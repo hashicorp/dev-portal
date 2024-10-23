@@ -9,4 +9,5 @@ export interface ApiDocsVersionAlertProps {
 	isVersionedUrl: boolean
 	currentVersion: ApiDocsVersionData
 	latestStableVersion: ApiDocsVersionData
+	basePath: string
 }

@@ -11,6 +11,7 @@ import NoIndexTagIfVersioned from 'components/no-index-tag-if-versioned'
 import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
 import VersionSwitcher from 'components/version-switcher'
 import OpenApiSidebarContents from 'components/open-api-sidebar-contents'
+import { ApiDocsVersionAlert } from 'views/api-docs-view/components'
 // Local
 import {
 	OpenApiDocsMobileMenuLevels,
@@ -38,6 +39,7 @@ function OpenApiDocsView({
 	serviceProductSlug,
 	versionSwitcherProps,
 	isVersionedUrl,
+	versionAlert,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
@@ -59,6 +61,7 @@ function OpenApiDocsView({
 				/>
 			}
 		>
+			<ApiDocsVersionAlert {...versionAlert} />
 			<div className={s.paddedContainer}>
 				<div className={s.spaceBreadcrumbsOverview}>
 					<BreadcrumbBar links={breadcrumbLinks} />

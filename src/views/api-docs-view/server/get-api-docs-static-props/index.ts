@@ -166,6 +166,7 @@ export async function getApiDocsStaticProps({
 				isVersionedUrl,
 				currentVersion,
 				latestStableVersion,
+				basePath: baseUrl,
 			},
 		},
 	}
