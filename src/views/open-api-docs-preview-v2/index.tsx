@@ -54,7 +54,10 @@ function OpenApiDocsPreviewViewV2({
 							<div style={{ padding: '24px', maxWidth: '35em' }}>
 								<h1>OpenAPI Preview Tool</h1>
 								<p>
-									{`Please use the input form on this page to upload your spec. After submitting the form, the page should reload and display a preview.`}
+									{`Please use the input form on this page to upload your spec. After submitting the form, the page should reload and display a preview. For security reasons, after around an hour, your submitted file will be deleted the next time this page is loaded. You will need to re-submit your spec if you're working with this tool for longer than an hour.`}
+								</p>
+								<p>
+									{`This page may unexpectedly after navigation due to differences in how this preview tool works relative to production contexts. Reloading the page may resolve the issue. If reloading the page doesn't do anything, you may need to re-submit your spec file. If you're experiencing frequent issues requiring page reloads, reach out in #team-web-support in Slack.`}
 								</p>
 							</div>
 						</SidebarLayout>
