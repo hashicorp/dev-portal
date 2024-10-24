@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { OperationProps, OperationGroup } from '../types'
 import { addWordBreaksToUrl } from './add-word-breaks-to-url'
 
 /**
@@ -49,16 +48,18 @@ import { addWordBreaksToUrl } from './add-word-breaks-to-url'
  *	  },
  * }
  */
-export function groupOperations(
-	operationObjects: OperationProps[],
+export function groupOperations<
+	Operation extends { path: { truncated: string }; tags: string[] }
+>(
+	operationObjects: Operation[],
 	groupOperationsByPath: boolean
-): OperationGroup[] {
+): { heading: string; items: Operation[] }[] {
 	// Group operations, either by tags where specified, or automatically by paths
 	// or by their paths otherwise.
 	const operationGroupsMap = operationObjects.reduce(
 		(
-			acc: Record<string, { heading: string; items: OperationProps[] }>,
-			o: OperationProps
+			acc: Record<string, { heading: string; items: Operation[] }>,
+			o: Operation
 		) => {
 			/**
 			 * Determine the grouping slug for this operation.
@@ -75,7 +76,8 @@ export function groupOperations(
 			} else {
 				groupSlug = (o.tags.length && o.tags[0]) ?? 'Other'
 			}
-			if (!acc[groupSlug]) {
+			const hasExistingGroup = groupSlug in acc
+			if (!hasExistingGroup) {
 				acc[groupSlug] = {
 					heading: addWordBreaksToUrl(groupSlug),
 					items: [],
@@ -84,7 +86,7 @@ export function groupOperations(
 			acc[groupSlug].items.push(o)
 			return acc
 		},
-		{} as Record<string, OperationGroup>
+		{} as Record<string, { heading: string; items: Operation[] }>
 	)
 
 	return Object.values(operationGroupsMap)
