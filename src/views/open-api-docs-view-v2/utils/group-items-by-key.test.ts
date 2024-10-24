@@ -18,7 +18,7 @@ describe('groupItemsByKey', () => {
 		]
 		// Define a function to get a group key from each item
 		function getGroupKeyFromPath(item): string {
-			return item.path.truncated.split('/').slice(0, 3).join('/')
+			return item.path.split('/').slice(0, 3).join('/')
 		}
 		// Get the result of grouping the items, it should match what we expect
 		const result = groupItemsByKey(items, getGroupKeyFromPath)
