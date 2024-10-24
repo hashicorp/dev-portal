@@ -3,41 +3,63 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { getNavItems } from './utils/get-nav-items'
 import { parseAndValidateOpenApiSchema } from 'lib/api-docs/parse-and-validate-open-api-schema'
+import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+import isAbsoluteUrl from 'lib/is-absolute-url'
 // Utils
 import getOperationContentProps from './components/operation-content/server'
 import getLandingContentProps from './components/landing-content/server'
+import {
+	getOperationObjects,
+	OperationObject,
+} from './utils/get-operation-objects'
+import { wordBreakCamelCase } from './utils/word-break-camel-case'
+import { groupItemsByKey } from './utils/group-items-by-key'
 // Types
 import type {
 	OpenApiDocsViewV2Props,
 	SharedProps,
+	OpenApiDocsViewV2Config,
 } from 'views/open-api-docs-view-v2/types'
 
+/**
+ * Build static props for an OpenAPI docs view.
+ *
+ * There are two main views:
+ * - Landing view, for the basePath, when no operationSlug is provided
+ * - Operation view, for the specific operationSlug that's been provided
+ */
 export async function getStaticProps({
 	basePath,
-	operationSlug,
+	getOperationGroupKey = (o: OperationObject) =>
+		(o.tags.length && o.tags[0]) ?? 'Other',
 	openApiJsonString,
-}: {
-	basePath: string
-	operationSlug?: string
-	openApiJsonString: string
-}): Promise<OpenApiDocsViewV2Props> {
+	operationSlug,
+	schemaTransforms,
+	theme = 'hcp',
+	backToLink,
+	resourceLinks = [],
+}: OpenApiDocsViewV2Config): Promise<OpenApiDocsViewV2Props> {
 	/**
 	 * Fetch, parse, and validate the OpenAPI schema for this version.
 	 */
-	const schemaData = await parseAndValidateOpenApiSchema(openApiJsonString)
+	const rawSchemaData = await parseAndValidateOpenApiSchema(openApiJsonString)
 
 	/**
-	 * Gather props common to both the "landing" and "operation" views, namely:
-	 *
-	 * - basePath - base path from the dev dot URL, eg `/hcp/some-api-docs`
-	 * - navItems - links for the sidebar
-	 *
+	 * Apply any schema transforms.
+	 */
+	let schemaData = rawSchemaData
+	for (const schemaTransformFunction of schemaTransforms ?? []) {
+		schemaData = schemaTransformFunction(schemaData)
+	}
+
+	/**
 	 * TODO: add breadcrumb bar. Or, could be done separately for each view,
 	 * if we have well-abstracted composable functions to build breadcrumbs?
 	 * (maybe already started, build breadcrumb from URL path segments?)
-	 *
+	 */
+
+	/**
 	 * TODO: version selector. Probably needs to come a little later, but
 	 * seems like something that would be duplicated pretty exactly between
 	 * the landing and operation views. That being said, maybe there's an
@@ -47,8 +69,44 @@ export async function getStaticProps({
 	 * complex version may end up meaning significant differences in the logic
 	 * to generate the version selector depending on landing vs operation view.
 	 */
-	const navItems = getNavItems(basePath, operationSlug, schemaData)
-	const sharedProps: SharedProps = { basePath, navItems }
+
+	/**
+	 * Build links for the sidebar.
+	 */
+	const operationObjects = getOperationObjects(schemaData)
+	const operationGroups = groupItemsByKey(
+		operationObjects,
+		getOperationGroupKey
+	)
+	const landingLink = {
+		theme,
+		text: schemaData.info.title,
+		href: basePath,
+		isActive: !operationSlug,
+	}
+	const operationLinkGroups = operationGroups.map((group) => ({
+		text: wordBreakCamelCase(group.key),
+		items: group.items.map(({ operationId }) => {
+			return {
+				text: wordBreakCamelCase(operationId),
+				href: `${basePath}/${operationId}`,
+				isActive: operationSlug === operationId,
+			}
+		}),
+	}))
+
+	/**
+	 * Gather props shared between the landing and individual operation views.
+	 */
+	const sharedProps: SharedProps = {
+		basePath,
+		backToLink,
+		landingLink,
+		operationLinkGroups,
+		resourceLinks: resourceLinks.map((item) => {
+			return { ...item, isExternal: isAbsoluteUrl(item.href) }
+		}),
+	}
 
 	/**
 	 * If we have an operation slug, build and return operation view props.
@@ -59,9 +117,9 @@ export async function getStaticProps({
 			operationSlug,
 			schemaData
 		)
-		return { ...sharedProps, operationContentProps }
+		return stripUndefinedProperties({ ...sharedProps, operationContentProps })
 	} else {
 		const landingContentProps = await getLandingContentProps(schemaData)
-		return { ...sharedProps, landingContentProps }
+		return stripUndefinedProperties({ ...sharedProps, landingContentProps })
 	}
 }
