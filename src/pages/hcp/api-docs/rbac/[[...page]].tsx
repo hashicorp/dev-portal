@@ -36,7 +36,6 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		path: 'specs/cloud-resource-manager',
 		ref: 'main',
 	},
-	groupOperationsByPath: true,
 	navResourceItems: [
 		{
 			title: 'Tutorial Library',
