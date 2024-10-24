@@ -15,7 +15,6 @@ export function schemaRemoveOperation(
 	path: string,
 	method: string
 ): OpenAPIV3.Document {
-	console.log(Object.keys(schemaData.paths))
 	const targetPath = schemaData.paths[path]
 	if (!targetPath) {
 		throw new Error(
