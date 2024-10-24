@@ -1,0 +1,88 @@
+.root {
+	/* Generic default theme, eg. for HCP and Sentinel */
+	--gradient-start: var(--token-color-palette-neutral-100);
+	--gradient-stop: var(--token-color-palette-neutral-50);
+	--inset-border-color: var(--token-color-palette-neutral-200);
+
+	/* Set up themed property helpers */
+	--inset-border-shadow: inset 0 0 0 1px var(--inset-border-color);
+	--gradient-background: linear-gradient(
+		315deg,
+		var(--gradient-start) 0%,
+		var(--gradient-stop) 100%
+	);
+
+	/* Layout icon and text */
+	display: flex;
+	align-items: center;
+	gap: 8px;
+
+	/* Builds on SidebarLink hover style, adds gradient background */
+	&:hover {
+		background: var(--gradient-background);
+	}
+
+	/* Builds on SidebarLink current page style, adds gradient background,
+	   and box-shadow border when not focused. */
+	&[aria-current='page'] {
+		background: var(--gradient-background);
+
+		&:not(:focus-visible) {
+			box-shadow: var(--inset-border-shadow);
+		}
+	}
+}
+
+.icon {
+	flex-shrink: 0;
+}
+
+/* Theming by product slug */
+
+.theme-terraform {
+	--gradient-start: var(--token-color-terraform-gradient-faint-stop);
+	--gradient-stop: var(--token-color-terraform-gradient-faint-start);
+	--inset-border-color: var(--token-color-terraform-border);
+}
+
+.theme-packer {
+	--gradient-start: var(--token-color-packer-gradient-faint-stop);
+	--gradient-stop: var(--token-color-packer-gradient-faint-start);
+	--inset-border-color: var(--token-color-packer-border);
+}
+
+.theme-consul {
+	--gradient-start: var(--token-color-consul-gradient-faint-stop);
+	--gradient-stop: var(--token-color-consul-gradient-faint-start);
+	--inset-border-color: var(--token-color-consul-border);
+}
+
+.theme-vault {
+	--gradient-start: var(--token-color-vault-gradient-faint-stop);
+	--gradient-stop: var(--token-color-vault-gradient-faint-start);
+	--inset-border-color: var(--token-color-vault-border);
+}
+
+.theme-boundary {
+	--gradient-start: var(--token-color-boundary-gradient-faint-stop);
+	--gradient-stop: var(--token-color-boundary-gradient-faint-start);
+	--inset-border-color: var(--token-color-boundary-border);
+}
+
+.theme-nomad {
+	--gradient-start: var(--token-color-nomad-gradient-faint-stop);
+	--gradient-stop: var(--token-color-nomad-gradient-faint-start);
+	--inset-border-color: var(--token-color-nomad-border);
+}
+
+.theme-waypoint {
+	--gradient-start: var(--token-color-waypoint-gradient-faint-stop);
+	--gradient-stop: var(--token-color-waypoint-gradient-faint-start);
+	--inset-border-color: var(--token-color-waypoint-border);
+}
+
+.theme-vagrant {
+	--gradient-start: var(--token-color-vagrant-gradient-faint-stop);
+	--gradient-stop: var(--token-color-vagrant-gradient-faint-start);
+	--inset-border-color: var(--token-color-vagrant-border);
+}
