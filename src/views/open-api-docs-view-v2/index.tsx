@@ -71,17 +71,18 @@ export default function OpenApiDocsViewV2({
 						{
 							levelButtonText: 'Previous',
 							content: (
-								<div style={{ border: '1px solid magenta' }}>
-									<pre>
-										<code>
-											{JSON.stringify(
-												{ placeholderFor: 'openApiMobileMenu' },
-												null,
-												2
-											)}
-										</code>
-									</pre>
-								</div>
+								<>
+									<OpenApiV2SidebarContents
+										landingLink={landingLink}
+										operationLinkGroups={operationLinkGroups}
+									/>
+									{resourceLinks.length > 0 ? (
+										<>
+											<SidebarHorizontalRule />
+											<SidebarResourceLinks resourceLinks={resourceLinks} />
+										</>
+									) : null}
+								</>
 							),
 						},
 					]}
