@@ -6,9 +6,12 @@
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
 // Components
+import { OpenApiV2SidebarContents } from './components/sidebar'
+import { SidebarHorizontalRule } from '@components/sidebar/components'
+import { SidebarResourceLinks } from './components/sidebar-resource-links'
 import LandingContent from './components/landing-content'
 import OperationContent from './components/operation-content'
-import { OpenApiV2SidebarContents } from './components/sidebar'
+import SidebarBackToLink from '@components/sidebar/components/sidebar-back-to-link'
 // Types
 import type { OpenApiDocsViewV2Props } from './types'
 
@@ -30,12 +33,22 @@ export default function OpenApiDocsViewV2({
 	return (
 		<SidebarLayout
 			sidebarSlot={
-				<OpenApiV2SidebarContents
-					backToLink={backToLink}
-					landingLink={landingLink}
-					operationLinkGroups={operationLinkGroups}
-					resourceLinks={resourceLinks}
-				/>
+				<>
+					{/* Back to link, meant for navigating up a level of context */}
+					{backToLink ? (
+						<SidebarBackToLink href={backToLink.href} text={backToLink.text} />
+					) : null}
+					<OpenApiV2SidebarContents
+						landingLink={landingLink}
+						operationLinkGroups={operationLinkGroups}
+					/>
+					{resourceLinks.length > 0 ? (
+						<>
+							<SidebarHorizontalRule />
+							<SidebarResourceLinks resourceLinks={resourceLinks} />
+						</>
+					) : null}
+				</>
 			}
 			/**
 			 * TODO: implement mobile menu. May be tempting to try to re-use the data
