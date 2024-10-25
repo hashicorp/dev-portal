@@ -61,15 +61,6 @@ export default function OpenApiDocsViewV2({
 		>
 			<div style={{ padding: '24px' }}>
 				<div style={{ border: '1px solid magenta' }}>
-					{'_sidebarPlaceholder' in restProps ? (
-						<pre style={{ whiteSpace: 'pre-wrap' }}>
-							<code>
-								{JSON.stringify(restProps._sidebarPlaceholder, null, 2)}
-							</code>
-						</pre>
-					) : null}
-				</div>
-				<div style={{ border: '1px solid magenta' }}>
 					{'operationContentProps' in restProps ? (
 						<OperationContent {...restProps.operationContentProps} />
 					) : 'landingContentProps' in restProps ? (
