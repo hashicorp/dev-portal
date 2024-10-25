@@ -7,8 +7,10 @@
 import ProductDownloadsView from 'views/product-downloads-view'
 // Components
 import { DesktopClientCallout } from './components'
+import { BoundaryInstallerCallout } from './components'
 // Types
 import { DesktopClientProps } from './components/desktop-client-callout/types'
+import { BoundaryInstallerProps } from './components/boundary-installer-callout/types'
 import { ProductDownloadsViewProps } from 'views/product-downloads-view/types'
 
 /**
@@ -20,6 +22,10 @@ const SHARED_HEADINGS = {
 		id: 'desktop-client',
 		text: 'Desktop Client',
 	},
+	installer: {
+		id: 'installer',
+		text: 'Boundary Installer',
+	},
 }
 
 /**
@@ -27,15 +33,21 @@ const SHARED_HEADINGS = {
  */
 function BoundaryDownloadsView({
 	desktopClientProps,
+	boundaryInstallerProps,
 	...baseProps
 }: ProductDownloadsViewProps & {
 	desktopClientProps: DesktopClientProps
+	boundaryInstallerProps: BoundaryInstallerProps
 }) {
 	const { pageContent, ...restBaseProps } = baseProps
 	const additionalDownloadItems = [
 		{
 			title: SHARED_HEADINGS.desktopClient.text,
 			fullPath: `#${SHARED_HEADINGS.desktopClient.id}`,
+		},
+		{
+			title: SHARED_HEADINGS.installer.text,
+			fullPath: `#${SHARED_HEADINGS.installer.id}`,
 		},
 	]
 
@@ -46,10 +58,16 @@ function BoundaryDownloadsView({
 			merchandisingSlot={{
 				position: 'middle',
 				slot: (
-					<DesktopClientCallout
-						headingData={SHARED_HEADINGS.desktopClient}
-						desktopClientProps={desktopClientProps}
-					/>
+					<>
+						<DesktopClientCallout
+							headingData={SHARED_HEADINGS.desktopClient}
+							desktopClientProps={desktopClientProps}
+						/>
+						<BoundaryInstallerCallout
+							headingData={SHARED_HEADINGS.installer}
+							installerProps={boundaryInstallerProps}
+						/>
+					</>
 				),
 			}}
 		/>

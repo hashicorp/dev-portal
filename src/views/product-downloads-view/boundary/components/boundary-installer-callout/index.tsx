@@ -10,33 +10,32 @@ import MobileDownloadStandaloneLink from 'components/mobile-download-standalone-
 import Heading from 'components/heading'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
 // Types
-import { DesktopClientProps, ReleaseBuild } from './types'
+import { BoundaryInstallerProps, ReleaseBuild } from './types'
 // Local imports
 import { operatingSystemIcons } from '../'
 import { getFileExtension, humanArch } from './helpers'
 // Styles
-import s from './desktop-client-callout.module.css'
+import s from './boundary-installer.module.css'
 import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
-import { BoundaryDesktopClient } from 'views/product-downloads-view/components/downloads-section/types'
 
 /**
- * Render a callout to download the Boundary Desktop Client.
+ * Render a callout to download the Boundary Installer.
  */
-function DesktopClientCallout({
-	desktopClientProps,
+function BoundaryInstallerCallout({
+	installerProps: boundaryInstallerProps,
 	headingData,
 }: {
-	desktopClientProps: DesktopClientProps
+	installerProps: BoundaryInstallerProps
 	/** We link to this heading from the side nav, so we've lifted up its data */
 	headingData: {
 		id: string
 		text: string
 	}
 }) {
-	const { latestVersion, builds } = desktopClientProps
+	const { latestVersion, builds } = boundaryInstallerProps
 	return (
-		<Card elevation="base" className={s.card}>
+		<Card elevation="base">
 			<ContentWithPermalink
 				className={s.headingContainer}
 				id={headingData.id}
@@ -74,4 +73,4 @@ function DesktopClientCallout({
 	)
 }
 
-export { DesktopClientCallout }
+export { BoundaryInstallerCallout }

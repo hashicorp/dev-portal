@@ -18,3 +18,4 @@ export interface DownloadsSectionProps {
 export type InstallPageAnchorHeading = 'Next-steps' | 'Release-information'
 
 export type BoundaryDesktopClient = 'Desktop-client'
+export type BoundaryInstaller = 'Boundary-installer'
