@@ -5,13 +5,7 @@
 
 import type { OpenAPIV3 } from 'openapi-types'
 import { schemaTransformTitle } from './schema-transform-title'
-
-/**
- * Replaces "HashiCorp Cloud Platform" with "HCP" in the given string.
- */
-function shortenHcp(s: string): string {
-	return s.replace('HashiCorp Cloud Platform', 'HCP')
-}
+import { shortenHcp } from '../utils/shorten-hcp'
 
 /**
  * Given an OpenAPI schema document,

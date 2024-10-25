@@ -85,6 +85,7 @@ export async function getStaticProps({
 		isActive: !operationSlug,
 	}
 	const operationLinkGroups = operationGroups.map((group) => ({
+		// Note: we word break to avoid long strings breaking the sidebar layout
 		text: wordBreakCamelCase(group.key),
 		items: group.items.map(({ operationId }) => {
 			return {
