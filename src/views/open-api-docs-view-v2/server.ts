@@ -15,6 +15,7 @@ import {
 } from './utils/get-operation-objects'
 import { wordBreakCamelCase } from './utils/word-break-camel-case'
 import { groupItemsByKey } from './utils/group-items-by-key'
+import { cachedGetProductData } from 'lib/get-product-data'
 // Types
 import type {
 	OpenApiDocsViewV2Props,
@@ -40,6 +41,11 @@ export async function getStaticProps({
 	backToLink,
 	resourceLinks = [],
 }: OpenApiDocsViewV2Config): Promise<OpenApiDocsViewV2Props> {
+	/**
+	 * Grab product data for this context
+	 */
+	const productData = cachedGetProductData(theme)
+
 	/**
 	 * Fetch, parse, and validate the OpenAPI schema for this version.
 	 */
@@ -104,6 +110,7 @@ export async function getStaticProps({
 		backToLink,
 		landingLink,
 		operationLinkGroups,
+		productData,
 		resourceLinks: resourceLinks.map((item) => {
 			return { ...item, isExternal: isAbsoluteUrl(item.href) }
 		}),

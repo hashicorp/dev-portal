@@ -6,10 +6,15 @@
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
 // Components
+import {
+	mobileMenuLevelMain,
+	mobileMenuLevelProduct,
+} from '@components/mobile-menu-levels/level-components'
 import { OpenApiV2SidebarContents } from './components/sidebar'
 import { SidebarHorizontalRule } from '@components/sidebar/components'
 import { SidebarResourceLinks } from './components/sidebar-resource-links'
 import LandingContent from './components/landing-content'
+import MobileMenuLevels from '@components/mobile-menu-levels'
 import OperationContent from './components/operation-content'
 import SidebarBackToLink from '@components/sidebar/components/sidebar-back-to-link'
 // Types
@@ -27,6 +32,7 @@ export default function OpenApiDocsViewV2({
 	landingLink,
 	operationLinkGroups,
 	resourceLinks,
+	productData,
 	...restProps
 }: OpenApiDocsViewV2Props) {
 	//
@@ -57,7 +63,30 @@ export default function OpenApiDocsViewV2({
 			 * present the sidebar, without having to disentangle all the complexity
 			 * of the mobile menu quite yet).
 			 */
-			mobileMenuSlot={null}
+			mobileMenuSlot={
+				<MobileMenuLevels
+					levels={[
+						mobileMenuLevelMain(),
+						mobileMenuLevelProduct(productData),
+						{
+							levelButtonText: 'Previous',
+							content: (
+								<div style={{ border: '1px solid magenta' }}>
+									<pre>
+										<code>
+											{JSON.stringify(
+												{ placeholderFor: 'openApiMobileMenu' },
+												null,
+												2
+											)}
+										</code>
+									</pre>
+								</div>
+							),
+						},
+					]}
+				/>
+			}
 		>
 			<div style={{ padding: '24px' }}>
 				<div style={{ border: '1px solid magenta' }}>
