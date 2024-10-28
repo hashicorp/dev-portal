@@ -12,8 +12,7 @@ import { generateGetStaticProps } from 'views/product-downloads-view/server'
 import { GetStaticProps } from 'next'
 import { ProductData } from 'types/products'
 import { ProductDownloadsViewStaticProps } from 'views/product-downloads-view/types'
-import { DesktopClientProps } from './components/desktop-client-callout/types'
-import { BoundaryInstallerProps } from './components/boundary-installer-callout/types'
+import { InstallProps } from './components/install-callout/types'
 
 /**
  * The Desktop Client CTA uses separate release data, fetched with this slug.
@@ -30,8 +29,8 @@ const BOUNDARY_INSTALLER_RELEASE_SLUG = 'boundary-installer'
  * with props for the desktop client CTA.
  */
 interface BoundaryDownloadsPageProps extends ProductDownloadsViewStaticProps {
-	desktopClientProps: DesktopClientProps
-	boundaryInstallerProps: BoundaryInstallerProps
+	desktopClientProps: InstallProps
+	boundaryInstallerProps: InstallProps
 }
 
 /**
@@ -59,7 +58,7 @@ const getStaticProps: GetStaticProps<BoundaryDownloadsPageProps> = async () => {
 	 */
 	const { releases: desktopReleases, latestVersion: latestDesktopVersion } =
 		desktopReleaseProps
-	const desktopClientProps: DesktopClientProps = {
+	const desktopClientProps: InstallProps = {
 		latestVersion: latestDesktopVersion,
 		builds: desktopReleases.versions[latestDesktopVersion].builds,
 	}
@@ -77,7 +76,7 @@ const getStaticProps: GetStaticProps<BoundaryDownloadsPageProps> = async () => {
 	 */
 	const { releases: installerReleases, latestVersion: latestInstallerVersion } =
 		installerReleaseProps
-	const boundaryInstallerProps: BoundaryInstallerProps = {
+	const boundaryInstallerProps: InstallProps = {
 		latestVersion: latestInstallerVersion,
 		builds: installerReleases.versions[latestInstallerVersion].builds,
 	}

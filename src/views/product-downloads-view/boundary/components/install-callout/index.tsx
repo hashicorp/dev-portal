@@ -10,32 +10,36 @@ import MobileDownloadStandaloneLink from 'components/mobile-download-standalone-
 import Heading from 'components/heading'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
 // Types
-import { BoundaryInstallerProps, ReleaseBuild } from './types'
+import { InstallProps, ReleaseBuild } from './types'
 // Local imports
-import { operatingSystemIcons } from '../'
-import { getFileExtension, humanArch } from './helpers'
+import { operatingSystemIcons } from '..'
+import { getFileExtension, humanArch } from '../helpers'
 // Styles
-import s from './boundary-installer.module.css'
+import s from './install-callout.module.css'
 import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
+import { HTMLAttributes, ReactNode } from 'react'
+import { ReactElement } from 'react-markdown/lib/react-markdown'
 
 /**
- * Render a callout to download the Boundary Installer.
+ * Render a callout to download the Boundary Desktop Client.
  */
-function BoundaryInstallerCallout({
-	installerProps: boundaryInstallerProps,
+function InstallCallout({
+	customInstallProps,
 	headingData,
+	className,
 }: {
-	installerProps: BoundaryInstallerProps
+	customInstallProps: InstallProps
 	/** We link to this heading from the side nav, so we've lifted up its data */
 	headingData: {
 		id: string
 		text: string
 	}
+	className?: string
 }) {
-	const { latestVersion, builds } = boundaryInstallerProps
+	const { latestVersion, builds } = customInstallProps
 	return (
-		<Card elevation="base">
+		<Card elevation="base" className={className}>
 			<ContentWithPermalink
 				className={s.headingContainer}
 				id={headingData.id}
@@ -73,4 +77,4 @@ function BoundaryInstallerCallout({
 	)
 }
 
-export { BoundaryInstallerCallout }
+export { InstallCallout }

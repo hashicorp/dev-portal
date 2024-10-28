@@ -28,3 +28,7 @@
 		grid-template-columns: 16px 1fr 90px;
 	}
 }
+
+.lastCard {
+	margin-top: 32px;
+}

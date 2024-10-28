@@ -6,13 +6,11 @@
 // View
 import ProductDownloadsView from 'views/product-downloads-view'
 // Components
-import { DesktopClientCallout } from './components'
-import { BoundaryInstallerCallout } from './components'
+import { InstallCallout } from './components'
 // Types
-import { DesktopClientProps } from './components/desktop-client-callout/types'
-import { BoundaryInstallerProps } from './components/boundary-installer-callout/types'
+import { InstallProps } from './components/install-callout/types'
 import { ProductDownloadsViewProps } from 'views/product-downloads-view/types'
-
+import s from './download.module.css'
 /**
  * Matching heading data is needed between the sidebar nav links and the
  * heading `id` itself. We declare it here so we can share it.
@@ -36,8 +34,8 @@ function BoundaryDownloadsView({
 	boundaryInstallerProps,
 	...baseProps
 }: ProductDownloadsViewProps & {
-	desktopClientProps: DesktopClientProps
-	boundaryInstallerProps: BoundaryInstallerProps
+	desktopClientProps: InstallProps
+	boundaryInstallerProps: InstallProps
 }) {
 	const { pageContent, ...restBaseProps } = baseProps
 	const additionalDownloadItems = [
@@ -59,13 +57,14 @@ function BoundaryDownloadsView({
 				position: 'middle',
 				slot: (
 					<>
-						<DesktopClientCallout
+						<InstallCallout
 							headingData={SHARED_HEADINGS.desktopClient}
-							desktopClientProps={desktopClientProps}
+							customInstallProps={desktopClientProps}
 						/>
-						<BoundaryInstallerCallout
+						<InstallCallout
+							className={s.lastCard}
 							headingData={SHARED_HEADINGS.installer}
-							installerProps={boundaryInstallerProps}
+							customInstallProps={boundaryInstallerProps}
 						/>
 					</>
 				),
