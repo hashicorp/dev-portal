@@ -43,8 +43,7 @@
 			],
 			"featuredCollectionSlugs": [
 				"vault/get-started",
-				"vault/get-started-hcp-vault-dedicated",
-				"cloud/get-started-hcp-vault-secrets"
+				"vault/get-started-hcp-vault-dedicated"
 			],
 			"certificationProgram": {
 				"slug": "security-automation",
