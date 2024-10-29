@@ -42,8 +42,7 @@
 				}
 			],
 			"featuredCollectionSlugs": [
-				"vault/getting-started",
-				"vault/getting-started-ui",
+				"vault/get-started",
 				"vault/get-started-hcp-vault-dedicated"
 			],
 			"certificationProgram": {
