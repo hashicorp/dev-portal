@@ -52,6 +52,27 @@ This will give you a development server running on [localhost:3000](http://local
 
 > **Note**: Historically, the `.io` sites were served from this repository. They have been migrated into [the hashicorp/web repository](https://github.com/hashicorp/web). See [this RFC](https://docs.google.com/document/d/1iLx2jL09YkLbhSXdK9ScSedwSiujYDEa524FejOAnZM/) for full context.
 
+### Running in a Docker container
+
+If using `npm` isn't working for you, you can try running the website through the Docker container instead.
+
+1. Build the docker container and tag it with something memorable, e.g. `dev-portal`:
+
+   ```shell-session
+   $ docker build -t dev-portal .
+   [+] Building 115.2s (16/16) FINISHED
+   => => naming to docker.io/library/dev-portal 
+   ```
+1. Run the container, making sure to export port 3000 and mount the local source files into it:
+
+   ```shell-session
+   $ docker run -it -v $(pwd)/src:/app/website-preview/src -p 3000:3000 dev-portal
+   ...
+   > Ready on http://localhost:3000
+   ```
+
+Now you can view the website on http://localhost:3000 and any local edits will be reflected on the rendered page.
+
 ### Installing Recommended VS Code Extensions
 
 In the `.vscode` directory, you'll find [an `extensions.json` file](./.vscode/extensions.json) that lists recommended VS Code extensions to use for this project.
