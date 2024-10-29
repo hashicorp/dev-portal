@@ -36,7 +36,3 @@
 	font-weight: var(--token-typography-font-weight-bold);
 	margin: 0;
 }
-
-.button {
-	width: fit-content;
-}

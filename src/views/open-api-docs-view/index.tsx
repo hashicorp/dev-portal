@@ -90,7 +90,6 @@ function OpenApiDocsView({
 						}
 					/>
 					<StandaloneLink
-						className={s.button}
 						text="Download Spec"
 						icon={<IconDownload16 />}
 						iconPosition="leading"
