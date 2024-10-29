@@ -12,6 +12,9 @@ import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-lin
 import VersionSwitcher from 'components/version-switcher'
 import OpenApiSidebarContents from 'components/open-api-sidebar-contents'
 import { ApiDocsVersionAlert } from 'views/api-docs-view/components'
+import StandaloneLink from '@components/standalone-link'
+import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
+
 // Local
 import {
 	OpenApiDocsMobileMenuLevels,
@@ -40,6 +43,7 @@ function OpenApiDocsView({
 	versionSwitcherProps,
 	isVersionedUrl,
 	versionAlert,
+	schemaFileString,
 }: OpenApiDocsViewProps) {
 	return (
 		<SidebarLayout
@@ -84,6 +88,16 @@ function OpenApiDocsView({
 								<DescriptionMdx mdxRemoteProps={descriptionMdx} />
 							) : null
 						}
+					/>
+					<StandaloneLink
+						className={s.button}
+						text="Download Spec"
+						icon={<IconDownload16 />}
+						iconPosition="leading"
+						download="hcp.swagger.json"
+						href={`data:text/json;charset=utf-8,${encodeURIComponent(
+							schemaFileString
+						)}`}
 					/>
 				</div>
 				<div className={s.operationsSection}>
