@@ -12,7 +12,7 @@ import { generateGetStaticProps } from 'views/product-downloads-view/server'
 import { GetStaticProps } from 'next'
 import { ProductData } from 'types/products'
 import { ProductDownloadsViewStaticProps } from 'views/product-downloads-view/types'
-import { DesktopClientProps } from './components/desktop-client-callout/types'
+import { InstallProps } from './components/install-callout/types'
 
 /**
  * The Desktop Client CTA uses separate release data, fetched with this slug.
@@ -20,11 +20,17 @@ import { DesktopClientProps } from './components/desktop-client-callout/types'
 const DESKTOP_CLIENT_RELEASE_SLUG = 'boundary-desktop'
 
 /**
+ * The Boundary installer CTA uses separate release data, fetched with this slug.
+ */
+const BOUNDARY_INSTALLER_RELEASE_SLUG = 'boundary-installer'
+
+/**
  * Boundary downloads static props extend the base product downloads view props,
  * with props for the desktop client CTA.
  */
 interface BoundaryDownloadsPageProps extends ProductDownloadsViewStaticProps {
-	desktopClientProps: DesktopClientProps
+	desktopClientProps: InstallProps
+	boundaryInstallerProps: InstallProps
 }
 
 /**
@@ -43,23 +49,46 @@ const getStaticProps: GetStaticProps<BoundaryDownloadsPageProps> = async () => {
 	 * Get additional release data for the Boundary Desktop Client,
 	 * which we need to display the download CTA in the "merchandising" slot.
 	 */
-	const { props: releaseProps } = await generateReleaseStaticProps(
+	const { props: desktopReleaseProps } = await generateReleaseStaticProps(
 		DESKTOP_CLIENT_RELEASE_SLUG
 	)
 	/**
 	 * For our Desktop Client CTA,
 	 * we only need the latest version number & associated builds.
 	 */
-	const { releases, latestVersion } = releaseProps
-	const desktopClientProps: DesktopClientProps = {
-		latestVersion,
-		builds: releases.versions[latestVersion].builds,
+	const { releases: desktopReleases, latestVersion: latestDesktopVersion } =
+		desktopReleaseProps
+	const desktopClientProps: InstallProps = {
+		latestVersion: latestDesktopVersion,
+		builds: desktopReleases.versions[latestDesktopVersion].builds,
+	}
+
+	/**
+	 * Get additional release data for the Boundary Installer,
+	 * which we need to display the download CTA below the Desktop Client slot.
+	 */
+	const { props: installerReleaseProps } = await generateReleaseStaticProps(
+		BOUNDARY_INSTALLER_RELEASE_SLUG
+	)
+	/**
+	 * For our Boundary Installer CTA,
+	 * we only need the latest version number & associated builds.
+	 */
+	const { releases: installerReleases, latestVersion: latestInstallerVersion } =
+		installerReleaseProps
+	const boundaryInstallerProps: InstallProps = {
+		latestVersion: latestInstallerVersion,
+		builds: installerReleases.versions[latestInstallerVersion].builds,
 	}
 
 	/**
 	 * Return the combined baseProps and Desktop Client data
 	 */
-	const finalProps = { ...baseProps, desktopClientProps }
+	const finalProps = {
+		...baseProps,
+		desktopClientProps,
+		boundaryInstallerProps,
+	}
 	return { props: finalProps, ...restBaseResult }
 }
 
