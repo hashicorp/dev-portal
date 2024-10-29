@@ -3,10 +3,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Utils
+import { getContentApiBaseUrl } from 'lib/unified-docs-migration-utils'
 // Types
 import type { VersionSelectItem } from '../loaders/remote-content'
 
-const CONTENT_API_URL = process.env.MKTG_CONTENT_DOCS_API
 const VERSIONS_ENDPOINT = '/api/content-versions'
 
 /**
@@ -44,9 +45,16 @@ export async function getValidVersions(
 ): Promise<VersionSelectItem[]> {
 	// If versions are falsy or empty, we can skip the API calls and return []
 	if (!versions || versions.length === 0) return []
+	/**
+	 * We are currently migrating away from our existing content API, to a new
+	 * content API backed by a unified documentation repository. If the provided
+	 * `productSlugForLoader` has been flagged as migrated to unified docs, then
+	 * we use the new unified docs API to fetch known versions.
+	 */
+	const contentApiBaseUrl = getContentApiBaseUrl(productSlugForLoader)
 	try {
 		// Build the URL to fetch known versions of this document
-		const validVersionsUrl = new URL(VERSIONS_ENDPOINT, CONTENT_API_URL)
+		const validVersionsUrl = new URL(VERSIONS_ENDPOINT, contentApiBaseUrl)
 		validVersionsUrl.searchParams.set('product', productSlugForLoader)
 		validVersionsUrl.searchParams.set('fullPath', fullPath)
 		// Fetch known versions of this document

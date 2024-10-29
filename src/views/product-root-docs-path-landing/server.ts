@@ -108,6 +108,10 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 	const currentRootDocsPath = product.rootDocsPaths.find(
 		(rootDocsPath: RootDocsPath) => rootDocsPath.path === basePath
 	)
+
+	const basePathForLoader =
+		currentRootDocsPath.basePathForLoader || currentRootDocsPath.path
+
 	const {
 		includeMDXSource = false,
 		name,
@@ -129,6 +133,7 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 			product,
 			productSlugForLoader,
 			basePath,
+			basePathForLoader,
 			baseName,
 		})
 	const getStaticPropsResult = await generatedGetStaticProps({

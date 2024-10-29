@@ -165,6 +165,12 @@ export async function getStaticProps({
 			navResourceItems,
 			breadcrumbLinks,
 			statusIndicatorConfig,
+			versionAlert: {
+				isVersionedUrl,
+				currentVersion: targetVersion,
+				latestStableVersion: defaultVersion,
+				basePath,
+			},
 		},
 	}
 }
