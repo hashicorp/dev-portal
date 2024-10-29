@@ -12,7 +12,7 @@ export interface ReleaseBuild {
 	arch: string
 }
 
-export interface BoundaryInstallerProps {
+export interface InstallProps {
 	latestVersion: string
 	builds: ReleaseBuild[]
 }
