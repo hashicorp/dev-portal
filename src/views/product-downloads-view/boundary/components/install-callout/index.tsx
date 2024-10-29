@@ -18,8 +18,6 @@ import { getFileExtension, humanArch } from '../helpers'
 import s from './install-callout.module.css'
 import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
-import { HTMLAttributes, ReactNode } from 'react'
-import { ReactElement } from 'react-markdown/lib/react-markdown'
 
 /**
  * Render a callout to download the Boundary Desktop Client.
@@ -27,7 +25,7 @@ import { ReactElement } from 'react-markdown/lib/react-markdown'
 function InstallCallout({
 	customInstallProps,
 	headingData,
-	className,
+	cardClassName,
 }: {
 	customInstallProps: InstallProps
 	/** We link to this heading from the side nav, so we've lifted up its data */
@@ -35,11 +33,11 @@ function InstallCallout({
 		id: string
 		text: string
 	}
-	className?: string
+	cardClassName?: string
 }) {
 	const { latestVersion, builds } = customInstallProps
 	return (
-		<Card elevation="base" className={className}>
+		<Card elevation="base" className={cardClassName}>
 			<ContentWithPermalink
 				className={s.headingContainer}
 				id={headingData.id}

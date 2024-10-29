@@ -62,7 +62,7 @@ function BoundaryDownloadsView({
 							customInstallProps={desktopClientProps}
 						/>
 						<InstallCallout
-							className={s.lastCard}
+							cardClassName={s.lastCard}
 							headingData={SHARED_HEADINGS.installer}
 							customInstallProps={boundaryInstallerProps}
 						/>
