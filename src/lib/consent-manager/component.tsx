@@ -20,8 +20,29 @@ type ConsentManagerProps = {
 	gtmId: string
 }
 export const ConsentManager = ({ gtmId }: ConsentManagerProps) => {
+	const STYLE_ID = 'dg-consent-custom-style'
+
 	useEffect(() => {
 		const cleanupFn = onDatagrailMount(() => {
+			const styleNode = document.createElement('style')
+			styleNode.id = STYLE_ID
+			styleNode.innerHTML = `
+			/*
+				Hack to provide custom styles to the consent banner.
+				This method is necessary since the consent banner is loaded in a shadow DOM.
+				docs: https://docs.datagrail.io/docs/consent/consent-banner-customization
+			*/
+
+			:host(.dg-consent-banner) .dg-main-content {
+				overflow-y: auto;
+			}
+			.language-dropdown-menu {
+				overflow: auto;
+				color-scheme: light;
+			}
+			`
+			document.head.appendChild(styleNode)
+
 			if (!hasConfiguredConsent()) {
 				showBanner()
 			}
@@ -43,6 +64,10 @@ export const ConsentManager = ({ gtmId }: ConsentManagerProps) => {
 		return () => {
 			cleanupFn()
 			removeDatagrailEventListeners()
+			const styleNode = document.getElementById(STYLE_ID)
+			if (styleNode) {
+				styleNode.remove()
+			}
 		}
 	}, [])
 
