@@ -22,6 +22,10 @@ function addClient(id: string, res: ClientRes): void {
 }
 
 function removeClient(id: string): void {
+	if (!clients.length) {
+		return
+	}
+
 	const index = clients.findIndex((client) => client.id === id)
 	if (index !== -1) {
 		clients.splice(index, 1)
