@@ -58,7 +58,7 @@ const BaseLayout = ({
 	useScrollPercentageAnalytics()
 	const [showSkipLink, setShowSkipLink] = useState(false)
 
-	if (process.env.NODE_ENV === 'development') {
+	if (process.env.VERCEL_ENV === 'development') {
 		useEffect(() => {
 			const clientId = crypto.randomUUID()
 			const eventSource = new EventSource(`/api/refresh?id=${clientId}`)
