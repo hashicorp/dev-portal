@@ -6,7 +6,7 @@
 // Third-party imports
 import classNames from 'classnames'
 import AlertBanner from '@hashicorp/react-alert-banner'
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes, useEffect, useState } from 'react'
 
 // HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
@@ -57,6 +57,34 @@ const BaseLayout = ({
 	usePostHogPageAnalytics()
 	useScrollPercentageAnalytics()
 	const [showSkipLink, setShowSkipLink] = useState(false)
+
+	if (process.env.NODE_ENV === 'development') {
+		useEffect(() => {
+			const clientId = crypto.randomUUID()
+			const eventSource = new EventSource(`/api/refresh?id=${clientId}`)
+
+			eventSource.onopen = () => {
+				console.log(`Reload Client ${clientId} Connected`)
+			}
+
+			eventSource.onmessage = (event) => {
+				const data = event.data && JSON.parse(event?.data)
+
+				if (data.reload) {
+					console.log('Reload Client Reloading Page')
+					window.location.reload()
+				}
+			}
+
+			eventSource.onerror = () => {
+				eventSource.close()
+			}
+
+			return () => {
+				eventSource.close()
+			}
+		}, [])
+	}
 
 	return (
 		<CommandBarProvider>
