@@ -5,14 +5,19 @@
 
 import { NextRequest } from 'next/server'
 
+type ClientRes = {
+	write: (message: string) => void
+	end: () => void
+}
+
 type Client = {
 	id: string
-	res: any
+	res: ClientRes
 }
 
 const clients: Client[] = []
 
-function addClient(id: string, res: any): void {
+function addClient(id: string, res: ClientRes): void {
 	clients.push({ id, res })
 }
 
