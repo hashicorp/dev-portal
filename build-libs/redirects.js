@@ -240,7 +240,8 @@ function splitRedirectsByType(redirects) {
 		const isGlobRedirect = ['(', ')', '{', '}', ':', '*', '+', '?'].some(
 			(char) => redirect.source.includes(char)
 		)
-		const hasCondition = redirect.has?.length > 0
+
+		const hasCondition = redirect.has && redirect.has.length > 0
 		if (isGlobRedirect || hasCondition) {
 			complexRedirects.push(redirect)
 		} else {
