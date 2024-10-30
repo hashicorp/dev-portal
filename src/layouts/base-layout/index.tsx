@@ -68,13 +68,16 @@ const BaseLayout = ({
 			}
 
 			eventSource.onmessage = (event) => {
-				const data = event.data && JSON.parse(event?.data)
-
-				if (data.reload) {
-					console.log('Reload Client Reloading Page')
-					window.location.reload()
+				try {
+				  const data = event.data && JSON.parse(event?.data)
+  
+				  if (data.reload) {
+					  console.log('Reload Client Reloading Page')
+					  window.location.reload()
+				  }
+				} catch (err) {
+					console.error('Error parsing message data:', err);
 				}
-			}
 
 			eventSource.onerror = () => {
 				eventSource.close()
