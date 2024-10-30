@@ -22,7 +22,8 @@
 			"@build-libs/*": ["../build-libs/*"],
 			"@components/*": ["components/*"]
 		},
-		"types": ["vitest/globals", "@testing-library/jest-dom"]
+		"types": ["vitest/globals", "@testing-library/jest-dom"],
+		"strictNullChecks": false
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules", "scripts/migrate-io/templates"]
