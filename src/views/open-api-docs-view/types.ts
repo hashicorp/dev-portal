@@ -176,6 +176,11 @@ export interface OpenApiDocsViewProps {
 	 * Optional. If provided, a version alert will be shown.
 	 */
 	versionAlert?: ApiDocsVersionAlertProps
+
+	/**
+	 * File string for downloading api-docs spec file
+	 */
+	schemaFileString: string
 }
 
 /**

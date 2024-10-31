@@ -171,6 +171,7 @@ export async function getStaticProps({
 				latestStableVersion: defaultVersion,
 				basePath,
 			},
+			schemaFileString,
 		},
 	}
 }
