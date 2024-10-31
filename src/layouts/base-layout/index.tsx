@@ -58,7 +58,10 @@ const BaseLayout = ({
 	useScrollPercentageAnalytics()
 	const [showSkipLink, setShowSkipLink] = useState(false)
 
-	if (process.env.VERCEL_ENV === 'development' && process.env.HASHI_ENV === 'unified-docs-sandbox') {
+	if (
+		process.env.VERCEL_ENV === 'development' &&
+		process.env.HASHI_ENV === 'unified-docs-sandbox'
+	) {
 		useEffect(() => {
 			const clientId = crypto.randomUUID()
 			const eventSource = new EventSource(`/api/refresh?id=${clientId}`)
@@ -69,15 +72,19 @@ const BaseLayout = ({
 
 			eventSource.onmessage = (event) => {
 				try {
-				  const data = event.data && JSON.parse(event?.data)
-  
-				  if (data.reload) {
-					  console.log('Reload Client Reloading Page')
-					  window.location.reload()
-				  }
+					const data = event.data && JSON.parse(event?.data)
+
+					if (data.reload) {
+						console.log('Reload Client Reloading Page')
+						// this is a naive approach to reloading the page data,
+						// we should be sending the url that changed and
+						// only reload if thats the current page
+						window.location.reload()
+					}
 				} catch (err) {
-					console.error('Error parsing message data:', err);
+					console.error('Error parsing message data:', err)
 				}
+			}
 
 			eventSource.onerror = () => {
 				eventSource.close()
