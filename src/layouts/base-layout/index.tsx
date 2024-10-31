@@ -59,7 +59,7 @@ const BaseLayout = ({
 	const [showSkipLink, setShowSkipLink] = useState(false)
 
 	if (
-		process.env.VERCEL_ENV === 'development' &&
+		process.env.NODE_ENV === 'development' &&
 		process.env.HASHI_ENV === 'unified-docs-sandbox'
 	) {
 		useEffect(() => {
