@@ -49,7 +49,6 @@
  */
 function checkIsMigratedToUnifiedDocs(repoName: string): boolean {
 	const migratedRepos = __config.flags?.unified_docs_migrated_repos || []
-	console.log({ migratedRepos })
 	return migratedRepos.indexOf(repoName) !== -1
 }
 
