@@ -2,7 +2,6 @@
 	"featuredTutorialsSlugs": [
 		"vault/getting-started-intro",
 		"vault/learn-ui",
-		"cloud/vault-introduction",
 		"vault/production-hardening",
 		"vault/raft-reference-architecture",
 		"vault/raft-deployment-guide"

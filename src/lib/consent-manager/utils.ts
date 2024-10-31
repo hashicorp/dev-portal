@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { DatagrailEvent, DatagrailPreferencesPayload } from './types'
 import Cookies from 'js-cookie'
 
@@ -38,21 +43,6 @@ const MOUNT_TIMEOUT_MS = 5000
 
 export const onDatagrailMount = (callback: () => void): (() => void) => {
 	if (!isOnClient()) return () => {}
-
-	const styleNode = document.createElement('style')
-	styleNode.id = 'dg-consent-custom-style'
-	styleNode.innerHTML = `
-  /*
-    Hack to provide custom styles to the consent banner.
-	This method is necessary since the consent banner is loaded in a shadow DOM.
-	docs: https://docs.datagrail.io/docs/consent/consent-banner-customization
-  */
-
-	:host(.dg-consent-banner) .dg-main-content {
-		overflow-y: auto;
-	}
-	`
-	document.head.appendChild(styleNode)
 
 	// if datagrail has already mounted, we can invoke the callback immediately
 	if (datagrailHasMounted()) {
