@@ -41,7 +41,7 @@ function sendMessageToAllClients(obj: any): void {
 
 export async function POST() {
 	if (
-		process.env.VERCEL_ENV !== 'development' ||
+		process.env.NODE_ENV !== 'development' ||
 		process.env.HASHI_ENV !== 'unified-docs-sandbox'
 	) {
 		return new Response('Not Found', { status: 404 })
@@ -53,7 +53,7 @@ export async function POST() {
 
 export async function GET(req: NextRequest) {
 	if (
-		process.env.VERCEL_ENV !== 'development' ||
+		process.env.NODE_ENV !== 'development' ||
 		process.env.HASHI_ENV !== 'unified-docs-sandbox'
 	) {
 		return new Response('Not Found', { status: 404 })
