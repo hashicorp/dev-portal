@@ -4,8 +4,14 @@
  */
 
 import { getStaticProps } from 'views/open-api-docs-view-v2/server'
+// Utils
+import { getOperationGroupKeyFromPath } from 'views/open-api-docs-view-v2/utils/get-operation-group-key-from-path'
+import { schemaTransformShortenHcp } from 'views/open-api-docs-view-v2/schema-transforms/schema-transform-shorten-hcp'
 // Types
-import type { OpenApiDocsViewV2Props } from 'views/open-api-docs-view-v2/types'
+import type {
+	OpenApiDocsViewV2Props,
+	OpenApiDocsViewV2Config,
+} from 'views/open-api-docs-view-v2/types'
 import type { OpenApiPreviewV2InputValues } from '../components/open-api-preview-inputs'
 
 /**
@@ -28,10 +34,44 @@ export default async function getPropsFromPreviewData(
 	if (!previewData) {
 		return null
 	}
-	// Use the incoming preview data to generate static props for the view
-	return await getStaticProps({
+	// Set up transformers for the spec. Typically we want to avoid these,
+	// and prefer to have content updates made at the content source... but
+	// some shims are used often enough that they feel worth including in the
+	// preview too. Namely, shortening to `HCP` in the spec title.
+	const schemaTransforms = [schemaTransformShortenHcp]
+	// Build page configuration based on the input values
+	const pageConfig: OpenApiDocsViewV2Config = {
 		basePath: '/open-api-docs-preview-v2',
 		operationSlug,
 		openApiJsonString: previewData.openApiJsonString,
-	})
+		schemaTransforms,
+		// A generic set of resource links, as a preview of what typically
+		// gets added to an OpenAPI docs page.
+		resourceLinks: [
+			{
+				text: 'Tutorial Library',
+				href: '/tutorials/library',
+			},
+			{
+				text: 'Certifications',
+				href: '/certifications',
+			},
+			{
+				text: 'Community',
+				href: 'https://discuss.hashicorp.com/',
+			},
+			{
+				text: 'Support',
+				href: 'https://www.hashicorp.com/customer-success',
+			},
+		],
+	}
+	// If the user has requested to group operations by path, we'll do so
+	// by providing a custom `getOperationGroupKey` function. If this is omitted,
+	// we go with the default behaviour of grouping operations based on `tag`.
+	if (previewData.groupOperationsByPath) {
+		pageConfig.getOperationGroupKey = getOperationGroupKeyFromPath
+	}
+	// Use the page config to generate static props for the view
+	return await getStaticProps(pageConfig)
 }

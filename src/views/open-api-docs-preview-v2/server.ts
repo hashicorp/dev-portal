@@ -27,7 +27,7 @@ const IS_PRODUCTION = process.env.VERCEL_ENV === 'production'
  * where NextJS decides to start on a different port (eg if 3000 is in use),
  * but I couldn't find a way to detect that, and for now, this seems sufficient.
  */
-const IS_VERCEL_DEPLOY = process.env.VERCEL_ENV !== 'development'
+const IS_VERCEL_DEPLOY = typeof process.env.VERCEL_ENV === 'string'
 const BASE_URL = IS_VERCEL_DEPLOY
 	? `https://${process.env.VERCEL_URL}`
 	: 'http://localhost:3000'

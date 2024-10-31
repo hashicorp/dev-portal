@@ -6,8 +6,12 @@
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
 // Components
+import { OpenApiV2SidebarContents } from './components/sidebar'
+import { SidebarHorizontalRule } from '@components/sidebar/components'
+import { SidebarResourceLinks } from './components/sidebar-resource-links'
 import LandingContent from './components/landing-content'
 import OperationContent from './components/operation-content'
+import SidebarBackToLink from '@components/sidebar/components/sidebar-back-to-link'
 // Types
 import type { OpenApiDocsViewV2Props } from './types'
 
@@ -19,40 +23,32 @@ import type { OpenApiDocsViewV2Props } from './types'
  */
 export default function OpenApiDocsViewV2({
 	basePath,
-	navItems,
+	backToLink,
+	landingLink,
+	operationLinkGroups,
+	resourceLinks,
 	...restProps
 }: OpenApiDocsViewV2Props) {
+	//
 	return (
 		<SidebarLayout
 			sidebarSlot={
-				/**
-				 * TODO: refine generation of nav items, and then render them properly,
-				 * for now just messily rendering some links to enable navigation.
-				 *
-				 * Note: `next/link` will work in prod, since we'll be doing
-				 * `getStaticProps`... but in the preview tool, `next/link` seems to
-				 * make the preview experience janky, seemingly requiring reloads after
-				 * each navigation, maybe related to use of getServerSideProps? Not yet
-				 * sure how to resolve this, there's probably some clever solution that
-				 * might be possible...
-				 */
-				<ul style={{ margin: 0, border: '1px solid magenta' }}>
-					{navItems.map((navItem) => {
-						if (!('fullPath' in navItem)) {
-							return null
-						}
-						return (
-							<li key={navItem.fullPath}>
-								<a
-									href={navItem.fullPath}
-									style={{ color: navItem.isActive ? 'white' : undefined }}
-								>
-									{navItem.title}
-								</a>
-							</li>
-						)
-					})}
-				</ul>
+				<>
+					{/* Back to link, meant for navigating up a level of context */}
+					{backToLink ? (
+						<SidebarBackToLink href={backToLink.href} text={backToLink.text} />
+					) : null}
+					<OpenApiV2SidebarContents
+						landingLink={landingLink}
+						operationLinkGroups={operationLinkGroups}
+					/>
+					{resourceLinks.length > 0 ? (
+						<>
+							<SidebarHorizontalRule />
+							<SidebarResourceLinks resourceLinks={resourceLinks} />
+						</>
+					) : null}
+				</>
 			}
 			/**
 			 * TODO: implement mobile menu. May be tempting to try to re-use the data
