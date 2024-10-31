@@ -6,7 +6,7 @@
 // Third-party imports
 import classNames from 'classnames'
 import AlertBanner from '@hashicorp/react-alert-banner'
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes, useEffect, useState } from 'react'
 
 // HashiCorp imports
 import usePageviewAnalytics from '@hashicorp/platform-analytics'
@@ -57,6 +57,44 @@ const BaseLayout = ({
 	usePostHogPageAnalytics()
 	useScrollPercentageAnalytics()
 	const [showSkipLink, setShowSkipLink] = useState(false)
+
+	if (
+		process.env.VERCEL_ENV === 'development' &&
+		process.env.HASHI_ENV === 'unified-docs-sandbox'
+	) {
+		useEffect(() => {
+			const clientId = crypto.randomUUID()
+			const eventSource = new EventSource(`/api/refresh?id=${clientId}`)
+
+			eventSource.onopen = () => {
+				console.log(`Reload Client ${clientId} Connected`)
+			}
+
+			eventSource.onmessage = (event) => {
+				try {
+					const data = event.data && JSON.parse(event?.data)
+
+					if (data.reload) {
+						console.log('Reload Client Reloading Page')
+						// this is a naive approach to reloading the page data,
+						// we should be sending the url that changed and
+						// only reload if thats the current page
+						window.location.reload()
+					}
+				} catch (err) {
+					console.error('Error parsing message data:', err)
+				}
+			}
+
+			eventSource.onerror = () => {
+				eventSource.close()
+			}
+
+			return () => {
+				eventSource.close()
+			}
+		}, [])
+	}
 
 	return (
 		<CommandBarProvider>
