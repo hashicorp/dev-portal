@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { showBanner } from './utils'
 import { ConsentManager as _ConsentManagerComponent } from './component'
 
