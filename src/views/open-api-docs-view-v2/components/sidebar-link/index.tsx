@@ -36,7 +36,7 @@ import classNames from 'classnames'
  *
  * A component that captures a common pattern of composition should _not_ need
  * any conditional statements. The props interface should be very simple - the
- * point being to _reduce_ the complexity of repeated the identical composed
+ * point being to _reduce_ the complexity of repeating the identical composed
  * pattern. If "edge cases" need to be handled, then the consumer can "eject"
  * from the composed pattern by copying and pasting the body of the composed
  * component and making changes from there.
