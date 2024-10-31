@@ -8,7 +8,7 @@ import type { LandingContentProps } from './components/landing-content'
 import type { OpenAPIV3 } from 'openapi-types'
 import type { OperationContentProps } from './components/operation-content'
 import type { OperationObject } from './utils/get-operation-objects'
-import type { ProductSlug } from 'types/products'
+import type { ProductData, ProductSlug } from 'types/products'
 
 /**
  * Shared props are common to both the "landing" and "operation" views.
@@ -33,6 +33,7 @@ export interface SharedProps {
 			isActive: boolean
 		}[]
 	}[]
+	productData: ProductData
 	resourceLinks?: {
 		text: string
 		href: string
