@@ -8,7 +8,7 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import isAbsoluteUrl from 'lib/is-absolute-url'
 // Utils
 import getOperationContentProps from './components/operation-content/server'
-import getLandingContentProps from './components/landing-content/server'
+import { serialize } from 'lib/next-mdx-remote/serialize'
 import {
 	getOperationObjects,
 	OperationObject,
@@ -32,6 +32,7 @@ import type {
  */
 export async function getStaticProps({
 	basePath,
+	breadcrumbLinksPrefix,
 	getOperationGroupKey = (o: OperationObject) =>
 		(o.tags.length && o.tags[0]) ?? 'Other',
 	openApiJsonString,
@@ -39,6 +40,8 @@ export async function getStaticProps({
 	schemaTransforms,
 	theme = 'hcp',
 	backToLink,
+	statusIndicatorConfig,
+	releaseStage,
 	resourceLinks = [],
 }: OpenApiDocsViewV2Config): Promise<OpenApiDocsViewV2Props> {
 	/**
@@ -105,9 +108,27 @@ export async function getStaticProps({
 	/**
 	 * Gather props shared between the landing and individual operation views.
 	 */
+	// Build breadcrumb links
+	const urlPath = [basePath, operationSlug].filter(Boolean).join('/')
+	const breadcrumbLinks = [...breadcrumbLinksPrefix]
+	breadcrumbLinks.push({
+		title: schemaData.info.title,
+		url: basePath,
+	})
+	// If we're on a specific operation page, add a breadcrumb link accordingly
+	if (operationSlug) {
+		breadcrumbLinks.push({
+			title: operationSlug,
+			url: urlPath,
+		})
+	}
+	// Mark the last breadcrumb link as the current page
+	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
+	// Build shared props
 	const sharedProps: SharedProps = {
 		basePath,
 		backToLink,
+		breadcrumbLinks,
 		landingLink,
 		operationLinkGroups,
 		productData,
@@ -127,7 +148,14 @@ export async function getStaticProps({
 		)
 		return stripUndefinedProperties({ ...sharedProps, operationContentProps })
 	} else {
-		const landingContentProps = await getLandingContentProps(schemaData)
-		return stripUndefinedProperties({ ...sharedProps, landingContentProps })
+		const landingProps = {
+			heading: schemaData.info.title,
+			badgeText: releaseStage,
+			serviceProductSlug: theme,
+			statusIndicatorConfig,
+			descriptionMdx: await serialize(schemaData.info.description),
+			schemaFileString: openApiJsonString,
+		}
+		return stripUndefinedProperties({ ...sharedProps, landingProps })
 	}
 }

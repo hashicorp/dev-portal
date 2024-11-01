@@ -1,0 +1,72 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.overviewWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+
+	/* stylelint-disable-next-line property-no-unknown */
+	container-type: inline-size;
+}
+
+.headerAndVersionSwitcher {
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 24px;
+
+	/* stylelint-disable-next-line at-rule-no-unknown */
+	@container (min-width: 640px) {
+		flex-direction: row;
+		justify-content: space-between;
+		gap: 16px;
+	}
+}
+
+.header {
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column-reverse;
+	gap: 8px;
+
+	/* stylelint-disable-next-line at-rule-no-unknown */
+	@container (min-width: 640px) {
+		flex-direction: row;
+		gap: 16px;
+	}
+}
+
+.heading {
+	composes: hds-typography-display-600 from global;
+
+	/* Ensure we jump to the very top of the page when linking to this item */
+	scroll-margin-top: calc(var(--total-scroll-offset) + 999vh);
+	font-weight: var(--token-typography-font-weight-bold);
+	color: var(--token-color-foreground-strong);
+	margin: 0 0 9px 0;
+}
+
+.icon {
+	display: none;
+
+	/* stylelint-disable-next-line at-rule-no-unknown */
+	@container (min-width: 640px) {
+		display: block;
+		margin-top: 3px;
+	}
+}
+
+.releaseStageBadge {
+	text-transform: capitalize;
+
+	/* stylelint-disable-next-line at-rule-no-unknown */
+	@container (min-width: 640px) {
+		margin-top: 13px;
+	}
+}
+
+.versionSwitcherSlot {
+	flex-shrink: 0;
+}
