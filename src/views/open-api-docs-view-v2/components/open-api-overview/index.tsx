@@ -7,36 +7,39 @@
 import Badge from 'components/badge'
 import IconTile from 'components/icon-tile'
 import ProductIcon from 'components/product-icon'
-import StandaloneLink from '@components/standalone-link'
-import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
 // Local
-import { Status } from './components/status'
-import { DescriptionMdx } from './components/description-mdx'
+import { Status } from '../landing-content/components/status'
 // Types
-import type { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
-import type { StatusIndicatorConfig } from 'views/open-api-docs-view-v2/types'
-
+import type { StatusIndicatorConfig } from 'views/open-api-docs-view/types'
+import type { ReactNode } from 'react'
 import type { ProductSlug } from 'types/products'
 // Styles
-import s from './style.module.css'
+import s from './open-api-overview.module.css'
 
-export interface LandingContentProps {
+export interface OpenApiOverviewProps {
+	heading: {
+		text: string
+		id: string
+	}
 	badgeText: string
-	descriptionMdx?: MDXRemoteSerializeResult
-	heading: string
 	serviceProductSlug: ProductSlug
 	statusIndicatorConfig?: StatusIndicatorConfig
-	schemaFileString: string
+	contentSlot?: ReactNode
+	versionSwitcherSlot?: ReactNode
+	className?: string
 }
 
-export function LandingContent({
-	badgeText,
-	descriptionMdx,
+/**
+ * Render an overview section for an Open API landing view.
+ */
+export function OpenApiOverview({
 	heading,
+	badgeText,
 	serviceProductSlug,
 	statusIndicatorConfig,
-	schemaFileString,
-}: LandingContentProps) {
+	contentSlot,
+	versionSwitcherSlot,
+}: OpenApiOverviewProps) {
 	return (
 		<div className={s.overviewWrapper}>
 			<div className={s.headerAndVersionSwitcher}>
@@ -45,7 +48,9 @@ export function LandingContent({
 						<ProductIcon productSlug={serviceProductSlug} />
 					</IconTile>
 					<span>
-						<h1 className={s.heading}>{heading}</h1>
+						<h1 id={heading.id} className={s.heading}>
+							{heading.text}
+						</h1>
 						{statusIndicatorConfig ? (
 							<Status
 								endpointUrl={statusIndicatorConfig.endpointUrl}
@@ -60,19 +65,11 @@ export function LandingContent({
 						size="small"
 					/>
 				</header>
+				{versionSwitcherSlot ? (
+					<div className={s.versionSwitcherSlot}>{versionSwitcherSlot}</div>
+				) : null}
 			</div>
-			{descriptionMdx ? (
-				<DescriptionMdx mdxRemoteProps={descriptionMdx} />
-			) : null}
-			<StandaloneLink
-				text="Download Spec"
-				icon={<IconDownload16 />}
-				iconPosition="leading"
-				download="hcp.swagger.json"
-				href={`data:text/json;charset=utf-8,${encodeURIComponent(
-					schemaFileString
-				)}`}
-			/>
+			{contentSlot ? <section>{contentSlot}</section> : null}
 		</div>
 	)
 }

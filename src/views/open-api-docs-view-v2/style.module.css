@@ -1,0 +1,21 @@
+.paddedContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 56px;
+	padding: 32px 24px 128px 24px;
+
+	@media (--dev-dot-hide-mobile-menu) {
+		padding-right: 48px;
+		padding-left: 48px;
+	}
+
+	@media (--dev-dot-desktop) {
+		gap: 64px;
+	}
+}
+
+.spaceBreadcrumbsContent {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
