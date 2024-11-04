@@ -22,6 +22,7 @@ import type {
 	SharedProps,
 	OpenApiDocsViewV2Config,
 } from 'views/open-api-docs-view-v2/types'
+import { OpenAPIV3 } from 'openapi-types'
 
 /**
  * Build static props for an OpenAPI docs view.
@@ -51,16 +52,18 @@ export async function getStaticProps({
 
 	/**
 	 * Fetch, parse, and validate the OpenAPI schema for this version.
+	 * Also apply any schema transforms.
 	 */
-	const rawSchemaData = await parseAndValidateOpenApiSchema(openApiJsonString)
-
-	/**
-	 * Apply any schema transforms.
-	 */
-	let schemaData = rawSchemaData
-	for (const schemaTransformFunction of schemaTransforms ?? []) {
-		schemaData = schemaTransformFunction(schemaData)
-	}
+	const schemaData = await parseAndValidateOpenApiSchema(
+		openApiJsonString,
+		(schema: OpenAPIV3.Document) => {
+			let transformedSchema = schema
+			for (const schemaTransformFunction of schemaTransforms ?? []) {
+				transformedSchema = schemaTransformFunction(transformedSchema)
+			}
+			return transformedSchema
+		}
+	)
 
 	/**
 	 * TODO: add breadcrumb bar. Or, could be done separately for each view,
