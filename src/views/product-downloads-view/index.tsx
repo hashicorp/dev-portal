@@ -102,7 +102,7 @@ const ProductDownloadsViewContent = ({
 		downloadsByOS = {
 			...downloadsByOS,
 			linux: {
-				amd64: downloadsByOS.linux.amd64,
+				amd64: downloadsByOS?.linux?.amd64 || null,
 			},
 		}
 	}
