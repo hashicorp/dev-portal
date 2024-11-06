@@ -101,9 +101,9 @@ const ProductDownloadsViewContent = ({
 	if (currentProduct.slug === 'vagrant') {
 		downloadsByOS = {
 			...downloadsByOS,
-			linux: {
-				amd64: downloadsByOS?.linux?.amd64 || null,
-			},
+			...(downloadsByOS.linux?.amd64
+				? { linux: { amd64: downloadsByOS.linux.amd64 } }
+				: {}),
 		}
 	}
 
