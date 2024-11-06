@@ -13,12 +13,15 @@ import {
 import { OpenApiV2SidebarContents } from './components/sidebar'
 import { SidebarHorizontalRule } from '@components/sidebar/components'
 import { SidebarResourceLinks } from './components/sidebar-resource-links'
-import LandingContent from './components/landing-content'
+import { LandingContent } from './components/landing-content'
 import MobileMenuLevels from '@components/mobile-menu-levels'
 import OperationContent from './components/operation-content'
 import SidebarBackToLink from '@components/sidebar/components/sidebar-back-to-link'
+import BreadcrumbBar from '@components/breadcrumb-bar'
 // Types
 import type { OpenApiDocsViewV2Props } from './types'
+// Styles
+import s from './style.module.css'
 
 /**
  * Placeholder view component for a new OpenAPI docs setup.
@@ -29,6 +32,7 @@ import type { OpenApiDocsViewV2Props } from './types'
 export default function OpenApiDocsViewV2({
 	basePath,
 	backToLink,
+	breadcrumbLinks,
 	landingLink,
 	operationLinkGroups,
 	resourceLinks,
@@ -89,12 +93,28 @@ export default function OpenApiDocsViewV2({
 				/>
 			}
 		>
-			<div style={{ padding: '24px' }}>
-				<div style={{ border: '1px solid magenta' }}>
+			<div className={s.paddedContainer}>
+				<div className={s.spaceBreadcrumbsContent}>
+					<BreadcrumbBar links={breadcrumbLinks} />
+					{/**
+					 * TODO: implement version selector, likely alongside breadcrumbs.
+					 * Previously was part of "overview content", but now version
+					 * selector will need to be present on individual operation pages
+					 * as well.
+					 */}
 					{'operationContentProps' in restProps ? (
 						<OperationContent {...restProps.operationContentProps} />
-					) : 'landingContentProps' in restProps ? (
-						<LandingContent {...restProps.landingContentProps} />
+					) : 'landingProps' in restProps ? (
+						<LandingContent
+							heading={restProps.landingProps.heading}
+							badgeText={restProps.landingProps.badgeText}
+							serviceProductSlug={restProps.landingProps.serviceProductSlug}
+							statusIndicatorConfig={
+								restProps.landingProps.statusIndicatorConfig
+							}
+							descriptionMdx={restProps.landingProps.descriptionMdx}
+							schemaFileString={restProps.landingProps.schemaFileString}
+						/>
 					) : null}
 				</div>
 			</div>

@@ -42,6 +42,12 @@ export default async function getPropsFromPreviewData(
 	// Build page configuration based on the input values
 	const pageConfig: OpenApiDocsViewV2Config = {
 		basePath: '/open-api-docs-preview-v2',
+		breadcrumbLinksPrefix: [
+			{
+				title: 'Developer',
+				url: '/',
+			},
+		],
 		operationSlug,
 		openApiJsonString: previewData.openApiJsonString,
 		schemaTransforms,
@@ -65,6 +71,14 @@ export default async function getPropsFromPreviewData(
 				href: 'https://www.hashicorp.com/customer-success',
 			},
 		],
+		// Release stage badge, to demo this feature
+		releaseStage: 'Preview',
+		// Status indicator for HCP Services generally, to demo this feature
+		statusIndicatorConfig: {
+			pageUrl: 'https://status.hashicorp.com',
+			endpointUrl:
+				'https://status.hashicorp.com/api/v2/components/0q55nwmxngkc.json',
+		},
 	}
 	// If the user has requested to group operations by path, we'll do so
 	// by providing a custom `getOperationGroupKey` function. If this is omitted,
