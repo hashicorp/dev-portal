@@ -44,7 +44,7 @@ export function EnterpriseAlert({
 	const productNames = {
 		...productSlugsToNames,
 		'vault-secrets': 'Vault Secrets',
-		'vault-radar': 'Vault radar',
+		'vault-radar': 'Vault Radar',
 	}
 
 	if (!isValidProduct) {
