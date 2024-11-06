@@ -16,10 +16,11 @@ import { isProductSlug, productSlugsToNames } from 'lib/products'
 import s from './enterprise-alert.module.css'
 
 interface EnterpriseAlertProps {
-	productSlug: ProductSlug
+	productSlug: ProductSlug | 'vault-secrets' | 'vault-radar'
 	inline?: boolean
 	className?: string
 	children?: ReactNode
+	badgeText?: string
 }
 
 export function EnterpriseAlert({
@@ -27,22 +28,37 @@ export function EnterpriseAlert({
 	inline,
 	className,
 	children,
+	badgeText,
 }: EnterpriseAlertProps) {
 	// This ensures we aren't producing invalid HTML when rendering inline alerts within MDX. When used inline, we might end up nesting a div inside of a p. This is invalid as p cannot contain block-level elements (ref: https://www.w3.org/TR/html401/struct/text.html#h-9.3.1).
 	const Element = inline ? 'span' : 'div'
-	const isValidProduct = isProductSlug(productSlug)
+	const isValidProduct =
+		isProductSlug(productSlug) ||
+		productSlug === 'vault-radar' ||
+		productSlug === 'vault-secrets'
 
 	if (productSlug === 'hcp') {
 		return null
 	}
 
+	const productNames = {
+		...productSlugsToNames,
+		'vault-secrets': 'Vault Secrets',
+		'vault-radar': 'Vault radar',
+	}
+
 	if (!isValidProduct) {
 		throw new Error(
 			`[EnterpriseAlert]: Invalid product option passed. Expected one of ${Object.keys(
-				productSlugsToNames
+				productNames
 			).filter((slug) => slug !== 'hcp')}`
 		)
 	}
+
+	const href =
+		productSlug === 'vault-radar' || productSlug === 'vault-secrets'
+			? `https://www.hashicorp.com/products/vault/hcp-${productSlug}`
+			: `https://www.hashicorp.com/products/${productSlug}`
 
 	return (
 		<Element
@@ -53,7 +69,7 @@ export function EnterpriseAlert({
 			<Badge
 				className={s.badge}
 				icon={<ProductIcon productSlug={productSlug} />}
-				text="Enterprise"
+				text={badgeText ? badgeText : 'Enterprise'}
 				type="outlined"
 				size="medium"
 			/>
@@ -65,12 +81,12 @@ export function EnterpriseAlert({
 						<>
 							This feature requires{' '}
 							<InlineLink
-								href={`https://www.hashicorp.com/products/${productSlug}`}
+								href={href}
 								target="_blank"
 								rel="noopener noreferrer"
 								textSize={200}
 							>
-								{productSlugsToNames[productSlug]} Enterprise
+								{productNames[productSlug]} Enterprise
 							</InlineLink>
 							.
 						</>
@@ -82,7 +98,7 @@ export function EnterpriseAlert({
 }
 
 type DocsEnterpriseAlertProps = Omit<EnterpriseAlertProps, 'productSlug'> & {
-	product?: ProductSlug
+	product?: ProductSlug | 'vault-secrets' | 'vault-radar'
 }
 
 export function DocsEnterpriseAlert(props: DocsEnterpriseAlertProps) {
