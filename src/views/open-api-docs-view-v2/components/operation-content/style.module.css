@@ -1,0 +1,29 @@
+.heading {
+	composes: hds-typography-display-600 from global;
+
+	/* Ensure we jump to the very top of the page when linking to this item */
+	scroll-margin-top: calc(var(--total-scroll-offset) + 999vh);
+	font-weight: var(--token-typography-font-weight-bold);
+	color: var(--token-color-foreground-strong);
+	margin: 0 0 9px 0;
+}
+
+/* HEADER AREA */
+
+.methodAndPath {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+}
+
+.method {
+	text-transform: uppercase;
+}
+
+.path {
+	composes: hds-typography-code-300 from global;
+	color: var(--token-color-foreground-primary);
+	overflow-wrap: break-word;
+	flex-shrink: 1;
+	min-width: 0;
+}
