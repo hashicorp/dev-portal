@@ -12,7 +12,7 @@ on:
 jobs:
   on-deploy:
     runs-on: ubuntu-latest
-    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview' && github.event.repository.name == 'dev-portals' || github.event_name == 'workflow_dispatch'
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Preview' && github.event.repository.name == 'dev-portal' || github.event_name == 'workflow_dispatch'
     steps:
       - name: summary
         run: |
