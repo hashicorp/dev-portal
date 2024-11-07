@@ -16,7 +16,7 @@ import { isProductSlug, productSlugsToNames } from 'lib/products'
 import s from './enterprise-alert.module.css'
 
 interface EnterpriseAlertProps {
-	productSlug: ProductSlug | 'vault-secrets' | 'vault-radar'
+	product: ProductSlug | 'hcp-vault-secrets' | 'hcp-vault-radar'
 	inline?: boolean
 	className?: string
 	children?: ReactNode
@@ -24,7 +24,7 @@ interface EnterpriseAlertProps {
 }
 
 export function EnterpriseAlert({
-	productSlug,
+	product,
 	inline,
 	className,
 	children,
@@ -32,19 +32,18 @@ export function EnterpriseAlert({
 }: EnterpriseAlertProps) {
 	// This ensures we aren't producing invalid HTML when rendering inline alerts within MDX. When used inline, we might end up nesting a div inside of a p. This is invalid as p cannot contain block-level elements (ref: https://www.w3.org/TR/html401/struct/text.html#h-9.3.1).
 	const Element = inline ? 'span' : 'div'
-	const isValidProduct =
-		isProductSlug(productSlug) ||
-		productSlug === 'vault-radar' ||
-		productSlug === 'vault-secrets'
+	const isVaultSecretsOrRadar =
+		product === 'hcp-vault-radar' || product === 'hcp-vault-secrets'
+	const isValidProduct = isProductSlug(product) || isVaultSecretsOrRadar
 
-	if (productSlug === 'hcp') {
+	if (product === 'hcp') {
 		return null
 	}
 
 	const productNames = {
 		...productSlugsToNames,
-		'vault-secrets': 'Vault Secrets',
-		'vault-radar': 'Vault Radar',
+		'hcp-vault-secrets': 'HCP Vault Secrets',
+		'hcp-vault-radar': 'HCP Vault Radar',
 	}
 
 	if (!isValidProduct) {
@@ -55,10 +54,11 @@ export function EnterpriseAlert({
 		)
 	}
 
-	const href =
-		productSlug === 'vault-radar' || productSlug === 'vault-secrets'
-			? `https://www.hashicorp.com/products/vault/hcp-${productSlug}`
-			: `https://www.hashicorp.com/products/${productSlug}`
+	const href = isVaultSecretsOrRadar
+		? `https://www.hashicorp.com/products/vault/${product}`
+		: `https://www.hashicorp.com/products/${product}`
+
+	const plusOrEnterprise = isVaultSecretsOrRadar ? 'Plus' : 'Enterprise'
 
 	return (
 		<Element
@@ -68,8 +68,8 @@ export function EnterpriseAlert({
 		>
 			<Badge
 				className={s.badge}
-				icon={<ProductIcon productSlug={productSlug} />}
-				text={badgeText ? badgeText : 'Enterprise'}
+				icon={<ProductIcon productSlug={product} />}
+				text={badgeText ? badgeText : plusOrEnterprise}
 				type="outlined"
 				size="medium"
 			/>
@@ -86,7 +86,7 @@ export function EnterpriseAlert({
 								rel="noopener noreferrer"
 								textSize={200}
 							>
-								{productNames[productSlug]} Enterprise
+								{productNames[product]} {plusOrEnterprise}
 							</InlineLink>
 							.
 						</>
@@ -98,14 +98,14 @@ export function EnterpriseAlert({
 }
 
 type DocsEnterpriseAlertProps = Omit<EnterpriseAlertProps, 'productSlug'> & {
-	product?: ProductSlug | 'vault-secrets' | 'vault-radar'
+	product?: ProductSlug | 'hcp-vault-secrets' | 'hcp-vault-radar'
 }
 
 export function DocsEnterpriseAlert(props: DocsEnterpriseAlertProps) {
 	const currentProduct = useCurrentProduct()
 	return (
 		<EnterpriseAlert
-			productSlug={props.product || currentProduct.slug}
+			product={props.product || currentProduct.slug}
 			{...props}
 		/>
 	)

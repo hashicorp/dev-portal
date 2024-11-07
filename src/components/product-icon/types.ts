@@ -8,6 +8,6 @@ import { ProductSlug } from 'types/products'
 type SvgElementProps = JSX.IntrinsicElements['svg']
 
 export interface ProductIconProps extends SvgElementProps {
-	productSlug: ProductSlug | 'vault-secrets' | 'vault-radar'
+	productSlug: ProductSlug | 'hcp-vault-secrets' | 'hcp-vault-radar'
 	size?: 16 | 24
 }
