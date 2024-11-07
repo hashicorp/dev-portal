@@ -7,12 +7,15 @@ import { getStaticProps } from 'views/open-api-docs-view-v2/server'
 // Utils
 import { getOperationGroupKeyFromPath } from 'views/open-api-docs-view-v2/utils/get-operation-group-key-from-path'
 import { schemaTransformShortenHcp } from 'views/open-api-docs-view-v2/schema-transforms/schema-transform-shorten-hcp'
+import { schemaTransformComponent } from 'views/open-api-docs-view-v2/schema-transforms/schema-transform-component'
+import { shortenProtobufAnyDescription } from 'views/open-api-docs-view-v2/schema-transforms/shorten-protobuf-any-description'
 // Types
 import type {
 	OpenApiDocsViewV2Props,
 	OpenApiDocsViewV2Config,
 } from 'views/open-api-docs-view-v2/types'
 import type { OpenApiPreviewV2InputValues } from '../components/open-api-preview-inputs'
+import { schemaModComponent } from 'views/open-api-docs-view/utils/massage-schema-utils'
 
 /**
  * Given preview data submitted by the user, which includes OpenAPI JSON,
@@ -38,7 +41,23 @@ export default async function getPropsFromPreviewData(
 	// and prefer to have content updates made at the content source... but
 	// some shims are used often enough that they feel worth including in the
 	// preview too. Namely, shortening to `HCP` in the spec title.
-	const schemaTransforms = [schemaTransformShortenHcp]
+	const schemaTransforms = [
+		schemaTransformShortenHcp,
+		(schema) => {
+			return schemaTransformComponent(
+				schema,
+				'protobufAny',
+				shortenProtobufAnyDescription
+			)
+		},
+		(schema) => {
+			return schemaTransformComponent(
+				schema,
+				'google.protobuf.Any',
+				shortenProtobufAnyDescription
+			)
+		},
+	]
 	// Build page configuration based on the input values
 	const pageConfig: OpenApiDocsViewV2Config = {
 		basePath: '/open-api-docs-preview-v2',
