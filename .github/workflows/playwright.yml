@@ -2,7 +2,7 @@ name: E2E Tests
 on: [deployment_status]
 jobs:
   test:
-    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'preview' && github.event.sender.id == 35613825
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'preview' && github.event.sender.id == 35613825 && github.event.repository.name == 'dev-portal'
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
