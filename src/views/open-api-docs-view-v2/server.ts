@@ -337,9 +337,6 @@ export async function generateStaticProps({
 		}
 	} else {
 		const landingProps = {
-			metadata: {
-				title: schemaData.info.title,
-			},
 			heading: schemaData.info.title,
 			badgeText: targetVersion.releaseStage,
 			serviceProductSlug: theme,
@@ -347,6 +344,14 @@ export async function generateStaticProps({
 			descriptionMdx: await serialize(schemaData.info.description),
 			schemaFileString: schemaFileString,
 		}
-		return { props: stripUndefinedProperties({ ...sharedProps, landingProps }) }
+		return {
+			props: stripUndefinedProperties({
+				...sharedProps,
+				metadata: {
+					title: schemaData.info.title,
+				},
+				landingProps,
+			}),
+		}
 	}
 }
