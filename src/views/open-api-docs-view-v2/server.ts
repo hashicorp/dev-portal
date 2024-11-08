@@ -151,7 +151,7 @@ export async function generateStaticProps({
 	statusIndicatorConfig,
 	schemaTransforms,
 	productContext,
-	theme = 'hcp', // Defaults to show the generic HashiCorp H logo, etc
+	theme = productContext,
 	versionData,
 	urlContext: { isVersionedUrl, versionId, operationSlug },
 }: Omit<OpenApiDocsViewV2Config, 'schemaSource'> & {

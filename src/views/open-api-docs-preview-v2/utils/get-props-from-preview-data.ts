@@ -63,7 +63,6 @@ export default async function getPropsFromPreviewData(
 		],
 		schemaTransforms,
 		productContext: 'hcp',
-		theme: 'hcp',
 		// A generic set of resource links, as a preview of what typically
 		// gets added to an OpenAPI docs page.
 		resourceLinks: [

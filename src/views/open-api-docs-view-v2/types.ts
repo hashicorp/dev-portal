@@ -201,6 +201,8 @@ export interface OpenApiDocsViewV2Config {
 	 * Optional theme value to add specific product chrome to the view.
 	 * For example, when the `vault` value is provided, the Vault logo will
 	 * be shown in the sidebar and by the title of the OpenAPI spec.
+	 *
+	 * If omitted, will default to the value provided to `productContext`.
 	 */
 	theme?: ProductSlug
 	/**
