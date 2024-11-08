@@ -30,9 +30,7 @@ import { OpenAPIV3 } from 'openapi-types'
  */
 export async function parseAndValidateOpenApiSchema(
 	fileString: string,
-	massageSchemaForClient: (schema: OpenAPIV3.Document) => OpenAPIV3.Document = (
-		schema
-	) => schema
+	schemaTransforms: ((schema: OpenAPIV3.Document) => OpenAPIV3.Document)[] = []
 ): Promise<OpenAPIV3.Document> {
 	// Parse the fileString into raw JSON
 	const rawSchemaJson = JSON.parse(fileString)
@@ -41,7 +39,14 @@ export async function parseAndValidateOpenApiSchema(
 	const schemaJsonWithRefs = await new OASNormalize(rawSchemaJson).validate({
 		convertToLatest: true,
 	})
-	const massagedSchema = massageSchemaForClient(schemaJsonWithRefs)
+
+	/**
+	 * Apply transform functions to the schema
+	 */
+	let transformedSchema = schemaJsonWithRefs
+	for (const schemaTransformFunction of schemaTransforms ?? []) {
+		transformedSchema = schemaTransformFunction(transformedSchema)
+	}
 
 	/**
 	 * Dereference the schema.
@@ -69,7 +74,7 @@ export async function parseAndValidateOpenApiSchema(
 	 * 		}
 	 * }
 	 */
-	const schemaJson = await new OASNormalize(massagedSchema).deref()
+	const schemaJson = await new OASNormalize(transformedSchema).deref()
 	// Return the dereferenced schema.
 	// We know it's OpenAPI 3.0, so we cast it to the appropriate type.
 	return schemaJson as OpenAPIV3.Document
