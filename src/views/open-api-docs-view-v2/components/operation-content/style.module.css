@@ -3,6 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+/* HEADER AREA */
+
+.header {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 16px;
+}
+
 .heading {
 	composes: hds-typography-display-600 from global;
 
@@ -13,7 +22,9 @@
 	margin: 0 0 9px 0;
 }
 
-/* HEADER AREA */
+.versionSwitcherSlot {
+	flex-shrink: 0;
+}
 
 .methodAndPath {
 	display: flex;

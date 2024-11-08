@@ -4,31 +4,30 @@
  */
 
 // Utils
-import { getOperationObjects } from '../../utils/get-operation-objects'
+
 import { getUrlPathCodeHtml } from '../../utils/get-url-path-code-html'
 import { truncateHcpOperationPath } from '../../utils/truncate-hcp-operation-path'
 import { getRequestData } from '../../utils/get-request-data'
 import { getResponseData } from '../../utils/get-response-data'
+import { slugifyOperationId } from 'views/open-api-docs-view-v2/utils/slugify-operation-id'
 // Types
 import type { OpenAPIV3 } from 'openapi-types'
 import type { OperationContentProps } from '.'
+import type { OperationObject } from '../../utils/get-operation-objects'
 
 /**
  * Transform the schemaData into props for an individual operation
  */
 export default async function getOperationContentProps(
-	operationSlug: string,
+	operation: OperationObject,
 	schemaData: OpenAPIV3.Document
 ): Promise<OperationContentProps> {
-	const operationObjects = getOperationObjects(schemaData)
-	const operation = operationObjects.find(
-		(operation) => operation.operationId === operationSlug
-	)
 	/**
 	 * The API's base URL is used to prefix the operation path,
 	 * so users can quickly copy the full path to the operation
 	 */
 	const apiBaseUrl = getApiBaseUrl(schemaData)
+	const operationSlug = slugifyOperationId(operation.operationId)
 	/**
 	 * Parse request and response details for this operation
 	 */
@@ -53,8 +52,7 @@ export default async function getOperationContentProps(
 	 * Return the operation content props
 	 */
 	return {
-		heading: operationSlug,
-		operationId: operationSlug,
+		operationId: operation.operationId,
 		tags: operation.tags,
 		slug: operationSlug,
 		type: operation.type,

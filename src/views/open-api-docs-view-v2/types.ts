@@ -3,23 +3,38 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// Types
+// Third-party
+import type { NextParsedUrlQuery } from 'next/dist/server/request-meta'
 import type { OpenAPIV3 } from 'openapi-types'
-import type { OperationContentProps } from './components/operation-content'
-import type { LandingContentProps } from './components/landing-content'
-import type { OperationObject } from './utils/get-operation-objects'
-import type { ProductData, ProductSlug } from 'types/products'
+// App-wide types
+import type { ApiDocsVersionData } from 'lib/api-docs/types'
 import type { BreadcrumbLink } from '@components/breadcrumb-bar'
+import type { GithubDir } from 'lib/fetch-github-file-tree'
+import type { ProductData, ProductSlug } from 'types/products'
+// Local types
+import type { LandingContentProps } from './components/landing-content'
+import type { VersionSwitcherProps } from '@components/version-switcher'
+import type { OperationContentProps } from './components/operation-content'
+import type { OperationObject } from './utils/get-operation-objects'
 
 /**
  * Shared props are common to both the "landing" and "operation" views.
  */
 export interface SharedProps {
+	/**
+	 * The URL path at which the docs are located.
+	 */
 	basePath: string
+	/**
+	 * Back to link, meant for navigating up a level of context
+	 */
 	backToLink: {
 		text: string
 		href: string
 	}
+	/**
+	 * Breadcrumb links to render on the page.
+	 */
 	breadcrumbLinks: {
 		title: string
 		/**
@@ -46,12 +61,18 @@ export interface SharedProps {
 		url?: string
 		isCurrentPage?: boolean
 	}[]
+	/**
+	 * Link to the landing page, used in the sidebar and mobile menu.
+	 */
 	landingLink: {
 		text: string
 		href: string
 		isActive: boolean
 		theme: ProductSlug
 	}
+	/**
+	 * Array of operation link groups to render in the sidebar and mobile menu.
+	 */
 	operationLinkGroups: {
 		text: string
 		items: {
@@ -60,12 +81,29 @@ export interface SharedProps {
 			isActive: boolean
 		}[]
 	}[]
+	/**
+	 * Product data, used exclusively to render links in the mobile menu.
+	 */
 	productData: ProductData
 	resourceLinks?: {
 		text: string
 		href: string
 		isExternal: boolean
 	}[]
+	/**
+	 * Optional version metadata. Enables rendering of a version alert
+	 * on non-default versions of the OpenAPI docs.
+	 */
+	versionMetadata?: {
+		isVersionedUrl: boolean
+		currentVersion: { versionId: string; releaseStage?: string }
+		latestStableVersion: { versionId: string }
+	}
+	/**
+	 * Optional props to render a version selector. Note that if there's
+	 * only a single version, the version selector will not be rendered.
+	 */
+	versionSwitcherProps?: VersionSwitcherProps
 }
 
 /**
@@ -100,12 +138,17 @@ export type OpenApiDocsViewV2Props =
  *
  * We want to keep these configuration options as simple as possible, as
  * they must be configured for each new set of OpenAPI specs that we add.
+ *
+ * Ideally, we'll find a way at some point in the near future to make it
+ * easier for content authors and other folks managing OpenAPI docs to
+ * edit this configuration, and to add new pages.
  */
 export interface OpenApiDocsViewV2Config {
 	/**
 	 * The URL path at which the docs are located. For example, the URL
 	 * `developer.hashicorp.com/hcp/api-docs/hcp-vault-secrets` has the basePath
-	 * `/hcp/api-docs/hcp-vault-secrets`. */
+	 * `/hcp/api-docs/hcp-vault-secrets`
+	 */
 	basePath: string
 	/**
 	 * Optional breadcrumb links to render before the generated breadcrumb links.
@@ -141,13 +184,12 @@ export interface OpenApiDocsViewV2Config {
 	 */
 	getOperationGroupKey?: (o: OperationObject) => string
 	/**
-	 * The OpenAPI schema as a JSON string.
+	 * Define a source for the OpenAPI schema. This can be a string,
+	 * which is assumed to be the OpenAPI schema in JSON format, or it
+	 * can be a GithubDir object, which is used to fetch versioned schema
+	 * data from a structured directory in a specific Github repo.
 	 */
-	openApiJsonString: string
-	/**
-	 * Optional operation slug to render a specific operation view.
-	 */
-	operationSlug?: string
+	schemaSource: ApiDocsVersionData[] | GithubDir
 	/**
 	 * Optional theme value to add specific product chrome to the view.
 	 * For example, when the `vault` value is provided, the Vault logo will
@@ -176,8 +218,36 @@ export interface OpenApiDocsViewV2Config {
 	 */
 	statusIndicatorConfig?: StatusIndicatorConfig
 	/**
-	 * Optional release stage to display in a badge at the top of the page.
-	 * Typical values include `Stable`, `Preview`, etc.
+	 * Optional hook to allow transformation of versionData after it's been
+	 * fetched from GitHub. Ideally we'd avoid this, the current use case
+	 * is filtering out a specific version for `/hcp/api-docs/consul`.
 	 */
-	releaseStage?: string
+	transformVersionData?: (v: ApiDocsVersionData[]) => ApiDocsVersionData[]
+}
+
+/**
+ * Params type for `getStaticPaths` and `getStaticProps`.
+ * Encodes our assumption that a `[[...page]].tsx` file is being used.
+ */
+export interface OpenApiDocsV2Params extends NextParsedUrlQuery {
+	page: string[]
+}
+
+/**
+ * URL context derived from params, used to encode the version ID and
+ * operation slug from the URL.
+ */
+export interface ApiDocsUrlContext {
+	/**
+	 * Boolean describing whether the URL matches the versioned format.
+	 */
+	isVersionedUrl: boolean
+	/**
+	 * The version ID from the URL, or "latest" if the URL is not versioned.
+	 */
+	versionId: string
+	/**
+	 * The operation slug from the URL, if present.
+	 */
+	operationSlug: string | undefined
 }
