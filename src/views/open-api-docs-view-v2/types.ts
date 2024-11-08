@@ -82,9 +82,10 @@ export interface SharedProps {
 		}[]
 	}[]
 	/**
-	 * Product data, used exclusively to render links in the mobile menu.
+	 * Product data, used to render links in the mobile menu. Due to a code path
+	 * in `_app`, this also affects the navigation context.
 	 */
-	productData: ProductData
+	product: ProductData
 	resourceLinks?: {
 		text: string
 		href: string

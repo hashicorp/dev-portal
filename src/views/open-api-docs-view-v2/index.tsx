@@ -40,7 +40,7 @@ export default function OpenApiDocsViewV2({
 	landingLink,
 	operationLinkGroups,
 	resourceLinks,
-	productData,
+	product,
 	versionMetadata,
 	versionSwitcherProps,
 	...restProps
@@ -69,7 +69,7 @@ export default function OpenApiDocsViewV2({
 				<MobileMenuLevels
 					levels={[
 						mobileMenuLevelMain(),
-						mobileMenuLevelProduct(productData),
+						mobileMenuLevelProduct(product),
 						{
 							levelButtonText: 'Previous',
 							content: (

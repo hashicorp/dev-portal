@@ -299,7 +299,7 @@ export async function generateStaticProps({
 		breadcrumbLinks,
 		landingLink,
 		operationLinkGroups,
-		productData,
+		product: productData,
 		versionMetadata: {
 			isVersionedUrl,
 			currentVersion: {
