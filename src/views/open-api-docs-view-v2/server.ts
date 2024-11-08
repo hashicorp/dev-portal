@@ -150,7 +150,8 @@ export async function generateStaticProps({
 	resourceLinks = [],
 	statusIndicatorConfig,
 	schemaTransforms,
-	theme = 'hcp',
+	productContext,
+	theme = 'hcp', // Defaults to show the generic HashiCorp H logo, etc
 	versionData,
 	urlContext: { isVersionedUrl, versionId, operationSlug },
 }: Omit<OpenApiDocsViewV2Config, 'schemaSource'> & {
@@ -214,7 +215,7 @@ export async function generateStaticProps({
 	/**
 	 * Grab product data for this context
 	 */
-	const productData = cachedGetProductData(theme)
+	const productData = cachedGetProductData(productContext)
 
 	/**
 	 * Determine if we're on a specific operation page or not
