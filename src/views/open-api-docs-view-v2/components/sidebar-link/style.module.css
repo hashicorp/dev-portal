@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 .sidebarLink {
 	composes: g-focus-ring-from-box-shadow from global;
 	background-color: var(--token-color-surface-primary);
