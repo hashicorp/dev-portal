@@ -11,11 +11,11 @@ import { OperationExamples } from '../operation-examples'
 import { OperationDetails } from '../operation-details'
 // Types
 import type { PropertyDetailsSectionProps } from '../operation-details'
+import type { ReactNode } from 'react'
 // Styles
 import s from './style.module.css'
 
 export interface OperationContentProps {
-	heading: string
 	operationId: string
 	tags: string[]
 	slug: string
@@ -32,6 +32,7 @@ export interface OperationContentProps {
 	 * word breaks to allow long URLs to wrap to multiple lines.
 	 */
 	urlPathForCodeBlock: string
+	versionSwitcherSlot?: ReactNode
 }
 
 /**
@@ -47,17 +48,22 @@ export interface OperationProps {
  * Render detailed content for an individual operation.
  */
 export default function OperationContent({
-	heading,
-	slug,
+	operationId,
 	type,
 	path,
 	urlPathForCodeBlock,
 	requestData,
 	responseData,
+	versionSwitcherSlot,
 }: OperationContentProps) {
 	return (
 		<>
-			<h1 className={s.heading}>{heading}</h1>
+			<div className={s.header}>
+				<h1 className={s.heading}>{operationId}</h1>
+				{versionSwitcherSlot ? (
+					<div className={s.versionSwitcherSlot}>{versionSwitcherSlot}</div>
+				) : null}
+			</div>
 			<OperationSections
 				headerSlot={
 					<div className={s.methodAndPath}>
@@ -66,7 +72,7 @@ export default function OperationContent({
 					</div>
 				}
 				examplesSlot={
-					<OperationExamples heading={slug} code={urlPathForCodeBlock} />
+					<OperationExamples heading={operationId} code={urlPathForCodeBlock} />
 				}
 				detailsSlot={
 					<OperationDetails
