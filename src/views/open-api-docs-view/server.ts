@@ -10,13 +10,13 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { getBreadcrumbLinks } from 'lib/get-breadcrumb-links'
 import { serialize } from 'lib/next-mdx-remote/serialize'
+import { parseAndValidateOpenApiSchema } from 'lib/api-docs/parse-and-validate-open-api-schema'
 // Utilities
 import {
 	findDefaultVersion,
 	getNavItems,
 	getOperationProps,
 	groupOperations,
-	parseAndValidateOpenApiSchema,
 	getVersionSwitcherProps,
 } from './utils'
 // Types
@@ -109,10 +109,9 @@ export async function getStaticProps({
 		typeof sourceFile === 'string'
 			? sourceFile
 			: await fetchGithubFile(sourceFile)
-	const schemaData = await parseAndValidateOpenApiSchema(
-		schemaFileString,
-		massageSchemaForClient
-	)
+	const schemaData = await parseAndValidateOpenApiSchema(schemaFileString, [
+		massageSchemaForClient,
+	])
 	const operationProps = await getOperationProps(schemaData)
 	const operationGroups = groupOperations(operationProps, groupOperationsByPath)
 	const navItems = getNavItems({
