@@ -93,10 +93,19 @@ const ProductDownloadsViewContent = ({
 
 	// Group the selected release downloads by OS, for use in multiple places
 	const selectedRelease = releases.versions[currentVersion]
-	const downloadsByOS = useMemo(
+	let downloadsByOS = useMemo(
 		() => sortPlatforms(selectedRelease),
 		[selectedRelease]
 	)
+
+	if (currentProduct.slug === 'vagrant') {
+		downloadsByOS = {
+			...downloadsByOS,
+			...(downloadsByOS.linux?.amd64
+				? { linux: { amd64: downloadsByOS.linux.amd64 } }
+				: {}),
+		}
+	}
 
 	// Build download sidebar menu items, which vary with the selected release.
 	const downloadMenuItems = Object.keys(downloadsByOS).map(
