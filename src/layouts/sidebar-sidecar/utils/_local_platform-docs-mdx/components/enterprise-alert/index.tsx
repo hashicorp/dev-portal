@@ -23,6 +23,12 @@ interface EnterpriseAlertProps {
 	badgeText?: string
 }
 
+const productNames = {
+	...productSlugsToNames,
+	'hcp-vault-secrets': 'HCP Vault Secrets',
+	'hcp-vault-radar': 'HCP Vault Radar',
+}
+
 export function EnterpriseAlert({
 	product,
 	inline,
@@ -38,12 +44,6 @@ export function EnterpriseAlert({
 
 	if (product === 'hcp') {
 		return null
-	}
-
-	const productNames = {
-		...productSlugsToNames,
-		'hcp-vault-secrets': 'HCP Vault Secrets',
-		'hcp-vault-radar': 'HCP Vault Radar',
 	}
 
 	if (!isValidProduct) {
@@ -69,7 +69,7 @@ export function EnterpriseAlert({
 			<Badge
 				className={s.badge}
 				icon={<ProductIcon productSlug={product} />}
-				text={badgeText ? badgeText : plusOrEnterprise}
+				text={badgeText ?? plusOrEnterprise}
 				type="outlined"
 				size="medium"
 			/>
@@ -105,7 +105,7 @@ export function DocsEnterpriseAlert(props: DocsEnterpriseAlertProps) {
 	const currentProduct = useCurrentProduct()
 	return (
 		<EnterpriseAlert
-			product={props.product || currentProduct.slug}
+			product={props.product ?? currentProduct.slug}
 			{...props}
 		/>
 	)
