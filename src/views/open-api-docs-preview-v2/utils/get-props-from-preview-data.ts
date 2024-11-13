@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { getStaticProps } from 'views/open-api-docs-view-v2/server'
+import { generateStaticProps } from 'views/open-api-docs-view-v2/server'
 // Utils
 import { getOperationGroupKeyFromPath } from 'views/open-api-docs-view-v2/utils/get-operation-group-key-from-path'
 import { schemaTransformShortenHcp } from 'views/open-api-docs-view-v2/schema-transforms/schema-transform-shorten-hcp'
+import { schemaTransformComponent } from 'views/open-api-docs-view-v2/schema-transforms/schema-transform-component'
+import { shortenProtobufAnyDescription } from 'views/open-api-docs-view-v2/schema-transforms/shorten-protobuf-any-description'
 // Types
 import type {
 	OpenApiDocsViewV2Props,
@@ -20,11 +22,6 @@ import type { OpenApiPreviewV2InputValues } from '../components/open-api-preview
  * a view for a specific operation,
  *
  * Return static props for the appropriate OpenAPI docs view.
- *
- * TODO: this is largely a placeholder for now.
- * Will likely require a few more args to pass to getStaticProps, eg productData
- * for example, but those types of details are not yet needed by the underlying
- * view.
  */
 export default async function getPropsFromPreviewData(
 	previewData: OpenApiPreviewV2InputValues | null,
@@ -38,9 +35,25 @@ export default async function getPropsFromPreviewData(
 	// and prefer to have content updates made at the content source... but
 	// some shims are used often enough that they feel worth including in the
 	// preview too. Namely, shortening to `HCP` in the spec title.
-	const schemaTransforms = [schemaTransformShortenHcp]
+	const schemaTransforms = [
+		schemaTransformShortenHcp,
+		(schema) => {
+			return schemaTransformComponent(
+				schema,
+				'protobufAny',
+				shortenProtobufAnyDescription
+			)
+		},
+		(schema) => {
+			return schemaTransformComponent(
+				schema,
+				'google.protobuf.Any',
+				shortenProtobufAnyDescription
+			)
+		},
+	]
 	// Build page configuration based on the input values
-	const pageConfig: OpenApiDocsViewV2Config = {
+	const pageConfig: Omit<OpenApiDocsViewV2Config, 'schemaSource'> = {
 		basePath: '/open-api-docs-preview-v2',
 		breadcrumbLinksPrefix: [
 			{
@@ -48,9 +61,8 @@ export default async function getPropsFromPreviewData(
 				url: '/',
 			},
 		],
-		operationSlug,
-		openApiJsonString: previewData.openApiJsonString,
 		schemaTransforms,
+		productContext: 'hcp',
 		// A generic set of resource links, as a preview of what typically
 		// gets added to an OpenAPI docs page.
 		resourceLinks: [
@@ -71,8 +83,6 @@ export default async function getPropsFromPreviewData(
 				href: 'https://www.hashicorp.com/customer-success',
 			},
 		],
-		// Release stage badge, to demo this feature
-		releaseStage: 'Preview',
 		// Status indicator for HCP Services generally, to demo this feature
 		statusIndicatorConfig: {
 			pageUrl: 'https://status.hashicorp.com',
@@ -87,5 +97,25 @@ export default async function getPropsFromPreviewData(
 		pageConfig.getOperationGroupKey = getOperationGroupKeyFromPath
 	}
 	// Use the page config to generate static props for the view
-	return await getStaticProps(pageConfig)
+	const staticProps = await generateStaticProps({
+		...pageConfig,
+		versionData: [
+			{
+				versionId: 'latest',
+				releaseStage: 'Preview',
+				sourceFile: previewData.openApiJsonString,
+			},
+		],
+		urlContext: {
+			isVersionedUrl: false,
+			versionId: 'latest',
+			operationSlug,
+		},
+	})
+	// If the specific view wasn't found, return null
+	if ('notFound' in staticProps) {
+		return null
+	}
+	// Otherwise, return the props, discarding the enclosing object
+	return staticProps.props
 }

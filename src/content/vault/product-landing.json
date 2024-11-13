@@ -41,7 +41,7 @@
 			"collectionSlugs": [
 				"vault/secrets-management",
 				"vault/db-credentials",
-				"vault/adp"
+				"vault/encryption-as-a-service"
 			]
 		},
 		{
