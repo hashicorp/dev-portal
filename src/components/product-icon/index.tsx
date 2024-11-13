@@ -19,6 +19,10 @@ import { IconVagrantColor16 } from '@hashicorp/flight-icons/svg-react/vagrant-co
 import { IconVagrantColor24 } from '@hashicorp/flight-icons/svg-react/vagrant-color-24'
 import { IconVault16 } from '@hashicorp/flight-icons/svg-react/vault-16'
 import { IconVault24 } from '@hashicorp/flight-icons/svg-react/vault-24'
+import { IconVaultRadarSquareColor16 } from '@hashicorp/flight-icons/svg-react/vault-radar-square-color-16'
+import { IconVaultRadarSquareColor24 } from '@hashicorp/flight-icons/svg-react/vault-radar-square-color-24'
+import { IconVaultSecretsSquareColor16 } from '@hashicorp/flight-icons/svg-react/vault-secrets-square-color-16'
+import { IconVaultSecretsSquareColor24 } from '@hashicorp/flight-icons/svg-react/vault-secrets-square-color-24'
 import { IconWaypoint16 } from '@hashicorp/flight-icons/svg-react/waypoint-16'
 import { IconWaypoint24 } from '@hashicorp/flight-icons/svg-react/waypoint-24'
 import { ProductIconProps } from './types'
@@ -55,6 +59,14 @@ const productSlugsToIcons = {
 	vault: {
 		16: IconVault16,
 		24: IconVault24,
+	},
+	'hcp-vault-radar': {
+		16: IconVaultRadarSquareColor16,
+		24: IconVaultRadarSquareColor24,
+	},
+	'hcp-vault-secrets': {
+		16: IconVaultSecretsSquareColor16,
+		24: IconVaultSecretsSquareColor24,
 	},
 	waypoint: {
 		16: IconWaypoint16,
