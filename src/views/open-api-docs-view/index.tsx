@@ -11,7 +11,7 @@ import NoIndexTagIfVersioned from 'components/no-index-tag-if-versioned'
 import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
 import VersionSwitcher from 'components/version-switcher'
 import OpenApiSidebarContents from 'components/open-api-sidebar-contents'
-import { ApiDocsVersionAlert } from 'views/api-docs-view/components'
+import { ApiDocsVersionAlert } from './components/api-docs-version-alert'
 import StandaloneLink from '@components/standalone-link'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
 
