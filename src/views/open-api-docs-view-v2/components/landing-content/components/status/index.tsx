@@ -11,7 +11,7 @@ import StandaloneLink from 'components/standalone-link'
 // Local
 import { useServiceStatus } from './utils/use-service-status'
 // Types
-import { StatusIndicatorConfig } from 'views/open-api-docs-view/types'
+import type { StatusIndicatorConfig } from 'views/open-api-docs-view-v2/types'
 // Styles
 import s from './status.module.css'
 

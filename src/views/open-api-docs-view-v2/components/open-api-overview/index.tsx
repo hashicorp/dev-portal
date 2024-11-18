@@ -10,7 +10,7 @@ import ProductIcon from 'components/product-icon'
 // Local
 import { Status } from '../landing-content/components/status'
 // Types
-import type { StatusIndicatorConfig } from 'views/open-api-docs-view/types'
+import type { StatusIndicatorConfig } from 'views/open-api-docs-view-v2/types'
 import type { ReactNode } from 'react'
 import type { ProductSlug } from 'types/products'
 // Styles

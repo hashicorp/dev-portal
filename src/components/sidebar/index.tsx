@@ -35,7 +35,7 @@ import SidebarBackToLink from './components/sidebar-back-to-link'
 import SidebarMobileControls from './components/sidebar-mobile-controls'
 import s from './sidebar.module.css'
 import OpenApiSidebarContents from 'components/open-api-sidebar-contents'
-import { OpenApiNavItem } from 'views/open-api-docs-view/types'
+import type { BasicNavItem } from './types'
 
 const Sidebar = ({
 	backToLinkProps,
@@ -131,7 +131,7 @@ const Sidebar = ({
 	} else if (isInstallPage) {
 		sidebarContent = (
 			<OpenApiSidebarContents
-				navItems={filteredMenuItems as unknown as OpenApiNavItem[]}
+				navItems={filteredMenuItems as unknown as BasicNavItem[]}
 				navResourceItems={navResourceItems.splice(1)}
 				showFilterInput={false}
 			/>

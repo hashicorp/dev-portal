@@ -25,6 +25,44 @@ interface HeadingNavItem {
 	heading: string
 }
 
+/**
+ * Nav items are used to render the sidebar and mobile nav.
+ *
+ * TODO: move these types to sidebar component.
+ * For now, this is difficult, as the MenuItem type is a complex
+ * interface that requires a larger effort to untangle, and all
+ * related Sidebar components are similarly entangled.
+ * Rationale is to start with simpler slightly duplicative types here,
+ * rather than try to embark on the `MenuItem` type refactor.
+ * Task: https://app.asana.com/0/1202097197789424/1202405210286689/f
+ */
+type ExternalLinkNavItem = {
+	title: string
+	href: string
+}
+export type LinkNavItem = {
+	title: string
+	fullPath: string
+	theme?: ProductSlug
+	isActive?: boolean
+}
+
+/**
+ * Note: this type has been brought in from OpenAPI docs view work. It was
+ * introduced in that work to avoid the complexity of `BaseNavItem`.
+ *
+ * This type may be useful as a replacement to `BaseNavItem` the types that
+ * extend it, as it's a simpler union type, with fewer optional properties,
+ * and therefore arguably more utility in components that use a more
+ * composition-based pattern (rather than the conditional rendering pattern
+ * used in the older Sidebar nav components and associated types).
+ */
+export type BasicNavItem =
+	| DividerNavItem
+	| HeadingNavItem
+	| LinkNavItem
+	| ExternalLinkNavItem
+
 interface BaseNavItem {
 	badge?: SidebarNavMenuItemBadgeProps
 	hidden?: boolean

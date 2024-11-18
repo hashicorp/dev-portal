@@ -12,20 +12,28 @@ import { SidebarNavMenuItem } from 'components/sidebar/components'
 import { useNavItemsWithActive } from './utils/use-nav-items-with-active'
 import { filterByTitle } from './utils/filter-by-title'
 // Types
-import type { OpenApiNavItem } from 'views/open-api-docs-view/types'
+import type { BasicNavItem } from '@components/sidebar/types'
 // Styles
 import s from './open-api-sidebar-contents.module.css'
 
 /**
  * Renders sidebar contents for OpenApiDocsView.
+ *
+ * NOTE: this component was previously used for OpenApi docs views.
+ * It has since been replaced by other components.
+ *
+ * This component has been retained as it's still in use on install
+ * pages. Since Install pages do _not_ seem to use the "filter input",
+ * they might benefit from being moved to use `<SidebarNavMenuItemsList />`
+ * directly. Once that's been done, this component could be deleted.
  */
 function OpenApiSidebarContents({
 	navItems,
 	navResourceItems,
 	showFilterInput = true,
 }: {
-	navItems: OpenApiNavItem[]
-	navResourceItems: OpenApiNavItem[]
+	navItems: BasicNavItem[]
+	navResourceItems: BasicNavItem[]
 	showFilterInput?: boolean
 }) {
 	const [filterValue, setFilterValue] = useState('')
@@ -66,10 +74,10 @@ function OpenApiSidebarContents({
 /**
  * Renders an unordered list of nav items, with list styles reset.
  */
-function SidebarNavMenuItemsList({ items }: { items: OpenApiNavItem[] }) {
+function SidebarNavMenuItemsList({ items }: { items: BasicNavItem[] }) {
 	return (
 		<ul className={s.listResetStyles}>
-			{items.map((item: OpenApiNavItem, index: number) => (
+			{items.map((item: BasicNavItem, index: number) => (
 				// eslint-disable-next-line react/no-array-index-key
 				<SidebarNavMenuItem item={item} key={index} />
 			))}

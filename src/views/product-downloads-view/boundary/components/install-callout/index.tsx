@@ -16,7 +16,7 @@ import { operatingSystemIcons } from '..'
 import { getFileExtension, humanArch } from '../helpers'
 // Styles
 import s from './install-callout.module.css'
-import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
+import { ContentWithPermalink } from 'views/open-api-docs-view-v2/components/content-with-permalink'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 
 /**

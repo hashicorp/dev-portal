@@ -6,7 +6,7 @@
 // Utils
 import { cachedGetProductData } from 'lib/get-product-data'
 import { fetchCloudApiVersionData } from 'lib/api-docs'
-import { getVersionSwitcherProps } from 'views/open-api-docs-view/utils'
+import { getVersionSwitcherProps } from './utils/get-version-switcher-props'
 import { isDeployPreview } from 'lib/env-checks'
 import { parseAndValidateOpenApiSchema } from 'lib/api-docs/parse-and-validate-open-api-schema'
 import { serialize } from 'lib/next-mdx-remote/serialize'

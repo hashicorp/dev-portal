@@ -6,7 +6,7 @@
 // Constants
 import { API_ROUTE } from '../../../constants'
 // Types
-import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
+import type { OpenApiDocsViewV2Props } from 'views/open-api-docs-view-v2/types'
 import type { OpenApiPreviewV2InputValues } from '..'
 
 // If we fail to fetch props, we'll return an error object
@@ -34,7 +34,7 @@ export async function fetchOpenApiStaticProps(
 				{
 					title: 'Failed to generate page data',
 					description:
-						'An error occured while attempting to generate page data from the provided inputs. Please ensure the provided schema is a valid OpenAPI specification in JSON format. Please also ensure the provided description is valid markdown.',
+						'An error occurred while attempting to generate page data from the provided inputs. Please ensure the provided schema is a valid OpenAPI specification in JSON format. Please also ensure the provided description is valid markdown.',
 					error: resultData.error,
 				},
 				null,
@@ -42,7 +42,7 @@ export async function fetchOpenApiStaticProps(
 		} else {
 			return [
 				null,
-				resultData as { staticProps: OpenApiDocsViewProps; uniqueFileId },
+				resultData as { staticProps: OpenApiDocsViewV2Props; uniqueFileId },
 			]
 		}
 	} catch (error) {
