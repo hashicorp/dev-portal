@@ -14,7 +14,7 @@
 			"examCode": "002",
 			"productSlug": "vault",
 			"versionTested": "Vault 1.6.0 and higher",
-			"description": "Vault Associate 002 is currently available but will be replaced by Vault Associate 003 in 2025. Compare the differences between the 002 and 003 exam versions below. The Vault Associate certification is for Cloud Engineers specializing in security, development, or operations who know the basic concepts, skills, and use cases associated with Vault. You understand what Vault Enterprise features exist and can differentiate between Enterprise and Community Edition. You will be best prepared for this exam if you have professional experience using Vault in production, but performing the exam objectives in a personal demo environment may be sufficient.",
+			"description": "Vault Associate 002 is currently available but will be replaced by Vault Associate 003 in January 2025. Compare the differences between the 002 and 003 exam versions below. The Vault Associate certification is for Cloud Engineers specializing in security, development, or operations who know the basic concepts, skills, and use cases associated with Vault. You understand what Vault Enterprise features exist and can differentiate between Enterprise and Community Edition. You will be best prepared for this exam if you have professional experience using Vault in production, but performing the exam objectives in a personal demo environment may be sufficient.",
 			"links": {
 				"prepare": "/vault/tutorials/associate-cert",
 				"register": "https://cp.certmetrics.com/hashicorp/en/login"
@@ -26,7 +26,7 @@
 			"examCode": "003",
 			"productSlug": "vault",
 			"versionTested": "Vault 1.16",
-			"description": "Vault Associate 003 is a new version of the Vault Associate exam and will be available in 2025. Compare the differences between the 002 and 003 exam versions below. Begin preparing for this exam now, and look for registration information soon! The Vault Associate 003 will still be for Cloud Engineers specializing in security, development, or operations who know the basic concepts, skills, and use cases associated with Vault. You will be best prepared for this exam if you have professional experience using Vault in production, but performing the exam objectives in a personal demo environment may be sufficient.",
+			"description": "Vault Associate 003 is a new version of the Vault Associate exam and will be available in January 2025. Compare the differences between the 002 and 003 exam versions below. Begin preparing for this exam now, and look for registration information soon! The Vault Associate 003 is for Cloud Engineers specializing in security, development, or operations who know the basic concepts, skills, and use cases associated with Vault. You will be best prepared for this exam if you have professional experience using Vault in production, but performing the exam objectives in a personal demo environment may be sufficient.",
 			"links": {
 				"prepare": "/vault/tutorials/associate-cert-003"
 			},
