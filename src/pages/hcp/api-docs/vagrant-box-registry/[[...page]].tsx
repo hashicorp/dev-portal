@@ -3,68 +3,81 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// Lib
-import { fetchCloudApiVersionData } from 'lib/api-docs/fetch-cloud-api-version-data'
 // View
-import OpenApiDocsView from 'views/open-api-docs-view'
+import OpenApiDocsViewV2 from 'views/open-api-docs-view-v2'
 import {
-	getStaticPaths,
-	getStaticProps as getOpenApiDocsStaticProps,
-} from 'views/open-api-docs-view/server'
+	generateStaticPaths,
+	generateStaticPropsVersioned,
+} from 'views/open-api-docs-view-v2/server'
+// Utils
+import { getOperationGroupKeyFromPath } from 'views/open-api-docs-view-v2/utils/get-operation-group-key-from-path'
+// Schema transforms
+import { schemaTransformShortenHcp } from 'views/open-api-docs-view-v2/schema-transforms/schema-transform-shorten-hcp'
+import { schemaTransformComponent } from 'views/open-api-docs-view-v2/schema-transforms/schema-transform-component'
+import { shortenProtobufAnyDescription } from 'views/open-api-docs-view-v2/schema-transforms/shorten-protobuf-any-description'
 // Types
-import type { GetStaticProps, GetStaticPropsContext } from 'next'
-import type { OpenAPIV3 } from 'openapi-types'
 import type {
-	OpenApiDocsParams,
-	OpenApiDocsViewProps,
-	OpenApiDocsPageConfig,
-} from 'views/open-api-docs-view/types'
-import {
-	schemaModShortenHcp,
-	schemaModComponent,
-	shortenProtobufAnyDescription,
-} from 'views/open-api-docs-view/utils/massage-schema-utils'
+	GetStaticPaths,
+	GetStaticProps,
+	GetStaticPropsContext,
+} from 'next'
+import type {
+	OpenApiDocsV2Params,
+	OpenApiDocsViewV2Props,
+	OpenApiDocsViewV2Config,
+} from 'views/open-api-docs-view-v2/types'
 
 /**
- * OpenApiDocsView server-side page configuration
+ * Configure this OpenAPI spec page, specifying the source,
+ * and additional configuration that doesn't fit in the schema itself.
  */
-const PAGE_CONFIG: OpenApiDocsPageConfig = {
-	productSlug: 'hcp',
-	serviceProductSlug: 'vagrant',
+const PAGE_CONFIG: OpenApiDocsViewV2Config = {
+	backToLink: {
+		href: '/hcp',
+		text: 'HashiCorp Cloud Platform',
+	},
 	basePath: '/hcp/api-docs/vagrant-box-registry',
-	githubSourceDirectory: {
+	breadcrumbLinksPrefix: [
+		{
+			title: 'Developer',
+			url: '/',
+		},
+		{
+			title: 'HashiCorp Cloud Platform',
+			url: '/hcp',
+		},
+	],
+	schemaSource: {
 		owner: 'hashicorp',
 		repo: 'hcp-specs',
 		path: 'specs/cloud-vagrant-box-registry',
 		ref: 'main',
 	},
-	groupOperationsByPath: true,
+	productContext: 'hcp',
+	theme: 'vagrant',
+	getOperationGroupKey: getOperationGroupKeyFromPath,
 	statusIndicatorConfig: {
 		pageUrl: 'https://status.hashicorp.com',
 		endpointUrl:
 			'https://status.hashicorp.com/api/v2/components/1mdm36t0fkx1.json',
 	},
-	navResourceItems: [
+	resourceLinks: [
 		{
-			title: 'Tutorial Library',
+			text: 'Tutorial Library',
 			href: '/tutorials/library?product=vagrant',
 		},
 		{
-			title: 'Community',
+			text: 'Community',
 			href: 'https://discuss.hashicorp.com/',
 		},
 		{
-			title: 'Support',
+			text: 'Support',
 			href: 'https://www.hashicorp.com/customer-success',
 		},
 	],
-
-	/**
-	 * Massage the schema data a little bit
-	 */
-	massageSchemaForClient: (schemaData: OpenAPIV3.Document) => {
+	schemaTransforms: [
 		//  Replace "HashiCorp Cloud Platform" with "HCP" in the title
-		const withShortTitle = schemaModShortenHcp(schemaData)
+		schemaTransformShortenHcp,
 		/**
 		 * Shorten the description of the protobufAny schema
 		 *
@@ -78,41 +91,34 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 		 * Related task:
 		 * https://app.asana.com/0/1207339219333499/1207339701271604/f
 		 */
-		const withShortProtobufDocs = schemaModComponent(
-			withShortTitle,
-			'google.protobuf.Any',
-			shortenProtobufAnyDescription
-		)
-		// Return the schema data with modifications
-		return withShortProtobufDocs
-	},
+		(schema) => {
+			return schemaTransformComponent(
+				schema,
+				'google.protobuf.Any',
+				shortenProtobufAnyDescription
+			)
+		},
+	],
 }
 
 /**
- * Get static paths, using `versionData` fetched from GitHub.
+ * Get static paths, using the configured `schemaSource`.
  */
-export { getStaticPaths }
-
-/**
- * Get static props, using `versionData` fetched from GitHub.
- *
- * We need all version data for the version selector,
- * and of course we need specific data for the current version.
- */
-export const getStaticProps: GetStaticProps<
-	OpenApiDocsViewProps,
-	OpenApiDocsParams
-> = async ({ params }: GetStaticPropsContext<OpenApiDocsParams>) => {
-	// Fetch all version data, based on remote `stable` & `preview` subfolders
-	const versionData = await fetchCloudApiVersionData(
-		PAGE_CONFIG.githubSourceDirectory
-	)
-	// Generate static props based on page configuration, params, and versionData
-	return await getOpenApiDocsStaticProps({
-		...PAGE_CONFIG,
-		context: { params },
-		versionData,
+export const getStaticPaths: GetStaticPaths<OpenApiDocsV2Params> = async () => {
+	return await generateStaticPaths({
+		schemaSource: PAGE_CONFIG.schemaSource,
+		schemaTransforms: PAGE_CONFIG.schemaTransforms,
 	})
 }
 
-export default OpenApiDocsView
+/**
+ * Get static paths, using the configured `schemaSource`.
+ */
+export const getStaticProps: GetStaticProps<
+	OpenApiDocsViewV2Props,
+	OpenApiDocsV2Params
+> = async ({ params }: GetStaticPropsContext<OpenApiDocsV2Params>) => {
+	return await generateStaticPropsVersioned(PAGE_CONFIG, params?.page)
+}
+
+export default OpenApiDocsViewV2
