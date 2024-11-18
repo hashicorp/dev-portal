@@ -15,12 +15,12 @@ import { FileStringInput } from '../file-string-input'
 import { TextareaInput } from '../textarea-input'
 // Utils
 import { fetchOpenApiStaticProps } from './utils/fetch-open-api-static-props'
-// Types
-import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
+// Constants
+import { COOKIE_ID } from '../../constants'
 // Styles
 import s from './open-api-preview-inputs.module.css'
 
-interface InputValues {
+export interface OpenApiPreviewV2InputValues {
 	openApiJsonString: string
 	openApiDescription: string
 	groupOperationsByPath: boolean
@@ -31,9 +31,11 @@ interface InputValues {
  * static props for `OpenApiDocsView`.
  */
 export function OpenApiPreviewInputs({
-	setStaticProps,
+	defaultValues,
+	defaultCollapsed = true,
 }: {
-	setStaticProps: (v: OpenApiDocsViewProps) => void
+	defaultValues?: OpenApiPreviewV2InputValues
+	defaultCollapsed?: boolean
 }) {
 	const [error, setError] = useState<{
 		title: string
@@ -41,22 +43,26 @@ export function OpenApiPreviewInputs({
 		error: string
 	}>()
 	const [isLoading, setIsLoading] = useState(false)
-	const [isCollapsed, setIsCollapsed] = useState(false)
-	const [inputValues, setInputValues] = useState<InputValues>({
+	const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed)
+	const [inputValues, setInputValues] = useState<OpenApiPreviewV2InputValues>({
 		openApiJsonString: '',
 		openApiDescription: '',
 		groupOperationsByPath: false,
+		...defaultValues,
 	})
 
 	/**
 	 * Helper to set a specific input data value.
 	 */
-	function setInputValue(key: keyof InputValues, value: unknown) {
-		setInputValues((p: InputValues) => ({ ...p, [key]: value }))
+	function setInputValue(
+		key: keyof OpenApiPreviewV2InputValues,
+		value: unknown
+	) {
+		setInputValues((p: OpenApiPreviewV2InputValues) => ({ ...p, [key]: value }))
 	}
 
 	/**
-	 * Whenever an input value changes, reset the error
+	 * Whenever an input value changes, reset the submission error
 	 */
 	useEffect(() => {
 		if (error) {
@@ -82,7 +88,7 @@ export function OpenApiPreviewInputs({
 				setInputValue('openApiDescription', parsedValue)
 			}
 		} catch (e) {
-			// do nothing if parsing fails
+			// do nothing if parsing fails, error will come up on submission
 		}
 	}, [inputValues])
 
@@ -93,7 +99,14 @@ export function OpenApiPreviewInputs({
 	async function updateStaticProps() {
 		setIsLoading(true)
 		const [err, result] = await fetchOpenApiStaticProps(inputValues)
-		err ? setError(err) : setStaticProps(result)
+		if (err) {
+			setError(err)
+		} else {
+			// Set a cookie with the unique file id
+			document.cookie = `${COOKIE_ID}=${result.uniqueFileId}`
+			// Reload the page, triggering a new fetch of getServerSideProps
+			window.location.reload()
+		}
 		setIsLoading(false)
 	}
 

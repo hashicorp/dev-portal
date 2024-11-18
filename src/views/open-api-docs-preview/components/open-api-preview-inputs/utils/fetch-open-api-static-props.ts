@@ -3,10 +3,13 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Constants
+import { API_ROUTE } from '../../../constants'
+// Types
 import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
+import type { OpenApiPreviewV2InputValues } from '..'
 
-const API_ROUTE = '/api/get-open-api-docs-view-props'
-
+// If we fail to fetch props, we'll return an error object
 type Error = {
 	title: string
 	description: string
@@ -17,11 +20,9 @@ type Error = {
  * Fetch static props for the page and update state when
  * the provided `inputValues` is submitted via a button activation.
  */
-export async function fetchOpenApiStaticProps(inputValues: {
-	openApiJsonString: string
-	openApiDescription?: string
-	groupOperationsByPath?: boolean
-}): Promise<[Error | null, OpenApiDocsViewProps | null]> {
+export async function fetchOpenApiStaticProps(
+	inputValues: OpenApiPreviewV2InputValues
+): Promise<[Error, null] | [null, { uniqueFileId: string }]> {
 	try {
 		const result = await fetch(API_ROUTE, {
 			method: 'POST',
@@ -39,7 +40,10 @@ export async function fetchOpenApiStaticProps(inputValues: {
 				null,
 			]
 		} else {
-			return [null, resultData.props as OpenApiDocsViewProps]
+			return [
+				null,
+				resultData as { staticProps: OpenApiDocsViewProps; uniqueFileId },
+			]
 		}
 	} catch (error) {
 		return [

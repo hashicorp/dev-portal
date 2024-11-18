@@ -6,6 +6,6 @@
 /**
  * Set up some constants
  */
-export const COOKIE_ID = 'open-api-docs-preview-v2_unique-file-id'
-export const API_ROUTE = '/api/open-api-docs-preview-v2'
+export const COOKIE_ID = 'get-open-api-preview-props_unique-file-id'
+export const API_ROUTE = '/api/get-open-api-preview-props'
 export const DYNAMIC_PARAM = 'page'

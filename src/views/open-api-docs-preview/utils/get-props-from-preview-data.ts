@@ -54,7 +54,7 @@ export default async function getPropsFromPreviewData(
 	]
 	// Build page configuration based on the input values
 	const pageConfig: Omit<OpenApiDocsViewV2Config, 'schemaSource'> = {
-		basePath: '/open-api-docs-preview-v2',
+		basePath: '/open-api-docs-preview',
 		breadcrumbLinksPrefix: [
 			{
 				title: 'Developer',
