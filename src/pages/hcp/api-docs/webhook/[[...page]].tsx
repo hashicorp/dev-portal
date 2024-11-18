@@ -3,83 +3,99 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// Lib
-import { fetchCloudApiVersionData } from 'lib/api-docs/fetch-cloud-api-version-data'
 // View
-import OpenApiDocsView from 'views/open-api-docs-view'
-import { schemaModShortenHcp } from 'views/open-api-docs-view/utils/massage-schema-utils'
+import OpenApiDocsViewV2 from 'views/open-api-docs-view-v2'
 import {
-	getStaticPaths,
-	getStaticProps as getOpenApiDocsStaticProps,
-} from 'views/open-api-docs-view/server'
+	generateStaticPaths,
+	generateStaticPropsVersioned,
+} from 'views/open-api-docs-view-v2/server'
+// Schema transforms
+import { schemaTransformShortenHcp } from 'views/open-api-docs-view-v2/schema-transforms/schema-transform-shorten-hcp'
 // Types
-import type { GetStaticProps, GetStaticPropsContext } from 'next'
 import type {
-	OpenApiDocsParams,
-	OpenApiDocsViewProps,
-	OpenApiDocsPageConfig,
-} from 'views/open-api-docs-view/types'
+	GetStaticPaths,
+	GetStaticProps,
+	GetStaticPropsContext,
+} from 'next'
+import type {
+	OpenApiDocsV2Params,
+	OpenApiDocsViewV2Props,
+	OpenApiDocsViewV2Config,
+} from 'views/open-api-docs-view-v2/types'
 
 /**
- * Configure the specific spec file we want to fetch,
- * as well as some other minor content details and bells & whistles.
+ * Configure this OpenAPI spec page, specifying the source,
+ * and additional configuration that doesn't fit in the schema itself.
  */
-const PAGE_CONFIG: OpenApiDocsPageConfig = {
+const PAGE_CONFIG: OpenApiDocsViewV2Config = {
+	backToLink: {
+		href: '/hcp',
+		text: 'HashiCorp Cloud Platform',
+	},
 	basePath: '/hcp/api-docs/webhook',
-	productSlug: 'hcp',
-	githubSourceDirectory: {
+	breadcrumbLinksPrefix: [
+		{
+			title: 'Developer',
+			url: '/',
+		},
+		{
+			title: 'HashiCorp Cloud Platform',
+			url: '/hcp',
+		},
+	],
+	schemaSource: {
 		owner: 'hashicorp',
 		repo: 'hcp-specs',
 		path: 'specs/cloud-webhook',
 		ref: 'main',
 	},
+	productContext: 'hcp',
+	theme: 'hcp',
 	statusIndicatorConfig: {
 		pageUrl: 'https://status.hashicorp.com',
 		endpointUrl:
 			'https://status.hashicorp.com/api/v2/components/0q55nwmxngkc.json',
 	},
-	navResourceItems: [
+	resourceLinks: [
 		{
-			title: 'Community',
+			text: 'Community',
 			href: 'https://discuss.hashicorp.com/',
 		},
 		{
-			title: 'Support',
+			text: 'Support',
 			href: 'https://www.hashicorp.com/customer-success',
 		},
 	],
-	/**
-	 * Massage the schema data a little bit, replacing
-	 * "HashiCorp Cloud Platform" in the title with "HCP".
-	 */
-	massageSchemaForClient: schemaModShortenHcp,
+	getOperationTitle(operation) {
+		/**
+		 * In this spec, operation IDs are formatted as
+		 * `ServiceId_OperationId`. We want to display the `OperationId` part.
+		 * We split the ID on `_`, then return the last part.
+		 */
+		const idParts = operation.operationId.split('_')
+		return idParts[idParts.length - 1]
+	},
+	schemaTransforms: [schemaTransformShortenHcp],
 }
 
 /**
- * Get static paths, using `versionData` fetched from GitHub.
+ * Get static paths, using the configured `schemaSource`.
  */
-export { getStaticPaths }
-
-/**
- * Get static props, using `versionData` fetched from GitHub.
- *
- * Note that only a single version may be returned, in which case the
- * version switcher will not be rendered.
- */
-export const getStaticProps: GetStaticProps<
-	OpenApiDocsViewProps,
-	OpenApiDocsParams
-> = async ({ params }: GetStaticPropsContext<OpenApiDocsParams>) => {
-	// Fetch all version data, based on remote `stable` & `preview` subfolders
-	const versionData = await fetchCloudApiVersionData(
-		PAGE_CONFIG.githubSourceDirectory
-	)
-	// Generate static props based on page configuration, params, and versionData
-	return await getOpenApiDocsStaticProps({
-		...PAGE_CONFIG,
-		context: { params },
-		versionData,
+export const getStaticPaths: GetStaticPaths<OpenApiDocsV2Params> = async () => {
+	return await generateStaticPaths({
+		schemaSource: PAGE_CONFIG.schemaSource,
+		schemaTransforms: PAGE_CONFIG.schemaTransforms,
 	})
 }
 
-export default OpenApiDocsView
+/**
+ * Get static paths, using the configured `schemaSource`.
+ */
+export const getStaticProps: GetStaticProps<
+	OpenApiDocsViewV2Props,
+	OpenApiDocsV2Params
+> = async ({ params }: GetStaticPropsContext<OpenApiDocsV2Params>) => {
+	return await generateStaticPropsVersioned(PAGE_CONFIG, params?.page)
+}
+
+export default OpenApiDocsViewV2
