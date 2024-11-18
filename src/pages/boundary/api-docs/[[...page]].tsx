@@ -3,19 +3,26 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// Shared
-import { isDeployPreview } from 'lib/env-checks'
 // View
-import ApiDocsView from 'views/api-docs-view'
+import OpenApiDocsViewV2 from 'views/open-api-docs-view-v2'
 import {
-	getApiDocsStaticProps,
-	getApiDocsStaticPaths,
-	ApiDocsParams,
-} from 'views/api-docs-view/server'
+	generateStaticPaths,
+	generateStaticPropsVersioned,
+} from 'views/open-api-docs-view-v2/server'
+// Utils
+import { isDeployPreview } from 'lib/env-checks'
 // Types
+import type {
+	GetStaticPaths,
+	GetStaticProps,
+	GetStaticPropsContext,
+} from 'next'
+import type {
+	OpenApiDocsV2Params,
+	OpenApiDocsViewV2Props,
+	OpenApiDocsViewV2Config,
+} from 'views/open-api-docs-view-v2/types'
 import type { ApiDocsVersionData } from 'lib/api-docs/types'
-import type { ApiDocsViewProps } from 'views/api-docs-view/types'
-import type { GetStaticPaths, GetStaticProps } from 'next'
 
 /**
  * The product slug is used to fetch product data for the layout.
@@ -26,7 +33,7 @@ const PRODUCT_SLUG = 'boundary'
  * The baseUrl is used to generate
  * breadcrumb links, sidebar nav levels, and version switcher links.
  */
-const BASE_URL = '/boundary/api-docs'
+const BASE_PATH = '/boundary/api-docs'
 
 /**
  * The path to read from when running local preview in the context
@@ -63,33 +70,52 @@ function getVersionData(): ApiDocsVersionData[] {
 }
 
 /**
- * Get static paths, using `versionData` fetched from GitHub.
+ * Configure this OpenAPI spec page, specifying the source,
+ * and additional configuration that doesn't fit in the schema itself.
  */
-export const getStaticPaths: GetStaticPaths<ApiDocsParams> = async () => {
-	// Use the hard-coded version data
-	const versionData = await getVersionData()
-	return await getApiDocsStaticPaths({ productSlug: PRODUCT_SLUG, versionData })
+const PAGE_CONFIG: OpenApiDocsViewV2Config = {
+	basePath: BASE_PATH,
+	breadcrumbLinksPrefix: [
+		{
+			title: 'Developer',
+			url: '/',
+		},
+		{
+			title: 'Boundary',
+			url: '/boundary',
+		},
+	],
+	getOperationTitle(operation) {
+		/**
+		 * In this spec, operation IDs are formatted as
+		 * `ServiceId_OperationId`. We want to display the `OperationId` part.
+		 * We split the ID on `_`, then return the last part.
+		 */
+		const idParts = operation.operationId.split('_')
+		return idParts[idParts.length - 1]
+	},
+	schemaSource: getVersionData(),
+	productContext: PRODUCT_SLUG,
 }
 
 /**
- * Get static props, using `versionData` fetched from GitHub.
- *
- * We need all version data for the version selector,
- * and of course we need specific data for the current version.
+ * Get static paths, using the configured `schemaSource`.
  */
-export const getStaticProps: GetStaticProps<
-	ApiDocsViewProps,
-	ApiDocsParams
-> = async ({ params }: { params: ApiDocsParams }) => {
-	// Use the hard-coded version data
-	const versionData = await getVersionData()
-	// Return static props
-	return await getApiDocsStaticProps({
-		productSlug: PRODUCT_SLUG,
-		baseUrl: BASE_URL,
-		pathParts: params.page,
-		versionData,
+export const getStaticPaths: GetStaticPaths<OpenApiDocsV2Params> = async () => {
+	return await generateStaticPaths({
+		schemaSource: PAGE_CONFIG.schemaSource,
+		schemaTransforms: PAGE_CONFIG.schemaTransforms,
 	})
 }
 
-export default ApiDocsView
+/**
+ * Get static paths, using the configured `schemaSource`.
+ */
+export const getStaticProps: GetStaticProps<
+	OpenApiDocsViewV2Props,
+	OpenApiDocsV2Params
+> = async ({ params }: GetStaticPropsContext<OpenApiDocsV2Params>) => {
+	return await generateStaticPropsVersioned(PAGE_CONFIG, params?.page)
+}
+
+export default OpenApiDocsViewV2
