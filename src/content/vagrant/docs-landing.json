@@ -57,7 +57,7 @@
 		{
 			"type": "card-grid",
 			"title": "HCP Vagrant Registry",
-			"description": "HCP Vagrant serves a public, searchable index of Vagrant boxes.",
+			"description": "HCP Vagrant Registry serves a public, searchable index of Vagrant boxes.",
 			"cards": [
 				{
 					"description": "Store and version your Vagrant boxes in HCP Vagrant Registry.",
@@ -65,7 +65,7 @@
 					"url": "/hcp/docs/vagrant"
 				},
 				{
-					"description": "Configure HCP Vagrant permissions.",
+					"description": "Configure HCP Vagrant Registry permissions.",
 					"title": "Configure permissions",
 					"url": "/hcp/docs/vagrant/permissions"
 				},
