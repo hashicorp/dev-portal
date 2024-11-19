@@ -36,9 +36,9 @@
 		]
 	},
 	"sidecarHcpCallout": {
-		"heading": "Vagrant Cloud",
+		"heading": "HCP Vagrant Registry",
 		"description": "Virtual boxes for Linux, Laravel and any development environment",
-		"ctaText": "Try Vagrant Cloud for free",
-		"ctaUrl": "https://app.vagrantup.com/boxes/search"
+		"ctaText": "Try HCP Vagrant Registry for free",
+		"ctaUrl": "https://portal.cloud.hashicorp.com/vagrant/discover"
 	}
 }
