@@ -56,23 +56,23 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Vagrant Cloud",
-			"description": "Vagrant Cloud serves a public, searchable index of Vagrant boxes.",
+			"title": "HCP Vagrant Registry",
+			"description": "HCP Vagrant Registry serves a public, searchable index of Vagrant boxes.",
 			"cards": [
 				{
-					"description": "Use the public catalog to find boxes that contain the technologies you need for your Vagrant environment.",
+					"description": "Store and version your Vagrant boxes in HCP Vagrant Registry.",
 					"title": "Catalog",
-					"url": "/vagrant/vagrant-cloud/boxes/catalog"
+					"url": "/hcp/docs/vagrant"
 				},
 				{
-					"description": "Create your boxes with Packer, the Vagrant Cloud web interface, or the API.",
-					"title": "Creation",
-					"url": "/vagrant/vagrant-cloud/boxes/create"
+					"description": "Configure HCP Vagrant Registry permissions.",
+					"title": "Configure permissions",
+					"url": "/hcp/docs/vagrant/permissions"
 				},
 				{
-					"description": "Version and track the lifecycle of your boxes to make updates and fixes more efficiently.",
-					"title": "Lifecycle",
-					"url": "/vagrant/vagrant-cloud/boxes/lifecycle"
+					"description": "Reclaim registries from Vagrant Cloud.",
+					"title": "Reclaim registries",
+					"url": "/hcp/docs/vagrant/reclaim-vagrant-cloud"
 				}
 			]
 		},

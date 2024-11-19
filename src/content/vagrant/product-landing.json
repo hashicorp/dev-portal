@@ -27,17 +27,6 @@
 	},
 	"blocks": [
 		{
-			"type": "callout",
-			"heading": "Use HCP Login for Vagrant Cloud",
-			"body": "Create a new HCP account or link your existing one to Vagrant Cloud.",
-			"ctas": [
-				{
-					"text": "Learn More",
-					"url": "https://discuss.hashicorp.com/t/adding-hcp-login-for-vagrant-cloud/48025"
-				}
-			]
-		},
-		{
 			"type": "heading",
 			"heading": "Fundamentals",
 			"level": 2,
