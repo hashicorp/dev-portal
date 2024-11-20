@@ -23,7 +23,7 @@ import {
 import { groupItemsByKey } from './utils/group-items-by-key'
 import { slugifyOperationId } from './utils/slugify-operation-id'
 import { wordBreakCamelCase } from './utils/word-break-camel-case'
-import { parseOpenApiV2UrlContext } from './utils/parse-open-api-v2-url-context'
+import { parseOpenApiUrlContext } from './utils/parse-open-api-url-context'
 // Types
 import type { ApiDocsVersionData } from 'lib/api-docs/types'
 import type { BreadcrumbLink } from '@components/breadcrumb-bar'
@@ -31,11 +31,11 @@ import type { GetStaticPaths } from 'next'
 import type { GithubDir } from 'lib/fetch-github-file-tree'
 import type {
 	ApiDocsUrlContext,
-	OpenApiDocsV2Params,
-	OpenApiDocsViewV2Config,
-	OpenApiDocsViewV2Props,
+	OpenApiDocsParams,
+	OpenApiDocsViewConfig,
+	OpenApiDocsViewProps,
 	SharedProps,
-} from 'views/open-api-docs-view-v2/types'
+} from 'views/open-api-docs-view/types'
 import type { OpenAPIV3 } from 'openapi-types'
 
 /**
@@ -51,7 +51,7 @@ export async function generateStaticPaths({
 	transformVersionData?: (
 		versionData: ApiDocsVersionData[]
 	) => ApiDocsVersionData[]
-}): Promise<ReturnType<GetStaticPaths<OpenApiDocsV2Params>>> {
+}): Promise<ReturnType<GetStaticPaths<OpenApiDocsParams>>> {
 	// If we are in a product repo deploy preview, don't pre-render any paths
 	if (isDeployPreview()) {
 		return { paths: [], fallback: 'blocking' }
@@ -106,9 +106,9 @@ export async function generateStaticPaths({
  * use case of fetching version data from GitHub.
  */
 export async function generateStaticPropsVersioned(
-	pageConfig: OpenApiDocsViewV2Config,
+	pageConfig: OpenApiDocsViewConfig,
 	params: string[] | never
-): Promise<{ props: OpenApiDocsViewV2Props } | { notFound: true }> {
+): Promise<{ props: OpenApiDocsViewProps } | { notFound: true }> {
 	// Fetch version data
 	const rawVersionData = Array.isArray(pageConfig.schemaSource)
 		? pageConfig.schemaSource
@@ -118,7 +118,7 @@ export async function generateStaticPropsVersioned(
 			? pageConfig.transformVersionData(rawVersionData)
 			: rawVersionData
 	// Parse the URL context, to determine the version and operationSlug.
-	const urlContext = parseOpenApiV2UrlContext(params)
+	const urlContext = parseOpenApiUrlContext(params)
 	// Return static props, or may return `{ notFound: true }`.
 	return await generateStaticProps({
 		...pageConfig,
@@ -155,7 +155,7 @@ export async function generateStaticProps({
 	theme = productContext,
 	versionData,
 	urlContext: { isVersionedUrl, versionId, operationSlug },
-}: Omit<OpenApiDocsViewV2Config, 'schemaSource'> & {
+}: Omit<OpenApiDocsViewConfig, 'schemaSource'> & {
 	/**
 	 * Data for all versions of target OpenAPI schema, include the release
 	 * stage of each version, the source file, and the version ID.
@@ -167,7 +167,7 @@ export async function generateStaticProps({
 	 * - operation vs landing page, as an operationSlug may be present in the URL
 	 */
 	urlContext: ApiDocsUrlContext
-}): Promise<{ props: OpenApiDocsViewV2Props } | { notFound: true }> {
+}): Promise<{ props: OpenApiDocsViewProps } | { notFound: true }> {
 	/**
 	 * Parse the version to render, or 404 if a non-existent version is requested.
 	 */

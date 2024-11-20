@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { generateStaticProps } from 'views/open-api-docs-view-v2/server'
+import { generateStaticProps } from 'views/open-api-docs-view/server'
 // Utils
-import { getOperationGroupKeyFromPath } from 'views/open-api-docs-view-v2/utils/get-operation-group-key-from-path'
-import { schemaTransformShortenHcp } from 'views/open-api-docs-view-v2/schema-transforms/schema-transform-shorten-hcp'
-import { schemaTransformComponent } from 'views/open-api-docs-view-v2/schema-transforms/schema-transform-component'
-import { shortenProtobufAnyDescription } from 'views/open-api-docs-view-v2/schema-transforms/shorten-protobuf-any-description'
+import { getOperationGroupKeyFromPath } from 'views/open-api-docs-view/utils/get-operation-group-key-from-path'
+import { schemaTransformShortenHcp } from 'views/open-api-docs-view/schema-transforms/schema-transform-shorten-hcp'
+import { schemaTransformComponent } from 'views/open-api-docs-view/schema-transforms/schema-transform-component'
+import { shortenProtobufAnyDescription } from 'views/open-api-docs-view/schema-transforms/shorten-protobuf-any-description'
 // Types
 import type {
-	OpenApiDocsViewV2Props,
-	OpenApiDocsViewV2Config,
-} from 'views/open-api-docs-view-v2/types'
-import type { OpenApiPreviewV2InputValues } from '../components/open-api-preview-inputs'
+	OpenApiDocsViewProps,
+	OpenApiDocsViewConfig,
+} from 'views/open-api-docs-view/types'
+import type { OpenApiPreviewInputValues } from '../components/open-api-preview-inputs'
 
 /**
  * Given preview data submitted by the user, which includes OpenAPI JSON,
@@ -24,9 +24,9 @@ import type { OpenApiPreviewV2InputValues } from '../components/open-api-preview
  * Return static props for the appropriate OpenAPI docs view.
  */
 export default async function getPropsFromPreviewData(
-	previewData: OpenApiPreviewV2InputValues | null,
+	previewData: OpenApiPreviewInputValues | null,
 	operationSlug: string | null
-): Promise<OpenApiDocsViewV2Props | null> {
+): Promise<OpenApiDocsViewProps | null> {
 	// If we don't have any preview data, we can't expect to generate valid props
 	if (!previewData) {
 		return null
@@ -53,7 +53,7 @@ export default async function getPropsFromPreviewData(
 		},
 	]
 	// Build page configuration based on the input values
-	const pageConfig: Omit<OpenApiDocsViewV2Config, 'schemaSource'> = {
+	const pageConfig: Omit<OpenApiDocsViewConfig, 'schemaSource'> = {
 		basePath: '/open-api-docs-preview',
 		breadcrumbLinksPrefix: [
 			{

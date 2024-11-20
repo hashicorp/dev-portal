@@ -4,7 +4,7 @@ import { ApiDocsUrlContext } from '../types'
  * Given an array of URL params, parse the context for an OpenAPI v2 URL, and
  * Return { isVersionedUrl, versionId, operationSlug } parsed from the URL.
  */
-export function parseOpenApiV2UrlContext(
+export function parseOpenApiUrlContext(
 	params: string[] | never
 ): ApiDocsUrlContext {
 	/**

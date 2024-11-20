@@ -14,7 +14,7 @@ import { Status } from './components/status'
 import { DescriptionMdx } from './components/description-mdx'
 // Types
 import type { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
-import type { StatusIndicatorConfig } from 'views/open-api-docs-view-v2/types'
+import type { StatusIndicatorConfig } from 'views/open-api-docs-view/types'
 import type { ReactNode } from 'react'
 import type { ProductSlug } from 'types/products'
 // Styles

@@ -19,9 +19,9 @@ import type { ProductSlug } from 'types/products'
 import s from './style.module.css'
 
 /**
- * Renders sidebar contents for the OpenAPI V2 docs view.
+ * Renders sidebar contents for the OpenAPI docs view.
  */
-export function OpenApiV2SidebarContents({
+export function OpenApiSidebarContents({
 	landingLink,
 	operationLinkGroups,
 }: {

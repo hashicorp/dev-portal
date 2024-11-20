@@ -6,18 +6,18 @@
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 import InlineLink from 'components/inline-link'
 import PageAlert from 'components/page-alert'
-import type { OpenApiV2VersionAlertProps } from './types'
+import type { OpenApiVersionAlertProps } from './types'
 import s from './version-alert.module.css'
 
 /**
  * Display a version alert for API documentation
  */
-export function OpenApiV2VersionAlert({
+export function OpenApiVersionAlert({
 	isVersionedUrl,
 	currentVersion,
 	latestStableVersion,
 	basePath,
-}: OpenApiV2VersionAlertProps) {
+}: OpenApiVersionAlertProps) {
 	/**
 	 * If this isn't a versioned URL, we won't show a version alert.
 	 */

@@ -123,16 +123,16 @@ export interface StatusIndicatorConfig {
 }
 
 /**
- * OpenApiDocsViewV2 props are used to render either a "landing" view, which
+ * OpenApiDocsView props are used to render either a "landing" view, which
  * includes some introductory content to the API generally, or an "operation"
  * view, which includes details about specific operations.
  */
-export type OpenApiDocsViewV2Props =
+export type OpenApiDocsViewProps =
 	| (SharedProps & { operationContentProps: OperationContentProps })
 	| (SharedProps & { landingProps: LandingContentProps })
 
 /**
- * OpenApiDocsViewV2Config is used to set up and configure a set of
+ * OpenApiDocsViewConfig is used to set up and configure a set of
  * OpenAPI docs views. The options provided here are meant to allow
  * full control over all the possible variations of an OpenAPI docs view
  * we might want to render.
@@ -144,7 +144,7 @@ export type OpenApiDocsViewV2Props =
  * easier for content authors and other folks managing OpenAPI docs to
  * edit this configuration, and to add new pages.
  */
-export interface OpenApiDocsViewV2Config {
+export interface OpenApiDocsViewConfig {
 	/**
 	 * The URL path at which the docs are located. For example, the URL
 	 * `developer.hashicorp.com/hcp/api-docs/hcp-vault-secrets` has the basePath
@@ -244,7 +244,7 @@ export interface OpenApiDocsViewV2Config {
  * Params type for `getStaticPaths` and `getStaticProps`.
  * Encodes our assumption that a `[[...page]].tsx` file is being used.
  */
-export interface OpenApiDocsV2Params extends NextParsedUrlQuery {
+export interface OpenApiDocsParams extends NextParsedUrlQuery {
 	page: string[]
 }
 

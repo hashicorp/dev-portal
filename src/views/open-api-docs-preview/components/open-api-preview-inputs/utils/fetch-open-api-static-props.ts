@@ -6,8 +6,8 @@
 // Constants
 import { API_ROUTE } from '../../../constants'
 // Types
-import type { OpenApiDocsViewV2Props } from 'views/open-api-docs-view-v2/types'
-import type { OpenApiPreviewV2InputValues } from '..'
+import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
+import type { OpenApiPreviewInputValues } from '..'
 
 // If we fail to fetch props, we'll return an error object
 type Error = {
@@ -21,7 +21,7 @@ type Error = {
  * the provided `inputValues` is submitted via a button activation.
  */
 export async function fetchOpenApiStaticProps(
-	inputValues: OpenApiPreviewV2InputValues
+	inputValues: OpenApiPreviewInputValues
 ): Promise<[Error, null] | [null, { uniqueFileId: string }]> {
 	try {
 		const result = await fetch(API_ROUTE, {
@@ -42,7 +42,7 @@ export async function fetchOpenApiStaticProps(
 		} else {
 			return [
 				null,
-				resultData as { staticProps: OpenApiDocsViewV2Props; uniqueFileId },
+				resultData as { staticProps: OpenApiDocsViewProps; uniqueFileId },
 			]
 		}
 	} catch (error) {

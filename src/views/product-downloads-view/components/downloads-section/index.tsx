@@ -23,7 +23,7 @@ import { prettyOs } from 'views/product-downloads-view/helpers'
 
 // Local imports
 import classNames from 'classnames'
-import { ContentWithPermalink } from 'views/open-api-docs-view-v2/components/content-with-permalink'
+import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 import { PackageManager } from 'views/product-downloads-view/types'
 import CardWithLink from '../card-with-link'

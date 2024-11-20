@@ -20,7 +20,7 @@ import { COOKIE_ID } from '../../constants'
 // Styles
 import s from './open-api-preview-inputs.module.css'
 
-export interface OpenApiPreviewV2InputValues {
+export interface OpenApiPreviewInputValues {
 	openApiJsonString: string
 	openApiDescription: string
 	groupOperationsByPath: boolean
@@ -34,7 +34,7 @@ export function OpenApiPreviewInputs({
 	defaultValues,
 	defaultCollapsed = true,
 }: {
-	defaultValues?: OpenApiPreviewV2InputValues
+	defaultValues?: OpenApiPreviewInputValues
 	defaultCollapsed?: boolean
 }) {
 	const [error, setError] = useState<{
@@ -44,7 +44,7 @@ export function OpenApiPreviewInputs({
 	}>()
 	const [isLoading, setIsLoading] = useState(false)
 	const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed)
-	const [inputValues, setInputValues] = useState<OpenApiPreviewV2InputValues>({
+	const [inputValues, setInputValues] = useState<OpenApiPreviewInputValues>({
 		openApiJsonString: '',
 		openApiDescription: '',
 		groupOperationsByPath: false,
@@ -54,11 +54,8 @@ export function OpenApiPreviewInputs({
 	/**
 	 * Helper to set a specific input data value.
 	 */
-	function setInputValue(
-		key: keyof OpenApiPreviewV2InputValues,
-		value: unknown
-	) {
-		setInputValues((p: OpenApiPreviewV2InputValues) => ({ ...p, [key]: value }))
+	function setInputValue(key: keyof OpenApiPreviewInputValues, value: unknown) {
+		setInputValues((p: OpenApiPreviewInputValues) => ({ ...p, [key]: value }))
 	}
 
 	/**

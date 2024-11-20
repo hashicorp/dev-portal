@@ -8,16 +8,16 @@ import SidebarLayout from 'layouts/sidebar-layout'
 // Components
 import {
 	OpenApiPreviewInputs,
-	OpenApiPreviewV2InputValues,
+	OpenApiPreviewInputValues,
 } from 'views/open-api-docs-preview/components/open-api-preview-inputs'
 // Types
-import type { OpenApiDocsViewV2Props } from 'views/open-api-docs-view-v2/types'
-import OpenApiDocsViewV2 from 'views/open-api-docs-view-v2'
+import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
+import OpenApiDocsView from 'views/open-api-docs-view'
 import Head from 'next/head'
 
-export interface OpenApiDocsPreviewV2Props {
-	staticProps?: OpenApiDocsViewV2Props
-	previewData?: OpenApiPreviewV2InputValues
+export interface OpenApiDocsPreviewProps {
+	staticProps?: OpenApiDocsViewProps
+	previewData?: OpenApiPreviewInputValues
 	hasStaticProps: boolean
 }
 
@@ -39,12 +39,12 @@ function OpenApiDocsPreviewView({
 	staticProps,
 	previewData,
 	hasStaticProps,
-}: OpenApiDocsPreviewV2Props) {
+}: OpenApiDocsPreviewProps) {
 	return (
 		<>
 			<div style={{ isolation: 'isolate' }}>
 				{hasStaticProps ? (
-					<OpenApiDocsViewV2 {...staticProps} />
+					<OpenApiDocsView {...staticProps} />
 				) : (
 					<>
 						<Head>

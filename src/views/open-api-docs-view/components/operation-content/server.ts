@@ -9,7 +9,7 @@ import { getUrlPathCodeHtml } from '../../utils/get-url-path-code-html'
 import { truncateHcpOperationPath } from '../../utils/truncate-hcp-operation-path'
 import { getRequestData } from '../../utils/get-request-data'
 import { getResponseData } from '../../utils/get-response-data'
-import { slugifyOperationId } from 'views/open-api-docs-view-v2/utils/slugify-operation-id'
+import { slugifyOperationId } from 'views/open-api-docs-view/utils/slugify-operation-id'
 // Types
 import type { OpenAPIV3 } from 'openapi-types'
 import type { OperationContentProps } from '.'

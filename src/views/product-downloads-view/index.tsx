@@ -39,7 +39,7 @@ import {
 	SidecarMarketingCard,
 } from './components'
 import s from './product-downloads-view.module.css'
-import { ContentWithPermalink } from 'views/open-api-docs-view-v2/components/content-with-permalink'
+import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
 import Heading from 'components/heading'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
 import { MenuItem, SidebarProps } from 'components/sidebar/types'

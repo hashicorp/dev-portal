@@ -9,9 +9,9 @@ import getPropsFromPreviewData from './utils/get-props-from-preview-data'
 import { COOKIE_ID, API_ROUTE, DYNAMIC_PARAM } from './constants'
 // Types
 import type { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
-import type { OpenApiDocsViewV2Props } from 'views/open-api-docs-view-v2/types'
-import type { OpenApiPreviewV2InputValues } from './components/open-api-preview-inputs'
-import { OpenApiDocsPreviewV2Props } from '.'
+import type { OpenApiDocsViewProps } from 'views/open-api-docs-view/types'
+import type { OpenApiPreviewInputValues } from './components/open-api-preview-inputs'
+import { OpenApiDocsPreviewProps } from '.'
 
 /**
  * We expect the `HASHI_ENV` environment variable to be set to `production`
@@ -51,7 +51,7 @@ export async function getServerSideProps({
 	params,
 	req,
 }: GetServerSidePropsContext): Promise<
-	GetServerSidePropsResult<OpenApiDocsPreviewV2Props>
+	GetServerSidePropsResult<OpenApiDocsPreviewProps>
 > {
 	/**
 	 * In production, return a 404 not found for this page.
@@ -72,8 +72,8 @@ export async function getServerSideProps({
 	 * file based on the provided `uniqueFileId`. If this file does not
 	 * exist, we return `null` (and the user must re-upload their preview data).
 	 */
-	let previewData: OpenApiPreviewV2InputValues = null
-	let staticProps: OpenApiDocsViewV2Props | null = null
+	let previewData: OpenApiPreviewInputValues = null
+	let staticProps: OpenApiDocsViewProps | null = null
 	try {
 		const response = await fetch(
 			`${BASE_URL}${API_ROUTE}?uniqueFileId=${uniqueFileId}`

@@ -4,15 +4,15 @@
  */
 
 // View
-import OpenApiDocsViewV2 from 'views/open-api-docs-view-v2'
+import OpenApiDocsView from 'views/open-api-docs-view'
 import {
 	generateStaticPaths,
 	generateStaticPropsVersioned,
-} from 'views/open-api-docs-view-v2/server'
+} from 'views/open-api-docs-view/server'
 // Schema transforms
-import { schemaTransformShortenHcp } from 'views/open-api-docs-view-v2/schema-transforms/schema-transform-shorten-hcp'
-import { schemaTransformComponent } from 'views/open-api-docs-view-v2/schema-transforms/schema-transform-component'
-import { shortenProtobufAnyDescription } from 'views/open-api-docs-view-v2/schema-transforms/shorten-protobuf-any-description'
+import { schemaTransformShortenHcp } from 'views/open-api-docs-view/schema-transforms/schema-transform-shorten-hcp'
+import { schemaTransformComponent } from 'views/open-api-docs-view/schema-transforms/schema-transform-component'
+import { shortenProtobufAnyDescription } from 'views/open-api-docs-view/schema-transforms/shorten-protobuf-any-description'
 // Types
 import type {
 	GetStaticPaths,
@@ -20,16 +20,16 @@ import type {
 	GetStaticPropsContext,
 } from 'next'
 import type {
-	OpenApiDocsV2Params,
-	OpenApiDocsViewV2Props,
-	OpenApiDocsViewV2Config,
-} from 'views/open-api-docs-view-v2/types'
+	OpenApiDocsParams,
+	OpenApiDocsViewProps,
+	OpenApiDocsViewConfig,
+} from 'views/open-api-docs-view/types'
 
 /**
  * Configure this OpenAPI spec page, specifying the source,
  * and additional configuration that doesn't fit in the schema itself.
  */
-const PAGE_CONFIG: OpenApiDocsViewV2Config = {
+const PAGE_CONFIG: OpenApiDocsViewConfig = {
 	backToLink: {
 		href: '/hcp',
 		text: 'HashiCorp Cloud Platform',
@@ -110,7 +110,7 @@ const PAGE_CONFIG: OpenApiDocsViewV2Config = {
 /**
  * Get static paths, using the configured `schemaSource`.
  */
-export const getStaticPaths: GetStaticPaths<OpenApiDocsV2Params> = async () => {
+export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
 	return await generateStaticPaths({
 		schemaSource: PAGE_CONFIG.schemaSource,
 		schemaTransforms: PAGE_CONFIG.schemaTransforms,
@@ -121,10 +121,10 @@ export const getStaticPaths: GetStaticPaths<OpenApiDocsV2Params> = async () => {
  * Get static paths, using the configured `schemaSource`.
  */
 export const getStaticProps: GetStaticProps<
-	OpenApiDocsViewV2Props,
-	OpenApiDocsV2Params
-> = async ({ params }: GetStaticPropsContext<OpenApiDocsV2Params>) => {
+	OpenApiDocsViewProps,
+	OpenApiDocsParams
+> = async ({ params }: GetStaticPropsContext<OpenApiDocsParams>) => {
 	return await generateStaticPropsVersioned(PAGE_CONFIG, params?.page)
 }
 
-export default OpenApiDocsViewV2
+export default OpenApiDocsView

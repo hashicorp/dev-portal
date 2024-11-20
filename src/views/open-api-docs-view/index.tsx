@@ -17,13 +17,13 @@ import BreadcrumbBar from '@components/breadcrumb-bar'
 import VersionSwitcher from '@components/version-switcher'
 import NoIndexTagIfVersioned from '@components/no-index-tag-if-versioned'
 // Components, local
-import { OpenApiV2SidebarContents } from './components/sidebar'
+import { OpenApiSidebarContents } from './components/sidebar'
 import { SidebarResourceLinks } from './components/sidebar-resource-links'
 import { LandingContent } from './components/landing-content'
 import OperationContent from './components/operation-content'
-import { OpenApiV2VersionAlert } from './components/version-alert'
+import { OpenApiVersionAlert } from './components/version-alert'
 // Types
-import type { OpenApiDocsViewV2Props } from './types'
+import type { OpenApiDocsViewProps } from './types'
 // Styles
 import s from './style.module.css'
 
@@ -33,7 +33,7 @@ import s from './style.module.css'
  * This new setup will split each operation into its own URL,
  * and render an overview page at the base URL.
  */
-export default function OpenApiDocsViewV2({
+export default function OpenApiDocsView({
 	basePath,
 	backToLink,
 	breadcrumbLinks,
@@ -44,7 +44,7 @@ export default function OpenApiDocsViewV2({
 	versionMetadata,
 	versionSwitcherProps,
 	...restProps
-}: OpenApiDocsViewV2Props) {
+}: OpenApiDocsViewProps) {
 	//
 	return (
 		<SidebarLayout
@@ -53,7 +53,7 @@ export default function OpenApiDocsViewV2({
 					{backToLink ? (
 						<SidebarBackToLink href={backToLink.href} text={backToLink.text} />
 					) : null}
-					<OpenApiV2SidebarContents
+					<OpenApiSidebarContents
 						landingLink={landingLink}
 						operationLinkGroups={operationLinkGroups}
 					/>
@@ -74,7 +74,7 @@ export default function OpenApiDocsViewV2({
 							levelButtonText: 'Previous',
 							content: (
 								<>
-									<OpenApiV2SidebarContents
+									<OpenApiSidebarContents
 										landingLink={landingLink}
 										operationLinkGroups={operationLinkGroups}
 									/>
@@ -91,7 +91,7 @@ export default function OpenApiDocsViewV2({
 				/>
 			}
 		>
-			<OpenApiV2VersionAlert
+			<OpenApiVersionAlert
 				isVersionedUrl={versionMetadata.isVersionedUrl}
 				currentVersion={versionMetadata.currentVersion}
 				latestStableVersion={versionMetadata.latestStableVersion}
