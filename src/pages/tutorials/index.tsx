@@ -95,5 +95,7 @@ const getStaticProps = async () => {
 	}
 }
 
+// test
+
 export { getStaticProps }
 export default TutorialsLandingView
