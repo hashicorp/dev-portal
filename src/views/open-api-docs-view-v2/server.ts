@@ -147,6 +147,7 @@ export async function generateStaticProps({
 	breadcrumbLinksPrefix = [],
 	getOperationGroupKey = (o: OperationObject) =>
 		(o.tags.length && o.tags[0]) ?? 'Other',
+	getOperationTitle = (o: OperationObject) => o.operationId,
 	resourceLinks = [],
 	statusIndicatorConfig,
 	schemaTransforms,
@@ -255,13 +256,13 @@ export async function generateStaticProps({
 	const operationLinkGroups = operationGroups.map((group) => ({
 		// Note: we word break to avoid long strings breaking the sidebar layout
 		text: wordBreakCamelCase(group.key),
-		items: group.items.map(({ operationId }) => {
-			const operationSlug = slugifyOperationId(operationId)
+		items: group.items.map((o: OperationObject) => {
+			const operationSlug = slugifyOperationId(o.operationId)
 			const operationUrl = isVersionedUrl
 				? `${basePath}/${versionId}/${operationSlug}`
 				: `${basePath}/${operationSlug}`
 			return {
-				text: wordBreakCamelCase(operationId),
+				text: wordBreakCamelCase(getOperationTitle(o)),
 				href: operationUrl,
 				isActive: operationSlug === targetOperationSlug,
 			}
@@ -287,7 +288,7 @@ export async function generateStaticProps({
 	// If we're on a specific operation page, add a breadcrumb link accordingly
 	if (targetOperation) {
 		breadcrumbLinks.push({
-			title: targetOperation.operationId,
+			title: getOperationTitle(targetOperation),
 			url: [basePath, operationSlug].filter(Boolean).join('/'),
 		})
 	}
@@ -327,7 +328,8 @@ export async function generateStaticProps({
 	if (targetOperation) {
 		const operationContentProps = await getOperationContentProps(
 			targetOperation,
-			schemaData
+			schemaData,
+			getOperationTitle
 		)
 		return {
 			props: stripUndefinedProperties({
