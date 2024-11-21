@@ -61,7 +61,7 @@
 		},
 		{
 			"type": "collection_cards",
-			"collectionSlugs": ["cloud/networking"]
+			"collectionSlugs": ["cloud/get-started-hcp-vault-secrets"]
 		},
 		{
 			"type": "linked_cards",
