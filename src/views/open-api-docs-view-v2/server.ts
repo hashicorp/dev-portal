@@ -234,6 +234,9 @@ export async function generateStaticProps({
 			notFound: true,
 		}
 	}
+	const targetOperationSlug = targetOperation
+		? slugifyOperationId(targetOperation.operationId)
+		: null
 
 	/**
 	 * Build links for the sidebar.
@@ -260,7 +263,7 @@ export async function generateStaticProps({
 			return {
 				text: wordBreakCamelCase(operationId),
 				href: operationUrl,
-				isActive: operationSlug === operationId,
+				isActive: operationSlug === targetOperationSlug,
 			}
 		}),
 	}))
