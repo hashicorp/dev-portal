@@ -10,7 +10,7 @@ import { useMemo } from 'react'
 import { useActiveSection } from 'lib/hash-links/use-active-section'
 import newUrl from 'lib/new-url'
 // Types
-import type { OpenApiNavItem } from 'views/open-api-docs-view/types'
+import type { BasicNavItem } from '@components/sidebar/types'
 
 /**
  * Note next/router `asPath` returns *with* the `#hash`.
@@ -37,10 +37,10 @@ function usePathname() {
  * `#active-section-slug` or the full `/url/path`. Otherwise, it is false.
  */
 function getNavItemWithActive(
-	navItem: OpenApiNavItem,
+	navItem: BasicNavItem,
 	activeSection: string,
 	urlPathname: string
-): OpenApiNavItem {
+): BasicNavItem {
 	// Handle dividers, headings, any non-path items
 	if (!('fullPath' in navItem)) {
 		return navItem
@@ -58,10 +58,10 @@ function getNavItemWithActive(
  * `navItems` that do not have a `fullPath` or have a `fullPath` with an empty
  * `#hash` slug value are ignored. `#hash` slugs are returned without the `#`.
  */
-function sectionSlugsFromNavItems(navItems: OpenApiNavItem[]): string[] {
+function sectionSlugsFromNavItems(navItems: BasicNavItem[]): string[] {
 	return (
 		navItems
-			.map((item: OpenApiNavItem) => {
+			.map((item: BasicNavItem) => {
 				// Only grab slugs from link items
 				if (!('fullPath' in item)) {
 					return null
@@ -84,9 +84,9 @@ function sectionSlugsFromNavItems(navItems: OpenApiNavItem[]): string[] {
  * of standard link matches will still function as expected.
  */
 export function useNavItemsWithActive(
-	navItems: OpenApiNavItem[],
+	navItems: BasicNavItem[],
 	enable: boolean = true
-): OpenApiNavItem[] {
+): BasicNavItem[] {
 	// Transform the incoming nav items into section slugs
 	const sectionSlugs = useMemo(
 		() => sectionSlugsFromNavItems(navItems),
@@ -101,7 +101,7 @@ export function useNavItemsWithActive(
 
 	// Activate nav items that match either the active section or the full path
 	const navItemsWithActive = useMemo(() => {
-		return navItems.map((item: OpenApiNavItem) =>
+		return navItems.map((item: BasicNavItem) =>
 			getNavItemWithActive(item, activeSection, urlPathname)
 		)
 	}, [navItems, activeSection, urlPathname])

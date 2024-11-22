@@ -8,21 +8,13 @@ import Badge from 'components/badge'
 import IconTile from 'components/icon-tile'
 import ProductIcon from 'components/product-icon'
 // Local
-import { Status } from './components/status'
+import { Status } from '../landing-content/components/status'
 // Types
 import type { StatusIndicatorConfig } from 'views/open-api-docs-view/types'
 import type { ReactNode } from 'react'
 import type { ProductSlug } from 'types/products'
 // Styles
 import s from './open-api-overview.module.css'
-
-/**
- * Render an overview section for an OpenApiView.
- *
- * Status is also optional right now as it is a skateboard
- * component and may be implemented at a later time. Once implemented
- * it should be required.
- */
 
 export interface OpenApiOverviewProps {
 	heading: {
@@ -37,6 +29,9 @@ export interface OpenApiOverviewProps {
 	className?: string
 }
 
+/**
+ * Render an overview section for an Open API landing view.
+ */
 export function OpenApiOverview({
 	heading,
 	badgeText,

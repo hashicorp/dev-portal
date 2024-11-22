@@ -3,9 +3,14 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+// Components
 import Badge from 'components/badge'
+// Local components
 import { ContentWithPermalink } from '../content-with-permalink'
-import { PropertyDetails, PropertyDetailsProps } from '../property-details'
+import { PropertyDetails } from '../property-details'
+// Types
+import type { PropertyDetailsProps } from '../property-details'
+// Styles
 import s from './operation-details.module.css'
 
 export interface PropertyDetailsGroup {

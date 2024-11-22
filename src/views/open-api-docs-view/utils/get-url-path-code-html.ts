@@ -9,7 +9,7 @@
  * highlighted and with word breaks inserted before forward slashes
  * to allow long URLs to wrap to multiple lines.
  */
-export default function getUrlPathCodeHtml(urlPath: string): string {
+export function getUrlPathCodeHtml(urlPath: string): string {
 	/**
 	 * Insert <wbr/> before forward slashes for more logical line breaks
 	 *

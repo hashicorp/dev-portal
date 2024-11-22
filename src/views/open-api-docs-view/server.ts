@@ -3,91 +3,174 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// Library
-import { isDeployPreview } from 'lib/env-checks'
-import fetchGithubFile from 'lib/fetch-github-file'
-import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+// Utils
 import { cachedGetProductData } from 'lib/get-product-data'
-import { getBreadcrumbLinks } from 'lib/get-breadcrumb-links'
-import { serialize } from 'lib/next-mdx-remote/serialize'
+import { fetchCloudApiVersionData } from 'lib/api-docs'
+import { getVersionSwitcherProps } from './utils/get-version-switcher-props'
+import { isDeployPreview } from 'lib/env-checks'
 import { parseAndValidateOpenApiSchema } from 'lib/api-docs/parse-and-validate-open-api-schema'
-// Utilities
+import { serialize } from 'lib/next-mdx-remote/serialize'
+import { stripUndefinedProperties } from 'lib/strip-undefined-props'
+import fetchGithubFile from 'lib/fetch-github-file'
+import isAbsoluteUrl from 'lib/is-absolute-url'
+// Utils, local
+import { findDefaultVersion } from './utils/find-default-version'
+import getOperationContentProps from './components/operation-content/server'
 import {
-	findDefaultVersion,
-	getNavItems,
-	getOperationProps,
-	groupOperations,
-	getVersionSwitcherProps,
-} from './utils'
+	getOperationObjects,
+	OperationObject,
+} from './utils/get-operation-objects'
+import { groupItemsByKey } from './utils/group-items-by-key'
+import { slugifyOperationId } from './utils/slugify-operation-id'
+import { wordBreakCamelCase } from './utils/word-break-camel-case'
+import { parseOpenApiUrlContext } from './utils/parse-open-api-url-context'
 // Types
-import type {
-	GetStaticPaths,
-	GetStaticPropsContext,
-	GetStaticPropsResult,
-} from 'next'
-import type { OpenAPIV3 } from 'openapi-types'
 import type { ApiDocsVersionData } from 'lib/api-docs/types'
+import type { BreadcrumbLink } from '@components/breadcrumb-bar'
+import type { GetStaticPaths } from 'next'
+import type { GithubDir } from 'lib/fetch-github-file-tree'
 import type {
+	ApiDocsUrlContext,
 	OpenApiDocsParams,
+	OpenApiDocsViewConfig,
 	OpenApiDocsViewProps,
-	OpenApiDocsPageConfig,
-} from './types'
+	SharedProps,
+} from 'views/open-api-docs-view/types'
+import type { OpenAPIV3 } from 'openapi-types'
 
 /**
- * Get static paths for the view.
- *
- * Initially, without versioning, we expect a single page. We use
- * `getStaticPaths` for flag-based compatibility with the previous template.
- *
- * Later, when we implement versioned API docs for the new template,
- * we'll likely need to retain `getStaticPaths`, using separate paths
- * for each version of the OpenAPI documents that we detect.
+ * Generate static paths for an OpenAPI docs view.
  */
-export const getStaticPaths: GetStaticPaths<OpenApiDocsParams> = async () => {
+export async function generateStaticPaths({
+	schemaSource,
+	schemaTransforms = [],
+	transformVersionData = (versionData) => versionData,
+}: {
+	schemaSource: ApiDocsVersionData[] | GithubDir
+	schemaTransforms?: ((schema: OpenAPIV3.Document) => OpenAPIV3.Document)[]
+	transformVersionData?: (
+		versionData: ApiDocsVersionData[]
+	) => ApiDocsVersionData[]
+}): Promise<ReturnType<GetStaticPaths<OpenApiDocsParams>>> {
 	// If we are in a product repo deploy preview, don't pre-render any paths
 	if (isDeployPreview()) {
 		return { paths: [], fallback: 'blocking' }
 	}
-	// If we're in production, statically render the single view,
-	// and use `fallback: blocking` for versioned views.
+	/**
+	 * If we're in production, statically render the non-versioned landing view,
+	 * as well as the non-versioned operation views.
+	 *
+	 * We use `fallback: blocking` for versioned views. We could in theory
+	 * statically render all pages across all versions, but this would increase
+	 * our build times.
+	 *
+	 * We fetch and parse the default version of the OpenAPI schema to figure
+	 * out which operation slugs to statically render. Note the "default version"
+	 * is the latest stable version, or if there are no stable versions,
+	 * then the latest version regardless of release stage.
+	 */
+	// Fetch version data
+	const rawVersionData = Array.isArray(schemaSource)
+		? schemaSource
+		: await fetchCloudApiVersionData(schemaSource)
+	const versionData = transformVersionData(rawVersionData)
+	// Determine the default version
+	const defaultVersion = findDefaultVersion(versionData)
+	// Parse the default version
+	const schemaFileString =
+		typeof defaultVersion.sourceFile === 'string'
+			? defaultVersion.sourceFile
+			: await fetchGithubFile(defaultVersion.sourceFile)
+	const schemaData = await parseAndValidateOpenApiSchema(
+		schemaFileString,
+		schemaTransforms
+	)
+	// Extract operation objects, and map to slugs
+	const operationObjects = getOperationObjects(schemaData)
+	const operationSlugs = operationObjects.map((operation) => {
+		return slugifyOperationId(operation.operationId)
+	})
+	// Generate path objects for each operation slug
+	const pathObjects = operationSlugs.map((operationSlug) => {
+		return { params: { page: [operationSlug] } }
+	})
+	// Return paths
 	return {
-		paths: [{ params: { page: [] } }],
+		paths: [{ params: { page: [] } }, ...pathObjects],
 		fallback: 'blocking',
 	}
 }
 
 /**
- * Get static props for the view.
- *
- * This is where we expect to fetch the OpenAPI document, and transform
- * the schema `.json` data into props for the view component.
- *
- * For now, we have a placeholder. We'll expand this as we build out the view.
+ * Wrapper around `generateStaticProps` that handles the common production
+ * use case of fetching version data from GitHub.
  */
-export async function getStaticProps({
-	context,
-	productSlug,
-	serviceProductSlug = productSlug,
-	versionData,
-	basePath,
-	statusIndicatorConfig = null, // must be JSON-serializable
-	topOfPageId = 'overview',
-	groupOperationsByPath = false,
-	massageSchemaForClient = (s: OpenAPIV3.Document) => s,
-	navResourceItems = [],
-}: Omit<OpenApiDocsPageConfig, 'githubSourceDirectory'> & {
-	context: GetStaticPropsContext<OpenApiDocsParams>
-	versionData: ApiDocsVersionData[]
-}): Promise<GetStaticPropsResult<OpenApiDocsViewProps>> {
-	// Get the product data
-	const productData = cachedGetProductData(productSlug)
+export async function generateStaticPropsVersioned(
+	pageConfig: OpenApiDocsViewConfig,
+	params: string[] | never
+): Promise<{ props: OpenApiDocsViewProps } | { notFound: true }> {
+	// Fetch version data
+	const rawVersionData = Array.isArray(pageConfig.schemaSource)
+		? pageConfig.schemaSource
+		: await fetchCloudApiVersionData(pageConfig.schemaSource)
+	const versionData =
+		typeof pageConfig.transformVersionData === 'function'
+			? pageConfig.transformVersionData(rawVersionData)
+			: rawVersionData
+	// Parse the URL context, to determine the version and operationSlug.
+	const urlContext = parseOpenApiUrlContext(params)
+	// Return static props, or may return `{ notFound: true }`.
+	return await generateStaticProps({
+		...pageConfig,
+		versionData,
+		urlContext,
+	})
+}
 
+/**
+ * Build static props for an OpenAPI docs view.
+ *
+ * There are two main views:
+ * - Landing view, for the basePath, when no operationSlug is provided
+ * - Operation view, for the specific operationSlug that's been provided
+ *
+ * This function expects `versionData`, an array of objects. This accommodates
+ * both the HCP-centric use case, where we fetch `versionData` from GitHub,
+ * with each `versionData` entry referencing a `GithubFile` as its `sourceFile`,
+ * as well as the more general use case, where `versionData` can be an array
+ * with a single object, with the entry passing the schema file string
+ * directly as the `sourceFile`.
+ */
+export async function generateStaticProps({
+	backToLink,
+	basePath,
+	breadcrumbLinksPrefix = [],
+	getOperationGroupKey = (o: OperationObject) =>
+		(o.tags.length && o.tags[0]) ?? 'Other',
+	getOperationTitle = (o: OperationObject) => o.operationId,
+	resourceLinks = [],
+	statusIndicatorConfig,
+	schemaTransforms,
+	productContext,
+	theme = productContext,
+	versionData,
+	urlContext: { isVersionedUrl, versionId, operationSlug },
+}: Omit<OpenApiDocsViewConfig, 'schemaSource'> & {
+	/**
+	 * Data for all versions of target OpenAPI schema, include the release
+	 * stage of each version, the source file, and the version ID.
+	 */
+	versionData: ApiDocsVersionData[]
+	/**
+	 * The URL context in which we're fetching static props. This affects:
+	 * - versioning, as the target versionId is determined by the URL
+	 * - operation vs landing page, as an operationSlug may be present in the URL
+	 */
+	urlContext: ApiDocsUrlContext
+}): Promise<{ props: OpenApiDocsViewProps } | { notFound: true }> {
 	/**
 	 * Parse the version to render, or 404 if a non-existent version is requested.
 	 */
-	const pathParts = context.params?.page
-	const versionId = pathParts?.length > 0 ? pathParts[0] : null
-	const isVersionedUrl = typeof versionId === 'string'
 	const defaultVersion = findDefaultVersion(versionData)
 	// Resolve the current version
 	let targetVersion: ApiDocsVersionData | undefined
@@ -102,75 +185,178 @@ export async function getStaticProps({
 	}
 
 	/**
-	 * Fetch, parse, and validate the OpenAPI schema for this version.
+	 * Fetch the OpenAPI schema string for this version.
 	 */
 	const { sourceFile } = targetVersion
 	const schemaFileString =
 		typeof sourceFile === 'string'
 			? sourceFile
 			: await fetchGithubFile(sourceFile)
-	const schemaData = await parseAndValidateOpenApiSchema(schemaFileString, [
-		massageSchemaForClient,
-	])
-	const operationProps = await getOperationProps(schemaData)
-	const operationGroups = groupOperations(operationProps, groupOperationsByPath)
-	const navItems = getNavItems({
-		operationGroups,
-		topOfPageId,
-		title: schemaData.info.title,
-		productSlug: productData.slug,
+
+	/**
+	 * Fetch, parse, and validate the OpenAPI schema for this version.
+	 * Also apply any schema transforms.
+	 */
+	const schemaData = await parseAndValidateOpenApiSchema(
+		schemaFileString,
+		schemaTransforms
+	)
+
+	/**
+	 * Build version selector and version alert props
+	 */
+	const versionSwitcherProps = getVersionSwitcherProps({
+		projectName: schemaData.info.title,
+		versionData,
+		targetVersion,
+		defaultVersion,
+		basePath,
 	})
 
 	/**
-	 * Serialize description MDX for rendering in our DevDotContent component.
+	 * Grab product data for this context
 	 */
-	const descriptionMdx = await serialize(schemaData.info.description)
+	const productData = cachedGetProductData(productContext)
 
 	/**
-	 * Build breadcrumb links for the page, and activate the final breadcrumb.
-	 *
-	 * @TODO: we have a task to remove the need for `isCurrentPage`:
-	 * https://app.asana.com/0/1202097197789424/1202354347457831/f
+	 * Determine if we're on a specific operation page or not
 	 */
-	const breadcrumbLinks = getBreadcrumbLinks(basePath)
+	const operationObjects = getOperationObjects(schemaData)
+	// If we're on a specific operation page, grab the target operation
+	let targetOperation: OperationObject | undefined
+	if (operationSlug) {
+		targetOperation = operationObjects.find(
+			(operation) => slugifyOperationId(operation.operationId) === operationSlug
+		)
+	}
+	// If we have an operationSlug, but no target operation, return a 404
+	if (typeof operationSlug === 'string' && !targetOperation) {
+		return {
+			notFound: true,
+		}
+	}
+	const targetOperationSlug = targetOperation
+		? slugifyOperationId(targetOperation.operationId)
+		: null
+
+	/**
+	 * Build links for the sidebar.
+	 */
+	const operationGroups = groupItemsByKey(
+		operationObjects,
+		getOperationGroupKey
+	)
+	const landingUrl = isVersionedUrl ? `${basePath}/${versionId}` : basePath
+	const landingLink = {
+		theme,
+		text: schemaData.info.title,
+		href: landingUrl,
+		isActive: !operationSlug,
+	}
+	const operationLinkGroups = operationGroups.map((group) => ({
+		// Note: we word break to avoid long strings breaking the sidebar layout
+		text: wordBreakCamelCase(group.key),
+		items: group.items.map((o: OperationObject) => {
+			const operationSlug = slugifyOperationId(o.operationId)
+			const operationUrl = isVersionedUrl
+				? `${basePath}/${versionId}/${operationSlug}`
+				: `${basePath}/${operationSlug}`
+			return {
+				text: wordBreakCamelCase(getOperationTitle(o)),
+				href: operationUrl,
+				isActive: operationSlug === targetOperationSlug,
+			}
+		}),
+	}))
+
+	/**
+	 * Build breadcrumb links
+	 */
+	const breadcrumbLinks: BreadcrumbLink[] = [...breadcrumbLinksPrefix]
+	// Push a link for the root of these docs
+	breadcrumbLinks.push({
+		title: schemaData.info.title,
+		url: basePath,
+	})
+	// If we have a versioned URL, push a link for the specific version
+	if (isVersionedUrl) {
+		breadcrumbLinks.push({
+			title: versionId,
+			url: `${basePath}/${versionId}`,
+		})
+	}
+	// If we're on a specific operation page, add a breadcrumb link accordingly
+	if (targetOperation) {
+		breadcrumbLinks.push({
+			title: getOperationTitle(targetOperation),
+			url: [basePath, operationSlug].filter(Boolean).join('/'),
+		})
+	}
+	// Mark the last breadcrumb link as the current page
 	breadcrumbLinks[breadcrumbLinks.length - 1].isCurrentPage = true
 
 	/**
-	 * Return props
+	 * Gather props shared between the landing and individual operation views.
 	 */
-	return {
-		props: {
-			metadata: {
-				title: schemaData.info.title,
-			},
-			productData,
-			serviceProductSlug,
-			topOfPageHeading: {
-				text: schemaData.info.title,
-				id: topOfPageId,
-			},
-			releaseStage: targetVersion.releaseStage,
-			descriptionMdx,
+	const sharedProps: SharedProps = {
+		basePath,
+		backToLink,
+		breadcrumbLinks,
+		landingLink,
+		operationLinkGroups,
+		product: productData,
+		versionMetadata: {
 			isVersionedUrl,
-			versionSwitcherProps: getVersionSwitcherProps({
-				projectName: schemaData.info.title,
-				versionData,
-				targetVersion,
-				defaultVersion,
-				basePath,
-			}),
-			operationGroups: stripUndefinedProperties(operationGroups),
-			navItems,
-			navResourceItems,
-			breadcrumbLinks,
-			statusIndicatorConfig,
-			versionAlert: {
-				isVersionedUrl,
-				currentVersion: targetVersion,
-				latestStableVersion: defaultVersion,
-				basePath,
+			currentVersion: {
+				versionId: targetVersion.versionId,
+				releaseStage: targetVersion.releaseStage,
 			},
-			schemaFileString,
+			latestStableVersion: {
+				versionId: defaultVersion.versionId,
+			},
 		},
+		versionSwitcherProps,
+		resourceLinks: resourceLinks.map((item) => {
+			return { ...item, isExternal: isAbsoluteUrl(item.href) }
+		}),
+	}
+
+	/**
+	 * If we have an operation slug, build and return operation view props.
+	 * Otherwise, assume a landing view, and build and return landing view props.
+	 */
+	if (targetOperation) {
+		const operationContentProps = await getOperationContentProps(
+			targetOperation,
+			schemaData,
+			getOperationTitle
+		)
+		return {
+			props: stripUndefinedProperties({
+				...sharedProps,
+				metadata: {
+					title: `${targetOperation.operationId} | ${schemaData.info.title}`,
+				},
+				operationContentProps,
+			}),
+		}
+	} else {
+		const landingProps = {
+			heading: schemaData.info.title,
+			badgeText: targetVersion.releaseStage,
+			serviceProductSlug: theme,
+			statusIndicatorConfig,
+			descriptionMdx: await serialize(schemaData.info.description),
+			schemaFileString: schemaFileString,
+		}
+		return {
+			props: stripUndefinedProperties({
+				...sharedProps,
+				metadata: {
+					title: schemaData.info.title,
+				},
+				landingProps,
+			}),
+		}
 	}
 }

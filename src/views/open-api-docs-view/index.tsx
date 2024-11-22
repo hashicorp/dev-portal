@@ -6,106 +6,135 @@
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
 // Components
-import BreadcrumbBar from 'components/breadcrumb-bar'
-import NoIndexTagIfVersioned from 'components/no-index-tag-if-versioned'
-import SidebarBackToLink from 'components/sidebar/components/sidebar-back-to-link'
-import VersionSwitcher from 'components/version-switcher'
-import OpenApiSidebarContents from 'components/open-api-sidebar-contents'
-import { ApiDocsVersionAlert } from 'views/api-docs-view/components'
-import StandaloneLink from '@components/standalone-link'
-import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
-
-// Local
 import {
-	OpenApiDocsMobileMenuLevels,
-	OpenApiOverview,
-	OpenApiOperations,
-} from './components'
-import s from './open-api-docs-view.module.css'
+	mobileMenuLevelMain,
+	mobileMenuLevelProduct,
+} from '@components/mobile-menu-levels/level-components'
+import { SidebarHorizontalRule } from '@components/sidebar/components'
+import MobileMenuLevels from '@components/mobile-menu-levels'
+import SidebarBackToLink from '@components/sidebar/components/sidebar-back-to-link'
+import BreadcrumbBar from '@components/breadcrumb-bar'
+import VersionSwitcher from '@components/version-switcher'
+import NoIndexTagIfVersioned from '@components/no-index-tag-if-versioned'
+// Components, local
+import { OpenApiSidebarContents } from './components/sidebar'
+import { SidebarResourceLinks } from './components/sidebar-resource-links'
+import { LandingContent } from './components/landing-content'
+import OperationContent from './components/operation-content'
+import { OpenApiVersionAlert } from './components/version-alert'
 // Types
 import type { OpenApiDocsViewProps } from './types'
-import { DescriptionMdx } from './components/open-api-overview/components/description-mdx'
+// Styles
+import s from './style.module.css'
 
 /**
- * Placeholder for a revised OpenAPI docs view.
+ * Placeholder view component for a new OpenAPI docs setup.
+ *
+ * This new setup will split each operation into its own URL,
+ * and render an overview page at the base URL.
  */
-function OpenApiDocsView({
-	productData,
-	topOfPageHeading,
-	releaseStage,
-	descriptionMdx,
-	operationGroups,
-	navItems,
-	navResourceItems,
+export default function OpenApiDocsView({
+	basePath,
+	backToLink,
 	breadcrumbLinks,
-	statusIndicatorConfig,
-	serviceProductSlug,
+	landingLink,
+	operationLinkGroups,
+	resourceLinks,
+	product,
+	versionMetadata,
 	versionSwitcherProps,
-	isVersionedUrl,
-	versionAlert,
-	schemaFileString,
+	...restProps
 }: OpenApiDocsViewProps) {
+	//
 	return (
 		<SidebarLayout
 			sidebarSlot={
 				<>
-					<SidebarBackToLink text="HashiCorp Cloud Platform" href="/hcp" />
+					{backToLink ? (
+						<SidebarBackToLink href={backToLink.href} text={backToLink.text} />
+					) : null}
 					<OpenApiSidebarContents
-						navItems={navItems}
-						navResourceItems={navResourceItems}
-						showFilterInput={true}
+						landingLink={landingLink}
+						operationLinkGroups={operationLinkGroups}
 					/>
+					{resourceLinks.length > 0 ? (
+						<>
+							<SidebarHorizontalRule />
+							<SidebarResourceLinks resourceLinks={resourceLinks} />
+						</>
+					) : null}
 				</>
 			}
 			mobileMenuSlot={
-				<OpenApiDocsMobileMenuLevels
-					productData={productData}
-					navItems={navItems}
-					navResourceItems={navResourceItems}
+				<MobileMenuLevels
+					levels={[
+						mobileMenuLevelMain(),
+						mobileMenuLevelProduct(product),
+						{
+							levelButtonText: 'Previous',
+							content: (
+								<>
+									<OpenApiSidebarContents
+										landingLink={landingLink}
+										operationLinkGroups={operationLinkGroups}
+									/>
+									{resourceLinks.length > 0 ? (
+										<>
+											<SidebarHorizontalRule />
+											<SidebarResourceLinks resourceLinks={resourceLinks} />
+										</>
+									) : null}
+								</>
+							),
+						},
+					]}
 				/>
 			}
 		>
-			<ApiDocsVersionAlert {...versionAlert} />
+			<OpenApiVersionAlert
+				isVersionedUrl={versionMetadata.isVersionedUrl}
+				currentVersion={versionMetadata.currentVersion}
+				latestStableVersion={versionMetadata.latestStableVersion}
+				basePath={basePath}
+			/>
+			<NoIndexTagIfVersioned isVersioned={versionMetadata.isVersionedUrl} />
 			<div className={s.paddedContainer}>
-				<div className={s.spaceBreadcrumbsOverview}>
+				<div className={s.spaceBreadcrumbsContent}>
 					<BreadcrumbBar links={breadcrumbLinks} />
-					<NoIndexTagIfVersioned isVersioned={isVersionedUrl} />
-					<OpenApiOverview
-						heading={topOfPageHeading}
-						badgeText={releaseStage}
-						serviceProductSlug={serviceProductSlug}
-						statusIndicatorConfig={statusIndicatorConfig}
-						versionSwitcherSlot={
-							versionSwitcherProps ? (
-								<VersionSwitcher
-									label={versionSwitcherProps.label}
-									options={versionSwitcherProps.options}
-								/>
-							) : null
-						}
-						contentSlot={
-							descriptionMdx ? (
-								<DescriptionMdx mdxRemoteProps={descriptionMdx} />
-							) : null
-						}
-					/>
-					<StandaloneLink
-						text="Download Spec"
-						icon={<IconDownload16 />}
-						iconPosition="leading"
-						download="hcp.swagger.json"
-						href={`data:text/json;charset=utf-8,${encodeURIComponent(
-							schemaFileString
-						)}`}
-					/>
-				</div>
-				<div className={s.operationsSection}>
-					<h2 className={s.operationsHeading}>Operations</h2>
-					<OpenApiOperations operationGroups={operationGroups} />
+					{'operationContentProps' in restProps ? (
+						<OperationContent
+							{...restProps.operationContentProps}
+							versionSwitcherSlot={
+								versionSwitcherProps ? (
+									<VersionSwitcher
+										label={versionSwitcherProps.label}
+										options={versionSwitcherProps.options}
+									/>
+								) : null
+							}
+						/>
+					) : 'landingProps' in restProps ? (
+						<LandingContent
+							versionSwitcherSlot={
+								versionSwitcherProps ? (
+									<VersionSwitcher
+										label={versionSwitcherProps.label}
+										options={versionSwitcherProps.options}
+									/>
+								) : null
+							}
+							heading={restProps.landingProps.heading}
+							badgeText={restProps.landingProps.badgeText}
+							serviceProductSlug={restProps.landingProps.serviceProductSlug}
+							statusIndicatorConfig={
+								restProps.landingProps.statusIndicatorConfig
+							}
+							descriptionMdx={restProps.landingProps.descriptionMdx}
+							schemaFileString={restProps.landingProps.schemaFileString}
+						/>
+					) : null}
 				</div>
 			</div>
 		</SidebarLayout>
 	)
 }
-
-export default OpenApiDocsView
