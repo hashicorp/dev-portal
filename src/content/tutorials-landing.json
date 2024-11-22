@@ -181,7 +181,7 @@
 		"collectionSlugs": [
 			"well-architected-framework/com",
 			"consul/network-automation",
-			"cloud/networking"
+			"well-architected-framework/operational-excellence"
 		]
 	}
 }
