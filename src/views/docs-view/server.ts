@@ -166,6 +166,93 @@ export function getStaticGenerationFunctions<
 		basePath: basePathForLoader,
 		enabledVersionedDocs: true,
 		navDataPrefix,
+		mdxContentHook: (mdxContent: string) => {
+			/**
+			 * NOTE: this patches an unclear issue with upstream MDX content,
+			 * which uses custom HTML tags that seem to get borked somewhere along
+			 * the ETL pipeline, apparently before extraction as our database returns
+			 * MDX with a bunch of `&lt;a` strings rather than `<a` as intended.
+			 * https://content.hashicorp.com/api/content/vault/doc/latest/docs/commands
+			 *
+			 * Because this content has already been ETL'd into our content API, we
+			 * must either:
+			 * - support this quirk forever, or
+			 * - run backports to all affected versions to fix the content.
+			 *
+			 * This issue seems to have been introduced very recently, in the PR
+			 * https://github.com/hashicorp/vault/pull/28964, and it wasn't caught
+			 * because deploy previews somehow rendered (perhaps related to unforeseen
+			 * difference in our file-system loader, used for those "local" previews,
+			 * and our remote content loader, or the extraction workflows that go
+			 * along with it). If we act quickly, we may be able to go with the
+			 * "backport" fix without too much effort, as it seems likely only
+			 * a single partial in a single version of Vault docs are affected by
+			 * this at the moment.
+			 *
+			 * In terms of the content correction to make, it seems like the use of
+			 * custom HTML aligns pretty closely with our anchor link plugin:
+			 * https://github.com/hashicorp/web-platform-packages/tree/main/packages/remark-plugins/plugins/anchor-links
+			 * For example, rather than writing:
+			 *
+			 * ```markdown
+			 * ## Configure environment variables
+			 *
+			 * Some more content here, etc...
+			 *
+			 * <a id="global-address" />
+			 *
+			 * <a href="#global-address" style={{textDecorationLine:'none'}}>
+			 *
+			 * **`[-address | VAULT_ADDR] (string: 'https://127.0.0.1:8200')`**
+			 *
+			 * </a>
+			 *
+			 * Some content about the global address variable here...
+			 * ```
+			 *
+			 * Authors could use auto-permalinked list items or headings to achieve
+			 * a similar effect. To get specific, list items could provide a similar
+			 * user experience:
+			 *
+			 * ```markdown
+			 * ## Configure environment variables
+			 *
+			 * Some more content here, etc...
+			 *
+			 * - `[-address | VAULT_ADDR] (string: 'https://127.0.0.1:8200')` ((#global-address))
+			 *    - Some content about the global address variable here...
+			 * ```
+			 *
+			 * Or headings might be more appropriate or preferable, depending
+			 * on context:
+			 *
+			 * ```markdown
+			 * ## Configure environment variables
+			 *
+			 * Some more content here, etc...
+			 *
+			 * ### `[-address | VAULT_ADDR] (string: 'https://127.0.0.1:8200')` ((#global-address))
+			 *
+			 * Some content about the global address variable here...
+			 */
+			/**
+			 * We only want to apply this fix to affected pages. Ideally,
+			 * we'd be a little more targeted, including the page slug
+			 * (so, `vault/docs/commands` rather than `vault/docs/**`),
+			 * but for now, this seems to work.
+			 */
+			const affectedBasePaths = [['vault', 'docs']]
+			const isAffectedPage = affectedBasePaths.some(([product, basePath]) => {
+				return (
+					product === productSlugForLoader && basePath === basePathForLoader
+				)
+			})
+			if (isAffectedPage) {
+				return mdxContent.replace(/&lt;a/g, '<a')
+			} else {
+				return mdxContent
+			}
+		},
 	}
 
 	// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
