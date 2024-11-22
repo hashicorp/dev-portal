@@ -166,6 +166,7 @@ export function getStaticGenerationFunctions<
 		basePath: basePathForLoader,
 		enabledVersionedDocs: true,
 		navDataPrefix,
+		latestVersionRef: 'delete-me-permalink-test',
 	}
 
 	// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
