@@ -14,7 +14,7 @@ export class ContentApiError extends Error {
 export async function fetchNavData(
 	product: string, //: string, // waypoint
 	basePath: string, //: string, // commands | docs | plugins
-	version: string //: string // v0.5.x
+	version: string = 'latest' //: string // v0.5.x
 ): Promise<any> {
 	const contentApiBaseUrl = getContentApiBaseUrl(product)
 	const fullPath = `nav-data/${version}/${basePath}`
