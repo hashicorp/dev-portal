@@ -37,6 +37,7 @@ describe('RemoteContentLoader', () => {
 		loader = new RemoteContentLoader({
 			basePath: 'commands',
 			product: 'waypoint',
+			latestVersionRef: 'v0.5.x',
 		})
 
 		nock.disableNetConnect()
@@ -67,6 +68,7 @@ describe('RemoteContentLoader', () => {
 			basePath: 'plugin/mux',
 			navDataPrefix: 'plugin-mux',
 			product: 'terraform-plugin-mux',
+			latestVersionRef: 'v0.6.x',
 		})
 
 		scope
@@ -153,7 +155,9 @@ describe('RemoteContentLoader', () => {
 			.get('/api/content/waypoint/nav-data/v0.5.x/commands')
 			.reply(200, navData_200)
 
-		const props = await loader.loadStaticProps({ params: {} })
+		const props = await loader.loadStaticProps({
+			params: { page: ['v0.5.x'] },
+		})
 
 		expect(props).toMatchInlineSnapshot(
 			{
@@ -165,7 +169,7 @@ describe('RemoteContentLoader', () => {
 			},
 			`
       {
-        "currentPath": "",
+        "currentPath": "v0.5.x",
         "frontMatter": {
           "layout": "commands",
           "page_title": "Waypoint Commands (CLI)",
