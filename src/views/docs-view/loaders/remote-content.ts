@@ -202,7 +202,7 @@ export default class RemoteContentLoader implements DataLoader {
 		if (this.opts.enabledVersionedDocs) {
 			versionToFetch =
 				versionFromPath === 'latest'
-					? 'latest'
+					? latestVersion
 					: normalizeVersion(versionFromPath)
 		}
 
