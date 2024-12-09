@@ -168,6 +168,13 @@ export function getStaticGenerationFunctions<
 		navDataPrefix,
 	}
 
+	/**
+	 * This is a temporary shim to demo upstream content changes.
+	 */
+	if (productSlugForLoader === 'vault') {
+		loaderOptions.latestVersionRef = 'delete-me-permalink-test'
+	}
+
 	// Defining a getter here so that we can pass in remarkPlugins on a per-request basis to collect headings
 	const getLoader = (
 		extraOptions?: Partial<ConstructorParameters<typeof RemoteContentLoader>[0]>
