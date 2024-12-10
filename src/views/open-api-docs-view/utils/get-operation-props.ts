@@ -51,7 +51,13 @@ export async function getOperationProps(
 				continue
 			}
 
+			// Deprecated method of hiding api endpoints - that was not compatible with generating api clients
 			if (operation.tags?.includes('hidden')) {
+				continue
+			}
+
+			const xConfig = operation['x-config'] || {}
+			if (xConfig['hideFromPublicApi']) {
 				continue
 			}
 
