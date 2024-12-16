@@ -185,6 +185,12 @@ export interface OpenApiDocsViewV2Config {
 	 */
 	getOperationGroupKey?: (o: OperationObject) => string
 	/**
+	 * Optional function to control how operations are displayed. For example,
+	 * in some specs, operation IDs as `ServiceId_OperationId`. This function can
+	 * be used to ensure only the `OperationId` part is shown.
+	 */
+	getOperationTitle?: (o: OperationObject) => string
+	/**
 	 * Define a source for the OpenAPI schema. This can be a string,
 	 * which is assumed to be the OpenAPI schema in JSON format, or it
 	 * can be a GithubDir object, which is used to fetch versioned schema
