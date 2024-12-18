@@ -13,7 +13,10 @@ export async function allDocsFields() {
 
 	// If there are docs that have been migrated to the unified docs repo, get the paths for those docs
 	// and merge them with the paths for the docs that haven't been migrated from the content API
-	if (__config.flags?.unified_docs_migrated_repos.length > 0) {
+	if (
+		process.env.HASHI_ENV === 'unified-docs-sandbox' &&
+		__config.flags?.unified_docs_migrated_repos.length > 0
+	) {
 		const getUDRDocsPaths = await fetch(
 			`${process.env.UNIFIED_DOCS_API}/api/all-docs-paths`
 		)
