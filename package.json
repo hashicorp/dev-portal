@@ -92,7 +92,7 @@
 	"dependencies": {
 		"@actions/core": "^1.9.1",
 		"@apidevtools/json-schema-ref-parser": "^9.0.9",
-		"@hashicorp/design-system-tokens": "^2.2.1",
+		"@hashicorp/design-system-tokens": "^2.2.2",
 		"@hashicorp/flight-icons": "^3.8.0",
 		"@hashicorp/localstorage-polyfill": "^1.0.14",
 		"@hashicorp/mktg-global-styles": "^4.5.0",
