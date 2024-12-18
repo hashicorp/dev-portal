@@ -82,7 +82,6 @@ interface LoadStaticPropsReturn {
 }
 
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
-const cachedFetchNavData = moize(fetchNavData, moizeOpts)
 const cachedFetchVersionMetadataList = moize(
 	fetchVersionMetadataList,
 	moizeOpts
@@ -147,19 +146,10 @@ export default class RemoteContentLoader implements DataLoader {
 	loadStaticPaths = async (): Promise<
 		{ params: Record<string, string[]> }[]
 	> => {
-		// Fetch version metadata to get "latest"
-		const versionMetadataList = await cachedFetchVersionMetadataList(
-			this.opts.product
-		)
-
-		const latest: string =
-			this.opts.latestVersionRef ??
-			versionMetadataList.find((e) => e.isLatest).version
-
+		const latest: string = this.opts.latestVersionRef ?? 'latest'
 		// Fetch and parse navigation data
-		const navDataResponse = await cachedFetchNavData(
+		const navDataResponse = await fetchNavData(
 			this.opts.product,
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			this.opts.navDataPrefix!,
 			latest
 		)
@@ -206,10 +196,7 @@ export default class RemoteContentLoader implements DataLoader {
 		const versionMetadataList: VersionMetadataItem[] =
 			await cachedFetchVersionMetadataList(this.opts.product)
 
-		const latestVersion =
-			this.opts.latestVersionRef ??
-			versionMetadataList.find((e) => e.isLatest)?.version
-
+		const latestVersion = this.opts.latestVersionRef ?? 'latest'
 		let versionToFetch = latestVersion
 
 		if (this.opts.enabledVersionedDocs) {
@@ -236,9 +223,8 @@ export default class RemoteContentLoader implements DataLoader {
 		].join('/')
 
 		const documentPromise = fetchDocument(this.opts.product, fullPath)
-		const navDataPromise = cachedFetchNavData(
+		const navDataPromise = fetchNavData(
 			this.opts.product,
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			this.opts.navDataPrefix!,
 			versionToFetch
 		)
