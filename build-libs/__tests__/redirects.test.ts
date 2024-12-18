@@ -263,6 +263,7 @@ describe('getRedirectsFromContentRepo', () => {
 			json: () => new Promise((resolve) => resolve(mockData)),
 			ok: true,
 		})
+		vi.stubEnv('HASHI_ENV', 'unified-docs-sandbox')
 
 		const redirects = await getRedirectsFromContentRepo(
 			'terraform-docs-common',
@@ -279,6 +280,8 @@ describe('getRedirectsFromContentRepo', () => {
 
 	it('returns empty array if there are not any redirects from UDR for a migrated repo', async () => {
 		global.fetch = vi.fn().mockResolvedValue({ ok: false })
+		vi.stubEnv('HASHI_ENV', 'unified-docs-sandbox')
+		const mockConsole = vi.spyOn(console, 'error').mockImplementation(() => {})
 
 		const redirects = await getRedirectsFromContentRepo(
 			'ptfe-releases',
@@ -291,6 +294,7 @@ describe('getRedirectsFromContentRepo', () => {
 		)
 
 		expect(redirects).toEqual([])
+		expect(mockConsole).toHaveBeenCalledOnce()
 	})
 })
 
