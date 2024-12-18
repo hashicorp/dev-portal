@@ -7,6 +7,7 @@ import {
 	splitRedirectsByType,
 	groupSimpleRedirects,
 	filterInvalidRedirects,
+	getRedirectsFromContentRepo,
 } from '../redirects'
 
 function withHashiEnv(value, fn) {
@@ -18,6 +19,10 @@ function withHashiEnv(value, fn) {
 
 	process.env.HASHI_ENV = originalValue
 }
+
+afterEach(() => {
+	vi.restoreAllMocks()
+})
 
 describe('splitRedirectsByType', () => {
 	test('splits simple and glob redirects', () => {
@@ -236,6 +241,56 @@ describe('filterInvalidRedirects', () => {
 		// Assert expectations
 		const result = filterInvalidRedirects(redirects, 'cloud.hashicorp.com')
 		expect(result).toStrictEqual(redirects)
+	})
+})
+
+describe('getRedirectsFromContentRepo', () => {
+	it('returns redirects from UDR for a migrated repo', async () => {
+		const mockData = [
+			{
+				source: '/terraform/cloud-docs/policy-enforcement/opa/vcs',
+				destination:
+					'/terraform/cloud-docs/policy-enforcement/manage-policy-sets/opa-vcs',
+				permanent: true,
+			},
+			{
+				source: '/terraform/cloud-docs/policy-enforcement/policy-results',
+				destination: '/terraform/cloud-docs/policy-enforcement/view-results',
+				permanent: true,
+			},
+		]
+		global.fetch = vi.fn().mockResolvedValue({
+			json: () => new Promise((resolve) => resolve(mockData)),
+			ok: true,
+		})
+
+		const redirects = await getRedirectsFromContentRepo(
+			'terraform-docs-common',
+			'test',
+			{
+				flags: {
+					unified_docs_migrated_repos: ['terraform-docs-common'],
+				},
+			}
+		)
+
+		expect(redirects).toEqual(mockData)
+	})
+
+	it('returns empty array if there are not any redirects from UDR for a migrated repo', async () => {
+		global.fetch = vi.fn().mockResolvedValue({ ok: false })
+
+		const redirects = await getRedirectsFromContentRepo(
+			'ptfe-releases',
+			'test',
+			{
+				flags: {
+					unified_docs_migrated_repos: ['ptfe-releases'],
+				},
+			}
+		)
+
+		expect(redirects).toEqual([])
 	})
 })
 
