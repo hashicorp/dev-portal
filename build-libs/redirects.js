@@ -16,6 +16,8 @@ const {
 	getDocsDotHashiCorpRedirects,
 } = require('./docs-dot-hashicorp-redirects')
 const { packerPluginRedirects } = require('./integration-packer-redirects')
+const { unflatten } = require('flat')
+const { getHashiConfig } = require('../config')
 
 require('isomorphic-unfetch')
 
@@ -26,6 +28,9 @@ const HOSTNAME_MAP = {
 	'docs.hashicorp.com': 'sentinel',
 	'test-st.hashi-mktg.com': 'sentinel',
 }
+const env = process.env.HASHI_ENV || 'development'
+const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
+const __config = unflatten(getHashiConfig(envConfigPath))
 
 /**
  * Load redirects from a content repository.
@@ -58,6 +63,24 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath) {
 	 */
 	const isDeveloperBuild = !process.env.IS_CONTENT_PREVIEW
 	const isLocalContentBuild = isDeployPreview(repoName)
+	/**
+	 * Load redirects from the unified docs repo if it's in the list of migrated repos.
+	 * Return early if there are not any redirects found for that specific repo.
+	 */
+	if (
+		__config.flags?.unified_docs_migrated_repos?.find(
+			(repo) => repo === repoName
+		)
+	) {
+		const getUDRRedirects = await fetch(
+			`${process.env.UNIFIED_DOCS_API}/api/content/${repoName}/redirects`
+		)
+		if (getUDRRedirects.ok) {
+			const udrRedirects = await getUDRRedirects.json()
+			return udrRedirects
+		}
+		return []
+	}
 	/**
 	 * Load redirects from the target repo (or return early for non-target repos).
 	 */
@@ -406,4 +429,5 @@ module.exports = {
 	splitRedirectsByType,
 	groupSimpleRedirects,
 	filterInvalidRedirects,
+	getRedirectsFromContentRepo,
 }
