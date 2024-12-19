@@ -75,7 +75,7 @@ export const generateDefaultPackageManagers = (
 			label: 'Fedora',
 			commands: [
 				`sudo dnf install -y dnf-plugins-core`,
-				`sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo`,
+				`sudo dnf config-manager addrepo --from-repofile=https://rpm.releases.hashicorp.com/fedora/hashicorp.repo`,
 				`sudo dnf -y install ${productSlug}`,
 			],
 			os: 'linux',
@@ -136,7 +136,7 @@ export function generateEnterprisePackageManagers(
 			label: 'Fedora',
 			commands: [
 				`sudo dnf install -y dnf-plugins-core`,
-				`sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo`,
+				`sudo dnf config-manager addrepo --from-repofile=https://rpm.releases.hashicorp.com/fedora/hashicorp.repo`,
 				`sudo dnf -y install ${productSlug}-enterprise`,
 			],
 			os: 'linux',
