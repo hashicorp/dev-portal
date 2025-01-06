@@ -32,7 +32,7 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 
 const DEFAULT_SLUGS = [
 	'terraform/infrastructure-as-code',
-	'vault/getting-started-intro',
+	'vault/why-use-vault',
 	'consul/get-started',
 	'nomad/get-started-install',
 	'vagrant/getting-started-index',
