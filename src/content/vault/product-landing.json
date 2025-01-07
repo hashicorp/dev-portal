@@ -20,12 +20,12 @@
 		"body": "Use Vault to securely store, access, and manage secrets and other sensitive data.",
 		"ctas": [
 			{
-				"text": "CLI Quick Start",
-				"url": "/vault/tutorials/getting-started"
+				"text": "Developer quick start",
+				"url": "/vault/docs/get-started/developer-qs"
 			},
 			{
-				"text": "Developer Quick Start",
-				"url": "/vault/docs/get-started/developer-qs"
+				"text": "Operations quick start",
+				"url": "/vault/docs/get-started/operations-qs"
 			}
 		]
 	},
