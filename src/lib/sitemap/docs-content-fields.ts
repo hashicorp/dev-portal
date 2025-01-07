@@ -17,8 +17,14 @@ export async function allDocsFields() {
 		process.env.HASHI_ENV === 'unified-docs-sandbox' &&
 		__config.flags?.unified_docs_migrated_repos.length > 0
 	) {
+		const productsFilter = __config.flags.unified_docs_migrated_repos.map(
+			(repo) => {
+				return `products=${repo}`
+			}
+		)
+		const productsFilterString = productsFilter.join('&')
 		const getUDRDocsPaths = await fetch(
-			`${process.env.UNIFIED_DOCS_API}/api/all-docs-paths`
+			`${process.env.UNIFIED_DOCS_API}/api/all-docs-paths?${productsFilterString}`
 		)
 		const { result: udrDocsResult } = await getUDRDocsPaths.json()
 
