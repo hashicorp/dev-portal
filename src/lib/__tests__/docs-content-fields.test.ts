@@ -1,10 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { allDocsFields } from '../sitemap/docs-content-fields'
 
-// vi.mock('../sitemap/helpers', () => ({
-// 	makeSitemapField: vi.fn((args) => args),
-// }))
-
 describe('allDocsFields', () => {
 	beforeEach(() => {
 		vi.resetAllMocks()
