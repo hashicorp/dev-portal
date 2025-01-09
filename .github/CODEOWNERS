@@ -4,7 +4,7 @@
 # Education Engineering Managers
 # TODO: Add ownership for other content dirs / products
 /src/content/consul/**/* @hashicorp/consul-education-approvers
-/src/content/nomad/**/* @topfunky
+/src/content/nomad/**/* @hashicorp/nomad-education-approvers
 /src/content/terraform/**/* @hashicorp/terraform-education-approvers
 /src/content/vault/**/* @hashicorp/vault-education-approvers
 /src/content/boundary/**/* @hashicorp/boundary-education-approvers
