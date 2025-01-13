@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { describe, it, expect, vi } from 'vitest'
 import { allDocsFields } from '../sitemap/docs-content-fields'
 
