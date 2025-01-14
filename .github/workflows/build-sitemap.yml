@@ -17,5 +17,8 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Build sitemaps
         run: npx hc-tools ./scripts/build-sitemap.ts
