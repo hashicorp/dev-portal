@@ -28,6 +28,7 @@ async function getCollectionPaths() {
 }
 
 export async function allTutorialsFields(config: typeof __config) {
+	throw new Error('tutorials error')
 	const landingSlugs = getTutorialLandingPaths()
 	const collectionSlugs = await getCollectionPaths()
 	const tutorialSlugs = Object.values(tutorialMap)
