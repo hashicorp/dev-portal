@@ -26,14 +26,12 @@ export const determinePriority = (slug: string): SitemapPriority => {
 	}
 }
 
-export const makeSitemapField = ({
-	slug,
-	lastmodDate,
-	priority,
-	changefreq,
-}: SitemapFactoryInput): SitemapElement => {
+export const makeSitemapField = (
+	{ slug, lastmodDate, priority, changefreq }: SitemapFactoryInput,
+	config: typeof __config
+): SitemapElement => {
 	return {
-		loc: new URL(slug, __config.dev_dot.canonical_base_url).toString(),
+		loc: new URL(slug, config.dev_dot.canonical_base_url).toString(),
 		lastmod: lastmodDate ?? new Date(Date.now()).toISOString(),
 		priority: priority ?? determinePriority(slug),
 		changefreq: changefreq ?? 'daily',

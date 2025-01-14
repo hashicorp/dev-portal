@@ -27,11 +27,11 @@ async function getCollectionPaths() {
 	})
 }
 
-export async function allTutorialsFields() {
+export async function allTutorialsFields(config: typeof __config) {
 	const landingSlugs = getTutorialLandingPaths()
 	const collectionSlugs = await getCollectionPaths()
 	const tutorialSlugs = Object.values(tutorialMap)
 	return [...landingSlugs, ...collectionSlugs, ...tutorialSlugs].map(
-		(slug: string) => makeSitemapField({ slug })
+		(slug: string) => makeSitemapField({ slug }, config)
 	)
 }

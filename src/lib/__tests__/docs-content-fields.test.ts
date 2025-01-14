@@ -17,7 +17,7 @@ describe('allDocsFields', () => {
 			json: vi.fn().mockResolvedValue({ result: mockContentAPIDocsResult }),
 		})
 
-		const result = await allDocsFields()
+		const result = await allDocsFields(__config)
 
 		expect(fetch).toHaveBeenCalledWith(
 			'https://content-api.example.com/api/all-docs-paths'
@@ -59,7 +59,7 @@ describe('allDocsFields', () => {
 				json: vi.fn().mockResolvedValue({ result: mockUDRDocsResult }),
 			})
 
-		const result = await allDocsFields()
+		const result = await allDocsFields(__config)
 
 		expect(fetch).toHaveBeenCalledWith(
 			'https://content-api.example.com/api/all-docs-paths?filterOut=repo1&filterOut=repo2'
