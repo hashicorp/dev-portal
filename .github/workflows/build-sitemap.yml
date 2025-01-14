@@ -18,4 +18,4 @@ jobs:
           node-version: 20
 
       - name: Build sitemaps
-        run: hc-tools ./scripts/build-sitemap.ts
+        run: npx hc-tools ./scripts/build-sitemap.ts
