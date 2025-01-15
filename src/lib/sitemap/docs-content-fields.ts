@@ -6,7 +6,6 @@
 import { makeSitemapField } from './helpers'
 
 export async function allDocsFields(config: typeof __config) {
-	throw new Error('docs error')
 	// If there are docs that have been migrated to the unified docs repo, get the paths for those docs
 	// and merge them with the paths for the docs that haven't been migrated from the content API
 	if (
