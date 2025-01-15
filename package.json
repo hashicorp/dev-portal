@@ -9,7 +9,7 @@
 		"generate:tutorial-map": "hc-tools ./scripts/generate-tutorial-map.ts",
 		"lint": "next-hashicorp lint",
 		"lint:stylelint": "npx stylelint '**/*.css'",
-		"prebuild": "hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts",
+		"prebuild": "hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts && hc-tools ./scripts/build-sitemap.ts",
 		"prepare": "simple-git-hooks",
 		"prestart": "hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts",
 		"prettier:check": "prettier --check .",

@@ -18,14 +18,14 @@ async function main() {
 		await allDocsFields(__config)
 	} catch (error) {
 		console.error('Error loading docs sitemap: ', error)
-		process.exit(1)
+		process.exit(-1)
 	}
 
 	try {
 		await allTutorialsFields(__config)
 	} catch (error) {
 		console.error('Error loading tutorials sitemaps: ', error)
-		process.exit(1)
+		process.exit(-1)
 	}
 }
 
