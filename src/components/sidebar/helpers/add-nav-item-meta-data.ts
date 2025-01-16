@@ -83,7 +83,6 @@ export const addNavItemMetaData = (
 			 * This should be in place until all nav data content (including past
 			 * versions) no longer contains `<sup>` tags in `title`s.
 			 */
-			console.log('item', item)
 			if (item.hasOwnProperty('title')) {
 				const itemWithTitle = item as
 					| EnrichedSubmenuNavItem
