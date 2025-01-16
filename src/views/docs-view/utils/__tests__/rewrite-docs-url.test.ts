@@ -45,8 +45,9 @@ describe('rewriteDocsUrl', () => {
 					'/well-architected-framework/operational-excellence/operational-excellence-workspaces-projects',
 			},
 			{
-				input: '/validated-patterns/COLLECTION-SLUG/PLACEHOLDER',
-				expected: '/validated-patterns/COLLECTION-SLUG/PLACEHOLDER',
+				input: '/validated-patterns/nomad/workload-modernization-with-traefik',
+				expected:
+					'/validated-patterns/nomad/workload-modernization-with-traefik',
 			},
 			// special case for non devdot 'waf' link
 			{

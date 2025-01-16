@@ -69,7 +69,7 @@ const TEST_MD_LINKS = {
 	wafTutorialLink:
 		'[link to waf](/tutorials/well-architected-framework/cloud-operating-model)',
 	validatedPatternsTutorialLink:
-		'[link to validated patterns](/tutorials/validated-patterns/PLACEHOLDER)',
+		'[link to validated patterns](/tutorials/validated-patterns/workload-modernization-with-traefik)',
 }
 
 /**
@@ -86,7 +86,8 @@ const MOCK_TUTORIALS_MAP = {
 	'waypoint/get-started': '/waypoint/tutorials/get-started-docker/get-started',
 	'well-architected-framework/cloud-operating-model':
 		'/well-architected-framework/com/cloud-operating-model',
-	'validated-patterns/PLACEHOLDER': '/validated-patterns/PLACEHOLDER',
+	'validated-patterns/workload-modernization-with-traefik':
+		'/validated-patterns/nomad/workload-modernization-with-traefik',
 	'cloud/get-started-vault': '/vault/tutorials/cloud/get-started-vault',
 }
 
@@ -340,6 +341,8 @@ describe('rewriteTutorialLinks remark plugin', () => {
 			.process(TEST_MD_LINKS.validatedPatternsTutorialLink)
 
 		const newPath = isolatePathFromMarkdown(String(contents))
-		expect(newPath).toBe('/validated-patterns/PLACEHOLDER')
+		expect(newPath).toBe(
+			'/validated-patterns/nomad/workload-modernization-with-traefik'
+		)
 	})
 })
