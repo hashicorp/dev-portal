@@ -6,6 +6,7 @@
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { productSlugs, productSlugsToHostNames } from 'lib/products'
+import path from 'path'
 
 // HELPERS ------------------------------------------------------
 
@@ -66,7 +67,9 @@ const TEST_MD_LINKS = {
 	productDocsLinkUseCases:
 		'[link to vault use cases](https://www.vaultproject.io/use-cases)',
 	wafTutorialLink:
-		'[waf link](/tutorials/well-architected-framework/cloud-operating-model)',
+		'[link to waf](/tutorials/well-architected-framework/cloud-operating-model)',
+	validatedPatternsTutorialLink:
+		'[link to validated patterns](/tutorials/validated-patterns/PLACEHOLDER)',
 }
 
 /**
@@ -83,6 +86,7 @@ const MOCK_TUTORIALS_MAP = {
 	'waypoint/get-started': '/waypoint/tutorials/get-started-docker/get-started',
 	'well-architected-framework/cloud-operating-model':
 		'/well-architected-framework/com/cloud-operating-model',
+	'validated-patterns/PLACEHOLDER': '/validated-patterns/PLACEHOLDER',
 	'cloud/get-started-vault': '/vault/tutorials/cloud/get-started-vault',
 }
 
@@ -328,5 +332,14 @@ describe('rewriteTutorialLinks remark plugin', () => {
 		expect(newPath).toBe(
 			'/well-architected-framework/com/cloud-operating-model'
 		)
+	})
+
+	test('Validated patterns tutorial link should be rewritten properly', async () => {
+		const contents = await remark()
+			.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
+			.process(TEST_MD_LINKS.validatedPatternsTutorialLink)
+
+		const newPath = isolatePathFromMarkdown(String(contents))
+		expect(newPath).toBe('/validated-patterns/PLACEHOLDER')
 	})
 })

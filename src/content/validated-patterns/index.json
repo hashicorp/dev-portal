@@ -1,0 +1,17 @@
+{
+	"sidebarCategories": [],
+	"landingPage": {
+		"hero": {
+			"heading": "Validated Patterns",
+			"image": "/img/well-architected-framework/landing-hero-graphic.png"
+		},
+		"overview": {
+			"heading": "What are Validated Patterns?",
+			"body": "HashiCorp Validated Patterns provide prescriptive guidance on integrating HashiCorp and partner technologies.",
+			"image": {
+				"light": "https://www.datocms-assets.com/2885/1679095265-devdot-waf_lm.png",
+				"dark": "https://www.datocms-assets.com/2885/1679087810-devdot-waf_dm.png"
+			}
+		}
+	}
+}

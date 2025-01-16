@@ -44,6 +44,10 @@ describe('rewriteDocsUrl', () => {
 				expected:
 					'/well-architected-framework/operational-excellence/operational-excellence-workspaces-projects',
 			},
+			{
+				input: '/validated-patterns/COLLECTION-SLUG/PLACEHOLDER',
+				expected: '/validated-patterns/COLLECTION-SLUG/PLACEHOLDER',
+			},
 			// special case for non devdot 'waf' link
 			{
 				input: 'https://aws.amazon.com/architecture/well-architected/',
