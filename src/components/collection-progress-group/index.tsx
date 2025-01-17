@@ -15,7 +15,7 @@ import s from './collection-progress-group.module.css'
  * Displays collection progress status and CTA.
  */
 function CollectionProgressGroup({ collection }: { collection: Collection }) {
-	const { id, slug, tutorials } = collection
+	const { id, slug, tutorials, ordered } = collection
 
 	/**
 	 * Get collection progress, which affects the
@@ -61,11 +61,13 @@ function CollectionProgressGroup({ collection }: { collection: Collection }) {
 
 	return (
 		<div className={s.root}>
-			<ButtonLink
-				aria-label={tutorialCta.ariaLabel}
-				href={tutorialCta.href}
-				text={tutorialCta.text}
-			/>
+			{ordered && (
+				<ButtonLink
+					aria-label={tutorialCta.ariaLabel}
+					href={tutorialCta.href}
+					text={tutorialCta.text}
+				/>
+			)}
 			<CollectionProgressStatusSection
 				completedTutorialCount={completedTutorialCount}
 				tutorialCount={tutorialCount}
