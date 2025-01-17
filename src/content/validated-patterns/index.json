@@ -2,11 +2,11 @@
 	"sidebarCategories": [],
 	"landingPage": {
 		"hero": {
-			"heading": "Validated Patterns",
+			"heading": "Validated Patterns"
 		},
 		"overview": {
 			"heading": "What are Validated Patterns?",
-			"body": "HashiCorp Validated Patterns provide prescriptive guidance on integrating HashiCorp and partner technologies.",
+			"body": "HashiCorp Validated Patterns provide prescriptive guidance on integrating HashiCorp and partner technologies."
 		}
 	}
 }
