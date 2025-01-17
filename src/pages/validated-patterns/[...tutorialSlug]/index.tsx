@@ -21,6 +21,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ tutorialSlug: [string, string] }>): Promise<
 	{ props: ValidatedPatternsTutorialViewProps } | { notFound: boolean }
 > {
+	return { notFound: true }
 	const props = await getValidatedPatternsTutorialViewProps(params.tutorialSlug)
 
 	// If the tutorial doesn't exist, hit the 404

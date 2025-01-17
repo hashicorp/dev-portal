@@ -16,9 +16,10 @@ import getProcessedPageData from 'views/product-tutorials-view/helpers/page-data
 import { TableOfContentsHeading } from 'components/table-of-contents'
 import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items-from-headings'
 
-export async function getStaticProps(): Promise<{
-	props: ValidatedPatternsLandingProps
-}> {
+export async function getStaticProps(): Promise<
+	{ props: ValidatedPatternsLandingProps } | { notFound: boolean }
+> {
+	return { notFound: true }
 	const { pageData, headings: pageHeadings } = await getProcessedPageData(
 		validatedPatternsData.slug as PageSlugOption,
 		{ showOverviewHeading: false }

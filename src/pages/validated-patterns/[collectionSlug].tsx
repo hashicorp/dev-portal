@@ -16,9 +16,10 @@ import validatedPatternsData from 'data/validated-patterns.json'
 
 export async function getStaticProps({
 	params,
-}: GetStaticPropsContext<{ collectionSlug: string }>): Promise<{
-	props: ValidatedPatternsCollectionViewProps
-}> {
+}: GetStaticPropsContext<{ collectionSlug: string }>): Promise<
+	{ props: ValidatedPatternsCollectionViewProps } | { notFound: boolean }
+> {
+	return { notFound: true }
 	const allValidatedPatternsCollections = await getCollectionsBySection(
 		validatedPatternsData.slug
 	)
