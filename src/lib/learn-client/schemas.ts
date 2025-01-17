@@ -88,7 +88,8 @@ export const ProductPageSchema = Joi.object({
 		.valid(
 			...Object.values(ProductOption),
 			ThemeOption.cloud,
-			'well-architected-framework'
+			'well-architected-framework',
+			'validated-patterns'
 		)
 		.required(),
 	pageData: Joi.object({

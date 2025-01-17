@@ -23,7 +23,10 @@ export function getTutorialSlug(
 	const tutorialFilename = splitProductFromFilename(tutorialDbSlug)
 
 	// @TODO genericize this to use 'topic' or 'section' instead of 'product'
-	if (rawProductSlug === 'well-architected-framework') {
+	if (
+		rawProductSlug === 'well-architected-framework' ||
+		rawProductSlug === 'validated-patterns'
+	) {
 		return `/${collectionDbSlug}/${tutorialFilename}`
 	}
 
@@ -36,7 +39,10 @@ export function getCollectionSlug(collectionDbSlug: string): string {
 	const [rawProductSlug, collectionFilename] = collectionDbSlug.split('/')
 
 	// @TODO genericize this to use 'topic' or 'section' instead of 'product'
-	if (rawProductSlug === 'well-architected-framework') {
+	if (
+		rawProductSlug === 'well-architected-framework' ||
+		rawProductSlug === 'validated-patterns'
+	) {
 		return `/${collectionDbSlug}`
 	}
 
