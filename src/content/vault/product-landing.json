@@ -52,7 +52,7 @@
 		},
 		{
 			"type": "collection_cards",
-			"collectionSlugs": ["vault/associate-cert", "vault/ops-pro-cert"]
+			"collectionSlugs": ["vault/associate-cert-003", "vault/ops-pro-cert"]
 		},
 		{
 			"type": "heading",
