@@ -19,71 +19,74 @@ import outlineItemsFromHeadings from 'components/outline-nav/utils/outline-items
 export async function getStaticProps(): Promise<
 	{ props: ValidatedPatternsLandingProps } | { notFound: boolean }
 > {
-	return { notFound: true }
-	const { pageData, headings: pageHeadings } = await getProcessedPageData(
-		validatedPatternsData.slug as PageSlugOption,
-		{ showOverviewHeading: false }
-	)
-	const validatedPatternsCollections = await getCollectionsBySection(
-		validatedPatternsData.slug
-	)
+	try {
+		const { pageData, headings: pageHeadings } = await getProcessedPageData(
+			validatedPatternsData.slug as PageSlugOption,
+			{ showOverviewHeading: false }
+		)
+		const validatedPatternsCollections = await getCollectionsBySection(
+			validatedPatternsData.slug
+		)
 
-	/**
-	 * Build and add the slug for the overview heading
-	 */
-	const validatedPatternsContent = {
-		...rawValidatedPatternsContent,
-		landingPage: {
-			...rawValidatedPatternsContent.landingPage,
-			overview: {
-				...rawValidatedPatternsContent.landingPage.overview,
-				headingSlug: slugify(
-					rawValidatedPatternsContent.landingPage.overview.heading,
-					{
-						lower: true,
-					}
-				),
+		/**
+		 * Build and add the slug for the overview heading
+		 */
+		const validatedPatternsContent = {
+			...rawValidatedPatternsContent,
+			landingPage: {
+				...rawValidatedPatternsContent.landingPage,
+				overview: {
+					...rawValidatedPatternsContent.landingPage.overview,
+					headingSlug: slugify(
+						rawValidatedPatternsContent.landingPage.overview.heading,
+						{
+							lower: true,
+						}
+					),
+				},
 			},
-		},
-	}
+		}
 
-	const headings: TableOfContentsHeading[] = [
-		{
-			title: validatedPatternsContent.landingPage.overview.heading,
-			level: 2,
-			slug: validatedPatternsContent.landingPage.overview.headingSlug,
-		},
-		...pageHeadings,
-	]
-	const breadcrumbLinks = [
-		{ title: 'Developer', url: '/' },
-		{
-			title: validatedPatternsData.name,
-			url: `/${validatedPatternsData.slug}`,
-			isCurrentPage: true,
-		},
-	]
-
-	return {
-		props: stripUndefinedProperties({
-			metadata: {
+		const headings: TableOfContentsHeading[] = [
+			{
+				title: validatedPatternsContent.landingPage.overview.heading,
+				level: 2,
+				slug: validatedPatternsContent.landingPage.overview.headingSlug,
+			},
+			...pageHeadings,
+		]
+		const breadcrumbLinks = [
+			{ title: 'Developer', url: '/' },
+			{
 				title: validatedPatternsData.name,
-				name: validatedPatternsData.name,
-				slug: validatedPatternsData.slug,
+				url: `/${validatedPatternsData.slug}`,
+				isCurrentPage: true,
 			},
-			data: {
-				pageData,
-				validatedPatternsContent: validatedPatternsContent.landingPage,
-			},
-			outlineItems: outlineItemsFromHeadings(headings),
-			layoutProps: {
-				breadcrumbLinks,
-				sidebarSections: buildCategorizedValidatedPatternsSidebar(
-					validatedPatternsCollections,
-					validatedPatternsContent.sidebarCategories
-				),
-			},
-		}),
+		]
+
+		return {
+			props: stripUndefinedProperties({
+				metadata: {
+					title: validatedPatternsData.name,
+					name: validatedPatternsData.name,
+					slug: validatedPatternsData.slug,
+				},
+				data: {
+					pageData,
+					validatedPatternsContent: validatedPatternsContent.landingPage,
+				},
+				outlineItems: outlineItemsFromHeadings(headings),
+				layoutProps: {
+					breadcrumbLinks,
+					sidebarSections: buildCategorizedValidatedPatternsSidebar(
+						validatedPatternsCollections,
+						validatedPatternsContent.sidebarCategories
+					),
+				},
+			}),
+		}
+	} catch (error) {
+		return { notFound: true }
 	}
 }
 
