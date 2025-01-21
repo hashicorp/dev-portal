@@ -30,9 +30,13 @@ export function DeveloperPreviewBuilder(product) {
 			/**
 			 * Remove specific page files to speed up preview builds:
 			 * - /src/pages/well-architected-framework
+			 * - /src/pages/validated-patterns
 			 */
 			const pagesDir = path.join(cwd, 'src', 'pages')
-			const pagesDirsToRemove = ['well-architected-framework']
+			const pagesDirsToRemove = [
+				'well-architected-framework',
+				'validated-patterns',
+			]
 
 			/**
 			 * Remove validated designs paths from docs previews

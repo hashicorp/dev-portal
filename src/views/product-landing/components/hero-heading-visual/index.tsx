@@ -68,9 +68,11 @@ function HeroHeadingVisual({
 			}
 		>
 			<h1 className={s.heading}>{heading}</h1>
-			<div className={s.image}>
-				<img src={image} alt="" />
-			</div>
+			{image && (
+				<div className={s.image}>
+					<img src={image} alt="" />
+				</div>
+			)}
 		</div>
 	)
 }
