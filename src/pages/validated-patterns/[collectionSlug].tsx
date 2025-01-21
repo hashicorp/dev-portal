@@ -23,6 +23,12 @@ export async function getStaticProps({
 		const allValidatedPatternsCollections = await getCollectionsBySection(
 			validatedPatternsData.slug
 		)
+
+		if (!allValidatedPatternsCollections) {
+			console.error('Collections not found')
+			return { notFound: true }
+		}
+
 		const currentCollection = allValidatedPatternsCollections.find(
 			(collection: ApiCollection) =>
 				collection.slug ===
@@ -61,6 +67,7 @@ export async function getStaticProps({
 			}),
 		}
 	} catch (error) {
+		console.error(error)
 		return { notFound: true }
 	}
 }
