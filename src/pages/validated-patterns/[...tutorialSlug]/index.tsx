@@ -26,7 +26,7 @@ export async function getStaticProps({
 
 		// If the tutorial doesn't exist, hit the 404
 		if (!props) {
-			console.error('Tutorial not found')
+			console.error('Tutorial not found:', params.tutorialSlug)
 			return { notFound: true }
 		}
 		return props

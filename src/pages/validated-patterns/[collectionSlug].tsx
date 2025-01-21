@@ -25,7 +25,7 @@ export async function getStaticProps({
 		)
 
 		if (!allValidatedPatternsCollections) {
-			console.error('Collections not found')
+			console.error('Collections not found:', params.collectionSlug)
 			return { notFound: true }
 		}
 
