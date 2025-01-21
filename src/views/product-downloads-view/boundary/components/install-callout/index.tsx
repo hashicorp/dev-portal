@@ -81,7 +81,7 @@ function InstallCallout({
 					title="Note"
 					description={
 						<>
-							You can find the previous versions of the Desktop Client on the{' '}
+							You can find previous versions of the Desktop Client on the{' '}
 							<InlineLink
 								href="https://releases.hashicorp.com/boundary-desktop"
 								textSize={200}
