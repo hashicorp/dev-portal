@@ -19,46 +19,56 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ collectionSlug: string }>): Promise<
 	{ props: ValidatedPatternsCollectionViewProps } | { notFound: boolean }
 > {
-	return { notFound: true }
-	const allValidatedPatternsCollections = await getCollectionsBySection(
-		validatedPatternsData.slug
-	)
-	const currentCollection = allValidatedPatternsCollections.find(
-		(collection: ApiCollection) =>
-			collection.slug ===
-			`${validatedPatternsData.slug}/${params.collectionSlug}`
-	)
-	const sidebarSections = buildCategorizedValidatedPatternsSidebar(
-		allValidatedPatternsCollections,
-		validatedPatternsContent.sidebarCategories,
-		currentCollection.slug
-	)
-	const breadcrumbLinks = [
-		{ title: 'Developer', url: '/' },
-		{
-			title: validatedPatternsData.name,
-			url: `/${validatedPatternsData.slug}`,
-		},
-		{
-			title: currentCollection.name,
-			url: `/${currentCollection.slug}`,
-			isCurrentPage: true,
-		},
-	]
+	try {
+		const allValidatedPatternsCollections = await getCollectionsBySection(
+			validatedPatternsData.slug
+		)
 
-	return {
-		props: stripUndefinedProperties({
-			metadata: {
+		if (!allValidatedPatternsCollections) {
+			console.error('Collections not found:', params.collectionSlug)
+			return { notFound: true }
+		}
+
+		const currentCollection = allValidatedPatternsCollections.find(
+			(collection: ApiCollection) =>
+				collection.slug ===
+				`${validatedPatternsData.slug}/${params.collectionSlug}`
+		)
+		const sidebarSections = buildCategorizedValidatedPatternsSidebar(
+			allValidatedPatternsCollections,
+			validatedPatternsContent.sidebarCategories,
+			currentCollection.slug
+		)
+		const breadcrumbLinks = [
+			{ title: 'Developer', url: '/' },
+			{
+				title: validatedPatternsData.name,
+				url: `/${validatedPatternsData.slug}`,
+			},
+			{
 				title: currentCollection.name,
-				validatedPatternsName: validatedPatternsData.name,
-				validatedPatternsSlug: validatedPatternsData.slug,
+				url: `/${currentCollection.slug}`,
+				isCurrentPage: true,
 			},
-			collection: currentCollection,
-			layoutProps: {
-				sidebarSections,
-				breadcrumbLinks,
-			},
-		}),
+		]
+
+		return {
+			props: stripUndefinedProperties({
+				metadata: {
+					title: currentCollection.name,
+					validatedPatternsName: validatedPatternsData.name,
+					validatedPatternsSlug: validatedPatternsData.slug,
+				},
+				collection: currentCollection,
+				layoutProps: {
+					sidebarSections,
+					breadcrumbLinks,
+				},
+			}),
+		}
+	} catch (error) {
+		console.error(error)
+		return { notFound: true }
 	}
 }
 
