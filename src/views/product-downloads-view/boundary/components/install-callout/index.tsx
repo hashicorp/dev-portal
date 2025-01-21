@@ -8,6 +8,9 @@ import Card from 'components/card'
 import CardWithLink from 'views/product-downloads-view/components/card-with-link'
 import MobileDownloadStandaloneLink from 'components/mobile-download-standalone-link'
 import Heading from 'components/heading'
+import InlineAlert from 'components/inline-alert'
+import InlineLink from 'components/inline-link'
+import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 import { IconDownload16 } from '@hashicorp/flight-icons/svg-react/download-16'
 // Types
 import { InstallProps, ReleaseBuild } from './types'
@@ -71,6 +74,25 @@ function InstallCallout({
 					/>
 				))}
 			</div>
+			{headingData.id === 'desktop-client' && (
+				<InlineAlert
+					className={s.alert}
+					color="neutral"
+					title="Note"
+					description={
+						<>
+							You can find the previous versions of the Desktop Client on the{' '}
+							<InlineLink
+								href="https://releases.hashicorp.com/boundary-desktop"
+								textSize={200}
+							>
+								Desktop Client releases page.
+							</InlineLink>
+						</>
+					}
+					icon={<IconInfo16 className={s.cardIcon} />}
+				/>
+			)}
 		</Card>
 	)
 }
