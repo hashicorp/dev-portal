@@ -55,6 +55,7 @@ describe('rewriteExternalCollectionLink', () => {
 				'/collections/well-architected-framework/com',
 				'/well-architected-framework/com',
 			],
+			['/collections/validated-patterns/nomad', '/validated-patterns/nomad'],
 			['/collections/cloud/networking', '/hcp/tutorials/networking'],
 			['/collections/hcp/networking', '/hcp/tutorials/networking'],
 		])
@@ -77,6 +78,10 @@ describe('rewriteExternalCollectionLink', () => {
 			[
 				'/collections/well-architected-framework/com?paramA=valueA',
 				'/well-architected-framework/com?paramA=valueA',
+			],
+			[
+				'/collections/validated-patterns/nomad?paramA=valueA',
+				'/validated-patterns/nomad?paramA=valueA',
 			],
 			[
 				'/collections/cloud/networking?paramA=valueA',
@@ -108,6 +113,10 @@ describe('rewriteExternalCollectionLink', () => {
 				'/well-architected-framework/com#test-hash',
 			],
 			[
+				'/collections/validated-patterns/nomad#test-hash',
+				'/validated-patterns/nomad#test-hash',
+			],
+			[
 				'/collections/cloud/networking#test-hash',
 				'/hcp/tutorials/networking#test-hash',
 			],
@@ -135,6 +144,10 @@ describe('rewriteExternalCollectionLink', () => {
 			[
 				'/collections/well-architected-framework/com?paramA=valueA#test-hash',
 				'/well-architected-framework/com?paramA=valueA#test-hash',
+			],
+			[
+				'/collections/validated-patterns/nomad?paramA=valueA#test-hash',
+				'/validated-patterns/nomad?paramA=valueA#test-hash',
 			],
 			[
 				'/collections/cloud/networking?paramA=valueA#test-hash',
