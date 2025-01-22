@@ -153,6 +153,13 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 		}
 	}
 
+	if (currentProduct.instruqtId) {
+		items.push({
+			label: 'Playground',
+			url: `/${currentProduct.slug}/playground`,
+		})
+	}
+
 	/**
 	 * Add Sandbox item if there are any labs configured
 	 * and the current product is in the supported products list
