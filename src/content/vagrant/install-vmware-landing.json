@@ -1,8 +1,8 @@
 {
 	"featuredTutorialsSlugs": [
-		"vagrant/getting-started-index",
-		"vagrant/getting-started-boxes",
-		"vagrant/getting-started-networking"
+		"vagrant/development-environment",
+		"vagrant/setup-project",
+		"vagrant/provision"
 	],
 	"doesNotHavePackageManagers": true,
 	"sidecarMarketingCard": {
