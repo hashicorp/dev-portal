@@ -33,6 +33,8 @@ export const EDITIONS = [
 	{ value: 'open_source', label: 'Community' },
 	{ value: 'enterprise', label: 'Enterprise' },
 	{ value: 'hcp', label: 'HashiCorp Cloud Platform (HCP)' },
+	{ value: 'hcp:standard', label: 'HCP Standard' },
+	{ value: 'hcp:plus', label: 'HCP Plus' },
 ]
 
 /**
