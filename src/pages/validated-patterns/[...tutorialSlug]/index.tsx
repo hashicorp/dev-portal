@@ -21,14 +21,19 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ tutorialSlug: [string, string] }>): Promise<
 	{ props: ValidatedPatternsTutorialViewProps } | { notFound: boolean }
 > {
-	return { notFound: true }
-	const props = await getValidatedPatternsTutorialViewProps(params.tutorialSlug)
+	try {
+		const props = await getValidatedPatternsTutorialViewProps(params.tutorialSlug)
 
-	// If the tutorial doesn't exist, hit the 404
-	if (!props) {
+		// If the tutorial doesn't exist, hit the 404
+		if (!props) {
+			console.error('Tutorial not found:', params.tutorialSlug)
+			return { notFound: true }
+		}
+		return props
+	} catch (error) {
+		console.error(error)
 		return { notFound: true }
 	}
-	return props
 }
 
 export async function getStaticPaths() {
