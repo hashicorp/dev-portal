@@ -89,7 +89,7 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 		// hvd-docs is not hosted on the content API, so we need to use main as the latest sha
 		const latestContentSha =
 			repoName === 'hvd-docs'
-				? 'daf97dfd494470e27acf2b74a95919ac748a54f6'
+				? 'main'
 				: await getLatestContentShaForProduct(repoName)
 		redirectsFileString = await fetchGithubFile({
 			owner: 'hashicorp',
