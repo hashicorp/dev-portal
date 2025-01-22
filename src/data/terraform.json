@@ -159,5 +159,22 @@
 			"path": "migrate",
 			"productSlugForLoader": "terraform-migrate"
 		}
-	]
+	],
+	"instruqtId": "hashicorp-learn/tracks/create-terraform-infrastructure?token=em__EA8k5ywxqiOejXd",
+	"playgroundConfig": {
+		"sidebarLinks": [
+			{
+				"title": "Install Terraform",
+				"href": "/terraform/install"
+			},
+			{
+				"title": "Get Started with Terraform",
+				"href": "/terraform/tutorials/aws-get-started"
+			},
+			{
+				"title": "Terraform documentation",
+				"href": "/terraform/docs"
+			}
+		]
+	}
 }
