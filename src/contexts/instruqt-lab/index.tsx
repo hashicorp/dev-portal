@@ -61,7 +61,10 @@ interface InstruqtContextProps {
 }
 
 interface InstruqtProviderProps {
+	labId: string
 	children?: ReactNode
+	defaultActive?: boolean
+	isPlayground?: boolean
 }
 
 const STORAGE_KEY = 'instruqt-lab-state'
@@ -80,13 +83,13 @@ InstruqtContext.displayName = 'InstruqtContext'
 export const useInstruqtEmbed = (): InstruqtContextProps =>
 	useContext(InstruqtContext)
 
-function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
-	const [isClient, setIsClient] = useState(false)
-	const [labId, setLabId] = useState<string | null>(null)
-	const [active, setActive] = useState(false)
-	const [hasConfigError, setHasConfigError] = useState(false)
-	const [configErrors, setConfigErrors] = useState<string[]>([])
-	const router = useRouter()
+export default function InstruqtProvider({
+	labId,
+	children,
+	defaultActive = false,
+	isPlayground = false,
+}: InstruqtProviderProps): JSX.Element {
+	const [active, setActive] = useState(defaultActive)
 
 	// Validate configuration on startup
 	useEffect(() => {
@@ -293,31 +296,25 @@ function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
 	}
 
 	return (
-		<InstruqtContext.Provider
-			value={{
-				labId,
-				active,
-				setActive,
-				openLab,
-				closeLab,
-				hasConfigError,
-				configErrors,
-			}}
-		>
-			{children}
-			{isClient && active && labId && (
-				<div id="instruqt-panel-target">
-					<SandboxErrorBoundary labId={labId}>
-						<Resizable
-							initialHeight={640}
-							panelActive={active}
-							setPanelActive={setActive}
-							style={{}}
-						>
-							<EmbedElement />
-						</Resizable>
-					</SandboxErrorBoundary>
-				</div>
+		<InstruqtContext.Provider value={{ labId, active, setActive }}>
+			{isPlayground ? (
+				children
+			) : (
+				<>
+					{children}
+					{active && (
+						<div id="instruqt-panel-target">
+							<Resizable
+								initialHeight={640}
+								panelActive={active}
+								setPanelActive={setActive}
+								style={{ top: '-28px' }}
+							>
+								<EmbedElement />
+							</Resizable>
+						</div>
+					)}
+				</>
 			)}
 		</InstruqtContext.Provider>
 	)
