@@ -1,9 +1,4 @@
 {
-	"featuredTutorialsSlugs": [
-		"vagrant/development-environment",
-		"vagrant/setup-project",
-		"vagrant/provision"
-	],
 	"doesNotHavePackageManagers": true,
 	"sidecarMarketingCard": {
 		"title": "About Vagrant",
