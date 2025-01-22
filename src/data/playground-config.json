@@ -1,0 +1,23 @@
+{
+	"terraform": {
+		"labId": "hashicorp-learn/tracks/terraform-build-your-first-configuration"
+	},
+	"vault": {
+		"labId": "hashicorp-learn/tracks/vault-basics"
+	},
+	"consul": {
+		"labId": "hashicorp-learn/tracks/consul-template-automate-reverse-proxy-config"
+	},
+	"nomad": {
+		"labId": "hashicorp-learn/tracks/nomad-basics"
+	},
+	"packer": {
+		"labId": "hashicorp-learn/tracks/packer-get-started-hcp"
+	},
+	"waypoint": {
+		"labId": "hashicorp-learn/tracks/waypoint-get-started-docker"
+	},
+	"boundary": {
+		"labId": "hashicorp-learn/tracks/boundary-basics"
+	}
+}
