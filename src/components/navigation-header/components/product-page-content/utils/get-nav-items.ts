@@ -152,6 +152,13 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 		}
 	}
 
+	if (currentProduct.instruqtId) {
+		items.push({
+			label: 'Playground',
+			url: `/${currentProduct.slug}/playground`,
+		})
+	}
+
 	/**
 	 * For Terraform, add a "Registry" item
 	 */
