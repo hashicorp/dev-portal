@@ -39,6 +39,8 @@ function InstallCallout({
 }) {
 	const { latestVersion, builds } = customInstallProps
 	const { currentVersion } = useCurrentVersion()
+	// If the boundary version is less than 0.18.0, we don't want to show the installer since
+	// previous versions of boundary do not work with the installer
 	return headingData.id === 'installer' &&
 		gt('0.18.0', currentVersion) ? null : (
 		<Card elevation="base" className={cardClassName}>

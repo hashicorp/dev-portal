@@ -130,9 +130,12 @@ const ProductDownloadsViewContent = ({
 				},
 		  ]
 		: []
-	const filteredAdditionalDownloadItems = gt('0.18.0', currentVersion)
-		? additionalDownloadItems.filter((item) => item.fullPath !== '#installer')
-		: additionalDownloadItems
+	// If the product is boundary and the version is less than 0.18.0, we don't want
+	// to show the installer since previous boundary versions don't work with the installer
+	const filteredAdditionalDownloadItems =
+		currentProduct.slug === 'boundary' && gt('0.18.0', currentVersion)
+			? additionalDownloadItems.filter((item) => item.fullPath !== '#installer')
+			: additionalDownloadItems
 
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
