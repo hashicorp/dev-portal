@@ -28,13 +28,3 @@
 		grid-template-columns: 16px 1fr 90px;
 	}
 }
-
-.alert {
-	margin-top: 24px;
-}
-
-.cardIcon {
-	margin-top: 3px;
-	max-height: 16px;
-	max-width: 16px;
-}

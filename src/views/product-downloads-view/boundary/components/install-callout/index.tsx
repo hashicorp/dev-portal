@@ -29,6 +29,7 @@ function InstallCallout({
 	customInstallProps,
 	headingData,
 	cardClassName,
+	children,
 }: {
 	customInstallProps: InstallProps
 	/** We link to this heading from the side nav, so we've lifted up its data */
@@ -37,6 +38,7 @@ function InstallCallout({
 		text: string
 	}
 	cardClassName?: string
+	children?: React.ReactNode
 }) {
 	const { latestVersion, builds } = customInstallProps
 	return (
@@ -74,25 +76,7 @@ function InstallCallout({
 					/>
 				))}
 			</div>
-			{headingData.id === 'desktop-client' && (
-				<InlineAlert
-					className={s.alert}
-					color="neutral"
-					title="Note"
-					description={
-						<>
-							You can find previous versions of the Desktop Client on the{' '}
-							<InlineLink
-								href="https://releases.hashicorp.com/boundary-desktop"
-								textSize={200}
-							>
-								Desktop Client releases page.
-							</InlineLink>
-						</>
-					}
-					icon={<IconInfo16 className={s.cardIcon} />}
-				/>
-			)}
+			{children}
 		</Card>
 	)
 }
