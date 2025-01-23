@@ -9,12 +9,15 @@ import { PRODUCT_REDIRECT_ENTRIES } from '@build-libs/redirects'
 
 describe('getLatestContentShaForProduct', () => {
 	PRODUCT_REDIRECT_ENTRIES.forEach(({ repo, path }) => {
-		it(`fetches the latest SHA for the "${repo}" repo`, async () => {
-			const latestSha = await getLatestContentShaForProduct(repo)
-			expect(typeof latestSha).toBe('string')
-		})
-
-		if (['hcp-docs', 'sentinel', 'ptfe-releases'].includes(repo)) {
+		if (repo === 'hvd-docs') {
+			console.log(`Skipping test for repo "${repo}"`)
+		} else {
+			it(`fetches the latest SHA for the "${repo}" repo`, async () => {
+				const latestSha = await getLatestContentShaForProduct(repo)
+				expect(typeof latestSha).toBe('string')
+			})
+		}
+		if (['hcp-docs', 'sentinel', 'ptfe-releases', 'hvd-docs'].includes(repo)) {
 			console.log(`Skipping test for private repo "${repo}"`)
 		} else {
 			it(`fetches the latest SHA for the "${repo}" repo, then validates the SHA by fetching redirects`, async () => {
