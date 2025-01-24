@@ -10,6 +10,7 @@ import s from './docs-page-heading.module.css'
 function DocsPageHeading({
 	className,
 	versionSelectorSlot,
+	copyButtonSlot,
 	headingSlot,
 }: {
 	/**
@@ -28,12 +29,21 @@ function DocsPageHeading({
 	 * puts it on a single line, it grows to fill the container.
 	 */
 	versionSelectorSlot?: ReactNode
+	/**
+	 * Optional copy button element to render alongside the version selector.
+	 */
+	copyButtonSlot?: ReactNode
 }) {
 	return (
 		<div className={classNames(s.root, className)}>
-			{versionSelectorSlot ? (
-				<div className={s.versionSwitcherWrapper}>{versionSelectorSlot}</div>
-			) : null}
+			<div className={s.controls}>
+				{versionSelectorSlot ? (
+					<div className={s.versionSwitcherWrapper}>{versionSelectorSlot}</div>
+				) : null}
+				{copyButtonSlot ? (
+					<div className={s.copyButtonWrapper}>{copyButtonSlot}</div>
+				) : null}
+			</div>
 			<div className={s.pageHeadingWrapper}>{headingSlot}</div>
 		</div>
 	)

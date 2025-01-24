@@ -44,4 +44,8 @@ export type MDXRemoteSerializeResult<TScope = Record<string, unknown>> = {
 	 * you could provide scope as `{ name: "Some name" }`.
 	 */
 	scope?: TScope
+	/**
+	 * The original markdown content before compilation
+	 */
+	rawContent?: string
 }
