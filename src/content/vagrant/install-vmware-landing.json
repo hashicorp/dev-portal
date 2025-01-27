@@ -1,9 +1,4 @@
 {
-	"featuredTutorialsSlugs": [
-		"vagrant/getting-started-index",
-		"vagrant/getting-started-boxes",
-		"vagrant/getting-started-networking"
-	],
 	"doesNotHavePackageManagers": true,
 	"sidecarMarketingCard": {
 		"title": "About Vagrant",
