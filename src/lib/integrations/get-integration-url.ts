@@ -6,13 +6,27 @@
 import { Integration } from 'lib/integrations-api-client/integration'
 import { ReleaseComponent } from 'lib/integrations-api-client/release'
 
+type IntegrationSubset = {
+	external_only: Integration['external_only']
+	external_url: Integration['external_url']
+	product: Pick<Integration['product'], 'slug'>
+	organization: Pick<Integration['organization'], 'slug'>
+	slug: Integration['slug']
+}
+
 /**
  * Given data for an integration,
  * Return the URL at which the integration can be viewed.
  */
 export function getIntegrationUrl(
 	/** The Integration to link to. */
-	{ external_only, external_url, product, organization, slug }: Integration,
+	{
+		external_only,
+		external_url,
+		product,
+		organization,
+		slug,
+	}: IntegrationSubset,
 	/** Optionally link to a specific version of the integration */
 	version?: string
 ): string {

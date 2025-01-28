@@ -32,7 +32,7 @@ export const IntegrationsSearchContext = createContext({
 	tierOptions: [] as Tier[],
 	tiersCheckedArray: [] as boolean[],
 	setTiersCheckedArray: (val: boolean[]) => void 1,
-	sortedComponents: [] as $TSFixMe[],
+	sortedComponents: [] as IntegrationComponent[],
 	componentCheckedArray: [] as boolean[],
 	setComponentCheckedArray: (val: boolean[]) => void 1,
 	flags: [] as Flag[],

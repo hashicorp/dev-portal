@@ -89,7 +89,7 @@ const SidebarNavMenuItemBadge = ({
 const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 	const href = item.fullPath || item.href
 	const isExternal = isAbsoluteUrl(href)
-	const hasBadge = !!(item as $TSFixMe).badge
+	const hasBadge = item.badge
 
 	// Determine the leading icon to use, if any
 	let leadingIcon
@@ -138,9 +138,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 			/>
 			<RightIconsContainer
 				badge={
-					hasBadge ? (
-						<SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
-					) : undefined
+					hasBadge ? <SidebarNavMenuItemBadge {...item.badge} /> : undefined
 				}
 				icon={trailingIcon}
 			/>
@@ -167,7 +165,7 @@ const SidebarNavLinkItem = ({ item }: SidebarNavLinkItemProps) => {
 		return (
 			<a
 				aria-disabled
-				aria-label={(item as $TSFixMe).ariaLabel}
+				aria-label={item.ariaLabel}
 				className={className}
 				tabIndex={0}
 			>
@@ -209,7 +207,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 			item.hasChildrenMatchingFilter ||
 			item.matchesFilter
 	)
-	const hasBadge = !!(item as $TSFixMe).badge
+	const hasBadge = item.badge
 
 	/**
 	 * Without this effect, the menu items aren't re-rerendered to be open. Seems
@@ -260,9 +258,7 @@ const SidebarNavSubmenuItem = ({ item }: SidebarNavMenuItemProps) => {
 				/>
 				<RightIconsContainer
 					badge={
-						hasBadge ? (
-							<SidebarNavMenuItemBadge {...(item as $TSFixMe).badge} />
-						) : undefined
+						hasBadge ? <SidebarNavMenuItemBadge {...item.badge} /> : undefined
 					}
 					icon={<IconChevronDown16 />}
 				/>

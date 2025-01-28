@@ -7,6 +7,7 @@
 
 declare module '@hashicorp/react-search'
 declare module '@hashicorp/react-content'
+const { datadogRum } = require('@datadog/browser-rum')
 
 /**
  * Application config, defined in environment-specific JSON files in `config/`
@@ -25,7 +26,7 @@ interface Window {
 	 * TODO: We could install @datadog/browser-rum to get types here, I think?
 	 * https://www.npmjs.com/package/@datadog/browser-rum
 	 */
-	DD_RUM: $TSFixMe
+	DD_RUM: typeof datadogRum
 }
 
 /**

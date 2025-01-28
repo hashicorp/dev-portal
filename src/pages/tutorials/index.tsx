@@ -53,26 +53,24 @@ const getStaticProps = async () => {
 
 	// Package up fetched data for the view
 	const pageContent = {}
-	Object.entries(productSections).forEach(
-		([productSlug, productContent]: $TSFixMe) => {
-			const certification = productContent.certificationProgram
-			const featuredUseCases = productContent.featuredUseCases
-			const featuredCollections = productContent.featuredCollectionSlugs
-				? productContent.featuredCollectionSlugs.map((collectionSlug) => {
-						const collection = collections.find(
-							(collection) => collection.slug === collectionSlug
-						)
-						return collection
-				  })
-				: null
+	Object.entries(productSections).forEach(([productSlug, productContent]) => {
+		const certification = productContent.certificationProgram
+		const featuredUseCases = productContent.featuredUseCases
+		const featuredCollections = productContent.featuredCollectionSlugs
+			? productContent.featuredCollectionSlugs.map((collectionSlug) => {
+					const collection = collections.find(
+						(collection) => collection.slug === collectionSlug
+					)
+					return collection
+			  })
+			: null
 
-			pageContent[productSlug] = {
-				certification,
-				featuredCollections,
-				featuredUseCases,
-			}
+		pageContent[productSlug] = {
+			certification,
+			featuredCollections,
+			featuredUseCases,
 		}
-	)
+	})
 	const crossProductSectionCollections = crossProductSectionCollectionSlugs.map(
 		(collectionSlug: Collection['slug']) =>
 			collections.find(

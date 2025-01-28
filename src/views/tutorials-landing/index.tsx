@@ -29,6 +29,7 @@ import elipseSvg from './img/elipse-fade.svg?include'
 import hexSvg from './img/hex-fade.svg?include'
 import hexVertSvg from './img/hex-vert-fade.svg?include'
 import s from './tutorials-landing.module.css'
+import { Collection } from 'lib/learn-client/types'
 
 // Not currently in constants because of custom placement by product
 const PRODUCT_SLUGS_TO_BACKGROUND_SVGS = {
@@ -99,7 +100,11 @@ const renderProductSections = (productSlugs, pageContent) => {
 		})
 }
 
-const TutorialsLandingView = ({ pageContent }: $TSFixMe) => {
+const TutorialsLandingView = ({
+	pageContent,
+}: {
+	pageContent: { crossProductSectionCollections: Collection[] }
+}) => {
 	const { crossProductSectionCollections, ...restPageContent } = pageContent
 	const [
 		firstProductSlug,

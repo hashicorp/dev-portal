@@ -9,11 +9,7 @@ import {
 	Collection as ClientCollection,
 	ProductOption,
 } from 'lib/learn-client/types'
-import {
-	LearnProductData,
-	LearnProductName,
-	LearnProductSlug,
-} from 'types/products'
+import { LearnProductData, LearnProductSlug } from 'types/products'
 import {
 	getAllCollections,
 	getCollection,
@@ -34,7 +30,7 @@ import { isCertificationSlug } from 'lib/utils'
 
 export interface CollectionPageProps {
 	collection: ClientCollection
-	allProductCollections: ClientCollection[]
+	allProductCollections?: ClientCollection[]
 	product: LearnProductData
 	layoutProps: CollectionLayout
 }
@@ -103,10 +99,7 @@ export async function getCollectionViewSidebarSections(
  * which is needed for other areas of the app to function.
  */
 export async function getCollectionPageProps(
-	product: {
-		name: LearnProductName
-		slug: LearnProductSlug | 'hcp'
-	},
+	product: LearnProductData,
 	slug: string
 ): Promise<{ props: CollectionPageProps } | null> {
 	// product.slug may be "hcp", needs to be "cloud" for Learn API use
@@ -134,7 +127,7 @@ export async function getCollectionPageProps(
 	}
 
 	return {
-		props: stripUndefinedProperties<$TSFixMe>({
+		props: stripUndefinedProperties({
 			metadata: {
 				title: collection.shortName,
 				description: collection.description,

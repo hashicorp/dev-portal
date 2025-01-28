@@ -14,7 +14,7 @@ import {
  * Fallback error view content for use in dev-dot.
  * Intended to handle any statusCode that is not 404.
  */
-export function DevDotFallback({ statusCode }: { statusCode: $TSFixMe }) {
+export function DevDotFallback({ statusCode }: { statusCode: number }) {
 	useErrorPageAnalytics(statusCode)
 
 	return (

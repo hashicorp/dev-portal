@@ -30,6 +30,7 @@ interface SidebarNavMenuItemProps {
 type SupportedIconName = 'home' & 'guide' & ProductSlug
 interface SidebarNavLinkItem extends MenuItem {
 	leadingIconName?: SupportedIconName
+	ariaLabel?: string
 }
 
 interface SidebarNavLinkItemProps {

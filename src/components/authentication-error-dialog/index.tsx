@@ -47,7 +47,7 @@ const AuthenticationErrorDialog = () => {
 	 */
 	const handleDismiss = useCallback(
 		// TODO: this can be a click or keydown event
-		(dismissEvent: $TSFixMe) => {
+		(dismissEvent: React.MouseEvent | React.KeyboardEvent) => {
 			/**
 			 * @TODO uncomment when the events have been architected
 			 */

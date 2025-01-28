@@ -23,7 +23,7 @@ export const generateTopLevelSubNavItems = () => {
 		const leadingIconName = productSlug
 		const title = productSlugsToNames[productSlug]
 		const href = `/${productSlug}`
-		const navItem: $TSFixMe = { leadingIconName, title, href }
+		const navItem = { leadingIconName, title, href }
 		productItems.push(navItem)
 	})
 

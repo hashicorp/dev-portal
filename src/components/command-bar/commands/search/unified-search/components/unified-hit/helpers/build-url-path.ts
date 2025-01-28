@@ -27,18 +27,14 @@ export function buildUrlPath(searchHit: Hit): string {
 			organization_slug,
 			slug,
 		} = searchHit
-		/**
-		 * TODO: refactor `getIntegrationUrl` to `Pick<>` what's actually needed.
-		 * For now, using `$TSFixMe` to avoid inaccurate TS errors about what
-		 * argument properties are needed for the function to work.
-		 */
+
 		return getIntegrationUrl({
 			external_only,
 			external_url,
-			product: { slug: product_slug } as $TSFixMe,
-			organization: { slug: organization_slug } as $TSFixMe,
+			product: { slug: product_slug },
+			organization: { slug: organization_slug },
 			slug,
-		} as $TSFixMe)
+		})
 	} else {
 		/**
 		 * Something's gone wrong, this should never happen in our indexing.

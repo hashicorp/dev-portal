@@ -5,6 +5,22 @@
 
 import fetchGithubFile from '@build-libs/fetch-github-file'
 
+export type fileContentEntry = {
+	title?: string
+	routes?: fileContentEntry[]
+	divider?: boolean
+	path?: string
+	href?: string
+	badge?: {
+		text: string
+		color: string
+		type: string
+	}
+	hidden?: boolean
+}
+
+export type fileContentType = fileContentEntry[]
+
 const fetchNavDataForBasePathAndRepo = async ({
 	filePath,
 	repo,
@@ -20,7 +36,7 @@ const fetchNavDataForBasePathAndRepo = async ({
 		repo,
 		path: filePath,
 	})
-	return JSON.parse(fileContents)
+	return JSON.parse(fileContents) as fileContentType
 }
 
 export { fetchNavDataForBasePathAndRepo }

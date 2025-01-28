@@ -9,7 +9,17 @@ import CardLink from 'components/card-link'
 import { StandaloneLinkContents } from 'components/standalone-link'
 import s from './featured-card.module.css'
 
-const FeaturedCard = ({ children, className, href, title }: $TSFixMe) => {
+const FeaturedCard = ({
+	children,
+	className,
+	href,
+	title,
+}: {
+	children: React.ReactNode
+	className: string
+	href: string
+	title: string
+}) => {
 	return (
 		<CardLink
 			ariaLabel={title}
