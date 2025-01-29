@@ -8,6 +8,7 @@
 import { ReactElement, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { gt } from 'semver'
 
 // Global imports
 import { useCurrentProduct } from 'contexts'
@@ -129,6 +130,12 @@ const ProductDownloadsViewContent = ({
 				},
 		  ]
 		: []
+	// If the product is boundary and the version is less than 0.18.0, we don't want
+	// to show the installer since previous boundary versions don't work with the installer
+	const filteredAdditionalDownloadItems =
+		currentProduct.slug === 'boundary' && gt('0.18.0', currentVersion)
+			? additionalDownloadItems.filter((item) => item.fullPath !== '#installer')
+			: additionalDownloadItems
 
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
@@ -139,7 +146,7 @@ const ProductDownloadsViewContent = ({
 				{ divider: true },
 				{ heading: 'Operating Systems' },
 				...downloadMenuItems,
-				...additionalDownloadItems,
+				...filteredAdditionalDownloadItems,
 				{ divider: true },
 				{
 					title: SHARED_HEADINGS.releaseInfo.text,

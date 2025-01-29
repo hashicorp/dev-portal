@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { gt } from 'semver'
 // Components
 import Card from 'components/card'
 import CardWithLink from 'views/product-downloads-view/components/card-with-link'
@@ -21,6 +22,7 @@ import { getFileExtension, humanArch } from '../helpers'
 import s from './install-callout.module.css'
 import { ContentWithPermalink } from 'views/open-api-docs-view/components/content-with-permalink'
 import viewStyles from 'views/product-downloads-view/product-downloads-view.module.css'
+import { useCurrentVersion } from 'views/product-downloads-view/contexts'
 
 /**
  * Render a callout to download the Boundary Desktop Client.
@@ -41,7 +43,11 @@ function InstallCallout({
 	children?: React.ReactNode
 }) {
 	const { latestVersion, builds } = customInstallProps
-	return (
+	const { currentVersion } = useCurrentVersion()
+	// If the boundary version is less than 0.18.0, we don't want to show the installer since
+	// previous versions of boundary do not work with the installer
+	return headingData.id === 'installer' &&
+		gt('0.18.0', currentVersion) ? null : (
 		<Card elevation="base" className={cardClassName}>
 			<ContentWithPermalink
 				className={s.headingContainer}
