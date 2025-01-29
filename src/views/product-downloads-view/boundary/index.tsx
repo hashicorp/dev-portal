@@ -7,6 +7,9 @@
 import ProductDownloadsView from 'views/product-downloads-view'
 // Components
 import { InstallCallout } from './components'
+import InlineAlert from 'components/inline-alert'
+import InlineLink from 'components/inline-link'
+import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 // Types
 import { InstallProps } from './components/install-callout/types'
 import { ProductDownloadsViewProps } from 'views/product-downloads-view/types'
@@ -60,7 +63,25 @@ function BoundaryDownloadsView({
 						<InstallCallout
 							headingData={SHARED_HEADINGS.desktopClient}
 							customInstallProps={desktopClientProps}
-						/>
+						>
+							<InlineAlert
+								className={s.alert}
+								color="neutral"
+								title="Note"
+								description={
+									<>
+										You can find previous versions of the Desktop Client on the{' '}
+										<InlineLink
+											href="https://releases.hashicorp.com/boundary-desktop"
+											textSize={200}
+										>
+											Desktop Client releases page.
+										</InlineLink>
+									</>
+								}
+								icon={<IconInfo16 className={s.cardIcon} />}
+							/>
+						</InstallCallout>
 						<InstallCallout
 							cardClassName={s.lastCard}
 							headingData={SHARED_HEADINGS.installer}

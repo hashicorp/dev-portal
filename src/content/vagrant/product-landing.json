@@ -21,7 +21,7 @@
 		"ctas": [
 			{
 				"text": "CLI Quick Start",
-				"url": "/vagrant/tutorials/getting-started"
+				"url": "/vagrant/tutorials/get-started"
 			}
 		]
 	},
@@ -41,39 +41,14 @@
 					"url": "/vagrant/docs/boxes"
 				},
 				{
-					"heading": "Install and Specify a Box",
-					"body": "Use a base image to quickly clone a virtual machine.",
-					"url": "/vagrant/tutorials/getting-started/getting-started-boxes"
-				}
-			]
-		},
-		{
-			"type": "linked_cards",
-			"cards": [
-				{
 					"heading": "Vagrantfile",
 					"body": "Describe your virtual machine's configuration and how to provision it.",
 					"url": "/vagrant/docs/vagrantfile"
 				},
 				{
-					"heading": "Create a Vagrantfile",
-					"body": "Begin your Vagrant project by creating a Vagrantfile.",
-					"url": "/vagrant/tutorials/getting-started/getting-started-project-setup"
-				}
-			]
-		},
-		{
-			"type": "linked_cards",
-			"cards": [
-				{
 					"heading": "vagrant up",
 					"body": "Create and configure your virtual machine with the single most important Vagrant CLI command.",
 					"url": "/vagrant/docs/cli/up"
-				},
-				{
-					"heading": "Boot an Environment",
-					"body": "Start your virtual machine with vagrant up.",
-					"url": "/vagrant/tutorials/getting-started/getting-started-up"
 				}
 			]
 		},
@@ -91,16 +66,6 @@
 					"body": "Sync files from your host machine to the guest machine.",
 					"url": "/vagrant/docs/synced-folders"
 				},
-				{
-					"heading": "Synchronize Your Files",
-					"body": "Vagrant automatically syncs files to and from the guest machine allowing you to edits files locally and run them in your virtual machine.",
-					"url": "/vagrant/tutorials/getting-started/getting-started-synced-folders"
-				}
-			]
-		},
-		{
-			"type": "linked_cards",
-			"cards": [
 				{
 					"heading": "Networking",
 					"body": "Access your virtual machines through the high-level networking set up by Vagrant.",

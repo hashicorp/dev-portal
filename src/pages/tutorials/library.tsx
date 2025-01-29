@@ -35,7 +35,6 @@ const DEFAULT_SLUGS = [
 	'vault/why-use-vault',
 	'consul/get-started',
 	'nomad/get-started-install',
-	'vagrant/getting-started-index',
 	'packer/get-started-install-cli',
 	'boundary/getting-started-intro',
 	'waypoint/get-started-intro',
