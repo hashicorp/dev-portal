@@ -154,7 +154,10 @@
 					"text": "Explore other providers"
 				}
 			],
-			"featuredCollectionSlugs": ["vagrant/networking-provisioning-operations"]
+			"featuredCollectionSlugs": [
+				"vagrant/get-started",
+				"vagrant/networking-provisioning-operations"
+			]
 		},
 		"waypoint": {
 			"featuredUseCases": [
