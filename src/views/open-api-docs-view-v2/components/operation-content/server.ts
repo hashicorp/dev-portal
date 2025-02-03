@@ -20,7 +20,8 @@ import type { OperationObject } from '../../utils/get-operation-objects'
  */
 export default async function getOperationContentProps(
 	operation: OperationObject,
-	schemaData: OpenAPIV3.Document
+	schemaData: OpenAPIV3.Document,
+	getOperationTitle: (operation: OperationObject) => string
 ): Promise<OperationContentProps> {
 	/**
 	 * The API's base URL is used to prefix the operation path,
@@ -52,7 +53,7 @@ export default async function getOperationContentProps(
 	 * Return the operation content props
 	 */
 	return {
-		operationId: operation.operationId,
+		title: getOperationTitle(operation),
 		tags: operation.tags,
 		slug: operationSlug,
 		type: operation.type,
