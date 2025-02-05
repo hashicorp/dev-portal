@@ -8,6 +8,9 @@ import type { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 import { serialize } from 'lib/next-mdx-remote/serialize'
 import { Pluggable } from 'unified'
 import grayMatter from 'gray-matter'
+
+import { remarkRewriteAssets } from 'lib/remark-plugins/remark-rewrite-assets'
+
 interface Options {
 	mdxContentHook?: (content: string, scope: Options['scope']) => string
 	remarkPlugins?: Pluggable[]
@@ -36,7 +39,21 @@ async function renderPageMdx(
 				const content = mdxContentHook(rawContent, scope)
 				const mdxSource = await serialize(content, {
 					mdxOptions: {
-						remarkPlugins,
+						remarkPlugins:
+							process.env.HASHI_ENV === 'unified-docs-sandbox' &&
+							__config.flags?.unified_docs_migrated_repos?.find(
+								(product) => product === scope.product
+							)
+								? [
+										...remarkPlugins,
+										remarkRewriteAssets({
+											product: scope.product as string,
+											version: scope.version as string,
+											getAssetPathParts: (nodeUrl) => [nodeUrl],
+											isInUDR: true,
+										}),
+								  ]
+								: [...remarkPlugins],
 						rehypePlugins,
 					},
 					scope,

@@ -190,7 +190,11 @@ export default class RemoteContentLoader implements DataLoader {
 				mdxContentHook: this.opts.mdxContentHook,
 				remarkPlugins,
 				rehypePlugins: this.opts.rehypePlugins,
-				scope: { version: versionFromPath, ...this.opts.scope },
+				scope: {
+					product: this.opts.product,
+					version: versionFromPath,
+					...this.opts.scope,
+				},
 			})
 
 		const versionMetadataList: VersionMetadataItem[] =
