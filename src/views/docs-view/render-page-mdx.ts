@@ -30,6 +30,26 @@ async function renderPageMdx(
 	mdxSource: MDXRemoteSerializeResult
 	frontMatter: Record<string, unknown>
 }> {
+	const finalRemarkPlugins = remarkPlugins
+	if (
+		process.env.HASHI_ENV === 'unified-docs-sandbox' &&
+		__config.flags?.unified_docs_migrated_repos?.find(
+			(product) => product === scope.product
+		)
+	) {
+		console.log('finalRemarkPlugins 1', { finalRemarkPlugins })
+		finalRemarkPlugins.push(
+			remarkRewriteAssets({
+				product: scope.product as string,
+				version: scope.version as string,
+				getAssetPathParts: (nodeUrl) => [nodeUrl],
+				isInUDR: true,
+			})
+		)
+	}
+
+	console.log('finalRemarkPlugins 2', { finalRemarkPlugins })
+
 	return await trace
 		.getTracer('docs-view')
 		.startActiveSpan('renderPageMdx', async (span) => {
@@ -39,21 +59,7 @@ async function renderPageMdx(
 				const content = mdxContentHook(rawContent, scope)
 				const mdxSource = await serialize(content, {
 					mdxOptions: {
-						remarkPlugins:
-							process.env.HASHI_ENV === 'unified-docs-sandbox' &&
-							__config.flags?.unified_docs_migrated_repos?.find(
-								(product) => product === scope.product
-							)
-								? [
-										...remarkPlugins,
-										remarkRewriteAssets({
-											product: scope.product as string,
-											version: scope.version as string,
-											getAssetPathParts: (nodeUrl) => [nodeUrl],
-											isInUDR: true,
-										}),
-								  ]
-								: [...remarkPlugins],
+						remarkPlugins: finalRemarkPlugins,
 						rehypePlugins,
 					},
 					scope,
