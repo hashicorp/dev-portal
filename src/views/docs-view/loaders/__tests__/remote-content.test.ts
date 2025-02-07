@@ -273,6 +273,7 @@ describe('RemoteContentLoader', () => {
 		})
 
 		expect(mockMdxContentHook).toHaveBeenCalledWith(expect.any(String), {
+			product: 'waypoint',
 			version: 'v0.4.x',
 		})
 		// assert that `serialize` is called with the result of the hook

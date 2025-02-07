@@ -78,6 +78,9 @@ export function getDeployPreviewLoader({
 			if (
 				currentRootDocsPath.productSlugForLoader?.match(
 					/^(terraform|ptfe-releases)/i
+				) &&
+				!__config.flags?.unified_docs_migrated_repos?.find(
+					(product) => product === currentRootDocsPath.productSlugForLoader
 				)
 			) {
 				remarkTerraformPlugins.push(
