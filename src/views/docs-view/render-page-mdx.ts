@@ -48,6 +48,11 @@ async function renderPageMdx(
 		)
 	}
 
+	console.log({
+		HASHI_ENV: process.env.HASHI_ENV,
+		unified_docs_migrated_repos: __config.flags?.unified_docs_migrated_repos,
+	})
+
 	return await trace
 		.getTracer('docs-view')
 		.startActiveSpan('renderPageMdx', async (span) => {
