@@ -37,7 +37,7 @@ async function renderPageMdx(
 			(product) => product === scope.product
 		)
 	) {
-		console.log('finalRemarkPlugins 1', { finalRemarkPlugins })
+		console.log('rubenTest - inject remarkRewriteAssets for UDR')
 		finalRemarkPlugins.push(
 			remarkRewriteAssets({
 				product: scope.product as string,
@@ -47,8 +47,6 @@ async function renderPageMdx(
 			})
 		)
 	}
-
-	console.log('finalRemarkPlugins 2', { finalRemarkPlugins })
 
 	return await trace
 		.getTracer('docs-view')

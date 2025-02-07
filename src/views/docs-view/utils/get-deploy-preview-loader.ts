@@ -83,6 +83,9 @@ export function getDeployPreviewLoader({
 					(product) => product === currentRootDocsPath.productSlugForLoader
 				)
 			) {
+				console.log(
+					'rubenTest - normal remarkRewriteAssets for terraform|ptfe-releases'
+				)
 				remarkTerraformPlugins.push(
 					remarkRewriteAssets({
 						product: currentRootDocsPath.productSlugForLoader,
