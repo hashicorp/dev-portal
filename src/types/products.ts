@@ -19,7 +19,7 @@ type ProductName =
 	| 'Waypoint'
 	| 'HCP Vault Secrets'
 
-type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp'
+type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
 
 interface Product extends ProductMeta {
 	name: ProductName
