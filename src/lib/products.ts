@@ -272,6 +272,12 @@ const sidePanelContent: ProductSidePanel = {
 			url: '/well-architected-framework',
 			icon: 'layers',
 		},
+		{
+			title: 'Validated Patterns',
+			description: 'Field-tested patterns for using HashiCorp products',
+			url: '/validated-patterns',
+			icon: 'check-circle',
+		},
 	],
 }
 /**
