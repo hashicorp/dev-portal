@@ -40,7 +40,7 @@ export function remarkRewriteAssets(args: {
 				} else {
 					const asset = path.posix.join(...getAssetPathParts(originalUrl))
 
-					const url = new URL(`${process.env.MKTG_CONTENT_DOCS_API}/api/assets`)
+					url = new URL(`${process.env.MKTG_CONTENT_DOCS_API}/api/assets`)
 					url.searchParams.append('asset', asset)
 					url.searchParams.append('version', version)
 					url.searchParams.append('product', product)
