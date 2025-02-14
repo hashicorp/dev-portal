@@ -16,6 +16,8 @@ import s from './docs-view.module.css'
 import LandingHero from 'components/docs-landing-hero'
 import DocsPlainPageHeading from './components/docs-plain-page-heading'
 import DocsVersionSwitcher from 'components/docs-version-switcher'
+import { useState } from 'react'
+import CopyContentButton from 'components/dev-dot-content/components/copy-content-button'
 
 /**
  * Layouts
@@ -50,6 +52,7 @@ const DocsView = ({
 	const currentProduct = useCurrentProduct()
 	const { compiledSource, scope } = mdxSource
 	const docsMdxComponents = getDocsMdxComponents(currentProduct.slug)
+	const [rawContent, setRawContent] = useState<string>('')
 
 	/**
 	 * Check if we have a `pageHeading` to render. The `DocsPageHeading` element
@@ -104,6 +107,11 @@ const DocsView = ({
 							/>
 						) : null
 					}
+					copyButtonSlot={
+						rawContent ? (
+							<CopyContentButton markdownContent={rawContent} />
+						) : null
+					}
 					headingSlot={headingSlot}
 				/>
 			) : null}
@@ -116,7 +124,9 @@ const DocsView = ({
 						...docsMdxComponents,
 						wrapper: (props) => <div className={s.mdxContent} {...props} />,
 					},
+					rawContent: mdxSource.rawContent,
 				}}
+				onRawContent={setRawContent}
 			/>
 		</DocsViewLayout>
 	)

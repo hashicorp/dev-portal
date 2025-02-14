@@ -27,7 +27,7 @@ async function renderPageMdx(
 		scope,
 	}: Options = {}
 ): Promise<{
-	mdxSource: MDXRemoteSerializeResult
+	mdxSource: MDXRemoteSerializeResult & { rawContent: string }
 	frontMatter: Record<string, unknown>
 }> {
 	const finalRemarkPlugins = remarkPlugins
@@ -61,7 +61,7 @@ async function renderPageMdx(
 					},
 					scope,
 				})
-				return { mdxSource, frontMatter }
+				return { mdxSource: { ...mdxSource, rawContent }, frontMatter }
 			} finally {
 				span.end()
 			}

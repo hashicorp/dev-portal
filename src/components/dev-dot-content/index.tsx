@@ -78,6 +78,7 @@ const DevDotContent = ({
 	className,
 	children,
 	mdxRemoteProps,
+	onRawContent,
 }: DevDotContentProps): ReactElement => {
 	const shouldRenderChildren = Boolean(children)
 
@@ -94,6 +95,11 @@ const DevDotContent = ({
 				}}
 			/>
 		)
+	}
+
+	// Call onRawContent with the raw content if it exists
+	if (onRawContent && mdxRemoteProps?.rawContent) {
+		onRawContent(mdxRemoteProps.rawContent)
 	}
 
 	return <div className={classNames(s.root, className)}>{content}</div>

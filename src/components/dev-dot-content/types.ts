@@ -8,10 +8,12 @@ import { type MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
 
 type MDXRemoteProps = MDXRemoteSerializeResult & {
 	components?: Record<string, ElementType>
+	rawContent?: string
 }
 
 interface BaseProps {
 	className?: string
+	onRawContent?: (content: string) => void
 }
 
 type WithChildrenOrMdxRemoteProps =

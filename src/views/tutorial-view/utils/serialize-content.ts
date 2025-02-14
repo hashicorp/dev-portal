@@ -16,6 +16,7 @@ import { remarkPluginInjectImageDimensions } from 'lib/remark-plugins/remark-ima
 
 export async function serializeContent(tutorial: ClientTutorial): Promise<{
 	content: MDXRemoteSerializeResult
+	rawContent: string
 	headings: TableOfContentsHeading[]
 }> {
 	const video = tutorial?.video
@@ -54,5 +55,5 @@ export async function serializeContent(tutorial: ClientTutorial): Promise<{
 		},
 	})
 
-	return { content, headings }
+	return { content, rawContent: tutorial.content, headings }
 }

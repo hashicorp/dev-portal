@@ -13,6 +13,7 @@
 */
 .root {
 	composes: hds-typography-body-300 from global;
+	position: relative;
 
 	& :global {
 		/* Note on alert overrides: alert classes are applied at content
@@ -84,4 +85,11 @@
    * Note: <ol />, <ul />, & <li /> styles have been moved to
    * ./mdx-components/mdx-lists.
    */
+}
+
+.copyButtonContainer {
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	z-index: 1;
 }

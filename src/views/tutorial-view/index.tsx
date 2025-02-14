@@ -124,6 +124,7 @@ function TutorialView({
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
+	const [rawContent, setRawContent] = useState<string>('')
 
 	// variables
 	const {
@@ -271,39 +272,49 @@ function TutorialView({
 								setCollectionViewSidebarSections
 							}
 						>
-							<TutorialMeta
-								heading={pageHeading}
-								meta={{
-									readTime,
-									edition,
-									productsUsed,
-									isInteractive,
-									hasVideo,
-								}}
-								tutorialId={id}
-							/>
-							<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
-							{hasVideo && video.id && !video.videoInline && (
-								<VideoEmbed
-									url={getVideoUrl({
-										videoId: video.id,
-										videoHost: video.videoHost,
-									})}
+							<div className={s.content}>
+								<TutorialMeta
+									heading={pageHeading}
+									meta={{
+										readTime,
+										edition,
+										productsUsed,
+										isInteractive,
+										hasVideo,
+									}}
+									tutorialId={id}
+									rawContent={rawContent}
 								/>
-							)}
-							<DevDotContent
-								mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
-							/>
-							<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
-							<FeedbackPanel />
-							<NextPrevious {...nextPreviousData} />
-							<FeaturedInCollections
-								className={s.featuredInCollections}
-								collections={featuredInWithoutCurrent}
-							/>
-							{layoutProps.isCertificationPrep && (
-								<SignupFormArea className={s.newsletterSignupArea} />
-							)}
+								<span
+									data-ref-id={progressRefsId}
+									ref={progressRefs.startRef}
+								/>
+								{hasVideo && video.id && !video.videoInline && (
+									<VideoEmbed
+										url={getVideoUrl({
+											videoId: video.id,
+											videoHost: video.videoHost,
+										})}
+									/>
+								)}
+								<DevDotContent
+									mdxRemoteProps={{
+										...content,
+										components: MDX_COMPONENTS,
+									}}
+									onRawContent={setRawContent}
+								/>
+								<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
+								<FeedbackPanel />
+								<NextPrevious {...nextPreviousData} />
+								<FeaturedInCollections
+									className={s.featuredInCollections}
+									collections={featuredInWithoutCurrent}
+								/>
+								{layoutProps.isCertificationPrep && (
+									<SignupFormArea className={s.newsletterSignupArea} />
+								)}
+							</div>
 						</LayoutContentWrapper>
 					</SidebarSidecarLayout>
 				</VariantProvider>

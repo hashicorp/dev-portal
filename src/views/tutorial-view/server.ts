@@ -81,9 +81,11 @@ export async function getTutorialPageProps(
 		fullTutorialData.variant
 	)
 
-	const { content: serializedContent, headings } = await serializeContent(
-		fullTutorialData
-	)
+	const {
+		content: serializedContent,
+		headings,
+		rawContent,
+	} = await serializeContent(fullTutorialData)
 	const collectionContext = getCollectionContext(
 		collection.data,
 		fullTutorialData.collectionCtx
@@ -139,7 +141,7 @@ export async function getTutorialPageProps(
 			},
 			tutorial: {
 				...fullTutorialData,
-				content: serializedContent,
+				content: { ...serializedContent, rawContent },
 				collectionCtx: collectionContext,
 				nextCollectionInSidebar:
 					collectionContext.current.nextCollection ?? nextCollection,

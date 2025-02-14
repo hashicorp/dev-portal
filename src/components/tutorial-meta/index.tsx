@@ -9,6 +9,7 @@ import Heading from 'components/heading'
 import InlineLink from 'components/inline-link'
 import Text from 'components/text'
 import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
+import CopyContentButton from 'components/dev-dot-content/components/copy-content-button'
 import { Badges, getIsBeta, VariantList } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
 import s from './tutorial-meta.module.css'
@@ -20,12 +21,14 @@ interface TutorialMetaProps {
 		hasVideo: boolean
 	}
 	tutorialId: TutorialData['id']
+	rawContent?: string
 }
 
 export default function TutorialMeta({
 	heading,
 	meta,
 	tutorialId,
+	rawContent,
 }: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
 
@@ -66,6 +69,7 @@ export default function TutorialMeta({
 					<TutorialMetaBookmarkButton
 						tutorial={{ id: tutorialId, name: heading.text }}
 					/>
+					{rawContent && <CopyContentButton markdownContent={rawContent} />}
 				</span>
 			</div>
 			{showCreateAccountCta ? (
