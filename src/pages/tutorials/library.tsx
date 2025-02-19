@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import algoliasearch from 'algoliasearch/lite'
+import { liteClient as algoliasearch } from 'algoliasearch/lite'
 import { InstantSearch } from 'react-instantsearch'
 import { history } from 'instantsearch.js/es/lib/routers'
 import { useRouter } from 'next/router'
