@@ -246,6 +246,8 @@ export default class RemoteContentLoader implements DataLoader {
 		// Must be serializeable
 		let githubFileUrl: string | null = null
 
+		console.log('remoteContent document:', document)
+
 		if (document.githubFile) {
 			// Link latest version to `main`
 			// Hide link on older versions
@@ -273,6 +275,16 @@ export default class RemoteContentLoader implements DataLoader {
 				// GitHub only allows you to modify a file if you are on a branch, not a commit
 				githubFileUrl = `https://github.com/hashicorp/${this.opts.product}/blob/${this.opts.mainBranch}/${document.githubFile}`
 			}
+		}
+
+		// Check if the product is in the unified docs sandbox and migrated
+		if (
+			process.env.HASHI_ENV === 'unified-docs-sandbox' &&
+			__config.flags?.unified_docs_migrated_repos?.find(
+				(product) => product === document.product
+			)
+		) {
+			githubFileUrl = `https://github.com/hashicorp/web-unified-docs/blob/${this.opts.mainBranch}/${document.githubFile}`
 		}
 
 		return {
