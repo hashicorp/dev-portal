@@ -11,11 +11,6 @@
 	},
 	"flags": {
 		"unified_docs_migrated_repos": [
-			"ptfe-releases",
-			"terraform",
-			"terraform-cdk",
-			"terraform-docs-agents",
-			"terraform-docs-common",
 			"terraform-plugin-framework",
 			"terraform-plugin-log",
 			"terraform-plugin-mux",
