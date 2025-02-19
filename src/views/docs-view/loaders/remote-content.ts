@@ -246,8 +246,6 @@ export default class RemoteContentLoader implements DataLoader {
 		// Must be serializeable
 		let githubFileUrl: string | null = null
 
-		console.log('remoteContent document:', document)
-
 		if (document.githubFile) {
 			// Link latest version to `main`
 			// Hide link on older versions
