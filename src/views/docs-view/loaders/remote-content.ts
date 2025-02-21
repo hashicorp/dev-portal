@@ -239,7 +239,10 @@ export default class RemoteContentLoader implements DataLoader {
 		])
 
 		// For non-latest versions
-		if (versionToFetch !== 'latest') {
+		if (
+			versionToFetch !== this.opts.latestVersionRef &&
+			versionToFetch !== 'latest'
+		) {
 			// Remove the first heading from the navData
 			if (navData.navData.length > 0 && 'heading' in navData.navData[0]) {
 				navData.navData.shift()
