@@ -16,7 +16,7 @@ import type { ReactNode } from 'react'
 import s from './style.module.css'
 
 export interface OperationContentProps {
-	operationId: string
+	title: string
 	tags: string[]
 	slug: string
 	type: string
@@ -48,7 +48,7 @@ export interface OperationProps {
  * Render detailed content for an individual operation.
  */
 export default function OperationContent({
-	operationId,
+	title,
 	type,
 	path,
 	urlPathForCodeBlock,
@@ -59,7 +59,7 @@ export default function OperationContent({
 	return (
 		<>
 			<div className={s.header}>
-				<h1 className={s.heading}>{operationId}</h1>
+				<h1 className={s.heading}>{title}</h1>
 				{versionSwitcherSlot ? (
 					<div className={s.versionSwitcherSlot}>{versionSwitcherSlot}</div>
 				) : null}
@@ -72,7 +72,7 @@ export default function OperationContent({
 					</div>
 				}
 				examplesSlot={
-					<OperationExamples heading={operationId} code={urlPathForCodeBlock} />
+					<OperationExamples heading={title} code={urlPathForCodeBlock} />
 				}
 				detailsSlot={
 					<OperationDetails
