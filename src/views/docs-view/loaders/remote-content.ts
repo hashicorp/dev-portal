@@ -238,6 +238,25 @@ export default class RemoteContentLoader implements DataLoader {
 			navDataPromise,
 		])
 
+		// For non-latest versions
+		if (
+			versionToFetch !== this.opts.latestVersionRef &&
+			versionToFetch !== 'latest'
+		) {
+			// Remove the first heading from the navData
+			if (navData.navData.length > 0 && 'heading' in navData.navData[0]) {
+				navData.navData.shift()
+			}
+
+			// Remove item if it's an empty path (for non-latest versions, the version is prepended to the path)
+			if (
+				navData.navData.length > 1 &&
+				navData.navData[0].path.split('/').length > 1
+			) {
+				navData.navData.splice(0, 1)
+			}
+		}
+
 		const { mdxSource } = await mdxRenderer(document.markdownSource)
 		const frontMatter = document.metadata
 
