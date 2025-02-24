@@ -34,13 +34,22 @@ export function remarkRewriteAssets(args: {
 				const originalUrl = node.url
 
 				if (isInUDR) {
-					url = new URL(
-						`${process.env.UNIFIED_DOCS_API}/api/assets/${product}/${version}${node.url}`
-					)
+					let domain
+
+					if (
+						process.env.NODE_ENV === 'development' &&
+						process.env.HASHI_ENV === 'unified-docs-sandbox'
+					) {
+						domain = `http://localhost:${process.env.UNIFIED_DOCS_PORT}`
+					} else {
+						domain = process.env.UNIFIED_DOCS_API
+					}
+
+					url = new URL(`${domain}/api/assets/${product}/${version}${node.url}`)
 				} else {
 					const asset = path.posix.join(...getAssetPathParts(originalUrl))
 
-					const url = new URL(`${process.env.MKTG_CONTENT_DOCS_API}/api/assets`)
+					url = new URL(`${process.env.MKTG_CONTENT_DOCS_API}/api/assets`)
 					url.searchParams.append('asset', asset)
 					url.searchParams.append('version', version)
 					url.searchParams.append('product', product)
