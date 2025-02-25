@@ -251,8 +251,7 @@ export default class RemoteContentLoader implements DataLoader {
 			// Remove item if it's an empty path (for non-latest versions, the version is prepended to the path)
 			if (
 				navData.navData.length > 1 &&
-				navData.navData[0].path &&
-				navData.navData[0].path.split('/').length > 1
+				navData.navData[0].path?.split('/').length > 1
 			) {
 				navData.navData.splice(0, 1)
 			}

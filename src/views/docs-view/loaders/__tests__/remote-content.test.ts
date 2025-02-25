@@ -410,7 +410,7 @@ describe('RemoteContentLoader', () => {
 		})
 	})
 
-	test('should handle navData where first item has no path property', async () => {
+	test('does not remove first navigation items with no path property', async () => {
 		// Create a modified version of navData with first item missing path property
 		const modifiedNavData = {
 			...navData_200,
@@ -449,8 +449,8 @@ describe('RemoteContentLoader', () => {
 		})
 
 		// Verify that the function completed successfully
-		expect(props).toBeDefined()
-		expect(props.navData).toBeDefined()
+		expect(props.navData[0].path).not.toBeDefined()
+		expect(props.navData[0].title).toEqual('Item with no path')
 	})
 })
 
