@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import algoliasearch from 'algoliasearch/lite'
+import { liteClient as algoliasearch } from 'algoliasearch/lite'
 import { InstantSearch } from 'react-instantsearch'
 import { history } from 'instantsearch.js/es/lib/routers'
 import { useRouter } from 'next/router'
@@ -32,10 +32,10 @@ import { stripUndefinedProperties } from 'lib/strip-undefined-props'
 
 const DEFAULT_SLUGS = [
 	'terraform/infrastructure-as-code',
-	'vault/getting-started-intro',
+	'vault/why-use-vault',
 	'consul/get-started',
 	'nomad/get-started-install',
-	'vagrant/getting-started-index',
+	'vagrant/development-environment',
 	'packer/get-started-install-cli',
 	'boundary/getting-started-intro',
 	'waypoint/get-started-intro',
