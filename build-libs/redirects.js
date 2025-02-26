@@ -16,6 +16,7 @@ const {
 	getDocsDotHashiCorpRedirects,
 } = require('./docs-dot-hashicorp-redirects')
 const { packerPluginRedirects } = require('./integration-packer-redirects')
+const { loadHashiConfigForEnvironment } = require('../config')
 
 require('isomorphic-unfetch')
 
@@ -52,12 +53,32 @@ const HOSTNAME_MAP = {
  * @param {string} redirectsPath Path within the repo to the redirects file.
  * @returns {Promise<Redirect[]>}
  */
-async function getRedirectsFromContentRepo(repoName, redirectsPath) {
+async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	/**
 	 * Note: These constants are declared for clarity in build context intent.
 	 */
 	const isDeveloperBuild = !process.env.IS_CONTENT_PREVIEW
 	const isLocalContentBuild = isDeployPreview(repoName)
+	/**
+	 * Load redirects from the unified docs repo if it's in the list of migrated repos.
+	 * Return early if there are not any redirects found for that specific repo.
+	 */
+	if (
+		process.env.HASHI_ENV === 'unified-docs-sandbox' &&
+		config.flags?.unified_docs_migrated_repos?.find((repo) => repo === repoName)
+	) {
+		const getUDRRedirects = await fetch(
+			`${process.env.UNIFIED_DOCS_API}/api/content/${repoName}/redirects`
+		)
+		if (getUDRRedirects.ok) {
+			const udrRedirects = await getUDRRedirects.json()
+			return udrRedirects
+		}
+		console.error(
+			`Error fetching redirects from the unified docs repo for ${repoName}`
+		)
+		return []
+	}
 	/**
 	 * Load redirects from the target repo (or return early for non-target repos).
 	 */
@@ -65,7 +86,11 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath) {
 	let redirectsFileString
 	if (isDeveloperBuild) {
 		// For `hashicorp/dev-portal` builds, load redirects remotely
-		const latestContentSha = await getLatestContentShaForProduct(repoName)
+		// hvd-docs is not hosted on the content API, so we need to use main as the latest sha
+		const latestContentSha =
+			repoName === 'hvd-docs'
+				? 'main'
+				: await getLatestContentShaForProduct(repoName)
 		redirectsFileString = await fetchGithubFile({
 			owner: 'hashicorp',
 			repo: repoName,
@@ -105,6 +130,7 @@ const PRODUCT_REDIRECT_ENTRIES = [
 	{ repo: 'hcp-docs', path: '/redirects.js' },
 	{ repo: 'ptfe-releases', path: 'website/redirects.js' },
 	{ repo: 'sentinel', path: 'website/redirects.js' },
+	{ repo: 'hvd-docs', path: '/redirects.js' },
 ]
 
 async function buildProductRedirects() {
@@ -114,11 +140,12 @@ async function buildProductRedirects() {
 	if (process.env.SKIP_BUILD_PRODUCT_REDIRECTS) {
 		return []
 	}
+	const config = loadHashiConfigForEnvironment()
 
 	const productRedirects = (
 		await Promise.all(
 			PRODUCT_REDIRECT_ENTRIES.map((entry) =>
-				getRedirectsFromContentRepo(entry.repo, entry.path)
+				getRedirectsFromContentRepo(entry.repo, entry.path, config)
 			)
 		)
 	).flat()
@@ -277,6 +304,7 @@ function filterInvalidRedirects(redirects, repoSlug) {
 		'ptfe-releases': 'terraform/enterprise',
 		'cloud.hashicorp.com': 'hcp',
 		'hcp-docs': 'hcp',
+		'hvd-docs': 'validated-designs',
 	}
 	const productSlug = productSlugsByRepo[repoSlug] ?? repoSlug
 
@@ -406,4 +434,5 @@ module.exports = {
 	splitRedirectsByType,
 	groupSimpleRedirects,
 	filterInvalidRedirects,
+	getRedirectsFromContentRepo,
 }

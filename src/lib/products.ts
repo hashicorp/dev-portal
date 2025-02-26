@@ -78,7 +78,10 @@ import {
  * could use to simplify our setup... It feels a bit convoluted right now.
  */
 const productSlugsToNames: {
-	[slug in Exclude<ProductSlug, 'well-architected-framework'>]: ProductName
+	[slug in Exclude<
+		ProductSlug,
+		'well-architected-framework' | 'validated-patterns'
+	>]: ProductName
 } = {
 	hcp: 'HashiCorp Cloud Platform',
 	terraform: 'Terraform',
@@ -96,7 +99,10 @@ const productSlugsToNames: {
  * A map of product slugs to their "dot io" site hostname.
  */
 const productSlugsToHostNames: {
-	[slug in Exclude<ProductSlug, 'well-architected-framework'>]: string
+	[slug in Exclude<
+		ProductSlug,
+		'well-architected-framework' | 'validated-patterns'
+	>]: string
 } = {
 	boundary: 'boundaryproject.io',
 	consul: 'consul.io',
@@ -259,6 +265,12 @@ const sidePanelContent: ProductSidePanel = {
 			description: 'Learn HashiCorp products',
 			url: '/tutorials',
 			icon: 'learn',
+		},
+		{
+			title: 'Validated Patterns',
+			description: 'Field-tested patterns for using HashiCorp products',
+			url: '/validated-patterns',
+			icon: 'check-circle',
 		},
 		{
 			title: 'Well-Architected Framework',

@@ -231,6 +231,7 @@ export enum ProductOption {
 
 export enum SectionOption {
 	'well-architected-framework' = 'well-architected-framework',
+	'validated-patterns' = 'validated-patterns',
 }
 
 export enum EditionOption {

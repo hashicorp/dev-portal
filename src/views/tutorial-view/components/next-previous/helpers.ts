@@ -66,6 +66,10 @@ export function getNextPrevious({
 		finalLink = '/well-architected-framework'
 	}
 
+	if (currentCollectionSection === 'validated-patterns') {
+		finalLink = '/validated-patterns'
+	}
+
 	const tutorial = {
 		previous: previousTutorial,
 		next: nextTutorial,

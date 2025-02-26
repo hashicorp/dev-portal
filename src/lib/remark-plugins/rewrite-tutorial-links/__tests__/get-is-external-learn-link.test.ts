@@ -49,6 +49,7 @@ describe('getIsExternalLearnLink', () => {
 			['/vault', true],
 			['/waypoint', true],
 			['/well-architected-framework', true],
+			['/validated-patterns', true],
 			['/cloud', true],
 		])
 	})
@@ -70,6 +71,7 @@ describe('getIsExternalLearnLink', () => {
 			['/collections/vault/collection-slug', true],
 			['/collections/waypoint/collection-slug', true],
 			['/collections/well-architected-framework/collection-slug', true],
+			['/collections/validated-patterns/collection-slug', true],
 			['/collections/cloud/collection-slug', true],
 		])
 	})
@@ -91,6 +93,7 @@ describe('getIsExternalLearnLink', () => {
 			['/tutorials/vault/tutorial-slug', true],
 			['/tutorials/waypoint/tutorial-slug', true],
 			['/tutorials/well-architected-framework/tutorial-slug', true],
+			['/tutorials/validated-patterns/tutorial-slug', true],
 			['/tutorials/cloud/tutorial-slug', true],
 		]
 
@@ -114,6 +117,8 @@ describe('getIsExternalLearnLink', () => {
 			['/waypoint/tutorials/collection-slug/tutorial-slug', false],
 			['/well-architected-framework/collection-slug', false],
 			['/well-architected-framework/collection-slug/tutorial-slug', false],
+			['/validated-patterns/collection-slug', false],
+			['/validated-patterns/collection-slug/tutorial-slug', false],
 
 			['/hcp/tutorials/collection-slug', false],
 			['/hcp/tutorials/collection-slug/tutorial-slug', false],

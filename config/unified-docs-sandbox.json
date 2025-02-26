@@ -4,18 +4,17 @@
 		"max_static_paths": 1
 	},
 	"dev_dot": {
-		"max_static_paths": 1
+		"max_static_paths": 1,
+		"algolia": {
+			"unifiedIndexName": "prod_DEVDOT_omni",
+			"udrIndexName": "prod_UDR"
+		}
 	},
 	"learn": {
 		"max_static_paths": 1
 	},
 	"flags": {
 		"unified_docs_migrated_repos": [
-			"ptfe-releases",
-			"terraform",
-			"terraform-cdk",
-			"terraform-docs-agents",
-			"terraform-docs-common",
 			"terraform-plugin-framework",
 			"terraform-plugin-log",
 			"terraform-plugin-mux",

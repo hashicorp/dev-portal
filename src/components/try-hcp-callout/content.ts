@@ -19,7 +19,10 @@ export function hasHcpCalloutContent(s: string): s is ProductSlugWithContent {
 }
 
 export const tryHcpCalloutContent: Record<
-	Exclude<ProductSlugWithContent, 'well-architected-framework'>,
+	Exclude<
+		ProductSlugWithContent,
+		'well-architected-framework' | 'validated-patterns'
+	>,
 	HcpCalloutContent
 > = {
 	terraform: {

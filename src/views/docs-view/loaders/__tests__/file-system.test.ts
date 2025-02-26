@@ -133,6 +133,7 @@ describe('FileSystemLoader', () => {
 		await l.loadStaticProps({ params: {} })
 
 		expect(mockMdxContentHook).toHaveBeenCalledWith(expect.any(String), {
+			product: 'waypoint',
 			version: 'latest',
 		})
 		// assert that `serialize` is called with the result of the hook

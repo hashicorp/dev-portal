@@ -30,7 +30,10 @@ const DEFAULT_GITHUB_LINK = 'https://github.com/hashicorp'
 const DEFAULT_SUPPORT_LINK = 'https://www.hashicorp.com/customer-success'
 
 const COMMUNITY_LINKS_BY_PRODUCT: {
-	[key in Exclude<ProductSlug, 'well-architected-framework'>]: string
+	[key in Exclude<
+		ProductSlug,
+		'well-architected-framework' | 'validated-patterns'
+	>]: string
 } = {
 	boundary: 'https://discuss.hashicorp.com/c/boundary/50',
 	consul: 'https://discuss.hashicorp.com/c/consul/29',
@@ -47,7 +50,7 @@ const COMMUNITY_LINKS_BY_PRODUCT: {
 const GITHUB_LINKS_BY_PRODUCT_SLUG: {
 	[key in Exclude<
 		ProductSlug,
-		'waypoint' | 'well-architected-framework'
+		'waypoint' | 'well-architected-framework' | 'validated-patterns'
 	>]: string
 } = {
 	boundary: 'https://github.com/hashicorp/boundary',
