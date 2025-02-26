@@ -17,6 +17,8 @@ import isThemedPath from 'lib/isThemedPath'
 import { FooterItem, FooterProps } from './types'
 import s from './footer.module.css'
 
+
+
 const FOOTER_ITEMS: FooterItem[] = [
 	{
 		type: 'link',
