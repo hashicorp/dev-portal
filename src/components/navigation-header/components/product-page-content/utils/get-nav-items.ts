@@ -23,7 +23,7 @@ const TRY_CLOUD_ITEM_PRODUCT_SLUGS = [
 enum TRY_CLOUD_PRODUCT_LINKS {
 	default = 'https://portal.cloud.hashicorp.com/sign-up',
 	terraform = 'https://app.terraform.io/public/signup/account',
-	vagrant = 'https://app.vagrantup.com/boxes/search',
+	vagrant = 'https://portal.cloud.hashicorp.com/vagrant/discover',
 }
 
 /**

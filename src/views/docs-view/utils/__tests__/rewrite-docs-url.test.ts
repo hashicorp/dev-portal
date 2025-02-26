@@ -44,6 +44,11 @@ describe('rewriteDocsUrl', () => {
 				expected:
 					'/well-architected-framework/operational-excellence/operational-excellence-workspaces-projects',
 			},
+			{
+				input: '/validated-patterns/nomad/workload-modernization-with-traefik',
+				expected:
+					'/validated-patterns/nomad/workload-modernization-with-traefik',
+			},
 			// special case for non devdot 'waf' link
 			{
 				input: 'https://aws.amazon.com/architecture/well-architected/',

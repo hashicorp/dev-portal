@@ -8,6 +8,7 @@
 import { ReactElement, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { gt } from 'semver'
 
 // Global imports
 import { useCurrentProduct } from 'contexts'
@@ -93,10 +94,19 @@ const ProductDownloadsViewContent = ({
 
 	// Group the selected release downloads by OS, for use in multiple places
 	const selectedRelease = releases.versions[currentVersion]
-	const downloadsByOS = useMemo(
+	let downloadsByOS = useMemo(
 		() => sortPlatforms(selectedRelease),
 		[selectedRelease]
 	)
+
+	if (currentProduct.slug === 'vagrant') {
+		downloadsByOS = {
+			...downloadsByOS,
+			...(downloadsByOS.linux?.amd64
+				? { linux: { amd64: downloadsByOS.linux.amd64 } }
+				: {}),
+		}
+	}
 
 	// Build download sidebar menu items, which vary with the selected release.
 	const downloadMenuItems = Object.keys(downloadsByOS).map(
@@ -120,6 +130,12 @@ const ProductDownloadsViewContent = ({
 				},
 		  ]
 		: []
+	// If the product is boundary and the version is less than 0.18.0, we don't want
+	// to show the installer since previous boundary versions don't work with the installer
+	const filteredAdditionalDownloadItems =
+		currentProduct.slug === 'boundary' && gt('0.18.0', currentVersion)
+			? additionalDownloadItems.filter((item) => item.fullPath !== '#installer')
+			: additionalDownloadItems
 
 	const sidebarNavDataLevels = [
 		generateTopLevelSidebarNavData(currentProduct.name),
@@ -130,7 +146,7 @@ const ProductDownloadsViewContent = ({
 				{ divider: true },
 				{ heading: 'Operating Systems' },
 				...downloadMenuItems,
-				...additionalDownloadItems,
+				...filteredAdditionalDownloadItems,
 				{ divider: true },
 				{
 					title: SHARED_HEADINGS.releaseInfo.text,

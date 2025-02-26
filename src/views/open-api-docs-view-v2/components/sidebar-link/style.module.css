@@ -1,0 +1,32 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.sidebarLink {
+	composes: g-focus-ring-from-box-shadow from global;
+	background-color: var(--token-color-surface-primary);
+	border-radius: 5px;
+	border: none;
+	color: var(--token-color-foreground-faint);
+	padding: 8px;
+	position: relative;
+	text-align: left;
+	width: 100%;
+
+	&:focus {
+		color: var(--token-color-foreground-strong);
+	}
+
+	/* Hover state includes background color change */
+	&:hover {
+		color: var(--token-color-foreground-strong);
+		background-color: var(--token-color-palette-neutral-100);
+	}
+
+	/* Highlight state for current page */
+	&[aria-current='page'] {
+		color: var(--token-color-foreground-strong);
+		background-color: var(--token-color-palette-neutral-200);
+	}
+}

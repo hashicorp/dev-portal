@@ -103,7 +103,7 @@
 		{
 			"label": "Ubuntu/Debian",
 			"commands": [
-				"wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg",
+				"wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg",
 				"echo \"deb [arch=amd64 signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main\" | sudo tee /etc/apt/sources.list.d/hashicorp.list",
 				"sudo apt-get update && sudo apt-get install vault"
 			],
@@ -122,7 +122,7 @@
 			"label": "Fedora",
 			"commands": [
 				"sudo dnf install -y dnf-plugins-core",
-				"sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo",
+				"sudo dnf config-manager addrepo --from-repofile=https://rpm.releases.hashicorp.com/fedora/hashicorp.repo",
 				"sudo dnf -y install vault"
 			],
 			"os": "linux"

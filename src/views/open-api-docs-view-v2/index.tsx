@@ -6,10 +6,26 @@
 // Layout
 import SidebarLayout from 'layouts/sidebar-layout'
 // Components
-import LandingContent from './components/landing-content'
+import {
+	mobileMenuLevelMain,
+	mobileMenuLevelProduct,
+} from '@components/mobile-menu-levels/level-components'
+import { SidebarHorizontalRule } from '@components/sidebar/components'
+import MobileMenuLevels from '@components/mobile-menu-levels'
+import SidebarBackToLink from '@components/sidebar/components/sidebar-back-to-link'
+import BreadcrumbBar from '@components/breadcrumb-bar'
+import VersionSwitcher from '@components/version-switcher'
+import NoIndexTagIfVersioned from '@components/no-index-tag-if-versioned'
+// Components, local
+import { OpenApiV2SidebarContents } from './components/sidebar'
+import { SidebarResourceLinks } from './components/sidebar-resource-links'
+import { LandingContent } from './components/landing-content'
 import OperationContent from './components/operation-content'
+import { OpenApiV2VersionAlert } from './components/version-alert'
 // Types
 import type { OpenApiDocsViewV2Props } from './types'
+// Styles
+import s from './style.module.css'
 
 /**
  * Placeholder view component for a new OpenAPI docs setup.
@@ -19,56 +35,103 @@ import type { OpenApiDocsViewV2Props } from './types'
  */
 export default function OpenApiDocsViewV2({
 	basePath,
-	navItems,
+	backToLink,
+	breadcrumbLinks,
+	landingLink,
+	operationLinkGroups,
+	resourceLinks,
+	product,
+	versionMetadata,
+	versionSwitcherProps,
 	...restProps
 }: OpenApiDocsViewV2Props) {
+	//
 	return (
 		<SidebarLayout
 			sidebarSlot={
-				/**
-				 * TODO: refine generation of nav items, and then render them properly,
-				 * for now just messily rendering some links to enable navigation.
-				 *
-				 * Note: `next/link` will work in prod, since we'll be doing
-				 * `getStaticProps`... but in the preview tool, `next/link` seems to
-				 * make the preview experience janky, seemingly requiring reloads after
-				 * each navigation, maybe related to use of getServerSideProps? Not yet
-				 * sure how to resolve this, there's probably some clever solution that
-				 * might be possible...
-				 */
-				<ul style={{ margin: 0, border: '1px solid magenta' }}>
-					{navItems.map((navItem) => {
-						if (!('fullPath' in navItem)) {
-							return null
-						}
-						return (
-							<li key={navItem.fullPath}>
-								<a
-									href={navItem.fullPath}
-									style={{ color: navItem.isActive ? 'white' : undefined }}
-								>
-									{navItem.title}
-								</a>
-							</li>
-						)
-					})}
-				</ul>
+				<>
+					{backToLink ? (
+						<SidebarBackToLink href={backToLink.href} text={backToLink.text} />
+					) : null}
+					<OpenApiV2SidebarContents
+						landingLink={landingLink}
+						operationLinkGroups={operationLinkGroups}
+					/>
+					{resourceLinks.length > 0 ? (
+						<>
+							<SidebarHorizontalRule />
+							<SidebarResourceLinks resourceLinks={resourceLinks} />
+						</>
+					) : null}
+				</>
 			}
-			/**
-			 * TODO: implement mobile menu. May be tempting to try to re-use the data
-			 * that feeds the sidebar, and this MAY be the right call, or MAY make
-			 * sense to have them a bit more separate (more flexibility in how we
-			 * present the sidebar, without having to disentangle all the complexity
-			 * of the mobile menu quite yet).
-			 */
-			mobileMenuSlot={null}
+			mobileMenuSlot={
+				<MobileMenuLevels
+					levels={[
+						mobileMenuLevelMain(),
+						mobileMenuLevelProduct(product),
+						{
+							levelButtonText: 'Previous',
+							content: (
+								<>
+									<OpenApiV2SidebarContents
+										landingLink={landingLink}
+										operationLinkGroups={operationLinkGroups}
+									/>
+									{resourceLinks.length > 0 ? (
+										<>
+											<SidebarHorizontalRule />
+											<SidebarResourceLinks resourceLinks={resourceLinks} />
+										</>
+									) : null}
+								</>
+							),
+						},
+					]}
+				/>
+			}
 		>
-			<div style={{ padding: '24px' }}>
-				<div style={{ border: '1px solid magenta' }}>
+			<OpenApiV2VersionAlert
+				isVersionedUrl={versionMetadata.isVersionedUrl}
+				currentVersion={versionMetadata.currentVersion}
+				latestStableVersion={versionMetadata.latestStableVersion}
+				basePath={basePath}
+			/>
+			<NoIndexTagIfVersioned isVersioned={versionMetadata.isVersionedUrl} />
+			<div className={s.paddedContainer}>
+				<div className={s.spaceBreadcrumbsContent}>
+					<BreadcrumbBar links={breadcrumbLinks} />
 					{'operationContentProps' in restProps ? (
-						<OperationContent {...restProps.operationContentProps} />
-					) : 'landingContentProps' in restProps ? (
-						<LandingContent {...restProps.landingContentProps} />
+						<OperationContent
+							{...restProps.operationContentProps}
+							versionSwitcherSlot={
+								versionSwitcherProps ? (
+									<VersionSwitcher
+										label={versionSwitcherProps.label}
+										options={versionSwitcherProps.options}
+									/>
+								) : null
+							}
+						/>
+					) : 'landingProps' in restProps ? (
+						<LandingContent
+							versionSwitcherSlot={
+								versionSwitcherProps ? (
+									<VersionSwitcher
+										label={versionSwitcherProps.label}
+										options={versionSwitcherProps.options}
+									/>
+								) : null
+							}
+							heading={restProps.landingProps.heading}
+							badgeText={restProps.landingProps.badgeText}
+							serviceProductSlug={restProps.landingProps.serviceProductSlug}
+							statusIndicatorConfig={
+								restProps.landingProps.statusIndicatorConfig
+							}
+							descriptionMdx={restProps.landingProps.descriptionMdx}
+							schemaFileString={restProps.landingProps.schemaFileString}
+						/>
 					) : null}
 				</div>
 			</div>

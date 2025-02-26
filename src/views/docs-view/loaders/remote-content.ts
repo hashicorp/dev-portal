@@ -82,7 +82,6 @@ interface LoadStaticPropsReturn {
 }
 
 const moizeOpts: Options = { isPromise: true, maxSize: Infinity }
-const cachedFetchNavData = moize(fetchNavData, moizeOpts)
 const cachedFetchVersionMetadataList = moize(
 	fetchVersionMetadataList,
 	moizeOpts
@@ -147,19 +146,10 @@ export default class RemoteContentLoader implements DataLoader {
 	loadStaticPaths = async (): Promise<
 		{ params: Record<string, string[]> }[]
 	> => {
-		// Fetch version metadata to get "latest"
-		const versionMetadataList = await cachedFetchVersionMetadataList(
-			this.opts.product
-		)
-
-		const latest: string =
-			this.opts.latestVersionRef ??
-			versionMetadataList.find((e) => e.isLatest).version
-
+		const latest: string = this.opts.latestVersionRef ?? 'latest'
 		// Fetch and parse navigation data
-		const navDataResponse = await cachedFetchNavData(
+		const navDataResponse = await fetchNavData(
 			this.opts.product,
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			this.opts.navDataPrefix!,
 			latest
 		)
@@ -200,16 +190,17 @@ export default class RemoteContentLoader implements DataLoader {
 				mdxContentHook: this.opts.mdxContentHook,
 				remarkPlugins,
 				rehypePlugins: this.opts.rehypePlugins,
-				scope: { version: versionFromPath, ...this.opts.scope },
+				scope: {
+					product: this.opts.product,
+					version: versionFromPath,
+					...this.opts.scope,
+				},
 			})
 
 		const versionMetadataList: VersionMetadataItem[] =
 			await cachedFetchVersionMetadataList(this.opts.product)
 
-		const latestVersion =
-			this.opts.latestVersionRef ??
-			versionMetadataList.find((e) => e.isLatest)?.version
-
+		const latestVersion = this.opts.latestVersionRef ?? 'latest'
 		let versionToFetch = latestVersion
 
 		if (this.opts.enabledVersionedDocs) {
@@ -236,9 +227,8 @@ export default class RemoteContentLoader implements DataLoader {
 		].join('/')
 
 		const documentPromise = fetchDocument(this.opts.product, fullPath)
-		const navDataPromise = cachedFetchNavData(
+		const navDataPromise = fetchNavData(
 			this.opts.product,
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			this.opts.navDataPrefix!,
 			versionToFetch
 		)
@@ -247,6 +237,25 @@ export default class RemoteContentLoader implements DataLoader {
 			documentPromise,
 			navDataPromise,
 		])
+
+		// For non-latest versions
+		if (
+			versionToFetch !== this.opts.latestVersionRef &&
+			versionToFetch !== 'latest'
+		) {
+			// Remove the first heading from the navData
+			if (navData.navData.length > 0 && 'heading' in navData.navData[0]) {
+				navData.navData.shift()
+			}
+
+			// Remove item if it's an empty path (for non-latest versions, the version is prepended to the path)
+			if (
+				navData.navData.length > 1 &&
+				navData.navData[0].path?.split('/').length > 1
+			) {
+				navData.navData.splice(0, 1)
+			}
+		}
 
 		const { mdxSource } = await mdxRenderer(document.markdownSource)
 		const frontMatter = document.metadata
@@ -283,6 +292,16 @@ export default class RemoteContentLoader implements DataLoader {
 				// GitHub only allows you to modify a file if you are on a branch, not a commit
 				githubFileUrl = `https://github.com/hashicorp/${this.opts.product}/blob/${this.opts.mainBranch}/${document.githubFile}`
 			}
+		}
+
+		// Check if the product is in the unified docs sandbox and migrated
+		if (
+			process.env.HASHI_ENV === 'unified-docs-sandbox' &&
+			__config.flags?.unified_docs_migrated_repos?.find(
+				(product) => product === document.product
+			)
+		) {
+			githubFileUrl = `https://github.com/hashicorp/web-unified-docs/blob/${this.opts.mainBranch}/${document.githubFile}`
 		}
 
 		return {

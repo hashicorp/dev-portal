@@ -8,13 +8,12 @@ import path from 'path'
 import { randomUUID } from 'crypto'
 // Types
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { OpenApiPreviewV2InputValues } from 'views/open-api-docs-preview-v2/components/open-api-preview-inputs'
 
 /**
  * Setup for temporary file storage
  */
 // Determine if we're deploying to Vercel, this affects the temporary directory
-const IS_VERCEL_DEPLOY = process.env.VERCEL_ENV !== 'development'
+const IS_VERCEL_DEPLOY = typeof process.env.VERCEL_ENV === 'string'
 // Determine the temporary directory to use, based on Vercel deploy or not
 const TMP_DIR = IS_VERCEL_DEPLOY ? '/tmp' : path.join(process.cwd(), '.tmp')
 // Ensure the temporary directory exists, so we can stash files

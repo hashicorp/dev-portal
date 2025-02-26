@@ -87,7 +87,10 @@ const generateBasicSuggestedPages = (productSlug: ProductSlug) => {
  * link to the Tutorials Library.
  */
 const EXTRA_PAGES: Record<
-	Exclude<ProductSlug, 'sentinel' | 'well-architected-framework'>,
+	Exclude<
+		ProductSlug,
+		'sentinel' | 'well-architected-framework' | 'validated-patterns'
+	>,
 	SuggestedPageProps[]
 > = {
 	boundary: [

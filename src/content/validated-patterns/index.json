@@ -1,0 +1,12 @@
+{
+	"sidebarCategories": [],
+	"landingPage": {
+		"hero": {
+			"heading": "Validated Patterns"
+		},
+		"overview": {
+			"heading": "What are Validated Patterns?",
+			"body": "Validated patterns are field-tested approaches for using, connecting, or integrating software products. They describe how to use features or data from one product with another."
+		}
+	}
+}

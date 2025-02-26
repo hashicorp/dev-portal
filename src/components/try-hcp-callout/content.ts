@@ -19,7 +19,10 @@ export function hasHcpCalloutContent(s: string): s is ProductSlugWithContent {
 }
 
 export const tryHcpCalloutContent: Record<
-	Exclude<ProductSlugWithContent, 'well-architected-framework'>,
+	Exclude<
+		ProductSlugWithContent,
+		'well-architected-framework' | 'validated-patterns'
+	>,
 	HcpCalloutContent
 > = {
 	terraform: {
@@ -79,11 +82,11 @@ export const tryHcpCalloutContent: Record<
 			'https://www.datocms-assets.com/2885/1721073685-devdot-try-hcp-callout-ui-mock-vault.svg',
 	},
 	vagrant: {
-		heading: 'Vagrant Cloud',
+		heading: 'HCP Vagrant Registry',
 		description:
 			'Virtual boxes for Linux, Laravel and any development environment',
-		ctaText: 'Try Vagrant Cloud for free',
-		ctaUrl: 'https://app.vagrantup.com/boxes/search',
+		ctaText: 'Try HCP Vagrant Registry for free',
+		ctaUrl: 'https://portal.cloud.hashicorp.com/vagrant/discover',
 		image:
 			'https://www.datocms-assets.com/2885/1721073683-devdot-try-hcp-callout-ui-mock-vagrant.svg',
 	},

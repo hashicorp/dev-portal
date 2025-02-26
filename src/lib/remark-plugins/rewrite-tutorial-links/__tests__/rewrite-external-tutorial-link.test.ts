@@ -12,6 +12,7 @@ const MOCK_TUTORIAL_MAP = {
 	'cloud/amazon-peering-hcp': '/hcp/tutorials/networking/amazon-peering-hcp',
 	'well-architected-framework/tutorial':
 		'/well-architected-framework/collection/tutorial',
+	'validated-patterns/tutorial': '/validated-patterns/collection/tutorial',
 }
 
 const testEachCase = (cases: string[][]) => {
@@ -56,6 +57,10 @@ describe('rewriteExternalTutorialLink', () => {
 			[
 				'/tutorials/well-architected-framework/tutorial',
 				MOCK_TUTORIAL_MAP['well-architected-framework/tutorial'],
+			],
+			[
+				'/tutorials/validated-patterns/tutorial',
+				MOCK_TUTORIAL_MAP['validated-patterns/tutorial'],
 			],
 			['/tutorials/not-a-beta-product/tutorial', undefined],
 			['/tutorials/vault/tutorial-does-not-exist', undefined],
