@@ -296,7 +296,6 @@ export default class RemoteContentLoader implements DataLoader {
 
 		// Check if the product is in the unified docs sandbox and migrated
 		if (
-			process.env.HASHI_ENV === 'unified-docs-sandbox' &&
 			__config.flags?.unified_docs_migrated_repos?.find(
 				(product) => product === document.product
 			)

@@ -32,7 +32,6 @@ async function renderPageMdx(
 }> {
 	const finalRemarkPlugins = remarkPlugins
 	if (
-		process.env.HASHI_ENV === 'unified-docs-sandbox' &&
 		__config.flags?.unified_docs_migrated_repos?.find(
 			(product) => product === scope.product
 		)
