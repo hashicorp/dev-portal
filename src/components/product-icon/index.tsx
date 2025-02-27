@@ -72,6 +72,10 @@ const productSlugsToIcons = {
 		16: IconWaypoint16,
 		24: IconWaypoint24,
 	},
+	sentinel: {
+		16: IconHcp16,
+		24: IconHcp24,
+	},
 }
 
 const ProductIcon = ({ productSlug, size = 16, ...rest }: ProductIconProps) => {
@@ -85,7 +89,7 @@ const ProductIcon = ({ productSlug, size = 16, ...rest }: ProductIconProps) => {
 
 	// Color should inherit from parent for hcp
 	const color =
-		productSlug === 'hcp'
+		productSlug === 'hcp' || productSlug === 'sentinel'
 			? undefined
 			: `var(--token-color-${productSlug}-brand)`
 
