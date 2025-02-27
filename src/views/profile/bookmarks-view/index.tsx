@@ -24,6 +24,8 @@ import { ProfileSidebar } from '../sidebar'
 import { SortData } from './helpers/card-sort-data'
 import s from './bookmarks-view.module.css'
 
+
+
 /**
  * The exported view component that handles wrapping the view content in
  * `AuthenticatedView`, which automatically handles rendering gated content.
