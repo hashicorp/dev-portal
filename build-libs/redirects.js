@@ -64,7 +64,6 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	 * Return early if there are not any redirects found for that specific repo.
 	 */
 	if (
-		process.env.HASHI_ENV === 'unified-docs-sandbox' &&
 		config.flags?.unified_docs_migrated_repos?.find((repo) => repo === repoName)
 	) {
 		const getUDRRedirects = await fetch(
