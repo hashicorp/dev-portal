@@ -36,10 +36,7 @@ export function remarkRewriteAssets(args: {
 				if (isInUDR) {
 					let domain
 
-					if (
-						process.env.NODE_ENV === 'development' &&
-						process.env.HASHI_ENV === 'unified-docs-sandbox'
-					) {
+					if (process.env.NODE_ENV === 'development') {
 						domain = `http://localhost:${process.env.UNIFIED_DOCS_PORT}`
 					} else {
 						domain = process.env.UNIFIED_DOCS_API
