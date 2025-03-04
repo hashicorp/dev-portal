@@ -9,5 +9,7 @@
 	"learn": {
 		"max_static_paths": 1
 	},
-	"flags": {}
+	"flags": {
+		"unified_docs_migrated_repos": ["terraform-plugin-framework"]
+	}
 }
