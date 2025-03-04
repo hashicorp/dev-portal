@@ -449,8 +449,8 @@ describe('RemoteContentLoader', () => {
 		})
 
 		// Verify that the function completed successfully
-		expect(props.navData[0].path).not.toBeDefined()
-		expect(props.navData[0].title).toEqual('Item with no path')
+		expect((props.navData[0] as any).path).not.toBeDefined()
+		expect((props.navData[0] as any).title).toEqual('Item with no path')
 	})
 })
 
