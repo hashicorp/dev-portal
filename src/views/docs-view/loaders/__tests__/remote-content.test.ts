@@ -65,82 +65,23 @@ describe('RemoteContentLoader', () => {
 
 	test("allows 'navDataPrefix' to look up nav data", async () => {
 		const loader = new RemoteContentLoader({
-			basePath: 'plugin/mux',
-			navDataPrefix: 'plugin-mux',
-			product: 'terraform-plugin-mux',
-			latestVersionRef: 'v0.6.x',
+			basePath: 'commands',
+			navDataPrefix: 'commands',
+			product: 'waypoint',
+			latestVersionRef: 'v0.5.x',
 		})
 
 		scope
-			.get('/api/content/terraform-plugin-mux/version-metadata')
+			.get('/api/content/waypoint/version-metadata')
 			.query({ partial: 'true' })
-			.reply(200, {
-				meta: {
-					status_code: 200,
-					status_text: 'OK',
-				},
-				result: [
-					{
-						product: 'terraform-plugin-mux',
-						ref: 'refs/heads/main',
-						version: 'v0.6.x',
-						created_at: '2022-05-05T20:45:15.560Z',
-						display: 'v0.6.x',
-						sha: 'b20cf6618b0bdf4c9eb8895b1d30eca11cc3eae5',
-						sk: 'version-metadata/v0.6.x',
-						isLatest: true,
-						pk: 'terraform-plugin-mux#version-metadata',
-					},
-				],
-			})
+			.reply(200, versionMetadata_200)
 
-		// NOTE: The key assertion is the 'plugin-mux' segment in this URL
 		scope
-			.get('/api/content/terraform-plugin-mux/nav-data/v0.6.x/plugin-mux')
-			.reply(200, {
-				meta: {
-					status_code: 200,
-					status_text: 'OK',
-				},
-				result: {
-					product: 'terraform-plugin-mux',
-					githubFile: 'website/docs/plugin-mux-nav-data.json',
-					version: 'v0.6.x',
-					created_at: '2022-05-05T20:45:15.438Z',
-					sha: 'b20cf6618b0bdf4c9eb8895b1d30eca11cc3eae5',
-					sk: 'nav-data/v0.6.x/plugin-mux',
-					subpath: 'plugin-mux',
-					pk: 'terraform-plugin-mux#nav-data/v0.6.x/plugin-mux',
-					navData: [
-						{
-							heading: 'Combining and Translating',
-						},
-						{
-							title: 'Overview',
-							path: '',
-						},
-						{
-							title: 'Combining Protocol v5 Providers',
-							path: 'combining-protocol-version-5-providers',
-						},
-						{
-							title: 'Combining Protocol v6 Providers',
-							path: 'combining-protocol-version-6-providers',
-						},
-						{
-							title: 'Translating Protocol v5 to v6',
-							path: 'translating-protocol-version-5-to-6',
-						},
-						{
-							title: 'Translating Protocol v6 to v5',
-							path: 'translating-protocol-version-6-to-5',
-						},
-					],
-				},
-			})
+			.get('/api/content/waypoint/nav-data/v0.5.x/commands')
+			.reply(200, navData_200)
 
 		const paths = await loader.loadStaticPaths()
-		expect(paths).toHaveLength(6)
+		expect(paths).toHaveLength(65)
 	})
 
 	test('generates props from remote data', async () => {
