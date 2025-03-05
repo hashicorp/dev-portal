@@ -15,6 +15,7 @@ import {
 	useMilestones,
 } from './helpers'
 import s from './video-embed.module.css'
+import { onVideoStart } from 'hooks/use-posthog-analytics'
 
 /**
  * MAX_PLAYBACK_SPEED is based on max speeds for YouTube & Wistia.
@@ -142,6 +143,9 @@ function VideoEmbed({
 					{...reactPlayerProps}
 					config={config}
 					url={url}
+					onStart={() => {
+						onVideoStart(url)
+					}}
 					onDuration={setDuration}
 					progressInterval={PROGRESS_INTERVAL}
 					onProgress={({ playedSeconds }: { playedSeconds: number }) => {
