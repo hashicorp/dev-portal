@@ -44,7 +44,7 @@ interface UseAuthenticationResult {
 	signOut: (options?: SignOutParams) => ReturnType<typeof signOut>
 	signUp: typeof signUp
 	user: null | Session['user']
-	update: (data?: any) => Promise<Session | null>
+	update: (data?: $TSFixMe) => Promise<Session | null>
 }
 
 /**
