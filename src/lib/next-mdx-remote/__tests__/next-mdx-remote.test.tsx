@@ -79,8 +79,6 @@ describe('serialize', () => {
 	})
 
 	test('with MDXProvider providing custom components', async () => {
-		const TestContext = React.createContext(null)
-
 		const mdxSource = await serialize('<Test />')
 
 		const result = ReactDOMServer.renderToStaticMarkup(
