@@ -35,7 +35,7 @@ type MDXRemoteProps = MDXRemoteSerializeResult & {
 	 *
 	 * For example: `{ ComponentName: Component }` will be accessible in the MDX as `<ComponentName/>`.
 	 */
-	components?: Record<string, React.ComponentType<any>>
+	components?: Record<string, React.ComponentType<$TSFixMe>>
 	/**
 	 * Determines whether or not the content should be hydrated asynchronously, or "lazily"
 	 */
