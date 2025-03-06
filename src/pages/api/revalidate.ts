@@ -90,7 +90,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 				}
 			)
 		)
-	).filter(Boolean) as any[]
+	).filter(Boolean) as $TSFixMe[]
 
 	const revalidatePromises = []
 

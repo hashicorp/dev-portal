@@ -152,7 +152,7 @@ async function renderStatic(
 		mdxOptions,
 		target,
 	}: {
-		components?: Record<string, React.ComponentType<any>>
+		components?: Record<string, React.ComponentType<$TSFixMe>>
 	} & SerializeOptions = {}
 ): Promise<string> {
 	const mdxSource = await serialize(mdx, { mdxOptions, target })
