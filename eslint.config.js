@@ -66,11 +66,6 @@ module.exports = [
 			
 			// Not necessary in Next.js (https://spectrum.chat/next-js/general/react-must-be-in-scope-when-using-jsx~6193ef62-4d5e-4681-8f51-8c7bf6b9d56d)
             'react/react-in-jsx-scope': 'off',
-		},
-	},
-	{
-		files: ['**/*.js?(x)'],
-		rules: {
 			// For instances where we aren't using esmodules or TypeScript and therefore can't use import
 			'@typescript-eslint/no-require-imports': 'off'
 		},
