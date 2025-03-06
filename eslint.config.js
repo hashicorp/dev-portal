@@ -11,7 +11,7 @@ module.exports = [
 			'**/dist',
 			'eslint.config.js',
 			'public',
-			'vitest.config.mjs',
+			'vitest.config.mts',
 			'playwright-report',
 		],
 	},
