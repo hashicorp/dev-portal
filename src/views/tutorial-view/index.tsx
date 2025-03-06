@@ -122,7 +122,7 @@ function TutorialView({
 }: TutorialViewProps): React.ReactElement {
 	// hooks
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
+	const [, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
 
 	// variables

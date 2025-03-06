@@ -32,7 +32,7 @@ export default async function main() {
 			path: filePath,
 			ref: ref ?? 'stable-website',
 		})
-	} catch (err) {
+	} catch {
 		console.log('❌ failed to fetch file at:', repoFilePathAndRef)
 		return
 	}
