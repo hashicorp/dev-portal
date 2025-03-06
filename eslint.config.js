@@ -10,7 +10,6 @@ module.exports = [
 			'.next',
 			'**/dist',
 			'eslint.config.js',
-			'content',
 			'public',
 			'vitest.config.mjs',
 			'playwright-report',
