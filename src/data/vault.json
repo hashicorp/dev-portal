@@ -174,5 +174,22 @@
 				"href": "/vault/tutorials/custom-secrets-engine"
 			}
 		]
+	},
+	"instruqtId": "hashicorp-learn/tracks/vault-sandbox?token=em_usmVkoZLWz8SAXNB",
+	"playgroundConfig": {
+		"sidebarLinks": [
+			{
+				"title": "Install Vault",
+				"href": "/vault/install"
+			},
+			{
+				"title": "Get Started with Vault",
+				"href": "/vault/tutorials/get-started"
+			},
+			{
+				"title": "Vault Documentation",
+				"href": "/vault/docs"
+			}
+		]
 	}
 }

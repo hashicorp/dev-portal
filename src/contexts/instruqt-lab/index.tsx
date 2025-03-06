@@ -23,6 +23,8 @@ interface InstruqtContextProps {
 interface InstruqtProviderProps {
 	labId: string
 	children: ReactNode
+	defaultActive?: boolean
+	isPlayground?: boolean
 }
 
 const InstruqtContext = createContext<Partial<InstruqtContextProps>>({})
@@ -34,23 +36,31 @@ export const useInstruqtEmbed = (): Partial<InstruqtContextProps> =>
 export default function InstruqtProvider({
 	labId,
 	children,
+	defaultActive = false,
+	isPlayground = false,
 }: InstruqtProviderProps): JSX.Element {
-	const [active, setActive] = useState(false)
+	const [active, setActive] = useState(defaultActive)
 
 	return (
 		<InstruqtContext.Provider value={{ labId, active, setActive }}>
-			{children}
-			{active && (
-				<div id="instruqt-panel-target">
-					<Resizable
-						initialHeight={640}
-						panelActive={active}
-						setPanelActive={setActive}
-						style={{ top: '-28px' }}
-					>
-						<EmbedElement />
-					</Resizable>
-				</div>
+			{isPlayground ? (
+				children
+			) : (
+				<>
+					{children}
+					{active && (
+						<div id="instruqt-panel-target">
+							<Resizable
+								initialHeight={640}
+								panelActive={active}
+								setPanelActive={setActive}
+								style={{ top: '-28px' }}
+							>
+								<EmbedElement />
+							</Resizable>
+						</div>
+					)}
+				</>
 			)}
 		</InstruqtContext.Provider>
 	)
