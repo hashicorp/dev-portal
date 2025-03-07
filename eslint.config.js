@@ -65,12 +65,7 @@ module.exports = [
 			'@typescript-eslint/explicit-function-return-type': 'off',
 			
 			// Not necessary in Next.js (https://spectrum.chat/next-js/general/react-must-be-in-scope-when-using-jsx~6193ef62-4d5e-4681-8f51-8c7bf6b9d56d)
-            'react/react-in-jsx-scope': 'off',
-		},
-	},
-	{
-		files: ['**/*.js?(x)'],
-		rules: {
+			'react/react-in-jsx-scope': 'off',
 			// For instances where we aren't using esmodules or TypeScript and therefore can't use import
 			'@typescript-eslint/no-require-imports': 'off'
 		},
@@ -78,9 +73,9 @@ module.exports = [
 	{
 		files: ['**/*.ts?(x)'],
 		rules: {
-            'react/prop-types': 'off',
-            'react/no-array-index-key': 'warn',
-            'react/no-unknown-property': ['error', { ignore: ['class'] }]
+			'react/prop-types': 'off',
+			'react/no-array-index-key': 'warn',
+			'react/no-unknown-property': ['error', { ignore: ['class'] }]
 		},
 	},
 ]
