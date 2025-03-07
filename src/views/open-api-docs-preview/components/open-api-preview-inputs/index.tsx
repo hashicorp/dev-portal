@@ -93,7 +93,11 @@ export function OpenApiPreviewInputs({
 	async function updateStaticProps() {
 		setIsLoading(true)
 		const [err, result] = await fetchOpenApiStaticProps(inputValues)
-		err ? setError(err) : setStaticProps(result)
+		if(err) {
+			setError(err)
+		} else {
+			setStaticProps(result)
+		}
 		setIsLoading(false)
 	}
 
