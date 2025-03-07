@@ -103,7 +103,7 @@ export default async function handler(
 	}
 
 	// Filter out any keys that aren't sanctioned
-	const filteredBody: any = {}
+	const filteredBody: $TSFixMe = {}
 	allowedKeys.forEach((key) => {
 		if (typeof request.body[key] !== 'undefined') {
 			filteredBody[key] = request.body[key]

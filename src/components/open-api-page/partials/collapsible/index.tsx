@@ -77,7 +77,7 @@ function adjustHeight(
 	elem.addEventListener('transitionend', handleTransitionEnd, false)
 }
 
-type TransitionHandler = (this: HTMLDivElement, ev: TransitionEvent) => any
+type TransitionHandler = (this: HTMLDivElement, ev: TransitionEvent) => $TSFixMe
 const handleTransitionEnd: TransitionHandler = function (event) {
 	if (event.propertyName !== 'height') {
 		return

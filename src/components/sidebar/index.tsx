@@ -4,7 +4,7 @@
  */
 
 // Third-party imports
-import { ReactElement, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import classNames from 'classnames'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import ProductPanel from '@hashicorp/react-components/src/components/nav-panel/product-panel'

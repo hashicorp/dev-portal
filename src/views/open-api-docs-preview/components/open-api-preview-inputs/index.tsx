@@ -81,7 +81,7 @@ export function OpenApiPreviewInputs({
 			if (parsedValue && inputValues.openApiDescription !== parsedValue) {
 				setInputValue('openApiDescription', parsedValue)
 			}
-		} catch (e) {
+		} catch {
 			// do nothing if parsing fails
 		}
 	}, [inputValues])

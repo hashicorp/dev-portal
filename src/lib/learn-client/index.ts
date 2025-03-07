@@ -52,7 +52,7 @@ export async function toError(errorResponse) {
 	let json
 	try {
 		json = await errorResponse.json()
-	} catch (err) {
+	} catch {
 		// Do nothing if the response is not json
 	}
 
