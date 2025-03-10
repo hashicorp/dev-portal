@@ -10,7 +10,7 @@ export const CONSENT_COOKIE_KEY = 'has_configured_dg_consent'
 
 export const isOnClient = () => typeof window !== 'undefined'
 export const datagrailHasMounted = () =>
-	isOnClient() && window.hasOwnProperty('DG_BANNER_API')
+	isOnClient() && Object.prototype.hasOwnProperty.call(window, 'DG_BANNER_API')
 
 export const showBanner = () => {
 	if (!datagrailHasMounted()) return

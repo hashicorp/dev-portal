@@ -83,7 +83,7 @@ export const addNavItemMetaData = (
 			 * This should be in place until all nav data content (including past
 			 * versions) no longer contains `<sup>` tags in `title`s.
 			 */
-			if (item.hasOwnProperty('title')) {
+			if (Object.prototype.hasOwnProperty.call(item, 'title')) {
 				const itemWithTitle = item as
 					| EnrichedSubmenuNavItem
 					| EnrichedLinkNavItem
@@ -101,7 +101,7 @@ export const addNavItemMetaData = (
 			}
 
 			// Found an `EnrichedSubmenuNavItem` object
-			if (item.hasOwnProperty('routes')) {
+			if (Object.prototype.hasOwnProperty.call(item, 'routes')) {
 				const result = addNavItemMetaData(
 					currentPath,
 					(item as EnrichedSubmenuNavItem).routes
@@ -118,7 +118,7 @@ export const addNavItemMetaData = (
 			}
 
 			// Found an `EnrichedLinkNavItem` object
-			if (item.hasOwnProperty('fullPath')) {
+			if (Object.prototype.hasOwnProperty.call(item, 'fullPath')) {
 				const itemPath = (item as EnrichedLinkNavItem).fullPath
 				const isActive =
 					!foundActiveItem && itemPath.replace(/\/$/, '') === currentPath
