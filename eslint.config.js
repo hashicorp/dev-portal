@@ -13,6 +13,7 @@ module.exports = [
 			'public',
 			'vitest.config.mts',
 			'playwright-report',
+			'**/.extracted',
 		],
 	},
 	pluginJs.configs.recommended,
