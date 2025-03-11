@@ -3,12 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { NavigationHeaderIcon } from 'components/navigation-header/types'
+import {
+	NavigationHeaderIcon,
+	NavigationHeaderItem,
+} from 'components/navigation-header/types'
 import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
 import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 import { ProductData } from 'types/products'
 import { NavItem } from './types'
-import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
+import PLAYGROUND_CONFIG from 'data/playground-config.json'
 
 const TRY_CLOUD_ITEM_PRODUCT_SLUGS = [
 	'boundary',
@@ -154,7 +157,15 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 		}
 	}
 
-	if (currentProduct.playgroundConfig?.labs?.length) {
+	/**
+	 * Add Playground item if there are any labs configured
+	 * and the current product is in the supported products list
+	 */
+	const supportedPlaygroundProducts = PLAYGROUND_CONFIG.products || []
+	if (
+		PLAYGROUND_CONFIG.labs?.length &&
+		supportedPlaygroundProducts.includes(currentProduct.slug)
+	) {
 		items.push({
 			label: 'Playground',
 			url: `/${currentProduct.slug}/playground`,
