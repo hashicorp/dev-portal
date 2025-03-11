@@ -102,5 +102,32 @@
 	],
 	"integrationsConfig": {
 		"description": "A curated collection of official, partner, and community Nomad Integrations."
+	},
+
+	"playgroundConfig": {
+		"description": "Learn how to manage your workloads with Nomad.",
+		"sidebarLinks": [
+			{
+				"title": "Install Nomad",
+				"href": "/nomad/install"
+			},
+			{
+				"title": "Get Started with Nomad",
+				"href": "/nomad/tutorials/get-started"
+			},
+			{
+				"title": "Nomad documentation",
+				"href": "/nomad/docs"
+			}
+		],
+		"labs": [
+			{
+				"id": "nomad-sandbox",
+				"name": "Nomad sandbox",
+				"instruqtId": "hashicorp-learn/tracks/nomad-sandbox?token=em_0wOuIAyyjAQllLkc",
+				"description": "A Nomad cluster with three server nodes and one client node, Consul installed and configured, and Access Control Lists (ACLs) enabled for both Nomad and Consul.",
+				"products": ["nomad", "consul"]
+			}
+		]
 	}
 }
