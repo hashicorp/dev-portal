@@ -207,7 +207,7 @@
 				"id": "create-infrastructure",
 				"name": "Create Infrastructure",
 				"instruqtId": "hashicorp-learn/tracks/create-terraform-infrastructure?token=em__EA8k5ywxqiOejXd",
-				"description": "Learn how to create infrastructure with Terraform",
+				"description": "Learn how to create infrastructure",
 				"products": ["terraform"]
 			}
 		]
