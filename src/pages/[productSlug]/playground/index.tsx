@@ -4,22 +4,26 @@
  */
 
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { useState } from 'react'
 import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import InstruqtProvider from 'contexts/instruqt-lab'
+import EmbedElement from 'components/lab-embed/embed-element'
 import {
 	generateTopLevelSidebarNavData,
 	generateProductLandingSidebarNavData,
 } from 'components/sidebar/helpers'
-import CardLink from 'components/card-link'
 import {
 	CardTitle,
 	CardDescription,
 	CardFooter,
 } from 'components/card/components'
+import Card from 'components/card'
 import CardsGridList from 'components/cards-grid-list'
 import { BrandedHeaderCard } from 'views/product-integrations-landing/components/branded-header-card'
 import { CardBadges } from 'components/tutorial-collection-cards'
 import { ProductOption } from 'lib/learn-client/types'
+import { MenuItem } from 'components/sidebar/types'
 
 interface PlaygroundPageProps {
 	product: (typeof PRODUCT_DATA_MAP)[keyof typeof PRODUCT_DATA_MAP]
@@ -33,6 +37,8 @@ export default function PlaygroundView({
 	product,
 	layoutProps,
 }: PlaygroundPageProps) {
+	const [selectedPlayground, setSelectedPlayground] = useState(null)
+
 	return (
 		<SidebarSidecarLayout
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
@@ -53,26 +59,36 @@ export default function PlaygroundView({
 			<div style={{ marginTop: '32px' }}>
 				<CardsGridList fixedColumns={2}>
 					{product.playgroundConfig.labs.map((playground) => (
-						<CardLink
+						<div
 							key={playground.id}
-							ariaLabel={playground.name}
-							href={`/${product.slug}/playground/${playground.id}`}
+							onClick={() => setSelectedPlayground(playground)}
+							style={{ cursor: 'pointer' }}
 						>
-							<CardTitle text={playground.name} />
-							{playground.description && (
-								<CardDescription text={playground.description} />
-							)}
-							<CardFooter>
-								<CardBadges
-									badges={playground.products.map(
-										(slug) => ProductOption[slug]
-									)}
-								/>
-							</CardFooter>
-						</CardLink>
+							<Card>
+								<CardTitle text={playground.name} />
+								{playground.description && (
+									<CardDescription text={playground.description} />
+								)}
+								<CardFooter>
+									<CardBadges
+										badges={playground.products.map(
+											(slug) => ProductOption[slug]
+										)}
+									/>
+								</CardFooter>
+							</Card>
+						</div>
 					))}
 				</CardsGridList>
 			</div>
+
+			{selectedPlayground && (
+				<div style={{ height: '80vh', marginTop: '32px' }}>
+					<InstruqtProvider labId={selectedPlayground.instruqtId} defaultActive>
+						<EmbedElement />
+					</InstruqtProvider>
+				</div>
+			)}
 		</SidebarSidecarLayout>
 	)
 }
@@ -116,35 +132,18 @@ export const getStaticProps: GetStaticProps<PlaygroundPageProps> = async ({
 	]
 
 	// Add playground links
-	const playgroundMenuItems = [
+	const playgroundMenuItems: MenuItem[] = [
 		{
 			title: `${product.name} Playground`,
 			fullPath: `/${productSlug}/playground`,
 			theme: product.slug,
 			isActive: true,
 		},
-		{
-			divider: true,
-		},
-		{
-			heading: 'Playgrounds',
-		},
-		...product.playgroundConfig.labs.map((playground) => ({
-			title: playground.name,
-			path: `/${productSlug}/playground/${playground.id}`,
-			href: `/${productSlug}/playground/${playground.id}`,
-			isActive: false,
-		})),
 	]
 
 	if (product.playgroundConfig.sidebarLinks) {
 		playgroundMenuItems.push(
-			{
-				divider: true,
-			},
-			{
-				heading: 'Resources',
-			},
+			{ heading: 'Resources' },
 			...product.playgroundConfig.sidebarLinks.map((link) => ({
 				title: link.title,
 				path: link.href,
