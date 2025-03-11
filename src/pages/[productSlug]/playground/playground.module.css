@@ -43,6 +43,7 @@
 .featureList {
 	margin: 16px 0;
 	padding-left: 24px;
+	color: var(--token-color-foreground-primary);
 
 	& li {
 		margin-bottom: 8px;
