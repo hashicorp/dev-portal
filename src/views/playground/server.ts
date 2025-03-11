@@ -28,12 +28,14 @@ export const getStaticProps: GetStaticProps<PlaygroundPageProps> = async ({
 	const productSlug = params?.productSlug as string
 	const product = PRODUCT_DATA_MAP[productSlug]
 
-	// Only show playground page if product has an instruqtId
-	if (!product || !product.instruqtId) {
+	// Only show playground page if product has labs configured
+	if (!product || !product.playgroundConfig?.labs?.length) {
 		return {
 			notFound: true,
 		}
 	}
+
+	const defaultLab = product.playgroundConfig.labs[0]
 
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
@@ -87,7 +89,7 @@ export const getStaticProps: GetStaticProps<PlaygroundPageProps> = async ({
 	return {
 		props: {
 			product,
-			labId: product.instruqtId,
+			labId: defaultLab.instruqtId,
 			layoutProps: {
 				breadcrumbLinks,
 				navLevels: sidebarNavDataLevels,
