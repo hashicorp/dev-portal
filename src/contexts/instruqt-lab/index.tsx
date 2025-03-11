@@ -14,7 +14,6 @@ import {
 	useCallback,
 } from 'react'
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 import EmbedElement from 'components/lab-embed/embed-element'
 import Resizable from 'components/lab-embed/resizable'
 import SandboxErrorBoundary from 'components/sandbox-error-boundary'
@@ -84,14 +83,10 @@ interface InstruqtContextProps {
 	setActive: Dispatch<SetStateAction<boolean>>
 	openLab: (labId: string) => void
 	closeLab: () => void
-	hasConfigError: boolean
-	configErrors: string[]
 }
 
 interface InstruqtProviderProps {
-	labId: string
 	children?: ReactNode
-	defaultActive?: boolean
 }
 
 const STORAGE_KEY = 'instruqt-lab-state'
@@ -102,106 +97,35 @@ const InstruqtContext = createContext<InstruqtContextProps>({
 	setActive: () => {},
 	openLab: () => {},
 	closeLab: () => {},
-	hasConfigError: false,
-	configErrors: [],
 })
 InstruqtContext.displayName = 'InstruqtContext'
 
 export const useInstruqtEmbed = (): InstruqtContextProps =>
 	useContext(InstruqtContext)
 
-export default function InstruqtProvider({
-	labId,
-	children,
-	defaultActive = false,
-}: InstruqtProviderProps): JSX.Element {
-	const [active, setActive] = useState(defaultActive)
+function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
+	const [isClient, setIsClient] = useState(false)
+	const [labId, setLabId] = useState<string | null>(null)
+	const [active, setActive] = useState(false)
 
-	// Validate configuration on startup
-	useEffect(() => {
-		const validation = validateSandboxConfigWithDetailedErrors(SANDBOX_CONFIG)
-
-		if (!validation.isValid) {
-			setHasConfigError(true)
-			setConfigErrors(validation.errors)
-
-			trackInstruqtError(
-				'config_validation_failed',
-				'Sandbox configuration validation failed',
-				{
-					errors: validation.errors,
-					error_count: validation.errors.length,
-				}
-			)
-
-			if (typeof window !== 'undefined' && window.posthog) {
-				window.posthog.capture('sandbox_config_error', {
-					errors: validation.errors,
-					timestamp: new Date().toISOString(),
-				})
-			}
-		} else if (validation.warnings.length > 0) {
-			trackInstruqtError(
-				'config_warnings',
-				'Sandbox configuration has warnings',
-				{
-					warnings: validation.warnings,
-					warning_count: validation.warnings.length,
-				}
-			)
-		}
-	}, [])
-
+	// Only run on client side
 	useEffect(() => {
 		setIsClient(true)
 		try {
 			const stored = localStorage.getItem(STORAGE_KEY)
 			if (stored) {
 				const { active: storedActive, storedLabId } = JSON.parse(stored)
-				// Validate that the stored lab ID still exists in current configuration
-				if (storedLabId && !hasConfigError) {
-					const labExists = SANDBOX_CONFIG.labs?.some(
-						(lab) => lab.labId === storedLabId
-					)
-					if (labExists) {
-						setLabId(storedLabId)
-						setActive(storedActive)
-					} else {
-						// Clear invalid lab from storage
-						localStorage.removeItem(STORAGE_KEY)
-					}
-				}
+				setLabId(storedLabId)
+				setActive(storedActive)
 			}
 		} catch (e) {
-			trackInstruqtError(
-				'storage_restore_failed',
-				'Failed to restore Instruqt lab state',
-				{
-					error: e instanceof Error ? e.message : String(e),
-				}
-			)
-
-			try {
-				localStorage.removeItem(STORAGE_KEY)
-			} catch (clearError) {
-				// Storage operations failed - continue without persistence
-				trackInstruqtError(
-					'storage_clear_failed',
-					'Failed to clear corrupted storage',
-					{
-						error:
-							clearError instanceof Error
-								? clearError.message
-								: String(clearError),
-					}
-				)
-			}
+			console.warn('Failed to restore Instruqt lab state:', e)
 		}
-	}, [hasConfigError])
+	}, [])
 
 	// Persist state changes to localStorage
 	useEffect(() => {
-		if (!isClient || hasConfigError) return
+		if (!isClient) return
 
 		try {
 			localStorage.setItem(
@@ -212,119 +136,25 @@ export default function InstruqtProvider({
 				})
 			)
 		} catch (e) {
-			trackInstruqtError(
-				'storage_persist_failed',
-				'Failed to persist Instruqt lab state',
-				{
-					error: e instanceof Error ? e.message : String(e),
-					active,
-					labId,
-				}
-			)
+			console.warn('Failed to persist Instruqt lab state:', e)
 		}
-	}, [active, labId, isClient, hasConfigError])
+	}, [active, labId, isClient])
 
-	useEffect(() => {
-		if (active && labId && !hasConfigError) {
-			trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
-				labId,
-				page: router.asPath,
-			})
-		}
-	}, [router.asPath, active, labId, hasConfigError])
-
-	const openLab = useCallback(
-		(newLabId: string) => {
-			if (hasConfigError) {
-				trackInstruqtError(
-					'lab_open_blocked',
-					'Cannot open lab: sandbox configuration is invalid',
-					{
-						attempted_lab_id: newLabId,
-						config_errors: configErrors,
-					}
-				)
-				return
-			}
-
-			// Extract the base lab ID from the full lab ID (which may contain tokens)
-			let baseLabId = newLabId.split('?')[0] // Remove query parameters first
-
-			if (baseLabId.includes('/')) {
-				baseLabId = baseLabId.split('/').pop() || baseLabId
-			}
-
-			// Validate that the lab ID exists in current configuration
-			const labExists = SANDBOX_CONFIG.labs?.some((lab) => {
-				const trackName = lab.instruqtTrack?.split('/').pop() || lab.labId
-				return (
-					lab.labId === newLabId ||
-					lab.labId === baseLabId ||
-					trackName === baseLabId ||
-					lab.instruqtTrack === newLabId
-				)
-			})
-
-			if (!labExists) {
-				trackInstruqtError(
-					'lab_not_found',
-					`Lab ID "${newLabId}" not found in configuration`,
-					{
-						attempted_lab_id: newLabId,
-						base_lab_id: baseLabId,
-						available_labs: SANDBOX_CONFIG.labs?.map((lab) => lab.labId) || [],
-					}
-				)
-				return
-			}
-
-			// Only update if the lab ID is different or the panel is not active
-			if (newLabId !== labId || !active) {
-				setLabId(newLabId)
-				setActive(true)
-
-				// Track sandbox open event immediately
-				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
-					labId: newLabId,
-					page: router.asPath,
-				})
-			}
-		},
-		[labId, active, hasConfigError, configErrors, router.asPath]
-	)
+	const openLab = useCallback((newLabId: string) => {
+		setLabId(newLabId)
+		setActive(true)
+	}, [])
 
 	const closeLab = useCallback(() => {
-		if (active && labId) {
-			trackSandboxEvent(SANDBOX_EVENT.SANDBOX_CLOSED, {
-				labId,
-				page: router.asPath,
-			})
-		}
 		setActive(false)
-	}, [active, labId, router.asPath])
-
-	if (hasConfigError) {
-		return (
-			<InstruqtContext.Provider
-				value={{
-					labId: null,
-					active: false,
-					setActive: () => {},
-					openLab: () => {},
-					closeLab: () => {},
-					hasConfigError,
-					configErrors,
-				}}
-			>
-				{children}
-			</InstruqtContext.Provider>
-		)
-	}
+	}, [])
 
 	return (
-		<InstruqtContext.Provider value={{ labId, active, setActive }}>
+		<InstruqtContext.Provider
+			value={{ labId, active, setActive, openLab, closeLab }}
+		>
 			{children}
-			{active && (
+			{isClient && active && labId && (
 				<div id="instruqt-panel-target">
 					<Resizable
 						initialHeight={640}
@@ -340,6 +170,7 @@ export default function InstruqtProvider({
 	)
 }
 
+// Export a client-side only version of the provider
 export default dynamic(() => Promise.resolve(InstruqtProvider), {
 	ssr: false,
 })
