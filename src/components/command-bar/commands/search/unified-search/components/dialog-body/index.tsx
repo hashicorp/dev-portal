@@ -5,7 +5,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 // Libraries
-import algoliasearch from 'algoliasearch'
+import { liteClient as algoliasearch } from 'algoliasearch/lite'
 import { Configure, InstantSearch, Index, useHits } from 'react-instantsearch'
 // Command bar
 import { useCommandBar } from 'components/command-bar'
@@ -34,11 +34,7 @@ import s from './dialog-body.module.css'
 
 const ALGOLIA_INDEX_NAME = __config.dev_dot.algolia.unifiedIndexName
 
-/**
- * Initialize the algolia search client.
- *
- * TODO(brkalow): We might consider lazy-loading the search client & the insights library
- */
+// Initialize the algolia search client
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_ONLY_API_KEY
 const searchClient = algoliasearch(appId, apiKey)
@@ -151,6 +147,13 @@ function SearchResults({
 						)
 					}
 				)}
+				<Index indexName={__config.dev_dot.algolia.udrIndexName} indexId="docs">
+					<Configure
+						query={currentInputValue}
+						filters={getAlgoliaFilters(currentProductSlug, 'docs')}
+					/>
+					<HitsReporter setHits={(hits) => setHitData('docs', hits)} />
+				</Index>
 			</InstantSearch>
 			{/* UnifiedHitsContainer renders search results in a tabbed interface. */}
 			<UnifiedHitsContainer

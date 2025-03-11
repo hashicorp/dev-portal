@@ -17,20 +17,40 @@ export function remarkRewriteAssets(args: {
 	product: string
 	version: string
 	getAssetPathParts?: (nodeUrl: string) => string[]
+	isInUDR?: boolean
 }): Plugin {
-	const { product, version, getAssetPathParts = (nodeUrl) => [nodeUrl] } = args
+	const {
+		product,
+		version,
+		getAssetPathParts = (nodeUrl) => [nodeUrl],
+		isInUDR = false,
+	} = args
 
 	return function plugin() {
 		return function transform(tree) {
 			// @ts-expect-error Types Should be correct here
 			visit<Image>(tree, 'image', (node) => {
+				let url
 				const originalUrl = node.url
-				const asset = path.posix.join(...getAssetPathParts(originalUrl))
 
-				const url = new URL(`${process.env.MKTG_CONTENT_DOCS_API}/api/assets`)
-				url.searchParams.append('asset', asset)
-				url.searchParams.append('version', version)
-				url.searchParams.append('product', product)
+				if (isInUDR) {
+					let domain
+
+					if (process.env.NODE_ENV === 'development') {
+						domain = `http://localhost:${process.env.UNIFIED_DOCS_PORT}`
+					} else {
+						domain = process.env.UNIFIED_DOCS_API
+					}
+
+					url = new URL(`${domain}/api/assets/${product}/${version}${node.url}`)
+				} else {
+					const asset = path.posix.join(...getAssetPathParts(originalUrl))
+
+					url = new URL(`${process.env.MKTG_CONTENT_DOCS_API}/api/assets`)
+					url.searchParams.append('asset', asset)
+					url.searchParams.append('version', version)
+					url.searchParams.append('product', product)
+				}
 
 				node.url = url.toString()
 				logOnce(

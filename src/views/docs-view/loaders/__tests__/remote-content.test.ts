@@ -42,7 +42,11 @@ describe('RemoteContentLoader', () => {
 
 		nock.disableNetConnect()
 
-		scope = nock(process.env.MKTG_CONTENT_DOCS_API)
+		scope = nock(
+			new RegExp(
+				`${process.env.MKTG_CONTENT_DOCS_API}|${process.env.UNIFIED_DOCS_API}`
+			)
+		)
 	})
 
 	afterAll(() => {
@@ -273,10 +277,184 @@ describe('RemoteContentLoader', () => {
 		})
 
 		expect(mockMdxContentHook).toHaveBeenCalledWith(expect.any(String), {
+			product: 'waypoint',
 			version: 'v0.4.x',
 		})
 		// assert that `serialize` is called with the result of the hook
 		expect(serializeSpy).toHaveBeenCalledWith('Mock impl', expect.any(Object))
+	})
+
+	test('should not modify nav data for latest version', async () => {
+		// Create test data with a heading and an empty path item
+		const testNavData = {
+			meta: {
+				status_code: 200,
+				status_text: 'OK',
+			},
+			result: {
+				navData: [
+					{
+						heading: 'Test Heading',
+					},
+					{
+						title: 'Empty Path Item',
+						path: '',
+					},
+					{
+						title: 'Valid Item',
+						path: 'some-path',
+					},
+				],
+			},
+		}
+
+		scope
+			.get('/api/content/waypoint/version-metadata')
+			.query({ partial: 'true' })
+			.reply(200, versionMetadata_200)
+		scope
+			.get('/api/content/waypoint/doc/v0.5.x/commands')
+			.reply(200, document_200)
+		scope
+			.get('/api/content/waypoint/nav-data/v0.5.x/commands')
+			.reply(200, testNavData)
+
+		const versionedDocsLoader = new RemoteContentLoader({
+			...loader.opts,
+			enabledVersionedDocs: true,
+			latestVersionRef: 'v0.5.x',
+		})
+
+		const props = await versionedDocsLoader.loadStaticProps({
+			params: {
+				page: ['v0.5.x'],
+			},
+		})
+
+		// Verify the heading is preserved
+		expect(props.navData[0]).toHaveProperty('heading', 'Test Heading')
+
+		// Verify the empty path item is preserved
+		const emptyPathItem = props.navData.find(
+			(item: { path?: string; title?: string }) => item.path === ''
+		)
+		expect(emptyPathItem).toBeDefined()
+		expect(emptyPathItem).toEqual({
+			title: 'Empty Path Item',
+			path: '',
+		})
+
+		// Verify valid items remain unchanged
+		expect(props.navData).toContainEqual({
+			title: 'Valid Item',
+			path: 'some-path',
+		})
+	})
+
+	test('should process nav data correctly for non-latest versions', async () => {
+		// Create test data with a heading and an empty path item
+		const testNavData = {
+			meta: {
+				status_code: 200,
+				status_text: 'OK',
+			},
+			result: {
+				navData: [
+					{
+						heading: 'Test Heading',
+					},
+					{
+						title: 'Empty Path Item',
+						path: 'v0.4.x/',
+					},
+					{
+						title: 'Valid Item',
+						path: 'v0.4.x/some-path',
+					},
+				],
+			},
+		}
+
+		scope
+			.get('/api/content/waypoint/version-metadata')
+			.query({ partial: 'true' })
+			.reply(200, versionMetadata_200)
+		scope
+			.get('/api/content/waypoint/doc/v0.4.x/commands')
+			.reply(200, document_v4)
+		scope
+			.get('/api/content/waypoint/nav-data/v0.4.x/commands')
+			.reply(200, testNavData)
+
+		const versionedDocsLoader = new RemoteContentLoader({
+			...loader.opts,
+			enabledVersionedDocs: true,
+		})
+
+		const props = await versionedDocsLoader.loadStaticProps({
+			params: {
+				page: ['v0.4.x'],
+			},
+		})
+
+		// Verify the heading was removed
+		expect(props.navData[0]).not.toHaveProperty('heading')
+
+		// Verify the empty path item was removed
+		const emptyPathItem = props.navData.find(
+			(item: { path?: string; title?: string }) =>
+				item.path && item.path.split('/').length <= 1
+		)
+		expect(emptyPathItem).toBeUndefined()
+
+		// Verify valid items remain
+		expect(props.navData).toContainEqual({
+			title: 'Valid Item',
+			path: 'v0.4.x/some-path',
+		})
+	})
+
+	test('does not remove first navigation items with no path property', async () => {
+		// Create a modified version of navData with first item missing path property
+		const modifiedNavData = {
+			...navData_200,
+			result: {
+				...navData_200.result,
+				navData: [
+					// First item with no path property
+					{ title: 'Item with no path' },
+					// Rest of the items
+					...navData_200.result.navData.slice(1),
+				],
+			},
+		}
+
+		scope
+			.get('/api/content/waypoint/version-metadata')
+			.query({ partial: 'true' })
+			.reply(200, versionMetadata_200)
+		scope
+			.get('/api/content/waypoint/doc/v0.4.x/commands')
+			.reply(200, document_v4)
+		scope
+			.get('/api/content/waypoint/nav-data/v0.4.x/commands')
+			.reply(200, modifiedNavData)
+
+		const versionedDocsLoader = new RemoteContentLoader({
+			...loader.opts,
+			enabledVersionedDocs: true,
+		})
+
+		// This should not throw an error
+		const props = await versionedDocsLoader.loadStaticProps({
+			params: {
+				page: ['v0.4.x'],
+			},
+		})
+
+		// Verify that the function completed successfully
+		expect((props.navData[0] as any).path).not.toBeDefined()
+		expect((props.navData[0] as any).title).toEqual('Item with no path')
 	})
 })
 
