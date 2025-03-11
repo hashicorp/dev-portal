@@ -178,18 +178,11 @@
 		],
 		"labs": [
 			{
-				"id": "create-infrastructure",
-				"name": "Create Infrastructure",
-				"instruqtId": "hashicorp-learn/tracks/create-terraform-infrastructure?token=em__EA8k5ywxqiOejXd",
-				"description": "Learn how to create infrastructure",
+				"id": "terraform-sandbox",
+				"name": "Terraform Sandbox",
+				"instruqtId": "hashicorp-learn/tracks/terraform-sandbox?token=em_7UQwSJt0EbYq9YlE",
+				"description": "Get started quickly with a container-based sandbox host. Choose a container when you need a fast, lightweight Linux system",
 				"products": ["terraform"]
-			},
-			{
-				"id": "vault-sandbox",
-				"name": "Vault Playground (test)",
-				"instruqtId": "hashicorp-learn/tracks/vault-sandbox?token=em_usmVkoZLWz8SAXNB",
-				"description": "Learn how to manage your secrets with Vault",
-				"products": ["vault"]
 			}
 		]
 	}
