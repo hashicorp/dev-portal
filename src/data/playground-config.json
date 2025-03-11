@@ -1,23 +1,35 @@
 {
-	"terraform": {
-		"labId": "hashicorp-learn/tracks/terraform-build-your-first-configuration"
-	},
-	"vault": {
-		"labId": "hashicorp-learn/tracks/vault-basics"
-	},
-	"consul": {
-		"labId": "hashicorp-learn/tracks/consul-template-automate-reverse-proxy-config"
-	},
-	"nomad": {
-		"labId": "hashicorp-learn/tracks/nomad-basics"
-	},
-	"packer": {
-		"labId": "hashicorp-learn/tracks/packer-get-started-hcp"
-	},
-	"waypoint": {
-		"labId": "hashicorp-learn/tracks/waypoint-get-started-docker"
-	},
-	"boundary": {
-		"labId": "hashicorp-learn/tracks/boundary-basics"
-	}
+	"products": ["terraform", "vault", "consul", "nomad"],
+	"labs": [
+		{
+			"title": "Terraform Sandbox",
+			"description": "Get started quickly with a container-based sandbox host. Choose a container when you need a fast, lightweight Linux system",
+			"products": ["terraform"],
+			"labId": "hashicorp-learn/tracks/terraform-sandbox?token=em_7UQwSJt0EbYq9YlE"
+		},
+		{
+			"title": "Vault Playground (test)",
+			"description": "Learn how to manage your secrets with Vault",
+			"products": ["vault"],
+			"labId": "hashicorp-learn/tracks/vault-sandbox?token=em_usmVkoZLWz8SAXNB"
+		},
+		{
+			"title": "Nomad sandbox",
+			"description": "A Nomad cluster with three server nodes and one client node, Consul installed and configured, and Access Control Lists (ACLs) enabled for both Nomad and Consul.",
+			"labId": "hashicorp-learn/tracks/nomad-sandbox?token=em_0wOuIAyyjAQllLkc",
+			"products": ["nomad", "consul"]
+		},
+		{
+			"title": "Sandbox environment for Consul (Service discovery)",
+			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
+			"labId": "/hashicorp-learn/tracks/consul-sandbox-lab?token=em_I5XI2XjO-ZMeH1_w&rtp_SCENARIO=SD",
+			"products": ["consul"]
+		},
+		{
+			"title": "Sandbox environment for Consul (Service mesh)",
+			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
+			"labId": "/hashicorp-learn/tracks/consul-sandbox-lab?token=em_I5XI2XjO-ZMeH1_w&rtp_SCENARIO=SM",
+			"products": ["consul"]
+		}
+	]
 }
