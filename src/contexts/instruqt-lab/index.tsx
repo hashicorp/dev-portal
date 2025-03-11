@@ -10,39 +10,91 @@ import {
 	ReactNode,
 	Dispatch,
 	SetStateAction,
+	useEffect,
+	useCallback,
 } from 'react'
+import dynamic from 'next/dynamic'
 import EmbedElement from 'components/lab-embed/embed-element'
 import Resizable from 'components/lab-embed/resizable'
 
 interface InstruqtContextProps {
-	labId: string
+	labId: string | null
 	active: boolean
 	setActive: Dispatch<SetStateAction<boolean>>
+	openLab: (labId: string) => void
+	closeLab: () => void
 }
 
 interface InstruqtProviderProps {
-	labId: string
 	children?: ReactNode
-	defaultActive?: boolean
 }
 
-const InstruqtContext = createContext<Partial<InstruqtContextProps>>({})
+const STORAGE_KEY = 'instruqt-lab-state'
+
+const InstruqtContext = createContext<InstruqtContextProps>({
+	labId: null,
+	active: false,
+	setActive: () => {},
+	openLab: () => {},
+	closeLab: () => {},
+})
 InstruqtContext.displayName = 'InstruqtContext'
 
-export const useInstruqtEmbed = (): Partial<InstruqtContextProps> =>
+export const useInstruqtEmbed = (): InstruqtContextProps =>
 	useContext(InstruqtContext)
 
-export default function InstruqtProvider({
-	labId,
-	children,
-	defaultActive = false,
-}: InstruqtProviderProps): JSX.Element {
-	const [active, setActive] = useState(defaultActive)
+function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
+	const [isClient, setIsClient] = useState(false)
+	const [labId, setLabId] = useState<string | null>(null)
+	const [active, setActive] = useState(false)
+
+	// Only run on client side
+	useEffect(() => {
+		setIsClient(true)
+		try {
+			const stored = localStorage.getItem(STORAGE_KEY)
+			if (stored) {
+				const { active: storedActive, storedLabId } = JSON.parse(stored)
+				setLabId(storedLabId)
+				setActive(storedActive)
+			}
+		} catch (e) {
+			console.warn('Failed to restore Instruqt lab state:', e)
+		}
+	}, [])
+
+	// Persist state changes to localStorage
+	useEffect(() => {
+		if (!isClient) return
+
+		try {
+			localStorage.setItem(
+				STORAGE_KEY,
+				JSON.stringify({
+					active,
+					storedLabId: labId,
+				})
+			)
+		} catch (e) {
+			console.warn('Failed to persist Instruqt lab state:', e)
+		}
+	}, [active, labId, isClient])
+
+	const openLab = useCallback((newLabId: string) => {
+		setLabId(newLabId)
+		setActive(true)
+	}, [])
+
+	const closeLab = useCallback(() => {
+		setActive(false)
+	}, [])
 
 	return (
-		<InstruqtContext.Provider value={{ labId, active, setActive }}>
+		<InstruqtContext.Provider
+			value={{ labId, active, setActive, openLab, closeLab }}
+		>
 			{children}
-			{active && (
+			{isClient && active && labId && (
 				<div id="instruqt-panel-target">
 					<Resizable
 						initialHeight={640}
@@ -57,3 +109,8 @@ export default function InstruqtProvider({
 		</InstruqtContext.Provider>
 	)
 }
+
+// Export a client-side only version of the provider
+export default dynamic(() => Promise.resolve(InstruqtProvider), {
+	ssr: false,
+})
