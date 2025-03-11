@@ -50,7 +50,7 @@ function wrapLastItem(arr, wrapper) {
 
 PlacementTable.propTypes = {
 	groups:  PropTypes.oneOfType([
-		PropTypes.arrayOf(PropTypes.arrayOf(string)),
-		PropTypes.arrayOf(string),
+		PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+		PropTypes.arrayOf(PropTypes.string),
 	]),
 }
