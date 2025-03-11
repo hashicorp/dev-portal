@@ -1,0 +1,86 @@
+{
+	"terraform": {
+		"description": "Learn infrastructure as code with hands-on labs",
+		"labs": [
+			{
+				"id": "terraform-basics",
+				"labId": "hashicorp-learn/tracks/terraform-build-your-first-configuration",
+				"title": "Build Your First Configuration",
+				"description": "Learn the basics of Terraform configuration language",
+				"products": ["terraform"]
+			}
+		]
+	},
+	"vault": {
+		"description": "Explore secrets management and data protection",
+		"labs": [
+			{
+				"id": "vault-basics",
+				"labId": "hashicorp-learn/tracks/vault-basics",
+				"title": "Vault Basics",
+				"description": "Learn the fundamentals of HashiCorp Vault",
+				"products": ["vault"]
+			}
+		]
+	},
+	"consul": {
+		"description": "Practice service networking and discovery",
+		"labs": [
+			{
+				"id": "consul-template",
+				"labId": "hashicorp-learn/tracks/consul-template-automate-reverse-proxy-config",
+				"title": "Automate Reverse Proxy Configuration",
+				"description": "Learn to automate proxy configuration with Consul Template",
+				"products": ["consul"]
+			}
+		]
+	},
+	"nomad": {
+		"description": "Get started with workload orchestration",
+		"labs": [
+			{
+				"id": "nomad-basics",
+				"labId": "hashicorp-learn/tracks/nomad-basics",
+				"title": "Nomad Basics",
+				"description": "Learn the basics of HashiCorp Nomad",
+				"products": ["nomad"]
+			}
+		]
+	},
+	"packer": {
+		"description": "Learn machine image automation",
+		"labs": [
+			{
+				"id": "packer-hcp",
+				"labId": "hashicorp-learn/tracks/packer-get-started-hcp",
+				"title": "Get Started with HCP Packer",
+				"description": "Build and manage machine images with HCP Packer",
+				"products": ["packer"]
+			}
+		]
+	},
+	"waypoint": {
+		"description": "Explore application deployment patterns",
+		"labs": [
+			{
+				"id": "waypoint-docker",
+				"labId": "hashicorp-learn/tracks/waypoint-get-started-docker",
+				"title": "Get Started with Docker",
+				"description": "Deploy applications with Waypoint and Docker",
+				"products": ["waypoint"]
+			}
+		]
+	},
+	"boundary": {
+		"description": "Practice secure remote access",
+		"labs": [
+			{
+				"id": "boundary-basics",
+				"labId": "hashicorp-learn/tracks/boundary-basics",
+				"title": "Boundary Basics",
+				"description": "Learn the fundamentals of HashiCorp Boundary",
+				"products": ["boundary"]
+			}
+		]
+	}
+}
