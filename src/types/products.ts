@@ -160,11 +160,18 @@ interface ProductData extends Product {
 	}
 	basePaths: string[]
 	rootDocsPaths: RootDocsPath[]
-	instruqtId?: string
 	playgroundConfig?: {
 		sidebarLinks: {
 			title: string
 			href: string
+		}[]
+		description?: string
+		labs?: {
+			id: string
+			name: string
+			instruqtId: string
+			description: string
+			products: ProductSlug[]
 		}[]
 	}
 	/**
