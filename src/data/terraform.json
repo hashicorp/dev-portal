@@ -152,8 +152,8 @@
 			"productSlugForLoader": "terraform-docs-common"
 		}
 	],
-	"instruqtId": "hashicorp-learn/tracks/create-terraform-infrastructure?token=em__EA8k5ywxqiOejXd",
 	"playgroundConfig": {
+		"description": "Learn how to create infrastructure with Terraform",
 		"sidebarLinks": [
 			{
 				"title": "Install Terraform",
@@ -166,6 +166,22 @@
 			{
 				"title": "Terraform documentation",
 				"href": "/terraform/docs"
+			}
+		],
+		"labs": [
+			{
+				"id": "create-infrastructure",
+				"name": "Create Infrastructure",
+				"instruqtId": "hashicorp-learn/tracks/create-terraform-infrastructure?token=em__EA8k5ywxqiOejXd",
+				"description": "Learn how to create infrastructure with Terraform",
+				"products": ["terraform"]
+			},
+			{
+				"id": "vault-sandbox",
+				"name": "Vault Playground (test)",
+				"instruqtId": "hashicorp-learn/tracks/vault-sandbox?token=em_usmVkoZLWz8SAXNB",
+				"description": "Learn how to manage your secrets with Vault",
+				"products": ["vault"]
 			}
 		]
 	}

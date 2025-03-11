@@ -175,7 +175,6 @@
 			}
 		]
 	},
-	"instruqtId": "hashicorp-learn/tracks/vault-sandbox?token=em_usmVkoZLWz8SAXNB",
 	"playgroundConfig": {
 		"sidebarLinks": [
 			{
@@ -189,6 +188,22 @@
 			{
 				"title": "Vault Documentation",
 				"href": "/vault/docs"
+			}
+		],
+		"labs": [
+			{
+				"id": "vault-sandbox",
+				"name": "Vault Playground (test)",
+				"instruqtId": "hashicorp-learn/tracks/vault-sandbox?token=em_usmVkoZLWz8SAXNB",
+				"description": "Learn how to manage your secrets with Vault",
+				"products": ["vault"]
+			},
+			{
+				"id": "create-infrastructure",
+				"name": "Create Infrastructure",
+				"instruqtId": "hashicorp-learn/tracks/create-terraform-infrastructure?token=em__EA8k5ywxqiOejXd",
+				"description": "Learn how to create infrastructure with Terraform",
+				"products": ["terraform"]
 			}
 		]
 	}

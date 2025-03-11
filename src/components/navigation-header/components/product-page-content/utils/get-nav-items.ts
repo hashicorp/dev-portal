@@ -146,7 +146,7 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 		}
 	}
 
-	if (currentProduct.instruqtId) {
+	if (currentProduct.playgroundConfig?.labs?.length) {
 		items.push({
 			label: 'Playground',
 			url: `/${currentProduct.slug}/playground`,

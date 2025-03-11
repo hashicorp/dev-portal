@@ -6,23 +6,18 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import InstruqtProvider from 'contexts/instruqt-lab'
+import EmbedElement from 'components/lab-embed/embed-element'
 import {
 	generateTopLevelSidebarNavData,
 	generateProductLandingSidebarNavData,
 } from 'components/sidebar/helpers'
-import CardLink from 'components/card-link'
-import {
-	CardTitle,
-	CardDescription,
-	CardFooter,
-} from 'components/card/components'
-import CardsGridList from 'components/cards-grid-list'
-import { BrandedHeaderCard } from 'views/product-integrations-landing/components/branded-header-card'
-import { CardBadges } from 'components/tutorial-collection-cards'
-import { ProductOption } from 'lib/learn-client/types'
 
 interface PlaygroundPageProps {
 	product: (typeof PRODUCT_DATA_MAP)[keyof typeof PRODUCT_DATA_MAP]
+	playgroundId: string
+	playgroundName: string
+	playgroundDescription: string
 	layoutProps: {
 		breadcrumbLinks: { title: string; url: string }[]
 		navLevels: any[]
@@ -31,6 +26,9 @@ interface PlaygroundPageProps {
 
 export default function PlaygroundView({
 	product,
+	playgroundId,
+	playgroundName,
+	playgroundDescription,
 	layoutProps,
 }: PlaygroundPageProps) {
 	return (
@@ -38,52 +36,37 @@ export default function PlaygroundView({
 			breadcrumbLinks={layoutProps.breadcrumbLinks}
 			sidebarNavDataLevels={layoutProps.navLevels}
 		>
-			<BrandedHeaderCard
-				productSlug={product.slug}
-				heading={`${product.name} Interactive Playgrounds`}
-				description="Choose a playground to get started with hands-on learning."
-			/>
-
-			{product.playgroundConfig.description && (
-				<p className="g-type-body" style={{ marginTop: '32px' }}>
-					{product.playgroundConfig.description}
+			<div>
+				<h1 className="g-type-display-3">{playgroundName}</h1>
+				<p className="g-type-body" style={{ marginTop: '16px' }}>
+					{playgroundDescription}
 				</p>
-			)}
-
-			<div style={{ marginTop: '32px' }}>
-				<CardsGridList fixedColumns={2}>
-					{product.playgroundConfig.labs.map((playground) => (
-						<CardLink
-							key={playground.id}
-							ariaLabel={playground.name}
-							href={`/${product.slug}/playground/${playground.id}`}
-						>
-							<CardTitle text={playground.name} />
-							{playground.description && (
-								<CardDescription text={playground.description} />
-							)}
-							<CardFooter>
-								<CardBadges
-									badges={playground.products.map(
-										(slug) => ProductOption[slug]
-									)}
-								/>
-							</CardFooter>
-						</CardLink>
-					))}
-				</CardsGridList>
+			</div>
+			<div style={{ height: '80vh', marginTop: '32px' }}>
+				<InstruqtProvider labId={playgroundId} defaultActive isPlayground>
+					<EmbedElement />
+				</InstruqtProvider>
 			</div>
 		</SidebarSidecarLayout>
 	)
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	// Only generate paths for products that have labs configured
-	const paths = Object.values(PRODUCT_DATA_MAP)
-		.filter((product) => product.playgroundConfig?.labs)
-		.map((product) => ({
-			params: { productSlug: product.slug },
-		}))
+	const paths = []
+
+	// Generate paths for each product's playgrounds
+	Object.values(PRODUCT_DATA_MAP).forEach((product) => {
+		if (product.playgroundConfig?.labs) {
+			product.playgroundConfig.labs.forEach((playground) => {
+				paths.push({
+					params: {
+						productSlug: product.slug,
+						playgroundId: playground.id,
+					},
+				})
+			})
+		}
+	})
 
 	return {
 		paths,
@@ -95,6 +78,7 @@ export const getStaticProps: GetStaticProps<PlaygroundPageProps> = async ({
 	params,
 }) => {
 	const productSlug = params?.productSlug as string
+	const playgroundId = params?.playgroundId as string
 	const product = PRODUCT_DATA_MAP[productSlug]
 
 	// Only show playground page if product has labs configured
@@ -104,10 +88,23 @@ export const getStaticProps: GetStaticProps<PlaygroundPageProps> = async ({
 		}
 	}
 
+	const playground = product.playgroundConfig.labs.find(
+		(p) => p.id === playgroundId
+	)
+	if (!playground) {
+		return {
+			notFound: true,
+		}
+	}
+
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
 		{ title: product.name, url: `/${productSlug}` },
 		{ title: 'Playground', url: `/${productSlug}/playground` },
+		{
+			title: playground.name,
+			url: `/${productSlug}/playground/${playgroundId}`,
+		},
 	]
 
 	const sidebarNavDataLevels = [
@@ -121,7 +118,7 @@ export const getStaticProps: GetStaticProps<PlaygroundPageProps> = async ({
 			title: `${product.name} Playground`,
 			fullPath: `/${productSlug}/playground`,
 			theme: product.slug,
-			isActive: true,
+			isActive: false,
 		},
 		{
 			divider: true,
@@ -129,11 +126,11 @@ export const getStaticProps: GetStaticProps<PlaygroundPageProps> = async ({
 		{
 			heading: 'Playgrounds',
 		},
-		...product.playgroundConfig.labs.map((playground) => ({
-			title: playground.name,
-			path: `/${productSlug}/playground/${playground.id}`,
-			href: `/${productSlug}/playground/${playground.id}`,
-			isActive: false,
+		...product.playgroundConfig.labs.map((p) => ({
+			title: p.name,
+			path: `/${productSlug}/playground/${p.id}`,
+			href: `/${productSlug}/playground/${p.id}`,
+			isActive: p.id === playgroundId,
 		})),
 	]
 
@@ -172,6 +169,9 @@ export const getStaticProps: GetStaticProps<PlaygroundPageProps> = async ({
 	return {
 		props: {
 			product,
+			playgroundId: playground.instruqtId,
+			playgroundName: playground.name,
+			playgroundDescription: playground.description,
 			layoutProps: {
 				breadcrumbLinks,
 				navLevels: sidebarNavDataLevels,
