@@ -84,9 +84,10 @@ export default function PlaygroundView({
 
 			{selectedPlayground && (
 				<div style={{ height: '80vh', marginTop: '32px' }}>
-					<InstruqtProvider labId={selectedPlayground.instruqtId} defaultActive>
-						<EmbedElement />
-					</InstruqtProvider>
+					<InstruqtProvider
+						labId={selectedPlayground.instruqtId}
+						defaultActive
+					/>
 				</div>
 			)}
 		</SidebarSidecarLayout>
