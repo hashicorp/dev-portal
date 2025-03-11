@@ -1,0 +1,166 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	position: relative;
+	display: inline-block;
+}
+
+.activatorContainer {
+	display: inline-flex;
+	padding-bottom: 16px;
+	padding-top: 16px;
+}
+
+.activator {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 8px 10px;
+	border-radius: 5px;
+	color: var(--token-color-foreground-primary);
+	font-size: 0.875rem;
+	font-weight: 500;
+}
+
+.label {
+	font-size: 0.875rem;
+	font-weight: 500;
+	color: var(--token-color-foreground-primary);
+	transition: color 0.2s;
+
+	.activator:hover &,
+	.activator:focus &,
+	.activator[aria-expanded='true'] & {
+		color: var(--token-color-foreground-strong);
+	}
+}
+
+.activatorTrailingIcon {
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	color: var(--token-color-foreground-strong);
+	transition: transform 0.2s ease-in-out;
+
+	.activator[aria-expanded='true'] & {
+		transform: rotate(180deg);
+	}
+}
+
+.dropdownContainer {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background-color: var(--token-color-surface-primary);
+	border-radius: 6px;
+	box-shadow: var(--token-elevation-higher-box-shadow);
+	z-index: -1;
+	margin-top: 0;
+	min-width: 32rem;
+	max-height: 80vh;
+	overflow-y: auto;
+}
+
+.dropdownContainerInner {
+	padding: 16px;
+}
+
+.introSection {
+	margin-bottom: 16px;
+}
+
+.sectionTitle {
+	margin-bottom: 8px;
+	color: var(--token-color-foreground-strong);
+}
+
+.introText {
+	color: var(--token-color-foreground-primary);
+	max-width: 90%;
+	line-height: 1.5;
+	margin-bottom: 8px;
+}
+
+.divider {
+	border: none;
+	height: 1px;
+	background-color: var(--token-color-border-primary);
+	margin: 16px 0;
+}
+
+.labsList {
+	list-style: none;
+	padding: 0;
+	margin: 12px 0 0 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.itemContainer {
+	margin: 0;
+	padding: 0;
+}
+
+.learnMoreLink {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 0;
+	text-decoration: none;
+	color: var(--token-color-foreground-primary);
+	transition: color 0.2s;
+	font-size: 0.875rem;
+
+	&:hover,
+	&:focus {
+		color: var(--token-color-foreground-strong);
+		text-decoration: none;
+	}
+}
+
+.learnMoreIcon {
+	width: 14px;
+	height: 14px;
+	color: var(--token-color-foreground-primary);
+	transition: transform 0.2s, color 0.2s;
+
+	.learnMoreLink:hover &,
+	.learnMoreLink:focus & {
+		transform: translateX(4px);
+		color: var(--token-color-foreground-strong);
+	}
+}
+
+.accordionButton {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	background: transparent;
+	border: none;
+	padding: 8px 0;
+	cursor: pointer;
+	text-align: left;
+
+	&:hover .sectionTitle,
+	&:focus .sectionTitle {
+		color: var(--token-color-foreground-strong);
+	}
+}
+
+.accordionIcon {
+	width: 16px;
+	height: 16px;
+	color: var(--token-color-foreground-primary);
+	transition: transform 0.2s ease-in-out;
+}
+
+.accordionIconOpen {
+	transform: rotate(90deg);
+}
