@@ -22,7 +22,7 @@ interface InstruqtContextProps {
 
 interface InstruqtProviderProps {
 	labId: string
-	children: ReactNode
+	children?: ReactNode
 	defaultActive?: boolean
 }
 
