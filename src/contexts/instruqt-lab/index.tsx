@@ -22,7 +22,8 @@ interface InstruqtContextProps {
 
 interface InstruqtProviderProps {
 	labId: string
-	children: ReactNode
+	children?: ReactNode
+	defaultActive?: boolean
 }
 
 const InstruqtContext = createContext<Partial<InstruqtContextProps>>({})
@@ -34,8 +35,9 @@ export const useInstruqtEmbed = (): Partial<InstruqtContextProps> =>
 export default function InstruqtProvider({
 	labId,
 	children,
+	defaultActive = false,
 }: InstruqtProviderProps): JSX.Element {
-	const [active, setActive] = useState(false)
+	const [active, setActive] = useState(defaultActive)
 
 	return (
 		<InstruqtContext.Provider value={{ labId, active, setActive }}>

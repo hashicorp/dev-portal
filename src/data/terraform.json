@@ -151,5 +151,31 @@
 			"path": "registry",
 			"productSlugForLoader": "terraform-docs-common"
 		}
-	]
+	],
+	"playgroundConfig": {
+		"description": "Learn how to create infrastructure with Terraform",
+		"sidebarLinks": [
+			{
+				"title": "Install Terraform",
+				"href": "/terraform/install"
+			},
+			{
+				"title": "Get Started with Terraform",
+				"href": "/terraform/tutorials/aws-get-started"
+			},
+			{
+				"title": "Terraform documentation",
+				"href": "/terraform/docs"
+			}
+		],
+		"labs": [
+			{
+				"id": "terraform-sandbox",
+				"name": "Terraform Sandbox",
+				"instruqtId": "hashicorp-learn/tracks/terraform-sandbox?token=em_7UQwSJt0EbYq9YlE",
+				"description": "Get started quickly with a container-based sandbox host. Choose a container when you need a fast, lightweight Linux system",
+				"products": ["terraform"]
+			}
+		]
+	}
 }
