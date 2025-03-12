@@ -9,6 +9,7 @@ import ErrorViewSwitcher from 'views/error-view-switcher'
 // product data, needed to render top navigation
 import { productConfig } from 'lib/cms'
 import { isProductSlug } from 'lib/products'
+import PropTypes from 'prop-types'
 
 function Error({ statusCode }) {
 	const Layout = (props) => (
@@ -20,6 +21,10 @@ function Error({ statusCode }) {
 			<ErrorViewSwitcher statusCode={statusCode} />
 		</Layout>
 	)
+}
+
+Error.propTypes = {
+	statusCode: PropTypes.number
 }
 
 export async function getServerSideProps(ctx) {
