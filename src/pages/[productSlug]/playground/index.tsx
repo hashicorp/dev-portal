@@ -24,7 +24,7 @@ import { CardBadges } from 'components/tutorial-collection-cards'
 import { ProductOption } from 'lib/learn-client/types'
 import { MenuItem } from 'components/sidebar/types'
 import { ProductSlug } from 'types/products'
-import PLAYGROUND_CONFIG from 'data/playground-config.json'
+import PLAYGROUND_CONFIG from 'data/playground.json'
 import ProductIcon from 'components/product-icon'
 import s from './playground.module.css'
 
@@ -205,7 +205,7 @@ export default function PlaygroundView({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	// Get the list of supported products from playground-config.json
+	// Get the list of supported products from playground.json
 	const supportedProducts = PLAYGROUND_CONFIG.products || []
 
 	// Generate paths for all products that are in the supported products list
