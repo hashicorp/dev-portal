@@ -10,7 +10,7 @@ import { IconHashicorp24 } from '@hashicorp/flight-icons/svg-react/hashicorp-24'
 import { useCurrentProduct } from 'contexts'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
-import PLAYGROUND_CONFIG from 'data/playground-config.json'
+import PLAYGROUND_CONFIG from 'data/playground.json'
 
 // Local imports
 import {
