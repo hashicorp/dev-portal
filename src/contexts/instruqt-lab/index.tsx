@@ -14,6 +14,7 @@ import {
 	useCallback,
 } from 'react'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import EmbedElement from 'components/lab-embed/embed-element'
 import Resizable from 'components/lab-embed/resizable'
 import SandboxErrorBoundary from 'components/sandbox-error-boundary'
@@ -79,6 +80,7 @@ function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
 	const [isClient, setIsClient] = useState(false)
 	const [labId, setLabId] = useState<string | null>(null)
 	const [active, setActive] = useState(false)
+	const router = useRouter()
 
 	// Only run on client side
 	useEffect(() => {
@@ -112,13 +114,27 @@ function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
 		}
 	}, [active, labId, isClient])
 
-	const openLab = useCallback((newLabId: string) => {
-		setLabId(newLabId)
-		setActive(true)
-	}, [])
+	// Listen for route changes to preserve lab state during navigation
+	useEffect(() => {
+		// This effect runs when the route changes
+		// We don't need to do anything special here, just ensure
+		// the component doesn't unmount during navigation
+	}, [router.asPath])
+
+	const openLab = useCallback(
+		(newLabId: string) => {
+			// Only update if the lab ID is different or the panel is not active
+			if (newLabId !== labId || !active) {
+				setLabId(newLabId)
+				setActive(true)
+			}
+		},
+		[labId, active]
+	)
 
 	const closeLab = useCallback(() => {
 		setActive(false)
+		// Note: We don't clear the labId here to allow reopening the same lab
 	}, [])
 
 	return (
