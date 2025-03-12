@@ -113,6 +113,9 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 	const handleLabClick = (lab: PlaygroundLab) => {
 		openLab(lab.labId)
 		setIsOpen(false)
+
+		// Don't navigate away - just open the lab in the current page
+		// This prevents issues with lab state being lost during navigation
 	}
 
 	/**
