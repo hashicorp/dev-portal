@@ -179,21 +179,5 @@
 				"href": "/vault/tutorials/custom-secrets-engine"
 			}
 		]
-	},
-	"playgroundConfig": {
-		"sidebarLinks": [
-			{
-				"title": "Install Vault",
-				"href": "/vault/install"
-			},
-			{
-				"title": "Get Started with Vault",
-				"href": "/vault/tutorials/get-started"
-			},
-			{
-				"title": "Vault Documentation",
-				"href": "/vault/docs"
-			}
-		]
 	}
 }
