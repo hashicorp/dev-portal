@@ -83,6 +83,7 @@
 		"postcss-flexbugs-fixes": "^5.0.2",
 		"postcss-normalize": "^10.0.1",
 		"postcss-preset-env": "^6.7.0",
+		"prop-types": "^15.8.1",
 		"react-test-renderer": "^18.2.0",
 		"rimraf": "^5.0.5",
 		"sass": "^1.75.0",
