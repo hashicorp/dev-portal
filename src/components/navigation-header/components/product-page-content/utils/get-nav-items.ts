@@ -11,7 +11,7 @@ import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
 import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 import { ProductData } from 'types/products'
 import { NavItem } from './types'
-import PLAYGROUND_CONFIG from 'data/playground-config.json'
+import PLAYGROUND_CONFIG from 'data/playground.json'
 
 const TRY_CLOUD_ITEM_PRODUCT_SLUGS = [
 	'boundary',

@@ -1,86 +1,35 @@
 {
-	"terraform": {
-		"description": "Learn infrastructure as code with hands-on labs",
-		"labs": [
-			{
-				"id": "terraform-basics",
-				"labId": "hashicorp-learn/tracks/terraform-build-your-first-configuration",
-				"title": "Build Your First Configuration",
-				"description": "Learn the basics of Terraform configuration language",
-				"products": ["terraform"]
-			}
-		]
-	},
-	"vault": {
-		"description": "Explore secrets management and data protection",
-		"labs": [
-			{
-				"id": "vault-basics",
-				"labId": "hashicorp-learn/tracks/vault-basics",
-				"title": "Vault Basics",
-				"description": "Learn the fundamentals of HashiCorp Vault",
-				"products": ["vault"]
-			}
-		]
-	},
-	"consul": {
-		"description": "Practice service networking and discovery",
-		"labs": [
-			{
-				"id": "consul-template",
-				"labId": "hashicorp-learn/tracks/consul-template-automate-reverse-proxy-config",
-				"title": "Automate Reverse Proxy Configuration",
-				"description": "Learn to automate proxy configuration with Consul Template",
-				"products": ["consul"]
-			}
-		]
-	},
-	"nomad": {
-		"description": "Get started with workload orchestration",
-		"labs": [
-			{
-				"id": "nomad-basics",
-				"labId": "hashicorp-learn/tracks/nomad-basics",
-				"title": "Nomad Basics",
-				"description": "Learn the basics of HashiCorp Nomad",
-				"products": ["nomad"]
-			}
-		]
-	},
-	"packer": {
-		"description": "Learn machine image automation",
-		"labs": [
-			{
-				"id": "packer-hcp",
-				"labId": "hashicorp-learn/tracks/packer-get-started-hcp",
-				"title": "Get Started with HCP Packer",
-				"description": "Build and manage machine images with HCP Packer",
-				"products": ["packer"]
-			}
-		]
-	},
-	"waypoint": {
-		"description": "Explore application deployment patterns",
-		"labs": [
-			{
-				"id": "waypoint-docker",
-				"labId": "hashicorp-learn/tracks/waypoint-get-started-docker",
-				"title": "Get Started with Docker",
-				"description": "Deploy applications with Waypoint and Docker",
-				"products": ["waypoint"]
-			}
-		]
-	},
-	"boundary": {
-		"description": "Practice secure remote access",
-		"labs": [
-			{
-				"id": "boundary-basics",
-				"labId": "hashicorp-learn/tracks/boundary-basics",
-				"title": "Boundary Basics",
-				"description": "Learn the fundamentals of HashiCorp Boundary",
-				"products": ["boundary"]
-			}
-		]
-	}
+	"products": ["terraform", "vault", "consul", "nomad"],
+	"labs": [
+		{
+			"title": "Terraform Sandbox",
+			"description": "Get started quickly with a container-based sandbox host. Choose a container when you need a fast, lightweight Linux system",
+			"products": ["terraform"],
+			"labId": "hashicorp-learn/tracks/terraform-sandbox?token=em_7UQwSJt0EbYq9YlE"
+		},
+		{
+			"title": "Vault Playground (test)",
+			"description": "Learn how to manage your secrets with Vault",
+			"products": ["vault"],
+			"labId": "hashicorp-learn/tracks/vault-sandbox?token=em_usmVkoZLWz8SAXNB"
+		},
+		{
+			"title": "Nomad sandbox",
+			"description": "A Nomad cluster with three server nodes and one client node, Consul installed and configured, and Access Control Lists (ACLs) enabled for both Nomad and Consul.",
+			"labId": "hashicorp-learn/tracks/nomad-sandbox?token=em_0wOuIAyyjAQllLkc",
+			"products": ["nomad", "consul"]
+		},
+		{
+			"title": "Sandbox environment for Consul (Service discovery)",
+			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
+			"labId": "hashicorp-learn/tracks/consul-sandbox-lab?token=em_I5XI2XjO-ZMeH1_w&rtp_SCENARIO=SD",
+			"products": ["consul"]
+		},
+		{
+			"title": "Sandbox environment for Consul (Service mesh)",
+			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
+			"labId": "hashicorp-learn/tracks/consul-sandbox-lab?token=em_I5XI2XjO-ZMeH1_w&rtp_SCENARIO=SM",
+			"products": ["consul"]
+		}
+	]
 }
