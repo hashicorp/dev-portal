@@ -233,7 +233,9 @@ function TutorialView({
 	useEffect(() => {
 		if (isInteractive && handsOnLab?.id) {
 			openLab(handsOnLab.id)
-		} else {
+		} else if (!isInteractive) {
+			// Only close the lab if this tutorial is not interactive
+			// This prevents closing the lab when navigating between pages
 			closeLab()
 		}
 	}, [isInteractive, handsOnLab, openLab, closeLab])
