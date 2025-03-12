@@ -167,22 +167,5 @@
 			"path": "mcp-server",
 			"productSlugForLoader": "terraform-mcp-server"
 		}
-	],
-	"playgroundConfig": {
-		"description": "Learn how to create infrastructure with Terraform",
-		"sidebarLinks": [
-			{
-				"title": "Install Terraform",
-				"href": "/terraform/install"
-			},
-			{
-				"title": "Get Started with Terraform",
-				"href": "/terraform/tutorials/aws-get-started"
-			},
-			{
-				"title": "Terraform documentation",
-				"href": "/terraform/docs"
-			}
-		]
-	}
+	]
 }
