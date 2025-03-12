@@ -23,10 +23,10 @@ import {
 	NavigationHeaderItem,
 } from 'components/navigation-header/types'
 import { ProductSlug } from 'types/products'
-import PLAYGROUND_CONFIG from 'data/playground-config.json'
+import PLAYGROUND_CONFIG from 'data/playground.json'
 import s from './playground-dropdown.module.css'
 
-// Define the type to match the structure in playground-config.json
+// Define the type to match the structure in playground.json
 type PlaygroundLab = {
 	id?: string
 	labId: string
