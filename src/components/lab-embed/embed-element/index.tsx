@@ -184,83 +184,16 @@ const EmbedElement = memo(function EmbedElement(): JSX.Element {
 	}
 
 	return (
-		<div className={classNames(s.embedContainer, { [s.hide]: !active })}>
-			<div
-				aria-live="polite"
-				aria-atomic="true"
-				className="sr-only"
-				role="status"
-			>
-				{embedState.isLoading && 'Loading sandbox environment'}
-				{embedState.hasError &&
-					`Error loading sandbox: ${embedState.errorMessage}`}
-				{!embedState.isLoading &&
-					!embedState.hasError &&
-					labId &&
-					'Sandbox environment loaded successfully'}
-			</div>
-
-			{embedState.isLoading && (
-				<div
-					className={s.loadingContainer}
-					role="status"
-					aria-label="Loading sandbox"
-				>
-					<div className={s.loadingSpinner} aria-hidden="true" />
-					<div className={s.loadingText}>
-						<h3>Loading your sandbox...</h3>
-						<p>This may take a few moments</p>
-					</div>
-				</div>
-			)}
-
-			{embedState.hasError && (
-				<div className={s.errorContainer} role="alert" aria-live="assertive">
-					<div className={s.errorContent}>
-						<h3>Unable to Load Sandbox</h3>
-						<p>{embedState.errorMessage}</p>
-						{embedState.retryCount < 3 && (
-							<button
-								className={s.retryButton}
-								onClick={handleRetry}
-								type="button"
-								aria-describedby="retry-description"
-							>
-								Try Again
-							</button>
-						)}
-						<div id="retry-description" className="sr-only">
-							Retry loading the sandbox environment
-						</div>
-					</div>
-				</div>
-			)}
-
-			{labId && (
-				<iframe
-					ref={ref}
-					title={`Instruqt Lab Environment: ${labId}`}
-					width="100%"
-					height="100%"
-					sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
-					src=""
-					style={{
-						height: 'inherit',
-						opacity: embedState.isLoading || embedState.hasError ? 0 : 1,
-						transition: 'opacity 0.2s ease',
-					}}
-					className={s.baseEmbedElement}
-					onLoad={handleIframeLoad}
-					onError={handleIframeError}
-					referrerPolicy="strict-origin-when-cross-origin"
-					loading="lazy"
-					aria-label={`Interactive lab environment for ${labId}`}
-					aria-live="polite"
-					aria-busy={embedState.isLoading}
-					allow="fullscreen"
-				/>
-			)}
-		</div>
+		<iframe
+			ref={ref}
+			title="Instruqt"
+			width="100%"
+			height="100%"
+			sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
+			src={`https://play.instruqt.com/embed/${labId}`}
+			style={{ height: 'inherit' }}
+			className={classNames(s.baseEmbedElement, { [s.hide]: !active })}
+		/>
 	)
 })
 
