@@ -147,7 +147,7 @@ function SearchResults({
 						)
 					}
 				)}
-				{/* <Index indexName={__config.dev_dot.algolia.udrIndexName} indexId="docs">
+				{/* TODO: uncomment this when hits from the prod_UDR index can be merged with *_DEVODOT_omni docs records <Index indexName={__config.dev_dot.algolia.udrIndexName} indexId="docs">
 					<Configure
 						query={currentInputValue}
 						filters={getAlgoliaFilters(currentProductSlug, 'docs')}
