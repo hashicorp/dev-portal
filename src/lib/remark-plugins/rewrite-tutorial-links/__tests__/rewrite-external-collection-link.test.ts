@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ProductSlug } from 'types/products'
 import { rewriteExternalCollectionLink } from '../utils'
 
 const getTestURLObject = (url: string) => {

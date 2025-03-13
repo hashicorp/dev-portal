@@ -211,7 +211,7 @@ export const tryGetVersionSatisfies = (
 	version: string,
 	block: string
 ): boolean => {
-	const [flag, ...meta] = block.split(/\s+/)
+	const [flag] = block.split(/\s+/)
 	const directive = flag.match(DIRECTIVE_RE)
 
 	if (!directive) {

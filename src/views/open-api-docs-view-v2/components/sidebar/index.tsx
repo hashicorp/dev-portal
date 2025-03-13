@@ -13,7 +13,6 @@ import {
 } from '@components/sidebar/components'
 import { SidebarLink, SidebarLinkText } from '../sidebar-link'
 import { SidebarLinkWithProductIcon } from '../sidebar-link-with-product-icon'
-import { SidebarLinkExternal } from '../sidebar-link-external'
 // Types
 import type { ProductSlug } from 'types/products'
 // Styles

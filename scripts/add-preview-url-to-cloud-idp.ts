@@ -76,7 +76,7 @@ async function sendToCloudIDP(deploymentUrl: string) {
 	try {
 		const text = await response.text()
 		console.log(response.status, response.statusText, text)
-	} catch (err) {
+	} catch {
 		// ignore this error
 	}
 

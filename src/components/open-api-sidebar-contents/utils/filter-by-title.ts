@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-const IS_DEV = process.env.NODE_ENV !== 'production'
 
 /**
  * Given a flat array of items, and a `filterValue`,*

@@ -20,7 +20,7 @@ let scope: nock.Scope
 import * as nextMdxRemote from 'lib/next-mdx-remote/serialize'
 vi.mock('lib/next-mdx-remote/serialize', async () => ({
 	__esModule: true,
-	...((await vi.importActual('lib/next-mdx-remote/serialize')) as any),
+	...((await vi.importActual('lib/next-mdx-remote/serialize')) as $TSFixMe),
 }))
 const serializeSpy = vi.spyOn(nextMdxRemote, 'serialize').mockReturnValue(
 	Promise.resolve({
@@ -453,8 +453,8 @@ describe('RemoteContentLoader', () => {
 		})
 
 		// Verify that the function completed successfully
-		expect((props.navData[0] as any).path).not.toBeDefined()
-		expect((props.navData[0] as any).title).toEqual('Item with no path')
+		expect((props.navData[0] as $TSFixMe).path).not.toBeDefined()
+		expect((props.navData[0] as $TSFixMe).title).toEqual('Item with no path')
 	})
 })
 

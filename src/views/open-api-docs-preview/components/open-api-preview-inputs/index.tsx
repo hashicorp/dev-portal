@@ -81,7 +81,7 @@ export function OpenApiPreviewInputs({
 			if (parsedValue && inputValues.openApiDescription !== parsedValue) {
 				setInputValue('openApiDescription', parsedValue)
 			}
-		} catch (e) {
+		} catch {
 			// do nothing if parsing fails
 		}
 	}, [inputValues])
@@ -93,7 +93,11 @@ export function OpenApiPreviewInputs({
 	async function updateStaticProps() {
 		setIsLoading(true)
 		const [err, result] = await fetchOpenApiStaticProps(inputValues)
-		err ? setError(err) : setStaticProps(result)
+		if(err) {
+			setError(err)
+		} else {
+			setStaticProps(result)
+		}
 		setIsLoading(false)
 	}
 
