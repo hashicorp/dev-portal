@@ -30,7 +30,7 @@ export default function EmbedElement(): JSX.Element {
 			height="100%"
 			sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
 			src={`https://play.instruqt.com/embed/${labId}`}
-			style={{ height: 'inherit', minHeight: '640px' }}
+			style={{ height: 'inherit' }}
 			className={classNames(s.baseEmbedElement, { [s.hide]: !active })}
 		/>
 	)
