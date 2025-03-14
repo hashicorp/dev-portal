@@ -7,10 +7,10 @@ import { Session } from 'next-auth'
 import { IconUser24 } from '@hashicorp/flight-icons/svg-react/user-24'
 import useAuthentication from 'hooks/use-authentication'
 import { UserDropdownDisclosureProps } from 'components/user-dropdown-disclosure'
+import Image from 'next/image'
 
 const getIcon = (user: Session['user']) => {
-	// eslint-disable-next-line @next/next/no-img-element
-	return user.image ? <img alt="" src={user.image} /> : <IconUser24 />
+	return user.image ? <Image alt={`${user.name}'s profile picture`} src={user.image} /> : <IconUser24 />
 }
 
 const getIsSignedInWithGitHub = (user: Session['user']) => {
