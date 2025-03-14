@@ -108,7 +108,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 					.replace(/\/$/, '')
 
 				revalidatePromises.push(
-					new Promise<{}>((resolve, reject) => {
+					new Promise<Record<string, unknown>>((resolve, reject) => {
 						// revalidate() returns Promise<void>, so we wrap it in another promise to resolve with the path that it is revalidating
 						response
 							.revalidate(pathToRevalidate)
