@@ -3,6 +3,7 @@ const pluginJs = require('@eslint/js')
 const tseslint = require('typescript-eslint')
 const pluginReact = require('eslint-plugin-react')
 const noBarrelFiles = require('eslint-plugin-no-barrel-files')
+const pluginReactHooks = require('eslint-plugin-react-hooks')
 
 module.exports = [
 	{
@@ -19,6 +20,7 @@ module.exports = [
 	pluginJs.configs.recommended,
 	...tseslint.configs.recommended,
 	pluginReact.configs.flat.recommended,
+	pluginReactHooks.configs['recommended-latest'],
 	{
 		settings: { react: { version: 'detect' } },
 	},

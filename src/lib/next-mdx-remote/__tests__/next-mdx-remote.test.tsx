@@ -37,7 +37,7 @@ describe('serialize', () => {
 		}
 		const result = await renderStatic('~> hello', options)
 		expect(result).toMatchInlineSnapshot(
-			`"<div class=\"alert alert-warning g-type-body\"><p>hello</p></div>"`
+			`"<div class="alert alert-warning g-type-body"><p>hello</p></div>"`
 		)
 		expect(options.mdxOptions.remarkPlugins.length).toBe(1)
 	})

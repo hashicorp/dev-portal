@@ -58,11 +58,12 @@ const BaseLayout = ({
 	useScrollPercentageAnalytics()
 	const [showSkipLink, setShowSkipLink] = useState(false)
 
-	if (
-		process.env.NODE_ENV === 'development' &&
-		process.env.HASHI_ENV === 'unified-docs-sandbox'
-	) {
-		useEffect(() => {
+	
+	useEffect(() => {
+		if (
+			process.env.NODE_ENV === 'development' &&
+			process.env.HASHI_ENV === 'unified-docs-sandbox'
+		) {
 			const clientId = crypto.randomUUID()
 			const eventSource = new EventSource(`/api/refresh?id=${clientId}`)
 
@@ -93,8 +94,8 @@ const BaseLayout = ({
 			return () => {
 				eventSource.close()
 			}
-		}, [])
-	}
+		}
+	}, [])
 
 	return (
 		<CommandBarProvider>

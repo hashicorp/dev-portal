@@ -38,6 +38,6 @@ export default function useWaypointServiceStatus() {
 					setStatusOK(false)
 				}
 			})
-	}, null)
+	}, [])
 	return statusOK
 }
