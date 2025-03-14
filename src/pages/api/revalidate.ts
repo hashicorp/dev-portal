@@ -134,7 +134,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	// wait for everything to get revalidated
 	const validatedResults = await Promise.allSettled(revalidatePromises)
 
-	let foundIndexs = {}
+	const foundIndexs = {}
 	const formattedResults = []
 	validatedResults.forEach((result) => {
 		let foundIndex
