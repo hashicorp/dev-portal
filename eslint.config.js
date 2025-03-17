@@ -34,8 +34,6 @@ module.exports = [
 			'no-dupe-class-members': 'off',
 			// 'tsc' already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/477)
 			'no-undef': 'off',
-			// Add TypeScript specific rules (and turn off ESLint equivalents)
-			// '@typescript-eslint/no-angle-bracket-type-assertion': 'warn',
 			'no-array-constructor': 'off',
 			'@typescript-eslint/no-array-constructor': 'warn',
 			'@typescript-eslint/no-namespace': 'error',
@@ -74,7 +72,8 @@ module.exports = [
 		files: ['**/*.js?(x)'],
 		rules: {
 			// For instances where we aren't using esmodules or TypeScript and therefore can't use import
-			'@typescript-eslint/no-require-imports': 'off'
+			'@typescript-eslint/no-require-imports': 'off',
+			'no-prototype-builtins': 'off',
 		},
 	},
 	{
