@@ -20,7 +20,7 @@ const remarkPluginRemoveFirstH1: Plugin = (): Transformer => {
 			(node: Heading, index: number, parent: Parent | null) => {
 				const isH1 = node.type === 'heading' && node.depth === 1
 				if (firstH1Removed === false) {
-					if (isH1 && parent !== null && Object.prototype.hasOwnProperty.call(parent, 'children')) {
+					if (isH1 && parent !== null && parent.hasOwnProperty('children')) {
 						// Remove the h1 node from the parent's children array
 						parent.children.splice(index, 1)
 						// Flag that we've removed the first h1

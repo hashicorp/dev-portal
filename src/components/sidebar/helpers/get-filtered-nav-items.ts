@@ -26,9 +26,9 @@ export const getFilteredNavItems = (
 	const filteredItems = []
 
 	items.forEach((item: EnrichedNavItem) => {
-		const isSubmenuNavItem = Object.prototype.hasOwnProperty.call(item, 'routes')
-		const isLinkNavItem = Object.prototype.hasOwnProperty.call(item, 'path')
-			|| Object.prototype.hasOwnProperty.call(item, 'href')
+		const isSubmenuNavItem = item.hasOwnProperty('routes')
+		const isLinkNavItem =
+			item.hasOwnProperty('path') || item.hasOwnProperty('href')
 		const doesNotHaveTitle = !(isSubmenuNavItem || isLinkNavItem)
 		if (doesNotHaveTitle) {
 			return
@@ -41,7 +41,7 @@ export const getFilteredNavItems = (
 			.includes(filterValue.toLowerCase())
 
 		// Check and filter alias
-		const hasAlias = Object.prototype.hasOwnProperty.call(item, 'alias')
+		const hasAlias = item.hasOwnProperty('alias')
 		if (hasAlias) {
 			const doesAliasMatchFilter = (
 				item as SubmenuNavItemWithMetaData | LinkNavItemWithMetaData

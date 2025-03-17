@@ -25,7 +25,7 @@ const main = async () => {
 	const relevantRootDocsPaths = productData.rootDocsPaths.filter(
 		(rootDocsPath: RootDocsPath) => {
 			if (REPO === productData.slug) {
-				return !Object.prototype.hasOwnProperty.call(rootDocsPath, 'productSlugForLoader')
+				return !rootDocsPath.hasOwnProperty('productSlugForLoader')
 			} else {
 				return rootDocsPath.productSlugForLoader === REPO
 			}

@@ -47,15 +47,15 @@ interface NavDirectLink {
 }
 
 function isNavBranch(value: NavNode): value is NavBranch {
-	return Object.prototype.hasOwnProperty.call(value, 'routes')
+	return value.hasOwnProperty('routes')
 }
 
 function isNavLeaf(value: NavNode): value is NavLeaf {
-	return Object.prototype.hasOwnProperty.call(value, 'path')
+	return value.hasOwnProperty('path')
 }
 
 function isNavDirectLink(value: NavNode): value is NavDirectLink {
-	return Object.prototype.hasOwnProperty.call(value, 'href')
+	return value.hasOwnProperty('href')
 }
 
 /**
