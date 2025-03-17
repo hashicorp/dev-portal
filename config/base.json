@@ -9,8 +9,7 @@
 			"description": "Explore {product} product documentation, tutorials, and examples."
 		},
 		"algolia": {
-			"unifiedIndexName": "prod_DEVDOT_omni",
-			"udrIndexName": "prod_UDR"
+			"unifiedIndexName": "prod_DEVDOT_omni"
 		},
 		"analytics": {
 			"included_domains": "developer.hashi-mktg.com developer.hashicorp.com"
