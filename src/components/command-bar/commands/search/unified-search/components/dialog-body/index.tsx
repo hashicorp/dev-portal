@@ -147,13 +147,6 @@ function SearchResults({
 						)
 					}
 				)}
-				{/* TODO: uncomment this when hits from the prod_UDR index can be merged with *_DEVODOT_omni docs records <Index indexName={__config.dev_dot.algolia.udrIndexName} indexId="docs">
-					<Configure
-						query={currentInputValue}
-						filters={getAlgoliaFilters(currentProductSlug, 'docs')}
-					/>
-					<HitsReporter setHits={(hits) => setHitData('docs', hits)} />
-				</Index> */}
 			</InstantSearch>
 			{/* UnifiedHitsContainer renders search results in a tabbed interface. */}
 			<UnifiedHitsContainer
