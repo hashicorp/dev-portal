@@ -9,8 +9,7 @@
 			"description": "Explore {product} product documentation, tutorials, and examples."
 		},
 		"algolia": {
-			"unifiedIndexName": "prod_DEVDOT_omni",
-			"udrIndexName": ""
+			"unifiedIndexName": "prod_DEVDOT_omni"
 		},
 		"analytics": {
 			"included_domains": "developer.hashi-mktg.com developer.hashicorp.com"
@@ -38,6 +37,12 @@
 		"enable_datadog": true,
 		"enable_io_beta_cta": true,
 		"enable_hvd_on_preview_branch": false,
-		"unified_docs_migrated_repos": []
+		"unified_docs_migrated_repos": [
+			"terraform-plugin-framework",
+			"terraform-plugin-log",
+			"terraform-plugin-mux",
+			"terraform-plugin-sdk",
+			"terraform-plugin-testing"
+		]
 	}
 }

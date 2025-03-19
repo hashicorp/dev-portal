@@ -8,10 +8,7 @@ import { makeSitemapField } from './helpers'
 export async function allDocsFields(config: typeof __config) {
 	// If there are docs that have been migrated to the unified docs repo, get the paths for those docs
 	// and merge them with the paths for the docs that haven't been migrated from the content API
-	if (
-		process.env.HASHI_ENV === 'unified-docs-sandbox' &&
-		config.flags?.unified_docs_migrated_repos.length > 0
-	) {
+	if (config.flags?.unified_docs_migrated_repos?.length > 0) {
 		const contentAPIFilter = config.flags.unified_docs_migrated_repos.map(
 			(repo) => {
 				return `filterOut=${repo}`

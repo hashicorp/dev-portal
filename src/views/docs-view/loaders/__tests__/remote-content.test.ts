@@ -42,7 +42,11 @@ describe('RemoteContentLoader', () => {
 
 		nock.disableNetConnect()
 
-		scope = nock(process.env.MKTG_CONTENT_DOCS_API)
+		scope = nock(
+			new RegExp(
+				`${process.env.MKTG_CONTENT_DOCS_API}|${process.env.UNIFIED_DOCS_API}`
+			)
+		)
 	})
 
 	afterAll(() => {
@@ -408,6 +412,49 @@ describe('RemoteContentLoader', () => {
 			title: 'Valid Item',
 			path: 'v0.4.x/some-path',
 		})
+	})
+
+	test('does not remove first navigation items with no path property', async () => {
+		// Create a modified version of navData with first item missing path property
+		const modifiedNavData = {
+			...navData_200,
+			result: {
+				...navData_200.result,
+				navData: [
+					// First item with no path property
+					{ title: 'Item with no path' },
+					// Rest of the items
+					...navData_200.result.navData.slice(1),
+				],
+			},
+		}
+
+		scope
+			.get('/api/content/waypoint/version-metadata')
+			.query({ partial: 'true' })
+			.reply(200, versionMetadata_200)
+		scope
+			.get('/api/content/waypoint/doc/v0.4.x/commands')
+			.reply(200, document_v4)
+		scope
+			.get('/api/content/waypoint/nav-data/v0.4.x/commands')
+			.reply(200, modifiedNavData)
+
+		const versionedDocsLoader = new RemoteContentLoader({
+			...loader.opts,
+			enabledVersionedDocs: true,
+		})
+
+		// This should not throw an error
+		const props = await versionedDocsLoader.loadStaticProps({
+			params: {
+				page: ['v0.4.x'],
+			},
+		})
+
+		// Verify that the function completed successfully
+		expect((props.navData[0] as any).path).not.toBeDefined()
+		expect((props.navData[0] as any).title).toEqual('Item with no path')
 	})
 })
 
