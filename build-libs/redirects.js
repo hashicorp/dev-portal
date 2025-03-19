@@ -84,7 +84,7 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	 */
 	/** @type {string} */
 	let redirectsFileString
-	if (isDeveloperBuild) {
+	if (isDeveloperBuild || process.env.HASHI_ENV === 'unified-docs-sandbox') {
 		// For `hashicorp/dev-portal` builds, load redirects remotely
 		// hvd-docs is not hosted on the content API, so we need to use main as the latest sha
 
