@@ -88,14 +88,13 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 		// For `hashicorp/dev-portal` builds, load redirects remotely
 		// hvd-docs is not hosted on the content API, so we need to use main as the latest sha
 
+		// Skip loading redirects for hvd-docs in the unified-docs-sandbox environment, as hvd-docs are private
 		if (
 			process.env.HASHI_ENV === 'unified-docs-sandbox' &&
 			repoName === 'hvd-docs'
 		) {
 			return []
 		}
-
-		console.warn(`redirects.js - if (isDeveloperBuild) ${repoName}`)
 
 		const latestContentSha =
 			repoName === 'hvd-docs'
