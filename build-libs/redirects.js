@@ -61,7 +61,9 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	const isLocalContentBuild = isDeployPreview(repoName)
 
 	console.warn(
-		`redirects.js - isDeveloperBuild ${repoName} ${JSON.stringify(process.env)}`
+		`redirects.js - isDeveloperBuild ${JSON.stringify(
+			process.env.HASHI_ENV
+		)} ${JSON.stringify(process.env.IS_CONTENT_PREVIEW)}`
 	)
 	/**
 	 * Load redirects from the unified docs repo if it's in the list of migrated repos.
