@@ -26,7 +26,6 @@ import { IconVaultSecretsSquareColor24 } from '@hashicorp/flight-icons/svg-react
 import { IconWaypoint16 } from '@hashicorp/flight-icons/svg-react/waypoint-16'
 import { IconWaypoint24 } from '@hashicorp/flight-icons/svg-react/waypoint-24'
 import { ProductIconProps } from './types'
-import { forwardRef } from 'react'
 
 const productSlugsToIcons = {
 	boundary: {
@@ -79,30 +78,35 @@ const productSlugsToIcons = {
 	},
 }
 
-const ProductIcon = forwardRef<SVGSVGElement, Omit<ProductIconProps, 'ref'>>(
-	({ productSlug, size = 16, children, ...rest }, ref) => {
-		const Icon = productSlugsToIcons[productSlug]
-			? productSlugsToIcons[productSlug][size]
-			: null
+const ProductIcon = ({
+	productSlug,
+	size = 16,
+	...allRest
+}: ProductIconProps) => {
+	const Icon = productSlugsToIcons[productSlug]
+		? productSlugsToIcons[productSlug][size]
+		: null
 
-		if (!Icon) {
-			return null
-		}
-
-		// Color should inherit from parent for hcp
-		const color =
-			productSlug === 'hcp' || productSlug === 'sentinel'
-				? undefined
-				: `var(--token-color-${productSlug}-brand)`
-
-		/**
-		 * The color is set here for theming purposes. We import the logo without
-		 * color and then set the product brand color since all the product icons
-		 * have a single fill color.
-		 */
-		return <Icon ref={ref} {...rest} color={color} />
+	if (!Icon) {
+		return null
 	}
-)
+
+	// Filter out children and ref from rest props
+	const { children, ref, ...rest } = allRest
+
+	// Color should inherit from parent for hcp
+	const color =
+		productSlug === 'hcp' || productSlug === 'sentinel'
+			? undefined
+			: `var(--token-color-${productSlug}-brand)`
+
+	/**
+	 * The color is set here for theming purposes. We import the logo without
+	 * color and then set the product brand color since all the product icons
+	 * have a single fill color.
+	 */
+	return <Icon {...rest} color={color} />
+}
 
 ProductIcon.displayName = 'ProductIcon'
 
