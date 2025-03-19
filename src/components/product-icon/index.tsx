@@ -78,7 +78,12 @@ const productSlugsToIcons = {
 	},
 }
 
-const ProductIcon = ({ productSlug, size = 16, ...rest }: ProductIconProps) => {
+const ProductIcon = ({
+	productSlug,
+	size = 16,
+	children,
+	...rest
+}: ProductIconProps) => {
 	const Icon = productSlugsToIcons[productSlug]
 		? productSlugsToIcons[productSlug][size]
 		: null
