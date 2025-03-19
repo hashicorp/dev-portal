@@ -70,6 +70,9 @@ module.exports = withHashicorp({
 			JSON.stringify(simpleRedirects, null, 2),
 			'utf-8'
 		)
+
+		console.warn('next.config.js: redirects', simpleRedirects)
+
 		return complexRedirects
 	},
 	env: {
