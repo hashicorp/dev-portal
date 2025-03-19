@@ -60,7 +60,9 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	const isDeveloperBuild = !process.env.IS_CONTENT_PREVIEW
 	const isLocalContentBuild = isDeployPreview(repoName)
 
-	console.warn(`redirects.js - isDeveloperBuild ${repoName} ${process.env}`)
+	console.warn(
+		`redirects.js - isDeveloperBuild ${repoName} ${JSON.stringify(process.env)}`
+	)
 	/**
 	 * Load redirects from the unified docs repo if it's in the list of migrated repos.
 	 * Return early if there are not any redirects found for that specific repo.
@@ -89,7 +91,7 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 		// For `hashicorp/dev-portal` builds, load redirects remotely
 		// hvd-docs is not hosted on the content API, so we need to use main as the latest sha
 
-		console.warn('redirects.js - isDeveloperBuild')
+		console.warn('redirects.js - if (isDeveloperBuild)')
 
 		const latestContentSha =
 			repoName === 'hvd-docs' || repoName === 'web-unified-docs'
@@ -145,8 +147,6 @@ async function buildProductRedirects() {
 		return []
 	}
 	const config = loadHashiConfigForEnvironment()
-
-	console.warn('redirects.js - buildProductRedirects', config)
 
 	const productRedirects = (
 		await Promise.all(

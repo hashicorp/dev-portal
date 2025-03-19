@@ -71,8 +71,6 @@ module.exports = withHashicorp({
 			'utf-8'
 		)
 
-		console.warn('next.config.js: redirects', simpleRedirects)
-
 		return complexRedirects
 	},
 	env: {
