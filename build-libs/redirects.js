@@ -87,7 +87,7 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 		// For `hashicorp/dev-portal` builds, load redirects remotely
 		// hvd-docs is not hosted on the content API, so we need to use main as the latest sha
 		const latestContentSha =
-			repoName === 'hvd-docs'
+			repoName === 'hvd-docs' || repoName === 'web-unified-docs'
 				? 'main'
 				: await getLatestContentShaForProduct(repoName)
 		redirectsFileString = await fetchGithubFile({
