@@ -4,67 +4,65 @@
  */
 
 .root {
+	width: fit-content;
 	position: relative;
-	display: inline-block;
 }
 
-.activatorContainer {
-	display: inline-flex;
+.activatorWrapper {
 	padding-bottom: 16px;
 	padding-top: 16px;
 }
 
 .activator {
-	display: flex;
+	/* Composition */
+	composes: g-focus-ring-from-box-shadow-dark from global;
+
+	/* CSS properties */
 	align-items: center;
-	gap: 6px;
-	background: transparent;
-	border: none;
-	cursor: pointer;
-	padding: 8px 10px;
+	background-color: transparent;
 	border-radius: 5px;
-	color: var(--token-color-foreground-primary);
-	font-size: 0.875rem;
-	font-weight: 500;
-}
+	border: 0;
+	display: flex;
+	padding-bottom: 8px;
+	padding-left: var(--header-menu-item-padding-left-right);
+	padding-right: var(--header-menu-item-padding-left-right);
+	padding-top: 8px;
 
-.label {
-	font-size: 0.875rem;
-	font-weight: 500;
-	color: var(--token-color-foreground-primary);
-	transition: color 0.2s;
+	&[aria-expanded='true'] {
+		& .activatorText {
+			color: var(--token-color-foreground-primary);
+		}
 
-	.activator:hover &,
-	.activator:focus &,
-	.activator[aria-expanded='true'] & {
-		color: var(--token-color-foreground-strong);
+		& .activatorTrailingIcon {
+			color: var(--token-color-foreground-primary);
+			transform: rotate(-180deg);
+		}
 	}
 }
 
-.activatorTrailingIcon {
-	width: 16px;
-	height: 16px;
-	display: inline-block;
-	color: var(--token-color-foreground-strong);
-	transition: transform 0.2s ease-in-out;
+.activatorText {
+	color: var(--token-color-foreground-primary);
+	margin-right: 6px;
+}
 
-	.activator[aria-expanded='true'] & {
-		transform: rotate(180deg);
+.activatorTrailingIcon {
+	color: var(--token-color-foreground-strong);
+
+	/* Only enable animation if query is supported and value is no-preference */
+	@media (prefers-reduced-motion: no-preference) {
+		transition: transform 0.2s ease-in-out;
 	}
 }
 
 .dropdownContainer {
-	position: absolute;
-	top: 100%;
-	left: 0;
 	background-color: var(--token-color-surface-primary);
-	border-radius: 6px;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
 	box-shadow: var(--token-elevation-higher-box-shadow);
-	z-index: -1;
-	margin-top: 0;
-	min-width: 32rem;
-	max-height: 80vh;
-	overflow-y: auto;
+	position: absolute;
+	width: max-content;
+	min-width: 280px;
+	max-width: 480px;
 }
 
 .dropdownContainerInner {
@@ -78,11 +76,11 @@
 .sectionTitle {
 	margin-bottom: 8px;
 	color: var(--token-color-foreground-strong);
+	font-size: 14px;
 }
 
 .introText {
 	color: var(--token-color-foreground-primary);
-	max-width: 90%;
 	line-height: 1.5;
 	margin-bottom: 8px;
 }
@@ -97,9 +95,10 @@
 .labsList {
 	list-style: none;
 	padding: 0;
-	margin: 12px 0 0 0;
+	margin: 8px 0 0 0;
 	display: flex;
 	flex-direction: column;
+	gap: 2px;
 }
 
 .itemContainer {
@@ -107,50 +106,109 @@
 	padding: 0;
 }
 
-.learnMoreLink {
+.playgroundItem {
+	/* Composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* CSS Properties */
+	align-items: flex-start;
+	border-radius: 5px;
+	color: var(--token-color-foreground-primary);
+	display: flex;
+	gap: 8px;
+	padding: 8px;
+	text-decoration: none;
+	width: 100%;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	text-align: left;
+
+	&:hover .title {
+		color: var(--token-color-foreground-strong);
+		text-decoration: underline;
+	}
+}
+
+.content {
+	flex: 1;
+	min-width: 0; /* Allows text truncation */
+}
+
+.titleRow {
 	display: flex;
 	align-items: center;
-	gap: 6px;
-	padding: 4px 0;
-	text-decoration: none;
+	gap: 8px;
+	margin-bottom: 4px;
+}
+
+.title {
 	color: var(--token-color-foreground-primary);
 	transition: color 0.2s;
-	font-size: 0.875rem;
+	font-size: 14px;
+}
 
-	&:hover,
-	&:focus {
+.description {
+	color: var(--token-color-foreground-faint);
+	display: block;
+	line-height: 1.5;
+	font-size: 14px;
+}
+
+.learnMoreLink {
+	/* Composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* CSS Properties */
+	align-items: center;
+	border-radius: 5px;
+	color: var(--token-color-foreground-primary);
+	display: flex;
+	padding: 8px;
+	text-decoration: none;
+	width: 100%;
+	font-size: 14px;
+
+	&:hover {
 		color: var(--token-color-foreground-strong);
-		text-decoration: none;
+		text-decoration: underline;
 	}
 }
 
 .learnMoreIcon {
 	width: 14px;
 	height: 14px;
+	margin-left: 6px;
 	color: var(--token-color-foreground-primary);
 	transition: transform 0.2s, color 0.2s;
 
-	.learnMoreLink:hover &,
-	.learnMoreLink:focus & {
+	.learnMoreLink:hover & {
 		transform: translateX(4px);
 		color: var(--token-color-foreground-strong);
 	}
 }
 
 .accordionButton {
-	display: flex;
+	/* Composition */
+	composes: g-focus-ring-from-box-shadow from global;
+
+	/* CSS Properties */
 	align-items: center;
-	justify-content: space-between;
+	border-radius: 5px;
+	color: var(--token-color-foreground-primary);
+	display: flex;
+	padding: 8px;
+	text-decoration: none;
 	width: 100%;
 	background: transparent;
 	border: none;
-	padding: 8px 0;
 	cursor: pointer;
+	justify-content: space-between;
 	text-align: left;
 
-	&:hover .sectionTitle,
-	&:focus .sectionTitle {
+	&:hover .sectionTitle {
 		color: var(--token-color-foreground-strong);
+		text-decoration: underline;
 	}
 }
 
@@ -159,6 +217,7 @@
 	height: 16px;
 	color: var(--token-color-foreground-primary);
 	transition: transform 0.2s ease-in-out;
+	flex-shrink: 0;
 }
 
 .accordionIconOpen {
