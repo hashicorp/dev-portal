@@ -17,7 +17,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import EmbedElement from 'components/lab-embed/embed-element'
 import Resizable from 'components/lab-embed/resizable'
-import { trackPlaygroundEvent } from 'lib/analytics'
+import { trackSandboxEvent } from 'lib/analytics'
 
 /**
  * Tracks Instruqt context errors with PostHog and development logging
@@ -141,9 +141,9 @@ function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
 
 	// Listen for route changes to preserve lab state during navigation
 	useEffect(() => {
-		// Track when a playground is open while navigating to different pages
+		// Track when a sandbox is open while navigating to different pages
 		if (active && labId) {
-			trackPlaygroundEvent('playground_open', {
+			trackSandboxEvent('sandbox_open', {
 				labId,
 				page: router.asPath,
 			})
@@ -163,7 +163,7 @@ function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
 
 	const closeLab = useCallback(() => {
 		if (active && labId) {
-			trackPlaygroundEvent('playground_closed', {
+			trackSandboxEvent('sandbox_closed', {
 				labId,
 				page: router.asPath,
 			})
