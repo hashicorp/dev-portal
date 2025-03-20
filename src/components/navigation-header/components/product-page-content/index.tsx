@@ -36,6 +36,12 @@ const ProductPageHeaderContent = () => {
 		PLAYGROUND_CONFIG.labs?.length > 0 &&
 		supportedPlaygroundProducts.includes(currentProduct.slug)
 
+	// Get playground labs for the current product
+	const labs = PLAYGROUND_CONFIG.labs || []
+	const currentProductLabs = labs.filter((lab) =>
+		lab.products.includes(currentProduct.slug)
+	)
+
 	return (
 		<>
 			<div className={s.productsDropdown}>
@@ -68,10 +74,14 @@ const ProductPageHeaderContent = () => {
 						if (isPlayground && hasPlayground) {
 							return (
 								<li key={navItem.label}>
-									<PlaygroundDropdown
-										ariaLabel={ariaLabel}
-										label="Playground"
-									/>
+									<div className={s.navDropdown}>
+										<NavigationMenu.Root>
+											<PlaygroundDropdown
+												ariaLabel={ariaLabel}
+												label="Playground"
+											/>
+										</NavigationMenu.Root>
+									</div>
 								</li>
 							)
 						}
