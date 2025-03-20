@@ -270,7 +270,14 @@ function TutorialView({
 				<VariantProvider variant={metadata.variant}>
 					<SidebarSidecarLayout
 						breadcrumbLinks={layoutProps.breadcrumbLinks}
-						sidebarNavDataLevels={sidebarNavDataLevels as any[]}
+						/**
+						 * @TODO remove casting to `any`. Will require refactoring both
+						 * `generateTopLevelSidebarNavData` and
+						 * `generateProductLandingSidebarNavData` to set up `menuItems` with
+						 * the correct types. This will require changing many files, so
+						 * deferring for a follow-up PR since this is functional for the time being.
+						 */
+						sidebarNavDataLevels={sidebarNavDataLevels as any}
 						showScrollProgress={true}
 						AlternateSidebar={TutorialsSidebar}
 						sidecarTopSlot={
