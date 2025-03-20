@@ -241,7 +241,6 @@ function TutorialView({
 					!currentState?.storedLabId ||
 					currentState.storedLabId !== handsOnLab.id
 				) {
-					// Load the new lab but keep it closed initially
 					openLab(handsOnLab.id)
 				}
 				// If it's the same lab, do nothing to preserve the user's open/closed preference
