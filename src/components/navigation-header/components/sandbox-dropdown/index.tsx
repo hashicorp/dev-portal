@@ -11,7 +11,7 @@ import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-ri
 import { useRouter } from 'next/router'
 import { useCurrentProduct } from 'contexts'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
-import { trackPlaygroundEvent } from 'lib/analytics'
+import { trackSandboxEvent } from 'lib/analytics'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
@@ -19,12 +19,12 @@ import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import deriveKeyEventState from 'lib/derive-key-event-state'
 import Text from 'components/text'
 import ProductIcon from 'components/product-icon'
-import PLAYGROUND_CONFIG from 'data/playground.json'
-import s from './playground-dropdown.module.css'
+import SANDBOX_CONFIG from 'data/sandbox.json'
+import s from './sandbox-dropdown.module.css'
 import { ProductSlug } from 'types/products'
 
-// Define the type to match the structure in playground.json
-type PlaygroundLab = {
+// Define the type to match the structure in sandbox.json
+type SandboxLab = {
 	id?: string
 	labId: string
 	title: string
@@ -32,12 +32,12 @@ type PlaygroundLab = {
 	products: string[]
 }
 
-interface PlaygroundDropdownProps {
+interface SandboxDropdownProps {
 	ariaLabel: string
 	label: string
 }
 
-const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
+const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const uniqueId = useId()
 	const router = useRouter()
 	const currentProduct = useCurrentProduct()
@@ -45,11 +45,11 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 	const menuRef = useRef<HTMLDivElement>()
 	const activatorButtonRef = useRef<HTMLButtonElement>()
 	const [isOpen, setIsOpen] = useState(false)
-	const [otherPlaygroundsOpen, setOtherPlaygroundsOpen] = useState(false)
-	const menuId = `playground-dropdown-menu-${uniqueId}`
+	const [otherSandboxesOpen, setOtherSandboxesOpen] = useState(false)
+	const menuId = `sandbox-dropdown-menu-${uniqueId}`
 
-	// Item data from playground config
-	const labs = PLAYGROUND_CONFIG.labs as PlaygroundLab[]
+	// Item data from sandbox config
+	const labs = SANDBOX_CONFIG.labs as SandboxLab[]
 
 	// Filter labs for current product and other products
 	const currentProductLabs = labs.filter((lab) =>
@@ -136,9 +136,9 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 	/**
 	 * Handle lab selection
 	 */
-	const handleLabClick = (lab: PlaygroundLab) => {
+	const handleLabClick = (lab: SandboxLab) => {
 		openLab(lab.labId)
-		trackPlaygroundEvent('playground_started', {
+		trackSandboxEvent('sandbox_started', {
 			labId: lab.labId,
 			page: router.asPath,
 		})
@@ -146,20 +146,20 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 	}
 
 	/**
-	 * Navigate to the playground page
+	 * Navigate to the sandbox page
 	 */
-	const navigateToPlaygroundPage = (e: React.MouseEvent) => {
+	const navigateToSandboxPage = (e: React.MouseEvent) => {
 		e.preventDefault()
-		router.push(`/${currentProduct.slug}/playground`)
+		router.push(`/${currentProduct.slug}/sandbox`)
 		setIsOpen(false)
 	}
 
 	/**
-	 * Toggle the other playgrounds accordion
+	 * Toggle the other sandboxes accordion
 	 */
-	const toggleOtherPlaygrounds = (e: React.MouseEvent) => {
+	const toggleOtherSandboxes = (e: React.MouseEvent) => {
 		e.preventDefault()
-		setOtherPlaygroundsOpen(!otherPlaygroundsOpen)
+		setOtherSandboxesOpen(!otherSandboxesOpen)
 	}
 
 	return (
@@ -192,7 +192,7 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 				style={{ display: isOpen ? 'block' : 'none' }}
 			>
 				<div className={s.dropdownContainerInner}>
-					{/* Introduction to Playgrounds */}
+					{/* Introduction to Sandboxes */}
 					<div className={s.introSection}>
 						<Text
 							asElement="p"
@@ -200,7 +200,7 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 							size={200}
 							weight="semibold"
 						>
-							HashiCorp Playgrounds
+							HashiCorp Sandboxes
 						</Text>
 						<Text
 							asElement="p"
@@ -215,13 +215,13 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 
 						{/* Learn more link */}
 						<a
-							href={`/${currentProduct.slug}/playground`}
+							href={`/${currentProduct.slug}/sandbox`}
 							className={s.learnMoreLink}
-							onClick={navigateToPlaygroundPage}
+							onClick={navigateToSandboxPage}
 							onKeyDown={handleKeyDown}
 						>
 							<Text asElement="span" size={100} weight="medium">
-								Learn more about Playgrounds
+								Learn more about Sandboxes
 							</Text>
 							<IconArrowRight16 className={s.learnMoreIcon} />
 						</a>
@@ -230,21 +230,21 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 					{/* Divider */}
 					<hr className={s.divider} />
 
-					{/* Available Product Playgrounds Section */}
+					{/* Available Product Sandboxes Section */}
 					<Text
 						asElement="p"
 						className={s.sectionTitle}
 						size={200}
 						weight="semibold"
 					>
-						Available {currentProduct.name} Playgrounds
+						Available {currentProduct.name} Sandboxes
 					</Text>
 
 					<ul className={s.labsList}>
 						{currentProductLabs.map((lab, index) => (
 							<li key={lab.id || index} className={s.itemContainer}>
 								<button
-									className={s.playgroundItem}
+									className={s.sandboxItem}
 									onClick={() => handleLabClick(lab)}
 									onKeyDown={handleKeyDown}
 								>
@@ -274,16 +274,16 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 						))}
 					</ul>
 
-					{/* Other Playgrounds Accordion (only show if there are other playgrounds) */}
+					{/* Other Sandboxes Accordion (only show if there are other sandboxes) */}
 					{otherProductLabs.length > 0 && (
 						<>
 							<hr className={s.divider} />
 
 							<button
 								className={s.accordionButton}
-								onClick={toggleOtherPlaygrounds}
+								onClick={toggleOtherSandboxes}
 								onKeyDown={handleKeyDown}
-								aria-expanded={otherPlaygroundsOpen}
+								aria-expanded={otherSandboxesOpen}
 							>
 								<Text
 									asElement="span"
@@ -291,21 +291,21 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 									size={200}
 									weight="semibold"
 								>
-									Other Playgrounds
+									Other Sandboxes
 								</Text>
 								<IconChevronRight16
 									className={`${s.accordionIcon} ${
-										otherPlaygroundsOpen ? s.accordionIconOpen : ''
+										otherSandboxesOpen ? s.accordionIconOpen : ''
 									}`}
 								/>
 							</button>
 
-							{otherPlaygroundsOpen && (
+							{otherSandboxesOpen && (
 								<ul className={s.labsList}>
 									{otherProductLabs.map((lab, index) => (
 										<li key={lab.id || index} className={s.itemContainer}>
 											<button
-												className={s.playgroundItem}
+												className={s.sandboxItem}
 												onClick={() => handleLabClick(lab)}
 												onKeyDown={handleKeyDown}
 											>
@@ -345,4 +345,4 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 	)
 }
 
-export default PlaygroundDropdown
+export default SandboxDropdown

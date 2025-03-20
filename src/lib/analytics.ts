@@ -142,10 +142,10 @@ const trackProductDownload = ({
 }
 
 /**
- * Tracks playground events using PostHog
+ * Tracks sandbox events using PostHog
  */
-export const trackPlaygroundEvent = (
-	eventName: 'playground_started' | 'playground_open' | 'playground_closed',
+export const trackSandboxEvent = (
+	eventName: 'sandbox_started' | 'sandbox_open' | 'sandbox_closed',
 	properties: {
 		labId: string
 		page: string

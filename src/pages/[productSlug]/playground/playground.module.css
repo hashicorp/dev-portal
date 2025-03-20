@@ -9,13 +9,13 @@
 	justify-content: center;
 }
 
-.playgroundDropdown {
+.sandboxDropdown {
 	min-width: 480px;
 	max-height: 80vh;
 	overflow-y: auto;
 }
 
-.playgroundIntro {
+.sandboxIntro {
 	margin: 32px 0;
 }
 
@@ -56,7 +56,7 @@
 	padding-top: 24px;
 }
 
-.playgroundCard {
+.sandboxCard {
 	cursor: pointer;
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
 
@@ -99,7 +99,7 @@
 	}
 }
 
-.noPlaygrounds {
+.noSandboxes {
 	margin: 32px 0;
 	padding: 24px;
 	background-color: var(--token-color-surface-faint);
