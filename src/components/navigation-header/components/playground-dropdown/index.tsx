@@ -11,6 +11,7 @@ import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-ri
 import { useRouter } from 'next/router'
 import { useCurrentProduct } from 'contexts'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
+import { trackPlaygroundEvent } from 'lib/analytics'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
@@ -137,6 +138,10 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 	 */
 	const handleLabClick = (lab: PlaygroundLab) => {
 		openLab(lab.labId)
+		trackPlaygroundEvent('playground_started', {
+			labId: lab.labId,
+			page: router.asPath,
+		})
 		setIsOpen(false)
 	}
 
