@@ -32,10 +32,8 @@ function onRouteChangeComplete() {
 /**
  * Enables PostHog video start tracking
  */
-export function onVideoStart(video_id: string) {
-	console.log('onVideoStart', video_id)
+export function trackVideoStart(video_id: string) {
 	if (!window?.posthog) return
-	console.log('onVideoStart - posthog', video_id)
 	window.posthog.capture('video_start', { video_id })
 }
 

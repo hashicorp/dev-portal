@@ -15,7 +15,7 @@ import {
 	useMilestones,
 } from './helpers'
 import s from './video-embed.module.css'
-import { onVideoStart } from 'hooks/use-posthog-analytics'
+import { trackVideoStart } from 'hooks/use-posthog-analytics'
 
 /**
  * MAX_PLAYBACK_SPEED is based on max speeds for YouTube & Wistia.
@@ -144,7 +144,7 @@ function VideoEmbed({
 					config={config}
 					url={url}
 					onStart={() => {
-						onVideoStart(url)
+						trackVideoStart(url)
 					}}
 					onDuration={setDuration}
 					progressInterval={PROGRESS_INTERVAL}
