@@ -5,26 +5,22 @@
 
 import { Fragment, KeyboardEvent, useRef, useState } from 'react'
 import { useId } from '@react-aria/utils'
-import classNames from 'classnames'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
+import { useRouter } from 'next/router'
+import { useCurrentProduct } from 'contexts'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
-import { useRouter } from 'next/router'
-import { useCurrentProduct } from 'contexts'
+import deriveKeyEventState from 'lib/derive-key-event-state'
 import Text from 'components/text'
-import PlaygroundItem from '../playground-item'
-import {
-	NavigationHeaderIcon,
-	NavigationHeaderItem,
-} from 'components/navigation-header/types'
-import { ProductSlug } from 'types/products'
+import ProductIcon from 'components/product-icon'
 import PLAYGROUND_CONFIG from 'data/playground.json'
 import s from './playground-dropdown.module.css'
+import { ProductSlug } from 'types/products'
 
 // Define the type to match the structure in playground.json
 type PlaygroundLab = {
@@ -86,24 +82,53 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 	})
 
 	/**
-	 * Handles the menu being activated via a hover.
-	 * Opens the menu.
+	 * Handles click interaction with the activator button. When clicked, if the
+	 * menu is:
+	 *  - open, then it will be closed
+	 *  - closed, then it will be opened
 	 */
-	const handleMouseEnter = () => {
-		setIsOpen(true)
+	const handleClick = () => {
+		setIsOpen(!isOpen)
 	}
 
 	/**
-	 * Handles a keydown event on the activator button.
-	 * Opens the menu for specific keystroke patterns.
+	 * Handles the behavior that should happen when a key is pressed down.
+	 * Currently used by both the activator button and each menu item anchor
+	 * element. Currently only handles what happens when the Escape is pressed
+	 * because all other keyboard interaction is handled by default interactions
+	 * with these elements.
+	 *
+	 * On Escape:
+	 *  - the menu is closed, if it is open
+	 *  - the activator button is given focus
 	 */
-	const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+	const handleKeyDown = (e: KeyboardEvent) => {
+		const { isEscapeKey } = deriveKeyEventState(e)
+		if (isEscapeKey) {
+			setIsOpen(false)
+			activatorButtonRef.current.focus()
+		}
+	}
+
+	/**
+	 * Handles the start of a mouse hover interaction with the activator button.
+	 * When the mouse pointer hovers over the activator button, the menu will be
+	 * opened if it is not already open.
+	 */
+	const handleMouseEnter = () => {
 		if (!isOpen) {
-			const { isDown, isEnter, isSpace } = deriveKeyEventState(event)
-			if (isDown || isEnter || isSpace) {
-				event.preventDefault()
-				setIsOpen(true)
-			}
+			setIsOpen(true)
+		}
+	}
+
+	/**
+	 * Handles the end of a mouse hover interaction with the entire menu. If the
+	 * menu is open, and the mouse moves outside the bounds either the activator
+	 * button or the dropdown menu list, then the menu will be closed.
+	 */
+	const handleMouseLeave = () => {
+		if (isOpen) {
+			setIsOpen(false)
 		}
 	}
 
@@ -113,18 +138,6 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 	const handleLabClick = (lab: PlaygroundLab) => {
 		openLab(lab.labId)
 		setIsOpen(false)
-
-		// Don't navigate away - just open the lab in the current page
-		// This prevents issues with lab state being lost during navigation
-	}
-
-	/**
-	 * Navigate to the playground page when clicking on the label
-	 */
-	const handleLabelClick = (e: React.MouseEvent) => {
-		e.preventDefault()
-		e.stopPropagation()
-		router.push(`/${currentProduct.slug}/playground`)
 	}
 
 	/**
@@ -145,23 +158,26 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 	}
 
 	return (
-		<div
-			className={s.root}
-			ref={menuRef}
-			onMouseEnter={handleMouseEnter}
-			onMouseLeave={() => setIsOpen(false)}
-		>
-			<div className={s.activatorContainer}>
+		<div className={s.root} onMouseLeave={handleMouseLeave} ref={menuRef}>
+			<div className={s.activatorWrapper}>
 				<button
 					aria-controls={menuId}
 					aria-expanded={isOpen}
 					aria-label={ariaLabel}
 					className={s.activator}
+					onClick={handleClick}
 					onKeyDown={handleKeyDown}
+					onMouseEnter={handleMouseEnter}
 					ref={activatorButtonRef}
-					onClick={handleLabelClick}
 				>
-					<span className={s.label}>{label}</span>
+					<Text
+						asElement="span"
+						className={s.activatorText}
+						size={200}
+						weight="medium"
+					>
+						{label}
+					</Text>
 					<IconChevronDown16 className={s.activatorTrailingIcon} />
 				</button>
 			</div>
@@ -197,6 +213,7 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 							href={`/${currentProduct.slug}/playground`}
 							className={s.learnMoreLink}
 							onClick={navigateToPlaygroundPage}
+							onKeyDown={handleKeyDown}
 						>
 							<Text asElement="span" size={100} weight="medium">
 								Learn more about Playgrounds
@@ -221,17 +238,33 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 					<ul className={s.labsList}>
 						{currentProductLabs.map((lab, index) => (
 							<li key={lab.id || index} className={s.itemContainer}>
-								<PlaygroundItem
-									item={{
-										label: lab.title,
-										description: lab.description,
-										products: lab.products,
-										path: '#',
-										ariaLabel: lab.description,
-										labId: lab.labId,
-										onClick: () => handleLabClick(lab),
-									}}
-								/>
+								<button
+									className={s.playgroundItem}
+									onClick={() => handleLabClick(lab)}
+									onKeyDown={handleKeyDown}
+								>
+									<ProductIcon productSlug={currentProduct.slug} />
+									<div className={s.content}>
+										<div className={s.titleRow}>
+											<Text
+												asElement="span"
+												className={s.title}
+												size={200}
+												weight="regular"
+											>
+												{lab.title}
+											</Text>
+										</div>
+										<Text
+											asElement="span"
+											className={s.description}
+											size={100}
+											weight="regular"
+										>
+											{lab.description}
+										</Text>
+									</div>
+								</button>
 							</li>
 						))}
 					</ul>
@@ -244,6 +277,7 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 							<button
 								className={s.accordionButton}
 								onClick={toggleOtherPlaygrounds}
+								onKeyDown={handleKeyDown}
 								aria-expanded={otherPlaygroundsOpen}
 							>
 								<Text
@@ -255,9 +289,9 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 									Other Playgrounds
 								</Text>
 								<IconChevronRight16
-									className={classNames(s.accordionIcon, {
-										[s.accordionIconOpen]: otherPlaygroundsOpen,
-									})}
+									className={`${s.accordionIcon} ${
+										otherPlaygroundsOpen ? s.accordionIconOpen : ''
+									}`}
 								/>
 							</button>
 
@@ -265,17 +299,35 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 								<ul className={s.labsList}>
 									{otherProductLabs.map((lab, index) => (
 										<li key={lab.id || index} className={s.itemContainer}>
-											<PlaygroundItem
-												item={{
-													label: lab.title,
-													description: lab.description,
-													products: lab.products,
-													path: '#',
-													ariaLabel: lab.description,
-													labId: lab.labId,
-													onClick: () => handleLabClick(lab),
-												}}
-											/>
+											<button
+												className={s.playgroundItem}
+												onClick={() => handleLabClick(lab)}
+												onKeyDown={handleKeyDown}
+											>
+												<ProductIcon
+													productSlug={lab.products[0] as ProductSlug}
+												/>
+												<div className={s.content}>
+													<div className={s.titleRow}>
+														<Text
+															asElement="span"
+															className={s.title}
+															size={200}
+															weight="regular"
+														>
+															{lab.title}
+														</Text>
+													</div>
+													<Text
+														asElement="span"
+														className={s.description}
+														size={100}
+														weight="regular"
+													>
+														{lab.description}
+													</Text>
+												</div>
+											</button>
 										</li>
 									))}
 								</ul>
@@ -289,30 +341,3 @@ const PlaygroundDropdown = ({ ariaLabel, label }: PlaygroundDropdownProps) => {
 }
 
 export default PlaygroundDropdown
-
-// Helper function extracted from NavigationHeaderDropdownMenu
-function deriveKeyEventState(event: KeyboardEvent<Element>) {
-	const isDown = event.key === 'ArrowDown'
-	const isUp = event.key === 'ArrowUp'
-	const isLeft = event.key === 'ArrowLeft'
-	const isRight = event.key === 'ArrowRight'
-	const isEnter = event.key === 'Enter'
-	const isEscape = event.key === 'Escape'
-	const isHome = event.key === 'Home'
-	const isEnd = event.key === 'End'
-	const isSpace = event.key === ' '
-	const isTab = event.key === 'Tab'
-
-	return {
-		isDown,
-		isUp,
-		isLeft,
-		isRight,
-		isEnter,
-		isEscape,
-		isHome,
-		isEnd,
-		isSpace,
-		isTab,
-	}
-}
