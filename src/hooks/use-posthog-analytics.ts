@@ -37,6 +37,7 @@ export default function usePostHogPageAnalytics(): void {
 
 	useEffect(() => {
 		// Ensures code only runs if PostHog has been initialized
+		console.log('window?.posthog', window?.posthog)
 		if (!window?.posthog) return
 
 		window.posthog.config.capture_pageview = false

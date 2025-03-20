@@ -288,11 +288,7 @@ function TutorialView({
 								/>
 							) : null
 						}
-						sidecarSlot={
-							outlineItems?.length > 0 && (
-								<OutlineNavWithActive items={outlineItems} />
-							)
-						}
+						sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
 						mainWidth={layoutProps.mainWidth}
 					>
 						<LayoutContentWrapper
