@@ -124,7 +124,7 @@ function TutorialView({
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
-	const { openLab, closeLab } = useInstruqtEmbed()
+	const { openLab, closeLab, setActive } = useInstruqtEmbed()
 
 	// variables
 	const {
@@ -232,13 +232,29 @@ function TutorialView({
 	// Handle lab opening/closing when tutorial changes
 	useEffect(() => {
 		if (isInteractive && handsOnLab?.id) {
-			openLab(handsOnLab.id)
+			try {
+				// Get the current lab state
+				const storedState = localStorage.getItem('instruqt-lab-state')
+				const currentState = storedState ? JSON.parse(storedState) : null
+
+				// If we're loading a different lab, or there's no current lab
+				if (
+					!currentState?.storedLabId ||
+					currentState.storedLabId !== handsOnLab.id
+				) {
+					// Load the new lab but keep it closed initially
+					openLab(handsOnLab.id)
+				}
+				// If it's the same lab, do nothing to preserve the user's open/closed preference
+			} catch (e) {
+				console.warn('Failed to handle lab state:', e)
+			}
 		} else if (!isInteractive) {
 			// Only close the lab if this tutorial is not interactive
 			// This prevents closing the lab when navigating between pages
 			closeLab()
 		}
-	}, [isInteractive, handsOnLab, openLab, closeLab])
+	}, [isInteractive, handsOnLab, openLab, closeLab, setActive])
 
 	return (
 		<>
