@@ -9,8 +9,7 @@ import { IconHashicorp24 } from '@hashicorp/flight-icons/svg-react/hashicorp-24'
 // Global imports
 import { useCurrentProduct } from 'contexts'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import { useInstruqtEmbed } from 'contexts/instruqt-lab'
-import PLAYGROUND_CONFIG from 'data/playground.json'
+import SANDBOX_CONFIG from 'data/sandbox.json'
 
 // Local imports
 import {
@@ -22,7 +21,7 @@ import {
 import { ProductIconTextLink } from './components'
 import { getNavItems, getProductsDropdownItems, NavItem } from './utils'
 import { navigationData, navPromo, sidePanelContent } from 'lib/products'
-import PlaygroundDropdown from '../playground-dropdown'
+import SandboxDropdown from '../sandbox-dropdown'
 import s from './product-page-content.module.css'
 
 const ProductPageHeaderContent = () => {
@@ -30,14 +29,14 @@ const ProductPageHeaderContent = () => {
 	const allProductsItems = getProductsDropdownItems()
 	const productNavItems = getNavItems(currentProduct)
 
-	// Check if the current product has playground support
-	const supportedPlaygroundProducts = PLAYGROUND_CONFIG.products || []
-	const hasPlayground =
-		PLAYGROUND_CONFIG.labs?.length > 0 &&
-		supportedPlaygroundProducts.includes(currentProduct.slug)
+	// Check if the current product has sandbox support
+	const supportedSandboxProducts = SANDBOX_CONFIG.products || []
+	const hasSandbox =
+		SANDBOX_CONFIG.labs?.length > 0 &&
+		supportedSandboxProducts.includes(currentProduct.slug)
 
-	// Get playground labs for the current product
-	const labs = PLAYGROUND_CONFIG.labs || []
+	// Get sandbox labs for the current product
+	const labs = SANDBOX_CONFIG.labs || []
 	const currentProductLabs = labs.filter((lab) =>
 		lab.products.includes(currentProduct.slug)
 	)
@@ -69,17 +68,14 @@ const ProductPageHeaderContent = () => {
 					{productNavItems.map((navItem: NavItem) => {
 						const ariaLabel = `${currentProduct.name} ${navItem.label}`
 						const isSubmenu = 'items' in navItem
-						const isPlayground = navItem.label === 'Playground'
+						const isSandbox = navItem.label === 'Sandbox'
 
-						if (isPlayground && hasPlayground) {
+						if (isSandbox && hasSandbox) {
 							return (
 								<li key={navItem.label}>
 									<div className={s.navDropdown}>
 										<NavigationMenu.Root>
-											<PlaygroundDropdown
-												ariaLabel={ariaLabel}
-												label="Playground"
-											/>
+											<SandboxDropdown ariaLabel={ariaLabel} label="Sandbox" />
 										</NavigationMenu.Root>
 									</div>
 								</li>

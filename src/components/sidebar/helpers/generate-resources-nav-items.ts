@@ -9,7 +9,7 @@ import {
 	VALID_EDITION_SLUGS_FOR_FILTERING,
 	VALID_PRODUCT_SLUGS_FOR_FILTERING,
 } from 'views/tutorial-library/constants'
-import PLAYGROUND_CONFIG from 'data/playground.json'
+import SANDBOX_CONFIG from 'data/sandbox.json'
 
 /**
  * Note: these ResourceNav types could probably be abstracted up or lifted out,
@@ -137,11 +137,11 @@ function generateResourcesNavItems(
 	productSlug?: ProductSlug
 ): ResourceNavItem[] {
 	const additionalResources = generateAdditionalResources(productSlug)
-	const supportedPlaygroundProducts = PLAYGROUND_CONFIG.products || []
-	const hasPlayground =
+	const supportedSandboxProducts = SANDBOX_CONFIG.products || []
+	const hasSandbox =
 		productSlug &&
-		PLAYGROUND_CONFIG.labs?.length > 0 &&
-		supportedPlaygroundProducts.includes(productSlug)
+		SANDBOX_CONFIG.labs?.length > 0 &&
+		supportedSandboxProducts.includes(productSlug)
 
 	return [
 		{ heading: 'Resources' },
@@ -151,12 +151,12 @@ function generateResourcesNavItems(
 			href: getTutorialLibraryUrl(productSlug),
 		},
 		...getCertificationsLink(productSlug),
-		// Add Playground link if the product supports it
-		...(hasPlayground
+		// Add Sandbox link if the product supports it
+		...(hasSandbox
 			? [
 					{
-						title: 'Playground',
-						href: `/${productSlug}/playground`,
+						title: 'Sandbox',
+						href: `/${productSlug}/sandbox`,
 					},
 			  ]
 			: []),
