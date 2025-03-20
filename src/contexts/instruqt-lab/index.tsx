@@ -17,10 +17,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import EmbedElement from 'components/lab-embed/embed-element'
 import Resizable from 'components/lab-embed/resizable'
-import SandboxErrorBoundary from 'components/sandbox-error-boundary'
-import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
-import { validateSandboxConfigWithDetailedErrors } from 'lib/validate-sandbox-config'
-import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
+import { trackPlaygroundEvent } from 'lib/analytics'
 
 /**
  * Tracks Instruqt context errors with PostHog and development logging
@@ -144,10 +141,14 @@ function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
 
 	// Listen for route changes to preserve lab state during navigation
 	useEffect(() => {
-		// This effect runs when the route changes
-		// We don't need to do anything special here, just ensure
-		// the component doesn't unmount during navigation
-	}, [router.asPath])
+		// Track when a playground is open while navigating to different pages
+		if (active && labId) {
+			trackPlaygroundEvent('playground_open', {
+				labId,
+				page: router.asPath,
+			})
+		}
+	}, [router.asPath, active, labId])
 
 	const openLab = useCallback(
 		(newLabId: string) => {
@@ -161,9 +162,15 @@ function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
 	)
 
 	const closeLab = useCallback(() => {
+		if (active && labId) {
+			trackPlaygroundEvent('playground_closed', {
+				labId,
+				page: router.asPath,
+			})
+		}
 		setActive(false)
 		// Note: We don't clear the labId here to allow reopening the same lab
-	}, [])
+	}, [active, labId, router.asPath])
 
 	return (
 		<InstruqtContext.Provider
