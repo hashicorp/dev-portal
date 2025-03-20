@@ -42,7 +42,11 @@ describe('RemoteContentLoader', () => {
 
 		nock.disableNetConnect()
 
-		scope = nock(process.env.MKTG_CONTENT_DOCS_API)
+		scope = nock(
+			new RegExp(
+				`${process.env.MKTG_CONTENT_DOCS_API}|${process.env.UNIFIED_DOCS_API}`
+			)
+		)
 	})
 
 	afterAll(() => {
@@ -449,8 +453,8 @@ describe('RemoteContentLoader', () => {
 		})
 
 		// Verify that the function completed successfully
-		expect(props.navData[0].path).not.toBeDefined()
-		expect(props.navData[0].title).toEqual('Item with no path')
+		expect((props.navData[0] as any).path).not.toBeDefined()
+		expect((props.navData[0] as any).title).toEqual('Item with no path')
 	})
 })
 

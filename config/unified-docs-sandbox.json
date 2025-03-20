@@ -4,11 +4,7 @@
 		"max_static_paths": 1
 	},
 	"dev_dot": {
-		"max_static_paths": 1,
-		"algolia": {
-			"unifiedIndexName": "prod_DEVDOT_omni",
-			"udrIndexName": "prod_UDR"
-		}
+		"max_static_paths": 1
 	},
 	"learn": {
 		"max_static_paths": 1

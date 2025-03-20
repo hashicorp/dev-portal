@@ -11,34 +11,7 @@ describe('allDocsFields', () => {
 		vi.resetAllMocks()
 	})
 
-	it('should fetch and return all docs fields from content API when unified-docs-sandbox is not set', async () => {
-		process.env.HASHI_ENV = 'production'
-		process.env.MKTG_CONTENT_DOCS_API = 'https://content-api.example.com'
-		const mockContentAPIDocsResult = [
-			{ path: 'doc1', created_at: '2025-01-07T18:44:51.431Z' },
-			{ path: 'doc2', created_at: '2025-01-07T18:44:51.431Z' },
-		]
-		global.fetch = vi.fn().mockResolvedValue({
-			json: vi.fn().mockResolvedValue({ result: mockContentAPIDocsResult }),
-		})
-
-		const result = await allDocsFields(__config)
-
-		expect(fetch).toHaveBeenCalledWith(
-			'https://content-api.example.com/api/all-docs-paths'
-		)
-		expect(result).toEqual(
-			mockContentAPIDocsResult.map((page) => ({
-				loc: `https://developer.hashicorp.com/${page.path}`,
-				lastmod: page.created_at,
-				priority: 1,
-				changefreq: 'daily',
-			}))
-		)
-	})
-
-	it('should fetch and return all docs fields from both content API and UDR when unified-docs-sandbox is set', async () => {
-		process.env.HASHI_ENV = 'unified-docs-sandbox'
+	it('should fetch and return all docs fields from both content API and UDR', async () => {
 		process.env.MKTG_CONTENT_DOCS_API = 'https://content-api.example.com'
 		process.env.UNIFIED_DOCS_API = 'https://udr-api.example.com'
 		__config.flags = {
