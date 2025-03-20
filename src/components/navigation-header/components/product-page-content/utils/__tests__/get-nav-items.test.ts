@@ -238,10 +238,10 @@ describe('getNavItems', () => {
 			    ],
 			    "label": "Documentation",
 			  },
-				{
-					"label": "Playground",
-					"url": "/terraform/playground",
-				},
+			  {
+			    "label": "Playground",
+			    "url": "/terraform/playground",
+			  },
 			  {
 			    "label": "Sandbox",
 			    "url": "/terraform/sandbox",
