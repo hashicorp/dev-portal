@@ -39,6 +39,8 @@ export function buildUrlPath(searchHit: Hit): string {
 			organization: { slug: organization_slug } as $TSFixMe,
 			slug,
 		} as $TSFixMe)
+	} else if (searchHit.type === 'zendesk') {
+		return `https://support.hashicorp.com/hc/articles/${searchHit.slug}`
 	} else {
 		/**
 		 * Something's gone wrong, this should never happen in our indexing.

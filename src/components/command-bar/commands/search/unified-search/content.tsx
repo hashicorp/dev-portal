@@ -38,4 +38,8 @@ export const tabContentByType: Record<
 		heading: 'Integrations',
 		icon: <IconPipeline16 />,
 	},
+	zendesk: {
+		heading: 'Zendesk',
+		icon: <IconDocs16 />,
+	},
 }

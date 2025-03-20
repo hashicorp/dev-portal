@@ -7,7 +7,10 @@ import { ReactNode, createContext, useContext, useState } from 'react'
 
 const SearchHitsContext = createContext([])
 
-type HitCounts = Record<'docs' | 'tutorials' | 'integrations', number>
+type HitCounts = Record<
+	'docs' | 'tutorials' | 'integrations' | 'zendesk',
+	number
+>
 
 /**
  * Intended to provides search hit counts across content types.
