@@ -44,6 +44,10 @@ describe('getNavItems', () => {
 			    "url": "/nomad/commands",
 			  },
 			  {
+			    "label": "Playground",
+			    "url": "/nomad/playground",
+			  },
+			  {
 			    "label": "Integrations",
 			    "url": "/nomad/integrations",
 			  },
