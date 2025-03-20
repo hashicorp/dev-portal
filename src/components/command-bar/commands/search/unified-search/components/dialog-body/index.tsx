@@ -147,18 +147,6 @@ function SearchResults({
 						)
 					}
 				)}
-				{process.env.HASHI_ENV === 'unified-docs-sandbox' ? (
-					<Index
-						indexName={__config.dev_dot.algolia.udrIndexName}
-						indexId="docs"
-					>
-						<Configure
-							query={currentInputValue}
-							filters={getAlgoliaFilters(currentProductSlug, 'docs')}
-						/>
-						<HitsReporter setHits={(hits) => setHitData('docs', hits)} />
-					</Index>
-				) : null}
 			</InstantSearch>
 			{/* UnifiedHitsContainer renders search results in a tabbed interface. */}
 			<UnifiedHitsContainer
