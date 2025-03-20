@@ -12,7 +12,7 @@ import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
 import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
 import { useMobileMenu } from 'contexts'
-import InstruqtProvider from 'contexts/instruqt-lab'
+import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import { TutorialLite } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
@@ -124,6 +124,7 @@ function TutorialView({
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
+	const { openLab, closeLab, setActive } = useInstruqtEmbed()
 
 	// variables
 	const {
@@ -142,7 +143,7 @@ function TutorialView({
 	)
 	const hasVideo = Boolean(video)
 	const isInteractive = Boolean(handsOnLab)
-	const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
+	const InteractiveLabWrapper = isInteractive ? Fragment : Fragment
 	const nextPreviousData = getNextPrevious({
 		currentCollection: collectionCtx.current,
 		currentTutorialSlug: slug,
@@ -227,6 +228,32 @@ function TutorialView({
 		collectionTutorialIds,
 	})
 
+	// Handle lab opening/closing when tutorial changes
+	useEffect(() => {
+		if (isInteractive && handsOnLab?.id) {
+			try {
+				// Get the current lab state
+				const storedState = localStorage.getItem('instruqt-lab-state')
+				const currentState = storedState ? JSON.parse(storedState) : null
+
+				// If we're loading a different lab, or there's no current lab
+				if (
+					!currentState?.storedLabId ||
+					currentState.storedLabId !== handsOnLab.id
+				) {
+					openLab(handsOnLab.id)
+				}
+				// If it's the same lab, do nothing to preserve the user's open/closed preference
+			} catch (e) {
+				console.warn('Failed to handle lab state:', e)
+			}
+		} else if (!isInteractive) {
+			// Only close the lab if this tutorial is not interactive
+			// This prevents closing the lab when navigating between pages
+			closeLab()
+		}
+	}, [isInteractive, handsOnLab, openLab, closeLab, setActive])
+
 	return (
 		<>
 			<Head>
@@ -247,7 +274,7 @@ function TutorialView({
 						 * @TODO remove casting to `any`. Will require refactoring both
 						 * `generateTopLevelSidebarNavData` and
 						 * `generateProductLandingSidebarNavData` to set up `menuItems` with
-						 * the correct types. This will require chaning many files, so
+						 * the correct types. This will require changing many files, so
 						 * deferring for a follow-up PR since this is functional for the time being.
 						 */
 						sidebarNavDataLevels={sidebarNavDataLevels as any}

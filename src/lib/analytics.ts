@@ -141,4 +141,19 @@ const trackProductDownload = ({
 	})
 }
 
+/**
+ * Tracks sandbox events using PostHog
+ */
+export const trackSandboxEvent = (
+	eventName: 'sandbox_started' | 'sandbox_open' | 'sandbox_closed',
+	properties: {
+		labId: string
+		page: string
+	}
+): void => {
+	if (window?.posthog?.capture) {
+		window.posthog.capture(eventName, properties)
+	}
+}
+
 export { safeAnalyticsTrack, trackProductDownload }
