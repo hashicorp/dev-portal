@@ -44,8 +44,8 @@ describe('getNavItems', () => {
 			    "url": "/nomad/commands",
 			  },
 			  {
-			    "label": "Playground",
-			    "url": "/nomad/playground",
+			    "label": "Sandbox",
+			    "url": "/nomad/sandbox",
 			  },
 			  {
 			    "label": "Integrations",
@@ -239,8 +239,8 @@ describe('getNavItems', () => {
 			    "label": "Documentation",
 			  },
 			  {
-			    "label": "Playground",
-			    "url": "/terraform/playground",
+			    "label": "Sandbox",
+			    "url": "/terraform/sandbox",
 			  },
 			  {
 			    "label": "Sandbox",
