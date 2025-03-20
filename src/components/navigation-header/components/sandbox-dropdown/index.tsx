@@ -3,14 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { KeyboardEvent, useRef, useState } from 'react'
+import { Fragment, KeyboardEvent, useRef, useState } from 'react'
 import { useId } from '@react-aria/utils'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
+import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { useRouter } from 'next/router'
 import { useCurrentProduct } from 'contexts'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
-import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
+import { trackSandboxEvent } from 'lib/analytics'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
@@ -18,11 +19,18 @@ import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import deriveKeyEventState from 'lib/derive-key-event-state'
 import Text from 'components/text'
 import ProductIcon from 'components/product-icon'
-import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
+import SANDBOX_CONFIG from 'data/sandbox.json'
 import s from './sandbox-dropdown.module.css'
-import { SandboxLab } from 'types/sandbox'
 import { ProductSlug } from 'types/products'
-import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
+
+// Define the type to match the structure in sandbox.json
+type SandboxLab = {
+	id?: string
+	labId: string
+	title: string
+	description: string
+	products: string[]
+}
 
 interface SandboxDropdownProps {
 	ariaLabel: string
@@ -37,14 +45,19 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const menuRef = useRef<HTMLDivElement>()
 	const activatorButtonRef = useRef<HTMLButtonElement>()
 	const [isOpen, setIsOpen] = useState(false)
+	const [otherSandboxesOpen, setOtherSandboxesOpen] = useState(false)
 	const menuId = `sandbox-dropdown-menu-${uniqueId}`
 
 	// Item data from sandbox config
-	const labs = SANDBOX_CONFIG.labs as unknown as SandboxLab[]
+	const labs = SANDBOX_CONFIG.labs as SandboxLab[]
 
 	// Filter labs for current product and other products
 	const currentProductLabs = labs.filter((lab) =>
 		lab.products.includes(currentProduct.slug)
+	)
+
+	const otherProductLabs = labs.filter(
+		(lab) => !lab.products.includes(currentProduct.slug)
 	)
 
 	// Handles closing the menu if there is a click outside of it and it is open.
@@ -124,14 +137,9 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	 * Handle lab selection
 	 */
 	const handleLabClick = (lab: SandboxLab) => {
-		const labWithTrack = {
-			...lab,
-			instruqtTrack: lab.instruqtTrack || '',
-		}
-		const fullLabId = buildLabIdWithConfig(labWithTrack)
-		openLab(fullLabId)
-		trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
-			labId: fullLabId,
+		openLab(lab.labId)
+		trackSandboxEvent('sandbox_started', {
+			labId: lab.labId,
 			page: router.asPath,
 		})
 		setIsOpen(false)
@@ -144,6 +152,14 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		e.preventDefault()
 		router.push(`/${currentProduct.slug}/sandbox`)
 		setIsOpen(false)
+	}
+
+	/**
+	 * Toggle the other sandboxes accordion
+	 */
+	const toggleOtherSandboxes = (e: React.MouseEvent) => {
+		e.preventDefault()
+		setOtherSandboxesOpen(!otherSandboxesOpen)
 	}
 
 	return (
@@ -205,7 +221,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 							onKeyDown={handleKeyDown}
 						>
 							<Text asElement="span" size={100} weight="medium">
-								Learn more about {currentProduct.name} Sandboxes
+								Learn more about Sandboxes
 							</Text>
 							<IconArrowRight16 className={s.learnMoreIcon} />
 						</a>
@@ -226,12 +242,13 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 
 					<ul className={s.labsList}>
 						{currentProductLabs.map((lab, index) => (
-							<li key={lab.labId || index} className={s.itemContainer}>
+							<li key={lab.id || index} className={s.itemContainer}>
 								<button
 									className={s.sandboxItem}
 									onClick={() => handleLabClick(lab)}
 									onKeyDown={handleKeyDown}
 								>
+									<ProductIcon productSlug={currentProduct.slug} />
 									<div className={s.content}>
 										<div className={s.titleRow}>
 											<Text
@@ -242,16 +259,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 											>
 												{lab.title}
 											</Text>
-											<div className={s.productIcons}>
-												{lab.products.map((product) => (
-													<ProductIcon
-														key={`${lab.labId}-${product}`}
-														productSlug={product as ProductSlug}
-														size={16}
-														className={s.productIcon}
-													/>
-												))}
-											</div>
 										</div>
 										<Text
 											asElement="span"
@@ -266,6 +273,72 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 							</li>
 						))}
 					</ul>
+
+					{/* Other Sandboxes Accordion (only show if there are other sandboxes) */}
+					{otherProductLabs.length > 0 && (
+						<>
+							<hr className={s.divider} />
+
+							<button
+								className={s.accordionButton}
+								onClick={toggleOtherSandboxes}
+								onKeyDown={handleKeyDown}
+								aria-expanded={otherSandboxesOpen}
+							>
+								<Text
+									asElement="span"
+									className={s.sectionTitle}
+									size={200}
+									weight="semibold"
+								>
+									Other Sandboxes
+								</Text>
+								<IconChevronRight16
+									className={`${s.accordionIcon} ${
+										otherSandboxesOpen ? s.accordionIconOpen : ''
+									}`}
+								/>
+							</button>
+
+							{otherSandboxesOpen && (
+								<ul className={s.labsList}>
+									{otherProductLabs.map((lab, index) => (
+										<li key={lab.id || index} className={s.itemContainer}>
+											<button
+												className={s.sandboxItem}
+												onClick={() => handleLabClick(lab)}
+												onKeyDown={handleKeyDown}
+											>
+												<ProductIcon
+													productSlug={lab.products[0] as ProductSlug}
+												/>
+												<div className={s.content}>
+													<div className={s.titleRow}>
+														<Text
+															asElement="span"
+															className={s.title}
+															size={200}
+															weight="regular"
+														>
+															{lab.title}
+														</Text>
+													</div>
+													<Text
+														asElement="span"
+														className={s.description}
+														size={100}
+														weight="regular"
+													>
+														{lab.description}
+													</Text>
+												</div>
+											</button>
+										</li>
+									))}
+								</ul>
+							)}
+						</>
+					)}
 				</div>
 			</div>
 		</div>

@@ -7,7 +7,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
-import { trackPlaygroundEvent } from 'lib/analytics'
+import { trackSandboxEvent } from 'lib/analytics'
 import {
 	generateTopLevelSidebarNavData,
 	generateProductLandingSidebarNavData,
@@ -22,23 +22,23 @@ import CardsGridList from 'components/cards-grid-list'
 import { BrandedHeaderCard } from 'views/product-integrations-landing/components/branded-header-card'
 import { MenuItem } from 'components/sidebar/types'
 import { ProductSlug } from 'types/products'
-import PLAYGROUND_CONFIG from 'data/playground.json'
+import SANDBOX_CONFIG from 'data/sandbox.json'
 import ProductIcon from 'components/product-icon'
-import s from './playground.module.css'
+import s from './sandbox.module.css'
 
-interface PlaygroundPageProps {
+interface SandboxPageProps {
 	product: (typeof PRODUCT_DATA_MAP)[keyof typeof PRODUCT_DATA_MAP]
 	layoutProps: {
 		breadcrumbLinks: { title: string; url: string }[]
 		navLevels: any[]
 	}
-	availablePlaygrounds: {
+	availableSandboxes: {
 		title: string
 		description: string
 		products: string[]
 		labId: string
 	}[]
-	otherPlaygrounds: {
+	otherSandboxes: {
 		title: string
 		description: string
 		products: string[]
@@ -46,19 +46,19 @@ interface PlaygroundPageProps {
 	}[]
 }
 
-export default function PlaygroundView({
+export default function SandboxView({
 	product,
 	layoutProps,
-	availablePlaygrounds,
-	otherPlaygrounds,
-}: PlaygroundPageProps) {
+	availableSandboxes,
+	otherSandboxes,
+}: SandboxPageProps) {
 	const { openLab } = useInstruqtEmbed()
 
 	const handleLabClick = (labId: string) => {
 		openLab(labId)
-		trackPlaygroundEvent('playground_started', {
+		trackSandboxEvent('sandbox_started', {
 			labId,
-			page: `/${product.slug}/playground`,
+			page: `/${product.slug}/sandbox`,
 		})
 	}
 
@@ -69,13 +69,13 @@ export default function PlaygroundView({
 		>
 			<BrandedHeaderCard
 				productSlug={product.slug}
-				heading={`${product.name} Interactive Playgrounds`}
+				heading={`${product.name} Interactive Sandboxes`}
 				description="Experiment with HashiCorp products in a safe, pre-configured environment."
 			/>
 
-			<div className={s.playgroundIntro}>
+			<div className={s.sandboxIntro}>
 				<p className={s.introText}>
-					HashiCorp Playgrounds provide interactive environments where you can
+					HashiCorp Sandboxes provide interactive environments where you can
 					experiment with HashiCorp products without any installation or setup.
 					They're perfect for:
 				</p>
@@ -90,46 +90,31 @@ export default function PlaygroundView({
 				</ul>
 
 				<p className={s.introText}>
-					Each playground comes pre-configured with everything you need to start
-					using the product immediately. Just click on a playground below to
-					launch it in your browser.
+					Each sandbox comes pre-configured with everything you need to start
+					using the product immediately. Just click on a sandbox below to launch
+					it in your browser.
 				</p>
-
-				{/* <div className={s.gettingStartedInfo}>
-					<h3 className={s.subSectionHeading}>Getting Started</h3>
-					<p className={s.helpText}>
-						When you launch a playground, you'll be presented with a terminal interface where you can
-						interact with the pre-configured environment. The playground runs in your browser and
-						doesn't require any downloads or installations.
-					</p>
-					<p className={s.helpText}>
-						Each playground session lasts for up to 1 hour, giving you plenty of time to experiment.
-						Your work isn't saved between sessions, so be sure to copy any important configurations
-						before your session ends.
-					</p>
-				</div> */}
 			</div>
 
-			<h2 className={s.sectionHeading}>Available {product.name} playgrounds</h2>
+			<h2 className={s.sectionHeading}>Available {product.name} sandboxes</h2>
 
 			<p className={s.helpText}>
-				When you launch a playground, you'll be presented with a terminal
-				interface where you can interact with the pre-configured environment.
-				The playground runs in your browser and doesn't require any downloads or
-				installations.
+				When you launch a sandbox, you'll be presented with a terminal interface
+				where you can interact with the pre-configured environment. The sandbox
+				runs in your browser and doesn't require any downloads or installations.
 			</p>
 			<p className={s.helpText}>
-				Each playground session lasts for up to 1 hour, giving you plenty of
-				time to experiment. Your work isn't saved between sessions, so be sure
-				to copy any important configurations before your session ends.
+				Each sandbox session lasts for up to 1 hour, giving you plenty of time
+				to experiment. Your work isn't saved between sessions, so be sure to
+				copy any important configurations before your session ends.
 			</p>
 
-			{availablePlaygrounds.length > 0 ? (
+			{availableSandboxes.length > 0 ? (
 				<CardsGridList>
-					{availablePlaygrounds.map((lab, index) => (
+					{availableSandboxes.map((lab, index) => (
 						<div
 							key={index}
-							className={s.playgroundCard}
+							className={s.sandboxCard}
 							onClick={() => handleLabClick(lab.labId)}
 						>
 							<Card>
@@ -148,32 +133,32 @@ export default function PlaygroundView({
 								</div>
 								<CardDescription text={lab.description} />
 								<CardFooter>
-									<button className={s.launchButton}>Launch Playground</button>
+									<button className={s.launchButton}>Launch Sandbox</button>
 								</CardFooter>
 							</Card>
 						</div>
 					))}
 				</CardsGridList>
 			) : (
-				<p className={s.noPlaygrounds}>
-					There are currently no playgrounds available for {product.name}. Check
-					back later or explore other product playgrounds.
+				<p className={s.noSandboxes}>
+					There are currently no sandboxes available for {product.name}. Check
+					back later or explore other product sandboxes.
 				</p>
 			)}
 
-			{otherPlaygrounds.length > 0 && (
+			{otherSandboxes.length > 0 && (
 				<>
-					<h2 className={s.sectionHeading}>Other playgrounds</h2>
+					<h2 className={s.sectionHeading}>Other sandboxes</h2>
 					<p className={s.introText}>
-						Explore playgrounds for other HashiCorp products that you might find
+						Explore sandboxes for other HashiCorp products that you might find
 						useful.
 					</p>
 
 					<CardsGridList>
-						{otherPlaygrounds.map((lab, index) => (
+						{otherSandboxes.map((lab, index) => (
 							<div
 								key={index}
-								className={s.playgroundCard}
+								className={s.sandboxCard}
 								onClick={() => handleLabClick(lab.labId)}
 							>
 								<Card>
@@ -192,9 +177,7 @@ export default function PlaygroundView({
 									</div>
 									<CardDescription text={lab.description} />
 									<CardFooter>
-										<button className={s.launchButton}>
-											Launch Playground
-										</button>
+										<button className={s.launchButton}>Launch Sandbox</button>
 									</CardFooter>
 								</Card>
 							</div>
@@ -207,8 +190,8 @@ export default function PlaygroundView({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	// Get the list of supported products from playground.json
-	const supportedProducts = PLAYGROUND_CONFIG.products || []
+	// Get the list of supported products from sandbox.json
+	const supportedProducts = SANDBOX_CONFIG.products || []
 
 	// Generate paths for all products that are in the supported products list
 	const paths = supportedProducts
@@ -223,34 +206,34 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	}
 }
 
-export const getStaticProps: GetStaticProps<PlaygroundPageProps> = async ({
+export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 	params,
 }) => {
 	const productSlug = params?.productSlug as string
 	const product = PRODUCT_DATA_MAP[productSlug]
-	const supportedProducts = PLAYGROUND_CONFIG.products || []
+	const supportedProducts = SANDBOX_CONFIG.products || []
 
-	// Only show playground page if product is in the supported products list
+	// Only show sandbox page if product is in the supported products list
 	if (!product || !supportedProducts.includes(productSlug)) {
 		return {
 			notFound: true,
 		}
 	}
 
-	// Filter playgrounds that are relevant to this product
-	const availablePlaygrounds = PLAYGROUND_CONFIG.labs.filter((lab) =>
+	// Filter sandboxes that are relevant to this product
+	const availableSandboxes = SANDBOX_CONFIG.labs.filter((lab) =>
 		lab.products.includes(productSlug)
 	)
 
-	// Filter playgrounds that are NOT relevant to this product
-	const otherPlaygrounds = PLAYGROUND_CONFIG.labs.filter(
+	// Filter sandboxes that are NOT relevant to this product
+	const otherSandboxes = SANDBOX_CONFIG.labs.filter(
 		(lab) => !lab.products.includes(productSlug)
 	)
 
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
 		{ title: product.name, url: `/${productSlug}` },
-		{ title: 'Playground', url: `/${productSlug}/playground` },
+		{ title: 'Sandbox', url: `/${productSlug}/sandbox` },
 	]
 
 	const sidebarNavDataLevels = [
@@ -258,35 +241,23 @@ export const getStaticProps: GetStaticProps<PlaygroundPageProps> = async ({
 		generateProductLandingSidebarNavData(product),
 	]
 
-	// Add playground links
-	const playgroundMenuItems: MenuItem[] = [
+	// Add sandbox links
+	const sandboxMenuItems: MenuItem[] = [
 		{
-			title: `${product.name} Playground`,
-			fullPath: `/${productSlug}/playground`,
+			title: `${product.name} Sandbox`,
+			fullPath: `/${productSlug}/sandbox`,
 			theme: product.slug,
 			isActive: true,
 		},
 	]
-
-	if (product.playgroundConfig?.sidebarLinks) {
-		playgroundMenuItems.push(
-			{ heading: 'Resources' },
-			...product.playgroundConfig.sidebarLinks.map((link) => ({
-				title: link.title,
-				path: link.href,
-				href: link.href,
-				isActive: false,
-			}))
-		)
-	}
 
 	sidebarNavDataLevels.push({
 		backToLinkProps: {
 			text: `${product.name} Home`,
 			href: `/${product.slug}`,
 		},
-		title: 'Playground',
-		menuItems: playgroundMenuItems,
+		title: 'Sandbox',
+		menuItems: sandboxMenuItems,
 		showFilterInput: false,
 		visuallyHideTitle: true,
 		levelButtonProps: {
@@ -302,8 +273,8 @@ export const getStaticProps: GetStaticProps<PlaygroundPageProps> = async ({
 				breadcrumbLinks,
 				navLevels: sidebarNavDataLevels,
 			},
-			availablePlaygrounds,
-			otherPlaygrounds,
+			availableSandboxes,
+			otherSandboxes,
 		},
 	}
 }

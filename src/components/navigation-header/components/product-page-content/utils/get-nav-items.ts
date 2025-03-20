@@ -11,7 +11,7 @@ import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
 import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 import { ProductData } from 'types/products'
 import { NavItem } from './types'
-import PLAYGROUND_CONFIG from 'data/playground.json'
+import SANDBOX_CONFIG from 'data/sandbox.json'
 
 const TRY_CLOUD_ITEM_PRODUCT_SLUGS = [
 	'boundary',
@@ -157,17 +157,17 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	}
 
 	/**
-	 * Add Playground item if there are any labs configured
+	 * Add Sandbox item if there are any labs configured
 	 * and the current product is in the supported products list
 	 */
-	const supportedPlaygroundProducts = PLAYGROUND_CONFIG.products || []
+	const supportedSandboxProducts = SANDBOX_CONFIG.products || []
 	if (
-		PLAYGROUND_CONFIG.labs?.length &&
-		supportedPlaygroundProducts.includes(currentProduct.slug)
+		SANDBOX_CONFIG.labs?.length &&
+		supportedSandboxProducts.includes(currentProduct.slug)
 	) {
 		items.push({
-			label: 'Playground',
-			url: `/${currentProduct.slug}/playground`,
+			label: 'Sandbox',
+			url: `/${currentProduct.slug}/sandbox`,
 		})
 	}
 
