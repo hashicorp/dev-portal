@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
 import { NavigationHeaderIcon } from 'components/navigation-header/types'
@@ -24,36 +24,22 @@ interface SandboxItemProps {
 }
 
 const SandboxItem = ({ item }: SandboxItemProps) => {
-	const { label, description, products, onClick, labId } = item
-	const [isLaunching, setIsLaunching] = useState(false)
+	const { label, description, products, onClick } = item
 
 	const handleClick = useCallback(
-		async (e) => {
+		(e) => {
 			e.preventDefault()
-			
-			if (isLaunching) return // Prevent double clicks
-			
-			setIsLaunching(true)
-			
-			try {
-				await onClick?.()
-			} finally {
-				// Reset loading state after a short delay to provide visual feedback
-				setTimeout(() => {
-					setIsLaunching(false)
-				}, 1000)
-			}
+			onClick?.()
 		},
-		[onClick, isLaunching]
+		[onClick]
 	)
 
 	return (
 		<a
 			href="#"
-			className={`${s.sandboxItem} ${isLaunching ? s.launching : ''}`}
+			className={s.playgroundItem}
 			onClick={handleClick}
-			title={isLaunching ? 'Launching lab...' : description}
-			aria-disabled={isLaunching}
+			title={description}
 		>
 			<div className={s.content}>
 				<div className={s.titleRow}>
@@ -63,13 +49,12 @@ const SandboxItem = ({ item }: SandboxItemProps) => {
 						size={200}
 						weight="regular"
 					>
-						{isLaunching ? 'Launching...' : label}
+						{label}
 					</Text>
-					{isLaunching && <div className={s.loadingSpinner} />}
 					<div className={s.productIcons}>
-						{products.map((product) => (
+						{products.map((product, index) => (
 							<ProductIcon
-								key={`${labId}-${product}`}
+								key={index}
 								productSlug={product as ProductSlug}
 								className={s.productIcon}
 								size={16}
@@ -83,7 +68,7 @@ const SandboxItem = ({ item }: SandboxItemProps) => {
 					size={100}
 					weight="regular"
 				>
-					{isLaunching ? 'Setting up your sandbox environment...' : description}
+					{description}
 				</Text>
 			</div>
 		</a>
