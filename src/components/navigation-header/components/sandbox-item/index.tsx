@@ -8,9 +8,9 @@ import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
 import { NavigationHeaderIcon } from 'components/navigation-header/types'
 import { ProductSlug } from 'types/products'
-import s from './playground-item.module.css'
+import s from './sandbox-item.module.css'
 
-interface PlaygroundItemProps {
+interface SandboxItemProps {
 	item: {
 		label: string
 		description: string
@@ -23,7 +23,7 @@ interface PlaygroundItemProps {
 	}
 }
 
-const PlaygroundItem = ({ item }: PlaygroundItemProps) => {
+const SandboxItem = ({ item }: SandboxItemProps) => {
 	const { label, description, products, onClick } = item
 
 	const handleClick = useCallback(
@@ -75,4 +75,4 @@ const PlaygroundItem = ({ item }: PlaygroundItemProps) => {
 	)
 }
 
-export default PlaygroundItem
+export default SandboxItem

@@ -161,20 +161,6 @@ interface ProductData extends Product {
 	}
 	basePaths: string[]
 	rootDocsPaths: RootDocsPath[]
-	playgroundConfig?: {
-		sidebarLinks: {
-			title: string
-			href: string
-		}[]
-		description?: string
-		labs?: {
-			id: string
-			name: string
-			instruqtId: string
-			description: string
-			products: ProductSlug[]
-		}[]
-	}
 	/**
 	 * When configuring docsNavItems, authors have the option to specify
 	 * the full data structure, or use a string that matches a rootDocsPath.path

@@ -106,7 +106,7 @@
 	padding: 0;
 }
 
-.playgroundItem {
+.sandboxItem {
 	/* Composition */
 	composes: g-focus-ring-from-box-shadow from global;
 
