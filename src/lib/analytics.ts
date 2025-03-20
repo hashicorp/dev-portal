@@ -133,4 +133,19 @@ const trackProductDownload = ({
 	})
 }
 
+/**
+ * Tracks playground events using PostHog
+ */
+export const trackPlaygroundEvent = (
+	eventName: 'playground_started' | 'playground_open' | 'playground_closed',
+	properties: {
+		labId: string
+		page: string
+	}
+): void => {
+	if (window?.posthog?.capture) {
+		window.posthog.capture(eventName, properties)
+	}
+}
+
 export { safeAnalyticsTrack, trackProductDownload }
