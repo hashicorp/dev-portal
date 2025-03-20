@@ -4,10 +4,10 @@
  */
 
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { useState, useEffect, useMemo } from 'react'
 import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
+import { trackPlaygroundEvent } from 'lib/analytics'
 import {
 	generateTopLevelSidebarNavData,
 	generateProductLandingSidebarNavData,
@@ -20,8 +20,6 @@ import {
 import Card from 'components/card'
 import CardsGridList from 'components/cards-grid-list'
 import { BrandedHeaderCard } from 'views/product-integrations-landing/components/branded-header-card'
-import { CardBadges } from 'components/tutorial-collection-cards'
-import { ProductOption } from 'lib/learn-client/types'
 import { MenuItem } from 'components/sidebar/types'
 import { ProductSlug } from 'types/products'
 import PLAYGROUND_CONFIG from 'data/playground.json'
@@ -58,6 +56,10 @@ export default function PlaygroundView({
 
 	const handleLabClick = (labId: string) => {
 		openLab(labId)
+		trackPlaygroundEvent('playground_started', {
+			labId,
+			page: `/${product.slug}/playground`,
+		})
 	}
 
 	return (
