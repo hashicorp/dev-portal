@@ -11,7 +11,7 @@ import s from './no-results-message.module.css'
 
 interface NoResultsMessageProps {
 	tabsWithResults: {
-		type: 'global' | 'docs' | 'tutorials' | 'integrations' | 'zendesk'
+		type: 'global' | 'docs' | 'tutorials' | 'integrations' | 'knowledgebase'
 		heading: string
 		icon: ReactElement<React.JSX.IntrinsicElements['svg']>
 	}[]

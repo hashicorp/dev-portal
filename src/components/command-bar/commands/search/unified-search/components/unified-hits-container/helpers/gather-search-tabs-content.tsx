@@ -23,7 +23,7 @@ const PRODUCT_SLUGS_WITH_INTEGRATIONS =
  * Each content type tab has a set of properties required for rendering.
  */
 export interface UnifiedSearchTabContent {
-	type: 'global' | 'docs' | 'tutorials' | 'integrations' | 'zendesk'
+	type: 'global' | 'docs' | 'tutorials' | 'integrations' | 'knowledgebase'
 	heading: string
 	hitCount: number
 	hits: Hit[]
@@ -45,7 +45,12 @@ type OtherTabData = Pick<UnifiedSearchTabContent, 'type' | 'heading' | 'icon'>[]
  */
 function getOtherTabsWithResults(
 	tabsData: Omit<UnifiedSearchTabContent, 'otherTabData'>[],
-	currentTabType: 'global' | 'docs' | 'tutorials' | 'integrations' | 'zendesk'
+	currentTabType:
+		| 'global'
+		| 'docs'
+		| 'tutorials'
+		| 'integrations'
+		| 'knowledgebase'
 ): OtherTabData {
 	return tabsData
 		.filter((tabData) => {
@@ -83,7 +88,9 @@ export function gatherSearchTabsData(
 	 * Map each content type to { heading, hits, icon } etcetera for each tab
 	 */
 	const tabsData = validContentTypes.map(
-		(type: 'global' | 'docs' | 'tutorials' | 'integrations' | 'zendesk') => {
+		(
+			type: 'global' | 'docs' | 'tutorials' | 'integrations' | 'knowledgebase'
+		) => {
 			const { heading, icon } = tabContentByType[type]
 			const rawHits = unifiedSearchResults[type].hits
 

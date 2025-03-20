@@ -39,7 +39,7 @@ export function buildUrlPath(searchHit: Hit): string {
 			organization: { slug: organization_slug } as $TSFixMe,
 			slug,
 		} as $TSFixMe)
-	} else if (searchHit.type === 'zendesk') {
+	} else if (searchHit.type === 'knowledgebase') {
 		return `https://support.hashicorp.com/hc/articles/${searchHit.slug}`
 	} else {
 		/**

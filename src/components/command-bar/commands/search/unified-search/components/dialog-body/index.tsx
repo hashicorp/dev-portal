@@ -113,7 +113,7 @@ function SearchResults({
 			docs: { hits: [] },
 			integration: { hits: [] },
 			tutorial: { hits: [] },
-			zendesk: { hits: [] },
+			knowledgebase: { hits: [] },
 		})
 	/**
 	 * `setHitData` allows easy updating of hits for a specific content type
@@ -151,12 +151,12 @@ function SearchResults({
 					}
 				)}
 
-				<Index indexName={ZENDESK_ALGOLIA_INDEX_NAME} indexId="zendesk">
+				<Index indexName={ZENDESK_ALGOLIA_INDEX_NAME} indexId="knowledgebase">
 					<Configure
 						query={currentInputValue}
-						filters={getAlgoliaFilters(currentProductSlug, 'zendesk')}
+						filters={getAlgoliaFilters(currentProductSlug, 'knowledgebase')}
 					/>
-					<HitsReporter setHits={(hits) => setHitData('zendesk', hits)} />
+					<HitsReporter setHits={(hits) => setHitData('knowledgebase', hits)} />
 				</Index>
 			</InstantSearch>
 			{/* UnifiedHitsContainer renders search results in a tabbed interface. */}

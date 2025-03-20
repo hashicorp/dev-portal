@@ -8,7 +8,7 @@ import { ReactNode, createContext, useContext, useState } from 'react'
 const SearchHitsContext = createContext([])
 
 type HitCounts = Record<
-	'docs' | 'tutorials' | 'integrations' | 'zendesk',
+	'docs' | 'tutorials' | 'integrations' | 'knowledgebase',
 	number
 >
 

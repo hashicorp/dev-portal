@@ -16,7 +16,7 @@ import type { UnifiedHitProps } from '../types'
  */
 export function getUnifiedHitProps(hit: Hit): UnifiedHitProps {
 	// Content type, for icon
-	const type = hit.type as 'docs' | 'tutorial' | 'integration' | 'zendesk'
+	const type = hit.type as 'docs' | 'tutorial' | 'integration' | 'knowledgebase'
 
 	// Link attributes, href is also used for "breadcrumb"
 	const ariaLabel = `${hit.page_title}. ${hit.description}`

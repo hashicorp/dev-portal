@@ -36,7 +36,7 @@ export type UnifiedSearchableContentType =
 	| 'docs'
 	| 'integration'
 	| 'tutorial'
-	| 'zendesk'
+	| 'knowledgebase'
 
 export type UnifiedSearchResults = Record<
 	UnifiedSearchableContentType,
