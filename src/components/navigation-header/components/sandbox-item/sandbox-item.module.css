@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-.playgroundItem {
+.sandboxItem {
 	align-items: flex-start;
 	border-radius: 5px;
 	color: var(--token-color-foreground-primary);
