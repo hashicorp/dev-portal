@@ -5,7 +5,8 @@
 	},
 	"dev_dot": {
 		"algolia": {
-			"unifiedIndexName": "staging_DEVDOT_omni"
+			"unifiedIndexName": "staging_DEVDOT_omni",
+			"zendeskIndexName": "dev_ZENDESK"
 		}
 	},
 	"flags": {

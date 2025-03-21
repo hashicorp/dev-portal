@@ -33,6 +33,7 @@ import type {
 import s from './dialog-body.module.css'
 
 const ALGOLIA_INDEX_NAME = __config.dev_dot.algolia.unifiedIndexName
+const ZENDESK_ALGOLIA_INDEX_NAME = __config.dev_dot.algolia.zendeskIndexName
 
 // Initialize the algolia search client
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
@@ -112,11 +113,13 @@ function SearchResults({
 			docs: { hits: [] },
 			integration: { hits: [] },
 			tutorial: { hits: [] },
+			knowledgebase: { hits: [] },
 		})
 	/**
 	 * `setHitData` allows easy updating of hits for a specific content type
 	 */
 	function setHitData(type: UnifiedSearchableContentType, hits: Hit[]) {
+		console.log('### setHitData', type, hits)
 		setUnifiedSearchResults((previous) => ({ ...previous, [type]: { hits } }))
 	}
 
@@ -147,6 +150,14 @@ function SearchResults({
 						)
 					}
 				)}
+
+				<Index indexName={ZENDESK_ALGOLIA_INDEX_NAME} indexId="knowledgebase">
+					<Configure
+						query={currentInputValue}
+						filters={getAlgoliaFilters(currentProductSlug, 'knowledgebase')}
+					/>
+					<HitsReporter setHits={(hits) => setHitData('knowledgebase', hits)} />
+				</Index>
 			</InstantSearch>
 			{/* UnifiedHitsContainer renders search results in a tabbed interface. */}
 			<UnifiedHitsContainer
