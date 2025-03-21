@@ -94,6 +94,13 @@ export function gatherSearchTabsData(
 			const { heading, icon } = tabContentByType[type]
 			const rawHits = unifiedSearchResults[type].hits
 
+			// If type is global, also add knowledgebase hits since they are not included in the global hits
+			// in the <InstantSearch> component because the knowledgebase hits come from a different index.
+			if (type === 'global') {
+				const knowledgebaseHits = unifiedSearchResults.knowledgebase.hits
+				rawHits.push(...knowledgebaseHits)
+			}
+
 			/**
 			 * If the resultType is `global`, we want to include all results...
 			 * **Except** we need to filter out `integrations` for products that don't
