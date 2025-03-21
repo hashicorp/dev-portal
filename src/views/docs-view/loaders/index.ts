@@ -137,8 +137,8 @@ export interface GenerateStaticPropsContext {
 	params: Record<string, string[]> // {} | { page: ["destroy"] }
 	product: { name: string; slug: string }
 	mainBranch?: string // = 'main',
-	remarkPlugins?: any[]
-	scope?: any // optional, I think?
+	remarkPlugins?: $TSFixMe[]
+	scope?: $TSFixMe // optional, I think?
 	paramId?: string
 	basePath: string // 'docs'
 	githubFileUrl?: (path: string) => string

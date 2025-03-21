@@ -77,7 +77,7 @@ const SidebarSidecarLayoutContent = ({
 		return () => {
 			setShowSkipLink(false)
 		}
-	}, [])
+	}, [setShowSkipLink])
 
 	// Handles closing the sidebar if focus moves outside of it and it is open.
 	useOnFocusOutside(

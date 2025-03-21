@@ -78,7 +78,7 @@ async function main() {
 				series: structuredMetrics,
 			},
 		})
-	} catch (error) {
+	} catch {
 		// Swallow errors here, we don't want to impact the build or make it seem like there's been an error in the actual app
 		// if something goes wrong when sending metrics
 	}
