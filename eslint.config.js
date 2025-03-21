@@ -15,6 +15,7 @@ module.exports = [
 			'vitest.config.mts',
 			'playwright-report',
 			'**/.extracted',
+			'.vercel',
 		],
 	},
 	pluginJs.configs.recommended,
