@@ -6,7 +6,6 @@
 import Tabs, { Tab } from 'components/tabs'
 import EnterpriseAlertBase from '@hashicorp/react-enterprise-alert'
 import { MdxListItem } from 'components/dev-dot-content/mdx-components'
-import PropTypes from 'prop-types'
 
 /**
  * ConfigEntryReference renders the reference docs for a config entry.
@@ -49,11 +48,6 @@ export default function ConfigEntryReference({ keys, topLevel = true }) {
 			</Tab>
 		</Tabs>
 	)
-}
-
-ConfigEntryReference.propTypes = {
-	keys: PropTypes.array,
-	topLevel: PropTypes.bool,
 }
 
 /**

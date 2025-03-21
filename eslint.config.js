@@ -70,12 +70,13 @@ module.exports = [
 			// For instances where we aren't using esmodules or TypeScript and therefore can't use import
 			'@typescript-eslint/no-require-imports': 'off',
 			'no-prototype-builtins': 'off',
+
+			'react/prop-types': 'off',
 		},
 	},
 	{
 		files: ['**/*.ts?(x)'],
 		rules: {
-			'react/prop-types': 'off',
 			'react/no-array-index-key': 'warn',
 			'react/no-unknown-property': ['error', { ignore: ['class'] }]
 		},

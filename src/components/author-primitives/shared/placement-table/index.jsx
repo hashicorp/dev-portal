@@ -5,7 +5,6 @@
 
 import { Fragment } from 'react'
 import styles from './placement-table.module.css'
-import PropTypes from 'prop-types'
 
 export default function PlacementTable({ groups = [] }) {
 	return (
@@ -46,11 +45,4 @@ export default function PlacementTable({ groups = [] }) {
 function wrapLastItem(arr, wrapper) {
 	arr[arr.length - 1] = `<${wrapper}>${arr[arr.length - 1]}</${wrapper}>`
 	return arr
-}
-
-PlacementTable.propTypes = {
-	groups:  PropTypes.oneOfType([
-		PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-		PropTypes.arrayOf(PropTypes.string),
-	]),
 }
