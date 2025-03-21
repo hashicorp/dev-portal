@@ -8,6 +8,7 @@ import { IconDocs16 } from '@hashicorp/flight-icons/svg-react/docs-16'
 import { IconGrid16 } from '@hashicorp/flight-icons/svg-react/grid-16'
 import { IconLearn16 } from '@hashicorp/flight-icons/svg-react/learn-16'
 import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
+import { IconSupport16 } from '@hashicorp/flight-icons/svg-react/support-16'
 // Types
 import type { ReactElement } from 'react'
 import type { UnifiedSearchableContentType } from './types'
@@ -39,7 +40,7 @@ export const tabContentByType: Record<
 		icon: <IconPipeline16 />,
 	},
 	knowledgebase: {
-		heading: 'Zendesk',
-		icon: <IconDocs16 />,
+		heading: 'Support',
+		icon: <IconSupport16 />,
 	},
 }
