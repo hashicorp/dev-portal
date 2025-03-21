@@ -15,7 +15,7 @@ import {
 	useMilestones,
 } from './helpers'
 import s from './video-embed.module.css'
-import { trackVideoStart } from 'hooks/use-posthog-analytics'
+import { trackVideoStart } from 'lib/posthog-events'
 
 /**
  * MAX_PLAYBACK_SPEED is based on max speeds for YouTube & Wistia.
