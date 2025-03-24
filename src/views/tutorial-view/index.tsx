@@ -143,7 +143,6 @@ function TutorialView({
 	)
 	const hasVideo = Boolean(video)
 	const isInteractive = Boolean(handsOnLab)
-	const InteractiveLabWrapper = isInteractive ? Fragment : Fragment
 	const nextPreviousData = getNextPrevious({
 		currentCollection: collectionCtx.current,
 		currentTutorialSlug: slug,
@@ -264,33 +263,34 @@ function TutorialView({
 					<meta name="robots" content="noindex, nofollow" key="robots" />
 				) : null}
 			</Head>
-			<InteractiveLabWrapper
-				key={slug}
-				{...(isInteractive && { labId: handsOnLab.id })}
-			>
-				<VariantProvider variant={metadata.variant}>
-					<SidebarSidecarLayout
-						breadcrumbLinks={layoutProps.breadcrumbLinks}
-						/**
-						 * @TODO remove casting to `any[]`. Will require refactoring both
-						 * `generateTopLevelSidebarNavData` and
-						 * `generateProductLandingSidebarNavData` to set up `menuItems` with
-						 * the correct types. This will require changing many files, so
-						 * deferring for a follow-up PR since this is functional for the time being.
-						 */
-						sidebarNavDataLevels={sidebarNavDataLevels as any[]}
-						showScrollProgress={true}
-						AlternateSidebar={TutorialsSidebar}
-						sidecarTopSlot={
-							metadata.variant ? (
-								<VariantDropdownDisclosure
-									variant={metadata.variant}
-									isFullWidth
-								/>
-							) : null
-						}
-						sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
-						mainWidth={layoutProps.mainWidth}
+			<VariantProvider variant={metadata.variant}>
+				<SidebarSidecarLayout
+					breadcrumbLinks={layoutProps.breadcrumbLinks}
+					/**
+					 * @TODO remove casting to `any`. Will require refactoring both
+					 * `generateTopLevelSidebarNavData` and
+					 * `generateProductLandingSidebarNavData` to set up `menuItems` with
+					 * the correct types. This will require changing many files, so
+					 * deferring for a follow-up PR since this is functional for the time being.
+					 */
+					sidebarNavDataLevels={sidebarNavDataLevels as any}
+					showScrollProgress={true}
+					AlternateSidebar={TutorialsSidebar}
+					sidecarTopSlot={
+						metadata.variant ? (
+							<VariantDropdownDisclosure
+								variant={metadata.variant}
+								isFullWidth
+							/>
+						) : null
+					}
+					sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
+					mainWidth={layoutProps.mainWidth}
+				>
+					<LayoutContentWrapper
+						collectionCtx={collectionCtx}
+						product={product}
+						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
 					>
 						<TutorialMeta
 							heading={pageHeading}
