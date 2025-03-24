@@ -17,7 +17,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import EmbedElement from 'components/lab-embed/embed-element'
 import Resizable from 'components/lab-embed/resizable'
-import { trackSandboxEvent } from 'lib/analytics'
+import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
 
 /**
  * Tracks Instruqt context errors with PostHog and development logging
@@ -115,7 +115,7 @@ function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
 	useEffect(() => {
 		// Track when a sandbox is open while navigating to different pages
 		if (active && labId) {
-			trackSandboxEvent('sandbox_open', {
+			trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
 				labId,
 				page: router.asPath,
 			})
@@ -135,7 +135,7 @@ function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
 
 	const closeLab = useCallback(() => {
 		if (active && labId) {
-			trackSandboxEvent('sandbox_closed', {
+			trackSandboxEvent(SANDBOX_EVENT.SANDBOX_CLOSED, {
 				labId,
 				page: router.asPath,
 			})
