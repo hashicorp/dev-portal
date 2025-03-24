@@ -49,6 +49,7 @@
 
 .description {
 	composes: styleNestedMarkElements;
+	composes: hds-typography-body-200 from global;
 	color: var(--token-color-foreground-primary);
 	display: block;
 	margin-top: 2px;

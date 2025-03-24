@@ -10,6 +10,7 @@ import Text from 'components/text'
 import IconTile from 'components/icon-tile'
 import ProductIcon from 'components/product-icon'
 import LinkRegion from 'components/link-region'
+import { Snippet } from 'react-instantsearch'
 // Content (icons by content type)
 import { tabContentByType } from '../../content'
 // Types
@@ -28,9 +29,15 @@ export function UnifiedHit({
 	descriptionHtml,
 	productSlug,
 	productName,
+	hit,
 }: UnifiedHitProps) {
 	return (
-		<LinkRegion className={s.root} href={href} ariaLabel={ariaLabel}>
+		<LinkRegion
+			className={s.root}
+			href={href}
+			ariaLabel={ariaLabel}
+			opensInNewTab={type === 'knowledgebase'}
+		>
 			<IconTile className={s.icon} size="small">
 				{tabContentByType[type].icon}
 			</IconTile>
@@ -42,12 +49,21 @@ export function UnifiedHit({
 					size={300}
 					weight="medium"
 				/>
-				<Text
-					dangerouslySetInnerHTML={{ __html: descriptionHtml }}
-					asElement="span"
-					className={s.description}
-					size={200}
-				/>
+				{type === 'knowledgebase' ? (
+					<Snippet
+						hit={hit}
+						attribute="description"
+						className={s.description}
+					/>
+				) : (
+					<Text
+						dangerouslySetInnerHTML={{ __html: descriptionHtml }}
+						asElement="span"
+						className={s.description}
+						size={200}
+					/>
+				)}
+
 				<div className={s.meta}>
 					{productSlug ? (
 						<>

@@ -4,6 +4,7 @@
  */
 
 import type { ProductSlug } from 'types/products'
+import type { Hit } from 'instantsearch.js'
 import type { UnifiedSearchableContentType } from '../../types'
 
 export interface UnifiedHitProps {
@@ -14,4 +15,5 @@ export interface UnifiedHitProps {
 	descriptionHtml: string
 	productSlug: ProductSlug
 	productName: string
+	hit: Hit
 }

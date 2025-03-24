@@ -43,5 +43,6 @@ export function getUnifiedHitProps(hit: Hit): UnifiedHitProps {
 		productSlug,
 		titleHtml,
 		type,
+		hit,
 	}
 }
