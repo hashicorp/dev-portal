@@ -119,7 +119,6 @@ function SearchResults({
 	 * `setHitData` allows easy updating of hits for a specific content type
 	 */
 	function setHitData(type: UnifiedSearchableContentType, hits: Hit[]) {
-		console.log('### setHitData', type, hits)
 		setUnifiedSearchResults((previous) => ({ ...previous, [type]: { hits } }))
 	}
 
