@@ -7,7 +7,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
-import { trackSandboxEvent } from 'lib/analytics'
+import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
 import {
 	generateTopLevelSidebarNavData,
 	generateProductLandingSidebarNavData,
@@ -56,7 +56,7 @@ export default function SandboxView({
 
 	const handleLabClick = (labId: string) => {
 		openLab(labId)
-		trackSandboxEvent('sandbox_started', {
+		trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
 			labId,
 			page: `/${product.slug}/sandbox`,
 		})
