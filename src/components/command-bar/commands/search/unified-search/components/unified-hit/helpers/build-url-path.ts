@@ -40,7 +40,7 @@ export function buildUrlPath(searchHit: Hit): string {
 			slug,
 		} as $TSFixMe)
 	} else if (searchHit.type === 'knowledgebase') {
-		return `https://support.hashicorp.com/hc/${searchHit.slug}`
+		return `${__config.dev_dot.algolia.zendeskURL}/${searchHit.slug}`
 	} else {
 		/**
 		 * Something's gone wrong, this should never happen in our indexing.
