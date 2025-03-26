@@ -105,3 +105,9 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
+.externalLink {
+	color: var(--token-color-foreground-faint);
+	width: 14px;
+	height: 14px;
+}

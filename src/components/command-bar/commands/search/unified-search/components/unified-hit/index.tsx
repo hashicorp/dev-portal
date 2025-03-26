@@ -5,6 +5,7 @@
 
 // Icons
 import { IconDot16 } from '@hashicorp/flight-icons/svg-react/dot-16'
+import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 // Components
 import Text from 'components/text'
 import IconTile from 'components/icon-tile'
@@ -78,6 +79,9 @@ export function UnifiedHit({
 						</>
 					) : null}
 					<div className={s.breadcrumb}>{href}</div>
+					{type === 'knowledgebase' && (
+						<IconExternalLink16 className={s.externalLink} />
+					)}
 				</div>
 			</div>
 		</LinkRegion>
