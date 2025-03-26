@@ -38,8 +38,8 @@
     default inline display results in misalignment with footer links
     */
 		display: block;
-		height: 28px;
-		width: auto;
+		width: 135px;
+		height: auto;
 
 		& path {
 			fill: var(--token-color-hashicorp-brand);

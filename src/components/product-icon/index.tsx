@@ -72,9 +72,17 @@ const productSlugsToIcons = {
 		16: IconWaypoint16,
 		24: IconWaypoint24,
 	},
+	sentinel: {
+		16: IconHcp16,
+		24: IconHcp24,
+	},
 }
 
-const ProductIcon = ({ productSlug, size = 16, ...rest }: ProductIconProps) => {
+const ProductIcon = ({
+	productSlug,
+	size = 16,
+	...allRest
+}: ProductIconProps) => {
 	const Icon = productSlugsToIcons[productSlug]
 		? productSlugsToIcons[productSlug][size]
 		: null
@@ -83,9 +91,12 @@ const ProductIcon = ({ productSlug, size = 16, ...rest }: ProductIconProps) => {
 		return null
 	}
 
+	// Filter out children and ref from rest props
+	const { children, ref, ...rest } = allRest
+
 	// Color should inherit from parent for hcp
 	const color =
-		productSlug === 'hcp'
+		productSlug === 'hcp' || productSlug === 'sentinel'
 			? undefined
 			: `var(--token-color-${productSlug}-brand)`
 
@@ -96,6 +107,8 @@ const ProductIcon = ({ productSlug, size = 16, ...rest }: ProductIconProps) => {
 	 */
 	return <Icon {...rest} color={color} />
 }
+
+ProductIcon.displayName = 'ProductIcon'
 
 export type { ProductIconProps }
 export default ProductIcon

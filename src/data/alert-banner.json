@@ -2,10 +2,10 @@
 	"enabled": true,
 	"data": {
 		"product": "hashicorp",
-		"tag": "HashiTalks 2025",
-		"url": "https://hashi.co/hashitalks-2025",
-		"text": "Learn about unique use cases, homelab setups, and best practices at scale at our 24-hour virtual knowledge sharing event.",
-		"linkText": "Register",
-		"expirationDate": "2025-02-21T06:00:00-06:00"
+		"tag": "Acquisition complete",
+		"url": "https://www.hashicorp.com/en/blog/hashicorp-officially-joins-the-ibm-family",
+		"text": "HashiCorp officially joins the IBM family.",
+		"linkText": "Learn more",
+		"expirationDate": "2025-03-31T06:00:00-06:00"
 	}
 }

@@ -90,7 +90,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 				}
 			)
 		)
-	).filter(Boolean) as any[]
+	).filter(Boolean) as $TSFixMe[]
 
 	const revalidatePromises = []
 
@@ -108,7 +108,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 					.replace(/\/$/, '')
 
 				revalidatePromises.push(
-					new Promise<{}>((resolve, reject) => {
+					new Promise<Record<string, unknown>>((resolve, reject) => {
 						// revalidate() returns Promise<void>, so we wrap it in another promise to resolve with the path that it is revalidating
 						response
 							.revalidate(pathToRevalidate)
@@ -134,7 +134,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	// wait for everything to get revalidated
 	const validatedResults = await Promise.allSettled(revalidatePromises)
 
-	let foundIndexs = {}
+	const foundIndexs = {}
 	const formattedResults = []
 	validatedResults.forEach((result) => {
 		let foundIndex

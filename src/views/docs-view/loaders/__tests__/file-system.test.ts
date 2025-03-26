@@ -19,7 +19,7 @@ let loader: FileSystemLoader
 import * as nextMdxRemote from 'lib/next-mdx-remote/serialize'
 vi.mock('lib/next-mdx-remote/serialize', async () => ({
 	__esModule: true,
-	...((await vi.importActual('lib/next-mdx-remote/serialize')) as any),
+	...((await vi.importActual('lib/next-mdx-remote/serialize')) as $TSFixMe),
 }))
 const serializeSpy = vi.spyOn(nextMdxRemote, 'serialize').mockReturnValue(
 	Promise.resolve({
@@ -133,6 +133,7 @@ describe('FileSystemLoader', () => {
 		await l.loadStaticProps({ params: {} })
 
 		expect(mockMdxContentHook).toHaveBeenCalledWith(expect.any(String), {
+			product: 'waypoint',
 			version: 'latest',
 		})
 		// assert that `serialize` is called with the result of the hook

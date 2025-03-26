@@ -78,7 +78,7 @@ export default class FileSystemLoader implements DataLoader {
 		// We support passing in a function to remarkPlugins, which gets the parameters of the current page
 		if (typeof this.opts.remarkPlugins === 'function') {
 			remarkPlugins = this.opts.remarkPlugins(
-				paramsNoVersion as any,
+				paramsNoVersion as $TSFixMe,
 				versionFromPath
 			)
 			if (!Array.isArray(remarkPlugins)) {
@@ -94,7 +94,11 @@ export default class FileSystemLoader implements DataLoader {
 				mdxContentHook: this.opts.mdxContentHook,
 				remarkPlugins,
 				rehypePlugins: this.opts.rehypePlugins,
-				scope: { version: versionFromPath, ...this.opts.scope },
+				scope: {
+					product: this.opts.product,
+					version: versionFromPath,
+					...this.opts.scope,
+				},
 			})
 		// Build the currentPath from page parameters
 		const currentPath =

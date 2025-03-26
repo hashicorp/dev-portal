@@ -37,11 +37,11 @@ export default function Portal({ className, children }: PortalProps) {
 		}
 
 		document.body.appendChild(portalRef.current)
-
+		const currentRef = portalRef.current;
 		return () => {
-			document.body.removeChild(portalRef.current)
+			document.body.removeChild(currentRef)
 		}
-	}, [])
+	}, [className])
 
 	return createPortal(children, portalRef.current)
 }

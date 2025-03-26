@@ -37,6 +37,10 @@ const config: PlaywrightTestConfig = {
 
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
 		trace: 'on-first-retry',
+
+		extraHTTPHeaders: {
+			'x-vercel-protection-bypass': process.env.VERCEL_AUTOMATION_BYPASS_SECRET ?? '',
+		}
 	},
 
 	/* Configure projects for major browsers (https://playwright.dev/docs/test-advanced#projects) */

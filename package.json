@@ -7,7 +7,7 @@
 		"build": "next build",
 		"clean": "rimraf .next node_modules",
 		"generate:tutorial-map": "hc-tools ./scripts/generate-tutorial-map.ts",
-		"lint": "next-hashicorp lint",
+		"lint": "eslint .",
 		"lint:stylelint": "npx stylelint '**/*.css'",
 		"prebuild": "hc-tools ./scripts/generate-tutorial-variant-map.ts && hc-tools ./scripts/extract-hvd-content.ts && hc-tools ./scripts/build-sitemap.ts",
 		"prepare": "simple-git-hooks",
@@ -31,12 +31,11 @@
 		"typecheck": "tsc -p ."
 	},
 	"simple-git-hooks": {
-		"pre-commit": "npx next-hashicorp precommit && npm run typecheck"
+		"pre-commit": "npm run typecheck"
 	},
 	"lint-staged": {
 		"*.+(js|jsx|ts|tsx)": [
-			"next-hashicorp format",
-			"next-hashicorp lint"
+			"npm run lint -- --fix"
 		]
 	},
 	"engines": {
@@ -46,7 +45,7 @@
 	"devDependencies": {
 		"@axe-core/react": "^4.3.1",
 		"@datadog/datadog-api-client": "^1.0.0-beta.7",
-		"@hashicorp/platform-cli": "^2.8.0",
+		"@eslint/js": "^9.21.0",
 		"@hashicorp/platform-configs": "^0.2.0",
 		"@hashicorp/platform-nextjs-plugin": "^5.1.1",
 		"@hashicorp/platform-postcss-config": "^0.2.0",
@@ -66,10 +65,15 @@
 		"@types/react-dom": "^18.2.4",
 		"@types/semver": "^7.3.9",
 		"@types/shortid": "^0.0.29",
+		"@typescript-eslint/eslint-plugin": "^6.21.0",
+		"@typescript-eslint/parser": "^6.21.0",
 		"@vitejs/plugin-react": "^4.2.1",
 		"axe-core": "^4.4.1",
 		"cross-env": "^7.0.3",
+		"eslint-plugin-no-barrel-files": "^1.2.1",
+		"eslint-plugin-react": "^7.37.4",
 		"flat": "^5.0.2",
+		"globals": "^16.0.0",
 		"identity-obj-proxy": "^3.0.0",
 		"jsdom": "^24.0.0",
 		"next-remote-watch": "^2.0.0",
@@ -85,6 +89,7 @@
 		"simple-git-hooks": "^2.7.0",
 		"stylelint": "^13.8.0",
 		"typescript": "^5.4.5",
+		"typescript-eslint": "^8.25.0",
 		"vite-tsconfig-paths": "^4.3.2",
 		"vitest": "^1.4.0",
 		"yargs": "^17.6.2"
@@ -92,7 +97,7 @@
 	"dependencies": {
 		"@actions/core": "^1.9.1",
 		"@apidevtools/json-schema-ref-parser": "^9.0.9",
-		"@hashicorp/design-system-tokens": "^2.2.2",
+		"@hashicorp/design-system-tokens": "^2.3.0",
 		"@hashicorp/flight-icons": "^3.7.0",
 		"@hashicorp/localstorage-polyfill": "^1.0.14",
 		"@hashicorp/mktg-global-styles": "^4.5.0",
@@ -152,13 +157,14 @@
 		"@vercel/otel": "^1.8.1",
 		"@vercel/speed-insights": "^1.0.10",
 		"adm-zip": "^0.5.9",
-		"algoliasearch": "^4.13.0",
+		"algoliasearch": "^5.20.2",
 		"bowser": "^2.11.0",
 		"change-case": "^4.1.2",
 		"classnames": "^2.3.1",
 		"cors": "^2.8.5",
 		"csstype": "^3.0.11",
 		"deepmerge-ts": "^4.2.2",
+		"eslint-plugin-react-hooks": "^5.2.0",
 		"framer-motion": "^7.5.1",
 		"google-spreadsheet": "^3.3.0",
 		"gray-matter": "^4.0.3",
@@ -192,7 +198,7 @@
 		"react-dom": "^18.2.0",
 		"react-error-boundary": "^3.1.4",
 		"react-hot-toast": "^2.2.0",
-		"react-instantsearch": "^7.7.0",
+		"react-instantsearch": "^7.15.3",
 		"react-intersection-observer": "^8.33.1",
 		"react-markdown": "^8.0.7",
 		"react-player": "^2.9.0",

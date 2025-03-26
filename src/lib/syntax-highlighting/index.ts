@@ -7,8 +7,8 @@ import { getHighlighter, bundledLanguages } from 'shiki'
 import { theme } from './theme'
 import sentinelGrammar from './languages/sentinel.tmGrammar.json'
 
-// Shiki's TypeScript types are broken, so we silence the error with `any`.
-const sentinel = { ...sentinelGrammar, name: 'sentinel' } as any
+// Shiki's TypeScript types are broken, so we silence the error with `$TSFixMe`.
+const sentinel = { ...sentinelGrammar, name: 'sentinel' } as $TSFixMe
 
 // !! Note: the syntax highlighting is done through the theme, which is a textmate grammar which define token scope. You can inspect textmate scope in VSCode executing the command `Developer: Inspect Editor Tokens and Scopes` !!
 
