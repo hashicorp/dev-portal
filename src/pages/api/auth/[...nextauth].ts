@@ -64,8 +64,9 @@ export default NextAuth({
 		 */
 		async jwt({ token, account, profile }) {
 			const isInitial = !!account && !!profile
-			isDev &&
+			if(isDev){
 				console.log('jwt callback (%s)', isInitial ? 'initial' : 'subsequent')
+			}
 
 			// initial call during sign in
 			if (isInitial) {
@@ -90,11 +91,15 @@ export default NextAuth({
 			if (isAccessTokenExpired) {
 				// Refresh token set w/ refreshToken
 				try {
-					isDev && console.log('access token has expired; refreshing...')
+					if(isDev) {
+						console.log('access token has expired; refreshing...')
+					}
 					const { access_token, refresh_token } = await refreshTokenSet(
 						token.refresh_token
 					)
-					isDev && console.log('successfully refreshed token set')
+					if(isDev){
+						console.log('successfully refreshed token set')
+					}
 
 					token.access_token = access_token
 					token.refresh_token = refresh_token
@@ -110,11 +115,13 @@ export default NextAuth({
 				}
 			} else {
 				// Noop; log time until expiry
-				isDev &&
+				if(isDev) {
 					console.log(
 						'access token still valid for %d seconds',
 						secondsUntilExpiry
 					)
+				}
+					
 			}
 
 			return token
