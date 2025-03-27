@@ -6,8 +6,7 @@
 	"dev_dot": {
 		"algolia": {
 			"unifiedIndexName": "staging_DEVDOT_omni",
-			"zendeskIndexName": "dev_ZENDESK",
-			"zendeskURL": "https://hashicorp1674582558.zendesk.com/hc"
+			"zendeskIndexName": "dev_ZENDESK"
 		}
 	},
 	"flags": {

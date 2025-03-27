@@ -10,8 +10,7 @@
 		},
 		"algolia": {
 			"unifiedIndexName": "prod_DEVDOT_omni",
-			"zendeskIndexName": "prod_ZENDESK",
-			"zendeskURL": "https://support.hashicorp.com/hc"
+			"zendeskIndexName": "prod_ZENDESK"
 		},
 		"analytics": {
 			"included_domains": "developer.hashi-mktg.com developer.hashicorp.com"

@@ -4,11 +4,7 @@
 		"max_static_paths": 1
 	},
 	"dev_dot": {
-		"max_static_paths": 1,
-		"algolia": {
-			"zendeskIndexName": "dev_ZENDESK",
-			"zendeskURL": "https://hashicorp1674582558.zendesk.com/hc"
-		}
+		"max_static_paths": 1
 	},
 	"learn": {
 		"max_static_paths": 1
