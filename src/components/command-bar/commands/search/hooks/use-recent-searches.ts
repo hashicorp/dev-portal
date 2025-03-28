@@ -21,7 +21,7 @@ const initializeRecentSearches = () => {
 		} else {
 			return JSON.parse(storageValue)
 		}
-	} catch {
+	} catch (e) {
 		// window may be 'undefined'
 		// localStorage may be disabled
 	}
@@ -62,7 +62,7 @@ const useRecentSearches = () => {
 					)
 					setRecentSearches(newList)
 				}
-			} catch {
+			} catch (e) {
 				// window may be 'undefined'
 				// localStorage may be disabled
 			}

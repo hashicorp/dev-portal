@@ -140,7 +140,7 @@ describe('rehypeSanitize', () => {
 			paragraphNode,
 			'Paragraph node is expected to have a link element as a child.'
 		).toHaveProperty('children')
-		const linkNode = (paragraphNode as $TSFixMe).children[0]
+		const linkNode = (paragraphNode as any).children[0]
 		expect(
 			linkNode,
 			'Link node is expected to have properties.'

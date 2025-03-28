@@ -14,7 +14,7 @@ export interface SidebarSidecarLayoutProps {
 	githubFileUrl?: string
 	sidebarNavDataLevels: SidebarProps[]
 	/** @TODO determine the minimum set of props that all Sidebars should have */
-	AlternateSidebar?: (props: $TSFixMe) => ReactElement
+	AlternateSidebar?: (props: any) => ReactElement
 	versions?: VersionSelectItem[]
 	showScrollProgress?: boolean
 	mainWidth?: 'wide' | 'narrow'

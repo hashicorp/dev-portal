@@ -5,6 +5,7 @@
 
 import type { ReactElement, ReactNode } from 'react'
 import type { ParsedUrlQuery } from 'querystring'
+import type { GithubFile } from 'lib/fetch-github-file'
 import type { BreadcrumbLink } from 'components/breadcrumb-bar'
 import type { OperationObjectType } from 'components/open-api-page/types'
 import type { SidebarProps } from 'components/sidebar'

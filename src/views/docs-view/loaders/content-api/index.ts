@@ -15,7 +15,7 @@ export async function fetchNavData(
 	product: string, //: string, // waypoint
 	basePath: string, //: string, // commands | docs | plugins
 	version: string //: string // v0.5.x
-) {
+): Promise<any> {
 	const contentApiBaseUrl = getContentApiBaseUrl(product)
 	const fullPath = `nav-data/${version}/${basePath}`
 	const url = `${contentApiBaseUrl}/api/content/${product}/${fullPath}`
@@ -33,7 +33,7 @@ export async function fetchNavData(
 export async function fetchDocument(
 	product: string,
 	fullPath: string
-) {
+): Promise<any> {
 	const contentApiBaseUrl = getContentApiBaseUrl(product)
 	const url = `${contentApiBaseUrl}/api/content/${product}/${fullPath}`
 	const response = await fetch(url)

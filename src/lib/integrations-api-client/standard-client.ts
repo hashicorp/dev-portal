@@ -28,8 +28,8 @@ export async function request<ResponseObject>(
 	method: Method,
 	url: string,
 	opts?: {
-		body?: $TSFixMe
-		query?: $TSFixMe
+		body?: any
+		query?: any
 	}
 ): Promise<ApiResponse<ResponseObject>> {
 	const requestURL = new URL(

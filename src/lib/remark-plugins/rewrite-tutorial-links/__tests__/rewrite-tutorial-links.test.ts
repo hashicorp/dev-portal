@@ -6,6 +6,7 @@
 import remark from 'remark'
 import { rewriteTutorialLinksPlugin } from 'lib/remark-plugins/rewrite-tutorial-links'
 import { productSlugs, productSlugsToHostNames } from 'lib/products'
+import path from 'path'
 
 // HELPERS ------------------------------------------------------
 

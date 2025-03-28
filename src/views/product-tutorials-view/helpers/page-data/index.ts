@@ -5,6 +5,8 @@
 
 import { TableOfContentsHeading } from 'components/table-of-contents'
 import { PageSlugOption } from 'lib/learn-client/api/page'
+import { HeroHeadingVisualProps } from 'views/product-landing/components/hero-heading-visual/types'
+import { OverviewCtaProps } from 'views/product-landing/components/overview-cta/types'
 import { ProductViewBlock } from 'views/product-tutorials-view/components/product-view-content'
 import getProductPageContent from './get-product-page-content'
 import { processPageData } from './process-page-data'

@@ -7,7 +7,7 @@ import clamp from '../clamp'
 
 describe('clamp', () => {
 	it('throws an error if max is less than min', () => {
-		expect(() => clamp(150, 200, 100)).toThrowError()
+		expect(() => clamp(150, 200, 100)).toThrowError
 	})
 
 	it('returns num if between min and max', () => {

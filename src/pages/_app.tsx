@@ -55,7 +55,7 @@ addGlobalLinkHandler((destinationUrl: string) => {
 export default function App({
 	Component,
 	pageProps: { session, ...pageProps },
-}: AppProps<{ session?: Session } & Record<string, $TSFixMe>>) {
+}: AppProps<{ session?: Session } & Record<string, any>>) {
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
 

@@ -4,6 +4,7 @@
  */
 
 import type { OpenAPIV3 } from 'openapi-types'
+import { schemaModComponent } from './schema-mod-component'
 
 /**
  * Modifies an expected `protobufAny` OpenAPIV3 schema, replacing some

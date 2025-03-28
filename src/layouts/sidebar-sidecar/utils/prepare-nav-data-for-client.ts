@@ -130,7 +130,7 @@ async function prepareNavNodeForClient({
 	 *
 	 * ref: https://app.asana.com/0/1201010428539925/1201602267333015/f
 	 */
-	if ((node as $TSFixMe).hidden) {
+	if ((node as any).hidden) {
 		return null
 	}
 

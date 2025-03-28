@@ -21,9 +21,8 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 
 	return (
 		<div className={s.root}>
-			{blocks.map((block, index: number) => {
+			{blocks.map((block, index) => {
 				if (block.type === 'paragraph') {
-					// eslint-disable-next-line react/no-array-index-key
 					return <LandingPageBlocks.ParagraphBlock {...block} key={index} />
 				}
 
@@ -33,7 +32,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 							id={block.headingId}
 							level={block.headingLevel}
 							text={block.title}
-							key={block.title}
+							key={index}
 						/>
 					)
 				}
@@ -43,7 +42,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 						<LandingPageBlocks.IconCardGridBlock
 							cards={block.cards}
 							productSlug={currentProduct.slug}
-							key={block.type + currentProduct.slug}
+							key={index}
 						/>
 					)
 				}
@@ -56,7 +55,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 							headingLevel={block.headingLevel}
 							headingId={block.headingId}
 							title={block.title}
-							key={block.headingId}
+							key={index}
 						/>
 					)
 				}
@@ -68,7 +67,7 @@ const ProductRootDocsPathLandingMarketingContent = ({ blocks }) => {
 							ctas={[block.callToAction]}
 							heading={GETTING_STARTED_CARD_HEADING}
 							headingSlug={GETTING_STARTED_CARD_HEADING_SLUG}
-							key={block.type + GETTING_STARTED_CARD_HEADING_SLUG}
+							key={index}
 						/>
 					)
 				}

@@ -122,7 +122,7 @@ function TutorialView({
 }: TutorialViewProps): React.ReactElement {
 	// hooks
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-	const [, setCollectionViewSidebarSections] =
+	const [collectionViewSidebarSections, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
 
 	// variables
@@ -250,7 +250,7 @@ function TutorialView({
 						 * the correct types. This will require chaning many files, so
 						 * deferring for a follow-up PR since this is functional for the time being.
 						 */
-						sidebarNavDataLevels={sidebarNavDataLevels as $TSFixMe}
+						sidebarNavDataLevels={sidebarNavDataLevels as any}
 						showScrollProgress={true}
 						AlternateSidebar={TutorialsSidebar}
 						sidecarTopSlot={
