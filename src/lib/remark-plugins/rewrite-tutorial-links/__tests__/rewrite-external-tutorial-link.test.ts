@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { SectionOption } from 'lib/learn-client/types'
 import { rewriteExternalTutorialLink } from '../utils'
 
 const TEST_TUTORIAL_SLUG = 'vault/tutorial'

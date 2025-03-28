@@ -84,7 +84,7 @@ export default function FeedbackForm({
 				})
 			},
 		}),
-		[activeQuestion, isTransitioning, onQuestionSubmit, responses]
+		[activeQuestion, responses]
 	)
 
 	return (

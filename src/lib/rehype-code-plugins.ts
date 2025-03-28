@@ -37,7 +37,7 @@ export const rehypeCodePlugins: Pluggable[] = [
 					span(node, _line: number, col: number) {
 						// prevent user-select on the start +/- in diff lines
 						if (this.options.lang === 'diff' && col === 0) {
-							const firstChild = node.children[0] as $TSFixMe
+							const firstChild = node.children[0] as any
 
 							if (['-', '+'].includes(firstChild?.value)) {
 								node.properties.style += '; user-select: none;'
@@ -101,8 +101,8 @@ export const rehypeCodePlugins: Pluggable[] = [
 			],
 		},
 		// unified's Pluggable type is difficult to satisfy, but we know this is
-		// the correct declaration for the plugin, so we assert it as $TSFixMe.
-	] as $TSFixMe,
+		// the correct declaration for the plugin, so we assert it as any.
+	] as any,
 ]
 
 /**

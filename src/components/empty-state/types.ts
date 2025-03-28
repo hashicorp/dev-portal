@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { ReactElement } from 'react'
+import { ReactElement, ReactNode } from 'react'
 
 export interface EmptyStateProps {
 	/**

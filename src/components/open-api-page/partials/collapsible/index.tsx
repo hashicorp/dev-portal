@@ -55,7 +55,6 @@ function adjustHeight(
 		//  Transition from auto to 0
 		innerElem.style.opacity = '0'
 		elem.style.height = computedStyle.height // set to px height, not auto
-		// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 		elem.offsetHeight // force repaint
 		elem.style.height = '0px' // trigger the current px height >> 0px transition
 	} else {
@@ -70,7 +69,6 @@ function adjustHeight(
 			//  if the values are the same, then `transitionEnd` won't be called,
 			//  and the height will become set to a fixed `endHeight` rather than auto
 			elem.style.height = currentHeight // reset height before animating
-			// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 			elem.offsetHeight // force repaint
 			elem.style.height = endHeight // trigger the current px >> end px transition
 		}
@@ -79,7 +77,7 @@ function adjustHeight(
 	elem.addEventListener('transitionend', handleTransitionEnd, false)
 }
 
-type TransitionHandler = (this: HTMLDivElement, ev: TransitionEvent) => $TSFixMe
+type TransitionHandler = (this: HTMLDivElement, ev: TransitionEvent) => any
 const handleTransitionEnd: TransitionHandler = function (event) {
 	if (event.propertyName !== 'height') {
 		return

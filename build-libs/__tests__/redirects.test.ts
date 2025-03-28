@@ -10,6 +10,16 @@ import {
 	getRedirectsFromContentRepo,
 } from '../redirects'
 
+function withHashiEnv(value, fn) {
+	const originalValue = process.env.HASHI_ENV
+
+	process.env.HASHI_ENV = value
+
+	fn()
+
+	process.env.HASHI_ENV = originalValue
+}
+
 afterEach(() => {
 	vi.restoreAllMocks()
 })

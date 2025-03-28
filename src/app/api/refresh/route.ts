@@ -32,7 +32,7 @@ function removeClient(id: string): void {
 	}
 }
 
-function sendMessageToAllClients(obj: $TSFixMe): void {
+function sendMessageToAllClients(obj: any): void {
 	const jsonData = `data: ${JSON.stringify(obj)}\n\n`
 	for (const client of clients) {
 		client.res.write(jsonData)

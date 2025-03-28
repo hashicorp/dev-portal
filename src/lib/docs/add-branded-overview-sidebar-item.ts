@@ -4,7 +4,7 @@
  */
 
 import { ProductSlug } from 'types/products'
-import { MenuItem } from 'components/sidebar/types'
+import { MenuItem, EnrichedNavItem } from 'components/sidebar/types'
 
 /**
  * Determine whether a `menuItem` is an "overview" item.

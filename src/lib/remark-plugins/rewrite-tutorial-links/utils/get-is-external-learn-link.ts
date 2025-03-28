@@ -33,7 +33,7 @@ const getIsExternalLearnLink = (link: string) => {
 		 * Return whether or not the pathname fits the Learn format.
 		 */
 		return getIsExternalLearnPath(link)
-	} catch {
+	} catch (e) {
 		return false
 	}
 }

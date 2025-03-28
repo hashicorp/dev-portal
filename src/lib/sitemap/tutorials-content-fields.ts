@@ -4,6 +4,7 @@
  */
 
 import { getAllCollections } from 'lib/learn-client/api/collection'
+import { SectionOption } from 'lib/learn-client/types'
 import { productSlugs } from 'lib/products'
 import tutorialMap from 'data/_tutorial-map.generated.json'
 import { ProductSlug } from 'types/products'

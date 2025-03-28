@@ -16,7 +16,7 @@ const getIsRelativeUrl = (url) => {
 	try {
 		new URL(url)
 		return false
-	} catch {
+	} catch (e) {
 		return true
 	}
 }

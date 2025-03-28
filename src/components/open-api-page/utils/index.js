@@ -84,6 +84,7 @@ function getOperationObjects(schema) {
 	return operationObjects
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
 	getServicePathSlug,
 	getOperationObjects,

@@ -13,16 +13,25 @@ import semverParse from 'semver/functions/parse'
 import semverPrerelease from 'semver/functions/prerelease'
 import semverRSort from 'semver/functions/rsort'
 import semverValid from 'semver/functions/valid'
-import { ProductData} from 'types/products'
+import { ProductData, ProductSlug } from 'types/products'
 import {
 	getInlineCollections,
 	getInlineTutorials,
 } from 'views/product-tutorials-view/helpers/get-inline-content'
 import {
+	FeaturedCollectionCard,
+	FeaturedTutorialCard,
 	PackageManager,
 	SortedReleases,
 } from './types'
 import capitalize from '@hashicorp/platform-util/text/capitalize'
+import { MenuItem } from 'components/sidebar'
+import {
+	BoundaryDesktopClient,
+	InstallPageAnchorHeading,
+} from './components/downloads-section/types'
+import { ReleasesAPIResponse } from '@hashicorp/react-product-downloads-page'
+import { Products } from '@hashicorp/platform-product-meta'
 
 const PLATFORM_MAP = {
 	Mac: 'darwin',

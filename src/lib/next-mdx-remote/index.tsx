@@ -35,7 +35,7 @@ type MDXRemoteProps = MDXRemoteSerializeResult & {
 	 *
 	 * For example: `{ ComponentName: Component }` will be accessible in the MDX as `<ComponentName/>`.
 	 */
-	components?: Record<string, React.ComponentType<$TSFixMe>>
+	components?: Record<string, React.ComponentType<any>>
 	/**
 	 * Determines whether or not the content should be hydrated asynchronously, or "lazily"
 	 */
@@ -67,7 +67,7 @@ export function MDXRemote({
 			})
 			return () => window.cancelIdleCallback(handle)
 		}
-	}, [lazy])
+	}, [])
 
 	const Content = useMemo(() => {
 		// if we're ready to render, we can assemble the component tree and let React do its thing

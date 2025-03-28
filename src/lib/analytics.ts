@@ -55,7 +55,9 @@ export const makeDevAnalyticsLogger = () => {
  */
 export const canTrackAnalytics = (): boolean => {
 	return (
-		window?.analytics?.track &&
+		typeof window !== undefined &&
+		window.analytics &&
+		window.analytics.track &&
 		typeof window.analytics.track === 'function'
 	)
 }
@@ -77,7 +79,9 @@ const safeAnalyticsTrack = (
  */
 export const canAnalyzeUser = (): boolean => {
 	return (
-		window?.analytics?.user &&
+		typeof window !== undefined &&
+		!!window.analytics &&
+		!!window.analytics.user &&
 		typeof window.analytics.user === 'function'
 	)
 }
