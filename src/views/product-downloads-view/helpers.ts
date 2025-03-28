@@ -72,7 +72,16 @@ export const generateDefaultPackageManagers = (
 			os: 'linux',
 		},
 		{
-			label: 'Fedora',
+			label: 'Fedora 40',
+			commands: [
+				`sudo dnf install -y dnf-plugins-core`,
+				`sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo`,
+				`sudo dnf -y install ${productSlug}`,
+			],
+			os: 'linux',
+		},
+		{
+			label: 'Fedora 41',
 			commands: [
 				`sudo dnf install -y dnf-plugins-core`,
 				`sudo dnf config-manager addrepo --from-repofile=https://rpm.releases.hashicorp.com/fedora/hashicorp.repo`,
