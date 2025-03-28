@@ -54,7 +54,7 @@ const schema = deepmerge(defaultSchema, {
 			 * highlighting can be applied via Shiki. We limit them just to the
 			 * format emitted by Shiki.
 			 */
-			['style', /^color:var\(--hds-code-block-color-[a-z\-]*\)$/],
+			['style', /^color:var\(--hds-code-block-color-[a-z-]*\)$/],
 		],
 	},
 })

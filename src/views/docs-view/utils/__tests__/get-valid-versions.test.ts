@@ -35,13 +35,13 @@ describe('getValidVersions', () => {
 			[]
 		)
 		expect(
-			await getValidVersions(undefined as any, fullPath, productSlugForLoader)
+			await getValidVersions(undefined as $TSFixMe, fullPath, productSlugForLoader)
 		).toEqual([])
 	})
 
 	it('should return filtered versions based on known versions from API', async () => {
 		const knownVersions = ['1.0.0']
-		;(fetch as any).mockResolvedValueOnce({
+		;(fetch as $TSFixMe).mockResolvedValueOnce({
 			json: async () => ({ versions: knownVersions }),
 		})
 
@@ -67,7 +67,7 @@ describe('getValidVersions', () => {
 		console.error = vi.fn()
 
 		try {
-			;(fetch as any).mockRejectedValueOnce(new Error('API error'))
+			;(fetch as $TSFixMe).mockRejectedValueOnce(new Error('API error'))
 
 			const result = await getValidVersions(
 				versions,
@@ -85,7 +85,7 @@ describe('getValidVersions', () => {
 		const consoleErrorSpy = vi
 			.spyOn(console, 'error')
 			.mockImplementation(() => {})
-		;(fetch as any).mockRejectedValueOnce(new Error('API error'))
+		;(fetch as $TSFixMe).mockRejectedValueOnce(new Error('API error'))
 
 		await getValidVersions(versions, fullPath, productSlugForLoader)
 		expect(consoleErrorSpy).toHaveBeenCalledWith(
