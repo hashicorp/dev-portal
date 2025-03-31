@@ -9,7 +9,6 @@ import useAuthentication from 'hooks/use-authentication'
 import { UserDropdownDisclosureProps } from 'components/user-dropdown-disclosure'
 
 const getIcon = (user: Session['user']) => {
-	// eslint-disable-next-line @next/next/no-img-element
 	return user.image ? <img alt="" src={user.image} /> : <IconUser24 />
 }
 
