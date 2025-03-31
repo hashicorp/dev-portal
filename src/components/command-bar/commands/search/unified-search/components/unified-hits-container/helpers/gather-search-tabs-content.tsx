@@ -98,7 +98,10 @@ export function gatherSearchTabsData(
 			// in the <InstantSearch> component because the knowledgebase hits come from a different index.
 			// Also, don't add knowledgebase hits if there are already 20 or more hits for global.
 			if (type === 'global' && rawHits.length < 20) {
-				const knowledgebaseHits = unifiedSearchResults.knowledgebase.hits
+				const knowledgebaseHits = unifiedSearchResults.knowledgebase.hits.slice(
+					0,
+					20 - rawHits.length
+				)
 				rawHits.push(...knowledgebaseHits)
 			}
 
