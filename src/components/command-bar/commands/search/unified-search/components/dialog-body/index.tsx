@@ -157,7 +157,7 @@ function SearchResults({
 				<Index indexName={ZENDESK_ALGOLIA_INDEX_NAME} indexId="knowledgebase">
 					<Configure
 						query={currentInputValue}
-						attributesToSnippet={['description']}
+						attributesToSnippet={['description:30']}
 					/>
 					<HitsReporter
 						setHits={(hits) =>
