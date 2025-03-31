@@ -85,7 +85,7 @@ export async function getStaticProps(): Promise<
 				},
 			}),
 		}
-	} catch {
+	} catch (error) {
 		return { notFound: true }
 	}
 }

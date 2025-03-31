@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import DocsViewLayout from 'layouts/docs-view-layout'
 import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
 import DevDotContent from 'components/dev-dot-content'
+import DocsVersionSwitcher from 'components/docs-version-switcher'
 import { ProductRootDocsPathLandingProps } from './types'
 import {
 	ProductRootDocsPathLandingHero,

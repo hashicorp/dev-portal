@@ -175,6 +175,6 @@ function SearchResults({
  */
 function HitsReporter({ setHits }: { setHits: (hits: Hit[]) => void }) {
 	const { hits } = useHits()
-	useEffect(() => setHits(hits), [hits, setHits])
+	useEffect(() => setHits(hits), [hits])
 	return null
 }

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { RootDocsPath } from 'types/products'
+import { ProductName, ProductSlug, RootDocsPath } from 'types/products'
 import { getParentRootDocsPath } from '../get-parent-root-docs-path'
 
 describe('getParentRootDocsPath', () => {

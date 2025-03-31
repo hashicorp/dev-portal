@@ -10,6 +10,7 @@ import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
 import { NavHighlightItem } from 'components/sidebar/types'
 import s from './sidebar-nav-highlight-item.module.css'
+import { log } from 'console'
 
 /**
  * Render a fancy-looking, product themed linked sidebar item.

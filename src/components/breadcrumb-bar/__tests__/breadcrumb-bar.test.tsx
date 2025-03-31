@@ -11,7 +11,7 @@ import React from 'react'
 vi.mock('next/head', () => {
 	return {
 		__esModule: true,
-		default: ({ children }: React.PropsWithChildren<$TSFixMe>) => {
+		default: ({ children }: React.PropsWithChildren<any>) => {
 			return <div>{children}</div>
 		},
 	}

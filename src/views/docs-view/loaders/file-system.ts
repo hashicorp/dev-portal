@@ -78,7 +78,7 @@ export default class FileSystemLoader implements DataLoader {
 		// We support passing in a function to remarkPlugins, which gets the parameters of the current page
 		if (typeof this.opts.remarkPlugins === 'function') {
 			remarkPlugins = this.opts.remarkPlugins(
-				paramsNoVersion as $TSFixMe,
+				paramsNoVersion as any,
 				versionFromPath
 			)
 			if (!Array.isArray(remarkPlugins)) {

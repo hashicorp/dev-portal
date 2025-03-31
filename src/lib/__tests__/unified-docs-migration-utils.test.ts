@@ -2,6 +2,9 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
+
+vi.stubEnv('UNIFIED_DOCS_API', 'env-value-UNIFIED_DOCS_API')
+
 import { vi } from 'vitest'
 import { getContentApiBaseUrl } from '../unified-docs-migration-utils'
 

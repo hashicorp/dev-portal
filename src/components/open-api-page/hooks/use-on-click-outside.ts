@@ -25,7 +25,7 @@ function useOnClickOutside(ref, callbackFn) {
 		}
 		// Note: we expect "ref" to be a ref, which has no effect in a dependency array,
 		// we can ignore the exhaustive deps warning here to add "ref"
-	}, [callbackFn, ref])
+	}, [callbackFn])
 }
 
 export default useOnClickOutside

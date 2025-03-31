@@ -5,7 +5,7 @@
 
 import { CollectionCardsProps } from './types'
 import CardsGridList from 'components/cards-grid-list'
-import {
+import CollectionCard, {
 	CollectionCardWithAuthElements,
 	CollectionCardPropsWithId,
 } from 'components/collection-card'
