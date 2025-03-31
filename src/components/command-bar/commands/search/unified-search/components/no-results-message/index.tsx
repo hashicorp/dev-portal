@@ -8,10 +8,11 @@ import Badge from 'components/badge'
 import Text from 'components/text'
 import { useCommandBar } from 'components/command-bar'
 import s from './no-results-message.module.css'
+import type { SearchContentTypes } from '../../types'
 
 interface NoResultsMessageProps {
 	tabsWithResults: {
-		type: 'global' | 'docs' | 'tutorials' | 'integrations' | 'knowledgebase'
+		type: SearchContentTypes
 		heading: string
 		icon: ReactElement<React.JSX.IntrinsicElements['svg']>
 	}[]

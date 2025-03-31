@@ -9,6 +9,7 @@ import { productSlugsToNames } from 'lib/products'
 // Types
 import type { Hit, HitAttributeHighlightResult } from 'instantsearch.js'
 import type { UnifiedHitProps } from '../types'
+import type { SearchContentTypes } from '../../../types'
 
 /**
  * Given a search object Hit,
@@ -16,7 +17,10 @@ import type { UnifiedHitProps } from '../types'
  */
 export function getUnifiedHitProps(hit: Hit): UnifiedHitProps {
 	// Content type, for icon
-	const type = hit.type as 'docs' | 'tutorial' | 'integration' | 'knowledgebase'
+	const type = hit.type as Exclude<
+		SearchContentTypes,
+		SearchContentTypes.GLOBAL
+	>
 
 	// Link attributes, href is also used for "breadcrumb"
 	const ariaLabel = `${hit.page_title}. ${hit.description}`

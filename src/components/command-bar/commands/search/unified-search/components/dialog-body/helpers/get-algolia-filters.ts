@@ -4,7 +4,7 @@
  */
 
 import { ProductSlug } from 'types/products'
-import { UnifiedSearchableContentType } from '../../../types'
+import { SearchContentTypes } from '../../../types'
 
 /**
  * Given an optional product slug,
@@ -18,7 +18,7 @@ import { UnifiedSearchableContentType } from '../../../types'
  */
 export function getAlgoliaFilters(
 	productSlug?: ProductSlug,
-	resultType?: UnifiedSearchableContentType
+	resultType?: SearchContentTypes
 ): string {
 	/**
 	 * Product filter
@@ -43,7 +43,7 @@ export function getAlgoliaFilters(
 	 * Type filter
 	 */
 	let typeFilter = ''
-	if (resultType && resultType !== 'global') {
+	if (resultType && resultType !== SearchContentTypes.GLOBAL) {
 		typeFilter = `type:${resultType}`
 	}
 

@@ -5,10 +5,10 @@
 
 import type { ProductSlug } from 'types/products'
 import type { Hit } from 'instantsearch.js'
-import type { UnifiedSearchableContentType } from '../../types'
+import type { SearchContentTypes } from '../../types'
 
 export interface UnifiedHitProps {
-	type: Exclude<UnifiedSearchableContentType, 'global'>
+	type: Exclude<SearchContentTypes, SearchContentTypes.GLOBAL>
 	href: string
 	ariaLabel: string
 	titleHtml: string

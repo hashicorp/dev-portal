@@ -31,15 +31,16 @@ export type TutorialHitObject = Hit<{
 		level: CollectionLevelOption
 	}
 
-export type UnifiedSearchableContentType =
-	| 'global'
-	| 'docs'
-	| 'integration'
-	| 'tutorial'
-	| 'knowledgebase'
+export enum SearchContentTypes {
+	GLOBAL = 'global',
+	DOCS = 'docs',
+	INTEGRATION = 'integration',
+	TUTORIAL = 'tutorial',
+	KNOWLEDGEBASE = 'knowledgebase',
+}
 
 export type UnifiedSearchResults = Record<
-	UnifiedSearchableContentType,
+	SearchContentTypes,
 	{
 		searchQuery?: string
 		hits: Hit[]

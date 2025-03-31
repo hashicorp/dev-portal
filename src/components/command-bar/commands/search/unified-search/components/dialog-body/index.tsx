@@ -25,10 +25,7 @@ import {
 import type { Hit } from 'instantsearch.js'
 import type { ProductSlug } from 'types/products'
 import type { SuggestedPageProps } from '../suggested-pages/types'
-import type {
-	UnifiedSearchResults,
-	UnifiedSearchableContentType,
-} from '../../types'
+import { type UnifiedSearchResults, SearchContentTypes } from '../../types'
 // Styles
 import s from './dialog-body.module.css'
 
@@ -118,7 +115,7 @@ function SearchResults({
 	/**
 	 * `setHitData` allows easy updating of hits for a specific content type
 	 */
-	function setHitData(type: UnifiedSearchableContentType, hits: Hit[]) {
+	function setHitData(type: SearchContentTypes, hits: Hit[]) {
 		setUnifiedSearchResults((previous) => ({ ...previous, [type]: { hits } }))
 	}
 
@@ -138,8 +135,15 @@ function SearchResults({
 			{/* <InstantSearch /> updates algoliaData, and renders nothing.
 			    Maybe helpful to think of this as "the part that fetches results". */}
 			<InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
-				{['global', 'docs', 'integration', 'tutorial'].map(
-					(type: UnifiedSearchableContentType) => {
+				{[
+					SearchContentTypes.GLOBAL,
+					SearchContentTypes.DOCS,
+					SearchContentTypes.INTEGRATION,
+					SearchContentTypes.TUTORIAL,
+				].map(
+					(
+						type: Exclude<SearchContentTypes, SearchContentTypes.KNOWLEDGEBASE>
+					) => {
 						const filters = getAlgoliaFilters(currentProductSlug, type)
 						return (
 							<Index key={type} indexName={ALGOLIA_INDEX_NAME} indexId={type}>
@@ -155,7 +159,11 @@ function SearchResults({
 						query={currentInputValue}
 						attributesToSnippet={['description']}
 					/>
-					<HitsReporter setHits={(hits) => setHitData('knowledgebase', hits)} />
+					<HitsReporter
+						setHits={(hits) =>
+							setHitData(SearchContentTypes.KNOWLEDGEBASE, hits)
+						}
+					/>
 				</Index>
 			</InstantSearch>
 			{/* UnifiedHitsContainer renders search results in a tabbed interface. */}

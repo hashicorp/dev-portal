@@ -11,13 +11,13 @@ import { IconPipeline16 } from '@hashicorp/flight-icons/svg-react/pipeline-16'
 import { IconSupport16 } from '@hashicorp/flight-icons/svg-react/support-16'
 // Types
 import type { ReactElement } from 'react'
-import type { UnifiedSearchableContentType } from './types'
+import type { SearchContentTypes } from './types'
 
 /**
  * Basic heading and icon content for each tab, which we'll build on.
  */
 export const tabContentByType: Record<
-	UnifiedSearchableContentType,
+	SearchContentTypes,
 	{
 		heading: string
 		icon: ReactElement<React.JSX.IntrinsicElements['svg']>

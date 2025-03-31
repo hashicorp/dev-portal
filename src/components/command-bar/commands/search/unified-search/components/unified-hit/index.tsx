@@ -18,6 +18,7 @@ import { tabContentByType } from '../../content'
 import { UnifiedHitProps } from './types'
 // Styles
 import s from './unified-hit.module.css'
+import { SearchContentTypes } from '../../types'
 
 /**
  * Render a card-like link item to a search hit.
@@ -37,7 +38,7 @@ export function UnifiedHit({
 			className={s.root}
 			href={href}
 			ariaLabel={ariaLabel}
-			opensInNewTab={type === 'knowledgebase'}
+			opensInNewTab={type === SearchContentTypes.KNOWLEDGEBASE}
 		>
 			<IconTile className={s.icon} size="small">
 				{tabContentByType[type].icon}
@@ -50,7 +51,7 @@ export function UnifiedHit({
 					size={300}
 					weight="medium"
 				/>
-				{type === 'knowledgebase' ? (
+				{type === SearchContentTypes.KNOWLEDGEBASE ? (
 					<Snippet
 						hit={hit}
 						attribute="description"
@@ -79,7 +80,7 @@ export function UnifiedHit({
 						</>
 					) : null}
 					<div className={s.breadcrumb}>{href}</div>
-					{type === 'knowledgebase' && (
+					{type === SearchContentTypes.KNOWLEDGEBASE && (
 						<IconExternalLink16 className={s.externalLink} />
 					)}
 				</div>
