@@ -3,7 +3,7 @@
 	"labs": [
 		{
 			"title": "Terraform Sandbox",
-			"description": "Get started quickly with a container-based sandbox host. Choose a container when you need a fast, lightweight Linux system",
+			"description": "Get started quickly with Terraform. This sandbox includes Docker and LocalStack preinstalled to test your Terraform configuration.",
 			"products": ["terraform"],
 			"labId": "hashicorp-learn/tracks/terraform-sandbox?token=em_7UQwSJt0EbYq9YlE"
 		},
