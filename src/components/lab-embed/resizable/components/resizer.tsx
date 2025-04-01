@@ -32,25 +32,6 @@ export default function Resizer({
 				className={s.resizer}
 				onMouseDown={onMouseDown}
 				onMouseUp={onMouseUp}
-				onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
-					if (e.key === 'Enter' || e.key === ' ') {
-						e.preventDefault()
-						// For keyboard activation, trigger mouse down to enable resizing
-						if (onMouseDown) {
-							const keyboardMouseEvent = {
-								preventDefault: () => {},
-								stopPropagation: () => {},
-								screenY: 0,
-								clientY: 0,
-								button: 0,
-								buttons: 1,
-								currentTarget: e.currentTarget,
-								target: e.target,
-							} as React.MouseEvent<HTMLDivElement>
-							onMouseDown(keyboardMouseEvent)
-						}
-					}
-				}}
 				role="button"
 				aria-label="Resize panel"
 				tabIndex={0}

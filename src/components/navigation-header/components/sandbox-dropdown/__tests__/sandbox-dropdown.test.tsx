@@ -4,7 +4,11 @@
  */
 
 import { render, screen, fireEvent } from '@testing-library/react'
+import { useRouter } from 'next/router'
+import { useCurrentProduct } from 'contexts'
+import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import SandboxDropdown from '../index'
+import SANDBOX_CONFIG from 'data/sandbox.json'
 
 // Mock the hooks
 const mockUserRouter = vi.fn()
@@ -112,6 +116,17 @@ describe('SandboxDropdown', () => {
 		expect(screen.getByText(/Available.*Sandboxes/)).toBeInTheDocument()
 	})
 
+	it('displays other sandboxes section', () => {
+		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
+		const button = screen.getByRole('button', { name: 'Sandbox menu' })
+
+		// Open dropdown
+		fireEvent.click(button)
+
+		// Check for other sandboxes section
+		expect(screen.getByText('Other Sandboxes')).toBeInTheDocument()
+	})
+
 	it('opens lab when clicking a sandbox item', () => {
 		const mockOpenLab = vi.fn()
 		mockUseInstruqtEmbed.mockImplementation(() => ({
@@ -125,7 +140,7 @@ describe('SandboxDropdown', () => {
 		fireEvent.click(button)
 
 		// Find a sandbox item and click it
-		const sandboxItem = screen.getByText('Vault Sandbox')
+		const sandboxItem = screen.getByText('Vault Playground (test)')
 		fireEvent.click(sandboxItem.closest('button'))
 
 		// Verify openLab was called
@@ -145,7 +160,7 @@ describe('SandboxDropdown', () => {
 		fireEvent.click(button)
 
 		// Find a sandbox item and click it
-		const sandboxItem = screen.getByText('Vault Sandbox')
+		const sandboxItem = screen.getByText('Vault Playground (test)')
 		fireEvent.click(sandboxItem.closest('button'))
 
 		// Verify openLab was called
