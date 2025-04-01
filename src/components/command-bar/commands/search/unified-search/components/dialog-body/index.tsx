@@ -158,6 +158,7 @@ function SearchResults({
 					<Configure
 						query={currentInputValue}
 						attributesToSnippet={['description:30']}
+						filters={getAlgoliaFilters(currentProductSlug, SearchContentTypes.KNOWLEDGEBASE)}
 					/>
 					<HitsReporter
 						setHits={(hits) =>
