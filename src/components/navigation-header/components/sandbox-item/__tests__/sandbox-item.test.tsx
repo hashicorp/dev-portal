@@ -4,6 +4,7 @@
  */
 
 import { render, screen, fireEvent } from '@testing-library/react'
+import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import SandboxItem from '../index'
 
 // Mock the hooks
@@ -69,6 +70,6 @@ describe('SandboxItem', () => {
 		const item = screen.getByRole('link')
 		fireEvent.mouseEnter(item)
 
-		expect(item.className).toContain('sandboxItem')
+		expect(item.className).toContain('playground')
 	})
 })
