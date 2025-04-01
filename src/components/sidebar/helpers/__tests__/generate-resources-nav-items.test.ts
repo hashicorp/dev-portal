@@ -5,6 +5,7 @@
 
 import { generateResourcesNavItems } from '../generate-resources-nav-items'
 import { ProductSlug } from 'types/products'
+import SANDBOX_CONFIG from 'data/sandbox.json'
 
 describe('generateResourcesNavItems', () => {
 	it('includes sandbox items in the resources navigation', () => {
@@ -43,6 +44,7 @@ describe('generateResourcesNavItems', () => {
 
 	it('includes sandbox link for supported products', () => {
 		// Mock the supported products in SANDBOX_CONFIG
+		const originalProducts = SANDBOX_CONFIG.products
 		const productSlug = 'nomad' as ProductSlug
 
 		// Generate the navigation items

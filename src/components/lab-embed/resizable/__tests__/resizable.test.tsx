@@ -4,6 +4,7 @@
  */
 
 import { render, screen, fireEvent } from '@testing-library/react'
+import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import Resizable from '../index'
 import s from '../resizable.module.css'
 
@@ -22,14 +23,6 @@ describe('Resizable', () => {
 		mockUseInstruqtEmbed.mockImplementation(() => ({
 			closeLab: mockCloseLab,
 		}))
-
-		Object.defineProperty(window, 'innerWidth', {
-			writable: true,
-			configurable: true,
-			value: 1200,
-		})
-
-		global.dispatchEvent = vi.fn()
 	})
 
 	it('renders children when panel is active', () => {
@@ -65,7 +58,8 @@ describe('Resizable', () => {
 			.closest('div._resizable_17d1f1')
 		expect(resizableContainer).toHaveClass(s.hide)
 
-		expect(screen.queryByTestId('test-child')).toBeInTheDocument()
+		// Also ensure the child itself is not directly queried if hidden by parent
+		expect(screen.queryByTestId('test-child')).toBeInTheDocument() // It should exist in the DOM
 	})
 
 	it('has the correct initial height', () => {
@@ -109,7 +103,7 @@ describe('Resizable', () => {
 			<Resizable
 				panelActive={true}
 				setPanelActive={mockSetPanelActive}
-				initialHeight={500}
+				initialHeight={400}
 				style={{}}
 			>
 				<div data-testid="test-child">Child content</div>
@@ -125,12 +119,12 @@ describe('Resizable', () => {
 		expect(resizableDiv).toHaveAttribute('data-resizing', 'true')
 	})
 
-	it('changes height during resizing', async () => {
+	it('changes height during resizing', () => {
 		render(
 			<Resizable
 				panelActive={true}
 				setPanelActive={mockSetPanelActive}
-				initialHeight={500}
+				initialHeight={400}
 				style={{}}
 			>
 				<div data-testid="test-child">Child content</div>
@@ -138,25 +132,18 @@ describe('Resizable', () => {
 		)
 
 		const resizer = screen.getByRole('button', { name: /resize/i })
-
 		fireEvent.mouseDown(resizer, { screenY: 500 })
 
-		// Verify resizing started
-		let resizableDiv = screen
+		// Simulate mouse move
+		fireEvent.mouseMove(window, { screenY: 450 })
+
+		const resizableDiv = screen
 			.getByTestId('test-child')
 			.closest('div[data-resizing]')
-		expect(resizableDiv).toHaveAttribute('data-resizing', 'true')
+		expect(resizableDiv).toHaveStyle('height: 450px')
 
-		// Verify the initial height is maintained
-		expect(resizableDiv).toHaveStyle('height: 500px')
-
-		fireEvent.mouseUp(document)
-
-		await new Promise((resolve) => setTimeout(resolve, 10))
-
-		resizableDiv = screen
-			.getByTestId('test-child')
-			.closest('div[data-resizing]')
+		// Simulate mouse up to stop resizing
+		fireEvent.mouseUp(window)
 		expect(resizableDiv).toHaveAttribute('data-resizing', 'false')
 	})
 })
