@@ -28,5 +28,5 @@ export function useNoScrollBody(trigger: boolean): void {
 		return () => {
 			document.body.style.overflow = initialValue
 		}
-	}, [trigger])
+	}, [initialValue, trigger])
 }

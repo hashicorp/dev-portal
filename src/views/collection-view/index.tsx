@@ -42,7 +42,7 @@ function CollectionView({
 			 * correct types. This will require chaning many files, so deferring for
 			 * a follow-up PR since this is functional for the time being.
 			 */
-			sidebarNavDataLevels={sidebarNavDataLevels as any}
+			sidebarNavDataLevels={sidebarNavDataLevels as $TSFixMe}
 		>
 			<CollectionMeta
 				collection={collection}
