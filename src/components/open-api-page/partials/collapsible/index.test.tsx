@@ -21,7 +21,6 @@ describe('<Collapsible />', () => {
 		const altText = 'Alt text on an image element'
 		const { getByAltText } = render(
 			<Collapsible>
-				{/* eslint-disable-next-line @next/next/no-img-element */}
 				<img src="" alt={altText} />
 			</Collapsible>
 		)

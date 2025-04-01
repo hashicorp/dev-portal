@@ -158,7 +158,7 @@ async function deleteOldFiles(directoryPath: string, maxAgeMs: number) {
  * unique file ID, then write to that file, and
  * Return the unique file ID
  */
-function writeDataToTmpFile(tmpDir: string, jsonData: any): string {
+function writeDataToTmpFile(tmpDir: string, jsonData: $TSFixMe): string {
 	const timestamp = Date.now()
 	const uniqueFileId = `ts${timestamp}_${randomUUID()}`
 	const newTempFile = getTempFilePath(tmpDir, uniqueFileId)
@@ -171,7 +171,7 @@ function writeDataToTmpFile(tmpDir: string, jsonData: any): string {
  * If successful, return [null, data], where `data` is the parsed JSON.
  * Otherwise, return [err, null], where `err` describes the failure.
  */
-function readJsonFile(filePath): [string, null] | [null, any] {
+function readJsonFile(filePath): [string, null] | [null, $TSFixMe] {
 	try {
 		const fileString = fs.readFileSync(filePath, 'utf8')
 		return [null, JSON.parse(fileString)]

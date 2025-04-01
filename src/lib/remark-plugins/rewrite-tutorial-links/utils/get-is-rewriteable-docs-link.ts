@@ -67,7 +67,7 @@ const getIsRewriteableDocsLink = (link: string): boolean => {
 		 * Return whether or not the base path is accepted.
 		 */
 		return isBasePathAccepted
-	} catch (error) {
+	} catch {
 		/**
 		 * If `link` isn't a fully valid URL, then it's not an external docs link.
 		 */
