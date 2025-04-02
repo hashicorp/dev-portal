@@ -2,6 +2,7 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
+import classNames from 'classnames'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 
 import useAuthentication from 'hooks/use-authentication'
@@ -61,7 +62,7 @@ const ProfileAccountViewContent = () => {
 				<Text className={s.description}>
 					Email address associated with your profile name
 				</Text>
-				<div className={s.copySnippetWrapper}>
+				<div className={classNames('ph-no-capture', s.copySnippetWrapper)}>
 					<CopySnippet textToCopy={user.email} />
 				</div>
 			</Card>
