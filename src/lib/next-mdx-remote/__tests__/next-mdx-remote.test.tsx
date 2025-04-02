@@ -37,7 +37,7 @@ describe('serialize', () => {
 		}
 		const result = await renderStatic('~> hello', options)
 		expect(result).toMatchInlineSnapshot(
-			`"<div class=\"alert alert-warning g-type-body\"><p>hello</p></div>"`
+			`"<div class="alert alert-warning g-type-body"><p>hello</p></div>"`
 		)
 		expect(options.mdxOptions.remarkPlugins.length).toBe(1)
 	})
@@ -79,8 +79,6 @@ describe('serialize', () => {
 	})
 
 	test('with MDXProvider providing custom components', async () => {
-		const TestContext = React.createContext(null)
-
 		const mdxSource = await serialize('<Test />')
 
 		const result = ReactDOMServer.renderToStaticMarkup(
@@ -154,7 +152,7 @@ async function renderStatic(
 		mdxOptions,
 		target,
 	}: {
-		components?: Record<string, React.ComponentType<any>>
+		components?: Record<string, React.ComponentType<$TSFixMe>>
 	} & SerializeOptions = {}
 ): Promise<string> {
 	const mdxSource = await serialize(mdx, { mdxOptions, target })
