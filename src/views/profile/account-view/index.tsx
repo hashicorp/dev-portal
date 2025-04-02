@@ -73,7 +73,7 @@ const ProfileAccountViewContent = () => {
 
 			<Card className={s.section} elevation="base">
 				<Text className={s.description}>Your ID within HashiCorp</Text>
-				<div className={s.copySnippetWrapper}>
+				<div className={classNames('ph-no-capture', s.copySnippetWrapper)}>
 					<CopySnippet textToCopy={user.id} />
 				</div>
 			</Card>
