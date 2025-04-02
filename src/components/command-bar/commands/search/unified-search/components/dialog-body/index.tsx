@@ -157,7 +157,8 @@ function SearchResults({
 				<Index indexName={ZENDESK_ALGOLIA_INDEX_NAME} indexId={SearchContentTypes.KNOWLEDGEBASE}>
 					<Configure
 						query={currentInputValue}
-						attributesToSnippet={['description:30']}
+						attributesToSnippet={['description:25']}
+						attributesToHighlight={['page_title', 'description:25']}
 						filters={getAlgoliaFilters(currentProductSlug, SearchContentTypes.KNOWLEDGEBASE)}
 					/>
 					<HitsReporter
