@@ -1,5 +1,5 @@
 {
-	"products": ["terraform", "vault", "consul", "nomad"],
+	"products": ["terraform", "vault", "boundary", "consul", "nomad"],
 	"labs": [
 		{
 			"title": "Terraform Sandbox",
@@ -12,6 +12,12 @@
 			"description": "Learn how to manage your secrets with Vault",
 			"products": ["vault"],
 			"labId": "hashicorp-learn/tracks/vault-sandbox?token=em_usmVkoZLWz8SAXNB"
+		},
+		{
+			"title": "Boundary Sandbox",
+			"description": "Learn how to manage a Boundary cluster, configure and connect to targets, and set up target credentials.",
+			"products": ["boundary"],
+			"labId": "hashicorp-learn/tracks/boundary-sandbox?token=em_YHsmJu4K1Wk3hwht"
 		},
 		{
 			"title": "Nomad sandbox",
