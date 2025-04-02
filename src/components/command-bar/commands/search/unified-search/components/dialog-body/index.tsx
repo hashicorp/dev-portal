@@ -154,7 +154,7 @@ function SearchResults({
 					}
 				)}
 
-				<Index indexName={ZENDESK_ALGOLIA_INDEX_NAME} indexId="knowledgebase">
+				<Index indexName={ZENDESK_ALGOLIA_INDEX_NAME} indexId={SearchContentTypes.KNOWLEDGEBASE}>
 					<Configure
 						query={currentInputValue}
 						attributesToSnippet={['description:30']}
