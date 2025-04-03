@@ -30,7 +30,6 @@ import { type UnifiedSearchResults, SearchContentTypes } from '../../types'
 import s from './dialog-body.module.css'
 
 const ALGOLIA_INDEX_NAME = __config.dev_dot.algolia.unifiedIndexName
-const ZENDESK_ALGOLIA_INDEX_NAME = __config.dev_dot.algolia.zendeskIndexName
 
 // Initialize the algolia search client
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID
@@ -135,38 +134,24 @@ function SearchResults({
 			{/* <InstantSearch /> updates algoliaData, and renders nothing.
 			    Maybe helpful to think of this as "the part that fetches results". */}
 			<InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
-				{[
-					SearchContentTypes.GLOBAL,
-					SearchContentTypes.DOCS,
-					SearchContentTypes.INTEGRATION,
-					SearchContentTypes.TUTORIAL,
-				].map(
+				{Object.values(SearchContentTypes).map(
 					(
-						type: Exclude<SearchContentTypes, SearchContentTypes.KNOWLEDGEBASE>
+						type: SearchContentTypes
 					) => {
 						const filters = getAlgoliaFilters(currentProductSlug, type)
 						return (
 							<Index key={type} indexName={ALGOLIA_INDEX_NAME} indexId={type}>
-								<Configure query={currentInputValue} filters={filters} />
+								<Configure 
+									query={currentInputValue} 
+									filters={filters} 
+									attributesToSnippet={type === SearchContentTypes.KNOWLEDGEBASE && ['description:25']} 
+									attributesToHighlight={type === SearchContentTypes.KNOWLEDGEBASE ? ['page_title', 'description:25'] : ['*']} 
+								/>
 								<HitsReporter setHits={(hits) => setHitData(type, hits)} />
 							</Index>
 						)
 					}
 				)}
-
-				<Index indexName={ZENDESK_ALGOLIA_INDEX_NAME} indexId={SearchContentTypes.KNOWLEDGEBASE}>
-					<Configure
-						query={currentInputValue}
-						attributesToSnippet={['description:25']}
-						attributesToHighlight={['page_title', 'description:25']}
-						filters={getAlgoliaFilters(currentProductSlug, SearchContentTypes.KNOWLEDGEBASE)}
-					/>
-					<HitsReporter
-						setHits={(hits) =>
-							setHitData(SearchContentTypes.KNOWLEDGEBASE, hits)
-						}
-					/>
-				</Index>
 			</InstantSearch>
 			{/* UnifiedHitsContainer renders search results in a tabbed interface. */}
 			<UnifiedHitsContainer
