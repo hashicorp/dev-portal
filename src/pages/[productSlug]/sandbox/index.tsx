@@ -96,7 +96,9 @@ export default function SandboxView({
 				</p>
 			</div>
 
-			<h2 className={s.sectionHeading}>Available {product.name} sandboxes</h2>
+			<h2 className={s.sectionHeading}>
+				Available {product.name} sandboxes. Click to launch the sandbox.
+			</h2>
 
 			<p className={s.helpText}>
 				When you launch a sandbox, you'll be presented with a terminal interface
