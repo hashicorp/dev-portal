@@ -9,7 +9,8 @@
 			"description": "Explore {product} product documentation, tutorials, and examples."
 		},
 		"algolia": {
-			"unifiedIndexName": "prod_DEVDOT_omni"
+			"unifiedIndexName": "prod_DEVDOT_omni",
+			"zendeskIndexName": "prod_ZENDESK"
 		},
 		"analytics": {
 			"included_domains": "developer.hashi-mktg.com developer.hashicorp.com"

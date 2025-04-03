@@ -18,6 +18,7 @@ import { getUnifiedHitProps } from '../unified-hit/helpers'
 import type { Hit } from 'instantsearch.js'
 import type { UnifiedSearchTabContent } from './helpers'
 import type { SuggestedPageProps } from '../suggested-pages/types'
+import { SearchContentTypes } from '../../types'
 // Styles
 import s from './unified-hits-container.module.css'
 
@@ -43,7 +44,9 @@ export function UnifiedHitsContainer({
 							headingSlot={
 								<TabHeadingWithCount
 									heading={heading}
-									count={type === 'global' ? undefined : hitCount}
+									count={
+										type === SearchContentTypes.GLOBAL ? undefined : hitCount
+									}
 								/>
 							}
 							icon={icon}

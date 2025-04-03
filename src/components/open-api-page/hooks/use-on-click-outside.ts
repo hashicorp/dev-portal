@@ -23,8 +23,6 @@ function useOnClickOutside(ref, callbackFn) {
 			// Unbind the event listener on clean up
 			document.removeEventListener('mousedown', handleClick)
 		}
-		// Note: we expect "ref" to be a ref, which has no effect in a dependency array,
-		// we can ignore the exhaustive deps warning here to add "ref"
 	}, [callbackFn, ref])
 }
 

@@ -4,10 +4,14 @@
  */
 
 import { ReactNode, createContext, useContext, useState } from 'react'
+import type { SearchContentTypes } from '../unified-search/types'
 
 const SearchHitsContext = createContext([])
 
-type HitCounts = Record<'docs' | 'tutorials' | 'integrations', number>
+type HitCounts = Record<
+	Exclude<SearchContentTypes, SearchContentTypes.GLOBAL>,
+	number
+>
 
 /**
  * Intended to provides search hit counts across content types.
