@@ -33,7 +33,7 @@ describe('remarkPluginInjectImageDimensions', () => {
 			},
 		})
 		const { getByAltText } = render(
-			<MDXRemote {...mdxSource} components={{ img: Image as any }} />
+			<MDXRemote {...mdxSource} components={{ img: Image as $TSFixMe }} />
 		)
 		const img = getByAltText(alt)
 

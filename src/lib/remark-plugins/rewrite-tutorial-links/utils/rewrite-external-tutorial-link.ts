@@ -17,7 +17,7 @@
  * /tutorials/${product}/{tutorial-name}#{anchor} --> /{product}/tutorials/{collection-name}/{tutorial-name}#{anchor}
  */
 
-import { SectionOption, ProductOption } from 'lib/learn-client/types'
+import { SectionOption } from 'lib/learn-client/types'
 import {
 	normalizeSlugForDevDot,
 	normalizeSlugForTutorials,

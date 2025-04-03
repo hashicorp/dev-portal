@@ -1,9 +1,9 @@
 {
-	"products": ["terraform", "vault", "consul", "nomad"],
+	"products": ["terraform", "vault", "boundary", "consul", "nomad"],
 	"labs": [
 		{
 			"title": "Terraform Sandbox",
-			"description": "Get started quickly with a container-based sandbox host. Choose a container when you need a fast, lightweight Linux system",
+			"description": "Get started quickly with Terraform. This sandbox includes Docker and LocalStack preinstalled to test your Terraform configuration.",
 			"products": ["terraform"],
 			"labId": "hashicorp-learn/tracks/terraform-sandbox?token=em_7UQwSJt0EbYq9YlE"
 		},
@@ -12,6 +12,12 @@
 			"description": "Learn how to manage your secrets with Vault",
 			"products": ["vault"],
 			"labId": "hashicorp-learn/tracks/vault-sandbox?token=em_usmVkoZLWz8SAXNB"
+		},
+		{
+			"title": "Boundary Sandbox",
+			"description": "Learn how to manage a Boundary cluster, configure and connect to targets, and set up target credentials.",
+			"products": ["boundary"],
+			"labId": "hashicorp-learn/tracks/boundary-sandbox?token=em_YHsmJu4K1Wk3hwht"
 		},
 		{
 			"title": "Nomad sandbox",
