@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import type { fileContentEntry } from "./fetch-nav-data-for-repo-and-base-path"
+import type { fileContentEntry } from "../types"
 
 /**
  * @NOTE copied from:

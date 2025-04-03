@@ -4,20 +4,7 @@
  */
 
 import fetchGithubFile from '@build-libs/fetch-github-file'
-
-export type fileContentEntry = {
-	title?: string
-	routes?: fileContentEntry[]
-	divider?: boolean
-	path?: string
-	href?: string
-	badge?: {
-		text: string
-		color: string
-		type: string
-	}
-	hidden?: boolean
-}
+import type { fileContentEntry } from '../types'
 
 const fetchNavDataForBasePathAndRepo = async ({
 	filePath,
