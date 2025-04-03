@@ -7,19 +7,20 @@ import { getTutorialSlug } from 'views/collection-view/helpers'
 import { getIntegrationUrl } from 'lib/integrations'
 // Types
 import type { Hit } from 'instantsearch.js'
+import { SearchContentTypes } from '../../../types'
 
 /**
  * Builds a URL path to an arbitrary hit from
  * our unified `<env>_DEVDOT_omni` Algolia indices.
  */
 export function buildUrlPath(searchHit: Hit): string {
-	if (searchHit.type === 'docs') {
+	if (searchHit.type === SearchContentTypes.DOCS) {
 		const objectIdWithoutType = searchHit.objectID.replace('docs_', '')
 		return `/${objectIdWithoutType}`.replace(/\/index$/, '')
-	} else if (searchHit.type === 'tutorial') {
+	} else if (searchHit.type === SearchContentTypes.TUTORIAL) {
 		const { slug, defaultContext } = searchHit
 		return getTutorialSlug(slug, defaultContext.slug)
-	} else if (searchHit.type === 'integration') {
+	} else if (searchHit.type === SearchContentTypes.INTEGRATION) {
 		const {
 			external_only,
 			external_url,
@@ -39,6 +40,8 @@ export function buildUrlPath(searchHit: Hit): string {
 			organization: { slug: organization_slug } as $TSFixMe,
 			slug,
 		} as $TSFixMe)
+	} else if (searchHit.type === SearchContentTypes.KNOWLEDGEBASE) {
+		return `https://support.hashicorp.com/hc/${searchHit.slug}`
 	} else {
 		/**
 		 * Something's gone wrong, this should never happen in our indexing.

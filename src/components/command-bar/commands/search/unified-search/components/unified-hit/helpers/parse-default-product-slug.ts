@@ -9,6 +9,7 @@ import { isProductSlug } from 'lib/products'
 // Types
 import type { Hit } from 'instantsearch.js'
 import type { ProductSlug } from 'types/products'
+import { SearchContentTypes } from '../../../types'
 
 /**
  * Determine the "default product slug" for a provided search object.
@@ -24,7 +25,7 @@ import type { ProductSlug } from 'types/products'
  */
 export function parseDefaultProductSlug(hit: Hit): ProductSlug | null {
 	let defaultProductSlug: ProductSlug
-	if (hit.type === 'tutorial') {
+	if (hit.type === SearchContentTypes.TUTORIAL) {
 		const normalizedSlug = normalizeSlugForDevDot(hit.defaultContext.section)
 		defaultProductSlug = isProductSlug(normalizedSlug) ? normalizedSlug : null
 	} else {
