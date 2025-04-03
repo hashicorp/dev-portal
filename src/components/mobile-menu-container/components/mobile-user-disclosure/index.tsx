@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import classNames from 'classnames'
 import { IconChevronDown24 } from '@hashicorp/flight-icons/svg-react/chevron-down-24'
 import { useRouter } from 'next/router'
 import { getUserMeta } from 'lib/auth/user'
@@ -72,7 +73,7 @@ const MobileUserDisclosure = ({
 			<DisclosureActivator className={s.activator}>
 				<span className={s.iconAndTextWrapper}>
 					<span className={s.icon}>{icon}</span>
-					<Text asElement="span" className={s.text} size={300} weight="medium">
+					<Text asElement="span" className={classNames('ph-no-capture',s.text)} size={300} weight="medium">
 						{description}
 					</Text>
 				</span>
