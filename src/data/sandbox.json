@@ -5,13 +5,13 @@
 			"title": "Terraform Sandbox",
 			"description": "Get started quickly with Terraform. This sandbox includes Docker and LocalStack preinstalled to test your Terraform configuration.",
 			"products": ["terraform"],
-			"labId": "hashicorp-learn/tracks/terraform-sandbox?token=em_7UQwSJt0EbYq9YlE"
+			"labId": "hashicorp-learn/tracks/terraform-sandbox?token=em_3vgTsBqCLq2blqtQ"
 		},
 		{
-			"title": "Vault Playground (test)",
+			"title": "Vault Sandbox",
 			"description": "Learn how to manage your secrets with Vault",
 			"products": ["vault"],
-			"labId": "hashicorp-learn/tracks/vault-sandbox?token=em_usmVkoZLWz8SAXNB"
+			"labId": "hashicorp-learn/tracks/vault-cluster-sandbox?token=em_MmJD6C6DhTpGm9Ab"
 		},
 		{
 			"title": "Boundary Sandbox",
@@ -20,22 +20,22 @@
 			"labId": "hashicorp-learn/tracks/boundary-sandbox?token=em_YHsmJu4K1Wk3hwht"
 		},
 		{
-			"title": "Nomad sandbox",
+			"title": "Nomad Sandbox",
 			"description": "A Nomad cluster with three server nodes and one client node, Consul installed and configured, and Access Control Lists (ACLs) enabled for both Nomad and Consul.",
-			"labId": "hashicorp-learn/tracks/nomad-sandbox?token=em_0wOuIAyyjAQllLkc",
-			"products": ["nomad", "consul"]
+			"products": ["nomad", "consul"],
+			"labId": "hashicorp-learn/tracks/nomad-sandbox?token=em_0wOuIAyyjAQllLkc"
 		},
 		{
-			"title": "Sandbox environment for Consul (Service discovery)",
+			"title": "Consul Sandbox (Service discovery)",
 			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
-			"labId": "hashicorp-learn/tracks/consul-sandbox-lab?token=em_I5XI2XjO-ZMeH1_w&rtp_SCENARIO=SD",
-			"products": ["consul"]
+			"products": ["consul"],
+			"labId": "hashicorp-learn/tracks/consul-sandbox-lab?token=em_I5XI2XjO-ZMeH1_w&rtp_SCENARIO=SD"
 		},
 		{
-			"title": "Sandbox environment for Consul (Service mesh)",
+			"title": "Consul Sandbox (Service mesh)",
 			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
-			"labId": "hashicorp-learn/tracks/consul-sandbox-lab?token=em_I5XI2XjO-ZMeH1_w&rtp_SCENARIO=SM",
-			"products": ["consul"]
+			"products": ["consul"],
+			"labId": "hashicorp-learn/tracks/consul-sandbox-lab?token=em_I5XI2XjO-ZMeH1_w&rtp_SCENARIO=SM"
 		}
 	]
 }
