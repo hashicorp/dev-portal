@@ -34,7 +34,9 @@ const getAllPagePathsForBasePathAndRepo = async ({
 		})
 
 		const pagePathObjects = getPathsFromNavData(navData)
-		const allPagePaths = pagePathObjects.map((pagePathObject: $TSFixMe) => {
+		const allPagePaths = pagePathObjects.map((pagePathObject: {
+			params: Record<string, string[]>;
+		}) => {
 			const pagePath = pagePathObject.params.page.join('/')
 			return [productSlug, basePath, pagePath].join('/')
 		})
