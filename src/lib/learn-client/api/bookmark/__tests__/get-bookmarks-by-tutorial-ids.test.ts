@@ -13,12 +13,12 @@ vi.mock('lib/learn-client', () => ({
 	get: vi.fn(),
 }))
 
-const mockBookmarks: ApiBookmark[] = [
+// This mock omits the tutorial attribute since we don't need it for testing
+const mockBookmarks:  Omit<ApiBookmark, 'tutorial'>[] = [
 	{
 		created_at: null,
 		id: 'test-bookmark-1',
 		tutorial_id: 'test-tutorial-1',
-		tutorial: {} as $TSFixMe,
 		updated_at: null,
 		user_id: 'test-user',
 	},
@@ -26,7 +26,6 @@ const mockBookmarks: ApiBookmark[] = [
 		created_at: null,
 		id: 'test-bookmark-2',
 		tutorial_id: 'test-tutorial-2',
-		tutorial: {} as $TSFixMe,
 		updated_at: null,
 		user_id: 'test-user',
 	},
