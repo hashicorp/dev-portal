@@ -67,7 +67,7 @@ const DropdownDisclosureDescriptionItem = ({
 		<DropdownDisclosureListItem>
 			<Text
 				asElement="span"
-				className={s.description}
+				className={classNames('ph-no-capture', s.description)}
 				size={100}
 				weight="regular"
 			>
