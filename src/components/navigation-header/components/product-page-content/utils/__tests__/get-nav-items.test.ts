@@ -44,6 +44,10 @@ describe('getNavItems', () => {
 			    "url": "/nomad/commands",
 			  },
 			  {
+			    "label": "Sandbox",
+			    "url": "/nomad/sandbox",
+			  },
+			  {
 			    "label": "Integrations",
 			    "url": "/nomad/integrations",
 			  },
@@ -233,6 +237,10 @@ describe('getNavItems', () => {
 			      },
 			    ],
 			    "label": "Documentation",
+			  },
+			  {
+			    "label": "Sandbox",
+			    "url": "/terraform/sandbox",
 			  },
 			  {
 			    "label": "Registry",
