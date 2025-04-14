@@ -144,8 +144,8 @@ function SearchResults({
 								<Configure 
 									query={currentInputValue} 
 									filters={filters} 
-									attributesToSnippet={type === SearchContentTypes.KNOWLEDGEBASE && ['description:25']} 
-									attributesToHighlight={type === SearchContentTypes.KNOWLEDGEBASE ? ['page_title', 'description:25'] : ['*']} 
+									attributesToSnippet={['description:25']} 
+									attributesToHighlight={['page_title', 'description:250']} 
 								/>
 								<HitsReporter setHits={(hits) => setHitData(type, hits)} />
 							</Index>
