@@ -42,7 +42,8 @@
 			"terraform-plugin-log",
 			"terraform-plugin-mux",
 			"terraform-plugin-sdk",
-			"terraform-plugin-testing"
+			"terraform-plugin-testing",
+			"terraform-docs-agents"
 		]
 	}
 }
