@@ -8,6 +8,7 @@ import CSS from 'csstype'
 import classNames from 'classnames'
 import Resizer from './components/resizer'
 import s from './resizable.module.css'
+import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 
 interface ResizableProps {
 	panelActive: boolean
@@ -24,6 +25,7 @@ export default function Resizable({
 	style,
 	initialHeight = 400,
 }: ResizableProps) {
+	const { closeLab } = useInstruqtEmbed()
 	// State for resizable panel while in `panel`-mode
 	const minimumHeight = 300
 	const maximumHeight = 910
@@ -31,9 +33,9 @@ export default function Resizable({
 	const [moveMouseY, setMoveMouseY] = useState(0)
 	const [height, setHeight] = useState(initialHeight)
 	const [previousHeight, setPreviousHeight] = useState(initialHeight)
-	const [isResizing, setResizing] = useState(false)
+	const [isResizing, setIsResizing] = useState(false)
 
-	const resizableDiv = useRef()
+	const resizableDiv = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
 		if (resizableDiv.current) {
@@ -51,7 +53,7 @@ export default function Resizable({
 		// Track the fact that we are resizing
 		// This keeps our cursor on our `<Resizer/>`
 		// This adds a class to the content our mouse may otherwise wander into via `pointer-events: none`
-		setResizing(true)
+		setIsResizing(true)
 		// Once we're clientside add the event listeners needed during a resize
 		addListeners()
 	}
@@ -63,7 +65,7 @@ export default function Resizable({
 
 	function stopResize() {
 		// We stopped resizing so it'd be great to be able to use the content inside the resizable ref ;)
-		setResizing(false)
+		setIsResizing(false)
 		// We no longer want our event listeners
 		removeListeners()
 	}
@@ -92,7 +94,7 @@ export default function Resizable({
 			data-resizing={String(isResizing)}
 		>
 			<Resizer
-				onClosePanel={() => setPanelActive(!panelActive)}
+				onClosePanel={() => closeLab()}
 				onMouseDown={enableResize}
 				style={style}
 			/>
