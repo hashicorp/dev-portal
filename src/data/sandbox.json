@@ -29,13 +29,13 @@
 			"title": "Consul Sandbox (Service discovery)",
 			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
 			"products": ["consul"],
-			"labId": "hashicorp-learn/tracks/consul-sandbox-lab?token=em_I5XI2XjO-ZMeH1_w&rtp_SCENARIO=SD"
+			"labId": "hashicorp-learn/tracks/consul-sandbox?token=em_I5XI2XjO-ZMeH1_w&rtp_SCENARIO=SD"
 		},
 		{
 			"title": "Consul Sandbox (Service mesh)",
 			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
 			"products": ["consul"],
-			"labId": "hashicorp-learn/tracks/consul-sandbox-lab?token=em_I5XI2XjO-ZMeH1_w&rtp_SCENARIO=SM"
+			"labId": "hashicorp-learn/tracks/consul-sandbox?token=em_I5XI2XjO-ZMeH1_w&rtp_SCENARIO=SM"
 		}
 	]
 }
