@@ -6,17 +6,20 @@
 /**
  * Enables PostHog video start tracking
  */
-export function trackVideoStart(url: string) {
+export function trackVideoStart(url: string): void {
 	if (!window?.posthog) return
 
-	const video_host = url.includes('wistia')
-		? 'wistia'
-		: url.includes('youtube')
-		? 'youtube'
-		: 'other'
+	let video_host = ""
+	if (url.includes('wistia')) {
+		video_host = 'wistia'
+	} else if (url.includes('youtube')) {
+		video_host = 'youtube'
+	} 
 
-	window.posthog.capture('video_start', {
-		video_host,
-		url,
-	})
+	if (video_host) {
+		window.posthog.capture('video_start', {
+			video_host,
+			url,
+		})
+	}
 }
