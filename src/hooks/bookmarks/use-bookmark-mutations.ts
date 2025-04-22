@@ -96,7 +96,7 @@ const useBookmarkMutations = (): UseBookmarkMutationsResult => {
 
 	// TODO expose an new error object in the bookmark API functions
 	const makeOnError = (method: 'addBookmark' | 'removeBookmark') => {
-		return (error: $TSFixMe) => {
+		return (error: Error) => {
 			if (error.message === '401 Unauthorized') {
 				developmentToast({
 					color: ToastColor.critical,
