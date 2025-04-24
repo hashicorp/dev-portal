@@ -115,6 +115,8 @@ function Image({
 	}
 
 	const theme = getTheme(src)
+	// In order for themed images to work in UDR, we need to remove the hash from the src
+	const newSrc = src.split('#')[0]
 
 	return (
 		<span
@@ -127,7 +129,7 @@ function Image({
 		>
 			{dimensions ? (
 				<NextImage
-					src={src}
+					src={newSrc}
 					alt={alt}
 					title={title}
 					width={dimensions.width}
@@ -135,7 +137,7 @@ function Image({
 					style={style}
 				/>
 			) : (
-				<img src={src} alt={alt} title={title} style={style} />
+				<img src={newSrc} alt={alt} title={title} style={style} />
 			)}
 		</span>
 	)
