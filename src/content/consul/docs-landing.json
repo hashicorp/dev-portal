@@ -68,6 +68,10 @@
 			]
 		},
 		{
+			"type": "section-heading",
+			"title": "Usage"
+		},
+		{
 			"type": "card-grid",
 			"title": "Getting started",
 			"description": "If you are new to Consul, these resources can help you learn about Consul and quickly get started with its service networking features.",
