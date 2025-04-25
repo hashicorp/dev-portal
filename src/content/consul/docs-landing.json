@@ -198,35 +198,16 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "Command line interface (CLI) documentation",
-			"description": "You can use the CLI to manage Consul. Addditional CLIs are available for supported tools to help you interact with Consul's network infrastructure.",
-			"cards": [
-				{
-					"title": "`consul` CLI reference docs",
-					"url": "/consul/docs/commands"
-				},
-				{
-					"title": "`consul-k8s` CLI reference doc",
-					"url": "/consul/docs/reference/cli/consul-k8s"
-				},
-				{
-					"title": "`consul-aws` CLI reference doc",
-					"url": "/consul/docs/reference/cli/consul-aws"
-				},
-				{
-					"title": "`consul-terraform-sync` CLI reference doc",
-					"url": "/consul/docs/reference/cli/cts"
-				}
-			]
-		},
-		{
-			"type": "card-grid",
 			"title": "Configuration specifications",
 			"description": "Manage your network by configuring Consul agents, service definitions, health checks, as well as service mesh behavior and application configuration.",
 			"cards": [
 				{
 					"title": "Agent configuration file",
 					"url": "/consul/docs/reference/agent/configuration-file"
+				},
+				{
+					"title": "Helm configuration",
+					"url": "/consul/docs/reference/k8s/helm"
 				},
 				{
 					"title": "Service definitions",
@@ -270,7 +251,7 @@
 				},
 				{
 					"iconName": "terminal",
-					"text": "Examples of Consul configurations on GitHub",
+					"text": "Example Consul configurations on GitHub",
 					"url": "https://github.com/hashicorp-education?q=learn-consul&type=all"
 				}
 			]
