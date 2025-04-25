@@ -1,110 +1,242 @@
 {
-	"pageSubtitle": "Consul is a multi-networking tool that offers a fully-featured service mesh solution. It solves the networking and security challenges of operating microservices and cloud infrastructure in multi-cloud and hybrid cloud environments. This documentation describes Consul concepts, the problems it solves, and contains quick-start tutorials for using Consul.",
+	"pageSubtitle": "Consul is a networking tool that provides comprehensive service discovery and service mesh solutions. It solves networking and security challenges when operating microservices and cloud infrastructure in multi-cloud and hybrid cloud environments at any scale. This documentation describes Consul, provides usage workflows for Consul operations and service networking scenarios, and includes specification and API references to help you build custom automated solutions for your network.",
 	"marketingContentBlocks": [
 		{
 			"type": "section-heading",
-			"title": "Use cases"
+			"title": "Overview"
 		},
 		{
 			"type": "card-grid",
-			"title": "Service mesh",
-			"description": "Consul service mesh provides service-to-service connection authorization and encryption using mutual transport layer security (TLS).",
+			"title": "Popular use cases",
+			"description": "",
 			"cards": [
 				{
-					"title": "Register mesh services",
-					"description": "Define and register services with Consul and associate them with health checks.",
-					"url": "/consul/docs/services/services"
+					"title": "API Gateway",
+					"url": "/consul/docs/use-case/api-gateway"
 				},
 				{
-					"title": "Configure mesh behavior",
-					"description": "The exported services configuration entry enables you to export services from a single file.",
-					"url": "/consul/docs/connect/config-entries/exported-services"
+					"title": "Configuration management",
+					"url": "/consul/docs/use-case/config-management"
 				},
 				{
-					"title": "Manage mesh traffic",
-					"description": "Gateways provide connectivity into, out of, and between Consul service meshes.",
-					"url": "/consul/docs/connect/gateways"
+					"title": "Domain Name Service (DNS)",
+					"url": "/consul/docs/use-case/dns"
 				},
 				{
-					"title": "Control ingress traffic",
-					"description": "Deploy a Consul API gateway to manage north-south network traffic .",
-					"url": "/consul/docs/api-gateway"
+					"title": "Service discovery",
+					"url": "consul/docs/use-case/service-discovery"
+				},
+				{
+					"title": "Service mesh",
+					"url": "consul/docs/use-case/service-mesh"
 				}
 			]
 		},
 		{
 			"type": "card-grid",
-			"title": "Kubernetes",
-			"description": "Consul has many integrations with Kubernetes. You can deploy Consul to Kubernetes using the Helm chart or Consul K8s CLI, sync services between Consul and Kubernetes, run Consul service mesh, and more.",
+			"title": "Supported runtimes and platforms",
+			"description": "Consul supports many application runtimes and cloud platforms, and enables service networking between them.",
 			"cards": [
 				{
-					"title": "Install Consul on Kubernetes",
-					"description": "Consul runs directly on Kubernetes to support pure K8s workloads. You can also join workloads to Consul servers outside of Kubernetes to support mixed environments.",
-					"url": "/consul/docs/k8s/installation/install"
+					"title": "Local and virtual machines",
+					"url": "/consul/docs/vm"
 				},
 				{
-					"title": "Simplify service mesh on Kubernetes with Consul Dataplane",
-					"description": "Consul Dataplane manages proxies but leaves responsibility for other functions to the orchestrator, removing the need to run client agents on every node.",
-					"url": "/consul/docs/connect/dataplane"
+					"title": "Consul on Kubernetes",
+					"url": "/consul/docs/k8s"
 				},
 				{
-					"title": "Connect services deployed to multiple Kubernetes clusters",
-					"description": "Install and federate Consul on multiple Kubernetes clusters.",
-					"url": "/consul/docs/k8s/deployment-configurations/multi-cluster"
+					"title": "Consul on Nomad",
+					"url": "/consul/docs/nomad"
 				},
 				{
-					"title": "Sync Kubernetes and Consul services",
-					"description": "Automatically sync your Kubernetes and Consul services to seamlessly secure communications between your Kubernetes and Consul services.",
-					"url": "/consul/docs/k8s/service-sync"
-				}
-			]
-		},
-		{
-			"type": "card-grid",
-			"title": "Network infrastructure automation",
-			"description": "Consul-Terraform-Sync (CTS) enables dynamic updates to network infrastructure devices triggered by service changes.",
-			"cards": [
-				{
-					"title": "Install and configure the CTS",
-					"description": "Install the CTS binary.",
-					"url": "/consul/docs/nia/installation/install"
+					"title": "Consul on RedHat OpenShift",
+					"url": "/consul/docs/openshift"
 				},
 				{
-					"title": "Define dynamic updates",
-					"description": "Configure CTS Tasks to automatically update network infrastructure when your Consul services change.",
-					"url": "/consul/docs/nia/tasks"
+					"title": "Consul on Docker",
+					"url": "/consul/docs/docker"
 				},
 				{
-					"title": "Create a Terraform module",
-					"description": "Automatically execute Terraform modules for network infrastructure automation with CTS.",
-					"url": "/consul/docs/nia/terraform-modules"
-				}
-			]
-		},
-		{
-			"type": "card-grid",
-			"title": "Platforms",
-			"description": "Consul integrates with several platforms and products. Learn more about Consul integrations and how to enable them.",
-			"cards": [
-				{
-					"title": "Nomad",
-					"description": "Use Consul service mesh with Nomad to provide secure service to service communication between Nomad jobs.",
-					"url": "/consul/docs/connect/nomad"
-				},
-				{
-					"title": "Vault",
-					"description": "Use Consul with Vault to manage and sign certificates. The Vault CA provider uses the Vault PKI secrets engine to generate and sign certificates.",
-					"url": "/consul/docs/connect/ca/vault"
-				},
-				{
-					"title": "AWS ECS",
-					"description": "Deploy Consul service mesh on AWS ECS (Elastic Container Service).",
+					"title": "Consul on AWS ECS",
 					"url": "/consul/docs/ecs"
 				},
 				{
-					"title": "AWS Lambda",
-					"description": "Integrate AWS Lambda with Consul services by registering Lambda functions as Consul services and invoking them from your service mesh.",
+					"title": "Consul on AWS Lambda",
 					"url": "/consul/docs/lambda"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Getting started",
+			"description": "If you are new to Consul, these resources can help you learn about Consul and quickly get started with its service networking features.",
+			"cards": [
+				{
+					"title": "Consul fundamentals",
+					"description": "This documentation sequence summarizes the core knowledge, interactions, configurations, and operations for new Consul users.",
+					"url": "/consul/docs/fundamentals/editions"
+				},
+				{
+					"title": "Get started with Consul on Virtual Machines",
+					"description": "These tutorials include a GitHub repo and a hosted terminal sessions to help you deploy Consul on VMs and explore its service discovery and service mesh features.",
+					"url": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
+				},
+				{
+					"title": "Get started with Consul on Kubernetes",
+					"description": "These tutorials include a GitHub repo help you deploy Consul on a Kubernetes cluster and explore its service discovery and service mesh features.",
+					"url": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy"
+				},
+				{
+					"title": "Migrate a monolith with Consul and Nomad",
+					"description": "These tutorials include a GitHub repo to demonstrate how you can migrate a monolithic application to microservices, integrate it with Consul, run the application on Nomad, and then scale the application automatically.",
+					"url": "/nomad/tutorials/migrate-monolith/monolith-migration-overview"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Consul operations",
+			"description": "The processes to install and manage Consul as a long-running daemon on multiple nodes in a network.",
+			"cards": [
+				{
+					"title": "Deploy Consul",
+					"description": "How to install and start Consul server agents, client agents, and dataplanes on nodes.",
+					"url": "/consul/docs/deploy"
+				},
+				{
+					"title": "Secure Consul",
+					"description": "How to set up and maintain secure communications with Consul agents, including ACLs, TLS, and gossip.",
+					"url": "/consul/docs/secure"
+				},
+				{
+					"title": "Manage multi-tenancy",
+					"description": "How to use one Consul datacenter for multiple tenants, with admin partitions, namespaces, network segments, and sameness groups.",
+					"url": "/consul/docs/multi-tenant"
+				},
+				{
+					"title": "Manage Consul",
+					"description": "How to manage and customize Consul's behavior, including DNS forwarding on nodes, server disaster recovery, rate limiting, and best practices for scale.",
+					"url": "/consul/docs/manage"
+				},
+				{
+					"title": "Monitor Consul",
+					"description": "How to export Consul logs and telemetry for insight into agent behavior.",
+					"url": "/consul/docs/monitor"
+				},
+				{
+					"title": "Upgrade Consul",
+					"description": "How to update the Consul version running in datacenters.",
+					"url": "/consul/docs/upgrade"
+				},
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Service networking",
+			"description": "The processes to register services and use Consul's service discovery and service mesh features with your application workloads.",
+			"cards": [
+				{
+					"title": "Register services",
+					"description": "How to define services and health checks and then register them with Consul.",
+					"url": "/consul/docs/register"
+				},
+				{
+					"title": "Discover services",
+					"description": "How to use Consul's service discovery features, including Consul DNS, service lookups, load balancing.",
+					"url": "/consul/docs/discover"
+				},
+				{
+					"title": "Connect service mesh",
+					"description": "How to set up and use sidecar proxies in a Consul service mesh.",
+					"url": "/consul/docs/connect"
+				},
+				{
+					"title": "Secure north/south network access",
+					"description": "How to configure, deploy, and use the Consul API gateway to secure network ingress and egress.",
+					"url": "/consul/docs/north-south"
+				},
+				{
+					"title": "Expand east/west network traffic",
+					"description": "How to connect Consul datacenters across regions, runtimes, and providers with WAN federation and cluster peering.",
+					"url": "/consul/docs/east-west"
+				},
+				{
+					"title": "Secure service mesh traffic",
+					"description": "How to secure service-to-service communication with service intentions and TLS certificates.",
+					"url": "/consul/docs/secure-mesh"
+				},
+				{
+					"title": "Manage service mesh traffic",
+					"description": "How to route traffic between services in a service mesh, including service failover and progressive rollouts.",
+					"url": "/consul/docs/manage-traffic"
+				},
+				{
+					"title": "Observe service mesh traffic",
+					"description": "How to observe service mesh telemetry and application performance, including Grafana.",
+					"url": "/consul/docs/observe"
+				},
+				{
+					"title": "Automate application configurations",
+					"description": "How to automate Consul and applications to update dynamically, including the KV store, Consul-Terraform-Sync (CTS), and Consul template.",
+					"url": "/consul/docs/automate"
+				}
+			]
+		},
+		{
+			"type": "section-heading",
+			"title": "Reference documentation"
+		},
+		{
+			"type": "card-grid",
+			"title": "CLI documentation",
+			"description": "",
+			"cards": [
+				{
+					"title": "`consul` CLI reference docs",
+					"url": "/consul/docs/commands"
+				},
+				{
+					"title": "`consul-k8s` CLI reference doc",
+					"url": "/consul/docs/reference/cli/consul-k8s"
+				},
+				{
+					"title": "`consul-aws` CLI reference doc",
+					"url": "/consul/docs/reference/cli/consul-aws"
+				},
+				{
+					"title": "`consul-terraform-sync` CLI reference doc",
+					"url": "/consul/docs/reference/cli/cts"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Configuration specifications",
+			"cards": [
+				{
+					"title": "Agent configuration file",
+					"url": "/consul/docs/reference/agent/configuration-file"
+				},
+				{
+					"title": "Agent telemetry metrics",
+					"url": "/consul/docs/reference/agent/telemetry"
+				},
+				{
+					"title": "Service definitions",
+					"url": "/consul/docs/reference/service"
+				},
+				{
+					"title": "Health checks",
+					"url": "/consul/docs/reference/service/health-check"
+				},
+				{
+					"title": "Consul template",
+					"url": "/consul/docs/reference/consul-template/configuration"
+				},
+				{
+					"title": "Consul-Terraform-Sync",
+					"url": "/consul/docs/reference/cts"
 				}
 			]
 		},
@@ -116,24 +248,24 @@
 			"type": "icon-card-grid",
 			"cards": [
 				{
-					"iconName": "connection",
-					"text": "Envoy integration",
-					"url": "/consul/docs/connect/proxies/envoy"
-				},
-				{
 					"iconName": "api",
-					"text": "HTTP API structure",
+					"text": "Consul HTTP API documentation",
 					"url": "/consul/api-docs"
 				},
 				{
-					"iconName": "download",
-					"text": "Download Consul tools",
-					"url": "/consul/docs/integrate/download-tools"
+					"iconName": "terminal-screen",
+					"text": "Consul CLI documentation",
+					"url": "/consul/api-docs"
+				},
+				{
+					"iconName": "tools",
+					"text": "Consul tools and integrations",
+					"url": "/consul/docs/integrate/consul-tools"
 				},
 				{
 					"iconName": "terminal",
-					"text": "GitHub samples",
-					"url": "https://github.com/hashicorp?q=learn-consul&type=public&language=&sort=stargazers"
+					"text": "Examples on GitHub",
+					"url": "https://github.com/hashicorp-education?q=learn-consul&type=all"
 				}
 			]
 		}
