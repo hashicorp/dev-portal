@@ -33,7 +33,7 @@ const ConsulDownloadsMerchandisingSlot = () => {
 				className={s.cta}
 				color="primary"
 				size="small"
-				href="/consul/docs/integrate/download-tools"
+				href="/consul/docs/integrate/consul-tools"
 				icon={<IconArrowRight16 />}
 				iconPosition="trailing"
 				text="Explore"
