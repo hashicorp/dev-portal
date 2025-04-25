@@ -8,26 +8,26 @@
 		{
 			"type": "card-grid",
 			"title": "Popular use cases",
-			"description": "",
+			"description": "Consul is a service networking platform that encompasses multiple capabilities for securing your service communications and automating network service management.",
 			"cards": [
 				{
-					"title": "API Gateway",
+					"title": "API Gateway solutions",
 					"url": "/consul/docs/use-case/api-gateway"
 				},
 				{
-					"title": "Configuration management",
+					"title": "Configuration management solutions",
 					"url": "/consul/docs/use-case/config-management"
 				},
 				{
-					"title": "Domain Name Service (DNS)",
+					"title": "Domain Name Service (DNS) solutions",
 					"url": "/consul/docs/use-case/dns"
 				},
 				{
-					"title": "Service discovery",
+					"title": "Service discovery solutions",
 					"url": "consul/docs/use-case/service-discovery"
 				},
 				{
-					"title": "Service mesh",
+					"title": "Service mesh solutions",
 					"url": "consul/docs/use-case/service-mesh"
 				}
 			]
@@ -35,10 +35,10 @@
 		{
 			"type": "card-grid",
 			"title": "Supported runtimes and platforms",
-			"description": "Consul supports many application runtimes and cloud platforms, and enables service networking between them.",
+			"description": "Consul supports many application runtimes and cloud platforms, and enables service networking in hybrid and multi-cloud environments.",
 			"cards": [
 				{
-					"title": "Local and virtual machines",
+					"title": "Consul on local and virtual machines",
 					"url": "/consul/docs/vm"
 				},
 				{
@@ -189,8 +189,8 @@
 		},
 		{
 			"type": "card-grid",
-			"title": "CLI documentation",
-			"description": "",
+			"title": "Command line interface (CLI) documentation",
+			"description": "You can use the CLI to manage Consul. Addditional CLIs are available for supported tools to help you interact with Consul's network infrastructure.",
 			"cards": [
 				{
 					"title": "`consul` CLI reference docs",
@@ -213,14 +213,11 @@
 		{
 			"type": "card-grid",
 			"title": "Configuration specifications",
+			"description": "Manage your network by configuring Consul agents, service definitions, health checks, as well as service mesh behavior and application configuration.",
 			"cards": [
 				{
 					"title": "Agent configuration file",
 					"url": "/consul/docs/reference/agent/configuration-file"
-				},
-				{
-					"title": "Agent telemetry metrics",
-					"url": "/consul/docs/reference/agent/telemetry"
 				},
 				{
 					"title": "Service definitions",
@@ -264,7 +261,7 @@
 				},
 				{
 					"iconName": "terminal",
-					"text": "Examples on GitHub",
+					"text": "Examples of Consul configurations on GitHub",
 					"url": "https://github.com/hashicorp-education?q=learn-consul&type=all"
 				}
 			]

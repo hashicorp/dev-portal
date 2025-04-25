@@ -30,7 +30,7 @@
 				"url": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy"
 			},
 			{
-				"icon": "nomad-color",
+				"icon": "nomad",
 				"text": "Migrate a monolith with Consul and Nomad",
 				"url": "/nomad/tutorials/migrate-monolith/monolith-migration-overview"
 			}
