@@ -12,22 +12,27 @@
 			"cards": [
 				{
 					"title": "API Gateway solutions",
+					"description": "Consul's API gateway enables external network clients to securely access applications and services.",
 					"url": "/consul/docs/use-case/api-gateway"
 				},
 				{
 					"title": "Configuration management solutions",
+					"description": "Consul supports static and dynamic service configurations based on service and node state.",
 					"url": "/consul/docs/use-case/config-management"
 				},
 				{
 					"title": "Domain Name Service (DNS) solutions",
+					"description": "Consul provides DNS functions including lookups, alternate domains, access controls, and filters across runtimes and cloud providers.",
 					"url": "/consul/docs/use-case/dns"
 				},
 				{
 					"title": "Service discovery solutions",
+					"description": "Consul's service discovery capabilities help you discover, track, and monitor the health of services within a network.",
 					"url": "consul/docs/use-case/service-discovery"
 				},
 				{
 					"title": "Service mesh solutions",
+					"description": "Consul's service mesh features help you secure, manage, and observe service-to-service communication within a network.",
 					"url": "consul/docs/use-case/service-mesh"
 				}
 			]
