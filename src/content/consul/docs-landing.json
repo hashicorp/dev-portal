@@ -128,7 +128,7 @@
 					"title": "Upgrade Consul",
 					"description": "How to update the Consul version running in datacenters.",
 					"url": "/consul/docs/upgrade"
-				},
+				}
 			]
 		},
 		{
