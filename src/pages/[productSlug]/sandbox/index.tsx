@@ -22,9 +22,17 @@ import CardsGridList from 'components/cards-grid-list'
 import { BrandedHeaderCard } from 'views/product-integrations-landing/components/branded-header-card'
 import { MenuItem } from 'components/sidebar/types'
 import { ProductSlug } from 'types/products'
-import SANDBOX_CONFIG from 'data/sandbox.json'
+import { SandboxLab, SandboxConfig } from 'types/sandbox'
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
 import ProductIcon from 'components/product-icon'
+import { serialize } from 'lib/next-mdx-remote/serialize'
+import DevDotContent from 'components/dev-dot-content'
+import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
+import fs from 'fs'
+import path from 'path'
 import s from './sandbox.module.css'
+import docsViewStyles from 'views/docs-view/docs-view.module.css'
+import classNames from 'classnames'
 
 interface SandboxPageProps {
 	product: (typeof PRODUCT_DATA_MAP)[keyof typeof PRODUCT_DATA_MAP]
@@ -32,18 +40,29 @@ interface SandboxPageProps {
 		breadcrumbLinks: { title: string; url: string }[]
 		navLevels: any[]
 	}
-	availableSandboxes: {
-		title: string
-		description: string
-		products: string[]
-		labId: string
-	}[]
-	otherSandboxes: {
-		title: string
-		description: string
-		products: string[]
-		labId: string
-	}[]
+	availableSandboxes: SandboxLab[]
+	otherSandboxes: SandboxLab[]
+}
+
+// Helper function to read and serialize MDX content
+async function getMdxContent(filePath: string | undefined, productSlug: ProductSlug) {
+	if (!filePath) return null
+	try {
+		const fullPath = path.join(process.cwd(), 'src/content/sandbox/docs', filePath)
+		const fileContent = await fs.promises.readFile(fullPath, 'utf8')
+		return await serialize(fileContent, {
+			mdxOptions: {
+				remarkPlugins: [],
+				rehypePlugins: [],
+			},
+			scope: {
+				product: productSlug,
+			},
+		})
+	} catch (error) {
+		console.error(`Error reading MDX file ${filePath}:`, error)
+		return null
+	}
 }
 
 export default function SandboxView({
@@ -53,6 +72,7 @@ export default function SandboxView({
 	otherSandboxes,
 }: SandboxPageProps) {
 	const { openLab } = useInstruqtEmbed()
+	const docsMdxComponents = getDocsMdxComponents(product.slug)
 
 	const handleLabClick = (labId: string) => {
 		openLab(labId)
@@ -60,6 +80,22 @@ export default function SandboxView({
 			labId,
 			page: `/${product.slug}/sandbox`,
 		})
+	}
+
+	const renderDocumentation = (documentation?: SandboxLab['documentation']) => {
+		if (!documentation) return null
+
+		return (
+			<div className={classNames(s.mdxContent, docsViewStyles.mdxContent)}>
+				<DevDotContent
+					mdxRemoteProps={{
+						compiledSource: documentation.compiledSource,
+						scope: documentation.scope,
+						components: docsMdxComponents,
+					}}
+				/>
+			</div>
+		)
 	}
 
 	return (
@@ -97,7 +133,7 @@ export default function SandboxView({
 			</div>
 
 			<h2 className={s.sectionHeading}>
-				Available {product.name} sandboxes. Click to launch the sandbox.
+				Available {product.name} sandboxes
 			</h2>
 
 			<p className={s.helpText}>
@@ -112,35 +148,44 @@ export default function SandboxView({
 			</p>
 
 			{availableSandboxes.length > 0 ? (
-				<CardsGridList>
-					{availableSandboxes.map((lab, index) => (
-						<div
-							key={index}
-							className={s.sandboxCard}
-							onClick={() => handleLabClick(lab.labId)}
-						>
-							<Card>
-								<div className={s.cardHeader}>
-									<CardTitle text={lab.title} />
-									<div className={s.productIcons}>
-										{lab.products.map((productSlug, idx) => (
-											<ProductIcon
-												key={idx}
-												productSlug={productSlug as ProductSlug}
-												size={16}
-												className={s.productIcon}
-											/>
-										))}
-									</div>
+				<>
+					<CardsGridList>
+						{availableSandboxes.map((lab, index) => (
+							<div key={index}>
+								<div
+									className={s.sandboxCard}
+									onClick={() => handleLabClick(lab.labId)}
+								>
+									<Card>
+										<div className={s.cardHeader}>
+											<CardTitle text={lab.title} />
+											<div className={s.productIcons}>
+												{lab.products.map((productSlug, idx) => (
+													<ProductIcon
+														key={idx}
+														productSlug={productSlug as ProductSlug}
+														size={16}
+														className={s.productIcon}
+													/>
+												))}
+											</div>
+										</div>
+										<CardDescription text={lab.description} />
+										<CardFooter>
+											<button className={s.launchButton}>Launch Sandbox</button>
+										</CardFooter>
+									</Card>
 								</div>
-								<CardDescription text={lab.description} />
-								<CardFooter>
-									<button className={s.launchButton}>Launch Sandbox</button>
-								</CardFooter>
-							</Card>
+							</div>
+						))}
+					</CardsGridList>
+
+					{availableSandboxes.map((lab, index) => (
+						<div key={index}>
+							{lab.documentation && renderDocumentation(lab.documentation)}
 						</div>
 					))}
-				</CardsGridList>
+				</>
 			) : (
 				<p className={s.noSandboxes}>
 					There are currently no sandboxes available for {product.name}. Check
@@ -192,12 +237,10 @@ export default function SandboxView({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	// Get the list of supported products from sandbox.json
 	const supportedProducts = SANDBOX_CONFIG.products || []
 
-	// Generate paths for all products that are in the supported products list
 	const paths = supportedProducts
-		.filter((productSlug) => PRODUCT_DATA_MAP[productSlug]) // Ensure the product exists in PRODUCT_DATA_MAP
+		.filter((productSlug) => PRODUCT_DATA_MAP[productSlug])
 		.map((productSlug) => ({
 			params: { productSlug },
 		}))
@@ -215,22 +258,40 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 	const product = PRODUCT_DATA_MAP[productSlug]
 	const supportedProducts = SANDBOX_CONFIG.products || []
 
-	// Only show sandbox page if product is in the supported products list
 	if (!product || !supportedProducts.includes(productSlug)) {
 		return {
 			notFound: true,
 		}
 	}
 
-	// Filter sandboxes that are relevant to this product
-	const availableSandboxes = SANDBOX_CONFIG.labs.filter((lab) =>
-		lab.products.includes(productSlug)
+	// Process available sandboxes and their documentation
+	const availableSandboxes = await Promise.all(
+		(SANDBOX_CONFIG as SandboxConfig).labs
+			.filter((lab) => lab.products.includes(productSlug))
+			.map(async (lab) => {
+				const { title, description, products, labId, documentation } = lab
+				if (documentation) {
+					// Handle the MDX file
+					return {
+						title,
+						description,
+						products,
+						labId,
+						documentation: await getMdxContent(documentation, productSlug as ProductSlug),
+					}
+				}
+				return { title, description, products, labId }
+			})
 	)
 
-	// Filter sandboxes that are NOT relevant to this product
-	const otherSandboxes = SANDBOX_CONFIG.labs.filter(
-		(lab) => !lab.products.includes(productSlug)
-	)
+	const otherSandboxes = (SANDBOX_CONFIG as SandboxConfig).labs
+		.filter((lab) => !lab.products.includes(productSlug))
+		.map(({ title, description, products, labId }) => ({
+			title,
+			description,
+			products,
+			labId,
+		}))
 
 	const breadcrumbLinks = [
 		{ title: 'Developer', url: '/' },
@@ -243,7 +304,6 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 		generateProductLandingSidebarNavData(product),
 	]
 
-	// Add sandbox links
 	const sandboxMenuItems: MenuItem[] = [
 		{
 			title: `${product.name} Sandbox`,

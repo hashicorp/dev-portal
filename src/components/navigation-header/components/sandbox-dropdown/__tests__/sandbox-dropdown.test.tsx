@@ -4,11 +4,7 @@
  */
 
 import { render, screen, fireEvent } from '@testing-library/react'
-import { useRouter } from 'next/router'
-import { useCurrentProduct } from 'contexts'
-import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import SandboxDropdown from '../index'
-import SANDBOX_CONFIG from 'data/sandbox.json'
 
 // Mock the hooks
 const mockUserRouter = vi.fn()
