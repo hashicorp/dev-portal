@@ -1,0 +1,263 @@
+<Tabs>
+<Tab heading="Consul Sandbox (Service discovery)">
+
+<Tabs>
+<Tab heading="Overview">
+  
+<Warning> 
+  
+This environment is not production-ready, as it does not follow our recommendations for production-ready cluster deployments. Refer to the [Consul Deployment Guide](/consul/tutorials/production-vms/deployment-guide) for more information.
+
+It is meant to serve as a development and testing environment. It is "production-lite" as it enables gossip encryption, TLS, and ACLs.
+
+</Warning>
+
+This is a 3-node Consul community edition datacenter running in a Docker environment.
+
+Alongside the server nodes 4 client nodes are also added to the datacenter. The nodes are running HashiCups, a demo web application.
+
+One extra node, Bastion Host, is also added to the scenario to simulate scenarios where there is no direct access to the different nodes composing the Consul datacenter and a bastion host is required to access the nodes.
+
+**Architecture**
+
+Click on the "Architecture" tab to find a diagram of the deployed scenario.
+
+**Configuration and logs**
+
+You can find container data, configuration, and logs in the `var` directory. 
+
+You can get an overview of the content using the `tree` command.
+
+```shell-session
+$ tree /root/repository/var
+```
+
+**Access the nodes**
+
+The recommended method to access the different nodes is using SSH. You can SSH into the bastion host using:
+
+```shell-session
+$ ssh -i certs/id_rsa admin@localhost -p 2222
+```
+
+You can also use one of the two `Bastion Host` tabs to get direct access into the bastion host node.
+
+**Interact with Consul**
+
+From the bastion host, you can directly interact with Consul. First, load necessary environment variables.
+
+```shell-session
+$ source assets/scenario/env-consul.env 
+```
+
+After that you can directly use Consul CLI to interact with your datacenter.
+
+```shell-session
+$ consul members
+```
+
+You can also use the `Consul UI` tab to interact with Consul.
+
+If you want to login to the UI, use the token present in the `env-consul.env` file.
+
+</Tab>
+<Tab heading="Architecture">
+
+This sandbox has the following architecture:
+
+<CodeBlockConfig hideClipboard>
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│    Consul Datacenter DC1                                                     │
+│                                                                              │
+│ ┌──────────────────────────────┐    ┌──────────────────────────────────────┐ │
+│ │ SERVERS                      │    │ ┌─────────────────────────┐  CLIENTS │ │
+│ │                              │    │ │                         │          │ │
+│ │                              │    │ │   hashicups-nginx-0     │          │ │
+│ │                              │    │ │                         │          │ │
+│ │ ┌───────────────────┐        │    │ └────┬────────────┬───────┘          │ │
+│ │ │                   │        │    │      │            │                  │ │
+│ │ │  consul-server-0  │        │    │      │            │                  │ │
+│ │ │                   │        │    │      │   ┌────────▼────────────────┐ │ │
+│ │ └─▲─────────────────┘        │    │      │   │                         │ │ │
+│ │   │                          │    │      │   │   hashicups-frontend-0  │ │ │
+│ │   │  ┌───────────────────┐   │    │      │   │                         │ │ │
+│ │   │  │                   │   │    │      │   └─────────────────────────┘ │ │
+│ │   ┼──►  consul-server-1  │   │    │      │                               │ │
+│ │   │  │                   │   │    │      │                               │ │
+│ │   │  └───────────────────┘   │    │ ┌────▼────────────────────┐          │ │
+│ │   │                          │    │ │                         │          │ │
+│ │ ┌─▼─────────────────┐        │    │ │   hashicups-api-0       │          │ │
+│ │ │                   │        │    │ │                         │          │ │
+│ │ │  consul-server-2  │        │    │ └────────────┬────────────┘          │ │
+│ │ │                   │        │    │              │                       │ │
+│ │ └───────────────────┘        │    │              │                       │ │
+│ │                              │    │ ┌────────────▼────────────┐          │ │
+│ │                              │    │ │                         │          │ │
+│ │                              │    │ │   hashicups-db-0        │          │ │
+│ │                              │    │ │                         │          │ │
+│ │                              │    │ └─────────────────────────┘          │ │
+│ └──────────────────────────────┘    └──────────────────────────────────────┘ │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+                                                                                
+                                                                                
+                      ┌─────────────────────┐                               
+                      │                     │                               
+                      │    Bastion  Host    │                               
+                      │                     │                               
+                      └─────────────────────┘                               
+```
+
+</CodeBlockConfig>
+
+</Tab>
+<Tab heading="Limitations">
+
+The Consul nodes do not have systemd installed so Consul needs to be stopped and started manually.
+
+The command to start Consul on each node is:
+
+```shell-session
+$ consul agent -config-dir=/etc/consul.d > /tmp/logs/consul-server.log 2>&1 & 
+```
+
+The command starts Consul in the background to not lock the terminal.
+
+</Tab>
+</Tabs>
+
+</Tab>
+
+<Tab heading="Consul Sandbox (Service mesh)">
+
+<Tabs>
+<Tab heading="Overview">
+  
+<Warning> 
+  
+This environment is not production-ready, as it does not follow our recommendations for production-ready cluster deployments. Refer to the [Consul Deployment Guide](/consul/tutorials/production-vms/deployment-guide) for more information.
+
+It is meant to serve as a development and testing environment. It is "production-lite" as it enables gossip encryption, TLS, and ACLs.
+
+</Warning>
+
+This is a 3-node Consul community edition datacenter running in a Docker environment.
+
+Alongside the server nodes 4 client nodes are also added to the datacenter. The nodes are running HashiCups, a demo web application.
+
+One extra node, Bastion Host, is also added to the scenario to simulate scenarios where there is no direct access to the different nodes composing the Consul datacenter and a bastion host is required to access the nodes.
+
+**Architecture**
+
+Click on the "Architecture" tab to find a diagram of the deployed scenario.
+
+**Configuration and logs**
+
+You can find container data, configuration, and logs in the `var` directory. 
+
+You can get an overview of the content using the `tree` command.
+
+```shell-session
+$ tree /root/repository/var
+```
+
+**Access the nodes**
+
+The recommended method to access the different nodes is using SSH. You can SSH into the bastion host using:
+
+```shell-session
+$ ssh -i certs/id_rsa admin@localhost -p 2222
+```
+
+You can also use one of the two `Bastion Host` tabs to get direct access into the bastion host node.
+
+**Interact with Consul**
+
+From the bastion host, you can directly interact with Consul. First, load necessary environment variables.
+
+```shell-session
+$ source assets/scenario/env-consul.env 
+```
+
+After that you can directly use Consul CLI to interact with your datacenter.
+
+```shell-session
+$ consul members
+```
+
+You can also use the `Consul UI` tab to interact with Consul.
+
+If you want to login to the UI, use the token present in the `env-consul.env` file.
+
+</Tab>
+<Tab heading="Architecture">
+
+This sandbox has the following architecture:
+
+<CodeBlockConfig hideClipboard>
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│    Consul Datacenter DC1                                                     │
+│                                                                              │
+│ ┌──────────────────────────────┐    ┌──────────────────────────────────────┐ │
+│ │ SERVERS                      │    │ ┌─────────────────────────┐  CLIENTS │ │
+│ │                              │    │ │                         │          │ │
+│ │                              │    │ │   hashicups-nginx-0     │          │ │
+│ │                              │    │ │                         │          │ │
+│ │ ┌───────────────────┐        │    │ └────┬────────────┬───────┘          │ │
+│ │ │                   │        │    │      │            │                  │ │
+│ │ │  consul-server-0  │        │    │      │            │                  │ │
+│ │ │                   │        │    │      │   ┌────────▼────────────────┐ │ │
+│ │ └─▲─────────────────┘        │    │      │   │                         │ │ │
+│ │   │                          │    │      │   │   hashicups-frontend-0  │ │ │
+│ │   │  ┌───────────────────┐   │    │      │   │                         │ │ │
+│ │   │  │                   │   │    │      │   └─────────────────────────┘ │ │
+│ │   ┼──►  consul-server-1  │   │    │      │                               │ │
+│ │   │  │                   │   │    │      │                               │ │
+│ │   │  └───────────────────┘   │    │ ┌────▼────────────────────┐          │ │
+│ │   │                          │    │ │                         │          │ │
+│ │ ┌─▼─────────────────┐        │    │ │   hashicups-api-0       │          │ │
+│ │ │                   │        │    │ │                         │          │ │
+│ │ │  consul-server-2  │        │    │ └────────────┬────────────┘          │ │
+│ │ │                   │        │    │              │                       │ │
+│ │ └───────────────────┘        │    │              │                       │ │
+│ │                              │    │ ┌────────────▼────────────┐          │ │
+│ │                              │    │ │                         │          │ │
+│ │                              │    │ │   hashicups-db-0        │          │ │
+│ │                              │    │ │                         │          │ │
+│ │                              │    │ └─────────────────────────┘          │ │
+│ └──────────────────────────────┘    └──────────────────────────────────────┘ │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+                                                                                
+                                                                                
+                      ┌─────────────────────┐                               
+                      │                     │                               
+                      │    Bastion  Host    │                               
+                      │                     │                               
+                      └─────────────────────┘                               
+```
+
+</CodeBlockConfig>
+
+</Tab>
+<Tab heading="Limitations">
+
+The Consul nodes do not have systemd installed so Consul needs to be stopped and started manually.
+
+The command to start Consul on each node is:
+
+```shell-session
+$ consul agent -config-dir=/etc/consul.d > /tmp/logs/consul-server.log 2>&1 & 
+```
+
+The command starts Consul in the background to not lock the terminal.
+
+</Tab>
+</Tabs>
+
+</Tab>
+</Tabs>
