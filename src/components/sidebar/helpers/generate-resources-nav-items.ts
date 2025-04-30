@@ -9,7 +9,7 @@ import {
 	VALID_EDITION_SLUGS_FOR_FILTERING,
 	VALID_PRODUCT_SLUGS_FOR_FILTERING,
 } from 'views/tutorial-library/constants'
-import SANDBOX_CONFIG from 'data/sandbox.json'
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 
 /**
  * Note: these ResourceNav types could probably be abstracted up or lifted out,
