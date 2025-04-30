@@ -22,11 +22,13 @@ export const trackSandboxEvent = (
 ): void => {
 	if (window?.posthog?.capture) {
 		window.posthog.capture(eventName, properties)
+	}
 }
 
-
+/**
  * Enables PostHog video start tracking
  */
+
 export function trackVideoStart(url: string): void {
 	if (!window?.posthog) return
 
