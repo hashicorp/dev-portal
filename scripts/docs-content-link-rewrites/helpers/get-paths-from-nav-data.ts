@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import type { fileContentEntry } from "../types"
+
 /**
  * @NOTE copied from:
  * node_modules/@hashicorp/react-docs-page/server/consts.ts
@@ -13,9 +15,9 @@ const DEFAULT_PARAM_ID = 'page'
  * @NOTE copied from:
  * node_modules/@hashicorp/react-docs-page/server/get-paths-from-nav-data.ts
  */
-function getPathArraysFromNodes(navNodes: $TSFixMe[]): string[][] {
+function getPathArraysFromNodes(navNodes: fileContentEntry[]): string[][] {
 	const slugs: string[][] = navNodes.reduce(
-		(acc: $TSFixMe, navNode: $TSFixMe) => {
+		(acc: string[][], navNode: fileContentEntry) => {
 			// Individual items have a path, these should be added
 			if ('path' in navNode) {
 				return acc.concat([navNode.path.split('/')])
@@ -37,7 +39,7 @@ function getPathArraysFromNodes(navNodes: $TSFixMe[]): string[][] {
  * node_modules/@hashicorp/react-docs-page/server/get-paths-from-nav-data.ts
  */
 function getPathsFromNavData(
-	navDataResolved: $TSFixMe[],
+	navDataResolved: fileContentEntry[],
 	paramId: string = DEFAULT_PARAM_ID
 ): {
 	params: Record<string, string[]>
@@ -52,9 +54,9 @@ function getPathsFromNavData(
 		pagePathArrays.unshift([])
 	}
 	// Return the array of all page paths
-	const paths = pagePathArrays.map((p: $TSFixMe) => ({
-		params: { [paramId]: p },
-	}))
+	const paths = pagePathArrays.map((p: string[]) => {
+		return { params: { [paramId]: p }, }
+	})
 	return paths
 }
 

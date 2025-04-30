@@ -7,6 +7,7 @@ import React from 'react'
 import { DocsEnterpriseAlert } from './components/enterprise-alert'
 import Image from 'components/image'
 import { ImageProps } from 'components/image/types'
+import VideoEmbed from 'components/video-embed'
 
 // This function returns a simple object containing the default components
 // The `additionalComponents` param is purely for convenience.
@@ -37,5 +38,6 @@ function _defaultComponents() {
 	return {
 		EnterpriseAlert: DocsEnterpriseAlert,
 		img: makeImageElement({ noBorder: true }),
+		VideoEmbed,
 	}
 }
