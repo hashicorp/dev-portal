@@ -9,7 +9,7 @@ import { IconHashicorp24 } from '@hashicorp/flight-icons/svg-react/hashicorp-24'
 // Global imports
 import { useCurrentProduct } from 'contexts'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import SANDBOX_CONFIG from 'data/sandbox.json'
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 
 // Local imports
 import {
