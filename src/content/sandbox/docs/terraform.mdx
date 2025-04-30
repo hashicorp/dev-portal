@@ -1,0 +1,58 @@
+<Tabs>
+<Tab heading="Terraform Sandbox">
+
+<Tabs>
+<Tab heading="Overview">
+
+This sandbox includes the following preinstalled tools and services:
+
+- Terraform
+- Docker
+- LocalStack
+- AWS CLI
+
+For more information, click on the "Architecture" tab.
+
+**Use LocalStack**
+
+LocalStack is a local AWS emulator that you can run the Terraform and the AWS CLI against to test your configuration and mock the deployment of resources. This sandbox includes a file named `localstack_overrides.tf` that configures the AWS provider in your configuration to point to LocalStack instead of trying to reach AWS. For the limitations of what APIs you can call using LocalStack, click on the "Limitations" tab.
+
+**Use AWS**
+
+If you would like you deploy resources to AWS, you can delete the `localstack_overrides.tf` file and configure the AWS provider using the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables.
+
+<Note>
+  
+Once the timer on the sandbox expires, this environment will be halted. If you have any resources managed by a local state file, this sandbox will not clean up those resources. Make sure to run `terraform destroy` before leaving the sandbox if you have configured the AWS provider to deploy real resources to your own AWS account.
+
+</Note>
+
+</Tab>
+<Tab heading="Architecture">
+
+This sandbox includes the following preinstalled tools and services:
+
+- **Terraform:** The Terraform CLI is installed locally and placed in the environment's PATH. To see which version of Terraform is installed in this sandbox, run the `terraform version` command.
+
+- **Docker:** Docker is already running with the default configuration. The Docker daemon socket file is located at `/var/run/docker.sock`.
+
+- **LocalStack:** LocalStack is already running in the local Docker instance. Additionally, the `localstack_override.tf` file is included to automatically configure your AWS provider to point to LocalStack rather than AWS. You do not need to make any changes to your configuration to connect to LocalStack.
+
+- **AWS CLI:** This sandbox has the `aws` command aliased to the `awslocal` CLI, the tool to make AWS CLI calls to LocalStack. You can use this tool just as you would the normal `aws` CLI. For example, the following command will communicate with LocalStack to get a list of the EC2 instances it currently has mocked.
+
+  ```shell-session
+  $ aws ec2 describe-instances
+  ```
+
+</Tab>
+<Tab heading="Limitations">
+
+![Hashicorp Logo](/img/sandbox/hashicorp.png)
+
+This sandbox is configured to use LocalStack, a local AWS API emulator. This sandbox uses the free edition of LocalStack, which has limitations on which resources it will allow you to deploy. For more information on which resources are included in the free version, refer to the [AWS service feature coverage](https://docs.localstack.cloud/user-guide/aws/feature-coverage/) documentation.
+
+</Tab>
+</Tabs>
+
+</Tab>
+</Tabs>

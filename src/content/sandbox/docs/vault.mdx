@@ -1,0 +1,132 @@
+<Tabs>
+<Tab heading="Vault Sandbox">
+
+<Tabs>
+<Tab heading="Overview">
+
+This is a 5-node Vault Community edition cluster with a reverse proxy running in a Docker environment. This environment initializes Vault with a Shamir seal, and one unseal key for convenience and simplicity.
+
+You can find container data, configuration, logs, and the plugins directory in the `/home/learner/sandbox-vault/containers` directory. Here are the contents of the `vault_sandbox_1` container directory as an example:
+
+<CodeBlockConfig hideClipboard>
+
+```
+.
+├── certs
+│   ├── server_cert.pem
+│   ├── server_key.pem
+│   └── vault_sandbox_ca.pem
+├── config
+│   └── server.hcl
+├── logs
+│   └── vault_audit.log
+└── plugins
+```
+
+</CodeBlockConfig>
+
+You can browse these files from the Code Editor tab as well.
+
+If you need to directly access a container, you can use 'docker exec'. For example, to get a shell session in vault-1, use:
+
+```shell-session
+$ docker exec -i -t vault-1 sh
+```
+
+Export one of the following to address the Vault cluster node you need to communicate with (reverse proxy by default):
+
+- `export VAULT_ADDR=https://localhost:8443` # Active node via reverse proxy
+- `export VAULT_ADDR=https://localhost:8200` # Vault node 1
+- `export VAULT_ADDR=https://localhost:8220` # Vault node 2
+- `export VAULT_ADDR=https://localhost:8230` # Vault node 3
+- `export VAULT_ADDR=https://localhost:8240` # Vault node 4
+- `export VAULT_ADDR=https://localhost:8250` # Vault node 5
+
+You can access the Vault UI for each node with the tabs labeled Vault 1 UI through Vault 5 UI.
+
+The environment enables Vault server telemetry from the active node to Prometheus, and you can use Grafana to access a dashboard in the Grafana tab with these credentials:
+
+- Username: `admin`
+- Password: `2LearnVault`
+
+</Tab>
+<Tab heading="Architecture">
+
+The sandbox is composed of 5 Vault Docker containers, and a reverse proxy container. Not shown are the Prometheus and Grafana containers which handle telemetry metrics.
+
+<CodeBlockConfig hideClipboard>
+
+```
+
+    localhost :8230                                     localhost:8240
+    ┌──────────┐                                        ┌──────────┐
+    │          │                                        │          │
+    │          │                                        │          │
+    │ vault-3  ├────────────────────────────────────────┤  vault-4 │
+    │          │                                        │          │
+    │          │                                        │          │
+    └────┬─────┘                                        └─────┬────┘
+         │       localhost:8220          localhost:8230       │
+         │        ┌──────────┐            ┌──────────┐        │
+         │        │          │            │          │        │
+         │        │          │            │          │        │
+         └────────┤ vault-2  │            │  vault-5 ├────────┘
+                  │          │            │          │
+                  │          │            │          │
+                  └────┬─────┘            └─────┬────┘
+                       │                        │
+                       │                        │
+                       │     localhost:8200     │
+                       │      ┌──────────┐      │
+                       │      │          │      │
+                       │      │          │      │
+                       └──────┤ vault-1  ├──────┘
+                              │          │
+                              │          │
+                              └─────┬────┘
+                                    │
+                                    │
+                                    │
+                                    │
+                                    │
+                                    │
+                              ┌─────┴────┐
+                              │          │
+     https://localhost:8443   │ reverse  │
+     (proxy to active node)   │ proxy    │
+                              │          │
+                              └──────────┘
+```
+
+</CodeBlockConfig>
+
+</Tab>
+<Tab heading="Limitations">
+
+Vault Sandbox is a development and testing environment configured as "production-lite", and has limitations that you should be aware of.
+
+**Not production ready**
+
+This environment is not production-ready, as it does not follow recommendations for production cluster deployments. Refer to these resources for more information:
+
+- [Vault with integrated storage reference architecture](/vault/tutorials/day-one-raft/raft-reference-architecture)
+- [Vault with integrated storage deployment guide](/vault/tutorials/day-one-raft/raft-deployment-guide)
+- [Harden server deployments](/vault/tutorials/archive/production-hardening)
+
+**Community edition**
+
+Be aware that Vault Sandbox uses the Vault Community edition, and this imposes the limitation that you cannot use enterprise features here.
+
+**TLS**
+
+Vault Sandbox features mutual TLS between cluster nodes. You should be aware that the environment dynamically generates TLS material used to enable TLS with a 24 hour time to live.
+
+**Root token**
+
+Vault Sandbox uses and exposes the initial root token value for ease of development and testing. You should not rely on root token use for production implementations.
+
+</Tab>
+</Tabs>
+
+</Tab>
+</Tabs>
