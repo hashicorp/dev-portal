@@ -19,7 +19,7 @@ import useOnRouteChangeStart from 'hooks/use-on-route-change-start'
 import deriveKeyEventState from 'lib/derive-key-event-state'
 import Text from 'components/text'
 import ProductIcon from 'components/product-icon'
-import SANDBOX_CONFIG from 'data/sandbox.json'
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 import s from './sandbox-dropdown.module.css'
 import { ProductSlug } from 'types/products'
 
