@@ -47,7 +47,7 @@
 				{
 					"title": "Manage identities and authentication",
 					"description": "Control client access to sensitive information with managed entities, identity tokens, OIDC workflows, and workload identity federation (WIF)",
-					"url": "/vault/docs/about-vault/why-use-vault/identity"
+					"url": "/vault/docs/about-vault/why-use-vault/identities"
 				},
 				{
 					"title": "Manage 3rd-party secrets",
@@ -76,34 +76,35 @@
 				{
 					"iconName": "wrench",
 					"text": "Recent updates",
-					"url": "/vault/docs/"
+					"url": "/vault/docs/updates/release-notes"
 				},
 				{
 					"iconName": "download",
 					"text": "Get Vault",
-					"url": "/vault/docs/"
+					"url": "/vault/docs/get-vault"
 				},
 				{
 					"iconName": "file-source",
 					"text": "Configure Vault",
-					"url": "/vault/docs/"
+					"url": "/vault/docs/configuration"
 				},
 				{
 					"iconName": "code",
 					"text": "Code with Vault",
-					"url": "/vault/docs/"
+					"url": "/vault/docs/get-started/developer-qs"
 				},
 				{
 					"iconName": "plug",
 					"text": "Build plugins",
-					"url": "/vault/docs/"
+					"url": "/vault/docs/plugins"
 				},
 				{
 					"iconName": "entry-point",
 					"text": "FIPS and HSM",
-					"url": "/vault/docs/"
+					"url": "/vault/docs/enterprise/hsm"
 				}
 			]
 		}
 	]
 }
+
