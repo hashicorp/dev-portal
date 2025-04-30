@@ -76,6 +76,26 @@
 				"description": "Validate your service networking skills by studying for and passing the Consul Associate certification exam."
 			}
 		},
+		"radar": {
+			"featuredUseCases": [
+				{
+					"href": "/hcp/tutorials/get-started-hcp-vault-radar/what-is-secret-scanning",
+					"text": "What is secret scanning?"
+				},
+				{
+					"href": "/hcp/tutorials/get-started-hcp-vault-radar/vault-radar-secret-scanning",
+					"text": "Scan a Git repository for secrets"
+				},
+				{
+					"href": "/hcp/tutorials/hcp-vault-radar-operations/correlate-findings-vault",
+					"text": "Correlate HCP Vault Radar findings with Vault"
+				}
+			],
+			"featuredCollectionSlugs": [
+				"cloud/get-started-hcp-vault-radar",
+				"cloud/hcp-vault-radar-operations"
+			]
+		},
 		"nomad": {
 			"featuredUseCases": [
 				{
