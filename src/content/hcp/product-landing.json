@@ -88,7 +88,7 @@
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
 				"cloud/what-is-secret-scanning",
-				"boundary/hcp-manage-scopes",
+				"boundary/hcp-getting-started-create",
 				"packer/golden-image-with-hcp-packer",
 				"consul/kubernetes-api-gateway"
 			]
