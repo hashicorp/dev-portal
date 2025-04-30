@@ -1,126 +1,107 @@
 {
-	"pageSubtitle": "Vault is an identity-based secret and encryption management system. This documentation covers the main concepts of Vault, what problems it can solve, and contains a quick start for using Vault.",
+	"pageSubtitle": "Centralize secret management, rotate old credentials, generate credentials on demand, audit client interactions, and support regulatory compliance.",
 	"marketingContentBlocks": [
 		{
 			"type": "section-heading",
-			"title": "Related HCP products"
+			"title": "Run Vault on the HashiCorp Cloud Platform (HCP)"
 		},
 		{
 			"type": "icon-card-grid",
 			"cards": [
 				{
 					"iconName": "vault-color",
-					"text": "HCP Vault Dedicated",
+					"text": "Vault Dedicated",
 					"url": "/hcp/docs/vault/what-is-hcp-vault"
 				},
 				{
 					"iconName": "vault-secrets-color",
-					"text": "HCP Vault Secrets",
+					"text": "Vault Secrets",
 					"url": "/hcp/docs/vault-secrets"
 				},
 				{
 					"iconName": "vault-radar-color",
-					"text": "HCP Vault Radar",
+					"text": "Vault Radar",
 					"url": "/hcp/docs/vault-radar"
 				}
 			]
 		},
 		{
 			"type": "section-heading",
-			"title": "Use Cases"
+			"title": "Why use Vault?"
 		},
 		{
 			"type": "card-grid",
-			"title": "Secrets Management",
-			"description": "Centrally store, access, and deploy secrets across applications, systems, and infrastructure.",
+			"title": "",
+			"description": "",
 			"cards": [
-				{
-					"description": "A generic Key-Value store used to store arbitrary secrets within the configured physical storage for Vault.",
-					"title": "KV Secrets Engine",
-					"url": "/vault/docs/secrets/kv"
+			  {
+					"title": "Manage static secrets",
+					"description": "Store, rotate, and encrypt arbitrary strings",
+					"url": "/vault/docs/about-vault/why-use-vault/static-secrets"
 				},
 				{
-					"description": "Generate database credentials dynamically based on configured roles.",
-					"title": "Database Credentials",
-					"url": "/vault/docs/secrets/databases"
+					"title": "Manage certificates",
+					"description": "Integrate with certificate authorities like KMIP and PKI to manage certificate life cycles and authenticate clients",
+					"url": "/vault/docs/about-vault/why-use-vault/certificates"
 				},
 				{
-					"description": "Deploy Vault into Kubernetes using the official HashiCorp Vault Helm chart.",
-					"title": "Kubernetes Secrets",
-					"url": "/vault/docs/platform/k8s"
-				}
-			]
-		},
-		{
-			"type": "card-grid",
-			"title": "Encryption Services",
-			"description": "Securely handle data such as social security numbers, credit card numbers, and other types of compliance-regulated information.",
-			"cards": [
-				{
-					"description": "Apply cryptographic functions on data in-transit. Sign and verify data, generate hashes and HMACs of data, and act as a source of random bytes.",
-					"title": "Transit Secrets Engine",
-					"url": "/vault/docs/secrets/transit"
+					"title": "Manage identities and authentication",
+					"description": "Control client access to sensitive information with managed entities, identity tokens, OIDC workflows, and workload identity federation (WIF)",
+					"url": "/vault/docs/about-vault/why-use-vault/identity"
 				},
 				{
-					"description": "Handle secure data transformation and tokenization against a provided input value using NIST vetted cryptographic standards and other transformations such as masking.",
-					"title": "Transform Secrets Engine",
-					"url": "/vault/docs/secrets/transform"
+					"title": "Manage 3rd-party secrets",
+					"description": "Generate and revoke on-demand credentials and control access to external encryption keys and cloud credentials",
+					"url": "/vault/docs/about-vault/why-use-vault/3rd-party-secrets"
 				},
 				{
-					"description": "Exchange a sensitive value for an unrelated value called a token. The original sensitive value cannot be recovered from a token alone but is irreversible.",
-					"title": "Tokenization",
-					"url": "/vault/docs/secrets/transform/tokenization"
-				}
-			]
-		},
-		{
-			"type": "card-grid",
-			"title": "Key Management",
-			"description": "Use a standardized workflow for distribution and lifecycle management of cryptographic keys in various KMS providers.",
-			"cards": [
-				{
-					"description": "Act as a key management interoperability protocol server provider and handle the lifecycle of its KMIP managed objects.",
-					"title": "KMIP Secrets Engine",
-					"url": "/vault/docs/secrets/kmip"
+					"title": "Manage sensitive data",
+					"description": "Encrypt or tokenize sensitive data in transit and at rest",
+					"url": "/vault/docs/about-vault/why-use-vault/sensitive-data"
 				},
 				{
-					"description": "A consistent workflow for distribution and lifecycle management of cryptographic keys in key management service (KMS) providers.",
-					"title": "Key Management Secrets Engine",
-					"url": "/vault/docs/secrets/key-management"
-				},
-				{
-					"description": "Generate dynamic X.509 certificates without going through the manual process of generating a private key and CSR or submitting to a CA.",
-					"title": "PKI",
-					"url": "/vault/docs/secrets/pki"
+					"title": "Support regulatory compliance",
+					"description": "Use Vault as part of an HSM solution, FIPS compliant architecture, or PKCS11 authN workflow",
+					"url": "/vault/docs/about-vault/why-use-vault/regulatory-compliance"
 				}
 			]
 		},
 		{
 			"type": "section-heading",
-			"title": "Developers"
+			"title": "Work with Vault"
 		},
 		{
 			"type": "icon-card-grid",
 			"cards": [
 				{
-					"iconName": "terminal",
-					"text": "Developer Quick Start",
-					"url": "/vault/docs/get-started/developer-qs"
+					"iconName": "wrench",
+					"text": "Recent updates",
+					"url": "/vault/docs/"
 				},
 				{
-					"iconName": "guide",
-					"text": "Client Libraries",
-					"url": "/vault/api-docs/libraries"
+					"iconName": "download",
+					"text": "Get Vault",
+					"url": "/vault/docs/"
 				},
 				{
-					"iconName": "connection",
-					"text": "Sample Integrations",
-					"url": "https://github.com/hashicorp/hello-vault-go"
+					"iconName": "file-source",
+					"text": "Configure Vault",
+					"url": "/vault/docs/"
 				},
 				{
-					"iconName": "terminal",
-					"text": "Code Samples",
-					"url": "https://github.com/hashicorp/vault-examples"
+					"iconName": "code",
+					"text": "Code with Vault",
+					"url": "/vault/docs/"
+				},
+				{
+					"iconName": "plug",
+					"text": "Build plugins",
+					"url": "/vault/docs/"
+				},
+				{
+					"iconName": "entry-point",
+					"text": "FIPS and HSM",
+					"url": "/vault/docs/"
 				}
 			]
 		}

@@ -57,15 +57,15 @@
 			"submenu": [
 				{
 					"text": "Secrets Management",
-					"url": "/use-cases/secrets-management"
+					"url": "/about-vault/why-use-vault/3rd-party-secrets"
 				},
 				{
 					"text": "Data Encryption",
-					"url": "/use-cases/data-encryption"
+					"url": "/about-vault/why-use-vault/sensitive-data"
 				},
 				{
 					"text": "Identity-based Access",
-					"url": "/use-cases/identity-based-access"
+					"url": "/about-vault/why-use-vault/identity"
 				}
 			]
 		},
@@ -145,7 +145,7 @@
 			"os": "linux"
 		}
 	],
-	"basePaths": ["docs", "api-docs", "intro", "tutorials", "downloads"],
+	"basePaths": ["docs", "api-docs","tutorials"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -153,24 +153,34 @@
 			"path": "docs"
 		},
 		{
+			"iconName": "terminal-screen",
+			"name": "CLI",
+			"path": "docs/commands"
+		},
+		{
 			"iconName": "api",
-			"name": "API",
+			"name": "APIs",
 			"path": "api-docs"
+		},
+		{
+			"iconName": "guide",
+			"name": "Tutorials",
+			"path": "tutorials"
 		}
 	],
 	"integrationsConfig": {
-		"description": "A curated collection of official, partner, and community Vault Integrations.",
+		"description": "A curated collection of official, partner, and community Vault plugins.",
 		"sidebarLinks": [
 			{
-				"title": "Plugin System Overview",
+				"title": "Plugin system overview",
 				"href": "/vault/docs/plugins"
 			},
 			{
-				"title": "Plugin Development",
+				"title": "Docs: Build Vault plugins",
 				"href": "/vault/docs/plugins/plugin-development"
 			},
 			{
-				"title": "Custom Secrets Engine Tutorial",
+				"title": "Tutorial: Create a custom secrets engine",
 				"href": "/vault/tutorials/custom-secrets-engine"
 			}
 		]
