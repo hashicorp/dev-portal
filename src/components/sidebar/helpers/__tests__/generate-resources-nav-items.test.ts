@@ -5,7 +5,7 @@
 
 import { generateResourcesNavItems } from '../generate-resources-nav-items'
 import { ProductSlug } from 'types/products'
-import SANDBOX_CONFIG from 'data/sandbox.json'
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 
 describe('generateResourcesNavItems', () => {
 	it('includes sandbox items in the resources navigation', () => {
