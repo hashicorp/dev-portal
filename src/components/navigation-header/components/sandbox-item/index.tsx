@@ -24,7 +24,7 @@ interface SandboxItemProps {
 }
 
 const SandboxItem = ({ item }: SandboxItemProps) => {
-	const { label, description, products, onClick } = item
+	const { label, description, products, onClick, labId } = item
 
 	const handleClick = useCallback(
 		(e) => {
@@ -52,9 +52,9 @@ const SandboxItem = ({ item }: SandboxItemProps) => {
 						{label}
 					</Text>
 					<div className={s.productIcons}>
-						{products.map((product, index) => (
+						{products.map((product) => (
 							<ProductIcon
-								key={index}
+								key={`${labId}-${product}`}
 								productSlug={product as ProductSlug}
 								className={s.productIcon}
 								size={16}
