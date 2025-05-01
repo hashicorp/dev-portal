@@ -4,8 +4,6 @@
  */
 
 import Head from 'next/head'
-import { Fragment } from 'react'
-import InstruqtProvider from 'contexts/instruqt-lab'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
 import getVideoUrl from 'views/tutorial-view/utils/get-video-url'
