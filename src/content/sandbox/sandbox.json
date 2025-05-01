@@ -39,7 +39,7 @@
 		{
 			"title": "Nomad Sandbox",
 			"description": "A Nomad cluster with three server nodes and one client node, Consul installed and configured, and Access Control Lists (ACLs) enabled for both Nomad and Consul.",
-			"products": ["nomad", "consul"],
+			"products": ["nomad", "consul", "vault"],
 			"labId": "hashicorp-learn/tracks/nomad-sandbox?token=em_0wOuIAyyjAQllLkc",
       "documentation": "nomad.mdx"
 		}
