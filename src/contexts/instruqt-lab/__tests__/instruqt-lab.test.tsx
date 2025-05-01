@@ -4,7 +4,6 @@
  */
 
 import { render, screen, fireEvent, act } from '@testing-library/react'
-import { useRouter } from 'next/router'
 import InstruqtProvider, { useInstruqtEmbed } from '../index'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
 
