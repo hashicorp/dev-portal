@@ -5,6 +5,10 @@
 
 import { makeSitemapField } from './helpers'
 
+const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN ? new Headers({
+	'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
+}) : new Headers()
+
 export async function allDocsFields(config: typeof __config) {
 	// If there are docs that have been migrated to the unified docs repo, get the paths for those docs
 	// and merge them with the paths for the docs that haven't been migrated from the content API
@@ -25,7 +29,8 @@ export async function allDocsFields(config: typeof __config) {
 		})
 		const UDRFilterString = UDRFilter.join('&')
 		const getUDRDocsPaths = await fetch(
-			`${process.env.UNIFIED_DOCS_API}/api/all-docs-paths?${UDRFilterString}`
+			`${process.env.UNIFIED_DOCS_API}/api/all-docs-paths?${UDRFilterString}`,
+			{ headers }
 		)
 		const { result: udrDocsResult } = await getUDRDocsPaths.json()
 

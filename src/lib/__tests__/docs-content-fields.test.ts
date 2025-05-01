@@ -43,7 +43,8 @@ describe('allDocsFields', () => {
 			'https://content-api.example.com/api/all-docs-paths?filterOut=repo1&filterOut=repo2'
 		)
 		expect(fetch).toHaveBeenCalledWith(
-			'https://udr-api.example.com/api/all-docs-paths?products=repo1&products=repo2'
+			'https://udr-api.example.com/api/all-docs-paths?products=repo1&products=repo2',
+			{ headers: new Headers() }
 		)
 		expect(result).toEqual(
 			[...mockContentAPIDocsResult, ...mockUDRDocsResult].map((page) => ({
