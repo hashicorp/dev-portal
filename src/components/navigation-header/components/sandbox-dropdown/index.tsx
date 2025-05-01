@@ -248,7 +248,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 									onClick={() => handleLabClick(lab)}
 									onKeyDown={handleKeyDown}
 								>
-									<ProductIcon productSlug={currentProduct.slug} />
 									<div className={s.content}>
 										<div className={s.titleRow}>
 											<Text
@@ -259,6 +258,16 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 											>
 												{lab.title}
 											</Text>
+											<div className={s.productIcons}>
+												{lab.products.map((product) => (
+													<ProductIcon
+														key={`${lab.labId}-${product}`}
+														productSlug={product as ProductSlug}
+														size={16}
+														className={s.productIcon}
+													/>
+												))}
+											</div>
 										</div>
 										<Text
 											asElement="span"
@@ -309,9 +318,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 												onClick={() => handleLabClick(lab)}
 												onKeyDown={handleKeyDown}
 											>
-												<ProductIcon
-													productSlug={lab.products[0] as ProductSlug}
-												/>
 												<div className={s.content}>
 													<div className={s.titleRow}>
 														<Text
@@ -322,6 +328,16 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 														>
 															{lab.title}
 														</Text>
+														<div className={s.productIcons}>
+															{lab.products.map((product) => (
+																<ProductIcon
+																	key={`${lab.labId}-${product}`}
+																	productSlug={product as ProductSlug}
+																	size={16}
+																	className={s.productIcon}
+																/>
+															))}
+														</div>
 													</div>
 													<Text
 														asElement="span"
