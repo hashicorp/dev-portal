@@ -20,7 +20,6 @@ import {
 import Card from 'components/card'
 import CardsGridList from 'components/cards-grid-list'
 import { BrandedHeaderCard } from 'views/product-integrations-landing/components/branded-header-card'
-import { MenuItem } from 'components/sidebar/types'
 import { ProductSlug } from 'types/products'
 import { SandboxLab, SandboxConfig } from 'types/sandbox'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
@@ -28,6 +27,7 @@ import ProductIcon from 'components/product-icon'
 import { serialize } from 'lib/next-mdx-remote/serialize'
 import DevDotContent from 'components/dev-dot-content'
 import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
+import { SidebarProps } from 'components/sidebar'
 import fs from 'fs'
 import path from 'path'
 import s from './sandbox.module.css'
@@ -38,7 +38,7 @@ interface SandboxPageProps {
 	product: (typeof PRODUCT_DATA_MAP)[keyof typeof PRODUCT_DATA_MAP]
 	layoutProps: {
 		breadcrumbLinks: { title: string; url: string }[]
-		navLevels: any[]
+		navLevels: SidebarProps[]
 	}
 	availableSandboxes: SandboxLab[]
 	otherSandboxes: SandboxLab[]
@@ -113,7 +113,7 @@ export default function SandboxView({
 				<p className={s.introText}>
 					HashiCorp Sandboxes provide interactive environments where you can
 					experiment with HashiCorp products without any installation or setup.
-					They're perfect for:
+					They&apos;re perfect for:
 				</p>
 
 				<ul className={s.featureList}>
@@ -137,21 +137,21 @@ export default function SandboxView({
 			</h2>
 
 			<p className={s.helpText}>
-				When you launch a sandbox, you'll be presented with a terminal interface
+				When you launch a sandbox, you&apos;ll be presented with a terminal interface
 				where you can interact with the pre-configured environment. The sandbox
-				runs in your browser and doesn't require any downloads or installations.
+				runs in your browser and doesn&apos;t require any downloads or installations.
 			</p>
 			<p className={s.helpText}>
 				Each sandbox session lasts for up to 1 hour, giving you plenty of time
-				to experiment. Your work isn't saved between sessions, so be sure to
+				to experiment. Your work isn&apos;t saved between sessions, so be sure to
 				copy any important configurations before your session ends.
 			</p>
 
 			{availableSandboxes.length > 0 ? (
 				<>
 					<CardsGridList>
-						{availableSandboxes.map((lab, index) => (
-							<div key={index}>
+						{availableSandboxes.map((lab) => (
+							<div key={`sandbox-${lab.labId}`}>
 								<div
 									className={s.sandboxCard}
 									onClick={() => handleLabClick(lab.labId)}
@@ -160,9 +160,9 @@ export default function SandboxView({
 										<div className={s.cardHeader}>
 											<CardTitle text={lab.title} />
 											<div className={s.productIcons}>
-												{lab.products.map((productSlug, idx) => (
+												{lab.products.map((productSlug) => (
 													<ProductIcon
-														key={idx}
+														key={`product-${lab.labId}-${productSlug}`}
 														productSlug={productSlug as ProductSlug}
 														size={16}
 														className={s.productIcon}
@@ -180,8 +180,8 @@ export default function SandboxView({
 						))}
 					</CardsGridList>
 
-					{availableSandboxes.map((lab, index) => (
-						<div key={index}>
+					{availableSandboxes.map((lab) => (
+						<div key={`doc-${lab.labId}`}>
 							{lab.documentation && renderDocumentation(lab.documentation)}
 						</div>
 					))}
@@ -202,9 +202,9 @@ export default function SandboxView({
 					</p>
 
 					<CardsGridList>
-						{otherSandboxes.map((lab, index) => (
+						{otherSandboxes.map((lab) => (
 							<div
-								key={index}
+								key={lab.labId}
 								className={s.sandboxCard}
 								onClick={() => handleLabClick(lab.labId)}
 							>
@@ -212,9 +212,9 @@ export default function SandboxView({
 									<div className={s.cardHeader}>
 										<CardTitle text={lab.title} />
 										<div className={s.productIcons}>
-											{lab.products.map((productSlug, idx) => (
+											{lab.products.map((productSlug) => (
 												<ProductIcon
-													key={idx}
+													key={`${lab.labId}-${productSlug}`}
 													productSlug={productSlug as ProductSlug}
 													size={16}
 													className={s.productIcon}
@@ -304,16 +304,19 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 		generateProductLandingSidebarNavData(product),
 	]
 
-	const sandboxMenuItems: MenuItem[] = [
+	const sandboxMenuItems = [
 		{
 			title: `${product.name} Sandbox`,
 			fullPath: `/${productSlug}/sandbox`,
+			path: `/${productSlug}/sandbox`,
+			href: `/${productSlug}/sandbox`,
 			theme: product.slug,
 			isActive: true,
+			id: 'sandbox',
 		},
 	]
 
-	sidebarNavDataLevels.push({
+	const sandboxLevel: SidebarProps = {
 		backToLinkProps: {
 			text: `${product.name} Home`,
 			href: `/${product.slug}`,
@@ -326,7 +329,9 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 			levelUpButtonText: `${product.name} Home`,
 			levelDownButtonText: 'Previous',
 		},
-	})
+	}
+
+	sidebarNavDataLevels.push(sandboxLevel)
 
 	return {
 		props: {
