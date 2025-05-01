@@ -4,7 +4,6 @@
  */
 
 import { render, screen, fireEvent } from '@testing-library/react'
-import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import Resizable from '../index'
 import s from '../resizable.module.css'
 
