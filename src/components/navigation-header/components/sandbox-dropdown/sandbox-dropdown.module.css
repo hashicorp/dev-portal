@@ -74,7 +74,6 @@
 }
 
 .sectionTitle {
-	margin-bottom: 8px;
 	color: var(--token-color-foreground-strong);
 	font-size: 14px;
 }
@@ -116,17 +115,17 @@
 	color: var(--token-color-foreground-primary);
 	display: flex;
 	gap: 8px;
-	padding: 8px;
+	padding: 12px;
 	text-decoration: none;
 	width: 100%;
 	background: transparent;
 	border: none;
 	cursor: pointer;
 	text-align: left;
+	transition: background-color 0.2s ease;
 
-	&:hover .title {
-		color: var(--token-color-foreground-strong);
-		text-decoration: underline;
+	&:hover {
+		background-color: var(--token-color-surface-interactive-hover);
 	}
 }
 
@@ -144,8 +143,21 @@
 
 .title {
 	color: var(--token-color-foreground-primary);
+	font-weight: 500;
 	transition: color 0.2s;
 	font-size: 14px;
+}
+
+.productIcons {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+	gap: 4px;
+}
+
+.productIcon {
+	flex-shrink: 0;
+	color: var(--token-color-foreground-faint);
 }
 
 .description {
@@ -168,10 +180,10 @@
 	text-decoration: none;
 	width: 100%;
 	font-size: 14px;
+	transition: background-color 0.2s ease, color 0.2s ease;
 
 	&:hover {
-		color: var(--token-color-foreground-strong);
-		text-decoration: underline;
+		background-color: var(--token-color-surface-interactive-hover);
 	}
 }
 
@@ -197,7 +209,7 @@
 	border-radius: 5px;
 	color: var(--token-color-foreground-primary);
 	display: flex;
-	padding: 8px;
+	padding: 8px 0px;
 	text-decoration: none;
 	width: 100%;
 	background: transparent;
@@ -205,11 +217,7 @@
 	cursor: pointer;
 	justify-content: space-between;
 	text-align: left;
-
-	&:hover .sectionTitle {
-		color: var(--token-color-foreground-strong);
-		text-decoration: underline;
-	}
+	transition: background-color 0.2s ease;
 }
 
 .accordionIcon {
