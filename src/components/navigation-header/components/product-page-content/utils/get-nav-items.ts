@@ -3,10 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import {
-	NavigationHeaderIcon,
-	NavigationHeaderItem,
-} from 'components/navigation-header/types'
+import { NavigationHeaderIcon } from 'components/navigation-header/types'
 import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
 import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 import { ProductData } from 'types/products'
