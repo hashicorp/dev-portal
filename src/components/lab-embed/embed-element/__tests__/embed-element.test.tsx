@@ -4,7 +4,6 @@
  */
 
 import { render, screen } from '@testing-library/react'
-import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import EmbedElement from '../index'
 
 // Mock the useInstruqtEmbed hook
