@@ -221,7 +221,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 							onKeyDown={handleKeyDown}
 						>
 							<Text asElement="span" size={100} weight="medium">
-								Learn more about Sandboxes
+								Learn more about {currentProduct.name} Sandboxes
 							</Text>
 							<IconArrowRight16 className={s.learnMoreIcon} />
 						</a>
