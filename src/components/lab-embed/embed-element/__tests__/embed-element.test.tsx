@@ -38,8 +38,7 @@ describe('EmbedElement', () => {
 	})
 
 	it('has proper focus behavior when mounted', () => {
-		const { container } = render(<EmbedElement />)
-
+		render(<EmbedElement />)
 		const iframe = screen.getByTitle('Instruqt')
 		expect(document.activeElement).toBe(iframe)
 	})
