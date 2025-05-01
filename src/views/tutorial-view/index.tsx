@@ -122,8 +122,7 @@ function TutorialView({
 }: TutorialViewProps): React.ReactElement {
 	// hooks
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-	const [, setCollectionViewSidebarSections] =
-		useState<CollectionCategorySidebarSection[]>(null)
+	const [, setCollectionViewSidebarSections] = useState<CollectionCategorySidebarSection[]>(null)
 	const { openLab, closeLab, setActive } = useInstruqtEmbed()
 
 	// variables
@@ -168,6 +167,7 @@ function TutorialView({
 				text: collectionCtx.current.shortName,
 				href: getCollectionSlug(collectionCtx.current.slug),
 			},
+			title: collectionCtx.current.shortName,
 			visuallyHideTitle: true,
 			children: (
 				<TutorialViewSidebarContent
@@ -272,7 +272,7 @@ function TutorialView({
 					 * the correct types. This will require changing many files, so
 					 * deferring for a follow-up PR since this is functional for the time being.
 					 */
-					sidebarNavDataLevels={sidebarNavDataLevels as any}
+					sidebarNavDataLevels={sidebarNavDataLevels}
 					showScrollProgress={true}
 					AlternateSidebar={TutorialsSidebar}
 					sidecarTopSlot={
