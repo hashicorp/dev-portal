@@ -136,7 +136,7 @@ describe('SandboxDropdown', () => {
 		fireEvent.click(button)
 
 		// Find a sandbox item and click it
-		const sandboxItem = screen.getByText('Vault Playground (test)')
+		const sandboxItem = screen.getByText('Vault Sandbox')
 		fireEvent.click(sandboxItem.closest('button'))
 
 		// Verify openLab was called
@@ -156,7 +156,7 @@ describe('SandboxDropdown', () => {
 		fireEvent.click(button)
 
 		// Find a sandbox item and click it
-		const sandboxItem = screen.getByText('Vault Playground (test)')
+		const sandboxItem = screen.getByText('Vault Sandbox')
 		fireEvent.click(sandboxItem.closest('button'))
 
 		// Verify openLab was called
