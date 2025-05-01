@@ -28,6 +28,7 @@ import { serialize } from 'lib/next-mdx-remote/serialize'
 import DevDotContent from 'components/dev-dot-content'
 import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
 import { SidebarProps } from 'components/sidebar'
+import Tabs, { Tab } from 'components/tabs'
 import fs from 'fs'
 import path from 'path'
 import s from './sandbox.module.css'
@@ -180,11 +181,20 @@ export default function SandboxView({
 						))}
 					</CardsGridList>
 
-					{availableSandboxes.map((lab) => (
-						<div key={`doc-${lab.labId}`}>
-							{lab.documentation && renderDocumentation(lab.documentation)}
-						</div>
-					))}
+					<h2 className={s.sectionHeading}>Sandbox documentation</h2>
+
+					{availableSandboxes.some(lab => lab.documentation) && (
+							<Tabs ariaLabel="Sandbox Documentation Tabs">
+								{availableSandboxes.map((lab) => (
+									<Tab key={lab.labId} heading={lab.title}>
+										{lab.documentation ? 
+											renderDocumentation(lab.documentation) : 
+											<p className={s.noDocumentation}>No documentation is available for this sandbox.</p>
+										}
+									</Tab>
+								))}
+							</Tabs>
+					)}
 				</>
 			) : (
 				<p className={s.noSandboxes}>
