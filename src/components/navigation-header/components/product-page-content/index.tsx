@@ -35,12 +35,6 @@ const ProductPageHeaderContent = () => {
 		SANDBOX_CONFIG.labs?.length > 0 &&
 		supportedSandboxProducts.includes(currentProduct.slug)
 
-	// Get sandbox labs for the current product
-	const labs = SANDBOX_CONFIG.labs || []
-	const currentProductLabs = labs.filter((lab) =>
-		lab.products.includes(currentProduct.slug)
-	)
-
 	return (
 		<>
 			<div className={s.productsDropdown}>
