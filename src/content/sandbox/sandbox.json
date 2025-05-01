@@ -23,13 +23,6 @@
       "documentation": "boundary.mdx"
 		},
 		{
-			"title": "Nomad Sandbox",
-			"description": "A Nomad cluster with three server nodes and one client node, Consul installed and configured, and Access Control Lists (ACLs) enabled for both Nomad and Consul.",
-			"products": ["nomad", "consul"],
-			"labId": "hashicorp-learn/tracks/nomad-sandbox?token=em_0wOuIAyyjAQllLkc",
-      "documentation": "nomad.mdx"
-		},
-		{
 			"title": "Consul Sandbox (Service discovery)",
 			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
 			"products": ["consul"],
@@ -41,6 +34,13 @@
 			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
 			"products": ["consul"],
 			"labId": "hashicorp-learn/tracks/consul-sandbox?token=em_I5XI2XjO-ZMeH1_w&rtp_SCENARIO=SM"
+		},
+		{
+			"title": "Nomad Sandbox",
+			"description": "A Nomad cluster with three server nodes and one client node, Consul installed and configured, and Access Control Lists (ACLs) enabled for both Nomad and Consul.",
+			"products": ["nomad", "consul"],
+			"labId": "hashicorp-learn/tracks/nomad-sandbox?token=em_0wOuIAyyjAQllLkc",
+      "documentation": "nomad.mdx"
 		}
 	]
 }
