@@ -75,10 +75,6 @@
 		},
 		"divider",
 		{
-			"text": "Tutorials",
-			"url": "https://developer.hashicorp.com/vault/tutorials"
-		},
-		{
 			"text": "Docs",
 			"url": "/docs"
 		},
