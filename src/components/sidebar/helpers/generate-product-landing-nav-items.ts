@@ -72,11 +72,13 @@ export const generateProductLandingSidebarMenuItems = (
 		menuItems.push(introNavItem)
 	}
 
-	// Add a "Tutorials" link for all products
-	menuItems.push({
-		title: 'Tutorials',
-		fullPath: `/${product.slug}/tutorials`,
-	})
+	// Add a "Tutorials" link for all products, except vault
+	if (product.slug !== 'vault') {
+		menuItems.push({
+			title: 'Tutorials',
+			fullPath: `/${product.slug}/tutorials`,
+		})
+	}
 
 	// Add "Documentation" item links for all products
 	menuItems.push(...docsItems)
