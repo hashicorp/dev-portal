@@ -75,6 +75,10 @@
 		},
 		"divider",
 		{
+			"text": "Tutorials",
+			"url": "https://developer.hashicorp.com/vault/tutorials"
+		},
+		{
 			"text": "Docs",
 			"url": "/docs"
 		},
@@ -141,7 +145,7 @@
 			"os": "linux"
 		}
 	],
-	"basePaths": ["docs", "api-docs","tutorials", "downloads"],
+	"basePaths": ["docs", "api-docs", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
