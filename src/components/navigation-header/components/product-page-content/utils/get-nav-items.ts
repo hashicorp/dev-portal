@@ -127,10 +127,12 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	 * PR to publish Sentinel tutorials:
 	 * https://github.com/hashicorp/tutorials/pull/2169
 	 */
-	items.push({
-		label: 'Tutorials',
-		url: `/${currentProduct.slug}/tutorials`,
-	})
+	if (currentProduct.slug !== 'vault') {
+		items.push({
+			label: 'Tutorials',
+			url: `/${currentProduct.slug}/tutorials`,
+		})
+	}
 
 	/**
 	 * Documentation categories

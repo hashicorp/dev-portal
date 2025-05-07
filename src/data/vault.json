@@ -161,6 +161,11 @@
 			"iconName": "api",
 			"name": "APIs",
 			"path": "api-docs"
+		},
+		{
+			"iconName": "guide",
+			"name": "Tutorials",
+			"path": "tutorials"
 		}
 	],
 	"integrationsConfig": {
