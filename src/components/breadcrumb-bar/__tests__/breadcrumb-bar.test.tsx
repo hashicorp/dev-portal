@@ -29,7 +29,7 @@ describe('BreadcrumbBar', () => {
 					{
 						isCurrentPage: true,
 						title: 'Sessions',
-						url: '/consul/docs/dynamic-app-config/sessions',
+						url: '/consul/docs/automate/session',
 					},
 				]}
 			/>
@@ -69,7 +69,7 @@ describe('BreadcrumbBar', () => {
 			      },
 			      {
 			        "@type": "ListItem",
-			        "item": "https://developer.hashicorp.com/consul/docs/dynamic-app-config/sessions",
+			        "item": "https://developer.hashicorp.com/consul/docs/automate/session",
 			        "name": "Sessions",
 			        "position": 4,
 			      },
