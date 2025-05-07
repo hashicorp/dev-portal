@@ -13,9 +13,9 @@ import nomadProductData from 'data/nomad.json'
 
 describe('rewriteDocsUrl', () => {
 	describe('/downloads links', () => {
-		// there is no downloads link for hcp
+		// there is no downloads link for hcp, waypoint, or vault
 		const productsToTest = productSlugs.filter(
-			(slug) => slug !== 'hcp' && slug !== 'waypoint'
+			(slug) => slug !== 'hcp' && slug !== 'waypoint' && slug !== 'vault'
 		)
 
 		test.each(productsToTest)(
