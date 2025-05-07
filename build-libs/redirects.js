@@ -67,8 +67,13 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	if (
 		config.flags?.unified_docs_migrated_repos?.find((repo) => repo === repoName)
 	) {
+		const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN ? new Headers({
+			'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
+		}) : new Headers()
+
 		const getUDRRedirects = await fetch(
-			`${process.env.UNIFIED_DOCS_API}/api/content/${repoName}/redirects`
+			`${process.env.UNIFIED_DOCS_API}/api/content/${repoName}/redirects`,
+			{ headers }
 		)
 		if (getUDRRedirects.ok) {
 			const udrRedirects = await getUDRRedirects.json()
