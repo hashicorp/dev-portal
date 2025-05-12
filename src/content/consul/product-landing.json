@@ -1,13 +1,13 @@
 {
 	"hero": {
-		"heading": "Automate Service Networking Across Clouds",
+		"heading": "Service Networking Automations Across Clouds",
 		"image": "https://www.datocms-assets.com/2885/1662767788-dev-dot-consul-landing-hero-2x.png"
 	},
 	"overview": {
 		"heading": "What is Consul?",
-		"body": "Consul is a service networking solution that enables teams to manage secure network connectivity between services and across multi-cloud environments and runtimes. Consul offers service discovery, identity-based authorization, L7 traffic management, and service-to-service encryption.",
+		"body": "Consul is a service networking solution that enables teams to manage secure network connectivity between services, across on-prem, hybrid cloud, and multi-cloud environments and runtimes. Consul offers service discovery, service mesh, identity-based authorization, L7 traffic management, and secure service-to-service encryption.",
 		"cta": {
-			"text": "Learn more about Consul features",
+			"text": "Learn more about Consul",
 			"url": "/consul/docs/intro"
 		},
 		"image": {
@@ -17,24 +17,29 @@
 	},
 	"get_started": {
 		"heading": "Get Started",
-		"body": "Learn how to run service discovery and a service mesh with Consul.",
+		"body": "Learn how to use Consul for service discovery and service mesh operations.",
 		"iconCardLinks": [
 			{
+				"icon": "server",
+				"text": "Get started with Consul on Virtual Machines",
+				"url": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
+			},
+			{
 				"icon": "kubernetes-color",
-				"text": "Consul with Kubernetes",
+				"text": "Get started with Consul on Kubernetes",
 				"url": "/consul/tutorials/get-started-kubernetes/kubernetes-gs-deploy"
 			},
 			{
-				"icon": "server",
-				"text": "Consul with Virtual Machines",
-				"url": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
+				"icon": "nomad",
+				"text": "Migrate a monolith with Consul and Nomad",
+				"url": "/nomad/tutorials/migrate-monolith/monolith-migration-overview"
 			}
 		]
 	},
 	"blocks": [
 		{
 			"type": "heading",
-			"heading": "Featured Documentation",
+			"heading": "Introduction to Consul: Architecture and Concepts",
 			"level": 2,
 			"size": 400
 		},
@@ -42,19 +47,95 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Service Mesh",
-					"body": "Consul Service Mesh provides service-to-service connection authorization and encryption using mTLS.",
-					"url": "/consul/docs/connect"
+					"heading": "Control plane architecture",
+					"body": "Consul provides a control plane that enables you to register, access, and secure services deployed across your network.",
+					"url": "/consul/docs/architecture/control-plane"
 				},
 				{
-					"heading": "Kubernetes",
-					"body": "Deploy Consul to Kubernetes using the Helm chart, sync services between Consul and Kubernetes, and more.",
-					"url": "/consul/docs/k8s"
+					"heading": "Data plane architecture",
+					"body": "Consul can deploy gateways and sidecar proxies in an application's data plane to help you secure, observe, and manage application traffic.",
+					"url": "/consul/docs/architecture/data-plane"
 				},
 				{
-					"heading": "HCP Consul Dedicated",
-					"body": "Deploy a managed HCP Consul Dedicated cluster to quickly get started with Consul's full capabilities.",
-					"url": "/hcp/docs/consul"
+					"heading": "Concept: Consul catalog",
+					"body": "The Consul catalog API tracks registered services and their locations for both service discovery and service mesh use cases.",
+					"url": "/hcp/docs/concept/catalog"
+				},
+				{
+					"heading": "Concept: Cluster consensus",
+					"body": "Consul ensures a consistent state using the Raft protocol. A quorum, or a majority of server agents with one leader, agree to state changes before committing to the state log.",
+					"url": "/consul/docs/concept/consensus"
+				},
+				{
+					"heading": "Concept: Gossip communication",
+					"body": "Consul agents manage membership in datacenters and WAN federations using the Serf protocol, also called gossip communication.",
+					"url": "/consul/docs/concept/gossip"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Consul Fundamentals",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Consul editions and releases",
+					"body": "Consul releases include Enterprise and Community editions. Additional tool binaries for managing Consul on specific runtimes and cloud providers is also available.",
+					"url": "/consul/docs/fundamentals/editions"
+				},
+				{
+					"heading": "How to install Consul",
+					"body": "Install Consul to get started with service discovery and service mesh. Follow the installation instructions to download the precompiled binary, or use Go to compile from source.",
+					"url": "/consul/docs/fundamentals/install"
+				},
+				{
+					"heading": "Run Consul in developer mode",
+					"body": "Consul can deploy gateways and sidecar proxies in an application's data plane to help you secure, observe, and manage application traffic.",
+					"url": "/consul/docs/fundamentals/install/dev"
+				},
+				{
+					"heading": "Explore the Consul HTTP API",
+					"body": "The Consul HTTP API is a RESTful interface for Consul that exposes endpoints for both Consul operations and service networking functions that return JSON payloads.",
+					"url": "/consul/docs/fundamentals/interface/api"
+				},
+				{
+					"heading": "Explore the Consul CLI",
+					"body": "TThe Consul CLI is a wrapper for the HTTP API that allows you to interact with Consul from a terminal session.",
+					"url": "/consul/docs/fundamentals/interface/cli"
+				},
+				{
+					"heading": "Explore the Consul UI",
+					"body": "The Consul UI allows you to interact with Consul using a browser-based graphical user interface.",
+					"url": "/consul/docs/fundamentals/interface/ui"
+				},
+				{
+					"heading": "Identity in Consul",
+					"body": "In a datacenter, Consul uses identity to associate agents, configurations, and services on different nodes that may have different names but are otherwise identical.",
+					"url": "/consul/docs/fundamentals/identity"
+				},
+				{
+					"heading": "Consul agent basics",
+					"body": "The Consul agent is a long running daemon that operates on a node. It is a core unit of Consul operations.",
+					"url": "/consul/docs/fundamentals/agent"
+				},
+				{
+					"heading": "Service and health check basics",
+					"body": "Consul agents require service definitions in order to register services into the Consul catalog.",
+					"url": "/consul/docs/fundamentals/service"
+				},
+				{
+					"heading": "Configuration entry basics",
+					"body": "Configuration entries explicitly define many of Consul's security, traffic, and cluster management behaviors.",
+					"url": "/consul/docs/fundamentals/config-entry"
+				},
+				{
+					"heading": "Consul Terraform provider basics",
+					"body": "You can use the official Terraform provider to configure your Consul cluster's ACLs, configuration entries, intentions, and more.",
+					"url": "/consul/docs/fundamentals/tf"
 				}
 			]
 		},
@@ -65,18 +146,22 @@
 			"size": 400
 		},
 		{
-			"type": "collection_cards",
-			"collectionSlugs": [
-				"consul/connect-services",
-				"consul/service-mesh-traffic-management"
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"consul/virtual-machine-gs-service-discovery",
+				"consul/virtual-machine-gs-service-mesh",
+				"consul/virtual-machine-gs-service-mesh-access"
 			]
 		},
 		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": [
-				"consul/kubernetes-api-gateway",
-				"consul/consul-terraform-sync",
-				"consul/serverless-consul-with-lambda"
+			"type": "collection_cards",
+			"collectionSlugs": [
+				"consul/connect-services",
+				"consul/control-network-traffic",
+				"consul/secure-services",
+				"consul/observe-your-network",
+				"consul/network-automation",
+				"consul/implement-multi-tenancy"
 			]
 		},
 		{
