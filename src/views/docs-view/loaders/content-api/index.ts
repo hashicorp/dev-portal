@@ -11,6 +11,10 @@ export class ContentApiError extends Error {
 	}
 }
 
+const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN ? new Headers({
+	'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
+}) : new Headers()
+
 export async function fetchNavData(
 	product: string, //: string, // waypoint
 	basePath: string, //: string, // commands | docs | plugins
@@ -20,7 +24,7 @@ export async function fetchNavData(
 	const fullPath = `nav-data/${version}/${basePath}`
 	const url = `${contentApiBaseUrl}/api/content/${product}/${fullPath}`
 
-	const response = await fetch(url)
+	const response = await fetch(url, { headers })
 
 	if (response.status !== 200) {
 		throw new ContentApiError(`Failed to fetch: ${url}`, response.status)
@@ -36,7 +40,7 @@ export async function fetchDocument(
 ) {
 	const contentApiBaseUrl = getContentApiBaseUrl(product)
 	const url = `${contentApiBaseUrl}/api/content/${product}/${fullPath}`
-	const response = await fetch(url)
+	const response = await fetch(url, { headers })
 
 	if (response.status !== 200) {
 		throw new ContentApiError(`Failed to fetch: ${url}`, response.status)
@@ -49,7 +53,7 @@ export async function fetchDocument(
 export async function fetchVersionMetadataList(product: string) {
 	const contentApiBaseUrl = getContentApiBaseUrl(product)
 	const url = `${contentApiBaseUrl}/api/content/${product}/version-metadata?partial=true`
-	const response = await fetch(url)
+	const response = await fetch(url, { headers })
 
 	if (response.status !== 200) {
 		throw new ContentApiError(`Failed to fetch: ${url}`, response.status)

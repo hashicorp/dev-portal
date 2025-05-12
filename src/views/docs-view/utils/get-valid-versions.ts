@@ -57,8 +57,11 @@ export async function getValidVersions(
 		const validVersionsUrl = new URL(VERSIONS_ENDPOINT, contentApiBaseUrl)
 		validVersionsUrl.searchParams.set('product', productSlugForLoader)
 		validVersionsUrl.searchParams.set('fullPath', fullPath)
+		const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN ? new Headers({
+			'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
+		}) : new Headers()
 		// Fetch known versions of this document
-		const response = await fetch(validVersionsUrl.toString())
+		const response = await fetch(validVersionsUrl.toString(), { headers })
 		const { versions: knownVersions } = await response.json()
 		// Apply the filter, and return the valid versions
 		return versions.filter((option) => knownVersions.includes(option.version))

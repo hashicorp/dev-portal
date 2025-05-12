@@ -43,7 +43,8 @@
 			"terraform-plugin-mux",
 			"terraform-plugin-sdk",
 			"terraform-plugin-testing",
-			"terraform-docs-agents"
+			"terraform-docs-agents",
+			"terraform-cdk"
 		]
 	}
 }

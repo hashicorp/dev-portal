@@ -61,7 +61,7 @@
 		},
 		{
 			"type": "collection_cards",
-			"collectionSlugs": ["cloud/get-started-hcp-vault-secrets"]
+			"collectionSlugs": ["cloud/get-started-hcp-vault-radar"]
 		},
 		{
 			"type": "linked_cards",
@@ -87,8 +87,8 @@
 		{
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
-				"cloud/vault-oidc-okta",
-				"boundary/hcp-manage-scopes",
+				"cloud/what-is-secret-scanning",
+				"boundary/hcp-getting-started-create",
 				"packer/golden-image-with-hcp-packer",
 				"consul/kubernetes-api-gateway"
 			]
