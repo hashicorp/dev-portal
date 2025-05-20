@@ -134,24 +134,20 @@ function SearchResults({
 			{/* <InstantSearch /> updates algoliaData, and renders nothing.
 			    Maybe helpful to think of this as "the part that fetches results". */}
 			<InstantSearch indexName={ALGOLIA_INDEX_NAME} searchClient={searchClient}>
-				{Object.values(SearchContentTypes).map(
-					(
-						type: SearchContentTypes
-					) => {
-						const filters = getAlgoliaFilters(currentProductSlug, type)
-						return (
-							<Index key={type} indexName={ALGOLIA_INDEX_NAME} indexId={type}>
-								<Configure 
-									query={currentInputValue} 
-									filters={filters} 
-									attributesToSnippet={['description:25']} 
-									attributesToHighlight={['page_title', 'description:250']} 
-								/>
-								<HitsReporter setHits={(hits) => setHitData(type, hits)} />
-							</Index>
-						)
-					}
-				)}
+				{Object.values(SearchContentTypes).map((type: SearchContentTypes) => {
+					const filters = getAlgoliaFilters(currentProductSlug, type)
+					return (
+						<Index key={type} indexName={ALGOLIA_INDEX_NAME} indexId={type}>
+							<Configure
+								query={currentInputValue}
+								filters={filters}
+								attributesToSnippet={['description:25']}
+								attributesToHighlight={['page_title', 'description:250']}
+							/>
+							<HitsReporter setHits={(hits) => setHitData(type, hits)} />
+						</Index>
+					)
+				})}
 			</InstantSearch>
 			{/* UnifiedHitsContainer renders search results in a tabbed interface. */}
 			<UnifiedHitsContainer

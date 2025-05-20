@@ -2,7 +2,6 @@
 	"featuredCollectionsSlugs": [
 		"consul/get-started-vms",
 		"consul/get-started-kubernetes"
-
 	],
 	"featuredTutorialsSlugs": [
 		"consul/virtual-machine-gs-service-discovery",
