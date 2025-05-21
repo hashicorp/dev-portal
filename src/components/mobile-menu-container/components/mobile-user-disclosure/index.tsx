@@ -73,7 +73,12 @@ const MobileUserDisclosure = ({
 			<DisclosureActivator className={s.activator}>
 				<span className={s.iconAndTextWrapper}>
 					<span className={s.icon}>{icon}</span>
-					<Text asElement="span" className={classNames('ph-no-capture',s.text)} size={300} weight="medium">
+					<Text
+						asElement="span"
+						className={classNames('ph-no-capture', s.text)}
+						size={300}
+						weight="medium"
+					>
 						{description}
 					</Text>
 				</span>

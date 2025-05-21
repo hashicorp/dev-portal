@@ -5,9 +5,11 @@
 
 import { makeSitemapField } from './helpers'
 
-const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN ? new Headers({
-	'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
-}) : new Headers()
+const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
+	? new Headers({
+			'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
+	  })
+	: new Headers()
 
 export async function allDocsFields(config: typeof __config) {
 	// If there are docs that have been migrated to the unified docs repo, get the paths for those docs

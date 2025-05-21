@@ -89,7 +89,13 @@ const getScriptArgumentsForCommandLine = () => {
 		.demandOption(['repo', 'localCopyLocation'])
 		.help().argv
 
+	// $TSFixMe
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	const repo = cliArgs.repo as string
+	// $TSFixMe
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	const localCopyLocation = cliArgs.localCopyLocation as string
 	const { mdxPrefix, navDataPrefix } = getMdxAndNavDataDirectoriesForRepo(repo)
 	const contentDirectory = path.join(

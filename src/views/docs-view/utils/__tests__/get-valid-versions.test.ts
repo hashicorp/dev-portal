@@ -35,7 +35,11 @@ describe('getValidVersions', () => {
 			[]
 		)
 		expect(
-			await getValidVersions(undefined as $TSFixMe, fullPath, productSlugForLoader)
+			await getValidVersions(
+				undefined as $TSFixMe,
+				fullPath,
+				productSlugForLoader
+			)
 		).toEqual([])
 	})
 
