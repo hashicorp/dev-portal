@@ -28,19 +28,20 @@ const useDatagrailPerformanceConsent = (): boolean => {
 	const [categoryPerformanceConsent, setCategoryPerformanceConsent] =
 		useState<boolean>(false)
 
+	function formatPayload(preferences) {
+		const payload = preferences.reduce(
+			(obj, item) => {
+				obj[item.gtm_key] = item.isEnabled
+				return obj
+			},
+			{}
+		)
+		return payload
+	}
+
 	useEffect(() => {
 		addDatagrailEventListener('initial_preference_callback', (preferences) => {
-			// const payload = transformCookieOptionsIntoPosthogPayload(
-			// 	preferences?.consentPreferences?.cookieOptions
-			// )
-			const payload = preferences?.consentPreferences?.cookieOptions.reduce(
-				(obj, item) => {
-					obj[item.gtm_key] = item.isEnabled
-					return obj
-				},
-				{}
-			)
-			console.log('### payload inital', payload)
+			const payload = formatPayload(preferences?.consentPreferences?.cookieOptions)
 			if (payload && payload[consentCategory]) {
 				setCategoryPerformanceConsent(true)
 			} else {
@@ -49,11 +50,7 @@ const useDatagrailPerformanceConsent = (): boolean => {
 		})
 
 		addDatagrailEventListener('preference_callback', (preferences) => {
-			// const payload = transformCookieOptionsIntoPosthogPayload(
-			// 	preferences?.consentPreferences?.cookieOptions
-			// )
-			const payload = preferences
-			console.log('### payload pref', payload)
+			const payload = formatPayload(preferences?.consentPreferences?.cookieOptions)
 			if (payload && payload[consentCategory]) {
 				setCategoryPerformanceConsent(true)
 			} else {

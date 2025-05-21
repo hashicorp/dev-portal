@@ -16,7 +16,6 @@ import { NextAdapter } from 'next-query-params'
 import { QueryParamProvider } from 'use-query-params'
 import type { AppProps } from 'next/app'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { ConditionalPostHogProvider } from '@components/posthog/posthog-provider'
 
 // HashiCorp imports
 import {
@@ -33,6 +32,7 @@ import { makeDevAnalyticsLogger } from 'lib/analytics'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
+import { ConditionalPostHogProvider } from 'components/posthog/posthog-provider'
 
 // Local imports
 import './style.css'

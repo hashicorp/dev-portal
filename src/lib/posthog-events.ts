@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import posthog from 'posthog-js'
+
 /**
  * Enables PostHog video start tracking
  */
 export function trackVideoStart(url: string): void {
-	if (!window?.posthog) return
-
 	let video_host = ''
 	if (url.includes('wistia')) {
 		video_host = 'wistia'
@@ -17,7 +17,7 @@ export function trackVideoStart(url: string): void {
 	}
 
 	if (video_host) {
-		window.posthog.capture('video_start', {
+		posthog.capture('video_start', {
 			video_host,
 			url,
 		})
@@ -30,8 +30,6 @@ export function trackVideoStart(url: string): void {
  * when the user actually plays the video (start and after play after pause).
  */
 export function trackVideoPlay(url: string): void {
-	if (!window?.posthog) return
-
 	let video_host = ''
 	if (url.includes('wistia')) {
 		video_host = 'wistia'
@@ -40,7 +38,7 @@ export function trackVideoPlay(url: string): void {
 	}
 
 	if (video_host) {
-		window.posthog.capture('video_play', {
+		posthog.capture('video_play', {
 			video_host,
 			url,
 		})
