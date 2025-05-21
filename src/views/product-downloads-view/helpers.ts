@@ -13,15 +13,12 @@ import semverParse from 'semver/functions/parse'
 import semverPrerelease from 'semver/functions/prerelease'
 import semverRSort from 'semver/functions/rsort'
 import semverValid from 'semver/functions/valid'
-import { ProductData} from 'types/products'
+import { ProductData } from 'types/products'
 import {
 	getInlineCollections,
 	getInlineTutorials,
 } from 'views/product-tutorials-view/helpers/get-inline-content'
-import {
-	PackageManager,
-	SortedReleases,
-} from './types'
+import { PackageManager, SortedReleases } from './types'
 import capitalize from '@hashicorp/platform-util/text/capitalize'
 
 const PLATFORM_MAP = {

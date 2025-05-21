@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-
 /**
  * Given a flat array of items, and a `filterValue`,*
  * Return an array of filtered items, including only those items that

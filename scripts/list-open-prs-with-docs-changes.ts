@@ -40,6 +40,9 @@ const getScriptArguments = (): { repo: string } => {
 		.demandOption(['repo'])
 		.help().argv
 
+	// $TSFixMe
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	// @ts-ignore
 	const repo = args.repo as string
 
 	return { repo }

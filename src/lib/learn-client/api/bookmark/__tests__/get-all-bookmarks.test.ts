@@ -14,7 +14,7 @@ vi.mock('lib/learn-client', () => ({
 }))
 
 // This mock omits the tutorial attribute since we don't need it for testing
-const mockBookmarks:  Omit<ApiBookmark, 'tutorial'>[] = [
+const mockBookmarks: Omit<ApiBookmark, 'tutorial'>[] = [
 	{
 		created_at: null,
 		id: 'test-bookmark-1',

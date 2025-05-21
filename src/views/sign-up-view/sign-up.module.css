@@ -134,9 +134,9 @@
 		height: 512px;
 		width: auto;
 
-	@media (--dev-dot-desktop) {
+		@media (--dev-dot-desktop) {
 			height: auto;
-			width: auto
-	}
+			width: auto;
+		}
 	}
 }
