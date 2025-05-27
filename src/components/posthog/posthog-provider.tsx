@@ -18,7 +18,7 @@ export function ConditionalPostHogProvider({
 		if (categoryPerformanceConsent) {
 			// This initialization code came from the PostHog documentation
 			// https://posthog.com/docs/libraries/next-js#router-specific-instructions
-			posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
+			posthog.init(process.env.POSTHOG_PROJECT_API_KEY, {
 				api_host:
 					process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com',
 				// Enable debug mode in development
