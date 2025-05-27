@@ -85,7 +85,7 @@ export function gatherSearchTabsData(
 	const tabsData = validContentTypes.map((type: SearchContentTypes) => {
 		const { heading, icon } = tabContentByType[type]
 		const rawHits = unifiedSearchResults[type].hits
-		
+
 		/**
 		 * If the resultType is `global`, we want to include all results...
 		 * **Except** we need to filter out `integrations` for products that don't
