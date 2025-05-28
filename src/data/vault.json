@@ -145,7 +145,7 @@
 			"os": "linux"
 		}
 	],
-	"basePaths": ["docs", "api-docs","tutorials", "downloads"],
+	"basePaths": ["docs", "api-docs", "tutorials", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
@@ -161,11 +161,6 @@
 			"iconName": "api",
 			"name": "APIs",
 			"path": "api-docs"
-		},
-		{
-			"iconName": "guide",
-			"name": "Tutorials",
-			"path": "tutorials"
 		}
 	],
 	"integrationsConfig": {

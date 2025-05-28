@@ -13,15 +13,12 @@ import semverParse from 'semver/functions/parse'
 import semverPrerelease from 'semver/functions/prerelease'
 import semverRSort from 'semver/functions/rsort'
 import semverValid from 'semver/functions/valid'
-import { ProductData} from 'types/products'
+import { ProductData } from 'types/products'
 import {
 	getInlineCollections,
 	getInlineTutorials,
 } from 'views/product-tutorials-view/helpers/get-inline-content'
-import {
-	PackageManager,
-	SortedReleases,
-} from './types'
+import { PackageManager, SortedReleases } from './types'
 import capitalize from '@hashicorp/platform-util/text/capitalize'
 
 const PLATFORM_MAP = {
@@ -48,7 +45,7 @@ export const generateDefaultPackageManagers = (
 			label: 'Ubuntu/Debian',
 			commands: [
 				`wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg`,
-				`echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list`,
+				`echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list`,
 				`sudo apt update && sudo apt install ${productSlug}`,
 			],
 			os: 'linux',

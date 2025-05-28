@@ -22,7 +22,9 @@ export async function getStaticProps({
 	{ props: ValidatedPatternsTutorialViewProps } | { notFound: boolean }
 > {
 	try {
-		const props = await getValidatedPatternsTutorialViewProps(params.tutorialSlug)
+		const props = await getValidatedPatternsTutorialViewProps(
+			params.tutorialSlug
+		)
 
 		// If the tutorial doesn't exist, hit the 404
 		if (!props) {
@@ -37,7 +39,9 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-	const allCollections = await getCollectionsBySection(validatedPatternsData.slug)
+	const allCollections = await getCollectionsBySection(
+		validatedPatternsData.slug
+	)
 	let paths = []
 	allCollections.forEach((c: ApiCollection) => {
 		const collectionSlug = splitProductFromFilename(c.slug)

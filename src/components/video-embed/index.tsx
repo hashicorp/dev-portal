@@ -15,7 +15,7 @@ import {
 	useMilestones,
 } from './helpers'
 import s from './video-embed.module.css'
-import { trackVideoStart } from 'lib/posthog-events'
+import { trackVideoStart, trackVideoPlay } from 'lib/posthog-events'
 
 /**
  * MAX_PLAYBACK_SPEED is based on max speeds for YouTube & Wistia.
@@ -152,7 +152,10 @@ function VideoEmbed({
 						setPosition(playedSeconds)
 					}}
 					onEnded={setEnded}
-					onPlay={setPlaying}
+					onPlay={() => {
+						setPlaying()
+						trackVideoPlay(url)
+					}}
 					onPause={setStopped}
 					className={s.reactPlayer}
 					width="100%"

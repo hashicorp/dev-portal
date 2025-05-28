@@ -1,12 +1,13 @@
 {
 	"featuredCollectionsSlugs": [
-		"consul/get-started-kubernetes",
-		"consul/get-started-vms"
+		"consul/get-started-vms",
+		"consul/get-started-kubernetes"
 	],
 	"featuredTutorialsSlugs": [
-		"consul/kubernetes-api-gateway",
-		"consul/consul-terraform-sync",
-		"consul/serverless-consul-with-lambda"
+		"consul/virtual-machine-gs-service-discovery",
+		"consul/virtual-machine-gs-service-mesh",
+		"consul/virtual-machine-gs-service-mesh-access",
+		"consul/virtual-machine-gs-monitoring"
 	],
 	"sidebarMenuItems": [
 		{
@@ -15,11 +16,11 @@
 		{ "heading": "Kubernetes Installs" },
 		{
 			"title": "Consul K8s CLI",
-			"fullPath": "/consul/docs/k8s/installation/install-cli"
+			"fullPath": "/consul/docs/reference/cli/consul-k8s"
 		},
 		{
 			"title": "Helm Chart",
-			"fullPath": "/consul/docs/k8s/installation/install"
+			"fullPath": "/consul/docs/reference/k8s/helm"
 		}
 	],
 	"sidecarMarketingCard": {

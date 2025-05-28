@@ -46,6 +46,7 @@
 		"@axe-core/react": "^4.3.1",
 		"@datadog/datadog-api-client": "^1.0.0-beta.7",
 		"@eslint/js": "^9.21.0",
+		"@hashicorp/platform-cli": "^2.8.0",
 		"@hashicorp/platform-configs": "^0.2.0",
 		"@hashicorp/platform-nextjs-plugin": "^5.1.1",
 		"@hashicorp/platform-postcss-config": "^0.2.0",

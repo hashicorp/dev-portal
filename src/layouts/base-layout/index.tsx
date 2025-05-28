@@ -58,7 +58,6 @@ const BaseLayout = ({
 	useScrollPercentageAnalytics()
 	const [showSkipLink, setShowSkipLink] = useState(false)
 
-
 	useEffect(() => {
 		if (
 			process.env.NODE_ENV === 'development' &&

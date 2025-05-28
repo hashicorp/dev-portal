@@ -55,8 +55,7 @@ export const makeDevAnalyticsLogger = () => {
  */
 export const canTrackAnalytics = (): boolean => {
 	return (
-		window?.analytics?.track &&
-		typeof window.analytics.track === 'function'
+		window?.analytics?.track && typeof window.analytics.track === 'function'
 	)
 }
 
@@ -76,10 +75,7 @@ const safeAnalyticsTrack = (
  * Determines whether or not `window.analytics.user` can be invoked.
  */
 export const canAnalyzeUser = (): boolean => {
-	return (
-		window?.analytics?.user &&
-		typeof window.analytics.user === 'function'
-	)
+	return window?.analytics?.user && typeof window.analytics.user === 'function'
 }
 
 export function safeGetSegmentAnonymousId(): string | null {

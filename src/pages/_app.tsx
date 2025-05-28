@@ -33,6 +33,7 @@ import { makeDevAnalyticsLogger } from 'lib/analytics'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
 import { Toaster } from 'components/toast'
+import { ConditionalPostHogProvider } from 'components/posthog/posthog-provider'
 
 // Local imports
 import './style.css'
@@ -61,7 +62,7 @@ export default function App({
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
 	/**
-	 * Initalize QueryClient with `useState` to ensure that data is not shared
+	 * Initialize QueryClient with `useState` to ensure that data is not shared
 	 * between different users and requests, and that only one is created per
 	 * component lifecycle.
 	 */
@@ -80,35 +81,37 @@ export default function App({
 	const currentProduct = pageProps.product || null
 
 	return (
-		<QueryClientProvider client={queryClient}>
-			<SSRProvider>
-				<QueryParamProvider adapter={NextAdapter}>
-					<ErrorBoundary FallbackComponent={DevDotClient}>
-						<SessionProvider session={session}>
-							<DeviceSizeProvider>
-								<CurrentProductProvider currentProduct={currentProduct}>
-									<InstruqtProvider>
-										<HeadMetadata {...pageProps.metadata} />
-										<LazyMotion
-											features={() =>
-												import('lib/framer-motion-features').then(
-													(mod) => mod.default
-												)
-											}
-											strict={process.env.NODE_ENV === 'development'}
-										>
-											<Component {...pageProps} />
-											<Toaster />
-											<ReactQueryDevtools />
-											<SpeedInsights sampleRate={0.05} />
-										</LazyMotion>
-									</InstruqtProvider>
-								</CurrentProductProvider>
-							</DeviceSizeProvider>
-						</SessionProvider>
-					</ErrorBoundary>
-				</QueryParamProvider>
-			</SSRProvider>
-		</QueryClientProvider>
+		<ConditionalPostHogProvider>
+			<QueryClientProvider client={queryClient}>
+				<SSRProvider>
+					<QueryParamProvider adapter={NextAdapter}>
+						<ErrorBoundary FallbackComponent={DevDotClient}>
+							<SessionProvider session={session}>
+								<DeviceSizeProvider>
+								  <CurrentProductProvider currentProduct={currentProduct}>
+								    <InstruqtProvider>
+							  			<HeadMetadata {...pageProps.metadata} />
+						  				<LazyMotion
+											  features={() =>
+											  	import('lib/framer-motion-features').then(
+										  			(mod) => mod.default
+									  			)
+								  			}
+							  				strict={process.env.NODE_ENV === 'development'}
+						  				>
+					  						<Component {...pageProps} />
+				  							<Toaster />
+			  								<ReactQueryDevtools />
+		  									<SpeedInsights sampleRate={0.05} />
+	  									</LazyMotion>
+  									</InstruqtProvider>
+									</CurrentProductProvider>
+								</DeviceSizeProvider>
+							</SessionProvider>
+						</ErrorBoundary>
+					</QueryParamProvider>
+				</SSRProvider>
+			</QueryClientProvider>
+		</ConditionalPostHogProvider>
 	)
 }

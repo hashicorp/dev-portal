@@ -37,7 +37,7 @@ export default function Portal({ className, children }: PortalProps) {
 		}
 
 		document.body.appendChild(portalRef.current)
-		const currentRef = portalRef.current;
+		const currentRef = portalRef.current
 		return () => {
 			document.body.removeChild(currentRef)
 		}
