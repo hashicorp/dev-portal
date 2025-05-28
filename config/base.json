@@ -46,7 +46,7 @@
 			"terraform-docs-agents",
 			"terraform-cdk",
 			"terraform-docs-common",
-			"ptfe-releases",
+			"ptfe-releases"
 		]
 	}
 }
