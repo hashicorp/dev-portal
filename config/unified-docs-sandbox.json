@@ -19,7 +19,8 @@
 			"terraform-docs-agents",
 			"terraform-cdk",
 			"ptfe-releases",
-			"terraform-docs-common"
+			"terraform-docs-common",
+			"well-architected-framework"
 		]
 	}
 }
