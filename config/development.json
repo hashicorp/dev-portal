@@ -18,7 +18,8 @@
 			"terraform-plugin-testing",
 			"terraform-docs-agents",
 			"terraform-cdk",
-			"well-architected-framework"
+			"terraform"
+      "well-architected-framework"
 		]
 	}
 }
