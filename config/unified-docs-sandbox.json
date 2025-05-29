@@ -20,7 +20,7 @@
 			"terraform-cdk",
 			"ptfe-releases",
 			"terraform-docs-common",
-			"terraform"
+			"terraform",
       "well-architected-framework"
 		]
 	}
