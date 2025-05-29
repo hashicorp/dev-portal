@@ -18,7 +18,9 @@
 			"terraform-plugin-testing",
 			"terraform-docs-agents",
 			"terraform-cdk",
-			"terraform"
+			"terraform",
+			"terraform-docs-common",
+			"ptfe-releases"
 		]
 	}
 }
