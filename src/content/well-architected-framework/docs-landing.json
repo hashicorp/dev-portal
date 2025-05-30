@@ -1,0 +1,73 @@
+{
+	"pageSubtitle": "Well-Architected Framework Subtitle Placeholder",
+	"iconCardGridItems": [
+		{
+			"iconName": "boundary-color",
+			"name": "HCP Boundary",
+			"path": "docs/boundary"
+		},
+		{
+			"iconName": "consul-color",
+			"name": "HCP Consul Dedicated",
+			"path": "docs/consul"
+		},
+		{
+			"iconName": "vault-color",
+			"name": "HCP Vault Dedicated",
+			"path": "docs/vault"
+		},
+		{
+			"iconName": "vault-secrets-color",
+			"name": "HCP Vault Secrets",
+			"path": "docs/vault-secrets"
+		},
+		{
+			"iconName": "vault-radar-color",
+			"name": "HCP Vault Radar",
+			"path": "docs/vault-radar"
+		},
+		{
+			"iconName": "packer-color",
+			"name": "HCP Packer",
+			"path": "docs/packer"
+		},
+		{
+			"iconName": "waypoint-color",
+			"name": "HCP Waypoint",
+			"path": "docs/waypoint"
+		},
+		{
+			"iconName": "vagrant-color",
+			"name": "HCP Vagrant",
+			"path": "docs/vagrant"
+		}
+	],
+	"marketingContentBlocks": [
+		{
+			"type": "card-grid",
+			"title": "Framework Pillars",
+			"cards": [
+				{
+					"title": "Automate and define processes",
+					"description": "PLACEHOLDER",
+					"url": "/well-architected-framework/automate-processes"
+				},
+				{
+					"title": "Secure systems",
+					"description": "PLACEHOLDER",
+					"url": "/well-architected-framework/secure-systems"
+				},
+				{
+					"title": "Design resilient systems",
+					"description": "PLACEHOLDER",
+					"url": "/well-architected-framework/design-resilient-systems"
+				},
+				{
+					"title": "Optimize resources",
+					"description": "PLACEHOLDER",
+					"url": "/well-architected-framework/optimize-resources"
+				}
+			]
+		}
+	]
+}

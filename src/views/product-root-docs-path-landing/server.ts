@@ -97,8 +97,8 @@ const generateHeadingLevelsAndSidecarHeadings = ({
 }
 
 const getStaticProps = async (context: GetStaticPropsContext) => {
-	// Constants
-	const basePath = 'docs'
+	// Get basePath from context params, defaulting to 'docs' for backward compatibility
+	const basePath = (context.params?.rootDocsPath as string) ?? 'docs'
 
 	// Fetch product data
 	const productSlug = context.params.productSlug as string
