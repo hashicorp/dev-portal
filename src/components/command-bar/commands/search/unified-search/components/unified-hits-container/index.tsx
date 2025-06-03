@@ -7,6 +7,9 @@
 import Tabs, { Tab } from 'components/tabs'
 import { CommandBarDivider } from 'components/command-bar/components'
 import { CommandBarList } from 'components/command-bar/components'
+// Experiment: support-tab-text START
+import { useFeatureFlagVariantKey } from 'posthog-js/react'
+// Experiment: support-tab-text END
 // Unified search
 import TabHeadingWithCount from '../tab-heading-with-count'
 import NoResultsMessage from '../no-results-message'
@@ -32,18 +35,32 @@ export function UnifiedHitsContainer({
 	tabsData: UnifiedSearchTabContent[]
 	suggestedPages: SuggestedPageProps[]
 }) {
+	// Experiment: support-tab-text START
+	const featureFlagKey = useFeatureFlagVariantKey(
+		'support-tab-text'
+	)
+	// Experiment: support-tab-text END
+
 	return (
 		<div className={s.tabsWrapper}>
 			<Tabs showAnchorLine={false} variant="compact">
 				{tabsData.map((tabData: UnifiedSearchTabContent) => {
 					const { type, heading, icon, hits, hitCount, otherTabData } = tabData
 					const resultsLabelId = `${type}-search-results-label`
+
+					// Experiment: support-tab-text START
+					const tabHeading =
+						featureFlagKey === 'variant' &&
+						type === SearchContentTypes.KNOWLEDGEBASE
+							? 'Knowledge Base'
+							: heading
+					// Experiment: support-tab-text END
 					return (
 						<Tab
-							heading={heading}
+							heading={tabHeading}
 							headingSlot={
 								<TabHeadingWithCount
-									heading={heading}
+									heading={tabHeading}
 									count={
 										type === SearchContentTypes.GLOBAL ? undefined : hitCount
 									}
@@ -71,7 +88,7 @@ export function UnifiedHitsContainer({
 							) : (
 								<div className={s.noResultsWrapper}>
 									<NoResultsMessage
-										currentTabHeading={heading}
+										currentTabHeading={tabHeading}
 										tabsWithResults={otherTabData}
 									/>
 									<CommandBarDivider className={s.divider} />
