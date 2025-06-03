@@ -2,10 +2,10 @@
 	"enabled": true,
 	"data": {
 		"product": "hashicorp",
-		"tag": "HashiConf 2024",
-		"url": "https://live.hashiconf.com",
-		"text": "Now streaming live from Boston!",
-		"linkText": "Attend for free",
-		"expirationDate": "2024-10-16T16:31:00.000Z"
+		"tag": "HashiDays London",
+		"url": "https://www.hashicorp.com/en/conferences/hashidays/london",
+		"text": "Now streaming live from London!",
+		"linkText": "View live stream",
+		"expirationDate": "2025-06-03T05:00:00-05:00"
 	}
 }
