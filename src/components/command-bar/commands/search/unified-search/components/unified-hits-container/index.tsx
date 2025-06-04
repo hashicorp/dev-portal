@@ -9,6 +9,7 @@ import { CommandBarDivider } from 'components/command-bar/components'
 import { CommandBarList } from 'components/command-bar/components'
 // Experiment: support-tab-text START
 import { useFeatureFlagVariantKey } from 'posthog-js/react'
+import posthog from 'posthog-js'
 // Experiment: support-tab-text END
 // Unified search
 import TabHeadingWithCount from '../tab-heading-with-count'
@@ -39,11 +40,23 @@ export function UnifiedHitsContainer({
 	const featureFlagKey = useFeatureFlagVariantKey(
 		'support-tab-text'
 	)
+
+	const handleChange = (newActiveIndex: number) => {
+		// The index of the "Support" tab is 4, so we want to send an event to posthog
+		// when the users clicks this tab
+		if(newActiveIndex === 4) {
+			// Send event to posthog
+			posthog.capture('experiment_activated', {
+				id: 'support-tab-text',
+				flagKey: featureFlagKey,
+			})
+		}
+	}
 	// Experiment: support-tab-text END
 
 	return (
 		<div className={s.tabsWrapper}>
-			<Tabs showAnchorLine={false} variant="compact">
+			<Tabs showAnchorLine={false} variant="compact" onChange={handleChange}>
 				{tabsData.map((tabData: UnifiedSearchTabContent) => {
 					const { type, heading, icon, hits, hitCount, otherTabData } = tabData
 					const resultsLabelId = `${type}-search-results-label`
