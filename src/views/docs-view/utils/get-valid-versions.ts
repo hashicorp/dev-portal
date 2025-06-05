@@ -7,6 +7,7 @@
 import { getContentApiBaseUrl } from 'lib/unified-docs-migration-utils'
 // Types
 import type { VersionSelectItem } from '../loaders/remote-content'
+import redirects from 'data/_redirects.generated.json'
 
 const VERSIONS_ENDPOINT = '/api/content-versions'
 
@@ -56,7 +57,19 @@ export async function getValidVersions(
 		// Build the URL to fetch known versions of this document
 		const validVersionsUrl = new URL(VERSIONS_ENDPOINT, contentApiBaseUrl)
 		validVersionsUrl.searchParams.set('product', productSlugForLoader)
-		validVersionsUrl.searchParams.set('fullPath', fullPath)
+
+		const normalizedFullPath = fullPath.replace(/^doc#/, '')
+		const currentPath = `/${productSlugForLoader}/${normalizedFullPath}`
+
+		const redirect = Object.entries(redirects['*'])
+			.map(([source, { destination }]) => ({ source, destination }))
+			.find(({ destination }) => destination === currentPath)
+
+		const finalPath = redirect
+			? 'doc#' + redirect.source.replace(`/${productSlugForLoader}/`, '')
+			: fullPath
+
+		validVersionsUrl.searchParams.set('fullPath', finalPath)
 		const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
 			? new Headers({
 					'x-vercel-protection-bypass':
