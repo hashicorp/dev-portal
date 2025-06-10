@@ -19,6 +19,11 @@
 					"title": "Add-ons",
 					"description": "Add-ons define infrastructure that developers can add to existing projects.",
 					"url": "/hcp/docs/waypoint/concepts/add-ons"
+				},
+				{
+					"title": "Actions",
+					"description": "HCP Waypoint actions provide a way for platform engineers to expose operations to developers.",
+					"url": "/hcp/docs/waypoint/concepts/actions"
 				}
 			]
 		},
@@ -51,6 +56,22 @@
 					"title": "Using add-ons",
 					"description": "Developers can install add-ons to their HCP Waypoint projects to gain additional application functionality by way of pre-configured infrastructure.",
 					"url": "/hcp/docs/waypoint/addon-use"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
+			"title": "Actions",
+			"cards": [
+				{
+					"title": "Create and manage actions",
+					"description": "Platform engineers can create HCP Waypoint actions and attach them to HCP Waypoint templates and applications.",
+					"url": "/hcp/docs/waypoint/action-create"
+				},
+				{
+					"title": "Create and manage agents",
+					"description": "HCP Waypoint agents allow HCP Waypoint actions to communicate with isolated, private, or on-premises infrastructure.",
+					"url": "/hcp/docs/waypoint/agent-create"
 				}
 			]
 		},
