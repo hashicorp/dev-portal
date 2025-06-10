@@ -84,6 +84,15 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 		)
 		return []
 	}
+
+	/**
+	 * The UDR docker image does not have access to the github token necessary to
+	 * fetch redirects from the hvd-docs repo so we return an empty array
+	 */
+	if (process.env.HASHI_ENV === 'unified-docs-sandbox' && repoName === 'hvd-docs') {
+		return []
+	}
+
 	/**
 	 * Load redirects from the target repo (or return early for non-target repos).
 	 */
