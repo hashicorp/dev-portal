@@ -65,7 +65,7 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	 * Return early if there are not any redirects found for that specific repo.
 	 */
 	if (
-		config.flags?.unified_docs_migrated_repos?.find((repo) => repo === repoName)
+		config['flags.unified_docs_migrated_repos'].includes(repoName)
 	) {
 		const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN ? new Headers({
 			'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
@@ -84,6 +84,16 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 		)
 		return []
 	}
+
+	const privateRepos = ['hcp-docs', 'ptfe-releases', 'sentinel', 'hvd-docs']
+	/**
+	 * The UDR docker image does not have access to the github token necessary to
+	 * fetch redirects from private repos so we return an empty array for those redirects
+	 */
+	if (process.env.HASHI_ENV === 'unified-docs-sandbox' && privateRepos.includes(repoName)) {
+		return []
+	}
+
 	/**
 	 * Load redirects from the target repo (or return early for non-target repos).
 	 */
@@ -133,10 +143,10 @@ const PRODUCT_REDIRECT_ENTRIES = [
 	{ repo: 'packer', path: 'website/redirects.js' },
 	{ repo: 'consul', path: 'website/redirects.js' },
 	{ repo: 'terraform-docs-common', path: 'website/redirects.js' },
-	{ repo: 'hcp-docs', path: '/redirects.js' },
-	{ repo: 'ptfe-releases', path: 'website/redirects.js' },
-	{ repo: 'sentinel', path: 'website/redirects.js' },
-	{ repo: 'hvd-docs', path: '/redirects.js' },
+	{ repo: 'hcp-docs', path: '/redirects.js' }, // private repo
+	{ repo: 'ptfe-releases', path: 'website/redirects.js' }, // private repo
+	{ repo: 'sentinel', path: 'website/redirects.js' }, // private repo
+	{ repo: 'hvd-docs', path: '/redirects.js' }, // private repo
 ]
 
 async function buildProductRedirects() {
