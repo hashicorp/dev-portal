@@ -51,6 +51,7 @@ function getHashiConfig(configPath) {
 		if (process.env.DEBUG_CONFIG) {
 			console.log('[DEBUG_CONFIG]', finalConfig)
 		}
+		console.log('### finalConfig', finalConfig)
 
 		return finalConfig
 	} catch (err) {
