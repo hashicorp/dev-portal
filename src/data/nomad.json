@@ -57,6 +57,11 @@
 			"type": "inbound"
 		},
 		{
+			"text": "Commands",
+			"url": "/commands",
+			"type": "inbound"
+		},
+		{
 			"text": "Plugins",
 			"url": "/plugins",
 			"type": "inbound"
