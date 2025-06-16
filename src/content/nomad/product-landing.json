@@ -8,7 +8,7 @@
 		"body": "A simple and flexible scheduler and orchestrator to deploy and manage containers and non-containerized applications across on-prem and clouds at scale",
 		"cta": {
 			"text": "Learn more about Nomad features",
-			"url": "/nomad/intro"
+			"url": "/nomad/docs/what-is-nomad"
 		},
 		"image": {
 			"light": "https://www.datocms-assets.com/2885/1679095153-devdot-nomad_lm.png",

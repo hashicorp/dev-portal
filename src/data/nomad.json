@@ -77,17 +77,12 @@
 			"type": "inbound"
 		}
 	],
-	"basePaths": ["docs", "api-docs", "plugins", "tools", "intro", "downloads"],
+	"basePaths": ["docs", "api-docs", "commands", "plugins", "tools", "downloads"],
 	"rootDocsPaths": [
 		{
 			"iconName": "docs",
 			"name": "Documentation",
 			"path": "docs"
-		},
-		{
-			"iconName": "entry-point",
-			"name": "Intro",
-			"path": "intro"
 		},
 		{
 			"iconName": "api",
