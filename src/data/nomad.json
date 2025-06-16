@@ -91,6 +91,11 @@
 		},
 		{
 			"iconName": "terminal-screen",
+			"name": "CLI",
+			"path": "commands"
+		},
+		{
+			"iconName": "terminal-screen",
 			"name": "Tools",
 			"path": "tools"
 		},
