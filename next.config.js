@@ -3,6 +3,11 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+const { loadEnvConfig } = require('@next/env')
+
+const projectDir = process.cwd()
+loadEnvConfig(projectDir)
+
 const fs = require('fs')
 const path = require('path')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
@@ -114,6 +119,6 @@ const test = withHashicorp({
 	},
 })
 
-console.log({ config: test })
+console.log(test.images.domains)
 
 module.exports = test;
