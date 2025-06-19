@@ -31,7 +31,7 @@ const hideWaypointTipContent = {
 	],
 }
 
-module.exports = withHashicorp({
+const test = withHashicorp({
 	css: false,
 })({
 	transpilePackages: [
@@ -102,8 +102,8 @@ module.exports = withHashicorp({
 			'www.datocms-assets.com',
 			'mktg-content-api-hashicorp.vercel.app',
 			'content.hashicorp.com',
-			process.env.NODE_ENV === 'development' ? 'localhost' : '',
 			process.env.UNIFIED_DOCS_API,
+			process.env.NODE_ENV === 'development' ? 'localhost' : '',
 		],
 		dangerouslyAllowSVG: true,
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
@@ -113,3 +113,7 @@ module.exports = withHashicorp({
 		instrumentationHook: true,
 	},
 })
+
+console.log({ config: test })
+
+module.exports = test;
