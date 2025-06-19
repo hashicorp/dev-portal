@@ -107,7 +107,8 @@ const test = withHashicorp({
 			'www.datocms-assets.com',
 			'mktg-content-api-hashicorp.vercel.app',
 			'content.hashicorp.com',
-			process.env.UNIFIED_DOCS_API,
+			// remove the hostname
+			(process.env.UNIFIED_DOCS_API || '').replace(/^https?:\/\/|\/$/g, ''),
 			process.env.NODE_ENV === 'development' ? 'localhost' : '',
 		],
 		dangerouslyAllowSVG: true,
