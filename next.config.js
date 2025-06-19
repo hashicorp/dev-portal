@@ -102,6 +102,8 @@ module.exports = withHashicorp({
 			'www.datocms-assets.com',
 			'mktg-content-api-hashicorp.vercel.app',
 			'content.hashicorp.com',
+			process.env.NODE_ENV === 'development' ? 'localhost' : '',
+			process.env.UNIFIED_DOCS_API,
 		],
 		dangerouslyAllowSVG: true,
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
