@@ -107,9 +107,15 @@ const test = withHashicorp({
 			'www.datocms-assets.com',
 			'mktg-content-api-hashicorp.vercel.app',
 			'content.hashicorp.com',
-			// remove the hostname
-			(process.env.UNIFIED_DOCS_API || '').replace(/^https?:\/\/|\/$/g, ''),
-			process.env.NODE_ENV === 'development' ? 'localhost' : '',
+			// remove the http protocol from the URL
+			(process.env.UNIFIED_DOCS_API).replace(/^https?:\/\//, ''),
+			// only allow localhost in development mode
+			...((
+				process.env.NODE_ENV === 'development' &&
+				process.env.HASHI_ENV !== 'preview') ?
+				['localhost'] :
+				[]
+			),
 		],
 		dangerouslyAllowSVG: true,
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
