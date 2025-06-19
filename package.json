@@ -113,7 +113,7 @@
 		"@hashicorp/platform-util": "^0.2.0",
 		"@hashicorp/react-alert-banner": "^7.1.0",
 		"@hashicorp/react-button": "^6.3.1",
-		"@hashicorp/react-components": "^1.1.10",
+		"@hashicorp/react-components": "^1.1.11",
 		"@hashicorp/react-content": "^8.3.0",
 		"@hashicorp/react-design-system-components": "0.0.0-nightly.0a567ac",
 		"@hashicorp/react-design-system-tokens": "0.0.0-nightly.3d21315",

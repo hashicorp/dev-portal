@@ -15,6 +15,9 @@ import { useRouter } from 'next/router'
 import ProductPanel from '@hashicorp/react-components/src/components/nav-panel/product-panel'
 import { mobileNavigationData, navPromo, sidePanelContent } from 'lib/products'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+// Experiment: product-dropdown-promo-placement START
+import { useFeatureFlagVariantKey } from 'posthog-js/react'
+// Experiment: product-dropdown-promo-placement END
 
 /**
  * shared left side bar for /profile pages
@@ -26,6 +29,12 @@ export function ProfileSidebar() {
 	const isActive = (path: string) => {
 		return asPath === path
 	}
+
+	// Experiment: product-dropdown-promo-placement START
+	const featureFlagKey = useFeatureFlagVariantKey(
+		'product-dropdown-promo-placement'
+	)
+	// Experiment: product-dropdown-promo-placement END
 
 	return (
 		<>
@@ -69,6 +78,7 @@ export function ProfileSidebar() {
 					productCategories={mobileNavigationData}
 					promo={navPromo}
 					sidePanel={sidePanelContent}
+					isPromoOnTop={featureFlagKey === 'variant'}
 				/>
 			</NavigationMenu.Root>
 		</>
