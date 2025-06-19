@@ -5,6 +5,7 @@
 
 const { loadEnvConfig } = require('@next/env')
 
+// Load environment variables, as they are not normally available in the next.config.js file. (https://nextjs.org/docs/app/guides/environment-variables#loading-environment-variables-with-nextenv)
 const projectDir = process.cwd()
 loadEnvConfig(projectDir)
 
@@ -36,7 +37,7 @@ const hideWaypointTipContent = {
 	],
 }
 
-const test = withHashicorp({
+module.exports = withHashicorp({
 	css: false,
 })({
 	transpilePackages: [
@@ -125,7 +126,3 @@ const test = withHashicorp({
 		instrumentationHook: true,
 	},
 })
-
-console.log(test.images.domains)
-
-module.exports = test;
