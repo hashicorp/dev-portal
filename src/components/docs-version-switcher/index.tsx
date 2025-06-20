@@ -87,10 +87,6 @@ const DocsVersionSwitcher = ({
 		currentProduct
 	)
 
-	if (options.length === 1) {
-		return null
-	}
-
 	/**
 	 * Encode docs concerns into the `options` to pass to `VersionSwitcher`.
 	 */
