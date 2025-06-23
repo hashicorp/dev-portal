@@ -29,7 +29,7 @@ export function remarkRewriteAssets(args: {
 	return function plugin() {
 		return function transform(tree) {
 			// @ts-expect-error Types Should be correct here
-			visitParents<Image>(tree, 'image', (node, ancestors: Array.<Parent>) => {
+			visitParents<Image>(tree, 'image', (node, ancestors: Array<Parent>) => {
 				let url
 				const originalUrl = node.url
 
