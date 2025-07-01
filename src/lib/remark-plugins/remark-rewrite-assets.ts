@@ -4,7 +4,7 @@
  */
 
 import * as path from 'path'
-import { visit } from 'unist-util-visit'
+import { visitParents } from 'unist-util-visit-parents'
 
 import type { Plugin } from 'unified'
 import type { Image } from 'mdast'
@@ -29,7 +29,7 @@ export function remarkRewriteAssets(args: {
 	return function plugin() {
 		return function transform(tree) {
 			// @ts-expect-error Types Should be correct here
-			visit<Image>(tree, 'image', (node) => {
+			visitParents<Image>(tree, 'image', (node, ancestors: Array<Parent>) => {
 				let url
 				const originalUrl = node.url
 
@@ -61,6 +61,14 @@ export function remarkRewriteAssets(args: {
 
 If this is a net-new asset, you'll need to commit and push it to GitHub.\n`
 				)
+
+				// if the image is wrapped in a link, and shares the same url as the original image, then update the link's url to the new asset url
+				if (isInUDR) {
+					const parent = ancestors[ancestors.length - 1]
+					if (parent && parent.type === 'link' && parent.url === originalUrl) {
+						parent.url = url.toString()
+					}
+				}
 			})
 		}
 	}

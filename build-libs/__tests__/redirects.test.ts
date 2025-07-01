@@ -258,9 +258,7 @@ describe('getRedirectsFromContentRepo', () => {
 			'terraform-docs-common',
 			'test',
 			{
-				flags: {
-					unified_docs_migrated_repos: ['terraform-docs-common'],
-				},
+				'flags.unified_docs_migrated_repos': ['terraform-docs-common']
 			}
 		)
 
@@ -275,9 +273,7 @@ describe('getRedirectsFromContentRepo', () => {
 			'ptfe-releases',
 			'test',
 			{
-				flags: {
-					unified_docs_migrated_repos: ['ptfe-releases'],
-				},
+				'flags.unified_docs_migrated_repos': ['ptfe-releases']
 			}
 		)
 

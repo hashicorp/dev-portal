@@ -9,6 +9,9 @@ import { history } from 'instantsearch.js/es/lib/routers'
 import { useRouter } from 'next/router'
 import ProductPanel from '@hashicorp/react-components/src/components/nav-panel/product-panel'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
+// Experiment: product-dropdown-promo-placement START
+import { useFeatureFlagVariantKey } from 'posthog-js/react'
+// Experiment: product-dropdown-promo-placement END
 
 import SidebarSidecarLayout, {
 	SidebarSidecarLayoutProps,
@@ -52,6 +55,11 @@ interface TutorialsLibraryPageProps {
 }
 
 function TutorialLibrarySidebar() {
+	// Experiment: product-dropdown-promo-placement START
+	const featureFlagKey = useFeatureFlagVariantKey(
+		'product-dropdown-promo-placement'
+	)
+	// Experiment: product-dropdown-promo-placement END
 	return (
 		// TODO: we should consider using Sidebar here to make the markup consistent across pages. We aren't for now due to duplicate "Resources" headings and Tutorial Library being a semi-special case.
 		<>
@@ -65,6 +73,7 @@ function TutorialLibrarySidebar() {
 							productCategories={productPanelMobileNavigationData}
 							promo={productPanelNavPromo}
 							sidePanel={productPanelSidePanelContent}
+							isPromoOnTop={featureFlagKey === 'variant'}
 						/>
 					</NavigationMenu.Root>
 				</SidebarNavList>
