@@ -161,19 +161,14 @@ const navigationData: ProductNavData = [
 				description: 'Secure remote access',
 			},
 			{
-				product: 'HCP Vault Secrets',
-				url: '/hcp/docs/vault-secrets',
-				description: 'Manage secrets as a service',
+				product: 'HCP Vault Radar',
+				url: '/hcp/docs/vault-radar',
+				description: 'Scan for embedded secrets',
 			},
 			{
 				product: 'Consul',
 				url: '/consul',
 				description: 'Secure network services',
-			},
-			{
-				product: 'HCP Vault Radar',
-				url: '/hcp/docs/vault-radar',
-				description: 'Scan for embedded secrets',
 			},
 		],
 	},
@@ -217,11 +212,6 @@ const mobileNavigationData: ProductNavData = [
 				product: 'Vault',
 				url: '/vault',
 				description: 'Centrally manage secrets',
-			},
-			{
-				product: 'HCP Vault Secrets',
-				url: '/hcp/docs/vault-secrets',
-				description: 'Manage secrets as a service',
 			},
 			{
 				product: 'HCP Vault Radar',
