@@ -7,6 +7,7 @@
 import { getContentApiBaseUrl } from 'lib/unified-docs-migration-utils'
 // Types
 import type { VersionSelectItem } from '../loaders/remote-content'
+import redirects from 'data/_redirects.generated.json'
 
 const VERSIONS_ENDPOINT = '/api/content-versions'
 
@@ -53,20 +54,31 @@ export async function getValidVersions(
 	 */
 	const contentApiBaseUrl = getContentApiBaseUrl(productSlugForLoader)
 	try {
-		// Build the URL to fetch known versions of this document
-		const validVersionsUrl = new URL(VERSIONS_ENDPOINT, contentApiBaseUrl)
-		validVersionsUrl.searchParams.set('product', productSlugForLoader)
-		validVersionsUrl.searchParams.set('fullPath', fullPath)
+		const normalizedFullPath = fullPath.replace(/^doc#/, '')
+		const currentPath = `/${productSlugForLoader}/${normalizedFullPath}`
+		const urlSlugs = [fullPath]
+		const redirect = Object.entries(redirects['*'])
+			.map(([source, { destination }]) => ({ source, destination }))
+			.find(({ destination }) => destination === currentPath)
+		if(redirect) {
+			urlSlugs.push('doc#' + redirect.source.replace(`/${productSlugForLoader}/`, ''))
+		}
 		const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
 			? new Headers({
 					'x-vercel-protection-bypass':
 						process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
 			  })
 			: new Headers()
-		// Fetch known versions of this document
-		const response = await fetch(validVersionsUrl.toString(), { headers })
-		const { versions: knownVersions } = await response.json()
-		// Apply the filter, and return the valid versions
+		const knownVersions = (await Promise.all(urlSlugs.map(async (slug) => {
+			const url = new URL(VERSIONS_ENDPOINT, contentApiBaseUrl)
+			url.searchParams.set('product', productSlugForLoader)
+			url.searchParams.set('fullPath', slug)
+			return fetch(url, { headers }).then(async (res) => {
+				const { versions } = await res.json()
+				return versions
+			})
+		}))).reduce((acc, val) => acc.concat(val), [])
+
 		return versions.filter((option) => knownVersions.includes(option.version))
 	} catch (error) {
 		console.error(
