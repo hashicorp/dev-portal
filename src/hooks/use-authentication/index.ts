@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useRouter } from 'next/router'
 import {
 	signIn,
@@ -16,6 +16,7 @@ import { Session } from 'next-auth'
 import { AuthErrors, ValidAuthProviderId } from 'types/auth'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
 import { canAnalyzeUser, safeGetSegmentId } from 'lib/analytics'
+import posthog from 'posthog-js'
 
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 
@@ -58,6 +59,7 @@ const useAuthentication = (
 ): UseAuthenticationResult => {
 	// Get router path for `signIn` and `signOut` `callbackUrl`s
 	const router = useRouter()
+	const hasCaptured = useRef(false)
 
 	// Set up memoized `signIn` and `signOut` callbacks
 	const signIn = useMemo(
@@ -112,6 +114,15 @@ const useAuthentication = (
 			})
 		}
 	}
+	// track authenticated user
+	useEffect(() => {
+		if (!isAuthenticated || !data?.user?.id || hasCaptured.current) return
+		hasCaptured.current = true
+		posthog.capture('user_authenticated', {
+			timestamp: new Date().toISOString(),
+		})
+		posthog.identify(data.user?.id)
+	}, [isAuthenticated, data?.user?.id])
 
 	// Return everything packaged up in an object
 	return {
