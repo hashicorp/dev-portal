@@ -116,17 +116,12 @@ const useAuthentication = (
 	}
 	// track authenticated user
 	useEffect(() => {
-		if (isAuthenticated && !hasCaptured.current) {
-			hasCaptured.current = true
-			posthog.capture('user_authenticated', {
-				timestamp: new Date().toISOString(),
-			})
-			posthog.identify(data.user?.id)
-		}
-
-		if (!isAuthenticated) {
-			hasCaptured.current = false
-		}
+		if (!isAuthenticated || !data?.user?.id || hasCaptured.current) return
+		hasCaptured.current = true
+		posthog.capture('user_authenticated', {
+			timestamp: new Date().toISOString(),
+		})
+		posthog.identify(data.user?.id)
 	}, [isAuthenticated, data?.user?.id])
 
 	// Return everything packaged up in an object
