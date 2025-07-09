@@ -86,6 +86,7 @@ const useAuthentication = (
 		status === 'authenticated' &&
 		data?.error !== AuthErrors.RefreshAccessTokenError // if we are in an errored state, treat as unauthenticated
 
+	const lastCapturedUserId = useRef<string | null>(null)
 	/**
 	 * Force sign out to hopefully resolve the error. The user is signed out
 	 * to prevent unwanted looping of requesting an expired refresh token
@@ -116,13 +117,18 @@ const useAuthentication = (
 	}
 	// track authenticated user
 	useEffect(() => {
-		if (!isAuthenticated || !data?.user?.id || hasCaptured.current) return
+		const userId = data?.user?.id
+		if (!isAuthenticated || !userId) return
+		if (hasCaptured.current && lastCapturedUserId.current === userId) return
+
 		hasCaptured.current = true
+		lastCapturedUserId.current = userId
+
 		posthog.capture('user_authenticated', {
 			timestamp: new Date().toISOString(),
 		})
 		posthog.identify(data.user?.id)
-	}, [isAuthenticated, data?.user?.id])
+	}, [data?.user?.id, isAuthenticated])
 
 	// Return everything packaged up in an object
 	return {
