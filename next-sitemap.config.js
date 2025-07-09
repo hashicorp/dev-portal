@@ -38,7 +38,6 @@ module.exports = {
 		'/consul/tutorials*',
 		'/nomad/docs*',
 		'/nomad/plugins*',
-		'/nomad/intro*',
 		'/nomad/tools*',
 		'/nomad/tutorials*',
 		'/packer/docs*',
