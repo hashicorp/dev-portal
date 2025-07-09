@@ -59,7 +59,6 @@ const useAuthentication = (
 ): UseAuthenticationResult => {
 	// Get router path for `signIn` and `signOut` `callbackUrl`s
 	const router = useRouter()
-	const hasCaptured = useRef(false)
 
 	// Set up memoized `signIn` and `signOut` callbacks
 	const signIn = useMemo(
@@ -86,7 +85,6 @@ const useAuthentication = (
 		status === 'authenticated' &&
 		data?.error !== AuthErrors.RefreshAccessTokenError // if we are in an errored state, treat as unauthenticated
 
-	const lastCapturedUserId = useRef<string | null>(null)
 	/**
 	 * Force sign out to hopefully resolve the error. The user is signed out
 	 * to prevent unwanted looping of requesting an expired refresh token
@@ -118,15 +116,8 @@ const useAuthentication = (
 	// track authenticated user
 	useEffect(() => {
 		const userId = data?.user?.id
-		if (!isAuthenticated || !userId) return
-		if (hasCaptured.current && lastCapturedUserId.current === userId) return
+		if (!isAuthenticated || !userId || !posthog) return
 
-		hasCaptured.current = true
-		lastCapturedUserId.current = userId
-
-		posthog.capture('user_authenticated', {
-			timestamp: new Date().toISOString(),
-		})
 		posthog.identify(data.user?.id)
 	}, [data?.user?.id, isAuthenticated])
 
