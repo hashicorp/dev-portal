@@ -59,7 +59,6 @@ const useAuthentication = (
 ): UseAuthenticationResult => {
 	// Get router path for `signIn` and `signOut` `callbackUrl`s
 	const router = useRouter()
-	const hasCaptured = useRef(false)
 
 	// Set up memoized `signIn` and `signOut` callbacks
 	const signIn = useMemo(
@@ -116,13 +115,11 @@ const useAuthentication = (
 	}
 	// track authenticated user
 	useEffect(() => {
-		if (!isAuthenticated || !data?.user?.id || hasCaptured.current) return
-		hasCaptured.current = true
-		posthog.capture('user_authenticated', {
-			timestamp: new Date().toISOString(),
-		})
+		const userId = data?.user?.id
+		if (!isAuthenticated || !userId || !posthog) return
+
 		posthog.identify(data.user?.id)
-	}, [isAuthenticated, data?.user?.id])
+	}, [data?.user?.id, isAuthenticated])
 
 	// Return everything packaged up in an object
 	return {
