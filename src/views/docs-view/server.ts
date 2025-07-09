@@ -124,16 +124,14 @@ export async function fetchValidVersions(
  * export { getStaticPaths, getStaticProps }
  * ```
  */
-export function getStaticGenerationFunctions<
-	MdxScope = Record<string, unknown>
->({
+export function getStaticGenerationFunctions({
 	product,
 	basePath,
 	productSlugForLoader = product.slug,
 	basePathForLoader = basePath,
 	baseName,
 	additionalRemarkPlugins = [],
-	getScope = async () => ({} as MdxScope),
+	getScope = async () => ({} as Record<string, unknown>),
 	mainBranch,
 	navDataPrefix,
 	options = {},
@@ -144,7 +142,7 @@ export function getStaticGenerationFunctions<
 	basePathForLoader?: string
 	baseName: string
 	additionalRemarkPlugins?: Pluggable[]
-	getScope?: () => Promise<MdxScope>
+	getScope?: () => Promise<Record<string, unknown>>
 	mainBranch?: string
 	navDataPrefix?: string
 	options?: DocsViewPropOptions
