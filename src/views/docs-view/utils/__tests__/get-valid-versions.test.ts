@@ -60,10 +60,8 @@ describe('getValidVersions', () => {
 	})
 
 	it('should return filtered versions based on known versions from API', async () => {
-		const knownVersions = ['1.0.0']
+		const knownVersions = [versions[0].version]
 		;(fetch as MockedFunction<typeof fetch>).mockResolvedValueOnce({
-			ok: true,
-			status: 200,
 			json: async () => ({ versions: knownVersions }),
 		} as unknown as Response)
 
@@ -74,11 +72,8 @@ describe('getValidVersions', () => {
 		)
 		expect(result).toEqual([
 			{
-				isLatest: false,
-				label: 'v1.0.0',
-				name: 'v1.0.0',
-				releaseStage: 'stable',
-				version: '1.0.0',
+				...versions[0],
+				href: null,
 			},
 		])
 	})
@@ -116,5 +111,91 @@ describe('getValidVersions', () => {
 		)
 
 		consoleErrorSpy.mockRestore()
+	})
+
+	it('finds additional versions via redirect', async () => {
+		const oldUrl = 'docs/platform/aws/run'
+		const newUrl = 'docs/deploy/aws/run'
+		const mockRedirectData: Record<'*', Record<string, Redirect>> = {
+			"*": {
+				[`/${productSlugForLoader}/${oldUrl}`]: {
+					destination: `/${productSlugForLoader}/${newUrl}`,
+					permanent: true
+				}
+			}
+		}
+		vol.fromJSON({
+			[`${resolve('src/data/_redirects.generated.json')}`]: JSON.stringify(mockRedirectData),
+		})
+
+		;(fetch as $TSFixMe)
+			.mockImplementation((url: URL) => {
+				return Promise.resolve({
+					json: async () => {
+						const path = url.searchParams.get('fullPath')
+						if(path.includes(oldUrl)) {
+							return { versions: [versions[0].version] } // Simulate finding the old version
+						} else if(path.includes(newUrl)) {
+							return { versions: [versions[1].version] } // Simulate finding the new version
+						}
+						return { versions: [] } // No versions found for this path
+					},
+				})
+			})
+
+		const result = await getValidVersions(
+			versions,
+			`doc#${newUrl}`,
+			productSlugForLoader
+		)
+		expect(result).toEqual([
+			{
+				...versions[0],
+				href: `/${productSlugForLoader}/${oldUrl}`,
+			},
+			{
+				...versions[1],
+				href: null,
+			},
+		])
+	})
+
+	it('only adds paths for versions that were discovered via redirect', async () => {
+		const oldUrl = 'docs/platform/aws/run'
+		const newUrl = 'docs/deploy/aws/run'
+		const mockRedirectData: Record<'*', Record<string, Redirect>> = {
+			"*": {
+				[`/${productSlugForLoader}/${oldUrl}`]: {
+					destination: `/${productSlugForLoader}/${newUrl}`,
+					permanent: true
+				}
+			}
+		}
+		vol.fromJSON({
+			[`${resolve('src/data/_redirects.generated.json')}`]: JSON.stringify(mockRedirectData),
+		})
+
+		;(fetch as $TSFixMe)
+			.mockImplementation((url: URL) => {
+				return Promise.resolve({
+					json: async () => {
+						const path = url.searchParams.get('fullPath')
+						if(path.includes(oldUrl)) {
+							return { versions: [versions[0].version] }
+						} else if(path.includes(newUrl)) {
+							return { versions: [versions[1].version] }
+						}
+						return { versions: [] }
+					},
+				})
+			})
+
+		const result = await getValidVersions(
+			versions,
+			`doc#${newUrl}`,
+			productSlugForLoader
+		)
+		expect(result[0].href).toBe(`/${productSlugForLoader}/${oldUrl}`)
+		expect(result[1].href).toBe(null)
 	})
 })

@@ -70,6 +70,10 @@ export interface VersionSelectItem {
 	version: string
 	isLatest: boolean
 	releaseStage: ReleaseStage
+	/**
+	 * An alternative path to the document, used for navigation.
+	 */
+	href?: string
 }
 
 interface LoadStaticPropsReturn {
