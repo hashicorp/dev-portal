@@ -2,15 +2,31 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-
-import { describe, it, expect, vi, type MockedFunction } from 'vitest'
+import { describe, it, expect, vi, type MockedFunction, beforeEach, afterEach } from 'vitest'
 import { getValidVersions } from '../get-valid-versions'
 import type { VersionSelectItem } from '../../loaders/remote-content'
+import { vol } from 'memfs'
+import { type Redirect } from 'next'
+import { resolve } from 'path'
+vi.mock('fs')
 
 // Mock fetch
 global.fetch = vi.fn() as typeof fetch
 
 describe('getValidVersions', () => {
+	beforeEach(() => {
+		const mockRedirectData: Record<'*', Record<string, Redirect>> = {
+			"*": {}
+		}
+		vol.fromJSON({
+			[`${resolve('src/data/_redirects.generated.json')}`]: JSON.stringify(mockRedirectData),
+		})
+	})
+	afterEach(() => {
+		vol.reset()
+		vi.clearAllMocks()
+		vi.restoreAllMocks()
+	})
 	const versions: VersionSelectItem[] = [
 		{
 			version: '1.0.0',
