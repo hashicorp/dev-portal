@@ -6,11 +6,21 @@
 import { GetStaticPathsContext, GetStaticPropsContext } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 import { Pluggable, Settings } from 'unified'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
+
+interface LoadStaticPropsReturn {
+	currentPath: string
+	frontMatter: Record<string, unknown>
+	githubFileUrl: string
+	mdxSource: MDXRemoteSerializeResult<Record<string, unknown>>
+	navData: unknown[]
+	versions: unknown[]
+}
 
 export interface DataLoader {
 	opts: DataLoaderOpts
-	loadStaticPaths(ctx?: GetStaticPathsContext): Promise<$TSFixMe>
-	loadStaticProps(ctx?: GetStaticPropsContext): Promise<$TSFixMe>
+	loadStaticPaths(ctx?: GetStaticPathsContext): Promise<{ params: Record<string, string[]> }[]>
+	loadStaticProps(ctx?: GetStaticPropsContext): Promise<LoadStaticPropsReturn>
 }
 
 export interface DataLoaderOpts {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, type MockedFunction } from 'vitest'
 import { getValidVersions } from '../get-valid-versions'
 import type { VersionSelectItem } from '../../loaders/remote-content'
 
@@ -36,7 +36,7 @@ describe('getValidVersions', () => {
 		)
 		expect(
 			await getValidVersions(
-				undefined as $TSFixMe,
+				undefined,
 				fullPath,
 				productSlugForLoader
 			)
@@ -45,9 +45,11 @@ describe('getValidVersions', () => {
 
 	it('should return filtered versions based on known versions from API', async () => {
 		const knownVersions = ['1.0.0']
-		;(fetch as $TSFixMe).mockResolvedValueOnce({
+		;(fetch as MockedFunction<typeof fetch>).mockResolvedValueOnce({
+			ok: true,
+			status: 200,
 			json: async () => ({ versions: knownVersions }),
-		})
+		} as unknown as Response)
 
 		const result = await getValidVersions(
 			versions,
@@ -71,7 +73,7 @@ describe('getValidVersions', () => {
 		console.error = vi.fn()
 
 		try {
-			;(fetch as $TSFixMe).mockRejectedValueOnce(new Error('API error'))
+			;(fetch as MockedFunction<typeof fetch>).mockRejectedValueOnce(new Error('API error'))
 
 			const result = await getValidVersions(
 				versions,
@@ -89,7 +91,7 @@ describe('getValidVersions', () => {
 		const consoleErrorSpy = vi
 			.spyOn(console, 'error')
 			.mockImplementation(() => {})
-		;(fetch as $TSFixMe).mockRejectedValueOnce(new Error('API error'))
+		;(fetch as MockedFunction<typeof fetch>).mockRejectedValueOnce(new Error('API error'))
 
 		await getValidVersions(versions, fullPath, productSlugForLoader)
 		expect(consoleErrorSpy).toHaveBeenCalledWith(
