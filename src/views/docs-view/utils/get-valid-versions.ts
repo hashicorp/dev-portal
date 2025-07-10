@@ -7,7 +7,9 @@
 import { getContentApiBaseUrl } from 'lib/unified-docs-migration-utils'
 // Types
 import type { VersionSelectItem } from '../loaders/remote-content'
-import redirects from 'data/_redirects.generated.json'
+import { readFileSync } from 'fs'
+import { type Redirect } from 'next'
+import { resolve } from 'path'
 
 const VERSIONS_ENDPOINT = '/api/content-versions'
 
@@ -57,6 +59,8 @@ export async function getValidVersions(
 		const normalizedFullPath = fullPath.replace(/^doc#/, '')
 		const currentPath = `/${productSlugForLoader}/${normalizedFullPath}`
 		const urlSlugs = [fullPath]
+		const fileContents = readFileSync(resolve('src/data/_redirects.generated.json'), 'utf8')
+		const redirects: Record<'*', Record<string, Redirect>> = JSON.parse(fileContents)
 		const redirect = Object.entries(redirects['*'])
 			.map(([source, { destination }]) => ({ source, destination }))
 			.find(({ destination }) => destination === currentPath)
