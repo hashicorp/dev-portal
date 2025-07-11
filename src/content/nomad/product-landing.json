@@ -35,7 +35,6 @@
 		{
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
-				"nomad/multiregion-deployments",
 				"nomad/schedule-edge-services",
 				"nomad/external-application-load-balancing"
 			]
@@ -138,9 +137,9 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Operating Nomad Clusters",
+					"heading": "Build Nomad Clusters",
 					"body": "Learn the features operators need to build and maintain Nomad clusters.",
-					"url": "nomad/tutorials/manage-clusters"
+					"url": "nomad/docs/deploy/clusters"
 				},
 				{
 					"heading": "Upgrade a Cluster",
@@ -161,7 +160,7 @@
 				{
 					"heading": "Task Drivers",
 					"body": "Task drivers are used by Nomad clients to execute a task and provide resource isolation. Extending task drivers allows Nomad the flexibility to support a broad set of workloads.",
-					"url": "nomad/plugins/drivers"
+					"url": "nomad/docs/deploy/task-driver"
 				},
 				{
 					"heading": "External Tools",
