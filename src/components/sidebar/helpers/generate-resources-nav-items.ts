@@ -9,6 +9,7 @@ import {
 	VALID_EDITION_SLUGS_FOR_FILTERING,
 	VALID_PRODUCT_SLUGS_FOR_FILTERING,
 } from 'views/tutorial-library/constants'
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 
 /**
  * Note: these ResourceNav types could probably be abstracted up or lifted out,
@@ -136,6 +137,11 @@ function generateResourcesNavItems(
 	productSlug?: ProductSlug
 ): ResourceNavItem[] {
 	const additionalResources = generateAdditionalResources(productSlug)
+	const supportedSandboxProducts = SANDBOX_CONFIG.products || []
+	const hasSandbox =
+		productSlug &&
+		SANDBOX_CONFIG.labs?.length > 0 &&
+		supportedSandboxProducts.includes(productSlug)
 
 	return [
 		{ heading: 'Resources' },
@@ -145,6 +151,15 @@ function generateResourcesNavItems(
 			href: getTutorialLibraryUrl(productSlug),
 		},
 		...getCertificationsLink(productSlug),
+		// Add Sandbox link if the product supports it
+		...(hasSandbox
+			? [
+					{
+						title: 'Sandbox',
+						href: `/${productSlug}/sandbox`,
+					},
+			  ]
+			: []),
 		{
 			title: 'Community Forum',
 			href: productSlug
