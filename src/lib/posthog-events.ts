@@ -6,6 +6,27 @@
 import posthog from 'posthog-js'
 
 /**
+ * Tracks sandbox events using PostHog
+ */
+
+export enum TERMINAL_EVENT {
+	TERMINAL_OPEN = 'hosted_terminal_open',
+	TERMINAL_CLOSED = 'hosted_terminal_closed',
+}
+
+export const trackTerminalEvent = (
+	eventName: `${TERMINAL_EVENT}`,
+	properties: {
+		labId: string
+		page: string
+	}
+): void => {
+	if (window?.posthog?.capture) {
+		window.posthog.capture(eventName, properties)
+	}
+}
+
+/**
  * Enables PostHog video start tracking
  */
 export function trackVideoStart(url: string): void {

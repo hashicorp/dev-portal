@@ -10,9 +10,12 @@ import {
 	ReactNode,
 	Dispatch,
 	SetStateAction,
+	useEffect,
 } from 'react'
+import { useRouter } from 'next/router'
 import EmbedElement from 'components/lab-embed/embed-element'
 import Resizable from 'components/lab-embed/resizable'
+import { trackTerminalEvent, TERMINAL_EVENT } from 'lib/posthog-events'
 
 interface InstruqtContextProps {
 	labId: string
@@ -36,6 +39,22 @@ export default function InstruqtProvider({
 	children,
 }: InstruqtProviderProps): JSX.Element {
 	const [active, setActive] = useState(false)
+	const router = useRouter()
+
+	useEffect(() => {
+		// Track when a sandbox is open or closed
+		if (active && labId) {
+			trackTerminalEvent(TERMINAL_EVENT.TERMINAL_OPEN, {
+				labId,
+				page: router.asPath,
+			})
+		} else if (!active && labId) {
+			trackTerminalEvent(TERMINAL_EVENT.TERMINAL_CLOSED, {
+				labId,
+				page: router.asPath,
+			})
+		}
+	}, [router.asPath, active, labId])
 
 	return (
 		<InstruqtContext.Provider value={{ labId, active, setActive }}>
