@@ -1,11 +1,11 @@
 {
 	"featuredTutorialsSlugs": [
-		"nomad/web-ui-access",
+		"nomad/hashicorp-enterprise-license",
+		"nomad/gs-overview",
 		"nomad/cluster-setup-aws",
-		"nomad/jobs-configuring",
-		"nomad/job-spec-java-linux",
-		"nomad/task-dependencies-interjob",
-		"nomad/stateful-workloads-host-volumes"
+		"nomad/schedule-edge-services",
+		"nomad/consul-service-mesh",
+		"nomad/monolith-migration-overview"
 	],
 	"sidecarMarketingCard": {
 		"title": "About Nomad",
@@ -13,16 +13,24 @@
 		"featuredDocsLinks": [
 			{
 				"href": "/nomad/docs/deploy",
-				"text": "Installing"
+				"text": "Linux post-installation steps"
 			},
+			{
+				"href": "/nomad/docs/secure/acl/bootstrap",
+				"text": "Bootstrap the ACL system"
+			},
+			{
+				"href": "/nomad/docs/deploy/clusters",
+				"text": "Build Nomad clusters"
+			},
+			{
+				"href": "/nomad/docs/networking",
+				"text": "Network Nomad"
+			},		
 			{
 				"href": "/nomad/docs/upgrade",
-				"text": "Upgrading"
-			},
-			{
-				"href": "/nomad/docs/integrations",
-				"text": "Integrations"
-			}
+				"text": "Upgrade Nomad"
+			}			
 		]
 	}
 }
