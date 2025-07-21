@@ -20,7 +20,8 @@
 			"terraform-cdk",
 			"ptfe-releases",
 			"terraform-docs-common",
-			"terraform"
+			"terraform",
+			"vault"
 		]
 	}
 }
