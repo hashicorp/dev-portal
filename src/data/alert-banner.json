@@ -2,10 +2,10 @@
 	"enabled": true,
 	"data": {
 		"product": "hashicorp",
-		"tag": "Save 10-15%",
+		"tag": "HashiConf",
 		"url": "https://www.hashicorp.com/en/conferences/hashiconf/register",
-		"text": "Register for HashiConf and save big when you buy 2+ tickets",
-		"linkText": "Get your passes",
-		"expirationDate": "2025-07-07T06:00:00-06:00"
+		"text": "More sessions have been added to the conference agenda. Buy your pass and plan your schedule.",
+		"linkText": "Register",
+		"expirationDate": "2025-07-29T06:00:00-06:00"
 	}
 }
