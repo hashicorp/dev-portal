@@ -28,6 +28,18 @@
 	"blocks": [
 		{
 			"type": "heading",
+			"heading": "Nomad Sandbox",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"nomad/sandbox"
+			]
+		},
+		{
+			"type": "heading",
 			"heading": "Featured Tutorials",
 			"level": 2,
 			"size": 400

@@ -32,6 +32,18 @@
 	"blocks": [
 		{
 			"type": "heading",
+			"heading": "Vault Sandbox",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"vault/sandbox"
+			]
+		},
+		{
+			"type": "heading",
 			"heading": "Use Cases",
 			"level": 2,
 			"size": 400
