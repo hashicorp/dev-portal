@@ -14,7 +14,7 @@ export interface DocsViewProps {
 	/**
 	 * Frontmatter parsed from the MDX document
 	 */
-	metadata?: Record<string, $TSFixMe>
+	metadata?: { title?: string, description?: string, layout?: { name: string, subtitle?: unknown } }
 
 	/**
 	 * Represents the return value of a call to `serialize()`. The properties

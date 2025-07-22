@@ -22,6 +22,7 @@ import {
 	RemarkPlugins,
 	RemarkPluginsArray,
 } from './types'
+import { ParsedUrlQuery } from 'querystring'
 
 interface FileSystemLoaderOpts extends DataLoaderOpts {
 	navDataFile: string
@@ -78,7 +79,7 @@ export default class FileSystemLoader implements DataLoader {
 		// We support passing in a function to remarkPlugins, which gets the parameters of the current page
 		if (typeof this.opts.remarkPlugins === 'function') {
 			remarkPlugins = this.opts.remarkPlugins(
-				paramsNoVersion as $TSFixMe,
+				paramsNoVersion as unknown as ParsedUrlQuery,
 				versionFromPath
 			)
 			if (!Array.isArray(remarkPlugins)) {

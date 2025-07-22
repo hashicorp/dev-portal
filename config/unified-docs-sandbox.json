@@ -21,7 +21,8 @@
 			"ptfe-releases",
 			"terraform-docs-common",
 			"terraform",
-      "well-architected-framework"
+			"vault",
+      "well-architected-framework",
 		]
 	}
 }

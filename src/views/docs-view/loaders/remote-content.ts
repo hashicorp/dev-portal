@@ -39,7 +39,7 @@ interface RemoteContentLoaderOpts extends DataLoaderOpts {
 	remarkPlugins?: RemarkPlugins
 	rehypePlugins?: Pluggable[]
 	mainBranch?: string // = 'main',
-	scope?: Record<string, $TSFixMe>
+	scope?: Record<string, unknown>
 	/**
 	 * Allows us to override the default ref from which we fetch the latest content.
 	 * e.g. when no version exists in the path, and latestVersionRef was 'my-stable-branch', we would fetch content for `my-stable-branch`

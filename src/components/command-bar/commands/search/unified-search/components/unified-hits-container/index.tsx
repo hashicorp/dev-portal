@@ -7,6 +7,10 @@
 import Tabs, { Tab } from 'components/tabs'
 import { CommandBarDivider } from 'components/command-bar/components'
 import { CommandBarList } from 'components/command-bar/components'
+// Experiment: support-tab-text START
+import { useFeatureFlagVariantKey } from 'posthog-js/react'
+import posthog from 'posthog-js'
+// Experiment: support-tab-text END
 // Unified search
 import TabHeadingWithCount from '../tab-heading-with-count'
 import NoResultsMessage from '../no-results-message'
@@ -32,18 +36,44 @@ export function UnifiedHitsContainer({
 	tabsData: UnifiedSearchTabContent[]
 	suggestedPages: SuggestedPageProps[]
 }) {
+	// Experiment: support-tab-text START
+	const featureFlagKey = useFeatureFlagVariantKey(
+		'support-tab-text'
+	)
+
+	const handleChange = (newActiveIndex: number) => {
+		// The index of the "Support" tab is 4, so we want to send an event to posthog
+		// when the users clicks this tab
+		if(newActiveIndex === 4) {
+			// Send event to posthog
+			posthog.capture('experiment_activated', {
+				id: 'support-tab-text',
+				flagKey: featureFlagKey,
+			})
+		}
+	}
+	// Experiment: support-tab-text END
+
 	return (
 		<div className={s.tabsWrapper}>
-			<Tabs showAnchorLine={false} variant="compact">
+			<Tabs showAnchorLine={false} variant="compact" onChange={handleChange}>
 				{tabsData.map((tabData: UnifiedSearchTabContent) => {
 					const { type, heading, icon, hits, hitCount, otherTabData } = tabData
 					const resultsLabelId = `${type}-search-results-label`
+
+					// Experiment: support-tab-text START
+					const tabHeading =
+						featureFlagKey === 'variant' &&
+						type === SearchContentTypes.KNOWLEDGEBASE
+							? 'Knowledge Base'
+							: heading
+					// Experiment: support-tab-text END
 					return (
 						<Tab
-							heading={heading}
+							heading={tabHeading}
 							headingSlot={
 								<TabHeadingWithCount
-									heading={heading}
+									heading={tabHeading}
 									count={
 										type === SearchContentTypes.GLOBAL ? undefined : hitCount
 									}
@@ -71,7 +101,7 @@ export function UnifiedHitsContainer({
 							) : (
 								<div className={s.noResultsWrapper}>
 									<NoResultsMessage
-										currentTabHeading={heading}
+										currentTabHeading={tabHeading}
 										tabsWithResults={otherTabData}
 									/>
 									<CommandBarDivider className={s.divider} />

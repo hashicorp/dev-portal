@@ -21,7 +21,7 @@
 				{
 					"title": "Installing Nomad",
 					"description": "Nomad is available as a pre-compiled binary, a package for several OSs, or as source code for you to build from.",
-					"url": "/nomad/docs/install"
+					"url": "/nomad/docs/deploy"
 				},
 				{
 					"title": "Writing Job Specs",
@@ -36,7 +36,7 @@
 				{
 					"title": "Manage Nomad Jobs",
 					"description": "Learn how to deploy and manage jobs.",
-					"url": "/nomad/tutorials/manage-jobs"
+					"url": "/nomad/docs/job-run"
 				}
 			]
 		},
@@ -48,12 +48,12 @@
 				{
 					"title": "Introduction to Nomad Pack",
 					"description": "Learn about Nomad Pack and how to use it to easily create, share, deploy, and re-use Nomad job specs.",
-					"url": "/nomad/tutorials/job-specifications/nomad-pack-intro"
+					"url": "/nomad/tools/nomad-pack"
 				},
 				{
 					"title": "Write a custom Nomad Pack",
 					"description": "Learn how to create your own custom Nomad Pack.",
-					"url": "/nomad/tutorials/job-specifications/nomad-pack-writing-packs"
+					"url": "/nomad/tools/nomad-pack/create-packs"
 				},
 				{
 					"title": "Community Repository",
@@ -85,7 +85,7 @@
 				{
 					"title": "Manage Job Placement and Affinities",
 					"description": "Learn how to use the affinity stanza to express job placement preferences.",
-					"url": "/nomad/tutorials/advanced-scheduling/affinity"
+					"url": "/nomad/docs/job-scheduling/affinity"
 				}
 			]
 		},
@@ -102,17 +102,17 @@
 				{
 					"title": "Enable Multi-Region Federation",
 					"description": "Learn how to use federation to allow users to submit jobs or interact with the API from any region attached to the cluster.",
-					"url": "/nomad/tutorials/manage-clusters/federation"
+					"url": "/nomad/docs/deploy/clusters/federate-regions"
 				},
 				{
 					"title": "Connect Nodes into a Cluster",
 					"description": "Learn how to connect nodes to a cluster manually, with Cloud Auto-Join, or with Consul.",
-					"url": "/nomad/tutorials/manage-clusters/clustering"
+					"url": "/nomad/docs/deploy/clusters/connect-nodes"
 				},
 				{
 					"title": "Enable Autopilot",
 					"description": "Learn about the Autopilot features and how to use them to cleanup servers, monitor Raft state, and introduce servers stably.",
-					"url": "/nomad/tutorials/manage-clusters/autopilot"
+					"url": "/nomad/docs/manage/autopilot"
 				}
 			]
 		},

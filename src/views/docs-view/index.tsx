@@ -76,7 +76,7 @@ const DocsView = ({
 		headingSlot = (
 			<LandingHero
 				pageHeading={pageHeading}
-				pageSubtitle={metadata?.layout?.subtitle}
+				pageSubtitle={metadata?.layout?.subtitle as string}
 			/>
 		)
 	} else if (renderPageHeadingOutsideMdx) {

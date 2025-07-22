@@ -8,7 +8,7 @@
 		"body": "A simple and flexible scheduler and orchestrator to deploy and manage containers and non-containerized applications across on-prem and clouds at scale",
 		"cta": {
 			"text": "Learn more about Nomad features",
-			"url": "/nomad/intro"
+			"url": "/nomad/docs/what-is-nomad"
 		},
 		"image": {
 			"light": "https://www.datocms-assets.com/2885/1679095153-devdot-nomad_lm.png",
@@ -35,7 +35,6 @@
 		{
 			"type": "tutorial_cards",
 			"tutorialSlugs": [
-				"nomad/multiregion-deployments",
 				"nomad/schedule-edge-services",
 				"nomad/external-application-load-balancing"
 			]
@@ -50,9 +49,9 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Deploy and Manage Jobs",
+					"heading": "Create and Deploy Jobs",
 					"body": "Learn the fundamentals of expressing your workload as Nomad jobs.",
-					"url": "nomad/tutorials/manage-jobs"
+					"url": "/nomad/docs/job-declare/create-job"
 				},
 				{
 					"heading": "Parameterized Jobs",
@@ -62,7 +61,7 @@
 				{
 					"heading": "Nomad Pack",
 					"body": "Create and re-use existing job templates with Nomad Pack.",
-					"url": "nomad/tutorials/nomad-pack"
+					"url": "nomad/tools/nomad-pack"
 				}
 			]
 		},
@@ -104,27 +103,27 @@
 				{
 					"heading": "Secure Nomad with Access Control",
 					"body": "Learn to configure a Nomad cluster for ACLs, author your first policy, and grant a token based on it.",
-					"url": "nomad/tutorials/access-control"
+					"url": "nomad/docs/secure/acl"
 				},
 				{
-					"heading": "Enable Transport Encryption for Nomad",
+					"heading": "Enable Traffic Encryption for Nomad",
 					"body": "Encrypt Nomad's intercluster traffic—UDP gossip and TCP API/RPC traffic.",
-					"url": "nomad/tutorials/transport-security"
+					"url": "nomad/docs/secure/traffic"
 				},
 				{
 					"heading": "Job Resiliency",
 					"body": "Learn to keep jobs running in the event of the unexpected with local retries and node rescheduling.",
-					"url": "nomad/tutorials/job-failure-handling"
+					"url": "nomad/docs/job-declare/failure"
 				},
 				{
 					"heading": "Governance and Policy",
 					"body": "Operate Nomad securely in a multi-team environment with resource quotas and Sentinel integration.",
-					"url": "nomad/tutorials/governance-and-policy"
+					"url": "nomad/docs/govern"
 				},
 				{
 					"heading": "Advanced Application Scheduling",
 					"body": "Learn to express placement preferences for job allocations using affinities and preemption.",
-					"url": "nomad/tutorials/advanced-scheduling"
+					"url": "/nomad/docs/job-scheduling"
 				}
 			]
 		},
@@ -138,9 +137,9 @@
 			"type": "linked_cards",
 			"cards": [
 				{
-					"heading": "Operating Nomad Clusters",
-					"body": "Learn the features operators will need to build and maintain Nomad clusters.",
-					"url": "nomad/tutorials/manage-clusters"
+					"heading": "Build Nomad Clusters",
+					"body": "Learn the features operators need to build and maintain Nomad clusters.",
+					"url": "nomad/docs/deploy/clusters"
 				},
 				{
 					"heading": "Upgrade a Cluster",
@@ -161,7 +160,7 @@
 				{
 					"heading": "Task Drivers",
 					"body": "Task drivers are used by Nomad clients to execute a task and provide resource isolation. Extending task drivers allows Nomad the flexibility to support a broad set of workloads.",
-					"url": "nomad/plugins/drivers"
+					"url": "nomad/docs/deploy/task-driver"
 				},
 				{
 					"heading": "External Tools",

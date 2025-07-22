@@ -16,6 +16,7 @@ import { Session } from 'next-auth'
 import { AuthErrors, ValidAuthProviderId } from 'types/auth'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
 import { canAnalyzeUser, safeGetSegmentId } from 'lib/analytics'
+import posthog from 'posthog-js'
 
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 
@@ -112,6 +113,13 @@ const useAuthentication = (
 			})
 		}
 	}
+	// track authenticated user
+	useEffect(() => {
+		const userId = data?.user?.id
+		if (!isAuthenticated || !userId || !posthog) return
+
+		posthog.identify(data.user?.id)
+	}, [data?.user?.id, isAuthenticated])
 
 	// Return everything packaged up in an object
 	return {
