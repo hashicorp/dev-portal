@@ -8,9 +8,6 @@ import { useMemo, useState } from 'react'
 import classNames from 'classnames'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import ProductPanel from '@hashicorp/react-components/src/components/nav-panel/product-panel'
-// Experiment: product-dropdown-promo-placement START
-import { useFeatureFlagVariantKey } from 'posthog-js/react'
-// Experiment: product-dropdown-promo-placement END
 
 // Global imports
 import { SIDEBAR_LABEL_ID, SIDEBAR_NAV_ELEMENT_ID } from 'constants/element-ids'
@@ -62,11 +59,6 @@ const Sidebar = ({
 		[currentPath, menuItems]
 	)
 	const isProductPanel = shouldRenderMobileControls && title === 'Main Menu'
-	// Experiment: product-dropdown-promo-placement START
-	const featureFlagKey = useFeatureFlagVariantKey(
-		'product-dropdown-promo-placement'
-	)
-	// Experiment: product-dropdown-promo-placement END
 
 	let backToElement
 	if (shouldRenderMobileControls && levelButtonProps) {
@@ -152,7 +144,7 @@ const Sidebar = ({
 						productCategories={mobileNavigationData}
 						promo={navPromo}
 						sidePanel={sidePanelContent}
-						isPromoOnTop={featureFlagKey === 'variant'}
+						isPromoOnTop={true}
 					/>
 				</NavigationMenu.Root>
 				{showResourcesList && (
