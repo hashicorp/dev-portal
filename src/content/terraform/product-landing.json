@@ -54,6 +54,18 @@
 	"blocks": [
 		{
 			"type": "heading",
+			"heading": "Terraform Sandbox",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"terraform/sandbox"
+			]
+		},
+		{
+			"type": "heading",
 			"heading": "Best Practices",
 			"level": 2,
 			"size": 400
