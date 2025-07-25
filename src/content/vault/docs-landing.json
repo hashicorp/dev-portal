@@ -31,7 +31,7 @@
 			"cards": [
 				{
 					"title": "Manage static secrets",
-					"description": "Store, rotate, and encrypt arbitrary strings",
+					"description": "Store, rotate, and encrypt arbitrary strings as key-value pairs",
 					"url": "/vault/docs/about-vault/why-use-vault/static-secrets"
 				},
 				{
