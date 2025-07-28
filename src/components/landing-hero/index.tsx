@@ -12,13 +12,13 @@ import { Hero, HeroText } from './components/hero'
 interface LandingHeroProps extends HTMLAttributes<HTMLDivElement> {
 	heading: string
 	description?: string
-	isHvd?: boolean
+	noImage?: boolean
 }
 
 function LandingHero({
 	heading,
 	description,
-	isHvd = false,
+	noImage = false,
 	className,
 }: LandingHeroProps) {
 	return (
@@ -34,7 +34,7 @@ function LandingHero({
 				/>
 			}
 			endSlot={
-				isHvd ? null : (
+				noImage ? null : (
 					<div className={s.heroImage}>
 						<Image alt="" src={svgHeroImage} width={447} height={515} />
 					</div>
