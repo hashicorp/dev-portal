@@ -7,9 +7,6 @@
 import { Fragment, KeyboardEvent, ReactElement, useRef, useState } from 'react'
 import { useId } from '@react-aria/utils'
 import classNames from 'classnames'
-// Experiment: product-dropdown-promo-placement START
-import { useFeatureFlagVariantKey } from 'posthog-js/react'
-// Experiment: product-dropdown-promo-placement END
 
 // HashiCorp imports
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
@@ -60,11 +57,6 @@ const NavigationHeaderDropdownMenu = ({
 	const [isOpen, setIsOpen] = useState(false)
 	const menuId = `navigation-header-menu-${uniqueId}`
 	const hasLeadingIcon = !!leadingIcon
-	// Experiment: product-dropdown-promo-placement START
-	const featureFlagKey = useFeatureFlagVariantKey(
-		'product-dropdown-promo-placement'
-	)
-	// Experiment: product-dropdown-promo-placement END
 
 	// Handles closing the menu if there is a click outside of it and it is open.
 	useOnClickOutside([menuRef], () => setIsOpen(false), isOpen)
@@ -229,7 +221,7 @@ const NavigationHeaderDropdownMenu = ({
 						productCategories={productPanelData.navigationData}
 						promo={productPanelData.navPromo}
 						sidePanel={productPanelData.sidePanelContent}
-						isPromoOnTop={featureFlagKey === 'variant'}
+						isPromoOnTop={true}
 					/>
 				) : (
 					<div className={s.dropdownContainerInner}>
