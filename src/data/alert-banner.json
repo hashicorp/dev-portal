@@ -2,10 +2,10 @@
 	"enabled": true,
 	"data": {
 		"product": "hashicorp",
-		"tag": "Acquisition complete",
-		"url": "https://www.hashicorp.com/en/blog/hashicorp-officially-joins-the-ibm-family",
-		"text": "HashiCorp officially joins the IBM family.",
-		"linkText": "Learn more",
-		"expirationDate": "2025-03-31T06:00:00-06:00"
+		"tag": "HashiConf",
+		"url": "https://www.hashicorp.com/en/conferences/hashiconf/register",
+		"text": "More sessions have been added to the conference agenda. Buy your pass and plan your schedule.",
+		"linkText": "Register",
+		"expirationDate": "2025-07-29T06:00:00-06:00"
 	}
 }

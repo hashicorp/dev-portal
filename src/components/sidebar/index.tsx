@@ -144,6 +144,7 @@ const Sidebar = ({
 						productCategories={mobileNavigationData}
 						promo={navPromo}
 						sidePanel={sidePanelContent}
+						isPromoOnTop={true}
 					/>
 				</NavigationMenu.Root>
 				{showResourcesList && (

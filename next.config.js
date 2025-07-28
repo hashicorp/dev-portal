@@ -3,6 +3,12 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+const { loadEnvConfig } = require('@next/env')
+
+// Load environment variables, as they are not normally available in the next.config.js file. (https://nextjs.org/docs/app/guides/environment-variables#loading-environment-variables-with-nextenv)
+const projectDir = process.cwd()
+loadEnvConfig(projectDir)
+
 const fs = require('fs')
 const path = require('path')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
@@ -102,6 +108,15 @@ module.exports = withHashicorp({
 			'www.datocms-assets.com',
 			'mktg-content-api-hashicorp.vercel.app',
 			'content.hashicorp.com',
+			// remove the http protocol from the URL
+			(process.env.UNIFIED_DOCS_API).replace(/^https?:\/\//, ''),
+			// only allow localhost in development mode
+			...((
+				process.env.NODE_ENV === 'development' &&
+				process.env.HASHI_ENV !== 'preview') ?
+				['localhost'] :
+				[]
+			),
 		],
 		dangerouslyAllowSVG: true,
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",

@@ -4,9 +4,6 @@
  */
 
 import { ReactElement } from 'react'
-// Experiment: support-tab-text START
-import { useFeatureFlagVariantKey } from 'posthog-js/react'
-// Experiment: support-tab-text END
 import Badge from 'components/badge'
 import Text from 'components/text'
 import { useCommandBar } from 'components/command-bar'
@@ -31,11 +28,6 @@ function NoResultsMessage({
 	currentTabHeading,
 }: NoResultsMessageProps) {
 	const { currentInputValue } = useCommandBar()
-	// Experiment: support-tab-text START
-	const featureFlagKey = useFeatureFlagVariantKey(
-		'support-tab-text'
-	)
-	// Experiment: support-tab-text END
 
 	return (
 		<div className={s.root}>
@@ -48,19 +40,12 @@ function NoResultsMessage({
 					Check the{' '}
 					{tabsWithResults.map((otherTab, idx) => {
 						const isLastItem = idx === tabsWithResults.length - 1
-						// Experiment: support-tab-text START
-						const badgeHeading =
-							featureFlagKey === 'variant' &&
-							otherTab.type === SearchContentTypes.KNOWLEDGEBASE
-								? 'Knowledge Base'
-								: otherTab.heading
-						// Experiment: support-tab-text END
 						return (
 							<span key={otherTab.type}>
 								<Badge
 									className={s.otherTabBadge}
 									icon={otherTab.icon}
-									text={badgeHeading}
+									text={otherTab.heading}
 									type="outlined"
 									size="small"
 								/>

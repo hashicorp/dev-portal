@@ -7,7 +7,7 @@ import { GetStaticPaths, GetStaticProps, GetStaticPathsResult } from 'next'
 import { ContentApiError } from './content-api'
 import FileSystemLoader from './file-system'
 import RemoteContentLoader from './remote-content'
-import { DataLoader } from './types'
+import { DataLoader, RemarkPlugins } from './types'
 
 // We currently export most utilities individually,
 // since we have cases such as Packer remote plugin docs
@@ -23,7 +23,7 @@ interface BaseOpts {
 	fallback?: GetStaticPathsResult['fallback']
 	revalidate?: number
 	product: string
-	scope?: Record<string, $TSFixMe>
+	scope?: Record<string, unknown>
 }
 
 export function getStaticGenerationFunctions(
@@ -137,8 +137,8 @@ export interface GenerateStaticPropsContext {
 	params: Record<string, string[]> // {} | { page: ["destroy"] }
 	product: { name: string; slug: string }
 	mainBranch?: string // = 'main',
-	remarkPlugins?: $TSFixMe[]
-	scope?: $TSFixMe // optional, I think?
+	remarkPlugins?: RemarkPlugins
+	scope?: Record<string, unknown>
 	paramId?: string
 	basePath: string // 'docs'
 	githubFileUrl?: (path: string) => string

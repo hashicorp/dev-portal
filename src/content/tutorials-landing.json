@@ -83,18 +83,18 @@
 					"text": "Auto-scaled applications"
 				},
 				{
-					"href": "/nomad/tutorials/stateful-workloads",
-					"text": "Stateful workloads"
+					"href": "/nomad/tutorials/edge",
+					"text": "Run Nomad on Edge workloads"
 				},
 				{
-					"href": "/nomad/tutorials/task-deps",
-					"text": "Task dependencies"
+					"href": "/nomad/tutorials/enterprise",
+					"text": "Nomad Enterprise"
 				}
 			],
 			"featuredCollectionSlugs": [
 				"nomad/get-started",
-				"nomad/cluster-setup",
-				"nomad/manage-jobs"
+				"nomad/integrate-consul",
+				"nomad/migrate-monolith"
 			]
 		},
 		"packer": {

@@ -65,6 +65,18 @@
 		},
 		{
 			"type": "heading",
+			"heading": "Boundary Sandbox",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"boundary/sandbox"
+			]
+		},
+		{
+			"type": "heading",
 			"heading": "Popular Tutorials",
 			"level": 2,
 			"size": 400

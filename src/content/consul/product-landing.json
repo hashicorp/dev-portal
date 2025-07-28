@@ -21,7 +21,7 @@
 		"iconCardLinks": [
 			{
 				"icon": "server",
-				"text": "Get started with Consul on Virtual Machines",
+				"text": "Get started with Consul on VMs",
 				"url": "/consul/tutorials/get-started-vms/virtual-machine-gs-deploy"
 			},
 			{
@@ -37,6 +37,19 @@
 		]
 	},
 	"blocks": [
+		{
+			"type": "heading",
+			"heading": "Consul Sandbox",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "tutorial_cards",
+			"tutorialSlugs": [
+				"consul/sandbox",
+				"consul/sandbox-sd"
+			]
+		},
 		{
 			"type": "heading",
 			"heading": "Introduction to Consul: Architecture and Concepts",
