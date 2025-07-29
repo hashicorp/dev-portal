@@ -1,71 +1,29 @@
 {
-	"pageSubtitle": "Well-Architected Framework Subtitle Placeholder",
-	"iconCardGridItems": [
-		{
-			"iconName": "boundary-color",
-			"name": "HCP Boundary",
-			"path": "docs/boundary"
-		},
-		{
-			"iconName": "consul-color",
-			"name": "HCP Consul Dedicated",
-			"path": "docs/consul"
-		},
-		{
-			"iconName": "vault-color",
-			"name": "HCP Vault Dedicated",
-			"path": "docs/vault"
-		},
-		{
-			"iconName": "vault-secrets-color",
-			"name": "HCP Vault Secrets",
-			"path": "docs/vault-secrets"
-		},
-		{
-			"iconName": "vault-radar-color",
-			"name": "HCP Vault Radar",
-			"path": "docs/vault-radar"
-		},
-		{
-			"iconName": "packer-color",
-			"name": "HCP Packer",
-			"path": "docs/packer"
-		},
-		{
-			"iconName": "waypoint-color",
-			"name": "HCP Waypoint",
-			"path": "docs/waypoint"
-		},
-		{
-			"iconName": "vagrant-color",
-			"name": "HCP Vagrant",
-			"path": "docs/vagrant"
-		}
-	],
+	"pageSubtitle": "Best practices for managing your infrastructure and security lifecycle",
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",
 			"title": "Framework Pillars",
 			"cards": [
 				{
-					"title": "Automate and define processes",
-					"description": "PLACEHOLDER",
-					"url": "/well-architected-framework/automate-processes"
+					"title": "Define and automate processes",
+					"description": "Establish repeatable, scalable workflows that reduce manual effort and human error while enabling teams to deliver infrastructure and applications consistently",
+					"url": "/well-architected-framework/define-and-automate-processes"
 				},
 				{
 					"title": "Secure systems",
-					"description": "PLACEHOLDER",
+					"description": "Implement security controls including identity and access management, data protection, secrets management, and network security to prevent unauthorized access and protect sensitive information",
 					"url": "/well-architected-framework/secure-systems"
 				},
 				{
 					"title": "Design resilient systems",
-					"description": "PLACEHOLDER",
+					"description": "Build fault-tolerant architectures that maintain availability and performance during failures through redundancy, disaster recovery planning, zero-downtime deployments, and robust networking strategies",
 					"url": "/well-architected-framework/design-resilient-systems"
 				},
 				{
-					"title": "Optimize resources",
-					"description": "PLACEHOLDER",
-					"url": "/well-architected-framework/optimize-resources"
+					"title": "Optimize systems",
+					"description": "Maximize efficiency and minimize waste by right-sizing infrastructure, managing costs, monitoring performance, and implementing dynamic scaling strategies that align with actual usage patterns",
+					"url": "/well-architected-framework/optimize-systems"
 				}
 			]
 		}
