@@ -5,7 +5,7 @@
 
 import { type ReactNode } from 'react'
 import { VersionSelectItem } from 'views/docs-view/loaders/remote-content'
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import { CurrentProductProvider } from 'contexts'
 import DocsVersionSwitcher from '.'
 import { setProjectForAriaLabel } from '.'
@@ -114,6 +114,28 @@ describe('DocsVersionSwitcher', () => {
 
 		// link to an older version
 		expect(links[2]).toHaveAttribute('rel', 'nofollow')
+	})
+	it('uses an href from the option object if one exists', () => {
+		mockUserRouter.mockImplementation(() => ({ asPath: '' }))
+		const { queryAllByRole } = render(
+			<DocsVersionSwitcher options={[
+				...options,
+				{
+					name: 'v1.18.x',
+					label: 'v1.18.x',
+					isLatest: false,
+					releaseStage: 'stable',
+					version: 'v1.18.x',
+					href: '/old/path',
+				},
+			]} />,
+			{ wrapper }
+		)
+
+		const [dropdown] = queryAllByRole('list')
+		fireEvent.click(dropdown)
+		const [link] = queryAllByRole('link').slice(options.length - 1)
+		expect(link).toHaveAttribute('href', '/waypoint/docs/v1.18.x/old/path')
 	})
 })
 
