@@ -2,5 +2,9 @@
     "page_title": "Important! Ensure a smooth exam experience",
     "footer_title": "Looking for help",
     "footer_description": "Unsure which GitHub account you used? Lose access to your account? Need help or have a question?",
-    "footer_cta": "Submit a ticket"
+    "footer_cta": "Submit a ticket",
+    "main_cta_title": "Ready to continue?",
+    "main_cta_description": "Go to the HashiCorp Certifications Exam Portal.",
+    "main_cta_link_text": "Certifications Exam Portal",
+    "main_cta_url": "https://developer.hashicorp.com"
 }
