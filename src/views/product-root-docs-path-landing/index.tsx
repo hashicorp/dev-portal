@@ -27,11 +27,6 @@ const ProductRootDocsPathLanding = ({
 }: ProductRootDocsPathLandingProps) => {
 	const { pageSubtitle, marketingContentBlocks } = pageContent
 
-	// Removes "Documentation" from WAF landing page heading
-	if (pageHeading.title.includes('Well-Architected Framework')) {
-		pageHeading.title = 'Well-Architected Framework'
-	}
-
 	let mdxSlot: ReactElement
 	if (mdxSource) {
 		const docsMdxComponents = getDocsMdxComponents(product.slug)

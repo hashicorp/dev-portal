@@ -4,7 +4,7 @@
  */
 
 import { getStaticProps } from 'views/product-root-docs-path-landing/server'
-import ProductRootDocsPathLanding from 'views/product-root-docs-path-landing'
+import WellArchitectedFrameworkLanding from 'views/well-architected-framework'
 
 // Pre-configured getStaticProps for well-architected-framework/docs
 const getStaticPropsWrapped = async (context) => {
@@ -18,4 +18,4 @@ const getStaticPropsWrapped = async (context) => {
 }
 
 export { getStaticPropsWrapped as getStaticProps }
-export default ProductRootDocsPathLanding 
+export default WellArchitectedFrameworkLanding 
