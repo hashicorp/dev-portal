@@ -62,7 +62,7 @@ export async function getValidVersions(
 		const redirects: Record<'*', Record<string, Redirect>> = JSON.parse(fileContents)
 		const redirect = Object.entries(redirects['*'])
 			.map(([source, { destination }]) => ({ source, destination }))
-			.find(({ destination }) => destination === currentPath)
+			.find(({ destination, source }) => [destination, source].includes(currentPath))
 
 		const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
 			? new Headers({
@@ -89,11 +89,13 @@ export async function getValidVersions(
 		knownVersions.currentPathVersions.push(...currentPathVersions)
 
 		if(redirect) {
-			const redirectVersions = await getVersions(redirect.source)
-			knownVersions.redirectVersions.push(...redirectVersions)
+			const redirectVersions = await Promise.all<string[]>(Object.values(redirect).map(getVersions))
+			knownVersions.redirectVersions.push(...redirectVersions.flat())
 		}
 
-		const allKnownVersions = [...knownVersions.currentPathVersions, ...knownVersions.redirectVersions]
+		const allKnownVersions = Object.values(knownVersions).flat()
+			.filter((version, index, array) => array.indexOf(version) === index)
+
 		return versions
 			.filter(({ version }) => allKnownVersions.includes(version))
 			.map((option) => ({
