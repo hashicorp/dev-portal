@@ -24,7 +24,7 @@ export async function getStaticProps() {
     const jsonContent = JSON.parse(registrationJsonContentString)
 
     /**
-     * Parse landing page FAQs from an MDX file
+     * Parse info card sections from an MDX file
      */
     const registrationMdxString = readLocalFile(path.join(CONTENT_DIR, 'registration.mdx'))
     const mdxItems = await getFaqsFromMdx(registrationMdxString)
