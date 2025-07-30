@@ -3,18 +3,50 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { Collection as ApiCollection } from 'lib/learn-client/types'
-import { EnrichedNavItem } from 'components/sidebar/types'
-import { NextPreviousProps } from 'views/tutorial-view/components'
-import { SidebarProps } from 'components/sidebar/types'
+import { VersionSelectItem } from '../docs-view/loaders/remote-content'
+import { OutlineLinkItem } from 'components/outline-nav/types'
 import { SidebarSidecarLayoutProps } from 'layouts/sidebar-sidecar'
+import { MDXRemoteSerializeResult } from 'lib/next-mdx-remote'
+import {
+	ProductData,
+	ProductWithCurrentRootDocsPath,
+	RootDocsPath,
+} from 'types/products'
+
+
+import { EnrichedNavItem } from 'components/sidebar/types'
 import { HeroHeadingVisualProps } from 'views/product-landing/components/hero-heading-visual/types'
 import { OverviewCtaProps } from 'views/product-landing/components/overview-cta/types'
 import { ProductViewBlock } from 'views/product-tutorials-view/components/product-view-content'
-import { TutorialData } from 'views/tutorial-view'
-import { OutlineLinkItem } from 'components/outline-nav/types'
-import { TutorialViewProps } from 'views/tutorial-view'
 import { HeadMetadataProps } from 'components/head-metadata/types'
+
+interface PageContent {
+	pageSubtitle: string
+	// TODO create a block type
+	marketingContentBlocks: $TSFixMe[]
+	iconCardGridItems?: IconCardGridItem[]
+	hero?: HeroHeadingVisualProps
+	overview?: OverviewCtaProps
+}
+
+type IconCardGridItem = Pick<RootDocsPath, 'iconName' | 'name' | 'path'>
+
+interface GenerateGetStaticPropsArguments {
+	product: ProductData
+}
+
+interface ProductRootDocsPathLandingProps {
+	mdxSource?: MDXRemoteSerializeResult
+	pageContent: PageContent
+	pageHeading: {
+		id: string
+		title: string
+	}
+	product: ProductWithCurrentRootDocsPath
+	versions?: VersionSelectItem[]
+	layoutProps: Omit<SidebarSidecarLayoutProps, 'children'>
+	outlineItems: OutlineLinkItem[]
+}
 
 export interface WellArchitectedFrameworkLandingProps {
 	metadata: HeadMetadataProps & {
@@ -22,13 +54,13 @@ export interface WellArchitectedFrameworkLandingProps {
 		slug: string
 	}
 	outlineItems: OutlineLinkItem[]
-	data: {
-		pageData: {
-			blocks: ProductViewBlock[]
+	data?: {
+		pageData?: {
+			blocks?: ProductViewBlock[]
 		}
-		wafContent: {
-			hero: HeroHeadingVisualProps
-			overview: OverviewCtaProps
+		wafContent?: {
+			hero?: HeroHeadingVisualProps
+			overview?: OverviewCtaProps
 		}
 	}
 	layoutProps: {
@@ -37,31 +69,8 @@ export interface WellArchitectedFrameworkLandingProps {
 	}
 }
 
-export interface WellArchitectedFrameworkCollectionViewProps {
-	metadata: {
-		wafName: string
-		wafSlug: string
-	}
-	collection: ApiCollection
-	layoutProps: {
-		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
-		sidebarSections: EnrichedNavItem[]
-	}
-}
-
-export interface WafTutorialViewProps {
-	metadata: HeadMetadataProps
-	tutorial: TutorialData & {
-		nextPreviousData: NextPreviousProps
-		variant?: TutorialViewProps['metadata']['variant']
-	}
-	pageHeading: {
-		slug: string
-		text: string
-	}
-	outlineItems: OutlineLinkItem[]
-	layoutProps: {
-		breadcrumbLinks: SidebarSidecarLayoutProps['breadcrumbLinks']
-		navLevels: SidebarProps[]
-	}
+export type {
+	GenerateGetStaticPropsArguments,
+	ProductRootDocsPathLandingProps,
+	IconCardGridItem,
 }

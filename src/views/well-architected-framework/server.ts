@@ -120,12 +120,11 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 	} = currentRootDocsPath
 	const baseName = shortName || name
 
-	// Fetch page content
-	const jsonFilePath = path.join(
+	const indexFilePath = path.join(
 		process.cwd(),
 		`src/content/${product.slug}/docs-landing.json`
 	)
-	const pageContent = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'))
+	const pageContent = JSON.parse(fs.readFileSync(indexFilePath, 'utf8'))
 
 	// Generate getStaticProps from DocsView helper
 	const { getStaticProps: generatedGetStaticProps } =
@@ -148,22 +147,6 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 	 */
 	if (!('props' in getStaticPropsResult)) {
 		return getStaticPropsResult
-	}
-
-	/**
-	 * TODO: Remove this when (HCP) Waypoint IA is updated
-	 */
-	if (product.slug === 'waypoint') {
-		getStaticPropsResult.props.layoutProps['sidebarNavDataLevels'] =
-			getStaticPropsResult.props.layoutProps.sidebarNavDataLevels.map(
-				(navLevel) => {
-					delete navLevel.menuItems
-					return {
-						...navLevel,
-						showFilterInput: false,
-					}
-				}
-			)
 	}
 
 	/**
@@ -216,8 +199,10 @@ const getStaticProps = async (context: GetStaticPropsContext) => {
 			githubFileUrl: null,
 		},
 		pageContent: {
-			...pageContent,
+			pageSubtitle: pageContent.landingPage.hero.subtitle,
 			marketingContentBlocks: preparedMarketingBlocks,
+			hero: pageContent.landingPage.hero,
+			overview: pageContent.landingPage.overview,
 		},
 		pageHeading,
 		outlineItems,
