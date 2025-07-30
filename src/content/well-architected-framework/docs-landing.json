@@ -3,6 +3,17 @@
 	"marketingContentBlocks": [
 		{
 			"type": "card-grid",
+			"title": "",
+			"cards": [
+				{
+					"title": "What is the Well-Architected Framework?",
+					"description": "HashiCorp Well-Architected Framework provides best practices for using HashiCorp products to enable your cloud and on-premises environments. These best practices will help you define and automate your processes, optimize your resources and costs, design reliable systems, and secure your infrastructure and services.",
+					"url": "/well-architected-framework/what-is"
+				}
+			]
+		},
+		{
+			"type": "card-grid",
 			"title": "Framework Pillars",
 			"cards": [
 				{
