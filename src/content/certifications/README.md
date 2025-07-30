@@ -49,8 +49,8 @@ The registration page is rendered based on the `registration.json` and `registra
 
 ### Page metadata
 
-The content for the page header and footer is from the `registration.json` file. It contains the `page_title`, `footer_title`, `footer_description`, and `footer_cta` categories. 
+The content for the page header and footer is from the `registration.json` file. It contains the `page_title`, `main_cta_title`, `main_cta_description`, `main_cta_link_text`, `main_cta_url`, `footer_title`, `footer_description`, and `footer_cta` categories. 
 
 ### Copy for info cards
 
-Each info card is generated from each `## Heading Two` section in the `registration.mdx` file. Each section can contain a title, plain text content, bullets, info boxes, and call to actions.
+Each info card is generated from each `## Heading Two` section in the `registration.mdx` file. Each section can contain a title, plain text content, bullets, and tooltips.
