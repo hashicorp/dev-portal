@@ -5,25 +5,18 @@
 		"image": "/img/well-architected-framework/landing-hero-graphic.png"
 	},
 	"overview": {
-		"heading": "Well-Architected Framework",
+		"heading": "Well-Architected Framework (WAF)",
 		"body": "Find resources to define and automate your processes, optimize your resources and costs, design reliable systems, and secure your infrastructure and services.",
+		"cta": {
+			"text": "Learn more about WAF",
+			"url": "/well-architected-framework/what-is"
+		},
 		"image": {
 			"light": "https://www.datocms-assets.com/2885/1679095265-devdot-waf_lm.png",
 			"dark": "https://www.datocms-assets.com/2885/1679087810-devdot-waf_dm.png"
 		}
 	},
 	"marketingContentBlocks": [
-		{
-			"type": "card-grid",
-			"title": "",
-			"cards": [
-				{
-					"title": "What is the Well-Architected Framework?",
-					"description": "HashiCorp Well-Architected Framework provides best practices for using HashiCorp products to enable your cloud and on-premises environments.",
-					"url": "/well-architected-framework/what-is"
-				}
-			]
-		},
 		{
 			"type": "card-grid",
 			"title": "Framework Pillars",
