@@ -9,7 +9,8 @@ import BaseLayout from 'layouts/base-layout'
 import MobileMenuLevelsGeneric from 'components/mobile-menu-levels-generic'
 import LandingHero from '@components/landing-hero'
 import DevDotContent from '@components/dev-dot-content'
-import { IconAward16 } from '@hashicorp/flight-icons/svg-react/award-16'
+import { IconAward24 } from '@hashicorp/flight-icons/svg-react/award-24'
+import InlineAlert from '@components/inline-alert'
 import { PreFooter } from 'views/homepage/components'
 // Certifications components
 import {
@@ -17,15 +18,9 @@ import {
 	GradientCard,
 } from 'views/certifications/components'
 
-// TODO: This component will be updated in this asana task:
-// https://app.asana.com/1/90955849329269/project/1210146125607830/task/1210872813172505?focus=true
 function MdxTooltip({ title, description }) {
 	return (
-		<div>
-			<IconAward16 />
-			<p>{title}</p>
-			<p>{description}</p>
-		</div>
+		<InlineAlert title={title} description={description} icon={<IconAward24 />} />
 	)
 }
 
