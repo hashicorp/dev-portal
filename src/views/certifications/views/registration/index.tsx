@@ -17,6 +17,9 @@ import {
 	CertificationsMaxWidth,
 	GradientCard,
 } from 'views/certifications/components'
+// Types
+import type { CertificationRegistrationProps } from './types'
+import type { FaqItem } from 'views/certifications/types'
 
 function MdxTooltip({ title, description }) {
 	return (
@@ -28,14 +31,14 @@ const MDX_COMPONENTS = {
 	Tooltip: MdxTooltip,
 }
 
-function CertificationsRegistrationView({ jsonContent, mdxItems }) {
+function CertificationsRegistrationView({ jsonContent, mdxItems }: CertificationRegistrationProps) {
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			{/* Hero */}
 			<LandingHero heading={jsonContent.page_title} noImage={true} />
 			<CertificationsMaxWidth>
 				{/* Info cards */}
-				{mdxItems.map((item) => (
+				{mdxItems.map((item: FaqItem) => (
 					<GradientCard key={item.title}>
 						<div>{item.title}</div>
 						<DevDotContent
