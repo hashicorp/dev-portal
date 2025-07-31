@@ -10,6 +10,7 @@ import type { VersionSelectItem } from '../loaders/remote-content'
 import { readFileSync } from 'fs'
 import { type Redirect } from 'next'
 import { resolve } from 'path'
+import { redirectsConfig } from '@build-libs/redirects'
 
 const VERSIONS_ENDPOINT = '/api/content-versions'
 
@@ -58,11 +59,13 @@ export async function getValidVersions(
 	try {
 		const normalizedFullPath = fullPath.replace(/^doc#/, '')
 		const currentPath = `/${productSlugForLoader}/${normalizedFullPath}`
-		const fileContents = readFileSync(resolve('src/data/_redirects.generated.json'), 'utf8')
-		const redirects: Record<'*', Record<string, Redirect>> = JSON.parse(fileContents)
+		const redirects: Record<'*', Record<string, Redirect>> = JSON.parse(
+			readFileSync(resolve('src/data/_redirects.generated.json'), 'utf8')
+		)
+		// const { simpleRedirects: redirects } = await redirectsConfig()
 		const redirect = Object.entries(redirects['*'])
 			.map(([source, { destination }]) => ({ source, destination }))
-			.find(({ destination, source }) => [destination, source].includes(currentPath))
+			.find(({ source, destination }) => [source, destination].includes(currentPath))
 
 		const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
 			? new Headers({
@@ -98,10 +101,14 @@ export async function getValidVersions(
 
 		return versions
 			.filter(({ version }) => allKnownVersions.includes(version))
-			.map((option) => ({
-				...option,
-				href: knownVersions.redirectVersions.includes(option.version) ? redirect.source : null
-			}))
+			.map((option) => {
+				const isRedirectVersion = knownVersions.redirectVersions.includes(option.version)
+					&& !knownVersions.currentPathVersions.includes(option.version)
+				return {
+					...option,
+					href: isRedirectVersion ? redirect.source : null
+				}
+			})
 	} catch (error) {
 		console.error(
 			`[docs-view/server] error fetching known versions for "${productSlugForLoader}" document "${fullPath}". Falling back to showing all versions.`,
