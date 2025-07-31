@@ -16,6 +16,9 @@ import {
 	CertificationsMaxWidth,
 	GradientCard,
 } from 'views/certifications/components'
+// Types
+import type { CertificationRegistrationProps } from './types'
+import type { FaqItem } from 'views/certifications/types'
 
 // TODO: This component will be updated in this asana task:
 // https://app.asana.com/1/90955849329269/project/1210146125607830/task/1210872813172505?focus=true
@@ -33,14 +36,14 @@ const MDX_COMPONENTS = {
 	Tooltip: MdxTooltip,
 }
 
-function CertificationsRegistrationView({ jsonContent, mdxItems }) {
+function CertificationsRegistrationView({ jsonContent, mdxItems }: CertificationRegistrationProps) {
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			{/* Hero */}
 			<LandingHero heading={jsonContent.page_title} noImage={true} />
 			<CertificationsMaxWidth>
 				{/* Info cards */}
-				{mdxItems.map((item) => (
+				{mdxItems.map((item: FaqItem) => (
 					<GradientCard key={item.title}>
 						<div>{item.title}</div>
 						<DevDotContent
