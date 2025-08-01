@@ -7,10 +7,6 @@
 import { getContentApiBaseUrl } from 'lib/unified-docs-migration-utils'
 // Types
 import type { VersionSelectItem } from '../loaders/remote-content'
-import { readFileSync } from 'fs'
-import { type Redirect } from 'next'
-import { resolve } from 'path'
-import { redirectsConfig } from '@build-libs/redirects'
 
 const VERSIONS_ENDPOINT = '/api/content-versions'
 
@@ -59,56 +55,21 @@ export async function getValidVersions(
 	try {
 		const normalizedFullPath = fullPath.replace(/^doc#/, '')
 		const currentPath = `/${productSlugForLoader}/${normalizedFullPath}`
-		const redirects: Record<'*', Record<string, Redirect>> = JSON.parse(
-			readFileSync(resolve('src/data/_redirects.generated.json'), 'utf8')
-		)
-		// const { simpleRedirects: redirects } = await redirectsConfig()
-		const redirect = Object.entries(redirects['*'])
-			.map(([source, { destination }]) => ({ source, destination }))
-			.find(({ source, destination }) => [source, destination].includes(currentPath))
 
-		const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
-			? new Headers({
-					'x-vercel-protection-bypass':
-						process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
-			  })
-			: new Headers()
+		const url = new URL(VERSIONS_ENDPOINT, contentApiBaseUrl)
+		url.searchParams.set('product', productSlugForLoader)
+		url.searchParams.set('fullPath', `doc#${currentPath}`)
+		const response = await fetch(url, {
+			headers: {
+				'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN || ''
+			}
+		})
+		const { versions: knownVersions } = await response.json()
 
-		const knownVersions: Record<string, string[]> = {
-			currentPathVersions: [],
-			redirectVersions: [],
-		}
-
-		const getVersions = async (path: string) => {
-			const url = new URL(VERSIONS_ENDPOINT, contentApiBaseUrl)
-			url.searchParams.set('product', productSlugForLoader)
-			url.searchParams.set('fullPath', `doc#${path}`)
-			const response = await fetch(url, { headers })
-			const { versions } = await response.json()
-			return versions || []
-		}
-
-		const currentPathVersions = await getVersions(currentPath)
-		knownVersions.currentPathVersions.push(...currentPathVersions)
-
-		if(redirect) {
-			const redirectVersions = await Promise.all<string[]>(Object.values(redirect).map(getVersions))
-			knownVersions.redirectVersions.push(...redirectVersions.flat())
-		}
-
-		const allKnownVersions = Object.values(knownVersions).flat()
-			.filter((version, index, array) => array.indexOf(version) === index)
-
-		return versions
-			.filter(({ version }) => allKnownVersions.includes(version))
-			.map((option) => {
-				const isRedirectVersion = knownVersions.redirectVersions.includes(option.version)
-					&& !knownVersions.currentPathVersions.includes(option.version)
-				return {
-					...option,
-					href: isRedirectVersion ? redirect.source : null
-				}
-			})
+		return versions.map((option) => ({
+			...option,
+			href: knownVersions.includes(option.version) ? null : '/',
+		}))
 	} catch (error) {
 		console.error(
 			`[docs-view/server] error fetching known versions for "${productSlugForLoader}" document "${fullPath}". Falling back to showing all versions.`,
