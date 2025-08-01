@@ -53,21 +53,23 @@ export async function getValidVersions(
 	 */
 	const contentApiBaseUrl = getContentApiBaseUrl(productSlugForLoader)
 	try {
-		// Build the URL to fetch known versions of this document
-		const validVersionsUrl = new URL(VERSIONS_ENDPOINT, contentApiBaseUrl)
-		validVersionsUrl.searchParams.set('product', productSlugForLoader)
-		validVersionsUrl.searchParams.set('fullPath', fullPath)
-		const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
-			? new Headers({
-					'x-vercel-protection-bypass':
-						process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
-			  })
-			: new Headers()
-		// Fetch known versions of this document
-		const response = await fetch(validVersionsUrl.toString(), { headers })
+		const normalizedFullPath = fullPath.replace(/^doc#/, '')
+		const currentPath = `/${productSlugForLoader}/${normalizedFullPath}`
+
+		const url = new URL(VERSIONS_ENDPOINT, contentApiBaseUrl)
+		url.searchParams.set('product', productSlugForLoader)
+		url.searchParams.set('fullPath', `doc#${currentPath}`)
+		const response = await fetch(url, {
+			headers: {
+				'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN || ''
+			}
+		})
 		const { versions: knownVersions } = await response.json()
-		// Apply the filter, and return the valid versions
-		return versions.filter((option) => knownVersions.includes(option.version))
+
+		return versions.map((option) => ({
+			...option,
+			href: knownVersions.includes(option.version) ? null : '/',
+		}))
 	} catch (error) {
 		console.error(
 			`[docs-view/server] error fetching known versions for "${productSlugForLoader}" document "${fullPath}". Falling back to showing all versions.`,

@@ -87,10 +87,6 @@ const DocsVersionSwitcher = ({
 		currentProduct
 	)
 
-	if (options.length === 1) {
-		return null
-	}
-
 	/**
 	 * Encode docs concerns into the `options` to pass to `VersionSwitcher`.
 	 */
@@ -105,7 +101,7 @@ const DocsVersionSwitcher = ({
 				? removeVersionFromPath(currentPath)
 				: getTargetPath({
 						basePath: `${currentProduct.slug}/${currentRootDocsPath.path}`,
-						asPath: currentPath,
+						asPath: option.href || currentPath,
 						version: option.version,
 				  })
 			// Build the aria-label for the Activator when this option is selected.

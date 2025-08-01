@@ -2,15 +2,31 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
-
-import { describe, it, expect, vi, type MockedFunction } from 'vitest'
+import { describe, it, expect, vi, type MockedFunction, beforeEach, afterEach } from 'vitest'
 import { getValidVersions } from '../get-valid-versions'
 import type { VersionSelectItem } from '../../loaders/remote-content'
+import { vol } from 'memfs'
+import { type Redirect } from 'next'
+import { resolve } from 'path'
+vi.mock('fs')
 
 // Mock fetch
 global.fetch = vi.fn() as typeof fetch
 
 describe('getValidVersions', () => {
+	beforeEach(() => {
+		const mockRedirectData: Record<'*', Record<string, Redirect>> = {
+			"*": {}
+		}
+		vol.fromJSON({
+			[`${resolve('src/data/_redirects.generated.json')}`]: JSON.stringify(mockRedirectData),
+		})
+	})
+	afterEach(() => {
+		vol.reset()
+		vi.clearAllMocks()
+		vi.restoreAllMocks()
+	})
 	const versions: VersionSelectItem[] = [
 		{
 			version: '1.0.0',
@@ -44,27 +60,20 @@ describe('getValidVersions', () => {
 	})
 
 	it('should return filtered versions based on known versions from API', async () => {
-		const knownVersions = ['1.0.0']
+		const knownVersions = [versions[0].version]
 		;(fetch as MockedFunction<typeof fetch>).mockResolvedValueOnce({
-			ok: true,
-			status: 200,
 			json: async () => ({ versions: knownVersions }),
 		} as unknown as Response)
 
-		const result = await getValidVersions(
+		const [result] = await getValidVersions(
 			versions,
 			fullPath,
 			productSlugForLoader
 		)
-		expect(result).toEqual([
-			{
-				isLatest: false,
-				label: 'v1.0.0',
-				name: 'v1.0.0',
-				releaseStage: 'stable',
-				version: '1.0.0',
-			},
-		])
+		expect(result).toEqual({
+			...versions[0],
+			href: null,
+		})
 	})
 
 	it('should return all versions if API call fails', async () => {
@@ -100,5 +109,37 @@ describe('getValidVersions', () => {
 		)
 
 		consoleErrorSpy.mockRestore()
+	})
+
+	it('redirects the user to the version home page for missing documents', async () => {
+		const newUrl = 'docs/deploy/aws/run'
+		;(fetch as $TSFixMe)
+			.mockImplementation((url: URL) => {
+				return Promise.resolve({
+					json: async () => {
+						const path = url.searchParams.get('fullPath')
+						if(path.includes(newUrl)) {
+							return { versions: [versions[1].version] } // Simulate finding the new version
+						}
+						return { versions: [] } // No versions found for this path
+					},
+				})
+			})
+
+		const result = await getValidVersions(
+			versions,
+			`doc#${newUrl}`,
+			productSlugForLoader
+		)
+		expect(result).toEqual([
+			{
+				...versions[0],
+				href: '/',
+			},
+			{
+				...versions[1],
+				href: null,
+			},
+		])
 	})
 })
