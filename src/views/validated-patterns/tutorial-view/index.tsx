@@ -4,8 +4,6 @@
  */
 
 import Head from 'next/head'
-import { Fragment } from 'react'
-import InstruqtProvider from 'contexts/instruqt-lab'
 import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
 import getVideoUrl from 'views/tutorial-view/utils/get-video-url'
@@ -45,7 +43,6 @@ export default function ValidatedPatternsTutorialView({
 	const featuredInWithoutCurrent = collectionCtx.featuredIn?.filter(
 		(c) => c.id !== collectionCtx.current.id
 	)
-	const InteractiveLabWrapper = isInteractive ? InstruqtProvider : Fragment
 	const canonicalCollectionSlug = tutorial.collectionCtx.default.slug
 	const canonicalUrl = generateCanonicalUrl(canonicalCollectionSlug, slug)
 
@@ -54,52 +51,47 @@ export default function ValidatedPatternsTutorialView({
 			<Head>
 				<link rel="canonical" href={canonicalUrl.toString()} key="canonical" />
 			</Head>
-			<InteractiveLabWrapper
-				key={slug}
-				{...(isInteractive && { labId: handsOnLab.id })}
-			>
-				<VariantProvider variant={variant}>
-					<SidebarSidecarLayout
-						sidecarSlot={<OutlineNavWithActive items={outlineItems.slice()} />}
-						breadcrumbLinks={layoutProps.breadcrumbLinks}
-						sidebarNavDataLevels={layoutProps.navLevels}
-						mainWidth="narrow"
-						sidecarTopSlot={
-							variant ? (
-								<VariantDropdownDisclosure variant={variant} isFullWidth />
-							) : null
-						}
-					>
-						<TutorialMeta
-							heading={pageHeading}
-							meta={{
-								readTime,
-								edition,
-								productsUsed,
-								isInteractive,
-								hasVideo,
-							}}
-							tutorialId={id}
+			<VariantProvider variant={variant}>
+				<SidebarSidecarLayout
+					sidecarSlot={<OutlineNavWithActive items={outlineItems.slice()} />}
+					breadcrumbLinks={layoutProps.breadcrumbLinks}
+					sidebarNavDataLevels={layoutProps.navLevels}
+					mainWidth="narrow"
+					sidecarTopSlot={
+						variant ? (
+							<VariantDropdownDisclosure variant={variant} isFullWidth />
+						) : null
+					}
+				>
+					<TutorialMeta
+						heading={pageHeading}
+						meta={{
+							readTime,
+							edition,
+							productsUsed,
+							isInteractive,
+							hasVideo,
+						}}
+						tutorialId={id}
+					/>
+					{video?.id && !video.videoInline && (
+						<VideoEmbed
+							url={getVideoUrl({
+								videoId: video.id,
+								videoHost: video.videoHost,
+							})}
 						/>
-						{video?.id && !video.videoInline && (
-							<VideoEmbed
-								url={getVideoUrl({
-									videoId: video.id,
-									videoHost: video.videoHost,
-								})}
-							/>
-						)}
-						<DevDotContent
-							mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
-						/>
-						<NextPrevious {...nextPreviousData} />
-						<FeaturedInCollections
-							className={s.featuredInCollections}
-							collections={featuredInWithoutCurrent}
-						/>
-					</SidebarSidecarLayout>
-				</VariantProvider>
-			</InteractiveLabWrapper>
+					)}
+					<DevDotContent
+						mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+					/>
+					<NextPrevious {...nextPreviousData} />
+					<FeaturedInCollections
+						className={s.featuredInCollections}
+						collections={featuredInWithoutCurrent}
+					/>
+				</SidebarSidecarLayout>
+			</VariantProvider>
 		</>
 	)
 }
