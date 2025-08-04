@@ -209,8 +209,6 @@ export default class RemoteContentLoader implements DataLoader {
 					: versionFromPath
 		}
 
-		console.log('### info', versionToFetch, versionFromPath, latestVersion)
-
 		/**
 		 * Note: we expect the provided params to not include
 		 * a trailing `/index`, as our URLs do not include trailing `/index`.
