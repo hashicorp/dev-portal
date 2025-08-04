@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-const REGEX = /^v[0-9]+\.[0-9]+\.(x|[0-9]+)$/i
+const REGEX = /^[0-9]+\.[0-9]+\.(x|[0-9]+)$/i
 const TFE_REGEX = /^v[0-9]{6}-[0-9]+$/i
 
 /**
