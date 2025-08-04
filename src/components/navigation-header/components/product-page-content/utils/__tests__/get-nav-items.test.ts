@@ -109,7 +109,7 @@ describe('getNavItems', () => {
 					iconName: 'enterprise',
 					name: 'Terraform Enterprise',
 					path: 'enterprise',
-					productSlugForLoader: 'ptfe-releases',
+					productSlugForLoader: 'terraform-enterprise',
 				},
 				{
 					iconName: 'docs',
