@@ -12,16 +12,27 @@ import { Octokit } from '@octokit/rest'
  *  - navDataPrefix: the filename prefix for nav data JSON files
  */
 const getRelevantFileNamePrefixes = (repo: string) => {
+	// Legacy product slug mapping
+	const normalizedRepo =
+		repo === 'ptfe-releases' ? 'terraform-enterprise' : repo
+
 	// The default values that most repos use
 	let mdxPrefix = 'website/content'
 	let navDataPrefix = 'website/data'
 
 	// HCP and Terraform docs content repos use slightly different values
 	// Note: cloud.hashicorp.com is being renamed to hcp-docs
-	if (repo === 'cloud.hashicorp.com' || repo === 'hcp-docs') {
+	if (
+		normalizedRepo === 'cloud.hashicorp.com' ||
+		normalizedRepo === 'hcp-docs'
+	) {
 		mdxPrefix = 'content'
 		navDataPrefix = 'content'
-	} else if (repo.startsWith('terraform') || repo.startsWith('ptfe-releases')) {
+	} else if (normalizedRepo === 'terraform-enterprise') {
+		// Terraform Enterprise (ptfe-releases) content now lives in web-unified-docs
+		mdxPrefix = 'content'
+		navDataPrefix = 'content'
+	} else if (normalizedRepo.startsWith('terraform')) {
 		mdxPrefix = 'website/docs'
 	}
 

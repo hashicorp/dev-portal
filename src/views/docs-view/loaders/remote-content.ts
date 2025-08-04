@@ -281,11 +281,9 @@ export default class RemoteContentLoader implements DataLoader {
 			 * Note: If we need more granularity here, we could change this to be
 			 * part of `rootDocsPath` configuration in `src/data/<product>.json`.
 			 */
-			const isPrivateContentRepo = [
-				'hcp-docs',
-				'sentinel',
-				'ptfe-releases',
-			].includes(this.opts.product)
+			const isPrivateContentRepo = ['hcp-docs', 'sentinel'].includes(
+				this.opts.product
+			)
 
 			if (isLatest && !isPrivateContentRepo) {
 				// GitHub only allows you to modify a file if you are on a branch, not a commit
