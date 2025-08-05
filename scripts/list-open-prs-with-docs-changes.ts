@@ -24,12 +24,9 @@ const getRelevantFileNamePrefixes = (repo: string) => {
 	// Note: cloud.hashicorp.com is being renamed to hcp-docs
 	if (
 		normalizedRepo === 'cloud.hashicorp.com' ||
-		normalizedRepo === 'hcp-docs'
+		normalizedRepo === 'hcp-docs' ||
+		normalizedRepo === 'terraform-enterprise'
 	) {
-		mdxPrefix = 'content'
-		navDataPrefix = 'content'
-	} else if (normalizedRepo === 'terraform-enterprise') {
-		// Terraform Enterprise (ptfe-releases) content now lives in web-unified-docs
 		mdxPrefix = 'content'
 		navDataPrefix = 'content'
 	} else if (normalizedRepo.startsWith('terraform')) {
