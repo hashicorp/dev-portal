@@ -14,8 +14,7 @@ import {
 } from './content-api'
 import {
 	stripVersionFromPathParams,
-	getPathsFromNavData,
-	normalizeVersion,
+	getPathsFromNavData
 } from './utils'
 import renderPageMdx from '../render-page-mdx'
 import { DEFAULT_PARAM_ID, REMARK_ARRAY_ERROR } from '../consts'
@@ -207,7 +206,7 @@ export default class RemoteContentLoader implements DataLoader {
 			versionToFetch =
 				versionFromPath === 'latest'
 					? latestVersion
-					: normalizeVersion(versionFromPath)
+					: versionFromPath
 		}
 
 		/**
