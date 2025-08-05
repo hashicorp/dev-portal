@@ -17,7 +17,11 @@ describe('getLatestContentShaForProduct', () => {
 				expect(typeof latestSha).toBe('string')
 			})
 		}
-		if (['hcp-docs', 'sentinel', 'ptfe-releases', 'hvd-docs'].includes(repo)) {
+		if (
+			['hcp-docs', 'sentinel', 'terraform-enterprise', 'hvd-docs'].includes(
+				repo
+			)
+		) {
 			console.log(`Skipping test for private repo "${repo}"`)
 		} else {
 			it(`fetches the latest SHA for the "${repo}" repo, then validates the SHA by fetching redirects`, async () => {

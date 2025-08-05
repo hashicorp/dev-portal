@@ -12,8 +12,8 @@ describe('resolveProduct', () => {
 		expect(result).toBe('terraform')
 	})
 
-	it('should return "terraform" for "ptfe-releases"', () => {
-		const productRepoName = 'ptfe-releases'
+	it('should return "terraform" for "terraform-enterprise" (ptfe-releases)', () => {
+		const productRepoName = 'terraform-enterprise'
 		const result = resolveProduct(productRepoName)
 		expect(result).toBe('terraform')
 	})
