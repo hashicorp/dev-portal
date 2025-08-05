@@ -156,7 +156,8 @@
 		{
 			"iconName": "docs",
 			"name": "Terraform Migrate",
-			"path": "migrate"
+			"path": "migrate",
+			"productSlugForLoader": "terraform-migrate"
 		}
 	]
 }
