@@ -148,7 +148,7 @@ const cases = [
 			iconName: 'org',
 			name: 'Terraform Enterprise',
 			path: 'enterprise',
-			productSlugForLoader: 'ptfe-releases',
+			productSlugForLoader: 'terraform-enterprise',
 		},
 		currentProduct: {
 			slug: 'terraform',

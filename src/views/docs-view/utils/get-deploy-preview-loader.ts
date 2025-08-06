@@ -77,7 +77,7 @@ export function getDeployPreviewLoader({
 			const remarkTerraformPlugins = []
 			if (
 				currentRootDocsPath.productSlugForLoader?.match(
-					/^(terraform|ptfe-releases)/i
+					/^(terraform|terraform-enterprise)/i
 				) &&
 				!__config.flags?.unified_docs_migrated_repos?.find(
 					(product) => product === currentRootDocsPath.productSlugForLoader
@@ -108,7 +108,7 @@ export function getDeployPreviewLoader({
 			}
 			if (
 				currentRootDocsPath.productSlugForLoader?.match(
-					/(terraform-docs-common|ptfe-releases)/i
+					/(terraform-docs-common|terraform-enterprise)/i
 				)
 			) {
 				remarkTerraformPlugins.push([remarkTfeContentExclusion, { version }])
