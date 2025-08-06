@@ -19,14 +19,14 @@ type ProductName =
 	| 'Waypoint'
 	| 'HCP Vault Secrets'
 
-type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel'
+type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel' | 'well-architected-framework'
 
 interface Product extends ProductMeta {
 	name: ProductName
 	slug: ProductSlug
 }
 
-type LearnProductSlug = Exclude<ProductSlug, 'hcp'>
+type LearnProductSlug = Exclude<ProductSlug, 'hcp' | 'well-architected-framework'>
 
 /**
  * This is needed so that `LearnProductData` can extend both `ProductData` and
@@ -43,7 +43,7 @@ type HcpProductName = Exclude<
 
 type HcpProductSlug = Exclude<
 	ProductSlug,
-	'hcp' | 'nomad' | 'sentinel' | 'terraform' | 'vagrant'
+	'hcp' | 'nomad' | 'sentinel' | 'terraform' | 'vagrant' | 'well-architected-framework'
 >
 
 /**

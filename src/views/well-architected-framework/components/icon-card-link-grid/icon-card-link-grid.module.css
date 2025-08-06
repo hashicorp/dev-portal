@@ -1,0 +1,24 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.root {
+	--column-count: 1;
+
+	display: grid;
+	grid-template-columns: repeat(var(--column-count), 1fr);
+	grid-template-rows: 1fr;
+	grid-gap: 24px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	@media (--dev-dot-tablet-up) {
+		--column-count: 2;
+	}
+
+	@media (--dev-dot-sidecar-up) {
+		--column-count: 3;
+	}
+}
