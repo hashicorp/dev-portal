@@ -1,0 +1,357 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { PRODUCT_DATA_MAP } from 'data/product-data-map'
+import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
+import { useInstruqtEmbed } from 'contexts/instruqt-lab'
+import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
+import {
+	generateTopLevelSidebarNavData,
+	generateProductLandingSidebarNavData,
+} from 'components/sidebar/helpers'
+import {
+	CardTitle,
+	CardDescription,
+	CardFooter,
+} from 'components/card/components'
+import Card from 'components/card'
+import CardsGridList from 'components/cards-grid-list'
+import { BrandedHeaderCard } from 'views/product-integrations-landing/components/branded-header-card'
+import { ProductSlug } from 'types/products'
+import { SandboxLab, SandboxConfig } from 'types/sandbox'
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
+import ProductIcon from 'components/product-icon'
+import { serialize } from 'lib/next-mdx-remote/serialize'
+import DevDotContent from 'components/dev-dot-content'
+import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
+import { SidebarProps } from 'components/sidebar'
+import Tabs, { Tab } from 'components/tabs'
+import fs from 'fs'
+import path from 'path'
+import s from './sandbox.module.css'
+import docsViewStyles from 'views/docs-view/docs-view.module.css'
+import classNames from 'classnames'
+
+interface SandboxPageProps {
+	product: (typeof PRODUCT_DATA_MAP)[keyof typeof PRODUCT_DATA_MAP]
+	layoutProps: {
+		breadcrumbLinks: { title: string; url: string }[]
+		navLevels: SidebarProps[]
+	}
+	availableSandboxes: SandboxLab[]
+	otherSandboxes: SandboxLab[]
+}
+
+// Helper function to read and serialize MDX content
+async function getMdxContent(filePath: string | undefined, productSlug: ProductSlug) {
+	if (!filePath) return null
+	try {
+		const fullPath = path.join(process.cwd(), 'src/content/sandbox/docs', filePath)
+		const fileContent = await fs.promises.readFile(fullPath, 'utf8')
+		return await serialize(fileContent, {
+			mdxOptions: {
+				remarkPlugins: [],
+				rehypePlugins: [],
+			},
+			scope: {
+				product: productSlug,
+			},
+		})
+	} catch (error) {
+		console.error(`Error reading MDX file ${filePath}:`, error)
+		return null
+	}
+}
+
+export default function SandboxView({
+	product,
+	layoutProps,
+	availableSandboxes,
+	otherSandboxes,
+}: SandboxPageProps) {
+	const { openLab } = useInstruqtEmbed()
+	const docsMdxComponents = getDocsMdxComponents(product.slug)
+
+	const handleLabClick = (labId: string) => {
+		openLab(labId)
+		trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
+			labId,
+			page: `/${product.slug}/sandbox`,
+		})
+	}
+
+	const renderDocumentation = (documentation?: SandboxLab['documentation']) => {
+		if (!documentation) return null
+
+		return (
+			<div className={classNames(s.mdxContent, docsViewStyles.mdxContent)}>
+				<DevDotContent
+					mdxRemoteProps={{
+						compiledSource: documentation.compiledSource,
+						scope: documentation.scope,
+						components: docsMdxComponents,
+					}}
+				/>
+			</div>
+		)
+	}
+
+	return (
+		<SidebarSidecarLayout
+			breadcrumbLinks={layoutProps.breadcrumbLinks}
+			sidebarNavDataLevels={layoutProps.navLevels}
+		>
+			<BrandedHeaderCard
+				productSlug={product.slug}
+				heading={`${product.name} Interactive Sandboxes`}
+				description="Experiment with HashiCorp products in a safe, pre-configured environment."
+			/>
+
+			<div className={s.sandboxIntro}>
+				<p className={s.introText}>
+					HashiCorp Sandboxes provide interactive environments where you can
+					experiment with HashiCorp products without any installation or setup.
+					They&apos;re perfect for:
+				</p>
+
+				<ul className={s.featureList}>
+					<li>Learning how products work in a real environment</li>
+					<li>
+						Testing configurations and commands without affecting your systems
+					</li>
+					<li>Exploring product features in a safe sandbox</li>
+					<li>Following along with tutorials and documentation</li>
+				</ul>
+
+				<p className={s.introText}>
+					Each sandbox comes pre-configured with everything you need to start
+					using the product immediately. Just click on a sandbox below to launch
+					it in your browser.
+				</p>
+			</div>
+
+			<h2 className={s.sectionHeading}>
+				Available {product.name} sandboxes
+			</h2>
+
+			<p className={s.helpText}>
+				When you launch a sandbox, you&apos;ll be presented with a terminal interface
+				where you can interact with the pre-configured environment. The sandbox
+				runs in your browser and doesn&apos;t require any downloads or installations.
+			</p>
+			<p className={s.helpText}>
+				Each sandbox session lasts for up to 1 hour, giving you plenty of time
+				to experiment. Your work isn&apos;t saved between sessions, so be sure to
+				copy any important configurations before your session ends.
+			</p>
+
+			{availableSandboxes.length > 0 ? (
+				<>
+					<CardsGridList>
+						{availableSandboxes.map((lab) => (
+							<div key={`sandbox-${lab.labId}`}>
+								<div
+									className={s.sandboxCard}
+									onClick={() => handleLabClick(lab.labId)}
+								>
+									<Card>
+										<div className={s.cardHeader}>
+											<CardTitle text={lab.title} />
+											<div className={s.productIcons}>
+												{lab.products.map((productSlug) => (
+													<ProductIcon
+														key={`product-${lab.labId}-${productSlug}`}
+														productSlug={productSlug as ProductSlug}
+														size={16}
+														className={s.productIcon}
+													/>
+												))}
+											</div>
+										</div>
+										<CardDescription text={lab.description} />
+										<CardFooter>
+											<button className={s.launchButton}>Launch Sandbox</button>
+										</CardFooter>
+									</Card>
+								</div>
+							</div>
+						))}
+					</CardsGridList>
+
+					<h2 className={s.sectionHeading}>Sandbox documentation</h2>
+
+					{availableSandboxes.some(lab => lab.documentation) && (
+							<Tabs ariaLabel="Sandbox Documentation Tabs">
+								{availableSandboxes.map((lab) => (
+									<Tab key={lab.labId} heading={lab.title}>
+										{lab.documentation ? 
+											renderDocumentation(lab.documentation) : 
+											<p className={s.noDocumentation}>No documentation is available for this sandbox.</p>
+										}
+									</Tab>
+								))}
+							</Tabs>
+					)}
+				</>
+			) : (
+				<p className={s.noSandboxes}>
+					There are currently no sandboxes available for {product.name}. Check
+					back later or explore other product sandboxes.
+				</p>
+			)}
+
+			{otherSandboxes.length > 0 && (
+				<>
+					<h2 className={s.sectionHeading}>Other sandboxes</h2>
+					<p className={s.introText}>
+						Explore sandboxes for other HashiCorp products that you might find
+						useful.
+					</p>
+
+					<CardsGridList>
+						{otherSandboxes.map((lab) => (
+							<div
+								key={lab.labId}
+								className={s.sandboxCard}
+								onClick={() => handleLabClick(lab.labId)}
+							>
+								<Card>
+									<div className={s.cardHeader}>
+										<CardTitle text={lab.title} />
+										<div className={s.productIcons}>
+											{lab.products.map((productSlug) => (
+												<ProductIcon
+													key={`${lab.labId}-${productSlug}`}
+													productSlug={productSlug as ProductSlug}
+													size={16}
+													className={s.productIcon}
+												/>
+											))}
+										</div>
+									</div>
+									<CardDescription text={lab.description} />
+									<CardFooter>
+										<button className={s.launchButton}>Launch Sandbox</button>
+									</CardFooter>
+								</Card>
+							</div>
+						))}
+					</CardsGridList>
+				</>
+			)}
+		</SidebarSidecarLayout>
+	)
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	const supportedProducts = SANDBOX_CONFIG.products || []
+
+	const paths = supportedProducts
+		.filter((productSlug) => PRODUCT_DATA_MAP[productSlug])
+		.map((productSlug) => ({
+			params: { productSlug },
+		}))
+
+	return {
+		paths,
+		fallback: false,
+	}
+}
+
+export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
+	params,
+}) => {
+	const productSlug = params?.productSlug as string
+	const product = PRODUCT_DATA_MAP[productSlug]
+	const supportedProducts = SANDBOX_CONFIG.products || []
+
+	if (!product || !supportedProducts.includes(productSlug)) {
+		return {
+			notFound: true,
+		}
+	}
+
+	// Process available sandboxes and their documentation
+	const availableSandboxes = await Promise.all(
+		(SANDBOX_CONFIG as SandboxConfig).labs
+			.filter((lab) => lab.products.includes(productSlug))
+			.map(async (lab) => {
+				const { title, description, products, labId, documentation } = lab
+				if (documentation) {
+					// Handle the MDX file
+					return {
+						title,
+						description,
+						products,
+						labId,
+						documentation: await getMdxContent(documentation, productSlug as ProductSlug),
+					}
+				}
+				return { title, description, products, labId }
+			})
+	)
+
+	const otherSandboxes = (SANDBOX_CONFIG as SandboxConfig).labs
+		.filter((lab) => !lab.products.includes(productSlug))
+		.map(({ title, description, products, labId }) => ({
+			title,
+			description,
+			products,
+			labId,
+		}))
+
+	const breadcrumbLinks = [
+		{ title: 'Developer', url: '/' },
+		{ title: product.name, url: `/${productSlug}` },
+		{ title: 'Sandbox', url: `/${productSlug}/sandbox` },
+	]
+
+	const sidebarNavDataLevels = [
+		generateTopLevelSidebarNavData(product.name),
+		generateProductLandingSidebarNavData(product),
+	]
+
+	const sandboxMenuItems = [
+		{
+			title: `${product.name} Sandbox`,
+			fullPath: `/${productSlug}/sandbox`,
+			path: `/${productSlug}/sandbox`,
+			href: `/${productSlug}/sandbox`,
+			theme: product.slug,
+			isActive: true,
+			id: 'sandbox',
+		},
+	]
+
+	const sandboxLevel: SidebarProps = {
+		backToLinkProps: {
+			text: `${product.name} Home`,
+			href: `/${product.slug}`,
+		},
+		title: 'Sandbox',
+		menuItems: sandboxMenuItems,
+		showFilterInput: false,
+		visuallyHideTitle: true,
+		levelButtonProps: {
+			levelUpButtonText: `${product.name} Home`,
+			levelDownButtonText: 'Previous',
+		},
+	}
+
+	sidebarNavDataLevels.push(sandboxLevel)
+
+	return {
+		props: {
+			product,
+			layoutProps: {
+				breadcrumbLinks,
+				navLevels: sidebarNavDataLevels,
+			},
+			availableSandboxes,
+			otherSandboxes,
+		},
+	}
+}
