@@ -15,11 +15,11 @@ test('product "Documentation" menu renders correct links', async ({
 }) => {
 	await page.goto(`${baseURL}/terraform`)
 
-	const navActivator = page.locator('header button', {
-		has: page.locator('text=Documentation'),
-	})
+	const navActivator = page
+		.locator('header')
+		.getByRole('button', { name: 'Documentation' })
 
-	await navActivator.hover()
+	await navActivator.hover({ force: true })
 
 	const dropdownId = await navActivator.getAttribute('aria-controls')
 

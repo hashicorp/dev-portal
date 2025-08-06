@@ -5,6 +5,7 @@
 
 const REGEX = /^v[0-9]+\.[0-9]+\.(x|[0-9]+)$/i
 const TFE_REGEX = /^v[0-9]{6}-[0-9]+$/i
+const NO_V_REGEX = /^[0-9]+\.[0-9]+\.(x|[0-9]+)$/i
 
 /**
  * Given an array of strings, returns a tuple of
@@ -16,7 +17,7 @@ const TFE_REGEX = /^v[0-9]{6}-[0-9]+$/i
 export const stripVersionFromPathParams = (
 	pathParams: string[] = []
 ): [string, string[]] => {
-	const index = pathParams.findIndex((e) => REGEX.test(e) || TFE_REGEX.test(e))
+	const index = pathParams.findIndex((e) => REGEX.test(e) || TFE_REGEX.test(e) || NO_V_REGEX.test(e))
 	let version = 'latest'
 	let params = [...pathParams]
 

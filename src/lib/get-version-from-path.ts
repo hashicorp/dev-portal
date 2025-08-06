@@ -6,6 +6,7 @@
 import {
 	VERSION_IN_PATH_REGEX,
 	TFE_VERSION_IN_PATH_REGEXP,
+	NO_V_VERSION_IN_PATH_REGEX,
 } from 'constants/version-path'
 
 /**
@@ -27,6 +28,9 @@ export function getVersionFromPath(path: string): string | undefined {
 			return true
 		}
 		if ((i === 2 || i === 3 || i === 4) && VERSION_IN_PATH_REGEX.test(el)) {
+			return true
+		}
+		if ((i === 2 || i === 3 || i === 4) && NO_V_VERSION_IN_PATH_REGEX.test(el)) {
 			return true
 		}
 		return false

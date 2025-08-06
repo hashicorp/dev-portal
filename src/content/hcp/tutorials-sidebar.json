@@ -46,6 +46,10 @@
 					"collectionSlug": "vault/manage-hcp-vault-dedicated"
 				},
 				{
+					"name": "Agent and Proxy",
+					"collectionSlug": "vault/agent-proxy-hcp-vault-dedicated"
+				},
+				{
 					"name": "Kubernetes",
 					"collectionSlug": "vault/integrate-kubernetes-hcp-vault-dedicated"
 				}
