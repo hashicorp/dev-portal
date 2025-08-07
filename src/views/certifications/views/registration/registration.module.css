@@ -1,0 +1,113 @@
+.root {
+	display: flex;
+	flex-direction: column;
+	gap: 48px;
+
+	/* This allows the content to slightly overlap on the hero component per the designs */
+	margin-top: -150px;
+}
+
+/* Info card styles */
+
+.cardContent {
+	padding: 24px;
+}
+
+.cardTitle {
+	font-size: 30px;
+	margin: 0;
+	line-height: normal;
+}
+
+.mdxContent {
+	& li {
+		/* Note: !important is necessary here to override default styles applied
+        for mdx list items */
+		margin-bottom: 0 !important;
+	}
+}
+
+/* Main cta styles */
+
+.mainCta {
+	padding: 24px;
+	background-color: var(--token-color-surface-action);
+	@nest html[data-theme='dark'] & {
+		background-color: #111f37;
+	}
+
+	box-shadow: 0 0 0 1px rgba(43, 98, 232, 0.25),
+		0 2px 3px 0 rgba(101, 106, 118, 0.1),
+		0 8px 16px -10px rgba(101, 106, 118, 0.2);
+}
+
+.mainCtaContent {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+	@media (--dev-dot-desktop) {
+		flex-direction: row;
+		justify-content: space-between;
+		gap: 0;
+	}
+}
+
+.mainCtaTitle {
+	font-size: 18px;
+	font-weight: 700;
+	color: var(--token-color-foreground-strong);
+}
+
+.mainCtaDescription {
+	font-size: var(--token-typography-body-200-font-size);
+	color: var(--token-color-foreground-faint);
+}
+
+.mainCtaLinkText {
+	& span {
+		color: var(--token-color-foreground-action);
+
+		@nest html[data-theme='dark'] & {
+			color: var(--token-color-foreground-strong);
+		}
+	}
+}
+
+/* Footer styles */
+
+.footer {
+	padding: 64px 0;
+	background-color: var(--token-color-surface-faint);
+	margin-top: 48px;
+}
+
+.footerContainer {
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1240px;
+	padding-left: 24px;
+	padding-right: 24px;
+	width: 100%;
+	flex-direction: column;
+	gap: 10px;
+
+	@media (--dev-dot-desktop) {
+		flex-direction: row;
+		justify-content: space-between;
+		gap: 0;
+	}
+}
+
+.footerContent {
+	display: grid;
+	gap: 12px;
+}
+
+.footerButton {
+	height: fit-content;
+	width: fit-content;
+	margin-top: auto;
+	margin-bottom: auto;
+}
