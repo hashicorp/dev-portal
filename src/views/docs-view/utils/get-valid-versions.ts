@@ -2,9 +2,13 @@
  * Copyright (c) HashiCorp, Inc.
  * SPDX-License-Identifier: MPL-2.0
  */
+
+// Utils
+import { getContentApiBaseUrl } from 'lib/unified-docs-migration-utils'
 // Types
 import type { VersionSelectItem } from '../loaders/remote-content'
 
+const VERSIONS_ENDPOINT = '/api/content-versions'
 
 /**
  * Given a list of all possible versions, as well as a document path and
@@ -40,9 +44,39 @@ export async function getValidVersions(
 	productSlugForLoader: string
 ): Promise<VersionSelectItem[]> {
 	// If versions are falsy or empty, we can skip the API calls and return []
-	if (!versions || versions.length === 0) {
-		return []
-	} else {
+	if (!versions || versions.length === 0) return []
+	/**
+	 * We are currently migrating away from our existing content API, to a new
+	 * content API backed by a unified documentation repository. If the provided
+	 * `productSlugForLoader` has been flagged as migrated to unified docs, then
+	 * we use the new unified docs API to fetch known versions.
+	 */
+	const contentApiBaseUrl = getContentApiBaseUrl(productSlugForLoader)
+	try {
+		const getVersions = async (path: string): Promise<Set<string>> => {
+			const url = new URL(VERSIONS_ENDPOINT, contentApiBaseUrl)
+			url.searchParams.set('product', productSlugForLoader)
+			url.searchParams.set('fullPath', `doc#${path}`)
+			const response = await fetch(url, {
+				headers: {
+					'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN || '',
+				},
+			})
+			const { versions } = await response.json()
+			return new Set<string>(versions.flat() || [])
+		}
+
+		const knownVersions = await getVersions(fullPath.replace(/^doc#/, ''))
+		// Apply the filter, and return the valid versions
+		return versions.map((option) => ({
+			...option,
+			found: knownVersions.has(option.version),
+		}))
+	} catch (error) {
+		console.error(
+			`[docs-view/server] error fetching known versions for "${productSlugForLoader}" document "${fullPath}". Falling back to showing all versions.`,
+			error
+		)
 		return versions
 	}
 }

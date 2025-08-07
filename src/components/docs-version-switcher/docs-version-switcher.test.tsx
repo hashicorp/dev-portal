@@ -27,6 +27,7 @@ describe('DocsVersionSwitcher', () => {
 				version: 'v0.10.x',
 				name: 'v0.10.x',
 				releaseStage: 'alpha',
+				found: true,
 			},
 			{
 				isLatest: true,
@@ -34,6 +35,7 @@ describe('DocsVersionSwitcher', () => {
 				version: 'v0.9.x',
 				name: 'latest',
 				releaseStage: 'stable',
+				found: true,
 			},
 			{
 				isLatest: false,
@@ -41,6 +43,7 @@ describe('DocsVersionSwitcher', () => {
 				version: 'v0.8.x',
 				name: 'v0.8.x',
 				releaseStage: 'stable',
+				found: false,
 			},
 			{
 				isLatest: false,
@@ -48,6 +51,7 @@ describe('DocsVersionSwitcher', () => {
 				version: 'v0.7.x',
 				name: 'v0.7.x',
 				releaseStage: 'stable',
+				found: false,
 			},
 		]
 
