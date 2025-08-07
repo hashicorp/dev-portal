@@ -39,8 +39,8 @@
 		"cli",
 		"cloud-docs",
 		"enterprise",
-		"cdktf",
 		"migrate",
+		"cdktf",
 		{
 			"icon": "provider",
 			"label": "Provider Use",
