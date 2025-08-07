@@ -8,6 +8,7 @@ import { readLocalFile } from 'lib/read-local-file'
 import {
     getFaqsFromMdx,
 } from 'views/certifications/content/utils'
+import { RegistrationPageSchema } from 'views/certifications/content/schemas/registration-page'
 
 const CONTENT_DIR = 'src/content/certifications'
 
@@ -19,9 +20,7 @@ export async function getStaticProps() {
      * Ensure the authored content matches our expected schema
      */
     const registrationJsonContentString = readLocalFile(path.join(CONTENT_DIR, 'registration.json'))
-    // TODO: add a schema for this content
-    // const pageContent = RegistrationPageSchema.parse(JSON.parse(registrationJsonContentString))
-    const jsonContent = JSON.parse(registrationJsonContentString)
+    const jsonContent = RegistrationPageSchema.parse(JSON.parse(registrationJsonContentString))
 
     /**
      * Parse info card sections from an MDX file

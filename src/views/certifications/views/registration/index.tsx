@@ -25,6 +25,9 @@ import {
 } from 'views/certifications/components'
 // Styles
 import s from './registration.module.css'
+// Types
+import type { CertificationRegistrationProps } from './types'
+import type { FaqItem } from 'views/certifications/types'
 
 function MdxTooltip({ title, description }) {
 	return (
@@ -40,7 +43,7 @@ const MDX_COMPONENTS = {
 	Tooltip: MdxTooltip,
 }
 
-function CertificationsRegistrationView({ jsonContent, mdxItems }) {
+function CertificationsRegistrationView({ jsonContent, mdxItems }: CertificationRegistrationProps) {
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			{/* Hero */}
