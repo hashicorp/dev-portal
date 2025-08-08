@@ -188,6 +188,7 @@ describe('RemoteContentLoader', () => {
         "navData": Any<Array>,
         "versions": [
           {
+            "found": true,
             "isLatest": false,
             "label": "v0.6.2 (alpha)",
             "name": "v0.6.x",
@@ -195,6 +196,7 @@ describe('RemoteContentLoader', () => {
             "version": "v0.6.x",
           },
           {
+            "found": true,
             "isLatest": true,
             "label": "v0.5.2 (latest)",
             "name": "latest",
@@ -202,6 +204,7 @@ describe('RemoteContentLoader', () => {
             "version": "v0.5.x",
           },
           {
+            "found": true,
             "isLatest": false,
             "label": "v0.4.x",
             "name": "v0.4.x",
@@ -209,6 +212,7 @@ describe('RemoteContentLoader', () => {
             "version": "v0.4.x",
           },
           {
+            "found": true,
             "isLatest": false,
             "label": "v0.3.x",
             "name": "v0.3.x",
@@ -484,6 +488,7 @@ describe('mapVersionList', () => {
 		expect(versionList).toMatchInlineSnapshot(`
       [
         {
+          "found": true,
           "isLatest": false,
           "label": "v0.6.2 (alpha)",
           "name": "v0.6.x",
@@ -491,6 +496,7 @@ describe('mapVersionList', () => {
           "version": "v0.6.x",
         },
         {
+          "found": true,
           "isLatest": true,
           "label": "v0.5.2 (latest)",
           "name": "latest",
@@ -498,6 +504,7 @@ describe('mapVersionList', () => {
           "version": "v0.5.x",
         },
         {
+          "found": true,
           "isLatest": false,
           "label": "v0.4.x",
           "name": "v0.4.x",
@@ -505,6 +512,7 @@ describe('mapVersionList', () => {
           "version": "v0.4.x",
         },
         {
+          "found": true,
           "isLatest": false,
           "label": "v0.3.x",
           "name": "v0.3.x",
