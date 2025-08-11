@@ -22,7 +22,8 @@
 			"terraform-enterprise",
 			"terraform-docs-common",
 			"terraform",
-			"vault"
+			"vault",
+			"well-architected-framework"
 		]
 	}
 }
