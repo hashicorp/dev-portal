@@ -11,8 +11,8 @@
 
 .cardContent {
 	padding: 8px;
-	
-	@media (--dev-dot-desktop) {
+
+	@media (--dev-dot-tablet-up) {
 		padding: 24px;
 	}
 
