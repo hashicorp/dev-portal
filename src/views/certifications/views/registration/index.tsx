@@ -27,7 +27,6 @@ import {
 import s from './registration.module.css'
 // Types
 import type { CertificationRegistrationProps } from './types'
-import type { FaqItem } from 'views/certifications/types'
 
 function MdxTooltip({ title, description }) {
 	return (
