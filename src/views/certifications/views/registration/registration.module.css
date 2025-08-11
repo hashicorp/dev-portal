@@ -10,7 +10,12 @@
 /* Info card styles */
 
 .cardContent {
-	padding: 24px;
+	padding: 8px;
+	
+	@media (--dev-dot-desktop) {
+		padding: 24px;
+	}
+
 }
 
 .cardTitle {
