@@ -49,7 +49,7 @@ The sign in page is rendered based on the `signin.json` and `signin.mdx` files.
 
 ### Page metadata
 
-The content for the page header and footer is from the `signin.json` file. It contains the `page_title`, `main_cta_title`, `main_cta_description`, `main_cta_link_text`, `main_cta_url`, `footer_title`, `footer_description`, and `footer_cta` categories. 
+The content for the page header and footer is from the `signin.json` file. It contains the `page_title`, `main_cta_title`, `main_cta_description`, `main_cta_link_text`, `main_cta_url`, `footer_title`, `footer_description`, `footer_cta`, and `footer_cta_url` categories. 
 
 ### Copy for info cards
 
