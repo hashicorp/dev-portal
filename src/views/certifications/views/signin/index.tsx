@@ -108,7 +108,7 @@ function CertificationsSignInView({ jsonContent, mdxItems }: CertificationSignIn
 						<Text>{jsonContent.footer_description}</Text>
 					</div>
 					<ButtonLink
-						href="https://developer.hashicorp.com/"
+						href={jsonContent.footer_cta_url}
 						text={jsonContent.footer_cta}
 						color="secondary"
 						icon={<IconSupport16 />}

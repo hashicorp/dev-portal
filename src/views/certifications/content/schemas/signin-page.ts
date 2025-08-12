@@ -18,6 +18,7 @@ export const SignInPageSchema = z.object({
     footer_title: z.string(),
     footer_description: z.string(),
     footer_cta: z.string(),
+    footer_cta_url: z.string(),
 })
 
 /**
