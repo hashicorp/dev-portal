@@ -24,9 +24,9 @@ import {
 	StandaloneLinkContents,
 } from 'views/certifications/components'
 // Styles
-import s from './registration.module.css'
+import s from './signin.module.css'
 // Types
-import type { CertificationRegistrationProps } from './types'
+import type { CertificationSignInProps } from './types'
 
 function MdxTooltip({ title, description }) {
 	return (
@@ -42,7 +42,7 @@ const MDX_COMPONENTS = {
 	Tooltip: MdxTooltip,
 }
 
-function CertificationsRegistrationView({ jsonContent, mdxItems }: CertificationRegistrationProps) {
+function CertificationsSignInView({ jsonContent, mdxItems }: CertificationSignInProps) {
 	return (
 		<BaseLayout mobileMenuSlot={<MobileMenuLevelsGeneric />}>
 			{/* Hero */}
@@ -120,4 +120,4 @@ function CertificationsRegistrationView({ jsonContent, mdxItems }: Certification
 	)
 }
 
-export default CertificationsRegistrationView
+export default CertificationsSignInView

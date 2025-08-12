@@ -6,10 +6,10 @@
 import { z } from 'zod'
 
 /**
- * Content schema for the /certifications/registration page.
+ * Content schema for the /certifications/signin page.
  *
  */
-export const RegistrationPageSchema = z.object({
+export const SignInPageSchema = z.object({
     page_title: z.string(),
     main_cta_title: z.string(),
     main_cta_description: z.string(),
@@ -21,9 +21,9 @@ export const RegistrationPageSchema = z.object({
 })
 
 /**
- * Raw content for the certification registration page.
+ * Raw content for the certification sign in page.
  *
  * This raw content type represents content exactly as authored.
  * It may need to be transformed before it can be used at the view level.
  */
-export type RawRegistrationPageContent = z.infer<typeof RegistrationPageSchema>
+export type RawSignInPageContent = z.infer<typeof SignInPageSchema>
