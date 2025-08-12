@@ -35,7 +35,7 @@ export async function getStaticProps() {
         props: {
             jsonContent,
             mdxItems,
-            metadata: { title: 'Certifications', localOgImage: 'certifications.jpg' },
+            metadata: { title: 'Certifications Sign In', localOgImage: 'certifications.jpg' },
         },
     }
 }
