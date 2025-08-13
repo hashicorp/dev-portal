@@ -8,6 +8,7 @@ import { StatusCodes } from 'http-status-codes'
 import { validateToken } from 'lib/api-validate-token'
 import { cachedGetProductData } from 'lib/get-product-data'
 import { ProductSlug } from 'types/products'
+import { loadHashiConfigForEnvironment } from '../../../config'
 
 /**
  * Resolves the product slug based on the given product name.
@@ -40,6 +41,7 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 	}
 
 	const { product } = request.body
+	const config = loadHashiConfigForEnvironment()
 
 	if (!product) {
 		response
@@ -73,10 +75,16 @@ async function handler(request: NextApiRequest, response: NextApiResponse) {
 					productSlugForLoader ||= product
 
 					const prefix = navDataPrefix ?? path
+					const isUnifiedDocsProduct =
+						config['flags.unified_docs_migrated_repos'].includes(
+							productSlugForLoader
+						)
+					const contentApiBase = isUnifiedDocsProduct
+						? process.env.UNIFIED_DOCS_API
+						: process.env.MKTG_CONTENT_DOCS_API
 
-					const response = await fetch(
-						`https://content.hashicorp.com/api/content/${productSlugForLoader}/nav-data/latest/${prefix}`
-					)
+					const url = `${contentApiBase}/api/content/${productSlugForLoader}/nav-data/latest/${prefix}`
+					const response = await fetch(url)
 					const { result } = await response.json()
 
 					if (!result || !result.navData) {
