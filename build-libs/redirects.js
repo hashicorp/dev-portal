@@ -148,6 +148,7 @@ const PRODUCT_REDIRECT_ENTRIES = [
 	{ repo: 'consul', path: 'website/redirects.js' },
 	{ repo: 'terraform-docs-common', path: 'website/redirects.js' },
 	{ repo: 'terraform-enterprise', path: 'website/redirects.js' },
+	{ repo: 'well-architected-framework', path: 'website/redirects.js' },
 	{ repo: 'hcp-docs', path: '/redirects.js' }, // private repo
 	{ repo: 'sentinel', path: 'website/redirects.js' }, // private repo
 	{ repo: 'hvd-docs', path: '/redirects.js' }, // private repo
