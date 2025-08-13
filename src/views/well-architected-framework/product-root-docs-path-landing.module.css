@@ -1,0 +1,50 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.mdxSlotWrapper {
+	margin-top: 48px;
+}
+
+/*
+***
+* MDX content wrapper classes
+***
+* As we balance sometimes rendering remote MDX content (that is also rendered in
+* .io sites) alongside local JSON content in `/${productSlug}/docs` (both of
+* which are authorable), we may find it necessary to customize parts of the MDX
+* content.
+*
+* An example that likely applies to every product we want to render MDX content
+* for: hiding the first <h1> element. This is because we have a custom <h1>
+* element for this page that:
+*   1) renders in a different part of the DOM
+*   2) has auto-generated text.
+*
+* This is very brittle in the short term considering we don't have strong
+* control over the MDX content in this repo; however, the long term goal should
+* be that the MDX content comes to this repo as we need it. When that happens,
+* none of the `visibility: hidden` properties should be needed. (It may be
+* reasonable that we still need some custom MDX wrappers, but hopefully not
+* unique for each product.)
+***
+*/
+
+.waypointMDXWrapper {
+	/* Remove the h1 coming from MDX */
+	& h1:first-of-type {
+		display: none;
+		visibility: hidden;
+
+		/* Remove first element after the h1, which duplicates the description */
+		& + * {
+			display: none;
+			visibility: hidden;
+		}
+	}
+
+	& h2:first-of-type {
+		margin-top: 0;
+	}
+}

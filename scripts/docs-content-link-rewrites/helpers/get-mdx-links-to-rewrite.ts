@@ -56,9 +56,8 @@ const getMdxLinksToRewrite = async ({
 		 * property indicates that the content is regularly copied over from the
 		 * source, and thus should not be modified.
 		 *
-		 * Example file in the `ptfe-releases` repository:
-		 * https://github.com/hashicorp/ptfe-releases/blob/ba4dc2af20cc9d0f46247c919be8b2ed90d1e6f8/website/docs/enterprise/registry/index.mdx?plain=1#L6
-		 */
+		 * Example file in the `terraform-enterprise` repository (formerly ptfe-releases):
+		 * https://github.com/hashicorp/web-unified-docs/blob/main/content/terraform-enterprise/...		 */
 		const { data: frontmatter } = matter(fileContent)
 		const isSourcedFromDifferentRepo =
 			typeof frontmatter?.source === 'string' && frontmatter.source !== repo

@@ -7,7 +7,7 @@ import { normalizeRemoteLoaderSlug } from '../normalize-remote-loader-slug'
 
 const REMOTE_LOADER_SLUGS_TO_PRODUCT_SLUGS = {
 	'hcp-docs': 'hcp',
-	'ptfe-releases': 'terraform',
+	'terraform-enterprise': 'terraform',
 	'terraform-cdk': 'terraform',
 	'terraform-docs-agents': 'terraform',
 	'terraform-docs-common': 'terraform',
