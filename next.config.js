@@ -80,7 +80,7 @@ module.exports = withHashicorp({
 	},
 	env: {
 		ASSET_API_ENDPOINT: process.env.ASSET_API_ENDPOINT,
-		AXE_ENABLED: process.env.AXE_ENABLED || false,
+		AXE_ENABLED: process.env.AXE_ENABLED || 'false',
 		DEV_IO: process.env.DEV_IO,
 		PREVIEW_FROM_REPO: process.env.PREVIEW_FROM_REPO,
 		ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || false,
@@ -94,14 +94,6 @@ module.exports = withHashicorp({
 				? process.env.POSTHOG_PROJECT_API_KEY_DEV
 				: process.env.POSTHOG_PROJECT_API_KEY_PROD,
 	},
-	svgo: {
-		plugins: [
-			{
-				removeViewBox: false,
-				collapseGroups: false,
-			},
-		],
-	},
 	images: {
 		formats: ['image/avif', 'image/webp'],
 		domains: [
@@ -109,14 +101,12 @@ module.exports = withHashicorp({
 			'mktg-content-api-hashicorp.vercel.app',
 			'content.hashicorp.com',
 			// remove the http protocol from the URL
-			(process.env.UNIFIED_DOCS_API).replace(/^https?:\/\//, ''),
+			process.env.UNIFIED_DOCS_API.replace(/^https?:\/\//, ''),
 			// only allow localhost in development mode
-			...((
-				process.env.NODE_ENV === 'development' &&
-				process.env.HASHI_ENV !== 'preview') ?
-				['localhost'] :
-				[]
-			),
+			...(process.env.NODE_ENV === 'development' &&
+			process.env.HASHI_ENV !== 'preview'
+				? ['localhost']
+				: []),
 		],
 		dangerouslyAllowSVG: true,
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
