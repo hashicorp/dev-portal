@@ -39,8 +39,8 @@
 		]
 	},
 	"engines": {
-		"npm": ">=10.8.0",
-		"node": ">=22.17.1"
+		"npm": ">=8.0.0",
+		"node": ">=18.17.0"
 	},
 	"devDependencies": {
 		"@axe-core/react": "^4.3.1",
