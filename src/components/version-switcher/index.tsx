@@ -48,8 +48,20 @@ function VersionSwitcher({ options, label }: VersionSwitcherProps) {
 					// Hide currently selected version from dropdown list
 					.filter((option: VersionSwitcherOption) => !option.isSelected)
 					// Render an anchor item for each option
-					.map((option: VersionSwitcherOption, index: number, versions: VersionSwitcherOption[]) => {
+					.map((option: VersionSwitcherOption, index: number) => {
 						return [
+							// If the next version is missing, then render a message to explain
+							(index + 1 === firstNotFoundIndex) ? (
+								<DropdownDisclosureLabelItem>
+									<Alert
+										type="compact"
+										color='critical'
+										key="no-previous-versions"
+										description={`No versions of this document exist before ${options[firstNotFoundIndex-1].label}. Click below to redirect to the version homepage.`}
+										role='alert'
+									/>
+									</DropdownDisclosureLabelItem>
+							) : null,
 							<DropdownDisclosureAnchorItem
 								key={option.href}
 								href={option.href}
@@ -57,18 +69,6 @@ function VersionSwitcher({ options, label }: VersionSwitcherProps) {
 							>
 								{option.label}
 							</DropdownDisclosureAnchorItem>,
-							// If the next version is missing, then render a message to explain
-							(index + 1 < versions.length && index + 2 === firstNotFoundIndex) ? (
-								<DropdownDisclosureLabelItem>
-									<Alert
-										type="compact"
-										color='critical'
-										key="no-previous-versions"
-										description={`No versions of this document exist before ${option.label}. Click below to redirect to the version homepage.`}
-										role='alert'
-									/>
-									</DropdownDisclosureLabelItem>
-							) : null
 						]
 					})}
 			</DropdownDisclosure>

@@ -5,7 +5,7 @@
 
 import { type ReactNode } from 'react'
 import { VersionSelectItem } from 'views/docs-view/loaders/remote-content'
-import { render } from '@testing-library/react'
+import { render, within } from '@testing-library/react'
 import { CurrentProductProvider } from 'contexts'
 import DocsVersionSwitcher from '.'
 import { setProjectForAriaLabel } from '.'
@@ -97,7 +97,9 @@ describe('DocsVersionSwitcher', () => {
 
 		// assert that the currently selected version is not shown in the dropdown
 		const dropdown = queryByRole('list')
-		expect(dropdown).not.toHaveTextContent(exclude)
+		within(dropdown as HTMLUListElement).getAllByRole('link').forEach((link) => {
+			expect(link).not.toHaveTextContent(exclude)
+		})
 	})
 
 	it("passes `rel='nofollow'` to versioned links", () => {
