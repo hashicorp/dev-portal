@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Sync repo to branch
         uses: repo-sync/github-sync@3832fe8e2be32372e1b3970bbae8e7079edeec88
@@ -34,7 +34,7 @@ jobs:
           github_token: ${{ secrets.PAT_HASHIBOT_WEB_DEV_PORTAL_INTERNAL_SYNC }}
 
       - name: Ship pull request
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           github-token: ${{ secrets.PAT_HASHIBOT_WEB_DEV_PORTAL_INTERNAL_SYNC }}
           result-encoding: string
