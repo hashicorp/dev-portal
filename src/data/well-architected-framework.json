@@ -1,4 +1,14 @@
 {
 	"slug": "well-architected-framework",
-	"name": "Well-Architected Framework"
+	"name": "Well-Architected Framework",
+	"basePaths": ["docs"],
+	"rootDocsPaths": [
+		{
+			"iconName": "docs",
+			"name": "Documentation",
+			"path": "",
+			"basePathForLoader": "docs",
+			"productSlugForLoader": "well-architected-framework"
+		}
+	]
 }

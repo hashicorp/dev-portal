@@ -76,6 +76,10 @@ const productSlugsToIcons = {
 		16: IconHcp16,
 		24: IconHcp24,
 	},
+	'well-architected-framework': {
+		16: IconHcp16,
+		24: IconHcp24,
+	},
 }
 
 const ProductIcon = ({
@@ -96,7 +100,7 @@ const ProductIcon = ({
 
 	// Color should inherit from parent for hcp
 	const color =
-		productSlug === 'hcp' || productSlug === 'sentinel'
+		productSlug === 'hcp' || productSlug === 'sentinel' || productSlug === 'well-architected-framework'
 			? undefined
 			: `var(--token-color-${productSlug}-brand)`
 

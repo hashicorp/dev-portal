@@ -102,7 +102,7 @@ describe('fetchValidVersions', () => {
 		const pathParts = ['v202409-2', 'releases', '2024', 'v202409-1']
 		const versionPathPart = 'v202409-2'
 		const basePathForLoader = 'enterprise'
-		const productSlugForLoader = 'ptfe-releases'
+		const productSlugForLoader = 'terraform-enterprise'
 		const releaseNotesVersions: VersionSelectItem[] = [
 			{
 				name: 'latest',

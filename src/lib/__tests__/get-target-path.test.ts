@@ -75,4 +75,14 @@ describe('getTargetPath', () => {
 			expect(target).toEqual(expected)
 		}
 	)
+
+	it('should handle versions without a "v" prefix', () => {
+		const input = {
+			basePath: 'consul/docs',
+			asPath: '/consul/docs/k8s/connect',
+			version: '1.15.x',
+		}
+		const target = getTargetPath(input)
+		expect(target).toEqual('/consul/docs/1.15.x/k8s/connect')
+	})
 })

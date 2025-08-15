@@ -17,7 +17,7 @@ import { ProductSlug } from 'types/products'
  */
 export function resolveProduct(product: string): ProductSlug {
 	// Handle TF's sub-projects
-	if (product.startsWith('terraform-') || product === 'ptfe-releases') {
+	if (product.startsWith('terraform-') || product === 'terraform-enterprise') {
 		return 'terraform'
 	} else if (product === 'hcp-docs') {
 		return 'hcp'

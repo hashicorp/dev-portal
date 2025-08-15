@@ -22,6 +22,13 @@ describe('getVersionFromPath', () => {
 			const version = getVersionFromPath(path)
 			expect(version).toEqual('v202205-1')
 		}
+
+		{
+			const path = 'https://developer.hashicorp.com/waypoint/docs/0.7.x/getting-started'
+
+			const version = getVersionFromPath(path)
+			expect(version).toEqual('0.7.x')
+		}
 	})
 
 	it('should return `undefined` if no version is present', () => {
@@ -32,7 +39,7 @@ describe('getVersionFromPath', () => {
 
 	it('should return `undefined` if version is not formatted properly', () => {
 		const path =
-			'https://developer.hashicorp.com/waypoint/docs/0.7.x/getting-started'
+			'https://developer.hashicorp.com/waypoint/docs/test/getting-started'
 		const version = getVersionFromPath(path)
 		expect(version).toBeUndefined()
 	})
