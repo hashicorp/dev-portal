@@ -8,7 +8,7 @@ import { readLocalFile } from 'lib/read-local-file'
 import {
     getFaqsFromMdx,
 } from 'views/certifications/content/utils'
-import { RegistrationPageSchema } from 'views/certifications/content/schemas/registration-page'
+import { SignInPageSchema } from 'views/certifications/content/schemas/signin-page'
 
 const CONTENT_DIR = 'src/content/certifications'
 
@@ -19,14 +19,14 @@ export async function getStaticProps() {
     /**
      * Ensure the authored content matches our expected schema
      */
-    const registrationJsonContentString = readLocalFile(path.join(CONTENT_DIR, 'registration.json'))
-    const jsonContent = RegistrationPageSchema.parse(JSON.parse(registrationJsonContentString))
+    const signInJsonContentString = readLocalFile(path.join(CONTENT_DIR, 'signin.json'))
+    const jsonContent = SignInPageSchema.parse(JSON.parse(signInJsonContentString))
 
     /**
      * Parse info card sections from an MDX file
      */
-    const registrationMdxString = readLocalFile(path.join(CONTENT_DIR, 'registration.mdx'))
-    const mdxItems = await getFaqsFromMdx(registrationMdxString)
+    const signInMdxString = readLocalFile(path.join(CONTENT_DIR, 'signin.mdx'))
+    const mdxItems = await getFaqsFromMdx(signInMdxString)
 
     /**
      * Return static props
@@ -35,7 +35,7 @@ export async function getStaticProps() {
         props: {
             jsonContent,
             mdxItems,
-            metadata: { title: 'Certifications', localOgImage: 'certifications.jpg' },
+            metadata: { title: 'Certifications Sign In', localOgImage: 'certifications.jpg' },
         },
     }
 }
