@@ -6,6 +6,8 @@ This folder contains the authorable content for Certifications pages.
   - Visit [/certifications](https://developer.hashicorp.com/certifications)
 - [Program Pages](#program-pages), at `/certifications/<program>`
   - Visit for example [/certifications/security-automation](https://developer.hashicorp.com/certifications/security-automation)
+- [Sign in Page](#sign-in-page), at `/certifications/signin`
+  - Visit [/certifications/signin](https://developer.hashicorp.com/certifications/signin)
 
 ## Landing Page
 
@@ -40,3 +42,15 @@ Each program page can specific one or many exams, in the `exams` array in each `
 Each exam must reference an `.mdx` document within the `src/content/certifications/exam-faqs` directory, where FAQ content for each exam is authored. FAQs are derived from MDX files by extracting the FAQ title text and content from each `## Heading Two` section.
 
 For example, on the [/certifications/security-automation](https://developer.hashicorp.com/certifications/security-automation) we can see the exam FAQs for the `Vault Associate 002` exam. These FAQs are authored in [src/content/certifications/exam-faqs/vault-associate-002.mdx](/src/content/certifications/exam-faqs/vault-associate-002.mdx). This filepath is specified in the associated `exams` array item, specifically using the `faqSlug` attribute on the `Vault Associate 002` exam item within [src/content/certifications/programs/vault.json](/src/content/certifications/programs/vault.json).
+
+## Sign In Page
+
+The sign in page is rendered based on the `signin.json` and `signin.mdx` files.
+
+### Page metadata
+
+The content for the page header and footer is from the `signin.json` file. It contains the `page_title`, `main_cta_title`, `main_cta_description`, `main_cta_link_text`, `main_cta_url`, `footer_title`, `footer_description`, `footer_cta`, and `footer_cta_url` categories. 
+
+### Copy for info cards
+
+Each info card is generated from each `## Heading Two` section in the `signin.mdx` file. Each section can contain a title, plain text content, bullets, and tooltips.

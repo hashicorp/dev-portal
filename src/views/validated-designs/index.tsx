@@ -41,7 +41,7 @@ export default function ValidatedDesignsLandingView({
 			</Head>
 			<LandingHero
 				heading="HashiCorp Validated Designs"
-				isHvd={true}
+				noImage={true}
 				className={s.hvdHero}
 			/>
 			<div className={s.categoryGroupsContainer}>

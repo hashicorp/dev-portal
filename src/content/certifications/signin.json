@@ -1,0 +1,11 @@
+{
+    "page_title": "Important: ensure a smooth exam experience",
+    "main_cta_title": "Continue to log in",
+    "main_cta_description": "Go to the HashiCorp Certifications Exam Portal.",
+    "main_cta_link_text": "Certifications Exam Portal",
+    "main_cta_url": "https://cp.certmetrics.com/hashicorp/en/login",
+    "footer_title": "Looking for help?",
+    "footer_description": "Unsure which GitHub account you used? Lost access to your account? Have another question?",
+    "footer_cta": "Submit a ticket",
+    "footer_cta_url": "https://hashicorp-certifications.zendesk.com/hc/en-us/requests/new"
+}
