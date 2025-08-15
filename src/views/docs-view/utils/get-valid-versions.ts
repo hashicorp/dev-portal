@@ -53,21 +53,25 @@ export async function getValidVersions(
 	 */
 	const contentApiBaseUrl = getContentApiBaseUrl(productSlugForLoader)
 	try {
-		// Build the URL to fetch known versions of this document
-		const validVersionsUrl = new URL(VERSIONS_ENDPOINT, contentApiBaseUrl)
-		validVersionsUrl.searchParams.set('product', productSlugForLoader)
-		validVersionsUrl.searchParams.set('fullPath', fullPath)
-		const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
-			? new Headers({
-					'x-vercel-protection-bypass':
-						process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
-			  })
-			: new Headers()
-		// Fetch known versions of this document
-		const response = await fetch(validVersionsUrl.toString(), { headers })
-		const { versions: knownVersions } = await response.json()
+		const getVersions = async (path: string): Promise<Set<string>> => {
+			const url = new URL(VERSIONS_ENDPOINT, contentApiBaseUrl)
+			url.searchParams.set('product', productSlugForLoader)
+			url.searchParams.set('fullPath', `doc#${path}`)
+			const response = await fetch(url, {
+				headers: {
+					'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN || '',
+				},
+			})
+			const { versions } = await response.json()
+			return new Set<string>(versions.flat() || [])
+		}
+
+		const knownVersions = await getVersions(fullPath.replace(/^doc#/, ''))
 		// Apply the filter, and return the valid versions
-		return versions.filter((option) => knownVersions.includes(option.version))
+		return versions.map((option) => ({
+			...option,
+			found: knownVersions.has(option.version),
+		}))
 	} catch (error) {
 		console.error(
 			`[docs-view/server] error fetching known versions for "${productSlugForLoader}" document "${fullPath}". Falling back to showing all versions.`,

@@ -18,6 +18,7 @@ describe('getValidVersions', () => {
 			name: 'v1.0.0',
 			isLatest: false,
 			releaseStage: 'stable',
+			found: true,
 		},
 		{
 			version: '2.0.0',
@@ -25,6 +26,7 @@ describe('getValidVersions', () => {
 			name: 'v2.0.0',
 			isLatest: true,
 			releaseStage: 'stable',
+			found: false,
 		},
 	]
 	const fullPath = 'doc#/path/to/document'
@@ -43,7 +45,7 @@ describe('getValidVersions', () => {
 		).toEqual([])
 	})
 
-	it('should return filtered versions based on known versions from API', async () => {
+	it('should indicate found versions based on known versions from API', async () => {
 		const knownVersions = ['1.0.0']
 		;(fetch as MockedFunction<typeof fetch>).mockResolvedValueOnce({
 			ok: true,
@@ -51,20 +53,13 @@ describe('getValidVersions', () => {
 			json: async () => ({ versions: knownVersions }),
 		} as unknown as Response)
 
-		const result = await getValidVersions(
+		const [knownVersion, unknownVersion] = await getValidVersions(
 			versions,
 			fullPath,
 			productSlugForLoader
 		)
-		expect(result).toEqual([
-			{
-				isLatest: false,
-				label: 'v1.0.0',
-				name: 'v1.0.0',
-				releaseStage: 'stable',
-				version: '1.0.0',
-			},
-		])
+		expect(knownVersion.found).toBe(true)
+		expect(unknownVersion.found).toBe(false)
 	})
 
 	it('should return all versions if API call fails', async () => {
