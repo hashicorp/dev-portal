@@ -42,6 +42,10 @@ export function getBackToLink(
 		}
 	}
 
+	if (product.slug === 'well-architected-framework') {
+		return null
+	}
+
 	/**
 	 * If we can't find a "parent" rootDocsPath,
 	 * or if this is not a "nested" rootDocsPath, then we should use
