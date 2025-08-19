@@ -43,6 +43,21 @@ export async function getValidVersions(
 	if (!versions || versions.length === 0) {
 		return []
 	} else {
-		return versions
+		const minimumVersions = new Map<string, string>([
+			['boundary', 'v0.13.x'],
+			['consul', 'v1.18.x'],
+			['nomad', 'v1.8.x'],
+			['packer', 'v1.13.x'],
+			['vagrant', 'v2.4.7'],
+			['vault', 'v1.16.x'],
+			['waypoint', 'v0.11.x'],
+		]);
+		const minimumVersionIndex = versions
+			.findIndex((version) => version.label === minimumVersions.get(productSlugForLoader));
+
+		return versions.map((option, index) => ({
+			...option,
+			found: index <= minimumVersionIndex
+		}))
 	}
 }
