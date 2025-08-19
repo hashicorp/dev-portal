@@ -60,15 +60,6 @@ export const generateDefaultPackageManagers = (
 			os: 'linux',
 		},
 		{
-			label: 'Fedora 40',
-			commands: [
-				`sudo dnf install -y dnf-plugins-core`,
-				`sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo`,
-				`sudo dnf -y install ${productSlug}`,
-			],
-			os: 'linux',
-		},
-		{
 			label: 'Fedora 41',
 			commands: [
 				`sudo dnf install -y dnf-plugins-core`,
@@ -78,11 +69,20 @@ export const generateDefaultPackageManagers = (
 			os: 'linux',
 		},
 		{
+			label: 'Fedora 42',
+			commands: [
+				`wget -O- https://rpm.releases.hashicorp.com/fedora/hashicorp.repo | sudo tee /etc/yum.repos.d/hashicorp.repo`,
+				`sudo yum list available | grep hashicorp`,
+				`sudo dnf -y install ${productSlug}`,
+			],
+			os: 'linux',
+		},
+		{
 			label: 'Amazon Linux',
 			commands: [
 				`sudo yum install -y yum-utils shadow-utils`,
 				`sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo`,
-				`sudo yum -y install ${productSlug}`,
+				`sudo yum install ${productSlug}`,     
 			],
 			os: 'linux',
 		},
