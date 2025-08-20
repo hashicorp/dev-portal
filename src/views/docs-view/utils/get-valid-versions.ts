@@ -23,13 +23,14 @@ export async function getValidVersions(
 	 * May be undefined or empty if versioned docs are not enabled, for example
 	 * during local preview.
 	 */
-	versions: VersionSelectItem[],
+	versions: VersionSelectItem[] = [],
 	/**
 	 * A identifier for the document, consumable by our content API.
 	 * For markdown documents, this is `doc#` followed by the full path of the
 	 * document within the content source repository.
 	 */
 	fullPath: string,
+
 	/**
 	 * The product slug for the document, consumable by our content API.
 	 * The naming here is difficult, as the actual function here is to identify
@@ -37,27 +38,27 @@ export async function getValidVersions(
 	 * product slugs. For example Terraform has multiple content source repos
 	 * for different parts of the product.
 	 */
-	productSlugForLoader: string
+	slug: string
 ): Promise<VersionSelectItem[]> {
-	// If versions are falsy or empty, we can skip the API calls and return []
-	if (!versions || versions.length === 0) {
-		return []
-	} else {
-		const minimumVersions = new Map<string, string>([
-			['boundary', 'v0.13.x'],
-			['consul', 'v1.18.x'],
-			['nomad', 'v1.8.x'],
-			['packer', 'v1.13.x'],
-			['vagrant', 'v2.4.7'],
-			['vault', 'v1.16.x'],
-			['waypoint', 'v0.11.x'],
-		]);
-		const minimumVersionIndex = versions
-			.findIndex((version) => version.label === minimumVersions.get(productSlugForLoader));
-
-		return versions.map((option, index) => ({
-			...option,
-			found: index <= minimumVersionIndex
-		}))
-	}
+	const minimumVersions = {
+		boundary: 'v0.13.x',
+		consul: 'v1.18.x',
+		nomad: 'v1.8.x',
+		packer: 'v1.13.x',
+		vagrant: 'v2.4.7',
+		vault: 'v1.16.x',
+		waypoint: 'v0.11.x',
+		// Terraform sub-products (i.e: terraform-*)
+		['terraform-cli']: 'v1.13.x',
+		['terraform-cdk']: 'v0.21.x',
+		['terraform-enterprise']: 'v202408-1',
+		['terraform-plugin-framework']: 'v1.15.x',
+	};
+	const product = fullPath.includes('cli') ? `${slug}-${fullPath.replace(/doc#/, '')}` : slug
+	const minimumVersionIndex = versions
+		.findIndex(({ version }) => version == minimumVersions[product]);
+	return versions.map((option, index) => ({
+		...option,
+		found: index <= minimumVersionIndex
+	}))
 }
