@@ -60,7 +60,7 @@ export function getVersionSwitcherProps({
 			// Mark this version option as selected if it's the current option
 			const isSelected = versionId === targetVersion.versionId
 			// Return all the props
-			return { ariaLabel, href, isLatest, isSelected, label }
+			return { ariaLabel, href, isLatest, isSelected, label, found: true }
 		}
 	)
 
