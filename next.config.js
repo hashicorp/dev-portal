@@ -101,14 +101,12 @@ module.exports = withHashicorp({
 			'mktg-content-api-hashicorp.vercel.app',
 			'content.hashicorp.com',
 			// remove the http protocol from the URL
-			(process.env.UNIFIED_DOCS_API).replace(/^https?:\/\//, ''),
+			process.env.UNIFIED_DOCS_API.replace(/^https?:\/\//, ''),
 			// only allow localhost in development mode
-			...((
-				process.env.NODE_ENV === 'development' &&
-				process.env.HASHI_ENV !== 'preview') ?
-				['localhost'] :
-				[]
-			),
+			...(process.env.NODE_ENV === 'development' &&
+			process.env.HASHI_ENV !== 'preview'
+				? ['localhost']
+				: []),
 		],
 		dangerouslyAllowSVG: true,
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
