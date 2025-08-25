@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import type { RawSignInPageContent } from "views/certifications/content/schemas/signin-page"
 import type { FaqItem } from "views/certifications/types"
 
