@@ -33,9 +33,9 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	basePath: '/hcp/api-docs/hvn',
 	githubSourceDirectory: {
 		owner: 'hashicorp',
-		repo: 'hcp-specs',
-		path: 'specs/cloud-network',
-		ref: 'main',
+		repo: 'web-unified-docs',
+		path: 'content/hcp-docs/specs/cloud-network',
+		ref: '3f76714',
 	},
 	groupOperationsByPath: true,
 	navResourceItems: [

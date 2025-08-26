@@ -29,9 +29,9 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	productSlug: 'hcp',
 	githubSourceDirectory: {
 		owner: 'hashicorp',
-		repo: 'hcp-specs',
-		path: 'specs/cloud-webhook',
-		ref: 'main',
+		repo: 'web-unified-docs',
+		path: 'content/hcp-docs/specs/cloud-webhook',
+		ref: '3f76714',
 	},
 	statusIndicatorConfig: {
 		pageUrl: 'https://status.hashicorp.com',

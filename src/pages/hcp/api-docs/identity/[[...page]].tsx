@@ -33,9 +33,9 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	basePath: '/hcp/api-docs/identity',
 	githubSourceDirectory: {
 		owner: 'hashicorp',
-		repo: 'hcp-specs',
-		path: 'specs/cloud-iam',
-		ref: 'main',
+		repo: 'web-unified-docs',
+		path: 'content/hcp-docs/specs/cloud-iam',
+		ref: '3f76714',
 	},
 	groupOperationsByPath: true,
 	navResourceItems: [

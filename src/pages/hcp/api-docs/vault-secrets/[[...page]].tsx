@@ -49,9 +49,9 @@ const PAGE_CONFIG: OpenApiDocsViewV2Config = {
 	],
 	schemaSource: {
 		owner: 'hashicorp',
-		repo: 'hcp-specs',
-		path: 'specs/cloud-vault-secrets',
-		ref: 'main',
+		repo: 'web-unified-docs',
+		path: 'content/hcp-docs/specs/cloud-vault-secrets',
+		ref: '3f76714',
 	},
 	productContext: 'hcp',
 	theme: 'vault',
