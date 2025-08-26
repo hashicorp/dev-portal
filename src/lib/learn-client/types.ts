@@ -241,6 +241,7 @@ export enum EditionOption {
 	tfcFree = 'tfc:free',
 	tfcEssentials = 'tfc:essentials',
 	tfcStandard = 'tfc:standard',
+	tfcPlus = 'tfc:plus',
 	tfcPremium = 'tfc:premium',
 }
 
