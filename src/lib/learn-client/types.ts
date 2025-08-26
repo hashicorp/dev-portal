@@ -239,8 +239,10 @@ export enum EditionOption {
 	enterprise = 'enterprise',
 	hcp = 'hcp',
 	tfcFree = 'tfc:free',
+	tfcEssentials = 'tfc:essentials',
 	tfcStandard = 'tfc:standard',
 	tfcPlus = 'tfc:plus',
+	tfcPremium = 'tfc:premium',
 }
 
 export type BadgeOption =
