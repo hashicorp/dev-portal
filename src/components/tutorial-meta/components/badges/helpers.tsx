@@ -15,8 +15,9 @@ const editionDisplayOptions: { [K in EditionOption]: string } = {
 	[EditionOption.enterprise]: 'Enterprise',
 	[EditionOption.hcp]: 'HCP',
 	[EditionOption.tfcFree]: 'HCP Terraform',
+	[EditionOption.tfcEssentials]: 'Essentials',
 	[EditionOption.tfcStandard]: 'Standard',
-	[EditionOption.tfcPlus]: 'Plus',
+	[EditionOption.tfcPremium]: 'Premium',
 }
 
 /**
