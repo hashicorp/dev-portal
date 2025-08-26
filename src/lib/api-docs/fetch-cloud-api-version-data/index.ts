@@ -45,9 +45,7 @@ function releaseStageFromPath(filePath: string): string {
 async function fetchCloudApiVersionData(
 	githubDir: GithubDir
 ): Promise<ApiDocsVersionData[]> {
-	console.log('### fetchInfo', githubDir)
 	const jsonFiles = await getJsonFilesFromGithubDir(githubDir)
-	console.log('### jsonFiles', jsonFiles)
 	// Parse version data out of the fetched .json files
 	const versionData = jsonFiles.map((fileEntry: FileTreeEntry) => {
 		// Build the full file path from the repo root
