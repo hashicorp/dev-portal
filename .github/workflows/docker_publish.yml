@@ -16,7 +16,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ['self-hosted', 'ondemand', 'type=m5n.2xlarge', 'disk_gb=16']
 
     steps:
       - name: Checkout repository
