@@ -22,6 +22,7 @@
 		"internals",
 		"intro",
 		"language",
+		"migrate",
 		"plugin",
 		"plugin/framework",
 		"plugin/log",
@@ -38,6 +39,7 @@
 		"cli",
 		"cloud-docs",
 		"enterprise",
+		"migrate",
 		"cdktf",
 		{
 			"icon": "provider",
@@ -87,7 +89,7 @@
 			"iconName": "org",
 			"name": "Terraform Enterprise",
 			"path": "enterprise",
-			"productSlugForLoader": "ptfe-releases"
+			"productSlugForLoader": "terraform-enterprise"
 		},
 		{
 			"iconName": "docs",
@@ -150,6 +152,12 @@
 			"name": "Registry Publishing",
 			"path": "registry",
 			"productSlugForLoader": "terraform-docs-common"
+		},
+		{
+			"iconName": "docs",
+			"name": "Terraform Migrate",
+			"path": "migrate",
+			"productSlugForLoader": "terraform-migrate"
 		}
 	]
 }

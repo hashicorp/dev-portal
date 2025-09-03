@@ -47,6 +47,12 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	 * So, we construct a "Documentation" dropdown for the top nav bar.
 	 */
 	let docsNavItems: NavItem[]
+
+	// Well-Architected Framework has no header nav items
+	if (currentProduct.slug === 'well-architected-framework') {
+		return []
+	}
+	
 	if (currentProduct.slug === 'terraform') {
 		// Dropdown for Terraform
 		docsNavItems = [

@@ -11,6 +11,7 @@
 	},
 	"flags": {
 		"unified_docs_migrated_repos": [
+			"terraform-migrate",
 			"terraform-plugin-framework",
 			"terraform-plugin-log",
 			"terraform-plugin-mux",
@@ -18,10 +19,11 @@
 			"terraform-plugin-testing",
 			"terraform-docs-agents",
 			"terraform-cdk",
-			"ptfe-releases",
+			"terraform-enterprise",
 			"terraform-docs-common",
 			"terraform",
-			"vault"
+			"vault",
+			"well-architected-framework"
 		]
 	}
 }

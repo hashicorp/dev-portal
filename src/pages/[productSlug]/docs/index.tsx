@@ -12,9 +12,14 @@ import { productSlugs } from 'lib/products'
  * Generates the paths for all /:productSlug/docs routes.
  */
 const getStaticPaths = async () => {
-	const paths = productSlugs.map((productSlug: ProductSlug) => ({
-		params: { productSlug },
-	}))
+	// Exclude products that have custom index pages at the root level
+	const excludedProducts = ['well-architected-framework']
+	
+	const paths = productSlugs
+		.filter((productSlug: ProductSlug) => !excludedProducts.includes(productSlug))
+		.map((productSlug: ProductSlug) => ({
+			params: { productSlug },
+		}))
 
 	return {
 		paths,

@@ -1,7 +1,7 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 
-FROM docker.mirror.hashicorp.services/node:18-buster AS deps
+FROM docker.mirror.hashicorp.services/node:22-bookworm AS deps
 
 RUN apt-get update
 
@@ -24,7 +24,7 @@ RUN npm install -g npm@9.8.1
 # - see https://github.com/imagemin/optipng-bin/issues/118
 RUN CPPFLAGS="-DPNG_ARM_NEON_OPT=0" npm install
 
-FROM docker.mirror.hashicorp.services/node:18-buster AS builder
+FROM docker.mirror.hashicorp.services/node:22-bookworm AS builder
 
 RUN npm install -g npm@9.8.1
 

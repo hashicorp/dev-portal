@@ -163,10 +163,18 @@ async function prepareNavNodeForClient({
 		 * through content conformance efforts.
 		 */
 		const pathWithIndexFix = node.path.endsWith('/index') ? '' : node.path // TODO: Remove this stopgap once this task is complete https://app.asana.com/0/1207947026228781/1208077887539354/f
+		
+		// Handle the case where basePath might be empty (e.g., for well-architected-framework)
+		// to avoid double slashes in URLs
+		const basePathsJoined = basePaths.join('/').replace(/\/+$/, '') // Remove trailing slashes
+		const fullPath = pathWithIndexFix 
+			? `/${basePathsJoined}/${pathWithIndexFix}`
+			: `/${basePathsJoined}`
+		
 		const preparedItem = {
 			...node,
 			path: pathWithIndexFix,
-			fullPath: `/${basePaths.join('/')}/${pathWithIndexFix}`,
+			fullPath,
 			id,
 		}
 		return { preparedItem, traversedNodes: 1 }

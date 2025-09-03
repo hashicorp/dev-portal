@@ -64,12 +64,13 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 	 * Load redirects from the unified docs repo if it's in the list of migrated repos.
 	 * Return early if there are not any redirects found for that specific repo.
 	 */
-	if (
-		config['flags.unified_docs_migrated_repos'].includes(repoName)
-	) {
-		const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN ? new Headers({
-			'x-vercel-protection-bypass': process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
-		}) : new Headers()
+	if (config['flags.unified_docs_migrated_repos'].includes(repoName)) {
+		const headers = process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN
+			? new Headers({
+					'x-vercel-protection-bypass':
+						process.env.UDR_VERCEL_AUTH_BYPASS_TOKEN,
+			  })
+			: new Headers()
 
 		const getUDRRedirects = await fetch(
 			`${process.env.UNIFIED_DOCS_API}/api/content/${repoName}/redirects`,
@@ -85,12 +86,15 @@ async function getRedirectsFromContentRepo(repoName, redirectsPath, config) {
 		return []
 	}
 
-	const privateRepos = ['hcp-docs', 'ptfe-releases', 'sentinel', 'hvd-docs']
+	const privateRepos = ['hcp-docs', 'sentinel', 'hvd-docs']
 	/**
 	 * The UDR docker image does not have access to the github token necessary to
 	 * fetch redirects from private repos so we return an empty array for those redirects
 	 */
-	if (process.env.HASHI_ENV === 'unified-docs-sandbox' && privateRepos.includes(repoName)) {
+	if (
+		process.env.HASHI_ENV === 'unified-docs-sandbox' &&
+		privateRepos.includes(repoName)
+	) {
 		return []
 	}
 
@@ -143,8 +147,9 @@ const PRODUCT_REDIRECT_ENTRIES = [
 	{ repo: 'packer', path: 'website/redirects.js' },
 	{ repo: 'consul', path: 'website/redirects.js' },
 	{ repo: 'terraform-docs-common', path: 'website/redirects.js' },
+	{ repo: 'terraform-enterprise', path: 'website/redirects.js' },
+	{ repo: 'well-architected-framework', path: 'website/redirects.js' },
 	{ repo: 'hcp-docs', path: '/redirects.js' }, // private repo
-	{ repo: 'ptfe-releases', path: 'website/redirects.js' }, // private repo
 	{ repo: 'sentinel', path: 'website/redirects.js' }, // private repo
 	{ repo: 'hvd-docs', path: '/redirects.js' }, // private repo
 ]
@@ -316,8 +321,6 @@ function filterInvalidRedirects(redirects, repoSlug) {
 		/** @deprecated - terraform-website is now archived and redirects have been moved to `terraform-docs-common` */
 		'terraform-website': 'terraform',
 		'terraform-docs-common': 'terraform',
-		// Note: `ptfe-releases` docs are rendered under `terraform/enterprise` URLs
-		'ptfe-releases': 'terraform/enterprise',
 		'cloud.hashicorp.com': 'hcp',
 		'hcp-docs': 'hcp',
 		'hvd-docs': 'validated-designs',

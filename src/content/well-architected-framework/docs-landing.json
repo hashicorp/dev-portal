@@ -1,0 +1,47 @@
+{
+	"hero": {
+		"heading": "Best practices for managing your infrastructure and security lifecycle",
+		"subtitle": "Best practices for managing your infrastructure and security lifecycle",
+		"image": "/img/well-architected-framework/landing-hero-graphic.png"
+	},
+	"overview": {
+		"heading": "Well-Architected Framework (WAF)",
+		"body": "Find resources to define and automate your processes, optimize your resources and costs, design reliable systems, and secure your infrastructure and services.",
+		"cta": {
+			"text": "Learn more about WAF",
+			"url": "/well-architected-framework/what-is"
+		},
+		"image": {
+			"light": "https://www.datocms-assets.com/2885/1679095265-devdot-waf_lm.png",
+			"dark": "https://www.datocms-assets.com/2885/1679087810-devdot-waf_dm.png"
+		}
+	},
+	"marketingContentBlocks": [
+		{
+			"type": "card-grid",
+			"title": "Framework Pillars",
+			"cards": [
+				{
+					"title": "Define and automate processes",
+					"description": "Establish repeatable, scalable workflows that reduce manual effort and human error while enabling teams to deliver infrastructure and applications consistently",
+					"url": "/well-architected-framework/define-and-automate-processes"
+				},
+				{
+					"title": "Secure systems",
+					"description": "Implement security controls including identity and access management, data protection, secrets management, and network security to prevent unauthorized access and protect sensitive information",
+					"url": "/well-architected-framework/secure-systems"
+				},
+				{
+					"title": "Design resilient systems",
+					"description": "Build fault-tolerant architectures that maintain availability and performance during failures through redundancy, disaster recovery planning, zero-downtime deployments, and robust networking strategies",
+					"url": "/well-architected-framework/design-resilient-systems"
+				},
+				{
+					"title": "Optimize systems",
+					"description": "Maximize efficiency and minimize waste by right-sizing infrastructure, managing costs, monitoring performance, and implementing dynamic scaling strategies that align with actual usage patterns",
+					"url": "/well-architected-framework/optimize-systems"
+				}
+			]
+		}
+	]
+}

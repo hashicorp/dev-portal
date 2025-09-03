@@ -38,6 +38,7 @@
 		"enable_io_beta_cta": true,
 		"enable_hvd_on_preview_branch": false,
 		"unified_docs_migrated_repos": [
+			"terraform-migrate",
 			"terraform-plugin-framework",
 			"terraform-plugin-log",
 			"terraform-plugin-mux",
@@ -48,7 +49,9 @@
 			"terraform",
 			"terraform-docs-common",
 			"vault",
-			"ptfe-releases"
+			"ptfe-releases",
+			"well-architected-framework",
+			"terraform-enterprise"
 		]
 	}
 }

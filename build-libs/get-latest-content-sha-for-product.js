@@ -24,7 +24,8 @@ const KNOWN_LATEST_REF_ENDPOINTS = {
 	'terraform-docs-common':
 		'/api/content/terraform-docs-common/nav-data/latest/docs',
 	'hcp-docs': '/api/content/hcp-docs/nav-data/latest/docs',
-	'ptfe-releases': '/api/content/ptfe-releases/nav-data/latest/enterprise',
+	'terraform-enterprise':
+		'/api/content/terraform-enterprise/nav-data/latest/enterprise',
 	sentinel: '/api/content/sentinel/nav-data/latest/sentinel',
 }
 
