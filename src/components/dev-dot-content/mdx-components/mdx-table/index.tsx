@@ -8,6 +8,8 @@ import classNames from 'classnames'
 import { getScrollData, type ScrollData } from 'lib/get-scroll-data'
 import s from './mdx-table.module.css'
 
+import { Table } from '@hashicorp/react-mds/src/components/table'
+
 /**
  * Lightweight wrapper around the native <table> element. Encapsulates styles,
  * enables scrolling when tables are too tall or wide, and uses `tabindex="0"`
