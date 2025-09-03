@@ -1,0 +1,23 @@
+.error {
+	display: flex;
+	gap: 8px;
+	align-items: flex-start;
+	color: var(--token-form-error-color);
+	composes: token-typography-body-100 from global;
+	composes: mds-typography-font-weight-medium from global;
+}
+
+.icon {
+	flex: none;
+	width: var(--token-form-error-icon-size);
+	height: var(--token-form-error-icon-size);
+	margin: 2px 0 2px 0;
+}
+
+.content {
+	flex: 1 1 auto;
+}
+
+.message {
+	margin: 0;
+}

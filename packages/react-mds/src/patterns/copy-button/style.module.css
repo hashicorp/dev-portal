@@ -1,0 +1,23 @@
+.copy-button {
+	--copy-button-token-idle: var(--token-color-foreground-action);
+	--copy-button-token-success: var(--token-color-foreground-success);
+	--copy-button-token-error: var(--token-color-foreground-critical);
+}
+
+.idle {
+	& svg {
+		fill: var(--copy-button-token-idle);
+	}
+}
+
+.success {
+	& svg {
+		fill: var(--copy-button-token-success);
+	}
+}
+
+.error {
+	& svg {
+		fill: var(--copy-button-token-error);
+	}
+}

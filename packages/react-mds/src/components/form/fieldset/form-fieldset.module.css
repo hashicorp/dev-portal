@@ -1,0 +1,48 @@
+/**
+* FORM > GROUP
+*/
+
+.group {
+	/* notice: this is a <fieldset> element */
+	display: block;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+.legend {
+	/* notice: this is a <legend> element */
+	margin: 0 0 8px 0;
+	padding: 0;
+}
+
+/* when the group contains a "legend", we reduce the visual weight of the "label" */
+.has-legend {
+	& label {
+		font-weight: var(--mds-typography-font-weight-regular);
+	}
+}
+
+.vertical {
+	& .control-fields-wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+}
+
+.horizontal {
+	& .control-fields-wrapper {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px 16px;
+	}
+}
+
+.helper-text {
+	margin-bottom: 8px;
+}
+
+.error {
+	margin-top: 8px;
+}

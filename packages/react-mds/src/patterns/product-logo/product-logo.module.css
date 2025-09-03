@@ -1,0 +1,24 @@
+.product-logo {
+	display: flex;
+	gap: var(--mds-spacing-03);
+	align-items: center;
+
+	&.small {
+		gap: var(--mds-spacing-02);
+	}
+}
+
+.small {
+	font-size: 14px;
+	line-height: 18px;
+}
+
+.medium {
+	font-size: 17px;
+	line-height: 23px;
+}
+
+.large {
+	font-size: 22px;
+	line-height: 27px;
+}

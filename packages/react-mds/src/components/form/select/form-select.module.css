@@ -1,0 +1,89 @@
+/*
+* FORM > SELECT
+*/
+
+/* "BASE" CONTROL */
+
+.select {
+	composes: mds-typography-font-weight-regular from global;
+	max-width: 100%;
+	padding: var(--token-padding);
+	padding-right: calc(
+		var(--token-padding) + 24px
+	); /* extra space for the icon */
+
+	color: var(--token-form-control-base-foreground-value-color);
+	background-color: var(--token-form-control-base-surface-color-default);
+	background-image: var(--token-form-select-background-image-data-url);
+	background-repeat: no-repeat;
+	background-position: right
+		var(--token-form-select-background-image-position-right-x) top
+		var(--token-form-select-background-image-position-top-y); /* we have to take into account the border */
+
+	background-size: var(--token-form-select-background-image-size)
+		var(--token-form-select-background-image-size);
+	border: var(--token-form-control-border-width) solid
+		var(--token-form-control-base-border-color-default);
+	border-radius: var(--token-form-control-border-radius);
+	box-shadow: var(--token-elevation-low-box-shadow);
+	appearance: none;
+
+	/* STATUS */
+
+	&:hover {
+		border-color: var(--token-form-control-base-border-color-hover);
+	}
+
+	/* focus (same for all the states) */
+
+	&:focus {
+		border-color: var(--token-color-focus-action-internal);
+
+		/* Notice: Safari doesn't apply a rounded border */
+		outline: 3px solid var(--token-color-focus-action-external);
+		outline-offset: 0;
+	}
+
+	/* DISABLED */
+
+	&:disabled {
+		color: var(--token-form-control-disabled-foreground-color);
+		background-color: var(--token-form-control-disabled-surface-color);
+		background-image: var(
+			--token-form-select-background-image-data-url-disabled
+		);
+		border-color: var(--token-form-control-disabled-border-color);
+		box-shadow: none;
+		cursor: not-allowed;
+	}
+
+	/* INVALID */
+
+	&.invalid {
+		border-color: var(--token-form-control-invalid-border-color-default);
+
+		&:hover {
+			border-color: var(--token-form-control-invalid-border-color-hover);
+		}
+
+		&:focus {
+			border-color: var(--token-color-focus-critical-internal);
+			outline-color: var(--token-color-focus-critical-external);
+		}
+	}
+}
+
+.medium {
+	composes: token-typography-body-200 from global;
+
+	--token-padding: var(--token-form-control-padding);
+}
+
+.large {
+	composes: token-typography-body-300 from global;
+
+	--token-padding: calc(var(--token-form-control-padding) + 4px);
+
+	min-height: 3rem;
+	background-position: right 11px top 16px; /* we have to take into account the border */
+}

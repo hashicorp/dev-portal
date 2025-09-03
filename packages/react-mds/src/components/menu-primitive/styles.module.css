@@ -1,0 +1,8 @@
+.menu-primitive {
+  position: relative;
+  width: fit-content;
+}
+
+.width-full {
+  width: 100%;
+}

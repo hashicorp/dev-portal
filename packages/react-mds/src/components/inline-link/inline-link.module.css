@@ -1,0 +1,50 @@
+.link-inline {
+	text-decoration: underline;
+  border-radius: 2px; /* used for the focus-ring border-radius */
+
+  &:focus,
+  &:focus-visible {
+    text-decoration: none;
+    outline: 2px solid var(--token-color-focus-action-internal);
+    outline-offset: 1px;
+  }
+}
+
+.color-primary {
+  color: var(--token-color-foreground-action);
+
+  &:hover {
+    color: var(--token-color-foreground-action-hover);
+  }
+
+  &:active {
+    color: var(--token-color-foreground-action-active);
+  }
+}
+
+.color-secondary {
+  color: var(--token-color-foreground-strong);
+
+  &:hover {
+    color: var(--token-color-foreground-primary);
+  }
+
+  &:active {
+    color: var(--token-color-foreground-faint);
+  }
+}
+
+
+.icon {
+	width: 1em; /* uses the current font-size for the width of the icon */
+	height: 1em; /* uses the current font-size for the height of the icon */
+	vertical-align: text-bottom;
+
+	&:first-child {
+		margin-right: 0.25em;
+	}
+
+	&:last-child {
+		margin-left: 0.25em;
+	}
+}

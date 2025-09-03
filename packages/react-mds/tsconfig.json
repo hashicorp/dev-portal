@@ -1,0 +1,14 @@
+{
+	"extends": "../../base.tsconfig.json",
+	"compilerOptions": {
+		"target": "ES2020",
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"types": ["vitest/globals", "@testing-library/jest-dom"]
+	},
+	"include": ["./**/*"],
+	"exclude": ["node_modules"]
+}

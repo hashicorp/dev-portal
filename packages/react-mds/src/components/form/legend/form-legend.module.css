@@ -1,0 +1,17 @@
+/*
+* FORM > LEGEND
+*/
+
+.legend {
+	display: block;
+	color: var(--token-form-legend-color);
+	composes: token-typography-body-200 from global;
+	composes: mds-typography-font-weight-semibold from global;
+}
+
+.badge {
+	display: inline-flex;
+	align-items: baseline;
+	gap: var(--mds-spacing-01);
+	margin-left: var(--mds-spacing-01);
+}

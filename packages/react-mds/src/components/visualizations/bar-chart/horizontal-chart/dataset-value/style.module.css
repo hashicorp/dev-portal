@@ -1,0 +1,80 @@
+.datasetValue {
+	--width: 0;
+
+	display: flex;
+	align-items: center;
+	height: 23px;
+	position: relative;
+	width: calc(var(--width) * 1%);
+}
+
+.datasetValueBar {
+	--currentValue: 0;
+	--highestValue: 0;
+
+	flex-shrink: 0;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+
+	&::after {
+		content: '';
+		height: 100%;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		background: var(--bar-background);
+	}
+}
+
+.datasetValuePercent {
+	--currentValue: 0;
+	--highestValue: 0;
+	--previousValue: 0;
+
+	composes: g-type-display-6 from global;
+	font-size: 14px;
+	font-weight: var(--font-weight-normal);
+
+	/* Ensure letters display at the same width. Totaling ~ 52px */
+
+	/* https://twitter.com/wesbos/status/932644812582522880/ */
+	font-feature-settings: 'tnum';
+	font-variant-numeric: tabular-nums;
+	left: 0;
+	padding-left: var(--mds-spacing-02);
+	z-index: 1;
+
+	&.offset {
+		color: var(--token-color-foreground-primary);
+
+		/* HACK: Ensures values meeting the criteria 
+		to be `.offset` in stacked bars maintain 
+		non-`.offset` styles on widths where the 
+		bar is stackable */
+		&.stackable {
+			@media (min-width: 560px) {
+				color: inherit;
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+		}
+	}
+
+	&:not(.offset) {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}
+
+.light {
+	color: #fff;
+}
+
+.dark {
+	color: #000;
+}

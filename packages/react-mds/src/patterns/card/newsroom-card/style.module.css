@@ -1,0 +1,12 @@
+.newsroomCard {
+	& img {
+		padding: var(--mds-spacing-07);
+		aspect-ratio: 16 / 9;
+
+		/* 
+			! HACK: Overrides object-fit set by Thumbnail primitive in Card component styles
+			Ref: https://github.com/hashicorp/web/blob/main/packages/react-components/src/components/card/style.module.css#L75
+		*/
+		object-fit: contain !important;
+	}
+}

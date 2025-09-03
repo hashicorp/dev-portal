@@ -1,0 +1,14 @@
+.container {
+	background: #222;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	max-width: 200px;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+}
+
+.label {
+	font-size: 0.875rem;
+	line-height: 1rem;
+}

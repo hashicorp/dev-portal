@@ -1,0 +1,192 @@
+@use '../../styles/mixins/focus-ring' as *;
+
+$border-radius: 6px;
+$border-width: 1px;
+$inner-border-radius: $border-radius - $border-width;
+$border-color: var(--token-color-border-primary);
+
+// TABLE
+
+.table {
+	width: 100%;
+	border: $border-width solid $border-color;
+	border-radius: $border-radius;
+	border-spacing: 0;
+
+	&.layout-fixed {
+		table-layout: fixed;	
+	}
+
+	&.striped {
+		& .tbody {
+			& .tr:nth-child(even) {
+				background-color: var(--token-color-surface-faint);
+			}
+		}
+	}
+}
+
+.density-short {
+	--mds-table-cell-padding: 6px 16px 5px 16px;
+}
+
+.density-medium {
+	--mds-table-cell-padding: 14px 16px 13px 16px;
+}
+
+.density-tall {
+	--mds-table-cell-padding: 22px 16px 21px 16px;
+}
+
+.valign-top {
+	--mds-table-valign: top;
+}
+
+.valign-middle {
+	--mds-table-valign: middle;
+}
+
+.valign-baseline {
+	--mds-table-valign: baseline;
+}
+
+.th,
+.td {
+	padding: var(--mds-table-cell-padding);
+
+	&.align-center {
+		text-align: center;
+
+		& .content {
+			justify-content: center;
+		}
+	}
+
+	&.align-right {
+		text-align: right;
+
+		.content {
+			justify-content: flex-end;
+		}
+	}
+}
+
+.thead {
+	& .tr {
+		color: var(--token-color-foreground-strong);
+		background-color: var(--token-color-surface-strong);
+
+		// border radius: target first and last th elements in the row
+
+		&:first-of-type {
+			& .th:first-child {
+				border-top-left-radius: $inner-border-radius;
+			}
+
+			& .th:last-child {
+				border-top-right-radius: $inner-border-radius;
+			}
+		}
+	}
+
+	& .th {
+		position: relative;
+		text-align: left;
+		border-top: none;
+		border-right: none;
+		border-bottom: $border-width solid $border-color;
+		border-left: none;
+
+		// border between two cells (we emulate a cell border slightly detached from the top/bottom borders)
+
+		& + .th::before {
+			position: absolute;
+			top: 6px;
+			bottom: 6px;
+			left: -1px; // we need to offset the border by 1px to render a right border of the previous cell
+			width: 1px;
+			background-color: $border-color;
+			content: '';
+			pointer-events: none;
+		}
+	}
+}
+
+.tbody {
+	& .tr {
+		color: var(--token-color-foreground-primary);
+		background-color: var(--token-color-surface-primary);
+
+		// border radius: target first th (scope of row) and td, and last td elements in the last row
+
+		&:last-of-type {
+			& .th,
+			& .td {
+				border-bottom: none;
+			}
+
+			& .th:first-child,
+			& .td:first-child {
+				border-bottom-left-radius: $inner-border-radius;
+			}
+
+			// a <th> will never be last child, only first child
+			& .td:last-child {
+				border-bottom-right-radius: $inner-border-radius;
+			}
+		}
+	}
+
+	& .th,
+	& .td {
+		vertical-align: var(--mds-table-valign);
+		text-align: left;
+		border-top: none;
+		border-right: none;
+		border-bottom: $border-width solid $border-color;
+		border-left: none;
+	}
+}
+
+.content {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.th-button {
+	display: flex;
+	flex: none;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	margin: -2px 0; // this is necessary to compensate for the height of the button being 24px while the line height of the text is 20px (the overall height of the cell shoud be 48px and we want to keep the cell's padding as is for consistency with Figma)
+	padding: 0;
+	color: var(--token-color-foreground-faint);
+	background-color: transparent;
+	border: 1px solid transparent;
+	border-radius: 3px;
+
+	&:hover {
+		color: var(--token-color-foreground-primary);
+		background-color: var(--token-color-surface-interactive);
+		border-color: var(--token-color-border-strong);
+		box-shadow: var(--token-elevation-low-box-shadow);
+		cursor: pointer;
+	}
+
+	@include hds-focus-ring-with-pseudo-element($radius: inherit);
+
+	&:active {
+		color: var(--token-color-foreground-primary);
+		background-color: var(--token-color-surface-interactive-active);
+		border-color: var(--token-color-border-strong);
+		box-shadow: none;
+	}
+
+	& .aria-label-hidden-segment {
+		display: none;
+	}
+}

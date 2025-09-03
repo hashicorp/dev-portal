@@ -1,0 +1,146 @@
+@use "../../styles/mixins/focus-ring" as *;
+
+.tablist-wrapper {
+  position: relative;
+
+  // bottom gray border:
+  &::before {
+    position: absolute;
+    right: 0;
+    bottom: calc((var(--token-tabs-indicator-height) - var(--token-tabs-divider-height)) / 2);
+    left: 0;
+    display: block;
+    border-top: var(--token-tabs-divider-height) solid var(--token-color-border-primary);
+    content: "";
+  }
+}
+
+.tablist {
+  position: relative;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--token-tabs-tab-height-medium);
+  margin: 0;
+  padding: var(--token-tabs-tab-padding-vertical) var(--token-tabs-tab-padding-horizontal-medium);
+  white-space: nowrap;
+  text-decoration: none;
+  list-style: none;
+
+  &.primary {
+    color: var(--mds-accent-tab-color-foreground, var(--token-color-foreground-primary));
+
+    &:hover {
+      color: var(
+        --mds-accent-tab-color-foreground-hover,
+        var(
+          --mds-accent-tab-color-foreground,
+          var(--token-color-foreground-action)
+        )
+      );
+    }
+
+    &.selected {
+      color: var(
+        --mds-accent-tab-selected-color-foreground,
+        var(
+          --mds-accent-tab-color-foreground,
+          var(--token-color-foreground-action)
+        )
+      );
+
+      &:hover {
+        color: var(
+          --mds-accent-tab-selected-color-foreground-hover,
+          var(
+            --mds-accent-tab-selected-color-foreground,
+            var(
+              --mds-accent-tab-color-foreground,
+              var(--token-color-foreground-action-hover)
+            )
+          )
+        );
+
+        & ~ .indicator {
+          background: var(--mds-accent-tab-indicator-color, var(--token-color-foreground-action-hover));
+        }
+      }
+    }
+  }
+
+  &.secondary {
+    color: var(--token-color-foreground-faint);
+
+    &:hover {
+      color: var(--token-color-foreground-strong);
+    }
+
+    &.selected {
+      color: var(--token-color-foreground-strong);
+    }
+
+    & ~ .indicator {
+      background: var(--mds-accent-tab-indicator-color, var(--token-color-foreground-strong));
+    }
+  }
+}
+
+.tab-button {
+  @include hds-focus-ring-with-pseudo-element(
+    $top: var(--token-tabs-tab-focus-inset),
+    $right: var(--token-tabs-tab-focus-inset),
+    $bottom: var(--token-tabs-tab-focus-inset),
+    $left: var(--token-tabs-tab-focus-inset),
+  );
+  position: static;
+  display: flex;
+  gap: var(--token-tabs-tab-gutter);
+  align-items: center;
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--token-tabs-tab-border-radius);
+  cursor: pointer;
+
+  // Expand click target area
+  &::after {
+    position: absolute;
+    content: "";
+    inset: 0;
+  }
+}
+
+.indicator {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  // notice: this custom prop is set dynamically via JavaScript
+  left: var(--indicator-left-pos);
+  z-index: 10;
+  display: block;
+  // notice: this custom prop is set dynamically via JavaScript
+  width: var(--indicator-width);
+  height: var(--token-tabs-indicator-height);
+  background: var(--mds-accent-tab-indicator-color, var(--token-color-foreground-action));
+  border-radius: var(--token-tabs-indicator-height);
+
+  @media screen and (prefers-reduced-motion: no-preference) {
+    transition-timing-function: var(--token-tabs-indicator-transition-function);
+    transition-duration: var(--token-tabs-indicator-transition-duration);
+    transition-property: left, width;
+  }
+}
+
+// Prevent consumers from accidentally overriding default styling of HTML “hidden” attribute
+.panel[hidden] {
+  display: none;
+}

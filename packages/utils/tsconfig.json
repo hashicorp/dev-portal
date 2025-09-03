@@ -1,0 +1,12 @@
+{
+	"extends": "../../base.tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"strict": true,
+		"plugins": [
+			{
+				"name": "next"
+			}
+		]
+	}
+}

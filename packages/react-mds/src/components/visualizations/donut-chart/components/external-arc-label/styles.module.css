@@ -1,0 +1,32 @@
+.containerWrapper[text-anchor="end"] {
+	& .container {
+		--transform-x: calc(var(--container-width) * -1);
+
+		direction: rtl;
+	}
+}
+
+.container {
+	--transform-y: calc(var(--container-height) / -2);
+	--transform-x: 0;
+
+	transform: translate(var(--transform-x), var(--transform-y));
+}
+
+.lockup {
+	display: flex;
+	flex-direction: column;
+	text-wrap: balance;
+	color: var(--token-color-foreground-primary);
+}
+
+.value {
+	font-size: 2.75rem;
+	font-weight: 700;
+	line-height: 1em;
+}
+
+.label {
+	font-weight: 600;
+	line-height: 1.15em;
+}

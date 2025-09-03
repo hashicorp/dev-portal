@@ -1,0 +1,280 @@
+$hds-button-border-radius: 5px;
+$hds-button-border-width: 1px;
+$hds-button-focus-border-width: 3px;
+
+@mixin hds-button() {
+  position: relative;
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  // notice: we set the font-weight of the button text to "regular" (on purpose)
+  // because of the antialising of the browser that renders the text quite different
+  // from what it looks like in Figma, so we prefer to have them visually similar
+  // even if they differ in their internal implementation (in Figma the font-weight is medium/500)
+  // for more context about this decision: https://hashicorp.atlassian.net/browse/HDS-2099
+  font-weight: var(--mds-typography-font-weight-regular);
+  font-family: var(--mds-typography-font-stack-text);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  border: $hds-button-border-width solid transparent; // We need this to be transparent for a11y
+  border-radius: $hds-button-border-radius;
+  outline-style: solid; // used to avoid double outline+focus-ring in Safari (see https://github.com/hashicorp/design-system-components/issues/161#issuecomment-1031548656)
+  outline-color: transparent; // We need this to be transparent for a11y
+  isolation: isolate;
+  transition: color 0.15s ease-in, background-color 0.15s ease-in, border-color 0.15s ease-in, text-decoration-color 0.15s ease-in;
+}
+
+@mixin hds-button-state-disabled() {
+  color: var(--token-color-foreground-disabled);
+  background: var(--token-color-surface-faint);
+  border-color: var(--token-color-border-primary);
+  box-shadow: none;
+  cursor: not-allowed;
+
+  &::before {
+    border-color: transparent;
+  }
+}
+
+@mixin hds-button-state-focus() {
+  box-shadow: none;
+
+  &::before {
+    // the position absolute of an element is computed from the inside of the border of the container
+    // so we have to take in account the border width of the pseudo-element container itself
+    $shift: $hds-button-border-width + $hds-button-focus-border-width;
+    position: absolute;
+    top: -$shift;
+    right: -$shift;
+    bottom: -$shift;
+    left: -$shift;
+    z-index: -1;
+    border: $hds-button-focus-border-width solid transparent;
+    border-radius: $hds-button-border-radius + $hds-button-focus-border-width;
+    content: "";
+  }
+}
+
+@mixin hds-button-color-primary() {
+  color: var(--mds-accent-button-color-foreground, var(--token-color-foreground-high-contrast));
+  background: var(--mds-accent-button-color-background, var(--token-color-palette-blue-200));
+  border-color: var(--mds-accent-button-color-border, var(--token-color-palette-blue-300));
+  border-width: var(--mds-accent-button-border-width, $hds-button-border-width);
+  box-shadow: var(--token-elevation-low-box-shadow);
+
+  &:hover {
+    color: var(
+      --mds-accent-button-color-hover-foreground,
+      var(
+        --mds-accent-button-color-foreground,
+        var(--token-color-foreground-high-contrast)
+      )
+    );
+    background: var(
+      --mds-accent-button-color-hover-background,
+      var(
+        --mds-accent-button-color-background,
+        var(--token-color-palette-blue-300)
+      )
+    );
+    border-color: var(
+      --mds-accent-button-color-hover-border,
+      var(
+        --mds-accent-button-color-border,
+        var(--token-color-palette-blue-400)
+      )
+    );
+    cursor: pointer;
+  }
+
+  &:focus {
+    color: var(
+      --mds-accent-button-color-focus-foreground,
+      var(
+        --mds-accent-button-color-foreground,
+        var(--token-color-foreground-high-contrast)
+      )
+    );
+    background: var(
+      --mds-accent-button-color-focus-background,
+      var(
+        --mds-accent-button-color-background,
+        var(--token-color-palette-blue-200)
+      )
+    );
+    border-color: var(
+      --mds-accent-button-color-focus-border,
+      var(
+        --mds-accent-button-color-border,
+        var(--token-color-focus-action-internal)
+      )
+    );
+
+    &::before {
+      // the position absolute of an element is computed from the inside of the border of the container
+      // so we have to take in account the border width of the pseudo-element container itself
+      // plus for the primary button we want to have a 2px gap between the button and the focus
+      $shift: $hds-button-border-width + $hds-button-focus-border-width + 2px;
+      top: -$shift;
+      right: -$shift;
+      bottom: -$shift;
+      left: -$shift;
+      border-color: var(--token-color-focus-action-external);
+      border-radius: $hds-button-border-radius + $hds-button-focus-border-width + 2px;
+    }
+  }
+
+  &:active {
+    color: var(
+      --mds-accent-button-color-active-foreground,
+      var(
+        --mds-accent-button-color-foreground,
+        var(--token-color-foreground-high-contrast)
+      )
+    );
+    background: var(
+      --mds-accent-button-color-active-background,
+      var(
+        --mds-accent-button-color-background,
+        var(--token-color-palette-blue-400)
+      )
+    );
+    border-color: var(
+      --mds-accent-button-color-active-border,
+      var(
+        --mds-accent-button-color-border,
+        var(--token-color-palette-blue-400)
+      )
+    );
+    box-shadow: none;
+
+    &::before {
+      border-color: transparent;
+    }
+  }
+}
+
+@mixin hds-button-color-secondary() {
+  color: var(--token-color-foreground-primary);
+  background-color: var(--token-color-surface-faint);
+  border-color: var(--token-color-border-strong);
+  box-shadow: var(--token-elevation-low-box-shadow);
+
+  &:hover {
+    color: var(--token-color-foreground-primary);
+    background-color: var(--token-color-surface-primary);
+    border-color: var(--token-color-border-strong);
+    cursor: pointer;
+  }
+
+  &:focus {
+    color: var(--token-color-foreground-primary);
+    background-color: var(--token-color-surface-faint);
+    border-color: var(--token-color-focus-action-internal);
+
+    &::before {
+      border-color: var(--token-color-focus-action-external);
+    }
+  }
+
+  &:active {
+    color: var(--token-color-foreground-primary);
+    background-color: var(--token-color-surface-interactive-active);
+    border-color: var(--token-color-border-strong);
+    box-shadow: none;
+
+    &::before {
+      border-color: transparent;
+    }
+  }
+}
+
+@mixin hds-button-color-tertiary() {
+  color: var(--token-color-foreground-action);
+  background-color: transparent;
+  border-color: transparent;
+
+  &:hover {
+    color: var(--token-color-foreground-action-hover);
+    background-color: var(--token-color-surface-primary);
+    border-color: var(--token-color-border-strong);
+    cursor: pointer;
+  }
+
+  &:focus {
+    color: var(--token-color-foreground-action);
+    border-color: var(--token-color-focus-action-internal);
+
+    &::before {
+      border-color: var(--token-color-focus-action-external);
+    }
+  }
+
+  &:active {
+    color: var(--token-color-foreground-action-active);
+    background-color: var(--token-color-surface-interactive-active);
+    border-color: var(--token-color-border-strong);
+    box-shadow: none;
+
+    &::before {
+      border-color: transparent;
+    }
+  }
+
+  //
+  // IMPORTANT: we need to use also the [disabled] selector because if the "disabled" attribute is applied to a "Button as link",
+  // the ":disabled" pseudo-selector is not applied to the element in the browser (rightly) because a link can't be disabled
+  // but from the product perspective there may be use cases where they need to have a "Button as link" that looks disabled anyway
+  //
+  &:disabled,
+  &[disabled],
+  &:disabled:focus,
+  &[disabled]:focus,
+  &:disabled:hover,
+  &[disabled]:hover {
+    background-color: transparent;
+    border-color: transparent;
+
+    &::before {
+      border-color: transparent;
+    }
+  }
+}
+
+@mixin hds-button-color-critical() {
+  color: var(--token-color-foreground-critical-on-surface);
+  background-color: var(--token-color-surface-critical);
+  border-color: var(--token-color-foreground-critical-on-surface);
+  box-shadow: var(--token-elevation-low-box-shadow);
+
+  &:hover {
+    color: var(--token-color-foreground-high-contrast);
+    background-color: var(--token-color-palette-red-300);
+    border-color: var(--token-color-palette-red-400);
+    cursor: pointer;
+  }
+
+  &:focus {
+    color: var(--token-color-foreground-critical-on-surface);
+    background-color: var(--token-color-surface-critical);
+    border-color: var(--token-color-focus-critical-internal);
+
+    &::before {
+      border-color: var(--token-color-focus-critical-external);
+    }
+  }
+
+  &:active {
+    color: var(--token-color-foreground-high-contrast);
+    background-color: var(--token-color-palette-red-400);
+    border-color: var(--token-color-palette-red-400);
+    box-shadow: none;
+
+    &::before {
+      border-color: transparent;
+    }
+  }
+}
+

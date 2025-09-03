@@ -1,0 +1,511 @@
+//
+// CODE-BLOCK
+//
+
+@use '../../styles/mixins/focus-ring' as *;
+
+// CODE-BLOCK PARENT/WRAPPER
+.code-block {
+	--code-block-code-padding: 16px;
+
+	position: relative;
+	color: var(--code-block-color-foreground-primary);
+	background-color: var(--code-block-color-surface-primary);
+	border: 1px solid var(--code-block-color-border-strong);
+
+	pre,
+	code {
+		line-height: 1.4286;
+		white-space: pre;
+		text-align: left;
+		text-shadow: none;
+		word-wrap: normal;
+		word-break: normal;
+		word-spacing: normal;
+		tab-size: 4;
+		hyphens: none;
+
+		@media print {
+			text-shadow: none;
+		}
+	}
+
+	@media print {
+		.line-highlight {
+			/*
+       * This will prevent browsers from replacing the background color with white.
+       * It's necessary because the element is layered on top of the displayed code.
+       */
+			-webkit-print-color-adjust: exact;
+			print-color-adjust: exact;
+		}
+	}
+}
+
+.dark {
+	// COLORS
+
+	// Descriptive color names:
+
+	--code-block-color-blue: #2d8eff;
+	--code-block-color-cyan: #32fff7;
+	--code-block-color-green: #86ff13;
+	--code-block-color-orange: #ffa800;
+	--code-block-color-purple: #c76cff;
+	--code-block-color-red: #ff3b20;
+
+	// Semantic color names:
+
+	// Base UI colors:
+	--code-block-color-foreground-primary: #d5d7db;
+	--code-block-color-foreground-faint: #b2b6bd;
+	--code-block-color-surface-primary: #0d0e12;
+	--code-block-color-surface-faint: #15181e;
+	// status ----
+	--code-block-color-foreground-success: #009241;
+	--code-block-color-foreground-critical: #ef3016;
+	// interactive ---
+	--code-block-color-foreground-interactive: #dedfe3;
+	--code-block-color-foreground-interactive-hover: #fff;
+	--code-block-color-foreground-interactive-active: #f1f2f3;
+	--code-block-color-surface-interactive-active: #2b303c;
+	// actions ---
+	--code-block-color-foreground-action: #2b89ff;
+	--code-block-color-foreground-action-hover: #389aff;
+	--code-block-color-foreground-action-active: #4ca1ff;
+	// borders
+	--code-block-color-border-strong: rgba(178, 182, 189, 40%); // #b2b6bd66
+	--code-block-color-border-primary: rgba(178, 182, 189, 20%); // #b2b6bd33
+	// selection
+	--code-block-color-foreground-selection: #0d0e12;
+	--code-block-color-surface-selection: #86ff13;
+
+	// CodeBlock UI:
+	// lines of code - highlighted ----
+	--code-block-color-line-highlight: rgba(0, 74, 222, 20%);
+	--code-block-color-line-highlight-border: #1555d4;
+
+	// Syntax highlighting tokens:
+	// general ----
+	--code-block-color-token: var(--code-block-color-foreground-primary);
+	// specific ----
+	--code-block-color-atrule: var(--code-block-color-blue);
+	--code-block-color-code-block-attr-name: var(--code-block-color-blue);
+	--code-block-color-attr-value: var(--code-block-color-blue);
+	--code-block-color-boolean: var(--code-block-color-purple);
+	--code-block-color-builtin: var(--code-block-color-orange);
+	--code-block-color-char: var(--code-block-color-orange);
+	--code-block-color-class-name: var(--code-block-color-blue);
+	--code-block-color-comment: var(--code-block-color-foreground-faint);
+	--code-block-color-control: var(--code-block-color-cyan);
+	--code-block-color-constant: var(--code-block-color-purple);
+	--code-block-color-deleted: var(--code-block-color-red);
+	--code-block-color-entity: var(--code-block-color-green);
+	--code-block-color-function: var(--code-block-color-blue);
+	--code-block-color-important: var(--code-block-color-red);
+	--code-block-color-keyword: var(--code-block-color-green);
+	--code-block-color-namespace: var(--code-block-color-red);
+	--code-block-color-number: var(--code-block-color-purple);
+	--code-block-color-operator: var(--code-block-color-cyan);
+	--code-block-color-prolog: var(--code-block-color-foreground-primary);
+	--code-block-color-property: var(--code-block-color-blue);
+	--code-block-color-punctuation: var(--code-block-color-foreground-primary);
+	--code-block-color-regex: var(--code-block-color-orange);
+	--code-block-color-script: var(--code-block-color-foreground-primary);
+	--code-block-color-selector: var(--code-block-color-green);
+	--code-block-color-string: var(--code-block-color-orange);
+	--code-block-color-symbol: var(--code-block-color-orange);
+	--code-block-color-tag: var(--code-block-color-green);
+	--code-block-color-url: var(--code-block-color-cyan);
+	// language-scoped:
+	// css ----
+	--code-block-color-lang-css: var(--code-block-color-purple);
+	--code-block-color-lang-css-token: var(--code-block-color-green);
+	--code-block-color-lang-css-atrule: var(--code-block-color-purple);
+	--code-block-color-lang-css-entity: var(--code-block-color-blue);
+	--code-block-color-lang-css-function: var(--code-block-color-cyan);
+	--code-block-color-lang-css-property: var(--code-block-color-cyan);
+	--code-block-color-lang-css-punctuation: var(--code-block-color-orange);
+	--code-block-color-lang-css-not-atrule: var(
+		--code-block-color-foreground-primary
+	);
+	--code-block-color-lang-css-selector: var(--code-block-color-blue);
+	--code-block-color-lang-css-url: var(--code-block-color-orange);
+	// javascript ----
+	--code-block-color-lang-js-constant: var(--code-block-color-orange);
+	// markup/html ----
+	--code-block-color-lang-markup-attr-value: var(--code-block-color-yellow);
+	--code-block-color-lang-markup-entity-named: var(--code-block-color-purple);
+	--code-block-color-lang-markup-entity-not-named: var(
+		--code-block-color-green
+	);
+}
+
+// Syntax highlighting ----
+// General
+.code-block {
+	// Common tokens
+	:global(.token.bold) {
+		font-weight: bold;
+	}
+	:global(.token.italic) {
+		font-style: italic;
+	}
+
+	// General tokens
+	:global(.token) {
+		color: var(--code-block-color-token);
+	}
+
+	:global(.token.atrule) {
+		color: var(--code-block-color-atrule);
+	}
+	:global(.token.attr-name) {
+		color: var(--code-block-color-attr-name);
+	}
+	:global(.token.attr-value) {
+		color: var(--code-block-color-attr-value);
+	}
+	:global(.token.boolean) {
+		color: var(--code-block-color-boolean);
+	}
+	:global(.token.builtin) {
+		color: var(--code-block-color-builtin);
+	}
+	:global(.token.char) {
+		color: var(--code-block-color-char);
+	}
+	:global(.token.class-name) {
+		color: var(--code-block-color-class-name);
+	}
+	:global(.token.comment) {
+		color: var(--code-block-color-comment);
+	}
+	:global(.token.constant) {
+		color: var(--code-block-color-constant);
+	}
+	:global(.token.deleted) {
+		color: var(--code-block-color-deleted);
+	}
+	:global(.token.entity) {
+		color: var(--code-block-color-entity);
+	}
+	:global(.token.function) {
+		color: var(--code-block-color-function);
+	}
+	:global(.token.important) {
+		color: var(--code-block-color-important);
+	}
+	:global(.token.keyword) {
+		color: var(--code-block-color-keyword);
+	}
+	:global(.token.namespace) {
+		color: var(--code-block-color-namespace);
+	}
+	:global(.token.number) {
+		color: var(--code-block-color-number);
+	}
+	:global(.token.operator) {
+		color: var(--code-block-color-operator);
+	}
+	:global(.token.punctuation) {
+		color: var(--code-block-color-punctuation);
+	}
+	:global(.token.prolog) {
+		color: var(--code-block-color-prolog);
+	}
+	:global(.token.property) {
+		color: var(--code-block-color-property);
+	}
+	:global(.token.regex) {
+		color: var(--code-block-color-regex);
+	}
+	:global(.token.script) {
+		color: var(--code-block-color-script);
+	}
+	:global(.token.selector) {
+		color: var(--code-block-color-selector);
+	}
+	:global(.token.string) {
+		color: var(--code-block-color-string);
+	}
+	:global(.token.symbol) {
+		color: var(--code-block-color-symbol);
+	}
+	:global(.token.tag) {
+		color: var(--code-block-color-tag);
+	}
+	:global(.token.url) {
+		color: var(--code-block-color-url);
+	}
+	:global(.token.variable) {
+		color: var(--code-block-color-comment);
+	}
+}
+// Language-specific
+.language-css {
+	color: var(--code-block-color-lang-css);
+
+	.token {
+		color: var(--code-block-color-lang-css-token);
+	}
+	:global(.token.atrule) {
+		color: var(--code-block-color-lang-css-atrule);
+	}
+	:global(.token.rule:not(.atrule)) {
+		color: var(--code-block-color-lang-css-not-atrule);
+	}
+	:global(.token.entity) {
+		color: var(--code-block-color-lang-css-entity);
+	}
+	:global(.token.function) {
+		color: var(--code-block-color-lang-css-function);
+	}
+	:global(.token.property) {
+		color: var(--code-block-color-lang-css-property);
+	}
+	:global(.token.punctuation) {
+		color: var(--code-block-color-lang-css-punctuatione);
+	}
+	:global(.token.selector) {
+		color: var(--code-block-color-lang-css-selector);
+	}
+	:global(.token.url) {
+		color: var(--code-block-color-lang-css-url);
+	}
+}
+.language-javascript {
+	:global(.token.constant) {
+		color: var(--code-block-color-lang-js-constant);
+	}
+}
+.language-markup,
+.language-html {
+	:global(.token.attr-value) {
+		color: var(--code-block-color-lang-markup-attr-value);
+	}
+	:global(.token.entity.named-entity) {
+		color: var(--code-block-color-lang-markup-entity-named);
+	}
+	:global(.token.entity:not(.named-entity)) {
+		color: var(--code-block-color-lang-markup-entity-not-named);
+	}
+}
+
+// isStandalone
+.is-standalone {
+	border-radius: 6px;
+}
+
+// CHILD COMPONENTS / ELEMENTS
+
+// Header (contains title & description)
+
+.title {
+	color: var(--code-block-color-foreground-primary);
+}
+
+.description {
+	color: var(--code-block-color-foreground-faint);
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 8px var(--code-block-code-padding);
+	background-color: var(--code-block-color-surface-faint);
+	border-bottom: 1px solid var(--code-block-color-border-primary);
+	border-top-left-radius: inherit;
+	border-top-right-radius: inherit;
+
+	&:empty {
+		display: none;
+	}
+
+	// we add very basic styling for elements that may be yielded in the "title"/"description" elements
+
+	strong {
+		font-weight: var(--mds-typography-font-weight-semibold);
+	}
+
+	code,
+	pre {
+		display: inline;
+		font-size: 0.9em; // as discussed with designers, we reduce the size for optical/visual balance
+		font-family: var(--mds-typography-font-stack-mono);
+		line-height: 1em;
+	}
+
+	a {
+		color: var(--code-block-color-foreground-action);
+
+		&:focus,
+		&:focus-visible {
+			text-decoration: none;
+			outline: 2px solid var(--token-color-focus-action-internal);
+			outline-offset: 1px;
+		}
+
+		&:hover {
+			color: var(--token-color-foreground-action-hover);
+		}
+
+		&:active {
+			color: var(--token-color-foreground-action-active);
+		}
+	}
+}
+
+.body {
+	position: relative;
+	border-radius: inherit;
+}
+
+// Code
+.code {
+	@include hds-focus-ring-basic();
+	display: block;
+	margin: 0;
+	padding: var(--code-block-code-padding) 0;
+	overflow: auto;
+	font-size: 0.8125rem;
+	font-family: var(--mds-typography-font-stack-mono);
+	border-radius: inherit;
+
+	::selection {
+		color: var(--code-block-color-foreground-selection);
+		background-color: var(--code-block-color-surface-selection);
+	}
+}
+
+// CopyButton
+.copy-button {
+	--copy-button-token-idle: var(--code-block-color-foreground-primary);
+	--copy-button-token-success: var(--code-block-color-foreground-success);
+	--copy-button-token-error: var(--code-block-color-foreground-success);
+
+	position: absolute !important;
+	top: 11px; // 12px -1px accounting for border
+	right: 12px; // 12px -1px accounting for border
+	// Overriding default colors must have !important due to style modules
+	color: var(--code-block-color-foreground-primary) !important;
+	background-color: var(--code-block-color-surface-faint) !important;
+	border: 1px solid var(--code-block-color-border-strong) !important;
+
+	&:hover {
+		background-color: var(--code-block-color-surface-primary) !important;
+		border-color: var(--code-block-color-border-strong) !important;
+	}
+
+	&:active {
+		background-color: var(
+			--code-block-color-surface-interactive-active
+		) !important;
+	}
+
+	&:focus,
+	&:focus-visible {
+		background-color: var(--code-block-color-surface-faint) !important;
+	}
+}
+
+// Highlighted Lines
+.line-highlight {
+	right: 0;
+	left: 0;
+	margin-top: 0px;
+	background-color: var(--code-block-color-line-highlight);
+	border: solid var(--code-block-color-line-highlight-border);
+	border-width: 0 0 0 4px;
+	mix-blend-mode: screen;
+	pointer-events: none;
+
+	// Enable the top border if this is the first line in a group of lines
+	&.line-highlight-first {
+		border-top-width: 1px;
+	}
+
+	// Enable the bottom border if this is the last line in a group of lines
+	&.line-highlight-last {
+		border-bottom-width: 1px;
+	}
+}
+
+.line-numbers {
+	counter-reset: linenumber;
+
+	.code {
+		position: relative;
+		padding-left: 49px;
+	}
+
+	.line-numbers-rows {
+		position: absolute;
+		top: 0;
+		left: 0;
+		min-width: 49px;
+		min-height: 100%;
+		padding: var(--code-block-code-padding) 0;
+		border-right: 1px solid var(--code-block-color-border-primary);
+		user-select: none;
+		pointer-events: none;
+
+		> span {
+			display: block;
+			counter-increment: linenumber;
+
+			&::before {
+				display: block;
+				padding-right: var(--code-block-code-padding);
+				text-align: right;
+				content: counter(linenumber);
+			}
+		}
+	}
+
+	.line-of-code.line-highlight {
+		// This disables the thicker left border on highlighted lines.
+		border-width: 0;
+
+		// This resets the left padding to the original value.
+		padding-left: var(--mds-spacing-05);
+	}
+}
+
+.line-of-code {
+	// Lines of code are <span> elements which are inline by default, but
+	// we want them to take up the full width of the code block.
+	display: block;
+
+	// When we're rendering line numbers, we need to add padding to the
+	// left of lines of code to make room for the line numbers.
+	padding-left: var(--mds-spacing-05);
+
+	&.line-highlight {
+		// This accounts for the 4px margin on the left side so the content
+		// does not get moved by the margin.
+		padding-left: var(--mds-spacing-04);
+
+		// Enable the top border if this is the first line in a group of lines
+		&.line-highlight-first {
+			border-top-width: 1px;
+		}
+
+		// Enable the bottom border if this is the last line in a group of lines
+		&.line-highlight-last {
+			border-bottom-width: 1px;
+		}
+	}
+
+	& > span {
+		padding-right: var(--mds-spacing-09);
+	}
+}
+
+.line-number {
+	// Line numbers are <span> elements which are inline by default, but we
+	// want them to behave like block elements.
+	display: block;
+	color: #999;
+}
