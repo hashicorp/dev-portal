@@ -1,0 +1,88 @@
+/*
+* FORM > TEXTAREA
+*/
+
+/* "BASE" CONTROL */
+
+.textarea {
+	composes: mds-typography-font-weight-regular from global;
+	width: 100%;
+	max-width: 100%;
+	min-height: 36px;
+	padding: var(--token-form-control-padding);
+	color: var(--token-form-control-base-foreground-value-color);
+	background-color: var(--token-form-control-base-surface-color-default);
+	border: var(--token-form-control-border-width) solid
+		var(--token-form-control-base-border-color-default);
+	border-radius: var(--token-form-control-border-radius);
+	box-shadow: var(--token-elevation-inset-box-shadow);
+	resize: vertical;
+
+	/* PLACEHOLDER */
+
+	&::placeholder {
+		color: var(--token-form-control-base-foreground-placeholder-color);
+	}
+
+	/* STATUS */
+
+	&:hover {
+		border-color: var(--token-form-control-base-border-color-hover);
+	}
+
+	/* focus (same for all the states) */
+
+	&:focus {
+		border-color: var(--token-color-focus-action-internal);
+
+		/* Notice: Safari doesn't apply a rounded border */
+		outline: 3px solid var(--token-color-focus-action-external);
+		outline-offset: 0;
+	}
+
+	/* READONLY */
+
+	&:read-only {
+		color: var(--token-form-control-readonly-foreground-color);
+		background-color: var(--token-form-control-readonly-surface-color);
+		border-color: var(--token-form-control-readonly-border-color);
+		box-shadow: none;
+	}
+
+	/* DISABLED */
+
+	&:disabled {
+		color: var(--token-form-control-disabled-foreground-color);
+		background-color: var(--token-form-control-disabled-surface-color);
+		border-color: var(--token-form-control-disabled-border-color);
+		box-shadow: none;
+		cursor: not-allowed;
+	}
+
+	/* INVALID */
+
+	&.invalid {
+		border-color: var(--token-form-control-invalid-border-color-default);
+
+		&:hover {
+			border-color: var(--token-form-control-invalid-border-color-hover);
+		}
+
+		&:focus {
+			border-color: var(--token-color-focus-critical-internal);
+			outline-color: var(--token-color-focus-critical-external);
+		}
+	}
+}
+
+/* this is essentially a no-op since the base styles are already medium-sized */
+.medium {
+	composes: token-typography-body-200 from global;
+	padding: var(--token-form-control-padding);
+}
+
+.large {
+	composes: token-typography-body-300 from global;
+	padding: 11px;
+	min-height: 5rem;
+}

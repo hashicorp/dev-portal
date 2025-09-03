@@ -1,0 +1,190 @@
+@use "../../styles/mixins/focus-ring" as *;
+
+$item-height: 28px;
+$item-border-radius: 5px;
+$item-visual-horizontal-padding: 4px;
+
+// MAIN CONTAINER (NAV)
+.breadcrumbs {
+  position: relative;
+}
+
+// LIST (OL)
+
+.list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  .items-can-wrap & {
+    flex-wrap: wrap;
+  }
+}
+
+.sublist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// ITEM (LI)
+
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 0;
+
+  .list > & {
+    &:not(:last-child)::after {
+      padding: 0 8px;
+      color: var(--token-color-palette-neutral-300);
+      content: "/";
+    }
+  }
+
+  .sublist > & + & {
+    margin-top: 4px;
+  }
+}
+
+.truncation {
+  flex: none; // needed to avoid that the "flex" parent collapses the truncation element (it happens with very long strings and no-wrapping)
+}
+
+// LINK (A)
+
+.link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 0;
+  margin: 0 (-$item-visual-horizontal-padding); // we use a negative horizontal margin to counter-balance the horizonal padding (used to shift the focus from the content)
+  padding: 0 $item-visual-horizontal-padding;
+  color: var(--token-color-foreground-faint);
+  border-radius: $item-border-radius;
+  // notice: the text decoration is applied directly to the "text" container because of a bug in Safari (see https://github.com/hashicorp/design-system-components/issues/159)
+  text-decoration-color: transparent;
+
+  &:hover,
+  &.mock-hover {
+    color: var(--token-color-palette-neutral-600);
+
+    & > .text {
+      text-decoration-color: currentColor;
+    }
+  }
+
+  // we apply the focus directly to the element, without using a pseudo-element
+  @include hds-focus-ring-basic();
+
+  &:active,
+  &.mock-active {
+    color: var(--token-color-foreground-secondary);
+
+    & > .text {
+      text-decoration-color: currentColor;
+    }
+  }
+}
+
+// CURRENT
+
+.current {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 0;
+  margin: 0 (-$item-visual-horizontal-padding); // we use a negative horizontal margin to counter-balance the horizonal padding (used to shift the focus from the content)
+  padding: 0 $item-visual-horizontal-padding;
+  color: var(--token-color-foreground-strong);
+}
+
+// SUB-ELEMENTS
+
+.icon {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  margin-right: 6px;
+
+	& svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.text {
+  // we use the extra vertical padding to force the height of the parent item to be exactly $item-height
+  padding: calc((#{$item-height} - 1rem) / 2) 0;
+  overflow: hidden;
+  font-size: 0.8125rem; // 13px
+  font-family: var(--mds-typography-font-stack-text);
+  line-height: 1rem; // 16px
+  white-space: nowrap;
+  text-decoration: underline;
+  text-overflow: ellipsis;
+  text-decoration-color: transparent;
+
+  .sublist & {
+    white-space: normal;
+  }
+}
+
+// TRUNCATION
+
+.truncation-button {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: $item-height;
+  height: $item-height;
+  margin: 0 (-$item-visual-horizontal-padding); // the horizontal negative margin applied here is for visual balance of the spacing between items
+  padding: 0;
+  color: var(--token-color-foreground-faint);
+  background-color: transparent;
+  border: 1px solid transparent; // We need this to be transparent for a11y
+  border-radius: $item-border-radius;
+  outline: none; // TODO check with @melanie
+  cursor: pointer;
+
+  &:hover,
+  &.mock-hover {
+    color: var(--token-color-foreground-faint);
+    border-color: var(--token-color-border-strong);
+  }
+
+  // we apply the focus directly to the element, without using a pseudo-element
+  @include hds-focus-ring-basic();
+
+  &:focus,
+  &.mock-focus {
+    background-color: transparent;
+    border: none; // important: we need to completely remove the border, of the inner box-shadow of the focus ring will be drawn inside the border
+  }
+
+  &:active,
+  &.mock-active {
+    color: var(--token-color-foreground-primary);
+    background-color: var(--token-color-surface-interactive-active);
+    border-color: var(--token-color-border-strong);
+  }
+}
+
+.truncation-content {
+  position: absolute;
+  top: 100%;
+  left: -$item-visual-horizontal-padding;
+  z-index: 300; // this is the z-index used in Structure for this kind of things, I am reusing the same value
+  width: max-content;
+  max-width: 200px; // by design
+  margin-top: 4px;
+  padding: 6px 12px;
+  background-color: var(--token-color-surface-primary);
+  border-radius: 6px;
+  box-shadow: var(--token-surface-high-box-shadow);
+}

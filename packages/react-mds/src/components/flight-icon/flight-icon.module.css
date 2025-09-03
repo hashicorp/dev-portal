@@ -1,0 +1,31 @@
+.flight-icon {
+	display: block;
+}
+
+.display-inline {
+	display: inline-block;
+}
+
+@keyframes rotate {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.loading {
+	animation: rotate 9s linear infinite;
+}
+
+.running {
+	animation: rotate 9s linear infinite;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.loading {
+		animation-duration: 0.7s;
+	}
+
+	.running {
+		animation-duration: 1s;
+	}
+}

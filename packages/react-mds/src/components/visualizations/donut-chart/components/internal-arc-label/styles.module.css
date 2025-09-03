@@ -1,0 +1,20 @@
+.container {
+	--transform-y: calc(var(--container-height) / -2);
+	--transform-x: calc(var(--container-width) / -2);
+
+	transform: translate(var(--transform-x), var(--transform-y));
+	pointer-events: none;
+}
+
+.label {
+	display: flex;
+	font-size: 1.15em;
+}
+
+.light {
+	color: #FFF;
+}
+
+.dark {
+	color: #000;
+}

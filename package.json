@@ -131,6 +131,7 @@
 		"@hashicorp/react-tabs": "^8.2.0",
 		"@hashicorp/remark-plugins": "^4.1.1",
 		"@hashicorp/sentinel-embedded": "^1.0.1",
+		"@hashicorp/react-mds": "*",
 		"@mapbox/rehype-prism": "^0.8.0",
 		"@mdx-js/mdx": "^1.6.22",
 		"@mdx-js/react": "^1.6.22",
@@ -232,6 +233,7 @@
 		"minimumChangeThreshold": 300
 	},
 	"workspaces": [
-		"./scripts/docs-content-link-rewrites"
+		"./scripts/docs-content-link-rewrites",
+		"packages/*"
 	]
 }

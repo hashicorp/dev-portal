@@ -1,0 +1,71 @@
+.chart-container {
+	position: relative;
+	background: var(--mds-accent-border-color, var(--token-color-border-primary));
+	border-radius: var(--mds-spacing-04);
+	margin: 0;
+	padding: 2rem;
+	isolation: isolate;
+	&.multiple {
+		margin-top: 2rem;
+	}
+	&::after {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		inset: var(--mds-accent-border-width, 1px);
+		background-color: var(--token-color-surface-primary);
+		border-radius: calc(var(--mds-spacing-04) - var(--mds-accent-border-width, 1px));
+	}
+}
+
+.chart {
+	position: relative;
+	margin-inline: auto;
+	&.regular {
+		aspect-ratio: 7 / 4;
+		max-height: 540px;
+	}
+	&.small {
+		height: 360px;
+	}
+	&.xsmall {
+		height: 280px;
+	}
+	& > div {
+		position: absolute;
+	}
+	& svg {
+		display: block;
+	}
+	& figcaption {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border-width: 0;
+	}
+}
+
+.legend {
+	display: grid;
+	gap: 1rem 2rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	color: var(--token-color-foreground-primary);
+	& li {
+		display: flex;
+		gap: 8px;
+		line-height: 1.25em;
+	}
+}
+
+.legend-dot {
+	flex-shrink: 0;
+	width: 20px;
+	height: 20px;
+}

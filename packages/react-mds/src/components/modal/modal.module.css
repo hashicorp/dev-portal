@@ -1,0 +1,23 @@
+.modal {
+	position: fixed;
+	z-index: 50;
+	height: fit-content;
+	max-height: 95vh;
+	inset: 0;
+	margin: auto; /* needed to center the modal dialog on the viewport */
+	border-radius: var(--token-border-radius-large);
+	box-shadow: var(--token-surface-overlay-box-shadow);
+
+	/* the `<dialog>` element uses a special "open" attribute to determine its visibility status */
+	&:not([open]) {
+		display: none;
+	}
+
+	/* 
+	* we hide the native `::backdrop` pseudo-element in favor of using
+	* a custom `overlay` element to detect click events with more ease
+	*/
+	&::backdrop {
+		display: none;
+	}
+}

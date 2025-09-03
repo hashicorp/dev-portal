@@ -1,0 +1,18 @@
+{
+	"name": "@web/utils",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"lint": "next-hashicorp lint",
+		"test": "vitest run"
+	},
+	"dependencies": {
+		"@hashicorp/react-components": "*"
+	},
+	"devDependencies": {
+		"@hashicorp/platform-cli": "^2.8.0",
+		"@hashicorp/platform-configs": "^0.2.0",
+		"typescript": "^5.0.4",
+		"vitest": "^1.4.0"
+	}
+}
