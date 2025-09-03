@@ -25,13 +25,6 @@ https://app.asana.com/0/1202097197789424/1204412156894162/f
 		width: 100%;
 		justify-content: space-between;
 	}
-
-	/* Make dropdown list fill container */
-	& > div {
-		min-width: 100%;
-		width: max-content;
-	}
-
 	/* Make dropdown list fill container */
 	& ul {
 		max-height: 234px;
@@ -45,10 +38,23 @@ https://app.asana.com/0/1202097197789424/1204412156894162/f
 			-webkit-box-orient: vertical;
 			overflow: hidden;
 		}
-
-		& a:active,
-		& a:focus {
-			background: var(--token-color-surface-action);
+		& a {
+			justify-content: initial;
+			&:active, &:focus {
+				background: var(--token-color-surface-action);
+			}
 		}
+	}
+}
+
+/**
+ * @TODO
+ * This is a workaround for an erroneous color specified in
+ * @hashicorp/design-system-tokens. This should be removed going forward if/when
+ * we migrate to MDS
+ */
+.alert {
+	& :global(.hds-alert__description) {
+		color: var(--token-color-foreground-primary);
 	}
 }
