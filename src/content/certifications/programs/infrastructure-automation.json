@@ -14,7 +14,7 @@
 			"examCode": "003",
 			"productSlug": "terraform",
 			"versionTested": "Terraform 1.3",
-			"description": "The Terraform Associate certification is for cloud engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform. You understand what Terraform Enterprise features exist and can differentiate between Terraform Enterprise and Community Edition. You will be best prepared for this exam if you have professional experience using Terraform in production, but performing the exam objectives in a personal demo environment may be sufficient.",
+			"description": ""Terraform Associate (003) is currently available but will be replaced by Terraform Associate (004) on ???. Compare the differences between the (003) and (004) exam versions below. The Terraform Associate certification is for cloud engineers who know fundamental Terraform Community Edition and HCP Terraform concepts and skills. You will be best prepared for this exam if you have professional experience using Terraform in production, but performing the exam objectives in a personal demo environment may be sufficient.,
 			"links": {
 				"prepare": "/terraform/tutorials/certification-003",
 				"register": "/certifications/signin"
