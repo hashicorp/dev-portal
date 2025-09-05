@@ -4,9 +4,6 @@
  */
 
 import { DatagrailEvent, DatagrailPreferencesPayload } from './types'
-import Cookies from 'js-cookie'
-
-export const CONSENT_COOKIE_KEY = 'has_configured_dg_consent'
 
 export const isOnClient = () => typeof window !== 'undefined'
 export const datagrailHasMounted = () =>
@@ -15,10 +12,6 @@ export const datagrailHasMounted = () =>
 export const showBanner = () => {
 	if (!datagrailHasMounted()) return
 	window.DG_BANNER_API.showConsentBanner()
-}
-
-export const hasConfiguredConsent = (): boolean => {
-	return datagrailHasMounted() && !!Cookies.get(CONSENT_COOKIE_KEY)
 }
 
 export const addDatagrailEventListener = (
@@ -42,12 +35,12 @@ const POLL_INTERVAL_MS = 100
 const MOUNT_TIMEOUT_MS = 5000
 
 export const onDatagrailMount = (callback: () => void): (() => void) => {
-	if (!isOnClient()) return () => {}
+	if (!isOnClient()) return
 
 	// if datagrail has already mounted, we can invoke the callback immediately
 	if (datagrailHasMounted()) {
 		callback()
-		return () => {}
+		return () => removeDatagrailEventListeners()
 	}
 
 	const intervalId = setInterval(() => {
