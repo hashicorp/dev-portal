@@ -38,11 +38,8 @@ describe('`MdxInlineAlert` Component', () => {
 		const { queryByText, queryByTestId } = render(
 			<MdxInlineAlert>{data.body}</MdxInlineAlert>
 		)
-		// icon renders
 		expect(queryByTestId('icon')).toBeInTheDocument()
-		// default title renders
 		expect(queryByText(data.title)).toBeInTheDocument()
-		// body text renders
 		expect(queryByText(data.body)).toBeInTheDocument()
 	})
 
@@ -51,11 +48,8 @@ describe('`MdxInlineAlert` Component', () => {
 		const { queryByText, queryByTestId } = render(
 			<MdxInlineAlert type="highlight">{data.body}</MdxInlineAlert>
 		)
-		// icon renders
 		expect(queryByTestId('icon')).toBeInTheDocument()
-		// default title renders
 		expect(queryByText(data.title)).toBeInTheDocument()
-		// body text renders
 		expect(queryByText(data.body)).toBeInTheDocument()
 	})
 
@@ -64,11 +58,8 @@ describe('`MdxInlineAlert` Component', () => {
 		const { queryByText, queryByTestId } = render(
 			<MdxInlineAlert type="note">{data.body}</MdxInlineAlert>
 		)
-		// icon renders
 		expect(queryByTestId('icon')).toBeInTheDocument()
-		// default title renders
 		expect(queryByText(data.title)).toBeInTheDocument()
-		// body text renders
 		expect(queryByText(data.body)).toBeInTheDocument()
 	})
 
@@ -77,11 +68,8 @@ describe('`MdxInlineAlert` Component', () => {
 		const { queryByText, queryByTestId } = render(
 			<MdxInlineAlert type="warning">{data.body}</MdxInlineAlert>
 		)
-		// icon renders
 		expect(queryByTestId('icon')).toBeInTheDocument()
-		// default title renders
 		expect(queryByText(data.title)).toBeInTheDocument()
-		// body text renders
 		expect(queryByText(data.body)).toBeInTheDocument()
 	})
 
@@ -94,32 +82,42 @@ describe('`MdxInlineAlert` Component', () => {
 		expect(queryByText(TEST_DATA.customTitle)).toBeInTheDocument()
 	})
 
-	it('throws when children are not passed', () => {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
-		expect(() => render(<MdxInlineAlert />)).toThrowError(
-			TEST_DATA.errors.noChildren
-		)
+	it('renders error fallback when children are empty', () => {
+		const { getByText } = render(<MdxInlineAlert>{''}</MdxInlineAlert>)
+
+		// Should render the error fallback UI instead of throwing
+		expect(getByText('Alert Error')).toBeInTheDocument()
+		expect(
+			getByText(
+				'There was an error rendering this alert. Please check the alert configuration.'
+			)
+		).toBeInTheDocument()
 	})
 
-	it('throws when type is invalid', () => {
-		expect(() =>
-			render(
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-ignore
-				<MdxInlineAlert type="doughnut">I am an MdxInlineAlert</MdxInlineAlert>
+	it('renders error fallback when type is invalid', () => {
+		const invalidType = 'doughnut' as 'tip' | 'highlight' | 'note' | 'warning'
+		const { getByText } = render(
+			<MdxInlineAlert type={invalidType}>I am an MdxInlineAlert</MdxInlineAlert>
+		)
+
+		// Should render the error fallback UI instead of throwing
+		expect(getByText('Alert Error')).toBeInTheDocument()
+		expect(
+			getByText(
+				'There was an error rendering this alert. Please check the alert configuration.'
 			)
-		).toThrowError(TEST_DATA.errors.invalidType)
+		).toBeInTheDocument()
 	})
 
 	it('renders multiple children', () => {
-		expect(() =>
-			render(
-				<MdxInlineAlert>
-					<p> Liquorice cake marzipan danish brownie</p>
-					<p>Lollipop gingerbread bear claw muffin croissant</p>
-				</MdxInlineAlert>
-			)
-		).not.toThrowError()
+		const { getByText } = render(
+			<MdxInlineAlert>
+				<p>This may render multiple children.</p>
+				<p>This should get multiple children.</p>
+			</MdxInlineAlert>
+		)
+
+		expect(getByText('This may render multiple children.')).toBeInTheDocument()
+		expect(getByText('This should get multiple children.')).toBeInTheDocument()
 	})
 })

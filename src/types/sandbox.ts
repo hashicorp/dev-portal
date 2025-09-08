@@ -11,6 +11,8 @@ interface RawSandboxLab {
   description: string
   products: string[]
   labId: string
+  instruqtTrack: string
+  scenario?: string
   documentation?: string
 }
 
@@ -20,6 +22,9 @@ export interface SandboxLab {
   description: string
   products: string[]
   labId: string
+  instruqtTrack: string
+  scenario?: string
+  fullLabId?: string // The complete lab ID with tokens for Instruqt embed
   documentation?: MDXRemoteSerializeResult
 }
 
