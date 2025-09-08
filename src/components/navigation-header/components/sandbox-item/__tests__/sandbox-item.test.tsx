@@ -69,6 +69,6 @@ describe('SandboxItem', () => {
 		const item = screen.getByRole('link')
 		fireEvent.mouseEnter(item)
 
-		expect(item.className).toContain('playground')
+		expect(item.className).toContain('sandboxItem')
 	})
 })
