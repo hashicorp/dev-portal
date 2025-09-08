@@ -12,7 +12,15 @@
 	position: fixed;
 	max-height: 95%;
 	box-sizing: border-box;
-	padding-top: 0.75rem;
+	padding-top: 0;
+
+	&.mobile {
+		/* Full screen on mobile for better experience */
+		height: 100vh !important;
+		max-height: 100vh;
+		top: 0;
+		padding-top: 0;
+	}
 }
 
 .hide {
