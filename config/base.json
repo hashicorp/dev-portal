@@ -30,7 +30,14 @@
 		},
 		"product_slugs_with_integrations": ["vault", "nomad", "packer"],
 		"sandbox": {
-			"instruqt_base_url": "https://play.instruqt.com/embed"
+			"instruqt_base_url": "https://play.instruqt.com/embed",
+			"default_tokens": {
+				"terraform-sandbox": "em_3vgTsBqCLq2blqtQ",
+				"vault-cluster-sandbox": "em_MmJD6C6DhTpGm9Ab",
+				"boundary-sandbox": "em_YHsmJu4K1Wk3hwht",
+				"consul-sandbox": "em_I5XI2XjO-ZMeH1_w",
+				"nomad-sandbox": "em_0wOuIAyyjAQllLkc"
+			}
 		}
 	},
 	"learn": {

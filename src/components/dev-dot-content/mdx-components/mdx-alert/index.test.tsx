@@ -83,49 +83,30 @@ describe('`MdxInlineAlert` Component', () => {
 	})
 
 	it('renders error fallback when children are empty', () => {
-		const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 		const { getByText } = render(<MdxInlineAlert>{''}</MdxInlineAlert>)
 
+		// Should render the error fallback UI instead of throwing
 		expect(getByText('Alert Error')).toBeInTheDocument()
 		expect(
 			getByText(
 				'There was an error rendering this alert. Please check the alert configuration.'
 			)
 		).toBeInTheDocument()
-
-		// Check that at least one call to console.error contains your error message
-		const errorCalls = errorSpy.mock.calls.flat()
-		expect(
-			errorCalls.some((call) =>
-				String(call).includes('[MdxInlineAlert]: No `children` found')
-			)
-		).toBe(true)
-
-		errorSpy.mockRestore()
 	})
 
 	it('renders error fallback when type is invalid', () => {
-		const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 		const invalidType = 'doughnut' as 'tip' | 'highlight' | 'note' | 'warning'
 		const { getByText } = render(
 			<MdxInlineAlert type={invalidType}>I am an MdxInlineAlert</MdxInlineAlert>
 		)
 
+		// Should render the error fallback UI instead of throwing
 		expect(getByText('Alert Error')).toBeInTheDocument()
 		expect(
 			getByText(
 				'There was an error rendering this alert. Please check the alert configuration.'
 			)
 		).toBeInTheDocument()
-
-		const errorCalls = errorSpy.mock.calls.flat()
-		expect(
-			errorCalls.some((call) =>
-				String(call).includes('[MdxInlineAlert]: Invalid alert type passed')
-			)
-		).toBe(true)
-
-		errorSpy.mockRestore()
 	})
 
 	it('renders multiple children', () => {

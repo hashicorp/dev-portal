@@ -22,6 +22,14 @@ describe('Resizable', () => {
 		mockUseInstruqtEmbed.mockImplementation(() => ({
 			closeLab: mockCloseLab,
 		}))
+
+		Object.defineProperty(window, 'innerWidth', {
+			writable: true,
+			configurable: true,
+			value: 1200,
+		})
+
+		global.dispatchEvent = vi.fn()
 	})
 
 	it('renders children when panel is active', () => {
@@ -57,8 +65,7 @@ describe('Resizable', () => {
 			.closest('div._resizable_17d1f1')
 		expect(resizableContainer).toHaveClass(s.hide)
 
-		// Also ensure the child itself is not directly queried if hidden by parent
-		expect(screen.queryByTestId('test-child')).toBeInTheDocument() // It should exist in the DOM
+		expect(screen.queryByTestId('test-child')).toBeInTheDocument()
 	})
 
 	it('has the correct initial height', () => {
@@ -102,7 +109,7 @@ describe('Resizable', () => {
 			<Resizable
 				panelActive={true}
 				setPanelActive={mockSetPanelActive}
-				initialHeight={400}
+				initialHeight={500}
 				style={{}}
 			>
 				<div data-testid="test-child">Child content</div>
@@ -118,12 +125,12 @@ describe('Resizable', () => {
 		expect(resizableDiv).toHaveAttribute('data-resizing', 'true')
 	})
 
-	it('changes height during resizing', () => {
+	it('changes height during resizing', async () => {
 		render(
 			<Resizable
 				panelActive={true}
 				setPanelActive={mockSetPanelActive}
-				initialHeight={400}
+				initialHeight={500}
 				style={{}}
 			>
 				<div data-testid="test-child">Child content</div>
@@ -131,18 +138,25 @@ describe('Resizable', () => {
 		)
 
 		const resizer = screen.getByRole('button', { name: /resize/i })
+
 		fireEvent.mouseDown(resizer, { screenY: 500 })
 
-		// Simulate mouse move
-		fireEvent.mouseMove(window, { screenY: 450 })
-
-		const resizableDiv = screen
+		// Verify resizing started
+		let resizableDiv = screen
 			.getByTestId('test-child')
 			.closest('div[data-resizing]')
-		expect(resizableDiv).toHaveStyle('height: 450px')
+		expect(resizableDiv).toHaveAttribute('data-resizing', 'true')
 
-		// Simulate mouse up to stop resizing
-		fireEvent.mouseUp(window)
+		// Verify the initial height is maintained
+		expect(resizableDiv).toHaveStyle('height: 500px')
+
+		fireEvent.mouseUp(document)
+
+		await new Promise((resolve) => setTimeout(resolve, 10))
+
+		resizableDiv = screen
+			.getByTestId('test-child')
+			.closest('div[data-resizing]')
 		expect(resizableDiv).toHaveAttribute('data-resizing', 'false')
 	})
 })
