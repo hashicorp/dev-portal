@@ -33,7 +33,7 @@ export default function Resizable({
 	initialHeight = 400,
 }: ResizableProps) {
 	const { closeLab } = useInstruqtEmbed()
-	// State for resizable panel while in `panel`-mode
+
 	const minimumHeight = 300
 	const maximumHeight = 910
 	const [downMouseY, setDownMouseY] = useState(0)
@@ -41,6 +41,7 @@ export default function Resizable({
 	const [height, setHeight] = useState(initialHeight)
 	const [previousHeight, setPreviousHeight] = useState(initialHeight)
 	const [isResizing, setIsResizing] = useState(false)
+	const [isMobile, setIsMobile] = useState(false)
 
 	const resizableDiv = useRef<HTMLDivElement>(null)
 
@@ -79,39 +80,30 @@ export default function Resizable({
 		}
 	}, [moveMouseY, downMouseY, previousHeight, isMobile])
 
-	function enableResize(e) {
-		e.preventDefault()
-		// We need to know where the mouse started from since default state was just 0
-		setDownMouseY(e.screenY)
-		// Track the fact that we are resizing
-		// This keeps our cursor on our `<Resizer/>`
-		// This adds a class to the content our mouse may otherwise wander into via `pointer-events: none`
-		setIsResizing(true)
-		// Once we're clientside add the event listeners needed during a resize
-		addListeners()
-	}
+	const resize = useCallback(
+		(e: MouseEvent) => {
+			if (isMobile) return
 
 			setMoveMouseY(e.screenY)
 		},
 		[isMobile]
 	)
 
-	function stopResize() {
-		// We stopped resizing so it'd be great to be able to use the content inside the resizable ref ;)
+	const stopResize = useCallback(() => {
 		setIsResizing(false)
-		// We no longer want our event listeners
-		removeListeners()
-	}
-	// Adds the necessary event listeners during a resize
-	function addListeners() {
-		window.addEventListener('mousemove', resize)
-		window.addEventListener('mouseup', stopResize)
-	}
-	// Removes resize-related event listeners
-	function removeListeners() {
 		window.removeEventListener('mousemove', resize)
 		window.removeEventListener('mouseup', stopResize)
 	}, [resize])
+
+	const addListeners = useCallback(() => {
+		window.addEventListener('mousemove', resize, { passive: true })
+		window.addEventListener('mouseup', stopResize, { passive: true })
+	}, [resize, stopResize])
+
+	const removeListeners = useCallback(() => {
+		window.removeEventListener('mousemove', resize)
+		window.removeEventListener('mouseup', stopResize)
+	}, [resize, stopResize])
 
 	const enableResize = useCallback(
 		(e: React.MouseEvent) => {
@@ -121,21 +113,16 @@ export default function Resizable({
 			setDownMouseY(e.screenY)
 			setPreviousHeight(height)
 			setIsResizing(true)
-
-			// Add event listeners to window immediately
-			window.addEventListener('mousemove', resize, { passive: true })
-			window.addEventListener('mouseup', stopResize, { passive: true })
+			addListeners()
 		},
-		[isMobile, height, resize, stopResize]
+		[isMobile, height, addListeners]
 	)
 
-	// Cleanup effect to ensure event listeners are removed
 	useEffect(() => {
 		return () => {
-			window.removeEventListener('mousemove', resize)
-			window.removeEventListener('mouseup', stopResize)
+			removeListeners()
 		}
-	}, [resize, stopResize])
+	}, [removeListeners])
 
 	return (
 		<div

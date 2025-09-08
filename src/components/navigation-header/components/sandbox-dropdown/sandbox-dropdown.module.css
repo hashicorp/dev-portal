@@ -6,6 +6,11 @@
 .root {
 	width: fit-content;
 	position: relative;
+
+	/* Hide sandbox dropdown on mobile and tablet devices */
+	@media (max-width: 1024px) {
+		display: none;
+	}
 }
 
 .activatorWrapper {
@@ -209,7 +214,7 @@
 	border-radius: 5px;
 	color: var(--token-color-foreground-primary);
 	display: flex;
-	padding: 8px 0px;
+	padding: 8px 0;
 	text-decoration: none;
 	width: 100%;
 	background: transparent;
