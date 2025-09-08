@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import ProductIcon from 'components/product-icon'
 import Text from 'components/text'
 import { NavigationHeaderIcon } from 'components/navigation-header/types'
@@ -25,21 +25,35 @@ interface SandboxItemProps {
 
 const SandboxItem = ({ item }: SandboxItemProps) => {
 	const { label, description, products, onClick, labId } = item
+	const [isLaunching, setIsLaunching] = useState(false)
 
 	const handleClick = useCallback(
-		(e) => {
+		async (e) => {
 			e.preventDefault()
-			onClick?.()
+			
+			if (isLaunching) return // Prevent double clicks
+			
+			setIsLaunching(true)
+			
+			try {
+				await onClick?.()
+			} finally {
+				// Reset loading state after a short delay to provide visual feedback
+				setTimeout(() => {
+					setIsLaunching(false)
+				}, 1000)
+			}
 		},
-		[onClick]
+		[onClick, isLaunching]
 	)
 
 	return (
 		<a
 			href="#"
-			className={s.playgroundItem}
+			className={`${s.sandboxItem} ${isLaunching ? s.launching : ''}`}
 			onClick={handleClick}
-			title={description}
+			title={isLaunching ? 'Launching lab...' : description}
+			aria-disabled={isLaunching}
 		>
 			<div className={s.content}>
 				<div className={s.titleRow}>
@@ -49,8 +63,9 @@ const SandboxItem = ({ item }: SandboxItemProps) => {
 						size={200}
 						weight="regular"
 					>
-						{label}
+						{isLaunching ? 'Launching...' : label}
 					</Text>
+					{isLaunching && <div className={s.loadingSpinner} />}
 					<div className={s.productIcons}>
 						{products.map((product) => (
 							<ProductIcon
@@ -68,7 +83,7 @@ const SandboxItem = ({ item }: SandboxItemProps) => {
 					size={100}
 					weight="regular"
 				>
-					{description}
+					{isLaunching ? 'Setting up your sandbox environment...' : description}
 				</Text>
 			</div>
 		</a>
