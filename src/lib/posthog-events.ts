@@ -19,7 +19,9 @@ export const trackSandboxEvent = (
 	eventName: `${SANDBOX_EVENT}`,
 	properties: {
 		labId: string
-		page: string
+		page?: string
+		error?: string
+		retryCount?: number
 	}
 ): void => {
 	if (window?.posthog?.capture) {
