@@ -95,16 +95,6 @@ export default function Resizable({
 		window.removeEventListener('mouseup', stopResize)
 	}, [resize])
 
-	const addListeners = useCallback(() => {
-		window.addEventListener('mousemove', resize, { passive: true })
-		window.addEventListener('mouseup', stopResize, { passive: true })
-	}, [resize, stopResize])
-
-	const removeListeners = useCallback(() => {
-		window.removeEventListener('mousemove', resize)
-		window.removeEventListener('mouseup', stopResize)
-	}, [resize, stopResize])
-
 	const enableResize = useCallback(
 		(e: React.MouseEvent) => {
 			if (isMobile) return // Disable resizing on mobile
@@ -113,16 +103,21 @@ export default function Resizable({
 			setDownMouseY(e.screenY)
 			setPreviousHeight(height)
 			setIsResizing(true)
-			addListeners()
+
+			// Add event listeners to window immediately
+			window.addEventListener('mousemove', resize, { passive: true })
+			window.addEventListener('mouseup', stopResize, { passive: true })
 		},
-		[isMobile, height, addListeners]
+		[isMobile, height, resize, stopResize]
 	)
 
+	// Cleanup effect to ensure event listeners are removed
 	useEffect(() => {
 		return () => {
-			removeListeners()
+			window.removeEventListener('mousemove', resize)
+			window.removeEventListener('mouseup', stopResize)
 		}
-	}, [removeListeners])
+	}, [resize, stopResize])
 
 	return (
 		<div
