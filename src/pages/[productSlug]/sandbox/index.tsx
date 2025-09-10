@@ -4,7 +4,8 @@
  */
 
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
@@ -86,11 +87,9 @@ async function getMdxContent(
 			filePath
 		)
 
-		// Check if file exists before trying to read it
 		try {
 			await fs.promises.access(fullPath, fs.constants.F_OK)
 		} catch {
-			// Track missing documentation files for monitoring
 			if (process.env.NODE_ENV === 'development') {
 				console.warn(`[SandboxPage] MDX file not found: ${filePath}`)
 			}
@@ -122,12 +121,27 @@ export default function SandboxView({
 	availableSandboxes,
 	otherSandboxes,
 }: SandboxPageProps) {
+	const router = useRouter()
 	const { openLab, hasConfigError } = useInstruqtEmbed()
 	const docsMdxComponents = getDocsMdxComponents(product.slug)
 
 	const handleLabClick = useCallback(
 		(lab: SandboxLab) => {
 			try {
+				const primaryProduct = lab.products[0]
+				if (primaryProduct !== product.slug) {
+					// Redirect to the lab's primary product sandbox page with auto-launch
+					const targetUrl = `/${primaryProduct}/sandbox?launch=${lab.labId}`
+
+					trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
+						labId: lab.labId,
+						page: targetUrl,
+					})
+
+					router.push(targetUrl)
+					return
+				}
+
 				if (hasConfigError) {
 					trackSandboxPageError(
 						'config_error_lab_launch',
@@ -217,8 +231,25 @@ export default function SandboxView({
 				})
 			}
 		},
-		[openLab, hasConfigError, product.slug]
+		[openLab, hasConfigError, product.slug, router]
 	)
+
+	useEffect(() => {
+		const { launch } = router.query
+
+		if (launch && typeof launch === 'string') {
+			const labToLaunch = availableSandboxes.find((lab) => lab.labId === launch)
+
+			if (labToLaunch) {
+				// Clear the query parameter to avoid infinite loops
+				const newUrl = router.asPath.split('?')[0]
+				router.replace(newUrl, undefined, { shallow: true })
+
+				// Auto-launch the lab
+				handleLabClick(labToLaunch)
+			}
+		}
+	}, [router.query.launch, availableSandboxes, handleLabClick, router])
 
 	const renderDocumentation = (documentation?: SandboxLab['documentation']) => {
 		if (!documentation) return null
@@ -478,14 +509,12 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 						}
 
 						if (documentation) {
-							// Handle the MDX file with proper error handling
 							try {
 								result.documentation = await getMdxContent(
 									documentation,
 									productSlug as ProductSlug
 								)
 							} catch (mdxError) {
-								// Track error but continue without documentation
 								trackSandboxPageError(
 									'documentation_load_failed',
 									'Failed to load lab documentation during build',
@@ -530,7 +559,6 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 							console.error(`Error processing lab ${lab?.labId}:`, labError)
 						}
 
-						// Return a minimal version if there's an error
 						return {
 							title: lab?.title || 'Unknown Lab',
 							description: lab?.description || 'Description not available',
@@ -573,7 +601,6 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 
 					return result as SandboxLab
 				} catch (labError) {
-					// Track other lab processing error but continue with minimal version
 					trackSandboxPageError(
 						'other_lab_processing_failed',
 						'Failed to process other lab configuration during build',
@@ -589,7 +616,6 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 						console.error(`Error processing other lab ${lab?.labId}:`, labError)
 					}
 
-					// Return a minimal version if there's an error
 					return {
 						title: lab?.title || 'Unknown Lab',
 						description: lab?.description || 'Description not available',
@@ -667,7 +693,6 @@ export const getStaticProps: GetStaticProps<SandboxPageProps> = async ({
 			console.error('Error in getStaticProps for sandbox page:', error)
 		}
 
-		// Return a minimal page rather than throwing an error during export
 		const productSlug = params?.productSlug as string
 		const product = PRODUCT_DATA_MAP[productSlug]
 
