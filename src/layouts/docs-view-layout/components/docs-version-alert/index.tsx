@@ -22,7 +22,11 @@ function DocsVersionAlertBanner({
 }) {
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const versionFromPath = getVersionFromPath(currentPath)
-	const isLatestVersion = !versionFromPath
+	const { version: latestVersion } = versions.find(
+		(currentVersion: VersionSelectItem) =>
+			currentVersion.isLatest
+	)
+	const isLatestVersion = !versionFromPath || versionFromPath === latestVersion
 
 	// If we're viewing the latest version, we don't need an alert banner
 	if (isLatestVersion) {
