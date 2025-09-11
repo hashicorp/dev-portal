@@ -13,8 +13,8 @@
 			"title": "Vault Sandbox",
 			"description": "Learn how to manage your secrets with Vault",
 			"products": ["vault"],
-			"labId": "vault-cluster-sandbox",
-			"instruqtTrack": "hashicorp-learn/tracks/vault-cluster-sandbox",
+			"labId": "vault-sandbox",
+			"instruqtTrack": "hashicorp-learn/tracks/vault-sandbox",
 			"documentation": "vault.mdx"
 		},
 		{
