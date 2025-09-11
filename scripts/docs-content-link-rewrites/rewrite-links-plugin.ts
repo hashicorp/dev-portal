@@ -5,7 +5,7 @@
 
 import { Definition, Link } from 'mdast'
 import { Plugin } from 'unified'
-import { visit } from 'unist-util-visit'
+import visit from 'unist-util-visit'
 import { processDocsLinkNode } from 'lib/remark-plugins/remark-plugin-adjust-link-urls/helpers'
 import { rewriteTutorialsLink } from 'lib/remark-plugins/rewrite-tutorial-links/utils/rewrite-tutorials-link'
 
