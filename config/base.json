@@ -28,7 +28,18 @@
 			"clientToken": "pubd5cf774aa1cbbd001accd50cb463925b",
 			"service": "non-prod.developer.hashicorp.com"
 		},
-		"product_slugs_with_integrations": ["vault", "nomad", "packer"]
+		"product_slugs_with_integrations": ["vault", "nomad", "packer"],
+		"sandbox": {
+			"instruqt_base_url": "https://play.instruqt.com/embed",
+			"default_tokens": {
+				"terraform-sandbox": "em_3vgTsBqCLq2blqtQ",
+				"vault-sandbox": "em_CUFCBU0nSfCl2VHi",
+				"boundary-sandbox": "em_YHsmJu4K1Wk3hwht",
+				"consul-sandbox": "em_I5XI2XjO-ZMeH1_w",
+				"consul-sandbox-sd": "em_MdAn4Od_foU6oybz",
+				"nomad-sandbox": "em_0wOuIAyyjAQllLkc"
+			}
+		}
 	},
 	"learn": {
 		"max_static_paths": 10

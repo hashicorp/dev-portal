@@ -23,6 +23,10 @@
 	height: 100%;
 	display: flex;
 	justify-content: center;
+
+	&:hover {
+		background-color: var(--token-color-palette-neutral-100);
+	}
 }
 
 .resizeBar {
