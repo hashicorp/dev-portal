@@ -43,11 +43,12 @@ const trackInstruqtUrlError = (
 const getDefaultTokens = (): InstruqtTokens => ({
 	'terraform-sandbox':
 		process.env.TERRAFORM_SANDBOX_TOKEN ?? 'em_3vgTsBqCLq2blqtQ',
-	'vault-cluster-sandbox':
-		process.env.VAULT_SANDBOX_TOKEN ?? 'em_MmJD6C6DhTpGm9Ab',
+	'vault-sandbox':
+		process.env.VAULT_SANDBOX_TOKEN ?? 'em_CUFCBU0nSfCl2VHi',
 	'boundary-sandbox':
 		process.env.BOUNDARY_SANDBOX_TOKEN ?? 'em_YHsmJu4K1Wk3hwht',
 	'consul-sandbox': process.env.CONSUL_SANDBOX_TOKEN ?? 'em_I5XI2XjO-ZMeH1_w',
+	'consul-sandbox-sd': process.env.CONSUL_SANDBOX_SD_TOKEN ?? 'em_MdAn4Od_foU6oybz',
 	'nomad-sandbox': process.env.NOMAD_SANDBOX_TOKEN ?? 'em_0wOuIAyyjAQllLkc',
 })
 
