@@ -1,0 +1,15 @@
+.separator {
+	height: unset;
+	color: unset;
+	background-color: unset;
+	border: none;
+	border-top: 1px solid var(--token-color-border-primary);
+}
+
+.spacing-24 {
+	margin: 24px 0;
+}
+
+.spacing-0 {
+	margin: 0;
+}

@@ -1,0 +1,99 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.inlineVideo {
+	--gradient-size: 32px;
+
+	/* Apply border radius to Wistia play button */
+	& :global(.w-bpb-wrapper) {
+		border-radius: 4px !important;
+		overflow: hidden;
+	}
+}
+
+.videoContainer {
+	--gradient: linear-gradient(180deg, #b5d9fa 0%, #1a5ee5 100%);
+
+	width: 100%;
+	position: relative;
+
+	@media (--large) {
+		@nest .left & {
+			padding-left: var(--gradient-size);
+		}
+
+		@nest .right & {
+			padding-right: var(--gradient-size);
+		}
+
+		&.hideAccentColor {
+			&::before {
+				background-image: none;
+			}
+		}
+
+		&::before {
+			position: absolute;
+			content: '';
+			width: 100%;
+			height: calc(100% - var(--gradient-size) * 2);
+			top: var(--gradient-size);
+			left: 0;
+			border-radius: 8px;
+			background-image: var(--gradient);
+		}
+	}
+
+	&.infrastructure {
+		--gradient: linear-gradient(180deg, #8cdeff 0%, #8763d9 100%);
+	}
+
+	&.security {
+		--gradient: linear-gradient(180deg, #ffe58c 0%, #f26b63 100%);
+	}
+
+	&.networking {
+		--gradient: linear-gradient(180deg, #ffb2b8 0%, #c74fb8 100%);
+	}
+
+	&.applications {
+		--gradient: linear-gradient(180deg, #a3f7d6 0%, #5cd1d9 50%, #5494e3 100%);
+	}
+}
+
+.video {
+	aspect-ratio: var(--aspect-ratio);
+	border-radius: 8px;
+	background-color: var(--wpl-neutral-50);
+	overflow: hidden;
+	position: relative;
+
+	@nest .dark & {
+		background-color: var(--wpl-neutral-800);
+	}
+
+	&.innerHasAspectRatio {
+		width: calc(var(--aspect-ratio) * 100%);
+		height: auto;
+		max-width: 100%;
+	}
+}
+.description {
+	composes: g-type-body-small-strong from global;
+	color: var(--wpl-neutral-500);
+	padding: 16px 24px 0 24px;
+	margin: 0;
+	text-align: center;
+
+	@media (--large) {
+		@nest .left & {
+			padding-left: calc(24px + var(--gradient-size));
+		}
+
+		@nest .right & {
+			padding-right: calc(24px + var(--gradient-size));
+		}
+	}
+}

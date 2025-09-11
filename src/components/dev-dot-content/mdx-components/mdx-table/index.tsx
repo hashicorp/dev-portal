@@ -8,6 +8,8 @@ import classNames from 'classnames'
 import { getScrollData, type ScrollData } from 'lib/get-scroll-data'
 import s from './mdx-table.module.css'
 
+import { Table } from '@hashicorp/react-mds/src/components/table'
+
 /**
  * Lightweight wrapper around the native <table> element. Encapsulates styles,
  * enables scrolling when tables are too tall or wide, and uses `tabindex="0"`
@@ -60,27 +62,35 @@ export function MdxTable(props: JSX.IntrinsicElements['table']) {
 	const tabIndex = isScrollable ? 0 : undefined
 
 	return (
-		<div className={s.root}>
-			<div
-				className={classNames(s.tableWrapper)}
-				ref={scrollableRef}
-				tabIndex={tabIndex}
-			>
-				<table {...props} />
-			</div>
-			<div className={s.tableFocusRing} />
-			{/**
-			 * Scrims are not conditionally rendered because it would cause hydration
-			 * mismatch errors.
-			 */}
-			<div>
+		<>
+		<h3>MDS table</h3>
+			<Table.Root
+				{...props}
+			/>
+			<br />
+			<h3>current table</h3>
+			<div className={s.root}>
 				<div
-					className={classNames(s.leftScrim, showLeftScrim && s.showScrim)}
-				/>
-				<div
-					className={classNames(s.rightScrim, showRightScrim && s.showScrim)}
-				/>
+					className={classNames(s.tableWrapper)}
+					ref={scrollableRef}
+					tabIndex={tabIndex}
+				>
+					<table {...props} />
+				</div>
+				<div className={s.tableFocusRing} />
+				{/**
+				 * Scrims are not conditionally rendered because it would cause hydration
+				 * mismatch errors.
+				 */}
+				<div>
+					<div
+						className={classNames(s.leftScrim, showLeftScrim && s.showScrim)}
+					/>
+					<div
+						className={classNames(s.rightScrim, showRightScrim && s.showScrim)}
+					/>
+				</div>
 			</div>
-		</div>
+		</>
 	)
 }

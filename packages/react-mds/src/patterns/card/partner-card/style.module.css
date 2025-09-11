@@ -1,0 +1,24 @@
+.description {
+	-webkit-box-orient: vertical;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	max-width: 100%;
+	overflow: hidden;
+}
+
+.logoContainer {
+	position: relative;
+	display: flex;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+	align-items: center;
+	justify-content: center;
+	background: var(--token-color-surface-faint);
+}
+
+.logo {
+	max-width: 232px;
+	max-height: 64px;
+	height: auto;
+	width: auto;
+}

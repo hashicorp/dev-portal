@@ -1,0 +1,155 @@
+.root {
+	position: relative;
+	width: 100%;
+}
+
+.trigger {
+	width: 100%;
+	cursor: pointer;
+
+	/* Select large styles */
+	max-width: 100%;
+
+	--token-padding: calc(var(--token-form-control-padding) + 4px);
+
+	min-height: 3rem;
+	background-position: right 11px top 16px; /* we have to take into account the border */
+	padding: var(--token-padding);
+	padding-right: calc(
+		var(--token-padding) + 24px
+	); /* extra space for the icon */
+
+	color: var(--token-form-control-base-foreground-value-color);
+	background-color: var(--token-form-control-base-surface-color-default);
+	background-image: var(--token-form-select-background-image-data-url);
+	background-repeat: no-repeat;
+	background-size: var(--token-form-select-background-image-size)
+		var(--token-form-select-background-image-size);
+	border: var(--token-form-control-border-width) solid
+		var(--token-form-control-base-border-color-default);
+	border-radius: var(--token-form-control-border-radius);
+	box-shadow: var(--token-elevation-low-box-shadow);
+	appearance: none;
+
+	/* STATUS */
+
+	&:hover {
+		border-color: var(--token-form-control-base-border-color-hover);
+	}
+
+	/* focus (same for all the states) */
+
+	&:focus {
+		border-color: var(--token-color-focus-action-internal);
+
+		/* Notice: Safari doesn't apply a rounded border */
+		outline: 3px solid var(--token-color-focus-action-external);
+		outline-offset: 0;
+	}
+
+	/* DISABLED */
+
+	&:disabled {
+		color: var(--token-form-control-disabled-foreground-color);
+		background-color: var(--token-form-control-disabled-surface-color);
+		background-image: var(
+			--token-form-select-background-image-data-url-disabled
+		);
+		border-color: var(--token-form-control-disabled-border-color);
+		box-shadow: none;
+		cursor: not-allowed;
+	}
+
+	composes: mds-typography-font-weight-regular from global;
+}
+
+.search-input-wrapper {
+	width: 100%;
+	padding: 11px 11px 1px 11px;
+	& input {
+		padding: 7px;
+	}
+}
+
+.popover {
+	overflow: hidden;
+	position: absolute;
+	top: calc(100% + 4px);
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	background-color: var(--token-color-surface-primary);
+	border-radius: 6px;
+	box-shadow: var(--token-surface-high-box-shadow);
+	z-index: 2;
+}
+
+.list {
+	list-style: none;
+	margin: 0;
+	padding: 3px 0;
+	overflow-y: auto;
+}
+
+.option {
+	min-height: 36px;
+	padding: 7px 7px 7px 40px;
+	isolation: isolate; /* used to create a new stacking context (needed to have the pseudo element below text/icon but not the parent container) */
+	cursor: pointer;
+	position: relative; /* needed to have the pseudo element below text/icon but not the parent container */
+	line-height: var(--token-typography-body-100-line-height);
+
+	&:hover,
+	&[data-vfocused='true'] {
+		& .option-text {
+			color: var(--token-color-foreground-action-hover);
+
+			&::after {
+				display: block;
+			}
+		}
+	}
+}
+
+.option-text {
+	composes: mds-typography-font-weight-regular from global;
+	composes: token-typography-body-200 from global;
+
+	/* the bar that appears when hovering or "focusing" on an option */
+	&::after {
+		position: absolute;
+		z-index: -1;
+		left: 4px;
+		width: 2px;
+		top: 6px;
+		bottom: 6px;
+		border-radius: 1px;
+		content: '';
+		background-color: var(--token-color-foreground-action-hover);
+		display: none;
+	}
+}
+
+.interactive-icon {
+	display: block;
+	margin-top: 2px;
+}
+
+.interactive-icon-leading {
+	margin-right: 8px;
+}
+
+.interactive-icon-trailing {
+	margin-left: 8px;
+}
+
+.interactive-loading-wrapper {
+	display: flex;
+	align-items: center;
+	padding: 8px 10px 8px 16px;
+
+	& .interactive-icon {
+		color: var(--token-color-foreground-primary);
+	}
+}

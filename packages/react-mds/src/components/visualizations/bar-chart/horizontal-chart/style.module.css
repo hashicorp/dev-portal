@@ -1,0 +1,78 @@
+.barChart {
+	margin: 0 auto;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.chart {
+	width: 100%;
+	display: grid;
+	row-gap: var(--mds-spacing-06);
+}
+
+.dataset {
+	display: grid;
+	width: 100%;
+
+	@media (--large) {
+		grid-column-gap: var(--mds-spacing-07);
+		grid-row-gap: var(--mds-spacing-04);
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+.datasetLabel {
+	align-self: center;
+	display: flex;
+	margin-bottom: var(--mds-spacing-01);
+	color: var(--token-color-foreground-primary);
+	composes: mds-typography-body-200 from global;
+
+	@media (--large) {
+		justify-content: flex-end;
+		margin-bottom: 0;
+		text-align: right;
+	}
+}
+
+.datasetValues {
+	align-self: center;
+	overflow: hidden;
+
+	&.datasetValuesStacked {
+		display: grid;
+		@media (min-width: 560px) {
+			display: flex;
+			align-items: center;
+		}
+	}
+}
+
+.datasetTotal {
+	composes: g-type-body from global;
+	margin: 0;
+	font-size: 14px;
+}
+
+.datasetTotalText {
+	@media (min-width: 560px) {
+		display: none;
+	}
+}
+
+.datasetTotalPercent {
+	padding-left: var(--mds-spacing-02);
+}
+
+.showAllButton {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: var(--mds-spacing-08);
+}
+
+.legend {
+	margin-top: var(--mds-spacing-09);
+}

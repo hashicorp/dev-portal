@@ -1,0 +1,28 @@
+.location {
+	margin: 0;
+	color: var(--token-color-foreground-faint);
+}
+
+.thumbnailContainer {
+	position: relative;
+}
+
+.thumbnailIcon {
+	--size: 40px;
+
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	width: var(--size);
+	height: var(--size);
+	display: grid;
+	place-items: center;
+	border-radius: 9999px;
+	overflow: hidden;
+	background-color: white;
+	opacity: 0.5;
+
+	& svg {
+		position: relative;
+	}
+}

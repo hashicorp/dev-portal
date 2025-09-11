@@ -1,0 +1,234 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+//
+// ALERT COMPONENT
+//
+
+.alert {
+	display: flex;
+	align-items: flex-start;
+}
+
+// ICON
+
+.icon {
+	flex: none;
+	width: 20px;
+	height: 20px;
+	margin-right: 12px;
+
+	.type-compact & {
+		width: 14px;
+		height: 14px;
+	}
+}
+
+// CONTENT (TEXT + ACTIONS + GENERIC)
+
+.content {
+	flex: 1 1 auto;
+}
+
+// TEXT (TITLE & DESCRIPTION)
+
+.text {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	justify-content: center;
+	color: var(--token-color-foreground-warning-on-surface);
+}
+
+.description {
+	word-break: break-word;
+
+	// we add very basic styling for elements that may be injected via the "description" string
+
+	strong {
+		font-weight: var(--mds-typography-font-weight-semibold);
+	}
+
+	code,
+	pre {
+		display: inline;
+		padding: 1px 5px;
+		font-size: 0.9em; // as discussed with designers, we reduce the size for optical/visual balance
+		font-family: var(--mds-typography-font-stack-mono);
+		line-height: 1em;
+		background-color: var(--token-color-surface-primary);
+		border: 1px solid var(--token-color-palette-neutral-200);
+		border-radius: 5px;
+	}
+
+	// Default styling for bare HTML links not using HDS::Link components
+	a:not([class*='hds-']) {
+		color: var(--token-color-foreground-strong);
+
+		&:focus,
+		&:focus-visible {
+			text-decoration: none;
+			outline: 2px solid var(--token-color-focus-action-internal);
+			outline-offset: 1px;
+		}
+
+		&:hover {
+			color: var(--token-color-foreground-primary);
+		}
+
+		&:active {
+			color: var(--token-color-foreground-faint);
+		}
+	}
+
+	*:where(p, ul, ol, h1, h2, h3, h4, h5, h6):first-child {
+		margin-top: 0;
+	}
+
+	*:where(p, ul, ol, h1, h2, h3, h4, h5, h6):last-child {
+		margin-bottom: 0;
+	}
+}
+
+// ACTIONS
+
+.actions {
+	display: flex;
+	gap: 16px;
+	align-items: center;
+
+	> * {
+		margin-top: 16px;
+	}
+}
+
+// DISMISS
+
+.dismiss-button-wrapper {
+	margin-top: 2px; // for alignment with the main icon and text
+	margin-left: 16px;
+}
+
+// TYPES
+
+.type-page {
+	padding: 16px 48px; // by design
+}
+
+.type-inline {
+	padding: 16px;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 6px;
+}
+
+.type-compact {
+	.icon {
+		margin-top: 2px; // notice: the icon size for the "compact" type is 14px, not 20px, so this 2px extra are needed to reach the exact same height as the "description" text line-height
+		margin-right: 8px;
+	}
+
+	// extra safety
+	.title {
+		display: none;
+
+		& + .description {
+			margin-top: 0;
+		}
+	}
+}
+
+// COLORS (& TYPES)
+
+.color-neutral {
+	&.type-page {
+		background-color: var(--token-color-surface-faint);
+		box-shadow: 0 1px 0 0 var(--token-color-palette-alpha-300);
+	}
+
+	&.type-inline {
+		background-color: var(--token-color-surface-faint);
+		border-color: var(
+			--token-color-border-strong
+		); // notice: in the "neutral" color the "inline" has a slightly darker border color compared to the others to increase contrast (eg. could be used on a light gray background)
+	}
+
+	// different color by design
+	.icon {
+		color: var(--token-color-foreground-faint);
+	}
+
+	.title {
+		color: var(--token-color-foreground-primary);
+	}
+}
+
+.color-highlight {
+	&.type-page {
+		background-color: var(--token-color-surface-highlight);
+		box-shadow: 0 1px 0 0 var(--token-color-border-highlight);
+	}
+
+	&.type-inline {
+		background-color: var(--token-color-surface-highlight);
+		border-color: var(--token-color-border-highlight);
+	}
+
+	.icon,
+	.title {
+		color: var(--token-color-foreground-highlight-on-surface);
+	}
+}
+
+.color-success {
+	&.type-page {
+		background-color: var(--token-color-surface-success);
+		box-shadow: 0 1px 0 0 var(--token-color-border-success);
+	}
+
+	&.type-inline {
+		background-color: var(--token-color-surface-success);
+		border-color: var(--token-color-border-success);
+	}
+
+	.icon,
+	.title {
+		color: var(--token-color-foreground-success-on-surface);
+	}
+}
+
+.color-warning {
+	&.type-page {
+		background-color: var(--token-color-surface-warning);
+		box-shadow: 0 1px 0 0 var(--token-color-border-warning);
+	}
+
+	&.type-inline {
+		background-color: var(--token-color-surface-warning);
+		border-color: var(--token-color-border-warning);
+	}
+
+	.icon,
+	.title {
+		color: var(--token-color-foreground-warning-on-surface);
+	}
+}
+
+.color-critical {
+	&.type-page {
+		background-color: var(--token-color-surface-critical);
+		box-shadow: 0 1px 0 0 var(--token-color-border-critical);
+	}
+
+	&.type-inline {
+		background-color: var(--token-color-surface-critical);
+		border-color: var(--token-color-border-critical);
+	}
+
+	.icon,
+	.title {
+		color: var(--token-color-foreground-critical-on-surface);
+	}
+}

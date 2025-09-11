@@ -1,0 +1,122 @@
+$colors: ( "highlight", "success", "warning", "critical" );
+$sizes: ( "small", "medium", "large" );
+$border-width: 1px;
+
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  vertical-align: middle;
+  border: $border-width solid transparent;
+  border-radius: 5px;
+}
+
+.text {
+  flex: 1 0 0;
+  font-weight: var(--mds-typography-font-weight-medium);
+  font-family: var(--mds-typography-font-stack-text);
+}
+
+
+// SIZE
+
+// these values later may come from the design tokens
+$size-props: (
+  "small": (
+    "font-size": 0.8125rem, // 13px
+    "gap": 0.25rem,
+    "height": 1.25rem,
+    "line-height": 1.2308, // 16px
+    "padding-vertical": 0.125rem,
+    "padding-horizontal": 0.375rem,
+  ),
+  "medium": (
+    "font-size": 0.8125rem, // 13px
+    "gap": 0.25rem,
+    "height": 1.5rem,
+    "line-height": 1.2308, // 16px
+    "padding-vertical": 0.25rem,
+    "padding-horizontal": 0.5rem,
+  ),
+  "large": (
+    "font-size": 1rem, // 16px
+    "gap": 0.375rem,
+    "height": 2rem,
+    "line-height": 1.5, // 24px
+    "padding-vertical": 0.25rem,
+    "padding-horizontal": 0.5rem,
+  )
+);
+
+@each $size in $sizes {
+  .size-#{$size} {
+    gap: map-get($size-props, $size, "gap");
+    min-height: map-get($size-props, $size, "height");
+    padding: calc(#{map-get($size-props, $size, "padding-vertical")} - #{$border-width}) calc(#{map-get($size-props, $size, "padding-horizontal")} - #{$border-width});
+
+    .text {
+      font-size: map-get($size-props, $size, "font-size");
+      line-height: map-get($size-props, $size, "line-height");
+    }
+  }
+}
+
+
+// COLOR + TYPE COMBINATIONS
+
+.color-neutral {
+  &.type-filled {
+    color: var(--token-color-foreground-primary);
+    background-color: var(--token-color-surface-strong);
+  }
+
+  &.type-inverted {
+    color: var(--token-color-foreground-high-contrast);
+    background-color: var(--token-color-foreground-faint);
+  }
+
+  &.type-outlined {
+    color: var(--token-color-foreground-primary);
+    background-color: transparent;
+    border-color: var(--token-color-foreground-faint);
+  }
+}
+
+.color-neutral-dark-mode {
+  &.type-filled {
+    color: var(--token-color-foreground-high-contrast);
+    background-color: var(--token-color-foreground-faint);
+  }
+
+  &.type-inverted {
+    color: var(--token-color-foreground-primary);
+    background-color: var(--token-color-surface-faint);
+  }
+
+  &.type-outlined {
+    color: var(--token-color-foreground-high-contrast);
+    background-color: transparent;
+    border-color: var(--token-color-palette-neutral-100);
+  }
+}
+
+@each $color in $colors {
+  .color-#{$color} {
+    &.type-filled {
+      color: var(--token-color-foreground-#{$color}-on-surface);
+      background-color: var(--token-color-surface-#{$color});
+    }
+
+    &.type-inverted {
+      color: var(--token-color-foreground-high-contrast);
+      background-color: var(--token-color-foreground-#{$color});
+    }
+
+    &.type-outlined {
+      color: var(--token-color-foreground-#{$color});
+      background-color: transparent;
+      border-color: currentColor;
+    }
+  }
+}

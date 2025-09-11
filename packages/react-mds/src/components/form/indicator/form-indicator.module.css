@@ -1,0 +1,10 @@
+/*
+* FORM > INDICATOR
+*/
+
+/* Used for the 'optional' indicator */
+.optional {
+	color: var(--token-form-indicator-optional-color);
+	composes: token-typography-body-100 from global;
+	composes: mds-typography-font-weight-regular from global;
+}

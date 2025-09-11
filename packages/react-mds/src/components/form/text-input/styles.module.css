@@ -1,0 +1,144 @@
+.text-input {
+  composes: mds-typography-font-weight-regular from global;
+  width: 100%;
+  max-width: 100%;
+  padding: var(--token-form-control-padding);
+  color: var(--token-form-control-base-foreground-value-color);
+  background-color: var(--token-form-control-base-surface-color-default);
+  border: var(--token-form-control-border-width) solid var(--token-form-control-base-border-color-default);
+  border-radius: var(--token-form-control-border-radius);
+  box-shadow: var(--token-elevation-inset-box-shadow);
+
+  /* PLACEHOLDER */
+
+  &::placeholder {
+    color: var(--token-form-control-base-foreground-placeholder-color);
+  }
+
+  /* STATUS */
+
+  &:hover,
+  &.mock-hover {
+    border-color: var(--token-form-control-base-border-color-hover);
+  }
+
+  /* focus (same for all the states) */
+
+  &:focus,
+  &.mock-focus {
+    border-color: var(--token-color-focus-action-internal);
+    outline: 3px solid var(--token-color-focus-action-external);
+    outline-offset: 0;
+  }
+
+  /* READONLY */
+
+  &:read-only {
+    color: var(--token-form-control-readonly-foreground-color);
+    background-color: var(--token-form-control-readonly-surface-color);
+    border-color: var(--token-form-control-readonly-border-color);
+    box-shadow: none;
+  }
+
+  /* DISABLED */
+
+  &:disabled {
+    color: var(--token-form-control-disabled-foreground-color);
+    background-color: var(--token-form-control-disabled-surface-color);
+    border-color: var(--token-form-control-disabled-border-color);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  /* INVALID */
+
+  &.invalid {
+    border-color: var(--token-form-control-invalid-border-color-default);
+
+    &:hover,
+    &.mock-hover {
+      border-color: var(--token-form-control-invalid-border-color-hover);
+    }
+
+    &:focus,
+    &.mock-focus {
+      border-color: var(--token-color-focus-critical-internal);
+      outline-color: var(--token-color-focus-critical-external);
+    }
+  }
+
+  /* DATE/TIME */
+  &[type="month"],
+  &[type="date"],
+  &[type="time"],
+  &[type="datetime-local"] {
+    /* browsers set a specific width for these controls, we want to keep it */
+    width: initial;
+
+    /* show the native icon dimmed if disabled (hidden in Chrome) */
+    &:disabled::-webkit-calendar-picker-indicator {
+      visibility: visible;
+      opacity: 0.5;
+    }
+
+    /* show the icon if readonly
+    notice: don't change the "[readonly]" selector to ":readonly" because it's needed to overwrite the specificity in Chrome */
+    &[readonly]::-webkit-calendar-picker-indicator {
+      visibility: visible;
+    }
+  }
+
+  /* we override the default icon with the Flight corresponding one
+  notice: the original in Chrome has two assets, one for light and one for dark mode, and uses a special syntax, but apparently it doesn't work if used in a stylesheet */
+  &[type="month"],
+  &[type="date"],
+  &[type="datetime-local"] {
+    &::-webkit-calendar-picker-indicator {
+      background-image: var(--token-form-text-input-background-image-data-url-date);
+      background-position: center center;
+      background-size: var(--token-form-text-input-background-image-size);
+    }
+  }
+
+  &[type="time"] {
+    &::-webkit-calendar-picker-indicator {
+      background-image: var(--token-form-text-input-background-image-data-url-time);
+      background-position: center center;
+      background-size: var(--token-form-text-input-background-image-size);
+    }
+  }
+
+  /* SEARCH */
+  &[type="search"] {
+    padding-left: calc(var(--token-form-control-padding) + 24px);
+    background-image: var(--token-form-text-input-background-image-data-url-search);
+    background-repeat: no-repeat;
+    background-position: var(--token-form-text-input-background-image-position-x) 50%;
+    background-size: var(--token-form-text-input-background-image-size);
+
+    &::-webkit-search-cancel-button {
+      width: var(--token-form-text-input-background-image-size);
+      height: var(--token-form-text-input-background-image-size);
+      background-image: var(--token-form-text-input-background-image-data-url-search-cancel);
+      background-position: center center;
+      background-size: var(--token-form-text-input-background-image-size);
+      -webkit-appearance: none;
+    }
+
+    &.loading {
+      background-image: var(--token-form-text-input-background-image-data-url-search-loading);
+    }
+  }
+}
+
+/* this is essentially a no-op since the base styles are already medium-sized */
+.size-medium {
+  composes: token-typography-body-200 from global;
+  padding: var(--token-form-control-padding);
+}
+
+.size-large {
+  composes: token-typography-body-300 from global;
+  padding: 11px;
+  min-height: 3rem;
+}
