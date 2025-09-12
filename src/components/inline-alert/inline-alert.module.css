@@ -32,6 +32,7 @@
 .content {
 	display: flex;
 	flex-direction: column;
+	overflow: auto;
 }
 
 .title {
