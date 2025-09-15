@@ -6,6 +6,7 @@
 import React, { ReactNode } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
+import s from './sandbox-error-boundary.module.css'
 
 interface SandboxErrorBoundaryProps {
 	children: ReactNode
@@ -30,44 +31,22 @@ const SandboxErrorFallback = ({
 					We encountered an unexpected error while loading your sandbox environment.
 					This issue has been reported and we&rsquo;re working to fix it.
 				</p>
-				<details style={{ marginTop: '1rem', fontSize: '0.875rem' }}>
+				<details className={s.details}>
 					<summary>Technical Details</summary>
-					<pre style={{ 
-						marginTop: '0.5rem', 
-						padding: '0.5rem', 
-						backgroundColor: '#f5f5f5',
-						borderRadius: '4px',
-						overflow: 'auto',
-						fontSize: '0.75rem'
-					}}>
+					<pre className={s.detailsContent}>
 						{error.message}
 					</pre>
 				</details>
-				<div style={{ marginTop: '1rem' }}>
+				<div className={s.buttonContainer}>
 					<button 
 						onClick={resetErrorBoundary}
-						style={{
-							backgroundColor: '#1f2937',
-							color: 'white',
-							border: 'none',
-							borderRadius: '4px',
-							padding: '0.75rem 1.5rem',
-							marginRight: '0.5rem',
-							cursor: 'pointer'
-						}}
+						className={s.primaryButton}
 					>
 						Try Again
 					</button>
 					<button 
 						onClick={() => window.location.reload()}
-						style={{
-							backgroundColor: 'transparent',
-							color: '#1f2937',
-							border: '1px solid #d1d5db',
-							borderRadius: '4px',
-							padding: '0.75rem 1.5rem',
-							cursor: 'pointer'
-						}}
+						className={s.secondaryButton}
 					>
 						Refresh Page
 					</button>
