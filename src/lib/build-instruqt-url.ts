@@ -54,7 +54,7 @@ export function buildLabId(
 			trackInstruqtUrlError(
 				'null_lab_config',
 				'Lab configuration is null or undefined',
-				{ custom_tokens_provided: !!customTokens }
+				{ custom_tokens_provided: Boolean(customTokens) }
 			)
 			return ''
 		}
@@ -65,7 +65,7 @@ export function buildLabId(
 				'Lab instruqtTrack is missing',
 				{
 					lab_id: lab.labId,
-					lab_has_scenario: !!lab.scenario,
+					lab_has_scenario: Boolean(lab.scenario),
 				}
 			)
 			return lab.labId || ''
@@ -89,7 +89,7 @@ export function buildLabId(
 				error_stack: error instanceof Error ? error.stack : undefined,
 				lab_id: lab?.labId,
 				instruqt_track: lab?.instruqtTrack,
-				has_scenario: !!lab?.scenario,
+				has_scenario: Boolean(lab?.scenario),
 			}
 		)
 		return lab?.labId || ''
