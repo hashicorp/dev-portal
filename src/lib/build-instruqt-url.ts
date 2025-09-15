@@ -39,21 +39,10 @@ const trackInstruqtUrlError = (
 	}
 }
 
-// Get default tokens from environment variables with fallbacks
-const getDefaultTokens = (): InstruqtTokens => ({
-	'terraform-sandbox': 'em_3vgTsBqCLq2blqtQ',
-	'vault-sandbox': 'em_CUFCBU0nSfCl2VHi',
-	'boundary-sandbox': 'em_YHsmJu4K1Wk3hwht',
-	'consul-sandbox-sd': 'em_MdAn4Od_foU6oybz',
-	'consul-sandbox': 'em_I5XI2XjO-ZMeH1_w',
-	'nomad-sandbox': 'em_0wOuIAyyjAQllLkc',
-})
-
 /**
  * Builds the lab ID that will be used by the Instruqt embed
  * This combines the track path with query parameters
  * @param lab - The sandbox lab configuration (can be basic or full SandboxLab)
- * @param customTokens - Optional custom token mapping
  * @returns The complete lab ID for Instruqt embedding
  */
 export function buildLabId(
@@ -65,9 +54,7 @@ export function buildLabId(
 			trackInstruqtUrlError(
 				'null_lab_config',
 				'Lab configuration is null or undefined',
-				{
-					custom_tokens_provided: !!customTokens,
-				}
+				{ custom_tokens_provided: !!customTokens }
 			)
 			return ''
 		}
@@ -79,32 +66,16 @@ export function buildLabId(
 				{
 					lab_id: lab.labId,
 					lab_has_scenario: !!lab.scenario,
-					custom_tokens_provided: !!customTokens,
 				}
 			)
 			return lab.labId || ''
 		}
 
-		const tokens = { ...getDefaultTokens(), ...customTokens }
-
-		// Build the track URL with parameters
 		let labId = lab.instruqtTrack
-
-		// Add token parameter
-		const trackName = lab.instruqtTrack.split('/').pop() || ''
-		const token =
-			process.env.INSTRUQT_TOKEN ||
-			tokens[trackName] ||
-			tokens[lab.labId] ||
-			null
-
-		if (token) {
-			labId += `?token=${token}`
-		}
 
 		// Add scenario parameter if specified
 		if (lab.scenario) {
-			const separator = token ? '&' : '?'
+			const separator = labId.includes('?') ? '&' : '?'
 			labId += `${separator}rtp_SCENARIO=${lab.scenario}`
 		}
 
@@ -119,7 +90,6 @@ export function buildLabId(
 				lab_id: lab?.labId,
 				instruqt_track: lab?.instruqtTrack,
 				has_scenario: !!lab?.scenario,
-				custom_tokens_provided: !!customTokens,
 			}
 		)
 		return lab?.labId || ''
@@ -128,7 +98,6 @@ export function buildLabId(
 
 /**
  * Server-side function to build lab ID with config
- *
  */
 export function buildLabIdWithConfig(lab: BasicLab | SandboxLab): string {
 	try {
