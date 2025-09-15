@@ -58,7 +58,7 @@ vi.mock('content/sandbox/sandbox.json', () => ({
 				description:
 					'Test lab description that is long enough to pass validation',
 				products: ['test-product'],
-				instruqtTrack: 'hashicorp-learn/tracks/test-lab',
+				instruqtTrack: 'hashicorp-learn/tracks/test-lab?token=em_test555',
 			},
 			{
 				labId: 'test-product/stored-lab/stored-lab-id',
@@ -66,7 +66,7 @@ vi.mock('content/sandbox/sandbox.json', () => ({
 				description:
 					'Stored lab description that is long enough to pass validation',
 				products: ['test-product'],
-				instruqtTrack: 'hashicorp-learn/tracks/stored-lab',
+				instruqtTrack: 'hashicorp-learn/tracks/stored-lab?token=em_test666',
 			},
 			{
 				labId: 'test-product/close-test-lab/close-test-lab-id',
@@ -74,7 +74,7 @@ vi.mock('content/sandbox/sandbox.json', () => ({
 				description:
 					'Close test lab description that is long enough to pass validation',
 				products: ['test-product'],
-				instruqtTrack: 'hashicorp-learn/tracks/close-test-lab',
+				instruqtTrack: 'hashicorp-learn/tracks/close-test-lab?token=em_test777',
 			},
 		],
 	},
@@ -123,7 +123,7 @@ function TestInstruqtProvider({ children }: { children: ReactNode }) {
 					description:
 						'Test lab description that is long enough to pass validation',
 					products: ['test-product'],
-					instruqtTrack: 'hashicorp-learn/tracks/test-lab',
+					instruqtTrack: 'hashicorp-learn/tracks/test-lab?token=em_test555',
 				},
 				{
 					labId: 'stored-lab-id',
@@ -131,7 +131,7 @@ function TestInstruqtProvider({ children }: { children: ReactNode }) {
 					description:
 						'Stored lab description that is long enough to pass validation',
 					products: ['test-product'],
-					instruqtTrack: 'hashicorp-learn/tracks/stored-lab',
+					instruqtTrack: 'hashicorp-learn/tracks/stored-lab?token=em_test666',
 				},
 				{
 					labId: 'close-test-lab-id',
@@ -139,7 +139,7 @@ function TestInstruqtProvider({ children }: { children: ReactNode }) {
 					description:
 						'Close test lab description that is long enough to pass validation',
 					products: ['test-product'],
-					instruqtTrack: 'hashicorp-learn/tracks/close-test-lab',
+					instruqtTrack: 'hashicorp-learn/tracks/close-test-lab?token=em_test777',
 				},
 			],
 		}),

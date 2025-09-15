@@ -13,7 +13,9 @@ const sandboxConfigSchema = Joi.object({
 		.items(Joi.string().required())
 		.min(1)
 		.required()
-		.description('Array of supported product slugs'),		labs: Joi.array()
+		.description('Array of supported product slugs'),
+		
+	labs: Joi.array()
 		.items(
 			Joi.object({
 				title: Joi.string()
@@ -36,11 +38,11 @@ const sandboxConfigSchema = Joi.object({
 					.required()
 					.pattern(/^[\w-]+$/)
 					.description('Unique identifier for the lab'),
-				
+
 				instruqtTrack: Joi.string()
 					.required()
-					.pattern(/^[\w-]+\/[\w-]+\/[\w-]+$/)
-					.description('Instruqt track path (e.g., hashicorp-learn/tracks/terraform-sandbox)'),
+					.pattern(/^[\w-]+\/[\w-]+\/[\w-]+(\?token=em_[A-Za-z0-9_-]+)?$/)
+					.description('Instruqt track path with optional token (e.g., hashicorp-learn/tracks/terraform-sandbox?token=em_xyz)'),
 				
 				scenario: Joi.string()
 					.optional()
@@ -167,7 +169,7 @@ export function validateSandboxLab(lab: unknown, availableProducts: string[]): {
 		labId: Joi.string().required().pattern(/^[\w/-]+$/),
 		instruqtTrack: Joi.string()
 			.required()
-			.pattern(/^[\w-]+\/[\w-]+\/[\w-]+$/),
+			.pattern(/^[\w-]+\/[\w-]+\/[\w-]+(\?token=em_[A-Za-z0-9_-]+)?$/),
 		scenario: Joi.string().optional(),
 		documentation: Joi.string().optional().pattern(/\.mdx?$/)
 	})
