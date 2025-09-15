@@ -184,6 +184,7 @@ export default function SandboxView({
 
 				// Use the pre-built full lab ID that includes tokens and parameters
 				const completeLabId = lab.fullLabId || lab.labId
+				console.log('Launching lab with ID:', completeLabId)
 
 				if (!completeLabId) {
 					trackSandboxPageError(
@@ -235,10 +236,35 @@ export default function SandboxView({
 	)
 
 	useEffect(() => {
-		const { launch } = router.query
+		const { launch, embed } = router.query
 
-		if (launch && typeof launch === 'string') {
-			const labToLaunch = availableSandboxes.find((lab) => lab.labId === launch)
+		const launchParam = launch || embed
+
+		if (launchParam && typeof launchParam === 'string') {
+			let labToLaunch: SandboxLab | undefined
+
+			// First try to find by simple labId (for 'launch' parameter)
+			labToLaunch = availableSandboxes.find((lab) => lab.labId === launchParam)
+
+			// If not found, try to match by instruqt track path (for 'embed' parameter)
+			if (!labToLaunch) {
+				// Extract the base track name from full instruqt path
+				// e.g., "hashicorp-learn/tracks/nomad-sandbox?token=..." -> "nomad-sandbox"
+				let baseTrackName = launchParam
+
+				// Remove query parameters first
+				baseTrackName = baseTrackName.split('?')[0]
+
+				// Extract track name from path
+				if (baseTrackName.includes('/tracks/')) {
+					baseTrackName = baseTrackName.split('/tracks/')[1]
+				}
+
+				// Find lab by matching the track name part of instruqtTrack
+				labToLaunch = availableSandboxes.find((lab) =>
+					lab.instruqtTrack?.includes(`/tracks/${baseTrackName}`)
+				)
+			}
 
 			if (labToLaunch) {
 				// Clear the query parameter to avoid infinite loops
