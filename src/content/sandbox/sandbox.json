@@ -30,7 +30,7 @@
 			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
 			"products": ["consul"],
 			"labId": "consul-service-discovery-sandbox",
-			"instruqtTrack": "hashicorp-learn/tracks/consul-sandbox",
+			"instruqtTrack": "hashicorp-learn/tracks/consul-sandbox-sd",
 			"scenario": "SD",
 			"documentation": "consul-sd.mdx"
 		},

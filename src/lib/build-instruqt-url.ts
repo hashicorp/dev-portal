@@ -41,14 +41,11 @@ const trackInstruqtUrlError = (
 
 // Get default tokens from environment variables with fallbacks
 const getDefaultTokens = (): InstruqtTokens => ({
-	'terraform-sandbox':
-		process.env.TERRAFORM_SANDBOX_TOKEN ?? 'em_3vgTsBqCLq2blqtQ',
-	'vault-sandbox':
-		process.env.VAULT_SANDBOX_TOKEN ?? 'em_CUFCBU0nSfCl2VHi',
-	'boundary-sandbox':
-		process.env.BOUNDARY_SANDBOX_TOKEN ?? 'em_YHsmJu4K1Wk3hwht',
-	'consul-sandbox': process.env.CONSUL_SANDBOX_TOKEN ?? 'em_I5XI2XjO-ZMeH1_w',
+	'terraform-sandbox': process.env.TERRAFORM_SANDBOX_TOKEN ?? 'em_3vgTsBqCLq2blqtQ',
+	'vault-sandbox': process.env.VAULT_SANDBOX_TOKEN ?? 'em_CUFCBU0nSfCl2VHi',
+	'boundary-sandbox': process.env.BOUNDARY_SANDBOX_TOKEN ?? 'em_YHsmJu4K1Wk3hwht',
 	'consul-sandbox-sd': process.env.CONSUL_SANDBOX_SD_TOKEN ?? 'em_MdAn4Od_foU6oybz',
+	'consul-sandbox': process.env.CONSUL_SANDBOX_TOKEN ?? 'em_I5XI2XjO-ZMeH1_w',
 	'nomad-sandbox': process.env.NOMAD_SANDBOX_TOKEN ?? 'em_0wOuIAyyjAQllLkc',
 })
 

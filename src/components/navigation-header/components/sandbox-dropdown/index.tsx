@@ -21,16 +21,9 @@ import Text from 'components/text'
 import ProductIcon from 'components/product-icon'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 import s from './sandbox-dropdown.module.css'
+import { SandboxLab } from 'types/sandbox'
 import { ProductSlug } from 'types/products'
-
-// Define the type to match the structure in sandbox.json
-type SandboxLab = {
-	id?: string
-	labId: string
-	title: string
-	description: string
-	products: string[]
-}
+import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
 
 interface SandboxDropdownProps {
 	ariaLabel: string
@@ -49,7 +42,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const menuId = `sandbox-dropdown-menu-${uniqueId}`
 
 	// Item data from sandbox config
-	const labs = SANDBOX_CONFIG.labs as SandboxLab[]
+	const labs = SANDBOX_CONFIG.labs as unknown as SandboxLab[]
 
 	// Filter labs for current product and other products
 	const currentProductLabs = labs.filter((lab) =>
@@ -137,9 +130,14 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	 * Handle lab selection
 	 */
 	const handleLabClick = (lab: SandboxLab) => {
-		openLab(lab.labId)
+		const labWithTrack = {
+			...lab,
+			instruqtTrack: lab.instruqtTrack || '',
+		}
+		const fullLabId = buildLabIdWithConfig(labWithTrack)
+		openLab(fullLabId)
 		trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
-			labId: lab.labId,
+			labId: fullLabId,
 			page: router.asPath,
 		})
 		setIsOpen(false)
@@ -242,7 +240,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 
 					<ul className={s.labsList}>
 						{currentProductLabs.map((lab, index) => (
-							<li key={lab.id || index} className={s.itemContainer}>
+							<li key={lab.labId || index} className={s.itemContainer}>
 								<button
 									className={s.sandboxItem}
 									onClick={() => handleLabClick(lab)}
@@ -312,7 +310,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 							{otherSandboxesOpen && (
 								<ul className={s.labsList}>
 									{otherProductLabs.map((lab, index) => (
-										<li key={lab.id || index} className={s.itemContainer}>
+										<li key={lab.labId || index} className={s.itemContainer}>
 											<button
 												className={s.sandboxItem}
 												onClick={() => handleLabClick(lab)}
