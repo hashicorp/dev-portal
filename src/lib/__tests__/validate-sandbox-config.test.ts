@@ -5,8 +5,7 @@
 
 import { validateSandboxConfigWithDetailedErrors, validateSandboxConfig, validateSandboxLab } from '../validate-sandbox-config'
 
-describe('validateSandboxConfig', () => {
-	const validConfig = {
+describe('validateSandboxConfig', () => {		const validConfig = {
 		products: ['terraform', 'vault'],
 		labs: [
 			{
@@ -14,7 +13,7 @@ describe('validateSandboxConfig', () => {
 				description: 'A comprehensive Terraform sandbox environment for learning',
 				products: ['terraform'],
 				labId: 'terraform-sandbox',
-				instruqtTrack: 'hashicorp-learn/tracks/terraform-sandbox',
+				instruqtTrack: 'hashicorp-learn/tracks/terraform-sandbox?token=em_test123',
 				documentation: 'terraform.mdx'
 			},
 			{
@@ -22,7 +21,7 @@ describe('validateSandboxConfig', () => {
 				description: 'Learn Vault secrets management',
 				products: ['vault'],
 				labId: 'vault-sandbox',
-				instruqtTrack: 'hashicorp-learn/tracks/vault-sandbox'
+				instruqtTrack: 'hashicorp-learn/tracks/vault-sandbox?token=em_test456'
 			}
 		]
 	}
@@ -80,7 +79,7 @@ describe('validateSandboxConfig', () => {
 					description: 'Test description that is long enough to pass validation',
 					products: ['invalid-product'], // This product is not in the global products array
 					labId: 'test-track-id',
-					instruqtTrack: 'hashicorp-learn/tracks/test-track'
+					instruqtTrack: 'hashicorp-learn/tracks/test-track?token=em_test789'
 				}]
 			}
 			const result = validateSandboxConfigWithDetailedErrors(config)
@@ -99,14 +98,14 @@ describe('validateSandboxConfig', () => {
 						description: 'Test description that is long enough',
 						products: ['terraform'],
 						labId: 'duplicate-track-id',
-						instruqtTrack: 'hashicorp-learn/tracks/duplicate-track-1'
+						instruqtTrack: 'hashicorp-learn/tracks/duplicate-track-1?token=em_test111'
 					},
 					{
 						title: 'Test 2',
 						description: 'Test description that is long enough',
 						products: ['terraform'],
 						labId: 'duplicate-track-id',
-						instruqtTrack: 'hashicorp-learn/tracks/duplicate-track-2'
+						instruqtTrack: 'hashicorp-learn/tracks/duplicate-track-2?token=em_test222'
 					}
 				]
 			}
@@ -162,7 +161,8 @@ describe('validateSandboxConfig', () => {
 				title: 'Test Lab',
 				description: 'A test lab for validation',
 				products: ['invalid-product'],
-				labId: 'test/org/lab-id'
+				labId: 'test-lab-id',
+				instruqtTrack: 'hashicorp-learn/tracks/test-lab?token=em_test444'
 			}
 			
 			const result = validateSandboxLab(lab, availableProducts)
@@ -175,8 +175,8 @@ describe('validateSandboxConfig', () => {
 				title: 'Valid Lab',
 				description: 'A lab with valid products',
 				products: ['terraform', 'vault'],
-				labId: 'hashicorp/org/valid-lab',
-				instruqtTrack: 'hashicorp/org/valid-lab'
+				labId: 'valid-lab',
+				instruqtTrack: 'hashicorp-learn/tracks/valid-lab?token=em_test333'
 			}
 			
 			const result = validateSandboxLab(lab, availableProducts)
