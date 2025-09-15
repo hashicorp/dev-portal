@@ -6,7 +6,7 @@
 			"description": "Get started quickly with Terraform. This sandbox includes Docker and LocalStack preinstalled to test your Terraform configuration.",
 			"products": ["terraform"],
 			"labId": "terraform-sandbox",
-			"instruqtTrack": "hashicorp-learn/tracks/terraform-sandbox",
+			"instruqtTrack": "hashicorp-learn/tracks/terraform-sandbox?token=em_3vgTsBqCLq2blqtQ",
 			"documentation": "terraform.mdx"
 		},
 		{
@@ -14,7 +14,7 @@
 			"description": "Learn how to manage your secrets with Vault",
 			"products": ["vault"],
 			"labId": "vault-sandbox",
-			"instruqtTrack": "hashicorp-learn/tracks/vault-sandbox",
+			"instruqtTrack": "hashicorp-learn/tracks/vault-sandbox?token=em_CUFCBU0nSfCl2VHi",
 			"documentation": "vault.mdx"
 		},
 		{
@@ -22,7 +22,7 @@
 			"description": "Learn how to manage a Boundary cluster, configure and connect to targets, and set up target credentials.",
 			"products": ["boundary"],
 			"labId": "boundary-sandbox",
-			"instruqtTrack": "hashicorp-learn/tracks/boundary-sandbox",
+			"instruqtTrack": "hashicorp-learn/tracks/boundary-sandbox?token=em_YHsmJu4K1Wk3hwht",
 			"documentation": "boundary.mdx"
 		},
 		{
@@ -30,7 +30,7 @@
 			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
 			"products": ["consul"],
 			"labId": "consul-service-discovery-sandbox",
-			"instruqtTrack": "hashicorp-learn/tracks/consul-sandbox-sd",
+			"instruqtTrack": "hashicorp-learn/tracks/consul-sandbox-sd?token=em_MdAn4Od_foU6oybz",
 			"scenario": "SD",
 			"documentation": "consul-sd.mdx"
 		},
@@ -39,16 +39,16 @@
 			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
 			"products": ["consul"],
 			"labId": "consul-service-mesh-sandbox",
-			"instruqtTrack": "hashicorp-learn/tracks/consul-sandbox",
+			"instruqtTrack": "hashicorp-learn/tracks/consul-sandbox?token=em_I5XI2XjO-ZMeH1_w",
 			"scenario": "SM",
 			"documentation": "consul-sm.mdx"
 		},
 		{
 			"title": "Nomad Sandbox",
-			"description": "A Nomad cluster with three server nodes and one client node, Consul installed and configured, and Access Control Lists (ACLs) enabled for both Nomad and Consul.",
-			"products": ["nomad", "consul", "vault"],
+			"description": "Learn how to manage your infrastructure with Nomad",
+			"products": ["nomad"],
 			"labId": "nomad-sandbox",
-			"instruqtTrack": "hashicorp-learn/tracks/nomad-sandbox",
+			"instruqtTrack": "hashicorp-learn/tracks/nomad-sandbox?token=em_0wOuIAyyjAQllLkc",
 			"documentation": "nomad.mdx"
 		}
 	]
