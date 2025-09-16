@@ -26,7 +26,7 @@
 			"examCode": "004",
 			"productSlug": "terraform",
 			"versionTested": "Terraform 1.12",
-			"description": "Terraform Associate 004 will replace the current version, Terraform Associate 003 on ???. Compare the differences between the 003 and 004 exam versions below. The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform. You understand what Terraform Enterprise features exist and can differentiate between Terraform Enterprise and Community Edition. You will be best prepared for this exam if you have professional experience using Terraform in production, but performing the exam objectives in a personal demo environment may be sufficient.",
+			"description": "Terraform Associate 004 will replace the current version, (003), on January 8, 2026. Compare the differences between the (003) and (004) exam versions below. The Terraform Associate certification is for Cloud Engineers specializing in operations, IT, or development who know the basic concepts and skills associated with Terraform. You understand what Terraform Enterprise features exist and can differentiate between Terraform Enterprise and Community Edition. You will be best prepared for this exam if you have professional experience using Terraform in production, but performing the exam objectives in a personal demo environment may be sufficient.",
 			"links": {
 			},
 			"faqSlug": "terraform-associate-004"
