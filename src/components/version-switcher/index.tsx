@@ -12,6 +12,7 @@ import s from './version-switcher.module.css'
 import { Root as Alert } from '@hashicorp/react-design-system-components/src/components/alert';
 import Seperator from '@hashicorp/react-design-system-components/src/components/separator';
 import { IconFileX16 } from '@hashicorp/flight-icons/svg-react/file-x-16';
+import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
@@ -50,17 +51,22 @@ function VersionSwitcher({ options, label }: VersionSwitcherProps) {
 						return [
 							// If the next version is missing, then render a message to explain
 							(index < options.length - 1 && options[index].found && !options[index + 1].found) ? (
-								<DropdownDisclosureLabelItem>
-									<Alert
-										type="compact"
-										color='critical'
-										key="no-previous-versions"
-										className={s.alert}
-										description={`No versions of this document exist before ${options[index].label}. Click below to redirect to the version homepage.`}
-										role='alert'
-									/>
-									<Seperator />
-								</DropdownDisclosureLabelItem>
+								<>
+									<DropdownDisclosureLabelItem>
+										<Seperator spacing='0' />
+									</DropdownDisclosureLabelItem>
+									<DropdownDisclosureLabelItem>
+										<Alert
+											icon={<IconInfo16 />}
+											type="compact"
+											color='critical'
+											key="no-previous-versions"
+											className={s.alert}
+											description={`No versions of this document exist before ${options[index].label}. Click below to redirect to the version homepage.`}
+											role='alert'
+										/>
+									</DropdownDisclosureLabelItem>
+								</>
 							) : null,
 							<DropdownDisclosureAnchorItem
 								key={option.href}
