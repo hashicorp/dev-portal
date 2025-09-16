@@ -44,7 +44,7 @@ export function formatCollection(collection: ApiCollection): Collection {
 		ordered,
 		level,
 		category: category || undefined,
-		tutorials: tutorials.map(formatToTutorialLite),
+		tutorials: tutorials?.map(formatToTutorialLite) || [],
 		nextCollection: next_collection
 			? formatToCollectionLite(next_collection)
 			: undefined,
