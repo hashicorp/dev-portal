@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { Fragment, KeyboardEvent, useRef, useState } from 'react'
+import { KeyboardEvent, useRef, useState } from 'react'
 import { useId } from '@react-aria/utils'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
-import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { useRouter } from 'next/router'
 import { useCurrentProduct } from 'contexts'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
@@ -38,7 +37,8 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const menuRef = useRef<HTMLDivElement>()
 	const activatorButtonRef = useRef<HTMLButtonElement>()
 	const [isOpen, setIsOpen] = useState(false)
-	const [otherSandboxesOpen, setOtherSandboxesOpen] = useState(false)
+	// TODO: (ET) Temporarily removed for redesign
+	// const [otherSandboxesOpen, setOtherSandboxesOpen] = useState(false)
 	const menuId = `sandbox-dropdown-menu-${uniqueId}`
 
 	// Item data from sandbox config
@@ -49,9 +49,10 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		lab.products.includes(currentProduct.slug)
 	)
 
-	const otherProductLabs = labs.filter(
-		(lab) => !lab.products.includes(currentProduct.slug)
-	)
+	// TODO: (ET) Temporarily removed for redesign
+	// const otherProductLabs = labs.filter(
+	// 	(lab) => !lab.products.includes(currentProduct.slug)
+	// )
 
 	// Handles closing the menu if there is a click outside of it and it is open.
 	useOnClickOutside([menuRef], () => setIsOpen(false), isOpen)
@@ -152,13 +153,11 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		setIsOpen(false)
 	}
 
-	/**
-	 * Toggle the other sandboxes accordion
-	 */
-	const toggleOtherSandboxes = (e: React.MouseEvent) => {
+	// TODO: (ET) Temporarily removed for redesign
+	/*const toggleOtherSandboxes = (e: React.MouseEvent) => {
 		e.preventDefault()
 		setOtherSandboxesOpen(!otherSandboxesOpen)
-	}
+	}*/
 
 	return (
 		<div className={s.root} onMouseLeave={handleMouseLeave} ref={menuRef}>
@@ -281,8 +280,9 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 						))}
 					</ul>
 
+					{/*TODO: (ET) Temporarily removed for redesign
 					{/* Other Sandboxes Accordion (only show if there are other sandboxes) */}
-					{otherProductLabs.length > 0 && (
+					{/*otherProductLabs.length > 0 && (
 						<>
 							<hr className={s.divider} />
 
@@ -352,7 +352,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 								</ul>
 							)}
 						</>
-					)}
+					)*/}
 				</div>
 			</div>
 		</div>
