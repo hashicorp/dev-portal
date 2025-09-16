@@ -4,6 +4,7 @@ node_modules
 out
 .tmp
 .env*.local
+.env
 .vercel
 _temp-migrations/
 src/data/_redirects.generated.json
