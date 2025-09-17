@@ -6,6 +6,9 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useCallback, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import path from 'path'
+import fs from 'fs'
+import classNames from 'classnames'
 import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
@@ -15,30 +18,31 @@ import {
 	generateTopLevelSidebarNavData,
 	generateProductLandingSidebarNavData,
 } from 'components/sidebar/helpers'
-import {
-	CardTitle,
-	CardDescription,
-	CardFooter,
-} from 'components/card/components'
-import Card from 'components/card'
-import CardsGridList from 'components/cards-grid-list'
-import { BrandedHeaderCard } from 'views/product-integrations-landing/components/branded-header-card'
+import CardsGridList, {
+	TutorialCardsGridList,
+} from 'components/cards-grid-list'
 import { ProductSlug } from 'types/products'
 import { SandboxLab } from 'types/sandbox'
-import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
-import ProductIcon from 'components/product-icon'
+import { ProductOption } from 'lib/learn-client/types'
 import { serialize } from 'lib/next-mdx-remote/serialize'
+import { BrandedHeaderCard } from 'views/product-integrations-landing/components/branded-header-card'
 import DevDotContent from 'components/dev-dot-content'
 import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
 import { SidebarProps } from 'components/sidebar'
 import Tabs, { Tab } from 'components/tabs'
 import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
-import fs from 'fs'
-import path from 'path'
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
+import { ErrorBoundary } from 'react-error-boundary'
 import s from './sandbox.module.css'
 import docsViewStyles from 'views/docs-view/docs-view.module.css'
-import classNames from 'classnames'
 import ButtonLink from '@components/button-link'
+import Card from '@components/card'
+import {
+	CardTitle,
+	CardDescription,
+	CardFooter,
+} from '@components/card/components'
+import ProductIcon from '@components/product-icon'
 
 /**
  * Tracks sandbox page errors with PostHog and development logging
@@ -434,40 +438,33 @@ export default function SandboxView({
 						useful.
 					</p>
 
-					<CardsGridList>
-						{otherSandboxes.map((lab) => (
-							<div key={lab.labId} className={s.sandboxCard}>
-								<Card>
-									<div className={s.cardHeader}>
-										<CardTitle text={lab.title} />
-										<div className={s.productIcons}>
-											{lab.products.map((productSlug) => (
-												<ProductIcon
-													key={`${lab.labId}-${productSlug}`}
-													productSlug={productSlug as ProductSlug}
-													size={16}
-													className={s.productIcon}
-												/>
-											))}
-										</div>
-									</div>
-									<CardDescription text={lab.description} />
-									<CardFooter>
-										<button
-											className={s.launchButton}
-											onClick={(e) => {
-												e.preventDefault()
-												e.stopPropagation()
-												handleLabClick(lab)
-											}}
-										>
-											Launch Sandbox
-										</button>
-									</CardFooter>
-								</Card>
+					<ErrorBoundary
+						FallbackComponent={({ error }) => (
+							<div className={s.errorMessage}>
+								<p>Error loading other sandboxes: {error.message}</p>
 							</div>
-						))}
-					</CardsGridList>
+						)}
+					>
+						<TutorialCardsGridList
+							fixedColumns={2}
+							tutorials={otherSandboxes.map((lab) => ({
+								id: lab.labId,
+								collectionId: null,
+								description: lab.description,
+								duration: 'Interactive Sandbox',
+								hasInteractiveLab: true,
+								hasVideo: false,
+								heading: lab.title,
+								url: '#',
+								productsUsed: lab.products as ProductOption[],
+								onClick: (e) => {
+									e.preventDefault()
+									handleLabClick(lab)
+								},
+							}))}
+							className={s.sandboxGrid}
+						/>
+					</ErrorBoundary>
 				</>
 			)}
 		</SidebarSidecarLayout>
