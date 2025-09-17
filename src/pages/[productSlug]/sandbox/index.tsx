@@ -383,7 +383,7 @@ export default function SandboxView({
 										<CardDescription text={lab.description} />
 										<CardFooter>
 											<ButtonLink
-												href={''}
+												href="#"
 												className={s.launchButton}
 												aria-label="Launches the Sandbox"
 												onClick={(e) => {
