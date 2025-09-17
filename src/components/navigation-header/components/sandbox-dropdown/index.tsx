@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { Fragment, KeyboardEvent, useRef, useState } from 'react'
+import { KeyboardEvent, useRef, useState } from 'react'
 import { useId } from '@react-aria/utils'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
-import { IconChevronRight16 } from '@hashicorp/flight-icons/svg-react/chevron-right-16'
 import { useRouter } from 'next/router'
 import { useCurrentProduct } from 'contexts'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
@@ -38,7 +37,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const menuRef = useRef<HTMLDivElement>()
 	const activatorButtonRef = useRef<HTMLButtonElement>()
 	const [isOpen, setIsOpen] = useState(false)
-	const [otherSandboxesOpen, setOtherSandboxesOpen] = useState(false)
 	const menuId = `sandbox-dropdown-menu-${uniqueId}`
 
 	// Item data from sandbox config
@@ -47,10 +45,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	// Filter labs for current product and other products
 	const currentProductLabs = labs.filter((lab) =>
 		lab.products.includes(currentProduct.slug)
-	)
-
-	const otherProductLabs = labs.filter(
-		(lab) => !lab.products.includes(currentProduct.slug)
 	)
 
 	// Handles closing the menu if there is a click outside of it and it is open.
@@ -150,14 +144,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		e.preventDefault()
 		router.push(`/${currentProduct.slug}/sandbox`)
 		setIsOpen(false)
-	}
-
-	/**
-	 * Toggle the other sandboxes accordion
-	 */
-	const toggleOtherSandboxes = (e: React.MouseEvent) => {
-		e.preventDefault()
-		setOtherSandboxesOpen(!otherSandboxesOpen)
 	}
 
 	return (
@@ -280,79 +266,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 							</li>
 						))}
 					</ul>
-
-					{/* Other Sandboxes Accordion (only show if there are other sandboxes) */}
-					{otherProductLabs.length > 0 && (
-						<>
-							<hr className={s.divider} />
-
-							<button
-								className={s.accordionButton}
-								onClick={toggleOtherSandboxes}
-								onKeyDown={handleKeyDown}
-								aria-expanded={otherSandboxesOpen}
-							>
-								<Text
-									asElement="span"
-									className={s.sectionTitle}
-									size={200}
-									weight="semibold"
-								>
-									Other Sandboxes
-								</Text>
-								<IconChevronRight16
-									className={`${s.accordionIcon} ${
-										otherSandboxesOpen ? s.accordionIconOpen : ''
-									}`}
-								/>
-							</button>
-
-							{otherSandboxesOpen && (
-								<ul className={s.labsList}>
-									{otherProductLabs.map((lab, index) => (
-										<li key={lab.labId || index} className={s.itemContainer}>
-											<button
-												className={s.sandboxItem}
-												onClick={() => handleLabClick(lab)}
-												onKeyDown={handleKeyDown}
-											>
-												<div className={s.content}>
-													<div className={s.titleRow}>
-														<Text
-															asElement="span"
-															className={s.title}
-															size={200}
-															weight="regular"
-														>
-															{lab.title}
-														</Text>
-														<div className={s.productIcons}>
-															{lab.products.map((product) => (
-																<ProductIcon
-																	key={`${lab.labId}-${product}`}
-																	productSlug={product as ProductSlug}
-																	size={16}
-																	className={s.productIcon}
-																/>
-															))}
-														</div>
-													</div>
-													<Text
-														asElement="span"
-														className={s.description}
-														size={100}
-														weight="regular"
-													>
-														{lab.description}
-													</Text>
-												</div>
-											</button>
-										</li>
-									))}
-								</ul>
-							)}
-						</>
-					)}
 				</div>
 			</div>
 		</div>
