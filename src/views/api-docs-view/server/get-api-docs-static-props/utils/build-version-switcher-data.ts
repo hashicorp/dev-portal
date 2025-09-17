@@ -31,6 +31,7 @@ function buildVersionSwitcherData({
 			isLatest,
 			isSelected: v.versionId === currentVersionId,
 			href: isLatest ? baseUrl : `${baseUrl}/${v.versionId}`,
+			found: true,
 		}
 	})
 	return { label: apiName, options }
