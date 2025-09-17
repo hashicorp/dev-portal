@@ -65,7 +65,10 @@
 		box-shadow: var(--token-elevation-high-box-shadow);
 	}
 }
-
+.card {
+	margin: 0 auto;
+	width: 100%;
+}
 .cardHeader {
 	display: flex;
 	justify-content: space-between;

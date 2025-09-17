@@ -366,7 +366,7 @@ export default function SandboxView({
 						{availableSandboxes.map((lab) => (
 							<div key={`sandbox-${lab.labId}`}>
 								<div className={s.sandboxCard}>
-									<Card>
+									<Card className={s.card}>
 										<div className={s.cardHeader}>
 											<CardTitle text={lab.title} />
 											<div className={s.productIcons}>
