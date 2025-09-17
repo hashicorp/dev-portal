@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 import { useEffect } from 'react'
 import posthog from 'posthog-js'
 import { PostHogProvider } from 'posthog-js/react'
