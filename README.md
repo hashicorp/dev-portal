@@ -10,7 +10,7 @@ Welcome to HashiCorp Developer! This is the home for HashiCorp product reference
 - [Accessibility](#accessibility)
 - [Testing](#testing)
 - [Helpers](#helpers)
-- [Component Organziation](#component-organization)
+- [Component Organization](#component-organization)
 - [Configuration](#configuration)
 - [Analytics](#analytics)
 - [SEO metadata](#seo-metadata)

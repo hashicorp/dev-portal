@@ -21,6 +21,18 @@ type ProductName =
 
 type ProductSlug = Exclude<Products, 'hashicorp'> | 'hcp' | 'sentinel' | 'well-architected-framework'
 
+type TerraformSubProducts = `${Extract<ProductSlug, 'terraform'>}-${
+	| 'cdk'
+	| 'docs-agents'
+	| 'docs-common'
+	| 'enterprise'
+	| 'plugin-framework'
+	| 'plugin-log'
+	| 'plugin-mux'
+	| 'plugin-sdk'
+	| 'plugin-testing'
+}`
+
 interface Product extends ProductMeta {
 	name: ProductName
 	slug: ProductSlug
@@ -220,4 +232,5 @@ export type {
 	ProductNavData,
 	ProductNavPromo,
 	ProductSidePanel,
+	TerraformSubProducts,
 }

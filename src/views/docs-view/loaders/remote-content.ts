@@ -69,6 +69,7 @@ export interface VersionSelectItem {
 	version: string
 	isLatest: boolean
 	releaseStage: ReleaseStage
+	found: boolean
 }
 
 interface LoadStaticPropsReturn {
@@ -120,6 +121,7 @@ export function mapVersionList(
 			isLatest: isLatest || false,
 			releaseStage: releaseStage,
 			version,
+			found: true,
 		}
 	})
 
