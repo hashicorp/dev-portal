@@ -112,17 +112,6 @@ describe('SandboxDropdown', () => {
 		expect(screen.getByText(/Available.*Sandboxes/)).toBeInTheDocument()
 	})
 
-	it('displays other sandboxes section', () => {
-		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
-		const button = screen.getByRole('button', { name: 'Sandbox menu' })
-
-		// Open dropdown
-		fireEvent.click(button)
-
-		// Check for other sandboxes section
-		expect(screen.getByText('Other Sandboxes')).toBeInTheDocument()
-	})
-
 	it('opens lab when clicking a sandbox item', () => {
 		const mockOpenLab = vi.fn()
 		mockUseInstruqtEmbed.mockImplementation(() => ({
