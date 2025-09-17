@@ -38,6 +38,7 @@ import path from 'path'
 import s from './sandbox.module.css'
 import docsViewStyles from 'views/docs-view/docs-view.module.css'
 import classNames from 'classnames'
+import ButtonLink from '@components/button-link'
 
 /**
  * Tracks sandbox page errors with PostHog and development logging
@@ -365,7 +366,7 @@ export default function SandboxView({
 						{availableSandboxes.map((lab) => (
 							<div key={`sandbox-${lab.labId}`}>
 								<div className={s.sandboxCard}>
-									<Card>
+									<Card className={s.card}>
 										<div className={s.cardHeader}>
 											<CardTitle text={lab.title} />
 											<div className={s.productIcons}>
@@ -381,16 +382,18 @@ export default function SandboxView({
 										</div>
 										<CardDescription text={lab.description} />
 										<CardFooter>
-											<button
+											<ButtonLink
+												href="#"
 												className={s.launchButton}
+												aria-label="Launches the Sandbox"
 												onClick={(e) => {
 													e.preventDefault()
 													e.stopPropagation()
 													handleLabClick(lab)
 												}}
-											>
-												Launch Sandbox
-											</button>
+												size="medium"
+												text="Launch Sandbox"
+											/>
 										</CardFooter>
 									</Card>
 								</div>
