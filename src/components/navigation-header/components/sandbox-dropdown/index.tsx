@@ -37,8 +37,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const menuRef = useRef<HTMLDivElement>()
 	const activatorButtonRef = useRef<HTMLButtonElement>()
 	const [isOpen, setIsOpen] = useState(false)
-	// TODO: (ET) Temporarily removed for redesign
-	// const [otherSandboxesOpen, setOtherSandboxesOpen] = useState(false)
 	const menuId = `sandbox-dropdown-menu-${uniqueId}`
 
 	// Item data from sandbox config
@@ -48,11 +46,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const currentProductLabs = labs.filter((lab) =>
 		lab.products.includes(currentProduct.slug)
 	)
-
-	// TODO: (ET) Temporarily removed for redesign
-	// const otherProductLabs = labs.filter(
-	// 	(lab) => !lab.products.includes(currentProduct.slug)
-	// )
 
 	// Handles closing the menu if there is a click outside of it and it is open.
 	useOnClickOutside([menuRef], () => setIsOpen(false), isOpen)
@@ -152,12 +145,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		router.push(`/${currentProduct.slug}/sandbox`)
 		setIsOpen(false)
 	}
-
-	// TODO: (ET) Temporarily removed for redesign
-	/*const toggleOtherSandboxes = (e: React.MouseEvent) => {
-		e.preventDefault()
-		setOtherSandboxesOpen(!otherSandboxesOpen)
-	}*/
 
 	return (
 		<div className={s.root} onMouseLeave={handleMouseLeave} ref={menuRef}>
@@ -279,80 +266,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 							</li>
 						))}
 					</ul>
-
-					{/*TODO: (ET) Temporarily removed for redesign
-					{/* Other Sandboxes Accordion (only show if there are other sandboxes) */}
-					{/*otherProductLabs.length > 0 && (
-						<>
-							<hr className={s.divider} />
-
-							<button
-								className={s.accordionButton}
-								onClick={toggleOtherSandboxes}
-								onKeyDown={handleKeyDown}
-								aria-expanded={otherSandboxesOpen}
-							>
-								<Text
-									asElement="span"
-									className={s.sectionTitle}
-									size={200}
-									weight="semibold"
-								>
-									Other Sandboxes
-								</Text>
-								<IconChevronRight16
-									className={`${s.accordionIcon} ${
-										otherSandboxesOpen ? s.accordionIconOpen : ''
-									}`}
-								/>
-							</button>
-
-							{otherSandboxesOpen && (
-								<ul className={s.labsList}>
-									{otherProductLabs.map((lab, index) => (
-										<li key={lab.labId || index} className={s.itemContainer}>
-											<button
-												className={s.sandboxItem}
-												onClick={() => handleLabClick(lab)}
-												onKeyDown={handleKeyDown}
-											>
-												<div className={s.content}>
-													<div className={s.titleRow}>
-														<Text
-															asElement="span"
-															className={s.title}
-															size={200}
-															weight="regular"
-														>
-															{lab.title}
-														</Text>
-														<div className={s.productIcons}>
-															{lab.products.map((product) => (
-																<ProductIcon
-																	key={`${lab.labId}-${product}`}
-																	productSlug={product as ProductSlug}
-																	size={16}
-																	className={s.productIcon}
-																/>
-															))}
-														</div>
-													</div>
-													<Text
-														asElement="span"
-														className={s.description}
-														size={100}
-														weight="regular"
-													>
-														{lab.description}
-													</Text>
-												</div>
-											</button>
-										</li>
-									))}
-								</ul>
-							)}
-						</>
-					)*/}
 				</div>
 			</div>
 		</div>
