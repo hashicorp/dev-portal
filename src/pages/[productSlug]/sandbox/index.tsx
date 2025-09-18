@@ -366,44 +366,46 @@ export default function SandboxView({
 
 			{availableSandboxes.length > 0 ? (
 				<>
-					<CardsGridList>
-						{availableSandboxes.map((lab) => (
-							<div key={`sandbox-${lab.labId}`}>
-								<div className={s.sandboxCard}>
-									<Card className={s.card}>
-										<div className={s.cardHeader}>
-											<CardTitle text={lab.title} />
-											<div className={s.productIcons}>
-												{lab.products.map((productSlug) => (
-													<ProductIcon
-														key={`product-${lab.labId}-${productSlug}`}
-														productSlug={productSlug as ProductSlug}
-														size={16}
-														className={s.productIcon}
-													/>
-												))}
+					<div className={s.sandboxGrid}>
+						<CardsGridList>
+							{availableSandboxes.map((lab) => (
+								<div key={`sandbox-${lab.labId}`}>
+									<div className={s.sandboxCard}>
+										<Card className={s.card}>
+											<div className={s.cardHeader}>
+												<CardTitle text={lab.title} />
+												<div className={s.productIcons}>
+													{lab.products.map((productSlug) => (
+														<ProductIcon
+															key={`product-${lab.labId}-${productSlug}`}
+															productSlug={productSlug as ProductSlug}
+															size={16}
+															className={s.productIcon}
+														/>
+													))}
+												</div>
 											</div>
-										</div>
-										<CardDescription text={lab.description} />
-										<CardFooter>
-											<ButtonLink
-												href="#"
-												className={s.launchButton}
-												aria-label="Launches the Sandbox"
-												onClick={(e) => {
-													e.preventDefault()
-													e.stopPropagation()
-													handleLabClick(lab)
-												}}
-												size="medium"
-												text="Launch Sandbox"
-											/>
-										</CardFooter>
-									</Card>
+											<CardDescription text={lab.description} />
+											<CardFooter>
+												<ButtonLink
+													href="#"
+													className={s.launchButton}
+													aria-label="Launches the Sandbox"
+													onClick={(e) => {
+														e.preventDefault()
+														e.stopPropagation()
+														handleLabClick(lab)
+													}}
+													size="medium"
+													text="Launch Sandbox"
+												/>
+											</CardFooter>
+										</Card>
+									</div>
 								</div>
-							</div>
-						))}
-					</CardsGridList>
+							))}
+						</CardsGridList>
+					</div>
 
 					<h2 className={s.sectionHeading}>Sandbox documentation</h2>
 
@@ -445,25 +447,33 @@ export default function SandboxView({
 							</div>
 						)}
 					>
-						<TutorialCardsGridList
-							fixedColumns={2}
-							tutorials={otherSandboxes.map((lab) => ({
-								id: lab.labId,
-								collectionId: null,
-								description: lab.description,
-								duration: 'Interactive Sandbox',
-								hasInteractiveLab: true,
-								hasVideo: false,
-								heading: lab.title,
-								url: '#',
-								productsUsed: lab.products as ProductOption[],
-								onClick: (e) => {
-									e.preventDefault()
-									handleLabClick(lab)
-								},
-							}))}
-							className={s.sandboxGrid}
-						/>
+						<div className={s.sandboxGrid}>
+							<CardsGridList fixedColumns={2}>
+								{otherSandboxes.map((lab) => (
+									<div className={s.sandboxCardBox} key={lab.labId}>
+										<TutorialCardsGridList
+											tutorials={[
+												{
+													id: lab.labId,
+													collectionId: null,
+													description: lab.description,
+													duration: 'Interactive Sandbox',
+													hasInteractiveLab: true,
+													hasVideo: false,
+													heading: lab.title,
+													url: '#',
+													productsUsed: lab.products as ProductOption[],
+													onClick: (e) => {
+														e.preventDefault()
+														handleLabClick(lab)
+													},
+												},
+											]}
+										/>
+									</div>
+								))}
+							</CardsGridList>
+						</div>
 					</ErrorBoundary>
 				</>
 			)}
