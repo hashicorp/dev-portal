@@ -2,10 +2,10 @@
 	"enabled": true,
 	"data": {
 		"product": "hashicorp",
-		"tag": "HashiConf",
-		"url": "https://www.hashicorp.com/en/conferences/hashiconf/register",
-		"text": "The full conference agenda's now LIVE. Buy your pass and plan your schedule.",
-		"linkText": "Register",
-		"expirationDate": "2025-08-31T06:00:00-06:00"
+		"tag": "HashiConf 2025",
+		"url": "https://www.hashicorp.com/en/conferences/hashiconf",
+		"text": "Don't miss the live stream of HashiConf Day 1 happening now.",
+		"linkText": "View live stream",
+		"expirationDate": "2025-09-25T14:30:00-05:00"
 	}
 }
