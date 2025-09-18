@@ -187,14 +187,12 @@ export default function SandboxView({
 					return
 				}
 
-				// Use the pre-built full lab ID that includes tokens and parameters
-				const completeLabId = lab.fullLabId || lab.labId
-				console.log('Launching lab with ID:', completeLabId)
+				const embedLabId = lab.instruqtTrack
 
-				if (!completeLabId) {
+				if (!embedLabId) {
 					trackSandboxPageError(
 						'missing_lab_id',
-						'Lab ID is missing or invalid',
+						'Lab embed ID is missing or invalid',
 						{
 							lab_id: lab.labId,
 							lab_title: lab.title,
@@ -211,7 +209,7 @@ export default function SandboxView({
 					return
 				}
 
-				openLab(completeLabId)
+				openLab(embedLabId)
 				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
 					labId: lab.labId,
 					page: `/${product.slug}/sandbox`,
@@ -366,9 +364,9 @@ export default function SandboxView({
 
 			{availableSandboxes.length > 0 ? (
 				<>
-					<div className={s.sandboxGrid}>
-						<CardsGridList>
-							{availableSandboxes.map((lab) => (
+					<CardsGridList>
+						{availableSandboxes.map((lab) => {
+							return (
 								<div key={`sandbox-${lab.labId}`}>
 									<div className={s.sandboxCard}>
 										<Card className={s.card}>
@@ -403,9 +401,9 @@ export default function SandboxView({
 										</Card>
 									</div>
 								</div>
-							))}
-						</CardsGridList>
-					</div>
+							)
+						})}
+					</CardsGridList>
 
 					<h2 className={s.sectionHeading}>Sandbox documentation</h2>
 
@@ -447,33 +445,46 @@ export default function SandboxView({
 							</div>
 						)}
 					>
-						<div className={s.sandboxGrid}>
-							<CardsGridList fixedColumns={2}>
-								{otherSandboxes.map((lab) => (
-									<div className={s.sandboxCardBox} key={lab.labId}>
-										<TutorialCardsGridList
-											tutorials={[
-												{
-													id: lab.labId,
-													collectionId: null,
-													description: lab.description,
-													duration: 'Interactive Sandbox',
-													hasInteractiveLab: true,
-													hasVideo: false,
-													heading: lab.title,
-													url: '#',
-													productsUsed: lab.products as ProductOption[],
-													onClick: (e) => {
-														e.preventDefault()
-														handleLabClick(lab)
-													},
-												},
-											]}
-										/>
-									</div>
-								))}
-							</CardsGridList>
-						</div>
+						<TutorialCardsGridList
+							fixedColumns={2}
+							tutorials={otherSandboxes.map((lab) => {
+								const isSameProduct = lab.products[0] === product.slug
+								const url = isSameProduct
+									? '#'
+									: `/${lab.products[0]}/sandbox?launch=${encodeURIComponent(
+											lab.labId
+									  )}`
+								if (isSameProduct) {
+									return {
+										id: lab.labId,
+										collectionId: null,
+										description: lab.description,
+										duration: 'Interactive Sandbox',
+										hasInteractiveLab: true,
+										hasVideo: false,
+										heading: lab.title,
+										url,
+										productsUsed: lab.products as ProductOption[],
+										onClick: (e: React.MouseEvent) => {
+											e.preventDefault()
+											handleLabClick(lab)
+										},
+									} as any
+								}
+								return {
+									id: lab.labId,
+									collectionId: null,
+									description: lab.description,
+									duration: 'Interactive Sandbox',
+									hasInteractiveLab: true,
+									hasVideo: false,
+									heading: lab.title,
+									url,
+									productsUsed: lab.products as ProductOption[],
+								}
+							})}
+							className={s.sandboxGrid}
+						/>
 					</ErrorBoundary>
 				</>
 			)}
