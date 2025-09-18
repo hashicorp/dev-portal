@@ -49,12 +49,22 @@ export async function getValidVersions(
 		vault: 'v1.16.x',
 		waypoint: 'v0.11.x',
 		// Terraform sub-products (i.e: terraform-*)
-		['terraform-cli']: 'v1.13.x',
+		['terraform-cli']: 'v1.1.x',
 		['terraform-cdk']: 'v0.21.x',
 		['terraform-enterprise']: 'v202408-1',
 		['terraform-plugin-framework']: 'v1.15.x',
+		['terraform-language']: 'v1.1.x',
 	};
-	const product = fullPath.includes('cli') ? `${slug}-${fullPath.replace(/doc#/, '')}` : slug
+
+	let product: string;
+	if(fullPath.includes('cli')) {
+		product = `${slug}-${fullPath.replace(/doc#/, '')}`;
+	} else if (fullPath === 'doc#language') {
+		product = 'terraform-language';
+	} else {
+		product = slug;
+	}
+	console.log({ fullPath, slug, product })
 	const minimumVersionIndex = versions
 		.findIndex(({ version }) => version == minimumVersions[product]);
 	return versions.map((option, index) => ({
