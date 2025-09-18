@@ -15,8 +15,7 @@ global.__config = unflatten(getHashiConfig(envConfigPath))
 
 // Mock HTMLCanvasElement.getContext to prevent jsdom errors in tests
 if (typeof HTMLCanvasElement !== 'undefined') {
-  HTMLCanvasElement.prototype.getContext = () => {
-    // You can return a minimal mock object if needed
-    return {};
-  };
+	HTMLCanvasElement.prototype.getContext = () => {
+		return {}
+	}
 }
