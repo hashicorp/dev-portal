@@ -469,7 +469,7 @@ export default function SandboxView({
 											e.preventDefault()
 											handleLabClick(lab)
 										},
-									} as any
+									}
 								}
 								return {
 									id: lab.labId,
