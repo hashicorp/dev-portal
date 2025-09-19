@@ -231,7 +231,8 @@ function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
 				return (
 					lab.labId === newLabId ||
 					lab.labId === baseLabId ||
-					trackName === baseLabId
+					trackName === baseLabId ||
+					lab.instruqtTrack === newLabId
 				)
 			})
 
