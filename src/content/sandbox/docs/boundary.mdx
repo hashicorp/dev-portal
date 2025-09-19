@@ -1,0 +1,268 @@
+<Tabs>
+<Tab heading="Overview">
+
+<Warning>
+  
+This environment is not production-ready as it does not follow our recommendations for production-ready cluster deployments. Please refer to the [Install Boundary](/boundary/docs/install-boundary) documentation and the [Boundary Enterprise Deployment Guide](/boundary/tutorials/enterprise/ent-deployment-guide) pages for more information.
+
+This is a development and testing environment. It provides the learner an opportunity to interact with a Boundary Community Edition cluster, and sets up a target the learner can configure for access using Boundary. This environment can serve as a companion to the documentation, or a place to experiment with the product.
+
+</Warning>
+
+**Overview**
+The Boundary cluster contains one controller server and one worker, each with Boundary installed and running. A PostgreSQL database is running on the Boundary controller.
+
+The Boundary target is an Ubuntu 24.04 server with the openssh-server and postgresql-server packages installed. SSH is configured to allow for password access for the following users:
+
+- Danielle:
+  - username: `danielle`
+  - password: `danielle_password`
+- Oliver:
+  - username: `oliver`
+  - password: `oliver_password`
+- Steve:
+  - username: `steve`
+  - password: `steve_password`
+
+This sandbox also configures a postgres database that is available on port `5432`:
+
+- name: `northwind`
+  - username: `postgres`
+  - password: `postgres`
+
+**Access the Boundary Admin UI**
+
+You can log in to the Boundary Admin UI in the tab named `Boundary Admin UI`. You can switch to the `Boundary Admin UI` tab.
+
+To log into the Boundary Admin UI, use the following credentials for the admin user:
+
+- Username: `global-admin`
+- Password: `password`
+
+Or log in as the unprivileged user:
+
+- Username: `user`
+- Password: `password`
+
+**Within Boundar, the following resources are configured:**
+
+- Org: `sandbox org`
+- Project: `sandbox project`
+- Host Catalogs:
+ - `ubuntu-target-host-catalog`
+ - `controller-host-catalog`
+- Credential Store:
+ - `ubuntu-target-creds`
+- Targets:
+ - `northwind-db`
+ - `ubuntu-target-ssh`
+ - `boundary-db`
+
+
+You can access these targets from the Boundary workstation by configuring the CLI.
+
+**CLI Access**
+The shell in the [`boundary-workstation` tab](tab-0) has the Boundary, Vault, and Terraform CLI tools installed.
+
+The sandbox automatically sets the following environment variables:
+- `BOUNDARY_ADDR=http://boundary-controller:9200`
+- `VAULT_ADDR=http://vault-server:8200`
+
+You can log into Boundary from the CLI using the admin credentials:
+
+- Username: `global-admin`
+- Password: `password`
+
+```shell-session
+$ boundary authenticate
+Please enter the login name (it will be hidden):
+Please enter the password (it will be hidden):
+Authentication information:
+  Account ID:      acctpw_sC5a4GP9JA
+  Auth Method ID:  ampw_CzkwJb5RRR
+  Expiration Time: Thu, 03 Apr 2025 01:36:55 UTC
+  User ID:         u_UURrzGLCik
+The token name "default" was successfully stored in the chosen keyring and is not displayed here.
+```
+
+After authentication, you can connect to targets using the `boundary connect` command.
+To connect to the `northwind` database on the `ubuntu-target` host:
+
+```shell-session
+$ boundary connect postgres northwind
+Credentials are being brokered but no -dbname parameter provided. psql may misinterpret another parameter as the database name.
+psql (16.8 (Ubuntu 16.8-0ubuntu0.24.04.1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
+Type "help" for help.
+postgres=#
+```
+
+When you connect to the `ubuntu-target` host it will display the available brokered credentials for the `oliver` and `danielle` users, and automatically select one of them to log you in as. Copy and paste or type the user's password to connect:
+
+```shell-session
+$ boundary connect ssh ubuntu-target
+Credentials:
+  Credential Source Description: Credentials for oliver user on ubuntu-target host
+  Credential Source ID:          credup_XuqoTfBGrj
+  Credential Source Name:        oliver-creds
+  Credential Store ID:           csst_iHuwhwzstA
+  Credential Store Type:         static
+  Credential Type:               username_password
+  Secret:
+        password:   oliver_password
+        username:   oliver
+  Credential Source Description: Credentials for danielle user on ubuntu-target host
+  Credential Source ID:          credup_po69wMQRNN
+  Credential Source Name:        danielle-creds
+  Credential Store ID:           csst_iHuwhwzstA
+  Credential Store Type:         static
+  Credential Type:               username_password
+  Secret:
+        password:   danielle_password
+        username:   danielle
+The authenticity of host 'hst_hi2n8ghvx8 ([127.0.0.1]:45223)' can't be established.
+ED25519 key fingerprint is SHA256:kCPyzCG/O2ckQ5zvoxT1O9NTgNz+KNnTf+fDildd0QI.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'hst_hi2n8ghvx8' (ED25519) to the list of known hosts.
+oliver@hst_hi2n8ghvx8's password:
+oliver@ubuntu-target$
+```
+
+You can also select a user to authenticate as by passing additional login
+parameters to `boundary connect ssh`:
+
+```shell-session
+$ boundary connect ssh ubuntu-target -username danielle
+Credentials:
+  Credential Source Description: Credentials for oliver user on ubuntu-target host
+  Credential Source ID:          credup_XuqoTfBGrj
+  Credential Source Name:        oliver-creds
+  Credential Store ID:           csst_iHuwhwzstA
+  Credential Store Type:         static
+  Credential Type:               username_password
+  Secret:
+        password:   oliver_password
+        username:   oliver
+  Credential Source Description: Credentials for danielle user on ubuntu-target host
+  Credential Source ID:          credup_po69wMQRNN
+  Credential Source Name:        danielle-creds
+  Credential Store ID:           csst_iHuwhwzstA
+  Credential Store Type:         static
+  Credential Type:               username_password
+  Secret:
+        password:   danielle_password
+        username:   danielle
+danielle@hst_hi2n8ghvx8's password:
+danielle@ubuntu-target$
+```
+
+**Vault integration**
+
+You can optionally set up Vault to act as a credential broker for Boundary. You can access the Vault server from the Boundary workstation, where the `VAULT_ADDR=https://vault-server:8200` environment variable is set.
+
+To learn more about setting up a Vault credential library, check out the [Vault credential brokering quickstart](/boundary/tutorials/credential-management/community-vault-cred-brokering-quickstart) tutorial.
+
+**Troubleshooting and experimenting**
+
+You can access the targets and databases directly without using Boundary.
+For example, you can SSH into the ubuntu-target as the Oliver user:
+
+```shell-session
+$ ssh oliver@ubuntu-target
+oliver@hst_hi2n8ghvx8's password:
+oliver@boundary-target$
+```
+
+Or you can access the northwind database on the ubuntu-target with `psql`:
+
+```shell-session
+$ psql -h ubuntu-target -d northwind -p 5432 -U postgres
+psql (16.8 (Ubuntu 16.8-0ubuntu0.24.04.1))
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
+Type "help" for help.
+postgres=#
+```
+
+This bypasses Boundary, allows you to experiment with the target configuration. Note that you do not have root access to the target or other sandboxes. You can execute `systemctl` and `journalctl` on the controller and worker servers to restart the Boundary service if you make a configuration change, and view logs.
+
+</Tab>
+<Tab heading="Architecture">
+
+This sandbox contains:
+
+- A Boundary controller server with Boundary installed and running. A PostgreSQL
+  database is running on the Boundary controller.
+- A Boundary worker server with Boundary installed and running. The worker is
+  pre-registered to the Boundary controller.
+- A target Ubuntu 24.04 server with the openssh-server and postgresql-server
+  packages installed. SSH is configured to allow for password access for three
+  demo users.
+- An optional Vault server to integrate with Boundary.
+- A workstation server running Ubuntu 24.04 with the Boundary, Vault, Terraform,
+  and Postgres client CLI tools installed.
+
+<CodeBlockConfig hideClipboard>
+
+```
+┌──────────────┐                                ┌──────────────┐ 
+│              │       ┌─────────────────┐      │              │ 
+│    Target    │       │                 │      │ Vault Server │ 
+│(SSH, Postges)◄───────┤ Boundary Worker ├──────►  (optional)  │ 
+│              │       │                 │      │              │ 
+└──────────────┘       └──────▲──┬───────┘      └──────────────┘ 
+                              │  │                               
+                              │  │                               
+                ┌─────────────┘  └──────────────────┐            
+                │                                   │            
+                │                                   │            
+                                                    │            
+┌──── Boundary Control Plane ───┐                   │            
+│                               │                   │            
+│          Controller           │        ┌──────────▼───────────┐
+│                               ◄────────► Boundary Workstation │
+│      (Postges Database)       │        └──────────────────────┘
+│                               │                                
+└───────────────────────────────┘          
+```
+
+</CodeBlockConfig>
+
+This environment is not a production-ready.
+
+To learn more about Boundary's architecture, refer to the [Recommended architecture](/boundary/docs/install-boundary/architecture/recommended-architecture) section of the Boundary documentation.
+
+</Tab>
+<Tab heading="Limitations">
+
+This environment is not production-ready, as it does not follow recommendations for production cluster deployments. Refer to these resources for more information:
+
+- [Install Boundary](/boundary/docs/install-boundary)
+- [Boundary reference architecture](/boundary/tutorials/enterprise/ent-reference-architecture)
+- [Boundary Enterprise deployment guide](/boundary/tutorials/enterprise/ent-deployment-guide)
+- [Vault with integrated storage reference architecture](/vault/tutorials/day-one-raft/raft-reference-architecture)
+- [Vault with integrated storage deployment guide](/vault/tutorials/day-one-raft/raft-deployment-guide)
+- [Harden Vault server deployments](/vault/tutorials/archive/production-hardening)
+
+**Community edition**
+
+The Boundary Sandbox uses the Boundary and Vault Community editions. This means you cannot use enterprise features here.
+
+**TLS**
+
+TLS is not enabled for any of the components in this sandbox environment.
+
+**Platform limitations**
+
+Because of the limitations of this platform:
+
+1. All servers are located in the same network. In a real-world example, the
+   Boundary control plane, target server, Vault cluster, and workstation would
+   be on separate, isolated networks. The Boundary worker is then placed on the
+   same network as the targets it provides access to, such as the SSH, database,
+   or Vault servers in this lab.
+1. All servers can be accessed directly by SSH using their hostnames, bypassing Boundary.
+1. The workstation and other servers do not allow root-level access.
+
+</Tab>
+</Tabs>
