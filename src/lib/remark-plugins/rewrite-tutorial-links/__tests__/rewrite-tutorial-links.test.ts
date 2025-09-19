@@ -214,11 +214,13 @@ describe('rewriteTutorialLinks remark plugin', () => {
 	})
 
 	test('Incorrect link does not throw, only logs the error message', async () => {
+		const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 		const getContents = async () =>
 			await remark()
 				.use(rewriteTutorialLinksPlugin, { tutorialMap: MOCK_TUTORIALS_MAP })
 				.process(TEST_MD_LINKS.errorLink)
-		expect(getContents).not.toThrowError()
+		expect(getContents).not.toThrowError();
+		errorSpy.mockRestore();
 	})
 
 	test('Definition link is rewritten', async () => {

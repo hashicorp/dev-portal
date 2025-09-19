@@ -6,6 +6,9 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useCallback, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import path from 'path'
+import fs from 'fs'
+import classNames from 'classnames'
 import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
@@ -15,30 +18,31 @@ import {
 	generateTopLevelSidebarNavData,
 	generateProductLandingSidebarNavData,
 } from 'components/sidebar/helpers'
-import {
-	CardTitle,
-	CardDescription,
-	CardFooter,
-} from 'components/card/components'
-import Card from 'components/card'
-import CardsGridList from 'components/cards-grid-list'
-import { BrandedHeaderCard } from 'views/product-integrations-landing/components/branded-header-card'
+import CardsGridList, {
+	TutorialCardsGridList,
+} from 'components/cards-grid-list'
 import { ProductSlug } from 'types/products'
 import { SandboxLab } from 'types/sandbox'
-import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
-import ProductIcon from 'components/product-icon'
+import { ProductOption } from 'lib/learn-client/types'
 import { serialize } from 'lib/next-mdx-remote/serialize'
+import { BrandedHeaderCard } from 'views/product-integrations-landing/components/branded-header-card'
 import DevDotContent from 'components/dev-dot-content'
 import getDocsMdxComponents from 'views/docs-view/utils/get-docs-mdx-components'
 import { SidebarProps } from 'components/sidebar'
 import Tabs, { Tab } from 'components/tabs'
 import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
-import fs from 'fs'
-import path from 'path'
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
+import { ErrorBoundary } from 'react-error-boundary'
 import s from './sandbox.module.css'
 import docsViewStyles from 'views/docs-view/docs-view.module.css'
-import classNames from 'classnames'
 import ButtonLink from '@components/button-link'
+import Card from '@components/card'
+import {
+	CardTitle,
+	CardDescription,
+	CardFooter,
+} from '@components/card/components'
+import ProductIcon from '@components/product-icon'
 
 /**
  * Tracks sandbox page errors with PostHog and development logging
@@ -183,14 +187,12 @@ export default function SandboxView({
 					return
 				}
 
-				// Use the pre-built full lab ID that includes tokens and parameters
-				const completeLabId = lab.fullLabId || lab.labId
-				console.log('Launching lab with ID:', completeLabId)
+				const embedLabId = lab.instruqtTrack
 
-				if (!completeLabId) {
+				if (!embedLabId) {
 					trackSandboxPageError(
 						'missing_lab_id',
-						'Lab ID is missing or invalid',
+						'Lab embed ID is missing or invalid',
 						{
 							lab_id: lab.labId,
 							lab_title: lab.title,
@@ -207,7 +209,7 @@ export default function SandboxView({
 					return
 				}
 
-				openLab(completeLabId)
+				openLab(embedLabId)
 				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
 					labId: lab.labId,
 					page: `/${product.slug}/sandbox`,
@@ -363,42 +365,44 @@ export default function SandboxView({
 			{availableSandboxes.length > 0 ? (
 				<>
 					<CardsGridList>
-						{availableSandboxes.map((lab) => (
-							<div key={`sandbox-${lab.labId}`}>
-								<div className={s.sandboxCard}>
-									<Card className={s.card}>
-										<div className={s.cardHeader}>
-											<CardTitle text={lab.title} />
-											<div className={s.productIcons}>
-												{lab.products.map((productSlug) => (
-													<ProductIcon
-														key={`product-${lab.labId}-${productSlug}`}
-														productSlug={productSlug as ProductSlug}
-														size={16}
-														className={s.productIcon}
-													/>
-												))}
+						{availableSandboxes.map((lab) => {
+							return (
+								<div key={`sandbox-${lab.labId}`}>
+									<div className={s.sandboxCard}>
+										<Card className={s.card}>
+											<div className={s.cardHeader}>
+												<CardTitle text={lab.title} />
+												<div className={s.productIcons}>
+													{lab.products.map((productSlug) => (
+														<ProductIcon
+															key={`product-${lab.labId}-${productSlug}`}
+															productSlug={productSlug as ProductSlug}
+															size={16}
+															className={s.productIcon}
+														/>
+													))}
+												</div>
 											</div>
-										</div>
-										<CardDescription text={lab.description} />
-										<CardFooter>
-											<ButtonLink
-												href="#"
-												className={s.launchButton}
-												aria-label="Launches the Sandbox"
-												onClick={(e) => {
-													e.preventDefault()
-													e.stopPropagation()
-													handleLabClick(lab)
-												}}
-												size="medium"
-												text="Launch Sandbox"
-											/>
-										</CardFooter>
-									</Card>
+											<CardDescription text={lab.description} />
+											<CardFooter>
+												<ButtonLink
+													href="#"
+													className={s.launchButton}
+													aria-label="Launches the Sandbox"
+													onClick={(e) => {
+														e.preventDefault()
+														e.stopPropagation()
+														handleLabClick(lab)
+													}}
+													size="medium"
+													text="Launch Sandbox"
+												/>
+											</CardFooter>
+										</Card>
+									</div>
 								</div>
-							</div>
-						))}
+							)
+						})}
 					</CardsGridList>
 
 					<h2 className={s.sectionHeading}>Sandbox documentation</h2>
@@ -434,40 +438,54 @@ export default function SandboxView({
 						useful.
 					</p>
 
-					<CardsGridList>
-						{otherSandboxes.map((lab) => (
-							<div key={lab.labId} className={s.sandboxCard}>
-								<Card>
-									<div className={s.cardHeader}>
-										<CardTitle text={lab.title} />
-										<div className={s.productIcons}>
-											{lab.products.map((productSlug) => (
-												<ProductIcon
-													key={`${lab.labId}-${productSlug}`}
-													productSlug={productSlug as ProductSlug}
-													size={16}
-													className={s.productIcon}
-												/>
-											))}
-										</div>
-									</div>
-									<CardDescription text={lab.description} />
-									<CardFooter>
-										<button
-											className={s.launchButton}
-											onClick={(e) => {
-												e.preventDefault()
-												e.stopPropagation()
-												handleLabClick(lab)
-											}}
-										>
-											Launch Sandbox
-										</button>
-									</CardFooter>
-								</Card>
+					<ErrorBoundary
+						FallbackComponent={({ error }) => (
+							<div className={s.errorMessage}>
+								<p>Error loading other sandboxes: {error.message}</p>
 							</div>
-						))}
-					</CardsGridList>
+						)}
+					>
+						<TutorialCardsGridList
+							fixedColumns={2}
+							tutorials={otherSandboxes.map((lab) => {
+								const isSameProduct = lab.products[0] === product.slug
+								const url = isSameProduct
+									? '#'
+									: `/${lab.products[0]}/sandbox?launch=${encodeURIComponent(
+											lab.labId
+									  )}`
+								if (isSameProduct) {
+									return {
+										id: lab.labId,
+										collectionId: null,
+										description: lab.description,
+										duration: 'Interactive Sandbox',
+										hasInteractiveLab: true,
+										hasVideo: false,
+										heading: lab.title,
+										url,
+										productsUsed: lab.products as ProductOption[],
+										onClick: (e: React.MouseEvent) => {
+											e.preventDefault()
+											handleLabClick(lab)
+										},
+									}
+								}
+								return {
+									id: lab.labId,
+									collectionId: null,
+									description: lab.description,
+									duration: 'Interactive Sandbox',
+									hasInteractiveLab: true,
+									hasVideo: false,
+									heading: lab.title,
+									url,
+									productsUsed: lab.products as ProductOption[],
+								}
+							})}
+							className={s.sandboxGrid}
+						/>
+					</ErrorBoundary>
 				</>
 			)}
 		</SidebarSidecarLayout>
