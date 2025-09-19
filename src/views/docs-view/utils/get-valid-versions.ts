@@ -54,17 +54,13 @@ export async function getValidVersions(
 		['terraform-enterprise']: 'v202408-1',
 		['terraform-plugin-framework']: 'v1.15.x',
 		['terraform-language']: 'v1.1.x',
+		['terraform-intro']: 'v1.1.x',
 	};
 
-	let product: string;
-	if(fullPath.includes('cli')) {
-		product = `${slug}-${fullPath.replace(/doc#/, '')}`;
-	} else if (fullPath === 'doc#language') {
-		product = 'terraform-language';
-	} else {
-		product = slug;
+	let product = slug;
+	if(slug === 'terraform' && ['doc#cli', 'doc#language', 'doc#intro'].includes(fullPath) ) {
+		product = `${slug}-${fullPath.replace(/doc#/, '')}`
 	}
-	console.log({ fullPath, slug, product })
 	const minimumVersionIndex = versions
 		.findIndex(({ version }) => version == minimumVersions[product]);
 	return versions.map((option, index) => ({

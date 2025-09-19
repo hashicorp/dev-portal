@@ -36,31 +36,97 @@ describe('getValidVersions', () => {
 	it('normalizes terraform-cli path for version lookups', async () => {
 		const versions: VersionSelectItem[] = [
 			{
-				version: 'v1.12.x',
-				label: 'v1.12.x (latest)',
-				name: 'v1.12.x',
+				version: 'v1.2.x',
+				label: 'v1.2.x (latest)',
+				name: 'v1.2.x',
 				isLatest: true,
 				releaseStage: 'stable',
 				found: null,
 			},
 			{
-				version: 'v1.13.x',
-				label: 'v1.13.x (rc)',
-				name: 'v1.13.x',
+				version: 'v1.1.x',
+				label: 'v1.1.x',
+				name: 'v1.1.x',
 				isLatest: false,
-				releaseStage: 'rc',
+				releaseStage: 'stable',
 				found: null,
 			},
 			{
-				version: 'v1.11.x',
-				label: 'v1.11.x',
-				name: 'v1.11.x',
+				version: 'v1.0.x',
+				label: 'v1.0.x',
+				name: 'v1.0.x',
 				isLatest: false,
 				releaseStage: 'stable',
 				found: null,
 			},
 		]
 		const [latest, found, notFound] = await getValidVersions(versions, 'doc#cli', 'terraform')
+
+		expect(latest.found).toBe(true)
+		expect(found.found).toBe(true)
+		expect(notFound.found).toBe(false)
+	})
+	it('normalizes terraform/language path for version lookups', async () => {
+		const versions: VersionSelectItem[] = [
+			{
+				version: 'v1.2.x',
+				label: 'v1.2.x (latest)',
+				name: 'v1.2.x',
+				isLatest: true,
+				releaseStage: 'stable',
+				found: null,
+			},
+			{
+				version: 'v1.1.x',
+				label: 'v1.1.x',
+				name: 'v1.1.x',
+				isLatest: false,
+				releaseStage: 'stable',
+				found: null,
+			},
+			{
+				version: 'v1.0.x',
+				label: 'v1.0.x',
+				name: 'v1.0.x',
+				isLatest: false,
+				releaseStage: 'stable',
+				found: null,
+			},
+		]
+		const [latest, found, notFound] = await getValidVersions(versions, 'doc#language', 'terraform')
+
+		expect(latest.found).toBe(true)
+		expect(found.found).toBe(true)
+		expect(notFound.found).toBe(false)
+	})
+	it('normalizes terraform/intro path for version lookups', async () => {
+		const versions: VersionSelectItem[] = [
+			{
+				version: 'v1.2.x',
+				label: 'v1.2.x (latest)',
+				name: 'v1.2.x',
+				isLatest: true,
+				releaseStage: 'stable',
+				found: null,
+			},
+			{
+				version: 'v1.1.x',
+				label: 'v1.1.x',
+				name: 'v1.1.x',
+				isLatest: false,
+				releaseStage: 'stable',
+				found: null,
+			},
+			{
+				version: 'v1.0.x',
+				label: 'v1.0.x',
+				name: 'v1.0.x',
+				isLatest: false,
+				releaseStage: 'stable',
+				found: null,
+			},
+		]
+		const [latest, found, notFound] = await getValidVersions(versions, 'doc#intro', 'terraform')
 
 		expect(latest.found).toBe(true)
 		expect(found.found).toBe(true)
