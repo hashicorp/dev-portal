@@ -24,8 +24,7 @@
 			"vault",
 			"ptfe-releases",
 			"well-architected-framework",
-			"terraform-enterprise",
-			"sentinel"
+			"terraform-enterprise"
 		]
 	}
 }
