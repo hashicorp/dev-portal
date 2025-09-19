@@ -20,6 +20,7 @@ describe('fetchValidVersions', () => {
 			label: 'v1.0.0',
 			isLatest: false,
 			releaseStage: 'stable',
+			found: true,
 		},
 		{
 			version: 'v2.0.0',
@@ -27,6 +28,7 @@ describe('fetchValidVersions', () => {
 			label: '',
 			isLatest: false,
 			releaseStage: 'stable',
+			found: true,
 		},
 	]
 
@@ -77,6 +79,7 @@ describe('fetchValidVersions', () => {
 				label: 'v1.0.0',
 				isLatest: false,
 				releaseStage: 'stable',
+				found: true,
 			},
 		])
 
@@ -93,6 +96,7 @@ describe('fetchValidVersions', () => {
 					label: 'v1.0.0',
 					isLatest: false,
 					releaseStage: 'stable',
+					found: true,
 				},
 			]
 		)
@@ -110,6 +114,7 @@ describe('fetchValidVersions', () => {
 				isLatest: true,
 				releaseStage: 'stable',
 				version: 'v202409-2',
+				found: true,
 			},
 			{
 				name: 'v202409-1',
@@ -117,6 +122,7 @@ describe('fetchValidVersions', () => {
 				isLatest: false,
 				releaseStage: 'stable',
 				version: 'v202409-1',
+				found: true,
 			},
 		]
 
@@ -147,6 +153,7 @@ describe('fetchValidVersions', () => {
 				label: 'v1.0.0',
 				isLatest: false,
 				releaseStage: 'stable',
+				found: true,
 			},
 		])
 
@@ -163,6 +170,7 @@ describe('fetchValidVersions', () => {
 					label: 'v1.0.0',
 					isLatest: false,
 					releaseStage: 'stable',
+					found: true,
 				},
 			]
 		)

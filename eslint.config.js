@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 const { node, browser } = require('globals')
 const pluginJs = require('@eslint/js')
 const tseslint = require('typescript-eslint')

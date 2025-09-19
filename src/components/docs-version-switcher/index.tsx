@@ -97,7 +97,7 @@ const DocsVersionSwitcher = ({
 	const optionsForVersionSwitcher = options.map(
 		(option: VersionSelectItem): VersionSwitcherOption => {
 			// Destructure properties we'll pass through
-			const { label, isLatest } = option
+			const { label, isLatest, found } = option
 			// Determine if this option is selected
 			const isSelected = option.version === selectedOption.version
 			// Build the href for the option
@@ -105,13 +105,13 @@ const DocsVersionSwitcher = ({
 				? removeVersionFromPath(currentPath)
 				: getTargetPath({
 						basePath: `${currentProduct.slug}/${currentRootDocsPath.path}`,
-						asPath: currentPath,
+						asPath: found ? currentPath : '/',
 						version: option.version,
 				  })
 			// Build the aria-label for the Activator when this option is selected.
 			const ariaLabel = `Choose a ${projectNameForLabel} version. Currently viewing ${label}.`
 			// Return the VersionSwitcherOption
-			return { label, href, isSelected, isLatest, ariaLabel }
+			return { label, href, isSelected, isLatest, ariaLabel, found }
 		}
 	)
 

@@ -23,7 +23,8 @@
 			"terraform-docs-common",
 			"terraform",
 			"vault",
-			"well-architected-framework"
+			"well-architected-framework",
+			"sentinel"
 		]
 	}
 }
