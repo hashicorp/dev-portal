@@ -153,21 +153,31 @@ describe('EmbedElement', () => {
 			expect(screen.getByRole('alert')).toBeInTheDocument()
 		})
 
-		it('allows retry when error occurs', () => {
+		it('allows retry when error occurs', async () => {
 			render(<EmbedElement />)
 
-			act(() => {
+			await act(async () => {
 				vi.advanceTimersByTime(30000)
 			})
 
 			const retryButton = screen.getByRole('button', { name: /try again/i })
 			expect(retryButton).toBeInTheDocument()
 
-			act(() => {
+			await act(async () => {
 				fireEvent.click(retryButton)
+				vi.runOnlyPendingTimers()
 			})
 
+			// After clicking retry, loading state should be visible
 			expect(screen.getByText('Loading your sandbox...')).toBeInTheDocument()
+
+			// Now simulate iframe load to complete the transition
+			const iframe = screen.getByTitle('Instruqt Lab Environment: test-lab-id')
+			await act(async () => {
+				fireEvent.load(iframe)
+			})
+
+			expect(screen.queryByText('Loading your sandbox...')).not.toBeInTheDocument()
 
 			expect(mockTrackSandboxEvent).toHaveBeenCalledWith(
 				'sandbox_retry',
@@ -188,6 +198,7 @@ describe('EmbedElement', () => {
 				})
 			)
 
+			const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 			render(<EmbedElement />)
 
 			expect(screen.getByText('No Lab Selected')).toBeInTheDocument()
@@ -195,6 +206,7 @@ describe('EmbedElement', () => {
 				screen.getByText(/Please select a lab from the sandbox menu/)
 			).toBeInTheDocument()
 			expect(screen.getByRole('status')).toBeInTheDocument()
+			errorSpy.mockRestore()
 		})
 
 		it('has the correct styles when not active', () => {
