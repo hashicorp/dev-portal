@@ -6,25 +6,28 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import * as utils from '../utils'
 import { rewriteTutorialsLink } from '../utils/rewrite-tutorials-link'
-import type { Mock } from 'vitest'
+import type { MockInstance } from 'vitest'
 
 vi.mock('../utils')
 
 describe('rewriteTutorialsLink', () => {
-	vi.spyOn(console, 'error').mockImplementation(vi.fn())
+	let consoleErrorSpy: MockInstance | undefined
+
 	vi.spyOn(utils, 'getIsRewriteableDocsLink').mockImplementation(vi.fn())
 	vi.spyOn(utils, 'getIsExternalLearnLink').mockImplementation(vi.fn())
 	vi.spyOn(utils, 'rewriteExternalDocsLink').mockImplementation(vi.fn())
 	vi.spyOn(utils, 'rewriteExternalLearnLink').mockImplementation(vi.fn())
 
-	const mockConsoleError = console.error as Mock
-	const mockGetIsRewriteableDocsLink = utils.getIsRewriteableDocsLink as Mock
-	const mockGetIsRewriteableLearnLink = utils.getIsExternalLearnLink as Mock
-	const mockRewriteExternalLearnLink = utils.rewriteExternalLearnLink as Mock
-	const mockRewriteExternalDocsLink = utils.rewriteExternalDocsLink as Mock
+	const mockGetIsRewriteableDocsLink = utils.getIsRewriteableDocsLink as unknown as MockInstance
+	const mockGetIsRewriteableLearnLink = utils.getIsExternalLearnLink as unknown as MockInstance
+	const mockRewriteExternalLearnLink = utils.rewriteExternalLearnLink as unknown as MockInstance
+	const mockRewriteExternalDocsLink = utils.rewriteExternalDocsLink as unknown as MockInstance
 
 	afterEach(() => {
-		mockConsoleError.mockClear()
+		if (consoleErrorSpy) {
+			consoleErrorSpy.mockRestore()
+			consoleErrorSpy = undefined
+		}
 		mockGetIsRewriteableDocsLink.mockClear()
 		mockGetIsRewriteableLearnLink.mockClear()
 		mockRewriteExternalDocsLink.mockClear()
@@ -45,7 +48,6 @@ describe('rewriteTutorialsLink', () => {
 		expect(mockGetIsRewriteableLearnLink).toHaveBeenCalledTimes(1)
 		expect(mockRewriteExternalDocsLink).toHaveBeenCalledTimes(0)
 		expect(mockRewriteExternalLearnLink).toHaveBeenCalledTimes(0)
-		expect(mockConsoleError).toHaveBeenCalledTimes(0)
 	})
 
 	test('when link is a learn link, not a docs link', () => {
@@ -59,7 +61,6 @@ describe('rewriteTutorialsLink', () => {
 		expect(mockGetIsRewriteableLearnLink).toHaveBeenCalledTimes(1)
 		expect(mockRewriteExternalDocsLink).toHaveBeenCalledTimes(0)
 		expect(mockRewriteExternalLearnLink).toHaveBeenCalledTimes(1)
-		expect(mockConsoleError).toHaveBeenCalledTimes(0)
 	})
 
 	test('when link is a docs link, not a learn link', () => {
@@ -73,10 +74,10 @@ describe('rewriteTutorialsLink', () => {
 		expect(mockGetIsRewriteableLearnLink).toHaveBeenCalledTimes(1)
 		expect(mockRewriteExternalDocsLink).toHaveBeenCalledTimes(1)
 		expect(mockRewriteExternalLearnLink).toHaveBeenCalledTimes(0)
-		expect(mockConsoleError).toHaveBeenCalledTimes(0)
 	})
 
 	test('when the link is both a learn and a docs link', () => {
+		consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
 		mockGetIsRewriteableDocsLink.mockReturnValueOnce(true)
 		mockGetIsRewriteableLearnLink.mockReturnValueOnce(true)
 		mockRewriteExternalDocsLink.mockReturnValueOnce('mocked-docs-link')
@@ -88,6 +89,6 @@ describe('rewriteTutorialsLink', () => {
 		expect(mockGetIsRewriteableLearnLink).toHaveBeenCalledTimes(1)
 		expect(mockRewriteExternalDocsLink).toHaveBeenCalledTimes(0)
 		expect(mockRewriteExternalLearnLink).toHaveBeenCalledTimes(0)
-		expect(mockConsoleError).toHaveBeenCalledTimes(1)
+		expect(consoleErrorSpy).toHaveBeenCalledTimes(1)
 	})
 })

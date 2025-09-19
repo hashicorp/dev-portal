@@ -4,6 +4,7 @@
  */
 
 import InlineAlert from 'components/inline-alert'
+import { withErrorBoundary } from 'components/error-boundary'
 import { IconInfo24 } from '@hashicorp/flight-icons/svg-react/info-24'
 import { IconAlertTriangle24 } from '@hashicorp/flight-icons/svg-react/alert-triangle-24'
 import { IconAlertDiamond24 } from '@hashicorp/flight-icons/svg-react/alert-diamond-24'
@@ -22,7 +23,7 @@ const ALERT_DATA: MdxInlineAlertData = {
 	},
 }
 
-export function MdxInlineAlert({
+function MdxInlineAlertBase({
 	children,
 	title,
 	type = 'tip',
@@ -54,5 +55,39 @@ export function MdxInlineAlert({
 		</div>
 	)
 }
+
+// Create a fallback UI for when the alert component fails
+const AlertErrorFallback = (
+	<div className={s.spacing}>
+		<InlineAlert
+			icon={<IconAlertDiamond24 />}
+			title="Alert Error"
+			description="There was an error rendering this alert. Please check the alert configuration."
+			color="critical"
+			className={s.typographyOverride}
+		/>
+	</div>
+)
+
+export const MdxInlineAlert = withErrorBoundary(
+	MdxInlineAlertBase,
+	AlertErrorFallback,
+	(error, errorInfo) => {
+		if (typeof window !== 'undefined' && window.posthog?.capture) {
+			window.posthog.capture('mdx_component_error', {
+				component_name: 'MdxInlineAlert',
+				error_message: error.message,
+				error_stack: error.stack,
+				component_stack: errorInfo?.componentStack,
+				timestamp: new Date().toISOString(),
+				page_url: window.location.href,
+			})
+		}
+
+		if (process.env.NODE_ENV === 'development') {
+			console.warn('MdxInlineAlert validation error:', error.message, errorInfo)
+		}
+	}
+)
 
 export { MdxHighlight, MdxTip, MdxNote, MdxWarning }

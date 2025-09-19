@@ -5,6 +5,7 @@
 
 import { screen, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { act } from 'react-dom/test-utils';
 import FeedbackForm from '.'
 import type { FeedbackQuestion } from './types'
 
@@ -53,9 +54,13 @@ describe('FeedbackForm', () => {
 			/>
 		)
 
-		await userEvent.type(screen.getByRole('textbox'), 'answer')
+		await act(async () => {
+			await userEvent.type(screen.getByRole('textbox'), 'answer')
+		});
 
-		userEvent.click(screen.getByText('Submit'))
+		await act(async () => {
+			userEvent.click(screen.getByText('Submit'))
+		});
 
 		await screen.findByText('All done!')
 	})
@@ -69,13 +74,19 @@ describe('FeedbackForm', () => {
 			/>
 		)
 
-		await userEvent.click(screen.getByText('Yes'))
+		await act(async () => {
+			await userEvent.click(screen.getByText('Yes'))
+		});
 
 		await screen.findByRole('textbox')
 
-		await userEvent.type(screen.getByRole('textbox'), 'answer')
+		await act(async () => {
+			await userEvent.type(screen.getByRole('textbox'), 'answer')
+		});
 
-		userEvent.click(screen.getByText('Submit'))
+		await act(async () => {
+			userEvent.click(screen.getByText('Submit'))
+		});
 
 		await screen.findByText('All done!')
 	})

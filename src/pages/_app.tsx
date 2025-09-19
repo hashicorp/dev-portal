@@ -28,6 +28,7 @@ import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analyti
 
 // Global imports
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
+import InstruqtProvider from 'contexts/instruqt-lab'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
@@ -88,20 +89,22 @@ export default function App({
 							<SessionProvider session={session}>
 								<DeviceSizeProvider>
 									<CurrentProductProvider currentProduct={currentProduct}>
-										<HeadMetadata {...pageProps.metadata} />
-										<LazyMotion
-											features={() =>
-												import('lib/framer-motion-features').then(
+										<InstruqtProvider>
+											<HeadMetadata {...pageProps.metadata} />
+											<LazyMotion
+												features={() =>
+													import('lib/framer-motion-features').then(
 													(mod) => mod.default
 												)
 											}
 											strict={process.env.NODE_ENV === 'development'}
-										>
-											<Component {...pageProps} />
-											<Toaster />
-											<ReactQueryDevtools />
-											<SpeedInsights sampleRate={0.05} />
-										</LazyMotion>
+											>
+												<Component {...pageProps} />
+												<Toaster />
+												<ReactQueryDevtools />
+												<SpeedInsights sampleRate={0.05} />
+											</LazyMotion>
+										</InstruqtProvider>
 									</CurrentProductProvider>
 								</DeviceSizeProvider>
 							</SessionProvider>
