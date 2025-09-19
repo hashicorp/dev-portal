@@ -110,8 +110,7 @@ interface RootDocsPath {
 	/**
 	 * Optional basePath for our content API. For "sentinel", this differs
 	 * from the basePath used on the client, as sentinel content is served
-	 * on docs.hashicorp.com/sentinel. Now that "sentinel" is served from
-	 * UDR, this is only used for "well-artchitected-framework"
+	 * on docs.hashicorp.com/sentinel.
 	 */
 	basePathForLoader?: string
 
