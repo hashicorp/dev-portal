@@ -38,6 +38,7 @@
 		"enable_io_beta_cta": true,
 		"enable_hvd_on_preview_branch": false,
 		"unified_docs_migrated_repos": [
+			"terraform-mcp-server",
 			"terraform-migrate",
 			"terraform-plugin-framework",
 			"terraform-plugin-log",
