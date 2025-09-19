@@ -6,6 +6,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
+import { act } from 'react-dom/test-utils'
 import TabProvider from './provider'
 import Tabs, { Tab } from '.'
 
@@ -15,6 +16,12 @@ describe('<Tabs />', () => {
 		{ heading: 'Tab 2', content: 'content in tab 2' },
 		{ heading: 'Tab 3', content: 'content in tab 3' },
 	]
+
+	beforeAll(() => {
+		// Mock canvas getContext to avoid axe-core/jsdom errors
+		// @ts-expect-error: mock for test environment
+		HTMLCanvasElement.prototype.getContext = () => ({})
+	})
 
 	describe('with only required props', () => {
 		let container: HTMLElement
@@ -37,8 +44,10 @@ describe('<Tabs />', () => {
 
 		describe('without interaction', () => {
 			test('has no violations identified by axe-core', async () => {
-				const { violations } = await axe.run(container)
-				expect(violations).toHaveLength(0)
+				await act(async () => {
+					const { violations } = await axe.run(container)
+					expect(violations).toHaveLength(0)
+				})
 			})
 
 			test('has a role="tablist" with the correct properties', () => {
@@ -106,17 +115,14 @@ describe('<Tabs />', () => {
 
 		describe('with interaction', () => {
 			test('mouse click changes the active tab', async () => {
-				/**
-				 * Queries for the second tab button by text and asserts checks that it is
-				 * not already selected, which it should not be since the first tab is
-				 * active by default.
-				 */
 				const secondTabButton = screen.queryByRole('tab', {
 					name: testData[1].heading,
 					selected: false,
 				})
 
-				await userEvent.click(secondTabButton)
+				await act(async () => {
+					await userEvent.click(secondTabButton)
+				})
 
 				/**
 				 * Checks that the first tab panel is no longer active and visible in the
@@ -148,7 +154,9 @@ describe('<Tabs />', () => {
 					const secondTabButton = screen.queryByRole('tab', {
 						name: testData[1].heading,
 					})
-					fireEvent.keyDown(secondTabButton, { key })
+					act(() => {
+						fireEvent.keyDown(secondTabButton, { key })
+					})
 
 					const firstTabPanel = screen.queryByRole('tabpanel', {
 						name: testData[0].heading,
@@ -164,7 +172,9 @@ describe('<Tabs />', () => {
 						const secondTabButton = screen.queryByRole('tab', {
 							name: testData[1].heading,
 						})
-						fireEvent.keyUp(secondTabButton, { key })
+						act(() => {
+							fireEvent.keyUp(secondTabButton, { key })
+						})
 
 						const firstTabPanel = screen.queryByRole('tabpanel', {
 							name: testData[0].heading,
