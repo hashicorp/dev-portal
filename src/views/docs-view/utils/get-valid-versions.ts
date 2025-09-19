@@ -5,6 +5,24 @@
 // Types
 import type { VersionSelectItem } from '../loaders/remote-content'
 
+export const minimumVersions = {
+	boundary: 'v0.13.x',
+	consul: 'v1.18.x',
+	nomad: 'v1.8.x',
+	packer: 'v1.13.x',
+	vagrant: 'v2.4.7',
+	vault: 'v1.16.x',
+	waypoint: 'v0.11.x',
+	// Terraform sub-products (i.e: terraform-*)
+	['terraform-cli']: 'v1.1.x',
+	['terraform-cdk']: 'v0.21.x',
+	['terraform-enterprise']: 'v202408-1',
+	['terraform-plugin-framework']: 'v1.15.x',
+	// Neither of these are real sub-products, but this is a hack to make it work
+	// for now. Gross.
+	['terraform-language']: 'v1.1.x',
+	['terraform-intro']: 'v1.1.x',
+}
 
 /**
  * Given a list of all possible versions, as well as a document path and
@@ -40,25 +58,6 @@ export async function getValidVersions(
 	 */
 	slug: string
 ): Promise<VersionSelectItem[]> {
-	const minimumVersions = {
-		boundary: 'v0.13.x',
-		consul: 'v1.18.x',
-		nomad: 'v1.8.x',
-		packer: 'v1.13.x',
-		vagrant: 'v2.4.7',
-		vault: 'v1.16.x',
-		waypoint: 'v0.11.x',
-		// Terraform sub-products (i.e: terraform-*)
-		['terraform-cli']: 'v1.1.x',
-		['terraform-cdk']: 'v0.21.x',
-		['terraform-enterprise']: 'v202408-1',
-		['terraform-plugin-framework']: 'v1.15.x',
-		// Neither of these are real sub-products, but this is a hack to make it work
-		// for now. Gross.
-		['terraform-language']: 'v1.1.x',
-		['terraform-intro']: 'v1.1.x',
-	};
-
 	let product = slug;
 	const subProductsRegexp = new RegExp(/(cli|language|intro)/)
 	if(slug === 'terraform' && subProductsRegexp.test(fullPath)){

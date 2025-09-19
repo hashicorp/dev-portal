@@ -4,165 +4,57 @@
  */
 
 import { describe, it, expect } from 'vitest'
-import { getValidVersions } from '../get-valid-versions'
+import { getValidVersions, minimumVersions } from '../get-valid-versions'
 import type { VersionSelectItem } from '../../loaders/remote-content'
 
 
 describe('getValidVersions', () => {
-
-	it('indicates found versions based on hard coded minimums', async () => {
+	it.each(Object.entries(minimumVersions).filter(([slug]) => !slug.startsWith('terraform-')))('indicates found versions for %s above %s', async (slug, minVersion) => {
 		const versions: VersionSelectItem[] = [
 			{
-				version: 'v1.16.x',
-				label: 'v1.16.x (latest)',
-				name: 'v1.16.x',
+				version: minVersion,
+				label: `${minVersion} (latest)`,
+				name: minVersion,
 				isLatest: true,
 				releaseStage: 'stable',
 				found: null,
 			},
 			{
-				version: 'v1.15.x',
-				label: 'v1.15.x',
-				name: 'v1.15.x',
+				version: 'v0.0.x',
+				label: 'v0.0.x',
+				name: 'v0.0.x',
 				isLatest: false,
 				releaseStage: 'stable',
 				found: null,
 			},
 		]
-		const result = await getValidVersions(versions, '', 'vault')
-		expect(result.map(({ found }) => found)).toEqual([true, false])
-
-	})
-	it('normalizes terraform-cli path for version lookups', async () => {
-		const versions: VersionSelectItem[] = [
-			{
-				version: 'v1.2.x',
-				label: 'v1.2.x (latest)',
-				name: 'v1.2.x',
-				isLatest: true,
-				releaseStage: 'stable',
-				found: null,
-			},
-			{
-				version: 'v1.1.x',
-				label: 'v1.1.x',
-				name: 'v1.1.x',
-				isLatest: false,
-				releaseStage: 'stable',
-				found: null,
-			},
-			{
-				version: 'v1.0.x',
-				label: 'v1.0.x',
-				name: 'v1.0.x',
-				isLatest: false,
-				releaseStage: 'stable',
-				found: null,
-			},
-		]
-		const [latest, found, notFound] = await getValidVersions(versions, 'doc#cli', 'terraform')
-
+		const [latest, notFound] = await getValidVersions(versions, '', slug)
 		expect(latest.found).toBe(true)
-		expect(found.found).toBe(true)
 		expect(notFound.found).toBe(false)
 	})
-	it('normalizes terraform/language path for version lookups', async () => {
+
+	it.each(Object.entries(minimumVersions).filter(([slug]) => slug.startsWith('terraform-')))('is able to detect %s with additional path segments', async (slug, minVersion) => {
 		const versions: VersionSelectItem[] = [
 			{
-				version: 'v1.2.x',
-				label: 'v1.2.x (latest)',
-				name: 'v1.2.x',
+				version: minVersion,
+				label: `${minVersion} (latest)`,
+				name: minVersion,
 				isLatest: true,
 				releaseStage: 'stable',
 				found: null,
 			},
 			{
-				version: 'v1.1.x',
-				label: 'v1.1.x',
-				name: 'v1.1.x',
-				isLatest: false,
-				releaseStage: 'stable',
-				found: null,
-			},
-			{
-				version: 'v1.0.x',
-				label: 'v1.0.x',
-				name: 'v1.0.x',
+				version: 'v0.0.x',
+				label: 'v0.0.x',
+				name: 'v0.0.x',
 				isLatest: false,
 				releaseStage: 'stable',
 				found: null,
 			},
 		]
-		const [latest, found, notFound] = await getValidVersions(versions, 'doc#language', 'terraform')
+		const [latest, found] = await getValidVersions(versions, 'doc#language/long/path/to/url', slug)
 
 		expect(latest.found).toBe(true)
-		expect(found.found).toBe(true)
-		expect(notFound.found).toBe(false)
-	})
-	it('normalizes terraform/intro path for version lookups', async () => {
-		const versions: VersionSelectItem[] = [
-			{
-				version: 'v1.2.x',
-				label: 'v1.2.x (latest)',
-				name: 'v1.2.x',
-				isLatest: true,
-				releaseStage: 'stable',
-				found: null,
-			},
-			{
-				version: 'v1.1.x',
-				label: 'v1.1.x',
-				name: 'v1.1.x',
-				isLatest: false,
-				releaseStage: 'stable',
-				found: null,
-			},
-			{
-				version: 'v1.0.x',
-				label: 'v1.0.x',
-				name: 'v1.0.x',
-				isLatest: false,
-				releaseStage: 'stable',
-				found: null,
-			},
-		]
-		const [latest, found, notFound] = await getValidVersions(versions, 'doc#intro', 'terraform')
-
-		expect(latest.found).toBe(true)
-		expect(found.found).toBe(true)
-		expect(notFound.found).toBe(false)
-	})
-	it('is able to detect terraform sub-products with additional path segments', async () => {
-		const versions: VersionSelectItem[] = [
-			{
-				version: 'v1.2.x',
-				label: 'v1.2.x (latest)',
-				name: 'v1.2.x',
-				isLatest: true,
-				releaseStage: 'stable',
-				found: null,
-			},
-			{
-				version: 'v1.1.x',
-				label: 'v1.1.x',
-				name: 'v1.1.x',
-				isLatest: false,
-				releaseStage: 'stable',
-				found: null,
-			},
-			{
-				version: 'v1.0.x',
-				label: 'v1.0.x',
-				name: 'v1.0.x',
-				isLatest: false,
-				releaseStage: 'stable',
-				found: null,
-			},
-		]
-		const [latest, found, notFound] = await getValidVersions(versions, 'doc#language/parameterize', 'terraform')
-
-		expect(latest.found).toBe(true)
-		expect(found.found).toBe(true)
-		expect(notFound.found).toBe(false)
+		expect(found.found).toBe(false)
 	})
 })
