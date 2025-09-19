@@ -53,13 +53,16 @@ export async function getValidVersions(
 		['terraform-cdk']: 'v0.21.x',
 		['terraform-enterprise']: 'v202408-1',
 		['terraform-plugin-framework']: 'v1.15.x',
+		// Neither of these are real sub-products, but this is a hack to make it work
+		// for now. Gross.
 		['terraform-language']: 'v1.1.x',
 		['terraform-intro']: 'v1.1.x',
 	};
 
 	let product = slug;
-	if(slug === 'terraform' && ['doc#cli', 'doc#language', 'doc#intro'].includes(fullPath) ) {
-		product = `${slug}-${fullPath.replace(/doc#/, '')}`
+	const subProductsRegexp = new RegExp(/(cli|language|intro)/)
+	if(slug === 'terraform' && subProductsRegexp.test(fullPath)){
+		product = `${slug}-${subProductsRegexp.exec(fullPath)[0]}`
 	}
 	const minimumVersionIndex = versions
 		.findIndex(({ version }) => version == minimumVersions[product]);

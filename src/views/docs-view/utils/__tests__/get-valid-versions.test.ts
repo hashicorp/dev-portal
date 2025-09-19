@@ -132,4 +132,37 @@ describe('getValidVersions', () => {
 		expect(found.found).toBe(true)
 		expect(notFound.found).toBe(false)
 	})
+	it('is able to detect terraform sub-products with additional path segments', async () => {
+		const versions: VersionSelectItem[] = [
+			{
+				version: 'v1.2.x',
+				label: 'v1.2.x (latest)',
+				name: 'v1.2.x',
+				isLatest: true,
+				releaseStage: 'stable',
+				found: null,
+			},
+			{
+				version: 'v1.1.x',
+				label: 'v1.1.x',
+				name: 'v1.1.x',
+				isLatest: false,
+				releaseStage: 'stable',
+				found: null,
+			},
+			{
+				version: 'v1.0.x',
+				label: 'v1.0.x',
+				name: 'v1.0.x',
+				isLatest: false,
+				releaseStage: 'stable',
+				found: null,
+			},
+		]
+		const [latest, found, notFound] = await getValidVersions(versions, 'doc#language/parameterize', 'terraform')
+
+		expect(latest.found).toBe(true)
+		expect(found.found).toBe(true)
+		expect(notFound.found).toBe(false)
+	})
 })
