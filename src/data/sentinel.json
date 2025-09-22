@@ -44,6 +44,7 @@
 	"basePaths": ["docs", "downloads"],
 	"rootDocsPaths": [
 		{
+			"basePathForLoader": "sentinel",
 			"iconName": "docs",
 			"name": "Documentation",
 			"path": "docs"
