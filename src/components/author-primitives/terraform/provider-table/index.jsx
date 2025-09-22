@@ -29,8 +29,29 @@ export default function ProviderTable() {
 					</td>
 					<td>
 						<code>
-							<span>hashicorp</span>
+							<span>hashicorp, IBM, IBM-Cloud, ansible</span>
 						</code>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<ProviderBadge type="partnerpremier" />
+					</td>
+					<td>
+						<span>
+							Partner Premier providers are written and maintained by technology partners (third-party companies). To earn a partner premier badge, the partner must qualify ({' '}
+						</span>
+						<a href="https://developer.hashicorp.com/terraform/docs/partnerships#partnerpremier-requirements/">
+							<i>
+								<span>see partner premier requirements below</span>
+							</i>
+						</a>
+						<i>
+							<span>)</span>
+						</i>
+					</td>
+					<td>
+						<span>Third-party organization</span>
 					</td>
 				</tr>
 				<tr>
@@ -53,10 +74,7 @@ export default function ProviderTable() {
 						</i>
 					</td>
 					<td>
-						<span>Third-party organization, e.g. </span>
-						<code>
-							<span>mongodb/mongodbatlas</span>
-						</code>
+						<span>Third-party organization</span>
 					</td>
 				</tr>
 				<tr>
