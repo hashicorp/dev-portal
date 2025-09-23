@@ -39,7 +39,7 @@ export default function ProviderTable() {
 					</td>
 					<td>
 						<span>
-							Partner Premier providers are written and maintained by technology partners (third-party companies). To earn a partner premier badge, the partner must qualify ({' '}
+							Technology partners are third-party companies that write and maintain partner premier providers. To earn a partner premier badge, the partner must qualify {' '}
 						</span>
 						<a href="https://developer.hashicorp.com/terraform/docs/partnerships#partnerpremier-requirements/">
 							<i>
