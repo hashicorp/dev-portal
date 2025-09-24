@@ -36,7 +36,7 @@ async function getHashiConfig(configPath) {
 				'config',
 				`${envConfig.extends}.json`
 			)
-			extendsConfig = getHashiConfig(extendsConfigPath)
+			extendsConfig = await getHashiConfig(extendsConfigPath)
 		}
 
 		const extendsFlattened = flat(extendsConfig, { safe: true })

@@ -13,7 +13,9 @@ const fs = require('fs')
 const path = require('path')
 const withHashicorp = require('@hashicorp/platform-nextjs-plugin')
 const { redirectsConfig } = require('./build-libs/redirects')
+
 const HashiConfigPlugin = require('./config/plugin')
+const { loadHashiConfigForEnvironment } = require('./config/index')
 
 /**
  * @type {import('next/dist/lib/load-custom-routes').Header}
@@ -37,12 +39,15 @@ const hideWaypointTipContent = {
 	],
 }
 
-module.exports = withHashicorp({
-	css: false,
-})({
-	transpilePackages: [
-		'@hashicorp/flight-icons',
-		/**
+module.exports = async () => {
+	const appConfig = await loadHashiConfigForEnvironment()
+
+	return withHashicorp({
+		css: false,
+	})({
+		transpilePackages: [
+			'@hashicorp/flight-icons',
+			/**
 		 * TODO: once Sentinel has been migrated into the dev-portal repository,
 		 * we should consider localizing the sentinel-embedded component. Should
 		 * first confirm with Cam Stitt that this component is not being used
@@ -53,8 +58,8 @@ module.exports = withHashicorp({
 		'unist-util-visit',
 		'unist-util-visit-parents',
 	],
-	webpack: async (config) => {
-		config.plugins.push(await HashiConfigPlugin())
+	webpack(config) {
+		config.plugins.push(HashiConfigPlugin(appConfig))
 
 		if (
 			typeof process.env.DD_API_KEY !== 'undefined' &&
@@ -116,3 +121,4 @@ module.exports = withHashicorp({
 		instrumentationHook: true,
 	},
 })
+}
