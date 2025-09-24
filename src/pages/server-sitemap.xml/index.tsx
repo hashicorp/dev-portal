@@ -9,12 +9,12 @@ import { allDocsFields, allTutorialsFields } from 'lib/sitemap'
 import { unflatten } from 'flat'
 import { loadHashiConfigForEnvironment } from '../../../config'
 
-const config = unflatten(loadHashiConfigForEnvironment())
-
 export const getServerSideProps: GetServerSideProps = async (
 	ctx: GetServerSidePropsContext
 ) => {
 	try {
+		const config = unflatten(await loadHashiConfigForEnvironment())
+
 		// returns an array of docs content sitemap fields per slug
 		const docsFields = await allDocsFields(config)
 		// returns an array of tutorials content sitemap fields per slug

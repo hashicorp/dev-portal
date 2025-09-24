@@ -7,15 +7,14 @@ import { allDocsFields, allTutorialsFields } from 'lib/sitemap'
 import { unflatten } from 'flat'
 import { loadHashiConfigForEnvironment } from '../config'
 
-
-const __config = unflatten(loadHashiConfigForEnvironment())
-
 /**
  * This script is run as part of the Build sitemap github action that runs on PRs and
  * pushes to main. To run this script manually, you can run the following command:
  * `npx hc-tools ./scripts/build-sitemap.ts`
  */
 async function main() {
+	const __config = unflatten(await loadHashiConfigForEnvironment())
+
 	try {
 		await allDocsFields(__config)
 	} catch (error) {

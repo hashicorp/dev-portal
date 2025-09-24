@@ -11,17 +11,17 @@ const flat = require('flat')
  * Load an environment config for the current environment, which is controlled by
  * process.env.HASHI_ENV
  */
-function loadHashiConfigForEnvironment() {
+async function loadHashiConfigForEnvironment() {
 	const env = process.env.HASHI_ENV || 'development'
 	const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
 
-	return getHashiConfig(envConfigPath)
+	return await getHashiConfig(envConfigPath)
 }
 
 /**
  * Load an environment config from a specific path.
  */
-function getHashiConfig(configPath) {
+async function getHashiConfig(configPath) {
 	try {
 		const baseConfigPath = path.join(process.cwd(), 'config', `base.json`)
 		const baseConfig = JSON.parse(fs.readFileSync(baseConfigPath))

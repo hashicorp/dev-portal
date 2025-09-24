@@ -8,7 +8,7 @@ const { loadHashiConfigForEnvironment } = require('../index')
 
 const fixtureDir = path.join(__dirname, '__fixtures__', 'config-loading')
 
-describe('loadHashiConfigByEnvironment', () => {
+describe('loadHashiConfigByEnvironment',() => {
 	beforeAll(() => {
 		process.env.HASHI_ENV = 'production'
 	})
@@ -17,9 +17,9 @@ describe('loadHashiConfigByEnvironment', () => {
 		process.env.HASHI_ENV = undefined
 	})
 
-	test('loads configuration and handles extending', () => {
+	test('loads configuration and handles extending', async () => {
 		vi.spyOn(process, 'cwd').mockReturnValue(fixtureDir)
-		expect(loadHashiConfigForEnvironment()).toMatchInlineSnapshot(`
+		expect(await loadHashiConfigForEnvironment()).toMatchInlineSnapshot(`
       {
         "alpha": "beta",
         "deeply.nested.another_property": false,

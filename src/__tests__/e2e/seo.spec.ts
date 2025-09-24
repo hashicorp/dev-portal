@@ -4,13 +4,17 @@
  */
 
 import { test, expect } from '@playwright/test'
-import { __config } from '@test/app-config'
+
+import { unflatten } from 'flat'
+import { loadHashiConfigForEnvironment } from '../../../config'
 
 test('should render the proper page title and description', async ({
 	page,
 	context,
 	baseURL,
 }) => {
+	const __config = unflatten(await loadHashiConfigForEnvironment())
+
 	await page.goto('/')
 	expect(page).toHaveTitle(__config.dev_dot.meta.title)
 
