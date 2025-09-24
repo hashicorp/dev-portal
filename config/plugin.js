@@ -41,14 +41,16 @@ module.exports = function HashiConfigPlugin() {
 	const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
 	const baseConfigPath = path.join(process.cwd(), 'config', `base.json`)
 
+	const config = getHashiConfig(envConfigPath);
+
 	return new webpack.DefinePlugin({
 		...Object.fromEntries(
-			Object.entries(getHashiConfig(envConfigPath)).map(([key]) => {
+			Object.entries(config).map(([key]) => {
 				return [
 					`__config.${key}`,
 					webpack.DefinePlugin.runtimeValue(
 						() => {
-							return JSON.stringify(getHashiConfig(envConfigPath)[key])
+							return JSON.stringify(config[key])
 						},
 						/**
 						 * version is set to env here to ensure that webpack's persistent cache
