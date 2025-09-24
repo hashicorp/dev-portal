@@ -53,7 +53,7 @@ module.exports = withHashicorp({
 		'unist-util-visit',
 		'unist-util-visit-parents',
 	],
-	async webpack(config) {
+	webpack: async (config) => {
 		config.plugins.push(await HashiConfigPlugin())
 
 		if (
