@@ -36,12 +36,12 @@ const { getHashiConfig } = require('./index')
  *
  * See the test file at `./config/__tests__/index.test.js` for a more thorough example.
  */
-module.exports = function HashiConfigPlugin() {
+module.exports = async function HashiConfigPlugin() {
 	const env = process.env.HASHI_ENV || 'development'
 	const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
 	const baseConfigPath = path.join(process.cwd(), 'config', `base.json`)
 
-	const config = getHashiConfig(envConfigPath);
+	const config = await getHashiConfig(envConfigPath);
 
 	return new webpack.DefinePlugin({
 		...Object.fromEntries(
