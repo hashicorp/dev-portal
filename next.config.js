@@ -64,6 +64,12 @@ module.exports = withHashicorp({
 			config.devtool = 'hidden-source-map'
 		}
 
+		console.log(`Running build with HASHI_ENV=${process.env.HASHI_ENV}, and VERCEL_ENV=${process.env.VERCEL_ENV}`)
+
+		console.log(`UDR is turned on for the following products=${
+			JSON.stringify(config.flags?.unified_docs_migrated_repos, null, 2)
+		}, and is loading from ${process.env.UNIFIED_DOCS_API}`)
+
 		return config
 	},
 	async headers() {
