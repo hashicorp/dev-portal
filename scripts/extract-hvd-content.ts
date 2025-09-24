@@ -9,12 +9,9 @@ import { fetchGithubArchiveZip } from 'lib/fetch-github-archive-zip'
 import { isDeployPreview } from 'lib/env-checks'
 
 import { unflatten } from 'flat'
-import { getHashiConfig } from '../config'
+import { loadHashiConfigForEnvironment } from '../config'
 
-const env = process.env.HASHI_ENV || 'development'
-const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
-
-const __config = unflatten(getHashiConfig(envConfigPath))
+const __config = unflatten(loadHashiConfigForEnvironment())
 
 export const BASE_REPO_CONFIG = {
 	owner: 'hashicorp',

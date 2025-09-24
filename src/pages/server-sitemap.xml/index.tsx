@@ -6,14 +6,10 @@
 import { getServerSideSitemap } from 'next-sitemap'
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { allDocsFields, allTutorialsFields } from 'lib/sitemap'
-import path from 'path'
 import { unflatten } from 'flat'
-import { getHashiConfig } from '../../../config'
+import { loadHashiConfigForEnvironment } from '../../../config'
 
-const env = process.env.HASHI_ENV || 'development'
-const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
-
-const config = unflatten(getHashiConfig(envConfigPath))
+const config = unflatten(loadHashiConfigForEnvironment())
 
 export const getServerSideProps: GetServerSideProps = async (
 	ctx: GetServerSidePropsContext
