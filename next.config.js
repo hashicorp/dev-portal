@@ -37,6 +37,23 @@ const hideWaypointTipContent = {
 	],
 }
 
+const updatedEnv = {
+		ASSET_API_ENDPOINT: process.env.ASSET_API_ENDPOINT,
+		AXE_ENABLED: process.env.AXE_ENABLED || 'false',
+		DEV_IO: process.env.DEV_IO,
+		PREVIEW_FROM_REPO: process.env.PREVIEW_FROM_REPO,
+		ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || 'false',
+		HASHI_ENV: process.env.HASHI_ENV || 'development',
+		IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
+		MKTG_CONTENT_DOCS_API: process.env.MKTG_CONTENT_DOCS_API,
+		// TODO: determine if DevDot needs this or not
+		SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
+		POSTHOG_PROJECT_API_KEY:
+			process.env.VERCEL_ENV !== 'production'
+				? process.env.POSTHOG_PROJECT_API_KEY_DEV
+				: process.env.POSTHOG_PROJECT_API_KEY_PROD,
+}
+
 module.exports = withHashicorp({
 	css: false,
 })({
@@ -53,7 +70,7 @@ module.exports = withHashicorp({
 		'unist-util-visit',
 		'unist-util-visit-parents',
 	],
-	webpack(config) {
+	async webpack(config) {
 		config.plugins.push(HashiConfigPlugin())
 
 		if (
@@ -66,6 +83,14 @@ module.exports = withHashicorp({
 
 		console.log(`Running build with HASHI_ENV=${process.env.HASHI_ENV}, and VERCEL_ENV=${process.env.VERCEL_ENV}`)
 
+		try {
+			const response = await fetch('https://jsonplaceholder.typicode.com/posts/1')
+			const data = await response.json()
+			console.log('Test fetch result:', { title: data.title, userId: data.userId })
+		} catch (error) {
+			console.error('Test fetch failed:', error.message)
+		}
+
 		console.log(`UDR is turned on for the following products=${
 			JSON.stringify(config.flags?.unified_docs_migrated_repos, null, 2)
 		}, and is loading from ${process.env.UNIFIED_DOCS_API}`)
@@ -76,6 +101,9 @@ module.exports = withHashicorp({
 		return [hideWaypointTipContent]
 	},
 	async redirects() {
+
+		console.log('Generating redirects...')
+
 		const { simpleRedirects, complexRedirects } = await redirectsConfig()
 		await fs.promises.writeFile(
 			path.join('src', 'data', '_redirects.generated.json'),
@@ -85,20 +113,7 @@ module.exports = withHashicorp({
 		return complexRedirects
 	},
 	env: {
-		ASSET_API_ENDPOINT: process.env.ASSET_API_ENDPOINT,
-		AXE_ENABLED: process.env.AXE_ENABLED || 'false',
-		DEV_IO: process.env.DEV_IO,
-		PREVIEW_FROM_REPO: process.env.PREVIEW_FROM_REPO,
-		ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || 'false',
-		HASHI_ENV: process.env.HASHI_ENV || 'development',
-		IS_CONTENT_PREVIEW: process.env.IS_CONTENT_PREVIEW,
-		MKTG_CONTENT_DOCS_API: process.env.MKTG_CONTENT_DOCS_API,
-		// TODO: determine if DevDot needs this or not
-		SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
-		POSTHOG_PROJECT_API_KEY:
-			process.env.VERCEL_ENV !== 'production'
-				? process.env.POSTHOG_PROJECT_API_KEY_DEV
-				: process.env.POSTHOG_PROJECT_API_KEY_PROD,
+		...updatedEnv,
 	},
 	images: {
 		formats: ['image/avif', 'image/webp'],
