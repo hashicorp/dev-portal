@@ -14,5 +14,23 @@
 			"idp_url": "https://auth.idp.hashicorp.com"
 		},
 		"product_slugs_with_integrations": ["vault", "nomad", "packer"]
+	},
+	"flags": {
+		"unified_docs_migrated_repos": [
+			"terraform-migrate",
+			"terraform-plugin-framework",
+			"terraform-plugin-log",
+			"terraform-plugin-mux",
+			"terraform-plugin-sdk",
+			"terraform-plugin-testing",
+			"terraform-docs-agents",
+			"terraform-cdk",
+			"terraform",
+			"terraform-docs-common",
+			"vault",
+			"ptfe-releases",
+			"well-architected-framework",
+			"terraform-enterprise"
+		]
 	}
 }
