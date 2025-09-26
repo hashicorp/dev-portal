@@ -93,7 +93,7 @@ const PAGE_CONFIG: OpenApiDocsViewV2Config = {
 		(schema) => {
 			return schemaTransformComponent(
 				schema,
-				'protobufAny',
+				'google.protobuf.Any',
 				shortenProtobufAnyDescription
 			)
 		},
