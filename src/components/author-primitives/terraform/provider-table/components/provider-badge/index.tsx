@@ -8,7 +8,7 @@ import Badge, { BadgeTheme } from 'components/author-primitives/shared/badge'
 import svgRibbonIcon from './ribbon-icon.svg?include'
 import svgPartnerIcon from './partner-icon.svg?include'
 
-type ProviderLabelType = 'official' | 'community' | 'partner' | 'archived'
+type ProviderLabelType = 'official' | 'community' | 'partner' | 'archived' | 'partnerpremier'
 
 const badgeTypes = {
 	official: {
