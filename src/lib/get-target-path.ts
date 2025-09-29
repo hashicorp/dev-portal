@@ -45,14 +45,24 @@ export function getTargetPath({
 			NO_V_VERSION_IN_PATH_REGEX.test(el)
 	)
 
-	// if a version is in an expected position, strip it so we can replace it
-	if (indexOfVersion <= 3) {
-		rest = rest
+	const VERSION_CUTOFF_INDEX = 3
+	if (indexOfVersion <= VERSION_CUTOFF_INDEX) {
+		// Let's use the version cutoff index to limit the blast radius of this regex.
+		// Anything beyond that in the URL will be ignored. That way versions in URL slugs
+		// won't be accidentally matched and removed.
+		// Example: /vault/docs/v1.17.x/upgrading/upgrade-to-1.17.x
+		// We want to avoid the "upgrade-to-1.17.x" part being matched and removed.
+		const firstHalf = pathSegments.slice(2, VERSION_CUTOFF_INDEX).map((el) => el
 			.replace(TFE_VERSION_IN_PATH_REGEXP, '')
 			.replace(VERSION_IN_PATH_REGEX, '')
 			.replace(NO_V_VERSION_IN_PATH_REGEX, '')
-			.replace(LEADING_TRAILING_SLASHES_REGEXP, '')
-	}
+			.replace(LEADING_TRAILING_SLASHES_REGEXP, ''))
 
+		const lastHalf = pathSegments.slice(VERSION_CUTOFF_INDEX, pathSegments.length)
+			// Replace the version in the last half with the target version
+			.map((el) => (el).replace(NO_V_VERSION_IN_PATH_REGEX, version))
+
+		rest = firstHalf.concat(lastHalf).filter(Boolean).join('/')
+	}
 	return '/' + basePath + '/' + version + (rest ? `/${rest}` : '')
 }
