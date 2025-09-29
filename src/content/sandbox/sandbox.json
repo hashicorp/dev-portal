@@ -3,7 +3,7 @@
 	"labs": [
 		{
 			"title": "Terraform Sandbox",
-			"description": "Get started quickly with Terraform. This sandbox includes Docker and LocalStack preinstalled to test your Terraform configuration.",
+			"description": "Experiment with Terraform. This sandbox includes Docker and LocalStack preinstalled to test your Terraform configuration.",
 			"products": ["terraform"],
 			"labId": "terraform-sandbox",
 			"instruqtTrack": "hashicorp-learn/tracks/terraform-sandbox?token=em_3vgTsBqCLq2blqtQ",
@@ -11,7 +11,7 @@
 		},
 		{
 			"title": "Vault Sandbox",
-			"description": "Learn how to manage your secrets with Vault",
+			"description": "Experiment with Vault. This sandbox contains five Vault Docker containers, a reverse proxy container, Grafana, and Prometheus.",
 			"products": ["vault"],
 			"labId": "vault-sandbox",
 			"instruqtTrack": "hashicorp-learn/tracks/vault-sandbox?token=em_CUFCBU0nSfCl2VHi",
@@ -19,7 +19,7 @@
 		},
 		{
 			"title": "Boundary Sandbox",
-			"description": "Learn how to manage a Boundary cluster, configure and connect to targets, and set up target credentials.",
+			"description": "Experiment with Boundary. This sandbox contains a Boundary cluster (one controller server and one worker) configured with a Boundary target (Ubuntu 24.04) and a Postgres database.",
 			"products": ["boundary"],
 			"labId": "boundary-sandbox",
 			"instruqtTrack": "hashicorp-learn/tracks/boundary-sandbox?token=em_YHsmJu4K1Wk3hwht",
@@ -27,7 +27,7 @@
 		},
 		{
 			"title": "Consul Sandbox (Service discovery)",
-			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
+			"description": "Experiment with Consul. This sandbox contains a Consul cluster (3 servers and 4 clients) and a Bastion host. It also runs HashiCups, a demo web application.",
 			"products": ["consul"],
 			"labId": "consul-service-discovery-sandbox",
 			"instruqtTrack": "hashicorp-learn/tracks/consul-sandbox-sd?token=em_MdAn4Od_foU6oybz",
@@ -36,7 +36,7 @@
 		},
 		{
 			"title": "Consul Sandbox (Service mesh)",
-			"description": "Learn about the process to register new services when you cannot run a client agent on a node, including how to manage access for external services using access control lists (ACLs).",
+			"description": "Experiment with Consul. This sandbox contains a Consul cluster (3 servers and 4 clients) and a Bastion host. It also runs HashiCups, a demo web application.",
 			"products": ["consul"],
 			"labId": "consul-service-mesh-sandbox",
 			"instruqtTrack": "hashicorp-learn/tracks/consul-sandbox?token=em_I5XI2XjO-ZMeH1_w",
@@ -45,7 +45,7 @@
 		},
 		{
 			"title": "Nomad Sandbox",
-			"description": "Learn how to manage your infrastructure with Nomad",
+			"description": "Experiment with Nomad. This sandbox contains a Nomad cluster with one server and one client node with TLS and ACLs enabled.",
 			"products": ["nomad"],
 			"labId": "nomad-sandbox",
 			"instruqtTrack": "hashicorp-learn/tracks/nomad-sandbox?token=em_0wOuIAyyjAQllLkc",
