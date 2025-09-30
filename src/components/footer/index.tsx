@@ -67,7 +67,7 @@ const FOOTER_ITEMS: FooterItem[] = [
 		href: FEEDBACK_FORM_URL,
 		text: 'Give Feedback',
 		opensInNewTab: true,
-	},
+	}
 ]
 
 function Footer({
@@ -148,6 +148,11 @@ function Footer({
 						<li key={index}>{innerElement}</li>
 					)
 				})}
+				<li>
+					<Text asElement="span" size={200} weight="regular" className={s.hiddenText}>
+						stdin is not a tty
+					</Text>
+				</li>
 			</ul>
 		</footer>
 	)

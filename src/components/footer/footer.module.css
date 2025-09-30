@@ -88,3 +88,13 @@
 		text-decoration: underline;
 	}
 }
+
+.hiddenText {
+	color: transparent;
+	user-select: text;
+
+	&::selection {
+		color: var(--token-color-foreground-faint);
+		background-color: var(--token-color-palette-neutral-200);
+	}
+}
