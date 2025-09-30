@@ -43,7 +43,7 @@ export default function ProviderTable() {
 						</span>
 						<a href="https://developer.hashicorp.com/terraform/docs/partnerships#partnerpremier-requirements/">
 							<i>
-								<span>see partner premier requirements below</span>
+								<span>Refer to the partner premier requirements.</span>
 							</i>
 						</a>
 						<i>
