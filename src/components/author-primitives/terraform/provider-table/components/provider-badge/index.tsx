@@ -8,8 +8,6 @@ import Badge, { BadgeTheme } from 'components/author-primitives/shared/badge'
 import svgRibbonIcon from './ribbon-icon.svg?include'
 import svgPartnerIcon from './partner-icon.svg?include'
 
-type ProviderLabelType = 'official' | 'community' | 'partner' | 'archived' | 'partnerpremier'
-
 const badgeTypes = {
 	official: {
 		label: 'Official',
@@ -37,6 +35,19 @@ const badgeTypes = {
 		iconSvg: false,
 	},
 }
+
+const badgeTypes = {
+        official: {
+                label: 'Official',
+@@ -38,6 +36,8 @@ const badgeTypes = {
+        },
+ }
+ 
++type ProviderLabelType = keyof typeof badgeTypes
++
+ function ProviderBadge({
+        type,
+ }: {
 
 function ProviderBadge({
 	type,
