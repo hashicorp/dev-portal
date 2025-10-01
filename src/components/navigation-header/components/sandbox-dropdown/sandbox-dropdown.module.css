@@ -247,7 +247,8 @@
 	align-items: flex-start;
 	padding: 12px;
 	background: transparent;
-	border: none;
+	background-color: #fafafa;
+	border: 1px solid #656a7633;
 	text-align: left;
 	cursor: pointer;
 }
