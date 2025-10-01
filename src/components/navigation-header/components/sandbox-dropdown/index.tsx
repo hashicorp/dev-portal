@@ -47,7 +47,10 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		lab.products.includes(currentProduct.slug)
 	)
 
-	const isOnSandboxPage = router.query.productSlug === currentProduct.slug
+	const isOnSandboxPage =
+		router?.query?.productSlug && currentProduct?.slug
+			? router.query.productSlug === currentProduct.slug
+			: false
 
 	// Handles closing the menu if there is a click outside of it and it is open.
 	useOnClickOutside([menuRef], () => setIsOpen(false), isOpen)
