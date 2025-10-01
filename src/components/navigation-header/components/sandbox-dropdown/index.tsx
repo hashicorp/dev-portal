@@ -22,6 +22,7 @@ import s from './sandbox-dropdown.module.css'
 import { SandboxLab } from 'types/sandbox'
 import { ProductSlug } from 'types/products'
 import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
+import { useTheme } from 'next-themes'
 
 interface SandboxDropdownProps {
 	ariaLabel: string
@@ -147,8 +148,15 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		setIsOpen(false)
 	}
 
+	const { theme, systemTheme } = useTheme()
+	const isLightTheme =
+		theme === 'light' || (theme === 'system' && systemTheme === 'light')
 	return (
-		<div className={s.root} onMouseLeave={handleMouseLeave} ref={menuRef}>
+		<div
+			className={`${s.root} ${isLightTheme ? 'theme-light' : ''}`}
+			onMouseLeave={handleMouseLeave}
+			ref={menuRef}
+		>
 			<div className={s.activatorWrapper}>
 				<button
 					aria-controls={menuId}
@@ -183,6 +191,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 							className={`${s.introSandboxItem} ${s.sandboxItem}`}
 							aria-label={`${currentProduct.name} Sandboxes`}
 							aria-disabled="true"
+							style={isLightTheme ? { backgroundColor: '#F1F2F3' } : undefined}
 						>
 							<div className={s.introSandboxRow}>
 								<ProductIcon
@@ -244,9 +253,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 							</Text>
 						</button>
 					)}
-
-					{/* Divider */}
-					<hr className={s.divider} />
 
 					{/* Available Product Sandboxes Section */}
 					<Text
