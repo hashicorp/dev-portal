@@ -276,19 +276,20 @@ function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
 
 			// Extract the base lab ID from the full lab ID (which may contain tokens)
 			let baseLabId = newLabId.split('?')[0] // Remove query parameters first
-
 			if (baseLabId.includes('/')) {
 				baseLabId = baseLabId.split('/').pop() || baseLabId
 			}
 
-			// Validate that the lab ID exists in current configuration
 			const labExists = SANDBOX_CONFIG.labs?.some((lab) => {
-				const trackName = lab.instruqtTrack?.split('/').pop() || lab.labId
+				const trackName =
+					lab.instruqtTrack?.split('/').pop()?.split('?')[0] || lab.labId
 				return (
 					lab.labId === newLabId ||
 					lab.labId === baseLabId ||
 					trackName === baseLabId ||
-					lab.instruqtTrack === newLabId
+					lab.instruqtTrack === newLabId ||
+					lab.instruqtTrack?.split('?')[0] === baseLabId ||
+					(lab.scenario && newLabId.includes(lab.scenario))
 				)
 			})
 
@@ -309,8 +310,6 @@ function InstruqtProvider({ children }: InstruqtProviderProps): JSX.Element {
 			if (newLabId !== labId || !active) {
 				setLabId(newLabId)
 				setActive(true)
-
-				// Track sandbox open event immediately
 				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
 					labId: newLabId,
 					page: router.asPath,
