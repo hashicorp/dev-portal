@@ -153,7 +153,15 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		theme === 'light' || (theme === 'system' && systemTheme === 'light')
 	return (
 		<div
-			className={`${s.root} ${isLightTheme ? 'theme-light' : ''}`}
+			className={`${s.root} ${isLightTheme ? 'theme-light' : 'theme-dark'}`}
+			style={
+				isLightTheme
+					? ({
+							'--intro-bg': '#fafafa',
+							'--intro-border': '#656a7633',
+					  } as React.CSSProperties)
+					: undefined
+			}
 			onMouseLeave={handleMouseLeave}
 			ref={menuRef}
 		>

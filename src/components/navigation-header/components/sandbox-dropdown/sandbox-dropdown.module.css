@@ -71,7 +71,7 @@
 }
 
 .dropdownContainerInner {
-	padding: 16px;
+	padding: 8px;
 }
 
 .introSection {
@@ -139,7 +139,7 @@
 .content {
 	flex: 1;
 	min-width: 0;
-	margin-left: 2rem;
+	margin-left: 1rem;
 }
 
 .titleRow {
@@ -247,10 +247,11 @@
 	align-items: flex-start;
 	padding: 12px;
 	background: transparent;
-	background-color: #fafafa;
-	border: 1px solid #656a7633;
 	text-align: left;
 	cursor: pointer;
+	background-color: var(--intro-bg, transparent);
+	border: 1px solid var(--intro-border, transparent);
+	transition: background-color 0.2s;
 }
 .introSandboxItem[aria-disabled='true'] {
 	cursor: default;
@@ -270,9 +271,10 @@
 	margin-left: 2.5rem;
 }
 
-.theme-light .introSandboxItem:hover {
-	background-color: #f1f2f3 !important;
-}
-.theme-light .labsList > .itemContainer:first-child .sandboxItem:hover {
-	background-color: #f1f2f3 !important;
+.theme-light .introSandboxItem {
+	background-color: #fafafa;
+
+	&:hover {
+		background-color: #f1f2f3 !important;
+	}
 }
