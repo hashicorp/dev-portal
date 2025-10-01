@@ -81,6 +81,8 @@
 .sectionTitle {
 	color: var(--token-color-foreground-strong);
 	font-size: 14px;
+	margin-top: 1rem;
+	margin-left: 1rem;
 }
 
 .introText {
@@ -136,7 +138,8 @@
 
 .content {
 	flex: 1;
-	min-width: 0; /* Allows text truncation */
+	min-width: 0;
+	margin-left: 2rem;
 }
 
 .titleRow {
@@ -148,7 +151,7 @@
 
 .title {
 	color: var(--token-color-foreground-primary);
-	font-weight: 500;
+	font-weight: 600;
 	transition: color 0.2s;
 	font-size: 14px;
 }
@@ -254,15 +257,21 @@
 }
 .introSandboxRow {
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 	width: 100%;
 }
 .introSandboxTitle {
 	margin-left: 12px;
 }
 .introSandboxText {
-	margin-top: 8px;
 	text-align: left;
 	flex: 1;
 	margin-left: 2.5rem;
+}
+
+.theme-light .introSandboxItem:hover {
+	background-color: #f1f2f3 !important;
+}
+.theme-light .labsList > .itemContainer:first-child .sandboxItem:hover {
+	background-color: #f1f2f3 !important;
 }
