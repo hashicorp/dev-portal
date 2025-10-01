@@ -189,73 +189,40 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 			>
 				<div className={s.dropdownContainerInner}>
 					{/* Introduction to Sandboxes */}
-					{isOnSandboxPage ? (
-						<div
-							className={`${s.introSandboxItem} ${s.sandboxItem}`}
-							aria-label={`${currentProduct.name} Sandboxes`}
-							aria-disabled="true"
-							style={isLightTheme ? { backgroundColor: '#F1F2F3' } : undefined}
-						>
-							<div className={s.introSandboxRow}>
-								<ProductIcon
-									productSlug={currentProduct.slug as ProductSlug}
-									size={24}
-									className={s.productIcon}
-								/>
-								<Text
-									asElement="span"
-									className={`${s.sectionTitle} ${s.introSandboxTitle}`}
-									size={200}
-									weight="semibold"
-								>
-									{currentProduct.name} Sandboxes
-								</Text>
-							</div>
+
+					<button
+						className={`${s.introSandboxItem} ${s.sandboxItem}`}
+						onClick={navigateToSandboxPage}
+						onKeyDown={handleKeyDown}
+						aria-label={`Go to ${currentProduct.name} Sandboxes`}
+						aria-current={isOnSandboxPage ? 'page' : undefined}
+					>
+						<div className={s.introSandboxRow}>
+							<ProductIcon
+								productSlug={currentProduct.slug as ProductSlug}
+								size={24}
+								className={s.productIcon}
+							/>
 							<Text
 								asElement="span"
-								className={`${s.introText} ${s.introSandboxText}`}
-								size={100}
-								weight="regular"
+								className={`${s.sectionTitle} ${s.introSandboxTitle}`}
+								size={200}
+								weight="semibold"
 							>
-								Interactive environments where you can experiment with HashiCorp
-								products without any installation or setup. Perfect for
-								learning, testing, and exploring features in a safe sandbox.
+								{currentProduct.name} Sandboxes
 							</Text>
 						</div>
-					) : (
-						<button
-							className={`${s.introSandboxItem} ${s.sandboxItem}`}
-							onClick={navigateToSandboxPage}
-							onKeyDown={handleKeyDown}
-							aria-label={`Go to ${currentProduct.name} Sandboxes`}
+						<Text
+							asElement="span"
+							className={`${s.introText} ${s.introSandboxText}`}
+							size={100}
+							weight="regular"
 						>
-							<div className={s.introSandboxRow}>
-								<ProductIcon
-									productSlug={currentProduct.slug as ProductSlug}
-									size={24}
-									className={s.productIcon}
-								/>
-								<Text
-									asElement="span"
-									className={`${s.sectionTitle} ${s.introSandboxTitle}`}
-									size={200}
-									weight="semibold"
-								>
-									{currentProduct.name} Sandboxes
-								</Text>
-							</div>
-							<Text
-								asElement="span"
-								className={`${s.introText} ${s.introSandboxText}`}
-								size={100}
-								weight="regular"
-							>
-								Interactive environments where you can experiment with HashiCorp
-								products without any installation or setup. Perfect for
-								learning, testing, and exploring features in a safe sandbox.
-							</Text>
-						</button>
-					)}
+							Interactive environments where you can experiment with HashiCorp
+							products without any installation or setup. Perfect for learning,
+							testing, and exploring features in a safe sandbox.
+						</Text>
+					</button>
 
 					{/* Available Product Sandboxes Section */}
 					<Text
