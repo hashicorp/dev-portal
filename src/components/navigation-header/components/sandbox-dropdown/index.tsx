@@ -6,7 +6,6 @@
 import { KeyboardEvent, useRef, useState } from 'react'
 import { useId } from '@react-aria/utils'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
-import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import { useRouter } from 'next/router'
 import { useCurrentProduct } from 'contexts'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
@@ -46,6 +45,8 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const currentProductLabs = labs.filter((lab) =>
 		lab.products.includes(currentProduct.slug)
 	)
+
+	const isOnSandboxPage = router.query.productSlug === currentProduct.slug
 
 	// Handles closing the menu if there is a click outside of it and it is open.
 	useOnClickOutside([menuRef], () => setIsOpen(false), isOpen)
@@ -177,39 +178,102 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 			>
 				<div className={s.dropdownContainerInner}>
 					{/* Introduction to Sandboxes */}
-					<div className={s.introSection}>
-						<Text
-							asElement="p"
-							className={s.sectionTitle}
-							size={200}
-							weight="semibold"
+					{isOnSandboxPage ? (
+						<div
+							className={s.sandboxItem}
+							style={{
+								width: '100%',
+								display: 'flex',
+								flexDirection: 'column',
+								alignItems: 'flex-start',
+								padding: '12px',
+								background: 'transparent',
+								border: 'none',
+								textAlign: 'left',
+								cursor: 'default',
+								pointerEvents: 'none',
+							}}
+							aria-label={`${currentProduct.name} Sandboxes`}
 						>
-							HashiCorp Sandboxes
-						</Text>
-						<Text
-							asElement="p"
-							className={s.introText}
-							size={100}
-							weight="regular"
-						>
-							Interactive environments where you can experiment with HashiCorp
-							products without any installation or setup. Perfect for learning,
-							testing, and exploring features in a safe sandbox.
-						</Text>
-
-						{/* Learn more link */}
-						<a
-							href={`/${currentProduct.slug}/sandbox`}
-							className={s.learnMoreLink}
+							<div
+								style={{ display: 'flex', alignItems: 'center', width: '100%' }}
+							>
+								<ProductIcon
+									productSlug={currentProduct.slug as ProductSlug}
+									size={24}
+									className={s.productIcon}
+								/>
+								<Text
+									asElement="span"
+									className={s.sectionTitle}
+									size={200}
+									weight="semibold"
+									style={{ marginLeft: 12 }}
+								>
+									{currentProduct.name} Sandboxes
+								</Text>
+							</div>
+							<Text
+								asElement="span"
+								className={s.introText}
+								size={100}
+								weight="regular"
+								style={{ marginTop: 8, textAlign: 'left', flex: 1 }}
+							>
+								Interactive environments where you can experiment with HashiCorp
+								products without any installation or setup. Perfect for
+								learning, testing, and exploring features in a safe sandbox.
+							</Text>
+						</div>
+					) : (
+						<button
+							className={s.sandboxItem}
 							onClick={navigateToSandboxPage}
 							onKeyDown={handleKeyDown}
+							style={{
+								width: '100%',
+								display: 'flex',
+								flexDirection: 'column',
+								alignItems: 'flex-start',
+								padding: '12px',
+								background: 'transparent',
+								border: 'none',
+								cursor: 'pointer',
+								textAlign: 'left',
+							}}
+							aria-label={`Go to ${currentProduct.name} Sandboxes`}
 						>
-							<Text asElement="span" size={100} weight="medium">
-								Learn more about {currentProduct.name} Sandboxes
+							<div
+								style={{ display: 'flex', alignItems: 'center', width: '100%' }}
+							>
+								<ProductIcon
+									productSlug={currentProduct.slug as ProductSlug}
+									size={24}
+									className={s.productIcon}
+								/>
+								<Text
+									asElement="span"
+									className={s.sectionTitle}
+									size={200}
+									weight="semibold"
+									style={{ marginLeft: 12 }}
+								>
+									{currentProduct.name} Sandboxes
+								</Text>
+							</div>
+							<Text
+								asElement="span"
+								className={s.introText}
+								size={100}
+								weight="regular"
+								style={{ marginTop: 8, textAlign: 'left', flex: 1 }}
+							>
+								Interactive environments where you can experiment with HashiCorp
+								products without any installation or setup. Perfect for
+								learning, testing, and exploring features in a safe sandbox.
 							</Text>
-							<IconArrowRight16 className={s.learnMoreIcon} />
-						</a>
-					</div>
+						</button>
+					)}
 
 					{/* Divider */}
 					<hr className={s.divider} />
