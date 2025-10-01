@@ -36,18 +36,7 @@ const badgeTypes = {
 	},
 }
 
-const badgeTypes = {
-        official: {
-                label: 'Official',
-@@ -38,6 +36,8 @@ const badgeTypes = {
-        },
- }
- 
-+type ProviderLabelType = keyof typeof badgeTypes
-+
- function ProviderBadge({
-        type,
- }: {
+type ProviderLabelType = keyof typeof badgeTypes
 
 function ProviderBadge({
 	type,
