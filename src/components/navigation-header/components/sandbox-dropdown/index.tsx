@@ -180,24 +180,11 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 					{/* Introduction to Sandboxes */}
 					{isOnSandboxPage ? (
 						<div
-							className={s.sandboxItem}
-							style={{
-								width: '100%',
-								display: 'flex',
-								flexDirection: 'column',
-								alignItems: 'flex-start',
-								padding: '12px',
-								background: 'transparent',
-								border: 'none',
-								textAlign: 'left',
-								cursor: 'default',
-								pointerEvents: 'none',
-							}}
+							className={`${s.introSandboxItem} ${s.sandboxItem}`}
 							aria-label={`${currentProduct.name} Sandboxes`}
+							aria-disabled="true"
 						>
-							<div
-								style={{ display: 'flex', alignItems: 'center', width: '100%' }}
-							>
+							<div className={s.introSandboxRow}>
 								<ProductIcon
 									productSlug={currentProduct.slug as ProductSlug}
 									size={24}
@@ -205,20 +192,18 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 								/>
 								<Text
 									asElement="span"
-									className={s.sectionTitle}
+									className={`${s.sectionTitle} ${s.introSandboxTitle}`}
 									size={200}
 									weight="semibold"
-									style={{ marginLeft: 12 }}
 								>
 									{currentProduct.name} Sandboxes
 								</Text>
 							</div>
 							<Text
 								asElement="span"
-								className={s.introText}
+								className={`${s.introText} ${s.introSandboxText}`}
 								size={100}
 								weight="regular"
-								style={{ marginTop: 8, textAlign: 'left', flex: 1 }}
 							>
 								Interactive environments where you can experiment with HashiCorp
 								products without any installation or setup. Perfect for
@@ -227,25 +212,12 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 						</div>
 					) : (
 						<button
-							className={s.sandboxItem}
+							className={`${s.introSandboxItem} ${s.sandboxItem}`}
 							onClick={navigateToSandboxPage}
 							onKeyDown={handleKeyDown}
-							style={{
-								width: '100%',
-								display: 'flex',
-								flexDirection: 'column',
-								alignItems: 'flex-start',
-								padding: '12px',
-								background: 'transparent',
-								border: 'none',
-								cursor: 'pointer',
-								textAlign: 'left',
-							}}
 							aria-label={`Go to ${currentProduct.name} Sandboxes`}
 						>
-							<div
-								style={{ display: 'flex', alignItems: 'center', width: '100%' }}
-							>
+							<div className={s.introSandboxRow}>
 								<ProductIcon
 									productSlug={currentProduct.slug as ProductSlug}
 									size={24}
@@ -253,20 +225,18 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 								/>
 								<Text
 									asElement="span"
-									className={s.sectionTitle}
+									className={`${s.sectionTitle} ${s.introSandboxTitle}`}
 									size={200}
 									weight="semibold"
-									style={{ marginLeft: 12 }}
 								>
 									{currentProduct.name} Sandboxes
 								</Text>
 							</div>
 							<Text
 								asElement="span"
-								className={s.introText}
+								className={`${s.introText} ${s.introSandboxText}`}
 								size={100}
 								weight="regular"
-								style={{ marginTop: 8, textAlign: 'left', flex: 1 }}
 							>
 								Interactive environments where you can experiment with HashiCorp
 								products without any installation or setup. Perfect for
