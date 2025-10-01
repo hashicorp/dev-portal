@@ -59,7 +59,8 @@ describe('SandboxDropdown', () => {
 
 		// Click to open
 		fireEvent.click(button)
-		expect(screen.getByText('HashiCorp Sandboxes')).toBeInTheDocument()
+		// Update: match actual rendered text, e.g. "Vault Sandboxes"
+		expect(screen.getByText('Vault Sandboxes')).toBeInTheDocument()
 
 		// Click to close
 		fireEvent.click(button)
@@ -75,7 +76,8 @@ describe('SandboxDropdown', () => {
 
 		// Open dropdown
 		fireEvent.click(button)
-		expect(screen.getByText('HashiCorp Sandboxes')).toBeInTheDocument()
+		// Update: match actual rendered text, e.g. "Vault Sandboxes"
+		expect(screen.getByText('Vault Sandboxes')).toBeInTheDocument()
 
 		// Press escape
 		fireEvent.keyDown(button, { key: 'Escape' })
@@ -91,7 +93,8 @@ describe('SandboxDropdown', () => {
 
 		// Open dropdown
 		fireEvent.click(button)
-		expect(screen.getByText('HashiCorp Sandboxes')).toBeInTheDocument()
+		// Update: match actual rendered text, e.g. "Vault Sandboxes"
+		expect(screen.getByText('Vault Sandboxes')).toBeInTheDocument()
 
 		// Click outside
 		fireEvent.mouseDown(document.body)
