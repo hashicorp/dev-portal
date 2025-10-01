@@ -59,7 +59,6 @@ describe('SandboxDropdown', () => {
 
 		// Click to open
 		fireEvent.click(button)
-		// Update: match actual rendered text, e.g. "Vault Sandboxes"
 		expect(screen.getByText('Vault Sandboxes')).toBeInTheDocument()
 
 		// Click to close
@@ -76,7 +75,6 @@ describe('SandboxDropdown', () => {
 
 		// Open dropdown
 		fireEvent.click(button)
-		// Update: match actual rendered text, e.g. "Vault Sandboxes"
 		expect(screen.getByText('Vault Sandboxes')).toBeInTheDocument()
 
 		// Press escape
@@ -93,7 +91,6 @@ describe('SandboxDropdown', () => {
 
 		// Open dropdown
 		fireEvent.click(button)
-		// Update: match actual rendered text, e.g. "Vault Sandboxes"
 		expect(screen.getByText('Vault Sandboxes')).toBeInTheDocument()
 
 		// Click outside
