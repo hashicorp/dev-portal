@@ -31,6 +31,10 @@
 		--background-color: #bed4ff;
 		--text-color: #3173dc;
 	}
+	&.theme-light-purple {
+		--background-color: #d9d2e9;
+		--text-color: #674ea7;
+	}
 
 	align-items: center;
 	background: var(--background-color);
