@@ -15,6 +15,7 @@ type BadgeTheme =
 	| 'purple'
 	| 'light-gray'
 	| 'light-blue'
+	| 'light-purple'
 
 interface BadgeProps {
 	label: string
