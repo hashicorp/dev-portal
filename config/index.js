@@ -7,6 +7,9 @@ const fs = require('fs')
 const path = require('path')
 const flat = require('flat')
 
+// Cache the final config to avoid re-reading files multiple times
+let finalConfig;
+
 /**
  * Load an environment config for the current environment, which is controlled by
  * process.env.HASHI_ENV
@@ -22,6 +25,10 @@ async function loadHashiConfigForEnvironment() {
  * Load an environment config from a specific path.
  */
 async function getHashiConfig(configPath) {
+	if (finalConfig) {
+		return finalConfig
+	}
+
 	try {
 		const baseConfigPath = path.join(process.cwd(), 'config', `base.json`)
 		const baseConfig = JSON.parse(fs.readFileSync(baseConfigPath))
@@ -39,6 +46,30 @@ async function getHashiConfig(configPath) {
 			extendsConfig = await getHashiConfig(extendsConfigPath)
 		}
 
+		let udrProducts = Object.values({
+			...extendsConfig.flags?.unified_docs_migrated_repos,
+			...envConfig.flags?.unified_docs_migrated_repos
+		})
+
+		if (process.env.VERCEL !== 'production') {
+			// Fetch additional config from UNIFIED_DOCS_API if available
+			if (process.env.UNIFIED_DOCS_API) {
+				try {
+					const response = await fetch(`${process.env.UNIFIED_DOCS_API}/api/supported-products`)
+					udrProducts = (await response.json()).result
+
+					delete envConfig.flags.unified_docs_migrated_repos
+					delete extendsConfig.flags.unified_docs_migrated_repos
+					envConfig.flags.unified_docs_migrated_repos = udrProducts
+				} catch (err) {
+					console.warn('Failed to fetch from UNIFIED_DOCS_API:', err.message)
+				}
+			}
+		}
+
+		console.log(`Loading UDR from ${process.env.UNIFIED_DOCS_API}`);
+		console.log(`Loading UDR Products: ${JSON.stringify(udrProducts, null, 2)}`);
+
 		const extendsFlattened = flat(extendsConfig, { safe: true })
 
 		const envFlattened = flat(envConfig, {
@@ -46,7 +77,7 @@ async function getHashiConfig(configPath) {
 		})
 
 		// Because we are "flattening" the object, a simple spread should be sufficient here
-		const finalConfig = { ...extendsFlattened, ...envFlattened }
+		finalConfig = { ...extendsFlattened, ...envFlattened }
 
 		if (process.env.DEBUG_CONFIG) {
 			console.log('[DEBUG_CONFIG]', finalConfig)
