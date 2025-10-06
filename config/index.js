@@ -24,7 +24,7 @@ async function loadHashiConfigForEnvironment() {
 /**
  * Load an environment config from a specific path.
  */
-async function getHashiConfig(configPath, logUDR = true) {
+async function getHashiConfig(configPath) {
 	if (finalConfig) {
 		return finalConfig
 	}
@@ -43,18 +43,18 @@ async function getHashiConfig(configPath, logUDR = true) {
 				'config',
 				`${envConfig.extends}.json`
 			)
-			extendsConfig = await getHashiConfig(extendsConfigPath, false)
+			extendsConfig = await getHashiConfig(extendsConfigPath)
 		}
-
-		let udrProducts = Object.values({
-			...extendsConfig.flags?.unified_docs_migrated_repos,
-			...envConfig.flags?.unified_docs_migrated_repos
-		})
 
 		if (process.env.VERCEL !== 'production') {
 			// Fetch additional config from UNIFIED_DOCS_API if available
 			if (process.env.UNIFIED_DOCS_API) {
 				try {
+					let udrProducts = Object.values({
+						...extendsConfig.flags?.unified_docs_migrated_repos,
+						...envConfig.flags?.unified_docs_migrated_repos
+					})
+
 					const response = await fetch(`${process.env.UNIFIED_DOCS_API}/api/supported-products`)
 					udrProducts = (await response.json()).result
 
@@ -65,11 +65,6 @@ async function getHashiConfig(configPath, logUDR = true) {
 					console.warn('Failed to fetch from UNIFIED_DOCS_API:', err.message)
 				}
 			}
-		}
-
-		if (logUDR) {
-			console.log(`Loading UDR from ${process.env.UNIFIED_DOCS_API}`);
-			console.log(`Loading UDR Products: ${JSON.stringify(udrProducts, null, 2)}`);
 		}
 
 		const extendsFlattened = flat(extendsConfig, { safe: true })
