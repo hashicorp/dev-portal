@@ -24,7 +24,7 @@ async function loadHashiConfigForEnvironment() {
 /**
  * Load an environment config from a specific path.
  */
-async function getHashiConfig(configPath) {
+async function getHashiConfig(configPath, logUDR = true) {
 	if (finalConfig) {
 		return finalConfig
 	}
@@ -43,7 +43,7 @@ async function getHashiConfig(configPath) {
 				'config',
 				`${envConfig.extends}.json`
 			)
-			extendsConfig = await getHashiConfig(extendsConfigPath)
+			extendsConfig = await getHashiConfig(extendsConfigPath, false)
 		}
 
 		let udrProducts = Object.values({
@@ -67,8 +67,10 @@ async function getHashiConfig(configPath) {
 			}
 		}
 
-		console.log(`Loading UDR from ${process.env.UNIFIED_DOCS_API}`);
-		console.log(`Loading UDR Products: ${JSON.stringify(udrProducts, null, 2)}`);
+		if (logUDR) {
+			console.log(`Loading UDR from ${process.env.UNIFIED_DOCS_API}`);
+			console.log(`Loading UDR Products: ${JSON.stringify(udrProducts, null, 2)}`);
+		}
 
 		const extendsFlattened = flat(extendsConfig, { safe: true })
 
