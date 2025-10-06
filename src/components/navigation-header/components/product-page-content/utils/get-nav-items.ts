@@ -170,21 +170,6 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	}
 
 	/**
-	 * Add Sandbox item if there are any labs configured
-	 * and the current product is in the supported products list
-	 */
-	const supportedSandboxProducts = SANDBOX_CONFIG.products || []
-	if (
-		SANDBOX_CONFIG.labs?.length &&
-		supportedSandboxProducts.includes(currentProduct.slug)
-	) {
-		items.push({
-			label: 'Sandbox',
-			url: `/${currentProduct.slug}/sandbox`,
-		})
-	}
-
-	/**
 	 * For Terraform, add a "Registry" item
 	 */
 	if (currentProduct.slug === 'terraform') {
