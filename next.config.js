@@ -39,15 +39,20 @@ const hideWaypointTipContent = {
 	],
 }
 
+let loggedUDR = false;
+
 module.exports = async () => {
 	const appConfig = await loadHashiConfigForEnvironment()
 
-	console.log(`Loading UDR from ${process.env.UNIFIED_DOCS_API}`);
-	console.log(`Loading UDR Products: ${JSON.stringify(
-		appConfig["flags.unified_docs_migrated_repos"],
-		null,
-		2)}`
-	);
+	if (!loggedUDR) {
+		loggedUDR = true
+		console.log(`Loading UDR from ${process.env.UNIFIED_DOCS_API}`);
+		console.log(`Loading UDR Products: ${JSON.stringify(
+			appConfig["flags.unified_docs_migrated_repos"],
+			null,
+			2)}`
+		);
+	}
 
 	return withHashicorp({
 		css: false,
