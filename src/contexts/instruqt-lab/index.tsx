@@ -50,34 +50,6 @@ function trackInstruqtError(
 	}
 }
 
-/**
- * Tracks Instruqt context errors with PostHog and development logging
- */
-function trackInstruqtError(
-	errorType: string,
-	errorMessage: string,
-	context?: Record<string, unknown>
-) {
-	// Track error in PostHog for production monitoring
-	if (typeof window !== 'undefined' && window.posthog?.capture) {
-		window.posthog.capture('instruqt_context_error', {
-			error_type: errorType,
-			error_message: errorMessage,
-			timestamp: new Date().toISOString(),
-			page_url: window.location.href,
-			...context,
-		})
-	}
-
-	if (process.env.NODE_ENV === 'development') {
-		if (errorType.includes('warning') || errorType.includes('storage')) {
-			console.warn(`[InstruqtContext] ${errorMessage}`, context)
-		} else {
-			console.error(`[InstruqtContext] ${errorMessage}`, context)
-		}
-	}
-}
-
 interface InstruqtContextProps {
 	labId: string | null
 	active: boolean
