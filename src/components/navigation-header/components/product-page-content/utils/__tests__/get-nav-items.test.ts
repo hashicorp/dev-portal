@@ -243,14 +243,6 @@ describe('getNavItems', () => {
 			    "url": "/terraform/sandbox",
 			  },
 			  {
-			    "label": "Sandbox",
-			    "url": "/terraform/sandbox",
-			  },
-			  {
-			    "label": "Sandbox",
-			    "url": "/terraform/sandbox",
-			  },
-			  {
 			    "label": "Registry",
 			    "opensInNewTab": true,
 			    "url": "https://registry.terraform.io/",
