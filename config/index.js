@@ -86,4 +86,4 @@ async function getHashiConfig(configPath) {
 	}
 }
 
-module.exports = { loadHashiConfigForEnvironment, getHashiConfig }
+module.exports = { loadHashiConfigForEnvironment }
