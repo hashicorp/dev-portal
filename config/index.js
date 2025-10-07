@@ -62,7 +62,19 @@ async function getHashiConfig(configPath) {
 					delete extendsConfig.flags.unified_docs_migrated_repos
 					envConfig.flags.unified_docs_migrated_repos = udrProducts
 				} catch (err) {
-					console.warn('Failed to fetch from UNIFIED_DOCS_API:', err.message)
+					console.warn('⛔️ Failed to fetch from UNIFIED_DOCS_API:', err.message)
+
+					console.warn('⛔️ Defaulting to production list of UDR products')
+					delete envConfig.flags.unified_docs_migrated_repos
+					delete extendsConfig.flags.unified_docs_migrated_repos
+
+					const prodConfigPath = path.join(
+						process.cwd(),
+						'config',
+						'production.json'
+					)
+					const prodConfig = JSON.parse(fs.readFileSync(prodConfigPath))
+					envConfig.flags.unified_docs_migrated_repos = prodConfig.flags.unified_docs_migrated_repos
 				}
 			}
 		}
