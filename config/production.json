@@ -17,6 +17,7 @@
 	},
 	"flags": {
 		"unified_docs_migrated_repos": [
+			"terraform-mcp-server",
 			"terraform-migrate",
 			"terraform-plugin-framework",
 			"terraform-plugin-log",
