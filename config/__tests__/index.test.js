@@ -8,7 +8,7 @@ const { loadHashiConfigForEnvironment } = require('../index')
 
 const fixtureDir = path.join(__dirname, '__fixtures__', 'config-loading')
 
-describe('loadHashiConfigByEnvironment',() => {
+describe('loadHashiConfigByEnvironment', () => {
 	beforeAll(() => {
 		process.env.HASHI_ENV = 'production'
 	})
@@ -25,6 +25,11 @@ describe('loadHashiConfigByEnvironment',() => {
         "deeply.nested.another_property": false,
         "deeply.nested.property": true,
         "extends": "base",
+        "flags.unified_docs_migrated_repos": [
+          "terraform",
+          "terraform-enterprise",
+          "well-architected-framework",
+        ],
         "foo": "bar",
       }
     `)

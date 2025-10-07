@@ -7,5 +7,6 @@
 		"algolia": {
 			"unifiedIndexName": "staging_DEVDOT_omni"
 		}
-	}
+	},
+	"flags": {}
 }

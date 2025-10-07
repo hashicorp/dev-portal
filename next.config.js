@@ -47,7 +47,7 @@ module.exports = async () => {
 	// Even with this check it will be logged multiple times during dev mode
 	// due to how often next reloads the config, but at least it won't spam
 	// the console in production mode.
-	if (!loggedUDR) {
+	if (!loggedUDR || !process.env.VITEST) {
 		loggedUDR = true
 		console.log(`\n\n⚠️ Loading UDR from ${process.env.UNIFIED_DOCS_API}`);
 		console.log(`⚠️ Loading UDR Products: ${JSON.stringify(
