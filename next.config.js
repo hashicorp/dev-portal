@@ -44,6 +44,9 @@ let loggedUDR = false;
 module.exports = async () => {
 	const appConfig = await loadHashiConfigForEnvironment()
 
+	// Even with this check it will be logged multiple times during dev mode
+	// due to how often next reloads the config, but at least it won't spam
+	// the console in production mode.
 	if (!loggedUDR) {
 		loggedUDR = true
 		console.log(`Loading UDR from ${process.env.UNIFIED_DOCS_API}`);
