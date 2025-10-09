@@ -6,9 +6,6 @@
 import { MouseEventHandler } from 'react'
 import CSS from 'csstype'
 import { IconX24 } from '@hashicorp/flight-icons/svg-react/x-24'
-// Removing the InlineSvg import which is causing issues in tests
-// import InlineSvg from '@hashicorp/react-inline-svg'
-// import ResizeBar from './img/resize_bar.svg?include'
 import s from './resizer.module.css'
 
 interface ResizerProps {
