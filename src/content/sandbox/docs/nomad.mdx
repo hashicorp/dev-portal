@@ -23,21 +23,26 @@ To interact with the Nomad, Consul, and Vault CLIs, you must load the necessary 
 $ env | grep "NOMAD\|CONSUL\|VAULT"
 ```
 
-You can find the Nomad and Consul management tokens in /ops/configs/tokens and
-use them to log in to the web UIs.
+Nomad and Consul ACL management tokens are located in `/ops/configs/tokens`. 
+You can use them to log in to the web UIs.
 
 ```shell-session
 $ cat /ops/configs/tokens/nomad_mgmt.token
 $ cat /ops/configs/tokens/consul_mgmt.token
 ```
 
-You can find the Vault's unseal key, certificates, and root token in /ops/configs/vault.
+You can find the Vault's unseal key, certificates, and root token in `/ops/configs/vault`.
 
 ```shell-session
 $ cat /ops/configs/vault/vault_root.token
 ```
 
-This sandbox includes sample Nomad jobs. Use the following commands to submit 
+</Tab>
+
+<Tab heading="Sample jobs">
+
+This sandbox includes sample Nomad jobspecs that you can use to run jobs. 
+Use the following commands to submit 
 the jobs to Nomad:
 
 ```shell-session
