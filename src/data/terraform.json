@@ -168,7 +168,7 @@
 			"productSlugForLoader": "terraform-mcp-server",
 			"badge": {
 				"text": "BETA",
-				"color": "neutral"
+				"color": "highlight"
 			}
 		}
 	]
