@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, fireEvent, act, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import { useRouter } from 'next/router'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
 import React, {
@@ -139,7 +139,8 @@ function TestInstruqtProvider({ children }: { children: ReactNode }) {
 					description:
 						'Close test lab description that is long enough to pass validation',
 					products: ['test-product'],
-					instruqtTrack: 'hashicorp-learn/tracks/close-test-lab?token=em_test777',
+					instruqtTrack:
+						'hashicorp-learn/tracks/close-test-lab?token=em_test777',
 				},
 			],
 		}),
