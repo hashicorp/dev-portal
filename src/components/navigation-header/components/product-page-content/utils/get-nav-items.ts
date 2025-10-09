@@ -63,6 +63,7 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 						icon: navItem.icon as NavigationHeaderIcon,
 						label: navItem.label,
 						path: navItem.fullPath,
+						...(navItem.badge && { badge: navItem.badge }),
 					}
 				}),
 			},

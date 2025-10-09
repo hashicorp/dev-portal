@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import { NavigationHeaderItem } from '@components/navigation-header'
 import { ProductMeta, Products } from '@hashicorp/platform-product-meta'
 import { Product as LearnProduct } from 'lib/learn-client/types'
 
@@ -147,9 +148,15 @@ interface RootDocsPath {
 	 * or falls back to an empty string.
 	 */
 	description?: string
+
+	/**
+	 * An optional badge to display alongside the docs path name.
+	 * Used to indicate status like "BETA", "NEW", etc.
+	 */
+	badge?: NavigationHeaderItem['badge']
 }
 
-export type DocsNavItem = {
+export type DocsNavItem =  Pick<NavigationHeaderItem, 'badge'> & {
 	icon: string
 	label: string
 	fullPath: string
