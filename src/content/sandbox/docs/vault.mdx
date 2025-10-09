@@ -1,6 +1,16 @@
 <Tabs>
 <Tab heading="Overview">
 
+<Warning> 
+
+This environment is not production-ready, as it does not follow recommendations for production cluster deployments. Refer to these resources for more information:
+
+- [Vault with integrated storage reference architecture](/vault/tutorials/day-one-raft/raft-reference-architecture)
+- [Vault with integrated storage deployment guide](/vault/tutorials/day-one-raft/raft-deployment-guide)
+- [Harden server deployments](/vault/tutorials/archive/production-hardening)
+
+</Warning>
+
 This is a 5-node Vault Community edition cluster with a reverse proxy running in a Docker environment. This environment initializes Vault with a Shamir seal, and one unseal key for convenience and simplicity.
 
 You can find container data, configuration, logs, and the plugins directory in the `/home/learner/sandbox-vault/containers` directory. Here are the contents of the `vault_sandbox_1` container directory as an example:
