@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react'
 import { useRouter } from 'next/router'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
 import React, {
@@ -19,6 +19,7 @@ import React, {
 	useMemo,
 } from 'react'
 import { validateSandboxConfigWithDetailedErrors } from 'lib/validate-sandbox-config'
+import InstruqtProvider from '../index'
 
 vi.mock('components/lab-embed/embed-element', () => ({
 	default: () => null,
@@ -106,7 +107,6 @@ const InstruqtContext = createContext<InstruqtContextProps>({
 const STORAGE_KEY = 'instruqt-lab-state'
 
 function TestInstruqtProvider({ children }: { children: ReactNode }) {
-	const [isClient, setIsClient] = useState(false)
 	const [labId, setLabId] = useState<string | null>(null)
 	const [active, setActive] = useState(false)
 	const [hasConfigError, setHasConfigError] = useState(false)
@@ -156,7 +156,6 @@ function TestInstruqtProvider({ children }: { children: ReactNode }) {
 	}, [SANDBOX_CONFIG])
 
 	useEffect(() => {
-		setIsClient(true)
 		try {
 			const stored = localStorage.getItem(STORAGE_KEY)
 			if (stored) {
@@ -184,20 +183,20 @@ function TestInstruqtProvider({ children }: { children: ReactNode }) {
 	}, [hasConfigError, SANDBOX_CONFIG])
 
 	useEffect(() => {
-		if (!isClient || hasConfigError) return
-
-		try {
-			localStorage.setItem(
-				STORAGE_KEY,
-				JSON.stringify({
-					active,
-					storedLabId: labId,
-				})
-			)
-		} catch {
-			// Storage persistence failed
+		if (!hasConfigError) {
+			try {
+				localStorage.setItem(
+					STORAGE_KEY,
+					JSON.stringify({
+						active,
+						storedLabId: labId,
+					})
+				)
+			} catch {
+				// Storage persistence failed
+			}
 		}
-	}, [active, labId, isClient, hasConfigError])
+	}, [active, labId, hasConfigError])
 
 	const openLab = useCallback(
 		(newLabId: string) => {
@@ -332,9 +331,9 @@ describe('InstruqtEmbed Context', () => {
 		}
 
 		render(
-			<TestInstruqtProvider>
+			<InstruqtProvider>
 				<TestComponent />
-			</TestInstruqtProvider>
+			</InstruqtProvider>
 		)
 
 		expect(await screen.findByTestId('lab-id')).toHaveTextContent('no-lab')
