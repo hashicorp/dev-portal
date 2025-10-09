@@ -61,14 +61,15 @@ async function getHashiConfig(configPath) {
 					const response = await fetch(`${process.env.UNIFIED_DOCS_API}/api/supported-products`)
 					udrProducts = (await response.json()).result
 
+					console.log(`⚠️ Fetched UDR products from "${process.env.UNIFIED_DOCS_API}/api/supported-products"`)
+
 					// clear out any existing values and replace with fetched products
 					envConfig.flags.unified_docs_migrated_repos = []
 					extendsConfig.flags.unified_docs_migrated_repos = []
 					envConfig.flags.unified_docs_migrated_repos = udrProducts
 				} catch (err) {
-					console.warn('⛔️ Failed to fetch from UNIFIED_DOCS_API:', err.message)
-
-					console.warn('⛔️ Defaulting to production list of UDR products')
+					console.warn(`⛔️ Failed to fetch from "${process.env.UNIFIED_DOCS_API}/api/supported-products":`, err.message)
+					console.warn('⛔️ Defaulting to "config/production.json" list of UDR products')
 
 					const prodConfigPath = path.join(
 						process.cwd(),
@@ -76,7 +77,6 @@ async function getHashiConfig(configPath) {
 						'production.json'
 					)
 					const prodConfig = JSON.parse(fs.readFileSync(prodConfigPath))
-
 
 					envConfig.flags.unified_docs_migrated_repos = []
 					extendsConfig.flags.unified_docs_migrated_repos = []

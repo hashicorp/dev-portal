@@ -49,7 +49,7 @@ module.exports = async () => {
 	// the console in production mode.
 	if (!loggedUDR || !process.env.VITEST) {
 		loggedUDR = true
-		console.log(`\n\n⚠️ Loading UDR from ${process.env.UNIFIED_DOCS_API}`);
+		console.log(`\n\n⚠️ Loading UDR from "${process.env.UNIFIED_DOCS_API}"`);
 		console.log(`⚠️ Loading UDR Products: ${JSON.stringify(
 			appConfig["flags.unified_docs_migrated_repos"],
 			null,
