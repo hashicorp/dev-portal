@@ -173,29 +173,6 @@ $ consul agent \
   >> /tmp/consul.log 2>&1 &
 ```
 
-**Example Nomad applications:**
-
-The sandbox includes the following example applications:
-
-- `/ops/configs/jobspecs/2048.hcl`: Web-based game deployed in a single Docker container accessible on port 3333.
-- `/ops/configs/jobspecs/terramino.hcl`: Web-based game deployed in three tiers accessible on port 4444.
-- `/ops/configs/jobspecs/hashicups.hcl`: Web-based multi-tier coffee application accessible on port 3001.
-
-**Instruqt Scenario Tabs**
-
-The sandbox includes the following Instruqt scenario tabs:
-
-- Terminal shell (node-01-server)
-- Visual code editor (node-01-server)
-- Terminal shell (node-02-client)
-- Nomad web UI (port 6443)
-- Consul web UI (port 8443)
-- Web browser open to port 3001 of node-02-client
-  - Default port for 2048.hcl application access
-- Web browser open to port 3333 of node-02-client
-  - Default port for terramino.hcl application access
-- Web browser open to port 4444 of node-02-client
-  - Default port for hashicups.hcl application access
 
 </Tab>
 <Tab heading="Limitations">
