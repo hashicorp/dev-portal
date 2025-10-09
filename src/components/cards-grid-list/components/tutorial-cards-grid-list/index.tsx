@@ -9,7 +9,7 @@ import {
 	TutorialCardPropsWithId,
 	TutorialCardWithAuthElements,
 } from 'components/tutorial-card'
-import s from 'pages/[productSlug]/sandbox/sandbox.module.css'
+import s from './tutorial-cards-grid-list.module.css'
 
 interface TutorialCardsGridListProps extends CardsGridListProps {
 	tutorials: TutorialCardPropsWithId[]
