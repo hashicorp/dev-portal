@@ -9,11 +9,11 @@ It is meant to serve as a development and testing environment. It is "production
 
 </Warning>
 
-This is a 3-node Consul community edition datacenter running in a Docker environment.
+This sandbox provides a 3-node Consul community edition datacenter running in a Docker environment.
 
-Alongside the server nodes 4 client nodes are also added to the datacenter. The nodes are running HashiCups, a demo web application.
+In addition to the server nodes, 4 client nodes are also part of the datacenter. These nodes are running HashiCups, a demo microservices web application that mimics a storefront.
 
-One extra node, Bastion Host, is also added to the scenario to simulate scenarios where there is no direct access to the different nodes composing the Consul datacenter and a bastion host is required to access the nodes.
+The scenario also includes one extra node for a bastion host. It simulates scenarios where there is no direct access to the different nodes that make up the Consul datacenter, and a bastion host is required to access individual nodes.
 
 **Architecture**
 
