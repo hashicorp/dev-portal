@@ -3,32 +3,21 @@
 
 <Warning>
 
-This environment is not production-ready since it does not follow our 
-recommendations for production-ready cluster deployments. Please refer to the 
-Installing Nomad for Production and Consul VM production patterns pages for
-more information.
-
-- [Installing Nomad for Production](/nomad/docs/install/production)
-- [Consul VM production patterns](/consul/tutorials/production-vms)
-
-This goal of this sandbox is to serve as a development and testing environment. 
-It is "production-lite" — the Nomad cluster enables TLS and access control lists 
-(ACLs) for security but uses management and root tokens to simplify development 
-and testing. We do not recommend using management or root tokens in production.
+This sandbox is not a production-ready environment. It is a development and testing environment with security configurations for gossip encryption, TLS, and ACLs enabled. For more information about deploying Nomad in production, refer to [Installing Nomad for Production](/nomad/docs/install/production).
 
 </Warning>
 
-This is a Nomad cluster made up of one server and one client node. The server 
-and client nodes are each running the Nomad agent and Consul agent. Both agents 
-are configured with ACLs, gossip encryption, and TLS encryption.
-The server node includes a running single-node Vault cluster that has been 
-initialized and unsealed. The client node has a scoped token for reading secrets 
-from Vault. You can also read Vault secrets from a Nomad jobspec.
+This sandbox provides a Nomad cluster that consists of one server node and one client 
+node. Each node runs a Nomad agent and a Consul agent. Both agents are configured 
+with ACLs, gossip encryption, and TLS encryption. The server node also runs a single-node 
+Vault cluster that has been initialized and unsealed. The client node has access to a scoped 
+token for reading secrets from Vault. You can also read Vault secrets from a Nomad jobspec.
 
-**Quick Start**
+</Tab>
 
-This sandbox already configures tokens for Nomad, Consul, and Vault so you can
-interact with the respective tools via the CLI.
+<Tab heading="Get started">
+
+To interact with the Nomad, Consul, and Vault CLIs, you must load the necessary tokens.
 
 ```shell-session
 $ env | grep "NOMAD\|CONSUL\|VAULT"
@@ -60,7 +49,7 @@ $ nomad job run /ops/configs/jobspecs/hashicups.hcl
 </Tab>
 <Tab heading="Architecture">
 
-**Infrastructure:**
+### Infrastructure
 
 - Server node (node-01-server)
   - n1-standard-2 VM (2 vCPU, 7.5GB RAM, 128GB disk) 
