@@ -57,7 +57,13 @@ $ tree /root/repository/var
 ### Sign in to the Consul UI
 You can also use the `Consul UI` tab to interact with Consul, but you need an ACL token with sufficient permissions to sign in.
 
-If you want to login to the UI, use the token present in the `env-consul.env` file.
+To view the token present in the `env-consul.env` file:
+
+```shell-session
+echo $CONSUL_HTTP_TOKEN
+```
+
+Enter the value in the **SecretID** field to sign in to the Consul UI.
 
 </Tab>
 <Tab heading="Architecture">
@@ -123,6 +129,19 @@ $ consul agent -config-dir=/etc/consul.d > /tmp/logs/consul-server.log 2>&1 &
 ```
 
 The command starts Consul in the background to not lock the terminal.
+
+</Tab>
+
+<Tab heading="Resources">
+
+You can experiment with the Consul sandbox to learn in a practical way by following examples from tutorials and documentation.
+
+Here are some suggestions for tutorials and documentation content you can explore with the Consul sandbox.
+
+- Discover how to [register services](/consul/docs/register)
+- Become familiar with the [Consul CLI commands](/consul/commands)
+- Become familiar with the [Consul API endpoints](/consul/api-docs)
+- Become familiar with the [Consul DNS interface](/consul/docs/discover)
 
 </Tab>
 </Tabs>
