@@ -53,16 +53,6 @@ describe('SandboxItem', () => {
 		expect(mockItem.onClick).toHaveBeenCalled()
 	})
 
-	it('tracks sandbox event when clicked', () => {
-		render(<SandboxItem item={mockItem} />)
-
-		const item = screen.getByRole('link')
-		fireEvent.click(item)
-
-		// Verify event tracking (you'll need to implement this based on your tracking setup)
-		// expect(mockTrackEvent).toHaveBeenCalledWith('sandbox_opened', {...})
-	})
-
 	it('applies correct styles when hovered', () => {
 		render(<SandboxItem item={mockItem} />)
 
