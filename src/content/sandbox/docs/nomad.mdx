@@ -155,9 +155,10 @@ The sandbox includes the following HashiCorp applications:
 
 <Tab heading="Configure and restart agents">
 
-The agent files for Nomad and Consul exist in the /ops/configs/agentfiles
-directory. Changes can be made to the agent configuration files and then the
-tools can be restarted with the commands below.
+The agent files for Nomad and Consul exist in the `/ops/configs/agentfiles`
+directory. If you make changes to the agent configuration files, you must
+restart the agent for the changes to take effect. Use the following commands
+to restart the agents. 
 
 ```shell-session
 $ pkill nomad
