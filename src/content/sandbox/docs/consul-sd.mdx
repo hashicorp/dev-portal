@@ -28,7 +28,7 @@ $ ssh -i certs/id_rsa admin@localhost -p 2222
 
 You can also use one of the two `Bastion Host` tabs to get direct access into the bastion host node.
 
-**Interact with Consul**
+### Interact with Consul
 
 From the bastion host, you can directly interact with Consul. First, load necessary environment variables.
 
@@ -42,7 +42,20 @@ After that you can directly use Consul CLI to interact with your datacenter.
 $ consul members
 ```
 
-You can also use the `Consul UI` tab to interact with Consul.
+For a full list of CLI commands, refer to the [Consul CLI reference documentation](/consul/docs/commands).
+
+### Logs and container data
+
+You can find container data, configuration, and logs in the `var` directory. 
+
+You can get an overview of the content using the `tree` command.
+
+```shell-session
+$ tree /root/repository/var
+```
+
+### Sign in to the Consul UI
+You can also use the `Consul UI` tab to interact with Consul, but you need an ACL token with sufficient permissions to sign in.
 
 If you want to login to the UI, use the token present in the `env-consul.env` file.
 
