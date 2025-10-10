@@ -61,7 +61,9 @@ async function getHashiConfig(configPath) {
 					const response = await fetch(`${process.env.UNIFIED_DOCS_API}/api/supported-products`)
 					udrProducts = (await response.json()).result
 
-					console.log(`⚠️ Fetched UDR products from "${process.env.UNIFIED_DOCS_API}/api/supported-products"`)
+					if (!process.env.VITEST) {
+						console.log(`⚠️ Fetched UDR products from "${process.env.UNIFIED_DOCS_API}/api/supported-products"`)
+					}
 
 					// clear out any existing values and replace with fetched products
 					envConfig.flags.unified_docs_migrated_repos = []
