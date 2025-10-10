@@ -39,19 +39,25 @@ const hideWaypointTipContent = {
 	],
 }
 
+let alreadyLoggedUDRInfo = false
+
 module.exports = async () => {
 	const appConfig = await loadHashiConfigForEnvironment()
 
-	//   Only log this info when first running, not when being reloaded
-	// This works because the reloader uses a different run command
+	// Only log this info when first running, not when being reloaded
 	// - the initial run ".../.bin/next"
 	// - the reloader ".../server/lib/start-server.js"
-	if (process.argv[1].includes('.bin/next')) {
-		console.log(`\n\n⚠️ Loading UDR from "${process.env.UNIFIED_DOCS_API}"`);
+	// During build this will log twice because two build commands are run
+	// - > build
+	// - > next build
+	// So we also check if we've already logged it with "alreadyLoggedUDRInfo"
+	if (process.argv[1].includes('.bin/next') && !alreadyLoggedUDRInfo) {
+		alreadyLoggedUDRInfo = true;
+		console.log(`⚠️ Loading UDR from "${process.env.UNIFIED_DOCS_API}"`);
 		console.log(`⚠️ Loading UDR Products: ${JSON.stringify(
 			appConfig["flags.unified_docs_migrated_repos"],
 			null,
-			2)}\n\n`
+			2)}\n`
 		);
 	}
 
