@@ -1,0 +1,17 @@
+.next
+node_modules
+.git
+.gitignore
+npm-debug.log
+coverage
+playwright-report
+test-results
+dist
+build
+/.vscode
+/.DS_Store
+**/__tests__
+**/*.test.*
+**/*.spec.*
+.env.local
+/.turbo
