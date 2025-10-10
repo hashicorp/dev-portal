@@ -10,5 +10,22 @@
 		"max_static_paths": 1
 	},
 	"flags": {
+		"unified_docs_migrated_repos": [
+			"terraform-mcp-server",
+			"terraform-migrate",
+			"terraform-plugin-framework",
+			"terraform-plugin-log",
+			"terraform-plugin-mux",
+			"terraform-plugin-sdk",
+			"terraform-plugin-testing",
+			"terraform-docs-agents",
+			"terraform-cdk",
+			"terraform-enterprise",
+			"terraform-docs-common",
+			"terraform",
+			"vault",
+			"well-architected-framework",
+			"sentinel"
+		]
 	}
 }

@@ -7,28 +7,21 @@ const fs = require('fs')
 const path = require('path')
 const flat = require('flat')
 
-// Cache the final config to avoid re-reading files multiple times
-let finalConfig;
-
 /**
  * Load an environment config for the current environment, which is controlled by
  * process.env.HASHI_ENV
  */
-async function loadHashiConfigForEnvironment() {
+function loadHashiConfigForEnvironment() {
 	const env = process.env.HASHI_ENV || 'development'
 	const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
 
-	return await getHashiConfig(envConfigPath)
+	return getHashiConfig(envConfigPath)
 }
 
 /**
  * Load an environment config from a specific path.
  */
-async function getHashiConfig(configPath) {
-	if (finalConfig) {
-		return finalConfig
-	}
-
+function getHashiConfig(configPath) {
 	try {
 		const baseConfigPath = path.join(process.cwd(), 'config', `base.json`)
 		const baseConfig = JSON.parse(fs.readFileSync(baseConfigPath))
@@ -43,44 +36,7 @@ async function getHashiConfig(configPath) {
 				'config',
 				`${envConfig.extends}.json`
 			)
-			extendsConfig = await getHashiConfig(extendsConfigPath)
-		}
-
-		if (process.env.VERCEL !== 'production') {
-			// Fetch additional config from UNIFIED_DOCS_API if available
-			if (process.env.UNIFIED_DOCS_API) {
-				try {
-					if (!envConfig.flags) envConfig.flags = {}
-					if (!extendsConfig.flags) extendsConfig.flags = {}
-
-					let udrProducts = Object.values({
-						...extendsConfig.flags?.unified_docs_migrated_repos,
-						...envConfig.flags?.unified_docs_migrated_repos
-					})
-
-					const response = await fetch(`${process.env.UNIFIED_DOCS_API}/api/supported-products`)
-					udrProducts = (await response.json()).result
-
-					// clear out any existing values and replace with fetched products
-					envConfig.flags.unified_docs_migrated_repos = []
-					extendsConfig.flags.unified_docs_migrated_repos = []
-					envConfig.flags.unified_docs_migrated_repos = udrProducts
-				} catch (err) {
-					console.warn(`⛔️ Failed to fetch from "${process.env.UNIFIED_DOCS_API}/api/supported-products":`, err.message)
-					console.warn('⛔️ Defaulting to "config/production.json" list of UDR products')
-
-					const prodConfigPath = path.join(
-						process.cwd(),
-						'config',
-						'production.json'
-					)
-					const prodConfig = JSON.parse(fs.readFileSync(prodConfigPath))
-
-					envConfig.flags.unified_docs_migrated_repos = []
-					extendsConfig.flags.unified_docs_migrated_repos = []
-					envConfig.flags.unified_docs_migrated_repos = prodConfig.flags.unified_docs_migrated_repos
-				}
-			}
+			extendsConfig = getHashiConfig(extendsConfigPath)
 		}
 
 		const extendsFlattened = flat(extendsConfig, { safe: true })
@@ -90,7 +46,7 @@ async function getHashiConfig(configPath) {
 		})
 
 		// Because we are "flattening" the object, a simple spread should be sufficient here
-		finalConfig = { ...extendsFlattened, ...envFlattened }
+		const finalConfig = { ...extendsFlattened, ...envFlattened }
 
 		if (process.env.DEBUG_CONFIG) {
 			console.log('[DEBUG_CONFIG]', finalConfig)
@@ -102,4 +58,4 @@ async function getHashiConfig(configPath) {
 	}
 }
 
-module.exports = { loadHashiConfigForEnvironment }
+module.exports = { loadHashiConfigForEnvironment, getHashiConfig }

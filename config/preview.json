@@ -8,5 +8,7 @@
 			"unifiedIndexName": "staging_DEVDOT_omni"
 		}
 	},
-	"flags": {}
+	"flags": {
+		"enable_hvd_on_preview_branch": false
+	}
 }

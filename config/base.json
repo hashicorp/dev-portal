@@ -36,6 +36,24 @@
 	"flags": {
 		"enable_datadog": true,
 		"enable_io_beta_cta": true,
-		"unified_docs_migrated_repos": []
+		"enable_hvd_on_preview_branch": false,
+		"unified_docs_migrated_repos": [
+			"terraform-mcp-server",
+			"terraform-migrate",
+			"terraform-plugin-framework",
+			"terraform-plugin-log",
+			"terraform-plugin-mux",
+			"terraform-plugin-sdk",
+			"terraform-plugin-testing",
+			"terraform-docs-agents",
+			"terraform-cdk",
+			"terraform",
+			"terraform-docs-common",
+			"vault",
+			"ptfe-releases",
+			"well-architected-framework",
+			"terraform-enterprise",
+			"sentinel"
+		]
 	}
 }

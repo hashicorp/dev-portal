@@ -8,9 +8,20 @@ import path from 'path'
 import { fetchGithubArchiveZip } from 'lib/fetch-github-archive-zip'
 import { isDeployPreview } from 'lib/env-checks'
 
+import { unflatten } from 'flat'
+import { getHashiConfig } from '../config'
+
+const env = process.env.HASHI_ENV || 'development'
+const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
+
+const __config = unflatten(getHashiConfig(envConfigPath))
+
 export const BASE_REPO_CONFIG = {
 	owner: 'hashicorp',
-	ref: process.env.CURRENT_GIT_BRANCH || 'main',
+	ref:
+		__config.flags.enable_hvd_on_preview_branch === true
+			? 'hvd-preview'
+			: process.env.CURRENT_GIT_BRANCH || 'main',
 	repo: 'hvd-docs',
 	contentPath: '/content',
 }

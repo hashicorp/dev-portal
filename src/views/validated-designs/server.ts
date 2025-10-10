@@ -46,6 +46,7 @@ export function getHvdCategoryGroups(): HvdCategoryGroup[] | null {
 	let hvdRepoContents
 
 	try {
+		console.info('[HVD]: reading from content directory ', HVD_CONTENT_DIR)
 		hvdRepoContents = fs.readdirSync(HVD_CONTENT_DIR, {
 			recursive: true,
 			encoding: 'utf-8',

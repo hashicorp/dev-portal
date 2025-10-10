@@ -8,9 +8,8 @@ import fetchGithubFile from '@build-libs/fetch-github-file'
 import { PRODUCT_REDIRECT_ENTRIES } from '@build-libs/redirects'
 import { loadHashiConfigForEnvironment } from '../../config'
 
-describe('getLatestContentShaForProduct', async () => {
-	const config = await loadHashiConfigForEnvironment()
-
+describe('getLatestContentShaForProduct', () => {
+	const config = loadHashiConfigForEnvironment()
 	PRODUCT_REDIRECT_ENTRIES
 		.filter(({ repo }) => !config['flags.unified_docs_migrated_repos'].includes(repo)) // skip repos we don't have access to
 		.forEach(({ repo, path }) => {

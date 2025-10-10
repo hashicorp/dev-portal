@@ -17,19 +17,14 @@ describe('loadHashiConfigByEnvironment', () => {
 		process.env.HASHI_ENV = undefined
 	})
 
-	test('loads configuration and handles extending', async () => {
+	test('loads configuration and handles extending', () => {
 		vi.spyOn(process, 'cwd').mockReturnValue(fixtureDir)
-		expect(await loadHashiConfigForEnvironment()).toMatchInlineSnapshot(`
+		expect(loadHashiConfigForEnvironment()).toMatchInlineSnapshot(`
       {
         "alpha": "beta",
         "deeply.nested.another_property": false,
         "deeply.nested.property": true,
         "extends": "base",
-        "flags.unified_docs_migrated_repos": [
-          "terraform",
-          "terraform-enterprise",
-          "well-architected-framework",
-        ],
         "foo": "bar",
       }
     `)

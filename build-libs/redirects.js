@@ -161,8 +161,7 @@ async function buildProductRedirects() {
 	if (process.env.SKIP_BUILD_PRODUCT_REDIRECTS) {
 		return []
 	}
-
-	const config = await loadHashiConfigForEnvironment()
+	const config = loadHashiConfigForEnvironment()
 
 	const productRedirects = (
 		await Promise.all(

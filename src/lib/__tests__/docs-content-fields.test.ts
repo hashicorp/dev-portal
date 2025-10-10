@@ -17,6 +17,7 @@ describe('allDocsFields', () => {
 		__config.flags = {
 			enable_datadog: false,
 			enable_io_beta_cta: false,
+			enable_hvd_on_preview_branch: false,
 			unified_docs_migrated_repos: ['repo1', 'repo2'],
 		}
 		const mockContentAPIDocsResult = [
