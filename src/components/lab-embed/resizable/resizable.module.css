@@ -13,6 +13,10 @@
 	max-height: 95%;
 	box-sizing: border-box;
 	padding-top: 0;
+	pointer-events: none;
+	& > * {
+		pointer-events: auto;
+	}
 
 	&.mobile {
 		/* Full screen on mobile for better experience */

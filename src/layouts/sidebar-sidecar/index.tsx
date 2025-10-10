@@ -13,6 +13,7 @@ import getFullNavHeaderHeight from 'lib/get-full-nav-header-height'
 import useOnFocusOutside from 'hooks/use-on-focus-outside'
 import { useScroll } from 'framer-motion'
 import { SkipLinkContext, useMobileMenu } from 'contexts'
+import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import BaseLayout from 'layouts/base-layout'
 import BreadcrumbBar from 'components/breadcrumb-bar'
 import EditOnGithubLink from 'components/edit-on-github-link'
@@ -56,6 +57,7 @@ const SidebarSidecarLayoutContent = ({
 	const { isMobileMenuRendered, mobileMenuIsOpen, setMobileMenuIsOpen } =
 		useMobileMenu()
 	const { currentLevel } = useSidebarNavData()
+	const { active: sandboxIsActive } = useInstruqtEmbed()
 	const sidebarRef = useRef<HTMLDivElement>()
 	const sidebarProps = sidebarNavDataLevels[currentLevel]
 	const sidebarIsVisible = !isMobileMenuRendered || mobileMenuIsOpen
@@ -120,7 +122,9 @@ const SidebarSidecarLayoutContent = ({
 			</MobileMenuContainer>
 			<div className={s.contentWrapper} ref={contentRef}>
 				{alertBannerSlot}
-				<div className={s.paddedAreaWrapper}>
+				<div className={classNames(s.paddedAreaWrapper, {
+					[s.withSandboxPadding]: sandboxIsActive
+				})}>
 					<div className={s.breadcrumbContainer}>
 						<div className={s.breadcrumbMaxWidth}>
 							{breadcrumbLinks ? (
