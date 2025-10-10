@@ -3,15 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import path from 'path'
 import { allDocsFields, allTutorialsFields } from 'lib/sitemap'
 import { unflatten } from 'flat'
-import { getHashiConfig } from '../config'
-
-const env = process.env.HASHI_ENV || 'development'
-const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
-
-const __config = unflatten(getHashiConfig(envConfigPath))
+import { loadHashiConfigForEnvironment } from '../config'
 
 /**
  * This script is run as part of the Build sitemap github action that runs on PRs and
@@ -19,6 +13,8 @@ const __config = unflatten(getHashiConfig(envConfigPath))
  * `npx hc-tools ./scripts/build-sitemap.ts`
  */
 async function main() {
+	const __config = unflatten(await loadHashiConfigForEnvironment())
+
 	try {
 		await allDocsFields(__config)
 	} catch (error) {

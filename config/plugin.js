@@ -5,7 +5,6 @@
 
 const path = require('path')
 const { webpack } = require('next/dist/compiled/webpack/webpack')
-const { getHashiConfig } = require('./index')
 
 /**
  * Reads in config files from config/[env].json and replaces references in the
@@ -36,19 +35,19 @@ const { getHashiConfig } = require('./index')
  *
  * See the test file at `./config/__tests__/index.test.js` for a more thorough example.
  */
-module.exports = function HashiConfigPlugin() {
+module.exports = function HashiConfigPlugin(appConfig) {
 	const env = process.env.HASHI_ENV || 'development'
 	const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
 	const baseConfigPath = path.join(process.cwd(), 'config', `base.json`)
 
 	return new webpack.DefinePlugin({
 		...Object.fromEntries(
-			Object.entries(getHashiConfig(envConfigPath)).map(([key]) => {
+			Object.entries(appConfig).map(([key]) => {
 				return [
 					`__config.${key}`,
 					webpack.DefinePlugin.runtimeValue(
 						() => {
-							return JSON.stringify(getHashiConfig(envConfigPath)[key])
+							return JSON.stringify(appConfig[key])
 						},
 						/**
 						 * version is set to env here to ensure that webpack's persistent cache
