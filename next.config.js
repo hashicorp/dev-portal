@@ -46,7 +46,6 @@ module.exports = async () => {
 	// This works because the reloader uses a different run command
 	// - the initial run ".../.bin/next"
 	// - the reloader ".../server/lib/start-server.js"
-	console.log(process.argv);
 	if (process.argv[1].includes('.bin/next')) {
 		console.log(`\n\n⚠️ Loading UDR from "${process.env.UNIFIED_DOCS_API}"`);
 		console.log(`⚠️ Loading UDR Products: ${JSON.stringify(
