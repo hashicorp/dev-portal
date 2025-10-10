@@ -15,14 +15,20 @@ vi.spyOn(global, 'fetch').mockImplementation((url) => {
 			ok: true,
 			json: () => {
 				return Promise.resolve({
-					result: ['terraform', 'terraform-enterprise', 'well-architected-framework']
+					result: [
+						'terraform',
+						'terraform-enterprise',
+						'well-architected-framework',
+					],
 				})
-			}
+			},
 		})
 	}
 
 	return originalFetch(url)
 })
+
+global.__config = unflatten(await loadHashiConfigForEnvironment())
 
 // Mock HTMLCanvasElement.getContext to prevent jsdom errors in tests
 if (typeof HTMLCanvasElement !== 'undefined') {
