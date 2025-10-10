@@ -27,8 +27,6 @@
 	display: none;
 }
 
-/* Prevent embed div & iframe mouse-hovering from interrupting smooth resize feel
- Target these specifically since we need to keep events on the Close Button */
 .resizing > iframe {
 	pointer-events: none;
 }
