@@ -39,16 +39,15 @@ const hideWaypointTipContent = {
 	],
 }
 
-let loggedUDR = false;
-
 module.exports = async () => {
 	const appConfig = await loadHashiConfigForEnvironment()
 
-	// Even with this check it will be logged multiple times during dev mode
-	// due to how often next reloads the config, but at least it won't spam
-	// the console in production mode.
-	if (!loggedUDR || !process.env.VITEST) {
-		loggedUDR = true
+	//   Only log this info when first running, not when being reloaded
+	// This works because the reloader uses a different run command
+	// - the initial run ".../.bin/next"
+	// - the reloader ".../server/lib/start-server.js"
+	console.log(process.argv);
+	if (process.argv[1].includes('.bin/next')) {
 		console.log(`\n\n⚠️ Loading UDR from "${process.env.UNIFIED_DOCS_API}"`);
 		console.log(`⚠️ Loading UDR Products: ${JSON.stringify(
 			appConfig["flags.unified_docs_migrated_repos"],
