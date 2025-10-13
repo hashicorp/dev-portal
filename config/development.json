@@ -4,7 +4,10 @@
 		"max_static_paths": 1
 	},
 	"dev_dot": {
-		"max_static_paths": 1
+		"max_static_paths": 1,
+		"sandbox": {
+			"instruqt_base_url": "https://play.instruqt.com/embed"
+		}
 	},
 	"learn": {
 		"max_static_paths": 1

@@ -28,7 +28,10 @@
 			"clientToken": "pubd5cf774aa1cbbd001accd50cb463925b",
 			"service": "non-prod.developer.hashicorp.com"
 		},
-		"product_slugs_with_integrations": ["vault", "nomad", "packer"]
+		"product_slugs_with_integrations": ["vault", "nomad", "packer"],
+		"sandbox": {
+			"instruqt_base_url": "https://play.instruqt.com/embed"
+		}
 	},
 	"learn": {
 		"max_static_paths": 10

@@ -1,0 +1,147 @@
+<Tabs>
+<Tab heading="Overview">
+  
+<Warning> 
+
+This sandbox is not a production-ready environment. It is a development and testing environment with security configurations for gossip encryption, TLS, and ACLs enabled. For more information about deploying Consul in production, refer to the <a href="/consul/tutorials/production-vms/deployment-guide">Consul Deployment Guide</a>.
+
+</Warning>
+
+This sandbox provides a 3-node Consul community edition datacenter running in a Docker environment.
+
+In addition to the server nodes, 4 client nodes are also part of the datacenter. These nodes are running HashiCups, a demo microservices web application that mimics a storefront.
+
+The scenario also includes one extra node for a bastion host. It simulates scenarios where there is no direct access to the different nodes that make up the Consul datacenter, and a bastion host is required to access individual nodes.
+
+</Tab>
+
+<Tab heading="Get started">
+
+
+### Access the nodes
+
+The recommended method to access the different nodes is using SSH. You can SSH into the bastion host using:
+
+```shell-session
+$ ssh -i certs/id_rsa admin@localhost -p 2222
+```
+
+You can also use one of the two `Bastion Host` tabs to get direct access into the bastion host node.
+
+### Interact with Consul
+
+From the bastion host, you can directly interact with Consul. First, load necessary environment variables.
+
+```shell-session
+$ source assets/scenario/env-consul.env 
+```
+
+After that you can directly use Consul CLI to interact with your datacenter.
+
+```shell-session
+$ consul members
+```
+
+For a full list of CLI commands, refer to the [Consul CLI reference documentation](/consul/docs/commands).
+
+### Logs and container data
+
+You can find container data, configuration, and logs in the `var` directory. 
+
+You can get an overview of the content using the `tree` command.
+
+```shell-session
+$ tree /root/repository/var
+```
+
+### Sign in to the Consul UI
+You can also use the `Consul UI` tab to interact with Consul, but you need an ACL token with sufficient permissions to sign in.
+
+To view the token present in the `env-consul.env` file:
+
+```shell-session
+echo $CONSUL_HTTP_TOKEN
+```
+
+Enter the value in the **SecretID** field to sign in to the Consul UI.
+
+</Tab>
+<Tab heading="Architecture">
+
+This sandbox has the following architecture:
+
+<CodeBlockConfig hideClipboard>
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│    Consul Datacenter DC1                                                     │
+│                                                                              │
+│ ┌──────────────────────────────┐    ┌──────────────────────────────────────┐ │
+│ │ SERVERS                      │    │ ┌─────────────────────────┐  CLIENTS │ │
+│ │                              │    │ │                         │          │ │
+│ │                              │    │ │   hashicups-nginx-0     │          │ │
+│ │                              │    │ │                         │          │ │
+│ │ ┌───────────────────┐        │    │ └────┬────────────┬───────┘          │ │
+│ │ │                   │        │    │      │            │                  │ │
+│ │ │  consul-server-0  │        │    │      │            │                  │ │
+│ │ │                   │        │    │      │   ┌────────▼────────────────┐ │ │
+│ │ └─▲─────────────────┘        │    │      │   │                         │ │ │
+│ │   │                          │    │      │   │   hashicups-frontend-0  │ │ │
+│ │   │  ┌───────────────────┐   │    │      │   │                         │ │ │
+│ │   │  │                   │   │    │      │   └─────────────────────────┘ │ │
+│ │   ┼──►  consul-server-1  │   │    │      │                               │ │
+│ │   │  │                   │   │    │      │                               │ │
+│ │   │  └───────────────────┘   │    │ ┌────▼────────────────────┐          │ │
+│ │   │                          │    │ │                         │          │ │
+│ │ ┌─▼─────────────────┐        │    │ │   hashicups-api-0       │          │ │
+│ │ │                   │        │    │ │                         │          │ │
+│ │ │  consul-server-2  │        │    │ └────────────┬────────────┘          │ │
+│ │ │                   │        │    │              │                       │ │
+│ │ └───────────────────┘        │    │              │                       │ │
+│ │                              │    │ ┌────────────▼────────────┐          │ │
+│ │                              │    │ │                         │          │ │
+│ │                              │    │ │   hashicups-db-0        │          │ │
+│ │                              │    │ │                         │          │ │
+│ │                              │    │ └─────────────────────────┘          │ │
+│ └──────────────────────────────┘    └──────────────────────────────────────┘ │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+                                                                                
+                                                                                
+                      ┌─────────────────────┐                               
+                      │                     │                               
+                      │    Bastion  Host    │                               
+                      │                     │                               
+                      └─────────────────────┘                               
+```
+
+</CodeBlockConfig>
+
+</Tab>
+<Tab heading="Limitations">
+
+The Consul nodes do not have systemd installed so Consul needs to be stopped and started manually.
+
+The command to start Consul on each node is:
+
+```shell-session
+$ consul agent -config-dir=/etc/consul.d > /tmp/logs/consul-server.log 2>&1 & 
+```
+
+The command starts Consul in the background to not lock the terminal.
+
+</Tab>
+
+<Tab heading="Resources">
+
+You can experiment with the Consul sandbox to learn in a practical way by following examples from tutorials and documentation.
+
+Here are some suggestions for tutorials and documentation content you can explore with the Consul sandbox.
+
+- Discover how to [register services](/consul/docs/register)
+- Become familiar with the [Consul CLI commands](/consul/commands)
+- Become familiar with the [Consul API endpoints](/consul/api-docs)
+- Become familiar with the [Consul DNS interface](/consul/docs/discover)
+
+</Tab>
+</Tabs>

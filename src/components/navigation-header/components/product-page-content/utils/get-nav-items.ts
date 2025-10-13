@@ -8,6 +8,7 @@ import { getDocsNavItems } from 'lib/docs/get-docs-nav-items'
 import { getIsEnabledProductIntegrations } from 'lib/integrations/get-is-enabled-product-integrations'
 import { ProductData } from 'types/products'
 import { NavItem } from './types'
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 
 const TRY_CLOUD_ITEM_PRODUCT_SLUGS = [
 	'boundary',
@@ -51,7 +52,7 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 	if (currentProduct.slug === 'well-architected-framework') {
 		return []
 	}
-	
+
 	if (currentProduct.slug === 'terraform') {
 		// Dropdown for Terraform
 		docsNavItems = [
@@ -151,6 +152,21 @@ export function getNavItems(currentProduct: ProductData): NavItem[] {
 		} else {
 			items.push(docsNavItem)
 		}
+	}
+
+	/**
+	 * Add Sandbox item if there are any labs configured
+	 * and the current product is in the supported products list
+	 */
+	const supportedSandboxProducts = SANDBOX_CONFIG.products || []
+	if (
+		SANDBOX_CONFIG.labs?.length &&
+		supportedSandboxProducts.includes(currentProduct.slug)
+	) {
+		items.push({
+			label: 'Sandbox',
+			url: `/${currentProduct.slug}/sandbox`,
+		})
 	}
 
 	/**

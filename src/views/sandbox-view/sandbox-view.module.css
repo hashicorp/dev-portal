@@ -1,0 +1,184 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.menuContainer {
+	margin-top: 32px;
+	display: flex;
+	justify-content: center;
+}
+
+.sandboxDropdown {
+	min-width: 480px;
+	max-height: 80vh;
+	overflow-y: auto;
+}
+
+.sandboxIntro {
+	margin: 32px 0;
+}
+
+.sectionHeading {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-bottom: 16px;
+	color: var(--token-color-foreground-strong);
+}
+
+.subSectionHeading {
+	font-size: 1.25rem;
+	font-weight: 600;
+	margin-bottom: 12px;
+	color: var(--token-color-foreground-strong);
+}
+
+.introText {
+	font-size: 1rem;
+	line-height: 1.6;
+	margin-bottom: 16px;
+	color: var(--token-color-foreground-primary);
+}
+
+.featureList {
+	margin: 16px 0;
+	padding-left: 24px;
+	color: var(--token-color-foreground-primary);
+
+	& li {
+		margin-bottom: 8px;
+		line-height: 1.5;
+	}
+}
+
+.gettingStartedInfo {
+	margin-top: 32px;
+	padding-top: 24px;
+}
+
+.sandboxCard {
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	max-width: 420px;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--token-elevation-high-box-shadow);
+	}
+
+	@media (max-width: 900px) {
+		max-width: 100%;
+		width: 100%;
+	}
+}
+
+.card {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.otherSandboxCard {
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+	min-width: 280px;
+	max-width: 560px;
+	margin: 0 auto;
+	width: 100%;
+
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--token-elevation-high-box-shadow);
+	}
+}
+
+.cardHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 8px;
+}
+
+.productIcons {
+	display: flex;
+	gap: 4px;
+	margin-left: 12px;
+}
+
+.productIcon {
+	color: var(--token-color-foreground-faint);
+}
+
+.launchButton {
+	min-width: 140px;
+	white-space: nowrap;
+	display: inline-block;
+}
+
+.noSandboxes {
+	margin: 32px 0;
+	padding: 24px;
+	background-color: var(--token-color-surface-faint);
+	border-radius: 4px;
+	text-align: center;
+	color: var(--token-color-foreground-primary);
+}
+
+.helpText {
+	font-size: 1rem;
+	line-height: 1.6;
+	margin-bottom: 16px;
+	color: var(--token-color-foreground-primary);
+}
+
+.sandboxGrid {
+	margin: var(--token-typography-display-m-tablet-margin-top) 0;
+}
+
+.sandboxCardBox {
+	min-height: 200px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.sandboxGrid :global([class*='card-link_root__']) {
+	height: 100%;
+	min-height: 200px;
+	display: flex;
+	flex-direction: column;
+}
+
+.errorMessage {
+	padding: 16px;
+	margin: var(--token-typography-display-m-tablet-margin-top) 0;
+	border-radius: 6px;
+	background-color: var(--token-color-surface-faint);
+	color: var(--token-color-foreground-strong);
+
+	& p {
+		margin: 0;
+		font-size: var(--token-typography-body-200-font-size);
+		line-height: var(--token-typography-body-200-line-height);
+	}
+}
+
+.cardsFlexContainer {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2rem;
+	justify-content: flex-start;
+}
+
+.sandboxGrid li,
+.sandboxGrid > div,
+.sandboxGrid > div > div {
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+}

@@ -21,12 +21,18 @@ vi.spyOn(global, 'fetch').mockImplementation((url) => {
 				return Promise.resolve({
 					result: config.flags.unified_docs_migrated_repos
 				})
-			}
+			},
 		})
 	}
 
 	return originalFetch(url)
 })
 
-
 global.__config = unflatten(await loadHashiConfigForEnvironment())
+
+// Mock HTMLCanvasElement.getContext to prevent jsdom errors in tests
+if (typeof HTMLCanvasElement !== 'undefined') {
+	HTMLCanvasElement.prototype.getContext = () => {
+		return {}
+	}
+}
