@@ -1,0 +1,185 @@
+<Tabs>
+<Tab heading="Overview">
+
+<Warning>
+
+This sandbox is not a production-ready environment. It is a development and testing environment with security configurations for gossip encryption, TLS, and ACLs enabled. For more information about deploying Nomad in production, refer to <a href="/nomad/docs/install/production">Installing Nomad for Production</a>.
+
+</Warning>
+
+This sandbox provides a Nomad cluster that consists of one server node and one client 
+node. Each node runs a Nomad agent and a Consul agent. Both agents are configured 
+with ACLs, gossip encryption, and TLS encryption. The server node also runs a single-node 
+Vault cluster that has been initialized and unsealed. The client node has access to a scoped 
+token for reading secrets from Vault. You can also read Vault secrets from a Nomad jobspec.
+
+</Tab>
+
+<Tab heading="Get started">
+
+To interact with the Nomad, Consul, and Vault CLIs, you must load the necessary tokens.
+
+```shell-session
+$ env | grep "NOMAD\|CONSUL\|VAULT"
+```
+
+Nomad and Consul ACL management tokens are located in `/ops/configs/tokens`. 
+You can use them to log in to the web UIs.
+
+```shell-session
+$ cat /ops/configs/tokens/nomad_mgmt.token
+$ cat /ops/configs/tokens/consul_mgmt.token
+```
+
+You can find the Vault's unseal key, certificates, and root token in `/ops/configs/vault`.
+
+```shell-session
+$ cat /ops/configs/vault/vault_root.token
+```
+
+</Tab>
+
+<Tab heading="Sample jobs">
+
+This sandbox includes sample Nomad jobspecs that you can use to run jobs. 
+Use the following commands to submit 
+the jobs to Nomad:
+
+```shell-session
+$ nomad job run /ops/configs/jobspecs/2048.hcl
+$ nomad job run /ops/configs/jobspecs/terramino.hcl
+$ nomad job run /ops/configs/jobspecs/hashicups.hcl
+```
+
+</Tab>
+<Tab heading="Architecture">
+
+### Infrastructure
+
+- Server node (node-01-server)
+  - n1-standard-2 VM (2 vCPU, 7.5GB RAM, 128GB disk) 
+    - Nomad agent configured and running
+      - Access pre-configured with environment variables (NOMAD_*)
+      - Management token saved to NOMAD_TOKEN
+    - Consul agent configured and running
+      - Access pre-configured with environment variables (CONSUL_*)
+        - Management token saved to CONSUL_TOKEN
+    - Vault agent configured and running
+      - Access pre-configured with environment variables (VAULT_*)
+        - Root token saved to VAULT_TOKEN
+
+- Client node (node-02-client)
+  - n1-standard-2 VM (2 vCPU, 7.5GB RAM, 128GB disk)
+    - Nomad agent configured and running
+    - Consul agent configured and running
+  - Vault access pre-configured with environment variables (VAULT_*)
+  - Nomad drivers: `docker`, `exec`, `java`, `raw_exec`
+
+### Directory structure
+
+Environment related files are in the `/ops` directory.
+
+<CodeBlockConfig hideClipboard>
+
+```
+/ops
+└── configs
+    ├── agentfiles
+    │   ├── consul_server.hcl
+    │   └── nomad_server.hcl
+    ├── env-info
+    │   ├── ARCHITECTURE
+    │   ├── LIMITATIONS
+    │   └── README
+    ├── jobspecs
+    │   ├── 2048.hcl
+    │   ├── hashicups.hcl
+    │   └── terramino.hcl
+    ├── tokens
+    │   ├── consul_agent_server.token
+    │   ├── consul_dns.token
+    │   ├── consul_gossip_key
+    │   ├── consul_mgmt.token
+    │   ├── nomad_gossip_key
+    │   ├── nomad_mgmt.token
+    │   └── nomad_node_join.token
+    └── vault
+        ├── data
+        ├── dev-app-secrets.token
+        ├── unseal.key
+        ├── vault-cert.pem
+        ├── vault-key.pem
+        ├── vault-server.hcl
+        └── vault_root.token
+```
+
+</CodeBlockConfig>
+
+Logs are output to the `/tmp` directory.
+
+```shell-session
+$ ls /tmp
+├── consul.log
+├── nomad.log
+└── vault.log
+```
+
+### HashiCorp applications
+
+The sandbox includes the following HashiCorp applications:
+
+- Nomad
+  - One server node and one client node
+  - ACLs enabled
+  - Gossip encryption enabled
+  - TLS encryption enabled
+
+- Consul
+  - One server node and one client node
+  - ACLs enabled
+  - Gossip encryption enabled
+  - TLS encryption enabled
+  - DNS configured (.consul domain)
+
+- Vault
+  - TLS encryption enabled
+  - Initialized and unsealed
+
+</Tab>
+
+<Tab heading="Configure and restart agents">
+
+The agent files for Nomad and Consul exist in the `/ops/configs/agentfiles`
+directory. If you make changes to the agent configuration files, you must
+restart the agent for the changes to take effect. Use the following commands
+to restart the agents. 
+
+```shell-session
+$ pkill nomad
+$ nomad agent \
+  -config=/ops/configs/agentfiles/nomad_server.hcl \
+  >> /tmp/nomad.log 2>&1 &
+```
+
+```shell-session
+$ pkill consul
+$ consul agent \
+  -config-file=/ops/configs/agentfiles/consul_server.hcl \
+  >> /tmp/consul.log 2>&1 &
+```
+
+
+</Tab>
+<Tab heading="Limitations">
+
+This cluster is made up of one server one and one client node, which is not what
+we recommend for production environments.
+
+The Vault cluster consists of a single node. We do not recommend this for production
+environments.
+
+Nomad jobspecs must be configured to use one of the ports exposed through the
+Instruqt web browser tabs interface: `3001`, `3333`, or `4444`.
+
+</Tab>
+</Tabs>

@@ -9,6 +9,7 @@ import {
 	TutorialCardPropsWithId,
 	TutorialCardWithAuthElements,
 } from 'components/tutorial-card'
+import s from './tutorial-cards.module.css'
 
 interface TutorialCardsGridListProps extends CardsGridListProps {
 	tutorials: TutorialCardPropsWithId[]
@@ -28,7 +29,9 @@ const TutorialCardsGridList = ({ tutorials, ...restProps }) => {
 	tutorials.forEach((tutorial: TutorialCardPropsWithId) => {
 		tutorialIds.push(tutorial.id)
 		cardsGridListItems.push(
-			<TutorialCardWithAuthElements key={tutorial.id} {...tutorial} />
+			<div className={s.sandboxCardBox} key={tutorial.id}>
+				<TutorialCardWithAuthElements {...tutorial} />
+			</div>
 		)
 	})
 
