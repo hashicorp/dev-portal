@@ -13,13 +13,13 @@ vi.spyOn(global, 'fetch').mockImplementation((url) => {
 	if (url.includes(`${process.env.UNIFIED_DOCS_API}/api/supported-products`)) {
 		return Promise.resolve({
 			ok: true,
-			json: () => {
+			json: async () => {
+				const config = await import('../config/production.json',
+					{ assert: { type: 'json' } }
+				)
+
 				return Promise.resolve({
-					result: [
-						'terraform',
-						'terraform-enterprise',
-						'well-architected-framework',
-					],
+					result: config.flags.unified_docs_migrated_repos
 				})
 			},
 		})
