@@ -23,9 +23,10 @@ import { EnrichedNavItem, SidebarProps } from '../types'
 export const generateProductLandingSidebarMenuItems = (
 	product: ProductData
 ): EnrichedNavItem[] => {
-	const routes = getDocsNavItems(product).map(({ label, fullPath }) => ({
+	const routes = getDocsNavItems(product).map(({ label, fullPath, badge }) => ({
 		title: label,
 		fullPath,
+		...(badge && { badge }),
 	}))
 
 	let docsItems

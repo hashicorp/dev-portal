@@ -4,11 +4,29 @@
  */
 
 import '@testing-library/jest-dom/vitest'
-import path from 'path'
 import { unflatten } from 'flat'
-import { getHashiConfig } from '../config'
+import { loadHashiConfigForEnvironment } from '../config'
 
-const env = process.env.HASHI_ENV || 'development'
-const envConfigPath = path.join(process.cwd(), 'config', `${env}.json`)
+// Mock the unified docs supported-products API
+const originalFetch = global.fetch
+vi.spyOn(global, 'fetch').mockImplementation((url) => {
+	if (url.includes(`${process.env.UNIFIED_DOCS_API}/api/supported-products`)) {
+		return Promise.resolve({
+			ok: true,
+			json: async () => {
+				const config = await import('../config/production.json',
+					{ assert: { type: 'json' } }
+				)
 
-global.__config = unflatten(getHashiConfig(envConfigPath))
+				return Promise.resolve({
+					result: config.flags.unified_docs_migrated_repos
+				})
+			}
+		})
+	}
+
+	return originalFetch(url)
+})
+
+
+global.__config = unflatten(await loadHashiConfigForEnvironment())

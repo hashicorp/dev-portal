@@ -62,5 +62,6 @@ function docsNavItemFromRootDocsPath(
 		icon: rootDocsPath.iconName,
 		label: rootDocsPath.name,
 		fullPath: `/${productSlug}/${rootDocsPath.path}`,
+		...(rootDocsPath.badge && { badge: rootDocsPath.badge }),
 	}
 }

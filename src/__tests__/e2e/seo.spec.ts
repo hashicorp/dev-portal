@@ -4,7 +4,25 @@
  */
 
 import { test, expect } from '@playwright/test'
-import { __config } from '@test/app-config'
+
+import { unflatten } from 'flat'
+import { loadHashiConfigForEnvironment } from '../../../config'
+
+interface DevDotConfig {
+	dev_dot: {
+		meta: {
+			title: string
+			description: string
+		}
+		canonical_base_url: string
+	}
+}
+
+let __config: DevDotConfig
+
+test.beforeAll(async () => {
+	__config = unflatten(await loadHashiConfigForEnvironment()) as DevDotConfig
+})
 
 test('should render the proper page title and description', async ({
 	page,
