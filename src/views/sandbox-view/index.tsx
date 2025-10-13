@@ -33,6 +33,7 @@ import {
 import ProductIcon from '@components/product-icon'
 import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import { SidebarProps } from '@components/sidebar'
+import posthog from 'posthog-js'
 
 interface SandboxPageProps {
 	product: (typeof PRODUCT_DATA_MAP)[keyof typeof PRODUCT_DATA_MAP]
@@ -50,8 +51,8 @@ const trackSandboxPageError = (
 	context?: Record<string, unknown>
 ) => {
 	// Track error in PostHog for production monitoring
-	if (typeof window !== 'undefined' && window.posthog?.capture) {
-		window.posthog.capture('sandbox_page_error', {
+	if (typeof window !== 'undefined' && posthog?.capture) {
+		posthog.capture('sandbox_page_error', {
 			error_type: errorType,
 			error_message: errorMessage,
 			timestamp: new Date().toISOString(),
