@@ -30,7 +30,7 @@ const TutorialCardsGridList = ({ tutorials, ...restProps }) => {
 		tutorialIds.push(tutorial.id)
 		cardsGridListItems.push(
 			<div className={s.sandboxCardBox} key={tutorial.id}>
-				<TutorialCardWithAuthElements {...tutorial} />
+				<TutorialCardWithAuthElements {...tutorial} hasBookmark={false} />
 			</div>
 		)
 	})
