@@ -8,17 +8,11 @@ import { render, screen, fireEvent, act } from '@testing-library/react'
 import { useRouter } from 'next/router'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
 import React, {
-	useState,
 	createContext,
 	useContext,
-	ReactNode,
 	Dispatch,
 	SetStateAction,
-	useEffect,
-	useCallback,
-	useMemo,
 } from 'react'
-import { validateSandboxConfigWithDetailedErrors } from 'lib/validate-sandbox-config'
 import InstruqtProvider from '../index'
 
 vi.mock('components/lab-embed/embed-element', () => ({
@@ -104,157 +98,154 @@ const InstruqtContext = createContext<InstruqtContextProps>({
 	configErrors: [],
 })
 
-const STORAGE_KEY = 'instruqt-lab-state'
+// 	const [labId, setLabId] = useState<string | null>(null)
+// 	const [active, setActive] = useState(false)
+// 	const [hasConfigError, setHasConfigError] = useState(false)
+// 	const [configErrors, setConfigErrors] = useState<string[]>([])
+// 	const router = useRouter()
 
-function TestInstruqtProvider({ children }: { children: ReactNode }) {
-	const [labId, setLabId] = useState<string | null>(null)
-	const [active, setActive] = useState(false)
-	const [hasConfigError, setHasConfigError] = useState(false)
-	const [configErrors, setConfigErrors] = useState<string[]>([])
-	const router = useRouter()
+// 	const SANDBOX_CONFIG = useMemo(
+// 		() => ({
+// 			products: ['test-product'],
+// 			labs: [
+// 				{
+// 					labId: 'test-lab-id',
+// 					title: 'Test Lab',
+// 					description:
+// 						'Test lab description that is long enough to pass validation',
+// 					products: ['test-product'],
+// 					instruqtTrack: 'hashicorp-learn/tracks/test-lab?token=em_test555',
+// 				},
+// 				{
+// 					labId: 'stored-lab-id',
+// 					title: 'Stored Lab',
+// 					description:
+// 						'Stored lab description that is long enough to pass validation',
+// 					products: ['test-product'],
+// 					instruqtTrack: 'hashicorp-learn/tracks/stored-lab?token=em_test666',
+// 				},
+// 				{
+// 					labId: 'close-test-lab-id',
+// 					title: 'Close Test Lab',
+// 					description:
+// 						'Close test lab description that is long enough to pass validation',
+// 					products: ['test-product'],
+// 					instruqtTrack:
+// 						'hashicorp-learn/tracks/close-test-lab?token=em_test777',
+// 				},
+// 			],
+// 		}),
+// 		[]
+// 	)
 
-	const SANDBOX_CONFIG = useMemo(
-		() => ({
-			products: ['test-product'],
-			labs: [
-				{
-					labId: 'test-lab-id',
-					title: 'Test Lab',
-					description:
-						'Test lab description that is long enough to pass validation',
-					products: ['test-product'],
-					instruqtTrack: 'hashicorp-learn/tracks/test-lab?token=em_test555',
-				},
-				{
-					labId: 'stored-lab-id',
-					title: 'Stored Lab',
-					description:
-						'Stored lab description that is long enough to pass validation',
-					products: ['test-product'],
-					instruqtTrack: 'hashicorp-learn/tracks/stored-lab?token=em_test666',
-				},
-				{
-					labId: 'close-test-lab-id',
-					title: 'Close Test Lab',
-					description:
-						'Close test lab description that is long enough to pass validation',
-					products: ['test-product'],
-					instruqtTrack:
-						'hashicorp-learn/tracks/close-test-lab?token=em_test777',
-				},
-			],
-		}),
-		[]
-	)
+// 	useEffect(() => {
+// 		const validation = validateSandboxConfigWithDetailedErrors(SANDBOX_CONFIG)
 
-	useEffect(() => {
-		const validation = validateSandboxConfigWithDetailedErrors(SANDBOX_CONFIG)
+// 		if (!validation.isValid) {
+// 			setHasConfigError(true)
+// 			setConfigErrors(validation.errors)
+// 		}
+// 	}, [SANDBOX_CONFIG])
 
-		if (!validation.isValid) {
-			setHasConfigError(true)
-			setConfigErrors(validation.errors)
-		}
-	}, [SANDBOX_CONFIG])
+// 	useEffect(() => {
+// 		try {
+// 			const stored = localStorage.getItem(STORAGE_KEY)
+// 			if (stored) {
+// 				const { active: storedActive, storedLabId } = JSON.parse(stored)
+// 				// Validate that the stored lab ID still exists in current configuration
+// 				if (storedLabId && !hasConfigError) {
+// 					const labExists = SANDBOX_CONFIG.labs?.some(
+// 						(lab) => lab.labId === storedLabId
+// 					)
+// 					if (labExists) {
+// 						setLabId(storedLabId)
+// 						setActive(storedActive)
+// 					} else {
+// 						localStorage.removeItem(STORAGE_KEY)
+// 					}
+// 				}
+// 			}
+// 		} catch {
+// 			try {
+// 				localStorage.removeItem(STORAGE_KEY)
+// 			} catch {
+// 				// Storage operations failed
+// 			}
+// 		}
+// 	}, [hasConfigError, SANDBOX_CONFIG])
 
-	useEffect(() => {
-		try {
-			const stored = localStorage.getItem(STORAGE_KEY)
-			if (stored) {
-				const { active: storedActive, storedLabId } = JSON.parse(stored)
-				// Validate that the stored lab ID still exists in current configuration
-				if (storedLabId && !hasConfigError) {
-					const labExists = SANDBOX_CONFIG.labs?.some(
-						(lab) => lab.labId === storedLabId
-					)
-					if (labExists) {
-						setLabId(storedLabId)
-						setActive(storedActive)
-					} else {
-						localStorage.removeItem(STORAGE_KEY)
-					}
-				}
-			}
-		} catch {
-			try {
-				localStorage.removeItem(STORAGE_KEY)
-			} catch {
-				// Storage operations failed
-			}
-		}
-	}, [hasConfigError, SANDBOX_CONFIG])
+// 	useEffect(() => {
+// 		if (!hasConfigError) {
+// 			try {
+// 				localStorage.setItem(
+// 					STORAGE_KEY,
+// 					JSON.stringify({
+// 						active,
+// 						storedLabId: labId,
+// 					})
+// 				)
+// 			} catch {
+// 				// Storage persistence failed
+// 			}
+// 		}
+// 	}, [active, labId, hasConfigError])
 
-	useEffect(() => {
-		if (!hasConfigError) {
-			try {
-				localStorage.setItem(
-					STORAGE_KEY,
-					JSON.stringify({
-						active,
-						storedLabId: labId,
-					})
-				)
-			} catch {
-				// Storage persistence failed
-			}
-		}
-	}, [active, labId, hasConfigError])
+// 	const openLab = useCallback(
+// 		(newLabId: string) => {
+// 			if (hasConfigError) {
+// 				return
+// 			}
 
-	const openLab = useCallback(
-		(newLabId: string) => {
-			if (hasConfigError) {
-				return
-			}
+// 			// Validate that the lab ID exists in current configuration
+// 			const labExists = SANDBOX_CONFIG.labs?.some((lab) => {
+// 				return lab.labId === newLabId
+// 			})
 
-			// Validate that the lab ID exists in current configuration
-			const labExists = SANDBOX_CONFIG.labs?.some((lab) => {
-				return lab.labId === newLabId
-			})
+// 			if (!labExists) {
+// 				return
+// 			}
 
-			if (!labExists) {
-				return
-			}
+// 			// Update state
+// 			if (newLabId !== labId || !active) {
+// 				setLabId(newLabId)
+// 				setActive(true)
 
-			// Update state
-			if (newLabId !== labId || !active) {
-				setLabId(newLabId)
-				setActive(true)
+// 				// Track sandbox open event immediately
+// 				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
+// 					labId: newLabId,
+// 					page: router.asPath,
+// 				})
+// 			}
+// 		},
+// 		[labId, active, hasConfigError, router.asPath, SANDBOX_CONFIG]
+// 	)
 
-				// Track sandbox open event immediately
-				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
-					labId: newLabId,
-					page: router.asPath,
-				})
-			}
-		},
-		[labId, active, hasConfigError, router.asPath, SANDBOX_CONFIG]
-	)
+// 	const closeLab = useCallback(() => {
+// 		if (active && labId) {
+// 			trackSandboxEvent(SANDBOX_EVENT.SANDBOX_CLOSED, {
+// 				labId,
+// 				page: router.asPath,
+// 			})
+// 		}
+// 		setActive(false)
+// 	}, [active, labId, router.asPath])
 
-	const closeLab = useCallback(() => {
-		if (active && labId) {
-			trackSandboxEvent(SANDBOX_EVENT.SANDBOX_CLOSED, {
-				labId,
-				page: router.asPath,
-			})
-		}
-		setActive(false)
-	}, [active, labId, router.asPath])
-
-	return (
-		<InstruqtContext.Provider
-			value={{
-				labId,
-				active,
-				setActive,
-				openLab,
-				closeLab,
-				hasConfigError,
-				configErrors,
-			}}
-		>
-			{children}
-		</InstruqtContext.Provider>
-	)
-}
+// 	return (
+// 		<InstruqtContext.Provider
+// 			value={{
+// 				labId,
+// 				active,
+// 				setActive,
+// 				openLab,
+// 				closeLab,
+// 				hasConfigError,
+// 				configErrors,
+// 			}}
+// 		>
+// 			{children}
+// 		</InstruqtContext.Provider>
+// 	)
+// }
 
 // Create a test version of the hook
 const useTestInstruqtEmbed = (): InstruqtContextProps =>
@@ -362,9 +353,9 @@ describe('InstruqtEmbed Context', () => {
 
 		await act(async () => {
 			render(
-				<TestInstruqtProvider>
+				<InstruqtProvider>
 					<TestComponent />
-				</TestInstruqtProvider>
+				</InstruqtProvider>
 			)
 		})
 
@@ -383,9 +374,9 @@ describe('InstruqtEmbed Context', () => {
 
 		await act(async () => {
 			render(
-				<TestInstruqtProvider>
+				<InstruqtProvider>
 					<TestComponent />
-				</TestInstruqtProvider>
+				</InstruqtProvider>
 			)
 		})
 
@@ -410,9 +401,9 @@ describe('InstruqtEmbed Context', () => {
 
 		await act(async () => {
 			render(
-				<TestInstruqtProvider>
+				<InstruqtProvider>
 					<TestComponent />
-				</TestInstruqtProvider>
+				</InstruqtProvider>
 			)
 		})
 
@@ -449,9 +440,9 @@ describe('InstruqtEmbed Context', () => {
 
 		await act(async () => {
 			render(
-				<TestInstruqtProvider>
+				<InstruqtProvider>
 					<TestComponent />
-				</TestInstruqtProvider>
+				</InstruqtProvider>
 			)
 		})
 

@@ -19,6 +19,7 @@ import { getSpeakableDuration } from './build-aria-label'
 export function TutorialCardWithAuthElements({
 	id: tutorialId,
 	collectionId,
+	hasBookmark = true,
 	BookmarkButtonComponent = TutorialCardBookmarkButton,
 	...restProps
 }: TutorialCardPropsWithId) {
@@ -58,9 +59,11 @@ export function TutorialCardWithAuthElements({
 					) : (
 						<CardEyebrowText>{restProps.duration}</CardEyebrowText>
 					)}
-					<BookmarkButtonComponent
-						tutorial={{ id: tutorialId, name: restProps.heading }}
-					/>
+					{hasBookmark && (
+						<BookmarkButtonComponent
+							tutorial={{ id: tutorialId, name: restProps.heading }}
+						/>
+					)}
 				</>
 			}
 		/>
