@@ -42,7 +42,7 @@ describe('loadHashiConfigByEnvironment', () => {
           "well-architected-framework",
           "terraform-enterprise",
           "sentinel",
-          "hcp-docs"
+          "hcp-docs",
         ],
         "foo": "bar",
       }
