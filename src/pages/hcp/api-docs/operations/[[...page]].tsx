@@ -33,8 +33,8 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	basePath: '/hcp/api-docs/operations',
 	githubSourceDirectory: {
 		owner: 'hashicorp',
-		repo: 'hcp-specs',
-		path: 'specs/cloud-operation',
+		repo: 'web-unified-docs',
+		path: 'content/hcp-docs/specs/cloud-operation',
 		ref: 'main',
 	},
 	groupOperationsByPath: true,

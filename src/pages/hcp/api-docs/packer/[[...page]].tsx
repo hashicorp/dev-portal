@@ -35,8 +35,8 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	serviceProductSlug: 'packer',
 	githubSourceDirectory: {
 		owner: 'hashicorp',
-		repo: 'hcp-specs',
-		path: 'specs/cloud-packer-service',
+		repo: 'web-unified-docs',
+		path: 'content/hcp-docs/specs/cloud-packer-service',
 		ref: 'main',
 	},
 	statusIndicatorConfig: {

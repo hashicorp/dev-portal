@@ -34,8 +34,8 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	basePath: '/hcp/api-docs/vagrant-box-registry',
 	githubSourceDirectory: {
 		owner: 'hashicorp',
-		repo: 'hcp-specs',
-		path: 'specs/cloud-vagrant-box-registry',
+		repo: 'web-unified-docs',
+		path: 'content/hcp-docs/specs/cloud-vagrant-box-registry',
 		ref: 'main',
 	},
 	groupOperationsByPath: true,
