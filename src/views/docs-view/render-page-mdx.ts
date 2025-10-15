@@ -10,6 +10,7 @@ import { Pluggable } from 'unified'
 import grayMatter from 'gray-matter'
 
 import { remarkRewriteAssets } from 'lib/remark-plugins/remark-rewrite-assets'
+import { rehypeCheckCodeElements } from 'lib/rehype-plugins/rehype-check-code-element'
 
 interface Options {
 	mdxContentHook?: (content: string, scope: Options['scope']) => string
@@ -46,6 +47,9 @@ async function renderPageMdx(
 		)
 	}
 
+	const finalRehypePlugins = rehypePlugins
+	rehypePlugins.push(rehypeCheckCodeElements)
+
 	return await trace
 		.getTracer('docs-view')
 		.startActiveSpan('renderPageMdx', async (span) => {
@@ -56,10 +60,11 @@ async function renderPageMdx(
 				const mdxSource = await serialize(content, {
 					mdxOptions: {
 						remarkPlugins: finalRemarkPlugins,
-						rehypePlugins,
+						rehypePlugins: finalRehypePlugins,
 					},
 					scope,
 				})
+
 				return { mdxSource, frontMatter }
 			} finally {
 				span.end()
