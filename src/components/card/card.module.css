@@ -9,7 +9,7 @@
 
 	background-color: var(--token-color-surface-primary);
 	border-radius: var(--card-border-radius);
-	padding: 16px;
+	padding: 8px;
 	width: 100%;
 
 	@nest html[data-theme='dark'] & {
