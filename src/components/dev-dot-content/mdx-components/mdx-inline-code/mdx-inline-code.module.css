@@ -26,5 +26,5 @@
 .tableCellSolelyInlineCode {
 	max-width: 30ch;
 	word-wrap: break-word;
-	display: block;
+	display: inline-block;
 }
