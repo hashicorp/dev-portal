@@ -15,11 +15,8 @@ import { Element } from 'hast'
 const rehypeCheckCodeElements: Plugin = (): Transformer => {
 	function addClassName(node: Element, className: string) {
 		if (!className) return
-		// ensure .properties exists so callers can set arbitrary metadata
 		if (!node.properties) node.properties = {}
 
-		// Normalize and append className in a safe way. Convert any incoming
-		// values to strings to satisfy the `Properties` types and avoid `any`.
 		const existingClassName = node.properties && node.properties.className
 		if (existingClassName && Array.isArray(existingClassName)) {
 			node.properties.className = [...existingClassName, className]
@@ -32,14 +29,22 @@ const rehypeCheckCodeElements: Plugin = (): Transformer => {
 		visit(tree, 'element', (node: Element) => {
 			const tag = (node.tagName || '').toLowerCase()
 
-			if (tag !== 'inlinecode') {
+			if (tag !== 'td') {
 				return
 			}
 
-			// eslint-disable-next-line no-console
-			console.log("it's a rehype code element", node.properties)
+			if (node.children.length !== 1) {
+				return
+			}
 
-			addClassName(node, 'my-code-class')
+			const firstChild = node.children[0] as Element
+
+			if (
+				firstChild.tagName &&
+				firstChild.tagName.toLowerCase() === 'inlinecode'
+			) {
+				addClassName(firstChild, 'tableCellSolelyInlineCode')
+			}
 		})
 	}
 }

@@ -22,3 +22,9 @@
 .size-200 {
 	composes: hds-typography-code-200 from global;
 }
+
+.tableCellSolelyInlineCode {
+	max-width: 30ch;
+	word-wrap: break-word;
+	display: block;
+}
