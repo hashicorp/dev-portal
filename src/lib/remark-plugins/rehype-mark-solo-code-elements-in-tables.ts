@@ -7,12 +7,7 @@ import { Plugin, Transformer } from 'unified'
 import { visit } from 'unist-util-visit'
 import { Element } from 'hast'
 
-/**
- * A tiny rehype plugin used for debugging that logs whenever a `code`
- * element is encountered in the hast tree. It mirrors the behavior of the
- * remark plugin `remark-check-code-element.ts` but operates on HTML nodes.
- */
-const rehypeCheckCodeElements: Plugin = (): Transformer => {
+const rehypeMarkSoloCodeElementsInTables: Plugin = (): Transformer => {
 	function addClassName(node: Element, className: string) {
 		if (!className) return
 		if (!node.properties) node.properties = {}
@@ -49,4 +44,4 @@ const rehypeCheckCodeElements: Plugin = (): Transformer => {
 	}
 }
 
-export { rehypeCheckCodeElements }
+export { rehypeMarkSoloCodeElementsInTables }

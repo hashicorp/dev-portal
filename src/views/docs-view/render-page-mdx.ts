@@ -10,7 +10,7 @@ import { Pluggable } from 'unified'
 import grayMatter from 'gray-matter'
 
 import { remarkRewriteAssets } from 'lib/remark-plugins/remark-rewrite-assets'
-import { rehypeCheckCodeElements } from 'lib/rehype-plugins/rehype-check-code-element'
+import { rehypeMarkSoloCodeElementsInTables } from 'lib/remark-plugins/rehype-mark-solo-code-elements-in-tables'
 
 interface Options {
 	mdxContentHook?: (content: string, scope: Options['scope']) => string
@@ -48,7 +48,7 @@ async function renderPageMdx(
 	}
 
 	const finalRehypePlugins = rehypePlugins
-	rehypePlugins.push(rehypeCheckCodeElements)
+	rehypePlugins.push(rehypeMarkSoloCodeElementsInTables)
 
 	return await trace
 		.getTracer('docs-view')
