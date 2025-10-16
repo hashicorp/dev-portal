@@ -15,6 +15,8 @@ import {
 	CardBadges,
 	CardBadgeOption,
 } from 'components/tutorial-collection-cards'
+import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
+import Badge from 'components/badge'
 import {
 	buildAriaLabel,
 	getSpeakableDuration,
@@ -41,9 +43,6 @@ export function TutorialCard({
 	 * Note: may be empty.
 	 */
 	const badges: CardBadgeOption[] = [...productsUsed]
-	if (hasInteractiveLab) {
-		badges.push('interactive')
-	}
 	if (hasVideo) {
 		badges.push('video')
 	}
@@ -62,6 +61,14 @@ export function TutorialCard({
 			<div className={s.root}>
 				<div>
 					<CardEyebrow className={s.eyebrow}>
+						{hasInteractiveLab && (
+							<Badge
+								ariaLabel="Interactive"
+								icon={<IconTerminalScreen16 />}
+								size="small"
+								className={s.interactiveEyebrowBadge}
+							/>
+						)}
 						{eyebrowSlot || <CardEyebrowText>{duration}</CardEyebrowText>}
 					</CardEyebrow>
 					<CardTitle text={heading} />
