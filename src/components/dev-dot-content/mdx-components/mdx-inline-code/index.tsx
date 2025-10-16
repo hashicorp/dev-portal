@@ -18,10 +18,19 @@ function MdxInlineCode({
 	size = 200,
 	...restProps
 }: MdxInlineCodeProps) {
+	// Required for Dynamic CSS Modules classNames, as bare classNames are global styles
+	const classNamesToCSSModuleNameIfExists = (className?.split(' ') || []).map(
+		(cls) => (s[cls] ? s[cls] : cls)
+	)
+
 	return (
 		<code
 			{...restProps}
-			className={classNames(s.inlineCode, s[`size-${size}`], className)}
+			className={classNames(
+				s.inlineCode,
+				s[`size-${size}`],
+				...classNamesToCSSModuleNameIfExists
+			)}
 		/>
 	)
 }

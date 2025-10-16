@@ -10,6 +10,7 @@ import { Pluggable } from 'unified'
 import grayMatter from 'gray-matter'
 
 import { remarkRewriteAssets } from 'lib/remark-plugins/remark-rewrite-assets'
+import { rehypeMarkSoloCodeElementsInTables } from 'lib/remark-plugins/rehype-mark-solo-code-elements-in-tables'
 
 interface Options {
 	mdxContentHook?: (content: string, scope: Options['scope']) => string
@@ -46,6 +47,9 @@ async function renderPageMdx(
 		)
 	}
 
+	const finalRehypePlugins = rehypePlugins
+	rehypePlugins.push(rehypeMarkSoloCodeElementsInTables)
+
 	return await trace
 		.getTracer('docs-view')
 		.startActiveSpan('renderPageMdx', async (span) => {
@@ -56,10 +60,11 @@ async function renderPageMdx(
 				const mdxSource = await serialize(content, {
 					mdxOptions: {
 						remarkPlugins: finalRemarkPlugins,
-						rehypePlugins,
+						rehypePlugins: finalRehypePlugins,
 					},
 					scope,
 				})
+
 				return { mdxSource, frontMatter }
 			} finally {
 				span.end()
