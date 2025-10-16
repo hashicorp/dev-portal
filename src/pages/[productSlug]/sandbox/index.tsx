@@ -28,7 +28,6 @@ const trackSandboxPageError = (
 	errorMessage: string,
 	context?: Record<string, unknown>
 ) => {
-	// Track error in PostHog for production monitoring
 	if (typeof window !== 'undefined' && posthog?.capture) {
 		posthog.capture('sandbox_page_error', {
 			error_type: errorType,
