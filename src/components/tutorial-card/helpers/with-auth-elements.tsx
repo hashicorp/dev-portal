@@ -22,7 +22,10 @@ export function TutorialCardWithAuthElements({
 	hasBookmark = true,
 	BookmarkButtonComponent = TutorialCardBookmarkButton,
 	...restProps
-}: TutorialCardPropsWithId) {
+}: TutorialCardPropsWithId & {
+	hasBookmark?: boolean
+	BookmarkButtonComponent?: typeof TutorialCardBookmarkButton
+}) {
 	/**
 	 * Get tutorial progress. Will be undefined if not authenticated.
 	 * Note as well that useTutorialProgress depends on AUTH_ENABLED.
