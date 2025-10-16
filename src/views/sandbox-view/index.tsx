@@ -13,7 +13,7 @@ import { toast, ToastColor } from 'components/toast'
 import CardsGridList, {
 	TutorialCardsGridList,
 } from 'components/cards-grid-list'
-import { ProductSlug } from 'types/products'
+import SandboxCard from 'components/sandbox-card'
 import { SandboxLab } from 'types/sandbox'
 import { ProductOption } from 'lib/learn-client/types'
 import { BrandedHeaderCard } from 'views/product-integrations-landing/components/branded-header-card'
@@ -23,14 +23,6 @@ import Tabs, { Tab } from 'components/tabs'
 import { ErrorBoundary } from 'react-error-boundary'
 import s from './sandbox-view.module.css'
 import docsViewStyles from 'views/docs-view/docs-view.module.css'
-import ButtonLink from '@components/button-link'
-import Card from '@components/card'
-import {
-	CardTitle,
-	CardDescription,
-	CardFooter,
-} from '@components/card/components'
-import ProductIcon from '@components/product-icon'
 import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import { SidebarProps } from '@components/sidebar'
 import posthog from 'posthog-js'
@@ -311,43 +303,17 @@ export const SandboxView = ({
 
 			{availableSandboxes.length > 0 ? (
 				<>
-					<CardsGridList>
+					<CardsGridList gridGap="8px">
 						{availableSandboxes.map((lab) => {
 							return (
-								<div key={`sandbox-${lab.labId}`}>
-									<div className={s.sandboxCard}>
-										<Card className={s.card}>
-											<div className={s.cardHeader}>
-												<CardTitle text={lab.title} />
-												<div className={s.productIcons}>
-													{lab.products.map((productSlug) => (
-														<ProductIcon
-															key={`product-${lab.labId}-${productSlug}`}
-															productSlug={productSlug as ProductSlug}
-															size={16}
-															className={s.productIcon}
-														/>
-													))}
-												</div>
-											</div>
-											<CardDescription text={lab.description} />
-											<CardFooter>
-												<ButtonLink
-													href="#"
-													className={s.launchButton}
-													aria-label="Launches the Sandbox"
-													onClick={(e) => {
-														e.preventDefault()
-														e.stopPropagation()
-														handleLabClick(lab)
-													}}
-													size="medium"
-													text="Launch Sandbox"
-												/>
-											</CardFooter>
-										</Card>
-									</div>
-								</div>
+								<SandboxCard
+									key={`sandbox-${lab.labId}`}
+									title={lab.title}
+									description={lab.description}
+									labId={lab.labId}
+									products={lab.products}
+									onLaunch={() => handleLabClick(lab)}
+								/>
 							)
 						})}
 					</CardsGridList>
@@ -393,6 +359,8 @@ export const SandboxView = ({
 						)}
 					>
 						<TutorialCardsGridList
+							compact={true}
+							gridGap="8px"
 							fixedColumns={2}
 							tutorials={otherSandboxes.map((lab) => {
 								const isSameProduct = lab.products[0] === product.slug

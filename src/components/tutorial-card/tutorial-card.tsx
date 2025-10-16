@@ -57,7 +57,7 @@ export function TutorialCard({
 	})
 
 	return (
-		<CardLink ariaLabel={ariaLabel} href={url}>
+		<CardLink ariaLabel={ariaLabel} href={url} className={s.tutorialCard}>
 			<div className={s.root}>
 				<div>
 					<CardEyebrow className={s.eyebrow}>

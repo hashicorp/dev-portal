@@ -3,11 +3,14 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+.tutorialCard {
+	padding: 16px !important;
+}
+
 .root {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	padding: 8px;
 }
 
 .eyebrow {
@@ -22,10 +25,10 @@
 
 .interactiveText {
 	font-size: 14px;
-	color: var(--token-color-foreground, #222);
+	color: #222;
 }
 
 .interactiveEyebrowBadge {
-	margin-right: 6px;
-	background: transparent !important;
+	background: transparent;
+	padding-left: 0 !important;
 }

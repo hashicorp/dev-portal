@@ -10,35 +10,34 @@ import {
 	TutorialCardWithAuthElements,
 } from 'components/tutorial-card'
 import s from './tutorial-cards.module.css'
+import compactStyles from 'components/tutorial-card/tutorial-card-compact.module.css'
 
 interface TutorialCardsGridListProps extends CardsGridListProps {
 	tutorials: TutorialCardPropsWithId[]
+	compact?: boolean
 }
 
-/**
- * Handles rendering a grid of Tutorial cards, and pre-fetching the
- * `isBookmarked` state for each card.
- */
-const TutorialCardsGridList = ({ tutorials, ...restProps }) => {
-	/**
-	 * Collect the `tutorialIds` and React elements to render in separate arrays
-	 * at the same time (to save on iterating over the same data twice).
-	 */
+const TutorialCardsGridList = ({
+	tutorials,
+	compact = false,
+	...restProps
+}) => {
 	const tutorialIds = []
 	const cardsGridListItems = []
 	tutorials.forEach((tutorial: TutorialCardPropsWithId) => {
 		tutorialIds.push(tutorial.id)
 		cardsGridListItems.push(
-			<div className={s.sandboxCardBox} key={tutorial.id}>
+			<div
+				className={`${s.tutorialCardBox} ${
+					compact ? compactStyles.compactTutorialCard : ''
+				}`}
+				key={tutorial.id}
+			>
 				<TutorialCardWithAuthElements {...tutorial} hasBookmark={false} />
 			</div>
 		)
 	})
 
-	/**
-	 * Prime the `isBookmarked` queries for the tutorial cards we know we need to
-	 * render via collected `tutorialIds` array.
-	 */
 	const { isFetching, isRefetching } = useBookmarksByTutorialIds({
 		tutorialIds,
 	})

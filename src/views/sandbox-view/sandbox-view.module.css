@@ -56,33 +56,6 @@
 	padding-top: 24px;
 }
 
-.sandboxCard {
-	cursor: pointer;
-	transition: transform 0.2s ease, box-shadow 0.2s ease;
-	max-width: 420px;
-	width: 100%;
-	height: 100%;
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: column;
-	&:hover {
-		transform: translateY(-2px);
-		box-shadow: var(--token-elevation-high-box-shadow);
-	}
-
-	@media (max-width: 900px) {
-		max-width: 100%;
-		width: 100%;
-	}
-}
-
-.card {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-}
-
 .otherSandboxCard {
 	cursor: pointer;
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -138,20 +111,6 @@
 
 .sandboxGrid {
 	margin: var(--token-typography-display-m-tablet-margin-top) 0;
-}
-
-.sandboxCardBox {
-	min-height: 100px;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-}
-
-.sandboxGrid :global([class*='card-link_root__']) {
-	height: 100%;
-	min-height: 200px;
-	display: flex;
-	flex-direction: column;
 }
 
 .errorMessage {
