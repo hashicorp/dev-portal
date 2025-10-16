@@ -36,8 +36,8 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	serviceProductSlug: 'consul',
 	githubSourceDirectory: {
 		owner: 'hashicorp',
-		repo: 'hcp-specs',
-		path: 'specs/cloud-global-network-manager-service',
+		repo: 'web-unified-docs',
+		path: 'content/hcp-docs/specs/cloud-global-network-manager-service',
 		ref: 'main',
 	},
 	statusIndicatorConfig: {

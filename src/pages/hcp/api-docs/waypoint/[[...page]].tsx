@@ -30,8 +30,8 @@ const PAGE_CONFIG: OpenApiDocsPageConfig = {
 	basePath: '/hcp/api-docs/waypoint',
 	githubSourceDirectory: {
 		owner: 'hashicorp',
-		repo: 'hcp-specs',
-		path: 'specs/cloud-waypoint-service',
+		repo: 'web-unified-docs',
+		path: 'content/hcp-docs/specs/cloud-waypoint-service',
 		ref: 'main',
 	},
 	groupOperationsByPath: true,
