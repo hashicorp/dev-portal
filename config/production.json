@@ -32,7 +32,8 @@
 			"ptfe-releases",
 			"well-architected-framework",
 			"terraform-enterprise",
-			"sentinel"
+			"sentinel",
+			"hcp-docs"
 		]
 	}
 }
