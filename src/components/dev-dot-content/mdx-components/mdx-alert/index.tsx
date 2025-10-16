@@ -11,6 +11,7 @@ import { IconAlertDiamond24 } from '@hashicorp/flight-icons/svg-react/alert-diam
 import { MdxHighlight, MdxTip, MdxNote, MdxWarning } from './variants'
 import { MdxInlineAlertData, MdxInlineAlertProps } from './types'
 import s from './mdx-inline-alert.module.css'
+import posthog from 'posthog-js'
 
 const ALERT_DATA: MdxInlineAlertData = {
 	tip: { title: 'Tip', icon: <IconInfo24 />, color: 'neutral' },
@@ -73,8 +74,8 @@ export const MdxInlineAlert = withErrorBoundary(
 	MdxInlineAlertBase,
 	AlertErrorFallback,
 	(error, errorInfo) => {
-		if (typeof window !== 'undefined' && window.posthog?.capture) {
-			window.posthog.capture('mdx_component_error', {
+		if (typeof window !== 'undefined' && posthog?.capture) {
+			posthog.capture('mdx_component_error', {
 				component_name: 'MdxInlineAlert',
 				error_message: error.message,
 				error_stack: error.stack,

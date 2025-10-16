@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+import posthog from 'posthog-js'
 import { SandboxLab } from 'types/sandbox'
 
 interface InstruqtTokens {
@@ -23,9 +24,8 @@ const trackInstruqtUrlError = (
 	errorMessage: string,
 	context?: Record<string, unknown>
 ) => {
-	// Track error in PostHog for production monitoring
-	if (typeof window !== 'undefined' && window.posthog?.capture) {
-		window.posthog.capture('instruqt_url_build_error', {
+	if (typeof window !== 'undefined' && posthog?.capture) {
+		posthog.capture('instruqt_url_build_error', {
 			error_type: errorType,
 			error_message: errorMessage,
 			timestamp: new Date().toISOString(),
