@@ -15,7 +15,7 @@ export default class MyDocument extends Document {
 		return (
 			<Html lang="en">
 				<Head></Head>
-				<body>
+				<body className="mds-fonts">
 					<Main />
 					<NextScript />
 					<script
