@@ -206,12 +206,12 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 						<div className={s.introSandboxRow}>
 							<ProductIcon
 								productSlug={currentProduct.slug as ProductSlug}
-								size={24}
+								size={16}
 								className={s.productIcon}
 							/>
 							<Text
 								asElement="span"
-								className={`${s.sectionTitle} ${s.introSandboxTitle}`}
+								className={`${s.sectionTitle} ${s.introSandboxTitle} ${s.title}`}
 								size={200}
 								weight="semibold"
 							>
@@ -220,7 +220,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 						</div>
 						<Text
 							asElement="span"
-							className={`${s.introText} ${s.introSandboxText}`}
+							className={`${s.introText} ${s.introSandboxText} ${s.description}`}
 							size={100}
 							weight="regular"
 						>
