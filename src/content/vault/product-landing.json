@@ -41,7 +41,7 @@
          "cards": [
             {
                "heading": "Vault Sandbox",
-               "body": "This sandbox contains preinstalled tools and services for you to experiment with Vault.",
+               "body": "The Vault sandbox contains preinstalled tools and services for you to experiment with Vault.",
                "url": "/vault/sandbox"
             }
          ]
