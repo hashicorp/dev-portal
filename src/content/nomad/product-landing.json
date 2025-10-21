@@ -36,8 +36,8 @@
          "type": "linked_cards",
          "cards": [
             {
-               "heading": "Nomad Sandbox",
-               "body": "This sandbox contains preinstalled tools and services for you to experiment with Nomad.",
+               "heading": "Nomad sandbox",
+               "body": "The Nomad sandbox contains preinstalled tools and services for you to experiment with Nomad.",
                "url": "/nomad/sandbox"
             }
          ]

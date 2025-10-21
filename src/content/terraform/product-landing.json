@@ -62,8 +62,8 @@
          "type": "linked_cards",
          "cards": [
             {
-               "heading": "Terraform Sandbox",
-               "body": "This sandbox contains preinstalled tools and services for you to experiment with Terraform.",
+               "heading": "Terraform sandbox",
+               "body": "The Terraform sandbox contains preinstalled tools and services for you to experiment with Terraform.",
                "url": "/terraform/sandbox"
             }
          ]

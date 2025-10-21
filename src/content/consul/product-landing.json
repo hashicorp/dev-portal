@@ -47,8 +47,8 @@
          "type": "linked_cards",
          "cards": [
             {
-               "heading": "Consul Sandbox",
-               "body": "This sandbox contains preinstalled tools and services for you to experiment with Consul.",
+               "heading": "Consul sandbox",
+               "body": "The Consul sandbox contains preinstalled tools and services for you to experiment with Consul.",
                "url": "/consul/sandbox"
             }
          ]

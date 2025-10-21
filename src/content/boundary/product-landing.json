@@ -73,8 +73,8 @@
          "type": "linked_cards",
          "cards": [
             {
-               "heading": "Boundary Sandbox",
-               "body": "This sandbox contains preinstalled tools and services for you to experiment with Boundary.",
+               "heading": "Boundary sandbox",
+               "body": "The Boundary sandbox contains preinstalled tools and services for you to experiment with Boundary.",
                "url": "/boundary/sandbox"
             }
          ]
