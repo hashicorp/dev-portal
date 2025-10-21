@@ -40,7 +40,7 @@
          "type": "linked_cards",
          "cards": [
             {
-               "heading": "Vault Sandbox",
+               "heading": "Vault sandbox",
                "body": "The Vault sandbox contains preinstalled tools and services for you to experiment with Vault.",
                "url": "/vault/sandbox"
             }
