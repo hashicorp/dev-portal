@@ -37,19 +37,22 @@
 		]
 	},
 	"blocks": [
-		{
-			"type": "heading",
-			"heading": "Consul Sandbox",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": [
-				"consul/sandbox",
-				"consul/sandbox-sd"
-			]
-		},
+      {
+         "type": "heading",
+         "heading": "Sandbox",
+         "level": 2,
+         "size": 400
+      },
+      {
+         "type": "linked_cards",
+         "cards": [
+            {
+               "heading": "Consul Sandbox",
+               "body": "This sandbox contains preinstalled tools and services for you to experiment with Consul.",
+               "url": "/consul/sandbox"
+            }
+         ]
+      },
 		{
 			"type": "heading",
 			"heading": "Introduction to Consul: Architecture and Concepts",

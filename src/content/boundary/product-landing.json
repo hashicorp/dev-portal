@@ -63,18 +63,22 @@
 				}
 			]
 		},
-		{
-			"type": "heading",
-			"heading": "Boundary Sandbox",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": [
-				"boundary/sandbox"
-			]
-		},
+      {
+         "type": "heading",
+         "heading": "Sandbox",
+         "level": 2,
+         "size": 400
+      },
+      {
+         "type": "linked_cards",
+         "cards": [
+            {
+               "heading": "Boundary Sandbox",
+               "body": "This sandbox contains preinstalled tools and services for you to experiment with Boundary.",
+               "url": "/boundary/sandbox"
+            }
+         ]
+      },
 		{
 			"type": "heading",
 			"heading": "Popular Tutorials",
