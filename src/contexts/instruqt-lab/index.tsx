@@ -283,12 +283,11 @@ function InstruqtProvider({
 				return
 			}
 
-			if (newLabId !== labId || !active) {
+			if (newLabId !== labId) {
 				setLabId(newLabId)
-				setActive(true)
 			}
 		},
-		[labId, active, hasConfigError, configErrors]
+		[labId, hasConfigError, configErrors]
 	)
 
 	const closeLab = useCallback(() => {
