@@ -57,6 +57,7 @@ import {
 	VariantDropdownDisclosure,
 } from './components'
 import s from './tutorial-view.module.css'
+import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
 
 /**
  * The purpose of this wrapper component is to make it possible to invoke the
@@ -122,10 +123,10 @@ function TutorialView({
 }: TutorialViewProps): React.ReactElement {
 	// hooks
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
-	const [, setCollectionViewSidebarSections] = useState<CollectionCategorySidebarSection[]>(null)
+	const [, setCollectionViewSidebarSections] =
+		useState<CollectionCategorySidebarSection[]>(null)
 	const { openLab, closeLab, setActive } = useInstruqtEmbed()
 
-	// variables
 	const {
 		id,
 		slug,
@@ -137,11 +138,25 @@ function TutorialView({
 		video,
 		collectionCtx,
 	} = tutorial
+
+	let effectiveHandsOnLab = handsOnLab
+	if (handsOnLab && !handsOnLab.id && product?.slug) {
+		const matchingLab = SANDBOX_CONFIG.labs?.find((lab) =>
+			lab.products.includes(product.slug)
+		)
+		if (matchingLab) {
+			effectiveHandsOnLab = {
+				...handsOnLab,
+				id: matchingLab.instruqtTrack,
+			}
+		}
+	}
+
 	const featuredInWithoutCurrent = collectionCtx.featuredIn?.filter(
 		(c) => c.id !== collectionCtx.current.id
 	)
 	const hasVideo = Boolean(video)
-	const isInteractive = Boolean(handsOnLab)
+	const isInteractive = Boolean(effectiveHandsOnLab)
 	const nextPreviousData = getNextPrevious({
 		currentCollection: collectionCtx.current,
 		currentTutorialSlug: slug,
@@ -227,31 +242,25 @@ function TutorialView({
 		collectionTutorialIds,
 	})
 
-	// Handle lab opening/closing when tutorial changes
 	useEffect(() => {
-		if (isInteractive && handsOnLab?.id) {
+		if (isInteractive && effectiveHandsOnLab?.id) {
 			try {
-				// Get the current lab state
 				const storedState = localStorage.getItem('instruqt-lab-state')
 				const currentState = storedState ? JSON.parse(storedState) : null
 
-				// If we're loading a different lab, or there's no current lab
 				if (
 					!currentState?.storedLabId ||
-					currentState.storedLabId !== handsOnLab.id
+					currentState.storedLabId !== effectiveHandsOnLab.id
 				) {
-					openLab(handsOnLab.id)
+					openLab(effectiveHandsOnLab.id)
 				}
-				// If it's the same lab, do nothing to preserve the user's open/closed preference
 			} catch (e) {
 				console.warn('Failed to handle lab state:', e)
 			}
 		} else if (!isInteractive) {
-			// Only close the lab if this tutorial is not interactive
-			// This prevents closing the lab when navigating between pages
 			closeLab()
 		}
-	}, [isInteractive, handsOnLab, openLab, closeLab, setActive])
+	}, [isInteractive, effectiveHandsOnLab, openLab, closeLab, setActive])
 
 	return (
 		<>
@@ -265,13 +274,6 @@ function TutorialView({
 			<VariantProvider variant={metadata.variant}>
 				<SidebarSidecarLayout
 					breadcrumbLinks={layoutProps.breadcrumbLinks}
-					/**
-					 * @TODO remove casting to `any`. Will require refactoring both
-					 * `generateTopLevelSidebarNavData` and
-					 * `generateProductLandingSidebarNavData` to set up `menuItems` with
-					 * the correct types. This will require changing many files, so
-					 * deferring for a follow-up PR since this is functional for the time being.
-					 */
 					sidebarNavDataLevels={sidebarNavDataLevels}
 					showScrollProgress={true}
 					AlternateSidebar={TutorialsSidebar}
