@@ -33,7 +33,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const uniqueId = useId()
 	const router = useRouter()
 	const currentProduct = useCurrentProduct()
-	const { openLab } = useInstruqtEmbed()
+	const { openLab, setActive } = useInstruqtEmbed()
 	const menuRef = useRef<HTMLDivElement>()
 	const activatorButtonRef = useRef<HTMLButtonElement>()
 	const [isOpen, setIsOpen] = useState(false)
@@ -132,6 +132,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		}
 		const fullLabId = buildLabIdWithConfig(labWithTrack)
 		openLab(fullLabId)
+		setActive(true)
 		trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
 			labId: fullLabId,
 			page: router.asPath,

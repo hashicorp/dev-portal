@@ -43,6 +43,7 @@ describe('SandboxDropdown', () => {
 
 		mockUseInstruqtEmbed.mockImplementation(() => ({
 			openLab: vi.fn(),
+			setActive: vi.fn(),
 		}))
 	})
 
@@ -114,8 +115,10 @@ describe('SandboxDropdown', () => {
 
 	it('opens lab when clicking a sandbox item', () => {
 		const mockOpenLab = vi.fn()
+		const mockSetActive = vi.fn()
 		mockUseInstruqtEmbed.mockImplementation(() => ({
 			openLab: mockOpenLab,
+			setActive: mockSetActive,
 		}))
 
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
@@ -134,8 +137,10 @@ describe('SandboxDropdown', () => {
 
 	it('tracks sandbox events when opening labs', () => {
 		const mockOpenLab = vi.fn()
+		const mockSetActive = vi.fn()
 		mockUseInstruqtEmbed.mockImplementation(() => ({
 			openLab: mockOpenLab,
+			setActive: mockSetActive,
 		}))
 
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)

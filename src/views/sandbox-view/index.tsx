@@ -72,7 +72,7 @@ export const SandboxView = ({
 	otherSandboxes,
 }: SandboxPageProps) => {
 	const router = useRouter()
-	const { openLab, hasConfigError } = useInstruqtEmbed()
+	const { openLab, setActive, hasConfigError } = useInstruqtEmbed()
 	const docsMdxComponents = getDocsMdxComponents(product.slug)
 
 	const handleLabClick = useCallback(
@@ -155,6 +155,8 @@ export const SandboxView = ({
 				}
 
 				openLab(embedLabId)
+				setActive(true)
+
 				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
 					labId: lab.labId,
 					page: `/${product.slug}/sandbox`,
@@ -180,7 +182,7 @@ export const SandboxView = ({
 				})
 			}
 		},
-		[openLab, hasConfigError, product.slug, router]
+		[openLab, setActive, hasConfigError, product.slug, router]
 	)
 
 	useEffect(() => {
