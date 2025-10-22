@@ -28,6 +28,19 @@ const InteractiveLabCallout: FC<InteractiveLabCalloutProps> = ({ labId }) => {
 		}
 	}
 
+	if (!effectiveLabId && SANDBOX_CONFIG?.labs?.length > 0) {
+		effectiveLabId = SANDBOX_CONFIG.labs[0].instruqtTrack
+	}
+
+	const handleStartLab = () => {
+		if (effectiveLabId) {
+			ctx.openLab(effectiveLabId)
+			ctx.setActive(true)
+		} else {
+			ctx.setActive(true)
+		}
+	}
+
 	return (
 		<Card className={s.interactiveCallout} elevation="base">
 			<div>
@@ -40,7 +53,7 @@ const InteractiveLabCallout: FC<InteractiveLabCalloutProps> = ({ labId }) => {
 					<Button
 						color="secondary"
 						text="Start interactive lab"
-						onClick={() => ctx.setActive(true)}
+						onClick={handleStartLab}
 						size="small"
 					/>
 				</div>
