@@ -8,7 +8,7 @@
 }
 
 .sandboxCard {
-	padding: 12px;
+	padding: 18px;
 }
 
 .cardHeader {
@@ -30,11 +30,11 @@
 }
 
 .description {
-	margin-top: 3px;
+	margin-top: 4px;
 }
 
 .footer {
-	margin-top: 12px;
+	margin-top: 16px;
 	margin-bottom: 0;
 }
 
