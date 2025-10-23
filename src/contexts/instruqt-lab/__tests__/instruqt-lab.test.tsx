@@ -4,10 +4,10 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
 import React from 'react'
-import InstruqtProvider, { useInstruqtEmbed } from '../index'
+import { InstruqtProvider, useInstruqtEmbed } from '../index'
 
 vi.mock('components/lab-embed/embed-element', () => ({
 	default: () => null,
@@ -163,28 +163,40 @@ describe('InstruqtEmbed Context', () => {
 
 	it('persists state changes to localStorage', async () => {
 		const TestComponent = () => {
-			const { openLab } = useInstruqtEmbed()
-			return <button onClick={() => openLab('test-lab-id')}>Open Lab</button>
+			const { openLab, labId, active } = useInstruqtEmbed()
+			return (
+				<>
+					<button onClick={() => openLab('test-lab-id')}>Open Lab</button>
+					<div data-testid="lab-id">{labId || 'no-lab'}</div>
+					<div data-testid="active">{active ? 'true' : 'false'}</div>
+				</>
+			)
 		}
 
-		await act(async () => {
-			render(
-				<InstruqtProvider>
-					<TestComponent />
-				</InstruqtProvider>
-			)
+		render(
+			<InstruqtProvider>
+				<TestComponent />
+			</InstruqtProvider>
+		)
+
+		fireEvent.click(screen.getByText('Open Lab'))
+
+		await waitFor(() => {
+			expect(screen.getByTestId('lab-id')).toHaveTextContent('test-lab-id')
+			expect(screen.getByTestId('active')).toHaveTextContent('true')
 		})
 
-		await act(async () => {
-			fireEvent.click(await screen.findByText('Open Lab'))
-		})
-
-		expect(setItemSpy).toHaveBeenCalledWith(
-			'instruqt-lab-state',
-			JSON.stringify({
-				active: true,
-				storedLabId: 'test-lab-id',
-			})
+		await waitFor(
+			() => {
+				expect(setItemSpy).toHaveBeenCalledWith(
+					'instruqt-lab-state',
+					JSON.stringify({
+						active: true,
+						storedLabId: 'test-lab-id',
+					})
+				)
+			},
+			{ timeout: 3000 }
 		)
 	})
 
@@ -194,24 +206,25 @@ describe('InstruqtEmbed Context', () => {
 			return <button onClick={() => openLab('test-lab-id')}>Open Lab</button>
 		}
 
-		await act(async () => {
-			render(
-				<InstruqtProvider>
-					<TestComponent />
-				</InstruqtProvider>
-			)
-		})
+		render(
+			<InstruqtProvider>
+				<TestComponent />
+			</InstruqtProvider>
+		)
 
-		await act(async () => {
-			fireEvent.click(await screen.findByText('Open Lab'))
-		})
+		fireEvent.click(screen.getByText('Open Lab'))
 
-		expect(mockTrackSandboxEvent).toHaveBeenCalledWith(
-			SANDBOX_EVENT.SANDBOX_OPEN,
-			{
-				labId: 'test-lab-id',
-				page: '/test-path',
-			}
+		await waitFor(
+			() => {
+				expect(mockTrackSandboxEvent).toHaveBeenCalledWith(
+					SANDBOX_EVENT.SANDBOX_OPEN,
+					{
+						labId: 'test-lab-id',
+						page: '/test-path',
+					}
+				)
+			},
+			{ timeout: 3000 }
 		)
 	})
 
@@ -233,28 +246,29 @@ describe('InstruqtEmbed Context', () => {
 			)
 		}
 
-		await act(async () => {
-			render(
-				<InstruqtProvider>
-					<TestComponent />
-				</InstruqtProvider>
-			)
-		})
+		render(
+			<InstruqtProvider>
+				<TestComponent />
+			</InstruqtProvider>
+		)
 
-		await act(async () => {
-			fireEvent.click(await screen.findByTestId('open'))
-		})
+		fireEvent.click(screen.getByTestId('open'))
 
-		await act(async () => {
-			fireEvent.click(await screen.findByTestId('close'))
-		})
+		await new Promise((resolve) => setTimeout(resolve, 100))
 
-		expect(mockTrackSandboxEvent).toHaveBeenCalledWith(
-			SANDBOX_EVENT.SANDBOX_CLOSED,
-			{
-				labId: 'close-test-lab-id',
-				page: '/test-path',
-			}
+		fireEvent.click(screen.getByTestId('close'))
+
+		await waitFor(
+			() => {
+				expect(mockTrackSandboxEvent).toHaveBeenCalledWith(
+					SANDBOX_EVENT.SANDBOX_CLOSED,
+					{
+						labId: 'close-test-lab-id',
+						page: '/test-path',
+					}
+				)
+			},
+			{ timeout: 3000 }
 		)
 	})
 })
