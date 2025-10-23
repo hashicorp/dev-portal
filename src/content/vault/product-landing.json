@@ -30,18 +30,22 @@
 		]
 	},
 	"blocks": [
-		{
-			"type": "heading",
-			"heading": "Vault Sandbox",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "tutorial_cards",
-			"tutorialSlugs": [
-				"vault/sandbox"
-			]
-		},
+      {
+         "type": "heading",
+         "heading": "Sandbox",
+         "level": 2,
+         "size": 400
+      },
+      {
+         "type": "linked_cards",
+         "cards": [
+            {
+               "heading": "Vault sandbox",
+               "body": "The Vault sandbox contains preinstalled tools and services for you to experiment with Vault.",
+               "url": "/vault/sandbox"
+            }
+         ]
+      },
 		{
 			"type": "heading",
 			"heading": "Use Cases",
