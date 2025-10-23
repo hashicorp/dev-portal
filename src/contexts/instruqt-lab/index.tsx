@@ -249,28 +249,19 @@ function InstruqtProvider({
 			if (hasConfigError) {
 				trackInstruqtError(
 					'lab_open_blocked',
-					'Cannot open lab: sandbox configuration is invalid',
-					{
-						attempted_lab_id: newLabId,
-						config_errors: configErrors,
-					}
+					'Lab open blocked due to config error',
+					{ labId: newLabId, configErrors }
 				)
 				return
 			}
 
 			const labExists = SANDBOX_CONFIG.labs?.some((lab) => {
-				const trackName =
-					lab.instruqtTrack?.split('/').pop()?.split('?')[0] || lab.labId
 				return (
-					lab.labId === newLabId ||
-					lab.labId === trackName ||
-					trackName === newLabId.split('/').pop()?.split('?')[0] ||
 					lab.instruqtTrack === newLabId ||
 					lab.instruqtTrack?.split('?')[0] === newLabId.split('?')[0] ||
 					(lab.scenario && newLabId.includes(lab.scenario))
 				)
 			})
-
 			if (!labExists) {
 				trackInstruqtError(
 					'lab_not_found',
@@ -282,12 +273,11 @@ function InstruqtProvider({
 				)
 				return
 			}
-
-			if (newLabId !== labId) {
+			if (newLabId !== labId || !active) {
 				setLabId(newLabId)
 			}
 		},
-		[labId, hasConfigError, configErrors]
+		[labId, active, hasConfigError, configErrors]
 	)
 
 	const closeLab = useCallback(() => {
