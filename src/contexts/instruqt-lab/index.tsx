@@ -257,6 +257,7 @@ function InstruqtProvider({
 
 			const labExists = SANDBOX_CONFIG.labs?.some((lab) => {
 				return (
+					lab.labId === newLabId ||
 					lab.instruqtTrack === newLabId ||
 					lab.instruqtTrack?.split('?')[0] === newLabId.split('?')[0] ||
 					(lab.scenario && newLabId.includes(lab.scenario))
@@ -340,6 +341,7 @@ function InstruqtProvider({
 	)
 }
 
+export { InstruqtProvider }
 export default dynamic(() => Promise.resolve(InstruqtProvider), {
 	ssr: false,
 })

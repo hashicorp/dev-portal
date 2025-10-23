@@ -11,11 +11,12 @@ import Text from 'components/text'
 import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
 import { Badges, getIsBeta, VariantList } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
+import { InstruqtProvider } from 'contexts/instruqt-lab/'
 import s from './tutorial-meta.module.css'
 
 interface TutorialMetaProps {
 	heading: { slug: string; text: string }
-	meta: Pick<TutorialData, 'readTime' | 'edition' | 'productsUsed'> & {
+	meta: Pick<TutorialData, 'readTime' | 'edition' | 'productsUsed' | 'id'> & {
 		isInteractive: boolean
 		hasVideo: boolean
 	}
@@ -28,15 +29,13 @@ export default function TutorialMeta({
 	tutorialId,
 }: TutorialMetaProps) {
 	const { isInteractive, hasVideo, edition, productsUsed, readTime } = meta
-
-	/**
-	 * We only need to show the Create Account CTA if auth is enabled and there is
-	 * not already a user authenticated.
-	 */
 	const { isAuthenticated, isLoading } = useAuthentication()
 	const showCreateAccountCta = !isLoading && !isAuthenticated
 
-	return (
+	const labId = isInteractive ? meta.id : undefined
+	const productSlug = productsUsed?.[0]?.product?.slug
+
+	const headerContent = (
 		<header className={s.header}>
 			<Heading
 				level={1}
@@ -62,7 +61,7 @@ export default function TutorialMeta({
 					}}
 				/>
 				<span className={s.buttonGroup}>
-					<InteractiveLabButton />
+					{isInteractive && meta.id ? <InteractiveLabButton /> : null}
 					<TutorialMetaBookmarkButton
 						tutorial={{ id: tutorialId, name: heading.text }}
 					/>
@@ -79,5 +78,13 @@ export default function TutorialMeta({
 			) : null}
 			<VariantList />
 		</header>
+	)
+
+	return isInteractive ? (
+		<InstruqtProvider labId={labId} productSlug={productSlug}>
+			{headerContent}
+		</InstruqtProvider>
+	) : (
+		headerContent
 	)
 }
