@@ -11,7 +11,7 @@
 		},
 		{
 			"title": "Vault Sandbox",
-			"description": "Experiment with Vault. This sandbox contains five Vault Docker containers, a reverse proxy container, Grafana, and Prometheus.",
+			"description": "Experiment with Vault. This sandbox contains five Vault Docker containers and a reverse proxy container.",
 			"products": ["vault"],
 			"labId": "vault-sandbox",
 			"instruqtTrack": "hashicorp-learn/tracks/vault-sandbox?token=em_CUFCBU0nSfCl2VHi",
