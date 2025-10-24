@@ -89,8 +89,8 @@ export default function App({
 							<SessionProvider session={session}>
 								<DeviceSizeProvider>
 									<CurrentProductProvider currentProduct={currentProduct}>
+										<HeadMetadata {...pageProps.metadata} />
 										<InstruqtProvider>
-											<HeadMetadata {...pageProps.metadata} />
 											<LazyMotion
 												features={() =>
 													import('lib/framer-motion-features').then(

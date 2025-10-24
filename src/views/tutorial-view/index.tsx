@@ -293,19 +293,17 @@ function TutorialView({
 						product={product}
 						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
 					>
-						{id && isInteractive ? (
-							<TutorialMeta
-								heading={pageHeading}
-								meta={{
-									readTime,
-									edition,
-									productsUsed,
-									isInteractive,
-									hasVideo,
-								}}
-								tutorialId={id}
-							/>
-						) : null}
+						<TutorialMeta
+							heading={pageHeading}
+							meta={{
+								readTime,
+								edition,
+								productsUsed,
+								isInteractive,
+								hasVideo,
+							}}
+							tutorialId={id}
+						/>
 						<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
 						{hasVideo && video.id && !video.videoInline && (
 							<VideoEmbed
