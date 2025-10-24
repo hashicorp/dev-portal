@@ -50,7 +50,7 @@ const EmbedElement = memo(function EmbedElement(): JSX.Element {
 		}))
 
 		if (labId) {
-			trackSandboxEvent(SANDBOX_EVENT.SANDBOX_LOADED, {
+			trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
 				labId,
 				page: router.asPath,
 			})

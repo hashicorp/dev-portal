@@ -36,6 +36,21 @@ interface SandboxPageProps {
 	availableSandboxes: SandboxLab[]
 	otherSandboxes: SandboxLab[]
 }
+export const trackSandboxInteraction = (
+	interactionType: string,
+	sandboxId: string,
+	additionalProps: Record<string, unknown> = {}
+) => {
+	if (typeof window !== 'undefined' && posthog?.capture) {
+		posthog.capture(SANDBOX_EVENT.SANDBOX_OPEN, {
+			interaction_type: interactionType,
+			sandbox_id: sandboxId,
+			...additionalProps,
+			timestamp: new Date().toISOString(),
+			page_url: window.location.href,
+		})
+	}
+}
 
 const trackSandboxPageError = (
 	errorType: string,
@@ -70,12 +85,17 @@ export const SandboxView = ({
 	const handleLabClick = useCallback(
 		(lab: SandboxLab) => {
 			try {
+				trackSandboxInteraction(SANDBOX_EVENT.SANDBOX_OPEN, lab.labId, {
+					lab_title: lab.title,
+					products: lab.products,
+				})
+
 				const primaryProduct = lab.products[0]
 				if (primaryProduct !== product.slug) {
 					// Redirect to the lab's primary product sandbox page with auto-launch
 					const targetUrl = `/${primaryProduct}/sandbox?launch=${lab.labId}`
 
-					trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
+					trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
 						labId: lab.labId,
 						page: targetUrl,
 					})
@@ -86,7 +106,7 @@ export const SandboxView = ({
 
 				if (hasConfigError) {
 					trackSandboxPageError(
-						'config_error_lab_launch',
+						SANDBOX_EVENT.SANDBOX_ERROR,
 						'Cannot launch lab due to configuration error',
 						{
 							lab_id: lab.labId,
@@ -106,7 +126,7 @@ export const SandboxView = ({
 
 				if (!openLab) {
 					trackSandboxPageError(
-						'open_lab_function_missing',
+						SANDBOX_EVENT.SANDBOX_ERROR,
 						'openLab function is not available',
 						{
 							lab_id: lab.labId,
@@ -128,7 +148,7 @@ export const SandboxView = ({
 
 				if (!embedLabId) {
 					trackSandboxPageError(
-						'missing_lab_id',
+						SANDBOX_EVENT.SANDBOX_ERROR,
 						'Lab embed ID is missing or invalid',
 						{
 							lab_id: lab.labId,
@@ -149,7 +169,7 @@ export const SandboxView = ({
 				openLab(embedLabId)
 				setActive(true)
 
-				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
+				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
 					labId: lab.labId,
 					page: `/${product.slug}/sandbox`,
 				})
@@ -236,7 +256,7 @@ export const SandboxView = ({
 			)
 		} catch (error) {
 			trackSandboxPageError(
-				'documentation_render_failed',
+				SANDBOX_EVENT.SANDBOX_ERROR,
 				'Failed to render sandbox documentation',
 				{
 					error_message: error instanceof Error ? error.message : String(error),
@@ -313,6 +333,7 @@ export const SandboxView = ({
 									labId={lab.labId}
 									products={lab.products}
 									onLaunch={() => handleLabClick(lab)}
+									clickBehavior="button"
 								/>
 							)
 						})}

@@ -23,6 +23,7 @@ import { SandboxLab } from 'types/sandbox'
 import { ProductSlug } from 'types/products'
 import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
 import { useTheme } from 'next-themes'
+import { trackSandboxInteraction } from 'views/sandbox-view'
 
 interface SandboxDropdownProps {
 	ariaLabel: string
@@ -122,9 +123,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		}
 	}
 
-	/**
-	 * Handle lab selection
-	 */
 	const handleLabClick = (lab: SandboxLab) => {
 		const labWithTrack = {
 			...lab,
@@ -133,16 +131,13 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		const fullLabId = buildLabIdWithConfig(labWithTrack)
 		openLab(fullLabId)
 		setActive(true)
-		trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
+		trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
 			labId: fullLabId,
 			page: router.asPath,
 		})
 		setIsOpen(false)
 	}
 
-	/**
-	 * Navigate to the sandbox page
-	 */
 	const navigateToSandboxPage = (e: React.MouseEvent) => {
 		e.preventDefault()
 		router.push(`/${currentProduct.slug}/sandbox`)
@@ -230,7 +225,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 						</Text>
 					</button>
 
-					{/* Available Product Sandboxes Section */}
 					<Text
 						asElement="p"
 						className={s.sectionTitle}
@@ -245,7 +239,12 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 							<li key={lab.labId || index} className={s.itemContainer}>
 								<button
 									className={s.sandboxItem}
-									onClick={() => handleLabClick(lab)}
+									onClick={() => {
+										handleLabClick(lab)
+										trackSandboxInteraction('hover', lab.labId, {
+											page: router.asPath,
+										})
+									}}
 									onKeyDown={handleKeyDown}
 								>
 									<div className={s.content}>
