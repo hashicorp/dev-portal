@@ -22,6 +22,9 @@ vi.mock('next/router', () => ({
 vi.mock('lib/posthog-events', () => ({
 	trackSandboxEvent: vi.fn(),
 	SANDBOX_EVENT: {
+		SANDBOX_STARTED: 'sandbox_started',
+		SANDBOX_OPEN: 'sandbox_open',
+		SANDBOX_CLOSED: 'sandbox_closed',
 		SANDBOX_LOADED: 'sandbox_loaded',
 		SANDBOX_ERROR: 'sandbox_error',
 		SANDBOX_RETRY: 'sandbox_retry',
@@ -133,7 +136,7 @@ describe('EmbedElement', () => {
 				screen.queryByText('Loading your sandbox...')
 			).not.toBeInTheDocument()
 
-			expect(mockTrackSandboxEvent).toHaveBeenCalledWith('sandbox_loaded', {
+			expect(mockTrackSandboxEvent).toHaveBeenCalledWith('sandbox_open', {
 				labId: 'test-lab-id',
 				page: '/test-path',
 			})

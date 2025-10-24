@@ -20,6 +20,7 @@ import Resizable from 'components/lab-embed/resizable'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
 import { validateSandboxConfigWithDetailedErrors } from 'lib/validate-sandbox-config'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
+import posthog from 'posthog-js'
 
 /**
  * Tracks Instruqt context errors with PostHog and development logging
@@ -29,9 +30,8 @@ function trackInstruqtError(
 	errorMessage: string,
 	context?: Record<string, unknown>
 ) {
-	// Track error in PostHog for production monitoring
-	if (typeof window !== 'undefined' && window.posthog?.capture) {
-		window.posthog.capture('instruqt_context_error', {
+	if (typeof window !== 'undefined' && posthog?.capture) {
+		posthog.capture('instruqt_context_error', {
 			error_type: errorType,
 			error_message: errorMessage,
 			timestamp: new Date().toISOString(),
@@ -103,8 +103,8 @@ const InstruqtProvider: React.FC<InstruqtProviderProps> = ({ children }) => {
 				}
 			)
 
-			if (typeof window !== 'undefined' && window.posthog) {
-				window.posthog.capture('sandbox_config_error', {
+			if (typeof window !== 'undefined' && posthog) {
+				posthog.capture('sandbox_config_error', {
 					errors: validation.errors,
 					timestamp: new Date().toISOString(),
 				})

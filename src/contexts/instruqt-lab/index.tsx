@@ -276,6 +276,7 @@ function InstruqtProvider({
 			}
 			if (newLabId !== labId || !active) {
 				setLabId(newLabId)
+				setActive(true)
 			}
 		},
 		[labId, active, hasConfigError, configErrors]
@@ -342,6 +343,7 @@ function InstruqtProvider({
 }
 
 export { InstruqtProvider }
+
 export default dynamic(() => Promise.resolve(InstruqtProvider), {
 	ssr: false,
 })

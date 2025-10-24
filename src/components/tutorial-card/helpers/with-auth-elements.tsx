@@ -19,9 +19,13 @@ import { getSpeakableDuration } from './build-aria-label'
 export function TutorialCardWithAuthElements({
 	id: tutorialId,
 	collectionId,
+	hasBookmark = true,
 	BookmarkButtonComponent = TutorialCardBookmarkButton,
 	...restProps
-}: TutorialCardPropsWithId) {
+}: TutorialCardPropsWithId & {
+	hasBookmark?: boolean
+	BookmarkButtonComponent?: typeof TutorialCardBookmarkButton
+}) {
 	/**
 	 * Get tutorial progress. Will be undefined if not authenticated.
 	 * Note as well that useTutorialProgress depends on AUTH_ENABLED.
@@ -58,9 +62,11 @@ export function TutorialCardWithAuthElements({
 					) : (
 						<CardEyebrowText>{restProps.duration}</CardEyebrowText>
 					)}
-					<BookmarkButtonComponent
-						tutorial={{ id: tutorialId, name: restProps.heading }}
-					/>
+					{hasBookmark && (
+						<BookmarkButtonComponent
+							tutorial={{ id: tutorialId, name: restProps.heading }}
+						/>
+					)}
 				</>
 			}
 		/>

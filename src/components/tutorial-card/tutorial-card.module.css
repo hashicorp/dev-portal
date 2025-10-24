@@ -3,13 +3,29 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
+.tutorialCard {
+	padding: 16px;
+}
+
 .root {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	justify-content: space-between;
 }
 
-.eyebrow {
-	justify-content: space-between;
+.interactiveInline {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-top: 8px;
+}
+
+.interactiveText {
+	font-size: 14px;
+	color: #222;
+}
+
+.interactiveEyebrowBadge {
+	background: transparent;
+	padding-left: 0;
 }

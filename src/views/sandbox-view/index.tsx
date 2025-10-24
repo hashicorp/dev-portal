@@ -13,7 +13,7 @@ import { toast, ToastColor } from 'components/toast'
 import CardsGridList, {
 	TutorialCardsGridList,
 } from 'components/cards-grid-list'
-import { ProductSlug } from 'types/products'
+import SandboxCard from 'components/sandbox-card'
 import { SandboxLab } from 'types/sandbox'
 import { ProductOption } from 'lib/learn-client/types'
 import { BrandedHeaderCard } from 'views/product-integrations-landing/components/branded-header-card'
@@ -23,16 +23,9 @@ import Tabs, { Tab } from 'components/tabs'
 import { ErrorBoundary } from 'react-error-boundary'
 import s from './sandbox-view.module.css'
 import docsViewStyles from 'views/docs-view/docs-view.module.css'
-import ButtonLink from '@components/button-link'
-import Card from '@components/card'
-import {
-	CardTitle,
-	CardDescription,
-	CardFooter,
-} from '@components/card/components'
-import ProductIcon from '@components/product-icon'
 import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import { SidebarProps } from '@components/sidebar'
+import posthog from 'posthog-js'
 
 interface SandboxPageProps {
 	product: (typeof PRODUCT_DATA_MAP)[keyof typeof PRODUCT_DATA_MAP]
@@ -43,15 +36,29 @@ interface SandboxPageProps {
 	availableSandboxes: SandboxLab[]
 	otherSandboxes: SandboxLab[]
 }
+export const trackSandboxInteraction = (
+	interactionType: string,
+	sandboxId: string,
+	additionalProps: Record<string, unknown> = {}
+) => {
+	if (typeof window !== 'undefined' && posthog?.capture) {
+		posthog.capture(SANDBOX_EVENT.SANDBOX_OPEN, {
+			interaction_type: interactionType,
+			sandbox_id: sandboxId,
+			...additionalProps,
+			timestamp: new Date().toISOString(),
+			page_url: window.location.href,
+		})
+	}
+}
 
 const trackSandboxPageError = (
 	errorType: string,
 	errorMessage: string,
 	context?: Record<string, unknown>
 ) => {
-	// Track error in PostHog for production monitoring
-	if (typeof window !== 'undefined' && window.posthog?.capture) {
-		window.posthog.capture('sandbox_page_error', {
+	if (typeof window !== 'undefined' && posthog?.capture) {
+		posthog.capture('sandbox_page_error', {
 			error_type: errorType,
 			error_message: errorMessage,
 			timestamp: new Date().toISOString(),
@@ -78,12 +85,17 @@ export const SandboxView = ({
 	const handleLabClick = useCallback(
 		(lab: SandboxLab) => {
 			try {
+				trackSandboxInteraction(SANDBOX_EVENT.SANDBOX_OPEN, lab.labId, {
+					lab_title: lab.title,
+					products: lab.products,
+				})
+
 				const primaryProduct = lab.products[0]
 				if (primaryProduct !== product.slug) {
 					// Redirect to the lab's primary product sandbox page with auto-launch
 					const targetUrl = `/${primaryProduct}/sandbox?launch=${lab.labId}`
 
-					trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
+					trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
 						labId: lab.labId,
 						page: targetUrl,
 					})
@@ -94,7 +106,7 @@ export const SandboxView = ({
 
 				if (hasConfigError) {
 					trackSandboxPageError(
-						'config_error_lab_launch',
+						SANDBOX_EVENT.SANDBOX_ERROR,
 						'Cannot launch lab due to configuration error',
 						{
 							lab_id: lab.labId,
@@ -114,7 +126,7 @@ export const SandboxView = ({
 
 				if (!openLab) {
 					trackSandboxPageError(
-						'open_lab_function_missing',
+						SANDBOX_EVENT.SANDBOX_ERROR,
 						'openLab function is not available',
 						{
 							lab_id: lab.labId,
@@ -136,7 +148,7 @@ export const SandboxView = ({
 
 				if (!embedLabId) {
 					trackSandboxPageError(
-						'missing_lab_id',
+						SANDBOX_EVENT.SANDBOX_ERROR,
 						'Lab embed ID is missing or invalid',
 						{
 							lab_id: lab.labId,
@@ -157,7 +169,7 @@ export const SandboxView = ({
 				openLab(embedLabId)
 				setActive(true)
 
-				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_STARTED, {
+				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
 					labId: lab.labId,
 					page: `/${product.slug}/sandbox`,
 				})
@@ -244,7 +256,7 @@ export const SandboxView = ({
 			)
 		} catch (error) {
 			trackSandboxPageError(
-				'documentation_render_failed',
+				SANDBOX_EVENT.SANDBOX_ERROR,
 				'Failed to render sandbox documentation',
 				{
 					error_message: error instanceof Error ? error.message : String(error),
@@ -311,43 +323,18 @@ export const SandboxView = ({
 
 			{availableSandboxes.length > 0 ? (
 				<>
-					<CardsGridList>
+					<CardsGridList gridGap="24px">
 						{availableSandboxes.map((lab) => {
 							return (
-								<div key={`sandbox-${lab.labId}`}>
-									<div className={s.sandboxCard}>
-										<Card className={s.card}>
-											<div className={s.cardHeader}>
-												<CardTitle text={lab.title} />
-												<div className={s.productIcons}>
-													{lab.products.map((productSlug) => (
-														<ProductIcon
-															key={`product-${lab.labId}-${productSlug}`}
-															productSlug={productSlug as ProductSlug}
-															size={16}
-															className={s.productIcon}
-														/>
-													))}
-												</div>
-											</div>
-											<CardDescription text={lab.description} />
-											<CardFooter>
-												<ButtonLink
-													href="#"
-													className={s.launchButton}
-													aria-label="Launches the Sandbox"
-													onClick={(e) => {
-														e.preventDefault()
-														e.stopPropagation()
-														handleLabClick(lab)
-													}}
-													size="medium"
-													text="Launch Sandbox"
-												/>
-											</CardFooter>
-										</Card>
-									</div>
-								</div>
+								<SandboxCard
+									key={`sandbox-${lab.labId}`}
+									title={lab.title}
+									description={lab.description}
+									labId={lab.labId}
+									products={lab.products}
+									onLaunch={() => handleLabClick(lab)}
+									clickBehavior="button"
+								/>
 							)
 						})}
 					</CardsGridList>
@@ -393,6 +380,8 @@ export const SandboxView = ({
 						)}
 					>
 						<TutorialCardsGridList
+							compact={true}
+							gridGap="8px"
 							fixedColumns={2}
 							tutorials={otherSandboxes.map((lab) => {
 								const isSameProduct = lab.products[0] === product.slug

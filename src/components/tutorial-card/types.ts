@@ -77,6 +77,12 @@ export interface TutorialCardPropsWithId extends TutorialCardProps {
 	 * achieve this flexibility. We default to our basic bookmark button
 	 * if BookmarkButtonComponent is not provided.
 	 */
+	hasBookmark?: boolean
+	/**
+	 *
+	 * A component that renders a bookmark button for the tutorial.
+	 *
+	 */
 	BookmarkButtonComponent?: ({
 		tutorial,
 	}: {
