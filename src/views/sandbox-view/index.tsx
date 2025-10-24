@@ -303,7 +303,7 @@ export const SandboxView = ({
 
 			{availableSandboxes.length > 0 ? (
 				<>
-					<CardsGridList gridGap="8px">
+					<CardsGridList gridGap="24px">
 						{availableSandboxes.map((lab) => {
 							return (
 								<SandboxCard

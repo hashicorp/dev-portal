@@ -4,16 +4,13 @@
  */
 
 .tutorialCard {
-	padding: 16px !important;
+	padding: 16px;
 }
 
 .root {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-}
-
-.eyebrow {
 }
 
 .interactiveInline {
@@ -30,5 +27,5 @@
 
 .interactiveEyebrowBadge {
 	background: transparent;
-	padding-left: 0 !important;
+	padding-left: 0;
 }
