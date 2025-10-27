@@ -6,7 +6,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import SandboxDropdown from '../index'
 
-// Mock the hooks
+// Mock the hooks and functions
 const mockUserRouter = vi.fn()
 vi.mock('next/router', () => ({
 	useRouter: () => mockUserRouter(),
@@ -20,6 +20,20 @@ vi.mock('contexts', () => ({
 const mockUseInstruqtEmbed = vi.fn()
 vi.mock('contexts/instruqt-lab', () => ({
 	useInstruqtEmbed: () => mockUseInstruqtEmbed(),
+}))
+
+const mockTrackSandboxInteraction = vi.fn()
+vi.mock('views/sandbox-view', () => ({
+	trackSandboxInteraction: (...args: unknown[]) =>
+		mockTrackSandboxInteraction(...args),
+}))
+
+const mockTrackSandboxEvent = vi.fn()
+vi.mock('lib/posthog-events', () => ({
+	trackSandboxEvent: (...args: unknown[]) => mockTrackSandboxEvent(...args),
+	SANDBOX_EVENT: {
+		SANDBOX_OPEN: 'sandbox_open',
+	},
 }))
 
 describe('SandboxDropdown', () => {
@@ -135,7 +149,7 @@ describe('SandboxDropdown', () => {
 		expect(mockOpenLab).toHaveBeenCalled()
 	})
 
-	it('tracks sandbox events when opening labs', () => {
+	it('tracks sandbox events and interactions when clicking a lab', () => {
 		const mockOpenLab = vi.fn()
 		const mockSetActive = vi.fn()
 		mockUseInstruqtEmbed.mockImplementation(() => ({
@@ -155,5 +169,20 @@ describe('SandboxDropdown', () => {
 
 		// Verify openLab was called
 		expect(mockOpenLab).toHaveBeenCalled()
+
+		// Verify tracking events were called
+		expect(mockTrackSandboxEvent).toHaveBeenCalledWith('sandbox_open', {
+			labId: expect.any(String),
+			page: '/',
+		})
+
+		// Verify interaction tracking
+		expect(mockTrackSandboxInteraction).toHaveBeenCalledWith(
+			'hover',
+			expect.any(String),
+			{
+				page: '/',
+			}
+		)
 	})
 })
