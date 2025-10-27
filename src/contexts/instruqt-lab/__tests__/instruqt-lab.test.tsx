@@ -4,22 +4,10 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, fireEvent, act } from '@testing-library/react'
-import { useRouter } from 'next/router'
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
-import React, {
-	useState,
-	createContext,
-	useContext,
-	ReactNode,
-	Dispatch,
-	SetStateAction,
-	useEffect,
-	useCallback,
-	useMemo,
-} from 'react'
-import { validateSandboxConfigWithDetailedErrors } from 'lib/validate-sandbox-config'
-import InstruqtProvider from '../index'
+import React from 'react'
+import { InstruqtProvider, useInstruqtEmbed } from '../index'
 
 vi.mock('components/lab-embed/embed-element', () => ({
 	default: () => null,
@@ -38,7 +26,9 @@ vi.mock('components/sandbox-error-boundary', () => ({
 }))
 
 vi.mock('next/router', () => ({
-	useRouter: vi.fn(),
+	useRouter: () => ({
+		asPath: '/test-path',
+	}),
 }))
 
 vi.mock('lib/posthog-events', () => ({
@@ -49,12 +39,20 @@ vi.mock('lib/posthog-events', () => ({
 	},
 }))
 
+vi.mock('lib/validate-sandbox-config', () => ({
+	validateSandboxConfigWithDetailedErrors: () => ({
+		isValid: true,
+		errors: [],
+		warnings: [],
+	}),
+}))
+
 vi.mock('content/sandbox/sandbox.json', () => ({
 	default: {
 		products: ['test-product'],
 		labs: [
 			{
-				labId: 'test-product/test-lab/test-lab-id',
+				labId: 'test-lab-id',
 				title: 'Test Lab',
 				description:
 					'Test lab description that is long enough to pass validation',
@@ -62,7 +60,7 @@ vi.mock('content/sandbox/sandbox.json', () => ({
 				instruqtTrack: 'hashicorp-learn/tracks/test-lab?token=em_test555',
 			},
 			{
-				labId: 'test-product/stored-lab/stored-lab-id',
+				labId: 'stored-lab-id',
 				title: 'Stored Lab',
 				description:
 					'Stored lab description that is long enough to pass validation',
@@ -70,7 +68,7 @@ vi.mock('content/sandbox/sandbox.json', () => ({
 				instruqtTrack: 'hashicorp-learn/tracks/stored-lab?token=em_test666',
 			},
 			{
-				labId: 'test-product/close-test-lab/close-test-lab-id',
+				labId: 'close-test-lab-id',
 				title: 'Close Test Lab',
 				description:
 					'Close test lab description that is long enough to pass validation',
@@ -81,246 +79,30 @@ vi.mock('content/sandbox/sandbox.json', () => ({
 	},
 }))
 
-const mockUseRouter = vi.mocked(useRouter)
 const mockTrackSandboxEvent = vi.mocked(trackSandboxEvent)
 
-interface InstruqtContextProps {
-	labId: string | null
-	active: boolean
-	setActive: Dispatch<SetStateAction<boolean>>
-	openLab: (labId: string) => void
-	closeLab: () => void
-	hasConfigError: boolean
-	configErrors: string[]
-}
-
-const InstruqtContext = createContext<InstruqtContextProps>({
-	labId: null,
-	active: false,
-	setActive: () => {},
-	openLab: () => {},
-	closeLab: () => {},
-	hasConfigError: false,
-	configErrors: [],
-})
-
-const STORAGE_KEY = 'instruqt-lab-state'
-
-function TestInstruqtProvider({ children }: { children: ReactNode }) {
-	const [labId, setLabId] = useState<string | null>(null)
-	const [active, setActive] = useState(false)
-	const [hasConfigError, setHasConfigError] = useState(false)
-	const [configErrors, setConfigErrors] = useState<string[]>([])
-	const router = useRouter()
-
-	const SANDBOX_CONFIG = useMemo(
-		() => ({
-			products: ['test-product'],
-			labs: [
-				{
-					labId: 'test-lab-id',
-					title: 'Test Lab',
-					description:
-						'Test lab description that is long enough to pass validation',
-					products: ['test-product'],
-					instruqtTrack: 'hashicorp-learn/tracks/test-lab?token=em_test555',
-				},
-				{
-					labId: 'stored-lab-id',
-					title: 'Stored Lab',
-					description:
-						'Stored lab description that is long enough to pass validation',
-					products: ['test-product'],
-					instruqtTrack: 'hashicorp-learn/tracks/stored-lab?token=em_test666',
-				},
-				{
-					labId: 'close-test-lab-id',
-					title: 'Close Test Lab',
-					description:
-						'Close test lab description that is long enough to pass validation',
-					products: ['test-product'],
-					instruqtTrack:
-						'hashicorp-learn/tracks/close-test-lab?token=em_test777',
-				},
-			],
-		}),
-		[]
-	)
-
-	useEffect(() => {
-		const validation = validateSandboxConfigWithDetailedErrors(SANDBOX_CONFIG)
-
-		if (!validation.isValid) {
-			setHasConfigError(true)
-			setConfigErrors(validation.errors)
-		}
-	}, [SANDBOX_CONFIG])
-
-	useEffect(() => {
-		try {
-			const stored = localStorage.getItem(STORAGE_KEY)
-			if (stored) {
-				const { active: storedActive, storedLabId } = JSON.parse(stored)
-				// Validate that the stored lab ID still exists in current configuration
-				if (storedLabId && !hasConfigError) {
-					const labExists = SANDBOX_CONFIG.labs?.some(
-						(lab) => lab.labId === storedLabId
-					)
-					if (labExists) {
-						setLabId(storedLabId)
-						setActive(storedActive)
-					} else {
-						localStorage.removeItem(STORAGE_KEY)
-					}
-				}
-			}
-		} catch {
-			try {
-				localStorage.removeItem(STORAGE_KEY)
-			} catch {
-				// Storage operations failed
-			}
-		}
-	}, [hasConfigError, SANDBOX_CONFIG])
-
-	useEffect(() => {
-		if (!hasConfigError) {
-			try {
-				localStorage.setItem(
-					STORAGE_KEY,
-					JSON.stringify({
-						active,
-						storedLabId: labId,
-					})
-				)
-			} catch {
-				// Storage persistence failed
-			}
-		}
-	}, [active, labId, hasConfigError])
-
-	const openLab = useCallback(
-		(newLabId: string) => {
-			if (hasConfigError) {
-				return
-			}
-
-			// Validate that the lab ID exists in current configuration
-			const labExists = SANDBOX_CONFIG.labs?.some((lab) => {
-				return lab.labId === newLabId
-			})
-
-			if (!labExists) {
-				return
-			}
-
-			// Update state
-			if (newLabId !== labId || !active) {
-				setLabId(newLabId)
-				setActive(true)
-
-				// Track sandbox open event immediately
-				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
-					labId: newLabId,
-					page: router.asPath,
-				})
-			}
-		},
-		[labId, active, hasConfigError, router.asPath, SANDBOX_CONFIG]
-	)
-
-	const closeLab = useCallback(() => {
-		if (active && labId) {
-			trackSandboxEvent(SANDBOX_EVENT.SANDBOX_CLOSED, {
-				labId,
-				page: router.asPath,
-			})
-		}
-		setActive(false)
-	}, [active, labId, router.asPath])
-
-	return (
-		<InstruqtContext.Provider
-			value={{
-				labId,
-				active,
-				setActive,
-				openLab,
-				closeLab,
-				hasConfigError,
-				configErrors,
-			}}
-		>
-			{children}
-		</InstruqtContext.Provider>
-	)
-}
-
-// Create a test version of the hook
-const useTestInstruqtEmbed = (): InstruqtContextProps =>
-	useContext(InstruqtContext)
-
-const createMockLocalStorage = () => {
-	const storage = new Map<string, string>()
-
-	return {
-		getItem: vi.fn((key: string) => storage.get(key) ?? null),
-		setItem: vi.fn((key: string, value: string) => {
-			storage.set(key, value)
-		}),
-		removeItem: vi.fn((key: string) => {
-			storage.delete(key)
-		}),
-		clear: vi.fn(() => storage.clear()),
-		length: 0,
-		key: vi.fn(),
-	}
-}
-
 describe('InstruqtEmbed Context', () => {
-	let mockLocalStorage: ReturnType<typeof createMockLocalStorage>
+	let getItemSpy: ReturnType<typeof vi.spyOn>
+	let setItemSpy: ReturnType<typeof vi.spyOn>
 
 	beforeEach(() => {
+		window.localStorage.clear()
 		vi.clearAllMocks()
 
-		mockLocalStorage = createMockLocalStorage()
-		Object.defineProperty(window, 'localStorage', {
-			value: mockLocalStorage,
-			writable: true,
-		})
+		getItemSpy = vi.spyOn(Storage.prototype, 'getItem')
+		setItemSpy = vi.spyOn(Storage.prototype, 'setItem')
 
-		mockUseRouter.mockReturnValue({
-			asPath: '/test-path',
-			route: '/test-path',
-			pathname: '/test-path',
-			query: {},
-			basePath: '',
-			isLocaleDomain: false,
-			push: vi.fn().mockResolvedValue(true),
-			replace: vi.fn().mockResolvedValue(true),
-			reload: vi.fn(),
-			back: vi.fn(),
-			forward: vi.fn(),
-			prefetch: vi.fn().mockResolvedValue(undefined),
-			beforePopState: vi.fn(),
-			events: {
-				on: vi.fn(),
-				off: vi.fn(),
-				emit: vi.fn(),
+		Object.defineProperty(window, 'posthog', {
+			value: {
+				capture: vi.fn(),
 			},
-			isFallback: false,
-			isReady: true,
-			isPreview: false,
-			locale: undefined,
-			locales: undefined,
-			defaultLocale: undefined,
-			domainLocales: undefined,
+			writable: true,
 		})
 	})
 
 	it('provides default context values', async () => {
 		const TestComponent = () => {
-			const context = useTestInstruqtEmbed()
+			const context = useInstruqtEmbed()
 			return (
 				<div>
 					<span data-testid="lab-id">{context.labId || 'no-lab'}</span>
@@ -346,15 +128,18 @@ describe('InstruqtEmbed Context', () => {
 			active: true,
 			storedLabId: 'stored-lab-id',
 		})
-		mockLocalStorage.getItem.mockReturnValue(storedState)
+		window.localStorage.setItem('instruqt-lab-state', storedState)
 
 		const TestComponent = () => {
-			const context = useTestInstruqtEmbed()
+			const context = useInstruqtEmbed()
 			return (
 				<div>
 					<span data-testid="lab-id">{context.labId || 'no-lab'}</span>
 					<span data-testid="active">
 						{context.active ? 'active' : 'inactive'}
+					</span>
+					<span data-testid="has-error">
+						{context.hasConfigError ? 'has-error' : 'no-error'}
 					</span>
 				</div>
 			)
@@ -362,76 +147,90 @@ describe('InstruqtEmbed Context', () => {
 
 		await act(async () => {
 			render(
-				<TestInstruqtProvider>
+				<InstruqtProvider>
 					<TestComponent />
-				</TestInstruqtProvider>
+				</InstruqtProvider>
 			)
 		})
 
-		expect(mockLocalStorage.getItem).toHaveBeenCalledWith('instruqt-lab-state')
+		expect(getItemSpy).toHaveBeenCalledWith('instruqt-lab-state')
 		expect(await screen.findByTestId('lab-id')).toHaveTextContent(
 			'stored-lab-id'
 		)
 		expect(await screen.findByTestId('active')).toHaveTextContent('active')
+		expect(await screen.findByTestId('has-error')).toHaveTextContent('no-error')
 	})
 
 	it('persists state changes to localStorage', async () => {
 		const TestComponent = () => {
-			const { openLab } = useTestInstruqtEmbed()
-			return <button onClick={() => openLab('test-lab-id')}>Open Lab</button>
+			const { openLab, labId, active } = useInstruqtEmbed()
+			return (
+				<>
+					<button onClick={() => openLab('test-lab-id')}>Open Lab</button>
+					<div data-testid="lab-id">{labId || 'no-lab'}</div>
+					<div data-testid="active">{active ? 'true' : 'false'}</div>
+				</>
+			)
 		}
 
-		await act(async () => {
-			render(
-				<TestInstruqtProvider>
-					<TestComponent />
-				</TestInstruqtProvider>
-			)
+		render(
+			<InstruqtProvider>
+				<TestComponent />
+			</InstruqtProvider>
+		)
+
+		fireEvent.click(screen.getByText('Open Lab'))
+
+		await waitFor(() => {
+			expect(screen.getByTestId('lab-id')).toHaveTextContent('test-lab-id')
+			expect(screen.getByTestId('active')).toHaveTextContent('true')
 		})
 
-		await act(async () => {
-			fireEvent.click(await screen.findByText('Open Lab'))
-		})
-
-		expect(mockLocalStorage.setItem).toHaveBeenCalledWith(
-			'instruqt-lab-state',
-			JSON.stringify({
-				active: true,
-				storedLabId: 'test-lab-id',
-			})
+		await waitFor(
+			() => {
+				expect(setItemSpy).toHaveBeenCalledWith(
+					'instruqt-lab-state',
+					JSON.stringify({
+						active: true,
+						storedLabId: 'test-lab-id',
+					})
+				)
+			},
+			{ timeout: 3000 }
 		)
 	})
 
 	it('tracks sandbox events when opening a lab', async () => {
 		const TestComponent = () => {
-			const { openLab } = useTestInstruqtEmbed()
+			const { openLab } = useInstruqtEmbed()
 			return <button onClick={() => openLab('test-lab-id')}>Open Lab</button>
 		}
 
-		await act(async () => {
-			render(
-				<TestInstruqtProvider>
-					<TestComponent />
-				</TestInstruqtProvider>
-			)
-		})
+		render(
+			<InstruqtProvider>
+				<TestComponent />
+			</InstruqtProvider>
+		)
 
-		await act(async () => {
-			fireEvent.click(await screen.findByText('Open Lab'))
-		})
+		fireEvent.click(screen.getByText('Open Lab'))
 
-		expect(mockTrackSandboxEvent).toHaveBeenCalledWith(
-			SANDBOX_EVENT.SANDBOX_OPEN,
-			{
-				labId: 'test-lab-id',
-				page: '/test-path',
-			}
+		await waitFor(
+			() => {
+				expect(mockTrackSandboxEvent).toHaveBeenCalledWith(
+					SANDBOX_EVENT.SANDBOX_OPEN,
+					{
+						labId: 'test-lab-id',
+						page: '/test-path',
+					}
+				)
+			},
+			{ timeout: 3000 }
 		)
 	})
 
 	it('tracks sandbox events when closing a lab', async () => {
 		const TestComponent = () => {
-			const { openLab, closeLab } = useTestInstruqtEmbed()
+			const { openLab, closeLab } = useInstruqtEmbed()
 			return (
 				<>
 					<button
@@ -447,28 +246,29 @@ describe('InstruqtEmbed Context', () => {
 			)
 		}
 
-		await act(async () => {
-			render(
-				<TestInstruqtProvider>
-					<TestComponent />
-				</TestInstruqtProvider>
-			)
-		})
+		render(
+			<InstruqtProvider>
+				<TestComponent />
+			</InstruqtProvider>
+		)
 
-		await act(async () => {
-			fireEvent.click(await screen.findByTestId('open'))
-		})
+		fireEvent.click(screen.getByTestId('open'))
 
-		await act(async () => {
-			fireEvent.click(await screen.findByTestId('close'))
-		})
+		await new Promise((resolve) => setTimeout(resolve, 100))
 
-		expect(mockTrackSandboxEvent).toHaveBeenCalledWith(
-			SANDBOX_EVENT.SANDBOX_CLOSED,
-			{
-				labId: 'close-test-lab-id',
-				page: '/test-path',
-			}
+		fireEvent.click(screen.getByTestId('close'))
+
+		await waitFor(
+			() => {
+				expect(mockTrackSandboxEvent).toHaveBeenCalledWith(
+					SANDBOX_EVENT.SANDBOX_CLOSED,
+					{
+						labId: 'close-test-lab-id',
+						page: '/test-path',
+					}
+				)
+			},
+			{ timeout: 3000 }
 		)
 	})
 })

@@ -10,6 +10,7 @@ import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import { FC } from 'react'
 import s from './interactive-lab-callout.module.css'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
+import { trackSandboxInteraction } from 'views/sandbox-view'
 
 interface InteractiveLabCalloutProps {
 	labId?: string
@@ -34,6 +35,9 @@ const InteractiveLabCallout: FC<InteractiveLabCalloutProps> = ({ labId }) => {
 
 	const handleStartLab = () => {
 		if (effectiveLabId) {
+			trackSandboxInteraction('click', effectiveLabId, {
+				source: 'interactive-lab-callout',
+			})
 			ctx.openLab(effectiveLabId)
 			ctx.setActive(true)
 		} else {

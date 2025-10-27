@@ -1,0 +1,21 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
+.compactTutorialCard {
+	padding: 12px;
+}
+
+.compactDescription {
+	margin-top: 3px;
+}
+
+.compactFooter {
+	margin-top: 12px;
+	margin-bottom: 0;
+}
+
+.compactBadge {
+	--padding-left-right: 0;
+}

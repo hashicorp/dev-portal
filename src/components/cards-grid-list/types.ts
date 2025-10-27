@@ -9,7 +9,7 @@ interface CardsGridListProps {
 	children: ReactNode
 	isOrdered?: boolean
 	fixedColumns?: number
-	gridGap?: '16px' | '24px'
+	gridGap?: '8px' | '12px' | '16px' | '24px'
 }
 
 export type { CardsGridListProps }
