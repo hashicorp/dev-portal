@@ -15,7 +15,7 @@
 	}
 
 	& > :global(:not(.mdx-content-full-width)) {
-		max-width: 80ch;
+		max-width: var(--mdx-content-max-width);
 	}
 }
 

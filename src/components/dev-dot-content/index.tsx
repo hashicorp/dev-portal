@@ -98,7 +98,7 @@ const DevDotContent = ({
 		)
 	}
 
-	return <div className={classNames(s.root, className)}>{content}</div>
+	return <div className={classNames(s.root, className, 'mdx-content-update-params-selector')}>{content}</div>
 }
 
 export default DevDotContent
