@@ -199,11 +199,18 @@ export default normalizePlainCode
  * element appears below a bar of content, so margin should not be applied.
  */
 export function MdxPre({ children, className, ...restProps }: MdxPreProps) {
+
+	const urlParams = new URLSearchParams(window.location.search);
+	const tabsAndCodeBlocks = urlParams.get('tabsAndCodeBlocks');
+
+	console.log('tabsAndCodeBlocks param:', tabsAndCodeBlocks);
+
 	return (
 		<CodeBlock
 			{...restProps}
 			className={classNames(className, {
 				[s.codeBlockMargin]: !restProps.hasBarAbove,
+				'mdx-content-full-width': tabsAndCodeBlocks === 'true',
 			})}
 			value={normalizePlainCode(childrenOfFirstChild(children) || children)}
 			hasLineNumbers={false}
