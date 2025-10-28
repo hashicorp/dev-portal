@@ -4,6 +4,8 @@
  */
 
 .resizable {
+	display: grid;
+	grid-template-rows: auto 1fr;
 	width: 100%;
 	bottom: 0;
 	left: 0;
@@ -14,6 +16,7 @@
 	box-sizing: border-box;
 	padding-top: 0;
 	pointer-events: none;
+	background: var(--token-color-palette-neutral-0);
 	& > * {
 		pointer-events: auto;
 	}
@@ -33,4 +36,13 @@
 
 .resizing > iframe {
 	pointer-events: none;
+}
+
+.resizeShield {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40px;
+  bottom: 0;
+  z-index: 10;
 }

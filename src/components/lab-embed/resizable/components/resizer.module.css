@@ -6,9 +6,6 @@
 .resizeWrapper {
 	width: 100%;
 	height: 40px;
-	position: absolute;
-	top: -5px;
-	z-index: 10;
 	background: var(--token-color-palette-neutral-50);
 	box-shadow: var(--token-elevation-overlay-box-shadow);
 	display: flex;
@@ -23,6 +20,7 @@
 	height: 100%;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 
 	&:hover {
 		background-color: var(--token-color-palette-neutral-100);
@@ -40,18 +38,25 @@
 }
 
 .closeIcon {
-	height: 20px;
-	width: 20px;
-	margin-right: 20px;
+	position: absolute;
+	right: 0;
+	display: grid;
+	place-content: center;
+	height: 40px;
+	width: 40px;
 	cursor: pointer;
 	z-index: 11;
 	background: none;
 	border: none;
 	padding: 0;
 
+	&:hover {
+		background-color: var(--token-color-palette-neutral-100);
+	}
+
 	& svg {
-		width: 100%;
-		height: 100%;
+		width: 20px;
+		height: 20px;
 		stroke: var(--token-color-palette-neutral-300);
 	}
 }
