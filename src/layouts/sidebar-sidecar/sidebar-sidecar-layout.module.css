@@ -23,16 +23,6 @@ for further details.
 
 	/* Sidecar width and spacing are declared at this level to allow
 	   our breadcrumbBarGroup to match the max-width of main + sidecar. */
-	&.mainWidth-wide {
-		--main-element-max-width: 896px;
-	}
-
-	&.mainWidth-narrow {
-		--main-element-max-width: 680px;
-	}
-
-	/* Sidecar width and spacing are declared at this level to allow
-	   our breadcrumbBarGroup to match the max-width of main + sidecar. */
 	--sidecar-width: 312px;
 	--sidecar-spacing: 48px;
 
@@ -120,33 +110,17 @@ for further details.
 	display: flex;
 	justify-content: flex-start;
 	margin-bottom: 24px;
-	max-width: calc(
-		var(--main-element-max-width) + var(--sidecar-spacing) +
-			var(--sidecar-width)
-	);
 	width: 100%;
-}
-
-/* We want to limit the breadcrumb row content to be the width
-   of the main content area only. */
-.breadcrumbMaxWidth {
-	max-width: var(--main-element-max-width);
 }
 
 /* .mainAndSidecar spans the padded area, and lays out main + sidecar. */
 .mainAndSidecar {
 	display: flex;
-	max-width: calc(
-		var(--main-element-max-width) + var(--sidecar-spacing) +
-			var(--sidecar-width)
-	);
 	width: 100%;
 }
 
 /* .main handles the max-width and sizing for the main area. */
 .main {
-	max-width: var(--main-element-max-width);
-	min-width: 0;
 	width: 100%;
 }
 

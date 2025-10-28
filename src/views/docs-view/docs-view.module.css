@@ -13,6 +13,10 @@
 	& > *:first-child {
 		margin-top: 0;
 	}
+
+	& > :global(:not(.mdx-content-full-width)) {
+		max-width: 80ch;
+	}
 }
 
 .docsPageHeading {
