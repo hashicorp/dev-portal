@@ -12,7 +12,7 @@ import CardFooter from 'components/card/components/card-footer'
 import ButtonLink from 'components/button-link'
 import ProductIcon from 'components/product-icon'
 import s from './sandbox-card.module.css'
-import { trackSandboxInteraction } from 'views/sandbox-view'
+import { trackSandboxInteraction } from 'views/sandbox-view/utils'
 
 export interface SandboxCardProps {
 	title: string
