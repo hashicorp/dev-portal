@@ -13,6 +13,7 @@ interface ResizerProps {
 	style: CSS.Properties
 	onMouseUp?: MouseEventHandler<HTMLDivElement>
 	onClosePanel?(): void
+	isMobile?: boolean
 }
 
 /**@TODO the resize bar `div` needs a 'role' since its interactive  */
@@ -22,6 +23,7 @@ export default function Resizer({
 	onMouseUp,
 	onClosePanel,
 	style = {},
+	isMobile
 }: ResizerProps) {
 	return (
 		<div className={s.resizeWrapper} style={style}>
@@ -53,27 +55,29 @@ export default function Resizer({
 				tabIndex={0}
 			>
 				{/* Replace InlineSvg with direct SVG for testing */}
-				<svg
-					className={s.resizeBar}
-					width="120"
-					height="14"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<rect
+				{isMobile ? <></> :
+					<svg
+						className={s.resizeBar}
 						width="120"
-						height="4"
-						rx="2"
-						fill="var(--token-color-palette-neutral-300, #c2c5cb)"
-					/>
-					<rect
-						y="10"
-						width="120"
-						height="4"
-						rx="2"
-						fill="var(--token-color-palette-neutral-300, #c2c5cb)"
-					/>
-				</svg>
+						height="14"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<rect
+							width="120"
+							height="4"
+							rx="2"
+							fill="var(--token-color-palette-neutral-300, #c2c5cb)"
+						/>
+						<rect
+							y="10"
+							width="120"
+							height="4"
+							rx="2"
+							fill="var(--token-color-palette-neutral-300, #c2c5cb)"
+						/>
+					</svg>
+				}
 			</div>
 			<button
 				className={s.closeIcon}
