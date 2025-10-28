@@ -65,7 +65,7 @@ function CollectionProgress({ collection }: { collection: Collection }) {
 	 * CTA bar we display for the collection.
 	 */
 	const { data: progressData, isLoading } = useCollectionProgress({
-		collectionId: id, // If id is undefined, the hook will handle it appropriately
+		collectionId: id,
 	})
 
 	/**
@@ -87,7 +87,6 @@ function CollectionProgress({ collection }: { collection: Collection }) {
 			})
 		}, [progressData, tutorials, id, slug, collection])
 
-	// Always render the container to maintain layout consistency
 	return (
 		<div className={s.collectionProgressContainer}>
 			{!isLoading && collection && id && tutorials && (
