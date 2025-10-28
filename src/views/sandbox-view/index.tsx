@@ -27,6 +27,8 @@ import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import { SidebarProps } from '@components/sidebar'
 import posthog from 'posthog-js'
 
+import { trackSandboxInteraction } from 'views/sandbox-view/utils'
+
 interface SandboxPageProps {
 	product: (typeof PRODUCT_DATA_MAP)[keyof typeof PRODUCT_DATA_MAP]
 	layoutProps: {
@@ -35,21 +37,6 @@ interface SandboxPageProps {
 	}
 	availableSandboxes: SandboxLab[]
 	otherSandboxes: SandboxLab[]
-}
-export const trackSandboxInteraction = (
-	interactionType: string,
-	sandboxId: string,
-	additionalProps: Record<string, unknown> = {}
-) => {
-	if (typeof window !== 'undefined' && posthog?.capture) {
-		posthog.capture(SANDBOX_EVENT.SANDBOX_OPEN, {
-			interaction_type: interactionType,
-			sandbox_id: sandboxId,
-			...additionalProps,
-			timestamp: new Date().toISOString(),
-			page_url: window.location.href,
-		})
-	}
 }
 
 const trackSandboxPageError = (
