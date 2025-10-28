@@ -122,6 +122,7 @@ for further details.
 /* .main handles the max-width and sizing for the main area. */
 .main {
 	width: 100%;
+	min-width: 0;
 }
 
 /* .sidecarPosition handles the sticky positioning and max-height of all the
