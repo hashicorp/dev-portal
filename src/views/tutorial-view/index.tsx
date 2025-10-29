@@ -114,7 +114,7 @@ function TutorialView({
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
-	const { closeLab } = useInstruqtEmbed()
+	const { openLab, closeLab, setActive } = useInstruqtEmbed()
 	const {
 		id,
 		slug,
@@ -231,10 +231,31 @@ function TutorialView({
 	})
 
 	useEffect(() => {
-		if (!isInteractive) {
+		if (isInteractive && effectiveHandsOnLab?.id) {
+			try {
+				const storedState = localStorage.getItem('instruqt-lab-state')
+				const currentState = storedState ? JSON.parse(storedState) : null
+
+				if (
+					!currentState?.storedLabId ||
+					currentState.storedLabId !== effectiveHandsOnLab.id
+				) {
+					openLab(handsOnLab.id)
+				}
+			} catch (e) {
+				console.warn('Failed to handle lab state:', e)
+			}
+		} else if (!isInteractive) {
 			closeLab()
 		}
-	}, [isInteractive, closeLab])
+	}, [
+		isInteractive,
+		effectiveHandsOnLab,
+		openLab,
+		closeLab,
+		setActive,
+		handsOnLab.id,
+	])
 
 	const productSlug = productsUsed?.[0]?.product?.slug
 
@@ -249,7 +270,7 @@ function TutorialView({
 			</Head>
 			<VariantProvider variant={metadata.variant}>
 				<InstruqtProvider
-					labId={isInteractive ? effectiveHandsOnLab?.id : undefined}
+					labId={effectiveHandsOnLab?.id}
 					productSlug={productSlug}
 				>
 					<SidebarSidecarLayout
