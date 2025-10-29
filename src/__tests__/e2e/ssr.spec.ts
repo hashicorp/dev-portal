@@ -117,7 +117,89 @@ test.describe('SSR with JavaScript Disabled', () => {
 		await expect(page.locator('text=Server Error')).not.toBeVisible()
 	})
 
+    test('various paths should contain metadata content with js disabled', async ({ page }) => {
+        const pagesToTest = [
+			'/',
+			'/terraform',
+            'terraform/docs',
+			'/hcp/docs/boundary',
+            '/boundary/docs',
+            '/boundary/docs/hcp/get-started/deploy-and-login',
+            '/terraform/tutorials/aws-get-started/install-cli'
+		]
 
+        for (const path of pagesToTest) {
+            await page.goto(path)
+
+            // Check title exists and has content
+            await expect(page).toHaveTitle(/.+/)
+
+            // Check meta description exists and has content
+            const metaDescription = page.locator('meta[name="description"]')
+            await expect(metaDescription).toHaveAttribute('content', /.+/)
+
+            // Check viewport meta tag
+            const viewport = page.locator('meta[name="viewport"]')
+            await expect(viewport).toHaveAttribute('content', /width=device-width/)
+
+            // Check canonical URL exists and is a valid URL
+            const canonical = page.locator('link[rel="canonical"]')
+            await expect(canonical).toHaveAttribute('href', /^https?:\/\//)
+
+            // Check OG image exists and has content
+            const ogImage = page.locator('meta[property="og:image"]')
+            await expect(ogImage).toHaveAttribute('content', /.+/)
+
+            // Check Twitter image exists and has content
+            const twitterImage = page.locator('meta[name="twitter:image"]')
+            await expect(twitterImage).toHaveAttribute('content', /.+/)
+
+            // Check site verification tags exist
+            await expect(page.locator('meta[name="google-site-verification"]')).toBeAttached()
+            await expect(page.locator('meta[name="ahrefs-site-verification"]')).toBeAttached()
+            await expect(page.locator('meta[name="zd-site-verification"]').first()).toBeAttached()
+
+            // Check favicon links exist
+            await expect(page.locator('link[rel="icon"][href$=".ico"]')).toBeAttached()
+            await expect(page.locator('link[rel="icon"][href$=".svg"]')).toBeAttached()
+
+            // The #__next div should not be empty
+            // Check that server rendered actual HTML content inside #__next
+            const nextDiv = page.locator('#__next')
+            const innerHTML = await nextDiv.innerHTML()
+
+            // Should have substantial content (not just whitespace or empty)
+            expect(innerHTML.trim().length).toBeGreaterThan(100)
+        }
+	})
+
+	test('various paths should contain actual content with js disabled', async ({ page }) => {
+        const pagesToTest = [
+			'/',
+			'/terraform',
+            'terraform/docs',
+			'/hcp/docs/boundary',
+            '/boundary/docs',
+            '/boundary/docs/hcp/get-started/deploy-and-login',
+            '/terraform/tutorials/aws-get-started/install-cli'
+		]
+
+        for (const path of pagesToTest) {
+            const response = await page.goto(path)
+            const html = await response?.text()
+
+            // HTML should contain the main content div
+            expect(html).toContain('id="__next"')
+
+            // The #__next div should not be empty
+            // Check that server rendered actual HTML content inside #__next
+            const nextDiv = page.locator('#__next')
+            const innerHTML = await nextDiv.innerHTML()
+
+            // Should have substantial content (not just whitespace or empty)
+            expect(innerHTML.trim().length).toBeGreaterThan(100)
+        }
+	})
 })
 
 test.describe('SSR HTML Structure (JavaScript enabled for comparison)', () => {
@@ -170,6 +252,8 @@ test.describe('PostHog should not break SSR', () => {
 			'/',
 			'/terraform',
 			'/terraform/sandbox',
+            '/terraform/tutorials/aws-get-started/infrastructure-as-code', // contains interactive tutorial
+            '/terraform/tutorials/aws-get-started/install-cli' // contains non-interactive tutorial
 		]
 
 		for (const path of pagesWithPostHog) {
@@ -190,26 +274,87 @@ test.describe('PostHog should not break SSR', () => {
 })
 
 test.describe('View Source should contain server-rendered HTML', () => {
-	test('homepage HTML source should contain actual content', async ({ page }) => {
-		const response = await page.goto('/')
-		const html = await response?.text()
-		
-		// HTML should contain the main content div
-		expect(html).toContain('id="__next"')
-		
-		// Should have meta tags (server-rendered)
-		expect(html).toContain('<meta')
-		expect(html).toContain('name="description"')
-		
-		// The #__next div should not be empty
-		// Check that server rendered actual HTML content inside #__next
-		const nextDiv = page.locator('#__next')
-		const innerHTML = await nextDiv.innerHTML()
-		
-		// Should have substantial content (not just whitespace or empty)
-		expect(innerHTML.trim().length).toBeGreaterThan(100)
-		
-		// Should contain actual text content from the page
-		expect(html).toContain('Step inside')
+	test('various paths should contain actual content', async ({ page }) => {
+        const pagesToTest = [
+			'/',
+			'/terraform',
+            'terraform/docs',
+			'/hcp/docs/boundary',
+            '/boundary/docs',
+            '/boundary/docs/hcp/get-started/deploy-and-login',
+            '/terraform/tutorials/aws-get-started/install-cli'
+		]
+
+        for (const path of pagesToTest) {
+            const response = await page.goto(path)
+            const html = await response?.text()
+            
+            // HTML should contain the main content div
+            expect(html).toContain('id="__next"')
+            
+            // The #__next div should not be empty
+            // Check that server rendered actual HTML content inside #__next
+            const nextDiv = page.locator('#__next')
+            const innerHTML = await nextDiv.innerHTML()
+            
+            // Should have substantial content (not just whitespace or empty)
+            expect(innerHTML.trim().length).toBeGreaterThan(100)
+        }
+	})
+
+    test('various paths should contain metadata content with js enabled', async ({ page }) => {
+        const pagesToTest = [
+			'/',
+			'/terraform',
+            'terraform/docs',
+			'/hcp/docs/boundary',
+            '/boundary/docs',
+            '/boundary/docs/hcp/get-started/deploy-and-login',
+            '/terraform/tutorials/aws-get-started/install-cli'
+		]
+
+        for (const path of pagesToTest) {
+            await page.goto(path)
+
+            // Check title exists and has content
+            await expect(page).toHaveTitle(/.+/)
+
+            // Check meta description exists and has content
+            const metaDescription = page.locator('meta[name="description"]')
+            await expect(metaDescription).toHaveAttribute('content', /.+/)
+
+            // Check viewport meta tag
+            const viewport = page.locator('meta[name="viewport"]')
+            await expect(viewport).toHaveAttribute('content', /width=device-width/)
+
+            // Check canonical URL exists and is a valid URL
+            const canonical = page.locator('link[rel="canonical"]')
+            await expect(canonical).toHaveAttribute('href', /^https?:\/\//)
+
+            // Check OG image exists and has content
+            const ogImage = page.locator('meta[property="og:image"]')
+            await expect(ogImage).toHaveAttribute('content', /.+/)
+
+            // Check Twitter image exists and has content
+            const twitterImage = page.locator('meta[name="twitter:image"]')
+            await expect(twitterImage).toHaveAttribute('content', /.+/)
+
+            // Check site verification tags exist
+            await expect(page.locator('meta[name="google-site-verification"]')).toBeAttached()
+            await expect(page.locator('meta[name="ahrefs-site-verification"]')).toBeAttached()
+            await expect(page.locator('meta[name="zd-site-verification"]').first()).toBeAttached()
+
+            // Check favicon links exist
+            await expect(page.locator('link[rel="icon"][href$=".ico"]')).toBeAttached()
+            await expect(page.locator('link[rel="icon"][href$=".svg"]')).toBeAttached()
+
+            // The #__next div should not be empty
+            // Check that server rendered actual HTML content inside #__next
+            const nextDiv = page.locator('#__next')
+            const innerHTML = await nextDiv.innerHTML()
+
+            // Should have substantial content (not just whitespace or empty)
+            expect(innerHTML.trim().length).toBeGreaterThan(100)
+        }
 	})
 })
