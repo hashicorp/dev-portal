@@ -46,7 +46,7 @@ async function getHashiConfig(configPath) {
 			extendsConfig = await getHashiConfig(extendsConfigPath)
 		}
 
-		if (process.env.VERCEL_ENV !== 'production') {
+		if (process.env.VERCEL !== 'production') {
 			// Fetch additional config from UNIFIED_DOCS_API if available
 			if (process.env.UNIFIED_DOCS_API) {
 				try {
