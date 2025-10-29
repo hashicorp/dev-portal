@@ -245,7 +245,6 @@ const EmbedElement = memo(function EmbedElement(): JSX.Element {
 					sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
 					src=""
 					style={{
-						height: 'inherit',
 						opacity: embedState.isLoading || embedState.hasError ? 0 : 1,
 						transition: 'opacity 0.2s ease',
 					}}

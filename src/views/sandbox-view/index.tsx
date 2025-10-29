@@ -9,7 +9,7 @@ import classNames from 'classnames'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
-import { trackSandboxInteraction } from 'lib/track-sandbox-interaction'
+import { trackSandboxInteraction } from 'views/sandbox-view/utils'
 import { toast, ToastColor } from 'components/toast'
 import CardsGridList, {
 	TutorialCardsGridList,

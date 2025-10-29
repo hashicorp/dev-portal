@@ -18,6 +18,8 @@ import type { AppProps } from 'next/app'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
 // HashiCorp imports
+import { NextImageAdapter, NextLinkAdapter } from '@hashicorp/mds-next'
+import { MDSProvider } from '@hashicorp/mds-react/utils'
 import {
 	initializeUTMParamsCapture,
 	addGlobalLinkHandler,
@@ -84,36 +86,38 @@ export default function App({
 
 	return (
 		<ConditionalPostHogProvider>
-			<QueryClientProvider client={queryClient}>
-				<SSRProvider>
-					<QueryParamProvider adapter={NextAdapter}>
-						<ErrorBoundary FallbackComponent={DevDotClient}>
-							<SessionProvider session={session}>
-								<DeviceSizeProvider>
-									<CurrentProductProvider currentProduct={currentProduct}>
-										<HeadMetadata {...pageProps.metadata} />
-										<InstruqtProvider>
-											<LazyMotion
-												features={() =>
-													import('lib/framer-motion-features').then(
-													(mod) => mod.default
-												)
-											}
-											strict={process.env.NODE_ENV === 'development'}
-											>
-												<Component {...pageProps} />
-												<Toaster />
-												<ReactQueryDevtools />
-												<SpeedInsights sampleRate={0.05} />
-											</LazyMotion>
-										</InstruqtProvider>
-									</CurrentProductProvider>
-								</DeviceSizeProvider>
-							</SessionProvider>
-						</ErrorBoundary>
-					</QueryParamProvider>
-				</SSRProvider>
-			</QueryClientProvider>
+			<MDSProvider imageComponent={NextImageAdapter} linkComponent={NextLinkAdapter}>
+				<QueryClientProvider client={queryClient}>
+					<SSRProvider>
+						<QueryParamProvider adapter={NextAdapter}>
+							<ErrorBoundary FallbackComponent={DevDotClient}>
+								<SessionProvider session={session}>
+									<DeviceSizeProvider>
+										<CurrentProductProvider currentProduct={currentProduct}>
+											<HeadMetadata {...pageProps.metadata} />
+											<InstruqtProvider>
+												<LazyMotion
+													features={() =>
+														import('lib/framer-motion-features').then(
+														(mod) => mod.default
+													)
+												}
+												strict={process.env.NODE_ENV === 'development'}
+												>
+													<Component {...pageProps} />
+													<Toaster />
+													<ReactQueryDevtools />
+													<SpeedInsights sampleRate={0.05} />
+												</LazyMotion>
+											</InstruqtProvider>
+										</CurrentProductProvider>
+									</DeviceSizeProvider>
+								</SessionProvider>
+							</ErrorBoundary>
+						</QueryParamProvider>
+					</SSRProvider>
+				</QueryClientProvider>
+			</MDSProvider>
 		</ConditionalPostHogProvider>
 	)
 }

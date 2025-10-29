@@ -3,22 +3,6 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-/**
- * Extracted to fix circular dependency that was causing SSR crashes revealed through testing
- * 
- * During SSR, when the server tries to render a docs page with an interactive lab callout:
- * - sandbox-view starts loading
- * - It imports DevDotContent which imports mdx-components
- * - mdx-components tries to export MdxInteractiveLabCallout
- * - But MdxInteractiveLabCallout needs trackSandboxInteraction from sandbox-view
- * - sandbox-view is still loading (not finished yet)
- * - Result: MdxInteractiveLabCallout is undefined
- * - Error: "Cannot read properties of undefined (reading 'MdxInteractiveLabCallout')"
- * 
- * "Cannot read properties of undefined" during SSR often means circular imports.
- * Extract shared code into a separate file to fix
- */
-
 import { SANDBOX_EVENT } from 'lib/posthog-events'
 
 /**
@@ -32,6 +16,8 @@ if (typeof window !== 'undefined') {
 		posthog = module.default
 	})
 }
+
+// Before this was extracted, this function was causing circular dependency issues
 
 /**
  * Track sandbox interaction events
