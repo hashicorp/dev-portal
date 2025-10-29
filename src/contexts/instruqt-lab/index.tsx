@@ -93,7 +93,6 @@ function InstruqtProvider({
 	const [hasConfigError, setHasConfigError] = useState(false)
 	const [configErrors, setConfigErrors] = useState<string[]>([])
 	const router = useRouter()
-
 	useEffect(() => {
 		const validation = validateSandboxConfigWithDetailedErrors(SANDBOX_CONFIG)
 
@@ -132,68 +131,6 @@ function InstruqtProvider({
 			setLabId(initialLabId)
 			setActive(false)
 			return
-		}
-		const fallbackLabId = null
-		if (productSlug && !hasConfigError) {
-			const fallbackLab = SANDBOX_CONFIG.labs?.find((lab) =>
-				lab.products?.includes(productSlug)
-			)
-			if (fallbackLab) {
-				setLabId(fallbackLab.labId)
-				setActive(false)
-				try {
-					localStorage.removeItem(STORAGE_KEY)
-				} catch (e) {
-					trackInstruqtError(
-						'storage_remove_failed',
-						'Failed to remove Instruqt lab state for fallback',
-						{
-							error: e instanceof Error ? e.message : String(e),
-						}
-					)
-				}
-				return
-			}
-		}
-		if (!fallbackLabId) {
-			try {
-				const stored = localStorage.getItem(STORAGE_KEY)
-				if (stored) {
-					const { storedLabId } = JSON.parse(stored)
-					if (storedLabId && !hasConfigError && !initialLabId) {
-						const labExists = SANDBOX_CONFIG.labs?.some(
-							(lab) => lab.labId === storedLabId
-						)
-						if (labExists) {
-							setLabId(storedLabId)
-						} else {
-							localStorage.removeItem(STORAGE_KEY)
-						}
-					}
-				}
-			} catch (e) {
-				trackInstruqtError(
-					'storage_restore_failed',
-					'Failed to restore Instruqt lab state',
-					{
-						error: e instanceof Error ? e.message : String(e),
-					}
-				)
-				try {
-					localStorage.removeItem(STORAGE_KEY)
-				} catch (clearError) {
-					trackInstruqtError(
-						'storage_clear_failed',
-						'Failed to clear corrupted storage',
-						{
-							error:
-								clearError instanceof Error
-									? clearError.message
-									: String(clearError),
-						}
-					)
-				}
-			}
 		}
 	}, [hasConfigError, initialLabId, productSlug])
 

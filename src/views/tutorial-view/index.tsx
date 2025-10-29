@@ -12,7 +12,7 @@ import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
 import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
 import { useMobileMenu } from 'contexts'
-import { useInstruqtEmbed } from 'contexts/instruqt-lab'
+import { useInstruqtEmbed, InstruqtProvider } from 'contexts/instruqt-lab'
 import { TutorialLite } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
@@ -121,12 +121,10 @@ function TutorialView({
 	pageHeading,
 	metadata,
 }: TutorialViewProps): React.ReactElement {
-	// hooks
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
 	const { openLab, closeLab, setActive } = useInstruqtEmbed()
-
 	const {
 		id,
 		slug,
@@ -252,7 +250,7 @@ function TutorialView({
 					!currentState?.storedLabId ||
 					currentState.storedLabId !== effectiveHandsOnLab.id
 				) {
-					openLab(effectiveHandsOnLab.id)
+					openLab(handsOnLab.id)
 				}
 			} catch (e) {
 				console.warn('Failed to handle lab state:', e)
@@ -260,7 +258,16 @@ function TutorialView({
 		} else if (!isInteractive) {
 			closeLab()
 		}
-	}, [isInteractive, effectiveHandsOnLab, openLab, closeLab, setActive])
+	}, [
+		isInteractive,
+		effectiveHandsOnLab,
+		openLab,
+		closeLab,
+		setActive,
+		handsOnLab.id,
+	])
+
+	const productSlug = productsUsed?.[0]?.product?.slug
 
 	return (
 		<>
@@ -272,62 +279,70 @@ function TutorialView({
 				) : null}
 			</Head>
 			<VariantProvider variant={metadata.variant}>
-				<SidebarSidecarLayout
-					breadcrumbLinks={layoutProps.breadcrumbLinks}
-					sidebarNavDataLevels={sidebarNavDataLevels}
-					showScrollProgress={true}
-					AlternateSidebar={TutorialsSidebar}
-					sidecarTopSlot={
-						metadata.variant ? (
-							<VariantDropdownDisclosure
-								variant={metadata.variant}
-								isFullWidth
-							/>
-						) : null
-					}
-					sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
-					mainWidth={layoutProps.mainWidth}
+				<InstruqtProvider
+					labId={effectiveHandsOnLab?.id}
+					productSlug={productSlug}
 				>
-					<LayoutContentWrapper
-						collectionCtx={collectionCtx}
-						product={product}
-						setCollectionViewSidebarSections={setCollectionViewSidebarSections}
+					<SidebarSidecarLayout
+						breadcrumbLinks={layoutProps.breadcrumbLinks}
+						sidebarNavDataLevels={sidebarNavDataLevels}
+						showScrollProgress={true}
+						AlternateSidebar={TutorialsSidebar}
+						sidecarTopSlot={
+							metadata.variant ? (
+								<VariantDropdownDisclosure
+									variant={metadata.variant}
+									isFullWidth
+								/>
+							) : null
+						}
+						sidecarSlot={<OutlineNavWithActive items={outlineItems} />}
+						mainWidth={layoutProps.mainWidth}
 					>
-						<TutorialMeta
-							heading={pageHeading}
-							meta={{
-								readTime,
-								edition,
-								productsUsed,
-								isInteractive,
-								hasVideo,
-							}}
-							tutorialId={id}
-						/>
-						<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
-						{hasVideo && video.id && !video.videoInline && (
-							<VideoEmbed
-								url={getVideoUrl({
-									videoId: video.id,
-									videoHost: video.videoHost,
-								})}
+						<LayoutContentWrapper
+							collectionCtx={collectionCtx}
+							product={product}
+							setCollectionViewSidebarSections={
+								setCollectionViewSidebarSections
+							}
+						>
+							<TutorialMeta
+								heading={pageHeading}
+								meta={{
+									readTime,
+									edition,
+									productsUsed,
+									isInteractive,
+									hasVideo,
+									id: effectiveHandsOnLab?.id,
+								}}
+								tutorialId={id}
 							/>
-						)}
-						<DevDotContent
-							mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
-						/>
-						<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
-						<FeedbackPanel />
-						<NextPrevious {...nextPreviousData} />
-						<FeaturedInCollections
-							className={s.featuredInCollections}
-							collections={featuredInWithoutCurrent}
-						/>
-						{layoutProps.isCertificationPrep && (
-							<SignupFormArea className={s.newsletterSignupArea} />
-						)}
-					</LayoutContentWrapper>
-				</SidebarSidecarLayout>
+							<span data-ref-id={progressRefsId} ref={progressRefs.startRef} />
+							{hasVideo && video.id && !video.videoInline && (
+								<VideoEmbed
+									url={getVideoUrl({
+										videoId: video.id,
+										videoHost: video.videoHost,
+									})}
+								/>
+							)}
+							<DevDotContent
+								mdxRemoteProps={{ ...content, components: MDX_COMPONENTS }}
+							/>
+							<span data-ref-id={progressRefsId} ref={progressRefs.endRef} />
+							<FeedbackPanel />
+							<NextPrevious {...nextPreviousData} />
+							<FeaturedInCollections
+								className={s.featuredInCollections}
+								collections={featuredInWithoutCurrent}
+							/>
+							{layoutProps.isCertificationPrep && (
+								<SignupFormArea className={s.newsletterSignupArea} />
+							)}
+						</LayoutContentWrapper>
+					</SidebarSidecarLayout>
+				</InstruqtProvider>
 			</VariantProvider>
 		</>
 	)
