@@ -33,7 +33,8 @@
 			"well-architected-framework",
 			"terraform-enterprise",
 			"sentinel",
-			"hcp-docs"
+			"hcp-docs",
+			"boundary"
 		]
 	}
 }
