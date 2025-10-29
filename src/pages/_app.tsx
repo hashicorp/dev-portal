@@ -41,7 +41,7 @@ import { ConditionalPostHogProvider } from 'components/posthog/posthog-provider'
 import './style.css'
 import '@hashicorp/react-design-system-components/src/design-system-components.scss'
 
-if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
+if (typeof window !== 'undefined' && process.env.AXE_ENABLED === 'true') {
 	import('react-dom').then((ReactDOM) => {
 		import('@axe-core/react').then((axe) => {
 			axe.default(React, ReactDOM, 1000)
