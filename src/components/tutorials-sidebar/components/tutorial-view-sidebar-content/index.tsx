@@ -21,7 +21,6 @@ import { TutorialListItemProps } from 'components/tutorials-sidebar/types'
 // Styles
 import s from './tutorial-view-sidebar-content.module.css'
 import { Collection } from 'lib/learn-client/types'
-import React from 'react'
 
 /**
  * Renders sidebar content for tutorial views.
