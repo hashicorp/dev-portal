@@ -3,11 +3,9 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// Third-party imports
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 
-// Global imports
 import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
 import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
@@ -36,7 +34,6 @@ import TutorialMeta from 'components/tutorial-meta'
 import VideoEmbed from 'components/video-embed'
 import { SignupFormArea } from 'views/certifications/components'
 
-// Local imports
 import {
 	CollectionContext,
 	LayoutContentWrapperProps,
@@ -77,9 +74,6 @@ const LayoutContentWrapper = ({
 	const { mobileMenuIsOpen } = useMobileMenu()
 	const hasLoadedData = useRef(false)
 
-	/**
-	 * Only need to load the data once, on the first open of the mobile menu
-	 */
 	useEffect(() => {
 		if (hasLoadedData.current === false && mobileMenuIsOpen) {
 			/**
@@ -101,10 +95,6 @@ const LayoutContentWrapper = ({
 		setCollectionViewSidebarSections,
 	])
 
-	/**
-	 * Wrapping in a fragment to prevent a "return type 'ReactNode' is not a valid
-	 * JSX element" error
-	 */
 	return <>{children}</>
 }
 
@@ -124,7 +114,7 @@ function TutorialView({
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
-	const { openLab, closeLab, setActive } = useInstruqtEmbed()
+	const { closeLab } = useInstruqtEmbed()
 	const {
 		id,
 		slug,
@@ -241,31 +231,10 @@ function TutorialView({
 	})
 
 	useEffect(() => {
-		if (isInteractive && effectiveHandsOnLab?.id) {
-			try {
-				const storedState = localStorage.getItem('instruqt-lab-state')
-				const currentState = storedState ? JSON.parse(storedState) : null
-
-				if (
-					!currentState?.storedLabId ||
-					currentState.storedLabId !== effectiveHandsOnLab.id
-				) {
-					openLab(handsOnLab.id)
-				}
-			} catch (e) {
-				console.warn('Failed to handle lab state:', e)
-			}
-		} else if (!isInteractive) {
+		if (!isInteractive) {
 			closeLab()
 		}
-	}, [
-		isInteractive,
-		effectiveHandsOnLab,
-		openLab,
-		closeLab,
-		setActive,
-		handsOnLab.id,
-	])
+	}, [isInteractive, closeLab])
 
 	const productSlug = productsUsed?.[0]?.product?.slug
 

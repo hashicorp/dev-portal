@@ -183,40 +183,12 @@ function InstruqtProvider({
 
 	const openLab = useCallback(
 		(newLabId: string) => {
-			if (hasConfigError) {
-				trackInstruqtError(
-					'lab_open_blocked',
-					'Lab open blocked due to config error',
-					{ labId: newLabId, configErrors }
-				)
-				return
-			}
-
-			const labExists = SANDBOX_CONFIG.labs?.some((lab) => {
-				return (
-					lab.labId === newLabId ||
-					lab.instruqtTrack === newLabId ||
-					lab.instruqtTrack?.split('?')[0] === newLabId.split('?')[0] ||
-					(lab.scenario && newLabId.includes(lab.scenario))
-				)
-			})
-			if (!labExists) {
-				trackInstruqtError(
-					'lab_not_found',
-					`Lab ID "${newLabId}" not found in configuration`,
-					{
-						attempted_lab_id: newLabId,
-						available_labs: SANDBOX_CONFIG.labs?.map((lab) => lab.labId) || [],
-					}
-				)
-				return
-			}
 			if (newLabId !== labId || !active) {
 				setLabId(newLabId)
 				setActive(true)
 			}
 		},
-		[labId, active, hasConfigError, configErrors]
+		[labId, active]
 	)
 
 	const closeLab = useCallback(() => {
