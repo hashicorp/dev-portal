@@ -203,8 +203,6 @@ export function MdxPre({ children, className, ...restProps }: MdxPreProps) {
 	const urlParams = new URLSearchParams(window.location.search);
 	const tabsAndCodeBlocks = urlParams.get('tabsAndCodeBlocks');
 
-	console.log('tabsAndCodeBlocks param:', tabsAndCodeBlocks);
-
 	return (
 		<CodeBlock
 			{...restProps}

@@ -64,7 +64,9 @@ export default function App({
 	// START Testing - Used for testing custom max width for MDX content
 	useEffect(() => {
 		const waitForElement = () => {
-			const element = document.querySelector('.mdx-content-update-params-selector')
+			const element = document.querySelector(
+				'.mdx-content-update-params-selector'
+			)
 			const mdxContent = element?.firstChild
 
 			if (!element || !mdxContent) {
@@ -72,15 +74,15 @@ export default function App({
 				return
 			}
 
-			const urlParams = new URLSearchParams(window.location.search);
-			const maxWidth = urlParams.get('maxWidth');
+			const urlParams = new URLSearchParams(window.location.search)
+			const maxWidth = urlParams.get('maxWidth')
 
 			if (!maxWidth) {
-				return;
+				return
 			}
 
-			const root = document.documentElement.style;
-			root.setProperty('--mdx-content-max-width', `${maxWidth}ch`);
+			const root = document.documentElement.style
+			root.setProperty('--mdx-content-max-width', `${maxWidth}ch`)
 		}
 
 		waitForElement()
