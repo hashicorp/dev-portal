@@ -5,14 +5,21 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import posthog, { type PostHog } from 'posthog-js'
+
+// SSR-safe dynamic import
+let posthog: typeof import('posthog-js').default | null = null
+if (typeof window !== 'undefined') {
+	import('posthog-js').then((module) => {
+		posthog = module.default
+	})
+}
 
 declare global {
 	/* 
 	Loaded via a posthog script tag in GTM based on datagrail consent
 	*/
 	interface Window {
-		posthog?: PostHog
+		posthog?: typeof import('posthog-js').PostHog
 	}
 }
 
@@ -25,7 +32,9 @@ function onRouteChangeComplete() {
 	 * PostHog documentation for capturing pageviews in SPA with the JS web installation:
 	 * https://posthog.com/docs/libraries/js#single-page-apps-and-pageviews
 	 */
-	posthog.capture('$pageview')
+	if (posthog) {
+		posthog.capture('$pageview')
+	}
 }
 
 /**
@@ -35,6 +44,11 @@ export default function usePostHogPageAnalytics(): void {
 	const router = useRouter()
 
 	useEffect(() => {
+		// SSR guard
+		if (typeof window === 'undefined' || !posthog) {
+			return
+		}
+
 		posthog.config.capture_pageview = false
 
 		// Record a pageview when route changes

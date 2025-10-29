@@ -17,8 +17,15 @@ import { serialize } from 'lib/next-mdx-remote/serialize'
 import { SidebarProps } from 'components/sidebar'
 import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
-import posthog from 'posthog-js'
 import { SandboxView } from 'views/sandbox-view'
+
+// SSR-safe dynamic import
+let posthog: typeof import('posthog-js').default | null = null
+if (typeof window !== 'undefined') {
+	import('posthog-js').then((module) => {
+		posthog = module.default
+	})
+}
 
 /**
  * Tracks sandbox page errors with PostHog and development logging

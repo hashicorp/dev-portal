@@ -7,7 +7,14 @@ import { NextRouter } from 'next/router'
 import { signIn, SignInOptions as _SignInOptions } from 'next-auth/react'
 import { ValidAuthProviderId } from 'types/auth'
 import { DEFAULT_PROVIDER_ID } from '..'
-import posthog from 'posthog-js'
+
+// SSR-safe dynamic import
+let posthog: typeof import('posthog-js').default | null = null
+if (typeof window !== 'undefined') {
+	import('posthog-js').then((module) => {
+		posthog = module.default
+	})
+}
 
 interface MakeSignInOptions {
 	routerPath: NextRouter['asPath']
@@ -28,11 +35,13 @@ const makeSignIn = ({ routerPath }: MakeSignInOptions) => {
 	) => {
 		const { callbackUrl = routerPath, redirect = true } = options
 
-		posthog.capture('user_authenticated', {
-			source: 'sign_in',
-			trigger: 'manual_sign_in',
-			timestamp: new Date().toISOString(),
-		})
+		if (posthog) {
+			posthog.capture('user_authenticated', {
+				source: 'sign_in',
+				trigger: 'manual_sign_in',
+				timestamp: new Date().toISOString(),
+			})
+		}
 
 		return signIn(provider, { callbackUrl, redirect })
 	}
