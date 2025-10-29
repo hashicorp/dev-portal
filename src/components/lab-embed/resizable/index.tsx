@@ -84,15 +84,17 @@ export default function Resizable({
 		(e: MouseEvent) => {
 			if (isMobile) return
 
-			setMoveMouseY(e.screenY)
+			setMoveMouseY(e.clientY)
 		},
 		[isMobile]
 	)
 
 	const stopResize = useCallback(() => {
 		setIsResizing(false)
+		document.body.style.userSelect = ''
 		window.removeEventListener('mousemove', resize)
 		window.removeEventListener('mouseup', stopResize)
+		window.removeEventListener('blur', stopResize)
 	}, [resize])
 
 	const enableResize = useCallback(
@@ -100,13 +102,17 @@ export default function Resizable({
 			if (isMobile) return // Disable resizing on mobile
 
 			e.preventDefault()
-			setDownMouseY(e.screenY)
+			setDownMouseY(e.clientY)
 			setPreviousHeight(height)
 			setIsResizing(true)
+
+			// prevent text selection while dragging
+			document.body.style.userSelect = 'none'
 
 			// Add event listeners to window immediately
 			window.addEventListener('mousemove', resize, { passive: true })
 			window.addEventListener('mouseup', stopResize, { passive: true })
+			window.addEventListener('blur', stopResize)
 		},
 		[isMobile, height, resize, stopResize]
 	)
@@ -114,8 +120,10 @@ export default function Resizable({
 	// Cleanup effect to ensure event listeners are removed
 	useEffect(() => {
 		return () => {
+			document.body.style.userSelect = ''
 			window.removeEventListener('mousemove', resize)
 			window.removeEventListener('mouseup', stopResize)
+			window.removeEventListener('blur', stopResize)
 		}
 	}, [resize, stopResize])
 
@@ -136,10 +144,17 @@ export default function Resizable({
 			aria-label="Interactive Lab Environment"
 			aria-modal="true"
 		>
+			{isResizing && (
+				<div
+					className={s.resizeShield}
+					aria-hidden="true"
+				/>
+			)}
 			<Resizer
 				onClosePanel={() => closeLab()}
 				onMouseDown={enableResize}
 				style={style}
+				isMobile={isMobile}
 			/>
 			{children}
 		</div>
