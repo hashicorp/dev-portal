@@ -11,7 +11,14 @@ import { IconAlertDiamond24 } from '@hashicorp/flight-icons/svg-react/alert-diam
 import { MdxHighlight, MdxTip, MdxNote, MdxWarning } from './variants'
 import { MdxInlineAlertData, MdxInlineAlertProps } from './types'
 import s from './mdx-inline-alert.module.css'
-import posthog from 'posthog-js'
+
+// SSR-safe dynamic import
+let posthog: typeof import('posthog-js').default | null = null
+if (typeof window !== 'undefined') {
+	import('posthog-js').then((module) => {
+		posthog = module.default
+	})
+}
 
 const ALERT_DATA: MdxInlineAlertData = {
 	tip: { title: 'Tip', icon: <IconInfo24 />, color: 'neutral' },

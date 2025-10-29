@@ -42,6 +42,8 @@ const hideWaypointTipContent = {
 let alreadyLoggedUDRInfo = false
 
 module.exports = async () => {
+	process.env.VERCEL_ENV = process.env.VERCEL_ENV || 'development'
+
 	const appConfig = await loadHashiConfigForEnvironment()
 
 	// Only log this info when first running, not when being reloaded
@@ -104,7 +106,8 @@ module.exports = async () => {
 		},
 		env: {
 			ASSET_API_ENDPOINT: process.env.ASSET_API_ENDPOINT,
-			AXE_ENABLED: process.env.AXE_ENABLED || 'false',
+			// Enable AXE only in development environment
+			AXE_ENABLED: process.env.VERCEL_ENV === 'development' ? 'true' : 'false',
 			DEV_IO: process.env.DEV_IO,
 			PREVIEW_FROM_REPO: process.env.PREVIEW_FROM_REPO,
 			ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || 'false',

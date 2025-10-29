@@ -9,6 +9,7 @@ import classNames from 'classnames'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
+import { trackSandboxInteraction } from 'views/sandbox-view/utils'
 import { toast, ToastColor } from 'components/toast'
 import CardsGridList, {
 	TutorialCardsGridList,
@@ -25,9 +26,14 @@ import s from './sandbox-view.module.css'
 import docsViewStyles from 'views/docs-view/docs-view.module.css'
 import { PRODUCT_DATA_MAP } from 'data/product-data-map'
 import { SidebarProps } from '@components/sidebar'
-import posthog from 'posthog-js'
 
-import { trackSandboxInteraction } from 'views/sandbox-view/utils'
+// SSR-safe dynamic import
+let posthog: typeof import('posthog-js').default | null = null
+if (typeof window !== 'undefined') {
+	import('posthog-js').then((module) => {
+		posthog = module.default
+	})
+}
 
 interface SandboxPageProps {
 	product: (typeof PRODUCT_DATA_MAP)[keyof typeof PRODUCT_DATA_MAP]
@@ -406,11 +412,14 @@ export const SandboxView = ({
 									productsUsed: lab.products as ProductOption[],
 								}
 							})}
-							className={s.sandboxGrid}
-						/>
-					</ErrorBoundary>
-				</>
-			)}
-		</SidebarSidecarLayout>
-	)
+						className={s.sandboxGrid}
+					/>
+				</ErrorBoundary>
+			</>
+		)}
+	</SidebarSidecarLayout>
+)
 }
+
+// Re-export for backward compatibility
+export { trackSandboxInteraction }

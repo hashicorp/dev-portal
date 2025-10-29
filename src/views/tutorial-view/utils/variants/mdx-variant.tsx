@@ -20,6 +20,11 @@ export function MdxVariant({ slug, option, children }: MdxVariantProps) {
 	}
 	const shouldRenderContent =
 		currentVariant.slug === slug && currentVariant.activeOption.slug === option
+
+	if (!shouldRenderContent) {
+		return null
+	}
+
 	const isValidVariantOption = currentVariant.options.find(
 		(o: TutorialVariantOption) => o.slug === option
 	)
@@ -32,5 +37,5 @@ export function MdxVariant({ slug, option, children }: MdxVariantProps) {
 		)
 	}
 
-	return shouldRenderContent ? children : null
+	return children
 }
