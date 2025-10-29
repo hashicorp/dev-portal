@@ -132,6 +132,39 @@ function InstruqtProvider({
 			setActive(false)
 			return
 		}
+
+		try {
+			const stored = localStorage.getItem(STORAGE_KEY)
+			if (stored) {
+				const { storedLabId, active: storedActive } = JSON.parse(stored)
+				if (storedLabId && !hasConfigError) {
+					setLabId(storedLabId)
+					setActive(storedActive || false)
+				}
+			}
+		} catch (e) {
+			trackInstruqtError(
+				'storage_restore_failed',
+				'Failed to restore Instruqt lab state',
+				{
+					error: e instanceof Error ? e.message : String(e),
+				}
+			)
+			try {
+				localStorage.removeItem(STORAGE_KEY)
+			} catch (clearError) {
+				trackInstruqtError(
+					'storage_clear_failed',
+					'Failed to clear corrupted storage',
+					{
+						error:
+							clearError instanceof Error
+								? clearError.message
+								: String(clearError),
+					}
+				)
+			}
+		}
 	}, [hasConfigError, initialLabId, productSlug])
 
 	useEffect(() => {
