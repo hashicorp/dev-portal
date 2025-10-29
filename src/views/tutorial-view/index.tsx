@@ -249,7 +249,7 @@ function TutorialView({
 			</Head>
 			<VariantProvider variant={metadata.variant}>
 				<InstruqtProvider
-					labId={effectiveHandsOnLab?.id}
+					labId={isInteractive ? effectiveHandsOnLab?.id : undefined}
 					productSlug={productSlug}
 				>
 					<SidebarSidecarLayout
