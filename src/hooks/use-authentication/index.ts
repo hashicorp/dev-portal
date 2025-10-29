@@ -16,7 +16,14 @@ import { Session } from 'next-auth'
 import { AuthErrors, ValidAuthProviderId } from 'types/auth'
 import { makeSignIn, makeSignOut, signUp } from './helpers'
 import { canAnalyzeUser, safeGetSegmentId } from 'lib/analytics'
-import posthog from 'posthog-js'
+
+// SSR-safe dynamic import
+let posthog: typeof import('posthog-js').default | null = null
+if (typeof window !== 'undefined') {
+	import('posthog-js').then((module) => {
+		posthog = module.default
+	})
+}
 
 export const DEFAULT_PROVIDER_ID = ValidAuthProviderId.CloudIdp
 

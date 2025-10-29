@@ -3,8 +3,15 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import posthog from 'posthog-js'
 import { SandboxLab } from 'types/sandbox'
+
+// SSR-safe dynamic import
+let posthog: typeof import('posthog-js').default | null = null
+if (typeof window !== 'undefined') {
+	import('posthog-js').then((module) => {
+		posthog = module.default
+	})
+}
 
 interface InstruqtTokens {
 	[key: string]: string

@@ -28,7 +28,7 @@ import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analyti
 
 // Global imports
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
-import InstruqtProvider from 'contexts/instruqt-lab'
+import { InstruqtProvider } from 'contexts/instruqt-lab'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
@@ -47,12 +47,14 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 	})
 }
 
-initializeUTMParamsCapture()
-addGlobalLinkHandler((destinationUrl: string) => {
-	track('Outbound link', {
-		destination_url: destinationUrl,
+if (typeof window !== 'undefined') {
+	initializeUTMParamsCapture()
+	addGlobalLinkHandler((destinationUrl: string) => {
+		track('Outbound link', {
+			destination_url: destinationUrl,
+		})
 	})
-})
+}
 
 export default function App({
 	Component,
