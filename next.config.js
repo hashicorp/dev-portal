@@ -43,8 +43,6 @@ let alreadyLoggedUDRInfo = false
 
 module.exports = async () => {
 	const appConfig = await loadHashiConfigForEnvironment()
-
-	console.log(`process.env.HASHI_ENV: ${process.env.VERCEL_ENV}`)
 	process.env.VERCEL_ENV = process.env.VERCEL_ENV || 'development'
 
 	// Only log this info when first running, not when being reloaded
