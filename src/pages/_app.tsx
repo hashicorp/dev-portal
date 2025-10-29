@@ -42,6 +42,7 @@ import './style.css'
 import '@hashicorp/react-design-system-components/src/design-system-components.scss'
 
 if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
+	console.log('Axe is enabled');
 	import('react-dom').then((ReactDOM) => {
 		import('@axe-core/react').then((axe) => {
 			axe.default(React, ReactDOM, 1000)

@@ -104,7 +104,7 @@ module.exports = async () => {
 		},
 		env: {
 			ASSET_API_ENDPOINT: process.env.ASSET_API_ENDPOINT,
-			AXE_ENABLED: process.env.AXE_ENABLED || 'false',
+			AXE_ENABLED: process.env.VERCEL_ENV === 'development' ? process.env.AXE_ENABLED : 'false',
 			DEV_IO: process.env.DEV_IO,
 			PREVIEW_FROM_REPO: process.env.PREVIEW_FROM_REPO,
 			ENABLE_VERSIONED_DOCS: process.env.ENABLE_VERSIONED_DOCS || 'false',
