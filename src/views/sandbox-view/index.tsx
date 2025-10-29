@@ -9,6 +9,7 @@ import classNames from 'classnames'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
+import { trackSandboxInteraction } from 'lib/track-sandbox-interaction'
 import { toast, ToastColor } from 'components/toast'
 import CardsGridList, {
 	TutorialCardsGridList,
@@ -42,21 +43,6 @@ interface SandboxPageProps {
 	}
 	availableSandboxes: SandboxLab[]
 	otherSandboxes: SandboxLab[]
-}
-export const trackSandboxInteraction = (
-	interactionType: string,
-	sandboxId: string,
-	additionalProps: Record<string, unknown> = {}
-) => {
-	if (typeof window !== 'undefined' && posthog?.capture) {
-		posthog.capture(SANDBOX_EVENT.SANDBOX_OPEN, {
-			interaction_type: interactionType,
-			sandbox_id: sandboxId,
-			...additionalProps,
-			timestamp: new Date().toISOString(),
-			page_url: window.location.href,
-		})
-	}
 }
 
 const trackSandboxPageError = (
@@ -426,11 +412,14 @@ export const SandboxView = ({
 									productsUsed: lab.products as ProductOption[],
 								}
 							})}
-							className={s.sandboxGrid}
-						/>
-					</ErrorBoundary>
-				</>
-			)}
-		</SidebarSidecarLayout>
-	)
+						className={s.sandboxGrid}
+					/>
+				</ErrorBoundary>
+			</>
+		)}
+	</SidebarSidecarLayout>
+)
 }
+
+// Re-export for backward compatibility
+export { trackSandboxInteraction }

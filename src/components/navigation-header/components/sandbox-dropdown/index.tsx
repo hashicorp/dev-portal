@@ -23,7 +23,7 @@ import { SandboxLab } from 'types/sandbox'
 import { ProductSlug } from 'types/products'
 import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
 import { useTheme } from 'next-themes'
-import { trackSandboxInteraction } from 'views/sandbox-view'
+import { trackSandboxInteraction } from 'lib/track-sandbox-interaction'
 
 interface SandboxDropdownProps {
 	ariaLabel: string
