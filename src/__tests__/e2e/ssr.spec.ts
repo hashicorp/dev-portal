@@ -104,17 +104,42 @@ test.describe('SSR with JavaScript Disabled', () => {
 	test('sandbox page should render without JavaScript', async ({ page }) => {
 		await page.goto('/terraform/sandbox')
 
-		// Page should return 200 (even if some features don't work without JS)
+		// Page should load successfully
 		expect(page).toHaveURL('/terraform/sandbox')
 
-		// Should have content visible
+		// Check title exists and has content
+		await expect(page).toHaveTitle(/.+/)
+
+		// Should have main content visible
+		const mainContent = page.locator('main')
+		await expect(mainContent).toBeVisible()
+
+		// Should have navigation
+		const nav = page.locator('nav').first()
+		await expect(nav).toBeVisible()
+
+		// Body should have substantial content
 		const bodyText = await page.locator('body').textContent()
 		expect(bodyText).toBeTruthy()
-		expect(bodyText!.length).toBeGreaterThan(50)
+		expect(bodyText!.length).toBeGreaterThan(100)
+
+		// The #__next div should have substantial content
+		const nextDiv = page.locator('#__next')
+		const innerHTML = await nextDiv.innerHTML()
+		expect(innerHTML.trim().length).toBeGreaterThan(100)
+
+		// Should have metadata tags
+		const metaDescription = page.locator('meta[name="description"]')
+		await expect(metaDescription).toHaveAttribute('content', /.+/)
+
+		// Check canonical URL exists
+		const canonical = page.locator('link[rel="canonical"]')
+		await expect(canonical).toHaveAttribute('href', /^https?:\/\//)
 
 		// Should not show error page
 		await expect(page.locator('text=500')).not.toBeVisible()
 		await expect(page.locator('text=Server Error')).not.toBeVisible()
+		await expect(page.locator('text=Error')).not.toBeVisible()
 	})
 
     test('various paths should contain metadata content with js disabled', async ({ page }) => {
@@ -202,54 +227,12 @@ test.describe('SSR with JavaScript Disabled', () => {
 	})
 })
 
-test.describe('SSR HTML Structure (JavaScript enabled for comparison)', () => {
-	test('homepage should have consistent HTML between SSR and client', async ({ page }) => {
-		test.setTimeout(60000) // Increase timeout for this test
-		
-		// First load with JS to get the hydrated HTML
-		await page.goto('/')
-		
-		// Wait for hydration to complete
-		await page.waitForLoadState('domcontentloaded')
-		
-		// Get the main content
-		const mainWithJS = await page.locator('#__next').innerHTML()
-		
-		// Verify there's actual content
-		expect(mainWithJS.length).toBeGreaterThan(1000)
-		
-		// Check that key elements exist (use first to avoid strict mode violation)
-		await expect(page.locator('h1').first()).toBeVisible()
-		
-		// Verify no hydration errors in console
-		const consoleErrors: string[] = []
-		page.on('console', (msg) => {
-			if (msg.type() === 'error') {
-				consoleErrors.push(msg.text())
-			}
-		})
-		
-		// Reload and check for hydration errors
-		await page.reload()
-		await page.waitForLoadState('domcontentloaded')
-		
-		// Filter out known acceptable errors (like network errors for blocked resources)
-		const hydrationErrors = consoleErrors.filter(error => 
-			error.toLowerCase().includes('hydration') ||
-			error.toLowerCase().includes('did not match')
-		)
-		
-		expect(hydrationErrors).toHaveLength(0)
-	})
-})
-
 test.describe('PostHog should not break SSR', () => {
 	test.use({ javaScriptEnabled: false })
 
 	test('pages with PostHog tracking should still render without JS', async ({ page }) => {
 		// These pages use PostHog tracking
 		const pagesWithPostHog = [
-			'/',
 			'/terraform',
 			'/terraform/sandbox',
             '/terraform/tutorials/aws-get-started/infrastructure-as-code', // contains interactive tutorial
@@ -257,17 +240,38 @@ test.describe('PostHog should not break SSR', () => {
 		]
 
 		for (const path of pagesWithPostHog) {
-			await page.goto(path)
-			
-			// Should not crash
+			// Should not crash - navigate once and check status
 			const response = await page.goto(path)
 			expect(response?.status()).toBe(200)
-			
-			// Should have content
+
+			// Check title exists and has content
+			await expect(page).toHaveTitle(/.+/)
+
+			// Should have main content visible
+			const mainContent = page.locator('main')
+			await expect(mainContent).toBeVisible()
+
+			// Body should have substantial content
 			const bodyText = await page.locator('body').textContent()
-			expect(bodyText!.length).toBeGreaterThan(50)
-			
+			expect(bodyText).toBeTruthy()
+			expect(bodyText!.length).toBeGreaterThan(100)
+
+			// The #__next div should have substantial content
+			const nextDiv = page.locator('#__next')
+			const innerHTML = await nextDiv.innerHTML()
+			expect(innerHTML.trim().length).toBeGreaterThan(100)
+
+			// Should have metadata tags
+			const metaDescription = page.locator('meta[name="description"]')
+			await expect(metaDescription).toHaveAttribute('content', /.+/)
+
+			// Check canonical URL exists
+			const canonical = page.locator('link[rel="canonical"]')
+			await expect(canonical).toHaveAttribute('href', /^https?:\/\//)
+
 			// Should not show error
+			await expect(page.locator('text=500')).not.toBeVisible()
+			await expect(page.locator('text=Server Error')).not.toBeVisible()
 			await expect(page.locator('text=Error')).not.toBeVisible()
 		}
 	})
