@@ -6,8 +6,8 @@
 .root {
 	width: fit-content;
 	position: relative;
+	z-index: 200;
 
-	/* Hide sandbox dropdown on mobile and tablet devices */
 	@media (max-width: 1024px) {
 		display: none;
 	}
@@ -64,10 +64,11 @@
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
 	box-shadow: var(--token-elevation-higher-box-shadow);
-	position: absolute;
+	position: fixed;
 	width: max-content;
 	min-width: 280px;
 	max-width: 480px;
+	z-index: 10000;
 }
 
 .dropdownContainerInner {

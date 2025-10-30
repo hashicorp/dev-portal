@@ -28,6 +28,7 @@
 	padding-right: var(--header-padding-left-right);
 	position: relative;
 	width: 100%;
+	z-index: 150; /* Above lab terminal (z-index: 100) to ensure header dropdowns are visible */
 
 	@media (--dev-dot-show-mobile-menu) {
 		padding-bottom: 14px;

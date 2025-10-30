@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { KeyboardEvent, useRef, useState } from 'react'
+import { KeyboardEvent, useRef, useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { useId } from '@react-aria/utils'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { useRouter } from 'next/router'
@@ -32,10 +33,31 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const uniqueId = useId()
 	const router = useRouter()
 	const currentProduct = useCurrentProduct()
+	const rootRef = useRef<HTMLDivElement>()
 	const menuRef = useRef<HTMLDivElement>()
 	const activatorButtonRef = useRef<HTMLButtonElement>()
 	const [isOpen, setIsOpen] = useState(false)
+	const [dropdownPosition, setDropdownPosition] = useState<{
+		top: number
+		left: number
+	} | null>(null)
+	const [mounted, setMounted] = useState(false)
 	const menuId = `sandbox-dropdown-menu-${uniqueId}`
+
+	useEffect(() => {
+		setMounted(true)
+		return () => setMounted(false)
+	}, [])
+
+	useEffect(() => {
+		if (isOpen && activatorButtonRef.current) {
+			const rect = activatorButtonRef.current.getBoundingClientRect()
+			setDropdownPosition({
+				top: rect.bottom + 16,
+				left: rect.left,
+			})
+		}
+	}, [isOpen])
 
 	// Item data from sandbox config
 	const labs = SANDBOX_CONFIG.labs as unknown as SandboxLab[]
@@ -48,14 +70,14 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const isOnSandboxPage = router.query?.productSlug === currentProduct?.slug
 
 	// Handles closing the menu if there is a click outside of it and it is open.
-	useOnClickOutside([menuRef], () => setIsOpen(false), isOpen)
+	useOnClickOutside([rootRef, menuRef], () => setIsOpen(false), isOpen)
 
 	// Handles closing the menu if focus moves outside of it and it is open.
-	useOnFocusOutside([menuRef], () => setIsOpen(false), isOpen)
+	useOnFocusOutside([rootRef, menuRef], () => setIsOpen(false), isOpen)
 
 	// Handles closing the menu if Esc is pressed while navigating with a keyboard and the menu is focused.
 	useOnEscapeKeyDown(
-		[menuRef],
+		[rootRef, menuRef],
 		() => {
 			setIsOpen(false)
 			activatorButtonRef.current.focus()
@@ -157,7 +179,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 					: undefined
 			}
 			onMouseLeave={handleMouseLeave}
-			ref={menuRef}
+			ref={rootRef}
 		>
 			<div className={s.activatorWrapper}>
 				<button
@@ -181,106 +203,117 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 					<IconChevronDown16 className={s.activatorTrailingIcon} />
 				</button>
 			</div>
-			<div
-				className={s.dropdownContainer}
-				id={menuId}
-				style={{ display: isOpen ? 'block' : 'none' }}
-			>
-				<div className={s.dropdownContainerInner}>
-					{/* Introduction to Sandboxes */}
-
-					<button
-						className={`${s.introSandboxItem} ${s.sandboxItem}`}
-						onClick={navigateToSandboxPage}
-						onKeyDown={handleKeyDown}
-						aria-label={`Go to ${currentProduct.name} Sandboxes`}
-						aria-current={isOnSandboxPage ? 'page' : undefined}
+			{mounted &&
+				isOpen &&
+				dropdownPosition &&
+				createPortal(
+					<div
+						className={s.dropdownContainer}
+						id={menuId}
+						style={{
+							top: `${dropdownPosition.top}px`,
+							left: `${dropdownPosition.left}px`,
+						}}
+						ref={menuRef}
 					>
-						<div className={s.introSandboxRow}>
-							<ProductIcon
-								productSlug={currentProduct.slug as ProductSlug}
-								size={16}
-								className={s.productIcon}
-							/>
+						<div className={s.dropdownContainerInner}>
+							{/* Introduction to Sandboxes */}
+
+							<button
+								className={`${s.introSandboxItem} ${s.sandboxItem}`}
+								onClick={navigateToSandboxPage}
+								onKeyDown={handleKeyDown}
+								aria-label={`Go to ${currentProduct.name} Sandboxes`}
+								aria-current={isOnSandboxPage ? 'page' : undefined}
+							>
+								<div className={s.introSandboxRow}>
+									<ProductIcon
+										productSlug={currentProduct.slug as ProductSlug}
+										size={16}
+										className={s.productIcon}
+									/>
+									<Text
+										asElement="span"
+										className={`${s.sectionTitle} ${s.introSandboxTitle} ${s.title}`}
+										size={200}
+										weight="semibold"
+									>
+										{currentProduct.name} Sandboxes
+									</Text>
+								</div>
+								<Text
+									asElement="span"
+									className={`${s.introText} ${s.introSandboxText} ${s.description}`}
+									size={100}
+									weight="regular"
+								>
+									Interactive environments where you can experiment with
+									HashiCorp products without any installation or setup. Perfect
+									for learning, testing, and exploring features in a safe
+									sandbox.
+								</Text>
+							</button>
+
 							<Text
-								asElement="span"
-								className={`${s.sectionTitle} ${s.introSandboxTitle} ${s.title}`}
+								asElement="p"
+								className={s.sectionTitle}
 								size={200}
 								weight="semibold"
 							>
-								{currentProduct.name} Sandboxes
+								Available {currentProduct.name} Sandboxes
 							</Text>
-						</div>
-						<Text
-							asElement="span"
-							className={`${s.introText} ${s.introSandboxText} ${s.description}`}
-							size={100}
-							weight="regular"
-						>
-							Interactive environments where you can experiment with HashiCorp
-							products without any installation or setup. Perfect for learning,
-							testing, and exploring features in a safe sandbox.
-						</Text>
-					</button>
 
-					<Text
-						asElement="p"
-						className={s.sectionTitle}
-						size={200}
-						weight="semibold"
-					>
-						Available {currentProduct.name} Sandboxes
-					</Text>
-
-					<ul className={s.labsList}>
-						{currentProductLabs.map((lab, index) => (
-							<li key={lab.labId || index} className={s.itemContainer}>
-								<button
-									className={s.sandboxItem}
-									onClick={() => {
-										handleLabClick(lab)
-										trackSandboxInteraction('hover', lab.labId, {
-											page: router.asPath,
-										})
-									}}
-									onKeyDown={handleKeyDown}
-								>
-									<div className={s.content}>
-										<div className={s.titleRow}>
-											<Text
-												asElement="span"
-												className={s.title}
-												size={200}
-												weight="regular"
-											>
-												{lab.title}
-											</Text>
-											<div className={s.productIcons}>
-												{lab.products.map((product) => (
-													<ProductIcon
-														key={`${lab.labId}-${product}`}
-														productSlug={product as ProductSlug}
-														size={16}
-														className={s.productIcon}
-													/>
-												))}
-											</div>
-										</div>
-										<Text
-											asElement="span"
-											className={s.description}
-											size={100}
-											weight="regular"
+							<ul className={s.labsList}>
+								{currentProductLabs.map((lab, index) => (
+									<li key={lab.labId || index} className={s.itemContainer}>
+										<button
+											className={s.sandboxItem}
+											onClick={() => {
+												handleLabClick(lab)
+												trackSandboxInteraction('hover', lab.labId, {
+													page: router.asPath,
+												})
+											}}
+											onKeyDown={handleKeyDown}
 										>
-											{lab.description}
-										</Text>
-									</div>
-								</button>
-							</li>
-						))}
-					</ul>
-				</div>
-			</div>
+											<div className={s.content}>
+												<div className={s.titleRow}>
+													<Text
+														asElement="span"
+														className={s.title}
+														size={200}
+														weight="regular"
+													>
+														{lab.title}
+													</Text>
+													<div className={s.productIcons}>
+														{lab.products.map((product) => (
+															<ProductIcon
+																key={`${lab.labId}-${product}`}
+																productSlug={product as ProductSlug}
+																size={16}
+																className={s.productIcon}
+															/>
+														))}
+													</div>
+												</div>
+												<Text
+													asElement="span"
+													className={s.description}
+													size={100}
+													weight="regular"
+												>
+													{lab.description}
+												</Text>
+											</div>
+										</button>
+									</li>
+								))}
+							</ul>
+						</div>
+					</div>,
+					document.body
+				)}
 		</div>
 	)
 }

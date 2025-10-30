@@ -10,7 +10,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	z-index: 9999;
+	z-index: 100; /* Lowered from 9999 to allow header dropdowns to appear above it */
 	position: fixed;
 	max-height: 95%;
 	box-sizing: border-box;
