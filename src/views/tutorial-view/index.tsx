@@ -232,17 +232,12 @@ function TutorialView({
 	})
 
 	useEffect(() => {
-		// Only close tutorial labs if this page doesn't have an interactive lab
-		// AND if a tutorial lab is currently active
-		// Don't close sandbox labs - they should persist
 		if (!isInteractive && active && labSource === 'tutorial') {
 			closeLab()
 		}
 	}, [isInteractive, closeLab, active, labSource])
 
 	useEffect(() => {
-		// Cleanup: Only close tutorial labs on unmount (not sandbox labs)
-		// And only if a tutorial lab is actually active
 		return () => {
 			if (labSource === 'tutorial' && active) {
 				closeLab()
@@ -262,8 +257,8 @@ function TutorialView({
 			<VariantProvider variant={metadata.variant}>
 				<TutorialProvider tutorialLabId={effectiveHandsOnLab?.id || null}>
 					<SidebarSidecarLayout
-							breadcrumbLinks={layoutProps.breadcrumbLinks}
-							sidebarNavDataLevels={sidebarNavDataLevels}
+						breadcrumbLinks={layoutProps.breadcrumbLinks}
+						sidebarNavDataLevels={sidebarNavDataLevels}
 						showScrollProgress={true}
 						AlternateSidebar={TutorialsSidebar}
 						sidecarTopSlot={

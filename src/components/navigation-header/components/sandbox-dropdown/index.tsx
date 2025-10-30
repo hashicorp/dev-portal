@@ -217,8 +217,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 						ref={menuRef}
 					>
 						<div className={s.dropdownContainerInner}>
-							{/* Introduction to Sandboxes */}
-
 							<button
 								className={`${s.introSandboxItem} ${s.sandboxItem}`}
 								onClick={navigateToSandboxPage}

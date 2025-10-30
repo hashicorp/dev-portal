@@ -10,7 +10,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	z-index: 100; /* Lowered from 9999 to allow header dropdowns to appear above it */
+	z-index: 100;
 	position: fixed;
 	max-height: 95%;
 	box-sizing: border-box;
@@ -39,10 +39,10 @@
 }
 
 .resizeShield {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 40px;
-  bottom: 0;
-  z-index: 10;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 40px;
+	bottom: 0;
+	z-index: 10;
 }

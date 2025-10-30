@@ -81,10 +81,6 @@ interface InstruqtProviderProps {
 
 const STORAGE_KEY = 'instruqt-lab-state'
 
-/**
- * Get storage interface - uses sessionStorage for lab persistence within a browser session
- * This prevents labs from auto-opening on fresh page loads while still persisting during navigation
- */
 const getStorage = () => {
 	if (typeof window === 'undefined') return null
 	return window.sessionStorage

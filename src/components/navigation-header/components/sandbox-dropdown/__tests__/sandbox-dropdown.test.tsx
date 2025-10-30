@@ -38,13 +38,11 @@ vi.mock('lib/posthog-events', () => ({
 
 describe('SandboxDropdown', () => {
 	beforeEach(() => {
-		// Reset all mocks before each test
 		vi.clearAllMocks()
 
-		// Setup default mock implementations
 		mockUserRouter.mockImplementation(() => ({
 			asPath: '/',
-			push: vi.fn(), // Add mock for router.push
+			push: vi.fn(),
 			events: {
 				on: vi.fn(),
 				off: vi.fn(),
@@ -156,7 +154,9 @@ describe('SandboxDropdown', () => {
 		fireEvent.click(sandboxItem.closest('button'))
 
 		// Verify router.push was called with the correct URL
-		expect(mockPush).toHaveBeenCalledWith(expect.stringContaining('/vault/sandbox?launch='))
+		expect(mockPush).toHaveBeenCalledWith(
+			expect.stringContaining('/vault/sandbox?launch=')
+		)
 	})
 
 	it('tracks sandbox events and interactions when clicking a lab', () => {
@@ -182,7 +182,9 @@ describe('SandboxDropdown', () => {
 		fireEvent.click(sandboxItem.closest('button'))
 
 		// Verify router.push was called with the correct URL pattern
-		expect(mockPush).toHaveBeenCalledWith(expect.stringContaining('/vault/sandbox?launch='))
+		expect(mockPush).toHaveBeenCalledWith(
+			expect.stringContaining('/vault/sandbox?launch=')
+		)
 
 		// Verify tracking events were called
 		expect(mockTrackSandboxEvent).toHaveBeenCalledWith('sandbox_open', {
