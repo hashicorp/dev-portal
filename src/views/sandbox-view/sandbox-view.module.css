@@ -141,3 +141,9 @@
 	width: 100%;
 	box-sizing: border-box;
 }
+
+.sandboxCardsGrid {
+	@media (--dev-dot-tablet-up) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}

@@ -10,6 +10,7 @@ interface CardsGridListProps {
 	isOrdered?: boolean
 	fixedColumns?: number
 	gridGap?: '8px' | '12px' | '16px' | '24px'
+	className?: string
 }
 
 export type { CardsGridListProps }
