@@ -38,16 +38,16 @@ vi.mock('lib/posthog-events', () => ({
 
 describe('SandboxDropdown', () => {
 	beforeEach(() => {
-		// Reset all mocks before each test
 		vi.clearAllMocks()
 
-		// Setup default mock implementations
 		mockUserRouter.mockImplementation(() => ({
 			asPath: '/',
+			push: vi.fn(),
 			events: {
 				on: vi.fn(),
 				off: vi.fn(),
 			},
+			query: {},
 		}))
 
 		mockUseCurrentProduct.mockImplementation(() => ({
@@ -58,6 +58,13 @@ describe('SandboxDropdown', () => {
 		mockUseInstruqtEmbed.mockImplementation(() => ({
 			openLab: vi.fn(),
 			setActive: vi.fn(),
+			labId: null,
+			active: false,
+			closeLab: vi.fn(),
+			hasConfigError: false,
+			configErrors: [],
+			labSource: null,
+			tutorialLabId: null,
 		}))
 	})
 
@@ -79,9 +86,8 @@ describe('SandboxDropdown', () => {
 		// Click to close
 		fireEvent.click(button)
 
-		// Check the dropdown container's display style
-		const dropdown = document.querySelector('[class*="dropdownContainer"]')
-		expect(dropdown).toHaveStyle('display: none')
+		// Dropdown should not be in DOM when closed (portal renders conditionally)
+		expect(screen.queryByText('Vault Sandboxes')).not.toBeInTheDocument()
 	})
 
 	it('closes on escape key', () => {
@@ -95,9 +101,8 @@ describe('SandboxDropdown', () => {
 		// Press escape
 		fireEvent.keyDown(button, { key: 'Escape' })
 
-		// Check the dropdown container's display style
-		const dropdown = document.querySelector('[class*="dropdownContainer"]')
-		expect(dropdown).toHaveStyle('display: none')
+		// Dropdown should not be in DOM when closed (portal renders conditionally)
+		expect(screen.queryByText('Vault Sandboxes')).not.toBeInTheDocument()
 	})
 
 	it('closes on click outside', () => {
@@ -111,9 +116,8 @@ describe('SandboxDropdown', () => {
 		// Click outside
 		fireEvent.mouseDown(document.body)
 
-		// Check the dropdown container's display style
-		const dropdown = document.querySelector('[class*="dropdownContainer"]')
-		expect(dropdown).toHaveStyle('display: none')
+		// Dropdown should not be in DOM when closed (portal renders conditionally)
+		expect(screen.queryByText('Vault Sandboxes')).not.toBeInTheDocument()
 	})
 
 	it('displays available sandboxes for current product', () => {
@@ -127,12 +131,16 @@ describe('SandboxDropdown', () => {
 		expect(screen.getByText(/Available.*Sandboxes/)).toBeInTheDocument()
 	})
 
-	it('opens lab when clicking a sandbox item', () => {
-		const mockOpenLab = vi.fn()
-		const mockSetActive = vi.fn()
-		mockUseInstruqtEmbed.mockImplementation(() => ({
-			openLab: mockOpenLab,
-			setActive: mockSetActive,
+	it('navigates to sandbox page when clicking a sandbox item', () => {
+		const mockPush = vi.fn()
+		mockUserRouter.mockImplementation(() => ({
+			asPath: '/',
+			push: mockPush,
+			events: {
+				on: vi.fn(),
+				off: vi.fn(),
+			},
+			query: {},
 		}))
 
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
@@ -145,16 +153,22 @@ describe('SandboxDropdown', () => {
 		const sandboxItem = screen.getByText('Vault Sandbox')
 		fireEvent.click(sandboxItem.closest('button'))
 
-		// Verify openLab was called
-		expect(mockOpenLab).toHaveBeenCalled()
+		// Verify router.push was called with the correct URL
+		expect(mockPush).toHaveBeenCalledWith(
+			expect.stringContaining('/vault/sandbox?launch=')
+		)
 	})
 
 	it('tracks sandbox events and interactions when clicking a lab', () => {
-		const mockOpenLab = vi.fn()
-		const mockSetActive = vi.fn()
-		mockUseInstruqtEmbed.mockImplementation(() => ({
-			openLab: mockOpenLab,
-			setActive: mockSetActive,
+		const mockPush = vi.fn()
+		mockUserRouter.mockImplementation(() => ({
+			asPath: '/',
+			push: mockPush,
+			events: {
+				on: vi.fn(),
+				off: vi.fn(),
+			},
+			query: {},
 		}))
 
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
@@ -167,8 +181,10 @@ describe('SandboxDropdown', () => {
 		const sandboxItem = screen.getByText('Vault Sandbox')
 		fireEvent.click(sandboxItem.closest('button'))
 
-		// Verify openLab was called
-		expect(mockOpenLab).toHaveBeenCalled()
+		// Verify router.push was called with the correct URL pattern
+		expect(mockPush).toHaveBeenCalledWith(
+			expect.stringContaining('/vault/sandbox?launch=')
+		)
 
 		// Verify tracking events were called
 		expect(mockTrackSandboxEvent).toHaveBeenCalledWith('sandbox_open', {

@@ -21,6 +21,14 @@ describe('Resizable', () => {
 		vi.clearAllMocks()
 		mockUseInstruqtEmbed.mockImplementation(() => ({
 			closeLab: mockCloseLab,
+			labId: null,
+			active: false,
+			setActive: vi.fn(),
+			openLab: vi.fn(),
+			hasConfigError: false,
+			configErrors: [],
+			labSource: null,
+			tutorialLabId: null,
 		}))
 
 		Object.defineProperty(window, 'innerWidth', {

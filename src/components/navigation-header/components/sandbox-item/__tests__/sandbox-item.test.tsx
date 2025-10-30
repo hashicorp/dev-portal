@@ -25,6 +25,14 @@ describe('SandboxItem', () => {
 		vi.clearAllMocks()
 		mockUseInstruqtEmbed.mockImplementation(() => ({
 			openLab: vi.fn(),
+			labId: null,
+			active: false,
+			setActive: vi.fn(),
+			closeLab: vi.fn(),
+			hasConfigError: false,
+			configErrors: [],
+			labSource: null,
+			tutorialLabId: null,
 		}))
 	})
 

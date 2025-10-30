@@ -10,7 +10,8 @@ import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
 import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
 import { useMobileMenu } from 'contexts'
-import { useInstruqtEmbed, InstruqtProvider } from 'contexts/instruqt-lab'
+import { useInstruqtEmbed } from 'contexts/instruqt-lab'
+import { TutorialProvider } from 'contexts/tutorial-context'
 import { TutorialLite } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
@@ -114,7 +115,7 @@ function TutorialView({
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
-	const { closeLab } = useInstruqtEmbed()
+	const { closeLab, labSource, active } = useInstruqtEmbed()
 	const {
 		id,
 		slug,
@@ -231,12 +232,18 @@ function TutorialView({
 	})
 
 	useEffect(() => {
-		if (!isInteractive) {
+		if (!isInteractive && active && labSource === 'tutorial') {
 			closeLab()
 		}
-	}, [isInteractive, closeLab])
+	}, [isInteractive, closeLab, active, labSource])
 
-	const productSlug = productsUsed?.[0]?.product?.slug
+	useEffect(() => {
+		return () => {
+			if (labSource === 'tutorial' && active) {
+				closeLab()
+			}
+		}
+	}, [closeLab, labSource, active])
 
 	return (
 		<>
@@ -248,10 +255,7 @@ function TutorialView({
 				) : null}
 			</Head>
 			<VariantProvider variant={metadata.variant}>
-				<InstruqtProvider
-					labId={isInteractive ? effectiveHandsOnLab?.id : undefined}
-					productSlug={productSlug}
-				>
+				<TutorialProvider tutorialLabId={effectiveHandsOnLab?.id || null}>
 					<SidebarSidecarLayout
 						breadcrumbLinks={layoutProps.breadcrumbLinks}
 						sidebarNavDataLevels={sidebarNavDataLevels}
@@ -311,7 +315,7 @@ function TutorialView({
 							)}
 						</LayoutContentWrapper>
 					</SidebarSidecarLayout>
-				</InstruqtProvider>
+				</TutorialProvider>
 			</VariantProvider>
 		</>
 	)
