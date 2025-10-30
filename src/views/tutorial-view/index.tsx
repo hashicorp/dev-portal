@@ -10,7 +10,8 @@ import { useProgressBatchQuery } from 'hooks/progress/use-progress-batch-query'
 import { useTutorialProgressRefs } from 'hooks/progress'
 import useCurrentPath from 'hooks/use-current-path'
 import { useMobileMenu } from 'contexts'
-import { useInstruqtEmbed, InstruqtProvider } from 'contexts/instruqt-lab'
+import { useInstruqtEmbed } from 'contexts/instruqt-lab'
+import { TutorialProvider } from 'contexts/tutorial-context'
 import { TutorialLite } from 'lib/learn-client/types'
 import SidebarSidecarLayout from 'layouts/sidebar-sidecar'
 import {
@@ -114,7 +115,7 @@ function TutorialView({
 	const currentPath = useCurrentPath({ excludeHash: true, excludeSearch: true })
 	const [, setCollectionViewSidebarSections] =
 		useState<CollectionCategorySidebarSection[]>(null)
-	const { closeLab } = useInstruqtEmbed()
+	const { closeLab, labSource, active } = useInstruqtEmbed()
 	const {
 		id,
 		slug,
@@ -231,18 +232,23 @@ function TutorialView({
 	})
 
 	useEffect(() => {
-		if (!isInteractive) {
+		// Only close tutorial labs if this page doesn't have an interactive lab
+		// AND if a tutorial lab is currently active
+		// Don't close sandbox labs - they should persist
+		if (!isInteractive && active && labSource === 'tutorial') {
 			closeLab()
 		}
-	}, [isInteractive, closeLab])
+	}, [isInteractive, closeLab, active, labSource])
 
 	useEffect(() => {
+		// Cleanup: Only close tutorial labs on unmount (not sandbox labs)
+		// And only if a tutorial lab is actually active
 		return () => {
-			closeLab()
+			if (labSource === 'tutorial' && active) {
+				closeLab()
+			}
 		}
-	}, [closeLab])
-
-	const productSlug = productsUsed?.[0]?.product?.slug
+	}, [closeLab, labSource, active])
 
 	return (
 		<>
@@ -254,14 +260,10 @@ function TutorialView({
 				) : null}
 			</Head>
 			<VariantProvider variant={metadata.variant}>
-				<InstruqtProvider
-					labId={isInteractive ? effectiveHandsOnLab?.id : undefined}
-					productSlug={productSlug}
-					source="tutorial"
-				>
+				<TutorialProvider tutorialLabId={effectiveHandsOnLab?.id || null}>
 					<SidebarSidecarLayout
-						breadcrumbLinks={layoutProps.breadcrumbLinks}
-						sidebarNavDataLevels={sidebarNavDataLevels}
+							breadcrumbLinks={layoutProps.breadcrumbLinks}
+							sidebarNavDataLevels={sidebarNavDataLevels}
 						showScrollProgress={true}
 						AlternateSidebar={TutorialsSidebar}
 						sidecarTopSlot={
@@ -318,7 +320,7 @@ function TutorialView({
 							)}
 						</LayoutContentWrapper>
 					</SidebarSidecarLayout>
-				</InstruqtProvider>
+				</TutorialProvider>
 			</VariantProvider>
 		</>
 	)

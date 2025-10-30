@@ -268,9 +268,9 @@ export const SandboxView = ({
 
 	return (
 		<SidebarSidecarLayout
-			breadcrumbLinks={layoutProps.breadcrumbLinks}
-			sidebarNavDataLevels={layoutProps.navLevels}
-		>
+				breadcrumbLinks={layoutProps.breadcrumbLinks}
+				sidebarNavDataLevels={layoutProps.navLevels}
+			>
 			<BrandedHeaderCard
 				productSlug={product.slug}
 				heading={`${product.name} Interactive Sandboxes`}

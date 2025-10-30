@@ -12,6 +12,7 @@ import {
 	SetStateAction,
 	useEffect,
 	useCallback,
+	useRef,
 } from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -75,6 +76,7 @@ interface InstruqtProviderProps {
 	labId?: string
 	productSlug?: string
 	source?: LabSource
+	renderEmbed?: boolean
 }
 
 const STORAGE_KEY = 'instruqt-lab-state'
@@ -101,6 +103,7 @@ function InstruqtProvider({
 	labId: initialLabId,
 	productSlug,
 	source = 'sandbox',
+	renderEmbed = true,
 }: InstruqtProviderProps): JSX.Element {
 	const [isClient, setIsClient] = useState(false)
 	const [labId, setLabId] = useState<string | null>(initialLabId || null)
@@ -109,6 +112,9 @@ function InstruqtProvider({
 	const [hasConfigError, setHasConfigError] = useState(false)
 	const [configErrors, setConfigErrors] = useState<string[]>([])
 	const router = useRouter()
+	const previousPathRef = useRef(router.asPath)
+	const isOpeningLabRef = useRef(false)
+
 	useEffect(() => {
 		const validation = validateSandboxConfigWithDetailedErrors(SANDBOX_CONFIG)
 
@@ -148,80 +154,59 @@ function InstruqtProvider({
 		let restoredActive = false
 		let restoredSource: LabSource = 'sandbox'
 
-		if (source === 'sandbox') {
-			try {
-				const stored = localStorage.getItem(STORAGE_KEY)
-				if (stored) {
-					const parsed = JSON.parse(stored)
-					restoredLabId = parsed.storedLabId
-					restoredActive = parsed.active || false
-					restoredSource = parsed.source || 'sandbox'
+		try {
+			const stored = localStorage.getItem(STORAGE_KEY)
+			if (stored) {
+				const parsed = JSON.parse(stored)
+				restoredLabId = parsed.storedLabId
+				restoredActive = parsed.active || false
+				restoredSource = parsed.source || 'sandbox'
+			}
+		} catch (e) {
+			trackInstruqtError(
+				'storage_restore_failed',
+				'Failed to restore Instruqt lab state',
+				{
+					error: e instanceof Error ? e.message : String(e),
 				}
-			} catch (e) {
+			)
+			try {
+				localStorage.removeItem(STORAGE_KEY)
+			} catch (clearError) {
 				trackInstruqtError(
-					'storage_restore_failed',
-					'Failed to restore Instruqt lab state',
+					'storage_clear_failed',
+					'Failed to clear corrupted storage',
 					{
-						error: e instanceof Error ? e.message : String(e),
+						error:
+							clearError instanceof Error
+								? clearError.message
+								: String(clearError),
 					}
 				)
-				try {
-					localStorage.removeItem(STORAGE_KEY)
-				} catch (clearError) {
-					trackInstruqtError(
-						'storage_clear_failed',
-						'Failed to clear corrupted storage',
-						{
-							error:
-								clearError instanceof Error
-									? clearError.message
-									: String(clearError),
-						}
-					)
-				}
 			}
 		}
 
 		if (initialLabId) {
-			setLabId(initialLabId)
-			setLabSource(source)
-			if (
-				source === 'sandbox' &&
-				restoredActive &&
-				restoredLabId === initialLabId
-			) {
-				setActive(true)
-			}
-			if (source === 'tutorial') {
-				try {
-					localStorage.removeItem(STORAGE_KEY)
-				} catch (e) {
-					trackInstruqtError(
-						'storage_clear_failed',
-						'Failed to clear persisted sandbox on tutorial page load',
-						{
-							error: e instanceof Error ? e.message : String(e),
-						}
-					)
+			if (source === 'sandbox') {
+				setLabId(initialLabId)
+				setLabSource(source)
+				if (restoredActive && restoredLabId === initialLabId) {
+					setActive(true)
+				}
+			} else if (source === 'tutorial') {
+				if (restoredActive && restoredSource === 'sandbox') {
+					setLabId(restoredLabId)
+					setLabSource(restoredSource)
+					setActive(true)
+				} else {
+					setLabId(initialLabId)
+					setLabSource(source)
 				}
 			}
 		} else if (source === 'sandbox' && restoredLabId && !hasConfigError) {
 			setLabId(restoredLabId)
 			setLabSource(restoredSource)
 			setActive(restoredActive)
-		} else if (source === 'tutorial') {
-			// Tutorial page with no lab - ensure nothing is persisted
-			try {
-				localStorage.removeItem(STORAGE_KEY)
-			} catch (e) {
-				trackInstruqtError(
-					'storage_clear_failed',
-					'Failed to clear persisted sandbox on tutorial page without lab',
-					{
-						error: e instanceof Error ? e.message : String(e),
-					}
-				)
-			}
 		}
 	}, [hasConfigError, initialLabId, productSlug, source])
 
@@ -290,18 +275,24 @@ function InstruqtProvider({
 	}, [router.asPath, active, labId, hasConfigError])
 
 	useEffect(() => {
-		if (labSource === 'tutorial' && active) {
-			setActive(false)
-			setLabId(null)
+		if (previousPathRef.current !== router.asPath) {
+			if (!isOpeningLabRef.current && labSource === 'tutorial' && active) {
+				setActive(false)
+				setLabId(null)
+			}
+			previousPathRef.current = router.asPath
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [router.asPath])
+	}, [router.asPath, labSource, active])
 
 	const openLab = useCallback(
 		(newLabId: string, newSource: LabSource = 'sandbox') => {
+			isOpeningLabRef.current = true
 			setLabId(newLabId)
 			setLabSource(newSource)
 			setActive(true)
+			setTimeout(() => {
+				isOpeningLabRef.current = false
+			}, 100)
 		},
 		[]
 	)
@@ -355,7 +346,7 @@ function InstruqtProvider({
 			}}
 		>
 			{children}
-			{isClient && active && labId && (
+			{renderEmbed && isClient && active && labId && (
 				<div id="instruqt-panel-target" key={labId}>
 					<SandboxErrorBoundary labId={labId}>
 						<Resizable

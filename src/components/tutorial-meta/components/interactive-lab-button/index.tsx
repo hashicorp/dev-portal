@@ -6,27 +6,41 @@
 import { IconTerminalScreen16 } from '@hashicorp/flight-icons/svg-react/terminal-screen-16'
 import Button from 'components/button'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
+import { useTutorialContext } from 'contexts/tutorial-context'
 
 export default function InteractiveLabButton() {
 	const ctx = useInstruqtEmbed()
+	const { tutorialLabId } = useTutorialContext()
 
-	const hasLab = ctx.tutorialLabId || ctx.labId
-
-	if (!hasLab) {
+	if (!tutorialLabId) {
+		if (process.env.NODE_ENV === 'development') {
+			console.log('[InteractiveLabButton] No tutorialLabId available')
+		}
 		return null
 	}
 
-	const buttonText = `${ctx.active ? 'Hide' : 'Show'} Terminal`
+	const isTutorialLabActive =
+		ctx.active && ctx.labSource === 'tutorial' && ctx.labId === tutorialLabId
+
+	const buttonText = `${isTutorialLabActive ? 'Hide' : 'Show'} Terminal`
 
 	const handleClick = () => {
-		if (ctx.active) {
-			ctx.setActive(false)
+		if (process.env.NODE_ENV === 'development') {
+			console.log('[InteractiveLabButton] Click:', {
+				tutorialLabId,
+				isTutorialLabActive,
+				currentLabId: ctx.labId,
+				currentLabSource: ctx.labSource,
+				active: ctx.active,
+			})
+		}
+
+		if (isTutorialLabActive) {
+			ctx.closeLab()
+		} else if (ctx.active && ctx.labSource === 'sandbox') {
+			ctx.openLab(tutorialLabId, 'tutorial')
 		} else {
-			const labIdToOpen = ctx.tutorialLabId || ctx.labId
-			if (labIdToOpen) {
-				ctx.openLab(labIdToOpen, 'tutorial')
-			}
-			ctx.setActive(true)
+			ctx.openLab(tutorialLabId, 'tutorial')
 		}
 	}
 

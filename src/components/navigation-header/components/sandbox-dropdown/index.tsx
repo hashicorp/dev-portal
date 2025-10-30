@@ -8,7 +8,6 @@ import { useId } from '@react-aria/utils'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { useRouter } from 'next/router'
 import { useCurrentProduct } from 'contexts'
-import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
@@ -21,7 +20,6 @@ import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 import s from './sandbox-dropdown.module.css'
 import { SandboxLab } from 'types/sandbox'
 import { ProductSlug } from 'types/products'
-import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
 import { useTheme } from 'next-themes'
 import { trackSandboxInteraction } from 'views/sandbox-view/utils'
 
@@ -34,7 +32,6 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const uniqueId = useId()
 	const router = useRouter()
 	const currentProduct = useCurrentProduct()
-	const { openLab, setActive } = useInstruqtEmbed()
 	const menuRef = useRef<HTMLDivElement>()
 	const activatorButtonRef = useRef<HTMLButtonElement>()
 	const [isOpen, setIsOpen] = useState(false)
@@ -124,17 +121,18 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	}
 
 	const handleLabClick = (lab: SandboxLab) => {
-		const labWithTrack = {
-			...lab,
-			instruqtTrack: lab.instruqtTrack || '',
-		}
-		const fullLabId = buildLabIdWithConfig(labWithTrack)
-		openLab(fullLabId, 'sandbox')
-		setActive(true)
+		const primaryProduct = lab.products[0]
+
+		const targetUrl = `/${primaryProduct}/sandbox?launch=${encodeURIComponent(
+			lab.labId
+		)}`
+
 		trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
-			labId: fullLabId,
+			labId: lab.labId,
 			page: router.asPath,
 		})
+
+		router.push(targetUrl)
 		setIsOpen(false)
 	}
 
