@@ -81,6 +81,15 @@ interface InstruqtProviderProps {
 
 const STORAGE_KEY = 'instruqt-lab-state'
 
+/**
+ * Get storage interface - uses sessionStorage for lab persistence within a browser session
+ * This prevents labs from auto-opening on fresh page loads while still persisting during navigation
+ */
+const getStorage = () => {
+	if (typeof window === 'undefined') return null
+	return window.sessionStorage
+}
+
 const InstruqtContext = createContext<InstruqtContextProps>({
 	labId: null,
 	active: false,
@@ -154,35 +163,38 @@ function InstruqtProvider({
 		let restoredActive = false
 		let restoredSource: LabSource = 'sandbox'
 
-		try {
-			const stored = localStorage.getItem(STORAGE_KEY)
-			if (stored) {
-				const parsed = JSON.parse(stored)
-				restoredLabId = parsed.storedLabId
-				restoredActive = parsed.active || false
-				restoredSource = parsed.source || 'sandbox'
-			}
-		} catch (e) {
-			trackInstruqtError(
-				'storage_restore_failed',
-				'Failed to restore Instruqt lab state',
-				{
-					error: e instanceof Error ? e.message : String(e),
-				}
-			)
+		const storage = getStorage()
+		if (storage) {
 			try {
-				localStorage.removeItem(STORAGE_KEY)
-			} catch (clearError) {
+				const stored = storage.getItem(STORAGE_KEY)
+				if (stored) {
+					const parsed = JSON.parse(stored)
+					restoredLabId = parsed.storedLabId
+					restoredActive = parsed.active || false
+					restoredSource = parsed.source || 'sandbox'
+				}
+			} catch (e) {
 				trackInstruqtError(
-					'storage_clear_failed',
-					'Failed to clear corrupted storage',
+					'storage_restore_failed',
+					'Failed to restore Instruqt lab state',
 					{
-						error:
-							clearError instanceof Error
-								? clearError.message
-								: String(clearError),
+						error: e instanceof Error ? e.message : String(e),
 					}
 				)
+				try {
+					storage.removeItem(STORAGE_KEY)
+				} catch (clearError) {
+					trackInstruqtError(
+						'storage_clear_failed',
+						'Failed to clear corrupted storage',
+						{
+							error:
+								clearError instanceof Error
+									? clearError.message
+									: String(clearError),
+						}
+					)
+				}
 			}
 		}
 
@@ -190,9 +202,6 @@ function InstruqtProvider({
 			if (source === 'sandbox') {
 				setLabId(initialLabId)
 				setLabSource(source)
-				if (restoredActive && restoredLabId === initialLabId) {
-					setActive(true)
-				}
 			} else if (source === 'tutorial') {
 				if (restoredActive && restoredSource === 'sandbox') {
 					setLabId(restoredLabId)
@@ -206,17 +215,19 @@ function InstruqtProvider({
 		} else if (source === 'sandbox' && restoredLabId && !hasConfigError) {
 			setLabId(restoredLabId)
 			setLabSource(restoredSource)
-			setActive(restoredActive)
 		}
 	}, [hasConfigError, initialLabId, productSlug, source])
 
 	useEffect(() => {
 		if (!isClient || hasConfigError) return
 
+		const storage = getStorage()
+		if (!storage) return
+
 		if (labSource === 'sandbox') {
 			if (labId) {
 				try {
-					localStorage.setItem(
+					storage.setItem(
 						STORAGE_KEY,
 						JSON.stringify({
 							active,
@@ -237,7 +248,7 @@ function InstruqtProvider({
 				}
 			} else {
 				try {
-					localStorage.removeItem(STORAGE_KEY)
+					storage.removeItem(STORAGE_KEY)
 				} catch (e) {
 					trackInstruqtError(
 						'storage_remove_failed',
@@ -251,7 +262,7 @@ function InstruqtProvider({
 		} else if (labSource === 'tutorial') {
 			if (active && labId) {
 				try {
-					localStorage.removeItem(STORAGE_KEY)
+					storage.removeItem(STORAGE_KEY)
 				} catch (e) {
 					trackInstruqtError(
 						'storage_remove_failed',
