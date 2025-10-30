@@ -44,10 +44,12 @@ describe('SandboxDropdown', () => {
 		// Setup default mock implementations
 		mockUserRouter.mockImplementation(() => ({
 			asPath: '/',
+			push: vi.fn(), // Add mock for router.push
 			events: {
 				on: vi.fn(),
 				off: vi.fn(),
 			},
+			query: {},
 		}))
 
 		mockUseCurrentProduct.mockImplementation(() => ({
@@ -134,19 +136,16 @@ describe('SandboxDropdown', () => {
 		expect(screen.getByText(/Available.*Sandboxes/)).toBeInTheDocument()
 	})
 
-	it('opens lab when clicking a sandbox item', () => {
-		const mockOpenLab = vi.fn()
-		const mockSetActive = vi.fn()
-		mockUseInstruqtEmbed.mockImplementation(() => ({
-			openLab: mockOpenLab,
-			setActive: mockSetActive,
-			labId: null,
-			active: false,
-			closeLab: vi.fn(),
-			hasConfigError: false,
-			configErrors: [],
-			labSource: null,
-			tutorialLabId: null,
+	it('navigates to sandbox page when clicking a sandbox item', () => {
+		const mockPush = vi.fn()
+		mockUserRouter.mockImplementation(() => ({
+			asPath: '/',
+			push: mockPush,
+			events: {
+				on: vi.fn(),
+				off: vi.fn(),
+			},
+			query: {},
 		}))
 
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
@@ -159,23 +158,20 @@ describe('SandboxDropdown', () => {
 		const sandboxItem = screen.getByText('Vault Sandbox')
 		fireEvent.click(sandboxItem.closest('button'))
 
-		// Verify openLab was called
-		expect(mockOpenLab).toHaveBeenCalled()
+		// Verify router.push was called with the correct URL
+		expect(mockPush).toHaveBeenCalledWith(expect.stringContaining('/vault/sandbox?launch='))
 	})
 
 	it('tracks sandbox events and interactions when clicking a lab', () => {
-		const mockOpenLab = vi.fn()
-		const mockSetActive = vi.fn()
-		mockUseInstruqtEmbed.mockImplementation(() => ({
-			openLab: mockOpenLab,
-			setActive: mockSetActive,
-			labId: null,
-			active: false,
-			closeLab: vi.fn(),
-			hasConfigError: false,
-			configErrors: [],
-			labSource: null,
-			tutorialLabId: null,
+		const mockPush = vi.fn()
+		mockUserRouter.mockImplementation(() => ({
+			asPath: '/',
+			push: mockPush,
+			events: {
+				on: vi.fn(),
+				off: vi.fn(),
+			},
+			query: {},
 		}))
 
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
@@ -188,8 +184,8 @@ describe('SandboxDropdown', () => {
 		const sandboxItem = screen.getByText('Vault Sandbox')
 		fireEvent.click(sandboxItem.closest('button'))
 
-		// Verify openLab was called
-		expect(mockOpenLab).toHaveBeenCalled()
+		// Verify router.push was called with the correct URL pattern
+		expect(mockPush).toHaveBeenCalledWith(expect.stringContaining('/vault/sandbox?launch='))
 
 		// Verify tracking events were called
 		expect(mockTrackSandboxEvent).toHaveBeenCalledWith('sandbox_open', {
