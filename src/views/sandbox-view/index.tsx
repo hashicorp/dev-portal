@@ -159,7 +159,7 @@ export const SandboxView = ({
 					return
 				}
 
-				openLab(embedLabId)
+				openLab(embedLabId, 'sandbox')
 				setActive(true)
 
 				trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
@@ -412,13 +412,13 @@ export const SandboxView = ({
 									productsUsed: lab.products as ProductOption[],
 								}
 							})}
-						className={s.sandboxGrid}
-					/>
-				</ErrorBoundary>
-			</>
-		)}
-	</SidebarSidecarLayout>
-)
+							className={s.sandboxGrid}
+						/>
+					</ErrorBoundary>
+				</>
+			)}
+		</SidebarSidecarLayout>
+	)
 }
 
 // Re-export for backward compatibility

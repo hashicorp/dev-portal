@@ -18,7 +18,7 @@ interface InteractiveLabCalloutProps {
 
 const InteractiveLabCallout: FC<InteractiveLabCalloutProps> = ({ labId }) => {
 	const ctx = useInstruqtEmbed()
-	let effectiveLabId = ctx.labId || labId
+	let effectiveLabId = ctx.tutorialLabId || labId
 
 	if (!effectiveLabId && ctx && ctx.productSlug) {
 		const fallbackLab = SANDBOX_CONFIG?.labs?.find((lab) =>
@@ -38,7 +38,7 @@ const InteractiveLabCallout: FC<InteractiveLabCalloutProps> = ({ labId }) => {
 			trackSandboxInteraction('click', effectiveLabId, {
 				source: 'interactive-lab-callout',
 			})
-			ctx.openLab(effectiveLabId)
+			ctx.openLab(effectiveLabId, 'tutorial')
 			ctx.setActive(true)
 		} else {
 			ctx.setActive(true)

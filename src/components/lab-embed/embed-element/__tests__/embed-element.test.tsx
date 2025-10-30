@@ -72,6 +72,8 @@ describe('EmbedElement', () => {
 		closeLab: vi.fn(),
 		hasConfigError: false,
 		configErrors: [],
+		labSource: 'sandbox' as const,
+		tutorialLabId: null,
 		...overrides,
 	})
 

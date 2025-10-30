@@ -58,6 +58,13 @@ describe('SandboxDropdown', () => {
 		mockUseInstruqtEmbed.mockImplementation(() => ({
 			openLab: vi.fn(),
 			setActive: vi.fn(),
+			labId: null,
+			active: false,
+			closeLab: vi.fn(),
+			hasConfigError: false,
+			configErrors: [],
+			labSource: null,
+			tutorialLabId: null,
 		}))
 	})
 
@@ -133,6 +140,13 @@ describe('SandboxDropdown', () => {
 		mockUseInstruqtEmbed.mockImplementation(() => ({
 			openLab: mockOpenLab,
 			setActive: mockSetActive,
+			labId: null,
+			active: false,
+			closeLab: vi.fn(),
+			hasConfigError: false,
+			configErrors: [],
+			labSource: null,
+			tutorialLabId: null,
 		}))
 
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
@@ -155,6 +169,13 @@ describe('SandboxDropdown', () => {
 		mockUseInstruqtEmbed.mockImplementation(() => ({
 			openLab: mockOpenLab,
 			setActive: mockSetActive,
+			labId: null,
+			active: false,
+			closeLab: vi.fn(),
+			hasConfigError: false,
+			configErrors: [],
+			labSource: null,
+			tutorialLabId: null,
 		}))
 
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)

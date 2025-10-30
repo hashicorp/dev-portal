@@ -236,6 +236,12 @@ function TutorialView({
 		}
 	}, [isInteractive, closeLab])
 
+	useEffect(() => {
+		return () => {
+			closeLab()
+		}
+	}, [closeLab])
+
 	const productSlug = productsUsed?.[0]?.product?.slug
 
 	return (
@@ -251,6 +257,7 @@ function TutorialView({
 				<InstruqtProvider
 					labId={isInteractive ? effectiveHandsOnLab?.id : undefined}
 					productSlug={productSlug}
+					source="tutorial"
 				>
 					<SidebarSidecarLayout
 						breadcrumbLinks={layoutProps.breadcrumbLinks}

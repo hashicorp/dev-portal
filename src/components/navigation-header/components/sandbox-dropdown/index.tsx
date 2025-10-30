@@ -129,7 +129,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 			instruqtTrack: lab.instruqtTrack || '',
 		}
 		const fullLabId = buildLabIdWithConfig(labWithTrack)
-		openLab(fullLabId)
+		openLab(fullLabId, 'sandbox')
 		setActive(true)
 		trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
 			labId: fullLabId,

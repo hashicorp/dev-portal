@@ -10,16 +10,30 @@ import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 export default function InteractiveLabButton() {
 	const ctx = useInstruqtEmbed()
 
-	if (!ctx.labId) {
+	const hasLab = ctx.tutorialLabId || ctx.labId
+
+	if (!hasLab) {
 		return null
 	}
 
 	const buttonText = `${ctx.active ? 'Hide' : 'Show'} Terminal`
 
+	const handleClick = () => {
+		if (ctx.active) {
+			ctx.setActive(false)
+		} else {
+			const labIdToOpen = ctx.tutorialLabId || ctx.labId
+			if (labIdToOpen) {
+				ctx.openLab(labIdToOpen, 'tutorial')
+			}
+			ctx.setActive(true)
+		}
+	}
+
 	return (
 		<Button
 			text={buttonText}
-			onClick={() => ctx.setActive(!ctx.active)}
+			onClick={handleClick}
 			icon={<IconTerminalScreen16 />}
 			color="secondary"
 			size="small"

@@ -55,21 +55,26 @@ function trackInstruqtError(
 	}
 }
 
+type LabSource = 'tutorial' | 'sandbox'
+
 interface InstruqtContextProps {
 	labId: string | null
 	active: boolean
 	setActive: Dispatch<SetStateAction<boolean>>
-	openLab: (labId: string) => void
+	openLab: (labId: string, source?: LabSource) => void
 	closeLab: () => void
 	hasConfigError: boolean
 	configErrors: string[]
 	productSlug?: string
+	labSource: LabSource | null
+	tutorialLabId?: string | null
 }
 
 interface InstruqtProviderProps {
 	children?: ReactNode
 	labId?: string
 	productSlug?: string
+	source?: LabSource
 }
 
 const STORAGE_KEY = 'instruqt-lab-state'
@@ -83,6 +88,8 @@ const InstruqtContext = createContext<InstruqtContextProps>({
 	hasConfigError: false,
 	configErrors: [],
 	productSlug: undefined,
+	labSource: null,
+	tutorialLabId: null,
 })
 InstruqtContext.displayName = 'InstruqtContext'
 
@@ -93,10 +100,12 @@ function InstruqtProvider({
 	children,
 	labId: initialLabId,
 	productSlug,
+	source = 'sandbox',
 }: InstruqtProviderProps): JSX.Element {
 	const [isClient, setIsClient] = useState(false)
 	const [labId, setLabId] = useState<string | null>(initialLabId || null)
 	const [active, setActive] = useState(false)
+	const [labSource, setLabSource] = useState<LabSource | null>(source)
 	const [hasConfigError, setHasConfigError] = useState(false)
 	const [configErrors, setConfigErrors] = useState<string[]>([])
 	const router = useRouter()
@@ -134,83 +143,130 @@ function InstruqtProvider({
 
 	useEffect(() => {
 		setIsClient(true)
-		if (initialLabId) {
-			setLabId(initialLabId)
-			setActive(false)
-			return
-		}
 
-		try {
-			const stored = localStorage.getItem(STORAGE_KEY)
-			if (stored) {
-				const { storedLabId, active: storedActive } = JSON.parse(stored)
-				if (storedLabId && !hasConfigError) {
-					setLabId(storedLabId)
-					setActive(storedActive || false)
-				}
-			}
-		} catch (e) {
-			trackInstruqtError(
-				'storage_restore_failed',
-				'Failed to restore Instruqt lab state',
-				{
-					error: e instanceof Error ? e.message : String(e),
-				}
-			)
+		let restoredLabId: string | null = null
+		let restoredActive = false
+		let restoredSource: LabSource = 'sandbox'
+
+		if (source === 'sandbox') {
 			try {
-				localStorage.removeItem(STORAGE_KEY)
-			} catch (clearError) {
+				const stored = localStorage.getItem(STORAGE_KEY)
+				if (stored) {
+					const parsed = JSON.parse(stored)
+					restoredLabId = parsed.storedLabId
+					restoredActive = parsed.active || false
+					restoredSource = parsed.source || 'sandbox'
+				}
+			} catch (e) {
 				trackInstruqtError(
-					'storage_clear_failed',
-					'Failed to clear corrupted storage',
+					'storage_restore_failed',
+					'Failed to restore Instruqt lab state',
 					{
-						error:
-							clearError instanceof Error
-								? clearError.message
-								: String(clearError),
+						error: e instanceof Error ? e.message : String(e),
 					}
 				)
+				try {
+					localStorage.removeItem(STORAGE_KEY)
+				} catch (clearError) {
+					trackInstruqtError(
+						'storage_clear_failed',
+						'Failed to clear corrupted storage',
+						{
+							error:
+								clearError instanceof Error
+									? clearError.message
+									: String(clearError),
+						}
+					)
+				}
 			}
 		}
-	}, [hasConfigError, initialLabId, productSlug])
+
+		if (initialLabId) {
+			setLabId(initialLabId)
+			setLabSource(source)
+			if (
+				source === 'sandbox' &&
+				restoredActive &&
+				restoredLabId === initialLabId
+			) {
+				setActive(true)
+			}
+			if (source === 'tutorial') {
+				try {
+					localStorage.removeItem(STORAGE_KEY)
+				} catch {
+					// Ignore errors when clearing storage
+				}
+			}
+		} else if (source === 'sandbox' && restoredLabId && !hasConfigError) {
+			setLabId(restoredLabId)
+			setLabSource(restoredSource)
+			setActive(restoredActive)
+		} else if (source === 'tutorial') {
+			// Tutorial page with no lab - ensure nothing is persisted
+			try {
+				localStorage.removeItem(STORAGE_KEY)
+			} catch {
+				// Ignore errors when clearing storage
+			}
+		}
+	}, [hasConfigError, initialLabId, productSlug, source])
 
 	useEffect(() => {
 		if (!isClient || hasConfigError) return
 
-		if (labId) {
-			try {
-				localStorage.setItem(
-					STORAGE_KEY,
-					JSON.stringify({
-						active,
-						storedLabId: labId,
-					})
-				)
-			} catch (e) {
-				trackInstruqtError(
-					'storage_persist_failed',
-					'Failed to persist Instruqt lab state',
-					{
-						error: e instanceof Error ? e.message : String(e),
-						active,
-						labId,
-					}
-				)
+		if (labSource === 'sandbox') {
+			if (labId) {
+				try {
+					localStorage.setItem(
+						STORAGE_KEY,
+						JSON.stringify({
+							active,
+							storedLabId: labId,
+							source: labSource,
+						})
+					)
+				} catch (e) {
+					trackInstruqtError(
+						'storage_persist_failed',
+						'Failed to persist Instruqt lab state',
+						{
+							error: e instanceof Error ? e.message : String(e),
+							active,
+							labId,
+						}
+					)
+				}
+			} else {
+				try {
+					localStorage.removeItem(STORAGE_KEY)
+				} catch (e) {
+					trackInstruqtError(
+						'storage_remove_failed',
+						'Failed to remove Instruqt lab state',
+						{
+							error: e instanceof Error ? e.message : String(e),
+						}
+					)
+				}
 			}
-		} else {
-			try {
-				localStorage.removeItem(STORAGE_KEY)
-			} catch (e) {
-				trackInstruqtError(
-					'storage_remove_failed',
-					'Failed to remove Instruqt lab state',
-					{
-						error: e instanceof Error ? e.message : String(e),
-					}
-				)
+		} else if (labSource === 'tutorial') {
+			if (active && labId) {
+				try {
+					localStorage.removeItem(STORAGE_KEY)
+				} catch (e) {
+					trackInstruqtError(
+						'storage_remove_failed',
+						'Failed to remove sandbox state when tutorial lab opened',
+						{
+							error: e instanceof Error ? e.message : String(e),
+						}
+					)
+				}
 			}
 		}
-	}, [active, labId, isClient, hasConfigError])
+	}, [active, labId, labSource, isClient, hasConfigError])
 
 	useEffect(() => {
 		if (active && labId && !hasConfigError) {
@@ -221,14 +277,21 @@ function InstruqtProvider({
 		}
 	}, [router.asPath, active, labId, hasConfigError])
 
+	useEffect(() => {
+		if (labSource === 'tutorial' && active) {
+			setActive(false)
+			setLabId(null)
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [router.asPath])
+
 	const openLab = useCallback(
-		(newLabId: string) => {
-			if (newLabId !== labId || !active) {
-				setLabId(newLabId)
-				setActive(true)
-			}
+		(newLabId: string, newSource: LabSource = 'sandbox') => {
+			setLabId(newLabId)
+			setLabSource(newSource)
+			setActive(true)
 		},
-		[labId, active]
+		[]
 	)
 
 	const closeLab = useCallback(() => {
@@ -239,7 +302,10 @@ function InstruqtProvider({
 			})
 		}
 		setActive(false)
-	}, [active, labId, router.asPath])
+		if (labSource === 'tutorial') {
+			setLabId(null)
+		}
+	}, [active, labId, labSource, router.asPath])
 
 	if (hasConfigError) {
 		return (
@@ -252,6 +318,8 @@ function InstruqtProvider({
 					closeLab: () => {},
 					hasConfigError,
 					configErrors,
+					labSource: null,
+					tutorialLabId: null,
 				}}
 			>
 				{children}
@@ -270,11 +338,13 @@ function InstruqtProvider({
 				hasConfigError,
 				configErrors,
 				productSlug,
+				labSource,
+				tutorialLabId: source === 'tutorial' ? initialLabId : null,
 			}}
 		>
 			{children}
 			{isClient && active && labId && (
-				<div id="instruqt-panel-target">
+				<div id="instruqt-panel-target" key={labId}>
 					<SandboxErrorBoundary labId={labId}>
 						<Resizable
 							initialHeight={640}
@@ -282,7 +352,7 @@ function InstruqtProvider({
 							setPanelActive={setActive}
 							style={{}}
 						>
-							<EmbedElement />
+							<EmbedElement key={labId} />
 						</Resizable>
 					</SandboxErrorBoundary>
 				</div>
@@ -292,6 +362,7 @@ function InstruqtProvider({
 }
 
 export { InstruqtProvider }
+export type { LabSource }
 
 export default dynamic(() => Promise.resolve(InstruqtProvider), {
 	ssr: false,

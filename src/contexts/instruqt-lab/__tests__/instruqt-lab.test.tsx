@@ -193,6 +193,7 @@ describe('InstruqtEmbed Context', () => {
 					JSON.stringify({
 						active: true,
 						storedLabId: 'test-lab-id',
+						source: 'sandbox',
 					})
 				)
 			},
