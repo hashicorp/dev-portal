@@ -195,8 +195,14 @@ function InstruqtProvider({
 			if (source === 'tutorial') {
 				try {
 					localStorage.removeItem(STORAGE_KEY)
-				} catch {
-					// Ignore errors when clearing storage
+				} catch (e) {
+					trackInstruqtError(
+						'storage_clear_failed',
+						'Failed to clear persisted sandbox on tutorial page load',
+						{
+							error: e instanceof Error ? e.message : String(e),
+						}
+					)
 				}
 			}
 		} else if (source === 'sandbox' && restoredLabId && !hasConfigError) {
@@ -207,8 +213,14 @@ function InstruqtProvider({
 			// Tutorial page with no lab - ensure nothing is persisted
 			try {
 				localStorage.removeItem(STORAGE_KEY)
-			} catch {
-				// Ignore errors when clearing storage
+			} catch (e) {
+				trackInstruqtError(
+					'storage_clear_failed',
+					'Failed to clear persisted sandbox on tutorial page without lab',
+					{
+						error: e instanceof Error ? e.message : String(e),
+					}
+				)
 			}
 		}
 	}, [hasConfigError, initialLabId, productSlug, source])
