@@ -88,9 +88,8 @@ describe('SandboxDropdown', () => {
 		// Click to close
 		fireEvent.click(button)
 
-		// Check the dropdown container's display style
-		const dropdown = document.querySelector('[class*="dropdownContainer"]')
-		expect(dropdown).toHaveStyle('display: none')
+		// Dropdown should not be in DOM when closed (portal renders conditionally)
+		expect(screen.queryByText('Vault Sandboxes')).not.toBeInTheDocument()
 	})
 
 	it('closes on escape key', () => {
@@ -104,9 +103,8 @@ describe('SandboxDropdown', () => {
 		// Press escape
 		fireEvent.keyDown(button, { key: 'Escape' })
 
-		// Check the dropdown container's display style
-		const dropdown = document.querySelector('[class*="dropdownContainer"]')
-		expect(dropdown).toHaveStyle('display: none')
+		// Dropdown should not be in DOM when closed (portal renders conditionally)
+		expect(screen.queryByText('Vault Sandboxes')).not.toBeInTheDocument()
 	})
 
 	it('closes on click outside', () => {
@@ -120,9 +118,8 @@ describe('SandboxDropdown', () => {
 		// Click outside
 		fireEvent.mouseDown(document.body)
 
-		// Check the dropdown container's display style
-		const dropdown = document.querySelector('[class*="dropdownContainer"]')
-		expect(dropdown).toHaveStyle('display: none')
+		// Dropdown should not be in DOM when closed (portal renders conditionally)
+		expect(screen.queryByText('Vault Sandboxes')).not.toBeInTheDocument()
 	})
 
 	it('displays available sandboxes for current product', () => {

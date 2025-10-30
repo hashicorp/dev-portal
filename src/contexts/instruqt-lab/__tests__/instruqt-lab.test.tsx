@@ -87,6 +87,7 @@ describe('InstruqtEmbed Context', () => {
 
 	beforeEach(() => {
 		window.localStorage.clear()
+		window.sessionStorage.clear()
 		vi.clearAllMocks()
 
 		getItemSpy = vi.spyOn(Storage.prototype, 'getItem')
@@ -127,8 +128,9 @@ describe('InstruqtEmbed Context', () => {
 		const storedState = JSON.stringify({
 			active: true,
 			storedLabId: 'stored-lab-id',
+			source: 'sandbox',
 		})
-		window.localStorage.setItem('instruqt-lab-state', storedState)
+		window.sessionStorage.setItem('instruqt-lab-state', storedState)
 
 		const TestComponent = () => {
 			const context = useInstruqtEmbed()
