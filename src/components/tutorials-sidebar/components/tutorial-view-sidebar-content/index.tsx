@@ -15,6 +15,7 @@ import {
 import TutorialProgressIcon from 'components/tutorial-progress-icon'
 import { SidebarNavMenuItem } from 'components/sidebar/components'
 import { SectionList } from 'components/tutorials-sidebar'
+import { ErrorBoundary } from 'components/error-boundary'
 // Types
 import { TutorialListItemProps } from 'components/tutorials-sidebar/types'
 // Styles
@@ -56,30 +57,44 @@ function TutorialViewSidebarContent({
  * Displays collection progress status.
  */
 function CollectionProgress({ collection }: { collection: Collection }) {
-	const { id, slug, tutorials } = collection
+	const { id, slug, tutorials } = collection ?? {}
 
 	/**
 	 * Get collection progress, which affects the
 	 * CTA bar we display for the collection.
 	 */
-	const { data: progressData } = useCollectionProgress({ collectionId: id })
+	const { data: progressData, isLoading } = useCollectionProgress({
+		collectionId: id,
+	})
 
 	/**
 	 * Parse the progress-related information we need from the progress records,
 	 * current collection slug, and list of tutorials in this collection.
 	 */
-	const { completedTutorialCount, tutorialCount, isInProgress } = useMemo(
-		() => parseCollectionProgress(progressData, tutorials.length, { id, slug }),
-		[progressData, tutorials, id, slug]
-	)
+	const { completedTutorialCount, tutorialCount, isInProgress } =
+		useMemo(() => {
+			if (!collection || !id || !tutorials) {
+				return {
+					completedTutorialCount: 0,
+					tutorialCount: 0,
+					isInProgress: false,
+				}
+			}
+			return parseCollectionProgress(progressData, tutorials.length, {
+				id,
+				slug,
+			})
+		}, [progressData, tutorials, id, slug, collection])
 
 	return (
 		<div className={s.collectionProgressContainer}>
-			<CollectionProgressStatusSection
-				completedTutorialCount={completedTutorialCount}
-				tutorialCount={tutorialCount}
-				isInProgress={isInProgress}
-			/>
+			{!isLoading && collection && id && tutorials && (
+				<CollectionProgressStatusSection
+					completedTutorialCount={completedTutorialCount}
+					tutorialCount={tutorialCount}
+					isInProgress={isInProgress}
+				/>
+			)}
 		</div>
 	)
 }
@@ -96,19 +111,35 @@ function TutorialListItem({
 	collectionId,
 }: TutorialListItemProps) {
 	/**
-	 * Query for progress, and display the appropriate status icon
+	 * Query for progress if we have valid IDs
 	 */
 	const { tutorialProgressStatus } = useTutorialProgress({
 		tutorialId,
 		collectionId,
 	})
-	const trailingIcon = (
-		<TutorialProgressIcon status={tutorialProgressStatus} isActive={isActive} />
-	)
+
+	/**
+	 * Only show the progress icon if we have valid IDs
+	 */
+	const trailingIcon =
+		tutorialId && collectionId ? (
+			<TutorialProgressIcon
+				status={tutorialProgressStatus}
+				isActive={isActive}
+			/>
+		) : null
 
 	return (
 		<SidebarNavMenuItem item={{ isActive, title: text, href, trailingIcon }} />
 	)
 }
 
-export default TutorialViewSidebarContent
+function TutorialViewSidebarContentWithBoundary(props) {
+	return (
+		<ErrorBoundary>
+			<TutorialViewSidebarContent {...props} />
+		</ErrorBoundary>
+	)
+}
+
+export default TutorialViewSidebarContentWithBoundary

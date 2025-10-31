@@ -18,6 +18,8 @@ import type { AppProps } from 'next/app'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
 // HashiCorp imports
+import { NextImageAdapter, NextLinkAdapter } from '@hashicorp/mds-next'
+import { MDSProvider } from '@hashicorp/mds-react/utils'
 import {
 	initializeUTMParamsCapture,
 	addGlobalLinkHandler,
@@ -28,7 +30,7 @@ import useAnchorLinkAnalytics from '@hashicorp/platform-util/anchor-link-analyti
 
 // Global imports
 import { CurrentProductProvider, DeviceSizeProvider } from 'contexts'
-import InstruqtProvider from 'contexts/instruqt-lab'
+import { InstruqtProvider } from 'contexts/instruqt-lab'
 import { makeDevAnalyticsLogger } from 'lib/analytics'
 import { DevDotClient } from 'views/error-views'
 import HeadMetadata from 'components/head-metadata'
@@ -39,7 +41,7 @@ import { ConditionalPostHogProvider } from 'components/posthog/posthog-provider'
 import './style.css'
 import '@hashicorp/react-design-system-components/src/design-system-components.scss'
 
-if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
+if (typeof window !== 'undefined' && process.env.AXE_ENABLED === 'true') {
 	import('react-dom').then((ReactDOM) => {
 		import('@axe-core/react').then((axe) => {
 			axe.default(React, ReactDOM, 1000)
@@ -47,12 +49,14 @@ if (typeof window !== 'undefined' && process.env.AXE_ENABLED) {
 	})
 }
 
-initializeUTMParamsCapture()
-addGlobalLinkHandler((destinationUrl: string) => {
-	track('Outbound link', {
-		destination_url: destinationUrl,
+if (typeof window !== 'undefined') {
+	initializeUTMParamsCapture()
+	addGlobalLinkHandler((destinationUrl: string) => {
+		track('Outbound link', {
+			destination_url: destinationUrl,
+		})
 	})
-})
+}
 
 export default function App({
 	Component,
@@ -82,36 +86,38 @@ export default function App({
 
 	return (
 		<ConditionalPostHogProvider>
-			<QueryClientProvider client={queryClient}>
-				<SSRProvider>
-					<QueryParamProvider adapter={NextAdapter}>
-						<ErrorBoundary FallbackComponent={DevDotClient}>
-							<SessionProvider session={session}>
-								<DeviceSizeProvider>
-									<CurrentProductProvider currentProduct={currentProduct}>
-										<HeadMetadata {...pageProps.metadata} />
-										<InstruqtProvider>
-											<LazyMotion
-												features={() =>
-													import('lib/framer-motion-features').then(
+			<MDSProvider imageComponent={NextImageAdapter} linkComponent={NextLinkAdapter}>
+				<QueryClientProvider client={queryClient}>
+					<SSRProvider>
+						<QueryParamProvider adapter={NextAdapter}>
+							<ErrorBoundary FallbackComponent={DevDotClient}>
+								<SessionProvider session={session}>
+									<DeviceSizeProvider>
+										<CurrentProductProvider currentProduct={currentProduct}>
+											<HeadMetadata {...pageProps.metadata} />
+											<InstruqtProvider>
+												<LazyMotion
+													features={() =>
+														import('lib/framer-motion-features').then(
 														(mod) => mod.default
 													)
 												}
 												strict={process.env.NODE_ENV === 'development'}
-											>
-												<Component {...pageProps} />
-												<Toaster />
-												<ReactQueryDevtools />
-												<SpeedInsights sampleRate={0.05} />
-											</LazyMotion>
-										</InstruqtProvider>
-									</CurrentProductProvider>
-								</DeviceSizeProvider>
-							</SessionProvider>
-						</ErrorBoundary>
-					</QueryParamProvider>
-				</SSRProvider>
-			</QueryClientProvider>
+												>
+													<Component {...pageProps} />
+													<Toaster />
+													<ReactQueryDevtools />
+													<SpeedInsights sampleRate={0.05} />
+												</LazyMotion>
+											</InstruqtProvider>
+										</CurrentProductProvider>
+									</DeviceSizeProvider>
+								</SessionProvider>
+							</ErrorBoundary>
+						</QueryParamProvider>
+					</SSRProvider>
+				</QueryClientProvider>
+			</MDSProvider>
 		</ConditionalPostHogProvider>
 	)
 }

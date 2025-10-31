@@ -11,7 +11,6 @@ import Text from 'components/text'
 import { TutorialMetaBookmarkButton } from 'components/bookmark-button'
 import { Badges, getIsBeta, VariantList } from './components'
 import InteractiveLabButton from './components/interactive-lab-button'
-import { InstruqtProvider } from 'contexts/instruqt-lab/'
 import s from './tutorial-meta.module.css'
 
 interface TutorialMetaProps {
@@ -32,10 +31,7 @@ export default function TutorialMeta({
 	const { isAuthenticated, isLoading } = useAuthentication()
 	const showCreateAccountCta = !isLoading && !isAuthenticated
 
-	const labId = isInteractive ? meta.id : undefined
-	const productSlug = productsUsed?.[0]?.product?.slug
-
-	const headerContent = (
+	return (
 		<header className={s.header}>
 			<Heading
 				level={1}
@@ -78,13 +74,5 @@ export default function TutorialMeta({
 			) : null}
 			<VariantList />
 		</header>
-	)
-
-	return isInteractive ? (
-		<InstruqtProvider labId={labId} productSlug={productSlug}>
-			{headerContent}
-		</InstruqtProvider>
-	) : (
-		headerContent
 	)
 }

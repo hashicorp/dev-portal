@@ -3,7 +3,13 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import { posthog } from 'posthog-js'
+// SSR-safe dynamic import
+let posthog: typeof import('posthog-js').default | null = null
+if (typeof window !== 'undefined') {
+	import('posthog-js').then((module) => {
+		posthog = module.default
+	})
+}
 
 /**
  * Tracks sandbox events using PostHog

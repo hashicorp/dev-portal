@@ -37,6 +37,7 @@ function CardsGridList({
 	isOrdered = false,
 	fixedColumns,
 	gridGap = '24px',
+	className,
 }: CardsGridListProps) {
 	const ListRoot = isOrdered ? 'ol' : 'ul'
 
@@ -61,7 +62,8 @@ function CardsGridList({
 		<ListRoot
 			className={classNames(
 				s.listRoot,
-				fixedColumns ? fixedModeClasses : minWidthClasses
+				fixedColumns ? fixedModeClasses : minWidthClasses,
+				className
 			)}
 			style={
 				{

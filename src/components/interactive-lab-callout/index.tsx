@@ -10,7 +10,7 @@ import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import { FC } from 'react'
 import s from './interactive-lab-callout.module.css'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
-import { trackSandboxInteraction } from 'views/sandbox-view'
+import { trackSandboxInteraction } from 'views/sandbox-view/utils'
 
 interface InteractiveLabCalloutProps {
 	labId?: string
@@ -18,14 +18,14 @@ interface InteractiveLabCalloutProps {
 
 const InteractiveLabCallout: FC<InteractiveLabCalloutProps> = ({ labId }) => {
 	const ctx = useInstruqtEmbed()
-	let effectiveLabId = labId || ctx.labId
+	let effectiveLabId = ctx.labId || labId
 
 	if (!effectiveLabId && ctx && ctx.productSlug) {
 		const fallbackLab = SANDBOX_CONFIG?.labs?.find((lab) =>
 			lab.products?.includes(ctx.productSlug)
 		)
 		if (fallbackLab) {
-			effectiveLabId = fallbackLab.labId
+			effectiveLabId = fallbackLab.instruqtTrack
 		}
 	}
 

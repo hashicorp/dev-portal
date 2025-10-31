@@ -23,7 +23,7 @@ vi.mock('contexts/instruqt-lab', () => ({
 }))
 
 const mockTrackSandboxInteraction = vi.fn()
-vi.mock('views/sandbox-view', () => ({
+vi.mock('views/sandbox-view/utils', () => ({
 	trackSandboxInteraction: (...args: unknown[]) =>
 		mockTrackSandboxInteraction(...args),
 }))

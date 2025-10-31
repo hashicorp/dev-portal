@@ -5,6 +5,10 @@
 
 /* Global Styles */
 @import '~@hashicorp/mktg-global-styles/style.css';
+@import '@hashicorp/mds-tokens/style.css';
+
+/* Materia Design System (MDS) component and pattern styles */
+@import '@hashicorp/mds-react/style.css';
 
 /*
 ***
