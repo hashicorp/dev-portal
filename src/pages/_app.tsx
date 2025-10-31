@@ -61,34 +61,6 @@ export default function App({
 	useAnchorLinkAnalytics()
 	useEffect(() => makeDevAnalyticsLogger(), [])
 
-	// START Testing - Used for testing custom max width for MDX content
-	useEffect(() => {
-		const waitForElement = () => {
-			const element = document.querySelector(
-				'.mdx-content-update-params-selector'
-			)
-			const mdxContent = element?.firstChild
-
-			if (!element || !mdxContent) {
-				requestAnimationFrame(waitForElement)
-				return
-			}
-
-			const urlParams = new URLSearchParams(window.location.search)
-			const maxWidth = urlParams.get('maxWidth')
-
-			if (!maxWidth) {
-				return
-			}
-
-			const root = document.documentElement.style
-			root.setProperty('--mdx-content-max-width', `${maxWidth}ch`)
-		}
-
-		waitForElement()
-	}, [])
-	// END Testing
-
 	/**
 	 * Initialize QueryClient with `useState` to ensure that data is not shared
 	 * between different users and requests, and that only one is created per

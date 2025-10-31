@@ -14,13 +14,8 @@ import s from './mdx-tabs.module.css'
  * so it has since been removed.
  */
 function MdxTabs({ children }: { children: ReactNode }) {
-	const urlParams = new URLSearchParams(window.location.search);
-	const tabsAndCodeBlocks = urlParams.get('tabsAndCodeBlocks');
-
 	return (
-		<div className={classNames(s.tabsWrapper, {
-			'mdx-content-full-width': tabsAndCodeBlocks === 'true'
-			})}>
+		<div className={classNames(s.tabsWrapper)}>
 			<Tabs allowNestedStyles>{children}</Tabs>
 		</div>
 	)

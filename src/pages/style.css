@@ -33,7 +33,7 @@
 @import './print.css';
 
 :root {
-	--mdx-content-max-width: 80ch;
+	--mdx-content-max-width: 75ch;
 }
 
 /*
