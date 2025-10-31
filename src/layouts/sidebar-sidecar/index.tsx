@@ -126,7 +126,7 @@ const SidebarSidecarLayoutContent = ({
 					[s.withSandboxPadding]: sandboxIsActive
 				})}>
 					<div className={s.breadcrumbContainer}>
-						<div className={s.breadcrumbMaxWidth}>
+						<div>
 							{breadcrumbLinks ? (
 								<BreadcrumbBar links={breadcrumbLinks} />
 							) : null}
