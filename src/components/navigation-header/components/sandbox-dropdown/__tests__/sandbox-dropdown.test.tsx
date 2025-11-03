@@ -42,7 +42,7 @@ describe('SandboxDropdown', () => {
 
 		mockUserRouter.mockImplementation(() => ({
 			asPath: '/',
-			push: vi.fn(),
+			push: vi.fn().mockResolvedValue(true),
 			events: {
 				on: vi.fn(),
 				off: vi.fn(),
@@ -101,7 +101,7 @@ describe('SandboxDropdown', () => {
 		// Press escape
 		fireEvent.keyDown(button, { key: 'Escape' })
 
-		// Dropdown should not be in DOM when closed (portal renders conditionally)
+		// Dropdown should not be in DOM when closed
 		expect(screen.queryByText('Vault Sandboxes')).not.toBeInTheDocument()
 	})
 
@@ -116,7 +116,7 @@ describe('SandboxDropdown', () => {
 		// Click outside
 		fireEvent.mouseDown(document.body)
 
-		// Dropdown should not be in DOM when closed (portal renders conditionally)
+		// Dropdown should not be in DOM when closed
 		expect(screen.queryByText('Vault Sandboxes')).not.toBeInTheDocument()
 	})
 
@@ -131,8 +131,8 @@ describe('SandboxDropdown', () => {
 		expect(screen.getByText(/Available.*Sandboxes/)).toBeInTheDocument()
 	})
 
-	it('navigates to sandbox page when clicking a sandbox item', () => {
-		const mockPush = vi.fn()
+	it('navigates to sandbox page when clicking a sandbox item', async () => {
+		const mockPush = vi.fn().mockResolvedValue(true)
 		mockUserRouter.mockImplementation(() => ({
 			asPath: '/',
 			push: mockPush,
@@ -153,14 +153,16 @@ describe('SandboxDropdown', () => {
 		const sandboxItem = screen.getByText('Vault Sandbox')
 		fireEvent.click(sandboxItem.closest('button'))
 
-		// Verify router.push was called with the correct URL
-		expect(mockPush).toHaveBeenCalledWith(
-			expect.stringContaining('/vault/sandbox?launch=')
-		)
+		// Wait for setTimeout
+		await vi.waitFor(() => {
+			expect(mockPush).toHaveBeenCalledWith(
+				expect.stringContaining('/vault/sandbox?launch=')
+			)
+		})
 	})
 
-	it('tracks sandbox events and interactions when clicking a lab', () => {
-		const mockPush = vi.fn()
+	it('tracks sandbox events and interactions when clicking a lab', async () => {
+		const mockPush = vi.fn().mockResolvedValue(true)
 		mockUserRouter.mockImplementation(() => ({
 			asPath: '/',
 			push: mockPush,
@@ -181,10 +183,12 @@ describe('SandboxDropdown', () => {
 		const sandboxItem = screen.getByText('Vault Sandbox')
 		fireEvent.click(sandboxItem.closest('button'))
 
-		// Verify router.push was called with the correct URL pattern
-		expect(mockPush).toHaveBeenCalledWith(
-			expect.stringContaining('/vault/sandbox?launch=')
-		)
+		// Wait for setTimeout
+		await vi.waitFor(() => {
+			expect(mockPush).toHaveBeenCalledWith(
+				expect.stringContaining('/vault/sandbox?launch=')
+			)
+		})
 
 		// Verify tracking events were called
 		expect(mockTrackSandboxEvent).toHaveBeenCalledWith('sandbox_open', {

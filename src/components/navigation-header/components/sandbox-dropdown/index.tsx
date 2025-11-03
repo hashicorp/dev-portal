@@ -42,30 +42,57 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		left: number
 	} | null>(null)
 	const [mounted, setMounted] = useState(false)
+	const [isNavigating, setIsNavigating] = useState(false)
 	const menuId = `sandbox-dropdown-menu-${uniqueId}`
 
 	useEffect(() => {
 		setMounted(true)
-		return () => setMounted(false)
+		return () => {
+			setMounted(false)
+			// Clean up state on unmount
+			setIsOpen(false)
+			setDropdownPosition(null)
+		}
 	}, [])
+
+	// Reset dropdown state when product changes
+	useEffect(() => {
+		setIsOpen(false)
+		setDropdownPosition(null)
+	}, [currentProduct?.slug])
+
+	// Close dropdown when product changes to prevent stale state
+	useEffect(() => {
+		setIsOpen(false)
+		setDropdownPosition(null)
+	}, [currentProduct?.slug])
 
 	useEffect(() => {
 		if (isOpen && activatorButtonRef.current) {
 			const rect = activatorButtonRef.current.getBoundingClientRect()
-			setDropdownPosition({
-				top: rect.bottom + 16,
-				left: rect.left,
-			})
+			// Only set position if we have valid values
+			if (
+				rect &&
+				typeof rect.bottom === 'number' &&
+				typeof rect.left === 'number'
+			) {
+				setDropdownPosition({
+					top: rect.bottom + 16,
+					left: rect.left,
+				})
+			}
+		} else if (!isOpen) {
+			// Reset to null to ensure clean state
+			setDropdownPosition(null)
 		}
 	}, [isOpen])
 
 	// Item data from sandbox config
 	const labs = SANDBOX_CONFIG.labs as unknown as SandboxLab[]
 
-	// Filter labs for current product and other products
-	const currentProductLabs = labs.filter((lab) =>
-		lab.products.includes(currentProduct.slug)
-	)
+	const currentProductLabs = currentProduct?.slug
+		? labs.filter((lab) => lab?.products?.includes(currentProduct.slug))
+		: []
 
 	const isOnSandboxPage = router.query?.productSlug === currentProduct?.slug
 
@@ -80,16 +107,62 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		[rootRef, menuRef],
 		() => {
 			setIsOpen(false)
-			activatorButtonRef.current.focus()
+			activatorButtonRef.current?.focus()
 		},
 		isOpen
 	)
 
+	// Track navigation state to prevent concurrent navigations
+	useEffect(() => {
+		const handleRouteChangeStart = () => {
+			setIsNavigating(true)
+		}
+
+		const handleRouteChangeComplete = () => {
+			setIsNavigating(false)
+		}
+
+		const handleRouteChangeError = () => {
+			setIsNavigating(false)
+		}
+
+		router.events.on('routeChangeStart', handleRouteChangeStart)
+		router.events.on('routeChangeComplete', handleRouteChangeComplete)
+		router.events.on('routeChangeError', handleRouteChangeError)
+
+		return () => {
+			router.events.off('routeChangeStart', handleRouteChangeStart)
+			router.events.off('routeChangeComplete', handleRouteChangeComplete)
+			router.events.off('routeChangeError', handleRouteChangeError)
+		}
+	}, [router.events])
+
 	// if the disclosure is open, handle closing it on `routeChangeStart`
 	useOnRouteChangeStart({
-		handler: () => setIsOpen(false),
+		handler: () => {
+			setIsOpen(false)
+			setDropdownPosition(null)
+		},
 		shouldListen: isOpen,
 	})
+
+	// Also handle route change errors (like aborted fetches) and route change complete
+	useEffect(() => {
+		if (!isOpen) return
+
+		const handleRouteChange = () => {
+			setIsOpen(false)
+			setDropdownPosition(null)
+		}
+
+		router.events.on('routeChangeError', handleRouteChange)
+		router.events.on('routeChangeComplete', handleRouteChange)
+
+		return () => {
+			router.events.off('routeChangeError', handleRouteChange)
+			router.events.off('routeChangeComplete', handleRouteChange)
+		}
+	}, [isOpen, router.events])
 
 	/**
 	 * Handles click interaction with the activator button. When clicked, if the
@@ -116,7 +189,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 		const { isEscapeKey } = deriveKeyEventState(e)
 		if (isEscapeKey) {
 			setIsOpen(false)
-			activatorButtonRef.current.focus()
+			activatorButtonRef.current?.focus()
 		}
 	}
 
@@ -143,8 +216,24 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	}
 
 	const handleLabClick = (lab: SandboxLab) => {
+		// Defensive checks to prevent invalid route construction
+		if (!lab || !lab.products || lab.products.length === 0 || !lab.labId) {
+			console.error('[SandboxDropdown] Invalid lab data:', lab)
+			return
+		}
+
 		const primaryProduct = lab.products[0]
 
+		// Ensure we have a valid product slug
+		if (!primaryProduct || typeof primaryProduct !== 'string') {
+			console.error(
+				'[SandboxDropdown] Invalid primary product:',
+				primaryProduct
+			)
+			return
+		}
+
+		// Safely construct the URL
 		const targetUrl = `/${primaryProduct}/sandbox?launch=${encodeURIComponent(
 			lab.labId
 		)}`
@@ -154,19 +243,65 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 			page: router.asPath,
 		})
 
-		router.push(targetUrl)
+		// Close dropdown first, then navigate
 		setIsOpen(false)
+		setDropdownPosition(null)
+
+		// Prevent navigation if already navigating (avoids route cancellation errors)
+		if (isNavigating) {
+			console.log('[SandboxDropdown] Navigation already in progress, skipping')
+			return
+		}
+
+		// Use setTimeout to ensure state update completes before navigation
+		setTimeout(() => {
+			router.push(targetUrl).catch((error) => {
+				// Handle route cancellation errors gracefully (though should be rare now)
+				if (error.cancelled) {
+					console.log('[SandboxDropdown] Route change was cancelled')
+				} else {
+					console.error('[SandboxDropdown] Route change error:', error)
+				}
+			})
+		}, 0)
 	}
 
 	const navigateToSandboxPage = (e: React.MouseEvent) => {
 		e.preventDefault()
-		router.push(`/${currentProduct.slug}/sandbox`)
+
+		// Guard against undefined currentProduct
+		if (!currentProduct?.slug) {
+			console.error('[SandboxDropdown] currentProduct is undefined')
+			return
+		}
+
+		// Prevent navigation if already navigating (avoids route cancellation errors)
+		if (isNavigating) {
+			console.log('[SandboxDropdown] Navigation already in progress, skipping')
+			return
+		}
+
 		setIsOpen(false)
+		setDropdownPosition(null)
+
+		router.push(`/${currentProduct.slug}/sandbox`).catch((error) => {
+			// Handle route cancellation errors gracefully (though should be rare now)
+			if (error.cancelled) {
+				console.log('[SandboxDropdown] Route change was cancelled')
+			} else {
+				console.error('[SandboxDropdown] Route change error:', error)
+			}
+		})
 	}
 
 	const { theme, systemTheme } = useTheme()
 	const isLightTheme =
 		theme === 'light' || (theme === 'system' && systemTheme === 'light')
+
+	// Don't render if currentProduct is not available (after all hooks are called)
+	if (!currentProduct || !currentProduct.slug) {
+		return null
+	}
 	return (
 		<div
 			className={`${s.root} ${isLightTheme ? 'theme-light' : 'theme-dark'}`}
@@ -206,6 +341,8 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 			{mounted &&
 				isOpen &&
 				dropdownPosition &&
+				typeof dropdownPosition.top === 'number' &&
+				typeof dropdownPosition.left === 'number' &&
 				createPortal(
 					<div
 						className={s.dropdownContainer}
