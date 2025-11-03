@@ -7,6 +7,7 @@ import Image from 'next/legacy/image'
 import Button from 'components/button'
 import Card from 'components/card'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
+import { useTutorialContext } from 'contexts/tutorial-context'
 import { FC } from 'react'
 import s from './interactive-lab-callout.module.css'
 import SANDBOX_CONFIG from 'content/sandbox/sandbox.json' assert { type: 'json' }
@@ -18,7 +19,8 @@ interface InteractiveLabCalloutProps {
 
 const InteractiveLabCallout: FC<InteractiveLabCalloutProps> = ({ labId }) => {
 	const ctx = useInstruqtEmbed()
-	let effectiveLabId = ctx.labId || labId
+	const { tutorialLabId } = useTutorialContext()
+	let effectiveLabId = tutorialLabId || labId
 
 	if (!effectiveLabId && ctx && ctx.productSlug) {
 		const fallbackLab = SANDBOX_CONFIG?.labs?.find((lab) =>
@@ -38,9 +40,7 @@ const InteractiveLabCallout: FC<InteractiveLabCalloutProps> = ({ labId }) => {
 			trackSandboxInteraction('click', effectiveLabId, {
 				source: 'interactive-lab-callout',
 			})
-			ctx.openLab(effectiveLabId)
-			ctx.setActive(true)
-		} else {
+			ctx.openLab(effectiveLabId, 'tutorial')
 			ctx.setActive(true)
 		}
 	}

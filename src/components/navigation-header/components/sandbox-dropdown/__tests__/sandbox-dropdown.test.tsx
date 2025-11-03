@@ -38,16 +38,16 @@ vi.mock('lib/posthog-events', () => ({
 
 describe('SandboxDropdown', () => {
 	beforeEach(() => {
-		// Reset all mocks before each test
 		vi.clearAllMocks()
 
-		// Setup default mock implementations
 		mockUserRouter.mockImplementation(() => ({
 			asPath: '/',
+			push: vi.fn().mockResolvedValue(true),
 			events: {
 				on: vi.fn(),
 				off: vi.fn(),
 			},
+			query: {},
 		}))
 
 		mockUseCurrentProduct.mockImplementation(() => ({
@@ -58,6 +58,13 @@ describe('SandboxDropdown', () => {
 		mockUseInstruqtEmbed.mockImplementation(() => ({
 			openLab: vi.fn(),
 			setActive: vi.fn(),
+			labId: null,
+			active: false,
+			closeLab: vi.fn(),
+			hasConfigError: false,
+			configErrors: [],
+			labSource: null,
+			tutorialLabId: null,
 		}))
 	})
 
@@ -79,9 +86,8 @@ describe('SandboxDropdown', () => {
 		// Click to close
 		fireEvent.click(button)
 
-		// Check the dropdown container's display style
-		const dropdown = document.querySelector('[class*="dropdownContainer"]')
-		expect(dropdown).toHaveStyle('display: none')
+		// Dropdown should not be in DOM when closed (portal renders conditionally)
+		expect(screen.queryByText('Vault Sandboxes')).not.toBeInTheDocument()
 	})
 
 	it('closes on escape key', () => {
@@ -95,9 +101,8 @@ describe('SandboxDropdown', () => {
 		// Press escape
 		fireEvent.keyDown(button, { key: 'Escape' })
 
-		// Check the dropdown container's display style
-		const dropdown = document.querySelector('[class*="dropdownContainer"]')
-		expect(dropdown).toHaveStyle('display: none')
+		// Dropdown should not be in DOM when closed
+		expect(screen.queryByText('Vault Sandboxes')).not.toBeInTheDocument()
 	})
 
 	it('closes on click outside', () => {
@@ -111,9 +116,8 @@ describe('SandboxDropdown', () => {
 		// Click outside
 		fireEvent.mouseDown(document.body)
 
-		// Check the dropdown container's display style
-		const dropdown = document.querySelector('[class*="dropdownContainer"]')
-		expect(dropdown).toHaveStyle('display: none')
+		// Dropdown should not be in DOM when closed
+		expect(screen.queryByText('Vault Sandboxes')).not.toBeInTheDocument()
 	})
 
 	it('displays available sandboxes for current product', () => {
@@ -127,7 +131,7 @@ describe('SandboxDropdown', () => {
 		expect(screen.getByText(/Available.*Sandboxes/)).toBeInTheDocument()
 	})
 
-	it('opens lab when clicking a sandbox item', () => {
+	it('opens lab in embedded viewer when clicking a sandbox item', async () => {
 		const mockOpenLab = vi.fn()
 		const mockSetActive = vi.fn()
 		mockUseInstruqtEmbed.mockImplementation(() => ({
@@ -145,11 +149,14 @@ describe('SandboxDropdown', () => {
 		const sandboxItem = screen.getByText('Vault Sandbox')
 		fireEvent.click(sandboxItem.closest('button'))
 
-		// Verify openLab was called
-		expect(mockOpenLab).toHaveBeenCalled()
+		// Verify openLab was called with the lab ID
+		await vi.waitFor(() => {
+			expect(mockOpenLab).toHaveBeenCalledWith(expect.any(String))
+			expect(mockSetActive).toHaveBeenCalledWith(true)
+		})
 	})
 
-	it('tracks sandbox events and interactions when clicking a lab', () => {
+	it('tracks sandbox events and interactions when clicking a lab', async () => {
 		const mockOpenLab = vi.fn()
 		const mockSetActive = vi.fn()
 		mockUseInstruqtEmbed.mockImplementation(() => ({
@@ -168,7 +175,9 @@ describe('SandboxDropdown', () => {
 		fireEvent.click(sandboxItem.closest('button'))
 
 		// Verify openLab was called
-		expect(mockOpenLab).toHaveBeenCalled()
+		await vi.waitFor(() => {
+			expect(mockOpenLab).toHaveBeenCalled()
+		})
 
 		// Verify tracking events were called
 		expect(mockTrackSandboxEvent).toHaveBeenCalledWith('sandbox_open', {
