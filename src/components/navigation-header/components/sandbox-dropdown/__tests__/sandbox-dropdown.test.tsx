@@ -131,16 +131,12 @@ describe('SandboxDropdown', () => {
 		expect(screen.getByText(/Available.*Sandboxes/)).toBeInTheDocument()
 	})
 
-	it('navigates to sandbox page when clicking a sandbox item', async () => {
-		const mockPush = vi.fn().mockResolvedValue(true)
-		mockUserRouter.mockImplementation(() => ({
-			asPath: '/',
-			push: mockPush,
-			events: {
-				on: vi.fn(),
-				off: vi.fn(),
-			},
-			query: {},
+	it('opens lab in embedded viewer when clicking a sandbox item', async () => {
+		const mockOpenLab = vi.fn()
+		const mockSetActive = vi.fn()
+		mockUseInstruqtEmbed.mockImplementation(() => ({
+			openLab: mockOpenLab,
+			setActive: mockSetActive,
 		}))
 
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
@@ -153,24 +149,19 @@ describe('SandboxDropdown', () => {
 		const sandboxItem = screen.getByText('Vault Sandbox')
 		fireEvent.click(sandboxItem.closest('button'))
 
-		// Wait for setTimeout
+		// Verify openLab was called with the lab ID
 		await vi.waitFor(() => {
-			expect(mockPush).toHaveBeenCalledWith(
-				expect.stringContaining('/vault/sandbox?launch=')
-			)
+			expect(mockOpenLab).toHaveBeenCalledWith(expect.any(String))
+			expect(mockSetActive).toHaveBeenCalledWith(true)
 		})
 	})
 
 	it('tracks sandbox events and interactions when clicking a lab', async () => {
-		const mockPush = vi.fn().mockResolvedValue(true)
-		mockUserRouter.mockImplementation(() => ({
-			asPath: '/',
-			push: mockPush,
-			events: {
-				on: vi.fn(),
-				off: vi.fn(),
-			},
-			query: {},
+		const mockOpenLab = vi.fn()
+		const mockSetActive = vi.fn()
+		mockUseInstruqtEmbed.mockImplementation(() => ({
+			openLab: mockOpenLab,
+			setActive: mockSetActive,
 		}))
 
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
@@ -183,11 +174,9 @@ describe('SandboxDropdown', () => {
 		const sandboxItem = screen.getByText('Vault Sandbox')
 		fireEvent.click(sandboxItem.closest('button'))
 
-		// Wait for setTimeout
+		// Verify openLab was called
 		await vi.waitFor(() => {
-			expect(mockPush).toHaveBeenCalledWith(
-				expect.stringContaining('/vault/sandbox?launch=')
-			)
+			expect(mockOpenLab).toHaveBeenCalled()
 		})
 
 		// Verify tracking events were called

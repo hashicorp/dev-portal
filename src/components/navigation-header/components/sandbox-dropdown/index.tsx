@@ -9,6 +9,7 @@ import { useId } from '@react-aria/utils'
 import { IconChevronDown16 } from '@hashicorp/flight-icons/svg-react/chevron-down-16'
 import { useRouter } from 'next/router'
 import { useCurrentProduct } from 'contexts'
+import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import { trackSandboxEvent, SANDBOX_EVENT } from 'lib/posthog-events'
 import useOnClickOutside from 'hooks/use-on-click-outside'
 import useOnEscapeKeyDown from 'hooks/use-on-escape-key-down'
@@ -21,6 +22,7 @@ import SANDBOX_CONFIG from 'content/sandbox/sandbox.json'
 import s from './sandbox-dropdown.module.css'
 import { SandboxLab } from 'types/sandbox'
 import { ProductSlug } from 'types/products'
+import { buildLabIdWithConfig } from 'lib/build-instruqt-url'
 import { useTheme } from 'next-themes'
 import { trackSandboxInteraction } from 'views/sandbox-view/utils'
 
@@ -33,6 +35,7 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	const uniqueId = useId()
 	const router = useRouter()
 	const currentProduct = useCurrentProduct()
+	const { openLab, setActive } = useInstruqtEmbed()
 	const rootRef = useRef<HTMLDivElement>()
 	const menuRef = useRef<HTMLDivElement>()
 	const activatorButtonRef = useRef<HTMLButtonElement>()
@@ -216,54 +219,23 @@ const SandboxDropdown = ({ ariaLabel, label }: SandboxDropdownProps) => {
 	}
 
 	const handleLabClick = (lab: SandboxLab) => {
-		// Defensive checks to prevent invalid route construction
-		if (!lab || !lab.products || lab.products.length === 0 || !lab.labId) {
+		if (!lab || !lab.labId) {
 			console.error('[SandboxDropdown] Invalid lab data:', lab)
 			return
 		}
 
-		const primaryProduct = lab.products[0]
+		const fullLabId = buildLabIdWithConfig(lab)
 
-		// Ensure we have a valid product slug
-		if (!primaryProduct || typeof primaryProduct !== 'string') {
-			console.error(
-				'[SandboxDropdown] Invalid primary product:',
-				primaryProduct
-			)
-			return
-		}
-
-		// Safely construct the URL
-		const targetUrl = `/${primaryProduct}/sandbox?launch=${encodeURIComponent(
-			lab.labId
-		)}`
+		openLab(fullLabId)
+		setActive(true)
 
 		trackSandboxEvent(SANDBOX_EVENT.SANDBOX_OPEN, {
-			labId: lab.labId,
+			labId: fullLabId,
 			page: router.asPath,
 		})
 
-		// Close dropdown first, then navigate
 		setIsOpen(false)
 		setDropdownPosition(null)
-
-		// Prevent navigation if already navigating (avoids route cancellation errors)
-		if (isNavigating) {
-			console.log('[SandboxDropdown] Navigation already in progress, skipping')
-			return
-		}
-
-		// Use setTimeout to ensure state update completes before navigation
-		setTimeout(() => {
-			router.push(targetUrl).catch((error) => {
-				// Handle route cancellation errors gracefully (though should be rare now)
-				if (error.cancelled) {
-					console.log('[SandboxDropdown] Route change was cancelled')
-				} else {
-					console.error('[SandboxDropdown] Route change error:', error)
-				}
-			})
-		}, 0)
 	}
 
 	const navigateToSandboxPage = (e: React.MouseEvent) => {
