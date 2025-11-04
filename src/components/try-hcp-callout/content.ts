@@ -41,6 +41,14 @@ export const tryHcpCalloutContent: Record<
 		image:
 			'https://www.datocms-assets.com/2885/1721073666-devdot-try-hcp-callout-ui-mock-boundary.svg',
 	},
+	consul: {
+		heading: 'HCP Consul Dedicated',
+		description: 'Discover and securely connect your applications',
+		ctaText: 'Try HCP Consul Dedicated for free',
+		ctaUrl: 'https://portal.cloud.hashicorp.com/sign-up',
+		image:
+			'https://www.datocms-assets.com/2885/1721073672-devdot-try-hcp-callout-ui-mock-consul.svg',
+	},
 	packer: {
 		heading: 'HCP Packer',
 		description: 'Automate build management across your cloud providers',

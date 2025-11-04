@@ -7,11 +7,6 @@
 			"path": "docs/boundary"
 		},
 		{
-			"iconName": "consul-color",
-			"name": "HCP Consul Dedicated",
-			"path": "docs/consul"
-		},
-		{
 			"iconName": "vault-color",
 			"name": "HCP Vault Dedicated",
 			"path": "docs/vault"
