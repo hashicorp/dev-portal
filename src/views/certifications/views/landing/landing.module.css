@@ -57,7 +57,7 @@
 .faqHeading {
 	composes: hds-typography-display-400 from global;
 	font-weight: var(--token-typography-font-weight-bold);
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	margin: 0 0 32px 0;
 }
 

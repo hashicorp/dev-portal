@@ -42,18 +42,18 @@
 						}
 
 						& .title {
-							color: var(--token-color-foreground-strong);
+							color: var(--mds-color-foreground-strong);
 						}
 
 						& .attribution {
-							color: var(--token-color-foreground-faint);
+							color: var(--mds-color-foreground-faint);
 							margin-left: 4px;
 						}
 					}
 
 					& .description {
 						margin-top: 2px;
-						color: var(--token-color-foreground-primary);
+						color: var(--mds-color-foreground-primary);
 					}
 				}
 
@@ -88,7 +88,7 @@
 			}
 
 			& .note {
-				color: var(--token-color-foreground-faint);
+				color: var(--mds-color-foreground-faint);
 				flex-grow: 1;
 				text-align: right;
 				margin-top: 12px;

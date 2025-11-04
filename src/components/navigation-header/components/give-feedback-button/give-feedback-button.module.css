@@ -85,7 +85,7 @@ which results in a flash of incorrect layout.
 		background-color: var(--token-color-surface-faint);
 		border-color: var(--token-color-border-primary);
 		box-shadow: none;
-		color: var(--token-color-foreground-disabled);
+		color: var(--mds-color-foreground-disabled);
 		cursor: not-allowed;
 	}
 }
@@ -98,26 +98,26 @@ which results in a flash of incorrect layout.
 .primary {
 	background-color: var(--token-color-palette-blue-200);
 	border-color: var(--token-color-palette-blue-300);
-	color: var(--token-color-foreground-high-contrast);
+	color: var(--mds-color-foreground-high-contrast);
 	box-shadow: var(--token-elevation-low-box-shadow);
 
 	&:hover:not(:disabled) {
 		background-color: var(--token-color-palette-blue-300);
 		border-color: var(--token-color-palette-blue-400);
-		color: var(--token-color-foreground-high-contrast);
+		color: var(--mds-color-foreground-high-contrast);
 	}
 
 	&:active:not(:disabled) {
 		background-color: var(--token-color-palette-blue-400);
 		border-color: var(--token-color-palette-blue-400);
 		box-shadow: none;
-		color: var(--token-color-foreground-high-contrast);
+		color: var(--mds-color-foreground-high-contrast);
 	}
 
 	&:focus-visible {
 		background-color: var(--token-color-palette-blue-200);
 		border-color: var(--token-color-focus-action-internal);
-		color: var(--token-color-foreground-high-contrast);
+		color: var(--mds-color-foreground-high-contrast);
 		box-shadow: none;
 
 		&::before {

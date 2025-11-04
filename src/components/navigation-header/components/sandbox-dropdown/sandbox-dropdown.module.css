@@ -35,23 +35,23 @@
 
 	&[aria-expanded='true'] {
 		& .activatorText {
-			color: var(--token-color-foreground-primary);
+			color: var(--mds-color-foreground-primary);
 		}
 
 		& .activatorTrailingIcon {
-			color: var(--token-color-foreground-primary);
+			color: var(--mds-color-foreground-primary);
 			transform: rotate(-180deg);
 		}
 	}
 }
 
 .activatorText {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	margin-right: 6px;
 }
 
 .activatorTrailingIcon {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 
 	/* Only enable animation if query is supported and value is no-preference */
 	@media (prefers-reduced-motion: no-preference) {
@@ -80,14 +80,14 @@
 }
 
 .sectionTitle {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	font-size: 14px;
 	margin-top: 1rem;
 	margin-left: 1rem;
 }
 
 .introText {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	line-height: 1.5;
 	margin-bottom: 8px;
 }
@@ -120,7 +120,7 @@
 	/* CSS Properties */
 	align-items: flex-start;
 	border-radius: 5px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	gap: 8px;
 	text-decoration: none;
@@ -151,7 +151,7 @@
 }
 
 .title {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	font-weight: 600;
 	transition: color 0.2s;
 	font-size: 14px;
@@ -167,13 +167,13 @@
 
 .productIcon {
 	flex-shrink: 0;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	width: 16px;
 	height: 16px;
 }
 
 .description {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	display: block;
 	line-height: 1.5;
 	font-size: 13px;
@@ -187,7 +187,7 @@
 	/* CSS Properties */
 	align-items: center;
 	border-radius: 5px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	padding: 8px;
 	text-decoration: none;
@@ -204,12 +204,12 @@
 	width: 14px;
 	height: 14px;
 	margin-left: 6px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	transition: transform 0.2s, color 0.2s;
 
 	.learnMoreLink:hover & {
 		transform: translateX(4px);
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 	}
 }
 
@@ -220,7 +220,7 @@
 	/* CSS Properties */
 	align-items: center;
 	border-radius: 5px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	padding: 8px 0;
 	text-decoration: none;
@@ -236,7 +236,7 @@
 .accordionIcon {
 	width: 16px;
 	height: 16px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	transition: transform 0.2s ease-in-out;
 	flex-shrink: 0;
 }

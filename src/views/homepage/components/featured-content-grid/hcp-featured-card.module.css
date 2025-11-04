@@ -4,7 +4,7 @@
  */
 
 .hcpCard {
-	background-color: var(--token-color-foreground-strong);
+	background-color: var(--mds-color-foreground-strong);
 	background-image: url('../../img/hcp-graphic.svg');
 	background-repeat: no-repeat;
 	border: none;

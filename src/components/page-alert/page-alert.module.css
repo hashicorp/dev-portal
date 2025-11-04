@@ -31,7 +31,7 @@
 }
 
 .description {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	margin: 0;
 }
 
@@ -44,29 +44,29 @@
 .neutral {
 	--background-color: var(--token-color-surface-faint);
 	--border-color: var(--token-color-border-strong);
-	--title-color: var(--token-color-foreground-primary);
+	--title-color: var(--mds-color-foreground-primary);
 }
 
 .highlight {
 	--background-color: var(--token-color-surface-highlight);
 	--border-color: var(--token-color-border-highlight);
-	--title-color: var(--token-color-foreground-highlight-on-surface);
+	--title-color: var(--mds-color-foreground-highlight-on-surface);
 }
 
 .success {
 	--background-color: var(--token-color-surface-success);
 	--border-color: var(--token-color-border-success);
-	--title-color: var(--token-color-foreground-success-on-surface);
+	--title-color: var(--mds-color-foreground-success-on-surface);
 }
 
 .warning {
 	--background-color: var(--token-color-surface-warning);
 	--border-color: var(--token-color-border-warning);
-	--title-color: var(--token-color-foreground-warning-on-surface);
+	--title-color: var(--mds-color-foreground-warning-on-surface);
 }
 
 .critical {
 	--background-color: var(--token-color-surface-critical);
 	--border-color: var(--token-color-border-critical);
-	--title-color: var(--token-color-foreground-critical-on-surface);
+	--title-color: var(--mds-color-foreground-critical-on-surface);
 }

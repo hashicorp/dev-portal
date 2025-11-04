@@ -41,7 +41,7 @@
 }
 
 .h1 {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 
 	/* Note that spacing between the h1 and breadcrumb is handled at the
 	   SidecarSidecar layout level, with margin-bottom on the breadcrumb group. */
@@ -49,13 +49,13 @@
 }
 
 .h2 {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	margin-bottom: 16px;
 	margin-top: 48px;
 }
 
 .h3 {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	margin-bottom: 12px;
 	margin-top: 32px;
 }
@@ -63,7 +63,7 @@
 .h4,
 .h5,
 .h6 {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	margin-bottom: 8px;
 	margin-top: 24px;
 }

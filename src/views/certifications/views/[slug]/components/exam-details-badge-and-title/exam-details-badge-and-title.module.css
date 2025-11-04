@@ -5,7 +5,7 @@
 
 .eyebrow {
 	composes: hds-typography-display-300 from global;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	display: block;
 	font-weight: var(--token-typography-font-weight-semibold);
 	margin: 24px 0 0 0;
@@ -13,7 +13,7 @@
 
 .title {
 	composes: hds-typography-display-500 from global;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	font-weight: var(--token-typography-font-weight-bold);
 	max-width: 10em;
 	margin: 4px 0 0 0;
@@ -21,7 +21,7 @@
 
 .version {
 	composes: hds-typography-body-100 from global;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	display: flex;
 	gap: 8px;
 	align-items: top;

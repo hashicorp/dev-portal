@@ -44,7 +44,7 @@
 }
 
 .removeIcon {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	height: 12px;
 	width: 12px;
@@ -58,7 +58,7 @@
 	border-radius: inherit;
 	border-bottom-left-radius: 0;
 	border-top-left-radius: 0;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: block;
 	font-family: var(--token-typography-body-100-font-family);
 	font-size: var(--token-typography-body-100-font-size);

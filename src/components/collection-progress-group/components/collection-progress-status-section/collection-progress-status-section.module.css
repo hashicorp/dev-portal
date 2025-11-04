@@ -39,7 +39,7 @@ Incomplete elements
 
 .countIcon {
 	display: block;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	width: 14px;
 	height: 14px;
 }
@@ -56,7 +56,7 @@ Complete elements
 
 .completeIcon {
 	display: block;
-	color: var(--token-color-foreground-success);
+	color: var(--mds-color-foreground-success);
 	width: 14px;
 	height: 14px;
 }

@@ -18,7 +18,7 @@
 }
 
 .productsDropdownIcon {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	display: block;
 	height: 32px;
 	width: 32px;

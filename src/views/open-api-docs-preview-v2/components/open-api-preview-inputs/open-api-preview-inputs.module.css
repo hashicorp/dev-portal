@@ -4,7 +4,7 @@
  */
 
 .root {
-	--highlight-color: var(--token-color-foreground-highlight);
+	--highlight-color: var(--mds-color-foreground-highlight);
 	--border-width: 4px;
 
 	background: var(--token-color-surface-primary);
@@ -54,7 +54,7 @@
 	flex-shrink: 0;
 
 	/* Swap blue and purple to match the --highlight-color */
-	--token-color-palette-blue-200: var(--token-color-foreground-highlight);
+	--token-color-palette-blue-200: var(--mds-color-foreground-highlight);
 	--token-color-palette-blue-300: var(--token-color-palette-purple-300);
 	--token-color-palette-blue-400: var(--token-color-palette-purple-400);
 }

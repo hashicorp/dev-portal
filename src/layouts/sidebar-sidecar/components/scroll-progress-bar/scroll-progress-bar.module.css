@@ -17,7 +17,7 @@
 }
 
 .progress {
-	background: var(--token-color-foreground-action);
+	background: var(--mds-color-foreground-action);
 	height: 4px;
 	width: 100%;
 	transform-origin: left;

@@ -56,7 +56,7 @@
 	composes: hds-font-weight-medium from global;
 	display: flex;
 	justify-content: space-between;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	gap: 12px;
 	align-items: center;
 	padding: 12px;

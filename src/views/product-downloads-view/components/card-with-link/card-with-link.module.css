@@ -10,10 +10,10 @@
 }
 
 .contentHeading {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 }
 
 .contentSubheading {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	margin-top: 4px;
 }

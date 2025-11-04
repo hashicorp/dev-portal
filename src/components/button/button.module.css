@@ -51,7 +51,7 @@
 		background-color: var(--token-color-surface-faint);
 		border-color: var(--token-color-border-primary);
 		box-shadow: none;
-		color: var(--token-color-foreground-disabled);
+		color: var(--mds-color-foreground-disabled);
 		cursor: not-allowed;
 	}
 
@@ -115,26 +115,26 @@
 .primary {
 	background-color: var(--token-color-palette-blue-200);
 	border-color: var(--token-color-palette-blue-300);
-	color: var(--token-color-foreground-high-contrast);
+	color: var(--mds-color-foreground-high-contrast);
 	box-shadow: var(--token-elevation-low-box-shadow);
 
 	&:hover:not(:disabled) {
 		background-color: var(--token-color-palette-blue-300);
 		border-color: var(--token-color-palette-blue-400);
-		color: var(--token-color-foreground-high-contrast);
+		color: var(--mds-color-foreground-high-contrast);
 	}
 
 	&:active:not(:disabled) {
 		background-color: var(--token-color-palette-blue-400);
 		border-color: var(--token-color-palette-blue-400);
 		box-shadow: none;
-		color: var(--token-color-foreground-high-contrast);
+		color: var(--mds-color-foreground-high-contrast);
 	}
 
 	&:focus-visible {
 		background-color: var(--token-color-palette-blue-200);
 		border-color: var(--token-color-focus-action-internal);
-		color: var(--token-color-foreground-high-contrast);
+		color: var(--mds-color-foreground-high-contrast);
 		box-shadow: none;
 
 		&::before {
@@ -152,25 +152,25 @@
 	background-color: var(--token-color-surface-faint);
 	border-color: var(--token-color-border-strong);
 	box-shadow: var(--token-elevation-low-box-shadow);
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 
 	&:hover:not(:disabled) {
 		background-color: var(--token-color-surface-primary);
 		border-color: var(--token-color-border-strong);
-		color: var(--token-color-foreground-primary);
+		color: var(--mds-color-foreground-primary);
 	}
 
 	&:active:not(:disabled) {
 		background-color: var(--token-color-surface-interactive-active);
 		border-color: var(--token-color-border-strong);
 		box-shadow: none;
-		color: var(--token-color-foreground-primary);
+		color: var(--mds-color-foreground-primary);
 	}
 
 	&:focus-visible {
 		background-color: var(--token-color-surface-faint);
 		border-color: var(--token-color-focus-action-internal);
-		color: var(--token-color-foreground-primary);
+		color: var(--mds-color-foreground-primary);
 		box-shadow: none;
 
 		&::before {
@@ -182,24 +182,24 @@
 .tertiary {
 	background-color: transparent;
 	border-color: transparent;
-	color: var(--token-color-foreground-action);
+	color: var(--mds-color-foreground-action);
 
 	&:hover:not(:disabled) {
 		background-color: var(--token-color-surface-primary);
 		border-color: var(--token-color-border-strong);
-		color: var(--token-color-foreground-action-hover);
+		color: var(--mds-color-foreground-action-hover);
 	}
 
 	&:active:not(:disabled) {
 		background-color: var(--token-color-surface-interactive-active);
 		border-color: var(--token-color-border-strong);
 		box-shadow: none;
-		color: var(--token-color-foreground-action-active);
+		color: var(--mds-color-foreground-action-active);
 	}
 
 	&:focus-visible {
 		border-color: var(--token-color-focus-action-internal);
-		color: var(--token-color-foreground-action);
+		color: var(--mds-color-foreground-action);
 
 		&::before {
 			border-color: var(--token-color-focus-action-external);
@@ -214,27 +214,27 @@
 
 .critical {
 	background-color: var(--token-color-surface-critical);
-	border-color: var(--token-color-foreground-critical-on-surface);
+	border-color: var(--mds-color-foreground-critical-on-surface);
 	box-shadow: var(--token-elevation-low-box-shadow);
-	color: var(--token-color-foreground-critical-on-surface);
+	color: var(--mds-color-foreground-critical-on-surface);
 
 	&:hover:not(:disabled) {
 		background-color: var(--token-color-palette-red-300);
 		border-color: var(--token-color-palette-red-400);
-		color: var(--token-color-foreground-high-contrast);
+		color: var(--mds-color-foreground-high-contrast);
 	}
 
 	&:active:not(:disabled) {
 		background-color: var(--token-color-palette-red-400);
 		border-color: var(--token-color-palette-red-400);
 		box-shadow: none;
-		color: var(--token-color-foreground-high-contrast);
+		color: var(--mds-color-foreground-high-contrast);
 	}
 
 	&:focus-visible {
 		background-color: var(--token-color-surface-critical);
 		border-color: var(--token-color-focus-critical-internal);
-		color: var(--token-color-foreground-critical-on-surface);
+		color: var(--mds-color-foreground-critical-on-surface);
 		box-shadow: none;
 
 		&::before {

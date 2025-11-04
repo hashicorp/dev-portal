@@ -55,7 +55,7 @@
 	background-color: transparent;
 	border-radius: 5px;
 	border: 1px solid transparent;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	display: flex;
 	justify-content: center;
 	padding: 5px;
@@ -81,10 +81,10 @@
 }
 
 .signUpLink {
-	color: var(--token-color-foreground-high-contrast);
+	color: var(--mds-color-foreground-high-contrast);
 
 	&:hover {
-		color: var(--token-color-foreground-high-contrast);
+		color: var(--mds-color-foreground-high-contrast);
 	}
 }
 
@@ -94,7 +94,7 @@
 
 	/* properties */
 	background-color: transparent;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 
 	&:hover,
 	&[aria-expanded='true'] {

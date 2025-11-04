@@ -43,13 +43,13 @@
 .heading {
 	composes: g-offset-scroll-margin-top from global;
 	composes: hds-typography-display-300 from global;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	font-weight: var(--token-typography-font-weight-bold);
 }
 
 .body {
 	composes: hds-typography-body-300 from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	margin: 4px 0 0 0;
 }
 

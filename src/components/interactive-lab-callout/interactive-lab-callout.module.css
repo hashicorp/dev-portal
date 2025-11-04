@@ -5,7 +5,7 @@
 
 .interactiveCallout {
 	align-items: center;
-	background-color: var(--token-color-foreground-strong);
+	background-color: var(--mds-color-foreground-strong);
 
 	@media (--dev-dot-tablet-up) {
 		display: flex;
@@ -14,7 +14,7 @@
 
 	@nest html[data-theme='dark'] & {
 		background-color: var(
-			--token-color-foreground-strong
+			--mds-color-foreground-strong
 		); /** Needed to supercede the dark mode card .root dark mode background  */
 	}
 }

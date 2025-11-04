@@ -80,6 +80,6 @@
 	}
 
 	@nest html[data-theme='dark'] & {
-		color: var(--token-color-foreground-primary);
+		color: var(--mds-color-foreground-primary);
 	}
 }

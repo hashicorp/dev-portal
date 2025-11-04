@@ -14,7 +14,7 @@
 	align-items: center;
 	background-color: transparent;
 	border-radius: 5px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	gap: 8px;
 	width: 100%;
@@ -40,16 +40,16 @@
 	}
 
 	&:hover {
-		color: var(--token-color-foreground-action-hover);
+		color: var(--mds-color-foreground-action-hover);
 
 		&::before {
-			background-color: var(--token-color-foreground-action-hover);
+			background-color: var(--mds-color-foreground-action-hover);
 		}
 	}
 
 	&:active,
 	&:focus {
-		color: var(--token-color-foreground-action-active);
+		color: var(--mds-color-foreground-action-active);
 	}
 }
 
@@ -63,13 +63,13 @@
 }
 
 .description {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	display: block;
 	padding: 2px 16px 4px;
 }
 
 .label {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	display: block;
 	padding: 10px 16px 4px;
 }

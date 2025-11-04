@@ -13,5 +13,5 @@
 	composes: hds-font-weight-regular from global;
 
 	/* properties */
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }

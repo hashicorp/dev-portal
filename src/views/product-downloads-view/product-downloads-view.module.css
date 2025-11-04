@@ -9,7 +9,7 @@
 	composes: hds-font-weight-bold from global;
 
 	/* properties */
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	margin-bottom: 12px;
 	margin-top: 48px;
 }

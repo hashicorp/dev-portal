@@ -8,7 +8,7 @@
 	background: var(--token-color-surface-highlight);
 	border-radius: 5px;
 	border: 1px solid var(--token-color-border-primary);
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	line-height: 1.6;
 	padding: 16px;
 	max-height: 200px;

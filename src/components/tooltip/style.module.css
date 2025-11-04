@@ -12,11 +12,11 @@ as .arrowContainer is rendered into a Portal.
 
 .theme-light {
 	--background: var(--token-color-surface-primary);
-	--foreground: var(--token-color-foreground-strong);
+	--foreground: var(--mds-color-foreground-strong);
 }
 
 .theme-dark {
-	--background: var(--token-color-foreground-strong);
+	--background: var(--mds-color-foreground-strong);
 	--foreground: var(--token-color-surface-primary);
 }
 

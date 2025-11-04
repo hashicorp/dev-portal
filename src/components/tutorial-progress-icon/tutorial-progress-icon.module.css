@@ -6,18 +6,18 @@
 .progressIcon {
 	/* Icon color for in progress state */
 	&.status_in_progress {
-		--color: var(--token-color-foreground-action);
+		--color: var(--mds-color-foreground-action);
 
 		@nest :global(a):hover & {
-			--color: var(--token-color-foreground-action-hover);
+			--color: var(--mds-color-foreground-action-hover);
 		}
 
 		&.isActive {
-			--color: var(--token-color-foreground-action-active);
+			--color: var(--mds-color-foreground-action-active);
 		}
 
 		@nest :global(a):focus & {
-			--color: var(--token-color-foreground-action-hover);
+			--color: var(--mds-color-foreground-action-hover);
 		}
 	}
 

@@ -39,13 +39,13 @@
 	composes: hds-typography-body-200 from global;
 	align-items: center;
 	border-radius: 8px; /* For focus ring */
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	font-weight: var(--token-typography-font-weight-medium);
 	text-decoration: underline;
 
 	&:hover {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 	}
 
 	/* Focus ring styles */
@@ -87,7 +87,7 @@
 
 	/* break-inside prevents spacing from breaking across columns */
 	break-inside: avoid;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	font-weight: var(--token-typography-font-weight-medium);
 
 	/* padding used for 8px net spacing, margin plays badly with columns */
@@ -117,7 +117,7 @@
 	text-decoration: underline;
 
 	&:hover {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 	}
 
 	/* Focus ring styles */

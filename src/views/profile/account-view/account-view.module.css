@@ -5,7 +5,7 @@
 
 .subheading {
 	margin: 12px 0 24px 0;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 
 	@media (--dev-dot-tablet-up) {
 		margin-bottom: 32px;
@@ -32,7 +32,7 @@
 
 .description {
 	composes: hds-typography-body-200 from global;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	flex: 1;
 }
 

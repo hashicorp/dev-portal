@@ -8,7 +8,7 @@
 
 	--background-color: transparent;
 	--border-color: transparent;
-	--color: var(--token-color-foreground-faint);
+	--color: var(--mds-color-foreground-faint);
 	--size: 24px;
 
 	appearance: none;
@@ -49,6 +49,6 @@
 	&:active {
 		--background-color: var(--token-color-palette-alpha-100);
 		--border-color: var(--token-color-border-strong);
-		--color: var(--token-color-foreground-faint);
+		--color: var(--mds-color-foreground-faint);
 	}
 }

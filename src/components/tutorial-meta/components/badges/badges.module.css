@@ -18,7 +18,7 @@
 .listItem {
 	composes: hds-font-weight-medium from global;
 	composes: hds-typography-display-100 from global;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	align-self: center;
 	display: flex;
 }
@@ -28,5 +28,5 @@
 }
 
 .badge {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }
