@@ -242,7 +242,7 @@
 				{
 					"iconName": "terminal-screen",
 					"text": "Consul CLI documentation",
-					"url": "/consul/api-docs"
+					"url": "/consul/commands"
 				},
 				{
 					"iconName": "tools",
