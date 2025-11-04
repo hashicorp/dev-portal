@@ -94,6 +94,6 @@
 	&.hds-badge-count--type-outlined {
 		color: var(--mds-color-foreground-high-contrast);
 		background-color: transparent;
-		border-color: var(--token-color-palette-neutral-100);
+		border-color: var(--mds-color-palette-neutral-100);
 	}
 }

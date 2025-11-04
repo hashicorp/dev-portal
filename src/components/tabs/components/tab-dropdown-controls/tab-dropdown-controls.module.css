@@ -44,7 +44,7 @@
 
 .selectTrailingIcon {
 	composes: icons;
-	color: var(--token-color-palette-neutral-600);
+	color: var(--mds-color-palette-neutral-600);
 	right: 12px;
 }
 

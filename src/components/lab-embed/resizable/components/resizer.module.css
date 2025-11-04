@@ -6,7 +6,7 @@
 .resizeWrapper {
 	width: 100%;
 	height: 40px;
-	background: var(--token-color-palette-neutral-50);
+	background: var(--mds-color-palette-neutral-50);
 	box-shadow: var(--token-elevation-overlay-box-shadow);
 	display: flex;
 	flex-direction: row;
@@ -23,7 +23,7 @@
 	align-items: center;
 
 	&:hover {
-		background-color: var(--token-color-palette-neutral-100);
+		background-color: var(--mds-color-palette-neutral-100);
 	}
 }
 
@@ -33,7 +33,7 @@
 	align-items: center;
 
 	& svg {
-		fill: var(--token-color-palette-neutral-300);
+		fill: var(--mds-color-palette-neutral-300);
 	}
 }
 
@@ -51,12 +51,12 @@
 	padding: 0;
 
 	&:hover {
-		background-color: var(--token-color-palette-neutral-100);
+		background-color: var(--mds-color-palette-neutral-100);
 	}
 
 	& svg {
 		width: 20px;
 		height: 20px;
-		stroke: var(--token-color-palette-neutral-300);
+		stroke: var(--mds-color-palette-neutral-300);
 	}
 }

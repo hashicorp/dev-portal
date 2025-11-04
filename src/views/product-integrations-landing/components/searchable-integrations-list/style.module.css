@@ -79,7 +79,7 @@
 		margin-right: 9px;
 
 		& > svg {
-			color: var(--token-color-palette-blue-200);
+			color: var(--mds-color-palette-blue-200);
 		}
 	}
 }

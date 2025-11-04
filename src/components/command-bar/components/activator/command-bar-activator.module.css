@@ -11,7 +11,7 @@
 	align-items: center;
 	background-color: transparent;
 	border-radius: 5px;
-	border: 1px solid var(--token-color-palette-neutral-400);
+	border: 1px solid var(--mds-color-palette-neutral-400);
 	display: flex;
 	gap: 16px;
 	justify-content: space-between;

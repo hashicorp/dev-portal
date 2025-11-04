@@ -28,7 +28,7 @@
 
 	/* AKA active */
 	&[aria-current='page'] {
-		background-color: var(--token-color-palette-neutral-200);
+		background-color: var(--mds-color-palette-neutral-200);
 	}
 
 	& svg {
@@ -56,7 +56,7 @@
   should be defined after them.
   */
 	&:hover {
-		background-color: var(--token-color-palette-neutral-100);
+		background-color: var(--mds-color-palette-neutral-100);
 	}
 
 	/*

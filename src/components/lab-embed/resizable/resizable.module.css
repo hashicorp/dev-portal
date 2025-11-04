@@ -16,7 +16,7 @@
 	box-sizing: border-box;
 	padding-top: 0;
 	pointer-events: none;
-	background: var(--token-color-palette-neutral-0);
+	background: var(--mds-color-palette-neutral-0);
 	& > * {
 		pointer-events: auto;
 	}

@@ -10,7 +10,7 @@
 }
 
 .trailingIcon {
-	color: var(--token-color-palette-neutral-600);
+	color: var(--mds-color-palette-neutral-600);
 	position: absolute;
 	right: 8px;
 	top: 10px;

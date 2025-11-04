@@ -70,8 +70,8 @@ but is necessary for us to implement the current designs for the
 	--border-color: var(--token-color-border-strong);
 	--background: linear-gradient(
 		315deg,
-		var(--token-color-palette-neutral-700) 0%,
-		var(--token-color-palette-neutral-600) 100%
+		var(--mds-color-palette-neutral-700) 0%,
+		var(--mds-color-palette-neutral-600) 100%
 	);
 }
 

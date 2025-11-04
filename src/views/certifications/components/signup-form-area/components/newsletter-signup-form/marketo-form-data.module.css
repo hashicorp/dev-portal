@@ -48,7 +48,7 @@
 	}
 
 	& [class*='error'] {
-		color: var(--token-color-palette-red-200);
+		color: var(--mds-color-palette-red-200);
 	}
 
 	/* Make button look more like Dev Dot */
@@ -58,7 +58,7 @@
 	}
 
 	& span[class*='required'] {
-		color: var(--token-color-palette-red-200);
+		color: var(--mds-color-palette-red-200);
 	}
 
 	& input:placeholder-shown {

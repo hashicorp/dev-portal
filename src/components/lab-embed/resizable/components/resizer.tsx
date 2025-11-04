@@ -67,14 +67,14 @@ export default function Resizer({
 							width="120"
 							height="4"
 							rx="2"
-							fill="var(--token-color-palette-neutral-300, #c2c5cb)"
+							fill="var(--mds-color-palette-neutral-300, #c2c5cb)"
 						/>
 						<rect
 							y="10"
 							width="120"
 							height="4"
 							rx="2"
-							fill="var(--token-color-palette-neutral-300, #c2c5cb)"
+							fill="var(--mds-color-palette-neutral-300, #c2c5cb)"
 						/>
 					</svg>
 				}
