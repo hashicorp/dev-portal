@@ -15,7 +15,7 @@
 	list-style: none;
 	margin: 0;
 	background: var(--token-color-surface-faint);
-	border: 1px solid var(--token-color-border-faint);
+	border: 1px solid var(--mds-color-border-faint);
 	border-radius: 6px;
 	padding: 8px;
 	display: flex;
@@ -62,7 +62,7 @@
 	/* Link styles for the inactive or not current links based on `aria-current` */
 	&:not([aria-current='page']) {
 		background-color: var(--token-color-surface-primary);
-		border-color: var(--token-color-border-primary);
+		border-color: var(--mds-color-border-primary);
 		color: var(--mds-color-foreground-primary);
 
 		&:hover {

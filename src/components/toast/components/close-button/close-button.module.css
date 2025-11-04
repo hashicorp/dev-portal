@@ -48,7 +48,7 @@
 
 	&:active {
 		--background-color: var(--mds-color-palette-alpha-100);
-		--border-color: var(--token-color-border-strong);
+		--border-color: var(--mds-color-border-strong);
 		--color: var(--mds-color-foreground-faint);
 	}
 }

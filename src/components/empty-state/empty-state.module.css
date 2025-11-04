@@ -8,7 +8,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border: 1px dashed var(--token-color-border-strong);
+	border: 1px dashed var(--mds-color-border-strong);
 	padding: 24px;
 	text-align: center;
 	border-radius: 6px;

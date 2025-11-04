@@ -91,7 +91,7 @@
 	--size: 28px;
 
 	background: var(--token-color-surface-faint);
-	border: 1px solid var(--token-color-border-primary);
+	border: 1px solid var(--mds-color-border-primary);
 	box-shadow: var(--token-elevation-low-box-shadow);
 	border-radius: 5px;
 	display: flex;

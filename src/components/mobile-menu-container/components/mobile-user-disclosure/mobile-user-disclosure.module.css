@@ -80,7 +80,7 @@
 	width: unset;
 
 	&::before {
-		border-top: 1px solid var(--token-color-border-primary);
+		border-top: 1px solid var(--mds-color-border-primary);
 		content: '';
 		left: 6px;
 		position: absolute;

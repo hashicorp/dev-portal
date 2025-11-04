@@ -59,7 +59,7 @@
 .loadingSpinner {
 	width: 16px;
 	height: 16px;
-	border: 2px solid var(--token-color-border-primary);
+	border: 2px solid var(--mds-color-border-primary);
 	border-top: 2px solid var(--mds-color-palette-blue-200);
 	border-radius: 50%;
 	animation: spin 1s linear infinite;

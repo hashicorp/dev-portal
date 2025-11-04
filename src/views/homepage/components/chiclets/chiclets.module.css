@@ -60,7 +60,7 @@
 	composes: g-focus-ring-from-box-shadow from global;
 
 	/* properties */
-	background: var(--token-color-border-strong);
+	background: var(--mds-color-border-strong);
 	border-radius: 10px;
 	display: block;
 	padding: 1px;
@@ -73,7 +73,7 @@
 	}
 
 	@nest html[data-theme='dark'] & {
-		background-color: var(--token-color-border-primary);
+		background-color: var(--mds-color-border-primary);
 	}
 }
 

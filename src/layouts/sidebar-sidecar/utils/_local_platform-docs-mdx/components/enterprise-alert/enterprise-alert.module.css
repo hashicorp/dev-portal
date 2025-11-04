@@ -5,7 +5,7 @@
 
 .root {
 	background: var(--token-color-surface-faint);
-	border: 1px solid var(--token-color-border-faint);
+	border: 1px solid var(--mds-color-border-faint);
 	display: flex;
 	flex-direction: column;
 	align-items: center;

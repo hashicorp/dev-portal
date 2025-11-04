@@ -60,6 +60,6 @@
 	gap: 12px;
 	align-items: center;
 	padding: 12px;
-	border: 1px solid var(--token-color-border-primary);
+	border: 1px solid var(--mds-color-border-primary);
 	border-radius: 6px;
 }

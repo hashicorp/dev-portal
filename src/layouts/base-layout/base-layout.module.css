@@ -76,7 +76,7 @@ Asana task: https://app.asana.com/0/1202114367927919/1202316169578550/f
 	position: relative;
 
 	&.showFooterTopBorder {
-		border-top: 1px solid var(--token-color-border-primary);
+		border-top: 1px solid var(--mds-color-border-primary);
 	}
 
 	/* On Desktop, footer should layer above sidebar */

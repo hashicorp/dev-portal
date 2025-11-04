@@ -95,7 +95,7 @@
 .divider {
 	border: none;
 	height: 1px;
-	background-color: var(--token-color-border-primary);
+	background-color: var(--mds-color-border-primary);
 	margin: 16px 0;
 }
 

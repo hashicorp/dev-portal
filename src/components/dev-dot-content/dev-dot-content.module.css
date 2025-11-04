@@ -36,7 +36,7 @@
 			& :not(pre) > code {
 				background-color: var(--token-color-surface-faint);
 				border-radius: 5px;
-				border: 1px solid var(--token-color-border-primary);
+				border: 1px solid var(--mds-color-border-primary);
 
 				@nest html[data-theme='dark'] & {
 					background-color: var(--token-color-surface-strong);
@@ -45,22 +45,22 @@
 
 			&.alert-info {
 				--themed-bg: var(--token-color-surface-action);
-				--themed-border: var(--token-color-border-action);
+				--themed-border: var(--mds-color-border-action);
 			}
 
 			&.alert-success {
 				--themed-bg: var(--token-color-surface-success);
-				--themed-border: var(--token-color-border-success);
+				--themed-border: var(--mds-color-border-success);
 			}
 
 			&.alert-warning {
 				--themed-bg: var(--token-color-surface-warning);
-				--themed-border: var(--token-color-border-warning);
+				--themed-border: var(--mds-color-border-warning);
 			}
 
 			&.alert-danger {
 				--themed-bg: var(--token-color-surface-critical);
-				--themed-border: var(--token-color-border-critical);
+				--themed-border: var(--mds-color-border-critical);
 			}
 
 			& p {

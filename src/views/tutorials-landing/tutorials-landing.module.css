@@ -111,7 +111,7 @@
 	composes: g-hide-on-tablet from global;
 	composes: g-hide-on-mobile from global;
 	bottom: 0;
-	color: var(--token-color-border-primary);
+	color: var(--mds-color-border-primary);
 	position: absolute;
 	top: 0;
 	width: 50%;

@@ -56,7 +56,7 @@
 .color-sentinel,
 .color-hcp {
 	--icon-color: var(--mds-color-foreground-faint);
-	--border-color: var(--token-color-border-primary);
+	--border-color: var(--mds-color-border-primary);
 	--background: var(--token-color-surface-faint);
 }
 
@@ -67,7 +67,7 @@ but is necessary for us to implement the current designs for the
 */
 .color-neutral-dark {
 	--icon-color: var(--mds-color-foreground-high-contrast);
-	--border-color: var(--token-color-border-strong);
+	--border-color: var(--mds-color-border-strong);
 	--background: linear-gradient(
 		315deg,
 		var(--mds-color-palette-neutral-700) 0%,

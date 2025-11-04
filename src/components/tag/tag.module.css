@@ -6,7 +6,7 @@
 .root {
 	align-items: center;
 	border-radius: 50px;
-	border: 1px solid var(--token-color-border-strong);
+	border: 1px solid var(--mds-color-border-strong);
 	display: flex;
 	width: fit-content;
 	min-height: 1.5rem;

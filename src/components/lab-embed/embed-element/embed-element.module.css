@@ -33,7 +33,7 @@
 	align-items: center;
 	justify-content: center;
 	background-color: var(--token-color-surface-primary);
-	border: 1px solid var(--token-color-border-primary);
+	border: 1px solid var(--mds-color-border-primary);
 	border-radius: 8px;
 	padding: 2rem;
 	z-index: 1;
@@ -42,7 +42,7 @@
 .loadingSpinner {
 	width: 40px;
 	height: 40px;
-	border: 3px solid var(--token-color-border-primary);
+	border: 3px solid var(--mds-color-border-primary);
 	border-top: 3px solid var(--mds-color-palette-blue-200);
 	border-radius: 50%;
 	animation: spin 1s linear infinite;
@@ -81,7 +81,7 @@
 	align-items: center;
 	justify-content: center;
 	background-color: var(--token-color-surface-primary);
-	border: 1px solid var(--token-color-border-critical);
+	border: 1px solid var(--mds-color-border-critical);
 	border-radius: 8px;
 	padding: 2rem;
 	z-index: 1;

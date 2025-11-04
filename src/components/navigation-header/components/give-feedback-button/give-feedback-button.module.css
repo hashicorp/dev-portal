@@ -83,7 +83,7 @@ which results in a flash of incorrect layout.
 
 	&:disabled {
 		background-color: var(--token-color-surface-faint);
-		border-color: var(--token-color-border-primary);
+		border-color: var(--mds-color-border-primary);
 		box-shadow: none;
 		color: var(--mds-color-foreground-disabled);
 		cursor: not-allowed;

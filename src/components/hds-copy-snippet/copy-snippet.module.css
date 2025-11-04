@@ -58,14 +58,14 @@
 	&.mock-hover,
 	&:hover {
 		color: var(--mds-color-foreground-action-hover);
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 	}
 
 	&.mock-active,
 	&:active {
 		color: var(--mds-color-foreground-action-active);
 		background-color: var(--token-color-surface-interactive-active);
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 	}
 }
 
@@ -75,13 +75,13 @@
 
 	&.mock-hover,
 	&:hover {
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 	}
 
 	&.mock-active,
 	&:active {
 		background-color: var(--token-color-surface-interactive-active);
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 	}
 
 	& .hds-copy-snippet__icon {

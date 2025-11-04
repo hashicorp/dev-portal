@@ -24,7 +24,7 @@
 .header {
 	align-items: center;
 	background-color: var(--token-color-surface-primary);
-	border-bottom: 1px solid var(--token-color-border-primary);
+	border-bottom: 1px solid var(--mds-color-border-primary);
 	display: flex;
 	flex-grow: 0;
 	flex-shrink: 0;

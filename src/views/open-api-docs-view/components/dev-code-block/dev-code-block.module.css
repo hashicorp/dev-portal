@@ -7,7 +7,7 @@
 	composes: hds-typography-code-100 from global;
 	background: var(--token-color-surface-highlight);
 	border-radius: 5px;
-	border: 1px solid var(--token-color-border-primary);
+	border: 1px solid var(--mds-color-border-primary);
 	color: var(--mds-color-foreground-primary);
 	line-height: 1.6;
 	padding: 16px;
