@@ -7,7 +7,7 @@
 	composes: hds-typography-body-200 from global;
 	composes: g-focus-ring-from-box-shadow from global;
 	border-radius: 4px;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	display: block;
 	font-weight: var(--token-typography-font-weight-regular);
 	max-width: 100%;
@@ -18,11 +18,11 @@
 	width: fit-content;
 
 	&.isActive {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 	}
 
 	&:hover {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 		text-decoration: underline;
 	}
 }

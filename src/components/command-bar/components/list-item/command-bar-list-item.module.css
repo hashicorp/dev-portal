@@ -47,7 +47,7 @@
 .title mark,
 .description mark {
 	background-color: transparent;
-	color: var(--token-color-foreground-action);
+	color: var(--mds-color-foreground-action);
 	font-style: normal;
 }
 
@@ -60,7 +60,7 @@
 	border-radius: 5px;
 	border: none;
 	box-shadow: none;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	gap: var(--gap);
 	padding: 8px;
@@ -89,7 +89,7 @@
 	&:focus-visible,
 	&:hover {
 		background-color: var(--token-color-surface-strong);
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 		cursor: pointer;
 	}
 

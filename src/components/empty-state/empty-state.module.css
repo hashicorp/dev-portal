@@ -19,7 +19,7 @@
 }
 
 .subheading {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	margin-top: 4px;
 }
 

@@ -52,25 +52,25 @@
 }
 
 .hds-copy-snippet--color-primary {
-	color: var(--token-color-foreground-action);
+	color: var(--mds-color-foreground-action);
 	background-color: var(--token-color-surface-interactive);
 
 	&.mock-hover,
 	&:hover {
-		color: var(--token-color-foreground-action-hover);
+		color: var(--mds-color-foreground-action-hover);
 		border-color: var(--token-color-border-strong);
 	}
 
 	&.mock-active,
 	&:active {
-		color: var(--token-color-foreground-action-active);
+		color: var(--mds-color-foreground-action-active);
 		background-color: var(--token-color-surface-interactive-active);
 		border-color: var(--token-color-border-strong);
 	}
 }
 
 .hds-copy-snippet--color-secondary {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	background-color: var(--token-color-surface-interactive);
 
 	&.mock-hover,
@@ -85,28 +85,28 @@
 	}
 
 	& .hds-copy-snippet__icon {
-		color: var(--token-color-foreground-action);
+		color: var(--mds-color-foreground-action);
 
 		&:hover {
-			color: var(--token-color-foreground-action-hover);
+			color: var(--mds-color-foreground-action-hover);
 		}
 
 		&:active {
-			color: var(--token-color-foreground-action-active);
+			color: var(--mds-color-foreground-action-active);
 		}
 
 		&:focus {
-			color: var(--token-color-foreground-action);
+			color: var(--mds-color-foreground-action);
 		}
 	}
 }
 
 .hds-copy-snippet--status-success .hds-copy-snippet__icon {
-	color: var(--token-color-foreground-success);
+	color: var(--mds-color-foreground-success);
 }
 
 .hds-copy-snippet--status-error .hds-copy-snippet__icon {
-	color: var(--token-color-foreground-critical);
+	color: var(--mds-color-foreground-critical);
 }
 
 .hds-copy-snippet__text {

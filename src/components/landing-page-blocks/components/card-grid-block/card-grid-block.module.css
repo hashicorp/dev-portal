@@ -8,7 +8,7 @@
 }
 
 .description {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	margin-bottom: 16px;
 }
 

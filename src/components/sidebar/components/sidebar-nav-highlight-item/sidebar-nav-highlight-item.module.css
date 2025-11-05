@@ -21,7 +21,7 @@
 	align-items: center;
 	background: var(--token-color-surface-primary);
 	border-radius: 5px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	gap: 8px;
 	margin-bottom: 2px;
@@ -32,7 +32,7 @@
 
 	&:hover {
 		background: var(--gradient-background);
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 	}
 
 	&:focus {

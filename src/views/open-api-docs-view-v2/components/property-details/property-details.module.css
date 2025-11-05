@@ -23,7 +23,7 @@ Common styles
    case, so specific styles we want for markdown content will need
 	 to be added here. */
 .description {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	width: 100%;
 	overflow-wrap: break-word;
 
@@ -67,7 +67,7 @@ Base properties, at the top level
 
 .baseType {
 	composes: hds-typography-code-200 from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }
 
 /* Style markdown rendered within the description */
@@ -125,13 +125,13 @@ Nested properties
 	composes: hds-typography-code-100 from global;
 	background: var(--token-color-surface-strong);
 	border-radius: 5px;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	padding: 2px 4px 3px 4px;
 }
 
 .nestedType {
 	composes: hds-typography-code-100 from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }
 
 .nestedDescription {

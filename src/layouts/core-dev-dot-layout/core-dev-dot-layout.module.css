@@ -21,7 +21,7 @@
 
 	/* Custom tokens that aren't in the design system, but may be in the future */
 	--custom-token-color-focus-action-internal-dark: var(
-		--token-color-foreground-action-hover
+		--mds-color-foreground-action-hover
 	);
 	--custom-token-color-focus-action-external-light: #5fbcff;
 	--custom-token-focus-ring-action-box-shadow-dark: 0 0 0 1px

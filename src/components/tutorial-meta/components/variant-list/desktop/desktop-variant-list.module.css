@@ -6,7 +6,7 @@
 .label {
 	composes: hds-typography-body-200 from global;
 	composes: hds-font-weight-semibold from global;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	margin-bottom: 8px;
 	display: block;
 }
@@ -40,9 +40,9 @@
 
 	/* Link styles for the 'current' or active link based on `aria-current` */
 	&[aria-current='page'] {
-		background-color: var(--token-color-foreground-action);
-		border-color: var(--token-color-foreground-action-hover);
-		color: var(--token-color-foreground-high-contrast);
+		background-color: var(--mds-color-foreground-action);
+		border-color: var(--mds-color-foreground-action-hover);
+		color: var(--mds-color-foreground-high-contrast);
 		box-shadow: none;
 
 		/**
@@ -63,7 +63,7 @@
 	&:not([aria-current='page']) {
 		background-color: var(--token-color-surface-primary);
 		border-color: var(--token-color-border-primary);
-		color: var(--token-color-foreground-primary);
+		color: var(--mds-color-foreground-primary);
 
 		&:hover {
 			background-color: var(--token-color-surface-interactive-hover);

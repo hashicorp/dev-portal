@@ -5,7 +5,7 @@
 
 .root {
 	position: relative;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	width: fit-content;
 }
 
@@ -17,7 +17,7 @@
 	background-color: var(--token-color-surface-faint);
 	border-radius: 5px;
 	border: 1px solid var(--token-color-border-strong);
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	cursor: pointer;
 	padding: 4px 30px 4px 28px;
 	width: 100%;

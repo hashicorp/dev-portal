@@ -49,7 +49,7 @@
 	--shadow-inset: 48px;
 
 	/* Default added shadow is a neutral gray. */
-	--shadow-background: var(--token-color-foreground-faint);
+	--shadow-background: var(--mds-color-foreground-faint);
 
 	/**
 	 * Gradient border properties

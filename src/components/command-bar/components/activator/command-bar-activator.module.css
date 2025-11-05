@@ -26,7 +26,7 @@
 		padding: 10px;
 
 		& .leadingIcon {
-			color: var(--token-color-foreground-faint);
+			color: var(--mds-color-foreground-faint);
 		}
 
 		& .text {
@@ -47,12 +47,12 @@
 }
 
 .leadingIcon {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	display: flex;
 }
 
 .text {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 }
 
 .right {
@@ -63,5 +63,5 @@
 }
 
 .keyBadge {
-	background-color: var(--token-color-foreground-primary);
+	background-color: var(--mds-color-foreground-primary);
 }

@@ -41,13 +41,13 @@
 .breadcrumbText {
 	composes: g-focus-ring-from-box-shadow from global;
 	border-radius: 5px;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	max-width: 16em;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	&[aria-current='page'] {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 	}
 	&[href] {
 		&:hover {
@@ -55,7 +55,7 @@
 		}
 
 		&:active {
-			color: var(--token-color-foreground-primary);
+			color: var(--mds-color-foreground-primary);
 			text-decoration: underline;
 		}
 

@@ -52,7 +52,7 @@
 	position: absolute;
 	top: 12px;
 	right: 12px;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }
 
 .textArea {
@@ -61,7 +61,7 @@
 	box-shadow: var(--token-surface-base-box-shadow);
 	composes: hds-typography-body-200 from global;
 	border-radius: 6px;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	width: 100%;
 	resize: none;
 	height: 100px;
@@ -116,7 +116,7 @@
 	font-family: var(--token-typography-body-100-font-family);
 	font-size: var(--token-typography-body-100-font-size);
 	line-height: var(--token-typography-body-100-line-height);
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	min-height: 100%;
 	margin: 0;
 	padding: 0;

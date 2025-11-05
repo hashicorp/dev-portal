@@ -6,7 +6,7 @@
 .sandboxItem {
 	align-items: flex-start;
 	border-radius: 5px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	display: flex;
 	padding: 8px;
 	text-decoration: none;
@@ -20,7 +20,7 @@
 		background-color: var(--token-color-surface-faint);
 
 		& .title {
-			color: var(--token-color-foreground-strong);
+			color: var(--mds-color-foreground-strong);
 		}
 	}
 
@@ -45,12 +45,12 @@
 }
 
 .title {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	font-size: 0.9375rem;
 }
 
 .description {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	opacity: 0.8;
 	margin-top: 4px;
 	font-size: 0.875rem;
@@ -80,6 +80,6 @@
 	& .productIcon {
 		width: 16px;
 		height: 16px;
-		color: var(--token-color-foreground-faint);
+		color: var(--mds-color-foreground-faint);
 	}
 }

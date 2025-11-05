@@ -5,7 +5,7 @@
 
 .root {
 	background-color: var(--token-color-surface-faint);
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
@@ -33,26 +33,26 @@
 	}
 
 	&.hasLightBackgroundImage {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 
 		& .description {
 			color: inherit;
 		}
 
 		@nest html[data-theme='dark'] & {
-			color: var(--token-color-foreground-high-contrast);
+			color: var(--mds-color-foreground-high-contrast);
 		}
 	}
 
 	&.hasDarkBackgroundImage {
-		color: var(--token-color-foreground-high-contrast);
+		color: var(--mds-color-foreground-high-contrast);
 
 		& .description {
 			color: inherit;
 		}
 
 		@nest html[data-theme='dark'] & {
-			color: var(--token-color-foreground-strong);
+			color: var(--mds-color-foreground-strong);
 		}
 	}
 }
@@ -76,7 +76,7 @@
 .eyebrowPart {
 	composes: hds-typography-display-100 from global;
 	composes: hds-font-weight-medium from global;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	display: inline;
 
 	&:not(:first-child)::before {
@@ -110,7 +110,7 @@
 .description {
 	composes: hds-typography-body-100 from global;
 	composes: hds-font-weight-medium from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	margin-top: 16px;
 
 	@media screen and (min-width: 1440px) {

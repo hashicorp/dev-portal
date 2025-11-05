@@ -4,5 +4,5 @@
  */
 
 .toastIcon {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }

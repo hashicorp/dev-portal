@@ -17,7 +17,7 @@
 	grid-template-columns: 1fr auto 1fr;
 	align-items: center;
 	margin: 0 auto;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }
 
 /* <Info> */
@@ -49,9 +49,9 @@
 }
 
 .is-selected {
-	color: var(--token-color-foreground-action);
+	color: var(--mds-color-foreground-action);
 	&:focus-within {
-		color: var(--token-color-foreground-action-active);
+		color: var(--mds-color-foreground-action-active);
 	}
 
 	/* small underline */
@@ -81,17 +81,17 @@
 	outline: transparent;
 
 	&:hover {
-		color: var(--token-color-foreground-action-hover);
+		color: var(--mds-color-foreground-action-hover);
 	}
 
 	&:disabled {
-		color: var(--token-color-foreground-disabled);
+		color: var(--mds-color-foreground-disabled);
 		cursor: not-allowed;
 	}
 
 	/* tab focus or click focus */
 	&:focus {
-		color: var(--token-color-foreground-action);
+		color: var(--mds-color-foreground-action);
 		&::before {
 			box-shadow: var(--token-focus-ring-action-box-shadow);
 		}
@@ -99,10 +99,10 @@
 
 	/* is selected */
 	&.active {
-		color: var(--token-color-foreground-action);
+		color: var(--mds-color-foreground-action);
 
 		&:focus {
-			color: var(--token-color-foreground-action-active);
+			color: var(--mds-color-foreground-action-active);
 		}
 	}
 }
@@ -121,7 +121,7 @@
 	align-items: center;
 	height: var(--token-pagination-control-height);
 	padding: 0 var(--token-pagination-control-padding-horizontal);
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }
 
 .arrow {

@@ -53,7 +53,7 @@
 	display: flex;
 	gap: 12px;
 	align-items: center;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }
 
 .links {
@@ -78,13 +78,13 @@
 	border-radius: 6px;
 	background: none;
 	border: none;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	display: flex;
 	align-items: center;
 	gap: 7px;
 
 	&:hover {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 		text-decoration: underline;
 	}
 }
@@ -94,7 +94,7 @@
 	user-select: text;
 
 	&::selection {
-		color: var(--token-color-foreground-faint);
+		color: var(--mds-color-foreground-faint);
 		background-color: var(--token-color-palette-neutral-200);
 	}
 }

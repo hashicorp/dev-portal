@@ -9,7 +9,7 @@
 		margin-left: 8px;
 
 		& li {
-			color: var(--token-color-foreground-primary);
+			color: var(--mds-color-foreground-primary);
 			position: relative;
 
 			&::before {

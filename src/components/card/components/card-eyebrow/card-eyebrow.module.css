@@ -15,5 +15,5 @@
 	composes: hds-font-weight-medium from global;
 
 	/* properties */
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 }

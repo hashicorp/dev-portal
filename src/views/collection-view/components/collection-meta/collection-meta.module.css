@@ -4,7 +4,7 @@
  */
 
 .icon {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }
 
 .heading {
@@ -16,11 +16,11 @@
 	composes: hds-typography-body-300 from global;
 	composes: hds-font-weight-regular from global;
 	margin-top: 8px;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }
 
 .createAccountCta {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	margin-top: 12px;
 }
 

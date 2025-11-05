@@ -4,17 +4,17 @@
  */
 
 .cardTitle {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	margin-bottom: 4px;
 }
 
 .cardSubtitle {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	margin-bottom: 8px;
 }
 
 .featuredDocsLabel {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	margin-bottom: 8px;
 	margin-top: 24px;
 }
@@ -32,13 +32,13 @@
 }
 
 .featuredDocsLink {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	display: block;
 	padding: 8px 0;
 	width: fit-content;
 
 	&:hover {
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 		text-decoration: underline;
 	}
 }

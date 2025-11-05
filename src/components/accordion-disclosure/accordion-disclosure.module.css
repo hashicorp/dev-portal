@@ -70,7 +70,7 @@
 	width: 100%;
 
 	& svg {
-		color: var(--token-color-foreground-faint);
+		color: var(--mds-color-foreground-faint);
 
 		/* Only enable animation if query is supported and value is no-preference */
 		@media (prefers-reduced-motion: no-preference) {
@@ -113,12 +113,12 @@
 }
 
 .title {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	display: block;
 }
 
 .description {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	display: block;
 	margin-top: 4px;
 }

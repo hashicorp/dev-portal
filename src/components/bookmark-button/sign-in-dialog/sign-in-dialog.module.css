@@ -21,7 +21,7 @@
 }
 
 .exitIcon {
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	margin: 4px 2px;
 	appearance: none;
 	background: unset;

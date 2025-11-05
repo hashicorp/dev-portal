@@ -21,7 +21,7 @@
 
 .heading {
 	composes: hds-typography-display-400 from global;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	flex: 1 1 0;
 	font-weight: var(--token-typography-font-weight-bold);
 	margin: 0;

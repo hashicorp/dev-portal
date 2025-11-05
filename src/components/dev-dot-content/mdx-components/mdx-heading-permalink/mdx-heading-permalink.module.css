@@ -17,7 +17,7 @@
 	}
 
 	& .icon {
-		color: var(--token-color-foreground-action);
+		color: var(--mds-color-foreground-action);
 	}
 
 	&:hover {
@@ -25,7 +25,7 @@
 		box-shadow: var(--token-surface-mid-box-shadow);
 
 		& .icon {
-			color: var(--token-color-foreground-action-hover);
+			color: var(--mds-color-foreground-action-hover);
 		}
 	}
 
@@ -34,7 +34,7 @@
 		background: var(--token-color-surface-faint);
 
 		& .icon {
-			color: var(--token-color-foreground-action-active);
+			color: var(--mds-color-foreground-action-active);
 		}
 	}
 }

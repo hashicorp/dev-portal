@@ -37,7 +37,7 @@
 	flex-shrink: 0;
 
 	& svg {
-		color: var(--token-color-foreground-primary);
+		color: var(--mds-color-foreground-primary);
 	}
 }
 
@@ -66,7 +66,7 @@
 	background-color: transparent;
 	border-radius: 5px;
 	border: none;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	font-family: var(--token-typography-body-300-font-family);
 	font-size: var(--token-typography-body-300-font-size);
 	font-weight: var(--token-typography-font-weight-regular);
@@ -78,7 +78,7 @@
 	width: 100%;
 
 	&::placeholder {
-		color: var(--token-color-foreground-faint);
+		color: var(--mds-color-foreground-faint);
 		font-family: var(--token-typography-body-300-font-family);
 		font-size: var(--token-typography-body-300-font-size);
 		font-weight: var(--token-typography-font-weight-regular);
@@ -108,7 +108,7 @@
 	border-radius: 5px;
 
 	& svg {
-		color: var(--token-color-foreground-primary);
+		color: var(--mds-color-foreground-primary);
 	}
 
 	&:hover {

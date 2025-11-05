@@ -20,7 +20,7 @@
 
 .results {
 	composes: hds-typography-body-200 from global;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	font-size: 12px;
 	margin-top: 24px;
 	margin-bottom: 12px;

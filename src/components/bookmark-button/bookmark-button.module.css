@@ -11,7 +11,7 @@
 	align-items: center;
 	background: none;
 	border: none;
-	color: var(--token-color-foreground-faint);
+	color: var(--mds-color-foreground-faint);
 	cursor: pointer;
 	display: flex;
 	height: var(--buttonSize);
@@ -29,7 +29,7 @@
 		--hoverIconOpacity: 1;
 		--baseIconOpacity: 0;
 
-		color: var(--token-color-foreground-strong);
+		color: var(--mds-color-foreground-strong);
 	}
 
 	&:focus-visible::before {

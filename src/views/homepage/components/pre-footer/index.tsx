@@ -17,7 +17,7 @@ import s from './pre-footer.module.css'
 function PreFooterIcon({ slug }: { slug: PreFooterIconSlug }) {
 	switch (slug) {
 		case 'support':
-			return <IconSupport24 color="var(--token-color-foreground-highlight)" />
+			return <IconSupport24 color="var(--mds-color-foreground-highlight)" />
 		case 'user':
 			return <IconUser24 color="var(--token-color-nomad-brand)" />
 		case 'help':

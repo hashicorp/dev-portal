@@ -23,12 +23,12 @@
 
 .pageTitle {
 	composes: g-offset-scroll-margin-top from global;
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 	margin-top: 0;
 	margin-bottom: 8px;
 	width: 100%;
 }
 
 .pageSubtitle {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 }

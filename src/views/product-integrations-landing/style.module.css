@@ -28,7 +28,7 @@
 }
 
 .exitIcon {
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	appearance: none;
 	background: unset;
 	border: unset;

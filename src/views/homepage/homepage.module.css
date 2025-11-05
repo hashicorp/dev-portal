@@ -21,7 +21,7 @@
 }
 
 .background {
-	background-color: var(--token-color-foreground-strong);
+	background-color: var(--mds-color-foreground-strong);
 	background-image: url('./img/background.svg');
 	background-position-x: right;
 	background-position-y: top;

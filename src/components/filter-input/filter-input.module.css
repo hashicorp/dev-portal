@@ -74,6 +74,6 @@
 
 	/* Styling for when a non-empty value is entered */
 	&[value]:not([value='']) {
-		border-color: var(--token-color-foreground-faint);
+		border-color: var(--mds-color-foreground-faint);
 	}
 }

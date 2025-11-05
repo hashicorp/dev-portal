@@ -25,7 +25,7 @@
 		}
 
 		& .arrowIcon {
-			color: var(--token-color-foreground-faint);
+			color: var(--mds-color-foreground-faint);
 			margin-right: 10px;
 		}
 
@@ -46,7 +46,7 @@
 
 			& .required {
 				font-size: 13px;
-				color: var(--token-color-foreground-faint);
+				color: var(--mds-color-foreground-faint);
 				margin-left: 8px;
 
 				&.isRequired {
@@ -79,7 +79,7 @@
 
 			& .topRow {
 				& .key {
-					color: var(--token-color-foreground-primary);
+					color: var(--mds-color-foreground-primary);
 				}
 			}
 		}
@@ -110,7 +110,7 @@
 	border-radius: 5px;
 	padding: 2px 4px 3px;
 	background: var(--token-color-palette-neutral-50);
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 }
 
 .permalink {

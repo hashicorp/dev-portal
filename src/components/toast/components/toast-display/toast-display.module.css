@@ -15,35 +15,35 @@
 		background: var(--token-color-surface-faint);
 		border-color: var(--token-color-border-strong);
 
-		--title-and-icon-color: var(--token-color-foreground-strong);
+		--title-and-icon-color: var(--mds-color-foreground-strong);
 	}
 
 	&.color-highlight {
 		background: var(--token-color-surface-highlight);
 		border-color: var(--token-color-border-highlight);
 
-		--title-and-icon-color: var(--token-color-foreground-highlight-on-surface);
+		--title-and-icon-color: var(--mds-color-foreground-highlight-on-surface);
 	}
 
 	&.color-warning {
 		background: var(--token-color-surface-warning);
 		border-color: var(--token-color-border-warning);
 
-		--title-and-icon-color: var(--token-color-foreground-warning-on-surface);
+		--title-and-icon-color: var(--mds-color-foreground-warning-on-surface);
 	}
 
 	&.color-success {
 		background: var(--token-color-surface-success);
 		border-color: var(--token-color-border-success);
 
-		--title-and-icon-color: var(--token-color-foreground-success-on-surface);
+		--title-and-icon-color: var(--mds-color-foreground-success-on-surface);
 	}
 
 	&.color-critical {
 		background: var(--token-color-surface-critical);
 		border-color: var(--token-color-border-critical);
 
-		--title-and-icon-color: var(--token-color-foreground-critical-on-surface);
+		--title-and-icon-color: var(--mds-color-foreground-critical-on-surface);
 	}
 }
 
@@ -69,7 +69,7 @@
 
 .description {
 	composes: hds-typography-body-200 from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 
 	&:not(:first-child) {
 		margin-top: 4px;

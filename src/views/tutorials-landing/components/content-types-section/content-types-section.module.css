@@ -16,7 +16,7 @@
 .title {
 	composes: hds-typography-display-500 from global;
 	composes: hds-font-weight-bold from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 
 	@media (--dev-dot-tablet-down) {
 		composes: hds-typography-display-400 from global;
@@ -72,7 +72,7 @@
 .listItemTitle {
 	composes: hds-typography-display-400 from global;
 	composes: hds-font-weight-semibold from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 
 	@media (--dev-dot-mobile) {
 		composes: hds-typography-display-300 from global;
@@ -82,7 +82,7 @@
 .listItemDescription {
 	composes: hds-typography-display-200 from global;
 	composes: hds-font-weight-semibold from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 
 	@media (--dev-dot-mobile) {
 		composes: hds-typography-display-100 from global;

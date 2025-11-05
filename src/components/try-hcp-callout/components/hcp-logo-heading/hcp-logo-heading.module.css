@@ -11,7 +11,7 @@
 
 		/** For theming, paths need to have a token fill **/
 		& path {
-			fill: var(--token-color-foreground-strong);
+			fill: var(--mds-color-foreground-strong);
 		}
 	}
 }

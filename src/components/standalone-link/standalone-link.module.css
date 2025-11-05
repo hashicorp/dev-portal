@@ -56,22 +56,22 @@
 */
 
 .primary {
-	color: var(--token-color-foreground-action);
+	color: var(--mds-color-foreground-action);
 
 	&.standaloneLink:active {
-		color: var(--token-color-foreground-action-active);
+		color: var(--mds-color-foreground-action-active);
 	}
 
 	&.standaloneLink:hover {
-		color: var(--token-color-foreground-action-hover);
+		color: var(--mds-color-foreground-action-hover);
 	}
 }
 
 .secondary {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 
 	&.standaloneLink:active {
-		color: var(--token-color-foreground-primary);
+		color: var(--mds-color-foreground-primary);
 	}
 }
 

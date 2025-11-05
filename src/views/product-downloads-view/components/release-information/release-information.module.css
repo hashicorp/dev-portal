@@ -13,7 +13,7 @@
 }
 
 .heading {
-	color: var(--token-color-foreground-strong);
+	color: var(--mds-color-foreground-strong);
 }
 
 .notesContainer {

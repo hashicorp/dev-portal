@@ -25,7 +25,7 @@
 
 .overviewParagraph {
 	composes: hds-typography-body-300 from global;
-	color: var(--token-color-foreground-primary);
+	color: var(--mds-color-foreground-primary);
 	margin: 16px 0 0 0;
 
 	@media (--dev-dot-desktop-up) {
