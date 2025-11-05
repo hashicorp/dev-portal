@@ -113,11 +113,6 @@ const EXTRA_PAGES: Record<
 	consul: [
 		{
 			icon: <IconDocs16 />,
-			text: 'HCP Consul Dedicated',
-			url: '/hcp/docs/consul',
-		},
-		{
-			icon: <IconDocs16 />,
 			text: 'API',
 			url: '/consul/docs/api-docs',
 		},
@@ -142,11 +137,6 @@ const EXTRA_PAGES: Record<
 			icon: <IconDocs16 />,
 			text: 'HCP Packer',
 			url: '/hcp/docs/packer',
-		},
-		{
-			icon: <IconDocs16 />,
-			text: 'HCP Consul Dedicated',
-			url: '/hcp/docs/consul',
 		},
 		{
 			icon: <IconDocs16 />,
