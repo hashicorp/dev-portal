@@ -15,13 +15,18 @@ export default function InlineAlert({
 	icon = <IconInfo24 />,
 	title,
 	ctaSlot,
+	disallowScrolling = false,
 }: InlineAlertProps) {
 	return (
 		<div className={classNames(s.default, s[color], className)}>
 			<span className={s.icon} data-testid="icon">
 				{icon}
 			</span>
-			<span className={s.content}>
+			<span
+				className={s.content}
+				// inline style to take precedence over CSS modules
+				style={disallowScrolling ? { overflow: 'hidden' } : {}}
+			>
 				<p className={s.title}>{title}</p>
 				<span className={s.description}>{description}</span>
 				{ctaSlot ? <span className={s.ctaSlot}>{ctaSlot}</span> : null}
