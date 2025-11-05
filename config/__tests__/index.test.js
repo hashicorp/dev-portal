@@ -44,6 +44,7 @@ describe('loadHashiConfigByEnvironment', () => {
 			    "sentinel",
 			    "hcp-docs",
 			    "boundary",
+			    "consul",
 			  ],
 			  "foo": "bar",
 			}
