@@ -28,12 +28,12 @@
 				{
 					"title": "Service discovery solutions",
 					"description": "Consul's service discovery capabilities help you discover, track, and monitor the health of services within a network.",
-					"url": "consul/docs/use-case/service-discovery"
+					"url": "/consul/docs/use-case/service-discovery"
 				},
 				{
 					"title": "Service mesh solutions",
 					"description": "Consul's service mesh features help you secure, manage, and observe service-to-service communication within a network.",
-					"url": "consul/docs/use-case/service-mesh"
+					"url": "/consul/docs/use-case/service-mesh"
 				}
 			]
 		},
@@ -242,7 +242,7 @@
 				{
 					"iconName": "terminal-screen",
 					"text": "Consul CLI documentation",
-					"url": "/consul/api-docs"
+					"url": "/consul/commands"
 				},
 				{
 					"iconName": "tools",

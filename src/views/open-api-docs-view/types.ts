@@ -194,8 +194,8 @@ export interface OpenApiDocsPageConfig {
 
 	/**
 	 * Optional slug used to theme smaller elements within the service API docs.
-	 * For example, HCP consul will have a `productSlug` of `hcp`,
-	 * but a `serviceProductSlug` of `consul`. If omitted, the `productSlug`
+	 * For example, HCP Vault Dedicated will have a `productSlug` of `hcp`,
+	 * but a `serviceProductSlug` of `vault`. If omitted, the `productSlug`
 	 * will be used.
 	 */
 	serviceProductSlug?: ProductSlug
