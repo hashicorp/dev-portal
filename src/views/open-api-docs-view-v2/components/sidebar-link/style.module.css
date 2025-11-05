@@ -21,12 +21,12 @@
 	/* Hover state includes background color change */
 	&:hover {
 		color: var(--mds-color-foreground-strong);
-		background-color: var(--token-color-palette-neutral-100);
+		background-color: var(--mds-color-palette-neutral-100);
 	}
 
 	/* Highlight state for current page */
 	&[aria-current='page'] {
 		color: var(--mds-color-foreground-strong);
-		background-color: var(--token-color-palette-neutral-200);
+		background-color: var(--mds-color-palette-neutral-200);
 	}
 }

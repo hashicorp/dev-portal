@@ -24,7 +24,7 @@
 			background-color: var(--themed-bg);
 			border: 1px solid var(--themed-border);
 			border-radius: 6px;
-			color: var(--token-color-palette-neutral-600);
+			color: var(--mds-color-palette-neutral-600);
 			padding: 16px;
 			margin: 20px 0;
 

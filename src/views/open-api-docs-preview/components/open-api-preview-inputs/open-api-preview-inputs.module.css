@@ -54,7 +54,7 @@
 	flex-shrink: 0;
 
 	/* Swap blue and purple to match the --highlight-color */
-	--token-color-palette-blue-200: var(--mds-color-foreground-highlight);
-	--token-color-palette-blue-300: var(--token-color-palette-purple-300);
-	--token-color-palette-blue-400: var(--token-color-palette-purple-400);
+	--mds-color-palette-blue-200: var(--mds-color-palette-purple-200);
+	--mds-color-palette-blue-300: var(--mds-color-palette-purple-300);
+	--mds-color-palette-blue-400: var(--mds-color-palette-purple-400);
 }

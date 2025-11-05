@@ -6,7 +6,7 @@
 @custom-media --list-horizontally (min-width: 1280px);
 
 .root {
-	color: var(--token-color-palette-neutral-600);
+	color: var(--mds-color-palette-neutral-600);
 	gap: 24px;
 	display: flex;
 	flex-wrap: wrap;
@@ -95,6 +95,6 @@
 
 	&::selection {
 		color: var(--mds-color-foreground-faint);
-		background-color: var(--token-color-palette-neutral-200);
+		background-color: var(--mds-color-palette-neutral-200);
 	}
 }

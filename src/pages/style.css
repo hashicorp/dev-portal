@@ -199,7 +199,7 @@ and negative margin.
 	}
 
 	&:focus-visible {
-		border: 1px solid var(--token-color-palette-blue-200);
+		border: 1px solid var(--mds-color-palette-blue-200);
 		box-shadow: 0 0 0 3px var(--token-color-focus-action-external);
 		outline: transparent;
 	}

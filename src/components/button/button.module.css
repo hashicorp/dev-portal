@@ -113,26 +113,26 @@
 */
 
 .primary {
-	background-color: var(--token-color-palette-blue-200);
-	border-color: var(--token-color-palette-blue-300);
+	background-color: var(--mds-color-palette-blue-200);
+	border-color: var(--mds-color-palette-blue-300);
 	color: var(--mds-color-foreground-high-contrast);
 	box-shadow: var(--token-elevation-low-box-shadow);
 
 	&:hover:not(:disabled) {
-		background-color: var(--token-color-palette-blue-300);
-		border-color: var(--token-color-palette-blue-400);
+		background-color: var(--mds-color-palette-blue-300);
+		border-color: var(--mds-color-palette-blue-400);
 		color: var(--mds-color-foreground-high-contrast);
 	}
 
 	&:active:not(:disabled) {
-		background-color: var(--token-color-palette-blue-400);
-		border-color: var(--token-color-palette-blue-400);
+		background-color: var(--mds-color-palette-blue-400);
+		border-color: var(--mds-color-palette-blue-400);
 		box-shadow: none;
 		color: var(--mds-color-foreground-high-contrast);
 	}
 
 	&:focus-visible {
-		background-color: var(--token-color-palette-blue-200);
+		background-color: var(--mds-color-palette-blue-200);
 		border-color: var(--token-color-focus-action-internal);
 		color: var(--mds-color-foreground-high-contrast);
 		box-shadow: none;
@@ -219,14 +219,14 @@
 	color: var(--mds-color-foreground-critical-on-surface);
 
 	&:hover:not(:disabled) {
-		background-color: var(--token-color-palette-red-300);
-		border-color: var(--token-color-palette-red-400);
+		background-color: var(--mds-color-palette-red-300);
+		border-color: var(--mds-color-palette-red-400);
 		color: var(--mds-color-foreground-high-contrast);
 	}
 
 	&:active:not(:disabled) {
-		background-color: var(--token-color-palette-red-400);
-		border-color: var(--token-color-palette-red-400);
+		background-color: var(--mds-color-palette-red-400);
+		border-color: var(--mds-color-palette-red-400);
 		box-shadow: none;
 		color: var(--mds-color-foreground-high-contrast);
 	}

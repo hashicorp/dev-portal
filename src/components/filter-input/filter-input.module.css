@@ -6,7 +6,7 @@
 /* TODO: abstract shared input styles when there are more input components */
 
 .sharedIconColorAndPositioning {
-	color: var(--token-color-palette-neutral-500);
+	color: var(--mds-color-palette-neutral-500);
 	position: absolute;
 	top: calc((var(--input-height) - var(--input-icon-size)) / 2);
 }
@@ -48,7 +48,7 @@
 		var(--token-form-control-base-border-color-default);
 	border-radius: 5px;
 	box-shadow: var(--token-elevation-inset-box-shadow);
-	color: var(--token-color-palette-neutral-700);
+	color: var(--mds-color-palette-neutral-700);
 	font-size: 16px; /* Override body-200 for minimum input font-size */
 	line-height: 1.25; /* Works out to 20px, for consistency with design */
 	padding-bottom: calc(
@@ -63,7 +63,7 @@
 	width: 100%;
 
 	&::placeholder {
-		color: var(--token-color-palette-neutral-500);
+		color: var(--mds-color-palette-neutral-500);
 		opacity: 1;
 	}
 
