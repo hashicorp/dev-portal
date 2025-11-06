@@ -12,4 +12,5 @@ export interface InlineAlertProps {
 	description: ReactNode
 	icon?: ReactElement<React.JSX.IntrinsicElements['svg']>
 	title: string
+	disallowScrolling?: boolean
 }
