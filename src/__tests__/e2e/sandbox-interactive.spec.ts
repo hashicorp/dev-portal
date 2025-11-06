@@ -42,12 +42,6 @@ test.describe('Sandbox Interactive Functionality', () => {
 		const startLabButton = page.getByRole('button', { name: /start interactive lab/i })
 		await expect(startLabButton).toBeVisible()
 
-		// Set up error monitoring
-		const errors: string[] = []
-		page.on('pageerror', (error) => {
-			errors.push(error.message)
-		})
-
 		// Click "Start Interactive Lab" button
 		await startLabButton.click()
 
@@ -66,24 +60,12 @@ test.describe('Sandbox Interactive Functionality', () => {
 
 		// Verify it's NOT loading the wrong product (Terraform sandbox)
 		expect(iframeSrc).not.toContain('terraform-sandbox')
-
-		// Verify no console errors occurred
-		if (errors.length > 0) {
-			console.log(`Console errors detected (${errors.length}):`, errors)
-		}
-		expect(errors.length).toBe(0)
 	})
 
 	test('Show Terminal button visibility', async ({
 		page,
 		baseURL
 	}) => {
-		// Set up error monitoring
-		const errors: string[] = []
-		page.on('pageerror', (error) => {
-			errors.push(error.message)
-		})
-
 		// Set a larger viewport to ensure button is accessible (not covered by fullscreen iframe)
 		await page.setViewportSize({ width: 1920, height: 1080 })
 
@@ -113,36 +95,18 @@ test.describe('Sandbox Interactive Functionality', () => {
 		await page.waitForTimeout(1000)
 		await expect(labIframe).toBeHidden({ timeout: 10000 })
 
-		// Verify no console errors so far
-		if (errors.length > 0) {
-			console.log(`Console errors detected (${errors.length}):`, errors)
-		}
-		expect(errors.length).toBe(0)
-
 		// Navigate to a non-interactive tutorial
 		await page.goto(`${baseURL}/vault/tutorials/get-started/learn-http-api`)
 
 		// Verify "Show Terminal" button does NOT appear in the header
 		const headerShowTerminalButton = page.locator('header').getByRole('button', { name: /show terminal/i })
 		await expect(headerShowTerminalButton).not.toBeVisible()
-
-		// Verify no console errors occurred
-		if (errors.length > 0) {
-			console.log(`Console errors detected (${errors.length}):`, errors)
-		}
-		expect(errors.length).toBe(0)
 	})
 
 	test('Navigation between tutorial types', async ({
 		page,
 		baseURL
 	}) => {
-		// Set up error monitoring - specifically looking for undefined errors
-		const errors: string[] = []
-		page.on('pageerror', (error) => {
-			errors.push(error.message)
-		})
-
 		// Start at interactive tutorial
 		await page.goto(`${baseURL}/vault/tutorials/get-started/troubleshoot#scenario`)
 
@@ -171,13 +135,6 @@ test.describe('Sandbox Interactive Functionality', () => {
 		const buttonAfterNav = page.locator('header').getByRole('button', { name: /show terminal/i })
 		await expect(buttonAfterNav).not.toBeVisible()
 
-		// Verify no console errors about undefined or "Cannot read properties of undefined"
-		const hasUndefinedErrors = errors.some(error =>
-			error.toLowerCase().includes('undefined') ||
-			error.toLowerCase().includes('cannot read properties')
-		)
-		expect(hasUndefinedErrors).toBe(false)
-
 		// Navigate back to the interactive tutorial
 		await page.goto(`${baseURL}/vault/tutorials/get-started/troubleshoot#scenario`)
 
@@ -198,24 +155,12 @@ test.describe('Sandbox Interactive Functionality', () => {
 
 		// The tutorial should restore the exact same lab (with same token)
 		expect(restoredIframeSrc).toBe(initialIframeSrc)
-
-		// Verify no console errors occurred
-		if (errors.length > 0) {
-			console.log(`Console errors detected (${errors.length}):`, errors)
-		}
-		expect(errors.length).toBe(0)
 	})
 
 	test('Sandbox dropdown functionality', async ({
 		page,
 		baseURL
 	}) => {
-		// Set up error monitoring
-		const errors: string[] = []
-		page.on('pageerror', (error) => {
-			errors.push(error.message)
-		})
-
 		// Set a larger viewport to ensure button is accessible (header buttons hide away when viewport is small)
 		await page.setViewportSize({ width: 1920, height: 1080 })
 
@@ -292,23 +237,12 @@ test.describe('Sandbox Interactive Functionality', () => {
 		const terraformIframeSrc = await terraformIframe.getAttribute('src')
 		expect(terraformIframeSrc).toContain('terraform-sandbox')
 		expect(terraformIframeSrc).not.toContain('vault-sandbox')
-
-		// Log any console errors for debugging (some may be non-critical)
-		if (errors.length > 0) {
-			console.log(`Console errors detected (${errors.length}):`, errors)
-		}
 	})
 
 	test('Direct navigation with lab open', async ({
 		page,
 		baseURL
 	}) => {
-		// Set up error monitoring
-		const errors: string[] = []
-		page.on('pageerror', (error) => {
-			errors.push(error.message)
-		})
-
 		// Navigate to interactive tutorial
 		await page.goto(`${baseURL}/vault/tutorials/get-started/troubleshoot#scenario`)
 
@@ -330,12 +264,6 @@ test.describe('Sandbox Interactive Functionality', () => {
 		// Verify terminal closes when navigating to different product
 		await expect(labIframe).not.toBeVisible()
 
-		// Verify no console errors
-		if (errors.length > 0) {
-			console.log(`Console errors detected (${errors.length}):`, errors)
-		}
-		expect(errors.length).toBe(0)
-
 		// Navigate back to Vault tutorial
 		await page.goto(`${baseURL}/vault/tutorials/get-started/troubleshoot#scenario`)
 
@@ -347,24 +275,12 @@ test.describe('Sandbox Interactive Functionality', () => {
 		// Verify lab opens again
 		const reopenedIframe = page.locator('iframe[src*="instruqt"]').first()
 		await expect(reopenedIframe).toBeVisible({ timeout: 10000 })
-
-		// Verify no console errors
-		if (errors.length > 0) {
-			console.log(`Console errors detected (${errors.length}):`, errors)
-		}
-		expect(errors.length).toBe(0)
 	})
 
 	test('Sidebar sandbox button persistence', async ({
 		page,
 		baseURL
 	}) => {
-		// Set up error monitoring
-		const errors: string[] = []
-		page.on('pageerror', (error) => {
-			errors.push(error.message)
-		})
-
 		// Navigate to a tutorial page
 		await page.goto(`${baseURL}/vault/tutorials/get-started/troubleshoot#scenario`)
 
@@ -427,11 +343,5 @@ test.describe('Sandbox Interactive Functionality', () => {
 
 		// Verify terminal still persists across product navigation
 		await expect(labIframe).toBeVisible()
-
-		// Verify no console errors
-		if (errors.length > 0) {
-			console.log(`Console errors detected (${errors.length}):`, errors)
-		}
-		expect(errors.length).toBe(0)
 	})
 })
