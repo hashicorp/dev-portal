@@ -16,7 +16,7 @@
 	appearance: none;
 	background-color: var(--token-color-surface-faint);
 	border-radius: 5px;
-	border: 1px solid var(--token-color-border-strong);
+	border: 1px solid var(--mds-color-border-strong);
 	color: var(--mds-color-foreground-primary);
 	cursor: pointer;
 	padding: 4px 30px 4px 28px;

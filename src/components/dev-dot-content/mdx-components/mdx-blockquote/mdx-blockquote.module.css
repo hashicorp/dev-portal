@@ -8,5 +8,5 @@
 	padding-left: 14px;
 	border-top-left-radius: 2px;
 	border-bottom-left-radius: 2px;
-	border-left: 2px solid var(--token-color-border-primary);
+	border-left: 2px solid var(--mds-color-border-primary);
 }

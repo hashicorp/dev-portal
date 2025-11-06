@@ -13,35 +13,35 @@
 
 	&.color-neutral {
 		background: var(--token-color-surface-faint);
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 
 		--title-and-icon-color: var(--mds-color-foreground-strong);
 	}
 
 	&.color-highlight {
 		background: var(--token-color-surface-highlight);
-		border-color: var(--token-color-border-highlight);
+		border-color: var(--mds-color-border-highlight);
 
 		--title-and-icon-color: var(--mds-color-foreground-highlight-on-surface);
 	}
 
 	&.color-warning {
 		background: var(--token-color-surface-warning);
-		border-color: var(--token-color-border-warning);
+		border-color: var(--mds-color-border-warning);
 
 		--title-and-icon-color: var(--mds-color-foreground-warning-on-surface);
 	}
 
 	&.color-success {
 		background: var(--token-color-surface-success);
-		border-color: var(--token-color-border-success);
+		border-color: var(--mds-color-border-success);
 
 		--title-and-icon-color: var(--mds-color-foreground-success-on-surface);
 	}
 
 	&.color-critical {
 		background: var(--token-color-surface-critical);
-		border-color: var(--token-color-border-critical);
+		border-color: var(--mds-color-border-critical);
 
 		--title-and-icon-color: var(--mds-color-foreground-critical-on-surface);
 	}

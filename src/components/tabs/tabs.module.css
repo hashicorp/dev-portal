@@ -35,7 +35,7 @@ the correct elements, roles, states, and properties are being set in the markup.
 		position: relative;
 
 		&::after {
-			border-bottom: 1px solid var(--token-color-border-primary);
+			border-bottom: 1px solid var(--mds-color-border-primary);
 			bottom: 0;
 			content: '';
 			height: 1px;

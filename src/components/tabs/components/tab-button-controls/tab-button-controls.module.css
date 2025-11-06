@@ -18,7 +18,7 @@ the correct elements, roles, states, and properties are being set in the markup.
      Note that ::after seems needed here to position the border below
      the button elements. Using bottom-border would not create overlap. */
 	&.isNested::after {
-		background: var(--token-color-border-primary);
+		background: var(--mds-color-border-primary);
 		bottom: 0;
 		content: '';
 		height: 1px;
