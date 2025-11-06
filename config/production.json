@@ -34,7 +34,8 @@
 			"terraform-enterprise",
 			"sentinel",
 			"hcp-docs",
-			"boundary"
+			"boundary",
+			"consul"
 		]
 	}
 }

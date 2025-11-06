@@ -38,13 +38,11 @@
 			{
 				"href": "/consul/commands",
 				"text": "Commands (CLI)"
+			},
+			{
+				"href": "/consul/sandbox",
+				"text": "Sandbox"
 			}
 		]
-	},
-	"sidecarHcpCallout": {
-		"heading": "HCP Consul Dedicated",
-		"description": "Discover and securely connect your applications",
-		"ctaText": "Try HCP Consul Dedicated for free",
-		"ctaUrl": "https://portal.cloud.hashicorp.com/sign-up"
 	}
 }

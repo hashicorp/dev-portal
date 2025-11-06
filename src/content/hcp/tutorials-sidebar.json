@@ -14,19 +14,6 @@
 			]
 		},
 		{
-			"name": "HCP Consul Dedicated",
-			"items": [
-				{
-					"name": "Quickstart",
-					"collectionSlug": "consul/get-started-hcp"
-				},
-				{
-					"name": "Connect services",
-					"collectionSlug": "consul/hcp-connect-services"
-				}
-			]
-		},
-		{
 			"name": "HCP Packer",
 			"items": [
 				{ "name": "Quickstart", "collectionSlug": "packer/hcp-get-started" },
