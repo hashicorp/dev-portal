@@ -13,7 +13,7 @@
 	padding: 16px;
 	color: var(--mds-color-foreground-success-on-surface);
 	background-color: var(--token-color-surface-success);
-	border: 1px solid var(--token-color-border-success);
+	border: 1px solid var(--mds-color-border-success);
 	border-radius: 6px;
 	animation: nextFrame 0.4s;
 	animation-fill-mode: both;

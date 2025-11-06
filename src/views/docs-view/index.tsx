@@ -85,6 +85,21 @@ const DocsView = ({
 		)
 	}
 
+	const showSelector =
+		versions &&
+		versions.length > 0 &&
+		// Do not show on TFE release notes due to either versions release notes being on seperate pages so version switcher doesn't make sense
+		!pathname.match(/\/terraform\/enterprise(?:\/[^/]+)?\/releases/)
+		// This regex will will match:
+		// /terraform/enterprise/releases
+		// /terraform/enterprise/v202504-1/releases
+		// /terraform/enterprise/beta/releases
+		//
+		// But won't match:
+		// /terraform/enterprise/v202504-1/else/releases (too many segments)
+		// /terraform/enterprise/releases/something (extra content after releases)
+		// /terraform/something/releases (missing enterprise)
+
 	return (
 		<DocsViewLayout
 			{...layoutProps}
@@ -97,7 +112,7 @@ const DocsView = ({
 						[s.hasLandingHero]: hasLandingHero,
 					})}
 					versionSelectorSlot={
-						versions && versions.length > 0 ? (
+						showSelector ? (
 							<DocsVersionSwitcher
 								options={versions}
 								projectName={projectName}

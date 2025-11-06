@@ -48,7 +48,7 @@ Base properties, at the top level
 	flex-direction: column;
 	gap: 4px;
 
-	--tree-line-color: var(--token-color-border-primary);
+	--tree-line-color: var(--mds-color-border-primary);
 	--tree-line-width: 1px;
 }
 

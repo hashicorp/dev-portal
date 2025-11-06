@@ -72,8 +72,8 @@
 
 .separator {
 	border: none;
-	background-color: var(--token-color-border-primary);
-	color: var(--token-color-border-primary);
+	background-color: var(--mds-color-border-primary);
+	color: var(--mds-color-border-primary);
 	height: 1px;
 	margin-bottom: 56px;
 	margin-top: 56px;

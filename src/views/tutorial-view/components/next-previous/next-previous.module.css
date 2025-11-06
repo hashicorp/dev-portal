@@ -7,7 +7,7 @@
 	--gap: 24px;
 	--item-count: 2;
 
-	border-top: 1px solid var(--token-color-border-primary);
+	border-top: 1px solid var(--mds-color-border-primary);
 	display: flex;
 	flex-direction: column;
 	gap: var(--gap);

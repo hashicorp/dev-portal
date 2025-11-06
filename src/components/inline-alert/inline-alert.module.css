@@ -6,7 +6,7 @@
 .default {
 	--background-color: var(--token-color-surface-faint);
 	--accent-color: var(--mds-color-foreground-primary);
-	--border-color: var(--token-color-border-strong);
+	--border-color: var(--mds-color-border-strong);
 	--padding: 16px;
 
 	background: var(--background-color);
@@ -59,17 +59,17 @@
 .highlight {
 	--background-color: var(--mds-color-palette-purple-50);
 	--accent-color: var(--mds-color-foreground-highlight-on-surface);
-	--border-color: var(--token-color-border-highlight);
+	--border-color: var(--mds-color-border-highlight);
 }
 
 .warning {
 	--background-color: var(--mds-color-palette-amber-50);
 	--accent-color: var(--mds-color-foreground-warning-on-surface);
-	--border-color: var(--token-color-border-warning);
+	--border-color: var(--mds-color-border-warning);
 }
 
 .critical {
 	--background-color: var(--mds-color-palette-red-50);
 	--accent-color: var(--mds-color-foreground-critical-on-surface);
-	--border-color: var(--token-color-border-critical);
+	--border-color: var(--mds-color-border-critical);
 }

@@ -25,11 +25,11 @@
 
 	&:active {
 		background-color: var(--token-color-surface-interactive-active);
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 	}
 
 	&:hover {
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 	}
 }
 

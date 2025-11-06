@@ -61,7 +61,7 @@
 	padding: 5px;
 
 	&:hover {
-		border: 1px solid var(--token-color-border-strong);
+		border: 1px solid var(--mds-color-border-strong);
 	}
 
 	@media (--dev-dot-hide-mobile-menu) {
@@ -98,6 +98,6 @@
 
 	&:hover,
 	&[aria-expanded='true'] {
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 	}
 }

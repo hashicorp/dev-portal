@@ -59,7 +59,7 @@
 
 	&:disabled {
 		background-color: var(--token-color-surface-faint);
-		border-color: var(--token-color-border-primary);
+		border-color: var(--mds-color-border-primary);
 		box-shadow: none;
 		color: var(--mds-color-foreground-disabled);
 		cursor: not-allowed;
@@ -137,19 +137,19 @@
 
 .secondary {
 	background-color: var(--token-color-surface-faint);
-	border-color: var(--token-color-border-strong);
+	border-color: var(--mds-color-border-strong);
 	box-shadow: var(--token-elevation-low-box-shadow);
 	color: var(--mds-color-foreground-primary);
 
 	&:hover:not(:disabled) {
 		background-color: var(--token-color-surface-primary);
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 		color: var(--mds-color-foreground-primary);
 	}
 
 	&:active:not(:disabled) {
 		background-color: var(--token-color-surface-interactive-active);
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 		box-shadow: none;
 		color: var(--mds-color-foreground-primary);
 	}
@@ -173,13 +173,13 @@
 
 	&:hover:not(:disabled) {
 		background-color: var(--token-color-surface-primary);
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 		color: var(--mds-color-foreground-action-hover);
 	}
 
 	&:active:not(:disabled) {
 		background-color: var(--token-color-surface-interactive-active);
-		border-color: var(--token-color-border-strong);
+		border-color: var(--mds-color-border-strong);
 		box-shadow: none;
 		color: var(--mds-color-foreground-action-active);
 	}

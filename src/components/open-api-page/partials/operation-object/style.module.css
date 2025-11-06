@@ -50,8 +50,8 @@
 }
 
 .divider {
-	color: var(--token-color-border-primary);
-	background-color: var(--token-color-border-primary);
+	color: var(--mds-color-border-primary);
+	background-color: var(--mds-color-border-primary);
 }
 
 .spacer {

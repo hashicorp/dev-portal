@@ -4,8 +4,8 @@
  */
 
 .root {
-	background-color: var(--token-color-border-primary);
-	color: var(--token-color-border-primary);
+	background-color: var(--mds-color-border-primary);
+	color: var(--mds-color-border-primary);
 	margin-bottom: 20px;
 	margin-top: 20px;
 	width: 100%;
