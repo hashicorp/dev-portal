@@ -55,7 +55,7 @@
 		&:focus-visible {
 			box-shadow: inset 0 0 0 1px var(--mds-color-palette-blue-300),
 				0 0 0 1px var(--token-color-surface-primary),
-				0 0 0 4px var(--token-color-focus-action-external);
+				0 0 0 4px var(--mds-color-focus-action-external);
 		}
 	}
 

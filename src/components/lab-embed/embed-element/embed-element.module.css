@@ -127,7 +127,7 @@
 	}
 
 	&:focus {
-		outline: 2px solid var(--token-color-focus-action-internal);
+		outline: 2px solid var(--mds-color-focus-action-internal);
 		outline-offset: 2px;
 	}
 
