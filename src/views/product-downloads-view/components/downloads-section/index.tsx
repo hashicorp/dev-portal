@@ -7,7 +7,7 @@
 import { ReactElement, useMemo } from 'react'
 
 // HashiCorp imports
-import CodeBlock from '@hashicorp/react-design-system-components/src/components/code-block'
+import { CodeBlock } from '@hashicorp/mds-react/components'
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 
 // Global imports

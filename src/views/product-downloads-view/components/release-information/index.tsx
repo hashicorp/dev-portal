@@ -10,7 +10,7 @@ import { ReactElement } from 'react'
 import { IconExternalLink16 } from '@hashicorp/flight-icons/svg-react/external-link-16'
 import { IconExternalLink24 } from '@hashicorp/flight-icons/svg-react/external-link-24'
 import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
-import CodeBlock from '@hashicorp/react-design-system-components/src/components/code-block'
+import { CodeBlock } from '@hashicorp/mds-react/components'
 
 // Global imports
 import Heading from 'components/heading'

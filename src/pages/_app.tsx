@@ -40,7 +40,7 @@ import { ConditionalPostHogProvider } from 'components/posthog/posthog-provider'
 
 // Local imports
 import './style.css'
-import '@hashicorp/react-design-system-components/src/design-system-components.scss'
+// import '@hashicorp/react-design-system-components/src/design-system-components.scss'
 
 if (typeof window !== 'undefined' && process.env.AXE_ENABLED === 'true') {
 	import('react-dom').then((ReactDOM) => {
