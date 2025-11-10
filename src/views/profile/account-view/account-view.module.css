@@ -18,7 +18,7 @@
 
 .section {
 	/* override card dark theme background-color specificity */
-	background-color: var(--token-color-surface-primary) !important;
+	background-color: var(--mds-color-surface-primary) !important;
 	margin-bottom: 24px;
 	gap: 12px;
 	display: flex;

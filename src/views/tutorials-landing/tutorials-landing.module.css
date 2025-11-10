@@ -137,9 +137,9 @@
 .gradientMask {
 	background: linear-gradient(
 		180deg,
-		var(--token-color-page-primary),
+		var(--mds-color-page-primary),
 		transparent 25% 85%,
-		var(--token-color-page-primary)
+		var(--mds-color-page-primary)
 	);
 	bottom: 0;
 	position: absolute;
@@ -149,7 +149,7 @@
 }
 
 .contentTypesSectionWrapper {
-	background-color: var(--token-color-page-faint);
+	background-color: var(--mds-color-page-faint);
 	padding-left: var(--section-padding-left-right);
 	padding-right: var(--section-padding-left-right);
 	padding-top: var(--content-types-section-padding-top);

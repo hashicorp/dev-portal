@@ -4,11 +4,11 @@
  */
 
 .mainSection {
-	background: var(--token-color-surface-interactive-disabled);
+	background: var(--mds-color-surface-interactive-disabled);
 	padding-bottom: 168px;
 
 	@nest html[data-theme='dark'] & {
-		background-color: var(--token-color-page-primary);
+		background-color: var(--mds-color-page-primary);
 	}
 }
 

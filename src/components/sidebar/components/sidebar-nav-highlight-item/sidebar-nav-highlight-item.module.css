@@ -19,7 +19,7 @@
 
 	composes: g-focus-ring-from-box-shadow from global;
 	align-items: center;
-	background: var(--token-color-surface-primary);
+	background: var(--mds-color-surface-primary);
 	border-radius: 5px;
 	color: var(--mds-color-foreground-primary);
 	display: flex;

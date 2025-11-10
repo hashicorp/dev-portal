@@ -41,7 +41,7 @@ https://app.asana.com/0/1202097197789424/1204412156894162/f
 		& a {
 			justify-content: initial;
 			&:active, &:focus {
-				background: var(--token-color-surface-action);
+				background: var(--mds-color-surface-action);
 			}
 		}
 	}

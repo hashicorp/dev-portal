@@ -11,7 +11,7 @@
 	background-repeat: no-repeat;
 
 	@nest html[data-theme='dark'] & {
-		background-color: var(--token-color-page-faint);
+		background-color: var(--mds-color-page-faint);
 	}
 }
 

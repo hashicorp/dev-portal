@@ -41,7 +41,7 @@
 	--border-radius: 6px;
 
 	/* base-background is used behind the gradient "border", and as a mask */
-	--base-background: var(--token-color-surface-primary);
+	--base-background: var(--mds-color-surface-primary);
 
 	/**
 	 * Gradient shadow properties
@@ -57,7 +57,7 @@
 	--gradient-border-width: 1px;
 
 	/* Default gradient "border" is just white, no actual border */
-	--gradient-border-background: var(--token-color-surface-primary);
+	--gradient-border-background: var(--mds-color-surface-primary);
 
 	background: var(--base-background) var(--gradient-border-background);
 	border-radius: var(--border-radius);

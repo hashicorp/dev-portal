@@ -41,7 +41,7 @@
 
 .mainCta {
 	padding: 24px;
-	background-color: var(--token-color-surface-action);
+	background-color: var(--mds-color-surface-action);
 	@nest html[data-theme='dark'] & {
 		background-color: #111f37;
 	}
@@ -88,7 +88,7 @@
 
 .footer {
 	padding: 64px 0;
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--mds-color-surface-faint);
 	margin-top: 48px;
 }
 

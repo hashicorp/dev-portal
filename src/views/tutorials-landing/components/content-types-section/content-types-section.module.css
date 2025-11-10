@@ -54,7 +54,7 @@
 }
 
 .listItemIcon {
-	background-color: var(--token-color-surface-strong);
+	background-color: var(--mds-color-surface-strong);
 	display: flex;
 	padding-bottom: 14px;
 	padding-left: 18px;

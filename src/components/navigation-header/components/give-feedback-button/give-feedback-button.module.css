@@ -82,7 +82,7 @@ which results in a flash of incorrect layout.
 	}
 
 	&:disabled {
-		background-color: var(--token-color-surface-faint);
+		background-color: var(--mds-color-surface-faint);
 		border-color: var(--mds-color-border-primary);
 		box-shadow: none;
 		color: var(--mds-color-foreground-disabled);

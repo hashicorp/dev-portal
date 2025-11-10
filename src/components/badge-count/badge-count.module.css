@@ -59,7 +59,7 @@
 	/* Neutral - Filled */
 	&.hds-badge-count--type-filled {
 		color: var(--mds-color-foreground-primary);
-		background-color: var(--token-color-surface-strong);
+		background-color: var(--mds-color-surface-strong);
 	}
 
 	/* Neutral - Inverted */
@@ -87,7 +87,7 @@
 	/* Neutral Dark - Inverted */
 	&.hds-badge-count--type-inverted {
 		color: var(--mds-color-foreground-primary);
-		background-color: var(--token-color-surface-faint);
+		background-color: var(--mds-color-surface-faint);
 	}
 
 	/* Neutral Dark - Outlined */

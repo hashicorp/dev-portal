@@ -19,11 +19,11 @@
 .statusSectionWithBorder {
 	composes: hds-surface-base from global;
 	composes: statusSectionElements;
-	background: var(--token-color-surface-faint);
+	background: var(--mds-color-surface-faint);
 	padding: 4px 12px;
 
 	&.isAuthenticated {
-		background: var(--token-color-surface-primary);
+		background: var(--mds-color-surface-primary);
 	}
 }
 

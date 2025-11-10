@@ -12,7 +12,7 @@
 	font-weight: var(--token-typography-font-weight-semibold);
 	padding: 16px;
 	color: var(--mds-color-foreground-success-on-surface);
-	background-color: var(--token-color-surface-success);
+	background-color: var(--mds-color-surface-success);
 	border: 1px solid var(--mds-color-border-success);
 	border-radius: 6px;
 	animation: nextFrame 0.4s;

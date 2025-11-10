@@ -6,7 +6,7 @@
 .root {
 	--left-right-padding: 24px;
 
-	background-color: var(--token-color-surface-primary);
+	background-color: var(--mds-color-surface-primary);
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;

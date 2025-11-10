@@ -44,7 +44,7 @@ Styles for each tab button.
 
 	&[aria-selected='true'] {
 		color: var(--mds-color-foreground-action);
-		background-color: var(--token-color-surface-action);
+		background-color: var(--mds-color-surface-action);
 		border-color: var(--mds-color-foreground-action);
 	}
 

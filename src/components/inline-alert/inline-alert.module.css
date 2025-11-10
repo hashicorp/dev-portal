@@ -4,7 +4,7 @@
  */
 
 .default {
-	--background-color: var(--token-color-surface-faint);
+	--background-color: var(--mds-color-surface-faint);
 	--accent-color: var(--mds-color-foreground-primary);
 	--border-color: var(--mds-color-border-strong);
 	--padding: 16px;

@@ -42,31 +42,31 @@
 */
 
 .neutral {
-	--background-color: var(--token-color-surface-faint);
+	--background-color: var(--mds-color-surface-faint);
 	--border-color: var(--mds-color-border-strong);
 	--title-color: var(--mds-color-foreground-primary);
 }
 
 .highlight {
-	--background-color: var(--token-color-surface-highlight);
+	--background-color: var(--mds-color-surface-highlight);
 	--border-color: var(--mds-color-border-highlight);
 	--title-color: var(--mds-color-foreground-highlight-on-surface);
 }
 
 .success {
-	--background-color: var(--token-color-surface-success);
+	--background-color: var(--mds-color-surface-success);
 	--border-color: var(--mds-color-border-success);
 	--title-color: var(--mds-color-foreground-success-on-surface);
 }
 
 .warning {
-	--background-color: var(--token-color-surface-warning);
+	--background-color: var(--mds-color-surface-warning);
 	--border-color: var(--mds-color-border-warning);
 	--title-color: var(--mds-color-foreground-warning-on-surface);
 }
 
 .critical {
-	--background-color: var(--token-color-surface-critical);
+	--background-color: var(--mds-color-surface-critical);
 	--border-color: var(--mds-color-border-critical);
 	--title-color: var(--mds-color-foreground-critical-on-surface);
 }

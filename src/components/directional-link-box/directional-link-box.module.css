@@ -12,7 +12,7 @@
 	justify-content: center;
 	height: 100%;
 	padding: 12px;
-	background-color: var(--token-color-page-faint);
+	background-color: var(--mds-color-page-faint);
 
 	&.direction-previous {
 		text-align: left;
@@ -28,7 +28,7 @@
 	&:hover,
 	&:active,
 	&:focus {
-		background-color: var(--token-color-surface-interactive-hover);
+		background-color: var(--mds-color-surface-interactive-hover);
 	}
 
 	@media (--dev-dot-tablet-up) {

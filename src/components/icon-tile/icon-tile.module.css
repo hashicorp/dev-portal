@@ -57,7 +57,7 @@
 .color-hcp {
 	--icon-color: var(--mds-color-foreground-faint);
 	--border-color: var(--mds-color-border-primary);
-	--background: var(--token-color-surface-faint);
+	--background: var(--mds-color-surface-faint);
 }
 
 /*
