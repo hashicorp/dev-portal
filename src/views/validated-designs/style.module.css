@@ -4,7 +4,7 @@
  */
 
 .root {
-	background-color: var(--token-color-page-faint);
+	background-color: var(--mds-color-page-faint);
 }
 
 .hvdHero {

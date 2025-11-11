@@ -58,7 +58,7 @@
 	}
 
 	&:disabled {
-		background-color: var(--token-color-surface-faint);
+		background-color: var(--mds-color-surface-faint);
 		border-color: var(--mds-color-border-primary);
 		box-shadow: none;
 		color: var(--mds-color-foreground-disabled);
@@ -136,26 +136,26 @@
 }
 
 .secondary {
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--mds-color-surface-faint);
 	border-color: var(--mds-color-border-strong);
 	box-shadow: var(--token-elevation-low-box-shadow);
 	color: var(--mds-color-foreground-primary);
 
 	&:hover:not(:disabled) {
-		background-color: var(--token-color-surface-primary);
+		background-color: var(--mds-color-surface-primary);
 		border-color: var(--mds-color-border-strong);
 		color: var(--mds-color-foreground-primary);
 	}
 
 	&:active:not(:disabled) {
-		background-color: var(--token-color-surface-interactive-active);
+		background-color: var(--mds-color-surface-interactive-active);
 		border-color: var(--mds-color-border-strong);
 		box-shadow: none;
 		color: var(--mds-color-foreground-primary);
 	}
 
 	&:focus-visible {
-		background-color: var(--token-color-surface-faint);
+		background-color: var(--mds-color-surface-faint);
 		border-color: var(--mds-color-focus-action-internal);
 		color: var(--mds-color-foreground-primary);
 		box-shadow: none;
@@ -172,13 +172,13 @@
 	color: var(--mds-color-foreground-action);
 
 	&:hover:not(:disabled) {
-		background-color: var(--token-color-surface-primary);
+		background-color: var(--mds-color-surface-primary);
 		border-color: var(--mds-color-border-strong);
 		color: var(--mds-color-foreground-action-hover);
 	}
 
 	&:active:not(:disabled) {
-		background-color: var(--token-color-surface-interactive-active);
+		background-color: var(--mds-color-surface-interactive-active);
 		border-color: var(--mds-color-border-strong);
 		box-shadow: none;
 		color: var(--mds-color-foreground-action-active);
@@ -200,7 +200,7 @@
 }
 
 .critical {
-	background-color: var(--token-color-surface-critical);
+	background-color: var(--mds-color-surface-critical);
 	border-color: var(--mds-color-foreground-critical-on-surface);
 	box-shadow: var(--token-elevation-low-box-shadow);
 	color: var(--mds-color-foreground-critical-on-surface);
@@ -219,7 +219,7 @@
 	}
 
 	&:focus-visible {
-		background-color: var(--token-color-surface-critical);
+		background-color: var(--mds-color-surface-critical);
 		border-color: var(--mds-color-focus-critical-internal);
 		color: var(--mds-color-foreground-critical-on-surface);
 		box-shadow: none;

@@ -20,7 +20,7 @@
 	gap: 12px;
 
 	&:hover {
-		background: var(--token-color-surface-strong);
+		background: var(--mds-color-surface-strong);
 		box-shadow: var(--token-surface-base-box-shadow);
 		cursor: pointer;
 	}

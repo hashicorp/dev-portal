@@ -21,7 +21,7 @@
 
 .title {
 	composes: hds-typography-body-200 from global;
-	color: var(--token-color-surface-primary);
+	color: var(--mds-color-surface-primary);
 	font-weight: var(--token-typography-font-weight-semibold);
 }
 
@@ -37,7 +37,7 @@
    * https://app.asana.com/0/1201987349274776/1202093639417968/f
    */
 	line-height: 1.125rem;
-	color: var(--token-color-surface-faint);
+	color: var(--mds-color-surface-faint);
 	margin-top: 4px;
 	max-width: 45em;
 }

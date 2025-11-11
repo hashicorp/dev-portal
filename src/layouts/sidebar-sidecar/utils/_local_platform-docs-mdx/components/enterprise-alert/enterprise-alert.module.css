@@ -4,7 +4,7 @@
  */
 
 .root {
-	background: var(--token-color-surface-faint);
+	background: var(--mds-color-surface-faint);
 	border: 1px solid var(--mds-color-border-faint);
 	display: flex;
 	flex-direction: column;

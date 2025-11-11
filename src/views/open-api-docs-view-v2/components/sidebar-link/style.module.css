@@ -5,7 +5,7 @@
 
 .sidebarLink {
 	composes: g-focus-ring-from-box-shadow from global;
-	background-color: var(--token-color-surface-primary);
+	background-color: var(--mds-color-surface-primary);
 	border-radius: 5px;
 	border: none;
 	color: var(--mds-color-foreground-faint);

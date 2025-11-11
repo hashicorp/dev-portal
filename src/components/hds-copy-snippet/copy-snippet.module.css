@@ -53,7 +53,7 @@
 
 .hds-copy-snippet--color-primary {
 	color: var(--mds-color-foreground-action);
-	background-color: var(--token-color-surface-interactive);
+	background-color: var(--mds-color-surface-interactive);
 
 	&.mock-hover,
 	&:hover {
@@ -64,14 +64,14 @@
 	&.mock-active,
 	&:active {
 		color: var(--mds-color-foreground-action-active);
-		background-color: var(--token-color-surface-interactive-active);
+		background-color: var(--mds-color-surface-interactive-active);
 		border-color: var(--mds-color-border-strong);
 	}
 }
 
 .hds-copy-snippet--color-secondary {
 	color: var(--mds-color-foreground-primary);
-	background-color: var(--token-color-surface-interactive);
+	background-color: var(--mds-color-surface-interactive);
 
 	&.mock-hover,
 	&:hover {
@@ -80,7 +80,7 @@
 
 	&.mock-active,
 	&:active {
-		background-color: var(--token-color-surface-interactive-active);
+		background-color: var(--mds-color-surface-interactive-active);
 		border-color: var(--mds-color-border-strong);
 	}
 

@@ -7,9 +7,9 @@
 	--gradient-scrim-height: 58px;
 	--gradient-scrim-transition: opacity 0.25s;
 
-	/* TODO: we need a --token-color-surface-primary-transparent, or something! */
+	/* TODO: we need a --mds-color-surface-primary-transparent, or something! */
 	--gradient-scrim-start: rgba(255, 255, 255, 0);
-	--gradient-scrim-end: var(--token-color-surface-primary);
+	--gradient-scrim-end: var(--mds-color-surface-primary);
 
 	display: flex;
 	flex-direction: column;

@@ -8,7 +8,7 @@
 	padding-left: 0;
 
 	& > li.variableGroupListItem {
-		background-color: var(--token-color-surface-primary);
+		background-color: var(--mds-color-surface-primary);
 		border-radius: 6px;
 		padding: 16px;
 		padding-bottom: 0;
@@ -21,7 +21,7 @@
 		}
 
 		&.highlight {
-			background: var(--token-color-surface-action);
+			background: var(--mds-color-surface-action);
 		}
 
 		& .arrowIcon {
@@ -85,14 +85,14 @@
 		}
 
 		@nest html[data-theme='dark'] & {
-			background-color: var(--token-color-surface-faint);
+			background-color: var(--mds-color-surface-faint);
 
 			/** 
 			* Need to repeat this because of the higher
 			* specificity with the html data attribute selector
 			**/
 			&.highlight {
-				background-color: var(--token-color-surface-action);
+				background-color: var(--mds-color-surface-action);
 			}
 		}
 	}

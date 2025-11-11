@@ -8,7 +8,7 @@
 	composes: hds-surface-base from global;
 
 	/* properties */
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--mds-color-surface-faint);
 	border-radius: 6px;
 }
 

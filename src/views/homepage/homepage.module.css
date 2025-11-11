@@ -38,7 +38,7 @@
 	}
 
 	@nest html[data-theme='dark'] & {
-		background-color: var(--token-color-page-primary);
+		background-color: var(--mds-color-page-primary);
 	}
 }
 

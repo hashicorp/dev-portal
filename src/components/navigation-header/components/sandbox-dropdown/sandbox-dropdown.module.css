@@ -60,7 +60,7 @@
 }
 
 .dropdownContainer {
-	background-color: var(--token-color-surface-primary);
+	background-color: var(--mds-color-surface-primary);
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
 	box-shadow: var(--token-elevation-higher-box-shadow);
@@ -132,7 +132,7 @@
 	transition: background-color 0.2s ease;
 
 	&:hover {
-		background-color: var(--token-color-surface-interactive-hover);
+		background-color: var(--mds-color-surface-interactive-hover);
 	}
 }
 
@@ -196,7 +196,7 @@
 	transition: background-color 0.2s ease, color 0.2s ease;
 
 	&:hover {
-		background-color: var(--token-color-surface-interactive-hover);
+		background-color: var(--mds-color-surface-interactive-hover);
 	}
 }
 

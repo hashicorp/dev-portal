@@ -55,7 +55,7 @@
 
 	/* properties */
 	appearance: none;
-	background-color: var(--token-color-surface-action);
+	background-color: var(--mds-color-surface-action);
 	border-radius: 5px;
 	border: 1px solid var(--mds-color-foreground-action);
 	color: var(--mds-color-foreground-action);
@@ -67,7 +67,7 @@
 	/* In nested tabs, no background, no border */
 	&.isNested {
 		border-color: transparent;
-		background-color: var(--token-color-surface-primary);
+		background-color: var(--mds-color-surface-primary);
 		padding-left: 8px;
 	}
 

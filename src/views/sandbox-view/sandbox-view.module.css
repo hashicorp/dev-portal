@@ -96,7 +96,7 @@
 .noSandboxes {
 	margin: 32px 0;
 	padding: 24px;
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--mds-color-surface-faint);
 	border-radius: 4px;
 	text-align: center;
 	color: var(--mds-color-foreground-primary);
@@ -117,7 +117,7 @@
 	padding: 16px;
 	margin: var(--token-typography-display-m-tablet-margin-top) 0;
 	border-radius: 6px;
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--mds-color-surface-faint);
 	color: var(--mds-color-foreground-strong);
 
 	& p {
