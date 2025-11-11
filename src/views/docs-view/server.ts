@@ -275,22 +275,32 @@ export function getStaticGenerationFunctions({
 			})
 
 			/**
-			 * Try to load the static props for the given context. If there is a
-			 * ContentApiError with a 404 status, return a 404 status and page.
+			 * Try to load the static props for the given context.
+			 * 
+			 * Retry logic with exponential backoff for 404 errors is now handled
+			 * at the fetch level (in content-api/index.ts) for each individual API call.
+			 * This prevents transient backend failures from caching 404 pages.
+			 * 
+			 * If all retries fail with 404, we return { notFound: true } (page doesn't exist).
+			 * For non-404 errors, we throw to let Next.js serve stale content.
+			 * 
 			 * https://nextjs.org/docs/api-reference/data-fetching/get-static-props#notfound
 			 */
 			let loadStaticPropsResult
 			try {
 				loadStaticPropsResult = await loader.loadStaticProps(ctx)
 			} catch (error) {
-				console.error('[docs-view/server] error loading static props', error)
+				console.error('[docs-view/server] error loading static props after retries', error)
 
-				// Catch 404 errors, return a 404 status page
+				// If it's a 404 after all retries, let the page be 404'd
+				// Return notFound so Next.js shows a 404 page
 				if (error.status === 404) {
 					return { notFound: true }
 				}
 
-				// Throw non-404 errors
+				// For non-404 errors (500, network errors, etc.), throw the error
+				// This allows Next.js to keep serving the stale cached version
+				// rather than caching an error page
 				throw error
 			}
 
