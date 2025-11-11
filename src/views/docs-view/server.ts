@@ -295,7 +295,10 @@ export function getStaticGenerationFunctions({
 				// If it's a 404 after all retries, let the page be 404'd
 				// Return notFound so Next.js shows a 404 page
 				if (error.status === 404) {
-					return { notFound: true }
+					return { 
+						notFound: true,
+						revalidate: 10 // Will retry after 10 seconds
+					 }
 				}
 
 				// For non-404 errors (500, network errors, etc.), throw the error
