@@ -74,11 +74,8 @@ describe('docs-view server error handling', () => {
 
 	beforeEach(() => {
 		nock.disableNetConnect()
-		scope = nock(
-			new RegExp(
-				`${process.env.MKTG_CONTENT_DOCS_API}|${process.env.UNIFIED_DOCS_API}`
-			)
-		)
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		scope = nock(process.env.UNIFIED_DOCS_API!)
 	})
 
 	afterEach(() => {
