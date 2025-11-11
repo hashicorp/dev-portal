@@ -9,10 +9,8 @@ import DropdownDisclosure, {
 } from 'components/dropdown-disclosure'
 import { VersionSwitcherProps, VersionSwitcherOption } from './types'
 import s from './version-switcher.module.css'
-import { Root as Alert } from '@hashicorp/react-design-system-components/src/components/alert';
-import Seperator from '@hashicorp/react-design-system-components/src/components/separator';
+import { Alert, Separator } from '@hashicorp/mds-react/components'
 import { IconFileX16 } from '@hashicorp/flight-icons/svg-react/file-x-16';
-import { IconInfo16 } from '@hashicorp/flight-icons/svg-react/info-16'
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
@@ -53,15 +51,14 @@ function VersionSwitcher({ options, label }: VersionSwitcherProps) {
 							(index < options.length - 1 && options[index].found && !options[index + 1].found) ? (
 								<>
 									<DropdownDisclosureLabelItem>
-										<Seperator spacing='0' />
+										<Separator spacing='0' />
 									</DropdownDisclosureLabelItem>
 									<DropdownDisclosureLabelItem>
 										<Alert
-											icon={<IconInfo16 />}
 											type="compact"
 											color='critical'
+											icon="info"
 											key="no-previous-versions"
-											className={s.alert}
 											description={`No versions of this document exist before ${options[index].label}. Click below to redirect to the version homepage.`}
 											role='alert'
 										/>

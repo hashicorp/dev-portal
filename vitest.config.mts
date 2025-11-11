@@ -15,4 +15,9 @@ export default defineConfig({
 		],
 		setupFiles: ['dotenv/config', '.test/setup-vitest.js'],
 	},
+	ssr: {
+		noExternal: [
+			'@hashicorp/mds-react',
+		],
+	},
 })
