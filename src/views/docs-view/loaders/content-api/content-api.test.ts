@@ -38,6 +38,7 @@ describe('contentApi', () => {
 		it('should throw if a document is not found', async () => {
 			scope
 				.get('/api/content/waypoint/doc/latest/commands/k8s-bootstrap')
+				.times(3)
 				.reply(404, document404)
 
 			await expect(async () => {
@@ -66,6 +67,7 @@ describe('contentApi', () => {
 		it('should throw if a navData is not found', async () => {
 			scope
 				.get('/api/content/waypoint/nav-data/v0.9000.x/commands')
+				.times(3)
 				.reply(404, navData404)
 
 			await expect(async () => {
