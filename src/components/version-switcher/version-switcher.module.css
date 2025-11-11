@@ -41,20 +41,8 @@ https://app.asana.com/0/1202097197789424/1204412156894162/f
 		& a {
 			justify-content: initial;
 			&:active, &:focus {
-				background: var(--token-color-surface-action);
+				background: var(--mds-color-surface-action);
 			}
 		}
-	}
-}
-
-/**
- * @TODO
- * This is a workaround for an erroneous color specified in
- * @hashicorp/design-system-tokens. This should be removed going forward if/when
- * we migrate to MDS
- */
-.alert {
-	& :global(.hds-alert__description) {
-		color: var(--mds-color-foreground-primary);
 	}
 }

@@ -5,11 +5,11 @@
 
 .root {
 	composes: g-focus-ring-from-box-shadow-dark from global;
-	color: var(--token-color-surface-strong);
+	color: var(--mds-color-surface-strong);
 	border-radius: 5px;
 
 	&:hover {
-		color: var(--token-color-surface-primary);
+		color: var(--mds-color-surface-primary);
 	}
 
 	@nest html[data-theme='dark'] & {

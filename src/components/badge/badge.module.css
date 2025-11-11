@@ -78,7 +78,7 @@
 }
 
 .filled-neutral {
-	background-color: var(--token-color-surface-strong);
+	background-color: var(--mds-color-surface-strong);
 	color: var(--mds-color-foreground-primary);
 }
 
@@ -104,7 +104,7 @@
 }
 
 .inverted-neutral-dark-mode {
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--mds-color-surface-faint);
 	color: var(--mds-color-foreground-primary);
 }
 
@@ -120,7 +120,7 @@
 }
 
 .filled-highlight {
-	background-color: var(--token-color-surface-highlight);
+	background-color: var(--mds-color-surface-highlight);
 	color: var(--mds-color-foreground-highlight-on-surface);
 }
 
@@ -141,7 +141,7 @@
 }
 
 .filled-success {
-	background-color: var(--token-color-surface-success);
+	background-color: var(--mds-color-surface-success);
 	color: var(--mds-color-foreground-success-on-surface);
 }
 
@@ -162,7 +162,7 @@
 }
 
 .filled-warning {
-	background-color: var(--token-color-surface-warning);
+	background-color: var(--mds-color-surface-warning);
 	color: var(--mds-color-foreground-warning-on-surface);
 }
 
@@ -183,7 +183,7 @@
 }
 
 .filled-critical {
-	background-color: var(--token-color-surface-critical);
+	background-color: var(--mds-color-surface-critical);
 	color: var(--mds-color-foreground-critical-on-surface);
 }
 

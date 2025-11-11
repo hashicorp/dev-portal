@@ -114,7 +114,7 @@
 	composes: scrim;
 	background: linear-gradient(
 			to right,
-			var(--token-color-page-primary),
+			var(--mds-color-page-primary),
 			transparent
 		)
 		left;
@@ -125,7 +125,7 @@
 	composes: scrim;
 	background: linear-gradient(
 			to left,
-			var(--token-color-page-primary),
+			var(--mds-color-page-primary),
 			transparent
 		)
 		right;

@@ -33,7 +33,7 @@
 }
 
 .productBadge {
-	background-color: var(--token-color-surface-primary);
+	background-color: var(--mds-color-surface-primary);
 }
 
 .description {
@@ -88,7 +88,7 @@
 
 	&:focus-visible,
 	&:hover {
-		background-color: var(--token-color-surface-strong);
+		background-color: var(--mds-color-surface-strong);
 		color: var(--mds-color-foreground-strong);
 		cursor: pointer;
 	}

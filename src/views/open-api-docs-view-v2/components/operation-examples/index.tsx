@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-// react-design-system-components
-import CodeBlock from '@hashicorp/react-design-system-components/src/components/code-block'
+import { CodeBlock } from '@hashicorp/mds-react/components'
 
 /**
  * Display the operation's full URL in an easy to copy code block,

@@ -39,7 +39,7 @@
 	}
 
 	@nest html[data-theme='dark'] & {
-		background-color: var(--token-color-surface-faint);
+		background-color: var(--mds-color-surface-faint);
 	}
 }
 

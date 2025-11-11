@@ -87,7 +87,7 @@
 .featuredUseCasesTitle {
 	composes: hds-typography-code-200 from global;
 	composes: hds-font-weight-regular from global;
-	background-color: var(--token-color-surface-strong);
+	background-color: var(--mds-color-surface-strong);
 	border-radius: 5px;
 	color: var(--mds-color-foreground-primary);
 	padding: 8px;

@@ -34,12 +34,12 @@
 	width: fit-content;
 
 	&:hover {
-		background-color: var(--token-color-surface-interactive-hover);
+		background-color: var(--mds-color-surface-interactive-hover);
 		cursor: pointer;
 	}
 
 	&:active {
-		background-color: var(--token-color-surface-interactive-active);
+		background-color: var(--mds-color-surface-interactive-active);
 	}
 }
 

@@ -18,7 +18,7 @@
 	--header-padding-left-right: 24px;
 	--header-menu-item-padding-left-right: 12px;
 
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--mds-color-surface-faint);
 	display: flex;
 	padding-top: 0;
 	padding-bottom: 0;

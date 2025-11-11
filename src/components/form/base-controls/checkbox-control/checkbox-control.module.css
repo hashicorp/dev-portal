@@ -30,7 +30,7 @@
 	}
 
 	&:focus {
-		outline: var(--token-color-focus-action-external) solid 3px;
+		outline: var(--mds-color-focus-action-external) solid 3px;
 		outline-offset: 1px;
 	}
 

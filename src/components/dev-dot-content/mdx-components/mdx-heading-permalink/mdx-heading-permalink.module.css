@@ -31,7 +31,7 @@
 
 	&:focus-visible {
 		opacity: 1;
-		background: var(--token-color-surface-faint);
+		background: var(--mds-color-surface-faint);
 
 		& .icon {
 			color: var(--mds-color-foreground-action-active);

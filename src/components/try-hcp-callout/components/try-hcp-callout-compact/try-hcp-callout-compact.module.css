@@ -30,10 +30,10 @@
 
 .background {
 	composes: backgroundBase;
-	background-color: var(--token-color-surface-faint);
+	background-color: var(--mds-color-surface-faint);
 	background-image: linear-gradient(
 			to left,
-			var(--token-color-surface-primary),
+			var(--mds-color-surface-primary),
 			transparent 80%
 		),
 		url('./img/try-hcp-callout-compact-background.svg?url');
