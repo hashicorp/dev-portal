@@ -16,7 +16,7 @@
 	margin-top: 4px;
 
 	&:not(:disabled) {
-		background-color: var(--token-color-focus-action-internal);
+		background-color: var(--mds-color-focus-action-internal);
 	}
 }
 
@@ -73,7 +73,7 @@
 
 	&:focus {
 		box-shadow: var(--token-surface-inset-box-shadow);
-		border: 1px solid var(--token-color-focus-action-internal);
+		border: 1px solid var(--mds-color-focus-action-internal);
 	}
 }
 

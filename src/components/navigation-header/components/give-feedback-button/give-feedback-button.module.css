@@ -116,13 +116,13 @@ which results in a flash of incorrect layout.
 
 	&:focus-visible {
 		background-color: var(--mds-color-palette-blue-200);
-		border-color: var(--token-color-focus-action-internal);
+		border-color: var(--mds-color-focus-action-internal);
 		color: var(--mds-color-foreground-high-contrast);
 		box-shadow: none;
 
 		&::before {
 			border-radius: 10px;
-			border-color: var(--token-color-focus-action-external);
+			border-color: var(--mds-color-focus-action-external);
 			bottom: -6px;
 			left: -6px;
 			right: -6px;

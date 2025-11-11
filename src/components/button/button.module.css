@@ -133,13 +133,13 @@
 
 	&:focus-visible {
 		background-color: var(--mds-color-palette-blue-200);
-		border-color: var(--token-color-focus-action-internal);
+		border-color: var(--mds-color-focus-action-internal);
 		color: var(--mds-color-foreground-high-contrast);
 		box-shadow: none;
 
 		&::before {
 			border-radius: 10px;
-			border-color: var(--token-color-focus-action-external);
+			border-color: var(--mds-color-focus-action-external);
 			bottom: -6px;
 			left: -6px;
 			right: -6px;
@@ -169,12 +169,12 @@
 
 	&:focus-visible {
 		background-color: var(--mds-color-surface-faint);
-		border-color: var(--token-color-focus-action-internal);
+		border-color: var(--mds-color-focus-action-internal);
 		color: var(--mds-color-foreground-primary);
 		box-shadow: none;
 
 		&::before {
-			border-color: var(--token-color-focus-action-external);
+			border-color: var(--mds-color-focus-action-external);
 		}
 	}
 }
@@ -198,11 +198,11 @@
 	}
 
 	&:focus-visible {
-		border-color: var(--token-color-focus-action-internal);
+		border-color: var(--mds-color-focus-action-internal);
 		color: var(--mds-color-foreground-action);
 
 		&::before {
-			border-color: var(--token-color-focus-action-external);
+			border-color: var(--mds-color-focus-action-external);
 		}
 	}
 
@@ -233,12 +233,12 @@
 
 	&:focus-visible {
 		background-color: var(--mds-color-surface-critical);
-		border-color: var(--token-color-focus-critical-internal);
+		border-color: var(--mds-color-focus-critical-internal);
 		color: var(--mds-color-foreground-critical-on-surface);
 		box-shadow: none;
 
 		&::before {
-			border-color: var(--token-color-focus-critical-external);
+			border-color: var(--mds-color-focus-critical-external);
 		}
 	}
 }
