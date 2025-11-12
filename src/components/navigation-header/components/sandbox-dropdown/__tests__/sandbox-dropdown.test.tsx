@@ -131,12 +131,16 @@ describe('SandboxDropdown', () => {
 		expect(screen.getByText(/Available.*Sandboxes/)).toBeInTheDocument()
 	})
 
-	it('opens lab in embedded viewer when clicking a sandbox item', async () => {
-		const mockOpenLab = vi.fn()
-		const mockSetActive = vi.fn()
-		mockUseInstruqtEmbed.mockImplementation(() => ({
-			openLab: mockOpenLab,
-			setActive: mockSetActive,
+	it('navigates to sandbox page when clicking a sandbox item', async () => {
+		const mockPush = vi.fn().mockResolvedValue(true)
+		mockUserRouter.mockImplementation(() => ({
+			asPath: '/',
+			push: mockPush,
+			events: {
+				on: vi.fn(),
+				off: vi.fn(),
+			},
+			query: {},
 		}))
 
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
@@ -149,19 +153,24 @@ describe('SandboxDropdown', () => {
 		const sandboxItem = screen.getByText('Vault Sandbox')
 		fireEvent.click(sandboxItem.closest('button'))
 
-		// Verify openLab was called with the lab ID
+		// Verify router.push was called with sandbox URL
 		await vi.waitFor(() => {
-			expect(mockOpenLab).toHaveBeenCalledWith(expect.any(String))
-			expect(mockSetActive).toHaveBeenCalledWith(true)
+			expect(mockPush).toHaveBeenCalledWith(
+				expect.stringContaining('/vault/sandbox?launch=')
+			)
 		})
 	})
 
 	it('tracks sandbox events and interactions when clicking a lab', async () => {
-		const mockOpenLab = vi.fn()
-		const mockSetActive = vi.fn()
-		mockUseInstruqtEmbed.mockImplementation(() => ({
-			openLab: mockOpenLab,
-			setActive: mockSetActive,
+		const mockPush = vi.fn().mockResolvedValue(true)
+		mockUserRouter.mockImplementation(() => ({
+			asPath: '/',
+			push: mockPush,
+			events: {
+				on: vi.fn(),
+				off: vi.fn(),
+			},
+			query: {},
 		}))
 
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
@@ -174,9 +183,11 @@ describe('SandboxDropdown', () => {
 		const sandboxItem = screen.getByText('Vault Sandbox')
 		fireEvent.click(sandboxItem.closest('button'))
 
-		// Verify openLab was called
+		// Verify router.push was called
 		await vi.waitFor(() => {
-			expect(mockOpenLab).toHaveBeenCalled()
+			expect(mockPush).toHaveBeenCalledWith(
+				expect.stringContaining('/vault/sandbox?launch=')
+			)
 		})
 
 		// Verify tracking events were called
