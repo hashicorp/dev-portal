@@ -5,7 +5,7 @@
 
 import Image from 'next/legacy/image'
 import Button from 'components/button'
-import Card from 'components/card'
+import { Card } from '@hashicorp/mds-react/components'
 import { useInstruqtEmbed } from 'contexts/instruqt-lab'
 import { useTutorialContext } from 'contexts/tutorial-context'
 import { FC } from 'react'
@@ -46,7 +46,7 @@ const InteractiveLabCallout: FC<InteractiveLabCalloutProps> = ({ labId }) => {
 	}
 
 	return (
-		<Card className={s.interactiveCallout} elevation="base">
+		<Card className={s.interactiveCallout}>
 			<div>
 				<p className={s.title}>Launch Terminal</p>
 				<p className={s.description}>

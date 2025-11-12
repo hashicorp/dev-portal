@@ -10,13 +10,13 @@ import { ProductData } from 'types/products'
 import ProductDownloadsView from 'views/product-downloads-view'
 import { generateGetStaticProps } from 'views/product-downloads-view/server'
 import s from './consul-downloads.module.css'
-import Card from 'components/card'
+import { Card } from '@hashicorp/mds-react/components'
 import { IconArrowRight16 } from '@hashicorp/flight-icons/svg-react/arrow-right-16'
 import ButtonLink from 'components/button-link'
 
 const ConsulDownloadsMerchandisingSlot = () => {
 	return (
-		<Card elevation="base">
+		<Card className={s.card}>
 			<Heading className={s.heading} level={3} size={300} weight="semibold">
 				Consul Tools
 			</Heading>

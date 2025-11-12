@@ -5,7 +5,7 @@
 
 import React from 'react'
 import { ProductSlug } from 'types/products'
-import Card from 'components/card'
+import { Card } from '@hashicorp/mds-react/components'
 import CardTitle from 'components/card/components/card-title'
 import CardDescription from 'components/card/components/card-description'
 import CardFooter from 'components/card/components/card-footer'
