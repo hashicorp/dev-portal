@@ -17,9 +17,22 @@ vi.mock('contexts', () => ({
 	useCurrentProduct: () => mockUseCurrentProduct(),
 }))
 
+const openLabSpy = vi.fn()
+const setActiveSpy = vi.fn()
+
 const mockUseInstruqtEmbed = vi.fn()
 vi.mock('contexts/instruqt-lab', () => ({
-	useInstruqtEmbed: () => mockUseInstruqtEmbed(),
+	useInstruqtEmbed: () => ({
+		openLab: openLabSpy,
+		setActive: setActiveSpy,
+		labId: null,
+		active: false,
+		closeLab: vi.fn(),
+		hasConfigError: false,
+		configErrors: [],
+		labSource: null,
+		tutorialLabId: null,
+	}),
 }))
 
 const mockTrackSandboxInteraction = vi.fn()
@@ -39,6 +52,10 @@ vi.mock('lib/posthog-events', () => ({
 describe('SandboxDropdown', () => {
 	beforeEach(() => {
 		vi.clearAllMocks()
+		openLabSpy.mockClear()
+		setActiveSpy.mockClear()
+		mockTrackSandboxInteraction.mockClear()
+		mockTrackSandboxEvent.mockClear()
 
 		mockUserRouter.mockImplementation(() => ({
 			asPath: '/',
@@ -53,18 +70,6 @@ describe('SandboxDropdown', () => {
 		mockUseCurrentProduct.mockImplementation(() => ({
 			name: 'Vault',
 			slug: 'vault',
-		}))
-
-		mockUseInstruqtEmbed.mockImplementation(() => ({
-			openLab: vi.fn(),
-			setActive: vi.fn(),
-			labId: null,
-			active: false,
-			closeLab: vi.fn(),
-			hasConfigError: false,
-			configErrors: [],
-			labSource: null,
-			tutorialLabId: null,
 		}))
 	})
 
@@ -131,67 +136,70 @@ describe('SandboxDropdown', () => {
 		expect(screen.getByText(/Available.*Sandboxes/)).toBeInTheDocument()
 	})
 
-	it('opens lab in embedded viewer when clicking a sandbox item', async () => {
-		const mockOpenLab = vi.fn()
-		const mockSetActive = vi.fn()
-		mockUseInstruqtEmbed.mockImplementation(() => ({
-			openLab: mockOpenLab,
-			setActive: mockSetActive,
-		}))
-
+	it('opens the lab when clicking a sandbox item', async () => {
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
 		const button = screen.getByRole('button', { name: 'Sandbox menu' })
 
 		// Open dropdown
 		fireEvent.click(button)
 
-		// Find a sandbox item and click it
-		const sandboxItem = screen.getByText('Vault Sandbox')
-		fireEvent.click(sandboxItem.closest('button'))
-
-		// Verify openLab was called with the lab ID
+		// Wait for portal to render
 		await vi.waitFor(() => {
-			expect(mockOpenLab).toHaveBeenCalledWith(expect.any(String))
-			expect(mockSetActive).toHaveBeenCalledWith(true)
+			expect(screen.getByText(/Available.*Sandboxes/)).toBeInTheDocument()
+		})
+
+		// Find a sandbox item button within the list (not the intro button)
+		const labsList = document.querySelector('ul')
+		expect(labsList).toBeInTheDocument()
+
+		// Find and click the first lab button in the list
+		const labButton = labsList?.querySelector('button')
+		expect(labButton).toBeInTheDocument()
+		
+		fireEvent.click(labButton)
+
+		await vi.waitFor(() => {
+			expect(openLabSpy).toHaveBeenCalledWith(expect.any(String))
+			expect(setActiveSpy).toHaveBeenCalledWith(true)
 		})
 	})
 
 	it('tracks sandbox events and interactions when clicking a lab', async () => {
-		const mockOpenLab = vi.fn()
-		const mockSetActive = vi.fn()
-		mockUseInstruqtEmbed.mockImplementation(() => ({
-			openLab: mockOpenLab,
-			setActive: mockSetActive,
-		}))
-
 		render(<SandboxDropdown ariaLabel="Sandbox menu" label="Sandbox" />)
 		const button = screen.getByRole('button', { name: 'Sandbox menu' })
 
 		// Open dropdown
 		fireEvent.click(button)
 
-		// Find a sandbox item and click it
-		const sandboxItem = screen.getByText('Vault Sandbox')
-		fireEvent.click(sandboxItem.closest('button'))
-
-		// Verify openLab was called
+		// Wait for portal to render
 		await vi.waitFor(() => {
-			expect(mockOpenLab).toHaveBeenCalled()
+			expect(screen.getByText(/Available.*Sandboxes/)).toBeInTheDocument()
 		})
 
-		// Verify tracking events were called
-		expect(mockTrackSandboxEvent).toHaveBeenCalledWith('sandbox_open', {
-			labId: expect.any(String),
-			page: '/',
-		})
+		// Find a sandbox item button within the list (not the intro button)
+		const labsList = document.querySelector('ul')
+		expect(labsList).toBeInTheDocument()
 
-		// Verify interaction tracking
-		expect(mockTrackSandboxInteraction).toHaveBeenCalledWith(
-			'hover',
-			expect.any(String),
-			{
+		// Find and click the first lab button in the list
+		const labButton = labsList?.querySelector('button')
+		expect(labButton).toBeInTheDocument()
+		
+		fireEvent.click(labButton)
+
+		await vi.waitFor(() => {
+			expect(openLabSpy).toHaveBeenCalledWith(expect.any(String))
+			expect(setActiveSpy).toHaveBeenCalledWith(true)
+			// Verify tracking events were called
+			expect(mockTrackSandboxEvent).toHaveBeenCalledWith('sandbox_open', {
+				labId: expect.any(String),
 				page: '/',
-			}
-		)
+			})
+			// Verify interaction tracking
+			expect(mockTrackSandboxInteraction).toHaveBeenCalledWith(
+				'hover',
+				expect.any(String),
+				{ page: '/' }
+			)
+		})
 	})
 })
