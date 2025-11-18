@@ -20,7 +20,6 @@ vi.mock('contexts', () => ({
 const openLabSpy = vi.fn()
 const setActiveSpy = vi.fn()
 
-const mockUseInstruqtEmbed = vi.fn()
 vi.mock('contexts/instruqt-lab', () => ({
 	useInstruqtEmbed: () => ({
 		openLab: openLabSpy,
