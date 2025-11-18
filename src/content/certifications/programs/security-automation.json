@@ -6,7 +6,7 @@
 	},
 	"hero": {
 		"heading": "Security<br />Automation Certification",
-		"description": "HashiCorp offers certifications to validate your Security Automation skills with Vault and Consul. There are two levels of Vault exams. Start with the Vault Associate certification, which validates your foundational knowledge of Vault. Continue your journey with the Professional lab-based exam to prove your extensive production experience. For Consul, take the Associate certification to showcase your skills in building, securing, and maintaining Consul."
+		"description": " Verify your security and networking automation expertise with our Vault and Consul certifications. Earn an associate-level certification to validate your foundational Vault or Consul knowledge and skills. You can also demonstrate your advanced Vault operational experience when you pass the Vault Operations Professional exam."
 	},
 	"exams": [
 		{
@@ -14,7 +14,7 @@
 			"examCode": "003",
 			"productSlug": "vault",
 			"versionTested": "Vault 1.16",
-			"description": "The Vault Associate 003 certification is for Cloud Engineers specializing in security, development, or operations who know the basic concepts, skills, and use cases associated with Vault. You will be best prepared for this exam if you have professional experience using Vault in production, but performing the exam objectives in a personal demo environment may be sufficient.",
+			"description": "Demonstrate your foundational Vault knowledge and skills in an hour-long multiple-choice exam.",
 			"links": {
 				"prepare": "/vault/tutorials/associate-cert-003",
 				"register": "/certifications/signin"
