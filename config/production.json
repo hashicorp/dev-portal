@@ -36,7 +36,8 @@
 			"hcp-docs",
 			"boundary",
 			"consul",
-			"nomad"
+			"nomad",
+			"packer"
 		]
 	}
 }
