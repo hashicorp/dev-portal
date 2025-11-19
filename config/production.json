@@ -37,7 +37,8 @@
 			"boundary",
 			"consul",
 			"nomad",
-			"packer"
+			"packer",
+			"vagrant"
 		]
 	}
 }
