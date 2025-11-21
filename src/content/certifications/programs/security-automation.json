@@ -26,7 +26,7 @@
 			"examTier": "pro",
 			"productSlug": "vault",
 			"versionTested": "Vault 1.16",
-			"description": "The Vault Operations Professional certification is a lab-based exam for Cloud Engineers focused on deploying, configuring, managing, and monitoring HashiCorp Vault. You are well-qualified to take this exam if you hold the Vault Associate Certification (or equivalent knowledge), have experience operating Vault in production, and can evaluate Vault Enterprise functionality and use cases.",
+			"description": "Prove your advanced, production-level Vault operational expertise in an intensive, lab-based exam.",
 			"links": {
 				"prepare": "/vault/tutorials/ops-pro-cert",
 				"register": "/certifications/signin"
@@ -38,7 +38,7 @@
 			"examCode": "003",
 			"productSlug": "consul",
 			"versionTested": "Consul 1.15",
-			"description": "You should take the Consul Associate certification exam if you are a Cloud Engineer with foundational Consul knowledge and skills, who can identify Consul Enterprise features and distinguish them from Community Edition. You may be a site reliability engineer, solutions architect, or other DevOps professional.",
+			"description": "Demonstrate your foundational Consul knowledge and skills in an hour-long multiple-choice exam.",
 			"links": {
 				"prepare": "/consul/tutorials/certification-003",
 				"register": "/certifications/signin"
