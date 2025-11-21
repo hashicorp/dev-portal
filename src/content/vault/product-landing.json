@@ -72,37 +72,6 @@
 		},
 		{
 			"type": "heading",
-			"heading": "Popular Vault Features",
-			"level": 2,
-			"size": 400
-		},
-		{
-			"type": "linked_cards",
-			"cards": [
-				{
-					"heading": "Key/Value Secrets Engine",
-					"body": "Key-value store used to persist arbitrary secrets within the configured physical storage for Vault.",
-					"url": "/vault/docs/secrets/kv"
-				},
-				{
-					"heading": "Database Secrets Engine",
-					"body": "Dynamically generates database credentials based on pre-configured roles.",
-					"url": "/vault/docs/secrets/databases"
-				},
-				{
-					"heading": "Transit Secrets Engine",
-					"body": "Encrypt data in-transit to provide encryption as a service.",
-					"url": "/vault/docs/secrets/transit"
-				},
-				{
-					"heading": "Transform Secrets Engine",
-					"body": "An Enterprise feature generates cryptographically secure tokens mapped to secure highly sensitive data.",
-					"url": "/vault/docs/secrets/transform"
-				}
-			]
-		},
-		{
-			"type": "heading",
 			"heading": "Security best practices",
 			"level": 2,
 			"size": 400
@@ -129,6 +98,37 @@
 					"heading": "Secure infrastructure",
 					"body": "Learn about best practices for designing a zero-trust architecture in the HashiCorp Well Architected Framework.",
 					"url": "/well-architected-framework/secure-systems/infrastructure/zero-trust-security"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Popular Vault Features",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Key/Value Secrets Engine",
+					"body": "Key-value store used to persist arbitrary secrets within the configured physical storage for Vault.",
+					"url": "/vault/docs/secrets/kv"
+				},
+				{
+					"heading": "Database Secrets Engine",
+					"body": "Dynamically generates database credentials based on pre-configured roles.",
+					"url": "/vault/docs/secrets/databases"
+				},
+				{
+					"heading": "Transit Secrets Engine",
+					"body": "Encrypt data in-transit to provide encryption as a service.",
+					"url": "/vault/docs/secrets/transit"
+				},
+				{
+					"heading": "Transform Secrets Engine",
+					"body": "An Enterprise feature generates cryptographically secure tokens mapped to secure highly sensitive data.",
+					"url": "/vault/docs/secrets/transform"
 				}
 			]
 		}
