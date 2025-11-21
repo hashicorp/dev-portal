@@ -76,7 +76,7 @@
 		},
       {
          "iconName": "docs",
-         "name": "Domain",
+         "name": "Domain model",
          "path": "docs/domain-model"
       }
 	]
