@@ -46,6 +46,8 @@ describe('loadHashiConfigByEnvironment', () => {
 			    "boundary",
 			    "consul",
 			    "nomad",
+			    "packer",
+			    "vagrant",
 			  ],
 			  "foo": "bar",
 			}
