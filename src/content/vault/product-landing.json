@@ -100,6 +100,37 @@
 					"url": "/vault/docs/secrets/transform"
 				}
 			]
+		},
+		{
+			"type": "heading",
+			"heading": "Security best practices",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Secure data",
+					"body": "Learn about best practices for securing your data in the HashiCorp Well Architected Framework.",
+					"url": "/well-architected-framework/secure-systems/data/classify-data"
+				},
+				{
+					"heading": "Secure secrets",
+					"body": "Learn about best practices for securing your secrets in the HashiCorp Well Architected Framework.",
+					"url": "/well-architected-framework/secure-systems/secrets/store-static-secrets"
+				},
+				{
+					"heading": "Identity and access management",
+					"body": "Learn how to design a strong identity and access management strategy in the HashiCorp Well Architected Framework.",
+					"url": "/well-architected-framework/secure-systems/identity-access-management/define-access-requirements"
+				},
+				{
+					"heading": "Secure infrastructure",
+					"body": "Learn about best practices for designing a zero-trust architecture in the HashiCorp Well Architected Framework.",
+					"url": "/well-architected-framework/secure-systems/infrastructure/zero-trust-security"
+				}
+			]
 		}
 	]
 }
