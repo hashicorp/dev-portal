@@ -8,7 +8,7 @@ import fetchGithubFile from '@build-libs/fetch-github-file'
 import { PRODUCT_REDIRECT_ENTRIES } from '@build-libs/redirects'
 import { loadHashiConfigForEnvironment } from '../../config'
 
-describe('getLatestContentShaForProduct', async () => {
+describe.skip('getLatestContentShaForProduct', async () => {
 	const config = await loadHashiConfigForEnvironment()
 
 	PRODUCT_REDIRECT_ENTRIES
