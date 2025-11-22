@@ -14,6 +14,11 @@
 .root {
 	composes: hds-typography-body-300 from global;
 
+
+	& > :global(:not(.mdx-content-full-width)) {
+		max-width: var(--mdx-content-max-width);
+	}
+
 	& :global {
 		/* Note on alert overrides: alert classes are applied at content
        extraction time, so it is currently difficult to remove or modify these
