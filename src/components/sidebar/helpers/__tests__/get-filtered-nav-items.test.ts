@@ -1,12 +1,10 @@
+/**
+ * Copyright (c) HashiCorp, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
 import { describe, it, expect } from 'vitest'
 import { getFilteredNavItems } from '../get-filtered-nav-items'
-
 import {
-	/**
-	 * Copyright (c) HashiCorp, Inc.
-	 * SPDX-License-Identifier: MPL-2.0
-	 */
-
 	FilteredNavItem,
 	NavItemWithMetaData,
 	SubmenuNavItemWithMetaData,
