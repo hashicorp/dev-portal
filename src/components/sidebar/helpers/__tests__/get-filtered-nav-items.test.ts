@@ -1,16 +1,37 @@
 import { describe, it, expect } from 'vitest'
 import { getFilteredNavItems } from '../get-filtered-nav-items'
-import {
 
+import {
 	/**
 	 * Copyright (c) HashiCorp, Inc.
 	 * SPDX-License-Identifier: MPL-2.0
 	 */
 
+	FilteredNavItem,
 	NavItemWithMetaData,
 	SubmenuNavItemWithMetaData,
 	LinkNavItemWithMetaData,
 } from '../../types'
+
+type NavItemWithRoutes = Extract<NavItemWithMetaData | FilteredNavItem, { routes: unknown }>
+
+const isNavItemWithRoutes = (
+	item: NavItemWithMetaData | FilteredNavItem
+): item is NavItemWithRoutes => 'routes' in item
+
+const expectNavItemWithRoutes = (
+	item: NavItemWithMetaData | FilteredNavItem | undefined
+): NavItemWithRoutes => {
+	if (!item) {
+		throw new Error('Expected nav item with routes but received undefined')
+	}
+
+	if (isNavItemWithRoutes(item)) {
+		return item
+	}
+
+	throw new Error('Expected nav item with routes')
+}
 
 describe('getFilteredNavItems', () => {
 	it('returns all items when filter value is empty', () => {
@@ -88,12 +109,14 @@ describe('getFilteredNavItems', () => {
 		const result = getFilteredNavItems(items, 'child match')
 
 		expect(result).toHaveLength(1)
-		expect(result[0]).toMatchObject({
+		const parent = expectNavItemWithRoutes(result[0])
+		expect(parent).toMatchObject({
 			title: 'Parent',
 			hasChildrenMatchingFilter: true,
 		})
-		expect((result[0] as any).routes).toHaveLength(1)
-		expect((result[0] as any).routes[0]).toMatchObject({
+		expect(parent.routes).toHaveLength(1)
+		const child = parent.routes[0]!
+		expect(child).toMatchObject({
 			title: 'Child Match',
 			matchesFilter: true,
 		})
@@ -113,11 +136,12 @@ describe('getFilteredNavItems', () => {
 		const result = getFilteredNavItems(items, 'parent')
 
 		expect(result).toHaveLength(1)
-		expect(result[0]).toMatchObject({
+		const parent = expectNavItemWithRoutes(result[0])
+		expect(parent).toMatchObject({
 			title: 'Parent Match',
 			matchesFilter: true,
 		})
-		expect((result[0] as any).routes).toHaveLength(2)
+		expect(parent.routes).toHaveLength(2)
 	})
 
 	it('excludes parent when no children match filter', () => {
@@ -154,7 +178,10 @@ describe('getFilteredNavItems', () => {
 		const result = getFilteredNavItems(items, 'deep')
 
 		expect(result).toHaveLength(1)
-		expect((result[0] as any).routes[0].routes[0]).toMatchObject({
+		const levelOne = expectNavItemWithRoutes(result[0])
+		const levelTwo = expectNavItemWithRoutes(levelOne.routes[0])
+		const deepMatch = levelTwo.routes[0]!
+		expect(deepMatch).toMatchObject({
 			title: 'Deep Match',
 			matchesFilter: true,
 		})
