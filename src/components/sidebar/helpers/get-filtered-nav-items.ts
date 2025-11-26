@@ -3,13 +3,7 @@
  * SPDX-License-Identifier: MPL-2.0
  */
 
-import {
-	EnrichedNavItem,
-	FilteredNavItem,
-	LinkNavItemWithMetaData,
-	NavItemWithMetaData,
-	SubmenuNavItemWithMetaData,
-} from '../types'
+import { FilteredNavItem, NavItemWithMetaData, SubmenuNavItemWithMetaData } from '../types'
 
 /**
  * This does not use Array.filter because we need to add metadata to each item
@@ -23,68 +17,56 @@ export const getFilteredNavItems = (
 		return items as NavItemWithMetaData[]
 	}
 
+	const normalizedFilterValue = filterValue.toLowerCase()
 	const filteredItems = []
+	const includesFilter = (value?: string) =>
+		typeof value === 'string' &&
+		value.toLowerCase().includes(normalizedFilterValue)
 
-	items.forEach((item: EnrichedNavItem) => {
-		const isSubmenuNavItem = item.hasOwnProperty('routes')
-		const isLinkNavItem =
-			item.hasOwnProperty('path') || item.hasOwnProperty('href')
-		const doesNotHaveTitle = !(isSubmenuNavItem || isLinkNavItem)
-		if (doesNotHaveTitle) {
-			return
+	for (const item of items) {
+		const isSubmenuNavItem = 'routes' in item
+		const isLinkNavItem = 'path' in item || 'href' in item
+		const doesNotHaveTitle = !('title' in item)
+		if (doesNotHaveTitle || !(isSubmenuNavItem || isLinkNavItem)) {
+			continue
 		}
 
-		const doesTitleMatchFilter = (
-			item as SubmenuNavItemWithMetaData | LinkNavItemWithMetaData
-		).title
-			?.toLowerCase()
-			.includes(filterValue.toLowerCase())
+		const doesTitleMatchFilter = includesFilter(item.title)
+		const doesAliasMatchFilter =
+			'alias' in item && includesFilter(item.alias)
 
-		// Check and filter alias
-		const hasAlias = item.hasOwnProperty('alias')
-		if (hasAlias) {
-			const doesAliasMatchFilter = (
-				item as SubmenuNavItemWithMetaData | LinkNavItemWithMetaData
-			).alias
-				?.toLowerCase()
-				.includes(filterValue.toLowerCase())
-
-			// Add to filtered items if filter value is in alias
-			if (doesAliasMatchFilter) {
-				filteredItems.push({ ...item, matchesFilter: true })
-			}
+		// Flag items where either title or alias matches the active filter value.
+		if (doesTitleMatchFilter || doesAliasMatchFilter) {
+			filteredItems.push({ ...item, matchesFilter: true })
+			continue
 		}
 
 		/**
-		 * If an item's title matches the filter, we want to include it and its
-		 * children in the filter results. `matchesFilter` is added to all items
-		 * with a title that matches, and is used in `SidebarNavSubmenu` to
-		 * determine if a submenu should be open when searching.
+		 * If an item's title or alias matches the filter, we include it in the
+		 * results and mark it with `matchesFilter`. This metadata is consumed by
+		 * `SidebarNavSubmenu` to control which submenus start open while searching.
 		 *
-		 * If an item's title doesn't match the filter, then we need to recursively
-		 * look at the children of a submenu to see if any of those have titles or
-		 * subemnus that match the filter.
-		 *
-		 * TODO: write test cases to document this functionality more clearly
+		 * When neither title nor alias matches we recurse into submenu children to
+		 * surface any descendants that do match and annotate the parent so it stays
+		 * open.
 		 */
-		if (doesTitleMatchFilter) {
-			filteredItems.push({ ...item, matchesFilter: true })
-		} else if (isSubmenuNavItem) {
+		if (isSubmenuNavItem) {
+			const submenuItem = item as SubmenuNavItemWithMetaData
 			const matchingChildren = getFilteredNavItems(
-				(item as SubmenuNavItemWithMetaData).routes,
+				submenuItem.routes,
 				filterValue
 			)
 			const hasChildrenMatchingFilter = matchingChildren.length > 0
 
 			if (hasChildrenMatchingFilter) {
 				filteredItems.push({
-					...item,
+					...submenuItem,
 					hasChildrenMatchingFilter,
 					routes: matchingChildren,
 				})
 			}
 		}
-	})
+	}
 
 	return filteredItems as FilteredNavItem[]
 }
