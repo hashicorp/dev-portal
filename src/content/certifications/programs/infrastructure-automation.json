@@ -28,7 +28,8 @@
 			"versionTested": "Terraform 1.12",
 			"description": "Terraform Associate 004 will replace the current 003 version on January 8, 2026. Compare the differences between the two versions below. Demonstrate your foundational Terraform knowledge and skills in an hour-long multiple-choice exam.",
 			"links": {
-				"prepare": "/terraform/tutorials/certification-004"
+				"prepare": "/terraform/tutorials/certification-004",
+				"register": "/certifications/signin"
 			},
 			"faqSlug": "terraform-associate-004"
 		},
