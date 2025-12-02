@@ -14,16 +14,17 @@
 .root {
 	composes: hds-typography-body-300 from global;
 
-
-	& > :global(:not(.mdx-content-full-width)) {
-		max-width: var(--mdx-content-max-width);
-	}
-
 	& :global {
 		/* Note on alert overrides: alert classes are applied at content
        extraction time, so it is currently difficult to remove or modify these
        classes and their associated styles rather than override them.
        https://app.asana.com/0/1100423001970639/1202448738938137/f */
+
+		& .mdx-content-container {
+			& > :not(.mdx-content-full-width) {
+				max-width: var(--mdx-content-max-width);
+			}
+		}
 
 		& .alert {
 			background-color: var(--themed-bg);
