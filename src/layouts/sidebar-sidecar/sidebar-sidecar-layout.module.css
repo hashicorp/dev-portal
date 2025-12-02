@@ -117,12 +117,14 @@ for further details.
 .mainAndSidecar {
 	display: flex;
 	width: 100%;
+	justify-content: space-between;
 }
 
 /* .main handles the max-width and sizing for the main area. */
 .main {
 	width: 100%;
 	min-width: 0;
+	max-width: 1400px;
 }
 
 /* .sidecarPosition handles the sticky positioning and max-height of all the
