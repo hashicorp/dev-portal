@@ -184,6 +184,94 @@
 					"url": "nomad/tools"
 				}
 			]
+		},
+		{
+			"type": "heading",
+			"heading": "Infrastructure deployment best practices",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Define your container orchestrator",
+					"body": "Using infrastructure as code to define your container orchestration creates consistent, version-controlled specifications for Nomad.",
+					"url": "well-architected-framework/define-and-automate-processes/define/as-code/orchestration"
+				},
+				{
+					"heading": "Monitor your container orchestrator",
+					"body": "Monitoring container orchestrators is important for keeping your clusters and services healthy, and lets you sustain high performance and reliability.",
+					"url": "well-architected-framework/define-and-automate-processes/monitor/setup-monitoring-agents/containers"
+				},
+				{
+					"heading": "Optimize your container orchestrator",
+					"body": "Container orchestrators allow your applications to scale quickly and enable you to optimize resource utilization.",
+					"url": "well-architected-framework/optimize-systems/scale-resources/containers"
+				},
+				{
+					"heading": "Secure your container orchestrator",
+					"body": "A zero trust security model enhances security by eliminating implicit trust and continuously verifying access requests.",
+					"url": "well-architected-framework/secure-systems/infrastructure/zero-trust-security"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "Package management best practices",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Create immutable containers",
+					"body": "Immutable containers package your application into an unchangeable unit that you build once and deploy one or more times.",
+					"url": "well-architected-framework/define-and-automate-processes/define/immutable-infrastructure/containers"
+				},
+				{
+					"heading": "Package applications",
+					"body": "Application packaging creates deployable artifacts that ensure consistency across environments and simplify deployment processes.",
+					"url": "well-architected-framework/define-and-automate-processes/automate/packaging"
+				},
+				{
+					"heading": "Centralize packages",
+					"body": "Centralize software artifacts and dependencies to streamline the build process and enhance security and governance.",
+					"url": "well-architected-framework/define-and-automate-processes/define/centralize-packages"
+				}
+			]
+		},
+		{
+			"type": "heading",
+			"heading": "CI/CD automation best practices",
+			"level": 2,
+			"size": 400
+		},
+		{
+			"type": "linked_cards",
+			"cards": [
+				{
+					"heading": "Implement CI/CD",
+					"body": "Continuous integration and deployment pipelines ensure consistent, reliable delivery while reducing manual errors and deployment time.",
+					"url": "well-architected-framework/define-and-automate-processes/automate/cicd"
+				},
+				{
+					"heading": "Automate testing",
+					"body": "Automated testing validates that applications and infrastructure work correctly before deployment, reducing the risk of failures in production.",
+					"url": "well-architected-framework/define-and-automate-processes/automate/testing"
+				},
+				{
+					"heading": "Automate deployments",
+					"body": "Automated deployments eliminate manual errors and provide predictable, repeatable processes for both applications and infrastructure.",
+					"url": "well-architected-framework/define-and-automate-processes/automate/deployments"
+				},
+				{
+					"heading": "Zero downtime deployments",
+					"body": "Zero-downtime deployment strategies aim to reduce or eliminate downtime when you update your infrastructure or applications.",
+					"url": "well-architected-framework/define-and-automate-processes/deploy/zero-downtime-deployments"
+				}
+			]
 		}
 	]
 }
